@@ -1,0 +1,25 @@
+--- 
+event_00038: 
+  name: Evento simple
+  uri: xedls/Evento simple-26-2-2008-at-20-5.xedl
+  service: meeting.act
+  id: 38
+  description: pRUEBA DE EVENTO
+  quality: 1M
+  password: ""
+event_00039: 
+  name: Prueba Compleja
+  uri: xedls/Prueba Compleja-28-2-2008-at-15-8.xedl
+  service: meeting.act
+  id: 39
+  description: ""
+  quality: 1M
+  password: ""
+event_00040: 
+  name: Evento Complejo
+  uri: xedls/Evento Complejo-27-2-2008-at-11-0.xedl
+  service: conference.act
+  id: 40
+  description: ""
+  quality: 2M
+  password: ""

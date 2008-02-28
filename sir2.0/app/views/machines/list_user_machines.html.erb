@@ -1,0 +1,15 @@
+&nbsp;
+<div align=center>
+<table border=1 >
+<tr>
+<td class=headerDay align=center>User resources:</td>
+</tr>
+
+<td class=user_info valign=top>
+<%= render :partial => 'resources' %>
+</td>
+
+</table>
+&nbsp;
+<td><%= button_to 'Ask for Resources',  {:controller=>'machines', :action=>'contact_mail'},  :class => "button" , :method=> 'get'%></td>
+  

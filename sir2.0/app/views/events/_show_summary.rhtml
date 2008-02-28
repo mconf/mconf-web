@@ -1,0 +1,69 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/javascript" >
+	</head>
+<TABLE class=Event CELLPADING=0 CELLSPACING=0 BORDER=1 width=100% valign=top >
+<TR><TD colspan=2 align=center ><b>
+Event Information</b>
+</TD></TR>
+<TR>
+<TD class=fieldEvent><label for="event_name">Name:</label></TD>
+<TD><b><%=h(@event.name)%></b></TD>
+</TR>
+<TR>
+<TD class=fieldEvent><label for="event_name">Service:</label></TD>
+<TD><b><%=Event.get_Service_name(h(@event.service))%></b></TD>
+</TR>
+<TR>
+<TD class=fieldEvent><label for="event_name">Quality:</label></TD>
+<TD><b><%=h(@event.quality)%></b></TD>
+</TR>
+<TR>
+<TD class=fieldEvent><label for="event_name">Resources:</label></TD>
+<TD><b><%=h(@event.get_participants)%></b></TD>
+</TR>
+<TR><TD colspan=2 align=center ><b>
+Event Times</b>
+</TD></TR>
+<%index = 0%>
+<%@event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
+<% for datetime in @event.event_datetimes %>    
+    <TR>
+        <TD class=time_summary_up><label >Start date:</label></TD>
+        <TD class=time_summary_up><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></TD>
+    </TR>
+    <TR >
+        <TD class=time_summary_down><label >End date:</label></TD>
+        <TD class=time_summary_down><b><%= datetime.end_date.strftime("%b %d %H:%M") %></b></TD>
+    </TR>    
+    <%index += 1 -%>
+<% end -%>
+<TR><TD colspan=2 align=center ><b>
+URLs for the session</b>
+</TD></TR>
+ <% urls = @event.get_urls 
+    descriptions = @event.get_participants_description
+    machine_names = @event.get_machine_names
+    is_executing_now = false
+    for datetime in @event.event_datetimes
+        if datetime.start_date < Time.now && datetime.end_date > Time.now
+            is_executing_now = true
+        end
+    end
+    i=0
+    for the_url in urls%>
+        <TR><TD colspan=2 >
+            <%if descriptions[i]!=nil && descriptions[i]!=""%>
+            <%=h(descriptions[i])%>:<br>
+            <%end-%>
+            <div class="solo_centrar">
+                <%if is_executing_now%>
+                    <%= link_to(the_url, :controller => "machines",:action => "get_file", :machine => h(machine_names[i]))%>
+                <%else%>
+                    <%=h(the_url)%>        
+                <%end-%>
+            <%i+=1%>
+            </div>
+        </TD></TR>
+    <%end%>   
+</TABLE>
+

@@ -1,0 +1,85 @@
+ 
+user_00023: 
+  salt: b799c741a492bdd9e358533e16fcd860d3d90429
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: e97ba3fb20ec03be3e8d7399e664fa2dfbaca7ea
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code: 
+  id: 23
+  email3: 
+  disabled: false
+  remember_token: 
+  login: alfredo
+  superuser: false
+  email_confirmed: true
+  email: alfredo@lowcostronica.es
+  created_at: 2008-02-26 14:48:42 +01:00
+
+admin:
+  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code: 
+  id: 24
+  email3: 
+  disabled: false
+  remember_token: 
+  login: admin
+  superuser: true
+  email_confirmed: true
+  email: ebarra@dit.upm.es
+  created_at: 2008-02-26 14:48:42 +01:00
+  
+user_normal:
+  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code: 
+  id: 25
+  email3: 
+  disabled: false
+  remember_token: 
+  login: normalillo
+  superuser: false
+  email_confirmed: true
+  email: ebarra@dit.upm.es
+  created_at: 2008-02-26 14:48:42 +01:00
+  
+user_disabled:
+  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code: 
+  id: 26
+  email3: 
+  disabled: true
+  remember_token: 
+  login: deshabilitado
+  superuser: false
+  email_confirmed: true
+  email: alfredo@lowcostronica.es
+  created_at: 2008-02-26 14:48:42 +01:00
+  
+user_no_resources:
+  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code: 
+  id: 27
+  email3: 
+  disabled: false
+  remember_token: 
+  login: noresourcesuser
+  superuser: false
+  email_confirmed: true
+  email: alfredo@lowcostronica.es
+  created_at: 2008-02-26 14:48:42 +01:00

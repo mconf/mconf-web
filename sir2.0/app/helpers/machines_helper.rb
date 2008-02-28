@@ -1,0 +1,2 @@
+module MachinesHelper
+end

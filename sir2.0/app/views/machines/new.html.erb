@@ -1,0 +1,11 @@
+<h1>New machine</h1>
+
+<%= error_messages_for :machine %>
+
+<% form_for(@machine) do |f| %>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', machines_path %>

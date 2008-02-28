@@ -1,0 +1,46 @@
+<% @page_title = "Edit User" -%>
+&nbsp;
+<%= error_messages_for 'user' %>
+
+<% form_for :user, :url => user_path(@user.id), :html => {:method => :put} do |f| -%>
+
+<div align=center>
+<table border=1 >
+<tr>
+<td class=headerDay align=center>User Information:</td><td class=headerDay align=center>User resources:</td>
+</tr>
+<tr><td class=user_info>
+<%= render :partial => 'form' , :locals => { :f => f } %>
+<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
+<p><label for="superuser">Admin</label><br/>
+<%= f.check_box("superuser", {}, "true", "false") %></p>
+
+<p><label for="disabled">Disable</label><br/>
+<%= f.check_box("disabled", {}, "true", "false") %></p>
+<% end -%>
+
+</td>
+<td class=user_info valign=top>
+<%= render :partial => 'resources' %>
+</td>
+</tr>
+</table>
+<table>
+        <tr>
+        <td>
+        	<%= submit_tag 'Save User' %>
+        </td>
+		<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
+        <td>
+            <input onclick=document.location="/manage_users" type="button" value="Back" />
+        </td>
+		<% else %>
+		<td>
+            <input onclick=document.location="/events/show" type="button" value="Back" />
+        </td>
+		<% end -%>
+        </tr>
+</table>
+</div>
+<% end -%>
+

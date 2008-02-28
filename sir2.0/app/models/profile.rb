@@ -1,0 +1,5 @@
+class Profile < ActiveRecord::Base
+  belongs_to :user
+  
+ validates_presence_of     :name, :lastname, :phone, :city, :country
+end

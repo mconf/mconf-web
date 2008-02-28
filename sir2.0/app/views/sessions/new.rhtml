@@ -1,0 +1,18 @@
+<div align=center>
+<% form_tag sessions_path do -%>
+<div id="contenedor">
+<p><label for="login">Username or email</label><br/>
+<%= text_field_tag 'login' %></p>
+
+<p><label for="password">Password</label><br/>
+<%= password_field_tag 'password' %></p>
+
+
+<p><label for="remember_me">Remember me:</label>
+<%= check_box_tag 'remember_me' %></p>
+
+<%= link_to 'Forgot your Password?', forgot_path %>
+<p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
+<% end -%>
+</div>
+</div> 	

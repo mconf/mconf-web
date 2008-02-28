@@ -1,0 +1,12 @@
+<!--[form:translate]-->
+<p>
+<label for="tr_<%= tr.id %>"><%=tr.tr_key%></label>
+<br />
+<span id="tr_<%= tr.id %>">
+<%= render :partial => 'translation_text', :object => tr.text %>
+</span>
+<%= in_place_editor "tr_#{tr.id}", 
+    :url => { :action => :set_translation_text, :id => tr.id },
+    :load_text_url => url_for({ :action => :translation_text, :id => tr.id })%>
+</p>
+<!--[eoform:translate]-->

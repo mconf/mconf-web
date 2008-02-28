@@ -1,0 +1,1 @@
+page.replace_html "whole_table", :partial => 'time_table' , :locals => {:event => @event}

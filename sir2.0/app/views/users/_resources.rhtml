@@ -1,0 +1,25 @@
+<%@machines = Machine.find(:all)%>
+<table border=0 align=top class=resources_info>
+<tr><td class=resources_title>Name</td><td class=resources_title>Assigned</td></tr>
+<%for machine in @machines%>
+<tr>
+<td>
+<%=machine.name%>
+</td>
+<td align=center>
+<%if current_user.superuser%>
+	<%if @user.machines.include?(machine)%>
+    	<%= check_box "resource", machine.name, :value=>"1", :checked=>"checked" %>
+	<%else%>  
+    	<%= check_box "resource", machine.name %>
+	<%end%>
+<%else%>
+	<%if @user.machines.include?(machine)%>
+	yes
+	<%end%>
+<%end%>
+
+</td>
+</tr>
+<%end%>
+</table>

@@ -1,0 +1,55 @@
+<TABLE class="whole_table" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR><TD class="Border" valign=top>
+<%@date_prev = @datetime -1%>
+<%= link_to_remote '<', { :url => { :action => 'show' } }%>
+</TD>
+<%@array_of_arrays = format_array_events(@events) 
+  the_colspan = @array_of_arrays.size + 1
+  if @array_of_arrays.size==0
+    the_colspan += 1
+  end
+%>
+<TD class="headerDay" colspan=<%=the_colspan%>>
+<TABLE class="headerDay" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<TR>
+	
+<%if current_user!= :false %>
+    <TD class="headerDay">
+    <%if !current_user.machines.empty?%>
+        <%if @datetime>Date.today%>
+			<%session[:date_start_day] = @datetime%>
+		<%end%>
+            &nbsp;&nbsp;<%= link_to 'New event', {:action => 'new'} ,:title=>"Create a new event"%>        
+    <%end-%>
+    </TD>
+<%end-%>
+<TD class="headerDay" <% if current_user== :false || current_user.machines.empty? %> align=center <%end%>>
+Date: <%=@datetime.to_s%>
+</TD></TR>
+</TABLE>
+</TD>
+<TD class="Border" valign=top>
+<%@date_post = @datetime + 1%>
+<a href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)">></a>   
+</TD>
+</TR>
+     <TR>
+     <TD class="Border">&nbsp;</TD>
+     <TD class="ListLine1" width=50px valign=top>
+     <%= render :partial => 'table_hours', :layout => false%>
+     </TD>        
+     <%for i in 0..(@array_of_arrays.size-1)
+        @mini_array_events = @array_of_arrays[i]%>
+        <TD valign=top >
+        <%= render :partial => 'mini_table', :layout => false%>
+        </TD>
+     <%end-%>
+     <%if @array_of_arrays.size==0
+        @mini_array_events = []-%>
+        <TD WIDTH=100% valign=top>
+        <%= render :partial => 'mini_table', :layout => false%>
+        </TD>
+     <%end-%>     
+     <TD class="Border">&nbsp;</TD>
+     </TR>
+</TABLE>

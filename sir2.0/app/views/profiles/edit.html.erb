@@ -1,0 +1,25 @@
+<h1>Editing profile</h1>
+
+<%= error_messages_for :profile %>
+
+<% form_for(@profile) do |f| %>
+<div align=center>
+<table border=1 >
+<tr>
+<td class=headerDay align=center>User Profile:</td><td class=headerDay align=center>User resources:</td>
+</tr>
+<tr><td class=user_info>
+<%= render :partial => 'form', :locals => { :f => f } %>
+</td>
+</tr>
+</table>
+<table>
+        <tr>
+        <td>
+        	<%= submit_tag 'Update' %> &nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" />
+        </td>
+ </tr>
+ </table>
+<% end %>
+
+

@@ -1,0 +1,58 @@
+<%variable_name = "participant"+@indice.to_s%>
+<%self.instance_variable_set("@#{variable_name}", @participant)%>
+<TR id="participant<%=@indice.to_s%>" style="display:table-row"> 
+        <%if @editando
+            array_resources = @event.participants
+          else
+            array_resources = current_user.machines
+          end
+          array_fin = []
+          for i in 0..(array_resources.size-1)
+            array_fin += Machine.find_all_by_id(array_resources[i].machine_id).collect {|r| [ r.name, r.id ]}
+          end
+          logger.debug("array-res " + array_fin.to_s)
+        %> 
+        <TD><%= select("participant"+@indice.to_s, "machine_id", array_fin)%></TD>
+        <%if @indice==0%>
+            <TD>Master, Not connected to anybody
+            <input type="hidden" value="0" id=<%="\"participant"+@indice.to_s+"_machine_id_connected_to\""%> name=<%="\"participant"+@indice.to_s+"[machine_id_connected_to]\""%>>
+            </TD>
+        <%else%>
+            <TD><%= select("participant"+@indice.to_s, "machine_id_connected_to", array_fin)%></TD>
+        <%end -%>
+        <TD>
+            <%= select("participant"+@indice.to_s, "role", Participant::PARTICIPANT_ROLES)%>
+        </TD>
+        <TD>
+            FEC: <%= select("participant"+@indice.to_s,"fec",Participant::FEC)%>
+            &nbsp;&nbsp;Multicast: <%= check_box "participant"+@indice.to_s, "radiate_multicast"%>
+        </TD>
+        <TD <%if @indice==0%> colspan=2 <%end%>>
+            <%= text_field 'participant'+@indice.to_s, 'description', :size => 30  %>
+        </TD>            
+                <%if @indice != 0%>
+                <TD>
+                <span id="remove_participant">
+                <%= link_to_remote(  "Remove",                                    
+                                   :update => "is_valid_participant"+@indice.to_s,
+                                   :complete => "esconde('participant#{@indice.to_s}')",                                   
+                                   :url => { :action => :remove_participant , :indice => @indice}) %>
+                </span>
+                </TD>
+                <%end -%>
+    </TR>
+    <%if @array_participants.size==0 || (@indice+1)==@array_participants.size%>
+        <TR id=<%='add_participant'+@indice.to_s%>><TD align=center colspan=6>
+                <span>
+                <%= link_to_remote(  "Add Another",                                    
+                                   :update => "event_participants",
+                                   :url => { :action => :add_participant , :indice => @indice},
+								   :method => :get,
+                                   :position => "bottom",
+                                   :complete => "Element.hide('add_participant"+@indice.to_s+"')" ) %>
+                </span>
+        </TD></TR>
+    <%end-%>
+    <div id=<%="\"is_valid_participant" + @indice.to_s + "\""%>>
+            <input name=<%="\"is_valid_participant"+@indice.to_s + "\""%>  type="hidden" value="true" />
+    </div>

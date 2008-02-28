@@ -1,0 +1,36 @@
+<!-- home/index.rhtml -->
+<div align=center>
+<table>
+<% if logged_in? && current_user.superuser==true %>
+  <p><strong>You are logged in as <%=h current_user.login %></strong></p>
+  <p><tr><td><%= button_to 'Logout', logout_path , :class => "button", :method=> 'get'%></td>
+  	 <td><%= button_to 'Manage Users', manage_users_path,  :class => "button", :method=> 'get' %></td>
+	 <td><%= button_to 'Manage Resources', manage_resources_path,  :class => "button", :method=> 'get' %></td>
+	  </p></tr><tr><p>
+	 <td><%= button_to 'Account', edit_user_path (current_user),  :class => "button" , :method=> 'get' %></td>
+	 <td><%= button_to 'Profile', user_profiles_path (current_user),  :class => "button" , :method=> 'get'%></td>
+  	<td><%= button_to "Events", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></td>
+</p>
+</tr> 
+  </table>
+<% elsif logged_in?%>
+<table>
+  <p><strong>You are logged in as <%=h current_user.login %></strong></p>
+  <p><td><%= button_to 'Logout', logout_path,  :class => "button", :method=> 'get' %></td>
+  <td><%= button_to 'Account', edit_user_path (current_user),  :class => "button", :method=> 'get' %></td>
+ <td> <%= button_to 'Profile', user_profiles_path (current_user),  :class => "button", :method=> 'get' %></p></td>
+<td><%= button_to "Events", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></td>
+<td><%= button_to "Resources", {:controller=>'machines', :action=>'list_user_machines'},:class => "button" , :method=> 'get'%></td>
+
+</table>
+<% else %>
+  <table>
+ <tr> <p>
+    <td><%= button_to 'Login', login_path,  :class => "button", :method=> 'get' %></td>
+    <td><%= button_to 'Register', signup_path, :class => "button" , :method=> 'get'%> </td>
+		<td><%= button_to 'Forgot your Password?', forgot_path , :class => "button"	, :method=> 'get' %></td>
+<td><%= button_to "Home", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></td>
+
+  </p></tr></table>
+<% end %>
+</div>

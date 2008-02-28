@@ -1,0 +1,37 @@
+--- 
+join_00002: 
+  event_id: "14"
+  user_id: "1"
+join_00003: 
+  event_id: "15"
+  user_id: "1"
+join_00004: 
+  event_id: "20"
+  user_id: "1"
+join_00005: 
+  event_id: "21"
+  user_id: "17"
+join_00006: 
+  event_id: "35"
+  user_id: "1"
+join_00007: 
+  event_id: "36"
+  user_id: "17"
+join_00008: 
+  event_id: "37"
+  user_id: "17"
+join_00010: 
+  event_id: "39"
+  user_id: "24"
+join_00009: 
+  event_id: "38"
+  user_id: "23"
+join_00011: 
+  event_id: "40"
+  user_id: "23"
+join_00000: 
+  event_id: "11"
+  user_id: "1"
+join_00001: 
+  event_id: "13"
+  user_id: "1"
