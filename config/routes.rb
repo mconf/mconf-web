@@ -1,4 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :posts, :member => { :get => :edit_media,
+                                     :put => :update_media }
+  map.resources :posts, :path_prefix => '/:container_type/:container_id',
+                        :name_prefix => 'container_'
+
+  CMS.contents.each do |content|
+      map.resources content
+      map.resources content, :path_prefix => '/:container_type/:container_id',
+                             :name_prefix => 'container_'
+  end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   

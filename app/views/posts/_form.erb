@@ -1,0 +1,14 @@
+<p>
+  <b>Title</b><br />
+  <%= f.text_field :title, :size => 50 %>
+</p>
+
+<p>
+  <b>Summary</b><br />
+  <%= fckeditor_textarea :post, :description, :width => '100%', :height => '300px' %>
+</p>
+
+<%= render :partial => "#{ @content.class.to_s.tableize }/form" unless @content.content_options[:has_attachment] %>
+
+
+<%= render :partial => "posts/permissions_form", :locals => { :f => f } -%>
