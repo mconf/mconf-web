@@ -1,4 +1,7 @@
 --- 
+join_00013: 
+  event_id: "42"
+  user_id: "24"
 join_00002: 
   event_id: "14"
   user_id: "1"
@@ -32,6 +35,9 @@ join_00011:
 join_00000: 
   event_id: "11"
   user_id: "1"
+join_00012: 
+  event_id: "41"
+  user_id: "24"
 join_00001: 
   event_id: "13"
   user_id: "1"

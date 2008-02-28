@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 include AuthenticatedTestHelper
 
 class EventsControllerTest < ActionController::TestCase
-  
+  fixtures :users
   #A non authenticated user should be redirected to create a new session and the message is "Please log in"
   def test_get_index_should_be_redirected
     get :index

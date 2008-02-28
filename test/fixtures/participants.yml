@@ -26,6 +26,24 @@ participant_00094:
   description: ""
   machine_id_connected_to: 0
   machine_id: 5
+participant_00095: 
+  event_id: 41
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 95
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 7
+participant_00096: 
+  event_id: 42
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 96
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 7
 participant_00090: 
   event_id: 38
   radiate_multicast: 0

@@ -11,3 +11,11 @@ machine_00007:
   name: verde
   nickname: verde.dit.upm.es
   id: 7
+machine_00008: 
+  name: golpe
+  nickname: golpe.dit.upm.es
+  id: 8
+machine_00009: 
+  name: traste
+  nickname: traste.dit.upm.es
+  id: 9

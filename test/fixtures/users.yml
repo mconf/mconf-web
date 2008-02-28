@@ -16,14 +16,14 @@ user_00023:
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
 
-user_admin:
+admin:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
-  id: 23
+  id: 24
   email3: 
   disabled: false
   remember_token: 
@@ -40,7 +40,7 @@ user_normal:
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
-  id: 23
+  id: 25
   email3: 
   disabled: false
   remember_token: 
@@ -57,7 +57,7 @@ user_disabled:
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
-  id: 23
+  id: 26
   email3: 
   disabled: true
   remember_token: 
@@ -74,7 +74,7 @@ user_no_resources:
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
-  id: 23
+  id: 27
   email3: 
   disabled: false
   remember_token: 
