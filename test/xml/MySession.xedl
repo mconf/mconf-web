@@ -1,12 +1,12 @@
-   <VERSION>1.8</VERSION>
-   <SESSION>
-      <ID>MySession</ID>
-      <DELIVERY_PLATFORM>Isabel</DELIVERY_PLATFORM>
-      <SERVICE>
-         <SERVICE-NAME>meeting.act</SERVICE-NAME>
-         <SERVICE-QUALITY>1M</SERVICE-QUALITY>
-      </SERVICE>
-      <session-info>
-         <OPEN_SESSION>true</OPEN_SESSION>
-      </session-info>
-   </SESSION>
+<VERSION>1.8</VERSION>
+<SESSION>
+   <ID>MySession</ID>
+   <DELIVERY_PLATFORM>Isabel</DELIVERY_PLATFORM>
+   <SERVICE>
+      <SERVICE-NAME>meeting.act</SERVICE-NAME>
+      <SERVICE-QUALITY>1M</SERVICE-QUALITY>
+   </SERVICE>
+   <session-info>
+      <OPEN_SESSION>true</OPEN_SESSION>
+   </session-info>
+</SESSION>

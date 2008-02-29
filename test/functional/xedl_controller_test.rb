@@ -12,7 +12,7 @@ class XedlControllerTest < ActionController::TestCase
   end
 
   def create_xedl(session_string,sites)
-      puts XedlController.create_xedl(session_string,sites)    
+      XedlController.create_xedl(session_string,sites)    
   end
   
   def test_create_session_default
