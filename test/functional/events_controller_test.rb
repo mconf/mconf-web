@@ -339,40 +339,32 @@ class EventsControllerTest < ActionController::TestCase
   end 
   
   
-  def test_create_with_error_in_datetimes_4
-    login_as("user_normal")
-    post :create, :is_valid_time0=>"true", :event_participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "resource_id"=>"1", "description"=>"", "resource_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"aaaaaaaa", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2015", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2015", "end_date(2i)"=>"11"}
-    #now i am not redirected
-    assert_response :success
-  end
-  
-  
   def test_edit_with_no_resources
      login_as("user_no_resources") 
-    post :edit
+    post :edit, :id=>38
     assert flash[:notice].include?('no resources')
-    assert_redirected_to :action => "index"  
+    assert_redirected_to :action => "show"  
   end
   
   
   def test_edit_an_event_that_is_not_mine
     login_as("user_normal")
-    post :edit, :id=>1
-    assert_equal 'Event not found.', flash[:notice]    
-    assert_redirected_to :action => "index"  
+    post :edit, :id=>40
+    assert_equal 'Action not allowed.', flash[:notice]    
+    assert_redirected_to :action => "show"  
   end
   
   
   def test_edit_good
     login_as("user_admin")
-    post :edit, :id=>1
+    post :edit, :id=>38
     assert_template "edit"  
   end
   
   
   def test_edit_good_2
     login_as("user_normal")
-    post :edit, :id=>2
+    post :edit, :id=>38
     assert_template "edit"    
   end
 
