@@ -11,18 +11,9 @@ join_00003:
 join_00004: 
   event_id: "20"
   user_id: "1"
-join_00005: 
-  event_id: "21"
-  user_id: "17"
 join_00006: 
   event_id: "35"
   user_id: "1"
-join_00007: 
-  event_id: "36"
-  user_id: "17"
-join_00008: 
-  event_id: "37"
-  user_id: "17"
 join_00010: 
   event_id: "39"
   user_id: "24"

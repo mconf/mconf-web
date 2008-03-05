@@ -1,5 +1,5 @@
  
-user_00023: 
+user_alfredo: 
   salt: b799c741a492bdd9e358533e16fcd860d3d90429
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: e97ba3fb20ec03be3e8d7399e664fa2dfbaca7ea
@@ -16,10 +16,10 @@ user_00023:
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
 
-admin:
+user_admin:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85  #admin
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
@@ -36,7 +36,7 @@ admin:
 user_normal:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç #admin
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
@@ -50,29 +50,11 @@ user_normal:
   email: ebarra@dit.upm.es
   created_at: 2008-02-26 14:48:42 +01:00
   
-quentin:
-  id: 1
-  login: quentin
-  email: quentin@example.com
-  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
-  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  created_at: <%= 5.days.ago.to_s :db %>
-
-
-
-aaron:
-  id: 2
-  login: aaron
-  email: aaron@example.com
-  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
-  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  created_at: <%= 1.days.ago.to_s :db %>
-
   
 user_disabled:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
@@ -89,7 +71,7 @@ user_disabled:
 user_no_resources:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
   email2: 
   password_reset_code: 
@@ -102,3 +84,22 @@ user_no_resources:
   email_confirmed: true
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
+  
+  
+quentin:
+  id: 1
+  login: quentin
+  email: quentin@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 5.days.ago.to_s :db %>
+
+
+aaron:
+  id: 2
+  login: aaron
+  email: aaron@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+

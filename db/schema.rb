@@ -9,7 +9,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 18) do
+ActiveRecord::Schema.define(:version => 19) do
+
+  create_table "cms_posts", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "container_id"
+    t.string   "container_type"
+    t.integer  "agent_id"
+    t.string   "agent_type"
+    t.integer  "content_id"
+    t.string   "content_type"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.boolean  "public_read"
+    t.boolean  "public_write"
+  end
+
+  create_table "cms_uris", :force => true do |t|
+    t.string "uri"
+  end
+
+  add_index "cms_uris", ["uri"], :name => "index_cms_uris_on_uri"
 
   create_table "event_datetimes", :force => true do |t|
     t.integer  "event_id",   :null => false
@@ -92,6 +115,27 @@ ActiveRecord::Schema.define(:version => 18) do
   create_table "machines_users", :id => false, :force => true do |t|
     t.integer "user_id",    :null => false
     t.integer "machine_id", :null => false
+  end
+
+  create_table "open_id_associations", :force => true do |t|
+    t.binary  "server_url"
+    t.string  "handle"
+    t.binary  "secret"
+    t.integer "issued"
+    t.integer "lifetime"
+    t.string  "assoc_type"
+  end
+
+  create_table "open_id_nonces", :force => true do |t|
+    t.string  "server_url", :default => "", :null => false
+    t.integer "timestamp",                  :null => false
+    t.string  "salt",       :default => "", :null => false
+  end
+
+  create_table "open_id_ownings", :force => true do |t|
+    t.integer "agent_id"
+    t.string  "agent_type"
+    t.integer "uri_id"
   end
 
   create_table "participants", :force => true do |t|

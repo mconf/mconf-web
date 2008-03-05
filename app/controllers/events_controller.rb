@@ -8,9 +8,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    respond_to do |format|
-      format.html {render :action => 'show'} # list.rhtml
-    end    
+    show
   end
   
   # GET /events/1
@@ -22,7 +20,7 @@ class EventsController < ApplicationController
       datetime_start_day = Date.today      
     end
     @datetime = datetime_start_day
-   event_datetimes = select_events(datetime_start_day)
+    event_datetimes = select_events(datetime_start_day)
     @events = []
     for datetime in event_datetimes
       eventin = Event.find_all_by_id(datetime.event_id)
@@ -38,6 +36,8 @@ class EventsController < ApplicationController
       format.js
     end
   end
+  
+  
   #this method update only the table of the calendar, not all the page. This is used in Ajax Calls
   def show_timetable
     if params[:date_start_day]
@@ -78,8 +78,7 @@ class EventsController < ApplicationController
   
   # GET /events/new
   # GET /events/new.xml
-  def new
-    
+  def new    
     @event = Event.new
     @indice = "0"
     @datetime = EventDatetime.new
@@ -97,16 +96,14 @@ class EventsController < ApplicationController
     end
   end
   
+  
   # GET /events/1/edit
   def edit
-    #debugger
-    
-   
     @event = Event.find(params[:id])
     @event.participants.sort!{|x,y| x.id <=> y.id}   
-   
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
   end
+  
   
   # POST /events
   # POST /events.xml
@@ -142,9 +139,6 @@ class EventsController < ApplicationController
       if @event.save
                
         @event.just_created(current_user)
-        
-        
-        
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
         elsif EventDatetime.datetime_min_length(@event.event_datetimes)

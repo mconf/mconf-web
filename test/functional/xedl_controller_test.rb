@@ -11,13 +11,16 @@ class XedlControllerTest < ActionController::TestCase
     create_xedl(session_string,sites)
   end
 
+
   def create_xedl(session_string,sites)
       XedlController.create_xedl(session_string,sites)    
   end
   
+  
   def test_create_session_default
     create_session_and_compare
   end
+  
   
   def test_create_session_good
     create_session_and_compare("EditedSession.xedl",1.9,"EditedSession","Isabel",
@@ -56,6 +59,7 @@ class XedlControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
   end
   
+  
   #this method tests the create_options passing it the compulsory options and the default options
   #further tests will try with other values
   def test_create_options_default    
@@ -64,6 +68,7 @@ class XedlControllerTest < ActionController::TestCase
         assert options_string.include?("<SITE-ROLE>mcu</SITE-ROLE>")
   end 
   
+  
   def test_create_options_with_all_params
         options_string = XedlController.create_options("gecko","", "203","gecko.dit.upm.es","triton.dit.upm.es", "interactive","10","1")
         assert options_string.include?("<ID>gecko</ID>")
@@ -71,6 +76,6 @@ class XedlControllerTest < ActionController::TestCase
         assert options_string.include?("<n>11</n>")
         
   end
-  
+    
 end
   

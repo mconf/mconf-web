@@ -5,30 +5,30 @@ class EventTest < ActiveSupport::TestCase
   fixtures :events, :machines, :participants, :users, :event_datetimes
   
   def test_name
-   evento = events(:event_00038 )
+   evento = events(:event_simple )
     assert evento.valid?
     #assert_equal "should expecify a name", evento.errors.on(:name)
   end
   def test_if_a_machines_is_in_an_event_simple
-    evento = events(:event_00038 )    
-    trapo = machines(:machine_00005).id    
+    evento = events(:event_simple )    
+    trapo = machines(:machine_trapo).id    
     assert evento.uses_participant(trapo)
   end
   def test_if_a_machines_is_in_an_event_complejo
-    evento = events(:event_00040 )    
-    trapo = machines(:machine_00005).id 
-    golpe = machines(:machine_00008).id
-    traste = machines(:machine_00009).id
+    evento = events(:event_complejo )    
+    trapo = machines(:machine_trapo).id 
+    golpe = machines(:machine_golpe).id
+    traste = machines(:machine_traste).id
     assert evento.uses_participant(trapo)
     assert evento.uses_participant(golpe)
     assert evento.uses_participant(traste)
   end
   
   def test_if_many_machines_are_in_an_event
-    evento = events(:event_00040 )  
-    trapo = machines(:machine_00005).id
-    golpe = machines(:machine_00008).id
-    traste = machines(:machine_00009).id
+    evento = events(:event_complejo )  
+    trapo = machines(:machine_trapo).id
+    golpe = machines(:machine_golpe).id
+    traste = machines(:machine_traste).id
     array_participants_this_event = []
     array_participants_this_event << trapo
     array_participants_this_event << golpe
@@ -49,8 +49,8 @@ class EventTest < ActiveSupport::TestCase
       assert coincidences.include?(9)
   end
   def test_get_participants_simple
-    evento = events(:event_00038 )  
-    trapo = machines(:machine_00005).name
+    evento = events(:event_simple )  
+    trapo = machines(:machine_trapo).name
     participants = evento.get_participants
     assert_not_nil participants
     assert_equal trapo,participants
@@ -58,18 +58,18 @@ class EventTest < ActiveSupport::TestCase
   end
   
   def test_get_participants_complejo
-   evento = events(:event_00040 )  
-    trapo = machines(:machine_00005).name
-    golpe = machines(:machine_00008).name
-    traste = machines(:machine_00009).name
+   evento = events(:event_complejo )  
+    trapo = machines(:machine_trapo).name
+    golpe = machines(:machine_golpe).name
+    traste = machines(:machine_traste).name
     participants = evento.get_participants
     assert_not_nil participants
     assert_equal trapo +" "+ golpe +" "+ traste,participants
   end
   
   def test_get_url_simple
-    evento = events(:event_00038 )  
-    trapo = machines(:machine_00005).nickname
+    evento = events(:event_simple )  
+    trapo = machines(:machine_trapo).nickname
     url = []
     url[0]= "isabel://"+ trapo
     urls = evento.get_urls
@@ -78,10 +78,10 @@ class EventTest < ActiveSupport::TestCase
   end
   
     def test_get_url_complejo
-      evento = events(:event_00040 )  
-    trapo = machines(:machine_00005).nickname
-     golpe = machines(:machine_00008).nickname
-    traste = machines(:machine_00009).nickname
+      evento = events(:event_complejo )  
+    trapo = machines(:machine_trapo).nickname
+     golpe = machines(:machine_golpe).nickname
+    traste = machines(:machine_traste).nickname
     url = []
     url[0]= "isabel://"+ trapo
      url[1]= "isabel://"+ golpe
@@ -92,9 +92,9 @@ class EventTest < ActiveSupport::TestCase
   end
   
   def test_overlaps_with_event
-    evento = events(:event_00040 ) 
-    evento2 = events(:event_00042 ) 
-    evento3 = events(:event_00041 )
+    evento = events(:event_complejo ) 
+    evento2 = events(:event_SolapadorFebrero ) 
+    evento3 = events(:event_solapador )
     even = []
     even[0]= evento2
     even[1]= evento3
@@ -107,7 +107,7 @@ class EventTest < ActiveSupport::TestCase
   end
   
   def test_has_any_session_in_the_past
-    evento = events(:event_00040 ) 
+    evento = events(:event_complejo ) 
     assert evento.has_any_session_in_the_past
   end
   def test_mnuevo
