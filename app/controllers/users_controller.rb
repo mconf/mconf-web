@@ -82,7 +82,6 @@ def forgot_password2
     @user = User.new(params[:user])            
     @user.save!
     Notifier.deliver_confirmation_email(@user, confirmation_hash(@user.login))
-    #self.current_user = @user
     redirect_back_or_default('/')
     flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
   

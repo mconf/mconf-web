@@ -21,6 +21,7 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_difference 'User.count' do
       create_user
       assert_response :redirect
+      assert  flash[:notice].include?("Thanks for signing up!")
     end
   end
 
@@ -63,11 +64,21 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_update_my_user
     login_as("user_normal")
-    put :update, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>25, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
-    assert_response :redirect
-    
+    assert_response :redirect  
+    assert  flash[:notice].include?("User was successfully updated.")
   end
+  
+  
+  def test_update_another_user_not_being_admin
+    login_as("user_normal")
+    post :update, :id=>24, :user => { :login => 'quire', :email => 'quire@example.com',
+        :password => 'quire', :password_confirmation => 'quire' }
+    assert_response :redirect  
+    assert  flash[:notice].include?("User was successfully updated.")
+  end
+  
 
   protected
     def create_user(options = {})
