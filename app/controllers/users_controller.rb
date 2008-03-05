@@ -37,6 +37,7 @@ end
     end
   end
   
+  
 def forgot_password2     
     if @user = User.find_by_id(params[:id])
       @user.forgot_password
@@ -48,6 +49,7 @@ def forgot_password2
       flash[:notice] = "Could not find a user with that email address" 
     end
   end
+  
   
   def reset_password   
     @user = User.find_by_password_reset_code(params[:id])
@@ -77,17 +79,13 @@ def forgot_password2
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @user = User.new(params[:user])  
-    if true       
-      @user.save!
-      Notifier.deliver_confirmation_email(@user, confirmation_hash(@user.login))
-      #self.current_user = @user
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
-    else
-      flash[:notice] = "Try it again please."
-      render :action => 'new'
-    end
+    @user = User.new(params[:user])            
+    @user.save!
+    Notifier.deliver_confirmation_email(@user, confirmation_hash(@user.login))
+    #self.current_user = @user
+    redirect_back_or_default('/')
+    flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
+  
     rescue ActiveRecord::RecordInvalid
     render :action => 'new'
   end
@@ -103,10 +101,12 @@ end
     @all_users = User.find(:all)
   end
   
+  
   #This method returns the user to show the form to edit him
   def edit
       @user = User.find(params[:id])
   end
+  
   
   #this method updates a user
   def update

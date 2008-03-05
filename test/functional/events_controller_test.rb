@@ -333,7 +333,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes_3
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true", :is_valid_time1=>"true", :event_participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "resource_id"=>"1", "description"=>"", "resource_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"aaaaaaaa", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true", :is_valid_time1=>"true", :event_participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"aaaaaaaa", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
   end 
@@ -366,6 +366,117 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :edit, :id=>38
     assert_template "edit"    
+  end
+
+
+  def test_update_an_event_that_is_not_mine
+    login_as("user_normal")
+    post :update, :id=>1
+    assert_equal "Action not allowed.", flash[:notice]    
+    assert_redirected_to :action => "show"  
+  end
+  
+  
+  def test_update_good
+    login_as("user_admin")
+    post :update, :id=>38, :is_valid_time0=>"true", :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"aaaaaaaa", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    assert flash[:notice].include?('successfully')
+    assert_redirected_to :action => "show" 
+  end
+
+
+  def test_update_good_2
+    login_as("user_admin")
+    post :update, :id=>38, :is_valid_time0=>"true", :participant0=>{"radiate_multicast"=>"1", "fec"=>"10", "role"=>"mcu", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"aaaaaaaa", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2001", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2001", "end_date(2i)"=>"11"}
+    assert flash[:notice].include?('successfully')
+    assert_redirected_to :action => "show" 
+  end
+
+
+  def test_destroy_an_event_that_is_not_mine
+    login_as("user_normal")
+    post :destroy, :id=>1
+    assert_equal "Action not allowed.", flash[:notice]    
+    assert_redirected_to :action => "show"  
+  end
+  
+  
+  def test_destroy_good
+    login_as("user_admin")
+    post :destroy, :id=>38
+    assert flash[:notice].include?('successfully')
+    assert_redirected_to :action => "show"    
+    assert_raise(ActiveRecord::RecordNotFound) {post :edit, :id=>38}
+  end
+  
+  
+  def test_show_summary_good
+    post :show_summary, :event_id=>38
+    assert_template "show_summary"
+  end
+  
+  
+  def test_copy_next_week
+    login_as("user_admin")
+    post :copy_next_week, :indice => 1, :date_start_day => "2006-12-11", :date_end_day => "2006-12-12"
+    assert_response :success
+    assert_template "_form_datetimes_edit"
+  end
+  
+  
+  def test_copy_next_week_2
+    login_as("user_admin")
+    post :copy_next_week, :indice => 2, :date_start_day => "2036-12-11", :date_end_day => "2037-12-12"
+    assert_response :success
+    assert_template "_form_datetimes_edit"
+  end
+  
+  
+  def test_add_time
+    login_as("user_admin")
+    post :add_time, :indice => 1, :date_start_day => "2006-12-12"
+    assert_response :success
+    assert_template "_form_datetimes_edit"
+  end
+  
+  
+  def test_add_time_2
+    login_as("user_admin")
+    post :add_time, :indice => 1, :date_start_day => "2036-12-12"
+    assert_response :success
+    assert_template "_form_datetimes_edit"
+  end
+  
+  
+  def test_remove_time
+    login_as("user_admin")
+    post :remove_time, :indice => 1
+    assert_response :success
+    assert_template "_hidden_field"
+  end
+  
+  
+  def test_remove_time_2
+    login_as("user_admin")
+    post :remove_time, :indice => 2
+    assert_response :success
+    assert_template "_hidden_field"
+  end
+
+
+  def test_add_participant
+    login_as("user_admin")
+    post :add_participant, :indice => 1
+    assert_response :success
+    assert_template "_form_participants"
+  end
+  
+  
+  def test_remove_participant
+    login_as("user_admin")
+    post :remove_participant, :indice => 1
+    assert_response :success
+    assert_template "_hidden_field"
   end
 
 end

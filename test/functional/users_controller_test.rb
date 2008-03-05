@@ -24,6 +24,7 @@ class UsersControllerTest < Test::Unit::TestCase
     end
   end
 
+
   def test_should_require_login_on_signup
     assert_no_difference 'User.count' do
       create_user(:login => nil)
@@ -31,6 +32,7 @@ class UsersControllerTest < Test::Unit::TestCase
       assert_response :success
     end
   end
+
 
   def test_should_require_password_on_signup
     assert_no_difference 'User.count' do
@@ -40,6 +42,7 @@ class UsersControllerTest < Test::Unit::TestCase
     end
   end
 
+
   def test_should_require_password_confirmation_on_signup
     assert_no_difference 'User.count' do
       create_user(:password_confirmation => nil)
@@ -47,6 +50,7 @@ class UsersControllerTest < Test::Unit::TestCase
       assert_response :success
     end
   end
+
 
   def test_should_require_email_on_signup
     assert_no_difference 'User.count' do
@@ -56,6 +60,14 @@ class UsersControllerTest < Test::Unit::TestCase
     end
   end
   
+
+  def test_update_my_user
+    login_as("user_normal")
+    put :update, :user => { :login => 'quire', :email => 'quire@example.com',
+        :password => 'quire', :password_confirmation => 'quire' }
+    assert_response :redirect
+    
+  end
 
   protected
     def create_user(options = {})

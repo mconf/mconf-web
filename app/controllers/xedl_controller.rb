@@ -123,21 +123,7 @@ class XedlController < ApplicationController
       @options_xml
   end
   
-  
-  def self.getOptions
-    if params[:fec]
-      options_string = create_options(params[:id],params[:location],params[:address],params[:address_connected_to],
-                               params[:role],params[:fec],params[:radiate_multicast])
-    else
-      options_string = create_options(params[:id],params[:location],params[:address])
-    
-    end
-    options_string = options_string.gsub(/-/,'_')
-    #puts options_string
-    render :text => options_string
-  end
-  
-  
+ 
   private
   #command = "openssl enc -des -e -a -A -pass pass:" + passPhrase << password
   #passPhrase is "error" + the_site_name
