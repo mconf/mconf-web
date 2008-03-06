@@ -18,6 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     def test_should_login_and_redirect
       post :create, :login => 'quentin', :password => 'test'
+      debugger
       assert session[:user]
       assert_response :redirect
     end

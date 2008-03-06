@@ -105,7 +105,7 @@ class Event < ActiveRecord::Base
     def uses_participant(machine_id)
       logger.debug("Voy a ver si usa la machine " + machine_id.to_s)
       logger.debug("partic " + participants.to_s)
-      if machine_id=="0"
+      if machine_id == 0
         return true   #participant 0 is all
       end
       for participant in participants

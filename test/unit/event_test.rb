@@ -110,8 +110,74 @@ class EventTest < ActiveSupport::TestCase
     evento = events(:event_complejo ) 
     assert evento.has_any_session_in_the_past
   end
-  def test_mnuevo
+  def test_get_participant_desc
+    evento = events(:event_complejo )  
+    desc = evento.get_participants_description
+    assert_not_nil desc
     
   end
   
+  def test_get_machine_name
+    evento = events(:event_complejo )  
+    trapo = machines(:machine_trapo).name
+     golpe = machines(:machine_golpe).name
+    traste = machines(:machine_traste).name
+    machines = evento.get_machine_names
+    assert_not_nil machines
+    mach = []
+    mach[0] = trapo
+    mach[1] = golpe
+    mach[2] = traste
+    assert_equal machines, mach
+  end
+  
+  def test_get_xedl_filename
+    evento = events(:event_complejo ) 
+    xedl = evento.get_xedl_filename
+    assert_equal xedl, "xedls/Evento Complejo-27-2-2008-at-11-0.xedl"
+  end
+  def test_get_at_jobs
+    evento = events(:event_complejo )  
+    at_jobs = evento.get_at_jobs
+    at = []
+    at[0] = 208
+    at[1] = 212
+    assert_not_nil at_jobs
+    assert_equal at_jobs, at
+  end
+  def create_at_jobs
+    eve = Event.new(:name=> 'Evento1', :service => 'conference.act', :quality => '1M')
+     
+      eve.create_at_jobs
+      at_jobs=eve.get_at_jobs
+      assert_not_nil at_jobs
+     
+      eve.destroy
+      
+     
+   
+ end
+ def test_service_qualities
+   eve = Event.new(:name=> 'Evento1', :service => 'conference.act', :quality => '1M')
+qualities = Event.service_qualities
+assert_not_nil qualities
 end
+
+ 
+  def test_uses_participant
+     evento = events(:event_complejo ) 
+     assert evento.uses_participant(5)
+     debugger
+     assert evento.uses_participant(0)
+      assert evento.uses_participant(8)
+       assert evento.uses_participant(9)
+        assert !evento.uses_participant(3)
+  end
+    def test_get_submenu
+       evento = events(:event_complejo ) 
+       submenu = evento.get_submenu
+       assert_not_nil submenu
+      
+    end
+    
+  end
