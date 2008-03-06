@@ -1,7 +1,8 @@
-class MachinesController < ApplicationController
+class MachinesController < ApplicationController  
+   before_filter :user_is_admin, :except => [:get_file]
+   
   # GET /machines
   # GET /machines.xml
-   before_filter :authorize
   def index
     manage_resources
   end
@@ -43,96 +44,10 @@ def list_user_machines
   current_user.machines 
 end
 
-  # GET /machines/1
-  # GET /machines/1.xml
-  def show
-    @machine = Machine.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @machine }
-    end
-  end
-
-
-  # GET /machines/new
-  # GET /machines/new.xml
-  def new
-    @machine = Machine.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @machine }
-    end
-  end
-
-
-  # GET /machines/1/edit
-  def edit
-    @machine = Machine.find(params[:id])
-  end
-
-
-  # POST /machines
-  # POST /machines.xml
-  def create
-    @machine = Machine.new(params[:machine])
-
-    respond_to do |format|
-      if @machine.save
-        flash[:notice] = 'Machine was successfully created.'
-        format.html { redirect_to(@machine) }
-        format.xml  { render :xml => @machine, :status => :created, :location => @machine }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-
-  # PUT /machines/1
-  # PUT /machines/1.xml
-  def update
-    @machine = Machine.find(params[:id])
-
-    respond_to do |format|
-      if @machine.update_attributes(params[:machine])
-        flash[:notice] = 'Machine was successfully updated.'
-        format.html { redirect_to(@machine) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-
-  # DELETE /machines/1
-  # DELETE /machines/1.xml
-  def destroy
-    @machine = Machine.find(params[:id])
-    @machine.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(machines_url) }
-      format.xml  { head :ok }
-    end
-  end
   
   #used for a administrator in order to manage user
-  def manage_resources
-    #test if the user that request the change is superuser
-    if current_user.superuser!=true              
-      logger.error("ERROR: ATTEMPT TO MANAGE RESOURCES WITHOUT BEING SUPERUSER/ADMIN")
-      logger.error("USER WAS: " + current_user.login)
-      flash[:notice] = "Action not allowed"
-      redirect_to(:action => "index", :controller => "home")
-      return false
-    end    
+  def manage_resources  
     @machines = Machine.find(:all)
-    #breakpoint()
     if params[:myaction] && params[:myaction]=="delete"
       delete_resource
       return
@@ -153,15 +68,7 @@ end
   end
   
   
-  def add_resource
-    #test if the user that request the change is superuser
-   if current_user.superuser!=true                    
-      logger.error("ERROR: ATTEMPT TO ADD RESOURCES WITHOUT BEING SUPERUSER/ADMIN")
-      logger.error("USER WAS: " + current_user.login)
-      flash[:notice] = "Action not allowed"
-      redirect_to(:action => "index", :controller => "home")
-      return false
-    end    
+  def add_resource     
      name = params[:name_to_add]
      nickname = params[:nick_to_add]
      if name==nil || nickname==nil  || name=="" || nickname ==""      
@@ -189,6 +96,7 @@ end
        @machine.nickname = nickname
        @machine.save   
        @machines = Machine.find(:all)
+       flash[:notice] = "Resource successfully added"
        #Now we create the file that will be used for the connect to
        fh = File.new("resource_files/" + name + ".icto" , "w")
        fh.puts "isabel://" + nickname
@@ -199,15 +107,7 @@ end
   end
 
 
-  def edit_resource
-    #test if the user that request the change is superuser
-    if current_user.superuser!=true              
-      logger.error("ERROR: ATTEMPT TO EDIT RESOURCES WITHOUT BEING SUPERUSER/ADMIN")
-      logger.error("USER WAS: " + current_user.login)
-      flash[:notice] = "Action not allowed"
-      redirect_to(:action => "index", :controller => "home")
-      return false
-    end    
+  def edit_resource 
     name = params[:name_to_add]
     nickname = params[:nick_to_add]     
     if name==nil || nickname==nil  || name=="" || nickname ==""      
@@ -262,14 +162,6 @@ end
 
 
   def delete_resource
-     #test if the user that request the change is superuser
-    if current_user.superuser!=true             
-      logger.error("ERROR: ATTEMPT TO DELETE RESOURCES WITHOUT BEING SUPERUSER/ADMIN")
-      logger.error("USER WAS: " + current_user.login)
-      flash[:notice] = "Action not allowed"
-      redirect_to(:action => "index", :controller => "event")
-      return false
-    end    
      name = params[:resource_to_delete]
      resource_to_delete = Machine.find_by_name(name)
      resource_to_delete.destroy
@@ -278,6 +170,7 @@ end
           logger.debug("Borrado el fichero icto de resource_files")
      end
      @machines = Machine.find(:all)
+     flash[:notice] = "Resource deleted successfully."
      redirect_to(:action => 'manage_resources')  
    end
   
@@ -292,10 +185,11 @@ end
     resource_to_assign.save
     flash[:notice] = "Resource assigned to everybody"
     @machines = Machine.find(:all)
-    redirect_to(:action => 'manage_resources')  
-    
+    redirect_to(:action => 'manage_resources')    
   end
-  def get_file   
+  
+  
+  def get_file
       machines = []
       machines = Machine.find(:all)
       for machine in machines

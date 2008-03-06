@@ -1,45 +1,134 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class MachinesControllerTest < ActionController::TestCase
-  #def test_should_get_index
-  #    get :index
-     # assert_response :success
-      #assert_not_nil assigns(:machines)
-    #end
+  fixtures   :machines_users, :machines, :participants, :users
+  
+  
+   def test_manage_resources
+      login_as("user_admin")
+      get :manage_resources
+      assert_response :success
+      assert_not_nil assigns(:machines)
+   end
 
-    #def test_should_get_new
-      #get :new
-      #assert_response :success
-    #end
 
-  #def test_should_create_machine
-   # assert_difference('Machine.count') do
-    #  post :create, :machine => { }
-    #end
-
-    #assert_redirected_to machine_path(assigns(:machine))
-  #end
-
-  #def test_should_show_machine
-  #    get :show, :id => machines(:one).id
-     # assert_response :success
-    #end
-
-    #def test_should_get_edit
-      #get :edit, :id => machines(:one).id
-     # assert_response :success
-    #end
-
-    #def test_should_update_machine
-      #put :update, :id => machines(:one).id, :machine => { }
-      #assert_redirected_to machine_path(assigns(:machine))
-    #end
-
-  #def test_should_destroy_machine
-   # assert_difference('Machine.count', -1) do
-    #  delete :destroy, :id => machine(:one).id
-    #end
-
-   # assert_redirected_to machines_path
- # end
+  def test_manage_resources_not_admin
+      login_as("user_normal")
+      get :manage_resources
+      assert_response :redirect
+      assert flash[:notice].include?("Action not allowed.")
+   end
+   
+   
+   def test_add_resources_good
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :name_to_add => "nuevo", :nick_to_add => "nicknew"
+      assert_response :redirect
+      assert flash[:notice].include?("Resource successfully added")
+   end
+   
+   
+   def test_add_resources_with_blank_name
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :name_to_add => "", :nick_to_add => "nicknew"
+      assert_response :success
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_add_resources_with_blank_nickname
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :name_to_add => "nuevo", :nick_to_add => ""
+      assert_response :success
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_add_resources_with_no_name
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :nick_to_add => "nicknew"
+      assert_response :success
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_add_resources_with_name_repeated
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :name_to_add => "azul", :nick_to_add => "nicknew"
+      assert_response :redirect
+      assert flash[:notice].include?("Name exist")
+   end
+   
+   
+   def test_add_resources_with_nickname_repeated
+      login_as("user_admin")
+      get :manage_resources, :myaction => "add", :name_to_add => "otttt", :nick_to_add => "macarra.dit.upm.es"
+      assert_response :redirect
+      assert flash[:notice].include?("Resource Full Name exist")
+   end
+   
+   
+   def test_edit_resources_good
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :name_to_add => "nuevo", :nick_to_add => "nicknew", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Resource edited successfully.")
+   end
+   
+   
+   def test_edit_resources_with_blank_name
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :name_to_add => "", :nick_to_add => "nicknew", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_edit_resources_with_blank_nickname
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :name_to_add => "nuevo", :nick_to_add => "", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_edit_resources_with_no_name
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :nick_to_add => "nicknew", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Nor name or nickname can be blank")
+   end
+   
+   
+   def test_edit_resources_with_name_repeated
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :name_to_add => "golpe", :nick_to_add => "nicknew", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Nickname already in use")
+   end
+   
+   
+   def test_edit_resources_with_nickname_repeated
+      login_as("user_admin")
+      get :manage_resources, :myaction => "edit", :name_to_add => "otttt", :nick_to_add => "golpe.dit.upm.es", :resource_id_to_edit =>"roja", :index_to_edit =>4
+      assert_response :redirect
+      assert flash[:notice].include?("Full name already in use")
+   end
+   
+   
+   def test_delete
+      login_as("user_admin")
+      get :manage_resources, :myaction => "delete",:resource_to_delete => "trapo"
+      assert_response :redirect
+      assert flash[:notice].include?("Resource deleted successfully.")
+   end
+   
+   
+   def test_assign_to_everybody
+      login_as("user_admin")
+      get :manage_resources, :myaction => "assign_to_all",:resource_id_to_edit => 6
+      assert_response :redirect
+      assert flash[:notice].include?("Resource assigned to everybody")
+   end
+    
 end

@@ -50,4 +50,13 @@ class ApplicationController < ActionController::Base
       redirect_to(:controller => "events", :action => "show")     
     end 
   end
+  
+  def user_is_admin
+    if !current_user.superuser==true
+      logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")
+      logger.error("USER WAS: " + current_user.login)
+      flash[:notice] = "Action not allowed."     
+      redirect_to(:controller => "events", :action => "show")     
+    end
+  end
 end

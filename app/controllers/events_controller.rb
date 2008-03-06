@@ -47,7 +47,6 @@ class EventsController < ApplicationController
       datetime_start_day = Date.today
       @datetime = Date.today
     end
-    
     if params[:machine]
       participant = params[:machine]
       logger.debug("la máquina ELEGIDA ES " + participant)
@@ -61,7 +60,7 @@ class EventsController < ApplicationController
       logger.debug("eventin " + datetime.event_id.to_s)
       if eventin[0]==nil
         break
-      end
+      end      
       logger.debug("EVENTO DEVUELTO por find_by_id del datetime " + eventin[0].name)
       if eventin[0].uses_participant(participant)
         logger.debug("Usa la maquina " + participant)
