@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
   end
   
   def create    
+    debugger
       self.current_user= User.authenticate(params[:login], params[:password])
-      #debugger
        if  self.current_user!=:false && !self.current_user.email_confirmed    
         self.current_user.forget_me if logged_in?
         cookies.delete :auth_token

@@ -1,4 +1,22 @@
  
+user_with_not_validated_email:
+  id: 3
+  login: tarantino
+  email: quentintaran@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: 2008-02-26 14:51:46 +01:00 
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code:
+  email3: 
+  disabled: false
+  remember_token: 
+  superuser: false
+  email_confirmed: false
+  created_at: 2008-02-26 14:48:42 +01:00
+ 
 user_alfredo: 
   salt: b799c741a492bdd9e358533e16fcd860d3d90429
   updated_at: 2008-02-26 14:51:46 +01:00
@@ -65,8 +83,9 @@ user_disabled:
   login: deshabilitado
   superuser: false
   email_confirmed: true
-  email: alfredo@lowcostronica.es
+  email: alfredon@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
+  
   
 user_no_resources:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
@@ -93,7 +112,17 @@ quentin:
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   created_at: <%= 5.days.ago.to_s :db %>
-
+  updated_at: 2008-02-26 14:51:46 +01:00 
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code:
+  email3: 
+  disabled: false
+  remember_token: 
+  superuser: false
+  email_confirmed: true
+  created_at: 2008-02-26 14:48:42 +01:00
+  
 
 aaron:
   id: 2
@@ -101,5 +130,17 @@ aaron:
   email: aaron@example.com
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  created_at: <%= 1.days.ago.to_s :db %>
+  created_at: <%= 1.days.ago.to_s :db %>  
+  updated_at: 2008-02-26 14:51:46 +01:00 
+  remember_token_expires_at: 
+  email2: 
+  password_reset_code:
+  email3: 
+  disabled: false
+  remember_token: 
+  superuser: false
+  email_confirmed: true
+  created_at: 2008-02-26 14:48:42 +01:00
+
+  
 

@@ -478,5 +478,12 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "_hidden_field"
   end
+  
+  
+  def test_export_ical
+    login_as("user_normal")
+    post :export_ical, :id => 38
+    assert @response.body.include?("VCALENDAR")
+  end
 
 end
