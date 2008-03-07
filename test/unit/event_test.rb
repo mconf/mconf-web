@@ -147,7 +147,7 @@ class EventTest < ActiveSupport::TestCase
   end
   def create_at_jobs
     eve = Event.new(:name=> 'Evento1', :service => 'conference.act', :quality => '1M')
-     
+     assert_valid eve
       eve.create_at_jobs
       at_jobs=eve.get_at_jobs
       assert_not_nil at_jobs
@@ -167,7 +167,7 @@ end
   def test_uses_participant
      evento = events(:event_complejo ) 
      assert evento.uses_participant(5)
-     debugger
+  
      assert evento.uses_participant(0)
       assert evento.uses_participant(8)
        assert evento.uses_participant(9)

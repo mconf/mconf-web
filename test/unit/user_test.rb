@@ -93,7 +93,23 @@ class UserTest < Test::Unit::TestCase
     assert_not_nil users(:quentin).remember_token_expires_at
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
+def test_forgot_password
+  u = users(:quentin)
+  u.forgot_password
+  prc =  u.password_reset_code
+  assert_not_nil prc
+end
+def test_reset_password
+ u = users(:quentin)
+ u.reset_password
+ prc =  u.password_reset_code
+  assert_nil prc
 
+end
+def test_callbacks
+  us = User.new(:login => 'test', :email=>'test@test.es', :password => 'quire', :password_confirmation => 'quire')
+  assert_valid us
+end
 protected
   def create_user(options = {})
     User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
