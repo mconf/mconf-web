@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  acts_as_ferret :fields => [:name, :description]
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 
