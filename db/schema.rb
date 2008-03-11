@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 19) do
+ActiveRecord::Schema.define(:version => 20) do
 
   create_table "cms_posts", :force => true do |t|
     t.string   "title"
@@ -169,6 +169,20 @@ ActiveRecord::Schema.define(:version => 19) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "taggings", :force => true do |t|
+    t.integer "tag_id",                        :null => false
+    t.integer "taggable_id",                   :null => false
+    t.string  "taggable_type", :default => "", :null => false
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string "name", :default => "", :null => false
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "login"

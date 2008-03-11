@@ -104,3 +104,4 @@ ActionMailer::Base.raise_delivery_errors = true
                             "/logs/isabelGuard.log 2>&1 &"
       object_IO = IO.popen(command_isabelguard)
    end
+require 'tagging_extensions'

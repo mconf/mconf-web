@@ -45,6 +45,7 @@ class Event < ActiveRecord::Base
      @file_to_delete = get_xedl_filename
    end
    
+   
   #array of types of service
   SERVICE_TYPES = [
    ["TeleMeeting", "meeting.act"],

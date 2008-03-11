@@ -136,7 +136,9 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.save
-               
+        
+            tag = params[:tag][:add_tag]    
+            @event.tag_with(tag)
         @event.just_created(current_user)
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
@@ -155,6 +157,7 @@ class EventsController < ApplicationController
       end
     end
     
+   
     
     # PUT /events/1
     # PUT /events/1.xml
@@ -213,6 +216,8 @@ class EventsController < ApplicationController
 
               logger.debug("Now we save the event")
               @event.save!
+               tag = params[:tag][:add_tag]    
+            @event.tag_with(tag)
               flash[:notice] = 'Event was successfully updated.<br>'
               if EventDatetime.datetime_max_length(@event.event_datetimes)
                 flash[:notice] = flash[:notice] + "Warning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."

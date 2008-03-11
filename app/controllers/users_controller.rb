@@ -125,6 +125,8 @@ end
           end
         end
         @user.save
+         tag = params[:tag][:add_tag]    
+            @user.tag_with(tag)
         flash[:notice] = 'User was successfully updated.'        
         if current_user.superuser == true
         #the superuser will be redirected to list_users
