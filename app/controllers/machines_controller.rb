@@ -1,5 +1,5 @@
 class MachinesController < ApplicationController  
-   before_filter :user_is_admin, :except => [:get_file]
+   before_filter :user_is_admin, :except => [:get_file, :list_user_machines, :contact_mail]
    
   # GET /machines
   # GET /machines.xml
