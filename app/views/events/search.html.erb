@@ -1,0 +1,10 @@
+<div id="search">
+  <% form_tag({:action => :search_events}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%><TD align=center>
+  <input onclick=document.location="/" type="button" value="Back" />
+
+  </TD>
+  <% end %></div>
+
+  

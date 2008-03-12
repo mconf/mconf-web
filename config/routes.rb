@@ -53,6 +53,9 @@ ActionController::Routing::Routes.draw do |map|
   map.add_time '/add_time', :controller => 'events', :action => 'add_time'
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
   map.home '', :controller => 'events', :action => 'show'
+  map.search '/search', :controller => 'events', :action => 'search'
+
+  map.search_events '/search_events', :controller => 'events', :action => 'search_events'
   #PROFILES CONTROLLER
   map.vcard '/users/profiles/vcard/:id', :controller => 'profiles' , :action => 'vcard'   
   map.hcard '/users/profiles/hcard/:id', :controller => 'profiles' , :action => 'hcard'   

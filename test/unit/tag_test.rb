@@ -8,7 +8,7 @@ class TagTest < Test::Unit::TestCase
   end
 
   def test_to_s
-    assert_equal "imperial pale", Event.find(:first).tags.to_s
+    assert_equal "pale imperial", Event.find(:first).tags.to_s
   end
   
 end

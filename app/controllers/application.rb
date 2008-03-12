@@ -59,4 +59,11 @@ class ApplicationController < ActionController::Base
       redirect_to(:controller => "events", :action => "show")     
     end
   end
+  #Method that create a Paginator for the events searches
+  def pages_for(size, options = {})
+    default_options = {:per_page => 10}
+    options = default_options.merge options
+    pages = Paginator.new self, size, options[:per_page], (params[:page]||1)
+   return pages
+end
 end

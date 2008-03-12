@@ -1,0 +1,25 @@
+<ul>
+	<h3> <%= @members.total_hits%> events were founded</h3>
+	<% if @members.empty? %>
+	Sorry, no events were found
+	<% else%>
+  <% @members.each do |result| %>
+  
+    <li>Title: <%= result.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     
+    </li>
+	
+	Description:<%= result.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     
+	</li></br>
+     
+    Keywords: <%= result.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     
+  <% end %>
+  <%end%>
+</ul>
+<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
+<%= pagination_links(@pages, :params => { :query=> @query }) %>
+<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+<input onclick=document.location="/search" type="button" value="Back" />
+  

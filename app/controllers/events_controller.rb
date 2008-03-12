@@ -356,11 +356,23 @@ class EventsController < ApplicationController
        # @cal_string = icsfile.to_ical
         send_data icsfile, :filename => "#{@event.name}.ics"      
   
-    end
+end
+ #only used to show the search box 
+    def search
 
+end
+   #Method that searchs with the ferret funcionality
+     def search_events
+       
+     @query = params[:query]
+      @total, @members = Event.full_text_search(@query, :lazy => [:title, :author_name, :tag_list], :page => (params[:page]||1))          
+      @pages = pages_for(@total)
+      respond_to do |format|
+        
+        format.html
     
-    
-    
+      end
+  end  
     private              
     
     #Class Method to verify the events that occurs in the date given.
