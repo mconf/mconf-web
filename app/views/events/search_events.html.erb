@@ -1,8 +1,9 @@
 <ul>
-	<h3> <%= @members.total_hits%> events were founded</h3>
-	<% if @members.empty? %>
-	Sorry, no events were found
+
+	<% if @members == nil %>
+	Please insert something in the search box
 	<% else%>
+	<h3> <%= @members.total_hits%> events were founded</h3>
   <% @members.each do |result| %>
   
     <li>Title: <%= result.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
