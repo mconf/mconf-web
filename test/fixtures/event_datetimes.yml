@@ -106,7 +106,7 @@ event_datetime_00097:
   event_id: 38
   end_date: 2008-02-26 23:05:00 +01:00
   id: 97
-  at_job: 204
+  at_job: 
 event_datetime_00098: 
   start_date: 2008-02-27 11:00:00 +01:00
   event_id: 40
