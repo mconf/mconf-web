@@ -150,7 +150,7 @@ class EventTest < ActiveSupport::TestCase
   def test_get_xedl_filename
     evento = events(:event_complejo ) 
     xedl = evento.get_xedl_filename
-    assert_equal xedl, "xedls/Evento Complejo-27-2-2008-at-10-0.xedl"
+    assert_equal xedl, "xedls/Evento Complejo-27-2-2008-at-11-0.xedl"
   end
   
   
