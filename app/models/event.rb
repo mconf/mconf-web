@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
              :dependent => :destroy 
     has_many :machines, :through => :participants
     has_and_belongs_to_many :users
-    validates_presence_of :name,     
+    validates_presence_of :name, 
                           :message => "must be specified"
    #callbacks
     #After destroy an event, we must destroy the xedl file and the at_jobs referenced to that even 

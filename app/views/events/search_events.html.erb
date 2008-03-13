@@ -1,20 +1,23 @@
 <ul>
 
-	<% if @members == nil %>
+	<% if @events== nil %>
 	Please insert something in the search box
 	<% else%>
-	<h3> <%= @members.total_hits%> events were founded</h3>
-  <% @members.each do |result| %>
+	<h3> <%= @events.total_hits%> events were founded</h3>
+  <% @events.each do |event| %>
   
-    <li>Title: <%= result.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
-     
+    <li>Title: <%= event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     <TD>  
+			       
+            <%= link_to_remote h(event.name), { :url => { :action => 'show_summary', :id => event.id } }  %><br />
+            </TD>
     </li>
 	
-	Description:<%= result.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+	Description:<%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
      
 	</li></br>
      
-    Keywords: <%= result.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+    Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
      
   <% end %>
   <%end%>

@@ -365,7 +365,7 @@ end
      def search_events
        
      @query = params[:query]
-      @total, @members = Event.full_text_search(@query, :lazy => [:title, :author_name, :tag_list], :page => (params[:page]||1))          
+      @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|
         
