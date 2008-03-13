@@ -9,11 +9,15 @@ class EventTest < ActiveSupport::TestCase
     assert evento.valid?
     #assert_equal "should expecify a name", evento.errors.on(:name)
   end
+  
+  
   def test_if_a_machines_is_in_an_event_simple
     evento = events(:event_simple )    
     trapo = machines(:machine_trapo).id    
     assert evento.uses_participant(trapo)
   end
+  
+  
   def test_if_a_machines_is_in_an_event_complejo
     evento = events(:event_complejo )    
     trapo = machines(:machine_trapo).id 
@@ -23,6 +27,7 @@ class EventTest < ActiveSupport::TestCase
     assert evento.uses_participant(golpe)
     assert evento.uses_participant(traste)
   end
+  
   
   def test_if_many_machines_are_in_an_event
     evento = events(:event_complejo )  
@@ -48,6 +53,8 @@ class EventTest < ActiveSupport::TestCase
       assert coincidences.include?(8)
       assert coincidences.include?(9)
   end
+  
+  
   def test_get_participants_simple
     evento = events(:event_simple )  
     trapo = machines(:machine_trapo).name
@@ -56,6 +63,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal trapo,participants
     
   end
+  
   
   def test_get_participants_complejo
    evento = events(:event_complejo )  
@@ -67,6 +75,7 @@ class EventTest < ActiveSupport::TestCase
     assert_equal trapo +" "+ golpe +" "+ traste,participants
   end
   
+  
   def test_get_url_simple
     evento = events(:event_simple )  
     trapo = machines(:machine_trapo).nickname
@@ -76,6 +85,7 @@ class EventTest < ActiveSupport::TestCase
      assert_not_nil urls
     assert_equal url, urls
   end
+  
   
     def test_get_url_complejo
       evento = events(:event_complejo )  
@@ -90,6 +100,7 @@ class EventTest < ActiveSupport::TestCase
        assert_not_nil urls
     assert_equal url, urls
   end
+  
   
   def test_overlaps_with_event
     evento = events(:event_complejo ) 
@@ -106,16 +117,20 @@ class EventTest < ActiveSupport::TestCase
     
   end
   
+  
   def test_has_any_session_in_the_past
     evento = events(:event_complejo ) 
     assert evento.has_any_session_in_the_past
   end
+  
+  
   def test_get_participant_desc
     evento = events(:event_complejo )  
     desc = evento.get_participants_description
     assert_not_nil desc
     
   end
+  
   
   def test_get_machine_name
     evento = events(:event_complejo )  
@@ -131,11 +146,14 @@ class EventTest < ActiveSupport::TestCase
     assert_equal machines, mach
   end
   
+  
   def test_get_xedl_filename
     evento = events(:event_complejo ) 
     xedl = evento.get_xedl_filename
-    assert_equal xedl, "xedls/Evento Complejo-27-2-2008-at-11-0.xedl"
+    assert_equal xedl, "xedls/Evento Complejo-27-2-2008-at-10-0.xedl"
   end
+  
+  
   def test_get_at_jobs
     evento = events(:event_complejo )  
     at_jobs = evento.get_at_jobs
@@ -145,6 +163,8 @@ class EventTest < ActiveSupport::TestCase
     assert_not_nil at_jobs
     assert_equal at_jobs, at
   end
+  
+  
   def create_at_jobs
     eve = Event.new(:name=> 'Evento1', :service => 'conference.act', :quality => '1M')
      assert_valid eve

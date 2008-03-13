@@ -78,6 +78,7 @@ var calendar = Calendar.setup(
       flat         : "calendar-container", // ID of the parent element
       flatCallback : dateChanged,           // our callback function  
       firstDay     : 1,
+	  //showsTime    : true,
       dateStatusFunc : ourDateStatusFunc,
       date         : new Date(<%="'"+@datetime.month.to_s+"/"+@datetime.day.to_s+"/"+@datetime.year.to_s+"'"%>)    
     }

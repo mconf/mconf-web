@@ -64,7 +64,7 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_update_my_user
     login_as("user_normal")
-    post :update, :id=>25, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>25, :tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     assert_response :redirect  
     assert  flash[:notice].include?("User was successfully updated.")
@@ -73,7 +73,7 @@ class UsersControllerTest < Test::Unit::TestCase
   
   def test_update_another_user_not_being_admin
     login_as("user_normal")
-    post :update, :id=>24, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>24,:tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     assert_response :redirect  
     assert  flash[:notice].include?("User was successfully updated.")
@@ -82,7 +82,7 @@ class UsersControllerTest < Test::Unit::TestCase
 
   protected
     def create_user(options = {})
-      post :create, :user => { :login => 'quire', :email => 'quire@example.com',
+      post :create, :tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
     end
 end

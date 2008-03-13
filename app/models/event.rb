@@ -357,13 +357,13 @@ class Event < ActiveRecord::Base
         #delete also the at_job to stop the previous session
         command4 = at_command_rm + (at_job-1).to_s      
         logger.debug("at_job comando para borrar es " + command)
-        IO.popen(command)
+        io = IO.popen(command)
         logger.debug("at_job comando para borrar es " + command2)
-        IO.popen(command2)
-        logger.debug("at_job comando para borrar es " + command3)
-        IO.popen(command3)
+        io = IO.popen(command2)
+        logger.debug("at_job comando para borrar es " + command3) 
+        io = IO.popen(command3)
         logger.debug("at_job comando para borrar es " + command4)
-        IO.popen(command4)
+        io = IO.popen(command4)
       end  
     end
     
