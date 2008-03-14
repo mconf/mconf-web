@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'sessions_controller'
 
-  include AuthenticatedTestHelper
-  
 # Re-raise errors caught by the controller.
 class SessionsController; def rescue_action(e) raise e end; end
 
 class SessionsControllerTest < ActionController::TestCase
+  include CMS::AuthenticationTestHelper
+
   fixtures :users
   
     def setup
@@ -19,14 +19,14 @@ class SessionsControllerTest < ActionController::TestCase
     def test_should_login_and_redirect
       post :create, :login => 'quentin', :password => 'test'
       debugger
-      assert session[:user]
+      assert logged_in_session?
       assert_response :redirect
     end
 
 
     def test_should_fail_login_and_not_redirect
       post :create, :login => 'quentin', :password => 'bad password'
-      assert_nil session[:user]
+      assert ! logged_in_session?
       assert_response :success
     end
 
@@ -34,7 +34,7 @@ class SessionsControllerTest < ActionController::TestCase
     def test_should_logout
       login_as :quentin
       get :destroy
-      assert_nil session[:user]
+      assert ! logged_in_session?
       assert_response :redirect
     end
 
@@ -85,7 +85,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     def test_login_with_no_validated_email
       post :create, :login => 'tarantino', :password => 'test'
-      assert_nil session[:user]
+      assert ! logged_in_session?
       assert_response :success
       assert flash[:notice].include?("Please confirm your registration")
       
@@ -94,7 +94,7 @@ class SessionsControllerTest < ActionController::TestCase
     
     def test_login_with_disabled_user
       post :create, :login => 'deshabilitado', :password => 'admin'
-      assert_nil session[:user]
+      assert ! logged_in_session?
       assert_response :success
       assert flash[:notice].include?("Disabled user")
     end

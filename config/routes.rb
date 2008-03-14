@@ -1,14 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :posts, :member => { :get => :edit_media,
-                                     :put => :update_media }
-  map.resources :posts, :path_prefix => '/:container_type/:container_id',
-                        :name_prefix => 'container_'
 
-  CMS.contents.each do |content|
-      map.resources content
-      map.resources content, :path_prefix => '/:container_type/:container_id',
-                             :name_prefix => 'container_'
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   
@@ -31,10 +22,30 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   #map.connect ':controller/:action/:id.:format'
   #map.connect ':controller/:action/:id'
+
+  # #######################################################################
+  # CMSplugin
+  #
+  map.resources :posts, :member => { :get => :edit_media,
+                                     :put => :update_media }
+  map.resources :posts, :path_prefix => '/:container_type/:container_id',
+                        :name_prefix => 'container_'
+
+  CMS.contents.each do |content|
+      map.resources content
+      map.resources content, :path_prefix => '/:container_type/:container_id',
+                             :name_prefix => 'container_'
+  end
+  #
+  # #######################################################################
   
   map.resources :profiles
-  map.resources :users, :member=> 'forgot_password2'
-  map.resource  :sessions
+  map.resources :users, :member=> [ :forgot_password2, :activate ]
+  map.open_id_complete 'session', { :open_id_complete => true,
+                                    :requirements => { :method => :get },
+                                    :controller => "sessions",
+                                    :action => "create" }
+  map.resource :session
   map.resource :notifier
   map.resource :machines
   map.resources :events, :memeber =>'export_ical'
@@ -65,6 +76,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
   map.connect 'reset_password/:id', :controller =>"users", :action => "reset_password"  
   map.connect 'users/:email', :controller => "users", :action => "forgot_password2"
+  map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.connect 'confirm_email/:hash', :controller => "users", :action => "confirm_email"
   map.manage_users '/manage_users', :controller => 'users', :action => 'manage_users'
    #SESSIONS CONTROLLER 

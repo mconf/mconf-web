@@ -44,7 +44,7 @@ class UserTest < Test::Unit::TestCase
   
 
   def test_should_authenticate_user
-    assert_equal users(:quentin), User.authenticate('quentin', 'test')
+    assert_equal users(:quentin), User.authenticate_with_login_and_password('quentin', 'test')
   end
 
   def test_should_set_remember_token

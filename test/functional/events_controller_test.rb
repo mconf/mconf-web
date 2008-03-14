@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-include AuthenticatedTestHelper
-
 class EventsControllerTest < ActionController::TestCase
+  include CMS::AuthenticationTestHelper
+
   fixtures   :event_datetimes, :events_users, :events, :machines_users, :machines, :participants, :profiles, :users
 
   def setup
@@ -23,7 +23,6 @@ class EventsControllerTest < ActionController::TestCase
   def test_get_index_should_be_redirected
     get :index
     assert_redirected_to :controller => "sessions", :action => "new"
-    assert_equal "Please log in", flash[:notice]
   end
 
 

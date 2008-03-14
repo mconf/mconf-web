@@ -20,7 +20,7 @@ class Notifier < ActionMailer::Base
   end
   
   #This is used when an user register in the application, in order to confirm his registration 
-  def confirmation_email(user,hash)
+  def confirmation_email(user)
     # email header info MUST be added here
     @recipients = user.email
     @from = "Isabel Development Team"
@@ -28,7 +28,7 @@ class Notifier < ActionMailer::Base
 
     # email body substitutions go here
     @body["name"] = user.login
-    @body["hash"] = hash
+    @body["hash"] = user.activation_code
   end
   #This method compose the email used when a user is deleted from the system
   def byebye (user, sent_at = Time.now)

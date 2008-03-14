@@ -3,7 +3,7 @@ require 'vpim/vcard'
 class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.xml
-  before_filter :authorize
+  before_filter :authentication_required
   def index
     @profile = Profile.find_by_users_id(current_user.id )
     if @profile == nil

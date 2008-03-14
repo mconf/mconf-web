@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class MachinesControllerTest < ActionController::TestCase
-  fixtures   :machines_users, :machines, :participants, :users
-  
+    include CMS::AuthenticationTestHelper
+
+    fixtures   :machines_users, :machines, :participants, :users
   
    def test_manage_resources
       login_as("user_admin")

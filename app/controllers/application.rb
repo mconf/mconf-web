@@ -15,17 +15,10 @@ class ApplicationController < ActionController::Base
   session :session_key => '_restful_auth_session_id'
   
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+  include CMS::Authentication
   include SimpleCaptcha::ControllerHelpers 
   
   private
-  #Method that checks if you are logged in the application (Filter)
-  def authorize
-    unless User.find_by_id(current_user.id)
-      flash[:notice]= "Please log in"
-      redirect_to(:controller => "sessions", :action => "new")
-    end
-  end
    #Method that checks if the current user have machines assigned (Filter)
   def no_machines
     if current_user.machines.empty?
@@ -52,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
   
   def user_is_admin
-    if !current_user.superuser==true
+    unless current_user.superuser
       logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")
       logger.error("USER WAS: " + current_user.login)
       flash[:notice] = "Action not allowed."     

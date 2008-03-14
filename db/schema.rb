@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 21) do
 
   create_table "cms_posts", :force => true do |t|
     t.string   "title"
@@ -193,12 +193,13 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
-    t.boolean  "email_confirmed",                         :default => false
     t.boolean  "superuser",                               :default => false
     t.boolean  "disabled",                                :default => false
     t.string   "password_reset_code",       :limit => 40
     t.string   "email2"
     t.string   "email3"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
   end
 
 end

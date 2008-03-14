@@ -1,7 +1,7 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
-  before_filter :authorize, :except => [:show, :show_timetable, :show_summary]
+  before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
   

@@ -1,8 +1,8 @@
-
-
-
 <div align=center id="contenedor">
-<% form_for :user, :url => users_path do |f| -%>
+
+<%= error_messages_for :agent %>
+
+<% form_for :agent, :url => users_path do |f| -%>
 
 <%= render :partial => 'form', :locals => { :f => f } %>
 

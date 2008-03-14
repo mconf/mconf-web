@@ -1,28 +1,6 @@
 require "digest/sha1"
-class UsersController < ApplicationController  
-   before_filter :authorize,  :only => [:edit, :update,:manage_users, :destroy]
-  
-  # render new.rhtml
-  def new
-  end
-  
-  
-  def confirm_email
-  @users = User.find :all
-  for user in @users
-    # if the passed hash matches up with a User, confirm him, log him in, set proper flash[:notice], and stop looking
-    if confirmation_hash(user.login) == params[:hash] and !user.email_confirmed
-      user.update_attributes(:email_confirmed => true)
-      # La siguiente linea inicia la sesión
-      self.current_user = user
-      #session[:user_id] = user.id Esta linea con el nuevo sistema de login no hace nada
-      flash[:notice] = "Thank you for validating your email."
-      break
-    end
-  end  
-  redirect_to(:action => "show", :controller => "events")
-end
-
+class UsersController < CMS::AgentsController
+   before_filter :authentication_required,  :only => [:edit, :update,:manage_users, :destroy]
   
   def forgot_password   
     return unless request.post?
@@ -79,9 +57,9 @@ def forgot_password2
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @user = User.new(params[:user])            
-    @user.save!
-    Notifier.deliver_confirmation_email(@user, confirmation_hash(@user.login))
+    @agent = @klass.new(params[:agent])            
+    @agent.save!
+    Notifier.deliver_confirmation_email(@agent)
     redirect_back_or_default('/')
     flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
   

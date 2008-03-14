@@ -12,9 +12,10 @@ user_alfredo:
   remember_token: 
   login: alfredo
   superuser: false
-  email_confirmed: true
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
 
 user_admin:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
@@ -29,9 +30,10 @@ user_admin:
   remember_token: 
   login: admin
   superuser: true
-  email_confirmed: true
   email: ebarra@dit.upm.es
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
 user_normal:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
@@ -46,9 +48,10 @@ user_normal:
   remember_token: 
   login: normalillo
   superuser: false
-  email_confirmed: true
   email: ebarra@dit.upm.es
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
   
 user_disabled:
@@ -64,9 +67,10 @@ user_disabled:
   remember_token: 
   login: deshabilitado
   superuser: false
-  email_confirmed: true
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
 user_no_resources:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
@@ -81,9 +85,10 @@ user_no_resources:
   remember_token: 
   login: noresourcesuser
   superuser: false
-  email_confirmed: true
   email: alfredo@lowcostronica.es
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
   
 quentin:
@@ -101,8 +106,9 @@ quentin:
   disabled: false
   remember_token: 
   superuser: false
-  email_confirmed: true
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
 
 aaron:
@@ -120,8 +126,9 @@ aaron:
   disabled: false
   remember_token: 
   superuser: false
-  email_confirmed: true
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
 
   
 user_with_not_validated_email:
@@ -139,5 +146,6 @@ user_with_not_validated_email:
   disabled: false
   remember_token: 
   superuser: false
-  email_confirmed: false
   created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+
