@@ -54,6 +54,7 @@ ActionController::Routing::Routes.draw do |map|
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
   map.home '', :controller => 'events', :action => 'show'
   map.search '/search', :controller => 'events', :action => 'search'
+  # Acabar esto.........map.search_by_tag '/search_tag'
 
   map.search_events '/search_events', :controller => 'events', :action => 'search_events'
   #PROFILES CONTROLLER

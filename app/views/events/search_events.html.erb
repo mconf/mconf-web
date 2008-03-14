@@ -18,12 +18,12 @@
 			
     </li>
 	
-	Description:<%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     Description:<%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
      
-	</li>
-     
+	
+     <ul>
     Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
-     
+     </ul>
   <% end %>
   <%end%>
 </ul>

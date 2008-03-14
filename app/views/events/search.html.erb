@@ -9,12 +9,14 @@
 <div id="search">
   <% form_tag({:action => :search_events}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_tag 'Search'%><TD align=center>
+	  <%= submit_tag 'Search'%>
   <input onclick=document.location="/" type="button" value="Back" />
 
-  </TD>
+ 
   <% end %></div>
-</TD>
+  <div id="tag cloud">
+  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
+</div>
 <TD class=filter_view>
 <span>Filter view:&nbsp;
 <%array_machines = []

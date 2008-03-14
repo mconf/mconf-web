@@ -359,7 +359,7 @@ class EventsController < ApplicationController
 end
  #only used to show the search box 
     def search
-
+@cloud = Tag.cloud
 end
    #Method that searchs with the ferret funcionality
      def search_events
@@ -372,7 +372,11 @@ end
         format.html
     
       end
-  end  
+    end
+    #metodo que devuelve los eventos que tienen un tag
+    def search_by_tag(tag)
+      Event.tagged_with(tag)
+    end
     private              
     
     #Class Method to verify the events that occurs in the date given.
