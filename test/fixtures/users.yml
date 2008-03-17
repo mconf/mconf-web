@@ -5,7 +5,6 @@ user_alfredo:
   crypted_password: e97ba3fb20ec03be3e8d7399e664fa2dfbaca7ea
   remember_token_expires_at: 
   email2: 
-  password_reset_code: 
   id: 23
   email3: 
   disabled: false
@@ -23,7 +22,6 @@ user_admin:
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85  #admin
   remember_token_expires_at: 
   email2: 
-  password_reset_code: 
   id: 24
   email3: 
   disabled: false
@@ -41,7 +39,6 @@ user_normal:
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç #admin
   remember_token_expires_at: 
   email2: 
-  password_reset_code: 
   id: 25
   email3: 
   disabled: false
@@ -60,7 +57,6 @@ user_disabled:
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
   email2: 
-  password_reset_code: 
   id: 26
   email3: 
   disabled: true
@@ -78,7 +74,6 @@ user_no_resources:
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
   email2: 
-  password_reset_code: 
   id: 27
   email3: 
   disabled: false
@@ -101,7 +96,6 @@ quentin:
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
   email2: 
-  password_reset_code:
   email3: 
   disabled: false
   remember_token: 
@@ -121,7 +115,6 @@ aaron:
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
   email2: 
-  password_reset_code:
   email3: 
   disabled: false
   remember_token: 
@@ -141,7 +134,6 @@ user_with_not_validated_email:
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
   email2: 
-  password_reset_code:
   email3: 
   disabled: false
   remember_token: 

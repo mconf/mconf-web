@@ -88,16 +88,15 @@ class UserTest < Test::Unit::TestCase
 def test_forgot_password
   u = users(:quentin)
   u.forgot_password
-  prc =  u.password_reset_code
-  assert_not_nil prc
+  assert_not_nil u.reset_password_code
 end
+
 def test_reset_password
  u = users(:quentin)
  u.reset_password
- prc =  u.password_reset_code
-  assert_nil prc
-
+ assert_nil u.reset_password_code
 end
+
 def test_callbacks
   us = User.new(:login => 'test', :email=>'test@test.es', :password => 'quire', :password_confirmation => 'quire')
   assert_valid us

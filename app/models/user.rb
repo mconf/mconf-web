@@ -25,27 +25,6 @@ class User < ActiveRecord::Base
     u && u.password_authenticated?(password) ? u : nil
   end
   
-  def forgot_password
-     @forgotten_password = true
-     self.make_password_reset_code
-   end
-
-   def reset_password
-     # First update the password_reset_code before setting the 
-     # reset_password flag to avoid duplicate email notifications.
-     update_attributes(:password_reset_code => nil)
-     @reset_password = true
-   end
-
-   def recently_reset_password?
-     @reset_password
-   end
-
-   def recently_forgot_password?
-     @forgotten_password
-   end
-
-  
    #callback that replace empty strings in email2 and email3 for NULL
    def before_save
      if self.email2==""
@@ -54,11 +33,5 @@ class User < ActiveRecord::Base
      if self.email3==""
        self.email3 = nil
      end
-     
    end
-  
-  protected
-    def make_password_reset_code
-      self.password_reset_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
-    end
 end

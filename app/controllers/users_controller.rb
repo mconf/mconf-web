@@ -2,64 +2,14 @@ require "digest/sha1"
 class UsersController < CMS::AgentsController
    before_filter :authentication_required,  :only => [:edit, :update,:manage_users, :destroy]
   
-  def forgot_password   
-    return unless request.post?
-    if @user = User.find_by_email(params[:email])
-      @user.forgot_password
-      @user.save
-      Notifier.deliver_forgot_password(@user) if @user.recently_forgot_password?    
-      flash[:notice] = "A password reset link has been sent to your email address"    
-      redirect_to(:controller => '/events', :action => 'show')
-      else
-      flash[:notice] = "Could not find a user with that email address" 
-    end
-  end
-  
-  
-def forgot_password2     
-    if @user = User.find_by_id(params[:id])
-      @user.forgot_password
-      @user.save
-      Notifier.deliver_forgot_password(@user) if @user.recently_forgot_password?    
-      flash[:notice] = "A password reset link has been sent to the user  \"#{@user.login}\"  in order to reset his password"    
-      redirect_to(:controller => '/users', :action => 'manage_users')
-       else
-      flash[:notice] = "Could not find a user with that email address" 
-    end
-  end
-  
-  
-  def reset_password   
-    @user = User.find_by_password_reset_code(params[:id])
-    raise if @user.nil?
-    return if @user unless params[:password]
-      if (params[:password] == params[:password_confirmation])         
-        self.current_user = @user #for the next two lines to work
-        current_user.password_confirmation = params[:password_confirmation]
-        current_user.password = params[:password]      
-        @user.reset_password        
-    Notifier.deliver_reset_password(@user) if @user.recently_reset_password?
-        flash[:notice] = current_user.save ? "Password reset" : "Password not reset" 
-      else
-        flash[:notice] = "Password mismatch" 
-      end  
-      redirect_to(:controller => '/events', :action => 'show') 
-  rescue
-    logger.error "Invalid Reset Code entered" 
-    flash[:notice] = "Sorry - That is an invalid password reset code. Please check your code and try again. (Perhaps your email client inserted a carriage return?" 
-    redirect_to(:controller => '/events', :action => 'show')
-  end
-  
-  
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @agent = @klass.new(params[:agent])            
+    @agent = User.new(params[:agent])            
     @agent.save!
-    Notifier.deliver_confirmation_email(@agent)
     redirect_back_or_default('/')
     flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
   
@@ -67,12 +17,6 @@ def forgot_password2
     render :action => 'new'
   end
   
-
-# create a hash to use when confirming User email addresses
-def confirmation_hash(string)
-  Digest::SHA1.hexdigest(string + "secret word")
-end
-
 
   def manage_users
     @all_users = User.find(:all)
@@ -117,7 +61,6 @@ end
     end
   end
 
-  
   def destroy
      id = params[:id] 
      if id && user = User.find(id)

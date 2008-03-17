@@ -21,8 +21,8 @@ for user in @all_users
 <td class="ListUser<%= @odd_or_even_user %>"><%= user.superuser ? "yes" : "no" %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= user.disabled ? "yes" : "no" %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= h(user.email) %>&nbsp;&nbsp;</td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= user.activated_at.nil? ? "no" : "yes" %>&nbsp;&nbsp;</td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/email.gif",:border=>0), forgot_password2_user_path(user.id), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= user.active? ? "yes" : "no" %>&nbsp;&nbsp;</td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/email.gif",:border=>0), forgot_path(:email => sanitize(user.email)), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/modify.gif",:border=>0), edit_user_path(user.id), :title=>"Edit User" %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/delete.gif",:border=>0), user_path(user.id), :method => :delete, :confirm => "This action will delete the user \""+ h(user.login) +"\".\n Are you sure?", :title=>"Delete User" %></td>
 </tr>

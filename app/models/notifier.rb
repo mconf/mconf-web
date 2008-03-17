@@ -44,7 +44,7 @@ class Notifier < ActionMailer::Base
     @from = "alsolano@dit.upm.es"
     @subject    = 'Request to change your password'
     @body ["name"] = user.login
-    @body["url"]  = "http://macarra.dit.upm.es:3000/reset_password/#{user.password_reset_code}" 
+    @body["url"]  = "http://macarra.dit.upm.es:3000/reset_password/#{user.reset_password_code}" 
   end
 #this methd is used when a user have asked for his old password, and then he reset it.
   def reset_password(user)

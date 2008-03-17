@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   # #######################################################################
   
   map.resources :profiles
-  map.resources :users, :member=> [ :forgot_password2, :activate ]
+  map.resources :users
   map.open_id_complete 'session', { :open_id_complete => true,
                                     :requirements => { :method => :get },
                                     :controller => "sessions",
@@ -74,10 +74,8 @@ ActionController::Routing::Routes.draw do |map|
   #USERS CONTROLLER
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
-  map.connect 'reset_password/:id', :controller =>"users", :action => "reset_password"  
-  map.connect 'users/:email', :controller => "users", :action => "forgot_password2"
+  map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
-  map.connect 'confirm_email/:hash', :controller => "users", :action => "confirm_email"
   map.manage_users '/manage_users', :controller => 'users', :action => 'manage_users'
    #SESSIONS CONTROLLER 
   map.login  '/login', :controller => 'sessions', :action => 'new'
