@@ -7,30 +7,25 @@
 <TR><TD width=100% rowspan=3 valign="top">
 <ul>
 
-	<% if @events== nil %>
-	Please insert something in the search box
-	<% else%>
-	<h3> <%= @events.total_hits%> events were founded</h3>
+	
+	
 	<% @events.each do |event| %>
   
-    <li>Title: <%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
+    <li>Title: <%= link_to_remote event.name, { :url => { :action => 'show_summary', :id => event.id } }   %>
       
 			
     </li>
 	
-     Description:<%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     Description:<%= event.description %>
      
 	
      <ul>
-    Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+    Keywords: <%= event.tag_list %>
      </ul>
 	   <% end %>
 
-  <%end%>
+
 </ul>
-<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
-<%= pagination_links(@pages, :params => { :query=> @query }) %>
-<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 <input onclick=document.location="/search" type="button" value="Back" />
   
 </TD>
@@ -111,3 +106,5 @@ var calendar = Calendar.setup(
 
 
 
+
+  

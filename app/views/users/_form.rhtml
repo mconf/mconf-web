@@ -16,5 +16,13 @@
 <p><label for="password_confirmation">Confirm Password</label><br/>
 	<%= f.password_field :password_confirmation%></p>
 	
+	<% if logged_in? && @user.tag_list  %>
 	<p><label for="keywords">Interests</label><br/>
-<%= text_field 'tag', 'add_tag'  %></p>
+<%= text_field 'tag', 'add_tag','value' => @user.tag_list   %></p>
+	
+      <% else %>
+	  
+	  <p><label for="keywords">Interests</label><br/>
+<%= text_field 'tag', 'add_tag'   %></p>
+	
+<%end%>

@@ -374,8 +374,12 @@ end
       end
     end
     #metodo que devuelve los eventos que tienen un tag
-    def search_by_tag(tag)
-      Event.tagged_with(tag)
+    def search_by_tag
+      
+      @tag = params[:tag]
+      @events = Event.tagged_with(@tag)
+     
+     
     end
     private              
     
