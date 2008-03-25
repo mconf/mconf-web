@@ -30,6 +30,7 @@ class Notifier < ActionMailer::Base
     @body["name"] = user.login
     @body["hash"] = user.activation_code
   end
+  
   #This method compose the email used when a user is deleted from the system
   def byebye (user, sent_at = Time.now)
     @subject = "SIR Information::User Deleted"
