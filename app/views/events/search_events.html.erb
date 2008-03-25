@@ -11,6 +11,10 @@
 	Please insert something in the search box
 	<% else%>
 	<h3> <%= @events.total_hits%> events were found</h3>
+	<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
+<%= pagination_links(@pages, :params => { :query=> @query }) %>
+<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+
 	<% @events.each do |event| %>
   
     <li>Title: <%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
@@ -18,12 +22,18 @@
 			
     </li>
 	
-     Description:<%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     Description: <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
      
 	
      <ul>
-    Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
-     </ul>
+     	<% i = 0%>
+     	<% for dates in event.start_dates %>  
+    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
+<% i += 1%>
+<%end%>
+	<li> Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %></li>
+  
+	  </ul>
 	   <% end %>
 
   <%end%>
@@ -85,6 +95,8 @@ setInterval("displaytime()", 1000)
 <TR>
 <TD valign="top">
 <div id="event_summary">
+	<div id="tagcloud">
+  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
 </div>
 </TD>
 </TR>

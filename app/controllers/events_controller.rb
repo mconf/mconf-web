@@ -362,23 +362,25 @@ end
 @cloud = Tag.cloud
 end
    #Method that searchs with the ferret funcionality
-     def search_events       
+     def search_events 
+      @cloud = Tag.cloud 
      @query = params[:query]
-      @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|        
         format.html     
       end
     end
     #metodo que devuelve los eventos que tienen un tag
-   def search_by_tag      
+   def search_by_tag    
+     @cloud = Tag.cloud
       @tag = params[:tag]
       @events = Event.tagged_with(@tag)   
    end
   def advanced_search_events
-       
+       @cloud = Tag.cloud
      @query = params[:query]
-      @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|
             format.html {render :template => "events/search_events"}
@@ -387,8 +389,9 @@ end
  end
 
   def search_by_title
+    @cloud = Tag.cloud
     @query = params[:query]
-      @total, @events = Event.full_text_search3(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @total, @events = Event.full_text_search3(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|
             format.html {render :template => "events/search_events"}
@@ -396,8 +399,9 @@ end
    
     end
    def search_in_description
+     @cloud = Tag.cloud
     @query = params[:query]
-      @total, @events = Event.full_text_search4(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @total, @events = Event.full_text_search4(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|
             format.html {render :template => "events/search_events"}

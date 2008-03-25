@@ -1,8 +1,9 @@
 class Event < ActiveRecord::Base
-  acts_as_ferret :fields => {
+  acts_as_ferret :fields => {  
   :name=> {:store => :yes} ,
   :description=> {:store => :yes} , 
-  :tag_list=> {:store => :yes}}
+  :tag_list=> {:store => :yes},
+  :start_dates => {:store => :yes}}
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 
@@ -11,6 +12,10 @@ class Event < ActiveRecord::Base
     has_and_belongs_to_many :users
     validates_presence_of :name, 
                           :message => "must be specified"
+   
+   
+   
+   
    #callbacks
     #After destroy an event, we must destroy the xedl file and the at_jobs referenced to that even 
   def after_destroy
@@ -417,6 +422,7 @@ class Event < ActiveRecord::Base
    
     # now do the query with our options
     results = Event.find_by_contents(q, options)
+    
     return [results.total_hits, results]
   end
   #method that make an advanced search in events with pagination
@@ -429,11 +435,11 @@ class Event < ActiveRecord::Base
     options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
  
     # now do the query with our options
-      q1 = q + "*"
+      q1 = "*" + q + "*"
     results = Event.find_by_contents(q1, options)
     return [results.total_hits, results]
   end
-  
+  #Method that search by title
   def self.full_text_search3(q, options = {})
     return nil if q.nil? or q==""
     default_options = {:limit => 10, :page => 1}
@@ -447,7 +453,7 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q2, options)
     return [results.total_hits, results]
   end
-  
+  #Method that search in the description
   def self.full_text_search4(q, options = {})
     return nil if q.nil? or q==""
     default_options = {:limit => 10, :page => 1}
@@ -461,6 +467,21 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q2, options)
     return [results.total_hits, results]
   end
+  
+  def start_dates 
+    date =[]
+    i = 0
+    self.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}
+    for datetime in self.event_datetimes
+     
+      date[i] = datetime.start_date.strftime("%d  %b %H:%M")
+      
+      i += 1
+      end
+     return date
+   end
+  
+  
     private
   #conditions for participants:
   #  do not appear twice or more times

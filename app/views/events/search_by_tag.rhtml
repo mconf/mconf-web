@@ -19,7 +19,11 @@
      Description:<%= event.description %>
      
 	
-     <ul>
+     <ul><% i = 0%>
+     	<% for dates in event.start_dates %>  
+    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
+<% i += 1%>
+<%end%>
     Keywords: <%= event.tag_list %>
      </ul>
 	   <% end %>
@@ -80,6 +84,8 @@ setInterval("displaytime()", 1000)
 <TR>
 <TD valign="top">
 <div id="event_summary">
+	<div id="tagcloud">
+  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
 </div>
 </TD>
 </TR>
