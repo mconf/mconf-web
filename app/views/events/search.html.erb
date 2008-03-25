@@ -7,16 +7,33 @@
 <TABLE class=day WIDTH=100% BORDER=1 CELLSPACING=0 CELLPADDING=0>
 <TR><TD width=100% rowspan=3 valign="top">
 <div id="search">
+	<h4> Search</h4> (in title, description and tags with exactly words)
+	
   <% form_tag({:action => :search_events}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_tag 'Search'%>
-  <input onclick=document.location="/" type="button" value="Back" />
-
+  
+   <% end %>
+<h4>Advanced Search</h4>(not exactly words)
+ <% form_tag({:action => :advanced_search_events}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
  
-  <% end %></div>
-  <div id="tag cloud">
-  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
-</div>
+ <% end %>
+ Search by Title
+ <% form_tag({:action => :search_by_title}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
+ Search in description
+ <% form_tag({:action => :search_in_description}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
+ </div>
+ <input onclick=document.location="/" type="button" value="Back" /> 
 <TD class=filter_view>
 <span>Filter view:&nbsp;
 <%array_machines = []
@@ -68,6 +85,9 @@ setInterval("displaytime()", 1000)
 <TR>
 <TD valign="top">
 <div id="event_summary">
+	<div id="tagcloud">
+  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
+</div>
 </div>
 </TD>
 </TR>

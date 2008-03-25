@@ -419,6 +419,48 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q, options)
     return [results.total_hits, results]
   end
+  #method that make an advanced search in events with pagination
+  def self.full_text_search2(q, options = {})
+    return nil if q.nil? or q==""
+    default_options = {:limit => 10, :page => 1}
+    options = default_options.merge options
+   
+    # get the offset based on what page we're on
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
+ 
+    # now do the query with our options
+      q1 = q + "*"
+    results = Event.find_by_contents(q1, options)
+    return [results.total_hits, results]
+  end
+  
+  def self.full_text_search3(q, options = {})
+    return nil if q.nil? or q==""
+    default_options = {:limit => 10, :page => 1}
+    options = default_options.merge options
+   
+    # get the offset based on what page we're on
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
+ 
+    # now do the query with our options
+      q2 = "name:" + q + "*"
+    results = Event.find_by_contents(q2, options)
+    return [results.total_hits, results]
+  end
+  
+  def self.full_text_search4(q, options = {})
+    return nil if q.nil? or q==""
+    default_options = {:limit => 10, :page => 1}
+    options = default_options.merge options
+   
+    # get the offset based on what page we're on
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
+ 
+    # now do the query with our options
+      q2 = "description:" + q + "*"
+    results = Event.find_by_contents(q2, options)
+    return [results.total_hits, results]
+  end
     private
   #conditions for participants:
   #  do not appear twice or more times

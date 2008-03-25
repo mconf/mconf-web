@@ -10,7 +10,7 @@
 	<% if @events== nil %>
 	Please insert something in the search box
 	<% else%>
-	<h3> <%= @events.total_hits%> events were founded</h3>
+	<h3> <%= @events.total_hits%> events were found</h3>
 	<% @events.each do |event| %>
   
     <li>Title: <%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>

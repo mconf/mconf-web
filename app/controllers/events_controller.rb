@@ -1,7 +1,7 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
-  before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary]
+  before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
   
@@ -362,26 +362,50 @@ end
 @cloud = Tag.cloud
 end
    #Method that searchs with the ferret funcionality
-     def search_events
-       
+     def search_events       
      @query = params[:query]
       @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
       @pages = pages_for(@total)
-      respond_to do |format|
-        
-        format.html
-    
+      respond_to do |format|        
+        format.html     
       end
     end
     #metodo que devuelve los eventos que tienen un tag
-    def search_by_tag
-      
+   def search_by_tag      
       @tag = params[:tag]
-      @events = Event.tagged_with(@tag)
-     
-     
+      @events = Event.tagged_with(@tag)   
+   end
+  def advanced_search_events
+       
+     @query = params[:query]
+      @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @pages = pages_for(@total)
+      respond_to do |format|
+            format.html {render :template => "events/search_events"}
+         end     
+   
+ end
+
+  def search_by_title
+    @query = params[:query]
+      @total, @events = Event.full_text_search3(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @pages = pages_for(@total)
+      respond_to do |format|
+            format.html {render :template => "events/search_events"}
+         end     
+   
     end
-    private              
+   def search_in_description
+    @query = params[:query]
+      @total, @events = Event.full_text_search4(@query,:lazy => [:name, :description, :tag_list],  :page => (params[:page]||1))          
+      @pages = pages_for(@total)
+      respond_to do |format|
+            format.html {render :template => "events/search_events"}
+         end     
+  end
+   
+     
+     private              
     
     #Class Method to verify the events that occurs in the date given.
     def select_events(datetime_start_day)
