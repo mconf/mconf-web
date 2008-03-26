@@ -72,6 +72,9 @@ ActionController::Routing::Routes.draw do |map|
   map.search_by_title '/search_by_title', :controller => 'events', :action => 'search_by_title'
  map.search_in_description '/search_description', :controller => 'events', :action => 'search_in_description'
  map.advanced_search '/advanced_search', :controller => 'events', :action => 'advanced_search'
+ map.title '/title_search', :controller => 'events', :action => 'title'
+ map.description '/description_search', :controller => 'events', :action => 'description'
+ map.clean '/clean', :controller => 'events', :action => 'clean'
  
   #PROFILES CONTROLLER
   map.vcard '/users/profiles/vcard/:id', :controller => 'profiles' , :action => 'vcard'   

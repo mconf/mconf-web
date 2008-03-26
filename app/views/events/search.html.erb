@@ -14,13 +14,14 @@
 	  <%= submit_tag 'Search'%>
   
    <% end %>
-   </div>
    
-<%= link_to_remote  'Advanced Search',{ :url => { :action => 'advanced_search' } } %>   
+   
+You can make an <%= link_to_remote  'advanced search',{ :url => { :action => 'advanced_search' },  } %> or search by <%= link_to_remote  'title',{ :url => { :action => 'title' } } %> or by <%= link_to_remote  'description',{ :url => { :action => 'description' } } %>  
+ </div> 
    <div id="advanced_search">
 
  </div>
- 
+ <%= link_to_remote 'Hide',{:url =>{ :action=> 'clean'}}%>
  <input onclick=document.location="/" type="button" value="Back" /> 
 <TD class=filter_view>
 <span>Filter view:&nbsp;

@@ -1,0 +1,1 @@
+page.replace_html "advanced_search", :partial => 'description_search' 

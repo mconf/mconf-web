@@ -363,11 +363,31 @@ end
     def search
 @cloud = Tag.cloud
 end
+#method used to show the advanced search box in the ajax call
 def advanced_search
     respond_to do |format|
        # format.html 
          format.js   
       end     
+    end
+    #method used to show the title search box in the ajax call
+    def title
+    respond_to do |format|
+       # format.html 
+         format.js   
+       end
+       end
+       #method used to show the description search box in the ajax call
+    def description
+    respond_to do |format|
+       # format.html 
+         format.js   
+       end
+    end
+    def clean
+    render :update do |page|
+      page ['advanced_search'].hide
+    end
 end
    #Method that searchs with the ferret funcionality
      def search_events 

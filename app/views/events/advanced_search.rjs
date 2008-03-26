@@ -1,1 +1,1 @@
-page.replace_html "advanced_search", :partial => 'advanced_search' , :locals => {:event => @event}
+page.replace_html "advanced_search", :partial => 'advanced_search' 

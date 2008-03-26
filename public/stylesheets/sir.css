@@ -450,11 +450,15 @@ p.email {
 
 }
 #search{
-
+text-decoration: none;
+	
+padding-top: 2em;
 	padding-left: 3em;
 }
 
 #advanced_search{
-
+padding-bottom: 2em;
+padding-top: 1em;
 	padding-left: 3em;
+	
 }
