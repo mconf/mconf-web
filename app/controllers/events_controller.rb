@@ -14,11 +14,13 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
+    
     if session[:date_start_day]
       datetime_start_day = session[:date_start_day]
     else
       datetime_start_day = Date.today      
     end
+    @cloud = Tag.cloud
     @datetime = datetime_start_day
     event_datetimes = select_events(datetime_start_day)
     @events = []

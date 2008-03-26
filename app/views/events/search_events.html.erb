@@ -15,11 +15,22 @@
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 
-	<% @events.each do |event| %>
-  
+	<% @events.each do |event| %>  
     <li>Title: <%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
-      
-			
+    		<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+                <%#if !already_accomplished(event)
+                  #uncomment if you want an event in the past not to be editable
+                  %>				  
+                <%session[:date_start_day]=@datetime%>
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), export_ical_path(event.id), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+                                                 
+           
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_event_path(event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+                <%#end%>
+				<%= link_to image_tag("/images/delete.gif",:border=>0), event_path(event.id), :method => :delete,
+                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
+           
+			<%end%>	
     </li>
 	
      Description: <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
