@@ -1,0 +1,22 @@
+
+
+(not exactly words)
+ <% form_tag({:action => :advanced_search_events}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
+ Search by Title
+ <% form_tag({:action => :search_by_title}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
+ Search in description
+ <% form_tag({:action => :search_in_description}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
+
+  <%= link_to 'Hide', :controller=> 'events', :action=> 'search'%>

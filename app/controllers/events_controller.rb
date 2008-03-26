@@ -363,6 +363,12 @@ end
     def search
 @cloud = Tag.cloud
 end
+def advanced_search
+    respond_to do |format|
+       # format.html 
+         format.js   
+      end     
+end
    #Method that searchs with the ferret funcionality
      def search_events 
       @cloud = Tag.cloud 
