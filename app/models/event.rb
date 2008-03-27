@@ -1,3 +1,4 @@
+require 'ferret'
 class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
   :name=> {:store => :yes} ,
@@ -440,7 +441,7 @@ class Event < ActiveRecord::Base
     return [results.total_hits, results]
   end
   #Method that search by title
-  def self.full_text_search3(q, options = {})
+  def self.title_search(q, options = {})
     return nil if q.nil? or q==""
     default_options = {:limit => 10, :page => 1}
     options = default_options.merge options
@@ -454,7 +455,7 @@ class Event < ActiveRecord::Base
     return [results.total_hits, results]
   end
   #Method that search in the description
-  def self.full_text_search4(q, options = {})
+  def self.description_search(q, options = {})
     return nil if q.nil? or q==""
     default_options = {:limit => 10, :page => 1}
     options = default_options.merge options
@@ -468,13 +469,28 @@ class Event < ActiveRecord::Base
     return [results.total_hits, results]
   end
   
+  #Method that search by dates
+  def self.date_search(q,q2, options = {})
+    return nil if q.nil? or q=="" or q2.nil? or q2==""
+    default_options = {:limit => 10, :page => 1}
+    options = default_options.merge options
+   
+    # get the offset based on what page we're on
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
+   query = Ferret::Search::RangeQuery.new(:start_dates , :>= => q, :<= => q2)
+    # now do the query with our options
+      
+    results = Event.find_by_contents(query, options)
+    return [results.total_hits, results]
+  end
+  
   def start_dates 
     date =[]
     i = 0
     self.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}
     for datetime in self.event_datetimes
      
-      date[i] = datetime.start_date.strftime("%d  %b %H:%M")
+      date[i] = datetime.start_date.strftime("%d  %b %Y %H:%M")
       
       i += 1
       end

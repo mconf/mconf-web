@@ -1,0 +1,26 @@
+You can search here between two dates
+<% form_tag({:action => :search_by_date}, :method => 'get') do %>
+      From  <%= text_field_tag :query1, params[:query1] %><button id="trigger">...</button>
+	  <script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "query1",         // ID of the input field
+      ifFormat    : "%Y%m%d",    // the date format
+      button      : "trigger"       // ID of the button
+    }
+  );
+</script>
+	   to 
+	      <%= text_field_tag :query2, params[:query2] %><button id="trigger2">...</button>
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "query2",         // ID of the input field
+      ifFormat    : "%Y%m%d",    // the date format
+      button      : "trigger2"       // ID of the button
+    }
+  );
+</script>
+	  <%= submit_tag 'Search'%>
+ 
+ <% end %>
