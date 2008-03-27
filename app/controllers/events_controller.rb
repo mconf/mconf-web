@@ -2,8 +2,7 @@ require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
 
-  caches_page   :show, :show_summary, :show_timetable
-  cache_sweeper :event_sweeper, :only => [:create, :update, :destroy]
+  
   
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
 
@@ -459,7 +458,13 @@ class EventsController < ApplicationController
     @cloud = Tag.cloud
     @query = params[:query1]
     @query2 = params[:query2]
-    if @query > @query2 
+    #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
+   #a formato Ymd => 20081124
+    date1 = Date.parse(@query)
+   date1ok =  date1.strftime("%Y%m%d")
+   date2 = Date.parse(@query2)
+   date2ok =  date2.strftime("%Y%m%d")
+    if date1ok > date2ok
       flash[:notice] = 'The first date could not be lower than the second one'
     render :template => "events/search"
     else

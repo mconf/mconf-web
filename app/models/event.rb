@@ -1,4 +1,5 @@
 require 'ferret'
+
 class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
   :name=> {:store => :yes} ,
@@ -476,8 +477,16 @@ class Event < ActiveRecord::Base
     options = default_options.merge options
    
     # get the offset based on what page we're on
-    options[:offset] = options[:limit] * (options.delete(:page).to_i-1)  
-   query = Ferret::Search::RangeQuery.new(:start_dates , :>= => q, :<= => q2)
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1) 
+ #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
+   #a formato Ymd => 20081124
+    date1 = Date.parse(q)
+   date1ok =  date1.strftime("%Y%m%d")
+   date2 = Date.parse(q2)
+   date2ok =  date2.strftime("%Y%m%d")
+
+     
+   query = Ferret::Search::RangeQuery.new(:start_dates , :>= => date1ok, :<= => date2ok)
     # now do the query with our options
       
     results = Event.find_by_contents(query, options)
