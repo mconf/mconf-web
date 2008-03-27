@@ -1,9 +1,13 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
+  caches_page   :show, :show_summary, :show_timetable
+  cache_sweeper :event_sweeper, :only => [:create, :update, :destroy]
+  
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
+   
   
   # GET /events
   # GET /events.xml
@@ -65,7 +69,7 @@ class EventsController < ApplicationController
       end      
       logger.debug("EVENTO DEVUELTO por find_by_id del datetime " + eventin[0].name)
       if eventin[0].uses_participant(participant)
-        logger.debug("Usa la maquina " + participant)
+        logger.debug("Usa la maquina " + participant.to_s)
         @events << eventin
       end
     end
