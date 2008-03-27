@@ -459,11 +459,16 @@ class EventsController < ApplicationController
     @cloud = Tag.cloud
     @query = params[:query1]
     @query2 = params[:query2]
+    if @query > @query2 
+      flash[:notice] = 'The first date could not be lower than the second one'
+    render :template => "events/search"
+    else
      @total, @events = Event.date_search(@query,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
    @pages = pages_for(@total)
     respond_to do |format|
       format.html {render :template => "events/search_events"}
-    end    
+    end  
+    end
   end
   private              
   
