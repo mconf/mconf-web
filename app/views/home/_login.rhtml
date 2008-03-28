@@ -8,7 +8,7 @@
 	 <td><%= button_to 'Manage Resources', manage_resources_path,  :class => "button", :method=> 'get' %></td>
 	  </p></tr><tr><p>
 	 <td><%= button_to 'Account', edit_user_path(current_user),  :class => "button" , :method=> 'get' %></td>
-	 <td><%= button_to 'Profile', user_profiles_path(current_user),  :class => "button" , :method=> 'get'%></td>
+	 <td><%= button_to 'Profile', hcard_path(current_user),  :class => "button" , :method=> 'get'%></td>
   	<td><%= button_to "Events", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></td>
 </p>
 </tr> 
@@ -18,7 +18,7 @@
   <p><strong>You are logged in as <%=h current_user.login %></strong></p>
   <p><td><%= button_to 'Logout', logout_path,  :class => "button", :method=> 'get' %></td>
   <td><%= button_to 'Account', edit_user_path(current_user),  :class => "button", :method=> 'get' %></td>
- <td> <%= button_to 'Profile', user_profiles_path(current_user),  :class => "button", :method=> 'get' %></p></td>
+ <td> <%= button_to 'Profile', hcard_path(current_user),  :class => "button", :method=> 'get' %></p></td>
 <td><%= button_to "Events", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></td>
 <td><%= button_to "Resources", {:controller=>'machines', :action=>'list_user_machines'},:class => "button" , :method=> 'get'%></td>
 

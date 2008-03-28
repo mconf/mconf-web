@@ -9,13 +9,13 @@
     if duration
         event = event_at_this_time(@mini_array_events, @datetime, hour)       
     %>
-        <TR><TD class="contains_event"></TD><TD class="contains_event" onclick="new Ajax.Request('/show_summary/'+ <%=event.id%>, {asynchronous:true, evalScripts:true}); return false;" width=100% rowspan=<%=(duration).to_s%> title="<%=event.get_submenu%>"> 
-        <TABLE height=100% WIDTH=100% border=0> 
-            <TD>  
-			       
-            <%= link_to_remote h(event.name)+" ("+Event.get_Service_name(event.service)+")"+" "+h(event.quality),{ :url => { :action => 'show_summary', :id => event.id } }  %><br />
-            </TD>
-            <TD>
+        <TD class="contains_event"></TD><TD class="contains_event" onclick="new Ajax.Request('/show_summary/'+ <%=event.id%>, {asynchronous:true, evalScripts:true}); return false;" width=100% rowspan=<%=(duration).to_s%> title="<%=event.get_submenu%>"> 
+        
+			<div class="vevent">
+				<h3 class="summary"><%= link_to_remote h(event.name),{ :url => { :action => 'show_summary', :id => event.id } }  %></h3> 
+            
+           <div class="description"></div>
+		   <abbr title="20081010" class="dtstart"></abbr>
             <%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable
@@ -30,9 +30,8 @@
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%>
-            </TD>
-        </TABLE>    
-        </TD></TR>        
+           </div>       
+        </TD>        
       <%for a in 1..(duration-1)%>
             <TR><TD class="contains_event"></TD></TR>      
       <%end

@@ -278,8 +278,8 @@ class EventsController < ApplicationController
       if params[:id] && !params[:event_id]
         params[:event_id] = params[:id]   
       end
-      @event = Event.find(params[:event_id])
-      
+     @event = Event.find(params[:event_id])  
+    
     end
     respond_to do |format|
       # format.html 
@@ -465,7 +465,7 @@ class EventsController < ApplicationController
    date2 = Date.parse(@query2)
    date2ok =  date2.strftime("%Y%m%d")
     if date1ok > date2ok
-      flash[:notice] = 'The first date could not be lower than the second one'
+      flash[:notice] = 'The first date cannot be lower than the second one'
     render :template => "events/search"
     else
      @total, @events = Event.date_search(@query,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          

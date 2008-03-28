@@ -1,3 +1,4 @@
+<div class="vevent">
 <head>
 	<meta http-equiv="Content-Type" content="text/javascript" >
 	</head>
@@ -6,9 +7,12 @@
 Event Information</b>
 </TD></TR>
 <TR>
+	
 <TD class=fieldEvent><label for="event_name">Name:</label></TD>
-<TD><b><%=h(@event.name)%></b></TD>
+<td><div class="summary"><b><%=h(@event.name)%></b></div></td>
+
 </TR>
+<%if logged_in? && current_user.superuser==true%>
 <TR>
 <TD class=fieldEvent><label for="event_name">Service:</label></TD>
 <TD><b><%=Event.get_Service_name(h(@event.service))%></b></TD>
@@ -19,12 +23,25 @@ Event Information</b>
 </TR>
 <TR>
 <TD class=fieldEvent><label for="event_name">Resources:</label></TD>
-<TD><b><%=h(@event.get_participants)%></b></TD>
+<td><%=h(@event.get_participants)%></td>
 </TR>
-
+<TR>
+<TD class=fieldEvent><label for="event_name">Description:</label></TD>
+<td><div class="description"><b><%=h(@event.description)%></b></td></div>
+</TR>
+<%else%>
+<TR>
+<TD class=fieldEvent><label for="event_name">Description:</label></TD>
+<td><div class="description"><b><%=h(@event.description)%></b></td></div>
+</TR>
+<%end%>
 <TR>
 <TD class=fieldEvent><label for="event_name">Keywords:</label></TD>
-<TD><b><%=h(@event.tag_list)%></b></TD>
+<TD><b><%for tag in @event.tag_list %>
+	
+	<%= link_to (h(tag), {:action => :search_by_tag, :tag => tag}, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %>
+<%end%>
+</b></TD>
 </TR>
 <TR><TD colspan=2 align=center ><b>
 Event Times</b>
@@ -34,14 +51,23 @@ Event Times</b>
 <% for datetime in @event.event_datetimes %>    
     <TR>
         <TD class=time_summary_up><label >Start date:</label></TD>
-        <TD class=time_summary_up><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></TD>
+        <TD class=time_summary_up><abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></abbr></TD>
     </TR>
     <TR >
         <TD class=time_summary_down><label >End date:</label></TD>
-        <TD class=time_summary_down><b><%= datetime.end_date.strftime("%b %d %H:%M") %></b></TD>
+        <TD class=time_summary_up><abbr title= <%= datetime.end_date.strftime("%Y%m%d") %> class="dtend"><b><%= datetime.end_date.strftime("%b %d %H:%M") %></b></abbr></TD>
     </TR>    
     <%index += 1 -%>
 <% end -%>
+<TR><TD colspan=2 align=center ><b>
+Contact Information</b>
+</TD></TR>
+<TR><TD colspan=2 >
+	<div class="">
+		
+		<p><a href="mailto:<%=  %>" class="email">Contact Information</a></p>
+	</div>
+	
 <TR><TD colspan=2 align=center ><b>
 URLs for the session</b>
 </TD></TR>
@@ -71,4 +97,4 @@ URLs for the session</b>
         </TD></TR>
     <%end%>   
 </TABLE>
-
+</div>
