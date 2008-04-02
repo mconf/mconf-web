@@ -1,47 +1,55 @@
 <html>
+	
 <head>
+	
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <%= javascript_include_tag("prototype", "effects") %>
   <%= javascript_include_tag("sir") %>
   <%= javascript_include_tag :defaults %>
   <title><%= 'Isabel Server'.t %></title>
-  <%= stylesheet_link_tag 'sir' %>  
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<META HTTP-EQUIV="Expires" CONTENT="-1">
+  <%= stylesheet_link_tag 'estilosir' %>  
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="-1">
+  
 </head>
+
 <body>
-   <div id="banner"> 
-     <table width=100% border=1>
-     <td width=20%>       
-        <table class=copyright width=100% >
-        <tr>
-        <td><img src="/images/marte.gif" width=50 height=50 align="middle"></td>
-        <td><b><%= 'Isabel Server'.t %></b><br><font size=-3><i><%= '2007 Agora Systems S.A.'.t %></i>
-		<tr><font size=-3><i><%= link_to "Spanish", {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %></i>
-		<font size=-3><i><br><font size=-3><%= link_to "English".t, {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %></i></i></font></td>
-        
-		</tr>
-        </table>
-    </td>
-    <td class=pagetitle width=57%>
-    <%= @page_title || "Isabel Server" %>
-    </td>
+	<div id="contenedor">
+	<!-- Div con el logo-->
+	<div id="logo">
+		 <!--<%= @page_title || "Isabel Server" %>-->
+	</div>
+	
+	<div id="idioma">
+		<%= link_to (image_tag("spain.gif")), {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %>
+		<%= link_to (image_tag("britain.gif")), {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %>
+	</div>
+	
+	<div id="menu_pcipal">
+		
+	</div>
+	
+	<div id="menu_secund">
+		<%= render :partial => 'home/buttons', :layout => false%>
+	</div>
+	 <div id="login">
+	 	<%= render :partial => 'home/login', :layout => false%>
+	 </div>
    
-    <td class=td_login width=23%>
-    <%= render :partial => 'home/login', :layout => false%>
-    </td>
-    </table>
-   </div>
    <div id="main" >
         <% if flash[:notice] -%>
-         <br><div id="notice" style="color: green"><%= flash[:notice] %></div>
+        <br><div id="notice" style="color: green"><%= flash[:notice] %></div>
         <% end -%>
 		<% if flash[:warning] -%>
          <br><div id="notice" style="color: red"><%= flash[:warning] %></div>
         <% end -%>
-      <%= @content_for_layout %>
-   </div>   
+        <%= @content_for_layout %>
+   </div>  
+   
+   </div> 
 </body>
+
+
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
 

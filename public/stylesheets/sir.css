@@ -435,7 +435,17 @@ p.email {
 	background-repeat: no-repeat;
 	padding-bottom: 2em;
 	
+
 }
+
+
+#banner{
+	border:solid;
+	border-color: yellow;
+	
+}
+
+
 .nube1 {font-size: 1.0em; }
 .nube2 {font-size: 1.5em; text-decoration: none;}
 .nube3 {font-size: 2em; text-decoration: none;}
@@ -460,5 +470,6 @@ padding-top: 2em;
 padding-bottom: 2em;
 padding-top: 1em;
 	padding-left: 3em;
-	
+
 }
+

@@ -1,0 +1,28 @@
+
+<div id="botones">
+
+<% if logged_in? && current_user.superuser==true %>
+  
+  <ul>
+     <li><%= button_to 'Manage Users', manage_users_path, :method=> 'get' %></li>
+	 <li><%= button_to 'Manage Resources', manage_resources_path,  :method=> 'get' %></li>
+	 <li><%= button_to "Events", {:controller=>'events', :action=>'show'}, :method=> 'get'%></li>
+  </ul>
+  
+<% elsif logged_in?%>
+
+  <ul>
+	 
+	 <li><%= button_to "Events", {:controller=>'events', :action=>'show'}, :method=> 'get'%></li>
+	 <li><%= button_to "Resources", {:controller=>'machines', :action=>'list_user_machines'},:method=> 'get'%></li>
+  </ul>
+
+<% else %>
+
+  <ul> 
+     <li><%= button_to "Home", {:controller=>'events', :action=>'show'},:class => "button" , :method=> 'get'%></li>
+ </ul>
+  
+<% end %>
+
+</div>
