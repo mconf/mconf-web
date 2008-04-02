@@ -26,5 +26,4 @@
  <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
  </div>
  </div>
- <%= link_to 'Back', home_path%> <%= link_to 'Edit', user_profiles_path(current_user)%>
-
+ <%= link_to 'Back', home_path%> <%= link_to 'Edit', user_profiles_path(current_user)%>  <%= link_to 'Export your Vcard' , vcard_path(@profile.id) , :method=> 'get'  %></td>
