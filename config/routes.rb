@@ -66,8 +66,7 @@ ActionController::Routing::Routes.draw do |map|
   map.home '', :controller => 'events', :action => 'show'
   map.search '/search', :controller => 'events', :action => 'search'
   map.search_by_tag '/tags/:tag', :controller => 'events', :action => 'search_by_tag'
-
-  map.search_events '/search_events', :controller => 'events', :action => 'search_events'
+   map.search_events '/search_events', :controller => 'events', :action => 'search_events'
   map.advanced_search_events '/advanced_search_events', :controller => 'events', :action => 'advanced_search_events'
   map.search_by_title '/search_by_title', :controller => 'events', :action => 'search_by_title'
  map.search_in_description '/search_description', :controller => 'events', :action => 'search_in_description'

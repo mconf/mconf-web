@@ -5,7 +5,8 @@ class Event < ActiveRecord::Base
   :name=> {:store => :yes} ,
   :description=> {:store => :yes} , 
   :tag_list=> {:store => :yes},
-  :start_dates => {:store => :yes}}
+  :start_dates => {:store => :yes},
+  :title_for_sort => {:index => :untokenized}}
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 
@@ -69,7 +70,11 @@ class Event < ActiveRecord::Base
     ["1M","1M"],
     ["2M","2M"],
     ["5M","5M"]].freeze
+   
     
+    def title_for_sort
+        return self.name
+  end
   #Ein... falta test
   def self.service_qualities
       begin

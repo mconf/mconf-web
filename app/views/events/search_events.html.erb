@@ -3,21 +3,43 @@
 <script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
 <script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
 &nbsp;
-<TABLE class=day WIDTH=100% BORDER=1 CELLSPACING=0 CELLPADDING=0>
-<TR><TD width=100% rowspan=3 valign="top">
+
 <ul>
 
 	<% if @events== nil %>
 	Please insert something in the search box
 	<% else%>
-	<h3> <%= @events.total_hits%> events were found</h3>
+	<h3> <%= @events.total_hits%> events were found</h3></td><tr>
 	<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 
-	<% @events.each do |event| %>  
-    <li>Title: <%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
-    		<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+	<table class="search_results" border="1" frame="void" rules="groups" cellpadding="10">
+<tr>
+	<td>Title</td>
+	<td>Description</td>
+	<td>Start Date</td>
+	<td>Options</td>
+	<td>Keywords</td>
+	</tr>
+	<tr>
+		<% @events.each do |event| %>  
+		<td>
+			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
+		</td>
+		<td>
+			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+     
+		</td>
+		<td> 
+		<% i = 0%>
+     	<% for dates in event.start_dates %>  
+    [<%=  i %>] <%= event.start_dates[i] %>
+<% i += 1%>
+<%end%>
+		</td>
+				<td>
+					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable
                   %>				  
@@ -31,30 +53,36 @@
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%>	
+				</td>
+		<td>
+			 <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %></li>
+  
+		</td>
+		</tr>
+		 <% end %>
+
+ 
+	</table>
+	
+	 <%end%>
+     
+    		
     </li>
 	
-     Description: <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
-     
+    
 	
      <ul>
-     	<% i = 0%>
-     	<% for dates in event.start_dates %>  
-    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
-<% i += 1%>
-<%end%>
-	<li> Keywords: <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %></li>
-  
+     	
+	<li> 
 	  </ul>
-	   <% end %>
-
-  <%end%>
+	  
 </ul>
 <%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 <input onclick=document.location="/search" type="button" value="Back" />
   
-</TD>
+
 <TD class=filter_view>
 <span>Filter view:&nbsp;
 <%array_machines = []

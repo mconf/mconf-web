@@ -408,12 +408,15 @@ class EventsController < ApplicationController
   def search_events 
     @cloud = Tag.cloud 
     @query = params[:query]
+   
     @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     respond_to do |format|        
       format.html     
     end
   end
+  
+
   #metodo que devuelve los eventos que tienen un tag
   def search_by_tag    
     @cloud = Tag.cloud
