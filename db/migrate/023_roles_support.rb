@@ -7,7 +7,7 @@ class RolesSupport < ActiveRecord::Migration
       t.boolean :update_posts
       t.boolean :delete_posts
       t.boolean :create_performances
-      t.boolean :read_preformances
+      t.boolean :read_performances
       t.boolean :update_performances
       t.boolean :delete_performances
     end
