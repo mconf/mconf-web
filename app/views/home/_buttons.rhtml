@@ -17,7 +17,7 @@
 <% elsif logged_in?%>
 
   <ul>
-	<li><%= link_to 'Search', {:action => 'search'},  :title=>"Search for events"%></li>
+	<li><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :title=>"Search for events"%></li>
 	 <li><%= link_to "Events", {:controller=>'events', :action=>'show'}, :method=> 'get'%></li>
 	 <li><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
   </ul>
