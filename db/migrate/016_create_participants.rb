@@ -14,7 +14,7 @@ class CreateParticipants < ActiveRecord::Migration
 
   def self.down
     drop_table :participants
-    create_table :participants do |t|
+    create_table :event_participants do |t|
       t.column :event_id, :integer, :null=>false
       t.column :machine_id, :integer, :null=>false
       t.column :machine_id_connected_to, :integer, :null=>false
