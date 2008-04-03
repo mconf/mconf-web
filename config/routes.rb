@@ -51,7 +51,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :events, :memeber =>'export_ical'
   map.resources :users do |users|
       users.resources :profiles  
-  end
+   
+ end
+ map.resources :roles
   #explicit routes ORDERED BY CONTROLLER
   
   #EVENTS CONTROLLER
