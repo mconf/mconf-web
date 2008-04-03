@@ -27,7 +27,7 @@
   <ul> 
   
      <li><%= link_to "Home", {:controller=>'events', :action=>'show'}, :class => "secund" , :method=> 'get'%></li>
-	 <li><%= link_to 'Search', {:action => 'search'}, :class => "secund" ,:title=>"Search for events"%></li> 
+	 <li><%= link_to 'Search', {:controller=>'events',:action => 'search'}, :class => "secund" ,:title=>"Search for events"%></li> 
  </ul>
   
 <% end %>
