@@ -18,10 +18,9 @@ a:link, a:visited, a:hover, p{
 	position:absolute;
 	width:160px;
 	height:140px;
-	margin-top:0px; 
+	margin-top:0px;
+	margin-left:20px; 
 	background-image: url(../images/foto.jpg);
-	
-	
 }
 
 #idioma{ 
@@ -52,7 +51,37 @@ a:link, a:visited, a:hover, p{
 #menu_secund{
 	position: absolute;
 	margin-left: 200px;
-	 
+	width:60%;
+	height:50px;
+	margin-top:100px;
+	left: 50%;
+	margin-left: -30%;    
+	
+}
+
+a.secund{
+	
+	color: #7C7E80;
+	text-decoration:none;
+	padding-left:15px;
+	border-right:3px solid #7C7E80;
+	padding-right:5px;
+	
+	
+}
+a:hover.secund{
+	
+	color:#36332F;
+}
+
+#botones{
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 50px;
+    margin-top: -25px;    
+    width: 98%;
+    margin-left: -49%;    
 	
 }
 
@@ -130,8 +159,14 @@ a:link, a:visited, a:hover, p{
  
  #main{
  	position:absolute;
- 	margin-top: 200px;
+ 	margin-top: 150px;
 	border:solid;
+	width:96%;
+	height:78%;
+	left: 50%;
+	margin-left: -48%;    
+	
 	
 	
  }
+ 

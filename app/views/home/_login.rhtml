@@ -6,17 +6,20 @@
 		
 		<div id="menu_login">
 		<ul>
-		<li><%= link_to 'Logout', logout_path , :class => "button", :method=> 'get'%></li>
-		<li><%= link_to 'Account', edit_user_path(current_user),  :class => "button", :method=> 'get' %></li>
-  	 	<li><%= link_to 'Profile', hcard_path(current_user),  :class => "button", :method=> 'get' %></li>
+
+		<li><%= link_to 'Logout', logout_path , :method=> 'get'%></li>
+		<li><%= link_to 'Account', edit_user_path(current_user),  :method=> 'get' %></li>
+		<li><%= link_to 'Profile', hcard_path(current_user),  :method=> 'get' %></li>
+  	 	
+
 		</ul>
 		</div>
 	<% else%>
 	<div id="menu_login">
 		<ul>
 		
-		<li><%= link_to 'Login', login_path,  :class => "button", :method=> 'get' %></li>
-		<li><%= link_to 'Register', signup_path, :class => "button" , :method=> 'get'%></li>
+		<li><%= link_to 'Login', login_path, :method=> 'get' %></li>
+		<li><%= link_to 'Register', signup_path,  :method=> 'get'%></li>
 		</ul>
 			</div>
 	<% end %>

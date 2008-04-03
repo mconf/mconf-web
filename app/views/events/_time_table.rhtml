@@ -26,9 +26,7 @@
 <TD class="headerDay" <% if current_user== :false || current_user.machines.empty? %> align=center <%end%>>
 Date: <%=@datetime.to_s%>
 </TD>
-<td> &nbsp;&nbsp;<%= link_to 'Search', {:action => 'search'} ,:title=>"Search for events"%>        
 
-	</td>
 </TR>
 </TABLE>
 </TD>
