@@ -127,7 +127,7 @@ class Event < ActiveRecord::Base
       end
       for participant in participants
         logger.debug("participant id " + participant.machine_id.to_s)
-        if participant.machine_id==machine_id
+        if participant.machine_id.to_s==machine_id.to_s
           return true
         end
       end
