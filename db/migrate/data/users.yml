@@ -1,0 +1,18 @@
+admin:
+  id: 1
+  login: admin
+  email: ebarra@dit.upm.es	
+  crypted_password: 8057e7a92d13acf21ea192bb3097550a6a205281	
+  salt: 193d1348682da4451dc1f4b155d89f68ae6963e0	
+  created_at: 2008-04-03 17:34:59
+  updated_at: 2008-04-03 17:34:59	
+  remember_token: NULL	 
+  remember_token_expires_at: NULL	
+  superuser: 1	
+  disabled: 0	
+  reset_password_code: NULL	
+  email2: NULL	
+  email3: NULL	
+  activation_code: NULL	
+  activated_at: 2008-04-03 17:34:59
+	 	 	 	 	 		
