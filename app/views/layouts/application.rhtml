@@ -37,6 +37,9 @@
 	 </div>
    
    <div id="main" >
+   	    <% if flash[:error] -%>
+        <br><div id="notice" style="color: green"><%= flash[:error] %></div>
+        <% end -%>-
         <% if flash[:notice] -%>
         <br><div id="notice" style="color: green"><%= flash[:notice] %></div>
         <% end -%>

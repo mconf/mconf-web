@@ -1,0 +1,11 @@
+<h1>New Space</h1>
+
+<%= error_messages_for :space %>
+
+<% form_for(@space) do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/spaces" type="button" value="Back" />
+  </p>
+<% end %>
+

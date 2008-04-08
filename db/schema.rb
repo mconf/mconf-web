@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 23) do
+ActiveRecord::Schema.define(:version => 26) do
 
   create_table "cms_performances", :force => true do |t|
     t.integer "agent_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 23) do
     t.boolean "read_performances"
     t.boolean "update_performances"
     t.boolean "delete_performances"
+    t.boolean "manage_events"
+    t.boolean "admin"
   end
 
   create_table "cms_uris", :force => true do |t|
@@ -188,6 +190,13 @@ ActiveRecord::Schema.define(:version => 23) do
     t.string   "value",      :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "spaces", :force => true do |t|
+    t.string  "name"
+    t.string  "description"
+    t.integer "parent_id"
+    t.boolean "deleted"
   end
 
   create_table "taggings", :force => true do |t|
