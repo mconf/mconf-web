@@ -53,7 +53,9 @@ ActionController::Routing::Routes.draw do |map|
       users.resources :profiles  
    
  end
- map.resources :roles
+  map.resources :roles
+  map.resources :spaces
+  map.add_user '/spaces/:id/add_user', :controller => "spaces", :action => "add_user"
   #explicit routes ORDERED BY CONTROLLER
   
   #EVENTS CONTROLLER
@@ -103,5 +105,4 @@ ActionController::Routing::Routes.draw do |map|
   map.manage_resources '/manage_resources', :controller => 'machines', :action => 'manage_resources'  
   #SIMPLE_CAPTCHA CONTROLLER
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
-  
 end
