@@ -76,7 +76,14 @@ class SpacesController < ApplicationController
   
   
   def add_user
-    
+    @space = self    
+  end
+  
+  
+  #method to know the users that belong to this space
+  def users
+    User.find(:all)
     
   end
+  
 end

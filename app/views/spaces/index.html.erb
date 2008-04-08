@@ -19,7 +19,7 @@
 		<%= text_field("space", "description", :value=>space.description, :readonly => false) %>
 	</td>
     <td>
-    <%= link_to 'Add Users', edit_space_path(space) %>
+    <%= link_to 'Add Users', add_user_path(space) %>
 	<%= link_to 'Edit', edit_space_path(space) %>
     <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %></td>
   </tr>
