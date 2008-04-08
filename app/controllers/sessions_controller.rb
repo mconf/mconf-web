@@ -77,11 +77,6 @@ class SessionsController < ApplicationController
       when OpenID::Consumer::CANCEL
         flash[:notice] = "OpenID transaction cancelled"
       end
-    # Unknown session initialization request
-    else
-      render :text   => "Unknown session initialization request",
-             :status => 400
-      return
     end
 
     if authenticated?

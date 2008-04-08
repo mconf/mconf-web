@@ -42,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :profiles
   map.resources :users
   map.open_id_complete 'session', { :open_id_complete => true,
-                                    :requirements => { :method => :get },
+                                    :conditions => { :method => :get },
                                     :controller => "sessions",
                                     :action => "create" }
   map.resource :session
