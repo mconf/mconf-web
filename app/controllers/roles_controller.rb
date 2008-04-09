@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  
+  before_filter :authentication_required
   def index
     @role = CMS::Role.find(:all )
     
@@ -12,7 +12,7 @@ class RolesController < ApplicationController
   
   
   def show
-    @role = CMS::Role.find(:all )
+    @role = CMS::Role.find(params[:id] )
   
     
     respond_to do |format|
@@ -44,7 +44,7 @@ class RolesController < ApplicationController
     
     @role = CMS::Role.new(params[:cms_role])
 
-    debugger
+ 
     respond_to do |format|
       if @role.save
         flash[:notice] = 'Role was successfully created.'
@@ -59,12 +59,13 @@ class RolesController < ApplicationController
 # PUT /roles/1
   # PUT /roles/1.xml
   def update
+   
     @role = CMS::Role.find(params[:id])
 
     respond_to do |format|
-      if @role.update_attributes(params[:role])
+      if @role.update_attributes(params[:cms_role])
         flash[:notice] = 'Role was successfully updated.'
-        format.html { render :action => "index" }
+        format.html { redirect_to(:action => "index", :controller => "roles") }
         format.xml  { head :ok }
       else
         format.html { render :action => "index" }

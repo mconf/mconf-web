@@ -5,8 +5,7 @@ class Event < ActiveRecord::Base
   :name=> {:store => :yes} ,
   :description=> {:store => :yes} , 
   :tag_list=> {:store => :yes},
-  :start_dates => {:store => :yes},
-  :title_for_sort => {:index => :untokenized}}
+  :start_dates => {:store => :yes} }
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 
@@ -72,9 +71,7 @@ class Event < ActiveRecord::Base
     ["5M","5M"]].freeze
    
     
-    def title_for_sort
-        return self.name
-  end
+    
   #Ein... falta test
   def self.service_qualities
       begin
@@ -490,12 +487,12 @@ class Event < ActiveRecord::Base
    date2 = Date.parse(q2)
    date2ok =  date2.strftime("%Y%m%d")
 
-     
+    
    query = Ferret::Search::RangeQuery.new(:start_dates , :>= => date1ok, :<= => date2ok)
     # now do the query with our options
-      
+     
     results = Event.find_by_contents(query, options)
-    return [results.total_hits, results]
+    return [results.total_hits, results,query]
   end
   
   def start_dates 

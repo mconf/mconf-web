@@ -1,0 +1,70 @@
+<table>
+<tr><td>Name: </td>
+<td>Create posts: </td>
+<td>Read posts: </td>
+<td>Update posts: </td>
+<td>Delete posts: </td>
+<td>Create performance: </td>
+<td>Read performance: </td>
+<td>Update performance: </td>
+<td>Delete performance: </td>
+<td>Manage Events: </td>
+<td>Administrator:  </td>
+</tr>
+<tr>
+<td><%= @role.name%></td>
+<td><% if @role.create_posts == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.read_posts == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.update_posts == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.delete_posts == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.create_performances == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.read_performances == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.update_performances == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.delete_performances == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.manage_events == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td><% if @role.admin == true %>
+ <%=  image_tag("/images/ok.gif",:border=>0)%>
+<% else %>
+<%=  image_tag("/images/cancel.gif",:border=>0)%>
+<%end%></td>
+<td></tr>
+
+<tr><td><input onclick=document.location="/roles" type="button" value="Back" />
+     </td></tr>   
+</table>

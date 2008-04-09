@@ -48,10 +48,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.resource :notifier
   map.resource :machines
-  map.resources :events, :memeber =>'export_ical'
+  map.resources :events, :member =>'export_ical'
   map.resources :users do |users|
-      users.resources :profiles  
-   
+      users.resources :profiles     
  end
   map.resources :roles
   map.resources :spaces

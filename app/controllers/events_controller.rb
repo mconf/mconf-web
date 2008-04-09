@@ -458,12 +458,13 @@ class EventsController < ApplicationController
   
   
   def search_by_date
+
     @cloud = Tag.cloud
-    @query = params[:query1]
+    @query1 = params[:query1]
     @query2 = params[:query2]
     #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
    #a formato Ymd => 20081124
-    date1 = Date.parse(@query)
+    date1 = Date.parse(@query1)
    date1ok =  date1.strftime("%Y%m%d")
    date2 = Date.parse(@query2)
    date2ok =  date2.strftime("%Y%m%d")
@@ -471,7 +472,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'The first date cannot be lower than the second one'
     render :template => "events/search"
     else
-     @total, @events = Event.date_search(@query,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+     @total, @events, @query = Event.date_search(@query1,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
    @pages = pages_for(@total)
     respond_to do |format|
       format.html {render :template => "events/search_events"}
