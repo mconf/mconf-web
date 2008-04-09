@@ -57,7 +57,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(:action => "index", :controller => "profiles") }
+        format.html { redirect_to(:action => "hcard", :controller => "profiles") }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
         format.html { render :action => "new" }
@@ -70,11 +70,11 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1.xml
   def update
     @profile = Profile.find(params[:id])
-
+@user = User.find(@profile.users_id)
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
-        format.html { render :action => "index" }
+        format.html { render :action => "hcard" }
         format.xml  { head :ok }
       else
         format.html { render :action => "index" }
@@ -97,8 +97,17 @@ class ProfilesController < ApplicationController
   
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
+    
   @profile = Profile.find_by_users_id(current_user.id )
-  @user = User.find(@profile.users_id)
+  if @profile  == nil
+    flash[:notice] = 'You must create your profile first.'
+     redirect_to(:action => "new", :controller => "profiles") 
+
+else
+  
+   @user = User.find(@profile.users_id)
+   end
+  
 end
 #this method is used to compose the vcard file (.vcf) with the profile of an user
 def vcard
