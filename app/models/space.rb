@@ -1,4 +1,4 @@
 class Space < ActiveRecord::Base
-  #act_as_container
+  acts_as_container
   
 end
