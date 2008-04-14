@@ -47,7 +47,7 @@
 </tr>
 <tr>
     <td>    
-	<%=select("user", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] }, {}, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
+	<%=select("user", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
     </td>
  <td>
     <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.user_user_id, this.form.space_id)"><br>
@@ -55,7 +55,7 @@
     <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="MoveOption(this.form.space_id, this.form.user_user_id)"><br>
     </td>
  <td>
- 	<%=f.select("id", @space.users.collect {|p| [ p.login, p.id ] }, {}, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
+ 	<%=f.select("id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
     </td>
 </tr>
 <tr>
