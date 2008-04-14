@@ -48,7 +48,7 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   def update
     @space = Space.find(params[:id])
-
+    debugger
     respond_to do |format|
       if @space.update_attributes(params[:space])
         flash[:notice] = 'Space was successfully updated.'
@@ -76,14 +76,10 @@ class SpacesController < ApplicationController
   
   
   def add_user
-    @space = self    
+    @space = Space.find(params[:id])   
   end
   
   
-  #method to know the users that belong to this space
-  def users
-    User.find(:all)
-    
-  end
+  
   
 end

@@ -1,7 +1,5 @@
 <% @page_title = "Add users to the space"%>
 
-<html>
-<head>
     <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
     function MoveOption(objSourceElement, objTargetElement)
     {
@@ -36,12 +34,11 @@
         }
     }
     </SCRIPT>
-</head>
 
-<body>
+
 <p><font face="Arial,Helvetica,sans-serif"><b>Add users to the space</b></font></p>
 <p><font face="Arial,Helvetica,sans-serif">Select one or several users and add it to the space</font></p>
-<form action="" name="MoveList">
+<% form_for @space, :url => space_path(@space.id), :html => {:method => :put} do |f| -%>
 <table>
 <tr>
    <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>All Users</b></font></td>
@@ -53,15 +50,21 @@
 	<%=select("user", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] }, {}, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
     </td>
  <td>
-    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.AllUsers, this.form.SpaceUsers)"><br>
+    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.user_user_id, this.form.space_id)"><br>
     <br>
-    <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="MoveOption(this.form.SpaceUsers, this.form.AllUsers)"><br>
+    <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="MoveOption(this.form.space_id, this.form.user_user_id)"><br>
     </td>
  <td>
- 	<%=select("space", "id", @space.users.collect {|p| [ p.login, p.id ] }, {}, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
+ 	<%=f.select("id", @space.users.collect {|p| [ p.login, p.id ] }, {}, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
     </td>
 </tr>
+<tr>
+	<td align="center">
+	<%= submit_tag 'Confirm' %>
+	</td>
+	<td>
+    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
+	</td>
+</tr>
 </table>
-</form>
-</body>
-</html>
+<% end %>
