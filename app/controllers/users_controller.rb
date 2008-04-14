@@ -1,6 +1,10 @@
 require "digest/sha1"
-class UsersController < CMS::AgentsController
-   before_filter :authentication_required,  :only => [:edit, :update,:manage_users, :destroy]
+class UsersController < ApplicationController
+   # Include some methods and set some default filters. 
+   # See documentation: CMS::Controller::Agents#included
+   include CMS::Controller::Agents
+
+   before_filter :authentication_required, :only => [:edit, :update,:manage_users, :destroy]
   
   def create
     cookies.delete :auth_token

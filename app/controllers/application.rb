@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   session :session_key => '_restful_auth_session_id'
   
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include CMS::Authentication
+  include CMS::Controller::Authentication
   include SimpleCaptcha::ControllerHelpers 
   
   private
