@@ -1,0 +1,9 @@
+
+
+ 
+ <% form_tag({:controller=> 'users',:action => :search_in_organization}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_in_organization}%>
+
+ 
+ <% end %>

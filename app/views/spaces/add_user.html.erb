@@ -95,6 +95,12 @@
 	<td>
 		<%=select("role", "id", CMS::Role.find(:all).collect {|p| [ p.name, p.id ] }, {:multiple => false, :size => 10, :style=>"width: 200px;" }) %>	
 	</td>
+	<td align="center">
+	<input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick="SendUsers(this.form.users_id)">
+	</td>
+	<td>
+    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
+	</td>
 </tr>
 
 
@@ -102,6 +108,10 @@
 
 <%= render :partial=> '/users/search' %>
 	</td></tr>
+	<tr><td><div id= "adv_search">
+		
+		
+</div></td></tr>
 	<tr><td><div id= "search_results">
 		
 		
@@ -110,12 +120,7 @@
 	</td></tr>
 <tr>
 	<% end %>
-	<td align="center">
-	<input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick="SendUsers(this.form.users_id)">
-	</td>
-	<td>
-    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
-	</td>
+	
 </tr>
 </table>
 

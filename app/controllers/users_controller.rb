@@ -90,5 +90,21 @@ def search_users
       format.js 
      #format.html 
     end
-end
+  end
+  def search_in_organization
+    @query = params[:query]
+   q1 = "organization:" + @query + "*" 
+    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+
+  respond_to do |format|        
+      format.js 
+     #format.html 
+    end
+  end
+ def organization
+    respond_to do |format|
+      # format.html 
+      format.js   
+    end
+ end
 end

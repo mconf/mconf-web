@@ -1,11 +1,12 @@
 
-	<span><h4> Search</h4> </span>
+	<h4> Search</h4> </span>
 		<br>	
 
  <span> <% form_tag({:controller=> 'users',:action => :search_users}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users}%>
   </span>
+ <br> <%= link_to_remote 'Advanced Search' , {:url=>{:controller => 'users', :action=>'organization'}}%>
    <% end %>
    
     
