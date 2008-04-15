@@ -31,7 +31,12 @@ class UsersController < ApplicationController
   def edit
       @user = User.find(params[:id])
   end
-  
+  def clean
+    render :update do |page|
+      page.replace_html 'search_results', ""
+      
+    end
+  end
   
   #this method updates a user
   def update
