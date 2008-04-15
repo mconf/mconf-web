@@ -1,12 +1,16 @@
 
-  
+  <tr>
  <% if @users.total_hits== 0 %>
 	No Users Found
 	<% else%>
 		<% @users.each do |user| %> 
+		<td>
 	<%=select("user", "user_id", @users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
- 
-
+ </td>
+<td>
+    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.usuarios_user_id, this.form.users_id)"><br>
+  </td>
 	
 	<%end%>
 	<%end%>
+	</tr> 
