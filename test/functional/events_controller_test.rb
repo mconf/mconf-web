@@ -206,7 +206,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"13", "start_date(5i)"=>"50", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('smaller')
-    assert_redirected_to :action => "show"    
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
       
@@ -214,7 +214,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"3", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"13", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('bigger')
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -223,7 +223,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true", :tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"10", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -232,7 +232,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"1", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -241,7 +241,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"1"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -250,7 +250,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>0, "fec"=>10, "role"=>"interactive", "machine_id"=>1, "description"=>"", "machine_id_connected_to"=>0}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -258,7 +258,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:is_valid_time1=>"true", :participant0=>{"radiate_multicast"=>"1", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2018", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2018", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   
@@ -267,7 +267,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"1"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
-    assert_redirected_to :action => "show"
+    assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
   

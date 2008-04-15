@@ -11,7 +11,8 @@ class Event < ActiveRecord::Base
     has_many :participants, 
              :dependent => :destroy 
     has_many :machines, :through => :participants
-    has_and_belongs_to_many :users
+    acts_as_content
+    alias_attribute :title, :name
     validates_presence_of :name, 
                           :message => "must be specified"
    
@@ -91,11 +92,6 @@ class Event < ActiveRecord::Base
         return SERVICE_QUALITIES
       end
     end
-    #Guarda la id del usuario que creo el evento en la BD
-      def just_created(user)
-        users << user      
-     
-   end
   
     
   #method that returns an array with the participants in common between this event an the

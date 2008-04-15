@@ -19,7 +19,7 @@
         <%if @datetime>Date.today%>
 			<%session[:date_start_day] = @datetime%>
 		<%end%>
-            &nbsp;&nbsp;<%= link_to 'New event', {:action => 'new'} ,:title=>"Create a new event"%>        
+            &nbsp;&nbsp;<%= link_to 'New event', new_container_content_path(:content => :event) ,:title=>"Create a new event"%>        
     <%end-%>
     </TD>
 <%end-%>

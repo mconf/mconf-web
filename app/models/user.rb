@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   acts_as_agent :authentication => [ :login_and_password ],
                 :activation => true
 
+  acts_as_container
+
   has_one :profile
   
   has_many :participants

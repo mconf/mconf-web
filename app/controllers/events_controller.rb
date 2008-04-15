@@ -1,10 +1,26 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
-
-  
+   # Include some methods and set some default filters.
+   # See documentation: CMS::Controller::Contents#included
+  include CMS::Controller::Contents
   
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+
+  # Check if requesting a container
+  before_filter :get_container, :only => [ :index, :show]
+
+  # A Container is needed when posting new events
+  # (see CMS::ControllerMethods#needs_container)
+  before_filter :needs_container, :only => [ :new, :create ]
+  
+  # Included by CMS::Controller::Contents but not used here
+  skip_before_filter :get_content
+
+  #TODO: Roles
+  skip_before_filter :can_read_container
+  skip_before_filter :can_write_container
+  skip_before_filter :can_read_content
 
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
@@ -13,13 +29,14 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
+    # WTF?? This isn't RESTful!!!
     show
   end
   
   # GET /events/1
   # GET /events/1.xml
   def show
-    
+
     if session[:date_start_day]
       datetime_start_day = session[:date_start_day]
     else
@@ -30,8 +47,9 @@ class EventsController < ApplicationController
     event_datetimes = select_events(datetime_start_day)
     @events = []
     for datetime in event_datetimes
-      eventin = Event.find_all_by_id(datetime.event_id)
-      @events << eventin
+      for eventin in Event.find_all_by_id(datetime.event_id)
+        @events << eventin unless @container && ! eventin.posted_in?(@container)
+      end
     end
     @events.flatten!
     @events.uniq!
@@ -95,7 +113,7 @@ class EventsController < ApplicationController
       @datetime.start_date = Time.now
       @datetime.end_date = Time.now
     end
-    
+        
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
@@ -114,7 +132,6 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-    
     @event = Event.new(params[:event])  
     indice = 0;
     param_name = 'datetime' + indice.to_s
@@ -143,10 +160,15 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.save
-        
         tag = params[:tag][:add_tag]    
         @event.tag_with(tag)
-        @event.just_created(current_user)
+        
+        @post = CMS::Post.create(:agent       => current_agent,
+                                 :container   => @container,
+                                 :content     => @event,
+                                 :title       => @event.title,
+                                 :description => @event.description)        
+                                 
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
         elsif EventDatetime.datetime_min_length(@event.event_datetimes)
@@ -155,9 +177,9 @@ class EventsController < ApplicationController
           flash[:notice] = 'Event was successfully created.'
         end
         
-        format.html { redirect_to :action => 'show', :date_start_day => @event.event_datetimes[0].start_date }
+        format.html { redirect_to container_contents_path(:date_start_day => @event.event_datetimes[0].start_date) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
-      else
+      else        
         format.html { render :action => "new" }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
