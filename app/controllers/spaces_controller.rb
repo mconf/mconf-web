@@ -50,9 +50,15 @@ class SpacesController < ApplicationController
     @space = Space.find(params[:id])
     respond_to do |format|
       if @space.update_attributes(params[:space])
-        if params[:users] && params[:users][:id]
-          debugger
-        end
+          if params[:users] && params[:users][:id]
+             debugger
+             i=0
+             while i<params[:users][:id].size
+                @space.performances.new :agent => User.find(params[:users][:id][i]), :role => CMS::Role.find(:first)
+                i = i+1
+             end          
+         end
+        @space.save!
         flash[:notice] = 'Space was successfully updated.'
         @spaces = Space.find(:all )
         format.html { render :action => "index" }
@@ -61,6 +67,7 @@ class SpacesController < ApplicationController
         format.html { render :action => "index" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
       end
+      
     end
   end
 
