@@ -1,0 +1,1 @@
+page.replace_html 'search_results', :partial => 'users_search' 

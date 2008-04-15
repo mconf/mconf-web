@@ -54,6 +54,7 @@ ActionController::Routing::Routes.draw do |map|
  end
   map.resources :roles
   map.resources :spaces
+  #SPACES CONTROLLER
   map.add_user '/spaces/:id/add_user', :controller => "spaces", :action => "add_user"
   #explicit routes ORDERED BY CONTROLLER
   
@@ -85,6 +86,7 @@ ActionController::Routing::Routes.draw do |map|
   map.vcard '/users/profiles/vcard/:id', :controller => 'profiles' , :action => 'vcard'   
   map.hcard '/users/profiles/hcard/:id', :controller => 'profiles' , :action => 'hcard'   
   #USERS CONTROLLER
+  map.search_users 'search_users', :controller => 'users', :action => 'search_users'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
@@ -104,4 +106,6 @@ ActionController::Routing::Routes.draw do |map|
   map.manage_resources '/manage_resources', :controller => 'machines', :action => 'manage_resources'  
   #SIMPLE_CAPTCHA CONTROLLER
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
+#ROLES CONTROLLER
+map.create_group '/create_group', :controller => 'roles', :action=> 'create_group'
 end

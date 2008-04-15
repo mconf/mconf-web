@@ -59,7 +59,7 @@ class RolesController < ApplicationController
 # PUT /roles/1
   # PUT /roles/1.xml
   def update
-   
+   debugger
     @role = CMS::Role.find(params[:id])
 
     respond_to do |format|
@@ -86,4 +86,19 @@ class RolesController < ApplicationController
     end
   end
 
+def create_group
+  #hay que buscar solo los usuarios del espacio, no todos
+  @users = User.find(:all)
+  ###############
+  @role = CMS::Role.new
+  respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @role }
+    end
+    
+end
+def save_group
+  #aqui se salvan los datos del nuevo role, y se asigan ese rol a los usuarios 
+  #seleccionados en éste espacio
+end
 end

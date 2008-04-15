@@ -35,7 +35,9 @@ class UsersController < ApplicationController
   
   #this method updates a user
   def update
+    
     @user = User.find(params[:id])
+  
     if @user.update_attributes(params[:user]) 
         #now we assign the machines to the user
         if current_user.superuser==true
@@ -74,4 +76,14 @@ class UsersController < ApplicationController
      redirect_to(:action => "manage_users")  
   end
 
+def search_users
+  @query = params[:query]
+   q1 =  @query 
+    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+
+  respond_to do |format|        
+      format.js 
+     #format.html 
+    end
+end
 end

@@ -1,5 +1,11 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  acts_as_ferret :fields => {  
+  :login=> {:store => :yes} ,
+  :email=> {:store => :yes} , 
+  :name=> {:store => :yes},
+  :lastname => {:store => :yes},
+  :organization=> {:store=> :yes}}
   acts_as_agent :authentication => [ :login_and_password ],
                 :activation => true
 
@@ -10,6 +16,18 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :machines 
   
   attr_accessible :email2, :email3, :superuser, :disabled
+def name
+  @profile = Profile.find_by_users_id(self.id )
+  return @profile.name
+end
+def lastname
+  @profile = Profile.find_by_users_id(self.id )
+  return @profile.lastname
+end
+def organization
+  @profile = Profile.find_by_users_id(self.id )
+  return @profile.organization
+end
 
   def self.authenticate_with_login_and_password(login, password)
     u = find_by_login(login) # need to get the salt

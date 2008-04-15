@@ -1,7 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
-  def base_language_only
+ 
+ 
+   def base_language_only
     yield if Locale.base?
   end
 
@@ -28,5 +29,14 @@ def prueba
 end
 def tag_item_url(name)
   "/search_events?query=#{name}&commit=Search"
+end
+#method that replace a true (1 in the database) or a false (0 in the database)
+  #with an image 
+  def replace_image(atr)
+     if atr == true
+  image_tag("/images/ok.jpg",:border=>0)
+ else 
+ image_tag("/images/cancel.gif",:border=>0)
+end
 end
 end
