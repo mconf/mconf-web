@@ -5,10 +5,10 @@
 	<% else%>
 		<% @users.each do |user| %> 
 		<td>
-	<%=select("user", "user_id", @users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
+	<%=select("user_search", "id", @users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
  </td>
 <td>
-    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.usuarios_user_id, this.form.users_id)"><br>
+    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.user_search_id, this.form.users_id)"><br>
   </td>
 	
 	<%end%>

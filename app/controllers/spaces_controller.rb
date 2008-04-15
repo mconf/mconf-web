@@ -50,12 +50,11 @@ class SpacesController < ApplicationController
     @space = Space.find(params[:id])
     respond_to do |format|
       if @space.update_attributes(params[:space])
+          @space.performances.delete_all
           if params[:users] && params[:users][:id]
-             debugger
-             i=0
-             while i<params[:users][:id].size
-                @space.performances.new :agent => User.find(params[:users][:id][i]), :role => CMS::Role.find(:first)
-                i = i+1
+             debugger             
+             for id in params[:users][:id]
+                @space.performances.create :agent => User.find(id), :role => CMS::Role.find(:first)
              end          
          end
         @space.save!

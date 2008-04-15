@@ -86,7 +86,7 @@
  <td>
     <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.usuarios_user_id, this.form.users_id)"><br>
     <br>
-    <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="RemoveUser(this.form.users_id)"><br>
+    <input type="button" name="remove" value="Remove" style="width: 100px;" onClick="RemoveUser(this.form.users_id)"><br>
     </td>
  <td>
  	<%=select("users", "id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
