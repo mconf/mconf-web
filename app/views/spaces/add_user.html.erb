@@ -78,6 +78,7 @@
    <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>All Users</b></font></td>
    <td><p>&nbsp;</p></td>
    <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>Space Users</b></font></td>
+   <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>Role</b></font></td>
 </tr>
 <tr>
     <td>    
@@ -91,6 +92,9 @@
  <td>
  	<%=select("users", "id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
     </td>
+	<td>
+		<%=select("role", "id", CMS::Role.find(:all).collect {|p| [ p.name, p.id ] }, {:multiple => false, :size => 10, :style=>"width: 200px;" }) %>	
+	</td>
 </tr>
 
 
