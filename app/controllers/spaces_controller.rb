@@ -48,9 +48,11 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   def update
     @space = Space.find(params[:id])
-    debugger
     respond_to do |format|
       if @space.update_attributes(params[:space])
+        if params[:users] && params[:users][:id]
+          debugger
+        end
         flash[:notice] = 'Space was successfully updated.'
         @spaces = Space.find(:all )
         format.html { render :action => "index" }

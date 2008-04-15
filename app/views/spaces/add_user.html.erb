@@ -2,17 +2,40 @@
 
     <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
     function MoveOption(objSourceElement, objTargetElement)
-    {
-        var aryTempSourceOptions = new Array();
+    {        
+        //looping through source element to find selected options
+        for (var i = 0; i < objSourceElement.length; i++) {
+            if (objSourceElement.options[i].selected && !IsAlreadyIn(objTargetElement,objSourceElement.options[i])) {
+                //need to move this option to target element
+                var intTargetLen = objTargetElement.length++;
+                objTargetElement.options[intTargetLen].text = objSourceElement.options[i].text;
+                objTargetElement.options[intTargetLen].value = objSourceElement.options[i].value;
+            }
+        }
+        
+    }
+	
+	//Method to know if an element is already in a select box
+	function IsAlreadyIn(objTargetElement, Element) {
+		for (var i = 0; i < objTargetElement.length; i++) {
+			if (objTargetElement.options[i].value == Element.value) {
+				alert("The user \"" + objTargetElement.options[i].text + "\" is already in the space")
+				return true;				
+			}
+		}
+		return false;
+	}
+	
+	//method to remove a user from the space
+	function RemoveUser(objSourceElement){
+		var aryTempSourceOptions = new Array();
         var x = 0;
         
         //looping through source element to find selected options
         for (var i = 0; i < objSourceElement.length; i++) {
             if (objSourceElement.options[i].selected) {
-                //need to move this option to target element
-                var intTargetLen = objTargetElement.length++;
-                objTargetElement.options[intTargetLen].text = objSourceElement.options[i].text;
-                objTargetElement.options[intTargetLen].value = objSourceElement.options[i].value;
+                //need to remove this option
+				//I just don't save this option
             }
             else {
                 //storing options that stay to recreate select element
@@ -32,13 +55,24 @@
             objSourceElement.options[i].value = aryTempSourceOptions[i].value;
             objSourceElement.options[i].selected = false;
         }
-    }
+	}
+	
+	//method to select all users of the space to send them to the server
+	function SendUsers(objSourceElement)
+	{
+		//looping through source element to find selected options
+        for (var i = 0; i < objSourceElement.length; i++) {            
+                //need to select this option  
+				objSourceElement.options[i].selected = true;        
+        }
+		document.user_space_form.submit();
+	}
     </SCRIPT>
 
 
 <p><font face="Arial,Helvetica,sans-serif"><b>Add users to the space</b></font></p>
 <p><font face="Arial,Helvetica,sans-serif">Select one or several users and add it to the space</font></p>
-<% form_for @space, :url => space_path(@space.id), :html => {:method => :put} do |f| -%>
+<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
 <table>
 <tr>
    <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>All Users</b></font></td>
@@ -47,15 +81,15 @@
 </tr>
 <tr>
     <td>    
-	<%=select("user", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
+	<%=select("usuarios", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
     </td>
  <td>
-    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.user_user_id, this.form.space_id)"><br>
+    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.usuarios_user_id, this.form.users_id)"><br>
     <br>
-    <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="MoveOption(this.form.space_id, this.form.user_user_id)"><br>
+    <input type="button" name="remove" value=" &lt;- Remove &nbsp;&nbsp;&nbsp;" style="width: 100px;" onClick="RemoveUser(this.form.users_id)"><br>
     </td>
  <td>
- 	<%=f.select("id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
+ 	<%=select("users", "id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
     </td>
 </tr>
 
@@ -73,7 +107,7 @@
 <tr>
 	<% end %>
 	<td align="center">
-	<%= submit_tag 'Confirm' %>
+	<input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick="SendUsers(this.form.users_id)">
 	</td>
 	<td>
     <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
