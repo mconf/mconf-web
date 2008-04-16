@@ -50,29 +50,64 @@ a:link, a:visited, a:hover, p{
 }
 #menu_secund{
 	position: absolute;
-	margin-left: 200px;
-	width:60%;
+	width:90%;
 	height:50px;
-	margin-top:100px;
+	margin-top:90px;
 	left: 50%;
-	margin-left: -30%;    
+	margin-left:-40%;
+	text-align:center;
+		
+  }
+  
+  a.secund{
+	
+	color: #636566;
+	text-decoration:none;
+	text-align:center;
+	font-weight:600;
 	
 }
 
-a.secund{
-	
-	color: #7C7E80;
-	text-decoration:none;
-	padding-left:15px;
-	border-right:3px solid #7C7E80;
-	padding-right:5px;
-	
-	
-}
 a:hover.secund{
-	
 	color:#36332F;
 }
+
+
+li.short{
+	
+	width:80px;
+	height:39px;
+	background-image:url(../images/short.gif);
+	background-position:center;
+	background-repeat:no-repeat;
+	padding-top:14px;
+	
+}
+
+
+li.medium{
+	
+	width:120px;
+	height:39px;
+	background-image:url(../images/medium.gif);
+	background-position:center;
+	background-repeat:no-repeat;
+	padding-top:14px;
+	
+}
+
+li.long{
+	
+	width:190px;
+	height:39px;
+	background-image:url(../images/long.gif);
+	background-repeat:no-repeat;
+	background-position:center;
+	padding-top:14px;
+	
+	
+}
+
 
 #botones{
 	position: absolute;
@@ -144,12 +179,7 @@ a:hover.secund{
 }
 
 
-#botones{
-	position: absolute;
-	
-	
-	
-}
+
 
  #botones ul li{
  	display:block;
@@ -160,13 +190,56 @@ a:hover.secund{
  #main{
  	position:absolute;
  	margin-top: 150px;
-	border:solid;
 	width:96%;
 	height:78%;
 	left: 50%;
 	margin-left: -48%;    
 	
-	
-	
+		
  }
  
+.superior div{
+	
+	background: url(../images/borde_si.gif) no-repeat top left;
+	
+	
+}
+
+.superior{
+	background: url(../images/borde_sd.gif) no-repeat top right;
+	
+	
+	
+}
+.inferior div{
+	
+	background: url(../images/borde_ii.gif) no-repeat bottom left;
+	
+	
+}
+
+.inferior {
+	
+	background: url(../images/borde_id.gif) no-repeat bottom right;
+	margin-top:-180px;
+	
+	
+}
+
+.superior div, .superior, .inferior, .inferior div {
+width: 100%;
+height: 330px;
+
+}
+.inferior, .inferior div {
+	margin-top:-220px;
+}
+#contenido{
+	position:relative;
+	width:92%;
+	left: 50%;
+	margin-left: -46%;
+	margin-top:-300px;
+	
+	
+}

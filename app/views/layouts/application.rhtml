@@ -19,12 +19,12 @@
 	<div id="logo">
 		 <!--<%= @page_title || "Isabel Server" %>-->
 	</div>
-	
+	<!--
 	<div id="idioma">
 		<%= link_to (image_tag("spain.gif")), {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %>
 		<%= link_to (image_tag("britain.gif")), {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %>
 	</div>
-	
+	-->
 	<div id="menu_pcipal">
 		
 	</div>
@@ -37,17 +37,32 @@
 	 </div>
    
    <div id="main" >
-   	    <% if flash[:error] -%>
+
+   		
+		<div class="superior"><div></div></div>
+		<div id="contenido">
+        	 <% if flash[:notice] -%>
+        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
+        	<% end -%>
+			<% if flash[:error] -%>
         <br><div id="notice" style="color: green"><%= flash[:error] %></div>
-        <% end -%>-
-        <% if flash[:notice] -%>
-        <br><div id="notice" style="color: green"><%= flash[:notice] %></div>
         <% end -%>
-		<% if flash[:warning] -%>
-         <br><div id="notice" style="color: red"><%= flash[:warning] %></div>
-        <% end -%>
-        <%= @content_for_layout %>
+			<% if flash[:warning] -%>
+         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
+        	<% end -%>
+        	<%= @content_for_layout %> 
+		
+		</div>
+		
+		<div class="inferior"><div></div></div>
+			
+
    </div>  
+   
+   
+   
+   
+   
    
    </div> 
 </body>

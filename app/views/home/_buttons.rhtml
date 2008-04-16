@@ -4,13 +4,13 @@
 <% if logged_in? && current_user.superuser==true %>
   
   <ul>
-  	 <li><%= link_to "Events" , {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
-	 <li><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
-	 <li><%= link_to "Resources", {:controller=>'machines',  :action=>'list_user_machines'},:class => "secund",:method=> 'get'%></li>
-     <li><%= link_to 'Manage Users' ,  manage_users_path, :class => "secund", :method=> 'get' %></li>
-	 <li><%= link_to 'Manage Resources',  manage_resources_path, :class => "secund", :method=> 'get' %></li>
-	 <li><%= link_to 'Manage Spaces',{:controller=>'spaces', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
-	<li><%= link_to 'Manage Roles',{:controller=>'roles', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
+  	 <li class="short"><%= link_to "Events" , {:controller=>'events', :action=>'show'}, :onclick => 'alf', :class => "secund", :method=> 'get'%></li>
+	 <li class="short"><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
+	 <li class="medium"><%= link_to "Resources", {:controller=>'machines',  :action=>'list_user_machines'},:class => "secund",:method=> 'get'%></li>
+     <li class="long"><%= link_to 'Manage Users' , manage_users_path, :class => "secund", :method=> 'get' %></li>
+	 <li class="long"><%= link_to 'Manage Resources',  manage_resources_path, :class => "secund", :method=> 'get' %></li>
+	 <li class="long"><%= link_to 'Manage Spaces',{:controller=>'spaces', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
+	 <li class="long"><%= link_to 'Manage Roles',{:controller=>'roles', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
 	
 	 
   </ul>
@@ -18,17 +18,17 @@
 <% elsif logged_in?%>
 
   <ul>
-	<li><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :title=>"Search for events"%></li>
-	 <li><%= link_to "Events", {:controller=>'events', :action=>'show'}, :method=> 'get'%></li>
-	 <li><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
+	 <li class="short"><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :class => "secund", :title=>"Search for events"%></li>
+	 <li class="short"><%= link_to "Events", {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
+	 <li class="medium"><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
   </ul>
 
 <% else %>
 
   <ul> 
   
-     <li><%= link_to "Home", {:controller=>'events', :action=>'show'}, :class => "secund" , :method=> 'get'%></li>
-	 <li><%= link_to 'Search', {:controller=>'events',:action => 'search'}, :class => "secund" ,:title=>"Search for events"%></li> 
+     <li class="short"><%= link_to "Home", {:controller=>'events', :action=>'show'}, :class => "secund" , :method=> 'get'%></li>
+	 <li class="short"><%= link_to 'Search', {:controller=>'events',:action => 'search'}, :class => "secund" ,:title=>"Search for events"%></li> 
  </ul>
   
 <% end %>
