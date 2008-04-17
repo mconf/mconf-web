@@ -2,6 +2,7 @@
 &nbsp;
 <h1>Roles</h1>
 <table>
+	
 <%@role.each do |role|%>
 <tr><td>
 Name: <%= role.name%>
@@ -15,4 +16,5 @@ Name: <%= role.name%>
 <%end%>
 <tr>
 <td><%= link_to 'New Role', new_role_path%></td></tr>
+
 </table>

@@ -1,0 +1,7 @@
+<h4>Miembros del grupo <%= @role.name%></h4>
+
+<%for user in @users%>
+<ul>
+<li><%= user.login%> con email <%= user.email%><br></li>
+</ul>
+<%end%>

@@ -110,5 +110,10 @@ ActionController::Routing::Routes.draw do |map|
   #SIMPLE_CAPTCHA CONTROLLER
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 #ROLES CONTROLLER
-map.create_group '/create_group', :controller => 'roles', :action=> 'create_group'
+map.save_group '/:container_type/:container_id/save_group', :controller => 'roles', :action=> 'save_group'
+map.create_group '/:container_type/:container_id/create_group', :controller => 'roles', :action=> 'create_group'
+map.show_groups '/:container_type/:container_id/show_groups', :controller => 'roles', :action=> 'show_groups'
+map.delete_group '/:container_type/:container_id/delete_group/:group_id', :controller => 'roles', :action=> 'delete_group'
+map.group_details '/:container_type/:container_id/group_details/:group_id', :controller => 'roles', :action=> 'group_details'
+
 end

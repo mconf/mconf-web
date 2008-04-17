@@ -2,6 +2,8 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base  
+  include CMS::Controller::Base
+  before_filter :get_container 
    before_filter :set_locale
 #Method used in the globalize plugin to set base language
   def set_locale

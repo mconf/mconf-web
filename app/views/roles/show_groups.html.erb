@@ -1,0 +1,16 @@
+<% @page_title = "Roles" %>
+&nbsp;
+<h3>Groups in this space <%=@container.name%></h3>
+<table>
+
+<% for role in @role%>
+<tr><td>
+Name: <%= role.name%> <%= link_to_remote 'Members' , :url=>( group_details_path(:space,@container.id, role.id))%> <%= link_to 'Delete' , delete_group_path(:space, @container.id,role.id),:confirm => 'Are you sure?'%>
+<%end%>
+<br>
+<br>
+<%= link_to 'Create Group', create_group_path(:space,@container.id)%>
+</table>
+<div id="group_details">
+	
+</div>

@@ -23,9 +23,12 @@
   	<%= link_to 'Edit', edit_space_path(space) %>
     <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
     <%= link_to '(Events)', container_events_path(:container_id => space.id, :container_type => :spaces) %>
+	<%= link_to 'Groups' ,show_groups_path(:container_id => space.id, :container_type => :spaces)%>
     </td>
   </tr>
 <% end %>
+<br>
+
 </table>
 
 <br />
