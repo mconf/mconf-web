@@ -180,7 +180,7 @@ class RolesController < ApplicationController
     end
   end
   def update_group
-    debugger
+   
     @rol = CMS::Role.find(params[:role][:id])
     @role = CMS::Role.find(params[:group_id])
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
