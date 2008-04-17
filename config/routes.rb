@@ -115,5 +115,7 @@ map.create_group '/:container_type/:container_id/create_group', :controller => '
 map.show_groups '/:container_type/:container_id/show_groups', :controller => 'roles', :action=> 'show_groups'
 map.delete_group '/:container_type/:container_id/delete_group/:group_id', :controller => 'roles', :action=> 'delete_group'
 map.group_details '/:container_type/:container_id/group_details/:group_id', :controller => 'roles', :action=> 'group_details'
+map.edit_group '/:container_type/:container_id/edit_group/:group_id', :controller => 'roles', :action=> 'edit_group'
+map.update_group '/:container_type/:container_id/update_group/:group_id', :controller => 'roles', :action=> 'update_group'
 
 end
