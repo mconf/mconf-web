@@ -50,6 +50,7 @@ class SpacesController < ApplicationController
     @space = Space.find(params[:id])
     respond_to do |format|
       if @space.update_attributes(params[:space])
+        #####Esto no... machaca las performances de los grupo y no vale...
           @space.performances.delete_all
           if params[:users] && params[:users][:id]             
              for id in params[:users][:id]

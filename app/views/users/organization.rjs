@@ -1,1 +1,1 @@
-page.replace_html 'adv_search', :partial => 'search_in_organization' 
+page.replace_html 'adv_search', :partial => 'search_by_tag' 

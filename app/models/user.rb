@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   :email=> {:store => :yes} , 
   :name=> {:store => :yes},
   :lastname => {:store => :yes},
-  :organization=> {:store=> :yes}}
+  :organization=> {:store=> :yes},
+  :tag_list=> {:store=>:yes}}
   acts_as_agent :authentication => [ :login_and_password ],
                 :activation => true
 
@@ -30,6 +31,7 @@ def organization
   @profile = Profile.find_by_users_id(self.id )
   return @profile.organization
 end
+
 
   def self.authenticate_with_login_and_password(login, password)
     u = find_by_login(login) # need to get the salt

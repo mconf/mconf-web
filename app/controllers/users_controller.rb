@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     # reset_session    
     @agent = User.new(params[:agent])            
     @agent.save!
+    tag = params[:tag][:add_tag]    
+      @agent.tag_with(tag)
     redirect_back_or_default('/')
     flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
   
@@ -91,11 +93,11 @@ def search_users
      #format.html 
     end
   end
-  def search_in_organization
-    @query = params[:query]
-   q1 = "organization:" + @query + "*" 
-    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+  def search_by_tag
 
+    @tag = params[:tag]
+   # @users = User.tagged_with(@tag)   
+ @users = User.find_by_contents(@tag)
   respond_to do |format|        
       format.js 
      #format.html 

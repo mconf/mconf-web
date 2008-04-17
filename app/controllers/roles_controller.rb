@@ -106,7 +106,7 @@ class RolesController < ApplicationController
     end
   end
   def show_groups
-    
+
     ###estan deben ser unicas...
     @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
     
@@ -139,7 +139,7 @@ class RolesController < ApplicationController
     
   end
   def save_group
-    debugger
+   
     
     @users =  @container.agents   
     @role = Group.new(params[:group])
@@ -193,10 +193,15 @@ class RolesController < ApplicationController
     if  @role.update_attributes(params[:group])
       if params[:users] && params[:users][:id]             
         for id in params[:users][:id]
+       
           @container.performances.create :agent => User.find(id), :role => @role
-        end          
+        end  
+        flash[:notice] = 'Group was successfully updated.'
+      else
+        @role.destroy
+        flash[:notice] = 'Group was successfully deleted.'
       end
-      flash[:notice] = 'Role was successfully updated.'
+      
        redirect_to(:action => "show_groups", :controller => "roles") 
       
     end

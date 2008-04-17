@@ -88,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
   #USERS CONTROLLER
   map.clean '/clean_search', :controller => 'users', :action => 'clean'
  map.organization '/search_in_organization', :controller => 'users', :action => 'organization'
- map.search_in_organization '/search_organization', :controller => 'users', :action=> 'search_in_organization'
+ map.search_by_tag '/search_tag', :controller => 'users', :action=> 'search_by_tag'
   map.search_users 'search_users', :controller => 'users', :action => 'search_users'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
