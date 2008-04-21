@@ -22,7 +22,7 @@ Rico.onLoad( function() {
   <%for role in CMS::Role.find_all_by_type(nil)%>
 	dndMgr.registerDropZone( new CustomDropZone($('<%=role.name%>')));
   <%end%>  
-  dndMgr.registerDropZone( new WasteBinDropZone($('wasteBin')));
+  dndMgr.registerDropZone( new WasteBinDropZone($('papelera')));
 });
 
 
@@ -238,6 +238,12 @@ span.code {
   font-size    : 11px;
   font-family  : Verdana, Arial, Helvetica;
 }
+.wasteBin {
+  padding-top      : 5px;
+  padding-bottom   : 5px;
+  background-color : #ffffff;
+  border           : 0px solid #8b8b8b;
+}
 span.catHeader {
   font-family : Arial;
   font-weight : bold;
@@ -267,9 +273,8 @@ input {
 
 
 <div id="WasteBox" style="margin-left:8px;margin-bottom:8px;float:left">
-   <span class="catHeader">Bin</span>
-   <div class="listBox" id="wasteBin" style="width:250px;height:140px;overflow:auto;">
-
+   <div class="wasteBin" id="wasteBin" style="width:250px;height:140px;overflow:auto;">
+   <%= image_tag "/images/papelera.png", :id => "papelera", :alt => "bin", :class => "bin"  %>
    </div>
 </div>
 
