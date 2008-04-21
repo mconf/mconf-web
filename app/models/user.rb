@@ -55,5 +55,15 @@ end
      if self.email3==""
        self.email3 = nil
      end
-   end
+ end
+ 
+ #returns a javascript array of all users
+ def self.print_array_of_all_users
+    temp = ""
+    for user in User.find(:all)
+      temp = temp + "\"" + user.login + "\", "
+    end
+    temp.chop.chop   #removes the last character, in this case the last space and the last comma
+   
+ end
 end

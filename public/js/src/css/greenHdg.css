@@ -1,0 +1,11 @@
+/* display grid headings with a green background */
+
+tr.ricoLG_hdg .ricoLG_cell, tr.ricoLG_hdg th, tr.ricoLG_hdg td {  /* td/th required for IE */
+  background-color : #cedebd;
+  color            : #000000;
+  font-weight      : bold;
+}
+div.ricoLG_selection { background-color: #cedebd; }
+tr.ricoLG_hdg div.hover {
+  background-color: #dee8cd !important;
+}

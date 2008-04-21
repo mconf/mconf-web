@@ -1,0 +1,47 @@
+/* ricoTree */
+
+.ricoTreeContainer {
+  background-color:#cedebd;
+  padding:4px;
+  border:1px solid black;
+  top:0px;
+  left:0px;
+  position:absolute;
+  z-index:9999;
+}
+
+.ricoTree {
+  border:thin inset;
+  overflow:auto;
+  background-color:#FFF;
+}
+
+.ricoTree p, .ricoTree a {
+  margin:0px;
+  padding-left:0.3em;
+  white-space:nowrap;
+}
+
+.ricoTree a {
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.ricoTree a:hover {
+  background-color:#EEE;
+}
+
+.ricoTree img {
+  margin:0px;
+  padding:0px;
+  display:block;
+}
+
+.ricoTreeContainer *, .ricoTree * {
+  font-size:8pt;
+  white-space:nowrap;
+}
+
+.ricoTreeButtons span:hover {
+  background-color:#deeecd;
+}

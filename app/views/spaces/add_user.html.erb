@@ -1,126 +1,298 @@
-<% @page_title = "Add users to the space"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-    <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-    function MoveOption(objSourceElement, objTargetElement)
-    {        
-        //looping through source element to find selected options
-        for (var i = 0; i < objSourceElement.length; i++) {
-            if (objSourceElement.options[i].selected && !IsAlreadyIn(objTargetElement,objSourceElement.options[i])) {
-                //need to move this option to target element
-                var intTargetLen = objTargetElement.length++;
-                objTargetElement.options[intTargetLen].text = objSourceElement.options[i].text;
-                objTargetElement.options[intTargetLen].value = objSourceElement.options[i].value;
-            }
-        }
-        
+<title>Rico Custom Draggable</title>
+
+
+<script type='text/javascript'>
+Rico.loadModule('DragAndDrop');
+
+var CustomDraggable;
+Rico.onLoad( function() {
+  Rico.setDebugArea('logger');
+  CustomDraggable = Class.create();
+  CustomDropZone = Class.create();
+  WasteBinDropZone = Class.create();
+  //checkQueryString();
+  CustomDraggable.prototype = Object.extend(new Rico.Draggable(), CustomDraggableMethods);
+  CustomDropZone.prototype = Object.extend(new Rico.Dropzone(), CustomDropZoneMethods);
+  WasteBinDropZone.prototype = Object.extend(new Rico.Dropzone(), WasteBinDropZoneMethods);
+  writeAllUsersNameSpans();
+  //writeSpaceUsersNameSpans();
+  createDraggables();
+  <%for role in CMS::Role.find_all_by_type(nil)%>
+	dndMgr.registerDropZone( new CustomDropZone($('<%=role.name%>')));
+  <%end%>  
+  dndMgr.registerDropZone( new WasteBinDropZone($('wasteBin')));
+});
+
+
+/*
+ //creo que este metodo es para los checkbox que he quitado
+function checkQueryString() {
+  var inputs=document.getElementsByTagName('input');
+  var s=window.location.search;
+  for (var i=0; i<inputs.length; i++) {
+    if (s.indexOf(inputs[i].id+'=') >= 0) {
+      CustomDraggable[inputs[i].id]=true;
+      inputs[i].checked=true;
     }
-	
-	//Method to know if an element is already in a select box
-	function IsAlreadyIn(objTargetElement, Element) {
-		for (var i = 0; i < objTargetElement.length; i++) {
-			if (objTargetElement.options[i].value == Element.value) {
-				alert("The user \"" + objTargetElement.options[i].text + "\" is already in the space")
-				return true;				
-			}
-		}
-		return false;
-	}
-	
-	//method to remove a user from the space
-	function RemoveUser(objSourceElement){
-		var aryTempSourceOptions = new Array();
-        var x = 0;
-        
-        //looping through source element to find selected options
-        for (var i = 0; i < objSourceElement.length; i++) {
-            if (objSourceElement.options[i].selected) {
-                //need to remove this option
-				//I just don't save this option
-            }
-            else {
-                //storing options that stay to recreate select element
-                var objTempValues = new Object();
-                objTempValues.text = objSourceElement.options[i].text;
-                objTempValues.value = objSourceElement.options[i].value;
-                aryTempSourceOptions[x] = objTempValues;
-                x++;
-            }
-        }
-        
-        //resetting length of source
-        objSourceElement.length = aryTempSourceOptions.length;
-        //looping through temp array to recreate source select element
-        for (var i = 0; i < aryTempSourceOptions.length; i++) {
-            objSourceElement.options[i].text = aryTempSourceOptions[i].text;
-            objSourceElement.options[i].value = aryTempSourceOptions[i].value;
-            objSourceElement.options[i].selected = false;
-        }
-	}
-	
-	//method to select all users of the space to send them to the server
-	function SendUsers(objSourceElement)
+    inputs[i].onclick=function() { document.forms[0].submit(); };
+  }
+}
+*/
+
+var allUsers = [<%=User.print_array_of_all_users%>];
+
+//comienzo a numerar por 1, las ids de los divs van de d1 a dn
+//los d0 son los divs nuevos que se añaden
+function writeAllUsersNameSpans() {
+  var s='';
+  for ( var i = 0 ; i < allUsers.length ; i++ )
+    s+="<div id='d" + i + "'>" + allUsers[i] + "</div>";
+  $('nameList').innerHTML=s;
+}
+
+
+function createDraggables() {
+   for ( var i = 0 ; i < allUsers.length ; i++ )
+      dndMgr.registerDraggable( new CustomDraggable($('d'+i), allUsers[i]) );
+   <%for role in CMS::Role.find_all_by_type(nil)%>
+     var spaceUsers = <%=Space.to_js_array(@space.agents_with_role(role.id))%>
+   	 for ( var i = 0 ; i < spaceUsers.length ; i++ )
+        dndMgr.registerDraggable( new CustomDraggable($("user_<%=role.name%>"+i), spaceUsers[i]) );
+   <%end%>
+}
+
+//function to get the data and send it to the server
+function sendData() {
+	<%for role in CMS::Role.find_all_by_type(nil)%>
+	 document.user_space_form.<%=role.name%>.value = document.getElementById('<%=role.name%>').innerHTML;     
+   <%end%>
+	document.user_space_form.submit();
+}
+
+
+//Method to know if an element is already in a select box
+function IsAlreadyIn(htmlElementDestiny, nameOrigin) {
+	if(htmlElementDestiny.innerHTML.indexOf(">"+nameOrigin+"<")>1)
 	{
-		//looping through source element to find selected options
-        for (var i = 0; i < objSourceElement.length; i++) {            
-                //need to select this option  
-				objSourceElement.options[i].selected = true;        
-        }
-		document.user_space_form.submit();
+		return true;		
 	}
-    </SCRIPT>
-
-
-<p><font face="Arial,Helvetica,sans-serif"><b>Add users to the space</b></font></p>
-<p><font face="Arial,Helvetica,sans-serif">Select one or several users and add it to the space</font></p>
-<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
-<table>
-<tr>
-   <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>All Users</b></font></td>
-   <td><p>&nbsp;</p></td>
-   <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>Space Users</b></font></td>
-   <td align="center"><font face="Arial,Helvetica,sans-serif" size="2"><b>Role</b></font></td>
-</tr>
-<tr>
-    <td>    
-	<%=select("usuarios", "user_id", User.find(:all).collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
-    </td>
- <td>
-    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.usuarios_user_id, this.form.users_id)"><br>
-    <br>
-    <input type="button" name="remove" value="Remove" style="width: 100px;" onClick="RemoveUser(this.form.users_id)"><br>
-    </td>
- <td>
- 	<%=select("users", "id", @space.users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>
-    </td>
-	<td>
-		<%=select("role", "id", CMS::Role.find(:all).collect {|p| [ p.name, p.id ] }, {:multiple => false, :size => 10, :style=>"width: 200px;" }) %>	
-	</td>
-	<td align="center">
-	<input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick="SendUsers(this.form.users_id)">
-	</td>
-	<td>
-    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
-	</td>
-</tr>
-
-
-<tr><td>
-
-<%= render :partial=> '/users/search' %>
-	</td></tr>
-	<tr><td><div id= "adv_search">
-		
-		
-</div></td></tr>
-	<tr><td><div id= "search_results">
-		
-		
-</div></td></tr>
- <tr><td>
-	</td></tr>
-<tr>
-	<% end %>
+	return false;
+	//if(document.getElementById("dropZone").innerHTML.indexOf(">"+Name+"<"))
 	
-</tr>
-</table>
+}
 
+/**
+ *  Sample 'CustomDraggable' object which extends the Rico.Draggable to
+ *  override the behaviors associated with a draggable object...
+ **/
+var CustomDraggableMethods = {
+
+   initialize: function( htmlElement, name ) {
+      this.type        = 'Custom';
+      this.htmlElement = $(htmlElement);
+      this.name        = name;
+   },
+
+   select: function() {
+      this.selected = true;
+      var el = this.htmlElement;
+
+      // show the item selected.....
+      el.style.color           = "#ffffff";
+      el.style.backgroundColor = "#08246b";
+   },
+
+   deselect: function() {
+      this.selected = false;
+      var el = this.htmlElement;
+      el.style.color           = "#2b2b2b";
+      el.style.backgroundColor = "transparent";
+   },
+
+   startDrag: function() {
+      Rico.writeDebugMsg("startDrag: [" + this.name +"]");
+   },
+
+   cancelDrag: function() {
+      Rico.writeDebugMsg("cancelDrag: [" + this.name +"]");
+   },
+
+   endDrag: function() {
+      Rico.writeDebugMsg("endDrag: [" + this.name +"]");
+	  dndMgr.registerDraggable( new CustomDraggable($("d0"), this.name) );
+	  //if ( removeOnDrop() )
+      //   this.htmlElement.style.display = 'none';
+   },
+
+   getSingleObjectDragGUI: function() {
+      var div = document.createElement("div");
+      div.className = 'customDraggable';
+      div.style.width = (this.htmlElement.offsetWidth - 10) + "px";
+      new Insertion.Top( div, this.name );
+      return div;
+   },
+
+   getDroppedGUI: function() {
+      var div = document.createElement("div");
+	  div.id="d0";   	  
+      var n=this.name
+      var names = n.split(",");
+      new Insertion.Top( div, n );
+      return div;
+   },
+
+   getName: function() {
+   	  return this.name
+   },
+      
+   hide: function() {
+   	  this.htmlElement.style.display = 'none';  
+   },
+   
+   toString: function() {
+      return this.name;
+   }
+
+}
+
+
+var CustomDropZoneMethods = {
+   
+	canAccept: function(draggableObjects) {
+       n = draggableObjects.length;	   
+      for ( var i = 0 ; i < n ; i++ )
+      {
+	     
+         var theGUIName = draggableObjects[i].getName();
+         if(IsAlreadyIn(this.htmlElement, theGUIName))
+		 {
+		 	return false;
+		 }
+      }
+	  return true;
+   }   
+}
+
+var WasteBinDropZoneMethods = {
+   accept: function(draggableObjects) {
+      var htmlElement = this.getHTMLElement();
+      if ( htmlElement == null )
+         return;
+
+      n = draggableObjects.length;
+      for ( var i = 0 ; i < n ; i++ )
+      {
+         var theGUI = draggableObjects[i].getDroppedGUI();
+         if ( RicoUtil.getElementsComputedStyle( theGUI, "position" ) == "absolute" )
+         {
+            theGUI.style.position = "static";
+            theGUI.style.top = "";
+            theGUI.style.top = "";
+         }
+         htmlElement.appendChild(theGUI);
+		 draggableObjects[i].hide();
+      }
+   } 
+}
+
+</script>
+
+<style type="text/css">
+body, p {
+	font-family : Trebuchet MS, Arial, Helvetica, sans-serif;
+}
+h1 { font-size: 16pt; }
+
+span.code {
+  font-family : fixed;
+  font-size   : 11px;
+  color       : #4b4b4b;
+}
+
+.logBox {
+  background-color : #ffffee;
+  border           : 1px solid #8b8b8b;
+  font-size        : 8pt;
+}
+
+.customDraggable {
+  background-color : #E0DDB5;
+  color            : #5b5b5b;
+  border           : 1px solid #5b5b5b;
+ /*  filter           : alpha(Opacity=70); */
+  -moz-opacity     : 0.7;
+  padding          : 1px 5px 1px 5px;
+  font-size    : 11px;
+}
+.listBox {
+  padding-top      : 5px;
+  padding-bottom   : 5px;
+  background-color : #ffffff;
+  border           : 1px solid #8b8b8b;
+}
+.listBox * {
+  margin: 0px;
+  padding: 0px;
+  font-size    : 11px;
+  font-family  : Verdana, Arial, Helvetica;
+}
+span.catHeader {
+  font-family : Arial;
+  font-weight : bold;
+  font-size   : 11px;
+  color       : #5b5b5b;
+  margin-left : 8px;
+  margin-top  : 12px;
+  display     : block;
+}
+input {
+  margin-left: 2em;
+}
+</style>
+
+
+
+<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
+<h1>Add Users to the Space</h1>
+
+
+<div id="exampleContainer" style="width:540px;background-color:#ffffff;padding-bottom:8px;">
+
+<div id="dragBox" style="display:inline;margin-left:8px;margin-bottom:8px;float:left;">
+   <span class="catHeader">All Users</span>
+   <div class="listBox" id="nameList" style="width:250px;height:140px;overflow:auto;"></div>
+</div>
+
+
+<div id="WasteBox" style="margin-left:8px;margin-bottom:8px;float:left">
+   <span class="catHeader">Bin</span>
+   <div class="listBox" id="wasteBin" style="width:250px;height:140px;overflow:auto;">
+
+   </div>
+</div>
+
+<%for role in CMS::Role.find_all_by_type(nil)%>
+	<div id="<%=role.name+1.to_s%>" style="margin-left:8px;margin-bottom:8px;float:left">
+	   <span class="catHeader"><%=role.name%></span>
+	   <div class="listBox" id="<%=role.name%>" style="width:250px;height:140px;overflow:auto;">
+	   <%i=0%>
+	   <%for user in @space.agents_with_role(role.id)%>
+	   		<div id="user_<%=role.name+i.to_s%>"><%=user.login%></div>
+			<%i=i+1%>
+	   <%end%>
+	   </div>
+	</div>
+	<input type="hidden" name="<%=role.name%>" value="" />
+<%end%>
+
+<div id="Botonera" style="display:inline;margin-left:8px;margin-bottom:8px;float:left;">
+    <input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick=sendData()>
+    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
+</div>
+
+
+
+</div>
+<% end %>

@@ -44,19 +44,22 @@ class SpacesController < ApplicationController
     end
   end
   
+  
   # PUT /spaces/1
   # PUT /spaces/1.xml
   def update
-    @space = Space.find(params[:id])
+    @space = Space.find(params[:id])    
     respond_to do |format|
       if @space.update_attributes(params[:space])
-        #####Esto no... machaca las performances de los grupo y no vale...
-          @space.performances.delete_all
-          if params[:users] && params[:users][:id]             
-             for id in params[:users][:id]
-                @space.performances.create :agent => User.find(id), :role => CMS::Role.find(:first)
-             end          
-         end
+          #fist of all we delete all the old performances, but not the groups
+          @space.delete_performances
+          for role in CMS::Role.find_all_by_type(nil)
+            if params[role.name]
+              for login in parse_divs(params[role.name].to_s)
+                @space.performances.create :agent => User.find_by_login(login), :role => role
+              end
+            end
+          end
         @space.save!
         flash[:notice] = 'Space was successfully updated.'
         @spaces = Space.find(:all )
@@ -65,10 +68,10 @@ class SpacesController < ApplicationController
       else
         format.html { render :action => "index" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
-      end
-      
+      end      
     end
   end
+
 
   # DELETE /spaces/1
   # DELETE //1.xml
@@ -84,10 +87,49 @@ class SpacesController < ApplicationController
   
   
   def add_user
-    @space = Space.find(params[:id])   
+    @space = Space.find(params[:id])
+    session[:cart] ||= {}
   end
   
   
+  def add
+    product_id = params[:id].split("_")[1]
+    
+    session[:cart][product_id] = session[:cart].include?(product_id) ? session[:cart][product_id]+1 : 1  
+    render :partial => 'cart'
+  end
   
+  def remove
+    product_id = params[:id].split("_")[1]
+    
+    if session[:cart][product_id] > 1 
+      session[:cart][product_id] = session[:cart][product_id]-1
+    else
+      session[:cart].delete(product_id)
+    end
+    
+    render :partial => 'cart'
+  end
+  
+  private
+  #method to parse the request for update from the server that contains
+  #<div id=d1>ebarra</div><div id=d2>user2</div>...
+  #returns an array with the user logins
+  def parse_divs(divs)
+    #REXML da un error de que no puede añadir al root element, voy a crear un root element en divs
+    str = "<temp>"+divs+"</temp>"
+    doc = REXML::Document.new(str)
+    array = Array.new
+    REXML::XPath.each(doc, "//div") { |p| 
+      #if the div has the style attribute with the none param is because it has been moved to the bin
+      if p.attributes["style"]
+        if p.attributes["style"].include? "none"
+          next
+        end
+      end
+      array << p.text
+      }
+    return array
+  end
   
 end
