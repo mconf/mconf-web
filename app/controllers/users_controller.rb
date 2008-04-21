@@ -39,6 +39,12 @@ class UsersController < ApplicationController
       
     end
   end
+  def clean2
+    render :update do |page|
+      page.replace_html 'results', ""
+      
+    end
+  end
   
   #this method updates a user
   def update
@@ -93,11 +99,23 @@ def search_users
      #format.html 
     end
   end
+  
+  def search_users2
+  @query = params[:query]
+   q1 =  @query 
+    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+
+  respond_to do |format|        
+      format.js 
+     #format.html 
+    end
+  end
   def search_by_tag
 
     @tag = params[:tag]
    # @users = User.tagged_with(@tag)   
- @users = User.find_by_contents(@tag)
+ #@user = User.find_by_contents(@tag)
+ @users = User.tagged_with(@tag)
   respond_to do |format|        
       format.js 
      #format.html 

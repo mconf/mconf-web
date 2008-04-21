@@ -146,6 +146,7 @@ class RolesController < ApplicationController
     
     
     respond_to do |format|
+
       if @role.save
         if params[:users] && params[:users][:id]             
           for id in params[:users][:id]
@@ -156,6 +157,7 @@ class RolesController < ApplicationController
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
         format.xml  { render :xml => @role, :status => :created, :location => @role }
       else
+      flash[:notice] = 'Error creating group.'
         format.html { render :action => "create_group" }
         format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
       end
@@ -198,6 +200,7 @@ class RolesController < ApplicationController
         end  
         flash[:notice] = 'Group was successfully updated.'
       else
+      debugger
         @role.destroy
         flash[:notice] = 'Group was successfully deleted.'
       end

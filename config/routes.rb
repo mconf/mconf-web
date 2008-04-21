@@ -95,6 +95,8 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.manage_users '/manage_users', :controller => 'users', :action => 'manage_users'
+  map.search_users2 'search_user', :controller => 'users', :action => 'search_users2'
+  map.clean2 '/clean2_search', :controller => 'users', :action => 'clean2'
    #SESSIONS CONTROLLER 
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
