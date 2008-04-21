@@ -73,15 +73,44 @@ function sendData() {
 
 
 //Method to know if an element is already in a select box
+//may be the user is in the select box but is is hidden
 function IsAlreadyIn(htmlElementDestiny, nameOrigin) {
-	if(htmlElementDestiny.innerHTML.indexOf(">"+nameOrigin+"<")>1)
+	if(htmlElementDestiny.innerHTML.indexOf(nameOrigin)>=0)
 	{
+		//contains the name, we see if the div has the style to none
+		all_childs = htmlElementDestiny.getElementsByTagName("div");
+		for(var a=0; a< all_childs.length;a++)
+		{    
+			child =	all_childs.item(a);
+			if(child.innerHTML.indexOf(nameOrigin)>=0 && child.style.display=="none")
+				return false; //it is here and it is hidden
+		}
 		return true;		
-	}
-	return false;
-	//if(document.getElementById("dropZone").innerHTML.indexOf(">"+Name+"<"))
-	
+	}	
+	return false;	
 }
+
+
+//method to know if a child if with the display to none
+function isHidden(htmlElement, elemToTest){
+	name = elemToTest.innerHTML;
+	//it can only be hidden if it is in the code
+	if(htmlElement.innerHTML.indexOf(name)>=0)
+	{
+		//contains the name, we see if the div has the style to none
+		all_childs = htmlElement.getElementsByTagName("div");
+		for(var i=0; i< all_childs.length;i++)
+		{
+			child =	all_childs.item(i);
+			if (child.innerHTML.indexOf(name) >= 0 && child.style.display == "none") {
+				return child; //it is here and it is hidden
+			}
+		}		
+	}	
+	return null;	
+
+}
+
 
 /**
  *  Sample 'CustomDraggable' object which extends the Rico.Draggable to
@@ -148,7 +177,11 @@ var CustomDraggableMethods = {
    },
       
    hide: function() {
-   	  this.htmlElement.style.display = 'none';  
+   	//only remove the user if it is not the list of all names
+	if(this.htmlElement.parentNode.id != "nameList")
+	{
+		this.htmlElement.style.display = 'none';
+	}
    },
    
    toString: function() {
@@ -172,6 +205,34 @@ var CustomDropZoneMethods = {
 		 }
       }
 	  return true;
+   }, 
+   
+   accept: function(draggableObjects) {
+      var htmlElement = this.getHTMLElement();
+      if ( htmlElement == null )
+         return;
+
+      n = draggableObjects.length;
+      for ( var i = 0 ; i < n ; i++ )
+      {
+         var theGUI = draggableObjects[i].getDroppedGUI();
+         if ( RicoUtil.getElementsComputedStyle( theGUI, "position" ) == "absolute" )
+         {
+            theGUI.style.position = "static";
+            theGUI.style.top = "";
+            theGUI.style.top = "";
+         }
+         oculto = isHidden(htmlElement, theGUI);
+		 if (oculto == null) {
+		 	//it is not hidden, we append it
+			htmlElement.appendChild(theGUI);
+		 }
+		 else {
+		 	//it is hidden, we replace it for the new one
+			htmlElement.replaceChild(theGUI,oculto);
+		 }
+		 
+      }
    }   
 }
 
@@ -279,6 +340,7 @@ input {
 </div>
 
 <div id="WasteBox" style="margin-left:8px;margin-bottom:8px;float:left">
+	<span class="catHeader">Bin</span>
    <div class="wasteBin" id="wasteBin" style="width:250px;height:140px;overflow:auto;">
    <%= image_tag "/images/papelera.png", :id => "papelera", :alt => "bin", :class => "bin"  %>
    </div>
