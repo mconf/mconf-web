@@ -80,6 +80,10 @@ class RolesController < ApplicationController
   # DELETE /roles/1.xml
   def destroy
     @role = CMS::Role.find(params[:id])
+     @performances = CMS::Performance.find_all_by_role_id(@role.id)
+     for performance in @performances
+      performance.destroy
+    end
     @role.destroy
     
     respond_to do |format|
