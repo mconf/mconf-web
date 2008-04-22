@@ -1,13 +1,14 @@
 
 
- <% if @users.total_hits== 0 %>
+<% if @users.total_hits== 0 %>
 	No Users Found
-	<% else%>
+<% else%>
 	<% i = 0%>	
 	<%for user in @users%>
-	<div id='d'" + <%= i%> + ">
+	    <div id='d<%=i%>'>
 		<%= user.login %>
+		<%i=i+1%>
 		</div>
-		<%end%>
+    <%end%>
 	
-		<%end%>
+<%end%>

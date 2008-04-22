@@ -63,6 +63,25 @@ function createDraggables() {
    <%end%>
 }
 
+function fillAllUsers() {
+	writeAllUsersNameSpans();
+	createDraggables();
+}
+
+function doSearchResultsDraggable() {
+    htmlelem = document.getElementById('nameList');
+	all_childs = htmlelem.childNodes;
+	for(var ind=0; ind< all_childs.length;ind++)
+	{    
+			child =	all_childs.item(ind);
+	        if(child.innerHTML=="undefined")
+			{
+				continue;
+			}			
+			dndMgr.registerDraggable( new CustomDraggable(child, child.innerHTML) );
+	}
+}
+
 //function to get the data and send it to the server
 function sendData() {
 	<%for role in CMS::Role.find_all_by_type(nil)%>
@@ -321,7 +340,7 @@ input {
 
 
 
-<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
+
 <h1>Add Users to the Space</h1>
 
 
@@ -342,7 +361,7 @@ input {
    <%= image_tag "/images/papelera.png", :id => "papelera", :alt => "bin", :class => "bin"  %>
    </div>
 </div>
-
+<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
 <%for role in CMS::Role.find_all_by_type(nil)%>
 	<div id="<%=role.name+1.to_s%>" style="margin-left:8px;margin-bottom:8px;float:left">
 	   <span class="catHeader"><%=role.name%></span>

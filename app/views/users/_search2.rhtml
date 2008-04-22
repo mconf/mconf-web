@@ -4,7 +4,8 @@
 
  <span> <% form_tag({:controller=> 'users',:action => :search_users2}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2}%>
+	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2}, :complete=>"doSearchResultsDraggable()"%>
+      <input type="button" name="Reset" value="Reset" style="width: 100px;" onClick="fillAllUsers()">
   </span>
  <% end %>
    
