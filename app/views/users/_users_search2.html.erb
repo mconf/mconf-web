@@ -3,12 +3,11 @@
  <% if @users.total_hits== 0 %>
 	No Users Found
 	<% else%>
-		<td>
-		<tr><%= link_to_remote 'Hide',{:url =>{:controller=> 'users', :action=> 'clean2'}}%></tr>
-	<tr><%=select("user_search", "id", @users.collect {|p| [ p.login, p.id ] },{ :include_blank => false }, {:multiple => true, :size => 10, :style=>"width: 200px;" }) %>	
- </td>
-<td>
-    <input type="button" name="add" value="&nbsp;&nbsp;&nbsp; Add -&gt; " style="width: 100px;" onClick="MoveOption(this.form.user_search_id, this.form.users_id)"><br>
-  </td>
-	</tr>
+	<% i = 0%>	
+	<%for user in @users%>
+	<div id='d'" + <%= i%> + ">
+		<%= user.login %>
+		</div>
+		<%end%>
+	
 		<%end%>

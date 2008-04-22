@@ -39,12 +39,7 @@ class UsersController < ApplicationController
       
     end
   end
-  def clean2
-    render :update do |page|
-      page.replace_html 'results', ""
-      
-    end
-  end
+ 
   
   #this method updates a user
   def update
