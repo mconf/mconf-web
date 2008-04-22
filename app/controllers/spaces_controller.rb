@@ -48,7 +48,8 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   def update
-    @space = Space.find(params[:id])    
+    @space = Space.find(params[:id])
+    debugger
     respond_to do |format|
       if @space.update_attributes(params[:space])
           #fist of all we delete all the old performances, but not the groups
@@ -118,6 +119,8 @@ class SpacesController < ApplicationController
   def parse_divs(divs)
     #REXML da un error de que no puede añadir al root element, voy a crear un root element en divs
     str = "<temp>"+divs+"</temp>"
+    #remove the characters "\n\r\t" that javascript introduces
+    str = str.tr("\r","").tr("\n","").tr("\t","")
     doc = REXML::Document.new(str)
     array = Array.new
     REXML::XPath.each(doc, "//div") { |p| 
