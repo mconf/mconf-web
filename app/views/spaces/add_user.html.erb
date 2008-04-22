@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<title>Rico Custom Draggable</title>
+<title>Add User to the Space</title>
 
 
 <script type='text/javascript'>
@@ -101,10 +101,15 @@ function IsAlreadyIn(htmlElementDestiny, nameOrigin) {
 		for(var a=0; a< all_childs.length;a++)
 		{    
 			child =	all_childs.item(a);
-			if(child.innerHTML.indexOf(nameOrigin)>=0 && child.style.display=="none")
+			if (child.innerHTML.indexOf(nameOrigin) >= 0 && child.style.display == "none") {
 				return false; //it is here and it is hidden
-		}
-		return true;		
+			}
+			else if (child.innerHTML.indexOf(nameOrigin) >= 0) {
+				//this check is because the nameOrigin can be in another part, like the id="administrator" 
+				//that contains the word "admin" but it is not the admin user
+				return true;
+			}
+		}				
 	}	
 	return false;	
 }

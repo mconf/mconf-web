@@ -3,9 +3,10 @@ class RolesController < ApplicationController
   include CMS::Controller::Base
   before_filter :authentication_required
   before_filter :get_container , :only=>[:update_group,:edit_group,:group_details, :create_group,:save_group, :show_groups, :delete_group]
+  
+  
   def index
-    @role = CMS::Role.find_all_by_type(nil)
-   
+    @role = CMS::Role.find_all_by_type(nil)   
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @role }
@@ -15,8 +16,6 @@ class RolesController < ApplicationController
   
   def show
     @role = CMS::Role.find(params[:id] )
-    
-    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @role }
@@ -26,8 +25,7 @@ class RolesController < ApplicationController
   # GET /roles/new
   # GET /roles/new.xml
   def new
-    @role = CMS::Role.new
-    
+    @role = CMS::Role.new    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @role }
@@ -42,11 +40,8 @@ class RolesController < ApplicationController
   
   # POST /roles
   # POST /roles.xml
-  def create
-    
-    @role = CMS::Role.new(params[:cms_role])
-    
-    
+  def create    
+    @role = CMS::Role.new(params[:cms_role])  
     respond_to do |format|
       if @role.save
         flash[:notice] = 'Role was successfully created.'
@@ -58,12 +53,12 @@ class RolesController < ApplicationController
       end
     end
   end
+  
+  
   # PUT /roles/1
   # PUT /roles/1.xml
-  def update
-  
-    @role = CMS::Role.find(params[:id])
-    
+  def update  
+    @role = CMS::Role.find(params[:id])    
     respond_to do |format|
       if @role.update_attributes(params[:cms_role])
         flash[:notice] = 'Role was successfully updated.'
@@ -84,33 +79,30 @@ class RolesController < ApplicationController
      for performance in @performances
       performance.destroy
     end
-    @role.destroy
-    
+    @role.destroy    
     respond_to do |format|
       format.html { redirect_to(roles_url) }
       format.xml  { head :ok }
     end
   end
   
-  def group_details
-    
+  def group_details    
     @role = Group.find(params[:group_id])
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
     i = 0
     @users = []
-    for performance in @performances
-      
+    for performance in @performances      
       @users [i] = User.find(performance.agent_id)
       i = i+ 1
-    end
-    
+    end    
     respond_to do |format|
       format.js
       format.xml  { render :xml => @role }
     end
   end
+  
+  
   def show_groups
-
     ###estan deben ser unicas...
     @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
     
@@ -123,39 +115,33 @@ class RolesController < ApplicationController
       else
         @role[i]=@part
         i = i+ 1
-      end 
-      
-    end
-  
+      end       
+    end  
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @role }
     end
   end
   
+  
   def create_group 
     @users =  @container.agents    
     @role = Group.new
+    @users_group = []
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @role }
-    end
-    
+    end    
   end
+  
+  
   def save_group
-   
-    
     @users =  @container.agents   
     @role = Group.new(params[:group])
-    
-    
     respond_to do |format|
-
       if @role.save
-        if params[:users] && params[:users][:id]             
-          for id in params[:users][:id]
-            @container.performances.create :agent => User.find(id), :role => @role
-          end          
+        for login in parse_divs(params[:group_users].to_s)
+                @container.performances.create :agent => User.find_by_login(login), :role => @role
         end
         flash[:notice] = 'Group was successfully created in this space.'
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
@@ -173,23 +159,23 @@ class RolesController < ApplicationController
   def edit_group
     @users =  @container.agents    
     @role = Group.find(params[:group_id])
+    @group = @role    #para que rellene automáticamente los campos
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
     i = 0
     @users_group = []
     for performance in @performances
-      
       @users_group [i] = User.find(performance.agent_id)
       i = i+ 1
     end
-    
+    @edit = true
     respond_to do |format|
       format.html {render }
       format.xml  { render :xml => @role }
     end
   end
+  
+  
   def update_group
-   
-    
     @role = Group.find(params[:group_id])
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
     
@@ -197,14 +183,12 @@ class RolesController < ApplicationController
       performance.destroy
     end
     if  @role.update_attributes(params[:group])
-      if params[:users] && params[:users][:id]             
-        for id in params[:users][:id]
-       
-          @container.performances.create :agent => User.find(id), :role => @role
-        end  
+      if params[:group_users]
+        for login in parse_divs(params[:group_users].to_s)
+                @container.performances.create :agent => User.find_by_login(login), :role => @role
+        end
         flash[:notice] = 'Group was successfully updated.'
       else
-      debugger
         @role.destroy
         flash[:notice] = 'Group was successfully deleted.'
       end
@@ -213,12 +197,9 @@ class RolesController < ApplicationController
       
     end
   end
-  def delete_group
-    
-    
+  
+  def delete_group    
     @role = Group.find(params[:group_id])
-    
-    
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
     
     for performance in @performances
@@ -228,5 +209,29 @@ class RolesController < ApplicationController
     flash[:notice] = 'Group was successfully deleted'
     redirect_to(:action => "show_groups", :controller => "roles") 
     
+  end
+  
+  
+  private
+  #method to parse the request for update from the server that contains
+  #<div id=d1>ebarra</div><div id=d2>user2</div>...
+  #returns an array with the user logins
+  def parse_divs(divs)
+    #REXML da un error de que no puede añadir al root element, voy a crear un root element en divs
+    str = "<temp>"+divs+"</temp>"
+    #remove the characters "\n\r\t" that javascript introduces
+    str = str.tr("\r","").tr("\n","").tr("\t","")
+    doc = REXML::Document.new(str)
+    array = Array.new
+    REXML::XPath.each(doc, "//div") { |p| 
+      #if the div has the style attribute with the none param is because it has been moved to the bin
+      if p.attributes["style"]
+        if p.attributes["style"].include? "none"
+          next
+        end
+      end
+      array << p.text
+      }
+    return array
   end
 end

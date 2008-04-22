@@ -49,7 +49,6 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   def update
     @space = Space.find(params[:id])
-    debugger
     respond_to do |format|
       if @space.update_attributes(params[:space])
           #fist of all we delete all the old performances, but not the groups
@@ -111,6 +110,7 @@ class SpacesController < ApplicationController
     
     render :partial => 'cart'
   end
+  
   
   private
   #method to parse the request for update from the server that contains

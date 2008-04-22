@@ -48,4 +48,15 @@ class Space < ActiveRecord::Base
       end
     end    
   end
+  
+  #returns a javascript array of all users of this space
+  def print_array_of_all_users
+    temp = ""
+    for user in agents
+      temp = temp + "\"" + user.login + "\", "
+    end
+    temp.chop.chop   #removes the last character, in this case the last space and the last comma
+   
+  end
+ 
 end
