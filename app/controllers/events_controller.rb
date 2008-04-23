@@ -18,9 +18,10 @@ class EventsController < ApplicationController
   skip_before_filter :get_content
 
   #TODO: Roles
-  skip_before_filter :can_read_container
-  skip_before_filter :can_write_container
-  skip_before_filter :can_read_content
+  skip_before_filter :can__create_posts__container
+  skip_before_filter :can__read_posts__container
+  skip_before_filter :can__update_posts__container
+  skip_before_filter :can__delete_posts__container
 
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
