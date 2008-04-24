@@ -6,8 +6,7 @@
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users}%>
   </span>
- <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization'}}%>
-   <% end %>
+    <% end %>
    
     
  

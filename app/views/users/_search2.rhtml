@@ -7,6 +7,8 @@
 	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2}, :complete=>"doSearchResultsDraggable()"%>
       <input type="button" name="Reset" value="Reset" style="width: 100px;" onClick="fillAllUsers()">
   </span>
+  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization'}}%>
+
  <% end %>
    
     

@@ -337,7 +337,11 @@ input {
    <div class="listBox" id="nameList" style="width:250px;height:140px;overflow:auto;"></div>
 </div>
 
-
+<div id="users_search">
+	<%= render :partial=> '/users/search' %>
+</div>
+<div id= "adv_search">
+</div>
 <div id="WasteBox" style="margin-left:8px;margin-bottom:8px;float:left">
 	<span class="catHeader">Bin</span>
    <div class="wasteBin" id="wasteBin" style="width:250px;height:140px;overflow:auto;">
@@ -400,15 +404,11 @@ input {
 </div>
 
 
-<div id="users_search">
-<%= render :partial=> '/users/search' %>
-</div>
 
-<div id= "adv_search">
-</div>
 
-<div id= "search_results">		
-</div>
+
+
+
 </form>
 	
 

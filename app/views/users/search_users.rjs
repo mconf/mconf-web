@@ -1,1 +1,1 @@
-page.replace_html 'search_results', :partial => 'users_search' 
+page.replace_html 'nameList', :partial => 'users_search' 
