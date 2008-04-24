@@ -7,6 +7,32 @@ class Space < ActiveRecord::Base
     agents
   end
   
+  def edit_by?(user)
+    if user.superuser == true 
+      return true
+      
+   elsif has_role_for?(user, :admin) == true
+      return true
+      
+    else
+      return false
+    end
+    
+  end
+  
+  def add_users_by?(user)
+    if user.superuser == true 
+      return true
+     
+      elsif has_role_for?(user, :admin) == true
+      return true
+      elsif has_role_for?(user, :create_performances) == true
+      return true
+    else
+      return false
+    end
+  end
+  
   #method to print an array of the user names
   #it is used to build a javascript array
   #so each name has to be between quotation marks and separated by commas

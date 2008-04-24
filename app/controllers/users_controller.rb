@@ -118,6 +118,12 @@ class UsersController < ApplicationController
       #format.html 
     end
   end
+  def clean
+    render :update do |page|
+      page.replace_html 'adv_search', ""
+      
+    end
+  end
   def search_by_tag
     
     @tag = params[:tag]

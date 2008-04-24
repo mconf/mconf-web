@@ -1,5 +1,10 @@
 class SpacesController < ApplicationController
-  
+  include CMS::Controller::Authorization
+ 
+  before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
+  before_filter :get_space , :only =>[:edit, :add_user,:update]
+  before_filter  :can__edit__space, :only=>[:edit,:update]
+  before_filter  :can__add_users__space, :only=>[:add_user]
   def index
     @spaces = Space.find(:all )
     
@@ -92,24 +97,6 @@ class SpacesController < ApplicationController
   end
   
   
-  def add
-    product_id = params[:id].split("_")[1]
-    
-    session[:cart][product_id] = session[:cart].include?(product_id) ? session[:cart][product_id]+1 : 1  
-    render :partial => 'cart'
-  end
-  
-  def remove
-    product_id = params[:id].split("_")[1]
-    
-    if session[:cart][product_id] > 1 
-      session[:cart][product_id] = session[:cart][product_id]-1
-    else
-      session[:cart].delete(product_id)
-    end
-    
-    render :partial => 'cart'
-  end
   
   
   private
@@ -135,4 +122,7 @@ class SpacesController < ApplicationController
     return array
   end
   
+  def get_space
+    @space = Space.find(params[:id])
+  end
 end
