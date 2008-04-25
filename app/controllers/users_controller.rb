@@ -3,10 +3,13 @@ class UsersController < ApplicationController
   # Include some methods and set some default filters. 
   # See documentation: CMS::Controller::Agents#included
   include CMS::Controller::Agents
+  include CMS::Controller::Authorization
   before_filter :get_container, :only=>[:search_users]
   
   before_filter :authentication_required, :only => [:edit, :update,:manage_users, :destroy]
-  
+  before_filter :user_is_admin, :only=> [:manage_users]
+
+  before_filter :edit_user,  :only=> [:edit,:update,:destroy]
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
@@ -141,4 +144,19 @@ class UsersController < ApplicationController
       format.js   
     end
   end
+  private
+  def edit_user
+   
+    @user = User.find(params[:id])
+    if @user.superuser == true 
+      return true
+      
+   elsif current_user.id == @user.id
+      return true
+    else
+      flash[:notice] = "Action not allowed."          
+      redirect_to(:controller => "events", :action => "show")    
+      end
+  end
+  
 end

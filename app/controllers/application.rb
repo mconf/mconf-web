@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    
      #Method that checks if the current user is the owner of the event(the person who created it)
 # or it checks  if the user is an administrator (Filter)
    def owner_su

@@ -1,6 +1,6 @@
 class SpacesController < ApplicationController
   include CMS::Controller::Authorization
- 
+  before_filter :authentication_required
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
   before_filter :get_space , :only =>[:edit, :add_user,:update]
   before_filter  :can__edit__space, :only=>[:edit,:update]

@@ -430,6 +430,7 @@ class EventsController < ApplicationController
   end
   #Method that searchs with the ferret funcionality
   def search_events 
+    
     @cloud = Tag.cloud 
     @query = params[:query]
    

@@ -6,7 +6,18 @@ class Space < ActiveRecord::Base
   def users
     agents
   end
-  
+  def manage_groups_by?(user)
+   if user.superuser == true
+     return true
+    
+  elsif has_role_for?(user, :admin) == true
+    return true
+    elsif has_role_for?(user, :create_performances) == true
+      return true
+    else
+      return false
+   end
+ end
   def edit_by?(user)
     if user.superuser == true 
       return true

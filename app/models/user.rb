@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :machines 
   
   attr_accessible :email2, :email3, :superuser, :disabled
+  
+  
+  
 def name
   @profile = Profile.find_by_users_id(self.id )
   return @profile.name
