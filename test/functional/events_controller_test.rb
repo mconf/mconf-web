@@ -204,7 +204,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good_warning_min_length
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"13", "start_date(5i)"=>"50", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>"5"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"13", "start_date(5i)"=>"50", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('smaller')
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -212,7 +212,7 @@ class EventsControllerTest < ActionController::TestCase
       
   def test_create_good_warning_max_length
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"3", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"13", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"13", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('bigger')
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -221,7 +221,7 @@ class EventsControllerTest < ActionController::TestCase
    
   def test_create_good
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true", :tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"10", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true", :tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -230,7 +230,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_2
     #con otros valores
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"1", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -239,7 +239,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_3
     #con otros valores
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"1"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -248,7 +248,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_integer_values
     #con valores numericos en vez de strings
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>0, "fec"=>10, "role"=>"interactive", "machine_id"=>1, "description"=>"", "machine_id_connected_to"=>0}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -256,7 +256,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good_2_datetimes
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:is_valid_time1=>"true", :participant0=>{"radiate_multicast"=>"1", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2018", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2018", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2018", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2018", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -265,7 +265,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_3_years_long
     #evento que dura 3 años
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"1"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -273,7 +273,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_participants    
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"2"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2019", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2019", "end_date(2i)"=>"11"}
     assert_response :success
     assert @response.body.include?("errors")
     assert @response.body.include?("Participants")
@@ -282,7 +282,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_participants_2
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"3"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"3", "all_participants_sites"=>5}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -292,7 +292,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_participants_3
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"3"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"3", "all_participants_sites"=>5}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -302,7 +302,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_participants_4
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"1", "description"=>"Descrip", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -312,7 +312,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_participants_5
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"},:participant1=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"2", "description"=>"Descrip", "machine_id_connected_to"=>"3"},:event_participant2=>{"radiate_multicast"=>"1", "fec"=>"25", "role"=>"mcu", "machine_id"=>"3", "description"=>"Descrip", "machine_id_connected_to"=>"2"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :is_valid_participant2=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},  :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :is_valid_participant2=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -322,7 +322,7 @@ class EventsControllerTest < ActionController::TestCase
       
   def test_create_with_error_in_datetimes
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2007", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2007", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -332,7 +332,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes_2
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2007", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2007", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
   end
@@ -340,7 +340,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes_3
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :is_valid_time1=>"true", :event_participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"FlowServer", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}, :datetime1=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     #now i am not redirected
     assert_response :success
   end 
@@ -386,7 +386,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_update_good
     login_as("user_admin")
-    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"0", "fec"=>"0", "role"=>"interactive", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
+    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2017", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2017", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('successfully')
     assert_redirected_to :action => "show" 
   end
@@ -394,7 +394,7 @@ class EventsControllerTest < ActionController::TestCase
 
   def test_update_good_2
     login_as("user_admin")
-    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :participant0=>{"radiate_multicast"=>"1", "fec"=>"10", "role"=>"mcu", "machine_id"=>"1", "description"=>"", "machine_id_connected_to"=>"0"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K"}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2001", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2001", "end_date(2i)"=>"11"}
+    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :datetime0=>{"end_date(3i)"=>"14", "end_date(4i)"=>"13", "end_date(5i)"=>"51", "start_date(1i)"=>"2001", "start_date(2i)"=>"11", "start_date(3i)"=>"14", "start_date(4i)"=>"11", "start_date(5i)"=>"51", "end_date(1i)"=>"2001", "end_date(2i)"=>"11"}
     assert flash[:notice].include?('successfully')
     assert_redirected_to :action => "show" 
   end

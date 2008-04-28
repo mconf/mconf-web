@@ -1,8 +1,6 @@
 <div class="number_of_participants" id="number_of_participants">
 	<span class="participants_header">Select number of sites that will join the session</span>	
 	<div class="select_participants" id="select_participants">
-		<%= select("participant","number",(1..8).collect{|x| x*5})%>
-		
+		<%= select("event","all_participants_sites",(1..8).collect{|x| x*5})%>
 	</div>
-	
 </div>

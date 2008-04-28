@@ -517,6 +517,15 @@ class Event < ActiveRecord::Base
    end
   
   
+  #method that return all the sites that can join a session
+  def all_participants_sites
+    return participants.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT
+  end
+  
+
+  def all_participants_sites=(number)
+    return 
+  end
   
    #method that configures the array of participants for a session for "number_of_sites_connected"
    #the participants belong to the participants that the user has assigned
@@ -524,23 +533,29 @@ class Event < ActiveRecord::Base
       #for each datetime I check if a machine is free, 
       #until I get number_of_sites_connected/NUMBER_OF_SITES_PER_PARTICIPANT participants free
       array_participants_to_use = []
-      number_of_machines_needed = number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT + 1  #entero superior
-      if number_of_machines_needed > user.machines.length        
+      number_of_machines_needed = (number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil  #entero superior
+      logger.debug("Número de máquinas que se necesitan para el evento: " + number_of_machines_needed.to_s)
+      if number_of_machines_needed > user.machines.length   
+        logger.debug("Número de máquinas que se necesitan para el evento superior al numero que posee el usuario que es " + user.machines.length)
         return nil
       end
       
        for machine in user.machines
+          logger.debug("Vemos si se puede usar la máquina: " + machine.name)
           is_valid_machine = true
           for datetime in array_datetimes
             if is_machine_busy?(machine,datetime)
+              logger.debug("Esta ocupada, no vale")
               is_valid_machine = false
             end              
           end  
           #if is_valid_machine ==true the machine is free in all the datetimes
           if is_valid_machine
+              logger.debug("Libre, la usamos")
               array_participants_to_use << machine
           end
           if array_participants_to_use.length >= number_of_machines_needed  
+            logger.debug("Ya tenemos todas las máquinas que necesitamos: " + array_participants_to_use.to_s)
             break
           end
        end

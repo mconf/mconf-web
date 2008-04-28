@@ -147,7 +147,7 @@ class EventsController < ApplicationController
       param_name = 'datetime' + indice.to_s
     end
     @event.uri = @event.get_xedl_filename    
-    array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:participant][:number])
+    array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
     if array_participants==nil
       flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
       respond_to do |format|
@@ -156,7 +156,7 @@ class EventsController < ApplicationController
       end
       return
     end
-    if array_participants.length < params[:participant][:number].to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT + 1
+    if array_participants.length < (params[:event][:all_participants_sites].to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil
       #there are no enough free machines
       flash[:notice] = "There are no enough resources free to create new events at this time. You can ask for more to the administrator."
       respond_to do |format|
