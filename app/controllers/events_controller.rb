@@ -146,20 +146,27 @@ class EventsController < ApplicationController
       indice+=1
       param_name = 'datetime' + indice.to_s
     end
-    @event.uri = @event.get_xedl_filename
-    indice = 0;
-    param_name = 'participant' + indice.to_s
-    while params[param_name.to_sym]      
-      @participant = Participant.new(params[param_name.to_sym])   
-      is_valid = "is_valid_participant" + indice.to_s
-      if(params[is_valid.to_sym]=="true")
-        @event.participants << @participant       
+    @event.uri = @event.get_xedl_filename    
+    array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:participant][:number])
+    if array_participants==nil
+      flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
+      respond_to do |format|
+        format.html {render :action => "new"}
+        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
       end
-      indice+=1
-      param_name = 'participant' + indice.to_s
+      return
     end
-    
-    
+    if array_participants.length < params[:participant][:number].to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT + 1
+      #there are no enough free machines
+      flash[:notice] = "There are no enough resources free to create new events at this time. You can ask for more to the administrator."
+      respond_to do |format|
+        format.html {render :action => "new"}
+        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
+      end
+      return
+    end
+    @event.participants = array_participants
+        
     respond_to do |format|
       if @event.save
         tag = params[:tag][:add_tag]    

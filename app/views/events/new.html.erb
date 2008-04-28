@@ -30,20 +30,7 @@ end %>
   </tbody>
   </TABLE>
   <h1>Event Participants</h1>
-  <TABLE class=Event CELLPADING=5 CELLSPACING=0 BORDER=1 WIDTH=100% >
-  <tbody id="event_participants">
-  <TR><TD>Participant</TD><TD>Connected to</TD><TD>Role</TD><TD>Site Configuration</TD><TD colspan=2>Description</TD></TR>
-  <%@indice = 0%>
-    <%for @participant in @array_participants%>        
-        <%= render :partial => 'form_participants' %>
-        <% @indice +=1 -%>
-    <%end -%>
-    <%if @array_participants.size == 0%>
-        <%= render :partial => 'form_participants' %>
-    <%end -%>    
-  </tbody>
-  
-  </TABLE>
+  <%= render :partial => 'form_participants' %>
   <br/>
 
   <TABLE CELLPADING=5 CELLSPACING=0 BORDER=0 WIDTH=15% >

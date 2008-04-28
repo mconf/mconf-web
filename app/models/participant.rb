@@ -15,5 +15,6 @@ class Participant < ActiveRecord::Base
       ["50%",50],
       ["100%",100]].freeze
 
+    NUMBER_OF_SITES_PER_PARTICIPANT = 10
     
 end

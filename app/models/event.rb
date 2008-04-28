@@ -73,6 +73,13 @@ class Event < ActiveRecord::Base
    
     
     
+    #method to validate datetimes and participants
+    def validate
+      #validate_participants(participants)
+      #validate_datetime(event_datetimes)
+    end
+    
+    
   #Ein... falta test
   def self.service_qualities
       begin
@@ -127,14 +134,7 @@ class Event < ActiveRecord::Base
       return false
     end
     
-    
-    #method to validate datetimes and participants
-    def validate
-      validate_participants(participants)
-      validate_datetime(event_datetimes)
-    end
-    
-        
+            
     #returns the content for the submenu
   #the content is the description and the machines that this event uses
   def get_submenu
@@ -226,6 +226,7 @@ class Event < ActiveRecord::Base
       return false
     end
     
+    
     def get_at_jobs
       at_jobs_array = []
       for datetime in self.event_datetimes
@@ -236,6 +237,7 @@ class Event < ActiveRecord::Base
       logger.debug("at_jobs_array " + at_jobs_array.to_s)
       return at_jobs_array
     end
+    
     
     #Method to create the at_jobs
     def create_at_jobs
@@ -344,6 +346,7 @@ class Event < ActiveRecord::Base
       end
     end
     
+    
   #Method to delete the olds at_jobs
     def delete_at_jobs(at_jobs_array)
       #debugger
@@ -371,6 +374,7 @@ class Event < ActiveRecord::Base
         io = IO.popen(command4)
       end  
     end
+    
     
     #Method to create and save in a file the xedl for a session
     def create_and_save_xedl
@@ -411,6 +415,7 @@ class Event < ActiveRecord::Base
             end
     end
     
+    
     #Method that search in events with pagination
    def self.full_text_search(q, options = {})
     return nil if q.nil? or q==""
@@ -425,6 +430,8 @@ class Event < ActiveRecord::Base
     
     return [results.total_hits, results]
   end
+  
+  
   #method that make an advanced search in events with pagination
   def self.full_text_search2(q, options = {})
     return nil if q.nil? or q==""
@@ -439,6 +446,8 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q1, options)
     return [results.total_hits, results]
   end
+  
+  
   #Method that search by title
   def self.title_search(q, options = {})
     return nil if q.nil? or q==""
@@ -453,6 +462,8 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q2, options)
     return [results.total_hits, results]
   end
+  
+  
   #Method that search in the description
   def self.description_search(q, options = {})
     return nil if q.nil? or q==""
@@ -467,6 +478,7 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(q2, options)
     return [results.total_hits, results]
   end
+  
   
   #Method that search by dates
   def self.date_search(q,q2, options = {})
@@ -505,7 +517,81 @@ class Event < ActiveRecord::Base
    end
   
   
+  
+   #method that configures the array of participants for a session for "number_of_sites_connected"
+   #the participants belong to the participants that the user has assigned
+   def self.configure_participants_for_sites(user, array_datetimes, number_of_sites_connected)
+      #for each datetime I check if a machine is free, 
+      #until I get number_of_sites_connected/NUMBER_OF_SITES_PER_PARTICIPANT participants free
+      array_participants_to_use = []
+      number_of_machines_needed = number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT + 1  #entero superior
+      if number_of_machines_needed > user.machines.length        
+        return nil
+      end
+      
+       for machine in user.machines
+          is_valid_machine = true
+          for datetime in array_datetimes
+            if is_machine_busy?(machine,datetime)
+              is_valid_machine = false
+            end              
+          end  
+          #if is_valid_machine ==true the machine is free in all the datetimes
+          if is_valid_machine
+              array_participants_to_use << machine
+          end
+          if array_participants_to_use.length >= number_of_machines_needed  
+            break
+          end
+       end
+
+     #if everything is ok we configure the particpants, we join between them, set the role, fec and multicast
+     i = 0
+     array_definitivo = []
+     for machine in array_participants_to_use
+       parti = Participant.new
+       parti.role = "flowserver"
+       parti.fec = "0"
+       parti.radiate_multicast = false
+       parti.description = nil
+       if i==0
+         #master
+         parti.machine_id = machine.id
+         parti.machine_id_connected_to = 0
+       else
+         parti.machine_id = machine.id
+         parti.machine_id_connected_to = array_definitivo[i-1].machine_id   #connected to the last machine
+       end     
+       array_definitivo << parti
+     end
+     return array_definitivo
+   end
+  
     private
+    
+  #method to now if a machine is busy at a datetime
+  def self.is_machine_busy?(machine, datetime)
+     event_datetims = []
+     #datetimes that are contained in "datetime"
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date >= ? AND end_date <= ?", datetime.start_date , datetime.end_date])
+     #datetimes that contain to "datetime"
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date <= ? AND end_date >= ?", datetime.start_date , datetime.end_date])
+     #datetimes that start before this "datetime" and end also before
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date <= ? AND end_date <= ?", datetime.start_date , datetime.end_date])
+     #datetimes that start after this "datetime" and end also after
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date >= ? AND end_date >= ?", datetime.start_date , datetime.end_date])
+     
+     event_datetims = event_datetims.flatten   #Delete the empty arrays that the find :all returns
+     event_datetims = event_datetims.uniq
+     
+     for datetime_to_check in event_datetims
+        if Event.find(datetime_to_check.event_id).uses_participant(machine.id)
+          return true  #the machine is busy
+        end
+     end
+     return false  #the machine is free
+  end
+    
   #conditions for participants:
   #  do not appear twice or more times
   #  do not connect to one participant that does not belongs to the conference
@@ -620,7 +706,7 @@ class Event < ActiveRecord::Base
      eventos = Event.find(:all)
      for eventin in eventos
        if eventin.id==id
-         next   #is this same event
+         next   #is this same event, we are editing it
        end
        #coincidences = []
        coincidences = eventin.contains_participants(@array_participants)
@@ -720,7 +806,7 @@ class Event < ActiveRecord::Base
      end
   end
   
- 
+  
     
   
 end
