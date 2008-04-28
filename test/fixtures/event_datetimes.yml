@@ -5,18 +5,6 @@ event_datetime_00100:
   end_date: 2008-03-01 08:08:00 +01:00
   id: 100
   at_job: 216
-event_datetime_00013: 
-  start_date: 2008-01-21 17:00:00 +01:00
-  event_id: 13
-  end_date: 2008-01-21 18:00:00 +01:00
-  id: 13
-  at_job: 35
-event_datetime_00046: 
-  start_date: 2008-02-27 01:00:00 +01:00
-  event_id: 32
-  end_date: 2008-02-27 01:00:00 +01:00
-  id: 46
-  at_job: 107
 event_datetime_00101: 
   start_date: 2008-03-27 10:00:00 +01:00
   event_id: 41
@@ -28,100 +16,28 @@ event_datetime_00102:
   event_id: 42
   end_date: 2008-02-27 19:00:00 +01:00
   id: 102
-  at_job: 
-event_datetime_00004: 
-  start_date: 2008-03-01 10:11:00 +01:00
-  event_id: 4
-  end_date: 2008-03-13 10:11:00 +01:00
-  id: 4
-  at_job: 17
-event_datetime_00092: 
-  start_date: 2008-04-20 18:24:00 +02:00
-  event_id: 37
-  end_date: 2008-04-20 23:24:00 +02:00
-  id: 92
-  at_job: 184
-event_datetime_00093: 
-  start_date: 2008-02-27 17:00:00 +01:00
-  event_id: 35
-  end_date: 2008-02-27 21:00:00 +01:00
-  id: 93
-  at_job: 188
-event_datetime_00038: 
-  start_date: 2008-02-20 15:00:00 +01:00
-  event_id: 24
-  end_date: 2008-02-20 19:00:00 +01:00
-  id: 38
-  at_job: 
-event_datetime_00005: 
-  start_date: 2008-05-01 10:11:00 +02:00
-  event_id: 5
-  end_date: 2008-08-13 10:11:00 +02:00
-  id: 5
-  at_job: 21
-event_datetime_00050: 
-  start_date: 2008-03-20 17:59:00 +01:00
-  event_id: 36
-  end_date: 2008-03-20 21:59:00 +01:00
-  id: 50
-  at_job: 119
-event_datetime_00017: 
-  start_date: 2008-01-21 07:17:00 +01:00
-  event_id: 11
-  end_date: 2008-01-21 11:00:00 +01:00
-  id: 17
-  at_job: 
-event_datetime_00018: 
-  start_date: 2008-01-21 13:00:00 +01:00
-  event_id: 14
-  end_date: 2008-01-21 16:00:00 +01:00
-  id: 18
-  at_job: 39
-event_datetime_00029: 
-  start_date: 2008-02-27 06:00:00 +01:00
-  event_id: 20
-  end_date: 2008-02-27 09:00:00 +01:00
-  id: 29
-  at_job: 79
-event_datetime_00030: 
-  start_date: 2008-02-29 17:00:00 +01:00
-  event_id: 20
-  end_date: 2008-02-29 19:00:00 +01:00
-  id: 30
-  at_job: 83
-event_datetime_00020: 
-  start_date: 2008-01-22 04:08:00 +01:00
-  event_id: 15
-  end_date: 2008-01-22 07:08:00 +01:00
-  id: 20
-  at_job: 
-event_datetime_00009: 
-  start_date: 2008-01-21 00:00:00 +01:00
-  event_id: 9
-  end_date: 2008-01-21 02:00:00 +01:00
-  id: 9
-  at_job: 
+  at_job: 113
 event_datetime_00097: 
   start_date: 2008-02-26 20:05:00 +01:00
   event_id: 38
   end_date: 2008-02-26 23:05:00 +01:00
   id: 97
-  at_job: 
+  at_job: 111
 event_datetime_00098: 
   start_date: 2008-02-27 11:00:00 +01:00
   event_id: 40
   end_date: 2008-02-27 14:00:00 +01:00
   id: 98
   at_job: 208
-event_datetime_00033: 
-  start_date: 2008-03-01 20:00:00 +01:00
-  event_id: 21
-  end_date: 2008-03-01 23:00:00 +01:00
-  id: 33
-  at_job: 87
 event_datetime_00099: 
   start_date: 2008-03-05 11:00:00 +01:00
   event_id: 40
   end_date: 2008-03-05 14:00:00 +01:00
   id: 99
   at_job: 212
+event_datetime_00013: 
+  start_date: 2008-01-21 17:00:00 +01:00
+  event_id: 38
+  end_date: 2008-01-21 18:00:00 +01:00
+  id: 13
+  at_job: 35

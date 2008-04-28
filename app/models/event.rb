@@ -75,8 +75,8 @@ class Event < ActiveRecord::Base
     
     #method to validate datetimes and participants
     def validate
-      #validate_participants(participants)
-      #validate_datetime(event_datetimes)
+      validate_participants(participants)
+      validate_datetime(event_datetimes)
     end
     
     
@@ -533,6 +533,7 @@ class Event < ActiveRecord::Base
       #for each datetime I check if a machine is free, 
       #until I get number_of_sites_connected/NUMBER_OF_SITES_PER_PARTICIPANT participants free
       array_participants_to_use = []
+      logger.debug("Numero de sitios que se conectarán " + number_of_sites_connected.to_s)
       number_of_machines_needed = (number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil  #entero superior
       logger.debug("Número de máquinas que se necesitan para el evento: " + number_of_machines_needed.to_s)
       if number_of_machines_needed > user.machines.length   
@@ -591,10 +592,10 @@ class Event < ActiveRecord::Base
      event_datetims << EventDatetime.find(:all, :conditions=> ["start_date >= ? AND end_date <= ?", datetime.start_date , datetime.end_date])
      #datetimes that contain to "datetime"
      event_datetims << EventDatetime.find(:all, :conditions=> ["start_date <= ? AND end_date >= ?", datetime.start_date , datetime.end_date])
-     #datetimes that start before this "datetime" and end also before
-     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date <= ? AND end_date <= ?", datetime.start_date , datetime.end_date])
-     #datetimes that start after this "datetime" and end also after
-     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date >= ? AND end_date >= ?", datetime.start_date , datetime.end_date])
+     #datetimes that start before this "datetime" and end also before the end date but after the start date
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date <= ? AND end_date <= ? AND end_date >= ?", datetime.start_date , datetime.end_date, datetime.start_date])
+     #datetimes that start after this "datetime" start date and before this datetime end_date and end also after this datetime end_date
+     event_datetims << EventDatetime.find(:all, :conditions=> ["start_date >= ? AND start_date <= ? AND end_date >= ?", datetime.start_date , datetime.end_date, datetime.end_date])
      
      event_datetims = event_datetims.flatten   #Delete the empty arrays that the find :all returns
      event_datetims = event_datetims.uniq
