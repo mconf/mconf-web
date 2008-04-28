@@ -10,12 +10,16 @@
 <p><label for="email">Email 3 (optional)</label><br/>
 <%= f.text_field :email3 %></p>
 
+<% if @agent.needs_password? -%>
+
 <p><label for="password">Password</label><br/>
 <%= f.password_field :password %></p>
 
 <p><label for="password_confirmation">Confirm Password</label><br/>
 	<%= f.password_field :password_confirmation%></p>
-	
+ 
+<% end -%>
+  
 	<% if logged_in? && @user.tag_list  %>
 	<p><label for="keywords">Interests</label><br/>
 <%= text_field 'tag', 'add_tag','value' => @user.tag_list   %></p>

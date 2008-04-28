@@ -16,7 +16,8 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @agent = User.new(params[:agent])            
+    @agent = User.new(params[:agent])
+    @agent.openid_identifier = session[:openid_identifier]
     @agent.save!
     tag = params[:tag][:add_tag]    
     @agent.tag_with(tag)

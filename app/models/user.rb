@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   :lastname => {:store => :yes},
   :organization=> {:store=> :yes},
   :tag_list=> {:store=>:yes}}
-  acts_as_agent :authentication => [ :login_and_password ],
-                :activation => true
+  acts_as_agent :activation => true
 
   acts_as_container
 

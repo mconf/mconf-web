@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
 
       return_to = open_id_complete_url
       #FIXME: How do you refer to the root url??
-      realm = (url_for :controller => '').gsub('sessions', '')
+      realm = (session_url).gsub('session', '')
 
       if openid_request.send_redirect?(realm, return_to)
         redirect_to openid_request.redirect_url(realm, return_to)
