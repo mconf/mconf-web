@@ -1,0 +1,13 @@
+<div id="titulos">
+	<% if logged_in? && current_user.superuser==true%>
+	
+	<ul>
+	<li class="short_r"><%= link_to_function('Home','muestra_pcipal()', :class=>"tit_pcipal")%></li>
+	<li class="long_r"><%= link_to_function('Administrador','muestra_adm()', :class=>"tit_pcipal")%></li>
+	</ul>
+	<% elsif logged_in?%>
+	<ul>
+	<li class="short_r"><%= link_to "Home", :class=> 'home'%></li>
+	</ul>
+	<%end%>
+</div>

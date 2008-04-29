@@ -1,3 +1,5 @@
+/*Estilo general del fondo y enlaces*/
+
 body{
 	
 	background-color:white;
@@ -8,11 +10,15 @@ a:link, a:visited, a:hover, p{
 	font-family:  arial, verdana,helvetica, sans-serif;
 }
 
+/*Div contenedor*/
+
 #contenedor{
 	width: 100%;
 	height: 100%;
 
 }
+
+/*Estilo del logotipo*/
 
 #logo{
 	position:absolute;
@@ -23,6 +29,8 @@ a:link, a:visited, a:hover, p{
 	background-image: url(../images/foto.jpg);
 }
 
+/*Estilo del div de idioma*/
+
 #idioma{ 
 	position:absolute;
 	width:120px;
@@ -31,7 +39,6 @@ a:link, a:visited, a:hover, p{
 	margin-top:5px;
 
 }
-
 
 #idioma img{ 
 	border:none;
@@ -44,31 +51,92 @@ a:link, a:visited, a:hover, p{
 	opacity: 1.0;
 	filter: alpha(opacity=100); 
 }
+
+/*Menu principal (títulos)*/
+
 #menu_pcipal{
 	
 	
 }
+li.long_r{
+	background-image:url(../images/long_r.gif);
+	width:190px;
+	height:39px;
+	background-repeat:no-repeat;
+	background-position:center;
+	padding-top:14px;
+	
+}
+li.short_r{
+	background-image:url(../images/small_r.gif);
+	width:85px;
+	height:39px;
+	background-repeat:no-repeat;
+	background-position:center;
+	padding-top:14px;
+	
+}
+#titulos{
+	
+	width:40%;
+	height:8%;
+	text-align:center;
+	margin-left:170px;
+	
+}
+
+/*Menu secundario (botones, bot_pcipal, bot_administrador */
+
 #menu_secund{
 	position: absolute;
-	width:90%;
+	width:80%;
 	height:50px;
-	margin-top:90px;
-	left: 50%;
-	margin-left:-40%;
+	margin-top:20px;
+	/*left: 50%;*/
+	margin-left:157px;
 	text-align:center;
 		
   }
-  
-  a.secund{
+ 
+ #botones{
+	visibility:visible;
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 50px;
+    margin-top: -25px;    
+    width: 80%;
+    margin-left: -49%;    
+	
+} 
+
+#botones ul li, #titulos ul li{
+ 	display:block;
+	float:left;
+	
+ }
+ 
+#bot_administrador{
+	visibility:hidden;
+	position:absolute;
+	
+}
+
+#bot_pcipal{
+	visibility:hidden;
+	position:absolute;
+	
+}
+
+a.secund, a.tit_pcipal{
 	
 	color: #636566;
 	text-decoration:none;
 	text-align:center;
 	font-weight:600;
-	
 }
 
-a:hover.secund{
+a:hover.secund, a.tit_pcipal:hover{
 	color:#36332F;
 }
 
@@ -83,7 +151,6 @@ li.short{
 	padding-top:14px;
 	
 }
-
 
 li.medium{
 	
@@ -104,30 +171,22 @@ li.long{
 	background-repeat:no-repeat;
 	background-position:center;
 	padding-top:14px;
-	
-	
 }
 
 
-#botones{
-	position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 50px;
-    margin-top: -25px;    
-    width: 98%;
-    margin-left: -49%;    
-	
-}
+
+/* Estilo de la barra superior derecha:login/logout , username*/
 
 #login{
 	position: absolute;
 	width: 400px;
 	height:20px;
-	margin-left: 700px;
-	margin-top:10px;
+	margin-left: 65%;
+	margin-top:-55px;
 	float:left;
 	display:inline;   
+	
+	
 }
 
 #username{
@@ -165,7 +224,6 @@ li.long{
 	
 }
 
-
 #menu_login a:link, #menu_login a:visited{
 	color:#7D7D7D;
 	text-decoration:none;
@@ -178,39 +236,37 @@ li.long{
 
 }
 
-
-
-
- #botones ul li{
- 	display:block;
-	float:left;
-	
- }
+/* Estilo del contenedor donde se mostrarán las secciones: main, superior e inferior (para los bordes sombreados) y contenido (secciones en sí) */
  
+
  #main{
  	position:absolute;
- 	margin-top: 150px;
+ 	margin-top: 120px;
 	width:96%;
-	height:78%;
+	height:72%;
 	left: 50%;
-	margin-left: -48%;    
+	margin-left: -48%;
+	 
+	 
 	
-		
  }
  
 .superior div{
-	
+	position:absolute;
 	background: url(../images/borde_si.gif) no-repeat top left;
+	
 	
 	
 }
 
 .superior{
+	position:absolute;
 	background: url(../images/borde_sd.gif) no-repeat top right;
 	
 	
 	
 }
+/*
 .inferior div{
 	
 	background: url(../images/borde_ii.gif) no-repeat bottom left;
@@ -219,27 +275,58 @@ li.long{
 }
 
 .inferior {
-	
+	position:relative;
 	background: url(../images/borde_id.gif) no-repeat bottom right;
-	margin-top:-180px;
-	
+	margin-top:380px;
+	border:solid;
 	
 }
-
+*/
 .superior div, .superior, .inferior, .inferior div {
-width: 100%;
-height: 330px;
-
+	width: 100%;
+	height: 330px;
 }
+
+/*
 .inferior, .inferior div {
 	margin-top:-220px;
 }
+*/
+
 #contenido{
-	position:relative;
+	position:absolute;
 	width:92%;
-	left: 50%;
-	margin-left: -46%;
-	margin-top:-300px;
+	height:50%;
+	/*left: 50%;*/
+	/*margin-left: -46%;*/
+	/*margin-top:-305px;*/
+	
 	
 	
 }
+.roundedcornr_box_281613 {
+   background: #c0c0c0;
+}
+.roundedcornr_top_281613 div {
+   background: url(../images/roundedcornr_281613_tl.png) no-repeat top left;
+}
+.roundedcornr_top_281613 {
+   background: url(../images/roundedcornr_281613_tr.png) no-repeat top right;
+}
+.roundedcornr_bottom_281613 div {
+   background: url(../images/roundedcornr_281613_bl.png) no-repeat bottom left;
+}
+.roundedcornr_bottom_281613 {
+   background: url(../images/roundedcornr_281613_br.png) no-repeat bottom right;
+}
+
+.roundedcornr_top_281613 div, .roundedcornr_top_281613, 
+.roundedcornr_bottom_281613 div, .roundedcornr_bottom_281613 {
+   width: 100%;
+   height: 30px;
+   font-size: 1px;
+}
+.roundedcornr_content_281613 { margin: 0 30px; }
+
+
+

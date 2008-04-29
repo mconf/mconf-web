@@ -8,26 +8,30 @@
   <%= javascript_include_tag("sir") %>
   <%= javascript_include_tag :defaults %>
   <title><%= 'Isabel Server'.t %></title>
-  <%= stylesheet_link_tag 'estilosir' %>  
+  <%= stylesheet_link_tag 'estilosir' %>
+  <%= javascript_include_tag 'muestra' %>    
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Expires" CONTENT="-1">
   
 </head>
 
-<body>
+<body >
 	<div id="contenedor">
 	<!-- Div con el logo-->
 	<div id="logo">
 		 <!--<%= @page_title || "Isabel Server" %>-->
 	</div>
-	<!--
+	
+	<!-- Div de las banderas, no se muestra por ahora...
+	
 	<div id="idioma">
 		<%= link_to (image_tag("spain.gif")), {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %>
 		<%= link_to (image_tag("britain.gif")), {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %>
 	</div>
 	-->
-	<div id="menu_pcipal">
-		
+	
+	<div id="menu_pcipal" >
+		<%= render :partial => 'home/titles', :layout => false%>
 	</div>
 	
 	<div id="menu_secund">
@@ -40,34 +44,41 @@
    <div id="main" >
 
    		
-		<div class="superior"><div></div></div>
-		<div id="contenido">
-        	 <% if flash[:notice] -%>
+	<div class="roundedcornr_box_281613">
+   <div class="roundedcornr_top_281613"><div></div></div>
+      <div class="roundedcornr_content_281613">
+          <% if flash[:notice] -%>
         	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
         	<% end -%>
 			<% if flash[:error] -%>
-        <br><div id="notice" style="color: green"><%= flash[:error] %></div>
-        <% end -%>
+        	<br><div id="notice" style="color: green"><%= flash[:error] %></div>
+        	<% end -%>
 			<% if flash[:warning] -%>
          	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
         	<% end -%>
-        	<%= @content_for_layout %> 
-		
-		</div>
-		
-		<div class="inferior"><div></div></div>
+        	<%= @content_for_layout %>
+      </div>
+   <div class="roundedcornr_bottom_281613"><div></div></div>
+</div>
+			
 			
 
    </div>  
    
    
    
-   
-   
-   
    </div> 
 </body>
-
+<script>
+	if(document.getElementById("buttons_to_show").value=="principal")
+	{
+		muestra_pcipal();
+	}
+	else if(document.getElementById("buttons_to_show").value=="admin")
+	{
+		muestra_adm();
+	}
+</script>
 
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
