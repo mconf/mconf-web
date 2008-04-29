@@ -228,20 +228,29 @@ class EventsController < ApplicationController
         indice = 0;
         param_name = 'participant' + indice.to_s   
         @event.participants = []          
-        while params[param_name.to_sym]      
-          @participant = Participant.new(params[param_name.to_sym])   
-          is_valid = "is_valid_participant" + indice.to_s
-          if(params[is_valid.to_sym]=="true")
-            @event.participants << @participant 
-          end
-          indice+=1
-          param_name = 'participant' + indice.to_s
-        end          
         
+        array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
+        if array_participants==nil
+          flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
+          respond_to do |format|
+            format.html {render :action => "new"}
+            format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
+          end
+          return
+        end
+        if array_participants.length < (params[:event][:all_participants_sites].to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil
+          #there are no enough free machines
+          flash[:notice] = "There are no enough resources free to create new events at this time. You can ask for more to the administrator."
+          respond_to do |format|
+            format.html {render :action => "new"}
+            format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
+          end
+          return
+        end
+        @event.participants = array_participants
         
         
         respond_to do |format|
-          
           
           #@event.update_attributes(params[:event])
           logger.debug("Let's save the params for the event")
