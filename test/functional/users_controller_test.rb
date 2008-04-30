@@ -76,6 +76,12 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_response :redirect  
     assert  flash[:notice].include?("User was successfully updated.")
   end
+
+  def test_should_edit_user
+    login_as("user_normal")
+    get :edit, :id => users(:user_normal).id
+    assert :success
+  end
   
 
   protected

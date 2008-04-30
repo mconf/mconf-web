@@ -148,7 +148,7 @@ class UsersController < ApplicationController
   private
   def edit_user
    
-    @user = User.find(params[:id])
+    @agent = @user = User.find(params[:id])
     if @user.superuser == true 
       return true
       
