@@ -39,4 +39,13 @@ end
  image_tag("/images/cancel.gif",:border=>0)
 end
 end
+
+def javascript(file_name, space_id)
+  content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"\" type=\"text/javascript\"></script>" }
+end
+
+def javascript(file_name, space_id, role_id)
+  content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"/"+role_id+"\" type=\"text/javascript\"></script>" }
+end
+
 end

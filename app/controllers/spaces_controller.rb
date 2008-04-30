@@ -1,4 +1,5 @@
 class SpacesController < ApplicationController
+    include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]

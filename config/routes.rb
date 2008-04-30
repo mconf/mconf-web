@@ -54,6 +54,9 @@ ActionController::Routing::Routes.draw do |map|
  end
   map.resources :roles
   map.resources :spaces
+  map.connect ':controller/:action.:format/:container_id'
+  map.connect ':controller/:action.:format/:container_id/:role_id'
+  
   #SPACES CONTROLLER
   map.add_user '/spaces/:id/add_user', :controller => "spaces", :action => "add_user"
   #explicit routes ORDERED BY CONTROLLER
