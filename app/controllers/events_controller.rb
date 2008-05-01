@@ -1,27 +1,21 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
-   # Include some methods and set some default filters.
-   # See documentation: CMS::Controller::Contents#included
+  # Include some methods and filters.
   include CMS::Controller::Contents
   
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
 
-  # Check if requesting a container
+  # Events list may belong to a container
+  # /events
+  # /:container_type/:container_id/events
   before_filter :get_container, :only => [ :index, :show]
 
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
-  
-  # Included by CMS::Controller::Contents but not used here
-  skip_before_filter :get_content
 
-  #TODO: Roles
-  skip_before_filter :can__create_posts__container
-  skip_before_filter :can__read_posts__container
-  skip_before_filter :can__update_posts__container
-  skip_before_filter :can__delete_posts__container
+  #TODO: Authorization
 
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]

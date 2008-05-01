@@ -4,12 +4,24 @@ class UsersController < ApplicationController
   # See documentation: CMS::Controller::Agents#included
   include CMS::Controller::Agents
   include CMS::Controller::Authorization
+
+  # Get the User for member actions
+  #before_filter :get_agent, :only => :show
+  
+  # Filter for activation actions
+  before_filter :activation_required, :only => [ :activate, 
+                                                 :forgot_password, 
+                                                 :reset_password ]
+  # Filter for password recovery actions
+  before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
+                                                          :reset_password ]
   before_filter :get_container, :only=>[:search_users]
   
   before_filter :authentication_required, :only => [:edit, :update,:manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
+  
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
