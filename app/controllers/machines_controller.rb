@@ -1,4 +1,6 @@
 class MachinesController < ApplicationController  
+  include CMS::Controller::Base
+  
    before_filter :authentication_required, :except => [:get_file, :list_user_machines, :contact_mail]
    before_filter :user_is_admin, :except => [:my_mailer,:get_file, :list_user_machines, :contact_mail]
    
