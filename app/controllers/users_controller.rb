@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   # See documentation: CMS::Controller::Agents#included
   include CMS::Controller::Agents
   include CMS::Controller::Authorization
-  include CMS::Controller::Base
 
   # Get the User for member actions
   #before_filter :get_agent, :only => :show
