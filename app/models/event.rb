@@ -583,6 +583,23 @@ class Event < ActiveRecord::Base
      return array_definitivo
    end
   
+  
+  
+  #public method to get the ordinal corresponding to a fixnum
+  #returns a string containing the ordinal
+  def self.get_ordinal(indice)
+     if indice==1
+       return "first"
+     elsif indice==2
+       return "second"
+     elsif indice==3
+       return "third"
+     else 
+       return indice.to_s+"th"
+     end
+  end
+  
+  
     private
     
   #method to now if a machine is busy at a datetime
@@ -680,7 +697,7 @@ class Event < ActiveRecord::Base
      logger.debug("ARRAY_DATETIMES.SIZE " +array_datetimes.size.to_s)
      for datetime in array_datetimes
        if (datetime.end_date<datetime.start_date) 
-         errors.add(:datetimes, "the " +get_ordinal(indice) + " date entry is incorrect,"+
+         errors.add(:datetimes, "the " +Event.get_ordinal(indice) + " date entry is incorrect,"+
                      " end date is before start date")
          result = false
        end
@@ -691,8 +708,8 @@ class Event < ActiveRecord::Base
        #end      
        index_overlap = overlaps_with_another?(datetime.start_date,datetime.end_date,indice,event_datetimes)
        if index_overlap
-         errors.add(:datetimes, "the " +get_ordinal(indice) + " date entry is incorrect," +
-                  " it overlaps with the " + get_ordinal(index_overlap+1) + " date entry"  ) 
+         errors.add(:datetimes, "the " +Event.get_ordinal(indice) + " date entry is incorrect," +
+                  " it overlaps with the " + Event.get_ordinal(index_overlap+1) + " date entry"  ) 
        
          result = false
        end
@@ -704,7 +721,7 @@ class Event < ActiveRecord::Base
          for ii in coincidences
            machines_overlap += " and " + Machine.find(ii).name
          end
-         errors.add(:datetimes, "the " +get_ordinal(indice) + " date entry is incorrect," +
+         errors.add(:datetimes, "the " +Event.get_ordinal(indice) + " date entry is incorrect," +
                   " it overlaps with event named \"" + event_overlap_hash[:event_name] + "\" using " + machines_overlap)       
          result = false
        end
@@ -795,20 +812,6 @@ class Event < ActiveRecord::Base
   end 
   
   
-  #private method to get the ordinal corresponding to a fixnum
-  #returns a string containing the ordinal
-  def get_ordinal(indice)
-     if indice==1
-       return "first"
-     elsif indice==2
-       return "second"
-     elsif indice==3
-       return "third"
-     else 
-       return indice.to_s+"rd"
-     end
-  end
-  
   
   def self.get_Service_name(activity_name)
      if activity_name == "class.act"
@@ -823,6 +826,15 @@ class Event < ActiveRecord::Base
   end
   
   
+  #method that checks if a string represents a datetime
+  def self.validate_format_datetime(datetime)
+    begin
+      DateTime.parse(datetime)
+      return true
+    rescue
+      return false
+    end
+  end
     
   
 end

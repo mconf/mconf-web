@@ -20,6 +20,7 @@ class EventsController < ApplicationController
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
    
+  skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show_timetable, :show, :copy_next_week, :remove_time]
   
   # GET /events
   # GET /events.xml
@@ -100,15 +101,7 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new    
     @event = Event.new
-    @indice = "0"
-    @datetime = EventDatetime.new
-    if(session[:date_start_day])
-      @datetime.start_date = session[:date_start_day].to_time
-      @datetime.end_date = session[:date_start_day].to_time
-    else
-      @datetime.start_date = Time.now
-      @datetime.end_date = Time.now
-    end
+    @indice = "0"   
         
     respond_to do |format|
       format.html # new.html.erb
@@ -130,16 +123,20 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])  
     indice = 0;
-    param_name = 'datetime' + indice.to_s
-    while params[param_name.to_sym] 
-      @datetime = EventDatetime.new(params[param_name.to_sym])   
-      is_valid = "is_valid_time" + indice.to_s
+    param_start_date = 'start_date' + indice.to_s
+    param_end_date = 'end_date' + indice.to_s
+    is_valid = "is_valid_time" + indice.to_s
+    while params[param_start_date.to_sym] 
+      @datetime = EventDatetime.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym])   
       if(params[is_valid.to_sym]=="true")
         @event.event_datetimes << @datetime  
       end  
       indice+=1
-      param_name = 'datetime' + indice.to_s
+      param_start_date = 'start_date' + indice.to_s
+      param_end_date = 'end_date' + indice.to_s
+      is_valid = "is_valid_time" + indice.to_s
     end
+    
     @event.uri = @event.get_xedl_filename    
     array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
     if array_participants==nil
@@ -200,25 +197,42 @@ class EventsController < ApplicationController
         @event = Event.find(params[:id])
         @event.save_old_values
         indice = 0;
-        param_name = 'datetime' + indice.to_s
+        param_name_start_date = 'start_date' + indice.to_s
+        param_name_end_date = 'end_date'+indice.to_s
+        start_date = params[param_name_start_date.to_sym]
+        end_date =  params[param_name_end_date.to_sym]
         logger.debug("voy a coger los at_jobs")        
         @event.event_datetimes = []
-        while params[param_name.to_sym] 
-          logger.debug("param event_datetime #{param_name.to_sym}")
-          @datetime = EventDatetime.new(params[param_name.to_sym])        
-          if(params[:is_accomplising]==indice.to_s)
-            logger.debug("datetime accomplishing")
-            #the datetime is accomplising, we have the start time in a variable outside
-            @datetime.start_date = Time.parse(params[:hora_inicio_acc])
-          end
-          is_valid = "is_valid_time" + indice.to_s
-          if(params[is_valid.to_sym]=="true")        
-            logger.debug("save the datetime, because is valid")
-            @event.event_datetimes << @datetime
-          end          
+        while params[param_name_start_date.to_sym] && params[param_name_start_date.to_sym]!=""
+          if(Event.validate_format_datetime(start_date) && Event.validate_format_datetime(end_date))
+            if(Time.parse(end_date)<Time.parse(start_date))
+              flash[:notice] = "The "+ Event.get_ordinal(indice+1) +" datetime is incorrect, the end date is before the start date"  
+              respond_to do |format|
+                 format.html {render :action => "edit"}
+                 format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }     
+              end
+             return
+            end
+            @datetime = EventDatetime.new :start_date => start_date, :end_date => end_date
+            is_valid = "is_valid_time" + indice.to_s
+            if(params[is_valid.to_sym]=="true")        
+               logger.debug("save the datetime, because is valid")
+               @event.event_datetimes << @datetime
+            end
+          else
+            flash[:notice] = "The "+ Event.get_ordinal(indice+1) +" datetime format is incorrect."  
+            respond_to do |format|
+              format.html {render :action => "edit"}
+              format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }     
+            end
+            return
+          end                  
           indice+=1
-          param_name = 'datetime' + indice.to_s
-        end      
+          param_name_start_date = 'start_date' + indice.to_s
+          param_name_end_date = 'end_date'+indice.to_s 
+          start_date = params[param_name_start_date.to_sym]
+          end_date =  params[param_name_end_date.to_sym]
+        end
         indice = 0;
         param_name = 'participant' + indice.to_s   
         @event.participants = []          
@@ -227,7 +241,7 @@ class EventsController < ApplicationController
         if array_participants==nil
           flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
           respond_to do |format|
-            format.html {render :action => "new"}
+            format.html {render :action => "edit"}
             format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
           end
           return
@@ -236,7 +250,7 @@ class EventsController < ApplicationController
           #there are no enough free machines
           flash[:notice] = "There are no enough resources free to create new events at this time. You can ask for more to the administrator."
           respond_to do |format|
-            format.html {render :action => "new"}
+            format.html {render :action => "edit"}
             format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
           end
           return
@@ -328,7 +342,6 @@ class EventsController < ApplicationController
     @indice = params[:indice].to_i    
     @array_times = []
     @datetime = EventDatetime.new
-    #breakpoint()
     @datetime.start_date = Time.parse(params[:date_start_day])
     @datetime.start_date = @datetime.start_date + 7*24*3600 #7 days after
     @datetime.end_date = Time.parse(params[:date_end_day])
@@ -365,11 +378,11 @@ class EventsController < ApplicationController
     @indice = params[:indice].to_i
     @indice += 1
     @array_times = []
-    @datetime = EventDatetime.new
-    @datetime.start_date = params[:date_start_day]
-    @datetime.end_date = params[:date_start_day] 
+    #esto era para inicializar antiguamente, ahora aparece vacío
+    #@datetime = EventDatetime.new
+    #@datetime.start_date = params[:date_start_day]
+    #@datetime.end_date = params[:date_start_day] 
     @is_new = true
-    logger.debug("EOEOEOEOE datetime es " + @datetime.start_date.to_s)
     render :partial => "form_datetimes_edit", :layout => false
   end
   

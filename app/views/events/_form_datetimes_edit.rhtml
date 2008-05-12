@@ -1,78 +1,65 @@
+<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
+<script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
+  <%= javascript_include_tag("calendar_config") %>
   <%variable_name = "datetime"+@indice.to_s%>
     <%self.instance_variable_set("@#{variable_name}", @datetime)%>   
-    <TR id="time<%=@indice.to_s%>" style="display:table-row">
-        <script type="text/javascript">
-           var hora_inicio<%=@indice%> = "";
-           var hora_fin<%=@indice%> = "";
-        </script>  
-        <script>
-        //"'indice=' + document.form_event.los_indices.value 'date_start_day=' + hora_inicio"+@indice.to_s
-        function serialize_fields(indice){
-           hora_inicio = document.form_event.elements["datetime"+ indice + "[start_date(2i)]"].value; 
-           hora_inicio += "/";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(3i)]"].value;
-           hora_inicio += "/";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(1i)]"].value;
-           hora_inicio += " ";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(4i)]"].value;
-           hora_inicio += ":";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(5i)]"].value; 
-               
-           hora_fin = document.form_event.elements["datetime"+ indice + "[end_date(2i)]"].value; 
-           hora_fin += "/";
-           hora_fin += document.form_event.elements["datetime"+ indice + "[end_date(3i)]"].value;
-           hora_fin += "/";
-           hora_fin += document.form_event.elements["datetime"+ indice + "[end_date(1i)]"].value;
-           hora_fin += " ";
-           hora_fin += document.form_event.elements["datetime"+ indice + "[end_date(4i)]"].value;
-           hora_fin += ":";
-           hora_fin += document.form_event.elements["datetime"+ indice + "[end_date(5i)]"].value;
-           
+	 <script>
+     function serialize_fields(indice){           
             var fields = new Array();
             fields.push("indice=" + document.form_event.los_indices.value);
+			hora_inicio=document.form_event.start_date<%=@indice.to_s%>.value;
+			hora_fin=document.form_event.end_date<%=@indice.to_s%>.value;
             fields.push("date_start_day=" +  hora_inicio);
             fields.push("date_end_day=" +  hora_fin);
             return fields.join('&');
         }
-        
-        //if the datetime is accomplishing now the datetime_select is disabled and the information is not sent to the server
-        //we prepare here the information to be sent
-        function datetime_now(indice) {
-           hora_inicio = document.form_event.elements["datetime"+ indice + "[start_date(2i)]"].value; 
-           hora_inicio += "/";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(3i)]"].value;
-           hora_inicio += "/";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(1i)]"].value;
-           hora_inicio += " ";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(4i)]"].value;
-           hora_inicio += ":";
-           hora_inicio += document.form_event.elements["datetime"+ indice + "[start_date(5i)]"].value;            
-           return hora_inicio; 
-        }
-        </script>
-        <TD rowspan=3 class=solo_centrar><%=@datetime.start_date.strftime("%W")%><br>        
-            <%= link_to_remote(  "Copy next <br> week",                                    
+   </script>
+	
+	<TR id="time<%=@indice.to_s%>" style="display:table-row">       
+        <TD rowspan=3 class=solo_centrar>
+        		<%=if @datetime
+						 @datetime.start_date.strftime("%W") 
+				end%><br>
+		   <%= link_to_remote(  "Copy next <br> week",                                    
                                    :update => "event_times",
                                    :url => { :action => :copy_next_week },
                                    :position => "bottom",
                                    :complete => "esconde_addtime()",
-                                   :with => 'serialize_fields('+@indice.to_s+')'
+                                   :with =>  'serialize_fields('+@indice.to_s+')'
                                    ) %>  
         </TD>
                     
         <TD class=fieldEvent><label for=<%="datetime"+@indice.to_s+"_start_date"%>>Start date:</label></TD>
-        <TD > 
-            <%if @datetime.start_date < (Time.now - 60) && @datetime.end_date > Time.now%>
-                <%= datetime_select 'datetime'+@indice.to_s, 'start_date', :start_year => 2006, :disabled=>true%></TD>
-            <%else%>
-                <%= datetime_select 'datetime'+@indice.to_s, 'start_date', :start_year => 2006%></TD>        
-            <%end-%>
+        <TD> 
+		    <%if @datetime!=nil%>
+            	<input type="text" name="start_date<%=@indice.to_s%>" id="start_date<%=@indice.to_s%>" value="<%=@datetime.start_date.strftime("%B %e, %Y %H:%M")%>"/>
+			<%else%>
+				<input type="text" name="start_date<%=@indice.to_s%>" id="start_date<%=@indice.to_s%>""/>
+			<%end%>
+				<img src="/images/img.gif" id="f_trigger<%=@indice.to_s%>"
+			     style="cursor: pointer; border: 1px solid red;"
+			     title="Date selector"
+			     onmouseover="this.style.background='red';"
+			     onmouseout="this.style.background=''" />
+				 <script type="text/javascript">
+			     Calendar.setup({
+			        inputField     :    "start_date<%=@indice.to_s%>",
+			        ifFormat       :    "%B %e, %Y %H:%M",
+			        button         :    "f_trigger<%=@indice.to_s%>",
+					showsTime      :    true,
+			        align          :    "Tl",
+			        singleClick    :    false
+			     });
+			     </script>
+        </TD>
         <TD class=remove_field rowspan=2 width=20% >
                 <span id="remove_time">
-                    <%if @datetime.end_date < (Time.now - 60)%>
+                    <%if @datetime && @datetime.end_date < (Time.now - 60)%>
 	                   Already accomplished <br>	                   
 	                   <a href="#" onClick=<%="remove_time('time#{@indice.to_s}')"%>>Remove</a>
-	                <%elsif @datetime.start_date < (Time.now - 60) && @datetime.end_date > Time.now%> 
+	                <%elsif @datetime && @datetime.start_date < (Time.now - 60) && @datetime.end_date > Time.now%> 
 	                   Accomplishing now <br>
 	                   <input name="is_accomplising" type="hidden" value=<%=@indice%> >
                        <input name="hora_inicio_acc" type="hidden" value="" >                       
@@ -86,7 +73,26 @@
     <TR id="time<%=@indice.to_s%>bis" style="display:table-row">
         <TD class=fieldEvent><label for=<%="datetime"+@indice.to_s+"_end_date"%>>End date:</label></TD>
         <TD >
-                <%= datetime_select 'datetime'+@indice.to_s, 'end_date' , :start_year => 2006, :id => 'datetime'+@indice.to_s%></TD>        
+        	<%if @datetime!=nil%>
+            	<input type="text" name="end_date<%=@indice.to_s%>" id="end_date<%=@indice.to_s%>" value="<%=@datetime.end_date.strftime("%B %e, %Y %H:%M")%>"/>
+			<%else%>
+				<input type="text" name="end_date<%=@indice.to_s%>" id="end_date<%=@indice.to_s%>"/>
+			<%end%>
+                <img src="/images/img.gif" id="f_trigger_c<%=@indice.to_s%>"
+			     style="cursor: pointer; border: 1px solid red;"
+			     title="Date selector"
+			     onmouseover="this.style.background='red';"
+			     onmouseout="this.style.background=''" />
+				 <script type="text/javascript">
+			     Calendar.setup({
+			        inputField     :    "end_date<%=@indice.to_s%>",
+			        ifFormat       :    "%B %e, %Y %H:%M",
+			        button         :    "f_trigger_c<%=@indice.to_s%>",
+					showsTime      :    true,
+			        align          :    "Tl",
+			        singleClick    :    false
+			     });
+			     </script>  
          </TD>
     </TR> 
      <TR id="time<%=@indice.to_s%>line"><TD colspan=3>&nbsp;</TD></TR>
@@ -95,7 +101,7 @@
                 <span>
                 <%= link_to_remote(  "Add Another",                                    
                                    :update => "event_times",
-                                   :url => { :action => :add_time , :indice => @indice, :date_start_day => @datetime.start_date.strftime("%m/%d/%Y")},
+                                   :url => { :action => :add_time , :indice => @indice, :date_start_day => Time.new.strftime("%m/%d/%Y")},
                                    :position => "bottom",
                                    :complete => "esconde_addtime()" ) %>
                 </span>
@@ -106,29 +112,4 @@
             <input name=<%="\"is_valid_time"+@indice.to_s + "\""%>  type="hidden" value="true" >
         </div>
         
-   <script type="text/javascript">
-           hora_inicio<%=@indice%> = document.form_event.elements["datetime<%=@indice%>[start_date(3i)]"].value; 
-           hora_inicio<%=@indice%> += "/";
-           hora_inicio<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[start_date(2i)]"].value;
-           hora_inicio<%=@indice%> += "/";
-           hora_inicio<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[start_date(1i)]"].value;
-           hora_inicio<%=@indice%> += " ";
-           hora_inicio<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[start_date(4i)]"].value;
-           hora_inicio<%=@indice%> += ":";
-           hora_inicio<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[start_date(5i)]"].value; 
-           //<%if @indice==0%>
-           //   alert(hora_inicio<%=@indice%>);   
-           //<%end-%>     
-           hora_fin<%=@indice%> = document.form_event.elements["datetime<%=@indice%>[end_date(3i)]"].value; 
-           hora_fin<%=@indice%> += "/";
-           hora_fin<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[end_date(2i)]"].value;
-           hora_fin<%=@indice%> += "/";
-           hora_fin<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[end_date(1i)]"].value;
-           hora_fin<%=@indice%> += " ";
-           hora_fin<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[end_date(4i)]"].value;
-           hora_fin<%=@indice%> += ":";
-           hora_fin<%=@indice%> += document.form_event.elements["datetime<%=@indice%>[end_date(5i)]"].value; 
-           //<%if @indice==0%>
-           //   alert(hora_fin<%=@indice%>);   
-           //<%end-%>
-        </script>
+   
