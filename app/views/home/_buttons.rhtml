@@ -6,7 +6,6 @@
  <div id="bot_pcipal">
  	 <ul>
   	 <li class="short" ><%= link_to "Events" , {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
-	 <li class="medium"><%=link_to 'New Event',new_space_event_path(@space), :class => "secund" %></li>
 	 <li class="short"><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
 	 <li class="medium"><%= link_to "Resources", {:controller=>'machines',  :action=>'list_user_machines'},:class => "secund",:method=> 'get'%></li>
 	 

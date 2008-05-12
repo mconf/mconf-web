@@ -15,6 +15,11 @@ class SpacesController < ApplicationController
     end
   end
   
+  # GET /spaces/1
+  def show
+    @space = Space.find(params[:id])
+    #debugger
+  end
   
   # GET /spaces/new
   # GET /spaces/new.xml

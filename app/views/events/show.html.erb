@@ -4,6 +4,7 @@
 <script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
 &nbsp;
 <input type="hidden" id="buttons_to_show" value="principal">
+<li class="medium"><%=link_to 'New Event',new_space_event_path(@space), :class => "secund" %></li>
 <TABLE class=day WIDTH=100% BORDER=1 CELLSPACING=0 CELLPADDING=0>
 <TR><TD width=100% rowspan=3 valign="top">
 <div id="timetable">
@@ -16,7 +17,7 @@
 array_machines << ["all",0]
 array_machines += Machine.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
 -%>
-<% form_tag ("/event/nil", {:name=>'form',:style => "display: inline;"}) do %>
+<% form_tag ("/event/nil", {:name=>'form',:style => "display: inline;",:method => 'get' }) do %>
 <%= select("machine", "name", array_machines,{ :include_blank=>false }, { :onchange => "javascript:change_table()"})%>
 <% end -%>
 <script type="text/javascript">

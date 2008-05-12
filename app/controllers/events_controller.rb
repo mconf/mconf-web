@@ -127,6 +127,7 @@ class EventsController < ApplicationController
     param_end_date = 'end_date' + indice.to_s
     is_valid = "is_valid_time" + indice.to_s
     while params[param_start_date.to_sym] 
+      logger.debug("New datetime for this event: " + indice.to_s)
       @datetime = EventDatetime.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym])   
       if(params[is_valid.to_sym]=="true")
         @event.event_datetimes << @datetime  

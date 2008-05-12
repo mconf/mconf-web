@@ -281,7 +281,7 @@ class EventsControllerTest < ActionController::TestCase
       
   def test_create_with_error_in_datetimes_2
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"May 27, 2007 02:00"
+    post :create, :is_valid_time0=>"true", :is_valid_time1=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"May 27, 2007 02:00"
     #now i am not redirected
     assert_response :success
   end
