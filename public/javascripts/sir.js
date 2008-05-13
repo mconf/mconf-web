@@ -1,3 +1,8 @@
+function change_space()
+{
+	miloc = "/spaces/" + document.form.space_id.value;	
+	document.location.href = miloc;
+}
 
 function esconde(Seccion)
   { 
