@@ -1,25 +1,31 @@
-<div align=center>
-<% form_tag session_path do -%>
-<div id="contenedor">
-  <div id="login_and_password-container">
-<p><label for="login">Username or email</label><br/>
-<%= text_field_tag 'login' %></p>
+<div id="contenido_login" align=center>
+	
+	<% form_tag session_path do -%>
 
-<p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+	<div id="contenedor">
+		
+	  <div id="login_and_password-container">
+		
+		<p><label for="login">Username or email</label><br/>
+		
+		<%= text_field_tag 'login' %></p>
+		<p><label for="password">Password</label><br/>
+		<%= password_field_tag 'password' %></p>
 
+		
 
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
+		<p><label for="remember_me">Remember me:</label>
+		<%= check_box_tag 'remember_me' %></p>
 
-<%= link_to 'Forgot your Password?', forgot_path %>
-</div>
+		<%= link_to 'Forgot your Password?', forgot_path %>
+	  </div>
 or....
-<div id="openid-container">
-<p><label for="openid_identifier">OpenID:</label>
-<%= text_field_tag 'openid_identifier' %>
-</div>
-<p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
-<% end -%>
-</div>
+	  <div id="openid-container">
+		<p><label for="openid_identifier">OpenID:</label></p>
+		<%= text_field_tag 'openid_identifier' %>
+	  </div>
+	  <p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
+	 <% end -%>
+	
+	</div>
 </div> 	
