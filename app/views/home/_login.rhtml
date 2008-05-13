@@ -1,5 +1,16 @@
 <!-- home/index.rhtml -->
-
+<%array_spaces = []
+	array_spaces << ["Public (All)",0]
+	array_spaces += Space.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
+	-%>
+	<% form_tag ("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
+		<div id="space-span">Space:</div> 
+		<%if @space%>
+			<%= select("space", "id", array_spaces,{ :include_blank=>false, :selected=>@space.id.to_s }, { :onchange => "change_space()", :selected=>@space.name})%>
+		<%else%>
+			<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
+		<%end%>
+	<% end -%>
 
 	<% if logged_in? %>
 		<div id="username"><p><%=h current_user.login %></p></div>

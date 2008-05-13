@@ -14,17 +14,5 @@
 	<ul>
 	<li class="short_r"><%= link_to "Home", {:controller=>'events', :action=>'show'}, :class => "tit_pcipal" , :method=> 'get'%></li>
 	</ul>
-	<%end%>
-	<%array_spaces = []
-	array_spaces << ["Public (All)",0]
-	array_spaces += Space.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
-	-%>
-	<% form_tag ("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
-		<div id="space-span">Space:</div> 
-		<%if @space%>
-			<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()", :selected=>@space.name})%>
-		<%else%>
-			<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
-		<%end%>
-	<% end -%>
+	<%end%>	
 </div>
