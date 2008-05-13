@@ -3,7 +3,7 @@ class SpacesController < ApplicationController
   include CMS::Controller::Authorization
   before_filter :authentication_required
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
-  before_filter :get_space , :only =>[:edit, :add_user,:update]
+  before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space, :only=>[:edit,:update]
   before_filter  :can__add_users__space, :only=>[:add_user]
   def index
@@ -17,7 +17,6 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show
-    @space = Space.find(params[:id])
     #debugger
   end
   
@@ -34,7 +33,7 @@ class SpacesController < ApplicationController
 
   # GET /spaces/1/edit
   def edit
-    @space = Space.find(params[:id])
+    
   end
 
 
@@ -67,7 +66,7 @@ class SpacesController < ApplicationController
           for role in CMS::Role.find_all_by_type(nil)
             if params[role.name]
               for login in parse_divs(params[role.name].to_s)
-                @space.performances.create :agent => User.find_by_login(login), :role => role
+                @space.container_performances.create :agent => User.find_by_login(login), :role => role
               end
             end
           end
@@ -99,7 +98,6 @@ class SpacesController < ApplicationController
   
   def add_user
     @space = Space.find(params[:id])
-    session[:cart] ||= {}
   end
   
   

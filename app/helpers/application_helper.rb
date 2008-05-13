@@ -40,12 +40,13 @@ end
 end
 end
 
-def javascript(file_name, space_id)
-  content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"\" type=\"text/javascript\"></script>" }
-end
 
-def javascript(file_name, space_id, role_id)
-  content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"/"+role_id+"\" type=\"text/javascript\"></script>" }
+def javascript(file_name, space_id, role_id=nil)
+  if role_id!=nil
+    content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"/"+role_id+"\" type=\"text/javascript\"></script>" }
+  else
+    content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"\" type=\"text/javascript\"></script>" }  
+  end
 end
 
 end
