@@ -4,8 +4,8 @@ class SpacesController < ApplicationController
   before_filter :authentication_required
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
-  before_filter  :can__edit__space, :only=>[:edit,:update]
-  before_filter  :can__add_users__space, :only=>[:add_user]
+  before_filter  :can__edit__space__filter, :only=>[:edit,:update]
+  before_filter  :can__add_users__space__filter, :only=>[:add_user]
   def index
     @spaces = Space.find(:all )
     
