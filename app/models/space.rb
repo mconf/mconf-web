@@ -4,7 +4,7 @@ class Space < ActiveRecord::Base
   
   #method to know the users that belong to this space
   def users
-    agents
+    actors
   end
   
   
@@ -50,7 +50,7 @@ class Space < ActiveRecord::Base
   #so each name has to be between quotation marks and separated by commas
   def print_array_of_agents
     temp = ""
-    for agen in agents
+    for agen in actors
       temp = temp + "\"" + agen.login + "\", "
     end
     temp.chop.chop   #removes the last character, in this case the last space and the last comma

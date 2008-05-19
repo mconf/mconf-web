@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     @users = []
     i = 0
     
-    @agen = @container.agents
+    @agen = @container.actors
 
     @use.collect { |user|
       if @agen.include?(user.ferret_load_record)

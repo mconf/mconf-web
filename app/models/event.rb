@@ -342,6 +342,8 @@ class Event < ActiveRecord::Base
           logger.debug("at_jobs asignados")
           datetime.save
           logger.debug("datetime salvado")
+        else
+          logger.debug("start_date y end_date anteriores a ahora, así que no guardo at_job, será null")
         end
       end
     end
@@ -354,9 +356,12 @@ class Event < ActiveRecord::Base
         return
       end
       at_command_rm = "atrm "
-      logger.debug("borrando at_jobs " + at_jobs_array.to_s)
+      logger.debug("borrando "+ at_jobs_array.length.to_s + " at_jobs: " + at_jobs_array.to_s)
       for at_job in at_jobs_array
-        logger.debug("entra en el for")
+        if at_job == nil
+          next
+        end
+        logger.debug("entra en el for para el at_job " + at_job.to_s)
         command = at_command_rm + at_job.to_s
         #delete also the at_job to start the real session
         command2 = at_command_rm + (at_job+1).to_s

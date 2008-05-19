@@ -128,7 +128,7 @@ class RolesController < ApplicationController
   
   
   def create_group 
-    @users =  @container.agents    
+    @users =  @container.actors    
     @role = Group.new
     @users_group = []
     respond_to do |format|
@@ -139,7 +139,7 @@ class RolesController < ApplicationController
   
   
   def save_group
-    @users =  @container.agents   
+    @users =  @container.actors   
     @role = Group.new(params[:group])
     respond_to do |format|
       if @role.save
@@ -160,7 +160,7 @@ class RolesController < ApplicationController
   
   
   def edit_group
-    @users =  @container.agents    
+    @users =  @container.actors    
     @role = Group.find(params[:group_id])
     @group = @role    #para que rellene automáticamente los campos
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
