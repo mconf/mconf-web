@@ -107,13 +107,14 @@ Rico.Color.prototype = {
 
 Rico.Color.createFromHex = function(hexCode) {
   if(hexCode.length==4) {
-    var shortHexCode = hexCode; 
+    var shortHexCode = hexCode;
     var hexCode = '#';
     for(var i=1;i<4;i++)
       hexCode += (shortHexCode.charAt(i) + shortHexCode.charAt(i));
   }
   if ( hexCode.indexOf('#') == 0 )
     hexCode = hexCode.substring(1);
+  if (!hexCode.match(/^[0-9A-Fa-f]{6}$/)) return null;
   var red   = hexCode.substring(0,2);
   var green = hexCode.substring(2,4);
   var blue  = hexCode.substring(4,6);
@@ -349,6 +350,7 @@ Rico.Corner = {
 
    _roundCornersImpl: function(e, color, bgColor) {
       this.options.numSlices = this.options.compact ? 2 : 4;
+      this.borderColor = this._borderColor(color,bgColor);
       if(this.options.border)
          this._renderBorder(e,bgColor);
       if(this._isTopRounded())
@@ -421,7 +423,6 @@ Rico.Corner = {
       inStyle.overflow = "hidden";
       inStyle.fontSize = "1px";
 
-      var borderColor = this._borderColor(color,bgColor);
       if ( this.options.border && n == 0 ) {
          inStyle.borderTopStyle    = "solid";
          inStyle.borderTopWidth    = "1px";
@@ -429,10 +430,10 @@ Rico.Corner = {
          inStyle.borderRightWidth  = "0px";
          inStyle.borderBottomWidth = "0px";
          inStyle.height            = "0px"; // assumes css compliant box model
-         inStyle.borderColor       = borderColor;
+         inStyle.borderColor       = this.borderColor;
       }
-      else if(borderColor) {
-         inStyle.borderColor = borderColor;
+      else if(this.borderColor) {
+         inStyle.borderColor = this.borderColor;
          inStyle.borderStyle = "solid";
          inStyle.borderWidth = "0px 1px";
       }
@@ -488,14 +489,17 @@ Rico.Corner = {
    },
 
    _borderColor : function(color,bgColor) {
-      if ( color == "transparent" )
-         return bgColor;
-      else if ( this.options.border )
-         return this.options.border;
-      else if ( this.options.blend )
-         return this._blend( bgColor, color );
-      else
-         return "";
+      if (color == "transparent") return bgColor;
+      if (this.options.border) return this.options.border;
+      if (!this.options.blend) return '';
+      var cc1 = Rico.Color.createFromHex(bgColor);
+      var cc2 = Rico.Color.createFromHex(color);
+      if (cc1==null || cc2==null) {
+         this.options.blend=false;
+         return '';
+      }
+      cc1.blend(cc2);
+      return cc1;
    },
 
 
@@ -569,9 +573,27 @@ Rico.Corner = {
       return 0;
    },
 
-   _hasString: function(str) { for(var i=1 ; i<arguments.length ; i++) if (str.indexOf(arguments[i]) >= 0) return true; return false; },
-   _blend: function(c1, c2) { var cc1 = Rico.Color.createFromHex(c1); cc1.blend(Rico.Color.createFromHex(c2)); return cc1; },
-   _background: function(el) { try { return Rico.Color.createColorFromBackground(el).asHex(); } catch(err) { return "#ffffff"; } },
+   _background: function(elem) {
+     try {
+       var actualColor = Element.getStyle(elem, "background-color");
+
+       // if color is tranparent, check parent
+       // Safari returns "rgba(0, 0, 0, 0)", which means transparent
+       if ( actualColor.match(/^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/i) && elem.parentNode )
+          return this._background(elem.parentNode);
+
+       return actualColor == null ? "#ffffff" : actualColor;
+     } catch(err) {
+       return "#ffffff";
+     }
+   },
+
+   _hasString: function(str) {
+     for(var i=1 ; i<arguments.length ; i++)
+       if (str.indexOf(arguments[i]) >= 0) return true;
+     return false;
+   },
+
    _isTransparent: function() { return this.options.color == "transparent"; },
    _isTopRounded: function() { return this._hasString(this.options.corners, "all", "top", "tl", "tr"); },
    _isBottomRounded: function() { return this._hasString(this.options.corners, "all", "bottom", "bl", "br"); },

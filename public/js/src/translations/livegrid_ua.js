@@ -1,4 +1,4 @@
-/*****************************************************************
+п»ї/*****************************************************************
  Page : livegrid_ua.js
  Description : LiveGrid text for Ukrainian menus
  Version 0.1 (by Illiya Gannitskiy,Alexey Uvarov)
@@ -6,77 +6,77 @@
  translations for another language, please send them to dowdybrown@yahoo.com
 ******************************************************************/
 
-RicoTranslate.addPhrase("Sort by","Cортування по")
-RicoTranslate.addPhrase("Filter by","Фільтрація по")
-RicoTranslate.addPhrase("Hide","Сховати")
-RicoTranslate.addPhrase("Show","Показати")
-RicoTranslate.addPhrase("Show All","Показати все")
-RicoTranslate.addPhrase("Ascending","Зростаюча")
-RicoTranslate.addPhrase("Descending","Убуваюча")
+RicoTranslate.addPhrase("Sort by","CРѕСЂС‚СѓРІР°РЅРЅСЏ РїРѕ")
+RicoTranslate.addPhrase("Filter by","Р¤С–Р»СЊС‚СЂР°С†С–СЏ РїРѕ")
+RicoTranslate.addPhrase("Hide","РЎС…РѕРІР°С‚Рё")
+RicoTranslate.addPhrase("Show","РџРѕРєР°Р·Р°С‚Рё")
+RicoTranslate.addPhrase("Show All","РџРѕРєР°Р·Р°С‚Рё РІСЃРµ")
+RicoTranslate.addPhrase("Ascending","Р—СЂРѕСЃС‚Р°СЋС‡Р°")
+RicoTranslate.addPhrase("Descending","РЈР±СѓРІР°СЋС‡Р°")
 
-RicoTranslate.addPhrase("Include only this value","Включити тільки це значення")
-RicoTranslate.addPhrase("Exclude this value","Виключити це значення")
-RicoTranslate.addPhrase("Greater than or equal to this value","Більше або рівно даному значенню")
-RicoTranslate.addPhrase("Less than or equal to this value","Менше або рівно даному значенню")
-RicoTranslate.addPhrase("Contains keyword","Містить значення")
-RicoTranslate.addPhrase("Change keyword","Змінити значення")
-RicoTranslate.addPhrase("Enter keyword to search for","Шукати по ключу")
-RicoTranslate.addPhrase("use * as a wildcard","Використовувати * для всіх записів")
-RicoTranslate.addPhrase("also","також")
-RicoTranslate.addPhrase("Remove filter","Прибрати фільтр")
+RicoTranslate.addPhrase("Include only this value","Р’РєР»СЋС‡РёС‚Рё С‚С–Р»СЊРєРё С†Рµ Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("Exclude this value","Р’РёРєР»СЋС‡РёС‚Рё С†Рµ Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("Greater than or equal to this value","Р‘С–Р»СЊС€Рµ Р°Р±Рѕ СЂС–РІРЅРѕ РґР°РЅРѕРјСѓ Р·РЅР°С‡РµРЅРЅСЋ")
+RicoTranslate.addPhrase("Less than or equal to this value","РњРµРЅС€Рµ Р°Р±Рѕ СЂС–РІРЅРѕ РґР°РЅРѕРјСѓ Р·РЅР°С‡РµРЅРЅСЋ")
+RicoTranslate.addPhrase("Contains keyword","РњС–СЃС‚РёС‚СЊ Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("Change keyword","Р—РјС–РЅРёС‚Рё Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("Enter keyword to search for","РЁСѓРєР°С‚Рё РїРѕ РєР»СЋС‡Сѓ")
+RicoTranslate.addPhrase("use * as a wildcard","Р’РёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё * РґР»СЏ РІСЃС–С… Р·Р°РїРёСЃС–РІ")
+RicoTranslate.addPhrase("also","С‚Р°РєРѕР¶")
+RicoTranslate.addPhrase("Remove filter","РџСЂРёР±СЂР°С‚Рё С„С–Р»СЊС‚СЂ")
 
-RicoTranslate.addPhrase("Waiting for data","Очікування даних")
-RicoTranslate.addPhrase("Request for data timed out","Перевищений інтервал очікування даних")
+RicoTranslate.addPhrase("Waiting for data","РћС‡С–РєСѓРІР°РЅРЅСЏ РґР°РЅРёС…")
+RicoTranslate.addPhrase("Request for data timed out","РџРµСЂРµРІРёС‰РµРЅРёР№ С–РЅС‚РµСЂРІР°Р» РѕС‡С–РєСѓРІР°РЅРЅСЏ РґР°РЅРёС…")
 
-RicoTranslate.addPhrase("No matching records","Немає збігів")
-RicoTranslate.addPhrase("Listing records","Перегляд записів")
-RicoTranslate.addPhrase("of","з")
-RicoTranslate.addPhrase("of about","з о")
+RicoTranslate.addPhrase("No matching records","РќРµРјР°С” Р·Р±С–РіС–РІ")
+RicoTranslate.addPhrase("Listing records","РџРµСЂРµРіР»СЏРґ Р·Р°РїРёСЃС–РІ")
+RicoTranslate.addPhrase("of","Р·")
+RicoTranslate.addPhrase("of about","Р· Рѕ")
 
 RicoTranslate.thouSep=","
 RicoTranslate.decPoint="."
 RicoTranslate.dateFmt="dd/mm/yyyy"
 
-RicoTranslate.monthNames=['Січень','Лютий', 'Березень', 'Квітень', 'Травень','Червень', 'Липень','Серпень','Вересень','Жовтень','Листопад','Грудень']
-RicoTranslate.dayNames=['Понеділок','Вівторок','Середа','Четвер','П'ятниця','Субота','Неділя']
+RicoTranslate.monthNames=['РЎС–С‡РµРЅСЊ','Р›СЋС‚РёР№', 'Р‘РµСЂРµР·РµРЅСЊ', 'РљРІС–С‚РµРЅСЊ', 'РўСЂР°РІРµРЅСЊ','Р§РµСЂРІРµРЅСЊ', 'Р›РёРїРµРЅСЊ','РЎРµСЂРїРµРЅСЊ','Р’РµСЂРµСЃРµРЅСЊ','Р–РѕРІС‚РµРЅСЊ','Р›РёСЃС‚РѕРїР°Рґ','Р“СЂСѓРґРµРЅСЊ']
+RicoTranslate.dayNames=['РџРѕРЅРµРґС–Р»РѕРє','Р’С–РІС‚РѕСЂРѕРє','РЎРµСЂРµРґР°','Р§РµС‚РІРµСЂ','Рџ'СЏС‚РЅРёС†СЏ','РЎСѓР±РѕС‚Р°','РќРµРґС–Р»СЏ']
 
 // added for 22 August release
 
-RicoTranslate.addPhrase("Print","Друк")
-RicoTranslate.addPhrase("Export","Експорт")
-RicoTranslate.addPhrase("Visible rows","Видимі записи")
-RicoTranslate.addPhrase("All rows","Всі записи")
+RicoTranslate.addPhrase("Print","Р”СЂСѓРє")
+RicoTranslate.addPhrase("Export","Р•РєСЃРїРѕСЂС‚")
+RicoTranslate.addPhrase("Visible rows","Р’РёРґРёРјС– Р·Р°РїРёСЃРё")
+RicoTranslate.addPhrase("All rows","Р’СЃС– Р·Р°РїРёСЃРё")
 
 // added for Feb 2007 release
 
-RicoTranslate.addPhrase("Loading","Завантаження")
-RicoTranslate.addPhrase("minutes before your session expires","хвилин до закінчення сесії")
-RicoTranslate.addPhrase("EXPIRED","ЗАКІНЧИЛОСЯ")
-RicoTranslate.addPhrase("Close","Закрито")
-RicoTranslate.addPhrase("Cancel","Відміна")
-RicoTranslate.addPhrase("Save","Зберегти")
-RicoTranslate.addPhrase("Add","Додати")
-RicoTranslate.addPhrase("Edit","Редагувати")
-RicoTranslate.addPhrase("Delete","Видалити")
-RicoTranslate.addPhrase("Are you sure you want to delete","Ви упевнені,що бажаєте видалити")
-RicoTranslate.addPhrase("record","запис")
-RicoTranslate.addPhrase("this record","цей запис")
-RicoTranslate.addPhrase("new record","новий запис")
-RicoTranslate.addPhrase("Please enter","Будь ласка, введіть")
-RicoTranslate.addPhrase("a value for","значення для")
-RicoTranslate.addPhrase("an integer value for","ціле значення для")
-RicoTranslate.addPhrase("a positive integer value for","позитивне ціле значення для")
-RicoTranslate.addPhrase("The request returned an error","Запит повернув помилку")
+RicoTranslate.addPhrase("Loading","Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ")
+RicoTranslate.addPhrase("minutes before your session expires","С…РІРёР»РёРЅ РґРѕ Р·Р°РєС–РЅС‡РµРЅРЅСЏ СЃРµСЃС–С—")
+RicoTranslate.addPhrase("EXPIRED","Р—РђРљР†РќР§РР›РћРЎРЇ")
+RicoTranslate.addPhrase("Close","Р—Р°РєСЂРёС‚Рѕ")
+RicoTranslate.addPhrase("Cancel","Р’С–РґРјС–РЅР°")
+RicoTranslate.addPhrase("Save","Р—Р±РµСЂРµРіС‚Рё")
+RicoTranslate.addPhrase("Add","Р”РѕРґР°С‚Рё")
+RicoTranslate.addPhrase("Edit","Р РµРґР°РіСѓРІР°С‚Рё")
+RicoTranslate.addPhrase("Delete","Р’РёРґР°Р»РёС‚Рё")
+RicoTranslate.addPhrase("Are you sure you want to delete","Р’Рё СѓРїРµРІРЅРµРЅС–,С‰Рѕ Р±Р°Р¶Р°С”С‚Рµ РІРёРґР°Р»РёС‚Рё")
+RicoTranslate.addPhrase("record","Р·Р°РїРёСЃ")
+RicoTranslate.addPhrase("this record","С†РµР№ Р·Р°РїРёСЃ")
+RicoTranslate.addPhrase("new record","РЅРѕРІРёР№ Р·Р°РїРёСЃ")
+RicoTranslate.addPhrase("Please enter","Р‘СѓРґСЊ Р»Р°СЃРєР°, РІРІРµРґС–С‚СЊ")
+RicoTranslate.addPhrase("a value for","Р·РЅР°С‡РµРЅРЅСЏ РґР»СЏ")
+RicoTranslate.addPhrase("an integer value for","С†С–Р»Рµ Р·РЅР°С‡РµРЅРЅСЏ РґР»СЏ")
+RicoTranslate.addPhrase("a positive integer value for","РїРѕР·РёС‚РёРІРЅРµ С†С–Р»Рµ Р·РЅР°С‡РµРЅРЅСЏ РґР»СЏ")
+RicoTranslate.addPhrase("The request returned an error","Р—Р°РїРёС‚ РїРѕРІРµСЂРЅСѓРІ РїРѕРјРёР»РєСѓ")
 
 
 
 // for demo only:
 
-RicoTranslate.addPhrase("Show orders for","Показати значення")
-RicoTranslate.addPhrase("Show order detail","Показати значення детально")
-RicoTranslate.addPhrase("order","Значення")
-RicoTranslate.addPhrase("this order","це значення")
-RicoTranslate.addPhrase("new order","нове значення")
+RicoTranslate.addPhrase("Show orders for","РџРѕРєР°Р·Р°С‚Рё Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("Show order detail","РџРѕРєР°Р·Р°С‚Рё Р·РЅР°С‡РµРЅРЅСЏ РґРµС‚Р°Р»СЊРЅРѕ")
+RicoTranslate.addPhrase("order","Р—РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("this order","С†Рµ Р·РЅР°С‡РµРЅРЅСЏ")
+RicoTranslate.addPhrase("new order","РЅРѕРІРµ Р·РЅР°С‡РµРЅРЅСЏ")
 
 
 // add your own here:

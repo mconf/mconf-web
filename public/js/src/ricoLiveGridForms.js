@@ -17,7 +17,8 @@ Rico.TableEdit.prototype = {
       hoverClass       : 'tabHover',
       selectedClass    : 'tabSelected',
       compact          : false,    // compact corners
-      RecordName       : 'record',
+      RecordName       : RicoTranslate.getPhraseById("record"),
+      updateURL        : window.location.pathname, // default is that updates post back to the generating page
       readOnlyColor    : '#AAA',   // read-only fields displayed using this color
       showSaveMsg      : 'errors'  // disposition of database update responses (full - show full response, errors - show full response for errors and short response otherwise)
     }
@@ -28,16 +29,24 @@ Rico.TableEdit.prototype = {
     this.menu.ignoreClicks();
     RicoEditControls.atLoad();
     this.createEditDiv();
+    this.createKeyArray();
     this.saveMsg=$(liveGrid.tableId+'_savemsg');
     Event.observe(document,"click", this.clearSaveMsg.bindAsEventListener(this), false);
     this.extraMenuItems=new Array();
     this.responseHandler=this.processResponse.bind(this);
     Rico.writeDebugMsg("Rico.TableEdit.initialize complete, hasWF2="+this.hasWF2);
   },
-  
+
   canDragFunc: function(elem,event) {
     if (elem.componentFromPoint && elem.componentFromPoint(event.clientX,event.clientY)!='') return false;
     return (elem==this.editDiv || elem.tagName=='FORM');
+  },
+
+  createKeyArray: function() {
+    this.keys=[];
+    for (var i=0; i<this.grid.columns.length; i++)
+      if (this.grid.columns[i].format && this.grid.columns[i].format.isKey)
+        this.keys.push(i);
   },
 
   createEditDiv: function() {
@@ -51,7 +60,7 @@ Rico.TableEdit.prototype = {
       this.startForm();
       this.createForm(this.form);
     } else {
-      var button=this.createButton("Close");
+      var button=this.createButton(RicoTranslate.getPhraseById("close"));
       Event.observe(button,"click", this.cancelEdit.bindAsEventListener(this), false);
       this.createForm(this.editDiv);
     }
@@ -101,10 +110,10 @@ Rico.TableEdit.prototype = {
     var tab = document.createElement('table');
     var row = tab.insertRow(-1);
     var cell = row.insertCell(-1);
-    var button=cell.appendChild(this.createButton("Save \t"+this.options.RecordName));
+    var button=cell.appendChild(this.createButton(RicoTranslate.getPhraseById("saveRecord",this.options.RecordName)));
     Event.observe(button,"click", this.TESubmit.bindAsEventListener(this), false);
     var cell = row.insertCell(-1);
-    var button=cell.appendChild(this.createButton("Cancel"));
+    var button=cell.appendChild(this.createButton(RicoTranslate.getPhraseById("cancel")));
     Event.observe(button,"click", this.cancelEdit.bindAsEventListener(this), false);
     this.form.appendChild(tab);
 
@@ -122,7 +131,6 @@ Rico.TableEdit.prototype = {
 
   createButton: function(buttonLabel) {
     var button = document.createElement('button');
-    buttonLabel=RicoTranslate.getPhrase(buttonLabel);
     button.innerHTML="<span style='text-decoration:underline;'>"+buttonLabel.charAt(0)+"</span>"+buttonLabel.substr(1);
     button.accessKey=buttonLabel.charAt(0);
     return button;
@@ -256,20 +264,18 @@ Rico.TableEdit.prototype = {
       case 'R':
       case 'RL':
         field=RicoUtil.createFormField(entry,'div',null,name);
-        if (fmt.isNullable)
-          this.addSelectOption(field,this.options.TableSelectNone,"(none)");
+        if (fmt.isNullable) this.addSelectNone(field);
         this.selectValuesRequest(field,fmt);
         break;
       case 'N':
         field=RicoUtil.createFormField(entry,'select',null,name);
-        if (fmt.isNullable)
-          this.addSelectOption(field,this.options.TableSelectNone,"(none)");
+        if (fmt.isNullable) this.addSelectNone(field);
         field.onchange=this.checkSelectNew.bindAsEventListener(this);
         this.selectValuesRequest(field,fmt);
         field=document.createElement('span');
         field.className='ricoEditLabel';
         field.id='labelnew__'+fmt.FieldName;
-        field.innerHTML='&nbsp;&nbsp;&nbsp;New&nbsp;value:';
+        field.innerHTML='&nbsp;&nbsp;&nbsp;'+RicoTranslate.getPhraseById('formNewValue').replace(' ','&nbsp;');
         entry.appendChild(field);
         name='textnew__'+fmt.FieldName;
         field=RicoUtil.createFormField(entry,'input','text',name,name);
@@ -277,8 +283,7 @@ Rico.TableEdit.prototype = {
       case 'S':
       case 'SL':
         field=RicoUtil.createFormField(entry,'select',null,name);
-        if (fmt.isNullable)
-          this.addSelectOption(field,this.options.TableSelectNone,"(none)");
+        if (fmt.isNullable) this.addSelectNone(field);
         this.selectValuesRequest(field,fmt);
         break;
       case 'D':
@@ -332,7 +337,11 @@ Rico.TableEdit.prototype = {
         RicoEditControls.applyTo(column,field);
     }
   },
-  
+
+  addSelectNone: function(field) {
+    this.addSelectOption(field,this.options.TableSelectNone,RicoTranslate.getPhraseById("selectNone"));
+  },
+
   initField: function(field,fmt) {
     if (fmt.Length) {
       field.maxLength=fmt.Length;
@@ -374,8 +383,9 @@ Rico.TableEdit.prototype = {
     response=response[0];
     var error = response.getElementsByTagName('error');
     if (error.length > 0) {
-      Rico.writeDebugMsg("Data provider returned an error:\n"+RicoUtil.getContentAsString(error[0],this.grid.buffer.isEncoded));
-      alert(RicoTranslate.getPhrase("The request returned an error")+":\n"+RicoUtil.getContentAsString(error[0],this.grid.buffer.isEncoded));
+      var errmsg=RicoUtil.getContentAsString(error[0],this.grid.buffer.isEncoded);
+      Rico.writeDebugMsg("Data provider returned an error:\n"+errmsg);
+      alert(RicoTranslate.getPhraseById("requestError",errmsg));
       return null;
     }
     response=response.getElementsByTagName('response')[0];
@@ -387,13 +397,13 @@ Rico.TableEdit.prototype = {
     Rico.writeDebugMsg("selectValuesUpdate: id="+id+' rows='+rows.length);
     for (var i=0; i<rows.length; i++) {
       if (rows[i].length>0) {
-        var c0=rows[i][0].content;
-        var c1=(rows[i].length>1) ? rows[i][1].content : c0;
+        var c0=rows[i][0];
+        var c1=(rows[i].length>1) ? rows[i][1] : c0;
         this.addSelectOption(elem,c0,c1,i);
       }
     }
     if ($('textnew__'+id))
-      this.addSelectOption(elem,this.options.TableSelectNew,"(new value)");
+      this.addSelectOption(elem,this.options.TableSelectNew,RicoTranslate.getPhraseById("selectNewVal"));
     if (this.panelGroup)
       setTimeout(this.initPanelGroup.bind(this),50);
   },
@@ -409,14 +419,7 @@ Rico.TableEdit.prototype = {
         elem.appendChild(lbl);
         break;
       case 'select':
-        var opt=document.createElement('option');
-        opt.value=value;
-        opt.text=text;
-        //elem.options.add(opt);
-        if (Prototype.Browser.IE)
-          elem.add(opt);
-        else
-          elem.add(opt,null);
+        RicoUtil.addSelectOption(elem,value,text);
         break;
     }
   },
@@ -436,17 +439,20 @@ Rico.TableEdit.prototype = {
     var elemTitle=$('pageTitle');
     var pageTitle=elemTitle ? elemTitle.innerHTML : document.title;
     this.menu.addMenuHeading(pageTitle);
-    for (var i=0; i<this.extraMenuItems.length; i++) {
+    for (var i=0; i<this.extraMenuItems.length; i++)
       this.menu.addMenuItem(this.extraMenuItems[i].menuText,this.extraMenuItems[i].menuAction,this.extraMenuItems[i].enabled);
-    }
     if (onBlankRow==false) {
-      this.menu.addMenuItem("Edit\t this "+this.options.RecordName,this.editRecord.bindAsEventListener(this),this.options.canEdit);
-      this.menu.addMenuItem("Delete\t this "+this.options.RecordName,this.deleteRecord.bindAsEventListener(this),this.options.canDelete);
+      var menutxt=RicoTranslate.getPhraseById("editRecord",this.options.RecordName);
+      this.menu.addMenuItem(menutxt,this.editRecord.bindAsEventListener(this),this.options.canEdit);
+      var menutxt=RicoTranslate.getPhraseById("deleteRecord",this.options.RecordName);
+      this.menu.addMenuItem(menutxt,this.deleteRecord.bindAsEventListener(this),this.options.canDelete);
       if (this.options.canClone) {
-        this.menu.addMenuItem("Clone\t this "+this.options.RecordName,this.cloneRecord.bindAsEventListener(this),this.options.canAdd && this.options.canEdit);
+        var menutxt=RicoTranslate.getPhraseById("cloneRecord",this.options.RecordName);
+        this.menu.addMenuItem(menutxt,this.cloneRecord.bindAsEventListener(this),this.options.canAdd && this.options.canEdit);
       }
     }
-    this.menu.addMenuItem("Add\t new "+this.options.RecordName,this.addRecord.bindAsEventListener(this),this.options.canAdd);
+    var menutxt=RicoTranslate.getPhraseById("addRecord",this.options.RecordName);
+    this.menu.addMenuItem(menutxt,this.addRecord.bindAsEventListener(this),this.options.canAdd);
     return true;
   },
 
@@ -562,18 +568,28 @@ Rico.TableEdit.prototype = {
   },
 
   processResponse: function() {
-    var ch=this.responseDiv.childNodes;
-    for (var i=ch.length-1; i>=0; i--) {
-      if (ch[i].nodeType==1 && ch[i].nodeName!='P' && ch[i].nodeName!='DIV' && ch[i].nodeName!='BR')
-        this.responseDiv.removeChild(ch[i]);
+    var responseText,success=true;
+    var respNodes=Element.select(this.responseDiv,'.ricoFormResponse');
+    if (respNodes) {
+      // generate a translated response
+      var phraseId=$w(respNodes[0].className)[1];
+      responseText=RicoTranslate.getPhraseById(phraseId,this.options.RecordName);
+    } else {
+      // present the response as sent from the server (untranslated)
+      var ch=this.responseDiv.childNodes;
+      for (var i=ch.length-1; i>=0; i--) {
+        if (ch[i].nodeType==1 && ch[i].nodeName!='P' && ch[i].nodeName!='DIV' && ch[i].nodeName!='BR')
+          this.responseDiv.removeChild(ch[i]);
+      }
+      responseText=this.responseDiv.innerHTML.stripTags();
+      success=(responseText.toLowerCase().indexOf('error')==-1);
     }
-    var responseText=this.responseDiv.innerHTML;
-    if (responseText.toLowerCase().indexOf('error')==-1 && this.options.showSaveMsg!='full') {
+    if (success && this.options.showSaveMsg!='full') {
       this.hideResponse('');
       this.grid.resetContents();
       this.grid.buffer.foundRowCount = false;
       this.grid.buffer.fetch(this.grid.lastRowPos || 0);
-      if (this.saveMsg) this.saveMsg.innerHTML='&nbsp;'+responseText.stripTags()+'&nbsp;';
+      if (this.saveMsg) this.saveMsg.innerHTML='&nbsp;'+responseText+'&nbsp;';
     }
     this.processCallback(this.options.onSubmitResponse);
   },
@@ -602,7 +618,7 @@ Rico.TableEdit.prototype = {
   displayEditForm: function(action) {
     this.grid.highlightEnabled=false;
     this.menu.cancelmenu();
-    this.hideResponse('Saving...');
+    this.hideResponse(RicoTranslate.getPhraseById('saving'));
     this.grid.outerDiv.style.cursor = 'auto';
     this.action.value=action;
     for (var i=0; i<this.grid.columns.length; i++) {
@@ -623,7 +639,7 @@ Rico.TableEdit.prototype = {
 
   addRecord: function() {
     this.menu.cancelmenu();
-    this.hideResponse('Saving...');
+    this.hideResponse(RicoTranslate.getPhraseById('saving'));
     this.setReadOnly(true);
     this.form.reset();
     this.action.value="ins";
@@ -703,7 +719,7 @@ Rico.TableEdit.prototype = {
       this.editDiv.style.width=(this.editDiv.offsetWidth-this.grid.options.scrollBarWidth+2)+"px";
       this.editDiv.style.height=(this.editDiv.offsetHeight-this.grid.options.scrollBarWidth+2)+"px";
     }
-    
+
     this.formPopup.openPopup();  // tinyMCE may have changed the dimensions of the form
     this.initialized=true;
   },
@@ -717,46 +733,53 @@ Rico.TableEdit.prototype = {
   getConfirmDesc: function(rowIdx) {
     var desc=this.grid.columns[this.options.ConfirmDeleteCol].cell(rowIdx).innerHTML;
     desc=this.getLookupValue(desc)[1];
-    return desc.stripTags();
+    return desc.stripTags().unescapeHTML();
   },
 
   deleteRecord: function() {
     this.menu.cancelmenu();
     var desc;
-    if (this.options.ConfirmDeleteCol < 0) {
-      desc=RicoTranslate.getPhrase("this "+this.options.RecordName);
-    } else {
-      desc=this.getConfirmDesc(this.rowIdx);
-      if (desc.length>50) desc=desc.substring(0,50)+'...';
-      desc='\"' + desc + '\"'
+    switch(this.options.ConfirmDeleteCol){
+			case -1 :
+			  desc=RicoTranslate.getPhraseById("thisRecord",this.options.RecordName);
+			  break;
+			case -2 : // Use key/column header to identify the row
+        for (var k=0; k<this.keys.length; k++) {
+          var i=this.keys[k];
+          var value=this.grid.columns[i].getValue(this.rowIdx);
+          value=this.getLookupValue(value)[0];
+  				if (desc) desc+=', ';
+  				desc+=this.grid.columns[i].displayName+" "+value;
+        }
+				break;
+			default   :
+				desc='\"' + this.getConfirmDesc(this.rowIdx).truncate(50) + '\"'
     }
-    if (!this.options.ConfirmDelete.valueOf || confirm(RicoTranslate.getPhrase("Are you sure you want to delete ") + desc + " ?")) {
-      this.hideResponse('Deleting...');
+    if (!this.options.ConfirmDelete.valueOf || confirm(RicoTranslate.getPhraseById("confirmDelete",desc))) {
+      this.hideResponse(RicoTranslate.getPhraseById('deleting'));
       this.showResponse();
       var parms=this.action.name+"=del"+this.getKey();
-      //alert(parms);
-      new Ajax.Updater(this.responseDiv, window.location.pathname, {parameters:parms,onComplete:this.processResponse.bind(this)});
+      new Ajax.Updater(this.responseDiv, this.options.updateURL, {parameters:parms,onComplete:this.processResponse.bind(this)});
     }
     this.menu.cancelmenu();
   },
 
   getKey: function() {
     var key='';
-    for (var i=0; i<this.grid.columns.length; i++) {
-      if (this.grid.columns[i].format && this.grid.columns[i].format.isKey) {
-        var value=this.grid.columns[i].getValue(this.rowIdx);
-        value=this.getLookupValue(value)[0];
-        key+='&_k'+i+'='+value;
-      }
+    for (var k=0; k<this.keys.length; k++) {
+      var i=this.keys[k];
+      var value=this.grid.columns[i].getValue(this.rowIdx);
+      value=this.getLookupValue(value)[0];
+      key+='&_k'+i+'='+value;
     }
     return key;
   },
-  
-  validationMsg: function(elem,colnum,phrase) {
+
+  validationMsg: function(elem,colnum,phraseId) {
     var col=this.grid.columns[colnum];
     if (this.Accordion) this.Accordion.openByIndex(col.format.panelIdx);
-    var msg=RicoTranslate.getPhrase(phrase);
-    msg+=" \"" + col.formLabel.innerHTML + "\""
+    var msg=RicoTranslate.getPhraseById(phraseId," \"" + col.formLabel.innerHTML + "\"");
+    Rico.writeDebugMsg(' Validation error: '+msg);
     if (col.format.Help) msg+="\n\n"+col.format.Help;
     alert(msg);
     setTimeout(function() { try { elem.focus(); elem.select(); } catch(e) {}; }, 10);
@@ -767,6 +790,7 @@ Rico.TableEdit.prototype = {
     var i,lbl,spec,elem,n;
 
     Event.stop(e || event);
+    Rico.writeDebugMsg('Event: TESubmit called to validate input');
 
     // check fields that are supposed to be non-blank
 
@@ -777,14 +801,15 @@ Rico.TableEdit.prototype = {
       if (!elem) continue;
       if (elem.tagName.toLowerCase()!='input') continue;
       if (elem.type.toLowerCase()!='text') continue;
+      Rico.writeDebugMsg(' Validating field #'+i+' EntryType='+spec.EntryType+' ('+spec.FieldName+')');
 
       // check for blanks
       if (elem.value.length == 0 && spec.required)
-        return this.validationMsg(elem,i,"Please enter\t a value for");
-      
+        return this.validationMsg(elem,i,"formPleaseEnter");
+
       // check pattern
       if (elem.value.length > 0 && spec.regexp && !spec.regexp.test(elem.value))
-        return this.validationMsg(elem,i,"Invalid format for");
+        return this.validationMsg(elem,i,"formInvalidFmt");
 
       // check min/max
       switch (spec.EntryType.charAt(0)) {
@@ -794,9 +819,9 @@ Rico.TableEdit.prototype = {
         default:  n=NaN;
       }
       if (typeof spec.min!='undefined' && !isNaN(n) && n < spec.min)
-        return this.validationMsg(elem,i,"Value is out of range for");
+        return this.validationMsg(elem,i,"formOutOfRange");
       if (typeof spec.max!='undefined' && !isNaN(n) && n > spec.max)
-        return this.validationMsg(elem,i,"Value is out of range for");
+        return this.validationMsg(elem,i,"formOutOfRange");
     }
 
     // update drop-down for any columns with entry type of N
@@ -816,7 +841,7 @@ Rico.TableEdit.prototype = {
     this.showResponse();
     var parms=Form.serialize(this.form)+this.key
     Rico.writeDebugMsg("TESubmit:"+parms);
-    new Ajax.Updater(this.responseDiv, window.location.pathname, {parameters:parms,onComplete:this.responseHandler});
+    new Ajax.Updater(this.responseDiv, this.options.updateURL, {parameters:parms,onComplete:this.responseHandler});
     this.menu.cancelmenu();
     return false;
   }
@@ -874,7 +899,7 @@ var RicoEditControls = {
       clrimg.align='top';
       clrimg.src=this.clearImg;
       clrimg.id=newimg.id+'_clear';
-      clrimg.alt=RicoTranslate.getPhrase('clear');
+      clrimg.alt=RicoTranslate.getPhraseById('clear');
       clrimg.onclick=this.processClear.bindAsEventListener(this);
       inputCtl.parentNode.appendChild(clrimg);
     }
@@ -882,12 +907,12 @@ var RicoEditControls = {
     column.format.selectIcon=newimg;
     column.format.selectDesc=descSpan;
   },
-  
+
   displayClrImg: function(column,bool) {
     var el=this.elemList.get(this.imgId(column.format.FieldName));
     if (el && el.clrimg) el.clrimg.style.display=bool ? '' : 'none';
   },
-  
+
   processClear: function(e) {
     var elem=Event.element(e);
     var el=this.elemList.get(elem.id.slice(0,-6));

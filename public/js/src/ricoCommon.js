@@ -61,9 +61,18 @@ createXmlDocument : function() {
   return null;
 },
 
-getInnerText: function(el,xImg,xForm) {
-  if (typeof el == "string") return el;
-  if (typeof el == "undefined") { return el };
+/**
+ * return text within an html element
+ * @param xImg true to exclude img tag info
+ * @param xForm true to exclude input, select, and textarea tags
+ * @param xClass exclude elements with a class name of xClass
+ */
+getInnerText: function(el,xImg,xForm,xClass) {
+  switch (typeof el) {
+    case 'string': return el;
+    case 'undefined': return el;
+    case 'number': return el.toString();
+  }
   var cs = el.childNodes;
   var l = cs.length;
   var str = "";
@@ -71,6 +80,7 @@ getInnerText: function(el,xImg,xForm) {
    switch (cs[i].nodeType) {
      case 1: //ELEMENT_NODE
        if (Element.getStyle(cs[i],'display')=='none') continue;
+       if (xClass && Element.hasClassName(cs[i],xClass)) continue;
        switch (cs[i].tagName.toLowerCase()) {
          case 'img':   if (!xImg) str += cs[i].alt || cs[i].title || cs[i].src; break;
          case 'input': if (cs[i].type=='hidden') continue;
@@ -294,6 +304,20 @@ createFormField: function(parent,elemTag,elemType,id,name) {
 },
 
 /**
+ * Adds a new option to the end of a select list
+ */
+addSelectOption: function(elem,value,text) {
+  var opt=document.createElement('option');
+  if (typeof value=='string') opt.value=value;
+  opt.text=text;
+  if (Prototype.Browser.IE)
+    elem.add(opt);
+  else
+    elem.add(opt,null);
+  return opt;
+},
+
+/**
  * Gets the value of the specified cookie
  */
 getCookie: function(itemName) {
@@ -334,10 +358,13 @@ setCookie: function(itemName,itemValue,daysToKeep,cookiePath,cookieDomain) {
 };
 
 
+if (!RicoTranslate) {
+
 // Translation helper object
 /** @singleton */
 var RicoTranslate = {
   phrases : {},
+  phrasesById : {},
   thouSep : ",",
   decPoint: ".",
   langCode: "en",
@@ -348,11 +375,23 @@ var RicoTranslate = {
                'July','August','September','October','November','December'],
   dayNames: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 
+  monthAbbr: function(monthIdx) {
+    return this.monthNames[monthIdx].substr(0,3);
+  },
+
+  dayAbbr: function(dayIdx) {
+    return this.dayNames[dayIdx].substr(0,3);
+  },
+
+/**
+ * DEPRECATED
+ */
   addPhrase: function(fromPhrase, toPhrase) {
     this.phrases[fromPhrase]=toPhrase;
   },
 
 /**
+ * DEPRECATED
  * fromPhrase may contain multiple words/phrases separated by tabs
  * and each portion will be looked up separately.
  * Punctuation & spaces at the beginning or
@@ -370,7 +409,29 @@ var RicoTranslate = {
       }
     }
     return translated;
+  },
+  
+  addPhraseId: function(phraseId, phrase) {
+    this.phrasesById[phraseId]=phrase;
+  },
+
+  getPhraseById: function(phraseId) {
+    var phrase=this.phrasesById[phraseId];
+    if (!phrase) {
+      alert('Error: missing phrase for '+phraseId);
+      return '';
+    }
+    if (arguments.length <= 1) return phrase;
+    var a=arguments;
+    return phrase.replace(/(\$\d)/g,
+      function($1) {
+        var idx=parseInt($1.charAt(1));
+        return (idx < a.length) ? a[idx] : '';
+      }
+    );
   }
+}
+
 }
 
 
@@ -392,16 +453,17 @@ if (!Date.prototype.formatDate) {
         datefmt=RicoTranslate.dateFmt;
         break;
     }
-    return datefmt.replace(/(yyyy|mmmm|mmm|mm|dddd|ddd|dd|hh|nn|ss|a\/p)/gi,
+    return datefmt.replace(/(yyyy|yy|mmmm|mmm|mm|dddd|ddd|dd|hh|nn|ss|a\/p)/gi,
       function($1) {
         switch ($1) {
         case 'yyyy': return d.getFullYear();
+        case 'yy':   return d.getFullYear().toString().substr(2);
         case 'mmmm': return RicoTranslate.monthNames[d.getMonth()];
-        case 'mmm':  return RicoTranslate.monthNames[d.getMonth()].substr(0, 3);
+        case 'mmm':  return RicoTranslate.monthAbbr(d.getMonth());
         case 'mm':   return (d.getMonth() + 1).toPaddedString(2);
         case 'm':    return (d.getMonth() + 1);
         case 'dddd': return RicoTranslate.dayNames[d.getDay()];
-        case 'ddd':  return RicoTranslate.dayNames[d.getDay()].substr(0, 3);
+        case 'ddd':  return RicoTranslate.dayAbbr(d.getDay());
         case 'dd':   return d.getDate().toPaddedString(2);
         case 'd':    return d.getDate();
         case 'hh':   return ((h = d.getHours() % 12) ? h : 12).toPaddedString(2);
@@ -422,12 +484,13 @@ if (!Date.prototype.setISO8601) {
  * Converts a string in ISO 8601 format to a date object.
  * Returns true if string is a valid date or date-time.
  * Based on info at http://delete.me.uk/2005/03/iso8601.html
+ * offset can be used to bias the conversion and must be in minutes if provided
  */
-  Date.prototype.setISO8601 = function (string) {
+  Date.prototype.setISO8601 = function (string,offset) {
     if (!string) return false;
     var d = string.match(/(\d\d\d\d)(?:-?(\d\d)(?:-?(\d\d)(?:[T ](\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|(?:([-+])(\d\d)(?::?(\d\d))?)?)?)?)?)?/);
     if (!d) return false;
-    var offset = 0;
+    if (!offset) offset=0;
     var date = new Date(d[1], 0, 1);
 
     if (d[2]) { date.setMonth(d[2] - 1); }
@@ -767,7 +830,8 @@ Rico.Popup.prototype = {
     this.titleDiv.style.position='relative';
     var img = document.createElement('img');
     img.src=Rico.imgDir+"close.gif";
-    img.title='close';
+    img.title=RicoTranslate.getPhraseById('close');
+    img.style.cursor='pointer';
     img.style.position='absolute';
     img.style.right='0px';
     this.titleDiv.appendChild(img);

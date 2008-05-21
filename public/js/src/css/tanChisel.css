@@ -34,3 +34,14 @@ div.ricoMenu, div.ricoMenu div.ricoMenuHeading, div.ricoMenu .ricoSubMenu, div.r
 div.ricoLG_selection {
   background-color:#e0e0c0;
 }
+div.ricoWindow .ricoTitle  {
+  background-color: #e0e0c0;
+  color: black;
+	border-top: 1px solid #F0F0E8;
+	border-left: 1px solid #F0F0E8;
+	border-bottom: 1px solid #D8d0c0;;
+	border-right: 1px solid #D8d0c0;
+}
+div.ricoWindow {
+  border: 2px solid #e0e0c0;
+}

@@ -44,6 +44,7 @@ table.ricoCalTab tfoot td {
   text-align:center;
   background-color: #666666;
   padding: 2px;
+  cursor:pointer;
 }
 
 table.ricoCalTab tfoot span {

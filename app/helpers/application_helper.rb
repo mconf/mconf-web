@@ -47,6 +47,7 @@ def javascript(file_name, space_id, role_id=nil)
     content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"/"+role_id+"\" type=\"text/javascript\"></script>" }
     return
   else
+    debugger
     content_for(:head) {  "<script src=\"/cjavascripts/"+file_name+".js/"+space_id+"\" type=\"text/javascript\"></script>" }  
     return
   end

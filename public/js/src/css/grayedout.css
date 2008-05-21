@@ -50,7 +50,7 @@ div.ricoLG_outerDiv a:hover {
 	background-color: #EEE;
 }
 
-div.ricoLG_selection {
+div.ricoLG_selection, div.ricoWindow .ricoTitle {
 	background-color: #999;
 	color: #FFF;
 }

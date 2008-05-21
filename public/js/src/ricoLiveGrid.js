@@ -1,12 +1,11 @@
 /**
-  *  (c) 2005-2007 Richard Cowin (http://openrico.org)
-  *  (c) 2005-2007 Matt Brown (http://dowdybrown.com)
+  *  (c) 2005-2008 Richard Cowin (http://openrico.org)
+  *  (c) 2005-2008 Matt Brown (http://dowdybrown.com)
   *
   *  Rico is licensed under the Apache License, Version 2.0 (the "License"); you may not use this
   *  file except in compliance with the License. You may obtain a copy of the License at
   *   http://www.apache.org/licenses/LICENSE-2.0
   **/
-
 
 if(typeof Rico=='undefined') throw("LiveGrid requires the Rico JavaScript framework");
 if(typeof RicoUtil=='undefined') throw("LiveGrid requires the RicoUtil Library");
@@ -35,13 +34,13 @@ Rico.Buffer.Base.prototype = {
     this.rcvdOffset = -1;
     this.options = {
       fixedHdrRows     : 0,
-      canFilter        : false, // does buffer object support filtering?
+      canFilter        : true,  // does buffer object support filtering?
       isEncoded        : true,  // is the data received via ajax html encoded?
       acceptAttr       : []     // attributes that can be copied from original/ajax data (e.g. className, style, id)
     }
     Object.extend(this.options, options || {});
     if (dataTable) {
-      this.loadRowsFromTable(dataTable);
+      this.loadRowsFromTable(dataTable,this.options.fixedHdrRows);
     } else {
       this.clear();
     }
@@ -61,41 +60,70 @@ Rico.Buffer.Base.prototype = {
     }
   },
 
-  loadRowsFromTable: function(tableElement) {
-    this.rows = this.dom2jstable(tableElement,this.options.fixedHdrRows);
-    this.startPos = 0;
-    this.size = this.rows.length;
-    this.setTotalRows(this.size);
-    this.rowcntContent = this.size.toString();
-    this.rcvdRowCount = true;
-    this.foundRowCount = true;
+  loadRowsFromTable: function(tableElement,firstRow) {
+    var newRows = new Array();
+    var trs = tableElement.getElementsByTagName("tr");
+    for ( var i=firstRow || 0; i < trs.length; i++ ) {
+      var row = new Array();
+      var cells = trs[i].getElementsByTagName("td");
+      for ( var j=0; j < cells.length ; j++ )
+        row[j]=cells[j].innerHTML;
+      newRows.push( row );
+    }
+    this.loadRows(newRows);
   },
 
-  dom2jstable: function(rowsElement,firstRow) {
+  loadRowsFromArray: function(array2D) {
+    for ( var i=0; i < array2D.length; i++ )
+      for ( var j=0; j < array2D[i].length ; j++ )
+        array2D[i][j]=array2D[i][j].toString();
+    this.loadRows(array2D);
+  },
+
+  loadRows: function(jstable) {
+    this.baseRows = jstable;
+    this.startPos = 0;
+    this.size = this.baseRows.length;
+  },
+
+  dom2jstable: function(rowsElement) {
+    Rico.writeDebugMsg('dom2jstable: encoded='+this.options.isEncoded);
     var newRows = new Array();
     var trs = rowsElement.getElementsByTagName("tr");
+    for ( var i=0; i < trs.length; i++ ) {
+      var row = new Array();
+      var cells = trs[i].getElementsByTagName("td");
+      for ( var j=0; j < cells.length ; j++ )
+        row[j]=RicoUtil.getContentAsString(cells[j],this.options.isEncoded);
+      newRows.push( row );
+    }
+    return newRows;
+  },
+
+  dom2jstableAttr: function(rowsElement,firstRow) {
     var acceptAttr=this.options.acceptAttr;
+    Rico.writeDebugMsg("dom2jstableAttr start, # attr="+acceptAttr.length);
+    var newRows = new Array();
+    var trs = rowsElement.getElementsByTagName("tr");
     for ( var i=firstRow || 0; i < trs.length; i++ ) {
       var row = new Array();
       var cells = trs[i].getElementsByTagName("td");
       for ( var j=0; j < cells.length ; j++ ) {
         row[j]={};
-        row[j].content=RicoUtil.getContentAsString(cells[j],this.options.isEncoded);
-        for (var k=0; k<acceptAttr.length; k++) {
+        for (var k=0; k<acceptAttr.length; k++)
           row[j]['_'+acceptAttr[k]]=cells[j].getAttribute(acceptAttr[k]);
-        }
         if (Prototype.Browser.IE) row[j]._class=cells[j].getAttribute('className');
       }
       newRows.push( row );
     }
+    Rico.writeDebugMsg("dom2jstableAttr end");
     return newRows;
   },
 
   _blankRow: function() {
     var newRow=[];
     for (var i=0; i<this.liveGrid.columns.length; i++) {
-      newRow[i]={};
-      newRow[i].content='';
+      newRow[i]='';
     }
     return newRow;
   },
@@ -109,39 +137,50 @@ Rico.Buffer.Base.prototype = {
       this.rows.push(this._blankRow());
     this.size=this.rows.length;
   },
-
-  sortBuffer: function(colnum,sortdir,coltype,getvalfunc) {
-    this.sortColumn=colnum;
-    this.getValFunc=getvalfunc;
-    var sortFunc;
+  
+  sortFunc: function(coltype) {
     switch (coltype) {
-      case 'number': sortFunc=this._sortNumeric.bind(this); break;
-      case 'control':sortFunc=this._sortControl.bind(this); break;
-      default:       sortFunc=this._sortAlpha.bind(this); break;
+      case 'number': return this._sortNumeric.bind(this);
+      case 'control':return this._sortControl.bind(this);
+      default:       return this._sortAlpha.bind(this);
     }
-    this.rows.sort(sortFunc);
-    if (sortdir=='DESC') this.rows.reverse();
   },
 
+  sortBuffer: function(colnum) {
+    if (!this.baseRows) {
+      this.delayedSortCol=colnum;
+      return;
+    }
+    this.liveGrid.showMsg(RicoTranslate.getPhraseById("sorting"));
+    this.sortColumn=colnum;
+    var col=this.liveGrid.columns[colnum];
+    this.getValFunc=col._sortfunc;
+    this.baseRows.sort(this.sortFunc(col.format.type));
+    if (col.getSortDirection()=='DESC') this.baseRows.reverse();
+  },
+  
   _sortAlpha: function(a,b) {
-    var aa = this.sortColumn<a.length ? RicoUtil.getInnerText(a[this.sortColumn].content) : '';
-    var bb = this.sortColumn<b.length ? RicoUtil.getInnerText(b[this.sortColumn].content) : '';
+    var aa = this.sortColumn<a.length ? RicoUtil.getInnerText(a[this.sortColumn]) : '';
+    var bb = this.sortColumn<b.length ? RicoUtil.getInnerText(b[this.sortColumn]) : '';
     if (aa==bb) return 0;
     if (aa<bb) return -1;
     return 1;
   },
 
   _sortNumeric: function(a,b) {
-    var aa = this.sortColumn<a.length ? parseFloat(RicoUtil.getInnerText(a[this.sortColumn].content)) : 0;
-    if (isNaN(aa)) aa = 0;
-    var bb = this.sortColumn<b.length ? parseFloat(RicoUtil.getInnerText(b[this.sortColumn].content)) : 0;
-    if (isNaN(bb)) bb = 0;
+    var aa = this.sortColumn<a.length ? this.nan2zero(RicoUtil.getInnerText(a[this.sortColumn])) : 0;
+    var bb = this.sortColumn<b.length ? this.nan2zero(RicoUtil.getInnerText(b[this.sortColumn])) : 0;
     return aa-bb;
   },
 
+  nan2zero: function(n) {
+    if (typeof(n)=='string') n=parseFloat(n);
+    return isNaN(n) || typeof(n)=='undefined' ? 0 : n;
+  },
+  
   _sortControl: function(a,b) {
-    var aa = this.sortColumn<a.length ? RicoUtil.getInnerText(a[this.sortColumn].content) : '';
-    var bb = this.sortColumn<b.length ? RicoUtil.getInnerText(b[this.sortColumn].content) : '';
+    var aa = this.sortColumn<a.length ? RicoUtil.getInnerText(a[this.sortColumn]) : '';
+    var bb = this.sortColumn<b.length ? RicoUtil.getInnerText(b[this.sortColumn]) : '';
     if (this.getValFunc) {
       aa=this.getValFunc(aa);
       bb=this.getValFunc(bb);
@@ -168,6 +207,12 @@ Rico.Buffer.Base.prototype = {
   },
 
   fetch: function(offset) {
+    Rico.writeDebugMsg('fetch: offset='+offset);
+    this.applyFilters();
+    this.setTotalRows(this.size);
+    this.rcvdRowCount = true;
+    this.foundRowCount = true;
+    if (offset < 0) offset=0;
     this.liveGrid.refreshContents(offset);
     return;
   },
@@ -192,9 +237,13 @@ Rico.Buffer.Base.prototype = {
     return this.isVisible(bufrow) && col < this.rows[bufrow].length ? this.rows[bufrow][col] : null;
   },
 
+  getWindowAttr: function(windowRow,col) {
+    var bufrow=this.windowStart+windowRow;
+    return this.attr && this.isVisible(bufrow) && col < this.attr[bufrow].length ? this.attr[bufrow][col] : null;
+  },
+
   getWindowValue: function(windowRow,col) {
-    var cell=this.getWindowCell(windowRow,col);
-    return cell ? cell.content : null;
+    return this.getWindowCell(windowRow,col);
   },
 
   setWindowValue: function(windowRow,col,newval) {
@@ -208,14 +257,13 @@ Rico.Buffer.Base.prototype = {
   },
 
   getValue: function(bufRow,col) {
-    var cell=this.getCell(bufRow,col);
-    return cell ? cell.content : null;
+    return this.getCell(bufRow,col);
   },
 
   setValue: function(bufRow,col,newval,newstyle) {
     if (bufRow>=this.size) return false;
     if (!this.rows[bufRow][col]) this.rows[bufRow][col]={};
-    this.rows[bufRow][col].content=newval;
+    this.rows[bufRow][col]=newval;
     if (typeof newstyle=='string') this.rows[bufRow][col]._style=newstyle;
     this.rows[bufRow][col].modified=true;
     return true;
@@ -228,6 +276,62 @@ Rico.Buffer.Base.prototype = {
     for ( var i=begPos; i < endPos; i++ )
       results.push(this.rows[i]);
     return results
+  },
+
+  applyFilters: function() {
+    var newRows=[],re=[];
+    var cols=this.liveGrid.columns;
+    for (var n=0,filtercnt=0; n<cols.length; n++) {
+      var c=cols[n];
+      if (c.filterType == Rico.TableColumn.UNFILTERED) continue;
+      filtercnt++;
+      if (c.filterOp=='LIKE') re[n]=new RegExp(c.filterValues[0],'i');
+    }
+    Rico.writeDebugMsg('applyFilters: # of filters='+filtercnt);
+    if (filtercnt==0) {
+      this.rows = this.baseRows;
+    } else {
+      for (var r=0; r<this.baseRows.length; r++) {
+        var showRow=true;
+        for (n=0; n<cols.length && showRow; n++) {
+          var c=cols[n];
+          if (c.filterType == Rico.TableColumn.UNFILTERED) continue;
+          switch (c.filterOp) {
+            case 'LIKE':
+              showRow=re[n].test(this.baseRows[r][n]);
+              break;
+            case 'EQ':
+              showRow=this.baseRows[r][n]==c.filterValues[0];
+              break;
+            case 'NE':
+              for (var i=0; i<c.filterValues.length && showRow; i++)
+                showRow=this.baseRows[r][n]!=c.filterValues[i];
+              break;
+            case 'LE':
+              if (c.format.type=='number')
+                showRow=this.nan2zero(this.baseRows[r][n])<=this.nan2zero(c.filterValues[0]);
+              else
+                showRow=this.baseRows[r][n]<=c.filterValues[0];
+              break;
+            case 'GE':
+              if (c.format.type=='number')
+                showRow=this.nan2zero(this.baseRows[r][n])>=this.nan2zero(c.filterValues[0]);
+              else
+                showRow=this.baseRows[r][n]>=c.filterValues[0];
+              break;
+            case 'NULL':
+              showRow=this.baseRows[r][n]=='';
+              break;
+            case 'NOTNULL':
+              showRow=this.baseRows[r][n]!='';
+              break;
+          }
+        }
+        if (showRow) newRows.push(this.baseRows[r]);
+      }
+      this.rows = newRows;
+    }
+    this.rowcntContent = this.size = this.rows.length;
   }
 
 };
@@ -317,11 +421,14 @@ Rico.LiveGrid.prototype = {
       return;
     }
     this.createColumnArray();
-  	if (this.options.headingSort=='hover')
-  	  this.createHoverSet();
+    if (this.options.headingSort=='hover')
+      this.createHoverSet();
 
     this.bookmark=$(this.tableId+"_bookmark");
     this.sizeDivs();
+    var filterUIrow=this.buffer.options.canFilter ? this.options.FilterLocation : false;
+    if (typeof(filterUIrow)=='number' && filterUIrow<0)
+      filterUIrow=this.addHeadingRow();
     this.createDataCells(this.options.visibleRows);
     if (this.pageSize == 0) return;
     this.buffer.registerGrid(this);
@@ -345,11 +452,13 @@ Rico.LiveGrid.prototype = {
     if (this.buffer.totalRows>0)
       this.updateHeightDiv();
     if (this.options.prefetchBuffer) {
-      if (this.bookmark) this.bookmark.innerHTML = RicoTranslate.getPhrase("Loading...");
+      if (this.bookmark) this.bookmark.innerHTML = RicoTranslate.getPhraseById('bookmarkLoading');
       if (this.options.canFilterDefault && this.options.getQueryParms)
         this.checkForFilterParms();
       this.buffer.fetch(this.options.offset);
     }
+    if (typeof(filterUIrow)=='number')
+      this.createFilters(filterUIrow);
     this.scrollEventFunc=this.handleScroll.bindAsEventListener(this);
     this.wheelEventFunc=this.handleWheel.bindAsEventListener(this);
     this.wheelEvent=(Prototype.Browser.IE || Prototype.Browser.Opera || Prototype.Browser.WebKit) ? 'mousewheel' : 'DOMMouseScroll';
@@ -371,7 +480,7 @@ Rico.LiveGridMethods.prototype = {
     for( var c=0; c < this.headerColCnt; c++ )
       if (this.columns[c].sortable)
         hdrs.push(this.columns[c].hdrCellDiv);
-	  this.hoverSet = new Rico.HoverSet(hdrs);
+    this.hoverSet = new Rico.HoverSet(hdrs);
   },
 
   checkForFilterParms: function() {
@@ -493,7 +602,8 @@ Rico.LiveGridMethods.prototype = {
 
   createDataCells: function(visibleRows) {
     if (visibleRows < 0) {
-      this.appendBlankRow();
+      for (var i=0; i<this.options.minPageRows; i++)
+        this.appendBlankRow();
       this.sizeDivs();
       this.autoAppendRows(this.remainingHt());
     } else {
@@ -504,7 +614,81 @@ Rico.LiveGridMethods.prototype = {
     if (s & 1) this.attachHighlightEvents(this.tbody[0]);
     if (s & 2) this.attachHighlightEvents(this.tbody[1]);
   },
-  
+
+  // return id string for a filter element
+  filterId: function(colnum) {
+    return 'RicoFilter_'+this.tableId+'_'+colnum;
+  },
+
+  // create filter elements on heading row r
+  createFilters: function(r) {
+    for( var c=0; c < this.headerColCnt; c++ ) {
+      var col=this.columns[c];
+      var fmt=col.format;
+      if (typeof fmt.filterUI!='string') continue;
+      var cell=this.hdrCells[r][c].cell;
+      var field,name=this.filterId(c);
+      var divs=cell.getElementsByTagName('div');
+      switch (fmt.filterUI.charAt(0)) {
+        case 't':
+          field=RicoUtil.createFormField(divs[1],'input','text',name,name);
+          var size=fmt.filterUI.match(/\d+/);
+          field.maxLength=fmt.Length || 50;
+          field.size=size ? parseInt(size) : 10;
+          if (col.filterType==Rico.TableColumn.USERFILTER && col.filterOp=='LIKE') {
+            var v=col.filterValues[0];
+            if (v.charAt(0)=='*') v=v.substr(1);
+            if (v.slice(-1)=='*') v=v.slice(0,-1);
+            field.value=v;
+            col.lastKeyFilter=v;
+          }
+          Event.observe(field,'keyup',col.filterKeypress.bindAsEventListener(col),false);
+          break;
+        case 's':
+          field=RicoUtil.createFormField(divs[1],'select',null,name);
+          RicoUtil.addSelectOption(field,this.options.FilterAllToken,RicoTranslate.getPhraseById("filterAll"));
+          var options={};
+          Object.extend(options, this.buffer.ajaxOptions);
+          var colnum=fmt.filterUI.length>1 ? fmt.filterUI.substr(1) : c;
+          options.parameters = 'id='+this.tableId+'&distinct='+colnum;
+          options.onComplete = this.filterValuesUpdate.bind(this,c);
+          new Ajax.Request(this.buffer.dataSource, options);
+          break;
+      }
+    }
+    this.initFilterImage(r);
+  },
+
+  // update select list filter with values in AJAX response
+  filterValuesUpdate: function(colnum,request) {
+    var response = request.responseXML.getElementsByTagName("ajax-response");
+    Rico.writeDebugMsg("filterValuesUpdate: "+request.status);
+    if (response == null || response.length != 1) return;
+    response=response[0];
+    var error = response.getElementsByTagName('error');
+    if (error.length > 0) {
+      Rico.writeDebugMsg("Data provider returned an error:\n"+RicoUtil.getContentAsString(error[0],this.buffer.isEncoded));
+      alert(RicoTranslate.getPhraseById("requestError",RicoUtil.getContentAsString(error[0],this.buffer.isEncoded)));
+      return null;
+    }
+    response=response.getElementsByTagName('response')[0];
+    var rowsElement = response.getElementsByTagName('rows')[0];
+    //var colnum = rowsElement.getAttribute("distinct");
+    var col=this.columns[parseInt(colnum)];
+    var rows = this.buffer.dom2jstable(rowsElement);
+    var v, field=$(this.filterId(colnum));
+    if (col.filterType==Rico.TableColumn.USERFILTER && col.filterOp=='EQ') v=col.filterValues[0];
+    Rico.writeDebugMsg('filterValuesUpdate: col='+colnum+' rows='+rows.length);
+    for (var i=0; i<rows.length; i++) {
+      if (rows[i].length>0) {
+        var c0=rows[i][0];
+        var opt=RicoUtil.addSelectOption(field,c0,c0 || RicoTranslate.getPhraseById("filterBlank"));
+        if (col.filterType==Rico.TableColumn.USERFILTER && c0==v) opt.selected=true;
+      }
+    }
+    Event.observe(field,'change',col.filterChange.bindAsEventListener(col),false);
+  },
+
   unplugHighlightEvents: function() {
     var s=this.options.highlightSection;
     if (s & 1) this.detachHighlightEvents(this.tbody[0]);
@@ -680,7 +864,6 @@ Rico.LiveGridMethods.prototype = {
   updateHeightDiv: function() {
     var notdisp=this.topOfLastPage();
     var ht = this.scrollDiv.clientHeight + this.rowHeight * notdisp;
-    //if (Prototype.Browser.Opera) ht+=this.options.scrollBarWidth-3;
     Rico.writeDebugMsg("updateHeightDiv, ht="+ht+' scrollDiv.clientHeight='+this.scrollDiv.clientHeight+' rowsNotDisplayed='+notdisp);
     this.shadowDiv.style.height=ht+'px';
   },
@@ -1172,7 +1355,7 @@ Rico.LiveGridMethods.prototype = {
     if (typeof(colnum)!='number' || colnum < 0) return;
     this.clearSort();
     this.columns[colnum].setSorted(sortDirection);
-    this.buffer.sortBuffer(colnum,sortDirection,this.columns[colnum].format.type,this.columns[colnum]._sortfunc);
+    this.buffer.sortBuffer(colnum);
   },
 
 /**
@@ -1208,7 +1391,7 @@ Rico.LiveGridMethods.prototype = {
     var n=this.findSortedColumn();
     if (n < 0) return;
     Rico.writeDebugMsg("sortHandler: sorting column "+n);
-    this.buffer.sortBuffer(n,this.columns[n].getSortDirection(),this.columns[n].format.type,this.columns[n]._sortfunc);
+    this.buffer.sortBuffer(n);
     this.clearRows();
     this.scrollDiv.scrollTop = 0;
     this.buffer.fetch(0);
@@ -1225,7 +1408,7 @@ Rico.LiveGridMethods.prototype = {
     this.buffer.fetch(-1);
     setTimeout(this.pluginScroll.bind(this), 1); // resetting ht div can cause a scroll event, triggering an extra fetch
   },
-  
+
   clearBookmark: function() {
     if (this.bookmark) this.bookmark.innerHTML="&nbsp;";
   },
@@ -1235,13 +1418,13 @@ Rico.LiveGridMethods.prototype = {
     var totrows=this.buffer.totalRows;
     if (totrows < lastrow) lastrow=totrows;
     if (totrows<=0) {
-      var newhtml = RicoTranslate.getPhrase("No matching records");
+      var newhtml = RicoTranslate.getPhraseById('bookmarkNoMatch');
     } else if (lastrow<0) {
-      var newhtml = RicoTranslate.getPhrase("No records");
+      var newhtml = RicoTranslate.getPhraseById('bookmarkNoRec');
+    } else if (this.buffer.foundRowCount) {
+      var newhtml = RicoTranslate.getPhraseById('bookmarkExact',firstrow,lastrow,totrows);
     } else {
-      var newhtml = RicoTranslate.getPhrase("Listing records")+" "+firstrow+" - "+lastrow;
-      var totphrase = this.buffer.foundRowCount ? "of" : "of about";
-      newhtml+=" "+RicoTranslate.getPhrase(totphrase)+" "+totrows;
+      var newhtml = RicoTranslate.getPhraseById('bookmarkAbout',firstrow,lastrow,totrows);
     }
     this.bookmark.innerHTML = newhtml;
   },
@@ -1408,7 +1591,7 @@ Rico.LiveGridMethods.prototype = {
   },
 
   printAll: function(exportType) {
-    this.showMsg('Export in progress...');
+    this.showMsg(RicoTranslate.getPhraseById('exportInProgress'));
     setTimeout(this._printAll.bind(this,exportType),10);  // allow message to paint
   },
 
@@ -1427,14 +1610,13 @@ Rico.LiveGridMethods.prototype = {
     Rico.writeDebugMsg("exportBuffer: "+rows.length+" rows");
     var tdtag=[];
     var totalcnt=startPos || 0;
-    var ExportMsg=RicoTranslate.getPhrase('Exporting row ');
     for (var c=0; c<this.columns.length; c++)
       if (this.columns[c].visible) tdtag[c]="<td style='"+this.exportStyle(this.columns[c].cell(0))+"'>";  // assumes row 0 style applies to all rows
     for(var r=0; r < rows.length; r++) {
       this.exportText+="<tr>";
       for (var c=0; c<this.columns.length; c++) {
         if (!this.columns[c].visible) continue;
-        var v=this.columns[c]._format(rows[r][c].content);
+        var v=this.columns[c]._export(rows[r][c]);
         if (v.match(/<span\s+class=(['"]?)ricolookup\1>(.*)<\/span>/i))
           v=RegExp.leftContext;
         if (v=='') v='&nbsp;';
@@ -1442,7 +1624,7 @@ Rico.LiveGridMethods.prototype = {
       }
       this.exportText+="</tr>";
       totalcnt++;
-      if (totalcnt % 10 == 0) window.status=ExportMsg+totalcnt;
+      if (totalcnt % 10 == 0) window.status=RicoTranslate.getPhraseById('exportStatus',totalcnt);
     }
   }
 
@@ -1458,7 +1640,7 @@ initialize: function(liveGrid,colIdx,hdrInfo,tabIdx) {
   this.isText = /raw|text/.test(this.format.type);
   Rico.writeDebugMsg(" sortable="+this.sortable+" filterable="+this.filterable+" hideable="+this.hideable+" isNullable="+this.isNullable+' isText='+this.isText);
   this.fixHeaders(this.liveGrid.tableId, this.options.hdrIconsFirst);
-  if (this.format.type=='control' && this.format.control) {
+  if (this.format.control) {
     // copy all properties/methods that start with '_'
     if (typeof this.format.control=='string')
       this.format.control=eval(this.format.control);
@@ -1467,9 +1649,9 @@ initialize: function(liveGrid,colIdx,hdrInfo,tabIdx) {
         Rico.writeDebugMsg("Copying control property "+property);
         this[property] = this.format.control[property];
       }
-  } else if (this['format_'+this.format.type]) {
-    this._format=this['format_'+this.format.type].bind(this);
   }
+  if (this['format_'+this.format.type])
+    this._format=this['format_'+this.format.type].bind(this);
 },
 
 sortAsc: function() {
@@ -1528,17 +1710,17 @@ getFilterText: function() {
   var vals=[];
   for (var i=0; i<this.filterValues.length; i++) {
     var v=this.filterValues[i];
-    if (v!=null && v.match(/<span\s+class=(['"]?)ricolookup\1>(.*)<\/span>/i)) v=RegExp.leftContext;
-    vals.push(v=='' ? '<blank>' : v);
+    if (typeof(v)=='string' && v.match(/<span\s+class=(['"]?)ricolookup\1>(.*)<\/span>/i)) v=RegExp.leftContext;
+    vals.push(v=='' ? RicoTranslate.getPhraseById('filterBlank') : v);
   }
   switch (this.filterOp) {
     case 'EQ':   return '= '+(vals[0]);
-    case 'NE':   return 'not: '+vals.join(', ');
+    case 'NE':   return RicoTranslate.getPhraseById('filterNot',vals.join(', '));
     case 'LE':   return '<= '+vals[0];
     case 'GE':   return '>= '+vals[0];
-    case 'LIKE': return 'like: '+vals[0];
-    case 'NULL': return '<empty>';
-    case 'NOTNULL': return '<not empty>';
+    case 'LIKE': return RicoTranslate.getPhraseById('filterLike',vals[0]);
+    case 'NULL': return RicoTranslate.getPhraseById('filterEmpty');
+    case 'NOTNULL': return RicoTranslate.getPhraseById('filterNotEmpty');
   }
   return '?';
 },
@@ -1578,9 +1760,8 @@ addFilterNE: function() {
 setFilterGE: function() { this.setUserFilter('GE'); },
 setFilterLE: function() { this.setUserFilter('LE'); },
 setFilterKW: function() {
-  var keyword=prompt(RicoTranslate.getPhrase("Enter keyword to search for")+RicoTranslate.getPhrase(" (use * as a wildcard):"),'');
+  var keyword=prompt(RicoTranslate.getPhraseById("keywordPrompt"),'');
   if (keyword!='' && keyword!=null) {
-    if (keyword.indexOf('*')==-1) keyword='*'+keyword+'*';
     this.setFilter('LIKE',keyword,Rico.TableColumn.USERFILTER);
   } else {
     this.liveGrid.cancelMenu();
@@ -1610,6 +1791,28 @@ isFiltered: function() {
   return this.filterType == Rico.TableColumn.USERFILTER;
 },
 
+filterChange: function(e) {
+  var selbox=Event.element(e);
+  if (selbox.value==this.liveGrid.options.FilterAllToken)
+    this.setUnfiltered();
+  else
+    this.setFilter('EQ',selbox.value,Rico.TableColumn.USERFILTER,function() {selbox.selectedIndex=0;});
+},
+
+filterKeypress: function(e) {
+  var txtbox=Event.element(e);
+  if (typeof this.lastKeyFilter != 'string') this.lastKeyFilter='';
+  if (this.lastKeyFilter==txtbox.value) return;
+  var v=txtbox.value;
+  Rico.writeDebugMsg("filterKeypress: "+this.index+' '+v);
+  this.lastKeyFilter=v;
+  if (v=='' || v=='*')
+    this.setUnfiltered();
+  else {
+    this.setFilter('LIKE', v, Rico.TableColumn.USERFILTER, function() {txtbox.value='';});
+  }
+},
+
 format_text: function(v) {
   if (typeof v!='string')
     return '&nbsp;';
@@ -1635,8 +1838,19 @@ format_datetime: function(v) {
   if (typeof v=='undefined' || v=='' || v==null)
     return '&nbsp;';
   else {
-    var d=new Date;
+    var d=new Date();
     if (!d.setISO8601(v)) return v;
+    return (this.format.prefix || '')+d.formatDate(this.format.dateFmt || 'translateDateTime')+(this.format.suffix || '');
+  }
+},
+
+// converts GMT/UTC to local time
+format_UTCasLocalTime: function(v) {
+  if (typeof v=='undefined' || v=='' || v==null)
+    return '&nbsp;';
+  else {
+    var d=new Date();
+    if (!d.setISO8601(v,-d.getTimezoneOffset())) return v;
     return (this.format.prefix || '')+d.formatDate(this.format.dateFmt || 'translateDateTime')+(this.format.suffix || '');
   }
 },
@@ -1645,7 +1859,7 @@ format_date: function(v) {
   if (typeof v=='undefined' || v==null || v=='')
     return '&nbsp;';
   else {
-    var d=new Date;
+    var d=new Date();
     if (!d.setISO8601(v)) return v;
     return (this.format.prefix || '')+d.formatDate(this.format.dateFmt || 'translateDate')+(this.format.suffix || '');
   }
@@ -1685,12 +1899,12 @@ getValue: function(windowRow) {
   return this.liveGrid.buffer.getWindowValue(windowRow,this.index);
 },
 
-getFormattedValue: function(windowRow) {
-  return this._format(this.getValue(windowRow));
-},
-
 getBufferCell: function(windowRow) {
   return this.liveGrid.buffer.getWindowCell(windowRow,this.index);
+},
+
+getBufferAttr: function(windowRow) {
+  return this.liveGrid.buffer.getWindowAttr(windowRow,this.index);
 },
 
 setValue: function(windowRow,newval) {
@@ -1705,17 +1919,24 @@ _display: function(v,gridCell) {
   gridCell.innerHTML=this._format(v);
 },
 
+_export: function(v) {
+  return this._format(v);
+},
+
 displayValue: function(windowRow) {
   var bufCell=this.getBufferCell(windowRow);
-  if (!bufCell) {
+  if (bufCell==null) {
     this.clearCell(windowRow);
     return;
   }
   var gridCell=this.cell(windowRow);
-  this._display(bufCell.content,gridCell,windowRow);
+  this._display(bufCell,gridCell,windowRow);
   var acceptAttr=this.liveGrid.buffer.options.acceptAttr;
+  if (acceptAttr.length==0) return;
+  var bufAttr=this.getBufferAttr(windowRow);
+  if (bufAttr==null) return;
   for (var k=0; k<acceptAttr.length; k++) {
-    var bufAttr=bufCell['_'+acceptAttr[k]] || '';
+    var bufAttr=bufAttr['_'+acceptAttr[k]] || '';
     switch (acceptAttr[k]) {
       case 'style': gridCell.style.cssText=bufAttr; break;
       case 'class': gridCell.className=bufAttr; break;
@@ -1725,228 +1946,5 @@ displayValue: function(windowRow) {
 }
 
 });
-
-// Display unique key column as: <checkbox> <key value>
-// and keep track of which keys the user selects
-// Key values should not contain <, >, or &
-Rico.TableColumn.checkboxKey = Class.create();
-
-Rico.TableColumn.checkboxKey.prototype = {
-
-  initialize: function(showKey) {
-    this._checkboxes=[];
-    this._spans=[];
-    this._KeyHash=$H();
-    this._showKey=showKey;
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._checkboxes[windowRow]=RicoUtil.createFormField(gridCell,'input','checkbox',this.liveGrid.tableId+'_chkbox_'+this.index+'_'+windowRow);
-    this._spans[windowRow]=RicoUtil.createFormField(gridCell,'span',null,this.liveGrid.tableId+'_desc_'+this.index+'_'+windowRow);
-    this._clear(gridCell,windowRow);
-    Event.observe(this._checkboxes[windowRow], "click", this._onclick.bindAsEventListener(this), false);
-  },
-
-  _onclick: function(e) {
-    var elem=Event.element(e);
-    var windowRow=parseInt(elem.id.split(/_/).pop());
-    var v=this.getValue(windowRow);
-    if (elem.checked)
-      this._addChecked(v);
-    else
-      this._remChecked(v);
- },
-   _clear: function(gridCell,windowRow) {
-    var box=this._checkboxes[windowRow];
-    box.checked=false;
-    box.style.display='none';
-    this._spans[windowRow].innerHTML='';
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    var box=this._checkboxes[windowRow];
-    box.style.display='';
-    box.checked=this._KeyHash.get(v);
-    if (this._showKey) this._spans[windowRow].innerHTML=v;
-  },
-  
-  _SelectedKeys: function() {
-    return this._KeyHash.keys();
-  },
-
-  _addChecked: function(k){
-    this._KeyHash.set(k,1);
-  },
-
-  _remChecked: function(k){
-    this._KeyHash.unset(k);
-  }
-}
-
-// display checkboxes for two-valued column (e.g. yes/no)
-Rico.TableColumn.checkbox = Class.create();
-
-Rico.TableColumn.checkbox.prototype = {
-
-  initialize: function(checkedValue, uncheckedValue, defaultValue, readOnly) {
-    this._checkedValue=checkedValue;
-    this._uncheckedValue=uncheckedValue;
-    this._defaultValue=defaultValue || false;
-    this._readOnly=readOnly || false;
-    this._checkboxes=[];
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._checkboxes[windowRow]=RicoUtil.createFormField(gridCell,'input','checkbox',this.liveGrid.tableId+'_chkbox_'+this.index+'_'+windowRow);
-    this._clear(gridCell,windowRow);
-    if (this._readOnly)
-      this._checkboxes[windowRow].disabled=true;
-    else
-      Event.observe(this._checkboxes[windowRow], "click", this._onclick.bindAsEventListener(this), false);
-  },
-
-  _onclick: function(e) {
-    var elem=Event.element(e);
-    var windowRow=parseInt(elem.id.split(/_/).pop());
-    var newval=elem.checked ? this._checkedValue : this._uncheckedValue;
-    this.setValue(windowRow,newval);
- },
-   _clear: function(gridCell,windowRow) {
-    var box=this._checkboxes[windowRow];
-    box.checked=this._defaultValue;
-    box.style.display='none';
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    var box=this._checkboxes[windowRow];
-    box.style.display='';
-    box.checked=(v==this._checkedValue);
-  }
-
-}
-
-Rico.TableColumn.bgColor = Class.create();
-
-Rico.TableColumn.bgColor.prototype = {
-
-  initialize: function() {
-    this._divs=[];
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._divs[windowRow]=gridCell;
-    this._clear(gridCell,windowRow);
-  },
-
-  _clear: function(gridCell,windowRow) {
-    this._divs[windowRow].style.backgroundColor='';
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    this._divs[windowRow].style.backgroundColor=v;
-  }
-
-}
-
-Rico.TableColumn.link = Class.create();
-
-Rico.TableColumn.link.prototype = {
-
-  initialize: function(href,target) {
-    this._href=href;
-    this._target=target;
-    this._anchors=[];
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._anchors[windowRow]=RicoUtil.createFormField(gridCell,'a',null,this.liveGrid.tableId+'_a_'+this.index+'_'+windowRow);
-    if (this._target) this._anchors[windowRow].target=this._target;
-    this._clear(gridCell,windowRow);
-  },
-
-  _clear: function(gridCell,windowRow) {
-    this._anchors[windowRow].href='';
-    this._anchors[windowRow].innerHTML='';
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    this._anchors[windowRow].innerHTML=v;
-    var getWindowValue=this.liveGrid.buffer.getWindowValue.bind(this.liveGrid.buffer);
-    this._anchors[windowRow].href=this._href.replace(/\{\d+\}/g,
-      function ($1) {
-        var colIdx=parseInt($1.substr(1));
-        return getWindowValue(windowRow,colIdx);
-      }
-    );
-  }
-
-}
-
-Rico.TableColumn.image = Class.create();
-
-Rico.TableColumn.image.prototype = {
-
-  initialize: function() {
-    this._img=[];
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._img[windowRow]=RicoUtil.createFormField(gridCell,'img',null,this.liveGrid.tableId+'_img_'+this.index+'_'+windowRow);
-    this._clear(gridCell,windowRow);
-  },
-
-  _clear: function(gridCell,windowRow) {
-    var img=this._img[windowRow];
-    img.style.display='none';
-    img.src='';
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    var img=this._img[windowRow];
-    this._img[windowRow].src=v;
-    img.style.display='';
-  }
-
-}
-
-Rico.TableColumn.lookup = Class.create();
-
-Rico.TableColumn.lookup.prototype = {
-
-  initialize: function(map, defaultCode, defaultDesc) {
-    this._map=map;
-    this._defaultCode=defaultCode || '';
-    this._defaultDesc=defaultDesc || '&nbsp;';
-    this._sortfunc=this._sortvalue.bind(this);
-    this._codes=[];
-    this._descriptions=[];
-  },
-
-  _create: function(gridCell,windowRow) {
-    this._descriptions[windowRow]=RicoUtil.createFormField(gridCell,'span',null,this.liveGrid.tableId+'_desc_'+this.index+'_'+windowRow);
-    this._codes[windowRow]=RicoUtil.createFormField(gridCell,'input','hidden',this.liveGrid.tableId+'_code_'+this.index+'_'+windowRow);
-    this._clear(gridCell,windowRow);
-  },
-
-  _clear: function(gridCell,windowRow) {
-    this._codes[windowRow].value=this._defaultCode;
-    this._descriptions[windowRow].innerHTML=this._defaultDesc;
-  },
-
-  _sortvalue: function(v) {
-    return this._getdesc(v).replace(/&amp;/g, '&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&nbsp;/g,' ');
-  },
-
-  _getdesc: function(v) {
-    var desc=this._map[v];
-    return (typeof desc=='string') ? desc : this._defaultDesc;
-  },
-
-  _display: function(v,gridCell,windowRow) {
-    this._codes[windowRow].value=v;
-    this._descriptions[windowRow].innerHTML=this._getdesc(v);
-  }
-
-}
 
 Rico.includeLoaded('ricoLiveGrid.js');

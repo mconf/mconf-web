@@ -31,10 +31,12 @@ Rico.GridCommon.prototype = {
       contextmenu      : null,
       useUnformattedColWidth : true,
       menuEvent        : 'dblclick',  // event that triggers menus - click, dblclick, contextmenu, or none (no menus)
-      defaultWidth     : 100,   // in the absence of any other width info, columns will be this many pixels wide
-      scrollBarWidth   : 19,    // this is the value used in positioning calculations, it does not actually change the width of the scrollbar
-      minScrollWidth   : 100,   // min scroll area width when width of frozen columns exceeds window width
+      defaultWidth     : 100,         // in the absence of any other width info, columns will be this many pixels wide
+      scrollBarWidth   : 19,          // this is the value used in positioning calculations, it does not actually change the width of the scrollbar
+      minScrollWidth   : 100,         // min scroll area width when width of frozen columns exceeds window width
       exportWindow     : "height=400,width=500,scrollbars=1,menubar=1,resizable=1",
+      FilterLocation   : null,        // heading row number to place filters. -1=add a new heading row.
+      FilterAllToken   : '___ALL___', // select box value to use to indicate ALL
       columnSpecs      : []
     }
     this.colWidths = new Array();
@@ -122,7 +124,7 @@ Rico.GridCommon.prototype = {
  * gather info from original headings
  */
   getColumnInfo: function(hdrSrc) {
-    Rico.writeDebugMsg("getColumnInfo: "+hdrSrc.tagName+' '+hdrSrc.id+' len='+hdrSrc.length);
+    Rico.writeDebugMsg('getColumnInfo: len='+hdrSrc.length);
     if (hdrSrc.length == 0) return;
     this.headerRowCnt=hdrSrc.length;
     var colcnt;
@@ -142,14 +144,31 @@ Rico.GridCommon.prototype = {
         this.headerRowIdx=r;
       }
     }
-    Rico.writeDebugMsg("getColumnInfo end");
     if (!colcnt) {
       this.headerRowIdx=this.headerRowCnt-1;
       colcnt=this.hdrCells[this.headerRowIdx].length
     }
+    Rico.writeDebugMsg("getColumnInfo: colcnt="+colcnt);
     return colcnt;
   },
 
+  addHeadingRow: function() {
+    var r=this.headerRowCnt++;
+    this.hdrCells[r]=new Array();
+    for( var h=0; h < 2; h++ ) {
+      var row = this.thead[h].insertRow(-1);
+      row.className='ricoLG_hdg '+this.tableId+'_hdg'+r;
+      var limit= h==0 ? this.options.frozenColumns : this.headerColCnt-this.options.frozenColumns;
+      for( var c=0; c < limit; c++ ) {
+        var hdrCell=row.insertCell(-1);
+        var colDiv=RicoUtil.wrapChildren(hdrCell,'ricoLG_col');
+        RicoUtil.wrapChildren(colDiv,'ricoLG_cell');
+        this.hdrCells[r].push({cell:hdrCell,colSpan:1});
+      }
+    }
+    return r;
+  },
+  
 /**
  * create column array
  */
@@ -278,6 +297,47 @@ Rico.GridCommon.prototype = {
     }
   },
 
+  initFilterImage: function(filterRowNum){
+    this.filterAnchor=$(this.tableId+'_filterLink');
+    if (!this.filterAnchor) return;
+    this.filterRows=$$('tr.'+this.tableId+'_hdg'+filterRowNum);
+    if (this.filterRows.length!=2) return;
+    for (var i=0, r=[]; i<2; i++) r[i]=Element.select(this.filterRows[i],'.ricoLG_cell');
+    this.filterElements=r[0].concat(r[1]);
+    this.saveHeight = this.filterElements[0].offsetHeight;
+    var pt=Element.getStyle(this.filterElements[0],'padding-top');
+    var pb=Element.getStyle(this.filterElements[0],'padding-bottom');
+    if (pt) this.saveHeight-=parseInt(pt);
+    if (pb) this.saveHeight-=parseInt(pb);
+    this.rowNum = filterRowNum;
+    this.setFilterImage(false);
+    Event.observe(this.filterAnchor, 'click', this.toggleFilterRow.bindAsEventListener(this), false);
+  },
+
+  toggleFilterRow: function() {
+    if ( this.filterRows[0].visible() )
+      this.slideFilterUp();
+    else
+      this.slideFilterDown();
+  },
+
+  slideFilterUp: function() {
+    for (var i=0; i<2; i++) this.filterRows[i].makeClipping();
+    Rico.animate( new Rico.Effect.Height(this.filterElements, 0), {onFinish: function(){ for (var i=0; i<2; i++) this.filterRows[i].hide(); this.resizeWindow();}.bind(this)})
+    this.setFilterImage(true);
+  },
+
+  slideFilterDown: function() {
+    for (var i=0; i<2; i++) this.filterRows[i].show();
+    Rico.animate(new Rico.Effect.Height( this.filterElements, this.saveHeight), {onFinish: function() { for (var i=0; i<2; i++) this.filterRows[i].undoClipping(); this.resizeWindow();}.bind(this)}); 
+    this.setFilterImage(false);
+  },
+
+  setFilterImage: function(expandFlag) {
+    var altText=RicoTranslate.getPhraseById((expandFlag ? 'show' : 'hide')+'FilterRow');
+    this.filterAnchor.innerHTML = '<img src="'+Rico.imgDir+'tableFilter'+(expandFlag ? 'Expand' : 'Collapse')+'.gif" alt="'+altText+'" border="0">';
+  },
+
 /**
  * Returns a div for the cell at the specified row and column index.
  * In SimpleGrid, r can refer to any row in the grid.
@@ -318,7 +378,7 @@ Rico.GridCommon.prototype = {
   },
 
   showMsg: function(msg) {
-    this.messageDiv.innerHTML=RicoTranslate.getPhrase(msg);
+    this.messageDiv.innerHTML=msg;
     this.messageDiv.style.display="";
     var msgWidth=this.messageDiv.offsetWidth;
     var msgHeight=this.messageDiv.offsetHeight;
@@ -358,6 +418,31 @@ Rico.GridCommon.prototype = {
     for (var x=0;x<invisible.length;x++)
       invisible[x].showColumn();
   },
+  
+  chooseColumns: function(e) {
+    Event.stop(e);
+    this.menu.cancelmenu();
+    if (!this.columnChooser) {
+      this.columnChooser=new Rico.Popup({canDragFunc:true});
+      this.columnChooser.createWindow(RicoTranslate.getPhraseById('gridChooseCols'),"<table border='0' cellspacing='0' cellpadding='0' width='100%'></table>",'150px','200px');
+      var tab=this.columnChooser.contentDiv.getElementsByTagName("table")[0];
+      for (var x=0;x<this.columns.length;x++) {
+        var col=this.columns[x];
+        var tr=tab.insertRow(-1);
+        var newCell = tr.insertCell(-1);
+        newCell.innerHTML=col.displayName;
+        var newCell = tr.insertCell(-1);
+        var box=RicoUtil.createFormField(newCell,'input','checkbox');
+        Event.observe(box, 'click', col.chooseColumn.bindAsEventListener(col), false);
+        col.ChooserBox=box;
+      }
+    }
+    var divPos=Position.page(this.outerDiv);
+    var divTop=divPos[1]+this.hdrHt+RicoUtil.docScrollTop();
+    this.columnChooser.openPopup(divPos[0]+1,divTop);
+    for (var x=0;x<this.columns.length;x++)
+      this.columns[x].ChooserBox.checked=this.columns[x].visible;
+  },
 
   blankRow: function(r) {
      for (var c=0; c < this.columns.length; c++)
@@ -368,7 +453,7 @@ Rico.GridCommon.prototype = {
  * Copies all rows (SimpleGrid) or visible rows (LiveGrid) to a new window as a simple html table.
  */
   printVisible: function(exportType) {
-    this.showMsg('Export in progress...');
+    this.showMsg(RicoTranslate.getPhraseById('exportInProgress'));
     setTimeout(this._printVisible.bind(this,exportType),10);  // allow message to paint
   },
 
@@ -383,7 +468,7 @@ Rico.GridCommon.prototype = {
       this.exportText+="<tr>";
       for (var c=0; c<this.columns.length; c++) {
         if (this.columns[c].visible) {
-          v=this.columns[c].getFormattedValue(r);
+          v=this.columns[c].getFormattedValue(r,false,false,'NoExport');
           if (v.match(/<span\s+class=(['"]?)ricolookup\1>(.*)<\/span>/i))
             v=RegExp.leftContext;
           if (v=='') v='&nbsp;';
@@ -431,7 +516,7 @@ Rico.GridCommon.prototype = {
  */
   exportFinish: function(exportType) {
     if (this.hideMsg) this.hideMsg();
-    window.status=RicoTranslate.getPhrase('Export complete');
+    window.status=RicoTranslate.getPhraseById('exportComplete');
     this.exportText+="</tbody></table>";
     this.exportDiv.innerHTML=this.exportText;
     this.exportText=undefined;
@@ -445,8 +530,10 @@ Rico.GridCommon.prototype = {
   exportStyle: function(elem) {
     var styleList=['background-color','color','text-align','font-weight','font-size','font-family']
     for (var i=0,s=''; i < styleList.length; i++) {
-      var curstyle=Element.getStyle(elem,styleList[i]);
-      if (curstyle) s+=styleList[i]+':'+curstyle+';';
+      try {
+        var curstyle=Element.getStyle(elem,styleList[i]);
+        if (curstyle) s+=styleList[i]+':'+curstyle+';';
+      } catch(e) {};
     }
     return s;
   },
@@ -478,9 +565,11 @@ Rico.GridCommon.prototype = {
             col.hideshow(false,true);
           break;
         case 's':
+          if (!this.options.saveColumnInfo.sort || !col.sortable) break;
           col.setSorted(v[1]);
           break;
         case 'f':
+          if (!this.options.saveColumnInfo.filter || !col.filterable) break;
           var filterTemp=v[1].split('~');
           col.filterOp=filterTemp.shift();
           col.filterValues = [];
@@ -657,8 +746,8 @@ Rico.TableColumn.prototype = {
     return this.dataColDiv.childNodes[r];
   },
 
-  getFormattedValue: function(r) {
-    return RicoUtil.getInnerText(this.cell(r));
+  getFormattedValue: function(r,xImg,xForm,xClass) {
+    return RicoUtil.getInnerText(this.cell(r),xImg,xForm,xClass);
   },
 
   setColWidth: function(wi) {
@@ -767,6 +856,11 @@ Rico.TableColumn.prototype = {
   showColumn: function() {
     Rico.writeDebugMsg('showColumn '+this.liveGrid.tableId);
     this.hideshow(true,false);
+  },
+
+  chooseColumn: function(e) {
+    var elem=Event.element(e);
+    this.hideshow(elem.checked,false);
   },
 
   setImage: function() {

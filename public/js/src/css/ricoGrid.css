@@ -34,18 +34,18 @@ div.ricoLG_highlightDiv {
   border: 2px solid black;
 }
 
-.ricoLG_table {
+.ricoLG_table, table.ricoLiveGrid {
   margin: 0px;
   padding: 0px;
   border-right: 1px solid silver;
   border-top: 1px solid silver;
 }
 
-.ricoLG_table th, .ricoLG_table td {
+.ricoLG_table th, .ricoLG_table td, table.ricoLiveGrid td, table.ricoLiveGrid th {
   border-left: 1px solid silver;
 }
 
-table.ricoLG_bottom {
+table.ricoLG_bottom, table.ricoLiveGrid td, table.ricoLiveGrid th {
   border-top-style: none;
 }
 
@@ -75,11 +75,11 @@ div.ricoLG_col {
   padding-right:2px;
 }
 
-.ricoLG_bottom div.ricoLG_cell, .ricoLG_top th, .ricoLG_top td {
+.ricoLG_bottom div.ricoLG_cell, .ricoLG_top th, .ricoLG_top td, table.ricoLiveGrid td, table.ricoLiveGrid th {
   border-bottom: 1px solid silver;
 }
 
-div.ricoLG_cell {
+div.ricoLG_cell, table.ricoLiveGrid td, table.ricoLiveGrid th {
   overflow:hidden;
   height:1.2em;
   padding-left: 3px;
@@ -132,3 +132,21 @@ span.ricoSessionTimer {
   color:white;
 }
 
+/* column chooser */
+div.ricoWindow {
+  border: 2px solid black;
+  font-size: smaller;
+  background-color: white;
+}
+div.ricoWindow .ricoTitle {
+  padding: 3px;
+  color: white;
+  background-color: black;
+  font-weight: bold;
+}
+div.ricoWindow .ricoContent {
+  margin-left: 3px;
+}
+div.ricoWindow .ricoContent td {
+  border-bottom: 1px solid #CCC;
+}

@@ -32,8 +32,7 @@ Rico.CalendarControl.prototype = {
     this.bPageLoaded=false;
     this.img=new Array();
     this.Holidays={};
-    this.todayString=RicoTranslate.getPhrase("Today is ");
-    this.weekString=RicoTranslate.getPhrase("Wk");
+    this.weekString=RicoTranslate.getPhraseById("calWeekHdg");
     if (this.options.dateFmt=='rico') this.options.dateFmt=RicoTranslate.dateFmt;
     this.dateParts=new Array();
     this.re=/^\s*(\w+)(\W)(\w+)(\W)(\w+)/i;
@@ -83,7 +82,7 @@ Rico.CalendarControl.prototype = {
     this.styles=[];
     for (var i=0; i<7; i++) {
       var dow=(i+this.options.startAt) % 7;
-      r.cells[i+1].innerHTML=RicoTranslate.dayNames[dow].substring(0,3);
+      r.cells[i+1].innerHTML=RicoTranslate.dayAbbr(dow);
       this.styles[i+1]='ricoCal'+dow;
     }
     
@@ -132,6 +131,7 @@ Rico.CalendarControl.prototype = {
     img.style.position='absolute';
     img.style.top='1px';   /* assumes a 1px border */
     img.style.right='1px';
+    img.title=RicoTranslate.getPhraseById('close');
     this.container.appendChild(img);
     
     // month selector
@@ -145,7 +145,7 @@ Rico.CalendarControl.prototype = {
       for (var j=0; j<3; j++) {
         var c=r.insertCell(-1);
         var a=document.createElement("a");
-        a.innerHTML=RicoTranslate.monthNames[i*3+j].substring(0,3);
+        a.innerHTML=RicoTranslate.monthAbbr(i*3+j);
         a.name=i*3+j;
         c.appendChild(a);
         Event.observe(a,"click", this.selectMonth.bindAsEventListener(this), false);
@@ -278,11 +278,11 @@ Rico.CalendarControl.prototype = {
   /*** Year Pulldown ***/
 
   popUpYear : function() {
-    var newYear=prompt(RicoTranslate.getPhrase("Year ("+this.options.minDate.getFullYear()+"-"+this.options.maxDate.getFullYear()+")"),this.yearSelected);
+    var newYear=prompt(RicoTranslate.getPhraseById("calYearRange",this.options.minDate.getFullYear(),this.options.maxDate.getFullYear()),this.yearSelected);
     if (newYear==null) return;
     newYear=parseInt(newYear);
     if (isNaN(newYear) || newYear<this.options.minDate.getFullYear() || newYear>this.options.maxDate.getFullYear()) {
-      alert(RicoTranslate.getPhrase("Invalid year"));
+      alert(RicoTranslate.getPhraseById("calInvalidYear"));
     } else {
       this.yearSelected=newYear;
       this.constructCalendar();
@@ -379,10 +379,9 @@ Rico.CalendarControl.prototype = {
       if (colnum==7) r++;
     }
 
-    this.titleMonth.innerHTML = RicoTranslate.monthNames[this.monthSelected].substring(0,3);
+    this.titleMonth.innerHTML = RicoTranslate.monthAbbr(this.monthSelected);
     this.titleYear.innerHTML = this.yearSelected;
-    if (this.options.showToday)
-      this.todayCell.innerHTML=this.todayString+'<span>'+this.dateNow + " " + RicoTranslate.monthNames[this.monthNow].substring(0,3) + " " + this.yearNow+'</span>';
+    this.todayCell.innerHTML=this.options.showToday ? RicoTranslate.getPhraseById("calToday",this.dateNow,RicoTranslate.monthAbbr(this.monthNow),this.yearNow,this.monthNow+1) : '';
     this.monthSelect.style.top=this.thead.offsetHeight+'px';
     this.monthSelect.style.left=this.titleMonth.offsetLeft+'px';
   },

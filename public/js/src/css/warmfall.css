@@ -45,11 +45,11 @@ div.ricoLG_outerDiv tbody a:visited {
 }
 
 .ricoLG_oddRow {
-	background-color: #fffce1;
+	background-color: #fffad0;
 	color: #101011;
 }
 
-.ricoLG_selection {
+.ricoLG_selection, div.ricoWindow .ricoTitle {
 	background-color: #a24116;
 	color: #ffffff;
 }
@@ -60,4 +60,3 @@ caption {
 	padding: .75em;
 	color: #000;
 }
-

@@ -70,9 +70,9 @@ Rico.Menu.prototype = {
     this.itemCount=0;
   },
 
-  addMenuHeading: function(hdg,translate) {
+  addMenuHeading: function(hdg) {
     var el=document.createElement('div')
-    el.innerHTML =(translate==null || translate==true) ? RicoTranslate.getPhrase(hdg) : hdg;
+    el.innerHTML=hdg;
     el.className='ricoMenuHeading';
     this.div.appendChild(el);
   },
@@ -125,6 +125,11 @@ Rico.Menu.prototype = {
       this.openSubMenu.hidemenu();
       this.openSubMenu=null;
     }
+  },
+
+  addMenuItemId: function(phraseId,action,enabled,title,target) {
+    if ( arguments.length < 3 ) enabled=true;
+    this.addMenuItem(RicoTranslate.getPhraseById(phraseId),action,enabled,title,false,target);
   },
 
   addMenuItem: function(menutext,action,enabled,title,translate,target) {

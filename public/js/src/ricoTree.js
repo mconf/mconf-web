@@ -58,13 +58,13 @@ Rico.TreeControl.prototype = {
       this.buttonDiv.className='ricoTreeButtons';
       if (Element.getStyle(this.container,'position')=='absolute') {
         var span=document.createElement("span");
-        span.innerHTML=RicoTranslate.getPhrase('Save Selection');
+        span.innerHTML=RicoTranslate.getPhraseById('treeSave');
         Element.setStyle(span,{float:'left',cursor:'pointer'});
         this.buttonDiv.appendChild(span);
         Event.observe(span,'click',this.saveSelection.bindAsEventListener(this));
       }
       var span=document.createElement("span");
-      span.innerHTML=RicoTranslate.getPhrase('Clear All');
+      span.innerHTML=RicoTranslate.getPhraseById('treeClear');
       Element.setStyle(span,{float:'right',cursor:'pointer'});
       this.buttonDiv.appendChild(span);
       this.container.appendChild(this.buttonDiv);
@@ -73,7 +73,7 @@ Rico.TreeControl.prototype = {
     this.setDiv(this.container);
     this.close();
   },
-  
+
   setTreeDiv: function(divId) {
     this.treeDiv = $(divId);
     this.openPopup = function() {};
@@ -90,7 +90,7 @@ Rico.TreeControl.prototype = {
     Rico.writeDebugMsg('Tree loadXMLDoc:\n'+parms+'\n'+this.dataSource);
     new Ajax.Request(this.dataSource, {parameters:parms,method:'get',onComplete:this.processResponse.bind(this)});
   },
-  
+
   domID: function(nodeID,part) {
     return 'RicoTree_'+part+'_'+this.id+'_'+nodeID;
   },
@@ -235,7 +235,7 @@ Rico.TreeControl.prototype = {
     }
     this.close();
   },
-  
+
   saveSelection: function(e) {
     if (this.returnValue)
       this.returnValue(this.getCheckedItems());
@@ -257,7 +257,7 @@ Rico.TreeControl.prototype = {
     for (var i=0; i<inp.length; i++)
       if (inp[i].type=='checkbox') inp[i].checked=val
   },
-  
+
   clrCheckBoxEvent: function(e) {
     Event.stop(e);
     this.setCheckBoxes(false);

@@ -768,3 +768,4 @@ RicoUtil = Object.extend(RicoUtil, {
 });
 
 Rico.includeLoaded('ricoDragDrop.js');
+

@@ -13,11 +13,10 @@
   *  and limitations under the License.
   **/
 
-
 // This module does NOT depend on prototype.js
 
 var Rico = {
-  Version: '2.0 rc1',
+  Version: '2.0 rc2',
   loadRequested: 1,
   loadComplete: 2,
   init : function() {
@@ -35,7 +34,6 @@ var Rico = {
       var src = elements[i].src;
       var slashIdx = src.lastIndexOf('/');
       var path = src.substring(0, slashIdx+1);
-	  var questionIndex = src.lastIndexOf('?');
       var filename = src.substring(slashIdx+1);
       this.loadedFiles[filename]=this.loadComplete;
       var parmPos  = filename.indexOf('?');
@@ -46,7 +44,7 @@ var Rico = {
         if (isRailsPath){
           this.jsDir = "/javascripts/";
           this.cssDir = "/stylesheets/";
-          this.imgDir = "/images/";   
+          this.imgDir = "/images/";
           this.htmDir = "/";
           this.xslDir = "/";
         } else {
@@ -58,17 +56,18 @@ var Rico = {
         }
       }
     }
-    if (typeof Prototype=='undefined')
-      this.include('prototype.js');
+    if (typeof Prototype=='undefined') this.include('prototype.js');
     this.include('ricoCommon.js');
-    var func=function() { Rico.windowLoaded(); };
+    this.languageInclude('en');   // in case a phrase is missing from a translation
+    this.acceptLanguage(navigator.language || navigator.userLanguage);
+    var onloadAction=function() { Rico.windowLoaded(); };
     if (window.addEventListener)
-      window.addEventListener('load', func, false);
+      window.addEventListener('load', onloadAction, false);
     else if (window.attachEvent)
-      window.attachEvent('onload', func);
+      window.attachEvent('onload', onloadAction);
     this.onLoad(function() { Rico.writeDebugMsg('Pre-load messages:\n'+Rico.preloadMsgs); });
   },
-  
+
   // Array entries can reference a javascript file or css stylesheet
   // A dependency on another module can be indicated with a plus-sign prefix: '+DependsOnModule'
   moduleDependencies : {
@@ -80,15 +79,45 @@ var Rico = {
     Calendar   : ['ricoCalendar.js', 'ricoCalendar.css'],
     Tree       : ['ricoTree.js', 'ricoTree.css'],
     ColorPicker: ['ricoColorPicker.js', 'ricoStyles.js', 'ricoColorPicker.css'],
-    SimpleGrid : ['ricoCommon.js', 'ricoGridCommon.js', 'ricoGrid.css', 'ricoSimpleGrid.js'],
-    LiveGrid   : ['ricoCommon.js', 'ricoGridCommon.js', 'ricoGrid.css', 'ricoBehaviors.js', 'ricoLiveGrid.js'],
     CustomMenu : ['ricoMenu.js', 'ricoMenu.css'],
-    LiveGridMenu : ['+CustomMenu', 'ricoLiveGridMenu.js'],
-    LiveGridAjax : ['+LiveGrid', 'ricoLiveGridAjax.js'],
-    LiveGridForms: ['+LiveGridAjax', '+LiveGridMenu', '+Accordion', '+Corner', 'ricoLiveGridForms.js', 'ricoLiveGridForms.css'],
-    SpreadSheet  : ['+SimpleGrid', 'ricoSheet.js', 'ricoSheet.css']
+    SimpleGrid : ['+Effect', 'ricoGridCommon.js', 'ricoGrid.css', 'ricoSimpleGrid.js'],
+    LiveGridBasic : ['ricoGridCommon.js', 'ricoGrid.css', 'ricoBehaviors.js', 'ricoLiveGrid.js'],
+    LiveGrid      : ['+Effect', '+LiveGridBasic', 'ricoLiveGridControls.js'],
+    LiveGridMenu  : ['+CustomMenu', 'ricoLiveGridMenu.js'],
+    LiveGridAjax  : ['+LiveGrid', 'ricoLiveGridAjax.js'],
+    LiveGridJSON  : ['+LiveGridAjax', 'ricoLiveGridJSON.js'],
+    LiveGridForms : ['+LiveGridAjax', '+LiveGridMenu', '+Accordion', '+Corner', 'ricoLiveGridForms.js', 'ricoLiveGridForms.css'],
+    SpreadSheet   : ['+SimpleGrid', 'ricoSheet.js', 'ricoSheet.css']
   },
   
+  languages : {
+    de: "translations/ricoLocale_de.js",
+    en: "translations/ricoLocale_en.js",
+    es: "translations/ricoLocale_es.js",
+    fr: "translations/ricoLocale_fr.js",
+    it: "translations/ricoLocale_it.js",
+    ja: "translations/ricoLocale_ja.js",
+    ko: "translations/ricoLocale_ko.js",
+    pt: "translations/ricoLocale_pt.js",
+    zh: "translations/ricoLocale_zh.js"
+  },
+  
+  languageInclude : function(lang2) {
+    var filename=this.languages[lang2];
+    if (filename) this.include(filename);
+    return !!filename;
+  },
+  
+  acceptLanguage : function(acceptLang) {
+    var arLang=acceptLang.toLowerCase().split(',');
+    for (var i=0; i<arLang.length; i++) {
+      var lang2=arLang[i].match(/\w\w/);
+      if (!lang2) continue;
+      if (this.languageInclude(lang2)) return true;
+    }
+    return false;
+  },
+
   // Expects one or more module or file names
   loadModule : function() {
     for (var a=0, length=arguments.length; a<length; a++) {
@@ -105,7 +134,7 @@ var Rico = {
       }
     }
   },
-  
+
   include : function(filename) {
     if (this.loadedFiles[filename]) return;
     this.addPreloadMsg('include: '+filename);
@@ -125,7 +154,7 @@ var Rico = {
         return;
     }
   },
-  
+
   // called after a script file has finished loading
   includeLoaded: function(filename) {
     this.loadedFiles[filename]=this.loadComplete;
@@ -137,7 +166,7 @@ var Rico = {
     this.windowIsLoaded=true;
     this.checkIfComplete();
   },
-  
+
   checkIfComplete: function() {
     var waitingFor=this.windowIsLoaded ? '' : 'window';
     for(var filename in  this.loadedFiles) {
@@ -154,7 +183,7 @@ var Rico = {
       }
     }
   },
-  
+
   onLoad: function(callback,frontOfQ) {
     if (frontOfQ)
       this.onLoadCallbacks.unshift(callback);
@@ -166,14 +195,14 @@ var Rico = {
   isKonqueror : navigator.userAgent.toLowerCase().indexOf("konqueror") >= 0,
 
   // logging funtions
-   
+
   startTime : new Date(),
 
   timeStamp: function() {
     var stamp = new Date();
     return (stamp.getTime()-this.startTime.getTime())+": ";
   },
-  
+
   setDebugArea: function(id, forceit) {
     if (!this.debugArea || forceit) {
       var newarea=document.getElementById(id);
