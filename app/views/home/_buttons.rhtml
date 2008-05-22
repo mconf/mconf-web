@@ -5,10 +5,10 @@
   
  <div id="bot_pcipal">
  	 <ul>
-  	 <li class="short" ><%= link_to "Events" , {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
-	 <li class="short"><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
+  	  <li class="short"><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
 	 <li class="medium"><%= link_to "Resources", {:controller=>'machines',  :action=>'list_user_machines'},:class => "secund",:method=> 'get'%></li>
 	 
+
      </ul>
 	 </div>
 	 
@@ -25,18 +25,19 @@
 <% elsif logged_in?%>
 
   <ul>
+  	<li class="short"><%= link_to "Events", {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
+	 
 	 <li class="short"><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :class => "secund", :title=>"Search for events"%></li>
-	 <li class="short"><%= link_to "Events", {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
 	 <li class="medium"><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
+<% if @space && @space.has_role_for?(current_user, :create_performances)%>
+<li class="medium"><%= link_to "Groups" , show_groups_path(:container_id => @space.id, :container_type => :spaces),   :class => "secund", :title=>"Search for events"%></li>
+<%end%>
+
   </ul>
 
 <% else %>
 
-  <ul> 
   
-     
-	 <li class="short"><%= link_to 'Search', {:controller=>'events',:action => 'search'}, :class => "secund" ,:title=>"Search for events"%></li> 
- </ul>
   
 <% end %>
 

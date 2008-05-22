@@ -4,6 +4,9 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.xml
   before_filter :authentication_required
+  before_filter :profile_owner, :only=>[:show, :edit, :update, :destroy,  :vcard]
+  before_filter :user_profile_owner, :only=>[:hcard]
+  before_filter :unique_profile, :only=>[:new, :create]
   def index
     @profile = Profile.find_by_users_id(current_user.id )
     if @profile == nil
@@ -20,7 +23,8 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.xml
   def show
-    @profile = Profile.find_by_users_id(current_user.id )
+   
+    @profile = Profile.find_by_id(params[:id] )
    # debugger
     if @profile == nil
         @profile = Profile.new
@@ -88,7 +92,7 @@ class ProfilesController < ApplicationController
   def destroy
     @profile = Profile.find(params[:id])
     @profile.destroy
-
+      flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
       format.html { redirect_to(profiles_url) }
       format.xml  { head :ok }
@@ -98,7 +102,7 @@ class ProfilesController < ApplicationController
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
     
-  @profile = Profile.find_by_users_id(current_user.id )
+  @profile = Profile.find_by_users_id(params[:id] )
   if @profile  == nil
     flash[:notice] = 'You must create your profile first.'
      redirect_to(:action => "new", :controller => "profiles") 
@@ -111,7 +115,8 @@ else
 end
 #this method is used to compose the vcard file (.vcf) with the profile of an user
 def vcard
-profile = Profile.find_by_users_id(current_user.id )
+ 
+profile = Profile.find_by_id(params[:id] )
 email = User.find(profile.users_id).email
 @card = Vpim::Vcard::Maker.make2 do |maker|
   maker.add_name do |name|

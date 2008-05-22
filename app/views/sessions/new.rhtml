@@ -17,7 +17,7 @@
 		<p><label for="remember_me">Remember me:</label>
 		<%= check_box_tag 'remember_me' %></p>
 
-		<%= link_to 'Forgot your Password?', forgot_path %>
+		
 	  </div>
 or....
 	  <div id="openid-container">
@@ -29,3 +29,11 @@ or....
 	
 	</div>
 </div> 	
+
+<div id="help_login">
+	Don't have an account? <br>
+	<%= link_to 'Click here to sign up', signup_path %><br>
+	Forgot your password?<br>
+	<%= link_to 'Click here to retrieve it', forgot_path %>
+	
+</div>

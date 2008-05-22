@@ -6,6 +6,7 @@ class SpacesController < ApplicationController
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
+   
   def index
     @spaces = Space.find(:all )
     
@@ -88,7 +89,7 @@ class SpacesController < ApplicationController
   def destroy
     @space = Space.find(params[:id])
     @space.destroy
-
+flash[:notice] = 'Space was successfully removed.'
     respond_to do |format|
       format.html { redirect_to(spaces_url) }
       format.xml  { head :ok }

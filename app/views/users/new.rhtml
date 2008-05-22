@@ -1,4 +1,4 @@
-<div align=center id="contenedor">
+<div align=center id="signup">
 
 <%= error_messages_for :agent %>
 
@@ -11,3 +11,11 @@
 <p><%= submit_tag 'Sign up' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 <% end -%>
 </div>
+<div id="tips">
+	<h6>Tips</h6>
+	After signing up, you will receive <br>
+	and email confirmation message<br>
+	You should click in the activation <br>
+	link to log in<br>
+	<%= link_to 'Already have an account?', login_path %>
+	</div>

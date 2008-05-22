@@ -1,0 +1,9 @@
+---
+
+espacio_1:
+  name: Espacio 1
+  id: 1
+  description: Descripción esapcio 1
+  parent_id: ""
+  deleted: 
+  

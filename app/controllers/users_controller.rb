@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
   
+
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
@@ -50,6 +51,7 @@ class UsersController < ApplicationController
   #This method returns the user to show the form to edit him
   def edit
     @user = User.find(params[:id])
+    render :layout => 'profiles'
   end
   def clean
     render :update do |page|

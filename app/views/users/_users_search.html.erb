@@ -1,0 +1,10 @@
+
+
+<% if @users.length == 0 %>
+	No Users Found
+<% else%>
+	<% i = 0%>	
+	<%for user in @users%>
+	    <div id='d<%=i%>'><%= user.login %><%i=i+1%></div>
+    <%end%>	
+<%end%>

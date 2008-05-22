@@ -1,0 +1,15 @@
+--- 
+administrador:
+  id: 1
+  name: administrador
+  create_posts: true
+  read_posts: true
+  update_posts: true
+  delete_posts: true
+  create_performances: true
+  read_performances: true
+  update_performances: true
+  delete_performances: true
+  manage_events: true
+  admin: true
+  type: ""

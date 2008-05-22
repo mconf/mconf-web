@@ -44,6 +44,37 @@ class ApplicationController < ActionController::Base
     end 
   end
   
+  def unique_profile
+    profile = Profile.find_by_users_id(current_user.id)
+    unless profile == nil
+      user = current_user
+      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
+      logger.error("USER WAS: " + user.login)
+      flash[:notice] = "You have already a profile."     
+      redirect_to(:controller => "profiles", :action => "show", :id=> profile.id)  
+    end
+  end
+  def user_profile_owner
+    profile = Profile.find_by_users_id(params[:id])
+    unless profile != nil && profile.users_id == current_user.id
+      user = current_user
+      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
+      logger.error("USER WAS: " + user.login)
+      flash[:notice] = "Action not allowed."     
+      redirect_to(:controller => "events", :action => "show")  
+    end
+  end
+  def profile_owner
+
+    profile = Profile.find_by_id(params[:id])
+    unless profile != nil && profile.users_id == current_user.id
+      user = current_user
+      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
+      logger.error("USER WAS: " + user.login)
+      flash[:notice] = "Action not allowed."     
+      redirect_to(:controller => "events", :action => "show")  
+    end
+  end
   def user_is_admin
     unless current_user.superuser
       logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")

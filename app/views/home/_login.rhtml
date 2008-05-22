@@ -1,5 +1,10 @@
 <!-- home/index.rhtml -->
-<%array_spaces = []
+
+
+	<% if logged_in? %>
+	<div id="space_selector">
+
+	<%array_spaces = []
 	array_spaces << ["Public (All)",0]
 	array_spaces += Space.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
 	-%>
@@ -11,8 +16,7 @@
 			<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
 		<%end%>
 	<% end -%>
-
-	<% if logged_in? %>
+	</div>
 		<div id="username"><p><%=h current_user.login %></p></div>
 		
 		<div id="menu_login">
@@ -24,6 +28,7 @@
   	 	
 
 		</ul>
+		
 		</div>
 	<% else%>
 	<div id="menu_login">

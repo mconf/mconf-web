@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+    render :layout => 'profiles'
   end
 
   def create

@@ -24,9 +24,7 @@ tag_cloud.each do |tag|
 yield tag.name, style_list[(tag.popularity.to_i - min) / divisor]
 end
 end
-def prueba
-  
-end
+
 def tag_item_url(name)
   "/search_events?query=#{name}&commit=Search"
 end
@@ -41,6 +39,7 @@ end
 end
 
 
+
 def javascript(file_name, space_id, role_id=nil)
   content_for(:head) {  "<script src=\"/js/src/rico.js\" type=\"text/javascript\"></script>" }
   if role_id!=nil
@@ -52,5 +51,6 @@ def javascript(file_name, space_id, role_id=nil)
     return
   end
 end
+
 
 end

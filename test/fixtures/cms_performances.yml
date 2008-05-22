@@ -1,0 +1,8 @@
+--- 
+user_space1_admin:
+  id: 1
+  agent_id: 30
+  agent_type: User
+  role_id: 1
+  container_id: 1
+  container_type: Space

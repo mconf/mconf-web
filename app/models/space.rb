@@ -1,7 +1,7 @@
 class Space < ActiveRecord::Base
   acts_as_container
   
-  
+  validates_presence_of :name, :description
   #method to know the users that belong to this space
   def users
     actors
@@ -9,40 +9,21 @@ class Space < ActiveRecord::Base
   
   
   def manage_groups_by?(user)
-   if user.superuser == true
-     return true
-    
-  elsif has_role_for?(user, :admin) == true
-    return true
-    elsif has_role_for?(user, :create_performances) == true
-      return true
-    else
-      return false
-   end
+ user.superuser || has_role_for?(user, :admin) || has_role_for?(user, :create_performances) 
  end
  
  
   def edit_by?(user)
-    if user.superuser == true 
-      return true      
-   elsif has_role_for?(user, :admin) == true
-      return true      
-    else
-      return false
-    end    
+
+    user.superuser || has_role_for?(user, :admin)
+        
   end
   
   
   def add_users_by?(user)
-    if user.superuser == true 
-      return true     
-    elsif has_role_for?(user, :admin) == true
-      return true
-    elsif has_role_for?(user, :create_performances) == true
-      return true
-    else
-      return false
-    end
+
+    user.superuser || has_role_for?(user, :admin) || has_role_for?(user, :create_performances) 
+
   end
   
   #method to print an array of the user names

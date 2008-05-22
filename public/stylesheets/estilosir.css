@@ -399,4 +399,26 @@ li.long{
 	
 	
 }
+ #signup{
+ 	margin-top: 110px;
+	
+ }
+ #tips{
+ 	
+	font-size: 10pt; 
+	
+ }
+ #help_login{
+ 	font-size: 10pt; 
+ }
+ #help_login a:link, #help_login a:visited{
+ 	font-size: 9pt; 
+	text-decoration: none;
+	color:#7D7D7D;
+	 	
+ }
+ #help_login a:hover{
+	color:#611427;
+	text-decoration:none;
 
+}

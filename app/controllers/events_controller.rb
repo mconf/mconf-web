@@ -3,7 +3,8 @@ require 'vpim/vevent'
 class EventsController < ApplicationController
   # Include some methods and filters.
   include CMS::Controller::Contents
-  
+ 
+  #include CMS::Controller::Authorization
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
 
   # Events list may belong to a container
@@ -14,7 +15,7 @@ class EventsController < ApplicationController
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
-
+ #before_filter :get_space , :only => [:index, :show]
   #TODO: Authorization
 
   before_filter :no_machines, :only => [:new, :edit,:create]
@@ -547,4 +548,7 @@ class EventsController < ApplicationController
     return event_datetimes
   end
   
+  def get_space
+    @space = Space.find(params[:container_id])
+  end
 end
