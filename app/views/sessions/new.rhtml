@@ -1,8 +1,12 @@
+
+
+
+
 <div id="contenido_login" align=center>
 	
 	<% form_tag session_path do -%>
 
-	<div id="contenedor">
+	
 		
 	  <div id="login_and_password-container">
 		
@@ -27,13 +31,28 @@ or....
 	  <p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 	 <% end -%>
 	
-	</div>
+	
+	
 </div> 	
 
+ <div id="help">
 <div id="help_login">
 	Don't have an account? <br>
 	<%= link_to 'Click here to sign up', signup_path %><br>
 	Forgot your password?<br>
 	<%= link_to 'Click here to retrieve it', forgot_path %>
 	
+	
+	
+	
 </div>
+
+</div>
+ <script language="javascript" type="text/javascript">
+    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
+    border.render('help');
+ </script>
+ <script language="javascript" type="text/javascript">
+    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
+    border.render('contenido_login');
+ </script>
