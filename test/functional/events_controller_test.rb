@@ -34,6 +34,11 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_no_resources") # a user with no resources assigned
   end
   
+def test_show
+   login_as("user_normal")
+  get :show, :date_start_day=>'2015-01-01'
+  assert_response :success
+end
 
   def test_index
     login_as("user_normal")
@@ -243,7 +248,14 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to container_events_url(:container_id => users("user_normal").id, :container_type => "users", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
+  def test_create_wrong_participans_nil
+    #con otros valores
+    login_as("user_normal")
+    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"",:is_valid_participant1=>"", :start_date0=>"December 19, 2008 02:03",  :end_date0 =>"December 19, 2008 12:00"
+
   
+    
+    end
   def test_create_good_integer_values
     #con valores numericos en vez de strings
     login_as("user_normal")
@@ -340,7 +352,6 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to :action => "show" 
   end
 
-
   def test_update_good_2
     login_as("user_admin")
     post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"January 19, 2008 02:00",  :end_date0 =>"January 27, 2008 02:00", :start_date1=>"June 19, 2008 02:00",  :end_date1 =>"June 27, 2008 02:00"
@@ -364,7 +375,12 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to :action => "show"    
     assert_raise(ActiveRecord::RecordNotFound) {post :edit, :id=>38}
   end
-  
+  def test_destroy_event_not_found
+    login_as("user_admin")
+    post :destroy, :id=>22
+    assert flash[:notice].include?('Invalid event')
+    assert_redirected_to :action => "show"    
+  end
   
   def test_show_summary_good
     post :show_summary, :event_id=>38
@@ -441,5 +457,155 @@ class EventsControllerTest < ActionController::TestCase
     post :export_ical, :id => 38
     assert @response.body.include?("VCALENDAR")
   end
+def test_search_admin
+   login_as("user_admin")
+  get :search
+  assert_response :success
+  assert @response.body.include?("Search")
+  assert_template 'search'
+end
 
+def test_search_no_login
+  
+  get :search
+  assert_response :success
+  assert @response.body.include?("Search")
+  assert_template 'search'
+end
+def test_advanced_search
+  login_as("user_normal")
+  get :advanced_search
+   assert_template 'advanced_search'
+   assert @response.body.include?("advanced")
+   assert_response :success
+ end
+ 
+ def test_advanced_search_no_login
+
+  get :advanced_search
+   assert_template 'advanced_search'
+   assert @response.body.include?("advanced")
+   assert_response :success
+ end
+ 
+ def test_title_search
+   login_as("user_normal")
+  get :title
+   assert_template 'title'
+   assert @response.body.include?("title")
+   assert_response :success
+ end
+ 
+ def test_description_search
+    login_as("user_normal")
+  get :description
+   assert_template 'description'
+   assert @response.body.include?("description")
+   assert_response :success
+ end
+ 
+ def test_dates_search
+    login_as("user_normal")
+  get :dates
+   assert_template 'dates'
+   assert @response.body.include?("dates")
+   assert_response :success
+ end
+ 
+ def test_clean
+   get :clean
+  
+   
+   assert_response :success
+ end
+ 
+ def test_search_events_1_found
+    login_as("user_normal")
+    post :search_events, :query=>'complejo'
+    assert_response :success
+    assert @response.body.include?("1 events were found")
+   assert_template 'search_events'
+ end
+ 
+ def test_search_events_0_found
+    login_as("user_normal")
+    post :search_events, :query=>'esternocleidomastoideo'
+    assert_response :success
+    assert @response.body.include?("0 events were found")
+   assert_template 'search_events'
+ end
+ 
+ def test_search_by_tag
+   login_as("user_normal")
+    post :search_by_tag, :tag=>'imperial'
+    assert_response :success
+    #assert @response.body.include?("Title")
+   assert_template 'search_by_tag'
+ end
+ def test_advanced_search_events
+   login_as("user_normal")
+    post :advanced_search_events, :query=>'complejo'
+    assert_response :success
+    assert @response.body.include?("1 events were found")
+   assert_template 'search_events'
+   
+ end
+ 
+ def test_advanced_search_events_0_found
+    login_as("user_normal")
+    post :advanced_search_events, :query=>'esternocleidomastoideo'
+    assert_response :success
+    assert @response.body.include?("0 events were found")
+   assert_template 'search_events'
+ end
+ 
+ def test_search_by_title
+   login_as("user_normal")
+    post :search_by_title, :query=>'complejo'
+    assert_response :success
+    assert @response.body.include?("1 events were found")
+   assert_template 'search_events'
+   
+ end
+  def test_search_by_title_0_found
+    login_as("user_normal")
+    post :search_by_title, :query=>'esternocleidomastoideo'
+    assert_response :success
+    assert @response.body.include?("0 events were found")
+   assert_template 'search_events'
+ end
+  def test_search_by_description
+   login_as("user_normal")
+    post :search_in_description, :query=>'videoconferencia'
+    assert_response :success
+    
+   assert_template 'search_events'
+   
+ end
+ def test_search_by_description_0_found
+   login_as("user_normal")
+    post :search_in_description, :query=>'esternocleidomastoideo'
+    assert_response :success
+    assert @response.body.include?("0 events were found")
+   assert_template 'search_events'
+   
+ end
+ 
+ def test_search_by_date
+      login_as("user_normal")
+    post :search_by_date, :query1=>'2008-02-20', :query2=>'2008-05-28'
+    assert_response :success
+    assert @response.body.include?("0 events were found")
+   assert_template 'search_events'
+ end
+  def test_search_by_date_wrong
+      login_as("user_normal")
+    post :search_by_date, :query1=>'2008-02-20', :query2=>'2008-02-10'
+    assert_response :success
+    assert flash[:notice].include?('first date cannot be lower')
+   assert_template 'search'
+ end
+ 
+ 
+ 
 end

@@ -1,12 +1,12 @@
 class SpacesController < ApplicationController
-    include CMS::Controller::Base
+  include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
-   
+  
   def index
     @spaces = Space.find(:all )
     
@@ -25,24 +25,24 @@ class SpacesController < ApplicationController
   # GET /spaces/new.xml
   def new
     @space = Space.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @space }
     end
   end
-
+  
   # GET /spaces/1/edit
   def edit
     
   end
-
-
+  
+  
   # POST /spaces
   # POST /spaces.xml
   def create    
     @space = Space.new(params[:space])
-
+    
     respond_to do |format|
       if @space.save
         flash[:notice] = 'Space was successfully created.'
@@ -59,37 +59,40 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   def update
+    debugger
     @space = Space.find(params[:id])
-    respond_to do |format|
-      if @space.update_attributes(params[:space])
-          #fist of all we delete all the old performances, but not the groups
-          @space.delete_performances
-          for role in CMS::Role.find_all_by_type(nil)
-            if params[role.name]
-              for login in parse_divs(params[role.name].to_s)
-                @space.container_performances.create :agent => User.find_by_login(login), :role => role
-              end
-            end
+    
+    if @space.update_attributes(params[:space])
+      #fist of all we delete all the old performances, but not the groups
+      @space.delete_performances
+      for role in CMS::Role.find_all_by_type(nil)
+        if params[role.name]
+          for login in parse_divs(params[role.name].to_s)
+            @space.container_performances.create :agent => User.find_by_login(login), :role => role
           end
-        @space.save!
-        flash[:notice] = 'Space was successfully updated.'
-        @spaces = Space.find(:all )
-        format.html { render :action => "index" }
-        format.xml  { head :ok }
-      else
+        end
+      end
+      @space.save!
+      flash[:notice] = 'Space was successfully updated.'
+      @spaces = Space.find(:all )
+      
+      render :action => "index" 
+      
+    else
+      respond_to do |format|
         format.html { render :action => "index" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
       end      
     end
   end
-
-
+  
+  
   # DELETE /spaces/1
   # DELETE //1.xml
   def destroy
     @space = Space.find(params[:id])
     @space.destroy
-flash[:notice] = 'Space was successfully removed.'
+    flash[:notice] = 'Space was successfully removed.'
     respond_to do |format|
       format.html { redirect_to(spaces_url) }
       format.xml  { head :ok }
@@ -123,7 +126,7 @@ flash[:notice] = 'Space was successfully removed.'
         end
       end
       array << p.text
-      }
+    }
     return array
   end
   

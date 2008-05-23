@@ -12,4 +12,4 @@ administrador:
   delete_performances: true
   manage_events: true
   admin: true
-  type: ""
+  type: 

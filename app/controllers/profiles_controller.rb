@@ -10,13 +10,15 @@ class ProfilesController < ApplicationController
   def index
     @profile = Profile.find_by_users_id(current_user.id )
     if @profile == nil
-        @profile = Profile.new
-    end
+        flash[:notice] = 'You must create your profile first.'
+     redirect_to(:action => "new", :controller => "profiles") 
+    else
 
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @profile }
+    end
     end
   end
 
@@ -26,9 +28,7 @@ class ProfilesController < ApplicationController
    
     @profile = Profile.find_by_id(params[:id] )
    # debugger
-    if @profile == nil
-        @profile = Profile.new
-    end
+   
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @profile }
@@ -103,14 +103,10 @@ class ProfilesController < ApplicationController
   def hcard
     
   @profile = Profile.find_by_users_id(params[:id] )
-  if @profile  == nil
-    flash[:notice] = 'You must create your profile first.'
-     redirect_to(:action => "new", :controller => "profiles") 
-
-else
+  
   
    @user = User.find(@profile.users_id)
-   end
+  
   
 end
 #this method is used to compose the vcard file (.vcf) with the profile of an user

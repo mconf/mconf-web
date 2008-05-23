@@ -40,7 +40,7 @@ class EventsController < ApplicationController
       datetime_start_day = Date.today      
     end
  
-    @cloud = Tag.cloud(:limit=> 40, :conditions => type == 'Event')
+    @cloud = Tag.cloud(:limit=> 40)
     @datetime = datetime_start_day
     event_datetimes = select_events(datetime_start_day)
     @events = []

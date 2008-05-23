@@ -55,13 +55,21 @@ class ApplicationController < ActionController::Base
     end
   end
   def user_profile_owner
+  
     profile = Profile.find_by_users_id(params[:id])
-    unless profile != nil && profile.users_id == current_user.id
+    if profile == nil
+      flash[:notice] = 'You must create your profile first.'
+     redirect_to(:action => "new", :controller => "profiles") 
+
+      else
+    
+    unless  profile.users_id == current_user.id
       user = current_user
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "Action not allowed."     
       redirect_to(:controller => "events", :action => "show")  
+    end
     end
   end
   def profile_owner

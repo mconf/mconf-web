@@ -8,14 +8,14 @@ taggings_004:
   tag_id: "2"
   id: "4"
   taggable_type: Event
-  taggable_id: "2"
+  taggable_id: "40"
 taggings_001: 
   tag_id: "1"
   id: "1"
   taggable_type: Event
-  taggable_id: "1"
+  taggable_id: "39"
 taggings_002: 
   tag_id: "1"
   id: "2"
   taggable_type: Event
-  taggable_id: "2"
+  taggable_id: "40"
