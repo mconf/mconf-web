@@ -13,6 +13,7 @@
   <%= javascript_include_tag 'shadedborder' %> 
   <%= stylesheet_link_tag 'grid' %>
   <%= stylesheet_link_tag 'reset-fonts-grids' %>  
+  <%= javascript_include_tag 'rounder' %>
   
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Expires" CONTENT="-1">
@@ -38,11 +39,8 @@
 		</div>
 		-->
 		
-		<div id="menu_pcipal" >
-			<%= render :partial => 'home/titles', :layout => false%>
-		</div>
 		
-		<div id="menu_secund">
+		<div id="menu_tabs">
 			<%= render :partial => 'home/buttons', :layout => false%>
 		</div>
 		 <div id="login2">
