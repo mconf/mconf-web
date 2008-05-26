@@ -1,9 +1,8 @@
 <!-- home/index.rhtml -->
-
-
 	<% if logged_in? %>
 	<div id="space_selector">
 
+	    <div id="username"><p><%=h current_user.login %></p></div>
 	<%array_spaces = []
 	array_spaces << ["Public (All)",0]
 	array_spaces += Space.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
@@ -18,18 +17,40 @@
 	<% end -%>
 	</div>
 		<div id="username"><p><%=h current_user.login %></p></div>
-		
-		<div id="menu_login">
+    	<div id="menu_login">
 		<ul>
-
 		<li><%= link_to 'Logout', logout_path , :method=> 'get'%></li>
 		<li><%= link_to 'Account', edit_user_path(current_user),  :method=> 'get' %></li>
 		<li><%= link_to 'Profile', hcard_path(current_user),  :method=> 'get' %></li>
-  	 	
-
-		</ul>
+  	    </ul>
 		
 		</div>
+		<%  array_all_spaces = []
+		array_all_spaces << ["Public (All)",0]
+		array_all_spaces += Space.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
+	    array_spaces_user_belongs = []
+	    array_spaces_user_belongs << ["Public (All)",0]
+		array_spaces_user_belongs += current_user.containers.collect {|r| [ h(r.name), h(r.id) ]}
+		-%>	
+
+		<div id="space-span">Space:
+		<% form_tag("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
+				<%if current_user.superuser%>		
+					<%if @space%>
+						<%= select("space", "id", array_all_spaces,{ :include_blank=>false, :selected=>@space.id.to_s }, { :onchange => "change_space()", :selected=>@space.name})%>
+					<%else%>
+						<%= select("space", "id", array_all_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
+					<%end%>
+				<%else%>
+					<%if @space%>
+						<%= select("space", "id", array_spaces_user_belongs,{ :include_blank=>false, :selected=>@space.id.to_s }, { :onchange => "change_space()", :selected=>@space.name})%>
+					<%else%>
+						<%= select("space", "id", array_spaces_user_belongs,{ :include_blank=>false }, { :onchange => "change_space()" })%>
+					<%end%>
+				<%end%>			
+		<% end -%>
+	    </div>
+		
 	<% else%>
 	<div id="menu_login">
 		<ul>

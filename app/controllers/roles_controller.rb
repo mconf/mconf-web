@@ -6,7 +6,7 @@ class RolesController < ApplicationController
   before_filter :authentication_required
   before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter :get_container , :only=>[:update_group,:edit_group,:group_details, :create_group,:save_group, :show_groups, :delete_group]
- before_filter  :can__manage_groups__space__filter, :only=>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  before_filter  :can__manage_groups__space__filter, :only=>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   
   def index
     @role = CMS::Role.find_all_by_type(nil)   
@@ -127,7 +127,7 @@ class RolesController < ApplicationController
   end
   
   
-  def create_group 
+  def create_group
     @users =  @container.actors    
     @role = Group.new
     @users_group = []
@@ -141,16 +141,22 @@ class RolesController < ApplicationController
   def save_group
     @users =  @container.actors   
     @role = Group.new(params[:group])
+    array_users = parse_divs(params[:group_users].to_s)
     respond_to do |format|
-      if @role.save
-        for login in parse_divs(params[:group_users].to_s)
-                @container.performances.create :agent => User.find_by_login(login), :role => @role
+      if array_users.length>0 && @role.save
+        for login in array_users
+             @container.container_performances.create :agent => User.find_by_login(login), :role => @role
         end
         flash[:notice] = 'Group was successfully created in this space.'
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
         format.xml  { render :xml => @role, :status => :created, :location => @role }
       else
-      flash[:notice] = 'Error creating group.'
+        if !(array_users.length>0)
+           flash[:notice] = 'Group users can`t be blank'
+        else
+           flash[:notice] = 'Error creating group.'
+        end        
+        @users_group = []
         format.html { render :action => "create_group" }
         format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
       end
@@ -185,21 +191,23 @@ class RolesController < ApplicationController
     for performance in @performances
       performance.destroy
     end
-    if  @role.update_attributes(params[:group])
+    if params[:group_users]
+      array_users =  parse_divs(params[:group_users].to_s)
+    end
+    if  array_users.length >0 && @role.update_attributes(params[:group])
       if params[:group_users]
-        for login in parse_divs(params[:group_users].to_s)
-                @container.performances.create :agent => User.find_by_login(login), :role => @role
+        for login in array_users
+            @container.container_performances.create :agent => User.find_by_login(login), :role => @role
         end
         flash[:notice] = 'Group was successfully updated.'
       else
         @role.destroy
         flash[:notice] = 'Group was successfully deleted.'
-      end
-      
-       redirect_to(:action => "show_groups", :controller => "roles") 
-      
+      end      
+       redirect_to(:action => "show_groups", :controller => "roles")     
     end
   end
+  
   
   def delete_group    
     @role = Group.find(params[:group_id])

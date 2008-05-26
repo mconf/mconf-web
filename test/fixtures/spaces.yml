@@ -7,3 +7,16 @@ espacio_1:
   parent_id: ""
   deleted: 
   
+espacio_2:
+  name: Espacio segundo
+  id: 2
+  description: Descripción segundo espacio
+  parent_id: ""
+  deleted: 
+  
+espacio_3:
+  name: Tercer Espacio
+  id: 3
+  description: Descripción tercer espacio
+  parent_id: ""
+  deleted: 
