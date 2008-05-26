@@ -1,7 +1,7 @@
 <html>
 	
 <head>
-	
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <%=yield(:head)%>
   <%= javascript_include_tag("prototype", "effects") %>
@@ -11,8 +11,8 @@
   <%= stylesheet_link_tag 'estilosir' %>
   <%= javascript_include_tag 'muestra' %> 
   <%= javascript_include_tag 'shadedborder' %> 
-  
-     
+  <%= stylesheet_link_tag 'grid' %>
+  <%= stylesheet_link_tag 'reset-fonts-grids' %>  
   
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Expires" CONTENT="-1">
@@ -22,58 +22,60 @@
 </head>
 
 <body >
-	<div id="contenedor">
-	<!-- Div con el logo-->
-	<div id="logo">
-		 <!--<%= @page_title || "Isabel Server" %>-->
-	</div>
-	
-	<!-- Div de las banderas, no se muestra por ahora...
-	
-	<div id="idioma">
-		<%= link_to (image_tag("spain.gif")), {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %>
-		<%= link_to (image_tag("britain.gif")), {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %>
-	</div>
-	-->
-	
-	<div id="menu_pcipal" >
-		<%= render :partial => 'home/titles', :layout => false%>
-	</div>
-	
-	<div id="menu_secund">
-		<%= render :partial => 'home/buttons', :layout => false%>
-	</div>
-	 <div id="login2">
-	 	<%= render :partial => 'home/login', :layout => false%>
-	 </div>
-
+	<div id="doc2">
+    <div id="hd">
+		<div id="contenedor">
+		<!-- Div con el logo-->
+		<div id="logo">
+			 <!--<%= @page_title || "Isabel Server" %>-->
+		</div>
+		
+		<!-- Div de las banderas, no se muestra por ahora...
+		
+		<div id="idioma">
+			<%= link_to (image_tag("spain.gif")), {:controller => 'events', :action => 'index', :locale => 'es', :id => params[:id]} %>
+			<%= link_to (image_tag("britain.gif")), {:controller => 'events', :action => 'index', :locale => 'en', :id => params[:id]} %>
+		</div>
+		-->
+		
+		<div id="menu_pcipal" >
+			<%= render :partial => 'home/titles', :layout => false%>
+		</div>
+		
+		<div id="menu_secund">
+			<%= render :partial => 'home/buttons', :layout => false%>
+		</div>
+		 <div id="login2">
+		 	<%= render :partial => 'home/login', :layout => false%>
+		 </div>
+		</div>
+  </div>
   
-   
-   <div id="main" >
+   <div id="bd">
+   	    <div id="main" >
         
-   		<div id="main-content">
-	
-         <% if flash[:notice] -%>
-        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
-        	<% end -%>
-			<% if flash[:error] -%>
-        	<br><div id="notice" style="color: green"><%= flash[:error] %></div>
-        	<% end -%>
-			<% if flash[:warning] -%>
-         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
-        	<% end -%>
-        	<%= @content_for_layout %>   
-     </div>
-			</div>
-	
-    
-   </div> 
-  
-   
- 
+	   		<div id="main-content">
+		
+	         <% if flash[:notice] -%>
+	        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
+	        	<% end -%>
+				<% if flash[:error] -%>
+	        	<br><div id="notice" style="color: green"><%= flash[:error] %></div>
+	        	<% end -%>
+				<% if flash[:warning] -%>
+	         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
+	        	<% end -%>
+	        	<%= @content_for_layout %>   
+	     	</div>
+	   </div>
+   </div>
+	    
+   <div id="ft">
+	footer
+   </div>  
 
  
-  
+  </div>
 </body>
 
 <script>
