@@ -18,11 +18,16 @@ class SessionsControllerTest < ActionController::TestCase
 
     def test_should_login_and_redirect
       post :create, :login => 'quentin', :password => 'test'
-      debugger
+      
       assert logged_in_session?
       assert_response :redirect
     end
-
+def test_should_login_with_openid
+      post :create, :openid_identifier => 'http://cantorrodista.myopenid.com'
+      
+     
+      assert_response :redirect
+    end
 
     def test_should_fail_login_and_not_redirect
       post :create, :login => 'quentin', :password => 'bad password'

@@ -1,6 +1,6 @@
  <% if tag_cloud.length > 0 %>
 <% build_tag_cloud(tag_cloud, %w(nube1 nube2 nube3 nube4 nube5 nube6 )) do |tag, cloud_class| %>
-<%= link_to (h("#{tag}"), {:action => :search_by_tag, :tag => tag}, { :class => "#{cloud_class}", :style => "margin: .15em", :rel=> "tag" } ) %>
+<%= link_to(h("#{tag}"), {:action => :search_by_tag, :tag => tag}, { :class => "#{cloud_class}", :style => "margin: .15em", :rel=> "tag" } ) %>
 <% end %>
 <% else %>No tags found.
 

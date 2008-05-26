@@ -73,8 +73,8 @@ class UsersControllerTest < Test::Unit::TestCase
     login_as("user_normal")
     post :update, :id=>24,:tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
-    assert_response :redirect  
-    assert  flash[:notice].include?("User was successfully updated.")
+    
+    assert  flash[:notice].include?("Action not allowed")
   end
 
   def test_should_edit_user
@@ -83,7 +83,37 @@ class UsersControllerTest < Test::Unit::TestCase
     assert :success
   end
   
+  def test_manage_users
+    login_as("user_admin")
+    get :manage_users
+    assert :success
+    assert_template 'manage_users'
+  end
+  
+  def test_manage_users_no_admin
+     login_as("user_normal")
+     get :manage_users
+     assert_redirected_to :controller=>'events', :action=>'show'
+     assert  flash[:notice].include?("Action not allowed")
+   end
+   def test_manage_users_no_login
+     
+     get :manage_users
+     assert_redirected_to :controller=>'sessions', :action=>'new'
 
+end
+  
+   
+    def test_clean
+      login_as("user_normal")
+      get :clean
+      assert_response :success
+    end
+
+
+
+ 
+ 
   protected
     def create_user(options = {})
       post :create, :tag=>{"add_tag"=>"bueno"}, :agent => { :login => 'quire', :email => 'quire@example.com',

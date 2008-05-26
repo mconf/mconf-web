@@ -18,7 +18,7 @@ class UsersController < ApplicationController
                                                           :reset_password ]
   before_filter :get_container, :only=>[:search_users]
   
-  before_filter :authentication_required, :only => [:edit, :update,:manage_users, :destroy]
+  before_filter :authentication_required, :only => [:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   #This method returns the user to show the form to edit him
   def edit
     @user = User.find(params[:id])
-    render :layout => 'profiles'
+    
   end
   def clean
     render :update do |page|
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
   def edit_user
    
     @agent = @user = User.find(params[:id])
-    if @user.superuser == true 
+    if current_user.superuser == true 
       return true
       
    elsif current_user.id == @user.id
