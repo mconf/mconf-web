@@ -1,4 +1,5 @@
-<div align=center id="signup">
+<div id="cuadro-signup">
+<div align=center id="contenido-signup">
 
 <%= error_messages_for :agent %>
 
@@ -11,11 +12,23 @@
 <p><%= submit_tag 'Sign up' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 <% end -%>
 </div>
-<div id="tips">
-	<h6>Tips</h6>
+</div>
+
+<div id="cuadro-tips">
+<div id="contenido-tips">
+	<h4>Tips</h4>
 	After signing up, you will receive <br>
 	and email confirmation message<br>
 	You should click in the activation <br>
 	link to log in<br>
 	<%= link_to 'Already have an account?', login_path %>
 	</div>
+	</div>
+<script language="javascript" type="text/javascript">
+    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
+    border.render('cuadro-signup');
+ </script>
+ <script language="javascript" type="text/javascript">
+    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
+    border.render('cuadro-tips');
+ </script>

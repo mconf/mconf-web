@@ -404,15 +404,39 @@ li.long{
 	
 	
 }
- #signup{
- 	margin-top: 110px;
+ #cuadro-signup{
+ 	padding:30px;
+	position:absolute;
+	width:25%;
+	left:50%;
+	margin-left:-10%;
+	
 	
  }
- #tips{
- 	
-	font-size: 10pt; 
+ #cuadro-tips{
+ 	width:20%;
+	padding:20px;
+	margin-left:10%;
+	position:absolute;
+	margin-top:-55%;
+	text-align:center;
+	padding-bottom:30px;
+	
 	
  }
+ #contenido-tips a:link, #contenido-tips a:visited{
+ 	font-size: 9pt; 
+	text-decoration: none;
+	color:#7D7D7D;
+	}
+	
+	#contenido-tips a:hover{
+		color:#611427;
+	text-decoration:none;
+	}
+	#contenido-tips{
+		font-size: 10pt; 
+	}
  #help_login{
  	font-size: 10pt; 
  }
@@ -428,6 +452,20 @@ li.long{
 
 }
 
+ #help2_login{
+ 	font-size: 10pt; 
+ }
+ #help2_login a:link, #help2_login a:visited{
+ 	font-size: 9pt; 
+	text-decoration: none;
+	color:#7D7D7D;
+	 	
+ }
+ #help2_login a:hover{
+	color:#611427;
+	text-decoration:none;
+
+}
 
 #contenido_login{
 	padding:30px;
@@ -451,8 +489,27 @@ li.long{
 	padding-bottom:30px;
 }
 
+#help2{
+	
+	width:20%;
+	padding:20px;
+	margin-left:10%;
+	position:absolute;
+	margin-top:-21%;
+	text-align:center;
+	padding-bottom:30px;
+}
 
-#contenido_login, #contenido_login .sb-inner { background:#7D7D7D; }
+#cuadro-forgot{
+	
+padding:30px;
+	position:absolute;
+	width:25%;
+	left:50%;
+	margin-left:-10%;
+}
+
+#contenido_login, #contenido_login .sb-inner { background:white; }
 #contenido_login .sb-shadow { background:black; }
 #contenido_login .sb-border { background:gray; }
 
@@ -460,3 +517,20 @@ li.long{
 #help, #help .sb-inner { background:white; }
 #help .sb-shadow { background:black; }
 #help .sb-border { background:gray; }
+
+#help2, #help2 .sb-inner { background:white; }
+#help2 .sb-shadow { background:black; }
+#help2 .sb-border { background:gray; }
+
+#cuadro-signup, #cuadro-signup .sb-inner { background:white; }
+#cuadro-signup .sb-shadow { background:black; }
+#cuadro-signup .sb-border { background:gray; }
+
+
+#cuadro-tips, #cuadro-tips .sb-inner { background:white; }
+#cuadro-tips .sb-shadow { background:black; }
+#cuadro-tips .sb-border { background:gray; }
+
+#cuadro-forgot, #cuadro-forgot .sb-inner { background:white; }
+#cuadro-forgot .sb-shadow { background:black; }
+#cuadro-forgot .sb-border { background:gray; }
