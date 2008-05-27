@@ -13,7 +13,7 @@ perfil_admin:
   zipcode: 45236
   province: Madrid
   country: España
-  users_id: 24
+  user_id: 24
   
 perfil_normal:
   id: 2
@@ -28,4 +28,4 @@ perfil_normal:
   zipcode: 45236
   province: Madrid
   country: España
-  users_id: 25
+  user_id: 25

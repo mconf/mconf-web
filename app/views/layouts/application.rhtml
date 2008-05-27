@@ -9,6 +9,7 @@
   <%= javascript_include_tag :defaults %>
   <title><%= 'Isabel Server'.t %></title>
   <%= stylesheet_link_tag 'estilosir2' %>
+  <%= stylesheet_link_tag 'estilosir3' %>
   <%= javascript_include_tag 'muestra' %> 
   <%= javascript_include_tag 'shadedborder' %> 
   <%= stylesheet_link_tag 'grid' %>
@@ -37,7 +38,7 @@
   		</div>
   
    		<div id="bd">
-   	    	<div id="main-content">
+   	    	
 		
 	         <% if flash[:notice] -%>
 	        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
@@ -49,7 +50,7 @@
 	         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
 	        	<% end -%>
 	        	<%= @content_for_layout %>   
-	     	</div>
+	   
    		</div>
 	    
    		<div id="ft">
@@ -61,7 +62,6 @@
 </body>
 
 
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<META HTTP-EQUIV="Expires" CONTENT="-1">
+
 
 </html>

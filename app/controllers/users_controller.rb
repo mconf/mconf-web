@@ -24,6 +24,9 @@ class UsersController < ApplicationController
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
   
 
+def show
+    @user = User.find(params[:id])
+end
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
@@ -88,7 +91,7 @@ class UsersController < ApplicationController
         #the superuser will be redirected to list_users
         redirect_to :action => 'manage_users', :id => @user 
       else
-        redirect_to(:action => "show", :controller => "events")
+       redirect_to(:action => "show", :controller => "profiles", :user_id=> @user.id)
       end
     else
       render :action => 'edit'

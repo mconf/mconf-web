@@ -1,11 +1,14 @@
+<div class="main_column">
+	<% rounded(:class => "new_profile") do %>
 <h1>New profile</h1>
 
 <%= error_messages_for :profile %>
 
-<% form_for(@profile) do |f| %>
+<% form_for :profile, :url => user_profile_path(@user.id),:html => {:method => :post} do |f| %>
 <%= render :partial => 'form', :locals => { :f => f } %>
   <p>
     <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" />
   </p>
 <% end %>
-
+<% end %>
+</div>

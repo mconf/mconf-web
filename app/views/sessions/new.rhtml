@@ -2,8 +2,10 @@
 
 
 
-<div id="contenido_login" align=center>
+<div class="main_column" >
 	
+	
+	<% rounded(:class => "login") do %>
 	<% form_tag session_path do -%>
 
 	
@@ -31,12 +33,12 @@ or....
 	  <p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 	 <% end -%>
 	
-	
+	<% end %>
 	
 </div> 	
+<div class="sidebar">
+	<% rounded(:class => "help") do %>
 
- <div id="help">
-<div id="help_login">
 	Don't have an account? <br>
 	<%= link_to 'Click here to sign up', signup_path %><br>
 	Forgot your password?<br>
@@ -44,14 +46,8 @@ or....
 	
 	
 	
-</div>
 
+
+<% end %>
 </div>
- <script language="javascript" type="text/javascript">
-    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
-    border.render('help');
- </script>
- <script language="javascript" type="text/javascript">
-    var border = RUZEE.ShadedBorder.create({ corner:8, shadow:20,  border:2 });
-    border.render('contenido_login');
- </script>
+ 

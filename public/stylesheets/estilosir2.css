@@ -133,6 +133,10 @@ li.long{
 	font-weight:bold;
 	border-right:3px solid #611427;
 }
+#username, a:link, #username a:visited{
+	color:#611427;
+	text-decoration:none;
+}
 
 #menu_login{
 	position:absolute;

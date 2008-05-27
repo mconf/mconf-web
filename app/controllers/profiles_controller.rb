@@ -4,40 +4,34 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.xml
   before_filter :authentication_required
-  before_filter :profile_owner, :only=>[:show, :edit, :update, :destroy,  :vcard]
-  before_filter :user_profile_owner, :only=>[:hcard]
+  before_filter :profile_owner, :only=>[:show, :edit, :update, :destroy,  :vcard, :hcard]
+
   before_filter :unique_profile, :only=>[:new, :create]
-  def index
-    @profile = Profile.find_by_users_id(current_user.id )
-    if @profile == nil
-        flash[:notice] = 'You must create your profile first.'
-     redirect_to(:action => "new", :controller => "profiles") 
-    else
-
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @profile }
-    end
-    end
-  end
+  
 
   # GET /profiles/1
   # GET /profiles/1.xml
   def show
-   
-    @profile = Profile.find_by_id(params[:id] )
+    
+   @user = User.find_by_id(params[:user_id])
+    @profile = @user.profile
+    if @profile == nil
+      flash[:notice]= 'You must create your profile first'
+      redirect_to :action=>'new'
+    else
    # debugger
    
     respond_to do |format|
-      format.html # show.html.erb
+      format.html 
       format.xml  { render :xml => @profile }
+    end
     end
   end
 
   # GET /profiles/new
   # GET /profiles/new.xml
   def new
+    @user = User.find_by_id(params[:user_id])
     @profile = Profile.new
 
     respond_to do |format|
@@ -48,20 +42,21 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @profile = Profile.find(params[:id])
+    @user = User.find_by_id(params[:user_id])
+    @profile = @user.profile
   end
 
 
   # POST /profiles
   # POST /profiles.xml
   def create
-    
+   
     @profile = Profile.new(params[:profile])
-    @profile.users_id = current_user.id
+    @profile.user_id = current_user.id
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(:action => "hcard", :controller => "profiles") }
+        format.html { redirect_to(:action => "show", :controller => "profiles") }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
         format.html { render :action => "new" }
@@ -73,12 +68,13 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.xml
   def update
-    @profile = Profile.find(params[:id])
-@user = User.find(@profile.users_id)
+   @user = User.find_by_id(params[:user_id])
+    @profile = @user.profile
+
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
-        format.html { render :action => "hcard" }
+        format.html { render :action => "show" }
         format.xml  { head :ok }
       else
         format.html { render :action => "index" }
@@ -90,11 +86,12 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.xml
   def destroy
-    @profile = Profile.find(params[:id])
+   @user = User.find_by_id(params[:user_id])
+    @profile = @user.profile
     @profile.destroy
       flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
-      format.html { redirect_to(profiles_url) }
+      format.html { redirect_to(user_profile_url) }
       format.xml  { head :ok }
     end
   end
@@ -102,18 +99,21 @@ class ProfilesController < ApplicationController
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
     
-  @profile = Profile.find_by_users_id(params[:id] )
-  
-  
-   @user = User.find(@profile.users_id)
-  
-  
+  @user = User.find_by_id(params[:user_id])
+    @profile = @user.profile
+    if @profile == nil
+      flash[:notice]= 'You must create your profile first'
+      redirect_to :action=>'new'
+    else
+  render :partial=>'hcard'
+  end
 end
 #this method is used to compose the vcard file (.vcf) with the profile of an user
 def vcard
  
-profile = Profile.find_by_id(params[:id] )
-email = User.find(profile.users_id).email
+@user = User.find_by_id(params[:user_id])
+    profile = @user.profile
+email = User.find(profile.user_id).email
 @card = Vpim::Vcard::Maker.make2 do |maker|
   maker.add_name do |name|
     name.given = profile.name

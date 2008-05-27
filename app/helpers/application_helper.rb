@@ -51,6 +51,18 @@ def javascript(file_name, space_id, role_id=nil)
     return
   end
 end
+def rounded(options={}, &content)
+    options = {:class=>"box"}.merge(options)
+    options[:class] = "box " << options[:class] if options[:class]!="box"
 
+    str = '<div'
+    options.collect {|key,val| str << " #{key}=\"#{val}\"" }
+    str << '><div class="box_top"></div>'
+    str << "\n"
+    
+    concat(str, content.binding)
+    yield(content)
+    concat('<br class="clear" /><div class="box_bottom"></div></div>', content.binding)
+  end
 
 end

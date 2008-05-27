@@ -21,12 +21,13 @@ a:link, a:visited, a:hover, p{
 /*Estilo del logotipo*/
 
 #logo{
+	
 	position:absolute;
 	width:160px;
 	height:140px;
 	margin-top:0px;
 	margin-left:20px; 
-	background-image: url(../images/foto.jpg);
+	/*background-image: url(../images/foto.jpg);*/
 }
 
 /*Estilo del div de idioma*/
@@ -388,147 +389,118 @@ li.long{
 	
 }
 
-/*#contenido_login{
-	width:50%;
-	height:50%;	
-	
-	left:50%;
-	margin-left:-25%;
-}
-*/
+
 #space-span, #space_id{
 	
 	margin-left:550px;
 	
 	
 }
- #cuadro-signup{
- 	padding:30px;
-	position:absolute;
-	width:25%;
-	left:50%;
-	margin-left:-10%;
-	
-	
+ 
+ #captcha{
+ 	
+	margin-left:35%;
  }
- #cuadro-tips{
- 	width:20%;
-	padding:20px;
-	margin-left:10%;
-	position:absolute;
-	margin-top:-55%;
-	text-align:center;
-	padding-bottom:30px;
-	
-	
- }
- #contenido-tips a:link, #contenido-tips a:visited{
+ .tips a:link, .tips a:visited{
  	font-size: 9pt; 
 	text-decoration: none;
 	color:#7D7D7D;
 	}
 	
-	#contenido-tips a:hover{
+	.tips a:hover{
 		color:#611427;
 	text-decoration:none;
 	}
-	#contenido-tips{
+	.tips{
 		font-size: 10pt; 
 	}
- #help_login{
+ .help{
  	font-size: 10pt; 
  }
- #help_login a:link, #help_login a:visited{
+ .help a:link, .help a:visited{
  	font-size: 9pt; 
 	text-decoration: none;
 	color:#7D7D7D;
 	 	
  }
- #help_login a:hover{
+ .help a:hover{
 	color:#611427;
 	text-decoration:none;
 
 }
 
- #help2_login{
- 	font-size: 10pt; 
- }
- #help2_login a:link, #help2_login a:visited{
- 	font-size: 9pt; 
-	text-decoration: none;
-	color:#7D7D7D;
-	 	
- }
- #help2_login a:hover{
-	color:#611427;
-	text-decoration:none;
-
-}
-
-#contenido_login{
-	padding:30px;
-	position:absolute;
-	width:20%;
-	left:50%;
-	margin-left:-10%;
-	height:40%;
-	
-}
+ 
+ 
 
 
-#help{
-	
-	width:20%;
-	padding:20px;
-	margin-left:10%;
-	position:absolute;
-	margin-top:-31%;
+
+
+
+
+
+
+
+
+/* ROUNDED BOXES */
+.box {
+	background-repeat: repeat-y;
+	margin: 11px 0 30px 0;
+	padding: 0 6px;
+	height: auto !important;
+	height: 1px;
 	text-align:center;
-	padding-bottom:30px;
-}
-
-#help2{
+	}
+	.box .box_top {
+		position: relative;
+		height: 6px;
+		top: -6px;
+		margin: 0 -6px -6px;
+		background-repeat: no-repeat;
+		font-size: 0px;
+		line-height: 0px;
+		}
+	.box div.padded { padding:1em; }				
+	.box div.no_padding {
+		padding: 0 0 4px 0;
+		}
+	.box .box_bottom {
+		background-repeat: no-repeat;
+		font-size: 0px;
+		height: 6px;
+		line-height: 0px;
+		margin: -6px -6px 0;
+		position: relative;
+		top: 6px;
+		z-index:0;
+		}	
+		
+		div.col_full .box {
+	background-image: url(../images/column_full_middle.gif);
+	}
+	div.col_full .box_top {
+		background-image: url(../images/column_full_top.gif);
+		}
+ 		div.col_full .box_bottom {
+		background-image: url(../images/column_full_bottom.gif);
+		}
+div.main_column .box {
+	width:624px;
+	background-image: url(../images/column_main_middle.gif);
 	
-	width:20%;
-	padding:20px;
-	margin-left:10%;
-	position:absolute;
-	margin-top:-21%;
-	text-align:center;
-	padding-bottom:30px;
-}
-
-#cuadro-forgot{
-	
-padding:30px;
-	position:absolute;
-	width:25%;
-	left:50%;
-	margin-left:-10%;
-}
-
-#contenido_login, #contenido_login .sb-inner { background:white; }
-#contenido_login .sb-shadow { background:black; }
-#contenido_login .sb-border { background:gray; }
-
-
-#help, #help .sb-inner { background:white; }
-#help .sb-shadow { background:black; }
-#help .sb-border { background:gray; }
-
-#help2, #help2 .sb-inner { background:white; }
-#help2 .sb-shadow { background:black; }
-#help2 .sb-border { background:gray; }
-
-#cuadro-signup, #cuadro-signup .sb-inner { background:white; }
-#cuadro-signup .sb-shadow { background:black; }
-#cuadro-signup .sb-border { background:gray; }
-
-
-#cuadro-tips, #cuadro-tips .sb-inner { background:white; }
-#cuadro-tips .sb-shadow { background:black; }
-#cuadro-tips .sb-border { background:gray; }
-
-#cuadro-forgot, #cuadro-forgot .sb-inner { background:white; }
-#cuadro-forgot .sb-shadow { background:black; }
-#cuadro-forgot .sb-border { background:gray; }
+	}
+	div.main_column .box_top {
+		background-image: url(../images/column_main_top.gif);
+		}
+ 		div.main_column .box_bottom {
+		background-image: url(../images/column_main_bottom.gif);
+		}
+div.sidebar .box {
+		width:288px;
+		background-image: url(../images/column_sidebar_middle.gif);
+	}
+	div.sidebar .box_top {
+		background-image: url(../images/column_sidebar_top.gif);
+		}
+		div.sidebar .box_bottom {
+		background-image: url(../images/column_sidebar_bottom.gif);
+		}

@@ -5,6 +5,7 @@
 
 <%= error_messages_for :profile %>
 
+ <h2>Your Hcard</h2>
  <div class="vcard" id="card">
  <p class="fn"><%= @profile.name%> <%= @profile.lastname%>
  <img src="/images/hcard.png" alt="download vcard icon"></a>
@@ -21,9 +22,9 @@
   
  <div class="telecommunications">
  <p class="tel">Phone/Fax: <span class="tel"><span class="type">Work</span>: <span class="value"><%= @profile.phone%></span>
- <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span>
- <span class= "org">Organization: <%= @profile.organization%></p>
+ <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span></p>
+ <p><span class= "org">Organization: <%= @profile.organization%></p>
  <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
  </div>
  </div>
- <%= link_to 'Back', home_path%> <%= link_to 'Edit', user_profiles_path(current_user)%>  <%= link_to 'Export your Vcard' , vcard_path(@profile.id) , :method=> 'get'  %></td>
+  <%= link_to 'Edit', edit_user_profile_path(@user.id)%>  

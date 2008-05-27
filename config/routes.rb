@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   # #######################################################################
   
-  map.resources :profiles
+  
   map.resources :users
   map.open_id_complete 'session', { :open_id_complete => true,
                                     :conditions => { :method => :get },
@@ -50,7 +50,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :machines
   map.resources :events, :member =>'export_ical'
   map.resources :users do |users|
-      users.resources :profiles     
+      users.resource :profile
+      
  end
   map.resources :roles
   map.resources :spaces
@@ -87,8 +88,8 @@ ActionController::Routing::Routes.draw do |map|
   map.dates '/search_by_dates', :controller => 'events', :action => 'dates'
  
   #PROFILES CONTROLLER
-  map.vcard '/users/profiles/vcard/:id', :controller => 'profiles' , :action => 'vcard'   
-  map.hcard '/users/profiles/hcard/:id', :controller => 'profiles' , :action => 'hcard'   
+  map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'   
+  map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'   
   #USERS CONTROLLER
   map.clean '/clean_search', :controller => 'users', :action => 'clean'
  map.organization '/search_in_organization', :controller => 'users', :action => 'organization'

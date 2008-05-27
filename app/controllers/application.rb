@@ -45,37 +45,22 @@ class ApplicationController < ActionController::Base
   end
   
   def unique_profile
-    profile = Profile.find_by_users_id(current_user.id)
+    profile = Profile.find_by_user_id(current_user.id)
     unless profile == nil
       user = current_user
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "You have already a profile."     
-      redirect_to(:controller => "profiles", :action => "show", :id=> profile.id)  
+      redirect_to(:controller => "profiles", :action => "show")  
     end
   end
-  def user_profile_owner
   
-    profile = Profile.find_by_users_id(params[:id])
-    if profile == nil
-      flash[:notice] = 'You must create your profile first.'
-     redirect_to(:action => "new", :controller => "profiles") 
-
-      else
-    
-    unless  profile.users_id == current_user.id
-      user = current_user
-      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
-      logger.error("USER WAS: " + user.login)
-      flash[:notice] = "Action not allowed."     
-      redirect_to(:controller => "events", :action => "show")  
-    end
-    end
-  end
   def profile_owner
-
-    profile = Profile.find_by_id(params[:id])
-    unless profile != nil && profile.users_id == current_user.id
+   
+ @user = User.find_by_id(params[:user_id])
+    
+    
+    unless  @user.id == current_user.id
       user = current_user
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
