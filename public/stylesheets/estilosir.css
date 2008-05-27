@@ -117,13 +117,13 @@ li.short_r{
  }
  
 #bot_administrador{
-	visibility:hidden;
+	visibility:visible;
 	position:absolute;
 	
 }
 
-#bot_pcipal{
-	visibility:hidden;
+#bot_user{
+	visibility:visible;
 	position:absolute;
 	
 }
@@ -185,8 +185,6 @@ li.long{
 	margin-top:-55px;
 	float:left;
 	display:inline;   
-	
-	
 }
 
 #username{

@@ -2,35 +2,27 @@
 <div id="botones">
 
 <% if logged_in? && current_user.superuser==true%>
-  
- <div id="bot_pcipal">
- 	 <ul>
-  	  <li class="short"><%= link_to 'Search' , {:controller=>'events',:action => 'search'}, :class => "secund", :title=>"Search for events"%></li> 
-	 <li class="medium"><%= link_to "Resources", {:controller=>'machines',  :action=>'list_user_machines'},:class => "secund",:method=> 'get'%></li>
-	 
-
-     </ul>
-	 </div>
-	 
+ 	 
 	 <div id="bot_administrador">
      	<ul>
-	 <li class="long"><%= link_to 'Users' , manage_users_path, :class => "secund", :method=> 'get' %></li>
-	 <li class="long"><%= link_to 'Resources',  manage_resources_path, :class => "secund", :method=> 'get' %></li>
-	 <li class="long"><%= link_to 'Spaces',{:controller=>'spaces', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
-	 <li class="long"><%= link_to 'Roles',{:controller=>'roles', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
+	 <li class="short"><%= link_to 'Users' , manage_users_path, :class => "secund", :method=> 'get' %></li>
+	 <li class="medium"><%= link_to 'Resources',  manage_resources_path, :class => "secund", :method=> 'get' %></li>
+	 <li class="short"><%= link_to 'Spaces',{:controller=>'spaces', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
+	 <li class="short"><%= link_to 'Roles',{:controller=>'roles', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
      </ul>
 	 </div>
   
   
 <% elsif logged_in?%>
-
-  <ul>
-  	<li class="short"><%= link_to "Events", {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
-	 
-	 <li class="short"><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :class => "secund", :title=>"Search for events"%></li>
-	 <li class="medium"><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
-<% if @space && @space.has_role_for?(current_user, :create_performances)%>
-<li class="medium"><%= link_to "Groups" , show_groups_path(:container_id => @space.id, :container_type => :spaces),   :class => "secund", :title=>"Search for events"%></li>
+	<div id="bot_user">
+	  <ul>
+	  	<li class="short"><%= link_to "Events", {:controller=>'events', :action=>'show'}, :class => "secund", :method=> 'get'%></li>
+		 
+		 <li class="short"><%= link_to 'Search', {:controller=>'events', :action => 'search'},  :class => "secund", :title=>"Search for events"%></li>
+		 <li class="short"><%= link_to "Resources", {:controller=>'machines', :class => "secund", :action=>'list_user_machines'},:method=> 'get'%></li>
+	<% if @space && @space.has_role_for?(current_user, :create_performances)%>
+	<li class="short"><%= link_to "Groups" , show_groups_path(:container_id => @space.id, :container_type => :spaces),   :class => "secund", :title=>"Search for events"%></li>
+	</div>
 <%end%>
 
   </ul>

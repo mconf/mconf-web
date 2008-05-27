@@ -1,0 +1,167 @@
+/*Estilo general del fondo y enlaces*/
+
+body{	
+	background-color:white;	
+}
+
+a:link, a:visited, a:hover, p{
+	font-family:  arial, verdana,helvetica, sans-serif;
+}
+
+/* HEADER */
+div#hd {
+	background:#ffffff no-repeat bottom left;
+	display:block;
+	height:135px;	
+	*height:1%;
+}
+
+/*Estilo del logotipo*/
+
+#logo{
+	position:absolute;
+	width:160px;
+	height:140px;
+	margin-top:0px;
+	margin-left:0px; 
+	background-image: url(../images/foto.jpg);
+}
+
+
+/*Menu secundario (botones, bot_pcipal, bot_administrador */
+
+#menu_tabs{
+	position: absolute;
+	width:80%;
+	height:50px;
+	margin-top:20px;
+	/*left: 50%;*/
+	margin-left:157px;
+	text-align:center;
+		
+  }
+ 
+#botones{
+	visibility:visible;
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 50px;
+    margin-top: -25px;    
+    width: 60%;
+    margin-left: -49%;    
+	
+} 
+
+#botones ul li, #titulos ul li{
+ 	display:block;
+	float:left;
+	
+ }
+ 
+#bot_administrador{
+	visibility:visible;
+	position:absolute;
+	
+}
+
+#bot_user{
+	visibility:visible;
+	position:absolute;
+	
+}
+
+a.secund, a.tit_pcipal{
+	
+	color: #636566;
+	text-decoration:none;
+	text-align:center;
+	font-weight:600;
+}
+
+a:hover.secund, a.tit_pcipal:hover{
+	color:#36332F;
+}
+
+
+li.short{
+	
+	width:80px;
+	height:39px;
+	padding-top:14px;
+	
+}
+
+li.medium{
+	
+	width:120px;
+	height:39px;
+	padding-top:14px;
+	
+}
+
+li.long{
+	
+	width:190px;
+	height:39px;
+	padding-top:14px;
+}
+
+/* Estilo de la barra superior derecha:login/logout , username*/
+
+#login2{
+	position: absolute;
+	width: 400px;
+	height:20px;
+	margin-left: 700px;
+	margin-top:0px;
+	float:left;
+	display:inline;   
+}
+
+#username{
+	position:absolute;
+	width:50%;
+
+}
+#username p{
+	margin-top:0px;
+	text-align:right;
+	padding-right:5px;
+	color:#611427;
+	font-weight:bold;
+	border-right:3px solid #611427;
+}
+
+#menu_login{
+	position:absolute;
+	width:50%;
+	margin-left:50%;
+	margin-top:0px;
+
+}
+
+#menu_login ul{
+	margin-top:0px;
+	list-style:none;
+	padding-left:0px;
+}
+
+#menu_login ul li{
+	float:right;
+	padding-left:5px;
+	padding-top:0px;
+	
+}
+
+#menu_login a:link, #menu_login a:visited{
+	color:#7D7D7D;
+	text-decoration:none;
+
+}
+
+#menu_login a:hover{
+	color:#611427;
+	text-decoration:none;
+
+}

@@ -10,7 +10,6 @@ end %>
 <%= error_messages_for 'event' %>
 
 <h1>New event</h1>
-<input type="hidden" id="buttons_to_show" value="principal">
 <form action=<%= @collection_path %> method="post" name='form_event'>
   <%= render :partial => 'form' %>
   <h6> (*) Separated by commas</h6>
