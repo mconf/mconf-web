@@ -111,9 +111,9 @@ li.long{
 
 #login2{
 	position: absolute;
-	width: 400px;
+	width: 350px;
 	height:20px;
-	margin-left: 700px;
+	margin-left: 600px;
 	margin-top:0px;
 	float:left;
 	display:inline;   
@@ -121,7 +121,8 @@ li.long{
 
 #username{
 	position:absolute;
-	width:50%;
+	width:30%;
+	margin-left:20%;
 
 }
 #username p{
@@ -163,5 +164,8 @@ li.long{
 #menu_login a:hover{
 	color:#611427;
 	text-decoration:none;
+}
 
+#space-span {
+	margin-left:-55px;
 }
