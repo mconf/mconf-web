@@ -1,0 +1,14 @@
+<%  @events.each do |event| %> 
+
+<%=link_to  event.title, event_path(event.id)%>: <%= event.description%>,  
+
+<%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
+<% for datetime in event.event_datetimes %>    
+   <label >Start date:</label>
+        <abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></abbr>
+    
+    
+   
+<% end -%>
+</br>
+<%end%>

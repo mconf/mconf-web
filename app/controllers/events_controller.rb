@@ -529,6 +529,8 @@ class EventsController < ApplicationController
     end  
     end
   end
+  
+  
   private              
   
   #Class Method to verify the events that occurs in the date given.

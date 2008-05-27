@@ -507,6 +507,25 @@ class Event < ActiveRecord::Base
     results = Event.find_by_contents(query, options)
     return [results.total_hits, results,query]
   end
+  #method that return the next 5 events, from today
+  def self.date_search_five(q, options = {})
+    
+    default_options = {:limit => 5, :page => 1}
+    options = default_options.merge options
+   
+    # get the offset based on what page we're on
+    options[:offset] = options[:limit] * (options.delete(:page).to_i-1) 
+ #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
+   #a formato Ymd => 20081124
+    
+    
+   query = Ferret::Search::RangeQuery.new(:start_dates , :>= => q)
+    # now do the query with our options
+     
+    results = Event.find_by_contents(query, options)
+    return [results.total_hits, results,query]
+  end
+  
   
   def start_dates 
     date =[]
