@@ -71,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_time '/remove_time', :controller => 'events', :action => 'remove_time'
   map.add_time '/add_time', :controller => 'events', :action => 'add_time'
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
-  map.home '', :controller => 'home', :action => 'index'
+  
   map.show '/:container_type/:container_id/events',:controller => 'events', :action => 'index'
   map.search '/search', :controller => 'events', :action => 'search'
   map.search_by_tag '/tags/:tag', :controller => 'events', :action => 'search_by_tag'
@@ -124,5 +124,5 @@ map.delete_group '/:container_type/:container_id/delete_group/:group_id', :contr
 map.group_details '/:container_type/:container_id/group_details/:group_id', :controller => 'roles', :action=> 'group_details'
 map.edit_group '/:container_type/:container_id/edit_group/:group_id', :controller => 'roles', :action=> 'edit_group'
 map.update_group '/:container_type/:container_id/update_group/:group_id', :controller => 'roles', :action=> 'update_group'
-
+map.home '', :controller => 'home', :action => 'index'
 end

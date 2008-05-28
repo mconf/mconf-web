@@ -87,12 +87,10 @@ end
       tag = params[:tag][:add_tag]    
       @user.tag_with(tag)
       flash[:notice] = 'User was successfully updated.'        
-      if current_user.superuser == true
+      
         #the superuser will be redirected to list_users
-        redirect_to :action => 'manage_users', :id => @user 
-      else
-       redirect_to(:action => "show", :controller => "profiles", :user_id=> @user.id)
-      end
+        redirect_back_or_default '/'
+      
     else
       render :action => 'edit'
     end

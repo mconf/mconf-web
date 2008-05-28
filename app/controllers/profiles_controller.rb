@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.xml
   before_filter :authentication_required
-  before_filter :profile_owner, :only=>[:show, :edit, :update, :destroy,  :vcard, :hcard]
+  before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
 
   before_filter :unique_profile, :only=>[:new, :create]
   

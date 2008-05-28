@@ -518,7 +518,7 @@ class Event < ActiveRecord::Base
  #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
    #a formato Ymd => 20081124
     
-    
+ 
    query = Ferret::Search::RangeQuery.new(:start_dates , :>= => q)
     # now do the query with our options
      
@@ -528,12 +528,13 @@ class Event < ActiveRecord::Base
   
   
   def start_dates 
+    
     date =[]
     i = 0
     self.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}
     for datetime in self.event_datetimes
      
-      date[i] = datetime.start_date.strftime("%d  %b %Y %H:%M")
+      date[i] = datetime.start_date.strftime("%Y%m%d")
       
       i += 1
       end

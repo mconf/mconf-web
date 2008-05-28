@@ -1,10 +1,8 @@
-<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
-&nbsp;
 
-<ul>
+<div class="main_column">
+	
+	<% rounded(:class => "tips") do %>
+
 
 	<% if @events== nil %>
 	Please insert something in the search box
@@ -14,7 +12,7 @@
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 
-	<table class="search_results" border="1" frame="void" rules="groups" cellpadding="10">
+	<table>
 <tr>
 	<td>Title</td>
 	<td>Description</td>
@@ -23,6 +21,8 @@
 	<td>Keywords</td>
 	</tr>
 	<tr>
+		
+		 <%end%>
 		<% @events.each do |event| %>  
 		<td>
 			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
@@ -40,9 +40,7 @@
 		</td>
 				<td>
 					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
-                <%#if !already_accomplished(event)
-                  #uncomment if you want an event in the past not to be editable
-                  %>				  
+                				  
                 <%session[:date_start_day]=@datetime%>
 				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), export_ical_path(event.id), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
@@ -67,98 +65,13 @@
 	 <%end%>
      
     		
-    </li>
-	
-    
-	
-     <ul>
-     	
-	<li> 
-	  </ul>
-	  
-</ul>
+
 <%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
-<input onclick=document.location="/search" type="button" value="Back" />
-  
 
-<TD class=filter_view>
-<span>Filter view:&nbsp;
-<%array_machines = []
-array_machines << ["all",0]
-array_machines += Machine.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
--%>
-<% form_tag ("/event/nil", {:name=>'form',:style => "display: inline;"}) do %>
-<%= select("machine", "name", array_machines,{ :include_blank=>false }, { :onchange => "javascript:change_table()"})%>
-<% end -%>
-<script type="text/javascript">
-document.form.machine_name.value = 0
-</script>
-</span>
-</TD>
-</TR>
-<TR height=30%>
-<TD valign="top">
-<div id="calendar-container"></div>
-<div id="solo_centrar">
-<!--Server time: <%= Time.now.strftime("%H:%M")%>-->
-<script type="text/javascript">
-var currenttime = "<%=Time.now.strftime("%d/%m/%Y %H:%M:%S")%>";
-
-var montharray=new Array("January","February","March","April","May","June","July","August","September","October","November","December")
-var serverdate=new Date(currenttime)
-
-function padlength(what){
-var output=(what.toString().length==1)? "0"+what : what
-return output
-}
-
-function displaytime(){
-serverdate.setSeconds(serverdate.getSeconds()+1)
-var datestring=montharray[serverdate.getMonth()]+" "+padlength(serverdate.getDate())+", "+serverdate.getFullYear()
-var timestring=padlength(serverdate.getHours())+":"+padlength(serverdate.getMinutes())+":"+padlength(serverdate.getSeconds())
-document.getElementById("servertime").innerHTML=timestring+" "
-}
-
-window.onload=function(){
-setInterval("displaytime()", 1000)
-}
-</script>
-
-<p><b>Server Time:</b> <span id="servertime"></span></p>
-
-</div>
-</TD>
-</TR>
-<TR>
-<TD valign="top">
-<div id="event_summary">
-	<div id="tagcloud">
-  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
-</div>
-</TD>
-</TR>
-</TABLE>
-<br />
-<script type="text/javascript">
-//configuración del calendario:   
-  //the array with the dates to highlight:  
-  <%=EventDatetime.array_calendar%>   
-</script>
-<%= javascript_include_tag("calendar_config") %>
-
-<script type="text/javascript">
-var calendar = Calendar.setup(
-    {
-      flat         : "calendar-container", // ID of the parent element
-      flatCallback : dateChanged,           // our callback function  
-      firstDay     : 1,
-	  //showsTime    : true,
-      dateStatusFunc : ourDateStatusFunc,
-      date         : new Date    }
-  );
-</script>
+  </div>
 
 
+<%= render :partial =>'shared/sidebar'%>
 

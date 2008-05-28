@@ -595,7 +595,7 @@ def test_advanced_search
       login_as("user_normal")
     post :search_by_date, :query1=>'2008-02-20', :query2=>'2008-05-28'
     assert_response :success
-    assert @response.body.include?("0 events were found")
+ 
    assert_template 'search_events'
  end
   def test_search_by_date_wrong

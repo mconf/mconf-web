@@ -36,7 +36,7 @@ class Tag < ActiveRecord::Base
     :joins => "JOIN taggings ON taggings.tag_id = tags.id",
     :conditions => args[:conditions],
     :group => "taggings.tag_id",
-    :order => "popularity DESC")
+    :order => "id")
  
 end
   # Tag::Error class. Raised by ActiveRecord::Base::TaggingExtensions if something goes wrong.
