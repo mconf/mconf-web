@@ -1,6 +1,8 @@
 
 class HomeController < ApplicationController  
    include CMS::Controller::Base
+   before_filter :get_container
+   
   def index
   
     @cloud = Tag.cloud
@@ -18,7 +20,6 @@ class HomeController < ApplicationController
    sort = Ferret::Search::Sort.new(s_date)
      @total, @events, @query = Event.date_search_five(date1ok,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1), :sort=> sort)          
    @pages = pages_for(@total)
-    
-    
-  end
+ end
+ 
   end

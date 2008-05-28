@@ -10,12 +10,12 @@ class EventsController < ApplicationController
   # Events list may belong to a container
   # /events
   # /:container_type/:container_id/events
-  before_filter :get_container, :only => [ :index, :show]
+  #before_filter :get_container, :only => [ :index, :show]
 
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
- #before_filter :get_space , :only => [:index, :show]
+  before_filter :get_space , :only => [:index, :show]
   #TODO: Authorization
 
   before_filter :no_machines, :only => [:new, :edit,:create]
@@ -545,6 +545,9 @@ class EventsController < ApplicationController
   end
   
   def get_space
-    @space = Space.find(params[:container_id])
+    if params[:container_id]
+      @space = Space.find(params[:container_id])
+      get_container
+    end
   end
 end

@@ -132,5 +132,6 @@ class SpacesController < ApplicationController
   
   def get_space
     @space = Space.find(params[:id])
+    get_container
   end
 end

@@ -5,7 +5,6 @@ class RolesController < ApplicationController
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
   before_filter :authentication_required
   before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
-  before_filter :get_container , :only=>[:update_group,:edit_group,:group_details, :create_group,:save_group, :show_groups, :delete_group]
   before_filter  :can__manage_groups__space__filter, :only=>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   
   def index
@@ -248,5 +247,6 @@ class RolesController < ApplicationController
   
   def get_space
     @space = Space.find(params[:container_id])
+    get_container
   end
 end
