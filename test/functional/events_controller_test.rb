@@ -34,11 +34,11 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_no_resources") # a user with no resources assigned
   end
   
-def test_show
-   login_as("user_normal")
-  get :show, :date_start_day=>'2015-01-01'
-  assert_response :success
-end
+#def test_show
+#  login_as("user_normal")
+#  get :show, :date_start_day=>'2015-01-01'
+#  assert_response :success
+#end
 
   def test_index
     login_as("user_normal")
@@ -155,7 +155,7 @@ end
   def test_new_with_no_resources
     login_as("user_no_resources") 
     get :new
-    assert_redirected_to :action => "show"  
+    assert_redirected_to :controller => "spaces", :action => "index"
   end
     
   
@@ -203,7 +203,7 @@ end
     login_as("user_no_resources") 
     post :create
     assert flash[:notice].include?('no resources')
-    assert_redirected_to :action => "show" 
+    assert_redirected_to :controller => "spaces", :action => "index"
   end
   
   
@@ -311,7 +311,7 @@ end
      login_as("user_no_resources") 
     post :edit, :id=>38
     assert flash[:notice].include?('no resources')
-    assert_redirected_to :action => "show"  
+    assert_redirected_to :controller => "spaces", :action => "index"
   end
   
   
@@ -319,7 +319,7 @@ end
     login_as("user_normal")
     post :edit, :id=>40
     assert_equal 'Action not allowed.', flash[:notice]    
-    assert_redirected_to :action => "show"  
+    assert_redirected_to :controller => "home", :action => "index"
   end
   
   
@@ -341,7 +341,7 @@ end
     login_as("user_normal")
     post :update, :id=>1
     assert_equal "Action not allowed.", flash[:notice]    
-    assert_redirected_to :action => "show"  
+    assert_redirected_to :controller => "home", :action => "index"
   end
   
   
@@ -364,7 +364,7 @@ end
     login_as("user_normal")
     post :destroy, :id=>1
     assert_equal "Action not allowed.", flash[:notice]    
-    assert_redirected_to :action => "show"  
+    assert_redirected_to :controller => "home", :action => "index"
   end
   
   
@@ -379,7 +379,7 @@ end
     login_as("user_admin")
     post :destroy, :id=>22
     assert flash[:notice].include?('Invalid event')
-    assert_redirected_to :action => "show"    
+    assert_redirected_to :controller => "events", :action => "index"
   end
   
   def test_show_summary_good

@@ -32,13 +32,13 @@ div#hd {
 
 #menu_tabs{
 	position: absolute;
-	width:80%;
+	width:700px;
 	height:50px;
-	margin-top:20px;
+	margin-top:90px;
 	/*left: 50%;*/
 	margin-left:157px;
 	text-align:center;
-		
+	display:block;	
   }
  
 #botones{
@@ -48,15 +48,12 @@ div#hd {
     top: 50%;
     height: 50px;
     margin-top: -25px;    
-    width: 60%;
-    margin-left: -49%;    
-	
+    width: 100%;
+    margin-left: -49%;    	
 } 
 
-#botones ul li, #titulos ul li{
- 	display:block;
-	float:left;
-	
+#botones ul li, #titulos ul li{ 	
+	float:left;	
  }
  
 #bot_administrador{
@@ -114,15 +111,15 @@ li.long{
 	width: 350px;
 	height:20px;
 	margin-left: 600px;
-	margin-top:0px;
+	margin-top:5px;
 	float:left;
 	display:inline;   
 }
 
 #username{
 	position:absolute;
-	width:30%;
-	margin-left:20%;
+	width:25%;
+	margin-left:60%;
 
 }
 #username p{
@@ -140,8 +137,8 @@ li.long{
 
 #menu_login{
 	position:absolute;
-	width:50%;
-	margin-left:50%;
+	width:15%;
+	margin-left:85%;
 	margin-top:0px;
 
 }
@@ -171,5 +168,5 @@ li.long{
 }
 
 #space-span {
-	margin-left:-55px;
+	margin-left: 20%;
 }

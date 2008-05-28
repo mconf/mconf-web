@@ -316,7 +316,7 @@ class EventsController < ApplicationController
     rescue
     logger.error("Attempt to delete invalid event #{params[:id]}")
     flash[:notice] = 'Invalid event'
-    redirect_to(:action => 'show')
+    redirect_to(:action => 'index')
     
   end
   

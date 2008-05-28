@@ -14,7 +14,7 @@ class ProfilesControllerTest < ActionController::TestCase
     def test_show_no_owner
       login_as("user_normal")
       get :show, :user_id=>24
-      assert_redirected_to :controller => "events", :action => "show"
+      assert_redirected_to :controller => "home", :action => "index"
       assert flash[:notice].include?('not allowed')
     end
     def test_show_no_login
@@ -49,7 +49,7 @@ class ProfilesControllerTest < ActionController::TestCase
      def test_edit_no_owner
        login_as("user_normal")
       get :edit, :user_id=>24
-      assert_redirected_to :controller => "events", :action => "show"
+      assert_redirected_to :controller => "home", :action => "index"
       assert flash[:notice].include?('not allowed')
     end
   
@@ -82,7 +82,7 @@ class ProfilesControllerTest < ActionController::TestCase
     def test_update_no_owner
       login_as("user_normal")
       post :update, :user_id=>24,:profile=>{ :name=>'prueba',:lastname=>'pruebaprueba', :organization=>'dit', :phone=>'45845646', :mobile=>'654895623', :fax=>'915478956', :address=>'Callejando 5', :city=>'madriddd', :zipcode=>'458451', :province=>'madrid', :country=>'spain'}
-      assert_redirected_to :controller => "events", :action => "show"
+      assert_redirected_to :controller => "home", :action => "index"
       assert flash[:notice].include?('not allowed')
     end
     
@@ -104,7 +104,7 @@ class ProfilesControllerTest < ActionController::TestCase
  def test_destroy_no_owner
      login_as("user_normal")
      post :destroy, :user_id=> 24
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
      assert flash[:notice].include?('not allowed')
    assert_response 302
  end
@@ -125,7 +125,7 @@ class ProfilesControllerTest < ActionController::TestCase
    def test_hcard_no_owner
      login_as("user_normal")
      get :hcard, :user_id=>24
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
      assert flash[:notice].include?('not allowed')
    assert_response 302
  end
@@ -139,7 +139,7 @@ end
 def test_vcard_no_owner
    login_as("user_normal")
      get :vcard, :user_id=>24
-  assert_redirected_to :controller => "events", :action => "show"
+  assert_redirected_to :controller => "home", :action => "index"
      assert flash[:notice].include?('not allowed')
    assert_response 302
  end

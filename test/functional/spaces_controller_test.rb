@@ -29,7 +29,7 @@ end
 def test_show_spaces_no_admin
   login_as("user_normal")
   get :index
-  assert_redirected_to :controller => "events", :action => "show"
+  assert_redirected_to :controller => "home", :action => "index"
    
  end
  def test_new_admin
@@ -44,14 +44,14 @@ def test_show_spaces_no_admin
  def test_new_space_admin
    login_as("user_space1_admin")
     get :new
-    assert_redirected_to :controller => "events", :action => "show"
+    assert_redirected_to :controller => "home", :action => "index"
    
  end
  
  def test_new_no_admin
    login_as("user_normal")
   get :new
-  assert_redirected_to :controller => "events", :action => "show"
+  assert_redirected_to :controller => "home", :action => "index"
 end
 def test_new_no_login
    get :new
@@ -86,29 +86,28 @@ end
     
     assert_redirected_to :controller=>'spaces', :action=>'index'
   end
-  def test_create_wrong
-    login_as("user_admin")
-    post :create, :na=>'spacio2', :description=>'Esto es una descripcion'
-    
-    assert_response :success
-  end
+  
+  
   def test_create_space_admin
     login_as("user_space1_admin")
    post :create,  :space=>{:name=>'spacio3', :description=>'Esto es una descripcion'}
     
    assert_response 302
-  end
+ end
+ 
   def test_create_no_admin
     login_as("user_normal")
     post :create,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_response 302
  end
+ 
  def test_create_no_login
    post :create,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_redirected_to :controller => "sessions", :action => "new"
  end
+ 
  def test_update_wrong
   login_as("user_admin")
  post :update, :id => 1,:space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:hola=>'adf'
@@ -116,6 +115,7 @@ end
  assert_response :success
    
  end
+ 
  def test_update_admin
   login_as("user_admin")
  post :update, :id => 1, :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:role=>{:name=>'administrator'}
@@ -123,6 +123,7 @@ end
  assert_response :success
    
  end
+ 
  def test_update_space_admin
   login_as("user_space1_admin")
  post :update,:id=> 1,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
@@ -136,6 +137,7 @@ end
     
    assert_response 403
  end
+ 
  def test_update_no_login
    post :update,:id=>1, :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
@@ -148,10 +150,11 @@ end
    assert flash[:notice].include?('successfully')
    assert_redirected_to spaces_url
  end
+ 
  def test_destroy_no_admin
    login_as("user_normal")
   post :destroy,:id=>1
-  assert_redirected_to :controller=>'events' , :action=>'show'
+  assert_redirected_to :controller => "home", :action => "index"
 end
 
 

@@ -18,9 +18,6 @@ array_machines += Machine.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
 <% form_tag ("/event/nil", {:name=>'form',:style => "display: inline;"}) do %>
 <%= select("machine", "name", array_machines,{ :include_blank=>false }, { :onchange => "javascript:change_table()"})%>
 <% end -%>
-<script type="text/javascript">
-document.form.machine_name.value = 0
-</script>
 </span>
 </TD>
 </TR>

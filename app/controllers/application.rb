@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO CREATE A NEW EVENT WITHOUT RESOURCES ASSIGNED")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "You have no resources assigned so you can't create new events or edit existing ones."          
-      redirect_to(:controller => "events", :action => "show")      
+      redirect_to(:controller => "spaces", :action => "index")      
       end
     end
     
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "Action not allowed."     
-      redirect_to(:controller => "events", :action => "show")     
+      redirect_to(:controller => "home", :action => "index")     
     end 
   end
   
@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "Action not allowed."     
-      redirect_to(:controller => "events", :action => "show")  
+      redirect_to(:controller => "home", :action => "index")  
     end
   end
   def user_is_admin
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")
       logger.error("USER WAS: " + current_user.login)
       flash[:notice] = "Action not allowed."     
-      redirect_to(:controller => "events", :action => "show")     
+      redirect_to(:controller => "home", :action => "index")     
     end
   end
   #Method that create a Paginator for the events searches

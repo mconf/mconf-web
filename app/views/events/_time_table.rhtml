@@ -1,7 +1,7 @@
 <TABLE class="whole_table" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
 <TR><TD class="Border" valign=top>
 <%@date_prev = @datetime -1%>
-<%= link_to_remote '<', { :url => { :action => 'show' } }%>
+<%= link_to_remote '<', { :url => events_path }%>
 </TD>
 <%@array_of_arrays = format_array_events(@events) 
   the_colspan = @array_of_arrays.size + 1

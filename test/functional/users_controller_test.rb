@@ -93,9 +93,10 @@ class UsersControllerTest < Test::Unit::TestCase
   def test_manage_users_no_admin
      login_as("user_normal")
      get :manage_users
-     assert_redirected_to :controller=>'events', :action=>'show'
+     assert_redirected_to :controller=>'home', :action=>'index'
      assert  flash[:notice].include?("Action not allowed")
    end
+   
    def test_manage_users_no_login
      
      get :manage_users

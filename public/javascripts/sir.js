@@ -1,6 +1,6 @@
 function change_space(){
 	if (document.form.space_id.value == "0") {
-		miloc = "/spaces/";
+		miloc = "/";
 	}
 	else {
 		miloc = "/spaces/" + document.form.space_id.value;

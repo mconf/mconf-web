@@ -38,8 +38,6 @@
   		</div>
   
    		<div id="bd">
-   	    	
-		
 	         <% if flash[:notice] -%>
 	        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
 	        	<% end -%>
@@ -50,7 +48,6 @@
 	         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
 	        	<% end -%>
 	        	<%= @content_for_layout %>   
-	   
    		</div>
 	    
    		<div id="ft">

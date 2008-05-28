@@ -5,25 +5,26 @@ class MachinesControllerTest < ActionController::TestCase
   
   fixtures   :machines_users, :machines, :participants, :users
   
-  def test_my_mailer
-    login_as("user_normal")
-    post :my_mailer, :comment=>{:message=>'Quiero mas maquinas', :email=>'prueba@prueba.es'}
-    assert_redirected_to :action=>'list_user_machines'
-    assert flash[:notice].include?("Your message was successfully delivered to the SIR Administrator.")
-  end
+  #def test_my_mailer
+  #  login_as("user_normal")
+  #  post :my_mailer, :comment=>{:message=>'Quiero mas maquinas', :email=>'prueba@prueba.es'}
+  #  assert_redirected_to :action=>'list_user_machines'
+  #  assert flash[:notice].include?("Your message was successfully delivered to the SIR Administrator.")
+  #end
   
-  def test_my_mailer_wrong
-    login_as("user_normal")
-    post :my_mailer, :comment=>{:message=>'Quiero mas maquinas', :email=>'malomalo'}
-    assert_redirected_to :action=>'contact_mail'
-    assert flash[:warning].include?("Your email address appears to be invalid")
-  end
+  #def test_my_mailer_wrong
+  #  login_as("user_normal")
+  #  post :my_mailer, :comment=>{:message=>'Quiero mas maquinas', :email=>'malomalo'}
+  #  assert_redirected_to :action=>'contact_mail'
+  #  assert flash[:warning].include?("Your email address appears to be invalid")
+  #end
   
   def test_my_mailer_no_login
     
     post :my_mailer, :comment=>{:message=>'Quiero mas maquinas', :email=>'prueba@prueba.es'}
     assert_redirected_to :controller=>'sessions',:action=>'new'
   end
+
   
   def contact_mail
     login_as("user_normal")

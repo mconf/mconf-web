@@ -77,4 +77,16 @@ class Space < ActiveRecord::Base
     actors.map{ |a| "\"#{ a.login }\"" }.join(", ")
   end
  
+  
+  def self.compone_array_spaces(user)
+    array_spaces = []    
+    array_spaces << ["Public (All)",0]
+    if user.superuser==true
+      array_spaces += Space.find(:all).collect {|r| [ r.name, r.id ]}
+    else
+      array_spaces += user.containers.collect {|r| [ r.name, r.id ]}
+    end
+    return array_spaces
+  end
+ 
 end

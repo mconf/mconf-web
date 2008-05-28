@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 29) do
 
   create_table "cms_performances", :force => true do |t|
     t.integer "agent_id"
@@ -172,18 +172,18 @@ ActiveRecord::Schema.define(:version => 28) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string  "name"
-    t.string  "lastname"
-    t.string  "organization"
-    t.string  "phone"
-    t.string  "mobile"
-    t.string  "fax"
-    t.string  "address"
-    t.string  "city"
-    t.string  "zipcode"
-    t.string  "province"
-    t.string  "country"
-    t.integer "users_id"
+    t.string "name"
+    t.string "lastname"
+    t.string "organization"
+    t.string "phone"
+    t.string "mobile"
+    t.string "fax"
+    t.string "address"
+    t.string "city"
+    t.string "zipcode"
+    t.string "province"
+    t.string "country"
+    t.string "user_id"
   end
 
   create_table "simple_captcha_data", :force => true do |t|

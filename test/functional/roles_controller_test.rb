@@ -24,14 +24,14 @@ class RolesControllerTest < ActionController::TestCase
   def test_should_not_allow_index_not_admin
      login_as("user_normal")
      get :index
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
   end
 
 
   def test_should_not_allow_show_roles_not_admin
     login_as("user_normal")
      get :show, :id=>1
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
   end
  
  
@@ -46,7 +46,7 @@ class RolesControllerTest < ActionController::TestCase
   def test_should_not_allow_new_roles_not_admin
     login_as("user_normal")
      get :new
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
   end
   
   
@@ -61,7 +61,7 @@ class RolesControllerTest < ActionController::TestCase
   def test_should_not_allow_edit_roles_not_admin
     login_as("user_normal")
      get :edit, :id=>1
-     assert_redirected_to :controller => "events", :action => "show"
+     assert_redirected_to :controller => "home", :action => "index"
   end
   
   
@@ -82,14 +82,14 @@ class RolesControllerTest < ActionController::TestCase
   def test_create_not_admin
     login_as("user_normal")
     post :create, :name=> "administer", :create_posts=> true, :read_posts=> true, :update_posts=> true, :delete_posts=> true, :create_performances=> true, :read_performances=> true, :update_performances=> true, :delete_performances=> true, :manage_events=> true, :admin=> true, :type=> ""
-    assert_redirected_to :controller => "events", :action => "show"
+    assert_redirected_to :controller => "home", :action => "index"
   end
   
   
   def test_update_not_admin
     login_as("user_normal")
     post :update, :id=>"1", :name=> "administer", :create_posts=> true, :read_posts=> true, :update_posts=> true, :delete_posts=> true, :create_performances=> true, :read_performances=> true, :update_performances=> true, :delete_performances=> true, :manage_events=> true, :admin=> true, :type=> ""
-    assert_redirected_to :controller => "events", :action => "show"
+    assert_redirected_to :controller => "home", :action => "index"
   end
 
 
@@ -103,7 +103,7 @@ class RolesControllerTest < ActionController::TestCase
   def test_destroy_not_admin
     login_as("user_normal")
     post :destroy, :id=>"1"
-    assert_redirected_to :controller => "events", :action => "show"  
+    assert_redirected_to :controller => "home", :action => "index"
   end
 
 
