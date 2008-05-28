@@ -1,5 +1,6 @@
 <!-- home/index.rhtml -->
-<div class="main_column">
+<div id="yui-main">
+<div class="yui-b main_column">
 	<% rounded(:class => "description") do %>
 	
 	<h2>Description</h2>
@@ -17,5 +18,6 @@
 	<%= render :partial=> 'events_coming'%>
 	<%end%>
 	</div>
+</div>
 
 <%= render :partial =>'shared/sidebar'%>

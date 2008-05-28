@@ -1,5 +1,6 @@
 
-<div class="main_column">
+<div id="yui-main">
+<div class="yui-b main_column">
 	
 	<% rounded(:class => "tips") do %>
 
@@ -71,7 +72,7 @@
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 
   </div>
-
+</div>
 
 <%= render :partial =>'shared/sidebar'%>
 
