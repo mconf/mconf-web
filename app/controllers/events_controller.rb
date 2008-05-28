@@ -33,7 +33,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-
     if session[:date_start_day]
       datetime_start_day = session[:date_start_day]
     else
@@ -69,13 +68,8 @@ class EventsController < ApplicationController
     else
       datetime_start_day = Date.today
       @datetime = Date.today
-    end
-    if params[:machine]
-      participant = params[:machine]
-      logger.debug("la máquina ELEGIDA ES " + participant)
-    else
-      participant = 0 #we show all the participants
-    end
+    end    
+    participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
     event_datetimes = select_events(datetime_start_day)
     @events = []
     for datetime in event_datetimes

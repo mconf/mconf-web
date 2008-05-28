@@ -9,17 +9,6 @@
 <%= render :partial => 'time_table'%>
 </div>
 </TD>
-<TD class=filter_view>
-<span>Filter view:&nbsp;
-<%array_machines = []
-array_machines << ["all",0]
-array_machines += Machine.find(:all).collect {|r| [ h(r.name), h(r.id) ]}
--%>
-<% form_tag ("/event/nil", {:name=>'form',:style => "display: inline;"}) do %>
-<%= select("machine", "name", array_machines,{ :include_blank=>false }, { :onchange => "javascript:change_table()"})%>
-<% end -%>
-</span>
-</TD>
 </TR>
 <TR height=30%>
 <TD valign="top">

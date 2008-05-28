@@ -170,3 +170,18 @@ li.long{
 #space-span {
 	margin-left: 20%;
 }
+
+
+/* BODY */
+div#bd {
+	background:#ffffff no-repeat bottom left;
+	display:block;
+	margin-top:10px;
+}
+
+/* FOOT */
+div#ft {
+	background:#ffffff no-repeat bottom left;
+	display:block;
+	margin-top:10px;
+}
