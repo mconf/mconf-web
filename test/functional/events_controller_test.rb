@@ -82,73 +82,73 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_list_timetable
     login_as("user_normal")
-    get :show_timetable
+    get :show_calendar
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
 
 
   def test_list_timetable_with_date_and_machine
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2015-01-01", :machine => "1"
+    get :show_calendar, :date_start_day => "2015-01-01"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
     
   
   def test_list_timetable_with_date_and_machine_2
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2015-02-02", :machine => "1"
+    get :show_calendar, :date_start_day => "2015-02-02"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_3
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2005-04-27", :machine => "2"
+    get :show_calendar, :date_start_day => "2005-04-27"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_4
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2016-04-27", :machine => "0"
+    get :show_calendar, :date_start_day => "2016-04-27"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_5
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2007-04-28", :machine => "0"
+    get :show_calendar, :date_start_day => "2007-04-28"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_6
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "2005-04-28", :machine => "0"
+    get :show_calendar, :date_start_day => "2005-04-28"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_7
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "1915-04-28", :machine => "0"
+    get :show_calendar, :date_start_day => "1915-04-28"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
   
   def test_list_timetable_with_date_and_machine_8
     login_as("user_normal")
-    get :show_timetable, :date_start_day => "3005-12-12", :machine => "0"
+    get :show_calendar, :date_start_day => "3005-12-12"
     assert_response :success
-    assert_template "_time_table"
+    assert_template "show_calendar"
   end
   
 

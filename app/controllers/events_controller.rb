@@ -26,46 +26,42 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    
-  
     @cloud = Tag.cloud(:limit=> 40)
     @datetime = Date.today
     next_events
-    # WTF?? This isn't RESTful!!!
-    
   end
+  
+  
   #this method show the calendar with all the events
     def show_calendar
-    if session[:date_start_day]
-      datetime_start_day = session[:date_start_day]
-    elsif  params[:date_start_day]
+    if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
-       
+    elsif  session[:date_start_day]
+      datetime_start_day = Date.parse(session[:date_start_day])       
     else
-     datetime_start_day = Date.today
-      
+     datetime_start_day = Date.today      
     end
     @cloud = Tag.cloud
     @datetime = datetime_start_day
     participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
     event_datetimes = select_events(datetime_start_day)
     @events = []
-    for datetime in event_datetimes
-      for eventin in Event.find_all_by_id(datetime.event_id)
+    for dat in event_datetimes
+      for eventin in Event.find_all_by_id(dat.event_id)
         @events << eventin unless @container && ! eventin.posted_in?(@container)
       end
     end
-    
     @events.flatten!
     @events.uniq!
     logger.debug("eventos devueltos " + @events.size.to_s) 
-    
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @events }
       format.js
     end
   end
+  
+  
   # GET /events/1
   # GET /events/1.xml
   def show
