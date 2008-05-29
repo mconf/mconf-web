@@ -82,5 +82,19 @@ class ApplicationController < ActionController::Base
     options = default_options.merge options
     pages = Paginator.new self, size, options[:per_page], (params[:page]||1)
    return pages
-end
+ end
+   #this method returns the coming 5 events
+ def next_events
+
+
+    today = Date.today
+    
+   date1ok =  today.strftime("%Y%m%d")
+   s_date = Ferret::Search::SortField.new(:start_dates, :type => :float)
+   sort = Ferret::Search::Sort.new(s_date)
+     @total, @events, @query = Event.date_search_five(date1ok,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1), :sort=> sort)          
+   @pages = pages_for(@total)
+    
+    
+  end
 end

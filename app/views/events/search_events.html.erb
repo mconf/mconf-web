@@ -1,11 +1,13 @@
 
+
 <div id="yui-main">
 <div class="yui-b main_column">
+
 	
-	<% rounded(:class => "tips") do %>
+<% rounded(:class => "tips") do %>
 
-
-	<% if @events== nil %>
+    
+	<% if @events == nil %>
 	Please insert something in the search box
 	<% else%>
 	<h3> <%= @events.total_hits%> events were found</h3></td><tr>
@@ -23,7 +25,7 @@
 	</tr>
 	<tr>
 		
-		 <%end%>
+		 
 		<% @events.each do |event| %>  
 		<td>
 			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
@@ -37,7 +39,7 @@
      	<% for dates in event.start_dates %>  
     [<%=  i %>] <%= event.start_dates[i] %>
 <% i += 1%>
-<%end%>
+             <%end%>
 		</td>
 				<td>
 					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
@@ -69,7 +71,7 @@
 
 <%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
-<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
+<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %><%end%>
 
   </div>
 </div>

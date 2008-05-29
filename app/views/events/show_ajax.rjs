@@ -1,0 +1,1 @@
+page.replace_html "show_event", :partial => 'show' , :locals => {:event => @event}

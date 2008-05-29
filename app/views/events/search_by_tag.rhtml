@@ -40,7 +40,12 @@
     Keywords: <%= event.tag_list %>
      </ul>
 	   <% end %>
-
+	   
+	   <h2> Users</h2>
+<% @users.each do |user| %>
+Name: <%= user.login%>
+Email: <%= user.email%><br>
+<%end%>
 
 </ul>
 <input onclick=document.location="/search" type="button" value="Back" />

@@ -26,21 +26,28 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    # WTF?? This isn't RESTful!!!
-    show
-  end
+    
   
-  # GET /events/1
-  # GET /events/1.xml
-  def show
+    @cloud = Tag.cloud(:limit=> 40)
+    @datetime = Date.today
+    next_events
+    # WTF?? This isn't RESTful!!!
+    
+  end
+  #this method show the calendar with all the events
+    def show_calendar
     if session[:date_start_day]
       datetime_start_day = session[:date_start_day]
+    elsif  params[:date_start_day]
+      datetime_start_day = Date.parse(params[:date_start_day])
+       
     else
-      datetime_start_day = Date.today      
+     datetime_start_day = Date.today
+      
     end
- 
-    @cloud = Tag.cloud(:limit=> 40)
+    @cloud = Tag.cloud
     @datetime = datetime_start_day
+    participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
     event_datetimes = select_events(datetime_start_day)
     @events = []
     for datetime in event_datetimes
@@ -48,50 +55,44 @@ class EventsController < ApplicationController
         @events << eventin unless @container && ! eventin.posted_in?(@container)
       end
     end
+    
     @events.flatten!
     @events.uniq!
     logger.debug("eventos devueltos " + @events.size.to_s) 
     
     respond_to do |format|
-      format.html # show.html.erb
+      format.html 
       format.xml  { render :xml => @events }
       format.js
     end
   end
-  
-  
-  #this method update only the table of the calendar, not all the page. This is used in Ajax Calls
-  def show_timetable
-    if params[:date_start_day]
-      datetime_start_day = Date.parse(params[:date_start_day])
-      @datetime = datetime_start_day
-    else
-      datetime_start_day = Date.today
-      @datetime = Date.today
-    end    
-    participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
-    event_datetimes = select_events(datetime_start_day)
-    @events = []
-    for datetime in event_datetimes
-      eventin = Event.find_all_by_id(datetime.event_id)
-      logger.debug("eventin " + datetime.event_id.to_s)
-      if eventin[0]==nil
-        break
-      end      
-      logger.debug("EVENTO DEVUELTO por find_by_id del datetime " + eventin[0].name)
-      if eventin[0].uses_participant(participant)
-        logger.debug("Usa la maquina " + participant.to_s)
-        @events << eventin
-      end
+  # GET /events/1
+  # GET /events/1.xml
+  def show
+     @cloud = Tag.cloud
+    @datetime = Date.today
+    @event = Event.find(params[:id])
+     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+     respond_to do |format|
+      format.html 
+      format.xml  { render :xml => @events }
+      
     end
-    
-    @events.flatten!
-    @events.uniq!
-    logger.debug("TAMAÑO DEL ARRAY DEVUELTO @events.size " + @events.size.to_s)
-    render(:partial => "time_table", :layout => false)
+  end
+  #this method show the event information with an ajax call
+  def show_ajax
+    @cloud = Tag.cloud
+    @datetime = Date.today
+    @event = Event.find(params[:id])
+     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+     respond_to do |format|
+      format.js
+      
+      
+    end
   end
   
-  
+ 
   # GET /events/new
   # GET /events/new.xml
   def new    
@@ -433,7 +434,7 @@ class EventsController < ApplicationController
       format.js   
     end
   end
-  
+  #method used to show the dates search boxes in the ajax call
   def dates
     respond_to do |format|
       # format.html 
@@ -447,25 +448,35 @@ class EventsController < ApplicationController
       
     end
   end
+  #method to clean the div in where an event information is shown
+  def clean_show
+    render :update do |page|
+      page.replace_html 'show_event', ""
+      
+    end
+  end
   #Method that searchs with the ferret funcionality
   def search_events 
-    
+
     @cloud = Tag.cloud 
     @query = params[:query]
    
     @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
+     
     respond_to do |format|        
       format.html     
     end
   end
   
 
-  #metodo que devuelve los eventos que tienen un tag
+  #metodo que devuelve los eventos que tienen un tag, y los ususarios
   def search_by_tag    
     @cloud = Tag.cloud
     @tag = params[:tag]
-    @events = Event.tagged_with(@tag)   
+    @events = Event.tagged_with(@tag) 
+    @users = User.tagged_with(@tag) 
+  
   end
   #Method that make the advanced search
   def advanced_search_events
@@ -500,7 +511,7 @@ class EventsController < ApplicationController
     end     
   end
   
-  
+  #this method search an event between two dates
   def search_by_date
 
     @cloud = Tag.cloud
@@ -523,7 +534,9 @@ class EventsController < ApplicationController
     end  
     end
   end
+
   
+
   
   private              
   
@@ -544,6 +557,7 @@ class EventsController < ApplicationController
     return event_datetimes
   end
   
+  #this method return de container id and the space id
   def get_space
     if params[:container_id]
       @space = Space.find(params[:container_id])

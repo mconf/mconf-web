@@ -22,10 +22,14 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   #map.connect ':controller/:action/:id.:format'
   #map.connect ':controller/:action/:id'
-
+  map.show_ajax '/:container_type/:container_id/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax'
+   map.show_ajax '/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax'
+  
+  map.show_calendar '/:container_type/:container_id/events/show_calendar', :controller => 'events', :action => 'show_calendar'
+  map.show_calendar '/events/show_calendar', :controller => 'events', :action => 'show_calendar'
   # #######################################################################
   # CMSplugin
-  #
+  #  
   map.resources :posts, :member => { :get => :edit_media,
                                      :put => :update_media }
   map.resources :posts, :path_prefix => '/:container_type/:container_id',
@@ -47,7 +51,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :action => "create" }
   map.resource :session
   map.resource :notifier
-  map.resource :machines
+  map.resource :machines  
+  
   map.resources :events, :member =>'export_ical'
   map.resources :users do |users|
       users.resource :profile
@@ -72,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.add_time '/add_time', :controller => 'events', :action => 'add_time'
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
   
-  map.show '/:container_type/:container_id/events',:controller => 'events', :action => 'index'
+  #map.show '/:container_type/:container_id/events',:controller => 'events', :action => 'index'
   map.search '/search', :controller => 'events', :action => 'search'
   map.search_by_tag '/tags/:tag', :controller => 'events', :action => 'search_by_tag'
    map.search_events '/search_events', :controller => 'events', :action => 'search_events'
@@ -86,11 +91,11 @@ ActionController::Routing::Routes.draw do |map|
  map.description '/description_search', :controller => 'events', :action => 'description'
  map.clean '/clean', :controller => 'events', :action => 'clean'
   map.dates '/search_by_dates', :controller => 'events', :action => 'dates'
- 
-  #PROFILES CONTROLLER
+   #PROFILES CONTROLLER
   map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'   
   map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'   
   #USERS CONTROLLER
+  map.clean_show '/clean_event', :controller => 'events', :action => 'clean_show'
   map.clean '/clean_search', :controller => 'users', :action => 'clean'
  map.organization '/search_in_organization', :controller => 'users', :action => 'organization'
  map.search_by_tag '/search_tag', :controller => 'users', :action=> 'search_by_tag'
