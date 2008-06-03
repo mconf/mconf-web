@@ -1,0 +1,8 @@
+<div id="secondary_buttons">
+		<%if session[:current_tab]=="Manage"%>
+			<%= link_to "Spaces", :controller=>'spaces', :action=>'index', :container_id => @space.id %>		
+			<%= link_to "Roles", :controller=>'roles', :action=>'index', :container_id => @space.id %>
+			<%= link_to "Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %>
+			<%= link_to "Resources", :controller=>'machines', :action=>'manage_resources', :container_id => @space.id %>
+		<%end%>
+</div>
