@@ -82,7 +82,7 @@ class SessionsController < ApplicationController
         self.current_agent.remember_me
         cookies[:auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
       end
-      redirect_back_or_default '/spaces/0'
+      redirect_back_or_default '/spaces/1'
       flash[:notice] = "Logged in successfully"
     else
       flash[:error] ||= "Wrong credentials"
@@ -95,7 +95,7 @@ class SessionsController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/spaces/0')
+    redirect_back_or_default('/spaces/1')
   end
 
   private

@@ -9,7 +9,7 @@
 		 	<%= nav_tab "MyProfile", { :url => space_user_profile_path(@space.id, current_user.id)} %>
 		    <%= nav_tab "Events", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
 		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
-		 	<%if @space.id!=0%>
+		 	<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => manage_users_path(:container_id => @space.id, :container_type => :spaces)} %>
 		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:container_id => @space.id, :container_type => :spaces)} %>
 		 	<%end%>
@@ -21,9 +21,9 @@
   
 <% else %>
 	 <ul id ="nav">
-      	    <%= nav_tab "Home", { :url => space_path(0)} %>
-		    <%= nav_tab "Events", { :url => container_events_path(:container_id => 0, :container_type => :spaces)} %>
-		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => 0, :container_type => :spaces)} %>
+      	    <%= nav_tab "Home", { :url => space_path(1)} %>
+		    <%= nav_tab "Events", { :url => container_events_path(:container_id => 1, :container_type => :spaces)} %>
+		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => 1, :container_type => :spaces)} %>
 	 </ul>
   
   

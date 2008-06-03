@@ -39,8 +39,8 @@ class EventsController < ApplicationController
     session[:current_tab] = "Events"
     if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
-    elsif  session[:date_start_day]
-      datetime_start_day = Date.parse(session[:date_start_day])       
+    #elsif  session[:date_start_day]
+    #  datetime_start_day = Date.parse(session[:date_start_day])       
     else
      datetime_start_day = Date.today      
     end

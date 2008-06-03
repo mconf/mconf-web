@@ -319,7 +319,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :edit, :id=>40, :container_type=>'space', :container_id=>'1'
     assert_equal 'Action not allowed.', flash[:notice]    
-    assert_redirected_to :controller => "home", :action => "index"
+    assert_redirected_to "/"
   end
   
   
@@ -341,7 +341,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :update, :id=>1, :container_type=>'space', :container_id=>'1'
     assert_equal "Action not allowed.", flash[:notice]    
-    assert_redirected_to :controller => "home", :action => "index"
+    assert_redirected_to "/"
   end
   
   
@@ -364,7 +364,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :destroy, :id=>1, :container_type=>'space', :container_id=>'1'
     assert_equal "Action not allowed.", flash[:notice]    
-    assert_redirected_to :controller => "home", :action => "index"
+    assert_redirected_to "/"
   end
   
   

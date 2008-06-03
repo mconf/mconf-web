@@ -34,12 +34,8 @@ function dateIsSpecial(year, month, day) {
       // redirect...
       //window.location = "?date_start_day=" + y + "-" + m + "-" + d;
 	  //new Ajax.Updater('timetable', '/</events/show_calendar?date_start_day=' + y + '-' + m + '-' + d, {asynchronous:true, evalScripts:true}); return false;
-    if (calendar.space_id == 0) {
-		miloc = '/events/show_calendar?date_start_day=' + y + '-' + m + '-' + d;
-	}
-	else {
-		miloc = "/spaces/" + calendar.space_id + '/events/show_calendar?date_start_day=' + y + '-' + m + '-' + d;
-	}
+      miloc = "/spaces/" + calendar.space_id + '/events/show_calendar?date_start_day=' + y + '-' + m + '-' + d;
+
 	document.location.href = miloc;
     //}
   };

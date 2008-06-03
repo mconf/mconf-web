@@ -30,7 +30,7 @@ end
 def test_show_spaces_no_admin
   login_as("user_normal")
   get :index, :container_type=>'space', :container_id=>'1'
-  assert_redirected_to :controller => "home", :action => "index"
+  assert_redirected_to "/"
 end
  
  
@@ -46,7 +46,7 @@ end
  def test_new_space_admin
    login_as("user_space1_admin")
     get :new, :container_type=>'space', :container_id=>'1'
-    assert_redirected_to :controller => "home", :action => "index"
+    assert_redirected_to "/"
    
  end
  
@@ -54,7 +54,7 @@ end
  def test_new_no_admin
    login_as("user_normal")
   get :new, :container_type=>'space', :container_id=>'1'
-  assert_redirected_to :controller => "home", :action => "index"
+  assert_redirected_to "/"
 end
 
 
@@ -172,7 +172,7 @@ end
  def test_destroy_no_admin
    login_as("user_normal")
   post :destroy,:container_type=>'space', :container_id=>'1',:id=>1
-  assert_redirected_to :controller => "home", :action => "index"
+  assert_redirected_to "/"
 end
 
 
