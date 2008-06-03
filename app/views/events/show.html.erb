@@ -16,11 +16,14 @@ Resources:<%=h(@event.get_participants)%><br>
 <%if @event.description!=nil && @event.description!=""%>
 Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
 <%end%>
-
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
-Keywords:<b><%for tag in @event.tags %><br>
-		<%= link_to (h(tag.name), {:action => :search_by_tag, :container_id=>@space.id, :container_type=> :space, :tag => tag.name}, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %>
+
+Keywords:<b><%for tag in @event.tag_list %>
+	
+	<%= link_to (h(tag), {:action => :search_by_tag, :tag => tag}, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %><br>
 <%end%>
+
+
 
 <%end%>
 
@@ -66,27 +69,28 @@ URLs for the session</b>
             <%i+=1%>
             </div>
         
-    <%end%>   
+       
 <div class="bot_right">
-	<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+	<%if logged_in? && (current_user.events.include?(@event) || current_user.superuser== true) %>
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable
                   %>				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), export_ical_path(event), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), export_ical_path(@event), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_event_path(event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_event_path(@event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), event_path(event), :method => :delete,
+				<%= link_to image_tag("/images/delete.gif",:border=>0), event_path(@event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%><br>
-	
-	<%= link_to_remote 'Hide', {:url =>{ :action=> 'clean_show'}}%></div>
+			</div>
+			
+			<%end%>
 </div>
 <%end%>
 </div>
 </div>
 
-
+<%= render :partial=>'shared/calendar'%>

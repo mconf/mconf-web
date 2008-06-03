@@ -1,81 +1,19 @@
-<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
-&nbsp;
-<TABLE class=day WIDTH=100% BORDER=1 CELLSPACING=0 CELLPADDING=0>
-<TR><TD width=100% rowspan=3 valign="top">
-<div id="timetable">
+
+
+
+<div id="yui-main">
+	<div  class="yui-b main_column">
+		
+		
+		<% rounded(:class => "tips") do %>
+
 <%= render :partial => 'time_table'%>
+<%end%>
+
+<div id="show_event">
+		</div>
+		
+		</div>
 </div>
-</TD>
-</TR>
-<TR height=30%>
-<TD valign="top">
-<div id="calendar-container"></div>
-<div id="solo_centrar">
-<!--Server time: <%= Time.now.strftime("%H:%M")%>-->
-<script type="text/javascript">
-var currenttime = "<%=Time.now.strftime("%d/%m/%Y %H:%M:%S")%>";
 
-var montharray=new Array("January","February","March","April","May","June","July","August","September","October","November","December")
-var serverdate=new Date(currenttime)
-
-function padlength(what){
-var output=(what.toString().length==1)? "0"+what : what
-return output
-}
-
-function displaytime(){
-serverdate.setSeconds(serverdate.getSeconds()+1)
-var datestring=montharray[serverdate.getMonth()]+" "+padlength(serverdate.getDate())+", "+serverdate.getFullYear()
-var timestring=padlength(serverdate.getHours())+":"+padlength(serverdate.getMinutes())+":"+padlength(serverdate.getSeconds())
-document.getElementById("servertime").innerHTML=timestring+" "
-}
-
-window.onload=function(){
-setInterval("displaytime()", 1000)
-}
-</script>
-
-<p><b>Server Time:</b> <span id="servertime"></span></p>
-
-</div>
-</TD>
-</TR>
-<TR>
-<TD valign="top">
-<div id="event_summary">
-	<div id="tagcloud">
-  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
-</div>
-</TD>
-</TR>
-</TABLE>
-<br />
-<script type="text/javascript">
-//configuración del calendario:   
-  //the array with the dates to highlight:  
-  <%=EventDatetime.array_calendar%>   
-</script>
-<%= javascript_include_tag("calendar_config") %>
-
-<script type="text/javascript">
-var calendar = Calendar.setup(
-    {
-      flat         : "calendar-container", // ID of the parent element
-      flatCallback : dateChanged,           // our callback function  
-      firstDay     : 1,
-	  //showsTime    : true,
-      dateStatusFunc : ourDateStatusFunc,
-      date         : new Date(<%="'"+@datetime.month.to_s+"/"+@datetime.day.to_s+"/"+@datetime.year.to_s+"'"%>)    
-    }
-  );
-  <%if @space%>
-  	calendar.space_id = <%=@space.id%>;
-  <%else%>
-  	calendar.space_id = 1;
-  <%end%>
-</script>
-
-
+<%= render :partial =>'shared/calendar'%>

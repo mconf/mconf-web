@@ -28,7 +28,7 @@
 		 
 		<% @events.each do |event| %>  
 		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => { :action => 'show_summary', :id => event.id } }   %>
+			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => show_ajax_path(event.id) }   %>
 		</td>
 		<td>
 			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
@@ -73,6 +73,9 @@
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %><%end%>
 
+
+<div id="show_event">
+		</div>
   </div>
 </div>
 

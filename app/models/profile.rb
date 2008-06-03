@@ -5,4 +5,6 @@ class Profile < ActiveRecord::Base
   def see_profile_by?(user)
     
   end
+  
+ 
 end

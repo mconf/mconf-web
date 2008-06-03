@@ -19,7 +19,12 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show
+
+   @cloud = Tag.cloud
+   next_events
+
     session[:current_tab] = "Home"    
+
   end
   
   # GET /spaces/new

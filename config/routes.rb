@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.show_summary '/show_summary/:id' , :controller => "events", :action => "show_summary"
   map.add_participant '/add_participant', :controller => 'events', :action => 'add_participant'
   map.remove_participant '/remove_participant', :controller => 'events', :action => 'remove_participant'
-  map.export_ical '/export_ical/:id', :controller => 'events' , :action => 'export_ical'
+  map.export_ical '/events/:id/export_ical', :controller => 'events' , :action => 'export_ical'
   map.remove_time '/remove_time', :controller => 'events', :action => 'remove_time'
   map.add_time '/add_time', :controller => 'events', :action => 'add_time'
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'

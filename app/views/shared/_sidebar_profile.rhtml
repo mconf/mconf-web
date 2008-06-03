@@ -10,7 +10,22 @@
 <%end%>
 
 <% rounded(:class => "tips") do %>
-<%= link_to 'Export your Vcard' , vcard_path(@user.id) , :method=> 'get'  %></td>
+My Friends
+
+
+<%end%>
+<% rounded(:class => "tips") do %>
+Spaces
+ 
+<%if @user.stages.length== 0%><br>
+
+<%= "You are not suscribed to any space"%>
+<%else%>
+<% for space in @user.stages%>
+<br><%=link_to space.name, space_path(space.id)%>
+<%end%>
+<%end%>
+
 <%end%>
 <% rounded(:class => "tips") do %>
 <%= link_to 'Ask for Resources', contact_mail_path%>

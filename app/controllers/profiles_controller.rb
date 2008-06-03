@@ -13,8 +13,12 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.xml
   def show
    session[:current_tab] = "MyProfile" 
+   
    @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
+    @user_spaces = @user.stages
+
+    
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
       redirect_to new_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)

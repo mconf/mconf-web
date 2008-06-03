@@ -1,8 +1,8 @@
 <h4> Search</h4> 
 	
-  <% form_tag(search_events_path) do %>
+  <% form_tag(search_events_path(:container_id=>@space.id,:container_type=> :space)) do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_tag 'Search'%>
-	  <%= link_to 'Advanced', search_path%>
+	  <%= link_to 'Advanced', search_path(:container_id=>@space.id,:container_type=> :space)%>
   
    <% end %>

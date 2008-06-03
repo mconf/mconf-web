@@ -1,17 +1,19 @@
-<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
-<script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
-&nbsp;
-<TABLE class=day WIDTH=100% BORDER=1 CELLSPACING=0 CELLPADDING=0>
-<TR><TD width=100% rowspan=3 valign="top">
-<ul>
+
 
 	
+	<div id="yui-main">
+<div class="yui-b main_column">
+
 	
+<% rounded(:class => "tips") do %>
+<h2>Events</h2><br>
+<%if @events == []%>
+No events Found <br><br>
+<%else %>
 	<% @events.each do |event| %>
-  
-    <li>Title: <%= link_to_remote event.name, { :url => { :action => 'show_summary', :id => event.id } }   %>&nbsp;&nbsp; 
+  <div class="vevent">
+<div class="summary">
+    <li>Title: <%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id)  } %></div>&nbsp;&nbsp; 
       <%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable
@@ -29,92 +31,41 @@
 			
     </li>
 	
-     Description:<%= event.description %>
+     Description:<div class="description"><%= event.description %></div>
      
 	
      <ul><% i = 0%>
-     	<% for dates in event.start_dates %>  
-    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
+	 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
+     	<% for datetime in event.event_datetimes %> 
+   <abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"> <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></abbr></li>
 <% i += 1%>
 <%end%>
-    Keywords: <%= event.tag_list %>
+    Keywords: <%= event.tag_list %><br><br>
      </ul>
+	  </div>
 	   <% end %>
 	   
-	   <h2> Users</h2>
+	   <% end %>
+	  <div class="user">
+	   <h2> Users</h2><br>
+	   <%if @users == []%>
+	   No users Found<br>
+	   <%else%>
+	   
 <% @users.each do |user| %>
 Name: <%= user.login%>
 Email: <%= user.email%><br>
 <%end%>
+<%end%>
 
-</ul>
-<input onclick=document.location="/search" type="button" value="Back" />
-  
-</TD>
-</TR>
-<TR height=30%>
-<TD valign="top">
-<div id="calendar-container"></div>
-<div id="solo_centrar">
-<!--Server time: <%= Time.now.strftime("%H:%M")%>-->
-<script type="text/javascript">
-var currenttime = "<%=Time.now.strftime("%d/%m/%Y %H:%M:%S")%>";
-
-var montharray=new Array("January","February","March","April","May","June","July","August","September","October","November","December")
-var serverdate=new Date(currenttime)
-
-function padlength(what){
-var output=(what.toString().length==1)? "0"+what : what
-return output
-}
-
-function displaytime(){
-serverdate.setSeconds(serverdate.getSeconds()+1)
-var datestring=montharray[serverdate.getMonth()]+" "+padlength(serverdate.getDate())+", "+serverdate.getFullYear()
-var timestring=padlength(serverdate.getHours())+":"+padlength(serverdate.getMinutes())+":"+padlength(serverdate.getSeconds())
-document.getElementById("servertime").innerHTML=timestring+" "
-}
-
-window.onload=function(){
-setInterval("displaytime()", 1000)
-}
-</script>
-
-<p><b>Server Time:</b> <span id="servertime"></span></p>
 
 </div>
-</TD>
-</TR>
-<TR>
-<TD valign="top">
-<div id="event_summary">
-	<div id="tagcloud">
-  <%= render(:partial => "shared/tag_cloud", :object=> @cloud) %>
+
+<%end%>
+<div id="show_event">
+		</div>
+   </div>
+   
 </div>
-</TD>
-</TR>
-</TABLE>
-<br />
-<script type="text/javascript">
-//configuración del calendario:   
-  //the array with the dates to highlight:  
-  <%=EventDatetime.array_calendar%>   
-</script>
-<%= javascript_include_tag("calendar_config") %>
 
-<script type="text/javascript">
-var calendar = Calendar.setup(
-    {
-      flat         : "calendar-container", // ID of the parent element
-      flatCallback : dateChanged,           // our callback function  
-      firstDay     : 1,
-	  //showsTime    : true,
-      dateStatusFunc : ourDateStatusFunc,
-      date         : new Date    }
-  );
-</script>
-
-
-
-
-  
+<%= render :partial =>'shared/sidebar'%>

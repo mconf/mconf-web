@@ -16,13 +16,18 @@ class UsersController < ApplicationController
   # Filter for password recovery actions
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
                                                           :reset_password ]
+
   before_filter :get_space
+
   before_filter :authentication_required, :only => [:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
   
 
+def index
+    @users = @container.agents
+end
 def show
   session[:current_tab] = "People" 
     @user = User.find(params[:id])

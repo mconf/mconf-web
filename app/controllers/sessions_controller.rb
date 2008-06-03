@@ -6,6 +6,11 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
+    if logged_in?
+      flash[:error] = "You are already logged in"
+       
+      redirect_to root_path
+    end
   end
 
   def create

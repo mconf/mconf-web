@@ -1,6 +1,6 @@
 <%  @events.each do |event| %> 
 <div class="vevent">
-<div class="summary"><%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id)  } %> </div><div class="description"><%= event.description%>  </div>
+<div class="summary"><%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id,:space_id=>@space.id)  } %> </div><div class="description"><%= event.description%>  </div>
 
 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
 <% for datetime in event.event_datetimes %>    

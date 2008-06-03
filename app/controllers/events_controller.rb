@@ -31,6 +31,7 @@ class EventsController < ApplicationController
     @cloud = Tag.cloud(:limit=> 40)
     @datetime = Date.today
     next_events
+
   end
   
   
@@ -96,7 +97,7 @@ class EventsController < ApplicationController
   def new    
     @event = Event.new
     @indice = "0"   
-        
+        @cloud = Tag.cloud
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
@@ -106,6 +107,7 @@ class EventsController < ApplicationController
   
   # GET /events/1/edit
   def edit
+      @cloud = Tag.cloud
     @event = Event.find(params[:id])
     @event.participants.sort!{|x,y| x.id <=> y.id}   
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -115,6 +117,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
+      @cloud = Tag.cloud
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
@@ -472,6 +475,7 @@ class EventsController < ApplicationController
   def search_by_tag    
     @cloud = Tag.cloud
     @tag = params[:tag]
+  
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
   
@@ -555,11 +559,6 @@ class EventsController < ApplicationController
     return event_datetimes
   end
   
-  #this method return de container id and the space id
-  def get_space
-    if params[:container_id]
-      @space = Space.find(params[:container_id])
-      get_container
-    end
-  end
+ 
+  
 end
