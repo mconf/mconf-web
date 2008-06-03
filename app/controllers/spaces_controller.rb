@@ -9,7 +9,7 @@ class SpacesController < ApplicationController
   before_filter :remember_tab_and_space
   
   def index
-    @spaces = Space.find(:all )
+    @spaces = Space.find(:all, :conditions=>["id != 1"] )
     session[:current_tab] = "Manage" 
     respond_to do |format|
       format.html # index.html.erb

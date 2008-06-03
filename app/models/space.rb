@@ -83,8 +83,10 @@ class Space < ActiveRecord::Base
     if user.superuser==true
       array_spaces += Space.find(:all).collect {|r| [ r.name, r.id ]}
     else
-      array_spaces << Space.find_all_by_id(1).flatten.collect {|r| [ r.name, r.id ]}.flatten
-      array_spaces += user.containers.collect {|r| [ r.name, r.id ]}
+      if !user.stages.include?(Space.find(1))
+        array_spaces << Space.find_all_by_id(1).flatten.collect {|r| [ r.name, r.id ]}.flatten
+      end
+      array_spaces += user.stages.collect {|r| [ r.name, r.id ]}
     end
     return array_spaces
   end

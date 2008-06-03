@@ -1,11 +1,13 @@
 <div id="secondary_buttons">
 		<%if session[:current_tab]=="Manage"%>
-			<%= link_to "Spaces", :controller=>'spaces', :action=>'index', :container_id => @space.id %>		
-			<%= link_to "Roles", :controller=>'roles', :action=>'index', :container_id => @space.id %>
-			<%= link_to "Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %>
+			<%= link_to "Spaces", :controller=>'spaces', :action=>'index', :container_id => @space.id %> |		
+			<%= link_to "Roles", :controller=>'roles', :action=>'index', :container_id => @space.id %> |
+			<%= link_to "Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %> |
 			<%= link_to "Resources", :controller=>'machines', :action=>'manage_resources', :container_id => @space.id %>
 		<%elsif session[:current_tab]=="Events"%>
-			<%= link_to "New Event", :controller=>'events', :action=>'new', :container_id => @space.id %>	
+			<%= link_to "New Event", :controller=>'events', :action=>'new', :container_id => @space.id %> |	
 			<%= link_to "Show Calendar", :controller=>'events', :action=>'show_calendar', :container_id => @space.id %>	
+		<%elsif session[:current_tab]=="Groups"%>
+			<%= link_to 'Create Group', create_group_path(:space,@container.id)%>
 		<%end%>
 </div>

@@ -102,6 +102,10 @@ class ApplicationController < ActionController::Base
     if params[:space_id]
       params[:container_id] = params[:space_id]
     end
+    if params[:container_id]==nil && params[:id]!=nil
+      #this case is /spaces/1 ... /spaces/:id
+      params[:container_id] = params[:id]
+    end
     @space = Space.find(params[:container_id])
     get_container
   end

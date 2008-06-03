@@ -64,14 +64,11 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :roles
-  map.resources :spaces
   map.connect ':controller/:action.:format/:container_id'
   map.connect ':controller/:action.:format/:container_id/:role_id'
   
   #SPACES CONTROLLER
-  map.show_space '/spaces/:container_id',:controller => "spaces", :action => "show"
-  map.add_user '/spaces/:container_id/add_user', :controller => "spaces", :action => "add_user"
-  map.add_user '/spaces/:container_id/edit', :controller => "spaces", :action => "edit"
+  map.add_user '/spaces/:space_id/add_user', :controller => "spaces", :action => "add_user"
   
   #explicit routes ORDERED BY CONTROLLER
   
