@@ -6,15 +6,15 @@
 <%@role.each do |role|%>
 <tr><td>
 Name: <%= role.name%>
-<%= link_to 'Show' , role_path(role.id),   :method=> 'get' %>
+<%= link_to 'Show' , role_path(role.id, :container_id=>@space.id),   :method=> 'get' %>
 
-<%= link_to 'Edit' , edit_role_path(role.id),   :method=> 'get' %>
-<%= link_to 'Destroy', role_path(role.id), :confirm => 'Are you sure?', :method =>  :delete %>
+<%= link_to 'Edit' , edit_role_path(role.id,:container_id=>@space.id),   :method=> 'get' %>
+<%= link_to 'Destroy', role_path(role.id,:container_id=>@space.id), :confirm => 'Are you sure?', :method =>  :delete %>
 </td>
 </tr>
 
 <%end%>
 <tr>
-<td><%= link_to 'New Role', new_role_path%></td></tr>
+<td><%= link_to 'New Role', new_role_path(:container_id=>@space.id)%></td></tr>
 
 </table>

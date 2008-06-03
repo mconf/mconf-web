@@ -1,23 +1,23 @@
 require 'vpim/vcard'
 
 class ProfilesController < ApplicationController
-  # GET /profiles
-  # GET /profiles.xml
+  include CMS::Controller::Base
+
   before_filter :authentication_required
   before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
 
   before_filter :unique_profile, :only=>[:new, :create]
-  
+  before_filter :get_space
 
   # GET /profiles/1
   # GET /profiles/1.xml
   def show
-    
+   session[:current_tab] = "MyProfile" 
    @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to :action=>'new'
+      redirect_to new_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
     else
    # debugger
    
@@ -31,6 +31,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   # GET /profiles/new.xml
   def new
+    session[:current_tab] = "MyProfile" 
     @user = User.find_by_id(params[:user_id])
     @profile = Profile.new
 
@@ -42,6 +43,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    session[:current_tab] = "MyProfile" 
     @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
   end
@@ -91,7 +93,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
       flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
-      format.html { redirect_to(user_profile_url) }
+      format.html { redirect_to(space_user_profile_url(:space_id=>@space.id, :user_id=>@user.id)) }
       format.xml  { head :ok }
     end
   end
@@ -103,7 +105,7 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to :action=>'new'
+      redirect_to new_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
     else
   render :partial=>'hcard'
   end
@@ -160,6 +162,9 @@ end
 def import_vcard
   
 end
+
+private 
+
 
 
 end

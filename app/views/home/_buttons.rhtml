@@ -4,65 +4,26 @@
 <% if logged_in? && current_user.superuser==true%>
  	 
 	 <div id="bot_administrador">
-     	<ul>
-     <%if @space && @space.id %>
-	     <li class="short"><%= link_to 'Home' , space_path(@space.id), :class => "secund", :method=> 'get' %></li>
-     <%else%>
-	 	<li class="short"><%= link_to 'Home' , '/', :class => "secund", :method=> 'get' %></li>
-	 <%end%>
-	    <li class="short"><%= link_to  'MyProfile', user_profile_path(current_user), :class => "secund", :method=> 'get' %></li>
-	 <%if @space && @space.id%>
-	 	<li class="short"><%= link_to "Events", '/space/'+@space.id.to_s+"/events", :class => "secund", :method=> 'get'%></li>
-	 <%else%>
-	 	<li class="short"><%= link_to "Events", events_path, :class => "secund"%></li>
-	 <%end%>
-	 <%if @space && @space.id%>
-	 	<li class="short"><%= link_to "Posts", '/space/'+@space.id.to_s+"/events/show", :class => "secund", :method=> 'get'%></li>
-	 <%else%>
-	 	<li class="short"><%= link_to "Posts", events_path, :class => "secund"%></li>
-	 <%end%>
-	 <%if @space && @space.id%>
-	   <li class="short"><%= link_to 'People' , manage_users_path, :class => "secund", :method=> 'get' %></li>
-       <li class="short"><%= link_to "Groups" , show_groups_path(:container_id => @space.id, :container_type => :spaces),   :class => "secund", :title=>"Search for events"%></li>
-	 <%end%>
-	 <li class="short"><%= link_to 'Spaces',{:controller=>'spaces', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
-	 <li class="short"><%= link_to 'Roles',{:controller=>'roles', :action=>'index'}, :class => "secund", :method=> 'get' %></li>
-     </ul>
+	     <ul id="nav">
+		 	<%= nav_tab "Home", { :url => space_path(@space.id)} %>
+		 	<%= nav_tab "MyProfile", { :url => space_user_profile_path(@space.id, current_user.id)} %>
+		    <%= nav_tab "Events", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
+		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
+		 	<%if @space.id!=0%>
+				<%= nav_tab "People", { :url => manage_users_path(:container_id => @space.id, :container_type => :spaces)} %>
+		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:container_id => @space.id, :container_type => :spaces)} %>
+		 	<%end%>
+			<%if current_user.superuser==true%>
+				<%= nav_tab "Manage", { :url => {:controller=>'spaces', :action=>'index', :container_id => @space.id}} %>		 	
+			<%end%>
+	     </ul>
 	 </div>
   
-  
-<% elsif logged_in?%>
-	<div id="bot_user">
-		 <ul>
-	     <%if @space && @space.id%>
-		     <li class="short"><%= link_to 'Home' , space_path(@space.id), :class => "secund", :method=> 'get' %></li>
-	     <%else%>
-		 	<li class="short"><%= link_to 'Home' , '/', :class => "secund", :method=> 'get' %></li>
-		 <%end%>
-		    <li class="short"><%= link_to  'MyProfile', user_profile_path(current_user), :class => "secund", :method=> 'get' %></li>
-		 <%if @space && @space.id%>
-		 	<li class="short"><%= link_to "Events", '/space/'+@space.id.to_s+"/events/show", :class => "secund", :method=> 'get'%></li>
-		 <%else%>
-		 	<li class="short"><%= link_to "Events", events_path, :class => "secund"%></li>
-		 <%end%>
-		 <%if @space && @space.id%>
-		 	<li class="short"><%= link_to "Posts", '/space/'+@space.id.to_s+"/events", :class => "secund", :method=> 'get'%></li>
-		 <%else%>
-		 	<li class="short"><%= link_to "Posts", events_path, :class => "secund"%></li>
-		 <%end%>
-		 <%if @space && @space.id%>
-		   <li class="short"><%= link_to 'People' , manage_users_path, :class => "secund", :method=> 'get' %></li>
-	       <li class="short"><%= link_to "Groups" , show_groups_path(:container_id => @space.id, :container_type => :spaces),   :class => "secund", :title=>"Search for events"%></li>
-		 <%end%>
-		 </ul>
-	</div>
-
-
 <% else %>
-	 <ul>
-      	<li class="short"><%= link_to 'Home' , '/', :class => "secund", :method=> 'get' %></li>
-	 	<li class="short"><%= link_to "Events", events_path, :class => "secund", :method=> 'get'%></li>
-		<li class="short"><%= link_to "Posts", events_path, :class => "secund", :method=> 'get'%></li>
+	 <ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path(0)} %>
+		    <%= nav_tab "Events", { :url => container_events_path(:container_id => 0, :container_type => :spaces)} %>
+		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => 0, :container_type => :spaces)} %>
 	 </ul>
   
   

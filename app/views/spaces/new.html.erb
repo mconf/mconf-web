@@ -2,7 +2,7 @@
 
 <%= error_messages_for :space %>
 
-<% form_for(@space) do |f| %>
+<% form_for(@space_new) do |f| %>
 <%= render :partial => 'form', :locals => { :f => f } %>
   <p>
     <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/spaces" type="button" value="Back" />

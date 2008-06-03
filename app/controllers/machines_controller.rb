@@ -3,7 +3,7 @@ class MachinesController < ApplicationController
   
    before_filter :authentication_required, :except => [:get_file]
    before_filter :user_is_admin, :except => [:my_mailer,:get_file, :list_user_machines, :contact_mail]
-   
+   before_filter :remember_tab_and_space
  
 def contact_mail  
   #no hace nada
@@ -45,6 +45,7 @@ end
   
   #used for a administrator in order to manage user
   def manage_resources  
+    session[:current_tab] = "Manage" 
     @machines = Machine.find(:all)
     if params[:myaction] && params[:myaction]=="delete"
       delete_resource

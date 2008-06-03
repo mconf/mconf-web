@@ -6,9 +6,11 @@ class RolesController < ApplicationController
   before_filter :authentication_required
   before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter  :can__manage_groups__space__filter, :only=>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  before_filter :remember_tab_and_space
   
   def index
-    @role = CMS::Role.find_all_by_type(nil)   
+    session[:current_tab] = "Manage" 
+    @role = CMS::Role.find_all_by_type(nil)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @role }
@@ -105,6 +107,7 @@ class RolesController < ApplicationController
   
   
   def show_groups
+    session[:current_tab] = "Groups" 
     ###estan deben ser unicas...
     @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
     
@@ -245,8 +248,5 @@ class RolesController < ApplicationController
     return array
   end
   
-  def get_space
-    @space = Space.find(params[:container_id])
-    get_container
-  end
+  
 end

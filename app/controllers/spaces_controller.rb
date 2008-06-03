@@ -6,10 +6,11 @@ class SpacesController < ApplicationController
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
+  before_filter :remember_tab_and_space
   
   def index
     @spaces = Space.find(:all )
-    
+    session[:current_tab] = "Manage" 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @spaces }
@@ -18,17 +19,18 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show
-    #debugger
+    session[:current_tab] = "Home"    
   end
   
   # GET /spaces/new
   # GET /spaces/new.xml
   def new
-    @space = Space.new
+    @space_new = Space.new
+    session[:current_tab] = "Manage" 
     
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @space }
+      format.xml  { render :xml => @space_new }
     end
   end
   
@@ -59,7 +61,6 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   def update
-    debugger
     @space = Space.find(params[:id])
     
     if @space.update_attributes(params[:space])
@@ -101,7 +102,7 @@ class SpacesController < ApplicationController
   
   
   def add_user
-    @space = Space.find(params[:id])
+    
   end
   
   
@@ -130,8 +131,5 @@ class SpacesController < ApplicationController
     return array
   end
   
-  def get_space
-    @space = Space.find(params[:id])
-    get_container
-  end
+  
 end

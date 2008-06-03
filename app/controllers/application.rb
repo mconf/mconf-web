@@ -97,4 +97,22 @@ class ApplicationController < ActionController::Base
     
     
   end
+  
+  def get_space
+    if params[:space_id]
+      params[:container_id] = params[:space_id]
+    end
+    @space = Space.find(params[:container_id])
+    get_container
+  end
+  
+  
+  def remember_tab_and_space
+    #save the current space, because this routes are /roles /roles/new and so on
+    if params[:container_id]
+      session[:current_space] = params[:container_id]
+    end
+    @space = Space.find(session[:current_space])
+  end
+  
 end

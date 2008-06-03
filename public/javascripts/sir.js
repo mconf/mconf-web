@@ -1,10 +1,5 @@
 function change_space(){
-	if (document.form.space_id.value == "0") {
-		miloc = "/";
-	}
-	else {
-		miloc = "/spaces/" + document.form.space_id.value;
-	}
+	miloc = "/spaces/" + document.form.space_id.value;
 	document.location.href = miloc;
 }
 

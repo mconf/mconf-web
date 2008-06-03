@@ -39,7 +39,6 @@ end
 end
 
 
-
 def javascript(file_name, space_id, role_id=nil)
   content_for(:head) {  "<script src=\"/js/src/rico.js\" type=\"text/javascript\"></script>" }
   if role_id!=nil
@@ -51,6 +50,8 @@ def javascript(file_name, space_id, role_id=nil)
     return
   end
 end
+
+
 def rounded(options={}, &content)
     options = {:class=>"box"}.merge(options)
     options[:class] = "box " << options[:class] if options[:class]!="box"
@@ -64,5 +65,16 @@ def rounded(options={}, &content)
     yield(content)
     concat('<br class="clear" /><div class="box_bottom"></div></div>', content.binding)
   end
+
+
+def nav_tab(name, options={})
+  #options[:class] is the class to assing to the li label
+  #the class for the link label is set directly to "secund" as you can see
+  classes = [options.delete(:class)]
+  if(session[:current_tab] && session[:current_tab]==name )
+    classes << 'current'
+  end
+  "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url), :class => "secund") + "</li>"
+end
 
 end

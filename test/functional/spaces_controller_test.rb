@@ -4,37 +4,39 @@ class SpacesControllerTest < ActionController::TestCase
   include CMS::AuthenticationTestHelper
 
   fixtures :users, :spaces, :cms_performances, :cms_roles
+  
+  
   def setup
     @controller = SpacesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
   end
-    
-  
-
-
 
 
 def test_show_spaces_admin
   login_as("user_admin")
-  get :index
+  get :index, :container_type=>'space', :container_id=>'1'
   assert_response :success
   assert_template "index"
 end
+
+
 def test_show_spaces_no_login
-  get :index
+  get :index, :container_type=>'space', :container_id=>'1'
   assert_redirected_to :controller => "sessions", :action => "new"
 end
 
+
 def test_show_spaces_no_admin
   login_as("user_normal")
-  get :index
+  get :index, :container_type=>'space', :container_id=>'1'
   assert_redirected_to :controller => "home", :action => "index"
-   
- end
+end
+ 
+ 
  def test_new_admin
    login_as("user_admin")
-    get :new
+    get :new, :container_type=>'space', :container_id=>'1'
     assert_template "new" 
     assert_response :success
    
@@ -43,36 +45,44 @@ def test_show_spaces_no_admin
  
  def test_new_space_admin
    login_as("user_space1_admin")
-    get :new
+    get :new, :container_type=>'space', :container_id=>'1'
     assert_redirected_to :controller => "home", :action => "index"
    
  end
  
+ 
  def test_new_no_admin
    login_as("user_normal")
-  get :new
+  get :new, :container_type=>'space', :container_id=>'1'
   assert_redirected_to :controller => "home", :action => "index"
 end
+
+
 def test_new_no_login
-   get :new
+   get :new, :container_type=>'space', :container_id=>'1'
   assert_redirected_to :controller => "sessions", :action => "new"
 end
+
+
  def test_edit_admin
     login_as("user_admin")
-    post :edit, :id=>1
+    post :edit, :container_type=>'space', :container_id=>'1', :id=>1
     assert_template "edit" 
     assert_response :success
   end
+  
+  
   def test_edit_space_admin
     login_as("user_space1_admin")
-    post :edit, :id=>1
+    post :edit,:container_type=>'space', :container_id=>'1', :id=>1
     assert_template "edit" 
     assert_response :success
-     end
+  end
+  
   
   def test_edit_no_admin
     login_as("user_normal")
-    post :edit, :id=>1
+    post :edit, :container_type=>'space', :container_id=>'1', :id=>1
     assert_response 403
   end
   def test_edit_no_login
@@ -80,9 +90,10 @@ end
     assert_redirected_to :controller => "sessions", :action => "new"
   end
 
+
   def test_create_admin
     login_as("user_admin")
-    post :create, :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+    post :create,:container_id=>'1', :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
     assert_redirected_to :controller=>'spaces', :action=>'index'
   end
@@ -90,70 +101,77 @@ end
   
   def test_create_space_admin
     login_as("user_space1_admin")
-   post :create,  :space=>{:name=>'spacio3', :description=>'Esto es una descripcion'}
+   post :create,:container_id=>'1',  :space=>{:name=>'spacio3', :description=>'Esto es una descripcion'}
     
    assert_response 302
  end
  
   def test_create_no_admin
     login_as("user_normal")
-    post :create,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+    post :create,:container_id=>'1',  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_response 302
  end
  
+ 
  def test_create_no_login
-   post :create,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+   post :create,:container_id=>'1',  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_redirected_to :controller => "sessions", :action => "new"
  end
  
+ 
  def test_update_wrong
   login_as("user_admin")
- post :update, :id => 1,:space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:hola=>'adf'
+ post :update, :id => 1,:container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:hola=>'adf'
    
  assert_response :success
    
  end
  
+ 
  def test_update_admin
   login_as("user_admin")
- post :update, :id => 1, :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:role=>{:name=>'administrator'}
+ post :update, :id => 1,:container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:role=>{:name=>'administrator'}
     
  assert_response :success
    
  end
  
+ 
  def test_update_space_admin
   login_as("user_space1_admin")
- post :update,:id=> 1,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+ post :update,:id=> 1, :container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
   assert_response :success
  end
  
+ 
  def test_update_no_admin
    login_as("user_normal")
-    post :update,:id=>1,  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+    post :update,:container_type=>'space', :container_id=>'1',:id=>1,:container_type=>'space', :container_id=>'1',  :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_response 403
  end
  
+ 
  def test_update_no_login
-   post :update,:id=>1, :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
+   post :update,:container_type=>'space', :container_id=>'1',:id=>1, :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
    assert_redirected_to :controller => "sessions", :action => "new"
  end
  
+ 
  def test_destroy_admin
    login_as("user_admin")
-   post :destroy,:id=>1
+   post :destroy,:container_type=>'space', :container_id=>'1',:id=>1
    assert flash[:notice].include?('successfully')
    assert_redirected_to spaces_url
  end
  
  def test_destroy_no_admin
    login_as("user_normal")
-  post :destroy,:id=>1
+  post :destroy,:container_type=>'space', :container_id=>'1',:id=>1
   assert_redirected_to :controller => "home", :action => "index"
 end
 

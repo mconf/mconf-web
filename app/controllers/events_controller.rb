@@ -15,17 +15,19 @@ class EventsController < ApplicationController
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
-  before_filter :get_space , :only => [:index, :show]
+  before_filter :get_space
   #TODO: Authorization
 
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
    
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show_timetable, :show, :copy_next_week, :remove_time]
+ 
   
   # GET /events
   # GET /events.xml
   def index
+    session[:current_tab] = "Events"
     @cloud = Tag.cloud(:limit=> 40)
     @datetime = Date.today
     next_events
@@ -33,7 +35,8 @@ class EventsController < ApplicationController
   
   
   #this method show the calendar with all the events
-    def show_calendar
+  def show_calendar
+    session[:current_tab] = "Events"
     if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
     elsif  session[:date_start_day]
@@ -65,16 +68,17 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-     @cloud = Tag.cloud
+    session[:current_tab] = "Events"
+    @cloud = Tag.cloud
     @datetime = Date.today
     @event = Event.find(params[:id])
-     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
-     respond_to do |format|
+    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+    respond_to do |format|
       format.html 
       format.xml  { render :xml => @events }
-      
     end
   end
+  
   #this method show the event information with an ajax call
   def show_ajax
     @cloud = Tag.cloud
@@ -83,8 +87,6 @@ class EventsController < ApplicationController
      @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
      respond_to do |format|
       format.js
-      
-      
     end
   end
   

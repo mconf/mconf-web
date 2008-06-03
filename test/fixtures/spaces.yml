@@ -1,22 +1,28 @@
 ---
-
-espacio_1:
-  name: Espacio 1
-  id: 1
-  description: Descripción esapcio 1
+public:
+  id: 0
+  name: Public
+  description: Public space
   parent_id: ""
   deleted: 
+  
+espacio_1:
+  id: 1
+  name: Espacio 1
+  description: Descripción esapcio 1
+  parent_id: 0
+  deleted: 0
   
 espacio_2:
-  name: Espacio segundo
   id: 2
+  name: Espacio segundo
   description: Descripción segundo espacio
-  parent_id: ""
-  deleted: 
+  parent_id: 0
+  deleted: 0
   
 espacio_3:
-  name: Tercer Espacio
   id: 3
+  name: Tercer Espacio
   description: Descripción tercer espacio
-  parent_id: ""
-  deleted: 
+  parent_id: 0
+  deleted: 0

@@ -62,7 +62,7 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_update_my_user
     login_as("user_normal")
-    post :update, :id=>25, :tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>25, :container_id => 1, :container_type => :spaces, :tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     assert_response :redirect  
     assert flash[:notice].include?("User was successfully updated.")
@@ -71,7 +71,7 @@ class UsersControllerTest < Test::Unit::TestCase
   
   def test_update_another_user_not_being_admin
     login_as("user_normal")
-    post :update, :id=>24,:tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>24, :container_id => 1, :container_type => :spaces ,:tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     
     assert  flash[:notice].include?("Action not allowed")
@@ -79,27 +79,27 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_should_edit_user
     login_as("user_normal")
-    get :edit, :id => users(:user_normal).id
+    get :edit, :container_id => 1, :container_type => :spaces, :id => users(:user_normal).id
     assert :success
   end
   
   def test_manage_users
     login_as("user_admin")
-    get :manage_users
+    get :manage_users, :container_id => 1, :container_type => :spaces
     assert :success
     assert_template 'manage_users'
   end
   
   def test_manage_users_no_admin
      login_as("user_normal")
-     get :manage_users
+     get :manage_users, :container_id => 1, :container_type => :spaces
      assert_redirected_to :controller=>'home', :action=>'index'
      assert  flash[:notice].include?("Action not allowed")
    end
    
    def test_manage_users_no_login
      
-     get :manage_users
+     get :manage_users, :container_id => 1, :container_type => :spaces
      assert_redirected_to :controller=>'sessions', :action=>'new'
 
 end
@@ -107,7 +107,7 @@ end
    
     def test_clean
       login_as("user_normal")
-      get :clean
+      get :clean, :container_id => 1, :container_type => :spaces
       assert_response :success
     end
 
@@ -117,7 +117,7 @@ end
  
   protected
     def create_user(options = {})
-      post :create, :tag=>{"add_tag"=>"bueno"}, :agent => { :login => 'quire', :email => 'quire@example.com',
+      post :create, :container_id => 1, :container_type => :spaces, :tag=>{"add_tag"=>"bueno"}, :agent => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
     end
 end

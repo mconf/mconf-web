@@ -4,7 +4,7 @@
 
 <%= error_messages_for :profile %>
 
-<% form_for :profile, :url => user_profile_path(@user.id),:html => {:method => :post} do |f| %>
+<% form_for :profile, :url => space_user_profile_path(@space.id, @user.id),:html => {:method => :post} do |f| %>
 <%= render :partial => 'form', :locals => { :f => f } %>
   <p>
     <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" />

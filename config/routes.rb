@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
-  # map.connect '', :controller => "welcome"
+  #map.connect '', :controller => "home", :action => "index2"
 
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
@@ -23,10 +23,12 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect ':controller/:action/:id.:format'
   #map.connect ':controller/:action/:id'
   map.show_ajax '/:container_type/:container_id/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax'
-   map.show_ajax '/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax'
+  map.show_ajax '/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax'
   
   map.show_calendar '/:container_type/:container_id/events/show_calendar', :controller => 'events', :action => 'show_calendar'
   map.show_calendar '/events/show_calendar', :controller => 'events', :action => 'show_calendar'
+  map.new_space   '/spaces/new', :controller =>'spaces', :action=>'new'
+  map.show_space '/spaces/:container_id',:controller => "spaces", :action => "show"
   # #######################################################################
   # CMSplugin
   #  
@@ -40,8 +42,6 @@ ActionController::Routing::Routes.draw do |map|
       map.resources content, :path_prefix => '/:container_type/:container_id',
                              :name_prefix => 'container_'
   end
-  #
-  # #######################################################################
   
   
   map.resources :users
@@ -54,17 +54,25 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :machines  
   
   map.resources :events, :member =>'export_ical'
-  map.resources :users do |users|
-      users.resource :profile
-      
- end
+  #map.resources :users do |users|
+  #    users.resource :profile
+  #end
+  map.resources :spaces do |space|
+    space.resources :users do |user|
+      user.resource :profile
+    end
+  end
+
   map.resources :roles
   map.resources :spaces
   map.connect ':controller/:action.:format/:container_id'
   map.connect ':controller/:action.:format/:container_id/:role_id'
   
   #SPACES CONTROLLER
-  map.add_user '/spaces/:id/add_user', :controller => "spaces", :action => "add_user"
+  map.show_space '/spaces/:container_id',:controller => "spaces", :action => "show"
+  map.add_user '/spaces/:container_id/add_user', :controller => "spaces", :action => "add_user"
+  map.add_user '/spaces/:container_id/edit', :controller => "spaces", :action => "edit"
+  
   #explicit routes ORDERED BY CONTROLLER
   
   #EVENTS CONTROLLER
@@ -78,20 +86,22 @@ ActionController::Routing::Routes.draw do |map|
   map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
   
   #map.show '/:container_type/:container_id/events',:controller => 'events', :action => 'index'
-  map.search '/search', :controller => 'events', :action => 'search'
-  map.search_by_tag '/tags/:tag', :controller => 'events', :action => 'search_by_tag'
-   map.search_events '/search_events', :controller => 'events', :action => 'search_events'
-  map.advanced_search_events '/advanced_search_events', :controller => 'events', :action => 'advanced_search_events'
-  map.search_by_title '/search_by_title', :controller => 'events', :action => 'search_by_title'
- map.search_in_description '/search_description', :controller => 'events', :action => 'search_in_description'
- map.search_by_date '/search_by_date', :controller => 'events', :action => 'search_by_date'
+  map.search '/:container_type/:container_id/search', :controller => 'events', :action => 'search'
+  map.search_by_tag '/:container_type/:container_id/tags/:tag', :controller => 'events', :action => 'search_by_tag'
+  map.search_events '/:container_type/:container_id/search_events', :controller => 'events', :action => 'search_events'
+  map.advanced_search_events '/:container_type/:container_id/advanced_search_events', :controller => 'events', :action => 'advanced_search_events'
+  map.search_by_title '/:container_type/:container_id/search_by_title', :controller => 'events', :action => 'search_by_title'
+ map.search_in_description '/:container_type/:container_id/search_description', :controller => 'events', :action => 'search_in_description'
+ map.search_by_date '/:container_type/:container_id/search_by_date', :controller => 'events', :action => 'search_by_date'
 
- map.advanced_search '/advanced_search', :controller => 'events', :action => 'advanced_search'
- map.title '/title_search', :controller => 'events', :action => 'title'
- map.description '/description_search', :controller => 'events', :action => 'description'
- map.clean '/clean', :controller => 'events', :action => 'clean'
-  map.dates '/search_by_dates', :controller => 'events', :action => 'dates'
+ map.advanced_search '/:container_type/:container_id/advanced_search', :controller => 'events', :action => 'advanced_search'
+ map.title '/:container_type/:container_id/title_search', :controller => 'events', :action => 'title'
+ map.description '/:container_type/:container_id/description_search', :controller => 'events', :action => 'description'
+ map.clean '/:container_type/:container_id/clean', :controller => 'events', :action => 'clean'
+  map.dates '/:container_type/:container_id/search_by_dates', :controller => 'events', :action => 'dates'
    #PROFILES CONTROLLER
+  map.profile '/:container_type/:container_id/users/:user_id/profile', :controller => 'profiles' , :action => 'show'   
+  map.new_profile '/:container_type/:container_id/users/:user_id/profile/new', :controller => 'profiles' , :action => 'new'   
   map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'   
   map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'   
   #USERS CONTROLLER
@@ -104,7 +114,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
-  map.manage_users '/manage_users', :controller => 'users', :action => 'manage_users'
+  map.manage_users '/:container_type/:container_id/manage_users', :controller => 'users', :action => 'manage_users'
   map.search_users2 'search_user', :controller => 'users', :action => 'search_users2'
   map.clean2 '/clean2_search', :controller => 'users', :action => 'clean2'
    #SESSIONS CONTROLLER 

@@ -80,10 +80,10 @@ class Space < ActiveRecord::Base
   
   def self.compone_array_spaces(user)
     array_spaces = []    
-    array_spaces << ["Public (All)",0]
     if user.superuser==true
       array_spaces += Space.find(:all).collect {|r| [ r.name, r.id ]}
     else
+      array_spaces << Space.find_all_by_id(0).flatten.collect {|r| [ r.name, r.id ]}.flatten
       array_spaces += user.containers.collect {|r| [ r.name, r.id ]}
     end
     return array_spaces
