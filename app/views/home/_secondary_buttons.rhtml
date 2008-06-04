@@ -8,6 +8,8 @@
 			<%= link_to "New Event", :controller=>'events', :action=>'new', :container_id => @space.id %> |	
 			<%= link_to "Show Calendar", :controller=>'events', :action=>'show_calendar', :container_id => @space.id %>	
 		<%elsif session[:current_tab]=="Groups"%>
+			<%if @space.manage_groups_by?(current_user)%>
 			<%= link_to 'Create Group', create_group_path(:space,@container.id)%>
+			<%end%>
 		<%end%>
 </div>
