@@ -110,6 +110,9 @@ class SpacesController < ApplicationController
     
   end
   
+  def register_user
+    
+  end
   
   
   

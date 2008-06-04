@@ -1,330 +1,37 @@
-<title>Add User to the Space</title>
+<title>Add Users to the Space</title>
 
-<script src="/js/src/rico.js" type="text/javascript"></script>
-<%= stylesheet_link_tag 'draganddrop' %>
+<h1>Include registered users</h1>
 
-<script>
-Rico.loadModule('DragAndDrop');
-
-var CustomDraggable;
-Rico.onLoad( function() {
-  Rico.setDebugArea('logger');
-  CustomDraggable = Class.create();
-  CustomDropZone = Class.create();
-  WasteBinDropZone = Class.create();
-  //checkQueryString();
-  CustomDraggable.prototype = Object.extend(new Rico.Draggable(), CustomDraggableMethods);
-  CustomDropZone.prototype = Object.extend(new Rico.Dropzone(), CustomDropZoneMethods);
-  WasteBinDropZone.prototype = Object.extend(new Rico.Dropzone(), WasteBinDropZoneMethods);
-  writeAllUsersNameSpans();
-  //writeSpaceUsersNameSpans();
-  createDraggables();
-  <%for role in CMS::Role.find_all_by_type(nil)%>
-	dndMgr.registerDropZone( new CustomDropZone($('<%=role.name%>')));
-  <%end%>  
-  dndMgr.registerDropZone( new WasteBinDropZone($('papelera')));
-});
-
-
-/*
- //creo que este metodo es para los checkbox que he quitado
-function checkQueryString() {
-  var inputs=document.getElementsByTagName('input');
-  var s=window.location.search;
-  for (var i=0; i<inputs.length; i++) {
-    if (s.indexOf(inputs[i].id+'=') >= 0) {
-      CustomDraggable[inputs[i].id]=true;
-      inputs[i].checked=true;
-    }
-    inputs[i].onclick=function() { document.forms[0].submit(); };
-  }
-}
-*/
-
-var allUsers = [<%=User.print_array_of_all_users%>];
-
-//comienzo a numerar por 1, las ids de los divs van de d1 a dn
-//los d0 son los divs nuevos que se añaden
-function writeAllUsersNameSpans() {
-  var s='';
-  for ( var i = 0 ; i < allUsers.length ; i++ )
-    s+="<div id='d" + i + "'>" + allUsers[i] + "</div>";
-  $('nameList').innerHTML=s;
-}
-
-
-function createDraggables() {
-   for ( var i = 0 ; i < allUsers.length ; i++ )
-      dndMgr.registerDraggable( new CustomDraggable($('d'+i), allUsers[i]) );
-   <%for role in CMS::Role.find_all_by_type(nil)%>
-     var spaceUsers = <%=Space.to_js_array(@space.agents_with_role(role.id))%>
-   	 for ( var i = 0 ; i < spaceUsers.length ; i++ )
-        dndMgr.registerDraggable( new CustomDraggable($("user_<%=role.name%>"+i), spaceUsers[i]) );
-   <%end%>
-}
-
-function fillAllUsers() {
-	writeAllUsersNameSpans();
-	createDraggables();
-}
-
-function doSearchResultsDraggable() {
-    htmlelem = document.getElementById('nameList');
-	all_childs = htmlelem.childNodes;
-	for(var ind=0; ind< all_childs.length;ind++)
-	{    
-			child =	all_childs.item(ind);
-	        if(child.innerHTML=="undefined")
-			{
-				continue;
-			}			
-			dndMgr.registerDraggable( new CustomDraggable(child, child.innerHTML) );
-	}
-}
-
-//function to get the data and send it to the server
-function sendData() {
-	<%for role in CMS::Role.find_all_by_type(nil)%>
-	 document.user_space_form.<%=role.name%>.value = document.getElementById('<%=role.name%>').innerHTML;     
-   <%end%>
-	document.user_space_form.submit();
-}
-
-
-//Method to know if an element is already in a select box
-//may be the user is in the select box but is is hidden
-function IsAlreadyIn(htmlElementDestiny, nameOrigin) {
-	if(htmlElementDestiny.innerHTML.indexOf(nameOrigin)>=0)
-	{
-		//contains the name, we see if the div has the style to none
-		all_childs = htmlElementDestiny.getElementsByTagName("div");
-		for(var a=0; a< all_childs.length;a++)
-		{    
-			child =	all_childs.item(a);
-			if (child.innerHTML.indexOf(nameOrigin) >= 0 && child.style.display == "none") {
-				return false; //it is here and it is hidden
-			}
-			else if (child.innerHTML.indexOf(nameOrigin) >= 0) {
-				//this check is because the nameOrigin can be in another part, like the id="administrator" 
-				//that contains the word "admin" but it is not the admin user
-				return true;
-			}
-		}				
-	}	
-	return false;	
-}
-
-
-//method to know if a child if with the display to none
-function isHidden(htmlElement, elemToTest){
-	name = elemToTest.innerHTML;
-	//it can only be hidden if it is in the code
-	if(htmlElement.innerHTML.indexOf(name)>=0)
-	{
-		//contains the name, we see if the div has the style to none
-		all_childs = htmlElement.getElementsByTagName("div");
-		for(var i=0; i< all_childs.length;i++)
-		{
-			child =	all_childs.item(i);
-			if (child.innerHTML.indexOf(name) >= 0 && child.style.display == "none") {
-				return child; //it is here and it is hidden
-			}
-		}		
-	}	
-	return null;	
-
-}
-
-
-/**
- *  Sample 'CustomDraggable' object which extends the Rico.Draggable to
- *  override the behaviors associated with a draggable object...
- **/
-var CustomDraggableMethods = {
-
-   initialize: function( htmlElement, name ) {
-      this.type        = 'Custom';
-      this.htmlElement = $(htmlElement);
-      this.name        = name;
-   },
-
-   select: function() {
-      this.selected = true;
-      var el = this.htmlElement;
-
-      // show the item selected.....
-      el.style.color           = "#ffffff";
-      el.style.backgroundColor = "#08246b";
-   },
-
-   deselect: function() {
-      this.selected = false;
-      var el = this.htmlElement;
-      el.style.color           = "#2b2b2b";
-      el.style.backgroundColor = "transparent";
-   },
-
-   startDrag: function() {
-      Rico.writeDebugMsg("startDrag: [" + this.name +"]");
-   },
-
-   cancelDrag: function() {
-      Rico.writeDebugMsg("cancelDrag: [" + this.name +"]");
-   },
-
-   endDrag: function() {
-      Rico.writeDebugMsg("endDrag: [" + this.name +"]");
-	  dndMgr.registerDraggable( new CustomDraggable($("d0"), this.name) );
-	  //if ( removeOnDrop() )
-      //   this.htmlElement.style.display = 'none';
-   },
-
-   getSingleObjectDragGUI: function() {
-      var div = document.createElement("div");
-      div.className = 'customDraggable';
-      div.style.width = (this.htmlElement.offsetWidth - 10) + "px";
-      new Insertion.Top( div, this.name );
-      return div;
-   },
-
-   getDroppedGUI: function() {
-      var div = document.createElement("div");
-	  div.id="d0";   	  
-      var n=this.name
-      var names = n.split(",");
-      new Insertion.Top( div, n );
-      return div;
-   },
-
-   getName: function() {
-   	  return this.name
-   },
-      
-   hide: function() {
-   	//only remove the user if it is not the list of all names
-	if(this.htmlElement.parentNode.id != "nameList")
-	{
-		this.htmlElement.style.display = 'none';
-	}
-   },
-   
-   toString: function() {
-      return this.name;
-   }
-
-}
-
-
-var CustomDropZoneMethods = {
-   
-	canAccept: function(draggableObjects) {
-       n = draggableObjects.length;	   
-      for ( var i = 0 ; i < n ; i++ )
-      {
-	     
-         var theGUIName = draggableObjects[i].getName();
-         if(IsAlreadyIn(this.htmlElement, theGUIName))
-		 {
-		 	return false;
-		 }
-      }
-	  return true;
-   }, 
-   
-   accept: function(draggableObjects) {
-      var htmlElement = this.getHTMLElement();
-      if ( htmlElement == null )
-         return;
-
-      n = draggableObjects.length;
-      for ( var i = 0 ; i < n ; i++ )
-      {
-         var theGUI = draggableObjects[i].getDroppedGUI();
-         if ( RicoUtil.getElementsComputedStyle( theGUI, "position" ) == "absolute" )
-         {
-            theGUI.style.position = "static";
-            theGUI.style.top = "";
-            theGUI.style.top = "";
-         }
-         oculto = isHidden(htmlElement, theGUI);
-		 if (oculto == null) {
-		 	//it is not hidden, we append it
-			htmlElement.appendChild(theGUI);
-		 }
-		 else {
-		 	//it is hidden, we replace it for the new one
-			htmlElement.replaceChild(theGUI,oculto);
-		 }
-		 
-      }
-   }   
-}
-
-var WasteBinDropZoneMethods = {
-   accept: function(draggableObjects) {
-      var htmlElement = this.getHTMLElement();
-      if ( htmlElement == null )
-         return;
-
-      n = draggableObjects.length;
-      for ( var i = 0 ; i < n ; i++ )
-      {
-         var theGUI = draggableObjects[i].getDroppedGUI();
-         if ( RicoUtil.getElementsComputedStyle( theGUI, "position" ) == "absolute" )
-         {
-            theGUI.style.position = "static";
-            theGUI.style.top = "";
-            theGUI.style.top = "";
-         }
-         htmlElement.appendChild(theGUI);
-		 draggableObjects[i].hide();
-      }
-   } 
-}
-
-</script>
-<%logger.debug("hola1")%>
-<h1>Add Users to the Space</h1>
-
-<div id="exampleContainer" style="width:540px;background-color:#ffffff;padding-bottom:8px;">
-
-<div id="dragBox"">
-   <span class="catHeader">Users</span>
-   <div class="listBox" id="nameList"></div>
+<br/>
+<div id="select_users">
+<%= select 'users',
+           'user_id',
+           User.find(:all).collect { |u| [ u.login, u.id ] },
+           {},
+           { :multiple => true,
+             :size     => 10 } %>
 </div>
-<div id="users_search">
-	<%= render :partial=> '/users/search2' %>
+
+<div id="buttons_register">
+	<%= link_to "Register as Admin",{ :controller=>'spaces', :action=>'register_user', :container_id => @space.id, :role => "Admin"}, {:class => "secund"} %><br/>
+	<%= link_to "Register as User", :controller=>'spaces', :action=>'register_user', :container_id => @space.id, :role => "User", :class => "secund" %><br/>
+	<%= link_to "Register as Invited", :controller=>'spaces', :action=>'register_user', :container_id => @space.id, :role => "Invited", :class => "secund" %>
+</div>
+
+<div id="search_users">			 
+<h4> Search</h4> </span>
+<br>	
+ <span> <% form_tag({:controller=> 'users',:action => :search_users2}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2}%>
+      <input type="button" name="Reset" value="Reset" style="width: 100px;" onClick="fillAllUsers()">
+  </span>
+  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization'}}%>
+
+<% end %>
 </div>
 <div id="adv_search">
-	</div>
-<%logger.debug("hola2")%>
-<div id="WasteBox">
-	<span class="catHeader">Bin</span>
-   <div class="wasteBin" id="wasteBin">
-   <%= image_tag "/images/papelera.png", :id => "papelera", :alt => "bin", :class => "bin"  %>
-   </div>
-</div>
-<% form_for @space, :url => space_path(@space.id), :html => {:method => :put, :name=>"user_space_form"} do |f| -%>
-<%for role in CMS::Role.find_all_by_type(nil)%>
-	<div id="<%=role.name+1.to_s%>">
-	   <span class="catHeader"><%=role.name%></span>
-	   <div class="listBox" id="<%=role.name%>">
-	   <%i=0%>
-	   <%for user in @space.agents_with_role(role.id)%>
-	   		<div id="user_<%=role.name+i.to_s%>"><%=user.login%></div>
-			<%i=i+1%>
-	   <%end%>
-	   </div>
-	</div>
-	<input type="hidden" name="<%=role.name%>" value="" />
-<%end%>
-<%logger.debug("hola3")%>
-<div id="Botonera">
-    <input type="button" name="Confirm" value="Confirm" style="width: 100px;" onClick=sendData()>
-    <input type="button" name="Back" value="Back" style="width: 100px;" onClick=document.location="/spaces">
+	
 </div>
 
-
-
-</div>
-<% end %>
+	

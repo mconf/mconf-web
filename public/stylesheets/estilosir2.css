@@ -271,6 +271,12 @@ div#bd {
 	min-height: 600px;
 }
 
+
+/* El select de add_users*/
+#users_user_id {
+	width: 150px;
+}
+
 /* FOOT */
 div#ft {
 	background:#ffffff no-repeat bottom left;

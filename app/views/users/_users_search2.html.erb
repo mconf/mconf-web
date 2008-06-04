@@ -3,8 +3,10 @@
 <% if @users.total_hits== 0 %>
 	No Users Found
 <% else%>
-	<% i = 0%>	
-	<%for user in @users%>
-	    <div id='d<%=i%>'><%= user.login %><%i=i+1%></div>
-    <%end%>	
+	<%= select 'users',
+           'user_id',
+           @users.collect { |u| [ u.login, u.id ] },
+           {},
+           { :multiple => true,
+             :size     => 10 } %>
 <%end%>
