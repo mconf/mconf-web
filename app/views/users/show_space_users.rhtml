@@ -1,0 +1,17 @@
+
+
+<div id="yui-main">
+<div class="yui-b main_column">
+<% rounded(:class => "tips") do %>
+<%if @users.length== 0%>
+<%= "No users in this space"%>
+<%else%>
+<%for user in @users do%>
+<%=link_to user.login, space_user_profile_path(@space.id,user.id)%><br>
+
+<%end%>
+<%end%>
+<%end%>
+</div>
+</div>
+	<%= render :partial =>'shared/sidebar'%>

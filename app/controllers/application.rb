@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_space
+  
     if params[:space_id]
       params[:container_id] = params[:space_id]
     end

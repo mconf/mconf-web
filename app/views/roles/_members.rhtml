@@ -1,7 +1,9 @@
-<h4>Miembros del grupo <%= @role.name%></h4>
+<% rounded(:class => "tips") do %>
+<h4>Memebers <%= @role.name%></h4><br>
 
 <%for user in @users%>
 <ul>
-<li><%= user.login%> con email <%= user.email%><br></li>
+<li><%= user.login%>, email <%= user.email%><br></li>
 </ul>
+<%end%>
 <%end%>

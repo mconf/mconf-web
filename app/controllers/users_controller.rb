@@ -19,19 +19,25 @@ class UsersController < ApplicationController
 
   before_filter :get_space
 
-  before_filter :authentication_required, :only => [:edit,:update, :manage_users, :destroy]
+  before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
   before_filter :edit_user,  :only=> [:edit,:update,:destroy]
   
 
 def index
-    @users = @container.agents
+ 
 end
 def show
-  session[:current_tab] = "People" 
+ 
     @user = User.find(params[:id])
-end
+  end
+  def show_space_users
+    @cloud = Tag.cloud
+  session[:current_tab] = "People" 
+    @users = @container.actors
+  end
+  
   def create
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
@@ -57,7 +63,7 @@ end
   end
   
   
-  #This method returns the user to show the form to edit him
+  #This method  debuggerreturns the user to show the form to edit him
   def edit
     @user = User.find(params[:id])
     
@@ -89,13 +95,14 @@ end
           end            
         end
       end
+     
       @user.save
       tag = params[:tag][:add_tag]    
       @user.tag_with(tag)
       flash[:notice] = 'User was successfully updated.'        
       
         #the superuser will be redirected to list_users
-        redirect_back_or_default '/'
+       redirect_to(space_user_profile_path(@space.id, @user.id))    
       
     else
       render :action => 'edit'

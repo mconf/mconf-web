@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   
-  map.resources :users
+  
   map.open_id_complete 'session', { :open_id_complete => true,
                                     :conditions => { :method => :get },
                                     :controller => "sessions",
@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resource :profile
     end
   end
-
+map.resources :users
   map.resources :roles
   map.connect ':controller/:action.:format/:container_id'
   map.connect ':controller/:action.:format/:container_id/:role_id'
@@ -102,6 +102,7 @@ ActionController::Routing::Routes.draw do |map|
   map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'   
   map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'   
   #USERS CONTROLLER
+  map.show_space_users '/:container_type/:container_id/space_users', :controller => 'users' , :action => 'show_space_users'   
   map.clean_show '/clean_event', :controller => 'events', :action => 'clean_show'
   map.clean '/clean_search', :controller => 'users', :action => 'clean'
  map.organization '/search_in_organization', :controller => 'users', :action => 'organization'
