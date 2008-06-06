@@ -107,14 +107,39 @@ class SpacesController < ApplicationController
   
   
   def add_user
-    
+    if params[:users] && params[:user_role]
+      if CMS::Role.find_by_name(params[:user_role])
+        for user_id in params[:users][:id]
+             #let`s check if the performance already exist
+             perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+             if perfor==nil
+                 #if it does not exist we create it
+                 @space.container_performances.create :agent => User.find(user_id), :role => CMS::Role.find_by_name(params[:user_role])
+             end
+         end
+     end
+     
+    end
   end
-  
-  def register_user
     
+  def remove_user
+    if params[:users] && params[:user_role]
+      if CMS::Role.find_by_name(params[:user_role])
+        for user_id in params[:users][:id]
+             #let`s check if the performance exist
+             perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+             if perfor
+                 #if it exists we remove it
+                 @space.container_performances.delete perfor
+             end
+         end
+      end     
+    end
+    respond_to do |format|
+      format.html { redirect_to :action=>"add_user" }
+      format.xml  { head :ok }
+    end
   end
-  
-  
   
   private
   #method to parse the request for update from the server that contains

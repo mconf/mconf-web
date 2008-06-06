@@ -70,6 +70,7 @@ map.resources :users
   #SPACES CONTROLLER
   map.add_user '/spaces/:space_id/add_user', :controller => "spaces", :action => "add_user"
   map.register_user '/spaces/:space_id/register_user', :controller => "spaces", :action => "register_user"
+  map.remove_user '/spaces/:space_id/remove_user', :controller => "spaces", :action => "remove_user"
   
   #explicit routes ORDERED BY CONTROLLER
   
@@ -115,6 +116,7 @@ map.resources :users
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.manage_users '/:container_type/:container_id/manage_users', :controller => 'users', :action => 'manage_users'
   map.search_users2 'search_user', :controller => 'users', :action => 'search_users2'
+  map.reset_search 'reset_search', :controller => 'users', :action => 'reset_search'
   map.clean2 '/clean2_search', :controller => 'users', :action => 'clean2'
    #SESSIONS CONTROLLER 
   map.login  '/login', :controller => 'sessions', :action => 'new'

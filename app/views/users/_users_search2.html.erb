@@ -4,7 +4,7 @@
 	No Users Found
 <% else%>
 	<%= select 'users',
-           'user_id',
+           'id',
            @users.collect { |u| [ u.login, u.id ] },
            {},
            { :multiple => true,

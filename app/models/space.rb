@@ -6,6 +6,15 @@ class Space < ActiveRecord::Base
   def users
     actors
   end
+ 
+  def get_users_with_role(role)
+    array_users = []
+    array_performances = CMS::Performance.find_all_by_container_id(self, :conditions=>["role_id = ?", CMS::Role.find_by_name(role)])
+    for perfor in array_performances
+      array_users << User.find(perfor.agent_id)
+    end
+    return array_users
+  end
   
   
   def manage_groups_by?(user)

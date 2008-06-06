@@ -272,9 +272,69 @@ div#bd {
 }
 
 
-/* El select de add_users*/
-#users_user_id {
+/*add_users*/
+#add_usuarios {
+	display:block;
+	width:950px;
+	height:250px;
+	
+}
+
+#users_id {
+	position: absolute;
 	width: 150px;
+	margin-left:0px;
+	margin-top:10px;
+}
+
+#buttons_register {
+	position: absolute;
+	margin-left:200px;
+	margin-top:-180px;
+	width: 200px;
+	
+}
+
+
+#buttons_remove {
+	position: absolute;
+	margin-left:0px;
+	margin-top:210px;
+	width: 200px;
+	
+}
+
+.select_users {
+	width: 150px;
+	height:200px;
+}
+
+#search_in_add_users {
+	position: absolute;
+	margin-left:200px;
+	margin-top:-110px;
+	width: 300px;
+}
+
+#admin_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:0px;
+}
+
+#users_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:200px;
+}
+
+#invited_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:400px;
 }
 
 /* FOOT */

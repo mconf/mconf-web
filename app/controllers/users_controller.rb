@@ -151,6 +151,14 @@ def show
       #format.html 
     end
   end
+  
+  def reset_search
+    @user = User.find(:all)
+    respond_to do |format|        
+      format.js {"search_users2.rjs"}
+    end
+  end
+  
   def clean
     render :update do |page|
       page.replace_html 'adv_search', ""
