@@ -17,7 +17,7 @@ class EventsController < ApplicationController
   before_filter :needs_container, :only => [ :new, :create ]
   before_filter :get_space
   #TODO: Authorization
-
+ before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
    
@@ -117,6 +117,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
+    debugger
       @cloud = Tag.cloud
     @event = Event.new(params[:event])  
     indice = 0;

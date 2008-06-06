@@ -28,7 +28,7 @@
 		 
 		<% @events.each do |event| %>  
 		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => show_ajax_path(event.id) }   %>
+			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => show_ajax_path(event.id,:space_id=>@space.id) }   %>
 		</td>
 		<td>
 			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>

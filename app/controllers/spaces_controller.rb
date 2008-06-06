@@ -7,6 +7,7 @@ class SpacesController < ApplicationController
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
   before_filter :remember_tab_and_space
+  before_filter :space_member, :only=>[:show]
   
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )
@@ -19,12 +20,12 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show
-
-   @cloud = Tag.cloud
-   next_events
-
+    
+    @cloud = Tag.cloud
+    next_events
+    
     session[:current_tab] = "Home"    
-
+    
   end
   
   # GET /spaces/new
@@ -110,29 +111,29 @@ class SpacesController < ApplicationController
     if params[:users] && params[:user_role]
       if CMS::Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
-             #let`s check if the performance already exist
-             perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
-             if perfor==nil
-                 #if it does not exist we create it
-                 @space.container_performances.create :agent => User.find(user_id), :role => CMS::Role.find_by_name(params[:user_role])
-             end
-         end
-     end
-     
+          #let`s check if the performance already exist
+          perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+          if perfor==nil
+            #if it does not exist we create it
+            @space.container_performances.create :agent => User.find(user_id), :role => CMS::Role.find_by_name(params[:user_role])
+          end
+        end
+      end
+      
     end
   end
-    
+  
   def remove_user
     if params[:users] && params[:user_role]
       if CMS::Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
-             #let`s check if the performance exist
-             perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
-             if perfor
-                 #if it exists we remove it
-                 @space.container_performances.delete perfor
-             end
-         end
+          #let`s check if the performance exist
+          perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+          if perfor
+            #if it exists we remove it
+            @space.container_performances.delete perfor
+          end
+        end
       end     
     end
     respond_to do |format|

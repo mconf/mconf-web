@@ -13,7 +13,7 @@ No events Found <br><br>
 	<% @events.each do |event| %>
   <div class="vevent">
 <div class="summary">
-    <li>Title: <%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id)  } %></div>&nbsp;&nbsp; 
+    <li>Title: <%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id,:space_id=>@space.id)  } %></div>&nbsp;&nbsp; 
       <%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable

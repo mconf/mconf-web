@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO CREATE A NEW EVENT WITHOUT RESOURCES ASSIGNED")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "You have no resources assigned so you can't create new events or edit existing ones."          
-      redirect_to(:controller => "spaces", :action => "index")      
+      redirect_to root_path      
       end
     end
     
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
       flash[:notice] = "Action not allowed."     
-      redirect_to "/"     
+      redirect_to root_path   
     end 
   end
   
@@ -62,10 +62,9 @@ class ApplicationController < ActionController::Base
     
     unless  @user.id == current_user.id
       user = current_user
-      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
-      logger.error("USER WAS: " + user.login)
+      
       flash[:notice] = "Action not allowed."     
-      redirect_to "/"
+      redirect_to root_path
     end
   end
   def user_is_admin
@@ -73,7 +72,7 @@ class ApplicationController < ActionController::Base
       logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")
       logger.error("USER WAS: " + current_user.login)
       flash[:notice] = "Action not allowed."     
-      redirect_to "/"
+      redirect_to root_path
     end
   end
   #Method that create a Paginator for the events searches
@@ -119,5 +118,19 @@ class ApplicationController < ActionController::Base
     end
     @space = Space.find(session[:current_space])
   end
-  
+   def space_member
+     
+     @space = Space.find(params[:container_id])
+     if @space.id == 1 || current_user.superuser
+       
+     return true
+       else
+     
+     unless @space.actors.include?(current_user)
+        flash[:notice] = "Action not allowed."     
+         redirect_to root_path
+      
+    end
+   end
+   end
 end

@@ -22,8 +22,8 @@ class UsersController < ApplicationController
   before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
-  before_filter :edit_user,  :only=> [:edit,:update,:destroy]
-  
+  before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
+  before_filter :space_member, :only=>[:show,:show_space_users]
 
 def index
  
@@ -153,9 +153,11 @@ def show
   end
   
   def reset_search
-    @user = User.find(:all)
+    q1 =  '*' 
+    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+    
     respond_to do |format|        
-      format.js {"search_users2.rjs"}
+      format.js {render :template =>"users/search_users2.rjs"}
     end
   end
   
@@ -193,7 +195,7 @@ def show
       return true
     else
       flash[:notice] = "Action not allowed."          
-      redirect_to(:controller => "events", :action => "show")    
+      redirect_to root_path   
       end
   end
   
