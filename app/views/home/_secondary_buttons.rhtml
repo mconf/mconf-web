@@ -18,6 +18,6 @@
 			<%= link_to 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |
 			<%= link_to 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
 		<%elsif session[:current_tab]=="People"%>
-			<%= link_to "Manage Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %>
+			<%= link_to "Add Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %>
 		<%end%>
 </div>
