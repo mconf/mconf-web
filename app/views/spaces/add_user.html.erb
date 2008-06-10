@@ -44,7 +44,10 @@
 			</div>
 			
 		</div>
+<%end%>
 
+
+<% rounded(:class => "tips") do %>
 <div id="space_users">
 
 	<div id="admin_users">
@@ -108,6 +111,8 @@
 </div>
 </div>
 
+
+
 <div class="yui-b sidebar">
 		<% rounded(:class => "tips") do %>
 			 
@@ -120,12 +125,8 @@
 				  </span>
 				  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization', :container_type =>:space, :container_id=>@space.id}}%>
 				  <br>
-				<% end %>
-			
-			
-	
-
-<%end%>
+				<% end %>			
+		<%end%>
 <div id="adv_search">		
-			</div>
+</div>
 </div>

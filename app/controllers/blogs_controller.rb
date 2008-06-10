@@ -18,7 +18,7 @@ class BlogsController < ApplicationController
   before_filter :get_content, :except => [ :index, :new, :create ]
  
  def show
-  
+  debugger
  end
   def create
     

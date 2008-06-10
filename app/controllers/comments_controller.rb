@@ -15,6 +15,8 @@ class CommentsController < ApplicationController
       
   # Get Comment in member actions
   before_filter :get_content, :except => [ :index, :new, :create ]
+  before_filter :get_space
+  
   def create
     
      # Fill params when POSTing raw data

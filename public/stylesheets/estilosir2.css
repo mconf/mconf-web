@@ -268,14 +268,14 @@ div#bd {
 	background:#ffffff no-repeat bottom left;
 	display:block;
 	margin-top:10px;
-	min-height: 600px;
+	min-height: 800px;
 }
 
 
 /*add_users*/
 #add_usuarios {
 	display:block;
-	width:950px;
+	width:650px;
 	height:250px;
 	
 }
@@ -283,7 +283,7 @@ div#bd {
 #users_id {
 	position: absolute;
 	width: 150px;
-	margin-left:0px;
+	margin-left:-30px;
 	margin-top:10px;
 }
 
@@ -316,25 +316,31 @@ div#bd {
 	width: 300px;
 }
 
+#space_users {
+	width: 650px;
+	height: 240px;
+	margin-top:10px;
+}
+
 #admin_users {
 	position: absolute;
 	width: 200px;
 	margin-top:0px;
-	margin-left:0px;
+	margin-left:-30px;
 }
 
 #users_users {
 	position: absolute;
 	width: 200px;
 	margin-top:0px;
-	margin-left:200px;
+	margin-left:170px;
 }
 
 #invited_users {
 	position: absolute;
 	width: 200px;
 	margin-top:0px;
-	margin-left:400px;
+	margin-left:370px;
 }
 
 /* FOOT */

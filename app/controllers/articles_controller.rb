@@ -28,6 +28,7 @@ class ArticlesController < ApplicationController
   # before_filter :needs_container,     :only   => [ :new, :create ]
    before_filter :get_container
    before_filter :get_content, :except => [:new, :create, :index]
+  before_filter :get_space
 
 def create
     
