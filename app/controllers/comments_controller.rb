@@ -8,14 +8,14 @@ class CommentsController < ApplicationController
   # Comments list may belong to a container
   # /comments
   # /:container_type/:container_id/comments
-  before_filter :get_container, :only => [ :index ]
-
+  
+before_filter :get_space
   # Needs a Container when posting a new Comment
   before_filter :needs_container, :only => [ :new, :create ]
       
   # Get Comment in member actions
   before_filter :get_content, :except => [ :index, :new, :create ]
-  before_filter :get_space
+
   
   def create
     

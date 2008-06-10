@@ -8,7 +8,7 @@
 		 	<%= nav_tab "Home", { :url => space_path(@space.id)} %>
 		 	<%= nav_tab "MyProfile", { :url => space_user_profile_path(@space.id, current_user.id)} %>
 		    <%= nav_tab "Events", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
-		 	<%= nav_tab "Posts", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
+		 	<%= nav_tab "Posts", { :url => space_blogs_articles_path(@space.id)} %>
 		 	<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => show_space_users_path(:container_id => @space.id, :container_type => :spaces)} %>
 		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:container_id => @space.id, :container_type => :spaces)} %>

@@ -26,10 +26,12 @@ class ArticlesController < ApplicationController
   #skip_before_filter :can_write_container
   
   # before_filter :needs_container,     :only   => [ :new, :create ]
-   before_filter :get_container
-   before_filter :get_content, :except => [:new, :create, :index]
   before_filter :get_space
+   before_filter :get_content, :except => [:new, :create, :index]
 
+def index
+  
+end
 def create
     
      # Fill params when POSTing raw data
@@ -55,10 +57,10 @@ def create
              
               if @post.container_type == 'Blog'
                 
-                redirect_to blog_url(@container)
+                redirect_to space_blogs_articles_url(@space)
              
               else
-              redirect_to post_url(@post)
+               redirect_to space_blogs_articles_url(@space)
               end
             else
               @content.destroy unless @content.new_record?
