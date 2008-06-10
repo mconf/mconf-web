@@ -1,0 +1,16 @@
+<h1>New <%= @content.class.to_s %></h1>
+
+<% unless error_messages_for(:post).blank? && error_messages_for(:content).blank? -%>
+<div class="errors">
+  <%= error_messages_for :post %>
+  <%= error_messages_for :content %>
+</div>
+<% end -%>
+
+<% form_for(:post, :url => @collection_path, :html => { :multipart => @post.has_media? }) do |f| -%>
+  
+  <%= render :partial => "posts/form", :locals => { :f => f, :action => :new } %>
+
+  <%= submit_tag "Create" %>
+
+<% end -%>

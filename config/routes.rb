@@ -29,6 +29,18 @@ ActionController::Routing::Routes.draw do |map|
   map.show_calendar '/events/show_calendar', :controller => 'events', :action => 'show_calendar'
   map.new_space   '/spaces/new', :controller =>'spaces', :action=>'new'
   map.show_space '/spaces/:container_id',:controller => "spaces", :action => "show"
+  
+  map.resources :spaces do |space|
+    space.resources :users do |user|
+      user.resource :profile
+    end
+    space.resource :blogs do |blog|
+      blog.resources :articles do |article|
+        article.resources :comments 
+      end
+    end
+  end
+  
   # #######################################################################
   # CMSplugin
   #  
@@ -58,16 +70,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.resources :users do |users|
   #    users.resource :profile
   #end
-  map.resources :spaces do |space|
-    space.resources :users do |user|
-      user.resource :profile
-    end
-    space.resource :blogs do |blog|
-      blog.resources :articles do |article|
-        article.resources :comments 
-      end
-    end
-  end
+  
 map.resources :users
   map.resources :roles
   map.connect ':controller/:action.:format/:container_id'

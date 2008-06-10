@@ -1,0 +1,18 @@
+<p>
+  <b>Title</b><br />
+  <%= text_field_tag :title, params[:title], :size => 50 %>
+</p>
+
+<p>
+  <b>Description</b><br />
+
+  <%= text_area_tag :description, params[:description], :width => '100%', :height => '300px' %>
+</p>
+
+<%= render :partial => "#{ @content.class.to_s.tableize }/form" %>
+
+<% if action == :new && @content.class.content_options[:has_media] -%>
+  <%= render :partial => "posts/file_form" %>
+<% end -%>
+
+<%= render :partial => "posts/permissions_form", :locals => { :f => f } -%>

@@ -1,0 +1,19 @@
+<p>
+  <b>Title:</b>
+  <%=sanitize @post.title %>
+</p>
+
+<% unless @post.description.blank? %>
+<p>
+  <b>Description:</b>
+  <%=sanitize @post.description %>
+</p>
+<% end %>
+
+<%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if @post.has_media? -%>
+  <%= link_to 'Edit Media', edit_media_post_path(@post) %> |
+<% end -%>
+<%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>

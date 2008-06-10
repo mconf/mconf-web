@@ -16,7 +16,10 @@ class BlogsController < ApplicationController
   # Get Blog in member actions
   #he quitado lo de obtener contenido en index
   before_filter :get_content, :except => [ :index, :new, :create ]
+ 
+ def show
   
+ end
   def create
     
      # Fill params when POSTing raw data

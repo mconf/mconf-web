@@ -21,4 +21,6 @@ class PostsController < ApplicationController
   # def index
   #   your stuff
   # end
+  
+ 
 end
