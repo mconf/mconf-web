@@ -4,13 +4,14 @@ class RolesController < ApplicationController
   include CMS::Controller::Authorization
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
   before_filter :authentication_required
+   before_filter :get_cloud
   before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter  :can__manage_groups__space__filter, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:group_details,:show_groups,:groups_details]
   
   def index
-    @cloud= Tag.cloud
+   
     session[:current_tab] = "Manage" 
     @role = CMS::Role.find_all_by_type(nil)
     respond_to do |format|
@@ -93,7 +94,7 @@ class RolesController < ApplicationController
   end
   
   def group_details  
-        @cloud= Tag.cloud
+       
     @role = Group.find(params[:group_id])
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
     i = 0
@@ -110,7 +111,7 @@ class RolesController < ApplicationController
   
   
   def show_groups
-        @cloud= Tag.cloud
+       
     session[:current_tab] = "Groups" 
     ###estan deben ser unicas...
     @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
@@ -134,7 +135,7 @@ class RolesController < ApplicationController
   
   
   def create_group
-        @cloud= Tag.cloud
+      
     @users =  @container.actors    
     @role = Group.new
     @users_group = []
@@ -173,7 +174,7 @@ class RolesController < ApplicationController
   
   
   def edit_group
-        @cloud= Tag.cloud
+       
     @users =  @container.actors    
     @role = Group.find(params[:group_id])
     @group = @role    #para que rellene automáticamente los campos

@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   # /posts
   # /:container_type/:container_id/posts
   before_filter :get_container, :only   => [ :index ]
-        
+         before_filter :get_cloud
   # Get Post in member actions
   before_filter :get_post, :except => [ :index, :new, :create ]
   

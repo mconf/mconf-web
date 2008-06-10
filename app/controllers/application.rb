@@ -55,12 +55,15 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def get_cloud
+    @cloud = Tag.cloud
+  end
   def profile_owner
    
  @user = User.find_by_id(params[:user_id])
     
     
-    unless  @user.id == current_user.id
+    unless  @user.id == current_user.id || current_user.superuser
       user = current_user
       
       flash[:notice] = "Action not allowed."     

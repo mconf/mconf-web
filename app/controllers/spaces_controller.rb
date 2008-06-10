@@ -2,13 +2,14 @@ class SpacesController < ApplicationController
   include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required
+    before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:show]
-  
+
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )
     session[:current_tab] = "Manage" 
@@ -21,7 +22,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1
   def show
     
-    @cloud = Tag.cloud
+    
     next_events
     
     session[:current_tab] = "Home"    

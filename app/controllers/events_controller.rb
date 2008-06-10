@@ -6,7 +6,7 @@ class EventsController < ApplicationController
  
   #include CMS::Controller::Authorization
   before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
-
+ before_filter :get_cloud
   # Events list may belong to a container
   # /events
   # /:container_type/:container_id/events
@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     session[:current_tab] = "Events"
-    @cloud = Tag.cloud(:limit=> 40)
+    
     @datetime = Date.today
     next_events
 
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
     else
      datetime_start_day = Date.today      
     end
-    @cloud = Tag.cloud
+   
     @datetime = datetime_start_day
     participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
     event_datetimes = select_events(datetime_start_day)
@@ -70,7 +70,7 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     session[:current_tab] = "Events"
-    @cloud = Tag.cloud
+    
     @datetime = Date.today
     @event = Event.find(params[:id])
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -82,7 +82,7 @@ class EventsController < ApplicationController
   
   #this method show the event information with an ajax call
   def show_ajax
-    @cloud = Tag.cloud
+    
     @datetime = Date.today
     @event = Event.find(params[:id])
      @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -97,7 +97,7 @@ class EventsController < ApplicationController
   def new    
     @event = Event.new
     @indice = "0"   
-        @cloud = Tag.cloud
+       
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
@@ -107,7 +107,7 @@ class EventsController < ApplicationController
   
   # GET /events/1/edit
   def edit
-      @cloud = Tag.cloud
+     
     @event = Event.find(params[:id])
     @event.participants.sort!{|x,y| x.id <=> y.id}   
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -118,7 +118,7 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     debugger
-      @cloud = Tag.cloud
+      
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
@@ -413,7 +413,7 @@ class EventsController < ApplicationController
   ##METHODS THAT MAKE SEARCHES
   #only used to show the search box 
   def search
-    @cloud = Tag.cloud
+    
   end
   #method used to show the advanced search box in the ajax call
   def advanced_search
@@ -460,7 +460,7 @@ class EventsController < ApplicationController
   #Method that searchs with the ferret funcionality
   def search_events 
 
-    @cloud = Tag.cloud 
+    
     @query = params[:query]
    
     @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
@@ -474,7 +474,7 @@ class EventsController < ApplicationController
 
   #metodo que devuelve los eventos que tienen un tag, y los ususarios
   def search_by_tag    
-    @cloud = Tag.cloud
+   
     @tag = params[:tag]
   
     @events = Event.tagged_with(@tag) 
@@ -483,7 +483,7 @@ class EventsController < ApplicationController
   end
   #Method that make the advanced search
   def advanced_search_events
-    @cloud = Tag.cloud
+  
     @query = params[:query]
     @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -494,7 +494,7 @@ class EventsController < ApplicationController
   end
     #Method that make the  search by title
   def search_by_title
-    @cloud = Tag.cloud
+   
     @query = params[:query]
     @total, @events = Event.title_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -505,7 +505,7 @@ class EventsController < ApplicationController
   end
 #    Method that make the search in the description of the event
   def search_in_description
-    @cloud = Tag.cloud
+   
     @query = params[:query]
     @total, @events = Event.description_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -517,7 +517,7 @@ class EventsController < ApplicationController
   #this method search an event between two dates
   def search_by_date
 
-    @cloud = Tag.cloud
+   
     @query1 = params[:query1]
     @query2 = params[:query2]
     #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo

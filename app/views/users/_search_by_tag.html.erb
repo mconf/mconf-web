@@ -1,10 +1,11 @@
-
+<% rounded(:class => "tips") do %>	
 
  
  <% form_tag({:controller=> 'users',:action => :search_by_tag}, :method => 'get') do %>
       <%= text_field_tag :tag, params[:tag] %>
 	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_by_tag}%>
-<%= link_to_remote 'Hide' , {:url=>{:controller => 'users', :action=>'clean'}}%>
+<%= link_to_remote 'Hide' , {:url=>{:action=> 'clean'}}%>
 
  
  <% end %>
+  <% end %>

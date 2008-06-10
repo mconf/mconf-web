@@ -1,10 +1,10 @@
-<div id="secondary_buttons">
-		<%if current_user.superuser==true && session[:current_tab]=="Manage"%>
+<div id="secondary_buttons" class="tips">
+		<%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 			<%= link_to "Spaces", :controller=>'spaces', :action=>'index', :container_id => @space.id %> |		
 			<%= link_to "Roles", :controller=>'roles', :action=>'index', :container_id => @space.id %> |
 			<%= link_to "Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %> |
 			<%= link_to "Resources", :controller=>'machines', :action=>'manage_resources', :container_id => @space.id %>
-		<%elsif current_user.superuser==true && session[:current_tab]=="Home"%>
+		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
 			<%= link_to "Edit Space", edit_space_path(@space) %> |		
 			<%= link_to "Delete Space", space_path(@space), :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>			
 		<%elsif session[:current_tab]=="Events"%>

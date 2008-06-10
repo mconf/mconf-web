@@ -1,5 +1,6 @@
-<div class="main_column">
-<% rounded(:class => "edit_profile") do %>
+<div id="yui-main">
+<div class="yui-b main_column">
+<% rounded(:class => "tips") do %>
 <h1>Editing profile</h1>
 
 <%= error_messages_for :profile %>
@@ -9,9 +10,10 @@
 
 <%= render :partial => 'form', :locals => { :f => f } %>
 
-        	<%= submit_tag 'Update' %> &nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" />
-        
+        	<%= submit_tag 'Update' %><%= link_to 'Back', space_user_profile_path(@space.id, current_user.id)%>
 <% end %>
 <% end %>
 </div>
+</div>
+
 <%= render :partial=>'shared/sidebar_profile'%>

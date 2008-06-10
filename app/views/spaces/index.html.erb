@@ -1,3 +1,7 @@
+
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
 <% @page_title = "Spaces"-%>
 &nbsp;
 <h1>Spaces</h1>
@@ -12,18 +16,18 @@
 <% for space in @spaces %>
   <tr>
   	<td>
-		<%= text_field("space", "name", :value=>space.name, :readonly => false) %>
+		<%= link_to space.name, edit_space_path(space)%>
 	</td>
 	<td>
-		<%= text_field("space", "description", :value=>space.description, :readonly => false) %>
+		<%= link_to space.description,edit_space_path(space) %>
 	</td>
     <td>
     <%= link_to 'Add Users', add_user_path(space) %>
-  	<%= link_to 'Edit', edit_space_path(space) %>
+  	<%= link_to 'Groups' ,show_groups_path(:container_id => space.id, :container_type => :spaces)%>
+   
     <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
     
-	<%= link_to 'Groups' ,show_groups_path(:container_id => space.id, :container_type => :spaces)%>
-    </td>
+	 </td>
   </tr>
 <% end %>
 <br>
@@ -33,3 +37,8 @@
 <br />
 
 <%= link_to 'New space', new_space_path(:container_id => @space.id) %>
+
+<%end%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>

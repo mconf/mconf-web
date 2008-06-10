@@ -155,7 +155,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_new_with_no_resources
     login_as("user_no_resources") 
     get :new, :container_type=>'space', :container_id=>'1'
-    assert_redirected_to :controller => "spaces", :action => "index"
+    assert_redirected_to :controller => "spaces",  :action => "show", :space_id=>"1"
   end
     
   
@@ -203,7 +203,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_no_resources") 
     post :create, :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('no resources')
-    assert_redirected_to :controller => "spaces", :action => "index"
+    assert_redirected_to :controller => "spaces", :action => "show", :space_id=>"1"
   end
   
   
@@ -311,7 +311,7 @@ class EventsControllerTest < ActionController::TestCase
      login_as("user_no_resources") 
     post :edit, :id=>38, :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('no resources')
-    assert_redirected_to :controller => "spaces", :action => "index"
+    assert_redirected_to :controller => "spaces", :action => "show", :space_id=>"1"
   end
   
   

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
                                                           :reset_password ]
 
   before_filter :get_space
-
+ before_filter :get_cloud
   before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
 
@@ -33,7 +33,7 @@ def show
     @user = User.find(params[:id])
   end
   def show_space_users
-    @cloud = Tag.cloud
+  
   session[:current_tab] = "People" 
     @users = @container.actors
   end
@@ -78,7 +78,7 @@ def show
   
   #this method updates a user
   def update
-    
+  
     @user = User.find(params[:id])
     
     if @user.update_attributes(params[:user]) 
@@ -102,10 +102,19 @@ def show
       flash[:notice] = 'User was successfully updated.'        
       
         #the superuser will be redirected to list_users
-       redirect_to(space_user_profile_path(@space.id, @user.id))    
+        if current_user.superuser == true
+        redirect_to(manage_users_path(:space,@space.id))
+    else
+   redirect_to(space_user_profile_path(@space.id, @user.id)) 
+             end
       
     else
-      render :action => 'edit'
+      if current_user.superuser == true
+        redirect_to(manage_users_path(:space,@space.id))
+    else
+   redirect_to(space_user_profile_path(@space.id, @user.id)) 
+             end
+     
     end
   end
   
@@ -186,7 +195,7 @@ def show
   end
   private
   def edit_user
-   
+  
     @agent = @user = User.find(params[:id])
     if current_user.superuser == true 
       return true

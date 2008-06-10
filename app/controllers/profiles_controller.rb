@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   before_filter :authentication_required
   before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
-
+ before_filter :get_cloud
   before_filter :unique_profile, :only=>[:new, :create]
   before_filter :get_space
 

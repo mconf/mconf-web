@@ -12,7 +12,7 @@
 <%end%>
 <% for role in @role%>
 
-Name: <%= role.name%>  <%= link_to_remote 'Members' , :url=>( group_details_path(:space,@container.id, role.id))%>  <%= link_to 'Edit', edit_group_path(:space, @container.id,role.id)%>  <%= link_to 'Delete' , delete_group_path(:space, @container.id,role.id),:confirm => 'Are you sure?'%>
+<%= link_to role.name, edit_group_path(:space, @container.id,role.id)%>  <%= link_to_remote 'Members' , :url=>( group_details_path(:space,@container.id, role.id))%>    <%= link_to 'Delete' , delete_group_path(:space, @container.id,role.id),:confirm => 'Are you sure?'%>
 <%end%>
 <br>
 <br>

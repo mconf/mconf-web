@@ -1,14 +1,19 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
 <h1>Editing space</h1>
 
 <%= error_messages_for :space %>
 
 <% form_for(@space) do |f| %>
-<div align=center>
+
 <%= render :partial => 'form', :locals => { :f => f } %>
 <p>
-<%= submit_tag 'Update' %> &nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/spaces" type="button" value="Back" />
-<input onclick=document.location="/spaces" type="button" value="Back" />
+<%= submit_tag 'Update' %>
+ <%= link_to 'Back', spaces_path%>
 </p>
 <% end %>
-
-
+<% end %>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>

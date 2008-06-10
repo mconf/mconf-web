@@ -3,7 +3,7 @@
 <% @page_title = "Edit User" -%>
 &nbsp;
 <%= error_messages_for 'user' %>
-<% rounded(:class => "edit_account") do %>
+<% rounded(:class => "tips") do %>
 <% form_for :user, :url => space_user_path(@space.id,@user.id), :html => {:method => :put} do |f| -%>
 
 
@@ -28,7 +28,7 @@
         
 		<% else %>
 		
-            <input onclick=document.location="/events/show" type="button" value="Back" />
+            <%= link_to 'Back', space_user_profile_path(@space.id, current_user.id)%>
         
 		<% end -%>
         

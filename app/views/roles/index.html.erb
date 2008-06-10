@@ -1,3 +1,6 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>	
 <% @page_title = "Roles" %>
 &nbsp;
 <h1>Roles</h1>
@@ -5,10 +8,10 @@
 	
 <%@role.each do |role|%>
 <tr><td>
-Name: <%= role.name%>
+Name: <%= link_to role.name , edit_role_path(role.id,:container_id=>@space.id)%>
+
 <%= link_to 'Show' , role_path(role.id, :container_id=>@space.id),   :method=> 'get' %>
 
-<%= link_to 'Edit' , edit_role_path(role.id,:container_id=>@space.id),   :method=> 'get' %>
 <%= link_to 'Destroy', role_path(role.id,:container_id=>@space.id), :confirm => 'Are you sure?', :method =>  :delete %>
 </td>
 </tr>
@@ -18,3 +21,6 @@ Name: <%= role.name%>
 <td><%= link_to 'New Role', new_role_path(:container_id=>@space.id)%></td></tr>
 
 </table>
+<%end%>
+</div>
+</div>
