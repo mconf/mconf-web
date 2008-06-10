@@ -12,7 +12,7 @@ a:link, a:visited, a:hover, p{
 div#hd {
 	background:#ffffff no-repeat bottom left;
 	display:block;
-	height:135px;	
+	height:115px;	
 	*height:1%;
 }
 
@@ -21,7 +21,7 @@ div#hd {
 #logo{
 	position:absolute;
 	width:160px;
-	height:115px;
+	height:85px;
 	margin-top:0px;
 	margin-left:0px; 
 	background-image: url(../images/sir_logo.jpeg);
@@ -34,7 +34,7 @@ div#hd {
 	position: absolute;
 	width:700px;
 	height:55px;
-	margin-top:80px;
+	margin-top:50px;
 	/*left: 50%;*/
 	margin-left:160px;
 	text-align:center;
@@ -87,7 +87,7 @@ a:hover.secund, a.tit_pcipal:hover{
 	position: absolute;
 	width:950px;
 	height:17px;
-	margin-top:114px;
+	margin-top:84px;
 	/*left: 50%;*/
 	margin-left:0px;
 	text-align:center;
