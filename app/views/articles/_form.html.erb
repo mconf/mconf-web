@@ -1,0 +1,10 @@
+  <p>
+    <b>Body</b><br />
+	<!-- aquí iba el render :partial => 'fck'-->
+
+ <p><label for="article_description">Body</label><br/>
+<%= fckeditor_textarea(:content, :body, :toolbarSet => 'Simple', :width => '50%', :height => '200px') %> 
+    <!--<%= text_area_tag "content[body]", @content.body %>-->
+    </p>
+
+

@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag 'blog' %>
+
+
+
+
+    <div id="title"><b>titulo del articulo:</b><p><%= @container.title %></p></div> 
+	<div id="text"> contenido :<p><%= @container.body%></p> </div>
+	
+	<%post = CMS::Post.find(:first,:conditions => {:content_id => @container.id, :content_type => "Article"})%>
+	<%@user = User.find(post.agent_id) %>
+   <div id="author"> articulo creado por: <%= @user.login%> 
+	| <%= @container.created_at.to_s(:short)%></div>
+	<div id="link">
+		<%= link_to 'New Comment', new_article_comment_path(@container)%>
+		<%= link_to 'Comments', article_comments_url(@container)%>
+	<%= @container.container_posts.size %>
+	</div>
+<h1><%= @title %></h1>
+
+<%@counter = 0%>
+<% for post in @posts -%>
+  	<br/>
+    Comment # <%=@counter+=1%>
+	<%@comment = Comment.find(post.content_id)%>
+	<div id="title"><b>titulo del comentario:</b><p><td><%=sanitize post.title %></td></p></div> 
+	<%= @comment.name %>
+	<div id="text"> contenido :<p><%= @comment.body%></p> </div>
+    <td><%= link_to 'Show', post_url(post) %></td>
+    <td><%= link_to 'Edit', edit_post_url(post) %></td>
+    <td><%= link_to 'Destroy', posts_url, :confirm => 'Are you sure?', :method => :delete %></td>
+  
+<% end -%>
+
+
+<br />
+<%= link_to 'New comment', article_comments_path(@container) %>
+<%= link_to 'New comment', new_article_comment_path(@container) %>
