@@ -15,12 +15,17 @@ class PostsController < ApplicationController
   
   # Post media management needs Content supporting media
   before_filter :post_has_media, :only => [ :media, :edit_media ]
+
+  before_filter :get_space_from_container, :only => [ :index, :new, :create ]
+  before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
+
+  private
+
+  def get_space_from_container
+    @space = @container
+  end
   
-  
-  # Redefine your actions here:
-  # def index
-  #   your stuff
-  # end
-  
- 
+  def get_space_from_post
+    @space = @post.container
+  end
 end

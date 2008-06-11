@@ -8,18 +8,15 @@
 
 <% for post in @posts -%>
   <tr>
-    <td><%=sanitize post.title %></td>
+    <td><%=link_to(sanitize(post.title), post_path(post)) %> (<%= post.container_posts.size %>)</td>
     <td><%= post.content.class %></td>
-    <td><%= link_to 'Show', post_url(post) %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <% if post.has_media? -%>
-    <td><%= link_to 'Edit Media', edit_media_post_path(post) %></td>
-    <% end -%>
     <td><%= link_to 'Destroy', post_url(post), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Comments', "#{ post_path(post) }#comments" %></td>
   </tr>
 <% end -%>
 </table>
 
 <br />
 
-<%= link_to 'New post types..', "#" %>
+<%= link_to 'New article', new_space_article_path(@space) %>

@@ -34,11 +34,6 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :users do |user|
       user.resource :profile
     end
-    space.resource :blogs do |blog|
-      blog.resources :articles do |article|
-        article.resources :comments 
-      end
-    end
   end
   
   # #######################################################################
@@ -150,8 +145,6 @@ map.group_details '/:container_type/:container_id/group_details/:group_id', :con
 map.edit_group '/:container_type/:container_id/edit_group/:group_id', :controller => 'roles', :action=> 'edit_group'
 map.update_group '/:container_type/:container_id/update_group/:group_id', :controller => 'roles', :action=> 'update_group'
 map.root :controller => 'spaces', :action => 'show', :space_id => 1
-#Blogs CONTROLLER
- map.show_spaces_blog '/:container_type/:container_id/blogs/:id', :controller => 'blog', :action =>'show'
 
 
 end

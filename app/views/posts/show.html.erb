@@ -12,8 +12,11 @@
 
 <%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
 
+<%= link_to 'New Comment', new_post_article_path(@post)%> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
-<% if @post.has_media? -%>
-  <%= link_to 'Edit Media', edit_media_post_path(@post) %> |
-<% end -%>
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
+
+<% div_for :comments do %>
+  <h2>Comments</h2>
+  <%= render :partial => "posts/comment", :collection => @post.container_posts %>
+<% end if @post.container_posts.any? -%>

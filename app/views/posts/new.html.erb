@@ -7,7 +7,7 @@
 </div>
 <% end -%>
 
-<% form_for(:post, :url => @collection_path, :html => { :multipart => @post.has_media? }) do |f| -%>
+<% form_for(:post, :url => @collection_path, :html => { :multipart => true }) do |f| -%>
   
   <%= render :partial => "posts/form", :locals => { :f => f, :action => :new } %>
 

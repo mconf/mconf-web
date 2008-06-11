@@ -1,12 +1,5 @@
-
 <p>
-  <div id ="title">
-     <%=h article.title%>	
-  </div>
-  
-  <b></b>
   <div id="text">
-     <%= article.body %> 
+     <%= article.text %> 
   </div>
 </p>
-<%= link_to 'New Comment', new_article_comment_path(@content)%>
