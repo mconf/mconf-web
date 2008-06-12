@@ -20,13 +20,9 @@ class SpacesController < ApplicationController
   end
   
   # GET /spaces/1
-  def show
-    
-    
+  def show   
     next_events
-    
-    session[:current_tab] = "Home"    
-    
+    session[:current_tab] = "Home"        
   end
   
   # GET /spaces/new
@@ -108,7 +104,7 @@ class SpacesController < ApplicationController
   end
   
   
-  def add_user
+  def add_user2
     if params[:users] && params[:user_role]
       if CMS::Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
@@ -142,13 +138,12 @@ class SpacesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  def show_add_user
-    
-  end
-  def add_user_new  
+  
+  def add_user  
     #parsear string de emails y hacer todo lo de abajo para cada email.
-    if params[:invitation] && params[:user_role]        
-      @parse = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    if params[:invitation] && params[:user_role]   
+      
+      @parse_email = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
       @em = params[:invitation][:email]      
       @emails =parse_emails(@em)             
       @role = CMS::Role.find_by_name(params[:user_role])
@@ -157,27 +152,52 @@ class SpacesController < ApplicationController
       params[:invitation][:role_id]= @role.id
       @sp = params[:space_id]
       @space_required = Space.find(@sp)
+      @users_invited= []
+      @users_added = []
+      @users_not_added = []
+      @emails_invalid = []
       for email in @emails
-        if  @parse.match(email)!= nil
-          params[:invitation][:email]= email
-          @user = User.find_by_email(email)
+        
+        @p = /\S+@\S+\.\S+/
+        @mail = @p.match(email).to_s
+        
+        
+        @mail = @mail.gsub(/>/,' ')
+        @mail = @mail.gsub(/</,' ')
+        @mail = @p.match(@mail).to_s
+        
+        if  @parse_email.match(@mail)!= nil
+          params[:invitation][:email]= @mail
+          @user = User.find_by_email(@mail)
           if @user
             @perfor = CMS::Performance.find_by_container_id_and_agent_id(params[:space_id],@user.id)
           end
           if @user == nil 
             #falta notificar por mail
             @inv = Invitation.new(params[:invitation])        
-            @inv.save        
+            @inv.save! 
+            @users_invited << @inv.email
           elsif  @perfor == nil
             @space_required.container_performances.create :agent => @user, :role => CMS::Role.find_by_name(params[:user_role])
             #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
+            @users_added << @user.email
+            #falta notificar por mail
           else
             #el usuraio ya esta en el esapcio
+            @users_not_added << @user.email
           end
         else
-          #el mail no es valido           
+          @emails_invalid << email          
         end
+        
       end
+      respond_to do |format|
+        flash[:notice] = "Users were succesfully invited to the space "+@space_required.name
+        
+        format.html { render :template => '/spaces/invitations_results' }
+        format.xml  { head :ok }        
+      end
+      
     end           
   end
   
@@ -189,10 +209,12 @@ class SpacesController < ApplicationController
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
   #returns an array with the user logins
   def parse_emails(emails)
+    
     return [] if emails.blank?
     emails = Array(emails).first
     emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
     emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
+    
   end
   
   def parse_divs(divs)

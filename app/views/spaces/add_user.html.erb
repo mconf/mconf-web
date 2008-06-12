@@ -20,18 +20,17 @@
 	}
 
 </script>
-<h1>Add Users to the Space by Email</h1>
+<h1>Add Users to the Space by Email (Separated by ';' or ',')</h1>
 <% form_tag({:controller=>"spaces", :action=>"add_user"}, {:name=>'invite_user_form',:style => "display: inline;"}) do  %>
 	<p><label for="emails">Emails</label><br/>
 <%= text_area 'invitation', :email%>
 <input type=hidden name="user_role" id="user_role" value="Invited"/><br>
 
 
-				<%= link_to "Register as Admin",{},:onclick=>"register_admin()", :class => "secund" %><br/>
-				<%= link_to "Register as User",{},:onclick=>"register_user()", :class => "secund" %><br/>
-				<%= link_to "Register as Invited",{},:onclick=>"register_invited()", :class => "secund" %><br/>		
-			
-<%end%>
+				<%= link_to_function "Register as Admin", :onclick=>"register_admin()", :class => "secund" %><br/>
+				<%= link_to_function "Register as User",:onclick=>"register_user()", :class => "secund" %><br/>
+				<%= link_to_function "Register as Invited",:onclick=>"register_invited()", :class => "secund" %><br/>		
+			<%end%>
 <%end%>
 
 </div>

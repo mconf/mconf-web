@@ -1,4 +1,4 @@
 class Invitation < ActiveRecord::Base
-   DELIMITER = ";"
+   DELIMITER = (/,|;/)
 end
 
