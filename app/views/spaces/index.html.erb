@@ -22,7 +22,7 @@
 		<%= link_to space.description,edit_space_path(space) %>
 	</td>
     <td>
-    <%= link_to 'Add Users', add_user_new_path(space) %>
+    <%= link_to 'Add Users', add_user_path(space) %>
   	<%= link_to 'Groups' ,show_groups_path(:container_id => space.id, :container_type => :spaces)%>
    
     <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>

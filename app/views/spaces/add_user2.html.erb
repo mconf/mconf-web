@@ -1,0 +1,132 @@
+	
+<div id="yui-main">
+<div class="yui-b main_column"><% rounded(:class => "tips") do %>
+	
+<title>Add Users to the Space</title>
+
+<h1>Include registered users</h1>
+<script>
+	function register_admin(){
+		document.register_user_form.user_role.value = "Admin";
+		document.register_user_form.submit();
+	}
+	
+	function register_user(){
+		document.register_user_form.user_role.value = "User";
+		document.register_user_form.submit();
+	}
+	
+	function register_invited(){
+		document.register_user_form.user_role.value = "Invited";
+		document.register_user_form.submit();
+	}
+
+</script>
+<br/>
+
+	<% form_tag({:controller=>"spaces", :action=>"add_user"}, {:name=>'register_user_form',:style => "display: inline;"}) do %>
+		<div id="add_usuarios">
+			<div id="select_users_from_space" class="select_users">
+				<%= select 'users',
+				           'id',
+				           User.find(:all).collect { |u| [ u.login, u.id ] },
+				           {},
+				           { :multiple => true,
+				             :size     => 10 } %>
+				<input type=hidden name="user_role" id="user_role" value="Invited"/>
+			</div>
+			<%end%>
+			
+			<div id="buttons_register">
+				<%= link_to "Register as Admin",{},:onclick=>"register_admin()", :class => "secund" %><br/>
+				<%= link_to "Register as User",{},:onclick=>"register_user()", :class => "secund" %><br/>
+				<%= link_to "Register as Invited",{},:onclick=>"register_invited()", :class => "secund" %><br/>		
+			</div>
+			
+		</div>
+<%end%>
+
+
+<% rounded(:class => "tips") do %>
+<div id="space_users">
+
+	<div id="admin_users">
+		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_admin_form',:style => "display: inline;"}) do %>
+		<span>Role: Admin</span>
+		<div id="admin_users_select" class="select_users">
+			<%= select 'users',
+			           'id',
+			           @space.get_users_with_role("Admin").collect { |u| [ u.login, u.id ] },
+			           {},
+			           { :multiple => true,
+			             :size     => 10 } %>
+		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
+		</div>	
+		<div class="buttons_remove">
+			<%= link_to "Remove",{},:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
+		</div>
+		<%end%>
+	</div>
+
+	<div id="users_users">
+		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_user_form',:style => "display: inline;"}) do %>
+		<span>Role: User</span>
+		<div id="users_users_select" class="select_users">
+			<%= select 'users',
+			           'id',
+			           @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
+			           {},
+			           { :multiple => true,
+			             :size     => 10 } %>
+		    <input type=hidden name="user_role" id="user_role" value="User"/>
+		</div>	
+		<div class="buttons_remove">
+			<%= link_to "Remove",{},:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
+		</div>
+		<%end%>
+	</div>
+
+	<div id="invited_users">
+		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_invited_form',:style => "display: inline;"}) do %>
+		<span>Role: Invited</span>
+		<div id="invited_users_select" class="select_users">
+			<%= select 'users',
+			           'id',
+			           @space.get_users_with_role("Invited").collect { |u| [ u.login, u.id ] },
+			           {},
+			           { :multiple => true,
+			             :size     => 10 } %>
+		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
+		</div>	
+		<div class="buttons_remove">
+			<%= link_to "Remove",{},:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
+		</div>
+		<%end%>
+	</div>
+
+</div>
+
+<%end%>
+
+</div>
+</div>
+
+
+
+<div class="yui-b sidebar">
+		<% rounded(:class => "tips") do %>
+			 
+				<h4> Search</h4> </span>
+				<br>	
+				 <span> <% form_tag({:controller=> 'users',:action => :search_users2, :container_type =>:space, :container_id=>@space.id}, :method => 'get') do %>
+				      <%= text_field_tag :query, params[:query] %>
+					  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2, :container_type =>:space, :container_id=>@space.id}%>
+				      <%= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>
+				  </span>
+				  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization', :container_type =>:space, :container_id=>@space.id}}%>
+				  <br>
+				<% end %>			
+		<%end%>
+<div id="adv_search">		
+</div>
+</div>
