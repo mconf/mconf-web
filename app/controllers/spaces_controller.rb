@@ -2,14 +2,14 @@ class SpacesController < ApplicationController
   include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required
-    before_filter :get_cloud
+  before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
   before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__add_users__space__filter, :only=>[:add_user]
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:show]
-
+  
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )
     session[:current_tab] = "Manage" 
@@ -142,11 +142,59 @@ class SpacesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  def show_add_user
+    
+  end
+  def add_user_new  
+    #parsear string de emails y hacer todo lo de abajo para cada email.
+    if params[:invitation] && params[:user_role]        
+      @parse = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+      @em = params[:invitation][:email]      
+      @emails =parse_emails(@em)             
+      @role = CMS::Role.find_by_name(params[:user_role])
+      params[:invitation][:space_id]= params[:space_id]
+      params[:invitation][:user_id]= current_user.id
+      params[:invitation][:role_id]= @role.id
+      @sp = params[:space_id]
+      @space_required = Space.find(@sp)
+      for email in @emails
+        if  @parse.match(email)!= nil
+          params[:invitation][:email]= email
+          @user = User.find_by_email(email)
+          if @user
+            @perfor = CMS::Performance.find_by_container_id_and_agent_id(params[:space_id],@user.id)
+          end
+          if @user == nil 
+            #falta notificar por mail
+            @inv = Invitation.new(params[:invitation])        
+            @inv.save        
+          elsif  @perfor == nil
+            @space_required.container_performances.create :agent => @user, :role => CMS::Role.find_by_name(params[:user_role])
+            #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
+          else
+            #el usuraio ya esta en el esapcio
+          end
+        else
+          #el mail no es valido           
+        end
+      end
+    end           
+  end
   
+  def send_emails
+    
+  end
   private
   #method to parse the request for update from the server that contains
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
   #returns an array with the user logins
+  def parse_emails(emails)
+    return [] if emails.blank?
+    emails = Array(emails).first
+    emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
+    emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
+  end
+  
   def parse_divs(divs)
     #REXML da un error de que no puede añadir al root element, voy a crear un root element en divs
     str = "<temp>"+divs+"</temp>"
