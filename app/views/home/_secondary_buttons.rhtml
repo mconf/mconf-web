@@ -18,7 +18,10 @@
 			<%= link_to 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |
 			<%= link_to 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
 		<%elsif session[:current_tab]=="People"%>
-			    <%= link_to 'Add Users', add_user_path(@space.id) %>
+			<%if @space.manage_groups_by?(current_user)%>
+			    <%= link_to 'Add Users by email', add_user_path(@space.id) %> | 
+				<%= link_to 'Add Users from App', add_user2_path(@space.id) %>
+				<%end%>
 		<%elsif session[:current_tab]=="Posts"%>
 				<%= link_to 'New article', new_space_article_path(@space) %>
 		<%end%>

@@ -100,7 +100,9 @@ class ApplicationController < ActionController::Base
     
   end
   
- 
+ def get_public_posts
+   @public_posts = CMS::Post.find_all_by_container_type_and_public_read('Space',true)
+ end
   
   def get_space
   

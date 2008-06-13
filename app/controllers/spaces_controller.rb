@@ -4,9 +4,9 @@ class SpacesController < ApplicationController
   before_filter :authentication_required, :except=>[:register]
   before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
-  before_filter :get_space , :only =>[:edit, :add_user,:update, :show]
+  before_filter :get_space , :only =>[:edit, :add_user,:add_user2,:update, :show]
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
-  before_filter  :can__add_users__space__filter, :only=>[:add_user]
+  before_filter  :can__manage_groups__space__filter, :only=>[:add_user, :add_user2]
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:show]
   
@@ -21,6 +21,10 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show   
+   # debugger
+    if @space.id == 1
+      get_public_posts
+    end
     next_events
     session[:current_tab] = "Home"        
   end

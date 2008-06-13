@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
   before_filter :get_content, :except => [ :index, :new, :create ]
 
   before_filter :get_space, :only => [ :index, :new, :create ]
+  before_filter :get_cloud
 
   protected
   def get_space

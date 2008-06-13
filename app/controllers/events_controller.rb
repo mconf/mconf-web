@@ -117,8 +117,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-    debugger
-      
+  
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s

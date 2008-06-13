@@ -29,11 +29,7 @@ class Space < ActiveRecord::Base
   end
   
   
-  def add_users_by?(user)
-
-    user.superuser || has_role_for?(user, :admin) || has_role_for?(user, :create_performances) 
-
-  end
+ 
   
   #method to print an array of the user names
   #it is used to build a javascript array

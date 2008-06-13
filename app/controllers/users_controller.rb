@@ -37,6 +37,7 @@ def show
   
   session[:current_tab] = "People" 
     @users = @container.actors
+    
   end
   
   def create
