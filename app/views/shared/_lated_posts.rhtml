@@ -1,0 +1,6 @@
+<% @space.container_posts.first(5).each do |post| -%>
+  <p>
+    <%= link_to sanitize(post.title), post_path(post) %>
+    <%= post.content.class %>
+  </p>
+<% end -%>
