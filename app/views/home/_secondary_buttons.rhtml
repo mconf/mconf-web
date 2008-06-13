@@ -19,5 +19,7 @@
 			<%= link_to 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
 		<%elsif session[:current_tab]=="People"%>
 			    <%= link_to 'Add Users', add_user_path(@space.id) %>
+		<%elsif session[:current_tab]=="Posts"%>
+				<%= link_to 'New article', new_space_article_path(@space) %>
 		<%end%>
 </div>

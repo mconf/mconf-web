@@ -100,6 +100,8 @@ class ApplicationController < ActionController::Base
     
   end
   
+ 
+  
   def get_space
   
     if params[:space_id]

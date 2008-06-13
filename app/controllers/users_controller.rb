@@ -17,7 +17,8 @@ class UsersController < ApplicationController
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
                                                           :reset_password ]
 
-  before_filter :get_space
+  before_filter :get_space, :except=>[:new,:create,:activate]
+  
  before_filter :get_cloud
   before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
   before_filter :user_is_admin, :only=> [:manage_users]
@@ -39,6 +40,7 @@ def show
   end
   
   def create
+    
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
     # request forgery protection.
@@ -49,9 +51,23 @@ def show
     @agent.save!
     tag = params[:tag][:add_tag]    
     @agent.tag_with(tag)
-    redirect_back_or_default('/')
-    flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
+    debugger
+    @mail = @agent.email
     
+    @invitation = Invitation.find_all_by_email(@mail)
+    if @invitation!= nil
+      for invitation in @invitation
+       @space_id = invitation.space_id
+       space= Space.find(@space_id)
+      
+      if space.container_performances.create :agent => @agent, :role => CMS::Role.find_by_id(invitation.role_id)
+        invitation.destroy
+      end
+      end
+    end
+    
+    flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account."      
+    redirect_back_or_default root_path
     rescue ActiveRecord::RecordInvalid
     render :action => 'new'
   end

@@ -76,6 +76,7 @@ map.resources :users
   map.register_user '/spaces/:space_id/register_user', :controller => "spaces", :action => "register_user"
   map.remove_user '/spaces/:space_id/remove_user', :controller => "spaces", :action => "remove_user"
   map.add_user '/spaces/:space_id/add_user', :controller=> 'spaces', :action => 'add_user'
+   map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
   #explicit routes ORDERED BY CONTROLLER
   

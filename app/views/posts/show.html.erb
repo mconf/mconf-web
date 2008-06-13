@@ -1,3 +1,6 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
 <p>
   <b>Title:</b>
   <%=sanitize @post.title %>
@@ -15,8 +18,14 @@
 <%= link_to 'New Comment', new_post_article_path(@post)%> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
-
+<%end%>
+<% rounded(:class => "tips") do %>
 <% div_for :comments do %>
   <h2>Comments</h2>
   <%= render :partial => "posts/comment", :collection => @post.container_posts %>
 <% end if @post.container_posts.any? -%>
+
+<% end -%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>

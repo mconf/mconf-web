@@ -1,3 +1,7 @@
+
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
 <h1><%= @title %></h1>
 
 <table>
@@ -18,5 +22,9 @@
 </table>
 
 <br />
+<% end -%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>
 
-<%= link_to 'New article', new_space_article_path(@space) %>
+

@@ -22,10 +22,12 @@ class PostsController < ApplicationController
   private
 
   def get_space_from_container
+    session[:current_tab] = "Posts" 
     @space = @container
   end
   
   def get_space_from_post
+    session[:current_tab] = "Posts" 
     @space = @post.container
   end
 end
