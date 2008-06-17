@@ -18,8 +18,15 @@ class PostsController < ApplicationController
 
   before_filter :get_space_from_container, :only => [ :index, :new, :create ]
   before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
-before_filter :get_public_posts, :only => [:index,:show]
+
+  before_filter :get_public_posts, :only => [:index,:show]
+ 
+  before_filter :redirect_to_comment, :only => [ :show ]
+
   private
+  def redirect_to_comment
+    redirect_to(post_path(@post.container, :anchor => "cms_post_#{ @post.id }")) if @post.container.is_a?(CMS::Post)
+  end
 
   def get_space_from_container
     session[:current_tab] = "Posts" 
