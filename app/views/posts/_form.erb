@@ -15,4 +15,15 @@
   <%= render :partial => "posts/file_form" %>
 <% end -%>
 
+<% if logged_in? && @post.tag_list  %>
+	<p><label for="keywords">Tags:</label>
+<%= text_field 'tag', 'add_tag','value' => @post.tag_list   %></p>
+	
+      <% else %>
+	  
+	  <p><label for="keywords">Tags</label>
+<%= text_field 'tag', 'add_tag'   %></p>
+	
+<%end%>
+
 <%= render :partial => "posts/permissions_form", :locals => { :f => f } -%>

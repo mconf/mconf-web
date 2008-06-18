@@ -6,16 +6,15 @@
 <% rounded(:class => "tips") do %>
 <h3>Groups in the space <%=@container.name%></h3>
 
-<%if @role.length==0%>
-<%= "No Groups defined" %><br><br>
-<%= link_to 'Create Group', create_group_path%>
+<%if @role.length==0%><br>
+<%= "No Groups defined" %><br>
+
 <%end%>
 <% for role in @role%>
 
-<%= link_to role.name, edit_group_path(:space, @container.id,role.id)%>  <%= link_to_remote 'Members' , :url=>( group_details_path(:space,@container.id, role.id))%>    <%= link_to 'Delete' , delete_group_path(:space, @container.id,role.id),:confirm => 'Are you sure?'%>
-<%end%>
-<br>
-<br>
+<%= link_to role.name, edit_group_path(:space, @container.id,role.id)%>  <%= link_to_remote 'Members' , :url=>( group_details_path(:space,@container.id, role.id))%>    <%= link_to 'Delete' , delete_group_path(:space, @container.id,role.id),:confirm => 'Are you sure?'%>  <br>
+<br><%end%>
+
 
 
 

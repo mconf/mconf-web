@@ -14,7 +14,7 @@ class Tag < ActiveRecord::Base
   
   # Set up the polymorphic relationship.
   has_many_polymorphs :taggables, 
-    :from => [:users, :events, :profiles], 
+    :from => [:users, :events, :profiles, :"c_m_s/posts"], 
     :through => :taggings, 
     :dependent => :destroy,
     :skip_duplicates => false, 

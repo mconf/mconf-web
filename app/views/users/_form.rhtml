@@ -20,9 +20,9 @@
  
 <% end -%>
   
-	<% if logged_in? && @user.tag_list  %>
+	<% if logged_in? && @agent.tag_list  %>
 	<p><label for="keywords">Interests</label><br/>
-<%= text_field 'tag', 'add_tag','value' => @user.tag_list   %></p>
+<%= text_field 'tag', 'add_tag','value' => @agent.tag_list   %></p>
 	
       <% else %>
 	  

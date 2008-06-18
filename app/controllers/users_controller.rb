@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   
  before_filter :get_cloud
   before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
-  before_filter :user_is_admin, :only=> [:manage_users]
+  before_filter :user_is_admin, :only=> [:manage_users, :search_users2]
 
   before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
   before_filter :space_member, :only=>[:show,:show_space_users]
@@ -75,14 +75,14 @@ def show
   
   
   def manage_users
-    session[:current_tab] = "People" 
-    @all_users = User.find(:all)
+    session[:current_tab] = "Manage" 
+    @users = User.find(:all)
   end
   
   
   #This method  debuggerreturns the user to show the form to edit him
   def edit
-    @user = User.find(params[:id])
+    @agent = User.find(params[:id])
     
   end
   def clean
@@ -143,36 +143,39 @@ def show
     end
     redirect_to(:action => "manage_users")  
   end
-  
+  #search method that returns the users founded with the query in this space.
   def search_users
     @query = params[:query]
     q1 =  @query 
-    @use = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+    @use = User.find_by_contents(q1)
     @users = []
     i = 0
-    
+   
     @agen = @container.actors
 
     @use.collect { |user|
-      if @agen.include?(user.ferret_load_record)
+    # debugger
+      if @agen.include?(user)
           @users << user
       end
      }
 
     
     
-    respond_to do |format|        
+    respond_to do |format|   
+      format.html {render :template=>'/users/show_space_users'}
       format.js 
-      #format.html 
+  
     end
   end
-  
+  #search method that returns the users founded with the query in all the aplication.
   def search_users2
     @query = params[:query]
     q1 =  @query 
-    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
+    @users = User.find_by_contents(q1)
     
-    respond_to do |format|        
+    respond_to do |format| 
+       format.html {render :template=>'/users/manage_users'}
       format.js 
       #format.html 
     end

@@ -61,6 +61,25 @@ Email: <%= user.email%><br>
 
 </div>
 
+<div class="post">
+	<br><h2> Posts</h2><br>
+	   <%if @posts == []%>
+	   No Posts Found<br>
+	   <%else%>
+	
+	 <% @posts.each do |post| %>
+
+<% user = User.find(post.agent_id)%>
+	
+    <%= post.content.class %>:: <%=link_to(sanitize(post.title), container_post_path(:space, @container.id,post)) %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
+        
+  	Description: <%= post.description%>  <br>	<%= link_to 'Comments', "#{ post_path(post) }#comments" %>
+
+<%end%>
+<%end%>
+	
+</div>
+
 <%end%>
 <div id="show_event">
 		</div>

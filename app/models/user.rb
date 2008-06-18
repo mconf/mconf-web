@@ -1,12 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  acts_as_ferret :fields => {  
-  :login=> {:store => :yes} ,
-  :email=> {:store => :yes} , 
-  :name=> {:store => :yes},
-  :lastname => {:store => :yes},
-  :organization=> {:store=> :yes},
-  :tag_list=> {:store=>:yes}}
+  acts_as_ferret :fields => [:login ,  :email ,   :name,  :lastname ,  :organization,  :tag_list]
   acts_as_agent :activation => true
 
   acts_as_container
@@ -22,16 +16,15 @@ class User < ActiveRecord::Base
   
   
 def name
-  @profile = Profile.find_by_users_id(self.id )
-  return @profile.name
+  
+  return self.profile.name if self.profile
 end
 def lastname
-  @profile = Profile.find_by_users_id(self.id )
-  return @profile.lastname
+  
+return self.profile.lastname if self.profile
 end
 def organization
-  @profile = Profile.find_by_users_id(self.id )
-  return @profile.organization
+return self.profile.organization if self.profile
 end
 
 

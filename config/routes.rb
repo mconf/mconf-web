@@ -121,7 +121,7 @@ map.resources :users
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.manage_users '/:container_type/:container_id/manage_users', :controller => 'users', :action => 'manage_users'
-  map.search_users2 'search_user', :controller => 'users', :action => 'search_users2'
+  map.search_users2 '/:container_type/:container_id/search_all_users', :controller => 'users', :action => 'search_users2'
   map.reset_search 'reset_search', :controller => 'users', :action => 'reset_search'
   map.clean2 '/clean2_search', :controller => 'users', :action => 'clean2'
    #SESSIONS CONTROLLER 
@@ -146,7 +146,7 @@ map.delete_group '/:container_type/:container_id/delete_group/:group_id', :contr
 map.group_details '/:container_type/:container_id/group_details/:group_id', :controller => 'roles', :action=> 'group_details'
 map.edit_group '/:container_type/:container_id/edit_group/:group_id', :controller => 'roles', :action=> 'edit_group'
 map.update_group '/:container_type/:container_id/update_group/:group_id', :controller => 'roles', :action=> 'update_group'
-map.root :controller => 'spaces', :action => 'show', :space_id => 1
+map.root :controller => 'spaces', :action => 'show', :space_id => 1,:container_id=> 1
 
 
 end

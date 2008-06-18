@@ -10,7 +10,7 @@
  
     <% user = User.find(post.agent_id)%>
 	
-    <%= post.content.class %>:: <%=link_to(sanitize(post.title), container_post_path(:space, @container.id,post)) %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> || Tags:  <br>
+    <%= post.content.class %>:: <%=link_to(sanitize(post.title), container_post_path(:space, @container.id,post)) %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
         
   	Description: <%= post.description%><br>
 	

@@ -1,15 +1,19 @@
 
+	<div class="yui-b sidebar">
+
+<% rounded(:class => "tips") do %>	
+	
 	<h4> Search</h4> </span>
 		<br>	
 
- <span> <% form_tag({:controller=> 'users',:action => :search_users2}, :method => 'get') do %>
+ <span> <% form_tag(search_users2_path) do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2}, :complete=>"doSearchResultsDraggable()"%>
-      <input type="button" name="Reset" value="Reset" style="width: 100px;" onClick="fillAllUsers()">
-  </span>
+	  <%= submit_tag 'Search'%>
+        </span>
   <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization'}}%>
 
  <% end %>
-   
+    <% end %>
+   </div>
     
  

@@ -17,6 +17,13 @@
 </p>
 <% end %>
 
+<% unless @post.tag_list.blank? %>
+<p>
+  <b>Tags:</b>
+  <%= @post.tag_list %>
+</p>
+<% end %>
+
 <%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
 
 <%= link_to 'New Comment', new_post_article_path(@post)%> |

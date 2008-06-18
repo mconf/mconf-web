@@ -5,7 +5,10 @@
 &nbsp;
 <div align=center>
 <TABLE class="whole_table" WIDTH=80% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center>
-<TR><TD class="headerDay" valign=top> <%= 'Name'.t %></TD>
+<TR><TD class="headerDay" valign=top> Name</TD>
+<TD class="headerDay" valign=top> Lastname</TD>
+	
+	<TD class="headerDay" valign=top> <%= 'Login'.t %></TD>
 <TD class="headerDay" valign=top> Super</TD>
 <TD class="headerDay" valign=top> Disabled</TD>
 <TD class="headerDay" valign=top> Email</TD>
@@ -16,10 +19,13 @@
 </TR>
 <% 
 @odd_or_even_user = 0 
-for user in @all_users 
+for user in @users 
     @odd_or_even_user = 1 - @odd_or_even_user
 -%>
 <tr>
+	<td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.profile.name, edit_space_user_path(@space,user) if user.profile%></b>&nbsp;&nbsp;</td>
+<td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.profile.lastname, edit_space_user_path(@space,user) if user.profile%></b>&nbsp;&nbsp;</td>
+
 <td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.login, edit_space_user_path(@space,user) %></b>&nbsp;&nbsp;</td>
 
 <td class="ListUser<%= @odd_or_even_user %>"><%=replace_image(user.superuser)  %>&nbsp;&nbsp;</td>
@@ -34,5 +40,9 @@ for user in @all_users
 </table>
 </div>
 
+
 <br/>
 <%end%>
+</div>
+</div>
+<%= render :partial =>'search2'%>

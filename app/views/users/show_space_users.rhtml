@@ -4,7 +4,7 @@
 <div class="yui-b main_column">
 <% rounded(:class => "tips") do %>
 <%if @users.length== 0%>
-<%= "No users in this space"%>
+<%= "No users found"%>
 <%else%>
 <table  cellspacing= "100" cellpadding="100">
 	<tr><td align="center">Name</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
@@ -16,7 +16,9 @@
 <td align="center"><%= user.profile.lastname%><br></td>
 <td align="center"><%= user.email%><br></td>
 <td align="center"><%= user.profile.organization%><br></td>
-<td align="center">Role<br></td>
+<%for role in @space.roles_for(user) do%>
+<td align="center"><%=role.name%><br></td>
+<%end%>
 
 <td align="center"><%= user.tag_list if user.tag_list != nil%><br></td>
 
@@ -26,7 +28,10 @@
 <%else%>
 <tr>
 <td align="center"><%=link_to user.login, space_user_profile_path(@space.id,user.id)%><br></td>
-</tr>
+<td></td><td align="center"><%= user.email%><br></td><td></td>
+<%for role in @space.roles_for(user) do%>
+<td align="center"><%=role.name%><br></td></tr>
+<%end%>
 <%end%>
 <%end%>
 </table>
@@ -34,4 +39,4 @@
 <%end%>
 </div>
 </div>
-	<%= render :partial =>'shared/sidebar'%>
+	<%= render :partial =>'shared/sidebar_users'%>

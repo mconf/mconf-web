@@ -5,8 +5,9 @@ class EventsController < ApplicationController
   include CMS::Controller::Contents
  
   #include CMS::Controller::Authorization
-  before_filter :authentication_required, :except => [:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+  before_filter :authentication_required, :except => [:index,:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
  before_filter :get_cloud
+ before_filter :is_public_space, :only=>[:index]
   # Events list may belong to a container
   # /events
   # /:container_type/:container_id/events
@@ -17,6 +18,7 @@ class EventsController < ApplicationController
   before_filter :needs_container, :only => [ :new, :create ]
   before_filter :get_space
   #TODO: Authorization
+  before_filter :is_public_space, :only=>[:index]
  before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
@@ -478,6 +480,7 @@ class EventsController < ApplicationController
   
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
+    @posts = CMS::Post.tagged_with(@tag)
   
   end
   #Method that make the advanced search
