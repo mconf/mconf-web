@@ -106,7 +106,7 @@ body {
     clear: both;
 }
 
-#doc, #doc2, #doc3, #doc4, .yui-t1, .yui-t2, .yui-t3, .yui-t4, .yui-t5, .yui-t6, .yui-t7 {
+#doc, #doc2, #doc3, #doc4, .yui-t1, .yui-t2, .yui-t3, .yui-t4, .yui-t5, .yui-t6, .yui-t7, .yui-t8 {
     margin: auto;
     text-align: left;
     width: 57.69em;
@@ -153,7 +153,7 @@ min-width:
     width: 100%;
 }
 
-.yui-t1 #yui-main, .yui-t2 #yui-main, .yui-t3 #yui-main {
+.yui-t1 #yui-main, .yui-t2 #yui-main, .yui-t3 #yui-main, .yui-t8 #yui-main {
     float: right;
     margin-left: -25em;
 }
@@ -188,6 +188,21 @@ min-width:
 
 .yui-t2 #yui-main .yui-b {
     margin-left: 14.8461em;
+
+* margin-left:
+    14.55em;
+}
+
+.yui-t8 .yui-b {
+    float: left;
+    width: 15.8461em;
+
+* width:
+    13.50em;
+}
+
+.yui-t8 #yui-main .yui-b {
+    margin-left: 16.6461em;
 
 * margin-left:
     14.55em;

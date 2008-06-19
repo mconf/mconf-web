@@ -7,7 +7,7 @@
 <% if @space.id == 1%>
 <% @public_posts.each do |post|%>
 <p>
-    <%= link_to sanitize(post.title), container_post_path(:space, @space.id,post) %>
+    <%= link_to sanitize(post.title), post_path(post) %>
     <%= post.content.class %>
   </p>
 <% end -%>

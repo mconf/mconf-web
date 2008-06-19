@@ -92,23 +92,23 @@
 		background-image: url(../images/column_full_bottom.gif);
 		}
 div.main_column .box {
-	width:624px;
-	background-image: url(../images/column_main_middle.gif);
+	width:755px;
+	background-image: url(../images/column_main_middle_777.gif);
 	
 	}
 	div.main_column .box_top {
-		background-image: url(../images/column_main_top.gif);
+		background-image: url(../images/column_main_top_777.gif);
 		}
  		div.main_column .box_bottom {
-		background-image: url(../images/column_main_bottom.gif);
+		background-image: url(../images/column_main_bottom_777.gif);
 		}
 div.sidebar .box {
-		width:288px;
-		background-image: url(../images/column_sidebar_middle.gif);
+		width:190px;
+		background-image: url(../images/column_sidebar_middle_202.gif);
 	}
 	div.sidebar .box_top {
-		background-image: url(../images/column_sidebar_top.gif);
+		background-image: url(../images/column_sidebar_top_202.gif);
 		}
 		div.sidebar .box_bottom {
-		background-image: url(../images/column_sidebar_bottom.gif);
+		background-image: url(../images/column_sidebar_bottom_202.gif);
 		}

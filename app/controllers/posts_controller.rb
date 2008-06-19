@@ -20,7 +20,7 @@ before_filter :is_public_space, :only=>[:index]
   before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
 
   before_filter :get_public_posts, :only => [:index,:show]
- 
+# before_filter :space_member, :only=>[:index, :show]
   before_filter :redirect_to_comment, :only => [ :show ]
 
   private

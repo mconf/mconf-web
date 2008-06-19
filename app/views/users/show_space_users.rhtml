@@ -6,13 +6,13 @@
 <%if @users.length== 0%>
 <%= "No users found"%>
 <%else%>
-<table  cellspacing= "100" cellpadding="100">
-	<tr><td align="center">Name</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
+<table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
+	<tr><td align="center">Name (Login)</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
 </tr>
 <%for user in @users do%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, space_user_profile_path(@space.id,user.id)%><br></td>
+<td align="center"><%=link_to user.profile.name, space_user_profile_path(@space.id,user.id)%> (<%= link_to user.login,  space_user_profile_path(@space.id,user.id) %>)<br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <td align="center"><%= user.email%><br></td>
 <td align="center"><%= user.profile.organization%><br></td>
@@ -27,7 +27,7 @@
 </tr>
 <%else%>
 <tr>
-<td align="center"><%=link_to user.login, space_user_profile_path(@space.id,user.id)%><br></td>
+<td align="center">(<%=link_to user.login, space_user_profile_path(@space.id,user.id)%>)<br></td>
 <td></td><td align="center"><%= user.email%><br></td><td></td>
 <%for role in @space.roles_for(user) do%>
 <td align="center"><%=role.name%><br></td></tr>
