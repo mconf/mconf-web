@@ -15,20 +15,23 @@
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
 
-	<table>
-<tr>
+	<table WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center><tbody><tr>
 	<td>Title</td>
 	<td>Description</td>
 	<td>Start Date</td>
 	<td>Options</td>
-	<td>Keywords</td>
+	<td>Tags</td>
 	</tr>
 	<tr>
 		
 		 
 		<% @events.each do |event| %>  
+		<div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
+		<% for datetime in event.event_datetimes %> 
+		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
+			<%end%>
 		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => show_ajax_path(event.id,:space_id=>@space.id) }   %>
+			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => show_ajax_path(event.id,:space_id=>@space.id) }   %></div>
 		</td>
 		<td>
 			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
@@ -36,10 +39,11 @@
 		</td>
 		<td> 
 		<% i = 0%>
-     	<% for dates in event.start_dates %>  
-    [<%=  i %>] <%= event.start_dates[i] %>
+	 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
+     	<% for datetime in event.event_datetimes %> 
+    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
 <% i += 1%>
-             <%end%>
+<%end%>
 		</td>
 				<td>
 					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
@@ -60,9 +64,11 @@
   
 		</td>
 		</tr>
+		
 		 <% end %>
 
- 
+ </tbody>
+
 	</table>
 	
 	 <%end%>

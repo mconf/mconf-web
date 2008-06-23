@@ -150,7 +150,7 @@ def show
     @use = User.find_by_contents(q1)
     @users = []
     i = 0
-   
+   debugger
     @agen = @container.actors
 
     @use.collect { |user|

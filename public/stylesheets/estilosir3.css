@@ -45,7 +45,11 @@
 .nube6 {font-size: 3.2em; text-decoration: none;color:#7D7D7D;}
 
 
+/*Microformats*/
 
+.vevent{
+	display:none;
+}
 
 
 

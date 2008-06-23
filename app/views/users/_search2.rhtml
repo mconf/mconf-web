@@ -3,15 +3,14 @@
 
 <% rounded(:class => "tips") do %>	
 	
-	<h4> Search</h4> </span>
+	<h4> Search Users</h4> </span>
 		<br>	
 
  <span> <% form_tag(search_users2_path) do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_tag 'Search'%>
         </span>
-  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization'}}%>
-
+  
  <% end %>
     <% end %>
    </div>

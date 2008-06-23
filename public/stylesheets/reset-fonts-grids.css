@@ -25,8 +25,7 @@ fieldset, img {
 }
 
 address, caption, cite, code, dfn, em, strong, th, var {
-    font-style: normal;
-    font-weight: normal;
+    
 }
 
 li {
@@ -39,7 +38,7 @@ caption, th {
 
 h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
-    font-weight: normal;
+    
 }
 
 q:before, q:after {
@@ -202,7 +201,7 @@ min-width:
 }
 
 .yui-t8 #yui-main .yui-b {
-    margin-left: 16.6461em;
+    margin-left: 16.4461em;
 
 * margin-left:
     14.55em;

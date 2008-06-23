@@ -80,6 +80,9 @@ map.resources :users
   
   #explicit routes ORDERED BY CONTROLLER
   
+map.search_articles '/:container_type/:container_id/search_articles', :controller => 'articles', :action=> 'search_articles'
+ 
+
   #EVENTS CONTROLLER
   map.show_timetable '/events/show_timetable' , :controller => "events", :action => "show_timetable"
   map.show_summary '/show_summary/:id' , :controller => "events", :action => "show_summary"

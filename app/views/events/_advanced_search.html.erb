@@ -3,8 +3,8 @@
 Here you can put a word that doesn't match exaclty with the event that you are looking for
  <% form_tag({:action => :advanced_search_events}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_tag 'Search'%>
- 
+	  <%= submit_tag 'Search'%><br>
+  <%= link_to_remote 'Hide',{:url =>{ :action=> 'clean'}}%>
  <% end %>
 
 

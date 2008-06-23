@@ -21,6 +21,7 @@ You can search here between two dates
     }
   );
 </script>
-	  <%= submit_tag 'Search'%>
+	  <%= submit_tag 'Search'%><br>
+  <%= link_to_remote 'Hide',{:url =>{ :action=> 'clean'}}%>
  
  <% end %>

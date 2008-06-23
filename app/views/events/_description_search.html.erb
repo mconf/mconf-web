@@ -3,7 +3,8 @@
  Search in Event's Description
  <% form_tag({:action => :search_in_description}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_tag 'Search'%>
+	  <%= submit_tag 'Search'%><br>
+  <%= link_to_remote 'Hide',{:url =>{ :action=> 'clean'}}%>
  
  <% end %>
   

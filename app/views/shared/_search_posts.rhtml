@@ -1,0 +1,14 @@
+
+
+
+
+	<h4> Search Posts</h4> </span>
+		<br>	
+
+ <span> <% form_tag({:controller=> 'articles',:action => :search_articles}, :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+  </span>
+    <% end %>
+	
+	

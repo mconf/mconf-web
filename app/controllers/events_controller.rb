@@ -473,13 +473,14 @@ class EventsController < ApplicationController
   end
   
 
-  #metodo que devuelve los eventos que tienen un tag, y los ususarios
+  #metodo que devuelve los eventos que tienen un tag, y los ususarios y los posts
   def search_by_tag    
    
     @tag = params[:tag]
   
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
+    
     @posts = CMS::Post.tagged_with(@tag)
   
   end
