@@ -85,7 +85,7 @@ map.search_articles '/:container_type/:container_id/search_articles', :controlle
 
   #EVENTS CONTROLLER
   map.show_timetable '/events/show_timetable' , :controller => "events", :action => "show_timetable"
-  map.show_summary '/show_summary/:id' , :controller => "events", :action => "show_summary"
+  map.show_summary '/:container_type/:container_id/show_summary/:id' , :controller => "events", :action => "show_summary"
   map.add_participant '/add_participant', :controller => 'events', :action => 'add_participant'
   map.remove_participant '/remove_participant', :controller => 'events', :action => 'remove_participant'
   map.export_ical '/events/:id/export_ical', :controller => 'events' , :action => 'export_ical'

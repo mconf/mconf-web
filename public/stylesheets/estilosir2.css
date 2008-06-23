@@ -343,6 +343,20 @@ div#bd {
 	margin-left:370px;
 }
 
+.contains_event {
+  height:22px;
+  text-align: center;
+  background-color:E0E0E0;
+  color:000000; 
+  border-style:solid; 
+  border-bottom-width:1; 
+  border-top-width:1; 
+  border-left-width:1;
+  border-right-width:1; 
+  border-collapse: collapse;
+  border-color:A3A3A3;
+}
+
 /* FOOT */
 div#ft {
 	background:#ffffff no-repeat bottom left;

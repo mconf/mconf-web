@@ -9,10 +9,10 @@
     if duration
         event = event_at_this_time(@mini_array_events, @datetime, hour)       
     %>
-        <TD class="contains_event"></TD><TD class="contains_event" onclick="new Ajax.Request('/show_summary/'+ <%=event.id%>, {asynchronous:true, evalScripts:true}); return false;" width=100% rowspan=<%=(duration).to_s%> title="<%=event.get_submenu%>"> 
+        <TD class="contains_event"></TD><TD class="contains_event" onclick="new Ajax.Request('/spaces/'+<%=@space.id%>+'/show_summary/'+ <%=event.id%>, {asynchronous:true, evalScripts:true}); return false;" width=100% rowspan=<%=(duration).to_s%> title="<%=event.get_submenu%>"> 
         
 			<div class="vevent">
-				<h3 class="summary"><%= link_to_remote h(event.name),{ :url => { :action => 'show_summary', :id => event.id } }  %></h3> 
+				<h3 class="summary"><%= link_to_remote h(event.name),{ :url => { :action => 'show_summary', :id => event.id, :container_type=>"space", :container_id=>@space.id } }  %></h3> 
             
            <div class="description"></div>
 		   <abbr title="20081010" class="dtstart"></abbr>
