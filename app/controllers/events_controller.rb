@@ -3,28 +3,28 @@ require 'vpim/vevent'
 class EventsController < ApplicationController
   # Include some methods and filters.
   include CMS::Controller::Contents
- 
+  
   #include CMS::Controller::Authorization
   before_filter :authentication_required, :except => [:index,:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
- before_filter :get_cloud
- before_filter :is_public_space, :only=>[:index]
+  before_filter :get_cloud
+  before_filter :is_public_space, :only=>[:index]
   # Events list may belong to a container
   # /events
   # /:container_type/:container_id/events
   #before_filter :get_container, :only => [ :index, :show]
-
+  
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
   before_filter :get_space
   #TODO: Authorization
   before_filter :is_public_space, :only=>[:index]
- before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+  before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
-   
+  
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show_timetable, :show, :copy_next_week, :remove_time]
- 
+  
   
   # GET /events
   # GET /events.xml
@@ -33,7 +33,7 @@ class EventsController < ApplicationController
     
     @datetime = Date.today
     next_events
-
+    
   end
   
   
@@ -42,12 +42,12 @@ class EventsController < ApplicationController
     session[:current_tab] = "Events"
     if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
-    #elsif  session[:date_start_day]
-    #  datetime_start_day = Date.parse(session[:date_start_day])       
+      #elsif  session[:date_start_day]
+      #  datetime_start_day = Date.parse(session[:date_start_day])       
     else
-     datetime_start_day = Date.today      
+      datetime_start_day = Date.today      
     end
-   
+    
     @datetime = datetime_start_day
     participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
     event_datetimes = select_events(datetime_start_day)
@@ -87,19 +87,19 @@ class EventsController < ApplicationController
     
     @datetime = Date.today
     @event = Event.find(params[:id])
-     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
-     respond_to do |format|
+    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+    respond_to do |format|
       format.js
     end
   end
   
- 
+  
   # GET /events/new
   # GET /events/new.xml
   def new    
     @event = Event.new
     @indice = "0"   
-       
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }
@@ -109,7 +109,7 @@ class EventsController < ApplicationController
   
   # GET /events/1/edit
   def edit
-     
+    
     @event = Event.find(params[:id])
     @event.participants.sort!{|x,y| x.id <=> y.id}   
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -119,7 +119,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-  
+    
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
@@ -157,7 +157,7 @@ class EventsController < ApplicationController
       return
     end
     @event.participants = array_participants
-        
+    
     respond_to do |format|
       if @event.save
         tag = params[:tag][:add_tag]    
@@ -168,7 +168,7 @@ class EventsController < ApplicationController
                                  :content     => @event,
                                  :title       => @event.title,
                                  :description => @event.description)        
-                                 
+        
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
         elsif EventDatetime.datetime_min_length(@event.event_datetimes)
@@ -208,16 +208,16 @@ class EventsController < ApplicationController
             if(Time.parse(end_date)<Time.parse(start_date))
               flash[:notice] = "The "+ Event.get_ordinal(indice+1) +" datetime is incorrect, the end date is before the start date"  
               respond_to do |format|
-                 format.html {render :action => "edit"}
-                 format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }     
+                format.html {render :action => "edit"}
+                format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }     
               end
-             return
+              return
             end
             @datetime = EventDatetime.new :start_date => start_date, :end_date => end_date
             is_valid = "is_valid_time" + indice.to_s
             if(params[is_valid.to_sym]=="true")        
-               logger.debug("save the datetime, because is valid")
-               @event.event_datetimes << @datetime
+              logger.debug("save the datetime, because is valid")
+              @event.event_datetimes << @datetime
             end
           else
             flash[:notice] = "The "+ Event.get_ordinal(indice+1) +" datetime format is incorrect."  
@@ -326,8 +326,8 @@ class EventsController < ApplicationController
       if params[:id] && !params[:event_id]
         params[:event_id] = params[:id]   
       end
-     @event = Event.find(params[:event_id])  
-    
+      @event = Event.find(params[:event_id])  
+      
     end
     respond_to do |format|
       # format.html 
@@ -458,35 +458,52 @@ class EventsController < ApplicationController
       
     end
   end
-  #Method that searchs with the ferret funcionality
+  #Method that searchs events in the container.
   def search_events 
-
+    
     
     @query = params[:query]
-   
-    @total, @events = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+    @even = CMS::Post.find_all_by_container_id_and_content_type(@container.id, "Event")
+    @total, @results = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
-     
+    @partials = []
+    @events = []  
+     if @results != nil
+    @results.collect { |result|
+      event = CMS::Post.find_by_content_type_and_content_id("Event", result.id)
+      if @even.include?(event)
+        @partials << event
+      end
+    }
+    end
+    if @partials != nil
+    @partials.collect { |a|
+      even = Event.find(a.content_id)
+      @events << even
+    }
+    
+    end
+   
     respond_to do |format|        
       format.html     
     end
   end
   
-
+  
   #metodo que devuelve los eventos que tienen un tag, y los ususarios y los posts
   def search_by_tag    
-   
+    
     @tag = params[:tag]
-  
+    
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
     
     @posts = CMS::Post.tagged_with(@tag)
-  
+    
   end
   #Method that make the advanced search
   def advanced_search_events
-  
+    
     @query = params[:query]
     @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -495,9 +512,9 @@ class EventsController < ApplicationController
     end     
     
   end
-    #Method that make the  search by title
+  #Method that make the  search by title
   def search_by_title
-   
+    
     @query = params[:query]
     @total, @events = Event.title_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -506,9 +523,9 @@ class EventsController < ApplicationController
     end     
     
   end
-#    Method that make the search in the description of the event
+  #    Method that make the search in the description of the event
   def search_in_description
-   
+    
     @query = params[:query]
     @total, @events = Event.description_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
@@ -519,30 +536,30 @@ class EventsController < ApplicationController
   
   #this method search an event between two dates
   def search_by_date
-
-   
+    
+    
     @query1 = params[:query1]
     @query2 = params[:query2]
     #cambiamos el formato de las fechas,, creando un objeto de tipo date y transformandolo
-   #a formato Ymd => 20081124
+    #a formato Ymd => 20081124
     date1 = Date.parse(@query1)
-   date1ok =  date1.strftime("%Y%m%d")
-   date2 = Date.parse(@query2)
-   date2ok =  date2.strftime("%Y%m%d")
+    date1ok =  date1.strftime("%Y%m%d")
+    date2 = Date.parse(@query2)
+    date2ok =  date2.strftime("%Y%m%d")
     if date1ok > date2ok
       flash[:notice] = 'The first date cannot be lower than the second one'
-    render :template => "events/search"
+      render :template => "events/search"
     else
-     @total, @events, @query = Event.date_search(@query1,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
-   @pages = pages_for(@total)
-    respond_to do |format|
-      format.html {render :template => "events/search_events"}
-    end  
+      @total, @events, @query = Event.date_search(@query1,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+      @pages = pages_for(@total)
+      respond_to do |format|
+        format.html {render :template => "events/search_events"}
+      end  
     end
   end
-
   
-
+  
+  
   
   private              
   
@@ -563,6 +580,6 @@ class EventsController < ApplicationController
     return event_datetimes
   end
   
- 
+  
   
 end

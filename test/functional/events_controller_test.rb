@@ -520,7 +520,7 @@ class EventsControllerTest < ActionController::TestCase
     login_as("user_normal")
     post :search_events, :query=>'complejo', :container_type=>'space', :container_id=>'1'
     assert_response :success
-    assert @response.body.include?("1 events were found")
+    assert @response.body.include?(" events were found")
     assert_template 'search_events'
   end
   

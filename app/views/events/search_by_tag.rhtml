@@ -24,9 +24,9 @@ No events Found <br><br>
 		
 		 
 		<% @events.each do |event| %>  
-		<div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
+		<div class="nodisplay"><div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
 		<% for datetime in event.event_datetimes %> 
-		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
+		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div></div>
 			<%end%>
 		<td>
 			<%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id,:space_id=>@space.id)  } %>	</td>

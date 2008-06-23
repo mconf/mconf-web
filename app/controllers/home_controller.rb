@@ -13,5 +13,9 @@ class HomeController < ApplicationController
     redirect_to "/spaces/0"
   end
   
+  def search
+    
+    
+  end
 
   end

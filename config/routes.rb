@@ -82,7 +82,7 @@ map.resources :users
   
 map.search_articles '/:container_type/:container_id/search_articles', :controller => 'articles', :action=> 'search_articles'
  
-
+map.search_all '/:container_type/:container_id/search_all', :controller => 'home', :action=> 'search'
   #EVENTS CONTROLLER
   map.show_timetable '/events/show_timetable' , :controller => "events", :action => "show_timetable"
   map.show_summary '/:container_type/:container_id/show_summary/:id' , :controller => "events", :action => "show_summary"

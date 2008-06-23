@@ -10,7 +10,7 @@
 	<% if @events == nil %>
 	Please insert something in the search box
 	<% else%>
-	<h3> <%= @events.total_hits%> events were found</h3></td><tr>
+	<h3> <%= @events.size%> events were found</h3></td><tr>
 	<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
 <%= pagination_links(@pages, :params => { :query=> @query }) %>
 <%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>

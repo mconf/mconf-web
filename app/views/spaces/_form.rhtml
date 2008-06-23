@@ -2,4 +2,4 @@
 <%= f.text_field :name %></p>
 
 <p><label for="name">Description</label><br/>
-<%= f.text_field :description %></p>
+<%= fckeditor_textarea(:space, :description, :toolbarSet => 'Default', :width => '685px', :height => '400px') %> 
