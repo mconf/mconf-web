@@ -1,3 +1,7 @@
+<%if @events ==  nil%>
+<%= No events found%>
+<%else%>
+
 <%  @events.each do |event| %> 
 <div class="vevent">
 <div class="summary"><%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id,:space_id=>@space.id)  } %> </div><div class="description"><%= event.description%>  </div>
@@ -13,4 +17,6 @@
 
 </br>
 </div>
+<%end%>
+
 <%end%>

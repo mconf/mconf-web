@@ -89,9 +89,9 @@ map.search_all '/:container_type/:container_id/search_all', :controller => 'home
   map.add_participant '/add_participant', :controller => 'events', :action => 'add_participant'
   map.remove_participant '/remove_participant', :controller => 'events', :action => 'remove_participant'
   map.export_ical '/events/:id/export_ical', :controller => 'events' , :action => 'export_ical'
-  map.remove_time '/remove_time', :controller => 'events', :action => 'remove_time'
-  map.add_time '/add_time', :controller => 'events', :action => 'add_time'
-  map.copy_next_week '/copy_next_week', :controller => 'events', :action => 'copy_next_week'
+  map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time'
+  map.add_time '/:container_type/:container_id/add_time', :controller => 'events', :action => 'add_time'
+  map.copy_next_week '/:container_type/:container_id/copy_next_week', :controller => 'events', :action => 'copy_next_week'
   
   #map.show '/:container_type/:container_id/events',:controller => 'events', :action => 'index'
   map.search '/:container_type/:container_id/search', :controller => 'events', :action => 'search'

@@ -138,6 +138,7 @@ class EventsController < ApplicationController
     end
     
     @event.uri = @event.get_xedl_filename    
+    
     array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
     if array_participants==nil
       flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
