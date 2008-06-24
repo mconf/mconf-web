@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
   end
   
   def is_public_space
-    #debugger
+   
     @space = Space.find(params[:container_id])
     if @space.id == 1 || logged_in?
       return true

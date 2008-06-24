@@ -2,10 +2,11 @@ class SpacesController < ApplicationController
   include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required, :except=>[:register,:show]
+   before_filter :get_space , :only =>[:edit, :add_user,:add_user2,:update, :show]
    before_filter :is_public_space, :only=>[:show]
   before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:index, :new,:create,:destroy]
-  before_filter :get_space , :only =>[:edit, :add_user,:add_user2,:update, :show]
+ 
   before_filter  :can__edit__space__filter, :only=>[:edit,:update]
   before_filter  :can__manage_groups__space__filter, :only=>[:add_user, :add_user2]
   before_filter :remember_tab_and_space
@@ -86,7 +87,7 @@ class SpacesController < ApplicationController
       flash[:notice] = 'Space was successfully updated.'
       @spaces = Space.find(:all )
       
-      render :action => "index" 
+      redirect_to :action => "show" , :id => @space.id
       
     else
       respond_to do |format|

@@ -28,8 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.show_calendar '/:container_type/:container_id/events/show_calendar', :controller => 'events', :action => 'show_calendar'
   map.show_calendar '/events/show_calendar', :controller => 'events', :action => 'show_calendar'
   map.new_space   '/spaces/new', :controller =>'spaces', :action=>'new'
-  map.show_space '/spaces/:container_id',:controller => "spaces", :action => "show"
-  
+ 
   map.resources :spaces do |space|
     space.resources :users do |user|
       user.resource :profile
