@@ -125,8 +125,7 @@ end
   login_as("user_admin")
  post :update, :id => 1,:container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:hola=>'adf'
    
- assert_response :success
-   
+ assert_response 302
  end
  
  
@@ -134,7 +133,7 @@ end
   login_as("user_admin")
  post :update, :id => 1,:container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio5', :description=>'Esto es una descripcion'},:role=>{:name=>'administrator'}
     
- assert_response :success
+ assert_response 302
    
  end
  
@@ -143,7 +142,7 @@ end
   login_as("user_space1_admin")
  post :update,:id=> 1, :container_type=>'space', :container_id=>'1', :space=>{:name=>'spacio2', :description=>'Esto es una descripcion'}
     
-  assert_response :success
+  assert_response 302
  end
  
  
