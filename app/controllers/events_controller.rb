@@ -465,7 +465,7 @@ class EventsController < ApplicationController
     
     @query = params[:query]
     @even = CMS::Post.find_all_by_container_id_and_content_type(@container.id, "Event")
-    @total, @results = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+    @total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     @partials = []
     @events = []  
@@ -506,7 +506,7 @@ class EventsController < ApplicationController
   def advanced_search_events
     
     @query = params[:query]
-    @total, @events = Event.full_text_search2(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+    @total, @events = Event.full_text_search2(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     respond_to do |format|
       format.html {render :template => "events/search_events"}
@@ -517,7 +517,7 @@ class EventsController < ApplicationController
   def search_by_title
     
     @query = params[:query]
-    @total, @events = Event.title_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+    @total, @events = Event.title_search(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     respond_to do |format|
       format.html {render :template => "events/search_events"}
@@ -528,7 +528,7 @@ class EventsController < ApplicationController
   def search_in_description
     
     @query = params[:query]
-    @total, @events = Event.description_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+    @total, @events = Event.description_search(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     respond_to do |format|
       format.html {render :template => "events/search_events"}
@@ -551,7 +551,7 @@ class EventsController < ApplicationController
       flash[:notice] = 'The first date cannot be lower than the second one'
       render :template => "events/search"
     else
-      @total, @events, @query = Event.date_search(@query1,@query2,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
+      @total, @events, @query = Event.date_search(@query1,@query2,  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       respond_to do |format|
         format.html {render :template => "events/search_events"}

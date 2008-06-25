@@ -27,8 +27,8 @@ class Notifier < ActionMailer::Base
      @subject = "Sir Invitation"
      @sent_on = Time.now
      @body["space_id"] = invitation.space_id
-     @body["name"] = @profile.name
-       @body["lastname"] = @profile.lastname
+     @body["name"] = @profile.name if @profile
+       @body["lastname"] = @profile.lastname if @profile
      @body["space"] = @space.name
   end
   

@@ -6,6 +6,6 @@ class ChangeProfile < ActiveRecord::Migration
 
   def self.down
     remove_column "profiles","user_id"
-    add_column "profiles","users_id"
+    add_column "profiles","users_id", :string
   end
 end

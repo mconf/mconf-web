@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
                                                           :reset_password ]
 
-  before_filter :get_space, :except=>[:new,:create,:activate]
+  before_filter :get_space, :except=>[:new,:create,:activate,:forgot_password,:reset_password]
   
  before_filter :get_cloud
   before_filter :authentication_required, :only => [:show_space_users,:edit,:update, :manage_users, :destroy]
