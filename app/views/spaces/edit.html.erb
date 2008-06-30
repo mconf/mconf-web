@@ -4,7 +4,6 @@
 <h1>Editing space</h1>
 
 <%= error_messages_for :space %>
-
 <% form_for :space, :url => space_path(@space.id), :html => {:method => :put} do |f| %>
 
 <%= render :partial => 'form', :locals => { :f => f } %>

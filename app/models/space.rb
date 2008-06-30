@@ -93,6 +93,15 @@ class Space < ActiveRecord::Base
       end
       array_spaces += user.stages.collect {|r| [ r.name, r.id ]}
     end
+    #add the public spaces
+    public_spaces = Space.find_all_by_public(true)
+    if public_spaces !=nil
+      for spacepublic in public_spaces
+        if user.superuser==false && !user.stages.include?(spacepublic) && spacepublic.id!=1
+          array_spaces << Array[spacepublic.name + "(*)", spacepublic.id]
+        end
+      end
+    end
     return array_spaces
   end
  

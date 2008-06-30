@@ -72,7 +72,6 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   def update
     @space = Space.find(params[:id])
-    
     if @space.update_attributes(params[:space])
       #fist of all we delete all the old performances, but not the groups
       @space.delete_performances

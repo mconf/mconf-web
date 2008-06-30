@@ -100,18 +100,34 @@ a:hover.secund, a.tit_pcipal:hover{
 #login2{
 	position: absolute;
 	width: 350px;
-	height:20px;
+	height:30px;
 	margin-left: 600px;
 	margin-top:5px;
 	float:left;
 	display:inline;   
 }
 
+
+#space-span {
+	margin-left: 0%;
+	width: 50%;
+}
+#user_logout{
+	position: relative;
+	margin-left: 50%;
+	width: 50%;
+	margin-top:0px;
+}
+#report-feedback{
+	position: relative;
+	margin-left: -50%;
+	width: 50%;
+	margin-top:0px;
+}
 #username{
-	position:absolute;
 	width:25%;
 	margin-left:61%;
-
+	display:inline;   
 }
 #username p{
 	margin-top:0px;
@@ -127,7 +143,6 @@ a:hover.secund, a.tit_pcipal:hover{
 }
 
 #menu_login{
-	position:absolute;
 	width:40%;
 	margin-left:60%;
 	margin-top:0px;
@@ -159,11 +174,11 @@ a:hover.secund, a.tit_pcipal:hover{
 }
 
 #menu_logout{
-	position:absolute;
 	width:15%;
 	margin-left:85%;
 	margin-top:0px;
-
+	display:inline;   
+	float:left;
 }
 
 #menu_logout ul{
@@ -191,9 +206,6 @@ a:hover.secund, a.tit_pcipal:hover{
 }
 
 
-#space-span {
-	margin-left: 15%;
-}
 
 
 /* GLOBAL NAVIGATION */

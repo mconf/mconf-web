@@ -52,7 +52,6 @@ def show
     @agent.save!
     tag = params[:tag][:add_tag]    
     @agent.tag_with(tag)
-    debugger
     @mail = @agent.email
     
     @invitation = Invitation.find_all_by_email(@mail)

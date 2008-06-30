@@ -150,7 +150,7 @@ class ApplicationController < ActionController::Base
   def space_member
     
     @space = Space.find(params[:container_id])
-    if @space.id == 1  
+    if @space.id == 1  || @space.public==true
       
       return true
     elsif logged_in? && current_user.superuser

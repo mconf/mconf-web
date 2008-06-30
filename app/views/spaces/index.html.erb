@@ -9,7 +9,6 @@
 <table>
   <tr>
 	<td class=headerDay align=center>Name</td>
-	<td class=headerDay align=center>Description</td>
 	<td class=headerDay align=center>Action</td>
   </tr>
 
@@ -17,9 +16,6 @@
   <tr>
   	<td>
 		<%= link_to space.name, edit_space_path(space)%>
-	</td>
-	<td>
-		<%= link_to space.description,edit_space_path(space) %>
 	</td>
     <td>
     <%= link_to 'Add Users', add_user_path(space) %>
