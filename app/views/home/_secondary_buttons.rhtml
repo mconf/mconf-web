@@ -12,7 +12,7 @@
 			<%= link_to "Show Calendar", :controller=>'events', :action=>'show_calendar', :container_id => @space.id %>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 			<%if @space.manage_groups_by?(current_user)%>
-				<%= link_to 'Create Group', create_group_path(:space,@container.id)%>
+				<%= link_to 'Create Group', create_group_path(:spaces, @container.id)%>
 			<%end%>
 		<%elsif logged_in? && session[:current_tab]=="MyProfile"%>
 			<%= link_to 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |

@@ -148,10 +148,12 @@ class RolesController < ApplicationController
   
   def save_group
     @users =  @container.actors   
-    @role = Group.new(params[:group])
-    array_users = parse_divs(params[:group_users].to_s)
+    @role = Group.new()
+    @role.name = params[:group_name]
+    @role.type = "Group"
+    array_users = Array.new
     respond_to do |format|
-      if array_users.length>0 && @role.save
+      if @role.save
         for login in array_users
              @container.container_performances.create :agent => User.find_by_login(login), :role => @role
         end
@@ -159,11 +161,9 @@ class RolesController < ApplicationController
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
         format.xml  { render :xml => @role, :status => :created, :location => @role }
       else
-        if !(array_users.length>0)
-           flash[:notice] = 'Group users can`t be blank'
-        else
-           flash[:notice] = 'Error creating group.'
-        end        
+        
+        flash[:notice] = 'Error creating group.'
+       
         @users_group = []
         format.html { render :action => "create_group" }
         format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }

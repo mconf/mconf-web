@@ -16,7 +16,7 @@
 <TD class=fieldEvent width=20%><label for="event_service">Service</label></TD>
 <TD width=25% ><%= select("event", "service", Event::SERVICE_TYPES)%></TD>
              <TD width=20%> <label for="event_quality" >&nbsp;&nbsp;&nbsp;&nbsp;Quality:</label></TD>
-              <TD><%#breakpoint()%>
+              <TD>
               <%if @event.name!=""%>
                 <%=select("event", "quality", Event::service_qualities)%></TD>
               <%else%>

@@ -20,7 +20,7 @@ class EventsController < ApplicationController
   #TODO: Authorization
   before_filter :is_public_space, :only=>[:index]
   before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
-  before_filter :no_machines, :only => [:new, :edit,:create]
+  #before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
   
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show_timetable, :show, :copy_next_week, :remove_time]

@@ -10,7 +10,7 @@ class LoadData < ActiveRecord::Migration
 
   def self.down
     User.find_by_login("admin").destroy
-    Role.delete_all
+    CMS::Role.delete_all
     if Space.find_by_id(0)
       Space.find_by_id(0).destroy
     end

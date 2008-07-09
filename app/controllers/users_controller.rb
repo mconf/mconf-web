@@ -102,7 +102,6 @@ def show
       if current_user.superuser==true
         @array_resources = params[:resource]
         logger.debug("Array de maquinas es  " + @array_resources.to_s)
-        #debugger
         @user.machines = Array.new        
         for machine in Machine.find(:all)
           if @array_resources[machine.name]=="1"
@@ -142,6 +141,8 @@ def show
     end
     redirect_to(:action => "manage_users")  
   end
+  
+  
   #search method that returns the users founded with the query in this space.
   def search_users
     @query = params[:query]
@@ -167,6 +168,8 @@ def show
   
     end
   end
+  
+  
   #search method that returns the users founded with the query in all the aplication.
   def search_users2
     @query = params[:query]

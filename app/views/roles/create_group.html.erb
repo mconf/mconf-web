@@ -1,6 +1,53 @@
 <% @page_title = "Create a new group in the Space"%>
 <%= error_messages_for :role %>
 
+<div id="yui-main">
+<div class="yui-b main_column">
+	
+<title>Add Users to the Space</title>
 
-<%= render :partial => 'form_groups'%>
+<script>
+	function remove_from_group(){
+		var selec = document.getElementById("group_users_id");
+		while (selec.selectedIndex != -1) {							
+				selec.remove[selec.selectedIndex];
+		}
+	}
+	
+	function add_to_the_group(){
+		var ob = document.getElementById("users_id");
+		while (ob.selectedIndex != -1) {
+				hijo = ob.options[ob.selectedIndex];
+				document.getElementById("group_users_id").appendChild(new Option(hijo.text,hijo.id));				
+				ob.options[ob.selectedIndex].selected = false; 
+		}		
+	}
+	
+	
+</script>
+<br/>
+		<%= render :partial => 'form_groups'%>
+		
 
+</div>
+</div>
+
+
+
+<div class="yui-b sidebar">
+		<% rounded(:class => "tips") do %>
+			 
+				<h4> Search</h4> </span>
+				<br>	
+				 <span> <% form_tag({:controller=> 'users',:action => :search_users2, :container_type =>:space, :container_id=>@space.id}, :method => 'get') do %>
+				      <%= text_field_tag :query, params[:query] %>
+					  <%= submit_to_remote 'Search', 'Search', :url=>{:controller=> 'users',:action => :search_users2, :container_type =>:space, :container_id=>@space.id}%>
+				      <%= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>
+				  </span>
+				  <br> <%= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization', :container_type =>:space, :container_id=>@space.id}}%>
+				  <br>
+				<% end %>			
+		<%end%>
+<div id="adv_search">		
+</div>
+</div>
