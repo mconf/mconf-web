@@ -38,7 +38,8 @@ ActionController::Routing::Routes.draw do |map|
   # #######################################################################
   # CMSplugin
   #  
-  map.resources :posts, :member => { :get => :edit_media,
+  map.resources :posts, :member => { :media => :any,
+                                     :get => :edit_media,
                                      :put => :update_media }
   map.resources :posts, :path_prefix => '/:container_type/:container_id',
                         :name_prefix => 'container_'
