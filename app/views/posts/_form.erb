@@ -5,9 +5,7 @@
 
 <p>
 	<%if params[:container_type] == 'spaces'%>
-  <b>Description</b><br />
-
-  <%= text_area_tag :description, params[:description], :width => '100%', :height => '300px' %>
+ 
 </p>
 <% end%>
 <%= render :partial => "#{ @content.class.to_s.tableize }/form" %>

@@ -17,7 +17,7 @@ FCKConfig.SpellChecker = 'SpellerPages';
 FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/';
 
 FCKConfig.ToolbarSets["Simple"] = [
-	['Source','-','-','Templates'],
+	['-','-','Templates'],
 	['Cut','Copy','Paste','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll'],
 	'/',

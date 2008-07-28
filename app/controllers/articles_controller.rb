@@ -44,18 +44,41 @@ class ArticlesController < ApplicationController
     # every time a Content is posted.
     # Idea: Should use SHA1 on one or some relevant Content field(s) 
     # and find_or_create_by_sha1
-    @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
+ 
+    if params[:attachment]!= {"uploaded_data"=>""}
+      @content = Attachment.create(params[:attachment])  
+        @post = CMS::Post.new({ :agent => current_agent,
+        :container => @container,
+        :content => @content, 
+        :description => params[:content][:text],
+        :title => params[:post][:title]}) 
+    else
     
-    @post = CMS::Post.new(params[:post].merge({ :agent => current_agent,
-      :container => @container,
-      :content => @content }))
-    
-    
-    
+      @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
+       @post = CMS::Post.new(params[:post].merge({ :agent => current_agent,
+        :container => @container,
+        :content => @content}))
+    end
+    #if params[:attachment] != nil 
+    #@attachment = Attachment.new(params[:attachment])# añadida por mi....
+  
+    #@attachment.save;
+
+    #@attachment_post = CMS::Post.new( :agent => current_agent,
+     # :container_type =>"CMS::Post",
+     # :container_id => @content.id,
+     # :content => @attachment,
+     # :title => @post.title,
+     # :description => @post.description)
+ 
+    #end 
     respond_to do |format| 
       format.html {
-        if !@content.new_record? && @post.save
-          
+      #lo de abajo lo he modificado
+        if !@content.new_record? && @post.save   
+        #  if params[:attachment] != nil    #####compruebo que se graban y no da error
+        #    @attachment.save && @attachment_post.save   
+        #  end
           tag = params[:tag][:add_tag]    
           @post.tag_with(tag)
           @post.category_ids = params[:category_ids]
@@ -70,7 +93,10 @@ class ArticlesController < ApplicationController
       }
       
       format.atom {
-        if !@content.new_record? && @post.save
+        if !@content.new_record? && @post.save 
+         #  if params[:attachment] != nil    #####compruebo que se graban y no da error
+         #   @attachment.save && @attachment_post.save   
+         # end
           headers["Location"] = formatted_post_url(@post, :atom)
           headers["Content-type"] = 'application/atom+xml'
           render :partial => "posts/entry",

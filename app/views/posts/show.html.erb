@@ -26,14 +26,18 @@
 
 <%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
 
+
+
+<br>
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
 <%end%>
 
 <div id="new_comment_form" style="display: none;">
-  <% @content.text = "" %>
-  <% form_tag post_articles_path(@post) do -%>
+  <% @content = CMS::Text.new() %>
+  <% form_for(:post, :url => post_articles_path(@post), :html => { :multipart => true }) do -%>
+
     <b>Title</b><br />
     <%= text_field_tag :title %>
     </p>
@@ -41,6 +45,7 @@
       <b>Body</b><br />
       <%= fckeditor_textarea(:content, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
     </p>
+	 <%= render :partial => 'articles/attach' %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
     <%= submit_tag "Create" %>
   <% end -%>

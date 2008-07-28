@@ -23,6 +23,6 @@
 				<%= link_to 'Add Users from App', add_user2_path(@space.id) %>
 				<%end%>
 		<%elsif  logged_in? && session[:current_tab]=="Posts"%>
-				<%= link_to 'New article', new_space_article_path(@space) %>
+				<%= link_to 'New Post', new_space_article_path(@space) %>
 		<%end%>
 </div>

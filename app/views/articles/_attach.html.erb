@@ -1,0 +1,12 @@
+
+ <% fields_for :attachment do |attach| -%>
+
+  <p>
+    <label for="attachment">Attachment a subir:</label>
+    <%= attach.file_field :uploaded_data %>
+	
+  </p>
+
+<% end -%>
+
+
