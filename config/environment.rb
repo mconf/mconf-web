@@ -54,6 +54,10 @@ Rails::Initializer.run do |config|
   # end
 
   # See Rails::Configuration for more options
+  config.gem "mislav-will_paginate", :lib => 'will_paginate',
+                                     :version => '>= 2.3.2',
+                                     :source => 'http://gems.github.com/'
+
 end
 
 include Globalize
