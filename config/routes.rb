@@ -6,9 +6,16 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     space.resources :events
+    space.resources :articles
+    space.resources :attachments
+
+    # Para el nuevo controlador de Grupos
+    space.resources :groups
   end
 
   map.resources :events
+  map.resources :articles
+  map.resources :attachments
 
   map.resource :notifier
 
