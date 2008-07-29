@@ -117,8 +117,8 @@ map.search_all '/:container_type/:container_id/search_all', :controller => 'home
    #PROFILES CONTROLLER
   map.profile '/:container_type/:container_id/users/:user_id/profile', :controller => 'profiles' , :action => 'show' #=> /users/:user_id/profile, ProfileController#show, se llama con: user_profile_path(@user) 
   map.new_profile '/:container_type/:container_id/users/:user_id/profile/new', :controller => 'profiles' , :action => 'new'    #=> /users/:user_id/profile/new, ProfileController#new, se llama con: new_user_profile_path(@user) 
-  map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'    #=> /users/:user_id/profile.vcard, ProfileController#show.vcard, se llama con: formatted_user_profile_path(@user, :vcard) 
-  map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'    #=> /users/:user_id/profile.hcard, ProfileController#show.hcard, se llama con: formatted_user_profile_path(@user, :hcard) 
+  map.vcard '/users/:user_id/vcard/', :controller => 'profiles' , :action => 'vcard'    #=> /users/:user_id/profile.vcf, ProfileController#show.vcf, se llama con: formatted_user_profile_path(@user, :vcf) 
+  map.hcard '/users/:user_id/hcard/', :controller => 'profiles' , :action => 'hcard'    #=> Esto habría que integrarlo en el propio show, ya que es un microformato
   #USERS CONTROLLER
   map.show_space_users '/:container_type/:container_id/space_users', :controller => 'users' , :action => 'show_space_users'  #=> /spaces/:space_id/users, UsersController#index 
   map.clean_show '/clean_event', :controller => 'events', :action => 'clean_show' #=> ????
