@@ -1,36 +1,13 @@
 
-<% rounded(:class => "tips") do %>
-	<div id="add_usuarios">
-			<span>Users in the space</span>
-			<div id="select_users_from_space" class="select_users">
-				<%= select 'users',
-				           'id',
-				           User.find(:all).collect { |u| [ u.login, u.id ] },
-				           {},
-				           { :multiple => true,
-				             :size     => 10,
-						 	 :style => "width: 170px" } %>
-			</div>
-			
-			<div id="buttons_register">
-				<%= link_to_function "Add to the Group","add_to_the_group()", :class => "secund" %><br/>
-			</div>			
-		</div>
-<%end%>
-
-<% rounded(:class => "tips") do %>
-<div id="space_users">
-<% form_tag({:controller=> 'roles',:action => "save_group", :container_type =>:space, :container_id=>@space.id},{:name=>'create_group_form',:style => "display: inline;", :method => 'put'} ) do %>
-	Group Name <%= text_field_tag "group_name"%>
+	Group Name <%= text_field_tag "group_name", @role.name%>
 	<div id="users_group">
 		<span>Users in the group</span>
 		<div id="users_group_select" class="select_users">
 			<%= select 'group_users',
 			           'id',
-			           @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
+			           @space.get_users_with_role(@role.name).collect { |u| [ u.login, u.id ] },
 			           {:include_blank => false},
-			           { :name     => 'group[user_id[]]',
-						 :multiple => true,
+			           { :multiple => true,
 			             :size     => 10,
 						 :style => "width: 170px" } %>
 		</div>	
@@ -39,7 +16,3 @@
 		</div>
 
 	</div>
-<%=submit_tag%>
-	<%end%>
-</div>
-	<%end%>

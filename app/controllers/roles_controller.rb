@@ -4,9 +4,9 @@ class RolesController < ApplicationController
   include CMS::Controller::Authorization
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
   before_filter :authentication_required
-   before_filter :get_cloud
+  before_filter :get_cloud
   before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
-  before_filter  :can__manage_groups__space__filter, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  before_filter :can__manage_groups__space__filter, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:group_details,:show_groups,:groups_details]
   
@@ -135,7 +135,6 @@ class RolesController < ApplicationController
   
   
   def create_group
-      
     @users =  @container.actors    
     @role = Group.new
     @users_group = []
@@ -147,15 +146,19 @@ class RolesController < ApplicationController
   
   
   def save_group
-    @users =  @container.actors   
+    @users =  @container.actors   #por si da error que mostramos create_group y necesita @users para mostrarlos
     @role = Group.new()
     @role.name = params[:group_name]
     @role.type = "Group"
     array_users = Array.new
+    #rellenamos el array con los usuarios del grupo
+    if params[:group_users] && params[:group_users][:id]
+      array_users = params[:group_users][:id]
+    end
     respond_to do |format|
       if @role.save
-        for login in array_users
-             @container.container_performances.create :agent => User.find_by_login(login), :role => @role
+        for id in array_users
+             @container.container_performances.create :agent => User.find(id), :role => @role
         end
         flash[:notice] = 'Group was successfully created in this space.'
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
@@ -177,7 +180,6 @@ class RolesController < ApplicationController
        
     @users =  @container.actors    
     @role = Group.find(params[:group_id])
-    @group = @role    #para que rellene automáticamente los campos
     @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
     i = 0
     @users_group = []
@@ -194,28 +196,38 @@ class RolesController < ApplicationController
   
   
   def update_group
-    @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
     
-    for performance in @performances
-      performance.destroy
+    if params[:group_id] && params[:group_name] && params[:group_users]
+      @role = Group.find(params[:group_id])
+      @role.name = params[:group_name]
+      @role.type = "Group"
+      @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
+      respond_to do |format|
+        if @role.save
+            for performance in @performances
+              performance.destroy
+            end
+            if params[:group_users][:id]
+              for id in params[:group_users][:id]
+                   @container.container_performances.create :agent => User.find(id), :role => @role
+              end
+            end        
+          flash[:notice] = 'Group was successfully updated.'
+          format.html { redirect_to(:action => "show_groups", :controller => "roles") }
+          format.xml  { render :xml => @role, :status => :created, :location => @role }
+       else         
+        flash[:notice] = 'Error updating group.'       
+        @users =  @container.actors    
+        @role = Group.find(params[:group_id])
+        @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
+        @users_group = []
+        format.html { render :action => "edit_group" }
+        format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
+      end
     end
-    if params[:group_users]
-      array_users =  parse_divs(params[:group_users].to_s)
-    end
-    if  array_users.length >0 && @role.update_attributes(params[:group])
-      if params[:group_users]
-        for login in array_users
-            @container.container_performances.create :agent => User.find_by_login(login), :role => @role
-        end
-        flash[:notice] = 'Group was successfully updated.'
-      else
-        @role.destroy
-        flash[:notice] = 'Group was successfully deleted.'
-      end      
-       redirect_to(:action => "show_groups", :controller => "roles")     
     end
   end
+  
   
   
   def delete_group    

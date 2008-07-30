@@ -177,3 +177,28 @@ function esconde(Seccion)
           return true;
     }
   }
+  
+  function remove_from_group(){
+		var selec = document.getElementById("group_users_id");
+		while (selec.selectedIndex != -1) {					
+				selec.options[selec.selectedIndex] = null;
+		}
+	}
+	
+	function add_to_the_group(){
+		var ob = document.getElementById("users_id");
+		while (ob.selectedIndex != -1) {
+				hijo = ob.options[ob.selectedIndex];
+				document.getElementById("group_users_id").appendChild(new Option(hijo.text,hijo.value));				
+				ob.options[ob.selectedIndex].selected = false; 
+		}		
+	}
+	
+	function selectAllOptions()
+	{
+	  var selObj = document.getElementById("group_users_id");
+	  for (var i=0; i<selObj.options.length; i++) {
+	    selObj.options[i].selected = true;
+	  }
+	}
+
