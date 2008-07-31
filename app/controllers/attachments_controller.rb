@@ -72,7 +72,6 @@ class AttachmentsController < ApplicationController
     end
   end
   
-  
   protected
   def get_space
     @space = @container

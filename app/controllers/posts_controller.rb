@@ -48,13 +48,13 @@ before_filter :is_public_space, :only=>[:index]
           format.html {
           #si el contenido es de tipo attachment...
           if @content.class == Attachment
-      
             if !@content.new_record? &&  @post.update_attributes({:description , params[:post][:description],
-                :title , params[:title]})
+                :title , params[:title], :public_read , params[:post][:public_read]})
                if params[:attachment]!= {"uploaded_data"=>""} #si hay cambio de attachment
                    @content.update_attributes(params[:attachment])
                end
-
+              tag = params[:tag][:add_tag]    
+              @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
               redirect_to post_url(@post)
@@ -68,12 +68,15 @@ before_filter :is_public_space, :only=>[:index]
               @content= Attachment.create(params[:attachment])
               params[:post][:content]  = @content
               @post.update_attributes(params[:post]) && @post.update_attribute(:description , params[:content][:text])
+              tag = params[:tag][:add_tag]    
+              @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
               redirect_to post_url(@post)
             
             elsif !@content.new_record? &&  @post.update_attributes(params[:post]) && @content.update_attributes(:text => params[:content][:text])
-     
+              tag = params[:tag][:add_tag]    
+              @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
               redirect_to post_url(@post)

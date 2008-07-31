@@ -77,7 +77,6 @@ ActionController::Routing::Routes.draw do |map|
   #
   map.show_ajax '/:container_type/:container_id/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax' #=> /spaces/:space_id/events/:id.rjs, EventsController#show.rjs
   map.show_ajax '/events/show_ajax/:id', :controller => 'events', :action => 'show_ajax' #=> /events/:id.rjs, EventsController#show.rjs
-  
   map.show_calendar '/:container_type/:container_id/events/show_calendar', :controller => 'events', :action => 'show_calendar' #=>  /spaces/:space_id/events/index, EventsController#index
   map.show_calendar '/events/show_calendar', :controller => 'events', :action => 'show_calendar' #=>  /events/index, EventsController#index
  

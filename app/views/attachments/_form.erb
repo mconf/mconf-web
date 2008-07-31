@@ -3,6 +3,7 @@
 	<%if @content.id != nil%>
 	<%@post = CMS::Post.find(:first , :conditions => {:content_id => @content.id,:content_type => "CMS::AttachmentFu"})%>
 	<%end%>
+	
     <b>Text</b><br />
 <%= fckeditor_textarea(:post, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %> 
  <%= render :partial => 'attachments/attach' %>

@@ -76,26 +76,7 @@ def nav_tab(name, options={})
   end
   "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url), :class => "secund") + "</li>"
 end
-######este no vale ya#####3
-def show_attachments(post)
-@attach = CMS::Post.find(:all, :conditions => { :content_type => "CMS::AttachmentFU"})
-@all_attach = [] 
-  for attach in @attach
-    type = CMS::AttachmentFu.find(attach.content_id).content_type
-    id = CMS::AttachmentFu.find(attach.content_id).id
-    if type == "image/jpeg"
-      @all_attach << [id,"jpg.jpg"]
-    elsif type == "application/pdf"
-      @all_attach << [id,"pdf_icon.gif"] 
-    elsif type == "application/vnd.ms-powerpoint"  
-      @all_attach << [id,"ppt.png"]  
-    else
-      @all_attach << [id,"clip.jpeg"] 
-    end
-  end
-  return @all_attach
-end
-#############
+
  def get_attachment_content_type(post)
   type = CMS::AttachmentFu.find(post.content_id).content_type
   return type

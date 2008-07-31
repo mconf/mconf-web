@@ -105,7 +105,11 @@ class ApplicationController < ActionController::Base
   end
   
   def get_space
-    
+    if params[:container_type]=="posts"
+      @space = CMS::Post.find(params[:container_id]).container
+      get_container
+      return
+    end
     if params[:space_id]
       params[:container_id] = params[:space_id]
     end

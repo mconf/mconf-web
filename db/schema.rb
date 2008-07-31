@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -13,14 +13,14 @@ ActiveRecord::Schema.define(:version => 38) do
 
   create_table "cms_attachment_fus", :force => true do |t|
     t.string   "type"
-    t.integer  "size"
+    t.integer  "size",         :limit => 11
     t.string   "content_type"
     t.string   "filename"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
+    t.integer  "height",       :limit => 11
+    t.integer  "width",        :limit => 11
+    t.integer  "parent_id",    :limit => 11
     t.string   "thumbnail"
-    t.integer  "db_file_id"
+    t.integer  "db_file_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,23 +28,23 @@ ActiveRecord::Schema.define(:version => 38) do
   create_table "cms_categories", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "container_id"
+    t.integer  "container_id",   :limit => 11
     t.string   "container_type"
-    t.integer  "parent_id"
+    t.integer  "parent_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "cms_categorizations", :force => true do |t|
-    t.integer "category_id"
-    t.integer "post_id"
+    t.integer "category_id", :limit => 11
+    t.integer "post_id",     :limit => 11
   end
 
   create_table "cms_performances", :force => true do |t|
-    t.integer "agent_id"
+    t.integer "agent_id",       :limit => 11
     t.string  "agent_type"
-    t.integer "role_id"
-    t.integer "container_id"
+    t.integer "role_id",        :limit => 11
+    t.integer "container_id",   :limit => 11
     t.string  "container_type"
   end
 
@@ -53,13 +53,13 @@ ActiveRecord::Schema.define(:version => 38) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "container_id"
+    t.integer  "container_id",   :limit => 11
     t.string   "container_type"
-    t.integer  "agent_id"
+    t.integer  "agent_id",       :limit => 11
     t.string   "agent_type"
-    t.integer  "content_id"
+    t.integer  "content_id",     :limit => 11
     t.string   "content_type"
-    t.integer  "parent_id"
+    t.integer  "parent_id",      :limit => 11
     t.string   "parent_type"
     t.boolean  "public_read"
     t.boolean  "public_write"
@@ -94,14 +94,14 @@ ActiveRecord::Schema.define(:version => 38) do
   add_index "cms_uris", ["uri"], :name => "index_cms_uris_on_uri"
 
   create_table "db_files", :force => true do |t|
-    t.binary "data"
+    t.binary "data", :limit => 2147483647
   end
 
   create_table "event_datetimes", :force => true do |t|
-    t.integer  "event_id",   :null => false
-    t.datetime "start_date", :null => false
-    t.datetime "end_date",   :null => false
-    t.integer  "at_job"
+    t.integer  "event_id",   :limit => 11, :null => false
+    t.datetime "start_date",               :null => false
+    t.datetime "end_date",                 :null => false
+    t.integer  "at_job",     :limit => 11
   end
 
   create_table "events", :force => true do |t|
@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(:version => 38) do
   end
 
   create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id",  :null => false
-    t.integer "event_id", :null => false
+    t.integer "user_id",  :limit => 11, :null => false
+    t.integer "event_id", :limit => 11, :null => false
   end
 
   create_table "globalize_countries", :force => true do |t|
@@ -158,11 +158,11 @@ ActiveRecord::Schema.define(:version => 38) do
     t.string  "type"
     t.string  "tr_key"
     t.string  "table_name"
-    t.integer "item_id"
+    t.integer "item_id",             :limit => 11
     t.string  "facet"
-    t.boolean "built_in",            :default => true
-    t.integer "language_id"
-    t.integer "pluralization_index"
+    t.boolean "built_in",                          :default => true
+    t.integer "language_id",         :limit => 11
+    t.integer "pluralization_index", :limit => 11
     t.text    "text"
     t.string  "namespace"
   end
@@ -172,9 +172,9 @@ ActiveRecord::Schema.define(:version => 38) do
 
   create_table "invitations", :force => true do |t|
     t.string   "email"
-    t.integer  "space_id"
-    t.integer  "user_id"
-    t.integer  "role_id"
+    t.integer  "space_id",   :limit => 11
+    t.integer  "user_id",    :limit => 11
+    t.integer  "role_id",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -185,35 +185,35 @@ ActiveRecord::Schema.define(:version => 38) do
   end
 
   create_table "machines_users", :id => false, :force => true do |t|
-    t.integer "user_id",    :null => false
-    t.integer "machine_id", :null => false
+    t.integer "user_id",    :limit => 11, :null => false
+    t.integer "machine_id", :limit => 11, :null => false
   end
 
   create_table "open_id_associations", :force => true do |t|
     t.binary  "server_url"
     t.string  "handle"
     t.binary  "secret"
-    t.integer "issued"
-    t.integer "lifetime"
+    t.integer "issued",     :limit => 11
+    t.integer "lifetime",   :limit => 11
     t.string  "assoc_type"
   end
 
   create_table "open_id_nonces", :force => true do |t|
-    t.string  "server_url", :default => "", :null => false
-    t.integer "timestamp",                  :null => false
-    t.string  "salt",       :default => "", :null => false
+    t.string  "server_url",               :default => "", :null => false
+    t.integer "timestamp",  :limit => 11,                 :null => false
+    t.string  "salt",                     :default => "", :null => false
   end
 
   create_table "open_id_ownings", :force => true do |t|
-    t.integer "agent_id"
+    t.integer "agent_id",   :limit => 11
     t.string  "agent_type"
-    t.integer "uri_id"
+    t.integer "uri_id",     :limit => 11
   end
 
   create_table "participants", :force => true do |t|
-    t.integer "event_id",                                              :null => false
-    t.integer "machine_id",                                            :null => false
-    t.integer "machine_id_connected_to",                               :null => false
+    t.integer "event_id",                :limit => 11,                 :null => false
+    t.integer "machine_id",              :limit => 11,                 :null => false
+    t.integer "machine_id_connected_to", :limit => 11,                 :null => false
     t.string  "role",                    :limit => 40, :default => "", :null => false
     t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
     t.integer "radiate_multicast",       :limit => 1,  :default => 0,  :null => false
@@ -244,18 +244,18 @@ ActiveRecord::Schema.define(:version => 38) do
 
   create_table "spaces", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
+    t.integer  "parent_id",   :limit => 11
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "tag_id",                        :null => false
-    t.integer "taggable_id",                   :null => false
-    t.string  "taggable_type", :default => "", :null => false
+    t.integer "tag_id",        :limit => 11,                 :null => false
+    t.integer "taggable_id",   :limit => 11,                 :null => false
+    t.string  "taggable_type",               :default => "", :null => false
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true

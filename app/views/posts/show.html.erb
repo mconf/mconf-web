@@ -4,7 +4,6 @@
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form'); document.location = '#new_comment_form'" %> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
-
 <p>
   <b>Title:</b>
   <%=sanitize @post.title %>
@@ -33,8 +32,15 @@
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
 <%end%>
-
 <div id="new_comment_form" style="display: none;">
+<%if @errors==true%>
+	<% unless error_messages_for(:content).blank? && error_messages_for(:post_).blank?  -%>
+<div class="errors">
+  <%= error_messages_for :content %>
+  <%= error_messages_for :post_ %>
+</div>
+<% end -%>
+<%end%>
   <% @content = CMS::Text.new() %>
   <% form_for(:post, :url => post_articles_path(@post), :html => { :multipart => true }) do -%>
 
@@ -42,7 +48,7 @@
     <%= text_field_tag :title %>
     </p>
     <p>
-      <b>Body</b><br />
+      <b>Text</b><br />
       <%= fckeditor_textarea(:content, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
     </p>
 	 <%= render :partial => 'articles/attach' %>
@@ -50,6 +56,13 @@
     <%= submit_tag "Create" %>
   <% end -%>
 </div>
+
+<%if @errors == true%>
+<script language="JavaScript">
+	new Element.toggle('new_comment_form');
+</script>
+<%@errors = false%>
+<%end%>
 
 <% div_for :comments do %>
   <h2>Comments</h2>

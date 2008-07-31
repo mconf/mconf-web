@@ -15,6 +15,7 @@ class ArticlesController < ApplicationController
   before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
   #before_filter :is_public_space, :only=>[:index]
   before_filter :get_space, :only => [ :index, :new, :create ,:search_articles ]
+  before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
   before_filter :get_cloud
   
   
@@ -44,14 +45,14 @@ class ArticlesController < ApplicationController
     # every time a Content is posted.
     # Idea: Should use SHA1 on one or some relevant Content field(s) 
     # and find_or_create_by_sha1
- 
     if params[:attachment]!= {"uploaded_data"=>""}
       @content = Attachment.create(params[:attachment])  
         @post = CMS::Post.new({ :agent => current_agent,
         :container => @container,
         :content => @content, 
         :description => params[:content][:text],
-        :title => params[:post][:title]}) 
+        :title => params[:post][:title],
+        :public_read => params[:post][:public_read]}) 
     else
     
       @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
@@ -75,7 +76,7 @@ class ArticlesController < ApplicationController
     respond_to do |format| 
       format.html {
       #lo de abajo lo he modificado
-        if !@content.new_record? && @post.save   
+        if !@content.new_record? & @post.save ####ojo, igual es peligroso  
         #  if params[:attachment] != nil    #####compruebo que se graban y no da error
         #    @attachment.save && @attachment_post.save   
         #  end
@@ -88,12 +89,22 @@ class ArticlesController < ApplicationController
           @content.destroy unless @content.new_record?
           @collection_path = container_contents_url
           @title ||= "New #{ controller_name.singularize.humanize }".t
-          render :template => "posts/new"
+          if @container.class == CMS::Post 
+          
+            @post_ = @post
+            @post = @container
+            @errors = true
+            render :template => "posts/show" , :object => {@errors, @post_}
+          else
+          @errors = true
+          @post_= @post
+            render :template => "posts/new" , :object => {@post_, @errors}
+          end
         end
       }
       
       format.atom {
-        if !@content.new_record? && @post.save 
+        if !@content.new_record? & @post.save 
          #  if params[:attachment] != nil    #####compruebo que se graban y no da error
          #   @attachment.save && @attachment_post.save   
          # end
@@ -116,9 +127,15 @@ class ArticlesController < ApplicationController
     end
   end
   
-  
-  protected
-  def get_space
+  private
+  def get_space_from_container
+    session[:current_tab] = "Posts" 
     @space = @container
   end
+  
+  def get_space_from_post
+    session[:current_tab] = "Posts" 
+    @space = @post.container
+  end
+  
 end

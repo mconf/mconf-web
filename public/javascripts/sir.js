@@ -185,7 +185,7 @@ function esconde(Seccion)
 		}
 	}
 	
-	function add_to_the_group(){
+	function add_to_the_group(){ 
 		var ob = document.getElementById("users_id");
 		while (ob.selectedIndex != -1) {
 				hijo = ob.options[ob.selectedIndex];

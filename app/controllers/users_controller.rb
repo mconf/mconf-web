@@ -94,7 +94,6 @@ def show
   
   #this method updates a user
   def update
-  
     @user = User.find(params[:id])
     
     if @user.update_attributes(params[:user]) 
