@@ -1,7 +1,7 @@
 <div id="yui-main">
     <div class="yui-b main_column">
         <% rounded(:class => "tips") do %>
-        <h1>New <%= @content.class.to_s %></h1>
+        <h1 class="title">New <%= @content.class.to_s %></h1>
         <%if @errors == true %>
         <% unless error_messages_for(:post_).blank? && error_messages_for(:content).blank? -%>
         <div class="errors">
@@ -19,5 +19,6 @@
         <% end -%>
         <% end -%>
     </div>
+>>>>>>> .r14066
 </div>
 <%= render :partial =>'shared/sidebar' %>

@@ -22,39 +22,53 @@
 </head>
 
 <body >
+	
 	<div id="doc2" class="yui-t8">
-		<div id="hd">		
-			<div id="logo">
-				 <!--<%= @page_title || "Isabel Server" %>-->
-			</div>
-			<div id="menu_tabs">
-				<%= render :partial => 'home/buttons', :layout => false%>				
-			</div>
-			<%= render :partial => 'home/secondary_buttons', :layout => false%>
-			<div id="login2">
+		<div id="hd">	
+			
+			<div id="login-users">
 			 	<%= render :partial => 'home/login', :layout => false%>
 			</div>
-  		</div>
-  
+	
+			<div id="linea"></div>	
+	
+			<div id="logo"></div>
+			
+			<div id="space_container">
+				<%= render :partial => 'home/space', :layout => false %>
+			</div>		
+				
+			<div id="menu_tabs">
+				
+				<div id="border2"></div>
+				<%= render :partial => 'home/buttons', :layout => false%>	
+				<%= render :partial => 'home/secondary_buttons', :layout => false%>
+				<div id="border"></div>
+						
+			</div>
+			
+		</div>
+ 
    		<div id="bd">
 	         <% if flash[:notice] -%>
-	        	<br><div id="notice" style="color: green"><%= flash[:notice] %></div>
+	        	<div id="notice" style="color: green"><%= flash[:notice] %></div>
 	        	<% end -%>
 				<% if flash[:error] -%>
-	        	<br><div id="notice" style="color: green"><%= flash[:error] %></div>
+	        	<div id="notice" style="color: green"><%= flash[:error] %></div>
 	        	<% end -%>
 				<% if flash[:warning] -%>
-	         	<br><div id="notice" style="color: red"><%= flash[:warning] %></div>
+	         	<div id="notice" style="color: red"><%= flash[:warning] %></div>
 	        	<% end -%>
 	        	<%= @content_for_layout %>   
    		</div>
 	    
    		<div id="ft">
-			<a href="/">Home</a> |<a href="/">Site map</a> | <a href="/">Faq</a> | <a href="/">About</a>
+			<a href="/">Home</a> |<a href="/">Site map</a> | <a href="/">Faq</a> | <a href="/">About</a> | <%= link_to 'Report Feedback', "/spaces/2/articles/new"  , :method=> 'get'%>
    		</div>  
 
  
   </div>
+   
 </body>
 
 

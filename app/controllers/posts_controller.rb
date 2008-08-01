@@ -110,11 +110,13 @@ before_filter :is_public_space, :only=>[:index]
 
   def get_space_from_container
     session[:current_tab] = "Posts" 
+    session[:current_sub_tab] = ""
     @space = @container
   end
   
   def get_space_from_post
     session[:current_tab] = "Posts" 
+    session[:current_sub_tab] = ""
     @space = @post.container
   end
 end

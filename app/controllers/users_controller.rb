@@ -36,6 +36,7 @@ def show
   def show_space_users
   
   session[:current_tab] = "People" 
+  session[:current_sub_tab] = ""
     @users = @container.actors
     
   end
@@ -75,12 +76,14 @@ def show
   
   def manage_users
     session[:current_tab] = "Manage" 
+    session[:current_sub_tab] = "Users"
     @users = User.find(:all)
   end
   
   
   #This method  debuggerreturns the user to show the form to edit him
   def edit
+    session[:current_sub_tab] = "Edit Account"
     @agent = User.find(params[:id])
     
   end

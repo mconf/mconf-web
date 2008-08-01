@@ -1,7 +1,9 @@
-<h4> Search</h4> 
+<div id="search_container">
+<img src="/images/magnify2.png"></img><h4 class="title"> Search</h4> 
 	
   <% form_tag(search_all_path(:container_id=>@space.id,:container_type=> :space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>
-	  <%= submit_tag 'Search'%>
+	  <%= image_submit_tag "go2.ico", :class=>'go'%>
 	 
    <% end %>
+ </div>

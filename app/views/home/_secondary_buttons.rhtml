@@ -1,28 +1,45 @@
+
 <div id="secondary_buttons" class="tips">
-		<%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
-			<%= link_to "Spaces", :controller=>'spaces', :action=>'index', :container_id => @space.id %> |		
-			<%= link_to "Roles", :controller=>'roles', :action=>'index', :container_id => @space.id %> |
-			<%= link_to "Users", manage_users_path(:container_id => @space.id, :container_type => :spaces) %> |
-			<%= link_to "Resources", :controller=>'machines', :action=>'manage_resources', :container_id => @space.id %>
+	
+	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
+<ul id="nav2">
+			<%= sub_tab "Spaces", spaces_path %> |		
+			<%= sub_tab "Users", manage_users_path("space",@space) %> |
+		    <%= sub_tab "Resources", manage_resources_path %>
+</ul>	
 		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
-			<%= link_to "Edit Space", edit_space_path(@space) %> |		
-			<%= link_to "Delete Space", space_path(@space), :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>			
+<ul id="nav2">
+			<%= sub_tab "Edit Space", edit_space_path(@space) %> |		
+			<li><%= link_to "Delete Space", space_path(@space), :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %></li>
+</ul>	
 		<%elsif logged_in? && session[:current_tab]=="Events"%>
-			<%= link_to "New Event", :controller=>'events', :action=>'new', :container_id => @space.id %> |	
-			<%= link_to "Show Calendar", :controller=>'events', :action=>'show_calendar', :container_id => @space.id %>	
+<ul id="nav2">
+			<%= sub_tab "New Event", new_container_event_path("space", @space) %> |	
+			<%= sub_tab "Show Calendar", show_calendar_path("space", @space) %>	
+</ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
+<ul id="nav2">
 			<%if @space.manage_groups_by?(current_user)%>
-				<%= link_to 'Create Group', create_group_path(:spaces, @container.id)%>
+				<%= sub_tab 'Create Group', create_group_path(:spaces, @container.id)%>
 			<%end%>
+</ul>	
 		<%elsif logged_in? && session[:current_tab]=="MyProfile"%>
-			<%= link_to 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |
-			<%= link_to 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
+	<ul id="nav2">
+			<%= sub_tab 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |
+			<%= sub_tab 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
+</ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
 			<%if @space.manage_groups_by?(current_user)%>
-			    <%= link_to 'Add Users by email', add_user_path(@space.id) %> | 
-				<%= link_to 'Add Users from App', add_user2_path(@space.id) %>
+		<ul id="nav2">
+			    <%= sub_tab 'Add Users by email', add_user_path(@space.id) %> | 
+				<%= sub_tab 'Add Users from App', add_user2_path(@space.id) %>
+				</ul>	
 				<%end%>
+
 		<%elsif  logged_in? && session[:current_tab]=="Posts"%>
-				<%= link_to 'New Post', new_space_article_path(@space) %>
+<ul id="nav2">
+				<%= sub_tab 'New Post', new_space_article_path(@space) %>
+				</ul>	
 		<%end%>
+
 </div>

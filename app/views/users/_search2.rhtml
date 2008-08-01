@@ -2,17 +2,18 @@
 	<div class="yui-b sidebar">
 
 <% rounded(:class => "tips") do %>	
-	
-	<h4> Search Users</h4> </span>
-		<br>	
+	 <div id="search_container3">
 
- <span> <% form_tag(search_users2_path) do %>
+
+	<img src="/images/magnify2.png"></img><h4 class="title"> Search Users</h4>
+	 <% form_tag(search_users2_path) do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_tag 'Search'%>
-        </span>
+        
   
  <% end %>
     <% end %>
+	</div>
    </div>
     
  

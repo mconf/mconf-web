@@ -12,7 +12,8 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.xml
   def show
-   session[:current_tab] = "MyProfile" 
+   session[:current_tab] = "MyProfile"
+   session[:current_sub_tab] = ""
    
    @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
@@ -48,8 +49,14 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
     session[:current_tab] = "MyProfile" 
-    @user = User.find_by_id(params[:user_id])
+    session[:current_sub_tab] = "Edit Profile"
     @profile = @user.profile
+    if @profile == nil
+      flash[:notice]= 'You must create your profile first'
+      redirect_to new_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
+    else
+      @user = User.find_by_id(params[:user_id])      
+    end
   end
 
 

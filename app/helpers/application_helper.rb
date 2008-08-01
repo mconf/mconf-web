@@ -74,13 +74,33 @@ def nav_tab(name, options={})
   if(session[:current_tab] && session[:current_tab]==name )
     classes << 'current'
   end
-  "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url), :class => "secund") + "</li>"
+  if classes == nil || ( classes.length==1 && classes[0]==nil)
+    "<li>" + link_to( "<span>"+name+"</span>", options.delete(:url)) + "</li>"
+  else
+    "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url)) + "</li>"
+  end
+end
+
+
+def sub_tab(name, ruta)
+  #options[:class] is the class to assing to the li label
+  #the class for the link label is set directly to "secund" as you can see
+  classes = [] 
+  if(session[:current_sub_tab] && session[:current_sub_tab]==name )
+    classes << 'current'
+  end
+  if classes == nil || classes.length==0 || ( classes.length==1 && classes[0]==nil)
+    "<li>" + link_to( "<span>"+name+"</span>", ruta) + "</li>"
+  else
+    "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", ruta) + "</li>"
+  end
 end
 
  def get_attachment_content_type(post)
   type = CMS::AttachmentFu.find(post.content_id).content_type
   return type
 end
+
 
   def get_attachment_image(content_type)
     case content_type
@@ -95,3 +115,4 @@ end
     end
   end
 end
+>>>>>>> .r14066

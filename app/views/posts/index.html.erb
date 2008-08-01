@@ -2,10 +2,10 @@
 <div id="yui-main">
 <div class="yui-b main_column">
 	
-<h1><%= @title %></h1>
+<h1 class="title"><%= @title %></h1>
 <% for post in @posts -%>
 <% rounded(:class => "tips") do %>
-
+	<div class="contenido_main">
 
  
     <% user = User.find(post.agent_id)%>
@@ -29,12 +29,13 @@
 
 
 <br />
+</div>
 <% end -%>
 <% end -%>
 <%if @space.id == 1%>
 <% for post in @public_posts%>
 <% rounded(:class => "tips") do %>
-
+<div class="contenido_main">
 
  
     <% user = User.find(post.agent_id)%>
@@ -52,6 +53,7 @@
 
 
 <br />
+</div>
 <% end -%>
 <% end -%>
 <% end -%>

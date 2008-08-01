@@ -113,6 +113,7 @@ class RolesController < ApplicationController
   def show_groups
        
     session[:current_tab] = "Groups" 
+    session[:current_sub_tab] = ""
     ###estan deben ser unicas...
     @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
     
@@ -135,6 +136,7 @@ class RolesController < ApplicationController
   
   
   def create_group
+    session[:current_sub_tab] = "Create Group"  
     @users =  @container.actors    
     @role = Group.new
     @users_group = []

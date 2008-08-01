@@ -5,14 +5,15 @@ body{
 }
 
 a:link, a:visited, a:hover, p{
-	font-family:  arial, verdana,helvetica, sans-serif;
+	font-family: verdana,arial, helvetica, sans-serif;
 }
 
 /* HEADER */
-div#hd {
+
+#hd {
+	position:relative;
 	background:#ffffff no-repeat bottom left;
-	display:block;
-	height:115px;	
+	height:140px;	
 	*height:1%;
 }
 
@@ -20,201 +21,85 @@ div#hd {
 
 #logo{
 	position:absolute;
-	width:160px;
-	height:85px;
+	width:114px;
+	height:60px;
+	left:50%;
+	margin-left:-62px;
+	margin-top:10px;
+	background-image:url(../images/SIR2.jpg);
+	background-repeat:no-repeat;
+}
+
+/*Linea que atraviesa el logo*/
+
+#linea{
+	width:100%;
+	height:1px;
+	margin-top:35px;
+	position:absolute;
+	border-bottom:solid;
+	border-bottom-color:#611427;
+}
+
+/* Login y registro de usuarios. Username */
+
+#login-users{
+	position: absolute;
+	right:0px;
+	top:10px;
+}
+
+#menu_login ul, #menu_logout ul{
 	margin-top:0px;
-	margin-left:0px; 
-	background-image: url(../images/sir_logo.jpeg);
+	list-style:none;
+	padding-left:0px;
+}
+
+#menu_login ul li, #menu_logout ul li{
+	text-align:right;
+	float:left;
+	padding-left:5px;
+	padding-top:0px;
+}
+
+#menu_login a:link, #menu_login a:visited, a.logout {
+	color:#7D7D7D;
+	text-decoration:none;
+}
+
+#menu_login a:hover, a:hover.logout{
+	color:#611427;
+	text-decoration:none;
+}
+
+.username{
+	color:#611427;
+	text-decoration:none;
+	font-weight:bold;
+	border-right:solid;
+	padding-right:5px;
 }
 
 
-/*Menu secundario (botones, bot_pcipal, bot_administrador */
+/* Estilo del menu principal (superior) */
 
 #menu_tabs{
 	position: absolute;
-	width:700px;
-	height:55px;
-	margin-top:50px;
-	/*left: 50%;*/
-	margin-left:160px;
-	text-align:center;
-	display:block;	
-  }
-
-#botones{  	
-	position: absolute;
-	width:700px;
-	height:35px;
-	margin-top:0px;
-	/*left: 50%;*/
-	margin-left:0px;
-	text-align:center;
-	display:block;	
-} 
-
-
-#botones ul li, #titulos ul li{ 	
-	float:left;	
- }
- 
-#bot_administrador{
-	visibility:visible;
-	position:absolute;
-	
-}
-
-#bot_user{
-	visibility:visible;
-	position:absolute;
-	
-}
-
-a.secund, a.tit_pcipal{
-	
-	color: #636566;
-	text-decoration:none;
-	text-align:center;
-	font-weight:600;
-}
-
-a:hover.secund, a.tit_pcipal:hover{
-	color:#36332F;
-}
-
-
-/* Botonera secundaria, bajo la barra de tabs */
-#secondary_buttons{
-	position: absolute;
-	width:950px;
-	height:17px;
-	margin-top:84px;
-	/*left: 50%;*/
-	margin-left:0px;
+	height:38px;
+	margin-top:75px;
+	margin-left:240px;
 	text-align:center;
 	display:block;
-	background:#C9C6BF		
-}
-
-/* Estilo de la barra superior derecha:login/logout , username*/
-
-#login2{
-	position: absolute;
-	width: 350px;
-	height:30px;
-	margin-left: 600px;
-	margin-top:5px;
-	float:left;
-	display:inline;   
-}
-
-
-#space-span {
-	margin-left: 0%;
-	width: 50%;
-}
-#user_logout{
-	position: relative;
-	margin-left: 50%;
-	width: 50%;
-	margin-top:0px;
-}
-#report-feedback{
-	position: relative;
-	margin-left: -50%;
-	width: 50%;
-	margin-top:0px;
-}
-#username{
-	width:25%;
-	margin-left:61%;
-	display:inline;   
-}
-#username p{
-	margin-top:0px;
-	text-align:right;
-	padding-right:5px;
-	color:#611427;
-	font-weight:bold;
-	border-right:3px solid #611427;
-}
-#username, a:link, #username a:visited{
-	color:#611427;
-	text-decoration:none;
-}
-
-#menu_login{
-	width:40%;
-	margin-left:60%;
-	margin-top:0px;
-
-}
-
-#menu_login ul{
-	margin-top:0px;
-	list-style:none;
-	padding-left:0px;
-}
-
-#menu_login ul li{
-	float:right;
-	padding-left:5px;
-	padding-top:0px;
+	padding-right:14px;
 	
 }
 
-#menu_login a:link, #menu_login a:visited{
-	color:#7D7D7D;
-	text-decoration:none;
-
-}
-
-#menu_login a:hover{
-	color:#611427;
-	text-decoration:none;
-}
-
-#menu_logout{
-	width:15%;
-	margin-left:85%;
-	margin-top:0px;
-	display:inline;   
-	float:left;
-}
-
-#menu_logout ul{
-	margin-top:0px;
-	list-style:none;
-	padding-left:0px;
-}
-
-#menu_logout ul li{
-	float:right;
-	padding-left:5px;
-	padding-top:0px;
-	
-}
-
-#menu_logout a:link, #menu_login a:visited{
-	color:#7D7D7D;
-	text-decoration:none;
-
-}
-
-#menu_logout a:hover{
-	color:#611427;
-	text-decoration:none;
-}
-
-
-
-
-/* GLOBAL NAVIGATION */
 ul#nav {
-	z-index: 1000;
+	z-index:10;
 }
 
 ul#nav li {
-    display: inline;
+	display: inline;
     float: left;
 }
 
@@ -223,7 +108,10 @@ ul#nav a {
     float: left;
     white-space: nowrap;
     background: url(../images/nav/nav_tab2.gif);
-    border-right: 1px solid #74736A;
+    border: 1px solid #C9C6BF;
+	border-bottom:none;
+	margin-right:0px;
+	text-decoration: none;
 }
 
 ul#nav a span {
@@ -241,23 +129,28 @@ ul#nav a span {
 ul#nav a:hover {
     background-position: top left;
     text-decoration: none;
+	
 }
 
 ul#nav a:hover span {
-    color: #191919;
+   	color:#554C4C;
 }
 
-ul#nav li.current a {
-    color: #191919;
-    background: #C9C6BF;
+ul#nav li.current a{
+	color: #191919;
+	background-image: url(../images/gradient2.png);
+	background-repeat:repeat-x;
+	border: 1px solid #74736A;
+	height:40px;
 }
 
 ul#nav li.current a span {
-    color: #191919;
+   	color:#611427;
 }
 
 ul#nav li.current a:hover span {
-    color: #8A2C2C;
+    /*color: #8A2C2C;*/
+	color:#611427;
 }
 
 ul#nav a:hover span {
@@ -274,16 +167,157 @@ ul.sidebar_posts li {
     margin: 1em 0 0 0;
 }
 
+/* Botonera secundaria, bajo la barra de tabs */
 
+#secondary_buttons{
+	position: absolute;
+	width:100%;
+	height:25px;
+	margin-top:35px;
+	margin-left:0px;
+	text-align:center;
+	display:block;
+	border-bottom:solid 1px  #74736A;
+	padding-top:4px;
+	background-image:url(../images/gradient3.png);
+	background-repeat:repeat-x;
+}
+
+#border{
+	width:11px;
+	height:30px;
+	position:absolute;
+	margin-top:35px;	
+	margin-left:-10px;
+	background-image:url(../images/gradientborde.png);
+}
+#border2{
+	width:13px;
+	height:30px;
+	position:absolute;
+	margin-top:35px;	
+	margin-left:0px;
+	right:0px;
+	background-image:url(../images/gradient-borde2.png);
+	z-index:10;
+}
+
+#secondary_buttons a{
+    color: #191919;	
+	color:#554C4C;
+	text-decoration:underline;
+}
+
+#secondary_buttons a:hover{
+    color:#611427;	
+}
+ul#nav2 li{
+	display:inline;
+}
+ul#nav2 li.current a {
+	color:#611427;
+	font-weight:bold;
+	
+}
+
+/* Selector de espacios */
+
+#space-span {
+	position:absolute;
+	margin-top:80px;
+	margin-left:100px;
+}
+
+#space_logo{
+	position:absolute;
+	width:100px;
+	background-image:url(../images/space2.png);
+	background-repeat:no-repeat;
+	height:40px;
+	margin-top:70px;
+}
+
+select{
+	color:#611427;
+	border:none;
+	scrollbar-arrow-color:red;
+	background-color:white;
+	text-align:center;
+	
+}
+.elegido{
+	font-weight:bold;
+}
+.noelegido{
+	font-weight:normal;
+}
+.contenido_main{
+	
+	width:95%;
+	
+}
 /* BODY */
+
 div#bd {
 	background:#ffffff no-repeat bottom left;
 	display:block;
-	margin-top:10px;
+	margin-top:20px;
 	min-height: 800px;
+	
+	
 }
 
+#search_container{
+	margin-top:10px;
+	height:68px;
+	
+	
+}
+#search_container2{
+	margin-top:10px;
+	height:146px;
+	
+	
+}
+#search_container3{
+	margin-top:10px;
+	height:95px;
+	
+	
+	
+}
 
+#search_container img{
+	margin-left:-70px;
+	margin-top:-3px;
+	position:absolute;
+	
+}
+
+input#query {
+	border:solid 1px #c0c0c0;
+}
+.go, .go2 {
+	position:absolute;
+	margin-top:20px;
+	width:32px;
+	left:50%;
+	margin-left:-16px;
+	padding-top:5px;
+}
+.go2{
+	margin-top:28px;
+
+}
+.title{
+	color:#611427;
+	padding-bottom:5px;
+}
+.advanced{
+	position:relative;
+	
+	margin-bottom:0px;
+}
 /*add_users*/
 #add_usuarios {
 	display:block;
@@ -377,4 +411,12 @@ div#ft {
 	text-align:center;
 	border-top: 1px solid #ccc;
 	height: 35px;
+}
+
+#ft a{
+	color:#7D7D7D;
+	
+}
+#ft a:hover{
+	color:#611427;
 }

@@ -44,7 +44,10 @@
 .nube5 {font-size: 2.7em; text-decoration: none;color:#7D7D7D;}
 .nube6 {font-size: 3.2em; text-decoration: none;color:#7D7D7D;}
 
-
+#tag_cloud a:hover{
+	color:#611427;
+	
+	}
 /*Microformats*/
 
 .nodisplay{
@@ -61,15 +64,19 @@
 	height: auto !important;
 	height: 1px;
 	text-align:center;
+	
 	}
+	
 	.box .box_top {
 		position: relative;
 		height: 6px;
-		top: -6px;
+		top: -5px;
 		margin: 0 -6px -6px;
 		background-repeat: no-repeat;
 		font-size: 0px;
 		line-height: 0px;
+		
+		
 		}
 	.box div.padded { padding:1em; }				
 	.box div.no_padding {
@@ -86,8 +93,9 @@
 		z-index:0;
 		}	
 		
-		div.col_full .box {
-	background-image: url(../images/column_full_middle.gif);
+	div.col_full .box {
+		background-image: url(../images/column_full_middle.gif);
+		
 	}
 	div.col_full .box_top {
 		background-image: url(../images/column_full_top.gif);
@@ -95,16 +103,23 @@
  		div.col_full .box_bottom {
 		background-image: url(../images/column_full_bottom.gif);
 		}
-div.main_column .box {
+div.main_column .box { /* Este es el div para modificar el tamaño de los módulos centrales*/
 	width:755px;
 	background-image: url(../images/column_main_middle_777.gif);
 	
+	
 	}
+	
+	
 	div.main_column .box_top {
 		background-image: url(../images/column_main_top_777.gif);
+		
+		
+		
 		}
  		div.main_column .box_bottom {
 		background-image: url(../images/column_main_bottom_777.gif);
+		width:733px;
 		}
 div.sidebar .box {
 		width:190px;
@@ -116,3 +131,4 @@ div.sidebar .box {
 		div.sidebar .box_bottom {
 		background-image: url(../images/column_sidebar_bottom_202.gif);
 		}
+

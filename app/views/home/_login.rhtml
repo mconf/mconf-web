@@ -1,33 +1,22 @@
 	<% if logged_in? %>
 	
-		<div id="report-feedback">
-			<%= link_to 'Report Feedback', "/spaces/2/articles/new"  , :method=> 'get'%>
-		</div>
-		<% array_spaces = Space.compone_array_spaces(current_user) -%>	
-		<div id="space-span">Space:
-			<% form_tag("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
-					<%if @space%>
-						<%= select("space", "id", array_spaces,{ :include_blank=>false}, { :onchange => "change_space()", :selected=>@space.name})%>
-					<%else%>
-						<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
-					<%end%>						
-			<% end -%>
-	    </div>
-		<div id="user_logout">
-		<div id="username"><p><%= link_to  h(current_user.login), space_user_profile_path(params[:container_id], current_user) %></p></div>
-    	<div id="menu_logout">
+		<div id="menu_logout">
+			
 			<ul>
-				<li><%= link_to 'Logout', logout_path , :method=> 'get'%></li>
-				</ul>		
+				<li><%= link_to  h(current_user.login), space_user_profile_path(params[:container_id], current_user), :class=>'username' %></li>
+				<li><%= link_to 'Logout', logout_path , :method=> 'get', :class=>'logout'%></li>		
+			</ul>
 		</div>
-		</div>
+
 	<% else%>
+
 		<div id="menu_login">
 			<ul>
 				<li><%= link_to 'Login', login_path, :method=> 'get' %></li>
 				<li><%= link_to 'Register', signup_path,  :method=> 'get'%></li>
 			</ul>
 		</div>
+
 	<% end %>
 
 

@@ -30,6 +30,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     session[:current_tab] = "Events"
+    session[:current_sub_tab] = ""
     
     @datetime = Date.today
     next_events
@@ -40,6 +41,7 @@ class EventsController < ApplicationController
   #this method show the calendar with all the events
   def show_calendar
     session[:current_tab] = "Events"
+    session[:current_sub_tab] = "Show Calendar"
     if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
       #elsif  session[:date_start_day]
@@ -99,7 +101,7 @@ class EventsController < ApplicationController
   def new    
     @event = Event.new
     @indice = "0"   
-    
+    session[:current_sub_tab] = "New Event"
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @event }

@@ -1,3 +1,4 @@
+
 <% rounded(:class => "tips") do %>
 <%user = User.find(comment.agent_id)%>
 comment created at <%= comment.created_at.strftime("%d-%m-%Y") %>  by <%= user.login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%><br>

@@ -46,8 +46,12 @@
 
 <div class="yui-b sidebar">
 		<% rounded(:class => "tips") do %>
-			 
-				<h4> Search</h4> </span>
+			 <div id="search_container2">
+
+
+	<img src="/images/magnify2.png"></img><h4 class="title"> Search Users</h4>
+		
+				
 				<br>	
 				 <span> <% form_tag({:controller=> 'users',:action => :search_users2, :container_type =>:space, :container_id=>@space.id}, :method => 'get') do %>
 				      <%= text_field_tag :query, params[:query] %>
@@ -58,6 +62,7 @@
 				  <br>
 				<% end %>			
 		<%end%>
+		</div>
 <div id="adv_search">		
 </div>
 </div>

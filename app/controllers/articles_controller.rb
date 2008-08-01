@@ -36,6 +36,7 @@ class ArticlesController < ApplicationController
     end
   end
   def create
+
     # Fill params when POSTing raw data
     set_params_from_raw_post
     
@@ -125,6 +126,15 @@ class ArticlesController < ApplicationController
         end
       }
     end
+  end
+  
+  def new 
+        session[:current_sub_tab] = "New article"
+        @collection_path = container_contents_url
+        @post = CMS::Post.new
+        @post.content = @content = instance_variable_set("@#{controller_name.singularize}", controller_name.classify.constantize.new)
+        @title ||= "New #{ controller_name.singularize.humanize }".t
+        render :template => "posts/new"
   end
   
   private

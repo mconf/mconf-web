@@ -4,6 +4,7 @@ Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
 version: 2.5.1
 */
+
 /*
 	Note: Throughout this file, the *property filter is used to 
 	      give a value to IE that other browsers do not see.	
@@ -38,7 +39,7 @@ version: 2.5.1
 	/* 
 		Subsection: 950 Centered (doc2) 
 	*/
-	#doc2 {
+	#doc2 { /* ancho de toda la página */
 		width:73.076em;*width:71.25em;
 	}
 
@@ -74,7 +75,10 @@ version: 2.5.1
 	.yui-b{_position:static;}
 	#yui-main .yui-b{position:static;}
 
-	#yui-main {width:100%;}
+	#yui-main {
+		width:100%;
+		
+		}
 		
 	.yui-t1 #yui-main,
 	.yui-t2 #yui-main,
@@ -284,4 +288,6 @@ version: 2.5.1
 .yui-gc, 
 .yui-gd, 
 .yui-ge, 
-.yui-gf{zoom:1;}
+.yui-gf{zoom:1;
+}
+

@@ -1,6 +1,7 @@
 <div id="yui-main">
 <div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
+	<div class="contenido_main">
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form'); document.location = '#new_comment_form'" %> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
@@ -31,6 +32,7 @@
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', container_posts_url(:container_type => @container.class.to_s.tableize, :container_id => @container.id) %>
+</div>
 <%end%>
 <div id="new_comment_form" style="display: none;">
 <%if @errors==true%>

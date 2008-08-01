@@ -16,6 +16,7 @@ class SpacesController < ApplicationController
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )
     session[:current_tab] = "Manage" 
+    session[:current_sub_tab] = "Spaces"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @spaces }
@@ -30,6 +31,7 @@ class SpacesController < ApplicationController
     end
     next_events
     session[:current_tab] = "Home"        
+    session[:current_sub_tab] = ""
   end
   
   # GET /spaces/new
@@ -46,7 +48,7 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1/edit
   def edit
-    
+    session[:current_sub_tab] = "Edit Space"
   end
   
   
@@ -111,6 +113,7 @@ class SpacesController < ApplicationController
   
   
   def add_user2
+     session[:current_sub_tab] = "Add Users from App"
     if params[:users] && params[:user_role]
       if CMS::Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
@@ -147,7 +150,7 @@ class SpacesController < ApplicationController
   
   def add_user  
     #parsear string de emails y hacer todo lo de abajo para cada email.
-    
+    session[:current_sub_tab] = "Add Users by email"
     if params[:invitation] && params[:user_role]
       
       if params[:invitation][:email]== ""

@@ -1,6 +1,6 @@
 <div class="main_column">
 	<% rounded(:class => "new_profile") do %>
-<h1>New profile</h1>
+<h1 class="title">New profile</h1>
 
 <%= error_messages_for :profile %>
 
@@ -12,3 +12,5 @@
 <% end %>
 <% end %>
 </div>
+
+<%= render :partial=>'/shared/sidebar_profile'%>

@@ -46,6 +46,7 @@ end
   #used for a administrator in order to manage user
   def manage_resources  
     session[:current_tab] = "Manage" 
+    session[:current_sub_tab] = "Resources"
     @machines = Machine.find(:all)
     if params[:myaction] && params[:myaction]=="delete"
       delete_resource

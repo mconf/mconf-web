@@ -1,14 +1,14 @@
 
+<div id="search_container">
 
 
+	<img src="/images/magnify2.png"></img><h4 class="title"> Search Users</h4>
+		
 
-	<h4> Search Users</h4> </span>
-		<br>	
-
- <span> <% form_tag({:controller=> 'users',:action => :search_users}, :method => 'get') do %>
+  <% form_tag({:controller=> 'users',:action => :search_users}, :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_tag 'Search'%>
-  </span>
+	 <%= image_submit_tag "go2.ico", :class=>'go'%>
+  
     <% end %>
 	
-	
+	</div>
