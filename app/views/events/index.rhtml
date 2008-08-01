@@ -6,22 +6,20 @@
 	<% rounded(:class => "tips") do %>
 	<div class="contenido_main">
 	<h2 class="title">Latest Events Added</h2>
-	
-	<%end%>
 	</div>
+	<%end%>
+	
 	<% rounded(:class => "tips") do %>
 	<div class="contenido_main">
 	<h2 class="title">Events Coming...</h2>
 	
 	<%= render :partial=> 'shared/events_coming'%>
+	</div>
 	<%end%>
-	</div>
 	
-	
-	<div id="show_event">
-		</div>
-		
 	</div>
+	<div id="show_event"></div>
+	
 </div>
 <%= render :partial =>'shared/calendar'%>
 
