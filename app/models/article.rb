@@ -21,6 +21,6 @@ class Article < CMS::Text
   
   def tags
     @post = CMS::Post.find_by_content_type_and_content_id("CMS::Text", self.id)
-    return @post.tag_list if @post.tag_list
+    return @post.tag_list.collect {|tag| tag} if @post.tag_list
   end
 end

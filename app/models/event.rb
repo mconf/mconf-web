@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
   :name=> {:store => :yes} ,
   :description=> {:store => :yes} , 
-  :tag_list=> {:store => :yes}
+  :tag_list2=> {:store => :yes}
    }
   #:start_dates => {:store => :yes}
    has_many :event_datetimes,
@@ -19,7 +19,10 @@ class Event < ActiveRecord::Base
    
    
    
-   
+   def tag_list2
+    tag_list.collect{|tag| tag}
+  end
+  
    #callbacks
     #After destroy an event, we must destroy the xedl file and the at_jobs referenced to that even 
   def after_destroy

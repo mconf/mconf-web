@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  acts_as_ferret :fields => [:login ,  :email ,   :name,  :lastname ,  :organization,  :tag_list]
+  acts_as_ferret :fields => [:login ,  :email ,   :name,  :lastname ,  :organization,  :tag_list2]
   acts_as_agent :activation => true
 
   acts_as_container
@@ -14,9 +14,11 @@ class User < ActiveRecord::Base
   attr_accessible :email2, :email3, :superuser, :disabled
   
   
+  def tag_list2
+    tag_list.collect{|tag| tag}
+  end
   
 def name
-  
   return self.profile.name if self.profile
 end
 def lastname
@@ -44,6 +46,7 @@ end
   
    #callback that replace empty strings in email2 and email3 for NULL
    def before_save
+     debugger
      if self.email2==""
        self.email2 = nil
      end
