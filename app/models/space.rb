@@ -84,6 +84,13 @@ class Space < ActiveRecord::Base
  
   
   def self.compone_array_spaces(user)
+    if user==:false
+      #if the user is not logged in, we show all the public spaces
+      array_spaces = []       
+      array_spaces += Space.find_all_by_public(true).flatten.collect {|r| [ r.name, r.id ]}
+      
+      return array_spaces
+    end
     array_spaces = []    
     if user.superuser==true
       array_spaces += Space.find(:all).collect {|r| [ r.name, r.id ]}

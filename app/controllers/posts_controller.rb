@@ -2,8 +2,6 @@ class PostsController < ApplicationController
   # Include some methods and filters. 
   include CMS::Controller::Posts
   
-  # Actions different that reading need authentication
-  before_filter :authentication_required, :except => [ :index, :show, :media ]
   
   # Posts list may belong to a container
   # /posts
@@ -15,10 +13,14 @@ class PostsController < ApplicationController
   
   # Post media management needs Content supporting media
   before_filter :post_has_media, :only => [ :media, :edit_media ]
-before_filter :is_public_space, :only=>[:index]
+
   before_filter :get_space_from_container, :only => [ :index, :new, :create ]
   before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
 
+  # Actions different that reading need authentication
+  before_filter :authentication_required, :except => [ :index, :show, :media ]
+  before_filter :is_public_space, :only=>[:index]
+  
   before_filter :get_public_posts, :only => [:index,:show]
 # before_filter :space_member, :only=>[:index, :show]
   before_filter :redirect_to_comment, :only => [ :show ]

@@ -18,6 +18,35 @@ class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers 
   
   private
+  def authentication_required
+    if @space && @space.public==true
+      return true
+    else
+      #private space, redirect to register form
+      authenticated? || access_denied
+    end
+  end
+  
+  
+  def is_public_space
+    if @space && @space.public==true
+      return true
+    else
+      #private space, redirect to register form
+      authenticated? || access_denied
+    end
+    #TODO esto es un cambio rapido de KIKE para que los espacios publicos sean accesibles
+    #el codigo es el mismo que el metodo anterior y he comentado lo que había aquí antes
+    #hay que unirlo al metodo anterior y tener una única autenticación
+    #@space = Space.find(params[:container_id])
+    #if @space.id == 1 || logged_in?
+    #  return true
+    #else
+    #  redirect_to new_session_path
+    #end
+    
+  end
+  
   #Method that checks if the current user have machines assigned (Filter)
   def no_machines
     if current_user.machines.empty?
@@ -121,16 +150,7 @@ class ApplicationController < ActionController::Base
     get_container
   end
   
-  def is_public_space
-   
-    @space = Space.find(params[:container_id])
-    if @space.id == 1 || logged_in?
-      return true
-    else
-      redirect_to new_session_path
-    end
-    
-  end
+  
   
   def not_public_space
     
@@ -151,6 +171,8 @@ class ApplicationController < ActionController::Base
     end
     @space = Space.find(session[:current_space])
   end
+  
+  
   def space_member
     
     @space = Space.find(params[:container_id])

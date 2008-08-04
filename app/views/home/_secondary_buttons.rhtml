@@ -12,10 +12,11 @@
 			<%= sub_tab "Edit Space", edit_space_path(@space) %> |		
 			<li><%= link_to "Delete Space", space_path(@space), :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %></li>
 </ul>	
-		<%elsif logged_in? && session[:current_tab]=="Events"%>
+		<%elsif session[:current_tab]=="Events"%>
 <ul id="nav2">
-			<%= sub_tab "New Event", new_container_event_path("space", @space) %> |	
-			<%= sub_tab "Show Calendar", show_calendar_path("space", @space) %>	
+			<%if logged_in?%><%= sub_tab "New Event", new_container_event_path("space", @space) %> | <%end%>	
+			<%= sub_tab "Show Calendar", show_calendar_path("space", @space) %>	| 
+			<%= sub_tab 'RSS Feed', formatted_container_events_path(:spaces,@space.id, "atom")  %>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
@@ -36,9 +37,10 @@
 				</ul>	
 				<%end%>
 
-		<%elsif  logged_in? && session[:current_tab]=="Posts"%>
+		<%elsif  session[:current_tab]=="Posts"%>
 <ul id="nav2">
-				<%= sub_tab 'New Post', new_space_article_path(@space) %>
+				<%if logged_in?%><%= sub_tab 'New Post', new_space_article_path(@space) %> | <%end%>
+				<%= sub_tab 'RSS Feed', formatted_container_posts_path(:spaces,@space.id, "atom")  %>
 				</ul>	
 		<%end%>
 
