@@ -25,6 +25,36 @@ class PostsController < ApplicationController
 # before_filter :space_member, :only=>[:index, :show]
   before_filter :redirect_to_comment, :only => [ :show ]
  
+   def index
+        if @container
+          @title ||= "#{ 'Post'.t('Posts', 99) } - #{ @container.name }"
+          # All the Posts this Agent can read in this Container
+          @collection = @container.container_posts.find(:all,
+                                                        :order => "updated_at DESC")
+    
+          # Paginate them
+          @posts = @collection.paginate(:page => params[:page], :per_page => CMS::Post.per_page)
+          @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
+          @collection_path = container_posts_url(:container_type => @container.class.to_s.tableize,
+                                                 :container_id => @container.id,
+                                                 :only_path => false)
+        else
+          @title ||= 'Post'.t('Posts', 99)
+          @posts = CMS::Post.paginate :all,
+                                      :conditions => [ "public_read = ?", true ],
+                                      :page =>  params[:page],
+                                      :order => "updated_at DESC"
+          @updated = @posts.blank? ? Time.now : @posts.first.updated_at
+          @collection_path = url_for :controller => controller_name
+        end
+    
+        respond_to do |format|
+          format.html
+          format.atom
+          format.xml { render :xml => @posts.to_xml.gsub(/cms\/post/, "post") }
+        end
+      end
+ 
  # Update this Post metadata
       #   PUT /posts/:id
       def update

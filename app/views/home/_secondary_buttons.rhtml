@@ -4,7 +4,7 @@
 	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 <ul id="nav2">
 			<%= sub_tab "Spaces", spaces_path %> |		
-			<%= sub_tab "Users", manage_users_path("space",@space) %> |
+			<%= sub_tab "Users", manage_users_path("spaces",@space) %> |
 		    <%= sub_tab "Resources", manage_resources_path %>
 </ul>	
 		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
@@ -15,7 +15,7 @@
 		<%elsif session[:current_tab]=="Events"%>
 <ul id="nav2">
 			<%if logged_in?%><%= sub_tab "New Event", new_container_event_path("space", @space) %> | <%end%>	
-			<%= sub_tab "Show Calendar", show_calendar_path("space", @space) %>	| 
+			<%= sub_tab "Show Calendar", show_calendar_path("spaces", @space) %>	| 
 			<%= sub_tab 'RSS Feed', formatted_container_events_path(:spaces,@space.id, "atom")  %>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
