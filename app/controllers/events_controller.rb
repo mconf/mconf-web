@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   include CMS::Controller::Contents
   
   #include CMS::Controller::Authorization
-  before_filter :authentication_required, :except => [:index,:show, :show_timetable, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+  before_filter :authentication_required, :except => [:index,:show, :show_timetable,:show_calendar, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   before_filter :get_cloud
   # Events list may belong to a container
   # /events
