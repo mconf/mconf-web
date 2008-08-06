@@ -4,9 +4,9 @@ class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
   :name=> {:store => :yes} ,
   :description=> {:store => :yes} , 
-  :tag_list2=> {:store => :yes}
+  :tag_list2=> {:store => :yes}, 
+  :start_dates => {:store => :yes}
    }
-  #:start_dates => {:store => :yes}
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 
@@ -566,7 +566,7 @@ class Event < ActiveRecord::Base
       number_of_machines_needed = (number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil  #entero superior
       logger.debug("Número de máquinas que se necesitan para el evento: " + number_of_machines_needed.to_s)
       if number_of_machines_needed > user.machines.length   
-        logger.debug("Número de máquinas que se necesitan para el evento superior al numero que posee el usuario que es " + user.machines.length)
+        logger.debug("Número de máquinas que se necesitan para el evento superior al numero que posee el usuario que es " + user.machines.length.to_s)
         return nil
       end
       

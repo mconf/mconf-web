@@ -46,7 +46,6 @@ end
   
    #callback that replace empty strings in email2 and email3 for NULL
    def before_save
-     debugger
      if self.email2==""
        self.email2 = nil
      end

@@ -6,8 +6,8 @@ class PostsController < ApplicationController
   # Posts list may belong to a container
   # /posts
   # /:container_type/:container_id/posts
-  before_filter :get_container, :only   => [ :index ]
-         before_filter :get_cloud
+  before_filter :get_space, :only   => [ :index ]
+  before_filter :get_cloud
   # Get Post in member actions
   before_filter :get_post, :except => [ :index, :new, :create ]
   
@@ -30,8 +30,11 @@ class PostsController < ApplicationController
           @title ||= "#{ 'Post'.t('Posts', 99) } - #{ @container.name }"
           # All the Posts this Agent can read in this Container
           @collection = @container.container_posts.find(:all,
+                                                        :conditions => [ "content_type = ?", "CMS::AttachmentFu" ],
                                                         :order => "updated_at DESC")
-    
+          @collection += @container.container_posts.find(:all,
+                                                        :conditions => [ "content_type = ?", "CMS::Text" ],
+                                                        :order => "updated_at DESC")
           # Paginate them
           @posts = @collection.paginate(:page => params[:page], :per_page => CMS::Post.per_page)
           @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
