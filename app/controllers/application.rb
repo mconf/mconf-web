@@ -3,6 +3,9 @@
 
 class ApplicationController < ActionController::Base  
   
+  
+  before_filter :adaptation
+  
   before_filter :set_locale
   #Method used in the globalize plugin to set base language
   def set_locale
@@ -18,6 +21,17 @@ class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers 
   
   private
+  
+  # Esto es una ñapa para adaptar el nuevo plugin CMS que utiliza :space_id en vez de :container_id.
+  # Habría que quitarlo en el futuro.
+  def adaptation
+    if params[:space_id]
+      params[:container_id] = params[:space_id]
+      params[:container_type] = "spaces"
+    end
+  end
+  
+
   def authentication_required
     if @space && @space.public==true
       return true
@@ -47,6 +61,7 @@ class ApplicationController < ActionController::Base
     
   end
   
+
   #Method that checks if the current user have machines assigned (Filter)
   def no_machines
     if current_user.machines.empty?

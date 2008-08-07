@@ -1,0 +1,7 @@
+
+
+if @show_summary
+  page.replace_html "event_summary", :partial => 'show_summary' , :locals => {:event => @event}
+else
+  page.replace_html "show_event", :partial => 'show' , :locals => {:event => @event}
+  end

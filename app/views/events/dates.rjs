@@ -1,3 +1,0 @@
-page.replace_html "advanced_search", :partial => 'dates'
-
-

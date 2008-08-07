@@ -24,7 +24,7 @@
 				end%><br>
 		   <%= link_to_remote(  "Copy next <br> week",                                    
                                    :update => "event_times",
-                                   :url => { :action => :copy_next_week },
+                                   :url => copy_next_week_url(:space_id=>@space.id),
                                    :position => "bottom",
                                    :complete => "esconde_addtime()",
                                    :with =>  'serialize_fields('+@indice.to_s+')'
@@ -101,7 +101,7 @@
                 <span>
                 <%= link_to_remote(  "Add Another",                                    
                                    :update => "event_times",
-                                   :url => { :action => :add_time , :indice => @indice, :date_start_day => Time.new.strftime("%m/%d/%Y")},
+                                   :url => { :action => :add_time , :indice => @indice, :date_start_day => Time.new.strftime("%m/%d/%Y"), :space_id=>@space.id},
                                    :position => "bottom",
                                    :complete => "esconde_addtime()" ) %>
                 </span>

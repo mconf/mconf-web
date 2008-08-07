@@ -5,7 +5,9 @@ class EventsController < ApplicationController
   include CMS::Controller::Contents
   
   #include CMS::Controller::Authorization
-  before_filter :authentication_required, :except => [:index,:show, :show_timetable,:show_calendar, :show_summary, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+
+  before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
+  
   before_filter :get_cloud
   # Events list may belong to a container
   # /events
@@ -22,81 +24,78 @@ class EventsController < ApplicationController
   #before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
   
-  skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show_timetable, :show, :copy_next_week, :remove_time]
+  skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show, :copy_next_week, :remove_time]
   
   
   # GET /events
   # GET /events.xml
+  
   def index
     session[:current_tab] = "Events"
     session[:current_sub_tab] = ""
-    
     @datetime = Date.today
-    next_events
+    @events = @space.events
     
-  end
-  
-  
-  #this method show the calendar with all the events
-  def show_calendar
-    session[:current_tab] = "Events"
     session[:current_sub_tab] = "Show Calendar"
     if params[:date_start_day]
       datetime_start_day = Date.parse(params[:date_start_day])
       #elsif  session[:date_start_day]
       #  datetime_start_day = Date.parse(session[:date_start_day])       
-    else
-      datetime_start_day = Date.today      
-    end
-    
-    @datetime = datetime_start_day
-    participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
-    event_datetimes = select_events(datetime_start_day)
-    @events = []
-    for dat in event_datetimes
-      for eventin in Event.find_all_by_id(dat.event_id)
-        @events << eventin unless @container && ! eventin.posted_in?(@container)
+      
+      
+      @datetime = datetime_start_day
+      participant = 0 #we show all the participants, comes from SIR 1.0, "filter view"
+      event_datetimes = select_events(datetime_start_day)
+      @events = []
+      for dat in event_datetimes
+        for eventin in Event.find_all_by_id(dat.event_id)
+          @events << eventin unless @container && ! eventin.posted_in?(@container)
+        end
       end
-    end
-    @events.flatten!
-    @events.uniq!
-    logger.debug("eventos devueltos " + @events.size.to_s) 
-    respond_to do |format|
-      format.html 
-      format.xml  { render :xml => @events }
-      format.js
+      @events.flatten!
+      @events.uniq!
+      logger.debug("eventos devueltos " + @events.size.to_s) 
+      respond_to do |format|
+        format.html { render :partial => "show_calendar", :layout => true}
+        format.xml  { render :xml => @events }
+        format.js 
+      end
     end
   end
   
   
   # GET /events/1
   # GET /events/1.xml
+  
   def show
     session[:current_tab] = "Events"
     
     @datetime = Date.today
     @event = Event.find(params[:id])
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+    #this part is used to create the event's summary in the left column. This is used in an Ajax Call.'
+    if params[:show_summary]
+      logger.debug("LLAMADA A SHOW_SUMMARY")
+      
+      begin
+        if params[:id] && !params[:event_id]
+          params[:event_id] = params[:id]   
+        end
+        @event = Event.find(params[:event_id])  
+        @show_summary = true
+      end
+    end
+    
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @events }
-    end
-  end
-  
-  #this method show the event information with an ajax call
-  def show_ajax
-    
-    @datetime = Date.today
-    @event = Event.find(params[:id])
-    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
-    respond_to do |format|
       format.js
     end
   end
   
-  
   # GET /events/new
   # GET /events/new.xml
+  
   def new    
     @event = Event.new
     @indice = "0"   
@@ -109,6 +108,7 @@ class EventsController < ApplicationController
   
   
   # GET /events/1/edit
+  
   def edit
     
     @event = Event.find(params[:id])
@@ -119,6 +119,7 @@ class EventsController < ApplicationController
   
   # POST /events
   # POST /events.xml
+  
   def create
     
     @event = Event.new(params[:event])  
@@ -141,6 +142,7 @@ class EventsController < ApplicationController
     @event.uri = @event.get_xedl_filename    
     
     array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
+    
     if array_participants==nil
       flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
       respond_to do |format|
@@ -149,6 +151,7 @@ class EventsController < ApplicationController
       end
       return
     end
+    
     if array_participants.length < (params[:event][:all_participants_sites].to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil
       #there are no enough free machines
       flash[:notice] = "There are no enough resources free to create new events at this time. You can ask for more to the administrator."
@@ -289,7 +292,7 @@ class EventsController < ApplicationController
           
         end
       end
-      rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid => e
       @errors = e.message  
       render :action => 'edit', :id => @event, :date_start_day=>params[:date_start_day]      
     end
@@ -313,29 +316,14 @@ class EventsController < ApplicationController
       format.html {   redirect_to :action => 'show' }
       format.xml  { head :ok }
     end
-    rescue
+  rescue
     logger.error("Attempt to delete invalid event #{params[:id]}")
     flash[:notice] = 'Invalid event'
     redirect_to(:action => 'index')
     
   end
   
-  #this method is used to create the event's summary in the right column. This is used in an Ajax Call.'
-  def show_summary
-    logger.debug("LLAMADA A SHOW_SUMMARY")
-    
-    begin
-      if params[:id] && !params[:event_id]
-        params[:event_id] = params[:id]   
-      end
-      @event = Event.find(params[:event_id])  
-      
-    end
-    respond_to do |format|
-      # format.html 
-      format.js   
-    end     
-  end
+  
   
   
   #This method is used when you are editing or creating a new event in order to insert a new date of the event the next week
@@ -360,22 +348,7 @@ class EventsController < ApplicationController
     render(:partial => "hidden_field", :layout => false)
   end
   
-  #this method is used to add a new participant in a session
-  def add_participant
-    @indice = params[:indice].to_i
-    @indice += 1
-    @array_participants = []
-    render(:partial => "form_participants", :layout => false)
-    logger.debug("render del partial terminado")
-  end
-  
-  #to remove it
-  def remove_participant    
-    @indice = params[:indice]
-    @element = "participant"
-    render(:partial => "hidden_field", :layout => false)
-  end
-  
+   
   def add_time
     @indice = params[:indice].to_i
     @indice += 1
@@ -389,6 +362,7 @@ class EventsController < ApplicationController
   end
   
   #Method to export an event in a .ics file (Icalendar RFC)
+  #es un show
   def export_ical
     @event = Event.find(params[:id]) 
     # dates = EventDatetime.find_by_event_id(@event.id)
@@ -412,12 +386,17 @@ class EventsController < ApplicationController
     # @cal_string = icsfile.to_ical
     send_data icsfile, :filename => "#{@event.name}.ics"      
     
-  end
-  ##METHODS THAT MAKE SEARCHES
+  end  
+  
+=begin  
+TODO métodos a eliminar por pasar todas las busquedas al SearchController  
+    ##METHODS THAT MAKE SEARCHES
   #only used to show the search box 
   def search
     
   end
+  
+  
   #method used to show the advanced search box in the ajax call
   def advanced_search
     respond_to do |format|
@@ -425,6 +404,8 @@ class EventsController < ApplicationController
       format.js   
     end     
   end
+  
+  
   #method used to show the title search box in the ajax call
   def title
     respond_to do |format|
@@ -432,6 +413,8 @@ class EventsController < ApplicationController
       format.js   
     end
   end
+  
+  
   #method used to show the description search box in the ajax call
   def description
     respond_to do |format|
@@ -439,6 +422,8 @@ class EventsController < ApplicationController
       format.js   
     end
   end
+  
+  
   #method used to show the dates search boxes in the ajax call
   def dates
     respond_to do |format|
@@ -446,6 +431,8 @@ class EventsController < ApplicationController
       format.js   
     end
   end
+  
+  
   #Method to clean the advanced search area
   def clean
     render :update do |page|
@@ -453,6 +440,8 @@ class EventsController < ApplicationController
       
     end
   end
+  
+  
   #method to clean the div in where an event information is shown
   def clean_show
     render :update do |page|
@@ -460,32 +449,32 @@ class EventsController < ApplicationController
       
     end
   end
+  
+  
   #Method that searchs events in the container.
+  #RAFA ESTE METODO CON INDEX
   def search_events 
-    
-    
+    #events_path(:query => "bla") #=> /events?query=bla    
     @query = params[:query]
     @even = CMS::Post.find_all_by_container_id_and_content_type(@container.id, "Event")
     @total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     @partials = []
     @events = []  
-     if @results != nil
-    @results.collect { |result|
-      event = CMS::Post.find_by_content_type_and_content_id("Event", result.id)
-      if @even.include?(event)
-        @partials << event
-      end
-    }
+    if @results != nil
+      @results.collect { |result|
+        event = CMS::Post.find_by_content_type_and_content_id("Event", result.id)
+        if @even.include?(event)
+          @partials << event
+        end
+      }
     end
     if @partials != nil
-    @partials.collect { |a|
-      even = Event.find(a.content_id)
-      @events << even
-    }
-    
-    end
-   
+      @partials.collect { |a|
+        even = Event.find(a.content_id)
+        @events << even
+      }      
+    end    
     respond_to do |format|        
       format.html     
     end
@@ -503,6 +492,8 @@ class EventsController < ApplicationController
     @posts = CMS::Post.tagged_with(@tag)
     
   end
+  
+  
   #Method that make the advanced search
   def advanced_search_events
     
@@ -514,6 +505,8 @@ class EventsController < ApplicationController
     end     
     
   end
+  
+  
   #Method that make the  search by title
   def search_by_title
     
@@ -525,6 +518,8 @@ class EventsController < ApplicationController
     end     
     
   end
+  
+  
   #    Method that make the search in the description of the event
   def search_in_description
     
@@ -535,6 +530,7 @@ class EventsController < ApplicationController
       format.html {render :template => "events/search_events"}
     end     
   end
+  
   
   #this method search an event between two dates
   def search_by_date
@@ -559,9 +555,9 @@ class EventsController < ApplicationController
       end  
     end
   end
-  
-  
-  
+=end
+
+
   
   private              
   

@@ -1,22 +1,24 @@
-<%if @events ==  nil%>
+<%if @events ==  nil %>
 <%= No events found %>
-<%else%>
-
-<%  @events.each do |event| %> 
+<%else %>
+<% @events.each do |event| %>
 <div class="vevent">
-<div class="summary"><%=link_to_remote h(event.name),{ :url => show_ajax_path(event.id,:space_id=>@space.id)  } %> </div><div class="description"><%= event.description%>  </div>
-
+<div class="summary">
+    <%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space.id, event.id, "js"), :method => "get"  } %>
+</div>
+<div class="description">
+    <%= event.description %>
+</div>
 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
-<% for datetime in event.event_datetimes %>    
-   <label >Start date:</label>
-        <abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></abbr>
-    
-    
-   
+<% for datetime in event.event_datetimes %>
+<label>
+    Start date:
+</label>
+<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart">
+    <b><%= datetime.start_date.strftime("%b %d %H:%M") %></b>
+</abbr>
 <% end -%>
-
 </br>
 </div>
-<%end%>
-
-<%end%>
+<%end %>
+<%end %>

@@ -26,13 +26,19 @@ class UsersController < ApplicationController
   before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
   before_filter :space_member, :only=>[:show,:show_space_users]
 
+#RAFA, ESTE METODO DEBERIA DAR LA LISTA DE TODOS LOS USUARIOS DE LA APLICACIÓN
+#Y LA RUTA DEBERIA SER /USERS
 def index
  
 end
+
+
 def show
  
     @user = User.find(params[:id])
   end
+  
+  #RAFA, ESTE METODO DEBERÍA SER "USERS" Y LA RUTA SERIA /SPACES/5/USERS
   def show_space_users
   
   session[:current_tab] = "People" 
@@ -120,7 +126,7 @@ def show
       
         #the superuser will be redirected to list_users
         if current_user.superuser == true
-        redirect_to(manage_users_path(:space,@space.id))
+        redirect_to(manage_users_path(@space.id))
     else
    redirect_to(space_user_profile_path(@space.id, @user.id)) 
              end
@@ -146,6 +152,7 @@ def show
   
   
   #search method that returns the users founded with the query in this space.
+  #RAFA, ESTO DEBERÍA IR CON /USERS EN EL METODO INDEX
   def search_users
     @query = params[:query]
     q1 =  @query 
@@ -173,6 +180,7 @@ def show
   
   
   #search method that returns the users founded with the query in all the aplication.
+    #RAFA, ESTO DEBERÍA IR CON /USERS EN EL METODO INDEX
   def search_users2
     @query = params[:query]
     q1 =  @query 
@@ -200,6 +208,7 @@ def show
       
     end
   end
+    #RAFA, ESTO DEBERÍA IR CON /USERS EN EL METODO INDEX
   def search_by_tag
     
     @tag = params[:tag]

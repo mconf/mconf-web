@@ -2,7 +2,6 @@
 	<div class="yui-b main_column">
 <% rounded(:class => "tips") do %>
 <div class="vevent">
-
 Event Information</b><br>
 
 Name: <b><div class="summary"><%=h(@event.name)%></div></b>
@@ -76,7 +75,7 @@ URLs for the session</b>
 				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), export_ical_path(event), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_event_path(event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(:space_id => @space.id, :event_id => @event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
 				<%= link_to image_tag("/images/delete.gif",:border=>0), event_path(event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          

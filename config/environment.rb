@@ -59,7 +59,7 @@ Rails::Initializer.run do |config|
                                      :source => 'http://gems.github.com/'
 
 end
-
+include CMS
 include Globalize
 Locale.set_base_language 'en-US'
 LOCALES = {'en' => 'en-US',

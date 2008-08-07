@@ -34,7 +34,7 @@ function dateIsSpecial(year, month, day) {
       // redirect...
       //window.location = "?date_start_day=" + y + "-" + m + "-" + d;
 	  //new Ajax.Updater('timetable', '/</events/show_calendar?date_start_day=' + y + '-' + m + '-' + d, {asynchronous:true, evalScripts:true}); return false;
-      miloc = "/spaces/" + calendar.space_id + '/events/show_calendar?date_start_day=' + y + '-' + m + '-' + d;
+      miloc = "/spaces/" + calendar.space_id + '/events?date_start_day=' + y + '-' + m + '-' + d;
 
 	document.location.href = miloc;
     //}

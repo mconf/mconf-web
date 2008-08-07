@@ -7,15 +7,17 @@
 	     <ul id="nav">
 		 	<%= nav_tab "Home", { :url => space_path(@space.id), :class=>'primero'} %>
 		 	<%= nav_tab "MyProfile", { :url => space_user_profile_path(@space.id, current_user.id)} %>
-		    <%= nav_tab "Events", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space)} %>
 		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
 		 	<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => show_space_users_path(:container_id => @space.id, :container_type => :spaces)} %>
-		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:container_id => @space.id, :container_type => :spaces)} %>
+				<%= nav_tab "People", { :url => show_space_users_path(:space_id => @space.id)} %>
+		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:space_id => @space.id)} %>
 		 	<%end%>
 			
 			<%if current_user.superuser==true%>
+
 				<%= nav_tab "Manage", { :url => {:controller=>'spaces', :action=>'index', :container_id => @space.id, }, :class=>'ultimo'} %>		 	
+
 			<%end%>
 	     
 		 </ul>

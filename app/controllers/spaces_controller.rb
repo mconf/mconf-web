@@ -124,6 +124,8 @@ class SpacesController < ApplicationController
             @space.container_performances.create :agent => User.find(user_id), :role => CMS::Role.find_by_name(params[:user_role])
           end
         end
+      else        
+        flash[:notice] = 'Role ' + params[:user_role] + ' does not exist.'
       end
       
     end

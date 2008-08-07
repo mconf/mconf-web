@@ -1,1 +1,0 @@
-page.replace_html "event_summary", :partial => 'show_summary' , :locals => {:event => @event}

@@ -2,7 +2,24 @@ class Space < ActiveRecord::Base
   acts_as_container
   
   validates_presence_of :name, :description
-  #method to know the users that belong to this space
+  
+  
+  #method that returns the events of the space
+  def events
+    array_all_posts = container_posts.collect
+    array_events = Array.new
+    for post in array_all_posts
+      if post.content_type == "Event"
+        array_events << Event.find(post.content_id)
+      end
+    end
+    
+    return array_events
+    
+  end
+  
+  
+  #method to know the users that belong to this space  
   def users
     actors
   end
