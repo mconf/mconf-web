@@ -12,11 +12,14 @@
 		 	<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(:space_id => @space.id)} %>
-		 	<%end%>
+		 	<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id)} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path(:space_id => @space.id)} %>
+			<%end%>
 			
 			<%if current_user.superuser==true%>
 
-				<%= nav_tab "Manage", { :url => {:controller=>'spaces', :action=>'index', :container_id => @space.id, }, :class=>'ultimo'} %>		 	
+				<%= nav_tab "Manage", { :url => {:controller=>'spaces', :action=>'index', :container_id => @space.id,:manage=>true }, :class=>'ultimo'} %>		 	
 
 			<%end%>
 	     
@@ -31,15 +34,13 @@
 			<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space.id)} %>
+			<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id)} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path(:space_id => @space.id)} %>
 		 	<%end%>
 	 </ul>
   
-<%else%>
-	<ul id ="nav">
-      	    <%= nav_tab "Home", { :url => space_path(1)} %>
-		    <%= nav_tab "Events", { :url => space_events_path(1)} %>
-		 	<%= nav_tab "Posts", { :url => {:controller=>'posts', :action=>'index', :container_id => 1}} %>
-  </ul>
+
 <% end %>
 
 </div>

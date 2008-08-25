@@ -1,4 +1,4 @@
-<%if params[:only_space_users]%>
+<%if params[:only_space_users] || @space.id==1%>
 <%= render :partial =>'show_space_users'%>
 <%else%>
 <div id="yui-main">

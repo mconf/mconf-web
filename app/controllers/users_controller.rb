@@ -20,8 +20,8 @@ class UsersController < ApplicationController
   before_filter :get_space, :except=>[:activate,:forgot_password,:reset_password]
   
   before_filter :get_cloud
-  before_filter :authentication_required, :only => [:edit,:update, :index, :destroy]
-  before_filter :user_is_admin, :only=> [:index, :search_users2]
+  before_filter :authentication_required, :only => [:edit,:update, :destroy]
+  before_filter :user_is_admin, :only=> [:search_users2]
   
   before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
   before_filter :space_member, :only=>[:show]
@@ -34,6 +34,10 @@ class UsersController < ApplicationController
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = @container.actors
+    elsif @space.id==1
+      session[:current_tab] = "People" 
+      session[:current_sub_tab] = ""
+      @users = User.find(:all)
     else
       session[:current_tab] = "Manage" 
       session[:current_sub_tab] = "Users"
