@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 38) do
+ActiveRecord::Schema.define(:version => 40) do
 
   create_table "cms_attachment_fus", :force => true do |t|
     t.string   "type"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 38) do
   add_index "cms_uris", ["uri"], :name => "index_cms_uris_on_uri"
 
   create_table "db_files", :force => true do |t|
-    t.binary "data", :limit => 2147483647
+    t.binary "data"
   end
 
   create_table "event_datetimes", :force => true do |t|
@@ -169,6 +169,18 @@ ActiveRecord::Schema.define(:version => 38) do
 
   add_index "globalize_translations", ["tr_key", "language_id"], :name => "index_globalize_translations_on_tr_key_and_language_id"
   add_index "globalize_translations", ["table_name", "item_id", "language_id"], :name => "globalize_translations_table_name_and_item_and_language"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "space_id",   :limit => 11
+  end
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "group_id", :limit => 11
+    t.integer "user_id",  :limit => 11
+  end
 
   create_table "invitations", :force => true do |t|
     t.string   "email"

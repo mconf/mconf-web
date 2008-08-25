@@ -6,12 +6,12 @@
 	
 	     <ul id="nav">
 		 	<%= nav_tab "Home", { :url => space_path(@space.id), :class=>'primero'} %>
-		 	<%= nav_tab "MyProfile", { :url => space_user_profile_path(@space.id, current_user.id)} %>
+		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user.id, {:space_id => @space.id})} %>
 		    <%= nav_tab "Events", { :url => space_events_path(@space)} %>
 		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
 		 	<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => show_space_users_path(:space_id => @space.id)} %>
-		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:space_id => @space.id)} %>
+				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(:space_id => @space.id)} %>
 		 	<%end%>
 			
 			<%if current_user.superuser==true%>
@@ -26,18 +26,18 @@
 <% elsif @space%>
 	 <ul id ="nav">
       	    <%= nav_tab "Home", { :url => space_path(@space.id)} %>
-		    <%= nav_tab "Events", { :url => container_events_path(:container_id => @space.id, :container_type => :spaces)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space.id)} %>
 		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
 			<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => show_space_users_path(:container_id => @space.id, :container_type => :spaces)} %>
-		 		<%= nav_tab "Groups", { :url =>  show_groups_path(:container_id => @space.id, :container_type => :spaces)} %>
+				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space.id)} %>
 		 	<%end%>
 	 </ul>
   
 <%else%>
 	<ul id ="nav">
       	    <%= nav_tab "Home", { :url => space_path(1)} %>
-		    <%= nav_tab "Events", { :url => container_events_path(:container_id => 1, :container_type => :spaces)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(1)} %>
 		 	<%= nav_tab "Posts", { :url => {:controller=>'posts', :action=>'index', :container_id => 1}} %>
   </ul>
 <% end %>

@@ -102,6 +102,7 @@ class ApplicationController < ActionController::Base
   def get_cloud
     @cloud = Tag.cloud
   end
+  
   def profile_owner
     
     @user = User.find_by_id(params[:user_id])
@@ -114,6 +115,7 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+  
   def user_is_admin
     unless current_user.superuser
       logger.error("ERROR: ATTEMPT TO MANAGE MACHINES AND HE IS NOT SUPERUSER")

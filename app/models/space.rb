@@ -1,6 +1,8 @@
 class Space < ActiveRecord::Base
   acts_as_container
   
+  has_many :groups
+  
   validates_presence_of :name, :description
   
   

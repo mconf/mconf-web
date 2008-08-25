@@ -4,7 +4,7 @@
 	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 <ul id="nav2">
 			<%= sub_tab "Spaces", spaces_path %> |
-			<%= sub_tab "Users", manage_users_path(:space_id => @space.id) %> |
+			<%= sub_tab "Users", space_users_path(@space.id) %> |
 		    <%= sub_tab "Resources", manage_resources_path %>
 </ul>	
 		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
@@ -23,19 +23,19 @@
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
 			<%if @space.manage_groups_by?(current_user)%>
-				<%= sub_tab 'Create Group', create_group_path(:spaces, @container.id)%>
+				<%= sub_tab 'Create Group', new_space_group_path(@space.id)%>
 			<%end%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="MyProfile"%>
 	<ul id="nav2">
-			<%= sub_tab 'Edit Profile', edit_space_user_profile_path(@space.id, current_user.id)%> |
+			<%= sub_tab 'Edit Profile', edit_user_profile_path(current_user.id, {:space_id => @space.id})%> |
 			<%= sub_tab 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
 			<%if @space.manage_groups_by?(current_user)%>
 		<ul id="nav2">
-			    <%= sub_tab 'Add Users by email', add_user_path(@space.id) %> | 
-				<%= sub_tab 'Add Users from App', add_user2_path(@space.id) %>
+			    <%= sub_tab 'Add Users by email', new_space_user_path(@space.id, :by_email=>true) %> | 
+				<%= sub_tab 'Add Users from App', new_space_user_path(@space.id, :from_app =>true) %>
 				</ul>	
 				<%end%>
 

@@ -24,7 +24,7 @@
 </script>
 <br/>
 
-	<% form_tag({:controller=>"spaces", :action=>"add_user2"}, {:name=>'register_user_form',:style => "display: inline;"}) do %>
+	<% form_tag (space_users_path(@space.id),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
 		<div id="add_usuarios">
 			<div id="select_users_from_space" class="select_users">
 				<%= select 'users',
@@ -34,13 +34,14 @@
 				           { :multiple => true,
 				             :size     => 10 } %>
 				<input type=hidden name="user_role" id="user_role" value="Invited"/>
+				<input type=hidden name="from_app" id="from_app" value="true"/>
 			</div>
 			<%end%>
 			
 			<div id="buttons_register">
-				<%= link_to "Register as Admin",{},:onclick=>"register_admin()", :class => "secund" %><br/>
-				<%= link_to "Register as User",{},:onclick=>"register_user()", :class => "secund" %><br/>
-				<%= link_to "Register as Invited",{},:onclick=>"register_invited()", :class => "secund" %><br/>		
+				<%= link_to_function "Register as Admin", "register_admin()", :class => "secund" %><br/>
+				<%= link_to_function "Register as User",:onclick=>"register_user()", :class => "secund" %><br/>
+				<%= link_to_function "Register as Invited",:onclick=>"register_invited()", :class => "secund" %><br/>		
 			</div>
 			
 		</div>
@@ -52,7 +53,7 @@
 <div id="space_users">
 
 	<div id="admin_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_admin_form',:style => "display: inline;"}) do %>
+		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: Admin</span>
 		<div id="admin_users_select" class="select_users">
 			<%= select 'users',
@@ -62,15 +63,16 @@
 			           { :multiple => true,
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
+			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
+			<%= link_to_function "Remove",:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>
 
 	<div id="users_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_user_form',:style => "display: inline;"}) do %>
+		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: User</span>
 		<div id="users_users_select" class="select_users">
 			<%= select 'users',
@@ -80,15 +82,16 @@
 			           { :multiple => true,
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
+			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
+			<%= link_to_function "Remove",:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>
 
 	<div id="invited_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_invited_form',:style => "display: inline;"}) do %>
+		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: Invited</span>
 		<div id="invited_users_select" class="select_users">
 			<%= select 'users',
@@ -98,9 +101,10 @@
 			           { :multiple => true,
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
+			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
+			<%= link_to_function "Remove",:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>

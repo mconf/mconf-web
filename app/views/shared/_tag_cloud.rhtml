@@ -1,7 +1,7 @@
 <div id="tag_cloud">
  <% if @cloud.length > 0 %>
 <% build_tag_cloud(@cloud, %w(nube1 nube2 nube3 nube4 nube5 nube6 )) do |tag, cloud_class| %>
-<%= link_to(h("#{tag}"), {:controller=> :events, :action => :search_by_tag,:space_id=>@space.id, :tag => tag}, { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) %>
+<%= link_to(h("#{tag}"), {:controller=> :search, :action => :tag,:space_id=>@space.id, :tag => tag}, { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) %>
 <% end %>
 <% else %>No tags found.
 

@@ -18,23 +18,6 @@ class ArticlesController < ApplicationController
   before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
   before_filter :get_cloud
   
-  
-  def search_articles
-    @query = params[:query]    
-    @results = Article.find_by_contents(@query)
-    @pos = @container.container_posts    
-    @posts = []   
-    @results.collect { |result|
-      post = CMS::Post.find_by_content_type_and_content_id("CMS::Text", result.id)
-      if @pos.include?(post)
-        @posts << post
-      end
-    }
-    respond_to do |format|   
-      format.html {render :template=>'/articles/search_articles'}
-      format.js 
-    end
-  end
   def create
 
     # Fill params when POSTing raw data

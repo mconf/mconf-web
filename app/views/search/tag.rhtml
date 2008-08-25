@@ -80,7 +80,7 @@ No events Found <br><br>
 <%for user in @users do%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(user.id, {:space_id => @space.id})%> (<%= link_to user.login,  user_profile_path(user.id, {:space_id => @space.id}) %>)<br></td>
+<td align="center"><%=link_to user.profile.name, user_profile_path(current_user.id, {:space_id => @space.id})%> (<%= link_to user.login,  user_profile_path(current_user.id, {:space_id => @space.id}) %>)<br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <td align="center"><%= user.email%><br></td>
 <td align="center"><%= user.profile.organization%><br></td>
@@ -95,7 +95,7 @@ No events Found <br><br>
 </tr>
 <%else%>
 <tr>
-<td align="center">(<%=link_to user.login, user_profile_path(user.id, {:space_id => @space.id})%>)<br></td>
+<td align="center">(<%=link_to user.login, user_profile_path(current_user.id, {:space_id => @space.id})%>)<br></td>
 <td></td><td align="center"><%= user.email%><br></td><td></td>
 <%for role in @space.roles_for(user) do%>
 <td align="center"><%=role.name%><br></td></tr>

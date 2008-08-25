@@ -18,8 +18,8 @@
 		<%= link_to space.name, edit_space_path(space)%>
 	</td>
     <td>
-    <%= link_to 'Add Users', add_user_path(space) %>
-  	<%= link_to 'Groups' ,show_groups_path(:space_id => space.id)%>
+    <%= link_to 'Add Users', new_space_user_path(space, {:by_email => true}) %>
+  	<%= link_to 'Groups' ,space_groups_path(:space_id => space.id)%>
    
     <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
     

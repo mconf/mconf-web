@@ -1,11 +1,11 @@
 
-	Group Name <%= text_field_tag "group_name", @role.name%>
+	Group Name <%= text_field_tag "group_name", @group.name%>
 	<div id="users_group">
 		<span>Users in the group</span>
 		<div id="users_group_select" class="select_users">
 			<%= select 'group_users',
 			           'id',
-			           @space.get_users_with_role(@role.name).collect { |u| [ u.login, u.id ] },
+			           @group.users.collect { |u| [ u.login, u.id ] },
 			           {:include_blank => false},
 			           { :multiple => true,
 			             :size     => 10,

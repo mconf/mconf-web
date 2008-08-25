@@ -5,12 +5,12 @@
 
 <%= error_messages_for :profile %>
 
-<% form_for :profile, :url => space_user_profile_path(@space.id, @user.id), :html => {:method => :put} do |f| %>
+<% form_for :profile, :url => user_profile_path(current_user.id, {:space_id => @space.id}), :html => {:method => :put} do |f| %>
 
 
 <%= render :partial => 'form', :locals => { :f => f } %>
 
-        	<%= submit_tag 'Update' %><%= link_to 'Back', space_user_profile_path(@space.id, current_user.id)%>
+        	<%= submit_tag 'Update' %><%= link_to 'Back', user_profile_path(current_user.id, {:space_id => @space.id})%>
 <% end %>
 <% end %>
 </div>

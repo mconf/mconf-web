@@ -9,7 +9,7 @@ end %>
 <%= error_messages_for 'event' %>
   
 <h1>Editing event</h1>
-<form action="/events/<%=@event.id%>" method="post" name='form_event'>
+<form action="/spaces/<%=@space.id%>/events/<%=@event.id%>" method="post" name='form_event'>
   <div style="margin:0;padding:0"><input name="_method" type="hidden" value="put" /></div>
   <%= render :partial => 'form' %>
   <h6> (*) Separated by commas</h6>

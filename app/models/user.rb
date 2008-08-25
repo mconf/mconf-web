@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   
   has_many :participants
   has_and_belongs_to_many :events 
-  has_and_belongs_to_many :machines 
+  has_and_belongs_to_many :machines
+  has_and_belongs_to_many :groups
   
   attr_accessible :email2, :email3, :superuser, :disabled
   

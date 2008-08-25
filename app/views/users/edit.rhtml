@@ -30,7 +30,7 @@
         
 		<% else %>
 		
-            <%= link_to 'Back', space_user_profile_path(@space.id, current_user.id)%>
+            <%= link_to 'Back', user_profile_path(current_user.id, {:space_id => @space.id})%>
         
 		<% end -%>
         

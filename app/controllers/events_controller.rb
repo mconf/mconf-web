@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   include CMS::Controller::Contents
   
   #include CMS::Controller::Authorization
-
+  
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   
   before_filter :get_cloud
@@ -68,28 +68,33 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   
   def show
-    session[:current_tab] = "Events"
-    
-    @datetime = Date.today
-    @event = Event.find(params[:id])
-    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
+    session[:current_tab] = "Events" 
     #this part is used to create the event's summary in the left column. This is used in an Ajax Call.'
     if params[:show_summary]
-      logger.debug("LLAMADA A SHOW_SUMMARY")
-      
+      logger.debug("LLAMADA A SHOW_SUMMARY")   
       begin
         if params[:id] && !params[:event_id]
           params[:event_id] = params[:id]   
         end
-        @event = Event.find(params[:event_id])  
-        @show_summary = true
+        begin
+          @event = Event.find(params[:event_id]) 
+          @show_summary = true
+        rescue
+        end
       end
+    else
+      @datetime = Date.today
+      @event = Event.find(params[:id])
+      @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
     end
+    
+    Mime::Type.register "ical", :ical
     
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @events }
       format.js
+      format.ical { export_ical }
     end
   end
   
@@ -313,7 +318,7 @@ class EventsController < ApplicationController
     
     
     respond_to do |format|
-      format.html {   redirect_to :action => 'show' }
+      format.html# {   redirect_to :action => 'show' }
       format.xml  { head :ok }
     end
   rescue
@@ -348,7 +353,7 @@ class EventsController < ApplicationController
     render(:partial => "hidden_field", :layout => false)
   end
   
-   
+  
   def add_time
     @indice = params[:indice].to_i
     @indice += 1
@@ -360,33 +365,6 @@ class EventsController < ApplicationController
     @is_new = true
     render :partial => "form_datetimes_edit", :layout => false
   end
-  
-  #Method to export an event in a .ics file (Icalendar RFC)
-  #es un show
-  def export_ical
-    @event = Event.find(params[:id]) 
-    # dates = EventDatetime.find_by_event_id(@event.id)
-    urls = @event.get_urls
-    url_total = ""
-    for url in urls
-      url_total += url.to_s + ", "
-    end
-    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}   
-    calen = Vpim::Icalendar.create2
-    for datetime in @event.event_datetimes
-      calen.add_event do |e|
-        e.dtstart  datetime.start_date
-        e.dtend  datetime.end_date
-        e.description  @event.description        
-        e.url url_total
-        e.summary "Event Title:" + @event.name + ", Service:"+ Event.get_Service_name(@event.service)
-      end 
-    end 
-    icsfile = calen.encode         
-    # @cal_string = icsfile.to_ical
-    send_data icsfile, :filename => "#{@event.name}.ics"      
-    
-  end  
   
 =begin  
 TODO métodos a eliminar por pasar todas las busquedas al SearchController  
@@ -479,19 +457,7 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
       format.html     
     end
   end
-  
-  
-  #metodo que devuelve los eventos que tienen un tag, y los ususarios y los posts
-  def search_by_tag    
-    
-    @tag = params[:tag]
-    
-    @events = Event.tagged_with(@tag) 
-    @users = User.tagged_with(@tag) 
-    
-    @posts = CMS::Post.tagged_with(@tag)
-    
-  end
+ 
   
   
   #Method that make the advanced search
@@ -555,11 +521,48 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
       end  
     end
   end
-=end
-
 
   
-  private              
+    #metodo que devuelve los eventos que tienen un tag, y los ususarios y los posts
+  def search_by_tag    
+    
+    @tag = params[:tag]
+    
+    @events = Event.tagged_with(@tag) 
+    @users = User.tagged_with(@tag) 
+    
+    @posts = CMS::Post.tagged_with(@tag)
+    
+  end
+=end  
+  private        
+  
+  #Method to export an event in a .ics file (Icalendar RFC)
+  
+  def export_ical
+    @event = Event.find(params[:id]) 
+    # dates = EventDatetime.find_by_event_id(@event.id)
+    urls = @event.get_urls
+    url_total = ""
+    for url in urls
+      url_total += url.to_s + ", "
+    end
+    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}   
+    calen = Vpim::Icalendar.create2
+    for datetime in @event.event_datetimes
+      calen.add_event do |e|
+        e.dtstart  datetime.start_date
+        e.dtend  datetime.end_date
+        e.description  @event.description        
+        e.url url_total
+        e.summary "Event Title:" + @event.name + ", Service:"+ Event.get_Service_name(@event.service)
+      end 
+    end 
+    icsfile = calen.encode         
+    # @cal_string = icsfile.to_ical
+    send_data icsfile, :filename => "#{@event.name}.ics"      
+    
+  end  
   
   #Class Method to verify the events that occurs in the date given.
   def select_events(datetime_start_day)

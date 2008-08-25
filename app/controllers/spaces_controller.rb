@@ -54,7 +54,8 @@ class SpacesController < ApplicationController
   
   # POST /spaces
   # POST /spaces.xml
-  def create    
+  # {"commit"=>"Create", "action"=>"create", "space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}, "controller"=>"spaces"}
+  def create 
     @space = Space.new(params[:space])
     
     respond_to do |format|
@@ -110,7 +111,11 @@ class SpacesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+#metodos trasladados al controlador de usuarios  
   
+=begin
+
   
   def add_user2
      session[:current_sub_tab] = "Add Users from App"
@@ -217,11 +222,14 @@ class SpacesController < ApplicationController
       end 
     end
   end
-  
+
+
+ #Este metodo no parece que tenga ningun sentido
   def register
     render :template =>'users/new'
     
   end
+=end
   private
   #method to parse the request for update from the server that contains
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
