@@ -39,7 +39,12 @@
 		 		<%= nav_tab "Spaces", { :url =>  spaces_path(:space_id => @space.id)} %>
 		 	<%end%>
 	 </ul>
-  
+  <%else%>
+	<ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path(1)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(1)} %>
+		 	<%= nav_tab "Posts", { :url => {:controller=>'posts', :action=>'index', :container_id => 1}} %>
+  </ul>
 
 <% end %>
 
