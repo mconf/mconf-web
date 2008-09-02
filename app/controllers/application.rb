@@ -2,7 +2,11 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base  
-  
+   
+  alias_method :container_articles_path, :space_articles_path
+  alias_method :container_articles_url, :space_articles_url
+  alias_method :container_events_path, :space_events_path
+  alias_method :container_events_url, :space_events_url
   
   before_filter :adaptation
   
@@ -151,6 +155,8 @@ class ApplicationController < ActionController::Base
   end
   
   def get_space
+    
+=begin    
     if params[:container_type]=="posts"
       @space = CMS::Post.find(params[:container_id]).container
       get_container
@@ -163,15 +169,21 @@ class ApplicationController < ActionController::Base
       #this case is /spaces/1 ... /spaces/:id
       params[:container_id] = params[:id]
     end
-    @space = Space.find(params[:container_id])
-    get_container
+    
+=end    
+    if params[:space_id]
+    @container = @space = Space.find(params[:space_id])
+  else
+    @container = @space = Space.find(params[:id])
+    end
+    #get_container
   end
   
   
   
   def not_public_space
     
-    @space = Space.find(params[:container_id])
+    @space = Space.find(params[:space_id])
     if @space.id == 1 && logged_in?
       flash[:notice] = "Action not allowed."     
       redirect_to root_path
@@ -183,16 +195,23 @@ class ApplicationController < ActionController::Base
   end
   def remember_tab_and_space
     #save the current space, because this routes are /roles /roles/new and so on
-    if params[:container_id]
-      session[:current_space] = params[:container_id]
-    end
+    if params[:space_id]
+      session[:current_space] = params[:space_id]
+
+  else
+    session[:current_space] = params[:id]
+        end
     @space = Space.find(session[:current_space])
   end
   
   
   def space_member
     
-    @space = Space.find(params[:container_id])
+    if params[:space_id]
+    @container = @space = Space.find(params[:space_id])
+  else
+    @container = @space = Space.find(params[:id])
+    end
     if @space.id == 1  || @space.public==true
       
       return true

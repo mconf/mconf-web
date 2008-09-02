@@ -13,7 +13,7 @@
         <% end -%>
         <%@errors = false %>
         <%end %>
-        <% form_for(:post, :url => @collection_path, :html => { :multipart => true }) do |f| -%>
+        <% form_for(:post, :url => space_articles_path(@space), :html => { :multipart => true }) do |f| -%>
         <%= render :partial => "posts/form", :locals => { :f => f, :action => :new } %>
         <%= submit_tag "Create" %>
         <% end -%>

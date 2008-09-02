@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
   #this method is used to compose the mail sended when a user request more machines in the application
   def contact_mail (mail_info)
     @from = mail_info["from_email"]
-     @recipients = "alfredo@lowcostronica.es"
+     @recipients = "volomir@gmail.com"
      @subject = "SIR Information"
      @mail_info = mail_info
      @body["mail_info"] = mail_info
@@ -58,7 +58,7 @@ class Notifier < ActionMailer::Base
     @from = "alsolano@dit.upm.es"
     @subject    = 'Request to change your password'
     @body ["name"] = user.login
-    @body["url"]  = "http://macarra.dit.upm.es:3000/reset_password/#{user.reset_password_code}" 
+    @body["url"]  = "http://cloud.dit.upm.es:3000/reset_password/#{user.reset_password_code}" 
   end
 #this methd is used when a user have asked for his old password, and then he reset it.
   def reset_password(user)

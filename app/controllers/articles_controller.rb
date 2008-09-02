@@ -3,9 +3,6 @@ class ArticlesController < ApplicationController
   # See documentation: CMS::Controller::Contents#included
   include CMS::Controller::Contents
   
-  # Articles list may belong to a container
-  # /articles
-  # /:container_type/:container_id/articles
   before_filter :get_container, :only => [ :index,:search_articles  ]
   
   # Needs a Container when posting a new Article
@@ -19,6 +16,7 @@ class ArticlesController < ApplicationController
   before_filter :get_cloud
   
   def create
+    debugger
 
     # Fill params when POSTing raw data
     set_params_from_raw_post

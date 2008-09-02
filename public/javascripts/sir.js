@@ -104,11 +104,13 @@ function esconde(Seccion)
         alert("Resource Full Name repeated, please use another");
     else
     {    
-        document.form_resource.myaction.value = "edit";
+        document.form_resource.action.value = "/machines/"+id;
         document.form_resource.index_to_edit.value = index+1;  //la cuenta empieza en 1 no en 0
         document.form_resource.resource_id_to_edit.value = id;
         document.form_resource.name_to_add.value = name;
-        document.form_resource.nick_to_add.value = nickname;   
+        document.form_resource.nick_to_add.value = nickname; 		
+		
+		
         document.form_resource.submit();
     }
   }

@@ -5,7 +5,7 @@
 <ul id="nav2">
 			<%= sub_tab "Spaces", spaces_path %> |
 			<%= sub_tab "Users", space_users_path(@space.id) %> |
-		    <%= sub_tab "Resources", manage_resources_path %>
+		    <%= sub_tab "Resources", machines_path({:space_id => @space.id}) %>
 </ul>	
 		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
 <ul id="nav2">
@@ -14,11 +14,11 @@
 </ul>	
 		<%elsif session[:current_tab]=="Events"%>
 <ul id="nav2">
-			<%if logged_in?%><%= sub_tab "New Event", new_container_event_path("space", @space) %> | <%end%>	
+			<%if logged_in?%><%= sub_tab "New Event", new_space_event_path(@space) %> | <%end%>	
 
 			<%= sub_tab "Show Calendar", space_events_path(@space.id, :date_start_day => Date.today) %>	| 
 
-			<%= sub_tab 'RSS Feed', formatted_container_events_path(:spaces,@space.id, "atom")  %>
+			<%= sub_tab 'RSS Feed', formatted_space_events_path(@space, "atom")  %>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
@@ -42,7 +42,7 @@
 		<%elsif  session[:current_tab]=="Posts"%>
 <ul id="nav2">
 				<%if logged_in?%><%= sub_tab 'New Post', new_space_article_path(@space) %> | <%end%>
-				<%= sub_tab 'RSS Feed', formatted_container_posts_path(:spaces,@space.id, "atom")  %>
+				<%= sub_tab 'RSS Feed', formatted_space_posts_path(@space, "atom")  %>
 				</ul>	
 		<%end%>
 

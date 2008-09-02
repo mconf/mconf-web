@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
   :reset_password ]
   
-  before_filter :get_space, :except=>[:activate,:forgot_password,:reset_password]
+  before_filter :get_space, :except=>[:new,:create,:destroy,:activate,:forgot_password,:reset_password]
   
   before_filter :get_cloud
   before_filter :authentication_required, :only => [:edit,:update, :destroy]
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if params[:only_space_users]
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
-      @users = @container.actors
+      @users = @space.actors
     elsif @space.id==1
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
@@ -62,6 +62,7 @@ class UsersController < ApplicationController
   def new
     @agent = self.resource_class.new
     if params[:space_id]!=nil
+      @space = Space.find(params[:space_id])
       #2 options, by email or from application
       if params[:by_email]
         render :template =>'users/by_email'
@@ -73,9 +74,13 @@ class UsersController < ApplicationController
   
   # POST /users
   # POST /users.xml
-  
+  # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tag"=>{"add_tag"=>""}, "action"=>"create", 
+  # "controller"=>"users", "agent"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"", 
+  # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
+
   def create
     if params[:space_id]!=nil
+      @space = Space.find(params[:space_id])
       #2 opciones, from email or from app
       if params[:by_email]
         add_user_by_email (params)
@@ -178,6 +183,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml  
   def destroy
     if params[:space_id]!=nil
+      @space = Space.find(params[:space_id])
       if params[:remove_from_space]
         remove_user(params)
         render :template =>'users/from_app'

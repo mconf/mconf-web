@@ -1,18 +1,69 @@
-<h1>Listing machines</h1>
+<div id="yui-main">
+<div class="yui-b main_column">
 
-<table>
-  <tr>
-  </tr>
+<% @page_title = "Manage Resources" -%>
+&nbsp;
+<div align=center>
+<table border=1 >
+	
+	
+<tbody id="table_resources">
+<tr>
+<td class=headerDay align=center>Resource Nickname</td>
+<td class=headerDay align=center>Resource Full Name</td>
+<td class=headerDay align=center>Action</td>
+</tr>
+<%index = 0%>
 
-<% for machine in @machines %>
-  <tr>
-    <td><%= link_to 'Show', machine %></td>
-    <td><%= link_to 'Edit', edit_machine_path(machine) %></td>
-    <td><%= link_to 'Destroy', machine, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+
+<%for machine in @machines%>
+<% form_tag(machine_path(machine.id, :space_id=>@space.id), :method => :put) do %>
+<tr id=<%="resource"+index.to_s%>>
+<td>
+<%= text_field("machine", "name", :value=>machine.name, :readonly => false) %>
+</td>
+<td>
+<%= text_field("machine", "nickname", :value=>machine.nickname, :readonly => false) %>
+</td>
+<td>
+<%= submit_tag "Edit" %>
+<%end%>
+<%= button_to "Delete", machine_path(machine.id, :space_id=>@space.id), :method => :delete  %>
+<%= button_to "Assign to all Users", machine_path(machine.id, :space_id=>@space.id, :assign_to_everybody => true), :method => :put  %>
+</td>
+</tr>
+
+<%end%>
+
+
+
+
+
+
+<% form_tag(machines_path(:space_id=>@space.id), :method => :post) do %>
+
+<td>
+<%= text_field("machine", "name", :readonly => false) %>
+</td>
+<td>
+<%= text_field("machine", "nickname", :readonly => false) %>
+
+</td>
+
+
+<td id="solo_centrar">
+<%= submit_tag "Add" %>
+</td>
+
+</tbody>
+
+<%end%>
+
 </table>
+</div>
 
-<br />
 
-<%= link_to 'New machine', new_machine_path %>
+</div>
+</div>
+
+<%= render :partial =>'shared/sidebar'%>

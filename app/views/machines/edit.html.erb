@@ -1,8 +1,8 @@
 <h1>Editing machine</h1>
 
-<%= error_messages_for :machine %>
-
 <% form_for(@machine) do |f| %>
+  <%= f.error_messages %>
+
   <p>
     <%= f.submit "Update" %>
   </p>

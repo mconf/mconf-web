@@ -38,7 +38,7 @@ class PostsController < ApplicationController
           # Paginate them
           @posts = @collection.paginate(:page => params[:page], :per_page => CMS::Post.per_page)
           @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
-          @collection_path = container_posts_url(:container_type => @container.class.to_s.tableize,
+          @collection_path = space_posts_url(:container_type => @container.class.to_s.tableize,
                                                  :container_id => @container.id,
                                                  :only_path => false)
         else

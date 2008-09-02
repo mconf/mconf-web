@@ -63,7 +63,7 @@ class SearchController < ApplicationController
   def search_events(params)
     if params[:query]
       @query = params[:query]
-      @even = CMS::Post.find_all_by_container_id_and_content_type(@container.id, "Event")
+      @even = CMS::Post.find_all_by_container_id_and_content_type(@space.id, "Event")
       @total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       @partials = []
@@ -120,7 +120,7 @@ class SearchController < ApplicationController
   def search_articles (params)
     @query = params[:query]    
     @results = Article.find_by_contents(@query)
-    @pos = @container.container_posts    
+    @pos = @space.container_posts    
     @posts = []   
     @results.collect { |result|
       post = CMS::Post.find_by_content_type_and_content_id("CMS::Text", result.id)
@@ -137,7 +137,7 @@ class SearchController < ApplicationController
     @users = []
     i = 0
     
-    @agen = @container.actors
+    @agen = @space.actors
     
     @use.collect { |user|
       # debugger

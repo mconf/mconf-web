@@ -105,12 +105,12 @@ ActiveRecord::Schema.define(:version => 40) do
   end
 
   create_table "events", :force => true do |t|
-    t.string "name",        :limit => 40, :null => false
-    t.string "password",    :limit => 40, :null => false
-    t.string "service",     :limit => 40, :null => false
-    t.string "quality",     :limit => 8,  :null => false
+    t.string "name",        :limit => 40, :default => "", :null => false
+    t.string "password",    :limit => 40, :default => "", :null => false
+    t.string "service",     :limit => 40, :default => "", :null => false
+    t.string "quality",     :limit => 8,  :default => "", :null => false
     t.text   "description"
-    t.string "uri",         :limit => 80, :null => false
+    t.string "uri",         :limit => 80, :default => "", :null => false
   end
 
   create_table "events_users", :id => false, :force => true do |t|
@@ -177,9 +177,11 @@ ActiveRecord::Schema.define(:version => 40) do
     t.integer  "space_id",   :limit => 11
   end
 
-  create_table "groups_users", :id => false, :force => true do |t|
-    t.integer "group_id", :limit => 11
-    t.integer "user_id",  :limit => 11
+  create_table "groups_users", :force => true do |t|
+    t.integer  "group_id",   :limit => 11
+    t.integer  "user_id",    :limit => 11
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "invitations", :force => true do |t|
@@ -192,8 +194,8 @@ ActiveRecord::Schema.define(:version => 40) do
   end
 
   create_table "machines", :force => true do |t|
-    t.string "name",     :limit => 40, :null => false
-    t.string "nickname", :limit => 40, :null => false
+    t.string "name",     :limit => 40, :default => "", :null => false
+    t.string "nickname", :limit => 40, :default => "", :null => false
   end
 
   create_table "machines_users", :id => false, :force => true do |t|
@@ -211,9 +213,9 @@ ActiveRecord::Schema.define(:version => 40) do
   end
 
   create_table "open_id_nonces", :force => true do |t|
-    t.string  "server_url",               :null => false
-    t.integer "timestamp",  :limit => 11, :null => false
-    t.string  "salt",                     :null => false
+    t.string  "server_url",               :default => "", :null => false
+    t.integer "timestamp",  :limit => 11,                 :null => false
+    t.string  "salt",                     :default => "", :null => false
   end
 
   create_table "open_id_ownings", :force => true do |t|
@@ -223,12 +225,12 @@ ActiveRecord::Schema.define(:version => 40) do
   end
 
   create_table "participants", :force => true do |t|
-    t.integer "event_id",                :limit => 11,                :null => false
-    t.integer "machine_id",              :limit => 11,                :null => false
-    t.integer "machine_id_connected_to", :limit => 11,                :null => false
-    t.string  "role",                    :limit => 40,                :null => false
-    t.integer "fec",                     :limit => 2,  :default => 0, :null => false
-    t.integer "radiate_multicast",       :limit => 1,  :default => 0, :null => false
+    t.integer "event_id",                :limit => 11,                 :null => false
+    t.integer "machine_id",              :limit => 11,                 :null => false
+    t.integer "machine_id_connected_to", :limit => 11,                 :null => false
+    t.string  "role",                    :limit => 40, :default => "", :null => false
+    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
+    t.integer "radiate_multicast",       :limit => 1,  :default => 0,  :null => false
     t.text    "description"
   end
 
@@ -265,15 +267,15 @@ ActiveRecord::Schema.define(:version => 40) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "tag_id",        :limit => 11, :null => false
-    t.integer "taggable_id",   :limit => 11, :null => false
-    t.string  "taggable_type",               :null => false
+    t.integer "tag_id",        :limit => 11,                 :null => false
+    t.integer "taggable_id",   :limit => 11,                 :null => false
+    t.string  "taggable_type",               :default => "", :null => false
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
 
   create_table "tags", :force => true do |t|
-    t.string "name", :null => false
+    t.string "name", :default => "", :null => false
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true

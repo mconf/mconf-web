@@ -29,7 +29,7 @@ class ProfilesController < ApplicationController
     
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_space_user_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
+      redirect_to new_user_profile_path(:user_id=>current_user.id, :space_id => @space.id)
     else
       # debugger
       
@@ -61,7 +61,7 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_space_user_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
+      redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
       @user = User.find_by_id(params[:user_id])      
     end
@@ -77,10 +77,10 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(:action => "show", :controller => "profiles") }
+        format.html { redirect_to(:action => "show", :controller => "profiles", :space_id =>@space.id) }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :space_id =>@space.id }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
       end
     end
@@ -127,7 +127,7 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_space_user_profile_path(:container_id=>@space.id, :container_type=>:space, :user_id=>current_user.id)
+      redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
       render :partial=>'hcard'
     end

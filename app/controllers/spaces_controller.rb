@@ -2,7 +2,7 @@ class SpacesController < ApplicationController
   include CMS::Controller::Base
   include CMS::Controller::Authorization
   before_filter :authentication_required, :except=>[:index, :register,:show]
-   before_filter :get_space , :only =>[:edit, :add_user,:add_user2,:update, :show]
+   before_filter :get_space #, :only =>[:edit, :add_user,:add_user2,:update, :show]
    before_filter :is_public_space, :only=>[:show]
   before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:new,:create,:destroy]
@@ -59,7 +59,7 @@ class SpacesController < ApplicationController
   
   # POST /spaces
   # POST /spaces.xml
-  # {"commit"=>"Create", "action"=>"create", "space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}, "controller"=>"spaces"}
+  # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
     @space = Space.new(params[:space])
     

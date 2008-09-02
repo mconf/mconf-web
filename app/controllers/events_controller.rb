@@ -194,6 +194,7 @@ class EventsController < ApplicationController
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
     end
+    debugger
   end
   
   

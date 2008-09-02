@@ -116,7 +116,7 @@ class RolesController < ApplicationController
     session[:current_tab] = "Groups" 
     session[:current_sub_tab] = ""
     ###estan deben ser unicas...
-    @perf = CMS::Performance.find_all_by_container_id(params[:container_id])
+    @perf = CMS::Performance.find_all_by_container_id(params[:space_id])
     
     @perf = @perf.collect{ |p| p.role_id}.uniq
     i = 0
@@ -138,7 +138,7 @@ class RolesController < ApplicationController
   
   def create_group
     session[:current_sub_tab] = "Create Group"  
-    @users =  @container.actors    
+    @users =  @space.actors    
     @role = Group.new
     @users_group = []
     respond_to do |format|
@@ -149,7 +149,7 @@ class RolesController < ApplicationController
   
   
   def save_group
-    @users =  @container.actors   #por si da error que mostramos create_group y necesita @users para mostrarlos
+    @users =  @space.actors   #por si da error que mostramos create_group y necesita @users para mostrarlos
     @role = Group.new()
     @role.name = params[:group_name]
     @role.type = "Group"
@@ -161,7 +161,7 @@ class RolesController < ApplicationController
     respond_to do |format|
       if @role.save
         for id in array_users
-             @container.container_performances.create :agent => User.find(id), :role => @role
+             @space.container_performances.create :agent => User.find(id), :role => @role
         end
         flash[:notice] = 'Group was successfully created in this space.'
         format.html { redirect_to(:action => "show_groups", :controller => "roles") }
@@ -181,9 +181,9 @@ class RolesController < ApplicationController
   
   def edit_group
        
-    @users =  @container.actors    
+    @users =  @space.actors    
     @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
+    @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
     i = 0
     @users_group = []
     for performance in @performances
@@ -204,7 +204,7 @@ class RolesController < ApplicationController
       @role = Group.find(params[:group_id])
       @role.name = params[:group_name]
       @role.type = "Group"
-      @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
+      @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
       respond_to do |format|
         if @role.save
             for performance in @performances
@@ -212,7 +212,7 @@ class RolesController < ApplicationController
             end
             if params[:group_users][:id]
               for id in params[:group_users][:id]
-                   @container.container_performances.create :agent => User.find(id), :role => @role
+                   @space.container_performances.create :agent => User.find(id), :role => @role
               end
             end        
           flash[:notice] = 'Group was successfully updated.'
@@ -220,9 +220,9 @@ class RolesController < ApplicationController
           format.xml  { render :xml => @role, :status => :created, :location => @role }
        else         
         flash[:notice] = 'Error updating group.'       
-        @users =  @container.actors    
+        @users =  @space.actors    
         @role = Group.find(params[:group_id])
-        @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
+        @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
         @users_group = []
         format.html { render :action => "edit_group" }
         format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
@@ -235,7 +235,7 @@ class RolesController < ApplicationController
   
   def delete_group    
     @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @container.id)
+    @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
     
     for performance in @performances
       performance.destroy

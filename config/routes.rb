@@ -1,13 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :machines, :collection => [:contact_mail, :my_mailer ]
+
 
   map.resources :spaces do |space|
     space.resources :users do |user|
       user.resource :profile
     end
 
-    space.resources :events
+    space.resources :events, :collection => [:add_time, :copy_next_week, :remove_time]
     space.resources :articles
     space.resources :attachments
+    space.resources :posts
 
     # Para el nuevo controlador de Grupos
     space.resources :groups
@@ -17,10 +20,6 @@ ActionController::Routing::Routes.draw do |map|
   #map.resources :attachments
 
   #map.resource :notifier
-
-  # Esta no la entiendo:
-  # resource en singular y machines en plural
-  map.resource :machines  
 
   map.resources :users do |user|
       user.resource :profile
@@ -45,14 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :posts, :member => { :media => :any,
                                      :get => :edit_media,
                                      :put => :update_media }
-  map.resources :posts, :path_prefix => '/:container_type/:container_id',
-                        :name_prefix => 'container_'
 
-  CMS.contents.each do |content|
-      map.resources content
-      map.resources content, :path_prefix => '/:container_type/:container_id',
-                             :name_prefix => 'container_'
-  end
   
   map.open_id_complete 'session', { :open_id_complete => true,
                                     :conditions => { :method => :get },
@@ -69,9 +61,9 @@ ActionController::Routing::Routes.draw do |map|
 
   #############################################################################
   ## Rutas que hemos cambiado y que puede ser que ya estén bien, TENEMOS QUE PASARLOS A MEMBER => [:LOQUESEA]
-  map.add_time '/spaces/:space_id/add_time', :controller => 'events', :action => 'add_time' #=> TimesController o (NO REST) Añadir a events :member => [ :add_time ]
-  map.copy_next_week '/spaces/:space_id/copy_next_week', :controller => 'events', :action => 'copy_next_week' #=> TimesController o (NO REST) Añadir a events :member => [ :copy_next_week ]
-  map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time' #=> TimesController o (NO REST) Añadir a events :member => [ :remove_time ]
+  #map.add_time '/spaces/:space_id/add_time', :controller => 'events', :action => 'add_time' #=> TimesController o (NO REST) Añadir a events :member => [ :add_time ]
+  #map.copy_next_week '/spaces/:space_id/copy_next_week', :controller => 'events', :action => 'copy_next_week' #=> TimesController o (NO REST) Añadir a events :member => [ :copy_next_week ]
+  #map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time' #=> TimesController o (NO REST) Añadir a events :member => [ :remove_time ]
 
   
   
@@ -147,11 +139,12 @@ ActionController::Routing::Routes.draw do |map|
   #!arreglada=> map.clean2 '/clean2_search', :controller => 'users', :action => 'clean2' #=> Ni idea
 
   #MACHINES CONTROLLER
-  map.my_mailer 'machines/my_mailer', :controller => 'machines' , :action => 'my_mailer'
-  map.contact_mail 'contact_mail' , :controller => 'machines', :action => 'contact_mail'
-  map.list_use_machines 'machines/list_user_machines' , :controller => 'machines' , :action => 'list_user_machines' #=> /machines?user=id
+  #map.my_mailer 'machines/my_mailer', :controller => 'machines' , :action => 'my_mailer'
+  #map.contact_mail 'contact_mail' , :controller => 'machines', :action => 'contact_mail'
   map.get_file 'get_file/:id' ,  :controller => "machines", :action => "get_file" #=> ??? 
-  map.manage_resources '/manage_resources', :controller => 'machines', :action => 'manage_resources' #=> /machines
+  
+  #map.list_use_machines 'machines/list_user_machines' , :controller => 'machines' , :action => 'list_user_machines' #=> /machines?user=id  
+  #map.manage_resources '/manage_resources', :controller => 'machines', :action => 'manage_resources' #=> /machines
 #ROLES CONTROLLER
 =begin
 map.save_group '/spaces/:space_id/save_group', :controller => 'roles', :action=> 'save_group' #=> /spaces/:space_id/groups, GroupsController
