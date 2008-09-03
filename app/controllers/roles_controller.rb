@@ -14,7 +14,7 @@ class RolesController < ApplicationController
   def index
    
     session[:current_tab] = "Manage" 
-    @role = CMS::Role.find_all_by_type(nil)
+    @role = Role.find_all_by_type(nil)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @role }
@@ -23,7 +23,7 @@ class RolesController < ApplicationController
   
   
   def show
-    @role = CMS::Role.find(params[:id] )
+    @role = Role.find(params[:id] )
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @role }
@@ -33,7 +33,7 @@ class RolesController < ApplicationController
   # GET /roles/new
   # GET /roles/new.xml
   def new
-    @role = CMS::Role.new    
+    @role = Role.new    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @role }
@@ -42,14 +42,14 @@ class RolesController < ApplicationController
   
   # GET /roles/1/edit
   def edit
-    @role = CMS::Role.find(params[:id])
+    @role = Role.find(params[:id])
   end
   
   
   # POST /roles
   # POST /roles.xml
   def create    
-    @role = CMS::Role.new(params[:cms_role])  
+    @role = Role.new(params[:cms_role])  
     respond_to do |format|
       if @role.save
         flash[:notice] = 'Role was successfully created.'
@@ -66,7 +66,7 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.xml
   def update  
-    @role = CMS::Role.find(params[:id])    
+    @role = Role.find(params[:id])    
     respond_to do |format|
       if @role.update_attributes(params[:cms_role])
         flash[:notice] = 'Role was successfully updated.'
@@ -82,8 +82,8 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.xml
   def destroy
-    @role = CMS::Role.find(params[:id])
-     @performances = CMS::Performance.find_all_by_role_id(@role.id)
+    @role = Role.find(params[:id])
+     @performances = Performance.find_all_by_role_id(@role.id)
      for performance in @performances
       performance.destroy
     end
@@ -97,7 +97,7 @@ class RolesController < ApplicationController
   def group_details  
        
     @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
+    @performances = Performance.find_all_by_role_id_and_container_id(@role.id, @container.id)
     i = 0
     @users = []
     for performance in @performances      
@@ -116,7 +116,7 @@ class RolesController < ApplicationController
     session[:current_tab] = "Groups" 
     session[:current_sub_tab] = ""
     ###estan deben ser unicas...
-    @perf = CMS::Performance.find_all_by_container_id(params[:space_id])
+    @perf = Performance.find_all_by_container_id(params[:space_id])
     
     @perf = @perf.collect{ |p| p.role_id}.uniq
     i = 0
@@ -183,7 +183,7 @@ class RolesController < ApplicationController
        
     @users =  @space.actors    
     @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
+    @performances = Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
     i = 0
     @users_group = []
     for performance in @performances
@@ -204,7 +204,7 @@ class RolesController < ApplicationController
       @role = Group.find(params[:group_id])
       @role.name = params[:group_name]
       @role.type = "Group"
-      @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
+      @performances = Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
       respond_to do |format|
         if @role.save
             for performance in @performances
@@ -222,7 +222,7 @@ class RolesController < ApplicationController
         flash[:notice] = 'Error updating group.'       
         @users =  @space.actors    
         @role = Group.find(params[:group_id])
-        @performances = CMS::Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
+        @performances = Performance.find_all_by_role_id_and_container_id(@role.id, @space.id)
         @users_group = []
         format.html { render :action => "edit_group" }
         format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
@@ -235,7 +235,7 @@ class RolesController < ApplicationController
   
   def delete_group    
     @role = Group.find(params[:group_id])
-    @performances = CMS::Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
+    @performances = Performance.find_all_by_role_id_and_container_id(params[:group_id], @space.id)
     
     for performance in @performances
       performance.destroy

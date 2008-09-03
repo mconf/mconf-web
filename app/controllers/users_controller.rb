@@ -110,7 +110,7 @@ class UsersController < ApplicationController
           @space_id = invitation.space_id
           space= Space.find(@space_id)
           
-          if space.container_performances.create :agent => @agent, :role => CMS::Role.find_by_id(invitation.role_id)
+          if space.container_performances.create :agent => @agent, :role => Role.find_by_id(invitation.role_id)
             invitation.destroy
           end
         end
@@ -288,13 +288,13 @@ class UsersController < ApplicationController
     
     session[:current_sub_tab] = "Add Users from App"
     if params[:users] && params[:user_role]
-      if CMS::Role.find_by_name(params[:user_role])
+      if Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
           #let`s check if the performance already exist
-          perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+          perfor = Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
           if perfor==nil
             #if it does not exist we create it
-            @space.container_performances.create :agent => User.find(user_id), :role => CMS::Role.find_by_name(params[:user_role])
+            @space.container_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
           end
         end
       else        
@@ -306,10 +306,10 @@ class UsersController < ApplicationController
   
   def remove_user (params)
     if params[:users] && params[:user_role]
-      if CMS::Role.find_by_name(params[:user_role])
+      if Role.find_by_name(params[:user_role])
         for user_id in params[:users][:id]
           #let`s check if the performance exist
-          perfor = CMS::Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", CMS::Role.find_by_name(params[:user_role])])
+          perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
           if perfor
             #if it exists we remove it
             @space.container_performances.delete perfor
@@ -331,7 +331,7 @@ class UsersController < ApplicationController
         @parse_email = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
         @em = params[:invitation][:email]      
         @emails =parse_emails(@em)             
-        @role = CMS::Role.find_by_name(params[:user_role])
+        @role = Role.find_by_name(params[:user_role])
         params[:invitation][:space_id]= params[:space_id]
         params[:invitation][:user_id]= current_user.id
         params[:invitation][:role_id]= @role.id
@@ -355,7 +355,7 @@ class UsersController < ApplicationController
             params[:invitation][:email]= @mail
             @user = User.find_by_email(@mail)
             if @user
-              @perfor = CMS::Performance.find_by_container_id_and_agent_id(params[:space_id],@user.id)
+              @perfor = Performance.find_by_container_id_and_agent_id(params[:space_id],@user.id)
             end
             if @user == nil 
               #falta notificar por mail
@@ -363,7 +363,7 @@ class UsersController < ApplicationController
               @inv.save! 
               @users_invited << @inv.email
             elsif  @perfor == nil
-              @space_required.container_performances.create :agent => @user, :role => CMS::Role.find_by_name(params[:user_role])
+              @space_required.container_performances.create :agent => @user, :role => Role.find_by_name(params[:user_role])
               #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
               @users_added << @user.email
               #falta notificar por mail

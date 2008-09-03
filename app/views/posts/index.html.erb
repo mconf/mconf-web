@@ -13,7 +13,7 @@
 	<%= post.content.class %>
 	-->
     Post :: <%=link_to(sanitize(post.title), post_path(post)) %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= User.find(post.agent_id).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
-    <%if post.content_type == "CMS::AttachmentFu"%>
+    <%if post.content_type == "Attachment"%>
 		<%= render :partial =>'attachments/attachment' , :locals => {:post => post}%>
 	<%end%>
 	

@@ -97,7 +97,7 @@ def sub_tab(name, ruta)
 end
 
  def get_attachment_content_type(post)
-  type = CMS::AttachmentFu.find(post.content_id).content_type
+  type = Attachment.find(post.content_id).content_type
   return type
 end
 

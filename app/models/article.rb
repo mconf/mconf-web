@@ -9,18 +9,18 @@ class Article < XhtmlText
   
   
   def title    
-    @post = Post.find_by_content_type_and_content_id("CMS::Text", self.id)
+    @post = Post.find_by_content_type_and_content_id("XhtmlText", self.id)
     return @post.title
   end
   
   def description    
-    @post = Post.find_by_content_type_and_content_id("CMS::Text", self.id)
+    @post = Post.find_by_content_type_and_content_id("XhtmlText", self.id)
     return @post.description
   end
   
   
   def tags
-    @post = Post.find_by_content_type_and_content_id("CMS::Text", self.id)
+    @post = Post.find_by_content_type_and_content_id("XhtmlText", self.id)
     return @post.tag_list.collect {|tag| tag} if @post.tag_list
   end
 end

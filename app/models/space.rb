@@ -28,7 +28,7 @@ class Space < ActiveRecord::Base
  
   def get_users_with_role(role)
     array_users = []
-    array_performances = CMS::Performance.find_all_by_container_id(self, :conditions=>["role_id = ?", CMS::Role.find_by_name(role)])
+    array_performances = Performance.find_all_by_container_id(self, :conditions=>["role_id = ?", Role.find_by_name(role)])
     for perfor in array_performances
       array_users << User.find(perfor.agent_id)
     end
@@ -88,7 +88,7 @@ class Space < ActiveRecord::Base
   #method to delete the performances, but not the groups (that are done with performances)
   def delete_performances
     for perfor in container_performances 
-      role = CMS::Role.find(perfor.role_id)
+      role = Role.find(perfor.role_id)
       if role.type == nil
         perfor.destroy
       end

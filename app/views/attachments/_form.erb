@@ -1,7 +1,7 @@
   <!--las 3 líneas del if mirar con más detalle si son prescindibles  -->
   <p>
 	<%if @content.id != nil%>
-	<%@post = Post.find(:first , :conditions => {:content_id => @content.id,:content_type => "CMS::AttachmentFu"})%>
+	<%@post = Post.find(:first , :conditions => {:content_id => @content.id,:content_type => "Attachment"})%>
 	<%end%>
 	
     <b>Text</b><br />

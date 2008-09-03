@@ -43,7 +43,7 @@
 </div>
 <% end -%>
 <%end%>
-  <% @content = CMS::Text.new() %>
+  <% @content = XhtmlText.new() %>
   <% form_for(:post, :url => post_articles_path(@post), :html => { :multipart => true }) do -%>
 
     <b>Title</b><br />

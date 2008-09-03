@@ -27,10 +27,10 @@ class PostsController < ApplicationController
           @title ||= "#{ 'Post'.t('Posts', 99) } - #{ @container.name }"
           # All the Posts this Agent can read in this Container
           @collection = @container.container_posts.find(:all,
-                                                        :conditions => [ "content_type = ?", "CMS::AttachmentFu" ],
+                                                        :conditions => [ "content_type = ?", "Attachment" ],
                                                         :order => "updated_at DESC")
           @collection += @container.container_posts.find(:all,
-                                                        :conditions => [ "content_type = ?", "CMS::Text" ],
+                                                        :conditions => [ "content_type = ?", "XhtmlText" ],
                                                         :order => "updated_at DESC")
           # Paginate them
           @posts = @collection.paginate(:page => params[:page], :per_page => Post.per_page)

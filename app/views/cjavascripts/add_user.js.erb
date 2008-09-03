@@ -14,7 +14,7 @@ Rico.onLoad( function() {
   writeAllUsersNameSpans();
   //writeSpaceUsersNameSpans();
   createDraggables();
-  <%for role in CMS::Role.find_all_by_type(nil)%>
+  <%for role in Role.find_all_by_type(nil)%>
 	dndMgr.registerDropZone( new CustomDropZone($('<%=role.name%>')));
   <%end%>  
   dndMgr.registerDropZone( new WasteBinDropZone($('papelera')));
@@ -51,7 +51,7 @@ function writeAllUsersNameSpans() {
 function createDraggables() {
    for ( var i = 0 ; i < allUsers.length ; i++ )
       dndMgr.registerDraggable( new CustomDraggable($('d'+i), allUsers[i]) );
-   <%for role in CMS::Role.find_all_by_type(nil)%>
+   <%for role in Role.find_all_by_type(nil)%>
      var spaceUsers = <%=Space.to_js_array(@space.agents_with_role(role.id))%>
    	 for ( var i = 0 ; i < spaceUsers.length ; i++ )
         dndMgr.registerDraggable( new CustomDraggable($("user_<%=role.name%>"+i), spaceUsers[i]) );
@@ -79,7 +79,7 @@ function doSearchResultsDraggable() {
 
 //function to get the data and send it to the server
 function sendData() {
-	<%for role in CMS::Role.find_all_by_type(nil)%>
+	<%for role in Role.find_all_by_type(nil)%>
 	 document.user_space_form.<%=role.name%>.value = document.getElementById('<%=role.name%>').innerHTML;     
    <%end%>
 	document.user_space_form.submit();

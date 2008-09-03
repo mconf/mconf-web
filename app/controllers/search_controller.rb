@@ -123,7 +123,7 @@ class SearchController < ApplicationController
     @pos = @space.container_posts    
     @posts = []   
     @results.collect { |result|
-      post = Post.find_by_content_type_and_content_id("CMS::Text", result.id)
+      post = Post.find_by_content_type_and_content_id("XhtmlText", result.id)
       if @pos.include?(post)
         @posts << post
       end
@@ -195,7 +195,7 @@ class SearchController < ApplicationController
     @pos = @container.container_posts    
     @posts = []   
     @results.collect { |result|
-      post = Post.find_by_content_type_and_content_id("CMS::Text", result.id)
+      post = Post.find_by_content_type_and_content_id("XhtmlText", result.id)
       if @pos.include?(post)
         @posts << post
       end
