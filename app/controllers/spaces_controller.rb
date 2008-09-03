@@ -5,11 +5,12 @@ class SpacesController < ApplicationController
   before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:new,:create,:destroy]
  
-  before_filter  :can__edit__space__filter, :only=>[:edit,:update]
-  before_filter  :can__manage_groups__space__filter, :only=>[:add_user, :add_user2]
   before_filter :remember_tab_and_space
   before_filter :not_public_space, :only=>[:add_user, :add_user2]
   before_filter :space_member, :only=>[:show]
+
+  authorization_filter :space, :edit, :only=>[:edit,:update]
+  authorization_filter :space, :manage_groups, :only=>[:add_user, :add_user2]
   
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )    
