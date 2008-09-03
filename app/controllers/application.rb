@@ -2,20 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base  
-   
-  # FIXME: delete with new version of CMSplugin
-  def container_articles_path
-    space_articles_path
-  end
-  def container_articles_url
-    space_articles_url
-  end
-  def container_events_path
-    space_events_path
-  end
-  def container_events_url
-    space_events_url
-  end
+
   
   before_filter :set_locale
   #Method used in the globalize plugin to set base language
@@ -169,8 +156,6 @@ class ApplicationController < ActionController::Base
 =end    
     if params[:space_id]
     @container = @space = Space.find(params[:space_id])
-  else
-    @container = @space = Space.find(params[:id])
     end
     #get_container
   end

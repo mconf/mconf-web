@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = @space.actors
-    elsif @space.id==1
+    elsif @space && @space.id==1
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = User.find(:all)

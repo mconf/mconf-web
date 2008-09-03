@@ -16,7 +16,6 @@ class ArticlesController < ApplicationController
   before_filter :get_cloud
   
   def create
-    debugger
 
     # Fill params when POSTing raw data
     set_params_from_raw_post

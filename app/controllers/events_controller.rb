@@ -7,10 +7,7 @@ class EventsController < ApplicationController
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   
   before_filter :get_cloud
-  # Events list may belong to a container
-  # /events
-  # /:container_type/:container_id/events
-  #before_filter :get_container, :only => [ :index, :show]
+
   
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
@@ -186,6 +183,7 @@ class EventsController < ApplicationController
         end
         
         format.html { redirect_to space_events_path(@container, :date_start_day => @event.event_datetimes[0].start_date) }
+
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else        
         format.html { render :action => "new" }
