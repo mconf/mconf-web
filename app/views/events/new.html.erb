@@ -12,7 +12,7 @@ end %>
 <div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
 <h1>New event</h1>
-<form action=<%= @collection_path %> method="post" name='form_event'>
+<form action=<%= space_events_path(@space) %> method="post" name='form_event'>
   <%= render :partial => 'form' %>
   <h6> (*) Separated by commas</h6>
   
