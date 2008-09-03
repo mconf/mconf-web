@@ -185,7 +185,7 @@ class EventsController < ApplicationController
           flash[:notice] = 'Event was successfully created.'
         end
         
-        format.html { redirect_to container_contents_path(:date_start_day => @event.event_datetimes[0].start_date) }
+        format.html { redirect_to space_events_path(@container, :date_start_day => @event.event_datetimes[0].start_date) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else        
         format.html { render :action => "new" }
