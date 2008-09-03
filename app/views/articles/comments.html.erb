@@ -5,8 +5,8 @@
 <%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
 
 
-<% post = CMS::Post.find(:first,:conditions => {:content_type => "Article"  , :content_id => @content.id})%>
-<% @comments = CMS::Post.find(:all,:conditions => {:container_type => "Article"  , :container_id => post.content_id})%>
+<% post = Post.find(:first,:conditions => {:content_type => "Article"  , :content_id => @content.id})%>
+<% @comments = Post.find(:all,:conditions => {:container_type => "Article"  , :container_id => post.content_id})%>
 
 <div id="link">
 <%= link_to 'New Comment', new_article_article_url(Article.find(post.container_id))%>

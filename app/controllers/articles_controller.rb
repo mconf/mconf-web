@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
     # and find_or_create_by_sha1
     if params[:attachment]!= {"uploaded_data"=>""}
       @content = Attachment.create(params[:attachment])  
-        @post = CMS::Post.new({ :agent => current_agent,
+        @post = Post.new({ :agent => current_agent,
         :container => @container,
         :content => @content, 
         :description => params[:content][:text],
@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
     else
     
       @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
-       @post = CMS::Post.new(params[:post].merge({ :agent => current_agent,
+       @post = Post.new(params[:post].merge({ :agent => current_agent,
         :container => @container,
         :content => @content}))
     end
@@ -47,8 +47,8 @@ class ArticlesController < ApplicationController
   
     #@attachment.save;
 
-    #@attachment_post = CMS::Post.new( :agent => current_agent,
-     # :container_type =>"CMS::Post",
+    #@attachment_post = Post.new( :agent => current_agent,
+     # :container_type =>"Post",
      # :container_id => @content.id,
      # :content => @attachment,
      # :title => @post.title,
@@ -71,7 +71,7 @@ class ArticlesController < ApplicationController
           @content.destroy unless @content.new_record?
           @collection_path = container_contents_url
           @title ||= "New #{ controller_name.singularize.humanize }".t
-          if @container.class == CMS::Post 
+          if @container.class == Post 
           
             @post_ = @post
             @post = @container
@@ -112,7 +112,7 @@ class ArticlesController < ApplicationController
   def new 
         session[:current_sub_tab] = "New article"
         @collection_path = container_contents_url
-        @post = CMS::Post.new
+        @post = Post.new
         @post.content = @content = instance_variable_set("@#{controller_name.singularize}", controller_name.classify.constantize.new)
         @title ||= "New #{ controller_name.singularize.humanize }".t
         render :template => "posts/new"

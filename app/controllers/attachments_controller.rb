@@ -28,7 +28,7 @@ class AttachmentsController < ApplicationController
     # and find_or_create_by_sha1
     @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
     
-    @post = CMS::Post.new(params[:post].merge({ :agent => current_agent,
+    @post = Post.new(params[:post].merge({ :agent => current_agent,
       :container => @container,
       :content => @content }))
     
