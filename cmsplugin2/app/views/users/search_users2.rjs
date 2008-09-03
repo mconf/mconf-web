@@ -1,1 +1,0 @@
-page.replace_html 'select_users_from_space', :partial => 'users_search2' 

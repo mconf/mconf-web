@@ -1,1 +1,0 @@
-page.replace_html 'nameList', :partial => 'users_search' 

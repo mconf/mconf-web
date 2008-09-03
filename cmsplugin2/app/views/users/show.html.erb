@@ -1,9 +1,0 @@
-<li>
-<ul> Login: <%= @user.login%> </ul>
-<ul>Email: <%= @user.email%></ul>
-<ul>Eamil 3:<%= @user.email2%></ul>
-<ul>Email 3:<%= @user.email3%></ul>
-<ul>Your Interests, Tags: <%= @user.tag_list if @user.tag_list%></ul>
-</li>
-
-<%= link_to 'Edit' , edit_user_path(@user.id)%>

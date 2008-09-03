@@ -1,6 +1,0 @@
-<% div_for comment do -%>
-<%= render :partial => "#{ comment.content.class.to_s.tableize }/comment", :object => comment %>
-<% if comment.container_posts.any? -%>
-  <%= render :partial => "posts/comment", :collection => comment.container_posts %>
-<% end -%>
-<% end -%>
