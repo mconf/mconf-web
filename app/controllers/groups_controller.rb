@@ -1,6 +1,4 @@
 class GroupsController < ApplicationController
-  include CMS::Controller::Base
-  include CMS::Controller::Authorization
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
   
   before_filter :get_cloud

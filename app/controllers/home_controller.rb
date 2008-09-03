@@ -1,6 +1,5 @@
 
 class HomeController < ApplicationController  
-   include CMS::Controller::Base
    before_filter :get_space
     before_filter :get_cloud
   def index

@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   # Include some methods and set some default filters. 
   # See documentation: CMS::Controller::Agents#included
   include CMS::Controller::Agents
-  include CMS::Controller::Authorization
   
   
   # Get the User for member actions

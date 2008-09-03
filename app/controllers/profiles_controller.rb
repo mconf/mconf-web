@@ -1,8 +1,6 @@
 require 'vpim/vcard'
 
 class ProfilesController < ApplicationController
-  include CMS::Controller::Base
-  
   before_filter :authentication_required
   before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
   before_filter :get_cloud
