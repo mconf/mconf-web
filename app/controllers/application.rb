@@ -3,12 +3,19 @@
 
 class ApplicationController < ActionController::Base  
    
-  alias_method :container_articles_path, :space_articles_path
-  alias_method :container_articles_url, :space_articles_url
-  alias_method :container_events_path, :space_events_path
-  alias_method :container_events_url, :space_events_url
-  
-  before_filter :adaptation
+  # FIXME: delete with new version of CMSplugin
+  def container_articles_path
+    space_articles_path
+  end
+  def container_articles_url
+    space_articles_url
+  end
+  def container_events_path
+    space_events_path
+  end
+  def container_events_url
+    space_events_url
+  end
   
   before_filter :set_locale
   #Method used in the globalize plugin to set base language
@@ -26,16 +33,6 @@ class ApplicationController < ActionController::Base
   
   private
   
-  # Esto es una ñapa para adaptar el nuevo plugin CMS que utiliza :space_id en vez de :container_id.
-  # Habría que quitarlo en el futuro.
-  def adaptation
-    if params[:space_id]
-      params[:container_id] = params[:space_id]
-      params[:container_type] = "spaces"
-    end
-  end
-  
-
   def authentication_required
     if @space && @space.public==true
       return true
