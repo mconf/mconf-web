@@ -61,7 +61,7 @@ class SessionsController < ApplicationController
       case openid_response.status
       when OpenID::Consumer::SUCCESS
         flash[:notice] = "Verification of #{ openid_response.display_identifier } succeeded"
-        uri = CMS::URI.find_or_create_by_uri(openid_response.display_identifier)
+        uri = Uri.find_or_create_by_uri(openid_response.display_identifier)
         unless authenticate(:openid, uri)
           # TODO if already authenticated, add URI to Agent.openid_ownings
           # else
