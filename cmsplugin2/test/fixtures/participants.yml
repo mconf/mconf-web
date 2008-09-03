@@ -1,0 +1,64 @@
+--- 
+participant_00092: 
+  event_id: 40
+  radiate_multicast: 0
+  role: interactive
+  fec: 25
+  id: 92
+  description: ""
+  machine_id_connected_to: 5
+  machine_id: 8
+participant_00093: 
+  event_id: 40
+  radiate_multicast: 0
+  role: interactive
+  fec: 25
+  id: 93
+  description: ""
+  machine_id_connected_to: 8
+  machine_id: 9
+participant_00094: 
+  event_id: 39
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 94
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 5
+participant_00095: 
+  event_id: 41
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 95
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 7
+participant_00096: 
+  event_id: 42
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 96
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 7
+participant_00090: 
+  event_id: 38
+  radiate_multicast: 0
+  role: interactive
+  fec: 0
+  id: 90
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 5
+participant_00091: 
+  event_id: 40
+  radiate_multicast: 0
+  role: interactive
+  fec: 25
+  id: 91
+  description: ""
+  machine_id_connected_to: 0
+  machine_id: 5

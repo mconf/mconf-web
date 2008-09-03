@@ -1,0 +1,9 @@
+<% rounded(:class => "tips") do %>
+<h4>Members <%= @group.name%></h4><br>
+
+<%for user in @users%>
+<ul>
+<li><%= user.login%>, email <%= user.email%><br></li>
+</ul>
+<%end%>
+<%end%>

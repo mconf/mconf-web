@@ -1,0 +1,24 @@
+
+	
+	<% array_spaces = Space.compone_array_spaces(current_user) 
+
+	-%>	
+		<div id="space_logo"></div>
+		<div id="space-span">
+			
+			<% form_tag("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
+					<%if @space%>
+						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
+							<%for arraycin in array_spaces%>
+								<%if arraycin[1]==@space.id%>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%=arraycin[0]%></option>
+								<%else%>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%=arraycin[0]%></option>
+								<%end%>
+							<%end%>
+						</select>
+					<%else%>
+						<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
+					<%end%>						
+			<% end -%>
+	    </div>

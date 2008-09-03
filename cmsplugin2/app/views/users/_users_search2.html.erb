@@ -1,0 +1,12 @@
+
+
+<% if @users.total_hits== 0 %>
+	No Users Found
+<% else%>
+	<%= select 'users',
+           'id',
+           @users.collect { |u| [ u.login, u.id ] },
+           {},
+           { :multiple => true,
+             :size     => 10 } %>
+<%end%>

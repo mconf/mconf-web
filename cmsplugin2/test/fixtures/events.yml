@@ -1,0 +1,41 @@
+--- 
+event_simple: 
+  name: Evento simple
+  uri: xedls/Evento simple-26-2-2008-at-20-5.xedl
+  service: meeting.act
+  id: 38
+  description: pRUEBA DE EVENTO
+  quality: 1M
+  password: ""
+event_prueba_compleja: 
+  name: Prueba Compleja
+  uri: xedls/Prueba Compleja-28-2-2008-at-15-8.xedl
+  service: meeting.act
+  id: 39
+  description: "videoconferencia"
+  quality: 1M
+  password: ""
+event_complejo: 
+  name: Evento Complejo
+  uri: xedls/Evento Complejo-27-2-2008-at-11-0.xedl
+  service: conference.act
+  id: 40
+  description: "videoconferencia"
+  quality: 2M
+  password: ""
+event_solapador: 
+  name: Solapador
+  uri: xedls/Solapador-27-3-2008-at-10-0.xedl
+  service: meeting.act
+  id: 41
+  description: ""
+  quality: 1M
+  password: ""
+event_SolapadorFebrero: 
+  name: SolapadorFebrero
+  uri: xedls/SolapadorFebrero-27-2-2008-at-10-0.xedl
+  service: meeting.act
+  id: 42
+  description: ""
+  quality: 1M
+  password: ""

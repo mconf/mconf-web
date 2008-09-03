@@ -1,0 +1,43 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+<% @page_title = "Edit User" -%>
+&nbsp;
+<%= error_messages_for 'user' %>
+<% rounded(:class => "tips") do %>
+
+<h1 class="title">Editing account</h1>
+<% form_for :user, :url => space_user_path(@space.id,@user.id), :html => {:method => :put} do |f| -%>
+
+
+
+<%= render :partial => 'form' , :locals => { :f => f } %>
+<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
+<p><label for="superuser">Admin</label><br/>
+<%= f.check_box("superuser", {}, "true", "false") %></p>
+
+<p><label for="disabled">Disable</label><br/>
+<%= f.check_box("disabled", {}, "true", "false") %></p>
+<% end -%>
+
+
+<%= render :partial => 'resources' %>
+
+        	<%= submit_tag 'Save User' %>
+        
+		<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
+        
+            <input onclick=document.location="/manage_users" type="button" value="Back" />
+        
+		<% else %>
+		
+            <%= link_to 'Back', user_profile_path(current_user.id, {:space_id => @space.id})%>
+        
+		<% end -%>
+        
+<% end -%>
+
+<% end -%>
+</div>
+</div>
+
+<%= render :partial=>'shared/sidebar_profile'%>

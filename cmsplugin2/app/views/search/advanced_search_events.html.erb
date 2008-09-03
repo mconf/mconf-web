@@ -1,0 +1,77 @@
+<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
+<script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
+
+<div id="yui-main">
+<div class="yui-b main_column">
+	
+	<% rounded(:class => "tips") do %>	
+<div id="search">
+	<h4> Search</h4> (in title, description and tags with exactly words)
+	
+  <% form_tag(search_events_path(:space_id => @space.id)) do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= submit_tag 'Search'%>
+  
+   <% end %>
+   
+
+Search by Event's Title
+ <% form_tag(search_events_path(:space_id => @space.id)) do %>
+      <%= text_field_tag :title, params[:title] %>
+	  <%= submit_tag 'Search'%><br>
+
+ <% end %>
+
+ Search in Event's Description
+ <% form_tag(search_events_path(:space_id => @space.id)) do %>
+      <%= text_field_tag :description, params[:description] %>
+	  <%= submit_tag 'Search'%><br>
+ 
+ <% end %>
+  
+You can search here between two dates
+<% form_tag(search_events_path(:space_id => @space.id)) do %>
+      From  <%= text_field_tag :time1, params[:time1] %>
+	  		<img src="/images/img.gif" id="f_trigger_c"
+			     style="cursor: pointer; border: 1px solid red;"
+			     title="Date selector"
+			     onmouseover="this.style.background='red';"
+			     onmouseout="this.style.background=''" />
+	  <script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "time1",         // ID of the input field
+      ifFormat    : "%d-%m-%Y",    // the date format
+      button      : "f_trigger_c"       // ID of the button
+    }
+  );
+</script>
+	   to 
+	      <%= text_field_tag :time2, params[:time2] %>
+		  <img src="/images/img.gif" id="f_trigger_c2"
+			     style="cursor: pointer; border: 1px solid red;"
+			     title="Date selector"
+			     onmouseover="this.style.background='red';"
+			     onmouseout="this.style.background=''" />
+<script type="text/javascript">
+  Calendar.setup(
+    {
+      inputField  : "time2",         // ID of the input field
+      ifFormat    : "%d-%m-%Y",    // the date format
+      button      : "f_trigger_c2"       // ID of the button
+    }
+  );
+</script>
+	  <%= submit_tag 'Search'%><br>
+ <% end %>
+ <% end %>
+
+</div>
+</div>
+
+ </div>
+
+<%= render :partial=>'shared/sidebar'%>
+  

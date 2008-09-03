@@ -1,0 +1,18 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+<h1>New Space</h1>
+
+<%= error_messages_for :space %>
+
+<% form_for(@space_new) do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Create" %>
+	 <%= link_to 'Back', spaces_path%>  </p>
+<% end %>
+
+<% end %>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>

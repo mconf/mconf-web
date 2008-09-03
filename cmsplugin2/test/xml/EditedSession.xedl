@@ -1,0 +1,13 @@
+<VERSION>1.9</VERSION>
+<SESSION>
+   <ID>EditedSession</ID>
+   <DELIVERY_PLATFORM>Isabel</DELIVERY_PLATFORM>
+   <SERVICE>
+      <SERVICE-NAME>class.act</SERVICE-NAME>
+      <SERVICE-QUALITY>512K</SERVICE-QUALITY>
+   </SERVICE>
+   <session-info>
+      <OPEN_SESSION>false</OPEN_SESSION>
+   </session-info>
+</SESSION>
+

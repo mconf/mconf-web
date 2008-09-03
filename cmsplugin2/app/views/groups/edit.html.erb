@@ -1,0 +1,68 @@
+
+<% @page_title = "Editing a group in the Space"%>
+<%= error_messages_for :group %>
+
+<div id="yui-main">
+<div class="yui-b main_column">
+	
+<title>Add Users to the Group</title>
+
+<br/>
+
+<% rounded(:class => "tips") do %>
+	<div id="add_usuarios">
+			<span>Users in the space</span>
+			<div id="select_users_from_space" class="select_users">
+				<%= select 'users',
+				           'id',
+				           @users.collect { |u| [ u.login, u.id ] },
+				           {},
+				           { :multiple => true,
+				             :size     => 10,
+						 	 :style => "width: 170px" } %>
+			</div>
+			
+			<div id="buttons_register">
+				<%= link_to_function "Add to the Group","add_to_the_group()", :class => "secund" %><br/>
+			</div>			
+		</div>
+<%end%>
+
+<% rounded(:class => "tips") do %>
+<div id="space_users">
+
+    <% form_tag(space_group_path(@space.id, @group.id),{:method => :put, :name=>'create_group_form',:style => "display: inline;", :onsubmit=>"selectAllOptions();"} ) do %>
+
+		<%= render :partial => 'form_groups'%>
+		
+	<%=submit_tag%>
+	<%end%>
+
+<%end%>	
+</div>
+</div>
+</div>
+
+
+<!--
+# TODO esto lo he quitado, no entiendo la funcionalidad
+<div class="yui-b sidebar">
+		<% rounded(:class => "tips") do %>
+			 
+				<h4> Search</h4> </span>
+				<br>	
+				 <span> <% form_tag(search_users_path(@space.id), :method => 'get') do %>
+				      <%= text_field_tag :query, params[:query] %>
+					  <%= link_to 'Search', search_users_path(@space.id)%>
+				      %= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>
+				  </span>
+				  <br> %= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization', :container_type =>:space, :container_id=>@space.id}}%>
+				  <br>
+				<% end %>			
+		<%end%>
+<div id="adv_search">		
+</div>
+</div>
+-->
+
+<%= render :partial =>'shared/sidebar_users'%>

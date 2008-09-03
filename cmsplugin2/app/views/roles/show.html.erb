@@ -1,0 +1,36 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+<table>
+<tr><td>Name </td>
+<td>Create posts </td>
+<td>Read posts</td>
+<td>Update posts </td>
+<td>Delete posts </td>
+<td>Create performance </td>
+<td>Read performance </td>
+<td>Update performance </td>
+<td>Delete performance </td>
+<td>Manage Events </td>
+<td>Administrator  </td>
+</tr>
+<tr>
+<td><%= @role.name%></td>
+<td><%=replace_image(@role.create_posts)%></td>
+<td><%=replace_image(@role.read_posts)%></td>
+<td><%=replace_image(@role.update_posts)%></td>
+<td><%=replace_image(@role.delete_posts)%></td>
+<td><%=replace_image(@role.create_performances)%></td>
+<td><%=replace_image(@role.read_performances)%></td>
+<td><%=replace_image(@role.update_performances)%></td>
+
+<td><%=replace_image(@role.delete_performances)%></td>
+
+<td><%=replace_image(@role.manage_events)%></td>
+<td><%=replace_image(@role.admin)%></td>
+
+
+<tr><td><input onclick=document.location="/roles" type="button" value="Back" />
+     </td></tr>   
+</table>
+<%end%>

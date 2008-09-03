@@ -1,0 +1,68 @@
+/* -------------------------------------------------------
+Based on Grayed Out table design
+Author: Terence Ordona
+URL: http://www.imaputz.com/
+ ------------------------------------------------------- */
+div.ricoLG_outerDiv *, div.ricoLG_outerDiv div.ricoLG_cell {
+  font-size: 11px;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.ricoLG_table {
+	border-top: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+}
+
+tr.ricoLG_hdg th, tr.ricoLG_hdg td {
+	background-color: #FFF !important;
+  background: url(../images/grayedout.gif) #FFF repeat-x scroll center left;
+  border-bottom: 1px solid #CCC;
+}
+
+.ricoLG_table th, .ricoLG_table td {
+	border-left: 1px solid #CCC;
+}
+
+.ricoLG_bottom th, .ricoLG_bottom td {
+	border-bottom: 1px solid #CCC;
+}
+
+div.ricoLG_outerDiv .ricoLG_bottom div.ricoLG_cell {
+  border-bottom: none;
+  padding: 5px;
+}
+
+tr.ricoLG_hdg .ricoLG_cell {
+  font-weight: normal;
+}
+
+div.ricoLG_outerDiv a:visited, div.ricoLG_outerDiv a:link {
+	color: #009;
+	text-decoration: none;
+}
+
+div.ricoLG_outerDiv a:hover {
+	color: #009;
+	text-decoration: underline;
+}
+
+.ricoLG_oddRow {
+	background-color: #EEE;
+}
+
+div.ricoLG_selection, div.ricoWindow .ricoTitle {
+	background-color: #999;
+	color: #FFF;
+}
+
+div.ricoLG_highlightDiv {
+	border-color: #999;
+}
+	
+caption {
+	text-align: left;
+	font-size: 100%;
+	padding: .75em;
+	color: #000;
+}
+

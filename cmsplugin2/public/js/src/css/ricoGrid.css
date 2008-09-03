@@ -1,0 +1,152 @@
+div.ricoLG_outerDiv {
+  position:relative;
+  /*border:thin solid blue;  /* for debugging */
+}
+
+div.ricoLG_innerDiv, div.ricoLG_frozenTabsDiv {
+  overflow:hidden;
+  margin:0px;
+  padding:0px;
+  position:absolute;
+  top:0px;
+}
+
+div.ricoLG_scrollDiv {
+  overflow:scroll;
+  position:relative;
+}
+
+div.ricoLG_scrollTabsDiv {
+  position:absolute;
+  top:0px;
+}
+
+div.ricoLG_resizeDiv {
+  position:absolute;
+  top:0px;
+  width:1px;
+  z-index:2;
+  background-color:blue;
+}
+
+div.ricoLG_highlightDiv {
+  position:absolute;
+  border: 2px solid black;
+}
+
+.ricoLG_table, table.ricoLiveGrid {
+  margin: 0px;
+  padding: 0px;
+  border-right: 1px solid silver;
+  border-top: 1px solid silver;
+}
+
+.ricoLG_table th, .ricoLG_table td, table.ricoLiveGrid td, table.ricoLiveGrid th {
+  border-left: 1px solid silver;
+}
+
+table.ricoLG_bottom, table.ricoLiveGrid td, table.ricoLiveGrid th {
+  border-top-style: none;
+}
+
+.ricoLG_evenRow   { }
+.ricoLG_oddRow    { background-color: #EEE; }
+.ricoLG_selection { background-color: #cedebd; }
+
+div.ricoLG_col {
+  overflow:hidden;
+  width:100px;
+}
+
+.ricoLG_top div.ricoLG_col {
+  position:relative;
+}
+
+.ricoLG_top div.ricoLG_Resize {
+  position:absolute;
+  width:5px;
+  height:100%;
+  top:0px;
+  cursor:e-resize;
+}
+
+.ricoLG_HdrIcon {
+  padding-left:2px;
+  padding-right:2px;
+}
+
+.ricoLG_bottom div.ricoLG_cell, .ricoLG_top th, .ricoLG_top td, table.ricoLiveGrid td, table.ricoLiveGrid th {
+  border-bottom: 1px solid silver;
+}
+
+div.ricoLG_cell, table.ricoLiveGrid td, table.ricoLiveGrid th {
+  overflow:hidden;
+  height:1.2em;
+  padding-left: 3px;
+  margin: 0px;
+  font-size: 10pt;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+div.ricoLG_messageDiv {
+  position:absolute;
+  z-index:200;
+  border:1px solid green;
+  background-color:white;
+  font-weight:bold;
+  font-size:larger;
+  color:navy;
+  text-align:center;
+  padding:4px;
+}
+
+p.ricoBookmark {
+  margin-bottom: 3px;
+  font-size: 10pt;
+}
+
+p.ricoBookmark span {
+  margin-right: 1em;
+  font-size: 10pt;
+}
+
+span.ricoCaption {
+  font-weight: bold;
+}
+
+div.alignleft {
+  text-align: left;
+}
+
+div.aligncenter {
+  text-align: center;
+}
+
+div.alignright {
+  text-align: right;
+}
+
+span.ricoSessionTimer {
+  background-color:black;
+  color:white;
+}
+
+/* column chooser */
+div.ricoWindow {
+  border: 2px solid black;
+  font-size: smaller;
+  background-color: white;
+}
+div.ricoWindow .ricoTitle {
+  padding: 3px;
+  color: white;
+  background-color: black;
+  font-weight: bold;
+}
+div.ricoWindow .ricoContent {
+  margin-left: 3px;
+}
+div.ricoWindow .ricoContent td {
+  border-bottom: 1px solid #CCC;
+}

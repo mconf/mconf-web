@@ -1,0 +1,16 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+<h1>Editing Role</h1>
+
+<%= error_messages_for :role %>
+
+<% form_for(@role , :url=> role_path(@role.id)) do |f| %>
+
+<%= render :partial => 'form', :locals => { :f => f } %>
+
+        	<%= submit_tag 'Update' %> &nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/roles" type="button" value="Back" />
+        
+<% end %>
+
+<%end%>

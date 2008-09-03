@@ -1,0 +1,64 @@
+.ricoLG_top .ricoLG_cell, .ricoLG_top th, .ricoLG_top td {  /* td/th required for IE */
+  white-space:nowrap;
+  text-align:center;
+  font-weight:normal;
+  background-color: #cedebd !important;
+}
+div.ricoLG_cell, div.ricoLG_outerDiv textarea {
+  font-size:8pt;
+}
+* {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+div.ss_col0, div.ss_col0 .ricoLG_oddRow, div.ss_col0 .ricoLG_evenRow {
+  background-color: #cedebd !important;
+  text-align:center;
+}
+.ricoLG_evenRow {
+  background-color: #fff;  /* improves IE */
+}
+div.ricoLG_highlightDiv {
+  border-top:2px solid #DDD;
+  border-left:2px solid #DDD;
+  border-right:2px solid #222;
+  border-bottom:2px solid #222;
+  overflow: hidden;
+  z-index: 1;
+}
+.toolbar tr {
+  vertical-align:top;
+}
+.toolbar * {
+  font-size: x-small;
+}
+.ricoLG_fmtnumDiv {
+  background-color:#EEEEFF;
+  border: 1px solid black;
+  font-size: x-small;
+  position:absolute;
+  display:none;
+  z-index:10;
+  padding:5px;
+}
+.ricoLG_fmtnumDiv * {
+  font-size: x-small;
+}
+.ricoLG_fmtnumDiv table {
+  margin-bottom: 5px;
+}
+.ricoLG_help {
+  border: 1px solid black;
+  z-index:10;
+}
+.ricoLG_help .ricoTitle {
+  font-size: small;
+  font-weight: bold;
+  background-color:#AAAAFF;
+  padding: 3px;
+}
+.ricoLG_help .ricoContent {
+  padding:5px;
+  font-size: x-small;
+  overflow:auto;
+  background-color:#EEEEFF;
+}

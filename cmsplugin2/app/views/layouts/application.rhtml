@@ -1,0 +1,80 @@
+<html>
+	
+<head>
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <%=yield(:head)%>
+  <%= javascript_include_tag("prototype", "effects") %>
+  <%= javascript_include_tag("sir") %>
+  <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'fckeditor/fckeditor' %>
+  <title><%= 'Isabel Server'.t %></title>
+  <%= stylesheet_link_tag 'estilosir2' %>
+  <%= stylesheet_link_tag 'estilosir3' %>
+  <%= stylesheet_link_tag 'grids' %>
+  <%= stylesheet_link_tag 'reset-fonts-grids' %>
+  
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="-1">
+  
+  
+  
+</head>
+
+<body >
+	
+	<div id="doc2" class="yui-t8">
+		<div id="hd">	
+			
+			<div id="login-users">
+			 	<%= render :partial => 'home/login', :layout => false%>
+			</div>
+	
+			<div id="linea"></div>	
+	
+			<div id="logo"></div>
+			
+			<div id="space_container">
+				<%= render :partial => 'home/space', :layout => false %>
+			</div>		
+				
+			<div id="menu_tabs">
+				<%if @space!=nil %>
+					<div id="border2"></div>
+					<%= render :partial => 'home/buttons', :layout => false%>	
+					<%= render :partial => 'home/secondary_buttons', :layout => false%>
+					<div id="border"></div>
+				<%else%>
+					<%session[:current_tab]=""%>
+					<%= render :partial => 'home/buttons', :layout => false%>	
+				<%end%>	
+			</div>
+			
+		</div>
+ 
+   		<div id="bd">
+	         <% if flash[:notice] -%>
+	        	<div id="notice" style="color: green"><%= flash[:notice] %></div>
+	        	<% end -%>
+				<% if flash[:error] -%>
+	        	<div id="notice" style="color: green"><%= flash[:error] %></div>
+	        	<% end -%>
+				<% if flash[:warning] -%>
+	         	<div id="notice" style="color: red"><%= flash[:warning] %></div>
+	        	<% end -%>
+	        	<%= @content_for_layout %>   
+   		</div>
+	    
+   		<div id="ft">
+			<a href="/">Home</a> |<a href="/">Site map</a> | <a href="/">Faq</a> | <a href="/">About</a> | <%= link_to 'Report Feedback', "/spaces/2/articles/new"  , :method=> 'get'%>
+   		</div>  
+
+ 
+  </div>
+   
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,28 @@
+<p>
+  <b>Title</b><br />
+  <%= text_field_tag :title, params[:title], :size => 50 %>
+</p>
+
+<p>
+	<%if params[:container_type] == 'spaces'%>
+ 
+</p>
+<% end%>
+<%= render :partial => "#{ @content.class.to_s.tableize }/form" %>
+
+<% if action == :new && @content.class.content_options[:has_media] -%>
+  <%= render :partial => "posts/file_form" %>
+<% end -%>
+
+<% if logged_in? && @post.tag_list  %>
+	<p><label for="keywords">Tags:</label>
+<%= text_field 'tag', 'add_tag','value' => @post.tag_list   %></p>
+	
+      <% else %>
+	  
+	  <p><label for="keywords">Tags</label>
+<%= text_field 'tag', 'add_tag'   %></p>
+	
+<%end%>
+
+<%= render :partial => "posts/permissions_form", :locals => { :f => f } -%>

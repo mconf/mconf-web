@@ -1,0 +1,18 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "new_profile") do %>
+<h1 class="title">New profile</h1>
+
+<%= error_messages_for :profile %>
+
+<% form_for :profile, :url => user_profile_path(current_user.id, :space_id => @space.id),:html => {:method => :post} do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" />
+  </p>
+<% end %>
+<% end %>
+</div>
+</div>
+
+<%= render :partial=>'/shared/sidebar_profile'%>

@@ -1,0 +1,54 @@
+
+<div id="buttons">
+
+<% if logged_in? %>
+	
+	     <ul id="nav">
+		 	<%= nav_tab "Home", { :url => space_path(@space.id), :class=>'primero'} %>
+		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user.id, {:space_id => @space.id})} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space)} %>
+		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
+		 	<%if @space.id!=1%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(:space_id => @space.id)} %>
+		 	<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id)} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path(:space_id => @space.id)} %>
+			<%end%>
+			
+			<%if current_user.superuser==true%>
+
+				<%= nav_tab "Manage", :url => spaces_path(:space_id => @space.id,:manage=>true) , :class=>'ultimo' %>		 	
+
+			<%end%>
+	     
+		 </ul>
+	 
+  
+<% elsif @space%>
+	 <ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path(@space.id)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space.id)} %>
+		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
+			<%if @space.id!=1%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space.id)} %>
+			<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space.id)} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path(:space_id => @space.id)} %>
+		 	<%end%>
+	 </ul>
+
+
+  <%else%>
+	<ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path(1)} %>
+		    <%= nav_tab "Events", { :url => space_events_path(1)} %>
+		 	<%= nav_tab "Posts", { :url => {:controller=>'posts', :action=>'index', :space_id => 1}} %>
+  </ul>
+
+  
+
+<% end %>
+
+</div>

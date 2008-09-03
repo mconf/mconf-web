@@ -1,0 +1,34 @@
+<div class="yui-b sidebar">
+<% rounded(:class => "tips") do %>
+<h1 class="title">Your Photo</h1>
+<%end%>
+
+<% rounded(:class => "tips") do %>
+<h1 class="title">About Me</h1>
+
+<%end%>
+
+<% rounded(:class => "tips") do %>
+<h1 class="title">My Friends</h1>
+
+
+<%end%>
+<% rounded(:class => "tips") do %>
+<h1 class="title">Member of the Spaces</h1>
+ 
+<%if @user.stages.length== 0%><br>
+
+<%= "You are not suscribed to any space"%>
+<%else%>
+<% for space in @user.stages%>
+<br><%=link_to space.name, space_path(space.id)%>
+<%end%>
+<%end%>
+
+<%end%>
+<% rounded(:class => "tips") do %>
+<%= link_to 'Ask for Resources', contact_mail_machines_path%>
+
+
+<%end%>
+</div>

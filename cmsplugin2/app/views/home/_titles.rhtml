@@ -1,0 +1,16 @@
+<div id="titulos">
+	<% if logged_in? && current_user.superuser==true %>
+	
+	<ul>
+	<li class="short_r"><%= link_to_function('Home','muestra_pcipal()', :class=>"tit_pcipal")%></li>
+	<li class="long_r"><%= link_to_function('Management','muestra_adm()', :class=>"tit_pcipal")%></li>
+	
+	</ul>
+	<% elsif logged_in?%>
+	<ul>
+	<li class="short_r"><%= link_to "Home",{:controller=>'events', :action=>'show'}, :class => "tit_pcipal" , :method=> 'get'%></li>
+	</ul>
+	<% else %>
+	
+	<%end%>	
+</div>

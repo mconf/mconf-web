@@ -1,0 +1,146 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+
+<h2> Search Results</h2>
+<% rounded(:class => "tips") do %>
+<h2>Posts</h2>
+<% if @posts.length == 0 %>
+	No Posts Found
+<% else%>
+	
+	<%for post in @posts%>
+	   
+	   
+	    <% user = User.find(post.agent_id)%>
+	
+    <%= post.content.class %>:: <%=link_to(sanitize(post.title), post_path(post)) %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
+        
+  	Description: <%= post.description%><br>
+	
+<%= link_to 'Edit', edit_post_path(post) %>
+   <%= link_to 'Destroy', post_url(post), :confirm => 'Are you sure?', :method => :delete %>
+   <%= link_to 'Comments', "#{ post_path(post) }#comments" %>
+
+	
+  </tr>
+
+
+<br />
+	   
+	   
+    <%end%>	
+<%end%>
+<%end%>
+
+	<% rounded(:class => "tips") do %>
+
+<h2>Users</h2>
+
+
+
+<%if @users.length== 0%>
+<%= "No users found"%>
+<%else%>
+<table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
+	<tr><td align="center">Name (Login)</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
+</tr>
+<%for user in @users do%>
+<%if user.profile != nil%>
+<tr>
+<td align="center"><%=link_to user.profile.name, user_profile_path(current_user.id, {:space_id => @space.id})%> (<%= link_to user.login,  user_profile_path(current_user.id, {:space_id => @space.id}) %>)<br></td>
+<td align="center"><%= user.profile.lastname%><br></td>
+<td align="center"><%= user.email%><br></td>
+<td align="center"><%= user.profile.organization%><br></td>
+<%for role in @space.roles_for(user) do%>
+<td align="center"><%=role.name%><br></td>
+<%end%>
+
+<td align="center"><%= user.tag_list if user.tag_list != nil%><br></td>
+
+
+
+</tr>
+<%else%>
+<tr>
+<td align="center">(<%=link_to user.login, user_profile_path(current_user.id, {:space_id => @space.id})%>)<br></td>
+<td></td><td align="center"><%= user.email%><br></td><td></td>
+<%for role in @space.roles_for(user) do%>
+<td align="center"><%=role.name%><br></td></tr>
+<%end%>
+<%end%>
+<%end%>
+</table>
+<%end%>
+<%end%>
+
+
+
+
+<% rounded(:class => "tips") do %>
+<h2>Events</h2><br>
+<%if @events == []%>
+No events Found <br><br>
+<%else %>
+
+
+
+	<table WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center><tbody><tr>
+	<td>Title</td>
+	<td>Description</td>
+	<td>Start Date</td>
+	<td>Options</td>
+	<td>Tags</td>
+	</tr>
+	<tr>
+		
+		 
+		<% @events.each do |event| %>  
+		<div class="nodisplay"><div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
+		<% for datetime in event.event_datetimes %> 
+		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div></div>
+			<%end%>
+		<td>
+			<%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space.id, event.id, "js"), :method => "get"  } %>	</td>
+		<td>
+			<%= event.description %>
+		</td>
+		<td> 
+		<% i = 0%>
+	 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
+     	<% for datetime in event.event_datetimes %> 
+    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
+<% i += 1%>
+<%end%>
+		</td>
+				<td>
+					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+                				  
+                <%session[:date_start_day]=@datetime%>
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space.id, event.id, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+                                                 
+           
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space.id, event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+                <%#end%>
+				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space.id, event.id), :method => :delete,
+                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
+           
+			<%end%>	
+				</td>
+		<td>
+			<%= event.tag_list %>
+		</td>
+		</tr>
+		
+		 <% end %>
+
+ </tbody>
+
+	</table>
+
+	 <% end %> 
+	 
+	 <% end %> 
+	 </div>
+	 	 </div>
+		 
+		 <%= render :partial =>'shared/sidebar_home'%>

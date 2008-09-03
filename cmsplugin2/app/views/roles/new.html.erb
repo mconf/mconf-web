@@ -1,0 +1,15 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+<h1>New Role</h1>
+
+<%= error_messages_for :role %>
+
+<% form_for(@role, :url=>(roles_path)) do |f| %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Create" %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/roles" type="button" value="Back" />
+  </p>
+<% end %>
+
+<%end%>

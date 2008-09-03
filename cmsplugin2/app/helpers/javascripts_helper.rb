@@ -1,0 +1,2 @@
+module JavascriptsHelper
+end

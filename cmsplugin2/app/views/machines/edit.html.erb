@@ -1,0 +1,12 @@
+<h1>Editing machine</h1>
+
+<% form_for(@machine) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @machine %> |
+<%= link_to 'Back', machines_path %>

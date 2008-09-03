@@ -1,0 +1,26 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+
+<h1>Edit <%= @post.content.class.to_s %></h1>
+
+<% unless error_messages_for(:post).blank? && error_messages_for(:content).blank? -%>
+<div class="errors">
+  <%= error_messages_for :post %>
+  <%= error_messages_for :content %>
+</div>
+<% end -%>
+
+<% form_for(:post, :url => post_url(@post), :html => {:multipart => true , :method => :put }) do |f| -%>
+
+  <%= render :partial => "posts/form", :locals => { :f => f, :action => :edit } %>
+
+  <%= submit_tag "Update" %>
+
+<% end -%>
+
+
+<% end -%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>
