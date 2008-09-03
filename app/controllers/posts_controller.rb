@@ -1,7 +1,4 @@
 class PostsController < ApplicationController
-  # Include some methods and filters. 
-  include CMS::Controller::Posts
-  
   
   # Posts list may belong to a container
   # /posts

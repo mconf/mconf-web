@@ -1,6 +1,10 @@
-class Attachment < CMS::AttachmentFu
+class Attachment < ActiveRecord::Base
   acts_as_content :has_media => :attachment_fu
   has_attachment :max_size => 4.megabyte
+
+  belongs_to :db_file
+
+  alias_attribute :media, :uploaded_data
   
   validates_as_attachment
   # Implement atom_entry_filter for AtomPub support
