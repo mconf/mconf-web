@@ -1,7 +1,4 @@
 class PostsController < ApplicationController
-  # Include some methods and filters. 
-  include CMS::Controller::Posts
-  
   
   # Posts list may belong to a container
   # /posts
@@ -36,14 +33,14 @@ class PostsController < ApplicationController
                                                         :conditions => [ "content_type = ?", "CMS::Text" ],
                                                         :order => "updated_at DESC")
           # Paginate them
-          @posts = @collection.paginate(:page => params[:page], :per_page => CMS::Post.per_page)
+          @posts = @collection.paginate(:page => params[:page], :per_page => Post.per_page)
           @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
           @collection_path = space_posts_url(:container_type => @container.class.to_s.tableize,
                                                  :container_id => @container.id,
                                                  :only_path => false)
         else
           @title ||= 'Post'.t('Posts', 99)
-          @posts = CMS::Post.paginate :all,
+          @posts = Post.paginate :all,
                                       :conditions => [ "public_read = ?", true ],
                                       :page =>  params[:page],
                                       :order => "updated_at DESC"
@@ -140,7 +137,7 @@ class PostsController < ApplicationController
     
  private
   def redirect_to_comment
-    redirect_to(post_path(@post.container, :anchor => "cms_post_#{ @post.id }")) if @post.container.is_a?(CMS::Post)
+    redirect_to(post_path(@post.container, :anchor => "cms_post_#{ @post.id }")) if @post.container.is_a?(Post)
   end
 
   def get_space_from_container
