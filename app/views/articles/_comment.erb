@@ -1,7 +1,13 @@
-
 <% rounded(:class => "tips") do %>
 <%user = User.find(comment.agent_id)%>
 comment created at <%= comment.created_at.strftime("%d-%m-%Y") %>  by <%= user.login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%><br>
 <b><%= sanitize comment.title%></b><br />
 <%= sanitize comment.content.text %>
+
+<%comment_children = comment.children%>
+	<%for children in comment_children -%>
+	  	<%if children.content_type == "Attachment"%>
+			<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
+	  	<%end%>
+	<% end -%>
 <% end -%>

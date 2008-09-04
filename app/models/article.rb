@@ -7,7 +7,7 @@ class Article < XhtmlText
     :tags=> {:store => :yes} ,
   }
   
-  
+
   def title    
     @post = Post.find_by_content_type_and_content_id("XhtmlText", self.id)
     return @post.title

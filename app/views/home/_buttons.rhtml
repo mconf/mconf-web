@@ -7,7 +7,7 @@
 		 	<%= nav_tab "Home", { :url => space_path(@space.id), :class=>'primero'} %>
 		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user.id, {:space_id => @space.id})} %>
 		    <%= nav_tab "Events", { :url => space_events_path(@space)} %>
-		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
+		 	<%= nav_tab "Posts", { :url => space_articles_path(@space)} %>
 		 	<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(:space_id => @space.id)} %>
@@ -29,7 +29,7 @@
 	 <ul id ="nav">
       	    <%= nav_tab "Home", { :url => space_path(@space.id)} %>
 		    <%= nav_tab "Events", { :url => space_events_path(@space.id)} %>
-		 	<%= nav_tab "Posts", { :url => space_posts_path(@space)} %>
+		 	<%= nav_tab "Posts", { :url => space_articles_path(@space)} %>
 			<%if @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space.id, {:only_space_users => true})} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space.id)} %>

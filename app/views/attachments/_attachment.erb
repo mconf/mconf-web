@@ -1,8 +1,5 @@
-<!-- -->
-<%if @content != nil && @content.id != nil%>
-	<%post =  Post.find(:first, :conditions => {:content_id => @content.id,:content_type => "Attachment"})%>
-	<%end%>
-	
-<%content_type = get_attachment_content_type(post)%>
+
+ 	
+<%content_type = get_attachment_content_type(children)%>
 <%image = get_attachment_image(content_type)%>
-	<%= image_tag(image)%> <%=post.content.size/1024%> Kb  <%= link_to "Descargar" , media_post_path(Post.find(post)) %> 
+	<%= image_tag(image)%> <%=children.content.size/1024%> Kb  <%= link_to "Descargar" , media_post_path(Post.find(children)) %> 

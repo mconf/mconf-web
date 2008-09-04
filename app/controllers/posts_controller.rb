@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   before_filter :redirect_to_comment, :only => [ :show ]
  
    def index
+   
         if @container
           @title ||= "#{ 'Post'.t('Posts', 99) } - #{ @container.name }"
           # All the Posts this Agent can read in this Container
@@ -56,7 +57,7 @@ class PostsController < ApplicationController
       end
  
  # Update this Post metadata
-      #   PUT /posts/:id
+      #   PUT /spaces/id/article/id/edit
       def update
        set_params_title_and_description(@post.content) 
         # If the Content of this Post hasn't attachment, update it here

@@ -1,0 +1,8 @@
+<p>
+  <b>Permissions</b><br />
+  <%if @content.class == Article || @content.class == Attachment%>
+  		<%= permissions_form.check_box :public_read %><%= "Public Post" %>
+  <%else%>
+    	<%= permissions_form.check_box :public_read %><%= "Public #{ @content.class.to_s.humanize }" %>
+  <%end%>
+</p>

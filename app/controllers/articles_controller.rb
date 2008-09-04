@@ -3,20 +3,56 @@ class ArticlesController < ApplicationController
   # See documentation: CMS::Controller::Contents#included
   include CMS::Controller::Contents
   
+  # Articles list may belong to a container
+  # /articles
+  # /:container_type/:container_id/articles
   before_filter :get_container, :only => [ :index,:search_articles  ]
   
   # Needs a Container when posting a new Article
   before_filter :needs_container, :only => [ :new, :create ]
   
+  before_filter :get_post, :except => [ :index, :new, :create ]
+  before_filter :get_public_posts, :only => [:index,:show]
   # Get Article in member actions
   before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
   #before_filter :is_public_space, :only=>[:index]
-  before_filter :get_space, :only => [ :index, :new, :create ,:search_articles ]
-  before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
+  before_filter :get_space
+  #before_filter :get_space_from_post, :only => [ :show, :edit, :update ]
   before_filter :get_cloud
   
+  def index
+     session[:current_tab] = "Posts"
+     session[:current_sub_tab] = ""
+     
+        if @container
+          @title ||= "#{ 'Post'.t('Posts', 99) } - #{ @container.name }"
+          # All the Posts this Agent can read in this Container
+          @collection = @container.container_posts.find(:all,
+                                                        :conditions => { :content_type => "XhtmlText" , :parent_id => nil },
+                                                        :order => "updated_at DESC")
+          
+          # Paginate them
+          @posts = @collection.paginate(:page => params[:page], :per_page => Post.per_page)
+          @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
+          @collection_path = space_articles_path(@container)
+        else
+          @title ||= 'Post'.t('Posts', 99)
+          @posts = Post.paginate :all,
+                                      :conditions => [ "public_read = ?", true ],
+                                      :page =>  params[:page],
+                                      :order => "updated_at DESC"
+          @updated = @posts.blank? ? Time.now : @posts.first.updated_at
+          @collection_path = articles_path
+        end
+    
+        respond_to do |format|
+          format.html
+          format.atom
+          format.xml { render :xml => @posts.to_xml.gsub(/cms\/post/, "post") }
+        end
+    end
+    
   def create
-
     # Fill params when POSTing raw data
     set_params_from_raw_post
     
@@ -26,46 +62,46 @@ class ArticlesController < ApplicationController
     # every time a Content is posted.
     # Idea: Should use SHA1 on one or some relevant Content field(s) 
     # and find_or_create_by_sha1
-    if params[:attachment]!= {"uploaded_data"=>""}
-      @content = Attachment.create(params[:attachment])  
-        @post = Post.new({ :agent => current_agent,
+      
+    @content = Article.create(params[:content])
+    @post = Post.create(params[:post].merge({ :agent => current_agent,
         :container => @container,
-        :content => @content, 
-        :description => params[:content][:text],
-        :title => params[:post][:title],
-        :public_read => params[:post][:public_read]}) 
-    else
+        :content => @content,
+        :description => params[:content][:text]})) 
     
-      @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
-       @post = Post.new(params[:post].merge({ :agent => current_agent,
+    if params[:attachment]!= {"uploaded_data"=>""} #if post has attachments....
+      @attachment_content = Attachment.create(params[:attachment]) 
+       @attachment_post = @post.children.new({ :agent => current_agent,
         :container => @container,
-        :content => @content}))
-    end
-    #if params[:attachment] != nil 
-    #@attachment = Attachment.new(params[:attachment])# añadida por mi....
-  
-    #@attachment.save;
-
-    #@attachment_post = Post.new( :agent => current_agent,
-     # :container_type =>"Post",
-     # :container_id => @content.id,
-     # :content => @attachment,
-     # :title => @post.title,
-     # :description => @post.description)
- 
-    #end 
+        :content => @attachment_content, 
+        :description => params[:content][:text],
+        :title => params[:title],
+        :parent_type => @post.content,
+        :public_read => params[:post][:public_read]})
+      
+    end    
     respond_to do |format| 
       format.html {
-      #lo de abajo lo he modificado
-        if !@content.new_record? & @post.save ####ojo, igual es peligroso  
-        #  if params[:attachment] != nil    #####compruebo que se graban y no da error
-        #    @attachment.save && @attachment_post.save   
-        #  end
+        if !@content.new_record? && @post.save ####Siempre comprueba el post padre  
+          if params[:attachment] != {"uploaded_data"=>""}    #####Si tiene attachment, comprueba si se han salvado bien
+            if !@attachment_content.new_record? && @attachment_post.save  
+            else
+            @attachment_content.destroy unless @attachment_content.new_record?
+            @attachment_post.destroy
+            @collection_path = container_contents_url
+            @title ||= "New #{ controller_name.singularize.humanize }".t
+            end
+          end
           tag = params[:tag][:add_tag]    
           @post.tag_with(tag)
           @post.category_ids = params[:category_ids]
           flash[:valid] = "#{ @content.class.to_s.humanize } created".t
-          redirect_to post_url(@post)
+          if params[:post][:parent_id] == nil
+            redirect_to space_article_url(@container.id, @post.content_id)
+          else
+            redirect_to space_article_url(@container.id, @post.parent.content)
+          end
+          
         else
           @content.destroy unless @content.new_record?
           @collection_path = container_contents_url
@@ -86,9 +122,6 @@ class ArticlesController < ApplicationController
       
       format.atom {
         if !@content.new_record? & @post.save 
-         #  if params[:attachment] != nil    #####compruebo que se graban y no da error
-         #   @attachment.save && @attachment_post.save   
-         # end
           headers["Location"] = formatted_post_url(@post, :atom)
           headers["Content-type"] = 'application/atom+xml'
           render :partial => "posts/entry",
@@ -110,22 +143,131 @@ class ArticlesController < ApplicationController
   
   def new 
         session[:current_sub_tab] = "New article"
-        @collection_path = container_contents_url
+        @collection_path = space_articles_path
         @post = Post.new
         @post.content = @content = instance_variable_set("@#{controller_name.singularize}", controller_name.classify.constantize.new)
         @title ||= "New #{ controller_name.singularize.humanize }".t
-        render :template => "posts/new"
+        render :template => "articles/new"
   end
   
+     # Show this Post
+      #   GET /posts/:id
+      def show
+        
+        @title ||= @post.title
+        @comment_children = @post.children.select{|c| c.content.is_a? Article}
+        @attachment_children = @post.children.select{|c| c.content.is_a? Attachment}
+        
+        respond_to do |format|
+          format.html
+          format.xml { render :xml => @post.to_xml(:include => [ :content ]) }
+          format.atom { 
+            headers["Content-type"] = 'application/atom+xml'
+            render :partial => "posts/entry",
+                               :locals => { :post => @post },
+                               :layout => false
+          }
+          format.json { render :json => @post.to_json(:include => :content) }
+        end
+    end
+    
+      # Delete this Post
+  #   DELETE /spaces/:id/articles/:id --> :method => delete
+  def destroy
+    
+    #destroy de content of the post. Then its container(post) is destroyed automatic.
+   @article.destroy 
+    respond_to do |format|
+      format.html { redirect_to space_articles_path(@container) }
+      format.atom { head :ok }
+      # FIXME: Check AtomPub, RFC 5023
+#      format.send(mime_type) { head :ok }
+      format.xml { head :ok }
+    end
+  end
+   # Renders form for editing this Post metadata
+      #   GET /posts/:id/edit
+      def edit
+        get_params_title_and_description(@post)
+        params[:category_ids] = @post.category_ids
+    
+        render :template => "articles/edit"
+      end
+  
+  # Update this Post metadata
+      #   PUT /posts/:id
+      def update       
+       set_params_title_and_description(@post.content) 
+        # If the Content of this Post hasn't attachment, update it here
+        # If it has, update via media
+        # 
+        # TODO: find old content when only post params are updated
+
+        # Avoid the user changes container through params
+        params[:post][:container] = @post.container
+        params[:post][:agent]     = current_agent
+        params[:post][:content]   = @content
+   
+        respond_to do |format|
+          format.html {
+             
+            if params[:attachment]!= {"uploaded_data"=>""} #si se añade un attachment....
+              @attachment_content= Attachment.create(params[:attachment])
+              @attachment_post = @post.children.new({ :agent => current_agent,
+                  :container => @container,
+                  :content => @attachment_content, 
+                  :description => params[:content][:text],
+                  :title => params[:title],
+                  :parent_type => @attachment_content.type,
+                  :public_read => params[:post][:public_read]})
+
+              @post.update_attributes(params[:post]) && @post.update_attribute(:description , params[:content][:text]) && @attachment_post.save && @content.update_attributes(:text => params[:content][:text])
+              tag = params[:tag][:add_tag]    
+              @post.tag_with(tag)
+              @post.category_ids = params[:category_ids]
+              flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
+              redirect_to space_article_path(@container,@post.content)
+            
+            elsif !@content.new_record? &&  @post.update_attributes(params[:post]) && @post.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
+              tag = params[:tag][:add_tag]    
+              @post.tag_with(tag)
+              @post.category_ids = params[:category_ids]
+              flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
+              redirect_to space_article_path(@container,@post.content)
+            else
+              render :template => "articles/edit" 
+            end
+         # else
+            #the error here
+             
+        #end   
+          }
+    
+          format.atom {
+            if !@content.new_record? && @post.update_attributes(params[:post])
+              head :ok
+            else
+              render :xml => [ @content.errors + @post.errors ].to_xml,
+                     :status => :not_acceptable
+            end
+          }
+        end
+    end
   private
   def get_space_from_container
     session[:current_tab] = "Posts" 
     @space = @container
   end
+  #he añadido aquí el get_post pero no me gusta un pelo
+  def get_post 
+         @article = Article.find(params[:id])
+         @post = Post.find(:first,:conditions => {:content_id => @article.id})
+         
+       end
   
-  def get_space_from_post
-    session[:current_tab] = "Posts" 
-    @space = @post.container
-  end
+  #def get_space_from_post
+    #session[:current_tab] = "Posts" 
+    #@space = @post.container
+  #end
   
 end
