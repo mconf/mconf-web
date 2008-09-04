@@ -46,6 +46,14 @@ class Space < ActiveRecord::Base
 
     false
   end
+
+  def edit_by?(agent)
+    authorizes?(agent, :edit)
+  end
+
+  def manage_groups_by?(agent)
+    authorizes?(agent, :manage_groups)
+  end
   
   
   #method to print an array of the user names
