@@ -35,20 +35,18 @@ class Space < ActiveRecord::Base
     return array_users
   end
   
-  
-  def manage_groups_by?(user)
- user.superuser || has_role_for?(user, :admin) || has_role_for?(user, :create_performances) 
- end
- 
- 
-  def edit_by?(user)
+  def authorizes?(agent, actions)
+    return true if agent.superuser || has_role_for?(agent, :admin)
 
-    user.superuser || has_role_for?(user, :admin)
-        
+    actions = Array(actions)
+
+    if actions.delete(:manage_groups)
+      return true if has_role_for?(agent, :create_performances) 
+    end
+
+    false
   end
   
-  
- 
   
   #method to print an array of the user names
   #it is used to build a javascript array
