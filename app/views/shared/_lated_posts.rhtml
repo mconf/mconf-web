@@ -1,7 +1,6 @@
-<% @space.container_entries.first(5).each do |entry| -%>
+<% @space.container_entries.select{ |e| e.content_type == 'XhtmlText' }.first(5).each do |entry| -%>
   <p>
     <%= link_to sanitize(entry.title), space_entry_path(@space, entry) %>
-    <%= entry.content.class %>
   </p>
 <% end -%>
 <% if @space.id == 1%>
