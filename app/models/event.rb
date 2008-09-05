@@ -1,4 +1,5 @@
 require 'ferret'
+require 'has_many_polymorphs'
 
 class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
