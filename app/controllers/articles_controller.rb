@@ -261,7 +261,7 @@ class ArticlesController < ApplicationController
   #he añadido aquí el get_entry pero no me gusta un pelo
   def get_entry 
          @article = Article.find(params[:id])
-         @entry = Entry.find(:first,:conditions => {:content_id => @article.id})
+         @entry = @article.content_entries.first
          
        end
   
