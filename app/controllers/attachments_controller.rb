@@ -28,7 +28,7 @@ class AttachmentsController < ApplicationController
     # and find_or_create_by_sha1
     @content = instance_variable_set "@#{controller_name.singularize}", self.resource_class.create(params[:content])
     
-    @post = Post.new(params[:post].merge({ :agent => current_agent,
+    @entry = Entry.new(params[:entry].merge({ :agent => current_agent,
       :container => @container,
       :content => @content }))
     
@@ -36,28 +36,28 @@ class AttachmentsController < ApplicationController
     
     respond_to do |format| 
       format.html {
-        if !@content.new_record? && @post.save
+        if !@content.new_record? && @entry.save
           
           tag = params[:tag][:add_tag]    
-          @post.tag_with(tag)
-          @post.category_ids = params[:category_ids]
+          @entry.tag_with(tag)
+          @entry.category_ids = params[:category_ids]
           flash[:valid] = "#{ @content.class.to_s.humanize } created".t
-          redirect_to post_url(@post)
+          redirect_to article_url(@entry)
         else
           @content.destroy unless @content.new_record?
           @collection_path = container_contents_url
           @title ||= "New #{ controller_name.singularize.humanize }".t
-          render :template => "posts/new"
+          render :template => "articles/new"
         end
       }
       
       format.atom {
-        if !@content.new_record? && @post.save
-          headers["Location"] = formatted_post_url(@post, :atom)
+        if !@content.new_record? && @entry.save
+          headers["Location"] = formatted_article_url(@entry, :atom)
           headers["Content-type"] = 'application/atom+xml'
-          render :partial => "posts/entry",
+          render :partial => "articles/entry",
           :status => :created,
-          :locals => { :post => @post,
+          :locals => { :entry => @entry,
             :content => @content },
           :layout => false
         else
@@ -65,7 +65,7 @@ class AttachmentsController < ApplicationController
             render :xml => @content.errors.to_xml, :status => :bad_request
           else
             @content.destroy unless @content.new_record?
-            render :xml => @post.errors.to_xml, :status => :bad_request
+            render :xml => @entry.errors.to_xml, :status => :bad_request
           end
         end
       }

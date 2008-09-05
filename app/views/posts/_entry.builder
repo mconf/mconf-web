@@ -8,30 +8,30 @@ xml.entry namespaces do
 
   xml.title(:type => "xhtml") do
     xml.div(:xmlns => "http://www.w3.org/1999/xhtml") do
-      xml << sanitize(post.title)
+      xml << sanitize(entry.title)
     end
   end
 
   xml.author do
-    xml.name(post.agent.name)
-    xml.uri(polymorphic_url(post.agent, :only_path => false))
+    xml.name(entry.agent.name)
+    xml.uri(polymorphic_url(entry.agent, :only_path => false))
   end
 
-  xml.id("tag:#{ controller.request.host_with_port },#{ post.updated_at.year }:#{ post_path(post) }")
-  xml.published(post.created_at.xmlschema)
-  xml.updated(post.updated_at.xmlschema)
-  xml.tag!("app:edited", post.updated_at.xmlschema)
-  xml.link(:rel => 'alternate', :type => 'text/html', :href => post_url(post))
-  xml.link(:rel => 'edit', :href => formatted_post_url(post, :atom))
-  xml.link(:rel => 'edit-media', :href => formatted_media_post_url(post, :atom)) if post.has_media?
+  xml.id("tag:#{ controller.request.host_with_port },#{ entry.updated_at.year }:#{ entry_path(entry) }")
+  xml.published(entry.created_at.xmlschema)
+  xml.updated(entry.updated_at.xmlschema)
+  xml.tag!("app:edited", entry.updated_at.xmlschema)
+  xml.link(:rel => 'alternate', :type => 'text/html', :href => entry_url(entry))
+  xml.link(:rel => 'edit', :href => formatted_entry_url(entry, :atom))
+  xml.link(:rel => 'edit-media', :href => formatted_media_entry_url(entry, :atom)) if entry.has_media?
 
   xml.summary(:type => "xhtml") do
     xml.div(:xmlns => "http://www.w3.org/1999/xhtml") do
-      xml << sanitize(post.description)
+      xml << sanitize(entry.description)
     end
-  end if post.description
+  end if entry.description
 
-  xml << render(:partial => "#{ post.content.class.to_s.tableize }/entry",
-                :locals  => { :post => post })
+  xml << render(:partial => "#{ entry.content.class.to_s.tableize }/entry",
+                :locals  => { :entry => entry })
 
 end

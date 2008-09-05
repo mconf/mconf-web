@@ -29,7 +29,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1
   def show   
     if @space.id == 1
-      get_public_posts
+      get_public_entries
     end
     next_events
     session[:current_tab] = "Home"        

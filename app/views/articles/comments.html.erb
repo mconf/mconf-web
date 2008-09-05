@@ -5,11 +5,11 @@
 <%= render :partial => "#{ @content.class.to_s.tableize }/#{ @content.class.to_s.underscore }", :object => @content %>
 
 
-<% post = Post.find(:first,:conditions => {:content_type => "Article"  , :content_id => @content.id})%>
-<% @comments = Post.find(:all,:conditions => {:container_type => "Article"  , :container_id => post.content_id})%>
+<% entry = Entry.find(:first,:conditions => {:content_type => "Article"  , :content_id => @content.id})%>
+<% @comments = Entry.find(:all,:conditions => {:container_type => "Article"  , :container_id => entry.content_id})%>
 
 <div id="link">
-<%= link_to 'New Comment', new_article_article_url(Article.find(post.container_id))%>
+<%= link_to 'New Comment', new_article_article_url(Article.find(entry.container_id))%>
 </div>
 <div id="comment">
 <div id="comment-header">Comentarios</div>

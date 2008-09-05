@@ -8,11 +8,11 @@ class Space < ActiveRecord::Base
   
   #method that returns the events of the space
   def events
-    array_all_posts = container_posts.collect
+    array_all_entries = container_entries.collect
     array_events = Array.new
-    for post in array_all_posts
-      if post.content_type == "Event"
-        array_events << Event.find(post.content_id)
+    for entry in array_all_entries
+      if entry.content_type == "Event"
+        array_events << Event.find(entry.content_id)
       end
     end
     

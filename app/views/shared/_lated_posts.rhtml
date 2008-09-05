@@ -1,14 +1,14 @@
-<% @space.container_posts.first(5).each do |post| -%>
+<% @space.container_entries.first(5).each do |entry| -%>
   <p>
-    <%= link_to sanitize(post.title), space_post_path(@space, post) %>
-    <%= post.content.class %>
+    <%= link_to sanitize(entry.title), space_entry_path(@space, entry) %>
+    <%= entry.content.class %>
   </p>
 <% end -%>
 <% if @space.id == 1%>
-<% @public_posts.each do |post|%>
+<% @public_entries.each do |entry|%>
 <p>
-    <%= link_to sanitize(post.title), post_path(post) %>
-    <%= post.content.class %>
+    <%= link_to sanitize(entry.title), entry_path(entry) %>
+    <%= entry.content.class %>
   </p>
 <% end -%>
 <% end -%>

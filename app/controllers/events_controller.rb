@@ -168,7 +168,7 @@ class EventsController < ApplicationController
         tag = params[:tag][:add_tag]    
         @event.tag_with(tag)
         
-        @post = Post.create(:agent       => current_agent,
+        @entry = Entry.create(:agent       => current_agent,
                                  :container   => @container,
                                  :content     => @event,
                                  :title       => @event.title,
@@ -431,14 +431,14 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
   def search_events 
     #events_path(:query => "bla") #=> /events?query=bla    
     @query = params[:query]
-    @even = Post.find_all_by_container_id_and_content_type(@container.id, "Event")
+    @even = Entry.find_all_by_container_id_and_content_type(@container.id, "Event")
     @total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     @partials = []
     @events = []  
     if @results != nil
       @results.collect { |result|
-        event = Post.find_by_content_type_and_content_id("Event", result.id)
+        event = Entry.find_by_content_type_and_content_id("Event", result.id)
         if @even.include?(event)
           @partials << event
         end
@@ -520,7 +520,7 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
   end
 
   
-    #metodo que devuelve los eventos que tienen un tag, y los ususarios y los posts
+    #metodo que devuelve los eventos que tienen un tag, y los ususarios y los entries
   def search_by_tag    
     
     @tag = params[:tag]
@@ -528,7 +528,7 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
     
-    @posts = Post.tagged_with(@tag)
+    @entries = Entry.tagged_with(@tag)
     
   end
 =end  

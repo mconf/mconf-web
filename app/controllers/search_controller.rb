@@ -9,7 +9,7 @@ class SearchController < ApplicationController
     
     @events = search_events(params)
     @users = search_users(params)
-    @posts = search_articles(params)
+    @entries = search_articles(params)
     respond_to do |format|        
       format.html     
     end
@@ -45,7 +45,7 @@ class SearchController < ApplicationController
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 
     
-    @posts = Post.tagged_with(@tag)
+    @entries = Entry.tagged_with(@tag)
     respond_to do |format|        
       format.html     
     end
@@ -63,14 +63,14 @@ class SearchController < ApplicationController
   def search_events(params)
     if params[:query]
       @query = params[:query]
-      @even = Post.find_all_by_container_id_and_content_type(@space.id, "Event")
+      @even = Entry.find_all_by_container_id_and_content_type(@space.id, "Event")
       @total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
       @pages = pages_for(@total)
       @partials = []
       @events = []  
       if @results != nil
         @results.collect { |result|
-          event = Post.find_by_content_type_and_content_id("Event", result.id)
+          event = Entry.find_by_content_type_and_content_id("Event", result.id)
           if @even.include?(event)
             @partials << event
           end
@@ -113,22 +113,22 @@ class SearchController < ApplicationController
     @events
   end
   
-  def search_posts (params)
+  def search_entries (params)
     
   end
   
   def search_articles (params)
     @query = params[:query]    
     @results = Article.find_by_contents(@query)
-    @pos = @space.container_posts    
-    @posts = []   
+    @pos = @space.container_entries    
+    @entries = []   
     @results.collect { |result|
-      post = Post.find_by_content_type_and_content_id("XhtmlText", result.id)
-      if @pos.include?(post)
-        @posts << post
+      entry = Entry.find_by_content_type_and_content_id("XhtmlText", result.id)
+      if @pos.include?(entry)
+        @entries << entry
       end
     }
-    @posts
+    @entries
   end
   
   def search_users (params)
@@ -154,14 +154,14 @@ class SearchController < ApplicationController
     def search_all (params)
     #search in events in this space
     @query = params[:query]
-    @even = Post.find_all_by_container_id_and_content_type(@container.id, "Event")
+    @even = Entry.find_all_by_container_id_and_content_type(@container.id, "Event")
     @total, @results = Event.full_text_search(@query,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1))          
     @pages = pages_for(@total)
     @partials = []
     @events = []  
      if @results != nil
     @results.collect { |result|
-      event = Post.find_by_content_type_and_content_id("Event", result.id)
+      event = Entry.find_by_content_type_and_content_id("Event", result.id)
       if @even.include?(event)
         @partials << event
       end
@@ -189,15 +189,15 @@ class SearchController < ApplicationController
       end
      }
 
-    #search posts
+    #search entries
     
      @results = Article.find_by_contents(@query)
-    @pos = @container.container_posts    
-    @posts = []   
+    @pos = @container.container_entries    
+    @entries = []   
     @results.collect { |result|
-      post = Post.find_by_content_type_and_content_id("XhtmlText", result.id)
-      if @pos.include?(post)
-        @posts << post
+      entry = Entry.find_by_content_type_and_content_id("XhtmlText", result.id)
+      if @pos.include?(entry)
+        @entries << entry
       end
     }
     

@@ -11,8 +11,8 @@ xml.feed "xmlns" => 'http://www.w3.org/2005/Atom', "xmlns:app" => 'http://www.w3
     xml.uri( @container ? polymorphic_url(@container, :only_path => false) : url_for(:controller => "/", :only_path => false) )
   end
 
-  @posts.each do |post|
-    xml << render(:partial => "posts/entry", 
-                  :locals => { :post => post, :defined_namespaces => true })
+  @entries.each do |entry|
+    xml << render(:partial => "articles/entry", 
+                  :locals => { :entry => entry, :defined_namespaces => true })
   end
 end

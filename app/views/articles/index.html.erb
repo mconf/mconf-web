@@ -4,22 +4,22 @@
 	
 <h1 class="title"><%= @title %></h1>
 
-<% for post in @posts -%>
+<% for entry in @entries -%>
 <% rounded(:class => "tips") do %>
 	<div class="contenido_main">
-    <% user = User.find(post.agent_id)%>
+    <% user = User.find(entry.agent_id)%>
 	 
-    Post :: <%=link_to(sanitize(post.title), space_article_path(@space, post.content)) %> (<%= get_number_children_comments(post) %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= User.find(post.agent_id).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
+    Post :: <%=link_to(sanitize(entry.title), space_article_path(@space, entry.content)) %> (<%= get_number_children_comments(entry) %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= User.find(entry.agent_id).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
 
-	<%@attachment_children = get_attachment_children(post)%>
+	<%@attachment_children = get_attachment_children(entry)%>
 	<%for children in @attachment_children -%>
 		<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
 	  <%end%>
-  	Description: <%= post.description%><br>
+  	Description: <%= entry.description%><br>
 	
-<%= link_to 'Edit',edit_space_article_path(@space, post.content) %>
-   <%= link_to 'Destroy', space_article_path(@space, post.content), :confirm => 'Are you sure?', :method => :delete %>
-   <%= link_to 'Comments', "#{ space_article_path(post.container,post.content)}#comments" %>
+<%= link_to 'Edit',edit_space_article_path(@space, entry.content) %>
+   <%= link_to 'Destroy', space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete %>
+   <%= link_to 'Comments', "#{ space_article_path(entry.container,entry.content)}#comments" %>
 
 	
 
@@ -30,19 +30,19 @@
 <% end -%>
 <% end -%>
 <%if @space.id == 1%>
-<% for post in @public_posts%>
+<% for entry in @public_entries%>
 <% rounded(:class => "tips") do %>
 <div class="contenido_main">
 
-    <% user = User.find(post.agent_id)%>
+    <% user = User.find(entry.agent_id)%>
 	
-    <%= post.content.class %>:: <%=link_to(sanitize(post.title), space_article_path(@space, post.content)) %> %> (<%= post.container_posts.size %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> || Tags:  <br>
+    <%= entry.content.class %>:: <%=link_to(sanitize(entry.title), space_article_path(@space, entry.content)) %> %> (<%= entry.container_entries.size %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> || Tags:  <br>
         
-  	Description: <%= post.description%><br>
+  	Description: <%= entry.description%><br>
 	
-<%= link_to 'Edit', edit_space_article_path(@space, post.content) %>
-   <%= link_to 'Destroy', post_url(post), :confirm => 'Are you sure?', :method => :delete %>
-   <%= link_to 'Comments', "#{ post_path(post) }#comments" %>
+<%= link_to 'Edit', edit_space_article_path(@space, entry.content) %>
+   <%= link_to 'Destroy', article_url(entry), :confirm => 'Are you sure?', :method => :delete %>
+   <%= link_to 'Comments', "#{ article_path(entry) }#comments" %>
 
 
 

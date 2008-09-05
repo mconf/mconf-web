@@ -96,8 +96,8 @@ def sub_tab(name, ruta)
   end
 end
 
- def get_attachment_content_type(post)
-  type = Attachment.find(post.content_id).content_type
+ def get_attachment_content_type(entry)
+  type = Attachment.find(entry.content_id).content_type
   return type
 end
 

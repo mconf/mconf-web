@@ -5,12 +5,12 @@
     <th>Title</th>
   </tr>
 
-<% for post in @posts -%>
+<% for entry in @entries -%>
   <tr>
-    <td><%=sanitize post.title %></td>
-    <td><%= link_to 'Show', post_url(post) %></td>
-    <td><%= link_to 'Edit', edit_post_url(post) %></td>
-    <td><%= link_to 'Destroy', posts_url, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=sanitize entry.title %></td>
+    <td><%= link_to 'Show', article_url(entry) %></td>
+    <td><%= link_to 'Edit', edit_article_url(entry) %></td>
+    <td><%= link_to 'Destroy', entries_url, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end -%>
 </table>

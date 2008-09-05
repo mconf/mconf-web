@@ -1,16 +1,16 @@
 <div id="yui-main">
 <div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
-<h1>Edit <%= @post.content.class.to_s %></h1>
+<h1>Edit <%= @entry.content.class.to_s %></h1>
 
-<% unless error_messages_for(:post).blank? && error_messages_for(:content).blank? -%>
+<% unless error_messages_for(:entry).blank? && error_messages_for(:content).blank? -%>
 <div class="errors">
-  <%= error_messages_for :post %>
+  <%= error_messages_for :entry %>
   <%= error_messages_for :content %>
 </div>
 <% end -%>
 
-<% form_for(:post, :url => space_article_path(@space,@post.content), :html => {:multipart => true , :method => :put }) do |f| -%>
+<% form_for(:entry, :url => space_article_path(@space,@entry.content), :html => {:multipart => true , :method => :put }) do |f| -%>
 
   <%= render :partial => "articles/form", :object => f  %>
 

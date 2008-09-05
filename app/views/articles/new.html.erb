@@ -4,16 +4,16 @@
         <% rounded(:class => "tips") do %>
         <h1 class="title">New <%= @content.class.to_s %></h1>
         <%if @errors == true %>
-        <% unless error_messages_for(:post_).blank? && error_messages_for(:content).blank? -%>
+        <% unless error_messages_for(:entry_).blank? && error_messages_for(:content).blank? -%>
         <div class="errors">
-            <%= error_messages_for :post %>
+            <%= error_messages_for :entry %>
             <%= error_messages_for :content %>
 
         </div>
         <% end -%>
         <%@errors = false %>
         <%end %>
-        <% form_for(:post, :url => space_articles_path(@space), :html => { :multipart => true }) do |f| -%>
+        <% form_for(:entry, :url => space_articles_path(@space), :html => { :multipart => true }) do |f| -%>
 		<%= render :partial => "articles/form", :object => f %>
         <%= submit_tag "Create" %>
         <% end -%>

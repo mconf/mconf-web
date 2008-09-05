@@ -133,15 +133,15 @@ class ApplicationController < ActionController::Base
     
   end
   
-  def get_public_posts
-    @public_posts = Post.find_all_by_container_type_and_public_read('Space',true)
+  def get_public_entries
+    @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true)
   end
   
   def get_space
     
 =begin    
-    if params[:container_type]=="posts"
-      @space = Post.find(params[:container_id]).container
+    if params[:container_type]=="entries"
+      @space = Entry.find(params[:container_id]).container
       get_container
       return
     end

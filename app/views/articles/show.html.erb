@@ -8,24 +8,24 @@
 <%= link_to 'Back', space_articles_path(@container) %>
 <p>
   <b>Title:</b>
-  <%=sanitize @post.title %>
+  <%=sanitize @entry.title %>
 </p>
 
-<% unless @post.description.blank? %>
+<% unless @entry.description.blank? %>
 <p>
   <b>Description:</b>
-  <%=sanitize @post.description %>
+  <%=sanitize @entry.description %>
 </p>
 <% end %>
 
-<% unless @post.tag_list.blank? %>
+<% unless @entry.tag_list.blank? %>
 <p>
   <b>Tags:</b>
-  <%= @post.tag_list %>
+  <%= @entry.tag_list %>
 </p>
 <% end %>
 <!--
-<%@post_children = @post.children%>
+<%@entry_children = @entry.children%>
 -->
 	<%for children in @attachment_children -%>
 	  <%if children.content_type == "Attachment"%>
@@ -44,15 +44,15 @@
 <%end%>
 <div id="new_comment_form" style="display: none;">
 <%if @errors==true%>
-	<% unless error_messages_for(:content).blank? && error_messages_for(:post_).blank?  -%>
+	<% unless error_messages_for(:content).blank? && error_messages_for(:entry_).blank?  -%>
 <div class="errors">
   <%= error_messages_for :content %>
-  <%= error_messages_for :post_ %>
+  <%= error_messages_for :entry_ %>
 </div>
 <% end -%>
 <%end%>
   <% @content = Article.new() %>
-  <% form_for(:post, :url => space_articles_path(@post.container), :html => { :multipart => true }) do -%>
+  <% form_for(:entry, :url => space_articles_path(@entry.container), :html => { :multipart => true }) do -%>
 
     <b>Title</b><br />
     <%= text_field_tag :title %>
@@ -63,7 +63,7 @@
     </p>
 	 <%= render :partial => 'articles/attach' %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
-	<%= hidden_field_tag 'post[parent_id]', @post.id.to_s %>
+	<%= hidden_field_tag 'entry[parent_id]', @entry.id.to_s %>
     <%= submit_tag "Create" %>
   <% end -%>
 </div>
@@ -78,9 +78,9 @@
 <% div_for :comment_children do %>
   <h2>Comments</h2>
  <!--
-  <%for comment in @post_children -%>
+  <%for comment in @entry_children -%>
 	  <%if comment.content_type == "CMS::Text"%>
-		<%= render :partial =>'posts/comment' , :locals => {:comment => comment}%>
+		<%= render :partial =>'articles/comment' , :locals => {:comment => comment}%>
 	  <%end%>
 <%end%>
 -->

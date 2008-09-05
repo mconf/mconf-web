@@ -12,9 +12,9 @@
 <%= render :partial => "articles/form2" %>
 
 
-<% if logged_in? && @post.tag_list  %>
+<% if logged_in? && @entry.tag_list  %>
 	<p><label for="keywords">Tags:</label>
-<%= text_field 'tag', 'add_tag','value' => @post.tag_list   %></p>
+<%= text_field 'tag', 'add_tag','value' => @entry.tag_list   %></p>
 	
       <% else %>
 	  

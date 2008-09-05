@@ -3,5 +3,5 @@
 comment created at <%= comment.created_at.strftime("%d-%m-%Y") %>  by <%= user.login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%><br>
 <b><%= sanitize comment.title%></b><br />
 <%= sanitize comment.description %>
-<%= render :partial =>'attachments/attachment' , :locals => {:post => comment}%>
+<%= render :partial =>'attachments/attachment' , :locals => {:entry => comment}%>
 <% end -%>
