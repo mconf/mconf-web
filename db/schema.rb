@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
-    t.integer  "size"
+    t.integer  "size",         :limit => 11
     t.string   "content_type"
     t.string   "filename"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
+    t.integer  "height",       :limit => 11
+    t.integer  "width",        :limit => 11
+    t.integer  "parent_id",    :limit => 11
     t.string   "thumbnail"
-    t.integer  "db_file_id"
+    t.integer  "db_file_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,16 +31,16 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "container_id"
+    t.integer  "container_id",   :limit => 11
     t.string   "container_type"
-    t.integer  "parent_id"
+    t.integer  "parent_id",      :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "categorizations", :force => true do |t|
-    t.integer "category_id"
-    t.integer "entry_id"
+    t.integer "category_id", :limit => 11
+    t.integer "entry_id",    :limit => 11
   end
 
   create_table "db_files", :force => true do |t|
@@ -52,37 +52,37 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "container_id"
+    t.integer  "container_id",   :limit => 11
     t.string   "container_type"
-    t.integer  "agent_id"
+    t.integer  "agent_id",       :limit => 11
     t.string   "agent_type"
-    t.integer  "content_id"
+    t.integer  "content_id",     :limit => 11
     t.string   "content_type"
-    t.integer  "parent_id"
+    t.integer  "parent_id",      :limit => 11
     t.string   "parent_type"
     t.boolean  "public_read"
     t.boolean  "public_write"
   end
 
   create_table "event_datetimes", :force => true do |t|
-    t.integer  "event_id",   :null => false
-    t.datetime "start_date", :null => false
-    t.datetime "end_date",   :null => false
-    t.integer  "at_job"
+    t.integer  "event_id",   :limit => 11, :null => false
+    t.datetime "start_date",               :null => false
+    t.datetime "end_date",                 :null => false
+    t.integer  "at_job",     :limit => 11
   end
 
   create_table "events", :force => true do |t|
-    t.string "name",        :limit => 40, :null => false
-    t.string "password",    :limit => 40, :null => false
-    t.string "service",     :limit => 40, :null => false
-    t.string "quality",     :limit => 8,  :null => false
+    t.string "name",        :limit => 40, :default => "", :null => false
+    t.string "password",    :limit => 40, :default => "", :null => false
+    t.string "service",     :limit => 40, :default => "", :null => false
+    t.string "quality",     :limit => 8,  :default => "", :null => false
     t.text   "description"
-    t.string "uri",         :limit => 80, :null => false
+    t.string "uri",         :limit => 80, :default => "", :null => false
   end
 
   create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id",  :null => false
-    t.integer "event_id", :null => false
+    t.integer "user_id",  :limit => 11, :null => false
+    t.integer "event_id", :limit => 11, :null => false
   end
 
   create_table "globalize_countries", :force => true do |t|
@@ -116,96 +116,96 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
     t.string  "scope",                 :limit => 1
   end
 
-  add_index "globalize_languages", ["rfc_3066"], :name => "index_globalize_languages_on_rfc_3066"
-  add_index "globalize_languages", ["iso_639_3"], :name => "index_globalize_languages_on_iso_639_3"
-  add_index "globalize_languages", ["iso_639_2"], :name => "index_globalize_languages_on_iso_639_2"
   add_index "globalize_languages", ["iso_639_1"], :name => "index_globalize_languages_on_iso_639_1"
+  add_index "globalize_languages", ["iso_639_2"], :name => "index_globalize_languages_on_iso_639_2"
+  add_index "globalize_languages", ["iso_639_3"], :name => "index_globalize_languages_on_iso_639_3"
+  add_index "globalize_languages", ["rfc_3066"], :name => "index_globalize_languages_on_rfc_3066"
 
   create_table "globalize_translations", :force => true do |t|
     t.string  "type"
     t.string  "tr_key"
     t.string  "table_name"
-    t.integer "item_id"
+    t.integer "item_id",             :limit => 11
     t.string  "facet"
-    t.boolean "built_in",            :default => true
-    t.integer "language_id"
-    t.integer "pluralization_index"
+    t.boolean "built_in",                          :default => true
+    t.integer "language_id",         :limit => 11
+    t.integer "pluralization_index", :limit => 11
     t.text    "text"
     t.string  "namespace"
   end
 
-  add_index "globalize_translations", ["table_name", "item_id", "language_id"], :name => "globalize_translations_table_name_and_item_and_language"
   add_index "globalize_translations", ["tr_key", "language_id"], :name => "index_globalize_translations_on_tr_key_and_language_id"
+  add_index "globalize_translations", ["table_name", "item_id", "language_id"], :name => "globalize_translations_table_name_and_item_and_language"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "space_id"
+    t.integer  "space_id",   :limit => 11
   end
 
   create_table "groups_users", :force => true do |t|
-    t.integer  "group_id"
-    t.integer  "user_id"
+    t.integer  "group_id",   :limit => 11
+    t.integer  "user_id",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "invitations", :force => true do |t|
     t.string   "email"
-    t.integer  "space_id"
-    t.integer  "user_id"
-    t.integer  "role_id"
+    t.integer  "space_id",   :limit => 11
+    t.integer  "user_id",    :limit => 11
+    t.integer  "role_id",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "machines", :force => true do |t|
-    t.string "name",     :limit => 40, :null => false
-    t.string "nickname", :limit => 40, :null => false
+    t.string "name",     :limit => 40, :default => "", :null => false
+    t.string "nickname", :limit => 40, :default => "", :null => false
   end
 
   create_table "machines_users", :id => false, :force => true do |t|
-    t.integer "user_id",    :null => false
-    t.integer "machine_id", :null => false
+    t.integer "user_id",    :limit => 11, :null => false
+    t.integer "machine_id", :limit => 11, :null => false
   end
 
   create_table "open_id_associations", :force => true do |t|
     t.binary  "server_url"
     t.string  "handle"
     t.binary  "secret"
-    t.integer "issued"
-    t.integer "lifetime"
+    t.integer "issued",     :limit => 11
+    t.integer "lifetime",   :limit => 11
     t.string  "assoc_type"
   end
 
   create_table "open_id_nonces", :force => true do |t|
-    t.string  "server_url", :null => false
-    t.integer "timestamp",  :null => false
-    t.string  "salt",       :null => false
+    t.string  "server_url",               :default => "", :null => false
+    t.integer "timestamp",  :limit => 11,                 :null => false
+    t.string  "salt",                     :default => "", :null => false
   end
 
   create_table "open_id_ownings", :force => true do |t|
-    t.integer "agent_id"
+    t.integer "agent_id",   :limit => 11
     t.string  "agent_type"
-    t.integer "uri_id"
+    t.integer "uri_id",     :limit => 11
   end
 
   create_table "participants", :force => true do |t|
-    t.integer "event_id",                                             :null => false
-    t.integer "machine_id",                                           :null => false
-    t.integer "machine_id_connected_to",                              :null => false
-    t.string  "role",                    :limit => 40,                :null => false
-    t.integer "fec",                     :limit => 2,  :default => 0, :null => false
-    t.integer "radiate_multicast",       :limit => 1,  :default => 0, :null => false
+    t.integer "event_id",                :limit => 11,                 :null => false
+    t.integer "machine_id",              :limit => 11,                 :null => false
+    t.integer "machine_id_connected_to", :limit => 11,                 :null => false
+    t.string  "role",                    :limit => 40, :default => "", :null => false
+    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
+    t.integer "radiate_multicast",       :limit => 1,  :default => 0,  :null => false
     t.text    "description"
   end
 
   create_table "performances", :force => true do |t|
-    t.integer "agent_id"
+    t.integer "agent_id",       :limit => 11
     t.string  "agent_type"
-    t.integer "role_id"
-    t.integer "container_id"
+    t.integer "role_id",        :limit => 11
+    t.integer "container_id",   :limit => 11
     t.string  "container_type"
   end
 
@@ -248,24 +248,24 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
 
   create_table "spaces", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
+    t.integer  "parent_id",   :limit => 11
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",                    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "tag_id",        :null => false
-    t.integer "taggable_id",   :null => false
-    t.string  "taggable_type", :null => false
+    t.integer "tag_id",        :limit => 11,                 :null => false
+    t.integer "taggable_id",   :limit => 11,                 :null => false
+    t.string  "taggable_type",               :default => "", :null => false
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
 
   create_table "tags", :force => true do |t|
-    t.string "name", :null => false
+    t.string "name", :default => "", :null => false
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true

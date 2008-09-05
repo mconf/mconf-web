@@ -1,7 +1,6 @@
 class MachinesController < ApplicationController
   before_filter :authentication_required, :except => [:get_file]
   before_filter :user_is_admin, :except => [:my_mailer,:get_file, :list_user_machines, :contact_mail]
-  before_filter :remember_tab_and_space
   before_filter :get_cloud
   before_filter :get_space
   
