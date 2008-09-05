@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :events, :collection => [:add_time, :copy_next_week, :remove_time]
     space.resources :articles
     space.resources :attachments
-    space.resources :posts
+    space.resources :entries
 
     # Para el nuevo controlador de Grupos
     space.resources :groups
@@ -41,7 +41,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   # (se quedará obsoleto con la nueva versión del plugin)
   #  
-  map.resources :posts, :member => { :media => :any,
+  map.resources :entries, :member => { :media => :any,
                                      :get => :edit_media,
                                      :put => :update_media }
 
