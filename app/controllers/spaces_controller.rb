@@ -5,7 +5,6 @@ class SpacesController < ApplicationController
   before_filter :get_cloud
   before_filter  :user_is_admin , :only=> [:new,:create,:destroy]
  
-  before_filter :remember_tab_and_space
   before_filter :not_public_space, :only=>[:add_user, :add_user2]
   before_filter :space_member, :only=>[:show]
 
@@ -29,13 +28,21 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1
   def show   
-   # debugger
     if @space.id == 1
       get_public_posts
     end
     next_events
     session[:current_tab] = "Home"        
     session[:current_sub_tab] = ""
+    if params[:space_id]
+      @space = Space.find(params[:space_id])
+    else
+    @space = Space.find(params[:id])
+    end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @space }
+    end
   end
   
   # GET /spaces/new
@@ -43,11 +50,7 @@ class SpacesController < ApplicationController
   def new
     @space_new = Space.new
     session[:current_tab] = "Manage" 
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @space_new }
-    end
+
   end
   
   # GET /spaces/1/edit
@@ -78,6 +81,7 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   def update
+    debugger
     @space = Space.find(params[:id])
     if @space.update_attributes(params[:space])
       #fist of all we delete all the old performances, but not the groups
@@ -238,6 +242,8 @@ class SpacesController < ApplicationController
   #method to parse the request for update from the server that contains
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
   #returns an array with the user logins
+  
+  #TODO este metodo ahora mismo no parece que se use en ningún sitio
   def parse_emails(emails)
     
     return [] if emails.blank?

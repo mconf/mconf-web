@@ -13,8 +13,9 @@
 <TABLE class="headerDay" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
 <TR>
 	
-<%if current_user!= :false %>
+<%if logged_in? %>
     <TD class="headerDay">
+    	<%debugger%>
     <%if !current_user.machines.empty?%>
         <%if @datetime>Date.today%>
 			<%session[:date_start_day] = @datetime%>
@@ -23,7 +24,8 @@
     <%end-%>
     </TD>
 <%end-%>
-<TD class="headerDay" <% if current_user== :false || current_user.machines.empty? %> align=center <%end%>>
+<TD class="headerDay" <% if logged_in?%>
+<% if current_user.machines.empty?%>  align=center <%end%><%end%>>
 Date: <%=@datetime.to_s%>
 </TD>
 

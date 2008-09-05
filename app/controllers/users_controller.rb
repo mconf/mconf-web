@@ -54,6 +54,10 @@ class UsersController < ApplicationController
   def show
     
     @user = User.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @user }
+    end
   end
   
   # GET /users/new
@@ -78,6 +82,7 @@ class UsersController < ApplicationController
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
 
   def create
+    debugger
     if params[:space_id]!=nil
       @space = Space.find(params[:space_id])
       #2 opciones, from email or from app
@@ -119,6 +124,18 @@ class UsersController < ApplicationController
       redirect_back_or_default root_path
     rescue ActiveRecord::RecordInvalid
       render :action => 'new'
+=begin      
+      respond_to do |format|
+      if @space.save
+        flash[:notice] = 'Space was successfully created.'
+        format.html { redirect_to(:action => "index", :controller => "spaces") }
+        format.xml  { render :xml => @space, :status => :created, :location => @space }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
+      end
+    end
+=end
   end
   
   #This method returns the user to show the form to edit him

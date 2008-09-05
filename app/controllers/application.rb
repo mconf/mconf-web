@@ -156,7 +156,10 @@ class ApplicationController < ActionController::Base
 =end    
     if params[:space_id]
     @container = @space = Space.find(params[:space_id])
-    end
+  else
+    @container = @space = Space.find_by_id(1)
+
+  end
     #get_container
   end
   
@@ -173,16 +176,6 @@ class ApplicationController < ActionController::Base
       
     end
     
-  end
-  def remember_tab_and_space
-    #save the current space, because this routes are /roles /roles/new and so on
-    if params[:space_id]
-      session[:current_space] = params[:space_id]
-
-  else
-    session[:current_space] = params[:id]
-        end
-    @space = Space.find(session[:current_space])
   end
   
   
