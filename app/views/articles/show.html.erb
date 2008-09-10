@@ -24,17 +24,11 @@
   <%= @entry.tag_list %>
 </p>
 <% end %>
-<!--
-<%@entry_children = @entry.children%>
--->
 	<%for children in @attachment_children -%>
 	  <%if children.content_type == "Attachment"%>
 		<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
 	  <%end%>
-<!--
-	 <%end%>
--->
-
+	  <%end%>
 
 <br>
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
@@ -42,6 +36,7 @@
 <%= link_to 'Back', space_articles_path(@container) %>
 </div>
 <%end%>
+
 <div id="new_comment_form" style="display: none;">
 <%if @errors==true%>
 	<% unless error_messages_for(:content).blank? && error_messages_for(:entry_).blank?  -%>
@@ -51,6 +46,7 @@
 </div>
 <% end -%>
 <%end%>
+
   <% @content = Article.new() %>
   <% form_for(:entry, :url => space_articles_path(@entry.container), :html => { :multipart => true }) do -%>
 
@@ -77,13 +73,6 @@
 
 <% div_for :comment_children do %>
   <h2>Comments</h2>
- <!--
-  <%for comment in @entry_children -%>
-	  <%if comment.content_type == "CMS::Text"%>
-		<%= render :partial =>'articles/comment' , :locals => {:comment => comment}%>
-	  <%end%>
-<%end%>
--->
 
   <%= render :partial => "articles/comment", :collection => @comment_children %>
 

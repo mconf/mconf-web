@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
                                                         :order => "updated_at DESC")
           
           # Paginate them
-          @entries = @collection.paginate(:page => params[:page], :per_page => Entry.per_page)
+          @entries = @collection.paginate(:page => params[:page], :per_page => 10)
           @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
           @collection_path = space_articles_path(@container)
         else
@@ -53,6 +53,7 @@ class ArticlesController < ApplicationController
     end
     
   def create
+
     # Fill params when POSTing raw data
     set_params_from_raw_post
     
@@ -62,24 +63,27 @@ class ArticlesController < ApplicationController
     # every time a Content is posted.
     # Idea: Should use SHA1 on one or some relevant Content field(s) 
     # and find_or_create_by_sha1
-      
+    
+    @last_attachment = params[:last_post]
+    
     @content = Article.create(params[:content])
     @entry = Entry.create(params[:entry].merge({ :agent => current_agent,
         :container => @container,
         :content => @content,
-        :description => params[:content][:text]})) 
-    
-    if params[:attachment]!= {"uploaded_data"=>""} #if entry has attachments....
-      @attachment_content = Attachment.create(params[:attachment]) 
-       @attachment_entry = @entry.children.new({ :agent => current_agent,
-        :container => @container,
-        :content => @attachment_content, 
-        :description => params[:content][:text],
-        :title => params[:title],
-        :parent_type => @entry.content,
-        :public_read => params[:entry][:public_read]})
-      
-    end    
+        :description => params[:content][:text]}))
+    i=0;
+   (@last_attachment.to_i).times  {
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+          @attachment_content = Attachment.create(params[:"attachment#{i}"]) 
+          @attachment_entry = @entry.children.create({ :agent => current_agent,
+          :container => @container,
+          :content => @attachment_content, 
+          :description => params[:content][:text],
+          :title => params[:title],
+          :parent_type => @entry.content,
+          :public_read => params[:entry][:public_read]})
+      end
+      i += 1;}
     respond_to do |format| 
       format.html {
         if !@content.new_record? && @entry.save ####Siempre comprueba el entry padre  
@@ -189,6 +193,7 @@ class ArticlesController < ApplicationController
       #   GET /articles/:id/edit
       def edit
         get_params_title_and_description(@entry)
+        @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
         params[:category_ids] = @entry.category_ids
     
         render :template => "articles/edit"
@@ -198,6 +203,7 @@ class ArticlesController < ApplicationController
       #   PUT /articles/:id
       def update       
        set_params_title_and_description(@entry.content) 
+       
         # If the Content of this Entry hasn't attachment, update it here
         # If it has, update via media
         # 
@@ -208,27 +214,37 @@ class ArticlesController < ApplicationController
         params[:entry][:agent]     = current_agent
         params[:entry][:content]   = @content
    
+   @last_attachment = params[:last_post]
+   @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
+   @attachment_children.each{|children|
+      if params[:"#{children.id}"] == "false"
+        children.content.destroy
+      end
+   }
         respond_to do |format|
           format.html {
-             
-            if params[:attachment]!= {"uploaded_data"=>""} #si se añade un attachment....
-              @attachment_content= Attachment.create(params[:attachment])
-              @attachment_entry = @entry.children.new({ :agent => current_agent,
+           i=0;
+   (@last_attachment.to_i).times  {
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+          @attachment_content = Attachment.create(params[:"attachment#{i}"]) 
+          @attachment_entry = @entry.children.create({ :agent => current_agent,
                   :container => @container,
                   :content => @attachment_content, 
                   :description => params[:content][:text],
                   :title => params[:title],
                   :parent_type => @attachment_content.type,
                   :public_read => params[:entry][:public_read]})
-
-              @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @attachment_entry.save && @content.update_attributes(:text => params[:content][:text])
-              tag = params[:tag][:add_tag]    
-              @entry.tag_with(tag)
-              @entry.category_ids = params[:category_ids]
-              flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
-              redirect_to space_article_path(@container,@entry.content)
+       end
+       i += 1;}
+                   
+           #   @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @attachment_entry.save && @content.update_attributes(:text => params[:content][:text])
+          #    tag = params[:tag][:add_tag]    
+          #    @entry.tag_with(tag)
+           #   @entry.category_ids = params[:category_ids]
+           #   flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
+            #  redirect_to space_article_path(@container,@entry.content)
             
-            elsif !@content.new_record? &&  @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
+         if !@content.new_record? &&  @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
               tag = params[:tag][:add_tag]    
               @entry.tag_with(tag)
               @entry.category_ids = params[:category_ids]

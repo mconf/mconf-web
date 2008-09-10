@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20080905090012) do
   end
 
   create_table "db_files", :force => true do |t|
-    t.binary "data"
+    t.binary "data", :limit => 2147483647
   end
 
   create_table "entries", :force => true do |t|

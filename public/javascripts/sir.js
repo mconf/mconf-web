@@ -1,3 +1,41 @@
+function generate_attach(number){
+	
+	 var diva = document.getElementById('attachs');
+	 var newdiv = document.createElement('div');
+	 var num1up = number + 1;
+     var last_post = document.getElementById('last_post');
+	 last_post.value = num1up;
+	 newdiv.setAttribute('id',"attachs"+number ); 
+	 newdiv.setAttribute('name',"attachs"+number ); 
+	 newdiv.innerHTML = "<p> <label for='attachment'> Upload Attachment: </label> <input id='attachment" + number +"_uploaded_data' name='attachment" + number +  "[uploaded_data]' size='30' type='file' '/> <a onclick='remove_attach(" + number + ") ; return false;' href='#'> Remove</a></p>"; 
+	 diva.appendChild(newdiv);
+	 var span_attach = document.getElementById('addAnother');
+	 var parent_node_span = span_attach.parentNode;
+	 parent_node_span.removeChild(span_attach);
+	 var add_another = document.createElement('div');
+	 add_another.setAttribute('id',"addAnother" ); 
+	 add_another.innerHTML = "<a onclick='generate_attach(" + num1up + ") ; return false;' href='#'> add another</a>";
+	 diva.appendChild(add_another);
+
+}
+
+function remove_attach(number){
+	 var remove_div = document.getElementById('attachs'+number);
+	 var parent_node_span = remove_div.parentNode;
+	 parent_node_span.removeChild(remove_div);
+	 
+}
+
+function hide_attach(entry_id, attachment_id){
+	 var remove_div = document.getElementById('attachment_'+attachment_id);
+	 var parent_node_span = remove_div.parentNode;
+	 parent_node_span.removeChild(remove_div);
+	 var hidden = document.getElementById(entry_id);
+	 hidden.value = false;
+	 
+	 
+}
+
 function change_space(){
 	miloc = "/spaces/" + document.form.space_id.value;
 	document.location.href = miloc;
