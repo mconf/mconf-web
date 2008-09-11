@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
                                       :page =>  params[:page],
                                       :order => "updated_at DESC"
           @updated = @entries.blank? ? Time.now : @entries.first.updated_at
-          @collection_path = articles_path
+          @collection_path = entries_path
         end
     
         respond_to do |format|

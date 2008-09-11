@@ -15,7 +15,7 @@
 	
 <%if logged_in? %>
     <TD class="headerDay">
-    	<%debugger%>
+
     <%if !current_user.machines.empty?%>
         <%if @datetime>Date.today%>
 			<%session[:date_start_day] = @datetime%>

@@ -11,6 +11,10 @@ class SpacesController < ApplicationController
   authorization_filter :space, :edit, :only=>[:edit,:update]
   authorization_filter :space, :manage_groups, :only=>[:add_user, :add_user2]
   
+  
+  # GET /spaces
+  # GET /spaces.xml
+  # GET /spaces.atom
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )    
     if @space.id==1
@@ -23,10 +27,13 @@ class SpacesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @spaces }
+      format.atom
     end
   end
   
   # GET /spaces/1
+  # GET /spaces/1.xml
+  # GET /spaces/1.atom
   def show   
     if @space.id == 1
       get_public_entries
@@ -42,11 +49,11 @@ class SpacesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @space }
+      format.atom
     end
   end
   
   # GET /spaces/new
-  # GET /spaces/new.xml
   def new
     @space_new = Space.new
     session[:current_tab] = "Manage" 

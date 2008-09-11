@@ -2,9 +2,9 @@
 <div class="yui-b main_column">
 <% rounded(:class => "signup") do %>
 
-<%= error_messages_for :agent %>
+<%= error_messages_for :user %>
 
-<% form_for :agent, :url => users_path do |f| -%>
+<% form_for :user, :url => users_path do |f| -%>
 
 <%= render :partial => 'form', :locals => { :f => f } %>
 

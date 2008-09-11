@@ -11,6 +11,7 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
 
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
   
@@ -58,6 +59,7 @@ Rails::Initializer.run do |config|
   config.gem "mislav-will_paginate", :lib => 'will_paginate',
                                      :version => '>= 2.3.2',
                                      :source => 'http://gems.github.com/'
+#  config.gem "has_many_polymorphs" #, :lib => 'will_paginate',
 
 end
 include CMS
@@ -109,4 +111,5 @@ ActionMailer::Base.raise_delivery_errors = true
                             "/logs/isabelGuard.log 2>&1 &"
       object_IO = IO.popen(command_isabelguard)
    end
+
 require 'tagging_extensions'

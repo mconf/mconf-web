@@ -31,8 +31,8 @@ class EventsController < ApplicationController
     @datetime = Date.today
     @events = @space.events
     
-    session[:current_sub_tab] = "Show Calendar"
     if params[:date_start_day]
+      session[:current_sub_tab] = "Show Calendar"
       datetime_start_day = Date.parse(params[:date_start_day])
       #elsif  session[:date_start_day]
       #  datetime_start_day = Date.parse(session[:date_start_day])       
@@ -50,12 +50,16 @@ class EventsController < ApplicationController
       @events.flatten!
       @events.uniq!
       logger.debug("eventos devueltos " + @events.size.to_s) 
-      respond_to do |format|
-        format.html { render :partial => "show_calendar", :layout => true}
+ 
+end
+
+     respond_to do |format|
+        format.html { if params[:date_start_day]
+        render :partial => "show_calendar", :layout => true
+        end}
         format.xml  { render :xml => @events }
         format.js 
       end
-    end
   end
   
   
@@ -87,7 +91,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.html 
-      format.xml  { render :xml => @events }
+      format.xml  { render :xml => @event.to_xml(:include => :event_datetimes) }
       format.js
       format.ical { export_ical }
     end
@@ -121,6 +125,8 @@ class EventsController < ApplicationController
   # POST /events.xml
   
   def create
+
+    debugger
     
     @event = Event.new(params[:event])  
     indice = 0;
@@ -129,10 +135,10 @@ class EventsController < ApplicationController
     is_valid = "is_valid_time" + indice.to_s
     while params[param_start_date.to_sym] 
       logger.debug("New datetime for this event: " + indice.to_s)
-      @datetime = EventDatetime.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym])   
-      if(params[is_valid.to_sym]=="true")
+       @datetime = EventDatetime.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym]) 
+       #·   if(params[is_valid.to_sym]=="true")
         @event.event_datetimes << @datetime  
-      end  
+  #    end  
       indice+=1
       param_start_date = 'start_date' + indice.to_s
       param_end_date = 'end_date' + indice.to_s
@@ -190,7 +196,6 @@ class EventsController < ApplicationController
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
     end
-    debugger
   end
   
   

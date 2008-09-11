@@ -16,6 +16,8 @@ Resources:<%=h(@event.get_participants)%><br>
 <%if @event.description!=nil && @event.description!=""%>
 Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
 <%end%>
+
+
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
 
 Keywords:<b><%for tag in @event.tag_list %>
