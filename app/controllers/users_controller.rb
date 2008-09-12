@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml  
   def new
-    @user = self.resource_class.new
+    @user = @agent = self.resource_class.new
     if params[:space_id]!=nil
       @space = Space.find(params[:space_id])
       #2 options, by email or from application
