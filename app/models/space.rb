@@ -136,5 +136,8 @@ class Space < ActiveRecord::Base
     end
     return array_spaces
   end
- 
+
+  def self.atom_parser(data)
+    { :test => data }
+  end
 end

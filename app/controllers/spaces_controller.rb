@@ -10,8 +10,9 @@ class SpacesController < ApplicationController
 
   authorization_filter :space, :edit, :only=>[:edit,:update]
   authorization_filter :space, :manage_groups, :only=>[:add_user, :add_user2]
-  
-  
+
+  set_params_from_atom :space, :only => [ :create, :update ]
+
   # GET /spaces
   # GET /spaces.xml
   # GET /spaces.atom
