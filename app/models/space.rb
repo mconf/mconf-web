@@ -138,6 +138,13 @@ class Space < ActiveRecord::Base
   end
 
   def self.atom_parser(data)
-    { :test => data }
+
+    
+    e = Atom::Entry.parse(data)
+    space = {}
+    space[:title] = e.title
+    space[:description] = e.summary
+    
+    { :space => space}     
   end
 end

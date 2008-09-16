@@ -50,6 +50,7 @@ class EventsController < ApplicationController
       @events.flatten!
       @events.uniq!
       logger.debug("eventos devueltos " + @events.size.to_s) 
+      @events
  
 end
 
@@ -58,6 +59,7 @@ end
         render :partial => "show_calendar", :layout => true
         end}
         format.xml  { render :xml => @events }
+        format.atom
         format.js 
       end
   end
@@ -125,9 +127,17 @@ end
   # POST /events.xml
   
   def create
+    if params[:format] = "atom"
+      params[:event] = params[:feed][:entry]
+            params[:start_date0] = params[:event][:datetime][:start_date0]
+            params[:end_date0] = params[:event][:datetime][:end_date0]
+            params[:tag] = params[:event][:tag]
+      params[:event].delete :datetime
+      params[:event].delete :tag
 
-    debugger
+    end
     
+    debugger
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
