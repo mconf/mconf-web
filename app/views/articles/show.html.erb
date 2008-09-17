@@ -6,6 +6,7 @@
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form'); document.location = '#new_comment_form'" %> |
 <%= link_to 'Edit', edit_space_article_path(@space, @content) %> |
 <%= link_to 'Back', space_articles_path(@container) %>
+<br/>
 <p>
   <b>Title:</b>
   <%=sanitize @entry.title %>
@@ -27,6 +28,7 @@
 	<%for children in @attachment_children -%>
 	  <%if children.content_type == "Attachment"%>
 		<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
+		<br/>
 	  <%end%>
 	  <%end%>
 
@@ -38,6 +40,7 @@
 <%end%>
 
 <div id="new_comment_form" style="display: none;">
+<% rounded(:class => "tips") do %>
 <%if @errors==true%>
 	<% unless error_messages_for(:content).blank? && error_messages_for(:entry_).blank?  -%>
 <div class="errors">
@@ -48,8 +51,8 @@
 <%end%>
 
   <% @content = Article.new() %>
-  <% form_for(:entry, :url => space_articles_path(@entry.container), :html => { :multipart => true }) do -%>
-
+  <% form_for(:entry, :url => space_articles_path(@space), :html => { :multipart => true }) do -%>
+<p>
     <b>Title</b><br />
     <%= text_field_tag :title %>
     </p>
@@ -57,11 +60,13 @@
       <b>Text</b><br />
       <%= fckeditor_textarea(:content, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
     </p>
-	 <%= render :partial => 'articles/attach' %>
+	 <%= render :partial => 'articles/attach', :locals => {:comment => true} %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
 	<%= hidden_field_tag 'entry[parent_id]', @entry.id.to_s %>
     <%= submit_tag "Create" %>
+	
   <% end -%>
+  <%end%>
 </div>
 
 <%if @errors == true%>

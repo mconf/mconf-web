@@ -14,9 +14,9 @@
 <% end -%>
 <div id="addAnother"><%= link_to_function 'add another', "generate_attach(1)" %></div>
 
-
 </div>
-<%if @attachment_children != nil%>
+<%if comment != true%>
+<%if @attachment_children != [] && @attachment_children != nil%>
 <div id="children_attachment" >
 	Existing Attachments
 	<%for children in @attachment_children -%>
@@ -31,6 +31,8 @@
 		<% end %>
 	  <%end%>
 	  <%end%>
+	  
 </div>
+<%end%>
 <%end%>
 

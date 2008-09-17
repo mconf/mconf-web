@@ -1,14 +1,6 @@
-<% @space.container_entries.select{ |e| e.content_type == 'XhtmlText' }.first(5).each do |entry| -%>
-  <p>
-    <%= link_to sanitize(entry.title), space_article_path(@space, entry.content) %>
-  </p>
-<% end -%>
-<% if @space.id == 1%>
-<% @public_entries.each do |entry|%>
-<p>
-    <%= link_to sanitize(entry.title), space_article_path(@space, entry.content) %>
-    <%= entry.content.class %>
-  </p>
-<% end -%>
+
+<%@posts.each do |entry|%>
+<%=show_article(entry,@space)%>
+
 <% end -%>
 

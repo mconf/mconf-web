@@ -420,5 +420,75 @@ div#ft {
 #ft a:hover{
 	color:#611427;
 }
+span.first_Column{
+	position: relative;
+	display: inline-block;
+	left: 10px; 
+	width: 130px;
 
+}
+span.tags_column{
+	color: green;
+}
+.second_Column{
+	position: relative;
+	display: inline-block;
+	left: 5px; 
+	width: 440px;
 
+}
+span.second_Column a{
+	font-weight: bold;
+}
+span.second_Column p{
+	display: inline;
+	font-weight: normal;
+}
+
+span.third_Column{
+	position: relative;
+	display: inline-block;
+	left: 10px;
+	width: 50px;
+
+}
+.post{
+	text-align :left;
+	width: 700px;
+
+}
+
+span.mini_image{
+	position:relative;
+	left: 7px;
+	width:21px;
+	display: inline-block;
+}
+span.clip{
+	position:relative;
+	left: 7px;
+	width:16px;
+	display: inline-block;
+}
+
+.pagination{
+	position:relative;
+	left:-100px;
+	display:inline-block;
+	width:200px;
+}
+.paginate{
+	width:150px;
+	position:relative;
+	left:-80px;
+	display:inline-block;
+	text-align: left;
+}
+
+.expand{
+	width:100px;
+	position:relative;
+	left:-80px;
+	display:inline-block;
+	text-align: left;
+}

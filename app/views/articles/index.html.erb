@@ -1,63 +1,24 @@
 
 <div id="yui-main">
 	<div class="yui-b main_column">
-	
-	<h1 class="title"><%= @title %></h1>
-	<%= will_paginate @entries %>
+	<% rounded(:class => "tips") do %>
+	<div class= "paginate"><h1 class="title"><%= @title %></h1></div>
+	<span class= "expand"> <%=link_to ("expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
+	<%= will_paginate @entries %><%=link_to ("10", space_articles_path(@space, :expanded=>false, :per_page=> 10))%>|
+	<%=link_to ("25", space_articles_path(@space, :expanded=>false, :per_page=> 25))%>|
+	<%=link_to ("50", space_articles_path(@space, :expanded=>false, :per_page=> 50))%>|
+	<%=link_to ("100", space_articles_path(@space, :expanded=>false, :per_page=> 100))%>
+	<br/><br/> 
 	<% for entry in @entries -%>
 	<%if entry.parent_id == nil%>
-	<% rounded(:class => "tips") do %>
+	
 		<div class="contenido_main">
-    	<% user = User.find(entry.agent_id)%>
-	 
-    	Post :: <%=link_to(sanitize(entry.title), space_article_path(@space, entry.content)) %> (<%= get_number_children_comments(entry) %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= User.find(entry.agent_id).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
-
-		<%@attachment_children = get_attachment_children(entry)%>
-		<%for children in @attachment_children -%>
-			<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
-			<br/>
-	  	<%end%>
-  		Description: <%= entry.description%><br>
-	
-		<%= link_to 'Edit',edit_space_article_path(@space, entry.content) %>
-   		<%= link_to 'Destroy', space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete %>
-   		<%= link_to 'Comments', "#{ space_article_path(entry.container,entry.content)}#comments" %>
-
-	
-		<br />
+    	<%=show_article(entry,@space,"edit","destroy")%> 
 		</div>
 	<% end -%>
 	<% end -%>
 	<% end -%>
-<%if @space.id == 1%>
-<% for entry in @public_entries%>
-<%if entry.parent_id == nil%>
 
-<% rounded(:class => "tips") do %>
-
-<div class="contenido_main">
-
-    <% user = User.find(entry.agent_id)%>
-	
-    Post:: <%=link_to(sanitize(entry.title), space_article_path(@space, entry.content)) %> (<%= entry.container_entries.size %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> || Tags:  <br>
-        
-  	Description: <%= entry.description%><br>
-	
-<%= link_to 'Edit', edit_space_article_path(@space, entry.content) %>
-
-   <%= link_to 'Destroy', space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete %>
-   <%= link_to 'Comments', "#{ space_article_path(entry.container,entry.content)}#comments" %>
-
-
-<br />
 </div>
-
-<% end -%>	
-
-<% end -%>
-<% end -%>
-</div>
-<% end -%>
-
 </div>
 <%= render :partial =>'shared/sidebars'%>

@@ -120,21 +120,31 @@ class ApplicationController < ActionController::Base
   end
   #this method returns the coming 5 events
   def next_events
+    @events = [];
+    if @space.id ==1
+    @entries = Entry.find_all_by_container_type_and_public_read_and_content_type('Space',true,'Event',:order => "updated_at DESC")  
+    else
+    @entries = Entry.find_all_by_container_type_and_container_id_and_content_type('Space',@space.id,'Event',:order => "updated_at DESC")
+    end
     
+    @entries.each do |event|
+      if event != nil
+        @events << event.content
+      end
+    end
+    #today = Date.today
     
-    today = Date.today
-    
-    date1ok =  today.strftime("%Y%m%d")
-    s_date = Ferret::Search::SortField.new(:start_dates, :type => :float)
-    sort = Ferret::Search::Sort.new(s_date)
-    @total, @events, @query = Event.date_search_five(date1ok,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1), :sort=> sort)          
-    @pages = pages_for(@total)
+    #date1ok =  today.strftime("%Y%m%d")
+    #s_date = Ferret::Search::SortField.new(:start_dates, :type => :float)
+    #sort = Ferret::Search::Sort.new(s_date)
+    #@total, @events, @query = Event.date_search_five(date1ok,:lazy => [:name, :description, :tag_list, :start_dates],  :page => (params[:page]||1), :sort=> sort)          
+    #@pages = pages_for(@total)
     
     
   end
   
   def get_public_entries
-    @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true)
+    @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true,:order => "updated_at DESC")
   end
   
   def get_space

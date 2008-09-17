@@ -105,13 +105,88 @@ end
   def get_attachment_image(content_type)
     case content_type
       when "image/jpeg"
-       return "jpg.jpg"
+       return "jpeg.gif"
       when "application/pdf"
-       return "pdf_icon.gif"
+       return "pdf.gif"
       when "application/vnd.ms-powerpoint"  
-       return "ppt.png"
+       return "ppt.gif"
+      when "video/x-msvideo"  
+       return "avi.gif"
+      when "audio/x-wav"  
+       return "sound.gif"
+      when "application/msword"  
+       return "doc.gif"       
+      when "application/vnd.ms-excel"  
+       return "xls.gif"
+      when "application/zip"  
+       return "zip.gif"
+      when "application/octet-stream"  
+       return "txt.gif"
+       
      else 
-       return "clip.jpeg"
+       return "generic.gif"
     end
+  end
+  
+  def show_article(entry,space,*args) #return a compress view of a entry post
+ 
+  usuario = User.find(entry.agent_id) 
+  number_comments= "(" + get_number_children_comments(entry).to_s + ")"
+  user = usuario.login unless usuario.profile
+  user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
+  tags = "[" + entry.tag_list + "]"
+  fecha = get_format_date(entry)
+  line_one = ("<div class='post'> <p> <span class = 'first_Column'> "+ to_user_link(name_format(user,17,""),usuario,space)  + to_article_link(number_comments,space,entry) + ": </span>  <span class = 'second_Column'> <span class = 'tags_column'> " + name_format(tags,21,"]")+ " </span>"  + to_article_link(name_format(entry.title ,(65  - tags.length) ,""),space,entry)).to_s +  "<span class = 'description'> " + to_article_link(name_format(": "+ entry.description ,(80 - entry.title.length - tags.length) ,""),space,entry).to_s  + "</span>" +"</span>  <span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
+  image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
+  iconos = ""
+  args.each do |arg|  # obtengo los argumentos variables
+  if arg == "edit" 
+    iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s + "</span> "
+  end
+  if arg == "destroy"
+    iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
+  end
+  end
+
+  
+  line = line_one + " " + image + iconos + " <br/> </p></div>"
+  
+    return line
+    
+  end
+  
+  def get_format_date(entry)
+    updated_time = entry.updated_at
+    if updated_time.to_date == Time.now.to_date
+      return updated_time.to_time.to_formatted_s(:time)
+    else 
+      return updated_time.to_date.to_formatted_s(:short)
+    end
+  end
+  
+   def get_number_children_comments(entry)
+  return entry.children.select{|c| c.content.is_a? Article}.size
+end
+
+  def name_format(name,number,corchete)
+    if number < 0
+      return ""
+    end
+    if name == "[]"
+      return ""
+    end
+    if name.length < number
+      return name 
+    else
+      return name[0,number-4] + "..." + corchete
+    end
+  end
+  
+  def to_user_link (name,usuario,space)
+    return link_to(name,user_path(usuario,:space_id => space.id))
+  end
+  
+    def to_article_link (name,space,entry)
+    return link_to(sanitize(name), polymorphic_path([space, entry.content]))
   end
 end

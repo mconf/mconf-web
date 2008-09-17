@@ -23,18 +23,27 @@ class ArticlesController < ApplicationController
   def index
      session[:current_tab] = "Posts"
      session[:current_sub_tab] = ""
-     
         if @container
+          if params[:per_page] != nil
+            number_pages = params[:per_page]
+          else
+            number_pages = 10
+          end
+          
           @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @container.name }"
           # All the Entries this Agent can read in this Container
           @collection = @container.container_entries.find(:all,
                                                         :conditions => { :content_type => "XhtmlText" , :parent_id => nil },
                                                         :order => "updated_at DESC")
-          
+           if @space.id==1
+            @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'XhtmlText'}.paginate(:page => params[:page], :per_page => number_pages)
+            else
           # Paginate them
-          @entries = @collection.paginate(:page => params[:page], :per_page => 10)
+          @entries = @collection.paginate(:page => params[:page], :per_page => number_pages)
           @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
           @collection_path = space_articles_path(@container)
+        
+            end
         else
           @title ||= 'Entry'.t('Entries', 99)
           @entries = Entry.paginate :all,
@@ -44,11 +53,19 @@ class ArticlesController < ApplicationController
           @updated = @entries.blank? ? Time.now : @entries.first.updated_at
           @collection_path = entries_path
         end
-    
-        respond_to do |format|
-          format.html
-          format.atom
-          format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
+        
+        if params[:expanded] == "true"
+          respond_to do |format|
+            format.html {render :template => "articles/index2"}
+            format.atom
+            format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
+          end
+        else
+          respond_to do |format|
+            format.html 
+            format.atom
+            format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
+          end
         end
     end
     
@@ -65,13 +82,13 @@ class ArticlesController < ApplicationController
     # and find_or_create_by_sha1
     
     @last_attachment = params[:last_post]
-    
     @content = Article.create(params[:content])
     @entry = Entry.create(params[:entry].merge({ :agent => current_agent,
         :container => @container,
         :content => @content,
         :description => params[:content][:text]}))
     i=0;
+
    (@last_attachment.to_i).times  {
       if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
           @attachment_content = Attachment.create(params[:"attachment#{i}"]) 
@@ -87,7 +104,7 @@ class ArticlesController < ApplicationController
     respond_to do |format| 
       format.html {
         if !@content.new_record? && @entry.save ####Siempre comprueba el entry padre  
-          if params[:attachment] != {"uploaded_data"=>""}    #####Si tiene attachment, comprueba si se han salvado bien
+          if params[:attachment0] != {"uploaded_data"=>""}    #####Si tiene attachment, comprueba si se han salvado bien
             if !@attachment_content.new_record? && @attachment_entry.save  
             else
             @attachment_content.destroy unless @attachment_content.new_record?
@@ -101,9 +118,9 @@ class ArticlesController < ApplicationController
           @entry.category_ids = params[:category_ids]
           flash[:valid] = "#{ @content.class.to_s.humanize } created".t
           if params[:entry][:parent_id] == nil
-            redirect_to space_article_url(@container.id, @entry.content_id)
+            redirect_to space_article_url(@space, @entry.content_id)
           else
-            redirect_to space_article_url(@container.id, @entry.parent.content)
+            redirect_to space_article_url(@space, @entry.parent.content)
           end
           
         else
@@ -278,9 +295,10 @@ class ArticlesController < ApplicationController
   def get_entry 
          @article = Article.find(params[:id])
          @entry = @article.content_entries.first
-         
-       end
-  
+     end
+     
+
+
   #def get_space_from_entry
     #session[:current_tab] = "Posts" 
     #@space = @entry.container

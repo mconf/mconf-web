@@ -29,7 +29,8 @@ class EventsController < ApplicationController
     session[:current_tab] = "Events"
     session[:current_sub_tab] = ""
     @datetime = Date.today
-    @events = @space.events
+    next_events
+    #@events = @space.events
     
     if params[:date_start_day]
       session[:current_sub_tab] = "Show Calendar"
