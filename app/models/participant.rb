@@ -1,6 +1,6 @@
 class Participant < ActiveRecord::Base
   belongs_to :events
-  belongs_to :machines
+  belongs_to :machine
   
   #array of types of service
   PARTICIPANT_ROLES = [
