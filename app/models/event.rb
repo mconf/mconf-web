@@ -356,7 +356,6 @@ class Event < ActiveRecord::Base
     
   #Method to delete the olds at_jobs
     def delete_at_jobs(at_jobs_array)
-      #debugger
       if at_jobs_array.length == 1 && at_jobs_array[0]==nil
         return
       end

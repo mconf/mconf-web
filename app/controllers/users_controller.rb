@@ -244,7 +244,6 @@ class UsersController < ApplicationController
     @agen = @container.actors
     
     @use.collect { |user|
-      # debugger
       if @agen.include?(user)
         @users << user
       end

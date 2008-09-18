@@ -79,12 +79,6 @@ class SpacesController < ApplicationController
   # POST /spaces.xml
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
-    debugger
-=begin    
-    if params[:format] = "atom"
-      params[:space] = params[:feed][:entry]
-    end
-=end    
     @space = Space.new(params[:space])
     
     respond_to do |format|

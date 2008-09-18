@@ -29,7 +29,6 @@ class ProfilesController < ApplicationController
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user, :space_id => @space.id)
     else
-      # debugger
       
       respond_to do |format|
         format.html 

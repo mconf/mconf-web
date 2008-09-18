@@ -138,7 +138,7 @@ end
 
     end
     
-    debugger
+    
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s

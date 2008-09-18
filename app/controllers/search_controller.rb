@@ -140,7 +140,6 @@ class SearchController < ApplicationController
     @agen = @space.actors
     
     @use.collect { |user|
-      # debugger
       if @agen.include?(user)
         @users << user
       end
@@ -183,7 +182,6 @@ class SearchController < ApplicationController
     @agen = @container.actors
 
     @use.collect { |user|
-    # debugger
       if @agen.include?(user)
           @users << user
       end

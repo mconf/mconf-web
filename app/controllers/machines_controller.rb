@@ -45,7 +45,7 @@ class MachinesController < ApplicationController
   # POST /machines
   # POST /machines.xml
   def create
-    debugger
+    
     name = params[:machine][:name]
     nickname = params[:machine][:nickname]
     if name==nil || nickname==nil  || name=="" || nickname ==""      
