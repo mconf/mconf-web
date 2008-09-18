@@ -83,6 +83,9 @@ class ArticlesController < ApplicationController
     
     @last_attachment = params[:last_post]
     @content = Article.create(params[:content])
+    if params[:entry][:parent_id]
+      params[:entry][:public_read] = true
+    end
     @entry = Entry.create(params[:entry].merge({ :agent => current_agent,
         :container => @container,
         :content => @content,
@@ -109,7 +112,7 @@ class ArticlesController < ApplicationController
             else
             @attachment_content.destroy unless @attachment_content.new_record?
             @attachment_entry.destroy
-            @collection_path = container_contents_url
+            @collection_path = space_articles_path
             @title ||= "New #{ controller_name.singularize.humanize }".t
             end
           end
@@ -125,7 +128,7 @@ class ArticlesController < ApplicationController
           
         else
           @content.destroy unless @content.new_record?
-          @collection_path = container_contents_url
+          @collection_path = space_articles_path
           @title ||= "New #{ controller_name.singularize.humanize }".t
           if @container.class == Entry 
           
@@ -174,7 +177,6 @@ class ArticlesController < ApplicationController
      # Show this Entry
       #   GET /articles/:id
       def show
-        
         @title ||= @entry.title
         @comment_children = @entry.children.select{|c| c.content.is_a? Article}
         @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
@@ -225,10 +227,10 @@ class ArticlesController < ApplicationController
         # If it has, update via media
         # 
         # TODO: find old content when only entry params are updated
-
         # Avoid the user changes container through params
         params[:entry][:container] = @entry.container
-        params[:entry][:agent]     = current_agent
+        #params[:entry][:agent]     = current_agent Problema.Con esto edito al usuario por eso lo cambio
+        params[:entry][:agent] = @entry.agent
         params[:entry][:content]   = @content
    
    @last_attachment = params[:last_post]
@@ -296,8 +298,6 @@ class ArticlesController < ApplicationController
          @article = Article.find(params[:id])
          @entry = @article.content_entries.first
      end
-     
-
 
   #def get_space_from_entry
     #session[:current_tab] = "Posts" 

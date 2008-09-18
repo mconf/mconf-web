@@ -3,10 +3,6 @@
 	<% rounded(:class => "tips") do %>
 	<div class="contenido_main">
 		
-<%= link_to_function 'New Comment', "new Element.toggle('new_comment_form'); document.location = '#new_comment_form'" %> |
-<%= link_to 'Edit', edit_space_article_path(@space, @content) %> |
-<%= link_to 'Back', space_articles_path(@container) %>
-<br/>
 <p>
   <b>Title:</b>
   <%=sanitize @entry.title %>
