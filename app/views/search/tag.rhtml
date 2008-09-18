@@ -118,7 +118,7 @@ No events Found <br><br>
 
 <% user = User.find(entry.agent_id)%>
 	
-    <%= entry.content.class %>:: <%=link_to(sanitize(entry.title), space_entry_path(@space)) %> (<%= entry.container_entries.size %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
+    <%= entry.content.class %>:: <%=link_to(sanitize(entry.title), space_entry_path(@space, entry)) %> (<%= entry.container_entries.size %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
         
   	Description: <%= entry.description%>  <br>	<%= link_to 'Comments', "#{ entry_path(entry) }#comments" %>
 
