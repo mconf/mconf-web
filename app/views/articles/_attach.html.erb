@@ -15,7 +15,7 @@
 <div id="addAnother"><%= link_to_function 'add another', "generate_attach(1)" %></div>
 
 </div>
-<%if comment != true%>
+<%if comment != nil && comment != true %>
 <%if @attachment_children != [] && @attachment_children != nil%>
 <div id="children_attachment" >
 	Existing Attachments
