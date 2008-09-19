@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @user = User.new(params[:user])
+    @agent = @user = User.new(params[:user])
     @user.openid_identifier = session[:openid_identifier]
     
     @mail = @user.email
