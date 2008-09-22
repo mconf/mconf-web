@@ -11,7 +11,7 @@ set :deploy_via, :export
 # your SCM below:
 # set :scm, :subversion
 
-after 'deploy:update_code', 'deploy:cp_database'
+after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 
 namespace(:deploy) do
@@ -22,10 +22,8 @@ namespace(:deploy) do
     run "/bin/chgrp -R www-data #{ release_path }/tmp"
   end
 
-  task :cp_database do
-    run "cp #{ release_path }/config/database.yml.example #{ release_path }/config/database.yml"
-    run "chgrp www-data #{ release_path }/config/database.yml"
-    run "chmod 640 #{ release_path }/config/database.yml"
+  task :link_files do
+    run "ln -sf #{ shared_path }/config/database.yml #{ release_path }/config/"
   end
 
   desc "Restarting mod_rails with restart.txt"
