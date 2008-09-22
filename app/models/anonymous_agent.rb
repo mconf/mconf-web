@@ -4,4 +4,8 @@ class AnonymousAgent
   def superuser
     false
   end
+
+  def login
+    "Anonymous"
+  end
 end
