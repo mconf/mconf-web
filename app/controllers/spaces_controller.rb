@@ -76,9 +76,11 @@ class SpacesController < ApplicationController
   
   
   # POST /spaces
-  # POST /spaces.xml
+  # POST /spaces.xml 
+  # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
+    debugger
     @space = Space.new(params[:space])
     
     respond_to do |format|
@@ -96,6 +98,7 @@ class SpacesController < ApplicationController
   
   # PUT /spaces/1
   # PUT /spaces/1.xml
+  # PUT /spaces/1.atom
   def update
     @space = Space.find(params[:id])
     if @space.update_attributes(params[:space])
@@ -124,7 +127,8 @@ class SpacesController < ApplicationController
   
   
   # DELETE /spaces/1
-  # DELETE //1.xml
+  # DELETE /spaces/1.xml
+  # DELETE /spaces/1.atom
   def destroy
     @space = Space.find(params[:id])
     @space.destroy

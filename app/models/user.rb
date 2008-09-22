@@ -66,5 +66,17 @@ end
    
  end
  
+ def self.atom_parser(data)
+
+    e = Atom::Entry.parse(data)
+    user = {}
+    user[:login] = e.title.to_s
+    user[:password] = "prueba"
+    user[:password_confirmation] = "prueba"
+    user[:email] = "paco@paco.com"
+
+    { :user => user}     
+  end
+ 
  
 end

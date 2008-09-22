@@ -21,9 +21,11 @@ class EventsController < ApplicationController
   
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show, :copy_next_week, :remove_time]
   
+  set_params_from_atom :event, :only => [ :create, :update ]
   
   # GET /events
   # GET /events.xml
+  # GET /events.atom
   
   def index
     session[:current_tab] = "Events"
@@ -68,6 +70,7 @@ end
   
   # GET /events/1
   # GET /events/1.xml
+  # GET /events/1.atom
   
   def show
     session[:current_tab] = "Events" 
@@ -97,6 +100,7 @@ end
       format.xml  { render :xml => @event.to_xml(:include => :event_datetimes) }
       format.js
       format.ical { export_ical }
+      format.atom
     end
   end
   
@@ -128,16 +132,6 @@ end
   # POST /events.xml
   
   def create
-    if params[:format] = "atom"
-      params[:event] = params[:feed][:entry]
-            params[:start_date0] = params[:event][:datetime][:start_date0]
-            params[:end_date0] = params[:event][:datetime][:end_date0]
-            params[:tag] = params[:event][:tag]
-      params[:event].delete :datetime
-      params[:event].delete :tag
-
-    end
-    
     
     @event = Event.new(params[:event])  
     indice = 0;
@@ -213,6 +207,7 @@ end
   
   # PUT /events/1
   # PUT /events/1.xml
+  # PUT /events/1.atom cuidado con los parametros!!!! TIENEN QUE SER IGUALES, ESTE METODO ES MUY PROBLEMATICO
   def update
     
     begin
@@ -318,6 +313,7 @@ end
   
   # DELETE /events/1
   # DELETE /events/1.xml
+  # DELETE /events/1.atom
   def destroy  
     
     @event = Event.find(params[:id])     

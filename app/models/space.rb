@@ -139,12 +139,14 @@ class Space < ActiveRecord::Base
 
   def self.atom_parser(data)
 
-    @data = data
     e = Atom::Entry.parse(data)
     space = {}
     space[:name] = e.title.to_s
     space[:description] = e.summary.to_s
     space[:public] = true
+    space[:deleted] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "deleted").text
+    space[:parent_id] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "where").text
+    space[:public] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
     
     { :space => space}     
   end

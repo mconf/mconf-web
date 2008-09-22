@@ -1,6 +1,6 @@
     atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005'}) do |feed|
       feed.title("Users")
-      feed.updated((@users.first.updated_at))
+      feed.updated((@users.first.updated_at unless @users.first==nil))
 
       for user in @users
         feed.entry(user) do |entry|

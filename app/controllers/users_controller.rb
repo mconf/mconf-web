@@ -25,6 +25,8 @@ class UsersController < ApplicationController
   before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
   before_filter :space_member, :only=>[:show]
   
+  set_params_from_atom :user, :only => [ :create, :update ]  
+  
   # GET /users
   # GET /users.xml
   # GET /users.atom
@@ -80,12 +82,13 @@ class UsersController < ApplicationController
   
   # POST /users
   # POST /users.xml
+  # POST /users.atom
   # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tag"=>{"add_tag"=>""}, "action"=>"create", 
   # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"", 
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
   def create
-    
+
     if params[:space_id]!=nil
       @space = Space.find(params[:space_id])
       #2 opciones, from email or from app
@@ -155,6 +158,7 @@ class UsersController < ApplicationController
   
   # PUT /users/1
   # PUT /users/1.xml
+  # PUT /users/1.atom
   #this method updates a user
   def update
     @user = User.find(params[:id])
@@ -209,7 +213,9 @@ class UsersController < ApplicationController
     
     # DELETE /users/1
     # DELETE /users/1.xml  
+    # DELETE /users/1.atom
     def destroy
+
       if params[:space_id]!=nil
         @space = Space.find(params[:space_id])
         if params[:remove_from_space]
@@ -219,10 +225,10 @@ class UsersController < ApplicationController
         end
       end
       
-      @user = Machine.find(params[:id])
+      @user = User.find(params[:id])
       @user.destroy
 
-      flash[:notice] = "User #{user.login} deleted"
+      flash[:notice] = "User #{@user.login} deleted"
       
     respond_to do |format|
       format.html { redirect_to users_path(:space_id => @space.id) }

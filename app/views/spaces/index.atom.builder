@@ -1,6 +1,6 @@
     atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005'}) do |feed|
       feed.title("Spaces")
-      feed.updated((@spaces.first.updated_at))
+      feed.updated((@spaces.first.updated_at  unless @spaces.first==nil))
 
       for space in @spaces
         feed.entry(space) do |entry|
