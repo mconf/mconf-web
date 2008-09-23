@@ -22,7 +22,7 @@
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
-			<%if @space.manage_groups_by?(current_user)%>
+			<%if @space.authorizes?(current_user, :manage_groups)%>
 				<%= sub_tab 'Create Group', new_space_group_path(@space.id)%>
 			<%end%>
 </ul>	
@@ -32,7 +32,7 @@
 			<%= sub_tab 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
-			<%if @space.manage_groups_by?(current_user)%>
+			<%if @space.authorizes?(current_user, :manage_groups)%>
 		<ul id="nav2">
 			    <%= sub_tab 'Add Users by email', new_space_user_path(@space.id, :by_email=>true) %> | 
 				<%= sub_tab 'Add Users from App', new_space_user_path(@space.id, :from_app =>true) %>
