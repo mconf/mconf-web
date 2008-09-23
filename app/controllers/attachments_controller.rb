@@ -38,7 +38,7 @@ class AttachmentsController < ApplicationController
       format.html {
         if !@content.new_record? && @entry.save
           
-          tag = params[:tag][:add_tag]    
+          tag = params[:tags]    
           @entry.tag_with(tag)
           @entry.category_ids = params[:category_ids]
           flash[:valid] = "#{ @content.class.to_s.humanize } created".t

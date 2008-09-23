@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
   def create
-
+    debugger
     if params[:space_id]!=nil
       @space = Space.find(params[:space_id])
       #2 opciones, from email or from app
@@ -127,13 +127,18 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         @user.tag_with(params[:tags]) if params[:tags]
-
         flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account." 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
+        format.atom { 
+          headers["Location"] = formatted_user_url(@user, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
       end
     end
     
@@ -189,6 +194,7 @@ class UsersController < ApplicationController
               redirect_to(space_user_profile_path(@space.id, @user.id)) 
             end }
           format.xml  { render :xml => @user }
+          format.atom { head :ok }
         else
           format.html { #the superuser will be redirected to list_users
             if current_user.superuser == true
@@ -197,6 +203,7 @@ class UsersController < ApplicationController
               redirect_to(space_user_profile_path(@space.id, @user.id)) 
             end }
           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+          format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
         end
       end 
          
@@ -225,6 +232,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_path(:space_id => @space.id) }
       format.xml  { head :ok }
+      format.atom { head :ok }
     end
       
       
@@ -290,7 +298,7 @@ class UsersController < ApplicationController
   #incluido en el controlador search (action => tag)
   def search_by_tag
     
-    @tag = params[:tag]
+    @tag = params[:tags]
     # @users = User.tagged_with(@tag)   
     #@user = User.find_by_contents(@tag)
     @users = User.tagged_with(@tag)

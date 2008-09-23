@@ -62,7 +62,7 @@ class UsersControllerTest < Test::Unit::TestCase
 
   def test_update_my_user
     login_as("user_normal")
-    post :update, :id=>25, :container_id => 1, :container_type => :spaces, :tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>25, :container_id => 1, :container_type => :spaces, :tags=>"bueno", :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     assert_response :redirect  
     assert flash[:notice].include?("User was successfully updated.")
@@ -71,7 +71,7 @@ class UsersControllerTest < Test::Unit::TestCase
   
   def test_update_another_user_not_being_admin
     login_as("user_normal")
-    post :update, :id=>24, :container_id => 1, :container_type => :spaces ,:tag=>{"add_tag"=>"bueno"}, :user => { :login => 'quire', :email => 'quire@example.com',
+    post :update, :id=>24, :container_id => 1, :container_type => :spaces ,:tags=>"bueno", :user => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }
     
     assert  flash[:notice].include?("Action not allowed")
@@ -117,7 +117,7 @@ end
  
   protected
     def create_user(options = {})
-      post :create, :container_id => 1, :container_type => :spaces, :tag=>{"add_tag"=>"bueno"}, :agent => { :login => 'quire', :email => 'quire@example.com',
+      post :create, :container_id => 1, :container_type => :spaces, :tags=>"bueno", :agent => { :login => 'quire', :email => 'quire@example.com',
         :password => 'quire', :password_confirmation => 'quire' }.merge(options)
     end
 end

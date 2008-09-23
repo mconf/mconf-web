@@ -80,7 +80,6 @@ class SpacesController < ApplicationController
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
-    debugger
     @space = Space.new(params[:space])
     
     respond_to do |format|
@@ -125,15 +124,13 @@ class SpacesController < ApplicationController
           @spaces = Space.find(:all )
           redirect_to :action => "show" , :id => @space.id
         }
-        format.atom {
-          head :ok
-        }
+        format.atom { head :ok }
       end
     else
       respond_to do |format|
         format.html { render :action => "index" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @content.errors.to_xml, :status => :not_acceptable }
+        format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
       end      
     end
   end

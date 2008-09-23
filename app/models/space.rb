@@ -134,9 +134,8 @@ class Space < ActiveRecord::Base
     space = {}
     space[:name] = e.title.to_s
     space[:description] = e.summary.to_s
-    space[:public] = true
     space[:deleted] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "deleted").text
-    space[:parent_id] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "where").text
+    space[:parent_id] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "parent_id").text
     space[:public] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
     
     { :space => space}     

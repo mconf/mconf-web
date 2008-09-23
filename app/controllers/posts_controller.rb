@@ -86,7 +86,7 @@ class PostsController < ApplicationController
                if params[:attachment]!= {"uploaded_data"=>""} #si hay cambio de attachment
                    @content.update_attributes(params[:attachment])
                end
-              tag = params[:tag][:add_tag]    
+              tag = params[:tags]   
               @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
@@ -101,14 +101,14 @@ class PostsController < ApplicationController
               @content= Attachment.create(params[:attachment])
               params[:post][:content]  = @content
               @post.update_attributes(params[:post]) && @post.update_attribute(:description , params[:content][:text])
-              tag = params[:tag][:add_tag]    
+              tag = params[:tags]   
               @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
               redirect_to post_url(@post)
             
             elsif !@content.new_record? &&  @post.update_attributes(params[:post]) && @content.update_attributes(:text => params[:content][:text])
-              tag = params[:tag][:add_tag]    
+              tag = params[:tags]    
               @post.tag_with(tag)
               @post.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t

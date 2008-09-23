@@ -873,22 +873,21 @@ class Event < ActiveRecord::Base
     event[:name] = e.title.to_s
     event[:description] = e.summary.to_s
     valid = "true"
-    end_date = "septiembre 28, 2008 17:41"
+    end_date = "octubre 4, 2008 17:41"
     event[:password] = "she"
     event[:all_participants_sites] = "5"
     event[:service] = "meeting.act"
     event[:quality] = "1M"
     password2 = "she"
     accomplished = "false"
-    tag = {}
-    tag[:add_tag] = "pico"
-    start_date = "septiembre 28, 2008 15:41"
+    tags = "pico"
+    start_date = "octubre 4, 2008 15:41"
     los_indices = "1"
     
     
 
     { :event => event, :is_valid_time0 => valid, :end_date0 => end_date, :password2 => password2, :accomplished0 => accomplished,
-    :tag => tag, :start_date0 => start_date, :los_indices => los_indices}     
+    :tags => tags, :start_date0 => start_date, :los_indices => los_indices}     
   end    
   
 end

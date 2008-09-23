@@ -533,7 +533,7 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
     #metodo que devuelve los eventos que tienen un tag, y los ususarios y los entries
   def search_by_tag    
     
-    @tag = params[:tag]
+    @tag = params[:tags]
     
     @events = Event.tagged_with(@tag) 
     @users = User.tagged_with(@tag) 

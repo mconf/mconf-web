@@ -205,7 +205,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good_warning_min_length
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>"5"}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"June 27, 2008 01:52",  :end_date0 =>"June 27, 2008 01:55", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>"5"}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"June 27, 2008 01:52",  :end_date0 =>"June 27, 2008 01:55", :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('smaller')
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -213,7 +213,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good_warning_max_length
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
   
@@ -221,7 +221,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true", :tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 19, 2008 06:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true", :tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 19, 2008 06:00", :container_type=>'space', :container_id=>'1'
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -230,7 +230,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_2
     #con otros valores
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"June 27, 2008 01:12",  :end_date0 =>"June 27, 2008 02:27", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"June 27, 2008 01:12",  :end_date0 =>"June 27, 2008 02:27", :container_type=>'space', :container_id=>'1'
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -239,7 +239,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_3
     #con otros valores
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :start_date0=>"December 19, 2008 02:03",  :end_date0 =>"December 19, 2008 12:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno",:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :start_date0=>"December 19, 2008 02:03",  :end_date0 =>"December 19, 2008 12:00", :container_type=>'space', :container_id=>'1'
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -247,7 +247,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_wrong_participans_nil
     #con otros valores
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"",:is_valid_participant1=>"", :start_date0=>"December 19, 2008 02:03",  :end_date0 =>"December 19, 2008 12:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno",:accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"",:is_valid_participant1=>"", :start_date0=>"December 19, 2008 02:03",  :end_date0 =>"December 19, 2008 12:00", :container_type=>'space', :container_id=>'1'
     
     
     
@@ -255,7 +255,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_integer_values
     #con valores numericos en vez de strings
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"January 19, 2008 02:00",  :end_date0 =>"January 19, 2008 04:40", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"January 19, 2008 02:00",  :end_date0 =>"January 19, 2008 04:40", :container_type=>'space', :container_id=>'1'
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -263,7 +263,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_good_2_datetimes
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"},:is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 19, 2008 05:55", :start_date1=>"June 19, 2008 02:00",  :end_date1 =>"June 19, 2008 03:03", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno",:is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 19, 2008 05:55", :start_date1=>"June 19, 2008 02:00",  :end_date1 =>"June 19, 2008 03:03", :container_type=>'space', :container_id=>'1'
     assert_equal 'Event was successfully created.', flash[:notice]
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -272,7 +272,7 @@ class EventsControllerTest < ActionController::TestCase
   def test_create_good_3_years_long
     #evento que dura 3 años
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2011 02:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true",:is_valid_participant1=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2011 02:00", :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('bigger')
     assert_redirected_to container_events_url(:container_id => '1', :container_type => "spaces", :date_start_day => assigns(:event).event_datetimes[0].start_date )
   end
@@ -280,7 +280,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 17, 2008 02:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 17, 2008 02:00", :container_type=>'space', :container_id=>'1'
     #now i am not redirected
     assert_response :success
     assert @response.body.include?("errors")
@@ -289,7 +289,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes_2
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true", :is_valid_time1=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"May 27, 2007 02:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true", :is_valid_time1=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"May 27, 2007 02:00", :container_type=>'space', :container_id=>'1'
     #now i am not redirected
     assert_response :success
   end
@@ -297,7 +297,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_create_with_error_in_datetimes_3
     login_as("user_normal")
-    post :create, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
+    post :create, :is_valid_time0=>"true",:tags=>"bueno", :is_valid_time1=>"true", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :start_date1=>"May 19, 2008 02:00",  :end_date1 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
     #now i am not redirected
     assert_response :success
   end 
@@ -343,14 +343,14 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_update_good
     login_as("user_admin")
-    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
+    post :update, :id=>38, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('successfully')
     assert_redirected_to :action => "show" 
   end
   
   def test_update_good_2
     login_as("user_admin")
-    post :update, :id=>38, :is_valid_time0=>"true",:tag=>{"add_tag"=>"bueno"}, :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"January 19, 2008 02:00",  :end_date0 =>"January 27, 2008 02:00", :start_date1=>"June 19, 2008 02:00",  :end_date1 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
+    post :update, :id=>38, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :old_name=>"public/xedls/moro-16-11-2006-at-0-0.xedl", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"January 19, 2008 02:00",  :end_date0 =>"January 27, 2008 02:00", :start_date1=>"June 19, 2008 02:00",  :end_date1 =>"June 27, 2008 02:00", :container_type=>'space', :container_id=>'1'
     assert flash[:notice].include?('successfully')
     assert_redirected_to :action => "show" 
   end
@@ -534,7 +534,7 @@ class EventsControllerTest < ActionController::TestCase
   
   def test_search_by_tag
     login_as("user_normal")
-    post :search_by_tag, :tag=>'imperial', :container_type=>'space', :container_id=>'1'
+    post :search_by_tag, :tags=>'imperial', :container_type=>'space', :container_id=>'1'
     assert_response :success
     #assert @response.body.include?("Title")
     assert_template 'search_by_tag'
