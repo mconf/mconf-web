@@ -14,12 +14,12 @@
 
 <% if logged_in? && @entry.tag_list  %>
 	<p><label for="keywords">Tags:</label>
-<%= text_field 'tag', 'add_tag','value' => @entry.tag_list   %></p>
+<%= text_field_tag 'tags', @entry.tag_list   %></p>
 	
       <% else %>
 	  
 	  <p><label for="keywords">Tags</label>
-<%= text_field 'tag', 'add_tag'   %></p>
+<%= text_field_tag 'tags'   %></p>
 	
 <%end%>
 

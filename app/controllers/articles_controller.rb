@@ -116,8 +116,7 @@ class ArticlesController < ApplicationController
             @title ||= "New #{ controller_name.singularize.humanize }".t
             end
           end
-          tag = params[:tag][:add_tag]    
-          @entry.tag_with(tag)
+          @entry.tag_with(params[:tags]) if params[:tags]
           @entry.category_ids = params[:category_ids]
           flash[:valid] = "#{ @content.class.to_s.humanize } created".t
           if params[:entry][:parent_id] == nil
@@ -257,15 +256,13 @@ class ArticlesController < ApplicationController
        i += 1;}
                    
            #   @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @attachment_entry.save && @content.update_attributes(:text => params[:content][:text])
-          #    tag = params[:tag][:add_tag]    
-          #    @entry.tag_with(tag)
+          #    @entry.tag_with(params[:tags]) if params[:tags]
            #   @entry.category_ids = params[:category_ids]
            #   flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
             #  redirect_to space_article_path(@container,@entry.content)
             
          if !@content.new_record? &&  @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
-              tag = params[:tag][:add_tag]    
-              @entry.tag_with(tag)
+              @entry.tag_with(params[:tags]) if params[:tags]
               @entry.category_ids = params[:category_ids]
               flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
               redirect_to space_article_path(@container,@entry.content)

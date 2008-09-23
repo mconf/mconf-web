@@ -40,12 +40,12 @@ class SearchController < ApplicationController
   end
   
   def tag
-    @tag = params[:tag]
+    @tag = Tag.find_by_name(params[:tag])
     
-    @events = Event.tagged_with(@tag) 
-    @users = User.tagged_with(@tag) 
+    @events = @tag.events
+    @users = @tag.users
     
-    @entries = Entry.tagged_with(@tag)
+    @entries = @tag.entries
     respond_to do |format|        
       format.html     
     end

@@ -1,5 +1,4 @@
 require 'ferret'
-require 'has_many_polymorphs'
 
 class Event < ActiveRecord::Base
   acts_as_ferret :fields => {  
@@ -14,6 +13,7 @@ class Event < ActiveRecord::Base
              :dependent => :destroy 
     has_many :machines, :through => :participants
     acts_as_content
+    acts_as_taggable
     alias_attribute :title, :name
     validates_presence_of :name, 
                           :message => "must be specified"

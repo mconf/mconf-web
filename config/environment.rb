@@ -59,8 +59,6 @@ Rails::Initializer.run do |config|
   config.gem "mislav-will_paginate", :lib => 'will_paginate',
                                      :version => '>= 2.3.2',
                                      :source => 'http://gems.github.com/'
-#  config.gem "has_many_polymorphs" #, :lib => 'will_paginate',
-
 end
 include CMS
 include Globalize
@@ -111,5 +109,3 @@ ActionMailer::Base.raise_delivery_errors = true
                             "/logs/isabelGuard.log 2>&1 &"
       object_IO = IO.popen(command_isabelguard)
    end
-
-require 'tagging_extensions'

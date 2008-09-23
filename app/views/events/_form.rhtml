@@ -30,7 +30,7 @@
 </TR>
 <TR>
 <TD class=fieldEvent width=20%><label for="event_keywords">Keywords (*):</label></TD>
-<TD colspan=3><%= text_field 'tag', 'add_tag', 'value' => @event.tag_list  %></TD>
+<TD colspan=3><%= text_field_tag 'tags', @event.tag_list  %></TD>
 </TR>
 </TABLE>
 

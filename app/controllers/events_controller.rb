@@ -176,8 +176,7 @@ end
     
     respond_to do |format|
       if @event.save
-        tag = params[:tag][:add_tag]    
-        @event.tag_with(tag)
+        @event.tag_with(params[:tags]) if params[:tags]
         
         @entry = Entry.create(:agent       => current_agent,
                                  :container   => @container,
@@ -289,8 +288,7 @@ end
           
           logger.debug("Now we save the event")
           @event.save!
-          tag = params[:tag][:add_tag]    
-          @event.tag_with(tag)
+          @event.tag_with(params[:tags]) if params[:tags]
           flash[:notice] = 'Event was successfully updated.<br>'
           if EventDatetime.datetime_max_length(@event.event_datetimes)
             flash[:notice] = flash[:notice] + "Warning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."

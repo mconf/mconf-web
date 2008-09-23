@@ -22,11 +22,11 @@
   
 	<% if logged_in? && @agent.tag_list  %>
 	<p><label for="keywords">Interests</label><br/>
-<%= text_field 'tag', 'add_tag','value' => @agent.tag_list   %></p>
+<%= text_field_tag 'tags', @agent.tag_list   %></p>
 	
       <% else %>
 	  
 	  <p><label for="keywords">Interests</label><br/>
-<%= text_field 'tag', 'add_tag'   %></p>
+<%= text_field_tag 'tags'   %></p>
 	
 <%end%>

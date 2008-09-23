@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   # POST /users.atom
-  # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tag"=>{"add_tag"=>""}, "action"=>"create", 
+  # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tags"=>"", "action"=>"create", 
   # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"", 
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
@@ -126,11 +126,8 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.save
-        if params[:tag]!= nil
-          tag = params[:tag][:add_tag]    
-          @user.tag_with(tag)
-          
-        end
+        @user.tag_with(params[:tags]) if params[:tags]
+
         flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account." 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
@@ -179,16 +176,11 @@ class UsersController < ApplicationController
       end
 
 =end     
-      if params[:tag]
-        tag = params[:tag][:add_tag]    
-      end
- 
       
       respond_to do |format|
         if @user.update_attributes(params[:user])
-          if tag!=nil
-            @user.tag_with(tag)
-          end
+          @user.tag_with(params[:tags]) if params[:tags]
+
           flash[:notice] = 'User was successfully updated.'     
           format.html { #the superuser will be redirected to list_users
             if current_user.superuser == true
