@@ -88,9 +88,15 @@ class SpacesController < ApplicationController
         flash[:notice] = 'Space was successfully created.'
         format.html { redirect_to(:action => "index", :controller => "spaces") }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
+        format.atom { 
+          headers["Location"] = formatted_space_url(@space, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
     end
   end
@@ -112,15 +118,22 @@ class SpacesController < ApplicationController
         end
       end
       @space.save!
-      flash[:notice] = 'Space was successfully updated.'
-      @spaces = Space.find(:all )
-      
-      redirect_to :action => "show" , :id => @space.id
-      
+
+      respond_to do |format|
+        format.html { 
+          flash[:notice] = 'Space was successfully updated.'
+          @spaces = Space.find(:all )
+          redirect_to :action => "show" , :id => @space.id
+        }
+        format.atom {
+          head :ok
+        }
+      end
     else
       respond_to do |format|
         format.html { render :action => "index" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @content.errors.to_xml, :status => :not_acceptable }
       end      
     end
   end
@@ -136,6 +149,7 @@ class SpacesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(spaces_url) }
       format.xml  { head :ok }
+      format.atom { head :ok }
     end
   end
 
