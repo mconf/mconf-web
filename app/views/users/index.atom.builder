@@ -1,4 +1,5 @@
-    atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005'}) do |feed|
+    atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005', 
+    'xmlns:sir' => 'http://sir.dit.upm.es/schema'}) do |feed|
       feed.title("Users")
       feed.updated((@users.first.updated_at unless @users.first==nil))
 

@@ -879,26 +879,41 @@ class Event < ActiveRecord::Base
     
  def self.atom_parser(data)
 
+    resultado = {}
     e = Atom::Entry.parse(data)
     event = {}
     event[:name] = e.title.to_s
     event[:description] = e.summary.to_s
-    valid = "true"
-    end_date = "octubre 4, 2008 17:41"
-    event[:password] = "she"
-    event[:all_participants_sites] = "5"
-    event[:service] = "meeting.act"
-    event[:quality] = "1M"
-    password2 = "she"
-    accomplished = "false"
-    tags = "pico"
-    start_date = "octubre 4, 2008 15:41"
-    los_indices = "1"
     
+    event[:password] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "password").text
+    event[:all_participants_sites] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "all_participant_sites").text
+    event[:service] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "service").text
+    event[:quality] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "quality").text
     
+    resultado[:password2] = event[:password]
+    
+    resultado[:event] = event
 
-    { :event => event, :is_valid_time0 => valid, :end_date0 => end_date, :password2 => password2, :accomplished0 => accomplished,
-    :tags => tags, :start_date0 => start_date, :los_indices => los_indices}     
+    e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "when").each do |times|
+      i = times.attribute('valueString').to_s
+      param_start_date = "start_date"+i
+      param_end_date = "end_date"+i
+      param_is_valid_time = "is_valid_time"+i
+      resultado[param_start_date.to_sym] = times.attribute('startTime').to_s.to_datetime
+      resultado[param_end_date.to_sym] = times.attribute('endTime').to_s.to_datetime
+      resultado[param_is_valid_time.to_sym] = "true"
+    end
+   
+    t = []
+    e.categories.each do |c|
+      unless c.scheme
+        t << c.term
+      end
+    end
+    
+    resultado[:tags] = t.join(sep=",")
+
+    return resultado     
   end    
   
 end

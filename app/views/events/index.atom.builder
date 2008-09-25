@@ -1,4 +1,5 @@
-    atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005'}) do |feed|
+    atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005', 
+    'xmlns:sir' => 'http://sir.dit.upm.es/schema'}) do |feed|
       feed.title("Events")
       feed.updated((@events.first.content_entries.first.updated_at unless @events.first==nil))
 
@@ -8,6 +9,11 @@
           entry.summary(event.description)
           entry.updated((event.content_entries.first.updated_at.to_datetime))
           
+          index = 0
+          event.event_datetimes.each do |d|         
+          entry.tag!('gd:when', :startTime => d.start_date, :endTime => d.end_date, :valueString => index.to_s)
+          index+1
+          end         
 
           entry.author do |author|
             author.name("SIR")

@@ -88,7 +88,6 @@ class UsersController < ApplicationController
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
   def create
-    debugger
     if params[:space_id]!=nil
       @space = Space.find(params[:space_id])
       #2 opciones, from email or from app

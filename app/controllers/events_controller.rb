@@ -134,9 +134,10 @@ end
   
   # POST /events
   # POST /events.xml
+  # POST /events.atom
   
   def create
-    
+    debugger
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
@@ -199,9 +200,15 @@ end
         format.html { redirect_to space_events_path(@container, :date_start_day => @event.event_datetimes[0].start_date) }
 
         format.xml  { render :xml => @event, :status => :created, :location => @event }
+        format.atom { 
+          headers["Location"] = formatted_space_event_url(@space,@event, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else        
         format.html { render :action => "new" }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @event.errors.to_xml, :status => :bad_request }
       end
     end
   end
