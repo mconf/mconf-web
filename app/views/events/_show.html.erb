@@ -68,7 +68,10 @@ URLs for the session</b>
         
     <%end%>   
 <div class="bot_right">
-	<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+<%if logged_in? && @event.authorizes?(current_user, :edit)%>
+	<!--
+	<% logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
+-->
                 <%#if !already_accomplished(event)
                   #uncomment if you want an event in the past not to be editable
                   %>				  

@@ -30,7 +30,7 @@
 
 <br>
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
-<%= link_to 'Edit', edit_space_article_path(@space, @content) %> |
+ <%if @entry.authorizes?(current_user, :edit)%><%= link_to 'Edit', edit_space_article_path(@space, @content) %> |<%end%> 
 <%= link_to 'Back', space_articles_path(@container) %>
 </div>
 <%end%>

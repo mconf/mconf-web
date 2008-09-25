@@ -18,6 +18,17 @@ class Event < ActiveRecord::Base
     validates_presence_of :name, 
                           :message => "must be specified"
    
+   def authorizes?(agent, actions)
+    return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
+    
+     actions = Array(actions)
+
+    if actions.delete(:edit)
+      return true if self.entry.agent == agent 
+    end
+    
+    false
+  end
    
    
    def tag_list2

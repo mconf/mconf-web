@@ -120,18 +120,13 @@ class ApplicationController < ActionController::Base
   end
   #this method returns the coming 5 events
   def next_events
-    @events = [];
-    if @space.id ==1
-    @entries = Entry.find_all_by_container_type_and_public_read_and_content_type('Space',true,'Event',:order => "updated_at DESC")  
-    else
-    @entries = Entry.find_all_by_container_type_and_container_id_and_content_type('Space',@space.id,'Event',:order => "updated_at DESC")
-    end
+    @events = if @space.id == 1
+                Event.in_container(nil).all :conditions => [ "public_read = ?", true],
+                                            :order => "updated_at DESC"
+              else
+                Event.in_container(@space).all :order => "updated_at DESC"
+              end
     
-    @entries.each do |event|
-      if event != nil
-        @events << event.content
-      end
-    end
     #today = Date.today
     
     #date1ok =  today.strftime("%Y%m%d")

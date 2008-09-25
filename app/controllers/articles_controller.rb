@@ -20,6 +20,8 @@ class ArticlesController < ApplicationController
   #before_filter :get_space_from_entry, :only => [ :show, :edit, :update ]
   before_filter :get_cloud
   
+  authorization_filter :article, :edit, :only=>[:edit,:update]
+  
   def index
      session[:current_tab] = "Posts"
      session[:current_sub_tab] = ""

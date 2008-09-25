@@ -11,4 +11,17 @@ after_create {|entry|if entry.parent_id != nil
 }
 
 after_update { |entry| entry.children.map {|entry_children| entry_children.update_attribute(:public_read, entry.public_read) } }
+
+  def authorizes?(agent, actions)
+    return true if agent.superuser || self.has_role_for?(agent, :admin)
+    
+     actions = Array(actions)
+
+    if actions.delete(:edit)
+      return true if self.agent == agent 
+    end
+    
+    false
+  end
+  
 end

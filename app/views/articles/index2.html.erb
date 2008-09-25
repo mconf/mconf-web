@@ -24,8 +24,8 @@
 	  	<%end%>
   		Description: <%= entry.description%><br>
 	
-		<%= link_to 'Edit',edit_space_article_path(@space, entry.content) %>
-   		<%= link_to 'Destroy', space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete %>
+		<%if entry.authorizes?(current_user, :edit)%><%= link_to 'Edit',edit_space_article_path(@space, entry.content) %><%end%> 
+   		<%if entry.authorizes?(current_user, :destroy)%><%= link_to 'Destroy', space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete %><%end%> 
    		<%= link_to 'Comments', "#{ space_article_path(entry.container,entry.content)}#comments" %>
 
 	

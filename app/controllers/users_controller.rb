@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   # GET /users.atom
   
   def index
-    if params[:only_space_users]
+    if params[:only_space_users]  || params[:space_id] != "1"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = @space.actors

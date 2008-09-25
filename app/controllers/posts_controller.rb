@@ -21,6 +21,9 @@ class PostsController < ApplicationController
   before_filter :get_public_posts, :only => [:index,:show]
 # before_filter :space_member, :only=>[:index, :show]
   before_filter :redirect_to_comment, :only => [ :show ]
+  
+  #authorization_filter :article, :edit, :only=>[:edit,:update]
+  #authorization_filter :entry, :destroy, :only=>[:delete]
  
    def index
    

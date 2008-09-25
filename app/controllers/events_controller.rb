@@ -19,9 +19,11 @@ class EventsController < ApplicationController
   #before_filter :no_machines, :only => [:new, :edit,:create]
   before_filter :owner_su, :only => [:edit, :update, :destroy]
   
+  #authorization_filter :event, :edit, :only=>[:edit,:update]
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show, :copy_next_week, :remove_time]
   
   set_params_from_atom :event, :only => [ :create, :update ]
+  
   
   # GET /events
   # GET /events.xml
@@ -82,14 +84,16 @@ end
           params[:event_id] = params[:id]   
         end
         begin
-          @event = Event.find(params[:event_id]) 
+          @event = Event.in_container(nil).first(params[:event_id])
+          #@event = Event.find(params[:event_id]) 
           @show_summary = true
         rescue
         end
       end
     else
       @datetime = Date.today
-      @event = Event.find(params[:id])
+      @event = Event.in_container(nil).first(params[:event_id])
+      #@event = Event.find(params[:id])
       @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
     end
     

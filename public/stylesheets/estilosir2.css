@@ -26,7 +26,7 @@ a:link, a:visited, a:hover, p{
 	left:50%;
 	margin-left:-62px;
 	margin-top:10px;
-	background-image:url(../images/SIR2.jpg);
+	/*background-image:url(../images/SIR2.jpg);*/
 	background-repeat:no-repeat;
 }
 
@@ -492,3 +492,51 @@ span.clip{
 	display:inline-block;
 	text-align: left;
 }
+
+div.col_public{
+	width:725px;
+	position:relative;
+	left:-12px;
+	display:inline-block;
+	text-align: left;
+	color: blue;
+}
+
+div.user_public{
+	width:725px;
+	position:relative;
+	left:-12px;
+	display:inline-block;
+	text-align: left;
+}
+div.name{
+	width:200px;
+	position:relative;
+	left:5px;
+	display:inline-block;
+	text-align: left;
+}
+
+div.organization{
+	width:120px;
+	position:relative;
+	left:5px;
+	display:inline-block;
+	text-align: left;
+}
+div.interests{
+	width:150px;
+	position:relative;
+	left:20px;
+	display:inline-block;
+	text-align: left;
+}
+div.members{
+	width:200px;
+	position:relative;
+	left:30px;
+	display:inline-block;
+	text-align: left;
+}
+
+

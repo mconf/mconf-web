@@ -1,0 +1,17 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+<% rounded(:class => "tips") do %>
+<%if @users.length== 0%>
+<%= "No users found"%>
+<%else%>
+<div class="col_public"><%=generate_user_table%></div>
+<%for user in @users do%>
+	<div class="user_public">
+	<%=show_list_user(user)%>
+	</div>
+<%end%>
+<%end%>
+<%end%>
+</div>
+</div>
+	<%= render :partial =>'shared/sidebar_users'%>
