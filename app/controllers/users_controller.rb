@@ -62,6 +62,7 @@ class UsersController < ApplicationController
       format.html
       format.xml { render :xml => @user }
       format.atom
+      format.atomsvc
     end
   end
   
@@ -117,7 +118,7 @@ class UsersController < ApplicationController
         @space_id = invitation.space_id
         space= Space.find(@space_id)
         
-        if space.container_performances.create :user => @user, :role => Role.find_by_id(invitation.role_id)
+        if space.container_performances.create :agent => @user, :role => Role.find_by_id(invitation.role_id)
           invitation.destroy
         end
       end
