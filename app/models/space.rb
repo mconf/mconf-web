@@ -38,13 +38,10 @@ class Space < ActiveRecord::Base
   def authorizes?(agent, actions)
     return true if agent.superuser || has_role_for?(agent, :admin)
 
-    actions = Array(actions)
-
-    if actions.delete(:manage_groups)
-      return true if has_role_for?(agent, :create_performances) 
+    Array(actions).each do |action|
+      return false unless self.has_role_for?(agent, action)
     end
-
-    false
+    true
   end
 
   #method to print an array of the user names
