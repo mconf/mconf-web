@@ -187,9 +187,7 @@ class ApplicationController < ActionController::Base
   def space_member
     
     if params[:space_id]
-    @container = @space = Space.find(params[:space_id])
-  else
-    @container = @space = Space.find(params[:id])
+      @container = @space = Space.find(params[:space_id])
     end
     if @space.id == 1  || @space.public==true
       
