@@ -1,4 +1,4 @@
-class Article < XhtmlText
+class Article < ActiveRecord::Base
   acts_as_content 
   acts_as_ferret :fields => {  
     :title=> {:store => :yes} ,
