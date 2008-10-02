@@ -14,14 +14,6 @@ class Article < ActiveRecord::Base
  # :include => [{:class_name => 'Tag', :field => 'name', :association_sql => "JOIN taggings ON taggings.tag_id = tags.id" }]
   
 
-
-  
-  
-  def description    
-    @entry = Entry.find_by_content_type_and_content_id("Article", self.id)
-    return @entry.description
-  end
-  
    def authorizes?(agent, actions)
     return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
     
