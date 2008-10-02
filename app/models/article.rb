@@ -2,12 +2,13 @@ class Article < ActiveRecord::Base
   acts_as_content 
   acts_as_ferret :fields => {  
     :title=> {:store => :yes} ,
-    :description=> {:store => :yes} ,
     :text=> {:store => :yes} ,
     :tags=> {:store => :yes} ,
   }
   
     acts_as_taggable
+
+    validates_presence_of :title, :text
  # is_indexed :fields => ['text','title']#,
   
 #  :include => [{:class_name => 'Entry', :field => 'title', :association_sql => "" }],
