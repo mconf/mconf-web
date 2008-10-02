@@ -112,6 +112,7 @@ class ArticlesController < ApplicationController
     @article.entry = Entry.new(params[:entry].merge({ :agent => current_agent,
         :container => @container,
         :content => @article,
+        :title => params[:article][:title],
         :description => params[:article][:text],
         }))
         
@@ -133,6 +134,7 @@ class ArticlesController < ApplicationController
      attach.entry = Entry.new({ :agent => current_agent,
           :container => @container,
           :content => attach, 
+          :title => params[:article][:title],
           :description => params[:article][:text],
           :parent_id => @parent_id})
           
@@ -165,7 +167,7 @@ class ArticlesController < ApplicationController
           #@entry.tag_with(params[:tags]) if params[:tags]
           #@entry.category_ids = params[:category_ids]
           #flash[:valid] = "#{ @content.class.to_s.humanize } created".t
-          debugger
+         
           if params[:entry][:parent_id] == nil
             redirect_to space_article_url(@space, @article)
           else
