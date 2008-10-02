@@ -1,7 +1,7 @@
 class Attachment < ActiveRecord::Base
   acts_as_content :has_media => :attachment_fu
   has_attachment :max_size => 4.megabyte
-
+  acts_as_taggable
   belongs_to :db_file
 
   alias_attribute :media, :uploaded_data

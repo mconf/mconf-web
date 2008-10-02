@@ -1,6 +1,8 @@
-
-<%@posts.each do |entry|%>
-<%=show_article(entry,entry.container)%>
-
-<% end -%>
-
+<%debugger%>
+<%if @posts == nil%>
+No post created
+<%else%>
+	<%@posts.each do |entry|%>
+	<%=show_article(entry,entry.container)%>
+	<% end -%>
+<%end%>

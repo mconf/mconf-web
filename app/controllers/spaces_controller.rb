@@ -39,11 +39,11 @@ class SpacesController < ApplicationController
     @posts = []
     if @space.id == 1
       
-      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'XhtmlText'}.first(10)
+      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}.first(10)
    else
-     @space_articles = (Entry.find_all_by_content_type_and_container_id('XhtmlText', @space.id, :order => "updated_at DESC")).select {|e| e.parent_id == nil}
+     @space_articles = (Entry.find_all_by_content_type_and_container_id('Article', @space.id, :order => "updated_at DESC")).select {|e| e.parent_id == nil}
      @posts = @space_articles.first(5)
-     # @space_articles = @space.container_entries.find_all_by_content_type('XhtmlText', :order => "updated_at DESC")
+     # @space_articles = @space.container_entries.find_all_by_content_type('Article', :order => "updated_at DESC")
      # @posts = get_last_updated(@space_articles).first(5)
     end
     
@@ -306,9 +306,9 @@ class SpacesController < ApplicationController
   #def get_last_updated(post)
   #   array =[]
   #   post.each{|e| 
-  #    if (e.parent_id == nil && e.content_type == 'XhtmlText')
+  #    if (e.parent_id == nil && e.content_type == 'Article')
   #      array << e unless array.include?(e)
-  #    elsif (e.parent_id != nil && e.content_type == 'XhtmlText')
+  #    elsif (e.parent_id != nil && e.content_type == 'Article')
   #      array << e.parent unless array.include?(e.parent)
   #    end
   #    }

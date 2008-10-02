@@ -1,26 +1,17 @@
 <p>
   <b>Title</b><br/>
-  <%= text_field_tag :title, params[:title], :size => 50 %>
+  <%= form.text_field :title, :size => 50 %>
 </p>
 
 <p>
-	<%if params[:container_type] == 'spaces'%>
- 
+  <b>Text</b><br/>
+  <%= fckeditor_textarea(:article, :text, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %> 
 </p>
-<% end%>
 
-<%= render :partial => "articles/form2" %>
+<%= render :partial => 'attach' %>
 
 
-<% if logged_in? && @entry.tag_list  %>
-	<p><label for="keywords">Tags:</label>
-<%= text_field_tag 'tags', @entry.tag_list   %></p>
+<p><label for="keywords">Tags:</label>
+<%= text_field_tag 'tags', @article.tag_list   %></p>
 	
-      <% else %>
-	  
-	  <p><label for="keywords">Tags</label>
-<%= text_field_tag 'tags'   %></p>
-	
-<%end%>
-
-<%= render :partial => "articles/permissions_form", :object => form -%>
+<%= render :partial => "permissions_form" -%>

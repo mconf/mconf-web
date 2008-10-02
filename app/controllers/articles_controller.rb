@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   # Needs a Container when posting a new Article
   before_filter :needs_container, :only => [ :new, :create ]
   
-  before_filter :get_entry, :except => [ :index, :new, :create ]
+#  before_filter :get_entry, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
   # Get Article in member actions
   before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
@@ -31,14 +31,14 @@ class ArticlesController < ApplicationController
           else
             number_pages = 10
           end
-          
+
           @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @container.name }"
           # All the Entries this Agent can read in this Container
           @collection = @container.container_entries.find(:all,
-                                                        :conditions => { :content_type => "XhtmlText" , :parent_id => nil },
+                                                        :conditions => { :content_type => "Article" , :parent_id => nil },
                                                         :order => "updated_at DESC")
            if @space.id==1
-            @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'XhtmlText'}.paginate(:page => params[:page], :per_page => number_pages)
+            @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}.paginate(:page => params[:page], :per_page => number_pages)
             else
           # Paginate them
           @entries = @collection.paginate(:page => params[:page], :per_page => number_pages)
@@ -72,77 +72,122 @@ class ArticlesController < ApplicationController
     end
     
   def create
-
-    # Fill params when POSTing raw data
-    set_params_from_raw_post
     
-    set_params_title_and_description(self.resource_class)
+    #creación del Artículo padre
+    @article = Article.new(params[:article])
+    if !@article.valid?
+      flash[:error] = "The content of the article can't be empty"  
+     render :action => "new"    
+     return
+    end  
     
-    # FIXME: we should look for an existing content instead of creating a new one
-    # every time a Content is posted.
-    # Idea: Should use SHA1 on one or some relevant Content field(s) 
-    # and find_or_create_by_sha1
-    
-    @last_attachment = params[:last_post]
-    @content = Article.create(params[:content])
-    if params[:entry][:parent_id]
-      params[:entry][:public_read] = true
-    end
-    @entry = Entry.create(params[:entry].merge({ :agent => current_agent,
-        :container => @container,
-        :content => @content,
-        :description => params[:content][:text]}))
+   
+    #Creación de los Attachments
     i=0;
-
-   (@last_attachment.to_i).times  {
+    @attachments = []
+    @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
+     
+     (@last_attachment.to_i).times  {
       if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
-          @attachment_content = Attachment.create(params[:"attachment#{i}"]) 
-          @attachment_entry = @entry.children.create({ :agent => current_agent,
-          :container => @container,
-          :content => @attachment_content, 
-          :description => params[:content][:text],
-          :title => params[:title],
-          :parent_type => @entry.content,
-          :public_read => params[:entry][:public_read]})
+          @attachment = Attachment.new(params[:"attachment#{i}"]) 
+          @attachments << @attachment
       end
       i += 1;}
+    
+      
+      @attachments.each do |attach|
+        if !attach.valid?
+          flash[:error] = "The attachment is not valid"  
+          render :action => "new"   
+          return
+        end
+      end
+      
+     
+     
+    #if params[:entry][:parent_id]
+    #  params[:entry][:public_read] = true
+    #end
+
+    @article.entry = Entry.new(params[:entry].merge({ :agent => current_agent,
+        :container => @container,
+        :content => @article,
+        :description => params[:article][:text],
+        }))
+        
+    
+    @entry = @article.entry   #estas hay que cambiarlas porque son ñapas y encima no van
+    @entry.save
+    @parent_id = @entry.id  
+    @article.save!
+
+     #pone las tags a la entrada asociada al artículo
+     @article.tag_with(params[:tags]) if params[:tags]
+     #@article.category_ids = params[:category_ids]
+     flash[:valid] = "Article created".t
+ 
+
+    #grabación de los attachments asociados a las entries
+ @attachments.each do |attach|
+    
+     attach.entry = Entry.new({ :agent => current_agent,
+          :container => @container,
+          :content => attach, 
+          :description => params[:article][:text],
+          :parent_id => @parent_id})
+          
+     
+      
+      @attachments.each do |attach|
+        attach.save!
+        attach.tag_with(params[:tags]) if params[:tags]
+      end
+    # @attachment_entry.save!  
+
+     #@attachment_entry.tag_with(params[:tags]) if params[:tags]
+     #@attachment_entry.category_ids = params[:category_ids]
+     
+     
+       
+ end
     respond_to do |format| 
       format.html {
-        if !@content.new_record? && @entry.save ####Siempre comprueba el entry padre  
-          if params[:attachment0] != {"uploaded_data"=>""}    #####Si tiene attachment, comprueba si se han salvado bien
-            if !@attachment_content.new_record? && @attachment_entry.save  
-            else
-            @attachment_content.destroy unless @attachment_content.new_record?
-            @attachment_entry.destroy
-            @collection_path = space_articles_path
-            @title ||= "New #{ controller_name.singularize.humanize }".t
-            end
-          end
-          @entry.tag_with(params[:tags]) if params[:tags]
-          @entry.category_ids = params[:category_ids]
-          flash[:valid] = "#{ @content.class.to_s.humanize } created".t
+      #  if !@content.new_record? && @entry.save ####Siempre comprueba el entry padre  
+       #   if params[:attachment0] != {"uploaded_data"=>""}    #####Si tiene attachment, comprueba si se han salvado bien
+        #    if !@attachment_content.new_record? && @attachment_entry.save  
+         #   else
+          #  @attachment_content.destroy unless @attachment_content.new_record?
+           # @attachment_entry.destroy
+            #@collection_path = space_articles_path
+            #@title ||= "New #{ controller_name.singularize.humanize }".t
+            #end
+          #end
+          #@entry.tag_with(params[:tags]) if params[:tags]
+          #@entry.category_ids = params[:category_ids]
+          #flash[:valid] = "#{ @content.class.to_s.humanize } created".t
+          debugger
           if params[:entry][:parent_id] == nil
-            redirect_to space_article_url(@space, @entry.content_id)
+            redirect_to space_article_url(@space, @article)
           else
-            redirect_to space_article_url(@space, @entry.parent.content)
+            redirect_to space_article_url(@space, @article.parent.content)
           end
           
-        else
-          @content.destroy unless @content.new_record?
-          @collection_path = space_articles_path
-          @title ||= "New #{ controller_name.singularize.humanize }".t
-          if @container.class == Entry 
+        #else
+        #  @content.destroy unless @content.new_record?
+        #  @collection_path = space_articles_path
+        #  @title ||= "New #{ controller_name.singularize.humanize }".t
+        #  if @container.class == Entry 
           
-            @entry_ = @entry
-            @entry = @container
-            @errors = true
-            render :template => "articles/show" , :object => {@errors, @entry_}
-          else
-          @errors = true
-          @entry_= @entry
-            render :template => "articles/new" , :object => {@entry_, @errors}
-          end
-        end
+        #    @entry_ = @entry
+        #    @entry = @container
+        #    @errors = true
+        #    render :template => "articles/show" , :object => {@errors, @entry_}
+        #  else
+        #  @errors = true
+        #  @entry_= @entry
+        #    render :template => "articles/new" , :object => {@entry_, @errors}
+        #  end
+        #end
       }
       
       format.atom {
@@ -168,19 +213,18 @@ class ArticlesController < ApplicationController
   
   def new 
         session[:current_sub_tab] = "New article"
-        @collection_path = space_articles_path
-        @entry = Entry.new
-        @entry.content = @content = instance_variable_set("@#{controller_name.singularize}", controller_name.classify.constantize.new)
+        @article = Article.new
+        @article.entry = Entry.new
         @title ||= "New #{ controller_name.singularize.humanize }".t
-        render :template => "articles/new"
+
   end
   
      # Show this Entry
       #   GET /articles/:id
       def show
-        @title ||= @entry.title
-        @comment_children = @entry.children.select{|c| c.content.is_a? Article}
-        @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
+        @title ||= @article.title
+        @comment_children = @article.entry.children.select{|c| c.content.is_a? Article}
+        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
         
         respond_to do |format|
           format.html
@@ -212,50 +256,96 @@ class ArticlesController < ApplicationController
    # Renders form for editing this Entry metadata
       #   GET /articles/:id/edit
       def edit
-        get_params_title_and_description(@entry)
-        @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
-        params[:category_ids] = @entry.category_ids
-    
-        render :template => "articles/edit"
+        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
+#        params[:category_ids] = @entry.category_ids
       end
   
   # Update this Entry metadata
       #   PUT /articles/:id
       def update       
-       set_params_title_and_description(@entry.content) 
        
         # If the Content of this Entry hasn't attachment, update it here
         # If it has, update via media
         # 
         # TODO: find old content when only entry params are updated
         # Avoid the user changes container through params
-        params[:entry][:container] = @entry.container
-        #params[:entry][:agent]     = current_agent Problema.Con esto edito al usuario por eso lo cambio
-        params[:entry][:agent] = @entry.agent
-        params[:entry][:content]   = @content
+        params[:entry][:container] = @space
+        params[:entry][:agent]     = current_agent #Problema.Con esto edito al usuario por eso lo cambio
+        #params[:entry][:agent] = @entry.agent
+        params[:entry][:content]   = @article
    
-   @last_attachment = params[:last_post]
-   @attachment_children = @entry.children.select{|c| c.content.is_a? Attachment}
-   @attachment_children.each{|children|
-      if params[:"#{children.id}"] == "false"
-        children.content.destroy
+        #elimina los attachments quitados al editar
+        @last_attachment = params[:last_post]
+        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
+        @attachment_children.each{|children|
+        if params[:"#{children.id}"] == "false"
+          children.content.destroy
+        end
+            }
+            
+        #actualizo los atributos del artículo
+        @article.attributes = params[:articles]
+        if !@article.valid?
+          flash[:error] = "The content of the article can't be empty"  
+          render :action => "edit"    
+          return
+        end  
+        
+        #creo los attachments y los valido
+         i=0;
+    @attachments = []
+    @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
+     
+     (@last_attachment.to_i).times  {
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+          @attachment = Attachment.new(params[:"attachment#{i}"]) 
+          @attachments << @attachment
       end
-   }
+      i += 1;}
+    
+      
+      @attachments.each do |attach|
+        if !attach.valid?
+          flash[:error] = "The attachment is not valid"  
+          render :action => "edit"   
+          return
+        end
+      end 
+        
+        @article.entry.attributes = params[:entry].merge({ :agent => current_agent,
+        :container => @container,
+        :content => @article,
+        :description => params[:article][:text],
+        })
+        
+        @parent_id = @article.entry.id  
+        #@entry = @article.entry   #estas hay que cambiarlas porque son ñapas y encima no van
+        @article.save!
+    
+        #pone las tags a la entrada asociada al artículo
+        @article.tag_with(params[:tags]) if params[:tags]
+        #@article.category_ids = params[:category_ids]
+        flash[:valid] = "Article created".t
+           
+        #grabación de los attachments asociados a las entries
+        @attachments.each do |attach|
+    
+        attach.entry = Entry.new({ :agent => current_agent,
+          :container => @container,
+          :content => attach, 
+          :description => params[:article][:text],
+          :parent_id => @parent_id})
+                
+        @attachments.each do |attach|
+          attach.save!
+          attach.tag_with(params[:tags]) if params[:tags]
+       end 
+            
+ end   
+            
         respond_to do |format|
           format.html {
-           i=0;
-   (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
-          @attachment_content = Attachment.create(params[:"attachment#{i}"]) 
-          @attachment_entry = @entry.children.create({ :agent => current_agent,
-                  :container => @container,
-                  :content => @attachment_content, 
-                  :description => params[:content][:text],
-                  :title => params[:title],
-                  :parent_type => @attachment_content.type,
-                  :public_read => params[:entry][:public_read]})
-       end
-       i += 1;}
+          
                    
            #   @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @attachment_entry.save && @content.update_attributes(:text => params[:content][:text])
           #    @entry.tag_with(params[:tags]) if params[:tags]
@@ -263,14 +353,14 @@ class ArticlesController < ApplicationController
            #   flash[:valid] = "#{ @content.class.to_s.humanize } updated".t 
             #  redirect_to space_article_path(@container,@entry.content)
             
-         if !@content.new_record? &&  @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
-              @entry.tag_with(params[:tags]) if params[:tags]
-              @entry.category_ids = params[:category_ids]
-              flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
+        # if !@content.new_record? &&  @entry.update_attributes(params[:entry]) && @entry.update_attribute(:description , params[:content][:text]) && @content.update_attributes(:text => params[:content][:text])
+         #     @entry.tag_with(params[:tags]) if params[:tags]
+         #     @entry.category_ids = params[:category_ids]
+         #     flash[:valid] = "#{ @content.class.to_s.humanize } updated".t
               redirect_to space_article_path(@container,@entry.content)
-            else
-              render :template => "articles/edit" 
-            end
+         #   else
+         #     render :template => "articles/edit" 
+         #   end
          # else
             #the error here
              

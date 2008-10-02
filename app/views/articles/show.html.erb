@@ -5,20 +5,20 @@
 		
 <p>
   <b>Title:</b>
-  <%=sanitize @entry.title %>
+  <%=sanitize @article.title %>
 </p>
 
-<% unless @entry.description.blank? %>
+<% unless @article.text.blank? %>
 <p>
   <b>Description:</b>
-  <%=sanitize @entry.description %>
+  <%=sanitize @article.text %>
 </p>
 <% end %>
 
-<% unless @entry.tag_list.blank? %>
+<% unless @article.tag_list.blank? %>
 <p>
   <b>Tags:</b>
-  <%= @entry.tag_list %>
+  <%= @article.tag_list %>
 </p>
 <% end %>
 	<%for children in @attachment_children -%>
@@ -30,7 +30,7 @@
 
 <br>
 <%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
- <%if @entry.authorizes?(current_user, :edit)%><%= link_to 'Edit', edit_space_article_path(@space, @content) %> |<%end%> 
+ <%if @article.authorizes?(current_user, :edit)%><%= link_to 'Edit', edit_space_article_path(@space, @article) %> |<%end%> 
 <%= link_to 'Back', space_articles_path(@container) %>
 </div>
 <%end%>
@@ -46,7 +46,7 @@
 <% end -%>
 <%end%>
 
-  <% @content = Article.new() %>
+  <% @article = Article.new() %>
   <% form_for(:entry, :url => space_articles_path(@space), :html => { :multipart => true }) do -%>
 <p>
     <b>Title</b><br />
@@ -59,7 +59,7 @@
 	 <%@comment = true%>
 	 <%= render :partial => 'articles/attach', :objetc => @comment %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
-	<%= hidden_field_tag 'entry[parent_id]', @entry.id.to_s %>
+	<%= hidden_field_tag 'entry[parent_id]', @article.id.to_s %>
     <%= submit_tag "Create" %>
 	
   <% end -%>

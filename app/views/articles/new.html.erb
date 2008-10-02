@@ -2,19 +2,15 @@
 <div id="yui-main">
     <div class="yui-b main_column">
         <% rounded(:class => "tips") do %>
-        <h1 class="title">New <%= @content.class.to_s %></h1>
-        <%if @errors == true %>
-        <% unless error_messages_for(:entry_).blank? && error_messages_for(:content).blank? -%>
+        <h1 class="title">New Post</h1>
+        <% unless error_messages_for(:article).blank? -%>
         <div class="errors">
-            <%= error_messages_for :entry %>
-            <%= error_messages_for :content %>
-
+            <%= error_messages_for :article %>
         </div>
         <% end -%>
-        <%@errors = false %>
-        <%end %>
-        <% form_for(:entry, :url => space_articles_path(@space), :html => { :multipart => true }) do |f| -%>
-		<%= render :partial => "articles/form", :object => f %>
+
+        <% form_for(:article, :url => space_articles_path(@space), :html => { :multipart => true }) do |f| -%>
+		<%= render :partial => "form", :object => f %>
         <%= submit_tag "Create" %>
         <% end -%>
         <% end -%>

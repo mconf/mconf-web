@@ -34,7 +34,7 @@ class PostsController < ApplicationController
                                                         :conditions => [ "content_type = ?", "Attachment" ],
                                                         :order => "updated_at DESC")
           @collection += @container.container_posts.find(:all,
-                                                        :conditions => [ "content_type = ?", "XhtmlText" ],
+                                                        :conditions => [ "content_type = ?", "Article" ],
                                                         :order => "updated_at DESC")
           # Paginate them
           @posts = @collection.paginate(:page => params[:page], :per_page => Post.per_page)

@@ -18,6 +18,7 @@ class Event < ActiveRecord::Base
     validates_presence_of :name, 
                           :message => "must be specified"
    
+   #is_indexed :fields => ['name','service']
    def authorizes?(agent, actions)
     return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
     

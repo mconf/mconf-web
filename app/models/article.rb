@@ -7,22 +7,19 @@ class Article < ActiveRecord::Base
     :tags=> {:store => :yes} ,
   }
   
-  #is_indexed :fields => ['text']
+    acts_as_taggable
+ # is_indexed :fields => ['text','title']#,
+  
+#  :include => [{:class_name => 'Entry', :field => 'title', :association_sql => "" }],
+ # :include => [{:class_name => 'Tag', :field => 'name', :association_sql => "JOIN taggings ON taggings.tag_id = tags.id" }]
+  
 
-  def title    
-    @entry = Entry.find_by_content_type_and_content_id("XhtmlText", self.id)
-    return @entry.title
-  end
+
+  
   
   def description    
-    @entry = Entry.find_by_content_type_and_content_id("XhtmlText", self.id)
+    @entry = Entry.find_by_content_type_and_content_id("Article", self.id)
     return @entry.description
-  end
-  
-  
-  def tags
-    @entry = Entry.find_by_content_type_and_content_id("XhtmlText", self.id)
-    return @entry.tag_list.collect {|tag| tag} if @entry.tag_list
   end
   
    def authorizes?(agent, actions)
