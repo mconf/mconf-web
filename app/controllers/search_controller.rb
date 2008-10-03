@@ -44,8 +44,8 @@ class SearchController < ApplicationController
     
     @events = @tag.events
     @users = @tag.users
+    @entries = @tag.articles.map{|article| article.entry}
     
-    @entries = @tag.entries
     respond_to do |format|        
       format.html     
     end
@@ -118,12 +118,17 @@ class SearchController < ApplicationController
   end
   
   def search_articles (params)
-    @query = params[:query]    
+    
+    @query = params[:query] 
+    #debugger
+    #@search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Article')
+    #@search.run
+    #@search.results
     @results = Article.find_by_contents(@query)
     @pos = @space.container_entries    
     @entries = []   
     @results.collect { |result|
-      entry = Entry.find_by_content_type_and_content_id("XhtmlText", result.id)
+      entry = Entry.find_by_content_type_and_content_id("Article", result.id)
       if @pos.include?(entry)
         @entries << entry
       end
@@ -193,7 +198,7 @@ class SearchController < ApplicationController
     @pos = @container.container_entries    
     @entries = []   
     @results.collect { |result|
-      entry = Entry.find_by_content_type_and_content_id("XhtmlText", result.id)
+      entry = Entry.find_by_content_type_and_content_id("Article", result.id)
       if @pos.include?(entry)
         @entries << entry
       end

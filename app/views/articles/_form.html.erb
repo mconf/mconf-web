@@ -10,8 +10,12 @@
 
 <%= render :partial => 'attach' %>
 
-
+<%if params[:comment] == nil%>
 <p><label for="keywords">Tags:</label>
 <%= text_field_tag 'tags', @article.tag_list   %></p>
 	
 <%= render :partial => "permissions_form" -%>
+<%else%>
+<%= hidden_field_tag 'entry[parent_id]', params[:entry][:parent_id] %>
+<%= hidden_field_tag 'comment', true %>
+<%end%>

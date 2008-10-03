@@ -45,21 +45,22 @@
 </div>
 <% end -%>
 <%end%>
-
-  <% @article = Article.new() %>
-  <% form_for(:entry, :url => space_articles_path(@space), :html => { :multipart => true }) do -%>
+  <%parent_id = @article.entry.id%>
+  <% @article = nil %>
+  <% form_for(:article, :url => space_articles_path(@space), :html => { :multipart => true }) do |f|-%>
 <p>
     <b>Title</b><br />
-    <%= text_field_tag :title %>
+    <%= f.text_field :title %>
     </p>
     <p>
       <b>Text</b><br />
-      <%= fckeditor_textarea(:content, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
+      <%= fckeditor_textarea(:article, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
     </p>
 	 <%@comment = true%>
 	 <%= render :partial => 'articles/attach', :objetc => @comment %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
-	<%= hidden_field_tag 'entry[parent_id]', @article.id.to_s %>
+	<%= hidden_field_tag 'entry[parent_id]', parent_id.to_s %>
+	<%= hidden_field_tag 'comment', true %>
     <%= submit_tag "Create" %>
 	
   <% end -%>
