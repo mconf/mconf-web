@@ -4,25 +4,31 @@ class MachinesController < ApplicationController
   before_filter :get_cloud
   before_filter :get_space
   
+  set_params_from_atom :machine, :only => [ :create, :update ]
+  
   # GET /machines
   # GET /machines.xml
+  # GET /machines.atom
   def index
     @machines = Machine.find(:all)
     
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @machines }
+      format.atom
     end
   end
   
   # GET /machines/1
   # GET /machines/1.xml
+  # GET /machines/1.atom
   def show
     @machine = Machine.find(params[:id])
     
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @machine }
+      format.atom
     end
   end
   
@@ -44,6 +50,7 @@ class MachinesController < ApplicationController
   
   # POST /machines
   # POST /machines.xml
+  # POST /machines.atom
   def create
     name = params[:machine][:name]
     nickname = params[:machine][:nickname]
@@ -72,15 +79,22 @@ class MachinesController < ApplicationController
         flash[:notice] = 'Machine was successfully created.'
         format.html { redirect_to machines_path(:space_id => @space.id) }
         format.xml  { render :xml => @machine, :status => :created, :location => @machine }
+        format.atom { 
+          headers["Location"] = formatted_machine_url(@machine, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else
         format.html { redirect_to machines_path(:space_id => @space.id) }
         format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @machine.errors.to_xml, :status => :bad_request }
       end
     end
   end
   
   # PUT /machines/1
   # PUT /machines/1.xml
+  # PUT /machines/1.atom
   # if params[:assign_to_everybody] then assigns the machine to every user
   def update
     if params[:assign_to_everybody]
@@ -116,15 +130,18 @@ class MachinesController < ApplicationController
         end   
         format.html { redirect_to machines_path(:space_id => @space.id) }
         format.xml  { head :ok }
+        format.atom { head :ok }        
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @machine.errors.to_xml, :status => :not_acceptable }
       end
     end
   end
   
   # DELETE /machines/1
   # DELETE /machines/1.xml
+  # DELETE /machines/1.atom
   def destroy
     @machine = Machine.find(params[:id])
     @machine.destroy
@@ -132,6 +149,7 @@ class MachinesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to machines_path(:space_id => @space.id) }
       format.xml  { head :ok }
+      format.atom { head :ok }
     end
   end
   

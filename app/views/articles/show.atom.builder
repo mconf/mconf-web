@@ -1,12 +1,22 @@
-atom_entry(@event, {'xmlns:gd' => 'http://schemas.google.com/g/2005', 
-:url => formatted_space_event_path(@space, @event, :atom), :root_url => space_event_path(@space, @event)}) do |entry|
-  entry.title(@event.name)
-  entry.summary(@event.description)
-  entry.updated((@event.content_entries.first.updated_at.to_datetime))
-  
-  
-  entry.author do |author|
-    author.name("SIR")
-  end
+atom_entry(@entry.content, {'xmlns:gd' => 'http://schemas.google.com/g/2005', 
+    'xmlns:sir' => 'http://sir.dit.upm.es/schema', 
+  :url => formatted_space_article_path(@space, @entry.content, :atom), :root_url => space_article_path(@space, @entry.content)}) do |entry|
+          entry.title(@entry.name)
+          entry.content(@entry.content.text, :type => "html")
+          entry.tag!('sir:parent_id', @entry.parent_id)
+          
+          @entry.tags.each do |tag|
+            entry.category(:term => tag.name)
+          end
+          
+          if @entry.public_read == true
+            entry.tag!('gd:visibility', "public")
+          else 
+            entry.tag!('gd:visibility', "private")
+          end
+
+          entry.author do |author|
+            author.name("SIR")
+          end
   
 end

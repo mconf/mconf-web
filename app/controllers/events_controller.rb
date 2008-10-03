@@ -137,7 +137,6 @@ end
   # POST /events.atom
   
   def create
-    debugger
     @event = Event.new(params[:event])  
     indice = 0;
     param_start_date = 'start_date' + indice.to_s
@@ -146,9 +145,10 @@ end
     while params[param_start_date.to_sym] 
       logger.debug("New datetime for this event: " + indice.to_s)
        @datetime = @event.event_datetimes.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym]) 
-       #·   if(params[is_valid.to_sym]=="true")
-        @event.event_datetimes << @datetime  
-  #    end  
+ 
+   if (params[is_valid.to_sym]=="true")
+        @event.event_datetimes << @datetime
+      end  
       indice+=1
       param_start_date = 'start_date' + indice.to_s
       param_end_date = 'end_date' + indice.to_s

@@ -3,4 +3,19 @@ class Machine < ActiveRecord::Base
   has_many :participants
   has_and_belongs_to_many :users
   
+  def self.atom_parser(data)
+
+    e = Atom::Entry.parse(data)
+    resultado = {}
+    machine = {}
+    machine[:name] = e.title.to_s
+    machine[:nickname] = e.summary.to_s
+    resultado[:machine] = machine
+    if r = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "assign_to_everybody")
+    resultado[:assign_to_everybody] = r.text
+    end
+    
+    { :machine => machine}     
+  end
+  
 end

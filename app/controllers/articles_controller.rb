@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   # Needs a Container when posting a new Article
   before_filter :needs_container, :only => [ :new, :create ]
   
-#  before_filter :get_entry, :except => [ :index, :new, :create ]
+  before_filter :get_entry, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
   # Get Article in member actions
   before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
@@ -21,6 +21,8 @@ class ArticlesController < ApplicationController
   before_filter :get_cloud
   
   authorization_filter :article, :edit, :only=>[:edit,:update]
+  
+  set_params_from_atom :article, :only => [ :create, :update ]
   
   def index
      session[:current_tab] = "Posts"
@@ -76,6 +78,8 @@ class ArticlesController < ApplicationController
     #creación del Artículo padre
     @article = Article.new(params[:article])
     if !@article.valid?
+      respond_to do |format|
+        format.html {   
       if  params[:comment] == nil #mira si es un comentario o no para hacer el render
           flash[:error] = "The content of the article can't be empty"  
           render :action => "new"    
@@ -85,7 +89,13 @@ class ArticlesController < ApplicationController
           render :action => "new"   
           return
           
+      end   }
+      format.xml { render :xml => @article.errors, :status => :unprocessable_entity }
+      format.atom {render :xml => @article.errors.to_xml, :status => :bad_request}
+      
       end
+      return
+
     end  
     
    
@@ -157,24 +167,12 @@ class ArticlesController < ApplicationController
      
       }
       
-      format.atom {
-        if !@content.new_record? & @entry.save 
-          headers["Location"] = formatted_article_url(@entry, :atom)
-          headers["Content-type"] = 'application/atom+xml'
-          render :partial => "articles/entry",
-          :status => :created,
-          :locals => { :entry => @entry,
-            :content => @content },
-          :layout => false
-        else
-          if @content.new_record?
-            render :xml => @content.errors.to_xml, :status => :bad_request
-          else
-            @content.destroy unless @content.new_record?
-            render :xml => @entry.errors.to_xml, :status => :bad_request
-          end
-        end
-      }
+        format.atom { 
+          headers["Location"] = formatted_space_article_url(@space, @article, :atom )
+          @entry = @article.entry
+          render :action => :show,
+          :status => :created
+        }
     end
   end
   
@@ -197,12 +195,7 @@ class ArticlesController < ApplicationController
         respond_to do |format|
           format.html
           format.xml { render :xml => @entry.to_xml(:include => [ :content ]) }
-          format.atom { 
-            headers["Content-type"] = 'application/atom+xml'
-            render :partial => "articles/entry",
-                               :locals => { :entry => @entry },
-                               :layout => false
-          }
+          format.atom 
           format.json { render :json => @entry.to_json(:include => :content) }
         end
     end
@@ -324,7 +317,7 @@ class ArticlesController < ApplicationController
   #he añadido aquí el get_entry pero no me gusta un pelo
   def get_entry 
          @article = Article.find(params[:id])
-         @entry = @article.content_entries.first
+         @entry = @article.entry
      end
 
   #def get_space_from_entry
