@@ -224,7 +224,7 @@ class ArticlesController < ApplicationController
   # Update this Entry metadata
       #   PUT /articles/:id
       def update       
-       
+
         params[:entry][:container] = @space
         params[:entry][:agent]     = current_agent #Problema.Con esto edito al usuario por eso lo cambio
         #params[:entry][:agent] = @entry.agent
@@ -233,8 +233,11 @@ class ArticlesController < ApplicationController
         #actualizo los atributos del artículo
         @article.attributes = params[:article]
         if !@article.valid?
-          flash[:error] = "The content of the article can't be empty"  
-          render :action => "edit"    
+          respond_to do |format|
+            format.html {          flash[:error] = "The content of the article can't be empty"  
+          render :action => "edit"  }
+          format.atom { render :xml => @article.errors.to_xml, :status => :not_acceptable }
+          end
           return
         end  
         
@@ -299,17 +302,15 @@ class ArticlesController < ApplicationController
               redirect_to space_article_path(@space,@article)  
           }
     
-          format.atom {
-            if !@content.new_record? && @entry.update_attributes(params[:entry])
-              head :ok
-            else
-              render :xml => [ @content.errors + @entry.errors ].to_xml,
-                     :status => :not_acceptable
-            end
-          }
+          format.atom { head :ok }
         end
     end
+    
+    
+    
   private
+  
+  
   def get_space_from_container
     session[:current_tab] = "Posts" 
     @space = @container

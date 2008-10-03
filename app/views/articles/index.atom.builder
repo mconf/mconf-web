@@ -9,7 +9,7 @@
           entry.content(article.content.text, :type => "html")
           entry.tag!('sir:parent_id', article.parent_id)
           
-          article.tags.each do |tag|
+          article.content.tags.each do |tag|
             entry.category(:term => tag.name)
           end
           

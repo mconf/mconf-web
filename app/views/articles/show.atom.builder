@@ -5,7 +5,7 @@ atom_entry(@entry.content, {'xmlns:gd' => 'http://schemas.google.com/g/2005',
           entry.content(@entry.content.text, :type => "html")
           entry.tag!('sir:parent_id', @entry.parent_id)
           
-          @entry.tags.each do |tag|
+          @article.tags.each do |tag|
             entry.category(:term => tag.name)
           end
           
