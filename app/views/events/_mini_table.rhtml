@@ -12,7 +12,7 @@
         <TD class="contains_event"></TD><TD class="contains_event" onclick="new Ajax.Request('/spaces/'+<%=@space.id%>+'/events/'+ <%=event.id%>+'?show_summary=true', {asynchronous:true, evalScripts:true, method:'get'}); return false;" width=100% rowspan=<%=(duration).to_s%> title="<%=event.get_submenu%>"> 
         
 			<div class="vevent">
-				<h3 class="summary"><%= link_to_remote h(event.name),{ :url => formatted_space_event_url(@space.id, event.id, "js", :show_summary => true), :method => "get" } %></h3> 
+				<h3 class="summary"><%= link_to_remote h(event.name),{ :url => formatted_space_event_url(@space, event, "js", :show_summary => true), :method => "get" } %></h3> 
             
            <div class="description"></div>
 		   <abbr title="20081010" class="dtstart"></abbr>
@@ -21,12 +21,12 @@
                   #uncomment if you want an event in the past not to be editable
                   %>				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space.id, event.id, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space.id, event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space.id, event.id), :method => :delete,
+				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%>

@@ -4,7 +4,7 @@
 <% @events.each do |event| %>
 <div class="vevent">
 <div class="summary">
-    <%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space.id, event.id, "js"), :method => "get"  } %>
+    <%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } %>
 </div>
 <div class="description">
     <%= event.description %>

@@ -10,7 +10,7 @@
 					<%if @space%>
 						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
 							<%for arraycin in array_spaces%>
-								<%if arraycin[1]==@space.id%>
+								<%if arraycin[1]==@space.name%>
 									<option value="<%=arraycin[1]%>"  selected="selected"><%=arraycin[0]%></option>
 								<%else%>
 									<option value="<%=arraycin[1]%>" class="noelegido"><%=arraycin[0]%></option>

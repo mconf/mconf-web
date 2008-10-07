@@ -5,6 +5,9 @@ class Space < ActiveRecord::Base
   
   validates_presence_of :name, :description
   
+  def to_param
+    name
+  end
   
   #method that returns the events of the space
   def events
@@ -100,25 +103,25 @@ class Space < ActiveRecord::Base
     if user==:false
       #if the user is not logged in, we show all the public spaces
       array_spaces = []       
-      array_spaces += Space.find_all_by_public(true).flatten.collect {|r| [ r.name, r.id ]}
+      array_spaces += Space.find_all_by_public(true).flatten.collect {|r| [ r.name, r.name ]}
       
       return array_spaces
     end
     array_spaces = []    
     if user.superuser==true
-      array_spaces += Space.find(:all).collect {|r| [ r.name, r.id ]}
+      array_spaces += Space.find(:all).collect {|r| [ r.name, r.name ]}
     else
       if !user.stages.include?(Space.find(1))
-        array_spaces << Space.find_all_by_id(1).flatten.collect {|r| [ r.name, r.id ]}.flatten
+        array_spaces << Space.find_all_by_id(1).flatten.collect {|r| [ r.name, r.name ]}.flatten
       end
-      array_spaces += user.stages.collect {|r| [ r.name, r.id ]}
+      array_spaces += user.stages.collect {|r| [ r.name, r.name ]}
     end
     #add the public spaces
     public_spaces = Space.find_all_by_public(true)
     if public_spaces !=nil
       for spacepublic in public_spaces
         if user.superuser==false && !user.stages.include?(spacepublic) && spacepublic.id!=1
-          array_spaces << Array[spacepublic.name + "(*)", spacepublic.id]
+          array_spaces << Array[spacepublic.name + "(*)", spacepublic.name]
         end
       end
     end

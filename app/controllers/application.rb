@@ -3,8 +3,10 @@
 
 class ApplicationController < ActionController::Base  
 
-  
+  before_filter :get_space
+  before_filter :get_cloud
   before_filter :set_locale
+  
   #Method used in the globalize plugin to set base language
   def set_locale
     accept_locales = LOCALES.keys # change this line as needed, must be an array of strings
@@ -142,37 +144,20 @@ class ApplicationController < ActionController::Base
     @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true,:order => "updated_at DESC")
   end
   
-  def get_space
-    
-=begin    
-    if params[:container_type]=="entries"
-      @space = Entry.find(params[:container_id]).container
-      get_container
-      return
+  def get_space    
+    if(params[:space_id])
+        @container = @space = Space.find_by_name(params[:space_id])
+        session[:space_id] = params[:space_id]
+    elsif session[:space_id]
+      @container = @space = Space.find_by_name(session[:space_id])
     end
-    if params[:space_id]
-      params[:container_id] = params[:space_id]
-    end
-    if params[:container_id]==nil && params[:id]!=nil
-      #this case is /spaces/1 ... /spaces/:id
-      params[:container_id] = params[:id]
-    end
-    
-=end    
-    if params[:space_id]
-    @container = @space = Space.find(params[:space_id])
-  else
-    @container = @space = Space.find_by_id(1)
-
-  end
-    #get_container
   end
   
   
   
   def not_public_space
     
-    @space = Space.find(params[:space_id])
+    @space = Space.find_by_name(params[:space_id])
     if @space.id == 1 && logged_in?
       flash[:notice] = "Action not allowed."     
       redirect_to root_path
@@ -187,9 +172,9 @@ class ApplicationController < ActionController::Base
   def space_member
     
     if params[:space_id]
-      @container = @space = Space.find(params[:space_id])
+      @container = @space = Space.find_by_name(params[:space_id])
     end
-    if @space.id == 1  || @space.public==true
+    if @space.name == "Public"  || @space.public==true
       
       return true
     elsif logged_in? && current_user.superuser

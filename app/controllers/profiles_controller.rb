@@ -3,9 +3,7 @@ require 'vpim/vcard'
 class ProfilesController < ApplicationController
   before_filter :authentication_required
   before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
-  before_filter :get_cloud
   before_filter :unique_profile, :only=>[:new, :create]
-  before_filter :get_space
   
   # GET /profiles/1
   # GET /profiles/1.xml
@@ -27,7 +25,7 @@ class ProfilesController < ApplicationController
     
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user, :space_id => @space.id)
+      redirect_to new_user_profile_path(@user )
     else
       
       respond_to do |format|
@@ -58,7 +56,7 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user, :space_id=>@space.id)
+      redirect_to new_user_profile_path(@user )
     else
       @user = User.find_by_id(params[:user_id])      
     end
@@ -74,10 +72,10 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(:url => user_profile_path(@user, :space_id =>@space.id)) }
+        format.html { redirect_to(:url => user_profile_path(@user)) }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
-        format.html { render :action => "new", :space_id =>@space.id }
+        format.html { render :action => "new" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
       end
     end
@@ -109,7 +107,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
     flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
-      format.html { redirect_to(space_user_profile_url(:space_id=>@space.id, :user_id=>@user.id)) }
+      format.html { redirect_to(space_user_profile_url(@space, @user)) }
       format.xml  { head :ok }
     end
   end

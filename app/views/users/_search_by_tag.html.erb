@@ -1,9 +1,9 @@
 <% rounded(:class => "tips") do %>	
 
  
- <% form_tag(search_by_tag_path(@space.id, tag), :method => :get) do %>
+ <% form_tag(search_by_tag_path(@space, tag), :method => :get) do %>
       <%= text_field_tag :tag, params[:tags] %>
-	  <%= submit_to_remote 'Search', search_by_tag_path(@space.id, tag), :method => :get%>
+	  <%= submit_to_remote 'Search', search_by_tag_path(@space, tag), :method => :get%>
 <%= link_to_remote 'Hide' , {:url=>{:action=> 'clean'}}%>
 
  

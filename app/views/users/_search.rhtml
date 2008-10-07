@@ -2,9 +2,9 @@
 	<h4> Search</h4> </span>
 		<br>	
 
- <span> <% form_tag(search_users_path(@space.id), :method => 'get') do %>
+ <span> <% form_tag(search_users_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_to_remote 'Search', 'Search', search_users_path(@space.id)%>
+	  <%= submit_to_remote 'Search', 'Search', search_users_path(@space)%>
   </span>
     <% end %>
    

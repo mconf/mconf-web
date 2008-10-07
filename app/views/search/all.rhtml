@@ -47,7 +47,7 @@
 <%for user in @users do%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(current_user.id, {:space_id => @space.id})%> (<%= link_to user.login,  user_profile_path(current_user.id, {:space_id => @space.id}) %>)<br></td>
+<td align="center"><%=link_to user.profile.name, user_profile_path(current_user, @space)%> (<%= link_to user.login,  user_profile_path(current_user.id, @space) %>)<br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <td align="center"><%= user.email%><br></td>
 <td align="center"><%= user.profile.organization%><br></td>
@@ -62,7 +62,7 @@
 </tr>
 <%else%>
 <tr>
-<td align="center">(<%=link_to user.login, user_profile_path(current_user.id, {:space_id => @space.id})%>)<br></td>
+<td align="center">(<%=link_to user.login, user_profile_path(current_user, @space)%>)<br></td>
 <td></td><td align="center"><%= user.email%><br></td><td></td>
 <%for role in @space.roles_for(user) do%>
 <td align="center"><%=role.name%><br></td></tr>
@@ -100,7 +100,7 @@ No events Found <br><br>
 		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div></div>
 			<%end%>
 		<td>
-			<%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space.id, event.id, "js"), :method => "get"  } %>	</td>
+			<%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } %>	</td>
 		<td>
 			<%= event.description %>
 		</td>
@@ -116,12 +116,12 @@ No events Found <br><br>
 					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space.id, event.id, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space.id, event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space.id, event.id), :method => :delete,
+				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%>	

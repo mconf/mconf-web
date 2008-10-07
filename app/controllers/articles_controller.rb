@@ -15,10 +15,6 @@ class ArticlesController < ApplicationController
   before_filter :get_public_entries, :only => [:index,:show]
   # Get Article in member actions
   before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
-  #before_filter :is_public_space, :only=>[:index]
-  before_filter :get_space
-  #before_filter :get_space_from_entry, :only => [ :show, :edit, :update ]
-  before_filter :get_cloud
   
   authorization_filter :article, :edit, :only=>[:edit,:update]
   

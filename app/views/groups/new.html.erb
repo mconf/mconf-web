@@ -32,7 +32,7 @@
 <div id="space_users">
 
 	<%# form_tag({:controller=> 'groups',:action => "create", :container_type =>:space, :container_id=>@space.id},{:name=>'create_group_form',:style => "display: inline;", :method => 'put', :onsubmit=>"selectAllOptions();"} ) do %>
-    <% form_tag(space_groups_path(@space.id),{:method => :post, :name=>'create_group_form',:style => "display: inline;", :onsubmit=>"selectAllOptions();"} ) do %>
+    <% form_tag(space_groups_path(@space),{:method => :post, :name=>'create_group_form',:style => "display: inline;", :onsubmit=>"selectAllOptions();"} ) do %>
 		<%= render :partial => 'form_groups'%>
 		
 <%=submit_tag%>

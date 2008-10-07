@@ -1,8 +1,6 @@
 class MachinesController < ApplicationController
   before_filter :authentication_required, :except => [:get_file]
   before_filter :user_is_admin, :except => [:my_mailer,:get_file, :list_user_machines, :contact_mail]
-  before_filter :get_cloud
-  before_filter :get_space
   
   set_params_from_atom :machine, :only => [ :create, :update ]
   
@@ -56,19 +54,19 @@ class MachinesController < ApplicationController
     nickname = params[:machine][:nickname]
     if name==nil || nickname==nil  || name=="" || nickname ==""      
       flash[:notice] = "Nor name or nickname can be blank"
-      redirect_to machines_path(:space_id => @space.id) 
+      redirect_to machines_path
       return
     end
     if Machine.find_by_name(name)
       #already exists
       flash[:notice] = "Name exists already"
-      redirect_to machines_path(:space_id => @space.id)
+      redirect_to machines_path
       return
     end
     if Machine.find_by_nickname(nickname)
       #already exists
       flash[:notice] = "Resource Full Name exists already"
-      redirect_to machines_path(:space_id => @space.id)  
+      redirect_to machines_path
       return
     end
     
@@ -77,7 +75,7 @@ class MachinesController < ApplicationController
     respond_to do |format|
       if @machine.save
         flash[:notice] = 'Machine was successfully created.'
-        format.html { redirect_to machines_path(:space_id => @space.id) }
+        format.html { redirect_to machines_path }
         format.xml  { render :xml => @machine, :status => :created, :location => @machine }
         format.atom { 
           headers["Location"] = formatted_machine_url(@machine, :atom )
@@ -85,7 +83,7 @@ class MachinesController < ApplicationController
                  :status => :created
         }
       else
-        format.html { redirect_to machines_path(:space_id => @space.id) }
+        format.html { redirect_to machines_path }
         format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @machine.errors.to_xml, :status => :bad_request }
       end
@@ -104,19 +102,19 @@ class MachinesController < ApplicationController
       nickname = params[:machine][:nickname]
       if name==nil || nickname==nil  || name=="" || nickname ==""      
         flash[:notice] = "Nor name or nickname can be blank"
-        redirect_to machines_path(:space_id => @space.id) 
+        redirect_to machines_path() 
         return
       end
       if Machine.find_by_name(name)
         #already exists
         flash[:notice] = "Name exists already"
-        redirect_to machines_path(:space_id => @space.id)
+        redirect_to machines_path()
         return
       end
       if Machine.find_by_nickname(nickname)
         #already exists
         flash[:notice] = "Resource Full Name exists already"
-        redirect_to machines_path(:space_id => @space.id)  
+        redirect_to machines_path()  
         return
       end   
     end
@@ -128,7 +126,7 @@ class MachinesController < ApplicationController
         unless params[:assign_to_everybody]
           flash[:notice] = 'Machine was successfully created.'
         end   
-        format.html { redirect_to machines_path(:space_id => @space.id) }
+        format.html { redirect_to machines_path() }
         format.xml  { head :ok }
         format.atom { head :ok }        
       else
@@ -147,7 +145,7 @@ class MachinesController < ApplicationController
     @machine.destroy
     
     respond_to do |format|
-      format.html { redirect_to machines_path(:space_id => @space.id) }
+      format.html { redirect_to machines_path }
       format.xml  { head :ok }
       format.atom { head :ok }
     end

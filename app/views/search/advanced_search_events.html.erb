@@ -10,7 +10,7 @@
 <div id="search">
 	<h4> Search</h4> (in title, description and tags with exactly words)
 	
-  <% form_tag(search_events_path(:space_id => @space.id)) do %>
+  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query] %>
 	  <%= submit_tag 'Search'%>
   
@@ -18,21 +18,21 @@
    
 
 Search by Event's Title
- <% form_tag(search_events_path(:space_id => @space.id)) do %>
+ <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :title, params[:title] %>
 	  <%= submit_tag 'Search'%><br>
 
  <% end %>
 
  Search in Event's Description
- <% form_tag(search_events_path(:space_id => @space.id)) do %>
+ <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :description, params[:description] %>
 	  <%= submit_tag 'Search'%><br>
  
  <% end %>
   
 You can search here between two dates
-<% form_tag(search_events_path(:space_id => @space.id)) do %>
+<% form_tag(search_events_path(@space)) do %>
       From  <%= text_field_tag :time1, params[:time1] %>
 	  		<img src="/images/img.gif" id="f_trigger_c"
 			     style="cursor: pointer; border: 1px solid red;"

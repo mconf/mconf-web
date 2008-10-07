@@ -2,10 +2,10 @@
 	
 <img src="/images/magnify2.png"></img> <h4 class="title"> Search Events</h4> 
 	
-  <% form_tag(search_events_path(:space_id=>@space.id)) do %>
+  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>
 	   <%= image_submit_tag "go2.ico", :class=>'go2'%>
-	  <%= link_to 'Advanced', advanced_search_events_path(:space_id=>@space.id) %>
+	  <%= link_to 'Advanced', advanced_search_events_path(@space) %>
   
    <% end %>
 </div>

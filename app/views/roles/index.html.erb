@@ -8,17 +8,17 @@
 	
 <%@role.each do |role|%>
 <tr><td>
-Name: <%= link_to role.name , edit_role_path(role.id,:space_id=>@space.id)%>
+Name: <%= link_to role.name , edit_role_path(role)%>
 
-<%= link_to 'Show' , role_path(role.id, :space_id=>@space.id),   :method=> 'get' %>
+<%= link_to 'Show' , role_path(role),   :method=> 'get' %>
 
-<%= link_to 'Destroy', role_path(role.id,:space_id=>@space.id), :confirm => 'Are you sure?', :method =>  :delete %>
+<%= link_to 'Destroy', role_path(role), :confirm => 'Are you sure?', :method =>  :delete %>
 </td>
 </tr>
 
 <%end%>
 <tr>
-<td><%= link_to 'New Role', new_role_path(:space_id=>@space.id)%></td></tr>
+<td><%= link_to 'New Role', new_role_path%></td></tr>
 
 </table>
 <%end%>

@@ -6,13 +6,10 @@ class EventsController < ApplicationController
   
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   
-  before_filter :get_cloud
-
   
   # A Container is needed when posting new events
   # (see CMS::ControllerMethods#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
-  before_filter :get_space
   #TODO: Authorization
   before_filter :is_public_space, :only=>[:index]
   before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]

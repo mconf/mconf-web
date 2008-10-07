@@ -1,8 +1,6 @@
 class SearchController < ApplicationController
   # Include some methods and filters.
   include CMS::Controller::Contents 
-  before_filter :get_cloud
-  before_filter :get_space
   
   
   def all

@@ -16,6 +16,7 @@ class AttachmentsController < ApplicationController
   # Get Attachment in member actions
   before_filter :get_content, :except => [ :index, :new, :create ]
   
+ 
 
 end
 

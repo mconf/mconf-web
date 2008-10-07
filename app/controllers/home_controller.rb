@@ -1,7 +1,6 @@
 
 class HomeController < ApplicationController  
-   before_filter :get_space
-    before_filter :get_cloud
+
   def index
     session[:current_tab] = "Home"
     

@@ -31,7 +31,7 @@
 		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
 			<%end%>
 		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => formatted_space_event_path(:space_id=>@space.id, :id => event.id , :format => "js") }   %></div>
+			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => formatted_space_event_path(@space, event , :format => "js") }   %></div>
 		</td>
 		<td>
 			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
@@ -49,12 +49,12 @@
 					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
                 				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space.id, event.id, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space.id, event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space.id, event.id), :method => :delete,
+				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%>	

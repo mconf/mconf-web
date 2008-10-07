@@ -17,7 +17,7 @@
 
 
 <%for machine in @machines%>
-<% form_tag(machine_path(machine.id, :space_id=>@space.id), :method => :put) do %>
+<% form_tag(machine_path(machine), :method => :put) do %>
 <tr id=<%="resource"+index.to_s%>>
 <td>
 <%= text_field("machine", "name", :value=>machine.name, :readonly => false) %>
@@ -28,8 +28,8 @@
 <td>
 <%= submit_tag "Edit" %>
 <%end%>
-<%= button_to "Delete", machine_path(machine.id, :space_id=>@space.id), :method => :delete  %>
-<%= button_to "Assign to all Users", machine_path(machine.id, :space_id=>@space.id, :assign_to_everybody => true), :method => :put  %>
+<%= button_to "Delete", machine_path(machine), :method => :delete  %>
+<%= button_to "Assign to all Users", machine_path(machine, :assign_to_everybody => true), :method => :put  %>
 </td>
 </tr>
 
@@ -40,7 +40,7 @@
 
 
 
-<% form_tag(machines_path(:space_id=>@space.id), :method => :post) do %>
+<% form_tag(machines_path, :method => :post) do %>
 
 <td>
 <%= text_field("machine", "name", :readonly => false) %>

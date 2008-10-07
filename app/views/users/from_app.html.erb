@@ -24,7 +24,7 @@
 </script>
 <br/>
 
-	<% form_tag (space_users_path(@space.id),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
+	<% form_tag (space_users_path(@space),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
 		<div id="add_usuarios">
 			<div id="select_users_from_space" class="select_users">
 				<%= select 'users',
@@ -53,7 +53,7 @@
 <div id="space_users">
 
 	<div id="admin_users">
-		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
+		<% form_tag(space_user_path(@space, 1),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: Admin</span>
 		<div id="admin_users_select" class="select_users">
 			<%= select 'users',
@@ -72,7 +72,7 @@
 	</div>
 
 	<div id="users_users">
-		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>
+		<% form_tag(space_user_path(@space, 1),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: User</span>
 		<div id="users_users_select" class="select_users">
 			<%= select 'users',
@@ -91,7 +91,7 @@
 	</div>
 
 	<div id="invited_users">
-		<% form_tag(space_user_path(@space.id, 1),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
+		<% form_tag(space_user_path(@space, 1),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
 		<span>Role: Invited</span>
 		<div id="invited_users_select" class="select_users">
 			<%= select 'users',

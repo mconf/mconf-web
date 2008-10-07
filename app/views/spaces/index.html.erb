@@ -23,7 +23,7 @@
           <% if space.authorizes?(current_user, :edit)%>
             <%= link_to space.name, edit_space_path(space)%>
             <%= link_to 'Add Users', new_space_user_path(space, {:by_email => true}) %>
-            <%= link_to 'Groups' ,space_groups_path(:space_id => space.id)%>
+            <%= link_to 'Groups' ,space_groups_path(space)%>
             <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
           <%end%>
         <%else%>
@@ -38,7 +38,7 @@
 
 <br />
 
-<%= link_to 'New space', new_space_path(:space_id => @space.id) %>
+<%= link_to 'New space', new_space_path %>
 
 
 <%end%>

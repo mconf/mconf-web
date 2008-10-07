@@ -186,7 +186,7 @@ end
   end
   
   def to_user_link (name,usuario,space)
-    return link_to(name,user_path(usuario,:space_id => space.id))
+    return link_to(name,user_path(usuario, :space_id => space.name))
   end
   
     def to_article_link (name,space,entry)

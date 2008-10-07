@@ -4,8 +4,8 @@
 	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 <ul id="nav2">
 			<%= sub_tab "Spaces", spaces_path %> |
-			<%= sub_tab "Users", space_users_path(@space.id) %> |
-		    <%= sub_tab "Resources", machines_path({:space_id => @space.id}) %>
+			<%= sub_tab "Users", space_users_path(@space) %> |
+		    <%= sub_tab "Resources", machines_path %>
 </ul>	
 		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
 <ul id="nav2">
@@ -16,26 +16,26 @@
 <ul id="nav2">
 			<%if logged_in?%><%= sub_tab "New Event", new_space_event_path(@space) %> | <%end%>	
 
-			<%= sub_tab "Show Calendar", space_events_path(@space.id, :date_start_day => Date.today) %>	| 
+			<%= sub_tab "Show Calendar", space_events_path(@space, :date_start_day => Date.today) %>	| 
 
 			<%= sub_tab 'RSS Feed', formatted_space_events_path(@space, "atom")  %>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
 			<%if @space.authorizes?(current_user, :manage_groups)%>
-				<%= sub_tab 'Create Group', new_space_group_path(@space.id)%>
+				<%= sub_tab 'Create Group', new_space_group_path(@space)%>
 			<%end%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="MyProfile"%>
 	<ul id="nav2">
-			<%= sub_tab 'Edit Profile', edit_user_profile_path(current_user.id, {:space_id => @space.id})%> |
-			<%= sub_tab 'Edit Account' , edit_space_user_path(@space.id, current_user.id)%>
+			<%= sub_tab 'Edit Profile', edit_user_profile_path(current_user)%> |
+			<%= sub_tab 'Edit Account' , edit_space_user_path(@space, current_user.id)%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
 			<%if @space.authorizes?(current_user, :manage_groups)%>
 		<ul id="nav2">
-			    <%= sub_tab 'Add Users by email', new_space_user_path(@space.id, :by_email=>true) %> | 
-				<%= sub_tab 'Add Users from App', new_space_user_path(@space.id, :from_app =>true) %>
+			    <%= sub_tab 'Add Users by email', new_space_user_path(@space, :by_email=>true) %> | 
+				<%= sub_tab 'Add Users from App', new_space_user_path(@space, :from_app =>true) %>
 				</ul>	
 				<%end%>
 

@@ -24,7 +24,7 @@
 <div class="contenido_main">
 
 <p>To add new users enter one or several email addresses separated by " ", "," or ";" and register them
-<% form_tag (space_users_path(@space.id),  {:name=>'invite_user_form',:style => "display: inline;", :method => :post}) do  %>
+<% form_tag (space_users_path(@space),  {:name=>'invite_user_form',:style => "display: inline;", :method => :post}) do  %>
 	<div id='text_area'>
 <%= text_area 'invitation', :email, :size => "30x5"%>
 <input type=hidden name="user_role" id="user_role" value="Invited"/><br>

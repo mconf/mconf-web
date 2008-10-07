@@ -34,7 +34,7 @@ for user in @users
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.active?) %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/email.gif",:border=>0), forgot_path(:email => sanitize(user.email)), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_user_path(@space,user), :title=>"Edit User" %>&nbsp;&nbsp;</td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/delete.gif",:border=>0), user_path(user.id), :method => :delete, :confirm => "This action will delete the user \""+ h(user.login) +"\".\n Are you sure?", :title=>"Delete User" %></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/delete.gif",:border=>0), user_path(user), :method => :delete, :confirm => "This action will delete the user \""+ h(user.login) +"\".\n Are you sure?", :title=>"Delete User" %></td>
 </tr>
 <% end -%>
 </table>

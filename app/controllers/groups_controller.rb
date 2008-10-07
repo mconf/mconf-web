@@ -1,8 +1,6 @@
 class GroupsController < ApplicationController
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
-  
-  before_filter :get_cloud
-  before_filter :get_space 
+
   before_filter :authentication_required
 
   #before_filter :remember_tab_and_space
@@ -94,7 +92,6 @@ class GroupsController < ApplicationController
 =end    
     
     @group = Group.new()
-    @space = Space.find(params[:space_id])
     @group.space = @space
     @group.name = params[:group_name]
     array_users = Array.new
@@ -114,14 +111,14 @@ class GroupsController < ApplicationController
       if @group.save
         
         flash[:notice] = 'Group was successfully created in this space.'
-        format.html { redirect_to(space_groups_path(@space.id)) }
+        format.html { redirect_to(space_groups_path(@space)) }
         format.xml  { render :xml => @group, :status => :created, :location => @group }
       else
         
         flash[:notice] = 'Error creating group.'
         
         @users_group = []
-        format.html { redirect_to(new_space_group_path(@space.id)) }
+        format.html { redirect_to(new_space_group_path(@space)) }
         format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
       end
     end
@@ -168,11 +165,11 @@ class GroupsController < ApplicationController
                  
           
           flash[:notice] = 'Group was successfully updated.'
-          format.html { redirect_to(space_groups_path(@space.id)) }
+          format.html { redirect_to(space_groups_path(@space)) }
           format.xml  { render :xml => @role, :status => :created, :location => @group }
         else         
           flash[:notice] = 'Error updating group.'       
-          format.html { redirect_to(edit_space_group_path(@space.id,@group.id)) }
+          format.html { redirect_to(edit_space_group_path(@space,@group)) }
           format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
         end
       end

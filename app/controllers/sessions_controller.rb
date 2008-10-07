@@ -89,7 +89,7 @@ class SessionsController < ApplicationController
         self.current_agent.remember_me
         cookies[:auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
       end
-      redirect_back_or_default '/spaces/1'
+      redirect_back_or_default spaces_path
       flash[:notice] = "Logged in successfully"
     else
       flash[:error] ||= "Wrong credentials"
@@ -102,7 +102,7 @@ class SessionsController < ApplicationController
     cookies.delete :auth_token
     reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/spaces/1')
+    redirect_back_or_default(spaces_path)
   end
 
   private
@@ -131,6 +131,10 @@ class SessionsController < ApplicationController
   def openid_consumer
     @openid_consumer ||= OpenID::Consumer.new(session,
                                               CMS::OpenID::ActiveRecordStore.new)
+  end
+  
+  def get_space
+    @container = @space = Space.find_by_name("Public")
   end
 
 end

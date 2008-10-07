@@ -2,8 +2,6 @@
 class RolesController < ApplicationController
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
   
-  before_filter :get_cloud
-  before_filter :get_space , :only =>[:group_details, :show_groups, :create_group,:save_group, :edit_group, :update_group, :delete_group]
   before_filter :authentication_required
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:group_details,:show_groups,:groups_details]

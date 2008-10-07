@@ -4,7 +4,7 @@
 
 	<img src="/images/magnify2.png"></img> <h4 class="title"> Search Posts</h4>
 
-  <% form_tag(search_articles_path(:space_id=>@space.id), :method => 'get') do %>
+  <% form_tag(search_articles_path(@space), :method => 'get') do %>
 
       <%= text_field_tag :query, params[:query] %>
 	  <%= image_submit_tag "go2.ico", :class=>'go'%>

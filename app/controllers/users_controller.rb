@@ -16,9 +16,6 @@ class UsersController < ApplicationController
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
   :reset_password ]
   
-  before_filter :get_space, :except=>[:new,:create,:destroy,:activate,:forgot_password,:reset_password]
-  
-  before_filter :get_cloud
   before_filter :authentication_required, :only => [:edit,:update, :destroy]
   before_filter :user_is_admin, :only=> [:search_users2]
   
@@ -32,7 +29,7 @@ class UsersController < ApplicationController
   # GET /users.atom
   
   def index
-    if params[:only_space_users]  || params[:space_id] != "1"
+    if params[:only_space_users]  || params[:space_id] != "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = @space.actors
@@ -71,7 +68,7 @@ class UsersController < ApplicationController
   def new
     @user = @agent = self.resource_class.new
     if params[:space_id]!=nil
-      @space = Space.find(params[:space_id])
+      @space = Space.find_by_name(params[:space_id])
       #2 options, by email or from application
       if params[:by_email]
         render :template =>'users/by_email'
@@ -90,7 +87,7 @@ class UsersController < ApplicationController
   
   def create
     if params[:space_id]!=nil
-      @space = Space.find(params[:space_id])
+      @space = Space.find_by_name(params[:space_id])
       #2 opciones, from email or from app
       if params[:by_email]
         add_user_by_email (params)
@@ -216,7 +213,7 @@ class UsersController < ApplicationController
     def destroy
 
       if params[:space_id]!=nil
-        @space = Space.find(params[:space_id])
+        @space = Space.find_by_name(params[:space_id])
         if params[:remove_from_space]
           remove_user(params)
           render :template =>'users/from_app'
@@ -230,7 +227,7 @@ class UsersController < ApplicationController
       flash[:notice] = "User #{@user.login} deleted"
       
     respond_to do |format|
-      format.html { redirect_to users_path(:space_id => @space.id) }
+      format.html { redirect_to users_path }
       format.xml  { head :ok }
       format.atom { head :ok }
     end
@@ -374,7 +371,7 @@ class UsersController < ApplicationController
           params[:invitation][:user_id]= current_user.id
           params[:invitation][:role_id]= @role.id
           @sp = params[:space_id]
-          @space_required = Space.find(@sp)
+          @space_required = Space.find_by_name(@sp)
           @users_invited= []
           @users_added = []
           @users_not_added = []
@@ -393,10 +390,12 @@ class UsersController < ApplicationController
               params[:invitation][:email]= @mail
               @user = User.find_by_email(@mail)
               if @user
-                @perfor = Performance.find_by_container_id_and_agent_id(params[:space_id],@user.id)
+                @perfor = Performance.find_by_container_id_and_agent_id(@space.id,@user.id)
               end
+              
               if @user == nil 
                 #falta notificar por mail
+                params[:invitation][:space_id] = @space.id
                 @inv = Invitation.new(params[:invitation])        
                 @inv.save! 
                 @users_invited << @inv.email

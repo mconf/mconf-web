@@ -10,9 +10,9 @@
 <%end%>
 <% for group in @groups%>
 
-<%= link_to group.name, edit_space_group_path(@space.id,group.id)%>  
-<%= link_to_remote 'Members', {:url => formatted_space_group_path(@space.id,group.id, 'js'), :method => :get}%>    
-<%= link_to 'Delete' , space_group_path(@space.id,group.id),:method => :delete, :confirm => 'Are you sure?'%>
+<%= link_to group.name, edit_space_group_path(@space,group)%>  
+<%= link_to_remote 'Members', {:url => formatted_space_group_path(@space,group, 'js'), :method => :get}%>    
+<%= link_to 'Delete' , space_group_path(@space,group),:method => :delete, :confirm => 'Are you sure?'%>
 
  <br>
 <br><%end%>

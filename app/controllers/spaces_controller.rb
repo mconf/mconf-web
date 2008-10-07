@@ -1,9 +1,7 @@
 class SpacesController < ApplicationController
   before_filter :authentication_required, :except=>[:index, :register,:show]
-  before_filter :get_space #, :only =>[:edit, :add_user,:add_user2,:update, :show]
   before_filter :is_public_space, :only=>[:show]
-  before_filter :get_cloud
-  before_filter  :user_is_admin , :only=> [:new,:create,:destroy]
+  before_filter :user_is_admin , :only=> [:new,:create,:destroy]
  
   before_filter :not_public_space, :only=>[:add_user, :add_user2]
   before_filter :space_member, :only=>[:show]
@@ -18,7 +16,7 @@ class SpacesController < ApplicationController
   # GET /spaces.atom
   def index
     @spaces = Space.find(:all, :conditions=>["id != 1"] )    
-    if @space.id==1
+    if @space
        session[:current_tab] = "Spaces" 
     end
     if params[:manage]
@@ -50,11 +48,6 @@ class SpacesController < ApplicationController
     next_events
     session[:current_tab] = "Home"        
     session[:current_sub_tab] = ""
-    if params[:space_id]
-      @space = Space.find(params[:space_id])
-    else
-    @space = Space.find(params[:id])
-    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @space }
@@ -260,18 +253,29 @@ class SpacesController < ApplicationController
       end 
     end
   end
-
+=end
 
  #Este metodo no parece que tenga ningun sentido
   def register
     render :template =>'users/new'
     
   end
-=end
+
   private
   #method to parse the request for update from the server that contains
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
   #returns an array with the user logins
+
+  def get_space
+    if params[:space_id]
+      @container = @space = Space.find_by_name(params[:space_id])
+    elsif params[:id]
+      @container = @space = Space.find_by_name(params[:id])
+    else
+      @container = @space = Space.find_by_name("Public")
+    end
+    session[:space_id] = @space.name
+  end
   
   #TODO este metodo ahora mismo no parece que se use en ningún sitio
   def parse_emails(emails)

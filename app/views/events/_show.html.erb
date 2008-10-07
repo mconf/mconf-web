@@ -19,7 +19,7 @@ Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
 
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
 Keywords:<b><%for tag in @event.tags %><br>
-		<%= link_to h(tag.name), search_by_tag_path(@space.id, tag), :method => :get  %>
+		<%= link_to h(tag.name), search_by_tag_path(@space, tag), :method => :get  %>
 <%end%>
 
 <%end%>
@@ -76,17 +76,17 @@ URLs for the session</b>
                   #uncomment if you want an event in the past not to be editable
                   %>				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space.id, event.id, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space.id, event.id), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space.id, event.id), :method => :delete,
+				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%><br>
 	
-	<%= link_to 'Hide', space_events_path(@space.id), :method => :get%>
+	<%= link_to 'Hide', space_events_path(@space), :method => :get%>
 	</div>
 </div>
 <%end%>

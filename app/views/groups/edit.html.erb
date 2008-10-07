@@ -31,7 +31,7 @@
 <% rounded(:class => "tips") do %>
 <div id="space_users">
 
-    <% form_tag(space_group_path(@space.id, @group.id),{:method => :put, :name=>'create_group_form',:style => "display: inline;", :onsubmit=>"selectAllOptions();"} ) do %>
+    <% form_tag(space_group_path(@space, @group),{:method => :put, :name=>'create_group_form',:style => "display: inline;", :onsubmit=>"selectAllOptions();"} ) do %>
 
 		<%= render :partial => 'form_groups'%>
 		

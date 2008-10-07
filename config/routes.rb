@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   #ROOT
-  map.root :controller => 'spaces', :action => 'show', :space_id => 1,:container_id=> 1
+  map.root :controller => 'spaces', :action => 'show', :space_id => "Public",:container_id=> 1
 
   # #######################################################################
   # CMSplugin
@@ -79,6 +79,8 @@ ActionController::Routing::Routes.draw do |map|
   map.search_all '/spaces/:space_id/search', :controller => 'search', :action=> 'all' #=> /search, SearchController
   map.search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
+  
+  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
   ###########################################
   # RUTAS A LIMPIAR
