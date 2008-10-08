@@ -5,8 +5,12 @@
 &nbsp;
 <div align=center>
 <table border=1 >
-	
-	
+        <% if @machine && !error_messages_for(:machine).blank? -%>
+        <div class="errors">
+            <%= error_messages_for :machine %>
+        </div>	
+		<%end%>
+<br>	
 <tbody id="table_resources">
 <tr>
 <td class=headerDay align=center>Resource Nickname</td>

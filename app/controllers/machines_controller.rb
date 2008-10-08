@@ -52,23 +52,7 @@ class MachinesController < ApplicationController
   def create
     name = params[:machine][:name]
     nickname = params[:machine][:nickname]
-    if name==nil || nickname==nil  || name=="" || nickname ==""      
-      flash[:notice] = "Nor name or nickname can be blank"
-      redirect_to machines_path
-      return
-    end
-    if Machine.find_by_name(name)
-      #already exists
-      flash[:notice] = "Name exists already"
-      redirect_to machines_path
-      return
-    end
-    if Machine.find_by_nickname(nickname)
-      #already exists
-      flash[:notice] = "Resource Full Name exists already"
-      redirect_to machines_path
-      return
-    end
+
     
     @machine = Machine.new(params[:machine])
     
@@ -83,7 +67,9 @@ class MachinesController < ApplicationController
                  :status => :created
         }
       else
-        format.html { redirect_to machines_path }
+        format.html { 
+        @machines = Machine.all
+        render :action => :index }
         format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @machine.errors.to_xml, :status => :bad_request }
       end
