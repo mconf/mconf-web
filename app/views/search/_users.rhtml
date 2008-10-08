@@ -1,0 +1,13 @@
+<% rounded(:class => "tips") do %>
+
+<% if @users.length == 0 %>
+	No Users Found
+<% else%>
+	<% i = 0%>	
+	<div class="col_public"><%=generate_user_table%></div>
+	<%for user in @users%>
+
+	    	<div class="user_public"><%=show_list_user(user)%></div>
+    <%end%>	
+<%end%>
+<%end%>

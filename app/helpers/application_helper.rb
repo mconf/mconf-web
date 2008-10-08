@@ -128,14 +128,13 @@ end
   end
   
   def show_article(entry,space,*args) #return a compress view of a entry post
-
   usuario = entry.agent
   number_comments= "(" + get_number_children_comments(entry).to_s + ")"
   user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
  # user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
   tags = "[" + entry.content.tag_list + "]"
   fecha = get_format_date(entry)
-  line_one = ("<div class='post'> <p> <span class = 'first_Column'> "+ to_user_link(name_format(user,17,""),usuario,space)  + to_article_link(number_comments,space,entry) + ": </span>  <span class = 'second_Column'> <span class = 'tags_column'> " + name_format(tags,21,"]")+ " </span>"  + to_article_link(name_format(entry.content.title ,(65  - tags.length) ,""),space,entry)).to_s +  "<span class = 'description'> " + to_article_link(name_format(": "+ entry.content.text ,(80 - entry.content.title.length - tags.length) ,""),space,entry).to_s  + "</span>" +"</span>  <span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
+  line_one = ("<div class='post'> <p> <span class = 'first_Column'> "+ to_user_link(name_format(user,17,""),usuario,space)  + to_article_link(number_comments,space,entry) + ": </span>  <span class = 'second_Column'> <span class = 'tags_column'> " + name_format(tags,21,"]")+ " </span>"  + to_article_link(name_format(entry.content.title.to_s ,(65  - tags.length) ,""),space,entry)).to_s +  "<span class = 'description'> " + to_article_link(name_format(": "+ entry.content.text ,(80 - entry.content.title.to_s.length - tags.to_s.length) ,""),space,entry).to_s  + "</span>" +"</span>  <span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
   image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
@@ -192,4 +191,37 @@ end
     def to_article_link (name,space,entry)
     return link_to(sanitize(name), polymorphic_path([space, entry.content]))
   end
+  
+  def generate_user_table
+    name = "<div class='name'> Login / (name,lastname) </div>"
+    organization = "<div class='organization'> Organization </div>"
+    interests = "<div class='interests'> Interests </div>"
+    members = "<div class='members'> Member of </div> "
+    line = name + organization + interests + members + "<br/> <br/>"
+    return line
+    
+  end
+  def show_list_user(user)
+    
+    div_user = "<div class= 'name'>" + name_format( user.login  + (" / "+user.profile.name + "  " + user.profile.lastname if user.profile).to_s,25,"") + "</div>"
+    div_organization = "<div class= 'organization'>" + (name_format(user.organization ,17,"") if user.profile).to_s + "</div>"
+    div_interests = "<div class= 'interests'>" + (name_format(user.tag_list ,23,"")).to_s + "</div>"
+    div_members = "<div class= 'members'>" + (name_format(member_spaces(user) ,27,"")).to_s + "</div>"
+    line = div_user + div_organization + div_interests + div_members
+    return line
+  end
+  
+  def member_spaces(user)
+
+  spaces = ""
+    if user.stages.length== 0
+      return "none"
+  else
+    user.stages.each do |space|
+      spaces += space.name + " ,"
+    end
+  end
+   return spaces[0,spaces.length-1]
+  end
+
 end

@@ -69,6 +69,8 @@ class ProfilesController < ApplicationController
     
     @profile = Profile.new(params[:profile])
     @profile.user_id = current_user.id
+    @logotype = Logotype.new(params[:logotype]) 
+    @profile.logotype = @logotype
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
@@ -84,11 +86,16 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.xml
   def update
+
     @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
     
+     if !@profile.logotype
+          @logotype = Logotype.new(params[:logotype]) 
+          @profile.logotype = @logotype
+    end
     respond_to do |format|
-      if @profile.update_attributes(params[:profile])
+      if @profile.update_attributes(params[:profile]) && @profile.logotype.update_attributes(params[:logotype])
         flash[:notice] = 'Profile was successfully updated.'
         format.html { render :action => "show" }
         format.xml  { head :ok }

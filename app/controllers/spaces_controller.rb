@@ -73,10 +73,14 @@ class SpacesController < ApplicationController
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
+
+    params[:space][:description] = params[:space_new][:description]
     @space = Space.new(params[:space])
+    @logotype = Logotype.new(params[:logotype]) 
+    @space.logotype = @logotype
     
     respond_to do |format|
-      if @space.save
+      if @space.save!
         flash[:notice] = 'Space was successfully created.'
         format.html { redirect_to(:action => "index", :controller => "spaces") }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
@@ -98,8 +102,13 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-    @space = Space.find(params[:id])
-    if @space.update_attributes(params[:space])
+
+    @space = Space.find_by_name(params[:id])
+    if !@space.logotype
+          @logotype = Logotype.new(params[:logotype]) 
+          @space.logotype = @logotype
+    end
+    if @space.update_attributes(params[:space]) && @space.logotype.update_attributes(params[:logotype]) 
       #fist of all we delete all the old performances, but not the groups
       @space.delete_performances
       for role in Role.find_all_by_type(nil)
@@ -115,7 +124,7 @@ class SpacesController < ApplicationController
         format.html { 
           flash[:notice] = 'Space was successfully updated.'
           @spaces = Space.find(:all )
-          redirect_to :action => "show" , :id => @space.id
+          redirect_to space_path(@space)
         }
         format.atom { head :ok }
       end
@@ -133,7 +142,7 @@ class SpacesController < ApplicationController
   # DELETE /spaces/1.xml
   # DELETE /spaces/1.atom
   def destroy
-    @space = Space.find(params[:id])
+    @space = Space.find_by_name(params[:id])
     @space.destroy
     flash[:notice] = 'Space was successfully removed.'
     respond_to do |format|
@@ -262,6 +271,9 @@ class SpacesController < ApplicationController
   end
 
   private
+  
+  
+  
   #method to parse the request for update from the server that contains
   #<div id=d1>ebarra</div><div id=d2>user2</div>...
   #returns an array with the user logins

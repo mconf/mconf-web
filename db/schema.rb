@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081001103733) do
+ActiveRecord::Schema.define(:version => 20081008091202) do
 
   create_table "anonymous_agents", :force => true do |t|
   end
@@ -167,6 +167,22 @@ ActiveRecord::Schema.define(:version => 20081001103733) do
     t.datetime "updated_at"
   end
 
+  create_table "logotypes", :force => true do |t|
+    t.string   "type"
+    t.integer  "size"
+    t.string   "content_type"
+    t.string   "filename"
+    t.integer  "height"
+    t.integer  "width"
+    t.integer  "parent_id"
+    t.string   "thumbnail"
+    t.integer  "db_file_id"
+    t.string   "logotypable_type"
+    t.integer  "logotypable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "machines", :force => true do |t|
     t.string "name",     :limit => 40, :default => "", :null => false
     t.string "nickname", :limit => 40, :default => "", :null => false
@@ -203,8 +219,8 @@ ActiveRecord::Schema.define(:version => 20081001103733) do
     t.integer "machine_id",                                            :null => false
     t.integer "machine_id_connected_to",                               :null => false
     t.string  "role",                    :limit => 40, :default => "", :null => false
-    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
-    t.integer "radiate_multicast",       :limit => 2,  :default => 0,  :null => false
+    t.integer "fec",                                   :default => 0,  :null => false
+    t.integer "radiate_multicast",                     :default => 0,  :null => false
     t.text    "description"
   end
 

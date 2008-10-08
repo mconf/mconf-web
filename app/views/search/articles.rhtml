@@ -2,36 +2,8 @@
 <div class="yui-b main_column">
 
 	<h2> Search Results</h2>
-<% rounded(:class => "tips") do %>
 
-<% if @entries.length == 0 %>
-	No Posts Found
-<% else%>
-	
-	<%for entry in @entries%>
-	   
-	   
-	    <% user = User.find(entry.agent_id)%>
-	
-    <%= entry.content.class %>:: <%=link_to(sanitize(entry.title), entry_path(entry)) %> (<%= entry.container_entries.size %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
-        
-  	Description: <%= entry.description%><br>
-	
-<%= link_to 'Edit', edit_entry_path(entry) %>
-   <%= link_to 'Destroy', entry_url(entry), :confirm => 'Are you sure?', :method => :delete %>
-   <%= link_to 'Comments', "#{ entry_path(entry) }#comments" %>
-
-	
-  </tr>
-
-
-<br />
-	   
-	   
-    <%end%>	
-<%end%>
-<%end%>
-
+<%= render :partial =>'articles'%>
 	 
 	 </div>
 	 	 </div>

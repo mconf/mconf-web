@@ -3,85 +3,8 @@
 <div id="yui-main">
 <div class="yui-b main_column">
 
-	
-<% rounded(:class => "tips") do %>
+	<%= render :partial =>'events'%>
 
-    
-	<% if @events == nil %>
-	Please insert something in the search box
-	<% else%>
-	<h3> <%= @events.size%> events were found</h3></td><tr>
-	<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
-<%= pagination_links(@pages, :params => { :query=> @query }) %>
-<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %>
-
-	<table WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center><tbody><tr>
-	<td>Title</td>
-	<td>Description</td>
-	<td>Start Date</td>
-	<td>Options</td>
-	<td>Tags</td>
-	</tr>
-	<tr>
-		
-		 
-		<% @events.each do |event| %>  
-		<div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
-		<% for datetime in event.event_datetimes %> 
-		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
-			<%end%>
-		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => formatted_space_event_path(@space, event , :format => "js") }   %></div>
-		</td>
-		<td>
-			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
-     
-		</td>
-		<td> 
-		<% i = 0%>
-	 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
-     	<% for datetime in event.event_datetimes %> 
-    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
-<% i += 1%>
-<%end%>
-		</td>
-				<td>
-					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
-                				  
-                <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
-                                                 
-           
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
-                <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
-                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
-           
-			<%end%>	
-				</td>
-		<td>
-			 <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %></li>
-  
-		</td>
-		</tr>
-		
-		 <% end %>
-
- </tbody>
-
-	</table>
-	
-	 <%end%>
-     
-    		
-
-<%= link_to 'Previous page', { :page => @pages.current.previous, :query => @query} if @pages.current.previous %>
-<%= pagination_links(@pages, :params => { :query=> @query }) %>
-<%= link_to 'Next page', { :page => @pages.current.next, :query => @query} if @pages.current.next %><%end%>
-
-
-<div id="show_event">
-		</div>
   </div>
 </div>
 

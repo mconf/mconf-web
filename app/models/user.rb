@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   acts_as_taggable
 
   has_one :profile
+
   
   has_many :participants
   has_and_belongs_to_many :events 
@@ -16,6 +17,13 @@ class User < ActiveRecord::Base
   
   attr_accessible :email2, :email3, :superuser, :disabled
   
+   is_indexed :fields => ['login','email'],
+:include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
+             {:class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
+             {:class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}],
+:concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
+:association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+}]
   
   def tag_list2
     tag_list.collect{|tag| tag}

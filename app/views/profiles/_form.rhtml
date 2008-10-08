@@ -31,4 +31,12 @@
 <p><label for="country">Country</label><br/>
 <%= f.text_field :country %></p>
 
+</br>
+<% fields_for :logotype do |attach| -%>
+	    <p>
+	    <label for="attachment">Upload your photo:</label>
+    	<%= attach.file_field :uploaded_data %>
+  		</p>
 
+<% end -%>
+<br/>

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :logotypes
+
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 
 
@@ -11,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :articles
     space.resources :attachments
     space.resources :entries
-
+    space.resource :logotype 
     # Para el nuevo controlador de Grupos
     space.resources :groups
   end
@@ -22,8 +24,10 @@ ActionController::Routing::Routes.draw do |map|
   #map.resource :notifier
 
   map.resources :users do |user|
-      user.resource :profile
-      end
+      user.resource :profile do |profile|
+          profile.resource :logotype
+	end
+     end
   map.resources :roles
 
   #LOCALE CONTROLLER (GLOBALIZE)

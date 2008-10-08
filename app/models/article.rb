@@ -8,12 +8,23 @@ class Article < ActiveRecord::Base
   
     acts_as_taggable
 
+  is_indexed :fields => ['text','title'],:concatenate => [
+{:class_name => 'Tag',
+:field => 'name',
+:as => 'tags',
+:association_sql => "LEFT OUTER JOIN taggings ON (articles.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Article') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+}]
+  #,
+
+
     validates_presence_of :title, :text
  # is_indexed :fields => ['text','title']#,
+
   
 #  :include => [{:class_name => 'Entry', :field => 'title', :association_sql => "" }],
  # :include => [{:class_name => 'Tag', :field => 'name', :association_sql => "JOIN taggings ON taggings.tag_id = tags.id" }]
   
+
 
    def authorizes?(agent, actions)
     return true if agent.superuser || self.entry.has_role_for?(agent, :admin)

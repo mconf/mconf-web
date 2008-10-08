@@ -2,12 +2,14 @@ class Space < ActiveRecord::Base
   acts_as_container
   
   has_many :groups
-  
+  has_one :logotype , :as => 'logotypable'
   validates_presence_of :name, :description
   
   def to_param
     name
   end
+  
+  before_destroy { |space| space.logotype.destroy}
   
   #method that returns the events of the space
   def events

@@ -1,0 +1,12 @@
+<h1>Editing logotype</h1>
+
+<% form_for(@logotype) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @logotype %> |
+<%= link_to 'Back', logotypes_path %>

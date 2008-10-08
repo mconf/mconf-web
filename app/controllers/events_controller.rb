@@ -73,23 +73,22 @@ end
   
   def show
     session[:current_tab] = "Events" 
+    if params[:id] && !params[:event_id]
+          params[:event_id] = params[:id]   
+    end
+    
     #this part is used to create the event's summary in the left column. This is used in an Ajax Call.'
     if params[:show_summary]
       logger.debug("LLAMADA A SHOW_SUMMARY")   
-      begin
-        if params[:id] && !params[:event_id]
-          params[:event_id] = params[:id]   
-        end
         begin
-          @event = Event.in_container(nil).first(params[:event_id])
+          @event = Event.in_container(nil).find(params[:event_id])
           #@event = Event.find(params[:event_id]) 
           @show_summary = true
         rescue
         end
-      end
-    else
+     else
       @datetime = Date.today
-      @event = Event.in_container(nil).first(params[:event_id])
+      @event = Event.in_container(nil).find(params[:event_id])
       #@event = Event.find(params[:id])
       @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
     end

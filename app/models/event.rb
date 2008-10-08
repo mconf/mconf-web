@@ -18,7 +18,13 @@ class Event < ActiveRecord::Base
     validates_presence_of :name, 
                           :message => "must be specified"
    
-   #is_indexed :fields => ['name','service']
+   is_indexed :fields => ['name','description'],
+   :include => [{:class_name => 'EventDatetime',:field => 'start_date',:as => 'event_datetime_start_date',:association_sql => 'left join event_datetimes on events.id = event_datetimes.event_id'},
+                {:class_name => 'EventDatetime',:field => 'end_date',:as => 'event_datetime_end_date',:association_sql => 'left join event_datetimes on events.id = event_datetimes.event_id'}],
+   :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
+:association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+}]
+   
    def authorizes?(agent, actions)
     return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
     

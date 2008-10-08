@@ -122,9 +122,10 @@ class ApplicationController < ActionController::Base
   end
   #this method returns the coming 5 events
   def next_events
+
     @events = if @space.id == 1
-                Event.in_container(nil).all :conditions => [ "public_read = ?", true],
-                                            :order => "updated_at DESC"
+                (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)}
+                
               else
                 Event.in_container(@space).all :order => "updated_at DESC"
               end
@@ -151,6 +152,7 @@ class ApplicationController < ActionController::Base
     elsif session[:space_id]
       @container = @space = Space.find_by_name(session[:space_id])
     end
+
   end
   
   

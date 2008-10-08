@@ -1,0 +1,2 @@
+module LogotypesHelper
+end
