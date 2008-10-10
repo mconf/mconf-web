@@ -63,14 +63,16 @@ class ArticlesController < ApplicationController
         else
           respond_to do |format|
             format.html 
-            format.atom
+            format.atom {@entries = @container.container_entries.find(:all,
+                                                        :conditions => { :content_type => "Article" },
+                                                        :order => "updated_at DESC")}
             format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
           end
         end
     end
     
   def create
-   debugger
+    debugger
     #creación del Artículo padre
     @article = Article.new(params[:article])
     if !@article.valid?
@@ -183,7 +185,6 @@ class ArticlesController < ApplicationController
      # Show this Entry
       #   GET /articles/:id
       def show
-
         @title ||= @article.title
         @comment_children = @article.entry.children.select{|c| c.content.is_a? Article}
         @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}

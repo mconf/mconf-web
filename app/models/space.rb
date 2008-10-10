@@ -9,7 +9,7 @@ class Space < ActiveRecord::Base
     name
   end
   
-  before_destroy { |space| space.logotype.destroy}
+  before_destroy { |space| space.logotype.destroy if space.logotype}
   
   #method that returns the events of the space
   def events

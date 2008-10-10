@@ -219,8 +219,8 @@ ActiveRecord::Schema.define(:version => 20081008091202) do
     t.integer "machine_id",                                            :null => false
     t.integer "machine_id_connected_to",                               :null => false
     t.string  "role",                    :limit => 40, :default => "", :null => false
-    t.integer "fec",                                   :default => 0,  :null => false
-    t.integer "radiate_multicast",                     :default => 0,  :null => false
+    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
+    t.integer "radiate_multicast",       :limit => 2,  :default => 0,  :null => false
     t.text    "description"
   end
 

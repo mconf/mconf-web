@@ -3,7 +3,6 @@
 	
 	<div id="yui-main">
 <div class="yui-b main_column">
-
 	
 <% rounded(:class => "tips") do %>
 <h2>Events</h2><br>
@@ -77,7 +76,9 @@ No events Found <br><br>
 <table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
 	<tr><td align="center">Name (Login)</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
 </tr>
+
 <%for user in @users do%>
+<%debugger%>
 <%if user.profile != nil%>
 <tr>
 <td align="center"><%=link_to user.profile.name, user_profile_path(current_user.id, @space)%> (<%= link_to user.login,  user_profile_path(current_user.id, @space) %>)<br></td>

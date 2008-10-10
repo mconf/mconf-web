@@ -65,11 +65,33 @@ class Article < ActiveRecord::Base
     end
     
     entry = {}
+
+    parent_article_id = e.get_elem(e.to_xml, 'http://sir.dit.upm.es/schema', 'parent_id').text.to_i
+    
+    if parent_article_id
+      parent_entry_id = Article.find(parent_article_id).entry.id 
+      resultado[:comment] = true
+      entry[:parent_id] = parent_entry_id
+    end
+   
+=begin
+    ### esto es para cumplir mejor con atom-threading
+    in_reply_to = e.get_elem(e.to_xml, 'http://purl.org/syndication/thread/1.0', 'in-reply-to')
+    if in_reply_to
+      parent_entry_id = parsear_in_reply_to 
+      resultado[:comment] = true
+      entry[:parent_id] = parent_entry_id
+    end
+=end
+   
+    #if the article is a comment, no public_read is given
+    unless entry[:comment]
     vis = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
     if vis == "public" 
     entry[:public_read] = 1
     else
     entry[:public_read] = 0
+    end
   end
   
     resultado[:entry] = entry
