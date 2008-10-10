@@ -12,7 +12,7 @@
 		
 		<p><label for="login">Username or email</label><br/>
 		
-		<%= text_field_tag 'login' %></p>
+		<%= text_field_tag 'login', params[:login] %></p>
 		<p><label for="password">Password</label><br/>
 		<%= password_field_tag 'password' %></p>
 
@@ -26,7 +26,7 @@
 or....
 	  <div id="openid-container">
 		<p><label for="openid_identifier">OpenID:</label></p>
-		<%= text_field_tag 'openid_identifier' %>
+		<%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
 	  </div>
 	  <p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 	 <% end -%>
