@@ -80,7 +80,7 @@ class SpacesController < ApplicationController
     @space.logotype = @logotype
     
     respond_to do |format|
-      if @space.save!
+      if @space.save
         flash[:notice] = 'Space was successfully created.'
         format.html { redirect_to(:action => "index", :controller => "spaces") }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
@@ -90,7 +90,8 @@ class SpacesController < ApplicationController
                  :status => :created
         }
       else
-        format.html { render :action => "new" }
+        format.html { @space_new = Space.new
+        render :action => :new }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
