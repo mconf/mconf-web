@@ -1,4 +1,3 @@
-require 'ferret'
 
 class Event < ActiveRecord::Base
   
