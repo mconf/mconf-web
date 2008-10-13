@@ -148,7 +148,7 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Article')
     @search.run
    # @search.results
-    @articles_entries = @search.results.select{|article| article.entry.parent_id == nil}
+    @articles_entries = @search.results.select{|article| article.entry!=nil && article.entry.parent_id == nil}
     @entries = @articles_entries.map{|article| article.entry}.sort_by{|e| e.updated_at}.reverse
     
    # @results = Article.find_by_contents(@query)

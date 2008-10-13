@@ -23,10 +23,11 @@
 		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
 			<%end%>
 		<td>
-			<%= link_to_remote ( event.highlight(@query, :field => :name, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>")), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  }   %></div>
+			<%= link_to_remote ( highlight(event.name, @query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  %></div>
+					
 		</td>
 		<td>
-			 <%= event.highlight(@query, :field => :description, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %>
+			 <%= highlight(event.description, @query) %>
      
 		</td>
 		<td> 
