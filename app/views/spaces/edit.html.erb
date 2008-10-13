@@ -2,7 +2,7 @@
 <div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
 <h1>Editing space</h1>
-
+<div class= "image_logo"><%=image_tag(space_logotype_path(@space, :thumbnail => @thumbnail)) if @thumbnail%></div>
 <%= error_messages_for :space %>
 <% form_for :space, :url => space_path(@space), :html => {:multipart => true,:method => :put} do |f| %>
 
@@ -11,6 +11,8 @@
 <%= submit_tag 'Update' %>
  <%= link_to 'Back', spaces_path%>
 </p>
+
+
 <% end %>
 <% end %>
 </div>

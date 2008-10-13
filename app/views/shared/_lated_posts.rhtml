@@ -3,6 +3,6 @@
 No post created
 <%else%>
 	<%@posts.each do |entry|%>
-	<%=show_article(entry,entry.container)%>
+	<%=show_article(entry,@space,"edit","delete")%>
 	<% end -%>
 <%end%>

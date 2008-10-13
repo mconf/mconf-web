@@ -46,6 +46,7 @@ class SpacesController < ApplicationController
     end
     
     next_events
+    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
     session[:current_tab] = "Home"        
     session[:current_sub_tab] = ""
     respond_to do |format|
@@ -65,6 +66,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1/edit
   def edit
     session[:current_sub_tab] = "Edit Space"
+    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
   
@@ -119,6 +121,7 @@ class SpacesController < ApplicationController
           end
         end
       end
+      
       @space.save!
 
       respond_to do |format|
@@ -131,7 +134,7 @@ class SpacesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :action => "index" }
+        format.html { render :action => "edit" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
       end      

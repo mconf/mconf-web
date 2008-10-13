@@ -12,8 +12,12 @@
 
 <% fields_for :logotype do |attach| -%>
 	    <p>
-	    <label for="attachment">Upload a logo image:</label>
-    	<%= attach.file_field :uploaded_data %>
+		<%if @thumbnail%>
+	    <label for="attachment">Change the logo image:</label>
+    	<%else%>
+		<label for="attachment">Upload a logo image:</label>
+		<%end%>
+		<%= attach.file_field :uploaded_data %>
   		</p>
 
 <% end -%>

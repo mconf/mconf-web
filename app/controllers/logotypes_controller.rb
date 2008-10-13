@@ -13,16 +13,22 @@ class LogotypesController < ApplicationController
   # GET /logotypes/1
   # GET /logotypes/1.xml
   def show
-    if params[:usuario]
-      @usuario = User.find(params[:usuario])
-      if @usuario.profile.logotype
-        @image = @usuario.profile.logotype
-      end
-    else 
-      if @space.logotype
-        @image = @space.logotype
-      end
+    if params[:thumbnail]
+      @image = Logotype.find(params[:thumbnail])
     end
+    #if params[:usuario]
+    #  @usuario = User.find(params[:usuario])
+    #  if @usuario.profile.logotype
+    #    @image = @image = Logotype.find(:first, :conditions => {:parent_id => @usuario.profile.logotype, :thumbnail => ''})
+    #  end
+    #elsif params[:image_space]
+    #  @this_space = Space.find_by_name(params[:image_space])
+    #  if @this_space.logotype
+    #     @image = Logotype.find(:first, :conditions => {:parent_id => @this_space.logotype, :thumbnail => 'space'})
+    #  end
+    #else
+      #si hubiera algún otro tipo de modelo con logo iría aquí en otro elsif
+    #end
     respond_to do |format|
       format.html {
       if @image

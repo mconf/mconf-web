@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   before_filter :get_entry, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
   # Get Article in member actions
-  before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
+ # before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
   
   authorization_filter :article, :edit, :only=>[:edit,:update]
   
@@ -72,6 +72,7 @@ class ArticlesController < ApplicationController
     end
     
   def create
+
     #creación del Artículo padre
     @article = Article.new(params[:article])
     if !@article.valid?

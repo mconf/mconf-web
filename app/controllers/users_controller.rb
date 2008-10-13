@@ -29,17 +29,17 @@ class UsersController < ApplicationController
   # GET /users.atom
   
   def index
-    if params[:only_space_users]  || params[:space_id] != "Public"
+    if params[:manage]
+      session[:current_tab] = "Manage" 
+      session[:current_sub_tab] = "Users"
+      @users = User.find(:all)
+    elsif params[:only_space_users]  || params[:space_id] != "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
-      @users = @space.actors
+      @users = @space.actors 
     elsif @space && @space.id==1
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
-      @users = User.find(:all)
-    else
-      session[:current_tab] = "Manage" 
-      session[:current_sub_tab] = "Users"
       @users = User.find(:all)
     end
     respond_to do |format|
@@ -146,7 +146,9 @@ class UsersController < ApplicationController
   def edit
     session[:current_sub_tab] = "Edit Account"
     @user = User.find(params[:id])
-    
+    if @user.profile
+    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
+    end
   end
   
   def clean
@@ -187,18 +189,18 @@ class UsersController < ApplicationController
           flash[:notice] = 'User was successfully updated.'     
           format.html { #the superuser will be redirected to list_users
             if current_user.superuser == true
-              redirect_to(space_users_path(@space.id))
+              redirect_to(space_users_path(@space))
             else
-              redirect_to(space_user_profile_path(@space.id, @user.id)) 
+              redirect_to(space_user_profile_path(@space, @user)) 
             end }
           format.xml  { render :xml => @user }
           format.atom { head :ok }
         else
           format.html { #the superuser will be redirected to list_users
             if current_user.superuser == true
-              redirect_to(space_users_path(@space.id))
+              redirect_to(space_users_path(@space))
             else
-              redirect_to(space_user_profile_path(@space.id, @user.id)) 
+              redirect_to(space_user_profile_path(@space, @user)) 
             end }
           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
           format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }

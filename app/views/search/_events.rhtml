@@ -18,7 +18,7 @@
 	<%end%>	
 		 
 		<% @events.each do |event| %>  
-		
+
 		<% for datetime in event.event_datetimes %> 
 		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div>
 			<%end%>
@@ -52,7 +52,9 @@
 			<%end%>	
 				</td>
 		<td>
-			 <%= event.highlight(@query, :field => :tag_list, :num_excerpts => 1, :pre_tag => "<strong>", :post_tag => "</strong>") %></li>
+
+			<%=highlight(event.tag_list, @query) if event.tag_list%>
+			
   
 		</td>
 		</tr>

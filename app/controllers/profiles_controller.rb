@@ -22,12 +22,11 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     @user_spaces = @user.stages
     
-    
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
     else
-      
+    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})  
       respond_to do |format|
         format.html 
         format.xml  { render :xml => @profile }
@@ -58,6 +57,7 @@ class ProfilesController < ApplicationController
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
     else
+      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
       @user = User.find_by_id(params[:user_id])      
     end
   end
@@ -89,7 +89,7 @@ class ProfilesController < ApplicationController
 
     @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
-    
+    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
      if !@profile.logotype
           @logotype = Logotype.new(params[:logotype]) 
           @profile.logotype = @logotype

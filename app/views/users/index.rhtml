@@ -1,6 +1,6 @@
 <%if params[:only_space_users] %>
 <%= render :partial =>'show_space_users'%>
-<%elsif @space.id == 1%>
+<%elsif @space.id == 1 && !current_user.superuser== true%>
 <%= render :partial =>'show_public_users'%>
 <%else%>
 <div id="yui-main">

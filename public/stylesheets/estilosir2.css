@@ -539,4 +539,10 @@ div.members{
 	text-align: left;
 }
 
-
+div.image_logo{
+	width:200px;
+	position:relative;
+	left:-250px;
+	display:inline-block;
+	text-align: left;
+}

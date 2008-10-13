@@ -40,10 +40,9 @@ class SearchController < ApplicationController
   def tag
 
     @tag = Tag.find_by_name(params[:tag])
-    @events = @tag.events.map{|event| event.entry}
+    @events = @tag.events.map{|event| event}
     @users = @tag.users
-    @entries = @tag.articles.map{|article| 
-    article.entry}
+    @entries = @tag.articles.map{|article| article.entry}
     
     respond_to do |format|        
       format.html     
