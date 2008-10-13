@@ -284,6 +284,8 @@ class SpacesController < ApplicationController
       @container = @space = Space.find_by_name(params[:space_id])
     elsif params[:id]
       @container = @space = Space.find_by_name(params[:id])
+    elsif session[:space_id]
+      @container = @space = Space.find_by_name(session[:space_id])
     else
       @container = @space = Space.find_by_name("Public")
     end
