@@ -1,11 +1,5 @@
 class Article < ActiveRecord::Base
-  acts_as_content 
-  acts_as_ferret :fields => {  
-    :title=> {:store => :yes} ,
-    :text=> {:store => :yes} ,
-    :tags=> {:store => :yes} ,
-  }
-  
+  acts_as_content  
     acts_as_taggable
 
   is_indexed :fields => ['text','title'],:concatenate => [

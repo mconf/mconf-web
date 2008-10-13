@@ -1,12 +1,7 @@
 require 'ferret'
 
 class Event < ActiveRecord::Base
-  acts_as_ferret :fields => {  
-  :name=> {:store => :yes} ,
-  :description=> {:store => :yes} , 
-  :tag_list2=> {:store => :yes}, 
-  :start_dates => {:store => :yes}
-   }
+  
    has_many :event_datetimes,
              :dependent => :destroy  
     has_many :participants, 

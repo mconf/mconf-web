@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  acts_as_ferret :fields => [:login ,  :email ,   :name,  :lastname ,  :organization,  :tag_list2]
+
   acts_as_agent :activation => true
 
   acts_as_container
