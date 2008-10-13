@@ -40,9 +40,17 @@ class SearchController < ApplicationController
   def tag
 
     @tag = Tag.find_by_name(params[:tag])
-    @events = @tag.events.map{|event| event}
-    @users = @tag.users
-    @entries = @tag.articles.map{|article| article.entry}
+    @users = @tag.taggings.all(:conditions => [ "taggable_type = ?", "User" ]).map{ |t| 
+      User.find(t.taggable_id) 
+    }
+
+    @events = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Event" ]).map{ |t| 
+      Event.find_by_content_id_and_content_type(t.taggable_id, 'Event') 
+    }
+
+    @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Article" ]).map{ |t| 
+      Entry.find_by_content_id_and_content_type(t.taggable_id, 'Article') 
+    }
     
     respond_to do |format|        
       format.html     
