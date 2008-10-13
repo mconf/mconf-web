@@ -78,10 +78,9 @@ No events Found <br><br>
 </tr>
 
 <%for user in @users do%>
-<%debugger%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(current_user.id, @space)%> (<%= link_to user.login,  user_profile_path(current_user.id, @space) %>)<br></td>
+<td align="center"><%=link_to user.profile.name, user_profile_path(current_user)%> (<%= link_to user.login,  user_profile_path(current_user) %>)<br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <td align="center"><%= user.email%><br></td>
 <td align="center"><%= user.profile.organization%><br></td>
@@ -116,8 +115,9 @@ No events Found <br><br>
 	   <%else%>
 	
 	 <% @entries.each do |entry| %>
+	 <%if entry%>
 	 <%=show_article(entry,@space,"edit","destroy")%> 
-
+	 <%end%>
 <%end%>
 <%end%>
 	
