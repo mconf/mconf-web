@@ -3,9 +3,10 @@
 	<% array_spaces = Space.compone_array_spaces(current_user) 
 
 	-%>	
+	
 		<div id="space_logo"></div>
 		<div id="space-span">
-			
+			<p class="main_title">Space:</p>
 			<% form_tag("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
 					<%if @space%>
 						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
@@ -22,3 +23,4 @@
 					<%end%>						
 			<% end -%>
 	    </div>
+		

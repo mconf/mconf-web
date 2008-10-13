@@ -2,9 +2,11 @@
 	
 		<div id="menu_logout">
 			
-			<ul>
+			<ul><li><%= link_to 'about GLOBAL', signup_path,  :method=> 'get' , :class=>'main_title' %></li>
+				<li><%= link_to 'Project Partners', signup_path,  :method=> 'get' , :class=>'main_title'%></li>
+				<li><%= link_to 'Logout', logout_path , :method=> 'get', :class=>'main_title'%></li>
 				<li><%= link_to  h(current_user.login), user_profile_path(current_user), :class=>'username' %></li>
-				<li><%= link_to 'Logout', logout_path , :method=> 'get', :class=>'logout'%></li>		
+						
 			</ul>
 		</div>
 
@@ -12,8 +14,11 @@
 
 		<div id="menu_login">
 			<ul>
-				<li><%= link_to 'Login', login_path, :method=> 'get' %></li>
-				<li><%= link_to 'Register', signup_path,  :method=> 'get'%></li>
+				<li><%= link_to 'about GLOBAL', signup_path,  :method=> 'get', :class=>'main_title' %></li>
+				<li><%= link_to 'Project Partners', signup_path,  :method=> 'get', :class=>'main_title' %></li>
+				<li><%= link_to 'Login', login_path, :method=> 'get', :class=>'main_title' %></li> 
+				<li><%= link_to 'Register', signup_path,  :method=> 'get', :class=>'main_title' %></li>
+				
 			</ul>
 		</div>
 

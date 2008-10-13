@@ -6,7 +6,7 @@
 <div class="yui-b sidebar">
 <% rounded(:class => "tips") do %>
 
-<div id="calendar-container"></div>
+<div id="calendar-container"><h4 class="title_sidebar">Calendar</h2></div>
 <div id="solo_centrar">
 <!--Server time: <%= Time.now.strftime("%H:%M")%>-->
 <script type="text/javascript">
@@ -76,13 +76,17 @@ var calendar = Calendar.setup(
 	<%end%>
 	
 <% rounded(:class => "tips") do %>	
-	<h2 class="title">Recent Activity</h2>
+	<h2 class="title_sidebar">Recent Activity</h2>
 	<%end%>
 	
 	<% rounded() do %>	
-	<h2 class="title">Tag Cloud</h2>
+	
 	<%= render :partial=>'shared/tag_cloud'%>
 	<%end%>
+	
+	<% rounded(:class => "tips") do %>
+	<div class="logo_sidebar"></div>
+	<%end%>	
 </div>
 
 

@@ -4,10 +4,12 @@
 	<%=image_tag(space_logotype_path(@space, :thumbnail => @thumbnail)) if @thumbnail%>
 	<% rounded(:class => "description") do %>
 	<div class="contenido_main">
+		
 	<h2 class="title"><%=@space.name%> description</h2>
 	<%= @space.description%>
 	
 	<%end%>
+	
 	</div>
 	
 		

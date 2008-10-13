@@ -1,4 +1,5 @@
 <div id="tag_cloud">
+	<h2 class="title_sidebar">Tag Cloud</h2>
  <% if @cloud.length > 0 %>
 <% build_tag_cloud(@cloud, %w(nube1 nube2 nube3 nube4 nube5 nube6 )) do |tag, cloud_class| %>
 <%= link_to(h("#{tag}"), search_by_tag_path(@space, tag), { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) %>

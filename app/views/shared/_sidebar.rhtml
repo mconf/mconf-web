@@ -7,8 +7,11 @@
 
 	
 	<% rounded() do %>	
-	<h2 class="title">Tag Cloud</h2>
+	
 	<%= render :partial=>'shared/tag_cloud'%>
 	<%end%>
 	
+	<% rounded(:class => "tips") do %>
+	<div class="logo_sidebar"></div>
+	<%end%>	
 </div>

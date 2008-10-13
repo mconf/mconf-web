@@ -2,12 +2,12 @@
 <div id="search_container">
 
 
-	<img src="/images/magnify2.png"></img><h4 class="title"> Search Users</h4>
+	<h4 class="title_sidebar"> Search Users</h4>
 		
 
   <% form_tag(search_users_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	 <%= image_submit_tag "go2.ico", :class=>'go'%>
+	 <%= image_submit_tag "magnify2.png", :class=>'go'%>
   
     <% end %>
 	

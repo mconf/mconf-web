@@ -1,21 +1,21 @@
 <div class="yui-b sidebar">
 <% rounded(:class => "tips") do %>
-<h1 class="title">Your Photo</h1>
+<h1 class="title_sidebar">Your Photo</h1>
 <%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail)) if @thumbnail%>
 <%end%>
 
 <% rounded(:class => "tips") do %>
-<h1 class="title">About Me</h1>
+<h1 class="title_sidebar">About Me</h1>
 
 <%end%>
 
 <% rounded(:class => "tips") do %>
-<h1 class="title">My Friends</h1>
+<h1 class="title_sidebar">My Friends</h1>
 
 
 <%end%>
 <% rounded(:class => "tips") do %>
-<h1 class="title">Member of the Spaces</h1>
+<h1 class="title_sidebar">Member of the Spaces</h1>
  
 <%if @user.stages.length== 0%><br>
 
@@ -32,4 +32,7 @@
 
 
 <%end%>
+<% rounded(:class => "tips") do %>
+	<div class="logo_sidebar"></div>
+	<%end%>	
 </div>
