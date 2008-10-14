@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :action_web_service, :action_mailer ]
 
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
-  # config.plugins = %W( ultrasphinx all )
+  config.plugins = %W( ultrasphinx all )
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
