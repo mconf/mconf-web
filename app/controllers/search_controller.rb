@@ -1,6 +1,4 @@
 class SearchController < ApplicationController
-  # Include some methods and filters.
-  include CMS::Controller::Contents 
   
   
   def all

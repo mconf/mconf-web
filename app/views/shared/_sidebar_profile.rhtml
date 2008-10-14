@@ -22,7 +22,7 @@
 <%= "You are not suscribed to any space"%>
 <%else%>
 <% for space in @user.stages%>
-<br><%=link_to space.name, space_path(space.id)%>
+<br><%=link_to space.name, space_path(space)%>
 <%end%>
 <%end%>
 
