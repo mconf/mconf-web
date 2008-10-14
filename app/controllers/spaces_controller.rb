@@ -33,7 +33,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1
   # GET /spaces/1.xml
   # GET /spaces/1.atom
-  def show   
+  def show  
     @posts = []
     if @space.id == 1
       
@@ -46,7 +46,7 @@ class SpacesController < ApplicationController
     end
     
     next_events
-    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
+    #@space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
     session[:current_tab] = "Home"        
     session[:current_sub_tab] = ""
     respond_to do |format|
@@ -66,7 +66,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1/edit
   def edit
     session[:current_sub_tab] = "Edit Space"
-    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
+    #@space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
   
@@ -293,7 +293,9 @@ class SpacesController < ApplicationController
       @container = @space = Space.find_by_name("Public")
     end
     session[:space_id] = @space.name
+    @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
+  
   
   #TODO este metodo ahora mismo no parece que se use en ningún sitio
   def parse_emails(emails)

@@ -9,13 +9,15 @@
 <table>
   <tr>
 	<td class=headerDay align=center>Name</td>
+	<%if logged_in?%>
 	<td class=headerDay align=center>Action</td>
+	<%end%>
   </tr>
 
 <% for space in @spaces %>
   <tr>
   	<td>
-		<%= link_to space.name, edit_space_path(space)%>
+		<%= space.name%>
 	</td>
     <td>
     	<% if logged_in? %>
@@ -26,7 +28,7 @@
             <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
           <%end%>
         <%else%>
-	  <%= space.name%>
+	  <%space.name%><!-- lo he tocado para que no salga 2 veces el nombre-->
 	<%end%>
 	 </td>
   </tr>

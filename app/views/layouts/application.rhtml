@@ -27,7 +27,14 @@
 		
 		<div id="hd">	
 		<div id="logo_fondo"></div>
-			<div id="logo"></div>
+			<div id="logo">
+				<%if @space.id == 1 || !@space_thumbnail%>
+				<%=image_tag("gp-logo.jpg")%>
+				<%else%>
+				<%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
+				<%end%>
+				
+			</div>
 			
 			<div id="login-users">
 			 	<%= render :partial => 'home/login', :layout => false%>

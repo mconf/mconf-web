@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
     elsif session[:space_id]
       @container = @space = Space.find_by_name(session[:space_id])
     end
-
+    @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
   
