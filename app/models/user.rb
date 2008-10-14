@@ -25,10 +25,6 @@ class User < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
   
-  def tag_list2
-    tag_list.collect{|tag| tag}
-  end
-  
 def name
   return self.profile.name if self.profile
 end
