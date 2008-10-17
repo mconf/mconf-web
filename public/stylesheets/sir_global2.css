@@ -258,7 +258,7 @@ ul#nav2 li.current a {
 /* BODY */
 
 div#bd {
-	background:#ffffff no-repeat bottom left;
+	background:#ffffff noto_article_link(name_format(entry.content.title.to_s,25,""),space,entry)-repeat bottom left;
 	display:block;
 	min-height: 550px;
 	
@@ -320,12 +320,20 @@ ul.sidebar_posts li {
 	text-align:left;
 	color:#7d7d7d;
 }
+#sidebar_news a{
+	color:#3b54a6;
+	}
 
 #sidebar_events a:link, #sidebar_news a:link{
 	color:#3b54a6;
 	
 	
 }
+.sidebar_news_description p{
+	color:#5a5a5a;
+	
+}
+
 
 /* FOOT */
 

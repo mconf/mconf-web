@@ -261,6 +261,28 @@ end
     span_title = "<span class= 'sidebar_events_title'>" + link_to_remote(highlight(name_format(event.name,17,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
     
     line =  span_start_date  + "&nbsp; "  +  span_title 
+    return line
+  end
+  
+  def show_latest_news(entry,space)
+    span_title= "<span class= 'sidebar_news_title'> - " + link_to((name_format2(entry.content.title.to_s,25,"")),space_article_path(space,entry.content))   + "</span>"
+    span_description = "<span class= 'sidebar_news_description'>" + link_to((name_format2(entry.content.text.to_s,25,"</p>")),space_article_path(space,entry.content)) + "</span>"
+    
+    line =  span_title  + "&nbsp; "  +  span_description
+    return line
   end
 
+def name_format2(name,number,corchete)
+    if number < 0
+      return ""
+    end
+    if name == "[]"
+      return ""
+    end
+    if name.length < number
+      return name 
+    else
+      return name[0,number-4] + "..." + corchete
+    end
+  end
 end

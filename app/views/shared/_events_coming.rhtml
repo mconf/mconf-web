@@ -2,11 +2,10 @@
 <%= "No Coming events" %>
 <%else %>
 	<%if @events.size != 0%>
-			<!--genera la tabla de eventos-->
-       		<%=generate_event_table%>	
+       		<%=generate_event_table%> 
 			<% @events.each do |event| %>
 				<div class="summary">
-    				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+    				<%=show_event(event)%> 
 				</div>
 			<%end %>
 	<%end %>
