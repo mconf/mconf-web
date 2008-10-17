@@ -1,0 +1,12 @@
+<%if @events ==  nil %>
+<%= "No Coming events" %>
+<%else %>
+	<%if @events.size != 0%>
+
+			<% @events.each do |event| %>
+				<div class="summary">
+    				<%=show_latest_event(event)%> <!--muestra cada uno de los eventos-->
+				</div>
+			<%end %>
+	<%end %>
+<%end %>

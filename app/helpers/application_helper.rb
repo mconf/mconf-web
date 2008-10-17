@@ -256,15 +256,11 @@ end
     return line
   end
   
-  def show_last_event(event)
-    span_start_date= "<span class= 'event_start_date'>" +  event.event_datetimes[0].start_date.strftime('%Y/%m/%d')  + "</span>"
-    span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,27,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
-    if logged_in? && (current_user.events.include?(event) || current_user.superuser== true)
-    span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/icalendar.gif"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to (image_tag("/images/modify.gif"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to (image_tag("/images/delete.gif"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
-        else
-    span_actions = "<span class= 'event_actions'>   </span>"
-        end   
-    line = "<div class='event_div'>" + span_start_date  +  span_title + span_actions + "</div>"
+  def show_latest_event(event)
+    span_start_date= "<span class= 'sidebar_events_start_date'>" +  event.event_datetimes[0].start_date.strftime('%Y/%m/%d')  + "</span>"
+    span_title = "<span class= 'sidebar_events_title'>" + link_to_remote(highlight(name_format(event.name,17,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
+    
+    line =  span_start_date  + "&nbsp; "  +  span_title 
   end
 
 end

@@ -11,12 +11,17 @@
 	<%= render :partial=>'shared/tag_cloud'%>
 	<%end%>
 	
+	
 	<% rounded(:class => "tips") do %>
-	<div id="sidebar_news"><div class="rss"></div><h4 class="sidebar_title" >Latest News</h4></div>
+	<div id="sidebar_news"><div class="rss"></div><h4 class="sidebar_title" >Latest News</h4><br/>
+	<%=render :partial =>'shared/latest_events'%>
+	</div>
 	<%end%>
 	
 	<% rounded(:class => "tips") do %>
-	<div id="sidebar_events"><div class="rss"></div><h4 class="sidebar_title">Latest Events</h4></div>
+	<div id="sidebar_events"><div class="rss"></div><h4 class="sidebar_title">Latest Events</h4><br/>
+	<%=render :partial =>'shared/latest_events'%>
+	</div>
 	<%end%>	
 		
 	<% rounded(:class => "tips") do %>

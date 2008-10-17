@@ -314,7 +314,19 @@ ul.sidebar_posts li {
 }
 .sidebar_title{
 	color:#3b54a6;
+	text-align:center;
 }
+#sidebar_events, #sidebar_news{
+	text-align:left;
+	color:#7d7d7d;
+}
+
+#sidebar_events a:link, #sidebar_news a:link{
+	color:#3b54a6;
+	
+	
+}
+
 /* FOOT */
 
 div#ft {
