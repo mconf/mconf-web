@@ -17,9 +17,9 @@ user_alfredo:
   activated_at: 2008-02-26 15:48:42 +01:00
 
 user_admin:
-  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  salt: 193d1348682da4451dc1f4b155d89f68ae6963e0
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85  #admin
+  crypted_password: 8057e7a92d13acf21ea192bb3097550a6a205281  #prueba
   remember_token_expires_at: 
   email2: 
   id: 24

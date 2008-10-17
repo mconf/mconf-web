@@ -33,6 +33,7 @@ class GroupsController < ApplicationController
   
   # GET /groups/1
   # GET /groups/1.xml
+  # GET /groups/1.txt
   def show
     @group = Group.find(params[:id])
     
@@ -42,6 +43,7 @@ class GroupsController < ApplicationController
       format.html # show.html.erb
       format.js
       format.xml  { render :xml => @group }
+      format.text  { render :text => @group.mail_list}
     end
   end
   
@@ -143,7 +145,6 @@ class GroupsController < ApplicationController
       end
     end
 =end
-   
     if params[:id] && params[:group_name] && params[:group_users]
       @group = Group.find(params[:id])
       @group.name = params[:group_name]

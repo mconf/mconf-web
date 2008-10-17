@@ -1,7 +1,7 @@
 class Space < ActiveRecord::Base
   acts_as_container
   
-  has_many :groups
+  has_many :groups, :dependent => :destroy
   has_one :logotype , :as => 'logotypable'
   validates_presence_of :name, :description
   
@@ -9,7 +9,18 @@ class Space < ActiveRecord::Base
     name
   end
   
+  after_create { |space| 
+  group = Group.new(:name => space.emailize_name, :space_id => space.id)
+  group.users << space.get_users_with_role("admin")
+  group.users << space.get_users_with_role("user")
+  group.save
+  }
+  
   before_destroy { |space| space.logotype.destroy if space.logotype}
+  
+  def emailize_name
+    self.name = self.name.gsub(" ", "")
+  end
   
   #method that returns the events of the space
   def events
