@@ -1,6 +1,6 @@
 <div class="yui-b sidebar">
 <% rounded(:class => "tips") do %>
-<h1 class="title_sidebar">Your Photo</h1>
+<h1 class="title_sidebar">Your Photo</h1><br/>
 <%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail)) if @thumbnail%>
 <%end%>
 

@@ -6,67 +6,21 @@
 	
 <% rounded(:class => "tips") do %>
 <h2>Events</h2><br>
-<%if @events == []%>
-No events Found <br><br>
-<%else %>
+<% if @events == []%>
+		No events found
+	<% else%>
+		<h3> <%= @events.size%> events were found</h3>
+    		<%if @events.size != 0%>
+				<!--genera la tabla de eventos-->
+       			<%=generate_event_table%>	
+	   
+	  			<% @events.each do |event| %>  
+						<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				<% end %>
+			<% end %>
+	<%end%>       		
 
-
-
-	<table WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center><tbody><tr>
-	<td>Title</td>
-	<td>Description</td>
-	<td>Start Date</td>
-	<td>Options</td>
-	<td>Tags</td>
-	</tr>
-	<tr>
-		
-		 
-		<% @events.each do |event| %>  
-		<div class="nodisplay"><div class="vevent"><div class="summary"><%=event.name%></div><div class="description"><%=event.description%></div>
-		<% for datetime in event.event_datetimes %> 
-		<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"></abbr></div></div>
-			<%end%>
-		<td>
-			<%=link_to_remote h(event.name),{ :url => space_event_path(event,@space)  } %>	</td>
-		<td>
-			<%= event.description %>
-		</td>
-		<td> 
-		<% i = 0%>
-	 <%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
-     	<% for datetime in event.event_datetimes %> 
-    <li>Start Date[<%=  i %>]: <%= event.start_dates[i] %></li>
-<% i += 1%>
-<%end%>
-		</td>
-				<td>
-					<%if logged_in? && (current_user.events.include?(event) || current_user.superuser== true) %>
-                				  
-                <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
-                                                 
-           
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
-                <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
-                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
-           
-			<%end%>	
-				</td>
-		<td>
-			<%= event.tag_list %>
-		</td>
-		</tr>
-		
-		 <% end %>
-
- </tbody>
-
-	</table>
-
-	 <% end %>
-
+</br>
 	  <div class="user">
 	   <h2> Users</h2><br>
 	   <%if @users == []%>
@@ -88,7 +42,7 @@ No events Found <br><br>
 <td align="center"><%=role.name%><br></td>
 <%end%>
 
-<td align="center"><%= user.tag_list if user.tag_list != nil%><br></td>
+<td align="center"><%= highlight(user.tag_list,@query) if user.tag_list != nil%><br></td>
 
 
 

@@ -49,7 +49,7 @@ class SearchController < ApplicationController
     @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Article" ]).map{ |t| 
       Entry.find_by_content_id_and_content_type(t.taggable_id, 'Article')
     }
-
+    @query = params[:tag]
     respond_to do |format|        
       format.html     
     end

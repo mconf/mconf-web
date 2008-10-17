@@ -1,24 +1,13 @@
 <%if @events ==  nil %>
 <%= "No Coming events" %>
 <%else %>
-<% @events.each do |event| %>
-<div class="vevent">
-<div class="summary">
-    <%=link_to_remote h(event.name),{ :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } %>
-</div>
-<div class="description">
-    <%= event.description %>
-</div>
-<%event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
-<% for datetime in event.event_datetimes %>
-<label>
-    Start date:
-</label>
-<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart">
-    <b><%= datetime.start_date.strftime("%b %d %H:%M") %></b>
-</abbr>
-<% end -%>
-</br>
-</div>
-<%end %>
+	<%if @events.size != 0%>
+			<!--genera la tabla de eventos-->
+       		<%=generate_event_table%>	
+			<% @events.each do |event| %>
+				<div class="summary">
+    				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				</div>
+			<%end %>
+	<%end %>
 <%end %>

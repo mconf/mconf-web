@@ -444,4 +444,44 @@ div.image_logo{
 	display:inline-block;
 	text-align: left;
 }
-
+span.event_title{
+	width:170px;
+	position:relative;
+	left:0px;
+	display:inline-block;
+	text-align: left;
+}
+span.event_description{
+	width:150px;
+	position:relative;
+	left: 5px;
+	display:inline-block;
+	text-align: left;
+}
+span.event_start_date{
+	width:100px;
+	position:relative;
+	left:10px;
+	display:inline-block;
+	text-align: left;
+}
+span.event_actions{
+	width:60px;
+	position:relative;
+	left:10px;
+	display:inline-block;
+	text-align: left;
+}
+.event_tags{
+	width:200px;
+	position:relative;
+	left:15px;
+	display:inline-block;
+	text-align: left;
+}
+span.event_tags a:link, span.event_tags a:visited{
+	color:green;
+}
+.event_div_title{
+	color:blue;
+}
