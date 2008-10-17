@@ -105,7 +105,9 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session    
     @agent = @user = User.new(params[:user])
-    @user.openid_identifier = session[:openid_identifier]
+    if @user.respond_to?(:openid_identifier)
+      @user.openid_identifier = session[:openid_identifier]
+    end
     
     @mail = @user.email
     

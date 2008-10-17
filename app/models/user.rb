@@ -1,7 +1,17 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
 
+  # LoginAndPassword Authentication:
   acts_as_agent :activation => true
+
+  # CAS Authentication::
+  #
+  #acts_as_agent :authentication => [:cas ],
+  #              :cas_filter => {
+  #                 :cas_base_url => "https://kimi.dit.upm.es/cas/"
+  #              }
+
+  validates_presence_of :email
 
   acts_as_container
 
@@ -14,8 +24,6 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :events 
   has_and_belongs_to_many :machines
   has_and_belongs_to_many :groups
-  
-  attr_accessible :email2, :email3, :superuser, :disabled
   
    is_indexed :fields => ['login','email'],
 :include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
