@@ -13,6 +13,7 @@ end %>
 	<% rounded(:class => "tips") do %>
 <h1>New event</h1>
 <form action=<%= space_events_path(@space) %> method="post" name='form_event'>
+	<div style="margin:0;padding:0"><input name="_method" type="hidden" value="put" /></div>
   <%= render :partial => 'form' %>
   <h6> (*) Separated by commas</h6>
   

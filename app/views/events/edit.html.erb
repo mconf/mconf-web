@@ -7,19 +7,24 @@ if @array_participants == nil
 end %>
 
 <%= error_messages_for 'event' %>
-  
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
 <h1>Editing event</h1>
 <form action="/spaces/<%=@space.id%>/events/<%=@event.id%>" method="post" name='form_event'>
   <div style="margin:0;padding:0"><input name="_method" type="hidden" value="put" /></div>
   <%= render :partial => 'form' %>
   <h6> (*) Separated by commas</h6>
+  <%end%>
+  <% rounded(:class => "tips") do %>
   <h1>Times for this event</h1>
   <%if @array_times.size == 0%>
     <input name="los_indices"  type="hidden" value=1 /> 
   <%else%>
     <input name="los_indices"  type="hidden" value=<%=@array_times.size%> /> 
   <%end -%>
-  <TABLE class=Event CELLPADING=5 CELLSPACING=0 BORDER=1 WIDTH=100% >
+  
+   <TABLE class=Event CELLPADING=5 CELLSPACING=0  WIDTH=100% >
   <tbody id="event_times">
   <TR class=bold_center><TD>Week Nº</TD><TD colspan=3>Time</TD></TR>
     <%@indice = 0%>
@@ -32,6 +37,8 @@ end %>
     <%end -%>  
   </tbody>
   </TABLE>
+  <%end%>
+  <% rounded(:class => "tips") do %>
   <h1>Event Participants</h1>
         <%= render :partial => 'form_participants' %>
   <br/>
@@ -49,8 +56,11 @@ end %>
 
   </TD></TR>
   </TABLE>
-  
-  
+  <%end%>
+  </div>
+</div>
+
+<%= render :partial =>'shared/sidebar'%>
 
 
 
