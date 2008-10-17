@@ -1,4 +1,4 @@
-require 'vendor/plugins/cmsplugin/app/models/anonymous_agent.rb'
+require_dependency 'vendor/plugins/cmsplugin/app/models/anonymous_agent.rb'
 
 class AnonymousAgent
   def superuser
