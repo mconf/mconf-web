@@ -293,13 +293,28 @@ ul.sidebar_posts li {
 }
 
 .logo_sidebar{
-	width:180px;
-	height:180px;
-	background-image: url(../images/logo_sidebar.png);
-	margin-left:5px;
-	margin-top:10px;
+	margin-left:3px;
+	padding-top:10px;
+	
 }
-
+.bandera{
+	width:150px;
+	height:100px;
+	border:none;
+	background-image:url(../images/europ_flag.gif);
+	margin-top:10px;
+    margin-left:20px;
+}
+.rss{
+	width:16px;
+	height:16px;
+	background-image:url(../images/rss.png);
+	background-repeat:no-repeat;
+	float:right;
+}
+.sidebar_title{
+	color:#3b54a6;
+}
 /* FOOT */
 
 div#ft {

@@ -12,6 +12,15 @@
 	<%end%>
 	
 	<% rounded(:class => "tips") do %>
-	<div class="logo_sidebar"></div>
+	<div id="sidebar_news"><div class="rss"></div><h4 class="sidebar_title" >Latest News</h4></div>
+	<%end%>
+	
+	<% rounded(:class => "tips") do %>
+	<div id="sidebar_events"><div class="rss"></div><h4 class="sidebar_title">Latest Events</h4></div>
+	<%end%>	
+		
+	<% rounded(:class => "tips") do %>
+	<div class="logo_sidebar"><%=link_to(image_tag("logo_sidebar.png"),"http://sir.dit.upm.es")%> </div>
+	<div class="bandera"></div>
 	<%end%>	
 </div>
