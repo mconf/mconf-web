@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-
+  apply_simple_captcha :message => "image and text were different"
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true
 
@@ -32,7 +32,9 @@ class User < ActiveRecord::Base
 :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
-  
+   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
+   attr_accessible :email2, :email3
+   
 def name
   return self.profile.name if self.profile
 end

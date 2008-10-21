@@ -121,10 +121,9 @@ class UsersController < ApplicationController
           invitation.destroy
         end
       end
-    end
-    
+    end    
     respond_to do |format|
-      if @user.save
+      if @user.save_with_captcha 
         @user.tag_with(params[:tags]) if params[:tags]
         flash[:notice] = "Thanks for signing up!. You have received an email with instruccions in order to activate your account." 
         format.html { redirect_back_or_default root_path }
