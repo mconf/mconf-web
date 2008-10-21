@@ -248,7 +248,7 @@ end
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",30,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
         if logged_in? && (current_user.events.include?(event) || current_user.superuser== true)
-    span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/icalendar.gif"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to (image_tag("/images/modify.gif"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to (image_tag("/images/delete.gif"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
+    span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/icalendar.gif"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/modify.gif"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete.gif"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
         else
     span_actions = "<span class= 'event_actions'>   </span>"
         end   
