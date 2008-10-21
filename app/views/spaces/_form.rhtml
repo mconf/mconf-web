@@ -5,9 +5,9 @@
 <p><label for="description">Description</label><br/>
 
 <%if @space_new != nil%>
-	<%= fckeditor_textarea(:space_new, :description, :toolbarSet => 'Default', :width => '685px', :height => '400px') %></p>
+	<%= fckeditor_textarea(:space_new, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %></p>
 <%else%>
-	<%= fckeditor_textarea(:space, :description, :toolbarSet => 'Default', :width => '685px', :height => '400px') %></p>
+	<%= fckeditor_textarea(:space, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %></p>
 <%end%>
 
 <% fields_for :logotype do |attach| -%>
