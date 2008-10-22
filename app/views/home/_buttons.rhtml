@@ -4,21 +4,21 @@
 <% if logged_in? %>
 	
 	     <ul id="nav">
-		 	<%= nav_tab "Home", { :url => space_path(@space), :class=>'primero'} %>
-		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user)} %>
-		    <%= nav_tab "Events", { :url => space_events_path(@space)} %>
-		 	<%= nav_tab "Posts", { :url => space_articles_path(@space)} %>
+		 	<%= nav_tab "Home", { :url => space_path(@space), :id=>'round_button'} %>
+		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user), :id=>'round_button2'} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button3'} %>
+		 	<%= nav_tab "Posts", { :url => space_articles_path(@space), :id=>'round_button4'} %>
 		 	<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => space_users_path(@space, {:only_space_users => true})} %>
-		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space)} %>
+				<%= nav_tab "People", { :url => space_users_path(@space, {:only_space_users => true}), :id=>'round_button5'} %>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button6'} %>
 		 	<%else%>
-				<%= nav_tab "People", { :url => space_users_path(@space)} %>
-		 		<%= nav_tab "Spaces", { :url =>  spaces_path} %>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button6'} %>
 			<%end%>
 			
 			<%if current_user.superuser==true%>
 
-				<%= nav_tab "Manage", :url => spaces_path(:manage=>true) , :class=>'ultimo' %>		 	
+				<%= nav_tab "Manage", :url => spaces_path(:manage=>true), :id=>'round_button7' %>		 	
 
 			<%end%>
 	     

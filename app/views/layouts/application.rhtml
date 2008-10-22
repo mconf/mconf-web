@@ -7,7 +7,8 @@
   <%= javascript_include_tag("prototype", "effects") %>
   <%= javascript_include_tag("sir") %>
   <%= javascript_include_tag :defaults %>
-    <%= javascript_include_tag 'fckeditor/fckeditor' %>
+  <%= javascript_include_tag 'fckeditor/fckeditor' %>
+  <%= javascript_include_tag 'shadedborder' %>
   <title><%= 'Isabel Server'.t %></title>
   <%= stylesheet_link_tag 'sir_global2' %>
   <%= stylesheet_link_tag 'estilosir3' %>
@@ -17,7 +18,10 @@
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Expires" CONTENT="-1">
   
-  
+  <script language="javascript" type="text/javascript">
+   var myBorder = RUZEE.ShadedBorder.create({ corner:10, border:2, edges:"tlr" });
+    var myBorder2 = RUZEE.ShadedBorder.create({ corner:10, border:2, edges:"tlbl" });
+  </script>
   
 </head>
 
@@ -39,7 +43,7 @@
 			<div id="login-users">
 			 	<%= render :partial => 'home/login', :layout => false%>
 			</div>
-			<div id="logo_text"><p class="main_title">GLOBAL - Virtual Conference Center</p></div>
+			<div id="logo_text"><p class="main_title">GLOBAL - Virtual Conference Centre</p></div>
 			
 			
 	
@@ -84,7 +88,18 @@
 
  
   </div>
-   
+    
+	<script language="javascript" type="text/javascript">
+       myBorder.render('round_button');
+	    myBorder.render('round_button2');
+		myBorder.render('round_button3');
+		myBorder.render('round_button4');
+		myBorder.render('round_button5');
+		myBorder.render('round_button6');
+		myBorder.render('round_button7');
+	   myBorder2.render('space_p');
+  </script>
+  
 </body>
 
 

@@ -35,12 +35,12 @@
  
 /* TAG CLOUD */
 
-.nube1 {font-size: 0.8em;color:#3b54a6; }
-.nube2 {font-size: 1.2em; text-decoration: none;color:#3b54a6;}
-.nube3 {font-size: 1.7em; text-decoration: none;color:#3b54a6;}
-.nube4 {font-size: 2.2em; text-decoration: none;color:#3b54a6;}
-.nube5 {font-size: 2.7em; text-decoration: none;color:#3b54a6;}
-.nube6 {font-size: 3.2em; text-decoration: none;color:#3b54a6;}
+.nube1 {font-size: 0.8em;color:#466D4E; }
+.nube2 {font-size: 1.2em; text-decoration: none;color:#466D4E;}
+.nube3 {font-size: 1.7em; text-decoration: none;color:#466D4E;}
+.nube4 {font-size: 2.2em; text-decoration: none;color:#466D4E;}
+.nube5 {font-size: 2.7em; text-decoration: none;color:#466D4E;}
+.nube6 {font-size: 3.2em; text-decoration: none;color:#466D4E;}
 
 #tag_cloud a:hover{
 	color:#466d4e;

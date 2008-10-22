@@ -70,13 +70,14 @@ def nav_tab(name, options={})
   #options[:class] is the class to assing to the li label
   #the class for the link label is set directly to "secund" as you can see
   classes = [options.delete(:class)]
+  id= [options.delete(:id)]
   if(session[:current_tab] && session[:current_tab]==name )
     classes << 'current'
   end
   if classes == nil || ( classes.length==1 && classes[0]==nil)
-    "<li>" + link_to( "<span>"+name+"</span>", options.delete(:url)) + "</li>"
+    "<li>" + link_to( "<span>"+name+"</span>", options.delete(:url), :id=>id) + "</li>"
   else
-    "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url)) + "</li>"
+    "<li class='#{classes.join(' ')}'>" + link_to( "<span>"+name+"</span>", options.delete(:url), :id=>id) + "</li>"
   end
 end
 

@@ -6,16 +6,13 @@ a:link, a:visited, a:hover, p{
 	font-family: Tahoma;
 }
 
-.main_title, .title{
+.main_title, .title, .title_sidebar{
 	color:#3b54a6;
 	font-weight:bold;
 	text-align:center;
 		
 }
-.title_sidebar{
-	color:#466d4e;
-	font-weight:bold;
-}
+
 #notice {
 	margin-top:5px;
 }
@@ -25,25 +22,27 @@ a:link, a:visited, a:hover, p{
 #hd{
 	position:relative;
 	width:100%;
-	height:210px;
+	height:170px;
 	margin-top:3px;
+	
 }
 
 /*Estilo del logotipo*/
 
 #logo{
 	position:absolute;
-	width:200px;
-	height:200px;
-	margin-top:5px;
-	/*background-image: url(../images/gp-logo.jpg);*/
+	width:150px;
+	height:150px;
+	margin-top:10px;
+	margin-left:30px;
+	
 }
 
 #logo_text{
 	position:absolute;
 	width:500px;
-	margin-left:220px;
-	margin-top:35px;
+	margin-left:192px;
+	margin-top:30px;
 }
 
 #logo_text p{
@@ -53,7 +52,7 @@ a:link, a:visited, a:hover, p{
 #logo_fondo{
 	position:absolute;
 	width:745px;
-	margin-left:210px;
+	margin-left:220px;
 	height:150px;
 	background-image:url(../images/global2.png);
 	background-repeat:no-repeat;
@@ -110,38 +109,39 @@ a:link, a:visited, a:hover, p{
 	position: absolute;
 	z-index:0;
 	width:725px;
-	height:38px;
-	margin-top:140px;
-	margin-left:218px;
+	margin-top:93px;
+	margin-left:213px;
 	text-align:center;
 	display:block;
 	
 }
+
 ul#nav {
 	z-index:10;
+	margin-top:3px;
 }
 
 ul#nav li {
+	
 	display: inline;
     float: left;
-	padding-left:5px;
+	/*padding-left:5px;*/
+	margin-left:5px;
 }
 
 ul#nav a {
+	
 	cursor: pointer;
     float: left;
     white-space: nowrap;
-    background-image: url(../images/g44_gradient.png);
-    border: 1px solid #004f9e;
-	border-bottom:none;
-	margin-right:0px;
-	text-decoration: none;
+   	text-decoration: none;
+	
 }
 
 ul#nav a span {
-    padding: 10px 15px 12px 15px;
-	padding:10px 5px 12px 5px;
-    height: 12px;
+    
+	padding:5px 5px 6px 5px;
+	height: 12px;
     color: #3b54a6;
     cursor: pointer;
     display: block;
@@ -155,47 +155,82 @@ ul#nav a:hover {
     background-position: top left;
     text-decoration: none;
 }
-
+/*
 ul#nav a:hover span {
    	color:white;
 }
-
+*/
+/*
 ul#nav li.current a{
 	
 	color: #191919;
-	background-image: url(../images/gg_gradient.png);
-	background-repeat:repeat-x;
-	border: 1px solid #74736A;
+	background-color:#3b54a6;
+	
 }
-
+*/
 ul#nav li.current a span {
-   	color:#2c4130;
+   	color:white;
 }
-
+/*
 ul#nav li.current a:hover span {
-   	color:#466d4e;
+   	color:white;
 }
-
+*/
 ul#nav a:hover span {
     background-position: right top;
 }
+#space_logo{
+	width:50px;
+	height:25px;
+}
+
+#space_p .sb-inner{
+	background-color:white;
+}
+
+#round_button .sb-inner, #round_button2 .sb-inner, #round_button3 .sb-inner, #round_button4 .sb-inner,  #round_button5 .sb-inner,  #round_button6 .sb-inner,  #round_button7 .sb-inner { 
+background:white;
+}
+#round_button .sb-border, #space_p .sb-border, #round_button2 .sb-border, #round_button3 .sb-border, #round_button4 .sb-border, #round_button5 .sb-border, #round_button6 .sb-border, #round_button7 .sb-border{ 
+background: #3b54a6;
+}
+
+
+ul#nav li:hover .sb-inner{
+	background-color:#8cccf2;
+}
+ul#nav li:hover .sb-border{
+	
+}
+
+ul#nav li.current .sb-inner{
+	background-color:#3b54a6;
+	
+}
+
+	
+
 
 /* Selector de espacios */
 
 #space-span {
 	position:absolute;
-	right:2px;
-	margin-top:150px;
-	margin-left:100px;
+	right:4px;
+	margin-top:96px;
+	display:inline;
 	z-index:10;
 }
-
+#space_p{
+	width:55px;
+	height:21px;
+	float:left;
+	border-right:solid 2px #3b54a6;
+}
 #space-span p{
 	display:inline;
 	float: left;
-	padding:1px;
-	border:solid 1.5px #3b54a6;
-	background-color:white;
+	margin-top:2px;
+	margin-left:4px;
 	
 }
 
@@ -210,6 +245,7 @@ select{
 .elegido{
 	font-weight:bold;
 	color: #3b54a6;
+	
 }
 .noelegido{
 	font-weight:normal;
@@ -221,7 +257,7 @@ select{
 #line{
 	width:100%;
 	border:solid 1px #3b54a6;
-	margin-top:35px;
+	margin-top:26px;
 	margin-left:5px;
 	 
 }
@@ -235,6 +271,7 @@ select{
 	text-align:right;
 	display:block;
 	padding-top:4px;
+	
 }
 
 #secondary_buttons a{
@@ -312,10 +349,7 @@ ul.sidebar_posts li {
 	background-repeat:no-repeat;
 	float:right;
 }
-.sidebar_title{
-	color:#3b54a6;
-	text-align:center;
-}
+
 #sidebar_events, #sidebar_news{
 	text-align:left;
 	color:#7d7d7d;
