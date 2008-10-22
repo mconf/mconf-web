@@ -145,8 +145,11 @@ class GroupsController < ApplicationController
       end
     end
 =end
+    #here i save the param name in a variable for the callback
+    
     if params[:id] && params[:group_name] && params[:group_users]
       @group = Group.find(params[:id])
+      @old_name = @group.name
       @group.name = params[:group_name]
       @group.users = Array.new
       

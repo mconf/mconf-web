@@ -1,8 +1,16 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
+  fixtures :spaces, :groups, :users
+  
+  def setup
+    @user = users(:user_admin)
+  end
+  
+  
   def test_should_get_index
-    get :index
+    space = spaces(:espacio_1)
+    get :index, {:space_id=>space.name}
     assert_response :success
     assert_not_nil assigns(:groups)
   end

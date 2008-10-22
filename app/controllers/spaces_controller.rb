@@ -76,7 +76,10 @@ class SpacesController < ApplicationController
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
 
-    params[:space][:description] = params[:space_new][:description]
+    #esto es para que el fckeditor no muestre la descripción del espacio en el que estás
+    params[:space][:description] = params[:space_new][:description] if params[:space_new]
+    
+    
     @space = Space.new(params[:space])
     @logotype = Logotype.new(params[:logotype]) 
     @space.logotype = @logotype
@@ -146,8 +149,8 @@ class SpacesController < ApplicationController
   # DELETE /spaces/1.xml
   # DELETE /spaces/1.atom
   def destroy
-    @space = Space.find_by_name(params[:id])
-    @space.destroy
+    @space_destroy = Space.find_by_name(params[:id])
+    @space_destroy.destroy
     flash[:notice] = 'Space was successfully removed.'
     respond_to do |format|
       format.html { redirect_to(spaces_url) }
@@ -291,7 +294,8 @@ class SpacesController < ApplicationController
       @container = @space = Space.find_by_name(session[:space_id])
     else
       @container = @space = Space.find_by_name("Public")
-    end
+    end 
+    @space = @container = Space.find_by_id(1) if @space == nil
     session[:space_id] = @space.name
     @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
