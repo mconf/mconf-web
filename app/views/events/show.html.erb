@@ -19,16 +19,12 @@ Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
 
 
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
-
-Keywords:<b><%for tag in @event.tag_list %>
-	
-	<%= link_to h(tag), search_by_tag_path(@space, tag), :method => :get %><br>
+Keywords:<b><%for tag in @event.tags %><br>
+		<%= link_to h(tag.name), search_by_tag_path(@space, tag.name), :method => :get  %>
 <%end%>
 
-
-
 <%end%>
-
+<br/>
 Event Dates <br>
 
 <%index = 0%>

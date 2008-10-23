@@ -351,8 +351,8 @@ ul.sidebar_posts li {
 .rss{
 	width:16px;
 	height:16px;
-	background-image:url(../images/rss.png);
-	background-repeat:no-repeat;
+	/*background-image:url(../images/rss.png);
+	background-repeat:no-repeat;*/
 	float:right;
 }
 

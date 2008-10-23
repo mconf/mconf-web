@@ -21,7 +21,7 @@
 	</td>
     <td>
     	<% if logged_in? %>
-          <% if space.authorizes?(current_user, :edit)%>
+          <% if true #space.authorizes?(current_user, :edit)%>
             <%= link_to space.name, edit_space_path(space)%>
             <%= link_to 'Add Users', new_space_user_path(space, {:by_email => true}) %>
             <%= link_to 'Groups' ,space_groups_path(space)%>
@@ -39,8 +39,9 @@
 
 <br />
 
-<%= link_to 'New space', new_space_path %>
-
+<% if logged_in? && space.authorizes?(current_user, :edit)%>
+	<%= link_to 'New space', new_space_path %>
+<%end%>
 
 <%end%>
 </div>

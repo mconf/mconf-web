@@ -15,14 +15,13 @@ Resources:<%=h(@event.get_participants)%><br>
 Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
 <%end%>
 
-
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
 Keywords:<b><%for tag in @event.tags %><br>
-		<%= link_to h(tag.name), search_by_tag_path(@space, tag), :method => :get  %>
+		<%= link_to h(tag.name), search_by_tag_path(@space, tag.name), :method => :get  %>
 <%end%>
 
 <%end%>
-
+<br/>
 Event Dates <br>
 
 <%index = 0%>
