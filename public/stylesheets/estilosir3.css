@@ -23,11 +23,11 @@
  .help a:link, .help a:visited{
  	font-size: 9pt; 
 	text-decoration: none;
-	color:#7D7D7D;
+	color:#5a5a5a;
 	 	
  }
  .help a:hover{
-	color:#611427;
+	color:#7AAED9;
 	text-decoration:none;
 
 }

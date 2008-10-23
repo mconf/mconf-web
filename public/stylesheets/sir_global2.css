@@ -12,9 +12,11 @@ a:link, a:visited, a:hover, p{
 	text-align:center;
 		
 }
-
+.gris{
+	color:#5a5a5a;
+}
 #notice {
-	margin-top:5px;
+	
 }
 
 /* HEADER */
@@ -22,7 +24,7 @@ a:link, a:visited, a:hover, p{
 #hd{
 	position:relative;
 	width:100%;
-	height:170px;
+	height:160px;
 	margin-top:3px;
 	
 }
@@ -33,7 +35,7 @@ a:link, a:visited, a:hover, p{
 	position:absolute;
 	width:150px;
 	height:150px;
-	margin-top:10px;
+	margin-top:8px;
 	margin-left:30px;
 	
 }
@@ -56,7 +58,7 @@ a:link, a:visited, a:hover, p{
 	height:150px;
 	background-image:url(../images/global2.png);
 	background-repeat:no-repeat;
-	margin-top:20px;
+	margin-top:12px;
 	
 }
 /* Login y registro de usuarios. Username */
@@ -67,12 +69,14 @@ a:link, a:visited, a:hover, p{
 	margin-top:2px;
 	padding-bottom:2px;
 	border-bottom:solid 1px #3b54a6;
+	background-color:white;
 }
 
 #menu_login ul, #menu_logout ul{
 	margin-top:0px;
 	list-style:none;
 	padding-left:0px;
+	
 }
 
 #menu_login ul li, #menu_logout ul li{
@@ -82,6 +86,7 @@ a:link, a:visited, a:hover, p{
 	padding-top:0px;
 	border-right:solid 1px #3b54a6;
 	padding-right:2px;
+	
 }
 
 #menu_login a:link, #menu_login a:visited, #menu_logout a:link, #menu_logout a:visited {
@@ -109,7 +114,7 @@ a:link, a:visited, a:hover, p{
 	position: absolute;
 	z-index:0;
 	width:725px;
-	margin-top:93px;
+	margin-top:86px;
 	margin-left:213px;
 	text-align:center;
 	display:block;
@@ -135,7 +140,7 @@ ul#nav a {
     float: left;
     white-space: nowrap;
    	text-decoration: none;
-	
+	outline-style:none;
 }
 
 ul#nav a span {
@@ -149,6 +154,7 @@ ul#nav a span {
     font-size: 13px;
     font-weight: bold;
     white-space: nowrap;
+	
 }
 
 ul#nav a:hover {
@@ -216,7 +222,7 @@ ul#nav li.current .sb-inner{
 #space-span {
 	position:absolute;
 	right:4px;
-	margin-top:96px;
+	margin-top:89px;
 	display:inline;
 	z-index:10;
 }
@@ -270,7 +276,7 @@ select{
 	margin-left:0px;
 	text-align:right;
 	display:block;
-	padding-top:4px;
+	padding-top:2px;
 	
 }
 

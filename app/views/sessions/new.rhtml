@@ -9,26 +9,28 @@
 	
 		
 	  <div id="login_and_password-container">
-		
-		<p><label for="login">Username or email</label><br/>
-		
+		<br/>
+		<p class="main_title"><label for="login">Username or email</label><br/>
 		<%= text_field_tag 'login', params[:login] %></p>
-		<p><label for="password">Password</label><br/>
+		<br/>
+		<p class="main_title"><label for="password">Password</label><br/>
 		<%= password_field_tag 'password' %></p>
-
+<br/>
 		
 
-		<p><label for="remember_me">Remember me:</label>
+		<p class="gris"><label for="remember_me">Remember me:</label>
 		<%= check_box_tag 'remember_me' %></p>
 
 		
 	  </div>
-or....
+	<p class="gris">or....</p>
+	<br/>
 	  <div id="openid-container">
-		<p><label for="openid_identifier">OpenID:</label></p>
+		<p class="main_title"><label for="openid_identifier">OpenID</label></p>
 		<%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
 	  </div>
-	  <p><%= submit_tag 'Log in' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
+	  <br/>
+	  <p><%= submit_tag 'Log in', :class=>'gris' %>&nbsp;&nbsp;&nbsp;&nbsp;<input class="gris" onclick=document.location="/" type="button" value="Back" /></p>
 	 <% end -%>
 	
 	<% end %>
@@ -38,9 +40,9 @@ or....
 <div class="yui-b sidebar">
 	<% rounded(:class => "help") do %>
 
-	Don't have an account? <br>
+	<p class="title_sidebar">Don't have an account?</p> 
 	<%= link_to 'Click here to sign up', signup_path %><br>
-	Forgot your password?<br>
+	<p class="title_sidebar">Forgot your password?</p>
 	<%= link_to 'Click here to retrieve it', forgot_path %>
 	
 	
