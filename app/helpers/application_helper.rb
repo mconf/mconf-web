@@ -130,7 +130,7 @@ end
   
   def show_article(entry,space,*args) #return a compress view of a entry post
   usuario = entry.agent
-  number_comments= "(" + get_number_children_comments(entry).to_s + ")"
+  number_comments= " (" + get_number_children_comments(entry).to_s + ")"
   user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
  # user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
   tags = "[" + entry.content.tag_list + "]"

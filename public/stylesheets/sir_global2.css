@@ -214,9 +214,6 @@ ul#nav li.current .sb-inner{
 	
 }
 
-	
-
-
 /* Selector de espacios */
 
 #space-span {
@@ -230,7 +227,7 @@ ul#nav li.current .sb-inner{
 	width:55px;
 	height:21px;
 	float:left;
-	border-right:solid 2px #3b54a6;
+	border-right:solid 1px #3b54a6;
 }
 #space-span p{
 	display:inline;
@@ -393,25 +390,34 @@ div#ft {
 #ft a:hover{
 	color:#466d4e;
 }
+
+span.tags_column{
+	color: #466d4e;
+	font-weight:bold;
+}
+p.post{
+	display:inline;
+}
 span.first_Column{
-	position: relative;
-	display: inline-block;
-	left: 10px; 
+	
+	float:left;
+	
+	margin-left: 10px; 
 	width: 130px;
 
 }
-span.tags_column{
-	color: green;
-}
 .second_Column{
 	position: relative;
-	display: inline-block;
-	left: 5px; 
-	width: 440px;
-
+	float:left;
+	width: 480px;
+	text-align:center;
+	
 }
-span.second_Column a{
+
+span.second_Column a:link{
 	font-weight: bold;
+	color: #3b54a6;
+	
 }
 span.second_Column p{
 	display: inline;
@@ -450,12 +456,17 @@ span.clip{
 	display:inline-block;
 	width:200px;
 }
+/*Post de Public (antes del login*/
+
 .paginate{
-	width:150px;
-	position:relative;
-	left:-80px;
-	display:inline-block;
-	text-align: left;
+	
+	display:inline;
+	
+}
+
+.paginate h1{
+	float:left;
+	margin-left:10px;
 }
 
 .expand{
@@ -465,7 +476,19 @@ span.clip{
 	display:inline-block;
 	text-align: left;
 }
-
+.links_paginate{
+	width:100px;
+	float:right;
+	border:solid 1px;
+}
+#paginata {
+	float:left;
+	margin-left:260px;
+}
+#paginata2 {
+	float:right;
+	margin-right:0px;
+}
 div.col_public{
 	width:725px;
 	position:relative;
