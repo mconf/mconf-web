@@ -6,13 +6,15 @@
 	
 
 	
-	<% rounded() do %>	
 	
-	<%= render :partial=>'shared/tag_cloud'%>
-	<%end%>
 	
 	<% rounded(:class => "tips") do %>
 	<div class="logo_sidebar"><%=link_to(image_tag("logo_sidebar.png"),"http://sir.dit.upm.es")%> </div>
 	<div class="bandera"></div>
 	<%end%>	
+	
+	<% rounded() do %>	
+	
+	<%= render :partial=>'shared/tag_cloud'%>
+	<%end%>
 </div>
