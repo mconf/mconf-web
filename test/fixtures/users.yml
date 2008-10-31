@@ -4,9 +4,7 @@ user_alfredo:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: e97ba3fb20ec03be3e8d7399e664fa2dfbaca7ea
   remember_token_expires_at: 
-  email2: 
   id: 23
-  email3: 
   disabled: false
   remember_token: 
   login: alfredo
@@ -21,9 +19,7 @@ user_admin:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 8057e7a92d13acf21ea192bb3097550a6a205281  #prueba
   remember_token_expires_at: 
-  email2: 
   id: 24
-  email3: 
   disabled: false
   remember_token: 
   login: admin
@@ -38,9 +34,7 @@ user_normal:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç #admin
   remember_token_expires_at: 
-  email2: 
   id: 25
-  email3: 
   disabled: false
   remember_token: 
   login: normalillo
@@ -56,9 +50,7 @@ user_disabled:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
-  email2: 
   id: 26
-  email3: 
   disabled: true
   remember_token: 
   login: deshabilitado
@@ -73,9 +65,7 @@ user_no_resources:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
-  email2: 
   id: 27
-  email3: 
   disabled: false
   remember_token: 
   login: noresourcesuser
@@ -90,9 +80,7 @@ user_space1_admin:
   updated_at: 2008-02-26 14:51:46 +01:00
   crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
-  email2: 
   id: 30
-  email3: 
   disabled: false
   remember_token: 
   login: adminspace1
@@ -111,8 +99,6 @@ quentin:
   created_at: <%= 5.days.ago.to_s :db %>
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
-  email2: 
-  email3: 
   disabled: false
   remember_token: 
   superuser: false
@@ -130,8 +116,6 @@ aaron:
   created_at: <%= 1.days.ago.to_s :db %>  
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
-  email2: 
-  email3: 
   disabled: false
   remember_token: 
   superuser: false
@@ -149,8 +133,6 @@ user_with_not_validated_email:
   created_at: <%= 5.days.ago.to_s :db %>
   updated_at: 2008-02-26 14:51:46 +01:00 
   remember_token_expires_at: 
-  email2: 
-  email3: 
   disabled: false
   remember_token: 
   superuser: false

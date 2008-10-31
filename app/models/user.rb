@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
    attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-   attr_accessible :email2, :email3
+
    
 def name
   return self.profile.name if self.profile
@@ -51,26 +51,11 @@ end
     u = find_by_login(login) # need to get the salt
     unless u
       u = find_by_email(login)
-      unless u
-        u = find_by_email2(login)
-        unless u
-          u = find_by_email3(login)
-        end
-      end
     end
     u && u.password_authenticated?(password) ? u : nil
   end
   
-   #callback that replace empty strings in email2 and email3 for NULL
-   def before_save
-     if self.email2==""
-       self.email2 = nil
-     end
-     if self.email3==""
-       self.email3 = nil
-     end
- end
- 
+   
  #returns a javascript array of all users
  def self.print_array_of_all_users
     temp = ""

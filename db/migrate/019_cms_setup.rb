@@ -50,5 +50,6 @@ class CmsSetup < ActiveRecord::Migration
     drop_table :cms_uris
     drop_table :open_id_associations
     drop_table :open_id_nonces
+    drop_table :open_id_ownings
   end
 end

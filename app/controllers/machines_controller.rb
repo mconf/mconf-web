@@ -155,7 +155,7 @@ class MachinesController < ApplicationController
         #Display a message notifying the sender that his email was delivered.
         flash[:notice] = 'Your message was successfully delivered to the SIR Administrator.'
         #Then redirect to index or any page you want with the message
-        redirect_to(:action => 'list_user_machines')  
+        redirect_to(:action => 'contact_mail')  
       else
         #if the senders email address is not valid
         #display a warning and redirect to any action you want
@@ -167,7 +167,7 @@ class MachinesController < ApplicationController
       #Maybe not always advisable if your app is public
       #But good for debugging, especially if action mailer is setup wrong
       flash[:warning] = "Your message could not be delivered at this time. #$!. Please try again later"
-      redirect_to(:action => 'list_user_machines') end
+      redirect_to(:action => 'contact_mail') end
   end
   
   private

@@ -5,7 +5,7 @@ class ModifyUsersProfile < ActiveRecord::Migration
   end
 
   def self.down
-    add_column "profiles", "user_id"
+    add_column "profiles", "user_id", :integer
     remove_column "profiles", "users_id"
   end
 end
