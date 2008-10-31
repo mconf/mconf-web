@@ -8,11 +8,7 @@
 </td>
 <td align=center>
 <%if current_user.superuser%>
-	<%if @user.machines.include?(machine)%>
-    	<%= check_box "resource", machine.name, :value=>"1", :checked=>"checked" %>
-	<%else%>  
-    	<%= check_box "resource", machine.name %>
-	<%end%>
+    	<%= check_box "resource", machine.name, :value=> "1", :checked=>@user.machines.include?(machine) %>
 <%else%>
 	<%if @user.machines.include?(machine)%>
 	yes

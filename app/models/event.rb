@@ -573,16 +573,20 @@ class Event < ActiveRecord::Base
    def self.configure_participants_for_sites(user, array_datetimes, number_of_sites_connected)
       #for each datetime I check if a machine is free, 
       #until I get number_of_sites_connected/NUMBER_OF_SITES_PER_PARTICIPANT participants free
+      array_all = Array.new
+      array_all << user.machines
+      array_all << Machine.find_all_by_public_access(true)
+      array_all.flatten!
       array_participants_to_use = []
       logger.debug("Numero de sitios que se conectarán " + number_of_sites_connected.to_s)
       number_of_machines_needed = (number_of_sites_connected.to_i/Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil  #entero superior
       logger.debug("Número de máquinas que se necesitan para el evento: " + number_of_machines_needed.to_s)
-      if number_of_machines_needed > user.machines.length   
+      if number_of_machines_needed > array_all.length  
         logger.debug("Número de máquinas que se necesitan para el evento superior al numero que posee el usuario que es " + user.machines.length.to_s)
         return nil
       end
       
-       for machine in user.machines
+       for machine in array_all
           logger.debug("Vemos si se puede usar la máquina: " + machine.name)
           is_valid_machine = true
           for datetime in array_datetimes

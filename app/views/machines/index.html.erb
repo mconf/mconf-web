@@ -15,6 +15,7 @@
 <tr>
 <td class=headerDay align=center>Resource Nickname</td>
 <td class=headerDay align=center>Resource Full Name</td>
+<td class=headerDay align=center>Public</td>
 <td class=headerDay align=center>Action</td>
 </tr>
 <%index = 0%>
@@ -30,10 +31,12 @@
 <%= text_field("machine", "nickname", :value=>machine.nickname, :readonly => false) %>
 </td>
 <td>
+<%= check_box("machine", "public_access", :checked => machine.public_access)%> 	
+</td>	
+<td>
 <%= submit_tag "Edit" %>
 <%end%>
 <%= button_to "Delete", machine_path(machine), :method => :delete  %>
-<%= button_to "Assign to all Users", machine_path(machine, :assign_to_everybody => true), :method => :put  %>
 </td>
 </tr>
 
@@ -53,8 +56,9 @@
 <%= text_field("machine", "nickname", :readonly => false) %>
 
 </td>
-
-
+<td>
+<%= check_box("machine", "public_access")%> 
+</td>
 <td id="solo_centrar">
 <%= submit_tag "Add" %>
 </td>

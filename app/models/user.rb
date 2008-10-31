@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   has_one :profile
 
+  attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
+  attr_accessible :email2, :email3 , :machine_ids
   
   has_many :participants
   has_and_belongs_to_many :events 
@@ -32,7 +34,6 @@ class User < ActiveRecord::Base
 :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
-   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
 
    
 def name

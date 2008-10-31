@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081022155004) do
+ActiveRecord::Schema.define(:version => 20082030101012) do
 
   create_table "anonymous_agents", :force => true do |t|
   end
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(:version => 20081022155004) do
     t.integer  "space_id"
   end
 
-  create_table "groups_users", :id => false, :force => true do |t|
+  create_table "groups_users", :force => true do |t|
     t.integer  "group_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -184,8 +184,9 @@ ActiveRecord::Schema.define(:version => 20081022155004) do
   end
 
   create_table "machines", :force => true do |t|
-    t.string "name",     :limit => 40, :default => "", :null => false
-    t.string "nickname", :limit => 40, :default => "", :null => false
+    t.string  "name",          :limit => 40, :default => "",    :null => false
+    t.string  "nickname",      :limit => 40, :default => "",    :null => false
+    t.boolean "public_access",               :default => false
   end
 
   create_table "machines_users", :id => false, :force => true do |t|
@@ -219,8 +220,8 @@ ActiveRecord::Schema.define(:version => 20081022155004) do
     t.integer "machine_id",                                            :null => false
     t.integer "machine_id_connected_to",                               :null => false
     t.string  "role",                    :limit => 40, :default => "", :null => false
-    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
-    t.integer "radiate_multicast",       :limit => 1,  :default => 0,  :null => false
+    t.integer "fec",                                   :default => 0,  :null => false
+    t.integer "radiate_multicast",                     :default => 0,  :null => false
     t.text    "description"
   end
 
@@ -311,8 +312,6 @@ ActiveRecord::Schema.define(:version => 20081022155004) do
     t.boolean  "superuser",                               :default => false
     t.boolean  "disabled",                                :default => false
     t.string   "reset_password_code",       :limit => 40
-    t.string   "email2"
-    t.string   "email3"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
   end

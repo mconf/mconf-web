@@ -53,7 +53,6 @@ class MachinesController < ApplicationController
     name = params[:machine][:name]
     nickname = params[:machine][:nickname]
 
-    
     @machine = Machine.new(params[:machine])
     
     respond_to do |format|
@@ -81,9 +80,8 @@ class MachinesController < ApplicationController
   # PUT /machines/1.atom
   # if params[:assign_to_everybody] then assigns the machine to every user
   def update
-    if params[:assign_to_everybody]
-      assign_to_everybody(params[:id])
-    else   
+    
+      
       name = params[:machine][:name]
       nickname = params[:machine][:nickname]
       if name==nil || nickname==nil  || name=="" || nickname ==""      
@@ -91,32 +89,19 @@ class MachinesController < ApplicationController
         redirect_to machines_path() 
         return
       end
-      if Machine.find_by_name(name)
-        #already exists
-        flash[:notice] = "Name exists already"
-        redirect_to machines_path()
-        return
-      end
-      if Machine.find_by_nickname(nickname)
-        #already exists
-        flash[:notice] = "Resource Full Name exists already"
-        redirect_to machines_path()  
-        return
-      end   
-    end
     
     @machine = Machine.find(params[:id])
     
     respond_to do |format|
       if @machine.update_attributes(params[:machine])
-        unless params[:assign_to_everybody]
-          flash[:notice] = 'Machine was successfully created.'
-        end   
+        
+        flash[:notice] = 'Machine was successfully updated.'
         format.html { redirect_to machines_path() }
         format.xml  { head :ok }
         format.atom { head :ok }        
       else
-        format.html { render :action => "edit" }
+        format.html { @machines = Machine.all 
+          render :action => "index" }
         format.xml  { render :xml => @machine.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @machine.errors.to_xml, :status => :not_acceptable }
       end
@@ -168,17 +153,6 @@ class MachinesController < ApplicationController
       #But good for debugging, especially if action mailer is setup wrong
       flash[:warning] = "Your message could not be delivered at this time. #$!. Please try again later"
       redirect_to(:action => 'contact_mail') end
-  end
-  
-  private
-  
-  def assign_to_everybody (machine_id)
-    resource_to_assign = Machine.find_by_id(machine_id)
-    
-    resource_to_assign.users = Array.new #no vale sólo con la linea siguiente porque duplica los usuarios
-    resource_to_assign.users << User.find(:all)    
-    resource_to_assign.save
-    flash[:notice] = "Resource assigned to everybody"    
   end
   
   

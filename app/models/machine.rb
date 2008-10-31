@@ -4,8 +4,8 @@ class Machine < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   validates_presence_of :name, :nickname
-  
   validates_uniqueness_of :name, :nickname
+  
   
   def self.atom_parser(data)
 

@@ -169,23 +169,20 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     @user = User.find(params[:id])
-    
-=begin hay que mirar esto porque no sé muy bien cuál es su propósito
-    if @user.update_attributes(params[:user]) 
-      #now we assign the machines to the user
-      if current_user.superuser==true
-        @array_resources = params[:resource]
-        logger.debug("Array de maquinas es  " + @array_resources.to_s)
-        @user.machines = Array.new        
-        for machine in Machine.find(:all)
-          if @array_resources[machine.name]=="1"
-            logger.debug("Machine assign " + machine.name)
-            @user.machines << machine              
-          end            
-        end
-      end
-
-=end     
+     #now we assign the machines to the user
+            if current_user.superuser==true
+              @array_resources = params[:resource]
+              logger.debug("Array de maquinas es  " + @array_resources.to_s)
+              machines = Array.new        
+              for machine in Machine.find(:all)
+                if @array_resources[machine.name]=="1"
+                  logger.debug("Machine assign " + machine.name)
+                  machines << "#{machine.id}"              
+                end            
+              end
+          end
+params[:user][:machine_ids] = machines
+       
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -224,6 +221,7 @@ class UsersController < ApplicationController
       @space = Space.find_by_name(params[:space_id])
       remove_user(params)
       respond_to do |format|
+
         format.html { render :template =>'users/from_app'  }
         format.xml  { head :ok }
         format.atom { head :ok }

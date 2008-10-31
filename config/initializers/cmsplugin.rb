@@ -23,6 +23,18 @@ class Entry
       entry_children.update_attribute(:public_read, entry.public_read) 
     } 
   }
+  
+  def authorizes?(agent, actions)
+    return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
+    
+     actions = Array(actions)
+
+    if actions.delete(:edit)
+      return true if self.entry.agent == agent 
+    end
+    
+    false
+  end
 end
 
 Tag
