@@ -16,9 +16,7 @@
 
 <% for space in @spaces %>
   <tr>
-  	<td>
-		<%= space.name%>
-	</td>
+
     <td>
     	<% if logged_in? %>
           <% if true #space.authorizes?(current_user, :edit)%>
@@ -28,7 +26,8 @@
             <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
           <%end%>
         <%else%>
-	  <%space.name%><!-- lo he tocado para que no salga 2 veces el nombre-->
+		<%= space.name%>
+	</td><!-- lo he tocado para que no salga 2 veces el nombre-->
 	<%end%>
 	 </td>
   </tr>

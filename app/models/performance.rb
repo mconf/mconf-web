@@ -7,7 +7,13 @@ after_create {|perfor|
   role = perfor.role
   group = Group.find_by_name(space.emailize_name)
   if (role == Role.find_by_name("Admin") || role == Role.find_by_name("User")) && !group.users.include?(user)
-    group.users << user    
+    user_ids = []
+    group.users.each do |u|
+      user_ids << "#{u.id}"
+    end
+    user_ids << "#{user.id}"
+    
+    group.update_attributes(:user_ids => user_ids)
   end
 }
 
@@ -15,7 +21,13 @@ before_destroy {|perfor|
   user = perfor.agent
   space = perfor.container
   group = Group.find_by_name(space.emailize_name)
-  group.users.delete(user)    
+    user_ids = []
+    group.users.each do |u|
+      user_ids << "#{u.id}"
+    end
+    user_ids.delete("#{user.id}")
+    
+    group.update_attributes(:user_ids => user_ids)  
 }
   
 end

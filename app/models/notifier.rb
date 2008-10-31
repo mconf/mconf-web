@@ -36,7 +36,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     # email header info MUST be added here
     @recipients = user.email
-    @from = "Isabel Development Team"
+    @from = "vcc@dit.upm.es"
     @subject = "SIR Information:: Welcome to SIR"
 
     # email body substitutions go here

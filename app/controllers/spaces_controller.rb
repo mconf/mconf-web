@@ -108,13 +108,19 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-
     @space = Space.find_by_name(params[:id])
-    if !@space.logotype
+    
+    if params[:logotype] && params[:logotype]!= {"uploaded_data"=>""}
           @logotype = Logotype.new(params[:logotype]) 
+          if !@logotype.valid?
+          flash[:error] = "The logotype is not valid"  
+          render :action => "edit"   
+          return
+        end
           @space.logotype = @logotype
     end
-    if @space.update_attributes(params[:space]) && @space.logotype.update_attributes(params[:logotype]) 
+    
+    if @space.update_attributes(params[:space]) 
       #fist of all we delete all the old performances, but not the groups
       @space.delete_performances
       for role in Role.find_all_by_type(nil)

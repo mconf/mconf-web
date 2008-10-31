@@ -33,15 +33,18 @@ class UsersController < ApplicationController
       session[:current_tab] = "Manage" 
       session[:current_sub_tab] = "Users"
       @users = User.find(:all)
-    elsif params[:only_space_users]  || params[:space_id] != "Public"
+    elsif params[:space_id] && params[:space_id] != "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = @space.actors 
-    elsif @space && @space.id==1
+    elsif params[:space_id] && params[:space_id] == "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
       @users = User.find(:all)
+    else
+      @users = User.find(:all)
     end
+    
     respond_to do |format|
       format.html
       format.xml { render :xml => @users }
@@ -86,17 +89,19 @@ class UsersController < ApplicationController
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
   def create
-    if params[:space_id]!=nil
+    if params[:space_id]
       @space = Space.find_by_name(params[:space_id])
-      #2 opciones, from email or from app
-      if params[:by_email]
-        add_user_by_email (params)
-        render :template => 'spaces/invitations_results'
-        return
-      elsif params[:from_app]
-        add_user_from_app (params)
-        render :template =>'users/from_app'
-        return
+      if @space.id != 1
+        #2 opciones, from email or from app
+        if params[:by_email]
+          add_user_by_email (params)
+          render :template => 'spaces/invitations_results'
+          return
+        elsif params[:from_app]
+          add_user_from_app (params)
+          render :template =>'users/from_app'
+          return
+        end
       end
     end
     cookies.delete :auth_token
@@ -131,7 +136,7 @@ class UsersController < ApplicationController
         format.atom { 
           headers["Location"] = formatted_user_url(@user, :atom )
           render :action => 'show',
-                 :status => :created
+          :status => :created
         }
       else
         format.html { render :action => "new" }
@@ -147,7 +152,7 @@ class UsersController < ApplicationController
     session[:current_sub_tab] = "Edit Account"
     @user = User.find(params[:id])
     if @user.profile
-    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
+      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
     end
   end
   
@@ -164,7 +169,7 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     @user = User.find(params[:id])
-
+    
 =begin hay que mirar esto porque no sé muy bien cuál es su propósito
     if @user.update_attributes(params[:user]) 
       #now we assign the machines to the user
@@ -181,59 +186,61 @@ class UsersController < ApplicationController
       end
 
 =end     
-      
-      respond_to do |format|
-        if @user.update_attributes(params[:user])
-          @user.tag_with(params[:tags]) if params[:tags]
-
-          flash[:notice] = 'User was successfully updated.'     
-          format.html { #the superuser will be redirected to list_users
-            if current_user.superuser == true
-              redirect_to(space_users_path(@space))
-            else
-              redirect_to(space_user_profile_path(@space, @user)) 
-            end }
-          format.xml  { render :xml => @user }
-          format.atom { head :ok }
-        else
-          format.html { #the superuser will be redirected to list_users
-            if current_user.superuser == true
-              redirect_to(space_users_path(@space))
-            else
-              redirect_to(space_user_profile_path(@space, @user)) 
-            end }
-          format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-          format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
-        end
-      end 
-         
-    end
     
-    
-    # DELETE /users/1
-    # DELETE /users/1.xml  
-    # DELETE /users/1.atom
-    def destroy
-
-      if params[:space_id]!=nil
-        @space = Space.find_by_name(params[:space_id])
-        if params[:remove_from_space]
-          remove_user(params)
-          render :template =>'users/from_app'
-          return
-        end
-      end
-      
-      @user = User.find(params[:id])
-      @user.destroy
-
-      flash[:notice] = "User #{@user.login} deleted"
-      
     respond_to do |format|
-      format.html { redirect_to users_path }
-      format.xml  { head :ok }
-      format.atom { head :ok }
+      if @user.update_attributes(params[:user])
+        @user.tag_with(params[:tags]) if params[:tags]
+        
+        flash[:notice] = 'User was successfully updated.'     
+        format.html { #the superuser will be redirected to list_users
+          if current_user.superuser == true
+            redirect_to(space_users_path(@space))
+          else
+            redirect_to(space_user_profile_path(@space, @user)) 
+          end }
+        format.xml  { render :xml => @user }
+        format.atom { head :ok }
+      else
+        format.html { #the superuser will be redirected to list_users
+          if current_user.superuser == true
+            redirect_to(space_users_path(@space))
+          else
+            redirect_to(space_user_profile_path(@space, @user)) 
+          end }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
+      end
+    end 
+    
+  end
+  
+  
+  # DELETE /users/1
+  # DELETE /users/1.xml  
+  # DELETE /users/1.atom
+  def destroy
+    
+    if params[:space_id]
+      @space = Space.find_by_name(params[:space_id])
+      remove_user(params)
+      respond_to do |format|
+        format.html { render :template =>'users/from_app'  }
+        format.xml  { head :ok }
+        format.atom { head :ok }
+      end
+      return
     end
+    
+    @user = User.find(params[:id])
+    @user.destroy
+    
+    flash[:notice] = "User #{@user.login} deleted"
+    
+    respond_to do |format|
+        format.html {  redirect_to(space_users_path(@space))  }
+        format.xml  { head :ok }
+        format.atom { head :ok }
+      end
       
       
     end
@@ -353,7 +360,13 @@ class UsersController < ApplicationController
               @space.container_performances.delete perfor
             end
           end
-        end     
+          end
+        else
+          perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:id])
+          if perfor
+              #if it exists we remove it
+              @space.container_performances.delete perfor
+          end  
       end
     end
     

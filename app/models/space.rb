@@ -4,6 +4,7 @@ class Space < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_one :logotype , :as => 'logotypable'
   validates_presence_of :name, :description
+  validates_uniqueness_of :name
   
   def to_param
     name

@@ -94,7 +94,7 @@ class GroupTest < ActiveSupport::TestCase
     assert(!`ssh ebarra@jungla.dit.upm.es ls /users/jungla/ebarra/listas/automaticas/vcc-lista.txt 2>/dev/null`.any?, 
     "No se borra el fichero de vcc-lista después de borrar el grupo")
   end
-=end
+
   
   def test_updating_group_should_update_jungla
     @group = Group.create(:name => "lista")
@@ -103,7 +103,7 @@ class GroupTest < ActiveSupport::TestCase
     "No se crea un fichero de vcc-lista2 cambiado")
     @group.destroy
   end
-
+=end
 
 
 end

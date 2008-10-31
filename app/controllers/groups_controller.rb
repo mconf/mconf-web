@@ -64,14 +64,13 @@ class GroupsController < ApplicationController
   # GET /groups/1/edit
   def edit
     @group = Group.find(params[:id])   
-    @users =  @group.users   
+    @users =  @space.actors 
     
   end
   
   # POST /groups
   # POST /groups.xml
   def create
-    
 =begin    
     @group = Group.new(params[:group])
     
@@ -91,24 +90,16 @@ class GroupsController < ApplicationController
         format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
       end
     end
-=end    
-    
-    @group = Group.new()
-    @group.space = @space
-    @group.name = params[:group_name]
-    array_users = Array.new
-    @group.users = Array.new
-    
-    
-    #rellenamos el array con los usuarios del grupo
-    if params[:group_users] && params[:group_users][:id]
-      array_users = params[:group_users][:id]
+=end
+
+    if params[:group_name] && params[:group_users]
+      params[:group] = {}
+      params[:group][:name] = params[:group_name]
+      params[:group][:user_ids] = params[:group_users][:id]
+      params[:group][:space_id] = @space.id
     end
     
-    for id in array_users
-      @group.users << User.find(:all, :conditions => {:id => id})
-    end
-    
+    @group = Group.new(params[:group])
     respond_to do |format|
       if @group.save
         
@@ -150,34 +141,39 @@ class GroupsController < ApplicationController
     if params[:id] && params[:group_name] && params[:group_users]
       @group = Group.find(params[:id])
       @old_name = @group.name
-      @group.name = params[:group_name]
-      @group.users = Array.new
+      params[:group] = {}
+      params[:group][:name] = params[:group_name]
+      params[:group][:user_ids] = params[:group_users][:id]
+      params[:group][:space_id] = @space.id
+  end
+  
       
-                if params[:group_users] && params[:group_users][:id]
+=begin
+          if params[:group_users] && params[:group_users][:id]
             array_users = params[:group_users][:id]
           end
           
           for id in array_users
             @group.users << User.find(:all, :conditions => {:id => id})
           end      
-          
+=end          
       
       
       respond_to do |format|        
         
-        if @group.save
+        if @group.update_attributes(params[:group])
                  
           
           flash[:notice] = 'Group was successfully updated.'
           format.html { redirect_to(space_groups_path(@space)) }
-          format.xml  { render :xml => @role, :status => :created, :location => @group }
+          format.xml  { render :xml => @group, :status => :created, :location => @group }
         else         
           flash[:notice] = 'Error updating group.'       
           format.html { redirect_to(edit_space_group_path(@space,@group)) }
-          format.xml  { render :xml => @role.errors, :status => :unprocessable_entity }
+          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
         end
       end
-    end
+
     
     
     

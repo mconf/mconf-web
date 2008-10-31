@@ -32,7 +32,7 @@
 			<%= sub_tab 'Edit Account' , edit_space_user_path(@space, current_user.id)%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
-			<%if @space.authorizes?(current_user, :manage_groups)%>
+			<%if @space.authorizes?(current_user, :manage_groups) && @space.id != 1%>
 		<ul id="nav2">
 			    <%= sub_tab 'Add Users by email', new_space_user_path(@space, :by_email=>true) %> | 
 				<%= sub_tab 'Add Users from App', new_space_user_path(@space, :from_app =>true) %>

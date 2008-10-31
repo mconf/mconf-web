@@ -9,7 +9,7 @@
 		    <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button3'} %>
 		 	<%= nav_tab "Posts", { :url => space_articles_path(@space), :id=>'round_button4'} %>
 		 	<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => space_users_path(@space, {:only_space_users => true}), :id=>'round_button5'} %>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button6'} %>
 		 	<%else%>
 				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
@@ -31,7 +31,7 @@
 		     <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button2'} %>
 		 	<%= nav_tab "Posts", { :url => space_articles_path(@space), :id=>'round_button3'} %>
 			<%if @space.id!=1%>
-				<%= nav_tab "People", { :url => space_users_path(@space, {:only_space_users => true}), :id=>'round_button4'} %>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button4'} %>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button5'} %>
 			<%else%>
 				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button4'} %>
