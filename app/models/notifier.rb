@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
   #this method is used to compose the mail sended when a user request more machines in the application
   def contact_mail (mail_info)
     @from = mail_info["from_email"]
-     @recipients = "volomir@gmail.com"
+     @recipients = "#{Site.current.email}"
      @subject = "SIR Information"
      @mail_info = mail_info
      @body["mail_info"] = mail_info
@@ -36,7 +36,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     # email header info MUST be added here
     @recipients = user.email
-    @from = "vcc@dit.upm.es"
+    @from = "#{Site.current.email}"
     @subject = "SIR Information:: Welcome to SIR"
 
     # email body substitutions go here
@@ -47,7 +47,7 @@ class Notifier < ActionMailer::Base
   #This method compose the email used when a user is deleted from the system
   def byebye (user, sent_at = Time.now)
     @subject = "SIR Information::User Deleted"
-    @from = "alsolano@dit.upm.es"
+    @from = "#{Site.current.email}"
     @recipients = user.email
      @sent_on = sent_at
     @body = "Your user in SIR has been deleted. Please contact the administrator for more information"
@@ -55,7 +55,7 @@ class Notifier < ActionMailer::Base
   #This is used when a user ask for his password.
   def forgot_password(user)
     @recipients = user.email
-    @from = "alsolano@dit.upm.es"
+    @from = "#{Site.current.email}"
     @subject    = 'Request to change your password'
     @body ["name"] = user.login
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
@@ -63,7 +63,7 @@ class Notifier < ActionMailer::Base
 #this methd is used when a user have asked for his old password, and then he reset it.
   def reset_password(user)
     @recipients = user.email
-    @from = "alsolano@dit.upm.es"
+    @from = "#{Site.current.email}"
     @body ["name"] = user.login
     @subject    = 'Your password has been reset'
   end
