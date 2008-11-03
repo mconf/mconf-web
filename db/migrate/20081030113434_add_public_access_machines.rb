@@ -4,6 +4,6 @@ class AddPublicAccessMachines < ActiveRecord::Migration
   end
 
   def self.down
-   remove_column :spaces, :public_access
+   remove_column :machines, :public_access
   end
 end

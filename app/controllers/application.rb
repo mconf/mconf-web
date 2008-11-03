@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base  
 
-  before_filter :get_space
+  before_filter :get_space 
   before_filter :get_cloud
   before_filter :set_locale
   

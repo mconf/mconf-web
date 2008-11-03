@@ -29,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
 	end
      end
   map.resources :roles
+  map.resource :site
 
   #LOCALE CONTROLLER (GLOBALIZE)
   map.connect ':locale/:controller/:action/:id'  
