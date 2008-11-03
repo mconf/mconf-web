@@ -25,12 +25,15 @@ class Entry
   }
   
   def authorizes?(agent, actions)
-    return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
+    return true if agent.superuser || self.has_role_for?(agent, :admin)
     
      actions = Array(actions)
 
     if actions.delete(:edit)
-      return true if self.entry.agent == agent 
+      return true if self.agent == agent 
+    end
+    if actions.delete(:delete)
+      return true if self.agent == agent 
     end
     
     false
