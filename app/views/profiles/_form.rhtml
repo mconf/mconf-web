@@ -32,10 +32,12 @@
 <%= f.text_field :country %></p>
 
 </br>
+<%if @thumbnail%>
 <div id= "image_logo"><%=image_tag(space_logotype_path(@space, :thumbnail => @thumbnail)) if @thumbnail%>
 <%= link_to_function 'Remove', "hide_logotype()" %>
 </div>
 <%= hidden_field_tag "delete_thumbnail", false %>
+<%end%>
 <% fields_for :logotype do |attach| -%>
 	    
 		<%if @thumbnail%>

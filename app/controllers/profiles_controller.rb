@@ -91,10 +91,8 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     
     #En primer lugar miro si se ha eliminado la foto del usuario y la borro de la base de datos
-    if params[:delete_thumbnail] == "true"
-      if @profile
+    if params[:delete_thumbnail] && params[:delete_thumbnail] == "true"
         @profile.logotype = nil 
-      end
     end
     
     if params[:logotype] && params[:logotype]!= {"uploaded_data"=>""}
