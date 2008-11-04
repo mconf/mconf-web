@@ -26,6 +26,15 @@ function remove_attach(number){
 	 
 }
 
+function hide_logotype(){
+	 var remove_div = document.getElementById('image_logo');
+	 var parent_node_span = remove_div.parentNode;
+	 parent_node_span.removeChild(remove_div);
+	 var hidden = document.getElementById('delete_thumbnail');
+	 hidden.value = true;
+	 
+}
+
 function hide_attach(entry_id, attachment_id){
 	 var remove_div = document.getElementById('attachment_'+attachment_id);
 	 var parent_node_span = remove_div.parentNode;

@@ -10,16 +10,19 @@
 	<%= fckeditor_textarea(:space, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %></p>
 <%end%>
 
+<div id= "image_logo"><%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
+<%= link_to_function 'Remove', "hide_logotype()" %>
+</div>
+<%= hidden_field_tag "delete_thumbnail", false %>
 <% fields_for :logotype do |attach| -%>
 	    <p>
-		<%if @thumbnail%>
+		<%if @space_thumbnail%>
 	    <label for="attachment">Change the logo image:</label>
     	<%else%>
 		<label for="attachment">Upload a logo image:</label>
 		<%end%>
 		<%= attach.file_field :uploaded_data %>
   		</p>
-
 <% end -%>
 
 <p><label for="public">Public Access</label> <%= check_box("space", "public")%></p>

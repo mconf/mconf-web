@@ -86,16 +86,30 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1
   # PUT /profiles/1.xml
   def update
-
+    
     @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
-    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
-     if !@profile.logotype
-          @logotype = Logotype.new(params[:logotype]) 
-          @profile.logotype = @logotype
+    
+    #En primer lugar miro si se ha eliminado la foto del usuario y la borro de la base de datos
+    if params[:delete_thumbnail] == "true"
+      if @profile
+        @profile.logotype = nil 
+      end
     end
+    
+    if params[:logotype] && params[:logotype]!= {"uploaded_data"=>""}
+       @logotype = Logotype.new(params[:logotype]) 
+       if !@logotype.valid?
+          flash[:error] = "The logotype is not valid"  
+          render :action => "edit"   
+          return
+       end
+       @profile.logotype = @logotype
+    end
+    
     respond_to do |format|
-      if @profile.update_attributes(params[:profile]) && @profile.logotype.update_attributes(params[:logotype])
+      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
+      if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
         format.html { render :action => "show" }
         format.xml  { head :ok }

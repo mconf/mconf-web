@@ -1,6 +1,6 @@
 class Profile < ActiveRecord::Base
   acts_as_taggable
-  has_one :logotype , :as => 'logotypable'
+  has_one :logotype , :as => 'logotypable' , :dependent => :destroy
   belongs_to :user
   
  validates_presence_of     :name, :lastname, :phone, :city, :country,:organization

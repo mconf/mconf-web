@@ -2,7 +2,7 @@ class Space < ActiveRecord::Base
   acts_as_container
   
   has_many :groups, :dependent => :destroy
-  has_one :logotype , :as => 'logotypable'
+  has_one :logotype , :as => 'logotypable', :dependent => :destroy
   validates_presence_of :name, :description
   validates_uniqueness_of :name
   
@@ -18,6 +18,7 @@ class Space < ActiveRecord::Base
   }
   
   before_destroy { |space| space.logotype.destroy if space.logotype}
+ 
   
   def emailize_name
     self.name = self.name.gsub(" ", "")
