@@ -110,10 +110,12 @@ class SpacesController < ApplicationController
   def update
     @space = Space.find_by_name(params[:id])
     
+
     #En primer lugar miro si se ha eliminado la foto del espacio y la borro de la base de datos
     if params[:delete_thumbnail] && params[:delete_thumbnail] == "true"
       @space.logotype = nil
     end
+
     if params[:logotype] && params[:logotype]!= {"uploaded_data"=>""}
           @logotype = Logotype.new(params[:logotype]) 
           if !@logotype.valid?

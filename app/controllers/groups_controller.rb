@@ -9,9 +9,12 @@ class GroupsController < ApplicationController
 
   authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
   
+  set_params_from_atom :group, :only => [ :create, :update ]
+  
   
   # GET /groups
   # GET /groups.xml
+  # GET /groups.atom  
   def index
     
     session[:current_tab] = "Groups" 
@@ -26,6 +29,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @groups }
+      format.atom
     end
     
     
@@ -34,6 +38,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.xml
   # GET /groups/1.txt
+  # GET /groups/1.atom  
   def show
     @group = Group.find(params[:id])
     
@@ -44,6 +49,7 @@ class GroupsController < ApplicationController
       format.js
       format.xml  { render :xml => @group }
       format.text  { render :text => @group.mail_list}
+      format.atom
     end
   end
   
@@ -70,35 +76,17 @@ class GroupsController < ApplicationController
   
   # POST /groups
   # POST /groups.xml
+  # POST /groups.atom
   def create
-=begin    
-    @group = Group.new(params[:group])
     
-    @group.users = Array.new #no vale sólo con la linea siguiente porque duplica los usuarios
-    @group.users << User.find(:all)   
-    
-    @space = Space.find(params[:space_id])
-    @group.space = @space
-    
-    respond_to do |format|
-      if @group.save
-        flash[:notice] = 'Group was successfully created.'
-        format.html { redirect_to(@group) }
-        format.xml  { render :xml => @group, :status => :created, :location => @group }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
-      end
-    end
-=end
-
+    # estos arreglos se hacen porque la vista html no pasa bien los parámetros
     if params[:group_name] && params[:group_users]
       params[:group] = {}
       params[:group][:name] = params[:group_name]
       params[:group][:user_ids] = params[:group_users][:id]
-      params[:group][:space_id] = @space.id
     end
     
+    params[:group][:space_id] = @space.id
     @group = Group.new(params[:group])
     respond_to do |format|
       if @group.save
@@ -106,6 +94,11 @@ class GroupsController < ApplicationController
         flash[:notice] = 'Group was successfully created in this space.'
         format.html { redirect_to(space_groups_path(@space)) }
         format.xml  { render :xml => @group, :status => :created, :location => @group }
+        format.atom { 
+          headers["Location"] = formatted_space_url(@group, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else
         
         flash[:notice] = 'Error creating group.'
@@ -113,6 +106,7 @@ class GroupsController < ApplicationController
         @users_group = []
         format.html { redirect_to(new_space_group_path(@space)) }
         format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @group.errors.to_xml, :status => :bad_request }
       end
     end
   end
@@ -120,64 +114,34 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.xml
   def update
+    @group = Group.find(params[:id])     
+    #here i save the param name in a variable for the callback    
+    @old_name = @group.name
     
-    
-=begin    
-    @group = Group.find(params[:id])
-
-    respond_to do |format|
-      if @group.update_attributes(params[:group])
-        flash[:notice] = 'Group was successfully updated.'
-        format.html { redirect_to(@group) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
-      end
-    end
-=end
-    #here i save the param name in a variable for the callback
-    
-    if params[:id] && params[:group_name] && params[:group_users]
-      @group = Group.find(params[:id])
-      @old_name = @group.name
+    #esto se hace porque la vista html no pasa bien los parámetros
+    if params[:id] && params[:group_name] && params[:group_users]    
       params[:group] = {}
       params[:group][:name] = params[:group_name]
-      params[:group][:user_ids] = params[:group_users][:id]
-      params[:group][:space_id] = @space.id
+      params[:group][:user_ids] = params[:group_users][:id]     
   end
   
-      
-=begin
-          if params[:group_users] && params[:group_users][:id]
-            array_users = params[:group_users][:id]
-          end
-          
-          for id in array_users
-            @group.users << User.find(:all, :conditions => {:id => id})
-          end      
-=end          
-      
+    params[:group][:space_id] = @space.id
       
       respond_to do |format|        
         
         if @group.update_attributes(params[:group])
-                 
-          
           flash[:notice] = 'Group was successfully updated.'
           format.html { redirect_to(space_groups_path(@space)) }
           format.xml  { render :xml => @group, :status => :created, :location => @group }
+          format.atom { head :ok }
         else         
           flash[:notice] = 'Error updating group.'       
           format.html { redirect_to(edit_space_group_path(@space,@group)) }
           format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+          format.atom { render :xml => @group.errors.to_xml, :status => :not_acceptable }
         end
       end
 
-    
-    
-    
-    
   end
   
   # DELETE /groups/1
@@ -190,6 +154,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(space_groups_url) }
       format.xml  { head :ok }
+      format.atom  { head :ok }
     end
   end
   

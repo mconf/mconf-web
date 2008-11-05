@@ -60,5 +60,26 @@ class Group < ActiveRecord::Base
        File.open("temp", 'w') {|f| f.write(doc) }
      end
    
+   def self.atom_parser(data)
+
+    e = Atom::Entry.parse(data)
+    
+    group = {}
+    group[:name] = e.title.to_s
+    
+    group[:user_ids] = []
+
+    e.get_elems(e.to_xml, "http://sir.dit.upm.es/schema", "entryLink").each do |times|
+
+      user = User.find_by_login(times.attribute('login').to_s)
+      group[:user_ids] << user.id      
+    end
+    
+    resultado = {}
+    
+    resultado[:group] = group
+    
+    return resultado     
+  end   
   
 end

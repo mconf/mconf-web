@@ -1,19 +1,19 @@
 --- 
 machine_triton: 
   name: triton
-  nickname: trapo.dit.upm.es
+  nickname: triton.dit.upm.es
   id: 1
 machine_azul: 
   name: azul
-  nickname: macarra.dit.upm.es
+  nickname: azul.dit.upm.es
   id: 2
 machine_violeta: 
   name: verde
-  nickname: macarra.dit.upm.es
+  nickname: verde.dit.upm.es
   id: 3 
 machine_roja: 
   name: roja
-  nickname: macarra.dit.upm.es
+  nickname: roja.dit.upm.es
   id: 4
 machine_trapo: 
   name: trapo

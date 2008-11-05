@@ -122,7 +122,6 @@ class ApplicationController < ActionController::Base
   end
   #this method returns the coming 5 events
   def next_events
-
     @events = if @space.id == 1
                 (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)}
                 

@@ -5,10 +5,12 @@ class ProfilesController < ApplicationController
   before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
   before_filter :unique_profile, :only=>[:new, :create]
   
-  # GET /profiles/1
-  # GET /profiles/1.xml
+  set_params_from_atom :profile, :only => [ :create, :update ]
+    
+  # GET /profile
+  # GET /profile.xml
   # if params[:hcard] then hcard is rendered
-  
+  # GET /profile.atom
   def show
     session[:current_tab] = "MyProfile"
     session[:current_sub_tab] = ""
@@ -31,12 +33,13 @@ class ProfilesController < ApplicationController
         format.html 
         format.xml  { render :xml => @profile }
         format.vcf  { vcard }
+        format.atom
       end
     end
   end
   
-  # GET /profiles/new
-  # GET /profiles/new.xml
+  # GET /profile/new
+  # GET /profile/new.xml
   def new
     session[:current_tab] = "MyProfile" 
     @user = User.find_by_id(params[:user_id])
@@ -48,7 +51,7 @@ class ProfilesController < ApplicationController
     end
   end
   
-  # GET /profiles/1/edit
+  # GET /profiles/edit
   def edit
     session[:current_tab] = "MyProfile" 
     session[:current_sub_tab] = "Edit Profile"
@@ -63,10 +66,10 @@ class ProfilesController < ApplicationController
   end
   
   
-  # POST /profiles
-  # POST /profiles.xml
+  # POST /profile
+  # POST /profile.xml
+  # POST /profile.atom
   def create
-    
     @profile = Profile.new(params[:profile])
     @profile.user_id = current_user.id
     @logotype = Logotype.new(params[:logotype]) 
@@ -76,15 +79,22 @@ class ProfilesController < ApplicationController
         flash[:notice] = 'Profile was successfully created.'
         format.html { redirect_to(:url => user_profile_path(@user)) }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
+        format.atom { 
+          headers["Location"] = formatted_user_profile_url(@user, :atom )
+          render :action => 'show',
+                 :status => :created
+        }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @profile.errors.to_xml, :status => :bad_request }
       end
     end
   end
   
-  # PUT /profiles/1
-  # PUT /profiles/1.xml
+  # PUT /profile
+  # PUT /profile.xml
+  # PUT /profile.atom
   def update
     
     @user = User.find_by_id(params[:user_id])
@@ -111,15 +121,18 @@ class ProfilesController < ApplicationController
         flash[:notice] = 'Profile was successfully updated.'
         format.html { render :action => "show" }
         format.xml  { head :ok }
+        format.atom { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @profile.errors.to_xml, :status => :not_acceptable }
       end
     end
   end
   
-  # DELETE /profiles/1
-  # DELETE /profiles/1.xml
+  # DELETE /profile
+  # DELETE /profile.xml
+  # DELETE /profile.atom
   def destroy
     @user = User.find_by_id(params[:user_id])
     @profile = @user.profile
@@ -128,6 +141,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(space_user_profile_url(@space, @user)) }
       format.xml  { head :ok }
+      format.atom  { head :ok }
     end
   end
   

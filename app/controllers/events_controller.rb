@@ -53,17 +53,17 @@ class EventsController < ApplicationController
       @events.uniq!
       logger.debug("eventos devueltos " + @events.size.to_s) 
       @events
- 
-end
-
-     respond_to do |format|
-        format.html { if params[:date_start_day]
+      
+    end
+    
+    respond_to do |format|
+      format.html { if params[:date_start_day]
         render :partial => "show_calendar", :layout => true
         end}
-        format.xml  { render :xml => @events }
-        format.atom
-        format.js 
-      end
+      format.xml  { render :xml => @events }
+      format.atom
+      format.js 
+    end
   end
   
   
@@ -74,19 +74,19 @@ end
   def show
     session[:current_tab] = "Events" 
     if params[:id] && !params[:event_id]
-          params[:event_id] = params[:id]   
+      params[:event_id] = params[:id]   
     end
     
     #this part is used to create the event's summary in the left column. This is used in an Ajax Call.'
     if params[:show_summary]
       logger.debug("LLAMADA A SHOW_SUMMARY")   
-        begin
-          @event = Event.in_container(nil).find(params[:event_id])
-          #@event = Event.find(params[:event_id]) 
-          @show_summary = true
-        rescue
-        end
-     else
+      begin
+        @event = Event.in_container(nil).find(params[:event_id])
+        #@event = Event.find(params[:event_id]) 
+        @show_summary = true
+      rescue
+      end
+    else
       @datetime = Date.today
       @event = Event.in_container(nil).find(params[:event_id])
       #@event = Event.find(params[:id])
@@ -121,7 +121,6 @@ end
   # GET /events/1/edit
   
   def edit
-    
     @event = Event.find(params[:id])
     @event.participants.sort!{|x,y| x.id <=> y.id}   
     @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}  
@@ -140,9 +139,9 @@ end
     is_valid = "is_valid_time" + indice.to_s
     while params[param_start_date.to_sym] 
       logger.debug("New datetime for this event: " + indice.to_s)
-       @datetime = @event.event_datetimes.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym]) 
- 
-   if (params[is_valid.to_sym]=="true")
+      @datetime = @event.event_datetimes.new(:start_date=>params[param_start_date.to_sym], :end_date=>params[param_end_date.to_sym]) 
+      
+      if (params[is_valid.to_sym]=="true")
         @event.event_datetimes << @datetime
       end  
       indice+=1
@@ -156,7 +155,7 @@ end
     array_participants = Event.configure_participants_for_sites(current_user, @event.event_datetimes, params[:event][:all_participants_sites])
     
     if array_participants==nil
-      flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).to_s + " sites connected."
+      flash[:notice] = "You can't create events bigger than " + (current_user.machines.length*Participant::NUMBER_OF_SITES_PER_PARTICIPANT).ceil.to_s + " sites connected."
       respond_to do |format|
         format.html {render :action => "new"}
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }        
@@ -180,10 +179,10 @@ end
         @event.tag_with(params[:tags]) if params[:tags]
         
         @entry = Entry.create(:agent       => current_agent,
-                                 :container   => @container,
-                                 :content     => @event,
-                                 :title       => @event.title,
-                                 :description => @event.description)        
+                              :container   => @container,
+                              :content     => @event,
+                              :title       => @event.title,
+                              :description => @event.description)        
         
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
@@ -194,12 +193,12 @@ end
         end
         
         format.html { redirect_to space_events_path(@container, :date_start_day => @event.event_datetimes[0].start_date) }
-
+        
         format.xml  { render :xml => @event, :status => :created, :location => @event }
         format.atom { 
           headers["Location"] = formatted_space_event_url(@space,@event, :atom )
           render :action => 'show',
-                 :status => :created
+          :status => :created
         }
       else        
         format.html { render :action => "new" }
@@ -320,66 +319,67 @@ end
   # DELETE /events/1.xml
   # DELETE /events/1.atom
   def destroy  
-    
     @event = Event.find(params[:id])     
     #I also have to delete the at_jobs and the .xedl
     # @event.file_to_delete = @event.get_xedl_filename
-    
-    @datetime = @event.event_datetimes[0].start_date
-    @event.destroy
-    logger.debug("borrado")
-    flash[:notice] = 'Event was successfully deleted.'
-    
-    
+
     respond_to do |format|
-      format.html# {   redirect_to :action => 'show' }
-      format.xml  { head :ok }
+      if @event.destroy
+         logger.debug("borrado")
+         flash[:notice] = 'Event was successfully deleted.'
+        format.html { redirect_to(:action => 'index') }
+        format.xml  { head :ok }
+        format.atom { head :ok }
+      else
+        logger.error("Attempt to delete invalid event #{params[:id]}")
+        flash[:notice] = 'Invalid event'
+        format.html { redirect_to(:action => 'index') }
+        format.xml  { head :ok }
+        format.atom { head :ok }
+      end
+      
+      
     end
-  rescue
-    logger.error("Attempt to delete invalid event #{params[:id]}")
-    flash[:notice] = 'Invalid event'
-    redirect_to(:action => 'index')
+    end
     
-  end
-  
-  
-  
-  
-  #This method is used when you are editing or creating a new event in order to insert a new date of the event the next week
-  
-  def copy_next_week
-    @indice = params[:indice].to_i    
-    @array_times = []
-    @datetime = EventDatetime.new
-    @datetime.start_date = Time.parse(params[:date_start_day])
-    @datetime.start_date = @datetime.start_date + 7*24*3600 #7 days after
-    @datetime.end_date = Time.parse(params[:date_end_day])
-    @datetime.end_date = @datetime.end_date + 7*24*3600 #7 days after
-    @is_new = true
-    logger.debug("EOEOEOEOE datetime es " + @datetime.start_date.to_s)
-    render :partial => "form_datetimes_edit", :layout => false
-  end 
-  
-  
-  def remove_time    
-    @indice = params[:indice]
-    @element = "time"
-    render(:partial => "hidden_field", :layout => false)
-  end
-  
-  
-  def add_time
-    @indice = params[:indice].to_i
-    @indice += 1
-    @array_times = []
-    #esto era para inicializar antiguamente, ahora aparece vacío
-    #@datetime = EventDatetime.new
-    #@datetime.start_date = params[:date_start_day]
-    #@datetime.end_date = params[:date_start_day] 
-    @is_new = true
-    render :partial => "form_datetimes_edit", :layout => false
-  end
-  
+    
+    
+    
+    #This method is used when you are editing or creating a new event in order to insert a new date of the event the next week
+    
+    def copy_next_week
+      @indice = params[:indice].to_i    
+      @array_times = []
+      @datetime = EventDatetime.new
+      @datetime.start_date = Time.parse(params[:date_start_day])
+      @datetime.start_date = @datetime.start_date + 7*24*3600 #7 days after
+      @datetime.end_date = Time.parse(params[:date_end_day])
+      @datetime.end_date = @datetime.end_date + 7*24*3600 #7 days after
+      @is_new = true
+      logger.debug("EOEOEOEOE datetime es " + @datetime.start_date.to_s)
+      render :partial => "form_datetimes_edit", :layout => false
+    end 
+    
+    
+    def remove_time    
+      @indice = params[:indice]
+      @element = "time"
+      render(:partial => "hidden_field", :layout => false)
+    end
+    
+    
+    def add_time
+      @indice = params[:indice].to_i
+      @indice += 1
+      @array_times = []
+      #esto era para inicializar antiguamente, ahora aparece vacío
+      #@datetime = EventDatetime.new
+      #@datetime.start_date = params[:date_start_day]
+      #@datetime.end_date = params[:date_start_day] 
+      @is_new = true
+      render :partial => "form_datetimes_edit", :layout => false
+    end
+    
 =begin  
 TODO métodos a eliminar por pasar todas las busquedas al SearchController  
     ##METHODS THAT MAKE SEARCHES
@@ -549,52 +549,52 @@ TODO métodos a eliminar por pasar todas las busquedas al SearchController
     
   end
 =end  
-  private        
-  
-  #Method to export an event in a .ics file (Icalendar RFC)
-  
-  def export_ical
-    @event = Event.find(params[:id]) 
-    # dates = EventDatetime.find_by_event_id(@event.id)
-    urls = @event.get_urls
-    url_total = ""
-    for url in urls
-      url_total += url.to_s + ", "
-    end
-    @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}   
-    calen = Vpim::Icalendar.create2
-    for datetime in @event.event_datetimes
-      calen.add_event do |e|
-        e.dtstart  datetime.start_date
-        e.dtend  datetime.end_date
-        e.description  @event.description        
-        e.url url_total
-        e.summary "Event Title:" + @event.name + ", Service:"+ Event.get_Service_name(@event.service)
-      end 
-    end 
-    icsfile = calen.encode         
-    # @cal_string = icsfile.to_ical
-    send_data icsfile, :filename => "#{@event.name}.ics"      
+    private        
     
-  end  
-  
-  #Class Method to verify the events that occurs in the date given.
-  def select_events(datetime_start_day)
-    datetime_end_day = datetime_start_day+1
-    #first case: the event is contained in the day
-    event_datetimes = EventDatetime.find(:all, :conditions=> ["start_date > ? AND end_date < ?", datetime_start_day.to_s , datetime_end_day.to_s])
-    #breakpoint()
-    #second case: start_date in the past and end date in the future, the event contains this day
-    event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s])
-    #third case: start_date in the past and end date in this day, the event finishes today
-    event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_start_day.to_s])
-    #fourth case: start_date today and end date in the future, the event starts today and is longer than one day
-    event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date >= ? AND start_date < ? AND end_date >= ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_end_day.to_s])
-    #breakpoint()  
-    logger.debug("event_datetimes.size " + event_datetimes.size.to_s)
-    return event_datetimes
+    #Method to export an event in a .ics file (Icalendar RFC)
+    
+    def export_ical
+      @event = Event.find(params[:id]) 
+      # dates = EventDatetime.find_by_event_id(@event.id)
+      urls = @event.get_urls
+      url_total = ""
+      for url in urls
+        url_total += url.to_s + ", "
+      end
+      @event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}   
+      calen = Vpim::Icalendar.create2
+      for datetime in @event.event_datetimes
+        calen.add_event do |e|
+          e.dtstart  datetime.start_date
+          e.dtend  datetime.end_date
+          e.description  @event.description        
+          e.url url_total
+          e.summary "Event Title:" + @event.name + ", Service:"+ Event.get_Service_name(@event.service)
+        end 
+      end 
+      icsfile = calen.encode         
+      # @cal_string = icsfile.to_ical
+      send_data icsfile, :filename => "#{@event.name}.ics"      
+      
+    end  
+    
+    #Class Method to verify the events that occurs in the date given.
+    def select_events(datetime_start_day)
+      datetime_end_day = datetime_start_day+1
+      #first case: the event is contained in the day
+      event_datetimes = EventDatetime.find(:all, :conditions=> ["start_date > ? AND end_date < ?", datetime_start_day.to_s , datetime_end_day.to_s])
+      #breakpoint()
+      #second case: start_date in the past and end date in the future, the event contains this day
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s])
+      #third case: start_date in the past and end date in this day, the event finishes today
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_start_day.to_s])
+      #fourth case: start_date today and end date in the future, the event starts today and is longer than one day
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date >= ? AND start_date < ? AND end_date >= ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_end_day.to_s])
+      #breakpoint()  
+      logger.debug("event_datetimes.size " + event_datetimes.size.to_s)
+      return event_datetimes
+    end
+    
+    
+    
   end
-  
-  
-  
-end
