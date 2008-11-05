@@ -6,19 +6,18 @@ class MachinesControllerTest < ActionController::TestCase
   fixtures   :event_datetimes, :events_users, :events, :machines_users, :machines, :participants, :profiles, :users, :spaces, :entries
   
   def setup
+    @controller = MachinesController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new    
     login_as("user_admin")
+    @space = spaces(:espacio_1)
   end
   
   
   def test_should_get_index
-    get :index
+    get :index, :space_id => @space.name
     assert_response :success
     assert_not_nil assigns(:machines)
-  end
-
-  def test_should_get_new
-    get :new
-    assert_response :success
   end
 
   def test_should_create_machine
@@ -27,16 +26,6 @@ class MachinesControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to machines_path()
-  end
-
-  def test_should_show_machine
-    get :show, :id => machines(:machine_triton).id
-    assert_response :success
-  end
-
-  def test_should_get_edit
-    get :edit, :id => machines(:machine_triton).id
-    assert_response :success
   end
 
   def test_should_update_machine

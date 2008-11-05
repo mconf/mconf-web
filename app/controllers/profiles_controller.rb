@@ -77,7 +77,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(:url => user_profile_path(@user)) }
+        format.html { redirect_to :action => 'show' }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
         format.atom { 
           headers["Location"] = formatted_user_profile_url(@user, :atom )

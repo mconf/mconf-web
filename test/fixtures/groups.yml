@@ -7,3 +7,19 @@ one:
 two:
   name: MyString2  
   space_id: 2
+  
+public:
+  name: Public  
+  space_id: 1
+
+espacio_1:
+  name: Espacio 1 
+  space_id: 2
+  
+espacio_2:
+  name: Espacio segundo
+  space_id: 3
+  
+espacio_3:
+  name: Tercer Espacio
+  space_id: 4 

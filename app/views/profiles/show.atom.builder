@@ -3,6 +3,7 @@
     :url => formatted_user_profile_path(@user, :atom), :root_url => user_profile_path(@user)}) do |entry|
 
           entry.title(@profile.name)
+          entry.updated(@profile.user.updated_at)
           entry.tag!('sir:lastname', @profile.lastname)
           entry.tag!('sir:address', @profile.address)
           entry.tag!('sir:city', @profile.city)
