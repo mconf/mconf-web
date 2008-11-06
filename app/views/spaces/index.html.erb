@@ -4,26 +4,28 @@
 	<% rounded(:class => "tips") do %>
 <% @page_title = "Spaces"-%>
 &nbsp;
-<h1>Spaces</h1>
+<h1 class="main_title">Spaces</h1>
 
 <table>
   <tr>
-	<td class=headerDay align=center>Name</td>
+	<td>Name</td>
 	<%if logged_in? && @space.authorizes?(current_user, :update_entries)%>
-	<td class=headerDay align=center>Action</td>
+	<td class=headerDay>Action</td>
 	<%end%>
   </tr>
 
 <% for space in @spaces %>
 
+  <tr class="contenido">
   <tr>
-
-    <td>
-    	<% if logged_in? && @space.authorizes?(current_user, :update_entries)%>
-		    <%= link_to space.name, edit_space_path(space)%>
-            <%= link_to 'Add Users', new_space_user_path(space, {:by_email => true}) %>
+    <td class="weee">
+  <% if logged_in? && @space.authorizes?(current_user, :update_entries)%>
+                    <%= link_to space.name, edit_space_path(space)%>
+           <span id="action">
+		    <%= link_to 'Add Users', new_space_user_path(space, {:by_email => true}) %>
             <%= link_to 'Groups' ,space_groups_path(space)%>
             <%= link_to 'Delete', space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
+			</span>
         <%else%>
 		<%= space.name%>
 	</td><!-- lo he tocado para que no salga 2 veces el nombre-->

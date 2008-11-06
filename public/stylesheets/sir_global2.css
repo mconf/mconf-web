@@ -392,7 +392,7 @@ div#ft {
 }
 
 span.tags_column{
-	color: #466d4e;
+	color: #699d8c;
 	font-weight:bold;
 }
 p.post{
@@ -413,17 +413,21 @@ span.first_Column{
 	text-align:left;
 	
 }
-
+/*
 span.second_Column a:link{
 	font-weight: bold;
 	color: #3b54a6;
 	
 }
+*/
 span.second_Column p{
 	display: inline;
-	font-weight: normal;
+	
 }
-
+#post_title_list a:visited, #post_title_list a:link{
+	color:#3b54a6;
+	font-weight:bold;
+}
 span.third_Column{
 	position: relative;
 	display: inline-block;
@@ -491,17 +495,17 @@ span.clip{
 }
 div.col_public{
 	width:725px;
-	position:relative;
-	left:-12px;
+	margin-top:8px;
+	left:5px;
 	display:inline-block;
 	text-align: left;
-	color: blue;
+	color: #3b54a6;
+	font-weight:bold;
 }
 
 div.user_public{
 	width:725px;
 	position:relative;
-	left:-12px;
 	display:inline-block;
 	text-align: left;
 }
@@ -542,15 +546,18 @@ div.image_logo{
 	display:inline-block;
 	text-align: left;
 }
+
+/* APARTADO DE EVENTOS*/
+
 span.event_title{
-	width:170px;
+	width:150px;
 	position:relative;
 	left:0px;
 	display:inline-block;
 	text-align: left;
 }
 span.event_description{
-	width:150px;
+	width:200px;
 	position:relative;
 	left: 5px;
 	display:inline-block;
@@ -564,14 +571,14 @@ span.event_start_date{
 	text-align: left;
 }
 span.event_actions{
-	width:60px;
+	width:150px;
 	position:relative;
 	left:10px;
 	display:inline-block;
 	text-align: left;
 }
 .event_tags{
-	width:200px;
+	width:100px;
 	position:relative;
 	left:15px;
 	display:inline-block;
@@ -581,5 +588,62 @@ span.event_tags a:link, span.event_tags a:visited{
 	color:green;
 }
 .event_div_title{
-	color:blue;
+	color:#3b54a6;
+	margin-top:10px;
+	font-variant:small-caps;
+}
+
+
+tr.contenido{
+	
+	border-bottom:solid 1px #3b54a6;
+	
+}
+tr.contenido a{padding-left:10px;}
+tr.contenido td{
+	padding:8px;
+}
+#action{
+margin-left:80px;	
+}
+.weee{
+	text-align:right;
+}
+
+#event_date{
+	background-image:url(../images/global3.jpg);
+}
+#event_date span{
+	background-color:white;
+}
+#event_date img{
+	margin-top:5px;
+}
+#hour_event_table{
+	background-repeat:no-repeat;
+}
+.fondo_blanco{
+	padding-top:5px;
+}
+#hour_event_table{
+	margin-top:10px;
+	color:#5a5a5a;
+}
+#hour_event_table td{
+	padding:5px;
+	
+}
+td.border_bottom, td.border_bottom0, td.border_bottom1 {
+	border-bottom:solid 1px #5a5a5a;
+	
+}
+td.border_bottom2{
+	
+	border-bottom:none;
+}
+.vevent{
+	display:inline;
+}
+.vevent a{
+	float:right;
 }

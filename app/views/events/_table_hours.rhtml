@@ -1,8 +1,8 @@
-<TABLE CELLSPACING=0 CELLPADDING=0 WIDTH=50px>
+<table id="hours" >
 <% @odd_or_even_hour = 0 
    for i in 0..23
      @odd_or_even_hour = 1 - @odd_or_even_hour
 -%>
-<TR><TD class="ListLine_hour<%= @odd_or_even_hour %>" ><%= i.to_s + ":00"%></TD></TR>
+<tr><td class="border_bottom" <%= @odd_or_even_hour %>" ><%= i.to_s + ":00"%> </td></tr>
 <%end-%>
-</TABLE>
+</table>

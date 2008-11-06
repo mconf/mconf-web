@@ -1,59 +1,55 @@
-<TABLE class="whole_table" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
-<TR><TD class="Border" valign=top>
+<div id="event_date">
+	<span class="fondo_blanco">
 <%@date_prev = @datetime -1%>
-<%= link_to_remote '<', { :url => space_events_path(@space) }%>
-</TD>
-<%@array_of_arrays = format_array_events(@events) 
-  the_colspan = @array_of_arrays.size + 1
-  if @array_of_arrays.size==0
+	<%= link_to_remote image_tag("back.png"), { :url => space_events_path(@space) }%>
+	
+ <%@array_of_arrays = format_array_events(@events) 
+ the_colspan = @array_of_arrays.size + 1
+ if @array_of_arrays.size==0
     the_colspan += 1
   end
-%>
-<TD class="headerDay" colspan=<%=the_colspan%>>
-<TABLE class="headerDay" WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=0>
-<TR>
-	
-<%if logged_in? %>
-    <TD class="headerDay">
+ %>
+	<%if logged_in? %>
+		
+           <%if !current_user.machines.empty?%>
+             <%if @datetime>Date.today%>
+		       <%session[:date_start_day] = @datetime%>
+		     <%end%>
+           <%end-%>
+    	   </td>
+		<%end-%>
 
-    <%if !current_user.machines.empty?%>
-        <%if @datetime>Date.today%>
-			<%session[:date_start_day] = @datetime%>
-		<%end%>
-                    
-    <%end-%>
-    </TD>
-<%end-%>
-<TD class="headerDay" <% if logged_in?%>
-<% if current_user.machines.empty?%>  align=center <%end%><%end%>>
-Date: <%=@datetime.to_s%>
-</TD>
+		
+		  <% if logged_in?%>
+			  <% if current_user.machines.empty?%>
+			   <%end%>
+		  <%end%>
+		  <span>Date: <%=@datetime.to_s%></span>
+		
+  <%@date_post = @datetime + 1%>
+  <a class="imagen" href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)"><img src="/images/next.png"></img></a>   
+</span>
+</div>
 
-</TR>
-</TABLE>
-</TD>
-<TD class="Border" valign=top>
-<%@date_post = @datetime + 1%>
-<a href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)">></a>   
-</TD>
-</TR>
-     <TR>
-     <TD class="Border">&nbsp;</TD>
-     <TD class="ListLine1" width=50px valign=top>
+<table id="hour_event_table">
+ 
+  <tr>
+     <td>&nbsp;</td>
+     <td>
      <%= render :partial => 'table_hours', :layout => false%>
-     </TD>        
+     </td>        
      <%for i in 0..(@array_of_arrays.size-1)
         @mini_array_events = @array_of_arrays[i]%>
-        <TD valign=top >
+        <td>
         <%= render :partial => 'mini_table', :layout => false%>
-        </TD>
+        </td>
      <%end-%>
      <%if @array_of_arrays.size==0
         @mini_array_events = []-%>
-        <TD WIDTH=100% valign=top>
+        <td WIDTH=100%>
         <%= render :partial => 'mini_table', :layout => false%>
-        </TD>
+        </td>
      <%end-%>     
-     <TD class="Border">&nbsp;</TD>
-     </TR>
-</TABLE>
+     <td>&nbsp;</td>
+     </tr>
+</table>
