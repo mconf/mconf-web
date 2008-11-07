@@ -27,29 +27,58 @@
 		  <span>Date: <%=@datetime.to_s%></span>
 		
   <%@date_post = @datetime + 1%>
-  <a class="imagen" href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)"><img src="/images/next.png"></img></a>   
+  <a  href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)"><img src="/images/next.png"></img></a>   
 </span>
 </div>
+<%@array_of_arrays.flatten!%>
+<%@indice = []%>
+<%for evento in @array_of_arrays%>
+	<%hora_inicio = evento.event_datetimes[0].start_date.hour%>
+	<%if evento.event_datetimes[0].end_date.min == 0 and evento.event_datetimes[0].end_date.sec == 0 %>
+		<%hora_final = evento.event_datetimes[0].end_date.hour%>
+	<%else%>
+		<%hora_final = evento.event_datetimes[0].end_date.hour + 1%>
+	<%end%>
+	<%the_event = evento%>
+	<%duracion = hora_final - hora_inicio %>
+	<%@indice << [hora_inicio,duracion,the_event]%>
+<%end%>
 
-<table id="hour_event_table">
- 
+<table id="events_table">
+
   <tr>
-     <td>&nbsp;</td>
-     <td>
-     <%= render :partial => 'table_hours', :layout => false%>
-     </td>        
-     <%for i in 0..(@array_of_arrays.size-1)
-        @mini_array_events = @array_of_arrays[i]%>
-        <td>
-        <%= render :partial => 'mini_table', :layout => false%>
-        </td>
-     <%end-%>
-     <%if @array_of_arrays.size==0
-        @mini_array_events = []-%>
-        <td WIDTH=100%>
-        <%= render :partial => 'mini_table', :layout => false%>
-        </td>
-     <%end-%>     
-     <td>&nbsp;</td>
-     </tr>
+  	<% for hour in 0..23%>
+		<tr>
+			<td class="hour <%=hour%>" ><%= hour.to_s + ":00"%> </td>
+					<%events_in_an_hour,hour_events=get_number_events(@indice,hour)%>
+					<%for my_event in hour_events%>
+						<%event=my_event[1]%>
+						<td class="celda_evento" rowspan="<%=my_event[0]%>"><span class="event_name" width="<%=100/events_in_an_hour%>%"onclick="new Ajax.Request('/spaces/'+<%=@space.name%>+'/events/'+ <%=event.id%>+'?show_summary=true', {asynchronous:true, evalScripts:true, method:'get'}); return false;">
+							<span class="summary"><%= link_to_remote h(event.name),{ :url => formatted_space_event_url(@space, event, "js", :show_summary => true), :method => "get" } %></span> </span>
+						<%if logged_in? #&& (current_user.events.include?(event) || current_user.superuser== true) %>
+                			<%#if !already_accomplished(event)
+                  				#uncomment if you want an event in the past not to be editable
+                 			 %>				  
+                			<%session[:date_start_day]=@datetime%>
+				 			<%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+                                                 
+           
+							<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+                			<%#end%>
+							<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
+                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
+           
+						<%end%>
+						
+						</td>
+						
+					<%end%>
+					<%hour += 1%>
+		</tr>	
+		<%end%>
+        	
+   		
+
+
+
 </table>
