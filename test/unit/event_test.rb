@@ -200,4 +200,83 @@ end
       
     end
     
+   def test_should_parse_atom
+    data = prepare_atom("dos", "desc", "Fri Oct 31 16:50:00 +0100 2008", "Fri Oct 31 20:50:00 +0100 2008",
+    "password", {:tag1 => "t1", :tag2 => "t2", :tag3 => "t3"})
+    params = Event.atom_parser(data)
+    assert params.include?(:event)
+    assert_equal "dos", params[:event][:name]
+    assert_equal "desc", params[:event][:description]
+    assert_equal "Fri, 31 Oct 2008 16:50:00 +0000".to_datetime, params[:start_date0]
+    assert_equal "Fri Oct 31 20:50:00 +0100 2008".to_datetime, params[:end_date0]
+    assert_equal "password", params[:event][:password]
+    assert_equal "t1,t2,t3", params[:tags]
+  end
+  
+   def test_should_parse_atom2
+    data = prepare_atom2("dos", "desc", "Fri Oct 31 16:50:00 +0100 2008", "Fri Oct 31 20:50:00 +0100 2008",
+    "password", {:tag1 => "t1", :tag2 => "t2", :tag3 => "t3"})
+    params = Event.atom_parser(data)
+    assert params.include?(:event)
+    assert_equal "dos", params[:event][:name]
+    assert_equal "desc", params[:event][:description]
+    assert_equal "Fri, 31 Oct 2008 16:50:00 +0000".to_datetime, params[:start_date0]
+    assert_equal "Fri Oct 31 20:50:00 +0100 2008".to_datetime, params[:end_date0]
+    assert_equal "Sun, 2 Nov 2008 16:50:00 +0000".to_datetime, params[:start_date1]
+    assert_equal "Sun Nov 2 20:50:00 +0100 2008".to_datetime, params[:end_date1]
+    assert_equal "password", params[:event][:password]
+    assert_equal "t1,t2,t3", params[:tags]
+  end
+    
+    
+    
+    protected
+    
+  def prepare_atom(title, description, start, fin, password, options = {})
+    d = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <entry xmlns:sir=\"http://sir.dit.upm.es/schema\" 
+    xmlns:gd=\"http://schemas.google.com/g/2005\" 
+    xml:lang=\"en-US\" xmlns=\"http://www.w3.org/2005/Atom\">  
+    <id>tag:flexsir.dit.upm.es,2005:Event/1</id>  
+    <link rel=\"alternate\" type=\"text/html\" href=\"/spaces/el%20espacio%20de%20javi/events/1\"/>  
+    <link rel=\"self\" type=\"application/atom+xml\" href=\"/spaces/el%20espacio%20de%20javi/events/1.atom\"/>  
+    <title>#{ title }</title>  
+    <summary>#{ description }</summary>   
+    <gd:when startTime=\"#{ start }\" endTime=\"#{ fin }\" valueString=\"0\"/>
+    <category term=\"#{ options[:tag1] }\"/>
+    <category term=\"#{ options[:tag2] }\"/>
+    <category term=\"#{ options[:tag3] }\"/>
+    <sir:password>#{ password }</sir:password>
+    <sir:service>meeting.act</sir:service>
+    <sir:all_participant_sites>10</sir:all_participant_sites>
+    <sir:quality>1M</sir:quality>
+    </entry>"
+  end
+  
+  def prepare_atom2(title, description, start, fin, password, options = {})
+    d = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <entry xmlns:sir=\"http://sir.dit.upm.es/schema\" 
+    xmlns:gd=\"http://schemas.google.com/g/2005\" 
+    xml:lang=\"en-US\" xmlns=\"http://www.w3.org/2005/Atom\">  
+    <id>tag:flexsir.dit.upm.es,2005:Event/1</id>  
+    <link rel=\"alternate\" type=\"text/html\" href=\"/spaces/el%20espacio%20de%20javi/events/1\"/>  
+    <link rel=\"self\" type=\"application/atom+xml\" href=\"/spaces/el%20espacio%20de%20javi/events/1.atom\"/>  
+    <title>#{ title }</title>  
+    <summary>#{ description }</summary>   
+    <gd:when startTime=\"#{ start }\" endTime=\"#{ fin }\" valueString=\"0\"/>
+    <gd:when startTime=\"Sun Nov 2 16:50:00 +0100 2008\" endTime=\"Sun Nov 2 20:50:00 +0100 2008\" valueString=\"1\"/>
+    <category term=\"#{ options[:tag1] }\"/>
+    <category term=\"#{ options[:tag2] }\"/>
+    <category term=\"#{ options[:tag3] }\"/>
+    <sir:password>#{ password }</sir:password>
+    <sir:service>meeting.act</sir:service>
+    <sir:all_participant_sites>10</sir:all_participant_sites>
+    <sir:quality>1M</sir:quality>
+    </entry>"
+  end
+
+
+    
+    
+    
   end

@@ -29,7 +29,7 @@ user_space2_operator:
   id: 4
   agent_id: 30
   agent_type: User
-  role_id: 4
+  role_id: 2
   container_id: 2
   container_type: Space
 
@@ -37,7 +37,7 @@ user_group_1:
   id: 5
   agent_id: 30
   agent_type: User
-  role_id: 6
+  role_id: 2
   container_id: 1
   container_type: Space
   
@@ -45,6 +45,6 @@ user_group_2:
   id: 6
   agent_id: 24
   agent_type: User
-  role_id: 6
+  role_id: 2
   container_id: 1
   container_type: Space

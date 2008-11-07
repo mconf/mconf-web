@@ -75,19 +75,7 @@ end
     user[:password] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "password").text
     user[:password_confirmation] = user[:password]
     e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "email").each do |email|
-      if email.attributes['primary']=="true"
         user[:email] = email.attributes['address']
-      else
-        if email.attributes['label']=="email1"
-          user[:email] = email.attributes['address']
-        end
-        if email.attributes['label']=="email2"
-          user[:email2] = email.attributes['address']
-        end
-        if email.attributes['label']=="email3"
-          user[:email3] = email.attributes['address']
-        end
-      end
     end
     t = []
     e.categories.each do |c|

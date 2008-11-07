@@ -100,8 +100,55 @@ def test_callbacks
   us = User.new(:login => 'test', :email=>'test@test.es', :password => 'quire', :password_confirmation => 'quire')
   assert_valid us
 end
+
+  def test_should_parse_atom
+    data = prepare_atom("dos", "desc", "uno@email.com", ["t1", "t2", "t3", "t4", "t5"])
+    params = User.atom_parser(data)
+    assert params.include?(:user)
+    assert_equal "dos", params[:user][:login]
+    assert_equal "desc", params[:user][:password]
+    assert_equal "uno@email.com", params[:user][:email]
+    assert_equal "t1,t2,t3,t4,t5", params[:tags]
+  end
+  
+    def test_should_parse_atom2
+    data = prepare_atom("dos", "desc", "uno@email.com", ["t1", "t2", "t3"])
+    params = User.atom_parser(data)
+    assert params.include?(:user)
+    assert_equal "dos", params[:user][:login]
+    assert_equal "desc", params[:user][:password]
+    assert_equal "uno@email.com", params[:user][:email]
+    assert_equal "t1,t2,t3,,", params[:tags]
+  end
+
+
+
 protected
   def create_user(options = {})
     User.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
   end
+  
+    def prepare_atom(title, password, email, options = {})
+    d = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <entry xmlns:gd=\"http://schemas.google.com/g/2005\" 
+    xmlns:sir=\"http://sir.dit.upm.es/schema\" 
+    xml:lang=\"en-US\" xmlns=\"http://www.w3.org/2005/Atom\">  
+    <id>tag:localhost,2005:User/3</id>  
+    <published>2008-04-03T17:34:59+02:00</published>  
+    <updated>2008-04-03T17:34:59+02:00</updated>  
+    <link type=\"text/html\" rel=\"alternate\" href=\"http://localhost:3000/users/1\"/>  
+    <link type=\"application/atom+xml\" rel=\"self\" href=\"http://localhost:3000/spaces/1/users/1.atom\"/>  
+    <title>#{title}</title>  
+    <sir:password>#{password}</sir:password>  
+    <gd:email address=\"#{email}\" primary=\"true\" label=\"email1\"/>
+    <category term=\"#{options[0]}\"/> 
+    <category term=\"#{options[1]}\"/>  
+    <category term=\"#{options[2]}\"/> 
+    <category term=\"#{options[3]}\"/> 
+    <category term=\"#{options[4]}\"/> 
+    </entry>"
+  end
+
+  
+  
 end
