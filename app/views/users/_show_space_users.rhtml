@@ -7,12 +7,12 @@
 <%= "No users found"%>
 <%else%>
 <table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
-	<tr><td align="center">Name (Login)</td><td align="center">Lastname</td><%if logged_in?%><td align="center">Email</td><%end%><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
+	<tr><td align="center">Name</td><td align="center">Lastname</td><%if logged_in?%><td align="center">Email</td><%end%><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
 </tr>
 <%for user in @users do%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(user)%> (<%= link_to user.login,  user_profile_path(user) %>)<br></td>
+<td align="center"><%=link_to user.profile.name, user_profile_path(current_user) if user.profile.name%> <%= link_to user.login,  user_profile_path(current_user, @space) unless user.profile.name%><br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <%if logged_in?%><td align="center"><%= user.email%><br></td><%end%>
 <td align="center"><%= user.profile.organization%><br></td>
@@ -27,7 +27,7 @@
 </tr>
 <%else%>
 <tr>
-<td align="center">(<%=link_to user.login, user_profile_path(user)%>)<br></td>
+<td align="center"><%=link_to user.login, user_profile_path(user)%><br></td>
 <td></td><%if logged_in?%><td align="center"><%= user.email%><br></td><%end%><td></td> 
 <%for role in @space.roles_for(user) do%>
 <td align="center"><%=role.name%><br></td></tr>

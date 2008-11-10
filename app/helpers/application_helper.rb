@@ -201,7 +201,7 @@ end
   end
   
   def generate_user_table
-    name = "<div class='name'> Login / (name,lastname) </div>"
+    name = "<div class='name'> Name / Lastname</div>"
     organization = "<div class='organization'> Organization </div>"
     interests = "<div class='interests'> Interests </div>"
     members = "<div class='members'> Member of </div> "
@@ -210,7 +210,7 @@ end
     
   end
   def show_list_user(user)
-    div_user = "<div class= 'name'>" + highlight(name_format( user.login  + (" / "+user.profile.name + "  " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
+    div_user = "<div class= 'name'>" + highlight(name_format(  ((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( "/ " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
     div_organization = "<div class= 'organization'>" + highlight((name_format(user.organization ,17,"") if user.profile).to_s,@query) + "</div>"
     div_interests = "<div class= 'interests'>" + highlight((name_format(user.tag_list ,23,"")).to_s,@query) + "</div>"
     div_members = "<div class= 'members'>" + highlight((name_format(member_spaces(user) ,27,"")).to_s,@query) + "</div>"

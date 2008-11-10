@@ -2,7 +2,7 @@
 <TR><TD class="Border" valign=top>
 
 <%@date_prev = @datetime -1%>
-<%= link_to_remote image_tag("back.png") , { :url => space_events_path(@space, :date_start_day => @date_prev) }%>
+<%= link_to image_tag("back.png") , space_events_path(@space, :date_start_day => @date_prev) %>
 </TD>
 <%@array_of_arrays = format_array_events(@events) 
   the_colspan = @array_of_arrays.size + 1
@@ -37,7 +37,10 @@ Date: <%=@datetime.to_s%>
 </TD>
 <TD class="Border" valign=top>
 <%@date_post = @datetime + 1%>
+<%= link_to image_tag("next.png") , space_events_path(@space, :date_start_day => @date_post) %>
+<!--
 <a href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)"><img src="/images/next.png"></img></a>   
+-->
 </span>
 </div>
 </TD>
