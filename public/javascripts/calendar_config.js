@@ -42,18 +42,3 @@ function dateIsSpecial(year, month, day) {
 
   
   
-function change_table() {
-    var y = calendar.date.getFullYear();
-    var m = calendar.date.getMonth();     // integer, 0..11
-    m = m+1   //it is now from 1..12 as I need (ENRIQUE)
-    var d = calendar.date.getDate();      // integer, 1..31
-    new Ajax.Updater('timetable', '/spaces/' + calendar.space_id + '/events?date_start_day=' + y + '-' + m + '-' + d , {asynchronous:true, evalScripts:true}); return false;
-}
-
-function change_table_full(year, month, day) {
-    var y = year;
-    var m = month;     // integer, 0..11
-    var d = day;       // integer, 1..31
-    new Ajax.Updater('timetable', '/spaces/' + calendar.space_id + '/events?date_start_day=' + y + '-' + m + '-' + d , {asynchronous:true, evalScripts:true, onComplete:calendar.setDate(new Date(month+"/"+day+"/"+year))}); return false;
-	
-}

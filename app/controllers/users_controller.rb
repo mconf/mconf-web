@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   before_filter :authentication_required, :only => [:edit,:update, :destroy]
   before_filter :user_is_admin, :only=> [:search_users2]
   
-  before_filter :edit_user,  :only=> [:show,:edit,:update,:destroy]
+  before_filter :edit_user,  :only=> [:show,:edit,:update]
   before_filter :space_member, :only=>[:show]
   
   set_params_from_atom :user, :only => [ :create, :update ]  

@@ -4,6 +4,6 @@ class RenameResetPasswordField < ActiveRecord::Migration
   end
 
   def self.down
-    rename_column :users, :reset_password_code, :password_reset_code
+    rename_column :users, :reset_password_code, :password_reset_code   
   end
 end

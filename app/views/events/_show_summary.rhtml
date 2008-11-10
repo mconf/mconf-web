@@ -35,7 +35,7 @@
 <TD class="fieldEvent"><label for="event_name">Keywords:</label></TD>
 <TD><b><%for tag in @event.tag_list %>
 	
-	<%= link_to(h(tag), search_by_tag_path(@space,tag), :method => :get, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %>
+	<%= link_to( h(tag), {:url=>search_by_tag_path(@space,tag), :method => :get}, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %>
 <%end%>
 </b></TD>
 </TR>

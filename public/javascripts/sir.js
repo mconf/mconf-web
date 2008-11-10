@@ -58,6 +58,7 @@ function esconde(Seccion)
     Element.hide(Seccion);
     Element.hide(Seccion+"bis");
     Element.hide(Seccion+"line");
+	Element.hide("add_"+Seccion);
   }
   
   function esconde_addtime()
@@ -72,8 +73,7 @@ function esconde(Seccion)
   
   function remove_time(Seccion)
   {
-    orden = "document.form_event.is_valid_"+Seccion+".value = false";
-    eval(orden);
+    document.getElementById("is_valid_"+Seccion).value = false;    
     esconde(Seccion);
   }
   
@@ -241,9 +241,24 @@ function esconde(Seccion)
 		var ob = document.getElementById("users_id");
 		while (ob.selectedIndex != -1) {
 				hijo = ob.options[ob.selectedIndex];
+				if(already_in_the_group(hijo.text))
+				{
+					alert("The user " + hijo.text + " is already in the group");
+					return;
+				}
 				document.getElementById("group_users_id").appendChild(new Option(hijo.text,hijo.value));				
 				ob.options[ob.selectedIndex].selected = false; 
 		}		
+	}
+	
+	function already_in_the_group(hijo){
+		len =	document.getElementById("group_users_id").length;
+		for(i=0;i<len;i++){
+			hijo_del_grupo = document.getElementById("group_users_id").options[i].text;
+			if(hijo_del_grupo==hijo)
+				return true;
+		}
+		return false;
 	}
 	
 	function selectAllOptions()
