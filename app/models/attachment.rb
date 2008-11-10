@@ -11,7 +11,7 @@ class Attachment < ActiveRecord::Base
   # Return hash with content attributes
   def self.atom_entry_filter(entry)
     # Example:
-    # { :body => entry.content.xml.to_s }
+    #{ :body => entry.content.xml.to_s }
     {}
   end
 end

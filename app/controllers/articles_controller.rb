@@ -72,7 +72,6 @@ class ArticlesController < ApplicationController
     end
     
   def create
-
     #creación del Artículo padre
     @article = Article.new(params[:article])
     if !@article.valid?
