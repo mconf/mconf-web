@@ -140,17 +140,8 @@ module EventsHelper
       return result_array
     end
     
-  
-    def get_number_events(indice,hour)
-       events_in_an_hour = 0
-       hour_events= []
-       for index in indice
-         if index[0] == hour
-           events_in_an_hour +=1
-           hour_events << [index[1],index[2]]
-         end
-      end
-     return events_in_an_hour,hour_events
-    end
+    
+   
+   
     
 end

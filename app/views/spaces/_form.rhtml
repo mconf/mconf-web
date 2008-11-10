@@ -12,7 +12,7 @@
 
 <%if @space_thumbnail%>
 <div id= "image_logo"><%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
-<%= link_to_function 'Remove', "hide_logotype()" %>
+<%= link_to_function 'Remove', "hide_logotype('space logotype')" %>
 </div>
 <%= hidden_field_tag "delete_thumbnail", false %>
 <%end%>

@@ -26,12 +26,15 @@ function remove_attach(number){
 	 
 }
 
-function hide_logotype(){
+function hide_logotype(name){
+	 var answer = confirm("This action will delete the current "+ name + " after clicking the update button.\n Are you sure?")
+	 if(answer){
 	 var remove_div = document.getElementById('image_logo');
 	 var parent_node_span = remove_div.parentNode;
 	 parent_node_span.removeChild(remove_div);
 	 var hidden = document.getElementById('delete_thumbnail');
-	 hidden.value = true;
+	 hidden.value = true;	
+	 }
 	 
 }
 

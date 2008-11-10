@@ -171,7 +171,6 @@ class ApplicationController < ActionController::Base
   
   
   def space_member
-    
     if params[:space_id]
       @container = @space = Space.find_by_name(params[:space_id])
     end
