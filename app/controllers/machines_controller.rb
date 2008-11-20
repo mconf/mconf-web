@@ -81,15 +81,6 @@ class MachinesController < ApplicationController
   # if params[:assign_to_everybody] then assigns the machine to every user
   def update
     
-      
-      name = params[:machine][:name]
-      nickname = params[:machine][:nickname]
-      if name==nil || nickname==nil  || name=="" || nickname ==""      
-        flash[:notice] = "Nor name or nickname can be blank"
-        redirect_to machines_path() 
-        return
-      end
-    
     @machine = Machine.find(params[:id])
     
     respond_to do |format|
