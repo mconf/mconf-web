@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
   def index
      session[:current_tab] = "Posts"
      session[:current_sub_tab] = ""
-        if @container
+     #   if @container
           if params[:per_page] != nil
             number_pages = params[:per_page]
           else
@@ -31,28 +31,30 @@ class ArticlesController < ApplicationController
           end
 
           @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @container.name }"
-          # All the Entries this Agent can read in this Container
-          @collection = @container.container_entries.find(:all,
-                                                        :conditions => { :content_type => "Article" , :parent_id => nil },
-                                                        :order => "updated_at DESC")
+          # All the Entries this Agent can read in this Container          
+          @collection = @container.container_entries.find_all_by_content_type_and_parent_id("Article" , nil,:order => "updated_at DESC")
+                                                   
            if @space.id==1
-            @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}.paginate(:page => params[:page], :per_page => number_pages)
+             @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}
+           #  @articles = @entries.map{|e| e.content}.paginate(:page => params[:page], :per_page => number_pages)
             else
-          # Paginate them
-          @entries = @collection.paginate(:page => params[:page], :per_page => number_pages)
-          @updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
-          @collection_path = space_articles_path(@container)
-        
-            end
-        else
-          @title ||= 'Entry'.t('Entries', 99)
-          @entries = Entry.paginate :all,
-                                      :conditions => [ "public_read = ?", true ],
-                                      :page =>  params[:page],
-                                      :order => "updated_at DESC"
-          @updated = @entries.blank? ? Time.now : @entries.first.updated_at
-          @collection_path = entries_path
-        end
+          
+          @entries = @collection
+          #@updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
+          #@collection_path = space_articles_path(@container)
+          
+      end
+      @articles = @entries.map{|e| e.content}.paginate(:page => params[:page], :per_page => number_pages)
+     #   else
+     #     @title ||= 'Entry'.t('Entries', 99)
+     #     @entries = Entry.paginate :all,
+     #                                 :conditions => [ "public_read = ?", true ],
+     #                                 :page =>  params[:page],
+     #                                 :order => "updated_at DESC"
+     #     @articles = @entries.map{|e| e.content}
+         # @updated = @entries.blank? ? Time.now : @entries.first.updated_at
+         # @collection_path = entries_path
+      #  end
         
         if params[:expanded] == "true"
           respond_to do |format|

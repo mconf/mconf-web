@@ -1,7 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  text: MyText
-
-two:
-  text: MyText
+article_simple: 
+  text: articulo de prueba
+  id: 5
+  title: titulo del articulo

@@ -28,7 +28,7 @@ for user in @users
     @odd_or_even_user = 1 - @odd_or_even_user
 -%>
 <tr>
-	<td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.profile.name, edit_space_user_path(@space,user) if user.profile%></b>&nbsp;&nbsp;</td>
+<td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.profile.name, edit_space_user_path(@space,user) if user.profile%></b>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.profile.lastname, edit_space_user_path(@space,user) if user.profile%></b>&nbsp;&nbsp;</td>
 
 <td class="ListUser<%= @odd_or_even_user %>">&nbsp;<b><%= link_to user.login, edit_space_user_path(@space,user) %></b>&nbsp;&nbsp;</td>

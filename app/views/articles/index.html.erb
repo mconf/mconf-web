@@ -7,18 +7,18 @@
 	<span class= "expand"> <%=link_to ("expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
 	</div>
 	<div id="paginata2">
-	<%= will_paginate @entries %><%=link_to ("10", space_articles_path(@space, :expanded=>false, :per_page=> 10))%>|
+	<%= will_paginate @articles %><%=link_to ("10", space_articles_path(@space, :expanded=>false, :per_page=> 10))%>|
 	<%=link_to ("25", space_articles_path(@space, :expanded=>false, :per_page=> 25))%>|
 	<%=link_to ("50", space_articles_path(@space, :expanded=>false, :per_page=> 50))%>|
 	<%=link_to ("100", space_articles_path(@space, :expanded=>false, :per_page=> 100))%>
 	
 	</div>
 	<br/><br/> 
-	<% for entry in @entries -%>
-	<%if entry.parent_id == nil%>
+	<% for article in @articles -%>
+	<%if article.entry.parent_id == nil%>
 	
 		<div class="contenido_main">
-    	<%=show_article(entry,@space,"edit","destroy")%> 
+    	<%=show_article(article.entry,@space,"edit","destroy")%> 
 		</div>
 	<% end -%>
 	<% end -%>

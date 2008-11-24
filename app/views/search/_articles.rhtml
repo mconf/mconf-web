@@ -1,13 +1,13 @@
 <% rounded(:class => "tips") do %>
 
-<% if @entries.length == 0 %>
+<% if @articles.length == 0 %>
 	No Posts Found
 <% else%>
 	
-	<%for entry in @entries%>
+	<%for article in @articles%>
 	   
 	  <div class="contenido_main">
-    	<%=show_article(entry,@space,"edit","destroy")%> 
+    	<%=show_article(article.entry,@space,"edit","destroy")%> 
 		</div> 
 	
 	   

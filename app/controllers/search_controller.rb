@@ -49,6 +49,7 @@ class SearchController < ApplicationController
     @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Article" ]).map{ |t| 
       Entry.find_by_content_id_and_content_type(t.taggable_id, 'Article')
     }
+    @articles = @entries.map{|e| e.content}
     @query = params[:tag]
     respond_to do |format|        
       format.html     
@@ -146,8 +147,8 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Article')
     @search.run
    # @search.results
-    @articles_entries = @search.results.select{|article| article.entry!=nil && article.entry.parent_id == nil}
-    @entries = @articles_entries.map{|article| article.entry}.sort_by{|e| e.updated_at}.reverse
+    @articles = @search.results.select{|article| article.entry!=nil && article.entry.parent_id == nil}.sort_by{|e| e.updated_at}.reverse
+    #@entries = @articles_entries.map{|article| article.entry}.sort_by{|e| e.updated_at}.reverse
     
    # @results = Article.find_by_contents(@query)
    # @pos = @space.container_entries    

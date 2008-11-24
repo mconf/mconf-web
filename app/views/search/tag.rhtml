@@ -64,13 +64,13 @@
 
 <div class="post">
 	<br><h2> Posts</h2><br>
-	   <%if @entries == []%>
+	   <%if @articles == []%>
 	   No Posts Found<br>
 	   <%else%>
 	
-	 <% @entries.each do |entry| %>
-	 <%if entry%>
-	 <%=show_article(entry,@space,"edit","destroy")%> 
+	 <% @articles.each do |article| %>
+	 <%if article%>
+	 <%=show_article(article.entry,@space,"edit","destroy")%> 
 	 <%end%>
 <%end%>
 <%end%>

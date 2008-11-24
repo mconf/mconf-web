@@ -28,14 +28,14 @@ class Entry
     return true if agent.superuser || self.has_role_for?(agent, :admin)
     
      actions = Array(actions)
-
-    if actions.delete(:edit)
-      return true if self.agent == agent 
+    if self.agent
+      if actions.delete(:edit)
+        return true if self.agent == agent 
+      end
+      if actions.delete(:delete)
+        return true if self.agent == agent 
+      end
     end
-    if actions.delete(:delete)
-      return true if self.agent == agent 
-    end
-    
     false
   end
 end

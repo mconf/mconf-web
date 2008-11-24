@@ -1,5 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
+=begin
 describe GroupsController do
 
   def mock_group(stubs={})
@@ -172,3 +172,4 @@ describe GroupsController do
   end
 
 end
+=end

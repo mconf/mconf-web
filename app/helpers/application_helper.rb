@@ -131,11 +131,20 @@ end
   def show_article(entry,space,*args) #return a compress view of a entry post
   usuario = entry.agent
   number_comments= " (" + get_number_children_comments(entry).to_s + ")"
-  user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
+  if usuario
+    user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
+  else
+    user = "nonexistent"
+  end
  # user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
   tags = "[" + entry.content.tag_list + "]"
   fecha = get_format_date(entry)
-  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ to_user_link(name_format(user,17,""),usuario,space)  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(42,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(71 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
+  if usuario
+    user_link = to_user_link(name_format(user,17,""),usuario,space)
+  else
+    user_link = user
+  end
+  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(42,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(71 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
   image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
