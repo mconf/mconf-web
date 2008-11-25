@@ -223,7 +223,7 @@ end
     div_organization = "<div class= 'organization'>" + highlight((name_format(user.organization ,17,"") if user.profile).to_s,@query) + "</div>"
     div_interests = "<div class= 'interests'>" + highlight((name_format(user.tag_list ,23,"")).to_s,@query) + "</div>"
     div_members = "<div class= 'members'>" + highlight((name_format(member_spaces(user) ,27,"")).to_s,@query) + "</div>"
-    line = div_user + div_organization + div_interests + div_members
+    line = div_user + div_organization + div_interests + div_members + "<br/> <br/>"
     return line
   end
   
@@ -258,7 +258,7 @@ end
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",30,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
         if logged_in? && event.authorizes?(current_user, :edit)
-    span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/icalendar.gif"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/modify.gif"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete.gif"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
+    span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/calendar.png"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/edit22.png"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete22.png"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
         else
     span_actions = "<span class= 'event_actions'>   </span>"
         end   

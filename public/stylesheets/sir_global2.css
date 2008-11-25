@@ -161,27 +161,11 @@ ul#nav a:hover {
     background-position: top left;
     text-decoration: none;
 }
-/*
-ul#nav a:hover span {
-   	color:white;
-}
-*/
-/*
-ul#nav li.current a{
-	
-	color: #191919;
-	background-color:#3b54a6;
-	
-}
-*/
+
 ul#nav li.current a span {
    	color:white;
 }
-/*
-ul#nav li.current a:hover span {
-   	color:white;
-}
-*/
+
 ul#nav a:hover span {
     background-position: right top;
 }
@@ -348,8 +332,6 @@ ul.sidebar_posts li {
 .rss{
 	width:16px;
 	height:16px;
-	/*background-image:url(../images/rss.png);
-	background-repeat:no-repeat;*/
 	float:right;
 }
 
@@ -370,8 +352,35 @@ ul.sidebar_posts li {
 	color:#5a5a5a;
 	
 }
+/*SPACES*/
+.mini_logo{
+	width:22px;
+	height:22px;
+	float:left;
+	margin-left:10px;
+	background-image:url(../images/foto.png);
+}
 
-
+div.space_name_title{
+	float:left;
+	width:170px;
+	text-align:left;
+	margin-left:10px;
+	
+}
+.space_name_title{
+	margin-left:10px;
+	margin-top:10px;
+}
+.action, .mini_logo{
+	margin-top:7px;
+	text-align:left;
+}
+div.action{
+	float:left;
+	width:200px;
+	
+}
 /* FOOT */
 
 div#ft {
@@ -413,13 +422,7 @@ span.first_Column{
 	text-align:left;
 	
 }
-/*
-span.second_Column a:link{
-	font-weight: bold;
-	color: #3b54a6;
-	
-}
-*/
+
 span.second_Column p{
 	display: inline;
 	
@@ -493,51 +496,8 @@ span.clip{
 	float:right;
 	margin-right:0px;
 }
-div.col_public{
-	width:725px;
-	margin-top:8px;
-	left:5px;
-	display:inline-block;
-	text-align: left;
-	color: #3b54a6;
-	font-weight:bold;
-}
 
-div.user_public{
-	width:725px;
-	position:relative;
-	display:inline-block;
-	text-align: left;
-}
-div.name{
-	width:200px;
-	position:relative;
-	left:15px;
-	display:inline-block;
-	text-align: left;
-}
 
-div.organization{
-	width:120px;
-	position:relative;
-	left:5px;
-	display:inline-block;
-	text-align: left;
-}
-div.interests{
-	width:150px;
-	position:relative;
-	left:20px;
-	display:inline-block;
-	text-align: left;
-}
-div.members{
-	width:200px;
-	position:relative;
-	left:30px;
-	display:inline-block;
-	text-align: left;
-}
 
 div.image_logo{
 	width:200px;
@@ -545,6 +505,36 @@ div.image_logo{
 	left:-250px;
 	display:inline-block;
 	text-align: left;
+}
+/*PEOPLE*/
+
+div.col_public {
+	display:inline;
+	color: #3b54a6;
+	font-weight:bold;
+}
+
+div.user_public{
+	display:inline;
+}
+div.col_public div, div.user_public div{
+	margin-top:8px;
+	float:left;
+	padding-left:50px;
+}
+
+div.name{
+	width:195px;
+}
+
+div.organization{
+	width:95px;
+}
+div.interests{
+	width:85px;
+}
+div.members{
+	width:85px;
 }
 
 /* APARTADO DE EVENTOS*/
@@ -594,15 +584,18 @@ span.event_tags a:link, span.event_tags a:visited{
 }
 
 
-tr.contenido{
+/*Agenda de eventos*/
+/*tr.contenido{
 	
 	border-bottom:solid 1px #3b54a6;
 	
 }
 tr.contenido a{padding-left:10px;}
+
 tr.contenido td{
 	padding:8px;
 }
+
 #action{
 margin-left:80px;	
 }
@@ -610,21 +603,11 @@ margin-left:80px;
 	text-align:right;
 }
 
-#event_date{
-	background-image:url(../images/global3.jpg);
-}
-#event_date span{
-	background-color:white;
-}
-#event_date img{
-	margin-top:5px;
-}
+
 #hour_event_table{
 	background-repeat:no-repeat;
 }
-.fondo_blanco{
-	padding-top:5px;
-}
+
 #events_table{
 	width:100%;
 	text-align:right;
@@ -634,6 +617,80 @@ margin-left:80px;
 	border:solid;
 	
 }
-.hour{
-	width:50px;
+
+#hours td{
+	border:solid;
+}
+*/
+
+/*Fondo de curvas azules del título*/
+#event_date{
+	background-image:url(../images/global3.jpg);
+}
+#event_date span{
+	background-color:white;
+}
+#event_date img{
+	margin-top:5px;
+}
+.fondo_blanco{
+	padding-top:5px;
+}
+/*Tabla con las horas y los eventos del día*/
+#hour_event_table{
+	
+	width:100%;
+	
+	
+}
+#columna_horas{
+width:45px;
+}
+#hours{
+	
+	margin-left:0px;
+	text-align:right;
+	color:#5a5a5a;
+	
+}
+#hour_event_table td{
+	padding:8px 0 8px 0;
+	border-bottom: solid 1px #5a5a5a;
+	}
+td.largo{
+	
+}
+.border_bottom0{
+	width:100%;
+	
+}
+#maldita{
+	
+}
+#contenido_evento{
+	width:100px;
+	height:22px;
+	
+}
+.summary{
+	
+}
+#contenido_evento img{
+	
+	}
+
+.event_actions img{
+	padding-left:5px;
+}
+#event_table_summary{
+	margin-top:15px;
+}
+.summary_title{
+	background-color:#3b54a6;
+	font-weight:bold;
+	color:white;
+	text-align:center;
+}
+tr.summmary_title p{
+	
 }

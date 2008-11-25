@@ -1,20 +1,21 @@
 <div class="vevent">
-	<table class="Event" CELLPADING=0 CELLSPACING=0 BORDER=1 width=100% valign=top >
-		<tr><td colspan=2 align=center >
-			<b>	Event Information</b>
+	
+	<table id="event_table_summary" CELLPADING=0 CELLSPACING=0 BORDER=1 width=100% valign=top >
+		<tr class="summary_title"><td colspan=2 align=center >
+			<p>	Event Information</p>
 		</td></tr>
 		
 		<tr>
 	
-	<TD class="fieldEvent"><label for="event_name">Name:</label></TD>
-	<td><div class="summary"><b><%=h(@event.name)%></b></div></td>
+	<td class="fieldEvent"><label for="event_name">Name:</label></td>
+	<td><div class="summary"><p><%=h(@event.name)%></p></div></td>
 	
-	</TR>
+	</tr>
 	<%if logged_in? && current_user.superuser==true%>
-	<TR>
-	<TD class="fieldEvent"><label for="event_name">Service:</label></TD>
-	<TD><b><%=Event.get_Service_name(h(@event.service))%></b></TD>
-		</TR>
+	<tr>
+	<td class="fieldEvent"><label for="event_name">Service:</label></td>
+	<td><p><%=Event.get_Service_name(h(@event.service))%></p></td>
+		</tr>
 <TR>
 <TD class="fieldEvent"><label for="event_name">Quality:</label></TD>
 <TD><b><%=h(@event.quality)%></b></TD>
@@ -33,15 +34,15 @@
 <%if @event.tag_list!=nil && @event.tag_list!=""%>
 <TR>
 <TD class="fieldEvent"><label for="event_name">Keywords:</label></TD>
-<TD><b><%for tag in @event.tag_list %>
+<TD><%for tag in @event.tag_list %>
 	
 	<%= link_to( h(tag), {:url=>search_by_tag_path(@space,tag), :method => :get}, { :class => "tag", :style => "margin: .15em", :rel=> "tag" } ) %>
 <%end%>
-</b></TD>
+</TD>
 </TR>
 <%end%>
-<TR><TD colspan=2 align=center ><b>
-Event Times</b>
+<TR class="summary_title"><TD colspan=2 align=center >
+	<p>Event Times</p>
 </TD></TR>
 <%index = 0%>
 <%@event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
@@ -56,8 +57,8 @@ Event Times</b>
     </TR>    
     <%index += 1 -%>
 <% end -%>
-<TR><TD colspan="2" align="center" ><b>
-Contact Information</b>
+<TR class="summary_title"><TD colspan="2" align="center" ><p>
+Contact Information</p>
 </TD></TR>
 <TR><TD colspan="2" >
 	<div class="">
