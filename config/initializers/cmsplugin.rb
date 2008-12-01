@@ -23,21 +23,6 @@ class Entry
       entry_children.update_attribute(:public_read, entry.public_read) 
     } 
   }
-  
-  def authorizes?(agent, actions)
-    return true if agent.superuser || self.has_role_for?(agent, :admin)
-    
-     actions = Array(actions)
-    if self.agent
-      if actions.delete(:edit)
-        return true if self.agent == agent 
-      end
-      if actions.delete(:delete)
-        return true if self.agent == agent 
-      end
-    end
-    false
-  end
 end
 
 Tag
@@ -53,16 +38,72 @@ class Tag
   end
 end
 
-AnonymousAgent
+SingularAgent
 
-class AnonymousAgent
+class SingularAgent
   def superuser
     false
   end
+end
 
-  def login
-    "Anonymous"
+Performance
+
+class Performance
+
+  after_create {|perfor|
+    user = perfor.agent
+    space = perfor.stage
+    role = perfor.role
+    group = Group.find_by_name(space.emailize_name)
+    if group
+    if (role == Role.find_by_name("Admin") || role == Role.find_by_name("User")) && !group.users.include?(user)
+      user_ids = []
+      group.users.each do |u|
+        user_ids << "#{u.id}"
+      end
+      user_ids << "#{user.id}"
+      
+      group.update_attributes(:user_ids => user_ids)
+    end
+    end
+  }
+
+  before_destroy {|perfor|
+    user = perfor.agent
+    space = perfor.stage
+    group = Group.find_by_name(space.emailize_name)
+    if group
+      user_ids = []
+      group.users.each do |u|
+        user_ids << "#{u.id}"
+      end
+      user_ids.delete("#{user.id}")
+      
+      group.update_attributes(:user_ids => user_ids)  
+      end
+  }
+  
+end
+
+# In SIR authorization, users that are superusers are gods
+# This module allows implementing this feature in all classes that implement authorizes?
+module SirAuthorizes
+  class << self
+    def included(base)
+      base.class_eval do
+        alias authorizes_without_superuser authorizes?
+        def authorizes_with_superuser(agent, *args)
+          return true if agent.superuser
+
+          return true if self.respond_to?(:entry) && self.entry.agent == agent
+
+          authorizes_without_superuser(agent, *args)
+        end
+        alias authorizes? authorizes_with_superuser
+      end
+    end
   end
 end
 
+CMS::ActiveRecord::Stage::InstanceMethods.send :include, SirAuthorizes
 

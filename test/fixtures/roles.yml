@@ -1,41 +1,18 @@
 admin:
   id: 1
-  name: admin
-  create_entries: true
-  read_entries: true
-  update_entries: true
-  delete_entries: true
-  create_performances: true
-  read_performances: true
-  update_performances: true
-  delete_performances: true
-  manage_events: true
-  admin: true
+  name: Admin
+  stage_type: Space
+  permissions: create_entry, read_entry, update_entry, delete_entry, create_performance, read_performance, update_performance, delete_performance
   
 invited:
-    id: 2
-    name: invited
-    create_entries: 0
-    read_entries: 1
-    update_entries: 0
-    delete_entries: 0
-    create_performances: 0
-    read_performances: 1
-    update_performances: 0
-    delete_performances: 0
-    manage_events: 0
-    admin: 0
+  id: 2
+  name: Invited
+  stage_type: Space
+  permissions: read_entry, read_performances
       
 user:
-    id: 3
-    name: user
-    create_entries: 1
-    read_entries: 1
-    update_entries: 1
-    delete_entries: 1
-    create_performances: 0
-    read_performances: 1
-    update_performances: 0
-    delete_performances: 0
-    manage_events: 0
-    admin: 0
+  id: 3
+  name: User
+  stage_type: Space
+  permissions: create_entry, read_entry, update_entry, delete_entry, read_performance
+

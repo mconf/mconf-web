@@ -24,7 +24,7 @@ class GroupTest < ActiveSupport::TestCase
   def test_new_admin_roled_user_adds_to_group
     @space = Space.create(:name => "prueba", :description => "prueba")
     @user = users(:user_alfredo)
-    @perfor = Performance.create(:agent => @user, :role => roles(:admin), :container => @space)
+    @perfor = Performance.create(:agent => @user, :role => roles(:admin), :stage => @space)
     group = Group.find_by_name("prueba")
     assert(group.users.include?(@user), "does not add an admin roled user to the main group when added to the space")
     group.destroy
@@ -33,7 +33,7 @@ class GroupTest < ActiveSupport::TestCase
   def test_new_user_roled_user_adds_to_group
     @space = Space.create(:name => "prueba", :description => "prueba")
     @user = users(:user_alfredo)
-    @perfor = Performance.create(:agent => @user, :role => roles(:user), :container => @space)
+    @perfor = Performance.create(:agent => @user, :role => roles(:user), :stage => @space)
     group = Group.find_by_name("prueba")
     assert(group.users.include?(@user), "does not add an user roled user to the main group when added to the space") 
     group.destroy
@@ -42,7 +42,7 @@ class GroupTest < ActiveSupport::TestCase
   def test_new_invited_roled_user_does_not_add_to_group
     @space = Space.create(:name => "prueba", :description => "prueba")
     @user = users(:user_alfredo)
-    @perfor = Performance.create(:agent => @user, :role => roles(:invited), :container => @space)
+    @perfor = Performance.create(:agent => @user, :role => roles(:invited), :stage => @space)
     group = Group.find_by_name("prueba")
     assert(!group.users.include?(@user), "it shouldn't add an invited roled user to the main group when added to the space")
     group.destroy
@@ -51,7 +51,7 @@ class GroupTest < ActiveSupport::TestCase
   def test_delete_admin_roled_user_erases_from_group
     @space = Space.create(:name => "prueba", :description => "prueba")
     @user = users(:user_alfredo)
-    @perfor = Performance.create(:agent => @user, :role => roles(:admin), :container => @space)
+    @perfor = Performance.create(:agent => @user, :role => roles(:admin), :stage => @space)
     group = Group.find_by_name("prueba")
     assert(group.users.include?(@user))
     @perfor.destroy
@@ -62,7 +62,7 @@ class GroupTest < ActiveSupport::TestCase
   def test_delete_user_roled_user_erases_from_group
     @space = Space.create(:name => "prueba", :description => "prueba")
     @user = users(:user_alfredo)
-    @perfor = Performance.create(:agent => @user, :role => roles(:user), :container => @space)
+    @perfor = Performance.create(:agent => @user, :role => roles(:user), :stage => @space)
     group = Group.find_by_name("prueba")
     assert(group.users.include?(@user))
     @perfor.destroy

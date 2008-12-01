@@ -7,7 +7,7 @@
 <h1 class="main_title">Spaces</h1>
 <br/>
 
-	<%if logged_in? && @space.authorizes?(current_user, :update_entries)%>
+	<%if logged_in? && @space.authorizes?(current_user, [ :update, :Content ])%>
 	
 	<%end%>
   
@@ -15,7 +15,7 @@
 <% for space in @spaces %>
 
  
-      <% if logged_in? && @space.authorizes?(current_user, :update_entries)%>
+      <% if logged_in? && @space.authorizes?(current_user, [ :update, :Content ])%>
      
 		   <div class="mini_logo"></div>
 		   
@@ -39,7 +39,7 @@
 <% end %>
  
 
-<% if logged_in? && @space.authorizes?(current_user, :update_entries)%>
+<% if logged_in? && @space.authorizes?(current_user, [ :update, :Content ])%>
 	<%= link_to 'New space', new_space_path %>
 <%end%>
 

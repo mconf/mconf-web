@@ -2,20 +2,27 @@ require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
   # Include some methods and filters.
-  include CMS::Controller::Contents
+  include CMS::ActionController::Contents
   
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   
   
   # A Container is needed when posting new events
-  # (see CMS::ControllerMethods#needs_container)
+  # (see CMS::ActionController::Base#needs_container)
   before_filter :needs_container, :only => [ :new, :create ]
   #TODO: Authorization
   before_filter :is_public_space, :only=>[:index]
   before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   #before_filter :no_machines, :only => [:new, :edit,:create]
+
   before_filter :owner_su, :only => [:edit, :update, :destroy]
-  
+#  authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
+#  authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
+#  authorization_filter :event, :read,   :only => [ :show ]
+#  authorization_filter :event, :update, :only => [ :edit, :update ]
+#  authorization_filter :event, :destroy, :only => [ :destroy ]
+
+
   #authorization_filter :event, :edit, :only=>[:edit,:update]
   skip_before_filter :get_content, :only => [:new, :add_time, :create, :index, :show, :copy_next_week, :remove_time]
   

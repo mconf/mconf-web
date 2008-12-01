@@ -1,0 +1,24 @@
+create_entry:
+  action: create
+  objective: Content
+read_entry:
+  action: read
+  objective: Content
+update_entry:
+  action: update
+  objective: Content
+delete_entry:
+  action: delete
+  objective: Content
+create_performance:
+  action: create
+  objective: Performance
+read_performance:
+  action: read
+  objective: Performance
+update_performance:
+  action: update
+  objective: Performance
+delete_performance:
+  action: delete
+  objective: Performance

@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   # Include some methods and set some default filters. 
-  # See documentation: CMS::Controller::Contents#included
-  include CMS::Controller::Contents
+  # See documentation: CMS::ActionController::Contents#included
+  include CMS::ActionController::Contents
   
   # Articles list may belong to a container
   # /articles
@@ -13,10 +13,12 @@ class ArticlesController < ApplicationController
   
   before_filter :get_entry, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
-  # Get Article in member actions
- # before_filter :get_content, :except => [ :index, :new, :create, :search_articles ]
   
-  authorization_filter :article, :edit, :only=>[:edit,:update]
+  authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
+  authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
+  authorization_filter :article, :read,   :only => [ :show ]
+  authorization_filter :article, :update, :only => [ :edit, :update ]
+  authorization_filter :article, :delete, :only => [ :delete ]
   
   set_params_from_atom :article, :only => [ :create, :update ]
   

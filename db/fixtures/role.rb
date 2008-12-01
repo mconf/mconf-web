@@ -2,44 +2,32 @@
 # put as many seeds as you like in
 
 
-Role.seed(:name) do |s|
-   s.name= "Admin"
-   s.create_entries= 1
-   s.read_entries= 1
-   s.update_entries= 1
-   s.delete_entries= 1
-   s.create_performances= 1
-   s.read_performances= 1
-   s.update_performances= 1
-   s.delete_performances= 1
-   s.manage_events= 1
-   s.admin= 1
+admin_role = Role.seed(:name) do |r|
+   r.name= "Admin"
+   r.stage_type = "Space"
 end
+admin_role.permissions << Permission.find_by_array([ :create, :Content ])
+admin_role.permissions << Permission.find_by_array([ :read, :Content ])
+admin_role.permissions << Permission.find_by_array([ :update, :Content ])
+admin_role.permissions << Permission.find_by_array([ :delete, :Content ])
+admin_role.permissions << Permission.find_by_array([ :create, :Performance ])
+admin_role.permissions << Permission.find_by_array([ :read, :Performance ])
+admin_role.permissions << Permission.find_by_array([ :update, :Performance ])
+admin_role.permissions << Permission.find_by_array([ :delete, :Performance ])
 
-Role.seed(:name) do |s|
-   s.name= "User"
-   s.create_entries= 1
-   s.read_entries= 1
-   s.update_entries= 1
-   s.delete_entries= 1
-   s.create_performances= 0
-   s.read_performances= 1
-   s.update_performances= 0
-   s.delete_performances= 0
-   s.manage_events= 1
-   s.admin= 1
+user_role = Role.seed(:name) do |r|
+   r.name= "User"
+   r.stage_type = "Space"
 end
+user_role.permissions << Permission.find_by_array([ :create, :Content ])
+user_role.permissions << Permission.find_by_array([ :read, :Content ])
+user_role.permissions << Permission.find_by_array([ :update, :Content ])
+user_role.permissions << Permission.find_by_array([ :delete, :Content ])
+user_role.permissions << Permission.find_by_array([ :read, :Performance ])
 
-Role.seed(:name) do |s|
-   s.name= "Invited"
-   s.create_entries= 0
-   s.read_entries= 1
-   s.update_entries= 0
-   s.delete_entries= 0
-   s.create_performances= 0
-   s.read_performances= 1
-   s.update_performances= 0
-   s.delete_performances= 0
-   s.manage_events= 0
-   s.admin= 0
+invited_role = Role.seed(:name) do |r|
+   r.name= "Invited"
+   r.stage_type = "Space"
 end
+user_role.permissions << Permission.find_by_array([ :read, :Content ])
+user_role.permissions << Permission.find_by_array([ :read, :Performance ])

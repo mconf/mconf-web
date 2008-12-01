@@ -49,14 +49,14 @@ class SessionsControllerTest < ActionController::TestCase
   
   def test_should_not_remember_me
     post :create, :login => 'quentin', :password => 'test', :remember_me => "0"
-    assert_nil @response.cookies["auth_token"]
+    assert @response.cookies["auth_token"].blank?
   end
   
   
   def test_should_delete_token_on_logout
     login_as :quentin
     get :destroy
-    assert_nil @response.cookies["auth_token"]
+    assert @response.cookies["auth_token"].blank?
   end
   
   

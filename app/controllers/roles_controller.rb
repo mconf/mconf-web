@@ -6,7 +6,7 @@ class RolesController < ApplicationController
   before_filter :remember_tab_and_space
   before_filter :space_member, :only=>[:group_details,:show_groups,:groups_details]
 
-  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  authorization_filter :space, [ :manage, :Role ]
   
   def index
    

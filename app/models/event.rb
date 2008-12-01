@@ -19,18 +19,6 @@ class Event < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
    
-   def authorizes?(agent, actions)
-    return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
-    
-     actions = Array(actions)
-
-    if actions.delete(:edit)
-      return true if self.entry.agent == agent 
-    end
-    
-    false
-  end
-   
    
    def tag_list2
     tag_list.collect{|tag| tag}

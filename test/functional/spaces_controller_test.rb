@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-
 # Todos los tests que necesitan revisión están comentados
 
 class SpacesControllerTest < ActionController::TestCase

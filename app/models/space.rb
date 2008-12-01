@@ -45,23 +45,9 @@ class Space < ActiveRecord::Base
   end
  
   def get_users_with_role(role)
-    array_users = []
-    array_performances = Performance.find_all_by_container_id(self, :conditions=>["role_id = ?", Role.find_by_name(role)])
-    for perfor in array_performances
-      array_users << User.find(perfor.agent_id)
-    end
-    return array_users
+    stage_performances.find_all_by_role_id(Role.find_by_name(role)).map(&:agent).uniq
   end
   
-  def authorizes?(agent, actions)
-    return true if agent.superuser || has_role_for?(agent, :admin)
-
-    Array(actions).each do |action|
-      return false unless self.has_role_for?(agent, action)
-    end
-    true
-  end
-
   #method to print an array of the user names
   #it is used to build a javascript array
   #so each name has to be between quotation marks and separated by commas

@@ -7,7 +7,8 @@ class GroupsController < ApplicationController
 
   before_filter :space_member, :only=>[:group_details,:index,:groups_details]
 
-  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
+#  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  authorization_filter :space, [ :manage, :Group ]
   
   set_params_from_atom :group, :only => [ :create, :update ]
   
