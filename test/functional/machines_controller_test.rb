@@ -30,7 +30,7 @@ class MachinesControllerTest < ActionController::TestCase
 
   def test_should_update_machine
     put :update, :id => machines(:machine_triton).id, :machine => { }
-    assert_redirected_to machine_path(assigns(:machine))
+    assert_redirected_to machines_path
   end
 
   def test_should_destroy_machine
