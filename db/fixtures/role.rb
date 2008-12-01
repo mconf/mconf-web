@@ -29,5 +29,5 @@ invited_role = Role.seed(:name) do |r|
    r.name= "Invited"
    r.stage_type = "Space"
 end
-user_role.permissions << Permission.find_by_array([ :read, :Content ])
-user_role.permissions << Permission.find_by_array([ :read, :Performance ])
+invited_role.permissions << Permission.find_by_array([ :read, :Content ])
+invited_role.permissions << Permission.find_by_array([ :read, :Performance ])
