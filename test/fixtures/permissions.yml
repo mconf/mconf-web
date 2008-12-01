@@ -1,13 +1,13 @@
-create_entry:
+create_content:
   action: create
   objective: Content
-read_entry:
+read_content:
   action: read
   objective: Content
-update_entry:
+update_content:
   action: update
   objective: Content
-delete_entry:
+delete_content:
   action: delete
   objective: Content
 create_performance:
