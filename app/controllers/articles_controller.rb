@@ -11,60 +11,35 @@ class ArticlesController < ApplicationController
   # Needs a Container when posting a new Article
   before_filter :needs_container, :only => [ :new, :create ]
   
-  before_filter :get_entry, :except => [ :index, :new, :create ]
+  before_filter :get_article, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
   
   authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
   authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
   authorization_filter :article, :read,   :only => [ :show ]
   authorization_filter :article, :update, :only => [ :edit, :update ]
-  authorization_filter :article, :delete, :only => [ :delete ]
+  authorization_filter :article, :delete, :only => [ :destroy ]
 
   before_filter :public_read_ñapa, :only => [ :create, :update ]
   
   set_params_from_atom :article, :only => [ :create, :update ]
   
   def index
-     session[:current_tab] = "Posts"
-     session[:current_sub_tab] = ""
-     #   if @container
-          if params[:per_page] != nil
-            number_pages = params[:per_page]
-          else
-            number_pages = 10
-          end
 
-          @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @container.name }"
-          # All the Entries this Agent can read in this Container          
-          @collection = @container.container_entries.find_all_by_content_type_and_parent_id("Article" , nil,:order => "updated_at DESC")
-                                                   
-           if @space.id==1
-             @entries = @public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}
-           #  @articles = @entries.map{|e| e.content}.paginate(:page => params[:page], :per_page => number_pages)
-            else
-          
-          @entries = @collection
-          #@updated = @collection.blank? ? @container.updated_at : @collection.first.updated_at
-          #@collection_path = space_articles_path(@container)
-          
-      end
-      @articles = @entries.map{|e| e.content}.paginate(:page => params[:page], :per_page => number_pages)
-     #   else
-     #     @title ||= 'Entry'.t('Entries', 99)
-     #     @entries = Entry.paginate :all,
-     #                                 :conditions => [ "public_read = ?", true ],
-     #                                 :page =>  params[:page],
-     #                                 :order => "updated_at DESC"
-     #     @articles = @entries.map{|e| e.content}
-         # @updated = @entries.blank? ? Time.now : @entries.first.updated_at
-         # @collection_path = entries_path
-      #  end
-        
+     session[:current_tab] = "News"
+     session[:current_sub_tab] = ""
+          @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @space.name }"
+   #Estas 3 líneas lo que hacen es meter en @articles lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
+             @articles =(@space.id == 1 ?
+             Article.in_container(nil).find(:all,:conditions => {"entries.parent_id" => nil, "entries.public_read" => true}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
+             Article.in_container(@space).find(:all, :conditions => {"entries.parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]))       
+             
+                    
         if params[:expanded] == "true"
           respond_to do |format|
             format.html {render :template => "articles/index2"}
             format.atom
-            format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
+            format.xml { render :xml => @articles }
           end
         else
           respond_to do |format|
@@ -72,7 +47,7 @@ class ArticlesController < ApplicationController
             format.atom {@entries = @container.container_entries.find(:all,
                                                         :conditions => { :content_type => "Article" },
                                                         :order => "updated_at DESC")}
-            format.xml { render :xml => @entries.to_xml.gsub(/cms\/entry/, "entry") }
+            format.xml { render :xml => @articles }
           end
         end
     end
@@ -127,7 +102,10 @@ class ArticlesController < ApplicationController
           end
         end
       end
-         
+      
+         if params[:comment]
+           @container = Entry.find(params[:entry][:parent_id]).container 
+         end
   #Si los attachments y el artículo son válidos pasamos a crear las entradas y salvarlos.
     params[:entry] ||= HashWithIndifferentAccess.new
     @article.entry = Entry.new(params[:entry].merge({ :agent => current_agent, #entrada asociada al artículo
@@ -190,15 +168,16 @@ class ArticlesController < ApplicationController
      # Show this Entry
       #   GET /articles/:id
       def show
+        session[:current_tab] = "News"
         @title ||= @article.title
         @comment_children = @article.entry.children.select{|c| c.content.is_a? Article}
         @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
         
         respond_to do |format|
           format.html
-          format.xml { render :xml => @entry.to_xml(:include => [ :content ]) }
+          format.xml { render :xml => @article.to_xml(:include => [ :content ]) }
           format.atom 
-          format.json { render :json => @entry.to_json(:include => :content) }
+          format.json { render :json => @article.to_json(:include => :content) }
         end
     end
     
@@ -227,10 +206,13 @@ class ArticlesController < ApplicationController
       #   PUT /articles/:id
       def update       
 
-        params[:entry][:container] = @space
+        params[:entry] ||= HashWithIndifferentAccess.new
+        #params[:entry][:container] = @space
+        params[:entry][:container] =  @article.entry.container
         params[:entry][:agent]     = current_agent #Problema.Con esto edito al usuario por eso lo cambio
         #params[:entry][:agent] = @entry.agent
         params[:entry][:content]   = @article
+        
             
         #actualizo los atributos del artículo
         @article.attributes = params[:article]
@@ -265,7 +247,6 @@ class ArticlesController < ApplicationController
       
         #creo las entradas asociadas a los artículos 
         @article.entry.attributes = params[:entry].merge({ :agent => current_agent,
-        :container => @container,
         :content => @article,
         :title => params[:article][:title],
         :description => params[:article][:text],
@@ -278,7 +259,6 @@ class ArticlesController < ApplicationController
         #Creación de las entries asociadas a los attachments
         @attachments.each do |attach|
             attach.entry = Entry.new({ :agent => current_agent,
-            :container => @container,
             :content => attach, 
             :description => params[:article][:text],
             :parent_id => @article.entry.id})
@@ -318,7 +298,7 @@ class ArticlesController < ApplicationController
     @space = @container
   end
   #he añadido aquí el get_entry pero no me gusta un pelo
-  def get_entry 
+  def get_article 
          @article = Article.find(params[:id])
          @entry = @article.entry
      end

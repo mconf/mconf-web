@@ -18,9 +18,7 @@ class Article < ActiveRecord::Base
 #  :include => [{:class_name => 'Entry', :field => 'title', :association_sql => "" }],
  # :include => [{:class_name => 'Tag', :field => 'name', :association_sql => "JOIN taggings ON taggings.tag_id = tags.id" }]
   
-
-
-   def self.atom_parser(data)
+ def self.atom_parser(data)
 =begin     
 {"article"=>{"title"=>"prueba", "text"=>"<p>prueba 2</p>"}, "commit"=>"Create", "last_post"=>"2", 
 "tags"=>"tag1, tag2, tag3", "action"=>"create", 

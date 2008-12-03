@@ -1,0 +1,98 @@
+entry_parent: 	
+  id: 1
+  title: entry_title	
+  description: entry_description		
+  container_id: 2	
+  container_type: Space		
+  content_type: Article	
+  content_id: 31  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_children1:
+  id: 2 	
+  title: entry_title	
+  description: entry_description		
+  container_id: 2	
+  container_type: Space		
+  content_type: Article	
+  content_id: 32  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: 1	
+  parent_type: NULL
+  
+entry_children2: 
+  id: 3	
+  title: entry_title	
+  description: entry_description		
+  container_id: 2	
+  container_type: Space		
+  content_type: Article	
+  content_id: 33  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: 1	
+  parent_type: NULL
+  
+entry_attachment_children3: 	
+  id: 4
+  title: entry_title	
+  description: entry_description		
+  container_id: 2	
+  container_type: Space		
+  content_type: Attachment
+  content_id: 1  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: 1	
+  parent_type: NULL
+  
+entry_article4: 	
+  id: 5
+  title: entry_title	
+  description: entry_description		
+  container_id: 1	
+  container_type: Space		
+  content_type: Article
+  content_id: 35  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: NULL	
+  parent_type: NULL
+  
+  
+  <% for i in 1..30 %>
+entry_<%= i %>:
+  id: <%=i+5 %> 
+  description: description <%=i%>
+  title: title <%=i%>
+  container_id: 1
+  container_type: Space
+  content_type: Article
+  content_id: <%=i%>
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent_id: 1	
+  agent_type: User 	
+  parent_id: NULL	
+  parent_type: NULL
+<%end%>

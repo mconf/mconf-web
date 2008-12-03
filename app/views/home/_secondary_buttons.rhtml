@@ -39,7 +39,7 @@
 				</ul>	
 				<%end%>
 
-		<%elsif  session[:current_tab]=="Posts"%>
+		<%elsif  session[:current_tab]=="News"%>
 <ul id="nav2">
 				<%if logged_in?%><%= sub_tab 'New Post', new_space_article_path(@space) %> | <%end%>
 				<%= sub_tab 'RSS Feed', formatted_space_articles_path(@space, "atom")  %> 

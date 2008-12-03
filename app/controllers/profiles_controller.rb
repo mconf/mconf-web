@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
   def show
     session[:current_tab] = "MyProfile"
     session[:current_sub_tab] = ""
-    
+
     if params[:hcard]
       hcard
       return

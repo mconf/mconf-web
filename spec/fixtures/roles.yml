@@ -1,0 +1,22 @@
+admin:
+  id: 1
+  name: Admin
+  stage_type: Space
+  permissions: create_content, read_content, update_content, delete_content, create_performance, read_performance, update_performance, delete_performance
+  
+invited:
+  id: 2
+  name: Invited
+  stage_type: Space
+  permissions: read_content, read_performances
+      
+user:
+  id: 3
+  name: User
+  stage_type: Space
+  permissions: create_content, read_content, update_content, delete_content, read_performance
+
+reader:
+  id: 4
+  name: Reader
+  permissions: read_self

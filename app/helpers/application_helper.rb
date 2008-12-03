@@ -144,7 +144,7 @@ end
   else
     user_link = user
   end
-  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(42,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(71 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
+  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(68 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
   image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
@@ -201,6 +201,7 @@ end
       return number + limit - other_size
     end
   end
+  
   def to_user_link (name,usuario,space)
     return link_to(name,user_path(usuario, :space_id => space.name))
   end
@@ -252,7 +253,7 @@ end
   end
   
    def show_event(event)
-    span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,27,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
+    span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,22,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
     span_description = "<span class= 'event_description'>" + link_to_remote(highlight(name_format(event.description,23,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.event_datetimes[0].start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",30,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"

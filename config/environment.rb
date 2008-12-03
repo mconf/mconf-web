@@ -59,6 +59,7 @@ Rails::Initializer.run do |config|
   config.gem "mislav-will_paginate", :lib => 'will_paginate',
                                      :version => '>= 2.3.2',
                                      :source => 'http://gems.github.com/'
+  config.gem "rspec-rails",          :lib => false 
                                     
   
   
