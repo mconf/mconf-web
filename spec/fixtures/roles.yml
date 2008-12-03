@@ -2,19 +2,19 @@ admin:
   id: 1
   name: Admin
   stage_type: Space
-  permissions: create_content, read_content, update_content, delete_content, create_performance, read_performance, update_performance, delete_performance
+  permissions: create_content, read_content, update_content, delete_content, create_performance, read_performance, update_performance, delete_performance, read_self, update_self, delete_self
   
 invited:
   id: 2
   name: Invited
   stage_type: Space
-  permissions: read_content, read_performances
+  permissions: read_content, read_performances, read_self
       
 user:
   id: 3
   name: User
   stage_type: Space
-  permissions: create_content, read_content, update_content, delete_content, read_performance
+  permissions: create_content, read_content, update_content, delete_content, read_performance, read_self
 
 reader:
   id: 4

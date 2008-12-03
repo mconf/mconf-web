@@ -6,6 +6,9 @@ admin_role = Role.seed(:name) do |r|
    r.name= "Admin"
    r.stage_type = "Space"
 end
+admin_role.permissions << Permission.find_by_action_and_objective('read', 'self')
+admin_role.permissions << Permission.find_by_action_and_objective('update', 'self')
+admin_role.permissions << Permission.find_by_action_and_objective('delete', 'self')
 admin_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
 admin_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
 admin_role.permissions << Permission.find_by_action_and_objective('update', 'Content')
@@ -19,6 +22,7 @@ user_role = Role.seed(:name) do |r|
    r.name= "User"
    r.stage_type = "Space"
 end
+user_role.permissions << Permission.find_by_action_and_objective('read', 'self')
 user_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
 user_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
 user_role.permissions << Permission.find_by_action_and_objective('update', 'Content')
@@ -29,6 +33,7 @@ invited_role = Role.seed(:name) do |r|
    r.name= "Invited"
    r.stage_type = "Space"
 end
+invited_role.permissions << Permission.find_by_action_and_objective('read', 'self')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'Performance')
 

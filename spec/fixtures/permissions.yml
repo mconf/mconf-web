@@ -25,3 +25,9 @@ delete_performance:
 read_self:
   action: read
   objetive: self
+update_self:
+  action: update
+  objetive: self
+delete_self:
+  action: delete
+  objetive: self
