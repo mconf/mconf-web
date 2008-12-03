@@ -1,7 +1,7 @@
 <div id="event_date">
 	<span class="fondo_blanco">
 <%@date_prev = @datetime -1%>
-	<%= link_to_remote image_tag("back.png", :title=>"Previous Day"), { :url => space_events_path(@space) }%>
+	<%= link_to (image_tag("back.png", :title=>"Previous Day"), space_events_path(@space, :date_start_day => @date_prev)) %>
 	
  <%@array_of_arrays = format_array_events(@events) 
  the_colspan = @array_of_arrays.size + 1
@@ -27,7 +27,8 @@
 		  <span>Date: <%=@datetime.to_s%></span>
 		
   <%@date_post = @datetime + 1%>
-  <a  href="#" onclick="change_table_full(<%=@date_post.year%>, <%=@date_post.month%>, <%=@date_post.day%>)"><img title="Next Day" src="/images/next.png"></img></a>   
+  <%= link_to (image_tag("next.png", :title=>"Next Day"), space_events_path(@space, :date_start_day => @date_post)) %>
+  
 </span>
 </div>
 
