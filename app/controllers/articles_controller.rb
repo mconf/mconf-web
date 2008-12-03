@@ -19,6 +19,8 @@ class ArticlesController < ApplicationController
   authorization_filter :article, :read,   :only => [ :show ]
   authorization_filter :article, :update, :only => [ :edit, :update ]
   authorization_filter :article, :delete, :only => [ :delete ]
+
+  before_filter :public_read_ñapa, :only => [ :create, :update ]
   
   set_params_from_atom :article, :only => [ :create, :update ]
   
@@ -326,4 +328,19 @@ class ArticlesController < ApplicationController
     #@space = @entry.container
   #end
   
+  def public_read_ñapa
+    
+    if params[:entry] && params[:entry][:public_read]
+      params[:article][:_stage_performances] = [ 
+        { :role_id => Role.without_stage_type.find_by_name("Reader").id,
+          :agent_id => Anyone.current.id,
+          :agent_type => Anyone.current.class.base_class.to_s
+        } 
+      ]
+    else 
+      params[:article][:_stage_performances] = Array.new
+      params[:entry] ||= HashWithIndifferentAccess.new
+      params[:entry][:public_read] = false
+    end
+  end
 end

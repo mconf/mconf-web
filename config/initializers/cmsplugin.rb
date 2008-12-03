@@ -52,6 +52,7 @@ class Performance
 
   after_create {|perfor|
     user = perfor.agent
+    if perfor.stage.is_a?(Space)
     space = perfor.stage
     role = perfor.role
     group = Group.find_by_name(space.emailize_name)
@@ -66,10 +67,12 @@ class Performance
       group.update_attributes(:user_ids => user_ids)
     end
     end
+    end
   }
 
   before_destroy {|perfor|
     user = perfor.agent
+    if perfor.stage.is_a?(Space)
     space = perfor.stage
     group = Group.find_by_name(space.emailize_name)
     if group
@@ -81,6 +84,7 @@ class Performance
       
       group.update_attributes(:user_ids => user_ids)  
       end
+    end
   }
   
 end

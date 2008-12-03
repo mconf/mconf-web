@@ -20,18 +20,6 @@ class Article < ActiveRecord::Base
   
 
 
-   def authorizes?(agent, actions)
-    return true if agent.superuser || self.entry.has_role_for?(agent, :admin)
-    
-     actions = Array(actions)
-
-    if actions.delete(:edit)
-      return true if self.entry.agent == agent 
-    end
-    
-    false
-  end
-  
    def self.atom_parser(data)
 =begin     
 {"article"=>{"title"=>"prueba", "text"=>"<p>prueba 2</p>"}, "commit"=>"Create", "last_post"=>"2", 

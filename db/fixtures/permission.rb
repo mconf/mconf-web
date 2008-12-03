@@ -37,4 +37,16 @@ Permission.seed(:action, :objective) do |p|
   p.action = "delete"
   p.objective = "Performance"
 end
+Permission.seed(:action, :objective) do |p|
+  p.action = "read"
+  p.objective = "self"
+end
+Permission.seed(:action, :objective) do |p|
+  p.action = "update"
+  p.objective = "self"
+end
+Permission.seed(:action, :objective) do |p|
+  p.action = "delete"
+  p.objective = "self"
+end
 
