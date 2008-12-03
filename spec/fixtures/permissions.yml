@@ -24,10 +24,10 @@ delete_performance:
   objective: Performance
 read_self:
   action: read
-  objetive: self
+  objective: self
 update_self:
   action: update
-  objetive: self
+  objective: self
 delete_self:
   action: delete
-  objetive: self
+  objective: self
