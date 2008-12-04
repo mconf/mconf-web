@@ -1,38 +1,40 @@
 <!--[form:event]-->
-<TABLE class=Event CELLPADING=5 CELLSPACING=0 BORDER=0 WIDTH=100%>
-<TR>
-<TD class=fieldEvent width=20%><label for="event_name">Isabel Session Name:</label></TD>
-<TD colspan=3><%= text_field 'event', 'name'  %></TD>
-</TR>
 
-<TR>
-<TD class=fieldEvent width=20% ><label for="event_password">Password:</label></TD>
-<TD width=25% >  <%= password_field 'event','password'%> </TD>
-                <TD class=fieldEvent width=20%><label for="password2" >&nbsp;&nbsp;&nbsp;&nbsp;Retype Password:</label></TD>
-                <TD><INPUT type=password name="password2" id="password2" value='<%=@event.password%>'></TD>
-</TR>
+<div>
+<label for="event_name" class="label_izquierda">Isabel Session Name:</label>
+<%= text_field 'event', 'name'  %>
+</div>
 
-<TR>
-<TD class=fieldEvent width=20%><label for="event_service">Service</label></TD>
-<TD width=25% ><%= select("event", "service", Event::SERVICE_TYPES)%></TD>
-             <TD width=20%> <label for="event_quality" >&nbsp;&nbsp;&nbsp;&nbsp;Quality:</label></TD>
-              <TD>
-              <%if @event.name!=""%>
-                <%=select("event", "quality", Event::service_qualities)%></TD>
+<div>
+<label for="event_password" class="label_izquierda" >Password:</label>
+<%= password_field 'event','password'%>
+                <label for="password2" >Retype Password:</label>
+                <input type=password name="password2" id="password2" value='<%=@event.password%>'>
+
+</div>
+
+<div>
+<label for="event_service" class="label_izquierda" >Service:</label>
+<%= select("event", "service", Event::SERVICE_TYPES)%>
+</div>
+
+<div>
+<label for="event_quality" class="label_izquierda"  >Quality:</label>
+     <%if @event.name!=""%>
+                <%=select("event", "quality", Event::service_qualities)%>
               <%else%>
-                <%=select("event", "quality", Event::service_qualities, :selected =>Event::service_qualities[Event::service_qualities.size/2 - 1] )%></TD>
-              <%end-%>  
-</TR>
+                <%=select("event", "quality", Event::service_qualities, :selected =>Event::service_qualities[Event::service_qualities.size/2 - 1] )%>
+     <%end-%> 
+</div>
 
-<TR>
-<TD class=fieldEvent width=20%><label for="event_description">Description</label></TD>
-<TD colspan=3><%= text_field 'event', 'description', :size => 50  %></TD>
-</TR>
-<TR>
-<TD class=fieldEvent width=20%><label for="event_keywords">Keywords (*):</label></TD>
-<TD colspan=3><%= text_field_tag 'tags', @event.tag_list  %></TD>
-</TR>
-</TABLE>
+<div>
+<label for="event_description" class="label_izquierda" >Description</label>
+<%= text_field 'event', 'description', :size => 50  %>
+</div>
+
+<div>
+<label for="event_keywords">Keywords (*):</label>
+<%= text_field_tag 'tags', @event.tag_list  %>
+</div>
 
 <!--[eoform:event]-->
-

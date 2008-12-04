@@ -1,10 +1,11 @@
-<style type="text/css">@import url(/stylesheets/calendar-blue.css);</style>
 <script type="text/javascript" src="/javascripts/jscalendar/calendar.js"></script>
 <script type="text/javascript" src="/javascripts/jscalendar/lang/calendar-en.js"></script>
 <script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
+  
   <%= javascript_include_tag("calendar_config") %>
   <%variable_name = "datetime"+@indice.to_s%>
     <%self.instance_variable_set("@#{variable_name}", @datetime)%>   
+	 
 	 <script>
      function serialize_fields(indice){           
             var fields = new Array();

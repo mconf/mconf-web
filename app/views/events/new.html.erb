@@ -10,20 +10,31 @@ end %>
 <%= error_messages_for 'event' %>
 <div id="yui-main">
 <div class="yui-b main_column">
-	<% rounded(:class => "tips") do %>
-<h1>New event</h1>
-<form action=<%= space_events_path(@space) %> method="post" name='form_event'>
-	<div style="margin:0;padding:0"><input name="_method" type="hidden" value="post" /></div>
+	
+<!-- Características generales del evento-->
+
+<% rounded(:class => "tips") do %>
+	
+<h1 class="main_title">New event</h1>
+
+<form action=<%= space_events_path(@space) %> method="post" name='form_event' id="event_form">
+	
+	     <input name="_method" type="hidden" value="post" />
+    
   <%= render :partial => 'form' %>
+  
   <h6> (*) Separated by commas</h6>
   
   <%end%>
+  
+<!-- Horas del evento -->  
+  
   <% rounded(:class => "tips") do %>
-  <h1>Times for this event</h1>
+  
+  <h1 class="main_title">Times for this event</h1>
+  <form>
   <input name="los_indices"  type="hidden" value=1 />
-  <TABLE class=Event CELLPADING=5 CELLSPACING=0  WIDTH=100% >
-  <tbody id="event_times">
-  <TR class=bold_center><TD>Week Nº</TD><TD colspan=3>Time</TD></TR>
+  <span>Week </span><span>Nº Time</span>
     <%@indice = 0%>
     <%for @datetime in @array_times%>
         <%= render :partial => 'form_datetimes_edit' %>
@@ -33,23 +44,29 @@ end %>
         <%= render :partial => 'form_datetimes_edit' %>
     <%end -%>      
   </tbody>
-  </TABLE>
+  </table>
+  
   <%end%>
+  
+  <!-- Participantes del evento -->
+  
   <% rounded(:class => "tips") do %>
-  <h1>Event Participants</h1>
+  <h1 class="main_title">Event Participants</h1>
+
   <%= render :partial => 'form_participants' %>
   <br/>
 <%end%>
-  <TABLE CELLPADING=5 CELLSPACING=0 BORDER=0 WIDTH=15% >
-  <TR><TD align=center>
+  
+  
   <%= button_to_function 'Create', 'validate_password_edit()' %>    
-  </TD>  
+  
+    
   </form>
-  <TD align=center>
+  
+  
   <input onclick=document.location="/" type="button" value="Back" />
 
-  </TD></TR>
-  </TABLE>
+  
 
 
 </div>

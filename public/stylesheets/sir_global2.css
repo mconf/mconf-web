@@ -684,6 +684,8 @@ td.largo{
 }
 #event_table_summary{
 	margin-top:15px;
+	width:100%;
+	border:solid 1px #3b54a6;
 }
 .summary_title{
 	background-color:#3b54a6;
@@ -691,6 +693,56 @@ td.largo{
 	color:white;
 	text-align:center;
 }
-tr.summmary_title p{
+
+.subtitulo_summary{
+	color:#3b54a6;
+	width:70px;
+	text-align:right;
+	padding-right:5px;
+}
+
+
+p.summary{
+	color:#5a5a5a;
+}
+.centrar{
+	text-align:center;
+}
+
+#event_form{
+	margin-top:20px;
+	text-align:left;
 	
+}
+/* Estilo del profile (hCard) */
+
+#card{
+	margin-top:20px;
+	width:400px;
+	padding:10px 10px 10px 20px;
+	margin-left:145px;
+	
+}
+.adr{
+	margin-top:20px;
+	color:#464242;
+}
+.telecommunications{
+	text-align:left;
+	margin-top:30px;	
+}
+
+#card .sb-inner{
+	background-image:url(../images/grd_vcard.png);
+	background-repeat:repeat-x;
+	background-color:#b7dff6;
+}
+
+#image_profile{
+	width:100px;
+	height:100px;
+	background-image:url(../images/gp-logo.jpg);
+	float:left;
+	border:solid 1px #5a5a5a;
+	color:#5a5a5a;
 }

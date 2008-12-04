@@ -1,32 +1,45 @@
 <% @page_title = "My Hcard" -%>
-&nbsp;
+
 
 
 
 <%= error_messages_for :profile %>
 
- <h2 class="title">My Hcard</h2>
- <div class="vcard" id="card">
- <p class="fn"><%= @profile.name%> <%= @profile.lastname%>
+ <h4 class="title">My Hcard</h4>
  
- </p>
-  
- <div class="adr">
- 	<div class="type">
- 		<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
+ <div class="vcard" id="card">
+ 	
+	
+    <div id="image_profile"></div>
+	
+ 	<div class="adr">
+ 		<p class="fn"><%= @profile.name%> <%= @profile.lastname%></p>
+ 		<!--<div class="type">
+ 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
+		 	</div>
+		-->
+		 <p class="street-address"> <%= @profile.address%> </p>
+		 <p class="locality"> 
+		 	<%= @profile.city%><span class="region" title="<%= @profile.province%>"><%= @profile.province%></span>
+			<span class="postal-code"> <%= @profile.zipcode%></span>
+		 </p>
+		 <p class="country-name"><%= @profile.country%></p>
+ 
  	</div>
- <p class="street-address"> <%= @profile.address%> </p>
- <p><span class="locality"> <%= @profile.city%> </span> <abbr class="region" title="<%= @profile.province%>"><%= @profile.province%></abbr> <span class="postal-code"> <%= @profile.zipcode%> </span></p>
- <p class="country-name"><%= @profile.country%></p>
- </div>
-  
- <div class="telecommunications">
- <p class="tel">Phone/Fax: <span class="tel"><span class="type">Work</span>: <span class="value"><%= @profile.phone%>/<%= @profile.fax%></span>
- <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span></p>
- <p><span class= "org">Organization: <%= @profile.organization%></p>
- <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
- </div>
- </div>
+  	<!--<div class="type">
+ 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
+		 	</div>
+		-->
+	<div class="telecommunications">
+		 <p class="tel">Phone/Fax: <span class="tel"><!--<span class="type">Work</span>: --><span class="value"><%= @profile.phone%><%= @profile.fax%></span>
+		 <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span></p>
+		 <p class= "org">Organization: <%= @profile.organization%></p>
+		 <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
+	 </div>
 
-  <%= link_to 'Edit', edit_user_profile_path(@user)%>  
+</div>
+
+<br/>
+
+<%= link_to 'Edit', edit_user_profile_path(@user)%>  
 
