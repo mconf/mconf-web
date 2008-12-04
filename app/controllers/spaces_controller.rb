@@ -8,6 +8,8 @@ class SpacesController < ApplicationController
 
   authorization_filter :space, :edit, :only=>[:edit,:update]
 
+  before_filter :public_read_ñapa, :only => [ :create, :update ]
+
   set_params_from_atom :space, :only => [ :create, :update ]
 
   # GET /spaces
@@ -126,18 +128,6 @@ class SpacesController < ApplicationController
     end
     
     if @space.update_attributes(params[:space]) 
-      #fist of all we delete all the old performances, but not the groups
-      @space.delete_performances
-      for role in Role.find_all_by_type(nil)
-        if params[role.name]
-          for login in parse_divs(params[role.name].to_s)
-            @space.container_performances.create :agent => User.find_by_login(login), :role => role
-          end
-        end
-      end
-      
-      @space.save!
-
       respond_to do |format|
         format.html { 
           flash[:notice] = 'Space was successfully updated.'
@@ -311,49 +301,23 @@ class SpacesController < ApplicationController
     @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
-  
-  #TODO este metodo ahora mismo no parece que se use en ningún sitio
-  def parse_emails(emails)
-    
-    return [] if emails.blank?
-    emails = Array(emails).first
-    emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
-    emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
-    
+  def public_read_ñapa
+    if params[:space][:public] == "1"
+      params[:space][:_stage_performances] = [ 
+        { :role_id => Role.without_stage_type.find_by_name("Reader").id,
+          :agent_id => Anyone.current.id,
+          :agent_type => Anyone.current.class.base_class.to_s
+        },
+        { :role_id => Role.find_by_name_and_stage_type("Invited", "Space").id,
+          :agent_id => Anyone.current.id,
+          :agent_type => Anyone.current.class.base_class.to_s
+        },
+
+      ]
+    else 
+      params[:space][:_stage_performances] = Array.new
+    end
   end
-  
-  def parse_divs(divs)
-    #REXML da un error de que no puede añadir al root element, voy a crear un root element en divs
-    str = "<temp>"+divs+"</temp>"
-    #remove the characters "\n\r\t" that javascript introduces
-    str = str.tr("\r","").tr("\n","").tr("\t","")
-    doc = REXML::Document.new(str)
-    array = Array.new
-    REXML::XPath.each(doc, "//div") { |p| 
-      #if the div has the style attribute with the none param is because it has been moved to the bin
-      if p.attributes["style"]
-        if p.attributes["style"].include? "none"
-          next
-        end
-      end
-      array << p.text
-    }
-    return array
-  end
-  
-  #method to obtain the last updated articles (the article or its comments or Attachments)
-  #def get_last_updated(post)
-  #   array =[]
-  #   post.each{|e| 
-  #    if (e.parent_id == nil && e.content_type == 'Article')
-  #      array << e unless array.include?(e)
-  #    elsif (e.parent_id != nil && e.content_type == 'Article')
-  #      array << e.parent unless array.include?(e.parent)
-  #    end
-  #    }
-  #    return array
- # end
-  
 
   
 end

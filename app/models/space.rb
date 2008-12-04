@@ -82,18 +82,6 @@ class Space < ActiveRecord::Base
     res = res + " ]"
   end
   
-  
-  #method to delete the performances, but not the groups (that are done with performances)
-  def delete_performances
-    for perfor in container_performances 
-      role = Role.find(perfor.role_id)
-      if role.type == nil
-        perfor.destroy
-      end
-    end    
-  end
-  
-  
   #returns a javascript array of all users of this space
   def print_array_of_all_users
     actors.map{ |a| "\"#{ a.login }\"" }.join(", ")
