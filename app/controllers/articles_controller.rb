@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
   before_filter :get_article, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
   
+
   authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
   authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
   authorization_filter :article, :read,   :only => [ :show ]
@@ -21,6 +22,7 @@ class ArticlesController < ApplicationController
   authorization_filter :article, :delete, :only => [ :destroy ]
 
   before_filter :public_read_ñapa, :only => [ :create, :update ]
+
   
   set_params_from_atom :article, :only => [ :create, :update ]
   

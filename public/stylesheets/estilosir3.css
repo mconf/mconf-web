@@ -2,6 +2,11 @@
  	
 	margin-left:35%;
  }
+ 
+#editar {
+text-align:center;	
+}
+
  .tips a:link, .tips a:visited{
  	font-size: 9pt; 
 	text-decoration: none;

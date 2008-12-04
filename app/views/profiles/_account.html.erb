@@ -1,10 +1,11 @@
 
-<table>
-	<tr>
- <td>Login:</td><td> <%= @user.login%> </td><td>Email Notifications</td></tr>
-<tr><td>Email:</td><td> <%= @user.email%></td></tr>
-<tr><td>Your Interests (Tags): <%= @user.tag_list if @user.tag_list%></td></tr>
-
-
-</table>
+<div id="my_accoount">
+	<ul>
+		<li class="login_account">Login: <%= @user.login%></li>
+ 		<li class="email_account">Email: <%= @user.email%></li>
+		<li class="interests_account">Your Interests (Tags): <%= @user.tag_list if @user.tag_list%></li>
+		<li class="notifications_account">Email Notifications </li>
+	</div>
+<div id="editar">
 <%= link_to 'Edit' , edit_space_user_path(@space, @user)%>
+</div>

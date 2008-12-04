@@ -9,7 +9,7 @@
 <% @page_title = "User List" -%>
 &nbsp;
 <div align=center>
-<TABLE class="whole_table" WIDTH=80% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center>
+<TABLE class="whole_table" WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=0 align=center>
 <TR><TD class="headerDay" valign=top> Name</TD>
 <TD class="headerDay" valign=top> Lastname</TD>
 	
@@ -37,7 +37,7 @@ for user in @users
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.disabled) %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= h(user.email) %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.active?) %>&nbsp;&nbsp;</td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/email.gif",:border=>0), forgot_path(:email => sanitize(user.email)), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/email.png",:border=>0), forgot_path(:email => sanitize(user.email)), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_user_path(@space,user), :title=>"Edit User" %>&nbsp;&nbsp;</td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/delete.gif",:border=>0), user_path(user), :method => :delete, :confirm => "This action will delete the user \""+ h(user.login) +"\".\n Are you sure?", :title=>"Delete User" %></td>
 </tr>

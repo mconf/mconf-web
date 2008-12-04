@@ -304,6 +304,26 @@ ul.sidebar_posts li {
 	text-align:left;
 	color:#5a5a5a;
 }
+
+.login_account {
+	background: url("/images/key_go.png") no-repeat left;
+	padding:2px 0 2px 20px;	
+}
+
+.email_account {
+	background: url(/images/email.png) no-repeat left center;
+	padding:2px 0 2px 20px;	
+}
+
+.interests_account {
+	background: url("/images/favorites.png") no-repeat left center;
+	padding:2px 0 2px 20px;	
+}
+
+.notifications_account {
+	background: url("/images/") no-repeat left center;
+	padding:2px 0 2px 20px;	
+}
 #search_container h4 , #calendar-container h4{
 	padding-top:5px;
 	padding-bottom:10px;
