@@ -32,3 +32,16 @@ children_article2:
 public_article:
   text: public_article_text
   title: public_article_text
+  
+public_children_article1:
+  text: children1_text 
+  title: children1_title
+
+public_children_article2:
+  text: children2_text
+  title: children2_title
+
+private_article:
+  text: private_article_text
+  title: private_article_text
+

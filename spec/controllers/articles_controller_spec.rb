@@ -586,7 +586,7 @@ describe ArticlesController do
     before(:each)do
     login_as(:user_normal)
   end
-  describe "in a private space where user belongs to it" do
+  describe "in a private space where the user has the role User" do
     before(:each) do
       @space = spaces(:espacio)
       @parent_article = articles(:parent_article)
@@ -642,7 +642,61 @@ describe ArticlesController do
     end
   end
   
-  describe "in a private space where user not belongs to it" do
+  describe "in a private space where the user has the role Invited" do
+    before(:each) do
+      @space = spaces(:private_invited)
+      @parent_article = articles(:parent_article)
+      @children1_article = articles(:children_article1)
+      
+    end
+    
+    it "should expose the requested article as @article" do
+      Article.stub!(:find).and_return(@parent_article)
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:article].should == (@parent_article)
+      
+    end
+    
+    it " should have the article title in @title" do
+      Article.stub!(:find).and_return(@parent_article)
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:title].should == @parent_article.title
+    end
+    
+    it "should return the entries with attachment in @attachment_children" do
+      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:attachment_children].should == [entries(:entry_attachment_children3)]
+    end
+    
+    it "should return the article children in @comment_children" do
+      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:comment_children].size == 2
+      assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
+      
+    end
+    
+    it "should return [] if no attachments children" do
+      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:attachment_children].should == []
+    end
+    
+    it "should return [] if no articles children" do
+      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+      
+      get :show, :id => "37" , :space_id => @space.name
+      assigns[:comment_children].should == []
+    end
+  end
+  
+  describe "in a private space where user have not roles on it" do
     before(:each) do
       @space = spaces(:private)
       @parent_article = articles(:parent_article)
@@ -650,29 +704,15 @@ describe ArticlesController do
     end         
     
     #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
-    it "should not let the user to see the article with an inexistent article" do   
-      pending("esto falla con un Couldn't find Article with ID=254") do
-        get :show, :id => "254" , :space_id => @space.name
-        assert_response 403
-      end
+    it "should not let the user to see the article with an inexistent article" do 
+      assert_raise ActiveRecord::RecordNotFound do
+         get :show, :id => "254" , :space_id => @space.name
+       end
     end
-    it "should not let the user to see an article with no entry associated" do   
-      pending("esto falla con un nil.agent in authorizes? del config/initializers/cmsplugin.rb") do
-        get :show, :id => "1" , :space_id => @space.name
+
+    it "should not let the user to see an article belonging to this space" do   
+        get :show, :id => articles(:private_article).id , :space_id => @space.name
         assert_response 403
-      end
-    end
-    it "should not let the user to see an article that belongs to the public space using this route" do   
-      pending("esto falla con un nil.agent in authorizes? del config/initializers/cmsplugin.rb") do
-        get :show, :id => "35" , :space_id => @space.name
-        assert_response 403
-      end
-    end
-    it "should not let the user to see the article with an exisntent article" do   
-      pending("esto no se si debería permitir hacerlo o no") do
-        get :show, :id => "31" , :space_id => @space.name
-        assert_response 403
-      end
     end
   end
   
@@ -682,8 +722,6 @@ describe ArticlesController do
       @space = spaces(:public)
       @parent_article = articles(:parent_article)
       @children1_article = articles(:children_article1)
-      #@mock_entry_parent = mock_model(Entry, :children => [])
-      #@mock_article =  mock_model(Article,{:title => "mock_article_title", :entry => @mock_entry_parent})
       
     end
     
@@ -740,92 +778,67 @@ describe "a private space" do
   before(:each) do
     @space = spaces(:private)      
   end
-  #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
-  it "should not let the user to see the article with an inexistent article" do   
-    pending("esto falla con un Couldn't find Article with ID=254") do
-      get :show, :id => "254" , :space_id => @space.name
-      assert_response 403
+   #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
+    it "should not let the user to see the article with an inexistent article" do 
+      assert_raise ActiveRecord::RecordNotFound do
+         get :show, :id => "254" , :space_id => @space.name
+       end
+    end
+
+    it "should not let the user to see an article belonging to this space" do   
+        get :show, :id => articles(:private_article).id , :space_id => @space.name
+        assert_response 403
     end
   end
-  it "should not let the user to see an article with no entry associated" do   
-    pending("esto falla con un nil.agent in authorizes? del config/initializers/cmsplugin.rb") do
-      get :show, :id => "1" , :space_id => @space.name
-      assert_response 403
-    end
-  end
-  it "should not let the user to see an article that belongs to the public space" do   
-    pending("esto falla con un nil.agent in authorizes? del config/initializers/cmsplugin.rb") do
-      get :show, :id => "35" , :space_id => @space.name
-      assert_response 403
-    end
-  end
-  it "should not let the user to see the article with an existent article" do   
-    get :show, :id => "31" , :space_id => @space.name
-    assert_response 403
-  end
-end
 describe "in the public space" do  
   before(:each) do
     @space = spaces(:public)
-    @parent_article = articles(:parent_article)
-    @children1_article = articles(:children_article1)
+    @public_article = articles(:public_article)
+    @public_children_article1 = articles(:public_children_article1)
     get_articles
-    # @mock_entry_parent = mock_model(Entry, :children => [])
-    # @mock_article =  mock_model(Article,{:title => "mock_article_title", :entry => @mock_entry_parent})
+
     
   end
   
   it "should expose the requested article as @article" do
-    Article.stub!(:find).and_return(@parent_article)
-    
+    Article.stub!(:find).and_return(@public_article)
     get :show, :id => "37" , :space_id => @space.name
-    assigns[:article].should == (@parent_article)
+    assigns[:article].should == (@public_article)
   end
   
   it " should have the article title in @title" do
-    Article.stub!(:find).and_return(@parent_article)
-    
-    get :show, :id => "37" , :space_id => @space.name
-    pending(" should have the article title in @title") do
-      assigns[:title].should == @parent_article.title
-    end
+    Article.stub!(:find).and_return(@public_article)
+    get :show, :id =>"37" , :space_id => @space.name
+      assigns[:title].should == @public_article.title
   end
   
   it "should return the entries with attachment in @attachment_children" do
-    Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+    Article.stub!(:find).and_return(@public_article) # give the parent article, which have 3 childrens
     
     get :show, :id => "37" , :space_id => @space.name
-    pending("should return the entries with attachment in @attachment_children")do
-    assigns[:attachment_children].should == [entries(:entry_attachment_children3)]
-  end
+    assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
 end
 
 it "should return the article children in @comment_children" do
-  Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+  Article.stub!(:find).and_return(@public_article) # give the parent article, which have 4 childrens
   
   get :show, :id => "37" , :space_id => @space.name
-  pending("should return the article children in @comment_children") do
     assigns[:comment_children].size == 2
-    assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
-  end
+    assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
 end
 
 it "should return [] if no attachments children" do
-  Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+  Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
   
   get :show, :id => "37" , :space_id => @space.name
-  pending("should return [] if no attachments children") do
     assigns[:attachment_children].should == []
-  end
 end
 
 it "should return [] if no articles children" do
-  Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+  Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
   
   get :show, :id => "37" , :space_id => @space.name
-  pending("should return [] if no articles children")do
   assigns[:comment_children].should == []
-end
 end
 end
 end

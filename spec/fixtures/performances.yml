@@ -43,3 +43,28 @@ public_anyone:
   stage_id: 1
   stage_type: Space
   
+public_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_article (Article)
+
+public_children1_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_children_article1 (Article) 
+
+public_children2_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_children_article2 (Article) 
+  
+public_attachment1_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_attachment1 (Attachment) 
+  
+  

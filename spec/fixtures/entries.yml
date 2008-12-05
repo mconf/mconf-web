@@ -43,10 +43,11 @@ entry_attachment_children3:
   agent: quentin (User)	
   parent: entry_parent
   
-entry_article4: 	
+entry_public_article: 	
   title: entry_title	
   description: entry_description		
-  container: public (Space)	
+  container_id: 1
+  container_type: Space	
   content: public_article (Article)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
@@ -55,6 +56,53 @@ entry_article4:
   parent_id: NULL	
   parent_type: NULL
   
+entry_public_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container_id: 1
+  container_type: Space	
+  content: public_children_article1 (Article)	  
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_public_article	
+  
+entry_public_children2: 
+  title: entry_title	
+  description: entry_description		
+  container_id: 1
+  container_type: Space
+  content: public_children_article2 (Article)
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_public_article		
+
+entry_public_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container_id: 1
+  container_type: Space	
+  content: public_attachment1 (Attachment)
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_public_article	
+
+entry_private_article: 	
+  title: entry_title	
+  description: entry_description		
+  container: private (Space)	
+  content: private_article (Article)
+  public_read: true
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)		
+  parent_id: NULL	
+  parent_type: NULL  
   
   <% for i in 1..30 %>
 entry_<%= i %>:
