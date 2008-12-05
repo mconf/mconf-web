@@ -5,7 +5,7 @@
 
       for article in @entries
         feed.entry(article.content, :url => space_article_path(@space, article.content)) do |entry|
-          entry.title(article.name)
+          entry.title(article.title)
           entry.content(article.content.text, :type => "html")
           if article.parent_id
             entry.tag!('thr:in-reply-to', Entry.find_by_id(article.parent_id).content.id)
