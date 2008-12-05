@@ -743,13 +743,16 @@ p.summary{
 	margin-left:145px;
 	
 }
+.fn{
+top:10px;	
+}
 .adr{
-	margin-top:20px;
+	margin-top:15px;
 	color:#464242;
 }
 .telecommunications{
 	text-align:left;
-	margin-top:30px;	
+	margin-top:35px;	
 }
 
 #card .sb-inner{
@@ -758,11 +761,24 @@ p.summary{
 	background-color:#b7dff6;
 }
 
-#image_profile{
-	width:100px;
-	height:100px;
-	background-image:url(../images/gp-logo.jpg);
+#card img{
+	width:120px;
+	height:120px;
 	float:left;
+	
+}
+
+/*SECCIÓN PEOPLE*/
+
+.cabecera{
+	color:#3b54a6;
+	font-variant:small-caps;
+	padding:0 5px 0 5px;
+	text-align:center;
+	border-bottom: solid 1px #3b54a6;
 	border:solid 1px #5a5a5a;
-	color:#5a5a5a;
+	font-weight:bold;
+}
+#people_table{
+	border:solid 1px #5a5a5a;
 }

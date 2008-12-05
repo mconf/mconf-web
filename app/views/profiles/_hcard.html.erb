@@ -7,36 +7,43 @@
 
  <h4 class="title">My Hcard</h4>
  
+ 
+ 
+ 
+
+
+
+
+    	
+   
+
  <div class="vcard" id="card">
  	
+	<%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail), :class => "photo", :alt => "Your Photo", :title=>"Your photo" ) if @thumbnail%>
 	
-    <div id="image_profile">
-    	<%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail)) if @thumbnail%>
-    </div>
-	
+	<span class="fn n"><%= @profile.name%> <%= @profile.lastname%></span>
+   
  	<div class="adr">
- 		<p class="fn"><%= @profile.name%> <%= @profile.lastname%></p>
- 		<!--<div class="type">
- 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
-		 	</div>
-		-->
+ 			
 		 <p class="street-address"> <%= @profile.address%> </p>
-		 <p class="locality"> 
-		 	<%= @profile.city%><span class="region" title="<%= @profile.province%>"><%= @profile.province%></span>
-			<span class="postal-code"> <%= @profile.zipcode%></span>
-		 </p>
+		 <p class="locality"> <%= @profile.city%></p>
+		 <span class="region" title="<%= @profile.province%>"><%= @profile.province%></span>
+		 <span class="postal-code"> <%= @profile.zipcode%></span>
+		
 		 <p class="country-name"><%= @profile.country%></p>
  
  	</div>
-  	<!--<div class="type">
- 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
-		 	</div>
-		-->
+	
+  	
 	<div class="telecommunications">
-		 <p class="tel">Phone/Fax: <span class="tel"><!--<span class="type">Work</span>: --><span class="value"><%= @profile.phone%><%= @profile.fax%></span>
-		 <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span></p>
+		
+		 <span class="tel"> Work
+		 	<span class="type">Phone/Fax:</span><span class="value"><%= @profile.phone%><%= @profile.fax%></span>
+		 </span>
+		 <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span>
 		 <p class= "org">Organization: <%= @profile.organization%></p>
 		 <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
+	 
 	 </div>
 
 </div>
@@ -45,3 +52,12 @@
 
 <%= link_to 'Edit', edit_user_profile_path(@user)%>  
 
+
+<!--<div class="type">
+ 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
+		 	</div>
+	    	-->
+			<!--<div class="type">
+ 			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
+		 	</div>
+		-->
