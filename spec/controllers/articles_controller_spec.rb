@@ -15,13 +15,13 @@ describe ArticlesController do
   end  
   
   
-  def get_articles
+    def get_articles
     @fixture_articles = []
     for i in 1..30
       @fixture_articles << articles(:"article_#{i}")
     end
     return @fixture_articles
-  end    
+  end  
   
   
   describe "responding to GET index" do
@@ -162,7 +162,7 @@ describe ArticlesController do
           login_as(:user_normal)
         end
         
-        describe "in a private space where user belongs to it" do
+        describe "in a private space where user has the role User" do
           
           before(:each) do
             @space = spaces(:espacio)
@@ -217,7 +217,62 @@ describe ArticlesController do
           end
         end
         
-        describe "in a private space where user is not register in" do
+        describe "in a private space where user has the role Invited" do
+          
+          before(:each) do
+            @space = spaces(:private_invited)
+            get_articles
+          end
+          
+          it "should have correct strings in session" do
+            get :index , :space_id => @space.name
+            session[:current_tab].should eql("News")
+            session[:current_sub_tab].should eql("")
+          end
+          
+          it "should have a title in @title" do
+            get :index , :space_id => @space.name
+            assigns[:title].should include(@space.name)
+            
+          end
+          it "should expose all space articles as @articles" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            
+            get :index , :space_id => @space.name
+            assigns[:articles].should == [mock_article]
+          end
+          
+          it "should expose the expand view if params" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            get :index , :space_id => @space.name , :expanded =>"true"
+            response.should render_template('index2')
+          end
+          
+          it "should not expose the expand view if not params" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            get :index , :space_id => @space.name 
+            response.should render_template('index')
+          end
+          
+          it "should paginate the articles using the param :per_page" do
+            
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
+            get :index , :space_id => @space.name, :per_page => 5
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
+            assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
+            
+          end
+          
+          it "should paginate 30 :per_page without the param :per_page" do
+            
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
+            get :index , :space_id => @space.name
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            
+          end
+        end
+        
+        describe "in a private space where user no has roles" do
           
           before(:each) do
             @space = spaces(:private)
@@ -439,7 +494,8 @@ describe ArticlesController do
           Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
           
           get :show, :id => "37" , :space_id => @space.name
-          assigns[:comment_children].should == [entries(:entry_children1),entries(:entry_children2)]
+          assigns[:comment_children].size == 2
+          assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
           
         end
         
@@ -505,7 +561,8 @@ describe ArticlesController do
           Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
           
           get :show, :id => "37" , :space_id => @space.name
-          assigns[:comment_children].should == [entries(:entry_children1),entries(:entry_children2)]
+          assigns[:comment_children].size == 2
+          assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
           
         end
         
@@ -565,7 +622,8 @@ describe ArticlesController do
       Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
       
       get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].should == [entries(:entry_children1),entries(:entry_children2)]
+      assigns[:comment_children].size == 2
+      assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
       
     end
     
@@ -655,7 +713,8 @@ describe ArticlesController do
       Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
       
       get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].should == [entries(:entry_children1),entries(:entry_children2)]
+      assigns[:comment_children].size == 2
+      assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
       
     end
     
@@ -746,7 +805,8 @@ it "should return the article children in @comment_children" do
   
   get :show, :id => "37" , :space_id => @space.name
   pending("should return the article children in @comment_children") do
-    assigns[:comment_children].should == [entries(:entry_children1),entries(:entry_children2)]
+    assigns[:comment_children].size == 2
+    assigns[:comment_children].should include(entries(:entry_children1),entries(:entry_children2))
   end
 end
 

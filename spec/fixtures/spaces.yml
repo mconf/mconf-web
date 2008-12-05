@@ -1,12 +1,14 @@
 
 
 espacio:
-  id: 2
   name: espacio
   public: 0
   
+private_invited:
+  name: invited
+  public: 0
+  
 private:
-  id: 3
   name: espacio3
   public: 0
   

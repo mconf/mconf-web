@@ -8,23 +8,19 @@
 
 <% for i in 1..30 %>
 article_<%= i %>:
-  id: <%=i %> 
   text: text <%=i%>
   title: title <%=i%>
 <%end%>
 
 parent_article:
-  id: 31
   text: parent_text
   title: parent_title
   
 children_article1:
-  id: 32
   text: children1_text 
   title: children1_title
 
 children_article2:
-  id: 33
   text: children2_text
   title: children2_title
 
@@ -34,6 +30,5 @@ children_article2:
 #  title: children3_title
 
 public_article:
-  id: 35
   text: public_article_text
   title: public_article_text

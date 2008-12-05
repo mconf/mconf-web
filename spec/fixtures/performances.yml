@@ -1,60 +1,45 @@
 
 user_space1_admin:
-  id: 1
-  agent_id: 30
-  agent_type: User
-  role_id: 1
-  stage_id: 2
-  stage_type: Space
+  agent: user_space1_admin (User)
+  role: admin
+  stage: espacio (Space)
 
-user_alfredo_space1_reader:
-  id: 2
-  #agent: alfredo (User)
-  #stage: privado (Space)
-  agent_id: 23
-  agent_type: User
-  role_id: 2
-  stage_id: 2
-  stage_type: Space
-
+user_alfredo_space2_reader:
+  agent: user_alfredo (User)
+  stage: espacio (Space)
+  role: invited  
   
 user_normal_space2_writer:
-  id: 3
-  agent_id: 25
-  agent_type: User
-  role_id: 3
-  stage_id: 2
-  stage_type: Space
-
+  agent: user_normal (User)
+  role: user
+  stage: espacio (Space)
+  
+user_normal_private_invited:
+  agent: user_normal (User)
+  role: user
+  stage: private_invited (Space)
   
 user_space2_operator:
-  id: 4
-  agent_id: 30
-  agent_type: User
-  role_id: 2
-  stage_id: 2
-  stage_type: Space
+  agent: user_space2_admin (User)
+  role: invited
+  stage: espacio (Space)
 
 user_group_1:
-  id: 5
-  agent_id: 30
-  agent_type: User
-  role_id: 2
+  agent: user_space_admin (User)
+  role: invited
   stage_id: 1
   stage_type: Space
   
 user_group_2:
-  id: 6
-  agent_id: 24
-  agent_type: User
-  role_id: 2
+  agent: user_admin (User)
+  role: invited
   stage_id: 1
   stage_type: Space
   
 public_anyone:
-  id: 7
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
-  role_id: 2
+  role: invited
   stage_id: 1
   stage_type: Space
+  
