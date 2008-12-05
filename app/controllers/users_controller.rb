@@ -334,7 +334,7 @@ params[:user][:machine_ids] = machines
         if Role.find_by_name(params[:user_role])
           for user_id in params[:users][:id]
             #let`s check if the performance already exist
-            perfor = Performance.find_by_container_id_and_agent_id(@space.id,user_id, :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
+            perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
             if perfor==nil
               #if it does not exist we create it
               @space.container_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])

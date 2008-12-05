@@ -42,7 +42,7 @@ describe ArticlesController do
           
           it "should have correct strings in session" do
             get :index , :space_id => @space.name
-            session[:current_tab].should eql("Posts")
+            session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
             
           end
@@ -107,7 +107,7 @@ describe ArticlesController do
           
           it "should have correct strings in session" do
             get :index , :space_id => @space.name
-            session[:current_tab].should eql("Posts")
+            session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
             
           end
@@ -171,7 +171,7 @@ describe ArticlesController do
           
           it "should have correct strings in session" do
             get :index , :space_id => @space.name
-            session[:current_tab].should eql("Posts")
+            session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
           end
           
@@ -253,7 +253,7 @@ describe ArticlesController do
           
           it "should have correct strings in session" do
             get :index , :space_id => @space.name
-            session[:current_tab].should eql("Posts")
+            session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
           end
           it "should have a title in @title" do
@@ -337,7 +337,7 @@ describe ArticlesController do
         
         it "should have correct strings in session" do
           get :index , :space_id => @space.name
-          session[:current_tab].should eql("Posts")
+          session[:current_tab].should eql("News")
           session[:current_sub_tab].should eql("")
         end
         
