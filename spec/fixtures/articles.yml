@@ -1,33 +1,56 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
 
+## Artículos para probar la paginación
 <% for i in 1..30 %>
 article_<%= i %>:
   text: text <%=i%>
   title: title <%=i%>
 <%end%>
 
-parent_article:
+##### Artículos del espacio privado private_user
+
+parent_private_user_article:
   text: parent_text
   title: parent_title
   
-children_article1:
+children_private_user_article1:
   text: children1_text 
   title: children1_title
 
-children_article2:
+children_private_user_article2:
   text: children2_text
   title: children2_title
 
-#children_article3:
-#  id: 34
-#  text: children3_text
-#  title: children3_title
+##### Artículos del espacio privado private_no_roles
+ 
+parent_private_no_roles_article:
+  text: parent_text
+  title: parent_title
+  
+children_private_no_roles_article1:
+  text: children1_text 
+  title: children1_title
+
+children_private_no_roles_article2:
+  text: children2_text
+  title: children2_title
+  
+##### Artículos del espacio privado private_invited
+
+parent_private_invited_article:
+  text: parent_text
+  title: parent_title
+  
+children_private_invited_article1:
+  text: children1_text 
+  title: children1_title
+
+children_private_invited_article2:
+  text: children2_text
+  title: children2_title
+
+#Artículos del espacio público
 
 public_article:
   text: public_article_text
@@ -41,7 +64,5 @@ public_children_article2:
   text: children2_text
   title: children2_title
 
-private_article:
-  text: private_article_text
-  title: private_article_text
+
 

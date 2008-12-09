@@ -2,17 +2,17 @@
 user_space1_admin:
   agent: user_space1_admin (User)
   role: admin
-  stage: espacio (Space)
+  stage: private_user (Space)
 
 user_alfredo_space2_reader:
   agent: user_alfredo (User)
-  stage: espacio (Space)
+  stage: private_user (Space)
   role: invited  
   
-user_normal_space2_writer:
+user_normal_private_user:
   agent: user_normal (User)
   role: user
-  stage: espacio (Space)
+  stage: private_user (Space)
   
 user_normal_private_invited:
   agent: user_normal (User)
@@ -22,7 +22,7 @@ user_normal_private_invited:
 user_space2_operator:
   agent: user_space2_admin (User)
   role: invited
-  stage: espacio (Space)
+  stage: private_user (Space)
 
 user_group_1:
   agent: user_space_admin (User)

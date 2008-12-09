@@ -1,6 +1,6 @@
 
 
-espacio:
+private_user:
   name: espacio
   public: 0
   
@@ -8,7 +8,7 @@ private_invited:
   name: invited
   public: 0
   
-private:
+private_no_roles:
   name: espacio3
   public: 0
   
