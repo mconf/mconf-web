@@ -16,7 +16,7 @@ user_normal_private_user:
   
 user_normal_private_invited:
   agent: user_normal (User)
-  role: user
+  role: invited
   stage: private_invited (Space)
   
 user_space2_operator:
@@ -67,4 +67,43 @@ public_attachment1_article_for_all:
   role: reader
   stage: public_attachment1 (Attachment) 
   
+public_normal_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_normal_article (Article)
+
+public_normal_children1_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_normal_children_article1 (Article) 
+
+public_normal_children2_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_normal_children_article2 (Article) 
+  
+public_normal_attachment1_article_for_all:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: public_normal_attachment1 (Attachment) 
+
+  <% for i in 1..30 %>
+public_articles_for_all_<%= i %>:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: article_<%= i %> (Article)
+<%end%>
+
+  <% for i in 31..60 %>
+public_articles_for_all_<%= i %>:
+  agent_id: <%= Anyone.current.id%>
+  agent_type: <%= Anyone.current.class.base_class%>
+  role: reader
+  stage: article_<%= i %> (Article)
+<%end%>
   

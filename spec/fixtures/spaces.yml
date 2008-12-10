@@ -1,15 +1,15 @@
 
 
 private_user:
-  name: espacio
+  name: private_user
   public: 0
   
 private_invited:
-  name: invited
+  name: private_invited
   public: 0
   
 private_no_roles:
-  name: espacio3
+  name: private_no_roles
   public: 0
   
 public:
