@@ -1012,41 +1012,46 @@ describe "responding to GET new" do
           @new_article =  Article.new
           @new_entry = Entry.new
         end
+
+        it "should not let the user do the action" do
+        get :new , :space_id => @space.name
+        assert_response 403
+      end
         
-        it "should have correct strings in session []" do
-          get :new , :space_id => @space.name
-          pending("no debería hacer un render 403") do
-            session[:current_sub_tab].should eql("New article")
-          end
-        end
+        #it "should have correct strings in session []" do
+         # get :new , :space_id => @space.name
+          #pending("no debería hacer un render 403") do
+          #  session[:current_sub_tab].should eql("New article")
+          #end
+        #end
         
-        it "should expose a new article as @article" do
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          pending("no debería hacer un render 403") do
-            assigns[:article].should equal(@new_article)
-          end
-        end
+        #it "should expose a new article as @article" do
+        #  Article.should_receive(:new).and_return(@new_article)
+        #  get :new , :space_id => @space.name
+        #  pending("no debería hacer un render 403") do
+        #    assigns[:article].should equal(@new_article)
+        #  end
+        #end
         
-        it "should have a title in @title" do
+        #it "should have a title in @title" do
           
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          pending("no debería hacer un render 403") do
-            assigns[:title].should_not eql(nil)
-            assigns[:title].should include("New Article")
-          end
-        end
+        #  Article.should_receive(:new).and_return(@new_article)
+        #  get :new , :space_id => @space.name
+        #  pending("no debería hacer un render 403") do
+        #    assigns[:title].should_not eql(nil)
+        #    assigns[:title].should include("New Article")
+        #  end
+        #end
         
-        it "should have an associated entry " do
-          pending("no debería hacer un render 403") do
-            Article.should_receive(:new).and_return(@new_article)
-            @new_article.stub!(:entry).and_return(@new_entry)
-            get :new , :space_id => @space.name
-            assigns[:article].entry.should_not eql(nil) #falla en el @article.entry que no debería ser nil el @article
-            assigns[:article].entry.should eql(@new_entry)
-          end
-        end
+        #it "should have an associated entry " do
+        #  pending("no debería hacer un render 403") do
+        #    Article.should_receive(:new).and_return(@new_article)
+        #    @new_article.stub!(:entry).and_return(@new_entry)
+        #    get :new , :space_id => @space.name
+        #    assigns[:article].entry.should_not eql(nil) #falla en el @article.entry que no debería ser nil el @article
+        #    assigns[:article].entry.should eql(@new_entry)
+        #  end
+        #end
         
       end
     end
@@ -1131,6 +1136,7 @@ describe "responding to GET edit" do
           assigns[:attachment_children].should == []
         end
      end
+     
      describe "in the public space" do
        before(:each)do
          @space = spaces(:public)
@@ -1177,6 +1183,38 @@ describe "responding to GET edit" do
         before(:each)do
           @space = spaces(:private_user)
         end
+        
+        describe "and the article not belongs to him" do
+        before(:each)do
+          @parent_article = articles(:parent_private_user_article)
+          @children1_article = articles(:children_private_user_article1)
+        end
+         
+         it "should expose the requested article as @article" do
+          get :edit, :id => @parent_article.id , :space_id => @space.name
+          assigns[:article].should eql(@parent_article)
+        end
+    
+        it "should have an associated entry " do
+          get :edit ,:id=> @parent_article.id , :space_id => @space.name
+          assigns[:article].entry.should_not eql(nil)
+          assigns[:article].entry.should eql(@parent_article.entry)
+        end
+    
+        it "should return the entries with attachment in @attachment_children" do
+          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+          get :edit, :id => "37" , :space_id => @space.name
+          assigns[:attachment_children].should == [entries(:entry_private_user_attachment_children3)]
+        end
+    
+        it "should return [] if no attachments children" do
+          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+          get :edit, :id => "37" , :space_id => @space.name
+          assigns[:attachment_children].should == []
+      end
+    end
+        
+        
         describe "and the article belongs to him" do
         before(:each)do
           @parent_article = articles(:parent_private_normal_user_article)
@@ -1207,19 +1245,7 @@ describe "responding to GET edit" do
       end
     end
     
-     describe "and the article not belongs to him" do
-        before(:each)do
-          @parent_article = articles(:parent_private_user_article)
-          @children1_article = articles(:children_private_user_article1)
-        end
-         
-         it "should expose the requested article as @article" do
-          pending("no debería dejar editarlo") do
-          get :edit, :id => @parent_article.id , :space_id => @space.name
-          assert_response 403
-          end
-        end
-    end
+     
     
     end
     
@@ -1233,7 +1259,7 @@ describe "responding to GET edit" do
       end
       
          it "should not let user to edit an article" do
-            get :edit , :id =>@private_article.id, :space_id => @space.name 
+            get :edit , :id =>@private_article, :space_id => @space.name 
             assert_response 403
           end
       end
@@ -1244,7 +1270,7 @@ describe "responding to GET edit" do
       
          it "should let user to edit an article" do
            pending("pendiente") do
-            get :edit , :id =>@private_article.id, :space_id => @space.name 
+            get :edit , :id =>@private_article, :space_id => @space.name 
             assert_response 200
             end
           end
@@ -1254,13 +1280,33 @@ describe "responding to GET edit" do
       
       before(:each)do
         @space = spaces(:private_no_roles)
-        @private_article = articles(:parent_private_no_roles_article)
       end
-      
-         it "should not let user to edit an article" do
+         describe "and the article not belongs to him" do
+           
+           before(:each)do
+            @private_article = articles(:parent_private_no_roles_article)
+           end 
+            
+            it "should not let user to edit an article" do
+                get :edit , :id =>@private_article.id, :space_id => @space.name 
+                assert_response 403
+            end
+        end
+        
+        describe "and the article belongs to him" do
+           
+           before(:each)do
+            @private_article = articles(:parent_private_normal_no_roles_article)
+           end 
+            
+            it "should let user to edit an article" do
+           pending("pendiente") do
             get :edit , :id =>@private_article.id, :space_id => @space.name 
-            assert_response 403
+            assert_response 200
+            end
           end
+        end
+        
       end
    end
    
@@ -1269,37 +1315,38 @@ describe "responding to GET edit" do
      
      before(:each)do
        @space = spaces(:public)
-       @parent_article = articles(:public_article)
-       @children1_article = articles(:public_children_article1)
+
      end
-        it "should expose the requested article as @article" do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:article].should equal(@parent_article)
-        end
-    
-        it "should have an associated entry " do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit ,:id=> "37", :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@parent_article.entry)
-        end
-    
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          pending("Debería poder editarse sus propios artículos??") do
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
+            
+            describe "and the article not belongs to him" do
+              
+              before(:each)do
+                  @parent_article = articles(:public_article)
+                   @children1_article = articles(:public_children_article1)
+              end
+              
+               it "should not let user to edit an article" do
+                get :edit , :id =>@parent_article, :space_id => @space.name 
+                assert_response 403
+                end
+              
+            end
+         describe "and the article belongs to him" do
+              
+              before(:each)do
+                  @parent_article = articles(:public_normal_article)
+                   @children1_article = articles(:public_normal_children_article1)
+              end
+              
+               it "should let user to edit an article" do
+           pending("pendiente") do
+            get :edit , :id =>@parent_article, :space_id => @space.name 
+            assert_response 200
+            end
           end
-        end
-    
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          pending("Debería poder editarse sus propios artículos??") do
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-          end
-        end
+              
+            end
+       
      end
   end
 end
@@ -1643,29 +1690,29 @@ describe "with valid params" do
           response.should redirect_to(space_article_path(@space,@article))
         end
         
-        it "should update the requested article" do
-          pending("debería hacer esto") do
-          Article.should_receive(:find).with("37").and_return(mock_article)
-          mock_article.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => "37", :article => {:these => 'params'}, :space_id => @space.name
-          end
-        end
+        #it "should update the requested article" do
+        #  pending("debería hacer esto") do
+        #  Article.should_receive(:find).with("37").and_return(mock_article)
+        #  mock_article.should_receive(:update_attributes).with({'these' => 'params'})
+        #  put :update, :id => "37", :article => {:these => 'params'}, :space_id => @space.name
+        #  end
+        #end
 
-        it "should expose the requested article as @article" do
-          pending("debería hacer esto") do
-          Article.stub!(:find).and_return(mock_article(:update_attributes => true))
-          put :update, :id => "1", :space_id => @space.name
-          assigns(:article).should equal(mock_article)
-          end
-        end
+        #it "should expose the requested article as @article" do
+        #  pending("debería hacer esto") do
+        #  Article.stub!(:find).and_return(mock_article(:update_attributes => true))
+        #  put :update, :id => "1", :space_id => @space.name
+        #  assigns(:article).should equal(mock_article)
+        #  end
+        #end
 
-        it "should redirect to the article" do
-          pending("debería hacer esto") do
-          Article.stub!(:find).and_return(mock_article(:update_attributes => true))
-          put :update, :id => "1", :space_id => @space.name
-          response.should redirect_to(article_url(mock_article))
-          end
-        end
+        #it "should redirect to the article" do
+        #  pending("debería hacer esto") do
+        #  Article.stub!(:find).and_return(mock_article(:update_attributes => true))
+        #  put :update, :id => "1", :space_id => @space.name
+        #  response.should redirect_to(article_url(mock_article))
+        #  end
+        #end
         
       end
       describe "in the public space" do
