@@ -48,7 +48,7 @@ a:link, a:visited, a:hover, p{
 }
 
 #logo_text p{
-	font-size:1.6em;
+	font-size:1.6em;http://www.google.es/firefox?client=firefox-a&rls=com.ubuntu:en-US:official
 	
 }
 #logo_fondo{
@@ -423,7 +423,7 @@ div#ft {
 span.tags_column{
 	color: #699d8c;
 	font-weight:bold;
-}
+}http://www.google.es/firefox?client=firefox-a&rls=com.ubuntu:en-US:official
 p.post{
 	display:inline;
 }
@@ -770,15 +770,38 @@ top:10px;
 
 /*SECCIÓN PEOPLE*/
 
+#people_table{
+	width:96%;
+	margin-left:1.5%;
+	
+}
 .cabecera{
 	color:#3b54a6;
 	font-variant:small-caps;
 	padding:0 5px 0 5px;
 	text-align:center;
 	border-bottom: solid 1px #3b54a6;
-	border:solid 1px #5a5a5a;
-	font-weight:bold;
+	
+	
 }
-#people_table{
-	border:solid 1px #5a5a5a;
+td.first1 {
+
+	border-left: solid 1px #3b54a6;
+}
+td.last{
+	border-right: solid 1px #3b54a6;
+}
+td.ListUser1,td.ListUser0 {
+	border-right:solid 1px #3b54a6;
+	padding:5px;
+	border-bottom:solid 1px #3b54a6;
+}
+.lateral{
+	border-right:none;
+	padding:5px;
+	border-bottom:solid 1px #3b54a6;
+	
+}
+.first{
+	border-top:solid 1px #3b54a6;
 }
