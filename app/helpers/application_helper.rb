@@ -150,11 +150,11 @@ end
   delete = ""
   args.each do |arg|  # obtengo los argumentos variables
   if entry.authorizes?(current_user, :edit) && arg == "edit"
-     edita = link_to(image_tag("modify.gif"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s
+     edita = link_to(image_tag("edit16.png"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s
      # iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s + "</span> "
     end
   if entry.authorizes?(current_user, :destroy) &&  arg == "destroy"
-      delete = link_to(image_tag("delete.gif"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
+      delete = link_to(image_tag("delete16.png"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
       #iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
    end
   end
