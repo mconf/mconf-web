@@ -305,8 +305,29 @@ ul.sidebar_posts li {
 	color:#5a5a5a;
 }
 
+/*coloco el div de my_account centrado*/
+
+#my_account {
+	
+	/*display:block;
+	position: relative;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	text-align: left;*/
+	margin-top: 10px;
+	position: relative;
+	margin-left:280px;
+	}
+
+#editar {
+	margin-top: 10px;
+}
+
 .login_account {
-	background: url("/images/key_go.png") no-repeat left;
+	
+	background: url("/images/key_go.png") no-repeat;
 	padding:2px 0 2px 20px;	
 }
 
@@ -321,7 +342,7 @@ ul.sidebar_posts li {
 }
 
 .notifications_account {
-	background: url("/images/") no-repeat left center;
+	background: url("/images/email.png") no-repeat left center;
 	padding:2px 0 2px 20px;	
 }
 #search_container h4 , #calendar-container h4{
@@ -499,7 +520,7 @@ span.clip{
 .expand{
 	width:100px;
 	position:relative;
-	left:-80px;
+	left:-90px;
 	display:inline-block;
 	text-align: left;
 }
