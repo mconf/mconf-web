@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
+  attr_accessible :superuser, :disabled
   
   has_many :participants
   has_and_belongs_to_many :events 

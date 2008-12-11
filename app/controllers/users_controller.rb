@@ -169,20 +169,20 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     @user = User.find(params[:id])
-     #now we assign the machines to the user
-            if current_user.superuser==true
-              @array_resources = params[:resource]
-              logger.debug("Array de maquinas es  " + @array_resources.to_s)
-              machines = Array.new        
-              for machine in Machine.find(:all)
-                if @array_resources[machine.name]=="1"
-                  logger.debug("Machine assign " + machine.name)
-                  machines << "#{machine.id}"              
-                end            
-              end
-          end
-params[:user][:machine_ids] = machines
-       
+    #now we assign the machines to the user
+    if current_user.superuser==true
+      @array_resources = params[:resource]
+      logger.debug("Array de maquinas es  " + @array_resources.to_s)
+      machines = Array.new        
+      for machine in Machine.find(:all)
+        if @array_resources[machine.name]=="1"
+          logger.debug("Machine assign " + machine.name)
+          machines << "#{machine.id}"              
+        end            
+      end
+    end
+    params[:user][:machine_ids] = machines
+    
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -221,7 +221,7 @@ params[:user][:machine_ids] = machines
       @space = Space.find_by_name(params[:space_id])
       remove_user(params)
       respond_to do |format|
-
+        
         format.html { render :template =>'users/from_app'  }
         format.xml  { head :ok }
         format.atom { head :ok }
@@ -235,14 +235,14 @@ params[:user][:machine_ids] = machines
     flash[:notice] = "User #{@user.login} deleted"
     
     respond_to do |format|
-        format.html {  redirect_to(space_users_path(@space))  }
-        format.xml  { head :ok }
-        format.atom { head :ok }
-      end
-      
-      
+      format.html {  redirect_to(space_users_path(@space))  }
+      format.xml  { head :ok }
+      format.atom { head :ok }
     end
     
+    
+  end
+  
 =begin    
   #search method that returns the users founded with the query in this space.
   def search_users
@@ -313,120 +313,129 @@ params[:user][:machine_ids] = machines
     end
   end
 =end
-    
-    
-    def organization
-      respond_to do |format|
-        # format.html 
-        format.js   
-      end
+  
+  
+  def organization
+    respond_to do |format|
+      # format.html 
+      format.js   
     end
+  end
+  
+  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
+  def activate
+    self.current_agent = params[:activation_code].blank? ? Anonymous.current : self.resource_class.find_by_activation_code(params[:activation_code])
+    if authenticated? && current_agent.respond_to?("active?") && !current_agent.active?
+      current_agent.activate
+      flash[:notice] = "Your account has been confirmed. Thank you!"
+    end
+    redirect_back_or_default('/')
+  end
+  
+  private
+  
+  
+  
+  def add_user_from_app (params)
     
-    
-    private
-    
-    
-    
-    def add_user_from_app (params)
-      
-      session[:current_sub_tab] = "Add Users from App"
-      if params[:users] && params[:user_role]
-        if Role.find_by_name(params[:user_role])
-          for user_id in params[:users][:id]
-            #let`s check if the performance already exist
-            perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
-            if perfor==nil
-              #if it does not exist we create it
-              @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
-            end
+    session[:current_sub_tab] = "Add Users from App"
+    if params[:users] && params[:user_role]
+      if Role.find_by_name(params[:user_role])
+        for user_id in params[:users][:id]
+          #let`s check if the performance already exist
+          perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
+          if perfor==nil
+            #if it does not exist we create it
+            @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
           end
-        else        
-          flash[:notice] = 'Role ' + params[:user_role] + ' does not exist.'
         end
-        
+      else        
+        flash[:notice] = 'Role ' + params[:user_role] + ' does not exist.'
       end
+      
     end
-    
-    def remove_user (params)
-      if params[:users] && params[:user_role]
-        if Role.find_by_name(params[:user_role])
-          for user_id in params[:users][:id]
-            #let`s check if the performance exist
-            perfor = @space.stage_performances.find_by_agent_id(params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
-            if perfor
-              #if it exists we remove it
-              @space.stage_performances.delete perfor
-            end
-          end
-          end
-        else
-          perfor = @space.stage_performances.find_by_agent_id(params[:id])
+  end
+  
+  def remove_user (params)
+    if params[:users] && params[:user_role]
+      if Role.find_by_name(params[:user_role])
+        for user_id in params[:users][:id]
+          #let`s check if the performance exist
+          perfor = @space.stage_performances.find_by_agent_id(params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
           if perfor
-              #if it exists we remove it
-              @space.stage_performances.delete perfor
-          end  
+            #if it exists we remove it
+            @space.stage_performances.delete perfor
+          end
+        end
       end
+    else
+      perfor = @space.stage_performances.find_by_agent_id(params[:id])
+      if perfor
+        #if it exists we remove it
+        @space.stage_performances.delete perfor
+      end  
     end
-    
-    def add_user_by_email  (params)
-      #parsear string de emails y hacer todo lo de abajo para cada email.
-      session[:current_sub_tab] = "Add Users by email"
-      if params[:invitation] && params[:user_role]
-        
-        if params[:invitation][:email]== ""
-          flash[:notice] = "Please insert something in the box"      
-          redirect_to  add_user_path
-        else
-          @parse_email = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-          @em = params[:invitation][:email]      
-          @emails =parse_emails(@em)             
-          @role = Role.find_by_name(params[:user_role])
-          params[:invitation][:space_id]= params[:space_id]
-          params[:invitation][:user_id]= current_user.id
-          params[:invitation][:role_id]= @role.id
-          @sp = params[:space_id]
-          @space_required = Space.find_by_name(@sp)
-          @users_invited= []
-          @users_added = []
-          @users_not_added = []
-          @emails_invalid = []
-          for email in @emails
-            
-            @p = /\S+@\S+\.\S+/
-            @mail = @p.match(email).to_s
-            
-            
-            @mail = @mail.gsub(/>/,' ')
-            @mail = @mail.gsub(/</,' ')
-            @mail = @p.match(@mail).to_s
-            
-            if  @parse_email.match(@mail)!= nil
-              params[:invitation][:email]= @mail
-              @user = User.find_by_email(@mail)
-              if @user
-                @perfor = @space.stage_performances.find_by_agent_id(@user.id)
-              end
-              
-              if @user == nil 
-                #falta notificar por mail
-                params[:invitation][:space_id] = @space.id
-                @inv = Invitation.new(params[:invitation])        
-                @inv.save! 
-                @users_invited << @inv.email
-              elsif  @perfor == nil
-                @space_required.stage_performances.create :agent => @user, :role => Role.find_by_name(params[:user_role])
-                #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
-                @users_added << @user.email
-                #falta notificar por mail
-              else
-                #el usuraio ya esta en el esapcio
-                @users_not_added << @user.email
-              end
-            else
-              @emails_invalid << email          
+  end
+  
+  def add_user_by_email  (params)
+    #parsear string de emails y hacer todo lo de abajo para cada email.
+    session[:current_sub_tab] = "Add Users by email"
+    if params[:invitation] && params[:user_role]
+      
+      if params[:invitation][:email]== ""
+        flash[:notice] = "Please insert something in the box"      
+        redirect_to  add_user_path
+      else
+        @parse_email = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+        @em = params[:invitation][:email]      
+        @emails =parse_emails(@em)             
+        @role = Role.find_by_name(params[:user_role])
+        params[:invitation][:space_id]= params[:space_id]
+        params[:invitation][:user_id]= current_user.id
+        params[:invitation][:role_id]= @role.id
+        @sp = params[:space_id]
+        @space_required = Space.find_by_name(@sp)
+        @users_invited= []
+        @users_added = []
+        @users_not_added = []
+        @emails_invalid = []
+        for email in @emails
+          
+          @p = /\S+@\S+\.\S+/
+          @mail = @p.match(email).to_s
+          
+          
+          @mail = @mail.gsub(/>/,' ')
+          @mail = @mail.gsub(/</,' ')
+          @mail = @p.match(@mail).to_s
+          
+          if  @parse_email.match(@mail)!= nil
+            params[:invitation][:email]= @mail
+            @user = User.find_by_email(@mail)
+            if @user
+              @perfor = @space.stage_performances.find_by_agent_id(@user.id)
             end
             
+            if @user == nil 
+              #falta notificar por mail
+              params[:invitation][:space_id] = @space.id
+              @inv = Invitation.new(params[:invitation])        
+              @inv.save! 
+              @users_invited << @inv.email
+            elsif  @perfor == nil
+              @space_required.stage_performances.create :agent => @user, :role => Role.find_by_name(params[:user_role])
+              #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
+              @users_added << @user.email
+              #falta notificar por mail
+            else
+              #el usuraio ya esta en el esapcio
+              @users_not_added << @user.email
+            end
+          else
+            @emails_invalid << email          
           end
+          
+        end
 =begin        
         respond_to do |format|
           flash[:notice] = "Users were succesfully invited to the space #{@space_required.name}. An email has been sended to them"
@@ -435,35 +444,35 @@ params[:user][:machine_ids] = machines
           format.xml  { head :ok }        
         end
 =end        
-        end 
-      end
+      end 
     end
+  end
+  
+  
+  #method to parse the request for update from the server that contains
+  #<div id=d1>ebarra</div><div id=d2>user2</div>...
+  #returns an array with the user logins
+  def parse_emails(emails)
     
-    
-    #method to parse the request for update from the server that contains
-    #<div id=d1>ebarra</div><div id=d2>user2</div>...
-    #returns an array with the user logins
-    def parse_emails(emails)
-      
-      return [] if emails.blank?
-      emails = Array(emails).first
-      emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
-      emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
-      
-    end
-    
-    def edit_user
-      
-      @agent = @user = User.find(params[:id])
-      if current_user.superuser == true 
-        return true
-        
-      elsif current_user.id == @user.id
-        return true
-      else
-        flash[:notice] = "Action not allowed."          
-        redirect_to root_path   
-      end
-    end
+    return [] if emails.blank?
+    emails = Array(emails).first
+    emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
+    emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
     
   end
+  
+  def edit_user
+    
+    @agent = @user = User.find(params[:id])
+    if current_user.superuser == true 
+      return true
+      
+    elsif current_user.id == @user.id
+      return true
+    else
+      flash[:notice] = "Action not allowed."          
+      redirect_to root_path   
+    end
+  end
+  
+end
