@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
    
 def name
-  profile ? profile.name : ""
+  profile ? profile.name : login
 end
 def lastname
   
