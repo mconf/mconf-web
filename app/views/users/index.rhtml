@@ -37,7 +37,7 @@ for user in @users
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to user.login, edit_space_user_path(@space,user) %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%=replace_image(user.superuser)  %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.disabled) %></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= h(user.email) %></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= mail_to h(user.email) %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.active?) %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%= link_to image_tag("/images/key2.png",:border=>0), forgot_path(:email => sanitize(user.email)), :title => "Reset Password", :confirm => "This action will send an email to the user \""+ h(user.login) +"\" in order to reset his password.\n Are you sure?" %></td>
 <td class="lateral first"><%= link_to image_tag("/images/edit22.png",:border=>0), edit_space_user_path(@space,user), :title=>"Edit User" %></td>
