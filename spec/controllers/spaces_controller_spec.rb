@@ -167,18 +167,16 @@ describe "when you are logged in" do
     login_as(:user_normal)
   end
       it "should let the User to create a space and the user and this User should be role admin of this space" do
-        pending("concretamos que cualquier usuario registrado puede crear un espacio y debe convertirse en admin de ese espacio ")do
         get :new 
         assert_response 200
-        end
       end  
   end
 end
 
 describe "if you are not logged in" do
     it "should not let to create a space" do
-      get :new 
-      assert_response 403
+      get :new
+      assert_redirected_to login_path
     end  
 end
 
@@ -247,17 +245,15 @@ describe "responding to GET edit" do
   
   describe "if you are not logged in" do
     
-     it "should NOT let the user to edit a private space" do
-        pending("igual debería dar un error 403 en vez de 401 siguiendo la filosofía de errores") do
-        get :edit , :id => spaces(:private_no_roles).name
-        assert_response 403
-        end
-      end
+    it "should ask the user for authentication to edit a private space" do
+      get :edit , :id => spaces(:private_no_roles).name
+      assert_response 401
+    end
       
-      it "should NOT let the user to edit a public space" do
-        get :edit , :id => spaces(:public).name
-        assert_response 403
-      end
+    it "should NOT let the user to edit a public space" do
+      get :edit , :id => spaces(:public).name
+      assert_response 403
+    end
     
   end
 
@@ -301,12 +297,10 @@ describe "responding to POST create" do
       end
       
       it "should let the User to create a space and the user and redirect to the index space" do
-          pending("un usuario normal podría crear espacios tal y como concretamos") do
           assert_difference 'Space.count', +1 do
-          get :create ,:space => @valid_attributes
+            get :create ,:space => @valid_attributes
           end
           response.should redirect_to(spaces_path)
-          end
       end
       end
     end
@@ -350,7 +344,7 @@ describe "with invalid params" do
     
         it "should let the User to try to create a space but with invalid params the space should not be created" do
           assert_no_difference 'Space.count', +1 do
-          get :create ,:space => @invalid_attributes
+          post :create ,:space => @invalid_attributes
           end
           response.should render_template('new')
         end
@@ -362,12 +356,10 @@ describe "with invalid params" do
       end
       
       it "should let the User to try to create a space but with invalid params the space should not be created" do
-          pending("un usuario normal podría crear espacios tal y como concretamos") do
-          assert_no_difference 'Space.count', +1 do
-          get :create ,:space => @invalid_attributes
-          end
-          response.should redirect_to(spaces_path)
-          end
+        assert_no_difference 'Space.count', +1 do
+          post :create ,:space => @invalid_attributes
+        end
+        response.should redirect_to(new_space_path)
       end
       end
     end
@@ -375,11 +367,11 @@ describe "with invalid params" do
       
       it "should NOT let the User to try to create a space " do
           assert_no_difference 'Space.count' do
-          get :create ,:space => @invalid_attributes
+          post :create ,:space => @invalid_attributes
           end
-          assert_response 403
+          assert_response 401
       end
-      
+
     end
 
 
@@ -471,17 +463,15 @@ describe "responding to PUT udpate" do
     describe "if you are not logged in" do
       
       it "should NOT let the User to edit a private space " do
-          pending("da un error 401 que es de autorización. No se qué error debemos considerar") do
-          get :update ,:space => @valid_attributes , :id => spaces(:private_no_roles).name
-          assert_response 403          
-          end
-        end
+        get :update ,:space => @valid_attributes , :id => spaces(:private_no_roles).name
+        assert_response 401
+      end
       
       
       it "should NOT let the User to edit a public space " do
-          get :update ,:space => @valid_attributes , :id => spaces(:public).name
-          assert_response 403          
-        end
+        get :update ,:space => @valid_attributes , :id => spaces(:public).name
+        assert_response 403          
+      end
       
     end
   end
@@ -551,11 +541,9 @@ describe "responding to PUT udpate" do
     describe "if you are not logged in" do
       
       it "should NOT let the User to try to edit a private space " do
-          pending("da un error 401 que es de autorización. No se qué error debemos considerar") do
-          get :update ,:space => @invalid_attributes , :id => spaces(:private_no_roles).name
-          assert_response 403          
-          end
-        end
+        get :update ,:space => @invalid_attributes , :id => spaces(:private_no_roles).name
+        assert_response 401
+      end
       
       
       it "should NOT let the User to try to edit a public space " do
@@ -649,12 +637,10 @@ describe "responding to DELETE destroy" do
   describe " if you are not logged in" do
     
      it "should NOT let to delete a private space" do
-        pending("da un error 401 de autorización.No se cómo debería funcionar de acuerdo a la filosofía") do       
         assert_no_difference 'Space.count' do
          delete :destroy ,:id => spaces(:private_no_roles).name
          end
-         assert_response 403
-        end
+         assert_response 401
       end
       it "should NOT let to delete a public space" do
 
