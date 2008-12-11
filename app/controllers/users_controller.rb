@@ -352,7 +352,7 @@ params[:user][:machine_ids] = machines
         if Role.find_by_name(params[:user_role])
           for user_id in params[:users][:id]
             #let`s check if the performance exist
-            perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
+            perfor = @space.stage_performances.find_by_agent_id(params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
             if perfor
               #if it exists we remove it
               @space.stage_performances.delete perfor
@@ -360,7 +360,7 @@ params[:user][:machine_ids] = machines
           end
           end
         else
-          perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:id])
+          perfor = @space.stage_performances.find_by_agent_id(params[:id])
           if perfor
               #if it exists we remove it
               @space.stage_performances.delete perfor
@@ -404,7 +404,7 @@ params[:user][:machine_ids] = machines
               params[:invitation][:email]= @mail
               @user = User.find_by_email(@mail)
               if @user
-                @perfor = Performance.find_by_container_id_and_agent_id(@space.id,@user.id)
+                @perfor = @space.stage_performances.find_by_agent_id(@user.id)
               end
               
               if @user == nil 
