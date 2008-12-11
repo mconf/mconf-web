@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
    
 def name
-  return self.profile.name if self.profile
+  profile ? profile.name : ""
 end
 def lastname
   
