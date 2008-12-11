@@ -83,10 +83,9 @@ class SpacesController < ApplicationController
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create 
-
     #esto es para que el fckeditor no muestre la descripción del espacio en el que estás
     params[:space][:description] = params[:space_new][:description] if params[:space_new]
-    
+
     
     @space = Space.new(params[:space])
     @logotype = Logotype.new(params[:logotype]) 
@@ -95,6 +94,7 @@ class SpacesController < ApplicationController
     respond_to do |format|
       if @space.save
         flash[:notice] = 'Space was successfully created.'
+        @space.stage_performances.create :agent => current_user, :role => Role.find_by_name("admin")
         format.html { redirect_to(:action => "index", :controller => "spaces") }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 
