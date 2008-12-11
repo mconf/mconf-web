@@ -18,7 +18,9 @@
 <td class="cabecera"> Lastname</td>
 <td class="cabecera"> <%= 'Login'.t %></td>
 <td class="cabecera"> Super</td>
+<!--
 <td class="cabecera"> Disabled</td>
+-->
 <td class="cabecera"> Email</td>
 <!--
 <td class="cabecera"> Account Confirmed</td>
@@ -34,12 +36,14 @@ for user in @users
 -%>
 
 <tr>
-<td class=" first1 ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.name,10,""), edit_space_user_path(@space,user) if user.profile%></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.lastname,15,""), edit_space_user_path(@space,user) if user.profile%></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.login,15,""), edit_space_user_path(@space,user) %></td>
+<td class=" first1 ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.name,15,""), edit_space_user_path(@space,user) if user.profile%></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.lastname,18,""), edit_space_user_path(@space,user) if user.profile%></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.login,18,""), edit_space_user_path(@space,user) %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%=replace_image(user.superuser)  %></td>
+<!--
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.disabled) %></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= mail_to(user.email,name_format(user.email,20,"")) %></td>
+-->
+<td class="ListUser<%= @odd_or_even_user %>"><%= mail_to(user.email,name_format(user.email,25,"")) %></td>
 <!--
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.active?) %></td>
 -->
