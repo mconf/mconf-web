@@ -122,7 +122,7 @@ class UsersController < ApplicationController
         @space_id = invitation.space_id
         space= Space.find(@space_id)
         
-        if space.container_performances.create :agent => @user, :role => Role.find_by_id(invitation.role_id)
+        if space.stage_performances.create :agent => @user, :role => Role.find_by_id(invitation.role_id)
           invitation.destroy
         end
       end
@@ -337,7 +337,7 @@ params[:user][:machine_ids] = machines
             perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
             if perfor==nil
               #if it does not exist we create it
-              @space.container_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
+              @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
             end
           end
         else        
@@ -355,7 +355,7 @@ params[:user][:machine_ids] = machines
             perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
             if perfor
               #if it exists we remove it
-              @space.container_performances.delete perfor
+              @space.stage_performances.delete perfor
             end
           end
           end
@@ -363,7 +363,7 @@ params[:user][:machine_ids] = machines
           perfor = Performance.find_by_container_id_and_agent_id(@space.id,params[:id])
           if perfor
               #if it exists we remove it
-              @space.container_performances.delete perfor
+              @space.stage_performances.delete perfor
           end  
       end
     end
@@ -414,7 +414,7 @@ params[:user][:machine_ids] = machines
                 @inv.save! 
                 @users_invited << @inv.email
               elsif  @perfor == nil
-                @space_required.container_performances.create :agent => @user, :role => Role.find_by_name(params[:user_role])
+                @space_required.stage_performances.create :agent => @user, :role => Role.find_by_name(params[:user_role])
                 #esta en el sir pero no en el espacio, no añado a la tabla le añado al espacio y le notifico pro mail
                 @users_added << @user.email
                 #falta notificar por mail

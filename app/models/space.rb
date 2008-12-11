@@ -63,7 +63,7 @@ class Space < ActiveRecord::Base
   #returns an array of users with the role id in this space
   def agents_with_role(id)
     array = []
-    for perfor in container_performances
+    for perfor in stage_performances
       if perfor.role_id==id
          array << User.find_by_id(perfor.agent_id)
       end
