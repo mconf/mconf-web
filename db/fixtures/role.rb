@@ -25,8 +25,6 @@ end
 user_role.permissions << Permission.find_by_action_and_objective('read', 'self')
 user_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
 user_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
-user_role.permissions << Permission.find_by_action_and_objective('update', 'Content')
-user_role.permissions << Permission.find_by_action_and_objective('delete', 'Content')
 user_role.permissions << Permission.find_by_action_and_objective('read', 'Performance')
 
 invited_role = Role.seed(:name) do |r|
