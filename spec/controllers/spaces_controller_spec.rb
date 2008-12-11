@@ -295,7 +295,7 @@ describe "responding to POST create" do
         end
      end
       
-      describe "as Normal User"
+      describe "as Normal User" do
        before(:each) do
           login_as(:user_normal)
       end
@@ -308,7 +308,7 @@ describe "responding to POST create" do
           response.should redirect_to(spaces_path)
           end
       end
-      
+      end
     end
     describe "if you are not logged in" do
       
@@ -320,7 +320,7 @@ describe "responding to POST create" do
       end
       
     end
-  
+ 
 #it "should expose a newly created space as @space" do
 #  Space.should_receive(:new).with({'these' => 'params'}).and_return(mock_space(:save => true))
 #  post :create, :space => {:these => 'params'}
@@ -356,7 +356,7 @@ describe "with invalid params" do
         end
      end
       
-      describe "as Normal User"
+      describe "as Normal User" do
        before(:each) do
           login_as(:user_normal)
       end
@@ -369,7 +369,7 @@ describe "with invalid params" do
           response.should redirect_to(spaces_path)
           end
       end
-      
+      end
     end
     describe "if you are not logged in" do
       
