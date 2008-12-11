@@ -1,7 +1,7 @@
 class SpacesController < ApplicationController
   before_filter :authentication_required, :except=>[:index, :register,:show]
   #before_filter :is_public_space, :only=>[:show]
-  before_filter :user_is_admin , :only=> [:new,:create,:destroy]
+  #before_filter :user_is_admin , :only=> [:new,:create,:destroy]
   #before_filter :space_member, :only=>[:show]
 
   

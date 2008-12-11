@@ -10,11 +10,11 @@ describe Article do
     Article.create(@valid_attributes).should be_valid
   end
   
-  it "should not create a new instance given no nickname" do
+  it "should not create a new instance given no title" do
     Article.create(:title => 'title').should_not be_valid
   end
   
-  it "should not create a new instance given no name" do
+  it "should not create a new instance given no description text" do
     Article.create(:text => 'text').should_not be_valid
   end
 end
