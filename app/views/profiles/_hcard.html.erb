@@ -38,8 +38,8 @@
 	<div class="telecommunications">
 		
 		 <span class="tel"> Work
-		 	<span class="type">Phone/Fax:</span><span class="value"><%= @profile.phone%><%= @profile.fax%></span>
-		 </span>
+		 	<span class="type">Phone/Fax:</span><span class="value"><%= @profile.phone%><%= " / " if @profile.fax != ""%><%=@profile.fax%></span>
+		 </span><br/>
 		 <span class="type">Mobile</span>: <span class="value"><%= @profile.mobile%></span>
 		 <p class= "org">Organization: <%= @profile.organization%></p>
 		 <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>

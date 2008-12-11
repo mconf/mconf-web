@@ -487,10 +487,8 @@ span.clip{
 }
 
 .pagination{
-	position:relative;
-	left:-100px;
-	display:inline-block;
-	width:200px;
+	float:left;
+	
 }
 /*Post de Public (antes del login*/
 
@@ -519,11 +517,11 @@ span.clip{
 }
 #paginata {
 	float:left;
-	margin-left:260px;
+	margin-left:350px;
 }
 #paginata2 {
 	float:right;
-	margin-right:0px;
+	margin-right:20px;
 }
 
 

@@ -53,6 +53,10 @@ function change_space(){
 	document.location.href = miloc;
 }
 
+function change_per_page(space_name){
+	miloc = "/spaces/" + space_name + "/articles?expanded=false&per_page=" + document.get_page.page_id.value;
+	document.location.href = miloc;
+}
 function esconde(Seccion)
   { 
     Element.hide(Seccion);

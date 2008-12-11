@@ -3,14 +3,20 @@
 	<div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
 	<div class= "paginate"><h1 class="title"><%= @title %></h1></div>
+	<%= will_paginate @articles %>
 	<div id="paginata">
 	<span class= "expand"> <%=link_to ("expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
 	</div>
 	<div id="paginata2">
-	<%= will_paginate @articles %><%=link_to ("10", space_articles_path(@space, :expanded=>false, :per_page=> 10))%>|
-	<%=link_to ("25", space_articles_path(@space, :expanded=>false, :per_page=> 25))%>|
-	<%=link_to ("50", space_articles_path(@space, :expanded=>false, :per_page=> 50))%>|
-	<%=link_to ("100", space_articles_path(@space, :expanded=>false, :per_page=> 100))%>
+	<form name="get_page" method="get">
+	<select id="page_id" onchange="change_per_page('<%=@space.name%>')" selected="<%@page_id%>">
+		<option value=""> Entries shown </option>
+		<option value="10">10</option>
+		<option value="25">25</option>
+		<option value="50">50</option>
+		<option value="100">100</option>
+	</select>
+	</form>
 	
 	</div>
 	<br/><br/> 
