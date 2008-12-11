@@ -1,13 +1,15 @@
 
-user_space1_admin:
-  agent: user_space1_admin (User)
-  role: admin
-  stage: private_user (Space)
-
 user_alfredo_space2_reader:
   agent: user_alfredo (User)
   stage: private_user (Space)
   role: invited  
+  
+######## El usuario normal tiene diferentes roles en distintos espacios. Se utilizará para probar las distintas opciones de permisos
+
+user_normal_private_admin_performance:
+  agent: user_normal (User)
+  role: admin
+  stage: private_admin (Space)
   
 user_normal_private_user:
   agent: user_normal (User)
@@ -18,6 +20,8 @@ user_normal_private_invited:
   agent: user_normal (User)
   role: invited
   stage: private_invited (Space)
+
+##############################
   
 user_space2_operator:
   agent: user_space2_admin (User)

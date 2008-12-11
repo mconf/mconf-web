@@ -1,4 +1,7 @@
 
+private_admin:
+  name: private_admin
+  public: 0
 
 private_user:
   name: private_user
