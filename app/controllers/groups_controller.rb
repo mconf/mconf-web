@@ -58,7 +58,7 @@ class GroupsController < ApplicationController
   # GET /groups/new.xml
   def new
     session[:current_sub_tab] = "Create Group"  
-    @users =  @space.actors    
+    @users =  @space.actors - SingularAgent.all   
     @group = Group.new
     @users_group = []
     
@@ -71,7 +71,7 @@ class GroupsController < ApplicationController
   # GET /groups/1/edit
   def edit
     @group = Group.find(params[:id])   
-    @users =  @space.actors 
+    @users =  @space.actors - SingularAgent.all
     
   end
   
