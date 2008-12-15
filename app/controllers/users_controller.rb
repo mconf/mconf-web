@@ -324,32 +324,32 @@ class UsersController < ApplicationController
     end
   end
   
-  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
-  def activate
-    self.current_agent = params[:activation_code].blank? ? Anonymous.current : self.resource_class.find_by_activation_code(params[:activation_code])
-    if authenticated? && current_agent.respond_to?("active?") && !current_agent.active?
-      current_agent.activate
-      flash[:notice] = "Your account has been confirmed. Thank you!"
-    end
-    redirect_back_or_default('/')
-  end
-  
-  
-  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
-
-  def forgot_password
-        if params[:email]
-          @agent = self.resource_class.find_by_email(params[:email])
-          unless @agent
-            flash[:error] = "Could not find anybody with that email address".t
-            return
-          end
-    
-          @agent.forgot_password
-          flash[:notice] = "A password reset link has been sent to email address".t
-          redirect_to("/")
-        end
-  end
+#  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
+#  def activate
+#    self.current_agent = params[:activation_code].blank? ? Anonymous.current : self.resource_class.find_by_activation_code(params[:activation_code])
+#    if authenticated? && current_agent.respond_to?("active?") && !current_agent.active?
+#      current_agent.activate
+#      flash[:notice] = "Your account has been confirmed. Thank you!"
+#    end
+#    redirect_back_or_default('/')
+#  end
+#  
+#  
+#  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
+#
+#  def forgot_password
+#        if params[:email]
+#          @agent = self.resource_class.find_by_email(params[:email])
+#          unless @agent
+#            flash[:error] = "Could not find anybody with that email address".t
+#            return
+#          end
+#    
+#          @agent.forgot_password
+#          flash[:notice] = "A password reset link has been sent to email address".t
+#          redirect_to("/")
+#        end
+#  end
   
   private
   

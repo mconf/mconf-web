@@ -38,13 +38,12 @@
 		<div id="hd">	
 		<div id="logo_fondo"></div>
 			<div id="logo">
-				<%if @space%>
 				<%if @space.id == 1 || !@space_thumbnail%>
 				<%=image_tag("gp-logo.jpg")%>
 				<%else%>
 				<%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
 				<%end%>
-				<%end%>
+				
 			</div>
 			
 			<div id="login-users">
@@ -81,6 +80,9 @@
 	        	<% end -%>
 				<% if flash[:warning] -%>
 	         	<div id="notice" style="color: red"><%= flash[:warning] %></div>
+	        	<% end -%>
+			    <% if flash[:info] -%>
+	         	<div id="notice" style="color: green"><%= flash[:info] %></div>
 	        	<% end -%>
 	        	<%= @content_for_layout %>   
    		</div>
