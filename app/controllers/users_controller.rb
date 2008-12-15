@@ -45,6 +45,8 @@ class UsersController < ApplicationController
       @users = User.find(:all)
     end
     
+    @users.sort
+    
     respond_to do |format|
       format.html
       format.xml { render :xml => @users }

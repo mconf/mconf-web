@@ -40,6 +40,11 @@ class User < ActiveRecord::Base
 def name
   profile ? profile.name : login
 end
+
+def <=>(user)
+  self.name <=> user.name
+end
+
 def lastname
   
 return self.profile.lastname if self.profile
