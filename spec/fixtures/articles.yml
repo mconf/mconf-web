@@ -99,6 +99,34 @@ children_private_normal_invited_article1:
 children_private_normal_invited_article2:
   text: children2_text
   title: children2_title
+  
+##### Artículos del espacio privado private_admin que pertenecen al usuario Quentin
+
+parent_private_admin_article:
+  text: parent_text
+  title: parent_title
+  
+children_private_admin_article1:
+  text: children1_text 
+  title: children1_title
+
+children_private_admin_article2:
+  text: children2_text
+  title: children2_title
+
+##### Artículos del espacio privado private_admin que pertenecen al usuario normal_user
+  
+parent_private_normal_admin_article:
+  text: parent_text
+  title: parent_title
+  
+children_private_normal_admin_article1:
+  text: children1_text 
+  title: children1_title
+
+children_private_normal_admin_article2:
+  text: children2_text
+  title: children2_title
 
 #Artículos del espacio público que pertenecen al usuario Quentin
 

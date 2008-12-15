@@ -15,7 +15,7 @@ describe ArticlesController do
   end  
   
   
-    def get_articles
+  def get_articles
     @fixture_articles = []
     for i in 1..30
       @fixture_articles << articles(:"article_#{i}")
@@ -29,6 +29,7 @@ describe ArticlesController do
     describe "when you are logged as" do
       
       describe "admin user" do
+    
         before(:each) do
           login_as(:user_admin)
         end
@@ -46,14 +47,14 @@ describe ArticlesController do
             session[:current_sub_tab].should eql("")
             
           end
+          
           it "should have a title in @title" do
             get :index , :space_id => @space.name
             assigns[:title].should include(@space.name)
-            
           end
+          
           it "should expose all space articles as @articles" do
-            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
-            
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article]) 
             get :index , :space_id => @space.name
             assigns[:articles].should == [mock_article]
           end
@@ -71,34 +72,19 @@ describe ArticlesController do
           end
           
           it "should paginate the articles using the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name, :per_page => 5
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-            
           end
           
           it "should paginate 30 :per_page without the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-            
           end
         end
-=begin          describe "with mime type of xml" do
-            
-            it "should render all articles as xml" do
-              request.env["HTTP_ACCEPT"] = "application/xml"
-              Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(articles = mock("Array of Articles"))
-              articles.should_receive(:to_xml).and_return("generated XML")
-              get :index, :space_id => @space.name
-              response.body.should == "generated XML"
-            end
-            
-          end
-=end          
+
         describe "in the public space" do
           before(:each) do
             @space = spaces(:public)
@@ -109,17 +95,15 @@ describe ArticlesController do
             get :index , :space_id => @space.name
             session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
-            
           end
           
           it "should have a title in @title" do
             get :index , :space_id => @space.name
             assigns[:title].should include(@space.name)
-            
           end
+          
           it "should expose all public articles as @articles" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return([mock_article])
-            
             get :index , :space_id => @space.name
             assigns[:articles].should == [mock_article]
           end
@@ -137,29 +121,74 @@ describe ArticlesController do
           end
           
           it "should paginate the articles using the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name, :per_page => 5
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-            
           end
           
           it "should paginate 30 :per_page without the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-            
           end
         end
       end
-      
       
       describe "normal user" do
         
         before(:each) do
           login_as(:user_normal)
+        end
+               
+        describe "in a private space where user has the role Admin" do
+          
+          before(:each) do
+            @space = spaces(:private_admin)
+            get_articles
+          end
+          
+          it "should have correct strings in session" do
+            get :index , :space_id => @space.name
+            session[:current_tab].should eql("News")
+            session[:current_sub_tab].should eql("")
+          end
+          
+          it "should have a title in @title" do
+            get :index , :space_id => @space.name
+            assigns[:title].should include(@space.name)
+          end
+          
+          it "should expose all space articles as @articles" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            get :index , :space_id => @space.name
+            assigns[:articles].should == [mock_article]
+          end
+          
+          it "should expose the expand view if params" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            get :index , :space_id => @space.name , :expanded =>"true"
+            response.should render_template('index2')
+          end
+          
+          it "should not expose the expand view if not params" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
+            get :index , :space_id => @space.name 
+            response.should render_template('index')
+          end
+          
+          it "should paginate the articles using the param :per_page" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
+            get :index , :space_id => @space.name, :per_page => 5
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
+            assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
+          end
+          
+          it "should paginate 30 :per_page without the param :per_page" do
+            Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
+            get :index , :space_id => @space.name
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+          end
         end
         
         describe "in a private space where user has the role User" do
@@ -178,11 +207,10 @@ describe ArticlesController do
           it "should have a title in @title" do
             get :index , :space_id => @space.name
             assigns[:title].should include(@space.name)
-            
           end
+          
           it "should expose all space articles as @articles" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
-            
             get :index , :space_id => @space.name
             assigns[:articles].should == [mock_article]
           end
@@ -200,20 +228,16 @@ describe ArticlesController do
           end
           
           it "should paginate the articles using the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name, :per_page => 5
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-            
           end
           
           it "should paginate 30 :per_page without the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-            
           end
         end
         
@@ -233,11 +257,10 @@ describe ArticlesController do
           it "should have a title in @title" do
             get :index , :space_id => @space.name
             assigns[:title].should include(@space.name)
-            
           end
+          
           it "should expose all space articles as @articles" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return([mock_article])
-            
             get :index , :space_id => @space.name
             assigns[:articles].should == [mock_article]
           end
@@ -255,20 +278,16 @@ describe ArticlesController do
           end
           
           it "should paginate the articles using the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name, :per_page => 5
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-            
           end
           
           it "should paginate 30 :per_page without the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-            
           end
         end
         
@@ -296,7 +315,6 @@ describe ArticlesController do
             session[:current_tab].should eql(nil)
             session[:current_sub_tab].should eql(nil)
           end
-          
         end
         
         describe "in the public space" do
@@ -311,13 +329,14 @@ describe ArticlesController do
             session[:current_tab].should eql("News")
             session[:current_sub_tab].should eql("")
           end
+          
           it "should have a title in @title" do
             get :index , :space_id => @space.name
             assigns[:title].should include(@space.name)
           end
+          
           it "should expose all public articles as @articles" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return([mock_article])
-            
             get :index , :space_id => @space.name
             assigns[:articles].should == [mock_article]
           end
@@ -335,20 +354,16 @@ describe ArticlesController do
           end
           
           it "should paginate the articles using the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name, :per_page => 5
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-            
           end
           
           it "should paginate 30 :per_page without the param :per_page" do
-            
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
             assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-            
           end
         end
       end
@@ -380,7 +395,6 @@ describe ArticlesController do
           session[:current_tab].should eql(nil)
           session[:current_sub_tab].should eql(nil)
         end
-        
       end
       
       describe "in the public space" do
@@ -399,11 +413,10 @@ describe ArticlesController do
         it "should have a title in @title" do
           get :index , :space_id => @space.name
           assigns[:title].should include(@space.name)
-          
         end
+        
         it "should expose all public articles as @articles" do
           Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return([mock_article])
-          
           get :index , :space_id => @space.name
           assigns[:articles].should == [mock_article]
         end
@@ -421,23 +434,18 @@ describe ArticlesController do
         end
         
         it "should paginate the articles using the param :per_page" do
-          
           Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
           get :index , :space_id => @space.name, :per_page => 5
           assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 5).total_pages
           assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
-          
         end
         
         it "should paginate 30 :per_page without the param :per_page" do
-          
           Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
           get :index , :space_id => @space.name
           assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
-          
         end
       end  
-      
     end
   end 
   
@@ -452,510 +460,421 @@ describe ArticlesController do
     # tiene asociado un attachment. Estos 3 últimos entries tendrán un parent_id apuntando al entry padre para indicar que están relacionados  
     #           
     describe "when you are logged as" do
+    
       describe "superadmin" do
+      
         before(:each)do
-        login_as(:user_admin)
-      end
+          login_as(:user_admin)
+        end
       
-      describe "in a private space" do
+        describe "in a private space" do
         
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @parent_article = articles(:parent_private_no_roles_article)
+            @children1_article = articles(:children_private_no_roles_article1)          
+          end
+        
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+        
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+        
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_private_no_roles_attachment_children3)]
+          end
+        
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_private_no_roles_children1),entries(:entry_private_no_roles_children2))
+          end
+        
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+        
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end     
+    
+        describe "in the public space" do
+          
+          before(:each) do
+            @space = spaces(:public)
+            @parent_article = articles(:public_article)
+            @children1_article = articles(:public_children_article1)
+          end
+        
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+        
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+        
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
+          end
+        
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
+          end
+        
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+        
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end
+      end  
+    
+      describe "normal user"do
+        before(:each)do
+          login_as(:user_normal)
+        end
+  
+        describe "in a private space where the user has the role Admin" do
+          before(:each) do
+            @space = spaces(:private_admin)
+            @parent_article = articles(:parent_private_admin_article)
+            @children1_article = articles(:children_private_admin_article1)
+          end
+    
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+    
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+    
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_private_admin_attachment_children3)]
+          end
+    
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_private_admin_children1),entries(:entry_private_admin_children2))
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+    
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end
+  
+        describe "in a private space where the user has the role User" do
+          before(:each) do
+            @space = spaces(:private_user)
+            @parent_article = articles(:parent_private_user_article)
+            @children1_article = articles(:children_private_user_article1)
+          end
+    
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+    
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+    
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_private_user_attachment_children3)]
+          end
+    
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_private_user_children1),entries(:entry_private_user_children2))
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+    
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end
+  
+        describe "in a private space where the user has the role Invited" do
+          before(:each) do
+            @space = spaces(:private_invited)
+            @parent_article = articles(:parent_private_invited_article)
+            @children1_article = articles(:children_private_invited_article1)
+          end
+    
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+    
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+        
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_private_invited_attachment_children3)]
+          end
+    
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_private_invited_children1),entries(:entry_private_invited_children2))
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+    
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end 
+  
+        describe "in a private space where user have not roles on it" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @parent_article = articles(:parent_private_no_roles_article)
+            @children1_article = articles(:children_private_no_roles_article1)
+          end         
+    
+          #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
+          it "should not let the user to see the article with an inexistent article" do 
+            assert_raise ActiveRecord::RecordNotFound do
+              get :show, :id => "254" , :space_id => @space.name
+            end
+          end
+    
+          it "should not let the user to see an article belonging to this space" do   
+            get :show, :id => articles(:parent_private_no_roles_article).id , :space_id => @space.name
+            assert_response 403
+          end
+        end
+  
+        describe "in the public space" do
+    
+          before(:each) do
+            @space = spaces(:public)
+            @parent_article = articles(:public_article)
+            @children1_article = articles(:public_children_article1)
+          end
+    
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:article].should == (@parent_article)
+          end
+    
+          it " should have the article title in @title" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:title].should == @parent_article.title
+          end
+    
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
+          end
+    
+          it "should return the article children in @comment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].size == 2
+            assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+    
+          it "should return [] if no articles children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :show, :id => "37" , :space_id => @space.name
+            assigns[:comment_children].should == []
+          end
+        end
+      end
+    end 
+    
+    describe "if you are not logged in " do
+
+      describe "a private space" do
         before(:each) do
-          @space = spaces(:private_no_roles)
-          @parent_article = articles(:parent_private_no_roles_article)
-          @children1_article = articles(:children_private_no_roles_article1)          
+          @space = spaces(:private_no_roles)      
         end
-        
-        it "should expose the requested article as @article" do
-          Article.stub!(:find).and_return(@parent_article)
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:article].should == (@parent_article)
-          
+  
+        #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
+        it "should not let the user to see the article with an inexistent article" do 
+          assert_raise ActiveRecord::RecordNotFound do
+            get :show, :id => "254" , :space_id => @space.name
+          end
         end
-        
-        it " should have the article title in @title" do
-          Article.stub!(:find).and_return(@parent_article)
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:title].should == @parent_article.title
-        end
-        
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_private_no_roles_attachment_children3)]
-        end
-        
-        it "should return the article children in @comment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:comment_children].size == 2
-          assigns[:comment_children].should include(entries(:entry_private_no_roles_children1),entries(:entry_private_no_roles_children2))
-          
-        end
-        
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-        end
-        
-        it "should return [] if no articles children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:comment_children].should == []
+  
+        it "should not let the user to see an article belonging to this space" do   
+          get :show, :id => articles(:parent_private_no_roles_article).id , :space_id => @space.name
+          assert_response 403
         end
       end
-      
-      #         describe "with mime type of xml" do
-      
-      #           it "should render the requested article as xml" do
-      #             request.env["HTTP_ACCEPT"] = "application/xml"
-      #             Article.should_receive(:find).with("37").and_return(mock_article)
-      #             mock_article.should_receive(:to_xml).and_return("generated XML")
-      #             get :show, :id => "37"
-      #             response.body.should == "generated XML"
-      #           end
-      
-      #         end
-      describe "in the public space" do
+
+      describe "in the public space" do  
+        
         before(:each) do
           @space = spaces(:public)
-          @parent_article = articles(:public_article)
-          @children1_article = articles(:public_children_article1)
-          
+          @public_article = articles(:public_article)
+          @public_children_article1 = articles(:public_children_article1)
+          get_articles
         end
-        
+  
         it "should expose the requested article as @article" do
-          Article.stub!(:find).and_return(@parent_article)
-          
+          Article.stub!(:find).and_return(@public_article)
           get :show, :id => "37" , :space_id => @space.name
-          assigns[:article].should == (@parent_article)
-          
+          assigns[:article].should == (@public_article)
         end
-        
+  
         it " should have the article title in @title" do
-          Article.stub!(:find).and_return(@parent_article)
-          
-          get :show, :id => "37" , :space_id => @space.name
-          assigns[:title].should == @parent_article.title
+          Article.stub!(:find).and_return(@public_article)
+          get :show, :id =>"37" , :space_id => @space.name
+          assigns[:title].should == @public_article.title
         end
-        
+  
         it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          
+          Article.stub!(:find).and_return(@public_article) # give the parent article, which have 3 childrens
           get :show, :id => "37" , :space_id => @space.name
           assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
         end
-        
+  
         it "should return the article children in @comment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
-          
+          Article.stub!(:find).and_return(@public_article) # give the parent article, which have 4 childrens
           get :show, :id => "37" , :space_id => @space.name
           assigns[:comment_children].size == 2
           assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
-          
         end
-        
+  
         it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          
+          Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
           get :show, :id => "37" , :space_id => @space.name
           assigns[:attachment_children].should == []
         end
-        
+  
         it "should return [] if no articles children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          
+          Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
           get :show, :id => "37" , :space_id => @space.name
           assigns[:comment_children].should == []
         end
       end
-    end  
-    
-    describe "normal user"do
-    before(:each)do
-    login_as(:user_normal)
-  end
-  describe "in a private space where the user has the role User" do
-    before(:each) do
-      @space = spaces(:private_user)
-      @parent_article = articles(:parent_private_user_article)
-      @children1_article = articles(:children_private_user_article1)
-      
-    end
-    
-    it "should expose the requested article as @article" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:article].should == (@parent_article)
-      
-    end
-    
-    it " should have the article title in @title" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:title].should == @parent_article.title
-    end
-    
-    it "should return the entries with attachment in @attachment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == [entries(:entry_private_user_attachment_children3)]
-    end
-    
-    it "should return the article children in @comment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].size == 2
-      assigns[:comment_children].should include(entries(:entry_private_user_children1),entries(:entry_private_user_children2))
-      
-    end
-    
-    it "should return [] if no attachments children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == []
-    end
-    
-    it "should return [] if no articles children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].should == []
     end
   end
-  
-  describe "in a private space where the user has the role Invited" do
-    before(:each) do
-      @space = spaces(:private_invited)
-      @parent_article = articles(:parent_private_invited_article)
-      @children1_article = articles(:children_private_invited_article1)
-      
-    end
-    
-    it "should expose the requested article as @article" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:article].should == (@parent_article)
-      
-    end
-    
-    it " should have the article title in @title" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:title].should == @parent_article.title
-    end
-    
-    it "should return the entries with attachment in @attachment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == [entries(:entry_private_invited_attachment_children3)]
-    end
-    
-    it "should return the article children in @comment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].size == 2
-      assigns[:comment_children].should include(entries(:entry_private_invited_children1),entries(:entry_private_invited_children2))
-      
-    end
-    
-    it "should return [] if no attachments children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == []
-    end
-    
-    it "should return [] if no articles children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].should == []
-    end
-  end
-  
-  describe "in a private space where user have not roles on it" do
-    before(:each) do
-      @space = spaces(:private_no_roles)
-      @parent_article = articles(:parent_private_no_roles_article)
-      @children1_article = articles(:children_private_no_roles_article1)
-    end         
-    
-    #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
-    it "should not let the user to see the article with an inexistent article" do 
-      assert_raise ActiveRecord::RecordNotFound do
-         get :show, :id => "254" , :space_id => @space.name
-       end
-    end
-
-    it "should not let the user to see an article belonging to this space" do   
-        get :show, :id => articles(:parent_private_no_roles_article).id , :space_id => @space.name
-        assert_response 403
-    end
-  end
-  
-  describe "in the public space" do
-    
-    before(:each) do
-      @space = spaces(:public)
-      @parent_article = articles(:public_article)
-      @children1_article = articles(:public_children_article1)
-      
-    end
-    
-    it "should expose the requested article as @article" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:article].should == (@parent_article)
-      
-    end
-    
-    it " should have the article title in @title" do
-      Article.stub!(:find).and_return(@parent_article)
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:title].should == @parent_article.title
-    end
-    
-    it "should return the entries with attachment in @attachment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
-    end
-    
-    it "should return the article children in @comment_children" do
-      Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 4 childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].size == 2
-      assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
-      
-    end
-    
-    it "should return [] if no attachments children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:attachment_children].should == []
-    end
-    
-    it "should return [] if no articles children" do
-      Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-      
-      get :show, :id => "37" , :space_id => @space.name
-      assigns[:comment_children].should == []
-    end
-  end
-end
-end 
-describe "if you are not logged in " do
-
-describe "a private space" do
-  before(:each) do
-    @space = spaces(:private_no_roles)      
-  end
-   #en estos  casos debería saltar el filtro directamente en vez de andar haciendo búsquedas que dicen que no hay usuario
-    it "should not let the user to see the article with an inexistent article" do 
-      assert_raise ActiveRecord::RecordNotFound do
-         get :show, :id => "254" , :space_id => @space.name
-       end
-    end
-
-    it "should not let the user to see an article belonging to this space" do   
-        get :show, :id => articles(:parent_private_no_roles_article).id , :space_id => @space.name
-        assert_response 403
-    end
-  end
-describe "in the public space" do  
-  before(:each) do
-    @space = spaces(:public)
-    @public_article = articles(:public_article)
-    @public_children_article1 = articles(:public_children_article1)
-    get_articles
-
-    
-  end
-  
-  it "should expose the requested article as @article" do
-    Article.stub!(:find).and_return(@public_article)
-    get :show, :id => "37" , :space_id => @space.name
-    assigns[:article].should == (@public_article)
-  end
-  
-  it " should have the article title in @title" do
-    Article.stub!(:find).and_return(@public_article)
-    get :show, :id =>"37" , :space_id => @space.name
-      assigns[:title].should == @public_article.title
-  end
-  
-  it "should return the entries with attachment in @attachment_children" do
-    Article.stub!(:find).and_return(@public_article) # give the parent article, which have 3 childrens
-    
-    get :show, :id => "37" , :space_id => @space.name
-    assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
-end
-
-it "should return the article children in @comment_children" do
-  Article.stub!(:find).and_return(@public_article) # give the parent article, which have 4 childrens
-  
-  get :show, :id => "37" , :space_id => @space.name
-    assigns[:comment_children].size == 2
-    assigns[:comment_children].should include(entries(:entry_public_children1),entries(:entry_public_children2))
-end
-
-it "should return [] if no attachments children" do
-  Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
-  
-  get :show, :id => "37" , :space_id => @space.name
-    assigns[:attachment_children].should == []
-end
-
-it "should return [] if no articles children" do
-  Article.stub!(:find).and_return(@public_children_article1) #give a children_article , which have not any childrens
-  
-  get :show, :id => "37" , :space_id => @space.name
-  assigns[:comment_children].should == []
-end
-end
-end
-end
-
-
 
 ##########################################
-describe "responding to GET new" do
+
+  describe "responding to GET new" do
   
-  describe "when you are logged as " do
+    describe "when you are logged as " do
     
-    describe "super admin" do
+      describe "super admin" do
       
-      before(:each) do
-        login_as(:user_admin)
-      end
-      describe "in a private space" do
         before(:each) do
-          @space = spaces(:private_no_roles)
-          @new_article =  Article.new
-          @new_entry = Entry.new
+          login_as(:user_admin)
         end
-        
-        it "should have correct strings in session" do
-          get :new , :space_id => @space.name
-          session[:current_sub_tab].should eql("New article")
-        end
-        
-        it "should expose a new article as @article" do
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          assigns[:article].should equal(@new_article)
-        end
-        
-        it "should have a title in @title" do
+      
+        describe "in a private space" do
           
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          assigns[:title].should_not eql(nil)
-          assigns[:title].should include("New Article")
-        end
-        
-        it "should have an associated entry " do
-          Article.should_receive(:new).and_return(@new_article)
-          @new_article.stub!(:entry).and_return(@new_entry)
-          get :new , :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@new_entry)
-        end
-      end
-      
-      
-      describe "in a pubic space" do
-        before(:each) do
-          @space = spaces(:public)
-          @new_article =  Article.new
-          @new_entry = Entry.new
-        end
-        
-        it "should have correct strings in session" do
-          get :new , :space_id => @space.name
-          session[:current_sub_tab].should eql("New article")
-        end
-        
-        it "should expose a new article as @article" do
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          assigns[:article].should equal(@new_article)
-        end
-        
-        it "should have a title in @title" do
-          
-          Article.should_receive(:new).and_return(@new_article)
-          get :new , :space_id => @space.name
-          assigns[:title].should_not == nil
-          assigns[:title].should include("New Article")
-        end
-        
-        it "should have an associated entry " do
-          Article.should_receive(:new).and_return(@new_article)
-          @new_article.stub!(:entry).and_return(@new_entry)
-          get :new , :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@new_entry)
-        end
-        
-      end
-      
-    end
-    
-    describe "normal User" do
-      
-      before(:each) do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        
-        describe "where the user has the role User" do
           before(:each) do
-            @space = spaces(:private_user)
+            @space = spaces(:private_no_roles)
             @new_article =  Article.new
             @new_entry = Entry.new
           end
-          
+        
           it "should have correct strings in session" do
             get :new , :space_id => @space.name
             session[:current_sub_tab].should eql("New article")
           end
-          
+        
           it "should expose a new article as @article" do
             Article.should_receive(:new).and_return(@new_article)
             get :new , :space_id => @space.name
             assigns[:article].should equal(@new_article)
           end
-          
+        
           it "should have a title in @title" do
-            
             Article.should_receive(:new).and_return(@new_article)
             get :new , :space_id => @space.name
             assigns[:title].should_not eql(nil)
             assigns[:title].should include("New Article")
           end
-          
+        
           it "should have an associated entry " do
             Article.should_receive(:new).and_return(@new_article)
             @new_article.stub!(:entry).and_return(@new_entry)
@@ -964,1397 +883,1582 @@ describe "responding to GET new" do
             assigns[:article].entry.should eql(@new_entry)
           end
         end
-        
-        describe "where the user has the role Invited" do
+      
+      
+        describe "in a pubic space" do
           before(:each) do
-            @space = spaces(:private_invited)
+            @space = spaces(:public)
             @new_article =  Article.new
+            @new_entry = Entry.new
           end
-          
-          it "should not let the user do the action" do
-            get :new , :space_id => @space.name
-            assert_response 403
-          end
-          it "should not have @article, @entry, @title, session[:current_sub_tab]" do
-            get :new , :space_id => @space.name
-            assigns[:title].should eql(nil)
-            session[:current_sub_tab].should eql(nil)
-            assigns[:article].should eql(nil)
-            session[:entry].should eql(nil)
-          end
-          
-        end
         
-        describe "where the user has no roles" do
-          before(:each) do
-            @space = spaces(:private_no_roles)
-            @new_article =  Article.new
-          end
-          
-          it "should not let the user do the action" do
+          it "should have correct strings in session" do
             get :new , :space_id => @space.name
-            assert_response 403
+            session[:current_sub_tab].should eql("New article")
           end
-          it "should not have @article, @entry, @title, session[:current_sub_tab]" do
-            get :new , :space_id => @space.name
-            assigns[:title].should eql(nil)
-            session[:current_sub_tab].should eql(nil)
-            assigns[:article].should eql(nil)
-            session[:entry].should eql(nil)
-          end
-          
-        end
         
+          it "should expose a new article as @article" do
+            Article.should_receive(:new).and_return(@new_article)
+            get :new , :space_id => @space.name
+            assigns[:article].should equal(@new_article)
+          end
+        
+          it "should have a title in @title" do
+            Article.should_receive(:new).and_return(@new_article)
+            get :new , :space_id => @space.name
+            assigns[:title].should_not == nil
+            assigns[:title].should include("New Article")
+          end
+        
+          it "should have an associated entry " do
+            Article.should_receive(:new).and_return(@new_article)
+            @new_article.stub!(:entry).and_return(@new_entry)
+            get :new , :space_id => @space.name
+            assigns[:article].entry.should_not eql(nil)
+            assigns[:article].entry.should eql(@new_entry)
+          end
+        end
       end
-      describe "in the public space" do
+    
+      describe "normal User" do
+      
+        before(:each) do
+          login_as(:user_normal)
+        end
+        
+        describe "in a private space" do
+        
+          describe "where the user has the role Admin" do
+          
+            before(:each) do
+              @space = spaces(:private_admin)
+              @new_article =  Article.new
+              @new_entry = Entry.new
+            end
+          
+            it "should have correct strings in session" do
+              get :new , :space_id => @space.name
+              session[:current_sub_tab].should eql("New article")
+            end
+          
+            it "should expose a new article as @article" do
+              Article.should_receive(:new).and_return(@new_article)
+              get :new , :space_id => @space.name
+              assigns[:article].should equal(@new_article)
+            end
+          
+            it "should have a title in @title" do
+              Article.should_receive(:new).and_return(@new_article)
+              get :new , :space_id => @space.name
+              assigns[:title].should_not eql(nil)
+              assigns[:title].should include("New Article")
+            end
+          
+            it "should have an associated entry " do
+              Article.should_receive(:new).and_return(@new_article)
+              @new_article.stub!(:entry).and_return(@new_entry)
+              get :new , :space_id => @space.name
+              assigns[:article].entry.should_not eql(nil)
+              assigns[:article].entry.should eql(@new_entry)
+            end
+          end
+        
+          describe "where the user has the role User" do
+            
+            before(:each) do
+              @space = spaces(:private_user)
+              @new_article =  Article.new
+              @new_entry = Entry.new
+            end
+          
+            it "should have correct strings in session" do
+              get :new , :space_id => @space.name
+              session[:current_sub_tab].should eql("New article")
+            end
+          
+            it "should expose a new article as @article" do
+              Article.should_receive(:new).and_return(@new_article)
+              get :new , :space_id => @space.name
+              assigns[:article].should equal(@new_article)
+            end
+          
+            it "should have a title in @title" do
+              Article.should_receive(:new).and_return(@new_article)
+              get :new , :space_id => @space.name
+              assigns[:title].should_not eql(nil)
+              assigns[:title].should include("New Article")
+            end
+          
+            it "should have an associated entry " do
+              Article.should_receive(:new).and_return(@new_article)
+              @new_article.stub!(:entry).and_return(@new_entry)
+              get :new , :space_id => @space.name
+              assigns[:article].entry.should_not eql(nil)
+              assigns[:article].entry.should eql(@new_entry)
+            end
+          end
+        
+          describe "where the user has the role Invited" do
+            
+            before(:each) do
+              @space = spaces(:private_invited)
+              @new_article =  Article.new
+            end
+          
+            it "should not let the user do the action" do
+              get :new , :space_id => @space.name
+              assert_response 403
+            end
+          
+            it "should not have @article, @entry, @title, session[:current_sub_tab]" do
+              get :new , :space_id => @space.name
+              assigns[:title].should eql(nil)
+              session[:current_sub_tab].should eql(nil)
+              assigns[:article].should eql(nil)
+              session[:entry].should eql(nil)
+            end
+          end
+        
+          describe "where the user has no roles" do
+            
+            before(:each) do
+              @space = spaces(:private_no_roles)
+              @new_article =  Article.new
+            end
+          
+            it "should not let the user do the action" do
+              get :new , :space_id => @space.name
+              assert_response 403
+            end
+            
+            it "should not have @article, @entry, @title, session[:current_sub_tab]" do
+              get :new , :space_id => @space.name
+              assigns[:title].should eql(nil)
+              session[:current_sub_tab].should eql(nil)
+              assigns[:article].should eql(nil)
+              session[:entry].should eql(nil)
+            end
+          end
+        end
+      
+        describe "in the public space" do
+          
+          before(:each) do
+            @space = spaces(:public)
+            @new_article =  Article.new
+            @new_entry = Entry.new
+          end
+
+          it "should not let the user do the action" do
+            get :new , :space_id => @space.name
+            assert_response 403
+          end
+        end
+      end
+    end
+    
+    describe "if you are not logged in" do
+    
+      describe "a private space" do
+        
+        before(:each) do
+          @space = spaces(:private_no_roles)
+        end
+        
+        it "should not let the user do the action" do
+          get :new , :space_id => @space.name
+          assert_response 403
+        end
+        
+        it "should not have @article, @entry, @title, session[:current_sub_tab]" do
+          get :new , :space_id => @space.name
+          assigns[:title].should eql(nil)
+          session[:current_sub_tab].should eql(nil)
+          assigns[:article].should eql(nil)
+          session[:entry].should eql(nil)
+        end
+      end
+    
+      describe "the public space" do
+        
         before(:each) do
           @space = spaces(:public)
-          @new_article =  Article.new
-          @new_entry = Entry.new
         end
-
+      
         it "should not let the user do the action" do
-        get :new , :space_id => @space.name
-        assert_response 403
-      end
+          get :new , :space_id => @space.name
+          assert_response 403
+        end
         
-        #it "should have correct strings in session []" do
-         # get :new , :space_id => @space.name
-          #pending("no debería hacer un render 403") do
-          #  session[:current_sub_tab].should eql("New article")
-          #end
-        #end
-        
-        #it "should expose a new article as @article" do
-        #  Article.should_receive(:new).and_return(@new_article)
-        #  get :new , :space_id => @space.name
-        #  pending("no debería hacer un render 403") do
-        #    assigns[:article].should equal(@new_article)
-        #  end
-        #end
-        
-        #it "should have a title in @title" do
-          
-        #  Article.should_receive(:new).and_return(@new_article)
-        #  get :new , :space_id => @space.name
-        #  pending("no debería hacer un render 403") do
-        #    assigns[:title].should_not eql(nil)
-        #    assigns[:title].should include("New Article")
-        #  end
-        #end
-        
-        #it "should have an associated entry " do
-        #  pending("no debería hacer un render 403") do
-        #    Article.should_receive(:new).and_return(@new_article)
-        #    @new_article.stub!(:entry).and_return(@new_entry)
-        #    get :new , :space_id => @space.name
-        #    assigns[:article].entry.should_not eql(nil) #falla en el @article.entry que no debería ser nil el @article
-        #    assigns[:article].entry.should eql(@new_entry)
-        #  end
-        #end
-        
+        it "should not have @article, @entry, @title, session[:current_sub_tab]" do
+          get :new , :space_id => @space.name
+          assigns[:title].should eql(nil)
+          session[:current_sub_tab].should eql(nil)
+          assigns[:article].should eql(nil)
+          session[:entry].should eql(nil)
+        end
       end
     end
   end
-  describe "if you are not logged in" do
-    
-    describe "a private space" do
-      before(:each) do
-        @space = spaces(:private_no_roles)
-      end
-      it "should not let the user do the action" do
-        get :new , :space_id => @space.name
-        assert_response 403
-      end
-      it "should not have @article, @entry, @title, session[:current_sub_tab]" do
-        get :new , :space_id => @space.name
-        assigns[:title].should eql(nil)
-        session[:current_sub_tab].should eql(nil)
-        assigns[:article].should eql(nil)
-        session[:entry].should eql(nil)
-      end
-    end
-    describe "the public space" do
-      before(:each) do
-        @space = spaces(:public)
-      end
-      it "should not let the user do the action" do
-        get :new , :space_id => @space.name
-        assert_response 403
-      end
-      it "should not have @article, @entry, @title, session[:current_sub_tab]" do
-        get :new , :space_id => @space.name
-        assigns[:title].should eql(nil)
-        session[:current_sub_tab].should eql(nil)
-        assigns[:article].should eql(nil)
-        session[:entry].should eql(nil)
-      end
-    end
-  end
-end
 
 #####################################
-describe "responding to GET edit" do
-  
-  describe "when you are login as" do
-    
-    describe "superadmin" do
-      ### the superadmin can edit all articles of the aplication
-      before(:each)do
-      login_as(:user_admin)
-    end
-    
-      describe "in a private space" do
-        before(:each)do
-        @space = spaces(:private_no_roles)
-        @parent_article = articles(:parent_private_no_roles_article)
-        @children1_article = articles(:children_private_no_roles_article1)
-        end
-    
-        it "should expose the requested article as @article" do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:article].should equal(@parent_article)
-        end
-    
-        it "should have an associated entry " do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit ,:id=> "37", :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@parent_article.entry)
-        end
-    
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_private_no_roles_attachment_children3)]
-        end
-    
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-        end
-     end
-     
-     describe "in the public space" do
-       before(:each)do
-         @space = spaces(:public)
-         @parent_article = articles(:public_article)
-         @children1_article = articles(:public_children_article1)
-       end
-       
-       it "should expose the requested article as @article" do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:article].should equal(@parent_article)
-        end
-    
-        it "should have an associated entry " do
-          Article.stub!(:find).and_return(@parent_article)
-          get :edit ,:id=> "37", :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@parent_article.entry)
-        end
-    
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
-        end
-    
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-        end
-     end
-  end
-  
-  describe "normal user" do
-    
-    before(:each)do
-      login_as(:user_normal)
-    end
-  
-    describe "in a private space" do
-      describe "where the user has the role User" do
-        
-        before(:each)do
-          @space = spaces(:private_user)
-        end
-        
-        describe "and the article not belongs to him" do
-        before(:each)do
-          @parent_article = articles(:parent_private_user_article)
-          @children1_article = articles(:children_private_user_article1)
-        end
-         
-         it "should expose the requested article as @article" do
-          get :edit, :id => @parent_article.id , :space_id => @space.name
-          assigns[:article].should eql(@parent_article)
-        end
-    
-        it "should have an associated entry " do
-          get :edit ,:id=> @parent_article.id , :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@parent_article.entry)
-        end
-    
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_private_user_attachment_children3)]
-        end
-    
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-      end
-    end
-        
-        
-        describe "and the article belongs to him" do
-        before(:each)do
-          @parent_article = articles(:parent_private_normal_user_article)
-          @children1_article = articles(:children_private_normal_user_article1)
-        end
-         
-         it "should expose the requested article as @article" do
-          get :edit, :id => @parent_article.id , :space_id => @space.name
-          assigns[:article].should eql(@parent_article)
-        end
-    
-        it "should have an associated entry " do
-          get :edit ,:id=> @parent_article.id , :space_id => @space.name
-          assigns[:article].entry.should_not eql(nil)
-          assigns[:article].entry.should eql(@parent_article.entry)
-        end
-    
-        it "should return the entries with attachment in @attachment_children" do
-          Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == [entries(:entry_private_normal_user_attachment_children3)]
-        end
-    
-        it "should return [] if no attachments children" do
-          Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-          get :edit, :id => "37" , :space_id => @space.name
-          assigns[:attachment_children].should == []
-      end
-    end
-    
-     
-    
-    end
-    
-    describe"where the user has the role Invited" do
-       before(:each)do
-        @space = spaces(:private_invited)
-      end
-      describe "and the article not belongs to him" do
-      before(:each)do
-        @private_article = articles(:parent_private_invited_article)
-      end
-      
-         it "should not let user to edit an article" do
-            get :edit , :id =>@private_article, :space_id => @space.name 
-            assert_response 403
-          end
-      end
-      describe "and the article belongs to him" do
-      before(:each)do
-        @private_article = articles(:parent_private_normal_invited_article)
-      end
-      
-         it "should let user to edit an article" do
-           pending("pendiente") do
-            get :edit , :id =>@private_article, :space_id => @space.name 
-            assert_response 200
-            end
-          end
-      end
-     end
-    describe"where the user has no roles on it" do
-      
-      before(:each)do
-        @space = spaces(:private_no_roles)
-      end
-         describe "and the article not belongs to him" do
-           
-           before(:each)do
-            @private_article = articles(:parent_private_no_roles_article)
-           end 
-            
-            it "should not let user to edit an article" do
-                get :edit , :id =>@private_article.id, :space_id => @space.name 
-                assert_response 403
-            end
-        end
-        
-        describe "and the article belongs to him" do
-           
-           before(:each)do
-            @private_article = articles(:parent_private_normal_no_roles_article)
-           end 
-            
-            it "should let user to edit an article" do
-           pending("pendiente") do
-            get :edit , :id =>@private_article.id, :space_id => @space.name 
-            assert_response 200
-            end
-          end
-        end
-        
-      end
-   end
-   
-   
-   describe "in the public space" do
-     
-     before(:each)do
-       @space = spaces(:public)
 
-     end
+  describe "responding to GET edit" do
+  
+    describe "when you are login as" do
+    
+      describe "superadmin" do
+        ### the superadmin can edit all articles of the aplication
+        
+        before(:each)do
+          login_as(:user_admin)
+        end
+    
+        describe "in a private space" do
+          
+          before(:each)do
+            @space = spaces(:private_no_roles)
+            @parent_article = articles(:parent_private_no_roles_article)
+            @children1_article = articles(:children_private_no_roles_article1)
+          end
+    
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:article].should equal(@parent_article)
+          end
+    
+          it "should have an associated entry " do
+            Article.stub!(:find).and_return(@parent_article)
+            get :edit ,:id=> "37", :space_id => @space.name
+            assigns[:article].entry.should_not eql(nil)
+            assigns[:article].entry.should eql(@parent_article.entry)
+          end
+    
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_private_no_roles_attachment_children3)]
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+        end
+     
+        describe "in the public space" do
+       
+          before(:each)do
+            @space = spaces(:public)
+            @parent_article = articles(:public_article)
+            @children1_article = articles(:public_children_article1)
+          end
+       
+          it "should expose the requested article as @article" do
+            Article.stub!(:find).and_return(@parent_article)
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:article].should equal(@parent_article)
+          end
+    
+          it "should have an associated entry " do
+            Article.stub!(:find).and_return(@parent_article)
+            get :edit ,:id=> "37", :space_id => @space.name
+            assigns[:article].entry.should_not eql(nil)
+            assigns[:article].entry.should eql(@parent_article.entry)
+          end
+    
+          it "should return the entries with attachment in @attachment_children" do
+            Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == [entries(:entry_public_attachment_children3)]
+          end
+    
+          it "should return [] if no attachments children" do
+            Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+            get :edit, :id => "37" , :space_id => @space.name
+            assigns[:attachment_children].should == []
+          end
+        end
+      end
+  
+      describe "normal user" do
+    
+        before(:each)do
+          login_as(:user_normal)
+        end
+  
+        describe "in a private space" do
+      
+          describe "where the user has the role Admin" do
+        
+            before(:each)do
+              @space = spaces(:private_user)
+            end
+        
+            describe "and the article not belongs to him" do
+            
+              before(:each)do
+                @parent_article = articles(:parent_private_admin_article)
+                @children1_article = articles(:children_private_admin_article1)
+              end
+         
+              it "should expose the requested article as @article" do
+                get :edit, :id => @parent_article.id , :space_id => @space.name
+                assigns[:article].should eql(@parent_article)
+              end
+    
+              it "should have an associated entry " do
+                get :edit ,:id=> @parent_article.id , :space_id => @space.name
+                assigns[:article].entry.should_not eql(nil)
+                assigns[:article].entry.should eql(@parent_article.entry)
+              end
+    
+              it "should return the entries with attachment in @attachment_children" do
+                Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == [entries(:entry_private_admin_attachment_children3)]
+              end
+    
+              it "should return [] if no attachments children" do
+                Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == []
+              end
+            end
+        
+            describe "and the article belongs to him" do
+            
+              before(:each)do
+                @parent_article = articles(:parent_private_normal_admin_article)
+                @children1_article = articles(:children_private_normal_admin_article1)
+              end
+         
+              it "should expose the requested article as @article" do
+                get :edit, :id => @parent_article.id , :space_id => @space.name
+                assigns[:article].should eql(@parent_article)
+              end
+    
+              it "should have an associated entry " do
+                get :edit ,:id=> @parent_article.id , :space_id => @space.name
+                assigns[:article].entry.should_not eql(nil)
+                assigns[:article].entry.should eql(@parent_article.entry)
+              end
+    
+              it "should return the entries with attachment in @attachment_children" do
+                Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == [entries(:entry_private_normal_admin_attachment_children3)]
+              end
+    
+              it "should return [] if no attachments children" do
+                Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == []
+              end
+            end
+                 
+            describe "where the user has the role User" do
+        
+              before(:each)do
+                @space = spaces(:private_user)
+              end
+        
+              describe "and the article not belongs to him" do
+        
+                before(:each)do
+                  @parent_article = articles(:parent_private_user_article)
+                  @children1_article = articles(:children_private_user_article1)
+                end
+         
+                it "should not let user to edit an article" do
+                  get :edit , :id =>@parent_article, :space_id => @space.name 
+                  assert_response 403
+                end
+              end
+        
+              describe "and the article belongs to him" do
+              
+                before(:each)do
+                  @parent_article = articles(:parent_private_normal_user_article)
+                  @children1_article = articles(:children_private_normal_user_article1)
+                end
+         
+                it "should expose the requested article as @article" do
+                  get :edit, :id => @parent_article.id , :space_id => @space.name
+                  assigns[:article].should eql(@parent_article)
+                end
+    
+                it "should have an associated entry " do
+                  get :edit ,:id=> @parent_article.id , :space_id => @space.name
+                  assigns[:article].entry.should_not eql(nil)
+                  assigns[:article].entry.should eql(@parent_article.entry)
+                end
+    
+                it "should return the entries with attachment in @attachment_children" do
+                  Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+                  get :edit, :id => "37" , :space_id => @space.name
+                  assigns[:attachment_children].should == [entries(:entry_private_normal_user_attachment_children3)]
+                end
+    
+                it "should return [] if no attachments children" do
+                  Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+                  get :edit, :id => "37" , :space_id => @space.name
+                  assigns[:attachment_children].should == []
+                end
+              end
+            end
+    
+            describe"where the user has the role Invited" do
+       
+              before(:each)do
+                @space = spaces(:private_invited)
+              end  
+                         
+              describe "and the article not belongs to him" do
+      
+                before(:each)do
+                  @private_article = articles(:parent_private_invited_article)
+                end
+      
+                it "should not let user to edit an article" do
+                  get :edit , :id =>@private_article, :space_id => @space.name 
+                  assert_response 403
+                end
+              end
+            
+              describe "and the article belongs to him" do
+              
+                before(:each)do
+                  @private_article = articles(:parent_private_normal_invited_article)
+                end
+      
+                it "should let user to edit an article" do
+                  pending("pendiente") do
+                    get :edit , :id =>@private_article, :space_id => @space.name 
+                    assert_response 200
+                  end
+                end
+              end
+            end
+    
+            describe"where the user has no roles on it" do
+      
+              before(:each)do
+                @space = spaces(:private_no_roles)
+              end
+            
+              describe "and the article not belongs to him" do
+           
+                before(:each)do
+                  @private_article = articles(:parent_private_no_roles_article)
+                end 
+            
+                it "should not let user to edit an article" do
+                  get :edit , :id =>@private_article.id, :space_id => @space.name 
+                  assert_response 403
+                end
+              end
+        
+              describe "and the article belongs to him" do
+           
+                before(:each)do
+                  @private_article = articles(:parent_private_normal_no_roles_article)
+                end 
+            
+                it "should let user to edit an article" do
+                  pending("pendiente") do
+                    get :edit , :id =>@private_article.id, :space_id => @space.name 
+                    assert_response 200
+                  end
+                end
+              end
+            end
+          end
+   
+          describe "in the public space" do
+     
+            before(:each)do
+              @space = spaces(:public)
+            end
             
             describe "and the article not belongs to him" do
               
               before(:each)do
-                  @parent_article = articles(:public_article)
-                   @children1_article = articles(:public_children_article1)
+                @parent_article = articles(:public_article)
+                @children1_article = articles(:public_children_article1)
               end
               
-               it "should not let user to edit an article" do
+              it "should not let user to edit an article" do
                 get :edit , :id =>@parent_article, :space_id => @space.name 
                 assert_response 403
-                end
-              
+              end
             end
-         describe "and the article belongs to him" do
+          
+            describe "and the article belongs to him" do
               
               before(:each)do
-                  @parent_article = articles(:public_normal_article)
-                   @children1_article = articles(:public_normal_children_article1)
+                @parent_article = articles(:public_normal_article)
+                @children1_article = articles(:public_normal_children_article1)
               end
               
-               it "should let user to edit an article" do
-           pending("pendiente") do
-            get :edit , :id =>@parent_article, :space_id => @space.name 
-            assert_response 200
+              it "should let user to edit an article" do
+                pending("pendiente") do
+                  get :edit , :id =>@parent_article, :space_id => @space.name 
+                  assert_response 200
+                end
+              end
             end
           end
-              
-            end
-       
-     end
-  end
-end
-
-
-
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-        @private_article = articles(:parent_private_no_roles_article)
+        end
+      end
     end
     
-      it "should not let user to edit an inexistent article" do
-           assert_raise ActiveRecord::RecordNotFound do
-            get :edit , :id =>"37777", :space_id => @space.name  
-            end
+    describe "if you are not logged in" do
+        
+      describe "a private space" do
+          
+        before(:each)do
+          @space = spaces(:private_no_roles)
+          @private_article = articles(:parent_private_no_roles_article)
         end
-       it "should not let user to edit an existent article" do
-
-            get :edit , :id =>@private_article.id, :space_id => @space.name 
-            assert_response 403 
-
-          end
-     end
-     
-     describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
-        @parent_article = articles(:public_article)
-     end
+    
         it "should not let user to edit an inexistent article" do
-             ##este es el comportamiento normal de rails
-            assert_raise ActiveRecord::RecordNotFound do
+          assert_raise ActiveRecord::RecordNotFound do
             get :edit , :id =>"37777", :space_id => @space.name  
-            end
+          end
+        end
+       
+        it "should not let user to edit an existent article" do
+          get :edit , :id =>@private_article.id, :space_id => @space.name 
+          assert_response 403 
+        end
+      end
+     
+      describe "the public space" do
+          
+        before(:each)do
+          @space = spaces(:public)
+          @parent_article = articles(:public_article)
         end
         
-         it "should not let user to edit an existent article" do
-            get :edit , :id =>@parent_article.id, :space_id => @space.name 
-            assert_response 403
+        it "should not let user to edit an inexistent article" do
+           ##este es el comportamiento normal de rails
+          assert_raise ActiveRecord::RecordNotFound do
+            get :edit , :id =>"37777", :space_id => @space.name  
+          end
+        end
+        
+        it "should not let user to edit an existent article" do
+          get :edit , :id =>@parent_article.id, :space_id => @space.name 
+          assert_response 403
         end  
-     end
+      end
+    end
   end
-end
 
 
 
 #####################################################
-describe "responding to POST create" do
+  describe "responding to POST create" do
 
-describe "with valid params" do
-   before(:each) do
-     @valid_attributes = {:title => 'title', :text => 'text'
-    }
-   end
-   describe "when you are login as" do
-    describe "superadmin" do
-      before(:each)do
-        login_as(:user_admin)
+    describe "with valid params" do
+      before(:each) do
+       @valid_attributes = {:title => 'title', :text => 'text'}
       end
-      describe "in a private space" do
-        before(:each)do
-          @space = spaces(:private_no_roles)
-        end
+   
+      describe "when you are login as" do
+        describe "superadmin" do
         
-        it "should expose a newly created article as @article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assigns(:article).should_not equal(nil)
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
-        
-        it "should create a new article and a new Entry with valid params" do
-          
-            assert_difference ['Article.count', 'Entry.count'] do
-            post :create, :article => @valid_attributes, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the created article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_url(@space,assigns(:article)))
-        end
-        
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
-        
-        it "should expose a newly created article as @article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assigns(:article).should_not equal(nil)
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
-        
-        it "should create a new article and a new Entry with valid params" do
-          
-            assert_difference ['Article.count', 'Entry.count'] do
-            post :create, :article => @valid_attributes, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the created article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_url(@space,assigns(:article)))
-        end
-        
-      end
-    end
-    describe "normal user" do
-      before(:each)do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        describe "where the user has the role User" do
           before(:each)do
-            @space = spaces(:private_user)
+            login_as(:user_admin)
           end
-          
-          it "should expose a newly created article as @article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assigns(:article).should_not equal(nil)
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
         
-        it "should create a new article and a new Entry with valid params" do
+          describe "in a private space" do
           
-            assert_difference ['Article.count', 'Entry.count'] do
-            post :create, :article => @valid_attributes, :space_id => @space.name
-          end
-        end
+            before(:each)do
+              @space = spaces(:private_no_roles)
+            end
+        
+            it "should expose a newly created article as @article" do
+              post :create, :article => @valid_attributes, :space_id => @space.name
+              assigns(:article).should_not equal(nil)
+              #assigns(:article).title.should equal(@valid_atributes[:title])
+            end
+        
+            it "should create a new article and a new Entry with valid params" do
+              assert_difference ['Article.count', 'Entry.count'] do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+              end
+            end
 
-        it "should redirect to the created article" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_url(@space,assigns(:article)))
-        end
-          
-        end
-        describe"where the user has the role Invited" do
-          before(:each)do
-            @space = spaces(:private_invited)
+            it "should redirect to the created article" do
+              post :create, :article => @valid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_url(@space,assigns(:article)))
+            end
           end
-          
-          it "should not let the user to create articles" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
-        
-          
-        end
-        describe"where the user has no roles" do
-          before(:each)do
-            @space = spaces(:private_no_roles)
-          end
-          
-          it "should not let the user to create articles" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
-          
-        end
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
-      end
-    end
-  end
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-      end
       
-      it "should not let the user to create articles" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-          #assigns(:article).title.should equal(@valid_atributes[:title])
+          describe "in the public space" do
+          
+            before(:each)do
+              @space = spaces(:public)
+            end
+        
+            it "should expose a newly created article as @article" do
+              post :create, :article => @valid_attributes, :space_id => @space.name
+              assigns(:article).should_not equal(nil)
+              #assigns(:article).title.should equal(@valid_atributes[:title])
+            end
+        
+            it "should create a new article and a new Entry with valid params" do
+              assert_difference ['Article.count', 'Entry.count'] do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+              end
+            end
+
+            it "should redirect to the created article" do
+              post :create, :article => @valid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_url(@space,assigns(:article)))
+            end
+          end
         end
       
-    end
-    describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
-      end
+        describe "normal user" do
+        
+          before(:each)do
+            login_as(:user_normal)
+          end
       
-      it "should not let the user to create articles" do
-          post :create, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-          #assigns(:article).title.should equal(@valid_atributes[:title])
-        end
-    end
-  end
-
-
-end
-
-describe "with invalid params" do
-before(:each) do
-     @valid_attributes = {:title => 'title', :text => 'text'
-    }
-   end
-   describe "when you are login as" do
-    describe "superadmin" do
-      before(:each)do
-        login_as(:user_admin)
-      end
-      describe "in a private space" do
-        before(:each)do
-          @space = spaces(:private_no_roles)
-        end
-
-        it "should re-render the 'new' template" do
-          post :create, :article => {}, :space_id => @space.name
-          response.should render_template('new')
-        end
+          describe "in a private space" do
+            describe "where the user has the role User" do
+            
+              before(:each)do
+                @space = spaces(:private_user)
+              end
+          
+              it "should expose a newly created article as @article" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                assigns(:article).should_not equal(nil)
+                #assigns(:article).title.should equal(@valid_atributes[:title])
+              end
         
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
+              it "should create a new article and a new Entry with valid params" do
+                assert_difference ['Article.count', 'Entry.count'] do
+                  post :create, :article => @valid_attributes, :space_id => @space.name
+                end
+              end
+
+              it "should redirect to the created article" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                response.should redirect_to(space_article_url(@space,assigns(:article)))
+              end
+            end
         
-        it "should re-render the 'new' template" do
-          post :create, :article => {}, :space_id => @space.name
-          response.should render_template('new')
-        end
-      end
-    end
-    describe "normal user" do
-      before(:each)do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        describe "where the user has the role User" do
-          before(:each)do
-            @space = spaces(:private_user)
+            describe"where the user has the role Invited" do
+          
+              before(:each)do
+                @space = spaces(:private_invited)
+              end
+          
+              it "should not let the user to create articles" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                assert_response 403
+                #assigns(:article).title.should equal(@valid_atributes[:title])
+              end
+            end
+          
+            describe"where the user has no roles" do
+            
+              before(:each)do
+                @space = spaces(:private_no_roles)
+              end
+          
+              it "should not let the user to create articles" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                assert_response 403
+                #assigns(:article).title.should equal(@valid_atributes[:title])
+              end
+            end
           end
-          
-          it "should re-render the 'new' template" do
-          post :create, :article => {}, :space_id => @space.name
-          response.should render_template('new')
-        end
-          
-        end
-        describe"where the user has the role Invited" do
-          before(:each)do
-            @space = spaces(:private_invited)
-          end
-          
-          it "should not let the user to create articles" do
-          post :create, :article => {}, :space_id => @space.name
-          assert_response 403
-        end
         
-        end
-        describe"where the user has no roles" do
-          before(:each)do
-            @space = spaces(:private_no_roles)
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+            end
           end
-          
-          it "should not let the user to create articles" do
-          post :create, :article => {}, :space_id => @space.name
-          assert_response 403
-        end
-          
         end
       end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
-        
-        it "should not let the user to create articles" do
-          post :create, :article => {}, :space_id => @space.name
-          assert_response 403
-        end
-        
-      end
-    end
-  end
   
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-      end
+      describe "if you are not logged in" do
+        describe "a private space" do
+        
+          before(:each)do
+            @space = spaces(:private_no_roles)
+          end
       
-      it "should not let the user to create articles" do
-          post :create, :article => {}, :space_id => @space.name
-          assert_response 403
+          it "should not let the user to create articles" do
+            post :create, :article => @valid_attributes, :space_id => @space.name
+            assert_response 403
+            #assigns(:article).title.should equal(@valid_atributes[:title])
+          end
         end
+    
+        describe "the public space" do
+        
+          before(:each)do
+            @space = spaces(:public)
+          end
       
+          it "should not let the user to create articles" do
+            post :create, :article => @valid_attributes, :space_id => @space.name
+            assert_response 403
+            #assigns(:article).title.should equal(@valid_atributes[:title])
+          end
+        end
+      end
     end
-    describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
+
+    describe "with invalid params" do
+  
+      before(:each) do
+        @valid_attributes = {:title => 'title', :text => 'text'}
       end
       
-      it "should not let the user to create articles" do
-          post :create, :article => {}, :space_id => @space.name
-          assert_response 403
-        end
+      describe "when you are login as" do
+        
+        describe "superadmin" do
+        
+          before(:each)do
+            login_as(:user_admin)
+          end
       
+          describe "in a private space" do
+        
+            before(:each)do
+              @space = spaces(:private_no_roles)
+            end
+
+            it "should re-render the 'new' template" do
+              post :create, :article => {}, :space_id => @space.name
+              response.should render_template('new')
+            end
+          end
+      
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+            end
+        
+            it "should re-render the 'new' template" do
+              post :create, :article => {}, :space_id => @space.name
+              response.should render_template('new')
+            end
+          end
+        end
+    
+        describe "normal user" do
+      
+          before(:each)do
+            login_as(:user_normal)
+          end
+      
+          describe "in a private space" do
+        
+            describe "where the user has the role User" do
+          
+              before(:each)do
+                @space = spaces(:private_user)
+              end
+          
+              it "should re-render the 'new' template" do
+                post :create, :article => {}, :space_id => @space.name
+                response.should render_template('new')
+              end
+            end
+        
+            describe"where the user has the role Invited" do
+          
+              before(:each)do
+                @space = spaces(:private_invited)
+              end
+          
+              it "should not let the user to create articles" do
+                post :create, :article => {}, :space_id => @space.name
+                assert_response 403
+              end
+            end
+        
+            describe"where the user has no roles" do
+            
+              before(:each)do
+                @space = spaces(:private_no_roles)
+              end
+          
+              it "should not let the user to create articles" do
+                post :create, :article => {}, :space_id => @space.name
+                assert_response 403
+              end
+            end
+          end
+      
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+            end
+        
+            it "should not let the user to create articles" do
+              post :create, :article => {}, :space_id => @space.name
+              assert_response 403
+            end
+          end
+        end
+      end
+  
+      describe "if you are not logged in" do
+        describe "a private space" do
+          
+          before(:each)do
+            @space = spaces(:private_no_roles)
+          end
+      
+          it "should not let the user to create articles" do
+            post :create, :article => {}, :space_id => @space.name
+            assert_response 403
+          end
+        end
+    
+        describe "the public space" do
+      
+          before(:each)do
+            @space = spaces(:public)
+          end
+      
+          it "should not let the user to create articles" do
+            post :create, :article => {}, :space_id => @space.name
+            assert_response 403
+          end
+        end
+      end
     end
   end
-
-
-end
-
-end
 
 
 ##################################################
 
-describe "responding to PUT udpate" do
+  describe "responding to PUT udpate" do
    
-describe "with valid params" do
+    describe "with valid params" do
   
-  before(:each) do
-     @valid_attributes = {:title => 'title', :text => 'text'
-    }
-   end
-   describe "when you are login as" do
-    describe "superadmin" do
-      before(:each)do
-        login_as(:user_admin)
+      before(:each) do
+        @valid_attributes = {:title => 'title', :text => 'text'}
       end
-      describe "in a private space" do
-        before(:each)do
-          @space = spaces(:private_no_roles)
-          @article = articles(:parent_private_no_roles_article)
-        end
-        
-        it "should let the user to edit the article" do
-          put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_path(@space,@article))
-        end
-        
-        #it "should update the requested article" do
-        #  pending("debería hacer esto") do
-        #  Article.should_receive(:find).with("37").and_return(mock_article)
-        #  mock_article.should_receive(:update_attributes).with({'these' => 'params'})
-        #  put :update, :id => "37", :article => {:these => 'params'}, :space_id => @space.name
-        #  end
-        #end
-
-        #it "should expose the requested article as @article" do
-        #  pending("debería hacer esto") do
-        #  Article.stub!(:find).and_return(mock_article(:update_attributes => true))
-        #  put :update, :id => "1", :space_id => @space.name
-        #  assigns(:article).should equal(mock_article)
-        #  end
-        #end
-
-        #it "should redirect to the article" do
-        #  pending("debería hacer esto") do
-        #  Article.stub!(:find).and_return(mock_article(:update_attributes => true))
-        #  put :update, :id => "1", :space_id => @space.name
-        #  response.should redirect_to(article_url(mock_article))
-        #  end
-        #end
-        
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-          @article = articles(:public_article)
-        end
-        
-        it "should let the user to edit the article" do
-          put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_path(@space,@article))
-        end
-        
-      end
-    end
-    describe "normal user" do
-      before(:each)do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        describe "where the user has the role User" do
+   
+      describe "when you are login as" do
+        describe "superadmin" do
+      
           before(:each)do
-            @space = spaces(:private_user)
-            
+            login_as(:user_admin)
           end
-          describe "and the article not belongs to him" do
-            
+        
+          describe "in a private space" do
+        
             before(:each)do
-               @article = articles(:parent_private_user_article)  
-           end
-           
-          it "should let the user to edit the article" do
-             put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-             response.should redirect_to(space_article_path(@space,@article))
-          end
-         end
-          
-         describe "and the article not belongs to him" do
-            before(:each)do
-               @article = articles(:parent_private_normal_user_article)  
-           end
-           it "should let the user to edit the article" do
-             put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-             response.should redirect_to(space_article_path(@space,@article))
-           end
-         end
-          
-        end
-        describe"where the user has the role Invited" do
-          before(:each)do
-            @space = spaces(:private_invited)
-          end
-          
-          describe "and the article not belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_invited_article)
-              end
-              it "should not let the user to edit articles" do
-                post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                assert_response 403
-              end
-          end
-          describe "and the article belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_normal_invited_article)
-              end
-               it "should let the user to edit the article" do
-                 pending("Este artículo es del usuario, debería dejar editarlo aunque no tenga roles en ese espacio") do
-                 put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                 response.should redirect_to(space_article_path(@space,@article))
-                 end
-               end
-          end   
-      
-      
-     end
-      
-        describe"where the user has no roles" do
-          before(:each)do
-            @space = spaces(:private_no_roles)
-            @article = articles(:parent_private_no_roles_article)
-          end
-          describe "and the article not belongs to him" do
-          
-          before(:each)do
+              @space = spaces(:private_no_roles)
               @article = articles(:parent_private_no_roles_article)
+            end
+        
+            it "should let the user to edit the article" do
+              put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_path(@space,@article))
+            end
           end
+      
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+              @article = articles(:public_article)
+            end
+        
+            it "should let the user to edit the article" do
+              put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_path(@space,@article))
+            end
+          end
+        end
+    
+        describe "normal user" do
+      
+          before(:each)do
+            login_as(:user_normal)
+          end
+      
+          describe "in a private space" do
+        
+            describe "where the user has the role User" do
+          
+              before(:each)do
+                @space = spaces(:private_user)
+              end
+            
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_user_article)  
+                end
+           
+                it "should let the user to edit the article" do
+                  put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+          
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_normal_user_article)  
+                end
+           
+                it "should let the user to edit the article" do
+                  put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+            end
+        
+            describe"where the user has the role Invited" do
+          
+              before(:each)do
+                @space = spaces(:private_invited)
+              end
+          
+              describe "and the article not belongs to him" do
+              
+                before(:each)do
+                  @article = articles(:parent_private_invited_article)
+                end
+              
+                it "should not let the user to edit articles" do
+                  post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  assert_response 403
+                end
+              end
+          
+              describe "and the article belongs to him" do
+              
+                before(:each)do
+                  @article = articles(:parent_private_normal_invited_article)
+                end
+               
+                it "should let the user to edit the article" do
+                  pending("Este artículo es del usuario, debería dejar editarlo aunque no tenga roles en ese espacio") do
+                    put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                    response.should redirect_to(space_article_path(@space,@article))
+                  end
+                end
+              end   
+            end
+      
+            describe"where the user has no roles" do
+          
+              before(:each)do
+                @space = spaces(:private_no_roles)
+                @article = articles(:parent_private_no_roles_article)
+              end
+            
+              describe "and the article not belongs to him" do
+          
+                before(:each)do
+                  @article = articles(:parent_private_no_roles_article)
+                end
+              
+                it "should not let the user to edit articles" do
+                  post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  assert_response 403
+                end
+              end
+          
+              describe "and the article belongs to him" do
+          
+                before(:each)do
+                  @article = articles(:parent_private_normal_no_roles_article)
+                end
+              
+                it "should let the user to edit articles" do
+                  pending("Debería dejar editar el artículo a su dueño") do
+                    post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                    response.should redirect_to(space_article_path(@space,@article))
+                  end
+                end
+              end
+            end
+          end
+      
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+            end
+           
+            describe "and the article not belongs to him" do
+              before(:each)do
+                @article = articles(:public_article)
+              end
+              
               it "should not let the user to edit articles" do
                 post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
                 assert_response 403
               end
-          end
-          
-          describe "and the article belongs to him" do
-          
-          before(:each)do
-              @article = articles(:parent_private_normal_no_roles_article)
-          end
-              it "should let the user to edit articles" do
-                pending("Debería dejar editar el artículo a su dueño") do
-                post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                response.should redirect_to(space_article_path(@space,@article))
             end
-            end
-          end
-          
-        end
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
-           
-           describe "and the article not belongs to him" do
-             before(:each)do
-             @article = articles(:public_article)
-             end
-              it "should not let the user to edit articles" do
-                post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                assert_response 403
-            end
-        end
         
-        describe "and the article belongs to him" do
-             before(:each)do
-             @article = articles(:public_normal_article)
-             end
+            describe "and the article belongs to him" do
+             
+              before(:each)do
+                @article = articles(:public_normal_article)
+              end
+              
               it "should let the user to edit articles" do
                 pending("Debería dejar editar el artículo del usuario") do
-                post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                response.should redirect_to(space_article_path(@space,@article))
+                  post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
                 end
+              end
             end
-           end
-        
-      end
-    end
-  end
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-        @article = articles(:parent_private_no_roles_article)
-      end
-      
-      it "should not let the user to edit articles" do
-          post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-        end
-      
-    end
-    describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
-        @article = articles(:public_article)
-      end
-      
-      it "should not let the user to edit articles" do
-          post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-          assert_response 403
-        end
-      
-    end
-  end
-
-
-end
-
-describe "with invalid params" do
-
- before(:each) do
-     @invalid_attributes = {}
-   end
-   describe "when you are login as" do
-    describe "superadmin" do
-      before(:each)do
-        login_as(:user_admin)
-      end
-      describe "in a private space" do
-        before(:each)do
-          @space = spaces(:private_no_roles)
-          @article = articles(:parent_private_no_roles_article)
-        end
-        
-        it "should not let the user to edit the article and redirect to the article" do
-          put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_url(@space,@article))
-        end
-          
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-          @article = articles(:public_article)
-        end
-        
-        it "should not let the user to edit the article and redirect to the article" do
-          put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-          response.should redirect_to(space_article_url(@space,@article))
-        end
-        
-      end
-    end
-    describe "normal user" do
-      before(:each)do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        describe "where the user has the role User" do
-          before(:each)do
-            @space = spaces(:private_user)
-            
           end
-          describe "and the article not belongs to him" do
-            
-            before(:each)do
-               @article = articles(:parent_private_user_article)  
-           end
-           
-          it "should not let the user to edit the article and redirect to the article" do
-             put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-             response.should redirect_to(space_article_path(@space,@article))
-          end
-         end
-          
-         describe "and the article not belongs to him" do
-            before(:each)do
-               @article = articles(:parent_private_normal_user_article)  
-           end
-           it "should not let the user to edit the article and redirect to the article" do
-             put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-             response.should redirect_to(space_article_path(@space,@article))
-           end
-         end
-          
         end
-        describe"where the user has the role Invited" do
-          before(:each)do
-            @space = spaces(:private_invited)
-          end
-          
-          describe "and the article not belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_invited_article)
-              end
-              it "should not let the user to edit articles" do
-                post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                assert_response 403
-              end
-          end
-          describe "and the article belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_normal_invited_article)
-              end
-               it "should not let the user to edit the article and redirect to the article" do
-                 pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
-                 put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                 response.should redirect_to(space_article_path(@space,@article))
-                 end
-               end
-          end   
+      end
+  
+      describe "if you are not logged in" do
+    
+        describe "a private space" do
       
-      
-     end
-      
-        describe"where the user has no roles" do
           before(:each)do
             @space = spaces(:private_no_roles)
             @article = articles(:parent_private_no_roles_article)
           end
-          describe "and the article not belongs to him" do
-          
-          before(:each)do
-              @article = articles(:parent_private_no_roles_article)
+      
+          it "should not let the user to edit articles" do
+            post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+            assert_response 403
           end
+        end
+    
+        describe "the public space" do
+      
+          before(:each)do
+            @space = spaces(:public)
+            @article = articles(:public_article)
+          end
+      
+          it "should not let the user to edit articles" do
+            post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+            assert_response 403
+          end
+        end
+      end
+    end
+
+    describe "with invalid params" do
+
+      before(:each) do
+        @invalid_attributes = {}
+      end
+   
+      describe "when you are login as" do
+    
+        describe "superadmin" do
+      
+          before(:each)do
+            login_as(:user_admin)
+          end
+      
+          describe "in a private space" do
+        
+            before(:each)do
+              @space = spaces(:private_no_roles)
+              @article = articles(:parent_private_no_roles_article)
+            end
+        
+            it "should not let the user to edit the article and redirect to the article" do
+              put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_url(@space,@article))
+            end
+          end
+        
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+              @article = articles(:public_article)
+            end
+        
+            it "should not let the user to edit the article and redirect to the article" do
+              put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+              response.should redirect_to(space_article_url(@space,@article))
+            end
+          end
+        end
+    
+        describe "normal user" do
+      
+          before(:each)do
+            login_as(:user_normal)
+          end
+      
+          describe "in a private space" do
+        
+            describe "where the user has the role User" do
+          
+              before(:each)do
+                @space = spaces(:private_user)
+              end
+          
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_user_article)  
+                end
+           
+                it "should not let the user to edit the article and redirect to the article" do
+                  put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+          
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_normal_user_article)  
+                end
+           
+                it "should not let the user to edit the article and redirect to the article" do
+                  put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+            end
+        
+            describe"where the user has the role Invited" do
+          
+              before(:each)do
+                @space = spaces(:private_invited)
+              end
+          
+              describe "and the article not belongs to him" do
+              
+                before(:each)do
+                  @article = articles(:parent_private_invited_article)
+                end
+              
+                it "should not let the user to edit articles" do
+                  post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  assert_response 403
+                end
+              end
+          
+              describe "and the article belongs to him" do
+              
+                before(:each)do
+                  @article = articles(:parent_private_normal_invited_article)
+                end
+               
+                it "should not let the user to edit the article and redirect to the article" do
+                  pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
+                    put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                    response.should redirect_to(space_article_path(@space,@article))
+                  end
+                end
+              end   
+            end
+      
+            describe"where the user has no roles" do
+          
+              before(:each)do
+                @space = spaces(:private_no_roles)
+                @article = articles(:parent_private_no_roles_article)
+              end
+          
+              describe "and the article not belongs to him" do
+          
+                before(:each)do
+                  @article = articles(:parent_private_no_roles_article)
+                end
+              
+                it "should not let the user to edit articles" do
+                  post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  assert_response 403
+                end
+              end
+          
+              describe "and the article belongs to him" do
+          
+                before(:each)do
+                  @article = articles(:parent_private_normal_no_roles_article)
+                end
+              
+                it "should not let the user to edit articles and redirect to the article" do
+                  pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
+                    post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                    response.should redirect_to(space_article_path(@space,@article))
+                  end
+                end
+              end
+            end
+          end
+        
+          describe "in the public space" do
+        
+            before(:each)do
+              @space = spaces(:public)
+            end
+           
+            describe "and the article not belongs to him" do
+              before(:each)do
+                @article = articles(:public_article)
+              end
+            
               it "should not let the user to edit articles" do
                 post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
                 assert_response 403
               end
-          end
-          
-          describe "and the article belongs to him" do
-          
-          before(:each)do
-              @article = articles(:parent_private_normal_no_roles_article)
-          end
+            end
+        
+            describe "and the article belongs to him" do
+            
+              before(:each)do
+                @article = articles(:public_normal_article)
+              end
+            
               it "should not let the user to edit articles and redirect to the article" do
                 pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
-                post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                response.should redirect_to(space_article_path(@space,@article))
-            end
-            end
-          end
-          
-        end
-      end
-      describe "in the public space" do
-        
-        before(:each)do
-          @space = spaces(:public)
-        end
-           
-           describe "and the article not belongs to him" do
-             before(:each)do
-             @article = articles(:public_article)
-             end
-              it "should not let the user to edit articles" do
-                post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                assert_response 403
-            end
-        end
-        
-        describe "and the article belongs to him" do
-             before(:each)do
-             @article = articles(:public_normal_article)
-             end
-              it "should not let the user to edit articles and redirect to the article" do
-                pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
-                post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                response.should redirect_to(space_article_path(@space,@article))
+                  post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
                 end
+              end
             end
-           end
-        
-      end
-    end
-  end
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-        @article = articles(:parent_private_no_roles_article)
-      end
-      
-      it "should not let the user to edit articles" do
-          post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-          assert_response 403
+          end
         end
-      
-    end
-    describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
-        @article = articles(:public_article)
       end
+  
+      describe "if you are not logged in" do
+    
+        describe "a private space" do
       
-      it "should not let the user to edit articles" do
-          post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-          assert_response 403
+          before(:each)do
+            @space = spaces(:private_no_roles)
+            @article = articles(:parent_private_no_roles_article)
+          end
+      
+          it "should not let the user to edit articles" do
+            post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+            assert_response 403
+          end
         end
+    
+        describe "the public space" do
       
-    end
+          before(:each)do
+            @space = spaces(:public)
+            @article = articles(:public_article)
+          end
+      
+          it "should not let the user to edit articles" do
+            post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+            assert_response 403
+          end
+        end
+      end
+    end 
   end
-
-
-#it "should update the requested article" do
-#Article.should_receive(:find).with("37").and_return(mock_article)
-#mock_article.should_receive(:update_attributes).with({'these' => 'params'})
-#put :update, :id => "37", :article => {:these => 'params'}
-#end
-
-#it "should expose the article as @article" do
-#Article.stub!(:find).and_return(mock_article(:update_attributes => false))
-#put :update, :id => "1"
-#assigns(:article).should equal(mock_article)
-#end
-
-#it "should re-render the 'edit' template" do
-#Article.stub!(:find).and_return(mock_article(:update_attributes => false))
-#put :update, :id => "1"
-#response.should render_template('edit')
-#end
-
-end 
-
-end
 
 ###############################
 
-describe "responding to DELETE destroy" do
+  describe "responding to DELETE destroy" do
 
-   describe "when you are login as" do
-    describe "superadmin" do
-      before(:each)do
-        login_as(:user_admin)
-      end
-      describe "in a private space" do
+    describe "when you are login as" do
+      describe "superadmin" do
+      
         before(:each)do
-          @space = spaces(:private_no_roles)
-          @article = articles(:parent_private_no_roles_article)
+          login_as(:user_admin)
         end
-        
-        it "should destroy the requested article" do
-          assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-          delete :destroy, :id => @article, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the articles list" do
-          delete :destroy, :id => @article, :space_id => @space.name
-          response.should redirect_to(space_articles_path(@space))
-        end
-        
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-          @article = articles(:public_article)
-        end
-        
-       it "should destroy the requested article" do
-          assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-          delete :destroy, :id => @article, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the articles list" do
-          delete :destroy, :id => @article, :space_id => @space.name
-          response.should redirect_to(space_articles_path(@space))
-        end
-        
-      end
-    end
-    describe "normal user" do
-      before(:each)do
-        login_as(:user_normal)
-      end
-      describe "in a private space" do
-        describe "where the user has the role User" do
-          before(:each)do
-            @space = spaces(:private_user)
-            
-          end
-          describe "and the article not belongs to him" do
-            
-            before(:each)do
-               @article = articles(:parent_private_user_article)  
-           end
-           
-          it "should destroy the requested article" do
-          assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-          delete :destroy, :id => @article, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the articles list" do
-          delete :destroy, :id => @article, :space_id => @space.name
-          response.should redirect_to(space_articles_path(@space))
-        end
-         end
+      
+        describe "in a private space" do
           
-         describe "and the article not belongs to him" do
-            before(:each)do
-               @article = articles(:parent_private_normal_user_article)  
-           end
-           it "should destroy the requested article" do
-          assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-          delete :destroy, :id => @article, :space_id => @space.name
-          end
-        end
-
-        it "should redirect to the articles list" do
-          delete :destroy, :id => @article, :space_id => @space.name
-          response.should redirect_to(space_articles_path(@space))
-        end
-       end
-      end    
-        describe"where the user has the role Invited" do
-          before(:each)do
-            @space = spaces(:private_invited)
-          end
-          
-          describe "and the article not belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_invited_article)
-              end
-              it "should not destroy the requested article" do
-                assert_no_difference 'Article.count' do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
-              end
-              it "should not redirect to the articles list" do
-                delete :destroy, :id => @article, :space_id => @space.name
-                assert_response 403
-             end
-             
-             end
-        
-          describe "and the article belongs to him" do
-              
-              before(:each)do
-               @article = articles(:parent_private_normal_invited_article)
-              end
-               it "should destroy the requested article" do
-                pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
-                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
-                end
-              end
-
-               it "should redirect to the articles list" do
-                pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
-                delete :destroy, :id => @article, :space_id => @space.name
-                response.should redirect_to(space_articles_path(@space))
-                end
-                end
-              end
- 
-      
-      
-     end
-      
-        describe"where the user has no roles" do
           before(:each)do
             @space = spaces(:private_no_roles)
             @article = articles(:parent_private_no_roles_article)
           end
-          describe "and the article not belongs to him" do
+        
+          it "should destroy the requested article" do
+            assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+              delete :destroy, :id => @article, :space_id => @space.name
+            end
+          end
+
+          it "should redirect to the articles list" do
+            delete :destroy, :id => @article, :space_id => @space.name
+            response.should redirect_to(space_articles_path(@space))
+          end
+        end
+      
+        describe "in the public space" do
           
           before(:each)do
-              @article = articles(:parent_private_no_roles_article)
+            @space = spaces(:public)
+            @article = articles(:public_article)
           end
-              it "should not destroy the requested article" do
-                assert_no_difference 'Article.count' do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
+        
+          it "should destroy the requested article" do
+            assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+              delete :destroy, :id => @article, :space_id => @space.name
+            end
+          end
+
+          it "should redirect to the articles list" do
+            delete :destroy, :id => @article, :space_id => @space.name
+            response.should redirect_to(space_articles_path(@space))
+          end
+        end
+      end
+    
+      describe "normal user" do
+        
+        before(:each)do
+          login_as(:user_normal)
+        end
+      
+        describe "in a private space" do
+        
+          describe "where the user has the role User" do
+          
+            before(:each)do
+              @space = spaces(:private_user)
+            end
+          
+            describe "and the article not belongs to him" do
+            
+              before(:each)do
+                @article = articles(:parent_private_user_article)  
               end
-              it "should not redirect to the articles list" do
-                delete :destroy, :id => @article, :space_id => @space.name
-                assert_response 403
-             end
-          end
-          
-          describe "and the article belongs to him" do
-          
-          before(:each)do
-              @article = articles(:parent_private_normal_no_roles_article)
-          end
-             it "should destroy the requested article" do
-                pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
+           
+              it "should destroy the requested article" do
                 assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
+                  delete :destroy, :id => @article, :space_id => @space.name
                 end
               end
 
-               it "should redirect to the articles list" do
-                pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
+              it "should redirect to the articles list" do
                 delete :destroy, :id => @article, :space_id => @space.name
                 response.should redirect_to(space_articles_path(@space))
-                end
-                end
-          end
+              end
+            end
           
-        end
-      end
-      describe "in the public space" do
-        before(:each)do
-          @space = spaces(:public)
-        end
+            describe "and the article not belongs to him" do
+              
+              before(:each)do
+                @article = articles(:parent_private_normal_user_article)  
+              end
            
-           describe "and the article not belongs to him" do
-             before(:each)do
-             @article = articles(:public_article)
-             end
+              it "should destroy the requested article" do
+                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                end
+              end
+
+              it "should redirect to the articles list" do
+                delete :destroy, :id => @article, :space_id => @space.name
+                response.should redirect_to(space_articles_path(@space))
+              end
+            end
+          end    
+        
+          describe"where the user has the role Invited" do
+          
+            before(:each)do
+              @space = spaces(:private_invited)
+            end
+          
+            describe "and the article not belongs to him" do
+              
+              before(:each)do
+                @article = articles(:parent_private_invited_article)
+              end
+              
               it "should not destroy the requested article" do
                 assert_no_difference 'Article.count' do  #elimina el padre y los hijos
                 delete :destroy, :id => @article, :space_id => @space.name
                 end
               end
+              
               it "should not redirect to the articles list" do
                 delete :destroy, :id => @article, :space_id => @space.name
                 assert_response 403
-             end
-        end
+              end
+            end
         
-        describe "and the article belongs to him" do
-             before(:each)do
-             @article = articles(:public_normal_article)
-             end
+            describe "and the article belongs to him" do
+              
+              before(:each)do
+                @article = articles(:parent_private_normal_invited_article)
+              end
+              
               it "should destroy the requested article" do
                 pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
-                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
+                  assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                    delete :destroy, :id => @article, :space_id => @space.name
+                  end
                 end
               end
 
-               it "should redirect to the articles list" do
+              it "should redirect to the articles list" do
                 pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
+                  delete :destroy, :id => @article, :space_id => @space.name
+                  response.should redirect_to(space_articles_path(@space))
+                end
+              end
+            end    
+          end
+      
+          describe"where the user has no roles" do
+            
+            before(:each)do
+              @space = spaces(:private_no_roles)
+              @article = articles(:parent_private_no_roles_article)
+            end
+          
+            describe "and the article not belongs to him" do
+          
+              before(:each)do
+                @article = articles(:parent_private_no_roles_article)
+              end
+              
+              it "should not destroy the requested article" do
+                assert_no_difference 'Article.count' do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                end
+              end
+              
+              it "should not redirect to the articles list" do
+                delete :destroy, :id => @article, :space_id => @space.name
+                assert_response 403
+              end
+            end
+          
+            describe "and the article belongs to him" do
+          
+              before(:each)do
+                @article = articles(:parent_private_normal_no_roles_article)
+              end
+             
+              it "should destroy the requested article" do
+                pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
+                  assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                    delete :destroy, :id => @article, :space_id => @space.name
+                  end
+                end
+              end
+
+              it "should redirect to the articles list" do
+                pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
+                  delete :destroy, :id => @article, :space_id => @space.name
+                  response.should redirect_to(space_articles_path(@space))
+                end
+              end
+            end
+          end
+        end
+      
+        describe "in the public space" do
+          
+          before(:each)do
+            @space = spaces(:public)
+          end
+           
+          describe "and the article not belongs to him" do
+          
+            before(:each)do
+              @article = articles(:public_article)
+            end
+            
+            it "should not destroy the requested article" do
+              assert_no_difference 'Article.count' do  #elimina el padre y los hijos
+                delete :destroy, :id => @article, :space_id => @space.name
+              end
+            end
+            
+            it "should not redirect to the articles list" do
+              delete :destroy, :id => @article, :space_id => @space.name
+              assert_response 403
+            end
+          end
+        
+          describe "and the article belongs to him" do
+            
+            before(:each)do
+              @article = articles(:public_normal_article)
+            end
+            
+            it "should destroy the requested article" do
+              pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
+                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                end
+              end
+            end
+
+            it "should redirect to the articles list" do
+              pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
                 delete :destroy, :id => @article, :space_id => @space.name
                 response.should redirect_to(space_articles_path(@space))
-                end
-                end
-           end
+              end
+            end
+          end
+        end
+      end
+    end
+  
+    describe "if you are not logged in" do
+      describe "a private space" do
         
+        before(:each)do
+          @space = spaces(:private_no_roles)
+          @article = articles(:parent_private_no_roles_article)
+        end
+      
+        it "should not destroy the requested article" do
+          assert_no_difference 'Article.count' do  #elimina el padre y los hijos
+            delete :destroy, :id => @article, :space_id => @space.name
+          end
+        end
+       
+        it "should not redirect to the articles list" do
+          delete :destroy, :id => @article, :space_id => @space.name
+          assert_response 403
+        end
+      end
+    
+      describe "the public space" do
+        
+        before(:each)do
+          @space = spaces(:public)
+          @article = articles(:public_article)
+        end
+      
+        it "should not destroy the requested article" do
+          assert_no_difference 'Article.count' do  #elimina el padre y los hijos
+            delete :destroy, :id => @article, :space_id => @space.name
+          end
+        end
+        
+        it "should not redirect to the articles list" do
+          delete :destroy, :id => @article, :space_id => @space.name
+          assert_response 403
+        end
       end
     end
   end
-  describe "if you are not logged in" do
-    describe "a private space" do
-      before(:each)do
-        @space = spaces(:private_no_roles)
-        @article = articles(:parent_private_no_roles_article)
-      end
-      
-      it "should not destroy the requested article" do
-                assert_no_difference 'Article.count' do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
-              end
-              it "should not redirect to the articles list" do
-                delete :destroy, :id => @article, :space_id => @space.name
-                assert_response 403
-             end
-      
-    end
-    describe "the public space" do
-      before(:each)do
-        @space = spaces(:public)
-        @article = articles(:public_article)
-      end
-      
-      it "should not destroy the requested article" do
-                assert_no_difference 'Article.count' do  #elimina el padre y los hijos
-                delete :destroy, :id => @article, :space_id => @space.name
-                end
-              end
-              it "should not redirect to the articles list" do
-                delete :destroy, :id => @article, :space_id => @space.name
-                assert_response 403
-             end
-      
-    end
-  end
-
-
-end
 end
