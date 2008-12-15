@@ -44,6 +44,14 @@ class SingularAgent
   def superuser
     false
   end
+
+  def profile
+    nil
+  end
+
+  def email
+    ""
+  end
 end
 
 Performance
