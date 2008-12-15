@@ -1258,124 +1258,125 @@ describe ArticlesController do
                 assigns[:attachment_children].should == []
               end
             end
-                 
-            describe "where the user has the role User" do
+          end  
+          
+          describe "where the user has the role User" do
+        
+            before(:each)do
+              @space = spaces(:private_user)
+            end
+        
+            describe "and the article not belongs to him" do
         
               before(:each)do
-                @space = spaces(:private_user)
+                @parent_article = articles(:parent_private_user_article)
+                @children1_article = articles(:children_private_user_article1)
               end
-        
-              describe "and the article not belongs to him" do
-        
-                before(:each)do
-                  @parent_article = articles(:parent_private_user_article)
-                  @children1_article = articles(:children_private_user_article1)
-                end
          
-                it "should not let user to edit an article" do
-                  get :edit , :id =>@parent_article, :space_id => @space.name 
-                  assert_response 403
-                end
-              end
-        
-              describe "and the article belongs to him" do
-              
-                before(:each)do
-                  @parent_article = articles(:parent_private_normal_user_article)
-                  @children1_article = articles(:children_private_normal_user_article1)
-                end
-         
-                it "should expose the requested article as @article" do
-                  get :edit, :id => @parent_article.id , :space_id => @space.name
-                  assigns[:article].should eql(@parent_article)
-                end
-    
-                it "should have an associated entry " do
-                  get :edit ,:id=> @parent_article.id , :space_id => @space.name
-                  assigns[:article].entry.should_not eql(nil)
-                  assigns[:article].entry.should eql(@parent_article.entry)
-                end
-    
-                it "should return the entries with attachment in @attachment_children" do
-                  Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
-                  get :edit, :id => "37" , :space_id => @space.name
-                  assigns[:attachment_children].should == [entries(:entry_private_normal_user_attachment_children3)]
-                end
-    
-                it "should return [] if no attachments children" do
-                  Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
-                  get :edit, :id => "37" , :space_id => @space.name
-                  assigns[:attachment_children].should == []
-                end
+              it "should not let user to edit an article" do
+                get :edit , :id =>@parent_article, :space_id => @space.name 
+                assert_response 403
               end
             end
+        
+            describe "and the article belongs to him" do
+            
+              before(:each)do
+                @parent_article = articles(:parent_private_normal_user_article)
+                @children1_article = articles(:children_private_normal_user_article1)
+              end
+        
+              it "should expose the requested article as @article" do
+                get :edit, :id => @parent_article.id , :space_id => @space.name
+                assigns[:article].should eql(@parent_article)
+              end
     
-            describe"where the user has the role Invited" do
+              it "should have an associated entry " do
+                get :edit ,:id=> @parent_article.id , :space_id => @space.name
+                assigns[:article].entry.should_not eql(nil)
+                assigns[:article].entry.should eql(@parent_article.entry)
+              end
+    
+              it "should return the entries with attachment in @attachment_children" do
+                Article.stub!(:find).and_return(@parent_article) # give the parent article, which have 3 childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == [entries(:entry_private_normal_user_attachment_children3)]
+              end
+    
+              it "should return [] if no attachments children" do
+                Article.stub!(:find).and_return(@children1_article) #give a children_article , which have not any childrens
+                get :edit, :id => "37" , :space_id => @space.name
+                assigns[:attachment_children].should == []
+              end
+            end
+          end
+    
+          describe"where the user has the role Invited" do
        
-              before(:each)do
-                @space = spaces(:private_invited)
-              end  
+            before(:each)do
+              @space = spaces(:private_invited)
+            end  
                          
-              describe "and the article not belongs to him" do
+            describe "and the article not belongs to him" do
       
-                before(:each)do
-                  @private_article = articles(:parent_private_invited_article)
-                end
-      
-                it "should not let user to edit an article" do
-                  get :edit , :id =>@private_article, :space_id => @space.name 
-                  assert_response 403
-                end
+              before(:each)do
+                @private_article = articles(:parent_private_invited_article)
               end
-            
-              describe "and the article belongs to him" do
-              
-                before(:each)do
-                  @private_article = articles(:parent_private_normal_invited_article)
-                end
       
-                it "should let user to edit an article" do
-                  pending("pendiente") do
-                    get :edit , :id =>@private_article, :space_id => @space.name 
-                    assert_response 200
-                  end
-                end
+              it "should not let user to edit an article" do
+                get :edit , :id =>@private_article, :space_id => @space.name 
+                assert_response 403
               end
             end
-    
-            describe"where the user has no roles on it" do
-      
+            
+            describe "and the article belongs to him" do
+              
               before(:each)do
-                @space = spaces(:private_no_roles)
+                @private_article = articles(:parent_private_normal_invited_article)
               end
-            
-              describe "and the article not belongs to him" do
-           
-                before(:each)do
-                  @private_article = articles(:parent_private_no_roles_article)
-                end 
-            
-                it "should not let user to edit an article" do
-                  get :edit , :id =>@private_article.id, :space_id => @space.name 
-                  assert_response 403
-                end
-              end
-        
-              describe "and the article belongs to him" do
-           
-                before(:each)do
-                  @private_article = articles(:parent_private_normal_no_roles_article)
-                end 
-            
-                it "should let user to edit an article" do
-                  pending("pendiente") do
-                    get :edit , :id =>@private_article.id, :space_id => @space.name 
-                    assert_response 200
-                  end
+      
+              it "should let user to edit an article" do
+                pending("pendiente") do
+                  get :edit , :id =>@private_article, :space_id => @space.name 
+                  assert_response 200
                 end
               end
             end
           end
+    
+          describe"where the user has no roles on it" do
+      
+            before(:each)do
+              @space = spaces(:private_no_roles)
+            end
+            
+            describe "and the article not belongs to him" do
+           
+              before(:each)do
+                @private_article = articles(:parent_private_no_roles_article)
+              end 
+            
+              it "should not let user to edit an article" do
+                get :edit , :id =>@private_article.id, :space_id => @space.name 
+                assert_response 403
+              end
+            end
+        
+            describe "and the article belongs to him" do
+           
+              before(:each)do
+                @private_article = articles(:parent_private_normal_no_roles_article)
+              end 
+            
+              it "should let user to edit an article" do
+                pending("pendiente") do
+                  get :edit , :id =>@private_article.id, :space_id => @space.name 
+                  assert_response 200
+                end
+              end
+            end
+          end
+        
    
           describe "in the public space" do
      
@@ -1404,10 +1405,8 @@ describe ArticlesController do
               end
               
               it "should let user to edit an article" do
-                pending("pendiente") do
                   get :edit , :id =>@parent_article, :space_id => @space.name 
                   assert_response 200
-                end
               end
             end
           end
@@ -1531,6 +1530,31 @@ describe ArticlesController do
           end
       
           describe "in a private space" do
+            
+            describe "where the user has the role Admin" do
+            
+              before(:each)do
+                @space = spaces(:private_admin)
+              end
+          
+              it "should expose a newly created article as @article" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                assigns(:article).should_not equal(nil)
+                #assigns(:article).title.should equal(@valid_atributes[:title])
+              end
+        
+              it "should create a new article and a new Entry with valid params" do
+                assert_difference ['Article.count', 'Entry.count'] do
+                  post :create, :article => @valid_attributes, :space_id => @space.name
+                end
+              end
+
+              it "should redirect to the created article" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                response.should redirect_to(space_article_url(@space,assigns(:article)))
+              end
+            end
+                                    
             describe "where the user has the role User" do
             
               before(:each)do
@@ -1586,6 +1610,12 @@ describe ArticlesController do
         
             before(:each)do
               @space = spaces(:public)
+            end
+            
+            it "should not let the user to create articles" do
+                post :create, :article => @valid_attributes, :space_id => @space.name
+                assert_response 403
+                #assigns(:article).title.should equal(@valid_atributes[:title])
             end
           end
         end
@@ -1666,6 +1696,19 @@ describe ArticlesController do
           end
       
           describe "in a private space" do
+            
+            describe "where the user has the role Admin" do
+          
+              before(:each)do
+                @space = spaces(:private_admin)
+              end
+          
+              it "should re-render the 'new' template" do
+                post :create, :article => {}, :space_id => @space.name
+                response.should render_template('new')
+              end
+            end
+        
         
             describe "where the user has the role User" do
           
@@ -1798,7 +1841,37 @@ describe ArticlesController do
           end
       
           describe "in a private space" do
-        
+
+            describe "where the user has the role Admin" do
+          
+              before(:each)do
+                @space = spaces(:private_admin)
+              end
+            
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_admin_article)  
+                end
+           
+                it "should let the user to edit the article" do
+                  put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+          
+              describe "and the article belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_normal_admin_article)  
+                end
+           
+                it "should let the user to edit the article" do
+                  put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+            end        
             describe "where the user has the role User" do
           
               before(:each)do
@@ -1811,13 +1884,13 @@ describe ArticlesController do
                   @article = articles(:parent_private_user_article)  
                 end
            
-                it "should let the user to edit the article" do
+                it "should not let the user to edit the article" do
                   put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                  response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end
           
-              describe "and the article not belongs to him" do
+              describe "and the article belongs to him" do
             
                 before(:each)do
                   @article = articles(:parent_private_normal_user_article)  
@@ -2010,7 +2083,38 @@ describe ArticlesController do
           end
       
           describe "in a private space" do
-        
+
+            describe "where the user has the role Admin" do
+          
+              before(:each)do
+                @space = spaces(:private_admin)
+              end
+          
+              describe "and the article not belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_admin_article)  
+                end
+           
+                it "should not let the user to edit the article and redirect to the article" do
+                  put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+          
+              describe "and the article belongs to him" do
+            
+                before(:each)do
+                  @article = articles(:parent_private_normal_admin_article)  
+                end
+           
+                it "should not let the user to edit the article and redirect to the article" do
+                  put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  response.should redirect_to(space_article_path(@space,@article))
+                end
+              end
+            end
+            
             describe "where the user has the role User" do
           
               before(:each)do
@@ -2025,11 +2129,11 @@ describe ArticlesController do
            
                 it "should not let the user to edit the article and redirect to the article" do
                   put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                  response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end
           
-              describe "and the article not belongs to him" do
+              describe "and the article belongs to him" do
             
                 before(:each)do
                   @article = articles(:parent_private_normal_user_article)  
@@ -2232,17 +2336,17 @@ describe ArticlesController do
         end
       
         describe "in a private space" do
-        
-          describe "where the user has the role User" do
+          
+          describe "where the user has the role Admin" do
           
             before(:each)do
-              @space = spaces(:private_user)
+              @space = spaces(:private_admin)
             end
           
             describe "and the article not belongs to him" do
             
               before(:each)do
-                @article = articles(:parent_private_user_article)  
+                @article = articles(:parent_private_admin_article)  
               end
            
               it "should destroy the requested article" do
@@ -2257,7 +2361,7 @@ describe ArticlesController do
               end
             end
           
-            describe "and the article not belongs to him" do
+            describe "and the article belongs to him" do
               
               before(:each)do
                 @article = articles(:parent_private_normal_user_article)  
@@ -2269,6 +2373,43 @@ describe ArticlesController do
                 end
               end
 
+              it "should redirect to the articles list" do
+                delete :destroy, :id => @article, :space_id => @space.name
+                response.should redirect_to(space_articles_path(@space))
+              end
+            end
+          end  
+        
+          describe "where the user has the role User" do
+          
+            before(:each)do
+              @space = spaces(:private_user)
+            end
+          
+            describe "and the article not belongs to him" do
+            
+              before(:each)do
+                @article = articles(:parent_private_user_article)  
+              end
+
+              it "should not let to destroy the requested article" do
+                  delete :destroy, :id => @article, :space_id => @space.name
+                  assert_response 403
+              end
+            end
+          
+            describe "and the article not belongs to him" do
+              
+              before(:each)do
+                @article = articles(:parent_private_normal_user_article)  
+              end
+           
+              it "should destroy the requested article" do
+                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                end
+              end
+              
               it "should redirect to the articles list" do
                 delete :destroy, :id => @article, :space_id => @space.name
                 response.should redirect_to(space_articles_path(@space))

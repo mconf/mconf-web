@@ -1,333 +1,3 @@
-##entries del espacio private_user donde el usuario normal_user tiene rol de User que pertenecen al usuario Quentin
-
-entry_private_user_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: parent_private_user_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_user_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: children_private_user_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_user_parent	
-  
-entry_private_user_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_user(Space)
-  content: children_private_user_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_user_parent	
-  
-entry_private_user_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: private_user_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_user_parent
-
-##entries del espacio private_user donde el usuario normal_user tiene rol de User que pertenecen al usuario normal_user
-  
-entry_private_normal_user_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: parent_private_normal_user_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_normal_user_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: children_private_normal_user_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_user_parent	
-  
-entry_private_normal_user_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_user(Space)
-  content: children_private_normal_user_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_user_parent	
-  
-entry_private_normal_user_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_user (Space)	
-  content: private_normal_user_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_user_parent
-
-
-##entries del espacio private_invited donde el usuario normal_user tiene rol de Invited que pertenecen al usuario Quentin
-
-entry_private_invited_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: parent_private_invited_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_invited_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: children_private_invited_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_invited_parent	
-  
-entry_private_invited_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)
-  content: children_private_invited_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_invited_parent	
-  
-entry_private_invited_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: private_invited_attachment1 (Attachment##entries del espacio private_no_roles donde el usuario normal_user no tiene roles pertenecientes a Quentin
-
-entry_private_no_roles_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: parent_private_no_roles_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_no_roles_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: children_private_no_roles_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent	
-  
-entry_private_no_roles_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)
-  content: children_private_no_roles_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent	
-  
-entry_private_no_roles_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: private_no_roles_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_invited_parent
-  
-
-##entries del espacio private_invited donde el usuario normal_user tiene rol de Invited que pertenecen al usuario normal_user
-
-entry_private_normal_invited_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: parent_private_normal_invited_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_normal_invited_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: children_private_normal_invited_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_invited_parent	
-  
-entry_private_normal_invited_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)
-  content: children_private_normal_invited_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_invited_parent	
-  
-entry_private_normal_invited_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_invited (Space)	
-  content: private_normal_invited_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_invited_parent
-
-##entries del espacio private_no_roles donde el usuario normal_user no tiene roles pertenecientes a Quentin
-
-entry_private_no_roles_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: parent_private_no_roles_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_no_roles_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: children_private_no_roles_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent	
-  
-entry_private_no_roles_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)
-  content: children_private_no_roles_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent	
-  
-entry_private_no_roles_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: private_no_roles_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: quentin (User)	
-  parent: entry_private_no_roles_parent
-
-##entries del espacio private_no_roles donde el usuario normal_user no tiene roles pertenecientes a normal_user
-
-entry_private_normal_no_roles_parent: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: parent_private_normal_no_roles_article (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent_id: NULL	
-  parent_type: NULL	
-  
-entry_private_normal_no_roles_children1: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: children_private_normal_no_roles_article1 (Article)	  
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_no_roles_parent	
-  
-entry_private_normal_no_roles_children2: 
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)
-  content: children_private_normal_no_roles_article2 (Article)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_no_roles_parent	
-  
-entry_private_normal_no_roles_attachment_children3: 	
-  title: entry_title	
-  description: entry_description		
-  container: private_no_roles (Space)	
-  content: private_normal_no_roles_attachment1 (Attachment)
-  public_read: false
-  created_at: 2008-03-26 14:48:42 +01:00	
-  updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
-  parent: entry_private_normal_no_roles_parent
-
-
 ##entries del espacio private_admin donde el usuario normal_user tiene rol de admin y estas entries pertenecen a Quentin
 
 entry_private_admin_parent: 	
@@ -376,7 +46,7 @@ entry_private_admin_attachment_children3:
   parent: entry_private_admin_parent
   
 
-##entries del espacio private_admin donde el usuario normal_user no tiene rol de admin 
+##entries del espacio private_admin donde el usuario user_normal tiene rol de admin 
 
 entry_private_normal_admin_parent: 	
   title: entry_title	
@@ -386,7 +56,7 @@ entry_private_normal_admin_parent:
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent_id: NULL	
   parent_type: NULL	
   
@@ -398,7 +68,7 @@ entry_private_normal_admin_children1:
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_private_normal_admin_parent	
   
 entry_private_normal_admin_children2: 
@@ -409,7 +79,7 @@ entry_private_normal_admin_children2:
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_private_normal_admin_parent	
   
 entry_private_normal_admin_attachment_children3: 	
@@ -420,8 +90,345 @@ entry_private_normal_admin_attachment_children3:
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_private_normal_admin_parent
+
+
+
+
+##entries del espacio private_user donde el usuario user_normal tiene rol de User que pertenecen al usuario Quentin
+
+entry_private_user_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: parent_private_user_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_user_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: children_private_user_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_user_parent	
+  
+entry_private_user_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_user(Space)
+  content: children_private_user_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_user_parent	
+  
+entry_private_user_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: private_user_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_user_parent
+
+##entries del espacio private_user donde el usuario user_normal tiene rol de User que pertenecen al usuario user_normal
+  
+entry_private_normal_user_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: parent_private_normal_user_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_normal_user_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: children_private_normal_user_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_user_parent	
+  
+entry_private_normal_user_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_user(Space)
+  content: children_private_normal_user_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_user_parent	
+  
+entry_private_normal_user_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_user (Space)	
+  content: private_normal_user_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_user_parent
+
+
+##entries del espacio private_invited donde el usuario normal_user tiene rol de Invited que pertenecen al usuario Quentin
+
+entry_private_invited_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: parent_private_invited_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_invited_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: children_private_invited_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_invited_parent	
+  
+entry_private_invited_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)
+  content: children_private_invited_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_invited_parent	
+  
+entry_private_invited_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: private_invited_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_invited_parent
+
+##entries del espacio private_invited donde el usuario user_normal tiene rol de Invited que pertenecen al usuario normal_user
+
+entry_private_normal_invited_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: parent_private_normal_invited_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_normal_invited_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: children_private_normal_invited_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_invited_parent	
+  
+entry_private_normal_invited_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)
+  content: children_private_normal_invited_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_invited_parent	
+  
+entry_private_normal_invited_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_invited (Space)	
+  content: private_normal_invited_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_invited_parent
+  
+##entries del espacio private_no_roles donde el usuario user_normal no tiene roles pertenecientes a Quentin
+
+entry_private_no_roles_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: parent_private_no_roles_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_no_roles_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: children_private_no_roles_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent	
+  
+entry_private_no_roles_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)
+  content: children_private_no_roles_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent	
+  
+entry_private_no_roles_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: private_no_roles_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent
+  
+
+
+##entries del espacio private_no_roles donde el usuario user_normal no tiene roles pertenecientes a Quentin
+
+entry_private_no_roles_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: parent_private_no_roles_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_no_roles_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: children_private_no_roles_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent	
+  
+entry_private_no_roles_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)
+  content: children_private_no_roles_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent	
+  
+entry_private_no_roles_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: private_no_roles_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: quentin (User)	
+  parent: entry_private_no_roles_parent
+
+##entries del espacio private_no_roles donde el usuario user_normal no tiene roles pertenecientes a user_normal
+
+entry_private_normal_no_roles_parent: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: parent_private_normal_no_roles_article (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent_id: NULL	
+  parent_type: NULL	
+  
+entry_private_normal_no_roles_children1: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: children_private_normal_no_roles_article1 (Article)	  
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_no_roles_parent	
+  
+entry_private_normal_no_roles_children2: 
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)
+  content: children_private_normal_no_roles_article2 (Article)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_no_roles_parent	
+  
+entry_private_normal_no_roles_attachment_children3: 	
+  title: entry_title	
+  description: entry_description		
+  container: private_no_roles (Space)	
+  content: private_normal_no_roles_attachment1 (Attachment)
+  public_read: false
+  created_at: 2008-03-26 14:48:42 +01:00	
+  updated_at: 2008-03-26 14:48:42 +01:00	 	
+  agent: user_normal (User)	
+  parent: entry_private_normal_no_roles_parent
+
+
 
 
 ##entries del espacio public creadas por Quentin
@@ -475,7 +482,7 @@ entry_public_attachment_children3:
   agent: quentin (User)	
   parent: entry_public_article	
 
-##entries del espacio public creadas por normal_user
+##entries del espacio public creadas por user_normal
 
 entry_public_normal_article: 	
   title: entry_title	
@@ -486,7 +493,7 @@ entry_public_normal_article:
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)		
+  agent: user_normal (User)		
   parent_id: NULL	
   parent_type: NULL
   
@@ -499,7 +506,7 @@ entry_public_normal_children1:
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_public_normal_article	
   
 entry_public_normal_children2: 
@@ -511,7 +518,7 @@ entry_public_normal_children2:
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_public_normal_article		
 
 entry_public_normal_attachment_children3: 	
@@ -523,7 +530,7 @@ entry_public_normal_attachment_children3:
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
-  agent: normal_user (User)	
+  agent: user_normal (User)	
   parent: entry_public_normal_article	
 
 #entries para probar la paginación
