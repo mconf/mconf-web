@@ -9,8 +9,6 @@ class SpacesController < ApplicationController
 #  before_filter :user_is_admin , :only=> [:new,:create,:destroy]
 #  before_filter :space_member, :only=>[:show]
 
- before_filter :current_site
- authorization_filter :current_site, :create, :only => [:new, :create]
  authorization_filter :space, :read, :only => [:show]
  authorization_filter :space, :update, :only => [:edit, :update]
  authorization_filter :space, :delete, :only => [:destroy]
