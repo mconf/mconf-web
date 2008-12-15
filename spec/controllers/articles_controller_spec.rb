@@ -1335,10 +1335,10 @@ describe ArticlesController do
                 @private_article = articles(:parent_private_normal_invited_article)
               end
       
-              it "should let user to edit an article" do
-                pending("pendiente") do
+              it "should not let the user to edit this article" do
+                pending("según hablamos en la reunión no debería editarlo aunque sea suyo porque no tiene rol adecuado") do
                   get :edit , :id =>@private_article, :space_id => @space.name 
-                  assert_response 200
+                  assert_response 403
                 end
               end
             end
@@ -1368,10 +1368,10 @@ describe ArticlesController do
                 @private_article = articles(:parent_private_normal_no_roles_article)
               end 
             
-              it "should let user to edit an article" do
-                pending("pendiente") do
+              it "should not let the user to edit an article" do
+                pending("No debería dejar editar el artículo porque no tiene roles en ese espacio aunque el artículo sea suyo") do
                   get :edit , :id =>@private_article.id, :space_id => @space.name 
-                  assert_response 200
+                  assert_response 403
                 end
               end
             end
@@ -1927,10 +1927,10 @@ describe ArticlesController do
                   @article = articles(:parent_private_normal_invited_article)
                 end
                
-                it "should let the user to edit the article" do
-                  pending("Este artículo es del usuario, debería dejar editarlo aunque no tenga roles en ese espacio") do
+                it "should not let the user to edit the article" do
+                  pending("Este artículo es del usuario, no debería dejar editarlo porque no tiene roles en ese espacio") do
                     put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                    response.should redirect_to(space_article_path(@space,@article))
+                    assert_response 403
                   end
                 end
               end   
@@ -1961,10 +1961,10 @@ describe ArticlesController do
                   @article = articles(:parent_private_normal_no_roles_article)
                 end
               
-                it "should let the user to edit articles" do
-                  pending("Debería dejar editar el artículo a su dueño") do
+                it "should not let the user to edit articles" do
+                  pending ("Este artículo es del usuario, no debería dejar editarlo porque no tiene roles en ese espacio") do
                     post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                    response.should redirect_to(space_article_path(@space,@article))
+                    assert_response 403
                   end
                 end
               end
@@ -1995,9 +1995,10 @@ describe ArticlesController do
               end
               
               it "should let the user to edit articles" do
-                pending("Debería dejar editar el artículo del usuario") do
+                pending("No debería dejar editar el artículo del usuario aunque sea suyo") do
                   post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                  response.should redirect_to(space_article_path(@space,@article))
+                  #response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end
             end
@@ -2170,10 +2171,11 @@ describe ArticlesController do
                   @article = articles(:parent_private_normal_invited_article)
                 end
                
-                it "should not let the user to edit the article and redirect to the article" do
-                  pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
+                it "should not let the user to edit the article " do
+                  pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles de user mínimo.") do
                     put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                    response.should redirect_to(space_article_path(@space,@article))
+                    #response.should redirect_to(space_article_path(@space,@article))
+                    assert_response 403
                   end
                 end
               end   
@@ -2204,10 +2206,11 @@ describe ArticlesController do
                   @article = articles(:parent_private_normal_no_roles_article)
                 end
               
-                it "should not let the user to edit articles and redirect to the article" do
-                  pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
+                it "should not let the user to edit articles" do
+                  pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles") do
                     post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                    response.should redirect_to(space_article_path(@space,@article))
+                    #response.should redirect_to(space_article_path(@space,@article))
+                    assert_response 403
                   end
                 end
               end
@@ -2237,10 +2240,11 @@ describe ArticlesController do
                 @article = articles(:public_normal_article)
               end
             
-              it "should not let the user to edit articles and redirect to the article" do
-                pending("Este artículo es del usuario, debería dejar intentar editarlo aunque no tenga roles.Da error 403") do
+              it "should not let the user to edit articles" do
+                pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles mínimo de user") do
                   post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                  response.should redirect_to(space_article_path(@space,@article))
+                  #response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end
             end
@@ -2447,20 +2451,14 @@ describe ArticlesController do
                 @article = articles(:parent_private_normal_invited_article)
               end
               
-              it "should destroy the requested article" do
-                pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
-                  assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+              it "should not destroy the requested article" do
+                pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles") do
+                  #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
                     delete :destroy, :id => @article, :space_id => @space.name
-                  end
+                    assert_response 403
+                  #end
                 end
-              end
-
-              it "should redirect to the articles list" do
-                pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
-                  delete :destroy, :id => @article, :space_id => @space.name
-                  response.should redirect_to(space_articles_path(@space))
-                end
-              end
+              end          
             end    
           end
       
@@ -2495,20 +2493,14 @@ describe ArticlesController do
                 @article = articles(:parent_private_normal_no_roles_article)
               end
              
-              it "should destroy the requested article" do
-                pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
-                  assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+              it "should not destroy the requested article" do
+                pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles en el espacio") do
+                  #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
                     delete :destroy, :id => @article, :space_id => @space.name
-                  end
+                    assert_response 403
+                  #end
                 end
-              end
-
-              it "should redirect to the articles list" do
-                pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
-                  delete :destroy, :id => @article, :space_id => @space.name
-                  response.should redirect_to(space_articles_path(@space))
-                end
-              end
+              end             
             end
           end
         end
@@ -2543,20 +2535,14 @@ describe ArticlesController do
               @article = articles(:public_normal_article)
             end
             
-            it "should destroy the requested article" do
-              pending("debería dejar eliminar el artículo al usuario al que le pertenezca") do
-                assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+            it "should not destroy the requested article" do
+              pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles en el espacio") do
+                #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
                   delete :destroy, :id => @article, :space_id => @space.name
-                end
+                  assert_response 403
+                #end
               end
-            end
-
-            it "should redirect to the articles list" do
-              pending("como debería dejar eliminar el artículo, debería hacer redirect al index de espacios después")do
-                delete :destroy, :id => @article, :space_id => @space.name
-                response.should redirect_to(space_articles_path(@space))
-              end
-            end
+            end            
           end
         end
       end
