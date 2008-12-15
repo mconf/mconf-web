@@ -332,6 +332,23 @@ class UsersController < ApplicationController
     redirect_back_or_default('/')
   end
   
+  
+  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
+
+  def forgot_password
+        if params[:email]
+          @agent = self.resource_class.find_by_email(params[:email])
+          unless @agent
+            flash[:error] = "Could not find anybody with that email address".t
+            return
+          end
+    
+          @agent.forgot_password
+          flash[:notice] = "A password reset link has been sent to email address".t
+          redirect_to("/")
+        end
+  end
+  
   private
   
   

@@ -2,8 +2,8 @@
 	
 		<div id="menu_logout">
 			
-			<ul><li><%= link_to 'about GLOBAL', signup_path,  :method=> 'get' , :class=>'main_title' %></li>
-				<li><%= link_to 'Project Partners', signup_path,  :method=> 'get' , :class=>'main_title'%></li>
+			<ul><li><%= link_to 'about GLOBAL', space_path(Space.find(1)),  :method=> 'get' , :class=>'main_title' %></li>
+				<li><%= link_to 'Project Partners', space_path(Space.find(1)),  :method=> 'get' , :class=>'main_title'%></li>
 				<li><%= link_to 'Logout', logout_path , :method=> 'get', :class=>'main_title'%></li>
 				<li><%= link_to  h(current_user.login), user_profile_path(current_user), :class=>'username' %></li>
 						
@@ -14,8 +14,8 @@
 
 		<div id="menu_login">
 			<ul>
-				<li><%= link_to 'about GLOBAL', signup_path,  :method=> 'get', :class=>'main_title' %></li>
-				<li><%= link_to 'Project Partners', signup_path,  :method=> 'get', :class=>'main_title' %></li>
+				<li><%= link_to 'about GLOBAL', space_path(Space.find(1)),  :method=> 'get', :class=>'main_title' %></li>
+				<li><%= link_to 'Project Partners', space_path(Space.find(1)),  :method=> 'get', :class=>'main_title' %></li>
 				<li><%= link_to 'Login', login_path, :method=> 'get', :class=>'main_title' %></li> 
 				<li><%= link_to 'Register', signup_path,  :method=> 'get', :class=>'main_title' %></li>
 				
