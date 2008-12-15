@@ -60,7 +60,7 @@ class Performance
 
   after_create {|perfor|
     user = perfor.agent
-    if perfor.stage.is_a?(Space)
+    if perfor.stage.is_a?(Space) && user.is_a?(User)
     space = perfor.stage
     role = perfor.role
     group = Group.find_by_name(space.emailize_name)
