@@ -410,6 +410,12 @@ div.action{
 	width:200px;
 	
 }
+
+/* estilo de los botones en las news*/
+#boxes_sameline input, #boxes_sameline form {
+	float:left;
+}
+
 /* FOOT */
 
 div#ft {
@@ -487,8 +493,8 @@ span.clip{
 }
 
 .pagination{
-	float:left;
-	
+	margin-top:10px;
+	margin-right:45px;
 }
 /*Post de Public (antes del login*/
 
@@ -504,21 +510,23 @@ span.clip{
 }
 
 .expand{
-	width:100px;
+	width:120px;
 	position:relative;
 	left:-80px;
 	display:inline-block;
 	text-align: left;
 }
+
 .links_paginate{
 	width:100px;
 	float:right;
 	border:solid 1px;
 }
 #paginata {
-	float:left;
-	margin-left:350px;
+	float:center;
+	margin-left:0px;
 }
+
 #paginata2 {
 	float:right;
 	margin-right:20px;
