@@ -4,7 +4,7 @@
 		<% rounded(:class => "tips") do %>
 	<div class= "paginate"><h1 class="title"><%= @title %></h1></div> 
 	<div id="post_paginate">
-	<span class= "expand"><%=link_to ("normal view", space_articles_path(@space, :expanded=>false))%> </span>
+	<span class= "expand"><%=link_to ("see normal view", space_articles_path(@space, :expanded=>false))%> </span>
 	<%= will_paginate @articles %><%=link_to ("10", space_articles_path(@space, :expanded=>false, :per_page=> 10))%>|
 	<%=link_to ("25", space_articles_path(@space, :expanded=>false, :per_page=> 25))%>|
 	<%=link_to ("50", space_articles_path(@space, :expanded=>false, :per_page=> 50))%>|

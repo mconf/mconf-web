@@ -3,9 +3,9 @@
 	<div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
 	<div class= "paginate"><h1 class="title"><%= @title %></h1></div>
-	<%= will_paginate @articles %>
+	
 	<div id="paginata">
-	<span class= "expand"> <%=link_to ("expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
+	<span class= "expand"> <%=link_to ("see expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
 	</div>
 	<div id="paginata2">
 	<form name="get_page" method="get">
@@ -28,8 +28,9 @@
 		</div>
 	<% end -%>
 	<% end -%>
+	<%= will_paginate @articles %>
 	<% end -%>
-
+	
 </div>
 </div>
 <%= render :partial =>'shared/sidebars'%>
