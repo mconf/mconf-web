@@ -3,7 +3,7 @@
 <div class="vevent">
 Event Information</b><br>
 
-Name: <b><div class="summary"><%=h(@event.name)%></div></b>
+<div class="summary">Name: <b><%=h(@event.name)%></b></div>
 
 
 <%if logged_in? && current_user.superuser==true%>
@@ -74,12 +74,12 @@ URLs for the session</b>
                   #uncomment if you want an event in the past not to be editable
                   %>				  
                 <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
+				 <%= link_to image_tag("/images/calendar.png",:border=>0), formatted_space_event_path(@space, event, "ical"), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
                                                  
            
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
+				<%= link_to image_tag("/images/edit22.png",:border=>0), edit_space_event_path(@space, event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
                 <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, event), :method => :delete,
+				<%= link_to image_tag("/images/delete22.png",:border=>0), space_event_path(@space, event), :method => :delete,
                                          :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
            
 			<%end%><br>
