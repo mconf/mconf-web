@@ -29,8 +29,9 @@
 	  <%end%>
 
 <br>
-<%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> |
- <%if @article.authorizes?(current_user, :edit)%><%= link_to 'Edit', edit_space_article_path(@space, @article) %> |<%end%> 
+<%if @space.authorizes?(current_user, [ :create, :Content ])%>
+<%= link_to_function 'New Comment', "new Element.toggle('new_comment_form');" %> | <%end%>
+ <%if @article.authorizes?(current_user, :update)%><%= link_to 'Edit', edit_space_article_path(@space, @article) %> |<%end%> 
 <%= link_to 'Back', space_articles_path(@container) %>
 </div>
 <%end%>
