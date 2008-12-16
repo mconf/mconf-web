@@ -1,17 +1,9 @@
 class SpacesController < ApplicationController
-  before_filter :authentication_required, :except=>[:index, :register,:show]
-  #before_filter :is_public_space, :only=>[:show]
-  #before_filter :user_is_admin , :only=> [:new,:create,:destroy]
-  #before_filter :space_member, :only=>[:show]
+  before_filter :authentication_required, :except => [ :index, :register, :show ]
 
-  
-  #  before_filter :is_public_space, :only=>[:show]
-#  before_filter :user_is_admin , :only=> [:new,:create,:destroy]
-#  before_filter :space_member, :only=>[:show]
-
- authorization_filter :space, :read, :only => [:show]
- authorization_filter :space, :update, :only => [:edit, :update]
- authorization_filter :space, :delete, :only => [:destroy]
+  authorization_filter :space, :read, :only => [:show]
+  authorization_filter :space, :update, :only => [:edit, :update]
+  authorization_filter :space, :delete, :only => [:destroy]
 
   before_filter :public_read_ñapa, :only => [ :create, :update ]
 

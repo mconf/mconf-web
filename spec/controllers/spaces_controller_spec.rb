@@ -168,7 +168,7 @@ describe SpacesController do
       
       it "should not let to create a space" do
         get :new
-        assert_redirected_to login_path
+        assert_response 401
       end  
     end
   end
@@ -237,7 +237,7 @@ describe SpacesController do
       
       it "should NOT let the user to edit a public space" do
         get :edit , :id => spaces(:public).name
-        assert_response 403
+        assert_response 401
       end    
     end
 
@@ -297,7 +297,7 @@ describe SpacesController do
           assert_no_difference 'Space.count' do
             get :create ,:space => @valid_attributes
           end
-          assert_response 403
+          assert_response 401
         end      
       end
  
@@ -345,9 +345,9 @@ describe SpacesController do
       
           it "should let the User to try to create a space but with invalid params the space should not be created" do
             assert_no_difference 'Space.count', +1 do
-              post :create ,:space => @invalid_attributes
+              post :create ,:space => @invalid_attributes, :format => 'html'
             end
-            response.should redirect_to(new_space_path)
+            response.should render_template("spaces/new")
           end
         end
       end
@@ -356,9 +356,9 @@ describe SpacesController do
       
         it "should NOT let the User to try to create a space " do
           assert_no_difference 'Space.count' do
-            post :create ,:space => @invalid_attributes
+            post :create ,:space => @invalid_attributes, :format => 'html'
           end
-          assert_response 401
+          assert_redirected_to login_path
         end
       end
 
@@ -452,7 +452,7 @@ describe SpacesController do
            
         it "should NOT let the User to edit a public space " do
           get :update ,:space => @valid_attributes , :id => spaces(:public).name
-          assert_response 403          
+          assert_response 401
         end      
       end
     end
@@ -524,7 +524,7 @@ describe SpacesController do
             
         it "should NOT let the User to try to edit a public space " do
           get :update ,:space => @invalid_attributes , :id => spaces(:public).name
-          assert_response 403          
+          assert_response 401
         end      
       end
     end
@@ -614,7 +614,7 @@ describe SpacesController do
         assert_no_difference 'Space.count' do
           delete :destroy ,:id => spaces(:public).name
         end
-        assert_response 403
+        assert_response 401
       end
     end
   end   

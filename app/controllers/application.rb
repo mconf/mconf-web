@@ -21,16 +21,6 @@ class ApplicationController < ActionController::Base
   
   private
   
-  def authentication_required
-    if @space && @space.public==true
-      return true
-    else
-      #private space, redirect to register form
-      authenticated? || access_denied
-    end
-  end
-  
-  
   def is_public_space
     if @space && @space.public==true
       return true
