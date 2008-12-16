@@ -1336,10 +1336,8 @@ describe ArticlesController do
               end
       
               it "should not let the user to edit this article" do
-                pending("según hablamos en la reunión no debería editarlo aunque sea suyo porque no tiene rol adecuado") do
-                  get :edit , :id =>@private_article, :space_id => @space.name 
-                  assert_response 403
-                end
+                get :edit , :id =>@private_article, :space_id => @space.name 
+                assert_response 403
               end
             end
           end
@@ -1369,10 +1367,8 @@ describe ArticlesController do
               end 
             
               it "should not let the user to edit an article" do
-                pending("No debería dejar editar el artículo porque no tiene roles en ese espacio aunque el artículo sea suyo") do
-                  get :edit , :id =>@private_article.id, :space_id => @space.name 
-                  assert_response 403
-                end
+                get :edit , :id =>@private_article.id, :space_id => @space.name 
+                assert_response 403
               end
             end
           end
@@ -1405,8 +1401,10 @@ describe ArticlesController do
               end
               
               it "should let user to edit an article" do
+                pending("Esto se sale de las especificaciones, no?? El usuario normal no tiene rol de User o superior en Public") do
                   get :edit , :id =>@parent_article, :space_id => @space.name 
                   assert_response 200
+                end
               end
             end
           end
@@ -1928,10 +1926,8 @@ describe ArticlesController do
                 end
                
                 it "should not let the user to edit the article" do
-                  pending("Este artículo es del usuario, no debería dejar editarlo porque no tiene roles en ese espacio") do
-                    put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                    assert_response 403
-                  end
+                  put :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  assert_response 403
                 end
               end   
             end
@@ -1962,10 +1958,8 @@ describe ArticlesController do
                 end
               
                 it "should not let the user to edit articles" do
-                  pending ("Este artículo es del usuario, no debería dejar editarlo porque no tiene roles en ese espacio") do
-                    post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                    assert_response 403
-                  end
+                  post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                  assert_response 403
                 end
               end
             end
@@ -1995,11 +1989,9 @@ describe ArticlesController do
               end
               
               it "should let the user to edit articles" do
-                pending("No debería dejar editar el artículo del usuario aunque sea suyo") do
-                  post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
-                  #response.should redirect_to(space_article_path(@space,@article))
-                  assert_response 403
-                end
+                post :update, :id => @article, :article => @valid_attributes, :space_id => @space.name
+                #response.should redirect_to(space_article_path(@space,@article))
+                assert_response 403
               end
             end
           end
@@ -2172,11 +2164,9 @@ describe ArticlesController do
                 end
                
                 it "should not let the user to edit the article " do
-                  pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles de user mínimo.") do
-                    put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                    #response.should redirect_to(space_article_path(@space,@article))
-                    assert_response 403
-                  end
+                  put :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  #response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end   
             end
@@ -2207,11 +2197,9 @@ describe ArticlesController do
                 end
               
                 it "should not let the user to edit articles" do
-                  pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles") do
-                    post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                    #response.should redirect_to(space_article_path(@space,@article))
-                    assert_response 403
-                  end
+                  post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                  #response.should redirect_to(space_article_path(@space,@article))
+                  assert_response 403
                 end
               end
             end
@@ -2241,11 +2229,9 @@ describe ArticlesController do
               end
             
               it "should not let the user to edit articles" do
-                pending("Este artículo es del usuario, no debería dejar intentar editarlo porque no tiene roles mínimo de user") do
-                  post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
-                  #response.should redirect_to(space_article_path(@space,@article))
-                  assert_response 403
-                end
+                post :update, :id => @article, :article => @invalid_attributes, :space_id => @space.name
+                #response.should redirect_to(space_article_path(@space,@article))
+                assert_response 403
               end
             end
           end
@@ -2452,12 +2438,10 @@ describe ArticlesController do
               end
               
               it "should not destroy the requested article" do
-                pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles") do
-                  #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                    delete :destroy, :id => @article, :space_id => @space.name
-                    assert_response 403
-                  #end
-                end
+                #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                  assert_response 403
+                #end
               end          
             end    
           end
@@ -2494,12 +2478,10 @@ describe ArticlesController do
               end
              
               it "should not destroy the requested article" do
-                pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles en el espacio") do
-                  #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                    delete :destroy, :id => @article, :space_id => @space.name
-                    assert_response 403
-                  #end
-                end
+                #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                  delete :destroy, :id => @article, :space_id => @space.name
+                  assert_response 403
+                #end
               end             
             end
           end
@@ -2536,12 +2518,10 @@ describe ArticlesController do
             end
             
             it "should not destroy the requested article" do
-              pending("No debería dejar eliminar el artículo al usuario al que le pertenezca porque no tiene roles en el espacio") do
-                #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
-                  delete :destroy, :id => @article, :space_id => @space.name
-                  assert_response 403
-                #end
-              end
+              #assert_difference 'Article.count', -3 do  #elimina el padre y los hijos
+                delete :destroy, :id => @article, :space_id => @space.name
+                assert_response 403
+              #end
             end            
           end
         end

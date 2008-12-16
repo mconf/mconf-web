@@ -111,7 +111,9 @@ module SirAuthorizes
         def authorizes_with_superuser(agent, *args)
           return true if agent.superuser
 
-          return true if self.respond_to?(:entry) && self.entry.agent == agent
+          return true if self.respond_to?(:entry) &&
+                         self.entry.agent == agent &&
+                         self.entry.container.has_role_for?(agent, :permission => [ :create, :Content ], :include_anyones => true)
 
           authorizes_without_superuser(agent, *args)
         end
