@@ -52,6 +52,10 @@ class SingularAgent
   def email
     ""
   end
+
+  def <=>(agent)
+    self.name <=> agent.name
+  end
 end
 
 Performance
