@@ -183,13 +183,13 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.save
-        @event.tag_with(params[:tags]) if params[:tags]
-        
         @entry = Entry.create(:agent       => current_agent,
                               :container   => @container,
                               :content     => @event,
                               :title       => @event.title,
                               :description => @event.description)        
+
+        @event.tag_with(params[:tags]) if params[:tags]
         
         if EventDatetime.datetime_max_length(@event.event_datetimes)
           flash[:notice] = "Event was successfully created.\r\nWarning: The interval between start and end is bigger than "+EventDatetime::MAXIMUM_LENGTH_IN_HOURS.to_s+" hours, be sure this is what you want."
