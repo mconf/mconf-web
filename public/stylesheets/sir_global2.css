@@ -15,9 +15,10 @@ a:link, a:visited, a:hover, p{
 .gris{
 	color:#5a5a5a;
 }
-#notice {
-	
+.red{
+	color:#A21111;
 }
+
 
 /* HEADER */
 
@@ -580,35 +581,38 @@ span.event_title{
 	position:relative;
 	left:0px;
 	display:inline-block;
-	text-align: left;
+	text-align: center;
+	
 }
 span.event_description{
 	width:200px;
 	position:relative;
 	left: 5px;
 	display:inline-block;
-	text-align: left;
+	text-align: center;
 }
 span.event_start_date{
-	width:100px;
+	width:90px;
 	position:relative;
 	left:10px;
 	display:inline-block;
-	text-align: left;
+	text-align: center;
 }
 span.event_actions{
-	width:150px;
+	width:100px;
 	position:relative;
 	left:10px;
 	display:inline-block;
-	text-align: left;
+	text-align: center;
+	
 }
+
 .event_tags{
-	width:100px;
+	width:165px;
 	position:relative;
 	left:15px;
 	display:inline-block;
-	text-align: left;
+	text-align: center;
 }
 span.event_tags a:link, span.event_tags a:visited{
 	color:green;
@@ -617,9 +621,23 @@ span.event_tags a:link, span.event_tags a:visited{
 	color:#3b54a6;
 	margin-top:10px;
 	font-variant:small-caps;
+	text-decoration:underline;
+	text-align:center;
+
+	
 }
-
-
+/*Búsqueda en la tag cloud*/
+.post_search{
+	width:100%;
+	text-align:center;
+}
+.contenido_search{
+	
+	margin-top:5px;
+}
+.separador{
+	background-color:#b7dff6;
+}
 /*Agenda de eventos*/
 /*tr.contenido{
 	

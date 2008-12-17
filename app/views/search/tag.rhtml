@@ -5,11 +5,17 @@
 <div class="yui-b main_column">
 	
 <% rounded(:class => "tips") do %>
-<h2>Events</h2><br>
+<br/>
+
+
+	
+<h2 class="title separador">Events</h2>
+<br/>
+<div class="contenido_search">
 <% if @events == []%>
-		No events found
+		<p class="red">No events found</p>
 	<% else%>
-		<h3> <%= @events.size%> events were found</h3>
+		<h3 class="red"> <%= @events.size%> events were found</h3>
     		<%if @events.size != 0%>
 				<!--genera la tabla de eventos-->
        			<%=generate_event_table%>	
@@ -19,12 +25,18 @@
 				<% end %>
 			<% end %>
 	<%end%>       		
+</div>
+<br/>
+<br/>
 
-</br>
-	  <div class="user">
-	   <h2> Users</h2><br>
+
+<div class="user_search">
+	   <h2 class="title separador"> Users</h2>
+	   <div class="contenido_search">
+	   <br/>
 	   <%if @users == []%>
-	   No users Found<br>
+	   <p class="red">No users found</p>
+	   <br/>
 	   <%else%>
 	   
 <table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
@@ -58,14 +70,19 @@
 <%end%>
 </table>
 <%end%>
-
+</div>
 
 </div>
 
-<div class="post">
-	<br><h2> Posts</h2><br>
+<br/>
+<br/>
+
+<div class="post_search">
+	<h2 class="title separador"> Posts</h2>
+	<br/>
+	<div class="contenido_search">
 	   <%if @articles == []%>
-	   No Posts Found<br>
+	   <p class="red">No posts found</p>
 	   <%else%>
 	
 	 <% @articles.each do |article| %>
@@ -74,7 +91,7 @@
 	 <%end%>
 <%end%>
 <%end%>
-	
+	</div>
 </div>
 
 <%end%>
