@@ -6,19 +6,29 @@
 	
 	<div id="paginata">
 	<span class= "expand"> <%=link_to ("see expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
+	
 	</div>
 	<div id="paginata2">
 	<form name="get_page" method="get">
-	<select id="page_id" onchange="change_per_page('<%=@space.name%>')" selected="<%@page_id%>">
+	<select id="page_id" class= "elegido" onchange="change_per_page('<%=@space.name%>')" selected="<%=params[:per_page]%>">
+		<!--<%for valor in [10,25,50,100]%>
+		<%if valor== params[:per_page]%>
+			<option value="<%=valor%>"  selected="selected">Entries Shown: <%=valor%> </option>
+		<%else%>
+			<option value="<%=valor%>" class="noelegido">Entries Shown: <%=valor%> </option>
+		<%end%>
+		<%end%>
+		-->
 		<option value=""> Entries shown </option>
 		<option value="10">10</option>
 		<option value="25">25</option>
 		<option value="50">50</option>
 		<option value="100">100</option>
+
 	</select>
 	</form>
 	
-	</div>
+	</div>	
 	<br/><br/> 
 	<% for article in @articles -%>
 	<%if article.entry.parent_id == nil%>
