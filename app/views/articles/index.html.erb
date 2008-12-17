@@ -2,11 +2,10 @@
 <div id="yui-main">
 	<div class="yui-b main_column">
 	<% rounded(:class => "tips") do %>
-	<div class= "paginate"><h1 class="title"><%= @title %></h1></div>
+	<div class= "paginate"><h1 class="title"><%= name_format(@title, 55, "") %></h1></div>
 	
 	<div id="paginata">
 	<span class= "expand"> <%=link_to ("see expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
-	
 	</div>
 	<div class="paginata2">
 	<form name="get_page" method="get">

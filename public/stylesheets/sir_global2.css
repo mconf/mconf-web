@@ -537,23 +537,28 @@ span.clip{
 #paginata {
 	display:inline-block;
 	clear:right;
+	margin-top: 1px;
 	
 }
 
 #paginata .expand{
-	left: -20px;
+	float:center;
 	}
 	
 #post_paginate .expand{
-	left: -10px;
+	float:center;
 	}
 	
 .paginata2 {
-	position:relative;
+	/*position:relative;
 	padding-right:20px;
 	display:inline-block;
 	text-align: left;
-	right:-167px;
+	right:-167px;*/
+	float:right;
+	display:inline;
+	margin-top: -16px;
+	margin-right: 21px;
 }
 
 
