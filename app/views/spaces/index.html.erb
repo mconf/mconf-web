@@ -35,9 +35,6 @@
 <!--
 <%  logged_in? && @space.authorizes?(current_user, [ :update, :Content ])%>
 -->
-<% if logged_in?%>	
-	<%= button_to 'New space', new_space_path, :method => :get %>
-<%end%>
 
 
 <%end%>
