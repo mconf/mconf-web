@@ -12,7 +12,7 @@
 <%for user in @users do%>
 <%if user.profile != nil%>
 <tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(current_user) if user.profile.name%><%= link_to user.login,  user_profile_path(current_user, @space) unless user.profile.name%><br></td>
+<td align="center"><%=link_to user.profile.name, user_profile_path(user) if user.profile.name%><%= link_to user.login,  user_profile_path(user, @space) unless user.profile.name%><br></td>
 <td align="center"><%= user.profile.lastname%><br></td>
 <%if logged_in?%><td align="center"><%= user.email%><br></td><%end%>
 <td align="center"><%= user.profile.organization%><br></td>

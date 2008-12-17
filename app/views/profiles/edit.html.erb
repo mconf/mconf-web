@@ -4,8 +4,8 @@
 <h1 class="title">Editing profile</h1>
 
 <%= error_messages_for :profile %>
-
-<% form_for :profile, :url => user_profile_path(current_user), :html => {:method => :put, :multipart => true} do |f| %>
+<!-- ojo, he puesto @user porque no siempre se edita el usuario que está logueado en ese momento-->
+<% form_for :profile, :url => user_profile_path(@user), :html => {:method => :put, :multipart => true} do |f| %>
 
 
 <%= render :partial => 'form', :locals => { :f => f } %>

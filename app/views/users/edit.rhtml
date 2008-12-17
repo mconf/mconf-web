@@ -22,18 +22,21 @@
 <%= render :partial => 'resources' %>
 
         	<%= submit_tag 'Save User' %>
-        
+        		  
+<% end -%>
+
 		<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
         
-            <input onclick=document.location="/manage_users" type="button" value="Back" />
+			<%= button_to 'Back', space_users_path(@space, :manage => true), :method => :get%>
         
-		<% else %>
+		<% elsif logged_in? && current_user.superuser==true && @user.id == current_user.id %>
 		
-            <%= link_to 'Back', space_user_profile_path(@space,current_user)%>
+			<%= button_to 'Back', space_user_profile_path(@space,current_user), :method => :get%>
+		<% else%>
+		
+			<%= button_to 'Back', space_users_path(@space), :method => :get%>
         
 		<% end -%>
-        
-<% end -%>
 
 <% end -%>
 </div>
