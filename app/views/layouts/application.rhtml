@@ -98,15 +98,23 @@
 	<script language="javascript" type="text/javascript">
 		
 		myBorder2.render('space_p');
-		
-        myBorder.render('round_button');
+		myBorder.render('round_button');
 	    myBorder.render('round_button2');
 		myBorder.render('round_button3');
 		myBorder.render('round_button4');
 		myBorder.render('round_button5');
 		myBorder.render('round_button6');
-		myBorder.render('round_button7');
-		myBorder3.render('card');
+		
+		if (document.getElementById("round_button7")==null) {
+			myBorder3.render('card');
+			
+		}
+	    else{
+			
+			myBorder.render('round_button7');
+			myBorder3.render('card');
+		}
+	   
 	   
   </script>
   
