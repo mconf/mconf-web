@@ -414,10 +414,16 @@ div.action{
 }
 
 /* estilo de los botones en las news*/
-#boxes_sameline input, #boxes_sameline form {
-	float:left;
+
+#button_inline {
+	padding-bottom:10px;
 }
 
+#button_inline input, #button_inline div {
+	display:inline;
+	float:left;
+}
+	
 /* FOOT */
 
 div#ft {
@@ -524,14 +530,26 @@ span.clip{
 	float:right;
 	border:solid 1px;
 }
+
 #paginata {
-	float:center;
-	margin-left:0px;
+	display:inline-block;
+	clear:right;
+	
 }
 
-#paginata2 {
-	float:right;
-	margin-right:20px;
+#paginata .expand{
+	left: -20px;
+	}
+	
+#post_paginate .expand{
+	left: -10px;
+	}
+	
+.paginata2 {
+	position:relative;
+	display:inline-block;
+	text-align: left;
+	right:-167px;
 }
 
 
