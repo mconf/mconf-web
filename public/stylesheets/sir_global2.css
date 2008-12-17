@@ -351,12 +351,13 @@ ul.sidebar_posts li {
 	
 }
 .bandera{
-	width:150px;
-	height:100px;
+	width:75px;
+	height:50px;
 	border:none;
 	background-image:url(../images/europ_flag.gif);
-	margin-top:10px;
-    margin-left:20px;
+	
+	margin-top:20px;
+    margin-left:60px;
 }
 .rss{
 	width:16px;
