@@ -1,11 +1,12 @@
 <div class="yui-b sidebar">
 
-<% rounded(:class => "tips") do %>	
+	<% rounded(:class => "tips") do %>	
 	<%= render :partial=> 'shared/search_posts'%>
 	<%end%>
 	
-
-	
+	<% rounded() do %>	
+	<%= render :partial=>'shared/tag_cloud'%>
+	<%end%>
 	
 	
 	<% rounded(:class => "tips") do %>
@@ -13,9 +14,5 @@
 	<div class="bandera"></div>
 	<%end%>	
 	
-	<% rounded() do %>	
-	
-	<%= render :partial=>'shared/tag_cloud'%>
-	<%end%>
-	
+		
 </div>

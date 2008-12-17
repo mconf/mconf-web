@@ -18,11 +18,16 @@
 <%= "You are not suscribed to any space"%>
 <%else%>
 <% for space in @user.stages%>
-<br><%=link_to space.name, space_path(space)%>
+<br><%=link_to name_format(space.name, 16,""), space_path(space), :title => space.name%>
 <%end%>
 <%end%>
 
 <%end%>
+	
+<% rounded() do %>	
+<%= render :partial=>'shared/tag_cloud'%>
+<%end%>
+	
 <% rounded(:class => "tips") do %>
 <%= link_to 'Ask for Resources', contact_mail_machines_path%>
 

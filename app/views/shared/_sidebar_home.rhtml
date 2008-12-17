@@ -3,16 +3,15 @@
 <% rounded(:class => "tips") do %>	
 	<%= render :partial=> 'shared/search_all'%>
 	<%end%>
-	
-
-	
-	
-	
-	
+		
 	<% rounded(:class => "tips") do %>
 	<div id="sidebar_news"><div class="rss"><%=link_to(image_tag("rss.png"),formatted_space_articles_path(@space,:atom))%> </div><h4 class="title_sidebar" >Latest News</h4><br/>
 	<%=render :partial =>'shared/latest_news'%>
 	</div>
+	<%end%>
+	
+	<% rounded() do %>	
+	<%= render :partial=>'shared/tag_cloud'%>
 	<%end%>
 	
 	<% rounded(:class => "tips") do %>
@@ -26,8 +25,5 @@
 	<div class="bandera"></div>
 	<%end%>	
 	
-	<% rounded() do %>	
 	
-	<%= render :partial=>'shared/tag_cloud'%>
-	<%end%>
 </div>
