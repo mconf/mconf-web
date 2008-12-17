@@ -5,8 +5,8 @@
 	<% rounded(:class => "description") do %>
 	<div class="contenido_main">
 		
-	<h2 class="title"><%=@space.name%> description</h2>
-	<%= @space.description%>
+	<h2 class="title"><%=name_format(@space.name, 45, "")%> description</h2>
+	<br/><%= @space.description%>
 	
 	<%end%>
 	

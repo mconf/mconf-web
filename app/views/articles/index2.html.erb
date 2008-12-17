@@ -2,7 +2,7 @@
 <div id="yui-main">
 	<div class="yui-b main_column">
 		<% rounded(:class => "tips") do %>
-	<div class= "paginate"><h1 class="title"><%= name_format(@title, 55, "") %></h1></div> 
+	<div class= "paginate"><h1 class="title"><%= name_format(@title, 40, "") %></h1></div> 
 	<div id="post_paginate">
 	<span class= "expand"><%=link_to ("see normal view", space_articles_path(@space, :expanded=>false))%> </span>
 	<%= will_paginate @articles %>
