@@ -36,7 +36,6 @@ class SearchController < ApplicationController
   end
   
   def tag
-
     @tag = Tag.find_by_name(params[:tag])
     @users = @tag.taggings.all(:conditions => [ "taggable_type = ?", "User" ]).map{ |t| 
       User.find(t.taggable_id) 
@@ -49,7 +48,8 @@ class SearchController < ApplicationController
     @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Article" ]).map{ |t| 
       Entry.find_by_content_id_and_content_type(t.taggable_id, 'Article')
     }
-    @articles = @entries.map{|e| e.content}
+    
+    @articles = @entries.map{|e| e.content if e != nil}
     @query = params[:tag]
     respond_to do |format|        
       format.html     

@@ -39,36 +39,11 @@
 	   <br/>
 	   <%else%>
 	   
-<table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
-	<tr><td align="center">Name (Login)</td><td align="center">Lastname</td><td align="center">Email</td><td align="center">Organization</td><td align="center">Role</td><td align="center">Tags</td>
-</tr>
+	<div class="col_public"><%=generate_user_table%></div>
+	<%for user in @users%>
 
-<%for user in @users do%>
-<%if user.profile != nil%>
-<tr>
-<td align="center"><%=link_to user.profile.name, user_profile_path(current_user)%> (<%= link_to user.login,  user_profile_path(current_user) %>)<br></td>
-<td align="center"><%= user.profile.lastname%><br></td>
-<td align="center"><%= user.email%><br></td>
-<td align="center"><%= user.profile.organization%><br></td>
-<%for role in @space.roles_for(user) do%>
-<td align="center"><%=role.name%><br></td>
-<%end%>
-
-<td align="center"><%= highlight(user.tag_list,@query) if user.tag_list != nil%><br></td>
-
-
-
-</tr>
-<%else%>
-<tr>
-<td align="center">(<%=link_to user.login, user_profile_path(current_user)%>)<br></td>
-<td></td><td align="center"><%= user.email%><br></td><td></td>
-<%for role in @space.roles_for(user) do%>
-<td align="center"><%=role.name%><br></td></tr>
-<%end%>
-<%end%>
-<%end%>
-</table>
+	    	<div class="user_public"><%=show_list_user(user)%></div>
+    <%end%>
 <%end%>
 </div>
 

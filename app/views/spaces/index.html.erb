@@ -13,7 +13,7 @@
 	  <%if logged_in? && space.authorizes?(current_user, [ :update, :Content ])%> 
 		   <div class="mini_logo"></div>
 		   
-		   <div class="space_name_title"><%= link_to space.name, edit_space_path(space)%></div>
+		   <div class="space_name_title"><%= link_to name_format(space.name,20,"") , edit_space_path(space)%></div>
            <div class="action">
 		    <%= link_to image_tag("user_add.png", :title => "Add Users", :alt=>"Add users"), new_space_user_path(space, {:by_email => true}) %>
             <%= link_to image_tag("group.png", :title=>"Groups", :alt=>"Groups"), space_groups_path(space)%>
@@ -23,7 +23,7 @@
 			<br/>
         <%else%>
          <div class="mini_logo"></div>
-		 <div class="space_name_title"><%= space.name%></div>
+		 <div class="space_name_title"><%= name_format(space.name,20,"")%></div>
 		 <br/>
 		 <br/>
 	<!-- lo he tocado para que no salga 2 veces el nombre-->

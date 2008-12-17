@@ -12,9 +12,9 @@
 						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
 							<%for arraycin in array_spaces%>
 								<%if arraycin[1]==@space.name%>
-									<option value="<%=arraycin[1]%>"  selected="selected"><%=arraycin[0]%></option>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%=name_format(arraycin[0],15,"")%></option>
 								<%else%>
-									<option value="<%=arraycin[1]%>" class="noelegido"><%=arraycin[0]%></option>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%=name_format(arraycin[0],15,"")%></option>
 								<%end%>
 							<%end%>
 						</select>

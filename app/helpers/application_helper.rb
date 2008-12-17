@@ -222,7 +222,7 @@ end
   def show_list_user(user)
     div_user = "<div class= 'name'>" + highlight(name_format(  ((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
     div_organization = "<div class= 'organization'>" + highlight((name_format(user.organization ,15,"") if user.profile).to_s,@query) + "</div>"
-    div_interests = "<div class= 'interests'>" + highlight((name_format(user.tag_list ,23,"")).to_s,@query) + "</div>"
+    div_interests = "<div class= 'interests'>" + (highlight((name_format( "[" + user.tag_list ,23,"]")).to_s,@query) unless user.tag_list == "").to_s + "</div>"
     div_members = "<div class= 'members'>" + highlight((name_format(member_spaces(user) ,15,"")).to_s,@query) + "</div>"
     line = div_user + div_organization + div_interests + div_members + "<br/> <br/>"
     return line
@@ -252,7 +252,7 @@ end
     span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,22,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
     span_description = "<span class= 'event_description'>" + link_to_remote(highlight(name_format(event.description,23,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.event_datetimes[0].start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
-    span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",30,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
+    span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",18,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
         if logged_in? && event.authorizes?(current_user, :edit)
     span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/calendar16.png"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/edit16.png"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete16.png"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
