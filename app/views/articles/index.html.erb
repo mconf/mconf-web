@@ -8,7 +8,7 @@
 	<span class= "expand"> <%=link_to ("see expanded view", space_articles_path(@space, :expanded=>true))-%> </span>
 	
 	</div>
-	<div id="paginata2">
+	<div class="paginata2">
 	<form name="get_page" method="get">
 	<select id="page_id" class= "elegido" onchange="change_per_page('<%=@space.name%>')" selected="<%=params[:per_page]%>">
 		<!--<%for valor in [10,25,50,100]%>
