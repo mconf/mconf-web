@@ -18,6 +18,9 @@ a:link, a:visited, a:hover, p{
 .red{
 	color:#A21111;
 }
+.green{
+	color:green;
+}
 
 
 /* HEADER */
@@ -388,15 +391,15 @@ ul.sidebar_posts li {
 	width:22px;
 	height:22px;
 	float:left;
-	margin-left:10px;
+	margin-left:160px;
 	background-image:url(../images/foto.png);
 }
 
 div.space_name_title{
 	float:left;
-	width:170px;
+	width:40%;
 	text-align:left;
-	margin-left:10px;
+	
 	
 }
 .space_name_title{
@@ -575,7 +578,7 @@ div.user_public{
 div.col_public div, div.user_public div{
 	margin-top:8px;
 	float:left;
-	padding-left:50px;
+	
 }
 
 div.name{
@@ -583,13 +586,14 @@ div.name{
 }
 
 div.organization{
-	width:95px;
+	width:120px;
 }
 div.interests{
-	width:85px;
+	width:200px;
+	
 }
 div.members{
-	width:85px;
+	width:100px;
 }
 
 /* APARTADO DE EVENTOS*/
@@ -857,3 +861,4 @@ td.ListUser1,td.ListUser0 {
 .first{
 	border-top:solid 1px #3b54a6;
 }
+
