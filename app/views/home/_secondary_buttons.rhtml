@@ -3,7 +3,8 @@
 	
 	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 <ul id="nav2">
-			<%= sub_tab "Spaces", spaces_path(:manage => true) %> |
+	 		<%= sub_tab "Spaces", spaces_path(:manage => true) %> |
+			<%= sub_tab "Site", edit_site_path() %> |
 			<%= sub_tab "Users", space_users_path(@space, :manage => true) %> |
 		    <%= sub_tab "Resources", machines_path %>
 </ul>	
