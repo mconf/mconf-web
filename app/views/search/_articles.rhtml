@@ -1,16 +1,17 @@
-<% rounded(:class => "tips") do %>
 
-<% if @articles.length == 0 %>
-	No Posts Found
-<% else%>
+<h2 class="title separador"> Posts</h2>
+
+<div class="contenido_search">
 	
-	<%for article in @articles%>
-	   
-	  <div class="contenido_main">
-    	<%=show_article(article.entry,@space,"edit","destroy")%> 
-		</div> 
-	
-	   
-    <%end%>	
+	<br/>
+	<% if @articles.length == 0 %>
+		<p class="red">No posts found</p>
+		<br/>
+	<% else%>
+		<%for article in @articles%>
+	   		<div class="contenido_main">
+    			<%=show_article(article.entry,@space,"edit","destroy")%> 
+			</div> 
+	<%end%>	
 <%end%>
-<%end%>
+</div>

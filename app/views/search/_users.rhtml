@@ -1,22 +1,22 @@
-<% rounded(:class => "tips") do %>
 
-<% if @users.length == 0 %>
-	No Users Found
+<h2 class="title separador"> Users</h2>
 	
-<% else%>
-	<% if current_user.superuser %>
+<div class="contenido_search">
+	<br/>
 	
-	<%= render :partial =>'users/manage_users'%>
-	
-	<% else %>
-	
+	<%if @users == []%>
+	   		<p class="red">No users found</p>
+	   		<br/>
+	   <%else%>
+	   		<% if current_user.superuser %>	
+				<%= render :partial =>'users/manage_users'%>	
+			<% else %>
+				<div class="col_public"><%=generate_user_table%></div>
+				<%for user in @users%>
+	    			<div class="user_public"><%=show_list_user(user)%></div>
+    			<%end%>
+		    <%end%>
+	   <%end%>
+</div>
+<br/>
 
-	<% i = 0%>	
-	<div class="col_public"><%=generate_user_table%></div>
-	<%for user in @users%>
-
-	    	<div class="user_public"><%=show_list_user(user)%></div>
-    <%end%>
-	<%end%>	
-<%end%>
-<%end%>

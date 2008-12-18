@@ -1,0 +1,45 @@
+
+
+<div id="yui-main">
+<div class="yui-b main_column">
+<% rounded(:class => "tips") do %>
+<%if @users.length== 0%>
+<%= "No users found"%>
+<%else%>
+<table  WIDTH=95% BORDER=0 CELLSPACING=0 CELLPADDING=0 align='center'">
+<thead id="cabeceraTabla">
+	<tr><th class="title" align="center">Name</th><th class="title" align="center">Lastname</th><%if logged_in?%><th class="title" align="center">Email</th><%end%><th class="title" align="center">Organization</th><th class="title" align="center">Role</th><th class="title" align="center">Tags</th>
+</tr>
+</thead>
+<tbody class="cellpadding">
+<%for user in @users do%>
+<%if user.profile != nil%>
+<tr>
+<td align="center"><%=link_to user.profile.name, user_profile_path(user) if user.profile.name%><%= link_to user.login,  user_profile_path(user, @space) unless user.profile.name%><br></td>
+<td align="center"><%= user.profile.lastname%><br></td>
+<%if logged_in?%><td align="center"><%= user.email%><br></td><%end%>
+<td align="center"><%= user.profile.organization%><br></td>
+<td align="center">
+<%=@space.roles_for(user).map(&:name).join(",")%>
+</td>
+<td align="center"><%= user.tag_list if user.tag_list != nil%><br></td>
+
+
+
+</tr>
+<%else%>
+<tr>
+<td align="center"><%=user.is_a?(User) ? link_to(user.name, user_profile_path(user)) : user.name %><br></td>
+<td></td><%if logged_in?%><td align="center"><%= user.email%><br></td><%end%><td></td> 
+<td align="center">
+<%=@space.roles_for(user).map(&:name).join(",")%>
+</td></tr>
+<%end%>
+<%end%>
+</tbody>
+</table>
+<%end%>
+<%end%>
+</div>
+</div>
+	<%= render :partial =>'shared/sidebar_users'%>

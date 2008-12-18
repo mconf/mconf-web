@@ -10,8 +10,9 @@ a:link, a:visited, a:hover, p{
 	color:#3b54a6;
 	font-weight:bold;
 	text-align:center;
-		
+
 }
+
 .gris{
 	color:#5a5a5a;
 }
@@ -511,7 +512,7 @@ span.clip{
 	margin-top:10px;
 	margin-right:45px;
 }
-/*Post de Public (antes del login*/
+/*Post de Public (antes del login)*/
 
 .paginate{
 	
@@ -575,6 +576,14 @@ div.image_logo{
 	text-align: left;
 }
 /*PEOPLE*/
+
+#cabeceraTabla .title {
+	padding-bottom: 10px;
+}
+
+.cellpadding td {
+	padding-bottom:4px;	
+}
 
 div.col_public {
 	display:inline;

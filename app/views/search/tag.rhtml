@@ -15,16 +15,20 @@
 <% if @events == []%>
 		<p class="red">No events found</p>
 	<% else%>
-		<h3 class="red"> <%= @events.size%> events were found</h3>
-    		<%if @events.size != 0%>
-				<!--genera la tabla de eventos-->
-       			<%=generate_event_table%>	
+		<% if @events.size == 1%>
+			<h3 class="red"> 1 event was found</h3>
+		<%else%>
+			<h3 class="red"> <%= @events.size%> events were found</h3>
+    			<%if @events.size != 0%>
+					<!--genera la tabla de eventos-->
+       				<%=generate_event_table%>	
 	   
-	  			<% @events.each do |event| %>  
-						<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+	  				<% @events.each do |event| %>  
+							<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+					<% end %>
 				<% end %>
-			<% end %>
-	<%end%>       		
+		<%end%>
+<%end%>       		
 </div>
 <br/>
 <br/>
@@ -35,21 +39,22 @@
 	   <div class="contenido_search">
 	   <br/>
 	   <%if @users == []%>
-	   <p class="red">No users found</p>
-	   <br/>
+	   		<p class="red">No users found</p>
+	   		<br/>
 	   <%else%>
-	   
-	<div class="col_public"><%=generate_user_table%></div>
-	<%for user in @users%>
+	   		<% if current_user.superuser %>	
+				<%= render :partial =>'users/manage_users'%>	
+			<% else %>
+				<div class="col_public"><%=generate_user_table%></div>
+				<%for user in @users%>
+	    			<div class="user_public"><%=show_list_user(user)%></div>
+    			<%end%>
+		    <%end%>
+	   <%end%>
+	   </div>
 
-	    	<div class="user_public"><%=show_list_user(user)%></div>
-    <%end%>
-<%end%>
 </div>
 
-</div>
-
-<br/>
 <br/>
 
 <div class="post_search">
