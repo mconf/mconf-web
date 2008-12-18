@@ -11,10 +11,11 @@
 					<%if @space%>
 						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
 							<%for arraycin in array_spaces%>
+							    <%select_space = Space.find_by_name(arraycin[1])%>
 								<%if arraycin[1]==@space.name%>
-									<option value="<%=arraycin[1]%>"  selected="selected"><%if Space.find_by_name(arraycin[0]).public == true && @space.id !=1 %><%=name_format(arraycin[0],13,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%> </option>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%> </option>
 								<%else%>
-									<option value="<%=arraycin[1]%>" class="noelegido"><%if Space.find_by_name(arraycin[0]).public == true && @space.id !=1 %><%=name_format(arraycin[0],13,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%></option>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%></option>
 								<%end%>
 							<%end%>
 						</select>
