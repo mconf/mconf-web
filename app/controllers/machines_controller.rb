@@ -8,6 +8,8 @@ class MachinesController < ApplicationController
   # GET /machines.xml
   # GET /machines.atom
   def index
+    session[:current_tab] = "Manage"
+    session[:current_sub_tab] = "Resources"
     @machines = Machine.find(:all)
     
     respond_to do |format|

@@ -31,7 +31,9 @@
 <br>
 
 <div id="button_inline">
+		<%if @article.authorizes?(current_user, [:create, :Content])%>
 		<%= button_to_function 'New Comment', "new Element.toggle('new_comment_form');"%>
+		<%end%>
 		<%if @article.authorizes?(current_user, :edit)%>
 	 	<%= button_to 'Edit', edit_space_article_path(@space, @article), :method => :get %>
 		<%end%> 

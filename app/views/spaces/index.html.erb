@@ -14,20 +14,26 @@
 		   <div class="mini_logo"></div>
 		   
 		   <div class="space_name_title"><%= link_to name_format(space.name,24,"") , edit_space_path(space)%></div>
-           <div class="action">
-		    <%= link_to image_tag("user_add.png", :title => "Add Users", :alt=>"Add users"), new_space_user_path(space, {:from_app => true}) %>
-            <%= link_to image_tag("group.png", :title=>"Groups", :alt=>"Groups"), space_groups_path(space)%>
-            <%= link_to image_tag("delete.png", :title=>"Delete"), space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
+      <%else%>
+         <div class="mini_logo"></div>
+		 <div class="space_name_title"><%= name_format(space.name,24,"")%></div>
+	<!-- lo he tocado para que no salga 2 veces el nombre-->
+	  <%end%>
+	       
+		   <div class="action">
+    		<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
+		    	<%= link_to image_tag("user_add.png", :title => "Add Users", :alt=>"Add users"), new_space_user_path(space, {:from_app => true}) %>
+            <%end%>
+			<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
+				<%= link_to image_tag("group.png", :title=>"Groups", :alt=>"Groups"), space_groups_path(space)%>
+			<%end%>
+			<%if logged_in? && space.authorizes?(current_user, :delete)%> 
+           		<%= link_to image_tag("delete.png", :title=>"Delete"), space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
+			<%end%>
 			</div>
 			<br/>
 			<br/>
-        <%else%>
-         <div class="mini_logo"></div>
-		 <div class="space_name_title"><%= name_format(space.name,24,"")%></div>
-		 <br/>
-		 <br/>
-	<!-- lo he tocado para que no salga 2 veces el nombre-->
-	<%end%>
+        
 	
   
 <% end %>
