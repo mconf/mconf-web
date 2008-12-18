@@ -243,7 +243,7 @@ select{
 	color: #3b54a6;
 }
 
-/*Linea de separacion cabecera*/
+/* Linea de separacion cabecera*/
 
 #line{
 	width:100%;
@@ -312,6 +312,7 @@ ul.sidebar_posts li {
 	margin-top:10px;
 	
 }
+/* Caja de my account */
 
 #my_account{
 	margin-top:10px;
@@ -337,6 +338,9 @@ ul.sidebar_posts li {
 	background: url("/images/email_not.png") no-repeat left center;
 	padding:2px 0 2px 20px;	
 }
+
+/* Seguimos con las laterales */
+
 #search_container h4 , #calendar-container h4{
 	padding-top:5px;
 	padding-bottom:10px;
@@ -370,6 +374,7 @@ ul.sidebar_posts li {
 }
 
 #sidebar_events, #sidebar_news{
+	padding-left: 15px;
 	text-align:left;
 	color:#7d7d7d;
 }
@@ -379,7 +384,6 @@ ul.sidebar_posts li {
 
 #sidebar_events a:link, #sidebar_news a:link{
 	color:#3b54a6;
-	
 	
 }
 .sidebar_news_description p{
