@@ -2,10 +2,11 @@
 
 <% if @users.length == 0 %>
 	No Users Found
+	
 <% else%>
 	<% if current_user.superuser %>
 	
-	<%= render :partial =>'manage_users'%>
+	<%= render :partial =>'users/manage_users'%>
 	
 	<% else %>
 	
