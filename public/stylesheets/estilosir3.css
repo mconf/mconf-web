@@ -10,13 +10,25 @@ text-align:center;
  .tips a:link, .tips a:visited{
  	font-size: 9pt; 
 	text-decoration: none;
-	color:#5a5a5a;
+	color:#5A5A5A;
 	}
 	
 	.tips a:hover{
 		color:#3b54a6;
 	text-decoration:none;
 	}
+	
+/* Los links de Download los quiero en verde */
+
+	.tips #download {
+	color:#466D4E;
+	}
+	
+	.tips #download:hover {
+	color:#2C4130;
+	}
+/* .......................*/
+	
 	.tips{
 		color:#5a5a5a;
 		font-size: 10pt; 

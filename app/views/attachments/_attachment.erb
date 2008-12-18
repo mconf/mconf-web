@@ -2,4 +2,4 @@
  	
 <%content_type = get_attachment_content_type(children)%>
 <%image = get_attachment_image(content_type)%>
-	<%= image_tag(image)%> <%=children.content.size/1024%> Kb  <%= link_to "Download" , media_entry_path(Entry.find(children)) %> 
+	<%= image_tag(image)%> <%=children.content.size/1024%> Kb  <%= link_to "Download" , media_entry_path(Entry.find(children)), :id => "download" %> 
