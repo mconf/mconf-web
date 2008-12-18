@@ -10,7 +10,7 @@
 
 <div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 
-<p><%= submit_tag 'Sign up' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
+<p><%= submit_tag 'Register' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 <% end -%>
 
 <% end -%>
@@ -20,10 +20,11 @@
 <div class="yui-b sidebar">
 	<% rounded(:class => "tips") do %>
 	<h4>Tips</h4>
-	After signing up, you will receive <br>
-	and email confirmation message<br>
-	You should click in the activation <br>
-	link to log in<br>
+	After registering, we will send you <br>
+	an email confirmation message to the <br>
+	address you provided.<br>
+	Please follow the instructions stated there<br>
+	to log in.<br>
 	<%= link_to 'Already have an account?', login_path %>
 	
 	<% end -%>
