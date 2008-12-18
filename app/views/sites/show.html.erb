@@ -1,0 +1,51 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	
+		<% rounded(:class => "tips") do %>
+
+<h2><%= "Site configuration".t %></h2>
+
+  <p>
+    <b><%= "Name".t %></b>: 
+    <%= sanitize current_site.name %>
+  </p>
+
+  <p>
+    <b><%= "Description".t %></b>: 
+    <%= sanitize current_site.description %>
+  </p>
+
+  <p>
+    <b><%= "Logotype".t %></b>: 
+    <%= image_tag(icon_image(current_site)) %>
+  </p>
+
+  <p>
+    <b><%= "Domain".t %></b>: 
+    <%= sanitize current_site.domain %>
+  </p>
+
+  <p>
+    <b><%= "SSL".t %></b>: 
+    <%= current_site.ssl? %>
+  </p>
+
+  <p>
+    <b><%= "Email".t %></b>: 
+    <%= sanitize current_site.email %>
+  </p>
+
+  <p>
+    <b><%= "Locale".t %></b>: 
+    <%= sanitize current_site.locale %>
+  </p>
+
+  <%= link_to "Edit".t, edit_site_path %>
+  
+  <%end%>
+  
+  </div>
+</div>
+
+
+<%= render :partial =>'shared/sidebar'%>
