@@ -63,7 +63,8 @@ class Group < ActiveRecord::Base
    def self.atom_parser(data)
     
     e = Atom::Entry.parse(data)
-    debugger
+
+
     group = {}
     group[:name] = e.title.to_s
     

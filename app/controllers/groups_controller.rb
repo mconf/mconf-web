@@ -1,13 +1,13 @@
 class GroupsController < ApplicationController
   before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
-
+  
   before_filter :authentication_required
-
+  
   #before_filter :remember_tab_and_space
-
+  
   before_filter :space_member, :only=>[:group_details,:index,:groups_details]
-
-#  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
+  
+  #  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
   authorization_filter :space, [ :manage, :Group ]
   
   set_params_from_atom :group, :only => [ :create, :update ]
@@ -79,7 +79,6 @@ class GroupsController < ApplicationController
   # POST /groups.xml
   # POST /groups.atom
   def create
-    
     # estos arreglos se hacen porque la vista html no pasa bien los parámetros
     if params[:group_name] && params[:group_users]
       params[:group] = {}
@@ -87,7 +86,10 @@ class GroupsController < ApplicationController
       params[:group][:user_ids] = params[:group_users][:id]
     end
     
-    params[:group][:space_id] = @space.id
+    if params[:group]
+      params[:group][:space_id] = @space.id
+    end
+    
     @group = Group.new(params[:group])
     respond_to do |format|
       if @group.save
@@ -98,7 +100,7 @@ class GroupsController < ApplicationController
         format.atom { 
           headers["Location"] = formatted_space_url(@group, :atom )
           render :action => 'show',
-                 :status => :created
+          :status => :created
         }
       else
         
@@ -124,25 +126,27 @@ class GroupsController < ApplicationController
       params[:group] = {}
       params[:group][:name] = params[:group_name]
       params[:group][:user_ids] = params[:group_users][:id]     
-  end
-  
-    params[:group][:space_id] = @space.id
+    end
+    
+    if params[:group]
+      params[:group][:space_id] = @space.id
+    end
+    
+    respond_to do |format|        
       
-      respond_to do |format|        
-        
-        if @group.update_attributes(params[:group])
-          flash[:notice] = 'Group was successfully updated.'
-          format.html { redirect_to(space_groups_path(@space)) }
-          format.xml  { render :xml => @group, :status => :created, :location => @group }
-          format.atom { head :ok }
-        else         
-          flash[:notice] = 'Error updating group.'       
-          format.html { redirect_to(edit_space_group_path(@space,@group)) }
-          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
-          format.atom { render :xml => @group.errors.to_xml, :status => :not_acceptable }
-        end
+      if @group.update_attributes(params[:group])
+        flash[:notice] = 'Group was successfully updated.'
+        format.html { redirect_to(space_groups_path(@space)) }
+        format.xml  { render :xml => @group, :status => :created, :location => @group }
+        format.atom { head :ok }
+      else         
+        flash[:notice] = 'Error updating group.'       
+        format.html { redirect_to(edit_space_group_path(@space,@group)) }
+        format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @group.errors.to_xml, :status => :not_acceptable }
       end
-
+    end
+    
   end
   
   # DELETE /groups/1
