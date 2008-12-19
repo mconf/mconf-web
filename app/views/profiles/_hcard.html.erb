@@ -11,7 +11,7 @@
  	
 	<%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail), :class => "photo", :alt => "Your Photo", :title=>"Your photo" ) if @thumbnail%>
 	
-	<span class="fn n"><%= @profile.name%> <%= @profile.lastname%></span>
+	<span class="fn n"><%=@profile.name%> <%=@profile.lastname%></span>
    
  	<div class="adr">
  			
