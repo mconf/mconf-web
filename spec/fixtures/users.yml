@@ -30,7 +30,7 @@ user_admin:
 user_normal:
   salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
   updated_at: 2008-02-26 14:51:46 +01:00
-  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85ç #admin
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
   remember_token_expires_at: 
   disabled: false
   remember_token: 

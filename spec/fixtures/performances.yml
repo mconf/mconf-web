@@ -28,18 +28,6 @@ user_space2_operator:
   role: invited
   stage: private_user (Space)
 
-user_group_1:
-  agent: user_space_admin (User)
-  role: invited
-  stage_id: 1
-  stage_type: Space
-  
-user_group_2:
-  agent: user_admin (User)
-  role: invited
-  stage_id: 1
-  stage_type: Space
-  
 public_anyone:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
