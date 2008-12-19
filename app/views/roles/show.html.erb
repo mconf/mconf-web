@@ -1,0 +1,38 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	
+		<% rounded(:class => "tips") do %>
+
+<p>
+  <b><%= 'Name'.t %>:</b>
+  <%=h @role.name %>
+</p>
+
+<p>
+  <b><%= "Stage type".t %>:</b> 
+  <%=h @role.stage_type.humanize.t %>
+</p>
+
+<p>
+<b><%= "Permissions".t %>:</b><br/>
+
+<% if @role.permissions.any? -%>
+  <% @role.permissions.each do |permission| -%>
+    <%= permission.title %><br />
+  <% end -%>
+<% else -%>
+<%= "Role %s hasn't any permission" / @role.name %>
+<% end -%>
+</p>
+
+
+<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Back', roles_path %>
+
+  <%end%>
+  
+  </div>
+</div>
+
+
+<%= render :partial =>'shared/sidebar'%>
