@@ -316,8 +316,8 @@ ul.sidebar_posts li {
 /* Caja de my account */
 
 #my_account{
-	margin-top:10px;
 	position:relative;
+	margin-top:10px;
 	margin-left:280px;
 }
 .login_account {
@@ -600,20 +600,49 @@ div.col_public div, div.user_public div{
 	
 }
 
+/*
+ * formato de las 4 columnas cuando no estamos logueados
+ */
 div.name{
-	width:195px;
+	width:200px;
 }
 
 div.organization{
-	width:120px;
+	width:130px;
 }
 div.interests{
-	width:200px;
+	width:220px;
 	
 }
 div.members{
+	width:130px;
+}
+
+/*
+ * Formato de las columnas cuando estamos logueados
+ */
+
+div.name_logged{
+	width:150px;
+}
+
+div.organization_logged{
+	width:120px;
+}
+
+div.email_logged {
+	width:195px;
+}
+
+div.interests_logged{
+	width:130px;
+	
+}
+div.members_logged{
 	width:100px;
 }
+
+
 
 /* APARTADO DE EVENTOS*/
 
