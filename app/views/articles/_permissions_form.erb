@@ -1,5 +1,8 @@
 <p>
   <b>Permissions</b><br />
+    <%if @article.entry%>
   		<%= check_box_tag 'entry[public_read]',"1", @article.entry.public_read %><%= "Public Post" %>
-
+	<%else%>
+		<%= check_box_tag 'entry[public_read]',"1", true %><%= "Public Post" %>
+	<%end%>
 </p>
