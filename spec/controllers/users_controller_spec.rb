@@ -142,6 +142,147 @@ describe UsersController do
   
   describe "responding to GET show" do
     
+    describe "when you are logged in" do
+      describe "as SuperAdmin" do
+        before(:each) do
+          login_as(:user_admin)
+        end
+        describe "in a private space" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the account information of a user of this space" do
+            get :show, :space_id => @space.name , :id => @user.id
+            assert_response 200
+          end
+          
+          it "should redirect to the associated user view" do
+            get :show, :space_id => @space.name , :id => @user.id
+            response.should render_template("show")
+          end
+          
+        end
+        
+        describe "in the public space" do
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the account information of a user of this space" do
+            get :show, :space_id => @space.name , :id => @user.id
+            assert_response 200
+          end
+          
+          it "should redirect to the associated user view" do
+            get :show, :space_id => @space.name , :id => @user.id
+            response.should render_template("show")
+          end
+          
+        end
+
+      end
+      describe "as normal_user" do
+        before(:each) do
+          login_as(:user_normal)
+        end
+        describe "in a private space where the user has the role Admin " do
+          before(:each) do
+            @space = spaces(:private_admin)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the account information of a user of this space" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              assert_response 200
+            end
+          end
+          
+          it "should redirect to the associated user view" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              response.should render_template("show")
+            end
+          end
+          
+        end
+        
+        describe "in a private space where the user has the role User" do
+          before(:each) do
+            @space = spaces(:private_user)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the account information of a user of this space" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              assert_response 200
+            end
+          end
+          
+          it "should redirect to the associated user view" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              response.should render_template("show")
+            end
+          end
+          
+        end
+        describe "in a private space where the user has the role Invited " do
+          before(:each) do
+            @space = spaces(:private_invited)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the account information of a user of this space" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              assert_response 200
+            end
+          end
+          
+          it "should redirect to the associated user view" do
+            pending("debería dejar a un Admin ver los users de su espacio") do
+              get :show, :space_id => @space.name , :id => @user.id
+              response.should render_template("show")
+            end
+          end
+          
+        end
+        
+        describe "in a private space where the user has not any roles" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the account information of a user of this space" do
+            get :show, :space_id => @space.name , :id => @user.id
+            assert_response 403
+          end
+          
+          
+        end
+        
+        describe "in the public space" do
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+        end
+        
+      end
+      
+      
+      
+    end
+    
+    describe "if you are not logged in" do
+      
+    end
     
   end
   
