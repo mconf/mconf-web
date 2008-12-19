@@ -6,22 +6,33 @@ class UsersController < ApplicationController
   
   
   # Get the User for member actions
-  #before_filter :get_agent, :only => :show
+  before_filter :get_agent, :only => [ :show, :edit, :update ]
   
   # Filter for activation actions
   before_filter :activation_required, :only => [ :activate, 
-  :forgot_password, 
-  :reset_password ]
+                                                 :forgot_password, 
+                                                 :reset_password ]
   # Filter for password recovery actions
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
-  :reset_password ]
+                                                          :reset_password ]
   
-  before_filter :authentication_required, :only => [:edit,:update, :destroy]
-  before_filter :user_is_admin, :only=> [:search_users2]
-  
-  before_filter :edit_user,  :only=> [:show,:edit,:update]
-  before_filter :space_member, :only=>[:show]
-  
+  before_filter :authentication_required, :only => [:edit, :update, :destroy]
+
+  # Space Users
+  authorization_filter :space, [ :read, :Performance ],   :if   => proc{ |controller| controller.get_space }, 
+                                                          :only => [ :index ]
+  authorization_filter :space, [ :create, :Performance ], :if   => proc{ |controller| controller.get_space },
+                                                          :only => [ :new, :create ]
+  authorization_filter :space, [ :delete, :Performance ], :if   => proc{ |controller| controller.get_space },
+                                                          :only => [ :destroy ]
+
+  # Accounts
+  authorization_filter :user, :read,   :if => proc{ |controller| ! controller.user_is_agent? },
+                                       :only => [ :show ]
+  authorization_filter :user, :update, :if => proc{ |controller| ! controller.user_is_agent? },
+                                       :only => [ :edit, :update ]
+  authorization_filter :user, :delete, :only => [ :destroy ]
+
   set_params_from_atom :user, :only => [ :create, :update ]  
   
   # GET /users
@@ -58,8 +69,6 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   # GET /users/1.atom 
   def show
-    
-    @user = User.find(params[:id])
     respond_to do |format|
       format.html
       format.xml { render :xml => @user }
@@ -152,7 +161,6 @@ class UsersController < ApplicationController
   #This method returns the user to show the form to edit him
   def edit
     session[:current_sub_tab] = "Edit Account"
-    @user = User.find(params[:id])
     if @user.profile
       @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
     end
@@ -170,7 +178,6 @@ class UsersController < ApplicationController
   # PUT /users/1.atom
   #this method updates a user
   def update
-    @user = User.find(params[:id])
     #now we assign the machines to the user
     if current_user.superuser==true
       @array_resources = params[:resource]
@@ -244,116 +251,13 @@ class UsersController < ApplicationController
     
     
   end
-  
-=begin    
-  #search method that returns the users founded with the query in this space.
-  def search_users
-    @query = params[:query]
-    q1 =  @query 
-    @use = User.find_by_contents(q1)
-    @users = []
-    i = 0
-    
-    @agen = @container.actors
-    
-    @use.collect { |user|
-      if @agen.include?(user)
-        @users << user
-      end
-    }
-    
-    
-    
-    respond_to do |format|   
-      format.html {render :template=>'/users/show_space_users'}
-      format.js 
-      
-    end
-  end
-  
-  
-  #search method that returns the users founded with the query in all the aplication.
-  def search_users2
-    @query = params[:query]
-    q1 =  @query 
-    @users = User.find_by_contents(q1)
-    
-    respond_to do |format| 
-      format.html {render :template=>'/users/index'}
-      format.js 
-      #format.html 
-    end
-  end
-  
-  def reset_search
-    q1 =  '*' 
-    @users = User.find_by_contents(q1, :lazy=> [:login, :email, :name, :lastname, :organization])
-    
-    respond_to do |format|        
-      format.js {render :template =>"users/search_users2.rjs"}
-    end
-  end
-  
-  def clean
-    render :update do |page|
-      page.replace_html 'adv_search', ""
-      
-    end
-  end
-  
 
-  #incluido en el controlador search (action => tag)
-  def search_by_tag
-    
-    @tag = params[:tags]
-    # @users = User.tagged_with(@tag)   
-    #@user = User.find_by_contents(@tag)
-    @users = User.tagged_with(@tag)
-    respond_to do |format|        
-      format.js 
-      #format.html 
-    end
-  end
-=end
-  
-  
-  def organization
-    respond_to do |format|
-      # format.html 
-      format.js   
-    end
+  def user_is_agent?
+    @user == current_agent
   end
   
-#  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
-#  def activate
-#    self.current_agent = params[:activation_code].blank? ? Anonymous.current : self.resource_class.find_by_activation_code(params[:activation_code])
-#    if authenticated? && current_agent.respond_to?("active?") && !current_agent.active?
-#      current_agent.activate
-#      flash[:notice] = "Your account has been confirmed. Thank you!"
-#    end
-#    redirect_back_or_default('/')
-#  end
-#  
-#  
-#  # Este metodo está copiado del plugin para cambiar el flash[:info] a flash[:notice] y que salga el mensaje en las vistas
-#
-#  def forgot_password
-#        if params[:email]
-#          @agent = self.resource_class.find_by_email(params[:email])
-#          unless @agent
-#            flash[:error] = "Could not find anybody with that email address".t
-#            return
-#          end
-#    
-#          @agent.forgot_password
-#          flash[:notice] = "A password reset link has been sent to email address".t
-#          redirect_to("/")
-#        end
-#  end
-  
+ 
   private
-  
-  
   
   def add_user_from_app (params)
     
@@ -478,20 +382,6 @@ class UsersController < ApplicationController
     emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
     emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
     
-  end
-  
-  def edit_user
-    
-    @agent = @user = User.find(params[:id])
-    if current_user.superuser == true 
-      return true
-      
-    elsif current_user.id == @user.id
-      return true
-    else
-      flash[:notice] = "Action not allowed."          
-      redirect_to root_path   
-    end
   end
   
 end

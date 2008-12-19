@@ -6,7 +6,21 @@ class ApplicationController < ActionController::Base
   before_filter :get_space 
   before_filter :get_cloud
   before_filter :set_locale
-  
+
+   # Returns an Space if it is present in params or session
+  def get_space    
+    if params[:space_id]
+        @container = @space = Space.find_by_name(params[:space_id])
+        session[:space_id] = params[:space_id]
+    elsif session[:space_id]
+      @container = @space = Space.find_by_name(session[:space_id])
+    end
+    @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'}) if @space
+
+    # Return @space if it exists
+    @space
+  end
+
   #Method used in the globalize plugin to set base language
   def set_locale
     accept_locales = LOCALES.keys # change this line as needed, must be an array of strings
@@ -134,15 +148,6 @@ class ApplicationController < ActionController::Base
     @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true,:order => "updated_at DESC")
   end
   
-  def get_space    
-    if(params[:space_id])
-        @container = @space = Space.find_by_name(params[:space_id])
-        session[:space_id] = params[:space_id]
-    elsif session[:space_id]
-      @container = @space = Space.find_by_name(session[:space_id])
-    end
-    @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'}) if @space
-  end
   
   
   
