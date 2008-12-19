@@ -16,13 +16,13 @@
 									<%if current_user.superuser == true%>
 									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%> </option>
 									<%else%>
-									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],30,"(*)")%><%else%> <%=name_format(arraycin[0],30,"")%><%end%> </option>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],24,"(*)")%><%else%> <%=name_format(arraycin[0],24,"")%><%end%> </option>
 									<%end%>
 								<%else%>
 									<%if current_user.superuser == true%>
 									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%></option>
 									<%else%>
-									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],30,"(*)")%><%else%> <%=name_format(arraycin[0],30,"")%><%end%></option>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],24,"(*)")%><%else%> <%=name_format(arraycin[0],24,"")%><%end%></option>
 									<%end%>
 								<%end%>
 							<%end%>
