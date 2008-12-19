@@ -21,7 +21,6 @@ class Notifier < ActionMailer::Base
     @profile = Profile.find_by_user_id(invitation.user_id)
     @user = User.find(invitation.user_id)
     @space = Space.find(invitation.space_id)
-    debugger
     @from = @user.email
      @recipients = invitation.email
      @subject = "Sir Invitation"

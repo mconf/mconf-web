@@ -29,6 +29,9 @@
         
 			<%= button_to 'Back', space_users_path(@space, :manage => true), :method => :get%>
         
+		<% elsif logged_in? && current_user.superuser==true && @user.id == current_user.id %>
+		
+			<%= button_to 'Back', space_user_profile_path(@space,current_user), :method => :get%>
 		<% else%>
 		
 			<%= button_to 'Back', space_users_path(@space), :method => :get%>
