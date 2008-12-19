@@ -19,18 +19,15 @@ class UsersController < ApplicationController
   before_filter :authentication_required, :only => [:edit, :update, :destroy]
 
   # Space Users
-  authorization_filter :space, [ :read, :Performance ],   :if   => proc{ |controller| controller.get_space }, 
+  authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
                                                           :only => [ :index ]
-  authorization_filter :space, [ :create, :Performance ], :if   => proc{ |controller| controller.get_space },
+  authorization_filter :space, [ :create, :Performance ], :if   => :get_space,
                                                           :only => [ :new, :create ]
-  authorization_filter :space, [ :delete, :Performance ], :if   => proc{ |controller| controller.get_space },
+  authorization_filter :space, [ :delete, :Performance ], :if   => :get_space,
                                                           :only => [ :destroy ]
 
   # Accounts
-  authorization_filter :user, :read,   :if => proc{ |controller| ! controller.user_is_agent? },
-                                       :only => [ :show ]
-  authorization_filter :user, :update, :if => proc{ |controller| ! controller.user_is_agent? },
-                                       :only => [ :edit, :update ]
+  before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
   authorization_filter :user, :delete, :only => [ :destroy ]
 
   set_params_from_atom :user, :only => [ :create, :update ]  
@@ -248,15 +245,14 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
       format.atom { head :ok }
     end
-    
-    
   end
 
-  def user_is_agent?
-    @user == current_agent
+  def user_is_current_agent
+    return if current_agent.superuser?
+
+    not_authorized unless current_agent == @user
   end
-  
- 
+
   private
   
   def add_user_from_app (params)

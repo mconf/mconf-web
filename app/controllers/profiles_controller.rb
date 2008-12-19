@@ -2,8 +2,13 @@ require 'vpim/vcard'
 
 class ProfilesController < ApplicationController
   before_filter :authentication_required
-  before_filter :profile_owner, :only=>[:new,:create,:show, :edit, :update, :destroy,  :vcard, :hcard]
-  before_filter :unique_profile, :only=>[:new, :create]
+
+  before_filter :get_user
+  
+  before_filter :shares_space, :only => [ :show ]
+  before_filter :user_is_current_agent, :except => [ :show ]
+
+  before_filter :unique_profile, :only=> [:new, :create]
   
   set_params_from_atom :profile, :only => [ :create, :update ]
     
@@ -20,15 +25,13 @@ class ProfilesController < ApplicationController
       return
     end
     
-    @user = User.find_by_id(params[:user_id])
-    @profile = @user.profile
     @user_spaces = @user.stages
     
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user )
+      redirect_to new_user_profile_path(@user)
     else
-    @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})  
+      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})  
       respond_to do |format|
         format.html 
         format.xml  { render :xml => @profile }
@@ -55,7 +58,7 @@ class ProfilesController < ApplicationController
   def edit
     session[:current_tab] = "MyProfile" 
     session[:current_sub_tab] = "Edit Profile"
-    @profile = @user.profile
+
     if @profile == nil
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
@@ -70,10 +73,9 @@ class ProfilesController < ApplicationController
   # POST /profile.xml
   # POST /profile.atom
   def create
-    @profile = Profile.new(params[:profile])
-    @profile.user_id = current_user.id
-    @logotype = Logotype.new(params[:logotype]) 
-    @profile.logotype = @logotype
+    @profile = current_user.build_profile(params[:profile])
+    @logotype = @profile.build_logotype(params[:logotype]) 
+
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
@@ -96,10 +98,6 @@ class ProfilesController < ApplicationController
   # PUT /profile.xml
   # PUT /profile.atom
   def update
-    
-    @user = User.find_by_id(params[:user_id])
-    @profile = @user.profile
-    
     #En primer lugar miro si se ha eliminado la foto del usuario y la borro de la base de datos
     if params[:delete_thumbnail] && params[:delete_thumbnail] == "true"
         @profile.logotype = nil 
@@ -134,8 +132,6 @@ class ProfilesController < ApplicationController
   # DELETE /profile.xml
   # DELETE /profile.atom
   def destroy
-    @user = User.find_by_id(params[:user_id])
-    @profile = @user.profile
     @profile.destroy
     flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
@@ -147,13 +143,15 @@ class ProfilesController < ApplicationController
   
   
   private
+
+  def get_user
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
+    @profile = @user.profile
+  end
   
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
-    
-    @user = User.find_by_id(params[:user_id])
-    @profile = @user.profile
-    if @profile == nil
+    if @profile.nil?
       flash[:notice]= 'You must create your profile first'
       redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
@@ -164,9 +162,6 @@ class ProfilesController < ApplicationController
   
   #this method is used to compose the vcard file (.vcf) with the profile of an user
   def vcard
-    
-    @user = User.find_by_id(params[:user_id])
-    profile = @user.profile
     email = User.find(profile.user_id).email
     @card = Vpim::Vcard::Maker.make2 do |maker|
       maker.add_name do |name|
@@ -216,6 +211,23 @@ class ProfilesController < ApplicationController
   def import_vcard
     
   end
+
+  def unique_profile
+   unless current_user.profile.nil?
+     flash[:error] = "You already have a profile."     
+     redirect_to user_profile_path(current_user)
+   end
+ end
+
+  def shares_space
+    return if current_agent.superuser?
+
+    not_authorized unless @user.stages.map(&:actors).flatten.include?(current_agent)
+  end
   
-  
+  def user_is_current_agent
+    return if current_agent.superuser?
+
+    not_authorized unless current_agent == @user
+  end
 end

@@ -81,32 +81,9 @@ class ApplicationController < ActionController::Base
     end 
   end
   
-  def unique_profile
-    profile = Profile.find_by_user_id(current_user.id)
-    unless profile == nil
-      user = current_user
-      logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
-      logger.error("USER WAS: " + user.login)
-      flash[:notice] = "You have already a profile."     
-      redirect_to(:controller => "profiles", :action => "show")  
-    end
-  end
   
   def get_cloud
     @cloud = Tag.cloud
-  end
-  
-  def profile_owner
-    
-    @user = User.find_by_id(params[:user_id])
-    
-    
-    unless  @user.id == current_user.id || current_user.superuser
-      user = current_user
-      
-      flash[:notice] = "Action not allowed."     
-      redirect_to root_path
-    end
   end
   
   def user_is_admin

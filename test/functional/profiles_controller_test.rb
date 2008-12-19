@@ -38,7 +38,6 @@ class ProfilesControllerTest < ActionController::TestCase
       login_as("user_normal")
       get :new, :user_id=>25, :space_id => @space.name
       assert_redirected_to :controller => "profiles", :action => "show"
-      assert flash[:notice].include?(' already a profile')
     end
    
         
@@ -54,7 +53,6 @@ class ProfilesControllerTest < ActionController::TestCase
        login_as("user_normal")
       get :edit, :user_id=>24, :space_id => @space.name
       assert_redirected_to "/"
-      assert flash[:notice].include?('not allowed')
     end
   
     def test_create_no_profile
@@ -69,7 +67,6 @@ class ProfilesControllerTest < ActionController::TestCase
       login_as("user_normal")
       post :create, :space_id => @space.name, :user_id=> 25, :profile=>{ :name=>'prueba',:lastname=>'pruebaprueba', :organization=>'dit', :phone=>'45845646', :mobile=>'654895623', :fax=>'915478956', :address=>'Callejando 5', :city=>'madrid', :zipcode=>'458451', :province=>'madrid', :country=>'spain'}
       assert_redirected_to :controller=>'profiles', :action=>'show'
-      assert flash[:notice].include?('already a profile')
     end
     
      def test_update_wrong
@@ -82,14 +79,12 @@ class ProfilesControllerTest < ActionController::TestCase
       login_as("user_normal")
       post :update, :space_id => @space.name, :user_id=>25, :profile=>{:name=>'prueba',:lastname=>'pruebaprueba', :organization=>'dit', :phone=>'45845646', :mobile=>'654895623', :fax=>'915478956', :address=>'Callejando 5', :city=>'madriddd', :zipcode=>'458451', :province=>'madrid', :country=>'spain'}
       assert_response :success
-      assert flash[:notice].include?('successfully')
     end
     
     def test_update_no_owner
       login_as("user_normal")
       post :update, :space_id => @space.name, :user_id=>24,:profile=>{ :name=>'prueba',:lastname=>'pruebaprueba', :organization=>'dit', :phone=>'45845646', :mobile=>'654895623', :fax=>'915478956', :address=>'Callejando 5', :city=>'madriddd', :zipcode=>'458451', :province=>'madrid', :country=>'spain'}
       assert_redirected_to "/"
-      assert flash[:notice].include?('not allowed')
     end
     
      def test_update_no_login
@@ -103,7 +98,6 @@ class ProfilesControllerTest < ActionController::TestCase
      login_as("user_normal")
      post :destroy, :space_id => @space.name, :user_id=> 25
      assert_redirected_to space_user_profile_url(:space_id => @space.name, :user_id=>'25')
-      assert flash[:notice].include?('successfully')
    assert_response 302
  end
  
@@ -111,7 +105,6 @@ class ProfilesControllerTest < ActionController::TestCase
      login_as("user_normal")
      post :destroy, :space_id => @space.name, :user_id=> 24
      assert_redirected_to "/"
-     assert flash[:notice].include?('not allowed')
    assert_response 302
  end
    
@@ -119,7 +112,6 @@ class ProfilesControllerTest < ActionController::TestCase
       login_as("user_alfredo")
       get :show, :space_id => @space.name, :user_id=>23, :hcard => true
       assert_redirected_to :controller => "profiles", :action => "new"
-     assert flash[:notice].include?('create your profile')
    end
    
    def test_hcard_owner
@@ -133,7 +125,6 @@ end
      login_as("user_normal")
      get :show, :space_id => @space.name, :user_id=>24, :hcard => true
      assert_redirected_to "/"
-     assert flash[:notice].include?('not allowed')
    assert_response 302
  end
  
@@ -147,7 +138,6 @@ def test_vcard_no_owner
    login_as("user_normal")
      get :show, :space_id => @space.name, :user_id=>24, :vcard => true
   assert_redirected_to "/"
-     assert flash[:notice].include?('not allowed')
    assert_response 302
  end
     
