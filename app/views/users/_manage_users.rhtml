@@ -28,9 +28,9 @@ for user in @users
 -%>
 
 <tr>
-<td class=" first1 ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.name,15,""), edit_space_user_path(@space,user) if user.profile%></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.lastname,18,""), edit_space_user_path(@space,user) if user.profile%></td>
-<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.login,18,""), edit_space_user_path(@space,user) %></td>
+<td class=" first1 ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.name,15,""), user_profile_path(user) if user.profile%></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.profile.lastname,18,""), user_profile_path(user) if user.profile%></td>
+<td class="ListUser<%= @odd_or_even_user %>"><%= link_to name_format(user.login,18,""), user_path(user) %></td>
 <td class="ListUser<%= @odd_or_even_user %>"><%=replace_image(user.superuser)  %></td>
 <!--
 <td class="ListUser<%= @odd_or_even_user %>"><%= replace_image(user.disabled) %></td>
