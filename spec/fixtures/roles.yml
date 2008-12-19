@@ -11,7 +11,7 @@ invited:
 user:
   name: User
   stage_type: Space
-  permissions: create_content, read_content, read_performance, read_self
+  permissions: create_content, read_content, create_performance, read_performance, read_self
 
 reader:
   name: Reader
