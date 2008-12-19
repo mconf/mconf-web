@@ -1,4 +1,4 @@
-
+<div id="contenedor_div">
 <div id="my_account">
 		<p><span class="login_account"></span>Login: <%= @user.login%></p>
  		<p> <span class="email_account"></span> Email: <%= @user.email%></p>
@@ -7,4 +7,5 @@
 	</div>
 <div id="editar">
 <%= button_to 'Edit' , edit_space_user_path(@space, @user), :method => :get%>
+</div>
 </div>
