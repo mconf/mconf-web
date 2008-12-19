@@ -56,6 +56,14 @@ class SingularAgent
   def <=>(agent)
     self.name <=> agent.name
   end
+
+  def disabled
+    false
+  end
+
+  def active?
+    true
+  end
 end
 
 Performance
