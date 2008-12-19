@@ -6,7 +6,7 @@ admin:
 invited:
   name: Invited
   stage_type: Space
-  permissions: read_content, read_performances, read_self
+  permissions: read_content, read_performance, read_self
       
 user:
   name: User
