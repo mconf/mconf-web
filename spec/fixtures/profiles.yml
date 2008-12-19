@@ -25,7 +25,21 @@ perfil_user_normal:
   province: Madrid
   country: España
   user: user_normal
-  
+
+perfil_user_normal2:
+  name: Roger 
+  lastname: Federer
+  organization: ATP
+  phone: 4546433  
+  mobile: 484554
+  fax: 915545454
+  address: Luna llena nº 5
+  city: Madrid  
+  zipcode: 45236
+  province: Madrid
+  country: España
+  user: user_normal2
+
 perfil_user_alfredo:
   name: Alfredo 
   lastname: Landa

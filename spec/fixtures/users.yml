@@ -40,6 +40,20 @@ user_normal:
   created_at: 2008-02-26 14:48:42 +01:00
   activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
   activated_at: 2008-02-26 15:48:42 +01:00
+
+user_normal2:
+  salt: 690c337a0384c04de715d6efa92bb65f7b968d5f
+  updated_at: 2008-02-26 14:51:46 +01:00
+  crypted_password: 4c665ad7f2766567c13afeaba43202ec97b12b85 #admin
+  remember_token_expires_at: 
+  disabled: false
+  remember_token: 
+  login: normalillo2
+  superuser: false
+  email: ebarra2@dit.upm.es
+  created_at: 2008-02-26 14:48:42 +01:00
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b
+  activated_at: 2008-02-26 15:48:42 +01:00
   
   
 user_disabled:
