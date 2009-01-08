@@ -8,9 +8,9 @@
 		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user), :id=>'round_button2'} %>
 		    <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button3'} %>
 		 	<%= nav_tab "News", { :url => space_articles_path(@space), :id=>'round_button4'} %>
-		 	<%if @space.id!=1%>
+		 	<%if @space && @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
-				<%if @space.authorizes?(current_user, :manage_groups)%>
+				<%if @space && @space.authorizes?(current_user, :manage_groups)%>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button6'} %>
 				<%else%>
 				<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button6'} %>
