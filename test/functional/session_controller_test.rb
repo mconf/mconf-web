@@ -89,8 +89,6 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, :login => 'tarantino', :password => 'test'
     assert ! logged_in_session?
     assert_response :success
-    assert flash[:notice].include?("Please confirm your registration")
-    
   end
   
   

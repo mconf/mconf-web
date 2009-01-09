@@ -358,7 +358,7 @@ describe SpacesController do
           assert_no_difference 'Space.count' do
             post :create ,:space => @invalid_attributes, :format => 'html'
           end
-          assert_redirected_to login_path
+          assert_redirected_to new_session_path
         end
       end
 

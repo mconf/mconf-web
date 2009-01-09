@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_space 
   before_filter :get_cloud
-  before_filter :set_locale
 
    # Returns an Space if it is present in params or session
   def get_space    
@@ -21,12 +20,6 @@ class ApplicationController < ActionController::Base
     @space
   end
 
-  #Method used in the globalize plugin to set base language
-  def set_locale
-    accept_locales = LOCALES.keys # change this line as needed, must be an array of strings
-    cookies[:locale] = params[:locale] if accept_locales.include?(params[:locale])
-    Locale.set(cookies[:locale] || (request.env["HTTP_ACCEPT_LANGUAGE"] || "").scan(/[^,;]+/).find{|l| accept_locales.include?(l)})
-  end
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_restful_auth_session_id'
   

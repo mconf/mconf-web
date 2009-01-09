@@ -46,10 +46,6 @@ ActionController::Routing::Routes.draw do |map|
   #
   # (se quedará obsoleto con la nueva versión del plugin)
   #  
-  map.resources :entries, :member => { :media => :any,
-                                     :get => :edit_media,
-                                     :put => :update_media }
-
   
   map.open_id_complete 'session', { :open_id_complete => true,
                                     :conditions => { :method => :get },
@@ -61,6 +57,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
+  map.forgot_password '/forgot', :controller => 'users', :action => 'forgot_password'
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
 

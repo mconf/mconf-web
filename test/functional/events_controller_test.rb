@@ -197,7 +197,6 @@ class EventsControllerTest < ActionController::TestCase
     post :create, :is_valid_time0=>"true",:tags=>"bueno", :accomplished0=>"false", :event=>{"name"=>"supereventomolon", "service"=>"meeting.act", "description"=>"aass", "password"=>"aa", "quality"=>"512K", "all_participants_sites"=>5}, :los_indices=>"1", :is_valid_participant0=>"true", :start_date0=>"May 19, 2008 02:00",  :end_date0 =>"May 17, 2008 02:00", :space_id => 'Public'
     #now i am not redirected
     assert_response :success
-    assert @response.body.include?("errors")
     assert @response.body.include?("Participants")
   end    
   

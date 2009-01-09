@@ -37,7 +37,7 @@ class ProfilesControllerTest < ActionController::TestCase
     def test_new_profile
       login_as("user_normal")
       get :new, :user_id=>25, :space_id => @space.name
-      assert_redirected_to :controller => "profiles", :action => "show"
+      assert_redirected_to user_profile_path(users(:user_normal))
     end
    
         
@@ -66,7 +66,7 @@ class ProfilesControllerTest < ActionController::TestCase
     def test_create_profile
       login_as("user_normal")
       post :create, :space_id => @space.name, :user_id=> 25, :profile=>{ :name=>'prueba',:lastname=>'pruebaprueba', :organization=>'dit', :phone=>'45845646', :mobile=>'654895623', :fax=>'915478956', :address=>'Callejando 5', :city=>'madrid', :zipcode=>'458451', :province=>'madrid', :country=>'spain'}
-      assert_redirected_to :controller=>'profiles', :action=>'show'
+      assert_redirected_to user_profile_path(users(:user_normal))
     end
     
      def test_update_wrong

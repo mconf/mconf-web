@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
      session[:current_tab] = "News"
      session[:current_sub_tab] = ""
-          @title ||= "#{ 'Entry'.t('Entries', 99) } - #{ @space.name }"
+          @title ||= "News - #{ @space.name }"
    #Estas 3 líneas lo que hacen es meter en @articles lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
              @articles =(@space.id == 1 ?
              Article.in_container(nil).find(:all,:conditions => {"entries.parent_id" => nil, "entries.public_read" => true}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
@@ -120,7 +120,7 @@ class ArticlesController < ApplicationController
     @article.save! #salvamos el artículo y con ello su entrada asociada  
     @article.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al artículo
      #@article.category_ids = params[:category_ids]
-     flash[:valid] = "Article created".t
+     flash[:valid] = "Article created"
  
 
     #creación de las entries con contenidos de attachment
@@ -163,7 +163,7 @@ class ArticlesController < ApplicationController
         session[:current_sub_tab] = "New article"
         @article = Article.new
         @article.entry = Entry.new
-        @title ||= "New #{ controller_name.singularize.humanize }".t
+        @title ||= "New Article"
 
   end
   
@@ -256,7 +256,7 @@ class ArticlesController < ApplicationController
         
         @article.save! #salva el artículo y su entrada asociada        
         @article.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al artículo
-        flash[:valid] = "Article updated".t
+        flash[:valid] = "Article updated"
            
         #Creación de las entries asociadas a los attachments
         @attachments.each do |attach|
