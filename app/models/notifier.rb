@@ -42,6 +42,14 @@ class Notifier < ActionMailer::Base
     @body["name"] = user.login
     @body["hash"] = user.activation_code
   end
+
+  def activation(user)
+    @recipients = user.email
+    @from = "#{Site.current.email}"
+    @subject     = "SIR Information: #{ I18n.t(:account_activated) }"
+    @body[:user]  = user
+    @body[:url]  = "http://#{ Site.current.domain }/"
+  end
   
   #This method compose the email used when a user is deleted from the system
   def byebye (user, sent_at = Time.now)
@@ -66,5 +74,5 @@ class Notifier < ActionMailer::Base
     @body ["name"] = user.login
     @subject    = 'Your password has been reset'
   end
-  
+
 end
