@@ -193,18 +193,9 @@ describe UsersController do
             @test_user = users(:user_normal2)
           end
           
-          it "should let the user to see the account information of a user of this space" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show , :id => @test_user.id
-              assert_response 200
-            end
-          end
-          
-          it "should redirect to the associated user view" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show, :id => @test_user.id
-              response.should render_template("show")
-            end
+          it "should not let the user to see the account information of a user of this space" do
+            get :show , :id => @test_user.id
+            assert_response 403
           end
           
         end
@@ -215,18 +206,9 @@ describe UsersController do
             @test_user = users(:user_normal2)
           end
           
-          it "should let the user to see the account information of a user of this space" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show, :id => @test_user.id
-              assert_response 200
-            end
-          end
-          
-          it "should redirect to the associated user view" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show, :id => @test_user.id
-              response.should render_template("show")
-            end
+          it "should not let the user to see the account information of a user of this space" do
+            get :show, :id => @test_user.id
+            assert_response 403
           end
           
         end
@@ -236,18 +218,9 @@ describe UsersController do
             @test_user = users(:user_normal2)
           end
           
-          it "should let the user to see the account information of a user of this space" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show , :id => @test_user.id
-              assert_response 200
-            end
-          end
-          
-          it "should redirect to the associated user view" do
-            pending("debería dejar a un Admin ver los users de su espacio") do
-              get :show, :id => @test_user.id
-              response.should render_template("show")
-            end
+          it "should not let the user to see the account information of a user of this space" do
+            get :show, :id => @test_user.id
+            assert_response 403
           end
           
         end
@@ -299,10 +272,8 @@ describe UsersController do
         end
         
         it "should NOT let the user to see the account information of a user of this space" do
-          pending("da un error de undefined method `superuser?' for #<Anonymous id: 1, type: Anonymous")do
-            get :show, :id => @test_user.id
-            assert_response 403
-          end
+          get :show, :id => @test_user.id
+          assert_response 403
         end
       end
       
@@ -313,10 +284,8 @@ describe UsersController do
         end
         
         it "should NOT let the user to see the account information of a user of this space" do
-          pending("da un error de undefined method `superuser?' for #<Anonymous id: 1, type: Anonymous")do
-            get :show,  :id => @test_user.id
-            assert_response 403
-          end
+          get :show,  :id => @test_user.id
+          assert_response 403
         end  
       end 
     end   

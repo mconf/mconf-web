@@ -44,6 +44,7 @@ class SingularAgent
   def superuser
     false
   end
+  alias superuser? superuser
 
   def profile
     nil
