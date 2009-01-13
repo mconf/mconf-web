@@ -10,7 +10,7 @@ admin_role.permissions << Permission.find_by_action_and_objective('read',   'sel
 admin_role.permissions << Permission.find_by_action_and_objective('update', 'self')
 admin_role.permissions << Permission.find_by_action_and_objective('delete', 'self')
 admin_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
-admin_role.permissions << Permission.find_by_action_and_objective('read', '  Content')
+admin_role.permissions << Permission.find_by_action_and_objective('read',   'Content')
 admin_role.permissions << Permission.find_by_action_and_objective('update', 'Content')
 admin_role.permissions << Permission.find_by_action_and_objective('delete', 'Content')
 admin_role.permissions << Permission.find_by_action_and_objective('create', 'Performance')
