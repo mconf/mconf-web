@@ -1,6 +1,8 @@
 # db/fixtures/users.rb
 # put as many seeds as you like in
 
+User.all.map(&:destroy)
+
 User.seed(:login, :email) do |s|
   s.login = "admin" 
   s.email = "vcc@dit.upm.es" 
