@@ -206,9 +206,11 @@ class UsersController < ApplicationController
       else
         format.html { #the superuser will be redirected to list_users
           if current_user.superuser == true
-            redirect_to(space_users_path(@space))
+             render :action => "edit" 
+            #redirect_to(space_users_path(@space))
           else
-            redirect_to(space_user_profile_path(@space, @user)) 
+             render :action => "edit" 
+            #redirect_to(space_user_profile_path(@space, @user)) 
           end }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
