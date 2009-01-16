@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe UsersController do
-  #integrate_views
+  integrate_views
   include CMS::AuthenticationTestHelper
   fixtures :users , :spaces
   
@@ -485,7 +485,7 @@ describe UsersController do
     
     describe "with valid params" do
       before(:each)do
-        @valid_attributes = {:email => 'pepe@gmail.com'}
+        @valid_attributes = {:login => 'pepe',:password => '1234', :password_confirmation => '1234',:email => 'pepe@gmail.com'}
       end
       describe "when you are logged in" do
         describe "as super Admin" do
@@ -493,10 +493,10 @@ describe UsersController do
             login_as(:user_admin)
           end
         
-          it "should let the user to create a new account" do
+          it "should let the user to create a new account and redirect to the root path" do
             assert_difference 'User.count' do
               post :create, :user=> @valid_attributes
-              assert_response 200
+              response.should redirect_to(root_path())
             end
           end    
         end
@@ -506,19 +506,19 @@ describe UsersController do
             login_as(:user_normal)
           end
         
-          it "should let the user to create a new account" do
+          it "should let the user to create a new account and redirect to the root path" do
             assert_difference 'User.count' do
               post :create, :user=> @valid_attributes
-              assert_response 200
+              response.should redirect_to(root_path())
             end
           end        
         end
       end
       describe "if you are not logged in" do
-        it "should let the user to create a new account" do
+        it "should let the user to create a new account and redirect to the root path" do
           assert_difference 'User.count' do
             post :create, :user => @valid_attributes
-            assert_response 200
+            response.should redirect_to(root_path())
           end
         end
       end              
@@ -590,14 +590,9 @@ describe UsersController do
           
             it "should let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
-              response.should redirect_to(space_users_path(@space))
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_users_path(nil))
             end
-          
-            it "should redirect to the associated list of users" do
-              put :update , :id => @user.id, :user =>@valid_attributes
-              response.should redirect_to(space_users_path(@space))
-            end
-          
           end
         
           describe "in the public space" do
@@ -608,13 +603,9 @@ describe UsersController do
           
             it "should let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
-              assert_response 200
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_users_path(nil))
             end
-          
-            it "should redirect to the associated list of users " do
-              put :update, :id => @user.id
-              response.should redirect_to(space_users_path(@space))
-            end    
           end
     
         end
