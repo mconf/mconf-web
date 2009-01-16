@@ -213,20 +213,20 @@ end
   end
   
   def generate_user_table
-    if @space.id !=1 && @space.authorizes?(current_user, [:read, :Performance]) && logged_in?
+    #if user.profile && user.profile.authorizes?(current_user,:read) && logged_in?
     name = "<div class='name_logged'> Name / Lastname</div>"
     organization = "<div class='organization_logged'> Organization </div>"
     email = "<div class='email_logged'> Email </div>"
     interests = "<div class='interests_logged'> Interests </div>"
     members = "<div class='members_logged'> Member of </div> "
     line = name + organization + (email if email).to_s + interests + members + "<br/> <br/>"
-  else
-    name = "<div class='name'> Name / Lastname</div>"
-    organization = "<div class='organization'> Organization </div>"
-    interests = "<div class='interests'> Interests </div>"
-    members = "<div class='members'> Member of </div> "
-    line = name + organization + (email if email).to_s + interests + members + "<br/> <br/>"
-    end
+  #else
+   # name = "<div class='name'> Name / Lastname</div>"
+   # organization = "<div class='organization'> Organization </div>"
+   # interests = "<div class='interests'> Interests </div>"
+   # members = "<div class='members'> Member of </div> "
+   # line = name + organization + (email if email).to_s + interests + members + "<br/> <br/>"
+   # end
     
     return line
     
@@ -235,7 +235,7 @@ end
      if user.name == "Anyone" 
        return 
      end
-    if @space.id !=1 && @space.authorizes?(current_user, [:read, :Performance]) && logged_in?
+    if user.profile && user.profile.authorizes?(current_user,:read) && logged_in?
       see_name = ((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s 
       div_user = "<div class= 'name_logged'>" + link_to(highlight(name_format( see_name,15,""),@query), user_profile_path(user), :title => see_name) + "</div>"
       div_organization = "<div class= 'organization_logged'>" + link_to(highlight((name_format(user.organization ,13,"") if user.profile).to_s,@query),user_profile_path(user), :title => user.organization) + "</div>"
@@ -244,11 +244,12 @@ end
       div_members = "<div class= 'members_logged'>" + link_to(highlight((name_format(member_spaces(user) ,15,"")).to_s,@query),user_profile_path(user), :title => member_spaces(user)) + "</div>"
       line = div_user + div_organization + (div_email if div_email) + div_interests + div_members + "<br/> <br/>"
     else
-      div_user = "<div class= 'name'>" + highlight(name_format(((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
-      div_organization = "<div class= 'organization'>" + highlight((name_format(user.organization ,15,"") if user.profile).to_s,@query) + "</div>"
-      div_interests = "<div class= 'interests'><span class='green'>" + (highlight((name_format( "[" + user.tag_list + "]",25,"]")).to_s,@query) unless user.tag_list == "").to_s + "</span></div>"
-      div_members = "<div class= 'members'>" + highlight((name_format(member_spaces(user) ,20,"")).to_s,@query, :title => member_spaces(user)) + "</div>"
-      line = div_user + div_organization + div_interests + div_members + "<br/> <br/>"  
+      div_user = "<div class= 'name_logged'>" + highlight(name_format(((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
+      div_organization = "<div class= 'organization_logged'>" + highlight((name_format(user.organization ,15,"") if user.profile).to_s,@query) + "</div>"
+      div_email = "<div class= 'email_logged'>" + "out of my network" + "</div>"
+      div_interests = "<div class= 'interests_logged'><span class='green'>" + (highlight((name_format( "[" + user.tag_list + "]",25,"]")).to_s,@query) unless user.tag_list == "").to_s + "</span></div>"
+      div_members = "<div class= 'members_logged'>" + highlight((name_format(member_spaces(user) ,20,"")).to_s,@query, :title => member_spaces(user)) + "</div>"
+      line = div_user + div_organization + div_email + div_interests + div_members + "<br/> <br/>"  
     end
     
     

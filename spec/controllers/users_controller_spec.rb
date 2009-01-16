@@ -618,12 +618,12 @@ describe UsersController do
             before(:each) do
               @space = spaces(:private_no_roles)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should let the user to UPDATE the account information of a user of this space" do
-              put :update, :id => @user.id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_users_path(nil))
+              put :update, :id => @user.id, :user => @valid_attributes              
+              response.should redirect_to(space_users_path(@space))
             end
           end
         
@@ -631,12 +631,12 @@ describe UsersController do
             before(:each) do
               @space = spaces(:public)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_users_path(nil))
+              response.should redirect_to(space_users_path(@space))
             end
           end
     
@@ -649,6 +649,7 @@ describe UsersController do
             before(:each) do
               @space = spaces(:private_admin)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -658,8 +659,7 @@ describe UsersController do
             
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+              response.should redirect_to(space_user_profile_path(@space,users(:user_normal)))
             end
           end
         
@@ -667,6 +667,7 @@ describe UsersController do
             before(:each) do
               @space = spaces(:private_user)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -675,8 +676,7 @@ describe UsersController do
             end
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+              response.should redirect_to(space_user_profile_path(@space,users(:user_normal)))
             end
           
           end
@@ -684,6 +684,7 @@ describe UsersController do
             before(:each) do
               @space = spaces(:private_invited)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -693,8 +694,7 @@ describe UsersController do
             
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+              response.should redirect_to(space_user_profile_path(@space,users(:user_normal)))
             end
           
           end
@@ -703,6 +703,7 @@ describe UsersController do
             before(:each) do
               @space = spaces(:private_no_roles)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -712,15 +713,14 @@ describe UsersController do
             
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+              response.should redirect_to(space_user_profile_path(@space,users(:user_normal)))
             end
             
           end
         
           describe "without space" do
             before(:each) do
-              @user = users(:user_normal2)
+              @user = users(:user_normal2)                          
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -730,7 +730,7 @@ describe UsersController do
             
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
+              #no tiene mucho sentido este test
               response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
             end
           end
@@ -741,6 +741,7 @@ describe UsersController do
             before(:each) do
               @space = spaces(:public)
               @user = users(:user_normal2)
+              session[:space_id] = @space.name
             end
           
             it "should NOT let the user to UPDATE the account information of a user of this space" do
@@ -750,8 +751,7 @@ describe UsersController do
             
             it "should let the user to UPDATE his account information" do
               put :update , :id => users(:user_normal).id, :user => @valid_attributes
-              #esto es un poco raro porque no es contextual
-              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+              response.should redirect_to(space_user_profile_path(@space,users(:user_normal)))
             end
             
           end 
@@ -940,39 +940,30 @@ describe UsersController do
           before(:each) do
             @space = spaces(:private_no_roles)
             @user = users(:user_normal2)
+            session[:space_id] = @space.name
           end
           
-          it "should let the user to DELETE the account information of a user of this space" do
+          it "should let the user to DELETE the account information of a user of this space and redirect to the user list" do
             assert_difference 'User.count', -1 do
               delete :destroy, :id => @user.id
-              assert_response 200
+              response.should redirect_to(space_users_path(@space))
             end
-          end
-          
-          it "should redirect to the space's users list" do
-            delete :destroy , :id => @user.id
-            response.should redirect_to(space_users_path(@space)) 
-          end
-          
+          end        
         end
         
         describe "in the public space" do
           before(:each) do
             @space = spaces(:public)
             @user = users(:user_normal2)
+            session[:space_id] = @space.name
           end
           
-          it "should let the user to DELETE the account information of a user of this space" do
+          it "should let the user to DELETE the account information of a user of this space and redirect to the user list" do
             assert_difference 'User.count', -1 do
               delete :destroy, :id => @user.id
-              assert_response 200
+              response.should redirect_to(space_users_path(@space))
             end
-          end
-          
-          it "should redirect to the space's users list" do
-            delete :destroy, :id => @user.id
-            response.should redirect_to(space_users_path(@space)) 
-          end    
+          end           
         end    
       end
       describe "as normal_user" do
