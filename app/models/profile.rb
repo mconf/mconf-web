@@ -3,11 +3,19 @@ class Profile < ActiveRecord::Base
   has_one :logotype , :as => 'logotypable' , :dependent => :destroy
   belongs_to :user
   
- validates_presence_of     :name, :lastname, :phone, :city, :country,:organization
+  validates_presence_of     :name, :lastname, :phone, :city, :country,:organization
  
   before_destroy { |profile| profile.logotype.destroy if profile.logotype}
-  def see_profile_by?(user)
-    
+
+  def authorizes?(agent, action_objective)
+    return true if agent.superuser? || agent == user
+
+    case action_objective
+    when :read
+      user.stages.map(&:actors).flatten.include?(agent)
+    else
+      false
+    end
   end
   
   def self.atom_parser(data)

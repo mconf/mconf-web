@@ -5,8 +5,8 @@ class ProfilesController < ApplicationController
 
   before_filter :get_user
   
-  before_filter :shares_space, :only => [ :show ]
-  before_filter :user_is_current_agent, :except => [ :show ]
+  authorization_filter :profile, :read,   :only => [ :show ]
+  authorization_filter :profile, :manage, :except => [ :show ]
 
   before_filter :unique_profile, :only=> [:new, :create]
   
@@ -218,16 +218,4 @@ class ProfilesController < ApplicationController
      redirect_to user_profile_path(current_user)
    end
  end
-
-  def shares_space
-    return if current_agent.superuser?
-
-    not_authorized unless @user.stages.map(&:actors).flatten.include?(current_agent)
-  end
-  
-  def user_is_current_agent
-    return if current_agent.superuser?
-
-    not_authorized unless current_agent == @user
-  end
 end
