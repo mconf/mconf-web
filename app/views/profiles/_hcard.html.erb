@@ -39,10 +39,9 @@
 </div>
 
 <br/>
-
+<%if current_user.superuser? || @user==current_user%>
 <%= button_to 'Edit', edit_user_profile_path(@user) ,:method => :get %>  
-
-
+<%end%>
 <!--<div class="type">
  			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
 		 	</div>

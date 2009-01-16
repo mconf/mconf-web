@@ -6,6 +6,9 @@
 		<p> <span class="notifications_account"></span> Email Notifications </p>
 	</div>
 <div id="editar">
-<%= button_to 'Edit' , edit_space_user_path(@space, @user), :method => :get%>
+
+<%if current_user.superuser? || @user==current_user%>	
+<%= button_to 'Edit' , edit_user_path(@user), :method => :get%>
+<%end%>
 </div>
 </div>

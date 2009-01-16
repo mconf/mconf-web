@@ -386,6 +386,11 @@ describe UsersController do
             assert_response 403
           end
           
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
+          end
+          
         end
         
         describe "in a private space where the user has the role User" do
@@ -397,6 +402,11 @@ describe UsersController do
           it "should not let the user to edit the account information of a user of this space" do
             get :edit, :id => @user.id
             assert_response 403
+          end
+          
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
           end
           
         end
@@ -411,6 +421,11 @@ describe UsersController do
             assert_response 403
           end
           
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
+          end
+          
         end
         
         describe "in a private space where the user has not any roles" do
@@ -422,7 +437,12 @@ describe UsersController do
           it "should NOT let the user to edit the account information of a user of this space" do
             get :edit , :id => @user.id
             assert_response 403
-          end       
+          end
+          
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
+          end
         end
         
         describe "without space" do
@@ -433,7 +453,13 @@ describe UsersController do
           it "should NOT let the user to edit the account information of a user of this space" do
             get :edit, :id => @user.id
             assert_response 403
-          end     
+          end
+          
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
+          end
+          
         end
         
         
@@ -447,7 +473,13 @@ describe UsersController do
           it "should NOT let the user to edit the account information of a user of this space" do
             get :edit, :id => @user.id
             assert_response 403
-          end   
+          end
+          
+          it "should let the user to edit his account information" do
+            get :edit , :id => users(:user_normal).id
+            assert_response 200
+          end
+          
         end 
       end 
     end
@@ -623,7 +655,12 @@ describe UsersController do
               put :update , :id => @user.id, :user => @valid_attributes
               assert_response 403
             end
-          
+            
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+            end
           end
         
           describe "in a private space where the user has the role User" do
@@ -635,6 +672,11 @@ describe UsersController do
             it "should NOT let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
               assert_response 403
+            end
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
             end
           
           end
@@ -648,6 +690,12 @@ describe UsersController do
               put :update, :id => @user.id, :user => @valid_attributes
               assert_response 403
             end
+            
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+            end
           
           end
         
@@ -660,7 +708,14 @@ describe UsersController do
             it "should NOT let the user to UPDATE the account information of a user of this space" do
               put :update , :id => @user.id, :user => @valid_attributes
               assert_response 403
-            end       
+            end
+            
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+            end
+            
           end
         
           describe "without space" do
@@ -671,7 +726,13 @@ describe UsersController do
             it "should NOT let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
               assert_response 403
-            end     
+            end
+            
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+            end
           end
         
         
@@ -685,7 +746,14 @@ describe UsersController do
             it "should NOT let the user to UPDATE the account information of a user of this space" do
               put :update, :id => @user.id, :user => @valid_attributes
               assert_response 403
-            end   
+            end
+            
+            it "should let the user to UPDATE his account information" do
+              put :update , :id => users(:user_normal).id, :user => @valid_attributes
+              #esto es un poco raro porque no es contextual
+              response.should redirect_to(space_user_profile_path(nil,users(:user_normal)))
+            end
+            
           end 
         end 
       end
