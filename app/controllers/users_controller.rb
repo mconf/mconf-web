@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   
   
   # Get the User for member actions
-  before_filter :get_agent, :only => [ :show, :edit, :update ]
+  before_filter :get_agent, :only => [ :show, :edit, :update, :destroy ]
   
   # Filter for activation actions
   before_filter :activation_required, :only => [ :activate, 
