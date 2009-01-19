@@ -625,23 +625,61 @@ div.members{
 div.name_logged{
 	width:150px;
 }
+div.name_logged a:link, div.name_logged a:visited{
+	color:#1C68AE;
+}
+
+div.name_logged a:hover{
+	color:#7AADD9;
+}
 
 div.organization_logged{
 	width:120px;
+}
+
+div.organization_logged a:link, div.organization_logged a:visited{
+	color:#1C68AE;
+}
+
+div.organization_logged a:hover{
+	color:#7AADD9;
 }
 
 div.email_logged {
 	width:195px;
 }
 
+div.email_logged a:link, div.email_logged a:visited{
+	color:#1C68AE;
+}
+
+div.email_logged a:hover{
+	color:#7AADD9;
+}
+
 div.interests_logged{
 	width:130px;
 	
 }
+
+div.interests_logged a:link, div.interests_logged a:visited{
+	color:#1C68AE;
+}
+
+div.interests_logged a:hover{
+	color:#7AADD9;
+}
+
 div.members_logged{
 	width:100px;
 }
+div.members_logged a:link, div.members_logged a:visited{
+	color:#1C68AE;
+}
 
+div.members_logged a:hover{
+	color:#7AADD9;
+}
 
 
 /* APARTADO DE EVENTOS*/
