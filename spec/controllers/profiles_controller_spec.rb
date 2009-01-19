@@ -1,57 +1,164 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ProfilesController do
-
+  integrate_views
+  include CMS::AuthenticationTestHelper
+  fixtures :users , :spaces
+  
   def mock_profile(stubs={})
     @mock_profile ||= mock_model(Profile, stubs)
   end
   
-  describe "responding to GET index" do
-
-    it "should expose all profiles as @profiles" do
-      pending
-      Profile.should_receive(:find).with(:all).and_return([mock_profile])
-      get :index
-      assigns[:profiles].should == [mock_profile]
-    end
-
-    describe "with mime type of xml" do
   
-      it "should render all profiles as xml" do
-        pending
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        Profile.should_receive(:find).with(:all).and_return(profiles = mock("Array of Profiles"))
-        profiles.should_receive(:to_xml).and_return("generated XML")
-        get :index
-        response.body.should == "generated XML"
-      end
-    
-    end
-
-  end
-
   describe "responding to GET show" do
 
-    it "should expose the requested profile as @profile" do
-      pending
-      Profile.should_receive(:find).with("37").and_return(mock_profile)
-      get :show, :id => "37"
-      assigns[:profile].should equal(mock_profile)
-    end
+    describe "when you are logged in" do
+      describe "as SuperAdmin" do
+        before(:each) do
+          login_as(:user_admin)
+        end
+        describe "in a private space" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+          
+          it "should let the user to see the user's profile of this space" do
+            get :show, :user_id => @user.id
+            assert_response 200
+          end
+          
+          it "should redirect to the associated user's profile view " do
+            get :show , :user_id => @user.id
+            response.should render_template("show")
+          end
+          
+        end
+        
+        describe "in the public space" do
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show, :user_id => @user.id
+            assert_response 200
+          end
+          
+          it "should redirect to the associated user view" do
+            get :show, :user_id => @user.id
+            response.should render_template("show")
+          end    
+        end
     
-    describe "with mime type of xml" do
-
-      it "should render the requested profile as xml" do
-        pending
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        Profile.should_receive(:find).with("37").and_return(mock_profile)
-        mock_profile.should_receive(:to_xml).and_return("generated XML")
-        get :show, :id => "37"
-        response.body.should == "generated XML"
       end
-
+      describe "as normal_user" do
+        before(:each) do
+          login_as(:user_normal)
+        end
+        describe "in a private space where the user has the role Admin " do
+          before(:each) do
+            @space = spaces(:private_admin)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show , :user_id => @user.id
+            assert_response 403
+          end
+          
+        end
+        
+        describe "in a private space where the user has the role User" do
+          before(:each) do
+            @space = spaces(:private_user)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show, :user_id => @user.id
+            assert_response 403
+          end
+          
+        end
+        describe "in a private space where the user has the role Invited " do
+          before(:each) do
+            @space = spaces(:private_invited)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show, :user_id => @user.id
+            assert_response 403
+          end
+          
+        end
+        
+        describe "in a private space where the user has not any roles" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show , :user_id => @user.id
+            assert_response 403
+          end       
+        end
+        
+        describe "without space" do
+          before(:each) do
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show, :user_id => @user.id
+            assert_response 403
+          end     
+        end
+        
+        
+        describe "in the public space" do
+          
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+          
+          it "should NOT let the user to see the user's profile of a user of this space" do
+            get :show, :user_id => @user.id
+            assert_response 403
+          end   
+        end 
+      end 
     end
     
+    describe "if you are not logged in" do
+      describe "in a private space" do
+        before(:each) do
+          @space = spaces(:private_no_roles)
+          @user = users(:user_normal2)
+        end
+        
+        it "should NOT let the user to see an user profile" do
+          get :show, :user_id => @user.id
+          assert_response 401
+        end
+      end
+      
+      describe "in the public space" do
+        before(:each) do
+          @space = spaces(:public)
+          @user = users(:user_normal2)
+        end
+        
+        it "should NOT let the user to see an user profile" do
+          get :show,  :user_id => @user.id
+          assert_response 401
+        end  
+      end 
+    end   
   end
 
   describe "responding to GET new" do
