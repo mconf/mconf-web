@@ -41,7 +41,7 @@ describe ProfilesController do
             @user = users(:user_normal2)
           end
           
-          it "should NOT let the user to see the user's profile of a user of this space" do
+          it "should let the user to see the user's profile of a user of this space" do
             get :show, :user_id => @user.id
             assert_response 200
           end
@@ -63,9 +63,9 @@ describe ProfilesController do
             @user = users(:user_normal2)
           end
           
-          it "should NOT let the user to see the user's profile of a user of this space" do
+          it "should let the user to see the user's profile of a user of this space" do
             get :show , :user_id => @user.id
-            assert_response 403
+            assert_response 200
           end
           
         end
@@ -76,9 +76,9 @@ describe ProfilesController do
             @user = users(:user_normal2)
           end
           
-          it "should NOT let the user to see the user's profile of a user of this space" do
+          it "should let the user to see the user's profile of a user of this space" do
             get :show, :user_id => @user.id
-            assert_response 403
+            assert_response 200
           end
           
         end
@@ -88,9 +88,9 @@ describe ProfilesController do
             @user = users(:user_normal2)
           end
           
-          it "should NOT let the user to see the user's profile of a user of this space" do
+          it "should let the user to see the user's profile of a user of this space" do
             get :show, :user_id => @user.id
-            assert_response 403
+            assert_response 200
           end
           
         end
@@ -106,19 +106,7 @@ describe ProfilesController do
             assert_response 403
           end       
         end
-        
-        describe "without space" do
-          before(:each) do
-            @user = users(:user_normal2)
-          end
-          
-          it "should NOT let the user to see the user's profile of a user of this space" do
-            get :show, :user_id => @user.id
-            assert_response 403
-          end     
-        end
-        
-        
+               
         describe "in the public space" do
           
           before(:each) do
@@ -126,9 +114,9 @@ describe ProfilesController do
             @user = users(:user_normal2)
           end
           
-          it "should NOT let the user to see the user's profile of a user of this space" do
+          it "should let the user to see the user's profile of a user of this space where the user has roles" do
             get :show, :user_id => @user.id
-            assert_response 403
+            assert_response 200
           end   
         end 
       end 
