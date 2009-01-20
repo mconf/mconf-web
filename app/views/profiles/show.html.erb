@@ -5,6 +5,7 @@
 <%= render :partial=>'hcard'%>
 <%end%>
 
+<%if current_user.superuser? || @user==current_user%>
 <% rounded(:class => "tips") do %>
 <div class="contenido_main">
 <h1 class="title">My Account</h1>
@@ -12,6 +13,7 @@
 
 <%end%>
 </div>
+<%end%>
 </div>
 </div>
 <%= render :partial=>'/shared/sidebar_profile'%>
