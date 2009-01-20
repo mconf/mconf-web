@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
     
     @user_spaces = @user.stages
     
-    if @profile == nil
+    if @profile.new_record?
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user)
     else
@@ -59,7 +59,7 @@ class ProfilesController < ApplicationController
     session[:current_tab] = "MyProfile" 
     session[:current_sub_tab] = "Edit Profile"
 
-    if @profile == nil
+    if @profile.new_record?
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
     else
@@ -146,7 +146,7 @@ class ProfilesController < ApplicationController
 
   def get_user
     @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    @profile = @user.profile
+    @profile = @user.profile || @user.build_profile
   end
   
   #this is used to create the hcard microformat of an user in order to show it in the application
