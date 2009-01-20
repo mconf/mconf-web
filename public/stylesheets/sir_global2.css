@@ -466,6 +466,17 @@ span.first_Column{
 	width: 130px;
 
 }
+
+span.first_Column a:link, span.first_Column a:visited{	
+	color:#1C68AE;
+
+}
+
+span.first_Column a:hover{
+	color:#7AADD9;
+}
+
+
 .second_Column{
 	position: relative;
 	float:left;
