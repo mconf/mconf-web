@@ -11,6 +11,12 @@
 		<% else%>
 			<% if @events.size == 1%>
 				<h3 class="red"> 1 event was found</h3>
+				<!--genera la tabla de eventos-->
+       			<%=generate_event_table%>	
+	   
+				<% @events.each do |event| %>  
+					<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				<% end %>
 			<%else%>
 				<h3 class="red"> <%= @events.size%> events were found</h3>
     		<%if @events.size != 0%>

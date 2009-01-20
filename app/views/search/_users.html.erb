@@ -4,19 +4,34 @@
 <div class="contenido_search">
 	<br/>
 	
-	<%if @users == []%>
+	 <%if @users == []%>
 	   		<p class="red">No users found</p>
 	   		<br/>
 	   <%else%>
-	   		<% if current_user.superuser %>	
-				<%= render :partial =>'users/manage_users'%>	
-			<% else %>
-				<div class="col_public"><%=generate_user_table%></div>
-				<%for user in @users%>
-	    			<div class="user_public"><%=show_list_user(user)%></div>
-    			<%end%>
-		    <%end%>
-	   <%end%>
+			<%if @users.size == 1%>
+	   			<h3 class="red">1 user was found</h3>
+				<br/>
+				<% if current_user.superuser %>	
+					<%= render :partial =>'users/manage_users'%>	
+				<% else %>
+					<div class="col_public"><%=generate_user_table%></div>
+					<%for user in @users%>
+	    				<div class="user_public"><%=show_list_user(user)%></div>
+    				<%end%>
+		    	<%end%>
+	   		<%else%>
+	   			<h3 class="red"><%=@users.size%> users were found</h3>
+				<br/>
+	   			<% if current_user.superuser %>	
+					<%= render :partial =>'users/manage_users'%>	
+				<% else %>
+					<div class="col_public"><%=generate_user_table%></div>
+					<%for user in @users%>
+	    				<div class="user_public"><%=show_list_user(user)%></div>
+    				<%end%>
+		    	<%end%>
+	   		<%end%>
+		<%end%>	
 </div>
 <br/>
 

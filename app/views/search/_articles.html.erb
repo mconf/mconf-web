@@ -4,14 +4,25 @@
 <div class="contenido_search">
 	
 	<br/>
-	<% if @articles.length == 0 %>
-		<p class="red">No posts found</p>
-		<br/>
-	<% else%>
-		<%for article in @articles%>
-	   		<div class="contenido_main">
-    			<%=show_article(article.entry,@space,"edit","destroy")%> 
-			</div> 
-	<%end%>	
-<%end%>
+		<%if @articles == []%>
+	     	<p class="red">No posts found</p>
+	    <%else%> 
+			<%if @articles.size == 1%>	   
+	     		<h3 class="red">1 post was found</h3>
+		 		<br/>
+	     		<% @articles.each do |article| %>
+	       			<%if article%>
+	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	       			<%end%>
+         		<%end%>
+	   		<%else%>
+         		<h3 class="red"><%=@articles.size%> post was found</h3>
+		 		<br/>	
+	     		<% @articles.each do |article| %>
+	       			<%if article%>
+	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	       			<%end%>
+         		<%end%>
+			<%end%>
+		<%end%>	
 </div>

@@ -17,6 +17,12 @@
 	<% else%>
 		<% if @events.size == 1%>
 			<h3 class="red"> 1 event was found</h3>
+			<!--genera la tabla de eventos-->
+       		<%=generate_event_table%>	
+	   
+			<% @events.each do |event| %>  
+				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+			<% end %>
 		<%else%>
 			<h3 class="red"> <%= @events.size%> events were found</h3>
     			<%if @events.size != 0%>
@@ -28,7 +34,7 @@
 					<% end %>
 				<% end %>
 		<%end%>
-<%end%>       		
+	<%end%>       		
 </div>
 <br/>
 <br/>
@@ -42,15 +48,30 @@
 	   		<p class="red">No users found</p>
 	   		<br/>
 	   <%else%>
-	   		<% if current_user.superuser %>	
-				<%= render :partial =>'users/manage_users'%>	
-			<% else %>
-				<div class="col_public"><%=generate_user_table%></div>
-				<%for user in @users%>
-	    			<div class="user_public"><%=show_list_user(user)%></div>
-    			<%end%>
-		    <%end%>
-	   <%end%>
+			<%if @users.size == 1%>
+	   			<h3 class="red">1 user was found</h3>
+				<br/>
+				<% if current_user.superuser %>	
+					<%= render :partial =>'users/manage_users'%>	
+				<% else %>
+					<div class="col_public"><%=generate_user_table%></div>
+					<%for user in @users%>
+	    				<div class="user_public"><%=show_list_user(user)%></div>
+    				<%end%>
+		    	<%end%>
+	   		<%else%>
+	   			<h3 class="red"><%=@users.size%> users were found</h3>
+				<br/>
+	   			<% if current_user.superuser %>	
+					<%= render :partial =>'users/manage_users'%>	
+				<% else %>
+					<div class="col_public"><%=generate_user_table%></div>
+					<%for user in @users%>
+	    				<div class="user_public"><%=show_list_user(user)%></div>
+    				<%end%>
+		    	<%end%>
+	   		<%end%>
+		<%end%>	
 	   </div>
 
 </div>
@@ -61,16 +82,27 @@
 	<h2 class="title separador"> Posts</h2>
 	<br/>
 	<div class="contenido_search">
-	   <%if @articles == []%>
-	   <p class="red">No posts found</p>
-	   <%else%>
-	
-	 <% @articles.each do |article| %>
-	 <%if article%>
-	 <%=show_article(article.entry,@space,"edit","destroy")%> 
-	 <%end%>
-<%end%>
-<%end%>
+		<%if @articles == []%>
+	     	<p class="red">No posts found</p>
+	    <%else%> 
+			<%if @articles.size == 1%>	   
+	     		<h3 class="red">1 post was found</h3>
+		 		<br/>
+	     		<% @articles.each do |article| %>
+	       			<%if article%>
+	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	       			<%end%>
+         		<%end%>
+	   		<%else%>
+         		<h3 class="red"><%@articles.size%> post was found</h3>
+		 		<br/>	
+	     		<% @articles.each do |article| %>
+	       			<%if article%>
+	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	       			<%end%>
+         		<%end%>
+			<%end%>
+		<%end%>	
 	</div>
 </div>
 
