@@ -258,7 +258,7 @@ end
       div_organization = "<div class= 'organization_logged'>" + highlight((name_format(user.organization ,15,"") if user.profile).to_s,@query) + "</div>"
       div_email = "<div class= 'email_logged'>" + "out of my network" + "</div>"
       div_interests = "<div class= 'interests_logged'><span class='green'>" + (highlight((name_format( "[" + user.tag_list + "]",25,"]")).to_s,@query) unless user.tag_list == "").to_s + "</span></div>"
-      div_members = "<div class= 'members_logged'>" + highlight((name_format(member_spaces(user) ,20,"")).to_s,@query, :title => member_spaces(user)) + "</div>"
+      div_members = "<div class= 'members_logged'>" + highlight((name_format(member_spaces(user) ,15,"")).to_s,@query, :title => member_spaces(user)) + "</div>"
       line = div_user + div_organization + div_email + div_interests + div_members + "<br/> <br/>"  
     end
     
