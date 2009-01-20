@@ -7,7 +7,7 @@ atom_entry(@event, {'xmlns:gd' => 'http://schemas.google.com/g/2005',
   
   index = 0
   @event.event_datetimes.each do |d|         
-    entry.tag!('gd:when', :startTime => d.start_date, :endTime => d.end_date, :valueString => index.to_s)
+    entry.tag!('gd:when', :startTime => d.start_date.to_datetime, :endTime => d.end_date.to_datetime, :valueString => index.to_s)
     index+1
   end   
   
