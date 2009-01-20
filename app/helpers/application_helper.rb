@@ -242,7 +242,7 @@ end
       div_user = "<div class= 'name_logged'>" + link_to(highlight(name_format( see_name,15,""),@query), user_profile_path(user), :title => see_name) + "</div>"
       div_organization = "<div class= 'organization_logged'>" + link_to(highlight((name_format(user.organization ,13,"") if user.profile).to_s,@query),user_profile_path(user), :title => user.organization) + "</div>"
       div_email = "<div class= 'email_logged'>" + mail_to(user.email,highlight((name_format(user.email ,25,"") if user.profile).to_s,@query), :title => user.email) + "</div>"
-      div_interests = "<div class= 'interests_logged'><span class='green'>" + ((highlight((name_format( "[" + user.tag_list + "]",23,"]")).to_s,@query) unless user.tag_list == "").to_s unless user.name == "Anyone").to_s + "</span></div>"
+      div_interests = "<div class= 'interests_logged'><span class='green'>" + ((highlight((name_format( "[" + user.tag_list + "]",22,"]")).to_s,@query) unless user.tag_list == "").to_s unless user.name == "Anyone").to_s + "</span></div>"
       div_members = "<div class= 'members_logged'>" + link_to(highlight((name_format(member_spaces(user) ,15,"")).to_s,@query),user_profile_path(user), :title => member_spaces(user)) + "</div>"
       line = div_user + div_organization + (div_email if div_email) + div_interests + div_members + "<br/> <br/>"
     elsif  user.stages.map(&:actors).flatten.include?(current_user)
@@ -250,14 +250,14 @@ end
       div_user = "<div class= 'name_logged'>" + highlight(name_format( see_name,15,""),@query) + "</div>"
       div_organization = "<div class= 'organization_logged'>" + link_to(highlight((name_format(user.organization ,13,"") if user.profile).to_s,@query),user_profile_path(user), :title => user.organization) + "</div>"
       div_email = "<div class= 'email_logged'>" + mail_to(user.email,highlight((name_format(user.email ,25,"")).to_s,@query), :title => user.email) + "</div>"
-      div_interests = "<div class= 'interests_logged'><span class='green'>" + ((highlight((name_format( "[" + user.tag_list + "]",23,"]")).to_s,@query) unless user.tag_list == "").to_s unless user.name == "Anyone").to_s + "</span></div>"
+      div_interests = "<div class= 'interests_logged'><span class='green'>" + ((highlight((name_format( "[" + user.tag_list + "]",22,"]")).to_s,@query) unless user.tag_list == "").to_s unless user.name == "Anyone").to_s + "</span></div>"
       div_members = "<div class= 'members_logged'>" + link_to(highlight((name_format(member_spaces(user) ,15,"")).to_s,@query),user_profile_path(user), :title => member_spaces(user)) + "</div>"
       line = div_user + div_organization + (div_email if div_email) + div_interests + div_members + "<br/> <br/>"
     else
       div_user = "<div class= 'name_logged'>" + highlight(name_format(((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s,25,""),@query) + "</div>"
       div_organization = "<div class= 'organization_logged'>" + highlight((name_format(user.organization ,15,"") if user.profile).to_s,@query) + "</div>"
       div_email = "<div class= 'email_logged'>" + "out of my network" + "</div>"
-      div_interests = "<div class= 'interests_logged'><span class='green'>" + (highlight((name_format( "[" + user.tag_list + "]",25,"]")).to_s,@query) unless user.tag_list == "").to_s + "</span></div>"
+      div_interests = "<div class= 'interests_logged'><span class='green'>" + (highlight((name_format( "[" + user.tag_list + "]",22,"]")).to_s,@query) unless user.tag_list == "").to_s + "</span></div>"
       div_members = "<div class= 'members_logged'>" + highlight((name_format(member_spaces(user) ,15,"")).to_s,@query, :title => member_spaces(user)) + "</div>"
       line = div_user + div_organization + div_email + div_interests + div_members + "<br/> <br/>"  
     end
