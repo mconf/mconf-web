@@ -5,7 +5,7 @@
 	
 	     <ul id="nav">
 		 	<%= nav_tab "Home", { :url => space_path(@space), :id=>'round_button'} %>
-		 	<%= nav_tab "MyProfile", { :url => user_profile_path(current_user), :id=>'round_button2'} %>
+		 	<%= nav_tab "Profile", { :url => user_profile_path(current_user), :id=>'round_button2'} %>
 		    <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button3'} %>
 		 	<%= nav_tab "News", { :url => space_articles_path(@space), :id=>'round_button4'} %>
 		 	<%if @space && @space.id!=1%>

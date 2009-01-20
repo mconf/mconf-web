@@ -28,10 +28,10 @@
 				<%= sub_tab 'Create Group', new_space_group_path(@space)%>
 			<%end%>
 </ul>	
-		<%elsif logged_in? && session[:current_tab]=="MyProfile"%>
+		<%elsif logged_in? && session[:current_tab]=="Profile"%>
 	<ul id="nav2">
-			<%= sub_tab 'Edit Profile', edit_user_profile_path(current_user)%> |
-			<%= sub_tab 'Edit Account' , edit_space_user_path(@space, current_user.id)%>
+			<%= sub_tab 'Edit Your Profile', edit_user_profile_path(current_user)%> |
+			<%= sub_tab 'Edit Your Account' , edit_space_user_path(@space, current_user.id)%>
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="People"%>
 			<%if @space.authorizes?(current_user, [:create, :Performance]) && @space.id != 1%>

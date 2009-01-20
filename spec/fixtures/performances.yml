@@ -44,6 +44,12 @@ user_normal2_private_no_roles:
   agent: user_normal2 (User)
   role: invited
   stage: private_no_roles (Space)
+############################# Ojo el usuario aaron2 no comparte ningún espacio con user_normal
+aaron2_private_no_roles:
+  agent: aaron2 (User)
+  role: invited
+  stage: private_no_roles (Space)
+
 
 ##############################
   

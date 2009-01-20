@@ -123,7 +123,22 @@ perfil_aaron:
   province: Madrid
   country: España
   user: aaron
-  
+
+perfil_aaron2:
+  name: aaron2
+  lastname: carter2
+  organization: Cine
+  phone: 4546433  
+  mobile: 484554
+  fax: 915545454
+  address: invernalia 43
+  city: Madrid  
+  zipcode: 45236
+  province: Madrid
+  country: España
+  user: aaron2
+
+
 perfil_user_with_not_validated_email:
   name: usuario
   lastname: not_validated_email

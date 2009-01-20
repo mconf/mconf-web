@@ -41,6 +41,10 @@ class UsersController < ApplicationController
       session[:current_tab] = "Manage" 
       session[:current_sub_tab] = "Users"
       @users = User.find(:all)
+    elsif params[:space_id] && params[:space_id] != "Public" && current_user.superuser?
+      session[:current_tab] = "People" 
+      session[:current_sub_tab] = ""
+      @users = User.find(:all) 
     elsif params[:space_id] && params[:space_id] != "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
@@ -157,7 +161,7 @@ class UsersController < ApplicationController
   
   #This method returns the user to show the form to edit him
   def edit
-    session[:current_sub_tab] = "Edit Account"
+    session[:current_sub_tab] = "Edit Your Account"
     if @user.profile
       @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
     end

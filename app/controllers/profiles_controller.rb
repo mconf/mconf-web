@@ -17,7 +17,7 @@ class ProfilesController < ApplicationController
   # if params[:hcard] then hcard is rendered
   # GET /profile.atom
   def show
-    session[:current_tab] = "MyProfile"
+    session[:current_tab] = "Profile"
     session[:current_sub_tab] = ""
 
     if params[:hcard]
@@ -26,10 +26,12 @@ class ProfilesController < ApplicationController
     end
     
     @user_spaces = @user.stages
-    
-    if @profile.new_record?
+    if @user.profile.new_record? && current_user == @user
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user)
+    elsif current_user != @user && @user.profile.new_record?
+      flash[:notice]= "Action Not Allowed"
+      redirect_to root_path()  
     else
       @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})  
       respond_to do |format|
@@ -44,7 +46,7 @@ class ProfilesController < ApplicationController
   # GET /profile/new
   # GET /profile/new.xml
   def new
-    session[:current_tab] = "MyProfile" 
+    session[:current_tab] = "Profile" 
     @user = User.find_by_id(params[:user_id])
     @profile = Profile.new
     
@@ -56,8 +58,8 @@ class ProfilesController < ApplicationController
   
   # GET /profiles/edit
   def edit
-    session[:current_tab] = "MyProfile" 
-    session[:current_sub_tab] = "Edit Profile"
+    session[:current_tab] = "Profile" 
+    session[:current_sub_tab] = "Edit Your Profile"
 
     if @profile.new_record?
       flash[:notice]= 'You must create your profile first'

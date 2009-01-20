@@ -8,7 +8,7 @@
 <%if current_user.superuser? || @user==current_user%>
 <% rounded(:class => "tips") do %>
 <div class="contenido_main">
-<h1 class="title">My Account</h1>
+<h1 class="title">User Account</h1>
 <%= render :partial=>'account'%>
 
 <%end%>

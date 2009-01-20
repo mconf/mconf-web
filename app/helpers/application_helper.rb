@@ -141,7 +141,9 @@ end
  # user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
   tags = "[" + entry.content.tag_list + "]"
   fecha = get_format_date(entry)
-  if usuario
+  if usuario == current_user && usuario.profile.nil?    
+    user_link = to_user_link(name_format(user,15,""),usuario,space)
+  elsif usuario.profile && usuario.profile.authorizes?(current_user,:read) && logged_in?
     user_link = to_user_link(name_format(user,15,""),usuario,space)
   else
     user_link = name_format(user,15,"")
@@ -205,7 +207,7 @@ end
   end
   
   def to_user_link (name,usuario,space)
-    return link_to(name,user_path(usuario, :space_id => space.name))
+    return link_to(name,user_profile_path(usuario, :space_id => space.name))
   end
   
     def to_article_link (name,space,entry)
@@ -235,7 +237,7 @@ end
      if user.name == "Anyone" 
        return 
      end
-    if user.profile && user.profile.authorizes?(current_user,:read) && logged_in?
+    if (user.profile && user.profile.authorizes?(current_user,:read) && logged_in?) || user == current_user
       see_name = ((user.profile.name if user.profile).to_s + (user.login unless user.profile).to_s )  + ( " " + user.profile.lastname if user.profile).to_s 
       div_user = "<div class= 'name_logged'>" + link_to(highlight(name_format( see_name,15,""),@query), user_profile_path(user), :title => see_name) + "</div>"
       div_organization = "<div class= 'organization_logged'>" + link_to(highlight((name_format(user.organization ,13,"") if user.profile).to_s,@query),user_profile_path(user), :title => user.organization) + "</div>"
