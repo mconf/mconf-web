@@ -70,7 +70,7 @@ class SearchController < ApplicationController
       @query = params[:query]
       @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Event')
       @search.run
-      @events = @search.results.select{|event| event.entry.container == @space}
+      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
       
       #@even = Entry.find_all_by_container_id_and_content_type(@space.id, "Event")
       #@total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
