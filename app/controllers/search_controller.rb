@@ -96,7 +96,7 @@ class SearchController < ApplicationController
       @query = params[:title]
       @search = Ultrasphinx::Search.new(:class_names => 'Event', :filters => {'name' => @query})
       @search.run
-      @events = @search.results.select{|event| event.entry.container == @space}
+      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
       #@total, @events = Event.title_search(@query,  :page => (params[:page]||1))          
       #@pages = pages_for(@total)
     end
@@ -104,7 +104,7 @@ class SearchController < ApplicationController
       @query = params[:description]
       @search = Ultrasphinx::Search.new(:class_names => 'Event', :filters => {'description' => @query})
       @search.run
-      @events = @search.results.select{|event| event.entry.container == @space}
+      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
       #@total, @events = Event.description_search(@query,  :page => (params[:page]||1))          
       #@pages = pages_for(@total)
     end
