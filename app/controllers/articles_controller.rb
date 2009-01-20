@@ -31,6 +31,9 @@ class ArticlesController < ApplicationController
      session[:current_tab] = "News"
      session[:current_sub_tab] = ""
           @title ||= "News - #{ @space.name }"
+          if !params[:per_page]
+            params[:per_page] = 10
+          end
    #Estas 3 líneas lo que hacen es meter en @articles lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
              @articles =(@space.id == 1 ?
              Article.in_container(nil).find(:all,:conditions => {"entries.parent_id" => nil, "entries.public_read" => true}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
