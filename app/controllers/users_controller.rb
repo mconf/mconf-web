@@ -18,6 +18,11 @@ class UsersController < ApplicationController
   
   before_filter :authentication_required, :only => [:edit, :update, :destroy]
 
+  #FIXME:
+  # Ñapa para que el usuario Anónimo se pueda registrar siempre, independientemente
+  # del espacio del que venga
+  before_filter :register_anonymous_ñapa, :only => [ :new ]
+
   # Space Users
   authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
                                                           :only => [ :index ]
@@ -384,6 +389,13 @@ class UsersController < ApplicationController
     emails = emails.respond_to?(:flatten) ? emails.flatten : emails.split(Invitation::DELIMITER)
     emails.map { |email| email.strip.squeeze(" ") }.flatten.compact.map(&:downcase).uniq
     
+  end
+
+  def register_anonymous_ñapa
+    if current_agent == Anonymous.current
+      session[:space_id] = nil
+      @space = nil
+    end
   end
   
 end
