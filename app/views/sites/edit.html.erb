@@ -1,38 +1,38 @@
 <div id="yui-main">
 	<div class="yui-b main_column">
 		<% rounded(:class => "site") do %>
-<h2><%= "Editing site configuration".t %></h2>
+<h2><%= "Editing site configuration" %></h2>
 
 <%= error_messages_for :site %>
 
 <% form_for(:site, @site, :url => site_path, :html => { :method => :put }) do |f| %>
   <p>
-    <b><%= "Name".t %></b><br />
+    <b><%= "Name" %></b><br />
     <%= f.text_field :name %>
   </p>
 
   <p>
-    <b><%= "Description".t %></b><br />
+    <b><%= "Description" %></b><br />
     <%= f.text_area :description %>
   </p>
 
   <p>
-    <b><%= "Domain".t %></b><br />
+    <b><%= "Domain" %></b><br />
     <%= f.text_field :domain %>
   </p>
 
   <p>
-    <b><%= "Email".t %></b><br />
+    <b><%= "Email" %></b><br />
     <%= f.text_field :email %>
   </p>
 
   <p>
-    <b><%= "Locale".t %></b><br />
+    <b><%= "Locale" %></b><br />
     <%= f.text_field :locale %>
   </p>
 
   <p>
-    <%= f.submit "Update".t %>
+    <%= f.submit "Update" %>
   </p>
 		<% end %>
 	<% end%>
