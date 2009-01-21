@@ -78,10 +78,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
 
@@ -127,10 +127,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
       end
@@ -184,10 +184,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
         
@@ -234,10 +234,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
         
@@ -284,10 +284,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
         
@@ -360,10 +360,10 @@ describe ArticlesController do
             assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
           end
           
-          it "should paginate 30 :per_page without the param :per_page" do
+          it "should paginate 10 :per_page without the param :per_page" do
             Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
             get :index , :space_id => @space.name
-            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+            assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
           end
         end
       end
@@ -440,10 +440,10 @@ describe ArticlesController do
           assigns[:articles].total_pages.should_not == @fixture_articles.paginate(:page => params[:page], :per_page => 3).total_pages
         end
         
-        it "should paginate 30 :per_page without the param :per_page" do
+        it "should paginate 10 :per_page without the param :per_page" do
           Article.should_receive(:find).with(:all,{:order=>"updated_at DESC", :conditions=>{"entries.public_read"=>true, "entries.parent_id"=>nil}}).and_return(@fixture_articles)
           get :index , :space_id => @space.name
-          assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 30).total_pages
+          assigns[:articles].total_pages.should == @fixture_articles.paginate(:page => params[:page], :per_page => 10).total_pages
         end
       end  
     end
