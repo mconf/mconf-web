@@ -46,10 +46,6 @@ class UsersController < ApplicationController
       session[:current_tab] = "Manage" 
       session[:current_sub_tab] = "Users"
       @users = User.find(:all)
-    elsif params[:space_id] && params[:space_id] != "Public" && current_user.superuser?
-      session[:current_tab] = "People" 
-      session[:current_sub_tab] = ""
-      @users = User.find(:all) 
     elsif params[:space_id] && params[:space_id] != "Public"
       session[:current_tab] = "People" 
       session[:current_sub_tab] = ""
