@@ -4,7 +4,7 @@ class Notifier < ActionMailer::Base
   #this method is used to compose the mail sended when a user request more machines in the application
   def contact_mail (mail_info)
     @from = mail_info["from_email"]
-     @recipients = "#{Site.current.email}"
+     @recipients = "enrique.barra@agora-2000.com"
      @subject = "SIR Information"
      @mail_info = mail_info
      @body["mail_info"] = mail_info
