@@ -181,7 +181,7 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     #now we assign the machines to the user
-    if current_user.superuser==true
+    if current_user.superuser==true && params[:resource]
       @array_resources = params[:resource]
       logger.debug("Array de maquinas es  " + @array_resources.to_s)
       machines = Array.new        

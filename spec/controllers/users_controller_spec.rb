@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe UsersController do
-  integrate_views
+  #integrate_views
   include CMS::AuthenticationTestHelper
   fixtures :users , :spaces
   
@@ -607,7 +607,7 @@ describe UsersController do
     
     describe "with valid params" do
       before(:each)do
-        @valid_attributes = {:email => 'pepe@gmail.com'}
+        @valid_attributes = {:email => 'pepe@gmail.com', :login => 'antonio'}
       end      
       describe "when you are logged in" do
         describe "as SuperAdmin" do
@@ -787,7 +787,7 @@ describe UsersController do
     
     describe "with invalid params" do
       before(:each)do
-         @invalid_attributes = {}
+         @invalid_attributes = {:email => ''}
       end
       describe "when you are logged in" do
         describe "as SuperAdmin" do

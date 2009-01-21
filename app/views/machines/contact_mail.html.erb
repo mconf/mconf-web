@@ -1,0 +1,41 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+<% rounded(:class => "tips") do %>
+<h1>Ask for Machines</h1>
+
+    <script>
+    function checkForm(){
+    var _1=document.getElementById("comment_email").value;
+   
+    var _3=document.getElementById("comment_message").value;
+   
+     
+    if(_1.length==0||_3.length==0){
+    alert("You must fill every part of this form to continue");
+   }else{
+   document.getElementById("contact_form").submit();
+   }
+   }
+   </script>
+    
+   
+   <form action="/machines/my_mailer" method="post" id="contact_form">
+    
+   
+    
+   <p>Your Email (is validated)<br/>
+   <%= text_field 'comment', 'email' , :size => 36 %></p>
+    
+   <p>Your Message <br/>
+   <%= text_area 'comment', 'message', :cols => 42, :rows => 9  %></p>
+   <br/><br/>
+   <!-- Before you submit, check if the values are there -->
+   <%= submit_tag 'Send', :onclick => 'checkForm();' , :type => 'button' %>
+    
+   </form>
+
+<%end%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar'%>
+
