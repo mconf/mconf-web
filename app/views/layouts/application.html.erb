@@ -38,7 +38,7 @@
 		<div id="hd">	
 		<div id="logo_fondo"></div>
 			<div id="logo">
-				<%if @space && (@space.id == 1 || !@space_thumbnail)%>
+				<%if (!@space_thumbnail)%>
 				<%=image_tag("gp-logo.jpg")%>
 				<%else%>
 				<%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
