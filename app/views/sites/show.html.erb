@@ -3,44 +3,44 @@
 	
 		<% rounded(:class => "tips") do %>
 
-<h2><%= "Site configuration".t %></h2>
+<h2><%= "Site configuration" %></h2>
 
   <p>
-    <b><%= "Name".t %></b>: 
+    <b><%= "Name" %></b>: 
     <%= sanitize current_site.name %>
   </p>
 
   <p>
-    <b><%= "Description".t %></b>: 
+    <b><%= "Description" %></b>: 
     <%= sanitize current_site.description %>
   </p>
 
   <p>
-    <b><%= "Logotype".t %></b>: 
+    <b><%= "Logotype" %></b>: 
     <%= image_tag(icon_image(current_site)) %>
   </p>
 
   <p>
-    <b><%= "Domain".t %></b>: 
+    <b><%= "Domain" %></b>: 
     <%= sanitize current_site.domain %>
   </p>
 
   <p>
-    <b><%= "SSL".t %></b>: 
+    <b><%= "SSL" %></b>: 
     <%= current_site.ssl? %>
   </p>
 
   <p>
-    <b><%= "Email".t %></b>: 
+    <b><%= "Email" %></b>: 
     <%= sanitize current_site.email %>
   </p>
 
   <p>
-    <b><%= "Locale".t %></b>: 
+    <b><%= "Locale" %></b>: 
     <%= sanitize current_site.locale %>
   </p>
 
-  <%= link_to "Edit".t, edit_site_path %>
+  <%= link_to "Edit", edit_site_path %>
   
   <%end%>
   
