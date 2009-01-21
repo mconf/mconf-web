@@ -127,19 +127,6 @@ class UsersController < ApplicationController
       @user.openid_identifier = session[:openid_identifier]
     end
     
-    @mail = @user.email
-    
-    @invitation = Invitation.find_all_by_email(@mail)
-    if @invitation!= nil
-      for invitation in @invitation
-        @space_id = invitation.space_id
-        space= Space.find(@space_id)
-        
-        if space.stage_performances.create :agent => @user, :role => Role.find_by_id(invitation.role_id)
-          invitation.destroy
-        end
-      end
-    end    
     respond_to do |format|
       if @user.save_with_captcha 
         @user.tag_with(params[:tags]) if params[:tags]

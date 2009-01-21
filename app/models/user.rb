@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   acts_as_taggable
 
   has_one :profile
+  has_many :invitations, :foreign_key => :email
 
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
@@ -36,6 +37,9 @@ class User < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
 
+  after_create do |user|
+    Invitation.find_all_by_email(user.email).map(&:to_performance)
+  end
    
 def name
   profile ? profile.name : login
