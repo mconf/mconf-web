@@ -39,9 +39,13 @@
 			<%end%>
 			
 			<div id="buttons_register">
+				<%if @space.authorizes?(current_user, [:create , :Performance]) && @space.has_role_for?(current_user, :name => 'Admin')%>
 				<%= link_to_function "Register as Admin", "register_admin()", :class => "secund" %><br/>
+				<%end%>
+				<%if @space.authorizes?(current_user, [:create , :Performance]) %>
 				<%= link_to_function "Register as User",:onclick=>"register_user()", :class => "secund" %><br/>
 				<%= link_to_function "Register as Invited",:onclick=>"register_invited()", :class => "secund" %><br/>		
+				<%end%>
 			</div>
 			
 		</div>
@@ -65,9 +69,11 @@
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
+		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
+		<%end%>
 		<%end%>
 	</div>
 
@@ -84,9 +90,11 @@
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
+		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
+		<%end%>
 		<%end%>
 	</div>
 
@@ -103,9 +111,11 @@
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		</div>	
+		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>
+		<%end%>
 		<%end%>
 	</div>
 

@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   # Ñapa para que el usuario Anónimo se pueda registrar siempre, independientemente
   # del espacio del que venga
   before_filter :register_anonymous_ñapa, :only => [ :new ]
-
+  #Ñapa para que sólo pueda crear admin un admin
+  before_filter :create_admin_by_admin, :only => [:create]
   # Space Users
   authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
                                                           :only => [ :index ]
@@ -378,6 +379,18 @@ class UsersController < ApplicationController
     if current_agent == Anonymous.current
       session[:space_id] = nil
       @space = nil
+    end
+  end
+  
+  def create_admin_by_admin
+    if params[:from_app] && params[:user_role] == "Admin"
+       if @space.has_role_for?(current_user, :name => 'Admin')    
+         return true
+       else 
+         not_authorized()
+       end
+    else
+      return true
     end
   end
   
