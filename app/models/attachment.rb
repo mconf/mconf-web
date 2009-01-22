@@ -8,6 +8,20 @@ class Attachment < ActiveRecord::Base
   attr_accessible :media
   
   validates_as_attachment
+  
+  before_save do |attachment|
+    return unless attachment.entry.parent
+    article = attachment.entry.parent.content
+    
+    attachment._stage_performances = []
+    
+    article.stage_performances.each do |p|
+      attachment._stage_performances << { :role_id => p.role_id,
+                                :agent_id => p.agent_id,
+                                :agent_type => p.agent_type
+                              }
+    end
+  end
   # Implement atom_entry_filter for AtomPub support
   # Return hash with content attributes
   def self.atom_entry_filter(entry)

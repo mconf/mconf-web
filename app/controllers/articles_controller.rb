@@ -243,7 +243,11 @@ class ArticlesController < ApplicationController
     
        #valido los attachments para ver si el contendio es correcto
       @attachments.each do |attach|
-        if !attach.valid?
+    # Attachments list may belong to a container
+  # /attachments
+  # /:container_type/:container_id/attachments
+  #before_filter :space_member
+      if !attach.valid?
           flash[:error] = "The attachment is not valid"  
           render :action => "edit"   
           return
@@ -262,15 +266,25 @@ class ArticlesController < ApplicationController
         flash[:valid] = "Article updated"
            
         #Creación de las entries asociadas a los attachments
-        @attachments.each do |attach|
-            attach.entry = Entry.new({ :agent => current_agent,
-            :content => attach, 
-            :description => params[:article][:text],
-            :parent_id => @article.entry.id})
-        end      
+           @attachments.each do |attach|
+             attach.entry = Entry.new({ :agent => current_agent,
+                                        :container => @container,
+                                        :content => attach, 
+                                        :title => params[:article][:title],
+                                        :description => params[:article][:text],
+                                        :parent_id => @article.entry.id})
+           end 
+        
+        
+        #@attachments.each do |attach|
+         #   attach.entry = Entry.new({ :agent => current_agent,
+         #   :content => attach, 
+         #   :description => params[:article][:text],
+         #   :parent_id => @article.entry.id})
+        #end      
         #Salvamos los attachments y sus entries asociadas
         @attachments.each do |attach|
-          attach.save!
+            attach.save!
           attach.tag_with(params[:tags]) if params[:tags]
        end 
             
@@ -281,6 +295,8 @@ class ArticlesController < ApplicationController
         @attachment_children.each {|children|
         if params[:"#{children.id}"] == "false"
           children.content.destroy
+        else 
+          children.content.save
         end
             }
             
