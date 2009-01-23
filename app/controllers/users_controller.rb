@@ -34,7 +34,8 @@ class UsersController < ApplicationController
 
   # Accounts
   before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
-  authorization_filter :user, :delete, :only => [ :destroy ]
+  authorization_filter :user, :delete, :if =>:not_from_app,     ####ojo con este filtro que cuando se separen las cosas hay que quitar la excepcion
+                                        :only => [ :destroy ]
 
   set_params_from_atom :user, :only => [ :create, :update ]  
   
@@ -88,8 +89,10 @@ class UsersController < ApplicationController
       @space = Space.find_by_name(params[:space_id])
       #2 options, by email or from application
       if params[:by_email]
+        session[:current_sub_tab] = "Add Users by email"
         render :template =>'users/by_email'
       elsif params[:from_app]
+        session[:current_sub_tab] = "Add Users from App"
         render :template =>'users/from_app'
       end
     end
@@ -384,7 +387,7 @@ class UsersController < ApplicationController
   
   def create_admin_by_admin
     if params[:from_app] && params[:user_role] == "Admin"
-       if @space.has_role_for?(current_user, :name => 'Admin')    
+       if @space.has_role_for?(current_user, :name => 'Admin') || current_user.superuser == true   
          return true
        else 
          not_authorized()
@@ -394,4 +397,7 @@ class UsersController < ApplicationController
     end
   end
   
+  def not_from_app
+    return true unless params[:remove_from_space]== "true"
+  end
 end
