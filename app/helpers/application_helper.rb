@@ -292,10 +292,10 @@ end
     span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.event_datetimes[0].start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",18,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
-        if logged_in? && event.authorizes?(current_user, :edit)
+        if logged_in? && (event.authorizes?(current_user, :edit) || event.entry.agent == current_user)
     span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/calendar16.png"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/edit16.png"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete16.png"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
         else
-    span_actions = "<span class= 'event_actions'>   </span>"
+    span_actions = "<span class= 'event_actions_no_images'></span>"
         end   
     line = "<div class='event_div'>" + span_title + span_description + span_start_date  + span_tags  +  span_actions + "</div>"
     return line

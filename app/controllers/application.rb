@@ -63,9 +63,8 @@ class ApplicationController < ActionController::Base
   #Method that checks if the current user is the owner of the event(the person who created it)
   # or it checks  if the user is an administrator (Filter)
   def owner_su
-    
     evento = Event.find_by_id(params[:id])
-    unless  current_user.events.include?(evento) || current_user.superuser==true
+    unless  evento.entry.agent == current_user || current_user.superuser==true
       user = current_user
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)

@@ -726,6 +726,16 @@ span.event_actions{
 	
 }
 
+span.event_actions_no_images{
+	width:100px;
+	height:16px;
+	position:relative;
+	left:10px;
+	display:inline-block;
+	text-align: center;
+	
+}
+
 .event_tags{
 	width:165px;
 	position:relative;
