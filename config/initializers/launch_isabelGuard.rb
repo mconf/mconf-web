@@ -1,4 +1,7 @@
- ENV['ISABEL_DIR'] = "/usr/local/isabel/"
+isabel_dir = "/usr/local/isabel/"
+
+if File.exist?(isabel_dir)
+  ENV['ISABEL_DIR'] = isabel_dir
   ENV['ISABEL_USER_DIR'] = ENV['HOME'] + "/.isabel"
   ENV['ISABEL_SESSIONS_DIR'] = ENV['ISABEL_USER_DIR']+"/sessions/4.11"
   ENV['ISABEL_CONFIG_DIR'] = ENV['ISABEL_USER_DIR']+"/config"
@@ -25,4 +28,5 @@
                             "/logs/isabelGuard.log 2>&1 &"
       object_IO = IO.popen(command_isabelguard)
    end
+end
 
