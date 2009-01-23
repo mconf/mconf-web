@@ -34,7 +34,9 @@ end %>
   <h1 class="main_title">Times for this event</h1>
   <form>
   <input name="los_indices"  type="hidden" value=1 />
-  <span>Week </span><span>Nº Time</span>
+  <TABLE class=Event CELLPADING=5 CELLSPACING=0  WIDTH=100% >
+  <tbody id="event_times">
+  <TR class=bold_center><TD>Week Nº</TD><TD colspan=3>Time</TD></TR>
     <%@indice = 0%>
     <%for @datetime in @array_times%>
         <%= render :partial => 'form_datetimes_edit' %>
@@ -42,9 +44,9 @@ end %>
     <%end -%>
     <%if @array_times.size == 0%>
         <%= render :partial => 'form_datetimes_edit' %>
-    <%end -%>      
+    <%end -%>  
   </tbody>
-  </table>
+  </TABLE>
   
   <%end%>
   
