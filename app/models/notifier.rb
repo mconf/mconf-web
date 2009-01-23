@@ -18,17 +18,17 @@ class Notifier < ActionMailer::Base
   end
   
   def invitation_email(invitation)
-    @profile = Profile.find_by_user_id(invitation.user_id)
-    @user = User.find(invitation.user_id)
-    @space = Space.find(invitation.space_id)
+    @user = invitation.agent
+    @profile = @user.profile
+    @space = invitation.stage
     @from = @user.email
-     @recipients = invitation.email
-     @subject = "Sir Invitation"
-     @sent_on = Time.now
-     @body["space_id"] = invitation.space_id
-     @body["name"] = @profile.name if @profile
-       @body["lastname"] = @profile.lastname if @profile
-     @body["space"] = @space.name
+    @recipients = invitation.email
+    @subject = "Sir Invitation"
+    @sent_on = Time.now
+    @body["invitation"] = invitation
+    @body["space"] = @space
+    @body["name"] = @profile.name if @profile
+    @body["lastname"] = @profile.lastname if @profile
   end
   
   #This is used when an user register in the application, in order to confirm his registration 

@@ -110,6 +110,14 @@ class Performance
   
 end
 
+Invitation
+
+class Invitation
+  DELIMITER = (/,|;| /)
+
+  validates_presence_of :stage_id, :stage_type, :role_id
+end
+
 # In SIR authorization, users that are superusers are gods
 # This module allows implementing this feature in all classes that implement authorizes?
 module SirAuthorizes
@@ -122,7 +130,7 @@ module SirAuthorizes
 
           return true if self.respond_to?(:entry) &&
                          self.entry.agent == agent &&
-                         self.entry.container.has_role_for?(agent, :permission => [ :create, :Content ], :include_anyones => true)
+                         self.entry.container.authorizes?(agent, [ :create, :Content ])
 
           authorizes_without_superuser(agent, *args)
         end

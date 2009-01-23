@@ -1,0 +1,7 @@
+invited1:
+  email: invited1@example.com
+  stage: Public (Space)
+  role: invited 
+  agent: user_normal (User)
+invited2:
+  email: invited2@example.com

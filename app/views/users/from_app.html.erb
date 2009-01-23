@@ -39,7 +39,7 @@
 			<%end%>
 			
 			<div id="buttons_register">
-				<%if @space.authorizes?(current_user, [:create , :Performance]) && (@space.has_role_for?(current_user, :name => 'Admin') || current_user.superuser == true)%>
+				<%if @space.authorizes?(current_user, [:create , :Performance]) && (@space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true)%>
 				<%= link_to_function "Register as Admin", "register_admin()", :class => "secund" %><br/>
 				<%end%>
 				<%if @space.authorizes?(current_user, [:create , :Performance]) %>

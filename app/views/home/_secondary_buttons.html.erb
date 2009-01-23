@@ -36,7 +36,7 @@
 		<%elsif logged_in? && session[:current_tab]=="People"%>
 			<%if @space.authorizes?(current_user, [:create, :Performance]) && @space.id != 1%>
 		<ul id="nav2">
-			    <%= sub_tab 'Add Users by email', new_space_user_path(@space, :by_email=>true) %> | 
+			    <%= sub_tab 'Add Users by email', new_space_invitation_path(@space) %> | 
 				<%= sub_tab 'Add Users from App', new_space_user_path(@space, :from_app =>true) %>
 				</ul>	
 				<%end%>

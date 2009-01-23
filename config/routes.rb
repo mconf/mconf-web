@@ -16,7 +16,10 @@ ActionController::Routing::Routes.draw do |map|
     space.resource :logotype 
     # Para el nuevo controlador de Grupos
     space.resources :groups
+    space.resources :invitations
   end
+
+  map.resources :invitations, :member => [ :accept ]
 
   #map.resources :articles
   #map.resources :attachments
