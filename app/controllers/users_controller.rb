@@ -296,7 +296,7 @@ class UsersController < ApplicationController
   
   def create_admin_by_admin
     if params[:from_app] && params[:user_role] == "Admin"
-       if @space.has_role_for?(current_user, :name => 'Admin') || current_user.superuser == true   
+       if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true   
          return true
        else 
          not_authorized()
