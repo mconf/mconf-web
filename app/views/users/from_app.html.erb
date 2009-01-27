@@ -58,8 +58,9 @@
 
 	<div id="admin_users">
 		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
-		<span>Role: Admin</span>
+		
 		<div id="admin_users_select" class="select_users">
+			<span>Role: Admin</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("Admin").collect { |u| [ u.login, u.id ] },
@@ -68,19 +69,20 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-		</div>	
 		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
+		</div>	
+		
 		<%end%>
 	</div>
 
 	<div id="users_users">
-		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>
-		<span>Role: User</span>
+		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>		
 		<div id="users_users_select" class="select_users">
+			<span>Role: User</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
@@ -89,19 +91,19 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-		</div>	
-		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
+				<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
+		</div>	
 		<%end%>
 	</div>
 
 	<div id="invited_users">
 		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
-		<span>Role: Invited</span>
 		<div id="invited_users_select" class="select_users">
+		<span>Role: Invited</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("Invited").collect { |u| [ u.login, u.id ] },
@@ -110,12 +112,12 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-		</div>	
 		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
 		<div class="buttons_remove">
 			<%= link_to_function "Remove",:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
+		</div>	
 		<%end%>
 	</div>
 

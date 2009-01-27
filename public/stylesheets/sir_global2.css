@@ -969,3 +969,55 @@ td.ListUser1,td.ListUser0 {
 	border-top:solid 1px #3b54a6;
 }
 
+
+
+/* Cajas del selector de usuarios para añadir usuarios a la aplicación    */
+
+#space_users {
+	width: 650px;
+	height: 240px;
+	margin-top:10px;
+}
+
+#admin_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:30px;
+}
+
+#users_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:260px;
+}
+
+#invited_users {
+	position: absolute;
+	width: 200px;
+	margin-top:0px;
+	margin-left:490px;
+}
+
+
+div.select_users select{
+	width: 200px;
+	margin-top:10px;
+}
+
+div#admin_users_select {
+	width: 200px;
+}
+
+div#users_users_select {
+	width: 200px;
+}
+
+div#invited_users_select {
+	width: 200px;
+}
+
+
+
+/*     */
