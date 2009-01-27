@@ -89,8 +89,10 @@ class InvitationsController < ApplicationController
   end
 
   def create_invitation_authorization_filter
+    return if authenticated? && current_agent.superuser?
+
     if authorized?(:space, [ :create, :Performance ])
-      if params[:role] == 'Admin' && !@space.roles_for?(current_user, :name => 'Admin')
+      if params[:role] == 'Admin' && !@space.role_for?(current_user, :name => 'Admin')
         flash[:error] = "You can't invite Admin users"
         redirect_to new_space_invitation_path(@space)
       end
