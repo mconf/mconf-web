@@ -1,4 +1,4 @@
 
 <%= @name %> <%= @lastname %> has invited  you to the space: <%= @space.name %>  in the SIR application, please visit the following URL:
  
-<%= register_url(:space_id => @space.to_param, :host => Site.current.domain) %> in order to accept the invitation.
+<%= signup_url(:host => Site.current.domain) %> in order to accept the invitation.

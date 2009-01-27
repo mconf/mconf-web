@@ -85,7 +85,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
   
-  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
+#  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
   ###########################################
   # RUTAS A LIMPIAR
