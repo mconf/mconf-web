@@ -892,8 +892,8 @@ class Event < ActiveRecord::Base
       param_start_date = "start_date"+i
       param_end_date = "end_date"+i
       param_is_valid_time = "is_valid_time"+i
-      resultado[param_start_date.to_sym] = times.attribute('startTime').to_s.to_datetime
-      resultado[param_end_date.to_sym] = times.attribute('endTime').to_s.to_datetime
+      resultado[param_start_date.to_sym] = times.attribute('startTime').to_s
+      resultado[param_end_date.to_sym] = times.attribute('endTime').to_s
       resultado[param_is_valid_time.to_sym] = "true"
     end
    
