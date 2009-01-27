@@ -250,19 +250,37 @@ class UsersController < ApplicationController
     
     session[:current_sub_tab] = "Add Users from App"
     if params[:users] && params[:user_role]
+      flash[:error] = ""
       if Role.find_by_name(params[:user_role])
+        @users_other_role = []
+        @users_same_role = []
         for user_id in params[:users][:id]
           #let`s check if the performance already exist
           perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
           if perfor==nil
             #if it does not exist we create it
-            @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
+            new_performance = @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
+            if !new_performance.valid?
+              @users_other_role << User.find(user_id) 
+            end
+          else
+            @users_same_role << User.find(user_id) 
           end
+          
         end
       else        
         flash[:notice] = 'Role ' + params[:user_role] + ' does not exist.'
       end
       
+      if !@users_other_role.empty? 
+        flash[:error] << "The User(s) " + @users_other_role.map(&:login).join(", ") + " has another role in the space " + @space.name + " Please, remove it and try again <br/> "
+      end
+      if !@users_same_role.empty? 
+        flash[:error] << "The User(s) " + @users_same_role.map(&:login).join(", ") + " already had the role " + params[:user_role] + " in the space " + @space.name 
+      end
+      if @users_other_role.empty? && @users_same_role.empty?
+        flash[:error] = "Operation completed successfully"
+      end
     end
   end
   
