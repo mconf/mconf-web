@@ -37,10 +37,6 @@ class User < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
 
-  after_create do |user|
-    Invitation.find_all_by_email(user.email).map(&:to_performance)
-  end
-   
 def name
   profile ? profile.name : login
 end
