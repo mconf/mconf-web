@@ -1,14 +1,7 @@
 class GroupsController < ApplicationController
-  before_filter  :user_is_admin , :only=> [:index,:show, :new,:create, :edit,:update,:destroy]
-  
   before_filter :authentication_required
   
-  #before_filter :remember_tab_and_space
-  
-  before_filter :space_member, :only=>[:group_details,:index,:groups_details]
-  
-  #  authorization_filter :space, :manage_groups, :only=>[ :create_group,:save_group, :edit_group, :update_group, :delete_group]
-  authorization_filter :space, [ :manage, :Group ]
+  authorization_filter :space, [ :update, :Performance ]
   
   set_params_from_atom :group, :only => [ :create, :update ]
   
@@ -21,11 +14,9 @@ class GroupsController < ApplicationController
     session[:current_tab] = "Groups" 
     session[:current_sub_tab] = ""
     
-    @groups = Group.find(:all)
-    
-    if (params[:space_id])
-      @groups = Group.find(:all, :conditions => {:space_id => @space.id})
-    end
+    @groups = (params[:space_id] ?
+                Group.find(:all, :conditions => {:space_id => @space.id}) :
+                Group.find(:all))
     
     respond_to do |format|
       format.html # index.html.erb
