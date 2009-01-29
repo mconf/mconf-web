@@ -24,7 +24,7 @@
 </ul>	
 		<%elsif logged_in? && session[:current_tab]=="Groups"%>
 <ul id="nav2">
-			<%if @space.authorizes?(current_user, :manage_groups)%>
+			<%if @space.authorizes?(current_user, [:update, Performance])%>
 				<%= sub_tab 'Create Group', new_space_group_path(@space)%>
 			<%end%>
 </ul>	

@@ -10,7 +10,7 @@
 		 	<%= nav_tab "News", { :url => space_articles_path(@space), :id=>'round_button4'} %>
 		 	<%if @space && @space.id!=1%>
 				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
-				<%if @space && @space.authorizes?(current_user, :manage_groups)%>
+				<%if @space && @space.authorizes?(current_user, [:update, Performance] )%>
 		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button6'} %>
 				<%else%>
 				<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button6'} %>

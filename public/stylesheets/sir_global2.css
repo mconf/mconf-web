@@ -1020,4 +1020,20 @@ div#invited_users_select {
 
 
 
-/*     */
+/* caja de los usuarios de los grupos */
+
+div#group_name {
+	width: 300px;
+	margin-left: 180px;
+}
+
+div#group_title {
+	margin-top: 10px;
+	margin-left: 70px;
+}
+
+div#users_group_select {
+	width: 732px;
+	padding-bottom: 150px;
+}
+ 
