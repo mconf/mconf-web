@@ -60,7 +60,7 @@
 		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
 		
 		<div id="admin_users_select" class="select_users">
-			<span>Role: Admin</span>
+			<span>Admin</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("Admin").collect { |u| [ u.login, u.id ] },
@@ -82,7 +82,7 @@
 	<div id="users_users">
 		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>		
 		<div id="users_users_select" class="select_users">
-			<span>Role: User</span>
+			<span>User</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
@@ -103,7 +103,7 @@
 	<div id="invited_users">
 		<% form_tag(space_user_path(@space, current_user.id),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
 		<div id="invited_users_select" class="select_users">
-		<span>Role: Invited</span>
+		<span>Invited</span>
 			<%= select 'users',
 			           'id',
 			           @space.get_users_with_role("Invited").collect { |u| [ u.login, u.id ] },
