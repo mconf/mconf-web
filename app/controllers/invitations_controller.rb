@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_filter :needs_space
+  before_filter :space_needed
 
   # Capar todas las acciones del controlador del plugin, menos las redefinidas aqui
   authorization_filter :current_site, :update, :except => [ :new, :create ]
@@ -79,8 +79,8 @@ class InvitationsController < ApplicationController
 
   private
 
-  def needs_space
-    @space = Space.find_by_name(params[:space_id])
+  def space_needed
+    @stage = @space = Space.find_by_name(params[:space_id])
 
     unless @space 
       flash[:error] = "Space not provided"

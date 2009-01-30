@@ -17,9 +17,11 @@ ActionController::Routing::Routes.draw do |map|
     # Para el nuevo controlador de Grupos
     space.resources :groups
     space.resources :invitations
+    space.resources :performances
   end
 
   map.resources :invitations, :member => [ :accept ]
+  map.resources :performances
 
   #map.resources :articles
   #map.resources :attachments
