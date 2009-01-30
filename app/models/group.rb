@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
     if group.reload_mail_list_server_because_of_environment
     group.request_update_at_jungla
       group.mail_list_archive
-      `scp temp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp /tmp/grupostemp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
     after_update { |group|
     if group.reload_mail_list_server_because_of_environment
       group.mail_list_archive
-      `scp temp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp /tmp/grupostemp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
@@ -57,7 +57,7 @@ class Group < ActiveRecord::Base
    
      def mail_list_archive
        doc = "#{self.mail_list}"
-       File.open("temp", 'w') {|f| f.write(doc) }
+       File.open("/tmp/grupostemp", 'w') {|f| f.write(doc) }
      end
    
    def self.atom_parser(data)
