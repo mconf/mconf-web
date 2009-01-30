@@ -84,7 +84,7 @@ class SpacesController < ApplicationController
     respond_to do |format|
       if @space.save
         flash[:notice] = 'Space was successfully created.'
-        @space.stage_performances.create :agent => current_user, :role => Role.find_by_name("admin")
+        @space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
         format.html { redirect_to(:action => "index", :controller => "spaces") }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 
@@ -189,10 +189,6 @@ class SpacesController < ApplicationController
   def public_read_ñapa
     if params[:space][:public] == "1"
       params[:space][:_stage_performances] = [ 
-        { :role_id => Role.without_stage_type.find_by_name("Reader").id,
-          :agent_id => Anyone.current.id,
-          :agent_type => Anyone.current.class.base_class.to_s
-        },
         { :role_id => Role.find_by_name_and_stage_type("Invited", "Space").id,
           :agent_id => Anyone.current.id,
           :agent_type => Anyone.current.class.base_class.to_s
