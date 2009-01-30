@@ -24,7 +24,7 @@
     		<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
 		    	<%= link_to image_tag("user_add.png", :title => "Add Users", :alt=>"Add users"), new_space_user_path(space, {:from_app => true}) %>
             <%end%>
-			<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
+			<%if logged_in? && space.authorizes?(current_user, [ :update, :Performance ])%> 
 				<%= link_to image_tag("group.png", :title=>"Groups", :alt=>"Groups"), space_groups_path(space)%>
 			<%end%>
 			<%if logged_in? && space.authorizes?(current_user, :delete)%> 

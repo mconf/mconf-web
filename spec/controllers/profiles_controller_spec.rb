@@ -30,7 +30,7 @@ describe ProfilesController do
           
           it "should redirect to the associated user's profile view " do
             get :show , :user_id => @user.id
-            response.should render_template("show")
+            response.should {render :template => "show"}
           end
           
         end
@@ -48,7 +48,7 @@ describe ProfilesController do
           
           it "should redirect to the associated user view" do
             get :show, :user_id => @user.id
-            response.should render_template("show")
+            response.should {render :template => "show"}
           end    
         end
     
@@ -69,7 +69,7 @@ describe ProfilesController do
           end
           it "should redirect to the associated user view" do
             get :show, :user_id => @user.id
-            response.should render_template("show")
+            response.should {render :template => "show"}
           end 
           
         end
@@ -236,7 +236,7 @@ describe ProfilesController do
           
           it "should redirect to the associated user view" do
             get :edit , :user_id => @user.id
-            response.should render_template("edit")
+            response.should {render :template => "edit"}
           end
           
         end
@@ -259,7 +259,7 @@ describe ProfilesController do
           
           it "should redirect to the associated user view" do
             get :edit, :user_id => @user.id
-            response.should render_template("edit")
+            response.should {render :template => "edit"}
           end    
         end
     
@@ -282,7 +282,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template => "edit"}            
           end                           
         end
         
@@ -300,7 +300,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template =>"edit"}         
           end 
           
         end
