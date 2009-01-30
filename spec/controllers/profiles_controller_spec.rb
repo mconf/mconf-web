@@ -318,7 +318,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template => "edit"}         
           end 
           
         end
@@ -337,7 +337,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template => "edit"}            
           end 
         end
         
@@ -354,7 +354,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template => "edit"}            
           end 
           
         end
@@ -375,7 +375,7 @@ describe ProfilesController do
           it "should let the user to edit his own profile and redirect to the associated user view" do
             get :edit , :user_id => users(:user_normal)
             assert_response 200
-            response.should render_template("edit")            
+            response.should {render :template => "edit"}            
           end 
           
         end 
@@ -429,93 +429,519 @@ describe ProfilesController do
   describe "responding to POST create" do
 
     describe "with valid params" do
-      
-      it "should expose a newly created profile as @profile" do
-        pending
-        Profile.should_receive(:new).with({'these' => 'params'}).and_return(mock_profile(:save => true))
-        post :create, :profile => {:these => 'params'}
-        assigns(:profile).should equal(mock_profile)
+      before(:each)do
+        @valid_attributes = {:name => "pepe", 
+                             :lastname => "jugon",
+                             :phone => "673548798",
+                             :city => "Madrid",
+                             :country => "Spain",
+                             :organization => "Dit"}
       end
-
-      it "should redirect to the created profile" do
-        pending
-        Profile.stub!(:new).and_return(mock_profile(:save => true))
-        post :create, :profile => {}
-        response.should redirect_to(profile_url(mock_profile))
-      end
+      describe "when you are logged in" do
+        describe "as super Admin" do
+          before(:each)do
+            login_as(:user_admin)
+          end
+        
+          it "should NOT let the user to create a profile if he has one" do
+            assert_no_difference 'Profile.count' do
+              post :create, :user_id => users(:user_admin), :profile=> @valid_attributes
+              response.should redirect_to(user_profile_path(users(:user_admin)))
+            end
+          end
+          it "should let the Admin to create a profile if a User hasn't one" do
+            pending
+            assert_difference 'Profile.count' do
+              post :create, :user_id => users(:user_normal3), :profile=> @valid_attributes
+              assert_response 200
+            end
+          end  
+        end
       
+        describe "as a normal user" do
+          describe " with profile" do
+            before(:each)do
+              login_as(:user_normal)
+            end
+        
+            it "should NOT let the user to create a profile" do
+              assert_no_difference 'Profile.count' do
+                post :create, :user_id => users(:user_normal), :profile=> @valid_attributes
+                response.should redirect_to(user_profile_path(users(:user_normal)))
+              end
+            end
+            it "should NOT let the user to create the profile of other user" do
+              assert_no_difference 'Profile.count' do
+                post :create, :user_id => users(:user_normal3), :profile=> @valid_attributes
+                assert_response 403
+              end
+            end                      
+      
+          end
+          
+          describe "without profile" do
+            before(:each)do
+              login_as(:user_normal3)
+            end
+        
+            it "should let the user to create a profile" do
+              assert_difference 'Profile.count' do
+                post :create, :user_id => users(:user_normal3), :profile=> @valid_attributes
+                response.should redirect_to(user_profile_path(users(:user_normal3))) 
+              end
+            end
+            it "should NOT let the user to create the profile of other user" do
+              assert_no_difference 'Profile.count' do
+                post :create, :user_id => users(:user_normal), :profile=> @valid_attributes
+                assert_response 403
+              end
+            end             
+          end     
+        end
+      end
+      describe "if you are not logged in" do
+        it "should NOT let the user to create a profile" do
+          assert_no_difference 'Profile.count' do
+            post :create, :user_id => users(:user_normal), :profile=> @valid_attributes
+            assert_response 401
+          end
+        end
+      end              
     end
     
     describe "with invalid params" do
-
-      it "should expose a newly created but unsaved profile as @profile" do
-        pending
-        Profile.stub!(:new).with({'these' => 'params'}).and_return(mock_profile(:save => false))
-        post :create, :profile => {:these => 'params'}
-        assigns(:profile).should equal(mock_profile)
-      end
-
-      it "should re-render the 'new' template" do
-        pending
-        Profile.stub!(:new).and_return(mock_profile(:save => false))
-        post :create, :profile => {}
-        response.should render_template('new')
+      
+      before(:each)do
+        @invalid_attributes = {:name => ""}
       end
       
+      describe "when you are logged in" do
+        describe "as super Admin" do
+          describe "with profile" do
+            before(:each)do
+              login_as(:user_admin)
+            end
+        
+            it "should NOT let the user to create a profile" do
+              assert_no_difference 'Profile.count' do
+                post :create, :user_id => users(:user_admin),:profile=> @invalid_attributes
+                response.should {render :template =>"new"}
+              end
+            end            
+          end
+          describe "without profile" do
+            before(:each)do
+              login_as(:user_admin2)
+            end
+        
+            it "should NOT let the user to create his profile" do
+              assert_no_difference 'Profile.count' do
+                post :create,  :user_id => users(:user_admin2), :profile=> @invalid_attributes
+                response.should {render :template =>"new"}
+              end
+            end                        
+            
+          end
+        end
+      
+        describe "as a normal user" do
+          describe "with profile" do
+            before(:each)do
+              login_as(:user_normal)
+            end
+        
+            it "should NOT let the user to create another profile" do
+              assert_no_difference 'Profile.count' do
+                post :create, :user_id => users(:user_normal), :profile=> @invalid_attributes
+                response.should {render :template =>"new"}
+              end
+            end  
+          end
+          describe "without profile" do
+            before(:each)do
+              login_as(:user_normal3)
+            end
+        
+            it "should NOT let the user to create his profile" do
+              assert_no_difference 'User.count' do
+                post :create, :user_id => users(:user_normal3), :profile=> @invalid_attributes
+                response.should {render :template =>"new"}
+              end
+            end  
+          end        
+        end
+      end
+      describe "if you are not logged in" do
+        it "should NOT let the user to create the profile" do
+          assert_no_difference 'Profile.count' do
+            post :create, :user_id => users(:user_normal), :profile => @invalid_attributes
+            response.should {render :template =>"new"}            
+          end
+        end
+      end                  
     end
-    
   end
 
+########################################
   describe "responding to PUT udpate" do
 
     describe "with valid params" do
-
-      it "should update the requested profile" do
-        pending
-        Profile.should_receive(:find).with("37").and_return(mock_profile)
-        mock_profile.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :profile => {:these => 'params'}
+      before(:each)do
+       @valid_attributes = {:name => "pepe", 
+                             :lastname => "jugon",
+                             :phone => "673548798",
+                             :city => "Madrid",
+                             :country => "Spain",
+                             :organization => "Dit"}
+      end      
+      describe "when you are logged in" do
+        describe "as SuperAdmin" do
+          before(:each) do
+            login_as(:user_admin)
+          end
+          describe "in a private space" do
+            before(:each) do
+              @space = spaces(:private_no_roles)
+              @user = users(:user_normal2)
+            end
+          
+            it "should let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @valid_attributes              
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update, :user_id => users(:user_admin), :profile => @valid_attributes              
+              assert_response 200
+              response.should {render :template => "show"}
+            end            
+          end
+        
+          describe "in the public space" do
+            before(:each) do
+              @space = spaces(:public)
+              @user = users(:user_normal2)
+            end
+          
+            it "should let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+            it "should let the user to UPDATE his profile" do
+              put :update, :user_id => users(:user_admin), :profile => @valid_attributes              
+              assert_response 200
+              response.should {render :template => "show"}
+            end              
+          end
+    
+        end
+        describe "as normal_user" do
+          before(:each) do
+            login_as(:user_normal)
+          end
+          describe "in a private space where the user has the role Admin " do
+            before(:each) do
+              @space = spaces(:private_admin)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update , :user_id => @user, :profile => @valid_attributes
+              assert_response 403
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+          end
+        
+          describe "in a private space where the user has the role User" do
+            before(:each) do
+              @space = spaces(:private_user)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @valid_attributes
+              assert_response 403
+            end
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+          
+          end
+          describe "in a private space where the user has the role Invited " do
+            before(:each) do
+              @space = spaces(:private_invited)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @valid_attributes
+              assert_response 403
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+          
+          end
+        
+          describe "in a private space where the user has not any roles" do
+            before(:each) do
+              @space = spaces(:private_no_roles)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update , :user_id => @user.id, :profile => @valid_attributes
+              assert_response 403
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+            
+          end
+        
+          describe "without space" do
+            before(:each) do
+              @user = users(:user_normal2)                          
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user.id, :profile => @valid_attributes
+              assert_response 403
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              #no tiene mucho sentido este test
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+          end
+        
+        
+          describe "in the public space" do
+          
+            before(:each) do
+              @space = spaces(:public)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user.id, :profile => @valid_attributes
+              assert_response 403
+            end
+            
+            it "should let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @valid_attributes
+              assert_response 200
+              response.should {render :template => "show"}
+            end
+            
+          end 
+        end 
       end
-
-      it "should expose the requested profile as @profile" do
-        pending
-        Profile.stub!(:find).and_return(mock_profile(:update_attributes => true))
-        put :update, :id => "1"
-        assigns(:profile).should equal(mock_profile)
-      end
-
-      it "should redirect to the profile" do
-        pending
-        Profile.stub!(:find).and_return(mock_profile(:update_attributes => true))
-        put :update, :id => "1"
-        response.should redirect_to(profile_url(mock_profile))
-      end
-
+    
+      describe "if you are not logged in" do
+        describe "in a private space" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+        
+          it "should NOT let the user to UPDATE the profile of a user of this space" do
+            put :update, :user_id => @user.id, :profile => @valid_attributes
+            assert_response 401
+          end
+        end
+      
+        describe "in the public space" do
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+        
+          it "should NOT let the user to UDATE the profile of a user of this space" do
+            put :update,  :user_id => @user.id, :profile => @valid_attributes
+            assert_response 401
+          end  
+        end 
+      end            
     end
     
     describe "with invalid params" do
-
-      it "should update the requested profile" do
-        pending
-        Profile.should_receive(:find).with("37").and_return(mock_profile)
-        mock_profile.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :profile => {:these => 'params'}
+      before(:each)do
+         @invalid_attributes = {:name => ""}
       end
-
-      it "should expose the profile as @profile" do
-        pending
-        Profile.stub!(:find).and_return(mock_profile(:update_attributes => false))
-        put :update, :id => "1"
-        assigns(:profile).should equal(mock_profile)
+      describe "when you are logged in" do
+        describe "as SuperAdmin" do
+          before(:each) do
+            login_as(:user_admin)
+          end
+          describe "in a private space" do
+            before(:each) do
+              @space = spaces(:private_no_roles)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end
+          end
+        
+          describe "in the public space" do
+            before(:each) do
+              @space = spaces(:public)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end  
+          end
+    
+        end
+        describe "as normal_user" do
+          before(:each) do
+            login_as(:user_normal)
+          end
+          describe "in a private space where the user has the role Admin " do
+            before(:each) do
+              @space = spaces(:private_admin)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update , :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end
+            
+            it "should NOT let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end            
+          
+          end
+        
+          describe "in a private space where the user has the role User" do
+            before(:each) do
+              @space = spaces(:private_user)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end
+            it "should NOT let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end             
+          
+          end
+          describe "in a private space where the user has the role Invited " do
+            before(:each) do
+              @space = spaces(:private_invited)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end
+            it "should NOT let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end           
+          end
+        
+          describe "in a private space where the user has not any roles" do
+            before(:each) do
+              @space = spaces(:private_no_roles)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update , :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end
+            it "should NOT let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end             
+          end
+        
+          describe "without space" do
+            before(:each) do
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end     
+          end
+        
+        
+          describe "in the public space" do
+          
+            before(:each) do
+              @space = spaces(:public)
+              @user = users(:user_normal2)
+            end
+          
+            it "should NOT let the user to UPDATE the profile of a user of this space" do
+              put :update, :user_id => @user, :profile => @invalid_attributes
+              assert_response 403
+            end
+            it "should NOT let the user to UPDATE his profile" do
+              put :update , :user_id => users(:user_normal), :profile => @invalid_attributes
+              response.should {render :template => "edit"}
+            end             
+          end 
+        end 
       end
-
-      it "should re-render the 'edit' template" do
-        pending
-        Profile.stub!(:find).and_return(mock_profile(:update_attributes => false))
-        put :update, :id => "1"
-        response.should render_template('edit')
-      end
-
+    
+      describe "if you are not logged in" do
+        describe "in a private space" do
+          before(:each) do
+            @space = spaces(:private_no_roles)
+            @user = users(:user_normal2)
+          end
+        
+          it "should NOT let the user to UPDATE the profile of a user of this space" do
+            put :update, :user_id => @user, :profile => @invalid_attributes
+            assert_response 401
+          end
+        end
+      
+        describe "in the public space" do
+          before(:each) do
+            @space = spaces(:public)
+            @user = users(:user_normal2)
+          end
+        
+          it "should NOT let the user to UDATE the profile of a user of this space" do
+            put :update,  :user_id => @user, :profile => @invalid_attributes
+            assert_response 401
+          end  
+        end 
+      end            
     end
 
   end
