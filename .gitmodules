@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/cmsplugin"]
+	path = vendor/plugins/cmsplugin
+	url = git://github.com/atd/cmsplugin.git
