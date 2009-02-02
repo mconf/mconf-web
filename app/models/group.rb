@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
     if group.reload_mail_list_server_because_of_environment
     group.request_update_at_jungla
       group.mail_list_archive
-      `scp /tmp/grupostemp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp #{ temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
@@ -28,18 +28,14 @@ class Group < ActiveRecord::Base
     after_update { |group|
     if group.reload_mail_list_server_because_of_environment
       group.mail_list_archive
-      `scp /tmp/grupostemp vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp #{ temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
     
     # Do not reload mail list server if not in production mode, it could cause server overload
     def reload_mail_list_server_because_of_environment
-      if RAILS_ENV == "production"
-        true
-      else
-        false
-      end
+      RAILS_ENV == "production"
     end
     
     def request_update_at_jungla
@@ -55,11 +51,11 @@ class Group < ActiveRecord::Base
        str
    end
    
-     def mail_list_archive
-       doc = "#{self.mail_list}"
-       File.open("/tmp/grupostemp", 'w') {|f| f.write(doc) }
-     end
-   
+   def mail_list_archive
+     doc = "#{self.mail_list}"
+     File.open(temp_file, 'w') {|f| f.write(doc) }
+   end
+
    def self.atom_parser(data)
     
     e = Atom::Entry.parse(data)
@@ -82,5 +78,11 @@ class Group < ActiveRecord::Base
     
     return resultado     
   end   
-  
+
+  private
+
+  def temp_file
+     @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
+  end
+ 
 end
