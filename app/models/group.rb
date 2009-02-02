@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
     if group.reload_mail_list_server_because_of_environment
     group.request_update_at_jungla
       group.mail_list_archive
-      `scp #{ temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
     after_update { |group|
     if group.reload_mail_list_server_because_of_environment
       group.mail_list_archive
-      `scp #{ temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
+      `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
     
@@ -79,7 +79,6 @@ class Group < ActiveRecord::Base
     return resultado     
   end   
 
-  private
 
   def temp_file
      @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
