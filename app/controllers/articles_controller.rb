@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   # Include some methods and set some default filters. 
-  # See documentation: CMS::ActionController::Contents#included
-  include CMS::ActionController::Contents
+  # See documentation: ActionController::Contents#included
+  include ActionController::Contents
   
   # Articles list may belong to a container
   # /articles

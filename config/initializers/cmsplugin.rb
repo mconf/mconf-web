@@ -140,5 +140,5 @@ module SirAuthorizes
   end
 end
 
-CMS::ActiveRecord::Stage::InstanceMethods.send :include, SirAuthorizes
+ActiveRecord::Stage::InstanceMethods.send :include, SirAuthorizes
 

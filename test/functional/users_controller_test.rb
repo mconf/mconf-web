@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 # Los tests comentados necesitan ser revisados
 
 class UsersControllerTest < Test::Unit::TestCase
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
 
   fixtures :users
 

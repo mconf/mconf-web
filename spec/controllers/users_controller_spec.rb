@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
   #integrate_views
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   fixtures :users , :spaces
   
   

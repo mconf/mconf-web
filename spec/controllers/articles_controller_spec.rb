@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ArticlesController do
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   fixtures :users ,:spaces , :articles ,:entries , :attachments, :performances, :roles, :permissions
   
   def mock_article(stubs={})

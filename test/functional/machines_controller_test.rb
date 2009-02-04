@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class MachinesControllerTest < ActionController::TestCase
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   
   fixtures   :event_datetimes, :events_users, :events, :machines_users, :machines, :participants, :profiles, :users, :spaces, :entries
   

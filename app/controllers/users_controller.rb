@@ -1,8 +1,6 @@
 require "digest/sha1"
 class UsersController < ApplicationController
-  # Include some methods and set some default filters. 
-  # See documentation: CMS::ActionController::Agents#included
-  include CMS::ActionController::Agents
+  include ActionController::Agents
   
   
   # Get the User for member actions

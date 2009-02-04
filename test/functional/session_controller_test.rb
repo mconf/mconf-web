@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 
 class SessionsControllerTest < ActionController::TestCase
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   
   fixtures :users
   

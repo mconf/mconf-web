@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       return
     end
 
-    # See CMS::ActionController::Sessions#authentication_methods_chain 
+    # See ActionController::Sessions#authentication_methods_chain 
     authentication_methods_chain(:new)
   end
 

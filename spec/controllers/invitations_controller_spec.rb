@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InvitationsController do
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   fixtures :users, :spaces
 
   describe "responding to GET new" do

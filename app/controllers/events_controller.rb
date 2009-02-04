@@ -2,14 +2,14 @@ require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
   # Include some methods and filters.
-  include CMS::ActionController::Contents
+  include ActionController::Contents
   
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   
   
   # A Container is needed when posting new events
-  # (see CMS::ActionController::Base#needs_container)
-  before_filter :needs_container, :only => [ :new, :create ]
+  # (see ActionController::Move#container!)
+  before_filter :container!, :only => [ :new, :create ]
   #TODO: Authorization
   before_filter :is_public_space, :only=>[:index]
   before_filter :space_member, :except => [ :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RolesControllerTest < ActionController::TestCase
  
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   fixtures :users, :cms_performances, :cms_roles, :spaces
   
 #  def test_index_admin

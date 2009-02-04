@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe SpacesController do
-  include CMS::AuthenticationTestHelper
+  include ActionController::AuthenticationTestHelper
   fixtures :users , :spaces , :performances, :roles, :permissions
   
   
