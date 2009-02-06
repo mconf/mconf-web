@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml  
   def new
-    @user = @agent = self.resource_class.new
+    @user = @agent = model_class.new
     if params[:space_id]!=nil
       @space = Space.find_by_name(params[:space_id])
       #1 option, from application
