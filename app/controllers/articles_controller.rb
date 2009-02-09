@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
   # See documentation: ActionController::Contents#included
   include ActionController::Contents
   
+  set_params_from_atom :article, :only => [ :create, :update ]
+  
   # Articles list may belong to a container
   # /articles
   # /:container_type/:container_id/articles
@@ -22,9 +24,6 @@ class ArticlesController < ApplicationController
   authorization_filter :article, :delete, :only => [ :destroy ]
 
   before_filter :public_read_ñapa, :only => [ :create, :update ]
-
-  
-  set_params_from_atom :article, :only => [ :create, :update ]
   
   def index
 

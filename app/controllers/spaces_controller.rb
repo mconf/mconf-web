@@ -4,10 +4,11 @@ class SpacesController < ApplicationController
   authorization_filter :space, :read, :only => [:show]
   authorization_filter :space, :update, :only => [:edit, :update]
   authorization_filter :space, :delete, :only => [:destroy]
+  
+  set_params_from_atom :space, :only => [ :create, :update ]
 
   before_filter :public_read_ñapa, :only => [ :create, :update ]
 
-  set_params_from_atom :space, :only => [ :create, :update ]
 
   # GET /spaces
   # GET /spaces.xml
