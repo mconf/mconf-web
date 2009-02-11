@@ -16,24 +16,13 @@ class UsersController < ApplicationController
   
   before_filter :authentication_required, :only => [:edit, :update, :destroy]
 
-  #FIXME:
-  # Ñapa para que el usuario Anónimo se pueda registrar siempre, independientemente
-  # del espacio del que venga
-  before_filter :register_anonymous_ñapa, :only => [ :new ]
-  #Ñapa para que sólo pueda crear admin un admin
-  before_filter :create_admin_by_admin, :only => [:create]
   # Space Users
   authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
                                                           :only => [ :index ]
-  authorization_filter :space, [ :create, :Performance ], :if   => :get_space,
-                                                          :only => [ :new, :create ]
-  authorization_filter :space, [ :delete, :Performance ], :if   => :get_space,
-                                                          :only => [ :destroy ]
 
   # Accounts
   before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
-  authorization_filter :user, :delete, :if =>:not_from_app,     ####ojo con este filtro que cuando se separen las cosas hay que quitar la excepcion
-                                        :only => [ :destroy ]
+  authorization_filter :user, :delete, :only => [ :destroy ]
 
   set_params_from_atom :user, :only => [ :create, :update ]  
   
@@ -83,14 +72,6 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     @user = @agent = model_class.new
-    if params[:space_id]!=nil
-      @space = Space.find_by_name(params[:space_id])
-      #1 option, from application
-      if params[:from_app]
-        session[:current_sub_tab] = "Add Users from App"
-        render :template =>'users/from_app'
-      end
-    end
   end
   
   # POST /users
@@ -101,17 +82,6 @@ class UsersController < ApplicationController
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
   
   def create
-    if params[:space_id]
-      @space = Space.find_by_name(params[:space_id])
-      if @space.id != 1
-        #1 opcion, from app
-        if params[:from_app]
-          add_user_from_app (params)
-          render :template =>'users/from_app'
-          return
-        end
-      end
-    end
     cookies.delete :auth_token
     # protects against session fixation attacks, wreaks havoc with 
     # request forgery protection.
@@ -211,19 +181,6 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml  
   # DELETE /users/1.atom
   def destroy
-    
-    if params[:space_id]
-      @space = Space.find_by_name(params[:space_id])
-      remove_user(params)
-      respond_to do |format|
-        
-        format.html { render :template =>'users/from_app'  }
-        format.xml  { head :ok }
-        format.atom { head :ok }
-      end
-      return
-    end
-    
     @user = User.find(params[:id])
     @user.destroy
     
@@ -240,89 +197,5 @@ class UsersController < ApplicationController
     return if current_agent.superuser?
 
     not_authorized unless current_agent == @user
-  end
-
-  private
-  
-  def add_user_from_app (params)
-    
-    session[:current_sub_tab] = "Add Users from App"
-    if params[:users] && params[:user_role]
-      flash[:error] = ""
-      if Role.find_by_name(params[:user_role])
-        @users_other_role = []
-        @users_same_role = []
-        for user_id in params[:users][:id]
-          #let`s check if the performance already exist
-          perfor = Performance.find_by_stage_id_and_stage_type_and_agent_id_and_agent_type(@space.id,"Space",user_id, "User", :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
-          if perfor==nil
-            #if it does not exist we create it
-            new_performance = @space.stage_performances.create :agent => User.find(user_id), :role => Role.find_by_name(params[:user_role])
-            if !new_performance.valid?
-              @users_other_role << User.find(user_id) 
-            end
-          else
-            @users_same_role << User.find(user_id) 
-          end
-          
-        end
-      else        
-        flash[:notice] = 'Role ' + params[:user_role] + ' does not exist.'
-      end
-      
-      if !@users_other_role.empty? 
-        flash[:error] << "The User(s) " + @users_other_role.map(&:login).join(", ") + " has another role in the space " + @space.name + " Please, remove it and try again <br/> "
-      end
-      if !@users_same_role.empty? 
-        flash[:error] << "The User(s) " + @users_same_role.map(&:login).join(", ") + " already had the role " + params[:user_role] + " in the space " + @space.name 
-      end
-      if @users_other_role.empty? && @users_same_role.empty?
-        flash[:error] = "Operation completed successfully"
-      end
-    end
-  end
-  
-  def remove_user (params)
-    if params[:users] && params[:user_role]
-      if Role.find_by_name(params[:user_role])
-        for user_id in params[:users][:id]
-          #let`s check if the performance exist
-          perfor = @space.stage_performances.find_by_agent_id(params[:users][:id], :conditions=>["role_id = ?", Role.find_by_name(params[:user_role])])
-          if perfor
-            #if it exists we remove it
-            @space.stage_performances.delete perfor
-          end
-        end
-      end
-    else
-      perfor = @space.stage_performances.find_by_agent_id(params[:id])
-      if perfor
-        #if it exists we remove it
-        @space.stage_performances.delete perfor
-      end  
-    end
-  end
-
-  def register_anonymous_ñapa
-    if current_agent == Anonymous.current
-      session[:space_id] = nil
-      @space = nil
-    end
-  end
-  
-  def create_admin_by_admin
-    if params[:from_app] && params[:user_role] == "Admin"
-       if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true   
-         return true
-       else 
-         not_authorized()
-       end
-    else
-      return true
-    end
-  end
-  
-  def not_from_app
-    return true unless params[:remove_from_space]== "true"
   end
 end
