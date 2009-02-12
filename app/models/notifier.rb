@@ -5,7 +5,7 @@ class Notifier < ActionMailer::Base
   def contact_mail (mail_info)
     @from = mail_info["from_email"]
      @recipients = "enrique.barra@agora-2000.com"
-     @subject = "SIR Information"
+     @subject = "VCC Information"
      @mail_info = mail_info
      @body["mail_info"] = mail_info
      @sent_on = Time.now
@@ -23,7 +23,7 @@ class Notifier < ActionMailer::Base
     @space = invitation.stage
     @from = @user.email
     @recipients = invitation.email
-    @subject = "Sir Invitation"
+    @subject = "VCC Invitation"
     @sent_on = Time.now
     @body["invitation"] = invitation
     @body["space"] = @space
@@ -36,7 +36,7 @@ class Notifier < ActionMailer::Base
     # email header info MUST be added here
     @recipients = user.email
     @from = "#{Site.current.email}"
-    @subject = "SIR Information:: Welcome to SIR"
+    @subject = "VCC Information:: Welcome to VCC"
 
     # email body substitutions go here
     @body["name"] = user.login
@@ -46,18 +46,18 @@ class Notifier < ActionMailer::Base
   def activation(user)
     @recipients = user.email
     @from = "#{Site.current.email}"
-    @subject     = "SIR Information: #{ I18n.t(:account_activated) }"
+    @subject     = "VCC Information: #{ I18n.t(:account_activated) }"
     @body[:user]  = user
     @body[:url]  = "http://#{ Site.current.domain }/"
   end
   
   #This method compose the email used when a user is deleted from the system
   def byebye (user, sent_at = Time.now)
-    @subject = "SIR Information::User Deleted"
+    @subject = "VCC Information::User Deleted"
     @from = "#{Site.current.email}"
     @recipients = user.email
      @sent_on = sent_at
-    @body = "Your user in SIR has been deleted. Please contact the administrator for more information"
+    @body = "Your user in VCC has been deleted. Please contact the administrator for more information"
   end
   #This is used when a user ask for his password.
   def forgot_password(user)

@@ -131,7 +131,7 @@ class MachinesController < ApplicationController
         #Call the Notifier class and send the email
         Notifier.deliver_contact_mail(mail_info)
         #Display a message notifying the sender that his email was delivered.
-        flash[:notice] = 'Your message was successfully delivered to the SIR Administrator.'
+        flash[:notice] = 'Your message was successfully delivered to the VCC Administrator.'
         #Then redirect to index or any page you want with the message
         redirect_to(:action => 'contact_mail')  
       else

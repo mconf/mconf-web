@@ -1,5 +1,8 @@
-set :application, "sir2.0"
-set :repository,  "http://seta.dit.upm.es/svn/ging/sir2.0/trunk"
+set :application, "Virtual Conference Centre"
+set :repository,  "git://github.com/dit/sir.git"
+set :scm, "git"
+set :git_enable_submodules, 1
+set :branch, "Global"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
