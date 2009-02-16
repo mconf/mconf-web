@@ -1,4 +1,4 @@
-set :application, "Virtual Conference Centre"
+set :application, "sir2.0"
 set :repository,  "git://github.com/dit/sir.git"
 set :scm, "git"
 set :git_enable_submodules, 1

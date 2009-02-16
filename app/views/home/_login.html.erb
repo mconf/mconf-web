@@ -2,8 +2,11 @@
 	
 		<div id="menu_logout">
 			
-			
+			<%if Space.find_by_name("GLOBAL project")%>
+			<ul><li><%= link_to 'about GLOBAL', space_path(Space.find_by_name("GLOBAL project")),  :method=> 'get' , :class=>'main_title' %></li>
+			<%else%>
 			<ul><li><%= link_to 'about GLOBAL', space_path(Space.find(1)),  :method=> 'get' , :class=>'main_title' %></li>
+			<%end%>
 				<li><%= link_to 'Project Partners', space_path(Space.find(1)),  :method=> 'get' , :class=>'main_title'%></li>
 				<li><%= link_to 'Logout', logout_path , :method=> 'get', :class=>'main_title'%></li>
 				<li><%= link_to  h(current_user.login), user_profile_path(current_user), :class=>'username' %></li>
@@ -14,8 +17,11 @@
 	<% else%>
 
 		<div id="menu_login">
-			<ul>
-				<li><%= link_to 'about GLOBAL', space_path(Space.find(1)),  :method=> 'get', :class=>'main_title' %></li>
+			<%if Space.find_by_name("GLOBAL project")%>
+			<ul><li><%= link_to 'about GLOBAL', space_path(Space.find_by_name("GLOBAL project")),  :method=> 'get' , :class=>'main_title' %></li>
+			<%else%>
+			<ul><li><%= link_to 'about GLOBAL', space_path(Space.find(1)),  :method=> 'get' , :class=>'main_title' %></li>
+			<%end%>
 				<li><%= link_to 'Project Partners', space_path(Space.find(1)),  :method=> 'get', :class=>'main_title' %></li>
 				<li><%= link_to 'Login', login_path, :class=>'main_title' %></li> 
 				<li><%= link_to 'Register', signup_path, :class=>'main_title' %></li>
