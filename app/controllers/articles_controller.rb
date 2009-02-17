@@ -140,6 +140,7 @@ class ArticlesController < ApplicationController
   def new 
     session[:current_sub_tab] = "New article"
     @article = Article.new
+    @article.public_read = @space.public
     @title ||= "New Article"
   end
   
