@@ -10,12 +10,13 @@
 
 <%= render :partial => 'attach' %>
 
-<%if params[:comment] == nil%>
+<%if @article.parent_id %>
+<%= form.hidden_field :parent_id %>
+<%else%>
 <p><label for="keywords">Tags:</label>
 <%= text_field_tag 'tags', @article.tag_list   %></p>
-	
-<%= render :partial => "permissions_form" -%>
-<%else%>
-<%= hidden_field_tag 'entry[parent_id]', params[:entry][:parent_id] %>
-<%= hidden_field_tag 'comment', true %>
+<p>
+  <b>Permissions</b><br />
+    <%= form.check_box :public_read %><%= "Public Post" %>
+</p>
 <%end%>

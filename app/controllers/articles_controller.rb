@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   before_filter :get_container, :only => [ :index,:search_articles  ]
   
   # Needs a Container when posting a new Article
-  before_filter :needs_container, :only => [ :new, :create ]
+  before_filter :container!, :only => [ :new, :create ]
   
   before_filter :get_article, :except => [ :index, :new, :create ]
   before_filter :get_public_entries, :only => [:index,:show]
@@ -23,8 +23,6 @@ class ArticlesController < ApplicationController
   authorization_filter :article, :update, :only => [ :edit, :update ]
   authorization_filter :article, :delete, :only => [ :destroy ]
 
-  before_filter :public_read_ñapa, :only => [ :create, :update ]
-  
   def index
 
      session[:current_tab] = "News"
@@ -59,137 +57,112 @@ class ArticlesController < ApplicationController
   def create
     #creación del Artículo padre
     @article = Article.new(params[:article])
+    @article.author = current_agent
+    # Para comentarios desde el espacio Public
+    @article.container = params[:article][:parent_id] ?
+                         Entry.find(params[:article][:parent_id]).container :
+                         @container
+    
     if !@article.valid?
       respond_to do |format|
         format.html {   
-      if  params[:comment] == nil #mira si es un comentario o no para hacer el render
-          flash[:error] = "The content of the article can't be empty"  
-          render :action => "new"    
-          return
-      else
-          flash[:error] = "The comment is not valid" 
-          render :action => "new"   
-          return
-          
-      end   }
-      format.xml { render :xml => @article.errors, :status => :unprocessable_entity }
-      format.atom {render :xml => @article.errors.to_xml, :status => :bad_request}
-      
+          if  params[:article][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = "The comment is not valid" 
+            render :action => "new"
+          else
+            flash[:error] = "The content of the article can't be empty"  
+            render :action => "new"                
+          end
+        }
+        format.xml { render :xml => @article.errors, :status => :unprocessable_entity }
+        format.atom {render :xml => @article.errors.to_xml, :status => :bad_request}
       end
       return
-
     end  
     
-   
     #Creación de los Attachments
     i=0;
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
       if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
-          @attachment = Attachment.new(params[:"attachment#{i}"]) 
+          @attachment = Attachment.new(params[:"attachment#{i}"])
+          @attachment.author = current_agent
+          @attachment.container = @article.container
           @attachments << @attachment #almacena referencias de los Attachments nuevos que se están creando
       end
-      i += 1;}
+      i += 1
+    }
     
-      #validamos todos los attachments
-      @attachments.each do |attach|
-        if !attach.valid?
-          if params[:comment] == nil
-          flash[:error] = "The attachment is not valid"  
-          render :action => "new"  
-          return
-        else
-          flash[:error] = "The attachment is not valid"  
-          render :action => "new"   
-          return
-          end
-        end
+    #validamos todos los attachments
+    @attachments.each do |attach|
+      if !attach.valid?
+        flash[:error] = "The attachment is not valid"  
+        render :action => "new"
+        return
       end
+    end
       
-         if params[:comment]
-           @container = Entry.find(params[:entry][:parent_id]).container 
-         end
-  #Si los attachments y el artículo son válidos pasamos a crear las entradas y salvarlos.
-    params[:entry] ||= HashWithIndifferentAccess.new
-    @article.entry = Entry.new(params[:entry].merge({ :agent => current_agent, #entrada asociada al artículo
-        :container => @container,
-        :content => @article,
-        :title => params[:article][:title],
-        :description => params[:article][:text],
-        }))
-        
+
     @article.save! #salvamos el artículo y con ello su entrada asociada  
     @article.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al artículo
-     #@article.category_ids = params[:category_ids]
-     flash[:valid] = "Article created"
+    flash[:valid] = "Article created"
  
 
-    #creación de las entries con contenidos de attachment
-   @attachments.each do |attach|
-         attach.entry = Entry.new({ :agent => current_agent,
-          :container => @container,
-          :content => attach, 
-          :title => params[:article][:title],
-          :description => params[:article][:text],
-          :parent_id => @article.entry.id})
-   end 
-   #grabación de los attachments y las entries asociados
-        @attachments.each do |attach|
-        attach.save!
-        attach.tag_with(params[:tags]) if params[:tags]
-      end
+    #asignacion de los padres del attachment al articulo
+    @attachments.each do |attach|
+      attach.parent_id = @article.entry.id
+    end
+    
+    #grabación de los attachments y las entries asociados
+    @attachments.each do |attach|
+      attach.save!
+      attach.tag_with(params[:tags]) if params[:tags]
+    end
             
     respond_to do |format| 
       format.html {
-    
-          #if params[:entry][:parent_id] == nil 
-          if params[:comment] == nil
-            redirect_to space_article_url(@space, @article)
-          else
-            redirect_to space_article_url(@space, @article.entry.parent.content)
-          end
-     
+        if params[:article][:parent_id]
+          redirect_to space_article_url(@space, @article.entry.parent.content)
+        else
+          redirect_to space_article_url(@space, @article)
+        end
       }
-      
-        format.atom { 
-          headers["Location"] = formatted_space_article_url(@space, @article, :atom )
-          @entry = @article.entry
-          render :action => :show,
-          :status => :created
-        }
+      format.atom { 
+        headers["Location"] = formatted_space_article_url(@space, @article, :atom )
+        @entry = @article.entry
+        render :action => :show,
+               :status => :created
+      }
     end
   end
   
   def new 
-        session[:current_sub_tab] = "New article"
-        @article = Article.new
-        @article.entry = Entry.new
-        @title ||= "New Article"
-
+    session[:current_sub_tab] = "New article"
+    @article = Article.new
+    @title ||= "New Article"
   end
   
-     # Show this Entry
-      #   GET /articles/:id
-      def show
-        session[:current_tab] = "News"
-        @title ||= @article.title
-        @comment_children = @article.entry.children.select{|c| c.content.is_a? Article}
-        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
-        
-        respond_to do |format|
-          format.html
-          format.xml { render :xml => @article.to_xml(:include => [ :content ]) }
-          format.atom 
-          format.json { render :json => @article.to_json(:include => :content) }
-        end
-    end
+  # Show this Entry
+  #   GET /articles/:id
+  def show
+    session[:current_tab] = "News"
+    @title ||= @article.title
+    @comment_children = @article.entry.children.select{|c| c.content.is_a? Article}
+    @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
     
-      # Delete this Entry
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @article.to_xml(:include => [ :content ]) }
+      format.atom 
+      format.json { render :json => @article.to_json(:include => :content) }
+    end
+  end
+    
+  # Delete this Entry
   #   DELETE /spaces/:id/articles/:id --> :method => delete
   def destroy
-    
-    #destroy de content of the entry. Then its container(entry) is destroyed automatic.
+   #destroy de content of the entry. Then its container(entry) is destroyed automatic.
    @article.destroy 
     respond_to do |format|
       format.html { redirect_to space_articles_path(@container) }
@@ -199,119 +172,95 @@ class ArticlesController < ApplicationController
       format.xml { head :ok }
     end
   end
-   # Renders form for editing this Entry metadata
-      #   GET /articles/:id/edit
-      def edit
-        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
-
-      end
+  
+  # Renders form for editing this Entry metadata
+  #   GET /articles/:id/edit
+  def edit
+    @attachment_children = @article.attachments
+  end
   
   # Update this Entry metadata
-      #   PUT /articles/:id
-      def update       
-
-        params[:entry] ||= HashWithIndifferentAccess.new
-        #params[:entry][:container] = @space
-        params[:entry][:container] =  @article.entry.container
-        params[:entry][:agent]     = current_agent #Problema.Con esto edito al usuario por eso lo cambio
-        #params[:entry][:agent] = @entry.agent
-        params[:entry][:content]   = @article
-        
-            
-        #actualizo los atributos del artículo
-        @article.attributes = params[:article]
-        if !@article.valid?
-          respond_to do |format|
-            format.html {          flash[:error] = "The content of the article can't be empty"  
-          render :action => "edit"  }
-          format.atom { render :xml => @article.errors.to_xml, :status => :not_acceptable }
-          end
-          return
-        end  
-        
-        #creo los attachments que ha subido el usuario
-         i=0;
-      @attachments = []
-      @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
-     (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
-          @attachment = Attachment.new(params[:"attachment#{i}"]) 
-          @attachments << @attachment
-      end
-      i += 1;}
+  #   PUT /articles/:id
+  def update       
+    #actualizo los atributos del artículo
+    @article.attributes = params[:article]
+    #@article.author = current_agent #Problema.Con esto edito al usuario por eso lo cambio
     
-       #valido los attachments para ver si el contendio es correcto
-      @attachments.each do |attach|
+
+    if !@article.valid?
+      respond_to do |format|
+        format.html {
+          flash[:error] = "The content of the article can't be empty"  
+          render :action => "edit"
+        }
+        format.atom { render :xml => @article.errors.to_xml, :status => :not_acceptable }
+      end
+      return
+    end  
+        
+    #creo los attachments que ha subido el usuario
+    i=0;
+    @attachments = []
+    @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
+    (@last_attachment.to_i).times  {
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+        @attachment = Attachment.new(params[:"attachment#{i}"]) 
+        @attachment.author = current_agent
+        @attachment.container = @article.container
+        @attachments << @attachment
+      end
+    i += 1;
+    }
+    
+    #valido los attachments para ver si el contendio es correcto
+    @attachments.each do |attach|
     # Attachments list may belong to a container
-  # /attachments
-  # /:container_type/:container_id/attachments
-  #before_filter :space_member
+    # /attachments
+    # /:container_type/:container_id/attachments
       if !attach.valid?
-          flash[:error] = "The attachment is not valid"  
-          render :action => "edit"   
-          return
-        end
-      end 
+        flash[:error] = "The attachment is not valid"  
+        render :action => "edit"   
+        return
+      end
+    end 
       
-        #creo las entradas asociadas a los artículos 
-        @article.entry.attributes = params[:entry].merge({ :agent => current_agent,
-        :content => @article,
-        :title => params[:article][:title],
-        :description => params[:article][:text],
-        })
         
-        @article.save! #salva el artículo y su entrada asociada        
-        @article.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al artículo
-        flash[:valid] = "Article updated"
+    @article.save! #salva el artículo y su entrada asociada        
+    @article.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al artículo
+    flash[:valid] = "Article updated"
            
-        #Creación de las entries asociadas a los attachments
-           @attachments.each do |attach|
-             attach.entry = Entry.new({ :agent => current_agent,
-                                        :container => @container,
-                                        :content => attach, 
-                                        :title => params[:article][:title],
-                                        :description => params[:article][:text],
-                                        :parent_id => @article.entry.id})
-           end 
+    #Creación de las entries asociadas a los attachments
+    @attachments.each do |attach|
+      attach.parent_id = @article.entry.id
+    end 
         
-        
-        #@attachments.each do |attach|
-         #   attach.entry = Entry.new({ :agent => current_agent,
-         #   :content => attach, 
-         #   :description => params[:article][:text],
-         #   :parent_id => @article.entry.id})
-        #end      
-        #Salvamos los attachments y sus entries asociadas
-        @attachments.each do |attach|
-            attach.save!
-          attach.tag_with(params[:tags]) if params[:tags]
-       end 
+    #Salvamos los attachments y sus entries asociadas
+    @attachments.each do |attach|
+      attach.save!
+      attach.tag_with(params[:tags]) if params[:tags]
+    end 
             
   
-         #elimina los attachments quitados al pulsar el botón remove
-        @last_attachment = params[:last_post]
-        @attachment_children = @article.entry.children.select{|c| c.content.is_a? Attachment}
-        @attachment_children.each {|children|
-        if params[:"#{children.id}"] == "false"
-          children.content.destroy
-        else 
-          children.content.save
-        end
-            }
+    #elimina los attachments quitados al pulsar el botón remove
+    @last_attachment = params[:last_post]
+    @attachment_children = @article.attachments
+    @attachment_children.each {|children|
+      if params[:"#{children.id}"] == "false"
+        children.content.destroy
+      else 
+        children.content.save
+      end
+    }
             
-        respond_to do |format|
-          format.html { 
-              redirect_to space_article_path(@space,@article)  
-          }
-    
-          format.atom { head :ok }
-        end
+    respond_to do |format|
+      format.html { 
+        redirect_to space_article_path(@space,@article)  
+      }
+      format.atom { head :ok }
     end
-    
-    
+  end
     
   private
-  
   
   def get_space_from_container
     session[:current_tab] = "Posts" 
@@ -319,28 +268,7 @@ class ArticlesController < ApplicationController
   end
   #he añadido aquí el get_entry pero no me gusta un pelo
   def get_article 
-         @article = Article.find(params[:id])
-         @entry = @article.entry
-     end
-
-  #def get_space_from_entry
-    #session[:current_tab] = "Posts" 
-    #@space = @entry.container
-  #end
-  
-  def public_read_ñapa
-    
-    if params[:entry] && params[:entry][:public_read]
-      params[:article][:_stage_performances] = [ 
-        { :role_id => Role.without_stage_type.find_by_name("Reader").id,
-          :agent_id => Anyone.current.id,
-          :agent_type => Anyone.current.class.base_class.to_s
-        } 
-      ]
-    else 
-      params[:article][:_stage_performances] = Array.new
-      params[:entry] ||= HashWithIndifferentAccess.new
-      params[:entry][:public_read] = false
-    end
+    @article = Article.find(params[:id])
+    @entry = @article.entry
   end
 end

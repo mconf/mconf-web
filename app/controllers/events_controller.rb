@@ -180,15 +180,11 @@ class EventsController < ApplicationController
       return
     end
     @event.participants = array_participants
+    @event.author = current_agent
+    @event.container = @container
     
     respond_to do |format|
       if @event.save
-        @entry = Entry.create(:agent       => current_agent,
-                              :container   => @container,
-                              :content     => @event,
-                              :title       => @event.title,
-                              :description => @event.description)        
-
         @event.tag_with(params[:tags]) if params[:tags]
         
         if EventDatetime.datetime_max_length(@event.event_datetimes)

@@ -1,8 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Article do
+  fixtures :users, :spaces
+
   before(:each) do
-    @valid_attributes = {:title => 'title', :text => 'text'
+    @valid_attributes = {:title => 'title', 
+                         :text => 'text',  
+                         :author => users(:user_normal), 
+                         :container => spaces(:private_admin)
     }
   end
 

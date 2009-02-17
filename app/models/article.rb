@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  acts_as_content  
+  acts_as_content :entry => true
     acts_as_taggable
 
   is_indexed :fields => ['text','title'],:concatenate => [
@@ -8,12 +8,29 @@ class Article < ActiveRecord::Base
 :as => 'tags',
 :association_sql => "LEFT OUTER JOIN taggings ON (articles.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Article') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
-  #,
 
+  delegate :public_read, :to => :entry
+  def public_read=(value)
+    entry.public_read = value
+  end
+  before_save :public_read_ñapa
+  def public_read_ñapa
+    @_stage_performances = entry.public_read ?
+      [ 
+        { :role_id => Role.without_stage_type.find_by_name("Reader").id,
+          :agent_id => Anyone.current.id,
+          :agent_type => Anyone.current.class.base_class.to_s
+        } 
+      ] :
+      Array.new
+  end
 
     validates_presence_of :title, :text
  # is_indexed :fields => ['text','title']#,
 
+  def attachments
+    entry.children.select{|c| c.content.is_a? Attachment}
+  end
   
 #  :include => [{:class_name => 'Entry', :field => 'title', :association_sql => "" }],
  # :include => [{:class_name => 'Tag', :field => 'name', :association_sql => "JOIN taggings ON taggings.tag_id = tags.id" }]

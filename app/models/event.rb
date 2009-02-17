@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
     has_many :participants, 
              :dependent => :destroy 
     has_many :machines, :through => :participants
-    acts_as_content
+    acts_as_content :entry => true
     acts_as_taggable
     alias_attribute :title, :name
     validates_presence_of :name, 

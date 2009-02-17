@@ -66,8 +66,7 @@
 	 <%@comment = true%>
 	 <%= render :partial => 'articles/attach', :objetc => @comment %>
     <%= hidden_field_tag 'tag[add_tag]', "" %>
-	<%= hidden_field_tag 'entry[parent_id]', parent_id.to_s %>
-	<%= hidden_field_tag 'comment', true %>
+	<%= f.hidden_field :parent_id, :value => parent_id.to_s %>
     <%= submit_tag "Create" %>
 	
   <% end -%>

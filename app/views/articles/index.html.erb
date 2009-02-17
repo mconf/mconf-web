@@ -26,7 +26,7 @@
 	</div>	
 	<br/><br/> 
 	<% for article in @articles -%>
-	<%if article.entry.parent_id == nil%>
+	<%if article.parent_id == nil%>
 	
 		<div class="contenido_main">
     	<%=show_article(article.entry,@space,"edit","destroy")%> 
