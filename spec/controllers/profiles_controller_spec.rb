@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe ProfilesController do
   #integrate_views
   include ActionController::AuthenticationTestHelper
-  fixtures :users , :spaces , :profiles
+  fixtures :users , :spaces , :profiles,:performances , :roles, :permissions
   
   def mock_profile(stubs={})
     @mock_profile ||= mock_model(Profile, stubs)
