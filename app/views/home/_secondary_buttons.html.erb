@@ -4,6 +4,7 @@
 	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
 <ul id="nav2">
 	 		<%= sub_tab "Spaces", spaces_path(:manage => true) %> |
+			<%= sub_tab "Readers", space_readers_path(@space) %> |
 			<%= sub_tab "Site", edit_site_path() %> |
 			<%= sub_tab "Roles", roles_path() %> |
 			<%= sub_tab "Users", space_users_path(@space, :manage => true) %> |
@@ -37,7 +38,7 @@
 			<%if @space.authorizes?(current_user, [:create, :Performance]) && @space.id != 1%>
 		<ul id="nav2">
 			    <%= sub_tab 'Add Users by email', new_space_invitation_path(@space) %> | 
-				<%= sub_tab 'Add Users from App', new_space_user_path(@space, :from_app =>true) %>
+				<%= sub_tab 'Add Users from App', new_space_performance_path(@space) %>
 				</ul>	
 				<%end%>
 

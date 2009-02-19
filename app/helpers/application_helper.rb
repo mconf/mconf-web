@@ -148,7 +148,9 @@ end
   else
     user_link = name_format(user,15,"")
   end
-  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(68 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
+  san = HTML::FullSanitizer.new
+  entry.content.text = san.sanitize(entry.content.text)
+  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(65 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
   image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
@@ -184,19 +186,6 @@ end
   return entry.children.select{|c| c.content.is_a? Article}.size
 end
 
-  def name_format(name,number,corchete)
-    if number < 0
-      return ""
-    end
-    if name == "[]"
-      return ""
-    end
-    if name.length < number
-      return name 
-    else
-      return name[0,number-4] + "..." + corchete
-    end
-  end
  
   def size_post(number, limit, other_size)
     if other_size > limit
@@ -316,10 +305,29 @@ end
     line =  span_title  + "&nbsp; "  +  span_description
     return line
   end
-
+  
+def name_format(name,number,corchete)
+    if number < 0
+      return ""
+    end
+    if number < 4
+      return "..." + corchete
+    end
+    if name == "[]"
+      return ""
+    end
+    if name.length < number
+      return name 
+    else
+      return name[0,number-4] + "..." + corchete
+    end
+  end
 def name_format2(name,number,corchete)
     if number < 0
       return ""
+    end
+    if number < 4
+      return "..." + corchete
     end
     if name == "[]"
       return ""

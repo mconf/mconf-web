@@ -1,0 +1,34 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+	<% rounded(:class => "tips") do %>
+<% @page_title = "Readers"-%>
+
+<h1 class="main_title">Feed Readers</h1>
+<br/>
+
+Each reader included in the Space will produce articles related to the feed. Deleting a reader will delete also all the articles of the feed.
+
+<br/>
+<br/>
+
+
+<% for reader in @readers %>
+		
+<table>
+	<tr>		
+	<%=reader.url%>
+    <%= link_to image_tag("magnify.png", :title=>"Show"), space_reader_path(@space, reader) %>
+    <%= link_to image_tag("edit22.png", :title=>"Edit"), edit_space_reader_path(@space, reader) %>
+	<%= link_to image_tag("delete.png", :title=>"Delete"), space_reader_path(@space, reader), :confirm => 'This will delete the Reader from this Space. Are you sure?', :method => :delete %>
+</tr>
+</table>
+<% end %>
+<br/>
+<br/>
+<br />
+
+<%= link_to 'New reader', new_space_reader_path(@space) %>
+<%end%>
+</div>
+</div>
+<%= render :partial =>'shared/sidebar_users'%>

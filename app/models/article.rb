@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
   acts_as_content :entry => true
     acts_as_taggable
+    
 
   is_indexed :fields => ['text','title'],:concatenate => [
 {:class_name => 'Tag',

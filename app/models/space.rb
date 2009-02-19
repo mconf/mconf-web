@@ -1,6 +1,7 @@
 class Space < ActiveRecord::Base
   acts_as_container
   
+  has_many :readers, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_one :logotype , :as => 'logotypable', :dependent => :destroy
   validates_presence_of :name, :description

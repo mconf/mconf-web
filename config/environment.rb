@@ -12,6 +12,11 @@ require File.join(File.dirname(__FILE__), 'boot')
 require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
 
 Rails::Initializer.run do |config|
+  # Allowed html tags for sanitize  
+  
+  config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td', 'embed'
+
+  
   # Settings in config/environments/* take precedence over those specified here
   
   config.action_controller.session = { :secret => " secret phrase of at least 30 characters" }

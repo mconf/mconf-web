@@ -1,0 +1,15 @@
+<div id="yui-main">
+<div class="yui-b main_column">
+
+<%="Feed "+ sanitize(@reader.url)%><br>
+
+<%if @reader.last_updated%>
+<%="Last Updated "+ sanitize(@reader.last_updated.to_s)%><br>
+<%end%>	
+
+<%= link_to 'Edit', edit_space_reader_path(@space, @reader) %> |
+<%= link_to 'Back', space_readers_path(@space) %>
+
+</div>
+</div>
+<%= render :partial =>'shared/sidebar_users'%>

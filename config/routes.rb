@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
       user.resource :profile
     end
 
+    space.resources :readers
     space.resources :events, :collection => [:add_time, :copy_next_week, :remove_time]
     space.resources :articles
     space.resources :attachments
