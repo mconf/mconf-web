@@ -107,7 +107,7 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-    @space = Space.find_by_name(params[:id])
+    @space = get_space
     
 
     #En primer lugar miro si se ha eliminado la foto del espacio y la borro de la base de datos
@@ -185,20 +185,25 @@ class SpacesController < ApplicationController
     @space = @container = Space.find_by_id(1) if @space == nil
     session[:space_id] = @space.name
     @space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
+    @space
   end
   
   def public_read_ñapa
-    if params[:space][:public] == "1"
-      params[:space][:_stage_performances] = [ 
-        { :role_id => Role.find_by_name_and_stage_type("Invited", "Space").id,
-          :agent_id => Anyone.current.id,
-          :agent_type => Anyone.current.class.base_class.to_s
-        },
+    public_performance = [{ :role_id => Role.find_by_name_and_stage_type("Invited", "Space").id,
+                           :agent_id => Anyone.current.id,
+                           :agent_type => Anyone.current.class.base_class.to_s
+                         }]
+    space_performances = ( action_name == 'create' ? 
+                          Array.new :
+                          get_space.stage_performances.map{ |p| 
+                            { :role_id => p.role_id, :agent_id => p.agent_id, :agent_type => p.agent_type } 
+                          })
 
-      ]
-    else 
-      params[:space][:_stage_performances] = Array.new
-    end
+    params[:space][:_stage_performances] = if params[:space][:public] == "1"
+                                             space_performances | public_performance
+                                           else
+                                             space_performances - public_performance
+                                           end
   end
 
   
