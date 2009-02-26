@@ -61,6 +61,7 @@ Rails::Initializer.run do |config|
 
   # See Rails::Configuration for more options
   config.gem "rspec-rails",          :lib => false 
+  config.gem "feed-normalizer"
                                     
   
   
