@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   # Include some methods and set some default filters. 
-  # See documentation: ActionController::Contents#included
-  include ActionController::Contents
+  # See documentation: ActionController::MoveResources
+  include ActionController::MoveResources
   
   set_params_from_atom :article, :only => [ :create, :update ]
   

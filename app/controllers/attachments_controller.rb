@@ -1,6 +1,5 @@
 class AttachmentsController < ApplicationController
-  # Include some methods and filters.
-  include ActionController::Contents
+  include ActionController::MoveResources
   
   # Authentication Filter
   before_filter :authentication_required, :except => [ :index, :show ]

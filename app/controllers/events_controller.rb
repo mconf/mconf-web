@@ -1,8 +1,7 @@
 require 'vpim/icalendar'
 require 'vpim/vevent'
 class EventsController < ApplicationController
-  # Include some methods and filters.
-  include ActionController::Contents
+  include ActionController::MoveResources
   
   before_filter :authentication_required, :except => [:index,:show, :search, :search_events, :advanced_search_events, :search_by_title,:search_by_tag, :search_in_description, :search_by_date, :advanced_search,:title, :description, :dates, :clean]
   

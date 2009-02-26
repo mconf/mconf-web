@@ -6,7 +6,6 @@ class Attachment < ActiveRecord::Base
   belongs_to :db_file
 
   alias_attribute :media, :uploaded_data
-  attr_accessible :media
   
   validates_as_attachment
   
