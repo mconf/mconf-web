@@ -3,19 +3,19 @@
       feed.title("Posts")
       feed.updated((@entries.first.updated_at unless @entries.first==nil))
 
-      for article in @entries
-        feed.entry(article.content, :url => space_article_path(@space, article.content)) do |entry|
-          entry.title(article.title)
-          entry.content(article.content.text, :type => "html")
-          if article.parent_id
-            entry.tag!('thr:in-reply-to', Entry.find_by_id(article.parent_id).content.id)
+      for _entry in @entries
+        feed.entry(_entry.content, :url => space_article_path(@space, _entry.content)) do |entry|
+          entry.title(_entry.content.title)
+          entry.content(_entry.content.text, :type => "html")
+          if _entry.parent_id
+            entry.tag!('thr:in-reply-to', Entry.find_by_id(_entry.parent_id).content.id)
           end
           
-          article.content.tags.each do |tag|
+          _entry.content.tags.each do |tag|
             entry.category(:term => tag.name)
           end
           
-          if article.public_read == true
+          if _entry.public_read == true
             entry.tag!('gd:visibility', "public")
           else 
             entry.tag!('gd:visibility', "private")

@@ -28,10 +28,10 @@ class Reader < ActiveRecord::Base
         unless (self.last_updated && (self.last_updated > item.last_updated))
           a = self.articles.build(
                                   :title => item.title, 
-                                  :text => item.content,     
-                                  :author => User.find_by_login("Admin"),
-                                  :container => Space.find(self.space_id)
+                                  :text => item.content
                                   )
+          a.author = Anonymous.current
+          a.container = Space.find(self.space_id)
           a.save
         end
       end

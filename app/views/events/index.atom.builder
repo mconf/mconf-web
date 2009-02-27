@@ -1,7 +1,7 @@
     atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005', 
     'xmlns:sir' => 'http://sir.dit.upm.es/schema'}) do |feed|
       feed.title("Events")
-      feed.updated((@events.first.content_entries.first.updated_at unless @events.first==nil))
+      feed.updated((@events.first.entry.updated_at unless @events.first==nil))
 
       for event in @events
         feed.entry(event, :url => space_event_path(@space, event)) do |entry|
