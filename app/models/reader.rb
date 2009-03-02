@@ -15,8 +15,12 @@ class Reader < ActiveRecord::Base
   }
   
   def read
-
+      
+    begin
     @feed ||= FeedNormalizer::FeedNormalizer.parse open(url)
+    rescue => a
+    @feed = nil
+    end
 
   end
   
@@ -49,11 +53,14 @@ class Reader < ActiveRecord::Base
 
   end
   
-  protected
+ protected
   
   def validate
+      
     begin
-      self.find_feed_in_html (url)
+      unless self.read
+        self.find_feed_in_html (url)
+      end
     rescue => a
       self.errors.add_to_base(a.to_s)
       
