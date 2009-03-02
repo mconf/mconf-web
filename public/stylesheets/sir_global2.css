@@ -379,6 +379,11 @@ ul.sidebar_posts li {
 	text-align:left;
 	color:#7d7d7d;
 }
+
+#sidebar_news .sidebar_news_description a:link, #sidebar_news .sidebar_news_description a:visited {
+	color:#5a5a5a;
+	
+}
 #sidebar_news a{
 	color:#3b54a6;
 	}
@@ -387,10 +392,7 @@ ul.sidebar_posts li {
 	color:#3b54a6;
 	
 }
-.sidebar_news_description p{
-	color:#5a5a5a;
-	
-}
+
 /*SPACES*/
 .mini_logo{
 	width:22px;
