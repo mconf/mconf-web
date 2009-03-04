@@ -1,6 +1,4 @@
-	
-<div id="yui-main">
-<div class="yui-b main_column"><% rounded(:class => "tips") do %>
+<% rounded() do %>
 	
 <title>Add Users to the Space</title>
 
@@ -25,8 +23,8 @@
 <br/>
 
 	<% form_tag (space_performances_path(@space),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
-		<div id="add_usuarios">
-			<div id="select_users_from_space" class="select_users">
+		<div>
+			<div>
 				<%= select 'users',
 				           'id',
 				           User.find(:all).collect { |u| [ u.login, u.id ] },
@@ -38,13 +36,13 @@
 			</div>
 			<%end%>
 			
-			<div id="buttons_register">
+			<div>
 				<%if @space.authorizes?(current_user, [:create , :Performance]) && (@space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true)%>
-				<%= link_to_function "Register as Admin", "register_admin()", :class => "secund" %><br/>
+				<%= link_to_function "Register as Admin", "register_admin()" %><br/>
 				<%end%>
 				<%if @space.authorizes?(current_user, [:create , :Performance]) %>
-				<%= link_to_function "Register as User",:onclick=>"register_user()", :class => "secund" %><br/>
-				<%= link_to_function "Register as Invited",:onclick=>"register_invited()", :class => "secund" %><br/>		
+				<%= link_to_function "Register as User",:onclick=>"register_user()" %><br/>
+				<%= link_to_function "Register as Invited",:onclick=>"register_invited()"%><br/>		
 				<%end%>
 			</div>
 			
@@ -52,14 +50,14 @@
 <%end%>
 
 
-<% rounded(:class => "tips") do %>
+<% rounded() do %>
 
-<div id="space_users">
+<div>
 
-	<div id="admin_users">
+	<div>
 		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
 		
-		<div id="admin_users_select" class="select_users">
+		<div>
 			<span>Admin</span>
 			<%= select 'users',
 			           'id',
@@ -70,7 +68,7 @@
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
-		<div class="buttons_remove">
+		<div>
 			<%= link_to_function "Remove",:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
@@ -79,9 +77,9 @@
 		<%end%>
 	</div>
 
-	<div id="users_users">
+	<div>
 		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>		
-		<div id="users_users_select" class="select_users">
+		<div>
 			<span>User</span>
 			<%= select 'users',
 			           'id',
@@ -92,7 +90,7 @@
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 				<%if @space.authorizes?(current_user, [:delete , :Performance])%>
-		<div class="buttons_remove">
+		<div >
 			<%= link_to_function "Remove",:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
@@ -100,9 +98,9 @@
 		<%end%>
 	</div>
 
-	<div id="invited_users">
+	<div>
 		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
-		<div id="invited_users_select" class="select_users">
+		<div>
 		<span>Invited</span>
 			<%= select 'users',
 			           'id',
@@ -113,7 +111,7 @@
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
 		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
-		<div class="buttons_remove">
+		<div>
 			<%= link_to_function "Remove",:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
@@ -125,33 +123,4 @@
 
 <%end%>
 
-</div>
-</div>
-
-
-<!--
-# TODO esto lo he quitado, no entiendo la funcionalidad
-<div class="yui-b sidebar">
-		<% rounded(:class => "tips") do %>
-			 <div id="search_container2">
-
-
-	<img src="/images/magnify2.png"></img><h4 class="title"> Search</h4>
-		
-				
-				<br>	
-				 <span> <% form_tag(search_users_path(@space.id), :method => 'get') do %>
-				      <%= text_field_tag :query, params[:query] %>
-					  <%= link_to 'Search', search_users_path(@space.id), :method => :get%>
-				      %= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>
-				  </span>
-				  <br> %= link_to_remote 'Search Users by Interests' , {:url=>{:controller => 'users', :action=>'organization', :container_type =>:space, :container_id=>@space.id}}%>
-				  <br>
-				<% end %>			
-		<%end%>
-		</div>
-<div id="adv_search"></div>
-</div>
-
--->
 <%= render :partial =>'shared/sidebar_users'%>
