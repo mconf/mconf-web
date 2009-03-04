@@ -1,5 +1,3 @@
-<div id="yui-main">
-<div class="yui-b main_column">
 <h1>Editing reader</h1>
 
 <% form_for([@space, @reader]) do |f| %>
@@ -12,6 +10,5 @@
 
 <%= link_to 'Show', space_reader_path(@space,@reader) %> |
 <%= link_to 'Back', space_readers_path(@space) %>
-</div>
-</div>
+
 <%= render :partial =>'shared/sidebar_users'%>
