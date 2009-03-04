@@ -1,48 +1,40 @@
-
-<div id="yui-main">
-<div class="yui-b main_column">
-	
-	
-	<% rounded(:class => "login") do %>
+	<% rounded() do %>
 	<% form_tag session_path do -%>
 
 	
 		
-	  <div id="login_and_password-container">
+	  <div>
 		<br/>
-		<p class="main_title"><label for="login">Username or email</label><br/>
+		<p><label for="login">Username or email</label><br/>
 		<%= text_field_tag 'login', params[:login] %></p>
 		<br/>
-		<p class="main_title"><label for="password">Password</label><br/>
+		<p><label for="password">Password</label><br/>
 		<%= password_field_tag 'password' %></p>
 <br/>
 		
 
-		<p class="gris"><label for="remember_me">Remember me:</label>
+		<p><label for="remember_me">Remember me:</label>
 		<%= check_box_tag 'remember_me' %></p>
 
 		
 	  </div>
-	<p class="gris">or....</p>
+	<p>or....</p>
 	<br/>
-	  <div id="openid-container">
-		<p class="main_title"><label for="openid_identifier">OpenID</label></p>
+	  <div>
+		<p><label for="openid_identifier">OpenID</label></p>
 		<%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
 	  </div>
 	  <br/>
-	  <p><%= submit_tag 'Log in', :class=>'gris' %>&nbsp;&nbsp;&nbsp;&nbsp;<input class="gris" onclick=document.location="/" type="button" value="Back" /></p>
+	  <p><%= submit_tag 'Log in'%>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
 	 <% end -%>
 	
 	<% end %>
 	
-</div> 	
-</div>
-<div class="yui-b sidebar">
-	<% rounded(:class => "help") do %>
+	<% rounded() do %>
 
-	<p class="title_sidebar">Don't have an account?</p> 
+	<p>Don't have an account?</p> 
 	<%= link_to 'Click here to register', signup_path %><br>
-	<p class="title_sidebar">Forgot your password?</p>
+	<p>Forgot your password?</p>
 	<%= link_to 'Click here to retrieve it', forgot_path %>
 	
 	
@@ -50,5 +42,5 @@
 
 
 <% end %>
-</div>
+
  
