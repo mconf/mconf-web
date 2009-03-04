@@ -1,24 +1,17 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-	<% rounded(:class => "tips") do %>
-<h1>Edit <%= @article.class.to_s %></h1>
+<% rounded() do %>
+  <h1>Edit <%= @article.class.to_s %></h1>
 
-<% unless error_messages_for(:article).blank? -%>
-<div class="errors">
-  <%= error_messages_for :article %>
-</div>
-<% end -%>
+  <% unless error_messages_for(:article).blank? -%>
+    <div>
+      <%= error_messages_for :article %>
+    </div>
+  <% end -%>
 
-<% form_for(:article, :url => space_article_path(@space,@article), :html => {:multipart => true , :method => :put }) do |f| -%>
-
-  <%= render :partial => "articles/form", :object => f  %>
-
-  <%= submit_tag "Update" %>
+  <% form_for(:article, :url => space_article_path(@space,@article), :html => {:multipart => true , :method => :put }) do |f| -%>
+    <%= render :partial => "articles/form", :object => f  %>
+    <%= submit_tag "Update" %>
+  <% end -%>
 
 <% end -%>
 
-
-<% end -%>
-</div>
-</div>
 <%= render :partial =>'shared/sidebar'%>

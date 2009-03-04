@@ -11,12 +11,12 @@
 <%= render :partial => 'attach' %>
 
 <%if @article.parent_id %>
-<%= form.hidden_field :parent_id %>
+  <%= form.hidden_field :parent_id %>
 <%else%>
-<p><label for="keywords">Tags:</label>
-<%= text_field_tag 'tags', @article.tag_list   %></p>
-<p>
+  <p><label for="keywords">Tags:</label>
+  <%= text_field_tag 'tags', @article.tag_list   %></p>
+  <p>
   <b>Permissions</b><br />
     <%= form.check_box :public_read %><%= "Public Post" %>
-</p>
+  </p>
 <%end%>

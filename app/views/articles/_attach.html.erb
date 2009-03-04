@@ -1,39 +1,37 @@
-
-<div id="attachs" name="attachs">
-	<div id= "number_attachs" name="number_attachs">
-	 <%= hidden_field_tag 'last_post', 1 %>
+<!-- Este tenía nombres que concordaban con el javascript definido para los múltiples attachments -->
+<div>
+  <div>
+	<%= hidden_field_tag 'last_post', 1 %>
+  </div>
+  <% fields_for :attachment0 do |attach| -%>
+    <div>
+	  <p>
+	  <label for="attachment">Upload Attachment:</label>
+      <%= attach.file_field :uploaded_data %>
+	  <%= link_to_function 'Remove', "remove_attach(0)" %>
+  	  </p>
 	</div>
- <% fields_for :attachment0 do |attach| -%>
-	<div id="attachs0" name="attachs0">
-	    <p>
-	    <label for="attachment">Upload Attachment:</label>
-    	<%= attach.file_field :uploaded_data %>
-		<%= link_to_function 'Remove', "remove_attach(0)" %>
-  		</p>
-	</div>
-<% end -%>
-<div id="addAnother"><%= link_to_function 'add another', "generate_attach(1)" %></div>
-
+  <% end -%>
+  <div><%= link_to_function 'add another', "generate_attach(1)" %></div>
 </div>
 
 <%if @comment != true %>
-<%if @attachment_children != [] && @attachment_children != nil%>
-<div id="children_attachment" >
-	Existing Attachments
-	<%for children in @attachment_children -%>
-	  <%if children.content_type == "Attachment"%>
-	  <% div_for children.content do %>
-		<%= render :partial =>'attachments/attachment' , :locals => {:children => children}%>
-		<%= link_to_function 'Remove', "hide_attach(#{children.id},#{children.content.id})" %>
-	 <%end%>
-		 <% div_for children do %>
-		<%= hidden_field_tag children.id, true %>
-		<br/>
-		<% end %>
-	  <%end%>
-	  <%end%>
-	  
-</div>
-<%end%>
+  <%if @attachment_children != [] && @attachment_children != nil%>
+    <div>
+      Existing Attachments
+	  <%for children in @attachment_children -%>
+	    <%if children.content_type == "Attachment"%>
+	      <% div_for children.content do %>
+		    <%= render :partial =>'attachment' , :locals => {:children => children}%>
+		    <%= link_to_function 'Remove', "hide_attach(#{children.id},#{children.content.id})" %>
+	      <%end%>
+		  <% div_for children do %>
+		    <%= hidden_field_tag children.id, true %>
+		    <br/>
+		  <% end %>
+	    <%end%>
+	  <%end%> 
+    </div>
+  <%end%>
 <%end%>
 
