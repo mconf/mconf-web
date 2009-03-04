@@ -1,20 +1,13 @@
-<div id="yui-main">
-  <div class="yui-b main_column">
-	
-		<% rounded(:class => "tips") do %>
+		<% rounded() do %>
 
-<h1><%= "Listing roles".t %></h1>
+<h1><%= "Listing roles" %></h1>
 
 <%= sortable_list @roles, Role %>
 
 <br />
 
-<%= link_to 'New role'.t, new_role_path %>
+<%= link_to 'New role', new_role_path %>
 
 		<%end%>
-  
-  </div>
-</div>
-
 
 <%= render :partial =>'shared/sidebar'%>

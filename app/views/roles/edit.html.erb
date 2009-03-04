@@ -1,9 +1,7 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-	
-		<% rounded(:class => "tips") do %>
 
-<h1><%= 'Editing role'.t %></h1>
+		<% rounded() do %>
+
+<h1><%= 'Editing role'%></h1>
 
 <% form_for(@role) do |f| %>
   <%= f.error_messages %>
@@ -11,17 +9,15 @@
   <%= render :partial => 'form', :object => f %>
 
   <p>
-    <%= f.submit "Update".t %>
+    <%= f.submit "Update" %>
   </p>
 <% end %>
 
-<%= link_to 'Show'.t, @role %> |
-<%= link_to 'Back'.t, roles_path %>
+<%= link_to 'Show', @role %> |
+<%= link_to 'Back', roles_path %>
 
   <%end%>
   
-  </div>
-</div>
 
 
 <%= render :partial =>'shared/sidebar'%>

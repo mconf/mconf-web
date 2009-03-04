@@ -1,20 +1,17 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-	
-		<% rounded(:class => "tips") do %>
+<% rounded() do %>
 
 <p>
-  <b><%= 'Name'.t %>:</b>
+  <b><%= 'Name' %>:</b>
   <%=h @role.name %>
 </p>
 
 <p>
-  <b><%= "Stage type".t %>:</b> 
-  <%=h @role.stage_type.humanize.t %>
+  <b><%= "Stage type" %>:</b> 
+  <%=h @role.stage_type.humanize %>
 </p>
 
 <p>
-<b><%= "Permissions".t %>:</b><br/>
+<b><%= "Permissions" %>:</b><br/>
 
 <% if @role.permissions.any? -%>
   <% @role.permissions.each do |permission| -%>
@@ -30,9 +27,6 @@
 <%= link_to 'Back', roles_path %>
 
   <%end%>
-  
-  </div>
-</div>
 
 
 <%= render :partial =>'shared/sidebar'%>
