@@ -1,12 +1,9 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-
 <% @page_title = "Manage Resources" -%>
 &nbsp;
 <div align=center>
 <table border=1 >
         <% if @machine && !error_messages_for(:machine).blank? -%>
-        <div class="errors">
+        <div>
             <%= error_messages_for :machine %>
         </div>	
 		<%end%>
@@ -59,7 +56,7 @@
 <td>
 <%= check_box("machine", "public_access")%> 
 </td>
-<td id="solo_centrar">
+<td>
 <%= submit_tag "Add" %>
 </td>
 
@@ -70,8 +67,5 @@
 </table>
 </div>
 
-
-</div>
-</div>
 
 <%= render :partial =>'shared/sidebar'%>
