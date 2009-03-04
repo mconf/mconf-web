@@ -1,6 +1,4 @@
-<div id="yui-main">
-	<div class="yui-b main_column">
-		<% rounded(:class => "site") do %>
+		<% rounded() do %>
 <h2><%= "Editing site configuration" %></h2>
 
 <%= error_messages_for :site %>
@@ -36,6 +34,5 @@
   </p>
 		<% end %>
 	<% end%>
-	</div>
-</div>
+
 <%= render :partial =>'shared/sidebar'%>
