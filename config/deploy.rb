@@ -1,5 +1,5 @@
 set :application, "sir2.0"
-set :repository,  "http://git-isabel.dit.upm.es/global.git"
+set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
 
