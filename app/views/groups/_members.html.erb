@@ -1,4 +1,5 @@
-<% rounded(:class => "tips") do %>
+<!--Esta vista se llama desde el index como un partial que se carga por ajax en el div que se indica en show.rjs-->
+<% rounded() do %>
 <h4>Members <%= @group.name%></h4><br>
 
 <%for user in @users%>

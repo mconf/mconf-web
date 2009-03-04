@@ -1,8 +1,6 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-	<% @page_title = "Groups" %>
-<% rounded(:class => "tips") do %>
-<h3 class="title">Groups in the space <%=name_format(@space.name, 55, "")%></h3>
+<% @page_title = "Groups" %>
+<% rounded() do %>
+<h3>Groups in the space <%=name_format(@space.name, 55, "")%></h3>
 
 <%if @groups.length==0%><br>
 <%= "No Groups defined" %><br>
@@ -20,11 +18,10 @@
 
 <%end%>
 
-<div id="group_details">
+<div>
 	
 </div>
 
 
-</div>
-</div>
+
 <%= render :partial =>'shared/sidebar_users'%>
