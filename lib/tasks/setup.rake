@@ -1,6 +1,6 @@
 namespace :setup do
   desc "Setup production environment"
-  task :production => [ :git_submodules, :config_database, "gems:install", "db:migrate", "basic_data:all" ] do
+  task :production => [ :git_submodules, :config_database, :gems_install, "db:migrate", "basic_data:all" ] do
 
   end
 
@@ -20,6 +20,11 @@ namespace :setup do
       `cp #{ db_file }.example #{ db_file }` 
       puts "copied."
     end
+  end
+
+  desc "gems:install with sudo"
+  task :gems_install do
+    `sudo rake gems:install`
   end
 
   desc "Update Git Submodules"
