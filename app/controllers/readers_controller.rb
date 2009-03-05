@@ -2,6 +2,8 @@ class ReadersController < ApplicationController
   # GET /readers
   # GET /readers.xml
   def index
+    session[:current_tab] = "Manage"
+    session[:current_sub_tab] = "Readers"
     @readers = Reader.find(:all, :conditions => {:space_id => @space.id})
 
     respond_to do |format|
@@ -13,6 +15,8 @@ class ReadersController < ApplicationController
   # GET /readers/1
   # GET /readers/1.xml
   def show
+    session[:current_tab] = "Manage"
+    session[:current_sub_tab] = "Readers"
     @reader = Reader.find(params[:id], :conditions => {:space_id => @space.id})
 
     respond_to do |format|
@@ -34,6 +38,8 @@ class ReadersController < ApplicationController
 
   # GET /readers/1/edit
   def edit
+    session[:current_tab] = "Manage"
+    session[:current_sub_tab] = "Readers"
     @reader = Reader.find(params[:id], :conditions => {:space_id => @space.id})
   end
 

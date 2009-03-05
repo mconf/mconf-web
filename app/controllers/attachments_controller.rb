@@ -8,7 +8,7 @@ class AttachmentsController < ApplicationController
   before_filter :container!, :only => [ :new, :create ]
       
   # Get Attachment in member actions
-  before_filter :get_content, :except => [ :index, :new, :create ]
+  before_filter :resource, :except => [ :index, :new, :create ]
   
   authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
   authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
