@@ -9,15 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090220115931) do
-
-  create_table "articles", :force => true do |t|
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-    t.integer  "reader_id"
-  end
+ActiveRecord::Schema.define(:version => 20090305140444) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -70,25 +62,22 @@ ActiveRecord::Schema.define(:version => 20090220115931) do
     t.boolean  "public_write"
   end
 
-  create_table "event_datetimes", :force => true do |t|
-    t.integer  "event_id",   :null => false
-    t.datetime "start_date", :null => false
-    t.datetime "end_date",   :null => false
-    t.integer  "at_job"
-  end
-
   create_table "events", :force => true do |t|
-    t.string "name",        :limit => 40, :default => "", :null => false
-    t.string "password",    :limit => 40, :default => "", :null => false
-    t.string "service",     :limit => 40, :default => "", :null => false
-    t.string "quality",     :limit => 8,  :default => "", :null => false
-    t.text   "description"
-    t.string "uri",         :limit => 80, :default => "", :null => false
-  end
-
-  create_table "events_users", :id => false, :force => true do |t|
-    t.integer "user_id",  :null => false
-    t.integer "event_id", :null => false
+    t.string   "name"
+    t.string   "description"
+    t.string   "place"
+    t.boolean  "isabel_event"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "machine_id"
+    t.string   "colour",       :default => ""
+    t.string   "repeat"
+    t.integer  "at_job"
+    t.integer  "parent_id"
+    t.boolean  "character"
+    t.boolean  "public_read"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|
@@ -173,16 +162,6 @@ ActiveRecord::Schema.define(:version => 20090220115931) do
     t.boolean "local",      :default => false
   end
 
-  create_table "participants", :force => true do |t|
-    t.integer "event_id",                                              :null => false
-    t.integer "machine_id",                                            :null => false
-    t.integer "machine_id_connected_to",                               :null => false
-    t.string  "role",                    :limit => 40, :default => "", :null => false
-    t.integer "fec",                     :limit => 2,  :default => 0,  :null => false
-    t.integer "radiate_multicast",       :limit => 1,  :default => 0,  :null => false
-    t.text    "description"
-  end
-
   create_table "performances", :force => true do |t|
     t.integer "agent_id"
     t.string  "agent_type"
@@ -199,6 +178,14 @@ ActiveRecord::Schema.define(:version => 20090220115931) do
   create_table "permissions_roles", :id => false, :force => true do |t|
     t.integer "permission_id"
     t.integer "role_id"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reader_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -225,9 +212,8 @@ ActiveRecord::Schema.define(:version => 20090220115931) do
   end
 
   create_table "roles", :force => true do |t|
-    t.string  "name"
-    t.boolean "admin"
-    t.string  "stage_type"
+    t.string "name"
+    t.string "stage_type"
   end
 
   create_table "simple_captcha_data", :force => true do |t|
