@@ -1,8 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.connect '/ui/:action', :controller => 'ui'
+  
+  
   map.resources :logotypes
-
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
-
 
   map.resources :spaces do |space|
     space.resources :users do |user|
@@ -15,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :attachments
     space.resources :entries
     space.resource :logotype 
-    # Para el nuevo controlador de Grupos
+
     space.resources :groups
     space.resources :invitations
     space.resources :performances
