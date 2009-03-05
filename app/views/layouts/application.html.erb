@@ -47,25 +47,25 @@
 			</div>
 			
 			<div id="login-users">
-			 	<%= render :partial => 'home/login', :layout => false%>
+			 	<%= render :partial => 'login', :layout => false%>
 			</div>
 			<div id="logo_text"><p class="main_title">GLOBAL - Virtual Conference Centre</p></div>
 			
 			<div id="linea"></div>	
 				
 			<div id="space_container">
-				<%= render :partial => 'home/space', :layout => false %>
+				<%= render :partial => 'space', :layout => false %>
 			</div>		
 				
 			<div id="menu_tabs">
 				<%if @space!=nil %>
 					<div id="border2"></div>
-					<%= render :partial => 'home/buttons', :layout => false%>	
-					<%= render :partial => 'home/secondary_buttons', :layout => false%>
+					<%= render :partial => 'buttons', :layout => false%>	
+					<%= render :partial => 'secondary_buttons', :layout => false%>
 					<div id="border"></div>
 				<%else%>
 					<%session[:current_tab]=""%>
-					<%= render :partial => 'home/buttons', :layout => false%>	
+					<%= render :partial => 'buttons', :layout => false%>	
 				<%end%>	
 			</div>
 			
