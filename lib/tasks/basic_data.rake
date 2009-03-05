@@ -1,7 +1,7 @@
 namespace :setup do
   namespace :basic_data do
     desc "Load all basic data"
-    task :all => [ :users, :spaces, :roles ]
+    task :all => [ :users, :performances ]
 
     desc "Load Users Data"
     task :users => :environment do
@@ -67,6 +67,12 @@ namespace :setup do
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'self')
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'Performance')
+    end
+
+    desc "Load Performances Data"
+    task :performances => [ :roles, :spaces ] do
+      Space.find_by_name("VCC Start Page").stage_performances.create :agent => Anyone.current,
+      :role => Role.find_by_name_and_stage_type("Invited", "Space")
     end
   end
 end
