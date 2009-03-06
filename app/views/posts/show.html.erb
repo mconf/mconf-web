@@ -1,0 +1,85 @@
+<% rounded() do %>
+  <div>
+		
+    <p>
+      <b>Title:</b>
+      <%=sanitize @post.title %>
+    </p>
+
+    <% unless @post.text.blank? %>
+      <p>
+      <b>Description:</b>
+      <%=sanitize @post.text %>
+      </p>
+    <% end %>
+
+    <% unless @post.tag_list.blank? %>
+      <p>
+      <b>Tags:</b>
+      <%= @post.tag_list %>
+      </p>
+    <% end %>
+    <%for children in @attachment_children -%>
+	  <%if children.content_type == "Attachment"%>
+	    <%= render :partial =>'attachment' , :locals => {:children => children}%>
+	    <br/>
+	  <%end%>
+    <%end%>
+
+    <br>
+
+    <div>
+      <%if @post.authorizes?(current_user, [:create, :Content])%>
+	    <%= button_to_function 'New Comment', "new Element.toggle('new_comment_form');"%>
+      <%end%>
+      <%if @post.authorizes?(current_user, :edit)%>
+	    <%= button_to 'Edit', edit_space_post_path(@space, @post), :method => :get %>
+      <%end%> 
+      <%= button_to 'Back', space_posts_path(@space), :method => :get %>
+	</div>
+  </div>
+<%end%>
+<div style="display: none;">
+  <% rounded() do %>
+    <%if @errors==true%>
+	  <% unless error_messages_for(:content).blank? && error_messages_for(:entry_).blank?  -%>
+        <div>
+          <%= error_messages_for :content %>
+          <%= error_messages_for :entry_ %>
+        </div>
+      <% end -%>
+    <%end%>
+    <%parent_id = @post.entry.id%>
+    <% @post = nil %>
+    <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f|-%>
+      <p>
+      <b>Title</b><br />
+      <%= f.text_field :title %>
+      </p>
+      
+	  <p>
+      <b>Text</b><br />
+      <%= fckeditor_textarea(:post, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
+      </p>
+	  <%@comment = true%>
+	  <%= render :partial => 'posts/attach', :objetc => @comment %>
+      <%= hidden_field_tag 'tag[add_tag]', "" %>
+	  <%= f.hidden_field :parent_id, :value => parent_id.to_s %>
+      <%= submit_tag "Create" %>
+    <% end -%>
+  <%end%>
+</div>
+
+<%if @errors == true%>
+<!-- aqui habia un javascript antes-->
+  <%@errors = false%>
+<%end%>
+
+<% div_for :comment_children do %>
+  <h2>Comments</h2>
+
+  <%= render :partial => "posts/comment", :collection => @comment_children %>
+
+<% end if @comment_children.any? -%>
+
+<%= render :partial =>'shared/sidebar'%>

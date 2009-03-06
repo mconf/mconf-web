@@ -3,42 +3,42 @@
 
 ## Artículos para probar la paginación
 <% for i in 1..30 %>
-article_<%= i %>:
+post_<%= i %>:
   text: text <%=i%>
   title: title <%=i%>
 <%end%>
 
 <% for i in 31..60 %>
-article_<%= i %>:
+post_<%= i %>:
   text: text <%=i%>
   title: title <%=i%>
 <%end%>
 
 ##### Artículos del espacio privado private_user que pertenecen al usuario Quentin
 
-parent_private_user_article:
+parent_private_user_post:
   text: parent_text
   title: parent_title
   
-children_private_user_article1:
+children_private_user_post1:
   text: children1_text 
   title: children1_title
 
-children_private_user_article2:
+children_private_user_post2:
   text: children2_text
   title: children2_title
   
 ##### Artículos del espacio privado private_user que pertenecen a normal_user
 
-parent_private_normal_user_article:
+parent_private_normal_user_post:
   text: parent_text
   title: parent_title
   
-children_private_normal_user_article1:
+children_private_normal_user_post1:
   text: children1_text 
   title: children1_title
 
-children_private_normal_user_article2:
+children_private_normal_user_post2:
   text: children2_text
   title: children2_title
 
@@ -46,113 +46,113 @@ children_private_normal_user_article2:
 
 ##### Artículos del espacio privado private_no_roles que pertenecen al usuario Quentin
  
-parent_private_no_roles_article:
+parent_private_no_roles_post:
   text: parent_text
   title: parent_title
   
-children_private_no_roles_article1:
+children_private_no_roles_post1:
   text: children1_text 
   title: children1_title
 
-children_private_no_roles_article2:
+children_private_no_roles_post2:
   text: children2_text
   title: children2_title
 
 ##### Artículos del espacio privado private_no_roles que pertenecen al usuario normal_user
 
-parent_private_normal_no_roles_article:
+parent_private_normal_no_roles_post:
   text: parent_text
   title: parent_title
   
-children_private_normal_no_roles_article1:
+children_private_normal_no_roles_post1:
   text: children1_text 
   title: children1_title
 
-children_private_normal_no_roles_article2:
+children_private_normal_no_roles_post2:
   text: children2_text
   title: children2_title
   
 ##### Artículos del espacio privado private_invited que pertenecen al usuario Quentin
 
-parent_private_invited_article:
+parent_private_invited_post:
   text: parent_text
   title: parent_title
   
-children_private_invited_article1:
+children_private_invited_post1:
   text: children1_text 
   title: children1_title
 
-children_private_invited_article2:
+children_private_invited_post2:
   text: children2_text
   title: children2_title
 
 ##### Artículos del espacio privado private_invited que pertenecen al usuario normal_user
   
-parent_private_normal_invited_article:
+parent_private_normal_invited_post:
   text: parent_text
   title: parent_title
   
-children_private_normal_invited_article1:
+children_private_normal_invited_post1:
   text: children1_text 
   title: children1_title
 
-children_private_normal_invited_article2:
+children_private_normal_invited_post2:
   text: children2_text
   title: children2_title
   
 ##### Artículos del espacio privado private_admin que pertenecen al usuario Quentin
 
-parent_private_admin_article:
+parent_private_admin_post:
   text: parent_text
   title: parent_title
   
-children_private_admin_article1:
+children_private_admin_post1:
   text: children1_text 
   title: children1_title
 
-children_private_admin_article2:
+children_private_admin_post2:
   text: children2_text
   title: children2_title
 
 ##### Artículos del espacio privado private_admin que pertenecen al usuario normal_user
   
-parent_private_normal_admin_article:
+parent_private_normal_admin_post:
   text: parent_text
   title: parent_title
   
-children_private_normal_admin_article1:
+children_private_normal_admin_post1:
   text: children1_text 
   title: children1_title
 
-children_private_normal_admin_article2:
+children_private_normal_admin_post2:
   text: children2_text
   title: children2_title
 
 #Artículos del espacio público que pertenecen al usuario Quentin
 
-public_article:
-  text: public_article_text
-  title: public_article_text
+public_post:
+  text: public_post_text
+  title: public_post_text
   
-public_children_article1:
+public_children_post1:
   text: children1_text 
   title: children1_title
 
-public_children_article2:
+public_children_post2:
   text: children2_text
   title: children2_title
 
 #Artículos del espacio público que pertenecen al usuario normal_user
   
-public_normal_article:
-  text: public_article_text
-  title: public_article_text
+public_normal_post:
+  text: public_post_text
+  title: public_post_text
   
-public_normal_children_article1:
+public_normal_children_post1:
   text: children1_text 
   title: children1_title
 
-public_normal_children_article2:
+public_normal_children_post2:
   text: children2_text
   title: children2_title
 

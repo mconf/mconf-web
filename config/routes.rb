@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
     space.resources :readers
     space.resources :events, :collection => [:add_time, :copy_next_week, :remove_time]
-    space.resources :articles
+    space.resources :posts
     space.resources :attachments
     space.resources :entries
     space.resource :logotype 
@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :invitations, :member => [ :accept ]
   map.resources :performances
 
-  #map.resources :articles
+  #map.resources :posts
   #map.resources :attachments
 
   #map.resource :notifier
@@ -85,7 +85,7 @@ ActionController::Routing::Routes.draw do |map|
   #!arreglada=>    map.search_in_description '/spaces/:space_id/search_description', :controller => 'events', :action => 'search_in_description' #=> /search/description/events, SearchController
   #!arreglada=>    map.search_by_date '/spaces/:space_id/search_by_date', :controller => 'events', :action => 'search_by_date' #=> /search/date/events, SearchController
   
-  map.search_articles '/spaces/:space_id/search/articles', :controller => 'search', :action=> 'articles' #=> /search/articles, SearchController
+  map.search_posts '/spaces/:space_id/search/posts', :controller => 'search', :action=> 'posts' #=> /search/posts, SearchController
   map.search_all '/spaces/:space_id/search', :controller => 'search', :action=> 'all' #=> /search, SearchController
   map.search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'

@@ -1,0 +1,17 @@
+<% rounded() do %>
+  <h1>Edit <%= @post.class.to_s %></h1>
+
+  <% unless error_messages_for(:post).blank? -%>
+    <div>
+      <%= error_messages_for :post %>
+    </div>
+  <% end -%>
+
+  <% form_for(:post, :url => space_post_path(@space,@post), :html => {:multipart => true , :method => :put }) do |f| -%>
+    <%= render :partial => "posts/form", :object => f  %>
+    <%= submit_tag "Update" %>
+  <% end -%>
+
+<% end -%>
+
+<%= render :partial =>'shared/sidebar'%>

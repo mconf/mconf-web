@@ -1,4 +1,4 @@
-class Article < ActiveRecord::Base
+class Post < ActiveRecord::Base
   acts_as_resource
   acts_as_content :entry => true
   acts_as_taggable
@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
 {:class_name => 'Tag',
 :field => 'name',
 :as => 'tags',
-:association_sql => "LEFT OUTER JOIN taggings ON (articles.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Article') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+:association_sql => "LEFT OUTER JOIN taggings ON (posts.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Post') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
 
   delegate :public_read, :to => :entry
@@ -38,22 +38,22 @@ class Article < ActiveRecord::Base
   
  def self.atom_parser(data)
 =begin     
-{"article"=>{"title"=>"prueba", "text"=>"<p>prueba 2</p>"}, "commit"=>"Create", "last_post"=>"2", 
+{"post"=>{"title"=>"prueba", "text"=>"<p>prueba 2</p>"}, "commit"=>"Create", "last_post"=>"2", 
 "tags"=>"tag1, tag2, tag3", "action"=>"create", 
 "attachment0"=>{"uploaded_data"=>#<ActionController::UploadedStringIO:0xb57a1510>}, 
-"controller"=>"articles", "attachment1"=>{"uploaded_data"=>#<ActionController::UploadedStringIO:0xb57a118c>},
+"controller"=>"posts", "attachment1"=>{"uploaded_data"=>#<ActionController::UploadedStringIO:0xb57a118c>},
  "entry"=>{"public_read"=>"1"}, "space_id"=>"2"}
 =end
 
     resultado = {}
     e = Atom::Entry.parse(data)
-    article = {}
-    article[:title] = e.title.to_s
-    article[:text] = e.content.to_s
+    post = {}
+    post[:title] = e.title.to_s
+    post[:text] = e.content.to_s
     
     resultado[:last_post] = 0
     
-    resultado[:article] = article
+    resultado[:post] = post
    
     t = []
     e.categories.each do |c|
@@ -65,11 +65,11 @@ class Article < ActiveRecord::Base
     entry = {}
 
 =begin
-    parent_article_id = e.get_elem(e.to_xml, 'http://sir.dit.upm.es/schema', 'parent_id').text.to_i
+    parent_post_id = e.get_elem(e.to_xml, 'http://sir.dit.upm.es/schema', 'parent_id').text.to_i
 
 
-    if parent_article_id && parent_article_id != 0
-      parent_entry_id = Article.find(parent_article_id).entry.id 
+    if parent_post_id && parent_post_id != 0
+      parent_entry_id = Post.find(parent_post_id).entry.id 
       resultado[:comment] = true
       entry[:parent_id] = parent_entry_id
     end
@@ -77,11 +77,11 @@ class Article < ActiveRecord::Base
 
     ### esto es para cumplir con atom-threading
     if in_reply_to = e.get_elem(e.to_xml, 'http://purl.org/syndication/thread/1.0', 'in-reply-to')
-      parent_entry_id = Article.find(in_reply_to.text.to_i).entry.id 
+      parent_entry_id = Post.find(in_reply_to.text.to_i).entry.id 
       resultado[:comment] = true
       entry[:parent_id] = parent_entry_id
    end
-    #if the article is a comment, no public_read is given
+    #if the post is a comment, no public_read is given
     unless entry[:comment]
     vis = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
     if vis == "public" 

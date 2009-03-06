@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ArticlesControllerTest < ActionController::TestCase
+class PostsControllerTest < ActionController::TestCase
 
  
 end
