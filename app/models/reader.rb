@@ -8,7 +8,7 @@ class Reader < ActiveRecord::Base
   
   belongs_to :space
   
-  has_many :articles, :dependent => :destroy
+  has_many :posts, :dependent => :destroy
 
   after_create { |reader|
     reader.create_news
@@ -30,7 +30,7 @@ class Reader < ActiveRecord::Base
     if (!self.last_updated || self.last_updated < feed.last_updated) 
       feed.entries.each do |item| 
         unless (self.last_updated && (self.last_updated > item.last_updated))
-          a = self.articles.build(
+          a = self.posts.build(
                                   :title => item.title, 
                                   :text => item.content
                                   )

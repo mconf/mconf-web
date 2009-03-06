@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     
     @events = search_events(params)
     @users = search_users(params)
-    @entries = search_articles(params)
+    @entries = search_posts(params)
     respond_to do |format|        
       format.html     
     end
@@ -21,8 +21,8 @@ class SearchController < ApplicationController
   end 
   
   
-  def articles
-    search_articles(params)
+  def posts
+    search_posts(params)
     
     respond_to do |format|   
       format.html
@@ -46,10 +46,10 @@ class SearchController < ApplicationController
       Event.find(t.taggable_id) 
     }
 
-    @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Article" ]).map{ |t| 
-      Entry.find_by_content_id_and_content_type(t.taggable_id, 'Article')
+    @entries = @tag.taggings.all(:conditions => [ "taggable_type = ?", "Post" ]).map{ |t| 
+      Entry.find_by_content_id_and_content_type(t.taggable_id, 'Post')
     }
-    @articles = @entries.map{|e| e.content if e != nil}.select{|e| e if e != nil}
+    @posts = @entries.map{|e| e.content if e != nil}.select{|e| e if e != nil}
     @query = params[:tag]
     respond_to do |format|        
       format.html     
@@ -141,20 +141,20 @@ class SearchController < ApplicationController
     
   end
   
-  def search_articles (params)
+  def search_posts (params)
     
     @query = params[:query] 
-    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Article')
+    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Post')
     @search.run
    # @search.results
-    @articles = @search.results.select{|article| article.entry!=nil && article.entry.parent_id == nil}.sort_by{|e| e.updated_at}.reverse
-    #@entries = @articles_entries.map{|article| article.entry}.sort_by{|e| e.updated_at}.reverse
+    @posts = @search.results.select{|post| post.entry!=nil && post.entry.parent_id == nil}.sort_by{|e| e.updated_at}.reverse
+    #@entries = @posts_entries.map{|post| post.entry}.sort_by{|e| e.updated_at}.reverse
     
-   # @results = Article.find_by_contents(@query)
+   # @results = Post.find_by_contents(@query)
    # @pos = @space.container_entries    
    # @entries = []   
    # @results.collect { |result|
-   #   entry = Entry.find_by_content_type_and_content_id("Article", result.id)
+   #   entry = Entry.find_by_content_type_and_content_id("Post", result.id)
    #   if @pos.include?(entry)
    #     @entries << entry
     #  end
@@ -229,11 +229,11 @@ class SearchController < ApplicationController
 
     #search entries
     
-     @results = Article.find_by_contents(@query)
+     @results = Post.find_by_contents(@query)
     @pos = @container.container_entries    
     @entries = []   
     @results.collect { |result|
-      entry = Entry.find_by_content_type_and_content_id("Article", result.id)
+      entry = Entry.find_by_content_type_and_content_id("Post", result.id)
       if @pos.include?(entry)
         @entries << entry
       end

@@ -4,7 +4,7 @@
 
 	<h4 class="title_sidebar"> Search Posts</h4>
 
-  <% form_tag(search_articles_path(@space), :method => 'get') do %>
+  <% form_tag(search_posts_path(@space), :method => 'get') do %>
 
       <%= text_field_tag :query, params[:query] %>
 	  <%= image_submit_tag "magnify2.png", :class=>'go'%>

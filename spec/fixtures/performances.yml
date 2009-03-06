@@ -65,67 +65,67 @@ public_anyone:
   stage_id: 1
   stage_type: Space
   
-public_article_for_all:
+public_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_article (Article)
+  stage: public_post (Post)
 
-public_children1_article_for_all:
+public_children1_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_children_article1 (Article) 
+  stage: public_children_post1 (Post) 
 
-public_children2_article_for_all:
+public_children2_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_children_article2 (Article) 
+  stage: public_children_post2 (Post) 
   
-public_attachment1_article_for_all:
+public_attachment1_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
   stage: public_attachment1 (Attachment) 
   
-public_normal_article_for_all:
+public_normal_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_normal_article (Article)
+  stage: public_normal_post (Post)
 
-public_normal_children1_article_for_all:
+public_normal_children1_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_normal_children_article1 (Article) 
+  stage: public_normal_children_post1 (Post) 
 
-public_normal_children2_article_for_all:
+public_normal_children2_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: public_normal_children_article2 (Article) 
+  stage: public_normal_children_post2 (Post) 
   
-public_normal_attachment1_article_for_all:
+public_normal_attachment1_post_for_all:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
   stage: public_normal_attachment1 (Attachment) 
 
   <% for i in 1..30 %>
-public_articles_for_all_<%= i %>:
+public_posts_for_all_<%= i %>:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: article_<%= i %> (Article)
+  stage: post_<%= i %> (Post)
 <%end%>
 
   <% for i in 31..60 %>
-public_articles_for_all_<%= i %>:
+public_posts_for_all_<%= i %>:
   agent_id: <%= Anyone.current.id%>
   agent_type: <%= Anyone.current.class.base_class%>
   role: reader
-  stage: article_<%= i %> (Article)
+  stage: post_<%= i %> (Post)
 <%end%>
   

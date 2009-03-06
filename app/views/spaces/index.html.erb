@@ -1,34 +1,31 @@
-
-<div id="yui-main">
-<div class="yui-b main_column">
-	<% rounded(:class => "tips") do %>
+	<% rounded() do %>
 <% @page_title = "Spaces"-%>
 
-<h1 class="main_title">Spaces</h1>
+<h1>Spaces</h1>
 <br/>
 
 <% for space in @spaces %>
 
 
 	  <%if logged_in? && space.authorizes?(current_user, [ :update, :Content ])%> 
-		   <div class="mini_logo"></div>
+		   <div></div>
 		   
-		   <div class="space_name_title"><%= link_to name_format(space.name,24,"") , edit_space_path(space)%></div>
+		   <div><%= link_to name_format(space.name,24,"") , edit_space_path(space)%></div>
       <%else%>
-         <div class="mini_logo"></div>
-		 <div class="space_name_title"><%= name_format(space.name,24,"")%></div>
+         <div></div>
+		 <div><%= name_format(space.name,24,"")%></div>
 	<!-- lo he tocado para que no salga 2 veces el nombre-->
 	  <%end%>
 	       
-		   <div class="action">
+		   <div>
     		<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
-		    	<%= link_to image_tag("user_add.png", :title => "Add Users", :alt=>"Add users"), new_space_user_path(space, {:from_app => true}) %>
+		    	<%= link_to "Add_ussers", new_space_user_path(space, {:from_app => true}) %>
             <%end%>
 			<%if logged_in? && space.authorizes?(current_user, [ :update, :Performance ])%> 
-				<%= link_to image_tag("group.png", :title=>"Groups", :alt=>"Groups"), space_groups_path(space)%>
+				<%= link_to "Groups", space_groups_path(space)%>
 			<%end%>
 			<%if logged_in? && space.authorizes?(current_user, :delete)%> 
-           		<%= link_to image_tag("delete.png", :title=>"Delete"), space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
+           		<%= link_to "Delete", space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
 			<%end%>
 			</div>
 			<br/>
@@ -45,6 +42,4 @@
 
 <%end%>
 
-</div>
-</div>
 <%= render :partial =>'shared/sidebar'%>

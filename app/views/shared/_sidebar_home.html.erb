@@ -5,7 +5,7 @@
 	<%end%>
 		
 	<% rounded(:class => "tips") do %>
-	<div id="sidebar_news"><div class="rss"><%=link_to(image_tag("rss.png"),formatted_space_articles_path(@space,:atom))%> </div><h4 class="title_sidebar" >Latest News</h4><br/>
+	<div id="sidebar_news"><div class="rss"><%=link_to(image_tag("rss.png"),formatted_space_posts_path(@space,:atom))%> </div><h4 class="title_sidebar" >Latest News</h4><br/>
 	<%=render :partial =>'shared/latest_news'%>
 	</div>
 	<%end%>

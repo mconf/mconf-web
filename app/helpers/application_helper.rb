@@ -130,7 +130,7 @@ end
     end
   end
   
-  def show_article(entry,space,*args) #return a compress view of a entry post
+  def show_post(entry,space,*args) #return a compress view of a entry post
   usuario = entry.agent
   number_comments= " (" + get_number_children_comments(entry).to_s + ")"
   if usuario
@@ -150,18 +150,18 @@ end
   end
   san = HTML::FullSanitizer.new
   entry.content.text = san.sanitize(entry.content.text)
-  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_article_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_article_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_article_link(name_format2(": "+ entry.content.text ,(63 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_article_link(fecha.to_s,space,entry) + "</span> " 
-  image = "<span class = 'clip'>" + (to_article_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
+  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_post_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_post_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_post_link(name_format2(": "+ entry.content.text ,(63 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_post_link(fecha.to_s,space,entry) + "</span> " 
+  image = "<span class = 'clip'>" + (to_post_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
   args.each do |arg|  # obtengo los argumentos variables
   if entry.content.authorizes?(current_user, :update) && arg == "edit"
-     edita = link_to(image_tag("edit16.png"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s
-     # iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_article_path(@space, entry.content), :title=>"Edit Post").to_s + "</span> "
+     edita = link_to(image_tag("edit16.png"),edit_space_post_path(@space, entry.content), :title=>"Edit Post").to_s
+     # iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_post_path(@space, entry.content), :title=>"Edit Post").to_s + "</span> "
     end
   if entry.content.authorizes?(current_user, :delete) &&  arg == "destroy"
-      delete = link_to(image_tag("delete16.png"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
-      #iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_article_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
+      delete = link_to(image_tag("delete16.png"), space_post_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
+      #iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_post_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
    end
   end
   
@@ -183,7 +183,7 @@ end
   end
   
    def get_number_children_comments(entry)
-  return entry.children.select{|c| c.content.is_a? Article}.size
+  return entry.children.select{|c| c.content.is_a? Post}.size
 end
 
  
@@ -199,7 +199,7 @@ end
     return link_to(name,user_profile_path(usuario, :space_id => space.name))
   end
   
-    def to_article_link (name,space,entry)
+    def to_post_link (name,space,entry)
     return link_to(sanitize(name), polymorphic_path([space, entry.content]))
   end
   
@@ -299,8 +299,8 @@ end
   end
   
   def show_latest_news(entry,space)
-    span_title= "<span class= 'sidebar_news_title'> - " + link_to((name_format2(entry.content.title.to_s,25,"")),space_article_path(space,entry.content))   + " </span> <br/>"
-    span_description = "<span class= 'sidebar_news_description'>" + link_to((name_format2(entry.content.text.to_s,25,"")),space_article_path(space,entry.content)) + "</span><br/>"
+    span_title= "<span class= 'sidebar_news_title'> - " + link_to((name_format2(entry.content.title.to_s,25,"")),space_post_path(space,entry.content))   + " </span> <br/>"
+    span_description = "<span class= 'sidebar_news_description'>" + link_to((name_format2(entry.content.text.to_s,25,"")),space_post_path(space,entry.content)) + "</span><br/>"
     
     line =  span_title  + "&nbsp; "  +  span_description
     return line

@@ -4,7 +4,7 @@ entry_private_admin_parent:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)	
-  content: parent_private_admin_article (Article)	  
+  content: parent_private_admin_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -16,7 +16,7 @@ entry_private_admin_children1:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)	
-  content: children_private_admin_article1 (Article)	  
+  content: children_private_admin_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -27,7 +27,7 @@ entry_private_admin_children2:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)
-  content: children_private_admin_article2 (Article)
+  content: children_private_admin_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -52,7 +52,7 @@ entry_private_normal_admin_parent:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)	
-  content: parent_private_normal_admin_article (Article)	  
+  content: parent_private_normal_admin_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -64,7 +64,7 @@ entry_private_normal_admin_children1:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)	
-  content: children_private_normal_admin_article1 (Article)	  
+  content: children_private_normal_admin_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -75,7 +75,7 @@ entry_private_normal_admin_children2:
   title: entry_title	
   description: entry_description		
   container: private_admin (Space)
-  content: children_private_normal_admin_article2 (Article)
+  content: children_private_normal_admin_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -102,7 +102,7 @@ entry_private_user_parent:
   title: entry_title	
   description: entry_description		
   container: private_user (Space)	
-  content: parent_private_user_article (Article)	  
+  content: parent_private_user_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -114,7 +114,7 @@ entry_private_user_children1:
   title: entry_title	
   description: entry_description		
   container: private_user (Space)	
-  content: children_private_user_article1 (Article)	  
+  content: children_private_user_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -125,7 +125,7 @@ entry_private_user_children2:
   title: entry_title	
   description: entry_description		
   container: private_user(Space)
-  content: children_private_user_article2 (Article)
+  content: children_private_user_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -149,7 +149,7 @@ entry_private_normal_user_parent:
   title: entry_title	
   description: entry_description		
   container: private_user (Space)	
-  content: parent_private_normal_user_article (Article)	  
+  content: parent_private_normal_user_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -161,7 +161,7 @@ entry_private_normal_user_children1:
   title: entry_title	
   description: entry_description		
   container: private_user (Space)	
-  content: children_private_normal_user_article1 (Article)	  
+  content: children_private_normal_user_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -172,7 +172,7 @@ entry_private_normal_user_children2:
   title: entry_title	
   description: entry_description		
   container: private_user(Space)
-  content: children_private_normal_user_article2 (Article)
+  content: children_private_normal_user_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -197,7 +197,7 @@ entry_private_invited_parent:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)	
-  content: parent_private_invited_article (Article)	  
+  content: parent_private_invited_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -209,7 +209,7 @@ entry_private_invited_children1:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)	
-  content: children_private_invited_article1 (Article)	  
+  content: children_private_invited_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -220,7 +220,7 @@ entry_private_invited_children2:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)
-  content: children_private_invited_article2 (Article)
+  content: children_private_invited_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -244,7 +244,7 @@ entry_private_normal_invited_parent:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)	
-  content: parent_private_normal_invited_article (Article)	  
+  content: parent_private_normal_invited_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -256,7 +256,7 @@ entry_private_normal_invited_children1:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)	
-  content: children_private_normal_invited_article1 (Article)	  
+  content: children_private_normal_invited_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -267,7 +267,7 @@ entry_private_normal_invited_children2:
   title: entry_title	
   description: entry_description		
   container: private_invited (Space)
-  content: children_private_normal_invited_article2 (Article)
+  content: children_private_normal_invited_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -291,7 +291,7 @@ entry_private_no_roles_parent:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: parent_private_no_roles_article (Article)	  
+  content: parent_private_no_roles_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -303,7 +303,7 @@ entry_private_no_roles_children1:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: children_private_no_roles_article1 (Article)	  
+  content: children_private_no_roles_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -314,7 +314,7 @@ entry_private_no_roles_children2:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)
-  content: children_private_no_roles_article2 (Article)
+  content: children_private_no_roles_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -340,7 +340,7 @@ entry_private_no_roles_parent:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: parent_private_no_roles_article (Article)	  
+  content: parent_private_no_roles_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -352,7 +352,7 @@ entry_private_no_roles_children1:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: children_private_no_roles_article1 (Article)	  
+  content: children_private_no_roles_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -363,7 +363,7 @@ entry_private_no_roles_children2:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)
-  content: children_private_no_roles_article2 (Article)
+  content: children_private_no_roles_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -387,7 +387,7 @@ entry_private_normal_no_roles_parent:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: parent_private_normal_no_roles_article (Article)	  
+  content: parent_private_normal_no_roles_post (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -399,7 +399,7 @@ entry_private_normal_no_roles_children1:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)	
-  content: children_private_normal_no_roles_article1 (Article)	  
+  content: children_private_normal_no_roles_post1 (Post)	  
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -410,7 +410,7 @@ entry_private_normal_no_roles_children2:
   title: entry_title	
   description: entry_description		
   container: private_no_roles (Space)
-  content: children_private_normal_no_roles_article2 (Article)
+  content: children_private_normal_no_roles_post2 (Post)
   public_read: false
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -433,12 +433,12 @@ entry_private_normal_no_roles_attachment_children3:
 
 ##entries del espacio public creadas por Quentin
   
-entry_public_article: 	
+entry_public_post: 	
   title: entry_title	
   description: entry_description		
   container_id: 1
   container_type: Space	
-  content: public_article (Article)
+  content: public_post (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -451,24 +451,24 @@ entry_public_children1:
   description: entry_description		
   container_id: 1
   container_type: Space	
-  content: public_children_article1 (Article)	  
+  content: public_children_post1 (Post)	  
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: quentin (User)	
-  parent: entry_public_article	
+  parent: entry_public_post	
   
 entry_public_children2: 
   title: entry_title	
   description: entry_description		
   container_id: 1
   container_type: Space
-  content: public_children_article2 (Article)
+  content: public_children_post2 (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: quentin (User)	
-  parent: entry_public_article		
+  parent: entry_public_post		
 
 entry_public_attachment_children3: 	
   title: entry_title	
@@ -480,16 +480,16 @@ entry_public_attachment_children3:
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: quentin (User)	
-  parent: entry_public_article	
+  parent: entry_public_post	
 
 ##entries del espacio public creadas por user_normal
 
-entry_public_normal_article: 	
+entry_public_normal_post: 	
   title: entry_title	
   description: entry_description		
   container_id: 1
   container_type: Space	
-  content: public_normal_article (Article)
+  content: public_normal_post (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -502,24 +502,24 @@ entry_public_normal_children1:
   description: entry_description		
   container_id: 1
   container_type: Space	
-  content: public_normal_children_article1 (Article)	  
+  content: public_normal_children_post1 (Post)	  
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: user_normal (User)	
-  parent: entry_public_normal_article	
+  parent: entry_public_normal_post	
   
 entry_public_normal_children2: 
   title: entry_title	
   description: entry_description		
   container_id: 1
   container_type: Space
-  content: public_normal_children_article2 (Article)
+  content: public_normal_children_post2 (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: user_normal (User)	
-  parent: entry_public_normal_article		
+  parent: entry_public_normal_post		
 
 entry_public_normal_attachment_children3: 	
   title: entry_title	
@@ -531,7 +531,7 @@ entry_public_normal_attachment_children3:
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
   agent: user_normal (User)	
-  parent: entry_public_normal_article	
+  parent: entry_public_normal_post	
 
 #entries para probar la paginación
  
@@ -541,7 +541,7 @@ entry_<%= i %>:
   title: title <%=i%>
   container_id: 1
   container_type: Space
-  content: article_<%=i%> (Article)
+  content: post_<%=i%> (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	
@@ -555,7 +555,7 @@ entry_<%= i %>:
   description: description <%=i%>
   title: title <%=i%>
   container: private_no_roles (Space)
-  content: article_<%=i%> (Article)
+  content: post_<%=i%> (Post)
   public_read: true
   created_at: 2008-03-26 14:48:42 +01:00	
   updated_at: 2008-03-26 14:48:42 +01:00	 	

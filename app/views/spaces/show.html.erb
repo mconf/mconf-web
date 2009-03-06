@@ -1,27 +1,21 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-
 	
-	<% rounded(:class => "description") do %>
-	<div class="contenido_main">
-		
-	<h2 class="title"><%=name_format(@space.name, 45, "")%> description</h2>
-	<br/><%= @space.description%>
-	
+	<% rounded() do %>
+	  <div>
+	    <h2><%=name_format(@space.name, 45, "")%> description</h2>
+	    <br/><%= @space.description%>
+	  </div>
 	<%end%>
 	
-	</div>
+	
 	
 		
 <!-- <% rounded(:class => "tips") do %> 	<div class="contenido_main"><h2 class="title">Posts</h2>--><!--<%= render :partial=> 'shared/lated_posts'%><%end%></div> -->
 <!-- <% rounded(:class => "tips") do %>	    <div class="contenido_main"><h2 class="title">Events Coming...</h2>--><!--<%= render :partial=> 'shared/events_coming'%><%end%></div> -->
 
-	</div>
-		<div class="yui-b main_column">
-		<div id="show_event">
+	
+		
+		<div>
 			
 		</div>
-		</div>
-</div>
 
 <%= render :partial =>'shared/sidebar_home'%>

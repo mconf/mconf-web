@@ -54,7 +54,7 @@ function change_space(){
 }
 
 function change_per_page(space_name){
-	miloc = "/spaces/" + space_name + "/articles?expanded=false&per_page=" + document.get_page.page_id.value;
+	miloc = "/spaces/" + space_name + "/posts?expanded=false&per_page=" + document.get_page.page_id.value;
 	document.location.href = miloc;
 }
 

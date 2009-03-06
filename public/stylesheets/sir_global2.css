@@ -287,7 +287,7 @@ ul#nav2 li.current a {
 /* BODY */
 
 div#bd {
-	background:#ffffff noto_article_link(name_format(entry.content.title.to_s,25,""),space,entry)-repeat bottom left;
+	background:#ffffff noto_post_link(name_format(entry.content.title.to_s,25,""),space,entry)-repeat bottom left;
 	display:block;
 	min-height: 550px;
 	

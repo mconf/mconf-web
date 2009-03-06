@@ -44,8 +44,8 @@
 
 		<%elsif  session[:current_tab]=="News"%>
 <ul id="nav2">
-				<%if logged_in? && @space.authorizes?(current_user, [ :create, :Content ])%><%= sub_tab 'New Post', new_space_article_path(@space) %> | <%end%>
-				<%= sub_tab 'RSS Feed', formatted_space_articles_path(@space, "atom")  %> 
+				<%if logged_in? && @space.authorizes?(current_user, [ :create, :Content ])%><%= sub_tab 'New Post', new_space_post_path(@space) %> | <%end%>
+				<%= sub_tab 'RSS Feed', formatted_space_posts_path(@space, "atom")  %> 
 				</ul>	
 				<%elsif  session[:current_tab]=="Spaces"%>
 <ul id="nav2">

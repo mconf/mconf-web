@@ -82,23 +82,23 @@
 	<h2 class="title separador"> Posts</h2>
 	<br/>
 	<div class="contenido_search">
-		<%if @articles == []%>
+		<%if @posts == []%>
 	     	<p class="red">No posts found</p>
 	    <%else%> 
-			<%if @articles.size == 1%>	   
+			<%if @posts.size == 1%>	   
 	     		<h3 class="red">1 post was found</h3>
 		 		<br/>
-	     		<% @articles.each do |article| %>
-	       			<%if article%>
-	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	     		<% @posts.each do |post| %>
+	       			<%if post%>
+	         			<%=show_post(post.entry,@space,"edit","destroy")%> 
 	       			<%end%>
          		<%end%>
 	   		<%else%>
-         		<h3 class="red"><%=@articles.size%> post was found</h3>
+         		<h3 class="red"><%=@posts.size%> post was found</h3>
 		 		<br/>	
-	     		<% @articles.each do |article| %>
-	       			<%if article%>
-	         			<%=show_article(article.entry,@space,"edit","destroy")%> 
+	     		<% @posts.each do |post| %>
+	       			<%if post%>
+	         			<%=show_post(post.entry,@space,"edit","destroy")%> 
 	       			<%end%>
          		<%end%>
 			<%end%>

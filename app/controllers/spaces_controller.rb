@@ -36,12 +36,12 @@ class SpacesController < ApplicationController
     @posts = []
     if @space.id == 1
       
-      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'Article'}.first(5)
+      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'Post'}.first(5)
    else
-     @space_articles = (Entry.find_all_by_content_type_and_container_id('Article', @space.id, :order => "updated_at DESC")).select {|e| e.parent_id == nil}
-     @posts = @space_articles.first(5)
-     # @space_articles = @space.container_entries.find_all_by_content_type('Article', :order => "updated_at DESC")
-     # @posts = get_last_updated(@space_articles).first(5)
+     @space_posts = (Entry.find_all_by_content_type_and_container_id('Post', @space.id, :order => "updated_at DESC")).select {|e| e.parent_id == nil}
+     @posts = @space_posts.first(5)
+     # @space_posts = @space.container_entries.find_all_by_content_type('Post', :order => "updated_at DESC")
+     # @posts = get_last_updated(@space_posts).first(5)
     end
     
     next_events
