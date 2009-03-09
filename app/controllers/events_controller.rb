@@ -9,6 +9,8 @@ class EventsController < ApplicationController
   def index
     session[:current_tab] = "Events"
     session[:current_sub_tab] = ""
+
+    Event.in_container(@space).at_date(params[:date_start_date]).paginate(params[:paginate])
     
     if params[:date_start_day]
        @start_day = Date.parse(params[:date_start_day])
