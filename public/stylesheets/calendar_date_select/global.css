@@ -22,11 +22,11 @@ iframe.ie6_blocker {
 .calendar_date_select .cds_buttons {
   text-align:center;
   padding:5px 0px;
-  background-color: #000055;
+  background-color: #8cccf2;
 }
 
 .calendar_date_select .cds_footer {
-  background-color: black;
+  background-color: #8cccf2;
   padding:3px;
   font-size:12px;
   text-align:center;
@@ -101,9 +101,10 @@ iframe.ie6_blocker {
   vertical-align: middle;
 }
 /*Para configurar lo de los fines de semana*/
-.calendar_date_select td.weekend {
-  background-color: #eeeeff;
-  color: #a21111;
+.calendar_date_select td.weekend :hover {
+  background-color: #ae1737;
+  color: white;
+  padding: 4px;
 }
 /*Para los dias de otros meses que se ven por arriba y por abajo*/
 .calendar_date_select td div.other {
@@ -127,7 +128,8 @@ iframe.ie6_blocker {
   color: #000044;
 }
 .calendar_date_select td.today {
-  border: 1px dashed blue;
+  background-color:#3b54a6;
+  color:white;	
 }
 
 .fieldWithErrors .calendar_date_select {

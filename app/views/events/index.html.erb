@@ -2,20 +2,32 @@
 <div id="yui-main">
 	<div  class="yui-b main_column">
 	
+	<%if params[:view_all]%>
+	  <% rounded(:class => "tips") do %>
+	    <div class="contenido_main">
+	      <h2 class="title">Future Events</h2>
+	      <%= render :partial=> 'future_events'%>
+	    </div>
+	  <%end%>
 	
-	<% rounded(:class => "tips") do %>
-	<div class="contenido_main">
-	<h2 class="title">Latest Events Added</h2>
-	</div>
+	  <% rounded(:class => "tips") do %>
+	    <div class="contenido_main">
+	      <h2 class="title">Past Events</h2>
+	      <%= render :partial=> 'past_events'%>
+	    </div>
+	  <%end%>
+	<%else%>
+	
+	
+	  <% rounded(:class => "tips") do %>
+	    <div class="contenido_main">
+	      <h2 class="title">Events Coming...</h2>
+	
+	      <%= render :partial=> 'events_coming'%>
+	    </div>
+	  <%end%>
 	<%end%>
-	
-	<% rounded(:class => "tips") do %>
-	<div class="contenido_main">
-	<h2 class="title">Events Coming...</h2>
-	
-	<%= render :partial=> 'shared/events_coming'%>
-	</div>
-	<%end%>
+
 	
 	
 	<div id="show_event"></div>

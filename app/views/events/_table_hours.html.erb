@@ -1,8 +1,0 @@
-<table id="hours" >
-<% @odd_or_even_hour = 0 
-   for i in 0..23
-     @odd_or_even_hour = 1 - @odd_or_even_hour
--%>
-<tr><td class="border_bottom" <%= @odd_or_even_hour %>" ><%= i.to_s + ":00"%> </td></tr>
-<%end-%>
-</table>

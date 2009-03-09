@@ -290,8 +290,16 @@ end
     return line
   end
   
+  def show_resume_event(event)
+    span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,22,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
+    span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.start_date.to_date.to_formatted_s(:rfc822), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
+      
+    line = "<div class='event_div'>" +  span_start_date + span_title  + "</div>"
+    return line
+  end
+  
   def show_latest_event(event)
-    span_start_date= "<span class= 'sidebar_events_start_date'>" +  event.event_datetimes[0].start_date.strftime('%Y/%m/%d')  + "</span>"
+    span_start_date= "<span class= 'sidebar_events_start_date'>" +  event.start_date.to_formatted_s(:short)  + "</span>"
     span_title = "<span class= 'sidebar_events_title'>" + link_to_remote(highlight(name_format(event.name,17,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
     
     line =  span_start_date  + "&nbsp; "  +  span_title 

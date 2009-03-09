@@ -1,13 +1,38 @@
+require 'vpim/icalendar'
+require 'vpim/vevent'
+require 'vpim/duration'
+
+
 class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
     session[:current_tab] = "Events"
     session[:current_sub_tab] = ""
-    @events = Event.find(:all)
-
+    
+    if params[:date_start_day]
+       @start_day = Date.parse(params[:date_start_day])
+       @events = if @space.id == 1
+              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| (event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)) && event.start_date.to_date == @start_day}               
+              else
+              (Event.in_container(@space).all :order => "updated_at DESC").select{|event| event.start_date.to_date == @start_day}
+              end
+    else
+      @start_day = Date.today
+      get_events #obtain the space events
+      if params[:view_all]
+        future_and_past_events
+      else
+        coming_events  
+      end
+    end
+    #@events_all = Event.find(:all)
+    #@events = @events_all - @today_events - @tomorrow_events - @week_events
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { if params[:date_start_day]
+        render :partial => "day_events", :layout => true
+      end}
+    #format.html # index.html.erb
       format.xml  { render :xml => @events }
     end
   end
@@ -17,10 +42,12 @@ class EventsController < ApplicationController
   def show
     session[:current_tab] = "Events"
     @event = Event.find(params[:id])
-
+    Mime::Type.register "ical", :ical
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }
+      format.js 
+      format.ical {export_ical}
     end
   end
 
@@ -44,7 +71,8 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
-  
+    @event.author = current_agent
+    @event.container = @container
     respond_to do |format|
       if @event.save
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
@@ -87,11 +115,67 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  
+  private
+  def future_and_past_events
+    @future_events = @events.select{|e| e.start_date.future?}
+    @past_events = @events.select{|e| e.start_date.past?}.sort!{|x,y| y.start_date <=> x.start_date} #Los eventos pasados van en otro inversos
+  end
+  
+  def export_ical
+      @event = Event.find(params[:id]) 
+      # dates = EventDatetime.find_by_event_id(@event.id)     
+      #@event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date}   
+      calen = Vpim::Icalendar.create2
+      calen.add_event do |e|
+        e.dtstart @event.start_date
+        e.dtend   @event.end_date
+        e.description @event.description
+        e.summary   @event.name
+        e.set_text('LOCATION', @event.place)
+      end
+      
+
+      #for datetime in @event.event_datetimes
+      #  calen.add_event do |e|
+      #    e.dtstart  datetime.start_date
+      #    e.dtend  datetime.end_date
+      #    e.description  @event.description        
+      #    e.url url_total
+      #    e.summary "Event Title:" + @event.name + ", Service:"+ Event.get_Service_name(@event.service)
+      #  end 
+      #end 
+      icsfile = calen.encode         
+      # @cal_string = icsfile.to_ical
+      send_data icsfile, :filename => "#{@event.name}.ics"      
+      
+  end
+=begin 
+      #Class Method to verify the events that occurs in the date given.
+    def select_events(datetime_start_day)
+      datetime_end_day = datetime_start_day+1
+      #first case: the event is contained in the day
+      event_datetimes = EventDatetime.find(:all, :conditions=> ["start_date > ? AND end_date < ?", datetime_start_day.to_s , datetime_end_day.to_s])
+      #breakpoint()
+      #second case: start_date in the past and end date in the future, the event contains this day
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s])
+      #third case: start_date in the past and end date in this day, the event finishes today
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date < ? AND end_date < ? AND end_date > ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_start_day.to_s])
+      #fourth case: start_date today and end date in the future, the event starts today and is longer than one day
+      event_datetimes += EventDatetime.find(:all, :conditions=> ["start_date >= ? AND start_date < ? AND end_date >= ?", datetime_start_day.to_s , datetime_end_day.to_s, datetime_end_day.to_s])
+      #breakpoint()  
+      logger.debug("event_datetimes.size " + event_datetimes.size.to_s)
+      return event_datetimes
+    end   
+=end    
 end
 
 
 
 
+
+ 
 
 =begin
   

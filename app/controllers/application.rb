@@ -93,15 +93,30 @@ class ApplicationController < ActionController::Base
     pages = Paginator.new self, size, options[:per_page], (params[:page]||1)
     return pages
   end
-  #this method returns the coming 5 events
-  def next_events
+  
+  def get_events
     @events = if @space.id == 1
-                (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)}
-                
+              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)}               
               else
-                Event.in_container(@space).all :order => "updated_at DESC"
+              Event.in_container(@space).all :order => "updated_at DESC"
               end
-    
+  end
+  
+  
+  
+  
+  #this method returns the coming 10 events
+  def coming_events
+    @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future? }
+    @tomorrow_events = @events.select{|e| e.start_date.to_date == Date.tomorrow}
+    #@week_events = @events.select{|e| e.start_date >= (Date.today + 2 ).beginning_of_day && e.start_date <= (Date.today + 7).end_of_day}    
+    @coming_events = @events.select{|e| e.start_date >= (Date.today + 2 ).beginning_of_day}.first(10 - @today_events.size - @tomorrow_events.size)
+  
+  end
+  
+  
+  #def next_events
+
     #today = Date.today
     
     #date1ok =  today.strftime("%Y%m%d")
@@ -111,8 +126,8 @@ class ApplicationController < ActionController::Base
     #@pages = pages_for(@total)
     
     
-  end
-  
+  #end
+
   def get_public_entries
     @public_entries = Entry.find_all_by_container_type_and_public_read('Space',true,:order => "updated_at DESC")
   end

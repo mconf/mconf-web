@@ -18,7 +18,11 @@
 		<%elsif session[:current_tab]=="Events"%>
 <ul id="nav2">
 			<%if logged_in?%><%= sub_tab "New Event", new_space_event_path(@space) %> | <%end%>	
-
+			  <%if params[:view_all]%>
+			    <%= sub_tab "Events Coming", space_events_path(@space) %>  |
+			  <%else%>
+			    <%= sub_tab "View All", space_events_path(@space, :view_all => true) %>  |
+			  <%end%>
 			<%= sub_tab "Show Calendar", space_events_path(@space, :date_start_day => Date.today) %>	| 
 
 			<%= sub_tab 'RSS Feed', formatted_space_events_path(@space, "atom")  %>

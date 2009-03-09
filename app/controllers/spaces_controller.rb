@@ -43,8 +43,8 @@ class SpacesController < ApplicationController
      # @space_posts = @space.container_entries.find_all_by_content_type('Post', :order => "updated_at DESC")
      # @posts = get_last_updated(@space_posts).first(5)
     end
-    
-    next_events
+    get_events #obtain the events to show it
+    coming_events 
     #@space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
     session[:current_tab] = "Home"        
     session[:current_sub_tab] = ""
@@ -205,6 +205,7 @@ class SpacesController < ApplicationController
                                              space_performances - public_performance
                                            end
   end
-
+  
+  
   
 end

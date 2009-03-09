@@ -49,7 +49,7 @@ y como no lo encuentra, no muestra el tiempo ahí.
   //the array with the dates to highlight:
   //linea quitada por ivan en la adaptacion de los nuevos eventos  
   //Preguntar a kike. Esto sirve para poner en azul oscuro los días que tengan evento
- // <EventDatetime.array_calendar>    
+  <%=Event.array_calendar%>    
 </script>
 <%= javascript_include_tag("calendar_config") %>
 
@@ -61,7 +61,7 @@ var calendar = Calendar.setup(
       firstDay     : 1,
 	  //showsTime    : true,
       dateStatusFunc : ourDateStatusFunc,
-      date         : new Date(<%="'"+Time.now.month.to_s+"/"+Time.now.day.to_s+"/"+Time.now.year.to_s+"'"%>)    
+      date         : new Date(<%="'"+@start_day.month.to_s+"/"+@start_day.day.to_s+"/"+@start_day.year.to_s+"'"%>)    
     }
   );
   <%if @space%>

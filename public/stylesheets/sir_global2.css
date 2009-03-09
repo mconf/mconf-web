@@ -702,7 +702,7 @@ span.event_title{
 	position:relative;
 	left:0px;
 	display:inline-block;
-	text-align: center;
+	text-align: left;
 	
 }
 span.event_description{
@@ -710,14 +710,14 @@ span.event_description{
 	position:relative;
 	left: 5px;
 	display:inline-block;
-	text-align: center;
+	text-align: left;
 }
 span.event_start_date{
 	width:90px;
 	position:relative;
 	left:10px;
 	display:inline-block;
-	text-align: center;
+	text-align: left;
 }
 span.event_actions{
 	width:100px;

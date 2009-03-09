@@ -12,9 +12,9 @@ function dateIsSpecial(year, month, day) {
   
   
   function ourDateStatusFunc(date, y, m, d) {
-    //if (dateIsSpecial(y, m, d))
-    //  return "special";
-    //else
+    if (dateIsSpecial(y, m, d))
+      return "special";
+    else
       return false; // other dates are enabled
       // return true if you want to disable other dates
   };
