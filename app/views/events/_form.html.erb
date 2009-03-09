@@ -1,40 +1,46 @@
 <!--[form:event]-->
 
 <div>
-<label for="event_name" class="label_izquierda">Isabel Session Name:</label>
-<%= text_field 'event', 'name'  %>
+<label for="event_name" class="label_izquierda">Event:</label>
+<%= form.text_field :name  %>
 </div>
+
+<!--
+ver selector en antigua vista
+-->
 
 <div>
-<label for="event_password" class="label_izquierda" >Password:</label>
-<%= password_field 'event','password'%>
-                <label for="password2" >Retype Password:</label>
-                <input type=password name="password2" id="password2" value='<%=@event.password%>'>
+	 <%=form.calendar_date_select(:start_date)%>
+	 <%=form.calendar_date_select(:end_date)%>
+</div>	
 
+<br/>
+
+<p><img src="/images/expand.gif" alt="Show Div" style="cursor:pointer;" onclick="showContent(this);" />Advanced options</p>
+
+<div style="display:none;">
+	<div>
+		<label for="event_place" class="label_izquierda" >Place:</label>
+		<%=form.text_field :place, :size => 30  %>
+	</div>
+	<div>
+		<label for="event_description" class="label_izquierda" >Description:</label>
+		<%=form.text_field :description, :size => 50  %>
+	</div>
+	<div>
+		<label for="event_isabel_event" class="label_izquierda" >Isabel_event:</label>
+		<%=form.check_box :isabel_event  %>
+	</div>
+	<div>
+		<label for="event_public_read" class="label_izquierda" >Public:</label>
+		<%=form.check_box :public_read  %>
+	</div>
+	<div>
+		<label for="event_keywords">Keywords (*):</label>
+		<%= text_field_tag 'tags', @event.tag_list  %>
+	</div>
 </div>
 
-<div>
-<label for="event_service" class="label_izquierda" >Service:</label>
-<%= select("event", "service", Event::SERVICE_TYPES)%>
-</div>
 
-<div>
-<label for="event_quality" class="label_izquierda"  >Quality:</label>
-     <%if @event.name!=""%>
-                <%=select("event", "quality", Event::service_qualities)%>
-              <%else%>
-                <%=select("event", "quality", Event::service_qualities, :selected =>Event::service_qualities[Event::service_qualities.size/2 - 1] )%>
-     <%end-%> 
-</div>
-
-<div>
-<label for="event_description" class="label_izquierda" >Description</label>
-<%= text_field 'event', 'description', :size => 50  %>
-</div>
-
-<div>
-<label for="event_keywords">Keywords (*):</label>
-<%= text_field_tag 'tags', @event.tag_list  %>
-</div>
 
 <!--[eoform:event]-->

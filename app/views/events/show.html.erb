@@ -1,94 +1,22 @@
 <div id="yui-main">
 	<div class="yui-b main_column">
-<% rounded(:class => "tips") do %>
-<div class="vevent">
-
-Event Informationaaaaaa334</b><br>
-
-Name: <b><div class="summary"><%=h(@event.name)%></b></div>
-
-
-<%if logged_in? && current_user.superuser==true%>
-Service:<b><%=Event.get_Service_name(h(@event.service))%></b><br>
-Quality:<b><%=h(@event.quality)%></b><br>
-Resources:<%=h(@event.get_participants)%><br>
-<%end%>
-<%if @event.description!=nil && @event.description!=""%>
-Description:<div class="description"><b><%=h(@event.description)%></b></div><br>
-<%end%>
-
-
-<%if @event.tag_list!=nil && @event.tag_list!=""%>
-Keywords:<b><%for tag in @event.tags %><br>
-		<%= link_to h(tag.name), search_by_tag_path(@space, tag.name), :method => :get  %>
-<%end%>
-
-<%end%>
-<br/>
-Event Dates <br>
-
-<%index = 0%>
-<%@event.event_datetimes.sort!{|x,y| x.start_date <=> y.start_date} %>
-<% for datetime in @event.event_datetimes %>    
-   Start date:<abbr title= <%= datetime.start_date.strftime("%Y%m%d") %> class="dtstart"><b><%= datetime.start_date.strftime("%b %d %H:%M") %></b></abbr><br>
-    
-  End date:<abbr title= <%= datetime.end_date.strftime("%Y%m%d") %> class="dtend"><b><%= datetime.end_date.strftime("%b %d %H:%M") %></b></abbr><br>
-       
-    <%index += 1 -%>
-<% end -%>
-
-Contact Information:<p><%=mail_to("enrique.barra@agora-2000.com","Contact Information")%></p>
+		<% rounded(:class => "tips") do %>
+			<p>
+  				<b>Title:</b>
+  				<%=sanitize @event.title %>
+			</p>
 	
+			<p>
+  				<b>Description:</b>
+  				<%=sanitize @event.description %>
+			</p>
 	
-
-URLs for the session</b>
-
- <% urls = @event.get_urls 
-    descriptions = @event.get_participants_description
-    machine_names = @event.get_machine_names
-    is_executing_now = false
-    for datetime in @event.event_datetimes
-        if datetime.start_date < Time.now && datetime.end_date > Time.now
-            is_executing_now = true
-        end
-    end
-    i=0
-    for the_url in urls%>
-        
-            <%if descriptions[i]!=nil && descriptions[i]!=""%>
-            <%=h(descriptions[i])%>:<br>
-            <%end-%>
-            <div class="solo_centrar">
-                <%if is_executing_now%>
-                    <%= link_to(the_url, :controller => "machines",:action => "get_file", :machine => h(machine_names[i]))%>
-                <%else%>
-                    <%=h(the_url)%>        
-                <%end-%>
-            <%i+=1%>
-            </div>
-        
-       
-<div class="bot_right">
-	<%if logged_in? && (current_user.events.include?(@event) || current_user.superuser== true) %>
-                <% #if !already_accomplished(@event)
-                  #uncomment if you want an event in the past not to be editable
-                  %>				  
-                <%session[:date_start_day]=@datetime%>
-				 <%= link_to image_tag("/images/icalendar.gif",:border=>0), formatted_space_event_path(@space, @event, :ical), :method => :get, :title=> "Export Ical"%> &nbsp;&nbsp; 
-                                                 
-           
-				<%= link_to image_tag("/images/modify.gif",:border=>0), edit_space_event_path(@space, @event), :method => :get, :title=>"Edit event" %>&nbsp;&nbsp;
-                <%#end%>
-				<%= link_to image_tag("/images/delete.gif",:border=>0), space_event_path(@space, @event), :method => :delete,
-                                         :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event' %>          
-           
-			<%end%><br>
-			</div>
-			
-			<%end%>
-</div>
-<%end%>
-</div>
+			<p>
+  				<b>Place</b>
+  				<%=sanitize @event.place %>
+			</p>
+		<%end%>
+	</div>
 </div>
 
 <%= render :partial=>'shared/calendar'%>

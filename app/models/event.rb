@@ -1,4 +1,11 @@
-
+class Event < ActiveRecord::Base
+    acts_as_content
+    acts_as_taggable
+    alias_attribute :title, :name
+    validates_presence_of :name, :start_date , :end_date,
+                          :message => "must be specified"
+end
+=begin
 class Event < ActiveRecord::Base
   
    has_many :event_datetimes,
@@ -912,4 +919,4 @@ class Event < ActiveRecord::Base
   
 end
 
-
+=end

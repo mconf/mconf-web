@@ -24,12 +24,12 @@ function displaytime(){
 serverdate.setSeconds(serverdate.getSeconds()+1)
 var datestring=montharray[serverdate.getMonth()]+" "+padlength(serverdate.getDate())+", "+serverdate.getFullYear()
 var timestring=padlength(serverdate.getHours())+":"+padlength(serverdate.getMinutes())+":"+padlength(serverdate.getSeconds())
-document.getElementById("servertime").innerHTML=timestring+" "
+//document.getElementById("servertime").innerHTML=timestring+" "
 }
 
-window.onload=function(){
-setInterval("displaytime()", 1000)
-}
+//window.onload=function(){
+//setInterval("displaytime()", 1000)
+//}
 </script>
 <!--
 He eliminado esta línea para quitar el tiempo de Server time ya que hay una función Javascript que busca el span con ese id
@@ -46,8 +46,10 @@ y como no lo encuentra, no muestra el tiempo ahí.
 <br />
 <script type="text/javascript">
 //configuración del calendario:   
-  //the array with the dates to highlight:  
-  <%=EventDatetime.array_calendar%>   
+  //the array with the dates to highlight:
+  //linea quitada por ivan en la adaptacion de los nuevos eventos  
+  //Preguntar a kike. Esto sirve para poner en azul oscuro los días que tengan evento
+ // <EventDatetime.array_calendar>    
 </script>
 <%= javascript_include_tag("calendar_config") %>
 
@@ -59,7 +61,7 @@ var calendar = Calendar.setup(
       firstDay     : 1,
 	  //showsTime    : true,
       dateStatusFunc : ourDateStatusFunc,
-      date         : new Date(<%="'"+@datetime.month.to_s+"/"+@datetime.day.to_s+"/"+@datetime.year.to_s+"'"%>)    
+      date         : new Date(<%="'"+Time.now.month.to_s+"/"+Time.now.day.to_s+"/"+Time.now.year.to_s+"'"%>)    
     }
   );
   <%if @space%>

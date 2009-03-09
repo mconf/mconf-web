@@ -3,8 +3,6 @@
 <script type="text/javascript" src="/javascripts/jscalendar/calendar-setup.js"></script>
   
   <%= javascript_include_tag("calendar_config") %>
-  <%variable_name = "datetime"+@indice.to_s%>
-    <%self.instance_variable_set("@#{variable_name}", @datetime)%>   
 	 
 	 <script>
      function serialize_fields(indice){           
@@ -17,100 +15,42 @@
             return fields.join('&');
         }
    </script>
-	
-	<TR id="time<%=@indice.to_s%>" style="display:table-row">       
-        <TD rowspan=3 class=solo_centrar>
-        		<%=if @datetime
-						 @datetime.start_date.strftime("%W") 
-				end%><br>
-		   <%= link_to_remote(  "Copy next <br> week",                                    
-                                   :update => "event_times",
-                                   :url => copy_next_week_space_events_url(@space),
-                                   :position => "bottom",
-                                   :complete => "esconde_addtime()",
-                                   :with =>  'serialize_fields('+@indice.to_s+')'
-                                   ) %>  
-        </TD>
-                    
-        <TD class=fieldEvent><label for=<%="datetime"+@indice.to_s+"_start_date"%>>Start date:</label></TD>
-        <TD> 
-		    <%if @datetime!=nil%>
-            	<input type="text" name="start_date<%=@indice.to_s%>" id="start_date<%=@indice.to_s%>" value="<%=@datetime.start_date.strftime("%B %e, %Y %H:%M")%>"/>
-			<%else%>
-				<input type="text" name="start_date<%=@indice.to_s%>" id="start_date<%=@indice.to_s%>""/>
-			<%end%>
-				<img src="/images/img.gif" id="f_trigger<%=@indice.to_s%>"
-			     style="cursor: pointer; border: 1px solid red;"
-			     title="Date selector"
-			     onmouseover="this.style.background='red';"
-			     onmouseout="this.style.background=''" />
-				 <script type="text/javascript">
+	<label for="event_start_date">Start date:</label>
+   	<input type="text" name="event[start_date]" id="start_date"/>
+	<img src="/images/img.gif" id="f_trigger<%=@indice.to_s%>"
+	     style="cursor: pointer; border: 1px solid red;"
+	     title="Date selector"
+	     onmouseover="this.style.background='red';"
+	     onmouseout="this.style.background=''" />
+	<script type="text/javascript">
 			     Calendar.setup({
-			        inputField     :    "start_date<%=@indice.to_s%>",
+			        inputField     :    "start_date",
 			        ifFormat       :    "%B %e, %Y %H:%M",
-			        button         :    "f_trigger<%=@indice.to_s%>",
+			        button         :    "f_trigger",
 					showsTime      :    true,
 			        align          :    "Tl",
 			        singleClick    :    false
 			     });
-			     </script>
-        </TD>
-        <TD class=remove_field rowspan=2 width=20% >
-                <span id="remove_time">
-                    <%if @datetime && @datetime.end_date < (Time.now - 60)%>
-	                   Already accomplished <br>	                   
-	                   <a href="#" onClick=<%="remove_time('time#{@indice.to_s}')"%>>Remove</a>
-	                <%elsif @datetime && @datetime.start_date < (Time.now - 60) && @datetime.end_date > Time.now%> 
-	                   Accomplishing now <br>
-	                   <input name="is_accomplising" type="hidden" value=<%=@indice%> >
-                       <input name="hora_inicio_acc" type="hidden" value="" >                       
-                    <%else%>                       
-                       <a href="#" onClick=<%="remove_time('time#{@indice.to_s}')"%>>Remove</a>
-                    <%end-%>
-                                           
-                </span>                
-        </TD>             
-    </TR>
-    <TR id="time<%=@indice.to_s%>bis" style="display:table-row">
-        <TD class=fieldEvent><label for=<%="datetime"+@indice.to_s+"_end_date"%>>End date:</label></TD>
-        <TD >
-        	<%if @datetime!=nil%>
-            	<input type="text" name="end_date<%=@indice.to_s%>" id="end_date<%=@indice.to_s%>" value="<%=@datetime.end_date.strftime("%B %e, %Y %H:%M")%>"/>
-			<%else%>
-				<input type="text" name="end_date<%=@indice.to_s%>" id="end_date<%=@indice.to_s%>"/>
-			<%end%>
-                <img src="/images/img.gif" id="f_trigger_c<%=@indice.to_s%>"
-			     style="cursor: pointer; border: 1px solid red;"
-			     title="Date selector"
-			     onmouseover="this.style.background='red';"
-			     onmouseout="this.style.background=''" />
-				 <script type="text/javascript">
+	</script>
+	<br/>			 
+	<label for="event_end_date">End date:</label></TD>         
+	<input type="text" name="event[end_date]" id="end_date"/>
+    <img src="/images/img.gif" id="f_trigger_c" 
+		 style="cursor: pointer; border: 1px solid red;"
+		 title="Date selector"
+		 onmouseover="this.style.background='red';"
+		 onmouseout="this.style.background=''" />
+	<script type="text/javascript">
 			     Calendar.setup({
-			        inputField     :    "end_date<%=@indice.to_s%>",
+			        inputField     :    "end_date",
 			        ifFormat       :    "%B %e, %Y %H:%M",
-			        button         :    "f_trigger_c<%=@indice.to_s%>",
+			        button         :    "f_trigger_c",
 					showsTime      :    true,
 			        align          :    "Tl",
 			        singleClick    :    false
 			     });
-			     </script>  
-         </TD>
-    </TR> 
-     <TR id="time<%=@indice.to_s%>line"><TD colspan=3>&nbsp;</TD></TR>
-     <%if @array_times.size==0 || (@indice+1)==@array_times.size%>
-        <TR id=<%='add_time'+@indice.to_s%>><TD align=center colspan=4>
-                <span>
-                <%= link_to_remote(  "Add Another",                                    
-                                   :update => "event_times",
-                                   :url => { :action => :add_time , :indice => @indice, :date_start_day => Time.new.strftime("%m/%d/%Y"), :space_id=>@space.name},
-                                   :position => "bottom",
-                                   :complete => "esconde_addtime()" ) %>
-                </span>
-        </TD></TR>
-    <%end-%> 
-        <input name=<%="\"accomplished"+@indice.to_s + "\""%>  type="hidden" value="false" > 
-        <div id=<%="\"is_valid_time" + @indice.to_s + "\""%>>
-            <input name=<%="\"is_valid_time"+@indice.to_s + "\""%>  type="hidden" value="true" >
-        </div>
+	</script>  
+ 
+        
         
    

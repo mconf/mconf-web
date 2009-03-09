@@ -278,7 +278,7 @@ end
    def show_event(event)
     span_title = "<span class= 'event_title'>" + link_to_remote(highlight(name_format(event.name,22,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } ) + "</span>"
     span_description = "<span class= 'event_description'>" + link_to_remote(highlight(name_format(event.description,23,""),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
-    span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.event_datetimes[0].start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
+    span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",18,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
         if logged_in? && (event.authorizes?(current_user, :edit) || event.entry.agent == current_user)
