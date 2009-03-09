@@ -1,0 +1,25 @@
+  <h2><%= t('name') %></h2>
+  <p>
+    <%= form.text_field :name %>
+  </p>
+
+  <h2><%= t('role.stage_type') %></h2>
+  <p>
+  <%= form.select(:stage_type, 
+                  ActiveRecord::Stage.symbols.map{ |st| 
+                    [ I18n.t(st.to_s.singularize), st.to_s.classify ] 
+                  }, 
+                  { :selected => @role.stage_type, :include_blank => true }) %>
+  </p>
+
+  <h2><%= t('permission.other') %></h2>
+  <p>
+  <%= collection_select :role, 
+                        :permission_ids, 
+                        Permission.find(:all).sort, 
+                        :id, 
+                        :title, 
+                        { :selected => @role.permission_ids }, 
+                        { :multiple => true, :name => 'role[permission_ids][]' } -%>
+  </p>
+
