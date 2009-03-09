@@ -36,7 +36,7 @@ class SpacesController < ApplicationController
     @posts = []
     if @space.id == 1
       
-      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'Post'}.first(5)
+#      @posts = get_public_entries.select {|e| e.parent_id == nil && e.content_type == 'Post'}.first(5)
    else
      @space_posts = (Entry.find_all_by_content_type_and_container_id('Post', @space.id, :order => "updated_at DESC")).select {|e| e.parent_id == nil}
      @posts = @space_posts.first(5)
