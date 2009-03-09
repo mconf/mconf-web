@@ -1,11 +1,13 @@
 class Event < ActiveRecord::Base
-    acts_as_content :entry => true
-    acts_as_taggable
-    alias_attribute :title, :name
-    validates_presence_of :name, :start_date , :end_date,
+  belongs_to :space
+  belongs_to :author, :polymorphic => true
+
+  acts_as_resource
+  acts_as_content :reflection => :space
+  acts_as_taggable
+  alias_attribute :title, :name
+  validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
-
-
 
 #method that returns the array to highlight the dates with event
     #the format of the array is: 

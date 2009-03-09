@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090305140444) do
+ActiveRecord::Schema.define(:version => 20090309113706) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20090305140444) do
     t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "post_id"
   end
 
   create_table "categories", :force => true do |t|
@@ -45,23 +46,6 @@ ActiveRecord::Schema.define(:version => 20090305140444) do
     t.binary "data"
   end
 
-  create_table "entries", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "container_id"
-    t.string   "container_type"
-    t.integer  "agent_id"
-    t.string   "agent_type"
-    t.integer  "content_id"
-    t.string   "content_type"
-    t.integer  "parent_id"
-    t.string   "parent_type"
-    t.boolean  "public_read"
-    t.boolean  "public_write"
-  end
-
   create_table "events", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -78,6 +62,9 @@ ActiveRecord::Schema.define(:version => 20090305140444) do
     t.boolean  "public_read"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "space_id"
+    t.integer  "author_id"
+    t.string   "author_type"
   end
 
   create_table "groups", :force => true do |t|
@@ -186,6 +173,10 @@ ActiveRecord::Schema.define(:version => 20090305140444) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reader_id"
+    t.integer  "space_id"
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.integer  "parent_id"
   end
 
   create_table "profiles", :force => true do |t|
