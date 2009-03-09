@@ -8,6 +8,11 @@ class Post < ActiveRecord::Base
   acts_as_taggable
   acts_as_tree :order => 'updated_at DESC'
 
+  named_scope :public, lambda { |arg|
+    { :joins => :space,
+      :conditions => [ 'public = ?', true ] }
+  }
+
   is_indexed :fields => ['text','title'],:concatenate => [
     {:class_name => 'Tag',
      :field => 'name',

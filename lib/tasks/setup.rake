@@ -5,7 +5,7 @@ namespace :setup do
   end
 
   desc "Setup development environment"
-  task :development => [ :production ] do
+  task :development => [ :production, :populate ] do
 
   end
 
