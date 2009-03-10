@@ -90,7 +90,7 @@
 		 		<br/>
 	     		<% @posts.each do |post| %>
 	       			<%if post%>
-	         			<%=show_post(post.entry,@space,"edit","destroy")%> 
+	         			<%=show_post(post,@space,"edit","destroy")%> 
 	       			<%end%>
          		<%end%>
 	   		<%else%>
@@ -98,7 +98,7 @@
 		 		<br/>	
 	     		<% @posts.each do |post| %>
 	       			<%if post%>
-	         			<%=show_post(post.entry,@space,"edit","destroy")%> 
+	         			<%=show_post(post,@space,"edit","destroy")%> 
 	       			<%end%>
          		<%end%>
 			<%end%>

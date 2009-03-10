@@ -70,7 +70,7 @@ class SearchController < ApplicationController
       @query = params[:query]
       @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Event')
       @search.run
-      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
+      @events = @search.results.select{|event| event && event.container == @space}
       
       #@even = Entry.find_all_by_container_id_and_content_type(@space.id, "Event")
       #@total, @results = Event.full_text_search(@query,  :page => (params[:page]||1))          
@@ -96,7 +96,7 @@ class SearchController < ApplicationController
       @query = params[:title]
       @search = Ultrasphinx::Search.new(:class_names => 'Event', :filters => {'name' => @query})
       @search.run
-      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
+      @events = @search.results.select{|event| event && event.container == @space}
       #@total, @events = Event.title_search(@query,  :page => (params[:page]||1))          
       #@pages = pages_for(@total)
     end
@@ -104,7 +104,7 @@ class SearchController < ApplicationController
       @query = params[:description]
       @search = Ultrasphinx::Search.new(:class_names => 'Event', :filters => {'description' => @query})
       @search.run
-      @events = @search.results.select{|event| event.entry && event.entry.container == @space}
+      @events = @search.results.select{|event| event && event.container == @space}
       #@total, @events = Event.description_search(@query,  :page => (params[:page]||1))          
       #@pages = pages_for(@total)
     end
@@ -147,8 +147,8 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Post')
     @search.run
    # @search.results
-    @posts = @search.results.select{|post| post.entry!=nil && post.entry.parent_id == nil}.sort_by{|e| e.updated_at}.reverse
-    #@entries = @posts_entries.map{|post| post.entry}.sort_by{|e| e.updated_at}.reverse
+    @posts = @search.results.select{|post| post!=nil && post.parent_id == nil}.sort_by{|e| e.updated_at}.reverse
+    #@entries = @posts_entries.map{|post| post}.sort_by{|e| e.updated_at}.reverse
     
    # @results = Post.find_by_contents(@query)
    # @pos = @space.container_entries    

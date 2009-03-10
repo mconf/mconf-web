@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
   # or it checks  if the user is an administrator (Filter)
   def owner_su
     evento = Event.find_by_id(params[:id])
-    unless  evento.entry.agent == current_user || current_user.superuser==true
+    unless  evento.agent == current_user || current_user.superuser==true
       user = current_user
       logger.error("ERROR: ATTEMPT TO EDIT AN EVENT THAT DOES NOT BELONG TO HIM")
       logger.error("USER WAS: " + user.login)
@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   
   def get_events
     @events = if @space.id == 1
-              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)}               
+              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| event.public_read == true || (event.container_type == 'Space' && event.container_id == 1)}               
               else
               Event.in_container(@space).all :order => "updated_at DESC"
               end

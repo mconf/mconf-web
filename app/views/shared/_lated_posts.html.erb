@@ -2,7 +2,7 @@
 <%if @posts == nil%>
 No post created
 <%else%>
-	<%@posts.each do |entry|%>
-	<%=show_post(entry,@space,"edit","destroy")%>
+	<%@posts.each do |post|%>
+	<%=show_post(post,@space,"edit","destroy")%>
 	<% end -%>
 <%end%>
