@@ -1,0 +1,35 @@
+
+	
+	<% array_spaces = Space.compone_array_spaces(current_user) 
+
+	-%>	
+	
+		<div id="space_logo"></div>
+		<div id="space-span">
+			<div id="space_p"><p id="round_space"class="main_title">Space:</p></div>
+			<% form_tag("/spaces/show", {:name=>'form',:style => "display: inline;", :method => 'get'}) do %>
+					<%if @space%>
+						<select id="space_id" name="space[id]" class="elegido" onchange="change_space()" selected="<%=@space.name%>">
+							<%for arraycin in array_spaces%>
+							    <%select_space = Space.find_by_name(arraycin[1])%>
+								<%if arraycin[1]==@space.name%>
+									<%if current_user.superuser == true%>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%> </option>
+									<%else%>
+									<option value="<%=arraycin[1]%>"  selected="selected"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],24,"(*)")%><%else%> <%=name_format(arraycin[0],24,"")%><%end%> </option>
+									<%end%>
+								<%else%>
+									<%if current_user.superuser == true%>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],15,"(*)")%><%else%> <%=name_format(arraycin[0],15,"")%><%end%></option>
+									<%else%>
+									<option value="<%=arraycin[1]%>" class="noelegido"><%if select_space!=nil && select_space.public == true && select_space.id !=1 %><%=name_format(arraycin[0],24,"(*)")%><%else%> <%=name_format(arraycin[0],24,"")%><%end%></option>
+									<%end%>
+								<%end%>
+							<%end%>
+						</select>
+					<%else%>
+						<%= select("space", "id", array_spaces,{ :include_blank=>false }, { :onchange => "change_space()" })%>
+					<%end%>						
+			<% end -%>
+	    </div>
+		

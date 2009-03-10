@@ -1,130 +1,27 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
 
-	
-<head>
- 
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="-1">
-  
-  <%=yield(:head)%>
-  
-  <%= javascript_include_tag("prototype", "effects") %>
-  <%= javascript_include_tag("sir") %>
-  <%= javascript_include_tag 'fckeditor/fckeditor' %>
-  <%= javascript_include_tag 'shadedborder' %>
-  <title><%= 'Virtual Conference Centre' %></title>
-  <%= stylesheet_link_tag 'sir_global2' %>
-  <%= stylesheet_link_tag 'estilosir3' %>
-  <%= stylesheet_link_tag 'grids' %>
-  <%= stylesheet_link_tag 'reset-fonts-grids' %>
-  <%= stylesheet_link_tag 'calendar-blue' %>
-  <%= calendar_date_select_includes "global" %>
- 
-  
-  <script language="javascript" type="text/javascript">
-   var myBorder = RUZEE.ShadedBorder.create({ corner:10, border:1, edges:"tlr" });
-   var myBorder2 = RUZEE.ShadedBorder.create({ corner:10, border:1, edges:"tlbl" });
-   var myBorder3= RUZEE.ShadedBorder.create({ corner:10, border:1});
-  </script>
-  
-</head>
-
-<body >
-	
-	<div id="doc2" class="yui-t8">
-		
-		<div id="hd">	
-		<div id="logo_fondo"></div>
-			<div id="logo">
-				<%if (!@space_thumbnail)%>
-				<%=image_tag("gp-logo.jpg")%>
-				<%else%>
-				<%=image_tag(space_logotype_path(@space, :thumbnail => @space_thumbnail)) if @space_thumbnail%>
-				<%end%>
-				
-			</div>
-			
-			<div id="login-users">
-			 	<%= render :partial => 'layouts/login', :layout => false%>
-			</div>
-			<div id="logo_text"><p class="main_title">GLOBAL - Virtual Conference Centre</p></div>
-			
-			<div id="linea"></div>	
-				
-			<div id="space_container">
-				<%= render :partial => 'layouts/space', :layout => false %>
-			</div>		
-				
-			<div id="menu_tabs">
-				<%if @space!=nil %>
-					<div id="border2"></div>
-					<%= render :partial => 'layouts/buttons', :layout => false%>	
-					<%= render :partial => 'layouts/secondary_buttons', :layout => false%>
-					<div id="border"></div>
-				<%else%>
-					<%session[:current_tab]=""%>
-					<%= render :partial => 'layouts/buttons', :layout => false%>	
-				<%end%>	
-			</div>
-			
-		</div>
- 
-   		<div id="bd">
-	         <% if flash[:notice] -%>
-	        	<div id="notice" style="color: green"><%= flash[:notice] %></div>
-	        	<% end -%>
-				<% if flash[:error] -%>
-	        	<div id="notice" style="color: green"><%= flash[:error] %></div>
-	        	<% end -%>
-				<% if flash[:warning] -%>
-	         	<div id="notice" style="color: red"><%= flash[:warning] %></div>
-	        	<% end -%>
-			    <% if flash[:info] -%>
-	         	<div id="notice" style="color: green"><%= flash[:info] %></div>
-	        	<% end -%>
-	        	<%= @content_for_layout %>   
-   		</div>
-	    
-   		<div id="ft">
-			<a href="/">Home</a><span>&nbsp;|</span> <%= mail_to "enrique.barra@agora-2000.com", "Report Feedback"%>
-			<!--<a href="/">Site map</a> | <a href="/">Faq</a> | <a href="/">About</a> | <%= link_to 'Report Feedback', "/spaces/2/posts/new"  , :method=> 'get'%>-->
-   		</div>  
-
- 
-  </div>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title><%= yield :title %></title>
+    <link href="/favicon.ico" rel="shortcut icon" />
     
-	<script language="javascript" type="text/javascript">
-		
-		myBorder2.render('space_p');
-		myBorder.render('round_button');
-	    myBorder.render('round_button2');
-		myBorder.render('round_button3');
-		myBorder.render('round_button4');
-		myBorder.render('round_button5');
-		myBorder.render('round_button6');
-		
-		if (document.getElementById("round_button7")==null) {
-			myBorder3.render('card');
-			
-		}
-	    else{
-			myBorder.render('round_button7');
-			myBorder3.render('card');
-		}
-	   
-	   
-  </script>
-  <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-    try {
-      var pageTracker = _gat._getTracker("UA-5548134-2");
-      pageTracker._trackPageview();
-     } catch(err) {}</script>  
-</body>
+		<%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+		<%= stylesheet_link_tag "style", :media => "screen, projection" %>
+		<%= stylesheet_link_tag "print", :media => "print" %>
+    <!--[if IE]> 
+      <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+    <![endif]-->
+	</head>
 
+	<body>
+	  
+	  <div id="site" class="container showgrid">
+		  <%= render :partial => "layouts/header" %>
+		  <%= render :partial => "layouts/navigation" %>
+		  <%= yield %>
+		  <%= render :partial => "layouts/footer" %>
+	  </div>
+	</body>
 </html>

@@ -1,0 +1,59 @@
+
+<div id="buttons">
+
+<% if logged_in? %>
+	
+	     <ul id="nav">
+		 	<%= nav_tab "Home", { :url => space_path(@space), :id=>'round_button'} %>
+		 	<%= nav_tab "Profile", { :url => user_profile_path(current_user), :id=>'round_button2'} %>
+		    <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button3'} %>
+		 	<%= nav_tab "News", { :url => space_posts_path(@space), :id=>'round_button4'} %>
+		 	<%if @space && @space.id!=1%>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
+				<%if @space && @space.authorizes?(current_user, [:update, Performance] )%>
+		 		<%= nav_tab "Groups", { :url =>  space_groups_path(@space), :id=>'round_button6'} %>
+				<%else%>
+				<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button6'} %>
+				<%end%>
+		 	<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button5'} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button6'} %>
+			<%end%>
+			
+			<%if current_user.superuser==true%>
+
+				<%= nav_tab "Manage", :url => spaces_path(:manage=>true), :id=>'round_button7' %>		 	
+
+			<%end%>
+	     
+		 </ul>
+	 
+  
+<% elsif @space%>
+	 <ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path(@space), :id=>'round_button'} %>
+		     <%= nav_tab "Events", { :url => space_events_path(@space), :id=>'round_button2'} %>
+		 	<%= nav_tab "News", { :url => space_posts_path(@space), :id=>'round_button3'} %>
+			<%if @space.id!=1%>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button4'} %>
+
+			<%else%>
+				<%= nav_tab "People", { :url => space_users_path(@space), :id=>'round_button4'} %>
+		 		<%= nav_tab "Spaces", { :url =>  spaces_path, :id=>'round_button5'} %>
+		 	<%end%>
+	 </ul>
+
+
+  <%else%>
+	<ul id ="nav">
+      	    <%= nav_tab "Home", { :url => space_path("Public"),:id=>'round_button'} %>
+		    <%= nav_tab "Events", { :url => space_events_path("Public"), :id=>'round_button2'} %>
+		 	<%= nav_tab "News", { :url => {:controller=>'posts', :action=>'index', :space_id => "Public"}, :id=>'round_button3'} %>
+  </ul>
+
+  
+
+<% end %>
+
+</div>
+<div id="line"></div>

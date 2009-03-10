@@ -1,0 +1,61 @@
+
+<div id="secondary_buttons" class="tips">
+	
+	    <%if logged_in? && current_user.superuser==true && session[:current_tab]=="Manage"%>
+<ul id="nav2">
+	 		<%= sub_tab "Spaces", spaces_path(:manage => true) %> |
+			<%= sub_tab "Readers", space_readers_path(@space) %> |
+			<%= sub_tab "Site", edit_site_path() %> |
+			<%= sub_tab "Roles", roles_path() %> |
+			<%= sub_tab "Users", space_users_path(@space, :manage => true) %> |
+		    <%= sub_tab "Resources", machines_path %>
+</ul>	
+		<%elsif  logged_in? &&  current_user.superuser==true && session[:current_tab]=="Home"%>
+<ul id="nav2">
+			<%= sub_tab "Edit Space", edit_space_path(@space) %> |		
+			<li><%= link_to "Delete Space", space_path(@space), :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %></li>
+</ul>	
+		<%elsif session[:current_tab]=="Events"%>
+<ul id="nav2">
+			<%if logged_in?%><%= sub_tab "New Event", new_space_event_path(@space) %> | <%end%>	
+			  <%if params[:view_all]%>
+			    <%= sub_tab "Events Coming", space_events_path(@space) %>  |
+			  <%else%>
+			    <%= sub_tab "View All", space_events_path(@space, :view_all => true) %>  |
+			  <%end%>
+			<%= sub_tab "Show Calendar", space_events_path(@space, :date_start_day => Date.today) %>	| 
+
+			<%= sub_tab 'RSS Feed', formatted_space_events_path(@space, "atom")  %>
+</ul>	
+		<%elsif logged_in? && session[:current_tab]=="Groups"%>
+<ul id="nav2">
+			<%if @space.authorizes?(current_user, [:update, Performance])%>
+				<%= sub_tab 'Create Group', new_space_group_path(@space)%>
+			<%end%>
+</ul>	
+		<%elsif logged_in? && session[:current_tab]=="Profile"%>
+	<ul id="nav2">
+			<%= sub_tab 'Edit Your Profile', edit_user_profile_path(current_user)%> |
+			<%= sub_tab 'Edit Your Account' , edit_space_user_path(@space, current_user.id)%>
+</ul>	
+		<%elsif logged_in? && session[:current_tab]=="People"%>
+			<%if @space.authorizes?(current_user, [:create, :Performance]) && @space.id != 1%>
+		<ul id="nav2">
+			    <%= sub_tab 'Add Users by email', new_space_invitation_path(@space) %> | 
+				<%= sub_tab 'Add Users from App', new_space_performance_path(@space) %>
+				</ul>	
+				<%end%>
+
+		<%elsif  session[:current_tab]=="News"%>
+<ul id="nav2">
+				<%if logged_in? && @space.authorizes?(current_user, [ :create, :Content ])%><%= sub_tab 'New Post', new_space_post_path(@space) %> | <%end%>
+				<%= sub_tab 'RSS Feed', formatted_space_posts_path(@space, "atom")  %> 
+				</ul>	
+				<%elsif  session[:current_tab]=="Spaces"%>
+<ul id="nav2">
+				<%if logged_in?%><%= sub_tab 'New Space', new_space_path %> | <%end%>
+				<%= sub_tab 'RSS Feed', formatted_spaces_path( "atom")  %> 
+				</ul>	
+		<%end%>
+
+</div>
