@@ -8,9 +8,10 @@ namespace :setup do
 
     Space.populate 20 do |space|
       space.name = Populator.words(1..3).titleize
+      space.public = [ true, false ]
 
       Post.populate 10..100 do |post|
-        post.space_id = space
+        post.space_id = space.id
         post.title = Populator.words(1..4).titleize
         post.text = Populator.sentences(3..15)
         post.created_at = 2.years.ago..Time.now
