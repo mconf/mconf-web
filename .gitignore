@@ -1,5 +1,7 @@
-/index
-/.project
-/.loadpath
-/log
-/*kpf
+.DS_Store
+index
+.project
+.loadpath
+log
+*kpf
+tmp/*
