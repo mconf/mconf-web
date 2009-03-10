@@ -98,8 +98,8 @@ def sub_tab(name, ruta)
   end
 end
 
- def get_attachment_content_type(entry)
-  type = Attachment.find(entry.content_id).content_type
+ def get_attachment_content_type(attachment)
+  type = attachment.content_type
   return type
 end
 
@@ -130,17 +130,17 @@ end
     end
   end
   
-  def show_post(entry,space,*args) #return a compress view of a entry post
-  usuario = entry.agent
-  number_comments= " (" + get_number_children_comments(entry).to_s + ")"
+  def show_post(post,space,*args) #return a compress view of a post
+  usuario = post.agent
+  number_comments= " (" + post.children.size.to_s + ")"
   if usuario
     user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
   else
     user = "nonexistent"
   end
  # user += (usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile
-  tags = "[" + entry.content.tag_list + "]"
-  fecha = get_format_date(entry)
+  tags = "[" + post.tag_list + "]"
+  fecha = get_format_date(post)
   if usuario == current_user && usuario.profile.nil?    
     user_link = to_user_link(name_format(user,15,""),usuario,space)
   elsif usuario.profile && usuario.profile.authorizes?(current_user,:read) && logged_in?
@@ -149,19 +149,19 @@ end
     user_link = name_format(user,15,"")
   end
   san = HTML::FullSanitizer.new
-  entry.content.text = san.sanitize(entry.content.text)
-  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_post_link(number_comments,space,entry) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_post_link(name_format(entry.content.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,entry)).to_s + "</span><span class = 'description'>" + to_post_link(name_format2(": "+ entry.content.text ,(63 - entry.content.title.to_s.length - tags.to_s.length) ,"</p>"),space,entry).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_post_link(fecha.to_s,space,entry) + "</span> " 
-  image = "<span class = 'clip'>" + (to_post_link((image_tag("clip2.gif")),space,entry) unless entry.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
+  post.text = san.sanitize(post.text)
+  line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_post_link(number_comments,space,post) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_post_link(name_format(post.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,post)).to_s + "</span><span class = 'description'>" + to_post_link(name_format2(": "+ post.text ,(63 - post.title.to_s.length - tags.to_s.length) ,"</p>"),space,post).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_post_link(fecha.to_s,space,post) + "</span> " 
+  image = "<span class = 'clip'>" + (to_post_link((image_tag("clip2.gif")),space,post) unless post.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
   edita = ""
   delete = ""
   args.each do |arg|  # obtengo los argumentos variables
-  if entry.content.authorizes?(current_user, :update) && arg == "edit"
-     edita = link_to(image_tag("edit16.png"),edit_space_post_path(@space, entry.content), :title=>"Edit Post").to_s
-     # iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_post_path(@space, entry.content), :title=>"Edit Post").to_s + "</span> "
+  if post.authorizes?(current_user, :update) && arg == "edit"
+     edita = link_to(image_tag("edit16.png"),edit_space_post_path(@space, post), :title=>"Edit Post").to_s
+     # iconos += "<span class = 'mini_image'>" + link_to(image_tag("modify.gif"),edit_space_post_path(@space, post), :title=>"Edit Post").to_s + "</span> "
     end
-  if entry.content.authorizes?(current_user, :delete) &&  arg == "destroy"
-      delete = link_to(image_tag("delete16.png"), space_post_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
-      #iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_post_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
+  if post.authorizes?(current_user, :delete) &&  arg == "destroy"
+      delete = link_to(image_tag("delete16.png"), space_post_path(@space, post), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s
+      #iconos += "<span class = 'clip'>" + link_to(image_tag("delete.gif"), space_post_path(@space, post), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post").to_s + "</span>" 
    end
   end
   
@@ -173,8 +173,8 @@ end
     
   end
   
-  def get_format_date(entry)
-    updated_time = entry.updated_at
+  def get_format_date(post)
+    updated_time = post.updated_at
     if updated_time.to_date == Time.now.to_date
       return updated_time.to_time.to_formatted_s(:time)
     else 
@@ -182,10 +182,6 @@ end
     end
   end
   
-   def get_number_children_comments(entry)
-  return entry.children.select{|c| c.content.is_a? Post}.size
-end
-
  
   def size_post(number, limit, other_size)
     if other_size > limit
@@ -199,8 +195,8 @@ end
     return link_to(name,user_profile_path(usuario, :space_id => space.name))
   end
   
-    def to_post_link (name,space,entry)
-    return link_to(sanitize(name), polymorphic_path([space, entry.content]))
+    def to_post_link (name,space,post)
+    return link_to(sanitize(name), polymorphic_path([space, post]))
   end
   
   def generate_user_table
@@ -281,7 +277,7 @@ end
     span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",18,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
-        if logged_in? && (event.authorizes?(current_user, :edit) || event.entry.agent == current_user)
+        if logged_in? && (event.authorizes?(current_user, :edit) || event.agent == current_user)
     span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/calendar16.png"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/edit16.png"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete16.png"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
         else
     span_actions = "<span class= 'event_actions_no_images'></span>"
@@ -306,9 +302,9 @@ end
     return line
   end
   
-  def show_latest_news(entry,space)
-    span_title= "<span class= 'sidebar_news_title'> - " + link_to((name_format2(entry.content.title.to_s,25,"")),space_post_path(space,entry.content))   + " </span> <br/>"
-    span_description = "<span class= 'sidebar_news_description'>" + link_to((name_format2(entry.content.text.to_s,25,"")),space_post_path(space,entry.content)) + "</span><br/>"
+  def show_latest_news(post,space)
+    span_title= "<span class= 'sidebar_news_title'> - " + link_to((name_format2(post.title.to_s,25,"")),space_post_path(space,post))   + " </span> <br/>"
+    span_description = "<span class= 'sidebar_news_description'>" + link_to((name_format2(post.text.to_s,25,"")),space_post_path(space,post)) + "</span><br/>"
     
     line =  span_title  + "&nbsp; "  +  span_description
     return line

@@ -29,8 +29,8 @@ class PostsController < ApplicationController
     @title ||= "News - #{ @space.name }"
   #Estas 3 líneas lo que hacen es meter en @posts lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
     @posts =(@space.id == 1 ?
-      Post.in_container(nil).find(:all,:conditions => {"entries.parent_id" => nil, "entries.public_read" => true}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
-      Post.in_container(@space).find(:all, :conditions => {"entries.parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]))       
+      Post.in_container(nil).public().find(:all,:conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
+      Post.in_container(@space).find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]))       
             
     if params[:expanded] == "true"
        respond_to do |format|
@@ -108,7 +108,7 @@ class PostsController < ApplicationController
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if post has attachments....
           @attachment = Attachment.new(params[:"attachment#{i}"])
           @attachments << @attachment #almacena referencias de los Attachments nuevos que se están creando
       end
@@ -179,7 +179,7 @@ class PostsController < ApplicationController
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if entry has attachments....
+      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if post has attachments....
         @attachment = Attachment.new(params[:"attachment#{i}"]) 
         @attachments << @attachment
       end
@@ -230,7 +230,7 @@ class PostsController < ApplicationController
   # Delete this Entry
   #   DELETE /spaces/:id/posts/:id --> :method => delete
   def destroy
-   #destroy de content of the entry. Then its container(entry) is destroyed automatic.
+   #destroy de content of the post. Then its container(post) is destroyed automatic.
    @post.destroy 
     respond_to do |format|
       format.html { redirect_to space_posts_path(@container) }

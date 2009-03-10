@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     if params[:date_start_day]
        @start_day = Date.parse(params[:date_start_day])
        @events = if @space.id == 1
-              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| (event.entry.public_read == true || (event.entry.container_type == 'Space' && event.entry.container_id == 1)) && event.start_date.to_date == @start_day}               
+              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| (event.public_read == true || (event.container_type == 'Space' && event.container_id == 1)) && event.start_date.to_date == @start_day}               
               else
               (Event.in_container(@space).all :order => "updated_at DESC").select{|event| event.start_date.to_date == @start_day}
               end

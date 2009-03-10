@@ -24,24 +24,23 @@
 	</div>
   <%end%>
   <% for post in @posts -%>
-	<%if post.entry.parent_id == nil%>
-	  <%entry = post.entry%>
+	<%if postparent_id == nil%>
 	  <% rounded() do %>
 		<div>
-    	  <% user = User.find(entry.agent_id)%>
+    	  <% user = post.author%>
 	 
-    	  Post :: <%=link_to(sanitize(entry.title), space_post_path(@space, entry.content)) %> (<%= get_number_children_comments(entry) %>), at <%= entry.created_at.strftime("%d-%m-%Y") %> by <%= User.find(entry.agent_id).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=entry.tag_list%> <br>
+    	  Post :: <%=link_to(sanitize(post.title), space_post_path(@space, post)) %> (<%= post.children.size.to_s %>), at <%= post.created_at.strftime("%d-%m-%Y") %> by <%= User.find(post.author).login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%> Tags: <%=post.tag_list%> <br>
 
-		  <%@attachment_children = get_attachment_children(entry)%>
+		  <%@attachment_children = post.attachment%>
 		  <%for children in @attachment_children -%>
 		  <%= render :partial =>'attachment' , :locals => {:children => children}%>
 		  <br/>
 	  	  <%end%>
-  		  Description: <%= entry.description%><br>
+  		  Description: <%= post.description%><br>
 	
-		  <%if entry.content.authorizes?(current_user, :update)%><%= link_to(image_tag("edit16.png"),edit_space_post_path(@space, entry.content), :title=>"Edit Post") %><%end%> 
-   		  <%if entry.content.authorizes?(current_user, :delete)%><%= link_to(image_tag("delete16.png"), space_post_path(@space, entry.content), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post") %><%end%> 
-   		  <%= link_to 'Comments', "#{ space_post_path(entry.container,entry.content)}#comments" %>
+		  <%if post.authorizes?(current_user, :update)%><%= link_to(image_tag("edit16.png"),edit_space_post_path(@space, post), :title=>"Edit Post") %><%end%> 
+   		  <%if post.authorizes?(current_user, :delete)%><%= link_to(image_tag("delete16.png"), space_post_path(@space, post), :confirm => 'Are you sure?', :method => :delete, :title=>"Delete Post") %><%end%> 
+   		  <%= link_to 'Comments', "#{ space_post_path(@space,post)}#comments" %>
 		  <br/>
 		</div>
 	  <% end -%>

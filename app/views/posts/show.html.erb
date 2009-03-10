@@ -19,11 +19,9 @@
       <%= @post.tag_list %>
       </p>
     <% end %>
-    <%for children in @attachment_children -%>
-	  <%if children.content_type == "Attachment"%>
-	    <%= render :partial =>'attachment' , :locals => {:children => children}%>
-	    <br/>
-	  <%end%>
+    <%for children in @post.attachments -%>
+	  <%= render :partial =>'attachment' , :locals => {:children => children}%>
+	  <br/>
     <%end%>
 
     <br>
@@ -42,14 +40,14 @@
 <div style="display: none;">
   <% rounded() do %>
     <%if @errors==true%>
-	  <% unless error_messages_for(:content).blank? && error_messages_for(:entry_).blank?  -%>
+	  <% unless error_messages_for(:content).blank? && error_messages_for(:post_).blank?  -%>
         <div>
           <%= error_messages_for :content %>
-          <%= error_messages_for :entry_ %>
+          <%= error_messages_for :post_ %>
         </div>
       <% end -%>
     <%end%>
-    <%parent_id = @post.entry.id%>
+    <%parent_id = @post.parent_id%>
     <% @post = nil %>
     <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f|-%>
       <p>

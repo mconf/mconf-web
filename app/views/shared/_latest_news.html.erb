@@ -1,7 +1,7 @@
 <%if @posts == nil%>
 No post created
 <%else%>
-	<%@posts.each do |entry|%>
-	<%=show_latest_news(entry,@space)%>
+	<%@posts.each do |post|%>
+	<%=show_latest_news(post,@space)%>
 	<% end -%>
 <%end%>

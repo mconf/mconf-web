@@ -1,0 +1,35 @@
+<%if (!@today_events || @today_events.empty?) && (!@tomorrow_events || @tomorrow_events.empty?) && (!@coming_events || @coming_events.empty?)%>
+<%= "No Coming events" %>
+<%else %>
+  <%=generate_event_table%> 
+	<%if !@today_events.empty?%>
+		<h2>Today Events</h2>
+			<% @today_events.each do |event| %>				
+			  <%if event.start_date.future?%>
+				<div class="summary">
+    			  <%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				</div>
+			  <%end%>
+			<%end %>
+		<br/>	
+	<%end %>
+	<%if !@tomorrow_events.empty?%>
+		<h2>Tomorrow Events</h2>
+			<% @tomorrow_events.each do |event| %>
+				<div class="summary">
+    				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				</div>
+			<%end %>
+		<br/>	
+	<%end %>
+	<%if !@coming_events.empty?%>
+		<h2>Coming Events</h2>
+			<% @coming_events.each do |event| %>
+				<div class="summary">
+    				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
+				</div>
+			<%end %>
+			<br/>
+	<%end %>
+	
+<%end %>

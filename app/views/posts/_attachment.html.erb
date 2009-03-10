@@ -1,5 +1,5 @@
 <!--Este parcial coge el tipo de contenido del attachment y elige el logo a mostrar --> 
  	
-<%content_type = get_attachment_content_type(children)%>
+<%content_type = children.content_type%>
 <%image = get_attachment_image(content_type)%>
-	<%= image_tag(image)%> <%=children.content.size/1024%> Kb  <%= link_to "Download" , formatted_space_attachment_path(children.container,children.content,:all), :id => "download" %> 
+	<%= image_tag(image)%> <%=children.size/1024%> Kb  <%= link_to "Download" , formatted_space_attachment_path(children.post.space,children,:all), :id => "download" %> 
