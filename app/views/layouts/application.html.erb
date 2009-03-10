@@ -18,10 +18,27 @@
 	<body>
 	  
 	  <div id="site" class="container showgrid">
-		  <%= render :partial => "layouts/header" %>
-		  <%= render :partial => "layouts/navigation" %>
-		  <%= yield %>
-		  <%= render :partial => "layouts/footer" %>
+		  <div id="header" class="span-24 last">
+		    <%= render :partial => "layouts/header" %>
+		  </div>
+		  
+		  <div id="navigation" class="span-24 last">
+		    <%= render :partial => "layouts/navigation" %>
+		  </div>
+		  
+		  <div id="content" class="span-24 last">
+		    <div id="main" class="span-18">
+		      <%= yield %>
+		    </div>
+		    
+		    <div id="sidebar" class="span-6 last">
+		      <%= yield :sidebar %>
+		    </div>
+		  </div>
+		  
+		  <div id="footer" class="span-24 last">
+		    <%= render :partial => "layouts/footer" %>
+		  </div>    
 	  </div>
 	</body>
 </html>
