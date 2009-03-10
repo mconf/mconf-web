@@ -14,20 +14,18 @@ class User < ActiveRecord::Base
   validates_presence_of :email
 
   acts_as_container
-
   acts_as_taggable
 
   has_one :profile
   has_many :invitations, :foreign_key => :email
-
+  has_many :events, :as => :author
+  has_and_belongs_to_many :groups
+  
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :superuser, :disabled
   
-  has_many :participants
-  has_and_belongs_to_many :events 
-  has_and_belongs_to_many :machines
-  has_and_belongs_to_many :groups
+  
   
    is_indexed :fields => ['login','email'],
 :include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
@@ -46,14 +44,14 @@ def <=>(user)
 end
 
 def lastname
-  
-return self.profile.lastname if self.profile
+  profile ? profile.lastname : ""
 end
+
 def organization
-return self.profile.organization if self.profile
+  profile ? profile.organization : ""
 end
 
-
+#this method let's the user to login with his e-mail
   def self.authenticate_with_login_and_password(login, password)
     u = find_by_login(login) # need to get the salt
     unless u
@@ -62,16 +60,6 @@ end
     u && u.password_authenticated?(password) ? u : nil
   end
   
-   
- #returns a javascript array of all users
- def self.print_array_of_all_users
-    temp = ""
-    for user in User.find(:all)
-      temp = temp + "\"" + user.login + "\", "
-    end
-    temp.chop.chop   #removes the last character, in this case the last space and the last comma
-   
- end
  
  def self.atom_parser(data)
 
