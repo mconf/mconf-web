@@ -52,21 +52,21 @@ class Init < ActiveRecord::Migration
     end
 
     create_table :events, :force => true do |t|
-      t.string   :name
-      t.string   :description
-      t.string   :place
-      t.boolean  :isabel_event
-      t.datetime :start_date
-      t.datetime :end_date
-      t.integer  :machine_id
-      t.string   :colour , :default => ""
-      t.string   :repeat
-      t.integer  :at_job
-      t.integer  :parent_id
-      t.boolean  :character
-      t.boolean  :public_read
-      t.datetime :created_at
-      t.datetime :updated_at
+      t.string   "name"
+      t.string   "description"
+      t.string   "place"
+      t.boolean  "isabel_event"
+      t.datetime "start_date"
+      t.datetime "end_date"
+      t.integer  "machine_id"
+      t.string   "colour" , :default => ""
+      t.string   "repeat"
+      t.integer  "at_job"
+      t.integer  "parent_id"
+      t.boolean  "character"
+      t.boolean  "public_read"
+      t.datetime "created_at"
+      t.datetime "updated_at"
     end
 
     create_table "groups", :force => true do |t|
@@ -276,36 +276,36 @@ class Init < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :attachments
-    drop_table :categories
-    drop_table :categorizations
-    drop_table :db_files
-    drop_table :entries
-    drop_table :events
-    drop_table :groups
-    drop_table :groups_users
-    drop_table :invitations
-    drop_table :logotypes
-    drop_table :machines
-    drop_table :machines_users
-    drop_table :open_id_associations
-    drop_table :open_id_nonces
-    drop_table :open_id_ownings
-    drop_table :open_id_trusts
-    drop_table :performances
-    drop_table :permissions
-    drop_table :permissions_roles
-    drop_table :posts
-    drop_table :profiles
-    drop_table :readers
-    drop_table :roles
-    drop_table :simple_captcha_data
-    drop_table :singular_agents
-    drop_table :sites
-    drop_table :spaces
-    drop_table :taggings
-    drop_table :tags
-    drop_table :uris
-    drop_table :users
+    drop_table "attachments"
+    drop_table "categories"
+    drop_table "categorizations"
+    drop_table "db_files"
+    drop_table "entries"
+    drop_table "events"
+    drop_table "groups"
+    drop_table "groups_users"
+    drop_table "invitations"
+    drop_table "logotypes"
+    drop_table "machines"
+    drop_table "machines_users"
+    drop_table "open_id_associations"
+    drop_table "open_id_nonces"
+    drop_table "open_id_ownings"
+    drop_table "open_id_trusts"
+    drop_table "performances"
+    drop_table "permissions"
+    drop_table "permissions_roles"
+    drop_table "posts"
+    drop_table "profiles"
+    drop_table "readers"
+    drop_table "roles"
+    drop_table "simple_captcha_data"
+    drop_table "singular_agents"
+    drop_table "sites"
+    drop_table "spaces"
+    drop_table "taggings"
+    drop_table "tags"
+    drop_table "uris"
+    drop_table "users"
   end
 end
