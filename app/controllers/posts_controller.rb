@@ -29,21 +29,13 @@ class PostsController < ApplicationController
     @title ||= "News - #{ @space.name }"
   #Estas 3 líneas lo que hacen es meter en @posts lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
     @posts =(@space.id == 1 ?
-      Post.in_container(nil).public().find(:all,:conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
+      Post.in_container(nil).public(nil).find(:all,:conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
       Post.in_container(@space).find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]))       
-            
-    if params[:expanded] == "true"
-       respond_to do |format|
-         format.html {render :template => "posts/index2"}
-         format.atom
-         format.xml { render :xml => @posts }
-       end
-    else
+    
       respond_to do |format|
         format.html 
         format.atom 
         format.xml { render :xml => @posts }
-      end
     end
   end
 

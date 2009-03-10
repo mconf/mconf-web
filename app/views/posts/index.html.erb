@@ -20,12 +20,16 @@
   </div>	
   <br/><br/> 
   <% for post in @posts -%>
-	<%if post.parent_id == nil%>
-	
-		<div>
-    	  <%=show_post(post,@space,"edit","destroy")%> 
+  
+  		<%=post.title%>   Updated <%=time_update(post)%>
+		<div> 
+			<%=post.text%>
+			<%for comment in post.children%>
+			  <p><%=comment.text%></p>
+			<%end%>
+    	  <%show_post(post,@space,"edit","destroy")%> 
 		</div>
-	<% end -%>
+		</br>
   <% end -%>
   <%= will_paginate @posts %>
 <% end -%>

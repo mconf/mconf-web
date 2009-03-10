@@ -1,6 +1,5 @@
 <% rounded() do %>
-  <div>
-		
+  <div>		
     <p>
       <b>Title:</b>
       <%=sanitize @post.title %>
@@ -37,18 +36,13 @@
 	</div>
   </div>
 <%end%>
-<div style="display: none;">
+<%if @post.authorizes?(current_user, [:create, :Content])%>
+<div>
   <% rounded() do %>
-    <%if @errors==true%>
-	  <% unless error_messages_for(:content).blank? && error_messages_for(:post_).blank?  -%>
-        <div>
-          <%= error_messages_for :content %>
-          <%= error_messages_for :post_ %>
-        </div>
-      <% end -%>
-    <%end%>
-    <%parent_id = @post.parent_id%>
+    <%parent_id = @post.id%>
+	<%@old_post = @post%>
     <% @post = nil %>
+	New Comment
     <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f|-%>
       <p>
       <b>Title</b><br />
@@ -66,11 +60,7 @@
       <%= submit_tag "Create" %>
     <% end -%>
   <%end%>
-</div>
-
-<%if @errors == true%>
-<!-- aqui habia un javascript antes-->
-  <%@errors = false%>
+</div>		
 <%end%>
 
 <% div_for :comment_children do %>

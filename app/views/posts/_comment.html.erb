@@ -1,9 +1,9 @@
 <!--Esta vista muestra cómo se ve un comentario -->
 <% rounded() do %>
-  <%user = User.find(comment.agent_id)%>
+  <%user = @old_post.author%>
   comment created at <%= comment.created_at.strftime("%d-%m-%Y") %>  by <%= user.login unless user.profile%><%= user.profile.name if user.profile%> <%= user.profile.lastname if user.profile%><br>
   <b><%= sanitize comment.title%></b><br />
-  <%= sanitize comment.content.text %>
+  <%= sanitize comment.text %>
 
   <%comment_children = comment.children%>
   <%for children in comment_children -%>

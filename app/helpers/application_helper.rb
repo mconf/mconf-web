@@ -131,7 +131,7 @@ end
   end
   
   def show_post(post,space,*args) #return a compress view of a post
-  usuario = post.agent
+  usuario = post.author
   number_comments= " (" + post.children.size.to_s + ")"
   if usuario
     user = (usuario.login unless usuario.profile).to_s + ((usuario.profile.name + " " +  usuario.profile.lastname) if usuario.profile).to_s
@@ -151,7 +151,7 @@ end
   san = HTML::FullSanitizer.new
   post.text = san.sanitize(post.text)
   line_one = ("<div class='post'><p><span class = 'first_Column'>"+ user_link  + to_post_link(number_comments,space,post) + ":</span><span class = 'second_Column'><span class = 'tags_column'>" + name_format(tags,21,"]")+ "</span><span id = 'post_title_list'>"  + to_post_link(name_format(post.title.to_s ,(size_post(38,21,tags.to_s.length)) ,""),space,post)).to_s + "</span><span class = 'description'>" + to_post_link(name_format2(": "+ post.text ,(63 - post.title.to_s.length - tags.to_s.length) ,"</p>"),space,post).to_s  + "</span>" +"</span><span class = 'third_Column'>" + to_post_link(fecha.to_s,space,post) + "</span> " 
-  image = "<span class = 'clip'>" + (to_post_link((image_tag("clip2.gif")),space,post) unless post.children.select{|c| c.content.is_a? Attachment} == []).to_s + "</span>"
+  image = "<span class = 'clip'>" + (to_post_link((image_tag("clip2.gif")),space,post) unless post.attachments).to_s + "</span>"
   edita = ""
   delete = ""
   args.each do |arg|  # obtengo los argumentos variables
@@ -277,7 +277,7 @@ end
     span_start_date= "<span class= 'event_start_date'>" +  link_to_remote(event.start_date.to_formatted_s(:short), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     span_tags = "<span class= 'event_tags'>" + link_to_remote(highlight(name_format("[" + event.tag_list + "]",18,"]"),@query), { :url => formatted_space_event_url(@space, event, "js"), :method => "get"  } )  + "</span>"
     
-        if logged_in? && (event.authorizes?(current_user, :edit) || event.agent == current_user)
+        if logged_in? && (event.authorizes?(current_user, :edit) || event.author == current_user)
     span_actions = "<span class= 'event_actions'>" + link_to(image_tag("/images/calendar16.png"), formatted_space_event_path(@space, event, "ical"), :title=> "Export Ical") + link_to(image_tag("/images/edit16.png"), edit_space_event_path(@space, event), :title=>"Edit event") + link_to(image_tag("/images/delete16.png"), space_event_path(@space, event), :method => :delete, :confirm => "This action will delete the whole event, not only this datetime.\n Are you sure?", :title=>'Delete event')+"</span>"
         else
     span_actions = "<span class= 'event_actions_no_images'></span>"
