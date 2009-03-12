@@ -1,6 +1,27 @@
-#header { background: #f00; }
-#navigation { background: #67FBE4; }
-#content { border: 2px solid #111;}
-#main { background: #6BF913; }
-#sidebar { background: #921213; }
-#footer { background: #FCEC23; }
+#header #logo {
+  position: absolute;
+  display: block;
+  height: 200px;
+}
+
+#header #prefs {
+  float: right;
+}
+
+#header ul {
+  margin: 0;
+}
+
+#header #prefs li {
+  display: inline;
+  margin-left: 10px;
+}
+
+#navigation {
+  background-color: #DDD;
+}
+
+#navigation li {
+  display: inline;
+}
+
