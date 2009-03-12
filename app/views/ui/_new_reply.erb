@@ -1,16 +1,25 @@
 <h3>Reply to Last-User's Post</h3>
   <div id="post-buttoms">
     <ul>
-  	  <li>Comments</li>
-	  <li>Photos</li>
-	  <li>Docs</li>
-    </ul>
+  	  <li><%= link_to_function 'Comment', "new Element.toggle('new_reply_comment_form');new Element.hide('new_reply_photo_form');new Element.hide('new_reply_doc_form');"%></li>
+	  <li><%= link_to_function 'Photos', "new Element.toggle('new_reply_photo_form');new Element.hide('new_reply_comment_form');new Element.hide('new_reply_doc_form');"%></li>
+	  <li><%= link_to_function 'Docs', "new Element.toggle('new_reply_doc_form');new Element.hide('new_reply_comment_form');new Element.hide('new_reply_photo_form');"%></li>
+	</ul>
   </div>
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
 
-    <%= render :partial => "form_comment", :object => f %>
-	<%= render :partial => "form_photo", :object => f %>
-	<%= render :partial => "form_doc", :object => f %>
+    <div id="new_reply_comment_form">
+      <%= render :partial => "form_comment", :object => f %>
+	</div>
+	
+	<div id="new_reply_photo_form" style="display: none;">
+	  <%= render :partial => "form_photo", :object => f %>
+	</div>
+	
+	<div id="new_reply_doc_form" style="display: none;">
+	  <%= render :partial => "form_doc", :object => f %>
+	</div>
+	
 	<%= hidden_field_tag :parent_id, ""%>
-    <%= submit_tag "Post Now!" %>
+    <%= submit_tag "Post Now!" %> <%= link_to_function 'or Add a new Thread', "new Element.toggle('add_new_thread');new Element.hide('add_new_reply');"%>
   <% end -%>

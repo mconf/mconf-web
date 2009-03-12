@@ -1,9 +1,14 @@
+<% content_for :headers do  %>
+  <%=javascript_include_tag :defaults%>
+<%end%>
+
 <% content_for :sidebar do  %>
-  
-  <%= render :partial => "new_thread" %>
-  <%if false%>
-  <%= render :partial => "new_reply" %>
-  <%end%>
+  <div id="add_new_thread" >
+    <%= render :partial => "new_thread" %>
+  </div>
+  <div id="add_new_reply" style = "display:none;">
+    <%= render :partial => "new_reply" %>
+  </div>
 <% end %>
 
 <h3>
