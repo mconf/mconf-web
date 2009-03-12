@@ -3,6 +3,7 @@ class Space < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
 
+  acts_as_resource :param => :name
   acts_as_container
   acts_as_logotypable
 
@@ -16,10 +17,10 @@ class Space < ActiveRecord::Base
     group.save
   }
 
-  def to_param
-    name
+  def emailize_name
+    self.name = self.name.gsub(" ", "")
   end
- 
+
   # Users that belong to this space  
   # 
   # Options:
