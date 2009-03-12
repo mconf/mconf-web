@@ -28,8 +28,21 @@ class Post < ActiveRecord::Base
       post.parent.update_attribute(:updated_at, Time.now)
     end
   }
-
- 
+  
+  # This method return the 3 last comment of a thread if the thread has more than 3 comments. 
+  # If not, return the parent post and their comments
+  def three_last_comment()
+     @array_post = []
+     if self.children.size >= 3
+       return @array_post << self.children.first(3)       
+     else
+       @array_post << self
+       @array_post << self.children.first(1) unless self.children.first(1)
+       @array_post << self.children.first(2) unless self.children.first(2)
+       return  @array_post
+     end
+  end
+  
   def self.atom_parser(data)
     params = {}
     e = Atom::Entry.parse(data)

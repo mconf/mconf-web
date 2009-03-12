@@ -8,25 +8,20 @@ class PostsController < ApplicationController
   # Posts list may belong to a container
   # /posts
   # /:container_type/:container_id/posts
-  before_filter :container, :only => [ :index,:search_posts  ]
+  before_filter :space, :only => [ :index,:search_posts  ]
   
   # Needs a Container when posting a new Post
-  before_filter :container!, :only => [ :new, :create ]
+  before_filter :space!, :only => [ :new, :create ]
   
   before_filter :get_post, :except => [ :index, :new, :create ]
 
-  authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
-  authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
-  authorization_filter :post, :read,   :only => [ :show ]
-  authorization_filter :post, :update, :only => [ :edit, :update ]
-  authorization_filter :post, :delete, :only => [ :destroy ]
+  #authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
+  #authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
+  #authorization_filter :post, :read,   :only => [ :show ]
+  #authorization_filter :post, :update, :only => [ :edit, :update ]
+  #authorization_filter :post, :delete, :only => [ :destroy ]
 
   def index
-
-    session[:current_tab] = "News"
-    session[:current_sub_tab] = ""
-
-    @title ||= "News - #{ @space.name }"
   #Estas 3 líneas lo que hacen es meter en @posts lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
     @posts =(@space.id == 1 ?
       Post.in_container(nil).public(nil).find(:all,:conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       

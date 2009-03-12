@@ -1,6 +1,9 @@
 <% content_for :sidebar do  %>
-  <h3>Add new post</h3>
+  
   <%= render :partial => "new_thread" %>
+  <%if false%>
+  <%= render :partial => "new_reply" %>
+  <%end%>
 <% end %>
 
 <h3>
