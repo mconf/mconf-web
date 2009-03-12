@@ -1,4 +1,12 @@
+<div id="spaces_select" style="float: right;">
+  <select id="space_select" name="space">
+    <% Space.all.each do |space| %>
+    <option><%= link_to space.name, space %></option>
+    <% end %>
+  </select>
+</div>
 <ul>
   <li>Item 1</li>
   <li>Item 2</li>
 </ul>
+
