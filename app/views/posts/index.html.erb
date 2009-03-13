@@ -1,38 +1,35 @@
-<% rounded() do %>
-  <div><h1><%= name_format(@title, 40, "") %></h1></div>
   
-  <div>
-	<span> <%=link_to ("see expanded view", space_posts_path(@space, :expanded=>true))-%> </span>
-  </div>
-  
-  <div>
-	<form name="get_page" method="get">
-	  <select selected="<%=params[:per_page]%>">
-		<%for valor in [10,25,50,100]%>
-		  <%if valor.to_s == params[:per_page]%>
-			  <option value="<%=valor%>">Entries Shown: <%=valor%> </option>
-		  <%else%>
-			  <option value="<%=valor%>">Entries Shown: <%=valor%> </option>
-		  <%end%>
-		<%end%>			
-	  </select>
-	</form>	
-  </div>	
-  <br/><br/> 
+  <% content_for :headers do  %>
+  <%=javascript_include_tag :defaults%>
+<%end%>
+
+<% content_for :sidebar do  %>
+  <%if params[:reply]%>
+    <div id="add_new_reply">
+      <%= render :partial => "ui/new_reply" %>
+    </div>  
+  <%else%>
+    <div id="add_new_thread" >
+      <%= render :partial => "ui/new_thread" %>
+    </div>
+  <%end%>  
+<% end %>
+
+
   <% for post in @posts -%>
   
-  		<%=post.title%>   Updated <%=time_update(post)%>
-		<div> 
-			<%=post.text%>
-			<%for comment in post.children%>
-			  <p><%=comment.text%></p>
+  		<b><%=link_to (post.title, space_post_path(@space,post))%></b>   Updated <%=time_ago_in_words(post.updated_at)%> ago  <%=link_to "Reply", space_posts_path(@space,:reply => post)%>
+		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "cerrada" : "rota"%>"> 
+			<%for comment in post.three_last_comment()%>
+			
+			  <p><%=image_tag("legacy/avatar.png")%><%=comment.text%></p>
 			<%end%>
-    	  <%show_post(post,@space,"edit","destroy")%> 
 		</div>
 		</br>
   <% end -%>
+  
   <%= will_paginate @posts %>
-<% end -%>
+
 	
 
-<%= render :partial =>'shared/sidebars'%>
+<% render :partial =>'shared/sidebars'%>

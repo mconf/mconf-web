@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
   acts_as_taggable
-  acts_as_tree :order => 'updated_at DESC'
+  acts_as_tree :order => 'updated_at ASC'
 
   named_scope :public, lambda { |arg|
     { :joins => :space,
@@ -34,12 +34,10 @@ class Post < ActiveRecord::Base
   def three_last_comment()
      @array_post = []
      if self.children.size >= 3
-       return @array_post << self.children.first(3)       
+       return @array_post = self.children.first(3)      
      else
        @array_post << self
-       @array_post << self.children.first(1) unless self.children.first(1)
-       @array_post << self.children.first(2) unless self.children.first(2)
-       return  @array_post
+       @array_post.concat(self.children.first(2))
      end
   end
   

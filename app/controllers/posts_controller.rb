@@ -23,9 +23,7 @@ class PostsController < ApplicationController
 
   def index
   #Estas 3 líneas lo que hacen es meter en @posts lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
-    @posts =(@space.id == 1 ?
-      Post.in_container(nil).public(nil).find(:all,:conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]):       
-      Post.in_container(@space).find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => params[:per_page]))       
+    @posts = Post.in_container(@space).find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => 5)       
     
       respond_to do |format|
         format.html 
@@ -38,11 +36,7 @@ class PostsController < ApplicationController
   #   GET /posts/:id
   def show
     session[:current_tab] = "News"
-
-    @title ||= @post.title
-    @comment_children = @post.children
-    @attachment_children = @post.attachments
-    
+    @posts= [@post].concat(@post.children).paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
       format.html
       format.xml { render :xml => @post.to_xml }
@@ -91,7 +85,7 @@ class PostsController < ApplicationController
     end  
     
     #Creación de los Attachments
-    i=0;
+=begin    i=0;
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
@@ -110,28 +104,28 @@ class PostsController < ApplicationController
         return
       end
     end
-      
+=end      
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:valid] = "Post created"
  
 
     #asignacion de los padres del attachment al articulo
-    @attachments.each do |attach|
+=begin    @attachments.each do |attach|
       attach.post = @post
     end
-    
+ 
     #grabación de los attachments y las entries asociados
     @attachments.each do |attach|
       attach.save!
     end
-            
+=end              
     respond_to do |format| 
       format.html {
         if params[:post][:parent_id]
-          redirect_to space_post_url(@space, @post.parent)
+          redirect_to space_posts_url(@space)
         else
-          redirect_to space_post_url(@space, @post)
+          redirect_to space_posts_url(@space)
         end
       }
       format.atom { 

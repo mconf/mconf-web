@@ -1,73 +1,28 @@
-<% rounded() do %>
-  <div>		
-    <p>
-      <b>Title:</b>
-      <%=sanitize @post.title %>
-    </p>
+<% content_for :sidebar do  %>
+  <% params[:reply]=@post %>
+  <%= render :partial => "ui/new_reply" %>
+<% end %>
 
-    <% unless @post.text.blank? %>
-      <p>
-      <b>Description:</b>
-      <%=sanitize @post.text %>
-      </p>
-    <% end %>
+<div id="thread_title">
+  <h2><%=@post.title%></h2>
+</div>
 
-    <% unless @post.tag_list.blank? %>
-      <p>
-      <b>Tags:</b>
-      <%= @post.tag_list %>
-      </p>
-    <% end %>
-    <%for children in @post.attachments -%>
-	  <%= render :partial =>'attachment' , :locals => {:children => children}%>
-	  <br/>
-    <%end%>
 
-    <br>
+<div id="reply">
+	<h2>Reply</h2>
+</div>
 
-    <div>
-      <%if @post.authorizes?(current_user, [:create, :Content])%>
-	    <%= button_to_function 'New Comment', "new Element.toggle('new_comment_form');"%>
-      <%end%>
-      <%if @post.authorizes?(current_user, :edit)%>
-	    <%= button_to 'Edit', edit_space_post_path(@space, @post), :method => :get %>
-      <%end%> 
-      <%= button_to 'Back', space_posts_path(@space), :method => :get %>
+<div id="thread_update">
+  <h2>Updated <%=time_ago_in_words(@post.updated_at)%> ago</h2>
+</div>
+
+
+<div id="posts">
+	<div class="box_closed"> 
+	  <p><%=image_tag("legacy/avatar.png")%><%=@post.text%></p>
+	  <%for comment in @post.children%>			
+	    <p><%=image_tag("legacy/avatar.png")%><%=comment.text%></p>
+	  <%end%>
 	</div>
-  </div>
-<%end%>
-<%if @post.authorizes?(current_user, [:create, :Content])%>
-<div>
-  <% rounded() do %>
-    <%parent_id = @post.id%>
-	<%@old_post = @post%>
-    <% @post = nil %>
-	New Comment
-    <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f|-%>
-      <p>
-      <b>Title</b><br />
-      <%= f.text_field :title %>
-      </p>
-      
-	  <p>
-      <b>Text</b><br />
-      <%= fckeditor_textarea(:post, :text, :toolbarSet => 'Simple', :width => '100%', :height => '400px') %>
-      </p>
-	  <%@comment = true%>
-	  <%= render :partial => 'posts/attach', :objetc => @comment %>
-      <%= hidden_field_tag 'tag[add_tag]', "" %>
-	  <%= f.hidden_field :parent_id, :value => parent_id.to_s %>
-      <%= submit_tag "Create" %>
-    <% end -%>
-  <%end%>
-</div>		
-<%end%>
-
-<% div_for :comment_children do %>
-  <h2>Comments</h2>
-
-  <%= render :partial => "posts/comment", :collection => @comment_children %>
-
-<% end if @comment_children.any? -%>
-
-<%= render :partial =>'shared/sidebar'%>
+</div>
+<%= will_paginate @posts %>

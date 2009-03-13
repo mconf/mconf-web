@@ -1,11 +1,12 @@
 #header #logo {
   position: absolute;
   display: block;
-  height: 200px;
+  height: 50px;
 }
 
 #header #prefs {
   float: right;
+  height: 50px;
 }
 
 #header ul {

@@ -13,15 +13,15 @@
     <%= f.text_field :title, :size => 25 %>
   </p>
     <div id="new_comment_form">
-      <%= render :partial => "form_comment", :object => f %>
+      <%= render :partial => "ui/form_comment", :object => f %>
 	</div>
 	
 	<div id="new_photo_form" style="display: none;">
-	  <%= render :partial => "form_photo", :object => f %>
+	  <%= render :partial => "ui/form_photo", :object => f %>
 	</div>
 	
 	<div id="new_doc_form" style="display: none;">
-	  <%= render :partial => "form_doc", :object => f %>
+	  <%= render :partial => "ui/form_doc", :object => f %>
 	</div>
     <%= submit_tag "Post Now!" %>
   <% end -%>
