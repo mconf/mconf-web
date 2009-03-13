@@ -28,3 +28,12 @@
 #sidebar li{
   display: inline;	
 }
+
+#thread_title {
+  float:left;
+  margin-right:10px;	
+}
+
+#reply {
+  float:right;	
+}

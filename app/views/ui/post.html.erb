@@ -1,0 +1,33 @@
+<% content_for :sidebar do  %>
+  
+  <%= render :partial => "new_thread" %>
+  <%if false%>
+  <%= render :partial => "new_reply" %>
+  <%end%>
+<% end %>
+
+<div id="thread_title">
+  <h2>Post Title</h2>
+</div>
+
+
+<div id="reply">
+	<h2>Reply</h2>
+</div>
+
+<div id="thread_update">
+  <h2>Updated 2 minutes ago</h2>
+</div>
+
+
+<div id="posts">
+	<p class="post">
+		<%= image_tag("legacy/avatar.png") %>
+		This is the text of the comment.
+	</p>
+	<p class="post">
+		<%= image_tag("legacy/avatar.png") %>
+		This is the text of the comment.
+	</p>
+</div>
+	
