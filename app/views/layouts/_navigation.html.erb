@@ -1,12 +1,42 @@
-<div id="spaces_select" style="float: right;">
+<ul>
+
+<li>
+	
+<div id="spaces_select">
   <select id="space_select" name="space">
     <% Space.all.each do |space| %>
     <option><%= link_to space.name, space %></option>
     <% end %>
   </select>
 </div>
-<ul>
-  <li>Item 1</li>
-  <li>Item 2</li>
-</ul>
 
+</li>
+
+<li>
+	
+<div id="nav_bar">
+	
+<ul>
+
+<!-- Hay que poner bien las rutas de cada tab-->
+
+  <li><%=link_to "Home"%></li>
+  <li><%=link_to "Posts"%></li>
+  <li><%=link_to "Events"%></li>
+  <li><%=link_to "People"%></li>
+  
+<!--La tab de Admin sólo se muestra a los admin  -->
+  
+  <li><%=link_to "Admin"%></li>
+</ul>
+</div>
+</li>
+
+<li>
+<div id="search">
+	<form>
+		<input type="text" value="Search"/>
+	</form>
+</div>
+</li>
+</ul>
