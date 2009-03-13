@@ -6,11 +6,11 @@
 <% content_for :sidebar do  %>
   <%if params[:reply]%>
     <div id="add_new_reply">
-      <%= render :partial => "ui/new_reply" %>
+      <%= render :partial => "new_reply" %>
     </div>  
   <%else%>
     <div id="add_new_thread" >
-      <%= render :partial => "ui/new_thread" %>
+      <%= render :partial => "new_thread" %>
     </div>
   <%end%>  
 <% end %>
