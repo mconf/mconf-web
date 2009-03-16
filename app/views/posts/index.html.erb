@@ -6,6 +6,7 @@
 <% content_for :sidebar do  %>
   <%if params[:reply]%>
     <div id="add_new_reply">
+      <%@parent_post = Post.find(params[:reply])%>	
       <%= render :partial => "new_reply" %>
     </div>  
   <%else%>
@@ -18,7 +19,10 @@
 
   <% for post in @posts -%>
   
-  		<b><%=link_to (post.title, space_post_path(@space,post))%></b>   Updated <%=time_ago_in_words(post.updated_at)%> ago  <%=link_to "Reply", space_posts_path(@space,:reply => post)%>
+  		<b><%=link_to (post.title, space_post_path(@space,post))%></b>
+		Updated <%=time_ago_in_words(post.updated_at)%> ago  
+		<%=link_to "Reply", space_posts_path(@space,:reply => post)%>
+		<%=link_to "Delete", space_post_path(@space,post), :method => :delete%>
 		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "cerrada" : "rota"%>"> 
 			<%for comment in post.three_last_comment()%>
 			

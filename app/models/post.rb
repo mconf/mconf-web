@@ -34,10 +34,10 @@ class Post < ActiveRecord::Base
   def three_last_comment()
      @array_post = []
      if self.children.size >= 3
-       return @array_post = self.children.first(3)      
+       return @array_post = self.children.last(3)      
      else
        @array_post << self
-       @array_post.concat(self.children.first(2))
+       @array_post.concat(self.children.last(2))
      end
   end
   

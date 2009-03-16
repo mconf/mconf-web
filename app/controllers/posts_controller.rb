@@ -7,13 +7,14 @@ class PostsController < ApplicationController
   
   # Posts list may belong to a container
   # /posts
-  # /:container_type/:container_id/posts
-  before_filter :space, :only => [ :index,:search_posts  ]
+  # /:container_type/:container_id/posts, :new, :create, :new, :create
+  before_filter :space, :only => [ :index,:search_posts, :destroy, :show  ]
   
   # Needs a Container when posting a new Post
   before_filter :space!, :only => [ :new, :create ]
   
-  before_filter :get_post, :except => [ :index, :new, :create ]
+  before_filter :get_post, :except => [ :index, :new, :create, :show ]
+  before_filter :get_parent_post, :only => [ :show ]
 
   #authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
   #authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
@@ -36,7 +37,8 @@ class PostsController < ApplicationController
   #   GET /posts/:id
   def show
     session[:current_tab] = "News"
-    @posts= [@post].concat(@post.children).paginate(:page => params[:page], :per_page => 5)
+    @parent_post = Post.find(params[:id])
+    @posts= [@parent_post].concat(@parent_post.children).paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
       format.html
       format.xml { render :xml => @post.to_xml }
@@ -65,7 +67,7 @@ class PostsController < ApplicationController
     # FIXME? Quitar si se elimina el espacio Public
     @post.space = params[:post][:parent_id] ?
                          @post.parent.space :
-                         @container
+                         @space
     
     unless @post.valid?
       respond_to do |format|
@@ -214,7 +216,7 @@ class PostsController < ApplicationController
    #destroy de content of the post. Then its container(post) is destroyed automatic.
    @post.destroy 
     respond_to do |format|
-      format.html { redirect_to space_posts_path(@container) }
+      format.html { redirect_to space_posts_path(@space) }
       format.atom { head :ok }
       # FIXME: Check AtomPub, RFC 5023
 #      format.send(mime_type) { head :ok }
@@ -226,5 +228,8 @@ class PostsController < ApplicationController
   
   def get_post 
     @post = Post.find(params[:id])
+  end
+  def get_parent_post 
+    @parent_post = Post.find(params[:id])
   end
 end
