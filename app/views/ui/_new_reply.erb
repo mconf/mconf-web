@@ -7,7 +7,6 @@
 	</ul>
   </div>
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
-    <%= hidden_field_tag "post[title]", "titulo"%>
     <div id="new_reply_comment_form">
       <%= render :partial => "ui/form_comment", :object => f %>
 	</div>

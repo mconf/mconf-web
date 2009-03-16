@@ -88,7 +88,18 @@ class PostsController < ApplicationController
     end  
     
     #Creación de los Attachments
-=begin    i=0;
+   if params[:uploaded_data].present?
+     @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+   end
+   if !@attachment.valid?
+        flash[:error] = "The attachment is not valid"  
+        render :action => "index"
+        return
+   end
+   
+ 
+=begin    
+    i=0;
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
@@ -111,7 +122,8 @@ class PostsController < ApplicationController
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:valid] = "Post created"
- 
+    @attachment.post = @post
+    @attachment.save!
 
     #asignacion de los padres del attachment al articulo
 =begin    @attachments.each do |attach|

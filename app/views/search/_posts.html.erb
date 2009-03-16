@@ -1,24 +1,34 @@
+<% content_for :sidebar do  %>
+  <%if params[:reply]%>
+    <div id="add_new_reply">
+      <%@parent_post = Post.find(params[:reply])%>	
+      <%= render :partial => "posts/new_reply" %>
+    </div>  
+  <%else%>
+    <div id="add_new_thread" >
+      <%= render :partial => "posts/new_thread" %>
+    </div>
+  <%end%>  
+<% end %>
 
-<h2 class="title separador"> Posts</h2>
-
-<div class="contenido_search">
+<div>
 	
 	<br/>
-		<%if @posts == []%>
-	     	<p class="red">No posts found</p>
+		<%if @parents == []%>
+	     	<p>No posts found</p>
 	    <%else%> 
-			<%if @posts.size == 1%>	   
-	     		<h3 class="red">1 post was found</h3>
+			<%if @parents.size == 1%>	   
+	     		<h3>1 post was found</h3>
 		 		<br/>
-	     		<% @posts.each do |post| %>
+	     		<% @parents.each do |post| %>
 	       			<%if post%>
 	         			<%=show_post(post,@space,"edit","destroy")%> 
 	       			<%end%>
          		<%end%>
 	   		<%else%>
-         		<h3 class="red"><%=@posts.size%> post was found</h3>
+         		<h3 class="red"><%=@parents.size%> posts was found</h3>
 		 		<br/>	
-	     		<% @posts.each do |post| %>
+	     		<% @parents.each do |post| %>
 	       			<%if post%>
 	         			<%=show_post(post,@space,"edit","destroy")%> 
 	       			<%end%>

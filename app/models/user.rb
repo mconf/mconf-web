@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_one :profile
   has_many :invitations, :foreign_key => :email
   has_many :events, :as => :author
+  has_many :posts, :as => :author
   has_and_belongs_to_many :groups
   
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
   
   
   
-   is_indexed :fields => ['login','email'],
+ is_indexed :fields => ['login','email'],
 :include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
              {:class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
              {:class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}],

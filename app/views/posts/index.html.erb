@@ -1,6 +1,13 @@
   
-  <% content_for :headers do  %>
+<% content_for :headers do  %>
   <%=javascript_include_tag :defaults%>
+<%end%>
+
+<% content_for :search do  %>
+  <% form_tag(search_posts_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>
 <%end%>
 
 <% content_for :sidebar do  %>
@@ -26,7 +33,11 @@
 		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "cerrada" : "rota"%>"> 
 			<%for comment in post.three_last_comment()%>
 			
-			  <p><%=image_tag("legacy/avatar.png")%><%=comment.text%></p>
+			  <p><%=image_tag("legacy/avatar.png")%>
+			  <%for attachment in comment.attachments%>
+			    <%=image_tag(space_attachment_path(@space,attachment))%>
+			  <%end%> 
+			  <%=comment.text%></p>
 			<%end%>
 		</div>
 		</br>
