@@ -1,12 +1,20 @@
 <div id="logo">
-  <h1>Logo</h1>
+	<h1>Logo</h1>
 </div>
 
 <div id="prefs">
-  <ul>
-    <li>info@marze.es</li>
-    <li>Inbox (2)</li>
-    <li>Preferences</li>
-    <li>Logout</li>
-  </ul>
+	<ul>
+	  	<% if logged_in? %>
+		    <li><%= current_user.login %></li>
+		    <li>Inbox (2)</li>
+		    <li>Preferences</li>
+		    <li><%= link_to 'Logout', logout_path %></li>	
+		<% else %>
+			<% form_tag session_path do -%>
+			<li><label for="login">Username or email</label><%= text_field_tag 'login', params[:login] %></li>
+			<li><label for="password">Password</label><%= password_field_tag 'password' %></li>
+			<li><%= submit_tag 'Log in' %></li>
+			<% end %>
+		<% end %>
+	</ul>
 </div>
