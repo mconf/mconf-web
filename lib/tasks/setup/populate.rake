@@ -19,6 +19,21 @@ namespace :setup do
       end
     end
 
+    Space.all.each do |space|
+      total_posts = space.posts
+      # The first Post should not have parent
+      final_posts = Array.new << total_posts.shift
+
+      total_posts.inject final_posts do |posts, post|
+        parent = posts[(rand * posts.size).to_i]
+        unless parent.parent_id
+          post.update_attribute :parent_id, parent.id
+        end
+
+        posts << post
+      end
+    end
+
     User.populate 15 do |user|
       user.login = Faker::Name.name
       user.email = Faker::Internet.email
