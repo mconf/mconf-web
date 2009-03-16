@@ -6,8 +6,8 @@
 	  <li><%= link_to_function 'Docs', "new Element.toggle('new_reply_doc_form');new Element.hide('new_reply_comment_form');new Element.hide('new_reply_photo_form');"%></li>
 	</ul>
   </div>
-<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
-    <%= hidden_field_tag "post[title]", @parent_post.title%>
+<% form_for(:parent_post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
+    <%= hidden_field_tag "parent_post[title]", @post.title%>
     <div id="new_reply_comment_form">
       <%= render :partial => "form_comment", :object => f %>
 	</div>
@@ -20,7 +20,8 @@
 	  <%= render :partial => "form_doc", :object => f %>
 	</div>
 	
-	<%= hidden_field_tag "post[parent_id]", @parent_post.id%>
+	<%= hidden_field_tag "parent_post[parent_id]", @post.id%>
+	<%= hidden_field_tag :show, "go_to_show"%>
 	
     <%= submit_tag "Post Now!" %> <%= link_to_function 'or Add a new Thread', "new Element.toggle('add_new_thread');new Element.hide('add_new_reply');"%>
   <% end -%>
