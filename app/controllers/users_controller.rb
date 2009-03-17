@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # Get the User for member actions
   before_filter :get_agent, :only => [ :show, :edit, :update, :destroy ]
   
+=begin
   # Filter for activation actions
   before_filter :activation_required, :only => [ :activate, 
                                                  :forgot_password, 
@@ -17,8 +18,11 @@ class UsersController < ApplicationController
   before_filter :authentication_required, :only => [:edit, :update, :destroy]
 
   # Space Users
+
   authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
                                                           :only => [ :index ]
+=end
+  before_filter :space, :only => [ :index ]
 
   # Accounts
   before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
@@ -31,6 +35,7 @@ class UsersController < ApplicationController
   # GET /users.atom
   
   def index
+=begin
     if params[:manage]
       session[:current_tab] = "Manage" 
       session[:current_sub_tab] = "Users"
@@ -49,11 +54,18 @@ class UsersController < ApplicationController
     
     @users.sort
     @users = @users.paginate(:page => params[:page],:per_page => 10)
+=end
+    if params[:space_id]
+      @users = @space.actors
+      @groups = @space.groups
+    end
+
     respond_to do |format|
       format.html
       format.xml { render :xml => @users }
       format.atom
     end
+
   end
   
   # GET /users/1

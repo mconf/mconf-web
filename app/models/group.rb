@@ -3,6 +3,7 @@ class Group < ActiveRecord::Base
     has_and_belongs_to_many :users
     belongs_to :space
     
+=begin
     after_create { |group| 
     if group.reload_mail_list_server_because_of_environment
     group.request_update_at_jungla
@@ -31,8 +32,7 @@ class Group < ActiveRecord::Base
       `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
     end
     }
-    
-    
+       
     # Do not reload mail list server if not in production mode, it could cause server overload
     def reload_mail_list_server_because_of_environment
       RAILS_ENV == "production"
@@ -55,7 +55,7 @@ class Group < ActiveRecord::Base
      doc = "#{self.mail_list}"
      File.open(temp_file, 'w') {|f| f.write(doc) }
    end
-
+=end
    def self.atom_parser(data)
     
     e = Atom::Entry.parse(data)
@@ -79,9 +79,9 @@ class Group < ActiveRecord::Base
     return resultado     
   end   
 
-
+=begin
   def temp_file
      @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
   end
- 
+=end
 end

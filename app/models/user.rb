@@ -49,7 +49,15 @@ def lastname
 end
 
 def organization
-  profile ? profile.organization : ""
+  profile ? profile.organization : "Organization"
+end
+
+def city
+  profile ? profile.city : "City"
+end
+
+def country
+  profile ? profile.country : "Country"
 end
 
 #this method let's the user to login with his e-mail
