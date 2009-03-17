@@ -10,11 +10,7 @@
 		    <li>Preferences</li>
 		    <li><%= link_to 'Logout', logout_path %></li>	
 		<% else %>
-			<% form_tag session_path do -%>
-			<li><label for="login">Username or email</label><%= text_field_tag 'login', params[:login] %></li>
-			<li><label for="password">Password</label><%= password_field_tag 'password' %></li>
-			<li><%= submit_tag 'Log in' %></li>
-			<% end %>
+			<li><%= link_to 'Log in', login_path %></li>
 		<% end %>
 	</ul>
 </div>
