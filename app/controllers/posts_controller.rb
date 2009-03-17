@@ -13,8 +13,7 @@ class PostsController < ApplicationController
   # Needs a Container when posting a new Post
   before_filter :space!, :only => [ :new, :create ]
   
-  before_filter :get_post, :except => [ :index, :new, :create, :show ]
-  before_filter :get_parent_post, :only => [ :show ]
+  before_filter :get_post, :except => [ :index, :new, :create]
 
   #authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
   #authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
@@ -37,8 +36,7 @@ class PostsController < ApplicationController
   #   GET /posts/:id
   def show
     session[:current_tab] = "News"
-    @parent_post = Post.find(params[:id])
-    @posts= [@parent_post].concat(@parent_post.children).paginate(:page => params[:page], :per_page => 5)
+    @posts= [@post].concat(@post.children).paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
       format.html
       format.xml { render :xml => @post.to_xml }
@@ -60,6 +58,9 @@ class PostsController < ApplicationController
   end
   
   def create
+    if params[:parent_post]
+      params[:post] = params[:parent_post]
+    end
     #creación del Artículo padre
     @post = Post.new(params[:post])
     @post.author = current_agent
@@ -87,7 +88,18 @@ class PostsController < ApplicationController
     end  
     
     #Creación de los Attachments
-=begin    i=0;
+   if params[:uploaded_data].present?
+     @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+   end
+   if !@attachment.valid?
+        flash[:error] = "The attachment is not valid"  
+        render :action => "index"
+        return
+   end
+   
+ 
+=begin    
+    i=0;
     @attachments = []
     @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
     (@last_attachment.to_i).times  {
@@ -110,7 +122,8 @@ class PostsController < ApplicationController
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:valid] = "Post created"
- 
+    @attachment.post = @post
+    @attachment.save!
 
     #asignacion de los padres del attachment al articulo
 =begin    @attachments.each do |attach|
@@ -124,8 +137,8 @@ class PostsController < ApplicationController
 =end              
     respond_to do |format| 
       format.html {
-        if params[:post][:parent_id]
-          redirect_to space_posts_url(@space)
+        if params[:show]
+          redirect_to space_post_url(@space,@post.parent)
         else
           redirect_to space_posts_url(@space)
         end
@@ -228,8 +241,5 @@ class PostsController < ApplicationController
   
   def get_post 
     @post = Post.find(params[:id])
-  end
-  def get_parent_post 
-    @parent_post = Post.find(params[:id])
   end
 end

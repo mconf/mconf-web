@@ -13,14 +13,26 @@ class Post < ActiveRecord::Base
       :conditions => [ 'public = ?', true ] }
   }
 
-  is_indexed :fields => ['text','title'],:concatenate => [
-    {:class_name => 'Tag',
-     :field => 'name',
-     :as => 'tags',
-     :association_sql => "LEFT OUTER JOIN taggings ON (posts.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Post') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
-}]
+  is_indexed :fields => ['text','title'],
+             :include =>[{:class_name => 'Tag',
+                          :field => 'name',
+                          :as => 'tags',
+                          :association_sql => "LEFT OUTER JOIN taggings ON (posts.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Post') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
+                          {:class_name => 'User',
+                               :field => 'login',
+                               :as => 'login_user',
+                               :association_sql => "LEFT OUTER JOIN users ON (posts.`author_id` = users.`id` AND posts.`author_type` = 'User') "}, 
+                          {:class_name => 'Profile',:field=> 'name',:as => 'name_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"},
+                          {:class_name => 'Profile',:field=> 'lastname',:as => 'lastname_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"}
+                          ]
+            
+            
 
-  validates_presence_of :title, :text
+
+ 
+  validates_presence_of :title unless self.parent
+  validates_presence_of :text
+
 
   # Update parent Posts when commenting to it
   after_create { |post|

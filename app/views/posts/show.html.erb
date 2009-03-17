@@ -1,26 +1,26 @@
 <% content_for :sidebar do  %>
-  <% params[:reply]=@parent_post %>
+  <% params[:reply]=@post %>
   <%= render :partial => "new_comment" %>
 <% end %>
 
 <div id="thread_title">
-  <h2><%=@parent_post.title%></h2>
+  <h2><%=@post.title%></h2>
 </div>
 
 
 <div id="reply">
-	<%=link_to "Delete", space_post_path(@space,@parent_post), :method => :delete%>
+	<%=link_to "Delete", space_post_path(@space,@post), :method => :delete%>
 </div>
 
 <div id="thread_update">
-  <h2>Updated <%=time_ago_in_words(@parent_post.updated_at)%> ago</h2>
+  <h2>Updated <%=time_ago_in_words(@post.updated_at)%> ago</h2>
 </div>
 
 
 <div id="posts">
 	<div class="box_closed"> 
-	  <p><%=image_tag("legacy/avatar.png")%><%=@parent_post.text%></p>
-	  <%for comment in @parent_post.children%>			
+	  <p><%=image_tag("legacy/avatar.png")%><%=@post.text%></p>
+	  <%for comment in @post.children%>			
 	    <p><%=image_tag("legacy/avatar.png")%><%=comment.text%></p>
 	  <%end%>
 	</div>

@@ -6,13 +6,12 @@ namespace :setup do
     desc "Load Users Data"
     task :users => :environment do
       puts "* Create Administrator \"vcc\""
-      User.create :login => "vcc",
-                  :email => 'vcc@dit.upm.es',
-                  :password => "admin",
-                  :password_confirmation => "admin",
-                  :superuser => true,
-                  :activated_at => Time.now,
-                  :activation_code => nil
+      u = User.create :login => "vcc",
+                      :email => 'vcc@dit.upm.es',
+                      :password => "admin",
+                      :password_confirmation => "admin",
+                      :superuser => true
+      u.activate
     end
 
     desc "Load Spaces Data"
