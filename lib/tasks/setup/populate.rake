@@ -4,7 +4,7 @@ namespace :setup do
     require 'populator'
     require 'faker'
 
-    [ Space ].each(&:delete_all)
+    [ Space ].each(&:destroy_all)
 
     Space.populate 20 do |space|
       space.name = Populator.words(1..3).titleize
@@ -16,6 +16,11 @@ namespace :setup do
         post.text = Populator.sentences(3..15)
         post.created_at = 2.years.ago..Time.now
 #        post.tag_with Populator.words(1..4).gsub(" ", ",")
+      end
+
+      Group.populate 2..4 do |group|
+        group.space_id = space.id
+        group.name = Populator.words(1..3).titleize
       end
     end
 
@@ -54,6 +59,13 @@ namespace :setup do
         performance.role_id = role_ids
         performance.agent_id = user.id
         performance.agent_type = 'User'
+      end
+
+      space.groups.each do |group|
+        space.users.each do |user|
+          next if user.is_a?(SingularAgent)
+          group.users << user if rand > 0.7
+        end
       end
     end
   end
