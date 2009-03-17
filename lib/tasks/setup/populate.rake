@@ -19,6 +19,7 @@ namespace :setup do
       end
     end
 
+    # Posts.parent_id
     Space.all.each do |space|
       total_posts = space.posts
       # The first Post should not have parent
@@ -38,6 +39,22 @@ namespace :setup do
       user.login = Faker::Name.name
       user.email = Faker::Internet.email
       user.activated_at = 2.years.ago..Time.now
+    end
+
+    users = User.all
+    role_ids = Role.find_all_by_stage_type('Space').map(&:id)
+
+    Space.all.each do |space|
+      available_users = users.dup
+
+      Performance.populate 5..7 do |performance|
+        user = available_users.delete_at((rand * available_users.size).to_i)
+        performance.stage_id = space.id
+        performance.stage_type = 'Space'
+        performance.role_id = role_ids
+        performance.agent_id = user.id
+        performance.agent_type = 'User'
+      end
     end
   end
 end
