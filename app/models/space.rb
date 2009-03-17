@@ -27,7 +27,7 @@ class Space < ActiveRecord::Base
   # role:: Name of the role actors play in this space
   def users(options = {})
     if options[:role]
-      actors.select{ |a| a.role.name == options[:role] }
+      stage_performances.select{ |p| p.role.name == options[:role] }.map(&:agent)
     else
       actors
     end
