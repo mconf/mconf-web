@@ -19,7 +19,6 @@ class AttachmentsController < ApplicationController
   def show
       @image = Attachment.find(params[:id])
 
-
     respond_to do |format|
       format.html {
       if @image

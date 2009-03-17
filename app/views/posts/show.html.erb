@@ -19,9 +19,16 @@
 
 <div id="posts">
 	<div class="box_closed"> 
-	  <p><%=image_tag("legacy/avatar.png")%><%=@post.text%></p>
+	  <p><%=image_tag("legacy/avatar.png")%>
+	  <%for attachment in @post.attachments%>
+	    <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
+	  <%end%>
+	  <%=@post.text%></p>
 	  <%for comment in @post.children%>			
-	    <p><%=image_tag("legacy/avatar.png")%><%=comment.text%></p>
+	    <p><%=image_tag("legacy/avatar.png")%>			  
+		<%for attachment in comment.attachments%>
+		  <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
+	    <%end%> <%=comment.text%></p>
 	  <%end%>
 	</div>
 </div>

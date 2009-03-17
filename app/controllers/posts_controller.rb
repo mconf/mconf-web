@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   # Posts list may belong to a container
   # /posts
   # /:container_type/:container_id/posts, :new, :create, :new, :create
-  before_filter :space, :only => [ :index,:search_posts, :destroy, :show  ]
+  before_filter :space, :only => [ :index,:search_posts, :destroy, :show ,:update  ]
   
   # Needs a Container when posting a new Post
   before_filter :space!, :only => [ :new, :create ]
@@ -218,7 +218,11 @@ class PostsController < ApplicationController
            
     respond_to do |format|
       format.html { 
-        redirect_to space_post_path(@space,@post)  
+         if params[:show]
+          redirect_to space_post_url(@space,@post.parent)
+        else
+          redirect_to space_posts_url(@space)
+        end
       }
       format.atom { head :ok }
     end

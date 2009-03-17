@@ -15,7 +15,17 @@
     <div id="add_new_reply">
       <%@parent_post = Post.find(params[:reply])%>	
       <%= render :partial => "new_reply" %>
-    </div>  
+    </div>
+  <%elsif params[:edit_thread]%>
+    <div id="edit_thread">
+      <%@post = Post.find(params[:edit_thread])%>	
+      <%= render :partial => "edit_thread" %>
+    </div>
+  <%elsif params[:edit_comment]%>
+    <div id="edit_comment">
+      <%@post = Post.find(params[:edit_comment])%>	
+      <%= render :partial => "edit_comment" %>
+    </div>
   <%else%>
     <div id="add_new_thread" >
       <%= render :partial => "new_thread" %>
@@ -30,14 +40,18 @@
 		Updated <%=time_ago_in_words(post.updated_at)%> ago  
 		<%=link_to "Reply", space_posts_path(@space,:reply => post)%>
 		<%=link_to "Delete", space_post_path(@space,post), :method => :delete%>
-		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "cerrada" : "rota"%>"> 
+		<%if current_user = post.author%><%=link_to "edit", space_posts_path(@space,:edit_thread => post)%><%end%>
+		
+		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
 			<%for comment in post.three_last_comment()%>
 			
 			  <p><%=image_tag("legacy/avatar.png")%>
 			  <%for attachment in comment.attachments%>
-			    <%=image_tag(space_attachment_path(@space,attachment))%>
+			    <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
 			  <%end%> 
-			  <%=comment.text%></p>
+			  <%=comment.text%>
+			  <%if current_user = comment.author%><%=link_to "edit", space_posts_path(@space,:edit_comment => comment)%><%end%>
+			  </p>
 			<%end%>
 		</div>
 		</br>
