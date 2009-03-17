@@ -1,3 +1,3 @@
 class UiController < ApplicationController
-before_filter :space
+  layout 'ui/layouts/application'
 end

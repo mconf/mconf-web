@@ -5,7 +5,8 @@
 <div id="spaces_select">
   <select id="space_select" name="space">
     <% Space.all.each do |space| %>
-    <option><%= link_to space.name, space %></option>
+    
+    <option value="<%= space_path(space) %>"><%= space.name %></option>
     <% end %>
   </select>
 </div>

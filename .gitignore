@@ -2,6 +2,6 @@
 index
 .project
 .loadpath
-log
+log/*.log
 *kpf
 tmp/*
