@@ -91,7 +91,7 @@ class PostsController < ApplicationController
    if params[:uploaded_data].present?
      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
    end
-   if !@attachment.valid?
+   if @attachment && !@attachment.valid?
         flash[:error] = "The attachment is not valid"  
         render :action => "index"
         return
@@ -122,9 +122,10 @@ class PostsController < ApplicationController
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:valid] = "Post created"
+    if @attachment
     @attachment.post = @post
     @attachment.save!
-
+    end
     #asignacion de los padres del attachment al articulo
 =begin    @attachments.each do |attach|
       attach.post = @post
