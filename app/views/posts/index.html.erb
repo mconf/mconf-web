@@ -1,7 +1,5 @@
-  
-<% content_for :headers do  %>
-  <%=javascript_include_tag :defaults%>
-<%end%>
+<% content_for :javascript do %>
+<% end %>
 
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
@@ -11,23 +9,24 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <%if params[:reply]%>
-    <div id="add_new_reply">
-      <%@parent_post = Post.find(params[:reply])%>	
+  <% if params[:reply_to]%>
+    <div id="new_reply">
+      <% @parent_post = Post.find(params[:reply_to])%>	
       <%= render :partial => "new_reply" %>
     </div>
-  <%elsif params[:edit_thread]%>
-    <div id="edit_thread">
-      <%@post = Post.find(params[:edit_thread])%>	
-      <%= render :partial => "edit_thread" %>
-    </div>
-  <%elsif params[:edit_comment]%>
-    <div id="edit_comment">
-      <%@post = Post.find(params[:edit_comment])%>	
-      <%= render :partial => "edit_comment" %>
-    </div>
+  <% elsif params[:edit] %>
+    <% @post = Post.find(params[:edit])%>	
+    <% if @post.parent_id %>
+      <div id="edit_reply">
+        <%= render :partial => "edit_reply" %>
+      </div>
+    <% else %>
+      <div id="edit_thread">
+        <%= render :partial => "edit_thread" %>
+      </div>
+    <% end %>
   <%else%>
-    <div id="add_new_thread" >
+    <div id="new_thread" >
       <%= render :partial => "new_thread" %>
     </div>
   <%end%>  
@@ -38,7 +37,7 @@
   
   		<b><%=link_to (post.title, space_post_path(@space,post))%></b>
 		Updated <%=time_ago_in_words(post.updated_at)%> ago  
-		<%=link_to "Reply", space_posts_path(@space,:reply => post)%>
+		<%=link_to "Reply", space_posts_path(@space,:reply_to => post)%>
 		<%=link_to "Delete", space_post_path(@space,post), :method => :delete%>
 		<%if current_user = post.author%><%=link_to "edit", space_posts_path(@space,:edit_thread => post)%><%end%>
 		

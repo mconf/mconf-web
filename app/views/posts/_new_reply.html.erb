@@ -1,0 +1,26 @@
+<h3>Reply to <%=@parent_post.title%></h3>
+  <div id="post-buttoms">
+    <ul>
+      <li><%= link_to 'Comment', space_posts_path(@space, :reply_to => @parent_post.id) %></li>
+      <li><%= link_to 'Photos', space_posts_path(@space, :reply_to => @parent_post.id, :form => 'photos') %></li>
+      <li><%= link_to 'Docs', space_posts_path(@space, :reply_to => @parent_post.id, :form => 'docs') %></li>
+    </ul>
+  </div>
+
+<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
+	
+  <div id="new_reply_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
+    <%= render :partial => "posts/form_photo", :object => f %>
+  </div>
+	
+  <div id="new_reply_doc_form" <%= 'style="display: none;"' if params[:form] != 'docs' %>>
+    <%= render :partial => "posts/form_doc", :object => f %>
+  </div>
+
+  <p>
+    <%= f.text_area :text, :class => "span-6"%>
+  </p>
+
+  <%= hidden_field_tag "post[parent_id]", params[:reply]%>
+  <%= submit_tag "Post Now!" %> <%= link_to 'or Add a new Thread', space_posts_path(@space) %>
+<% end -%>
