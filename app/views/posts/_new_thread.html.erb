@@ -1,9 +1,12 @@
+<% content_for :javascript do %>
+<% end %>
+
 <h3>Add a new Thread</h3>
   <div id="post-buttoms">
     <ul>
-      <li><%= link_to 'Comment', space_posts_path(@space) %></li>
-      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos') %></li>
-      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs')%></li>
+      <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link' } %></li>
+      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link' } %></li>
+      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_docs' } %></li>
 	</ul>
   </div>
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
