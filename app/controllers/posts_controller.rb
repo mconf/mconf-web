@@ -170,7 +170,7 @@ class PostsController < ApplicationController
       end
       return
     end  
-        
+=begin        
     #creo los attachments que ha subido el usuario
     i=0;
     @attachments = []
@@ -182,7 +182,26 @@ class PostsController < ApplicationController
       end
     i += 1;
     }
-    
+=end
+       #Creación de los Attachments
+   if params[:uploaded_data].present?
+     @post.attachments.destroy_all
+     @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+   end
+   if @attachment && !@attachment.valid?
+        flash[:error] = "The attachment is not valid"  
+        render :action => "index"
+        return
+   end
+   
+   
+   @post.save! #salvamos el artículo y con ello su entrada asociada  
+     flash[:valid] = "Post created"
+    if @attachment
+      @attachment.post = @post
+      @attachment.save!
+    end 
+=begin
     #valido los attachments para ver si el contendio es correcto
     @attachments.each do |attach|
     # Attachments list may belong to a container
@@ -215,7 +234,7 @@ class PostsController < ApplicationController
         attachment.destroy
       end
     end
-           
+=end           
     respond_to do |format|
       format.html { 
          if params[:show]

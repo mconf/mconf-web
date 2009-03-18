@@ -21,6 +21,6 @@
     <%= f.text_area :text, :class => "span-6"%>
   </p>
 
-  <%= hidden_field_tag "post[parent_id]", params[:reply]%>
+  <%= hidden_field_tag "post[parent_id]", params[:reply_to]%>
   <%= submit_tag "Post Now!" %> <%= link_to 'or Add a new Thread', space_posts_path(@space) %>
 <% end -%>

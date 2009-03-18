@@ -39,7 +39,7 @@
 		Updated <%=time_ago_in_words(post.updated_at)%> ago  
 		<%=link_to "Reply", space_posts_path(@space,:reply_to => post)%>
 		<%=link_to "Delete", space_post_path(@space,post), :method => :delete%>
-		<%if current_user = post.author%><%=link_to "edit", space_posts_path(@space,:edit_thread => post)%><%end%>
+		<%if current_user = post.author%><%=link_to "edit", get_route(post)%><%end%>
 		
 		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
 			<%for comment in post.three_last_comment()%>
@@ -49,7 +49,7 @@
 			    <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
 			  <%end%> 
 			  <%=comment.text%>
-			  <%if current_user = comment.author%><%=link_to "edit", space_posts_path(@space,:edit_comment => comment)%><%end%>
+			  <%if current_user = comment.author%><%=link_to "edit", get_route(comment)%><%end%>
 			  </p>
 			<%end%>
 		</div>
