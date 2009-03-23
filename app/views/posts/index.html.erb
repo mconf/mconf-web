@@ -1,4 +1,22 @@
 <% content_for :javascript do %>
+$("#new_comment_link").click(function () { 
+  $("#new_photo_form").hide();
+  $("#new_doc_form").hide();
+});
+$("#new_comment_link").attr('href', '#');
+
+$("#new_photo_link").click(function () {
+  $("#new_photo_form").show(); 
+  $("#new_doc_form").hide();
+});
+$("#new_photo_link").attr('href', '#');
+
+$("#new_doc_link").click(function () {
+  $("#new_photo_form").hide();
+  $("#new_doc_form").show();
+});
+$("#new_doc_link").attr('href', '#');
+
 <% end %>
 
 <% content_for :search do  %>
