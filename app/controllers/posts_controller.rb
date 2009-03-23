@@ -138,11 +138,7 @@ class PostsController < ApplicationController
 =end              
     respond_to do |format| 
       format.html {
-        if params[:show]
-          redirect_to space_post_url(@space,@post.parent)
-        else
-          redirect_to space_posts_url(@space)
-        end
+        redirect_to request.referer
       }
       format.atom { 
         headers["Location"] = formatted_space_post_url(@space, @post, :atom )

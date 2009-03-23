@@ -6,7 +6,7 @@
       <li><%= link_to 'Docs', space_posts_path(@space, :edit => params[:edit], :form => 'docs') %></li>
 	</ul>
   </div>
-<% form_for(:post, :url => space_post_path(@space,@post), :html => { :multipart => true , :method => :put }) do |f| -%>
+<% form_for([ @space, post ], :html => { :multipart => true }) do |f| -%>
 
   <div id="new_reply_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
     <%= render :partial => "posts/form_photo", :object => f %>

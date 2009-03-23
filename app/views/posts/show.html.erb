@@ -1,6 +1,6 @@
 <% content_for :sidebar do  %>
-  <% params[:reply]=@post %>
-  <%= render :partial => "new_comment" %>
+  <% params[:reply_to] = @post.id %>
+  <%= render :partial => "new_reply", :locals => { :post => @post } %>
 <% end %>
 
 <div id="thread_title">

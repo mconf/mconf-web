@@ -11,18 +11,17 @@
 <% content_for :sidebar do  %>
   <% if params[:reply_to]%>
     <div id="new_reply">
-      <% @parent_post = Post.find(params[:reply_to])%>	
-      <%= render :partial => "new_reply" %>
+      <%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
     </div>
   <% elsif params[:edit] %>
-    <% @post = Post.find(params[:edit])%>	
-    <% if @post.parent_id %>
+    <% post = Post.find(params[:edit]) %>
+    <% if post.parent_id %>
       <div id="edit_reply">
-        <%= render :partial => "edit_reply" %>
+        <%= render :partial => "edit_reply", :locals => { :post => post } %>
       </div>
     <% else %>
       <div id="edit_thread">
-        <%= render :partial => "edit_thread" %>
+        <%= render :partial => "edit_thread", :locals => { :post => post } %>
       </div>
     <% end %>
   <%else%>
