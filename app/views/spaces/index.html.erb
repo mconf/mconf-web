@@ -14,6 +14,7 @@
       <%else%>
          <div></div>
 		 <div><%= name_format(space.name,24,"")%></div>
+                 <div><%= link_to "Posts", space_posts_path(space) %></div>
 	<!-- lo he tocado para que no salga 2 veces el nombre-->
 	  <%end%>
 	       
