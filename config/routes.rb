@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
 
   #ROOT
-  map.root :controller => 'spaces', :action => 'show', :space_id => "Public",:container_id=> 1
+  map.root :controller => 'spaces'
 
   # #######################################################################
   # CMSplugin
