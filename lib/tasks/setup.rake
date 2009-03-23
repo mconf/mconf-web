@@ -1,6 +1,6 @@
 namespace :setup do
   desc "Setup production environment"
-  task :production => [ :git_submodules, :config_database, :gems_install, "db:migrate", "basic_data:all" ] do
+  task :production => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
 
   end
 
@@ -22,14 +22,16 @@ namespace :setup do
     end
   end
 
-  desc "gems:install with sudo"
-  task :gems_install do
-    `sudo rake gems:install`
-  end
-
   desc "Update Git Submodules"
   task :git_submodules do
     puts "* Updating Git submodules"
-    `git submodule update --init`
+
+    git_version = `git --version`.chomp.split(" ").last
+    if git_version > "1.6"
+      system "git submodule sync"
+    else
+      system "git submodule init"
+      system "git submodule update"
+    end
   end
 end
