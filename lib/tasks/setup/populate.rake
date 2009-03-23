@@ -5,6 +5,9 @@ namespace :setup do
     require 'faker'
 
     [ Space ].each(&:destroy_all)
+    users_without_admin = User.all
+    users_without_admin.shift
+    users_without_admin.each(&:destroy)
 
     Space.populate 20 do |space|
       space.name = Populator.words(1..3).titleize
@@ -43,6 +46,7 @@ namespace :setup do
     User.populate 15 do |user|
       user.login = Faker::Name.name
       user.email = Faker::Internet.email
+      user.crypted_password = User.encrypt("test", "")
       user.activated_at = 2.years.ago..Time.now
     end
 
