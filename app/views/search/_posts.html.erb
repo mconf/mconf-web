@@ -22,7 +22,7 @@
 		 		<br/>
 	     		<% @parents.each do |post| %>
 	       			<%if post%>
-	         			<%=show_post(post,@space,"edit","destroy")%> 
+	         			<%=render :partial => "posts/post", :object=>post%> 
 	       			<%end%>
          		<%end%>
 	   		<%else%>
@@ -30,7 +30,7 @@
 		 		<br/>	
 	     		<% @parents.each do |post| %>
 	       			<%if post%>
-	         			<%=show_post(post,@space,"edit","destroy")%> 
+	         			<%=render :partial => "posts/post", :object=>post %> 
 	       			<%end%>
          		<%end%>
 			<%end%>

@@ -1,3 +1,10 @@
+<% content_for :search do  %>
+  <% form_tag(search_users_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>
+<%end%>
+
 <% content_for :sidebar do  %>
 	<div id="Create_new_group">
 		<h3>Create new group</h3>
