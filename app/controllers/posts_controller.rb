@@ -140,6 +140,7 @@ class PostsController < ApplicationController
       format.html {
         redirect_to request.referer
       }
+      format.js
       format.atom { 
         headers["Location"] = formatted_space_post_url(@space, @post, :atom )
         render :action => :show,

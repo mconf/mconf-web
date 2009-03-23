@@ -1,0 +1,13 @@
+$("#posts").before('<div class="notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
+$(".post").css( {backgroundColor: "transparent"});
+<%if @post.parent_id.present?%>
+$("#parent_<%=@post.parent_id%>").hide();
+$("#posts").prepend("<%= escape_javascript(render(:partial => @post.parent)) %>");
+$("#post_<%=@post.id%>").css( {backgroundColor:"yellow"});
+$("#reply-form")[0].reset();
+<%else%>
+$("#posts").prepend("<%= escape_javascript(render(:partial => @post)) %>");
+$("#post_<%=@post.id%>").css( {backgroundColor:"yellow"});
+$("#thread-form")[0].reset();
+<%end%>
+$(".notice").fadeOut(1500);

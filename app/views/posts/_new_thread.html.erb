@@ -1,4 +1,5 @@
 <% content_for :javascript do %>
+ $("#thread-form").submitWithAjax();
 <% end %>
 
 <h3>Add a new Thread</h3>
@@ -9,7 +10,7 @@
       <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link' } %></li>
 	</ul>
   </div>
-<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true }) do |f| -%>
+<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
   <p>
     <label for="Title">Title</label><br/>
     <%= f.text_field :title, :size => 25 %>
