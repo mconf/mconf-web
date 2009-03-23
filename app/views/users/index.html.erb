@@ -1,6 +1,18 @@
 <% content_for :sidebar do  %>
 	<div id="Create_new_group">
 		<h3>Create new group</h3>
+		<% form_for(:group, :url => space_groups_path(@space) ) do |f| -%>
+			<p>
+    		<label for="Name">Name</label><br/>
+    		<%= f.text_field :name, :size => 25 %>
+  			</p>
+			<p>
+			<% for user in @users -%>
+					<%= check_box_tag "group[user_ids][]", user.id%><%= label("checkbox",user.name)%><br />
+			<%end%>
+			</p>
+			<%= submit_tag "Create" %>
+		<% end -%>
     </div>  
 <% end %>
 
@@ -16,47 +28,7 @@
 </div>
 
 <% if params[:list_by] == "groups" -%>
-	<div id="results_count">
-		<h3>Groups, <%=@groups.size%> results</h3>	
-	</div>
-	<% for group in @groups -%>
-		<div class="group">
-			<ul class="group_links">
-				<li><a>Send a message</a></li>
-				<li><a>e-mail</a></li>
-				<li><a>Join</a></li>
-			</ul>
-			<h4><%=group.name%></h4>
-			<% for user in group.users -%>
-				<div class="user">
-					<p>
-						<a>Send a message</a><br />
-						<a>e-mail</a>
-					</p>
-					<%=image_tag("legacy/avatar.png")%>
-					<h5><%=user.name %> <%=user.lastname %></h5>
-					<%=user.organization %><br />
-					<%=user.city %>, <%=user.country %>
-				</div>
-			<% end -%>
-		</div>
-	<% end -%>
-	
+	<%= render :partial => 'list_by_groups' %>
 <% else -%>
-	<div id="results_count">
-		<h3>People, <%=@users.size%> results</h3>	
-	</div>
-	<% for user in @users -%>
-		<div class="user">
-			<p>
-				<a>Send a message</a><br />
-				<a>e-mail</a>
-			</p>
-			<%=image_tag("legacy/avatar.png")%>
-			<h5><%=user.name %> <%=user.lastname %></h5>
-			<%=user.organization %><br />
-			<%=user.city %>, <%=user.country %>
-		</div>
-		
-	<% end -%>
+	<%= render :partial => 'list_by_name' %>
 <% end -%>

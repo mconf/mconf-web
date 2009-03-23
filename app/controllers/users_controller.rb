@@ -58,6 +58,7 @@ class UsersController < ApplicationController
     if params[:space_id]
       @users = @space.actors
       @groups = @space.groups
+      @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
     end
 
     respond_to do |format|

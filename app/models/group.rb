@@ -3,6 +3,17 @@ class Group < ActiveRecord::Base
     has_and_belongs_to_many :users
     belongs_to :space
     
+    validates_presence_of :name
+    
+    def validate
+      for user in users
+        unless user.stages.include?(space)
+          errors.add(:users, "not belongs to the space of the group")
+        end
+      end
+      
+    end
+    
 =begin
     after_create { |group| 
     if group.reload_mail_list_server_because_of_environment
