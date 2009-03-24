@@ -1,35 +1,48 @@
+<% content_for :javascript do %>
+ 
+$("#new_comment_link").click(function () { 
+  $("#new_photo_form").hide();
+  $("#new_doc_form").hide();
+});
+$("#new_comment_link").attr('href', '#');
+
+$("#new_photo_link").click(function () {
+  $("#new_photo_form").show(); 
+  $("#new_doc_form").hide();
+});
+$("#new_photo_link").attr('href', '#');
+
+$("#new_doc_link").click(function () {
+  $("#new_photo_form").hide();
+  $("#new_doc_form").show();
+});
+$("#new_doc_link").attr('href', '#');
+
+
+<% end %>
+
 <% content_for :sidebar do  %>
   <% params[:reply_to] = @post.id %>
   <%= render :partial => "new_reply", :locals => { :post => @post } %>
 <% end %>
-
-<div id="thread_title">
-  <h2><%=@post.title%></h2>
-</div>
-
-
-<div id="reply">
-	<%=link_to "Delete", space_post_path(@space,@post), :method => :delete%>
-</div>
-
-<div id="thread_update">
-  <h2>Updated <%=time_ago_in_words(@post.updated_at)%> ago</h2>
-</div>
-
-
-<div id="posts">
-	<div class="box_closed"> 
-	  <p><%=image_tag("legacy/avatar.png")%>
-	  <%for attachment in @post.attachments%>
-	    <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
-	  <%end%>
-	  <%=@post.text%></p>
-	  <%for comment in @post.children%>			
-	    <p><%=image_tag("legacy/avatar.png")%>			  
-		<%for attachment in comment.attachments%>
-		  <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
-	    <%end%> <%=comment.text%></p>
-	  <%end%>
+<div id="post">
+  <div id="parent_<%=@post.id%>">
+  		<b><%=link_to (@post.title, space_post_path(@space,@post))%></b>
+		Updated <%=time_ago_in_words(@post.updated_at)%> ago  
+		
+		<%=link_to "Reply", space_posts_path(@space,:reply_to => @post),{:class => 'reply_to_link'}%>
+		<%=link_to "Delete", space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete }%>
+		
+		<%if current_user == @post.author%><%=link_to "edit", get_route(@post)%><%end%>
+		
+		<div class="<%=@post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>">
+          <%for comment in @posts%>
+			  <%=render :partial => "post" , :object => comment%>
+			<%end%>
+		</div>
+		</br>
 	</div>
 </div>
+
+
 <%= will_paginate @posts %>
