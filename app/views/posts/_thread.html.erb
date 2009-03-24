@@ -1,0 +1,18 @@
+  <div id="parent_<%=thread.id%>">
+  		<b><%=link_to (thread.title, space_post_path(@space,thread))%></b>
+		Updated <%=time_ago_in_words(thread.updated_at)%> ago  
+		
+		<%=link_to "Reply", space_posts_path(@space,:reply_to => thread),{:class => 'reply_to_link'}%>
+		<%=link_to "Delete", space_post_path(@space,thread),{ :class => 'delete_thread', :method => :delete }%>
+		
+		<%if current_user == thread.author%><%=link_to "edit", get_route(thread)%><%end%>
+		
+		<div class="<%=thread.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
+          
+		  <%for comment in thread.three_last_comment()%>
+			  <%=render :partial => "post" , :object => comment%>
+		  <%end%>
+		
+		</div>
+		</br>
+	</div>

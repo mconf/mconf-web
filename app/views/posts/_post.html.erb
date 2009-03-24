@@ -1,24 +1,10 @@
-  <div id="parent_<%=post.id%>">
-  		<b><%=link_to (post.title, space_post_path(@space,post))%></b>
-		Updated <%=time_ago_in_words(post.updated_at)%> ago  
-		
-		<%=link_to "Reply", space_posts_path(@space,:reply_to => post)%>
-		<%=link_to "Delete", space_post_path(@space,post), :method => :delete%>
-		
-		<%if current_user == post.author%><%=link_to "edit", get_route(post)%><%end%>
-		
-		<div class="<%=post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
-			<%for comment in post.three_last_comment()%>
-			  <%div_for (comment) do%>
-			    <p><%=image_tag("legacy/avatar.png")%>
-			    <%for attachment in comment.attachments%>
-			      <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
-			    <%end%> 
-			    <%=comment.text%>
-			    <%if current_user = comment.author%><%=link_to "edit", get_route(comment)%><%end%>
-			    </p>
-			  <%end%>
-			<%end%>
-		</div>
-		</br>
-	</div>
+<!-- this partial render a post with their links -->
+<%div_for (post) do%>
+   <p><%=image_tag("legacy/avatar.png")%>
+   <%for attachment in post.attachments%>
+      <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
+   <%end%> 
+   <%=post.text%>
+   <%if current_user = post.author%><%=link_to "edit", get_route(post)%><%end%>
+   </p>
+<%end%>

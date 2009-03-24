@@ -1,18 +1,18 @@
 <h3>Edit a comment</h3>
   <div id="post-buttoms">
     <ul>
-      <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]) %></li>
-      <li><%= link_to 'Photos', space_posts_path(@space, :edit => params[:edit], :form => 'photos') %></li>
-      <li><%= link_to 'Docs', space_posts_path(@space, :edit => params[:edit], :form => 'docs') %></li>
+      <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]), { :id => 'new_comment_link' } %></li>
+      <li><%= link_to 'Photos', space_posts_path(@space, :edit => params[:edit], :form => 'photos'), { :id => 'new_photo_link' } %></li>
+      <li><%= link_to 'Docs', space_posts_path(@space, :edit => params[:edit], :form => 'docs'), { :id => 'new_doc_link' } %></li>
 	</ul>
   </div>
 <% form_for([ @space, post ], :html => { :multipart => true }) do |f| -%>
 
-  <div id="new_reply_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
+  <div id="new_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
 	
-  <div id="new_reply_doc_form" <%= 'style="display: none;"' if params[:form] != 'docs' %>>
+  <div id="new_doc_form" <%= 'style="display: none;"' if params[:form] != 'docs' %>>
     <%= render :partial => "posts/form_doc", :object => f %>
   </div>
 	<p>

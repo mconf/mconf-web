@@ -36,9 +36,10 @@ class PostsController < ApplicationController
   #   GET /posts/:id
   def show
     session[:current_tab] = "News"
+    @show_view = true
     @posts= [@post].concat(@post.children).paginate(:page => params[:page], :per_page => 5)
     respond_to do |format|
-      format.html
+      format.html {}
       format.xml { render :xml => @post.to_xml }
       format.atom 
       format.json { render :json => @post.to_json }
@@ -121,7 +122,7 @@ class PostsController < ApplicationController
 =end      
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
-    flash[:valid] = "Post created"
+    flash[:notice] = "Post created"
     if @attachment
     @attachment.post = @post
     @attachment.save!
@@ -249,8 +250,10 @@ class PostsController < ApplicationController
   def destroy
    #destroy de content of the post. Then its container(post) is destroyed automatic.
    @post.destroy 
+   flash[:notice] = "Post has been deleted"
     respond_to do |format|
       format.html { redirect_to space_posts_path(@space) }
+      format.js 
       format.atom { head :ok }
       # FIXME: Check AtomPub, RFC 5023
 #      format.send(mime_type) { head :ok }
