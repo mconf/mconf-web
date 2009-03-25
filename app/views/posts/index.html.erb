@@ -1,4 +1,7 @@
 <% content_for :javascript do %>
+
+$(".delete_thread").submitWithAjax();
+ 
 $("#new_comment_link").click(function () { 
   $("#new_photo_form").hide();
   $("#new_doc_form").hide();
@@ -16,6 +19,7 @@ $("#new_doc_link").click(function () {
   $("#new_doc_form").show();
 });
 $("#new_doc_link").attr('href', '#');
+
 
 <% end %>
 
@@ -51,7 +55,7 @@ $("#new_doc_link").attr('href', '#');
 
 <div id="posts">
   <% for post in @posts -%>
-    <%= render :partial => post %>
+    <%= render :partial => "thread" , :object => post %>
   <% end -%>
 </div>  
   <%= will_paginate @posts %>

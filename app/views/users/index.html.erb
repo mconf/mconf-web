@@ -1,11 +1,21 @@
+<% content_for :search do  %>
+  <% form_tag(search_users_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>
+<%end%>
+
 <% content_for :sidebar do  %>
-	<div id="Create_new_group">
-		<h3>Create new group</h3>
-    </div>  
+	<% if params[:edit_group] %>
+		<% group = @groups.find(params[:edit_group]) %>
+		<%= render :partial => 'edit_group', :locals=> {:group => group} %>
+	<% else %>
+		<%= render :partial => 'create_group' %>
+	<% end %>  
 <% end %>
 
 <div id="list_by">
-	<span>List by <span>
+	<span>List by </span>
 	<% if params[:list_by] == "groups" -%>
 		Groups
 		<%= link_to 'Names', space_users_path(@space) %>
@@ -16,47 +26,7 @@
 </div>
 
 <% if params[:list_by] == "groups" -%>
-	<div id="results_count">
-		<h3>Groups, <%=@groups.size%> results</h3>	
-	</div>
-	<% for group in @groups -%>
-		<div class="group">
-			<ul class="group_links">
-				<li><a>Send a message</a></li>
-				<li><a>e-mail</a></li>
-				<li><a>Join</a></li>
-			</ul>
-			<h4><%=group.name%></h4>
-			<% for user in group.users -%>
-				<div class="user">
-					<p>
-						<a>Send a message</a><br />
-						<a>e-mail</a>
-					</p>
-					<%=image_tag("legacy/avatar.png")%>
-					<h5><%=user.name %> <%=user.lastname %></h5>
-					<%=user.organization %><br />
-					<%=user.city %>, <%=user.country %>
-				</div>
-			<% end -%>
-		</div>
-	<% end -%>
-	
+	<%= render :partial => 'list_by_groups' %>
 <% else -%>
-	<div id="results_count">
-		<h3>People, <%=@users.size%> results</h3>	
-	</div>
-	<% for user in @users -%>
-		<div class="user">
-			<p>
-				<a>Send a message</a><br />
-				<a>e-mail</a>
-			</p>
-			<%=image_tag("legacy/avatar.png")%>
-			<h5><%=user.name %> <%=user.lastname %></h5>
-			<%=user.organization %><br />
-			<%=user.city %>, <%=user.country %>
-		</div>
-		
-	<% end -%>
+	<%= render :partial => 'list_by_name' %>
 <% end -%>

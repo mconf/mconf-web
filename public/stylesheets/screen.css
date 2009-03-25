@@ -256,7 +256,9 @@ label {font-weight:bold;}
 #search{float:right;}
 #reply{float:right;}
 #list_by{float:right;}
+.user{clear:both;}
 .user img{float:left;}
 .user p{float:right;}
 .group_links {float:right;}
 .group_links li{display: inline;}
+.group{clear:both;}
