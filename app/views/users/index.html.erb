@@ -6,25 +6,16 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-	<div id="Create_new_group">
-		<h3>Create new group</h3>
-		<% form_for(:group, :url => space_groups_path(@space) ) do |f| -%>
-			<p>
-    		<label for="Name">Name</label><br/>
-    		<%= f.text_field :name, :size => 25 %>
-  			</p>
-			<p>
-			<% for user in @users -%>
-					<%= check_box_tag "group[user_ids][]", user.id%><%= label("checkbox",user.name)%><br />
-			<%end%>
-			</p>
-			<%= submit_tag "Create" %>
-		<% end -%>
-    </div>  
+	<% if params[:edit_group] %>
+		<% group = @groups.find(params[:edit_group]) %>
+		<%= render :partial => 'edit_group', :locals=> {:group => group} %>
+	<% else %>
+		<%= render :partial => 'create_group' %>
+	<% end %>  
 <% end %>
 
 <div id="list_by">
-	<span>List by <span>
+	<span>List by </span>
 	<% if params[:list_by] == "groups" -%>
 		Groups
 		<%= link_to 'Names', space_users_path(@space) %>

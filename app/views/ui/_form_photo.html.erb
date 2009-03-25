@@ -1,9 +1,20 @@
-  <p>
-  	<!--
+ 	<h3>New Thread</h3>
 
-	-->
-  </p>
-  <div>Add a Caption</div>
-  <p>
-    <%= form_photo.text_area :text, :class => "span-6"%>
-  </p>
+	<div id="actions">
+ 	 	<ul>
+	    	<li><%= link_to "Comment" %></li>
+	    	<li><%= link_to "Photos" %></li>
+	    	<li><%= link_to "Doc" %></li>
+		</ul>
+	</div>
+
+	<label for="idtitle">Title</label><br/>
+	<input type="text" name="Title" id="idtitle" value="">
+	<p>
+	<b>	Select a picture</b><br/>
+	<%=file_field_tag "browse", :class=>"span-6 last"%>
+	</p>
+	<div>Add a Caption</div>
+	<p>
+	<textarea name="description" rows="10" cols="25"> </textarea>
+	</p>
