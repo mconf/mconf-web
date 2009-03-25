@@ -1,4 +1,4 @@
-<h3>Add a new Thread</h3>
+<h3>New Thread</h3>
 
 <div id="actions">
   <ul>
@@ -7,3 +7,12 @@
     <li><%= link_to "Doc" %></li>
   </ul>
 </div>
+
+<form id= "thread_form" method="post" enctype="text/plain" action="">
+<label for="idtitle">Title</label><br/>
+<input type="text" name="Title" class="span-6 last" value="">
+
+<b>Description</b><br/>
+<textarea name="description" rows="10" cols="27"> </textarea>
+<input type="button" name="send_post" value="Post Now!!" />
+</form>

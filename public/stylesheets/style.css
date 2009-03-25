@@ -1,2 +1,12 @@
+/*color for sidebar*/
+#sidebar {background-color:#CCCCCC}
+
+/*border for every thread*/
 .thread {border: solid 1px #555;}
-#actions li {margin:0 1.3em;}
+
+/*css for comment, photo and doc links*/
+#actions li {margin:0 1em 0 0;}
+
+/*add a maargin at the top of the form*/
+#thread_form {margin-top:0.75em;}
+

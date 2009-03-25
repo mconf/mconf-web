@@ -1,8 +1,8 @@
 <% content_for :sidebar do  %>
-  <%= render :partial => 'new_thread' %>
+  <%= render :partial => "form_photo" %>
 <% end %>
 
-<b><%=link_to "Titulo"%></b>   Updated 3 minutes ago  <%=link_to "Reply"%>
+	<b><%=link_to "Titulo"%></b> Updated 3 minutes ago <a class="prueba1" href="ui/posts">Reply</a> <%=link_to "Delete"%> <%=link_to "Edit"%>
 	<div class="thread">
 		<div class="following_post"> 						
 		  <p><%=image_tag("legacy/avatar.png")%>commentario1</p>			
@@ -15,7 +15,8 @@
 		</div>
 	</div>
 
-<b><%=link_to "Titulo2"%></b>   Updated 3 minutes ago  <%=link_to "Reply"%>
+	<b><%=link_to "Titulo2"%></b>   Updated 3 minutes ago  <%=link_to "Reply"%>
+
 	<div class="thread">
 		<div class="first_post"> 						
 		  <p><%=image_tag("legacy/avatar.png")%>commentario4</p>			
