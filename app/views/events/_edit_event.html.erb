@@ -1,0 +1,20 @@
+<h3>Edit Event</h3>
+
+<% form_for([@space,@event], :html => { :multipart => true}) do |f| -%>
+  <%= f.error_messages %>				
+  <div>
+    <label for="Name">Name:</label>
+    <%= f.text_field :name, :size =>25  %>
+  </div>
+  <div>
+	<label for="Description">Description:</label>
+	<%=f.text_area :description, :class => "span-6"  %>
+  </div>  
+  <div>
+	 Start Date <br/><%=f.datetime_select(:start_date, :class => "span-5")%><br/>
+	 End Date <br/> <%=f.datetime_select(:end_date, :class => "span-5")%>
+  </div>	
+  	<p>
+  	<%= f.submit "Update" %>
+  	</p>
+<% end %>

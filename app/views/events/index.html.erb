@@ -1,39 +1,81 @@
+<% content_for :sidebar do  %>
+  <%if params[:edit]%>
+    <%@event = Event.find(params[:edit])%>
+    <%=render :partial => 'edit_event'%>
+  <%else%>
+    <%= render :partial=> 'new_event'%>
+  <%end%>
+<%end%>
 
-<div id="yui-main">
-	<div  class="yui-b main_column">
+<%if params[:show] == "lastest_events"%>
+   <div class="group_links">
+     <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events" )%><br/>
+	</div> 	
+    <div id="events">
+	  <h3>Latest Events</h3>  
 	
-	<%if params[:view_all]%>
-	  <% rounded(:class => "tips") do %>
-	    <div class="contenido_main">
-	      <h2 class="title">Future Events</h2>
-	      <%= render :partial=> 'future_events'%>
-	    </div>
-	  <%end%>
-	
-	  <% rounded(:class => "tips") do %>
-	    <div class="contenido_main">
-	      <h2 class="title">Past Events</h2>
-	      <%= render :partial=> 'past_events'%>
-	    </div>
-	  <%end%>
-	<%else%>
-	
-	
-	  <% rounded(:class => "tips") do %>
-	    <div class="contenido_main">
-	      <h2 class="title">Events Coming...</h2>
-	
-	      <%= render :partial=> 'events_coming'%>
-	    </div>
-	  <%end%>
-	<%end%>
-
-	
-	
-	<div id="show_event"></div>
+	  <%for event in @latest_events%>
+	    <%= render :partial => event %>
+	  <%end%>	
+	  <%= will_paginate @latest_events%>
 	</div>
-</div>
-<%= render :partial =>'shared/calendar'%>
+	
+<%elsif params[:show] == "past_events"%>
+  <div class="group_links">
+   <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events")%><br/>
+  </div> 	
+   <div id="events">
+	  <h3>Past Events</h3>  
+	 	
+	  <%for event in @past_events%>
+	    <%= render :partial => event %>
+	  <%end%>	
+      <%= will_paginate @past_events%>
+    </div>
 
+<%elsif params[:show] == "coming_events"%>
+    <div id="events"> 
+	  <div class="group_links">  
+		<%=link_to "Today (#{@today_events.size})" , space_events_path(@space, :show => "coming_events", :day => "today"),{:title => "Today Events"}%> |
+		<%=link_to "within 7 days (#{@next_week_events.size})", space_events_path(@space, :show => "coming_events", :day => "next_week" ),{:title => "the events within 7 days"}%> |
+		<%=link_to "within a Month (#{@next_month_events.size})", space_events_path(@space, :show => "coming_events" , :day =>"next_month"),{:title => "the events within 30 days"}%> |
+		<%=link_to "All Coming (#{@all_coming_events.size})", space_events_path(@space, :show => "coming_events"),{:title => "All Coming events"}%> 
+	  </div>
+	  <h3><%= @title%></h3>
+	  
+	  <%for event in @coming_events%>
+	    <%= render :partial => event %>
+	  <%end%>
+	  <br/><br/>
+	  <div class="group_links">
+	  <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events")%> | 
+	  <%=link_to "Show all Coming Events", space_events_path(@space, :show => "coming_events")%><br/>
+	  </div>	
+	  <%= will_paginate @coming_events%>
 
+	</div>
+	
+<%else%>
+  <div id="events">
+	   <div class="group_links">
+	     <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events")%><br/> 
+	   </div>
+	  <h3>Latest Events</h3>  
 
+	
+	  <%for event in @latest_events%>
+	    <%= render :partial => event %>
+	  <%end%>	
+
+      <div class="group_links">
+	    <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events")%> | 
+		<%=link_to "Show all Coming Events", space_events_path(@space, :show => "coming_events")%><br/>
+	  </div>	
+	  <h3>Events Coming</h3> 
+	  
+	
+	  <%for event in @incoming_events%>
+	    <%= render :partial => event %>
+	  <%end%>	
+  </div>
+<%end%>

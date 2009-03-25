@@ -2,14 +2,50 @@ require 'vpim/icalendar'
 require 'vpim/vevent'
 require 'vpim/duration'
 
-
 class EventsController < ApplicationController
+  
+   before_filter :space
   # GET /events
   # GET /events.xml
   def index
-    session[:current_tab] = "Events"
-    session[:current_sub_tab] = ""
+    
+    @events = (Event.in_container(@space).all :order => "updated_at DESC")
+    
+    if params[:show] == "lastest_events"
+      @latest_events = @events.select{|e| e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+    elsif params[:show] == "coming_events" 
+      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future? }
+      @next_week_events = @events.select{|e| e.start_date >= (Date.today).beginning_of_day && e.start_date <= (Date.today + 7).end_of_day && e.start_date.future?}
+      @next_month_events = @events.select{|e| e.start_date >= (Date.today).beginning_of_day && e.start_date <= (Date.today + 30).end_of_day && e.start_date.future?}
+      @all_coming_events = @events.select{|e| e.start_date.future?}.sort!{|x,y| x.start_date <=> y.start_date}
+      if params[:day] == "today"
+        @coming_events = @today_events 
+        @title = "Today Events"
+      elsif params[:day] == "next_week"
+        @coming_events = @next_week_events
+        @title = "Next Week Events"
+      elsif params[:day] == "next_month"
+        @coming_events = @next_month_events
+        @title = "Next Month Events"
+      else
+        @coming_events = @all_coming_events
+        @title = "All Coming Events"
+      end
+        @coming_events = @coming_events.paginate(:page => params[:page], :per_page => 10)
+      #@tomorrow_events = @events.select{|e| e.start_date.to_date == Date.tomorrow}
 
+    elsif params[:show] == "past_events"
+      @past_events = @events.select{|e| !e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+    else
+      @latest_events = @events.first(5)
+      @incoming_events = @events.select{|e| e.start_date.future?}.sort!{|x,y| x.start_date <=> y.start_date}.first(5)  
+    end
+    
+    
+    
+    
+    
+=begin
     Event.in_container(@space).at_date(params[:date_start_date]).paginate(params[:paginate])
     
     if params[:date_start_day]
@@ -28,12 +64,11 @@ class EventsController < ApplicationController
         coming_events  
       end
     end
-    #@events_all = Event.find(:all)
+=end
+    
     #@events = @events_all - @today_events - @tomorrow_events - @week_events
     respond_to do |format|
-      format.html { if params[:date_start_day]
-        render :partial => "day_events", :layout => true
-      end}
+      format.html { }
     #format.html # index.html.erb
       format.xml  { render :xml => @events }
     end
@@ -77,12 +112,17 @@ class EventsController < ApplicationController
     @event.container = @container
     respond_to do |format|
       if @event.save
-        @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:notice] = 'Event was successfully created.'
-        format.html { redirect_to(space_event_path(@space,@event)) }
+        #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
+        flash[:success] = 'Event was successfully created.'
+        format.html {redirect_to request.referer }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
-        format.html { render :action => "new" }
+        format.html {  
+        message = ""
+        @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
+        redirect_to request.referer
+        }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
     end
@@ -96,11 +136,14 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update_attributes(params[:event])
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:notice] = 'Event was successfully updated.'
-        format.html {redirect_to(space_event_path(@space,@event)) }
+        flash[:success] = 'Event was successfully updated.'
+        format.html {redirect_to space_events_path(@space) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { message = ""
+        @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
+        redirect_to request.referer }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
     end
@@ -113,7 +156,7 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
-      format.html { redirect_to(events_url) }
+      format.html { redirect_to(space_events_path(@space)) }
       format.xml  { head :ok }
     end
   end
