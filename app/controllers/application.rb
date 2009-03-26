@@ -20,4 +20,6 @@ class ApplicationController < ActionController::Base
   def space!
     container!
   end
+
+  helper_method :space, :space!
 end
