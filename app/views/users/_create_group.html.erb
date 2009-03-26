@@ -1,0 +1,15 @@
+	<div id="Create_new_group">
+		<h3>Create new group</h3>
+		<% form_for(:group, :url => space_groups_path(@space) ) do |f| -%>
+			<p>
+    		<label for="Name">Name</label><br/>
+    		<%= f.text_field :name, :size => 25 %>
+  			</p>
+			<p>
+			<% for user in @users -%>
+					<%= check_box_tag "group[user_ids][]", user.id%><%= label("checkbox",user.name + " " + user.lastname)%><br />
+			<%end%>
+			</p>
+			<%= submit_tag "Create" %>
+		<% end -%>
+    </div>
