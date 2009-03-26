@@ -1,4 +1,9 @@
 <div id="logo">
+  <% if @space %>
+    <%= link_icon(@space, :size => 48) %>
+  <% else %>
+    <h1>Logo</h1>
+  <% end %>
 	<ul>
 		<li id="name_app">global-project</li>
 		<% if logged_in? %>

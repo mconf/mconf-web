@@ -1,21 +1,7 @@
-	
-	<% rounded() do %>
-	  <div>
-	    <h2><%=name_format(@space.name, 45, "")%> description</h2>
-	    <br/><%= @space.description%>
-	  </div>
-	<%end%>
+<div>
+  <h1><%=name_format(@space.name, 45, "")%> description</h1>
+  <%= sanitize @space.description%>
+</div>
 	
 	
 	
-		
-<!-- <% rounded(:class => "tips") do %> 	<div class="contenido_main"><h2 class="title">Posts</h2>--><!--<%= render :partial=> 'shared/lated_posts'%><%end%></div> -->
-<!-- <% rounded(:class => "tips") do %>	    <div class="contenido_main"><h2 class="title">Events Coming...</h2>--><!--<%= render :partial=> 'shared/events_coming'%><%end%></div> -->
-
-	
-		
-		<div>
-			
-		</div>
-
-<%= render :partial =>'shared/sidebar_home'%>
