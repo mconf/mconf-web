@@ -11,7 +11,7 @@
 				<li><%= link_to 'Delete', space_group_path(@space, group), :confirm => "Are you sure?", :method => :delete, :group => group %></li>
 			</ul>
 			<h4><%=group.name%></h4>
-			<% for user in group.users -%>
+			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
 				<%= render :partial => 'simple_user', :object=> user %>
 			<% end -%>
 		</div>

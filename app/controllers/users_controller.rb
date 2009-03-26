@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     @users = @users.paginate(:page => params[:page],:per_page => 10)
 =end
     if params[:space_id]
-      @users = @space.actors
+      @users = @space.actors.sort {|x,y| x.name <=> y.name }
       @groups = @space.groups
       @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
     end
