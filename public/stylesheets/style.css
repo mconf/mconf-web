@@ -4,7 +4,7 @@ CSS del header
 #header {background-color:#275B8A;}
 #header #name_app {font-weight:bold;margin:0 1em; color:#FFF;}
 #header #user_account {font-style:italic; margin: 0 1em;color:#EEE}
-#header #prefs li {margin-right:0.5em;}
+#header #prefs li {margin-right:0.5em;text-decoration:none; font-weight:bold; color:#FFF;}
 #header #prefs a {text-decoration:none; font-weight:bold; color:#FFF;}
 /*
 CSS para el home_navigation
