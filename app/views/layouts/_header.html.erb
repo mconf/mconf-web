@@ -1,12 +1,17 @@
 <div id="logo">
-	<h1>Logo</h1>
+	<ul>
+		<li id="name_app">global-project</li>
+		<% if logged_in? %>
+		<li id="user_account"><%= current_user.login %></li>
+		<% end %>
+	</ul>
 </div>
 
 <div id="prefs">
 	<ul>
 	  	<% if logged_in? %>
-		    <li><%= current_user.login %></li>
-		    <li>Inbox (2)</li>
+		    <li>Inbox(3)</li>
+		    <li>Profile</li>
 		    <li>Preferences</li>
 		    <li><%= link_to 'Logout', logout_path %></li>	
 		<% else %>
@@ -14,3 +19,4 @@
 		<% end %>
 	</ul>
 </div>
+

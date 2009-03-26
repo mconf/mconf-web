@@ -246,7 +246,7 @@ label {font-weight:bold;}
 .success a {color:#264409;}
 
 /* base */
-#header{height:4.5em;}
+#header{height:2.5em;}
 #header #logo{position:absolute;}
 #header #prefs{float:right;}
 #header ul, #navigation ul, #actions ul{margin:0;padding:0;}

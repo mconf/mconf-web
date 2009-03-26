@@ -1,12 +1,32 @@
+/*
+CSS del header
+*/
+#header {background-color:#275B8A;}
+#header #name_app {font-weight:bold;margin:0 1em; color:#FFF;}
+#header #user_account {font-style:italic; margin: 0 1em;color:#EEE}
+#header #prefs li {margin-right:0.5em;}
+#header #prefs a {text-decoration:none; font-weight:bold; color:#FFF;}
+/*
+CSS para el home_navigation
+*/
+#h_navigation img, #h_navigation ul {vertical-align:middle;}
+#h_navigation #title {font-family:"Trebuchet MS";font-size:24pt;font-weight:bold;color:#265A8A; margin: 0 1em 0 0.5em;}
+#h_navigation #subtitle {font-family:"Trebuchet MS";font-size:16pt;font-style:italic; color:#CCC;}
+#h_navigation #logo_app {width:50px; height:50px;}
+#h_navigation ul {margin:0;padding:0;}
+#h_navigation li, #h_navigation ul, #h_navigation div {display:inline;}
+#h_navigation {border-bottom:thin #CCC solid;}
+
 /*color for sidebar*/
-#sidebar {background-color:#CCCCCC}
 
 /*border for every thread*/
-.thread {border: solid 1px #555;}
+.thread {border: solid 1px #555;
+		background-image: url(/public/images/test-small.jpg);
+		}
 
 /*css for comment, photo and doc links*/
 #actions li {margin:0 1em 0 0;}
 
-/*add a maargin at the top of the form*/
+/*add a margin at the top of the form*/
 #thread_form {margin-top:0.75em;}
 
