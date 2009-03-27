@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 =end
     if params[:space_id]
       @users = @space.actors.sort {|x,y| x.name <=> y.name }
-      @groups = @space.groups
+      @groups = @space.groups.all(:order => "name ASC")
       @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
     end
 

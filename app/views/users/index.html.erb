@@ -1,3 +1,20 @@
+<% content_for :javascript do %>
+	$("#names_link").attr('href', '#');
+	$("#groups_link").attr('href', '#');
+	$("#names_link").click(function (){ 
+		$("#list_by_groups").hide();
+		$("#list_by_name").show();
+		$("#list_by_groups_selected").hide();
+		$("#list_by_names_selected").show();
+	});
+	$("#groups_link").click(function (){ 
+		$("#list_by_name").hide();
+		$("#list_by_groups").show();
+		$("#list_by_groups_selected").show();
+		$("#list_by_names_selected").hide();		
+	});
+<% end %>
+
 <% content_for :search do  %>
   <% form_tag(search_users_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
@@ -7,26 +24,29 @@
 
 <% content_for :sidebar do  %>
 	<% if params[:edit_group] %>
-		<% group = @groups.find(params[:edit_group]) %>
+		<% group = @space.groups.find(params[:edit_group]) %>
 		<%= render :partial => 'edit_group', :locals=> {:group => group} %>
 	<% else %>
 		<%= render :partial => 'create_group' %>
 	<% end %>  
 <% end %>
 
-<div id="list_by">
+<div id="list_by_names_selected" class="group_links" <%= 'style="display: none;"' if params[:list_by] == "groups" %>>
 	<span>List by </span>
-	<% if params[:list_by] == "groups" -%>
-		Groups
-		<%= link_to 'Names', space_users_path(@space) %>
-	<% else -%>
-		<%= link_to 'Groups', space_users_path(@space, :list_by => 'groups') %>
-		Name
-	<% end -%>
+	<%= link_to 'Groups', space_users_path(@space, :list_by => 'groups'), { :id => 'groups_link' } %>
+	Names
 </div>
 
-<% if params[:list_by] == "groups" -%>
+<div id="list_by_groups_selected" class="group_links"<%= 'style="display: none;"' unless params[:list_by] == "groups" %>>
+	<span>List by </span>
+	Groups
+	<%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
+</div>
+
+<div id="list_by_groups" <%= 'style="display: none;"' unless params[:list_by] == "groups" %>>
 	<%= render :partial => 'list_by_groups' %>
-<% else -%>
+</div>
+<div id="list_by_name" <%= 'style="display: none;"' if params[:list_by] == "groups" %>>
 	<%= render :partial => 'list_by_name' %>
-<% end -%>
+</div>
+

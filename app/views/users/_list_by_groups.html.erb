@@ -1,3 +1,7 @@
+<% content_for :javascript do %>
+	$(".delete_group").submitWithAjax();
+<%end%>
+	
 	<div id="results_count">
 		<h3>Groups, <%=@groups.size%> results</h3>	
 	</div>
@@ -8,7 +12,7 @@
 				<li><a>e-mail</a></li>
 				<li><a>Join</a></li>
 				<li><%= link_to 'Edit', edit_space_group_path(@space, group) %></li>
-				<li><%= link_to 'Delete', space_group_path(@space, group), :confirm => "Are you sure?", :method => :delete, :group => group %></li>
+				<li><%= link_to 'Delete', space_group_path(@space, group), :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' %></li>
 			</ul>
 			<h4><%=group.name%></h4>
 			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
