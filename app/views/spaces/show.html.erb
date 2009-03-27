@@ -1,7 +1,50 @@
-<div>
+<% content_for :search do  %>
+  <% form_tag(search_users_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+          <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>
+<%end%>
+
+<% content_for :sidebar do  %>
+  <%= link_to "Join this space!", ""%>
+	<h4>Welcome!</h4>
+	<p><%@space.description%></p>
+	<div id="lastest_users">
+        <h3>Incoming Events</h3>
+  <% for event in @incoming_events -%>
+    <div class="event">
+        <b><%=event.title%></b><br/>
+				<%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%>
+    </div>
+  <% end -%>
+        <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" %>
+  </div>
+<% end %>
+
+<!--<div>
   <h1><%=name_format(@space.name, 45, "")%> description</h1>
   <%= sanitize @space.description%>
 </div>
-	
+-->
+<div id="lastest_posts">
+        <h3>Lastest Posts</h3>
+  <% for post in @lastest_posts -%>
+    <div class="post">
+        <b><%=post.title%></b> Updated <%=time_ago_in_words(post.updated_at)%> ago
+    </div>
+  <% end -%>
+        <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" %>
+</div>
+
+<div id="lastest_users">
+        <h3>Lastest Users</h3>
+  <% for user in @lastest_users -%>
+    <div class="user">
+        <%=image_tag("legacy/avatar.png")%> <%=user.name + " " + user.lastname %>
+    </div>
+  <% end -%>
+        <%= link_to "Read more", space_users_path(@space), :class => "read_more_link" %>
+</div>
+
 	
 	

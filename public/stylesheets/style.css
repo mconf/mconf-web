@@ -30,3 +30,16 @@ CSS para el home_navigation
 /*add a margin at the top of the form*/
 #thread_form {margin-top:0.75em;}
 
+/*
+ * Quick programmer CSS 
+ */
+#reply{float:right;}
+#list_by{float:right;}
+.user{clear:both;}
+.user img{float:left;}
+.user p{float:right;}
+.group_links {float:right;}
+.group_links li{display: inline;}
+.group{clear:both;}
+.read_more_link{display:block;clear:both;text-align:right;}
+}

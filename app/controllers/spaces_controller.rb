@@ -1,10 +1,10 @@
 class SpacesController < ApplicationController
   before_filter :authentication_required, :except => [ :index, :register, :show ]
 
-  authorization_filter :space, :read, :only => [:show]
-  authorization_filter :space, :update, :only => [:edit, :update]
-  authorization_filter :space, :delete, :only => [:destroy]
-  
+  #authorization_filter :space, :read, :only => [:show]
+  #authorization_filter :space, :update, :only => [:edit, :update]
+  #authorization_filter :space, :delete, :only => [:destroy]
+  before_filter :space
   set_params_from_atom :space, :only => [ :create, :update ]
 
   # GET /spaces
@@ -31,9 +31,11 @@ class SpacesController < ApplicationController
   # GET /spaces/1.atom
   def show  
     @posts = @space.posts
-
+    @lastest_posts=@posts.find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(5)
+    @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(5)
+    @incoming_events=@space.events.find(:all, :order => "start_date DESC").select{|e| e.start_date.future?}.first(5)
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # show.html.erb
       format.xml  { render :xml => @space }
       format.atom
     end
