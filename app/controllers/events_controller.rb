@@ -9,37 +9,49 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     
-    @events = (Event.in_container(@space).all :order => "updated_at DESC")
-    
-    if params[:show] == "lastest_events"
-      @latest_events = @events.select{|e| e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
-    elsif params[:show] == "coming_events" 
-      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future? }
-      @next_week_events = @events.select{|e| e.start_date >= (Date.today).beginning_of_day && e.start_date <= (Date.today + 7).end_of_day && e.start_date.future?}
-      @next_month_events = @events.select{|e| e.start_date >= (Date.today).beginning_of_day && e.start_date <= (Date.today + 30).end_of_day && e.start_date.future?}
-      @all_coming_events = @events.select{|e| e.start_date.future?}.sort!{|x,y| x.start_date <=> y.start_date}
+    @events = (Event.in_container(@space).all :order => "start_date ASC")
+      #Incoming events
+      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future? }.paginate(:page => params[:page], :per_page => 10)
+      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+      @all_incoming_events = @events.select{|e| e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+=begin      
       if params[:day] == "today"
-        @coming_events = @today_events 
-        @title = "Today Events"
+        @incoming_title = "Today Events"
       elsif params[:day] == "next_week"
-        @coming_events = @next_week_events
-        @title = "Next Week Events"
+        @incoming_title = "Next Week Events"
       elsif params[:day] == "next_month"
-        @coming_events = @next_month_events
-        @title = "Next Month Events"
+        @incoming_title = "Next Month Events"
       else
-        @coming_events = @all_coming_events
-        @title = "All Coming Events"
+        @incoming_title = "All incoming Events"
       end
-        @coming_events = @coming_events.paginate(:page => params[:page], :per_page => 10)
-      #@tomorrow_events = @events.select{|e| e.start_date.to_date == Date.tomorrow}
+=end
+      #Past events
+      @today_and_yesterday_events = @events.select{|e| (e.start_date.to_date == Date.today || e.start_date.to_date == Date.yesterday) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 7) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 30) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+      @all_past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
 
-    elsif params[:show] == "past_events"
-      @past_events = @events.select{|e| !e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
-    else
-      @latest_events = @events.first(5)
-      @incoming_events = @events.select{|e| e.start_date.future?}.sort!{|x,y| x.start_date <=> y.start_date}.first(5)  
-    end
+=begin
+      if params[:day] == "yesterday"
+        @past_events_events = @today_and_yesterday_events 
+        @past_title = "Today Past Events and Yesterday Events"
+      elsif params[:day] == "last_week"
+        @past_events = @next_week_events
+        @past_title = "Last Week Events"
+      elsif params[:day] == "last_month"
+        @past_events = @next_month_events
+        @past_title = "Last Month Events"
+      else
+        @past_events = @all_past_events
+        @past_title = "All Past Events"
+      end           
+      
+      @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+=end
+      #First 5 past and incoming events
+      @last_past_events = @events.select{|e| !e.start_date.future?}.reverse.first(5)
+      @first_incoming_events = @events.select{|e| e.start_date.future?}.first(5)  
     
     
     

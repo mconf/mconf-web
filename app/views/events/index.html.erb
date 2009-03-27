@@ -7,75 +7,210 @@
   <%end%>
 <%end%>
 
-<%if params[:show] == "lastest_events"%>
-   <div class="group_links">
-     <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events" )%><br/>
-	</div> 	
-    <div id="events">
-	  <h3>Latest Events</h3>  
-	
-	  <%for event in @latest_events%>
-	    <%= render :partial => event %>
-	  <%end%>	
-	  <%= will_paginate @latest_events%>
-	</div>
-	
-<%elsif params[:show] == "past_events"%>
-  <div class="group_links">
-   <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events")%><br/>
-  </div> 	
-   <div id="events">
-	  <h3>Past Events</h3>  
-	 	
-	  <%for event in @past_events%>
-	    <%= render :partial => event %>
-	  <%end%>	
-      <%= will_paginate @past_events%>
-    </div>
+<% content_for :javascript do %>
+ 
+$(".incoming_link").click(function () { 
+  $("#past_events").hide();
+  $("#all_events").hide();
+	$("#incoming_events").show();
+});
+$(".incoming_link").attr('href', '#');
 
-<%elsif params[:show] == "coming_events"%>
-    <div id="events"> 
-	  <div class="group_links">  
-		<%=link_to "Today (#{@today_events.size})" , space_events_path(@space, :show => "coming_events", :day => "today"),{:title => "Today Events"}%> |
-		<%=link_to "within 7 days (#{@next_week_events.size})", space_events_path(@space, :show => "coming_events", :day => "next_week" ),{:title => "the events within 7 days"}%> |
-		<%=link_to "within a Month (#{@next_month_events.size})", space_events_path(@space, :show => "coming_events" , :day =>"next_month"),{:title => "the events within 30 days"}%> |
-		<%=link_to "All Coming (#{@all_coming_events.size})", space_events_path(@space, :show => "coming_events"),{:title => "All Coming events"}%> 
-	  </div>
-	  <h3><%= @title%></h3>
-	  
-	  <%for event in @coming_events%>
-	    <%= render :partial => event %>
-	  <%end%>
-	  <br/><br/>
-	  <div class="group_links">
-	  <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events")%> | 
-	  <%=link_to "Show all Coming Events", space_events_path(@space, :show => "coming_events")%><br/>
-	  </div>	
-	  <%= will_paginate @coming_events%>
+$(".past_link").click(function () {
+  $("#past_events").show();
+  $("#all_events").hide();
+  $("#incoming_events").hide();
+});
+$(".past_link").attr('href', '#');
 
-	</div>
+$("#all_link").click(function () {
+  $("#past_events").hide();
+  $("#all_events").show();
+  $("#incoming_events").hide();
+});
+$("#all_link").attr('href', '#');
+
+$("#today_link").click(function () {
+  $("#today_text").show();
+	$("#today_events_link").hide();
+	$("#next_week_text").hide();
+  $("#next_week_events_link").show();
+	$("#next_month_text").hide();
+  $("#next_month_events_link").show();
+	$("#all_incoming_text").hide();
+  $("#all_incoming_events_link").show();
+  $("#today_events").show();
+  $("#next_week_events").hide();
+  $("#next_month_events").hide();
+	$("#all_incoming_events").hide();
+});
+$("#today_link").attr('href', '#');
+
+$("#next_week_link").click(function () {
+  $("#today_text").hide();
+  $("#today_events_link").show();
+  $("#next_week_text").show();
+  $("#next_week_events_link").hide();
+  $("#next_month_text").hide();
+  $("#next_month_events_link").show();
+  $("#all_incoming_text").hide();
+  $("#all_incoming_events_link").show();
+  $("#today_events").hide();
+  $("#next_week_events").show();
+  $("#next_month_events").hide();
+  $("#all_incoming_events").hide();
+});
+$("#next_week_link").attr('href', '#');
+
+$("#next_month_link").click(function () {
+  $("#today_text").hide();
+  $("#today_events_link").show();
+  $("#next_week_text").hide();
+  $("#next_week_events_link").show();
+  $("#next_month_text").show();
+  $("#next_month_events_link").hide();
+  $("#all_incoming_text").hide();
+  $("#all_incoming_events_link").show();;
+  $("#today_events").hide();
+  $("#next_week_events").hide();
+  $("#next_month_events").show();
+  $("#all_incoming_events").hide();
+});
+$("#next_month_link").attr('href', '#');
+
+$("#all_incoming_link").click(function () {
+  $("#today_text").hide();
+  $("#today_events_link").show();
+  $("#next_week_text").hide();
+  $("#next_week_events_link").show();
+  $("#next_month_text").hide();
+  $("#next_month_events_link").show();
+  $("#all_incoming_text").show();
+  $("#all_incoming_events_link").hide();
+  $("#today_events").hide();
+  $("#next_week_events").hide();
+  $("#next_month_events").hide();
+  $("#all_incoming_events").show();
+});
+$("#all_incoming_link").attr('href', '#');
+
+$("#yesterday_link").click(function () {
+  $("#yesterday_text").show();
+  $("#yesterday_events_link").hide();
+  $("#last_week_text").hide();
+  $("#last_week_events_link").show();
+  $("#last_month_text").hide();
+  $("#last_month_events_link").show();
+  $("#all_past_text").hide();
+  $("#all_past_events_link").show();  
+  $("#yesterday_events").show();
+  $("#last_week_events").hide();
+  $("#last_month_events").hide();
+  $("#all_past_events").hide();
+});
+$("#yesterday_link").attr('href', '#');
+
+$("#last_week_link").click(function () {
+  $("#yesterday_text").hide();
+  $("#yesterday_events_link").show();
+  $("#last_week_text").show();
+  $("#last_week_events_link").hide();
+  $("#last_month_text").hide();
+  $("#last_month_events_link").show();
+  $("#all_past_text").hide();
+  $("#all_past_events_link").show();
+  $("#yesterday_events").hide();
+  $("#last_week_events").show();
+  $("#last_month_events").hide();
+  $("#all_past_events").hide();
+});
+$("#last_week_link").attr('href', '#');
+
+$("#last_month_link").click(function () {
+  $("#yesterday_text").hide();
+  $("#yesterday_events_link").show();
+  $("#last_week_text").hide();
+  $("#last_week_events_link").show();
+  $("#last_month_text").show();
+  $("#last_month_events_link").hide();
+  $("#all_past_text").hide();
+  $("#all_past_events_link").show();
+  $("#yesterday_events").hide();
+  $("#last_week_events").hide();
+  $("#last_month_events").show();
+  $("#all_past_events").hide();
+});
+$("#last_month_link").attr('href', '#');
+
+$("#all_past_link").click(function () {
+  $("#yesterday_text").hide();
+  $("#yesterday_events_link").show();
+  $("#last_week_text").hide();
+  $("#last_week_events_link").show();
+  $("#last_month_text").hide();
+  $("#last_month_events_link").show();
+  $("#all_past_text").show();
+  $("#all_past_events_link").hide();
+  $("#yesterday_events").hide();
+  $("#last_week_events").hide();
+  $("#last_month_events").hide();
+  $("#all_past_events").show();
+});
+$("#all_past_link").attr('href', '#');
+
+
+<% end %>
+
+
+
+ <div class="group_links">
+   <%=link_to "All", space_events_path(@space), {:id => 'all_link'}%> |
+   <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%> |
+   <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
+ </div>  
+ 
+
 	
-<%else%>
+
+<div id="past_events" <%= 'style="display: none;"' if params[:show] != 'past_events' %>>
+	<%= render :partial => 'past_events' %>
+</div>
+
+<div id="incoming_events" <%= 'style="display: none;"' if params[:show] != 'incoming_events' %>>
+  <%= render :partial => 'incoming_events' %>
+</div>
+
+	
+<div id="all_events" <%= 'style="display: none;"' if (params[:show] == 'incoming_events' or params[:show] == 'past_events' )%>>
+  <h3>Events</h3>
   <div id="events">
+	  <h3>Incoming Events</h3> 
+	  
+	  <%if @first_incoming_events.nil?%>
+	    <p> No Incoming events</p>
+	  <%else%>
+	    <%for event in @first_incoming_events%>
+	      <%= render :partial => event %>
+	    <%end%>	
+	  <%end%>
+	  
 	   <div class="group_links">
-	     <%=link_to "Show all Latest Events", space_events_path(@space, :show => "lastest_events")%><br/> 
+	   	 <%=link_to "Show all Incoming Events", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%><br/>
 	   </div>
-	  <h3>Latest Events</h3>  
+	   <br/>
+	  <h3>Past Events</h3>  
 
-	
-	  <%for event in @latest_events%>
-	    <%= render :partial => event %>
-	  <%end%>	
+	  <%if @last_past_events.nil?%>
+	    <p> No past events</p>
+	  <%else%>
+	    <%for event in @last_past_events%>
+	      <%= render :partial => event %>
+	    <%end%>	
+	  <%end%>
+
 
       <div class="group_links">
-	    <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events")%> | 
-		<%=link_to "Show all Coming Events", space_events_path(@space, :show => "coming_events")%><br/>
+	    <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
 	  </div>	
-	  <h3>Events Coming</h3> 
-	  
-	
-	  <%for event in @incoming_events%>
-	    <%= render :partial => event %>
-	  <%end%>	
   </div>
-<%end%>
+</div>

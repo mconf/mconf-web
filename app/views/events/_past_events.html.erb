@@ -1,11 +1,41 @@
-<%if (!@past_events || @past_events.empty?)%> 
-  <%= "No Past events" %>
-<%else %>
-  <%=generate_event_table%> 
-	<h2>Past Events</h2>
-		<% @past_events.each do |event| %>
-		  <div class="summary">
-    	    <%=show_event(event)%> <!--muestra cada uno de los eventos-->
-		  </div>
-		<%end %>
-<%end %>
+ <h3>Past Events</h3>
+        <span id="yesterday_text"<%= 'style="display: none;"' if params[:day] != 'yesterday' %>><%="Today past events and Yesterday (#{@today_and_yesterday_events.size})"%> |</span>
+        <span id="yesterday_events_link"<%= 'style="display: none;"' if params[:day] == 'yesterday' %>><%=link_to "Today past events and Yesterday (#{@today_and_yesterday_events.size})" , space_events_path(@space, :show => "past_events", :day => "yesterday"),{:title => "Today Events", :id => "yesterday_link"}%> |</span>
+        <span id="last_week_text"<%= 'style="display: none;"' if params[:day] != 'last_week' %>><%="within 7 days (#{@last_week_events.size})"%> |</span>
+        <span id="last_week_events_link"<%= 'style="display: none;"' if params[:day] == 'last_week' %>><%=link_to "last 7 days (#{@last_week_events.size})", space_events_path(@space, :show => "past_events", :day => "last_week" ),{:title => "the events in the last 7 days", :id => "last_week_link"}%> |</span>
+        <span id="last_month_text"<%= 'style="display: none;"' if params[:day] != 'last_month' %>><%="within a Month (#{@last_month_events.size})"%> |</span>
+        <span id="last_month_events_link" <%= 'style="display: none;"' if params[:day] == 'last_month' %>><%=link_to "last Month (#{@last_month_events.size})", space_events_path(@space, :show => "past_events" , :day =>"last_month"),{:title => "the events in the last 30 days", :id => "last_month_link"}%> |</span>
+        <span id="all_past_text"<%= 'style="display: none;"' if (params[:day] == 'yesterday' or params[:day] == 'last_week' or params[:day] == 'last_month' ) %>><%="All Incoming (#{@all_past_events.size})"%> </span>
+        <span id="all_past_events_link"<%= 'style="display: none;"' if (params[:day].nil? or (params[:day] != 'yesterday' and params[:day] != 'last_week' and params[:day] != 'last_month')) %>><%=link_to "All Past events (#{@all_past_events.size})", space_events_path(@space, :show => "past_events"),{:title => "All Past events", :id => "all_past_link"}%> <br/></span> 
+
+  <div id="yesterday_events"<%= 'style="display: none;"' if params[:day] != 'yesterday'%>>
+
+  <%for event in @today_and_yesterday_events%>
+    <%= render :partial => event %>
+  <%end%> 
+    <%= will_paginate @today_and_yesterday_events%>
+  </div>
+  
+  <div id="last_week_events" <%= 'style="display: none;"' if params[:day] != 'last_week'%>> 
+
+      <%for event in @last_week_events%>
+    <%= render :partial => event %>
+  <%end%> 
+    <%= will_paginate @last_week_events%>
+  </div>
+  
+  <div id="last_month_events"<%= 'style="display: none;"' if params[:day] != 'last_month'%>>
+
+      <%for event in @last_month_events%>
+    <%= render :partial => event %>
+  <%end%> 
+    <%= will_paginate @last_month_events%>
+  </div>
+  
+  <div id="all_past_events"<%= 'style="display: none;"' if (params[:day] == 'yesterday' or params[:day] == 'last_week' or params[:day] == 'last_month')%>>
+
+      <%for event in @all_past_events%>
+    <%= render :partial => event %>
+  <%end%> 
+    <%= will_paginate @all_past_events%>
+  </div>
