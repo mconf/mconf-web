@@ -63,7 +63,7 @@ end
 def setup_development
   install_gem_subsystem
   install_gems(:common)
-  install_gems(:production)
+  install_gems(:development)
   `rake setup:development`
 end
 
