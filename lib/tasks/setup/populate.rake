@@ -11,6 +11,7 @@ namespace :setup do
 
     Space.populate 20 do |space|
       space.name = Populator.words(1..3).titleize
+      space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
 
       Post.populate 10..100 do |post|
