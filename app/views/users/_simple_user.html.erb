@@ -1,4 +1,3 @@
 <div class="user">
-  <%= image_tag(icon_image(simple_user, :size => 72)) %>
-  <h5><%=sanitize(simple_user.name + " " + simple_user.lastname) %></h5>
+  <%= link_icon_and_name (simple_user, :size => 32) %>
 </div>
