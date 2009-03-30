@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
   attr_accessible :superuser, :disabled
   
   
-  
  is_indexed :fields => ['login','email'],
 :include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
              {:class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
@@ -58,6 +57,10 @@ end
 
 def country
   profile ? profile.country : "Country"
+end
+
+def logotype
+  profile && profile.logotype
 end
 
 #this method let's the user to login with his e-mail

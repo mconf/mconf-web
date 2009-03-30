@@ -1,19 +1,10 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-<% rounded(:class => "tips") do %>
 <h1 class="title">Editing profile</h1>
 
 <%= error_messages_for :profile %>
-<!-- ojo, he puesto @user porque no siempre se edita el usuario que está logueado en ese momento-->
-<% form_for :profile, :url => user_profile_path(@user), :html => {:method => :put, :multipart => true} do |f| %>
 
+<% form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
 
-<%= render :partial => 'form', :locals => { :f => f } %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
 
-        	<%= submit_tag 'Update' %><%= link_to 'Back', user_profile_path(current_user)%>
+  <%= submit_tag 'Update' %>
 <% end %>
-<% end %>
-</div>
-</div>
-
-<%= render :partial=>'shared/sidebar_profile'%>

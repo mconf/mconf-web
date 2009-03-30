@@ -17,39 +17,22 @@ class ProfilesController < ApplicationController
   # if params[:hcard] then hcard is rendered
   # GET /profile.atom
   def show
-    session[:current_tab] = "Profile"
-    session[:current_sub_tab] = ""
-
     if params[:hcard]
       hcard
       return
     end
     
-    @user_spaces = @user.stages
-    if @user.profile.new_record? && current_user == @user
-      flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user)
-    elsif current_user != @user && @user.profile.new_record?
-      flash[:notice]= "Action Not Allowed"
-      redirect_to root_path()  
-    else
-      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})  
-      respond_to do |format|
-        format.html 
-        format.xml  { render :xml => @profile }
-        format.vcf  { vcard }
-        format.atom
-      end
+    respond_to do |format|
+      format.html 
+      format.xml  { render :xml => @profile }
+      format.vcf  { vcard }
+      format.atom
     end
   end
   
   # GET /profile/new
   # GET /profile/new.xml
   def new
-    session[:current_tab] = "Profile" 
-    @user = User.find_by_id(params[:user_id])
-    @profile = Profile.new
-    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @profile }
@@ -58,15 +41,9 @@ class ProfilesController < ApplicationController
   
   # GET /profiles/edit
   def edit
-    session[:current_tab] = "Profile" 
-    session[:current_sub_tab] = "Edit Your Profile"
-
     if @profile.new_record?
       flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
-    else
-      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
-      @user = User.find_by_id(params[:user_id])      
     end
   end
   
@@ -76,7 +53,6 @@ class ProfilesController < ApplicationController
   # POST /profile.atom
   def create
     @profile = current_user.build_profile(params[:profile])
-    @logotype = @profile.build_logotype(params[:logotype]) 
 
     respond_to do |format|
       if @profile.save
@@ -100,23 +76,7 @@ class ProfilesController < ApplicationController
   # PUT /profile.xml
   # PUT /profile.atom
   def update
-    #En primer lugar miro si se ha eliminado la foto del usuario y la borro de la base de datos
-    if params[:delete_thumbnail] && params[:delete_thumbnail] == "true"
-        @profile.logotype = nil 
-    end
-    
-    if params[:logotype] && params[:logotype]!= {"uploaded_data"=>""}
-       @logotype = Logotype.new(params[:logotype]) 
-       if !@logotype.valid?
-          flash[:error] = "The logotype is not valid"  
-          render :action => "edit"   
-          return
-       end
-       @profile.logotype = @logotype
-    end
-    
     respond_to do |format|
-      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
       if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
         format.html { render :action => "show" }
@@ -208,12 +168,6 @@ class ProfilesController < ApplicationController
     send_data @card.to_s, :filename => "vcard_#{profile.name}.vcf"
   end
   
-  #unused method!
-  #this method is used when a user want to import his vcard file.
-  def import_vcard
-    
-  end
-
   def unique_profile
    unless current_user.profile.nil?
      flash[:error] = "You already have a profile."     

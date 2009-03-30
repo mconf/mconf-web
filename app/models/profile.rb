@@ -1,12 +1,11 @@
 class Profile < ActiveRecord::Base
-  acts_as_taggable
-  has_one :logotype , :as => 'logotypable' , :dependent => :destroy
   belongs_to :user
-  
-  validates_presence_of     :name, :lastname, :phone, :city, :country,:organization
- 
-  before_destroy { |profile| profile.logotype.destroy if profile.logotype}
 
+  acts_as_taggable
+  acts_as_logotypable
+  
+  validates_presence_of :name, :lastname, :phone, :city, :country,:organization
+ 
   def authorizes?(agent, action_objective)
     return true if agent.superuser? || agent == user
 
