@@ -1,41 +1,11 @@
-	<% rounded() do %>
 <% @page_title = "Spaces"-%>
 
 <h1>Spaces</h1>
-<br/>
 
-<% for space in @spaces %>
-
-
-	  <%if logged_in? && space.authorizes?(current_user, [ :update, :Content ])%> 
-		   <div></div>
-		   
-		   <div><%= link_to name_format(space.name,24,"") , edit_space_path(space)%></div>
-      <%else%>
-         <div></div>
-		 <div><%= name_format(space.name,24,"")%></div>
-                 <div><%= link_to "Posts", space_posts_path(space) %></div>
-	<!-- lo he tocado para que no salga 2 veces el nombre-->
-	  <%end%>
-	       
-		   <div>
-    		<%if logged_in? && space.authorizes?(current_user, [ :Create, :Performance ])%> 
-		    	<%= link_to "Add_ussers", new_space_user_path(space, {:from_app => true}) %>
-            <%end%>
-			<%if logged_in? && space.authorizes?(current_user, [ :update, :Performance ])%> 
-				<%= link_to "Groups", space_groups_path(space)%>
-			<%end%>
-			<%if logged_in? && space.authorizes?(current_user, :delete)%> 
-           		<%= link_to "Delete", space, :confirm => 'This will delete all the Space. Are you sure?', :method => :delete %>
-			<%end%>
-			</div>
-			<br/>
-			<br/>
-        
-	
-  
+<% @spaces.each do |space| %>
+<div>
+  <%= link_to sanitize(space.name), space %><br />
+  <%= sanitize(space.description) if space.description.present? %>
+</div>
 <% end %>
- 
-<%end%>
 
-<%= render :partial =>'shared/sidebar'%>
