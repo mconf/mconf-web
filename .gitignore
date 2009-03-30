@@ -5,3 +5,4 @@ index
 log/*.log
 *kpf
 tmp/*
+.tmp_*

@@ -8,6 +8,9 @@ class Event < ActiveRecord::Base
   alias_attribute :title, :name
   validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
+
+  
+begin  
   def validate
     unless self.start_date < self.end_date
       errors.add_to_base("The event start date must be previous than the event end date ")
@@ -16,6 +19,6 @@ class Event < ActiveRecord::Base
       errors.add_to_base("The event start date should be a future date  ")
     end
   end
-
+end
 
 end

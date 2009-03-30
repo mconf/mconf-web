@@ -158,6 +158,12 @@ $("#all_past_link").click(function () {
 });
 $("#all_past_link").attr('href', '#');
 
+$(".datepicker").datepicker({showOn: 'button', buttonImage: '../../images/legacy/calendar.png', buttonImageOnly: true});
+$('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/spinnerUpDown.png', 
+    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true});
+		
+$(".javascript").show();
+$(".no_javascript").remove();
 
 <% end %>
 

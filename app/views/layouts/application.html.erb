@@ -11,12 +11,15 @@
 
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "style", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "ui_theme", :media => "screen, projection" %>
+		<%= stylesheet_link_tag "jquery.timeentry", :media => "screen, projection" %>
+		<%= stylesheet_link_tag "print", :media => "print" %>
+		
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
 
-    <%= javascript_include_tag 'jquery', 'application' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery-ui', 'jquery.timeentry','jquery.mousewheel' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
         <%= yield :javascript %>

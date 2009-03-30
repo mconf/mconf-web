@@ -42,4 +42,5 @@ CSS para el home_navigation
 .group_links li{display: inline;}
 .group{clear:both;}
 .read_more_link{display:block;clear:both;text-align:right;}
+th, td, caption {padding:0 0 0 0;}
 }

@@ -10,10 +10,16 @@
 	<label for="Description">Description:</label>
 	<%=f.text_area :description, :class => "span-6"  %>
   </div>  
-  <div>
-	 Start Date <br/><%=f.datetime_select(:start_date, :class => "span-5")%><br/>
-	 End Date <br/> <%=f.datetime_select(:end_date, :class => "span-5")%>
-  </div>	
+  <div class="no_javascript">
+    Start Date <%=f.datetime_select :start_date, :class => "span-5"  %><br/>
+    Start Hour <br/> <%=f.datetime_select :end_date, :class => "span-5"  %><br/>
+  </div>
+  <div class="javascript", style="display: none;">
+  Start Date <input type="DateTime" name="event[start_date]" class= "datepicker" value= <%=@event.start_date.to_date%> /><br/>
+  Start Hour <br/> <input type="time" name="start_hour" class="timepicker" value= <%=@event.start_date.to_time.hour%>:<%=@event.start_date.to_time.min%>:<%=@event.start_date.to_time.sec%>><br/>
+  End Date <br/> <input type="date" name="event[end_date]" class="datepicker" value= <%=@event.end_date.to_date%>>
+  End Hour <br/> <input type="time" name="end_hour" class="timepicker" value= <%=@event.end_date.to_time.hour%>:<%=@event.end_date.to_time.min%>:<%=@event.end_date.to_time.sec%> > 
+  </div>
   	<p>
   	<%= f.submit "Update" %>
   	</p>
