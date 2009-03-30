@@ -1,9 +1,9 @@
 <%if space %>
-<ul>
+<div id="space_logo" class="span-24 last">
+  <%= link_icon(space, :size => 48) %>
+</div>
 
-<li>
-	
-<div id="spaces_select">
+<div id="spaces_select" class="span-6">
   <select id="space_select" name="space">
     <% Space.all.each do |space| %>
     
@@ -12,12 +12,8 @@
   </select>
 </div>
 
-</li>
 
-<li>
-
-
-<div id="nav_bar">	
+<div id="nav_bar" class="span-12">
   <ul>
 	  <li><%=link_to "Home", space_path(space)%></li>
 	  <li><%=link_to "Posts", space_posts_path(space)%></li>
@@ -26,17 +22,13 @@
  
 <!--La tab de Admin sólo se muestra a los admin  -->
   
-    <li><%=link_to "Admin"%></li>
+    <li><%=link_to "Admin", edit_space_path(space)%></li>
   </ul>
 </div>
 
 
-</li>
 
-<li>
   <div id="search">
     <%= yield :search %>
   </div>
-</li>
-</ul>
 <%end%>
