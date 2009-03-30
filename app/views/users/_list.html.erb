@@ -1,0 +1,6 @@
+	<div id="results_count">
+		<h3>People, <%=@users.size%> results</h3>	
+	</div>
+	<% for user in @users -%>
+		<%= render :partial => 'users/detailed_user', :object => user %>		
+	<% end -%>

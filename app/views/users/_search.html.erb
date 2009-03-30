@@ -1,0 +1,4 @@
+<% form_tag(search_users_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>

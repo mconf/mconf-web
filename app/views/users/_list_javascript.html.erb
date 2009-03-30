@@ -1,0 +1,14 @@
+$("#names_link").attr('href', '#');
+	$("#groups_link").attr('href', '#');
+	$("#names_link").click(function (){ 
+		$("#list_by_groups").hide();
+		$("#list_by_name").show();
+		$("#list_by_groups_selected").hide();
+		$("#list_by_names_selected").show();
+	});
+	$("#groups_link").click(function (){ 
+		$("#list_by_name").hide();
+		$("#list_by_groups").show();
+		$("#list_by_groups_selected").show();
+		$("#list_by_names_selected").hide();		
+	});
