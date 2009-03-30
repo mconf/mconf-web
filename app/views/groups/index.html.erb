@@ -1,0 +1,30 @@
+<% content_for :javascript do %>
+  <%= render :partial => 'users/list_javascript' %>
+<% end %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'users/search' %>
+<%end%>
+
+<% content_for :sidebar do  %>
+  <%= render :partial => 'sidebar' %>
+<% end %>
+
+<div id="list_by_names_selected" class="group_links" style="display: none;" >
+  <span>List by </span>
+  <%= link_to 'Groups', space_groups_path(@space), { :id => 'groups_link' } %>
+  Names
+</div>
+
+<div id="list_by_groups_selected" class="group_links">
+  <span>List by </span>
+  Groups
+  <%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
+</div>
+
+<div id="list_by_groups" >
+  <%= render :partial => 'list' %>
+</div>
+<div id="list_by_name"  style="display: none;">
+  <%= render :partial => 'users/list' %>
+</div>

@@ -1,0 +1,33 @@
+<% content_for :javascript do %>
+	$("#user_selector").keyup(function(event) {
+		var filter_text = this.value.toLowerCase();
+		$(".user_checkbox").each(function() {
+     		if($(this).find("label").text().toLowerCase().search(filter_text)>=0){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+   		});
+	});
+	
+<%end%>
+	
+<div id="Create_new_group">
+	<h3>Create new group</h3>
+	<% form_for(:group, :url => space_groups_path(@space) ) do |f| -%>
+		<p>
+		<label for="Group Name">Group Name</label><br/>
+		<%= f.text_field :name, :size => 25 %>
+		</p>
+		<p>
+		<label for="User filter">User filter</label><br/>
+		<%= text_field_tag :user_selector,'', :size => 25 %>
+		<% for user in @users -%>
+				<div class=user_checkbox>
+					<%= check_box_tag "group[user_ids][]", user.id%><%= label("checkbox",user.name + " " + user.lastname)%><br />
+				</div>
+		<%end%>
+		</p>
+		<%= submit_tag "Create" %>
+	<% end -%>
+</div>

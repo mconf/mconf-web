@@ -1,0 +1,6 @@
+  <% if params[:edit_group] %>
+    <% group = @space.groups.find(params[:edit_group]) %>
+    <%= render :partial => 'groups/edit_group', :locals=> {:group => group} %>
+  <% else %>
+    <%= render :partial => 'groups/create_group' %>
+  <% end %>  

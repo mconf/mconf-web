@@ -4,7 +4,7 @@
 		<a>e-mail</a>
 	</p>
         <%=image_tag(icon_image(detailed_user, :size => 72))%>
-	<h5><%=detailed_user.name %> <%=detailed_user.lastname %></h5>
-	<%=detailed_user.organization %><br />
-	<%=detailed_user.city %>, <%=detailed_user.country %>
+	<h5><%=sanitize(detailed_user.name + " " + detailed_user.lastname) %></h5>
+	<%=sanitize(detailed_user.organization) %><br />
+	<%=sanitize(detailed_user.city) %>, <%=sanitize(detailed_user.country) %>
 </div>

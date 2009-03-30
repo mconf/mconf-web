@@ -1,52 +1,31 @@
 <% content_for :javascript do %>
-	$("#names_link").attr('href', '#');
-	$("#groups_link").attr('href', '#');
-	$("#names_link").click(function (){ 
-		$("#list_by_groups").hide();
-		$("#list_by_name").show();
-		$("#list_by_groups_selected").hide();
-		$("#list_by_names_selected").show();
-	});
-	$("#groups_link").click(function (){ 
-		$("#list_by_name").hide();
-		$("#list_by_groups").show();
-		$("#list_by_groups_selected").show();
-		$("#list_by_names_selected").hide();		
-	});
+	<%= render :partial => 'list_javascript' %>
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_users_path(@space), :method => 'get') do %>
-      <%= text_field_tag :query, params[:query] %>
-	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
-  <% end %>
+  <%= render :partial => 'search' %>
 <%end%>
 
 <% content_for :sidebar do  %>
-	<% if params[:edit_group] %>
-		<% group = @space.groups.find(params[:edit_group]) %>
-		<%= render :partial => 'edit_group', :locals=> {:group => group} %>
-	<% else %>
-		<%= render :partial => 'create_group' %>
-	<% end %>  
+	<%= render :partial => 'groups/sidebar' %> 
 <% end %>
 
-<div id="list_by_names_selected" class="group_links" <%= 'style="display: none;"' if params[:list_by] == "groups" %>>
+<div id="list_by_names_selected" class="group_links" >
 	<span>List by </span>
-	<%= link_to 'Groups', space_users_path(@space, :list_by => 'groups'), { :id => 'groups_link' } %>
+	<%= link_to 'Groups', space_groups_path(@space), { :id => 'groups_link' } %>
 	Names
 </div>
 
-<div id="list_by_groups_selected" class="group_links"<%= 'style="display: none;"' unless params[:list_by] == "groups" %>>
+<div id="list_by_groups_selected" class="group_links" style="display: none;">
 	<span>List by </span>
 	Groups
 	<%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
 </div>
 
-<div id="list_by_groups" <%= 'style="display: none;"' unless params[:list_by] == "groups" %>>
-	<%= render :partial => 'list_by_groups' %>
+<div id="list_by_groups" style="display: none;">
+	<%= render :partial => 'groups/list' %>
 </div>
-<div id="list_by_name" <%= 'style="display: none;"' if params[:list_by] == "groups" %>>
-	<%= render :partial => 'list_by_name' %>
+<div id="list_by_name"  %>>
+	<%= render :partial => 'list' %>
 </div>
 
