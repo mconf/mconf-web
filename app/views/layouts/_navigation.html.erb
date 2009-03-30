@@ -1,3 +1,4 @@
+<%if space %>
 <ul>
 
 <li>
@@ -14,23 +15,22 @@
 </li>
 
 <li>
-	
-<div id="nav_bar">
-	
-<ul>
 
-<!-- Hay que poner bien las rutas de cada tab-->
 
-  <li><%=link_to "Home"%></li>
-  <li><%=link_to "Posts"%></li>
-  <li><%=link_to "Events"%></li>
-  <li><%=link_to "People"%></li>
-  
+<div id="nav_bar">	
+  <ul>
+	  <li><%=link_to "Home", space_path(space)%></li>
+	  <li><%=link_to "Posts", space_posts_path(space)%></li>
+	  <li><%=link_to "Events", space_events_path(space)%></li>
+	  <li><%=link_to "People", space_users_path(space)%></li>
+ 
 <!--La tab de Admin sólo se muestra a los admin  -->
   
-  <li><%=link_to "Admin"%></li>
-</ul>
+    <li><%=link_to "Admin"%></li>
+  </ul>
 </div>
+
+
 </li>
 
 <li>
@@ -39,3 +39,4 @@
   </div>
 </li>
 </ul>
+<%end%>
