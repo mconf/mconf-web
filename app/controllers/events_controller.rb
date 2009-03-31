@@ -119,11 +119,6 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-
-    if !params[:start_hour].nil?
-      prepare_data
-    end
-
     
     @event = Event.new(params[:event])
     @event.author = current_agent
@@ -149,9 +144,7 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.xml
   def update
-    if !params[:start_hour].nil?
-      prepare_data
-    end
+
     @event = Event.find(params[:id])
 
     respond_to do |format|
@@ -189,16 +182,6 @@ class EventsController < ApplicationController
     @past_events = @events.select{|e| e.start_date.past?}.sort!{|x,y| y.start_date <=> x.start_date} #Los eventos pasados van en otro inversos
   end
   
-  def prepare_data
-      
-    date1 = Date.parse(params[:event][:start_date])
-    date2 = Date.parse(params[:event][:end_date])  
-    time1 = Time.parse(params[:start_hour])
-    time2 = Time.parse(params[:end_hour])
-  
-    params[:event][:start_date] = DateTime.civil (date1.year(),date1.month(),date1.day(),time1.hour(),time1.min(),time1.sec())
-    params[:event][:end_date] = DateTime.civil (date2.year(),date2.month(),date2.day(),time2.hour(),time2.min(),time2.sec())
-  end
   
   def export_ical
       @event = Event.find(params[:id]) 

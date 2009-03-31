@@ -8,8 +8,18 @@ class Event < ActiveRecord::Base
   alias_attribute :title, :name
   validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
-
+  attr_accessor :start_hour
+  attr_accessor :end_hour
   
+   before_validation {|event|
+
+   if event.start_hour.present?
+    event.start_date +=  (Time.parse(event.start_hour) - Time.today  )
+    event.end_date +=  (Time.parse(event.end_hour) - Time.today  )
+   end
+    } 
+      
+    
 begin  
   def validate
     unless self.start_date < self.end_date

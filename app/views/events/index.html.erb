@@ -158,13 +158,20 @@ $("#all_past_link").click(function () {
 });
 $("#all_past_link").attr('href', '#');
 
-$(".datepicker").datepicker({showOn: 'button', buttonImage: '../../images/legacy/calendar.png', buttonImageOnly: true});
-$('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/spinnerUpDown.png', 
-    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true});
-		
-$(".javascript").show();
-$(".no_javascript").remove();
 
+		
+$(".no_javascript").after(
+  "<div class='javascript'> Start Date <input type='date' name='event[start_date]' class= 'datepicker' value= <%= @event.present? ? @event.start_date.month.to_s + "/" + @event.start_date.day.to_s + "/" + @event.start_date.year.to_s : "" %> ><br/> "  
+	+ "Start Hour <br/> <input type='time' name='event[start_hour]' class='timepicker' value= <%= @event.present? ? @event.start_date.to_time.hour.to_s + ":" + @event.start_date.to_time.min.to_s + ":" + @event.start_date.to_time.sec.to_s : "" %>><br/>"   
+	+ "End Date <br/> <input type='date' name='event[end_date]' class='datepicker'value= <%= @event.present? ? @event.end_date.month.to_s + "/" + @event.end_date.day.to_s + "/" + @event.end_date.year.to_s : "" %>> <br/>"
+	+ "End Hour <br/> <input type='time' name='event[end_hour]' class='timepicker' value= <%= @event.present? ? @event.end_date.to_time.hour.to_s + ":" + @event.end_date.to_time.min.to_s + ":" + @event.end_date.to_time.sec.to_s : "" %>> </div>"
+
+);
+$(".no_javascript").remove();
+$(".datepicker").datepicker();
+$('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/ui/up-down.png', 
+    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true });
+		
 <% end %>
 
 
