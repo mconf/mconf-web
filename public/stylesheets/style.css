@@ -1,46 +1,39 @@
-/*
-CSS del header
-*/
-#header {background-color:#275B8A;}
-#header #name_app {font-weight:bold;margin:0 1em; color:#FFF;}
-#header #user_account {font-style:italic; margin: 0 1em;color:#EEE}
-#header #prefs li {margin-right:0.5em;text-decoration:none; font-weight:bold; color:#FFF;}
-#header #prefs a {text-decoration:none; font-weight:bold; color:#FFF;}
-/*
-CSS para el home_navigation
-*/
-#h_navigation img, #h_navigation ul {vertical-align:middle;}
-#h_navigation #title {font-family:"Trebuchet MS";font-size:24pt;font-weight:bold;color:#265A8A; margin: 0 1em 0 0.5em;}
-#h_navigation #subtitle {font-family:"Trebuchet MS";font-size:16pt;font-style:italic; color:#CCC;}
-#h_navigation #logo_app {width:50px; height:50px;}
-#h_navigation ul {margin:0;padding:0;}
-#h_navigation li, #h_navigation ul, #h_navigation div {display:inline;}
-#h_navigation {border-bottom:thin #CCC solid;}
+#header {
+  background: #DDD url('../images/ui/header-bg.png');
+  color:#fff;
+}
 
-/*color for sidebar*/
+#header #general {
+  margin-top: -2px;
+}
 
-/*border for every thread*/
-.thread {border: solid 1px #555;
-		background-image: url(/public/images/test-small.jpg);
-		}
+#header #project-name {
+  font-family: "Trebuchet MS", "MS Trebuchet" sans-serif; font-size:1.1em;
+  margin-right: 10px;
+}
 
-/*css for comment, photo and doc links*/
-#actions li {margin:0 1em 0 0;}
+#header #user-account {
+  color: #AAA;
+  font-style:italic;
+  font-weight: bold;
+  text-shadow: #111 1px 1px 1px;
+}
 
-/*add a margin at the top of the form*/
-#thread_form {margin-top:0.75em;}
+#header #prefs a {
+  color:#fff;
+  text-decoration: none;
+  font-style: italic;
+}
 
-/*
- * Quick programmer CSS 
- */
-#reply{float:right;}
-#list_by{float:right;}
-.user{clear:both;}
-.user img{float:left;}
-.user p{float:right;}
-.group_links {float:right;}
-.group_links li{display: inline;}
-.group{clear:both;}
-.read_more_link{display:block;clear:both;text-align:right;}
-th, td, caption {padding:0 0 0 0;}
+#header #prefs li { margin-left: 10px; }
+
+#header #prefs li span {
+  color: #111;
+  font-weight: bold;
+  background: #fff;
+  display: inline;
+  padding: 0 4px;
+  margin-left: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
 }
