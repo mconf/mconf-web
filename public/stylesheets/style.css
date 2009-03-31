@@ -37,3 +37,19 @@
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
 }
+
+/*
+Navigation Bar style
+*/
+#navigation #name_app li{display:inline;}
+
+/*
+Home's sidebar style (amendo)
+*/
+h5 span.updated {font-style:italic;font-weight:normal;}
+
+div#sidebar #h_join {background-color:#E8E8E8;}
+div#sidebar #h_join, div#sidebar #rel_users {margin-bottom:1.5em;}
+div#sidebar #rcnt_posts {background-color:#F4F4F4;}
+div#sidebar h3,div#sidebar h4 {font-weight:bold;}
+div#sidebar h4,div#sidebar h5, div#sidebar p {margin-bottom:0.75em;}
