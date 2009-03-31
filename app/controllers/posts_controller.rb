@@ -122,7 +122,7 @@ class PostsController < ApplicationController
 =end      
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
-    flash[:notice] = "Post created"
+    flash[:success] = "Post created"
     if @attachment
     @attachment.post = @post
     @attachment.save!

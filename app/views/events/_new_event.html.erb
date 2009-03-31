@@ -12,17 +12,8 @@
   </div>
 	<div class="no_javascript">
 	  Start Date <%=f.datetime_select :start_date, :class => "span-5"  %><br/>
-    Start Hour <br/> <%=f.datetime_select :end_date, :class => "span-5"  %><br/>
+    End Dater <br/> <%=f.datetime_select :end_date, :class => "span-5"  %><br/>
 	</div>
-	<div class="javascript", style="display: none;">
-	Start Date <input type="date" name="event[start_date]" class= "datepicker" /><br/>
-  Start Hour <br/> <input type="time" name="start_hour" class="timepicker" /><br/>
-  End Date <br/> <input type="date" name="event[end_date]" class="datepicker" />
-  End Hour <br/> <input type="time" name="end_hour" class="timepicker" />	
-	</div>
-	
-	
-	  
 
   	<p>
   	<%= f.submit "Create" %>
