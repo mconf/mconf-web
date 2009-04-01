@@ -1,5 +1,5 @@
 class SpacesController < ApplicationController
-  before_filter :authentication_required, :except => [ :index, :register, :show ]
+  before_filter :authentication_required, :except => [ :index, :register, :show, :new, :create ]
 
   #authorization_filter :space, :read, :only => [:show]
   #authorization_filter :space, :update, :only => [:edit, :update]
@@ -43,9 +43,7 @@ class SpacesController < ApplicationController
   
   # GET /spaces/new
   def new
-    @space_new = Space.new
-    session[:current_tab] = "Manage" 
-
+    
   end
   
   # GET /spaces/1/edit
@@ -59,20 +57,38 @@ class SpacesController < ApplicationController
   # POST /spaces.xml 
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
-  def create 
-    #esto es para que el fckeditor no muestre la descripción del espacio en el que estás
-    params[:space][:description] = params[:space_new][:description] if params[:space_new]
-
-    
+  def create
+    unless logged_in?
+      if params[:register]
+        cookies.delete :auth_token
+        @user = User.new(params[:user])
+        unless @user.save_with_captcha
+          message = ""
+          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+          flash[:error] = message
+          render :action => :new
+          return
+        end
+      end
+        
+      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
+      unless logged_in?
+          flash[:error] = "Invalid credentials"
+          render :action => :new
+          return
+      end
+    end
+      
     @space = Space.new(params[:space])
-    @logotype = Logotype.new(params[:logotype]) 
-    @space.logotype = @logotype
+    #@logotype = Logotype.new(params[:logotype]) 
+    #@space.logotype = @logotype
     
     respond_to do |format|
       if @space.save
-        flash[:notice] = 'Space was successfully created.'
-        @space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
-        format.html { redirect_to(:action => "index", :controller => "spaces") }
+        flash[:success] = 'Space was successfully created.'
+        #@space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
+        debugger
+        format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 
           headers["Location"] = formatted_space_url(@space, :atom )
@@ -80,8 +96,11 @@ class SpacesController < ApplicationController
                  :status => :created
         }
       else
-        format.html { @space_new = Space.new
-        render :action => :new }
+        format.html {
+          message = ""
+          @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+          flash[:error] = message
+          render :action => :new }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end

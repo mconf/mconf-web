@@ -18,7 +18,7 @@ class Space < ActiveRecord::Base
   }
 
   def emailize_name
-    self.name = self.name.gsub(" ", "")
+    self.name.gsub(" ", "")
   end
 
   # Users that belong to this space  

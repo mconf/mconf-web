@@ -181,7 +181,6 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
 
   create_table "profiles", :force => true do |t|
     t.string "name"
-    t.string "lastname"
     t.string "organization"
     t.string "phone"
     t.string "mobile"
@@ -192,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
     t.string "province"
     t.string "country"
     t.string "user_id"
+    t.string "lastname"
   end
 
   create_table "readers", :force => true do |t|
