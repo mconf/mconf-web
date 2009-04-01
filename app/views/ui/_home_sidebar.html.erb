@@ -1,12 +1,30 @@
 <div id="h_join" class="span-6 last">
-	<h3>Join the Dialogue</h3>
-	<p>
-  		Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-	<input type="button" name="reg" value="Register Today"/> 	
+	<h3>Start now!</h3>
+	<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+	<input type="button" name="reg" value="Create new Space"/> 	
 </div>
+
 <div id="rel_users" class="span-6 last">
-<p><%=image_tag("user.png")%> Relevant Users</p>
-<p>
-  Sidebar! we can see the more relevant users
-</p>
+	<h4><%=image_tag("ui/icons/user.png")%> Relevant Users</h4>
+	<p>
+  		Sidebar! we can see the more relevant users
+	</p>
+	<div id="user_pics">
+		<%=link_to(image_tag("logos/48/user.png"))%>
+		<%=link_to(image_tag("logos/48/user.png"))%>
+		<%=link_to(image_tag("logos/48/user.png"))%>
+		<%=link_to(image_tag("logos/48/user.png"))%>
+	</div>
+	<%= link_to "Show more users >>" %>
+</div>
+
+<div id="rcnt_cmnts" class="span-6 last">
+	<h4><%=image_tag("ui/icons/comment.png")%> Recent comments </h4>
+	<div id="rcnt_posts">
+		<h5>Jason Pollack	<span class="updated">5 minutes ago</span></h5>
+		<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
+		<h5>Martha Stuart	<span class="updated">2 minutes ago</span></h5>
+		<p>The station is called Opera Station, line 5</p>		
+	</div>
+	<%= link_to "Show more comments >>" %>
 </div>

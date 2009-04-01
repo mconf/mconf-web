@@ -1,46 +1,63 @@
-/*
-CSS del header
-*/
-#header {background-color:#275B8A;}
-#header #name_app {font-weight:bold;margin:0 1em; color:#FFF;}
-#header #user_account {font-style:italic; margin: 0 1em;color:#EEE}
-#header #prefs li {margin-right:0.5em;text-decoration:none; font-weight:bold; color:#FFF;}
-#header #prefs a {text-decoration:none; font-weight:bold; color:#FFF;}
-/*
-CSS para el home_navigation
-*/
-#h_navigation img, #h_navigation ul {vertical-align:middle;}
-#h_navigation #title {font-family:"Trebuchet MS";font-size:24pt;font-weight:bold;color:#265A8A; margin: 0 1em 0 0.5em;}
-#h_navigation #subtitle {font-family:"Trebuchet MS";font-size:16pt;font-style:italic; color:#CCC;}
-#h_navigation #logo_app {width:50px; height:50px;}
-#h_navigation ul {margin:0;padding:0;}
-#h_navigation li, #h_navigation ul, #h_navigation div {display:inline;}
-#h_navigation {border-bottom:thin #CCC solid;}
-
-/*color for sidebar*/
-
-/*border for every thread*/
-.thread {border: solid 1px #555;
-		background-image: url(/public/images/test-small.jpg);
-		}
-
-/*css for comment, photo and doc links*/
-#actions li {margin:0 1em 0 0;}
-
-/*add a margin at the top of the form*/
-#thread_form {margin-top:0.75em;}
-
-/*
- * Quick programmer CSS 
- */
-#reply{float:right;}
-#list_by{float:right;}
-.user{clear:both;}
-.user img{float:left;}
-.user p{float:right;}
-.group_links {float:right;}
-.group_links li{display: inline;}
-.group{clear:both;}
-.read_more_link{display:block;clear:both;text-align:right;}
-th, td, caption {padding:0 0 0 0;}
+#header {
+  background: #DDD url('../images/ui/header-bg.png');
+  color:#fff;
 }
+
+#header #general {
+  margin-top: -2px;
+}
+
+#header #project-name {
+  font-family: "Trebuchet MS", "MS Trebuchet" sans-serif; font-size:1.1em;
+  margin-right: 10px;
+}
+
+#header #user-account {
+  color: #AAA;
+  font-style:italic;
+  font-weight: bold;
+  text-shadow: #111 1px 1px 1px;
+}
+
+#header #prefs a {
+  color:#fff;
+  text-decoration: none;
+  font-style: italic;
+}
+
+#header #prefs li { margin-left: 10px; }
+
+#header #prefs li span {
+  color: #111;
+  font-weight: bold;
+  background: #fff;
+  display: inline;
+  padding: 0 4px;
+  margin-left: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+}
+
+/*
+Navigation Bar style
+*/
+#navigation #name_app li{display:inline;}
+
+/*
+Home's sidebar style (amendo)
+*/
+h5 span.updated {font-style:italic;font-weight:normal;}
+
+div#sidebar #h_join {background-color:#E8E8E8;}
+div#sidebar #h_join, div#sidebar #rel_users {margin-bottom:1.5em;}
+div#sidebar #rcnt_posts {background-color:#F4F4F4;}
+div#sidebar h3,div#sidebar h4 {font-weight:bold;}
+div#sidebar h4,div#sidebar h5, div#sidebar p {margin-bottom:0.75em;}
+
+/*
+CSS for the main content at Home
+*/
+div#pop-spaces, div#rcnt-spaces {margin-bottom:1.5em;}
+div#pop-spaces {margin-top:1.5em;}
+#pop-spaces div, #rcnt-spaces div {display:inline;background-color:#CCC;margin-right:5px; height:173px;text-align:center;}
+#pop-spaces div img, #rcnt-spaces div img {margin:1px;}

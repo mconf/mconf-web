@@ -7,9 +7,9 @@
     <title><%= yield :title %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
-	<%= stylesheet_link_tag "screen", :media => "screen, projection" %>
-	<%= stylesheet_link_tag "style", :media => "screen, projection" %>
-	<%= stylesheet_link_tag "print", :media => "print" %>
+	  <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+	  <%= stylesheet_link_tag "style", :media => "screen, projection" %>
+	  <%= stylesheet_link_tag "print", :media => "print" %>
     <!--[if IE]> 
       <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
@@ -17,13 +17,14 @@
 	</head>
 
 	<body>
-	  
-	  <div id="app_home" class="container showgrid">
-		  <div id="header" class="span-24 last">
+		<div id="header">
+		  <div id="menu" class="container">
 		    <%= render :partial => "ui/layouts/header" %>
 		  </div>
-		  
-		  <div id="h_navigation" class="span-24 last">
+		</div>
+
+	  <div id="site" class="container showgrid">
+		  <div id="navigation" class="span-24 last">
 		    <%= render :partial => "ui/layouts/home_navigation" %>
 		  </div>
 		  
