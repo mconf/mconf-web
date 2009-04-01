@@ -39,9 +39,9 @@
 }
 
 /*
-Navigation Bar style
+Displaying inline some li at navifgation bar and at main content.
 */
-#navigation #name_app li{display:inline;}
+#navigation #name_app li, #pop-spaces li, #rcnt-spaces li, #inc-events li {display:inline;}
 
 /*
 Home's sidebar style (amendo)
@@ -52,12 +52,17 @@ div#sidebar #h_join {background-color:#E8E8E8;}
 div#sidebar #h_join, div#sidebar #rel_users {margin-bottom:1.5em;}
 div#sidebar #rcnt_posts {background-color:#F4F4F4;}
 div#sidebar h3,div#sidebar h4 {font-weight:bold;}
-div#sidebar h4,div#sidebar h5, div#sidebar p {margin-bottom:0.75em;}
+div#sidebar h4,div#sidebar h5, div#sidebar p, div#inc-events p {margin-bottom:0.75em;}
 
 /*
 CSS for the main content at Home
 */
 div#pop-spaces, div#rcnt-spaces {margin-bottom:1.5em;}
 div#pop-spaces {margin-top:1.5em;}
-#pop-spaces div, #rcnt-spaces div {display:inline;background-color:#CCC;margin-right:5px; height:173px;text-align:center;}
+div#pop-spaces #bloque, div#rcnt-spaces #bloque {display:inline;background-color:#CCC; height:173px;text-align:center;}
 #pop-spaces div img, #rcnt-spaces div img {margin:1px;}
+#pop-spaces ul, #rcnt-spaces ul, #inc-events ul {margin-left:0;}
+div#pop-spaces #span-no-margin-title {margin-right:0px;font-size:1.5em;line-height:1.5em;margin-bottom:1em;}
+div#pop-spaces #span-no-margin {margin-right:0px;text-align:right;}
+#pop-spaces a, #rcnt-spaces a, #inc-events a {text-decoration:none; color:#000; font-size:medium;}
+div#pop-spaces .span-6, div#rcnt-spaces .span-6 {margin-right:5px;}

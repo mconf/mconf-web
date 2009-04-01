@@ -3,20 +3,47 @@
 <% end %>
 
 <div id="pop-spaces" class="span-18">
-	<h3>Popular Spaces <%=image_tag("ui/icons/feed.png")%></h3>
-	<div class="span-6"><%=link_to(image_tag("ui/demo/belief.png", :size=>"226x170"))%></div>
-	<div class="span-6"><%=link_to(image_tag("ui/demo/terena.png", :size=>"226x170"))%></div>
-	<div class="span-6"><%=link_to(image_tag("ui/demo/sxsw.png", :size=>"226x170"))%></div>
+	<div class="span-18">
+		<div id="span-no-margin-title" class="span-9">Popular Spaces <%=image_tag("ui/icons/feed.png")%></div>
+		<div id="span-no-margin" class="span-9"><%=link_to " Show all popular spaces >>"%></div>
+	</div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/belief.png", :size=>"226x170"))%></div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/terena.png", :size=>"226x170"))%></div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/sxsw.png", :size=>"226x170"))%></div>
+	<div class="span-18">
+		<div class="span-6"><strong>Belief Brazil Symposium</strong></div>
+		<div class="span-6"><strong>Terena Málaga 2009</strong></div>
+		<div class="span-6"><strong>Austin SXSW</strong></div>
+	</div>
 </div>
 
 <div id="rcnt-spaces" class="span-18">
-	<h3>Recent Spaces <%=image_tag("ui/icons/feed.png")%></h3>
-	<div class="span-6"><%=link_to(image_tag("ui/demo/sonar.png", :size=>"226x170"))%></div>
-	<div class="span-6" ><%=link_to(image_tag("ui/demo/summercase.png", :size=>"226x170"))%></div>
-	<div class="span-6"><%=link_to(image_tag("ui/demo/ted.png", :size=>"226x170"))%></div>
+	<div class="span-18">
+		<div id="span-no-margin-title" class="span-9">Recent Spaces <%=image_tag("ui/icons/feed.png")%></div>
+		<div id="span-no-margin" class="span-9"><%=link_to " Show all recent spaces >>"%></div>
+	</div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/sonar.png", :size=>"226x170"))%></div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/summercase.png", :size=>"226x170"))%></div>
+		<div id="bloque" class="span-6"><%=link_to(image_tag("ui/demo/ted.png", :size=>"226x170"))%></div>
+	<div class="span-18">
+		<div class="span-6"><strong> Sonar 2009 Barcelona</strong></div>
+		<div class="span-6"><strong> Summercase 2009</strong></div>
+		<div class="span-6"><strong> Ted Talks 2009</strong></div>
+	</div>
 </div>
 
 <div id="inc-events" class="span-18">
-	<h3>Incoming Events <%=image_tag("ui/icons/feed.png")%></h3>
-	
+	<h3>Incoming Events <%=image_tag("ui/icons/feed.png")%><span class="see-more"><%=link_to " Show all incoming events >>"%></span></h3>
+	<ul>
+		<li><%=image_tag("ui/calendar/calendar-icons/Calendar-32x32.png")%></li>
+		<li>27/04/09</li>
+		<li>Meeting with Claudia @ NYC Centre</li>
+		<li class="quiet">I'm attending to the conference but i don't...</li>
+	</ul>
+	<ul>
+		<li><%=image_tag("ui/calendar/calendar-icons/Calendar-32x32.png")%></li>
+		<li>15/05/09</li>
+		<li>The Killers Concert @ Palacio de los Deportes Madrid</li>
+		<li class="quiet">The station is called Goya station, line 4</li>
+	</ul>
 </div>
