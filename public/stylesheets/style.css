@@ -53,9 +53,11 @@ div#sidebar #h_join, div#sidebar #rel_users {margin-bottom:1.5em;}
 div#sidebar #rcnt_posts {background-color:#F4F4F4;}
 div#sidebar h3,div#sidebar h4 {font-weight:bold;}
 div#sidebar h4,div#sidebar h5, div#sidebar p {margin-bottom:0.75em;}
+
 /*
 CSS for the main content at Home
 */
 div#pop-spaces, div#rcnt-spaces {margin-bottom:1.5em;}
 div#pop-spaces {margin-top:1.5em;}
-#pop-spaces div, #rcnt-spaces div {display:inline;background-color:#CCC;width:240px; height:140px;}
+#pop-spaces div, #rcnt-spaces div {display:inline;background-color:#CCC;margin-right:5px; height:173px;text-align:center;}
+#pop-spaces div img, #rcnt-spaces div img {margin:1px;}
