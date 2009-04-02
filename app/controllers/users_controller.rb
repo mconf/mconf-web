@@ -127,10 +127,6 @@ class UsersController < ApplicationController
   
   #This method returns the user to show the form to edit him
   def edit
-    session[:current_sub_tab] = "Edit Your Account"
-    if @user.profile
-      @thumbnail = Logotype.find(:first, :conditions => {:parent_id => @user.profile.logotype, :thumbnail => 'photo'})
-    end
   end
   
   def clean

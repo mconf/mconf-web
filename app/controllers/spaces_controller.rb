@@ -48,8 +48,6 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1/edit
   def edit
-    session[:current_sub_tab] = "Edit Space"
-    #@space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
   
@@ -80,14 +78,11 @@ class SpacesController < ApplicationController
     end
       
     @space = Space.new(params[:space])
-    #@logotype = Logotype.new(params[:logotype]) 
-    #@space.logotype = @logotype
     
     respond_to do |format|
       if @space.save
         flash[:success] = 'Space was successfully created.'
         #@space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
-        debugger
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 

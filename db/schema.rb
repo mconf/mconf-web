@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090309113706) do
+ActiveRecord::Schema.define(:version => 20090402141642) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
     t.datetime "accepted_at"
   end
 
-  create_table "logotypes", :force => true do |t|
+  create_table "logos", :force => true do |t|
     t.string   "type"
     t.integer  "size"
     t.string   "content_type"
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
     t.integer  "parent_id"
     t.string   "thumbnail"
     t.integer  "db_file_id"
-    t.string   "logotypable_type"
-    t.integer  "logotypable_id"
+    t.string   "logoable_type"
+    t.integer  "logoable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -180,7 +180,6 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string "name"
     t.string "organization"
     t.string "phone"
     t.string "mobile"
@@ -191,7 +190,6 @@ ActiveRecord::Schema.define(:version => 20090309113706) do
     t.string "province"
     t.string "country"
     t.string "user_id"
-    t.string "lastname"
   end
 
   create_table "readers", :force => true do |t|

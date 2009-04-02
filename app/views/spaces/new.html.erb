@@ -11,6 +11,10 @@
     <%= f.text_area(:description) %>
   </p>
 	
+	<p>
+    <label for="public">Public space</label><%= f.check_box(:public) %>
+  </p>
+	
 <%unless logged_in?%>
 	<ul>
   	<li><%=link_to_if params[:register],"Login", new_space_path()%></li>
