@@ -35,16 +35,11 @@ class User < ActiveRecord::Base
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]
 
-def name
-  profile ? profile.name : login
-end
+alias_attribute :full_name, :login
+alias_attribute :name, :login
 
 def <=>(user)
   self.name <=> user.name
-end
-
-def lastname
-  profile ? profile.lastname : ""
 end
 
 def organization

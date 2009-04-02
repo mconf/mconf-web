@@ -24,7 +24,7 @@
 		<%= text_field_tag :user_selector,'', :size => 25 %>
 		<% for user in @users -%>
 		  <div class=user_checkbox>
-				<%= check_box_tag "group[user_ids][]", user.id, group.user_ids.include?(user.id) %><%= label("checkbox",sanitize(user.name + " " + user.lastname))%><br />
+				<%= check_box_tag "group[user_ids][]", user.id, group.user_ids.include?(user.id) %><%= label("checkbox",sanitize(user.full_name))%><br />
 			</div>	
 		<%end%>
 		</p>
