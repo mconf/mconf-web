@@ -1,6 +1,7 @@
 <!-- this partial render a post with their links -->
 <%div_for (post) do%>
-   <p><%=image_tag("legacy/avatar.png")%>
+  <p><%= link_author(post, :size => 48) %></p>
+  <p>
    <%for attachment in post.attachments%>
       <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
    <%end%> 
