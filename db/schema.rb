@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090402133107) do
+ActiveRecord::Schema.define(:version => 20090402141642) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -180,8 +180,6 @@ ActiveRecord::Schema.define(:version => 20090402133107) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string "name"
-    t.string "lastname"
     t.string "organization"
     t.string "phone"
     t.string "mobile"
