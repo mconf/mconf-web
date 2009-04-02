@@ -4,10 +4,21 @@ namespace :setup do
     require 'populator'
     require 'faker'
 
+    # DESTROY #
     [ Space ].each(&:destroy_all)
+    # Delete all users except Admin
     users_without_admin = User.all
     users_without_admin.shift
     users_without_admin.each(&:destroy)
+
+
+
+    User.populate 15 do |user|
+      user.login = Faker::Name.name
+      user.email = Faker::Internet.email
+      user.crypted_password = User.encrypt("test", "")
+      user.activated_at = 2.years.ago..Time.now
+    end
 
     Space.populate 20 do |space|
       space.name = Populator.words(1..3).titleize
@@ -26,29 +37,6 @@ namespace :setup do
         group.space_id = space.id
         group.name = Populator.words(1..3).titleize
       end
-    end
-
-    # Posts.parent_id
-    Space.all.each do |space|
-      total_posts = space.posts
-      # The first Post should not have parent
-      final_posts = Array.new << total_posts.shift
-
-      total_posts.inject final_posts do |posts, post|
-        parent = posts[(rand * posts.size).to_i]
-        unless parent.parent_id
-          post.update_attribute :parent_id, parent.id
-        end
-
-        posts << post
-      end
-    end
-
-    User.populate 15 do |user|
-      user.login = Faker::Name.name
-      user.email = Faker::Internet.email
-      user.crypted_password = User.encrypt("test", "")
-      user.activated_at = 2.years.ago..Time.now
     end
 
     users = User.all
@@ -71,6 +59,30 @@ namespace :setup do
           next if user.is_a?(SingularAgent)
           group.users << user if rand > 0.7
         end
+      end
+    end
+
+    Post.record_timestamps = false
+
+    # Posts.parent_id
+    Space.all.each do |space|
+      total_posts = space.posts
+      # The first Post should not have parent
+      final_posts = Array.new << total_posts.shift
+
+      total_posts.inject final_posts do |posts, post|
+        parent = posts[(rand * posts.size).to_i]
+        unless parent.parent_id
+          post.update_attribute :parent_id, parent.id
+        end
+
+        posts << post
+      end
+
+      # Author
+      space.posts.each do |post|
+        post.author = space.users.rand
+        post.save!
       end
     end
   end
