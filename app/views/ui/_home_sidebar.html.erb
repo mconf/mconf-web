@@ -21,10 +21,18 @@
 <div id="rcnt_cmnts" class="span-6 last">
 	<h4><%=image_tag("ui/icons/comment.png")%> Recent comments </h4>
 	<div id="rcnt_posts">
-		<h5>Jason Pollack	<span class="updated">5 minutes ago</span></h5>
-		<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
-		<h5>Martha Stuart	<span class="updated">2 minutes ago</span></h5>
-		<p>The station is called Opera Station, line 5</p>		
+		<ul>
+			<li class="box-link">
+				<h5>Jason Pollack	<span class="updated">5 minutes ago</span></h5>
+				<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
+				<%=link_to ""%>
+			</li>
+			<li class="box-link">
+				<h5>Martha Stuart	<span class="updated">2 minutes ago</span></h5>
+				<p>The station is called Opera Station, line 5</p>
+				<%=link_to ""%>
+			</li>
+		</ul>
 	</div>
 	<%= link_to "Show more comments >>" %>
 </div>

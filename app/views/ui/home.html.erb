@@ -33,17 +33,20 @@
 </div>
 
 <div id="inc-events" class="span-18">
-	<h3>Incoming Events <%=image_tag("ui/icons/feed.png")%><span class="see-more"><%=link_to " Show all incoming events >>"%></span></h3>
+	<div class="span-18">
+		<div id="span-no-margin-title" class="span-9">Incoming Events <%=image_tag("ui/icons/feed.png")%></div>
+		<div id="span-no-margin" class="span-9"><%=link_to " Show all incoming events >>"%></div>
+	</div>
 	<ul>
 		<li><%=image_tag("ui/calendar/calendar-icons/Calendar-32x32.png")%></li>
 		<li>27/04/09</li>
-		<li>Meeting with Claudia @ NYC Centre</li>
+		<li><%=link_to "Meeting with Claudia @ NYC Centre"%></li>
 		<li class="quiet">I'm attending to the conference but i don't...</li>
 	</ul>
 	<ul>
 		<li><%=image_tag("ui/calendar/calendar-icons/Calendar-32x32.png")%></li>
 		<li>15/05/09</li>
-		<li>The Killers Concert @ Palacio de los Deportes Madrid</li>
+		<li><%=link_to "The Killers Concert @ Palacio de los Deportes Madrid"%></li>
 		<li class="quiet">The station is called Goya station, line 4</li>
 	</ul>
 </div>
