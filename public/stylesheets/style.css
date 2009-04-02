@@ -1,11 +1,7 @@
-#header {
-  background: #DDD url('../images/ui/header-bg.png');
-  color:#fff;
-}
+/*Header*/
+#header {background: #DDD url('../images/ui/header-bg.png');color:#fff;}
 
-#header #general {
-  margin-top: -2px;
-}
+#header #general {margin-top: -2px;}
 
 #header #project-name {
   font-family: "Trebuchet MS", "MS Trebuchet" sans-serif; font-size:1.1em;
@@ -38,35 +34,30 @@
   -moz-border-radius: 6px;
 }
 
-/*
-Displaying inline some li at navifgation bar and at main content.
-*/
-#navigation #name_app li, #pop-spaces li, #rcnt-spaces li, #inc-events li {display:inline;}
+/*Displaying inline some li at navigation bar and at main content.*/
+#navigation ul li, #pop-spaces li, #rcnt-spaces li, #inc-events li, #actions ul li {display:inline;}
 
-/*
-Home's sidebar style (amendo)
-*/
+/*Home's sidebar style*/
 h5 span.updated {font-style:italic;font-weight:normal;}
-
 div#sidebar #h_join {background-color:#E8E8E8;}
 div#sidebar #h_join, div#sidebar #rel_users {margin-bottom:1.5em;}
 div#sidebar #rcnt_posts {background-color:#F4F4F4;}
 div#sidebar h3,div#sidebar h4 {font-weight:bold;}
 div#sidebar h4, div#sidebar p, div#inc-events p {margin-bottom:0.75em;}
 div#sidebar h5 {margin-bottom:0.25em;}
-/*
-CSS for the recent comments links
-*/
 
+/*Home's sidebar style: recent comments links*/
 #rcnt_posts ul {list-style-type:none;margin:0.75em 0 0.75em 0.75em; }
 #rcnt_posts ul li {position:relative;margin:0 0 5px 0;}
-/*color for each link*/
+
+/*Home's sidebar style: color for each link*/
 #rcnt_posts ul li.box-link:hover{background-color: #E8E8E8}
-/*css for the elements inside*/
+
+/*Home's sidebar style: css for the elements inside the li*/
 #rcnt_posts ul li h5 {margin: 0; padding: 0;}
 #rcnt_posts ul li p {margin: 0;	padding: 0;text-indent: 0;}
 
-/*css for the link*/
+/*Home's sidebar style: make the whole ul seem a link*/
 #rcnt_posts li.box-link a:link, #rcnt_posts li.box-link a:visited {
 	position: absolute;
 	display: block;
@@ -75,12 +66,9 @@ CSS for the recent comments links
 	text-indent: -9999em;
 	width: 100%;
 	height: 100%;
-	background: none
-}
+	background: none}
 
-/*
-CSS for the main content at Home
-*/
+/*CSS for the main content at Home*/
 div#pop-spaces {margin-top:1.5em;}
 div#pop-spaces, div#rcnt-spaces {margin-bottom:1.5em;}
 div#pop-spaces #bloque, div#rcnt-spaces #bloque {display:inline;background-color:#CCC; height:173px;text-align:center;}
