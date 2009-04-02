@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
 
   acts_as_taggable
-  acts_as_logotypable
+  has_logo
   
   validates_presence_of :name, :lastname, :phone, :city, :country,:organization
  
