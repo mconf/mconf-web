@@ -3,6 +3,6 @@ class UiController < ApplicationController
  
   def home
     render :layout => "/ui/layouts/home_layout"
- end
+  end
 
 end
