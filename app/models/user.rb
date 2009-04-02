@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  acts_as_container
+  acts_as_stage
   acts_as_taggable
 
   has_one :profile
