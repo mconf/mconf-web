@@ -11,10 +11,14 @@ class EventsController < ApplicationController
     
     @events = (Event.in_container(@space).all :order => "start_date ASC")
       #Incoming events
-      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future? }.paginate(:page => params[:page], :per_page => 10)
-      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
-      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
-      @all_incoming_events = @events.select{|e| e.start_date.future?}.paginate(:page => params[:page], :per_page => 10)
+      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
+      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 10)
+      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
+      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 10)
+      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
+      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 10)
+      @all_incoming_events = @events.select{|e| e.start_date.future?}
+      @all_incoming_paginate_events = @all_incoming_events.paginate(:page => params[:page], :per_page => 10)
 =begin      
       if params[:day] == "today"
         @incoming_title = "Today Events"
@@ -27,10 +31,14 @@ class EventsController < ApplicationController
       end
 =end
       #Past events
-      @today_and_yesterday_events = @events.select{|e| (e.start_date.to_date == Date.today || e.start_date.to_date == Date.yesterday) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
-      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 7) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
-      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 30) && !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
-      @all_past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+      @today_and_yesterday_events = @events.select{|e| (e.start_date.to_date == Date.today || e.start_date.to_date == Date.yesterday) && !e.start_date.future?}.reverse
+      @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 3)
+      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 7) && !e.start_date.future?}.reverse
+      @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 3)
+      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 30) && !e.start_date.future?}.reverse
+      @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 3)
+      @all_past_events = @events.select{|e| !e.start_date.future?}.reverse
+      @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 3)
 
 =begin
       if params[:day] == "yesterday"

@@ -8,7 +8,8 @@
 <%end%>
 
 <% content_for :javascript do %>
- 
+
+<!-- link_to incoming events --> 
 $(".incoming_link").click(function () { 
   $("#past_events").hide();
   $("#all_events").hide();
@@ -16,6 +17,7 @@ $(".incoming_link").click(function () {
 });
 $(".incoming_link").attr('href', '#');
 
+<!-- link_to Past events -->
 $(".past_link").click(function () {
   $("#past_events").show();
   $("#all_events").hide();
@@ -23,6 +25,7 @@ $(".past_link").click(function () {
 });
 $(".past_link").attr('href', '#');
 
+<!-- link_to All events -->
 $("#all_link").click(function () {
   $("#past_events").hide();
   $("#all_events").show();
@@ -30,22 +33,17 @@ $("#all_link").click(function () {
 });
 $("#all_link").attr('href', '#');
 
+<!-- link_to today events in incoming events -->
 $("#today_link").click(function () {
-  $("#today_text").show();
-	$("#today_events_link").hide();
-	$("#next_week_text").hide();
-  $("#next_week_events_link").show();
-	$("#next_month_text").hide();
-  $("#next_month_events_link").show();
-	$("#all_incoming_text").hide();
-  $("#all_incoming_events_link").show();
+  $("#today_text, #next_week_events_link, #next_month_events_link, #all_incoming_events_link").show();
+	$("#today_events_link,#next_week_text, #next_month_text,#all_incoming_text" ).hide();
+	$("#incoming_div > div").hide();
   $("#today_events").show();
-  $("#next_week_events").hide();
-  $("#next_month_events").hide();
-	$("#all_incoming_events").hide();
+
 });
 $("#today_link").attr('href', '#');
 
+<!-- link_to next week events in incoming events -->
 $("#next_week_link").click(function () {
   $("#today_text").hide();
   $("#today_events_link").show();
@@ -55,13 +53,14 @@ $("#next_week_link").click(function () {
   $("#next_month_events_link").show();
   $("#all_incoming_text").hide();
   $("#all_incoming_events_link").show();
-  $("#today_events").hide();
+	
+	$("#incoming_div > div").hide();
   $("#next_week_events").show();
-  $("#next_month_events").hide();
-  $("#all_incoming_events").hide();
+
 });
 $("#next_week_link").attr('href', '#');
 
+<!-- link_to next month events in incoming events -->
 $("#next_month_link").click(function () {
   $("#today_text").hide();
   $("#today_events_link").show();
@@ -70,14 +69,15 @@ $("#next_month_link").click(function () {
   $("#next_month_text").show();
   $("#next_month_events_link").hide();
   $("#all_incoming_text").hide();
-  $("#all_incoming_events_link").show();;
-  $("#today_events").hide();
-  $("#next_week_events").hide();
+  $("#all_incoming_events_link").show();
+	
+	$("#incoming_div > div").hide();
   $("#next_month_events").show();
-  $("#all_incoming_events").hide();
+
 });
 $("#next_month_link").attr('href', '#');
 
+<!-- link_to all incoming events in incoming events -->
 $("#all_incoming_link").click(function () {
   $("#today_text").hide();
   $("#today_events_link").show();
@@ -87,13 +87,13 @@ $("#all_incoming_link").click(function () {
   $("#next_month_events_link").show();
   $("#all_incoming_text").show();
   $("#all_incoming_events_link").hide();
-  $("#today_events").hide();
-  $("#next_week_events").hide();
-  $("#next_month_events").hide();
+	
+	$("#incoming_div > div").hide();
   $("#all_incoming_events").show();
 });
 $("#all_incoming_link").attr('href', '#');
 
+<!-- link_to yesterday and past events in past events -->
 $("#yesterday_link").click(function () {
   $("#yesterday_text").show();
   $("#yesterday_events_link").hide();
@@ -102,14 +102,15 @@ $("#yesterday_link").click(function () {
   $("#last_month_text").hide();
   $("#last_month_events_link").show();
   $("#all_past_text").hide();
-  $("#all_past_events_link").show();  
+  $("#all_past_events_link").show();
+	
+	$("#past_div > div").hide();  
   $("#yesterday_events").show();
-  $("#last_week_events").hide();
-  $("#last_month_events").hide();
-  $("#all_past_events").hide();
+
 });
 $("#yesterday_link").attr('href', '#');
 
+<!-- link_to last week events in past events -->
 $("#last_week_link").click(function () {
   $("#yesterday_text").hide();
   $("#yesterday_events_link").show();
@@ -119,13 +120,14 @@ $("#last_week_link").click(function () {
   $("#last_month_events_link").show();
   $("#all_past_text").hide();
   $("#all_past_events_link").show();
-  $("#yesterday_events").hide();
+	
+	$("#past_div > div").hide();   
   $("#last_week_events").show();
-  $("#last_month_events").hide();
-  $("#all_past_events").hide();
+
 });
 $("#last_week_link").attr('href', '#');
 
+<!-- link_to last month events in past events -->
 $("#last_month_link").click(function () {
   $("#yesterday_text").hide();
   $("#yesterday_events_link").show();
@@ -135,13 +137,14 @@ $("#last_month_link").click(function () {
   $("#last_month_events_link").hide();
   $("#all_past_text").hide();
   $("#all_past_events_link").show();
-  $("#yesterday_events").hide();
-  $("#last_week_events").hide();
+	
+	$("#past_div > div").hide();
   $("#last_month_events").show();
-  $("#all_past_events").hide();
+	
 });
 $("#last_month_link").attr('href', '#');
 
+<!-- link_to all past events in past events -->
 $("#all_past_link").click(function () {
   $("#yesterday_text").hide();
   $("#yesterday_events_link").show();
@@ -151,10 +154,10 @@ $("#all_past_link").click(function () {
   $("#last_month_events_link").show();
   $("#all_past_text").show();
   $("#all_past_events_link").hide();
-  $("#yesterday_events").hide();
-  $("#last_week_events").hide();
-  $("#last_month_events").hide();
+	
+	$("#past_div > div").hide();
   $("#all_past_events").show();
+	
 });
 $("#all_past_link").attr('href', '#');
 
@@ -171,7 +174,51 @@ $(".no_javascript").remove();
 $(".datepicker").datepicker();
 $('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/ui/up-down.png', 
     spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true });
-		
+
+
+var actual_page = <%=params[:page] ? params[:page] : 1%>
+jQuery.fn.calculate_page = function() {
+  var b = $(this[0]).html()  
+  if (b == "Next »"){
+	  b=actual_page + 1;
+	}
+	if (b == "« Previous"){
+	  b =actual_page - 1;
+	}
+	return b;
+};
+$("#yesterday_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=yesterday&page=' + $(this).calculate_page());
+});
+
+$("#last_week_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=last_week&page=' + $(this).calculate_page());
+});
+
+$("#last_month_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=last_month&page=' + $(this).calculate_page());
+});
+
+$("#all_past_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&page=' + $(this).calculate_page());
+});
+
+$("#today_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=today&page=' + $(this).calculate_page());
+});
+
+$("#next_week_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=next_week&page=' + $(this).calculate_page());
+});
+
+$("#next_month_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=next_month&page=' + $(this).calculate_page());
+});
+
+$("#all_incoming_paginate a").each(function (i){ 
+$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page=' + $(this).calculate_page());
+});
+
 <% end %>
 
 
