@@ -17,11 +17,13 @@ class ProfilesController < ApplicationController
   # if params[:hcard] then hcard is rendered
   # GET /profile.atom
   def show
+
+=begin
     if params[:hcard]
       hcard
       return
     end
-    
+=end    
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @profile }

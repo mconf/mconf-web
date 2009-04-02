@@ -1,17 +1,10 @@
-<% @page_title = "Hcard" -%>
-
-
-
-
-<%= error_messages_for :profile %>
-
- <h4 class="title">Hcard</h4>
+ <h4 class="title"><%=@user.full_name%> profile (Hcard)</h4>
 
  <div class="vcard" id="card">
  	
-	<%=image_tag(user_profile_logo_path(@user, :thumbnail => @thumbnail), :class => "photo", :alt => "Your Photo", :title=>"Your photo" ) if @thumbnail%>
+	<%=link_icon(@user)%>
 	
-	<span class="fn n"><%=@profile.name%> <%=@profile.lastname%></span>
+	<span class="fn n"><%=@user.full_name%></span>
    
  	<div class="adr">
  			

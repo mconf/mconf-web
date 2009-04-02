@@ -2,7 +2,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '/ui/:action', :controller => 'ui'
   
-  
   map.resources :logos
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 
@@ -32,7 +31,8 @@ ActionController::Routing::Routes.draw do |map|
   #map.resource :notifier
 
   map.resources :users do |user|
-      user.resource :profile do |profile|
+     user.resources :messages, :controller => 'private_messages' 
+     user.resource :profile do |profile|
           profile.resource :logo
 	end
      end

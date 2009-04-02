@@ -3,8 +3,6 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
   has_logo
-  
-  validates_presence_of :name, :lastname, :phone, :city, :country,:organization
  
   def authorizes?(agent, action_objective)
     return true if agent.superuser? || agent == user
@@ -22,8 +20,6 @@ class Profile < ActiveRecord::Base
     e = Atom::Entry.parse(data)
       
       profile = {}
-      profile[:name] = e.title.to_s
-      profile[:lastname] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "lastname").text
       profile[:address] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "address").text
       profile[:city] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "city").text
       profile[:zipcode] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "zipcode").text

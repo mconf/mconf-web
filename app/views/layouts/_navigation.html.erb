@@ -2,6 +2,7 @@
 <div id="space_logo" class="span-24 last">
   <%= link_icon(space, :size => 48) %>
 </div>
+<%end%>
 
 <div id="spaces_select" class="span-6">
   <select id="space_select" name="space">
@@ -12,7 +13,7 @@
   </select>
 </div>
 
-
+<%if space %>
 <div id="nav_bar" class="span-12">
   <ul>
 	  <li><%=link_to "Home", space_path(space)%></li>
