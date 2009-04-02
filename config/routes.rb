@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/ui/:action', :controller => 'ui'
   
   
-  map.resources :logotypes
+  map.resources :logos
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 
   map.resources :spaces do |space|
@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :posts
     space.resources :attachments
     space.resources :entries
-    space.resource :logotype 
+    space.resource :logo 
 
     space.resources :groups
     space.resources :invitations
@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users do |user|
       user.resource :profile do |profile|
-          profile.resource :logotype
+          profile.resource :logo
 	end
      end
   map.resources :roles

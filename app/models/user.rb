@@ -54,8 +54,8 @@ def country
   profile ? profile.country : "Country"
 end
 
-def logotype
-  profile && profile.logotype
+def logo
+  profile && profile.logo
 end
 
 #this method let's the user to login with his e-mail

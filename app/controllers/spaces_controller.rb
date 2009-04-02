@@ -48,8 +48,6 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1/edit
   def edit
-    session[:current_sub_tab] = "Edit Space"
-    #@space_thumbnail = Logotype.find(:first, :conditions => {:parent_id => @space.logotype, :thumbnail => 'space'})
   end
   
   
@@ -80,8 +78,6 @@ class SpacesController < ApplicationController
     end
       
     @space = Space.new(params[:space])
-    #@logotype = Logotype.new(params[:logotype]) 
-    #@space.logotype = @logotype
     
     respond_to do |format|
       if @space.save

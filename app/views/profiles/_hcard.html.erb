@@ -9,7 +9,7 @@
 
  <div class="vcard" id="card">
  	
-	<%=image_tag(user_profile_logotype_path(@user, :thumbnail => @thumbnail), :class => "photo", :alt => "Your Photo", :title=>"Your photo" ) if @thumbnail%>
+	<%=image_tag(user_profile_logo_path(@user, :thumbnail => @thumbnail), :class => "photo", :alt => "Your Photo", :title=>"Your photo" ) if @thumbnail%>
 	
 	<span class="fn n"><%=@profile.name%> <%=@profile.lastname%></span>
    

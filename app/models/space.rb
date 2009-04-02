@@ -5,7 +5,7 @@ class Space < ActiveRecord::Base
 
   acts_as_resource :param => :name
   acts_as_container
-  acts_as_logotypable
+  has_logo
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
