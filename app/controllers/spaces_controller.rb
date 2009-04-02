@@ -87,7 +87,6 @@ class SpacesController < ApplicationController
       if @space.save
         flash[:success] = 'Space was successfully created.'
         #@space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
-        debugger
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 
