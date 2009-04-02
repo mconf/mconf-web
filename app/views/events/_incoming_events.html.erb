@@ -8,39 +8,60 @@
 				<span id="all_incoming_text"<%= 'style="display: none;"' if (params[:day] == 'today' or params[:day] == 'next_week' or params[:day] == 'next_month' ) %>><%="All Incoming (#{@all_incoming_events.size})"%> </span>
         <span id="all_incoming_events_link"<%= 'style="display: none;"' if (params[:day].nil? or (params[:day] != 'today' and params[:day] != 'next_week' and params[:day] != 'next_month')) %>><%=link_to "All Incoming (#{@all_incoming_events.size})", space_events_path(@space, :show => "incoming_events"),{:title => "All Coming events", :id => 'all_incoming_link'}%> <br/></span> 
 
-	  <div id="today_events"<%= 'style="display: none;"' if params[:day] != 'today'%>>
-	    
-	  		
-	    <%for event in @today_events%>
+	<div id="incoming_div">  
+		<div id="today_events"<%= 'style="display: none;"' if params[:day] != 'today'%>>
+    <%if @today_paginate_events.nil?%>
+      <p> No today events</p>
+    <%else%>
+      <%for event in @today_paginate_events%>
         <%= render :partial => event %>
       <%end%>
-      <br/><br/>
-      <%= will_paginate @today_events%>			
+			<br/><br/> 
+		<div id="today_paginate">
+    	<%= will_paginate @today_paginate_events%>
+    </div>
+		<%end%>	    
 		</div>
 		
 		<div id="next_week_events" <%= 'style="display: none;"' if params[:day] != 'next_week'%>>
-				
-      <%for event in @next_week_events%>
+	    <%if @next_week_paginate_events.nil?%>
+      <p> No next week events</p>
+    <%else%>
+      <%for event in @next_week_paginate_events%>
         <%= render :partial => event %>
       <%end%>
       <br/><br/>
-      <%= will_paginate @next_week_events%>			
+		<div id="next_week_paginate">	 
+    	<%= will_paginate @next_week_paginate_events%>
+    </div>
+		<%end%>    			
     </div>
 		
 		<div id="next_month_events"<%= 'style="display: none;"' if params[:day] != 'next_month'%>>
-
-		  <%for event in @next_month_events%>
+      <%if @next_month_paginate_events.nil?%>
+      <p> No next month events</p>
+    <%else%>
+      <%for event in @next_month_paginate_events%>
         <%= render :partial => event %>
       <%end%>
-			<br/><br/>
-      <%= will_paginate @next_month_events%>
+      <br/><br/>
+		<div id="next_month_paginate">	 
+    	<%= will_paginate @next_month_paginate_events%>
+		</div>
+    <%end%> 
     </div>
 		
 		<div id="all_incoming_events"<%= 'style="display: none;"' if (params[:day] == 'today' or params[:day] == 'next_week' or params[:day] == 'next_month')%>>
-	  
-			<%for event in @all_incoming_events%>
-	     <%= render :partial => event %>
-	   <%end%>		
-	   <br/><br/>
-	     <%= will_paginate @all_incoming_events%>
+	    <%if @all_incoming_paginate_events.nil?%>
+      <p> No Incoming events</p>
+    <%else%>
+      <%for event in @all_incoming_paginate_events%>
+        <%= render :partial => event %>
+      <%end%>
+      <br/><br/>
+		<div id="all_incoming_paginate">	 
+    	<%= will_paginate @all_incoming_paginate_events%>
+		</div
+    <%end%>   
 		</div>
+	</div>
