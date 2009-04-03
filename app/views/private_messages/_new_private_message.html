@@ -1,5 +1,3 @@
-<h1>New private_message</h1>
-
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>
 	<div>
@@ -11,7 +9,6 @@
     <label for="Body">Body:</label><br/>
     <%= f.text_area :body, :class => "span-6"  %>
   </div>
-  <%= hidden_field_tag "private_message[receiver_id]", params[:receiver]%>
   <p>
     <%= f.submit "Create" %>
   </p>

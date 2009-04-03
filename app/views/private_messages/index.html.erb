@@ -1,20 +1,21 @@
+<% content_for :sidebar do  %>
+  <%= render :partial => "new_private_message"%>
+<%end%>
 
+<%=link_to_if params[:sent_messages], "Incoming Messages" ,user_messages_path(params[:user_id])  %> | 
+<%=link_to_unless params[:sent_messages], "Sent Messages" ,user_messages_path(params[:user_id],:sent_messages => true)  %>
+<br/><br/>
 
-<h1>Listing private_messages</h1>
+<%if @private_messages.blank?%>
+  There is not privates messages
+<%else%>
 
-<table>
-  <tr>
-  </tr>
+	<% for private_message in @private_messages %>
+   	<%= link_icon (User.find(private_message.sender_id))%>
+   	<h4><%= sanitize(private_message.title)%></h4>
+	 	<p><%= sanitize(private_message.body)%></p>
+	 	<%= link_to 'Destroy', user_message_path(params[:user_id],private_message), :confirm => 'Are you sure?', :method => :delete %>
+	 	<br/> 
+	<% end %>
+<%end%>
 
-<% for private_message in @private_messages %>
-  <tr>
-    <td><%= link_to 'Show', private_message %></td>
-    <td><%= link_to 'Edit', edit_private_message_path(private_message) %></td>
-    <td><%= link_to 'Destroy', private_message, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New private_message', new_user_message_path(current_user) %>

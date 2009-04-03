@@ -3,7 +3,12 @@ class PrivateMessagesController < ApplicationController
   # GET /private_messages
   # GET /private_messages.xml
   def index
-    @private_messages = PrivateMessage.find(:all)
+    if params[:sent_messages]
+      @private_messages = PrivateMessage.find(:all).select{|msg| msg.sender_id == params[:user_id].to_i}  
+    else  
+      @private_messages = PrivateMessage.find(:all).select{|msg| msg.receiver_id == params[:user_id].to_i}  
+    end
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -31,12 +36,13 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages
   # POST /private_messages.xml
   def create
+    params[:private_message][:sender_id] = current_user
     @private_message = PrivateMessage.new(params[:private_message])
 
     respond_to do |format|
       if @private_message.save
         flash[:notice] = 'PrivateMessage was successfully created.'
-        format.html { redirect_to(@private_message) }
+        format.html { redirect_to request.referer }
         format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
       else
         format.html { render :action => "new" }

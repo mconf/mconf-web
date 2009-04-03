@@ -10,8 +10,8 @@
 <div id="prefs">
 	<ul>
 	  	<% if logged_in? %>
-		    <li>Inbox(3)</li>
-		    <li>Profile</li>
+		    <li><%= link_to "Inbox (#{PrivateMessage.find(:all).select{|msg| msg.receiver_id == current_user and !msg.checked}.size})", user_messages_path(current_user)%></li>
+		    <li><%= link_to "Profile", user_profile_path(current_user)%></li>
 		    <li>Preferences</li>
 		    <li><%= link_to 'Logout', logout_path %></li>	
 		<% else %>
