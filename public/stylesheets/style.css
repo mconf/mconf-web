@@ -87,3 +87,5 @@ div.post img.icon {
 	margin-right: 3px;
 }
 
+#navigation #logo-app div#lang {float:right;}
+#navigation #lang p {text-align:right;margin:0;}
