@@ -1,6 +1,6 @@
 <div class="user">
 	<p>
-		<%= link_to "Send a message", new_user_message_path(current_user, :receiver => detailed_user)%><br />
+		<%= link_to "Send a message", space_users_path(@space, :send_message => detailed_user.id)%><br />
 		<a>e-mail</a>
 	</p>
         <%=link_icon(detailed_user, :size => 72)%>

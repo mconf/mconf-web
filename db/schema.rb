@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090402141642) do
+ActiveRecord::Schema.define(:version => 20090402154157) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -177,6 +177,17 @@ ActiveRecord::Schema.define(:version => 20090402141642) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
+  end
+
+  create_table "private_messages", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "parent_id"
+    t.boolean  "checked",     :default => false
+    t.string   "title"
+    t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "profiles", :force => true do |t|

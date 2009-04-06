@@ -1,3 +1,19 @@
+<% content_for :javascript do %>
+  $("#user_selector").keyup(function(event) {
+    var filter_text = this.value.toLowerCase();
+    $(".user_checkbox").each(function() {
+        if($(this).find("label").text().toLowerCase().search(filter_text)>=0){
+        $(this).show();
+      }else{
+        $(this).hide();
+      }
+      });
+  });
+  
+<%end%>
+
+<h3>New private message</h3>
+
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>
 	<div>
@@ -9,6 +25,13 @@
     <label for="Body">Body:</label><br/>
     <%= f.text_area :body, :class => "span-6"  %>
   </div>
+	<label for="User filter">User filter</label><br/>
+  <%= text_field_tag :user_selector,'', :size => 25 %>
+	<% for user in getCospaceUsers () -%>
+      <div class=user_checkbox>
+      	<%= check_box_tag "receiver_ids[]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
+      </div>
+  <%end%>
   <p>
     <%= f.submit "Create" %>
   </p>

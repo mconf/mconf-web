@@ -8,7 +8,7 @@
 	<% for group in @groups -%>
 		<div class="group">
 			<ul class="group_links">
-				<li><a>Send a message</a></li>
+				<li><%= link_to 'Send a Message', space_groups_path(@space, :send_message => group.users) %></li>
 				<li><a>e-mail</a></li>
 				<li><a>Join</a></li>
 				<li><%= link_to 'Edit', edit_space_group_path(@space, group) %></li>

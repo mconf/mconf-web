@@ -36,17 +36,43 @@ class PrivateMessagesController < ApplicationController
   # POST /private_messages
   # POST /private_messages.xml
   def create
-    params[:private_message][:sender_id] = current_user
-    @private_message = PrivateMessage.new(params[:private_message])
-
-    respond_to do |format|
-      if @private_message.save
-        flash[:notice] = 'PrivateMessage was successfully created.'
-        format.html { redirect_to request.referer }
-        format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
+    if params[:receiver_ids]
+      @success_messages = Array.new
+      @fail_messages = Array.new
+      for receiver in params[:receiver_ids].uniq
+        params[:private_message][:sender_id] = params[:user_id]
+        params[:private_message][:receiver_id] = receiver
+        private_message = PrivateMessage.new(params[:private_message])
+        if private_message.save
+          @success_messages << private_message
+        else
+          @fail_messages << private_message
+        end
+      end
+      respond_to do |format|
+        if @fail_messages.empty?
+          flash[:success] = 'PrivateMessages were successfully created.'
+          format.html { redirect_to request.referer }
+          format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
+        else
+          flash[:error] = 'Error sending private messages.'
+          format.html { redirect_to request.referer }
+          format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
+        end
+      end
+    else  
+      params[:private_message][:sender_id] = params[:user_id]
+      @private_message = PrivateMessage.new(params[:private_message])
+  
+      respond_to do |format|
+        if @private_message.save
+          flash[:success] = 'PrivateMessage was successfully created.'
+          format.html { redirect_to request.referer }
+          format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
