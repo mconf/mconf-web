@@ -1,5 +1,9 @@
 <% content_for :sidebar do  %>
-  <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
+  <%if params[:reply_to] %>
+	  <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
+	<%else%>
+    <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
+	<%end%>
 <%end%>
 
 <%=link_to_if params[:sent_messages], "Incoming Messages" ,user_messages_path(params[:user_id])  %> | 
@@ -18,6 +22,7 @@
 		  Received from <%= link_icon_and_name (User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
 		<% end%>
 	 	<p><%= sanitize(private_message.body)%></p>
+		<%= link_to 'Reply', user_messages_path(params[:user_id], :reply_to => private_message) unless params[:sent_messages]%>
 	 	<%= link_to 'Destroy', user_message_path(params[:user_id],private_message), :confirm => 'Are you sure?', :method => :delete %>
 	 	<br/> 
 	<% end %>
