@@ -1,7 +1,22 @@
 namespace :setup do
   namespace :basic_data do
+    desc "Reload basic data"
+    task :reload => [ :clear, :all ]
+
+    desc "Clear basic data"
+    task :clear => :environment do
+      puts "* Clear Users"
+      User.destroy_all
+      puts "* Clear Spaces"
+      Space.destroy_all
+      puts "* Clear Roles"
+      Role.destroy_all
+      puts "* Clear Permissions"
+      Permission.destroy_all
+    end
+
     desc "Load all basic data"
-    task :all => [ :users, :performances ]
+    task :all => [ :users, :spaces, :roles ]
 
     desc "Load Users Data"
     task :users => :environment do
@@ -28,50 +43,48 @@ namespace :setup do
 
       # Permissions applied to self
       %w( read update delete ).each do |action|
-        Permission.find_or_create_by_action_and_objective action, "self"
+        Permission.find_or_create_by_action_and_objective action, nil
       end
 
       # Permissions applied to Content and Performance
       %w( create read update delete ).each do |action|
-        %w( Content Performance ).each do |objective|
+        %w( content performance ).each do |objective|
           Permission.find_or_create_by_action_and_objective action, objective
         end
       end
+
+      # Permission applied to Group
+      Permission.find_or_create_by_action_and_objective "manage", "group"
     end
 
     desc "Load Roles Data"
     task :roles => :permissions do
       puts "* Create Roles"
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
-      admin_role.permissions << Permission.find_by_action_and_objective('read',   'self')
-      admin_role.permissions << Permission.find_by_action_and_objective('update', 'self')
-      admin_role.permissions << Permission.find_by_action_and_objective('delete', 'self')
-      admin_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
-      admin_role.permissions << Permission.find_by_action_and_objective('read',   'Content')
-      admin_role.permissions << Permission.find_by_action_and_objective('update', 'Content')
-      admin_role.permissions << Permission.find_by_action_and_objective('delete', 'Content')
-      admin_role.permissions << Permission.find_by_action_and_objective('create', 'Performance')
-      admin_role.permissions << Permission.find_by_action_and_objective('read',   'Performance')
-      admin_role.permissions << Permission.find_by_action_and_objective('update', 'Performance')
-      admin_role.permissions << Permission.find_by_action_and_objective('delete', 'Performance')
+      admin_role.permissions << Permission.find_by_action_and_objective('read',   nil)
+      admin_role.permissions << Permission.find_by_action_and_objective('update', nil)
+      admin_role.permissions << Permission.find_by_action_and_objective('delete', nil)
+      admin_role.permissions << Permission.find_by_action_and_objective('create', 'content')
+      admin_role.permissions << Permission.find_by_action_and_objective('read',   'content')
+      admin_role.permissions << Permission.find_by_action_and_objective('update', 'content')
+      admin_role.permissions << Permission.find_by_action_and_objective('delete', 'content')
+      admin_role.permissions << Permission.find_by_action_and_objective('create', 'performance')
+      admin_role.permissions << Permission.find_by_action_and_objective('read',   'performance')
+      admin_role.permissions << Permission.find_by_action_and_objective('update', 'performance')
+      admin_role.permissions << Permission.find_by_action_and_objective('delete', 'performance')
+      admin_role.permissions << Permission.find_by_action_and_objective('manage', 'group')
 
       user_role = Role.find_or_create_by_name_and_stage_type "User", "Space"
-      user_role.permissions << Permission.find_by_action_and_objective('read',   'self')
-      user_role.permissions << Permission.find_by_action_and_objective('create', 'Content')
-      user_role.permissions << Permission.find_by_action_and_objective('read',   'Content')
-      user_role.permissions << Permission.find_by_action_and_objective('create', 'Performance')
-      user_role.permissions << Permission.find_by_action_and_objective('read',   'Performance')
+      user_role.permissions << Permission.find_by_action_and_objective('read',   nil)
+      user_role.permissions << Permission.find_by_action_and_objective('create', 'content')
+      user_role.permissions << Permission.find_by_action_and_objective('read',   'content')
+      user_role.permissions << Permission.find_by_action_and_objective('create', 'performance')
+      user_role.permissions << Permission.find_by_action_and_objective('read',   'performance')
 
       invited_role = Role.find_or_create_by_name_and_stage_type "Invited", "Space"
-      invited_role.permissions << Permission.find_by_action_and_objective('read', 'self')
-      invited_role.permissions << Permission.find_by_action_and_objective('read', 'Content')
-      invited_role.permissions << Permission.find_by_action_and_objective('read', 'Performance')
-    end
-
-    desc "Load Performances Data"
-    task :performances => [ :roles, :spaces ] do
-      Space.find_by_name("VCC Start Page").stage_performances.create :agent => Anyone.current,
-      :role => Role.find_by_name_and_stage_type("Invited", "Space")
+      invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
+      invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
+      invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
     end
   end
 end

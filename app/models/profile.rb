@@ -3,18 +3,12 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
   has_logo
- 
-  def authorizes?(agent, action_objective)
-    return true if agent.superuser? || agent == user
 
-    case action_objective
-    when :read
-      user.stages.map(&:actors).flatten.include?(agent)
-    else
-      false
-    end
+  def local_affordances
+    [ :read, :manage ].map{ |a| ActiveRecord::Authorization::Affordance.new(user, a) } +
+    user.fellows.map{ |f| ActiveRecord::Authorization::Affordance.new(f, :read) }
   end
-  
+ 
   def self.atom_parser(data)
 
     e = Atom::Entry.parse(data)

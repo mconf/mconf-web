@@ -5,16 +5,16 @@ class AttachmentsController < ApplicationController
   before_filter :authentication_required, :except => [ :index, :show ]
   
   # Needs a Container when posting a new Attachment
-  before_filter :container!, :only => [ :new, :create ]
+  before_filter :space!, :only => [ :new, :create ]
       
   # Get Attachment in member actions
-  before_filter :resource, :except => [ :index, :new, :create ]
+  before_filter :attachment, :except => [ :index, :new, :create ]
   
-  #authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
-  #authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
-  #authorization_filter :attachment, :read,   :only => [ :show ]
-  #authorization_filter :attachment, :update, :only => [ :edit, :update ]
-  #authorization_filter :attachment, :delete, :only => [ :delete ]
+  authorization_filter [ :read, :content ],   :space, :only => [ :index ]
+  authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
+  authorization_filter :read,   :attachment, :only => [ :show ]
+  authorization_filter :update, :attachment, :only => [ :edit, :update ]
+  authorization_filter :delete, :attachment, :only => [ :delete ]
   
   def show
       @image = Attachment.find(params[:id])

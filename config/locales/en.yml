@@ -4,5 +4,12 @@
 en:
   user:
     disabled: "User disabled"
+  agent:
+    one: "User"
+  performance:
+    one: "Member"
+    other: "Members"
+    other_in: "Members of {{stage}}"
+    new: "New Member"
   
 

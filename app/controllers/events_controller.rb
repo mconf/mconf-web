@@ -3,8 +3,15 @@ require 'vpim/vevent'
 require 'vpim/duration'
 
 class EventsController < ApplicationController
-  
-   before_filter :space
+  before_filter :space
+  before_filter :event, :only => [ :show, :edit, :update, :destroy ]
+
+  authorization_filter [ :read,   :content ], :space, :only => [ :index ]
+  authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
+  authorization_filter :read,   :event, :only => [ :show ]
+  authorization_filter :update, :event, :only => [ :edit, :update ]
+  authorization_filter :delete, :event, :only => [ :destroy ]
+
   # GET /events
   # GET /events.xml
   def index
@@ -97,9 +104,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-    session[:current_tab] = "Events"
-    @event = Event.find(params[:id])
-    Mime::Type.register "ical", :ical
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @event }
@@ -121,7 +125,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    @event = Event.find(params[:id])
   end
 
   # POST /events
@@ -153,8 +156,6 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
 
-    @event = Event.find(params[:id])
-
     respond_to do |format|
       if @event.update_attributes(params[:event])
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
@@ -174,7 +175,6 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy
-    @event = Event.find(params[:id])
     @event.destroy
 
     respond_to do |format|
@@ -192,7 +192,6 @@ class EventsController < ApplicationController
   
   
   def export_ical
-      @event = Event.find(params[:id]) 
       calen = Vpim::Icalendar.create2
       calen.add_event do |e|
         e.dtstart @event.start_date
@@ -204,6 +203,10 @@ class EventsController < ApplicationController
       icsfile = calen.encode         
       send_data icsfile, :filename => "#{@event.name}.ics"      
       
+  end
+
+  def event
+    @event = Event.find(params[:id])
   end
 end
 

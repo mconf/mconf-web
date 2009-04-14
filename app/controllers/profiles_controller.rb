@@ -5,8 +5,8 @@ class ProfilesController < ApplicationController
 
   before_filter :get_user
   
-  authorization_filter :profile, :read,   :only => [ :show ]
-  authorization_filter :profile, :manage, :except => [ :show ]
+  authorization_filter :read, :profile, :only => [ :show ]
+  authorization_filter :manage, :profile, :except => [ :show ]
 
   before_filter :unique_profile, :only=> [:new, :create]
   

@@ -88,6 +88,9 @@ end
 
     { :user => user, :tags => tags}     
   end
- 
+
+  def local_affordances
+    Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ]))
+  end
  
 end
