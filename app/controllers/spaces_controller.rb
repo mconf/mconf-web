@@ -1,10 +1,10 @@
 class SpacesController < ApplicationController
-  before_filter :authentication_required, :except => [ :index, :register, :show, :new, :create ]
-
-  #authorization_filter :space, :read, :only => [:show]
-  #authorization_filter :space, :update, :only => [:edit, :update]
-  #authorization_filter :space, :delete, :only => [:destroy]
   before_filter :space
+
+  authorization_filter :read,   :space, :only => [:show]
+  authorization_filter :update, :space, :only => [:edit, :update]
+  authorization_filter :delete, :space, :only => [:destroy]
+
   set_params_from_atom :space, :only => [ :create, :update ]
 
   # GET /spaces

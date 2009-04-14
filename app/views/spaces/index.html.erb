@@ -8,7 +8,7 @@
 
 <% @spaces.each do |space| %>
 <div>
-  <%= link_to sanitize(space.name), space %><br />
+  <%= link_to sanitize(space.name), space %> <%= "<strong>Private</strong>" unless space.authorizes?(:read, :to => current_agent) %><br />
   <%= sanitize(space.description) if space.description.present? %>
 </div>
 <% end %>

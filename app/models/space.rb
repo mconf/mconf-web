@@ -49,4 +49,14 @@ class Space < ActiveRecord::Base
   
     { :space => space }
   end
+
+  def local_affordances
+    affs = []
+    if self.public?
+      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, :read)
+      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :content ])
+    end
+
+    affs
+  end
 end

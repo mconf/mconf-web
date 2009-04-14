@@ -2,10 +2,16 @@ require "digest/sha1"
 class UsersController < ApplicationController
   include ActionController::Agents
   
-  
-  # Get the User for member actions
+  before_filter :space, :only => [ :index ]
   before_filter :get_agent, :only => [ :show, :edit, :update, :destroy ]
-  
+
+  # Permission filters
+  authorization_filter [ :read, :performance ], :space, :only => [ :index ]
+  before_filter :authentication_required, :only => [:edit, :update, :destroy]
+  # Accounts
+  before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
+  authorization_filter :delete, :user, :only => [ :destroy ]
+
 =begin
   # Filter for activation actions
   before_filter :activation_required, :only => [ :activate, 
@@ -14,19 +20,7 @@ class UsersController < ApplicationController
   # Filter for password recovery actions
   before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
                                                           :reset_password ]
-  
-  before_filter :authentication_required, :only => [:edit, :update, :destroy]
-
-  # Space Users
-
-  authorization_filter :space, [ :read, :Performance ],   :if   => :get_space, 
-                                                          :only => [ :index ]
 =end
-  before_filter :space, :only => [ :index ]
-
-  # Accounts
-  before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
-  authorization_filter :user, :delete, :only => [ :destroy ]
 
   set_params_from_atom :user, :only => [ :create, :update ]  
   

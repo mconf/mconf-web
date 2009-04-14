@@ -5,25 +5,27 @@ class PostsController < ApplicationController
   
   set_params_from_atom :post, :only => [ :create, :update ]
   
-  # Posts list may belong to a container
+  # Posts list belong to a space
   # /posts
-  # /:container_type/:container_id/posts, :new, :create, :new, :create
-  before_filter :space, :only => [ :index,:search_posts, :destroy, :show ,:update  ]
+  # /:container_type/:container_id/posts, :new, :create
+  before_filter :space, :only => [ :index, :destroy, :show ,:update  ]
   
   # Needs a Container when posting a new Post
   before_filter :space!, :only => [ :new, :create ]
   
-  before_filter :get_post, :except => [ :index, :new, :create]
+  before_filter :post, :except => [ :index, :new, :create]
 
-  #authorization_filter :space, [ :read,   :Content ], :only => [ :index ]
-  #authorization_filter :space, [ :create, :Content ], :only => [ :new, :create ]
-  #authorization_filter :post, :read,   :only => [ :show ]
-  #authorization_filter :post, :update, :only => [ :edit, :update ]
-  #authorization_filter :post, :delete, :only => [ :destroy ]
+  authorization_filter [ :read, :content ],   :space, :only => [ :index ]
+  authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
+  authorization_filter :read,   :post, :only => [ :show ]
+  authorization_filter :update, :post, :only => [ :edit, :update ]
+  authorization_filter :delete, :post, :only => [ :destroy ]
 
   def index
-  #Estas 3 líneas lo que hacen es meter en @posts lo que hay en la linea 2 si el espacio es el público y si no, mete lo de la línea 3
-    @posts = Post.in_container(@space).find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").paginate(:page => params[:page], :per_page => 5)       
+    @posts = Post.parents.in_container(@space).find(:all, 
+                                                    :order => "updated_at DESC"
+                                                   ).paginate(:page => params[:page],
+                                                              :per_page => 5)       
     
       respond_to do |format|
         format.html 
@@ -259,11 +261,5 @@ class PostsController < ApplicationController
 #      format.send(mime_type) { head :ok }
       format.xml { head :ok }
     end
-  end
-   
-  private
-  
-  def get_post 
-    @post = Post.find(params[:id])
   end
 end

@@ -1,5 +1,6 @@
 class PrivateMessage < ActiveRecord::Base
-  belongs_to :sender, :class_name => "User"
+  belongs_to :sender,  :class_name => "User"
+  belongs_to :receiver, :class_name => "User"
 
   acts_as_resource :per_page => 10
 

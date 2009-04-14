@@ -102,9 +102,9 @@ module ActiveRecord::Authorization::InstanceMethods
   alias authorizes_without_superuser authorizes?
 
   def authorizes_with_superuser(action, options = {})
-    return true if options[:agent] && options[:agent].superuser
+    return true if options[:to] && options[:to].superuser
 
-    authorizes_without_superuser(agent, *args)
+    authorizes_without_superuser(action, options)
   end
 
   alias authorizes? authorizes_with_superuser

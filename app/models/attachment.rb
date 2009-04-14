@@ -13,6 +13,10 @@ class Attachment < ActiveRecord::Base
     return self.thumbnails.select{|thumb| thumb.thumbnail== "post"}.first
   end
 
+  def local_affordances
+    post.affordances
+  end
+
   # Implement atom_entry_filter for AtomPub support
   # Return hash with content attributes
   def self.atom_entry_filter(entry)

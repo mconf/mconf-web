@@ -1,12 +1,13 @@
 class PrivateMessagesController < ApplicationController
+  authorization_filter [ :manage, :message ], :user
 
   # GET /private_messages
   # GET /private_messages.xml
   def index
     if params[:sent_messages]
-      @private_messages = PrivateMessage.find(:all).select{|msg| msg.sender_id == params[:user_id].to_i}  
+      @private_messages = PrivateMessage.find_all_by_sender_id(params[:user_id])
     else  
-      @private_messages = PrivateMessage.find(:all).select{|msg| msg.receiver_id == params[:user_id].to_i}  
+      @private_messages = PrivateMessage.find_all_by_receiver_id(params[:user_id])
     end
     
 
@@ -104,5 +105,11 @@ class PrivateMessagesController < ApplicationController
       format.html { redirect_to(private_messages_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def user
+    @user ||= User.find_with_param(params[:user_id])
   end
 end
