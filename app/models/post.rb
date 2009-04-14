@@ -21,9 +21,9 @@ class Post < ActiveRecord::Base
                           {:class_name => 'User',
                                :field => 'login',
                                :as => 'login_user',
-                               :association_sql => "LEFT OUTER JOIN users ON (posts.`author_id` = users.`id` AND posts.`author_type` = 'User') "}, 
-                          {:class_name => 'Profile',:field=> 'name',:as => 'name_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"},
-                          {:class_name => 'Profile',:field=> 'lastname',:as => 'lastname_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"}
+                               :association_sql => "LEFT OUTER JOIN users ON (posts.`author_id` = users.`id` AND posts.`author_type` = 'User') "}#, 
+                          #{:class_name => 'Profile',:field=> 'name',:as => 'name_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"},
+                          #{:class_name => 'Profile',:field=> 'lastname',:as => 'lastname_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"}
                           ]
             
             

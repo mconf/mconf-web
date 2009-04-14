@@ -13,6 +13,11 @@ class Event < ActiveRecord::Base
   attr_accessor :start_hour
   attr_accessor :end_hour
   
+  is_indexed :fields => ['name','description','place','start_date','end_date'],
+             :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
+             :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+             }]
+  
   before_validation do |event|
     if event.start_hour.present?
       event.start_date += ( Time.parse(event.start_hour) - Time.today )
