@@ -1,13 +1,15 @@
 namespace :setup do
+  task :populate => 'populate:create'
+
   desc "Erase and fill database"
   namespace :populate do
     task :default => :populate
 
     desc "Reload populate data"
-    task :reload => [ 'setup:basic_data:reload', :populate ]
+    task :reload => [ 'setup:basic_data:reload', 'setup:populate' ]
 
     desc "Erase non basic data and fill database"
-    task :populate => :environment do
+    task :create => :environment do
       require 'populator'
       require 'faker'
 
