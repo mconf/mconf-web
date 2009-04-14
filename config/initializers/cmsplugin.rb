@@ -98,25 +98,14 @@ end
 
 # In SIR authorization, users that are superusers are gods
 # This module allows implementing this feature in all classes that implement authorizes?
-module SirAuthorizes
-  class << self
-    def included(base)
-      base.class_eval do
-        alias authorizes_without_superuser authorizes?
-        def authorizes_with_superuser(agent, *args)
-          return true if agent.superuser
+module ActiveRecord::Authorization::InstanceMethods
+  alias authorizes_without_superuser authorizes?
 
-          return true if self.respond_to?(:entry) &&
-                         self.entry.agent == agent &&
-                         self.entry.container.authorizes?(agent, [ :create, :Content ])
+  def authorizes_with_superuser(action, options = {})
+    return true if options[:agent] && options[:agent].superuser
 
-          authorizes_without_superuser(agent, *args)
-        end
-        alias authorizes? authorizes_with_superuser
-      end
-    end
+    authorizes_without_superuser(agent, *args)
   end
+
+  alias authorizes? authorizes_with_superuser
 end
-
-ActiveRecord::Stage::InstanceMethods.send :include, SirAuthorizes
-

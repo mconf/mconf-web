@@ -35,7 +35,7 @@
         <h3>Lastest Users</h3>
   <% for user in @lastest_users -%>
     <div class="user">
-        <%=link_icon_and_name(user, :size => 48)%>
+        <%=link_logotype(user, :size => 48)%>
     </div>
   <% end -%>
     <%= link_to "Read more", space_users_path(@space), :class => "read_more_link" %>

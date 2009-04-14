@@ -3,7 +3,7 @@
 		<%= link_to "Send a message", space_users_path(@space, :send_message => detailed_user.id)%><br />
 		<a>e-mail</a>
 	</p>
-        <%=link_icon(detailed_user, :size => 72)%>
+        <%=link_logo(detailed_user, :size => 72)%>
 	<h5><%=sanitize(detailed_user.full_name) %></h5>
 	<%=sanitize(detailed_user.organization) %><br />
 	<%=sanitize(detailed_user.city) %>, <%=sanitize(detailed_user.country) %>

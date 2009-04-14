@@ -17,9 +17,9 @@
 	<% for private_message in @private_messages %>
 	  <h4><%= sanitize(private_message.title)%></h4>
 	  <% if params[:sent_messages] %>
-			Sent to <%= link_icon_and_name (User.find(private_message.receiver_id))%> <%=time_ago_in_words(private_message.created_at)%> ago 
+			Sent to <%= link_logotype(User.find(private_message.receiver_id))%> <%=time_ago_in_words(private_message.created_at)%> ago 
 		<% else%>
-		  Received from <%= link_icon_and_name (User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
+		  Received from <%= link_logotype(User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
 		<% end%>
 	 	<p><%= sanitize(private_message.body)%></p>
 		<%= link_to 'Reply', user_messages_path(params[:user_id], :reply_to => private_message) unless params[:sent_messages]%>
