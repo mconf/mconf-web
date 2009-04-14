@@ -10,7 +10,7 @@
   <%if params[:send_message]%>
 	  <%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
 	<%else%>
-	  <%= render :partial => 'groups/sidebar' %>
+	  <%= render :partial => 'groups/create_group', :locals=> {:group => @editing_group} %>
 	<%end%>
 	 
 <% end %>

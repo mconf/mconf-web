@@ -7,6 +7,11 @@ class GroupsController < ApplicationController
       @users = @space.actors.sort {|x,y| x.name <=> y.name }
       @groups = @space.groups.all(:order => "name ASC")
       @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
+      if params[:edit_group]
+        @editing_group = @space.groups.find(params[:edit_group])
+      else
+        @editing_group = Group.new()
+      end
     end
   end
   
