@@ -28,9 +28,10 @@ class User < ActiveRecord::Base
   
   
  is_indexed :fields => ['login','email'],
-:include => [{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
+:include => [#{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
              {:class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
-             {:class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}],
+             #{:class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
+],
 :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
 }]

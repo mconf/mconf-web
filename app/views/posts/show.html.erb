@@ -21,6 +21,13 @@ $("#new_doc_link").attr('href', '#');
 
 <% end %>
 
+<% content_for :search do  %>
+  <% form_tag(search_posts_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+  <% end %>
+<%end%>
+
 <% content_for :sidebar do  %>
   <% params[:reply_to] = @post.id %>
   <%= render :partial => "new_reply", :locals => { :post => @post } %>

@@ -221,7 +221,15 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
 
 <% end %>
 
-
+<% content_for :search do  %>
+  <% form_tag(search_events_path(@space)) do %>
+      <%= text_field_tag :query, params[:query], :size=>'18' %>
+	   <%= image_submit_tag "ui/icons/zoom.png"%>
+	   <div id="advanced">
+	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+     </div>
+   <% end %>
+<%end%>
 
  <div class="group_links">
    <%=link_to "All", space_events_path(@space), {:id => 'all_link'}%> |

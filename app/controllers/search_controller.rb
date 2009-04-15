@@ -81,18 +81,29 @@ class SearchController < ApplicationController
       @events = @search.results.select{|event| event.space == @space}
     end
     
-    if params[:time1] && params[:time2]
-      @query1 = params[:time1]
-      @query2 = params[:time2]
-      date1 = Date.parse(@query1)
+    if (params[:time1] && params[:time2]) or (params[:start_date] && params[:end_date])
+      if (params[:time1] && params[:time2])
+      #@query1 = params[:time1]
+      #@query2 = params[:time2]
+      date1= Date.civil(params[:time1][:year].to_i, params[:time1][:month].to_i, params[:time1][:day].to_i)
+      date2= Date.civil(params[:time2][:year].to_i, params[:time2][:month].to_i, params[:time2][:day].to_i)
+      #date1 = Date.parse(@query1.to_s)
       date1ok =  date1.strftime("%Y%m%d")
-      date2 = Date.parse(@query2)
+      #date2 = Date.parse(@query2.to_s)
       date2ok =  date2.strftime("%Y%m%d")
+      @filters = {'start_date' => date1.to_s..date2.to_s,'end_date' => date1.to_s..date2.to_s}
+      elsif params[:start_date] && params[:end_date]
+        date1 = params[:start_date].to_date
+        date2 = params[:end_date].to_date
+        date1ok =  date1.strftime("%Y%m%d")
+        date2ok =  date2.strftime("%Y%m%d")
+        @filters = {'start_date' => date1.to_s..date2.to_s,'end_date' => date1.to_s..date2.to_s}
+      end  
       if date1ok > date2ok
         flash[:notice] = 'The first date cannot be lower than the second one'
         render :template => "events/search"
       else
-      @filters = {'event_datetime_start_date' => @query1..@query2,'event_datetime_end_date' => @query1..@query2}
+      
       @search = Ultrasphinx::Search.new(:class_names => 'Event',:filters => @filters)
       @search.run
       @events= @search.results.select{|event| event.space == @space}
