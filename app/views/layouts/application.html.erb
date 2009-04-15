@@ -7,8 +7,6 @@
     <title><%= yield :title %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
-    <%= yield :headers %>
-
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "style", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
@@ -19,12 +17,15 @@
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
 
-    <%= javascript_include_tag 'jquery', 'application', 'jquery-ui', 'jquery.timeentry','jquery.mousewheel', 'jquery.livequery', 'user_filter' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery-ui', 'jquery.timeentry','jquery.mousewheel', 'jquery.livequery' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
         <%= yield :javascript %>
       })
     </script>
+		
+		<%= yield :headers %>
+		
   </head>
 
 	<body>

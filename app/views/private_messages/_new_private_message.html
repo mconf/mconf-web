@@ -1,3 +1,7 @@
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'user_filter'%>
+<% end -%>
+
 <h3>New private message</h3>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>

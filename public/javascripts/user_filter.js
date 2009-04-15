@@ -1,4 +1,6 @@
-  selected_users_check = function(){
+  var speed = "normal"
+	
+	selected_users_check = function(){
     if($(".user_checkbox input:checked").length > 0){
       $("#selected_users label:first").show();
     }else{
@@ -7,11 +9,11 @@
   };
   
   filter_user = function(filter_text){
-    $("#unselected_users .user_checkbox").each(function() {
+		$("#unselected_users .user_checkbox").each(function() {
         if($(this).find("label").text().toLowerCase().search(filter_text)>=0){
-          $(this).show();
+          $(this).show(speed);
       }else{
-          $(this).hide("fast");
+          $(this).hide(speed);
       }
       });
     $(".user_checkbox input:checked").each(function(){
@@ -20,13 +22,25 @@
   };
 
   $.extend($.fn, {
-    allocate: function() { 
+    allocate: function() {
         if($(this).is(":checked")){
-          $("#selected_users").append($(this).parent().clone()).hide().show("fast");
-          $(this).parent().remove();
+					if ($(this).parents("#selected_users").length == 0){
+						var cb = $(this).parent().clone().hide();
+						$("#selected_users").append(cb);
+						$(this).parent().hide(speed, function () {
+              $(this).remove();
+            });
+            cb.show(speed);
+					}	
         }else{
-          $("#unselected_users").append($(this).parent().clone()).hide().show("fast");
-          $(this).parent().remove();
+				  if ($(this).parents("#unselected_users").length == 0) {
+						var cb = $(this).parent().clone().hide();
+		  	    $("#unselected_users").append(cb);
+						$(this).parent().hide(speed, function () {
+              $(this).remove();
+            });
+		  	    cb.show(speed);
+		      }
         }
       }
   });
