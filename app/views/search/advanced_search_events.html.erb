@@ -1,3 +1,7 @@
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery-ui' %>
+<%end%>
+
 <% content_for :javascript do %>
 $(".no_javascript_1").after(
   "<div class='javascript'> <input type='date' name='start_date' class= 'datepicker' ><br/></div> "  
