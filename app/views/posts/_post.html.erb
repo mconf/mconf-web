@@ -1,11 +1,15 @@
 <!-- this partial render a post with their links -->
 <%div_for (post) do%>
-  <p><%= link_author(post, :size => 48) %></p>
+  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
+	<p><%= link_author(post, :size => 48, :url => user_profile_path(post.author)) %></p>
+	<%else%>
+	<p><%=logo(post.author, :size=>48)%> <%=post.author.name%></p>
+	<%end%>
   <p>
    <%for attachment in post.attachments%>
       <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
    <%end%> 
-   <%=post.text%>
-   <%if current_user = post.author%><%=link_to "edit", get_route(post)%><%end%>
+   <%=sanitize(post.text)%>
+   <%=link_to image_tag("ui/icons/comment-edit.png", :alt => "edit comment" ), get_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
    </p>
 <%end%>

@@ -26,33 +26,33 @@ $("#new_doc_link").attr('href', '#');
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= image_submit_tag "legacy/magnify2.png", :class=>'go'%>
+	  <%= image_submit_tag "ui/icons/magnifier.png", :class=>'go'%>
   <% end %>
 <%end%>
-
-<% content_for :sidebar do  %>
-  <% if params[:reply_to]%>
-    <div id="new_reply">
-      <%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
-    </div>
-  <% elsif params[:edit] %>
-    <% post = Post.find(params[:edit]) %>
-    <% if post.parent_id %>
-      <div id="edit_reply">
-        <%= render :partial => "edit_reply", :locals => { :post => post } %>
-      </div>
-    <% else %>
-      <div id="edit_thread">
-        <%= render :partial => "edit_thread", :locals => { :post => post } %>
-      </div>
-    <% end %>
-  <%else%>
-    <div id="new_thread" >
-      <%= render :partial => "new_thread" %>
-    </div>
-  <%end%>  
+<%if @space.authorizes?([:create, :content],:to => current_user)%>
+	<% content_for :sidebar do  %>
+  	<% if params[:reply_to]%>
+    	<div id="new_reply">
+      	<%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
+    	</div>
+  	<% elsif params[:edit] %>
+    	<% post = Post.find(params[:edit]) %>
+    	<% if post.parent_id %>
+      	<div id="edit_reply">
+        	<%= render :partial => "edit_reply", :locals => { :post => post } %>
+      	</div>
+    	<% else %>
+      	<div id="edit_thread">
+        	<%= render :partial => "edit_thread", :locals => { :post => post } %>
+      	</div>
+    	<% end %>
+  	<%else%>
+    	<div id="new_thread" >
+      	<%= render :partial => "new_thread" %>
+    	</div>
+  	<%end%>  
+	<% end %>
 <% end %>
-
 <div id="posts">
   <% for post in @posts -%>
     <%= render :partial => "thread" , :object => post %>
