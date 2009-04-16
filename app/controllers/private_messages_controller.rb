@@ -3,7 +3,7 @@ class PrivateMessagesController < ApplicationController
   before_filter :private_message, :only => [:check, :edit, :update]
   
   authorization_filter [ :manage, :message ], :user
-  authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit, :update ]
+  authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
 
   def index
     if params[:sent_messages]
