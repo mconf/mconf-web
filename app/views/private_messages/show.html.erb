@@ -1,3 +1,19 @@
+<%content_for :sidebar do%>
+  <%if params[:reply_to] %>
+    <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:id])}%>
+  <%end%>
+<%end%>
 
-<%= link_to 'Edit', edit_private_message_path(@private_message) %> |
-<%= link_to 'Back', private_messages_path %>
+<h3><%=sanitize(@show_message.title)%></h3>
+
+<p>
+	<%= link_logotype(User.find(@show_message.sender_id), :size => 96)%> Received <%=time_ago_in_words(@show_message.created_at)%> ago
+	<%= link_to 'Reply', user_message_path(params[:user_id],@show_message, :reply_to => true) unless params[:reply_to]%>
+  <%= link_to 'Destroy', user_message_path(params[:user_id],@show_message), :confirm => 'Are you sure?', :method => :delete %>
+</p>
+
+<p><%= sanitize(@show_message.body)%></p>
+
+<%= link_to 'Back to Inbox', user_messages_path(params[:user_id])%>
+
+
