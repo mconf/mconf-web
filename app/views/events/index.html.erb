@@ -2,13 +2,15 @@
   <%= javascript_include_tag 'jquery-ui', 'jquery.timeentry','jquery.mousewheel' %>
 <%end%>
 
-<% content_for :sidebar do  %>
-  <%if params[:edit]%>
-    <%@event = Event.find(params[:edit])%>
-    <%=render :partial => 'edit_event'%>
-  <%else%>
-    <%= render :partial=> 'new_event'%>
-  <%end%>
+<%if @space.authorizes?([:create, :content],:to => current_user)%>
+	<% content_for :sidebar do  %>
+  	<%if params[:edit]%>
+    	<%@event = Event.find(params[:edit])%>
+    	<%=render :partial => 'edit_event'%>
+  	<%else%>
+    	<%= render :partial=> 'new_event'%>
+  	<%end%>
+	<%end%>
 <%end%>
 
 <% content_for :javascript do %>
@@ -228,7 +230,7 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>
-	   <%= image_submit_tag "ui/icons/zoom.png"%>
+	   <%= image_submit_tag "ui/icons/magnifier.png"%>
 	   <div id="advanced">
 	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
      </div>
