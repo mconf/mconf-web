@@ -87,4 +87,10 @@ class Post < ActiveRecord::Base
 
     return params 
   end    
+
+  # Additional Permissions
+  def local_affordances
+    [ ActiveRecord::Authorization::Affordance.new(author, :update),
+      ActiveRecord::Authorization::Affordance.new(author, :delete) ]
+  end
 end
