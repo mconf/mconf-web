@@ -1,13 +1,16 @@
 class PrivateMessagesController < ApplicationController
-  authorization_filter [ :manage, :message ], :user
+  
+  before_filter :private_message, :only => [:show, :edit, :update, :destroy]
+  
+  authorization_filter [ :manage, :message ], :user, :except => [ :show ]
+  authorization_filter :read, :private_message, :only => [ :show ]
+  authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
 
-  # GET /private_messages
-  # GET /private_messages.xml
   def index
     if params[:sent_messages]
-      @private_messages = PrivateMessage.find_all_by_sender_id(params[:user_id])
+      @private_messages = PrivateMessage.sent(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
     else  
-      @private_messages = PrivateMessage.find_all_by_receiver_id(params[:user_id])
+      @private_messages = PrivateMessage.inbox(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
     end
     
 
@@ -17,8 +20,15 @@ class PrivateMessagesController < ApplicationController
     end
   end
 
-  # GET /private_messages/new
-  # GET /private_messages/new.xml
+  def show
+    @show_message = PrivateMessage.find(params[:id])
+    if @is_receiver = params[:user_id].to_i == @show_message.receiver_id
+      @show_message.checked = true
+      @show_message.save
+    end
+    
+  end
+
   def new
     
     @private_message = PrivateMessage.new
@@ -31,11 +41,8 @@ class PrivateMessagesController < ApplicationController
 
   # GET /private_messages/1/edit
   def edit
-    @private_message = PrivateMessage.find(params[:id])
   end
 
-  # POST /private_messages
-  # POST /private_messages.xml
   def create
     if params[:receiver_ids]
       @success_messages = Array.new
@@ -78,19 +85,17 @@ class PrivateMessagesController < ApplicationController
     end
   end
 
-  # PUT /private_messages/1
-  # PUT /private_messages/1.xml
   def update
-    @private_message = PrivateMessage.find(params[:id])
 
     respond_to do |format|
-      if @private_message.update_attributes(params[:private_message])
-        flash[:notice] = 'PrivateMessage was successfully updated.'
+      if @success_update = @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
         format.xml  { head :ok }
+        format.js
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -98,11 +103,10 @@ class PrivateMessagesController < ApplicationController
   # DELETE /private_messages/1
   # DELETE /private_messages/1.xml
   def destroy
-    @private_message = PrivateMessage.find(params[:id])
-    @private_message.destroy
+    @private_message.update_attributes(params[:private_message])
 
     respond_to do |format|
-      format.html { redirect_to(private_messages_url) }
+      format.html { redirect_to(user_messages_path(params[:user_id])) }
       format.xml  { head :ok }
     end
   end
@@ -111,5 +115,9 @@ class PrivateMessagesController < ApplicationController
 
   def user
     @user ||= User.find_with_param(params[:user_id])
+  end
+  
+  def private_message
+    @private_message = PrivateMessage.find(params[:id])
   end
 end

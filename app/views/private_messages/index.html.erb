@@ -1,3 +1,14 @@
+<% content_for :javascript do  %>
+  $(".message_link").attr('href', '#');
+  $(".message_link").livequery('click', function() {
+    $(this).parents(".message_div").find("div.message_content").toggle();
+		if ($(this).parents(".message_div").hasClass("highlight")){
+		  var route = "/users/<%=params[:user_id]%>/messages/" + $(this).parents(".message_div").attr("id")
+		  $.post(route, { _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'private_message[checked]': "true" },  function(data){eval(data);});
+	  }
+  }); 
+<%end%>
+
 <% content_for :sidebar do  %>
   <%if params[:reply_to] %>
 	  <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
@@ -15,16 +26,29 @@
 <%else%>
 
 	<% for private_message in @private_messages %>
-	  <h4><%= sanitize(private_message.title)%></h4>
-	  <% if params[:sent_messages] %>
-			Sent to <%= link_logotype(User.find(private_message.receiver_id))%> <%=time_ago_in_words(private_message.created_at)%> ago 
-		<% else%>
-		  Received from <%= link_logotype(User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
-		<% end%>
-	 	<p><%= sanitize(private_message.body)%></p>
-		<%= link_to 'Reply', user_messages_path(params[:user_id], :reply_to => private_message) unless params[:sent_messages]%>
-	 	<%= link_to 'Destroy', user_message_path(params[:user_id],private_message), :confirm => 'Are you sure?', :method => :delete %>
-	 	<br/> 
+	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div highlight"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
+		  <div class="message_header">
+		    <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%>
+		    <% if params[:sent_messages] %>
+				  Sent to <%= link_logotype(User.find(private_message.receiver_id))%> <%=time_ago_in_words(private_message.created_at)%> ago 
+			  <% else%>
+			    Received from <%= link_logotype(User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
+			  <% end%>
+				<%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%>
+        <% if params[:sent_messages] %>
+          <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+        <%else%>
+          <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+        <%end%>
+			</div>
+			<div class="message_content" style="display:none;">
+			 	<p><%= sanitize(private_message.body)%></p>
+			</div>
+		 	<br/>
+		</div> 
 	<% end %>
+	<%= will_paginate @private_messages %>
 <%end%>
+
+
 

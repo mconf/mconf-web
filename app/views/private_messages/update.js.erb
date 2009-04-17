@@ -1,0 +1,6 @@
+<%if @success_update%>
+  $("div.message_div#<%=@private_message.id%>").removeClass("highlight");
+	$("#user_inbox_link").text("Inbox (<%=PrivateMessage.find_all_by_receiver_id(current_user).select{|msg| !msg.checked}.size%>)")
+<%else%>
+  alert("Error updating private message");
+<%end%>

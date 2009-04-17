@@ -48,11 +48,12 @@ div#sidebar h5 {margin-bottom:0.25em;}
 
 /*Home's sidebar style: recent comments links*/
 #rcnt_posts ul {list-style-type:none;margin:0.75em 0 0.75em 0.75em; }
-#rcnt_posts ul li, .following-post ul li, .end-post ul li  {position:relative;margin:0 0 5px 0;}
-.following-post ul, .end-post ul	 {list-style-type:none; margin:0.75em 0; }
+#rcnt_posts ul li  {position:relative;margin:0 0 5px 0;}
+.following-post ul li, .end-post ul li  {position:relative;margin:0;}
+.following-post ul, .end-post ul	 {list-style-type:none; margin:0; }
 
 /*Home's sidebar style: color for each link*/
-#rcnt_posts ul li.box-link:hover, .following-post ul li.box-link:hover, .end-post ul li.box-link:hover {background-color: #E8E8E8}
+#rcnt_posts ul li.box-link:hover, .following-post ul li.box-link:hover, .end-post ul li.box-link:hover {background-color: #f0e0bf}
 
 /*Home's sidebar style: css for the elements inside the li*/
 #rcnt_posts ul li h5, .following-post ul li h5, .end-post ul li h5  {margin: 0; padding: 0;}
@@ -103,3 +104,38 @@ div.post img.icon {
 #navigation #lang p {text-align:right;margin:0;}
 #span-no-margin-reply {text-align:right;}
 #span-no-margin-reply a {}  /*here we change the color and the style for the link*/
+div#new-thread {background-color:#CCC;}
+
+/*
+CSS for the tabs
+*/
+
+#tabs ul li a, #tabs ul li a:visited {
+	background:#C9C9A7 none repeat scroll 0 0;
+	border-color:#FFFFFF;
+	border-style:solid;
+	border-width:1px 1px 0 0;
+	color:#000000;
+	display:block;
+	font-size:1.1em;
+	height:2.5em;
+	line-height:2.5em;
+	text-align:center;
+	text-decoration:none;
+	width:100px;
+}
+
+#tabs ul li a:hover, #tabs ul li:hover a {
+	background:#B3AB79 none repeat scroll 0 0;
+	color:#FFFFFF;}
+
+#tabs ul li {float:left;}
+
+/*
+CSS for the posts div
+*/
+
+.following-post, .end-post {background:#efe6d1;
+							border-top:1px #cdb686 solid;
+							padding-top:0.25em;
+							}

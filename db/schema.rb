@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090402154157) do
+ActiveRecord::Schema.define(:version => 20090416140004) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -183,11 +183,13 @@ ActiveRecord::Schema.define(:version => 20090402154157) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",     :default => false
+    t.boolean  "checked",             :default => false
     t.string   "title"
     t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted_by_sender",   :default => false
+    t.boolean  "deleted_by_receiver", :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -228,14 +230,16 @@ ActiveRecord::Schema.define(:version => 20090402154157) do
   end
 
   create_table "sites", :force => true do |t|
-    t.string   "name",        :default => "Virtual Conference Centre"
+    t.string   "name",                          :default => "Virtual Conference Centre"
     t.text     "description"
-    t.string   "domain",      :default => "sir.dit.upm.es"
-    t.string   "email",       :default => "vcc@sir.dit.upm.es"
+    t.string   "domain",                        :default => "sir.dit.upm.es"
+    t.string   "email",                         :default => "vcc@sir.dit.upm.es"
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ssl",         :default => false
+    t.boolean  "ssl",                           :default => false
+    t.boolean  "exception_notifications",       :default => false
+    t.string   "exception_notifications_email"
   end
 
   create_table "spaces", :force => true do |t|

@@ -55,6 +55,7 @@ class Space < ActiveRecord::Base
     if self.public?
       affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, :read)
       affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :content ])
+      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :performance ])
     end
 
     affs

@@ -43,17 +43,46 @@
 		</div>
 	</div>
 </div>
-	<b><%=link_to "Titulo2"%></b>   Updated 3 minutes ago  <%=link_to "Reply"%>
 
-	<div class="thread">
-		<div class="first_post"> 						
-		  <p><%=image_tag("legacy/avatar.png")%>commentario4</p>			
-		</div>
-		<div class="following_post"> 						
-		  <p><%=image_tag("legacy/avatar.png")%>commentario5</p>			
-		</div>
-		<div class="last_post"> 						
-		  <p><%=image_tag("legacy/avatar.png")%>commentario6</p>			
+<div id="thread" class="span-18">
+	<div class="span-18">
+		<div id="span-no-margin-title" class="span-13"><%=image_tag("ui/icons/comment.png")%> I heard Beck is coming as a speaker, is that right?</div>
+		<div id="span-no-margin-reply" class="span-5">
+			<%=link_to " Reply >>"%> <%=link_to " Delete >>"%>
 		</div>
 	</div>
-		</br>
+
+	<div class="span-18">
+		<div class="following-post">	
+			
+			<ul>
+			<li class="box-link">
+				<h5> <%=image_tag("models/48/user.png")%> Jason Pollack	<span class="updated">5 minutes ago</span></h5>
+				<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
+				<%=link_to ""%>
+			</li>
+			</ul>			
+		</div>
+		
+		<div class="following-post">
+			<ul>
+			<li class="box-link">
+				<h5> <%=image_tag("models/48/user.png")%> Jason Pollack	<span class="updated">5 minutes ago</span></h5>
+				<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
+				<%=link_to ""%>
+			</li>
+			</ul>			
+		</div>
+		
+		<div class="end-post">
+			<ul>
+			<li class="box-link">
+				<h5> <%=image_tag("models/48/user.png")%> Jason Pollack	<span class="updated">5 minutes ago</span></h5>
+				<p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
+				<%=link_to ""%>
+			</li>
+			</ul>			
+		</div>
+	</div>
+</div>
+

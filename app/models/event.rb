@@ -33,4 +33,10 @@ class Event < ActiveRecord::Base
 #      errors.add_to_base("The event start date should be a future date  ")
 #    end
   end
+
+  # Additional Permissions
+  def local_affordances
+    [ ActiveRecord::Authorization::Affordance.new(author, :update),
+      ActiveRecord::Authorization::Affordance.new(author, :delete) ]
+  end
 end

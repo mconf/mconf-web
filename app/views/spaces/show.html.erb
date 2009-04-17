@@ -17,7 +17,7 @@
 				<%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%>
     </div>
   <% end -%>
-        <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" %>
+        <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user) %>
   </div>
 <% end %>
 
@@ -28,17 +28,21 @@
         <b><%=sanitize(post.title)%></b> Updated <%=time_ago_in_words(post.updated_at)%> ago
     </div>
   <% end -%>
-        <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" %>
+        <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
 </div>
 
 <div id="lastest_users">
         <h3>Lastest Users</h3>
   <% for user in @lastest_users -%>
     <div class="user">
-        <%=link_logotype(user, :size => 48)%>
+    	<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
+				<p><%= link_logotype(user, :size => 48, :url => user_profile_path(user)) %></p>
+			<%else%>
+				<p><%=logotype(user, :size=>48)%> <%=user.name%></p>
+			<%end%>        
     </div>
   <% end -%>
-    <%= link_to "Read more", space_users_path(@space), :class => "read_more_link" %>
+    <%= link_to "Read more", space_users_path(@space), :class => "read_more_link" if space.authorizes?([:read, :performance], :to => current_user)%>
 </div>
 
 	
