@@ -183,11 +183,13 @@ ActiveRecord::Schema.define(:version => 20090416140004) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",     :default => false
+    t.boolean  "checked",             :default => false
     t.string   "title"
     t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted_by_sender",   :default => false
+    t.boolean  "deleted_by_receiver", :default => false
   end
 
   create_table "profiles", :force => true do |t|

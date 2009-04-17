@@ -37,8 +37,12 @@
 			</div>
 			<div class="message_content" style="display:none;">
 			 	<p><%= sanitize(private_message.body)%></p>
-				<%= link_to 'Reply', user_messages_path(params[:user_id], :reply_to => private_message) unless params[:sent_messages]%>
-			 	<%= link_to 'Destroy', user_message_path(params[:user_id],private_message), :confirm => 'Are you sure?', :method => :delete %>
+				<%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%>
+        <% if params[:sent_messages] %>
+				  <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+				<%else%>
+				  <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+				<%end%>
 			</div>
 		 	<br/>
 		</div> 

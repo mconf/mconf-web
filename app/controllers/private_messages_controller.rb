@@ -1,6 +1,6 @@
 class PrivateMessagesController < ApplicationController
   
-  before_filter :private_message, :only => [:show, :edit, :update]
+  before_filter :private_message, :only => [:show, :edit, :update, :destroy]
   
   authorization_filter [ :manage, :message ], :user, :except => [ :show ]
   authorization_filter :read, :private_message, :only => [ :show ]
@@ -8,9 +8,9 @@ class PrivateMessagesController < ApplicationController
 
   def index
     if params[:sent_messages]
-      @private_messages = PrivateMessage.find_all_by_sender_id(params[:user_id], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)
+      @private_messages = PrivateMessage.sent(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
     else  
-      @private_messages = PrivateMessage.find_all_by_receiver_id(params[:user_id], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)
+      @private_messages = PrivateMessage.inbox(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
     end
     
 
@@ -21,9 +21,12 @@ class PrivateMessagesController < ApplicationController
   end
 
   def show
-    @show_message = private_message
-    @show_message.checked = true
-    @show_message.save
+    @show_message = PrivateMessage.find(params[:id])
+    if @is_receiver = params[:user_id].to_i == @show_message.receiver_id
+      @show_message.checked = true
+      @show_message.save
+    end
+    
   end
 
   def new
@@ -100,8 +103,7 @@ class PrivateMessagesController < ApplicationController
   # DELETE /private_messages/1
   # DELETE /private_messages/1.xml
   def destroy
-    @private_message = PrivateMessage.find(params[:id])
-    @private_message.destroy
+    @private_message.update_attributes(params[:private_message])
 
     respond_to do |format|
       format.html { redirect_to(user_messages_path(params[:user_id])) }
