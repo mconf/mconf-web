@@ -12,4 +12,9 @@ class PrivateMessage < ActiveRecord::Base
       errors.add(:receiver_id, "Receiver and sender have to share one or more spaces.")
     end
   end
+
+  def local_affordances
+    [ ActiveRecord::Authorization::Affordance.new(sender,   :read),
+      ActiveRecord::Authorization::Affordance.new(receiver, :read) ]
+  end
 end

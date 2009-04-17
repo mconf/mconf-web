@@ -1,8 +1,9 @@
 class PrivateMessagesController < ApplicationController
   
-  before_filter :private_message, :only => [:check, :edit, :update]
+  before_filter :private_message, :only => [:show, :edit, :update]
   
-  authorization_filter [ :manage, :message ], :user
+  authorization_filter [ :manage, :message ], :user, :except => [ :show ]
+  authorization_filter :read, :private_message, :only => [ :show ]
   authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
 
   def index
@@ -20,7 +21,7 @@ class PrivateMessagesController < ApplicationController
   end
 
   def show
-    @show_message = PrivateMessage.find(params[:id])
+    @show_message = private_message
     @show_message.checked = true
     @show_message.save
   end
