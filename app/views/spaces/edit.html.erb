@@ -1,12 +1,17 @@
-<h1>Editing space</h1>
-<%= error_messages_for :space %>
-
-<% form_for @space, :html => { :multipart => true } do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f } %>
-
-  <p>
-    <%= submit_tag 'Update' %>
-  </p>
-
+<% content_for :sidebar do %>
+  <%= render :partial => 'edit_space' %>
+	NEWS
 <% end %>
 
+<div>
+	<ul>
+		<li><%=link_to "All"%></li>
+		<li><%=link_to "Groups"%></li>
+		<li><%=link_to "Admission"%></li>
+	</ul>
+</div>
+<div>
+	<% for performance in @performances -%>
+    <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    
+  <% end -%>
+</div>

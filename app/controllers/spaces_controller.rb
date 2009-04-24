@@ -48,6 +48,9 @@ class SpacesController < ApplicationController
   
   # GET /spaces/1/edit
   def edit
+    #@users = @space.actors.sort {|x,y| x.name <=> y.name }
+    @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
+    @roles = Role.find(:all)
   end
   
   
@@ -110,9 +113,8 @@ class SpacesController < ApplicationController
     if @space.update_attributes(params[:space]) 
       respond_to do |format|
         format.html { 
-          flash[:notice] = 'Space was successfully updated.'
-          @spaces = Space.find(:all )
-          redirect_to space_path(@space)
+          flash[:success] = 'Space was successfully updated.'
+          redirect_to request.referer
         }
         format.atom { head :ok }
       end

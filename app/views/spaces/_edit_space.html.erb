@@ -1,0 +1,26 @@
+<h3>Space configuration</h3>
+
+<% form_for @space, :html => { :multipart => true } do |f| %>
+	
+	<p>
+	  <label for="name">Name</label><br/>
+	  <%= f.text_field :name %>
+	</p>
+	
+	<p>
+	  <label for="description">Description</label><br/>
+	  <%= fckeditor_textarea(:space, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %>
+	</p>
+	
+	<%= f.logo %>
+	
+	<p>
+	  <label for="public">Public Access</label> 
+	  <%= check_box("space", "public")%>
+	</p>
+	
+  <p>
+    <%= submit_tag 'Update' %>
+  </p>
+
+<% end %>
