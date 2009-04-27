@@ -1,3 +1,4 @@
+
 <%if space %>
 <div id="space_logo" class="span-24 last">
   <%= link_logo(space, :size => 96) %>
@@ -5,12 +6,21 @@
 <%end%>
 
 <div id="spaces_select" class="span-6">
-  <select id="space_select" name="space">
-    <% Space.all.each do |space| %>
-    
-    <option value="<%= space_path(space) %>"><%= space.name %></option>
-    <% end %>
-  </select>
+	<form action="/change_space" method="get">
+  	<select id="space_select" name="space">
+  		<%if !@space%>
+				<option value="#" selected="selected" >Select a Space...</option>
+			<%end%>  	
+    	<% Space.all.select{|s| s.authorizes?([:read, :content], :to => current_user)}.each do |space| %>
+     		<%if @space and @space.name == space.name%>
+       		<option value="<%= space_path(space) %>" selected="selected"><%= space.name %></option>
+				<%else%>
+		  		<option value="<%= space_path(space) %>" ><%= space.name %></option>
+				<%end%>	
+   		<%end %>
+  	</select>
+		<input id="go_button"type="submit" value="Go!">	
+	</form>	
 </div>
 
 <%if space %>

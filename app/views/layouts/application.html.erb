@@ -21,6 +21,10 @@
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
         <%= yield :javascript %>
+				$("#space_select").change(function () {
+					window.location.replace($(this).val());
+				});
+				$("#go_button").hide();
       })
     </script>
 		

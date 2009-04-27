@@ -147,7 +147,14 @@ class SpacesController < ApplicationController
     render :template =>'users/new'
     
   end
-
+  
+   
+  def change_space
+    respond_to do |format|
+      format.html { redirect_to(params[:space]) }
+    end
+  end
+  
   private
   
   
