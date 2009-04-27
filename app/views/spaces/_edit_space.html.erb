@@ -9,7 +9,7 @@
 	
 	<p>
 	  <label for="description">Description</label><br/>
-	  <%= fckeditor_textarea(:space, :description, :toolbarSet => 'Simple', :width => '685px', :height => '400px') %>
+		<%= f.text_area :description, :class => "span-6"%>
 	</p>
 	
 	<%= f.logo %>

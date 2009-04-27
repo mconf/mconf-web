@@ -1,3 +1,58 @@
+<%content_for :javascript do%>
+  $("#update_button_<%=performance.id%>").remove();
+	$("#nonjavascript_other_groups_<%=performance.id%>").remove();
+	$("#other_groups_link_<%=performance.id%>").show();
+	
+	show_other_groups_<%=performance.id%> = function(){
+	  $("#other_groups_<%=performance.id%>").show("normal");
+		$("#other_groups_link_<%=performance.id%>").hide("normal");
+	};
+	
+	close_other_groups_<%=performance.id%> = function(){
+    $("#other_groups_<%=performance.id%>").hide("normal");
+    $("#other_groups_link_<%=performance.id%>").show("normal");
+  };
+	
+	$("#role_select_<%=performance.id%>").livequery('change', function(){
+	  val = $(this).val();
+    $.post("<%=performance_path(performance)%>",{
+		      _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
+					'performance[role_id]': val 
+					},
+					function(data){eval(data);}
+				);
+  });
+	
+	$(".group_checkbox_<%=performance.id%>").livequery('click', function(){
+	  if($(this).is(":checked")){
+		  $(this).addClass("clicked_checkbox");
+	    var route = "/groups/" + $(this).val() + "/memberships/"
+	    $.post(route,
+			      {authenticity_token: "<%=form_authenticity_token()%>",'membership[user_id]':<%=user.id%>},
+	          function(data){
+						  eval(data);
+						  var old_checkbox = $(".clicked_checkbox").removeClass("clicked_checkbox").attr("id", membership_id).parent().removeClass("crossed");
+							var new_checkbox = old_checkbox.clone();
+							$("div#selected_groups_<%=performance.id%>").append(new_checkbox);
+							old_checkbox.remove();
+						}
+	        );
+		}else{
+		  $(this).addClass("clicked_checkbox");
+		  var route = "/groups/" + $(this).val() + "/memberships/" + $(this).attr("id")
+    $.post(route,{
+          _method: "delete", authenticity_token: "<%=form_authenticity_token()%>"          
+          },
+          function(data){
+					  eval(data);
+						$(".clicked_checkbox").removeClass("clicked_checkbox").parent().addClass("crossed")
+				  }
+        );
+		}
+  });
+	
+	
+<%end%>
 <div class="user">
 	<p>
 		<%= link_to "Send a message", space_users_path(@space, :send_message => user.id)%>
@@ -7,16 +62,31 @@
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
 	  <%=hidden_field_tag 'update_groups'%>
 		<label for="name">Name: </label><%=sanitize(user.full_name) %><br />
-		<label for="admin">Admin: </label><%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, :selected => performance.role_id %><br />
+		<label for="admin">Admin: </label><%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}"} %><br />
+		<div id="selected_groups_<%=performance.id%>">
 		<label for="groups">Groups: </label>
-		<%for group in @space.groups.select{|g| g.users.include?(user)} do %>
-		  <%= check_box_tag "groups_to_delete[]", group.id, true %><%= label("checkbox",sanitize(group.name))%>
-		<%end%>
-		<br />
+		    <%for group in @space.groups.select{|g| g.users.include?(user)} do %>
+		      <div>
+			     <%= check_box_tag "groups_to_delete[]", group.id, true, {:class => "group_checkbox_#{performance.id}", :id => user.memberships.select{|g| g.group_id==group.id}.first.id} %><%= label("checkbox",sanitize(group.name))%>
+		      </div>
+			  <%end%>
+		</div>
 		<%unless @space.groups.select{|g| !g.users.include?(user)}.empty?%>
+		<div id="nonjavascript_other_groups_<%=performance.id%>">
 			<label for="addToGroup">Add to Group: </label>
 			<%=select "groups_to_add", "id", @space.groups.select{|g| !g.users.include?(user)}.collect {|g| [ g.name, g.id ]}, {:selected => performance.role_id, :include_blank => true} %>
+		</div>
+		<%=link_to "Add other groups", "javascript:show_other_groups_#{performance.id}()", :id => "other_groups_link_#{performance.id}", :style =>"display:none" %>
 		<% end %>
-		<%= submit_tag "Update" %> 
+		<div style="display:none" id="other_groups_<%=performance.id%>">
+			<label>Other groups: </label>
+			<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
+        <div>
+			    <%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
+        </div>
+			<%end%>
+			<%=link_to "[Close]", "javascript:close_other_groups_#{performance.id}()" %>
+		</div>
+		<%= submit_tag "Update", :id=> "update_button_#{performance.id}"%> 
 	<% end %>	
 </div>
