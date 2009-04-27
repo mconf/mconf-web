@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   has_many :invitations, :foreign_key => :email
   has_many :events, :as => :author
   has_many :posts, :as => :author
-  has_and_belongs_to_many :groups
+  has_many :memberships
+  has_many :groups, :through => :memberships
   
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids

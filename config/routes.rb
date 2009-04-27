@@ -25,6 +25,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :invitations, :member => [ :accept ]
   map.resources :performances
 
+  map.resources :memberships
+  map.resources :groups
+  map.resources :groups do |group|
+    group.resources :memberships
+  end
+
   #map.resources :posts
   #map.resources :attachments
 
