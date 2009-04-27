@@ -35,7 +35,7 @@ class Post < ActiveRecord::Base
 
 
   # Update parent Posts when commenting to it
-  after_create { |post|
+  after_save { |post|
     if post.parent_id
       post.parent.update_attribute(:updated_at, Time.now)
     end
