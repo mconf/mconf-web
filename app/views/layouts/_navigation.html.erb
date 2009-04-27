@@ -33,7 +33,7 @@
  
 <!--La tab de Admin sólo se muestra a los admin  -->
   
-    <li><%=link_to "Admin", edit_space_path(space) if space.role_for?(current_user, :name => 'Admin')%></li>
+    <li><%=link_to "Admin", edit_space_path(space) if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %></li>
   </ul>
 </div>
 
