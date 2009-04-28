@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090416140004) do
+ActiveRecord::Schema.define(:version => 20090427101837) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -74,13 +74,6 @@ ActiveRecord::Schema.define(:version => 20090416140004) do
     t.integer  "space_id"
   end
 
-  create_table "groups_users", :id => false, :force => true do |t|
-    t.integer  "group_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "invitations", :force => true do |t|
     t.string   "email"
     t.integer  "stage_id"
@@ -119,6 +112,14 @@ ActiveRecord::Schema.define(:version => 20090416140004) do
   create_table "machines_users", :id => false, :force => true do |t|
     t.integer "user_id",    :null => false
     t.integer "machine_id", :null => false
+  end
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "manager",    :default => false
   end
 
   create_table "open_id_associations", :force => true do |t|
