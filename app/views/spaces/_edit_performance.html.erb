@@ -59,7 +59,7 @@
 <div class="user">
 	<p>
 		<%= link_to "Send a message", space_users_path(@space, :send_message => user.id)%>
-		<%= link_to image_tag("ui/icons/cross.png", :alt => "Delete user from space" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %>
+		<%= link_to image_tag("icons/delete.png", :alt => "Delete user from space" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %>
 	</p>
   <%=link_logo(user, :size => 72)%>
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
