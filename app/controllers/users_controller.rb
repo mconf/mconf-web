@@ -15,10 +15,10 @@ class UsersController < ApplicationController
 =begin
   # Filter for activation actions
   before_filter :activation_required, :only => [ :activate, 
-                                                 :forgot_password, 
+                                                 :lost_password, 
                                                  :reset_password ]
   # Filter for password recovery actions
-  before_filter :login_and_pass_auth_required, :only => [ :forgot_password,
+  before_filter :login_and_pass_auth_required, :only => [ :lost_password,
                                                           :reset_password ]
 =end
 

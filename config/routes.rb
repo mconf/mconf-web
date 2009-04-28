@@ -18,12 +18,15 @@ ActionController::Routing::Routes.draw do |map|
     space.resource :logo 
 
     space.resources :groups
+    space.resources :admissions, :collection => { :invitations => :post }
     space.resources :invitations
+    space.resources :join_requests
     space.resources :performances
   end
 
   map.resources :invitations, :member => [ :accept ]
   map.resources :performances
+  map.resources :admissions
 
   map.resources :memberships
   map.resources :groups
@@ -70,8 +73,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.signup '/signup', :controller => 'users', :action => 'new'
-  map.forgot '/forgot', :controller => 'users', :action => 'forgot_password'
-  map.forgot_password '/forgot', :controller => 'users', :action => 'forgot_password'
+  map.lost_password '/lost_password', :controller => 'users', :action => 'lost_password'
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
 
