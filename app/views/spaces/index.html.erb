@@ -8,7 +8,14 @@
 
 <% @spaces.each do |space| %>
 <div>
-  <%= link_to sanitize(space.name), space %> <%= "<strong>Private</strong>" unless space.authorizes?(:read, :to => current_agent) %><br />
+  <%= link_to sanitize(space.name), space %>
+  <% unless space.authorizes?(:read, :to => current_agent) %>
+    <strong>Private</strong>
+    <% form_for [ space, JoinRequest.new ] do |f| %>
+      <%= f.submit "Join Request" %>
+    <% end if authenticated? %>
+  <% end %>
+  <br />
   <%= sanitize(space.description) if space.description.present? %>
 </div>
 <% end %>

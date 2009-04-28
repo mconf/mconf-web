@@ -11,6 +11,20 @@
 
 ActiveRecord::Schema.define(:version => 20090427101837) do
 
+  create_table "admissions", :force => true do |t|
+    t.string   "type"
+    t.integer  "candidate_id"
+    t.string   "candidate_type"
+    t.string   "email"
+    t.integer  "group_id"
+    t.string   "group_type"
+    t.integer  "role_id"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "accepted_at"
+  end
+
   create_table "attachments", :force => true do |t|
     t.string   "type"
     t.integer  "size"
@@ -72,19 +86,6 @@ ActiveRecord::Schema.define(:version => 20090427101837) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
-  end
-
-  create_table "invitations", :force => true do |t|
-    t.string   "email"
-    t.integer  "stage_id"
-    t.integer  "agent_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "stage_type"
-    t.string   "agent_type"
-    t.string   "acceptation_code"
-    t.datetime "accepted_at"
   end
 
   create_table "logos", :force => true do |t|

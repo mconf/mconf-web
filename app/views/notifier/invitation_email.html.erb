@@ -1,4 +1,4 @@
 
-<%= @name %> <%= @lastname %> has invited  you to the space: <%= @space.name %>  in the VCC application, please visit the following URL:
+You have been invited to the space: <%= @space.name %>  in the VCC application, please visit the following URL:
  
-<%= signup_url(:host => Site.current.domain) %> in order to accept the invitation.
+<%= invitation_url(@invitation, :host => Site.current.domain) %> in order to accept the invitation.

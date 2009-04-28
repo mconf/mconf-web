@@ -88,14 +88,6 @@ class Performance
   
 end
 
-Invitation
-
-class Invitation
-  DELIMITER = (/,|;| /)
-
-  validates_presence_of :stage_id, :stage_type, :role_id
-end
-
 # In SIR authorization, users that are superusers are gods
 # This module allows implementing this feature in all classes that implement authorizes?
 module ActiveRecord::Authorization::InstanceMethods

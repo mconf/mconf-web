@@ -18,17 +18,12 @@ class Notifier < ActionMailer::Base
   end
   
   def invitation_email(invitation)
-    @user = invitation.agent
-    @profile = @user.profile
-    @space = invitation.stage
-    @from = @user.email
+    @space = invitation.group
     @recipients = invitation.email
     @subject = "VCC Invitation"
     @sent_on = Time.now
-    @body["invitation"] = invitation
-    @body["space"] = @space
-    @body["name"] = @profile.name if @profile
-    @body["lastname"] = @profile.lastname if @profile
+    @body[:invitation] = invitation
+    @body[:space] = @space
   end
   
   #This is used when an user register in the application, in order to confirm his registration 
@@ -60,7 +55,7 @@ class Notifier < ActionMailer::Base
     @body = "Your user in VCC has been deleted. Please contact the administrator for more information"
   end
   #This is used when a user ask for his password.
-  def forgot_password(user)
+  def lost_password(user)
     @recipients = user.email
     @from = "#{Site.current.email}"
     @subject    = 'Request to change your password'

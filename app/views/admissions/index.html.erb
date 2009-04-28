@@ -1,0 +1,38 @@
+<% if @space.join_requests.pending.any? %>
+  <h2>Pending Join Requests</h2>
+  <% @space.join_requests.pending.each do |jr| %>
+    <% form_for [ @space, jr ] do |f| %>
+      <%= link_logotype(jr.candidate) %>
+      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
+      <%= f.hidden_field :accepted, :value => true %>
+      <%= f.submit "Accept" %>
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+<% if @space.invitations.pending.any? %>
+  <h2>Pending invitations</h2>
+  <% @space.invitations.pending.each do |i| %>
+    <%= sanitize i.email %> <%= link_to t(:delete), i, :method => :delete %><br />
+  <% end %>
+<% end -%>
+
+<h2><%= t('invitation.new') %></h2>
+
+<%= error_messages_for :object => (@invitations || []) %>
+
+<% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
+  <p>
+  <%= f.label :email, t('invitation.email') %><br />
+  <%= f.text_field :email %>
+  </p>
+
+  <p>
+  <%= f.label :role, t('invitation.role') %><br />
+  <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
+  </p>
+
+  <p>
+  <%= f.submit t(:create) %>
+  </p>
+<% end %>
