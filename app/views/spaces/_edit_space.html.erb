@@ -1,6 +1,66 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.jeditable' %>
+<%end%>
+
+<% content_for :javascript do%>
+  $("#nonjavascript_form").remove();
+	$("#jedit_form").show();
+	$('#space_name').editable(function(value, settings){
+	         $.post("<%=space_path(@space)%>",{
+             _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value          
+           }, function(data){
+					   eval(data);
+						 return(data);
+					 });
+				 },{
+				 tooltip   : 'Click to edit...',
+				 width : 185
+     });
+
+  $('#space_description').editable('<%=space_path(@space)%>', {
+         method : 'PUT',
+				 type : 'textarea',
+				 cancel    : 'Cancel',
+         submit    : 'OK',
+         indicator : '<img src="ui/icons/accept.png" />',
+         tooltip   : 'Click to edit...',
+         name : 'space[description]',
+				 width : 185,
+				 height : 90,
+         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+				 callback : function(value, settings) {
+           $('#edit_description_icon').show();
+        }
+   });
+	 
+	 edit_name = function(){
+	   $('#space_name').click();
+		 $('#edit_name_icon').hide();
+	 };
+	 
+	 edit_description = function(){
+     $('#space_description').click();
+     $('#edit_description_icon').hide();
+   };
+	 
+	 $("#public_checkbox").click(function () { 
+	    var val = $(this).is(":checked");
+      $.post("<%=space_path(@space)%>",{
+        _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[public]': val          
+      });
+    });
+		
+		edit_logo = function(){
+		  $('#update_logo').show();
+			$('#edit_logo').parent().hide();
+		}
+	 
+<%end%>
+
+
 <h3>Space configuration</h3>
 
-<% form_for @space, :html => { :multipart => true } do |f| %>
+<% form_for @space, :html => { :multipart => true, :id => "nonjavascript_form" } do |f| %>
 	
 	<p>
 	  <label for="name">Name</label><br/>
@@ -24,3 +84,28 @@
   </p>
 
 <% end %>
+
+<div id="jedit_form" style="display:none">
+	<p>
+    <label for="name">Name:</label><br />
+		<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("ui/icons/pencil.png", :alt => "edit" ), "edit_name()", :id => "edit_name_icon"%>
+  </p>
+	<p>
+	  <label for="description">Description:</label><br/>
+		<span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("ui/icons/pencil.png", :alt => "edit" ), "edit_description()", :id => "edit_description_icon"%>
+  </p>
+	<p>
+    <label for="public">Public Access:</label> 
+    <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
+  </p>
+	<p>
+		<label for="public">Logo:</label> 
+		<%= link_to_function logo(@space, :size => 128), "edit_logo()", :id => "edit_logo"%>
+	</p>
+	
+	<% form_for @space, :html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
+	  <%= f.logo %>
+    <%= submit_tag 'Update' %>
+  <%end%>
+		
+</div>

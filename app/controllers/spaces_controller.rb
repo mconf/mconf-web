@@ -117,12 +117,21 @@ class SpacesController < ApplicationController
           redirect_to request.referer
         }
         format.atom { head :ok }
+        format.js{
+          if params[:space][:name]
+            @result = "window.location=\"#{edit_space_path(@space)}\";"
+          end
+          if params[:space][:description]
+            @result=params[:space][:description]
+          end
+        }
       end
     else
       respond_to do |format|
         format.html { render :action => "edit" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
+        format.js{}
       end      
     end
   end

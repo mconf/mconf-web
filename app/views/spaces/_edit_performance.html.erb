@@ -4,13 +4,16 @@
 	$("#other_groups_link_<%=performance.id%>").show();
 	
 	show_other_groups_<%=performance.id%> = function(){
-	  $("#other_groups_<%=performance.id%>").show("normal");
-		$("#other_groups_link_<%=performance.id%>").hide("normal");
+	  $("#other_groups_<%=performance.id%>").show("normal", function(){
+		  $("#other_groups_link_<%=performance.id%>").hide("fast");
+		});
+		
 	};
 	
 	close_other_groups_<%=performance.id%> = function(){
-    $("#other_groups_<%=performance.id%>").hide("normal");
-    $("#other_groups_link_<%=performance.id%>").show("normal");
+    $("#other_groups_<%=performance.id%>").hide("normal", function(){
+		  $("#other_groups_link_<%=performance.id%>").show("fast");
+		});
   };
 	
 	$("#role_select_<%=performance.id%>").livequery('change', function(){
