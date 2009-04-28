@@ -13,8 +13,8 @@ body{font-size:75%;color:#222;background:#F5F5F5;font-family:"Lucida Grande",Hel
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;background:#f00;}
 h2{font-size:2em;margin-bottom:0.75em;}
-h3{font-size:1.0833em;line-height:1.3846;margin:0.75em 0 0 0;font-weight:bold;}
-h3 img{margin-bottom:-4px;}
+h3{font-size:1.0833em;line-height:1.3846;margin:0.75em 0 0.666em 0;font-weight:bold;}
+h3 img{margin-bottom:-3px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
 a:focus,a:hover{color:#1F488F;}
@@ -50,7 +50,9 @@ a.button, button {
 
 /* grid.css */
 body{min-width:960px;}
-/*body{background:url(images/grid.png);}*/
+body .icon{margin-bottom:-3px;}
+/*body{background:url(/images/grid.png);}*/
+/*.showgrid{background:url(/images/grid.png);}*/
 #global,#space,#footer{width:950px;margin:0 auto;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
@@ -76,7 +78,7 @@ body{min-width:960px;}
 #main{width:510px;margin-right:50px;}
 #sidebar{float:left;width:230px;}
 #selector h5{color:#888;margin-bottom:0.75em;}
-#selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;color:#999;}
+#selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0.5em;color:#999;}
 #selector .selected{text-decoration:none;color:#000;font-weight:bold;}
 #menu{background:url(../images/dot.png) bottom repeat-x;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:0.9166em;line-height:1.6363;}
@@ -102,6 +104,10 @@ body{min-width:960px;}
 .post p{margin-bottom:1em;}
 .post img{width:16px;height:16px;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
+#latest_posts p,#latest_users p{margin-bottom:0;}
+#sidebar h3{margin-bottom:0.75em;}
+#sidebar p img{margin-right:5px;}
+#sidebar #latest_users ul{list-style-type:none;margin:0;}
 .actions{font-size:0.9166em;line-height:1.6363;}
 .actions ul{list-style-type:none;margin:0;}
 .actions li{display:inline;margin-right:8px;}

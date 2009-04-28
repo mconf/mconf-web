@@ -1,7 +1,7 @@
 <span><a href="#">Create space</a></span>
 
 <br/><br/>
-
+<h5>All Spaces</h5>
 <ul>
   <% Space.all.select{|s| s.authorizes?([:read, :content], :to => current_user)}.each do |space| %>
   	<% if @space and @space.name == space.name %>

@@ -6,33 +6,35 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <%= link_to "Join this space!", ""%>
-	<h4>Welcome!</h4>
-	<p><%= sanitize(space.description) if space.description.present? %></p>
-	<div id="lastest_users">
-        <h3>Incoming Events</h3>
+  <div id="join"><button>Join this Space</button></div>
+	<h3>About <em><%=@space.name%></em></h3>
+	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
+	<div id="latest_users">
+        <h5><%=image_tag("icons/date.png",:class=>"icon")%> Incoming Events</h5>
+  <ul>
   <% for event in @incoming_events -%>
-    <div class="event">
-        <b><%=sanitize(event.title)%></b><br/>
-				<%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%>
-    </div>
+    <li class="event">
+        <strong><%=sanitize(event.title)%></strong><br/>
+		<%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%>
+    </li>
   <% end -%>
+  </ul>
         <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user) %>
   </div>
 <% end %>
 
-<div id="lastest_posts">
-        <h3>Lastest Posts</h3>
+<div id="latest_posts">
+        <h3><%=image_tag("icons/comment.png")%> Latest Posts</h3>
   <% for post in @lastest_posts -%>
     <div class="post">
-        <b><%=sanitize(post.title)%></b> Updated <%=time_ago_in_words(post.updated_at)%> ago
+        <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
     </div>
   <% end -%>
         <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
 </div>
 
-<div id="lastest_users">
-        <h3>Lastest Users</h3>
+<div id="latest_users">
+        <h3><%=image_tag("icons/user.png")%> Latest Users</h3>
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
