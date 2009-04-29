@@ -3,7 +3,7 @@
 		<li><%= link_to "Private message", space_users_path(@space, :send_message => detailed_user.id)%><br /></li>
 		<li><a href="#">e-mail</a></li>
 	</ul>
-    <div><%=link_logo(detailed_user, :size => 48)%></div>
+    <div><%=link_logo(detailed_user, :size => 32)%></div>
 	<div>
 	  	<ul>
 	    <li><strong><%=sanitize(detailed_user.full_name) %></strong></li>	

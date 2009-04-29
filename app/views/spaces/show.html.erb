@@ -10,13 +10,13 @@
 	<h3>About <em><%=@space.name%></em></h3>
 	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
 	<div id="inc-events">
-        <h5><%=image_tag("icons/date.png",:class=>"icon")%> Incoming Events</h5>
+        <h3><%=image_tag("icons/date.png",:class=>"icon")%> Incoming Events</h3>
 
  <ul>  
   <% for event in @incoming_events -%>
     <li class="event">
         <h5><%=sanitize(event.title)%></strong></h5>
-		<p><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%></p>
+		<p class="small-font"><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%></p>
     	<%=link_to "", space_event_path(@space,event)%>
     </li>
   <% end -%>
@@ -30,6 +30,7 @@
   <% for post in @lastest_posts -%>
     <div class="post">
         <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
+		<a href=""></a>
     </div>
   <% end -%>
         <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
@@ -40,9 +41,15 @@
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
-				<p><%= link_logotype(user, :size => 48,:url => user_profile_path(user)) %></p>
+				<div><%= link_logo(user, :size => 32,:url => user_profile_path(user)) %></div>
+				<div>
+				  <ul>
+				    <li><strong><%=sanitize(user.full_name)%></strong></li>
+				    <li class="small-font"><%=sanitize(user.organization) %></li>
+				  </ul>
+				 </div>
 			<%else%>
-				<p><%=logotype(user, :size=>48)%> <%=user.name%></p>
+				<p><%=logotype(user, :size=>32)%> <%=user.name%></p>
 			<%end%>        
     </div>
   <% end -%>
