@@ -2,10 +2,10 @@
   		<b><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%></b>
 		Updated <%=time_ago_in_words(thread.updated_at)%> ago  
 		
-		<%=link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), space_posts_path(@space,:reply_to => thread),{:class => 'reply_to_link', :title => "reply"}if @space.authorizes?([:create, :content],:to => current_user)%>
-		<%=link_to image_tag("ui/icons/cross.png", :alt => "delete" ), space_post_path(@space,thread),{ :class => 'delete_thread', :method => :delete, :title => "delete" } if thread.authorizes?(:delete, :to => current_user)%>
+		<%=link_to image_tag("icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), space_posts_path(@space,:reply_to => thread),{:class => 'reply_to_link', :title => "reply"}if @space.authorizes?([:create, :content],:to => current_user)%>
+		<%=link_to image_tag("icons/cross.png", :alt => "delete" ), space_post_path(@space,thread),{ :class => 'delete_thread', :method => :delete, :title => "delete" } if thread.authorizes?(:delete, :to => current_user)%>
 		
-		<%=link_to image_tag("ui/icons/pencil.png", :alt => "edit" ), get_route(thread), :title => "edit" if thread.authorizes?(:update, :to => current_user)%>
+		<%=link_to image_tag("icons/pencil.png", :alt => "edit" ), get_route(thread), :title => "edit" if thread.authorizes?(:update, :to => current_user)%>
 		
 		<div class="<%=thread.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
           
