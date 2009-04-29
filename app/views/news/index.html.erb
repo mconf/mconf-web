@@ -1,0 +1,8 @@
+<h1>News</h1>
+
+<% for news in @news %>
+  <h3><%=sanitize(news.title)%></h3>
+	<p>
+    <%=sanitize(news.text)%>
+	</p>
+<% end %>

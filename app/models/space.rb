@@ -2,6 +2,7 @@ class Space < ActiveRecord::Base
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
+  has_many :news, :dependent => :destroy
 
   acts_as_resource :param => :name
   acts_as_container

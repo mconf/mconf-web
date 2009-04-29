@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :invitations
     space.resources :join_requests
     space.resources :performances
+    space.resources :news
   end
 
   map.resources :invitations, :member => [ :accept ]

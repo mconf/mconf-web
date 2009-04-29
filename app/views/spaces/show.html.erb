@@ -25,6 +25,19 @@
   </div>
 <% end %>
 
+<div id="latest_news">
+        <h3><%=image_tag("icons/information.png")%> Latest News</h3>
+  <% for news in @lastest_news -%>
+    <div class="new">
+        <p>
+        	<strong><%=sanitize(news.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span><br />
+				  <%=sanitize(news.text)%>
+			  </p>
+    </div>
+  <% end -%>
+        <%= link_to "Read more", space_news_index_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
+</div>
+
 <div id="latest_posts">
         <h3><%=image_tag("icons/comment.png")%> Latest Posts</h3>
   <% for post in @lastest_posts -%>
