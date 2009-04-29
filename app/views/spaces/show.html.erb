@@ -9,16 +9,18 @@
   <div id="join"><button>Join this Space</button></div>
 	<h3>About <em><%=@space.name%></em></h3>
 	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
-	<div id="latest_users">
+	<div id="inc-events">
         <h5><%=image_tag("icons/date.png",:class=>"icon")%> Incoming Events</h5>
-  <ul>
+
+ <ul>  
   <% for event in @incoming_events -%>
     <li class="event">
-        <strong><%=sanitize(event.title)%></strong><br/>
-		<%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%>
+        <h5><%=sanitize(event.title)%></strong></h5>
+		<p><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%></p>
+    	<%=link_to "", space_event_path(@space,event)%>
     </li>
   <% end -%>
-  </ul>
+ </ul> 
         <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user) %>
   </div>
 <% end %>
