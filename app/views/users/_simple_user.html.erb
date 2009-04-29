@@ -1,3 +1,9 @@
 <div class="user">
-  <%= link_logotype(simple_user, :size => 48) %>
+  <div><%= link_logo(simple_user, :size => 32) %></div>
+  <div>
+	<ul>
+	  <li><strong><%=sanitize(simple_user.full_name) %></strong></li>
+	  <li class="small-font"><%=sanitize(simple_user.organization) %></li>	
+	</ul>
+  </div>
 </div>
