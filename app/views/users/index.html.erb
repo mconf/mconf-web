@@ -16,15 +16,15 @@
 <% end %>
 
 <div id="list_by_names_selected" class="group_links" >
-	<span>List by </span>
+	<span>List by: </span>
+	<span class="selected">Names</span>
 	<%= link_to 'Groups', space_groups_path(@space), { :id => 'groups_link' } %>
-	Names
 </div>
 
 <div id="list_by_groups_selected" class="group_links" style="display: none;">
-	<span>List by </span>
-	Groups
+	<span>List by: </span>
 	<%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
+	<span class="selected">Groups</span>
 </div>
 
 <div id="list_by_groups" style="display: none;">

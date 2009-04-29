@@ -14,7 +14,7 @@
 				<li><%= link_to 'Edit', edit_space_group_path(@space, group) %></li>
 				<li><%= link_to 'Delete', space_group_path(@space, group), :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' %></li>
 			</ul>
-			<h4><%=sanitize(group.name)%></h4>
+			<h3><%=sanitize(group.name)%></h3>
 			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>
 			<% end -%>
@@ -26,7 +26,7 @@
 				<li><a>Send a message</a></li>
 				<li><a>e-mail</a></li>
 			</ul>
-			<h4>People without group</h4>
+			<h3>People without group</h3>
 			<% for user in @users_without_group -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>
 			<% end -%>

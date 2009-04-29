@@ -1,10 +1,14 @@
 <div class="user">
-	<p>
-		<%= link_to "Send a message", space_users_path(@space, :send_message => detailed_user.id)%><br />
-		<a>e-mail</a>
-	</p>
-        <%=link_logo(detailed_user, :size => 72)%>
-	<h5><%=sanitize(detailed_user.full_name) %></h5>
-	<%=sanitize(detailed_user.organization) %><br />
-	<%=sanitize(detailed_user.city) %>, <%=sanitize(detailed_user.country) %>
+	<ul class="user-actions">
+		<li><%= link_to "Private message", space_users_path(@space, :send_message => detailed_user.id)%><br /></li>
+		<li><a href="#">e-mail</a></li>
+	</ul>
+    <div><%=link_logo(detailed_user, :size => 48)%></div>
+	<div>
+	  	<ul>
+	    <li><strong><%=sanitize(detailed_user.full_name) %></strong></li>	
+	    <li class="small-font"><%=sanitize(detailed_user.organization) %></li>
+	    <li class="small-font"><%=sanitize(detailed_user.city) %>, <%=sanitize(detailed_user.country) %></li>
+	  </ul>
+	</div>
 </div>
