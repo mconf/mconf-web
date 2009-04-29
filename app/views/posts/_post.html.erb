@@ -10,6 +10,6 @@
       <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
    <%end%> 
    <%=sanitize(post.text)%>
-   <%=link_to image_tag("ui/icons/comment-edit.png", :alt => "edit comment" ), get_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
+   <%=link_to image_tag("icons/comment-edit.png", :alt => "edit comment" ), get_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
    </p>
 <%end%>
