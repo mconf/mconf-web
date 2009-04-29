@@ -3,7 +3,7 @@
 <br/><br/>
 <h5>All Spaces</h5>
 <ul>
-  <% Space.all.select{|s| s.authorizes?([:read, :content], :to => current_user)}.each do |space| %>
+  <% Space.all(:order => :name).select{|s| s.authorizes?([:read, :content], :to => current_user)}.each do |space| %>
   	<% if @space and @space.name == space.name %>
    		<li><%= link_to space.name, space_path(space), :class => "selected" %></li>
   	<% else %>
