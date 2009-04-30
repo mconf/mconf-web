@@ -4,7 +4,6 @@ class SpacesController < ApplicationController
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy]
-  authentication_filter :only => :join
   authorization_filter [ :create, :performance ], :space, :only => [:join]
 
   set_params_from_atom :space, :only => [ :create, :update ]
@@ -158,7 +157,10 @@ class SpacesController < ApplicationController
   end
 
   def join
-    if space.users.include?(current_agent)
+    if ! authenticated?
+      redirect_to new_space_join_request_path(space)
+      return
+    elsif space.users.include?(current_agent)
       flash[:notice] = "You are already in the space"
       redirect_to space
       return
