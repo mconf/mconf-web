@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   acts_as_taggable
 
   has_one :profile
-  has_many :invitations, :foreign_key => :email
   has_many :events, :as => :author
   has_many :posts, :as => :author
   has_many :memberships
