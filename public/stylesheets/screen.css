@@ -80,7 +80,7 @@ body .icon{margin-bottom:-3px;}
 #main{width:510px;margin-right:50px;}
 #sidebar{float:left;width:230px;}
 #selector h5{color:#888;margin-bottom:0.75em;}
-#selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0.5em;color:#999;}
+#selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
 #selector .selected{text-decoration:none;color:#000;font-weight:bold;}
 #menu{background:url(../images/dot.png) bottom repeat-x;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:0.9166em;line-height:1.6363;}
