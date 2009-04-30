@@ -1,21 +1,27 @@
 <% content_for :javascript do %>
  $("#thread-form").submitWithAjax();
+ $("#new_comment_link").addClass("selected");
+ $(".new_thread_options").click(function(){
+ 	$(".new_thread_options").removeClass("selected");
+	$(this).addClass("selected");});
 <% end %>
 
 <h3>Add a new Thread</h3>
-  <div id="post-buttoms">
-    <ul>
-      <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link' } %></li>
-      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link' } %></li>
-      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link' } %></li>
-	</ul>
-  </div>
+
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
   <p>
     <label for="Title">Title</label><br/>
     <%= f.text_field :title, :size => 25 %>
   </p>
 	
+  <div id="post-buttoms" class="actions">
+    <ul>
+      <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link',:class =>"new_thread_options" } %></li>
+      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_options" } %></li>
+      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_thread_options" } %></li>
+	</ul>
+  </div>
+  	
   <div id="new_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
@@ -24,9 +30,9 @@
     <%= render :partial => "posts/form_doc", :object => f %>
   </div>
 
-  <p>
-    <%= f.text_area :text, :class => "span-6"%>
-  </p>
+  
+    <%= f.text_area :text%>
+  
 
   <%= submit_tag "Post Now!" %>
 <% end -%>

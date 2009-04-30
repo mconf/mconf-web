@@ -87,7 +87,7 @@ namespace :setup do
 
       # Posts.parent_id
       Space.all.each do |space|
-        total_posts = space.posts
+        total_posts = space.posts.dup
         # The first Post should not have parent
         final_posts = Array.new << total_posts.shift
 
