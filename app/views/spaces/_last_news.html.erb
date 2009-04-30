@@ -1,0 +1,9 @@
+    <div id="last_news">
+        <p>
+        	<strong><%=sanitize(@news_to_show.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span><br />
+				  <%=sanitize(@news_to_show.text)%>
+			  </p>
+    
+		<%= link_to "Previous", space_path(@space, :news_position => @news_position-1),:id => "previous_news", :class => "news_navigation_link" if @news_position>0%>
+		<%= link_to "Next", space_path(@space, :news_position => @news_position+1), :id => "next_news", :class => "news_navigation_link" if @news_position + 1 < @news.size %>
+		</div>

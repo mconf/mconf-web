@@ -30,12 +30,15 @@ class SpacesController < ApplicationController
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show  
+    @news_position = (params[:news_position] ? params[:news_position].to_i : 0) 
+    @news = @space.news.find(:all, :order => "updated_at DESC")
+    @news_to_show = @news[@news_position]
     @posts = @space.posts
     @lastest_posts=@posts.find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(5)
-    @lastest_news = @space.news.find(:all, :order => "updated_at DESC").first(5)
     @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(5)
     @incoming_events=@space.events.find(:all, :order => "start_date DESC").select{|e| e.start_date.future?}.first(5)
     respond_to do |format|
+      format.js {render :partial=>"last_news"}
       format.html # show.html.erb
       format.xml  { render :xml => @space }
       format.atom
