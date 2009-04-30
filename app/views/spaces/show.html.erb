@@ -20,7 +20,13 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <div id="join"><button>Join this Space</button></div>
+  <% unless space.users.include?(current_user) %>
+  <div id="join">
+    <% form_tag join_space_path(space) do %>
+    <%= submit_tag("Join this Space") %>
+    <% end %>
+  </div>
+  <% end %>
 	<h3>About <em><%=@space.name%></em></h3>
 	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
 	<div id="inc-events">

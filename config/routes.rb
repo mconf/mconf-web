@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :logos
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 
-  map.resources :spaces do |space|
+  map.resources :spaces, :member => { :join => :any } do |space|
     space.resources :users do |user|
       user.resource :profile
     end
