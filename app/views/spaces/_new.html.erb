@@ -1,0 +1,42 @@
+<h1>New Space</h1>
+
+<% form_for :space, :url => spaces_path() do |f|%>
+  <p>
+    <label for="name">Name</label><br/>
+    <%= f.text_field :name %>
+  </p>
+	
+	<p>
+    <label for="description">Description</label><br/>
+    <%= f.text_area(:description) %>
+  </p>
+	
+	<p>
+    <label for="public">Public space</label><%= f.check_box(:public) %>
+  </p>
+	
+<%unless logged_in?%>
+	<ul>
+  	<li><%=link_to_if params[:register],"Login", new_space_path()%></li>
+    <li><%=link_to_unless params[:register],"Register", new_space_path(:register => true)%></li>
+	</ul>
+	<p>
+		<%fields_for :user do |user|%>
+	    <label for="email">Email</label><br/>
+	    <%= user.text_field :email %><br/>
+			<label for="Password">Password</label><br/>
+	    <%= user.password_field 'password' %><br/>
+	    <%if params[:register]%>
+			<label for="Confirm Password">Confirm Password</label><br/>
+	    <%= user.password_field 'password_confirmation' %><br/>
+			<label for="login">Full Name</label><br/>
+	    <%= user.text_field :login %><br/>
+			<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
+			<%= hidden_field_tag "register", params[:register] if params[:register]%>
+			<%end%>
+		<%end%>
+  </p>		
+<%end%>
+	
+  <%= submit_tag "Create" %>
+<% end %>
