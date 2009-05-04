@@ -157,18 +157,41 @@ class SpacesController < ApplicationController
   end
 
   def join
-    if ! authenticated?
-      redirect_to new_space_join_request_path(space)
-      return
-    elsif space.users.include?(current_agent)
+    unless authenticated?
+      return unless params[:user]
+
+      if params[:register]
+        cookies.delete :auth_token
+        @user = User.new(params[:user])
+        unless @user.save_with_captcha
+          message = ""
+          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+          flash[:error] = message
+          render :action => :new
+          return
+        end
+      end
+
+      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
+      unless logged_in?
+        flash[:error] = "Invalid credentials"
+        return
+      end
+    end
+
+    if space.users.include?(current_agent)
       flash[:notice] = "You are already in the space"
       redirect_to space
       return
     end
 
-    space.stage_performances.create! :agent => current_agent,
-                                     :role => Space.roles.find{ |r| r.name == "User" }
-    flash[:notice] = "You are now member of the space"
+    if space.public?
+      space.stage_performances.create! :agent => current_agent,
+                                       :role => Space.roles.find{ |r| r.name == "User" }
+    else
+      space.join_requests.create! :candidate => current_user
+      flash[:notice] = t('join_request.created')
+    end
     redirect_to space
   end
   
