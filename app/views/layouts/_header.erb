@@ -17,7 +17,7 @@
 	    <li><%= link_to "Inbox (#{PrivateMessage.find_all_by_receiver_id(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), :id => "user_inbox_link"%></li>
 	  	<li><%= link_to "Profile", user_profile_path(current_user)%></li>
 	  	<li>Preferences</li>
-	  	<li><%= link_to 'Logout', logout_path %></li>	
+	  	<li><%= link_to "Logout (#{current_user.name})", logout_path %></li>	
 	  <% else %>
 	  	<li><%= link_to 'Log in', login_path %></li>
 	  <% end %>

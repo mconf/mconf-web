@@ -1,6 +1,33 @@
-<h1>News</h1>
+<% content_for :javascript do  %>
+  $(".edit_news_link").livequery("click", function(){
+    var route = $(this).attr("href");
+    $(this).attr("href","#").addClass("clicked_edit_news_link");
+    $.get(route,
+            {authenticity_token: "<%=form_authenticity_token()%>"},
+            function(data){
+              $("#news_sidebar").replaceWith(data);
+							$(".clicked_edit_news_link").attr("href",route).removeClass("clicked_edit_news_link");
+            }
+          );
+  });
+  
+<% end %>
+
+<% content_for :sidebar do %>
+  <% if params[:edit_news]%>
+	  <%= render :partial => 'edit_news' %>
+	<% else %>
+    <%= render :partial => 'create_news' %>
+  <% end%>
+<% end %>
+
+<%= render :partial => 'spaces/admin_tabs' %>
 
 <% for news in @news %>
+  <ul>
+  	<li><%=link_to image_tag("icons/pencil.png", :alt => "edit" ), edit_space_news_path(@space,news), {:title => "edit", :class => "edit_news_link"} if space.authorizes?(:update, :to => current_user)%></li>
+		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete" ), space_news_path(@space,news),{:method => :delete, :title => "delete" } if space.authorizes?(:delete, :to => current_user)%></li>
+  </ul>
   <h3><%=sanitize(news.title)%></h3>
 	<p>
     <%=sanitize(news.text)%>

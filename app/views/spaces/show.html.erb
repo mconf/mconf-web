@@ -1,3 +1,17 @@
+<% content_for :javascript do  %>
+  $(".news_navigation_link").livequery("click", function(){
+	  var route = $(this).attr("href");
+		$(this).attr("href","#")
+	  $.get(route,
+            {authenticity_token: "<%=form_authenticity_token()%>"},
+            function(data){
+              $("#last_news").replaceWith(data);
+            }
+          );
+	});
+	
+<% end %>
+
 <% content_for :search do  %>
   <% form_tag(search_users_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
@@ -6,7 +20,13 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <div id="join"><button>Join this Space</button></div>
+  <% unless space.users.include?(current_user) %>
+  <div id="join">
+    <% form_tag join_space_path(space) do %>
+    <%= submit_tag("Join this Space") %>
+    <% end %>
+  </div>
+  <% end %>
 	<h3>About <em><%=@space.name%></em></h3>
 	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
 	<div id="inc-events">
@@ -26,16 +46,13 @@
 <% end %>
 
 <div id="latest_news">
-        <h3><%=image_tag("icons/information.png")%> Latest News</h3>
-  <% for news in @lastest_news -%>
-    <div class="new">
-        <p>
-          <strong><%=sanitize(news.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span><br />
-		  <%=sanitize(news.text)%>
-		</p>
-    </div>
-  <% end -%>
-        <%= link_to "Read more", space_news_index_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
+
+        
+  <% if @news_to_show %>
+	  <h3><%=image_tag("icons/information.png")%> Latest News</h3>
+    <%= render :partial => 'last_news' %>
+  <% end %>
+        
 </div>
 
 <div id="latest_posts">

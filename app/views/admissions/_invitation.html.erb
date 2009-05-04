@@ -1,0 +1,5 @@
+<% div_for invitation do %>
+<%= invitation.candidate ? link_logotype(invitation.candidate, :url => user_profile_path(invitation.candidate)) : invitation.email %>
+<%= invitation.role && invitation.role.name %>
+<%= link_to t(:delete), invitation, :method => :delete %><br />
+<% end %>

@@ -1,5 +1,5 @@
+<h2>Pending Join Requests</h2>
 <% if @space.join_requests.pending.any? %>
-  <h2>Pending Join Requests</h2>
   <% @space.join_requests.pending.each do |jr| %>
     <% form_for [ @space, jr ] do |f| %>
       <%= link_logotype(jr.candidate) %>
@@ -8,13 +8,15 @@
       <%= f.submit "Accept" %>
     <% end -%>
   <% end -%>
+<% else -%>
+There aren't pending join requests.
 <% end -%>
 
+<h2>Pending invitations</h2>
 <% if @space.invitations.pending.any? %>
-  <h2>Pending invitations</h2>
-  <% @space.invitations.pending.each do |i| %>
-    <%= sanitize i.email %> <%= link_to t(:delete), i, :method => :delete %><br />
-  <% end %>
+  <%= render :partial => 'invitation', :collection => @space.invitations.pending %>
+<% else -%>
+There aren't pending invitations
 <% end -%>
 
 <h2><%= t('invitation.new') %></h2>
@@ -23,7 +25,7 @@
 
 <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
   <p>
-  <%= f.label :email, t('invitation.email') %><br />
+  <%= f.label :email, "Emails (separated by commas)" %><br />
   <%= f.text_field :email %>
   </p>
 

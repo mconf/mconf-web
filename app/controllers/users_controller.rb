@@ -107,7 +107,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save_with_captcha 
         @user.tag_with(params[:tags]) if params[:tags]
-        flash[:notice] = "Thanks for registering! We have just sent instructions on how to activate your user account." 
+        self.current_agent = @user
+        flash[:notice] = "Thanks for registering! We have just sent instructions on how to activate your user account permanently." 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
         format.atom { 
