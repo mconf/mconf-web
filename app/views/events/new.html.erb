@@ -1,7 +1,7 @@
 <div id="yui-main">
     <div class="yui-b main_column">
     	<% rounded(:class => "tips") do %>
-			<h1>New event</h1>
+			<h1>Create new event</h1>
 
 			<% form_for(:event, :url => space_events_path(@space), :html => { :multipart => true }) do |f| -%>
   				<%= f.error_messages %>				

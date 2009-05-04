@@ -1,4 +1,5 @@
-<h3>New Event</h3>
+<div id="change-event">
+<h3>Create new Event</h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages %>				
@@ -8,15 +9,21 @@
   </div>
   <div>
 	<label for="Description">Description:</label>
-	<%=f.text_area :description, :class => "span-6"  %>
+	<%=f.text_area :description%>
   </div>
 	<div class="no_javascript">
-	  Start Date <%=f.datetime_select :start_date, :class => "span-5"  %><br/>
-    End Dater <br/> <%=f.datetime_select :end_date, :class => "span-5"  %><br/>
+	<ul>
+		<li>Start Date</li>
+		<li><%=f.datetime_select :start_date%></li>
+    	<li>End Date</li>
+		<li><%=f.datetime_select :end_date%></li>
+	</ul>
 	</div>
 
   	<p>
   	<%= f.submit "Create" %>
   	</p>
 <% end %>
+</div>
+
 

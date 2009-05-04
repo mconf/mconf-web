@@ -1,15 +1,9 @@
 <% content_for :sidebar do %>
   <%= render :partial => 'edit_space' %>
-	<%= render :partial => 'create_new' %>
 <% end %>
 
-<div>
-	<ul>
-		<li><%=link_to "All"%></li>
-		<li><%=link_to "Groups"%></li>
-		<li><%=link_to "Admissions", space_admissions_path(@space) %></li>
-	</ul>
-</div>
+<%= render :partial => 'admin_tabs' %>
+
 <div>
 	<% for performance in @performances -%>
     <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    

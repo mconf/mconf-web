@@ -50,23 +50,31 @@ a.button, button {
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 
+/* forms.css */
+.error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
+.error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
+.notice {background:#FFF6BF;color:#514721;border-color:#FFD324;}
+.success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
+.error a {color:#8a1f11;}
+.notice a {color:#514721;}
+.success a {color:#264409;}
+
 /* grid.css */
 body{min-width:910px;}
 /*body{background:url(images/grid.png);}*/
 body .icon{margin-bottom:-3px;}
 
-#global-header,#space,#footer{width:910px;margin:0 auto;}
-#global{background:#1E2B38;border-bottom:2px solid #000;}
-#global-header{padding:0.5em 0;}
-#global-header a{color:#EEE;text-decoration:none;}
+#global,#home,#footer{width:910px;margin:0 auto;}
+#global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
+#global{padding:0.5em 0;}
+#global a{color:#EEE;text-decoration:none;}
 #global-logo {position:absolute;font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
 #global-logo img{margin:0 4px -4px 0;}
 #feedback{margin-left:160px;}
 #feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
-
-#space-header{margin-top:1em;height:68px;margin-bottom:1em;}
-#space-logo, #search{float:left;}
-#space-logo{width:160px;}
+#header{margin-top:1em;height:68px;margin-bottom:1em;}
+#logo, #search{float:left;}
+#logo{width:160px;}
 #search{margin-top:1.25em;}
 #search input{font-size:1em;width:150px;}
 #prefs{font-size:0.9166em;line-height:1.6363;text-align:right;}
@@ -75,7 +83,7 @@ body .icon{margin-bottom:-3px;}
 #prefs a{color:#333;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-
+#content{clear:left;}
 #main{float:left;}
 #main{width:590px;margin-right:50px;}
 #sidebar{float:left;width:270px;}
@@ -90,6 +98,7 @@ body .icon{margin-bottom:-3px;}
 .wrapper div#end{margin-right:0;}
 .wrapper div.spc img,.wrapper div.spc p{float:left;}
 .wrapper div.spc img{width:188px;height:143px;border:1px #CCC solid;}
+.wrapper div.spc img:hover{border-color:#999;}
 .wrapper ul#list-events{margin:0;text-align:left;}
 .wrapper #list-events li{float:left;}
 #list-events li span{color:#777;margin-left:20px;}

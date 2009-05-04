@@ -1,4 +1,11 @@
-<span><a href="#">Create space</a></span>
+<%content_for :javascript do%>
+        
+        $("a.new_space_link").fancybox({
+          'hideOnContentClick' : false
+        }); 
+<%end%>
+
+<span><%= link_to "Create space", new_space_path, :class => "new_space_link" %></a></span>
 
 <br/><br/>
 <h5>All Spaces</h5>

@@ -9,17 +9,23 @@
     
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
-		<%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
-		<%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+	  <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+	  <%= stylesheet_link_tag "print", :media => "print" %>
 		
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
 
-    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        <%= yield :javascript %>
+
+      $("a.new_space_link").fancybox({
+        'hideOnContentClick' : false
+      }); 
+				
+      <%= yield :javascript %>
       })
     </script>
 		
