@@ -1,9 +1,11 @@
-<% if space %>
-  <div id="logo">
-    <%= image_tag "logos/sxsw.png" %> 
-    <!--<%= link_logo(space, :size => 96) %>-->
-  </div>
-<% end %>
+ <div id="logo">
+	<% if space %>
+	    <%= image_tag "logos/sxsw.png" %> 
+	    <!--<%= link_logo(space, :size => 96) %>-->
+	<%else%>
+		<%= image_tag "logos/sxsw.png" %>
+	<% end %>
+</div>
 
 <div id="search">
   <%= yield :search %>

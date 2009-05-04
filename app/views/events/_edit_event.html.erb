@@ -1,3 +1,4 @@
+<div id="change-event">
 <h3>Edit Event</h3>
 
 <% form_for([@space,@event], :html => { :multipart => true}) do |f| -%>
@@ -11,10 +12,15 @@
 	<%=f.text_area :description, :class => "span-6"  %>
   </div>  
   <div class="no_javascript">
-    Start Date <%=f.datetime_select :start_date, :class => "span-5"  %><br/>
-    Start Hour <br/> <%=f.datetime_select :end_date, :class => "span-5"  %><br/>
+    <ul>
+      <li>Start Date</li>
+	  <li> <%=f.datetime_select :start_date%></li>
+   	  <li>Start Hour </li>
+	  <li><%=f.datetime_select :end_date%></li>
+	</ul>
   </div>
   	<p>
   	<%= f.submit "Update" %>
   	</p>
 <% end %>
+</div>

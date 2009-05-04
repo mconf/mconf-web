@@ -17,7 +17,7 @@
     <li class="event">
         <h5><%=sanitize(event.title)%></strong></h5>
 		<p class="small-font"><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%></p>
-    	<%=link_to "", space_event_path(@space,event)%>
+    	<%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
     </li>
   <% end -%>
  </ul> 
@@ -30,9 +30,9 @@
   <% for news in @lastest_news -%>
     <div class="new">
         <p>
-        	<strong><%=sanitize(news.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span><br />
-				  <%=sanitize(news.text)%>
-			  </p>
+          <strong><%=sanitize(news.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span><br />
+		  <%=sanitize(news.text)%>
+		</p>
     </div>
   <% end -%>
         <%= link_to "Read more", space_news_index_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
@@ -43,24 +43,25 @@
   <% for post in @lastest_posts -%>
     <div class="post">
         <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
-		<a href=""></a>
+		<a href="" class="box-link"></a>
     </div>
   <% end -%>
         <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
 </div>
 
 <div id="latest_users">
-        <h3><%=image_tag("icons/user.png")%> Latest Users</h3>
+  <h3><%=image_tag("icons/user.png")%> Latest Users</h3>
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
-				<div><%= link_logo(user, :size => 32,:url => user_profile_path(user)) %></div>
+			<div><%=logo(user, :size=>32)%></div>
 				<div>
 				  <ul>
 				    <li><strong><%=sanitize(user.full_name)%></strong></li>
 				    <li class="small-font"><%=sanitize(user.organization) %></li>
 				  </ul>
 				 </div>
+				 <%=link_to "", user_profile_path(user),:class=>"box-link"%>
 			<%else%>
 				<p><%=logotype(user, :size=>32)%> <%=user.name%></p>
 			<%end%>        
