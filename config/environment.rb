@@ -45,7 +45,7 @@ Rails::Initializer.run do |config|
   # config.active_record.schema_format = :sql
 
   # Activate observers that should always be running
-  config.active_record.observers = :user_observer, :invitation_observer
+  config.active_record.observers = :user_observer, :admission_observer
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
@@ -78,9 +78,8 @@ ActionMailer::Base.raise_delivery_errors = true
   :address => "jungla.dit.upm.es",
   :port => 25,
   :domain => "dit.upm.es",
-  
- 
   }
+
   ActionMailer::Base.perform_deliveries = true
   ActionMailer::Base.default_charset = "utf-8"  
   
