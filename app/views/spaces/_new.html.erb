@@ -15,28 +15,18 @@
     <label for="public">Public space</label><%= f.check_box(:public) %>
   </p>
 	
-<%unless logged_in?%>
-	<ul>
-  	<li><%=link_to_if params[:register],"Login", new_space_path()%></li>
-    <li><%=link_to_unless params[:register],"Register", new_space_path(:register => true)%></li>
-	</ul>
-	<p>
-		<%fields_for :user do |user|%>
-	    <label for="email">Email</label><br/>
-	    <%= user.text_field :email %><br/>
-			<label for="Password">Password</label><br/>
-	    <%= user.password_field 'password' %><br/>
-	    <%if params[:register]%>
-			<label for="Confirm Password">Confirm Password</label><br/>
-	    <%= user.password_field 'password_confirmation' %><br/>
-			<label for="login">Full Name</label><br/>
-	    <%= user.text_field :login %><br/>
-			<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
-			<%= hidden_field_tag "register", params[:register] if params[:register]%>
-			<%end%>
-		<%end%>
-  </p>		
+	<%unless logged_in?%>
+		<ul>
+	  	<li><%=link_to "Login", new_space_path(), :id => "create_and_login_link" %></li>
+	    <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link"%></li>
+		</ul>
+	  
+		<%if params[:register]%>
+		  <%= render :partial => 'register_fields' %>
+		<%else%>	
+	    <%= render :partial => 'login_fields' %>
+	  <%end%>
+	<%end%>
 <%end%>
 	
-  <%= submit_tag "Create" %>
-<% end %>
+  

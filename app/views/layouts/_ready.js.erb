@@ -1,0 +1,48 @@
+/*
+ * Create new space
+ */
+
+$("a.new_space_link").fancybox({
+  'hideOnContentClick' : false
+});
+
+$("#create_and_login_link").livequery("click", function(){
+  $(this).attr("href","javascript:void(0)").addClass("selected");
+  $("#create_and_register_link").removeClass("selected")
+  $.get("<%= new_space_path(:login=>true)%>",
+        {authenticity_token: "<%=form_authenticity_token()%>"},
+        function(data){
+          $("#login_on_create_form").replaceWith(data);
+        }
+      );
+});
+
+$("#create_and_register_link").livequery("click", function(){
+  $(this).attr("href","javascript:void(0)").addClass("selected");
+  $("#create_and_loggin_link").removeClass("selected")
+  $.get("<%= new_space_path(:register=>true)%>",
+        {authenticity_token: "<%=form_authenticity_token()%>"},
+        function(data){
+          $("#login_on_create_form").replaceWith(data);
+        }
+      );
+});
+
+/*
+ * Log in
+ */
+
+$("a#login_link").fancybox({
+  'hideOnContentClick' : false
+});
+
+$("a.login_lightbox_link").livequery("click", function(){
+  var route = $(this).attr("href")
+  $(this).attr("href","javascript:void(0)");
+  $.get(route,
+        {authenticity_token: "<%=form_authenticity_token()%>"},
+        function(data){
+          $("#login_div").replaceWith(data);
+        }
+      );
+});

@@ -1,4 +1,4 @@
-<p><label for="login">Username</label><br/>
+<p><label for="login">Full name</label><br/>
 <%= f.text_field :login %></p>
 
 <p><label for="email">Email</label><br/>
@@ -13,17 +13,3 @@
 	<%= f.password_field :password_confirmation%></p>
  
 <% end -%>
-  
-	<% if logged_in? && @agent.tag_list  %>
-	<p><label for="keywords">Interests(*)</label><br/>
-<%= text_field_tag 'tags', @agent.tag_list   %></p>
-	
-      <% else %>
-	  
-	  <p><label for="keywords">Interests(*)</label><br/>
-<%= text_field_tag 'tags'   %></p>
-	
-<%end%>
-<br>
-<h6> (*) The tags that will define you, separated by commas</h6>
-<br>

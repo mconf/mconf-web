@@ -19,7 +19,7 @@
 	  	<li>Preferences</li>
 	  	<li><%= link_to "Logout (#{current_user.name})", logout_path %></li>	
 	  <% else %>
-	  	<li><%= link_to 'Log in', login_path %></li>
+	  	<li><%= link_to 'Log in', login_path, :id => "login_link" %></li>
 	  <% end %>
 	</ul>
 </div>

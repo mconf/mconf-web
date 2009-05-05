@@ -84,6 +84,12 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     @user = @agent = model_class.new
+    respond_to do |format|
+      format.html
+      format.js{
+        render :partial => "register"
+      }
+    end
   end
   
   # POST /users
@@ -199,6 +205,15 @@ class UsersController < ApplicationController
       format.html {  redirect_to(space_users_path(@space))  }
       format.xml  { head :ok }
       format.atom { head :ok }
+    end
+  end
+
+  def lost_password
+    respond_to do |format|
+      format.html 
+      format.js{
+        render :partial => "lost_password_form"
+      }
     end
   end
 

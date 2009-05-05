@@ -1,32 +1,3 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-<% rounded(:class => "signup") do %>
+<%= render :partial => 'register' %>
 
-<%= error_messages_for :user %>
-
-<% form_for :user, :url => users_path do |f| -%>
-
-<%= render :partial => 'form', :locals => { :f => f } %>
-
-<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
-
-<p><%= submit_tag 'Register' %>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
-<% end -%>
-
-<% end -%>
-</div>
-</div>
-
-<div class="yui-b sidebar">
-	<% rounded(:class => "tips") do %>
-	<h4>Tips</h4>
-	After registering, we will send you <br>
-	an email confirmation message to the <br>
-	address you provided.<br>
-	Please follow the instructions stated there<br>
-	to log in.<br>
-	<%= link_to 'Already have an account?', login_path %>
-	
-	<% end -%>
-	</div>
 

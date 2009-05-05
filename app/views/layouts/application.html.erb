@@ -21,9 +21,8 @@
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
 
-      $("a.new_space_link").fancybox({
-        'hideOnContentClick' : false
-      }); 
+      <%= render :partial => 'layouts/ready.js.erb' %>
+
 				
       <%= yield :javascript %>
       })

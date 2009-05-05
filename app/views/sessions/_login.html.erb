@@ -1,0 +1,31 @@
+<div id="login_div">
+<% form_tag session_path do -%>
+  <div>
+  	<h3>Email and password login</h3>
+	  <p>
+		  <label for="login">Username or email</label><br/>
+	    <%= text_field_tag 'login', params[:login] %>
+		</p>
+	  <p>
+	  	<label for="password">Password</label><br/>
+	    <%= password_field_tag 'password' %>
+		</p>
+	  <p>
+	  	<label for="remember_me">Remember me:</label><%= check_box_tag 'remember_me' %>
+		</p>
+  </div>
+  <div>
+  	<h3>OpenID login</h3>
+		  <p>
+		  	<label for="openid_identifier">OpenID</label>
+   	    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
+			</p>
+  </div>
+  <%= submit_tag 'Log in'%>
+<% end -%>
+
+<p>
+	<%= link_to 'Register now', signup_path, :class => "login_lightbox_link" %><br />
+  <%= link_to 'I have lost my password', lost_password_path, :class => "login_lightbox_link" %>
+</p>
+</div>

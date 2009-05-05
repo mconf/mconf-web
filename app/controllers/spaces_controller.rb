@@ -49,7 +49,16 @@ class SpacesController < ApplicationController
   # GET /spaces/new
   def new
     respond_to do |format|
-      format.js {render :partial=>"new"}
+      format.js {
+        if params[:login]
+          render :partial=>"login_fields"
+        elsif params[:register]
+          render :partial=>"register_fields"
+        else
+          render :partial=>"new"
+        end
+        
+      }
       format.html{}
     end
   end

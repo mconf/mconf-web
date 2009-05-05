@@ -15,6 +15,13 @@ class SessionsController < ApplicationController
 
     # See ActionController::Sessions#authentication_methods_chain 
     authentication_methods_chain(:new)
+    
+    respond_to do |format|
+      format.js {
+        render :partial => "sessions/login" 
+      }
+      format.html
+    end
   end
 
   private

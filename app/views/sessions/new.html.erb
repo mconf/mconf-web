@@ -1,46 +1,4 @@
-	<% rounded() do %>
-	<% form_tag session_path do -%>
+<%= render :partial => 'login' %>
 
-	
-		
-	  <div>
-		<br/>
-		<p><label for="login">Username or email</label><br/>
-		<%= text_field_tag 'login', params[:login] %></p>
-		<br/>
-		<p><label for="password">Password</label><br/>
-		<%= password_field_tag 'password' %></p>
-<br/>
-		
-
-		<p><label for="remember_me">Remember me:</label>
-		<%= check_box_tag 'remember_me' %></p>
-
-		
-	  </div>
-	<p>or....</p>
-	<br/>
-	  <div>
-		<p><label for="openid_identifier">OpenID</label></p>
-		<%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
-	  </div>
-	  <br/>
-	  <p><%= submit_tag 'Log in'%>&nbsp;&nbsp;&nbsp;&nbsp;<input onclick=document.location="/" type="button" value="Back" /></p>
-	 <% end -%>
-	
-	<% end %>
-	
-	<% rounded() do %>
-
-	<p>Don't have an account?</p> 
-	<%= link_to 'Click here to register', signup_path %><br>
-	<p>Forgot your password?</p>
-	<%= link_to 'Click here to retrieve it', lost_password_path %>
-	
-	
-	
-
-
-<% end %>
 
  
