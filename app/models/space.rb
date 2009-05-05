@@ -4,7 +4,8 @@ class Space < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
 
-  acts_as_resource :param => :name
+  has_permalink :name
+  acts_as_resource :param => :permalink
   acts_as_container
   acts_as_stage
   has_logo
