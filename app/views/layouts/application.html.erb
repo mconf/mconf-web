@@ -20,11 +20,8 @@
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-
-      <%= render :partial => 'layouts/ready.js.erb' %>
-
-				
-      <%= yield :javascript %>
+        <%= render :partial => 'layouts/ready.js.erb' %>
+        <%= yield :javascript %>
       })
     </script>
 		
