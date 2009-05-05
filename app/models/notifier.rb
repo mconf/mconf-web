@@ -25,7 +25,16 @@ class Notifier < ActionMailer::Base
     @body[:invitation] = invitation
     @body[:space] = @space
   end
-  
+
+   def join_request_email(jr)
+    @space = jr.group
+    @recipients = jr.group.users(:role => 'Admin').map(&:email)
+    @subject = "VCC Join Request"
+    @sent_on = Time.now
+    @body[:candidate] = jr.candidate
+    @body[:space] = @space
+  end
+ 
   #This is used when an user register in the application, in order to confirm his registration 
   def confirmation_email(user)
     # email header info MUST be added here
