@@ -59,29 +59,7 @@ a.button, button, #sidebar input[type=submit] {
 .notice a {color:#514721;}
 .success a {color:#264409;}
 
-.SI-FILES-STYLIZED div.cabinet
-{	width: 79px;
-	height: 22px;
-	background: url(/images/choose-file.gif) 0 0 no-repeat;
-	overflow: hidden;
-	cursor: pointer;
-	-moz-background-clip: -moz-initial;
-	-moz-background-origin: -moz-initial;
-	-moz-background-inline-policy: -moz-initial;
-	display: inline;
-	position: absolute;
-}
-
-.SI-FILES-STYLIZED div.cabinet input.file
-{	position: relative;
-	height: 100%;
-	width: auto;
-	opacity: 0;
-	-moz-opacity: 0;
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-}
-
-.file_1{display:inline;width:100px;color:#888;font-size:0.9166em;}
+.file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
 /* grid.css */
 body{min-width:960px;}

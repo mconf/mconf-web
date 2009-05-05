@@ -1,15 +1,17 @@
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'si.files'%>
+  <%= javascript_include_tag 'jquery.filestyle'%>
 <% end -%>
 
 <% content_for :javascript do %>
-SI.Files.stylizeAll();
+ $("input[type=file]").filestyle({ 
+     image: "/images/choose-file.gif",
+     imageheight : 22,
+     imagewidth : 80,
+     width : 115
+ });
 <% end %>
 
-<input class="file_1" value="Add a Doc">
-<div class="cabinet">   
-  <%= file_field_tag :uploaded_data,:class=>"file" %>
+<div id="cabinet"> 
+<%= file_field_tag :uploaded_data,:class=>"file_1"%>
 </div>
-
 <div id="caption">Add a Caption</div>
-
