@@ -10,7 +10,9 @@ class AdmissionsController < ApplicationController
 
   def invitations
     @invitations = params[:invitation][:email].split(',').map(&:strip).map { |email|
-      space.invitations.build params[:invitation].update(:email => email)
+      i = space.invitations.build params[:invitation].update(:email => email)
+      i.introducer = current_user
+      i
     }.each(&:save)
 
     respond_to do |format|
