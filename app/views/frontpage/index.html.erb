@@ -13,7 +13,7 @@
 		  <div class="join">
 			<h2>Start now!</h2>
 			<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-			<button>Create new Space</button> 	
+			<%=link_to image_tag("new-space.jpg"),new_space_path()%> 	
 		  </div>
 
 		  <div class="rel-users">
@@ -22,80 +22,61 @@
 			<p>Sidebar! we can see the more relevant users</p>
 			
 			<div>
-			  <a href="#"><img src="images/models/48/user.png"/></a>
-			  <a href="#"><img src="images/models/48/user.png"/></a>
-			  <a href="#"><img src="images/models/48/user.png"/></a>
-			  <a href="#"><img src="images/models/48/user.png"/></a>
+				<%for user in @relevant_users%>
+					<%=logo(user, {:size=>48, :title=> user.name })%> 
+				<%end%>
 			</div>
 			
-			<a href="#"> Show more users >></a>
 		  </div>
 
 		  <div class="rcnt-posts">
 			<h5><img class="icon" src="images/icons/comment.png"/> Recent comments </h5>
+				<%for comment in @recent_posts%>
+					<ul>
+			  		<li><strong><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
+			  			<p><%=sanitize(comment.text).first(100)%></p>
+			  		</li>
+						<%= link_to "view complete comment >>", space_post_path(comment.space,comment)%>						
+					</ul>
+				<%end%>			
 			
-			<ul>
-			  <li><a href="#"><strong>Jason Pollack</strong><span class="updated"> 5 minutes ago</span>
-			  <p>I'm attending to the conference but i don't know how to get there, is there any metro station around?</p>
-			  </a></li>
-			  <li class="last"><a href=""><strong>Martha Stuart</strong><span class="updated"> 2 minutes ago</span>
-			  <p>The station is called Opera Station, line 5</p>
-			  </a></li>
-			</ul>
-			
-			<a href="#">Show more comments >></a>
 		  </div>
 
  <%end%>
  
 		  <div class="wrapper">
-			<h3>Popular Spaces <a href="#"><img class="icon" src="images/icons/feed.png"/></a></h3>
+			<h3>Popular Spaces</h3>
 			
-			<ul><li><a href="#">Show all the popular spaces >></a></li></ul>
-			
-			<div class="spc">
-			  <a href="#"><img src="images/demo/belief.png"/></a>
-			  <p>Belief Brazil Symposium</p>
-			</div>
-				
-			<div class="spc">
-			  <a href="#"><img src="images/demo/terena.png"/></a>
-			  <p>Terena Malaga 2009</p>
-			</div>
-			
-			<div id="end" class="spc">
-			  <a href="#"><img src="images/demo/sxsw.png"/></a>
-			  <p>Austin SXSW</p>
-			</div>		  		
+			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>
+			<%for space in @popular_spaces%>
+				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
+			  	<%=link_logo (space, :size=> 128, :title => space.name)%>
+			  	<p><%=sanitize(space.name)%></p>
+				</div> 
+			<%end%>					  		
 		  </div>        
 
 		  <div class="wrapper">
-			<h3>Recent Spaces <a href="#"><img class="icon" src="images/icons/feed.png"/></a></h3>
+			<h3>Recent Spaces</h3>
 			
-			<ul><li><a href="#">Show all the recent spaces >></a></li></ul>
-			
-			<div class="spc">
-			  <a href="#"><img src="images/demo/sonar.png"/></a>
-			  <p>Sonar 2009 Barcelona</p>
-			</div>
-			
-			<div class="spc">
-			  <a href="#"><img src="images/demo/summercase.png"/></a>
-			  <p>Summercase 2009</p>
-			</div>
-			
-			<div id="end" class="spc">
-			  <a href="#"><img src="images/demo/ted.png"/></a>
-			  <p>Ted talks 2009</p>
-			</div>		  		
+			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>			
+			<%for space in @recent_spaces%>
+				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
+			  	<%=link_logo (space, :size=>128,:title => space.name )%>
+			  	<p><%=sanitize(space.name)%></p>
+				</div> 
+			<%end%>		  		
 		  </div>
 			
 		  <div class="wrapper">
-			<h3>Incoming Events <a href="#"><img class="icon" src="images/icons/feed.png"/></a></h3>
-			<ul><li><a href="#">Show all incoming events >></a></li></ul>
-			<ul id="list-events">
-			  <li><a href="#"><img class="icon" src="images/icons/date.png"/> 27/03/2009 meeting with Topanga @NYC Centre <span>I am attending to the conference but i don't know...</span></a></li>
-			  <li><a href="#"><img class="icon" src="images/icons/date.png"/> 27/03/2009 meeting with Topanga @NYC Centre <span>I am attending to the conference but i don't know...</span></a></li>
-			</ul>  
+  	
+			<h3>Incoming Events</h3>
+			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>
+			<%for event in @recent_events%>
+				<ul id="list-events">
+					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%> <span><%=sanitize(event.description.size >= 78 ? event.description.first(75) + "..." : event.description.first(75))  %></span></a></li>
+				</ul>	
+			<%end%>								  
+			  
 		  </div>
 		
