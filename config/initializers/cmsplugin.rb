@@ -69,20 +69,9 @@ class Performance
     end
   }
 
-  before_destroy {|perfor|
-    user = perfor.agent
-    if perfor.stage.is_a?(Space)
-    space = perfor.stage
-    group = Group.find_by_name(space.emailize_name)
-    if group
-      user_ids = []
-      group.users.each do |u|
-        user_ids << "#{u.id}"
-      end
-      user_ids.delete("#{user.id}")
-      
-      group.update_attributes(:user_ids => user_ids)  
-      end
+  before_destroy { |p|
+    if p.stage.is_a?(Space) && p.agent.is_a?(User)
+      p.agent.memberships.select{ |m| m.group && m.group.space == p.stage }.map(&:destroy)
     end
   }
   
