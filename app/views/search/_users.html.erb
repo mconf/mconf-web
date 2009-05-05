@@ -1,37 +1,36 @@
 
-<h2 class="title separador"> Users</h2>
+<h2>Users</h2>
 	
-<div class="contenido_search">
+<div>
 	<br/>
 	
-	 <%if @users == []%>
-	   		<p class="red">No users found</p>
-	   		<br/>
-	   <%else%>
-			<%if @users.size == 1%>
-	   			<h3 class="red">1 user was found</h3>
-				<br/>
-				<% if current_user.superuser %>	
-					<%= render :partial =>'users/manage_users'%>	
-				<% else %>
-					<div class="col_public"><%=generate_user_table%></div>
-					<%for user in @users%>
-	    				<div class="user_public"><%=show_list_user(user)%></div>
-    				<%end%>
-		    	<%end%>
-	   		<%else%>
-	   			<h3 class="red"><%=@users.size%> users were found</h3>
-				<br/>
-	   			<% if current_user.superuser %>	
-					<%= render :partial =>'users/manage_users'%>	
-				<% else %>
-					<div class="col_public"><%=generate_user_table%></div>
-					<%for user in @users%>
-	    				<div class="user_public"><%=show_list_user(user)%></div>
-    				<%end%>
-		    	<%end%>
-	   		<%end%>
-		<%end%>	
+	<%if @users == []%>
+		<p class="red">No users found</p>
+	  <br/>
+	<%else%>
+	 	
+		<%if @users.size == 1%>
+	  	<h3 class="red">1 user was found</h3>
+		<%else%>
+		  <h3 class="red"><%=@users.size%> users were found</h3>
+		<%end%>
+		<%for user in @users do%>		
+			  <div class="user">
+    			<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
+						<div><%=logo(user, :size=>32)%></div>
+						<div>
+				  		<ul>
+				    		<li><strong><%=sanitize(user.full_name)%></strong></li>
+				    		<li class="small-font"><%=sanitize(user.organization) %></li>
+				  		</ul>
+				 		</div>
+				 		<%=link_to "", user_profile_path(user),:class=>"box-link"%>
+					<%else%>
+						<p><%=logotype(user, :size=>32)%> <%=user.name%></p>
+					<%end%>        
+    		</div><br/>
+	  <%end%> 								   		   	
+	<%end%>	
 </div>
 <br/>
 
