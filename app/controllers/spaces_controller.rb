@@ -48,7 +48,10 @@ class SpacesController < ApplicationController
   
   # GET /spaces/new
   def new
-    
+    respond_to do |format|
+      format.js {render :partial=>"new"}
+      format.html{}
+    end
   end
   
   # GET /spaces/1/edit

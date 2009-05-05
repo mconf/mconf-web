@@ -1,5 +1,7 @@
+
+
 <% content_for :sidebar do  %>
-  <%= link_to "New Space", new_space_path()%>
+  <%= link_to "New Space", new_space_path(), :id => "new_space_link22"%>
 <% end %>
 
 <% @page_title = "Spaces"-%>
@@ -7,7 +9,7 @@
 <h1>Spaces</h1>
 
 <% @spaces.each do |space| %>
-<div>
+<div id = "spaces_list">
   <%= link_to sanitize(space.name), space %>
   <% unless space.authorizes?(:read, :to => current_agent) %>
     <strong>Private</strong>
