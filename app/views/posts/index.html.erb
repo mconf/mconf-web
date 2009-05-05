@@ -28,8 +28,18 @@ $("#new_doc_link").attr('href', '#');
 	  <%= image_submit_tag "icons/magnifier.png", :class=>'go'%>
   <% end %>
 <%end%>
+<% content_for :sidebar do  %>
+  <% unless space.users.include?(current_user) %>
+  <div id="join">
+    <% form_tag join_space_path(space) do %>
+    <%= submit_tag("Join this Space") %>
+    <% end %>
+  </div>
+  <% end %>
+	<h3>About <em><%=@space.name%></em></h3>
+	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
 <%if @space.authorizes?([:create, :content],:to => current_user)%>
-	<% content_for :sidebar do  %>
+	
   	<% if params[:reply_to]%>
     	<div id="new_reply">
       	<%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>

@@ -108,7 +108,7 @@ body .icon{margin-bottom:-3px;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
 
 /*sidebar*/
-#sidebar .join{background:#bebebe;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;}
+#sidebar .join{background:#ddd;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;}
 .join h2{margin-bottom:0;margin-top:2px;}
 div.rel-users,div.rcnt-posts{margin-top:1.5em;}
 #sidebar h5{font-size:1.1em;line-height:1.3636;}

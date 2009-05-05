@@ -62,10 +62,9 @@ a.button, button, #sidebar input[type=submit] {
 .file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
 /* grid.css */
+/*body{background:url(/images/grid.png);}*/
 body{min-width:960px;}
 body .icon{margin-bottom:-3px;}
-/*body{background:url(/images/grid.png);}*/
-/*.showgrid{background:url(/images/grid.png);}*/
 #global,#space,#footer{width:950px;margin:0 auto;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
@@ -112,7 +111,7 @@ div.group{float:left;width:510px;padding-bottom:0.5em;}
 .group_links{float:right;}
 #main span.selected{font-weight:bold;margin-left:0.5em;margin-right:0.5em;}
 #main #list_by_groups_selected a{margin-left:0.5em;}
-div.user{position:relative;float:left;width:510px;border-top:1px #CCC solid;padding:8px 0 0 0.75em;}
+div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:1px #CCC solid;padding:8px 0 0 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
 ul.group_links{margin:0.75em 0 0 0.5em;}
@@ -122,8 +121,8 @@ ul.group_links li{display:inline-block;}
 .user div{float:left;}
 
 /*sidebar*/
-.post{clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;border-top:1px #CCC solid;}
-.post:hover,#latest_users div.user:hover{background:#e8e5e5;}
+.post{background:#eaeaea;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;border-top:1px #CCC solid;}
+.post:hover,div.user:hover{background:#e5e5e5;}
 .post p{margin:0.75em 0 0.75em 0.75em;}
 .post img{width:16px;height:16px;}
 #latest_posts{margin-bottom:1.5em;}
