@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
   end
 
   def after_destroy_path
-    spaces_path
+    root_path
   end
  
   def get_space
