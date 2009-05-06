@@ -63,8 +63,10 @@ $("#new_doc_link").attr('href', '#');
 	<% end %>
 <% end %>
 <div id="posts">
+	<% thread_class = "odd_thread" %>
   <% for post in @posts -%>
-    <%= render :partial => "thread" , :object => post %>
+    <%= render :partial => "thread" , :locals => {:thread => post, :thread_class => thread_class} %>
+		<% thread_class = (thread_class=="even_thread" ? "odd_thread" : "even_thread") %>
   <% end -%>
 </div>  
   <%= will_paginate @posts %>

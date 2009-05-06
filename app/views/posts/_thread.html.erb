@@ -1,4 +1,4 @@
-  <div id="parent_<%=thread.id%>">
+  <div id="parent_<%=thread.id%>" class="<%=thread_class%>">
   		<b><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%></b>
 		Updated <%=time_ago_in_words(thread.updated_at)%> ago  
 		
@@ -10,9 +10,9 @@
 		<div class="<%=thread.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
           
 		  <%for comment in thread.three_last_comment()%>
-			  <%=render :partial => "post" , :object => comment%>
+			  <%=render :partial => "post" , :locals => { :post =>  comment, :selected_post => false}%>
 		  <%end%>
 		
 		</div>
-		</br>
+
 	</div>

@@ -1,5 +1,27 @@
+<% content_for :javascript do%>
+  
+	<%if !selected_post%>
+	  $("#collapsed_post_<%=post.id%>").show();
+    $("#expanded_post_<%=post.id%>").hide();
+  <%end%>
+	  $("#expanded_post_<%=post.id%>").append("<%=(link_to "collapse", "javascript:collapse_post_#{post.id}()").gsub('"','\"')%>");
+	
+	expand_post_<%=post.id%> = function(){
+	  $("#collapsed_post_<%=post.id%>").hide();
+    $("#expanded_post_<%=post.id%>").show("normal");
+	}
+	
+	 collapse_post_<%=post.id%> = function(){
+    $("#expanded_post_<%=post.id%>").hide("normal", function(){
+		  $("#collapsed_post_<%=post.id%>").show();
+		});
+    
+  }
+	
+<%end%>
+
 <!-- this partial render a post with their links -->
-<%div_for (post) do%>
+<a href="javascript:expand_post_#{post.id}()"><%div_for post do%>
   <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
 	<p><%= link_author(post, :size => 48, :url => user_profile_path(post.author)) %></p>
 	<%else%>
@@ -8,8 +30,17 @@
   <p>
    <%for attachment in post.attachments%>
       <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
-   <%end%> 
-   <%=sanitize(post.text)%>
+   <%end%>
+	 </p>
+	 
+	 <p id="collapsed_post_<%=post.id%>" style="display:none">
+	   <%=sanitize(first_words(post.text,200))%><br />
+		 <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+	 </p>
+
+	 <p id="expanded_post_<%=post.id%>">
+   <%=sanitize(post.text)%><br />
    <%=link_to image_tag("icons/comment-edit.png", :alt => "edit comment" ), get_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
    </p>
 <%end%>
+   </a>
