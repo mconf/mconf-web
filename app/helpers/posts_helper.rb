@@ -21,4 +21,13 @@ module PostsHelper
       text
     end
   end
+  
+  def thread_title(post)
+    post.parent_id.nil? ? post.title : post.parent.title
+  end
+  
+  def thread(post)
+    post.parent_id.nil? ? post : post.parent
+  end
+  
 end

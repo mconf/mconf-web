@@ -12,27 +12,17 @@
 <% end %>
 
 <div>
-	
-	<br/>
-		<%if @parents == []%>
-	     	<p>No posts found</p>
-	    <%else%> 
-			<%if @parents.size == 1%>	   
-	     		<h3>1 post was found</h3>
-		 		<br/>
-	     		<% @parents.each do |post| %>
-	       			<%if post%>
-	         			<%=render :partial => "posts/post", :object=>post%> 
-	       			<%end%>
-         		<%end%>
-	   		<%else%>
-         		<h3 class="red"><%=@parents.size%> posts was found</h3>
-		 		<br/>	
-	     		<% @parents.each do |post| %>
-	       			<%if post%>
-	         			<%=render :partial => "posts/post", :object=>post %> 
-	       			<%end%>
-         		<%end%>
-			<%end%>
+		<%if @posts == []%>
+	     	<h3>No posts found</h3>
+		<%elsif @posts.size == 1%>	   
+	     	<h3>1 post was found</h3>
+     		<% @posts.each do |post| %>
+      			<%=render :partial => "posts/post", :object=>post%> 
+    		<%end%>
+	  <%else%>
+        <h3 class="red"><%=@posts.size%> posts was found</h3>
+     		<% @posts.each do |post| %>
+     			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false} %> 
+     		<%end%>
 		<%end%>	
 </div>
