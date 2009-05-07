@@ -27,8 +27,11 @@
     <% end %>
   </div>
   <% end %>
+  <div class="space-desc">
 	<h3>About <em><%=@space.name%></em></h3>
-	<p><%=image_tag("test_small.jpg",:align=>"left")%><%= sanitize(space.description) if space.description.present? %></p>
+	<p><%=image_tag("test_small.jpg",:align=>"left")%>
+	<%= sanitize(space.description) if space.description.present? %></p>
+  </div>	
 	<div id="inc-events">
         <h3><%=image_tag("icons/date.png",:class=>"icon")%> Incoming Events</h3>
 
