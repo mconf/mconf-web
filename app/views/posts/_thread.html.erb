@@ -8,7 +8,7 @@
 	</div>
 	
   	<div class="thread-title">
-  		<h2><%=image_tag("icons/comment.png")%><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+  		<h2><%=image_tag("icons/comment.png")%><%=link_to (first_words(thread.title, 20), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 		<span class="updated"> Updated <%=time_ago_in_words(thread.updated_at)%> ago</span>
 		</h2>  
 	</div>
