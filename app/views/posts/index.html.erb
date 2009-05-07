@@ -64,7 +64,7 @@ $("#new_doc_link").attr('href', '#');
 <% end %>
 <div id="posts">
   <% for post in @posts -%>
-    <%= render :partial => "thread" , :object => post %>
+    <%= render :partial => "thread" , :locals => {:thread => post} %>
   <% end -%>
 </div>  
   <%= will_paginate @posts %>

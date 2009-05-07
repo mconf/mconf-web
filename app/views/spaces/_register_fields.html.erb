@@ -10,6 +10,5 @@
       <%= user.text_field :login %><br/>
       <div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
       <%= hidden_field_tag "register", params[:register] if params[:register]%>
-			<%= submit_tag "Create" %>
     <% end %>
   </div>

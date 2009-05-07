@@ -115,8 +115,9 @@ class SearchController < ApplicationController
   
   def search_posts (params)
     @query = params[:query] 
-    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Post')
+    @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Post')
     @search.run
+=begin
     @parents = []
     @search.results.select{|post| post.space == @space}.map{|post| 
       if post.parent_id !=nil
@@ -125,8 +126,9 @@ class SearchController < ApplicationController
          @parents << post
      end
        }
-    @parents.uniq!   
-    
+    @parents.uniq!
+=end
+    @posts = @search.results.select{|post| post.space == @space}.sort{|x,y| ((y.parent_id != nil) ? y.parent.updated_at : y.updated_at) <=> ((x.parent_id != nil) ? x.parent.updated_at : x.updated_at)}
     end
     
     
@@ -137,9 +139,5 @@ class SearchController < ApplicationController
     
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'User')
     @search.run
-    if @space.id == 1
-    @users = @search.results  
-    else
     @users = @search.results.select {|user| @space.actors.include?(user)}
-    end  
 end

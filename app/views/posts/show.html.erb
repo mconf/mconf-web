@@ -43,8 +43,8 @@ $("#new_doc_link").attr('href', '#');
 		<%=link_to image_tag("ui/icons/pencil.png", :alt => "edit" ), get_route(@post), :title => "edit" if @post.authorizes?(:update, :to => current_user) %>
 		
 		<div class="<%=@post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>">
-          <%for comment in @posts%>
-			  <%=render :partial => "post" , :object => comment%>
+      <%for comment in @posts%>
+			  <%=render :partial => "post" , :locals => { :post =>  comment, :selected_post => false}%>
 			<%end%>
 		</div>
 		</br>

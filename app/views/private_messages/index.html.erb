@@ -28,12 +28,12 @@
 	<% for private_message in @private_messages %>
 	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div highlight"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
 		  <div class="message_header">
-		    <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%>
 		    <% if params[:sent_messages] %>
-				  Sent to <%= link_logotype(User.find(private_message.receiver_id))%> <%=time_ago_in_words(private_message.created_at)%> ago 
-			  <% else%>
-			    Received from <%= link_logotype(User.find(private_message.sender_id))%> <%=time_ago_in_words(private_message.created_at)%> ago
-			  <% end%>
+          To <%= link_logotype(User.find(private_message.receiver_id))%> <%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%> 
+        <% else%>
+          From <%= link_logotype(User.find(private_message.sender_id))%> <%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%>
+        <% end%>
+				<%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%>
 				<%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%>
         <% if params[:sent_messages] %>
           <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
