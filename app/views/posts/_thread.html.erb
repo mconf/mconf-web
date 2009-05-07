@@ -1,4 +1,4 @@
-  <div id="parent_<%=thread.id%>" class="<%=thread_class%>">
+  <div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%>">
   		<b><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%></b>
 		Updated <%=time_ago_in_words(thread.updated_at)%> ago  
 		
