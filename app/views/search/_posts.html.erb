@@ -1,14 +1,8 @@
-<% content_for :sidebar do  %>
-  <%if params[:reply]%>
-    <div id="add_new_reply">
-      <%@parent_post = Post.find(params[:reply])%>	
-      <%= render :partial => "posts/new_reply" %>
-    </div>  
-  <%else%>
-    <div id="add_new_thread" >
-      <%= render :partial => "posts/new_thread" %>
-    </div>
-  <%end%>  
+<% content_for :search do  %>
+  <% form_tag(search_posts_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+    <%= image_submit_tag "icons/magnifier.png", :class=>'go'%>
+  <% end %>
 <% end %>
 
 <div>
@@ -17,7 +11,7 @@
 		<%elsif @posts.size == 1%>	   
 	     	<h3>1 post was found</h3>
      		<% @posts.each do |post| %>
-      			<%=render :partial => "posts/post", :object=>post%> 
+      			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false}%> 
     		<%end%>
 	  <%else%>
         <h3 class="red"><%=@posts.size%> posts was found</h3>

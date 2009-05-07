@@ -8,7 +8,11 @@
 	</div>
 	
   	<div class="thread-title">
+<<<<<<< HEAD:app/views/posts/_thread.html.erb
   		<h2><%=image_tag("icons/comment.png",:class=>"icon")%><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+=======
+  		<h2><%=image_tag("icons/comment.png")%><%=link_to (first_words(thread.title, 20), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+>>>>>>> aa4b3b0197c0e8b7af1f43b2067e02b1898b8629:app/views/posts/_thread.html.erb
 		<span class="updated"> Updated <%=time_ago_in_words(thread.updated_at)%> ago</span>
 		</h2>  
 	</div>
