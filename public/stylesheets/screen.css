@@ -13,6 +13,7 @@ body{font-size:75%;color:#222;background:#F5F5F5;font-family:"Lucida Grande",Hel
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;background:#f00;}
 h2{font-size:2em;margin-bottom:0.75em;}
+h2 img{margin-right:5px;}
 h3{font-size:1.0833em;line-height:1.3846;margin:0.666em 0 0.666em 0;font-weight:bold;}
 h3 img{margin-bottom:-3px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
@@ -59,9 +60,12 @@ a.button, button, #sidebar input[type=submit] {
 .notice a {color:#514721;}
 .success a {color:#264409;}
 
+/*File upload button*/
 .file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
-/* grid.css */
+/*----------------------- grid.css ---------------------------*/
+
+/*all css for the header and the navigation part(tabs, search,etc*/
 /*body{background:url(/images/grid.png);}*/
 body{min-width:960px;}
 body .icon{margin-bottom:-3px;}
@@ -102,11 +106,14 @@ body .icon{margin-bottom:-3px;}
 #menu li a:hover{background:#EEE;}
 #menu li .selected:hover{background:#FFF;}
 #menu li .admin:hover{background:#2C3746;border:1px solid #2C3746;}
+
+/*
 .thread-wrapper ul{list-style-type:none;}
 .thread{margin:0.5em 0;}
 .thread h3 {float:left;}
 .thread ul{text-align:right;font-size:0.9166em;line-height:3.2726;margin:0;padding:0;}
 .thread ul li{display:inline;margin:0 0 0 5px;}
+*/
 
 /*view of the people and groups*/
 div.group{float:left;width:510px;padding-bottom:0.5em;}
@@ -117,25 +124,37 @@ div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:
 .user ul{margin:0 0 0 0.5em;}
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .odd_thread{background:#E6EFC2;border-color:#C6D880;}
-.even_thread{background:#FBE3E4;border-color:#FBC2C4;}
+.even_thread{background:#FFF6BF;border-color:#FFD324;}
+.odd_thread .thread-title{background:#accf28;}/*verde*/
+.even_thread .thread-title{background:#f2cc1f;}/*amarillo*/
+.odd_thread .post{background:#d4e39a;border-top:none;margin-top:2px;}/*verde*/
+.even_thread .post{background:#faec96;border-top:none;margin-top:2px;}/*amarillo*/
+.odd_thread .post:hover{background:#cce07e;}/*verde*/
+.even_thread .post:hover{background:#f5df51;}/*amarillo*/
+.odd_thread .post_i{border-top-color:#C6D880;}
+.even_thread .post_i{border-top-color:#FFD324;}
+
+.thread_options ul{list-style-type:none;text-align:right;margin:0;}
+.thread_options ul li{display:inline-block;}
 .group_links{float:right;}
 .group_links ul{margin:0.75em 0 0.666em 0.5em;}
 .group_links ul li{display:inline-block;}
 .group_links ul.edit-post{padding-top:3px;margin:0.75em 0.75em 0.666em 0.5em;}
-.thread-title,.post-title{float:left;}
+.thread-title{padding:0.5em 0;margin:0.25em 0;}
+.post-title{float:left;}
 .post-title{margin-left:0.75em;}
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
 .user div{float:left;}
-
-#posts h3{}
-#posts h3 a{color:#111;text-decoration:none;}
-#posts h3 a:hover{text-decoration:underline;}
-#posts h3 .updated{color:#666;font-weight:normal;}
+#posts h2{margin-bottom:0;}
+#posts h3 a,#posts h2 a{color:#111;text-decoration:none;}
+#posts h3 a:hover,#posts h2 a:hover{text-decoration:underline;}
+#posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
 .post{background:#eaeaea;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;border-top:1px #CCC solid;}
 .post:hover,div.user:hover{background:#e5e5e5;}
 .post p{margin:0.75em 0 0.75em 0.75em;}
 .post img.logo{width:22px;height:22px;}
+.post_i{clear:both;font-size:0.9166em;line-height:1.6363;border-top:1px #CCC solid;}
 ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}
 #latest_posts{margin-bottom:1.5em;}

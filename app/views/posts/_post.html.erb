@@ -37,7 +37,7 @@
 	<p><%=logo(post.author, :size=>48)%> <%=post.author.name%></p>
 	<%end%>
  	
-  <div class="post">
+  <div class="post_i">
   <p>
    <%for attachment in post.attachments%>
       <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail())) if attachment.post_thumbnail%>
