@@ -1,4 +1,14 @@
-  var speed = "normal"
+  var speed = "slow"
+  
+	clear_users = function(){
+		$("#unselected_users .user_checkbox").hide();
+    $("#show_all_users_link").show();
+	};
+	
+  show_all_users = function(){
+    $(".user_checkbox").show(speed);
+    $("#show_all_users_link").hide();
+  };
 	
 	selected_users_check = function(){
     if($(".user_checkbox input:checked").length > 0){
@@ -51,6 +61,8 @@
     $(".user_checkbox input").each(function() {
       $(this).allocate();
     });
+		$("#user_filter").append("<a href=\"javascript:show_all_users()\" id=\"show_all_users_link\">Show all users</a>");
+		clear_users();
   });
   
   $(".user_checkbox input").livequery('click', function() {
@@ -60,6 +72,11 @@
 
 
   $("#user_selector").livequery('keyup', function() {
-    var filter_text = this.value.toLowerCase();
-    filter_user(filter_text);
+		if (this.value == ""){
+			clear_users();
+		}else{
+			var filter_text = this.value.toLowerCase();
+	    filter_user(filter_text);
+			$("#show_all_users_link").hide();
+		}
   });
