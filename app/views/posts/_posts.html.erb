@@ -1,0 +1,5 @@
+<div id="posts">
+  <% posts.each do |post| -%>
+    <%= render :partial => "thread" , :object => post %>
+  <% end -%>
+</div>

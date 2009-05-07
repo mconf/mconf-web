@@ -1,21 +1,21 @@
-$("#posts").before('<div class="notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
-$(".post").css( {backgroundColor: "transparent"});
+/* Remove notifications */
+$(".notice").remove(); $(".success").remove(); $(".error").remove();
 
 <%if params[:show]%>
-  $("#post").append("<%= escape_javascript(render(:partial => "post" , :object=> @post)) %>");
-  $("#post_<%=@post.id%>").css( {backgroundColor:"yellow"});
-  $("#reply-form")[0].reset();
+  $("#post_with_children").replaceWith("<%= escape_javascript(render(:partial => "post_with_children")) %>");
+  $(".pagination").replaceWith("<%= escape_javascript(will_paginate(@posts, :params => { :action => 'show', :id => @post.id })) %>");
+  $("#post_with_children").before('<div class="success"><%= escape_javascript(flash.delete(:success)) %></div>');
+  $("#<%= dom_id(@new_post) %>").effect("highlight", {}, 3000);
 <%else%>
-
-  <%if @post.parent_id.present?%>
-  $("#parent_<%=@post.parent_id%>").hide();
-  $("#posts").prepend("<%= escape_javascript(render(:partial => "thread" , :object=> @post.parent)) %>");
-  $("#post_<%=@post.id%>").css( {backgroundColor:"yellow"});
-  $("#reply-form")[0].reset();
-  <%else%>
-  $("#posts").prepend("<%= escape_javascript(render(:partial => "thread" , :object=> @post)) %>");
-  $("#post_<%=@post.id%>").css( {backgroundColor:"yellow"});
-  $("#thread-form")[0].reset();
-  <%end%>
+  $("#posts").replaceWith("<%= escape_javascript(render(:partial => "posts", :object => @posts)) %>");
+  $(".pagination").replaceWith("<%= escape_javascript(will_paginate(@posts)) %>");
+  $("#posts").before('<div class="success"><%= escape_javascript(flash.delete(:success)) %></div>');
+  $("#<%= dom_id(@post) %>").effect("highlight", {}, 3000);
 <%end%>
-$(".notice").fadeOut(1500);
+
+<%if (@new_post || @post).parent_id.present?%>
+    $("#reply-form")[0].reset();
+<%else%>
+  $("#thread-form")[0].reset();
+<%end%>
+
