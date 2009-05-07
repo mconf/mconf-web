@@ -17,7 +17,7 @@
 		<%elsif @posts.size == 1%>	   
 	     	<h3>1 post was found</h3>
      		<% @posts.each do |post| %>
-      			<%=render :partial => "posts/post", :locals => { :post =>  post, :selected_post => false}%> 
+      			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false}%> 
     		<%end%>
 	  <%else%>
         <h3 class="red"><%=@posts.size%> posts was found</h3>
