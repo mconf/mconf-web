@@ -33,23 +33,7 @@ $("#new_doc_link").attr('href', '#');
   	<%= render :partial => "new_reply", :locals => { :post => @post } %>
 	<% end %>
 <% end %>
-<div id="post">
-  <div id="parent_<%=@post.id%>">
-  		<b><%=link_to (@post.title, space_post_path(@space,@post))%></b>
-		Updated <%=time_ago_in_words(@post.updated_at)%> ago  
-		
-		<%=link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), space_posts_path(@space,:reply_to => @post),{:class => 'reply_to_link',:title => "reply"} if @space.authorizes?([:create, :content],:to => current_user)%>
-		<%=link_to image_tag("ui/icons/cross.png", :alt => "delete" ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => "delete" }if @post.authorizes?(:delete, :to => current_user)%>
-		<%=link_to image_tag("ui/icons/pencil.png", :alt => "edit" ), get_route(@post), :title => "edit" if @post.authorizes?(:update, :to => current_user) %>
-		
-		<div class="<%=@post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>">
-      <%for comment in @posts%>
-			  <%=render :partial => "post" , :locals => { :post =>  comment, :selected_post => false}%>
-			<%end%>
-		</div>
-		</br>
-	</div>
-</div>
 
+<%= render :partial => 'post_with_children' %>
 
 <%= will_paginate @posts %>

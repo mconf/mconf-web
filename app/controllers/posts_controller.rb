@@ -22,24 +22,22 @@ class PostsController < ApplicationController
   authorization_filter :delete, :post, :only => [ :destroy ]
 
   def index
-    @posts = Post.parents.in_container(@space).find(:all, 
-                                                    :order => "updated_at DESC"
-                                                   ).paginate(:page => params[:page],
-                                                              :per_page => 5)       
-    
-      respond_to do |format|
-        format.html 
-        format.atom 
-        format.xml { render :xml => @posts }
+    posts
+   
+    respond_to do |format|
+      format.html 
+      format.atom 
+      format.xml { render :xml => @posts }
     end
   end
 
   # Show this Entry
   #   GET /posts/:id
   def show
-    session[:current_tab] = "News"
     @show_view = true
-    @posts= [@post].concat(@post.children).paginate(:page => params[:page], :per_page => 5)
+
+    post_with_children(post)
+
     respond_to do |format|
       format.html {}
       format.xml { render :xml => @post.to_xml }
@@ -143,7 +141,15 @@ class PostsController < ApplicationController
       format.html {
         redirect_to request.referer
       }
-      format.js
+      format.js {
+        if params[:show]
+          @new_post = @post
+          @post = @post.parent
+          post_with_children(@post, :last => true)
+        else
+          posts
+        end
+      }
       format.atom { 
         headers["Location"] = formatted_space_post_url(@space, @post, :atom )
         render :action => :show,
@@ -196,7 +202,7 @@ class PostsController < ApplicationController
    
    
    @post.save! #salvamos el artículo y con ello su entrada asociada  
-     flash[:valid] = "Post created"
+     flash[:success] = "Post updated"
     if @attachment
       @attachment.post = @post
       @attachment.save!
@@ -262,4 +268,24 @@ class PostsController < ApplicationController
       format.xml { head :ok }
     end
   end
+
+  private
+
+  # DRY (used in index and create.js)
+  def posts
+   @posts ||= Post.parents.in_container(@space).find(:all, 
+                                                     :order => "updated_at DESC"
+                                                   ).paginate(:page => params[:page],
+                                                              :per_page => 5)       
+  
+  end
+
+  def post_with_children(parent_post, options = {})
+    total_posts = Array(parent_post).concat(parent_post.children)
+    per_page = 5
+    page = params[:page] || options[:last] && total_posts.size.fdiv(per_page).ceil
+
+    @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
+  end
+
 end
