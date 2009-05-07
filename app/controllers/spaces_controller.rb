@@ -201,7 +201,9 @@ class SpacesController < ApplicationController
       space.stage_performances.create! :agent => current_agent,
                                        :role => Space.roles.find{ |r| r.name == "User" }
     else
-      space.join_requests.create! :candidate => current_user
+      jr = space.join_requests.new
+      jr.candidate = current_user
+      jr.save!
       flash[:notice] = t('join_request.created')
     end
     redirect_to space
