@@ -115,9 +115,9 @@ div.group{float:left;width:510px;padding-bottom:0.5em;}
 div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:1px #CCC solid;padding:8px 0 0 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
-.odd,.even{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
-.odd{background:#E6EFC2;border-color:#C6D880;}
-.even{background:#FBE3E4;border-color:#FBC2C4;}
+.odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
+.odd_thread{background:#E6EFC2;border-color:#C6D880;}
+.even_thread{background:#FBE3E4;border-color:#FBC2C4;}
 .group_links{float:right;}
 .group_links ul{margin:0.75em 0 0.666em 0.5em;}
 .group_links ul li{display:inline-block;}
