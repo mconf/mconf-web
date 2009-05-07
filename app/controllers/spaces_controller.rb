@@ -179,7 +179,6 @@ class SpacesController < ApplicationController
           message = ""
           @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
-          render :action => :new
           return
         end
       end
