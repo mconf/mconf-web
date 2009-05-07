@@ -1,8 +1,12 @@
- <h4 class="title"><%=@user.full_name%> profile (Hcard)</h4>
+ <h4 class="title"><%=@user.full_name%> profile (Hcard)</h4> 
+
+<%if current_user.superuser? || @user==current_user%>
+	<%= button_to 'Edit', edit_user_profile_path(@user) ,:method => :get %>  
+<%end%>
 
  <div class="vcard" id="card">
  	
-	<%=link_logo(@user)%>
+	<%=logo(@user, :size => 96)%>
 	
 	<span class="fn n"><%=@user.full_name%></span>
    
@@ -10,11 +14,10 @@
  			
 		 <p class="street-address"> <%= @profile.address%> </p>
 		 <p class="locality"> <%= @profile.city%></p>
-		 <span class="region" title="<%= @profile.province%>"><%= @profile.province%></span>
-		 <span class="postal-code"> <%= @profile.zipcode%></span>
-		
 		 <p class="country-name"><%= @profile.country%></p>
- 
+		 <p class="region"><%= @profile.province%></span>
+		 <p class="postal-code"> <%= @profile.zipcode%></span>
+				 
  	</div>
 	
   	
@@ -28,13 +31,23 @@
 		 <p class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></p>
 	 
 	 </div>
-
 </div>
 
+<div>
+	<h4><%= @user_spaces.nil? ? "The User doesn't belong to any space" : "Member of : "%></h4>
+		<%for space in @user_spaces do%>
+			<p><%= space.authorizes? ([:read , :Content], :to => current_user) ? link_logotype(space, :size => 48) : logotype(space, :size => 48)%></p>
+		<%end%>
+</div>
+
+<div>
+	<h4><%= @latest_posts.nil? ? "The User doesn't have recent activity" : "Latest Posts" %></h4>
+		<% for post in @latest_posts -%>
+			<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
+		<%end%>	
+</div>
 <br/>
-<%if current_user.superuser? || @user==current_user%>
-<%= button_to 'Edit', edit_user_profile_path(@user) ,:method => :get %>  
-<%end%>
+
 <!--<div class="type">
  			<abbr class="geo" title="40.546157;-3.636475">Work</abbr>
 		 	</div>
