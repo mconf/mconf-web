@@ -50,7 +50,6 @@ a.button, button, #sidebar input[type=submit] {
   cursor:pointer;
   -webkit-border-radius:7px;-moz-border-radius:7px;
 }
-
 /* forms.css */
 .error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
@@ -59,16 +58,15 @@ a.button, button, #sidebar input[type=submit] {
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
-
 /*File upload button*/
 .file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
 /*----------------------- grid.css ---------------------------*/
+/*body{background:url(/images/grid.png);}*/
 
 /*all css for the header and the navigation part(tabs, search,etc*/
-/*body{background:url(/images/grid.png);}*/
 body{min-width:960px;}
-body .icon{margin-bottom:-3px;}
+body .icon{margin-bottom:-2px;}
 #global,#space,#footer{width:950px;margin:0 auto;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
@@ -107,21 +105,17 @@ body .icon{margin-bottom:-3px;}
 #menu li .selected:hover{background:#FFF;}
 #menu li .admin:hover{background:#2C3746;border:1px solid #2C3746;}
 
-/*
-.thread-wrapper ul{list-style-type:none;}
-.thread{margin:0.5em 0;}
-.thread h3 {float:left;}
-.thread ul{text-align:right;font-size:0.9166em;line-height:3.2726;margin:0;padding:0;}
-.thread ul li{display:inline;margin:0 0 0 5px;}
-*/
-
-/*view of the people and groups*/
+/*users and groups*/
 div.group{float:left;width:510px;padding-bottom:0.5em;}
 #main span.selected{font-weight:bold;margin-left:0.5em;margin-right:0.5em;}
 #main #list_by_groups_selected a{margin-left:0.5em;}
 div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:1px #CCC solid;padding:8px 0 0 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
+.user ul.user-actions{float:right;margin-right:0.5em;}
+.user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
+.user div{float:left;}
+/*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .odd_thread{background:#E6EFC2;border-color:#C6D880;}
 .even_thread{background:#FFF6BF;border-color:#FFD324;}
@@ -133,20 +127,8 @@ div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:
 .even_thread .post:hover{background:#f5df51;}/*amarillo*/
 .odd_thread .post_i{border-top-color:#C6D880;}
 .even_thread .post_i{border-top-color:#FFD324;}
-
-.thread_options ul{list-style-type:none;text-align:right;margin:0;}
-.thread_options ul li{display:inline-block;}
-.group_links{float:right;}
-.group_links ul{margin:0.75em 0 0.666em 0.5em;}
-.group_links ul li{display:inline-block;}
-.group_links ul.edit-post{padding-top:3px;margin:0.75em 0.75em 0.666em 0.5em;}
-.thread-title{padding:0.5em 0;margin:0.25em 0;}
-.post-title{float:left;}
-.post-title{margin-left:0.75em;}
-.user ul.user-actions{float:right;margin-right:0.5em;}
-.user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
-.user div{float:left;}
-#posts h2{margin-bottom:0;}
+/*main format at threads and posts for the titles and divs */
+#posts h2{margin-bottom:0;font-size:1.666em;line-height:1.333;}
 #posts h3 a,#posts h2 a{color:#111;text-decoration:none;}
 #posts h3 a:hover,#posts h2 a:hover{text-decoration:underline;}
 #posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
@@ -155,27 +137,40 @@ div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:
 .post p{margin:0.75em 0 0.75em 0.75em;}
 .post img.logo{width:22px;height:22px;}
 .post_i{clear:both;font-size:0.9166em;line-height:1.6363;border-top:1px #CCC solid;}
+.thread-title{padding:0.5em 0;margin:0.25em 0;}
+.post-title{float:left;}
+.post-title{margin-left:0.75em;}
+/*options links for posts, threads, people..*/
+.thread_options ul{list-style-type:none;text-align:right;margin:0;}
+.thread_options ul li{display:inline-block;}
+.group_links{float:right;}
+.group_links ul{margin:0.75em 0 0.666em 0.5em;}
+.group_links ul li,ul.group_links li{display:inline-block;}
+.group_links ul.edit-post{padding-top:3px;margin:0.75em 0.75em 0.666em 0.5em;}
 ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}
+/*space home, latest users,posts and events*/
 #latest_posts{margin-bottom:1.5em;}
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
 #sidebar input[type="submit"]{margin-top:0.75em;}
 #sidebar p img{margin-right:5px;}
-.space-desc p{margin-bottom:0;}
 #inc-events,.space-desc{width:230px;float:left;/*padding-left:10px;*/}
+.space-desc p{margin-bottom:0;}
 #inc-events{margin-top:0.75em;}
 #inc-events ul{list-style-type:none;margin:0;}
 li.event {position:relative;}
 li.event:hover {text-decoration:underline;}
 li.event h5{margin-bottom:0;}
 a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2px;width:100%;height:100%;background:none;}
+/*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 #sidebar input[type="text"],#sidebar input[type="date"],#sidebar input[type="time"]{width:92%;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg, #change-event{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg,#change-event{-webkit-border-radius:7px;-moz-border-radius:7px;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#new-priv-msg,#change-event h3{margin-top:0;padding-top:0.75em;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea{width:92%;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea{height:8.3333em;margin-bottom:0.5em;}
+/*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:0.9166em;line-height:1.6363;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
 .actions li{display:inline;margin-right:8px;}
@@ -184,7 +179,7 @@ a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2p
 .no_javascript ul{margin-right:1.5em;}
 #new_photo_form,#new_doc_form{margin-top:0.75em;}
 #sidebar #caption{margin-top:0.75em;}
-
+/*footer*/
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
 #footer{clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
