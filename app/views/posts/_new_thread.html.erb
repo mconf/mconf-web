@@ -1,4 +1,7 @@
 <% content_for :javascript do %>
+$("#thread-form").ajaxForm({
+/*  dataType: 'script' */
+});
  $("#thread-form").submitWithAjax();
  $("#new_comment_link").addClass("selected");
  $(".new_thread_options").click(function(){
