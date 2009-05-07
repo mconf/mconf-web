@@ -1,13 +1,23 @@
 <span><%= link_to "Create space", new_space_path, :class => "new_space_link" %></a></span>
 
 <br/><br/>
-<h5>All Spaces</h5>
 <ul>
-  <% Space.all(:order => :name).select{|s| s.authorizes?([:read, :content], :to => current_user)}.each do |space| %>
-  	<% if @space and @space.name == space.name %>
-   		<li><%= link_to space.name, space_path(space), :class => "selected" %></li>
-  	<% else %>
-  		<li><%= link_to space.name, space_path(space) %></li>
-  	<% end %>	
-  <% end %>
+	
+	<%if current_user %>
+	  <%@my_spaces = my_spaces() %>
+		<%@spaces = other_public_spaces(@my_spaces)%>
+  <%else%>	
+	  <%@spaces = other_public_spaces() %>
+	<%end%>
+	  
+		<h3><%= "My Spaces " unless @my_spaces.blank?%> </h3>
+		<%for space in @my_spaces%>
+		  <li><%=(@space and @space.name == space.name)? link_to(space.name, space_path(space), :class => "selected") : link_to (space.name, space_path(space)) %></li>
+		<%end%>
+		 <br/>
+		<h3><%= "Public Spaces " unless @spaces.blank?%> </h3>
+		<%for space in @spaces%>
+		 <li><%=(@space and @space.name == space.name)? link_to(space.name, space_path(space), :class => "selected") : link_to(space.name, space_path(space)) %></li>
+		<%end%>		
+
 </ul>
