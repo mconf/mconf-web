@@ -2,17 +2,13 @@
 	<div class="thread_options">
 	  <ul>
 	  	<li><%=link_to image_tag("icons/arrow-rotate-anticlockwise.png",:alt => "reply" ), space_posts_path(@space,:reply_to =>thread),{:class => 'reply_to_link', :title => "reply"}if @space.authorizes?([:create, :content],:to => current_user)%></li>
-		<li><%=link_to image_tag("icons/cross.png", :alt => "delete" ), space_post_path(@space,thread),{ :class => 'delete_thread', :method => :delete, :title => "delete" } if thread.authorizes?(:delete, :to => current_user)%></li>
+		<li><%=link_to image_tag("icons/cross.png", :alt => "delete" ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => "Do you want to delete this thread?", :method => :delete, :title => "delete" } if thread.authorizes?(:delete, :to => current_user)%></li>
 		<li><%=link_to image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), get_route(thread), :title => "edit" if thread.authorizes?(:update, :to => current_user)%></li>
 	  </ul>
 	</div>
 	
   	<div class="thread-title">
-<<<<<<< HEAD:app/views/posts/_thread.html.erb
-  		<h2><%=image_tag("icons/comment.png",:class=>"icon")%><%=link_to (thread.title, space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
-=======
-  		<h2><%=image_tag("icons/comment.png")%><%=link_to (first_words(thread.title, 20), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
->>>>>>> aa4b3b0197c0e8b7af1f43b2067e02b1898b8629:app/views/posts/_thread.html.erb
+  	<h2><%=image_tag("icons/comment.png")%><%=link_to (first_words(thread.title, 20), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 		<span class="updated"> Updated <%=time_ago_in_words(thread.updated_at)%> ago</span>
 		</h2>  
 	</div>
