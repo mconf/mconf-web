@@ -20,6 +20,8 @@ h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
 a:focus,a:hover{color:#1F488F;}
 a{color:#0476D9;text-decoration:underline;}
+a.read_more_link{text-decoration:none;}
+a.read_more_link:hover{text-decoration:underline;}
 blockquote{margin:1.5em;color:#666;font-style:italic;}
 strong{font-weight:bold;}
 em,dfn{font-style:italic;}
@@ -106,15 +108,22 @@ body .icon{margin-bottom:-2px;}
 #menu li .admin:hover{background:#2C3746;border:1px solid #2C3746;}
 
 /*users and groups*/
-div.group{float:left;width:510px;padding-bottom:0.5em;}
+div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
+.group h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
+.group ul{margin:0;padding:9px 0.5em 0 0;}
 #main span.selected{font-weight:bold;margin-left:0.5em;margin-right:0.5em;}
 #main #list_by_groups_selected a{margin-left:0.5em;}
-div.user{position:relative;float:left;background:#eaeaea;width:510px;border-top:1px #CCC solid;padding:8px 0 0 0.75em;}
+#list_by_names_selected,#list_by_groups_selected{padding:9px 0.5em 0 0;}
+#results_count h3,.group h3{margin:0;}
+#results_count{padding:9px 0.75em 8px 0.75em;background:#bdd8eb;}
+div.user,div.read_more{position:relative;clear:both;overflow:hidden;}
+div.user{background:#eaeaea;border-top:1px #CCC solid;padding:10px 0 7px 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
 .user div{float:left;}
+
 /*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .odd_thread{background:#E6EFC2;border-color:#C6D880;}
@@ -151,6 +160,8 @@ ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}
 /*space home, latest users,posts and events*/
 #latest_posts{margin-bottom:1.5em;}
+#latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb;}
+#latest_posts .read_more,#latest_users .read_more{padding:5px 0.75em;background:#bdd8eb;}
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
 #sidebar input[type="submit"]{margin-top:0.75em;}
