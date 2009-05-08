@@ -1,24 +1,75 @@
+<% content_for :javascript do  %>
+  $(".space_item").hover(
+	  function () {
+		    var route = "div#" + $(this).attr("name");
+				$("#space_description div").hide();
+				$(route).show();
+				
+      }, 
+      function () {
+
+      }
+    );
+  
+	/* TODO with Antonio Tapiador */ 
+  $(".unautorized form").submit(function(){
+	  var route = $(this).attr("action");
+    $.post(route,
+            {authenticity_token: "<%=form_authenticity_token()%>"},
+            function(data){
+              $("#space_description").append(data);
+            }
+          );
+		return false;
+  });
+<% end %>
 
 
 <% content_for :sidebar do  %>
-  <%= link_to "New Space", new_space_path(), :id => "new_space_link22"%>
+  <div id="space_description">
+  	<% for space in @spaces %>
+		  <div style="display:none;" id="<%=space.permalink%>" >
+			  <%= render :partial=> "space_description", :locals => {:space => space}%>
+		  </div>
+		<%end%>
+  </div>
 <% end %>
 
 <% @page_title = "Spaces"-%>
 
-<h1>Spaces</h1>
+<h3>Private Spaces</h3>
 
-<% @spaces.each do |space| %>
-<div id = "spaces_list">
-  <%= link_to sanitize(space.name), space %>
-  <% unless space.authorizes?(:read, :to => current_agent) %>
-    <strong>Private</strong>
-    <% form_for [ space, JoinRequest.new ] do |f| %>
-      <%= f.submit "Join Request" %>
-    <% end if authenticated? %>
-  <% end %>
-  <br />
-  <%= sanitize(space.description) if space.description.present? %>
+<div id = "private_spaces">
+	<% for space in @private_spaces %>
+	  <% unless space.authorizes?(:read, :to => current_agent) %>
+	    <div class="space_item unautorized" name="<%=space.permalink%>">
+			  <% form_tag join_space_path(space) do %>
+          <%= image_submit_tag(logo_path (space, :size=> 48, :title => space.name, :alt => space.name))%>
+        <% end %>
+			</div>
+		<% else %>
+		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
+		<% end %>
+	<% end %>
 </div>
-<% end %>
 
+<h3>Public Spaces</h3>
+
+<div id = "public_spaces">
+  <ul>
+  <% for space in @public_spaces %>
+    <% unless space.authorizes?(:read, :to => current_agent) %>
+      <li class="space_item unautorized" name="<%=space.permalink%>">
+        <%=link_logo (space, :size=> 48, :title => space.name)%> <%= link_to sanitize(space.name), space %>
+        <% form_for [ space, JoinRequest.new ] do |f| %>
+          <%= f.submit "Join Request" %>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></li>
+    <% end %>
+  <% end %>
+  </ul>
+</div>
+
+<div id="" style="display:none"></div>

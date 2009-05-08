@@ -12,7 +12,9 @@ class SpacesController < ApplicationController
   # GET /spaces.xml
   # GET /spaces.atom
   def index
-    @spaces = Space.find(:all, :conditions=>["id != 1"] )    
+    @spaces = Space.find(:all, :conditions=>["id != 1"] )
+    @private_spaces = @spaces.select{|s| !s.public?}
+    @public_spaces = @spaces.select{|s| s.public?}
     if @space
        session[:current_tab] = "Spaces" 
     end
@@ -39,7 +41,9 @@ class SpacesController < ApplicationController
     @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(5)
     @incoming_events=@space.events.find(:all, :order => "start_date DESC").select{|e| e.start_date.future?}.first(5)
     respond_to do |format|
-      format.js {render :partial=>"last_news"}
+      format.js {
+        render :partial=>"last_news"
+      }
       format.html # show.html.erb
       format.xml  { render :xml => @space }
       format.atom
