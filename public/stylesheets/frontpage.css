@@ -74,8 +74,8 @@ body .icon{margin-bottom:-3px;}
 #feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
 #header{margin-top:1em;height:68px;margin-bottom:1em;}
 #logo, #search{float:left;}
-#logo{width:160px;}
-#search{margin-top:1.25em;}
+#logo{width:281px;}
+#search{margin-top:25px;margin-left:40px;}
 #search input{font-size:1em;width:150px;}
 #prefs{font-size:0.9166em;line-height:1.6363;text-align:right;}
 #prefs ul{list-style-type:none;margin:0;}
