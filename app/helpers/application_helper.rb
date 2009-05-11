@@ -9,4 +9,13 @@ module ApplicationHelper
    Space.all(:conditions => {:public => true}, :order => :name) - user_spaces
  end
 
+ def menu(tab)
+   @menu_tab = tab
+ end
+
+ def menu_options(tab, options = {})
+   @menu_tab == tab ?
+     options.update({ :class => 'selected' }) :
+     options
+ end
 end

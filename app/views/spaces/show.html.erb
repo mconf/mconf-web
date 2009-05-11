@@ -1,3 +1,5 @@
+<% menu(:home) %>
+
 <% content_for :javascript do  %>
   $(".news_navigation_link").livequery("click", function(){
 	  var route = $(this).attr("href");

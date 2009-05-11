@@ -1,3 +1,4 @@
+<% menu :admin %>
 <h2>Pending Join Requests</h2>
 <% if @space.join_requests.pending.any? %>
   <% @space.join_requests.pending.each do |jr| %>
