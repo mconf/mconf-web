@@ -238,7 +238,7 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
    <% end %>
 <%end%>
 
- <div class="group_links">
+ <div class="group_links" id="events_links">
    <%=link_to "All", space_events_path(@space), {:id => 'all_link'}%> |
    <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%> |
    <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
@@ -257,7 +257,7 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
 
 	
 <div id="all_events" <%= 'style="display: none;"' if (params[:show] == 'incoming_events' or params[:show] == 'past_events' )%>>
-  <h3>Events</h3>
+
   <div id="events">
 	  <h3>Incoming Events</h3> 
 	  
