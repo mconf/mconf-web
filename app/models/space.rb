@@ -20,6 +20,11 @@ class Space < ActiveRecord::Base
     group.save
   }
 
+  named_scope :public, lambda {
+    { :conditions => { :public => true } }
+  }
+ 
+
   def emailize_name
     self.name.gsub(" ", "")
   end
