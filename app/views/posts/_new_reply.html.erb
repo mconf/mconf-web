@@ -5,6 +5,7 @@
  	$(".new_reply_options").removeClass("selected");
 	$(this).addClass("selected");});
 <% end %>
+<div id="new_reply">
 <h3>Reply to <%= post.title %></h3>
   <div id="post-buttoms" class="actions">
     <ul>
@@ -33,3 +34,4 @@
   <%= hidden_field_tag "post[parent_id]", params[:reply_to]%>
   <%= submit_tag "Post Now!" %> <%= link_to 'or Add a new Thread', space_posts_path(@space) %>
 <% end -%>
+</div>

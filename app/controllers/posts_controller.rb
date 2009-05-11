@@ -39,6 +39,7 @@ class PostsController < ApplicationController
     post_with_children(post)
 
     respond_to do |format|
+      format.js { render :partial => "new_reply", :locals => { :post => @post }}
       format.html {}
       format.xml { render :xml => @post.to_xml }
       format.atom 
