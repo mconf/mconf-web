@@ -1,5 +1,27 @@
 <% menu :admin %>
-<h2>Pending Join Requests</h2>
+<% content_for :sidebar do -%>
+  <h3><%= "New Invitations" %></h3>
+
+  <%= error_messages_for :object => (@invitations || []) %>
+
+  <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
+    <p>
+    <%= f.label :email, "Emails (separated by commas)" %><br />
+    <%= f.text_field :email %>
+    </p>
+
+    <p>
+    <%= f.label :role, t('invitation.role') %><br />
+    <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
+    </p>
+
+    <p>
+    <%= f.submit t(:create) %>
+    </p>
+  <% end %>
+<% end -%>
+
+<h3>Pending Join Requests</h3>
 <% if @space.join_requests.pending.any? %>
   <% @space.join_requests.pending.each do |jr| %>
     <% form_for [ @space, jr ] do |f| %>
@@ -13,29 +35,10 @@
 There aren't pending join requests.
 <% end -%>
 
-<h2>Pending invitations</h2>
+<h3>Pending invitations</h3>
 <% if @space.invitations.pending.any? %>
   <%= render :partial => 'invitation', :collection => @space.invitations.pending %>
 <% else -%>
 There aren't pending invitations
 <% end -%>
 
-<h2><%= t('invitation.new') %></h2>
-
-<%= error_messages_for :object => (@invitations || []) %>
-
-<% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
-  <p>
-  <%= f.label :email, "Emails (separated by commas)" %><br />
-  <%= f.text_field :email %>
-  </p>
-
-  <p>
-  <%= f.label :role, t('invitation.role') %><br />
-  <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
-  </p>
-
-  <p>
-  <%= f.submit t(:create) %>
-  </p>
-<% end %>
