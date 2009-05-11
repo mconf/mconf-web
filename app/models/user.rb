@@ -59,6 +59,14 @@ def logo
   profile && profile.logo
 end
 
+  def spaces
+    stages.select{ |s| s.is_a?(Space) }.sort_by{ |s| s.name }
+  end
+
+  def other_public_spaces
+    Space.public.all(:order => :name) - spaces
+  end
+
 #this method let's the user to login with his e-mail
   def self.authenticate_with_login_and_password(login, password)
     u = find_by_login(login) # need to get the salt
