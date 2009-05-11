@@ -44,13 +44,19 @@
    <%end%>
 	 </p>
 	 
-	 <p id="collapsed_post_<%=post.id%>" style="display:none">
-	   <%=sanitize(first_words(post.text,200))%><br />
-		 <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
-	 </p>
-
-	 <p id="expanded_post_<%=post.id%>">
-   <%=sanitize(post.text)%><br />
-   </p>
+	 <%if post.text.size < 200%>
+	   <p>
+     <%=sanitize(post.text)%><br />
+     </p>
+	 <%else%>
+		 <p id="collapsed_post_<%=post.id%>" style="display:none">
+		   <%=sanitize(first_words(post.text,200))%><br />
+			 <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+		 </p>
+	
+		 <p id="expanded_post_<%=post.id%>">
+	   <%=sanitize(post.text)%><br />
+	   </p>
+   <%end%>	 
 	 </div>
 <%end%>
