@@ -4,7 +4,6 @@ class SpacesController < ApplicationController
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy]
-  authorization_filter [ :create, :performance ], :space, :only => [:join]
 
   set_params_from_atom :space, :only => [ :create, :update ]
 
