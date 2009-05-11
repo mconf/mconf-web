@@ -207,13 +207,19 @@ class SpacesController < ApplicationController
     if space.public?
       space.stage_performances.create! :agent => current_agent,
                                        :role => Space.roles.find{ |r| r.name == "User" }
+      redirect_to space
     else
       jr = space.join_requests.new
       jr.candidate = current_user
       jr.save!
       flash[:notice] = t('join_request.created')
+      if request.xhr?
+        render :partial => "request_sent"
+      else
+        redirect_to spaces_path  
+      end
     end
-    redirect_to space
+    
   end
   
    

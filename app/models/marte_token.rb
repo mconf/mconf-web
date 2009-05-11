@@ -17,11 +17,11 @@
 	  
 	  
 	  #define the headers to add Authentication
-	  def self.headers
+	  def self.headers(attributes = {})
 		#debugger
 		#get the params to fill in the headers
-		userName=@attributes[:username]
-		role=@attributes[:role]
+		userName = attributes['username']
+		role = attributes['role']
 		
 		#timestamp without decimals
 		timestamp=Time.now.to_i
@@ -41,7 +41,23 @@
 			"Content-Type" => "application/xml",
 			"Authorization"=> "MAuth realm=\"#{MARTE_URL}\", mauth_signature_method=\"HMAC_SHA1\", mauth_serviceid=\"#{SERVICE_NAME}\",mauth_signature=\"#{signature}\",mauth_timestamp=\"#{timestamp}\",mauth_cnonce=\"#{cnonce}\",mauth_version=\"#{MAUTH_VERSION}\"#{extra_header}"
 		}		
-		
-		puts headers
 	end
+
+	#redefined to remove format.extension
+        def self.collection_path(prefix_options = {}, query_options = nil)
+            prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+            "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
+        end
+
+	def self.element_path(id, prefix_options = {}, query_options = nil)
+		prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+           "#{prefix(prefix_options)}#{collection_name}/#{id}#{query_string(query_options)}"
+     	end
+
+        def create
+          returning connection.post(collection_path, encode, self.class.headers(attributes)) do |response|
+            self.id = id_from_response(response)
+            load_attributes_from_response(response)
+          end
+        end
    end

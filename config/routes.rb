@@ -11,7 +11,10 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     space.resources :readers
-    space.resources :events, :collection => [:add_time, :copy_next_week, :remove_time]
+    space.resources :events,
+                     :collection => [:add_time, :copy_next_week, :remove_time],
+                     :member => { :tokens => :post }
+
     space.resources :posts
     space.resources :attachments
     space.resources :entries

@@ -1,6 +1,16 @@
 <% menu :people %>
- <% content_for :javascript do %>
+<% content_for :javascript do %>
 	<%= render :partial => 'list_javascript' %>
+	$("#users_search").livequery('keyup', function() {
+    var filter_text = this.value.toLowerCase();
+    $("div.user").each(function() {
+        if($(this).text().toLowerCase().search(filter_text)>=0){
+          $(this).slideDown("slow");
+      }else{
+          $(this).slideUp("slow");
+      }
+      });
+  });
 <% end %>
 
 <% content_for :search do  %>
