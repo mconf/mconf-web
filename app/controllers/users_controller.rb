@@ -84,12 +84,7 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     @user = @agent = model_class.new
-    respond_to do |format|
-      format.html
-      format.js{
-        render :partial => "register"
-      }
-    end
+    render :partial => "register" if request.xhr?
   end
   
   # POST /users
@@ -209,12 +204,8 @@ class UsersController < ApplicationController
   end
 
   def lost_password
-    respond_to do |format|
-      format.html 
-      format.js{
-        render :partial => "lost_password_form"
-      }
-    end
+    render :partial => "lost_password_form" if request.xhr?
+
   end
 
   def user_is_current_agent

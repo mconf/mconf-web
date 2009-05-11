@@ -29,6 +29,32 @@ $("#create_and_register_link").livequery("click", function(){
 });
 
 /*
+ * Join space
+ */
+
+$("a.join_and_login_link").livequery("click", function(){
+  $(this).attr("href","javascript:void(0)");
+  var route = "/spaces/" + $(this).attr("name") +"/join" 
+  $.post(route,
+        {authenticity_token: "<%=form_authenticity_token()%>"},
+        function(data){
+          $(".join_div").replaceWith(data);
+        }
+      );
+});
+
+$("a.join_and_register_link").livequery("click", function(){
+  $(this).attr("href","javascript:void(0)");
+	var route = "/spaces/" + $(this).attr("name") +"/join?register=true"
+  $.post(route,
+        {authenticity_token: "<%=form_authenticity_token()%>"},
+        function(data){
+          $(".join_div").replaceWith(data);
+        }
+      );
+});
+
+/*
  * Log in
  */
 

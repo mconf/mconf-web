@@ -28,12 +28,15 @@ class PrivateMessage < ActiveRecord::Base
     {:conditions => {:deleted_by_sender => false, :sender_id => user_id},
     :order => "created_at DESC"}
   }
+
+# Commented because it causes an error when a user is joining to a space and sends private messages to space admins
                           
-  def validate
-    unless User.find(self.sender_id).fellows.include?(User.find(self.receiver_id))
-      errors.add(:receiver_id, "Receiver and sender have to share one or more spaces.")
-    end
-  end
+#  def validate
+#    unless User.find(self.sender_id).fellows.include?(User.find(self.receiver_id))
+#      errors.add(:receiver_id, "Receiver and sender have to share one or more spaces.")
+#    end
+#  end
+
 
 	def after_update
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver

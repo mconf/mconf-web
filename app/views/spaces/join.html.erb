@@ -1,10 +1,12 @@
+<div class="join_div">
+
 <h1>Join <%= space.name %></h1>
 
 <% form_tag join_space_path(space) do %>
   <% unless logged_in? %>
     <ul>
-      <li><%= link_to_if params[:register], "Login", join_space_path(space) %></li>
-      <li><%= link_to_unless params[:register],"Register", join_space_path(:register => true) %></li>
+      <li><%= link_to "Login", join_space_path(space), {:class => "join_and_login_link", :name => space.permalink} %></li>
+      <li><%= link_to "Register", join_space_path(:register => true), {:class => "join_and_register_link", :name => space.permalink}  %></li>
     </ul>
 
     <p>
@@ -27,6 +29,7 @@
   </p>		
 <%end%>
 	
-  <%= submit_tag "Create" %>
+  <%= submit_tag "Join" %>
 <% end %>
 
+</div>

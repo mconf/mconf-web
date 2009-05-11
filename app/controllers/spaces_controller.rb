@@ -173,15 +173,19 @@ class SpacesController < ApplicationController
 
   def join
     unless authenticated?
-      return unless params[:user]
+      unless params[:user]
+        render :layout => false if request.xhr?
+        return
+      end
 
       if params[:register]
         cookies.delete :auth_token
         @user = User.new(params[:user])
         unless @user.save_with_captcha
           message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+          @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
           flash[:error] = message
+          render :layout => false if request.xhr?
           return
         end
       end
@@ -189,6 +193,7 @@ class SpacesController < ApplicationController
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
         flash[:error] = "Invalid credentials"
+        render :layout => false if request.xhr?
         return
       end
     end
