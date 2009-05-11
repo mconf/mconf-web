@@ -39,7 +39,17 @@ class PostsController < ApplicationController
     post_with_children(post)
 
     respond_to do |format|
-      format.js { render :partial => "new_reply", :locals => { :post => @post }}
+      format.js {
+        if params[:edit]
+          if post.parent_id
+            render :partial => "edit_reply", :locals => { :post => post }
+          else
+            render :partial => "edit_thread", :locals => { :post => post }
+          end
+        else
+          render :partial => "new_reply", :locals => { :post => @post }  
+        end
+      }
       format.html {}
       format.xml { render :xml => @post.to_xml }
       format.atom 
@@ -244,11 +254,7 @@ class PostsController < ApplicationController
 =end           
     respond_to do |format|
       format.html { 
-         if params[:show]
-          redirect_to space_post_url(@space,@post.parent)
-        else
-          redirect_to space_posts_url(@space)
-        end
+          redirect_to request.referer
       }
       format.atom { head :ok }
     end

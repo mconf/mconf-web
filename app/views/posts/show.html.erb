@@ -19,6 +19,16 @@ $("#new_doc_link").click(function () {
 });
 $("#new_doc_link").attr('href', '#');
 
+$("a.edit_post_link").click(function(){
+  var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name") + "?edit=true";
+  $.get(route,
+      {authenticity_token: "<%=form_authenticity_token()%>"},
+      function(data){
+        $("#sidebar").children("div:last").replaceWith(data);
+      }
+    );
+  return false;
+});
 
 <% end %>
 

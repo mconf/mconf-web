@@ -5,7 +5,8 @@
 	$(this).addClass("selected");});
 <% end %>
 
-<h3>Edit a thread</h3>
+<div id="edit_thread">
+<h3>Edit thread</h3>
   <div id="post-buttoms" class="actions">
     <ul>
       <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]), { :id => 'new_comment_link',:class =>"edit_thread_options" } %></li>
@@ -30,3 +31,4 @@
     <%= f.text_area :text, :class => "span-6"%>
     <%= submit_tag "Update" %>
   <% end -%>
+</div>	

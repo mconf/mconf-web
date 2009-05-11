@@ -4,7 +4,7 @@
 		Updated <%=time_ago_in_words(@post.updated_at)%> ago  
 
 		<%=link_to image_tag("ui/icons/cross.png", :alt => "delete" ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => "delete" }if @post.authorizes?(:delete, :to => current_user)%>
-		<%=link_to image_tag("ui/icons/pencil.png", :alt => "edit" ), get_route(@post), :title => "edit" if @post.authorizes?(:update, :to => current_user) %>
+		<%=link_to image_tag("ui/icons/pencil.png", :alt => "edit" ), get_route(@post), {:name => @post.id, :class => 'edit_post_link', :title => "edit"} if @post.authorizes?(:update, :to => current_user) %>
 		
 		<div class="<%=@post.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>">
       <%for comment in @posts%>
