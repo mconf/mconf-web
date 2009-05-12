@@ -38,6 +38,7 @@
 		
 		#everything ready, create the message headers			
 		headers = {
+			"Accept" => "application/xml",
 			"Content-Type" => "application/xml",
 			"Authorization"=> "MAuth realm=\"#{MARTE_URL}\", mauth_signature_method=\"HMAC_SHA1\", mauth_serviceid=\"#{SERVICE_NAME}\",mauth_signature=\"#{signature}\",mauth_timestamp=\"#{timestamp}\",mauth_cnonce=\"#{cnonce}\",mauth_version=\"#{MAUTH_VERSION}\"#{extra_header}"
 		}		
