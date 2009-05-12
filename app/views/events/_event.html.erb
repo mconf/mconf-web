@@ -8,6 +8,12 @@
     <ul>
 		<li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%></li>
 		<li class="author"> Author: <%=sanitize(event.author.name)%></li>
+		<%if event.isabel_event%>
+			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
+		<%elsif event.marte_event%>
+			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, event)%></li>
+		<%end%>
+		
 		<li> Description: <%=sanitize(event.description)%></li>
     </ul>
  </div>

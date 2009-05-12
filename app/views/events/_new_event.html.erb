@@ -19,7 +19,14 @@
 		<li><%=f.datetime_select :end_date%></li>
 	</ul>
 	</div>
-
+	<div>
+		<label for="isabel_event" class="label_izquierda" >Isabel event:</label>
+		<%=f.check_box :isabel_event  %>
+	</div>
+	<div>
+		<label for="marte_event" class="label_izquierda" >Marte event:</label>
+		<%=f.check_box :marte_event  %>
+	</div>
   	<p>
   	<%= f.submit "Create" %>
   	</p>
