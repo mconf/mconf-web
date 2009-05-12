@@ -1,9 +1,9 @@
 <% if space %>
   <ul>
-    <li><%= link_to "Home", space_path(space), menu_options(:home) %></li>
-    <li><%= link_to "Posts", space_posts_path(space), menu_options(:posts) %></li>
-    <li><%= link_to "Events", space_events_path(space), menu_options(:events) %></li>
-    <li><%= link_to("People", space_users_path(space), menu_options(:people)) if space.authorizes?([:read, :performance], :to => current_user) %></li>
-    <li><%= link_to("Admin", edit_space_path(space), menu_options(:admin, :class => "admin")) if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %></li>
+    <li><%= link_to "HOME", space_path(space), menu_options(:home) %></li>
+    <li><%= link_to "POSTS", space_posts_path(space), menu_options(:posts) %></li>
+    <li><%= link_to "EVENTS", space_events_path(space), menu_options(:events) %></li>
+    <li><%= link_to("PEOPLE", space_users_path(space), menu_options(:people)) if space.authorizes?([:read, :performance], :to => current_user) %></li>
+    <li><%= link_to("ADMIN", edit_space_path(space), menu_options(:admin, :class => "admin")) if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %></li>
   </ul>
 <% end %>
