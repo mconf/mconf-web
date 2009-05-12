@@ -105,12 +105,12 @@ body .icon{margin-bottom:-2px;}
 #menu{background:#F5F5F5;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
-#menu li a{display:inline-block;background:#CCC;padding:0.5em 1.5em;border-right:1px solid #999;/*border-bottom:1px solid #999;*/text-decoration:none;color:#666;}
-#menu li .selected{background:#FFF;/*border-bottom:1px solid #FFF;*/color:#111;}
-#menu li .admin{background:#1E2B38;border-right:#353B41;color:#FFF;}
-#menu li a:hover{background:#d8d8d8;}
+#menu li a{display:inline-block;background:#CCC;padding:0.5em 1.5em;border-right:1px solid #777;text-decoration:none;color:#666;}
+#menu li .selected{background:#FFF;border:none;color:#555;}
+#menu li .admin{background:#1E2B38;color:#FFF;}
+#menu li a:hover{background:#d8d8d8;border-right-color:#999;}
 #menu li .selected:hover{background:#FFF;}
-#menu li .admin:hover{background:#2C3746;/*border:1px solid #2C3746;*/}
+#menu li .admin:hover{background:#464a50;}
 
 /*users and groups*/
 div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
