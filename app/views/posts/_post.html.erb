@@ -30,7 +30,7 @@
     </div>
 	<div class="group_links">
 	  <ul class="edit-post">
-	    <li><%=link_to("edit post " + image_tag("icons/comment-edit.png", :alt => "edit comment"), get_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
+	    <li><%=link_to("edit post " + image_tag("icons/comment-edit.png", :alt => "edit comment"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
 	  </ul>
 	</div>
 	<%else%>

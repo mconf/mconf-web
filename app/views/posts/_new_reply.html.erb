@@ -9,9 +9,9 @@
 <h3>Reply to <%= post.title %></h3>
   <div id="post-buttoms" class="actions">
     <ul>
-      <li><%= link_to 'Comment', space_posts_path(@space, :reply_to => post.id), { :id => 'new_comment_link',:class =>"new_reply_options" } %></li>
-      <li><%= link_to 'Photos', space_posts_path(@space, :reply_to => post.id, :form => 'photos'), { :id => 'new_photo_link',:class =>"new_reply_options" } %></li>
-      <li><%= link_to 'Docs', space_posts_path(@space, :reply_to => post.id, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_reply_options" } %></li>
+      <li><%= link_to 'Comment', get_reply_route(post), { :id => 'new_comment_link',:class =>"new_reply_options" } %></li>
+      <li><%= link_to 'Photos', get_reply_route(post,'photos'),  { :id => 'new_photo_link',:class =>"new_reply_options" } %></li>
+      <li><%= link_to 'Docs', get_reply_route(post,'docs'), { :id => 'new_doc_link',:class =>"new_reply_options" } %></li>
     </ul>
   </div>
 
@@ -31,7 +31,7 @@
   <%if @show_view%>
     <%= hidden_field_tag :show, "true"%>
   <%end%>
-  <%= hidden_field_tag "post[parent_id]", params[:reply_to]%>
+  <%= hidden_field_tag "post[parent_id]", post.id%>
   <div class="float">
   <%= image_submit_tag "buttons/create.png" %>
   </div>

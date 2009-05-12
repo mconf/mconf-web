@@ -14,7 +14,9 @@ class Attachment < ActiveRecord::Base
   end
 
   def local_affordances
-    post.affordances
+    parent ?
+      parent.affordances :
+      post.affordances
   end
 
   # Implement atom_entry_filter for AtomPub support

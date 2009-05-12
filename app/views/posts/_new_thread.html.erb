@@ -1,8 +1,12 @@
 <% content_for :javascript do %>
 $("#thread-form").ajaxForm({
-/*  dataType: 'script' */
+  dataType: 'script',
+  success: function(data){
+    if (data == "") {
+      window.location = '<%= space_posts_url(@space) %>';
+    }
+  }
 });
- $("#thread-form").submitWithAjax();
  $("#new_comment_link").addClass("selected");
  $(".new_thread_options").click(function(){
  	$(".new_thread_options").removeClass("selected");
