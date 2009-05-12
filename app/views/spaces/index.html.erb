@@ -30,6 +30,11 @@
 
 
 <% content_for :sidebar do  %>
+  <div class="join">
+    <h2>Start now!</h2>
+    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+    <%=link_to image_tag("new-space.jpg"),new_space_path(), :class => "new_space_link"%>  
+  </div>
   <div id="space_description">
   	<% for space in @spaces %>
 		  <div style="display:none;" id="<%=space.permalink%>" >
