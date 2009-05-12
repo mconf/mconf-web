@@ -78,10 +78,12 @@ class PostsController < ApplicationController
     @post.author = current_agent
     # Para comentarios desde el espacio Public
     # FIXME? Quitar si se elimina el espacio Public
+
     @post.space = params[:post][:parent_id] ?
                          @post.parent.space :
                          @space
-    
+  
+  
     unless @post.valid?
       respond_to do |format|
         format.html {   
