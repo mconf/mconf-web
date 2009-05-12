@@ -5,6 +5,13 @@
  *  Reply panel
  */
 
+$("#reply-form").postsForm('<%= space_post_url(@space,@post, :last_page => true) %>');
+
+$(".new_reply_options").click(function(){
+    $(".new_reply_options").removeClass("selected");
+    $(this).addClass("selected");
+});
+
 $("#new_comment_link").livequery('click',function () { 
   $("#new_photo_form").hide();
   $("#new_doc_form").hide();
@@ -31,7 +38,6 @@ $("a.edit_post_link").click(function(){
         $("#sidebar").children("div:last").replaceWith(data);
 				
 				 /*Edit thread*/
-         $("#new_comment_link").addClass("selected");
          $(".edit_thread_options").click(function(){
          $(".edit_thread_options").removeClass("selected");
          $(this).addClass("selected");});

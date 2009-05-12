@@ -10,3 +10,14 @@ jQuery.fn.submitWithAjax = function() {
   })
   return this;
 };
+
+jQuery.fn.postsForm = function(route){
+	this.ajaxForm({
+		dataType: 'script',
+		success: function(data){
+			if (data == "") {
+				window.location = route;
+			}
+		}
+	});
+};

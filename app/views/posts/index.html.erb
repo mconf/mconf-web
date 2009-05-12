@@ -37,8 +37,8 @@ $("a.reply_to_link").click(function(){
         $("#sidebar").children("div:last").replaceWith(data);
 				
 				/* Reply panel javascript*/
-			  $("#reply-form").submitWithAjax();
-        $("#new_comment_link").addClass("selected");
+				$("#reply-form").postsForm('<%= space_posts_url(@space) %>');
+				
         $(".new_reply_options").click(function(){
         $(".new_reply_options").removeClass("selected");
         $(this).addClass("selected");});
@@ -55,7 +55,8 @@ $("a.edit_post_link").click(function(){
         $("#sidebar").children("div:last").replaceWith(data);
 				
 				 /*Edit thread*/
-				 $("#new_comment_link").addClass("selected");
+				 $("#edit-form").postsForm('<%= space_posts_url(@space) %>');
+
          $(".edit_thread_options").click(function(){
          $(".edit_thread_options").removeClass("selected");
          $(this).addClass("selected");});
