@@ -46,7 +46,7 @@ button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
 a.button, button, #sidebar input[type=submit] {
   border:none;
-  background-color:#AAA;
+  /*background-color:#AAA;*/
   font-family:"Lucida Grande";
   font-size:95%;
   line-height:135%;
@@ -86,7 +86,8 @@ body .icon{margin-bottom:-2px;}
 #logo{width:128px;}
 #logo img.logo{width:100%;}
 #search{margin-top:1.25em;margin-left:32px;}
-#search input{font-size:1em;width:150px;}
+#search input[type="text"]{font-size:1em;width:150px;}
+#search a img,#search input[type="image"]{margin-bottom:-7px;}
 #prefs{font-size:0.9166em;line-height:1.6363;text-align:right;}
 #prefs ul{list-style-type:none;margin:0;}
 #prefs li{margin-left:12px;display:inline;}
@@ -206,6 +207,8 @@ div.single_event:hover{background:#e5e5e5;}
 .no_javascript ul{margin-right:1.5em;}
 #new_photo_form,#new_doc_form{margin-top:0.75em;}
 #sidebar #caption{margin-top:0.75em;}
+#sidebar .float{float:left;}
+#sidebar .float a{padding-left:5px;}
 /*footer*/
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
