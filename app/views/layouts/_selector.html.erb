@@ -1,9 +1,10 @@
-<span><%= link_to "Create space", new_space_path, :class => "new_space_link" %></a></span>
+<div>
+	<span><%= link_to "Create space", new_space_path, :class => "new_space_link" %></a></span>
+</div>
 
-<br/><br/>
 <ul>
   <% if authenticated? && current_user.spaces.any? %>
-    <h3><%= "My Spaces" %></h3>
+    <h3 class="selector_title"><%= "My Spaces" %></h3>
     <% current_user.spaces.each do |s| %>
     <li><%= link_to(s.name, s, (@space == s ? { :class => "selected" } : {})) %></li>
     <% end -%>
@@ -11,7 +12,7 @@
 
   <% public_spaces = ( authenticated? ? current_user.other_public_spaces : Space.public.all(:order => :name ) ) %>
   <% if public_spaces.any? %>
-    <h3><%= "Public Spaces" %></h3>
+    <h3 class="selector_title"><%= "Public Spaces" %></h3>
     <% public_spaces.each do |s| %>
     <li><%= link_to(s.name, s, (@space == s ? { :class => "selected" } : {})) %></li>
     <% end -%>

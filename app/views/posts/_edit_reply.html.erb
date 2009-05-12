@@ -5,7 +5,8 @@
 	$(this).addClass("selected");});
 <% end %>
 
-<h3>Edit a comment</h3>
+<div id="edit_reply">
+<h3>Edit comment</h3>
   <div id="post-buttoms" class="actions">
     <ul>
       <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]), { :id => 'new_comment_link',:class =>"edit_reply_options" } %></li>
@@ -27,3 +28,4 @@
     
     <%= submit_tag "Update" %>
   <% end -%>
+</div>

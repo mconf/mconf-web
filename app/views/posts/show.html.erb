@@ -1,24 +1,49 @@
 <% menu :posts %>
 <% content_for :javascript do %>
- 
-$("#new_comment_link").click(function () { 
+
+/*
+ *  Reply panel
+ */
+
+$("#new_comment_link").livequery('click',function () { 
   $("#new_photo_form").hide();
   $("#new_doc_form").hide();
+  return false;
 });
-$("#new_comment_link").attr('href', '#');
 
-$("#new_photo_link").click(function () {
+$("#new_photo_link").livequery('click',function () {
   $("#new_photo_form").show(); 
   $("#new_doc_form").hide();
+  return false;
 });
-$("#new_photo_link").attr('href', '#');
 
-$("#new_doc_link").click(function () {
+$("#new_doc_link").livequery('click',function () {
   $("#new_photo_form").hide();
   $("#new_doc_form").show();
+  return false;
 });
-$("#new_doc_link").attr('href', '#');
 
+$("a.edit_post_link").click(function(){
+  var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name") + "?edit=true";
+  $.get(route,
+      {authenticity_token: "<%=form_authenticity_token()%>"},
+      function(data){
+        $("#sidebar").children("div:last").replaceWith(data);
+				
+				 /*Edit thread*/
+         $("#new_comment_link").addClass("selected");
+         $(".edit_thread_options").click(function(){
+         $(".edit_thread_options").removeClass("selected");
+         $(this).addClass("selected");});
+         
+         /*Edit reply*/
+         $(".edit_reply_options").click(function(){
+         $(".edit_reply_options").removeClass("selected");
+         $(this).addClass("selected");});
+      }
+    );
+  return false;
+});
 
 <% end %>
 
@@ -30,8 +55,17 @@ $("#new_doc_link").attr('href', '#');
 <%end%>
 <%if @space.authorizes?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
-  	<% params[:reply_to] = @post.id %>
-  	<%= render :partial => "new_reply", :locals => { :post => @post } %>
+	  <%if params[:edit]%>
+		  <% post = Post.find(params[:edit]) %>
+      <% if post.parent_id %>
+          <%= render :partial => "edit_reply", :locals => { :post => post } %>
+      <% else %>
+          <%= render :partial => "edit_thread", :locals => { :post => post } %>
+      <% end %>
+		<%else%>
+  	  <% params[:reply_to] = @post.id %>
+  	  <%= render :partial => "new_reply", :locals => { :post => @post } %>
+		<%end%>
 	<% end %>
 <% end %>
 
