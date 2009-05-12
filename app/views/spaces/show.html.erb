@@ -17,15 +17,19 @@
 <% content_for :search do  %>
   <% form_tag(search_users_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-      <button>Search</button>
+      <%=link_to(image_tag("buttons/search.png"))%>
   <% end %>
 <%end%>
 
 <% content_for :sidebar do  %>
-  <% unless space.users.include?(current_user) %>
   <div id="join">
-    <% form_tag join_space_path(space) do %>
-    <%= submit_tag("Join this Space") %>
+  <% if space.users.include?(current_user)%>
+	<% form_tag join_space_path(space) do %>
+    <%= image_submit_tag("buttons/leave-space.png") %>
+    <% end %>
+  <%else%>
+	<% form_tag join_space_path(space) do %>
+    <%= image_submit_tag("buttons/join-space.png") %>
     <% end %>
   </div>
   <% end %>

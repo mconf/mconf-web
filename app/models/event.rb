@@ -34,6 +34,39 @@ class Event < ActiveRecord::Base
 #    end
   end
 
+  after_save do |event|
+    if event.marte_event? && ! event.marte_room?
+      mr = begin
+             MarteRoom.create(:name => event.id)
+           rescue => e
+             logger.warn "Failed to create MarteRoom: #{ e }"
+             nil
+           end
+
+      event.update_attribute(:marte_room, true) if mr
+    end
+  end
+
+  after_destroy do |event|
+    if event.marte_event? && event.marte_room?
+      begin
+        MarteRoom.find(event.id).destroy
+      rescue
+      end
+    end
+  end
+
+  def marte_room
+    return nil unless marte_event?
+
+    begin
+      MarteRoom.find(self.id)
+    rescue
+      update_attribute('marte_room', false) if attributes['marte_room']
+      nil
+    end
+  end
+
   # Additional Permissions
   def local_affordances
     [ ActiveRecord::Authorization::Affordance.new(author, :update),

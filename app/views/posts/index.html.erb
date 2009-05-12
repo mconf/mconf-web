@@ -74,14 +74,14 @@ $("a.edit_post_link").click(function(){
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= image_submit_tag "icons/magnifier.png", :class=>'go'%>
+	  <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 <%end%>
 <% content_for :sidebar do  %>
   <% unless space.users.include?(current_user) %>
   <div id="join">
     <% form_tag join_space_path(space) do %>
-    <%= submit_tag("Join this Space") %>
+    <%= image_submit_tag("buttons/join-space.png") %>
     <% end %>
   </div>
   <% end %>

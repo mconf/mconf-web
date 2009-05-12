@@ -32,6 +32,11 @@
     <%= hidden_field_tag :show, "true"%>
   <%end%>
   <%= hidden_field_tag "post[parent_id]", post.id%>
-  <%= submit_tag "Post Now!" %> <%= link_to 'or Add a new Thread', space_posts_path(@space) %>
+  <div class="float">
+  <%= image_submit_tag "buttons/create.png" %>
+  </div>
+  <div class="float">
+  <%= link_to 'or Add a new Thread', space_posts_path(@space) %>
+  </div>
 <% end -%>
 </div>
