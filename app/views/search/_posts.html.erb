@@ -6,17 +6,18 @@
 <% end %>
 
 <div>
-		<%if @posts == []%>
+		<%if @number_of_posts == 0%>
 	     	<h3>No posts found</h3>
-		<%elsif @posts.size == 1%>	   
+		<%elsif @number_of_posts == 1%>	   
 	     	<h3>1 post was found</h3>
      		<% @posts.each do |post| %>
       			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false}%> 
     		<%end%>
 	  <%else%>
-        <h3 class="red"><%=@posts.size%> posts was found</h3>
+        <h3 class="red"><%=@number_of_posts%> posts was found</h3>
      		<% @posts.each do |post| %>
      			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false} %> 
      		<%end%>
-		<%end%>	
+				<%= will_paginate @posts %>
+		<%end%>
 </div>
