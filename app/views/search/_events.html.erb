@@ -1,35 +1,16 @@
 
-<h2 class="title separador"> Events</h2>
-<br/>
 <div class="contenido_search">    
-	<% if @events == nil %>
-		Please insert something in the search box
-	<% else%>
-	
-		<% if @events == []%>
-			<p class="red">No events found</p>
-		<% else%>
-			<% if @events.size == 1%>
-				<h3 class="red"> 1 event was found</h3>
-				<!--genera la tabla de eventos-->
-       			<%=generate_event_table%>	
-	   
-				<% @events.each do |event| %>  
-					<%=show_event(event)%> <!--muestra cada uno de los eventos-->
-				<% end %>
-			<%else%>
-				<h3 class="red"> <%= @events.size%> events were found</h3>
-    		<%if @events.size != 0%>
-				<!--genera la tabla de eventos-->
-       			<%=generate_event_table%>	
-	   			<% @events.each do |event| %>  
-				<%=show_event(event)%> <!--muestra cada uno de los eventos-->
-				<% end %>
-			<% end %>
-			<%end%>
-		<%end%> 
-   <%end%>
-
+  <%if @events == []%>
+		<h3>No events found</h3>
+	<% elsif @events.size == 1%>
+		<h3> 1 event was found</h3>
+		<% @events.each do |event| %>  
+			<%= render :partial => event %>
+		<% end %>
+	<%else%>
+		<h3><%= @events.size%> events were found</h3>
+	  <% @events.each do |event| %>  
+      <%= render :partial => event %>
+		<% end %>
+	<%end%>
 </div>
-<br/>
-<br/>

@@ -2,9 +2,9 @@ class SearchController < ApplicationController
   before_filter :space
   
   def all    
-    @events = search_events(params)
-    @users = search_users(params)
-    @posts = search_posts(params)
+    search_events(params)
+    search_users(params)
+    search_posts(params)
     respond_to do |format|        
       format.html     
     end
@@ -60,6 +60,7 @@ class SearchController < ApplicationController
   private
   
   def search_events(params)
+    @events=[]
     if params[:query]
       @query = params[:query]
       @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Event')
@@ -110,7 +111,6 @@ class SearchController < ApplicationController
       @query = ""
       end
     end
-    @events
   end
   
   def search_posts (params)

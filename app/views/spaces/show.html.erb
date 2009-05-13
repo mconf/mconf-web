@@ -15,7 +15,7 @@
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_users_path(@space), :method => 'get') do %>
+  <% form_tag(search_all_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query] %>
       <%=link_to(image_tag("buttons/search.png"))%>
   <% end %>

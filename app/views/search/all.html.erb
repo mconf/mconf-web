@@ -1,9 +1,15 @@
+<% content_for :search do  %>
+  <% form_tag(search_all_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+      <%=link_to(image_tag("buttons/search.png"))%>
+  <% end %>
+<%end%>
+
 <h2> Search Results</h2>
-<br/>
 
 <%= render :partial =>'events'%>
 
 <%= render :partial =>'users'%>
 
-<%= render :partial =>'posts'%>
+<%= render :partial =>'posts', :locals => {:first_five => true}%>
 

@@ -1,13 +1,10 @@
-<% content_for :search do  %>
-  <%= render :partial => 'users/search' %>
-<%end%>
+
 
 <div>
 	<br/>
 	
 	<%if @users == []%>
-		<p class="red">No users found</p>
-	  <br/>
+		<h3>No users found</h3>
 	<%else%>
 	 	
 		<%if @users.size == 1%>

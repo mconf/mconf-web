@@ -1,1 +1,8 @@
-<%= render :partial =>'posts'%>
+<% content_for :search do  %>
+  <% form_tag(search_posts_path(@space), :method => 'get') do %>
+      <%= text_field_tag :query, params[:query] %>
+    <%= image_submit_tag "icons/magnifier.png", :class=>'go'%>
+  <% end %>
+<% end %>
+
+<%= render :partial =>'posts', :locals=> {:first_five => false} %>
