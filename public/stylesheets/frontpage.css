@@ -9,7 +9,7 @@ blockquote,q{quotes:"" "";}
 a img{border:none;}
 
 /* typography.css */
-body{font-size:75%;color:#222;background:#F5F5F5;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
+body{font-size:75%;color:#222;background:#fff;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;background:#f00;}
 h2{font-size:2em;margin-bottom:0.75em;}
@@ -64,7 +64,8 @@ body{min-width:910px;}
 /*body{background:url(../images/grid.png);}*/
 body .icon{margin-bottom:-3px;}
 
-#global,#home,#footer{width:910px;margin:0 auto;}
+#global,#home,#footer{width:920px;margin:0 auto;}
+#home{background:#f0f0f0;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
 #global a{color:#EEE;text-decoration:none;}
@@ -72,10 +73,10 @@ body .icon{margin-bottom:-3px;}
 #global-logo img{margin:0 4px -4px 0;}
 #feedback{margin-left:160px;}
 #feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
-#header{margin-top:1em;height:68px;margin-bottom:1em;}
+#header{background:#fff;margin-top:1em;height:68px;margin-bottom:1em;}
 #logo, #search{float:left;}
 #logo{width:281px;}
-#search{margin-top:25px;margin-left:86px;}
+#search{margin-top:23px;margin-left:86px;}
 #search button{background-color:#244974;}
 #search input{font-size:1em;width:150px;}
 #prefs{font-size:0.9166em;line-height:1.6363;text-align:right;}
@@ -84,10 +85,10 @@ body .icon{margin-bottom:-3px;}
 #prefs a{color:#333;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-#content{clear:left;}
-#main{float:left;}
-#main{width:590px;margin-right:50px;}
-#sidebar{float:left;width:270px;}
+#content{clear:left;min-height:600px;}
+#main{float:left;margin-bottom:1.5em;}
+#main{width:590px;margin-right:40px;padding-left:10px;}
+#sidebar{float:left;width:270px;padding-right:10px;}
 
 /*content*/
 .wrapper{float:left;width:590px;}
@@ -125,4 +126,10 @@ div.rel-users,div.rcnt-posts{margin-top:1.5em;}
 strong.user_name{color:#611427;}
 p.dark_blue{color:#244974;}
 #list-events li span.red{color:#611427;font-weight:bold;}
-#footer{clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
+#footer{background:#fff;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
+#footer ul{list-style-type:none;margin:0 0.75em; }
+#footer ul li{display:inline-block;margin-right:0.5em;}
+#footer ul li#trade_mark{font-weight:bold;color:#111;}
+#footer a{color:#666;}
+#footer a:hover{color:#444;}
+#footer .icon,#global .icon{margin-bottom:-4px;}

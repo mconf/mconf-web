@@ -75,9 +75,10 @@ a.button, button, #sidebar input[type=submit] {
 /*all css for the header and the navigation part(tabs, search,etc*/
 body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
-#space{background-color:#f0f0f0;}
-#header{background-color:white;}
+#header{background-color:#fff;}
 #global,#space,#content,#footer{width:960px;margin:0 auto;}
+#space{background-color:#f0f0f0;}
+#content{clear:left;min-height:600px;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
 #global a{color:#EEE;text-decoration:none;}
@@ -99,7 +100,6 @@ body .icon{margin-bottom:-2px;}
 #prefs a{color:#333;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-#content{clear:left;min-height:600px;background-color:#f0f0f0;}
 #selector, #main{float:left;background-color:#f0f0f0;}
 #selector{width:150px;margin-right:10px;padding-left:10px;}
 
@@ -109,7 +109,7 @@ body .icon{margin-bottom:-2px;}
 #selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
 #selector ul li{padding-left:0.5em;}
 #selector .selected{text-decoration:none;color:#000;font-weight:bold;}
-#menu{background:#F5F5F5;margin-bottom:1em;}
+#menu{background:#F0F0F0;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
 #menu li a{display:inline-block;background:#CCC;padding:0.5em 1.5em;border-right:1px solid #777;text-decoration:none;color:#666;}
@@ -222,6 +222,9 @@ div.single_event:hover{background:#e5e5e5;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
 #footer ul li{display:inline-block;margin-right:0.5em;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
+#footer a{color:#666;}
+#footer a:hover{color:#444;}
+#footer .icon,#global .icon{margin-bottom:-4px;}
 
 /*davidCSS Temporal - */
 
