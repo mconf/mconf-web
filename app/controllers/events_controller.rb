@@ -184,6 +184,15 @@ class EventsController < ApplicationController
   end
   
   
+  #method to get the token to participate in a online videoconference
+  def tokens
+	  token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>@event.id
+	  token.id
+	  respond_to do |format|
+		  
+	  end
+  end
+  
   private
   def future_and_past_events
     @future_events = @events.select{|e| e.start_date.future?}
