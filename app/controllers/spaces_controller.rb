@@ -175,7 +175,9 @@ class SpacesController < ApplicationController
   def join
     unless authenticated?
       unless params[:user]
-        render :layout => false if request.xhr?
+        if request.xhr?
+          render :partial=> "join.js.erb"
+        end
         return
       end
 
@@ -186,7 +188,9 @@ class SpacesController < ApplicationController
           message = ""
           @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
           flash[:error] = message
-          render :layout => false if request.xhr?
+          if request.xhr?
+            render :partial=> "join.js.erb"
+          end
           return
         end
       end
@@ -194,28 +198,39 @@ class SpacesController < ApplicationController
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
         flash[:error] = "Invalid credentials"
-        render :layout => false if request.xhr?
+        if request.xhr?
+          render :partial=> "join.js.erb"
+        end
         return
       end
     end
 
     if space.users.include?(current_agent)
       flash[:notice] = "You are already in the space"
-      redirect_to space
+      if request.xhr?
+        render :partial=> "redirect.js.erb", :locals => {:url => space_path(space)}
+      else
+        redirect_to space
+      end
       return
     end
 
     if space.public?
       space.stage_performances.create! :agent => current_agent,
                                        :role => Space.roles.find{ |r| r.name == "User" }
-      redirect_to space
+      if request.xhr?
+        render :partial => "redirect.js.erb", :locals => {:url => space_path(space)}
+      else
+        redirect_to space
+      end
+    
     else
       jr = space.join_requests.new
       jr.candidate = current_user
       jr.save!
       flash[:notice] = t('join_request.created')
       if request.xhr?
-        render :partial => "request_sent"
+        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
       else
         redirect_to spaces_path  
       end
