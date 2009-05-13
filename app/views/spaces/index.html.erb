@@ -1,4 +1,26 @@
 <% content_for :javascript do  %>
+  
+	$("#space_filter").show();
+	
+	$("input#public").click(function(){
+	  $("#public_spaces").slideToggle("slow");
+	});
+	
+	$("input#private").click(function(){
+    $("#private_spaces").slideToggle("slow");
+  });
+	
+	$("#space_name_filter").keyup(function(){
+	  var filter_text = this.value.toLowerCase();
+    $("div.space_item").each(function() {
+        if($(this).attr("name").toLowerCase().search(filter_text)>=0){
+          $(this).css({ display:"inline"})
+      }else{
+          $(this).hide();
+      }
+      });
+	});
+
   $(".space_item").hover(
 	  function () {
 		    var route = "div#" + $(this).attr("name");
@@ -11,7 +33,6 @@
       }
     );
   
-	/* TODO with Antonio Tapiador */ 
   $(".unautorized form").submit(function(){
 	  var route = $(this).attr("action");
     $.post(route,
@@ -46,9 +67,15 @@
 
 <% @page_title = "Spaces"-%>
 
-<h3>Private Spaces</h3>
+<div id="space_filter" style="display:none">
+	Space filter: <%=text_field_tag 'space_name_filter'%>
+ <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
+</div>
 
 <div id = "private_spaces">
+
+  <h3>Private Spaces</h3>
+
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
@@ -62,23 +89,13 @@
 	<% end %>
 </div>
 
-<h3>Public Spaces</h3>
-
 <div id = "public_spaces">
-  <ul>
+
+  <h3>Public Spaces</h3>
+
   <% for space in @public_spaces %>
-    <% unless space.authorizes?(:read, :to => current_agent) %>
-      <li class="space_item unautorized" name="<%=space.permalink%>">
-        <%=link_logo (space, :size=> 48, :title => space.name)%> <%= link_to sanitize(space.name), space %>
-        <% form_for [ space, JoinRequest.new ] do |f| %>
-          <%= f.submit "Join Request" %>
-        <% end %>
-      </li>
-    <% else %>
-      <li class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></li>
-    <% end %>
+    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
   <% end %>
-  </ul>
 </div>
 
 <div id="lightbox_content" style="display:none"></div>
