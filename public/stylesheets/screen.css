@@ -71,8 +71,10 @@ a.button, button, #sidebar input[type=submit] {
 /*body{background:url(/images/grid.png);}*/
 
 /*all css for the header and the navigation part(tabs, search,etc*/
-body{min-width:960px;}
+body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
+#space{background-color:#f0f0f0;}
+#header{background-color:white;}
 #global,#space,#footer{width:950px;margin:0 auto;}
 #global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
 #global{padding:0.5em 0;}
@@ -94,11 +96,11 @@ body .icon{margin-bottom:-2px;}
 #prefs a{color:#333;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-#content{clear:left;}
-#selector, #main{float:left;}
+#content{clear:left;width:100%; height:100%;background-color:#f0f0f0;}
+#selector, #main{float:left;background-color:#f0f0f0;}
 #selector{width:150px;margin-right:10px;}
-#main{width:510px;margin-right:50px;background-color:#FFF;}
-#sidebar{float:left;width:230px;}
+#main{width:510px;margin-right:50px;background-color:white;}
+#sidebar{float:left;width:230px;background-color:#f0f0f0;}
 #selector h5{color:#888;margin-bottom:0.75em;}
 #selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
 #selector ul li{padding-left:0.5em;}
@@ -123,12 +125,12 @@ div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
 #results_count h3,.group h3{margin:0;}
 #results_count{padding:9px 0.75em 8px 0.75em;background:#bdd8eb;}
 div.user,div.read_more{position:relative;clear:both;overflow:hidden;}
-div.user{background:#eaeaea;border-top:1px #CCC solid;padding:10px 0 7px 0.75em;}
+div.user{background-color:white;border-top:1px #CCC solid;padding:10px 0 7px 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
-.user div{float:left;}
+.user div{float:left; }
 
 /*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
@@ -147,7 +149,7 @@ div.user{background:#eaeaea;border-top:1px #CCC solid;padding:10px 0 7px 0.75em;
 #posts h3 a,#posts h2 a{color:#111;text-decoration:none;}
 #posts h3 a:hover,#posts h2 a:hover{text-decoration:underline;}
 #posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
-.post{background:#eaeaea;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;border-top:1px #CCC solid;}
+.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;border-top:1px #CCC solid;}
 .post:hover,div.user:hover{background:#e5e5e5;}
 .post p{margin:0.75em 0 0.75em 0.75em;}
 .post img.logo{width:22px;height:22px;}

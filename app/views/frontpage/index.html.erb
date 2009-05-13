@@ -1,5 +1,5 @@
  <%content_for :logo do%>
- 	<%= image_tag("logo_small.png",:size=>"281x75") %>
+ 	<%= image_tag("logo_small2.png",:size=>"281x75") %>
  <%end%>
  
  <%content_for :search do%>
@@ -13,13 +13,13 @@
 		  <div class="join">
 			<h2>Start now!</h2>
 			<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-			<%=link_to image_tag("new-space.jpg"),new_space_path(), :class => "new_space_link"%> 	
+			<%=link_to image_tag("new-space2.jpg"),new_space_path(), :class => "new_space_link"%> 	
 		  </div>
 
 		  <div class="rel-users">
 			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> Relevant Users</h5>
 			
-			<p>Sidebar! we can see the more relevant users</p>
+			<p class="dark_blue">Sidebar! we can see the more relevant users</p>
 			
 			<div>
 				<%for user in @relevant_users%>
@@ -33,10 +33,11 @@
 			<h5><img class="icon" src="images/icons/comment.png"/> Recent comments </h5>
 				<%for comment in @recent_posts%>
 					<ul>
-			  		<li><strong><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
-			  			<p><%=sanitize(comment.text).first(100)%></p>
+			  		<li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
+			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 100))%><%= link_to "read more>>" ,space_post_path(comment.space,comment)%></p>
+						
 			  		</li>
-						<%= link_to "view complete comment >>", space_post_path(comment.space,comment)%>						
+												
 					</ul>
 				<%end%>			
 			
@@ -45,9 +46,9 @@
  <%end%>
  
 		  <div class="wrapper">
-			<h3>Popular Spaces</h3>
+			<h3 class="title">Popular Spaces</h3>
 			
-			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>
+			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for space in @popular_spaces%>
 				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
 			  	<%=link_logo (space, :size=> 128, :title => space.name)%>
@@ -57,9 +58,9 @@
 		  </div>        
 
 		  <div class="wrapper">
-			<h3>Recent Spaces</h3>
+			<h3 class="title">Recent Spaces</h3>
 			
-			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>			
+			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->			
 			<%for space in @recent_spaces%>
 				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
 			  	<%=link_logo (space, :size=>128,:title => space.name )%>
@@ -67,14 +68,19 @@
 				</div> 
 			<%end%>		  		
 		  </div>
-			
+		  
+		  <div class="wrapper right">
+		  	<%=link_to image_tag("find_other_spaces.png")%>
+		  		<!--<a href="#nogo" class="right">Find other spaces</a>-->
+		  </div>
+		  
 		  <div class="wrapper">
   	
-			<h3>Incoming Events</h3>
-			<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>
+			<h3 class="title">Incoming Events</h3>
+			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for event in @recent_events%>
 				<ul id="list-events">
-					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%> <span><%=sanitize(event.description.size >= 78 ? event.description.first(75) + "..." : event.description.first(75))  %></span></a></li>
+					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="red"> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%></span> <span><%=sanitize(event.description.size >= 78 ? event.description.first(75) + "..." : event.description.first(75))  %></span></a></li>
 				</ul>	
 			<%end%>								  
 			  
