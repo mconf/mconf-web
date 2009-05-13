@@ -24,12 +24,10 @@
 <% content_for :sidebar do  %>
   <div id="join">
   <% if space.users.include?(current_user)%>
-	<% form_tag join_space_path(space) do %>
-    <%= image_submit_tag("buttons/leave-space.png") %>
-    <% end %>
+		<%= link_to image_tag("buttons/leave-space.png", :alt => "Leave space" ), space_performance_path(@space, @performance), :method => :delete,:title => "Leave space" %>
   <%else%>
-	<% form_tag join_space_path(space) do %>
-    <%= image_submit_tag("buttons/join-space.png") %>
+	  <% form_tag join_space_path(space) do %>
+      <%= image_submit_tag("buttons/join-space.png") %>
     <% end %>
   </div>
   <% end %>

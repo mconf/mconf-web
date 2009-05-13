@@ -39,6 +39,7 @@ class SpacesController < ApplicationController
     @lastest_posts=@posts.find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(5)
     @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(5)
     @incoming_events=@space.events.find(:all, :order => "start_date DESC").select{|e| e.start_date.future?}.first(5)
+    @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space})
     respond_to do |format|
       format.js {
         render :partial=>"last_news"
