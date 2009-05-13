@@ -1,0 +1,5 @@
+$("#lightbox_content").children().remove();
+$("#lightbox_content").append("<%=escape_javascript(render :partial => "join.html.erb") %>");
+$("<a href=\"#lightbox_content\"></a>").fancybox({
+  'hideOnContentClick' : false
+}).click();

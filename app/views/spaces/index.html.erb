@@ -38,11 +38,7 @@
     $.post(route,
             {authenticity_token: "<%=form_authenticity_token()%>"},
             function(data){
-						  $("#lightbox_content").children().remove();
-              $("#lightbox_content").append(data);
-							$("<a href=\"#lightbox_content\"></a>").fancybox({
-                'hideOnContentClick' : false
-              }).click();
+						  eval(data);
             }
           );
 		return false;

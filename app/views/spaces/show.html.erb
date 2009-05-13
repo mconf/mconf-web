@@ -12,6 +12,17 @@
           );
 	});
 	
+	$("#join_form").submit(function(){
+    var route = $(this).attr("action");
+    $.post(route,
+            {authenticity_token: "<%=form_authenticity_token()%>"},
+            function(data){
+              eval(data);
+            }
+          );
+    return false;
+  });
+	
 <% end %>
 
 <% content_for :search do  %>
@@ -26,7 +37,7 @@
   <% if space.users.include?(current_user)%>
 		<%= link_to image_tag("buttons/leave-space.png", :alt => "Leave space" ), space_performance_path(@space, @performance), :method => :delete,:title => "Leave space" %>
   <%else%>
-	  <% form_tag join_space_path(space) do %>
+	  <% form_tag join_space_path(space), :id => "join_form" do %>
       <%= image_submit_tag("buttons/join-space.png") %>
     <% end %>
   </div>
@@ -102,6 +113,6 @@
   </div>
 </div>
 
-
+<div id="lightbox_content" style="display:none"></div>
 	
 	
