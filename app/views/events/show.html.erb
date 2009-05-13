@@ -1,3 +1,4 @@
+<% menu :events %>
 <!-- 
 Smart developers always View Source. 
 
@@ -71,7 +72,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// if we've detected an acceptable version
 	// embed the Flash Content SWF when all tests are passed
 	AC_FL_RunContent(
-			"FlashVars", "eventdate=<%=@event.start_date.strftime("%d/%m/%Y %I:%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%="/spaces/"+@space.name+"/events/"+@event.id.to_s+"/tokens"%>",
+			"FlashVars", "eventdate=<%=Time.now.strftime("%m/%d/%Y %I:%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%="/spaces/"+@space.name+"/events/"+@event.id.to_s+"/tokens"%>",
 			"src", "/flash/BackwardsTimer",
 			"width", "100%",
 			"height", "100%",
@@ -108,7 +109,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 				allowScriptAccess="sameDomain"
 				type="application/x-shockwave-flash"
 				pluginspage="http://www.adobe.com/go/getflashplayer"
-				FlashVars="eventdate=<%=@event.start_date.strftime("%d/%m/%Y %I:%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%="/spaces/"+@space.name+"/events/"+@event.id.to_s+"/tokens"%>">
+				FlashVars="eventdate=<%=@event.start_date.strftime("%m/%d/%Y %I:%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%="/spaces/"+@space.name+"/events/"+@event.id.to_s+"/tokens"%>">
 			</embed>
 	</object>
 </noscript>

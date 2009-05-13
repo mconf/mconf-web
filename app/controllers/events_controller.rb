@@ -105,7 +105,7 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     respond_to do |format|
-      format.html # show.html.erb
+	    format.html {render :layout => "conference_layout"} # show.html.erb
       format.xml  { render :xml => @event }
       format.js 
       format.ical {export_ical}
@@ -186,12 +186,22 @@ class EventsController < ApplicationController
   
   #method to get the token to participate in a online videoconference
   def tokens
-	  token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>@event.id
-	  token.id
-	  respond_to do |format|
-		  
+	  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+	  if @token.nil?
+		  MarteRoom.create :name => params[:id]
+		  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
 	  end
+	  if @token.nil?
+		respond_to do |format|
+			format.html { render :layout => false, :status => 500}
+	  	end
+	  else
+	       respond_to do |format|
+		       format.html { render :layout => false}
+	       end
+  	  end
   end
+  
   
   private
   def future_and_past_events
