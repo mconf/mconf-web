@@ -23,17 +23,17 @@ class GroupsController < ApplicationController
       respond_to do |format|
       format.html {
         flash[:success] = "The group " + @group.name + " has been successfully created"
-        redirect_to space_groups_path(@space)
+        redirect_to request.referer
       }
       end
     else
       flash[:error] = "The group is not valid"
-      redirect_to space_groups_path(@space)
+      redirect_to request.referer
     end
   end
   
   def edit
-    redirect_to space_groups_path(@space, :edit_group => params[:id])
+    redirect_to space_groups_path(@space, :edit_group => params[:id], :admin => params[:admin])
   end
   
   def update
@@ -52,12 +52,12 @@ class GroupsController < ApplicationController
       respond_to do |format|
       format.html {
       flash[:success] = "The group " + @group.name + " has been successfully updated"
-        redirect_to space_groups_path(@space)
+        redirect_to request.referer
       }
       end
     else
       flash[:error] = "The group could not be updated"
-      redirect_to space_groups_path(@space)
+      redirect_to request.referer
     end
   end
   
@@ -67,12 +67,12 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html {
         flash[:success] = "The group has been successfully deleted"
-        redirect_to space_groups_path(@space)
+        redirect_to request.referer
       }
       end
     else
       flash[:error] = "Error deleting the group"
-      redirect_to space_groups_path(@space)
+      redirect_to request.referer
     end
   end
 end
