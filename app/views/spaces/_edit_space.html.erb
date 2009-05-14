@@ -1,5 +1,5 @@
 <% content_for :headers do%>
-  <%= javascript_include_tag 'jquery.jeditable' %>
+  <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle' %>
 <%end%>
 
 <% content_for :javascript do%>
@@ -53,11 +53,12 @@
 		edit_logo = function(){
 		  $('#update_logo').show();
 			$('#edit_logo').parent().hide();
+			style_file_input();
 		}
 	 
 <%end%>
 
-<div id="space-conf">
+
 <h3>Space configuration</h3>
 
 <% form_for @space, :html => { :multipart => true, :id => "nonjavascript_form" } do |f| %>
@@ -87,7 +88,7 @@
 
 <div id="jedit_form" style="display:none">
 	<p>
-    <label for="name">Name:</label>
+    <label for="name">Name:</label><br />
 		<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_name()", :id => "edit_name_icon"%>
   </p>
 	<p>
@@ -95,7 +96,7 @@
 		<span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_description()", :id => "edit_description_icon"%>
   </p>
 	<p>
-    <label for="public">Allow public access:</label> 
+    <label for="public">Public Access:</label> 
     <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
   </p>
 	<p>
@@ -105,10 +106,7 @@
 	
 	<% form_for @space, :html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
 	  <%= f.logo %>
-	<div class="margin-up">
-	<%= image_submit_tag "buttons/update.png" %>
-	</div>
+    <%= submit_tag 'Update' %>
   <%end%>
 		
-</div>
 </div>

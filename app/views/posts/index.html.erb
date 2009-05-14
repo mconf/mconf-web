@@ -1,7 +1,25 @@
 <% menu :posts %>
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle'%>
+<% end -%>
+
 <% content_for :javascript do %>
 
 $(".delete_thread").submitWithAjax();
+
+/*
+ *  New thread panel
+ */
+
+$("#thread-form").postsForm('<%= space_posts_url(@space) %>');
+
+$(".new_thread_options").click(function(){
+  $(".new_thread_options").removeClass("selected");
+  $(this).addClass("selected");
+});
+
+style_file_input();
 
 /*
  *  Reply panel
@@ -42,6 +60,8 @@ $("a.reply_to_link").click(function(){
         $(".new_reply_options").click(function(){
         $(".new_reply_options").removeClass("selected");
         $(this).addClass("selected");});
+				
+				style_file_input();
       }
     );
 	return false;
@@ -65,6 +85,8 @@ $("a.edit_post_link").click(function(){
 				 $(".edit_reply_options").click(function(){
 			 	 $(".edit_reply_options").removeClass("selected");
 		 		 $(this).addClass("selected");});
+				 
+				 style_file_input();
       }
     );
   return false;
