@@ -1,3 +1,4 @@
+
 /* http://keith-wood.name/timeEntry.html
    Time entry for jQuery v1.4.3.
    Written by Keith Wood (kbwood{at}iinet.com.au) June 2007.
@@ -96,7 +97,7 @@ $.extend(TimeEntry.prototype, {
 		var spinnerSize = this._get(inst, 'spinnerSize');
 		var appendText = this._get(inst, 'appendText');
 		var spinner = (!spinnerImage ? null : 
-			$('<span class="timeEntry_control" style="display: inline-block; ' +
+			$('<span class="timeEntry_control" style="display: none; ' +
 			'background: url(\'' + spinnerImage + '\') 0 0 no-repeat; ' +
 			'width: ' + spinnerSize[0] + 'px; height: ' + spinnerSize[1] + 'px;' +
 			($.browser.mozilla && $.browser.version < '1.9' ? // FF 2- (Win)

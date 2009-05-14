@@ -9,7 +9,7 @@
   </div>
   <div>
 	<label for="Description">Description:</label>
-	<%=f.text_area :description, :class => "span-6"  %>
+	<%=f.text_area :description  %>
   </div>  
   <div class="no_javascript">
     <ul>
@@ -19,15 +19,18 @@
 	  <li><%=f.datetime_select :end_date%></li>
 	</ul>
   </div>
-  <div>
+  <div class="checkbox_event">
+		<%=f.check_box :isabel_event,:class=>"icon"  %>
 		<label for="isabel_event" class="label_izquierda" >Isabel event:</label>
-		<%=f.check_box :isabel_event  %>
 	</div>
-	<div>
+	<div class="checkbox_event">
+		<%=f.check_box :marte_event ,:class=>"icon" %>
 		<label for="marte_event" class="label_izquierda" >Online event:</label>
-		<%=f.check_box :marte_event  %>
 	</div>
-  	<p>
+	<div class="margin-up">
+	<%= image_submit_tag "buttons/create.png" %>
+	</div>  	
+	<p>
   	<%= f.submit "Update" %>
   	</p>
 <% end %>
