@@ -50,7 +50,7 @@
   <div class="join">
     <h2>Start now!</h2>
     <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    <%=link_to image_tag("new-space.jpg"),new_space_path(), :class => "new_space_link"%>  
+    <%=link_to image_tag("buttons/create-space.png"),new_space_path(), :class => "new_space_link"%>  
   </div>
   <div id="space_description">
   	<% for space in @spaces %>
@@ -64,8 +64,8 @@
 <% @page_title = "Spaces"-%>
 
 <div id="space_filter" style="display:none">
-	Space filter: <%=text_field_tag 'space_name_filter'%>
- <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
+  <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
+  <%=text_field_tag 'space_name_filter',"Space filter..."%>
 </div>
 
 <div id = "private_spaces">

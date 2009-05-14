@@ -201,6 +201,8 @@ div.single_event:hover{background:#e5e5e5;}
 .date{color:#c31313;font-weight:bold;}
 .author{color:#244974;font-weight:bold;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
+#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
+.join h2{margin-bottom:0;margin-top:2px;color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg, #change-event,#space-conf,#news_sidebar{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
@@ -235,6 +237,7 @@ div.single_event:hover{background:#e5e5e5;}
 /*davidCSS Temporal - */
 
 /*index de spaces*/
-.space_item {display:inline;}
+#space_filter{padding:0.5em;background:#bdd8eb;}
+.space_item {display:inline-block;width:48px;}
 .space_item form{display:inline;}
 .space_item form div{display:inline;}
