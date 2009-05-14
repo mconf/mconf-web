@@ -37,8 +37,18 @@ class GroupsController < ApplicationController
   end
   
   def update
+    
     @group = @space.groups.find(params[:id])
-    if @group.update_attributes(params[:group])
+    
+    if params[:add_user]
+      @group.user_ids += [params[:add_user]]
+      @group.user_ids.uniq!
+      result = @group.save
+    else
+      result = @group.update_attributes(params[:group])
+    end
+        
+    if result
       respond_to do |format|
       format.html {
       flash[:success] = "The group " + @group.name + " has been successfully updated"
@@ -46,7 +56,7 @@ class GroupsController < ApplicationController
       }
       end
     else
-      flash[:error] = "The group is not valid"
+      flash[:error] = "The group could not be updated"
       redirect_to space_groups_path(@space)
     end
   end
