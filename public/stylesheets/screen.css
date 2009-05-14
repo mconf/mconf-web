@@ -242,6 +242,7 @@ div.single_event:hover{background:#e5e5e5;}
 
 /*index de spaces*/
 #space_filter{padding:0.5em;background:#bdd8eb;}
+#space_filter input[type="text"]{color:#777;}
 #private_spaces,#public_spaces{padding:0.5em;}
 .space_item {display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
 .space_item img{padding:1px;border:1px #ccc solid;}
