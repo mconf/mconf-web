@@ -46,13 +46,14 @@
 		        <div id="menu">
 		          <%= render :partial => "layouts/menu" %>
 		        </div>
-		        
+		        <div id="wrapper">
 		        <% flash.each do |name, msg| %>
 		          <div class="<%= name %>"><%= msg %></div>
             <% end %>
 
      		    <%= yield %>
 		      </div>
+			  </div>
       
 		      <div id="sidebar">
 		        <%= yield :sidebar %>

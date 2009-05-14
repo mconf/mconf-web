@@ -1,11 +1,18 @@
 <% menu :posts %>
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle'%>
+<% end -%>
+
 <% content_for :javascript do %>
 
 /*
  *  Reply panel
  */
 
-$("#reply-form").postsForm('<%= space_post_url(@space,@post, :last_page => true) %>');
+$("#reply-form").postsForm('<%= space_post_path(@space,@post, :last_page => true) %>');
+
+style_file_input();
 
 $(".new_reply_options").click(function(){
     $(".new_reply_options").removeClass("selected");
@@ -46,6 +53,8 @@ $("a.edit_post_link").click(function(){
          $(".edit_reply_options").click(function(){
          $(".edit_reply_options").removeClass("selected");
          $(this).addClass("selected");});
+				 
+				 style_file_input();
       }
     );
   return false;

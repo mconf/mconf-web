@@ -1,11 +1,3 @@
-<% content_for :javascript do %>
-$("#thread-form").postsForm('<%= space_posts_url(@space) %>');
- $("#new_comment_link").addClass("selected");
- $(".new_thread_options").click(function(){
- 	$(".new_thread_options").removeClass("selected");
-	$(this).addClass("selected");});
-<% end %>
-
 <h3>Add a new Thread</h3>
 
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
@@ -16,9 +8,9 @@ $("#thread-form").postsForm('<%= space_posts_url(@space) %>');
 	
   <div id="post-buttoms" class="actions">
     <ul>
-      <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link',:class =>"new_thread_options" } %></li>
-      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_options" } %></li>
-      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_thread_options" } %></li>
+      <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link',:class =>"new_thread_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
+      <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_options #{"selected" if params[:form]=='photos'}" } %></li>
+      <li><%= link_to 'Docs', space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_thread_options #{"selected" if params[:form]=='docs'}" } %></li>
 	</ul>
   </div>
   	

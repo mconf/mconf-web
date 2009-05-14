@@ -1,5 +1,5 @@
 <% content_for :headers do%>
-  <%= javascript_include_tag 'jquery.jeditable' %>
+  <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle' %>
 <%end%>
 
 <% content_for :javascript do%>
@@ -53,6 +53,7 @@
 		edit_logo = function(){
 		  $('#update_logo').show();
 			$('#edit_logo').parent().hide();
+			style_file_input();
 		}
 	 
 <%end%>

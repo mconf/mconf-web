@@ -1,16 +1,3 @@
-<% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle'%>
-<% end -%>
-
-<% content_for :javascript do %>
- $("input[type=file]").filestyle({ 
-     image: "/images/choose-file.gif",
-     imageheight : 22,
-     imagewidth : 80,
-     width : 115,
- });
-<% end %>
-
 <div id="cabinet"> 
 <%= file_field_tag :uploaded_data,:class=>"file_1"%>
 </div>

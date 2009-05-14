@@ -1,12 +1,13 @@
-
-
- <div id="logo">
-	<% if space %>
-	    <%= link_logo(space, :size => 64) %>
+<% if space %>
+ 	  <div id="logo">
+	    <%= link_logo(space, :size => "h64") %>
+	  </div>
 	<%else%>
+	<div id="vcc-logo">
 		<%= image_tag("logo_small2.png",:size=>"255x68") %>
+	</div>
 	<% end %>
-</div>
+
 
 <div id="search">
   <%= yield :search %>

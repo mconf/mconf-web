@@ -8,14 +8,12 @@
     <label for="title">Title:</label><%= f.text_field :title %>
   </p>
   
-  <p>
     <label for="text">Description:</label><br/>
-    <%= f.text_area :text, :class => "span-6"%>
-  </p>
-  <p>
-  	
-    <%= submit_tag 'Create' %>
-  </p>
+    <%= f.text_area :text%>
+
+  <div class="margin-up">
+	<%= image_submit_tag "buttons/create.png" %>
+  </div>
 
 <% end %>
 
