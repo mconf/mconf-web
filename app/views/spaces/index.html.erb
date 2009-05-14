@@ -20,6 +20,12 @@
       }
       });
 	});
+	
+	$("#space_name_filter").click(function(){
+	  if(this.value == "Space filter..."){
+		  this.value="";
+		}
+	});
 
   $(".space_item").hover(
 	  function () {
