@@ -27,10 +27,12 @@
 					</div>
 			<%end%>
 		</div>
+		<div class="margin-up">
 		<% if params[:edit_group] -%>
-		  <%= submit_tag "Update" %>
+		  <%= image_submit_tag "buttons/update.png" %>
 		<% else -%>
-		  <%= submit_tag "Create" %>
-		<% end -%>		
+		  <%= image_submit_tag "buttons/create.png" %>
+		<% end -%>
+		</div>		
 	<% end -%>
 </div>

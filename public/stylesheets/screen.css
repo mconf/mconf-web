@@ -89,7 +89,8 @@ body .icon{margin-bottom:-2px;}
 #feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
 
 #header{padding-top:1em;height:68px;padding-bottom:1em;}
-#logo,#search{float:left;}
+#logo,#vcc-logo,#search{float:left;}
+#vcc-logo{height:68px;}
 #logo{height:64px;padding:1px;border:1px #dedede solid;}
 #logo:hover{border-color:#c0c0c0;}
 #logo img.logo{width:100%;}
@@ -202,11 +203,11 @@ div.single_event:hover{background:#e5e5e5;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg, #change-event{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg,#change-event{-webkit-border-radius:7px;-moz-border-radius:7px;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#new-priv-msg,#change-event h3{margin-top:0;padding-top:0.75em;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea{width:92%;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea{height:8.3333em;margin-bottom:0.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg, #change-event,#space-conf,#news_sidebar{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#new-priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3{margin-top:0;padding-top:0.75em;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea,#news_sidebar textarea{width:92%;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea,#news_sidebar textarea{height:8.3333em;margin-bottom:0.5em;}
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:0.9166em;line-height:1.6363;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}

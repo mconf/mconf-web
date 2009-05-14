@@ -57,7 +57,7 @@
 	 
 <%end%>
 
-
+<div id="space-conf">
 <h3>Space configuration</h3>
 
 <% form_for @space, :html => { :multipart => true, :id => "nonjavascript_form" } do |f| %>
@@ -87,7 +87,7 @@
 
 <div id="jedit_form" style="display:none">
 	<p>
-    <label for="name">Name:</label><br />
+    <label for="name">Name:</label>
 		<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_name()", :id => "edit_name_icon"%>
   </p>
 	<p>
@@ -95,7 +95,7 @@
 		<span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_description()", :id => "edit_description_icon"%>
   </p>
 	<p>
-    <label for="public">Public Access:</label> 
+    <label for="public">Allow public access:</label> 
     <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
   </p>
 	<p>
@@ -105,7 +105,10 @@
 	
 	<% form_for @space, :html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
 	  <%= f.logo %>
-    <%= submit_tag 'Update' %>
+	<div class="margin-up">
+	<%= image_submit_tag "buttons/update.png" %>
+	</div>
   <%end%>
 		
+</div>
 </div>
