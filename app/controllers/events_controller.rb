@@ -192,13 +192,9 @@ class EventsController < ApplicationController
 		  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
 	  end
 	  if @token.nil?
-		respond_to do |format|
-			format.html { render :layout => false, :status => 500}
-	  	end
+		render :text => "Token not available", :status => 500
 	  else
-	       respond_to do |format|
-		       format.html { render :layout => false}
-	       end
+	       render :text => @token.id
   	  end
   end
   
