@@ -1,7 +1,7 @@
 <% content_for :javascript do  %>
   
 	$("#space_filter").show();
-	
+
 	$("input#public").click(function(){
 	  $("#public_spaces").slideToggle("slow");
 	});
@@ -49,6 +49,11 @@
           );
 		return false;
   });
+	
+	 <%if params[:filter]%>
+    $("#space_name_filter").keyup();
+  <%end%>
+	
 <% end %>
 
 
@@ -70,7 +75,7 @@
 <% @page_title = "Spaces"-%>
 
 <div id="space_filter" style="display:none">
-  <%=text_field_tag ('space_name_filter',"Space filter...")%>
+  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  "Space filter...")%>
   <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
 </div>
 
