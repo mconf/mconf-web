@@ -6,7 +6,7 @@
   <%= yield :search %>
 </div>
 
-<div id="prefs">
+<!--<div id="prefs">
 	<ul>
     <% if logged_in? %>
 	    <li><%= link_to "Inbox (#{PrivateMessage.find_all_by_receiver_id(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), :id => "user_inbox_link"%></li>
@@ -17,4 +17,4 @@
 	  	<li><%= link_to 'Log in', login_path, :id => "login_link" %></li>
 	  <% end %>
 	</ul>
-</div>
+</div> -->
