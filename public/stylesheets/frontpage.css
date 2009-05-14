@@ -66,7 +66,7 @@ body .icon{margin-bottom:-3px;}
 
 #global,#home,#footer{width:920px;margin:0 auto;}
 #home{background:#f0f0f0;}
-#global-wrapper{background:#1E2B38;border-bottom:2px solid #000;}
+#global-wrapper{background:#244974;border-bottom:2px solid #244974;}
 #global{padding:0.5em 0;}
 #global a{color:#EEE;text-decoration:none;}
 #global-logo {position:absolute;font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
@@ -79,12 +79,15 @@ body .icon{margin-bottom:-3px;}
 #search{margin-top:23px;margin-left:86px;}
 #search button{background-color:#244974;}
 #search input{font-size:1em;width:150px;}
-#prefs{font-size:0.9166em;line-height:1.6363;text-align:right;}
-#prefs ul{list-style-type:none;margin:0;}
+
+
+#prefs{font-size:0.9166em;line-height:1.6363;}
+#prefs ul{list-style-type:none;float:right;margin-top:-17px;}
 #prefs li{margin-left:12px;display:inline;}
-#prefs a{color:#333;}
+#prefs a{color:white;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
+
 #content{clear:left;min-height:600px;}
 #main{float:left;margin-bottom:1.5em;}
 #main{width:590px;margin-right:40px;padding-left:10px;}
