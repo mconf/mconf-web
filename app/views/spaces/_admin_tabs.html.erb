@@ -1,7 +1,7 @@
 <div>
 	<ul>
 		<li><%=link_to "All", edit_space_path(@space) %></li>
-		<li><%=link_to "Groups"%></li>
+		<li><%=link_to "Groups", space_groups_path(@space, :admin => true)%></li>
 		<li><%=link_to "News", space_news_index_path(@space) %></li>
 		<li><%=link_to "Admissions", space_admissions_path(@space) %></li>
 	</ul>
