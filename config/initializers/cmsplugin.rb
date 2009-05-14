@@ -77,6 +77,25 @@ class Performance
   
 end
 
+Logo
+
+class Logo
+  has_attachment :max_size => 2.megabyte,
+                 :content_type => :image,
+                 :thumbnails => {
+                    '256' => '256x256>',
+                    '128' => '128x128>',
+                    '96' => '96x96>',
+                    '72' => '72x72>',
+                    '64' => '64x64>',
+                    '48' => '48x48>',
+                    '32' => '32x32>',
+                    '22' => '22x22>',
+                    '16' => '16x16>',
+                    'h64' => 'x64'
+                 }
+end
+
 # In SIR authorization, users that are superusers are gods
 # This module allows implementing this feature in all classes that implement authorizes?
 module ActiveRecord::Authorization::InstanceMethods
