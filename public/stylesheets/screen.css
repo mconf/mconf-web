@@ -121,7 +121,7 @@ body .icon{margin-bottom:-2px;}
 #menu li a:hover{background:#d8d8d8;border-right-color:#999;}
 #menu li .selected:hover{background:#FFF;}
 #menu li .admin:hover{background:#464a50;}
-
+#wrapper{padding:0 10px 10px 10px;}
 /*users and groups*/
 div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
 .group h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
