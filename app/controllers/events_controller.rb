@@ -98,6 +98,7 @@ class EventsController < ApplicationController
       format.html { }
     #format.html # index.html.erb
       format.xml  { render :xml => @events }
+      format.atom
     end
   end
 
