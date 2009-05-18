@@ -11,7 +11,7 @@ class SpacesController < ApplicationController
   # GET /spaces.xml
   # GET /spaces.atom
   def index
-    @spaces = Space.find(:all, :conditions=>["id != 1"] )
+    @spaces = Space.find(:all)
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
     if @space
