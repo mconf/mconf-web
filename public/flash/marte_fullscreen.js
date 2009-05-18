@@ -1,0 +1,8 @@
+function fullscreen(){
+
+}
+
+function smallscreen(){
+		
+}
+
