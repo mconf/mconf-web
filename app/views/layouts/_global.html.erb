@@ -6,7 +6,7 @@
 	<span id="prefs">
 	<ul>
     <% if logged_in? %>
-	    <li><%= link_to "Inbox (#{PrivateMessage.find_all_by_receiver_id(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
+	    <li><%= link_to "Inbox (#{PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
 	  	<li><%= link_to "Profile", user_profile_path(current_user), menu_options(:profile)%></li>
                 <li><%= link_to "Preferences", edit_user_path(current_user), menu_options(:preferences) %></li>
 	  	<li><%= link_to "Logout (#{current_user.name})", logout_path %></li>
