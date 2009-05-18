@@ -88,7 +88,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for event in @recent_events%>
 				<ul id="list-events">
-					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="red"> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%></span> <span><%=sanitize(event.description.size >= 78 ? event.description.first(75) + "..." : event.description.first(75))  %></span></a></li>
+					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="red"> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%></span> <span><%=sanitize(event.description.size >= 73 ? event.description.first(70) + "..." : event.description.first(70))  %></span></a></li>
 				</ul>	
 			<%end%>								  
 			  

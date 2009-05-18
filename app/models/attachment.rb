@@ -2,8 +2,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :db_file
   belongs_to :post
 
-  has_attachment :max_size => 4.megabyte,
-                 :thumbnails => { :post => '100x100>'}
+  has_attachment :max_size => 10.megabyte,
+                 :thumbnails => { :post => '96x96>'}
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
 
@@ -11,6 +11,10 @@ class Attachment < ActiveRecord::Base
 
   def post_thumbnail()
     return self.thumbnails.select{|thumb| thumb.thumbnail== "post"}.first
+  end
+  
+  def get_size()
+    return " " + (self.size/1024).to_s + " kb" 
   end
 
   def local_affordances

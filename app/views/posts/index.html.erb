@@ -28,19 +28,16 @@ style_file_input();
 
 $("#new_comment_link").livequery('click',function () { 
   $("#new_photo_form").hide();
-  $("#new_doc_form").hide();
 	return false;
 });
 
 $("#new_photo_link").livequery('click',function () {
   $("#new_photo_form").show(); 
-  $("#new_doc_form").hide();
 	return false;
 });
 
 $("#new_doc_link").livequery('click',function () {
-  $("#new_photo_form").hide();
-  $("#new_doc_form").show();
+  $("#new_photo_form").show();
 	return false;
 });
 
