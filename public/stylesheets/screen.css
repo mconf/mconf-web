@@ -9,7 +9,7 @@ blockquote,q{quotes:"" "";}
 a img{border:none;}
 
 /* typography.css */
-body{font-size:75%;color:#222;background:#F5F5F5;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
+body{font-size:75%;color:#222;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;background:#f00;}
 h2{font-size:2em;margin-bottom:0.75em;}
@@ -48,7 +48,6 @@ button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
 a.button, button, #sidebar input[type=submit] {
   border:none;
-  /*background-color:#AAA;*/
   font-family:"Lucida Grande";
   font-size:95%;
   line-height:135%;
@@ -106,7 +105,7 @@ body .icon{margin-bottom:-2px;}
 #prefs a:hover{text-decoration:underline;}
 
 
-#selector, #main{float:left;background-color:#f0f0f0;}
+#selector, #main{float:left;/*background-color:#f0f0f0*/;}
 #selector{width:150px;margin-right:10px;padding-left:10px;}
 
 #main{width:510px;margin-right:40px;margin-bottom:1.5em;background-color:#fff;}
@@ -135,13 +134,13 @@ div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
 #results_count h3,.group h3{margin:0;}
 #results_count{padding:9px 0.75em 8px 0.75em;background:#bdd8eb;}
 div.user,div.read_more{position:relative;clear:both;overflow:hidden;}
-div.user{background-color:white;border-top:1px #CCC solid;padding:10px 0 7px 0.75em;}
+div.user{background-color:white;border-top:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 .user ul,ul.group_links{list-style-type:none;}
 .user ul{margin:0 0 0 0.5em;}
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
 .user div{float:left; }
-
+.user div.selected_groups{margin-left:0.5em;}
 /*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .odd_thread{background:#E6EFC2;border-color:#C6D880;}
@@ -176,6 +175,8 @@ div.user{background-color:white;border-top:1px #CCC solid;padding:10px 0 7px 0.7
 .group_links ul.edit-post{padding-top:3px;margin:0.75em 0.75em 0.666em 0.5em;}
 ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}
+#admin_tabs ul.group_links{margin:0;}
+#admin_tabs{padding:0.375em 0.5em 0.375em 0.5em;margin-bottom:2px;background:#f3f3f3;border-right:2px #e5e5e5 solid;border-bottom:1px #e0e0e0 solid;}
 /*space home, latest users,posts and events*/
 #latest_posts{margin-bottom:1.5em;}
 #latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb;}
@@ -197,7 +198,7 @@ a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2p
 #events h3,#incoming_events h3,#past_events h3{margin:0;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
 #events_links{padding:7px 0.5em 0 0;}
 div.single_event{position:relative;clear:both;overflow:hidden;}
-div.single_event{background:#eaeaea;border-top:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
+div.single_event{/*background:#eaeaea;*/border-top:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#e5e5e5;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}

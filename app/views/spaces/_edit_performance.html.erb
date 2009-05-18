@@ -57,39 +57,49 @@
 	
 <%end%>
 <div class="user">
-	<p>
-		<%= link_to "Send a message", space_users_path(@space, :send_message => user.id)%>
-		<%= link_to image_tag("icons/delete.png", :alt => "Delete user from space" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %>
-	</p>
-  <%=link_logo(user, :size => 72)%>
+	<ul class="group_links">
+		<li><%= link_to image_tag("icons/email.png", :alt=>"Send e-mail", :class=>"icon"), space_users_path(@space, :send_message => user.id)%></li>
+		<li><%= link_to image_tag("icons/cancel.png", :alt => "Delete user from space",:class=>"icon" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %></li>
+	</ul>
+<div>
+  <%=link_logo(user, :size => 48)%>
+</div>
+<div>
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
 	  <%=hidden_field_tag 'update_groups'%>
-		<label for="name">Name: </label><%=sanitize(user.full_name) %><br />
-		<label for="admin">Admin: </label><%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}"} %><br />
-		<div id="selected_groups_<%=performance.id%>">
-		<label for="groups">Groups: </label>
-		    <%for group in @space.groups.select{|g| g.users.include?(user)} do %>
-		      <div>
-			     <%= check_box_tag "groups_to_delete[]", group.id, true, {:class => "group_checkbox_#{performance.id}", :id => user.memberships.select{|g| g.group_id==group.id}.first.id} %><%= label("checkbox",sanitize(group.name))%>
-		      </div>
-			  <%end%>
-		</div>
-		<%unless @space.groups.select{|g| !g.users.include?(user)}.empty?%>
+	  <ul>
+		<li><label for="name">Name: </label><strong><%=sanitize(user.full_name) %></strong></li>
+		<li><label for="admin">Role: </label><%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %></li>
+	 </ul>
+	 
+	 <div id="selected_groups_<%=performance.id%>" class="selected_groups">
+	  <label for="groups">Groups: </label>
+		<%for group in @space.groups.select{|g| g.users.include?(user)} do %>
+          <div>
+	        <%= check_box_tag "groups_to_delete[]", group.id, true, {:class => "group_checkbox_#{performance.id}", :id => user.memberships.select{|g| g.group_id==group.id}.first.id} %><%= label("checkbox",sanitize(group.name))%>
+		  </div>
+		<%end%>
+	 </div>
+	 
+	 <%unless @space.groups.select{|g| !g.users.include?(user)}.empty?%>
 		<div id="nonjavascript_other_groups_<%=performance.id%>">
 			<label for="addToGroup">Add to Group: </label>
 			<%=select "groups_to_add", "id", @space.groups.select{|g| !g.users.include?(user)}.collect {|g| [ g.name, g.id ]}, {:selected => performance.role_id, :include_blank => true} %>
 		</div>
 		<%=link_to "Add other groups", "javascript:show_other_groups_#{performance.id}()", :id => "other_groups_link_#{performance.id}", :style =>"display:none" %>
-		<% end %>
-		<div style="display:none" id="other_groups_<%=performance.id%>">
-			<label>Other groups: </label>
-			<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
-        <div>
-			    <%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
-        </div>
-			<%end%>
-			<%=link_to "[Close]", "javascript:close_other_groups_#{performance.id}()" %>
-		</div>
-		<%= submit_tag "Update", :id=> "update_button_#{performance.id}"%> 
-	<% end %>	
+	 <% end %>
+	 
+	 <div style="display:none" id="other_groups_<%=performance.id%>">
+	  <label>Other groups: </label>
+		<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
+      <div>
+		<%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
+      </div>
+		<%end%>
+		<%=link_to "[Close]", "javascript:close_other_groups_#{performance.id}()" %>
+	  </div>
+	  
+	  <%= submit_tag "Update", :id=> "update_button_#{performance.id}"%> 
+	<% end %>
+</div>	
 </div>
