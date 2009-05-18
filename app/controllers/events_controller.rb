@@ -98,13 +98,14 @@ class EventsController < ApplicationController
       format.html { }
     #format.html # index.html.erb
       format.xml  { render :xml => @events }
-      format.atom
     end
   end
 
   # GET /events/1
   # GET /events/1.xml
   def show
+	#let's calculate the wait time
+	@wait = (@event.start_date - Time.now).floor
     respond_to do |format|
 	    format.html {render :layout => "conference_layout"} # show.html.erb
       format.xml  { render :xml => @event }

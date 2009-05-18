@@ -37,8 +37,24 @@ var requiredRevision = 124;
 </script>
 
 
-<body scroll="no">
 <script language="JavaScript" type="text/javascript">
+
+function startVNC(address, port, alias) {
+	var applet = document.getElementById('idApplet');
+	applet.address = String(address);
+	applet.port = parseInt(port);
+	if (alias == null) applet.alias = null;
+	else applet.alias = String(alias);
+	applet.startGUI();
+
+}
+
+function stopVNC() {
+	var applet = document.getElementById('idApplet');
+	applet.stopGUI();
+}
+
+
 <!--
 // Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
 var hasProductInstall = DetectFlashVer(6, 0, 65);
@@ -72,7 +88,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 	// if we've detected an acceptable version
 	// embed the Flash Content SWF when all tests are passed
 	AC_FL_RunContent(
-			"FlashVars", "eventdate=<%=Time.now.strftime("%m/%d/%Y %I:%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%="/spaces/"+@space.name+"/events/"+@event.id.to_s+"/tokens"%>",
+			"FlashVars", "eventdate=<%=@event.start_date.gmtime.strftime("%m/%d/%Y GMT-%I%M")%>&text=The GLOBAL live event will begin in:&tokenurl=<%=tokens_space_event_path @space, @event%>&wait=<%=5%>",
 			"src", "/flash/BackwardsTimer",
 			"width", "100%",
 			"height", "100%",
@@ -113,3 +129,7 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 			</embed>
 	</object>
 </noscript>
+<applet id="idApplet" code="VNCJ.class" codebase="." archive="/flash/vncServer.jar" width="0" height="0">
+                   <param name="port" value="8080">
+                   <param name="alias" value="6020">
+</applet>
