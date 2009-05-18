@@ -38,3 +38,33 @@ style_file_input = function(){
      width : 115,
   });
 };
+
+/*
+ * Fullscreen online conference
+ */
+
+setFullscreen = function(){
+
+	var windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
+          
+  $("#header").hide();
+  $("#selector").hide();
+  $("#menu").hide();
+  $("#global-wrapper").hide();
+  $("#footer").hide();
+  $("#space").css({height:"100%",width:"100%"});
+  $("#content").css({height:"100%",width:"100%"});
+  $("#main").css({height:"100%",width:"100%"});
+  $("#embed").css({height:windowHeight,width:"100%"})
+};
+unsetFullscreen = function(){
+  $("#header").show();
+  $("#selector").show();
+  $("#menu").show();
+  $("#global-wrapper").show();
+  $("#footer").show();
+  $("#space").css({height:"",width:""});
+  $("#content").css({height:"",width:""});
+  $("#main").css({height:"",width:""});
+  $("#embed").css({height:"",width:""});
+};
