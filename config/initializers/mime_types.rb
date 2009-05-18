@@ -6,6 +6,7 @@ Mime::Type.register "text/x-vcard", :vcf
 Mime::Type.register "image/jpeg", :jpeg, [ "image/pjpeg" ]
 Mime::Type.register "image/gif", :gif
 Mime::Type.register "image/png", :png, [ "image/x-png" ]
+Mime::Type.register "image/bmp", :bmp
 Mime::Type.register "audio/x-wav", :wav, [ "audio/wav" ]
 Mime::Type.register "audio/mpeg", :mpeg
 Mime::Type.register "audio/x-vorbis+ogg", :ogg, [ "application/ogg" ]
