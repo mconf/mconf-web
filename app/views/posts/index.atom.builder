@@ -1,29 +1,25 @@
-    atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005', 
-    'xmlns:sir' => 'http://sir.dit.upm.es/schema', 'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'}) do |feed|
-      feed.title("Posts")
-      feed.updated(@posts.first.updated_at if @posts.any?)
+atom_feed('xmlns:gd' => 'http://schemas.google.com/g/2005', 
+          'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
+          :root_url => polymorphic_url([ space, Post.new ])) do |feed|
+  feed.title("Posts - #{ sanitize space.name }")
+  feed.updated(@posts.any? && @posts.first.updated_at || Time.now)
 
-      for post in @posts
-        feed.entry(post, :url => space_post_path(container, post)) do |entry|
-          entry.title(sanitize(post.title))
-          entry.content(sanitize(post.text), :type => "html")
-          if post.parent_id
-            entry.tag!('thr:in-reply-to', post.parent_id)
-          end
-          
-          post.tags.each do |tag|
-            entry.category(:term => tag.name)
-          end
-          
-          if post.public_read == true
-            entry.tag!('gd:visibility', "public")
-          else 
-            entry.tag!('gd:visibility', "private")
-          end
+  @posts.each do |post|
+    feed.entry(post, :url => space_post_path(space, post)) do |entry|
+      entry.title(sanitize(post.title))
+      entry.content(sanitize(post.text), :type => "html")
 
-          entry.author do |author|
-            author.name("SIR")
-          end
-        end
+      if post.parent_id
+        entry.tag!('thr:in-reply-to', post.parent_id)
       end
+          
+      post.tags.each do |tag|
+        entry.category(:term => tag.name)
+      end
+          
+      entry.author do |author|
+        author.name(sanitize(post.author.name))
+       end
     end
+  end
+end
