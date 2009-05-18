@@ -27,9 +27,11 @@ GEMS[:development] = [ "capistrano",
                        "populator",
                        "faker" ]
 
-if `uname`.chomp == "Linux" && `which aptitude` != ""
-  puts "* Install Linux packages"
-  system "sudo aptitude install #{ LINUX_PACKAGES.join(" ") }"
+def install_linux_packages
+  if `uname`.chomp == "Linux" && `which aptitude` != ""
+    puts "* Install Linux packages"
+    system "sudo aptitude install #{ LINUX_PACKAGES.join(" ") }"
+  end
 end
 
 def install_gems(set)
@@ -54,6 +56,7 @@ def install_gem_subsystem
 end
 
 def setup_production
+  install_linux_packages
   install_gem_subsystem
   install_gems(:common)
   install_gems(:production)
@@ -61,22 +64,25 @@ def setup_production
 end
 
 def setup_development
+  install_linux_packages
   install_gem_subsystem
   install_gems(:common)
   install_gems(:development)
   `rake setup:development`
 end
 
-puts $1
-
-if $1 =~ /production/
-  puts "Setting PRODUCTION environment"
-  puts "______________________________"
+def print_banner(env)
   puts
+  puts "------------------------------"
+  puts "Setting #{ env } environment"
+  puts "------------------------------"
+  puts
+end
+
+if ARGV[0] =~ /production/
+  print_banner("PRODUCTION")
   setup_production
 else
-  puts "Setting DEVELOPMENT environment"
-  puts "_______________________________"
-  puts
+  print_banner("DEVELOPMENT ")
   setup_development
 end
