@@ -1,12 +1,16 @@
 namespace :setup do
-  desc "Setup production environment"
-  task :production => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
+  desc "All production tasks"
+  task :production_tasks => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
+  end
 
+  desc "Set production environment and run all production tasks"
+  task :production do
+    RAILS_ENV = ENV['RAILS_ENV'] = 'production'
+    Rake::Task["setup:production_tasks"].invoke
   end
 
   desc "Setup development environment"
-  task :development => [ :production, :populate ] do
-
+  task :development => [ :production_taks, :populate ] do
   end
 
   desc "Copy database.yml if it doesn't exist"

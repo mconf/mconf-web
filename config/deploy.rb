@@ -1,17 +1,14 @@
-set :application, "sir2.0"
+set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
 
+
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/var/www/html/sir.dit.upm.es/sir"
+set :deploy_to, "/home/isabel/#{ application }"
 set :deploy_via, :export
-
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
 
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
@@ -21,7 +18,7 @@ namespace(:deploy) do
     # AttachmentFu dir is deleted in deployment
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
-    run "/bin/chgrp -R www-data #{ release_path }/tmp"
+    sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
   end
 
   task :link_files do
@@ -35,6 +32,6 @@ namespace(:deploy) do
 end
 
 
-role :app, "root@sir.dit.upm.es"
-role :web, "root@sir.dit.upm.es"
-role :db,  "root@sir.dit.upm.es", :primary => true
+role :app, "isabel@vcc.dit.upm.es"
+role :web, "isabel@vcc.dit.upm.es"
+role :db,  "isabel@vcc.dit.upm.es", :primary => true

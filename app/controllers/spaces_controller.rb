@@ -11,7 +11,7 @@ class SpacesController < ApplicationController
   # GET /spaces.xml
   # GET /spaces.atom
   def index
-    @spaces = Space.find(:all, :conditions=>["id != 1"] )
+    @spaces = Space.find(:all)
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
     if @space
@@ -133,11 +133,6 @@ class SpacesController < ApplicationController
   def update
     if @space.update_attributes(params[:space]) 
       respond_to do |format|
-        format.html { 
-          flash[:success] = 'Space was successfully updated.'
-          redirect_to request.referer
-        }
-        format.atom { head :ok }
         format.js{
           if params[:space][:name]
             @result = "window.location=\"#{edit_space_path(@space)}\";"
@@ -146,13 +141,19 @@ class SpacesController < ApplicationController
             @result=params[:space][:description]
           end
         }
+        format.html { 
+          flash[:success] = 'Space was successfully updated.'
+          redirect_to request.referer
+        }
+        format.atom { head :ok }
+
       end
     else
       respond_to do |format|
+        format.js{}
         format.html { render :action => "edit" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
-        format.js{}
       end      
     end
   end

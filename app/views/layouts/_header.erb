@@ -2,11 +2,11 @@
  	  <div id="logo">
 	    <%= link_logo(space, :size => "h64") %>
 	  </div>
-	<%else%>
+<%else%>
 	<div id="vcc-logo">
-		<%= image_tag("logo_small2.png",:size=>"255x68") %>
+		<%= link_to image_tag("logo_small2.png",:size=>"255x68"), root_path %>
 	</div>
-	<% end %>
+<% end %>
 
 
 <div id="search">

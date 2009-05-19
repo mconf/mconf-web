@@ -59,7 +59,7 @@ class PrivateMessagesController < ApplicationController
       end
       respond_to do |format|
         if @fail_messages.empty?
-          flash[:success] = 'PrivateMessages were successfully created.'
+          flash[:success] = 'Message sent.'
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
