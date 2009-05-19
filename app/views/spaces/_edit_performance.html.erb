@@ -62,7 +62,7 @@
 		<li><%= link_to image_tag("icons/cancel.png", :alt => "Delete user from space",:class=>"icon" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %></li>
 	</ul>
 <div>
-  <%=link_logo(user, :size => 48)%>
+  <%=link_logo(user, :size => 32)%>
 </div>
 <div>
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
@@ -86,10 +86,12 @@
 			<label for="addToGroup">Add to Group: </label>
 			<%=select "groups_to_add", "id", @space.groups.select{|g| !g.users.include?(user)}.collect {|g| [ g.name, g.id ]}, {:selected => performance.role_id, :include_blank => true} %>
 		</div>
-		<%=link_to "Add other groups", "javascript:show_other_groups_#{performance.id}()", :id => "other_groups_link_#{performance.id}", :style =>"display:none" %>
+		<div class="clearboth">
+		 <%=link_to "Add other groups", "javascript:show_other_groups_#{performance.id}()", :id => "other_groups_link_#{performance.id}", :style =>"display:none" %>
+		</div>
 	 <% end %>
 	 
-	 <div style="display:none" id="other_groups_<%=performance.id%>">
+	 <div style="display:none" id="other_groups_<%=performance.id%>" class="selected_groups">
 	  <label>Other groups: </label>
 		<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
       <div>

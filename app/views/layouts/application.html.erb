@@ -20,12 +20,12 @@
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        <%= render :partial => 'layouts/ready.js.erb' %>
+	        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
 		
-		<%= yield :headers %>
+	<%= yield :headers %>
   </head>
 
 	<body>
@@ -49,7 +49,7 @@
 		        <div id="wrapper">
 		        <% flash.each do |name, msg| %>
 		          <div class="<%= name %>"><%= msg %></div>
-            <% end %>
+                <% end %>
 
      		    <%= yield %>
 		      </div>
@@ -59,9 +59,11 @@
 		        <%= yield :sidebar %>
           </div>
         </div>
-      <%= render :partial => "layouts/footer" %>  
+	  <%= render :partial => "layouts/footer" %>  
 	  </div>
+	  
 
 	  </div>
+
 	</body>
 </html>
