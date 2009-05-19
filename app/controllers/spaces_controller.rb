@@ -231,7 +231,8 @@ class SpacesController < ApplicationController
       if jr.save
         flash[:notice] = t('join_request.created')
       else
-        flash[:error] = "Your petition has already been sent"
+        #flash[:error] = "Your petition has already been sent"
+        flash[:error] = jr.errors.to_xml
       end
 
       if request.xhr?
