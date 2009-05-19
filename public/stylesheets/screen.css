@@ -39,6 +39,8 @@ ol{list-style-type:decimal;}
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 .item_title{}
+
+
 .person_title{}
 .sidebar_title{}
 .selector_title{color:#999;}
@@ -114,16 +116,18 @@ body .icon{margin-bottom:-2px;}
 #selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
 #selector ul li{padding-left:0.5em;}
 #selector .selected{text-decoration:none;color:#000;font-weight:bold;}
+
 #menu{background:#F0F0F0;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
-#menu li a{display:inline-block;background:#CCC;padding:0.5em 1.5em;border-right:1px solid #777;text-decoration:none;color:#666;}
-#menu li .selected{background:#FFF;border:none;color:#555;}
+#menu li a{display:inline-block;background:#85b2e5;padding:0.5em 1.5em;border-right:1px solid #777;text-decoration:none;color:#244974;}
+#menu li .selected{background:#244974; color:white}
 #menu li .admin{background:#1E2B38;color:#FFF;}
-#menu li a:hover{background:#d8d8d8;border-right-color:#999;}
-#menu li .selected:hover{background:#FFF;}
+#menu li a:hover{background:#244974;color:white;border-right-color:#999;}
+#menu li .selected:hover{background:#244974; color:white}
 #menu li .admin:hover{background:#464a50;}
 #wrapper{padding:0 10px 10px 10px;}
+
 /*users and groups*/
 div.group{float:left;width:490px;;padding-bottom:0.5em;margin-top:2px;}
 .group h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
@@ -142,6 +146,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .user div{float:left; }
 .user div.selected_groups{margin-left:0.5em;}
 .user .clearboth{margin-left:0.5em;}
+
 /*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .odd_thread{background:#E6EFC2;border-color:#C6D880;}
@@ -180,8 +185,13 @@ ul.edit-post li{list-style-type:none;}
 #admin_tabs{padding:0.375em 0.5em 0.375em 0.5em;margin-bottom:2px;background:#bdd8eb;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
 /*space home, latest users,posts and events*/
 #latest_posts{margin-bottom:1.5em;}
-#latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb;}
+#latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 #latest_posts .read_more,#latest_users .read_more{padding:5px 0.75em;background:#bdd8eb;}
+div.user li.u_name{color:#611427;}
+div.post{color:#e3a333;}
+div.post a:hover{height:100%; width:100%;}
+span.updated{color:#c0c0c0;}
+
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
 #sidebar input[type="submit"]{margin-top:0.75em;}
@@ -221,7 +231,7 @@ div.single_event:hover{background:#f0f6f9;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
 .actions li{display:inline;margin-right:8px;}
 .actions li a.selected{text-decoration:none;font-weight:bold;}
-.actions li a{text-decoration:none;color:#111;text-decoration:underline;}
+.actions li a{text-decoraperracation:none;color:#111;text-decoration:underline;}
 .no_javascript ul{margin-right:1.5em;}
 #new_photo_form,#new_doc_form{margin-top:0.75em;}
 #sidebar #caption{margin-top:0.75em;}
