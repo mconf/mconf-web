@@ -99,13 +99,27 @@ class PostsController < ApplicationController
   
     unless @post.valid?
       respond_to do |format|
+        format.js{
+        if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = "The comment is not valid" 
+            return
+          else
+            flash[:error] = "The content of the post can't be empty"  
+            return
+          end
+          
+        }
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] = "The comment is not valid" 
-            render :action => "new"
+            posts
+            render :action => "index"
+
           else
-            flash[:error] = "The content of the post can't be empty"  
-            render :action => "new"                
+            flash[:error] = "The content of the post can't be empty"
+            posts
+            render :action => "index"
+               
           end
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
@@ -119,9 +133,16 @@ class PostsController < ApplicationController
      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
    end
    if @attachment && !@attachment.valid?
-        flash[:error] = "The attachment is not valid"  
-        render :action => "index"
-        return
+     flash[:error] = "The attachment is not valid"
+     respond_to do |format|
+       
+       format.html{
+         posts
+         params[:form]="photos"
+         render :action => "index"
+         return
+       }
+      end
    end
    
  
