@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_one :profile
   has_many :events, :as => :author
   has_many :posts, :as => :author
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
   
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
