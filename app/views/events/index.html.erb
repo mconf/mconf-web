@@ -18,6 +18,12 @@
 
 <% content_for :javascript do %>
 
+<!-- select links -->
+$(".event_navigation").click(function(){
+  $(".event_navigation").removeClass("event_selected");
+	$(this).addClass("event_selected");
+});
+
 <!-- link_to incoming events --> 
 $(".incoming_link").click(function () { 
   $("#past_events").hide();
@@ -282,9 +288,9 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
 <%end%>
 
  <div class="group_links" id="events_links">
-   <%=link_to "All", space_events_path(@space), {:id => 'all_link'}%> |
-   <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%> |
-   <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
+   <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+   <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'event_navigation incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
+   <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
  </div>  
  
 
