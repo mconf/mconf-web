@@ -1,7 +1,7 @@
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
-<div id="new-priv-msg">
+<div id="priv-msg">
 <h3>New private message</h3>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
@@ -10,13 +10,12 @@
     <label for="Title">Title:</label>
     <%= f.text_field :title, :size =>25  %>
   </div>
-	<br/>
 	<div>
     <label for="Body" >Body:</label><br/>
     <%= f.text_area :body %>
   </div>
 	<div id="selected_users">
-		<label for="selected_users" style="display: none;">To:</label><br/>
+		<label for="selected_users" style="display: none;">To:</label>
 	</div>
 	<div id="user_filter" style="display: none;">
 	  <label for="User filter">User filter</label><br/>
@@ -29,8 +28,8 @@
       </div>
   <%end%>
 	</div>
-  <div>
-    <%= f.submit "Send now" %>
+  <div class="margin-up">
+    <%= image_submit_tag "buttons/send.png" %>
   </div>
 <% end %>
 </div>

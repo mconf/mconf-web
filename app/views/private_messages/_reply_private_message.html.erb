@@ -1,4 +1,6 @@
-<h3>Reply message</h3>
+
+<div id="priv-msg">
+<h3>Reply to message</h3>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
   <%= f.error_messages %>
@@ -6,15 +8,14 @@
     <label for="Title">Title:</label>
     <%= f.text_field :title, :size =>25, :value => "Re: " + previous_message.title %>
   </div>
-  <br/>
   <div>
-    <label for="Body">Body:</label><br/>
-    <%= f.text_area :body, :class => "span-6"  %>
+    <label for="Body">Body:</label>
+    <%= f.text_area :body %>
   </div>
   <p>
   	<%= hidden_field_tag 'private_message[parent_id]', previous_message.id %>
-		<%= hidden_field_tag 'private_message[receiver_id]', previous_message.sender_id %>
-    <%= f.submit "Create" %>
+	<%= hidden_field_tag 'private_message[receiver_id]', previous_message.sender_id %>
+    <%= image_submit_tag "buttons/send.png" %>
   </p>
 <% end %>
-
+</div>
