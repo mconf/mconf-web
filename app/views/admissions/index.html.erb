@@ -21,6 +21,8 @@
   <% end %>
 <% end -%>
 
+<%= render :partial => 'spaces/admin_tabs' %>
+
 <h3>Pending Join Requests</h3>
 <% if @space.join_requests.pending.any? %>
   <% @space.join_requests.pending.each do |jr| %>
@@ -28,8 +30,14 @@
       <%= link_logotype(jr.candidate) %>
       <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
       <%= f.hidden_field :accepted, :value => true %>
+      <%= f.hidden_field :processed, :value => true %>
       <%= f.submit "Accept" %>
     <% end -%>
+    <% form_for [ @space, jr ] do |f| %>
+      <%= f.hidden_field :processed, :value => true %>
+      <%= f.submit "Deny" %>
+    <% end -%>
+
   <% end -%>
 <% else -%>
 There aren't pending join requests.
