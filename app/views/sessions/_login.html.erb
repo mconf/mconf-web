@@ -1,7 +1,7 @@
 <div id="login_div">
 <% form_tag session_path do -%>
   <div>
-  	<h3>Email and password login</h3>
+  	<div id="login_label"><h3>Email and password login</h3></div>
 	  <p>
 		  <label for="login">Username or email</label><br/>
 	    <%= text_field_tag 'login', params[:login] %>
@@ -15,7 +15,7 @@
 		</p>
   </div>
   <div>
-  	<h3>OpenID login</h3>
+  	<div id="openid_label"><h3>OpenID login</h3></div>
 		  <p>
 		  	<label for="openid_identifier">OpenID</label>
    	    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>

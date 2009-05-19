@@ -187,7 +187,7 @@ class EventsController < ApplicationController
   
   
   #method to get the token to participate in a online videoconference
-  def tokens
+  def token
 	  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
 	  if @token.nil?
 		  MarteRoom.create :name => params[:id]
