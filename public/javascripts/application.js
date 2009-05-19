@@ -32,9 +32,9 @@ jQuery.fn.postsForm = function(route){
  
 style_file_input = function(){
   $("input[type=file]").filestyle({ 
-     image: "/images/choose-file.gif",
-     imageheight : 22,
-     imagewidth : 80,
+     image: "/images/buttons/browse.png",
+     imageheight : 23,
+     imagewidth : 63,
      width : 115,
   });
 };
