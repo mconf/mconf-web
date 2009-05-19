@@ -142,20 +142,6 @@ class UsersController < ApplicationController
   # PUT /users/1.atom
   #this method updates a user
   def update
-    #now we assign the machines to the user
-    if current_user.superuser==true && params[:resource]
-      @array_resources = params[:resource]
-      logger.debug("Array de maquinas es  " + @array_resources.to_s)
-      machines = Array.new        
-      for machine in Machine.find(:all)
-        if @array_resources[machine.name]=="1"
-          logger.debug("Machine assign " + machine.name)
-          machines << "#{machine.id}"              
-        end            
-      end
-    end
-    params[:user][:machine_ids] = machines
-    
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -163,11 +149,8 @@ class UsersController < ApplicationController
         
         flash[:notice] = 'User was successfully updated.'     
         format.html { #the superuser will be redirected to list_users
-          if current_user.superuser == true
-            redirect_to(space_users_path(@space))
-          else
-            redirect_to(space_user_profile_path(@space, @user)) 
-          end }
+          redirect_to(user_profile_path(@user))
+        } 
         format.xml  { render :xml => @user }
         format.atom { head :ok }
       else

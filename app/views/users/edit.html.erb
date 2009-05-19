@@ -1,12 +1,8 @@
-<div id="yui-main">
-<div class="yui-b main_column">
-<% @page_title = "Edit User" -%>
+
 <%= error_messages_for 'user' %>
-<% rounded(:class => "tips") do %>
 
 <h1 class="title">Editing account</h1>
-<% form_for :user, :url => space_user_path(@space,@user), :html => {:method => :put} do |f| -%>
-
+<% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
@@ -23,21 +19,7 @@
         		  
 <% end -%>
 
-		<% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
-        
-			<%= button_to 'Back', space_users_path(@space, :manage => true), :method => :get%>
-        
-		<% elsif logged_in? && current_user.superuser==true && @user.id == current_user.id %>
-		
-			<%= button_to 'Back', space_user_profile_path(@space,current_user), :method => :get%>
-		<% else%>
-		
-			<%= button_to 'Back', space_users_path(@space), :method => :get%>
-        
-		<% end -%>
 
-<% end -%>
-</div>
-</div>
 
-<%= render :partial=>'shared/sidebar_profile'%>
+
+
