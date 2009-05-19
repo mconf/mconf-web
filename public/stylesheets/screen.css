@@ -105,27 +105,34 @@ body .icon{margin-bottom:-2px;}
 #prefs a:hover{text-decoration:underline;}
 
 
-#selector, #main{float:left;/*background-color:#f0f0f0*/;}
-#selector{width:150px;margin-right:10px;padding-left:10px;}
 
 #main{width:510px;margin-right:40px;margin-bottom:1.5em;background-color:#fff;}
 #sidebar{float:left;width:230px;padding-right:10px;}
-#selector h5{color:#888;margin-bottom:0.75em;}
-#selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
-#selector ul li{padding-left:0.5em;}
-#selector ul li a{text-decoration:none;color:#244974;}
-#selector ul li.selected {background-color:#d3e8f6; }
-#selector .selected{text-decoration:none;font-weight:bold; }
+div.space-desc h3, div.space-desc p{color:#244974;}
+#inc-events h3{color:#8B0425;}
+#inc-events ul li.event p{color:#8B0425;}
 
+
+#selector, #main{float:left;/*background-color:#f0f0f0*/;}
+#selector{width:150px;margin-right:10px;padding-left:10px;}
+#selector h5{color:#888;margin-bottom:0.75em;}
+#selector ul{font-size:0.9em;line-height:1.666;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
+#selector ul li{padding-left:0.5em;margin-top:3px;}
+#selector ul li a{text-decoration:none;color:#244974;}
+#selector ul li.selected {background-color:#ffa903; }
+#selector ul li.selected a{color:white;}
+#selector ul li:hover {background-color:#ffa903; }
+#selector .selected{text-decoration:none;font-weight:bold; }
+h3.selector_title{color:#244974}
 #menu{background:#f0f6f9;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
 #menu li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white}
 #menu li .selected{background:white; color:#244974}
-#menu li .admin{background:#e3a333;color:#FFF;}
+#menu li .admin{background:#ffa903;color:#FFF;}
 #menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
-#menu li .selected:hover{background:#244974; color:white}
-#menu li .admin:hover{background:white;color:#e3a333;}
+#menu li .selected:hover{background:white; color:#244974}
+#menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:0 10px 10px 10px;}
 
 /*users and groups*/
@@ -187,11 +194,11 @@ ul.edit-post li{list-style-type:none;}
 #latest_posts{margin-bottom:1.5em;}
 #latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 #latest_posts .read_more,#latest_users .read_more{padding:5px 0.75em;background:#bdd8eb;}
-div.user li.u_name{color:#611427;}
-/*div.post{color:#e3a333;}*/
+div.user li.u_name{color:#605E5E;}
+div.post{color:#605E5E;}
 div.post a:hover{height:100%; width:100%;}
 span.updated{color:#666;}
-
+a.read_more_link{color:#244974;}
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
 #sidebar input[type="submit"]{margin-top:0.75em;}
@@ -221,11 +228,13 @@ div.single_event:hover{background:#f0f6f9;}
 .join h2{margin-bottom:0;margin-top:2px;color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#space-conf{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#space-conf{-webkit-border-radius:7px;-moz-border-radius:7px;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3,#space-conf h3{margin-top:0;padding-top:0.75em;}
+
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3{margin-top:0;padding-top:0.75em;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{height:8.3333em;margin-bottom:0.5em;}
+
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:0.9166em;line-height:1.6363;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
