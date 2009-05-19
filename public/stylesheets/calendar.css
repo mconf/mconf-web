@@ -48,25 +48,25 @@
 ----------------------------------*/
 .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 1.1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana,Arial,sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #a6c9e2; background: #fcfdfd url(../images/ui/calendar/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x; color: #222222; }
+.ui-widget-content { border: 1px solid #a6c9e2; background: #fcfdfd url(../images/calendar/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x; color: #222222; }
 .ui-widget-content a { color: #222222; }
-.ui-widget-header { border: 1px solid #4297d7; background: #2191c0 url(../images/ui/calendar/ui-bg_gloss-wave_75_2191c0_500x100.png) 50% 50% repeat-x; color: #eaf5f7; font-weight: bold; }
+.ui-widget-header { border: 1px solid #4297d7; background: #2191c0 url(../images/calendar/ui-bg_gloss-wave_75_2191c0_500x100.png) 50% 50% repeat-x; color: #eaf5f7; font-weight: bold; }
 .ui-widget-header a { color: #eaf5f7; }
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #77d5f7; background: #0078ae url(../images/ui/calendar/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
+.ui-state-default, .ui-widget-content .ui-state-default { border: 1px solid #77d5f7; background: #0078ae url(../images/calendar/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #ffffff; text-decoration: none; outline: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #448dae; background: #79c9ec url(../images/ui/calendar/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #026890; outline: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus { border: 1px solid #448dae; background: #79c9ec url(../images/calendar/ui-bg_glass_75_79c9ec_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #026890; outline: none; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #026890; text-decoration: none; outline: none; }
-.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #acdd4a; background: #6eac2c url(../images/ui/calendar/ui-bg_gloss-wave_50_6eac2c_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
+.ui-state-active, .ui-widget-content .ui-state-active { border: 1px solid #acdd4a; background: #6eac2c url(../images/calendar/ui-bg_gloss-wave_50_6eac2c_500x100.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; outline: none; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #ffffff; outline: none; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #fcd113; background: #f8da4e url(../images/ui/calendar/ui-bg_glass_55_f8da4e_1x400.png) 50% 50% repeat-x; color: #915608; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {border: 1px solid #fcd113; background: #f8da4e url(../images/calendar/ui-bg_glass_55_f8da4e_1x400.png) 50% 50% repeat-x; color: #915608; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a { color: #915608; }
-.ui-state-error, .ui-widget-content .ui-state-error {border: 1px solid #cd0a0a; background: #e14f1c url(../images/ui/calendar/ui-bg_gloss-wave_45_e14f1c_500x100.png) 50% top repeat-x; color: #ffffff; }
+.ui-state-error, .ui-widget-content .ui-state-error {border: 1px solid #cd0a0a; background: #e14f1c url(../images/calendar/ui-bg_gloss-wave_45_e14f1c_500x100.png) 50% top repeat-x; color: #ffffff; }
 .ui-state-error a, .ui-widget-content .ui-state-error a { color: #ffffff; }
 .ui-state-error-text, .ui-widget-content .ui-state-error-text { color: #ffffff; }
 .ui-state-disabled, .ui-widget-content .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
@@ -77,14 +77,14 @@
 ----------------------------------*/
 
 /* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url(../images/ui/calendar/ui-icons_0078ae_256x240.png); }
-.ui-widget-content .ui-icon {background-image: url(../images/ui/calendar/ui-icons_0078ae_256x240.png); }
-.ui-widget-header .ui-icon {background-image: url(../images/ui/calendar/ui-icons_d8e7f3_256x240.png); }
-.ui-state-default .ui-icon { background-image: url(../images/ui/calendar/ui-icons_e0fdff_256x240.png); }
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(../images/ui/calendar/ui-icons_056b93_256x240.png); }
-.ui-state-active .ui-icon {background-image: url(../images/ui/calendar/ui-icons_f5e175_256x240.png); }
-.ui-state-highlight .ui-icon {background-image: url(../images/ui/calendar/ui-icons_f7a50d_256x240.png); }
-.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(../images/ui/calendar/ui-icons_fcd113_256x240.png); }
+.ui-icon { width: 16px; height: 16px; background-image: url(../images/calendar/ui-icons_0078ae_256x240.png); }
+.ui-widget-content .ui-icon {background-image: url(../images/calendar/ui-icons_0078ae_256x240.png); }
+.ui-widget-header .ui-icon {background-image: url(../images/calendar/ui-icons_d8e7f3_256x240.png); }
+.ui-state-default .ui-icon { background-image: url(../images/calendar/ui-icons_e0fdff_256x240.png); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(../images/calendar/ui-icons_056b93_256x240.png); }
+.ui-state-active .ui-icon {background-image: url(../images/calendar/ui-icons_f5e175_256x240.png); }
+.ui-state-highlight .ui-icon {background-image: url(../images/calendar/ui-icons_f7a50d_256x240.png); }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(../images/calendar/ui-icons_fcd113_256x240.png); }
 
 /* positioning */
 .ui-icon-carat-1-n { background-position: 0 0; }
@@ -277,8 +277,8 @@
 .ui-corner-all { -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 
 /* Overlays */
-.ui-widget-overlay { background: #aaaaaa url(../images/ui/calendar/ui-bg_flat_75_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
-.ui-widget-shadow { margin: 5px 0 0 5px; padding: 0px; background: #999999 url(../images/ui/calendar/ui-bg_flat_55_999999_40x100.png) 50% 50% repeat-x; opacity: .45;filter:Alpha(Opacity=45); -moz-border-radius: 5px; -webkit-border-radius: 5px; }/* Accordion
+.ui-widget-overlay { background: #aaaaaa url(../images/calendar/ui-bg_flat_75_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
+.ui-widget-shadow { margin: 5px 0 0 5px; padding: 0px; background: #999999 url(../images/calendar/ui-bg_flat_55_999999_40x100.png) 50% 50% repeat-x; opacity: .45;filter:Alpha(Opacity=45); -moz-border-radius: 5px; -webkit-border-radius: 5px; }/* Accordion
 ----------------------------------*/
 .ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
 .ui-accordion .ui-accordion-li-fix { display: inline; }
