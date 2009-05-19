@@ -13,7 +13,8 @@
  <%content_for :search do%>
   <% form_tag(spaces_path(), :method => 'get') do %>
       <%= text_field_tag :filter, "Search space...", :id => "search_space"  %>
-	  <button>Go</button>
+      <%= image_submit_tag "buttons/go.png"%>
+	  <!--<button>Go</button>-->
    <% end %>
  <%end%>
 

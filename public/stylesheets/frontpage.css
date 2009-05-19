@@ -78,8 +78,7 @@ body .icon{margin-bottom:-3px;}
 #logo{width:281px;}
 #search{margin-top:23px;margin-left:86px;}
 #search button{background-color:#244974;}
-#search input{font-size:1em;width:150px;}
-
+#search a img,#search input[type="image"]{margin-bottom:-7px;}
 
 #prefs{font-size:0.9166em;line-height:1.6363;}
 #prefs ul{list-style-type:none;float:right;margin-top:-17px;}
