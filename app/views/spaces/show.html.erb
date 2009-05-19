@@ -46,7 +46,7 @@
 
 	  <h3>About <em><%=@space.name%></em></h3>
 
-	<p><%=image_tag("test_small.jpg",:align=>"left")%>
+	<p><%=logo(@space, :size =>48, :align => "left")%>
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
