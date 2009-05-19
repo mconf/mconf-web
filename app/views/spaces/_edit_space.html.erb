@@ -57,6 +57,7 @@
 		}
 	 
 <%end%>
+
 <div id="space-conf">
 
 <h3>Space configuration</h3>
@@ -70,13 +71,13 @@
 	
 	<p>
 	  <label for="description">Description</label><br/>
-		<%= f.text_area :description%>
+	  <%= f.text_area :description%>
 	</p>
 	
 	<%= f.logo %>
 	
 	<p>
-	  <label for="public">Public Access</label> 
+	  <label for="public">Allow public access?</label> 
 	  <%= check_box("space", "public")%>
 	</p>
 	
@@ -87,26 +88,26 @@
 <% end %>
 
 <div id="jedit_form" style="display:none">
-	<p>
-    <label for="name">Name:</label><br />
-		<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_name()", :id => "edit_name_icon"%>
-  </p>
-	<p>
-	  <label for="description">Description:</label><br/>
-		<span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit" ), "edit_description()", :id => "edit_description_icon"%>
-  </p>
-	<p>
-    <label for="public">Public Access:</label> 
+  <div>
+    <label for="name">Name:</label>
+	<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
+  </div>
+  <div>
+	 <label for="description">Description:</label><br/>
+	 <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
+  </div>
+  <div>
+    <label for="public">Allow public access:</label> 
     <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
-  </p>
-	<p>
-		<label for="public">Logo:</label> 
+  </div>
+	<div>
+		<label for="public">Click to change your logo:</label> 
 		<%= link_to_function logo(@space, :size => 128), "edit_logo()", :id => "edit_logo"%>
-	</p>
+	</div>
 	
 	<% form_for @space, :html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
 	  <%= f.logo %>
-    <%= submit_tag 'Update' %>
+    <%= image_submit_tag 'buttons/update.png' %>
   <%end%>
 		
 </div>

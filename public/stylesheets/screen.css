@@ -53,7 +53,9 @@ a.button, button, #sidebar input[type=submit] {
   line-height:135%;
   text-decoration:none;
   font-weight:bold;
+  background:#275b8a;
   color:#FFF;
+  margin-right:4px;
   cursor:pointer;
   -webkit-border-radius:7px;-moz-border-radius:7px;
 }
@@ -232,7 +234,7 @@ div.single_event:hover{background:#f0f6f9;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3{margin-top:0;padding-top:0.75em;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;overflow:hidden;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{height:8.3333em;margin-bottom:0.5em;}
 
 /*Actions of the sidebar: comment, photo and doc*/
@@ -248,6 +250,9 @@ div.single_event:hover{background:#f0f6f9;}
 #sidebar .float a{padding-left:5px;}
 #sidebar div.checkbox_event{padding:0.25em 0;margin:2px 10px 2px 0;}
 
+/*admin*/
+#sidebar #space-conf div{padding-bottom:0.75em;}
+
 /*footer*/
 .clearboth{clear:left;display:block;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
@@ -259,6 +264,7 @@ div.single_event:hover{background:#f0f6f9;}
 #footer a{color:#666;}
 #footer a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
+
 
 /*davidCSS Temporal - */
 
