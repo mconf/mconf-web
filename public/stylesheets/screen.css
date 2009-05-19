@@ -213,14 +213,16 @@ li.event:hover {text-decoration:underline;}
 li.event h5{margin-bottom:0;}
 a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2px;width:100%;height:100%;background:none;}
 /*events*/
-#events h3,#incoming_events h3,#past_events h3{margin:0;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
+#events h3,#incoming_events h3,#past_events h3{margin:0;padding:8px 0.75em 7px 0.75em;background:#bdd8eb; color:#244974;}
 #events_links{padding:7px 0.5em 0 0;}
+#events_links a{text-decoration:none;color:#244974;}
+#events_links a:hover{background-color:#244974;color:white;}
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#f0f6f9;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}
-.date{color:#c31313;font-weight:bold;}
+.date{color:#8B0425;font-weight:bold;}
 .author{color:#244974;font-weight:bold;}
 #change-event ul li{font-weight:bold;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/

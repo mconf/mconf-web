@@ -7,7 +7,7 @@ class PerformancesController < ApplicationController
 
     respond_to do |format|
       format.html { 
-        redirect_to request.referer
+        redirect_to(@performance.authorizes?(:read, :to => current_agent) ? request.referer : root_path)
       }
 
       format.js {
