@@ -79,7 +79,7 @@ body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
 #header{background-color:#fff;}
 #global,#space,#content,#footer{width:960px;margin:0 auto;display:block;}
-#space{background-color:#f0f0f0;}
+#space{background-color:#f0f6f9;}
 #content{clear:left;min-height:600px;padding-top:1em;}
 #global-wrapper{background:#244974;border-bottom:2px solid #244974;}
 #global{padding:0.5em 0;}
@@ -111,21 +111,23 @@ body .icon{margin-bottom:-2px;}
 #selector{width:150px;margin-right:10px;padding-left:10px;}
 
 #main{width:510px;margin-right:40px;margin-bottom:1.5em;background-color:#fff;}
-#sidebar{float:left;width:230px;padding-right:10px;background-color:#f0f0f0;}
+#sidebar{float:left;width:230px;padding-right:10px;}
 #selector h5{color:#888;margin-bottom:0.75em;}
 #selector ul{font-size:0.8333em;line-height:1.8;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
 #selector ul li{padding-left:0.5em;}
-#selector .selected{text-decoration:none;color:#000;font-weight:bold;}
+#selector ul li a{text-decoration:none;color:#244974;}
+#selector ul li.selected {background-color:#d3e8f6; }
+#selector .selected{text-decoration:none;font-weight:bold; }
 
-#menu{background:#F0F0F0;margin-bottom:1em;}
+#menu{background:#f0f6f9;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
-#menu li a{display:inline-block;background:#85b2e5;padding:0.5em 1.5em;border-right:1px solid #777;text-decoration:none;color:#244974;}
-#menu li .selected{background:#244974; color:white}
-#menu li .admin{background:#1E2B38;color:#FFF;}
-#menu li a:hover{background:#244974;color:white;border-right-color:#999;}
+#menu li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white}
+#menu li .selected{background:white; color:#244974}
+#menu li .admin{background:#e3a333;color:#FFF;}
+#menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 #menu li .selected:hover{background:#244974; color:white}
-#menu li .admin:hover{background:#464a50;}
+#menu li .admin:hover{background:white;color:#e3a333;}
 #wrapper{padding:0 10px 10px 10px;}
 
 /*users and groups*/
@@ -188,7 +190,7 @@ ul.edit-post li{list-style-type:none;}
 #latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 #latest_posts .read_more,#latest_users .read_more{padding:5px 0.75em;background:#bdd8eb;}
 div.user li.u_name{color:#611427;}
-div.post{color:#e3a333;}
+/*div.post{color:#e3a333;}*/
 div.post a:hover{height:100%; width:100%;}
 span.updated{color:#c0c0c0;}
 
