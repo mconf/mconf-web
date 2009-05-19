@@ -43,7 +43,7 @@ style_file_input = function(){
  * Fullscreen online conference
  */
 
-setFullscreen = function(){
+setFullScreen = function(){
 
 	var windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
           
@@ -57,7 +57,7 @@ setFullscreen = function(){
   $("#main").css({height:"100%",width:"100%"});
   $("#embed").css({height:windowHeight,width:"100%"})
 };
-unsetFullscreen = function(){
+unsetFullScreen = function(){
   $("#header").show();
   $("#selector").show();
   $("#menu").show();
