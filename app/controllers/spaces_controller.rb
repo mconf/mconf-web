@@ -228,12 +228,16 @@ class SpacesController < ApplicationController
     else
       jr = space.join_requests.new
       jr.candidate = current_user
-      jr.save!
-      flash[:notice] = t('join_request.created')
-      if request.xhr?
-        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      if jr.save
+        flash[:notice] = t('join_request.created')
       else
-        redirect_to spaces_path  
+        flash[:error] = "Your petition has already been sent"
+      end
+
+      if request.xhr?
+          render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+        else
+          redirect_to spaces_path  
       end
     end
     
