@@ -39,8 +39,6 @@ ol{list-style-type:decimal;}
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 .item_title{}
-
-
 .person_title{}
 .sidebar_title{}
 .selector_title{color:#999;}
@@ -192,7 +190,7 @@ ul.edit-post li{list-style-type:none;}
 div.user li.u_name{color:#611427;}
 /*div.post{color:#e3a333;}*/
 div.post a:hover{height:100%; width:100%;}
-span.updated{color:#c0c0c0;}
+span.updated{color:#666;}
 
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
@@ -223,11 +221,11 @@ div.single_event:hover{background:#f0f6f9;}
 .join h2{margin-bottom:0;margin-top:2px;color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg, #change-event,#space-conf,#news_sidebar{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#new-priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#new-priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3{margin-top:0;padding-top:0.75em;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea,#news_sidebar textarea{width:92%;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#new-priv-msg textarea,#change-event textarea,#news_sidebar textarea{height:8.3333em;margin-bottom:0.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#space-conf{background:#DDD;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#space-conf{-webkit-border-radius:7px;-moz-border-radius:7px;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg,#change-event h3,#space-conf h3,#news_sidebar h3,#space-conf h3{margin-top:0;padding-top:0.75em;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{height:8.3333em;margin-bottom:0.5em;}
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:0.9166em;line-height:1.6363;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
