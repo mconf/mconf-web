@@ -147,7 +147,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         @user.tag_with(params[:tags]) if params[:tags]
         
-        flash[:notice] = 'User was successfully updated.'     
+        flash[:success] = 'User was successfully updated.'     
         format.html { #the superuser will be redirected to list_users
           redirect_to(user_profile_path(@user))
         } 

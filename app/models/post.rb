@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
 
 
  
-  validates_presence_of :title unless self.parent
+  validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
   validates_presence_of :text
 
 
