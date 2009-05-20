@@ -1,0 +1,10 @@
+/*kikeCSS */
+.blue_title h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
+
+div#fancy_div {
+	background: #fff;
+	color: #FFF;
+	height: 100%;
+	width: 100%;
+	z-index: 100;
+}

@@ -1,7 +1,6 @@
-<div class="join_div">
+<div class="join_div" class="blue_title">
 
-<h1>Join <%= space.name %></h1>
-
+<h3>Join <%= space.name %></h3>
 <%if !space.public?%>
   <p><%=space.name%> is a private space. You can send a join request to the admins of this space.</p>
 <%end%>
