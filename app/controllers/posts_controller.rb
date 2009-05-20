@@ -34,35 +34,34 @@ class PostsController < ApplicationController
   # Show this Entry
   #   GET /posts/:id
   def show
-    
     if params[:last_page]
       post_with_children(post, {:last => true})
     else
       post_with_children(post)  
     end
-    
 
     respond_to do |format|
-      format.js {
-        if params[:edit]
-          if !post.attachments.empty? 
-            if !post.attachments.select{|a| a.image?}.empty?     
-              params[:form]='photos'
+      format.html {
+        if request.xhr?
+          if params[:edit]
+                if !post.attachments.empty? 
+                  if !post.attachments.select{|a| a.image?}.empty?     
+                    params[:form]='photos'
+                  else
+                    params[:form]='docs'
+                  end
+                end
+            if post.parent_id
+              render :partial => "edit_reply", :locals => { :post => post }
             else
-              params[:form]='docs'
+              render :partial => "edit_thread", :locals => { :post => post }
             end
-          end
-          if post.parent_id
-            render :partial => "edit_reply", :locals => { :post => post }
           else
-            render :partial => "edit_thread", :locals => { :post => post }
+            render :partial => "new_reply", :locals => { :post => @post }  
           end
         else
-          render :partial => "new_reply", :locals => { :post => @post }  
+          @show_view = true  
         end
-      }
-      format.html {
-        @show_view = true
       }
       format.xml { render :xml => @post.to_xml }
       format.atom 
