@@ -41,10 +41,11 @@
     @incoming_events=@space.events.find(:all, :order => "start_date DESC").select{|e| e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space})
     respond_to do |format|
-      format.js {
-        render :partial=>"last_news"
+      format.html{
+        if request.xhr?
+          render :partial=>"last_news"
+        end
       }
-      format.html # show.html.erb
       format.xml  { render :xml => @space }
       format.atom
     end
@@ -53,17 +54,17 @@
   # GET /spaces/new
   def new
     respond_to do |format|
-      format.js {
-        if params[:login]
-          render :partial=>"login_fields"
-        elsif params[:register]
-          render :partial=>"register_fields"
-        else
-          render :partial=>"new"
+      format.html{
+          if request.xhr?
+            if params[:login]
+            render :partial=>"login_fields"
+          elsif params[:register]
+            render :partial=>"register_fields"
+          else
+            render :partial=>"new"
+          end  
         end
-        
       }
-      format.html{}
     end
   end
   
