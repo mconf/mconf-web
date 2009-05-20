@@ -26,9 +26,13 @@ class Event < ActiveRecord::Base
   end
       
   def validate
-    unless self.start_date < self.end_date
+    if self.start_date.nil? || self.end_date.nil? 
+      errors.add_to_base("The event needs start date and end date ")
+    else
+      unless self.start_date < self.end_date
       errors.add_to_base("The event start date must be previous than the event end date ")
-    end
+      end  
+    end   
 #    unless self.start_date.future? 
 #      errors.add_to_base("The event start date should be a future date  ")
 #    end
