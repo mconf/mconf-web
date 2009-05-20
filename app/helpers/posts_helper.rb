@@ -32,6 +32,9 @@ module PostsHelper
   end
   
   def first_words( text, size )
+    return truncate(text, size, "...")
+
+    #!!!! WARNING !!!
     if text.length > size
       cutted_text = text[0..size]
       cutted_text.chop! until cutted_text[-1,1] == " "

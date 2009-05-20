@@ -10,7 +10,7 @@
 	  	<ul>
 	    <li><strong><%=sanitize(detailed_user.full_name) %></strong></li>	
 	    <li class="small-font"><%=sanitize(detailed_user.organization) %></li>
-	    <li class="small-font"><%=sanitize(detailed_user.city) %>, <%=sanitize(detailed_user.country) %></li>
+	    <li class="small-font"><%=sanitize(detailed_user.city) %><%= "," unless detailed_user.city.blank? or detailed_user.country.blank? %> <%=sanitize(detailed_user.country) %></li>
 	  </ul>
 	</div>
 </div>
