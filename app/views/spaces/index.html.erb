@@ -39,6 +39,8 @@
       }
     );
   
+	
+	/*
   $(".unautorized form").submit(function(){
 	  var route = $(this).attr("action");
     $.post(route,
@@ -49,6 +51,12 @@
           );
 		return false;
   });
+	*/
+	
+	$(".unautorized a").fancybox({
+    'hideOnContentClick' : false
+  });
+	
 	
 	 <%if params[:filter]%>
     $("#space_name_filter").keyup();
@@ -86,9 +94,7 @@
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
-			  <% form_tag join_space_path(space) do %>
-          <%= image_submit_tag(logo_path (space, :size=> 48, :title => space.name, :alt => space.name))%>
-        <% end %>
+        <%=link_to image_tag(logo_path(space, :size =>48)), join_space_path(space)%>
 			</div>
 		<% else %>
 		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
@@ -105,4 +111,4 @@
   <% end %>
 </div>
 
-<div id="lightbox_content" style="display:none"></div>
+<div id="lightbox_join_content" style="display:none"></div>

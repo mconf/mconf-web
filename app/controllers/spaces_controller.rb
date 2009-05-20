@@ -1,4 +1,4 @@
-class SpacesController < ApplicationController
+  class SpacesController < ApplicationController
   before_filter :space
 
   authorization_filter :read,   :space, :only => [:show]
@@ -174,10 +174,20 @@ class SpacesController < ApplicationController
   end
 
   def join
+    if request.method == :post
+      join_post
+    else
+      join_get
+    end
+  end
+
+  def join_post
+    
     unless authenticated?
       unless params[:user]
-        if request.xhr?
-          render :partial=> "join.js.erb"
+        respond_to do |format|
+          format.js
+          format.html
         end
         return
       end
@@ -189,8 +199,9 @@ class SpacesController < ApplicationController
           message = ""
           @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
           flash[:error] = message
-          if request.xhr?
-            render :partial=> "join.js.erb"
+          respond_to do |format|
+            format.js
+            format.html
           end
           return
         end
@@ -199,8 +210,9 @@ class SpacesController < ApplicationController
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
         flash[:error] = "Invalid credentials"
-        if request.xhr?
-          render :partial=> "join.js.erb"
+        respond_to do |format|
+          format.js
+          format.html
         end
         return
       end
@@ -242,6 +254,16 @@ class SpacesController < ApplicationController
       end
     end
     
+  end
+  
+  def join_get
+    respond_to do |format|
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
+    end
   end
   
    

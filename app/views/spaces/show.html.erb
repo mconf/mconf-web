@@ -23,6 +23,10 @@
     return false;
   });
 	
+	$(".fancybox_link").fancybox({
+    'hideOnContentClick' : false
+  });
+	
 <% end %>
 
 <% content_for :search do  %>
@@ -37,9 +41,13 @@
   <% if space.users.include?(current_user)%>
 		<%= link_to image_tag("buttons/leave-space2.png", :alt => "Leave space" ), space_performance_path(@space, @performance), :method => :delete,:title => "Leave space" %>
   <%else%>
-	  <% form_tag join_space_path(space), :id => "join_form" do %>
-      <%= image_submit_tag("buttons/join-space.png") %>
-    <% end %>
+	  <%if logged_in? && space.public?%>
+		  <% form_tag join_space_path(space), :id => "join_form" do %>
+	      <%= image_submit_tag("buttons/join-space.png") %>
+	    <% end %>
+		<%else%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>
+		<%end%>
   <% end %>
 	</div>
   <div class="space-desc">

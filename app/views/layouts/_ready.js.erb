@@ -33,25 +33,25 @@ $("#create_and_register_link").livequery("click", function(){
  */
 
 $("a.join_and_login_link").livequery("click", function(){
-  $(this).attr("href","javascript:void(0)");
   var route = "/spaces/" + $(this).attr("name") +"/join" 
-  $.post(route,
+  $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $(".join_div").replaceWith(data);
         }
       );
+  return false;
 });
 
 $("a.join_and_register_link").livequery("click", function(){
-  $(this).attr("href","javascript:void(0)");
 	var route = "/spaces/" + $(this).attr("name") +"/join?register=true"
-  $.post(route,
+  $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $(".join_div").replaceWith(data);
         }
       );
+  return false;
 });
 
 /*
