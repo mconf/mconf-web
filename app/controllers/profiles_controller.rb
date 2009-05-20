@@ -60,7 +60,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        flash[:notice] = 'Profile was successfully created.'
+        flash[:success] = 'Profile was successfully created.'
         format.html { redirect_to :action => 'show' }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
         format.atom { 
