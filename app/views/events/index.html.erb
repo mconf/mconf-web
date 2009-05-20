@@ -310,31 +310,32 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
   <div id="events">
 	  <h3>Incoming Events</h3> 
 	  
-	  <%if @first_incoming_events.nil?%>
+	  <%if @first_incoming_events.empty?%>
+		  <br/>
 	    <p> No Incoming events</p>
 	  <%else%>
 	    <%for event in @first_incoming_events%>
 	      <%= render :partial => event %>
-	    <%end%>	
+	    <%end%>
+			 <div class="group_links">
+         <%=link_to "Show all Incoming Events", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%><br/>
+       </div>	
 	  <%end%>
 	  
-	   <div class="group_links">
-	   	 <%=link_to "Show all Incoming Events", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%><br/>
-	   </div>
+
 	   <br/>
 	  <h3>Past Events</h3>  
 
-	  <%if @last_past_events.nil?%>
+	  <%if @last_past_events.empty?%>
+		  <br/>
 	    <p> No past events</p>
 	  <%else%>
 	    <%for event in @last_past_events%>
 	      <%= render :partial => event %>
-	    <%end%>	
+	    <%end%>
+			<div class="group_links">
+        <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
+      </div>  	
 	  <%end%>
-
-
-      <div class="group_links">
-	    <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
-	  </div>	
   </div>
 </div>

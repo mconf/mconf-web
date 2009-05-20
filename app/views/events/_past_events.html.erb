@@ -11,7 +11,8 @@
   <div id="past_div">
   <div id="yesterday_events"<%= 'style="display: none;"' if params[:day] != 'yesterday'%>>
     
-    <%if @today_and_yesterday_paginate_events.nil?%>
+    <%if @today_and_yesterday_paginate_events.empty?%>
+		  <br/>
       <p> No yesterday and today past events</p>
     <%else%>
 		  <%for event in @today_and_yesterday_paginate_events%>
@@ -25,7 +26,8 @@
   
   <div id="last_week_events" <%= 'style="display: none;"' if params[:day] != 'last_week'%>> 
     
-    <%if @last_week_paginate_events.nil?%>
+    <%if @last_week_paginate_events.empty?%>
+		  <br/>
       <p> No last week past events</p>
     <%else%>
       <%for event in @last_week_paginate_events%>
@@ -39,7 +41,8 @@
   
   <div id="last_month_events"<%= 'style="display: none;"' if params[:day] != 'last_month'%>>
 
-	  <%if @last_month_paginate_events.nil?%>
+	  <%if @last_month_paginate_events.empty?%>
+		  <br/>
       <p> No last month past events</p>
     <%else%>
       <%for event in @last_month_paginate_events%>
@@ -53,7 +56,8 @@
   </div>
   
   <div id="all_past_events"<%= 'style="display: none;"' if (params[:day] == 'yesterday' or params[:day] == 'last_week' or params[:day] == 'last_month')%>>
-    <%if @all_past_paginate_events.nil?%>
+    <%if @all_past_paginate_events.empty?%>
+		  <br/>
       <p> No past events</p>
     <%else%>
       <%for event in @all_past_paginate_events%>

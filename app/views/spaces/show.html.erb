@@ -85,16 +85,20 @@
 </div>
 
 <div id="latest_posts">
-        <h3><%=image_tag("icons/comment.png")%> Latest Posts</h3>
-  <% for post in @lastest_posts -%>
-    <div class="post">
-        <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
-		<a href="" class="box-link"></a>
-    </div>
-  <% end -%>
-      <div class="read_more"> 
-	    <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
-	  </div>
+    <h3><%=image_tag("icons/comment.png")%> Latest Posts</h3>
+	  <%if @lastest_posts.empty?%>
+	     <br/><p>There aren't recent posts</p>
+	  <%else%>
+	    <% for post in @lastest_posts -%>
+	      <div class="post">
+	        <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
+	        <a href="" class="box-link"></a>
+	      </div>
+	    <% end -%>
+	    <div class="read_more"> 
+	      <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
+	    </div>
+	  <%end%>     
 </div>
 
 <div id="latest_users">
