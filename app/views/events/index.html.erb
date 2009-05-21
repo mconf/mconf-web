@@ -19,164 +19,16 @@
 <% content_for :javascript do %>
 
 <!-- select links -->
-$(".event_navigation").click(function(){
-  $(".event_navigation").removeClass("event_selected");
-	$(this).addClass("event_selected");
+$(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
+	var route = $(this).attr("href");
+  $.get(route,
+      {authenticity_token: "<%=form_authenticity_token()%>"},
+      function(data){
+        $("#events_content").replaceWith(data);
+      }
+    );
+	return(false);
 });
-
-<!-- link_to incoming events --> 
-$(".incoming_link").click(function () { 
-  $("#past_events").hide();
-  $("#all_events").hide();
-	$("#incoming_events").show();
-});
-$(".incoming_link").attr('href', '#');
-
-<!-- link_to Past events -->
-$(".past_link").click(function () {
-  $("#past_events").show();
-  $("#all_events").hide();
-  $("#incoming_events").hide();
-});
-$(".past_link").attr('href', '#');
-
-<!-- link_to All events -->
-$("#all_link").click(function () {
-  $("#past_events").hide();
-  $("#all_events").show();
-  $("#incoming_events").hide();
-});
-$("#all_link").attr('href', '#');
-
-<!-- link_to today events in incoming events -->
-$("#today_link").click(function () {
-  $("#today_text, #next_week_events_link, #next_month_events_link, #all_incoming_events_link").show();
-	$("#today_events_link,#next_week_text, #next_month_text,#all_incoming_text" ).hide();
-	$("#incoming_div > div").hide();
-  $("#today_events").show();
-
-});
-$("#today_link").attr('href', '#');
-
-<!-- link_to next week events in incoming events -->
-$("#next_week_link").click(function () {
-  $("#today_text").hide();
-  $("#today_events_link").show();
-  $("#next_week_text").show();
-  $("#next_week_events_link").hide();
-  $("#next_month_text").hide();
-  $("#next_month_events_link").show();
-  $("#all_incoming_text").hide();
-  $("#all_incoming_events_link").show();
-	
-	$("#incoming_div > div").hide();
-  $("#next_week_events").show();
-
-});
-$("#next_week_link").attr('href', '#');
-
-<!-- link_to next month events in incoming events -->
-$("#next_month_link").click(function () {
-  $("#today_text").hide();
-  $("#today_events_link").show();
-  $("#next_week_text").hide();
-  $("#next_week_events_link").show();
-  $("#next_month_text").show();
-  $("#next_month_events_link").hide();
-  $("#all_incoming_text").hide();
-  $("#all_incoming_events_link").show();
-	
-	$("#incoming_div > div").hide();
-  $("#next_month_events").show();
-
-});
-$("#next_month_link").attr('href', '#');
-
-<!-- link_to all incoming events in incoming events -->
-$("#all_incoming_link").click(function () {
-  $("#today_text").hide();
-  $("#today_events_link").show();
-  $("#next_week_text").hide();
-  $("#next_week_events_link").show();
-  $("#next_month_text").hide();
-  $("#next_month_events_link").show();
-  $("#all_incoming_text").show();
-  $("#all_incoming_events_link").hide();
-	
-	$("#incoming_div > div").hide();
-  $("#all_incoming_events").show();
-});
-$("#all_incoming_link").attr('href', '#');
-
-<!-- link_to yesterday and past events in past events -->
-$("#yesterday_link").click(function () {
-  $("#yesterday_text").show();
-  $("#yesterday_events_link").hide();
-  $("#last_week_text").hide();
-  $("#last_week_events_link").show();
-  $("#last_month_text").hide();
-  $("#last_month_events_link").show();
-  $("#all_past_text").hide();
-  $("#all_past_events_link").show();
-	
-	$("#past_div > div").hide();  
-  $("#yesterday_events").show();
-
-});
-$("#yesterday_link").attr('href', '#');
-
-<!-- link_to last week events in past events -->
-$("#last_week_link").click(function () {
-  $("#yesterday_text").hide();
-  $("#yesterday_events_link").show();
-  $("#last_week_text").show();
-  $("#last_week_events_link").hide();
-  $("#last_month_text").hide();
-  $("#last_month_events_link").show();
-  $("#all_past_text").hide();
-  $("#all_past_events_link").show();
-	
-	$("#past_div > div").hide();   
-  $("#last_week_events").show();
-
-});
-$("#last_week_link").attr('href', '#');
-
-<!-- link_to last month events in past events -->
-$("#last_month_link").click(function () {
-  $("#yesterday_text").hide();
-  $("#yesterday_events_link").show();
-  $("#last_week_text").hide();
-  $("#last_week_events_link").show();
-  $("#last_month_text").show();
-  $("#last_month_events_link").hide();
-  $("#all_past_text").hide();
-  $("#all_past_events_link").show();
-	
-	$("#past_div > div").hide();
-  $("#last_month_events").show();
-	
-});
-$("#last_month_link").attr('href', '#');
-
-<!-- link_to all past events in past events -->
-$("#all_past_link").click(function () {
-  $("#yesterday_text").hide();
-  $("#yesterday_events_link").show();
-  $("#last_week_text").hide();
-  $("#last_week_events_link").show();
-  $("#last_month_text").hide();
-  $("#last_month_events_link").show();
-  $("#all_past_text").show();
-  $("#all_past_events_link").hide();
-	
-	$("#past_div > div").hide();
-  $("#all_past_events").show();
-	
-});
-$("#all_past_link").attr('href', '#');
-
-
 		
 $(".no_javascript").after(
   "<div class='javascript'><input type='date' id='start_datepicker' name='event[start_date]' class= 'datepicker small-font' value= <%= @event.present? ? @event.start_date.month.to_s + "/" + @event.start_date.day.to_s + "/" + @event.start_date.year.to_s : "" %>> <%=escape_javascript(link_to "Start date", "javascript:start_datepicker_setdate()")%><br/> "  
@@ -232,49 +84,6 @@ $("#end_timepicker").click(function(){
 	}
 });
 
-var actual_page = <%=params[:page] ? params[:page] : 1%>
-jQuery.fn.calculate_page = function() {
-  var b = $(this[0]).html()  
-  if (b == "Next »"){
-	  b=actual_page + 1;
-	}
-	if (b == "« Previous"){
-	  b =actual_page - 1;
-	}
-	return b;
-};
-$("#yesterday_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=yesterday&page=' + $(this).calculate_page());
-});
-
-$("#last_week_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=last_week&page=' + $(this).calculate_page());
-});
-
-$("#last_month_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&day=last_month&page=' + $(this).calculate_page());
-});
-
-$("#all_past_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=past_events&page=' + $(this).calculate_page());
-});
-
-$("#today_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=today&page=' + $(this).calculate_page());
-});
-
-$("#next_week_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=next_week&page=' + $(this).calculate_page());
-});
-
-$("#next_month_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&day=next_month&page=' + $(this).calculate_page());
-});
-
-$("#all_incoming_paginate a").each(function (i){ 
-$(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page=' + $(this).calculate_page());
-});
-
 <% end %>
 
 <% content_for :search do  %>
@@ -287,55 +96,18 @@ $(this).attr('href','/spaces/<%=@space.name%>/events?show=incoming_events&page='
    <% end %>
 <%end%>
 
- <div class="group_links" id="events_links">
-   <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-   <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'event_navigation incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
-   <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
- </div>  
- 
-
-	
-
-<div id="past_events" <%= 'style="display: none;"' if params[:show] != 'past_events' %>>
-	<%= render :partial => 'past_events' %>
-</div>
-
-<div id="incoming_events" <%= 'style="display: none;"' if params[:show] != 'incoming_events' %>>
-  <%= render :partial => 'incoming_events' %>
-</div>
-
-	
-<div id="all_events" <%= 'style="display: none;"' if (params[:show] == 'incoming_events' or params[:show] == 'past_events' )%>>
-
-  <div id="events">
-	  <h3>Incoming Events</h3> 
-	  
-	  <%if @first_incoming_events.empty?%>
-		  <br/>
-	    <p> No Incoming events</p>
-	  <%else%>
-	    <%for event in @first_incoming_events%>
-	      <%= render :partial => event %>
-	    <%end%>
-			 <div class="group_links">
-         <%=link_to "Show all Incoming Events", space_events_path(@space, :show => "incoming_events"), {:class => 'incoming_link'}%><br/>
-       </div>	
-	  <%end%>
-	  
-
-	   <br/>
-	  <h3>Past Events</h3>  
-
-	  <%if @last_past_events.empty?%>
-		  <br/>
-	    <p> No past events</p>
-	  <%else%>
-	    <%for event in @last_past_events%>
-	      <%= render :partial => event %>
-	    <%end%>
-			<div class="group_links">
-        <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
-      </div>  	
-	  <%end%>
-  </div>
+<div id="events_content">
+	<div class="group_links" id="events_links">
+	  <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+	  <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'event_navigation incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
+	  <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
+	</div>  
+	 
+	<%if params[:show] == 'past_events'%>
+			<%= render :partial => 'past_events' %>
+	<%elsif params[:show] == 'incoming_events' %>
+		  <%= render :partial => 'incoming_events' %>
+	<%else%>	
+		  <%= render :partial => 'all_events' %>
+	<%end%>
 </div>
