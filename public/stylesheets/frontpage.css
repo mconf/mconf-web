@@ -65,7 +65,7 @@ body{min-width:910px;}
 body .icon{margin-bottom:-3px;}
 
 #global,#home,#footer{width:920px;margin:0 auto;}
-#home{background:#f0f0f0;}
+#home{background:#f0f6f9;}
 #global-wrapper{background:#244974;border-bottom:2px solid #244974;}
 #global{padding:0.5em 0;}
 #global a{color:#EEE;text-decoration:none;}
@@ -73,7 +73,7 @@ body .icon{margin-bottom:-3px;}
 #global-logo img{margin:0 4px -4px 0;}
 #feedback{margin-left:160px;}
 #feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
-#header{background:#fff;margin-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
+#header{background:#fff;padding-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
 #logo, #search{float:left;}
 #logo{width:281px;}
 #search{margin-top:23px;margin-left:86px;}
