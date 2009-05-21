@@ -35,16 +35,20 @@
 
 <div>
 	<h4><%= @user_spaces.nil? ? "The User doesn't belong to any space" : "Member of : "%></h4>
-		<%for space in @user_spaces do%>
+	<%if !@user_spaces.nil?%>
+	        <%for space in @user_spaces do%>
 			<p><%= space.authorizes? ([:read , :Content], :to => current_user) ? link_logotype(space, :size => 48) : logotype(space, :size => 48)%></p>
 		<%end%>
+	<%end%>
 </div>
 
 <div>
 	<h4><%= @latest_posts.nil? ? "The User doesn't have recent activity" : "Latest Posts" %></h4>
+    <%if !@latest_posts.nil?%>
 		<% for post in @latest_posts -%>
 			<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
 		<%end%>	
+    <%end%>
 </div>
 <br/>
 

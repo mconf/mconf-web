@@ -83,7 +83,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
-        format.html { render :action => "show" }
+        format.html { redirect_to :action => "show" }
         format.xml  { head :ok }
         format.atom { head :ok }
       else
