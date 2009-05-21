@@ -1,3 +1,13 @@
+servers = {
+  :production => 'isabel@vcc.dit.upm.es',
+  :test => 'isabel@vcc-test.dit.upm.es'
+}
+
+default_env = :test
+# Set environment
+current_env = ( ARGV[1] || default_env ).to_sym
+
+
 set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
@@ -32,6 +42,10 @@ namespace(:deploy) do
 end
 
 
-role :app, "isabel@vcc.dit.upm.es"
-role :web, "isabel@vcc.dit.upm.es"
-role :db,  "isabel@vcc.dit.upm.es", :primary => true
+role :app, servers[current_env]
+role :web, servers[current_env]
+role :db,  servers[current_env], :primary => true
+
+task :vcc do
+  deploy.migrations
+end

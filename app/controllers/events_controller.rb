@@ -19,13 +19,13 @@ class EventsController < ApplicationController
     @events = (Event.in_container(@space).all :order => "start_date ASC")
       #Incoming events
       @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
-      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 10)
+      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
       @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
-      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 10)
+      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
       @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
-      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 10)
+      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
       @all_incoming_events = @events.select{|e| e.start_date.future?}
-      @all_incoming_paginate_events = @all_incoming_events.paginate(:page => params[:page], :per_page => 10)
+      @all_incoming_paginate_events = @all_incoming_events.paginate(:page => params[:page], :per_page => 3)
 =begin      
       if params[:day] == "today"
         @incoming_title = "Today Events"
@@ -68,35 +68,12 @@ class EventsController < ApplicationController
       @last_past_events = @events.select{|e| !e.start_date.future?}.reverse.first(5)
       @first_incoming_events = @events.select{|e| e.start_date.future?}.first(5)  
     
-    
-    
-    
-    
-=begin
-    Event.in_container(@space).at_date(params[:date_start_date]).paginate(params[:paginate])
-    
-    if params[:date_start_day]
-       @start_day = Date.parse(params[:date_start_day])
-       @events = if @space.id == 1
-              (Event.in_container(nil).all :order => "updated_at DESC").select{|event| (event.public_read == true || (event.container_type == 'Space' && event.container_id == 1)) && event.start_date.to_date == @start_day}               
-              else
-              (Event.in_container(@space).all :order => "updated_at DESC").select{|event| event.start_date.to_date == @start_day}
-              end
-    else
-      @start_day = Date.today
-      get_events #obtain the space events
-      if params[:view_all]
-        future_and_past_events
-      else
-        coming_events  
-      end
-    end
-=end
-    
-    #@events = @events_all - @today_events - @tomorrow_events - @week_events
     respond_to do |format|
-      format.html { }
-    #format.html # index.html.erb
+      format.html {
+        if request.xhr?
+          render :layout => false;
+        end
+      }
       format.xml  { render :xml => @events }
     end
   end
