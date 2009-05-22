@@ -57,7 +57,11 @@ start_timepicker_setTime = function(){
  */
 
 end_timepicker_setTime = function(){
-  $("#end_timepicker").timeEntry('setTime');
+  if($("#start_timepicker").val()!=""){
+    $("#end_timepicker").val($("#start_timepicker").val());
+  }else{
+    $("#end_timepicker").timeEntry('setTime');
+  }
 };
 
 start_datepicker_setdate = function(){
