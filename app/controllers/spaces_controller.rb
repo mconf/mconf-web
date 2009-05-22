@@ -151,8 +151,12 @@
       end
     else
       respond_to do |format|
-        format.js{}
-        format.html { render :action => "edit" }
+        flash[:error] = "The change is not valid"
+        format.js {
+        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\"> The Space logo is not valid </div>\")"
+        }
+        format.html { 
+        redirect_to edit_space_path() }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
       end      
