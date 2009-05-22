@@ -165,7 +165,37 @@ class PostsController < ApplicationController
         return
       end
     end
-=end      
+=end
+if @post.text.present?
+	 respond_to do |format|
+        format.js{
+        if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = "The comment is not valid" 
+            return
+          else
+            flash[:error] = "The content of the post can't be empty"  
+            return
+          end
+          
+        }
+        format.html {   
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = "The comment is not valid" 
+            posts
+            render :action => "index"
+
+          else
+            flash[:error] = "The content of the post can't be empty"
+            posts
+            render :action => "index"
+               
+          end
+        }
+        format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
+        format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
+      end
+      return
+end
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = "Post created"
