@@ -12,7 +12,7 @@
  
  <%content_for :search do%>
   <% form_tag(spaces_path(), :method => 'get') do %>
-      <%= text_field_tag :filter, "Search space...", :id => "search_space"  %>
+      <%= text_field_tag :filter, "Search spaces...", :id => "search_space"  %>
       <%= image_submit_tag "buttons/go.png"%>
 	  <!--<button>Go</button>-->
    <% end %>
@@ -21,7 +21,7 @@
  <%content_for :sidebar do%>
 		  <div class="join">
 			<h2>Start now!</h2>
-			<p> Here you can create your collaborative space. Start now!</p>
+			<p>Create your own space. Share, Collaborate, Discuss.</p>
 			<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 	
 		  </div>
 

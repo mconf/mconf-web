@@ -1,10 +1,15 @@
 
 <%content_for :sidebar do %>
-  <div>
-	<h3 class="item_title"><span><%=@user.name%></span><%= @user_spaces.nil? ? " doesn't belong to any space" : " is member of : "%></h3>
+  <div class="profile-box">
+	<div id="title">
+	 <h3 class="item_title"><span><%=@user.name%></span> is member of:</h3>
+	</div>
+	<div id="profile_content">
+		<%= @user_spaces.empty? ? @user.name + " doesn't belong to any space" : ""%>
 		<%for space in @user_spaces do%>
-			<p><%= space.authorizes? ([:read , :Content], :to => current_user) ? link_logotype(space, :size => 48) : logotype(space, :size => 48)%></p>
+			<div class="space_item"><%= space.authorizes? ([:read , :Content], :to => current_user) ? link_logo(space, :size => 48, :title=> space.name): logotype(space, :size => 48)%></div>
 		<%end%>
+	</div>
   </div>
 <%end%>
 
@@ -44,7 +49,7 @@
 	<h3 class="item_title"> Recent activity </h3>
   </div>
   <div id="profile_content">
-  	  <%= @latest_posts.nil? ? "The User doesn't have recent activity" : "" %>
+  	  <%= @latest_posts.empty? ? "The User doesn't have any recent activity" : "" %>
 	  <% for post in @latest_posts -%>
 		<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
 	  <%end%>
