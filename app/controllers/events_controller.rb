@@ -177,10 +177,20 @@ class EventsController < ApplicationController
   
   #method to get the token to participate in a online videoconference
   def token
-	  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+	  #if the user is not logged in the name should be guest+number
+	  if !logged_in?
+		  @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
+	  else
+		   @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+	  end
+	  
 	  if @token.nil?
 		  MarteRoom.create :name => params[:id]
-		  @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+		  if !logged_in?
+			   @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
+	  	  else
+		      @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+	      end
 	  end
 	  if @token.nil?
 		render :text => "Token not available", :status => 500

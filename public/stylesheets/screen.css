@@ -213,9 +213,14 @@ li.event h5{margin-bottom:0;}
 a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2px;width:100%;height:100%;background:none;}
 /*events*/
 #events_content h3{margin:0;padding:8px 0.75em 7px 0.75em;background:#bdd8eb; color:#244974;}
+#events_content a{color:#8b0425;text-decoration:none;}
+#events_content a.selected{background-color:#8b0425;color:white;}
+#events_content a:hover{background-color:#8b0425;color:white;}
+#incoming-links{margin-top:10px;margin-left:2px;margin-bottom:5px;}
 #events_links{padding:7px 0.5em 0 0;}
-#events_links a{text-decoration:none;color:#244974;}
+#events_links a{text-decoration:none;color:#244974;padding-left:2px; padding-right:2px;}
 #events_links a:hover{background-color:#244974;color:white;}
+
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#f0f6f9;}
@@ -224,6 +229,10 @@ div.single_event:hover{background:#f0f6f9;}
 .date{color:#8B0425;font-weight:bold;}
 .author{color:#244974;font-weight:bold;}
 #change-event ul li{font-weight:bold;}
+#events_links a.event_selected{background:#244974; color:white;}
+div.pagination{margin-top:5px;text-align:center;color:#244974;}
+div.pagination span.current{background:#244974; color:white}
+div.pagination a.next_page:link{color:blue;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
 .join h2{margin-bottom:0;margin-top:2px;color:#244974;}

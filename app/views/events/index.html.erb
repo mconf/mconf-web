@@ -57,7 +57,11 @@ start_timepicker_setTime = function(){
  */
 
 end_timepicker_setTime = function(){
-  $("#end_timepicker").timeEntry('setTime');
+  if($("#start_timepicker").val()!=""){
+    $("#end_timepicker").val($("#start_timepicker").val());
+  }else{
+    $("#end_timepicker").timeEntry('setTime');
+  }
 };
 
 start_datepicker_setdate = function(){
@@ -99,7 +103,7 @@ $("#end_timepicker").click(function(){
 <div id="events_content">
 	<div class="group_links" id="events_links">
 	  <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-	  <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'event_navigation incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
+	  <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
 	  <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
 	</div>  
 	 

@@ -2,8 +2,10 @@
 	  self.site = "http://marte3.dit.upm.es/MarteServer/rest/rooms/:room_id"
 	  self.element_name = "token"
 	  
-	  KEY="123asd123"	
-	  SERVICE_NAME="standalone"
+	  #KEY="123asd123"	
+	  #SERVICE_NAME="standalone"
+	  KEY="GlobalRules1234"	
+	  SERVICE_NAME="global"
 	  MAUTH_VERSION="3.1"
 	  MARTE_URL="marte3.dit.upm.es"
 	  
