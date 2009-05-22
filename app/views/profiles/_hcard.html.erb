@@ -23,18 +23,18 @@
 	  </div>
 	  <div class="vcard" id="card">
 	    <ul class="adr">	  
-		  <li class="fn n">Name<span><%=@user.full_name%></span></li>
-	 	  <li class="street-address"> <%= @profile.address%></span></li>
+		  <li class="fn n">Name: <span><%=@user.full_name%></span></li>
+	 	  <!--<li class="street-address"> <%= @profile.address%></span></li>-->
 		  <li class="locality"> <%= @profile.city%></span></li>
 		  <li class="country-name"><%= @profile.country%></span></li>
-		  <li class="region"><%= @profile.province%></span></li>
-		  <li class="postal-code"> <%= @profile.zipcode%></span></li>
+		  <!--<li class="region"><%= @profile.province%></span></li>
+		  <li class="postal-code"> <%= @profile.zipcode%></span></li>-->
 		</ul>
 		<div class="telecommunications">
 		  <ul>
-		    <li class="type">Phone/Fax:<span class="value"><%= @profile.phone%><%= " / " if @profile.fax != ""%><%=@profile.fax%></span></li>
-		    <li class="type">Mobile: <span class="value"><%= @profile.mobile%></span></li>
-		    <li class= "org">Organization: <%= @profile.organization%></li>
+		    <li class="type"><span class="value"><%="Phone" if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%> <%=@profile.fax%></span></li>
+		    <li class="type"><span class="value"><%= @profile.mobile%></span></li>
+		    <li class= "org"><%= @profile.organization%></li>
 		    <li class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>
 		</div>
