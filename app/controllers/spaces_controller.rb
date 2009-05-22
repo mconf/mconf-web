@@ -244,8 +244,8 @@
       if jr.save
         flash[:notice] = t('join_request.created')
       else
-        #flash[:error] = "Your petition has already been sent"
-        flash[:error] = jr.errors.to_xml
+        flash[:notice] = "You have already sent a joint request to this space"
+        #flash[:error] = jr.errors.to_xml
       end
 
       if request.xhr?

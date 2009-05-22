@@ -128,9 +128,5 @@ $("a.edit_post_link").click(function(){
   	<%end%>  
 	<% end %>
 <% end %>
-<%if @posts.empty?%>
-  <p>There aren't messages in this forum</p>
-<%else%>
 	<%= render :partial => "posts", :object => @posts %>
-<%end%>
 <%= will_paginate @posts %>

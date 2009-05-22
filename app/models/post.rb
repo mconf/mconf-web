@@ -31,7 +31,7 @@ class Post < ActiveRecord::Base
 
  
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
-  validates_presence_of :text
+  #validates_presence_of :text, :if => Proc.new { |post| debugger post.attachments.empty?}
 
 
   # Update parent Posts when commenting to it
