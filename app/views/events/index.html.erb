@@ -5,14 +5,28 @@
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel' %>
 <%end%>
 
-<%if @space.authorizes?([:create, :content],:to => current_user)%>
-	<% content_for :sidebar do  %>
-  	<%if params[:edit]%>
+<% content_for :sidebar do  %>
+	<%if @space.authorizes?([:create, :content],:to => current_user)%>	
+	<%if params[:edit]%>
     	<%@event = Event.find(params[:edit])%>
     	<%=render :partial => 'edit_event'%>
   	<%else%>
     	<%= render :partial=> 'new_event'%>
   	<%end%>
+	<%else%>
+    	<%if logged_in? && space.public?%>
+		  <% form_tag join_space_path(space), :id => "join_form" do %>
+	      <%= image_submit_tag("buttons/join-space.png") %>
+	    <% end %>
+		<%else%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>
+		<%end%>
+		
+		<div class="space-desc">
+			<h3>About <em><%=@space.name%></em></h3>
+			<p><%=image_tag(logo_path(@space, :size =>48), :align => "left")%>
+			<%= sanitize(space.description) if space.description.present? %></p>
+  		</div>		
 	<%end%>
 <%end%>
 
