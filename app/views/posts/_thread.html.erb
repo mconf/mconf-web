@@ -15,7 +15,7 @@
 
 	<div class="<%=thread.three_last_comment().first.parent_id!= nil ?  "open" : "close"%>"> 
       <%for comment in thread.three_last_comment()%>
-		<%=render :partial => "post" , :locals => { :post =>  comment, :selected_post => false}%>
+		<%=render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}%>
 	  <%end%>
 	</div>
   </div>

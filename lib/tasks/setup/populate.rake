@@ -106,6 +106,11 @@ namespace :setup do
           item.author = space.users.rand
           item.save!
         end
+
+        space.events.each do |event|
+          event.post = space.posts.rand
+          event.save!
+        end
       end
     end
   end

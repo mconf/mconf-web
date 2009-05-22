@@ -4,14 +4,14 @@
       <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_events_path(@space,:edit => event), :title => "edit" if event.authorizes?(:update, :to => current_user) %></li>
 	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete") , space_event_path(@space, event),{:method => :delete, :title => "delete"} if event.authorizes?(:delete, :to => current_user) %></li>
     </ul>
-    <p><%=image_tag("icons/date.png",:class=>"icon")%> <strong><%=sanitize(event.title)%></strong><span class="updated"> Updated <%=sanitize(time_ago_in_words(event.updated_at))%> ago</span></p>
+    <p><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to sanitize(event.title), space_event_path(@space, event)%><span class="updated"> Updated <%=sanitize(time_ago_in_words(event.updated_at))%> ago</span></p>
     <ul>
 		<li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%></li>
 		<li class="author"> Author: <%=sanitize(event.author.name)%></li>
 		<%if event.isabel_event%>
 			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
 		<%elsif event.marte_event%>
-			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, event)%></li>
+			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, event, :show_conference => true)%></li>
 		<%end%>
 		
 		<li> Description: <%=sanitize(event.description)%></li>

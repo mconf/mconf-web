@@ -82,24 +82,25 @@ class EventsController < ApplicationController
   # GET /events/1.xml
   def show
     #first check if it is an online event
-	if !@event.marte_event
-		@event_to_show = @event
-		@event = nil
-		respond_to do |format|
-			 format.html # show.html.erb
-	         format.xml  {render :xml => @event }
-	         format.js 
-	         format.ical {export_ical}
-    	end
+	if @event.marte_event && params[:show_conference]
+		#let's calculate the wait time
+     @wait = (@event.start_date - Time.now).floor
+     respond_to do |format|
+     format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
+       format.xml  { render :xml => @event }
+       format.js 
+       format.ical {export_ical}
+     end
 	else
-	   #let's calculate the wait time
-	   @wait = (@event.start_date - Time.now).floor
-	   respond_to do |format|
-		 format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
-	     format.xml  { render :xml => @event }
-	     format.js 
-	     format.ical {export_ical}
-	   end
+	  
+    @event_to_show = @event
+    @event = nil
+    respond_to do |format|
+       format.html # show.html.erb
+           format.xml  {render :xml => @event }
+           format.js 
+           format.ical {export_ical}
+      end
 	end
   end
 

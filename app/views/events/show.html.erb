@@ -5,86 +5,22 @@
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel' %>
 <%end%>
 
+<% content_for :javascript do %>
+  <%= render :partial => 'date_and_timepicker.js.erb' %>
+<% end %>
+
 <%if @space.authorizes?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
-  	<%if params[:edit]%>
-    	<%@event = Event.find(params[:edit])%>
+  	<%if params[:edit_event]%>
+    	<%@event = Event.find(params[:edit_event])%>
     	<%=render :partial => 'edit_event'%>
-  	<%else%>
-    	<%= render :partial=> 'new_event'%>
+		<%elsif params[:edit_comment]%>
+		  <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
+		<%else%>
+		  <%=render :partial => 'new_comment', :locals => {:post => @event_to_show.post}%>
   	<%end%>
 	<%end%>
 <%end%>
-
-<% content_for :javascript do %>
-
-$(".no_javascript").after(
-  "<div class='javascript'><input type='date' id='start_datepicker' name='event[start_date]' class= 'datepicker small-font' value= <%= @event.present? ? @event.start_date.month.to_s + "/" + @event.start_date.day.to_s + "/" + @event.start_date.year.to_s : "" %>> <%=escape_javascript(link_to "Start date", "javascript:start_datepicker_setdate()")%><br/> "  
-	+ "<input type='time' id='start_timepicker' name='event[start_hour]' class='timepicker small-font' value= <%= @event.present? ? @event.start_date.to_time.hour.to_s + ":" + @event.start_date.to_time.min.to_s + ":" + @event.start_date.to_time.sec.to_s : "" %>> <%=escape_javascript(link_to "Start hour", "javascript:start_timepicker_setTime()")%><br/>"   
-	+ "<input type='date' id='end_datepicker' name='event[end_date]' class='datepicker small-font'value= <%= @event.present? ? @event.end_date.month.to_s + "/" + @event.end_date.day.to_s + "/" + @event.end_date.year.to_s : "" %>> <%=escape_javascript(link_to "End date", "javascript:end_datepicker_setdate()")%><br/>"
-	+ "<input type='time' id='end_timepicker' name='event[end_hour]' class='timepicker small-font' value= <%= @event.present? ? @event.end_date.to_time.hour.to_s + ":" + @event.end_date.to_time.min.to_s + ":" + @event.end_date.to_time.sec.to_s : "" %>> <%=escape_javascript(link_to "End hour", "javascript:end_timepicker_setTime()", :class => "timepicker_launcher")%></div>"
-
-);
-$(".no_javascript").remove();
-
-/*
- * Timepicker and datepicker configuration
- */
-
-$(".datepicker").datepicker();
-$('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/ui/up-down.png', 
-    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true });
-
-start_timepicker_setTime = function(){
-  $("#start_timepicker").timeEntry('setTime');
-};
-
-
-/*
- * Timepicker and datepicker launch functions
- */
-
-end_timepicker_setTime = function(){
-  $("#end_timepicker").timeEntry('setTime');
-};
-
-start_datepicker_setdate = function(){
-  $("#start_datepicker").datepicker('show');
-};
-
-end_datepicker_setdate = function(){
-  $("#end_datepicker").datepicker('show');
-};
-
-/*
- * Jquery timepicker calls to set timepicker clicking time
- */
-
-$("#start_timepicker").click(function(){
-  if($(this).val()==""){
-    start_timepicker_setTime()
-	}
-});
-
-$("#end_timepicker").click(function(){
-  if($(this).val()==""){
-	  end_timepicker_setTime()
-	}
-});
-
-var actual_page = <%=params[:page] ? params[:page] : 1%>
-jQuery.fn.calculate_page = function() {
-  var b = $(this[0]).html()  
-  if (b == "Next »"){
-	  b=actual_page + 1;
-	}
-	if (b == "« Previous"){
-	  b =actual_page - 1;
-	}
-	return b;
-};
-
-<% end %>
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
@@ -97,9 +33,9 @@ jQuery.fn.calculate_page = function() {
 <%end%>
 
  
-   <div class="single_event">
+<div class="single_event">
     <ul class="group_links">
-      <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_events_path(@space,:edit => @event_to_show), :title => "edit" if @event_to_show.authorizes?(:update, :to => current_user) %></li>
+      <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_event_path(@space,@event_to_show,:edit_event => @event_to_show), :title => "edit" if @event_to_show.authorizes?(:update, :to => current_user) %></li>
 	  <li><%=link_to image_tag("./icons/cross.png", :alt => "delete") , space_event_path(@space, @event_to_show),{:method => :delete, :title => "destroy"} if @event_to_show.authorizes?(:delete, :to => current_user) %></li>
     </ul>
     <p><%=image_tag("icons/date.png",:class=>"icon")%> <strong><%=sanitize(@event_to_show.title)%></strong><span class="updated"> Updated <%=sanitize(time_ago_in_words(@event_to_show.updated_at))%> ago</span></p>
@@ -109,12 +45,40 @@ jQuery.fn.calculate_page = function() {
 		<%if @event_to_show.isabel_event%>
 			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
 		<%elsif @event_to_show.marte_event%>
-			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event_to_show)%></li>
+			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event_to_show, :show_conference => true)%></li>
 		<%end%>
 		
 		<li> Description: <%=sanitize(@event_to_show.description)%></li>
     </ul>
  </div>
 
+<h3>Comments</h3>
 
-
+<% for post in @event_to_show.post.children.reverse %>
+  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
+  <div class="post-title">
+    <h3><%= link_author(post, :size => 16, :url => user_profile_path(post.author)) %></h3>
+  </div>
+  <div class="group_links">
+    <ul class="edit-post">
+      <li><%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event_to_show, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
+    </ul>
+  </div>
+  <%else%>
+  <p><%=logo(post.author, :size=>16)%> <%=post.author.name%></p>
+  <%end%>
+	<div>
+  <p>
+   <%for attachment in post.attachments%>
+      <%if attachment.post_thumbnail%>
+        <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail()))%>
+      <%else%>
+        <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+      <%end%> 
+   <%end%>
+   </p>
+   <p>
+   <%=sanitize(post.text)%>
+   </p>
+  </div>
+<%end%>

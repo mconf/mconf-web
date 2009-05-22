@@ -2,6 +2,8 @@ class Post < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :attachments, :dependent => :destroy
+  
+  has_one :event
 
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space

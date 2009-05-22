@@ -1,7 +1,9 @@
 class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
-
+  belongs_to :post
+  
+  
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
   acts_as_taggable
@@ -36,6 +38,14 @@ class Event < ActiveRecord::Base
 #    unless self.start_date.future? 
 #      errors.add_to_base("The event start date should be a future date  ")
 #    end
+  end
+
+  after_create do |event|
+    event_post = Post.new({:title => event.title, :text => event.description})
+    event_post.author = event.author
+    event_post.space = event.space
+    event.post = event_post
+    event.save
   end
 
   after_save do |event|
