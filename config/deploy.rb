@@ -34,6 +34,7 @@ namespace(:deploy) do
   task :link_files do
     run "ln -sf #{ shared_path }/config/database.yml #{ release_path }/config/"
     run "ln -sf #{ shared_path }/public/logos #{ release_path }/public"
+    run "ln -sf #{ shared_path }/attachments #{ release_path }/attachments"
   end
 
   desc "Restarting mod_rails with restart.txt"

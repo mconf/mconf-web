@@ -107,10 +107,6 @@ namespace :setup do
           item.save!
         end
 
-        space.events.each do |event|
-          event.post = space.posts.rand
-          event.save!
-        end
       end
     end
   end

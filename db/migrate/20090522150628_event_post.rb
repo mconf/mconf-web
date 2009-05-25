@@ -4,6 +4,6 @@ class EventPost < ActiveRecord::Migration
   end
 
   def self.down
-    remove_columnn  :events, :post_id
+    remove_column  :events, :post_id
   end
 end

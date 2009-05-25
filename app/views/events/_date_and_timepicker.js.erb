@@ -11,7 +11,14 @@ $(".no_javascript").remove();
  * Timepicker and datepicker configuration
  */
 
-$(".datepicker").datepicker();
+$("#end_datepicker").datepicker();
+$("#start_datepicker").datepicker({
+   onSelect: function(dateText) {
+     if($("#end_datepicker").val()==""){
+       $("#end_datepicker").val(dateText);
+     }
+   }
+});
 $('.timepicker').timeEntry({show24Hours: true, showSeconds: true, spinnerImage: '../../images/ui/up-down.png', 
     spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true });
 
@@ -37,7 +44,7 @@ start_datepicker_setdate = function(){
 };
 
 end_datepicker_setdate = function(){
-  $("#end_datepicker").datepicker('show');
+	 $("#end_datepicker").datepicker('show');
 };
 
 /*
@@ -46,12 +53,13 @@ end_datepicker_setdate = function(){
 
 $("#start_timepicker").click(function(){
   if($(this).val()==""){
-    start_timepicker_setTime()
+    start_timepicker_setTime();
 	}
 });
 
 $("#end_timepicker").click(function(){
   if($(this).val()==""){
-	  end_timepicker_setTime()
+	  end_timepicker_setTime();
 	}
 });
+

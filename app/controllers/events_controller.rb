@@ -95,6 +95,8 @@ class EventsController < ApplicationController
 	  
     @event_to_show = @event
     @event = nil
+    @comments = Post.find(:all, :conditions=>"event_id=#{@event_to_show.id}").paginate(:page => params[:page],
+                                                              :per_page => 5)
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }
