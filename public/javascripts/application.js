@@ -35,7 +35,7 @@ style_file_input = function(){
      image: "/images/buttons/browse.png",
      imageheight : 23,
      imagewidth : 63,
-     width : 115,
+     width : 115
   });
 };
 
@@ -58,6 +58,7 @@ setFullScreen = function(){
   $("#embed").css({height:windowHeight,width:"100%"});
 	$("div").css({padding:"0",margin:"0"});
 };
+
 unsetFullScreen = function(){
   $("#header").show();
   $("#selector").show();
