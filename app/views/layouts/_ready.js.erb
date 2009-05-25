@@ -13,6 +13,7 @@ $("#create_and_login_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_on_create_form").replaceWith(data);
+					$("#fancy_outer").height($("#fancy_ajax").height() + 50);
         }
       );
 });
@@ -24,6 +25,7 @@ $("#create_and_register_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_on_create_form").replaceWith(data);
+					$("#fancy_outer").height($("#fancy_ajax").height() + 50);
         }
       );
 });
@@ -37,7 +39,8 @@ $("a.join_and_login_link").livequery("click", function(){
   $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
-          $(".join_div").replaceWith(data);
+          $("#join_div").replaceWith(data);
+					$("#fancy_outer").height($("#join_div").height() + 50);
         }
       );
   return false;
@@ -48,7 +51,8 @@ $("a.join_and_register_link").livequery("click", function(){
   $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
-          $(".join_div").replaceWith(data);
+          $("#join_div").replaceWith(data);
+					$("#fancy_outer").height($("#join_div").height() + 50);
         }
       );
   return false;
@@ -69,6 +73,7 @@ $("a.login_lightbox_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_div").replaceWith(data);
+					$("#fancy_outer").height($("#login_div").height() + 50);
         }
       );
 });
