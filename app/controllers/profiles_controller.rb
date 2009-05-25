@@ -46,7 +46,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/edit
   def edit
     if @profile.new_record?
-      flash[:notice]= 'You must create your profile first'
+      #flash[:notice]= 'You must create your profile first'
       redirect_to new_user_profile_path(@user )
     end
   end
