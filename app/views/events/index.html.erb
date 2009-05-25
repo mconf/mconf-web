@@ -61,14 +61,14 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <div id="events_content">
 	<div class="group_links" id="events_links">
 	  <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-	  <%=link_to "Incoming", space_events_path(@space, :show => "incoming_events"), {:class => "#{params[:show] == 'incoming_events' ? 'event_navigation incoming_link event_selected' : 'event_navigation incoming_link'}"}%> |
+	  <%=link_to "Upcoming", space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
 	  <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
 	</div>  
 	 
 	<%if params[:show] == 'past_events'%>
 			<%= render :partial => 'past_events' %>
-	<%elsif params[:show] == 'incoming_events' %>
-		  <%= render :partial => 'incoming_events' %>
+	<%elsif params[:show] == 'upcoming_events' %>
+		  <%= render :partial => 'upcoming_events' %>
 	<%else%>	
 		  <%= render :partial => 'all_events' %>
 	<%end%>
