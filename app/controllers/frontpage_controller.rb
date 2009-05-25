@@ -23,4 +23,8 @@ class FrontpageController < ApplicationController
       format.atom
     end
   end
+  
+  def about
+    
+  end
 end

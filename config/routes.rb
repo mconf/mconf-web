@@ -103,6 +103,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
   
   map.change_space '/change_space', :controller => 'spaces', :action => 'change_space'
+  map.about '/about', :controller => 'frontpage', :action => 'about'
   
 #  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   

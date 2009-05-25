@@ -11,7 +11,7 @@ a img{border:none;}
 /* typography.css */
 body{font-size:75%;color:#222;background:#fff;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
 h1,h2,h3,h5{font-weight:normal;color:#111;}
-h1{font-size:2.6666em;line-height:1.125;background:#f00;}
+h1{font-size:2.6666em;line-height:1.125;color:#244974;}
 h2{font-size:2em;margin-bottom:0.75em;}
 h3{font-size:1.0833em;line-height:1.3846;margin:0.75em 0 0 0;font-weight:bold;}
 h3 img{margin-bottom:-4px;}
@@ -68,11 +68,14 @@ body .icon{margin-bottom:-3px;}
 #home{background:#f0f6f9;}
 #global-wrapper{background:#244974;border-bottom:2px solid #244974;}
 #global{padding:0.5em 0;}
-#global a{color:#EEE;text-decoration:none;}
+#global a{color:#eee;text-decoration:none;}
 #global-logo {position:absolute;font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
 #global-logo img{margin:0 4px -4px 0;}
 #feedback{margin-left:260px;}
-#feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
+#feedback a{font-weight:normal;font-size:0.8333em;line-height:1.8;text-decoration:underline;}
+#about{margin-left:50px;font-size:1em;line-height:1.5em;}
+#feedback,#about{padding:2px 4px 1px 4px;}
+#feedback:hover,#about:hover{background:#346aa8;}
 #header{background:#fff;padding-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
 #logo, #search{float:left;}
 #logo{width:192px;}
@@ -80,8 +83,8 @@ body .icon{margin-bottom:-3px;}
 #search button{background-color:#244974;}
 #search a img,#search input[type="image"]{margin-bottom:-7px;}
 #eu{float:right;margin-top:10px;}
-#prefs{font-size:0.9166em;line-height:1.6363;}
-#prefs ul{list-style-type:none;float:right;margin-top:-17px;}
+#prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;}
+#prefs ul{list-style-type:none;float:right;margin-top:-19px;}
 #prefs li{margin-left:12px;display:inline;}
 #prefs a{color:white;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
@@ -99,7 +102,7 @@ body .icon{margin-bottom:-3px;}
 .wrapper h3.title{color:#244974; font-size:1.2em;line-height:1.25;padding-bottom:10px;padding-top:5px;}
 .wrapper ul{text-align:right;font-size:0.9166em;line-height:3.2727;margin-right:0;margin-bottom:0;}
 .wrapper ul li{display:inline;}
-.wrapper div.spc{float:left;width:190px;margin-right:10px;text-align: center; color:#244974;} 
+.wrapper div.spc{float:left;width:190px;margin-right:10px;text-align: center; color:#244974;}
 .wrapper div#end{margin-right:0;}
 .wrapper div.spc img{float:left;}
 .wrapper div.spc img{width:188px;height:143px;border:1px #CCC solid;}
@@ -111,12 +114,28 @@ body .icon{margin-bottom:-3px;}
 #list-events a{text-decoration:none;color:#111;}
 #list-events a:hover{color:#555;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
+/*about global*/
+.about-wrapper{background:#fff;float:left;width:570px;font-family:"Courier New";font-size:1em;line-height:1.5em;color:#111;}
+.about-wrapper{margin-bottom:0.75em;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
+.about-wrapper #description{padding:9px;}
+.about-wrapper h3.title{color:#244974; font-size:1.2em;line-height:1.25;padding:8px 9px;margin:0 0 2px 0;background:#bdd8eb;}
+.about-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;} 
+.about-wrapper div#end{margin-bottom:0.75em;}
+.about-wrapper div.pics img{float:left;}
+.about-wrapper div.pics img{width:275px;}
+/*about-sidebar*/
+
+#sidebar #about-sidebar h5{padding:8px 0.5em 8px 0.5em;background:#bdd8eb;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;margin-bottom:10px;}
+#about-sidebar ul {list-style-type:none;margin-left:0.5em;}
+#about-sidebar .partners ul{margin-bottom:0;padding-bottom:8px;border-bottom:1px #b0cadb solid;margin-bottom:9px;}
+#about-sidebar .partners a{font-weight:bold;color:#244974;text-decoration:none;}
+#about-sidebar .partners a:hover{text-decoration:underline;}
 
 /*sidebar*/
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
-div.rel-users,div.rcnt-posts{margin-top:1.5em;}
+div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 #sidebar h5{font-size:1.1em;line-height:1.3636;color: #244974;}
 #sidebar h5{padding-bottom:0.75em;border-bottom:1px #ccc solid;}
 #sidebar .rcnt-posts li a{font-weight:bold;color:#244974;text-decoration:none;}
