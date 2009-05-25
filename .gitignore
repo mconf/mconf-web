@@ -9,3 +9,4 @@ tmp/*
 config/ultrasphinx/development.conf
 config/ultrasphinx/production.conf
 public/logos
+attachments
