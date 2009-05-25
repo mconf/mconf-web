@@ -6,7 +6,11 @@
     </ul>
     <p><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to sanitize(event.title), space_event_path(@space, event)%><span class="updated"> Updated <%=sanitize(time_ago_in_words(event.updated_at))%> ago</span></p>
     <ul>
-		<li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%></li>
+    <%if event.start_date.to_date == event.end_date.to_date %>
+		  <li class="date"><%=sanitize(event.start_date.to_date.to_formatted_s(:short))%> <%=event.start_date.to_time.to_formatted_s(:time)%> - <%=event.end_date.to_time.to_formatted_s(:time)%></li>
+		<%else%>
+		  <li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%></li>
+		<%end%>
 		<li class="author"> Author: <%=sanitize(event.author.name)%></li>
 		<%if event.isabel_event%>
 			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
