@@ -8,3 +8,6 @@ div#fancy_div {
 	width: 100%;
 	z-index: 100;
 }
+
+div#fancy_ajax .area{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:hidden;}
+

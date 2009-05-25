@@ -1,15 +1,15 @@
 <div id="new_space_label"  class="blue_title"><h3>New Space</h3></div>
 
 <% form_for :space, :url => spaces_path() do |f|%>
-  <p>
+<p>
     <label for="name">Name</label><br/>
     <%= f.text_field :name %>
-  </p>
+</p>
 	
-	<p>
+<p>
     <label for="description">Description</label><br/>
-    <%= f.text_area(:description) %>
-  </p>
+    <%= f.text_area(:description,:class=>"area") %>
+</p>
 	
 	<p>
     <label for="public">Public space</label><%= f.check_box(:public) %>
