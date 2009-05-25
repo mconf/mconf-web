@@ -33,7 +33,7 @@
 		<div class="telecommunications">
 		  <ul>
 		    <li class="type"><span class="value"><%="Phone" if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%> <%=@profile.fax%></span></li>
-		    <li class="type"><span class="value"><%= @profile.mobile%></span></li>
+		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
 		    <li class= "org"><%= @profile.organization%></li>
 		    <li class="email">Email: <a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>

@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
 
   acts_as_taggable
-  has_logo
+  has_logo :class_name => "Avatar"
 
   def local_affordances
     [ :read, :manage ].map{ |a| ActiveRecord::Authorization::Affordance.new(user, a) } +

@@ -113,8 +113,9 @@ body .icon{margin-bottom:-3px;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
 
 /*sidebar*/
-#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
-.join h2{margin-bottom:0;margin-top:2px;color:#244974;}
+#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
+.join h2{margin-bottom:0;padding-top:9px;color:#244974;}
+.join p{margin:0.75em 0;}
 div.rel-users,div.rcnt-posts{margin-top:1.5em;}
 #sidebar h5{font-size:1.1em;line-height:1.3636;color: #244974;}
 #sidebar h5{padding-bottom:0.75em;border-bottom:1px #ccc solid;}

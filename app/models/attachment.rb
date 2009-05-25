@@ -2,7 +2,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :db_file
   belongs_to :post
 
-  has_attachment :max_size => 10.megabyte,
+  has_attachment :max_size => 1000.megabyte,
+                 :path_prefix => 'attachments',
                  :thumbnails => { :post => '96x96>'}
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
@@ -29,5 +30,9 @@ class Attachment < ActiveRecord::Base
     # Example:
     #{ :body => entry.content.xml.to_s }
     {}
+  end
+
+  def current_data
+    File.file?(full_filename) ? File.read(full_filename) : nil
   end
 end

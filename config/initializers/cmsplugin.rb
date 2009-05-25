@@ -81,6 +81,7 @@ Logo
 
 class Logo
   has_attachment :max_size => 2.megabyte,
+                 :storage => :file_system,
                  :content_type => :image,
                  :thumbnails => {
                     '256' => '256x256>',
@@ -92,7 +93,8 @@ class Logo
                     '32' => '32x32>',
                     '22' => '22x22>',
                     '16' => '16x16>',
-                    'h64' => 'x64'
+                    'h64' => 'x64',
+                    'front' => '188x143!'
                  }
 end
 

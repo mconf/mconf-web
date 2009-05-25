@@ -31,7 +31,8 @@ class SessionsController < ApplicationController
       flash[:notice] = "Please fill in this data"
       edit_site_path
     elsif !current_user.profile
-      edit_user_profile_path(current_user)
+      flash[:notice]= "You should <a href=" + new_user_profile_path(current_user) +"> create</a>  your profile. It's very useful."  
+      spaces_path
     else
     spaces_path
     end

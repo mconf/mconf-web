@@ -15,7 +15,7 @@ class FrontpageController < ApplicationController
     #recent_posts = The latest updated threads in public spaces
     @recent_posts = Post.find(:all, :conditions => {:parent_id => nil}, :order => "created_at Desc").select{|p| p.space.public == true}.first(2)
     
-    #recent_events = The incoming events in public spaces
+    #recent_events = The upcoming events in public spaces
     @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| p.space.public == true and p.start_date.future?}.first(2)
     respond_to do |format|
       format.html # index.html.erb

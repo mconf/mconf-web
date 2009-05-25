@@ -17,24 +17,24 @@ class EventsController < ApplicationController
   def index
     
     @events = (Event.in_container(@space).all :order => "start_date ASC")
-      #Incoming events
+      #Upcoming events
       @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
       @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
       @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
       @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
       @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
       @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
-      @all_incoming_events = @events.select{|e| e.start_date.future?}
-      @all_incoming_paginate_events = @all_incoming_events.paginate(:page => params[:page], :per_page => 3)
+      @all_upcoming_events = @events.select{|e| e.start_date.future?}
+      @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 3)
 =begin      
       if params[:day] == "today"
-        @incoming_title = "Today Events"
+        @upcoming_title = "Today Events"
       elsif params[:day] == "next_week"
-        @incoming_title = "Next Week Events"
+        @upcoming_title = "Next Week Events"
       elsif params[:day] == "next_month"
-        @incoming_title = "Next Month Events"
+        @upcoming_title = "Next Month Events"
       else
-        @incoming_title = "All incoming Events"
+        @upcoming_title = "All upcoming Events"
       end
 =end
       #Past events
@@ -64,9 +64,9 @@ class EventsController < ApplicationController
       
       @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
 =end
-      #First 5 past and incoming events
+      #First 5 past and upcoming events
       @last_past_events = @events.select{|e| !e.start_date.future?}.reverse.first(5)
-      @first_incoming_events = @events.select{|e| e.start_date.future?}.first(5)  
+      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(5)  
     
     respond_to do |format|
       format.html {
