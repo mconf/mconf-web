@@ -105,7 +105,7 @@
   <h3><%=image_tag("icons/user.png")%> Latest Users</h3>
   <% for user in @lastest_users -%>
     <div class="user">
-    	<%if space.authorizes?([:read, :performance],:to=> current_user) or current_user.fellows.include?(post.author)%>
+    	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
 			<div><%=logo(user, :size=>32)%></div>
 				<div>
 				  <ul>
@@ -115,7 +115,13 @@
 				 </div>
 				 <%=link_to "", user_profile_path(user),:class=>"box-link"%>
 			<%else%>
-				<p><%=logotype(user, :size=>32)%> <%=user.name%></p>
+				<div><%=logo(user, :size=>32)%></div>
+        <div>
+          <ul>
+            <li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>
+            <li class="small-font"><%=sanitize(user.organization) %></li>
+          </ul>
+         </div>
 			<%end%>        
     </div>
   <% end -%>

@@ -99,7 +99,8 @@ end
   end
 
   def local_affordances
-    Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ]))
+    Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ])) + 
+    self.fellows.map{|f| ActiveRecord::Authorization::Affordance.new(f, [:read, :profile])}
   end
  
 end

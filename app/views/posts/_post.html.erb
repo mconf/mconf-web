@@ -24,7 +24,7 @@
 <%div_for (post) do%>
 
 
-  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
+  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
 	<div class="post-title">
 	<h3><%= link_author(post, :size => 64, :url => user_profile_path(post.author)) %></h3>
     </div>

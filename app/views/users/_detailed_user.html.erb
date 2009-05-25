@@ -1,14 +1,14 @@
 <div class="user">
-  <%if current_user.fellows.include?(detailed_user) && current_user != detailed_user %>
+  <%if detailed_user.authorizes?([:read, :profile],:to=> current_user) && current_user != detailed_user %>
 		<ul class="user-actions">
 			<li><%= link_to "Private message", space_users_path(@space, :send_message => detailed_user.id)%></li>
 			<li><%=mail_to(detailed_user.email,"e-mail")%></li>
 		</ul>
   <%end%>
-    <div><%=link_logo(detailed_user, :size => 32)%></div>
+    <div><%= detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_logo(detailed_user, :size => 32, :url => user_profile_path(detailed_user)) : logo(detailed_user, :size => 32) %></div>
 	<div>
 	  	<ul>
-	    <li><strong><%=sanitize(detailed_user.full_name) %></strong></li>	
+	    <li><strong><%=detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_to(detailed_user.full_name, user_profile_path(detailed_user)) : sanitize(detailed_user.full_name) %></strong></li>	
 	    <li class="small-font"><%=sanitize(detailed_user.organization) %></li>
 	    <li class="small-font"><%=sanitize(detailed_user.city) %><%= "," unless detailed_user.city.blank? or detailed_user.country.blank? %> <%=sanitize(detailed_user.country) %></li>
 	  </ul>
