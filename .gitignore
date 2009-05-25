@@ -9,3 +9,7 @@ tmp/*
 config/ultrasphinx
 public/logos
 attachments
+**/*~
+**/**/*~
+**/**/**/*~
+**/**/**/**/*~
