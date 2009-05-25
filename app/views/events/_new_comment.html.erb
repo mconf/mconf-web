@@ -17,7 +17,7 @@
     <%= f.text_area :text%>
   
 
-  <%= hidden_field_tag "post[parent_id]", post.id%>
+  <%= hidden_field_tag "post[event_id]", @event_to_show.id%>
   <div class="float">
   <%= image_submit_tag "buttons/create.png" %>
   </div>
