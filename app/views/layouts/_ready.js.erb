@@ -3,7 +3,8 @@
  */
 
 $("a.new_space_link").fancybox({
-  'hideOnContentClick' : false
+  'hideOnContentClick' : false,
+	'frameHeight' : 475
 });
 
 $("#create_and_login_link").livequery("click", function(){
@@ -13,7 +14,7 @@ $("#create_and_login_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_on_create_form").replaceWith(data);
-					$("#fancy_outer").height($("#fancy_ajax").height() + 50);
+					$("#fancy_outer").height($("#create_space").height() + 50);
         }
       );
 });
@@ -25,7 +26,7 @@ $("#create_and_register_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_on_create_form").replaceWith(data);
-					$("#fancy_outer").height($("#fancy_ajax").height() + 50);
+					$("#fancy_outer").height($("#create_space").height() + 50);
         }
       );
 });
