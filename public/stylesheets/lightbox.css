@@ -10,4 +10,8 @@ div#fancy_div {
 }
 
 div#fancy_ajax .area{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:hidden;}
+div#captcha,.form div{margin-bottom:0.75em;} 
+.options ul{list-style-type:none;margin:0;display:inline-block;}
+/*lost pswwd*/
+.form input#email{margin:0.5em 0;}
 

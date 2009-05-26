@@ -1,16 +1,20 @@
 <div id="login_div"  class="blue_title">
 	<h3>User registration</h3>
 	<%= error_messages_for :user %>
+	<div class="form">
 	<% form_for :user, :url => users_path do |f| -%>
 		
 		<%= render :partial => 'form', :locals => { :f => f } %>
 		
 		<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 		
-		<p><%= submit_tag 'Register Now!' %></p>
+		<div class="button"><%= submit_tag 'Register Now!' %></div>
 	<% end -%>
-	<p>
-  <%= link_to 'Log in', login_path, :class => "login_lightbox_link" %><br />
-  <%= link_to 'I have lost my password', lost_password_path, :class => "login_lightbox_link" %>
-  </p>
+	</div>
+	<div class="options">
+	<ul>
+  		<li>Already Registered? <%= link_to 'Log in', login_path, :class => "login_lightbox_link" %></li>
+  		<li><%= link_to 'I have lost my password', lost_password_path, :class => "login_lightbox_link" %></li>
+  	</ul>
+	</div>
 </div>

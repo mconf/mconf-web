@@ -1,21 +1,21 @@
 <div id="login_div" class="blue_title">
 <% form_tag session_path do -%>
-  <div>
-  	<div id="login_label"><h3>Email and password login</h3></div>
-	  <p>
-		  <label for="login">Username or email</label><br/>
+  <div class="form">
+  	<div id="login_label"><h3>Enter your e-mail and password</h3></div>
+	  <div>
+		  <label for="login">Username or e-mail</label><br/>
 	    <%= text_field_tag 'login', params[:login] %>
-		</p>
-	  <p>
+	  </div>
+	  <div>
 	  	<label for="password">Password</label><br/>
 	    <%= password_field_tag 'password' %>
-		</p>
-	  <p>
-	  	<label for="remember_me">Remember me:</label><%= check_box_tag 'remember_me' %>
-		</p>
+	  </div>
+	  <div>
+	  	<label for="remember_me">Remember me:</label><%= check_box_tag ('remember_me') %>
+	  </div>
   </div>
   <div>
-  	<div id="openid_label"><h3>OpenID login</h3></div>
+  	<div id="openid_label"><h3>Or enter your OpenID</h3></div>
 		  <p>
 		  	<label for="openid_identifier">OpenID</label>
    	    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>

@@ -93,17 +93,6 @@ body .icon{margin-bottom:-2px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
 #feedback:hover,#about:hover{background:#275b96;/*#2b578a;/*346aa8;*/}
 
-/*#global-wrapper{background:#244974;border-bottom:2px solid #244974;}
-#global{padding:0.5em 0;}
-#global a{color:#EEE;text-decoration:none;}
-#global-logo{position:absolute;font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
-#global-logo img{margin:0 4px -4px 0;}
-#feedback{margin-left:260px;}
-#feedback a{font-weight:normal;font-size:0.8333em;text-decoration:underline;}
-#about{margin-left:50px;font-size:1em;line-height:1.5em;}
-#feedback,#about{padding:2px 4px 1px 4px;}
-#feedback:hover,#about:hover{background:#346aa8;}
-*/
 #header{padding-top:1em;height:68px;padding-bottom:1em;}
 #logo,#vcc-logo,#search{float:left;}
 #vcc-logo{height:68px;}
@@ -121,14 +110,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs a{color:#f0f0f0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-/*
-#prefs{font-size:0.9166em;line-height:1.6363;text-align:right;font-weight:bold;}
-#prefs ul{list-style-type:none;float:right;margin-top:-17px;}
-#prefs li{margin-left:12px;display:inline;}
-#prefs a{color:white;}
-#prefs .new{font-weight:bold;color:#A52A2A;}
-#prefs a:hover{text-decoration:underline;}
-*/
+
 #main{width:510px;margin-right:40px;margin-bottom:1.5em;background-color:#fff;}
 #sidebar{float:left;width:230px;padding-right:10px;}
 div.space-desc h3, div.space-desc p{color:#244974;}

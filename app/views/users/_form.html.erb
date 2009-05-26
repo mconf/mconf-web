@@ -1,15 +1,15 @@
-<p><label for="login">Full name</label><br/>
-<%= f.text_field :login %></p>
+<div><label for="login">Username</label><br/>
+<%= f.text_field :login %></div>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
+<div><label for="email">Email</label><br/>
+<%= f.text_field :email %></div>
 
 <% if @agent.needs_password? -%>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+<div><label for="password">Password</label><br/>
+<%= f.password_field :password %></div>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-	<%= f.password_field :password_confirmation%></p>
+<div><label for="password_confirmation">Confirm Password</label><br/>
+	<%= f.password_field :password_confirmation%></div>
  
 <% end -%>
