@@ -1,6 +1,17 @@
+<% menu(:events) %>
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery-ui' %>
 <%end%>
+
+<% content_for :search do  %>
+  <% form_tag(search_events_path(@space), :method => 'get') do %>
+      <%= text_field_tag 'space_search',(params[:query] ? params[:query] :  "Search Events...")%>
+    <%= image_submit_tag "buttons/search.png"%>
+  <% end %>
+	<div id="advanced">
+	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+   </div>
+<% end %>
 
 <% content_for :javascript do %>
 $(".no_javascript_1").after(
@@ -13,13 +24,20 @@ $(".no_javascript_2").after(
 );
 $(".no_javascript_2").remove();
 $(".datepicker").datepicker();
+
+	$("#space_search").click(function(){
+	  if(this.value == "Search Events..."){
+		  this.value="";
+		}
+	});
+
 <%end%>
 <div id="search">
-	<h4> Search</h4> (in title, description and tags with exactly words)
+	<h4> Advanced Events Search</h4> (in title and description with exactly words)
 	
   <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query] %>
-	  <%= submit_tag 'Search'%>
+	  <%= image_submit_tag "buttons/search.png"%>
   
    <% end %>
    
@@ -27,14 +45,14 @@ $(".datepicker").datepicker();
 Search by Event's Title
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :title, params[:title] %>
-	  <%= submit_tag 'Search'%><br>
+	  <%= image_submit_tag "buttons/search.png"%>
 
  <% end %>
 
  Search in Event's Description
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :description, params[:description] %>
-	  <%= submit_tag 'Search'%><br>
+	  <%= image_submit_tag "buttons/search.png"%>
  
  <% end %>
   
@@ -47,7 +65,7 @@ You can search here between two dates
 		 <div class="no_javascript_2">    
      		To <%=select_date Date.today, :prefix => "time2", :order => [:day, :month, :year],:include_blank => true%> 
 		 </div>
-	  <%= submit_tag 'Search'%><br>
+	  <%= image_submit_tag "buttons/search.png"%><br>
  <% end %>
 
 

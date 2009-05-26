@@ -22,7 +22,7 @@
 	});
 	
 	$("#space_name_filter").click(function(){
-	  if(this.value == "Space filter..."){
+	  if(this.value == "<%=@search_text%>"){
 		  this.value="";
 		}
 	});
@@ -83,7 +83,7 @@
 <% @page_title = "Spaces"-%>
 
 <div id="space_filter" style="display:none">
-  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  "Space filter...")%>
+  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  @search_text)%>
   <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
 </div>
 

@@ -90,11 +90,17 @@ $("a.edit_post_link").click(function(){
   return false;
 });
 
+	$("#space_search").click(function(){
+	  if(this.value == "Search Posts..."){
+		  this.value="";
+		}
+	});
+
 <% end %>
 
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
-      <%= text_field_tag :query, params[:query] %>
+		<%= text_field_tag 'space_search',(params[:query] ? params[:query] :  "Search Posts...")%>
 	  <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 <%end%>
