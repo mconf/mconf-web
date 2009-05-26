@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_filter :space!
 
-  authorization_filter [ :manage, :group ], :space
+  authorization_filter [ :manage, :group ], :space , :only => [:edit, :update, :destroy]
   
   def index
     if params[:space_id]
