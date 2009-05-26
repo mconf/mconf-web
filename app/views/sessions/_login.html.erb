@@ -1,7 +1,8 @@
 <div id="login_div" class="blue_title">
-<% form_tag session_path do -%>
+
   <div class="form">
-  	<div id="login_label"><h3>Enter your e-mail and password</h3></div>
+  	<% form_tag session_path do -%>
+		<div id="login_label"><h3>Enter your e-mail and password</h3></div>
 	  <div>
 		  <label for="login">Username or e-mail</label><br/>
 	    <%= text_field_tag 'login', params[:login] %>
@@ -13,16 +14,24 @@
 	  <div>
 	  	<label for="remember_me">Remember me:</label><%= check_box_tag ('remember_me') %>
 	  </div>
+    <%= submit_tag 'Log in'%>
+    <% end -%>
+	</div>
+  <div id="openid_link" <%='style="display:none;"' unless request.xhr? %> >
+  	<%=link_to "Or log in with your OpenID", "javascript:openid()"%>
   </div>
-  <div>
-  	<div id="openid_label"><h3>Or enter your OpenID</h3></div>
+	<div id="openid_form" <%='style="display:none;"' if request.xhr? %> >
+		<% form_tag session_path do -%>
+ 	  <div id="openid_label"><h3>Or enter your OpenID</h3></div>
 		  <p>
 		  	<label for="openid_identifier">OpenID</label>
    	    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
 			</p>
+			<%= submit_tag 'Log in'%>
+    <% end -%>
   </div>
-  <%= submit_tag 'Log in'%>
-<% end -%>
+  
+
 
 <p>
 	<%= link_to 'Register now', signup_path, :class => "login_lightbox_link" %><br />

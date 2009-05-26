@@ -67,6 +67,12 @@ $("a#login_link").fancybox({
   'hideOnContentClick' : false
 });
 
+openid = function(){
+  $("#openid_form").show();
+  $("#openid_link").hide();
+	$("#fancy_outer").height($("#login_div").height() + 50);
+};
+
 $("a.login_lightbox_link").livequery("click", function(){
   var route = $(this).attr("href")
   $(this).attr("href","javascript:void(0)");
