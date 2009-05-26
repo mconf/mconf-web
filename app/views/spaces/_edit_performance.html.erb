@@ -4,15 +4,14 @@
 	$("#other_groups_link_<%=performance.id%>").show();
 	
 	show_other_groups_<%=performance.id%> = function(){
-	  $("#other_groups_<%=performance.id%>").show("normal", function(){
-		  $("#other_groups_link_<%=performance.id%>").hide("fast");
-		});
-		
+	  $("#other_groups_link_<%=performance.id%>").hide();
+	  $("#other_groups_<%=performance.id%>").slideDown("normal");
 	};
 	
 	close_other_groups_<%=performance.id%> = function(){
-    $("#other_groups_<%=performance.id%>").hide("normal", function(){
-		  $("#other_groups_link_<%=performance.id%>").show("fast");
+	  $("#other_groups_link_<%=performance.id%>").show();
+    $("#other_groups_<%=performance.id%>").slideUp("normal", function(){
+		  
 		});
   };
 	
