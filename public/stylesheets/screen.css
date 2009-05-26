@@ -304,6 +304,8 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 .space_item img:hover {border:1px #bbb solid;}
 .space_item form{display:inline;}
 .space_item form div{display:inline;}
+/*Edit space*/
+img.logo{display:block;}
 
 /*kikeCSS */
 #login_div h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
