@@ -102,7 +102,7 @@
 </div>
 
 <div id="latest_users">
-  <h3><%=image_tag("icons/user.png")%> Latest Users</h3>
+  <h3><%=image_tag("icons/user.png")%> Recent Users Joined</h3>
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
