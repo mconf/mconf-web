@@ -355,7 +355,7 @@ end
   def post_with_children(parent_post, options = {})
     total_posts = Array(parent_post).concat(parent_post.children)
     per_page = 5
-    page = params[:page] || options[:last] && total_posts.size.fdiv(per_page).ceil
+    page = params[:page] || options[:last] && total_posts.size.to_f./(per_page).ceil
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
