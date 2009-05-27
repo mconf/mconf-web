@@ -186,11 +186,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def lost_password
-    render :partial => "lost_password_form" if request.xhr?
-
-  end
-
   def user_is_current_agent
     return if current_agent.superuser?
 

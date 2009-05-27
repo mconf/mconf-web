@@ -13,13 +13,11 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <%if @space.authorizes?([:manage, :group], :to => current_user)%>
   <%if params[:send_message]%>
     <%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
-  <%else%>
+  <%elsif @space.authorizes?([:manage, :group], :to => current_user)%>
     <%= render :partial => 'create_group', :locals=> {:group => @editing_group} %>
   <%end%>
-	<%end%>
 <% end %>
 
 <%if params[:admin]%>

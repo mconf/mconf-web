@@ -185,10 +185,10 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .post-title{margin-left:0.75em;}
 /*options links for posts, threads, people..*/
 .thread_options ul{list-style-type:none;text-align:right;margin:0;}
-.thread_options ul li{display:inline-block;}
+.thread_options ul li{display:inline;}
 .group_links{float:right;}
 .group_links ul{margin:0.75em 0 0.666em 0.5em;}
-.group_links ul li,ul.group_links li{display:inline-block;}
+.group_links ul li,ul.group_links li{display:inline;}
 .group_links ul.edit-post{padding-top:3px;margin:0.75em 0.75em 0.666em 0.5em;}
 ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}

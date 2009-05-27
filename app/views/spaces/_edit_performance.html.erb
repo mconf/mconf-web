@@ -61,7 +61,7 @@
 		<li><%= link_to image_tag("icons/cancel.png", :alt => "Delete user from space",:class=>"icon" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %></li>
 	</ul>
 <div>
-  <%=link_logo(user, :size => 32)%>
+  <%=link_logo(user, :size => 32, :url => user_profile_path(user))%>
 </div>
 <div>
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>

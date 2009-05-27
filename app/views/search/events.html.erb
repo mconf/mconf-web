@@ -1,3 +1,22 @@
+<% menu(:events) %>
+<% content_for :javascript do %>
+	$("#space_search").click(function(){
+	  if(this.value == "Search Events..."){
+		  this.value="";
+		}
+	});
+<% end %>
+
+<% content_for :search do  %>
+  <% form_tag(search_events_path(@space), :method => 'get') do %>
+      <%= text_field_tag 'space_search',(params[:query] ? params[:query] :  "Search Events...")%>
+    <%= image_submit_tag "buttons/search.png"%>
+  <% end %>
+	<div id="advanced">
+	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+   </div>
+<% end %>
+
 <%= render :partial =>'events'%>
 
 

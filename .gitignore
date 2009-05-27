@@ -6,7 +6,10 @@ log/*.log
 *kpf
 tmp/*
 .tmp_*
-config/ultrasphinx/development.conf
-config/ultrasphinx/production.conf
+config/ultrasphinx
 public/logos
 attachments
+**/*~
+**/**/*~
+**/**/**/*~
+**/**/**/**/*~

@@ -1,3 +1,13 @@
+<% menu(:people) %>
+
+<% content_for :javascript do %>
+	$("#space_search").click(function(){
+	  if(this.value == "Search Users..."){
+		  this.value="";
+		}
+	});
+<% end %>
+
 <% content_for :search do  %>
   <%= render :partial => 'users/search' %>
 <%end%>

@@ -35,7 +35,7 @@ style_file_input = function(){
      image: "/images/buttons/browse.png",
      imageheight : 23,
      imagewidth : 63,
-     width : 115,
+     width : 115
   });
 };
 
@@ -55,8 +55,10 @@ setFullScreen = function(){
   $("#space").css({height:"100%",width:"100%"});
   $("#content").css({height:"100%",width:"100%"});
   $("#main").css({height:"100%",width:"100%"});
-  $("#embed").css({height:windowHeight,width:"100%"})
+  $("#embed").css({height:windowHeight,width:"100%"});
+	$("div").css({padding:"0",margin:"0"});
 };
+
 unsetFullScreen = function(){
   $("#header").show();
   $("#selector").show();
@@ -67,4 +69,5 @@ unsetFullScreen = function(){
   $("#content").css({height:"",width:""});
   $("#main").css({height:"",width:""});
   $("#embed").css({height:"",width:""});
+	$("div").css({padding:"",margin:""});
 };
