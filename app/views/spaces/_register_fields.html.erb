@@ -1,13 +1,9 @@
 	<div id="login_on_create_form">
     <%fields_for :user do |user|%>
-      <label for="login">Username</label><br/>
-      <%= user.text_field :login %><br/>
-	    <label for="email">Email</label><br/>
-	    <%= user.text_field :email %><br/>
-			<label for="Password">Password</label><br/>
-	    <%= user.password_field 'password' %><br/>
-			<label for="Confirm Password">Confirm Password</label><br/>
-      <%= user.password_field 'password_confirmation' %><br/>
+      <div><%= user.text_field :login %><label for="login">Username</label></div>  
+	  <div><%= user.text_field :email %><label for="email">Email</label></div>	
+	  <div><%= user.password_field 'password' %><label for="Password">Password</label></div>
+      <div><%= user.password_field 'password_confirmation' %><label for="Confirm Password">Confirm Password</label></div>
       <div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
       <%= hidden_field_tag "register", params[:register] if params[:register]%>
     <% end %>

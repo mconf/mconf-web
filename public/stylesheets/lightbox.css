@@ -9,7 +9,9 @@ div.button span{margin-left:1.5em;}
 #openid_label input#openid_identifier{width:40%;margin-left:0.75em;margin-right:0.75em;}
 div.options ul{list-style-type:none;margin:0;}
 div.options ul li{display:inline;}
-
+div.options ul li.title{font-size:1.1666em;line-height:1.2857;margin-right:0.5em;}
+#login_on_create_form input[type="text"],#login_on_create_form input[type="password"]{width:50%;margin-right:10px;}
+ a.selected{text-decoration:none;color:#111;font-weight:bold;}
 
 /*kikeCSS */
 .blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}

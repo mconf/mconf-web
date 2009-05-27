@@ -10,10 +10,10 @@ $("a.new_space_link").fancybox({
 $("#create_and_login_link").livequery("click", function(){
   $(this).attr("href","javascript:void(0)").addClass("selected");
   $("#create_and_register_link").removeClass("selected")
-  $.get("<%= new_space_path(:login=>true)%>",
+  $.get("<%= new_space_path(:register=>false)%>",
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
-          $("#login_on_create_form").replaceWith(data);
+          $("#create_space").replaceWith(data);
 					$("#fancy_outer").height($("#create_space").height() + 50);
         }
       );
@@ -25,7 +25,7 @@ $("#create_and_register_link").livequery("click", function(){
   $.get("<%= new_space_path(:register=>true)%>",
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
-          $("#login_on_create_form").replaceWith(data);
+          $("#create_space").replaceWith(data);
 					$("#fancy_outer").height($("#create_space").height() + 50);
         }
       );

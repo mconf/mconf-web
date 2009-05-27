@@ -56,14 +56,8 @@
     respond_to do |format|
       format.html{
           if request.xhr?
-            if params[:login]
-            render :partial=>"login_fields"
-          elsif params[:register]
-            render :partial=>"register_fields"
-          else
             render :partial=>"new"
           end  
-        end
       }
     end
   end

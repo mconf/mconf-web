@@ -1,8 +1,6 @@
-	<div id="login_on_create_form" >
-		<%fields_for :user do |user|%>
-      <label for="email">Email</label><br/>
-      <%= user.text_field :email %><br/>
-      <label for="Password">Password</label><br/>
-      <%= user.password_field 'password' %><br/>
+<div id="login_on_create_form" >
+	<%fields_for :user do |user|%>
+      <div><%= user.text_field :email %><label for="email">Email</label></div>
+      <div><%= user.password_field 'password' %><label for="Password">Password</label></div>
     <% end %>
-	</div>
+</div>
