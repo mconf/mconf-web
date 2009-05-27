@@ -30,19 +30,20 @@
 	<%elsif space.users.include?(current_user) and @space.authorizes?([:manage, :group], :to => current_user) %>
 		<%= render :partial => 'groups/create_group', :locals=> {:group => @editing_group} %>
 	<%else%>
+<!--
 		<%if !space.users.include?(current_user) and logged_in? and space.public?%>
 	  	<% form_tag join_space_path(space), :id => "join_form" do %>
    			<%= image_submit_tag("buttons/join-space.png") %>
  			<% end %>
+		<%elsif !space.users.include?(current_user) and logged_in? and !space.public?%>
+	  	<%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>					
 		<%end%>
-		<%if !space.users.include?(current_user)%>
-	  	<%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>
-		<%end%>
-		<div class="space-desc">
+-->
+	<div class="space-desc">
 			<h3>About <em><%=@space.name%></em></h3>
 			<p><%=image_tag(logo_path(@space, :size =>48), :align => "left")%>
 			<%= sanitize(space.description) if space.description.present? %></p>
-		</div>					
+		</div>
 	<%end%>
 <% end %>
 
