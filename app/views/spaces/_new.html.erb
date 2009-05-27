@@ -1,7 +1,22 @@
 <div id="create_space">
-<div id="new_space_label"  class="blue_title"><h3>New Space</h3></div>
 
 <% form_for :space, :url => spaces_path() do |f|%>
+	<%unless logged_in?%>
+	<div id="new_space_label"  class="blue_title"><h3>You need to be registered or logged first</h3></div>
+	<div class="options">
+		<ul>
+	  	  <li><%=link_to "Login", new_space_path(), :id => "create_and_login_link" %></li>
+	      <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link"%></li>
+		</ul>
+	</div> 
+	
+		<%if params[:register]%>
+		  <%= render :partial => 'register_fields' %>
+		<%else%>	
+	    <%= render :partial => 'login_fields' %>
+	  <%end%>
+	<%end%>
+<div id="new_space_label"  class="blue_title"><h3>New Space</h3></div>
 <p>
     <label for="name">Name</label><br/>
     <%= f.text_field :name %>
@@ -16,18 +31,7 @@
     <label for="public">Public space</label><%= f.check_box(:public) %>
   </p>
 	
-	<%unless logged_in?%>
-		<ul>
-	  	<li><%=link_to "Login", new_space_path(), :id => "create_and_login_link" %></li>
-	    <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link"%></li>
-		</ul>
-	  
-		<%if params[:register]%>
-		  <%= render :partial => 'register_fields' %>
-		<%else%>	
-	    <%= render :partial => 'login_fields' %>
-	  <%end%>
-	<%end%>
+
 	<%= submit_tag "Create" %>
 <%end%>
 </div>

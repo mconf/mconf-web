@@ -1,5 +1,18 @@
+#fancy_ajax{background:#ebebeb;}
+#lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;text-shadow:#000 1px 1px 1px;color:#333;}
+#lightbox-logo{padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;}
+#lightbox-logo img{margin:0 4px -4px 0;}
+.form{padding:1.5em 1.5em 0 1.5em;}
+div#captcha,.form div{margin-bottom:0.75em;}
+#openid_form h3{clear:left;}
+div.button span{margin-left:1.5em;}
+#openid_label input#openid_identifier{width:40%;margin-left:0.75em;margin-right:0.75em;}
+div.options ul{list-style-type:none;margin:0;}
+div.options ul li{display:inline;}
+
+
 /*kikeCSS */
-.blue_title h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
+.blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
 
 div#fancy_div {
 	background: #fff;
@@ -10,8 +23,12 @@ div#fancy_div {
 }
 
 div#fancy_ajax .area{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:hidden;}
-div#captcha,.form div{margin-bottom:0.75em;} 
-.options ul{list-style-type:none;margin:0;display:inline-block;}
+/*
+ul.options {list-style-type:none;margin:0 0 0 0.5em;display:inline-block;float:left;}
+div.options{text-align:right;position:relative;}
+
+/*ul.options li{display:inline;margin-right:0.5em;}*/
+/*.button {float:left;}*/
 /*lost pswwd*/
 .form input#email{margin:0.5em 0;}
 
