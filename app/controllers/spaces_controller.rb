@@ -1,4 +1,4 @@
-  class SpacesController < ApplicationController
+class SpacesController < ApplicationController
   before_filter :space
 
   authorization_filter :read,   :space, :only => [:show]
@@ -233,32 +233,21 @@
       return
     end
 
-    if space.public?
-      space.stage_performances.create! :agent => current_agent,
-                                       :role => Space.roles.find{ |r| r.name == "User" }
-      if request.xhr?
-        render :partial => "redirect.js.erb", :locals => {:url => space_path(space)}
-      else
-        redirect_to space
-      end
-    
-    else
-      jr = space.join_requests.new
-      jr.candidate = current_user
-      if jr.save
-        flash[:notice] = t('join_request.created')
-      else
-        flash[:notice] = "You have already sent a joint request to this space"
-        #flash[:error] = jr.errors.to_xml
-      end
+    jr = space.join_requests.new
+    jr.candidate = current_user
 
-      if request.xhr?
-          render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
-        else
-          redirect_to spaces_path  
-      end
+    if jr.save
+      flash[:notice] = t('join_request.created')
+    else
+      flash[:notice] = "You have already sent a joint request to this space"
+      #flash[:error] = jr.errors.to_xml
     end
-    
+
+    if request.xhr?
+        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      else
+        redirect_to spaces_path  
+    end
   end
   
   def join_get

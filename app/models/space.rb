@@ -63,7 +63,6 @@ class Space < ActiveRecord::Base
       affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, :read)
       affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :content ])
       affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :performance ])
-      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :create, :performance ])
     end
 
     affs
