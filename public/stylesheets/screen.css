@@ -284,6 +284,9 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 #profile_content .post p#topic{font-size:1.0833em;line-height:1.3846;color:#244974;font-weight:bold;}
 .vcard ul{list-style-type:none;}
 
+/*Manage*/
+div.user div.links{float:right;}
+div.user h3{padding:0;margin:0;}
 
 
 /*footer*/

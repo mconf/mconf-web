@@ -162,11 +162,17 @@
   # DELETE /spaces/1.xml
   # DELETE /spaces/1.atom
   def destroy
-    @space_destroy = Space.find_by_name(params[:id])
+    @space_destroy = Space.find_with_param(params[:id])
     @space_destroy.destroy
     flash[:notice] = 'Space was successfully removed.'
     respond_to do |format|
-      format.html { redirect_to(spaces_url) }
+      format.html {
+        if request.referer.include?("manage") && current_user.superuser?
+          redirect_to manage_path
+        else
+          redirect_to(spaces_url)
+        end
+      }
       format.xml  { head :ok }
       format.atom { head :ok }
     end

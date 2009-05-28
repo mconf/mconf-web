@@ -1,0 +1,32 @@
+<div id="manage">
+	<div id="menu">
+	<ul>
+		<li><%=link_to "SPACES", manage_path, :class => "#{'selected' unless params[:show] == 'users'}"%></li>
+		<li><%=link_to "USERS", manage_path(:show => 'users'), :class => "#{'selected' if params[:show] == 'users'}"%></li> 
+	</ul>
+	</div>
+	
+	<%if params[:show]=='users'%>
+		<div "users">
+		  <%for user in @users%>
+			  <div class="user">
+		      <div class="links">
+		        <!--<%=link_to image_tag("icons/cancel.png", :alt => "Delete", :title => "Delete user"), user_path(user), :confirm => 'Are you sure?', :method => :delete%>-->
+		      </div>
+		      <h3><%=user.name%></h3>
+			  </div>
+			<%end%>	
+		</div>
+	<%else%>
+		<div "spaces">
+		  <%for space in @spaces%>
+		    <div class="user">
+		      <div class="links">
+		        <%=link_to image_tag("icons/cancel.png", :alt => "Delete", :title => "Delete space"), space_path(space), :confirm => 'Are you sure?', :method => :delete%>
+		      </div>
+		      <h3><%=space.name%></h3>
+		    </div>
+		  <%end%> 
+		</div>
+	<%end%>
+</div>

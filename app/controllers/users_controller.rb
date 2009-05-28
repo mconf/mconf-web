@@ -180,7 +180,15 @@ class UsersController < ApplicationController
     flash[:notice] = "User #{@user.login} deleted"
     
     respond_to do |format|
-      format.html {  redirect_to(space_users_path(@space))  }
+      format.html {
+        if !@space && current_user.superuser?
+          redirect_to manage_path
+        elsif !@space
+          redirect_to root_path
+        else
+          redirect_to(space_users_path(@space))
+        end
+      }
       format.xml  { head :ok }
       format.atom { head :ok }
     end
