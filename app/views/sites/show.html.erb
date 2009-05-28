@@ -1,0 +1,45 @@
+<div id="manage">
+	<%= render :partial => 'manages/menu' %>
+
+  <p>
+    <label><%= t('site.name') %>:</label>
+    <%= sanitize site.name %>
+  </p>
+
+  <p>
+    <label><%= t('site.description') %>:</label> 
+    <%= sanitize site.description %>
+  </p>
+
+  <p>
+    <label><%= t('site.logo') %>:</label> 
+    <%= logo(site, :size=> 96) %>
+  </p>
+
+  <p>
+    <label><%= t('site.domain') %>:</label> 
+    <%= sanitize site.domain %>
+  </p>
+
+  <p>
+    <label><%= t('site.ssl') %>:</label> 
+    <%= site.ssl? %>
+  </p>
+
+  <p>
+    <label><%= t('site.email') %>:</label> 
+    <%= sanitize site.email %>
+  </p>
+
+  <p>
+    <label><%= t('site.exception_notifications') %>:</label>
+    <%= site.exception_notifications? %>
+  </p>
+
+  <p>
+    <label><%= t('site.exception_notifications_email') %>:</label>
+    <%= sanitize site.exception_notifications_email %>
+  </p>
+
+  <p><%= link_to image_tag("buttons/edit.png", :alt => "Edit", :id => "edit_link"), edit_site_path %></p>
+</div>

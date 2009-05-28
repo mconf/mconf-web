@@ -3,8 +3,8 @@
 	  <div id="upcoming-links">
 	  	<%=link_to "All Upcoming (#{@all_upcoming_events.size})", space_events_path(@space, :show => "upcoming_events"),{:class => "#{!params[:day] ? 'date_link selected' : 'date_link'}"}%> |
 	    <%=link_to "Today (#{@today_events.size})" , space_events_path(@space, :show => "upcoming_events", :day => "today"),{:class => "#{params[:day] == 'today' ? 'date_link selected' : 'date_link'}"}%> |
-	    <%=link_to "within 7 days (#{@next_week_events.size})", space_events_path(@space, :show => "upcoming_events", :day => "next_week" ),{:id => 'next_week_link', :class => "#{params[:day] == 'next_week' ? 'date_link selected' : 'date_link'}"}%> |
-		<%=link_to "within a Month (#{@next_month_events.size})", space_events_path(@space, :show => "upcoming_events" , :day =>"next_month"),{:class => "#{params[:day] == 'next_month' ? 'date_link selected' : 'date_link'}"}%> 
+	    <%=link_to "Within 7 days (#{@next_week_events.size})", space_events_path(@space, :show => "upcoming_events", :day => "next_week" ),{:id => 'next_week_link', :class => "#{params[:day] == 'next_week' ? 'date_link selected' : 'date_link'}"}%> |
+		<%=link_to "Within a Month (#{@next_month_events.size})", space_events_path(@space, :show => "upcoming_events" , :day =>"next_month"),{:class => "#{params[:day] == 'next_month' ? 'date_link selected' : 'date_link'}"}%> 
 		
     </div>
 	<div id="upcoming_div">

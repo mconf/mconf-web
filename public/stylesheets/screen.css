@@ -219,26 +219,31 @@ li.event h5{margin-bottom:0;}
 a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2px;width:100%;height:100%;background:none;}
 /*events*/
 #events_content h3{margin:0;padding:8px 0.75em 7px 0.75em;background:#bdd8eb; color:#244974;}
-#events_content a{color:#8b0425;text-decoration:none;}
-#events_content a.selected{background-color:#8b0425;color:white;}
-#events_content a:hover{background-color:#8b0425;color:white;}
-#upcoming-links{margin-top:10px;margin-left:2px;margin-bottom:5px;}
+#upcoming-links, #past-events-men{margin-top:10px;margin-left:2px;margin-bottom:5px;}
+#upcoming-links a, #past-events-men a{color:#244974;text-decoration:none;}
+#upcoming-links a.selected, #upcoming-links a:hover, #past-events-men a.selected, #past-events-men a:hover{background-color:#244974;color:white;font-weight:bold;}
 #events_links{padding:7px 0.5em 0 0;}
 #events_links a{text-decoration:none;color:#244974;padding-left:2px; padding-right:2px;}
 #events_links a:hover{background-color:#244974;color:white;}
+p.event_name a, span.event-name {color:#8b0425;}
+p.event_name a{font-weight:bold;}
+li.author a, #change-event h3, #sidebar{color:#244974;}
+#sidebar a{text-decoration:none;color:#244974; }
+div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
 
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#f0f6f9;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}
-.date{color:#8B0425;font-weight:bold;}
+.date{color:#8B0425;}
 .author{color:#244974;font-weight:bold;}
 #change-event ul li{font-weight:bold;}
 #events_links a.event_selected{background:#244974; color:white;}
 div.pagination{margin-top:5px;text-align:center;color:#244974;}
-div.pagination span.current{background:#244974; color:white}
-div.pagination a.next_page:link{color:blue;}
+div.pagination span.current, div.pagination a:hover{background:#244974; color:white}
+div.pagination a.next_page, div.pagination a.prev_page {text-decoration:none;}
+div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
 .join h2{margin-bottom:0;margin-top:2px;color:#244974;}
@@ -286,8 +291,14 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 
 /*Manage*/
 div.user div.links{float:right;}
-div.user h3{padding:0;margin:0;}
-
+div.user a{color:#8b0425;text-decoration:none;}
+div#manage p {clear:both;padding-top: 20px;margin:0;}
+div#manage label{font-weight:bold;float:left;display:block;width:150px}
+div#preview_logo{margin:0px 0px 20px 150px;}
+div#manage input{width:300px;}
+div#manage input#site_submit{width:70px;margin-left:150px;}
+div#manage textarea{width:300px;height:100px;}
+div#manage img#edit_link{margin-left:150px;}
 
 /*footer*/
 .clearboth{clear:left;display:block;}

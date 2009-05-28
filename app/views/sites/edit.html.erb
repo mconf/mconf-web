@@ -1,0 +1,65 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.filestyle' %>
+<%end%>
+
+<%content_for :javascript do%>
+    $("input[type=file]").filestyle({ 
+      image: "/images/buttons/browse.png",
+      imageheight : 23,
+      imagewidth : 63,
+      width : 237
+    });
+<%end%>
+
+<div id="manage">
+  <%= render :partial => 'manages/menu' %>
+
+  <%= error_messages_for :site %>
+
+<% form_for(:site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
+  <p>
+    <%= f.label :name, t('site.name') %>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :description, t('site.description') %>
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+  	<%= f.label :logo, t('site.logo') %>
+    <%= file_field_tag "site[_logo][media]" %>
+    <div id="preview_logo"><%= preview site.logo %></div>
+  </p>
+
+  <p>
+    <%= f.label :domain, t('site.domain') %>
+    <%= f.text_field :domain %>
+  </p>
+
+  <p>
+    <%= f.label :ssl, t('site.ssl') %>
+    <%= f.check_box :ssl %>
+  </p>
+
+  <p>
+    <%= f.label :email, t('site.email') %>
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :exception_notifications, t('site.exception_notifications') %>
+    <%= f.check_box :exception_notifications %>
+  </p>
+
+  <p>
+    <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %>
+    <%= f.text_field :exception_notifications_email %>
+  </p>
+
+  <p>
+		<%= image_submit_tag "buttons/update.png", :id => "site_submit"%>
+  </p>
+<% end %>
+</div>

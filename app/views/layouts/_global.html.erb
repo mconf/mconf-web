@@ -2,7 +2,7 @@
   <div id="global">
 	  <ul id="prefs">
         <% if logged_in? %>
-				<% if current_user.superuser?%><li><%=link_to "Manage", manage_path%></li><%end%>
+				<% if current_user.superuser?%><li><%=link_to "Manage", site_path%></li><%end%>
 	      <li><%= link_to "Inbox (#{PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
 	  	  <li><%= link_to "Profile", user_profile_path(current_user), menu_options(:profile)%></li>
         <li><%= link_to "Preferences", edit_user_path(current_user), menu_options(:preferences) %></li>

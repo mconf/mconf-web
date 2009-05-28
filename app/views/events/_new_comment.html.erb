@@ -1,5 +1,5 @@
 <div id="new_reply">
-<h3>New comment</h3>
+<h3 class="selector_title">New comment</h3>
   <div id="post-buttoms" class="actions">
     <ul>
       <li><%= link_to 'Comment', space_event_path(@space, @event_to_show, :edit_comment => params[:edit_comment]), { :id => 'new_comment_link',:class =>" #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
