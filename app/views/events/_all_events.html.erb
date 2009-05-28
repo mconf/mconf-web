@@ -10,7 +10,10 @@
          <%=link_to "Show all Upcoming Events", space_events_path(@space, :show => "upcoming_events"), {:class => 'upcoming_link'}%>
        </div>	
 	  <%end%>
+  
   <br />
+  <br />
+  
   <h3>Past Events</h3>  
 
 	  <%if @last_past_events.empty?%>
