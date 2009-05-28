@@ -1,38 +1,43 @@
 <div id="create_space">
 	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
 	<div class="form">
-	<% form_for :space, :url => spaces_path() do |f|%>
-	<%unless logged_in?%>
-		<div class="options">
-			<ul>
-			  <li class="title">Register or Log-in first:</li>
-		  	  <li><%=link_to "Login", new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
-			  <li> | </li>
-		      <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
-			</ul>
-		</div>
+		<% form_for :space, :url => spaces_path() do |f|%>
+
+		<%unless logged_in?%>
+		<div id="left">
+			<div class="options">
+				<ul>
+				  <li class="title">Register or Log-in first:</li>
+			  	  <li><%=link_to "Login", new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
+				  <li> | </li>
+			      <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
+				</ul>
+			</div>
+			
+			<%if params[:register]%>
+			  <%= render :partial => 'register_fields' %>
+			<%else%>	
+		  	  <%= render :partial => 'login_fields' %>
+		  	<%end%>
+		</div>		
+		<%end%>
+		<div id="right">
+			<div><span class="title">Create your space</span></div>
+			<div>
+		   		<label for="name">Name</label><br/>
+				<%= f.text_field :name %>
+			</div>
 		
-		<%if params[:register]%>
-		  <%= render :partial => 'register_fields' %>
-		<%else%>	
-	  	  <%= render :partial => 'login_fields' %>
-	  	<%end%>
-	<%end%>
-	<div id="new_space_label"  class="blue_title"><h3>New Space</h3></div>
-		<p>
-	   		<label for="name">Name</label><br/>
-			<%= f.text_field :name %>
-		</p>
-	
-		<p>
-	  		<label for="description">Description</label><br/>
-	   		<%= f.text_area(:description,:class=>"area") %>
-		</p>
-	
-		<p>
-	   		<label for="public">Public space</label><%= f.check_box(:public) %>
-		</p>
-		<%= submit_tag "Create" %>
-	<%end%>
+			<div>
+		  		<label for="description">Description</label><br/>
+		   		<%= f.text_area(:description,:class=>"area") %>
+			</div>
+		
+			<div>
+		   		<label for="public">Public space</label><%= f.check_box(:public) %>
+			</div>
+			<%= submit_tag "Create" %>
+		</div>
+		<%end%>
 	</div>
 </div>

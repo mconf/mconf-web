@@ -2,16 +2,21 @@
 #lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;text-shadow:#000 1px 1px 1px;color:#333;}
 #lightbox-logo{padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;}
 #lightbox-logo img{margin:0 4px -4px 0;}
-.form{padding:1.5em 1.5em 0 1.5em;}
+.form{padding:1.5em 1.5em 0 1.5em;position:relative;overflow:hidden;}
 div#captcha,.form div{margin-bottom:0.75em;}
 #openid_form h3{clear:left;}
 div.button span{margin-left:1.5em;}
 #openid_label input#openid_identifier{width:40%;margin-left:0.75em;margin-right:0.75em;}
 div.options ul{list-style-type:none;margin:0;}
 div.options ul li{display:inline;}
-div.options ul li.title{font-size:1.1666em;line-height:1.2857;margin-right:0.5em;}
-#login_on_create_form input[type="text"],#login_on_create_form input[type="password"]{width:50%;margin-right:10px;}
+div.options ul li.title,span.title{font-size:1.1666em;line-height:1.2857;margin-right:0.5em;font-weight:bold;color:#244974;}
+
+#login_on_create_form input[type="text"],#login_on_create_form input[type="password"]{width:75%;margin-right:10px;}
+input#space_name{width:90%;}
+textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflow:hidden;}
+
  a.selected{text-decoration:none;color:#111;font-weight:bold;}
+
 
 /*kikeCSS */
 .blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
@@ -24,7 +29,19 @@ div#fancy_div {
 	z-index: 100;
 }
 
-div#fancy_ajax .area{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:hidden;}
+div#left{float:left;width:265px;}
+div#right{float:left;width:200px;}
+div#left{padding-right:5px;border-right:1px #fff solid;margin-right:18px;}
+
+
+
+
+
+
+
+
+
+
 /*
 ul.options {list-style-type:none;margin:0 0 0 0.5em;display:inline-block;float:left;}
 div.options{text-align:right;position:relative;}
