@@ -3,31 +3,31 @@ module PostsHelper
     if params[:action] == "show"
       if !comment.attachments.empty? 
         if !comment.attachments.select{|a| a.image?}.empty?     
-          space_post_path(comment.space.id,params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'photos')
+          space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'photos')
         else
-          space_post_path(comment.space.id,params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'docs')
+          space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'docs')
         end
       else
-        space_post_path(comment.space.id,params[:id] ? params[:id] : comment.id,:edit => comment.id)
+        space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id)
       end
     else
       if !comment.attachments.empty? 
         if !comment.attachments.select{|a| a.image?}.empty?     
-          space_posts_path(comment.space.id,:edit => comment.id, :form => 'photos')
+          space_posts_path(comment.space, :edit => comment.id, :form => 'photos')
         else
-          space_posts_path(comment.space.id,:edit => comment.id, :form => 'docs')
+          space_posts_path(comment.space, :edit => comment.id, :form => 'docs')
         end
       else
-        space_posts_path(comment.space.id,:edit => comment.id)
+        space_posts_path(comment.space, :edit => comment.id)
       end
     end
   end
   
   def get_reply_route(post,form='')
     if params[:action] == "show"
-      space_post_path(post.space.id,params[:id],:reply_to => post.id, :form => form)
+      space_post_path(post.space, params[:id],:reply_to => post.id, :form => form)
     else
-      space_posts_path(post.space.id,:reply_to => post.id, :form => form)
+      space_posts_path(post.space, :reply_to => post.id, :form => form)
     end
   end
   
