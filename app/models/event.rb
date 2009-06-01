@@ -16,9 +16,15 @@ class Event < ActiveRecord::Base
   attr_accessor :end_hour
   
   is_indexed :fields => ['name','description','place','start_date','end_date'],
-             :concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
-             :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
-             }]
+             :include =>[{:class_name => 'Tag',
+                          :field => 'name',
+                          :as => 'tags',
+                          :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
+                          {:class_name => 'User',
+                               :field => 'login',
+                               :as => 'login_user',
+                               :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
+                        ]
   
   before_validation do |event|
     if event.start_hour.present?

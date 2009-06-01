@@ -23,7 +23,7 @@
     return false;
   });
 	
-	$("#space_search").click(function(){
+	$("#query").click(function(){
 	  if(this.value == "Search..."){
 		  this.value="";
 		}
@@ -36,7 +36,7 @@
 
 <% content_for :search do  %>
   <% form_tag(search_all_path(@space), :method => 'get') do %>
-			<%= text_field_tag 'space_search',(params[:query] ? params[:query] :  "Search...")%>
+			<%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search...")%>
       <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 <%end%>

@@ -10,7 +10,7 @@
 	
 	style_file_input();
 	
-	$("#space_search").click(function(){
+	$("#query").click(function(){
 	  if(this.value == "Search Events..."){
 		  this.value="";
 		}
@@ -32,7 +32,7 @@
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
-     <%= text_field_tag 'space_search',(params[:query] ? params[:query] :  "Search Events...")%>
+     <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Events...")%>
 	   <%= image_submit_tag "buttons/search.png"%>
 	   <div id="advanced">
 	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
