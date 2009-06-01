@@ -67,6 +67,7 @@ a.button, button, #sidebar input[type=submit] {
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
+.highlight{background:#47a0ec;}
 /*File upload button*/
 .file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
@@ -126,7 +127,7 @@ div.space-desc h3, div.space-desc p{color:#244974;}
 #selector ul li.selected {background-color:#ffa903; }
 #selector ul li.selected a{color:white;}
 #selector ul li:hover {background-color:#ffa903; }
-#selector .selected{text-decoration:none;font-weight:bold; }
+#selector .selected{text-decoration:none;font-weight:bold;}
 h3.selector_title{color:#244974}
 #menu{background:#f0f6f9;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
