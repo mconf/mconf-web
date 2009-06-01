@@ -12,10 +12,10 @@ $(".no_javascript").remove();
  */
 
 $("#end_datepicker").datepicker({
-  dateFormat: 'dd/mm/yy'
+ /* dateFormat: 'dd/mm/yy'*/
 });
 $("#start_datepicker").datepicker({
-   dateFormat: 'dd/mm/yy',
+   /*dateFormat: 'dd/mm/yy',*/
    onSelect: function(dateText) {
      if($("#end_datepicker").val()==""){
        $("#end_datepicker").val(dateText);

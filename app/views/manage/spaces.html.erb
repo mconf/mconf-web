@@ -1,0 +1,20 @@
+<%content_for :search do%>
+  <h3>MANAGEMENT</h3>
+<%end%>
+
+<div id="manage">
+  
+  <%= render :partial => 'menu' %>
+  
+  <div "spaces">
+    <%for space in @spaces%>
+      <div class="user">
+        <div class="links">
+          <%=link_to image_tag("icons/cancel.png", :alt => "Delete", :title => "Delete space"), space_path(space), :confirm => 'Are you sure?', :method => :delete%>
+        </div>
+          <%=link_to space.name, space_path(space)%>
+      </div>
+    <%end%> 
+  </div>
+
+</div>

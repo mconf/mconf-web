@@ -1,0 +1,19 @@
+<%content_for :search do%>
+  <h3>MANAGEMENT</h3>
+<%end%>
+
+<div id="manage">
+	
+  <%= render :partial => 'menu' %>
+	
+	<div "users">
+	  <%for user in @users%>
+		  <div class="user">
+	      <div class="links">
+	        <!--<%=link_to image_tag("icons/cancel.png", :alt => "Delete", :title => "Delete user"), user_path(user), :confirm => 'Are you sure?', :method => :delete%>-->
+	      </div>
+	        <%=link_to user.name, user_profile_path(user)%>
+		  </div>
+		<%end%>	
+	</div>
+</div>

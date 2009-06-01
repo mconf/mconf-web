@@ -51,7 +51,8 @@ ActionController::Routing::Routes.draw do |map|
      end
   map.resources :roles
   map.resource :site
-  map.resource :manage
+  map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
+  map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
 
   #LOCALE CONTROLLER (GLOBALIZE)
   map.connect ':locale/:controller/:action/:id'  
