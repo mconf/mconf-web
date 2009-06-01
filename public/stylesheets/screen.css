@@ -326,7 +326,7 @@ div#manage img#edit_link{margin-left:150px;}
 .space_item form{display:inline;}
 .space_item form div{display:inline;}
 /*Edit space*/
-img.logo{display:block;}
+div#jedit_form img.logo{display:block;}
 
 /*kikeCSS */
 #login_div h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}

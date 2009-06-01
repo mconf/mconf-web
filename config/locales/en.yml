@@ -11,5 +11,7 @@ en:
     other: "Members"
     other_in: "Members of {{stage}}"
     new: "New Member"
+  join_request:
+    created: 'Your join request has been sent to the space administrators'
   
 
