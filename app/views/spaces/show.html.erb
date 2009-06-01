@@ -97,7 +97,7 @@
 	    <% for post in @lastest_posts -%>
 	      <div class="post">
 	        <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
-	        <a href="" class="box-link"></a>
+	        <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
 	      </div>
 	    <% end -%>
 	    <div class="read_more"> 

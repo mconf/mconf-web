@@ -69,9 +69,17 @@ class Performance
     end
   }
 
+  # Destroy Space group memberships before leaving the Space
   before_destroy { |p|
     if p.stage.is_a?(Space) && p.agent.is_a?(User)
       p.agent.memberships.select{ |m| m.group && m.group.space == p.stage }.map(&:destroy)
+    end
+  }
+
+  # Destroy Space admission after leaving the Space
+  after_destroy { |p|
+    if p.stage.is_a?(Space) && p.agent.is_a?(User)
+      p.stage.admissions.find_by_candidate_id_and_candidate_type(p.agent.id, p.agent.class.base_class.to_s).destroy
     end
   }
   

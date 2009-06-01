@@ -22,4 +22,11 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :space, :space!
+
+  before_filter :not_activated_warning
+  def not_activated_warning
+    if authenticated? && ! current_agent.active?
+      flash[:notice] = "Your account isn't activated. Please, check your email to activate it."
+    end
+  end
 end
