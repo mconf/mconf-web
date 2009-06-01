@@ -1,100 +1,79 @@
 #This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
   
-  #this method is used to compose the mail sended when a user request more machines in the application
-  def contact_mail (mail_info)
-    @from = mail_info["from_email"]
-     @recipients = "enrique.barra@agora-2000.com"
-     @subject = "VCC Information"
-     @mail_info = mail_info
-     @body["mail_info"] = mail_info
-     @sent_on = Time.now
-  
- part :content_type => "text/plain",
- :body => render_message("contact_mail_plain", "mail_info" => mail_info)
-  
- part :content_type => "text/html",
- :body => render_message("contact_mail_html", "mail_info" => mail_info) 
-  end
-  
   def invitation_email(invitation)
-    @space = invitation.group
-    @recipients = invitation.email
-    @subject = "VCC Invitation"
-    @sent_on = Time.now
+    setup_email(invitation.email)
+
+    @subject += "Invitation"
     @body[:invitation] = invitation
-    @body[:space] = @space
+    @body[:space] = invitation.group
   end
 
   def processed_invitation_email(invitation)
-    @space = invitation.group
-    @recipients = invitation.group.users(:role => 'Admin').map(&:email)
-    @subject = "VCC Invitation #{ invitation.accepted? ? 'accepted' : 'discarded' }"
-    @sent_on = Time.now
+    setup_email(invitation.group.users(:role => 'Admin').map(&:email))
+
+    @subject += "Invitation #{ invitation.accepted? ? 'accepted' : 'discarded' }"
     @body[:invitation] = invitation
-    @body[:space] = @space
+    @body[:space] = invitation.group
   end
 
   def join_request_email(jr)
-    @space = jr.group
-    @recipients = jr.group.users(:role => 'Admin').map(&:email)
-    @subject = "VCC Join Request"
-    @sent_on = Time.now
+    setup_email(jr.group.users(:role => 'Admin').map(&:email))
+
+    @subject += "Join Request"
     @body[:candidate] = jr.candidate
-    @body[:space] = @space
+    @body[:space] = jr.group
   end
 
   def processed_join_request_email(jr)
-    @space = jr.group
-    @recipients = jr.candidate.email
-    @subject = "VCC Join Request #{ jr.accepted? ? 'accepted' : 'discarded' }"
-    @sent_on = Time.now
+    setup_email(jr.candidate.email)
+
+    @subject += "Join Request #{ jr.accepted? ? 'accepted' : 'discarded' }"
     @body[:jr] = jr
-    @body[:space] = @space
+    @body[:space] = jr.group
   end
 
   #This is used when an user register in the application, in order to confirm his registration 
   def confirmation_email(user)
-    # email header info MUST be added here
-    @recipients = user.email
-    @from = "#{Site.current.email}"
-    @subject = "VCC Information:: Welcome to VCC"
+    setup_email(user.email)
 
-    # email body substitutions go here
+    @subject += "Welcome to VCC"
     @body["name"] = user.login
     @body["hash"] = user.activation_code
   end
 
   def activation(user)
-    @recipients = user.email
-    @from = "#{Site.current.email}"
-    @subject     = "VCC Information: #{ I18n.t(:account_activated) }"
-    @body[:user]  = user
+    setup_email(user.email)
+
+    @subject     += I18n.t(:account_activated)
+    @body[:user] = user
     @body[:url]  = "http://#{ Site.current.domain }/"
   end
   
-  #This method compose the email used when a user is deleted from the system
-  def byebye (user, sent_at = Time.now)
-    @subject = "VCC Information::User Deleted"
-    @from = "#{Site.current.email}"
-    @recipients = user.email
-     @sent_on = sent_at
-    @body = "Your user in VCC has been deleted. Please contact the administrator for more information"
-  end
   #This is used when a user ask for his password.
   def lost_password(user)
-    @recipients = user.email
-    @from = "#{Site.current.email}"
-    @subject    = 'Request to change your password'
+    setup_email(user.email)
+
+    @subject += 'Request to change your password'
     @body ["name"] = user.login
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
   end
-#this methd is used when a user have asked for his old password, and then he reset it.
+
+  #this methd is used when a user have asked for his old password, and then he reset it.
   def reset_password(user)
-    @recipients = user.email
-    @from = "#{Site.current.email}"
+    setup_email(user.email)
+
     @body ["name"] = user.login
-    @subject    = 'Your password has been reset'
+    @subject += 'Your password has been reset'
+  end
+
+  private
+
+  def setup_email(recipients)
+    @recipients = recipients
+    @from       = "#{ Site.current.name } <#{ Site.current.email }>"
+    @subject    = "[VCC] "
+    @sent_on    = Time.now
   end
 
 end
