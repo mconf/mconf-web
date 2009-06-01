@@ -13,7 +13,7 @@ div.options ul li.title,span.title{font-size:1.1666em;line-height:1.2857;margin-
 
 #login_on_create_form input[type="text"],#login_on_create_form input[type="password"]{width:75%;margin-right:10px;}
 input#space_name{width:90%;}
-textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflow:hidden;}
+textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflow:auto;}
 
  a.selected{text-decoration:none;color:#111;font-weight:bold;}
 
