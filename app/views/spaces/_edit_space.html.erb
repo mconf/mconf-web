@@ -6,16 +6,24 @@
   $("#nonjavascript_form").remove();
 	$("#jedit_form").show();
 	$('#space_name').editable(function(value, settings){
-	         $.post("<%=space_path(@space)%>",{
-             _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value          
-           }, function(data){
-					   eval(data);
-						 return(data);
-					 });
-				 },{
-				 tooltip   : 'Click to edit...',
-				 width : 185
-     });
+         $.post("<%=space_path(@space)%>",{
+           _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value          
+         }, function(data){
+				   eval(data);
+					 return(data);
+				 });
+			 },{
+			 tooltip   : 'Click to edit...',
+			 width : 185
+   });
+	 
+	 $('#space_name form input').livequery("blur",function(){
+     $('#edit_name_icon').show();
+   });
+   
+   $('#space_name').livequery("click",function(){
+     $('#edit_name_icon').hide();
+   });
 
   $('#space_description').editable('<%=space_path(@space)%>', {
          method : 'PUT',
@@ -31,6 +39,14 @@
 				 callback : function(value, settings) {
            $('#edit_description_icon').show();
         }
+   });
+	 
+	 $('#space_description form textarea').livequery("blur",function(){
+	   $('#edit_description_icon').show();
+	 });
+	 
+	 $('#space_description').livequery("click",function(){
+     $('#edit_description_icon').hide();
    });
 	 
 	 edit_name = function(){
