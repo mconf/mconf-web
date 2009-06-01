@@ -14,7 +14,7 @@
 	  var filter_text = this.value.toLowerCase();
     $("div.space_item").each(function() {
         if($(this).attr("name").toLowerCase().search(filter_text)>=0){
-          $(this).css({ display:"inline"})
+          $(this).css("display","inline");
       }else{
           $(this).hide();
       }
