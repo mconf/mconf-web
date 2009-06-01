@@ -11,11 +11,9 @@ $(".no_javascript").remove();
  * Timepicker and datepicker configuration
  */
 
-$("#end_datepicker").datepicker({
- /* dateFormat: 'dd/mm/yy'*/
-});
+$("#end_datepicker").datepicker();
+
 $("#start_datepicker").datepicker({
-   /*dateFormat: 'dd/mm/yy',*/
    onSelect: function(dateText) {
      if($("#end_datepicker").val()==""){
        $("#end_datepicker").val(dateText);

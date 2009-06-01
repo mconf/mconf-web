@@ -124,7 +124,6 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-    debugger
     @event = Event.new(params[:event])
     @event.author = current_agent
     @event.container = @container
