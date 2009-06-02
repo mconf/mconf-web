@@ -66,11 +66,11 @@
       });
     });
 		
-		edit_logo = function(){
+		edit_logo_fun = function(){
 		  $('#update_logo').show();
 			$('#edit_logo').parent().hide();
 			style_file_input();
-		}
+		};
 	 
 <%end%>
 
@@ -118,7 +118,7 @@
   </div>
 	<div>
 		<label for="public">Click to change your logo:</label> 
-		<%= link_to_function logo(@space, :size => 128), "edit_logo()", :id => "edit_logo"%>
+		<%= link_to_function logo(@space, :size => 128), "edit_logo_fun()", :id => "edit_logo"%>
 	</div>
 	
 	<% form_for @space, :html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>

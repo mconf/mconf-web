@@ -9,6 +9,7 @@
 	expand_post_<%=post.id%> = function(){
 	  $("#collapsed_post_<%=post.id%>").hide();
     $("#expanded_post_<%=post.id%>").show("normal");
+    $("#expanded_post_<%=post.id%>").css("style", "display: inline");
 	}
 	
 	 collapse_post_<%=post.id%> = function(){

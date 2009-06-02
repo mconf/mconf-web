@@ -320,7 +320,7 @@ div#manage img#edit_link{margin-left:150px;}
 #space_filter{padding:0.5em;background:#bdd8eb;}
 #space_filter input[type="text"]{color:#777;}
 #private_spaces,#public_spaces{padding:0.5em;}
-.space_item{display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
+.space_item{display:inline;margin-bottom:4px;margin-right:3px;width:52px;}
 .space_item img{padding:1px;border:1px #ccc solid;}
 .space_item img:hover {border:1px #bbb solid;}
 .space_item form{display:inline;}
