@@ -249,7 +249,7 @@ div.pagination a{color:#244974;}
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
 .join h2{margin-bottom:0;margin-top:2px;color:#244974;}
 #sidebar input[type="text"]{width:92%;}
-#sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
+#sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;}
 
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
