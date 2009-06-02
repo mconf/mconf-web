@@ -251,7 +251,7 @@ div.pagination a{color:#244974;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
 #sidebar input[type="text"]{width:92%;}
-#sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
+#sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;}
 
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
