@@ -51,6 +51,7 @@ ActionController::Routing::Routes.draw do |map|
      end
   map.resources :roles
   map.resource :site
+  map.resources :feedback
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
 
@@ -105,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
   
   map.change_space '/change_space', :controller => 'spaces', :action => 'change_space'
-  map.about '/about', :controller => 'frontpage', :action => 'about'
+
   
 #  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
