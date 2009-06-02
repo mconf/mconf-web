@@ -247,8 +247,9 @@ div.pagination span.current, div.pagination a:hover{background:#244974; color:wh
 div.pagination a.next_page, div.pagination a.prev_page {text-decoration:none;}
 div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
-#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;border: solid 2px #244974;margin-top:10px;}
-.join h2{margin-bottom:0;margin-top:2px;color:#244974;}
+#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
+.join h2{margin-bottom:0;padding-top:9px;color:#244974;}
+.join p{margin:0.75em 0;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:30%;margin-right:10px;}
 
@@ -275,17 +276,19 @@ div.pagination a{color:#244974;}
 #sidebar #space-conf div{padding-bottom:0.75em;}
 
 /*Profile*/
-.profile-box{background:#bdd8eb;margin-bottom:1.5em;-webkit-border-radius:7px;-moz-border-radius:7px;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
-.profile-box #title{padding:9px 0 8px 0.75em;border-bottom:1px #a8c0d1 solid;}
+.profile-box,.space-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
+.profile-box #title,.space-box #title{padding:9px 0 8px 0.75em;border-bottom:1px #a8c0d1 solid;}
 #sidebar .profile-box{border-left:1px #b0cadb solid;}
+.profile-box{-webkit-border-radius:7px;-moz-border-radius:7px;}
 
 h3.item_title{margin:0;}
 h3.item_title span{font-size:1.25em;line-height:1.2;}
 #sidebar h3.item_title{margin:0;}
-.profile-box #profile_content{background:#f0f6f9;padding:9px;clear:both;overflow:hidden;position:relative;-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
+.profile-box #profile_content,.space-box #space_content{background:#f0f6f9;padding:9px;clear:both;overflow:hidden;position:relative;}
+.profile-box #profile_content{-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
 #sidebar #profile_content{padding:6px;}
 #sidebar .space_item{margin-right:2px;}
-#profile_content div{float:left;}
+#profile_content div,#space_content div{float:left;}
 #profile_content .post{background:none;border-bottom:1px #a8c0d1 solid;}
 #profile_content .post:hover{background:#fafafa;}
 #profile_content .post p#topic{font-size:1.0833em;line-height:1.3846;color:#244974;font-weight:bold;}
@@ -318,14 +321,16 @@ div#manage img#edit_link{margin-left:150px;}
 /*davidCSS Temporal - */
 
 /*index de spaces*/
-#space_filter{padding:0.5em;background:#bdd8eb;}
-#space_filter input[type="text"]{color:#777;}
-#private_spaces,#public_spaces{padding:0.5em;}
+#space_filter{padding:0.5em 0;margin-bottom:0.75em;/*background:#bdd8eb;*/}
+#space_filter input[type="text"]{color:#777;background:#f0f6f9;}
+/*#private_spaces,#public_spaces{padding:0.5em;}*/
 .space_item{display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
 .space_item img{padding:1px;border:1px #ccc solid;}
 .space_item img:hover {border:1px #bbb solid;}
 .space_item form{display:inline;}
 .space_item form div{display:inline;}
+#space_description h3{padding-bottom:8px;border-bottom:1px #ccc solid;color:#244974;}
+#space_description p img{}
 /*Edit space*/
 div#jedit_form img.logo{display:block;}
 
