@@ -166,7 +166,8 @@ class PostsController < ApplicationController
       end
     end
 =end
-if !@post.attachments.empty? and @post.text.present?
+
+if !@attachment and !@post.text.present?
 	 respond_to do |format|
         format.js{
         if params[:post][:parent_id] #mira si es un comentario o no para hacer el render

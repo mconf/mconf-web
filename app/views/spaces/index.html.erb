@@ -68,8 +68,8 @@
 <% content_for :sidebar do  %>
   <div class="join">
     <h2>Start now!</h2>
-    <p> Create your own space. Share, Collaborate, Discuss.</p>
-    <%=link_to image_tag("buttons/create-space.png"),new_space_path(), :class => "new_space_link"%>  
+	<p>Create your own space.<br/>Share, Participate, Discuss.</p>
+	<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 
   </div>
   <div id="space_description">
   	<% for space in @spaces %>
@@ -87,10 +87,10 @@
   <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
 </div>
 
-<div id = "private_spaces">
+<div id = "private_spaces" class="space-box">
 
-  <h3>Private Spaces</h3>
-
+  <div id="title"><h3 class="item_title">Private Spaces</h3></div>
+  <div id="space_content">
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
@@ -100,15 +100,17 @@
 		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
 		<% end %>
 	<% end %>
+  </div>
 </div>
 
-<div id = "public_spaces">
+<div id = "public_spaces" class="space-box">
 
-  <h3>Public Spaces</h3>
-
+  <div id="title"><h3 class="item_title">Public Spaces</h3></div>
+  <div id="space_content">
   <% for space in @public_spaces %>
     <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
   <% end %>
+  </div>
 </div>
 
 <div id="lightbox_join_content" style="display:none"></div>

@@ -10,7 +10,8 @@
  *  Reply panel
  */
 
-$("#reply-form").postsForm('<%= space_post_path(@space,@post, :last_page => true) %>');
+/* Submit without ajax until it will be posible to render message errors when a post witj attachment fail*/
+/*$("#reply-form").postsForm('<%= space_post_path(@space,@post, :last_page => true) %>');*/
 
 style_file_input();
 

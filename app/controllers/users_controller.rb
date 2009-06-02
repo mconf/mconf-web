@@ -2,7 +2,7 @@ require "digest/sha1"
 class UsersController < ApplicationController
   include ActionController::Agents
   
-  before_filter :space, :only => [ :index ]
+  before_filter :space!, :only => [ :index ]
   before_filter :get_agent, :only => [ :show, :edit, :update, :destroy ]
 
   # Permission filters
@@ -29,35 +29,13 @@ class UsersController < ApplicationController
   # GET /users.atom
   
   def index
-=begin
-    if params[:manage]
-      session[:current_tab] = "Manage" 
-      session[:current_sub_tab] = "Users"
-      @users = User.find(:all)
-    elsif params[:space_id] && params[:space_id] != "Public"
-      session[:current_tab] = "People" 
-      session[:current_sub_tab] = ""
-      @users = @space.actors 
-    elsif params[:space_id] && params[:space_id] == "Public"
-      session[:current_tab] = "People" 
-      session[:current_sub_tab] = ""
-      @users = User.find(:all)
+    @users = space.users.sort {|x,y| x.name <=> y.name }
+    @groups = @space.groups.all(:order => "name ASC")
+    @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
+    if params[:edit_group]
+      @editing_group = @space.groups.find(params[:edit_group])
     else
-      @users = User.find(:all)
-    end
-    
-    @users.sort
-    @users = @users.paginate(:page => params[:page],:per_page => 10)
-=end
-    if params[:space_id]
-      @users = @space.actors.sort {|x,y| x.name <=> y.name }
-      @groups = @space.groups.all(:order => "name ASC")
-      @users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
-      if params[:edit_group]
-        @editing_group = @space.groups.find(params[:edit_group])
-      else
-        @editing_group = Group.new()
-      end
+      @editing_group = Group.new()
     end
 
     respond_to do |format|

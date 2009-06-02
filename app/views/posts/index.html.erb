@@ -12,7 +12,8 @@
  *  New thread panel
  */
 
-$("#thread-form").postsForm('<%= space_posts_url(@space) %>');
+/* Submit without ajax until it will be posible to render message errors when a post witj attachment fail*/
+/*$("#thread-form").postsForm('<%= space_posts_url(@space) %>');*/
 
 $(".new_thread_options").click(function(){
   $(".new_thread_options").removeClass("selected");
