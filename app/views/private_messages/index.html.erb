@@ -27,7 +27,7 @@
 <%else%>
 
 	<% for private_message in @private_messages %>
-	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div highlight"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
+	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div new"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
 		  <div class="message_header">
 		    <% if params[:sent_messages] %>
           To <%= link_logotype(User.find(private_message.receiver_id))%> <%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%> 

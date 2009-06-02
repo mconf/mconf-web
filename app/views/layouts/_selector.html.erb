@@ -5,7 +5,7 @@
 <ul>
 	<%@global = Space.find_by_name("GLOBAL")%>
 	<%if @global.present?%>
-		<h3 class="selector_title">Sponsored Space</h3>
+		<h3 class="selector_title">Main Space</h3>
 		<%if @space == @global%>
 			<li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
 		<%else%>
