@@ -1,0 +1,16 @@
+$("#query").livequery('keyup', function() {
+  var filter_text = this.value.toLowerCase();
+  $("div.user").each(function() {
+      if($(this).text().toLowerCase().search(filter_text)>=0){
+        $(this).slideDown("slow");
+    }else{
+        $(this).slideUp("slow");
+    }
+    });
+});
+
+$("#query").click(function(){
+  if(this.value == "Search Users..."){
+	  this.value="";
+	}
+});

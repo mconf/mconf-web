@@ -1,22 +1,6 @@
 <% menu :people %>
 <% content_for :javascript do %>
-	<%= render :partial => 'list_javascript' %>
-	$("#users_search").livequery('keyup', function() {
-    var filter_text = this.value.toLowerCase();
-    $("div.user").each(function() {
-        if($(this).text().toLowerCase().search(filter_text)>=0){
-          $(this).slideDown("slow");
-      }else{
-          $(this).slideUp("slow");
-      }
-      });
-  });
-	
-	$("#query").click(function(){
-	  if(this.value == "Search Users..."){
-		  this.value="";
-		}
-	});
+  <%= render :partial => 'jquery_users_search' %>
 <% end %>
 
 <% content_for :search do  %>
@@ -27,8 +11,8 @@
 <!-- Ojo, esto hay que pensar qué queremos que se vea aquí -->
 	<%if params[:send_message]%>
 		<%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
-	<%elsif space.users.include?(current_user) and @space.authorizes?([:manage, :group], :to => current_user) %>
-		<%= render :partial => 'groups/create_group', :locals=> {:group => @editing_group} %>
+	<%elsif space.users.include?(current_user) and @space.authorizes?([:create, :performance], :to => current_user) %>
+		<%= render :partial => 'admissions/new_invitation' %>
 	<%else%>
 <!--
 		<%if !space.users.include?(current_user) and logged_in? and space.public?%>
@@ -53,15 +37,6 @@
 	<%= link_to 'Groups', space_groups_path(@space), { :id => 'groups_link' } %>
 </div>
 
-<div id="list_by_groups_selected" class="group_links" style="display: none;">
-	<span>List by: </span>
-	<%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
-	<span class="selected">Groups</span>
-</div>
-
-<div id="list_by_groups" style="display: none;">
-	<%= render :partial => 'groups/list' %>
-</div>
 <div id="list_by_name" >
 	<%= render :partial => 'list' %>
 </div>

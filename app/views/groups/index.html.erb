@@ -5,7 +5,7 @@
 <%end%>
 
 <% content_for :javascript do %>
-  <%= render :partial => 'users/list_javascript' %>
+  <%= render :partial => 'users/jquery_users_search' %>
 <% end %>
 
 <% content_for :search do  %>
@@ -24,23 +24,14 @@
   <%=render :partial => "spaces/admin_tabs"%>
 <%else%>
 
-<div id="list_by_names_selected" class="group_links" style="display: none;" >
-  <span>List by </span>
-  <%= link_to 'Groups', space_groups_path(@space), { :id => 'groups_link' } %>
-  Names
-</div>
-
-<div id="list_by_groups_selected" class="group_links">
-  <span>List by </span>
-  Groups
-  <%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
-</div>
+	<div id="list_by_groups_selected" class="group_links">
+	  <span>List by: </span>
+	  <%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
+		<span class="selected">Groups</span>
+	</div>
 
 <%end%>
 
 <div id="list_by_groups" >
   <%= render :partial => 'list' %>
-</div>
-<div id="list_by_name"  style="display: none;">
-  <%= render :partial => 'users/list' %>
 </div>
