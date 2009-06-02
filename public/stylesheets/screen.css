@@ -302,7 +302,7 @@ div#manage textarea{width:300px;height:100px;}
 div#manage img#edit_link{margin-left:150px;}
 
 /*footer*/
-.clearboth{clear:left;display:block;}
+.clearboth{clear:left;display:inline;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
 #footer{clear:left;background:#fff;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
