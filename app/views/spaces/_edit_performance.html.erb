@@ -6,6 +6,7 @@
 	show_other_groups_<%=performance.id%> = function(){
 	  $("#other_groups_link_<%=performance.id%>").hide();
 	  $("#other_groups_<%=performance.id%>").slideDown("normal");
+	  $("#other_groups_<%=performance.id%>").css("clear","left");
 	};
 	
 	close_other_groups_<%=performance.id%> = function(){
