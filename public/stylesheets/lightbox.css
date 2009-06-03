@@ -17,6 +17,16 @@ textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflo
 
  a.selected{text-decoration:none;color:#111;font-weight:bold;}
 
+/*
+ * Feedback
+ */
+textarea#feedback_textarea {height:8.3333em;margin-bottom:0.5em;width:60%;overflow:auto;}
+input#feedback_from,input#feedback_subject{width:60%;}
+div#feedback_form {margin-left:1.5em;padding-top:2em;}
+div#feedback_form p label {float:left;display:block;width:20%;padding-top:0.25em;}
+div#feedback_form input[type="submit"]{margin-left:20%;}
+h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
+
 
 /*kikeCSS */
 .blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}

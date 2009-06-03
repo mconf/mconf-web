@@ -1,27 +1,30 @@
-
-
-<h3 >Send Us Feedback</h3>
+<%if request.xhr?%>
+  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+<%else%>
+  <h3 id="feedback_no_lightbox">Send us feedback</h3>
+<%end%>
 
 <%form_for(:feedback, :url => feedback_index_path()) do |f| -%>
-  
+  <div id="feedback_form">
 	<p>
-    <label for="subject">Subject</label><br/>
+    <label for="subject">Subject:</label>
     <%= f.text_field :subject, :size => 25 %>
   </p>
 	
 	<p>
-    <label for="body">Body</label><br/>
-    <%= f.text_area :body %>
+    <label for="body">Body:</label>
+    <%= f.text_area :body, :id => "feedback_textarea" %>
   </p>
 	
 	<%if logged_in?%>		
 		<%= hidden_field_tag 'feedback[from]', current_user.email%>	
 	<%else%>		
 		<p>
-    	<label for="from">E-mail</label><br/>
+    	<label for="from">E-mail:</label>
 			<%= f.text_field :from, :size =>25 %>    
   	</p>
 	<%end%>
 	
-  <%= submit_tag "Create" %>
+  <%= submit_tag "Send Feedback" %>
+	</div>
 <% end -%>
