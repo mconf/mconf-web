@@ -288,7 +288,7 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 .profile-box #profile_content{-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
 #sidebar #profile_content{padding:6px;}
 #sidebar .space_item{margin-right:2px;}
-#profile_content div,#space_content div{float:left;}
+#profile_content div{float:left;}
 #profile_content .post{background:none;border-bottom:1px #a8c0d1 solid;}
 #profile_content .post:hover{background:#fafafa;}
 #profile_content .post p#topic{font-size:1.0833em;line-height:1.3846;color:#244974;font-weight:bold;}
@@ -322,11 +322,10 @@ div#manage img#edit_link{margin-left:150px;}
 
 /*index de spaces*/
 
-#space_filter{padding:0.5em;background:#bdd8eb;}
-#space_filter input[type="text"]{color:#777;}
-#private_spaces,#public_spaces{padding:0.5em;}
+#space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}
+#space_filter input[type="text"]{color:#777;background:#f0f6f9;}
+/*#private_spaces,#public_spaces{padding:0.5em;}*/
 .space_item{display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
-
 .space_item img{padding:1px;border:1px #ccc solid;}
 .space_item img:hover {border:1px #bbb solid;}
 .space_item form{display:inline;}
