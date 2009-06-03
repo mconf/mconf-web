@@ -6,7 +6,7 @@
 
 <%div_for post do%>
 
-   <p id="topic" style="display:inline">Topic:  <%=link_to thread_title(post), space_post_path(post.space, thread(post)) if post.space.authorizes?([:read, :performance],:to=> current_user) %> in the space <%= post.authorizes?([:read, :content], :to =>current_user) ? link_to(post.space.name ,space_path(post.space)) : post.space.name %></p>
+   <p id="topic">Topic:  <%=link_to thread_title(post), space_post_path(post.space, thread(post)) if post.space.authorizes?([:read, :performance],:to=> current_user) %> in the space <%= post.authorizes?([:read, :content], :to =>current_user) ? link_to(post.space.name ,space_path(post.space)) : post.space.name %></p>
 
    <p id="collapsed_post_<%=post.id%>" style="display:none">
      <%=sanitize(first_words(post.text,200))%><br />
