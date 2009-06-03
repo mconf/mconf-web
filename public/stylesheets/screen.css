@@ -317,6 +317,12 @@ div#manage img#edit_link{margin-left:150px;}
 #footer a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
+/*Admissions*/
+div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
+div.join_request_element form {float:right;margin-left:4em;}
+div.join_request_element form div{display:inline;}
+
+
 
 /*davidCSS Temporal - */
 

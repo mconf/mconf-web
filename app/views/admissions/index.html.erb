@@ -8,18 +8,24 @@
 <h3>Pending Join Requests</h3>
 <% if @space.join_requests.pending.any? %>
   <% @space.join_requests.pending.each do |jr| %>
-    <% form_for [ @space, jr ] do |f| %>
-      <%= link_logotype(jr.candidate) %>
-      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id } %>
-      <%= f.hidden_field :accepted, :value => true %>
-      <%= f.hidden_field :processed, :value => true %>
-      <%= f.submit "Accept" %>
-    <% end -%>
-    <% form_for [ @space, jr ] do |f| %>
-      <%= f.hidden_field :processed, :value => true %>
-      <%= f.submit "Deny" %>
-    <% end -%>
-
+	  <div class="join_request_element">
+	    <% form_for [ @space, jr ] do |f| %>
+			  <label>Role:</label>
+	      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id } %>
+	      <%= f.hidden_field :accepted, :value => true %>
+	      <%= f.hidden_field :processed, :value => true %>
+	      <%= f.submit "Accept" %>
+	    <% end -%>
+	    <% form_for [ @space, jr ] do |f| %>
+	      <%= f.hidden_field :processed, :value => true %>
+	      <%= f.submit "Deny" %>
+	    <% end -%>
+			<%if jr.candidate.authorizes?([:read, :profile],:to=> current_user)%>
+        <%= link_logotype(jr.candidate, :url => user_profile_path(jr.candidate)) %>
+		  <%else%>
+			  <%= logotype(jr.candidate) %>
+			<%end%>
+    </div>
   <% end -%>
 <% else -%>
 There aren't pending join requests.
