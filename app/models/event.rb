@@ -40,7 +40,15 @@ class Event < ActiveRecord::Base
       unless self.start_date < self.end_date
       errors.add_to_base("The event start date must be previous than the event end date ")
       end  
-    end   
+    end
+	if self.marte_event? && ! self.marte_room?
+		#check connectivity with Marte
+		begin
+			MarteRoom.find(:all)
+		rescue => e
+			errors.add_to_base("Could not create virtual conference")
+		end
+	end
 #    unless self.start_date.future? 
 #      errors.add_to_base("The event start date should be a future date  ")
 #    end
