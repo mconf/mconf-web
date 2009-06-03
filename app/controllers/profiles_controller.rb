@@ -47,7 +47,7 @@ class ProfilesController < ApplicationController
   def edit
     if @profile.new_record?
       #flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user )
+      redirect_to new_user_profile_path(@user)
     end
   end
   
@@ -56,7 +56,7 @@ class ProfilesController < ApplicationController
   # POST /profile.xml
   # POST /profile.atom
   def create
-    @profile = current_user.build_profile(params[:profile])
+	  @profile = @user.build_profile(params[:profile])
 
     respond_to do |format|
       if @profile.save
@@ -173,9 +173,9 @@ class ProfilesController < ApplicationController
   end
   
   def unique_profile
-   unless current_user.profile.nil?
-     flash[:error] = "You already have a profile."     
-     redirect_to user_profile_path(current_user)
-   end
+    unless @user.profile.new_record?
+      flash[:error] = "You already have a profile."     
+      redirect_to user_profile_path(@user)
+    end
  end
 end
