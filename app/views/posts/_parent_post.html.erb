@@ -1,0 +1,37 @@
+<% content_for :javascript do%>
+  <%= render :partial => 'collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
+<%end%>
+
+  <!-- Author photo and name -->
+	<div class="parent-post-author">
+	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+	    <h3><%= link_author(post, :size => 64, :url => user_profile_path(post.author)) %></h3>
+	  <%else%>
+	    <%=logo(post.author, :size=>64)%> <%=post.author.name%>
+	  <%end%>
+	</div>
+
+   <%if post.text.size < 200%>
+     <p>
+     <%=sanitize(post.text)%><br />
+     </p>
+   <%else%>
+     <p id="collapsed_post_<%=post.id%>" style="display:none">
+       <%=sanitize(first_words(post.text,200))%><br />
+       <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+     </p>
+  
+     <p id="expanded_post_<%=post.id%>">
+     <%=sanitize(post.text)%><br />
+     </p>
+   <%end%>   
+	 
+	 <p>
+   <%for attachment in post.attachments%>
+      <%if attachment.post_thumbnail%>
+        <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
+      <%else%>
+        <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+      <%end%> 
+   <%end%>
+   </p>
