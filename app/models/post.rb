@@ -45,13 +45,7 @@ class Post < ActiveRecord::Base
   # This method return the 3 last comment of a thread if the thread has more than 3 comments. 
   # If not, return the parent post and their comments
   def three_last_comment()
-     @array_post = []
-     if self.children.size >= 3
-       return @array_post = self.children.last(3)      
-     else
-       @array_post << self
-       @array_post.concat(self.children.last(2))
-     end
+    return self.children.last(3)
   end
   
   def self.atom_parser(data)

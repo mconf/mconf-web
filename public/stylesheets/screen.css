@@ -201,6 +201,7 @@ ul.edit-post li{list-style-type:none;}
 /*space home, latest users,posts and events*/
 #latest_posts{margin-bottom:1.5em;}
 #latest_posts h3,#latest_users h3{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
+#latest_posts h3 a,#latest_users h3 a{text-decoration:none;color:#244974;}
 #latest_posts .read_more,#latest_users .read_more{padding:5px 0.75em;background:#bdd8eb;}
 div.user li.u_name{color:#605E5E;}
 div.post{color:#605E5E;}
@@ -215,6 +216,7 @@ a.read_more_link{color:#244974;}
 #inc-events h3,.space-desc h3{padding-bottom:0.75em;border-bottom:1px #ccc solid;}
 .space-desc p{margin-bottom:0;}
 #inc-events{margin-top:0.75em;}
+#inc-events h3 a{color:#8B0425;}
 #inc-events ul{list-style-type:none;margin:0;}
 li.event {position:relative;}
 li.event:hover {text-decoration:underline;}

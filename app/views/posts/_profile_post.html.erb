@@ -10,11 +10,10 @@
 
    <p id="collapsed_post_<%=post.id%>" style="display:none">
      <%=sanitize(first_words(post.text,200))%><br />
-     <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+     <%=link_to "more>>", "javascript:expand_post_#{post.id}()" if post.text.size > 200%>
    </p>
 
    <p id="expanded_post_<%=post.id%>">
-   <%=sanitize(post.text)%><br />
-   <%=link_to image_tag("icons/comment-edit.png", :alt => "edit comment",:class=>"icon" ), get_edit_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
+     <%=sanitize(post.text)%><br />
    </p>
 <%end%>
