@@ -1,5 +1,6 @@
 /* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+td{text-align:left;}
 body{line-height:1.5;}
 table{border-collapse:separate;border-spacing:0;}
 caption,th,td{text-align:left;font-weight:normal;}
@@ -136,7 +137,7 @@ h3.selector_title{color:#244974}
 #menu li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white}
 #menu li .selected{background:white; color:#244974}
 #menu li .admin{background:#ffa903;color:#FFF;}
-#menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
+#menu li a:hover,ul#inbox li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 #menu li .selected:hover{background:white; color:#244974}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:0 10px 10px 10px;}
@@ -317,27 +318,40 @@ div#manage img#edit_link{margin-left:150px;}
 #footer a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
+/*Inbox*/
+ul#inbox{background:#fff;margin:0.75em 0 0 0;list-style-type:none;font-size:1em;line-height:1.5;font-weight:bold;}
+ul#inbox li{display:inline;margin-right:-3px;}
+ul#inbox li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #f0f0f0;text-decoration:none;background:#BDD8EB; color:#244974;}
+ul#inbox li .selected{background:#f0f6f9;color:#244974;padding-top:9px;/*border-right:1px #bdd8eb solid;border-left:1px #bdd8eb solid;border-top:1px #bdd8eb solid;*/}
+ul#inbox li a:hover,ul#inbox li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
+ul#inbox li .selected:hover{background:#f0f6f9; color:#244974;}
+div#show-posts{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;/*border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;border-top:1px #bdd8eb solid;*/}
+div.message_div{padding:0.5em 0;border-top:1px #ccc solid;}
+td.picture{width:40px;padding-left:0.5em;}
+td.name_date .name{width:120px;display:block;overflow:hidden;margin-right:20px;}
+td.name_date .date{display:block;font-size:0.9166em;line-height:1.6363;color:#777;}
+td.name_date .name a,td.subject a{text-decoration:none;}
+td.name_date .name a:hover,td.subject a:hover{text-decoration:underline;}
+td.subject div{width:245px;display:block;overflow:hidden;}
+td.subject div span{color:#777;}
+td.subject span.topic{width:245px;display:block;overflow:hidden;margin-right:20px;}
+td.delete,td.reply{width:24px;}
+
+
 /*Admissions*/
 div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
 div.join_request_element form {float:right;margin-left:4em;}
 div.join_request_element form div{display:inline;}
 
-
-
-/*davidCSS Temporal - */
-
 /*index de spaces*/
-
 #space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}
 #space_filter input[type="text"]{color:#777;background:#f0f6f9;}
-/*#private_spaces,#public_spaces{padding:0.5em;}*/
-.space_item{display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
+.space_item{display:inline;margin-bottom:4px;margin-right:3px;width:52px;}
 .space_item img{padding:1px;border:1px #ccc solid;}
 .space_item img:hover {border:1px #bbb solid;}
 .space_item form{display:inline;}
 .space_item form div{display:inline;}
 #space_description h3{padding-bottom:8px;border-bottom:1px #ccc solid;color:#244974;}
-#space_description p img{}
 /*Edit space*/
 div#jedit_form img.logo{display:block;}
 

@@ -14,14 +14,16 @@
   <%if params[:reply_to] %>
 	  <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
 	<%else%>
-    <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
+      <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
 	<%end%>
 <%end%>
 
-<%=link_to_if params[:sent_messages], "Incoming Messages" ,user_messages_path(params[:user_id])  %> | 
-<%=link_to_unless params[:sent_messages], "Sent Messages" ,user_messages_path(params[:user_id],:sent_messages => true)  %>
-<br/><br/>
+<ul id="inbox">
+	<li><%=link_to "Incoming Messages" ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
+	<li><%=link_to "Sent Messages" ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
+</ul>	
 
+<div id="show-posts">
 <%if @private_messages.blank?%>
   There are not privates messages
 <%else%>
@@ -29,27 +31,46 @@
 	<% for private_message in @private_messages %>
 	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div new"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
 		  <div class="message_header">
-		    <% if params[:sent_messages] %>
-          To <%= link_logotype(User.find(private_message.receiver_id))%> <%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%> 
-        <% else%>
-          From <%= link_logotype(User.find(private_message.sender_id))%> <%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%>
-        <% end%>
-				<%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%>
-				<%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%>
-        <% if params[:sent_messages] %>
-          <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
-        <%else%>
-          <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
-        <%end%>
-			</div>
+			<table><tbody>
+			<tr>
+				<% if params[:sent_messages] %>
+					<%@receiver = User.find(private_message.receiver_id) %>
+		        	<td class="picture"><%= link_logo(@receiver,:size=>32)%></td>
+					<td class="name_date">
+					  <span class="name"><%=link_to (@receiver.name)%></span>
+					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
+					</td> 
+		        <% else%>
+					<%@sender = User.find(private_message.sender_id)%>
+			        <td class="picture"><%= link_logo(@sender,:size=>32)%></td>
+					<td class="name_date">
+					  <span class="name"><%=link_to (@sender.name)%></span>
+					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
+					</td>
+		        <% end%>
+					<td class="subject">
+						<div>
+							<span class="topic">Subject: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
+							<span><%= sanitize(private_message.body)%></span>							
+						</div>
+					</td>
+					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%></td>
+		        <% if params[:sent_messages] %>
+		          <td class="delete"><%= link_to image_tag("icons/delete.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "delete" %></td>
+		        <%else%>
+		          <td class="delete"><%= link_to image_tag("icons/delete.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "delete" %></td>
+		        <%end%>
+			</tr>
+			</tbody></table>
+		  </div>
 			<div class="message_content" style="display:none;">
 			 	<p><%= sanitize(private_message.body)%></p>
 			</div>
-		 	<br/>
+		 	
 		</div> 
 	<% end %>
 	<%= will_paginate @private_messages %>
 <%end%>
-
+</div>
 
 
