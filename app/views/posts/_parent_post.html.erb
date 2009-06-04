@@ -3,29 +3,38 @@
 <%end%>
 
   <!-- Author photo and name -->
-	<div class="parent-post-author">
+	<div class="parent-post-logo">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
-	    <h3><%= link_author(post, :size => 64, :url => user_profile_path(post.author)) %></h3>
+	    <%= link_logo(post.author, :size => 48, :url => user_profile_path(post.author)) %>
 	  <%else%>
-	    <%=logo(post.author, :size=>64)%> <%=post.author.name%>
+	    <%=logo(post.author, :size=>48)%>
 	  <%end%>
 	</div>
 
-   <%if post.text.size < 200%>
-     <p>
-     <%=sanitize(post.text)%><br />
-     </p>
-   <%else%>
-     <p id="collapsed_post_<%=post.id%>" style="display:none">
+	<div class="post-content">
+   		<ul>
+			<li class="person_title">
+			  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+	    	    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
+	  		  <%else%>
+	    		<%=post.author.name%>
+	  		  <%end%>
+			</li>
+   			<%if post.text.size < 200%>
+	     	<li>
+	     		<%=sanitize(post.text)%>
+	     	</li>
+  		<%else%>
+     <li id="collapsed_post_<%=post.id%>" style="display:none">
        <%=sanitize(first_words(post.text,200))%><br />
        <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
-     </p>
-  
+     </li>
+  		</ul>
      <p id="expanded_post_<%=post.id%>">
      <%=sanitize(post.text)%><br />
      </p>
    <%end%>   
-	 
+	</div> 
 	 <p>
    <%for attachment in post.attachments%>
       <%if attachment.post_thumbnail%>
