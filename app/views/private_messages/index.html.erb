@@ -51,7 +51,7 @@
 					<td class="subject">
 						<div>
 							<span class="topic">Subject: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
-							<span><%= sanitize(private_message.body)%></span>							
+							<!--<span><%= sanitize(private_message.body)%></span>-->							
 						</div>
 					</td>
 					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%></td>

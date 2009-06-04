@@ -338,7 +338,8 @@ td.subject div{width:245px;display:block;overflow:hidden;}
 td.subject div span{color:#777;}
 td.subject span.topic{width:245px;display:block;overflow:hidden;margin-right:20px;}
 td.delete,td.reply{width:24px;}
-
+div.message_content{padding:0.5em;}
+div.message_content p{margin:0;color:#777;}
 
 /*Admissions*/
 div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
