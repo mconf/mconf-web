@@ -1,23 +1,6 @@
 <% content_for :javascript do%>
   
-	<%if !selected_post%>
-	  $("#collapsed_post_<%=post.id%>").show();
-    $("#expanded_post_<%=post.id%>").hide();
-  <%end%>
-	  $("#expanded_post_<%=post.id%>").append("<%=(link_to "collapse", "javascript:collapse_post_#{post.id}()").gsub('"','\"')%>");
-	
-	expand_post_<%=post.id%> = function(){
-	  $("#collapsed_post_<%=post.id%>").hide();
-    $("#expanded_post_<%=post.id%>").show("normal");
-    $("#expanded_post_<%=post.id%>").css("style", "display: inline");
-	}
-	
-	 collapse_post_<%=post.id%> = function(){
-    $("#expanded_post_<%=post.id%>").hide("normal", function(){
-		  $("#collapsed_post_<%=post.id%>").show();
-		});
-    
-  }
+	<%= render :partial => 'collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
 	
 <%end%>
 

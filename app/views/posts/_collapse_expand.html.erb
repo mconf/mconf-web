@@ -1,0 +1,20 @@
+  <%if !selected_post%>
+    $("#collapsed_post_<%=post.id%>").show();
+    $("#expanded_post_<%=post.id%>").hide();
+  <%end%>
+    $("#expanded_post_<%=post.id%>").append("<%=(link_to "collapse", "javascript:collapse_post_#{post.id}()").gsub('"','\"')%>");
+    
+    expand_post_<%=post.id%> = function(){
+       $("#collapsed_post_<%=post.id%>").hide();
+       $("#expanded_post_<%=post.id%>").show();
+       //$("#expanded_post_<%=post.id%>").css("style", "display: inline");
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();    
+    }
+	
+    collapse_post_<%=post.id%> = function(){
+       $("#expanded_post_<%=post.id%>").hide("normal", function(){
+       $("#collapsed_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show(); 
+    });
+    
+  }

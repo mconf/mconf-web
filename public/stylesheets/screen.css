@@ -317,9 +317,20 @@ div#manage img#edit_link{margin-left:150px;}
 #footer a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
+/*Admissions*/
+div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
+div.join_request_element form {float:right;margin-left:4em;}
+div.join_request_element form div{display:inline;}
+
+
+
+/*davidCSS Temporal - */
+
 /*index de spaces*/
-#space_filter{padding:0.5em;margin-bottom:0.75em;}
+
+#space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}
 #space_filter input[type="text"]{color:#777;background:#f0f6f9;}
+/*#private_spaces,#public_spaces{padding:0.5em;}*/
 .space_item{display:inline-block;margin-bottom:4px;margin-right:3px;width:52px;}
 .space_item img{padding:1px;border:1px #ccc solid;}
 .space_item img:hover {border:1px #bbb solid;}
