@@ -12,9 +12,7 @@
     }
 	
     collapse_post_<%=post.id%> = function(){
-       $("#expanded_post_<%=post.id%>").hide("normal", function(){
+       $("#expanded_post_<%=post.id%>").hide();
        $("#collapsed_post_<%=post.id%>").show();
-       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show(); 
-    });
-    
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();     
   }
