@@ -63,7 +63,7 @@
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
-     <h3><%=image_tag("icons/date.png",:class=>"icon")%> Upcoming Events</h3>
+     <h3><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to "Upcoming Events", space_events_path(@space)%></h3>
 		 <ul>  
 		  <% for event in @upcoming_events -%>
 		    <li class="event">
@@ -90,7 +90,7 @@
 </div>
 
 <div id="latest_posts">
-    <h3><%=image_tag("icons/comment.png")%> Latest Posts</h3>
+    <h3><%=image_tag("icons/comment.png")%><%=link_to "Latest Posts", space_posts_path(@space)%></h3>
 	  <%if @lastest_posts.empty?%>
 	     <br/><p>There aren't recent posts</p>
 	  <%else%>
@@ -107,7 +107,7 @@
 </div>
 
 <div id="latest_users">
-  <h3><%=image_tag("icons/user.png")%> Recent Users Joined</h3>
+  <h3><%=image_tag("icons/user.png")%><%=link_to "Recent Users Joined", space_users_path(@space)%> </h3>
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
