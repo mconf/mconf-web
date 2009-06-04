@@ -64,6 +64,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #ROOT
   map.root :controller => 'frontpage'
+  map.about 'about', :controller => 'frontpage', :action => 'about'
 
   # #######################################################################
   # CMSplugin
