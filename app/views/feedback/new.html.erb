@@ -1,27 +1,27 @@
-
-
-<h3 >Send Us Feedback</h3>
-
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+<div class="form">
 <%form_for(:feedback, :url => feedback_index_path()) do |f| -%>
   
-	<p>
-    <label for="subject">Subject</label><br/>
-    <%= f.text_field :subject, :size => 25 %>
-  </p>
+	<div>
+      <label for="subject">Subject</label><br/>
+      <%= f.text_field :subject, :size => 25 %>
+  	</div>
 	
-	<p>
-    <label for="body">Body</label><br/>
-    <%= f.text_area :body %>
-  </p>
+	<div>
+      <label for="body">Write your comments</label><br/>
+      <%= f.text_area :body %>
+  	</div>
 	
 	<%if logged_in?%>		
 		<%= hidden_field_tag 'feedback[from]', current_user.email%>	
 	<%else%>		
-		<p>
-    	<label for="from">E-mail</label><br/>
-			<%= f.text_field :from, :size =>25 %>    
-  	</p>
+	  <div>
+    	<label for="from">Please enter your email</label><br/>
+		<%= f.text_field :from, :size =>25 %>    
+  	  </div>
 	<%end%>
-	
-  <%= submit_tag "Create" %>
+	<div class="button">
+  	  <%= submit_tag "Create" %>
+	</div>
 <% end -%>
+</div>
