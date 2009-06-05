@@ -37,6 +37,6 @@
 	</div>
 	
 	<div class="add-new-comment">
-		<%=link_to "Add new comment", space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => "reply"}if @space.authorizes?([:create, :content],:to => current_user)%>
+		<%=link_to "add a new comment", space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => "reply"}if @space.authorizes?([:create, :content],:to => current_user)%>
 	</div>
 </div>

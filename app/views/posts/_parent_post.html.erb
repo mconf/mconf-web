@@ -20,13 +20,13 @@
 	    		<%=post.author.name%>
 	  		  <%end%>
 			</li>
-   			<%if post.text.size < 200%>
+   			<%if post.text.size < 100%>
 	     	<li>
 	     		<%=sanitize(post.text)%>
 	     	</li>
   		<%else%>
      <li id="collapsed_post_<%=post.id%>" style="display:none">
-       <%=sanitize(first_words(post.text,200))%><br />
+       <%=sanitize(first_words(post.text,100))%>
        <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
      </li>
   		</ul>
