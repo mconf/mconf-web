@@ -56,7 +56,8 @@
 		<li class="author"> Organizer: <%=@event_to_show.author.authorizes?([:read, :profile],:to=> current_user) ? link_to(@event_to_show.author.name,user_profile_path(@event_to_show.author)): sanitize(@event_to_show.author.name)%></li>
 		<%if @event_to_show.isabel_event%>
 			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
-		<%elsif @event_to_show.marte_event%>
+		<%elsif @event_to_show.marte_event && (@event_to_show.end_date > Time.now)%>
+			<%debugger%>
 			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event_to_show, :show_conference => true)%></li>
 		<%end%>
 		
