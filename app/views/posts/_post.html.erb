@@ -6,45 +6,50 @@
 
 <!-- this partial render a post with their links -->
 <%div_for (post) do%>
-
-
-  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
-	<div class="post-title">
-	<h3><%= link_author(post, :size => 64, :url => user_profile_path(post.author)) %></h3>
-    </div>
-	<div class="group_links">
-	  <ul class="edit-post">
-	    <li><%=link_to("edit post " + image_tag("icons/comment-edit.png", :alt => "edit comment"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
-	  </ul>
-	</div>
-	<%else%>
-	<p><%=logo(post.author, :size=>48)%> <%=post.author.name%></p>
-	<%end%>
- 	
-  <div class="post_i">
-  <p>
-   <%for attachment in post.attachments%>
-      <%if attachment.post_thumbnail%>
-			  <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
-			<%else%>
-				<%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
-			<%end%>	
-   <%end%>
-	 </p>
-	 
-	 <%if post.text.size < 200%>
-	   <p>
-     <%=sanitize(post.text)%><br />
-     </p>
-	 <%else%>
-		 <p id="collapsed_post_<%=post.id%>" style="display:none">
-		   <%=sanitize(first_words(post.text,200))%><br />
-			 <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
-		 </p>
-	
-		 <p id="expanded_post_<%=post.id%>">
-	   <%=sanitize(post.text)%><br />
-	   </p>
-   <%end%>	 
+ 
+	<div class="post-logo">
+	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
+		<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author)) %>
+	  <%else%>
+	    <%=logo(post.author, :size=>22)%>
+	  <%end%>
+	</div>	
+	<div class="post-content">
+	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+	    <div id="edit" class="group_links">
+	  	  <%=link_to("edit ", get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%> <%=image_tag("icons/comment-edit.png", :alt => "edit comment",:class=>"icon")%>
+	    </div>
+	  <%end%>
+	  <ul>
+	  	<li class="person_title">
+	  	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+		    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
+		  <%else%>
+		    <%=post.author.name%>
+		  <%end%>
+	  	</li>
+		<li class="attach">
+		  <%for attachment in post.attachments%>
+		    <%if attachment.post_thumbnail%>
+		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
+		    <%else%>
+		      <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+		    <%end%>	
+		  <%end%>
+		</li>
+        <%if post.text.size < 100%>
+		  <li>
+		    <%=sanitize(post.text)%>
+		  </li>
+		<%else%>
+		  <li id="collapsed_post_<%=post.id%>" style="display:none">
+			<%=sanitize(first_words(post.text,100))%><br />
+			<%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+		  </li>
+		  <li id="expanded_post_<%=post.id%>">
+			<%=sanitize(post.text)%><br />
+		  </li>
+		<%end%>
+	  </ul> 
 	 </div>
 <%end%>

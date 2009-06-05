@@ -174,27 +174,29 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .odd_thread .post_i{border-top-color:#bdd8eb;}
 .even_thread .post_i{border-top-color:#FFD324;}
 /*main format at threads and posts for the titles and divs */
-#posts h2{margin-bottom:0;font-size:1.666em;line-height:1.333;}
-#posts h3 a,#posts h2 a{color:#111;text-decoration:none;}
-#posts h3 a:hover,#posts h2 a:hover{text-decoration:underline;}
-#posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
-.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;/*border-bottom:1px #CCC solid;*/}
-.post:hover,div.user:hover{background:#f0f6f9;}
-.post p{margin:0.75em 0 0.75em 0.75em;}
-.post img.logo{width:22px;height:22px;}
-.post_i{clear:both;font-size:0.9166em;line-height:1.6363;border-top:1px #CCC solid;}
 .thread-title{padding:0.5em 0;margin:0.25em 0;}
-.post-title{float:left;}
-.post-title{margin-left:0.75em;}
+#posts h2{margin-bottom:0;font-size:1.666em;line-height:1.333;}
+#posts h2 a{color:#111;text-decoration:none;}
+#posts h2 a:hover{text-decoration:underline;}
+#posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
+.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;/*border-bottom:1px #CCC solid;*/}
+.post:hover,div.user:hover{background:#f0f6f9;}
+.post .post-logo{width:26px;height:26px;float:left;margin-right:0.75em;}
+.post .post-logo img{width:22px;height:22px;padding:1px;border:1px #ccc solid;}
+.post .post-logo img:hover{border-color:#999;}
+.post .post-content{float:left;width:420px;}
+
 
 .thread-body{clear:both;position:relative;overflow:hidden;margin-bottom:0.75em;}
 .thread-body div{float:left;}
 .thread-body .parent-post-logo img{padding:2px;border:1px #ccc solid;margin-right:5px;width:54px;}
-.thread-body .parent-post-logo img:hover{border-color:#777;}
+.thread-body .parent-post-logo img:hover{border-color:#999;}
 .thread-body .post-content{width:400px;}
-.thread-body .post-content ul{margin:0;list-style-type:none;}
-.thread-body .post-content .person_title a{text-decoration:none;}
-.thread-body .post-content .person_title a:hover{text-decoration:underline;}
+.post-content ul{margin:0;list-style-type:none;}
+.post-content .person_title a{text-decoration:none;}
+.post-content .person_title a:hover{text-decoration:underline;}
+.post-content ul a,a.edit_post_link{text-decoration:none;}
+.post-content ul a:hover,a.edit_post_link:hover{text-decoration:underline;}
 #posts .comments-status{padding:3px 0.75em;}
  
 
