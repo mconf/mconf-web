@@ -7,9 +7,9 @@
     <p class="event_name"><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event)%><span class="updated"> Updated <%=sanitize(time_ago_in_words(event.updated_at))%> ago</span></p>
     <ul>
     <%if event.start_date.to_date == event.end_date.to_date %>
-		  <li class="date"><%=sanitize(event.start_date.to_date.to_formatted_s(:short))%> <%=event.start_date.to_time.to_formatted_s(:time)%> - <%=event.end_date.to_time.to_formatted_s(:time)%></li>
+		  <li class="date"><%=sanitize(event.start_date.to_date.to_formatted_s(:short))%> <%=event.start_date.to_time.to_formatted_s(:time)%> - <%=event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
 		<%else%>
-		  <li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%></li>
+		  <li class="date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
 		<%end%>
 		<li class="author"> Organizer: <%=event.author.authorizes?([:read, :profile],:to=> current_user) ? link_to(highlight(event.author.name,@query),user_profile_path(event.author)): sanitize(highlight(event.author.name,@query))%></li>
 		<%if event.isabel_event%>
