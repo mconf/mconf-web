@@ -17,11 +17,12 @@
       <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
 	<%end%>
 <%end%>
-
+<div id="inbox-wrapper">
 <ul id="inbox">
 	<li><%=link_to "Incoming Messages" ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
 	<li><%=link_to "Sent Messages" ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
 </ul>	
+</div>
 
 <div id="show-posts">
 <%if @private_messages.blank?%>

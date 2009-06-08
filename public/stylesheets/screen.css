@@ -173,13 +173,19 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .even_thread .post:hover,.even_thread .comments-status:hover{background:#f5df51;}/*amarillo*/
 .odd_thread .post_i{border-top-color:#bdd8eb;}
 .even_thread .post_i{border-top-color:#FFD324;}
+.odd_thread .post-wrapper{background:url("/images/comments-bg3.png") no-repeat scroll left top;}
+.odd_thread .post-wrapper:hover{background:url("/images/comments-bg4.png") no-repeat scroll left top;}
+.even_thread .post-wrapper{background:url("/images/comments-bg1.png") no-repeat scroll left top;}
+.even_thread .post-wrapper:hover{background:url("/images/comments-bg2.png") no-repeat scroll left top;}
+
 /*main format at threads and posts for the titles and divs */
 .thread-title{padding:0.5em 0;margin:0.25em 0;}
 #posts h2{margin-bottom:0;margin-left:0.75em;font-size:1.666em;line-height:1.333;}
 #posts h2 a{color:#244974;text-decoration:none;}
 #posts h2 a:hover{text-decoration:underline;}
 #posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
-.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;margin-left:20px;margin-right:0.5em;/*border-bottom:1px #CCC solid;*/}
+.post-wrapper{margin-left:10px;padding-left:10px;}
+.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;margin-left:0;margin-right:0.5em;/*border-bottom:1px #CCC solid;*/}
 .post:hover,div.user:hover{background:#f0f6f9;}
 .post .post-logo{width:26px;height:26px;float:left;margin-right:0.75em;}
 .post .post-logo img{width:22px;height:22px;padding:1px;border:1px #ccc solid;}
@@ -335,13 +341,14 @@ div#manage img#edit_link{margin-left:150px;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
 /*Inbox*/
-ul#inbox{background:#fff;margin:0.75em 0 0 0;list-style-type:none;font-size:1em;line-height:1.5;font-weight:bold;}
-ul#inbox li{display:inline;margin-right:-3px;}
+#inbox-wrapper{background:#fff url("/images/dot1.png") repeat-x bottom;}
+ul#inbox{margin:0.75em 0 0 0;list-style-type:none;font-size:1em;line-height:1.5;font-weight:bold;}
+ul#inbox li{display:inline;margin-right:-4px;}
 ul#inbox li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #f0f0f0;text-decoration:none;background:#BDD8EB; color:#244974;}
-ul#inbox li .selected{background:#f0f6f9;color:#244974;padding-top:9px;/*border-right:1px #bdd8eb solid;border-left:1px #bdd8eb solid;border-top:1px #bdd8eb solid;*/}
+ul#inbox li .selected{background:#f0f6f9;border-bottom:1px #f0f6f9 solid;color:#244974;padding-top:9px;border-right:1px #bdd8eb solid;border-left:1px #bdd8eb solid;border-top:1px #bdd8eb solid;}
 ul#inbox li a:hover,ul#inbox li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 ul#inbox li .selected:hover{background:#f0f6f9; color:#244974;}
-div#show-posts{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;/*border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;border-top:1px #bdd8eb solid;*/}
+div#show-posts{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;}
 div.message_div{padding:0.5em 0;border-top:1px #ccc solid;}
 td.picture{width:40px;padding-left:0.5em;}
 td.name_date .name{width:120px;display:block;overflow:hidden;margin-right:20px;}
