@@ -5,7 +5,7 @@
 <%end%>
 
 <!-- this partial render a post with their links -->
-<%div_for (post) do%>
+<%div_for (post, :class=>"post_moved") do%>
  
 	<div class="post-logo">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
