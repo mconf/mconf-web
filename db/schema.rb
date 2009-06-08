@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090525142641) do
+ActiveRecord::Schema.define(:version => 20090608105538) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20090525142641) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.string   "place"
     t.boolean  "isabel_event"
     t.datetime "start_date"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(:version => 20090525142641) do
     t.integer  "parent_id"
     t.boolean  "checked",             :default => false
     t.string   "title"
-    t.string   "body"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted_by_sender",   :default => false
