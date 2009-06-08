@@ -48,7 +48,8 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer, :admission_observer
 
   # Make Active Record use UTC-base instead of local time
-  # config.active_record.default_timezone = :utc
+#config.active_record.default_timezone = 'Madrid'
+config.time_zone = 'Madrid'
 
   # Add new inflection rules using the following format
   # (all these examples are active by default):

@@ -68,7 +68,7 @@
 		  <% for event in @upcoming_events -%>
 		    <li class="event">
 		        <h5><%=sanitize(event.title)%></strong></h5>
-				<p class="small-font"><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%></p>
+				<p class="small-font"><%=event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (GMT <%= Time.zone.formatted_offset%>)</p>
 		    	<%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
 		    </li>
 		  <% end -%>

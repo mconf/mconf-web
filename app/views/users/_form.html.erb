@@ -13,3 +13,6 @@
 	<%= f.password_field :password_confirmation%></div>
  
 <% end -%>
+
+<div><label for="timezone">Timezone</label><br/>
+<%= f.time_zone_select :timezone, nil, :include_blank => true %></div>
