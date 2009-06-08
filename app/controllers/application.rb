@@ -29,4 +29,9 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Your account isn't activated. Please, check your email to activate it."
     end
   end
+  
+  before_filter :set_time_zone
+  def set_time_zone
+    Time.zone = current_user.timezone if current_user && current_user.is_a?(User) && current_user.timezone 
+  end
 end

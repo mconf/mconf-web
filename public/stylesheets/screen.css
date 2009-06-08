@@ -184,14 +184,17 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 #posts h2 a{color:#244974;text-decoration:none;}
 #posts h2 a:hover{text-decoration:underline;}
 #posts .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
+
 .post-wrapper{margin-left:10px;padding-left:10px;}
-.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;margin-left:0;margin-right:0.5em;/*border-bottom:1px #CCC solid;*/}
+
+.post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;/*border-bottom:1px #CCC solid;*/}
+
 .post:hover,div.user:hover{background:#f0f6f9;}
 .post .post-logo{width:26px;height:26px;float:left;margin-right:0.75em;}
 .post .post-logo img{width:22px;height:22px;padding:1px;border:1px #ccc solid;}
 .post .post-logo img:hover{border-color:#999;}
 .post .post-content{float:left;width:415px;}
-
+.post_moved {margin-left:20px;margin-right:0.5em;}
 
 .thread-body{clear:both;position:relative;overflow:hidden;margin-bottom:0.75em;margin-left:0.75em;}
 .thread-body div{float:left;}

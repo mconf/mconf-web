@@ -15,7 +15,6 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    
     @events = (Event.in_container(@space).all :order => "start_date ASC")
       #Upcoming events
       @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
@@ -70,6 +69,9 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       format.html {
+        if logged_in? && current_user.timezone == nil
+          flash[:notice] = "You have not set up your time zone. <a href=\"#{edit_user_path(current_user)}\">Set up it now</a>"
+        end
         if request.xhr?
           render :layout => false;
         end

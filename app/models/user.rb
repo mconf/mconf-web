@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :superuser, :disabled
+  attr_accessible :timezone
   
   
  is_indexed :fields => ['login','email'],
