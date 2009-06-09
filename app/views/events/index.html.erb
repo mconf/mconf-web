@@ -65,6 +65,16 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <%end%>
 
 <div id="events_content">
+	
+<%if !@current_events.empty?%>
+  <div id="current_events">
+    <h3>Now!</h3>
+    <%for event in @current_events%>
+      <%= render :partial => event %>
+    <%end%>
+  </div>
+<%end%>
+	
 	<div class="group_links" id="events_links">
 	  <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
 	  <%=link_to "Upcoming", space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |

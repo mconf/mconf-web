@@ -7,7 +7,7 @@
 	      <%= render :partial => event %>
 	    <%end%>
 			 <div class="group_links">
-         <%=link_to "Show all Upcoming Events", space_events_path(@space, :show => "upcoming_events"), {:class => 'upcoming_link'}%>
+         <%=link_to "Show all Upcoming Events", space_events_path(@space, :show => "upcoming_events"), {:class => 'upcoming_link event_navigation'}%>
        </div>	
 	  <%end%>
   
@@ -23,7 +23,7 @@
 	      <%= render :partial => event %>
 	    <%end%>
 			<div class="group_links">
-        <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link'}%> 
+        <%=link_to "Show all Old Events", space_events_path(@space, :show => "past_events"), {:class => 'past_link event_navigation'}%> 
       </div>  	
 	  <%end%>
   </div>
