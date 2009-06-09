@@ -145,7 +145,8 @@ h3.selector_title{color:#244974}
 /*users and groups*/
 div.group{float:left;width:490px;;padding-bottom:0.5em;margin-top:2px;}
 .group h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
-.group ul{margin:0;padding:9px 0.5em 0 0;}
+.group ul{margin:0;}
+.group ul.group_links{padding:9px 0.5em 0 0;}
 #main span.selected{font-weight:bold;margin-left:0.5em;margin-right:0.5em;}
 #main #list_by_groups_selected a{margin-left:0.5em;}
 #list_by_names_selected,#list_by_groups_selected{padding:9px 0.5em 0 0;}
@@ -163,6 +164,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 
 /*threads and posts (colors and boxes)*/
 .odd_thread,.even_thread{/*padding:.8em;*/border:1px solid #ddd;margin-bottom:1em;-moz-border-radius:7px;}
+/*#post_with_children{-moz-border-radius:7px;border:1px solid #bdd8eb;background:#f0f6f9;}*/
 .odd_thread{background:#f0f6f9;border-color:#bdd8eb;}
 .odd-posts{margin-bottom:1.5em;}
 .even_thread{background:#FFF6BF;border-color:#FFD324;}

@@ -2,7 +2,7 @@
   <div id="parent_<%=@post.id%>" class="thread-title">
   	<div class="thread_options">
 	  <ul>
-		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete" ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => "delete" }if @post.authorizes?(:delete, :to => current_user)%></li>
+		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete" ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => "delete" , :confirm => "Do you want to delete this thread?"}if @post.authorizes?(:delete, :to => current_user)%></li>
 		<li><%=link_to image_tag("icons/pencil.png", :alt => "edit" ), get_edit_route(@post), {:name => @post.id, :class => 'edit_post_link', :title => "edit"} if @post.authorizes?(:update, :to => current_user) %></li>
 	  </ul>
 	</div>

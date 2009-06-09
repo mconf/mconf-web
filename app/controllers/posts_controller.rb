@@ -333,7 +333,11 @@ end
    @post.destroy 
    flash[:notice] = "Post has been deleted"
     respond_to do |format|
-      format.html { redirect_to space_posts_path(@space) }
+      if @post.parent_id.nil?
+        format.html { redirect_to space_posts_path(@space) }
+      else
+        format.html { redirect_to request.referer }
+      end  
       format.js 
       format.atom { head :ok }
       # FIXME: Check AtomPub, RFC 5023

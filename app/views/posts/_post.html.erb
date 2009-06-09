@@ -22,7 +22,8 @@
 	<div class="post-content">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
 	    <div id="edit" class="group_links">
-	  	  <%=link_to("edit ", get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%> <%=image_tag("icons/comment-edit.png", :alt => "edit comment",:class=>"icon")%>
+	  	  <%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%> 
+		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => "delete comment", :confirm => "are you sure?"}) if post.authorizes?(:delete, :to => current_user)%> 
 	    </div>
 	  <%end%>
 	  <ul>
