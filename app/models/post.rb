@@ -48,6 +48,10 @@ class Post < ActiveRecord::Base
     return self.children.last(3)
   end
   
+  def self.last_news(space)
+    return Post.find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
+  end
+  
   def self.atom_parser(data)
     params = {}
     e = Atom::Entry.parse(data)

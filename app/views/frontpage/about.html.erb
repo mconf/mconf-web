@@ -84,6 +84,29 @@
 			</div>
 			<br/>
 			
+			<div class="global-posts">
+				<%unless @latest_global_posts.empty?%>
+					<h5><%=link_to ("Latest Posts", space_posts_path(@global))%></h5>	
+					<%for post in @latest_global_posts%>
+						<ul>
+							<li>
+								<%=link_to (sanitize(post.title), space_post_path(@global,post))%>
+							</li>
+							<li>
+								<span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span>								
+							</li>							
+							<li>
+								<%if post.text.size < 70%>
+								  <%=sanitize(post.text)%>
+								<%else%>									
+									<%=sanitize(first_words(post.text,70))%> <%=link_to ("more >>", space_post_path(@global, post))%>
+								<%end%>	
+							</li>
+					  </ul>	
+					<%end%>
+				<%end%>	
+			</div>
+			
 			<div class="partners">
       <h5>Partners</h5>         
       <div>

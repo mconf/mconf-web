@@ -129,9 +129,9 @@ ul#prefs {list-style-type:none;margin:0;}
 
 #sidebar #about-sidebar h5{padding:8px 0.5em 8px 0.5em;background:#bdd8eb;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;margin-bottom:10px;}
 #about-sidebar ul {list-style-type:none;margin-left:0.5em;}
-#about-sidebar .partners ul{margin-bottom:0;padding-bottom:8px;border-bottom:1px #b0cadb solid;margin-bottom:9px;}
-#about-sidebar .partners a{font-weight:bold;color:#244974;text-decoration:none;}
-#about-sidebar .partners a:hover{text-decoration:underline;}
+#about-sidebar .partners ul, #about-sidebar .global-posts ul{margin-bottom:0;padding-bottom:8px;border-bottom:1px #b0cadb solid;margin-bottom:9px;}
+#about-sidebar .partners a, #about-sidebar .global-posts a {font-weight:bold;color:#244974;text-decoration:none;}
+#about-sidebar .partners, #about-sidebar .global-posts a:hover{text-decoration:underline;}
 
 /*sidebar*/
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
