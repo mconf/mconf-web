@@ -38,7 +38,7 @@
 		    <%if attachment.post_thumbnail%>
 		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
 		    <%else%>
-		      <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+		      <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
 		    <%end%>	
 		  <%end%>
 		</li>

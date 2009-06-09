@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
-  # Include some methods and set some default filters. 
-  # See documentation: ActionController::MoveResources
-  include ActionController::MoveResources
+  # Include basic Resource methods
+  # See documentation: ActionController::StationResources
+  include ActionController::StationResources
   
   set_params_from_atom :post, :only => [ :create, :update ]
   

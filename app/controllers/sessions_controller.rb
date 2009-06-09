@@ -1,8 +1,8 @@
-# This controller handles the login/logout function of the site.  
-#
-# See vendor/plugins/cmsplugin/app/controllers/sessions_controller for the rest of the methods
-class SessionsController < ApplicationController
-  # Don't render plugin layout, use application instead
+# Require Station Controller
+require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/sessions_controller"
+
+class SessionsController
+  # Don't render Station layout, use application layout instead
   layout 'application'
 
   # render new.rhtml
@@ -41,9 +41,4 @@ class SessionsController < ApplicationController
   def after_destroy_path
     root_path
   end
- 
-  def get_space
-    @container = @space = Space.find_by_name("Public")
-  end
-
 end

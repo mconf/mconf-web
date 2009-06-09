@@ -1,5 +1,5 @@
 class AttachmentsController < ApplicationController
-  include ActionController::MoveResources
+  include ActionController::StationResources
   
   # Authentication Filter
   before_filter :authentication_required, :except => [ :index, :show ]
