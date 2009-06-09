@@ -35,9 +35,9 @@ class PostsController < ApplicationController
   #   GET /posts/:id
   def show
     if params[:last_page]
-      post_with_children(post, {:last => true})
+      post_comments(post, {:last => true})
     else
-      post_with_children(post)  
+      post_comments(post)  
     end
 
     respond_to do |format|
@@ -222,7 +222,7 @@ end
         if params[:show]
           @new_post = @post
           @post = @post.parent
-          post_with_children(@post, :last => true)
+          post_comments(@post, :last => true)
         else
           posts
         end
@@ -353,8 +353,8 @@ end
   
   end
 
-  def post_with_children(parent_post, options = {})
-    total_posts = Array(parent_post).concat(parent_post.children)
+  def post_comments(parent_post, options = {})
+    total_posts = parent_post.children
     per_page = 5
     page = params[:page] || options[:last] && total_posts.size.to_f./(per_page).ceil
 
