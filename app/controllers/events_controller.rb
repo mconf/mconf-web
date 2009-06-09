@@ -16,6 +16,10 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
     @events = (Event.in_container(@space).all :order => "start_date ASC")
+    
+      #Current events
+      @current_events = @events.select{|e| !e.start_date.future? && e.end_date.future?}
+    
       #Upcoming events
       @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
       @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
@@ -37,13 +41,13 @@ class EventsController < ApplicationController
       end
 =end
       #Past events
-      @today_and_yesterday_events = @events.select{|e| (e.start_date.to_date == Date.today || e.start_date.to_date == Date.yesterday) && !e.start_date.future?}.reverse
+      @today_and_yesterday_events = @events.select{|e| (e.end_date.to_date == Date.today || e.end_date.to_date == Date.yesterday) && !e.end_date.future?}.reverse
       @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 3)
-      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 7) && !e.start_date.future?}.reverse
+      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}.reverse
       @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 3)
-      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.start_date.to_date >= (Date.today - 30) && !e.start_date.future?}.reverse
+      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 30) && !e.end_date.future?}.reverse
       @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 3)
-      @all_past_events = @events.select{|e| !e.start_date.future?}.reverse
+      @all_past_events = @events.select{|e| !e.end_date.future?}.reverse
       @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 3)
 
 =begin
@@ -64,13 +68,13 @@ class EventsController < ApplicationController
       @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
 =end
       #First 5 past and upcoming events
-      @last_past_events = @events.select{|e| !e.start_date.future?}.reverse.first(5)
-      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(5)  
+      @last_past_events = @events.select{|e| !e.end_date.future?}.reverse.first(2)
+      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)  
     
     respond_to do |format|
       format.html {
         if logged_in? && current_user.timezone == nil
-          flash[:notice] = "You have not set up your time zone. <a href=\"#{edit_user_path(current_user)}\">Set up it now</a>"
+          flash[:notice] = "You have not set up your time zone. <a href=\"#{edit_user_path(current_user)}\">Set it up now</a>"
         end
         if request.xhr?
           render :layout => false;

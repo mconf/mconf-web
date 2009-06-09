@@ -19,9 +19,9 @@
   	<%=render :partial => "posts/parent_post" , :locals => { :post =>  thread, :selected_post => false}%>  	
   </div>
 
+<%unless thread.children.size==0 %>
   <div class="comments-status">
-    <%if thread.children.size==0 %>
-		<%elsif thread.children.size==1 %>
+		<%if thread.children.size==1 %>
 		  Showing the only one comment of the thread.
 		<%elsif thread.children.size<4%>
 		  Showing the <%=thread.three_last_comment().size%> comments of the thread.
@@ -29,6 +29,7 @@
   	  Showing last <%=thread.three_last_comment().size%> comments of <%=thread.children.size%>. <%=link_to ("Show all comments", space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 		<%end%>
   </div>
+	<%end%>
 
 	<div class="<%=thread.three_last_comment().size == 3 ?  "open" : "close"%>"> 
     <%for comment in thread.three_last_comment()%>

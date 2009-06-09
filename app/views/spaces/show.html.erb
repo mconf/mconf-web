@@ -79,15 +79,26 @@
   </div>
 <% end %>
 
-<div id="latest_news">
+<% if !@current_events.empty? %>
+  <div id="home_current_events">
+    <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to "Events at this moment:", space_events_path(@space)%></h3>
+  	<ul>
+  		<%for event in @current_events do%>
+  		  <li>
+  		  	<%=link_to "<h5>#{event.name}</h5>", space_event_path(@space,event)%>
+					<p class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (GMT <%=Time.zone.formatted_offset%> )</p>
+				</li>
+			<%end%>
+  	</ul>
+  </div>
+<% end %>
 
-        
-  <% if @news_to_show %>
+<% if @news_to_show %>
+  <div id="latest_news">
 	  <h3><%=image_tag("icons/information.png")%> Latest News</h3>
     <%= render :partial => 'last_news' %>
-  <% end %>
-        
 </div>
+<% end %>
 
 <div id="latest_posts">
     <h3><%=image_tag("icons/comment.png")%><%=link_to "Latest Posts", space_posts_path(@space)%></h3>

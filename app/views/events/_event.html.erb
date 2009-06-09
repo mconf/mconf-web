@@ -1,5 +1,5 @@
 <%div_for(event) do%>
-  <div class="single_event">
+  <div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
       <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_events_path(@space,:edit => event), :title => "edit" if event.authorizes?(:update, :to => current_user) %></li>
 	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete") , space_event_path(@space, event),{:method => :delete, :title => "delete",:confirm => "are you sure?"} if event.authorizes?(:delete, :to => current_user) %></li>
