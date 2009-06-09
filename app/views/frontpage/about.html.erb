@@ -86,7 +86,7 @@
 			
 			<div class="global-posts">
 				<%unless @latest_global_posts.empty?%>
-					<h5><%=link_to ("Latest Posts", space_posts_url(@global),:host => current_site.domain)%></h5>	
+					<h5><%=link_to ("Latest News", space_posts_url(@global),:host => current_site.domain)%></h5>	
 					<%for post in @latest_global_posts%>
 						<ul>
 							<li>
