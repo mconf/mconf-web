@@ -44,7 +44,7 @@
 <div class="single_event">
     <ul class="group_links">
       <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_event_path(@space,@event_to_show,:edit_event => @event_to_show), :title => "edit" if @event_to_show.authorizes?(:update, :to => current_user) %></li>
-	  <li><%=link_to image_tag("./icons/cross.png", :alt => "delete") , space_event_path(@space, @event_to_show),{:method => :delete, :title => "destroy"} if @event_to_show.authorizes?(:delete, :to => current_user) %></li>
+	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete") , space_event_path(@space, @event_to_show),{:method => :delete, :title => "destroy"} if @event_to_show.authorizes?(:delete, :to => current_user) %></li>
     </ul>
     <p><%=image_tag("icons/date.png",:class=>"icon")%> <span class="event-name"><%=sanitize(@event_to_show.title)%></span><span class="updated"> Updated <%=sanitize(time_ago_in_words(@event_to_show.updated_at))%> ago</span></p>
     <ul>
