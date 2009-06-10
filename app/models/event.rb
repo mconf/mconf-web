@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
-  has_many :post
+  has_many :posts
   
   
   acts_as_resource :per_page => 10

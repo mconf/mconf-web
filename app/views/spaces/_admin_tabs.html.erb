@@ -1,9 +1,9 @@
 <div id="admin_tabs">
 	<ul class="group_links">
-		<li><%=link_to "People", edit_space_path(@space) %></li>
-		<li><%=link_to "Groups", space_groups_path(@space, :admin => true)%></li>
-		<li><%=link_to "Admissions", space_admissions_path(@space) %></li>
+		<li><%=link_to "People", edit_space_path(@space), :class => params[:controller] == "spaces" ? "selected" : ""  %></li>
+		<li><%=link_to "Groups", space_groups_path(@space, :admin => true), :class => params[:controller]== "groups" ? "selected" : ""%></li>
+		<li><%=link_to "Admissions", space_admissions_path(@space), :class => params[:controller]== "admissions" ? "selected" : "" %></li>
 	</ul>
-	<%=link_to "News", space_news_index_path(@space) %>
+	<%=link_to "NEWS", space_news_index_path(@space), :class => params[:controller]== "news" ? "selected" : "" %>
 
 </div>

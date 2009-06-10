@@ -14,8 +14,8 @@
 		<%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
     </p>
 
-    <p>
-    <%= f.submit t(:create) %>
-    </p>
+    <div class="margin-up">
+      <%= image_submit_tag "buttons/create.png" %>
+    </div>
   <% end %>
 </div>

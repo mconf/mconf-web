@@ -2,13 +2,18 @@
 	<%if @news_to_show.nil? %>
 	  <p>No news to show</p>
 	<%else%>
-	  <p>
-	  	<strong><%=sanitize(@news_to_show.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span><br />
-		  <%=sanitize(@news_to_show.text)%>
-	  </p>
-		<div id="news_navigation_div">
-			<%= link_to "Previous", space_path(@space, :news_position => @news_position-1),:id => "previous_news", :class => "news_navigation_link" if @news_position>0%>
-		  <%= link_to "Next", space_path(@space, :news_position => @news_position+1), :id => "next_news", :class => "news_navigation_link" if @news_position + 1 < @news.size %>
-		</div>
+	<div class="news-wrapper">
+      <div class="news-title">
+  	    <p class="person_title"><%=sanitize(@news_to_show.title)%></p>
+		<span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
+      </div>
+	  <div class="news-content">
+	    <p><%=sanitize(@news_to_show.text)%></p>
+	  </div>
+    </div>
+	<div id="news_navigation_div">
+	  <%= link_to "Previous", space_path(@space, :news_position => @news_position-1),:id => "previous_news", :class => "news_navigation_link read_more_link" if @news_position>0%>
+	  <%= link_to "Next", space_path(@space, :news_position => @news_position+1), :id => "next_news", :class => "news_navigation_link read_more_link" if @news_position + 1 < @news.size %>
+	</div>
 	<%end%>
 </div>

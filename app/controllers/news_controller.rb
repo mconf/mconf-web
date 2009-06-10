@@ -40,11 +40,14 @@ class NewsController < ApplicationController
   def edit
     respond_to do |format|
       format.html {
-        redirect_to space_news_index_path(@space, :edit_news => params[:id])
+        if request.xhr?
+          @edit_news = @space.news.find(params[:id])
+          render :partial => 'edit_news' 
+        else
+          redirect_to space_news_index_path(@space, :edit_news => params[:id])  
+        end        
       }
       format.js { 
-        @edit_news = @space.news.find(params[:id])
-        render :partial => 'edit_news'
       }
     end
   end
