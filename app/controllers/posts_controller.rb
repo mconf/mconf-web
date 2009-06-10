@@ -333,7 +333,7 @@ end
    @post.destroy 
    flash[:notice] = "Post has been deleted"
     respond_to do |format|
-      if @post.parent_id.nil?
+      if @post.parent_id.nil? && @post.event.nil?
         format.html { redirect_to space_posts_path(@space) }
       else
         format.html { redirect_to request.referer }
@@ -350,7 +350,7 @@ end
 
   # DRY (used in index and create.js)
   def posts
-   @posts ||= Post.parents.in_container(@space).find(:all, 
+   @posts ||= Post.parents.in_container(@space).not_events().find(:all, 
                                                      :order => "updated_at DESC"
                                                    ).paginate(:page => params[:page],
                                                               :per_page => 5)       
