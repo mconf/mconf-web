@@ -1,0 +1,57 @@
+<% content_for :javascript do%>
+  
+	<%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => false, :post => post } %>
+	
+<%end%>
+<div class="event-comment-wrapper">		  
+	<%div_for (post, :class=>"post_moved") do%>
+	  	
+			<div class="post-logo">
+				<%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
+					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author)) %>
+				<%else%>
+					<%=logo(post.author, :size=>22)%>
+				<%end%>
+			</div>
+			
+		  <div class="post-content">
+		    <div id="edit" class="group_links">
+	      	<%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%>
+					<%=link_to(image_tag("icons/cancel.png", :alt => "delete comment"), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => "delete comment",:confirm => "are you sure?"}) if post.authorizes?(:update, :to => current_user)%>
+		    </div>
+
+				<ul>
+			  	<li class="person_title">
+				  	<%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+					    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
+					  <%else%>
+					    <%=post.author.name%>
+					  <%end%>
+			  	</li>
+					
+					<li class="attach">
+					  <%for attachment in post.attachments%>
+					    <%if attachment.post_thumbnail%>
+					      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
+					    <%else%>
+					      <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+					    <%end%>	
+					  <%end%>
+					</li>
+	        <%if post.text.size < 100%>
+					  <li>
+					    <%=sanitize(post.text)%>
+					  </li>
+					<%else%>
+					  <li id="collapsed_post_<%=post.id%>" style="display:none">
+							<%=sanitize(first_words(post.text,100))%>
+							<%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+					  </li>
+					  <li id="expanded_post_<%=post.id%>">
+							<%=sanitize(post.text)%><br />
+					  </li>
+					<%end%>
+				</ul> 
+			</div>
+	<%end%>
+</div>
