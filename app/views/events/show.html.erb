@@ -24,7 +24,7 @@
 		<%elsif params[:edit_comment]%>
 		  <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
 		<%else%>
-		  <%=render :partial => 'new_comment', :locals => {:post => @event.post}%>
+		  <%=render :partial => 'new_comment'%>
   	<%end%>
 	<%end%>
 <%end%>

@@ -17,7 +17,12 @@
 		<%elsif event.marte_event && (event.end_date > Time.now)%>
 			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, event, :show_conference => true)%></li>
 		<%end%>
-		
+				
+		<%if event.posts.size ==1%>
+			<li> This Event has <%= link_to (event.posts.size.to_s + " comment", space_event_path(@space,event))%></li>
+		<%elsif event.posts.size > 1%>
+			<li> This Event has <%= link_to (event.posts.size.to_s + " comments", space_event_path(@space,event))%></li>
+		<%end%>
 		<li> Description: <%=sanitize(highlight(event.description,@query))%></li>
     </ul>
  </div>

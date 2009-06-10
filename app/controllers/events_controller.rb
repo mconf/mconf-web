@@ -103,8 +103,7 @@ class EventsController < ApplicationController
      end
 	else
   
-    @comments = Post.find(:all, :conditions=> {:event_id => @event.id}).paginate(:page => params[:page],
-                                                              :per_page => 5)
+    @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
     if params[:edit_event]
       @event_to_edit = Event.find(params[:edit_event])
