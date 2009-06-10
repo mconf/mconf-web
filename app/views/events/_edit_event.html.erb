@@ -1,7 +1,7 @@
 <div id="change-event">
 <h3>Edit Event</h3>
 
-<% form_for([@space,@event], :html => { :multipart => true}) do |f| -%>
+<% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
   <%= f.error_messages %>				
   <div>
     <label for="Name">Name:</label>

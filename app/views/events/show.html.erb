@@ -20,12 +20,11 @@
 <%if @space.authorizes?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
   	<%if params[:edit_event]%>
-    	<%@event = Event.find(params[:edit_event])%>
-    	<%=render :partial => 'edit_event'%>
+    	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 		<%elsif params[:edit_comment]%>
 		  <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
 		<%else%>
-		  <%=render :partial => 'new_comment', :locals => {:post => @event_to_show.post}%>
+		  <%=render :partial => 'new_comment', :locals => {:post => @event.post}%>
   	<%end%>
 	<%end%>
 <%end%>
@@ -43,24 +42,24 @@
  
 <div class="single_event">
     <ul class="group_links">
-      <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_event_path(@space,@event_to_show,:edit_event => @event_to_show), :title => "edit" if @event_to_show.authorizes?(:update, :to => current_user) %></li>
-	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete") , space_event_path(@space, @event_to_show),{:method => :delete, :title => "destroy"} if @event_to_show.authorizes?(:delete, :to => current_user) %></li>
+      <li><%=link_to image_tag("./icons/pencil.png", :alt => "edit") , space_event_path(@space,@event,:edit_event => @event), :title => "edit" if @event.authorizes?(:update, :to => current_user) %></li>
+	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete") , space_event_path(@space, @event),{:method => :delete, :title => "destroy"} if @event.authorizes?(:delete, :to => current_user) %></li>
     </ul>
-    <p><%=image_tag("icons/date.png",:class=>"icon")%> <span class="event-name"><%=sanitize(@event_to_show.title)%></span><span class="updated"> Updated <%=sanitize(time_ago_in_words(@event_to_show.updated_at))%> ago</span></p>
+    <p><%=image_tag("icons/date.png",:class=>"icon")%> <span class="event-name"><%=sanitize(@event.title)%></span><span class="updated"> Updated <%=sanitize(time_ago_in_words(@event.updated_at))%> ago</span></p>
     <ul>
-		<%if @event_to_show.start_date.to_date == @event_to_show.end_date.to_date %>
-      <li class="date"><%=sanitize(@event_to_show.start_date.to_date.to_formatted_s(:short))%> <%=@event_to_show.start_date.to_time.to_formatted_s(:time)%> - <%=@event_to_show.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+		<%if @event.start_date.to_date == @event.end_date.to_date %>
+      <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%> <%=@event.start_date.to_time.to_formatted_s(:time)%> - <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
     <%else%>
-      <li class="date"><%=sanitize(@event_to_show.start_date.to_formatted_s(:short))%> - <%=sanitize(@event_to_show.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
+      <li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%> - <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
     <%end%>
-		<li class="author"> Organizer: <%=@event_to_show.author.authorizes?([:read, :profile],:to=> current_user) ? link_to(@event_to_show.author.name,user_profile_path(@event_to_show.author)): sanitize(@event_to_show.author.name)%></li>
-		<%if @event_to_show.isabel_event%>
+		<li class="author"> Organizer: <%=@event.author.authorizes?([:read, :profile],:to=> current_user) ? link_to(@event.author.name,user_profile_path(@event.author)): sanitize(@event.author.name)%></li>
+		<%if @event.isabel_event%>
 			<li class=""> This event will be held with <%= link_to 'Isabel', 'http://isabel.dit.upm.es'%></li>
-		<%elsif @event_to_show.marte_event && (@event_to_show.end_date > Time.now)%>
-			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event_to_show, :show_conference => true)%></li>
+		<%elsif @event.marte_event && (@event.end_date > Time.now)%>
+			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event, :show_conference => true)%></li>
 		<%end%>
 		
-		<li> Description: <%=sanitize(@event_to_show.description)%></li>
+		<li> Description: <%=sanitize(@event.description)%></li>
     </ul>
  </div>
 
@@ -73,7 +72,8 @@
   </div>
   <div class="group_links">
     <ul class="edit-post">
-      <li><%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event_to_show, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
+      <li><%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
+			<li><%=link_to(image_tag("icons/cancel.png", :alt => "delete comment"), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => "delete comment",:confirm => "are you sure?"}) if post.authorizes?(:update, :to => current_user)%></li>
     </ul>
   </div>
   <%else%>

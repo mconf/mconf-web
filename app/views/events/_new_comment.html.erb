@@ -2,9 +2,9 @@
 <h3 class="selector_title">New comment</h3>
   <div id="post-buttoms" class="actions">
     <ul>
-      <li><%= link_to 'Comment', space_event_path(@space, @event_to_show, :edit_comment => params[:edit_comment]), { :id => 'new_comment_link',:class =>" #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
-      <li><%= link_to 'Photos', space_event_path(@space, @event_to_show, :edit_comment => params[:edit_comment], :form => 'photos'),  { :id => 'new_photo_link',:class =>" #{"selected" if params[:form]=='photos'}" } %></li>
-      <li><%= link_to 'Docs', space_event_path(@space, @event_to_show, :edit_comment => params[:edit_comment], :form => 'docs'), { :id => 'new_doc_link',:class =>" #{"selected" if params[:form]=='docs'}" } %></li>
+      <li><%= link_to 'Comment', space_event_path(@space, @event, :edit_comment => params[:edit_comment]), { :id => 'new_comment_link',:class =>" #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
+      <li><%= link_to 'Photos', space_event_path(@space, @event, :edit_comment => params[:edit_comment], :form => 'photos'),  { :id => 'new_photo_link',:class =>" #{"selected" if params[:form]=='photos'}" } %></li>
+      <li><%= link_to 'Docs', space_event_path(@space, @event, :edit_comment => params[:edit_comment], :form => 'docs'), { :id => 'new_doc_link',:class =>" #{"selected" if params[:form]=='docs'}" } %></li>
     </ul>
   </div>
 
@@ -17,7 +17,7 @@
     <%= f.text_area :text%>
   
 
-  <%= hidden_field_tag "post[event_id]", @event_to_show.id%>
+  <%= hidden_field_tag "post[event_id]", @event.id%>
   <div class="float">
   <%= image_submit_tag "buttons/create.png" %>
   </div>
