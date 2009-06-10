@@ -69,7 +69,11 @@ class EventsController < ApplicationController
 =end
       #First 5 past and upcoming events
       @last_past_events = @events.select{|e| !e.end_date.future?}.reverse.first(2)
-      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)  
+      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)
+      
+      if params[:edit]
+        @event_to_edit = Event.find(params[:edit])
+      end
     
     respond_to do |format|
       format.html {
@@ -98,17 +102,20 @@ class EventsController < ApplicationController
        format.ical {export_ical}
      end
 	else
-	  
-    @event_to_show = @event
-    @event = nil
-    @comments = Post.find(:all, :conditions=>"event_id=#{@event_to_show.id}").paginate(:page => params[:page],
+  
+    @comments = Post.find(:all, :conditions=> {:event_id => @event.id}).paginate(:page => params[:page],
                                                               :per_page => 5)
+
+    if params[:edit_event]
+      @event_to_edit = Event.find(params[:edit_event])
+    end
+    
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }
            format.js 
            format.ical {export_ical}
-      end
+    end
 	end
   end
 
