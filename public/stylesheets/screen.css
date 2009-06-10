@@ -40,7 +40,7 @@ ol{list-style-type:decimal;}
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 .item_title{color:#244974;}
-.person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;}
+.person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
 .sidebar_title{}
 .selector_title{color:#999;}
 .small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}/**/
@@ -193,8 +193,8 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .post-wrapper{margin-left:10px;padding-left:10px;}
 .post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;/*border-bottom:1px #CCC solid;*/}
 .post:hover,div.user:hover{background:#f0f6f9;}
-.post .post-logo{width:26px;height:26px;float:left;margin-right:0.75em;}
-.post .post-logo img{width:22px;height:22px;padding:1px;border:1px #ccc solid;}
+.post .post-logo{width:26px;float:left;margin-right:0.75em;}
+.post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}
 .post .post-logo img:hover{border-color:#999;}
 .post .post-content{float:left;width:415px;}
 .post_moved {margin-right:0.5em;}
@@ -318,7 +318,14 @@ div.pagination a{color:#244974;}
 .news-title h3,.news-content{overflow:hidden;}
 .news-title ul.group_links,.news-content p{margin:0;}
 #admission p{margin:0.75em;}
-#admission .reqs,#admission .invitation{padding:0.75em 0.5em;}
+#admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
+div.invitation{position:relative;overflow:hidden;}
+div.invitation-logo,div.invitation-content{float:left;}
+.invitation-logo{width:36px;margin-right:0.75em;}
+.invitation-logo img{width:32px;padding:1px;border:1px #ccc solid;}
+.invitation-logo img:hover{border-color:#999;}
+.invitation-content{width:400px;}
+.invitation-content ul{list-style-type:none;margin:0;}
 
 
 /*Profile*/
