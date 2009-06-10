@@ -222,8 +222,11 @@ div.add-new-comment{clear:both;text-align:right;margin-right:0.5em;padding:0 0 6
 ul.edit-post{text-align:right;}
 ul.edit-post li{list-style-type:none;}
 #admin_tabs ul.group_links{margin:0;}
-#admin_tabs{padding:0.375em 0.5em 0.375em 0.5em;margin-bottom:2px;background:#bdd8eb;}
-#admin_tabs,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
+#admin_tabs ul.group_links li{margin-left:0.5em;}
+#admin_tabs{padding:9px 0.75em 8px;margin-bottom:2px;background:#bdd8eb;}
+#admin_tabs .selected{color:#244974;}
+#admin_tabs a{font-weight:bold;}
+#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
 
 /*space home, latest users,posts and events*/
 #home_current_events{background:#FFF6BF;color:#514721;border-color:#FFD324;padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
@@ -319,14 +322,16 @@ div.pagination a{color:#244974;}
 .news-title ul.group_links,.news-content p{margin:0;}
 #admission p{margin:0.75em;}
 #admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
-div.invitation{position:relative;overflow:hidden;}
+#admission .reqs{margin-bottom:2px;}
+div.invitation,div.reqs{position:relative;overflow:hidden;}
 div.invitation-logo,div.invitation-content{float:left;}
 .invitation-logo{width:36px;margin-right:0.75em;}
 .invitation-logo img{width:32px;padding:1px;border:1px #ccc solid;}
 .invitation-logo img:hover{border-color:#999;}
 .invitation-content{width:400px;}
 .invitation-content ul{list-style-type:none;margin:0;}
-
+.invitation-content .float{float:left;margin-right:3px;}
+.invitation-content form select,.invitation-content form input{font-size:0.9166em;line-height:1.6363;}
 
 /*Profile*/
 .profile-box,.space-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
@@ -393,9 +398,9 @@ div.message_content{padding:0.5em;}
 div.message_content p{margin:0;color:#777;}
 
 /*Admissions*/
-div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
+/*div.join_request_element{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;margin-bottom:10px;}
 div.join_request_element form {float:right;margin-left:4em;}
-div.join_request_element form div{display:inline;}
+div.join_request_element form div{display:inline;}*/
 
 /*index de spaces*/
 #space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}

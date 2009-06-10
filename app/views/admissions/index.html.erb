@@ -9,24 +9,33 @@
 <% if @space.join_requests.pending.any? %>
   <div class="reqs">
   <% @space.join_requests.pending.each do |jr| %>
-	  <div class="join_request_element">
-	    <% form_for [ @space, jr ] do |f| %>
-			  <label>Role:</label>
+	  <!--<div class="join_request_element">-->
+	  <div class="invitation-logo">
+		<%if jr.candidate.authorizes?([:read, :profile],:to=> current_user)%>
+          <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32) %>
+		<%else%>
+		  <%= logo(jr.candidate,:size=>32) %>
+		<%end%>
+	  </div>
+	  <div class="invitation-content">
+	  	<span class="person_title"><%=sanitize(jr.candidate.name)%></span>
+	    <div class="float">
+		<% form_for [ @space, jr ] do |f| %>
+		  <label class="person_title">Role:</label>
 	      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id } %>
 	      <%= f.hidden_field :accepted, :value => true %>
 	      <%= f.hidden_field :processed, :value => true %>
 	      <%= f.submit "Accept" %>
 	    <% end -%>
+		</div>
+		<div class="float">
 	    <% form_for [ @space, jr ] do |f| %>
 	      <%= f.hidden_field :processed, :value => true %>
 	      <%= f.submit "Deny" %>
 	    <% end -%>
-			<%if jr.candidate.authorizes?([:read, :profile],:to=> current_user)%>
-        <%= link_logotype(jr.candidate, :url => user_profile_path(jr.candidate)) %>
-		  <%else%>
-			  <%= logotype(jr.candidate) %>
-			<%end%>
-    </div>
+		</div>
+	  </div>
+    <!--</div>-->
   <% end -%>
   </div>
 <% else -%>
