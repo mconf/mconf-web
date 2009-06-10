@@ -331,11 +331,15 @@ end
   def destroy
    #destroy de content of the post. Then its container(post) is destroyed automatic.
    @post.destroy 
-   flash[:notice] = "Post has been deleted"
     respond_to do |format|
-      if @post.parent_id.nil? && @post.event.nil?
+      if !@post.event.nil?
+      flash[:notice] = "Comment has been deleted"  
+        format.html {redirect_to space_event_path(@space, @post.event)}
+      elsif @post.parent_id.nil?
+        flash[:notice] = "Thread has been deleted"  
         format.html { redirect_to space_posts_path(@space) }
       else
+        flash[:notice] = "Post has been deleted"  
         format.html { redirect_to request.referer }
       end  
       format.js 
