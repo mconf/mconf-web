@@ -63,42 +63,23 @@
 		<li> Description: <%=sanitize(@event.description)%></li>
     </ul>
  </div>
-
-<h3 class="selector_title">Comments</h3>
-	<%if @space.authorizes?([:create, :content],:to => current_user)%>
-	<div class="add-new-comment">
-		<%=link_to "add a new comment", space_event_path(@space,@event),{:title => "Add a new comment"}%>
-	</div>
-	<%end%>
-<% for post in @comments %>
-  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
-  <div class="post-title">
-    <h3><%= link_author(post, :size => 16, :url => user_profile_path(post.author)) %></h3>
-  </div>
-  <div class="group_links">
-    <ul class="edit-post">
-      <li><%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%></li>
-			<li><%=link_to(image_tag("icons/cancel.png", :alt => "delete comment"), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => "delete comment",:confirm => "are you sure?"}) if post.authorizes?(:update, :to => current_user)%></li>
-    </ul>
-  </div>
-  <%else%>
-  <p><%=logo(post.author, :size=>16)%> <%=post.author.name%></p>
-  <%end%>
+<%unless @comments.empty?%> 
 	<div>
-  <p>
-   <%for attachment in post.attachments%>
-      <%if attachment.post_thumbnail%>
-        <%=image_tag(space_attachment_path(@space,attachment.post_thumbnail()))%>
-      <%else%>
-        <%=image_tag(logo_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
-      <%end%> 
-   <%end%>
-   </p>
-   <p>
-   <%=sanitize(post.text)%>
-   </p>
-  </div>
+		<h3 class="selector_title">Comments</h3>
+		
+			<% for post in @comments %>
+				<%= render :partial => 'event_comment' , :locals => {:post => post}%>
+		  <%end%>
+				
+				
+			<%if @space.authorizes?([:create, :content],:to => current_user)%>
+					<div class="add-new-comment">
+						<%=link_to "add a new comment", space_event_path(@space,@event),{:title => "Add a new comment"}%>
+					</div>
+			<%end%>
+	
+			<div id="paginate">
+			      <%= will_paginate @comments%>
+			</div>
+	</div>
 <%end%>
-<div id="paginate">
-      <%= will_paginate @comments%>
-</div>
