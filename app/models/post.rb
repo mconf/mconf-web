@@ -13,6 +13,9 @@ class Post < ActiveRecord::Base
     { :joins => :space,
       :conditions => [ 'public = ?', true ] }
   }
+    named_scope :not_events, lambda {
+    {:conditions => {:event_id =>  nil} }
+  }
 
   is_indexed :fields => ['text','title'],
              :include =>[{:class_name => 'Tag',
@@ -49,7 +52,7 @@ class Post < ActiveRecord::Base
   end
   
   def self.last_news(space)
-    return Post.find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
+    return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
   
   def self.atom_parser(data)
