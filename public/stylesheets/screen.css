@@ -144,13 +144,13 @@ h3.selector_title{color:#244974}
 
 /*users and groups*/
 div.group{float:left;width:490px;;padding-bottom:0.5em;margin-top:2px;}
-.group h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
+.group h3,#admission h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
 .group ul{margin:0;}
 .group ul.group_links{padding:9px 0.5em 0 0;}
 #main span.selected{font-weight:bold;margin-left:0.5em;margin-right:0.5em;}
 #main #list_by_groups_selected a{margin-left:0.5em;}
-#list_by_names_selected,#list_by_groups_selected{padding:9px 0.5em 0 0;}
-#results_count h3,.group h3{margin:0;}
+#list_by_names_selected,#list_by_groups_selected{padding:9px 0.5em 0 0;color:#244974;}
+#results_count h3,.group h3,#admission h3{margin:0;color:#244974;}
 #results_count{padding:9px 0.75em 8px 0.75em;background:#bdd8eb;}
 div.user,div.read_more{position:relative;clear:both;overflow:hidden;}
 div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
@@ -313,6 +313,13 @@ div.pagination a{color:#244974;}
 
 /*admin*/
 #sidebar #space-conf div{padding-bottom:0.75em;}
+.news-wrapper{position:relative;padding-bottom:8px;border-bottom:1px #ccc solid;}
+.news-title,.news-content{padding:0 0.5em;}
+.news-title h3,.news-content{overflow:hidden;}
+.news-title ul.group_links,.news-content p{margin:0;}
+#admission p{margin:0.75em;}
+#admission .reqs,#admission .invitation{padding:0.75em 0.5em;}
+
 
 /*Profile*/
 .profile-box,.space-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
