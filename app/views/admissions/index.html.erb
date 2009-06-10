@@ -4,9 +4,10 @@
 <% end -%>
 
 <%= render :partial => 'spaces/admin_tabs' %>
-
+<div id="admission">
 <h3>Pending Join Requests</h3>
 <% if @space.join_requests.pending.any? %>
+  <div class="reqs">
   <% @space.join_requests.pending.each do |jr| %>
 	  <div class="join_request_element">
 	    <% form_for [ @space, jr ] do |f| %>
@@ -27,14 +28,15 @@
 			<%end%>
     </div>
   <% end -%>
+  </div>
 <% else -%>
-There aren't pending join requests.
+  <p>There are no pending join requests.</p>
 <% end -%>
 
 <h3>Pending invitations</h3>
 <% if @space.invitations.pending.any? %>
   <%= render :partial => 'invitation', :collection => @space.invitations.pending %>
 <% else -%>
-There aren't pending invitations
+  <p>There are no pending invitations</p>
 <% end -%>
-
+</div>

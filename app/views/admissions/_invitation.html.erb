@@ -1,5 +1,10 @@
 <% div_for invitation do %>
-<%= invitation.candidate ? link_logotype(invitation.candidate, :url => user_profile_path(invitation.candidate)) : invitation.email %>
-<%= invitation.role && invitation.role.name %>
-<%= link_to t(:delete), invitation, :method => :delete %><br />
+  <div>
+    <%= invitation.candidate ? link_logo(invitation.candidate, :url => user_profile_path(invitation.candidate),:size => 32) : invitation.email %>
+  </div>
+  <div>
+    <%= invitation.role && invitation.role.name %>
+    <%=link_to image_tag ("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm=>"Are you sure?"%>
+    
+  </div>
 <% end %>
