@@ -350,7 +350,7 @@ end
 
   # DRY (used in index and create.js)
   def posts
-   @posts ||= Post.parents.in_container(@space).find(:all, 
+   @posts ||= Post.parents.in_container(@space).not_events().find(:all, 
                                                      :order => "updated_at DESC"
                                                    ).paginate(:page => params[:page],
                                                               :per_page => 5)       
