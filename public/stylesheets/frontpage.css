@@ -132,6 +132,8 @@ ul#prefs {list-style-type:none;margin:0;}
 #about-sidebar .partners ul, #about-sidebar .global-posts ul{margin-bottom:0;padding-bottom:8px;border-bottom:1px #b0cadb solid;margin-bottom:9px;}
 #about-sidebar .partners a, #about-sidebar .global-posts a {font-weight:bold;color:#244974;text-decoration:none;}
 #about-sidebar .partners a:hover, #about-sidebar .global-posts a:hover{text-decoration:underline;}
+#about-sidebar #go-vcc img{border:1px #bdd8eb solid;}
+#about-sidebar #go-vcc img:hover{border-color:#B0CADB;}
 
 /*sidebar*/
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
