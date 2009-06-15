@@ -41,7 +41,7 @@ button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 .item_title{color:#244974;}
 .person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
-.sidebar_title{}
+.blue{color:#244974;}
 .selector_title{color:#999;}
 .small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}/**/
 .large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}/**/
@@ -229,7 +229,7 @@ ul.edit-post li{list-style-type:none;}
 #latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
 
 /*space home, latest users,posts and events*/
-#home_current_events{background:#FFF6BF;color:#514721;border-color:#FFD324;padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
+#home_current_events{background:#FFF6BF;color:#514721;padding:.8em;margin-bottom:1em;border:2px solid #FFD324;}
 #home_current_events ul{margin-bottom:0;list-style-type:none;}
 #home_current_events h3,#home_current_events h5{margin:0;color:#244974;}
 #home_current_events p{margin:0;}
