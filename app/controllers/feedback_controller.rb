@@ -8,9 +8,9 @@ class FeedbackController < ApplicationController
   end
   
   def create
-    if (params[:feedback][:subject].present? and params[:feedback][:from].present? and params[:feedback][:body].present?)
-      if (params[:feedback][:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
-        Notifier.deliver_feedback_email(params[:feedback][:from],params[:feedback][:subject], params[:feedback][:body] )
+    if (params[:subject].present? and params[:from].present? and params[:body].present?)
+      if (params[:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
+        Notifier.deliver_feedback_email(params[:from],params[:subject], params[:body] )
         respond_to do |format|
           format.html {
             flash[:success] = "your feedback information e-mail has been successfully sent. Thanks you"
