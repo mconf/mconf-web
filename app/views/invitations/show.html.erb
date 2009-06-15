@@ -1,5 +1,8 @@
-<h1><%= t 'invitation.show', :group => @invitation.group.name %></h1>
-
+<div class="invitation-box">
+	<div id="title">
+	  <h2 class="item_title"><%= t 'invitation.show', :group => @invitation.group.name %></h2>
+	</div>
+<div id="invitation_content">
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
@@ -25,17 +28,18 @@
     <% end %>
   <% end %>
 
-  <p>
+  <div>
     <%= f.submit t('invitation.accept') %>
-  </p>
+  </div>
 <% end %>
 
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
-  <p>
+  <div>
     <%= f.submit t('invitation.discard') %>
-  </p>
+  </div>
 
 <% end %>
-
+</div>
+</div>
 
