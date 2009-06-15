@@ -23,7 +23,7 @@
 		
 		<div class="space-desc">
 			<h3>About <em><%=@space.name%></em></h3>
-			<p><%=image_tag(logo_path(@space, :size =>48), :align => "left")%>
+			<p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
 			<%= sanitize(space.description) if space.description.present? %></p>
   		</div>		
 	<%end%>
