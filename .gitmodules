@@ -1,3 +1,3 @@
-[submodule "vendor/plugins/cmsplugin"]
-	path = vendor/plugins/cmsplugin
-	url = git://github.com/atd/cmsplugin.git
+[submodule "vendor/plugins/station"]
+	path = vendor/plugins/station
+	url = git://github.com/atd/station.git
