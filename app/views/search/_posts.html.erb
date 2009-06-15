@@ -1,18 +1,22 @@
-<div>
+<div class="post_search oddposts">
 	<%if @number_of_posts == 0%>
-     	<h3>No posts found</h3>
+     	<h3 class="empty">Posts: No posts found</h3>
 	<%elsif @number_of_posts == 1%>	   
-   	<h3>1 post was found</h3>
+   	<h3>Posts: 1 post was found</h3>
  		<% @posts.each do |post| %>
   			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false}%> 
 		<%end%>
   <%else%>
-    <h3 class="red"><%=@number_of_posts%> posts was found</h3>
+    <h3 class="red">Posts: <%=@number_of_posts%> posts were found</h3>
  		<% @posts.each do |post| %>
- 			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false} %> 
+
+ 			  <%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false} %>
+
  		<%end%>
 		<%if first_five%>
-		  <%=  link_to "Show all posts found", search_posts_path(@space, :query => params[:query] ? params[:query] : "")%>
+		  <div class="show-more">
+		    <%=  link_to "Show all posts found", search_posts_path(@space, :query => params[:query] ? params[:query] : "")%>
+		  </div>
 		<%else%>
 		  <%= will_paginate @posts %>
 		<%end%>

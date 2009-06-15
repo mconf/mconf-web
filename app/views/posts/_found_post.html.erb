@@ -21,20 +21,33 @@
 <%end%>
 
 <%div_for post do%>
-
+<div class="post-logo">
   <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
-    <p>Author: <%= link_author(post, :size => 48, :url => user_profile_path(post.author), :text => highlight(post.author.name,@query)) %> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%>  <%=link_to "Reply", space_post_path(post.space, thread(post), :reply_to => thread(post))%></p>
+    <%=link_logo(post.author,:size=>32, :url => user_profile_path(post.author))%>
   <%else%>
-    <p>Author: <%=logo(post.author, :size=>48)%> <%=highlight(post.author.name, @query)%> Thread:  <%=link_to highligth(thread_title(post),@query), space_post_path(post.space, thread(post))%>  <%=link_to "Reply", space_post_path(post.space, thread(post), :reply_to => thread(post))%></p>
+    <%=logo(post.author, :size=>32)%>
   <%end%>
+</div>
 
-   <p id="collapsed_post_<%=post.id%>" style="display:none">
-     <%=sanitize(highlight(first_words(post.text,200),@query))%><br />
+<div class="post-content">
+  <div id="edit" class="group_links">
+	<%=link_to(image_tag("icons/comments-add.png", :alt => "add a comment",:class=>"icon",:title=>"Add a comment"), space_post_path(post.space, thread(post), :reply_to => thread(post)))%>
+  </div>
+  <ul>
+  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>	
+	<li class="person_title">Author: <%=link_to highlight(post.author.name, @query),:url => user_profile_path(post.author)%> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
+  <%else%>
+    <li class="person_title">Author: <%=highlight(post.author.name, @query)%> Thread:  <%=link_to highligth(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
+  <%end%>
+    <li id="collapsed_post_<%=post.id%>" style="display:none">
+     <%=sanitize(highlight(first_words(post.text,200),@query))%>
      <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
-   </p>
+    </li>
 
-   <p id="expanded_post_<%=post.id%>">
-   <%=sanitize(highlight(post.text,@query))%><br />
-   <%=link_to image_tag("icons/comment-edit.png", :alt => "edit comment" ), get_edit_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
-   </p>
+    <li id="expanded_post_<%=post.id%>">
+     <%=sanitize(highlight(post.text,@query))%>
+     <%=link_to image_tag("icons/comment-edit.png", :alt => "edit comment" ), get_edit_route(post), :title => "edit comment" if post.authorizes?(:update, :to => current_user)%>
+    </li>
+   </ul>
+</div>  
 <%end%>
