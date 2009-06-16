@@ -33,6 +33,10 @@ class Event < ActiveRecord::Base
     end
   end
       
+  def author
+    User.find_with_disabled(author_id)
+  end
+      
   def validate
     if self.start_date.nil? || self.end_date.nil? 
       errors.add_to_base("The event needs start date and end date ")
