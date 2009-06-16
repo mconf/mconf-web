@@ -15,34 +15,37 @@ class Group < ActiveRecord::Base
       
     end
     
-=begin
     after_create { |group| 
-    if group.reload_mail_list_server_because_of_environment
-    group.request_update_at_jungla
-      group.mail_list_archive
-      `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
-    end
+      if group.reload_mail_list_server_because_of_environment
+      request_update_at_jungla
+        group.mail_list_archive
+        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
+        #`cp #{ group.temp_file } /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name}`
+      end
     }
     
     after_destroy { |group|
-    if group.reload_mail_list_server_because_of_environment
-      group.request_update_at_jungla
-      `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.name }`
-    end
+      if group.reload_mail_list_server_because_of_environment
+        request_update_at_jungla
+        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
+        #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
+      end
     }
     
     before_update { |group|
-    if group.reload_mail_list_server_because_of_environment
-      group.request_update_at_jungla
-      `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.name }`
-    end 
+      if group.reload_mail_list_server_because_of_environment
+        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
+        #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
+      end 
     }
     
     after_update { |group|
-    if group.reload_mail_list_server_because_of_environment
-      group.mail_list_archive
-      `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.name}`
-    end
+      if group.reload_mail_list_server_because_of_environment
+        request_update_at_jungla
+        group.mail_list_archive
+        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
+      #`cp #{ group.temp_file } /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name}`
+      end
     }
        
     # Do not reload mail list server if not in production mode, it could cause server overload
@@ -50,7 +53,7 @@ class Group < ActiveRecord::Base
       RAILS_ENV == "production"
     end
     
-    def request_update_at_jungla
+    def self.request_update_at_jungla
       `ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
     end
     
@@ -67,7 +70,11 @@ class Group < ActiveRecord::Base
      doc = "#{self.mail_list}"
      File.open(temp_file, 'w') {|f| f.write(doc) }
    end
-=end
+   
+   def email_group_name
+     self.name.gsub(/ /, "_")
+   end
+
    def self.atom_parser(data)
     
     e = Atom::Entry.parse(data)
@@ -91,9 +98,9 @@ class Group < ActiveRecord::Base
     return resultado     
   end   
 
-=begin
+
   def temp_file
      @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
   end
-=end
+
 end

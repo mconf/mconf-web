@@ -15,15 +15,14 @@ class Space < ActiveRecord::Base
   
   after_create { |space| 
     group = Group.new(:name => space.emailize_name, :space_id => space.id)
-#    group.users << space.get_users_with_role("admin")
-#    group.users << space.get_users_with_role("user")
+    group.users << space.users(:role => "admin")
+    group.users << space.users(:role => "user")
     group.save
   }
 
   named_scope :public, lambda {
     { :conditions => { :public => true } }
   }
- 
 
   def emailize_name
     self.name.gsub(" ", "")
