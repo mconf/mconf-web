@@ -61,7 +61,7 @@ a.button, button, #sidebar input[type=submit] {
   -webkit-border-radius:7px;-moz-border-radius:7px;
 }
 /* forms.css */
-.error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
+.error, .notice, .success {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
 .notice {background:#FFF6BF;color:#514721;border-color:#FFD324;}
 .success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
@@ -332,7 +332,7 @@ div.pagination a{color:#244974;}
 #admission p{margin:0.75em;}
 #admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
 #admission .reqs{margin-bottom:2px;}
-div.invitation,div.reqs{position:relative;overflow:hidden;}
+div.invitation,div.reqs,#admission .reqs-item{position:relative;overflow:hidden;}
 div.invitation-logo,div.invitation-content{float:left;}
 .invitation-logo{width:36px;margin-right:0.75em;}
 .invitation-logo img{width:32px;padding:1px;border:1px #ccc solid;}
