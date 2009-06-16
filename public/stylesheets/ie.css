@@ -16,5 +16,5 @@ fieldset {padding-top:0;}
 #footer ul li{display:inline;margin-right:0.5em;}
 
 #logo img.logo{height:auto; width: auto; display:block;}
-.post {height:auto; width: 100%;}
+.post {height:auto; /*width: 100%;*/}
 .post_moved {margin-right:0.5em;width: 453px;}

@@ -63,13 +63,13 @@
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
-     <h3><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to "Upcoming Events", space_events_path(@space)%></h3>
+     <h3><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to " Upcoming Events", space_events_path(@space)%></h3>
 		 <ul>  
 		  <% for event in @upcoming_events -%>
 		    <li class="event">
-		    <%event_link="<h5>" + sanitize(event.title) + "</strong></h5> <p class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</p>"%>
-			<%=link_to event_link, space_event_path(@space,event)%>
-		        <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
+		      <%event_link="<h5>" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
+			  <%=link_to event_link, space_event_path(@space,event)%>
+		      <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
 		    </li>
 		  <% end -%>
 		 </ul> 
@@ -86,9 +86,9 @@
   		<%for event in @current_events do%>
   		  <li>
   		  	<%=link_to "<h5>#{event.name}</h5>", space_event_path(@space,event)%>
-					<p class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (GMT <%=Time.zone.formatted_offset%> )</p>
-				</li>
-			<%end%>
+			<span class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (GMT <%=Time.zone.formatted_offset%> )</span>
+		  </li>
+		<%end%>
   	</ul>
   </div>
 <% end %>
@@ -103,11 +103,11 @@
 <div id="latest_posts">
     <h3><%=image_tag("icons/comment.png")%><%=link_to "Latest Posts", space_posts_path(@space)%></h3>
 	  <%if @lastest_posts.empty?%>
-	     <br/><p>There aren't recent posts</p>
+	     <br/><p>There aren't any recent posts</p>
 	  <%else%>
 	    <% for post in @lastest_posts -%>
 	      <div class="post">
-	        <p><strong><%=sanitize(post.title)%></strong><span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span></p>
+	        <strong><%=link_to sanitize(post.title),space_post_path(@space, post)%></strong><span class="updated"><%=link_to (" Updated " + time_ago_in_words(post.updated_at) + " ago",space_post_path(@space, post))%></span>
 	        <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
 	      </div>
 	    <% end -%>
@@ -122,23 +122,24 @@
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
+			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
+			<div><%=link_to logo(user, :size=>32),user_profile_path(user)%></div>
+			<div>
+			  <ul>
+			    <li><strong><%=link_to sanitize(user.full_name),user_profile_path(user),:class=>"u_name"%></strong></li>
+			    <li><%=link_to sanitize(user.organization),user_profile_path(user),:class=>"small-font" %></li>
+			  </ul>
+			</div>
+			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
+		<%else%>
 			<div><%=logo(user, :size=>32)%></div>
-				<div>
-				  <ul>
-				    <li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>
-				    <li class="small-font"><%=sanitize(user.organization) %></li>
-				  </ul>
-				 </div>
-				 <%=link_to "", user_profile_path(user),:class=>"box-link"%>
-			<%else%>
-				<div><%=logo(user, :size=>32)%></div>
-        <div>
-          <ul>
-            <li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>
-            <li class="small-font"><%=sanitize(user.organization) %></li>
-          </ul>
-         </div>
-			<%end%>        
+        	<div>
+          	  <ul>
+            	<li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>
+            	<li class="small-font"><%=sanitize(user.organization) %></li>
+          	  </ul>
+         	</div>
+		<%end%>        
     </div>
   <% end -%>
   <div class="read_more">
