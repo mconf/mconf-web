@@ -14,11 +14,10 @@
 	<div class="post-content">
    		<ul>
 			<li class="person_title">
-			  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
-	    	    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
-	  		  <%else%>
-	    		<%=post.author.name%>
-	  		  <%end%>
+                        <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
+                                       post.author.name,
+                                       user_profile_path(post.author)
+                        %>
 			</li>
    			<%if post.text.size < 100%>
 	     	<li>

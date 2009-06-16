@@ -40,6 +40,12 @@ class User < ActiveRecord::Base
 alias_attribute :full_name, :login
 alias_attribute :name, :login
 
+default_scope :conditions => {:disabled => false}
+
+def self.find_with_disabled *args
+  self.with_exclusive_scope { find(*args) }
+end
+
 def <=>(user)
   self.name <=> user.name
 end
@@ -113,8 +119,17 @@ end
   end
 
   def local_affordances
-    Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ])) + 
-    self.fellows.map{|f| ActiveRecord::Authorization::Affordance.new(f, [:read, :profile])}
+    if self.disabled
+      []
+    else
+      Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ])) + 
+      self.fellows.map{|f| ActiveRecord::Authorization::Affordance.new(f, [:read, :profile])}  
+    end
+  end
+  
+  def disable
+    self.update_attribute(:disabled,true)
+    self.agent_performances.each(&:destroy)
   end
  
 end

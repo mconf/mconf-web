@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionController::Agents
   
   before_filter :space!, :only => [ :index ]
-  before_filter :get_agent, :only => [ :show, :edit, :update, :destroy ]
+  before_filter :agent, :only => [ :show, :edit, :update, :destroy ]
 
   # Permission filters
   authorization_filter [ :read, :performance ], :space, :only => [ :index ]
@@ -152,15 +152,17 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml  
   # DELETE /users/1.atom
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    #debugger
+    #@user = User.find(params[:id])
+    #@user.update_attribute :disabled,true
+    @user.disable
     
     flash[:notice] = "User #{@user.login} deleted"
     
     respond_to do |format|
       format.html {
         if !@space && current_user.superuser?
-          redirect_to manage_path
+          redirect_to manage_users_path
         elsif !@space
           redirect_to root_path
         else
