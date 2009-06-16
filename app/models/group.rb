@@ -15,8 +15,8 @@ class Group < ActiveRecord::Base
       
     end
     
-    after_create { |group| 
-      if group.reload_mail_list_server_because_of_environment
+    after_create { |group|
+      if Site.current.domain == "vcc-test.dit.upm.es"
       request_update_at_jungla
         group.mail_list_archive
         `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
     }
     
     after_destroy { |group|
-      if group.reload_mail_list_server_because_of_environment
+      if Site.current.domain == "vcc-test.dit.upm.es"
         request_update_at_jungla
         `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
         #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
@@ -33,14 +33,14 @@ class Group < ActiveRecord::Base
     }
     
     before_update { |group|
-      if group.reload_mail_list_server_because_of_environment
+      if Site.current.domain == "vcc-test.dit.upm.es"
         `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
         #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
       end 
     }
     
     after_update { |group|
-      if group.reload_mail_list_server_because_of_environment
+      if Site.current.domain == "vcc-test.dit.upm.es"
         request_update_at_jungla
         group.mail_list_archive
         `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
@@ -49,9 +49,9 @@ class Group < ActiveRecord::Base
     }
        
     # Do not reload mail list server if not in production mode, it could cause server overload
-    def reload_mail_list_server_because_of_environment
-      RAILS_ENV == "production"
-    end
+    #def self.reload_mail_list_server_because_of_environment
+      #RAILS_ENV == "production"
+    #end
     
     def self.request_update_at_jungla
       `ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
