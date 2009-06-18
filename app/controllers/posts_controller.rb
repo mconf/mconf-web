@@ -360,7 +360,7 @@ end
     total_posts = parent_post.children
     per_page = 5
     page = params[:page] || options[:last] && total_posts.size.to_f./(per_page).ceil
-    page = 1 if page < 1
+    page = nil if page == 0
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
