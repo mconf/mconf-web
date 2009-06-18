@@ -5,27 +5,26 @@ RUBY_GEMS_VERSION = "1.3.1"
 RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
 RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/45905/#{ RUBY_GEMS_PACKAGE }"
 
-GEMS = {}
-GEMS[:common] = [ "rails -v 2.2.2",
-                  "vpim",
-                  "ruby-debug",
-                  "ruby-openid",
-                  "atom-tools",
-                  "mislav-will_paginate -s http://gems.github.com/",
-                  "atd-calendar_date_select -s http://gems.github.com/",
-                  "rcov",
-                  "chronic",
-                  "hpricot",
-                  "feed-normalizer",
-                  "rspec-rails",
-                  "hoe" ]
-
-GEMS[:production] = [ "mysql" ]
-
-GEMS[:development] = [ "capistrano",
-                       "mongrel",
-                       "populator",
-                       "faker" ]
+GEMS = {
+  :common     => [ "rails -v 2.2.2",
+                   "vpim",
+                   "ruby-debug",
+                   "ruby-openid",
+                   "atom-tools",
+                   "mislav-will_paginate -s http://gems.github.com/",
+                   "rcov",
+                   "chronic",
+                   "hpricot",
+                   "feed-normalizer",
+                   "rspec-rails",
+                   "hoe" ],
+  :production  => [ "mysql" ],
+  :development => [ "capistrano",
+                    "mongrel",
+                    "populator",
+                    "faker",
+                    "thoughtbot-factory_girl -s http://gems.github.com/" ]
+}
 
 def install_linux_packages
   if `uname`.chomp == "Linux" && `which aptitude` != ""

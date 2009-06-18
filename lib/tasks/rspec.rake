@@ -8,7 +8,7 @@ rspec_base = File.expand_path(File.dirname(__FILE__) + '/../../vendor/plugins/rs
 $LOAD_PATH.unshift(rspec_base) if File.exist?(rspec_base)
 require 'spec/rake/spectask'
 
-spec_prereq = File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "db:test:prepare" : :noop
+spec_prereq = File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "setup:basic_data:test" : :noop
 task :noop do
 end
 

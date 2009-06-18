@@ -18,6 +18,13 @@ namespace :setup do
     desc "Load all basic data"
     task :all => [ :users, :spaces, :roles ]
 
+    desc "Load Basic data in test"
+    task :test => "db:test:prepare" do
+      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+      ActiveRecord::Schema.verbose = false
+      Rake::Task["setup:basic_data:all"].invoke
+    end
+
     desc "Load Users Data"
     task :users => :environment do
       puts "* Create Administrator \"vcc\""
