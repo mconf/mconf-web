@@ -5,13 +5,8 @@ class PostsController < ApplicationController
   
   set_params_from_atom :post, :only => [ :create, :update ]
   
-  # Posts list belong to a space
-  # /posts
-  # /:container_type/:container_id/posts, :new, :create
-  before_filter :space, :only => [ :index, :destroy, :show ,:update  ]
-  
-  # Needs a Container when posting a new Post
-  before_filter :space!, :only => [ :new, :create ]
+  # Posts needs a Space. It will respond 404 if no space if found
+  before_filter :space!
   
   before_filter :post, :except => [ :index, :new, :create]
 
