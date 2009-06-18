@@ -16,7 +16,7 @@ namespace :setup do
       # DESTROY #
       [ Space ].each(&:destroy_all)
       # Delete all users except Admin
-      users_without_admin = User.all
+      users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_login("vcc"))
       users_without_admin.each(&:destroy)
 
@@ -27,6 +27,7 @@ namespace :setup do
         user.email = Faker::Internet.email
         user.crypted_password = User.encrypt("test", "")
         user.activated_at = 2.years.ago..Time.now
+        user.disabled = false
       end
 
       Space.populate 20 do |space|
