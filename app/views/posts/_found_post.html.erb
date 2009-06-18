@@ -23,7 +23,7 @@
 <%div_for post do%>
 <div class="post-logo">
   <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
-    <%=link_logo(post.author,:size=>32, :url => user_profile_path(post.author))%>
+    <%=link_logo(post.author,:size=>32, :url => user_profile_path(post.author), :title=>post.author.name)%>
   <%else%>
     <%=logo(post.author, :size=>32)%>
   <%end%>

@@ -5,7 +5,7 @@
 			<li><%=mail_to(detailed_user.email,"e-mail")%></li>
 		</ul>
   <%end%>
-    <div><%= detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_logo(detailed_user, :size => 32, :url => user_profile_path(detailed_user)) : logo(detailed_user, :size => 32) %></div>
+    <div><%= detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_logo(detailed_user, :size => 32, :url => user_profile_path(detailed_user), :title=>detailed_user.name) : logo(detailed_user, :size => 32, :title=>detailed_user.name) %></div>
 	<div>
 	  	<ul>
 	    <li class="person_title"><%=detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_to(highlight(detailed_user.full_name, @query), user_profile_path(detailed_user)) : sanitize(highlight(detailed_user.full_name, @query)) %></li>	

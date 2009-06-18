@@ -8,9 +8,9 @@
 	  	
 			<div class="post-logo">
 				<%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
-					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author)) %>
+					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>
 				<%else%>
-					<%=logo(post.author, :size=>22)%>
+					<%=logo(post.author, :size=>22, :title=>post.author.name)%>
 				<%end%>
 			</div>
 			

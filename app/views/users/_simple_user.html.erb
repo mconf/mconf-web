@@ -1,8 +1,8 @@
 <div class="user">
 	<%if simple_user.authorizes?([:read, :profile],:to=> current_user)%>
-	<div><%= link_logo(simple_user, :size => 32, :url => user_profile_path(simple_user)) %></div>
+	<div><%= link_logo(simple_user, :size => 32, :url => user_profile_path(simple_user), :title=>simple_user.name) %></div>
 	<%else%>
-  <div><%= logo(simple_user, :size => 32) %></div>
+  <div><%= logo(simple_user, :size => 32, :title=>simple_user.name) %></div>
 	<%end%>
   <div>
 	<ul>

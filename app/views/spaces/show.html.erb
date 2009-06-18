@@ -123,7 +123,7 @@
     <div class="user">
     	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
 			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
-			<div><%=link_to logo(user, :size=>32),user_profile_path(user)%></div>
+			<div><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
 			<div>
 			  <ul>
 			    <li><strong><%=link_to sanitize(user.full_name),user_profile_path(user),:class=>"u_name"%></strong></li>
@@ -132,7 +132,7 @@
 			</div>
 			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
 		<%else%>
-			<div><%=logo(user, :size=>32)%></div>
+			<div><%=logo(user, :size=>32, :title=>user.name)%></div>
         	<div>
           	  <ul>
             	<li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>

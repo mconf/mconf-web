@@ -94,10 +94,10 @@
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
-              <%=link_logo(space, :size =>48, :url => join_space_path(space))%>
+              <%=link_logo(space, :size =>48, :url => join_space_path(space), :title=>space.name)%>
 			</div>
 		<% else %>
-		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
+		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :title => space.name)%></div>
 		<% end %>
 	<% end %>
   </div>
@@ -108,7 +108,7 @@
   <div id="title"><h3 class="item_title">Public Spaces</h3></div>
   <div id="space_content">
   <% for space in @public_spaces %>
-    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :alt => space.name)%></div>
+    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :title => space.name)%></div>
   <% end %>
   </div>
 </div>

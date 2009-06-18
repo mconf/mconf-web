@@ -13,9 +13,9 @@
 	 <div class="reqs-item">
 	  <div class="invitation-logo">
 		<%if jr.candidate.authorizes?([:read, :profile],:to=> current_user)%>
-          <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32) %>
+          <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>
 		<%else%>
-		  <%= logo(jr.candidate,:size=>32) %>
+		  <%= logo(jr.candidate,:size=>32, :title=>jr.candidate.name) %>
 		<%end%>
 	  </div>
 	  <div class="invitation-content">
