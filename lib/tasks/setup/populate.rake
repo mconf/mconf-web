@@ -1,9 +1,7 @@
 namespace :setup do
   task :populate => 'populate:create'
 
-  desc "Erase and fill database"
   namespace :populate do
-    task :default => :populate
 
     desc "Reload populate data"
     task :reload => [ 'setup:basic_data:reload', 'setup:populate' ]
@@ -21,7 +19,7 @@ namespace :setup do
       users_without_admin.each(&:destroy)
 
 
-
+      puts "* Create Users"
       User.populate 15 do |user|
         user.login = Faker::Name.name
         user.email = Faker::Internet.email
@@ -30,6 +28,7 @@ namespace :setup do
         user.disabled = false
       end
 
+      puts "* Create Spaces"
       Space.populate 20 do |space|
         space.name = Populator.words(1..3).titleize
         space.permalink = PermalinkFu.escape(space.name)
