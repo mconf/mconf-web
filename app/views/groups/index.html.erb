@@ -6,6 +6,16 @@
 
 <% content_for :javascript do %>
   <%= render :partial => 'users/jquery_users_search' %>
+	
+	$(".check_mail input:mail").livequery("click", function(){
+  if($(this).attr("checked")){
+		$(".mail_group").show();
+	}
+	else{
+	 $(".mail_group").hide();	 
+	}
+});
+	
 <% end %>
 
 <% content_for :search do  %>

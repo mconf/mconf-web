@@ -4,7 +4,7 @@
 
 $("a.new_space_link").fancybox({
   'hideOnContentClick' : false,
-	'frameHeight' : 370,
+	'frameHeight' : 390,
 	'frameWidth' : <%=logged_in? ? '300' : '560'%>
 });
 
@@ -30,6 +30,18 @@ $("#create_and_register_link").livequery("click", function(){
 					$("#fancy_outer").height($("#create_space").height() + 50);
         }
       );
+});
+
+
+$("#check_mail input:mail").livequery("click", function(){
+  if($(this).attr("checked")){
+		$("#mail_group").show();
+	}
+	else{
+	 $("#mail_group").hide();
+	 $("#mail_group input:mailin_list").val("");	 
+	}
+	$("#fancy_outer").height($("#create_space").height() + 50);
 });
 
 /*
