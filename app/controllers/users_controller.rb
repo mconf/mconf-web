@@ -62,6 +62,7 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     @user = @agent = model_class.new
+    @user.openid_identifier = session[:openid_identifier]
     render :partial => "register" if request.xhr?
   end
   
