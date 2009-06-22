@@ -2,7 +2,7 @@
 #lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;text-shadow:#000 1px 1px 1px;color:#333;}
 #lightbox-logo{padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;}
 #lightbox-logo img{margin:0 4px -4px 0;}
-.form{padding:1.5em 1.5em 0 1.5em;position:relative;overflow:hidden;}
+.form{padding:1em 1.5em 0 1.5em;position:relative;overflow:hidden;}
 div#captcha,.form div{margin-bottom:0.75em;}
 #openid_form h3{clear:left;}
 div.button span{margin-left:1.5em;}
@@ -15,7 +15,7 @@ input#space_name{width:90%;}
 textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflow:auto;}
 textarea#feedback_body{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:auto;}
 a.selected{text-decoration:none;color:#111;font-weight:bold;}
-
+.person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
 /*
  * Feedback
  */
@@ -41,8 +41,10 @@ div#fancy_div {
 div#left{float:left;width:265px;}
 div#right{float:left;width:200px;}
 div#left{padding-right:5px;border-right:1px #fff solid;margin-right:18px;}
-
-
+div#openid-logo h3{background:none;padding:0;}
+div#openid-logo span{margin-left:10px;}
+div#openid-logo img{border:1px #ccc solid;}
+div#openid-logo img:hover{border-color:#bbb;}
 
 
 

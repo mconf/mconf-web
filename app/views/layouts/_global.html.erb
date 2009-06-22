@@ -8,7 +8,7 @@
         <li><%= link_to "Preferences", edit_user_path(current_user), menu_options(:preferences) %></li>
 	  	  <li><%= link_to "Logout (#{current_user.name})", logout_path %></li>
 	    <% else %>
-	  	<li><%= link_to 'Log in', login_path, :id => "login_link" %></li>
+	  	<li><%= link_to 'Log in / Register', login_path, :id => "login_link" %></li>
 	    <% end %>
 	</ul>
     <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/">Virtual Conference Centre <em class="small">(BETA)</em></a></span>

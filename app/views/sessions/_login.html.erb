@@ -3,12 +3,13 @@
   	<div class="form">
   		<% form_tag session_path do -%>
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
-	  		<div>
+			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
+			  <h3>Do you have an OpenID? </h3>
+			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> or use your username...</span>
+			</div>	  		
+			<div>
 		  		<label for="login">Username or e-mail</label><br/>
 		  		<%= text_field_tag 'login', params[:login] %>
-				<div id="openid_link" <%='style="display:none;"' unless request.xhr? %> >		  
-  	    			<span>Do you have an OpenId? <%=link_to ("Click here", "javascript:openid()")%></span>
- 				</div>
 	  		</div>
 	  		<div>
 	  			<label for="password">Password</label><br/>
