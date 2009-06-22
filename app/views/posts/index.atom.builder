@@ -5,7 +5,7 @@ atom_feed('xmlns:gd' => 'http://schemas.google.com/g/2005',
   feed.updated(@posts.any? && @posts.first.updated_at || Time.now)
 
   @posts.each do |post|
-    feed.entry(post, :url => space_post_path(space, post)) do |entry|
+    feed.entry(post, :url => space_post_url(space, post)) do |entry|
       entry.title(sanitize(post.title))
       entry.content(sanitize(post.text), :type => "html")
 
