@@ -1,6 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Space do
+  extend ActiveRecord::AuthorizationTestHelper
+
   before(:each) do
     @valid_attributes = {:name => 'title', :description => 'text'
     }
@@ -26,5 +28,16 @@ describe Space do
     assert_raise ActiveRecord::RecordInvalid do
     Space.create!(@valid_attributes).should be_false
     end
+  end
+
+  # Authorization
+  describe "being public" do
+    before(:all) do
+      @space = populated_public_space.reload
+      @admin = @space.stage_performances.detect{ |p| p.role.name == "Admin" }.agent
+    end
+
+    it_should_authorize(:admin, :update, :space)
+    it_should_not_authorize(Anonymous.current, :update, :space)
   end
 end
