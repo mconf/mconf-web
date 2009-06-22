@@ -65,7 +65,7 @@
 			</tbody></table>
 		  </div>
 			<div class="message_content" style="display:none;">
-			 	<p><%= sanitize(private_message.body)%></p>
+			 	<p><%= sanitize(auto_link(simple_format(private_message.body)))%></p>
 			</div>
 		 	
 		</div> 

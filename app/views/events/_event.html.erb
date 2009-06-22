@@ -23,7 +23,7 @@
 		<%elsif event.posts.size > 1%>
 			<li> This Event has <%= link_to (event.posts.size.to_s + " comments", space_event_path(@space,event))%></li>
 		<%end%>
-		<li> Description: <%=sanitize(highlight(event.description,@query))%></li>
+		<li> Description: <%=sanitize(auto_link(simple_format(highlight(event.description,@query))))%></li>
     </ul>
  </div>
   <%end%>
