@@ -172,7 +172,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .even_thread .thread-title{/*background:#f2cc1f;*/}/*amarillo*/
 .odd_thread .post,.odd_thread .comments-status,.odd-posts .post, .event-comment-wrapper .post{background:#d5e0e8;border-top:none;margin-top:2px;}/*verde*/
 .even_thread .post,.even_thread .comments-status{background:#faec96;border-top:none;margin-top:2px;}/*amarillo*/
-.odd_thread .post:hover,.odd_thread .comments-status:hover,.odd-posts .post:hover, .event-comment-wrapper .post:hover{background:#ccdde8;}/*verde*/
+.odd_thread .post:hover,.odd_thread .comments-status:hover,.odd-posts .post:hover, .event-comment-wrapper .post:hover{background:#a0c5de;}/*verde*/
 .even_thread .post:hover,.even_thread .comments-status:hover{background:#f5df51;}/*amarillo*/
 .odd_thread .post_i{border-top-color:#bdd8eb;}
 .even_thread .post_i{border-top-color:#FFD324;}
