@@ -17,6 +17,11 @@ class GroupsController < ApplicationController
   end
   
   def create
+    #if mailing list is disabled, the param :mailing_list is removed
+    if params[:mail].blank?
+      params[:group][:mailing_list] = ""
+    end
+      
     @group = @space.groups.build(params[:group])
     
     if @group.save
@@ -40,6 +45,9 @@ class GroupsController < ApplicationController
     
     @group = @space.groups.find(params[:id])
     
+    if params[:mail].blank?
+      params[:group][:mailing_list] = ""
+    end
     if params[:add_user]
       @group.user_ids += [params[:add_user]]
       @group.user_ids.uniq!
@@ -56,7 +64,9 @@ class GroupsController < ApplicationController
       }
       end
     else
-      flash[:error] = "The group could not be updated"
+      message = ""
+      @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+      flash[:error] = message
       redirect_to request.referer
     end
   end

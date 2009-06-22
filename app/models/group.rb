@@ -5,6 +5,7 @@ class Group < ActiveRecord::Base
     belongs_to :space
     
     validates_presence_of :name
+    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true,:message => "name has already been taken")
     
     def validate
       for user in users
@@ -13,39 +14,52 @@ class Group < ActiveRecord::Base
         end
       end
       
-    end
-    
-    after_create { |group|
-      if Site.current.domain == "vcc-test.dit.upm.es"
-      request_update_at_jungla
-        group.mail_list_archive
-        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
-        #`cp #{ group.temp_file } /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name}`
+      if self.mailing_list == "sir"
+        errors.add("", "The mailing list vcc-sir@dit.upm.es is reserved")
       end
+      
+      if self.mailing_list && self.mailing_list.match("[^a-z0-9\s]")
+        errors.add("", "The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
+      end
+      
+    end
+    before_save { |group|
+      if group.mailing_list.present?
+        group.mailing_list = group.mailing_list.gsub(/ /, "-")
+      end
+    }
+    after_create { |group|
+        #create the new mailing_list if it has the option activated
+        if group.mailing_list.present?
+          group.mail_list_archive
+          copy_at_jungla(group, group.mailing_list)
+          request_update_at_jungla
+        end
     }
     
     after_destroy { |group|
-      if Site.current.domain == "vcc-test.dit.upm.es"
-        request_update_at_jungla
-        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
-        #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
-      end
-    }
-    
-    before_update { |group|
-      if Site.current.domain == "vcc-test.dit.upm.es"
-        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
-        #`rm /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name }`
-      end 
-    }
+        if group.mailing_list
+          #destroy the existing mailing_list
+          delete_at_jungla(group, group.mailing_list)
+          request_update_at_jungla
+        end
+    }   
     
     after_update { |group|
-      if Site.current.domain == "vcc-test.dit.upm.es"
+    
+        #delete the old mailing_list      
+        if group.mailing_list_changed?
+          delete_at_jungla(group,group.mailing_list_was) if group.mailing_list_was.present?
+        else
+          delete_at_jungla(group,group.mailing_list) if group.mailing_list.present?
+        end
+  
+        #create the new mailing_list
+        if group.mailing_list.present?  
+          group.mail_list_archive        
+          copy_at_jungla(group,group.mailing_list)
+        end
         request_update_at_jungla
-        group.mail_list_archive
-        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
-      #`cp #{ group.temp_file } /home/ivanrojo/Escritorio/listas/automaticas/vcc-#{ group.email_group_name}`
-      end
     }
        
     # Do not reload mail list server if not in production mode, it could cause server overload
@@ -53,8 +67,26 @@ class Group < ActiveRecord::Base
       #RAILS_ENV == "production"
     #end
     
+    def self.check_domain
+      Site.current.domain == "vcc.dit.upm.es"
+    end
+    
     def self.request_update_at_jungla
-      `ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
+      if check_domain
+        `ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
+      end
+    end
+    
+    def self.copy_at_jungla(group,list)
+      if check_domain
+        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{list}`
+      end
+    end
+    
+    def self.delete_at_jungla(group,list)
+      if check_domain
+        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{list}`
+      end
     end
     
     # Transforms the list of users in the group into a string for the mail list server

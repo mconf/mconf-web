@@ -98,9 +98,17 @@ class SpacesController < ApplicationController
     end
       
     @space = Space.new(params[:space])
-    
+    create_group
+    unless @group.valid?
+      message = ""
+      @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+      flash[:error] = message
+      render :action => :new
+      return
+    end
+    @group.space = @space
     respond_to do |format|
-      if @space.save
+      if @space.save && @group.save
         flash[:success] = 'Space was successfully created.'
         @space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
         format.html { redirect_to :action => "show", :id => @space  }
@@ -177,6 +185,12 @@ class SpacesController < ApplicationController
       format.xml  { head :ok }
       format.atom { head :ok }
     end
+  end
+  
+  def create_group
+      @group = Group.new(:name => @space.emailize_name, :mailing_list => @space.mailing_list)
+      @group.users << @space.users(:role => "admin")
+      @group.users << @space.users(:role => "user")
   end
 
   def join

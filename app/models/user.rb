@@ -84,16 +84,16 @@ end
   end
   
   after_update { |user|
-    #if group.reload_mail_list_server_because_of_environment
-      if user.email_changed?
+      if user.email_changed? 
         user.groups.each do |group|
-          `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name }`
-          group.mail_list_archive
-          `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{ group.email_group_name}`
+          if group.mailing_list.present?
+            delete_at_jungla(group,group.mailing_list)
+            group.mail_list_archive
+            copy_at_jungla(group,group.mailing_list)
+          end
         end
         Group.request_update_at_jungla
       end
-    #end
   }
   
  

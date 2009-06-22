@@ -22,7 +22,7 @@
 	<div class="post-content">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
 	    <div id="edit" class="group_links">
-	  	  <%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%> 
+	  	  <%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%> 
 		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => "delete comment", :confirm => "are you sure?"}) if post.authorizes?(:delete, :to => current_user)%> 
 	    </div>
 	  <%end%>
@@ -44,15 +44,15 @@
 		</li>
         <%if post.text.size < 100%>
 		  <li>
-		    <%=sanitize(post.text)%>
+		    <%=sanitize(auto_link(simple_format(post.text)))%>
 		  </li>
 		<%else%>
 		  <li id="collapsed_post_<%=post.id%>" style="display:none">
-			<%=sanitize(first_words(post.text,100))%>
+			<%=sanitize(first_words(auto_link(post.text),100))%>
 			<%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
 		  </li>
 		  <li id="expanded_post_<%=post.id%>">
-			<%=sanitize(post.text)%><br />
+			<%=sanitize(auto_link(simple_format(post.text)))%><br />
 		  </li>
 		<%end%>
 	  </ul> 

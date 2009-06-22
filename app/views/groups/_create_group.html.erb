@@ -13,6 +13,15 @@
 		<label for="Group Name">Group Name</label><br/>
 		<%= f.text_field :name, :size => 25 %>
 		</p>
+		
+		<p class="check_mail">
+			<label for="mailing_list">Mailing List</label><%= check_box_tag(:mail,"1",group.mailing_list.present?) %>
+		</p>
+		
+		<p class="mail_group", style="<%= "display :none;" unless group.mailing_list.present? %> '">
+		vcc-<%= f.text_field :mailing_list, :size => 10 %>@dit.upm.es
+		</p>
+		
 		<div id="selected_users">
       <label for="selected_users" style="display: none;">Included users:</label><br/>
     </div>

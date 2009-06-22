@@ -8,17 +8,18 @@ class Space < ActiveRecord::Base
   acts_as_resource :param => :permalink
   acts_as_container
   acts_as_stage
+  attr_accessor :mailing_list
   has_logo
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
   
-  after_create { |space| 
-    group = Group.new(:name => space.emailize_name, :space_id => space.id)
-    group.users << space.users(:role => "admin")
-    group.users << space.users(:role => "user")
-    group.save
-  }
+  #after_create { |space|
+      #group = Group.new(:name => space.emailize_name, :space_id => space.id, :mailing_list => space.mailing_list)
+      #group.users << space.users(:role => "admin")
+      #group.users << space.users(:role => "user")
+      #group.save
+  #}
 
   named_scope :public, lambda {
     { :conditions => { :public => true } }
