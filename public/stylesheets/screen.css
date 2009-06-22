@@ -43,7 +43,7 @@ button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 .person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
 .blue{color:#244974;}
 .selector_title{color:#999;}
-.small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}/**/
+.small {font-size:.8em;/*margin-bottom:1.875em;*/line-height:1.875em;}/**/
 .large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}/**/
 .small-font{font-size:0.9166em;line-height:1.6363;color:#555;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
