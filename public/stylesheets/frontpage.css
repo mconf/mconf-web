@@ -165,3 +165,5 @@ p.dark_blue{color:#244974;}
 #footer a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
+#thumbs ul li{display: inline;list-style-type: none;}
+.right-align {float:right}

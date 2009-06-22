@@ -9,6 +9,10 @@
     
   <link href="stylesheets/frontpage.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="stylesheets/galleriffic.css" type="text/css" />
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>   
+    <%= javascript_include_tag 'jquery.galleriffic.js'%>
     
     <!--[if IE]> 
     <link href="stylesheets/ie.css?1242919478" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -62,16 +66,123 @@
     </div>
     
     <div class="about-wrapper">
+        <div id="container">
       <h3 class="title">Photo Gallery</h3>
-        <div class="pics">
-          <img alt="Pic-gallery1" src="images/demo/pic-gallery1.jpg" title="GEANT2_1" />
-        </div>
-        <div class="pics">
-          <img alt="Pic-gallery2" src="images/demo/pic-gallery2.jpg" title="GEANT2_2" />
-        </div>
-        <div id="end" class="pics">
-          <img alt="Pic-gallery3" src="images/demo/pic-gallery3.jpg" title="GEANT2_3" />
-        </div>
+       <div id="gallery" class="content">
+      		<div id="controls" class="controls"></div>
+		<div id="loading" class="loader"></div>
+		<div id="slideshow" class="slideshow"></div>
+		<div id="caption" class="embox"></div>
+	</div>
+      <div id="thumbs" class="navigation">
+	  <ul class="thumbs noscript">
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery1.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery1-small.jpg" alt="GEANT2 A Global Leader thumbnail 1" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p><span class="right-align"><a href="images/demo/pic-gallery1-original.jpg">Original Size</a></span>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery2.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery2-small.jpg" alt="GEANT2 A Global Leader thumbnail 2" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery3.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery3-small.jpg" alt="GEANT2 A Global Leader thumbnail 3" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery4.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery4-small.jpg" alt="GEANT2 A Global Leader thumbnail 4" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery5.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery5-small.jpg" alt="GEANT2 A Global Leader thumbnail 5" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery6.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery6-small.jpg" alt="GEANT2 A Global Leader thumbnail 6" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery7.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery7-small.jpg" alt="GEANT2 A Global Leader thumbnail 7" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery8.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery8-small.jpg" alt="GEANT2 A Global Leader thumbnail 8" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery9.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery9-small.jpg" alt="GEANT2 A Global Leader thumbnail 9" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+		<li>
+		<a class="thumb" href="images/demo/pic-gallery10.jpg" title="GEANT2 A Global Leader">
+		    <img src="images/demo/pic-gallery10-small.jpg" alt="GEANT2 A Global Leader thumbnail 10" />
+		</a>
+		<div class="caption">
+		    GEANT2 A Global Leader<p>
+		    3-4 March 2008<p>
+		    Bled Slovenia<p>
+		</div>
+		</li>
+         </ul>
+       </div>
+       	<!-- End Advanced Gallery Html Containers -->
+	<div style="clear: both;"></div>
+      </div>
+      
+      
     </div>
         
       </div>
@@ -166,6 +277,67 @@
       </div>
 
    </div>
+   <script type="text/javascript">
+			// We only want these styles applied when javascript is enabled
+			$('div.navigation').css({'width' : '570px', 'float' : 'left'});
+			$('div.content').css('display', 'block');
+
+			// Initially set opacity on thumbs and add
+			// additional styling for hover effect on thumbs
+			var onMouseOutOpacity = 0.67;
+			$('#thumbs ul.thumbs li').css('opacity', onMouseOutOpacity)
+				.hover(
+					function () {
+						$(this).not('.selected').fadeTo('fast', 1.0);
+					}, 
+					function () {
+						$(this).not('.selected').fadeTo('fast', onMouseOutOpacity);
+					}
+				);
+
+			$(document).ready(function() {
+				// Initialize Advanced Galleriffic Gallery
+				var galleryAdv = $('#gallery').galleriffic('#thumbs', {
+					delay:                  2000,
+					numThumbs:              12,
+					preloadAhead:           10,
+					enableTopPager:         true,
+					enableBottomPager:      true,
+					imageContainerSel:      '#slideshow',
+					controlsContainerSel:   '#controls',
+					captionContainerSel:    '#caption',
+					loadingContainerSel:    '#loading',
+					renderSSControls:       true,
+					renderNavControls:      true,
+					playLinkText:           'Play Slideshow',
+					pauseLinkText:          'Pause Slideshow',
+					prevLinkText:           '&lsaquo; Previous Photo',
+					nextLinkText:           'Next Photo &rsaquo;',
+					nextPageLinkText:       'Next &rsaquo;',
+					prevPageLinkText:       '&lsaquo; Prev',
+					enableHistory:          false,
+					autoStart:              false,
+					onChange:               function(prevIndex, nextIndex) {
+						$('#thumbs ul.thumbs').children()
+							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+							.eq(nextIndex).fadeTo('fast', 1.0);
+					},
+					onTransitionOut:        function(callback) {
+						$('#caption').fadeOut('fast');
+						$('#slideshow').fadeOut('fast', callback);
+					},
+					onTransitionIn:         function() {
+						$('#slideshow, #caption').fadeIn('fast');
+					},
+					onPageTransitionOut:    function(callback) {
+						$('#thumbs ul.thumbs').fadeOut('fast', callback);
+					},
+					onPageTransitionIn:     function() {
+						$('#thumbs ul.thumbs').fadeIn('fast');
+					}
+				});
+			});
+		</script>
   </body>
 </html>
 
