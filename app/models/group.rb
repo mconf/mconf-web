@@ -73,19 +73,19 @@ class Group < ActiveRecord::Base
     
     def self.request_update_at_jungla
       if check_domain
-        `ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
+        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
       end
     end
     
     def self.copy_at_jungla(group,list)
       if check_domain
-        `scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{list}`
+        `sudo -u vcc-list scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{list}`
       end
     end
     
     def self.delete_at_jungla(group,list)
       if check_domain
-        `ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{list}`
+        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{list}`
       end
     end
     
