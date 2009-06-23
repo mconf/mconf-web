@@ -188,6 +188,9 @@ class SpacesController < ApplicationController
   end
   
   def create_group
+    if params[:mail].blank?
+      @space.mailing_list = ""
+    end
       @group = Group.new(:name => @space.emailize_name, :mailing_list => @space.mailing_list)
       @group.users << @space.users(:role => "admin")
       @group.users << @space.users(:role => "user")

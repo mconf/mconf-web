@@ -18,7 +18,7 @@
 			<label for="mailing_list">Mailing List</label><%= check_box_tag(:mail,"1",group.mailing_list.present?) %>
 		</p>
 		
-		<p class="mail_group", style="<%= "display :none;" unless group.mailing_list.present? %> '">
+		<p class="mail_group">
 		vcc-<%= f.text_field :mailing_list, :size => 10 %>@dit.upm.es
 		</p>
 		
