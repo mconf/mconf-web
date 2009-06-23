@@ -2,7 +2,7 @@
   <%= link_to( image_tag("buttons/create_space_amarillo.png"), new_space_path,:class => "new_space_link")%>
 <%end%>
 
-<ul>
+<ul class="first_ul">
 	<%@global = Space.find_by_name("GLOBAL")%>
 	<%if @global.present?%>
 		<h3 class="selector_title">Main Space</h3>
@@ -12,6 +12,8 @@
 	  	<li class="vip-space"><%= link_to(@global.name, @global) %></li>
 		<%end%>
 	<%end%>	
+</ul>
+<ul>
   <% if authenticated? && current_user.spaces.any? %>
     <h3 class="selector_title"><%= "My Spaces" %></h3>
     <% (current_user.spaces - [@global]).each do |s| %>

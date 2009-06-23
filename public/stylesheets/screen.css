@@ -130,6 +130,7 @@ div.space-desc h3, div.space-desc p{color:#244974;}
 #selector ul li.selected a{color:white;}
 #selector ul li:hover {background-color:#ffa903; }
 #selector .selected{text-decoration:none;font-weight:bold;}
+#selector .first_ul{margin:0 0 0 0;}
 h3.selector_title{color:#244974}
 #menu{background:#e1eef5;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
