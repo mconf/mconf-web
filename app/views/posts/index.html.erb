@@ -58,8 +58,14 @@ $("a.reply_to_link").click(function(){
         $(".new_reply_options").click(function(){
         $(".new_reply_options").removeClass("selected");
         $(this).addClass("selected");});
-				
-				style_file_input();
+	style_file_input();
+	var destination = $('#add').offset().top;
+	$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
+		window.location.hash = '#add'
+	});
+	setTimeout(function() {
+           $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+	}, 1000);
       }
     );
 	return false;
@@ -79,12 +85,20 @@ $("a.edit_post_link").click(function(){
          $(".edit_thread_options").removeClass("selected");
          $(this).addClass("selected");});
 				 
-				 /*Edit reply*/
-				 $(".edit_reply_options").click(function(){
-			 	 $(".edit_reply_options").removeClass("selected");
-		 		 $(this).addClass("selected");});
-				 
-				 style_file_input();
+	 /*Edit reply*/
+	 $(".edit_reply_options").click(function(){
+	 $(".edit_reply_options").removeClass("selected");
+	 $(this).addClass("selected");});
+	 
+	 style_file_input();
+	 var destination = $('#add').offset().top;
+	 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
+		window.location.hash = '#add'
+	 });
+	 setTimeout(function() {
+           $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+	   $("#edit_thread").effect("highlight", {color:"#F5DF51"}, 3000);
+	 }, 1000);	
       }
     );
   return false;
@@ -116,6 +130,7 @@ $("a.edit_post_link").click(function(){
 	<h3>About <em><%=@space.name%></em></h3>
 	  <p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%><%= sanitize(space.description) if space.description.present? %></p>
 	</div>	
+	<a id="add" name="add"></a>
 <%if @space.authorizes?([:create, :content],:to => current_user)%>
 	
   	<% if params[:reply_to]%>
@@ -134,5 +149,6 @@ $("a.edit_post_link").click(function(){
   	<%end%>  
 	<% end %>
 <% end %>
+
 	<%= render :partial => "posts", :object => @posts %>
 <%= will_paginate @posts %>
