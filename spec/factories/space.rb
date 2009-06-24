@@ -12,24 +12,23 @@ Factory.define :private_space, :parent => :space do |s|
   s.public false
 end
 
-def populated_public_space
-  s = Factory(:public_space)
+def populated_space(s)
   2.times do
     Factory.create(:admin_performance, :stage => s)
   end
   5.times do
     Factory.create(:user_performance, :stage => s)
   end
-  s
+  3.times do
+    Factory.create(:invited_performance, :stage => s)
+  end
+  s.reload
+end
+
+def populated_public_space
+  populated_space Factory(:public_space)
 end
 
 def populated_private_space
-  s = Factory(:private_space)
-  2.times do
-    Factory.create(:admin_performance, :stage => s)
-  end
-  5.times do
-    Factory.create(:user_performance, :stage => s)
-  end
-  s
+  populated_space = Factory(:private_space)
 end
