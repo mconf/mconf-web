@@ -245,6 +245,7 @@ ul.edit-post li{list-style-type:none;}
 #latest_posts div.post p{margin:0;}
 #latest_posts strong a{color:#605E5E;text-decoration:none;}
 #latest_posts span.updated a{text-decoration:none;color:#666;}
+#latest_posts h3 span,#inc-events h3 span{float:right;}
 div.post a:hover{height:100%; width:100%;}
 div.user .u_name{color:#605E5E;}
 div.post{color:#605E5E;}/**/

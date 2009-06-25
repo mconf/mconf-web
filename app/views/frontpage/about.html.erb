@@ -196,7 +196,7 @@
 			
 			<div class="global-posts">
 				<%unless @latest_global_posts.empty?%>
-					<h5><span> <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS"),formatted_space_posts_url(@global,:atom,:host => current_site.domain))%></span><%=link_to ("Latest News", space_posts_url(@global,:host => current_site.domain))%></h5>	
+					<h5><span> <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_posts_url(@global,:atom,:host => current_site.domain))%></span><%=link_to ("Latest News", space_posts_url(@global,:host => current_site.domain))%></h5>	
 					<%for post in @latest_global_posts%>
 						<ul>
 							<li>
