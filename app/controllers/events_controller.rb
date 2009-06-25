@@ -85,6 +85,7 @@ class EventsController < ApplicationController
         end
       }
       format.xml  { render :xml => @events }
+      format.atom
     end
   end
 
