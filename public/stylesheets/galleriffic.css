@@ -3,7 +3,8 @@ div.content {
 	   This is so that the slideshow content won't display unless javascript is enabled. */
 	display: none;
 	float:right;
-	width:550px; 
+	width:550px;
+	padding:0 10px; 
 }
 div.content a, div.navigation a {
 	text-decoration: none;
@@ -38,8 +39,15 @@ div.slideshow {
 }
 div.slideshow span.image-wrapper {
 	float: left;
+	margin-left:22px;
 	padding-bottom: 12px;
 }
+
+div#caption{
+	width:480px;
+	margin:0 22px;
+}
+
 div.slideshow a.advance-link {
 	padding: 2px;
 	display: block;

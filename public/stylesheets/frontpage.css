@@ -127,6 +127,7 @@ ul#prefs {list-style-type:none;margin:0;}
 .about-wrapper div#end{margin-bottom:0.75em;}
 .about-wrapper div.pics img{float:left;}
 .about-wrapper div.pics img{width:275px;}
+.about-wrapper object {margin-left:5px;}
 /*about-sidebar*/
 
 #sidebar #about-sidebar h5{padding:8px 0.5em 8px 0.5em;background:#bdd8eb;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;margin-bottom:10px;}
