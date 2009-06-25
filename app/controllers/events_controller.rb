@@ -3,7 +3,7 @@ require 'vpim/vevent'
 require 'vpim/duration'
 
 class EventsController < ApplicationController
-  before_filter :space
+  before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
 
   authorization_filter [ :read,   :content ], :space, :only => [ :index ]
