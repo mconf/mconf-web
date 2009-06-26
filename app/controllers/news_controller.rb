@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   
-  before_filter :space, :only => [ :create, :index, :destroy, :edit, :update ]
+  before_filter :space, :only => [ :create, :index, :destroy, :edit, :update,:show ]
   
   def create
     @new = News.new(params[:new])
@@ -20,6 +20,19 @@ class NewsController < ApplicationController
   def index 
     @news = @space.news.find(:all, :order => "updated_at DESC")
     @edit_news = @news.select{|n| n.id == params[:edit_news].to_i} if params[:edit_news]
+     respond_to do |format|
+      format.html{
+      }       
+      format.atom
+     end 
+  end
+  
+  def show 
+    @news = News.find(params[:id])
+     respond_to do |format|
+      format.html{
+      }       
+     end 
   end
   
   def destroy
