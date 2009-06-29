@@ -213,6 +213,8 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .post-content ul{margin:0;list-style-type:none;}
 .post-content .person_title a{text-decoration:none;}
 .post-content .person_title a:hover{text-decoration:underline;}
+.post-content p embed{width:300px;height:243px;}
+.post-content p img{max-width:350px;}
 .post-content ul a,a.edit_post_link{text-decoration:none;}
 .post-content ul a:hover,a.edit_post_link:hover{text-decoration:underline;}
 #posts .comments-status{padding:3px 0.75em;margin-left:0.75em;margin-right:0.5em;}
