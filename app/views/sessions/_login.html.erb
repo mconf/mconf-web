@@ -5,10 +5,10 @@
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
 			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
 			  <h3>Do you have an OpenID? </h3>
-			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> or use your username...</span>
+			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> or use your email...</span>
 			</div>	  		
 			<div>
-		  		<label for="login">Username or e-mail</label><br/>
+		  		<label for="login">Email or full name</label><br/>
 		  		<%= text_field_tag 'login', params[:login] %>
 	  		</div>
 	  		<div>
