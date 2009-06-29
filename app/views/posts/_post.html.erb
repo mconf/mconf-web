@@ -33,15 +33,6 @@
                                user_profile_path(post.author)
                 %>
 	  	</li>
-		<li class="attach">
-		  <%for attachment in post.attachments%>
-		    <%if attachment.post_thumbnail%>
-		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
-		    <%else%>
-		      <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
-		    <%end%>	
-		  <%end%>
-		</li>
         <%if post.text.size < 100%>
 		  <li>
 		    <%=sanitize(auto_link(simple_format(post.text)))%>
@@ -52,9 +43,18 @@
 			<%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
 		  </li>
 		  <li id="expanded_post_<%=post.id%>">
-			<%=sanitize(auto_link(simple_format(post.text)))%><br />
+			<%=sanitize(auto_link(simple_format(post.text)))%>
 		  </li>
 		<%end%>
+		<li class="attach">
+		  <%for attachment in post.attachments%>
+		    <%if attachment.post_thumbnail%>
+		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
+		    <%else%>
+		      <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+		    <%end%>	
+		  <%end%>
+		</li>
 	  </ul> 
 	 </div>
 <%end%>

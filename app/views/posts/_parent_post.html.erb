@@ -30,11 +30,11 @@
      </li>
   		</ul>
      <div id="expanded_post_<%=post.id%>">
-     <%=sanitize(auto_link(simple_format(post.text)))%><br />
+     <%=sanitize(auto_link(simple_format(post.text)))%>
      </div>
    <%end%>   
 	</div> 
-	 <p>
+	 <div class="attachment">
    <%for attachment in post.attachments%>
       <%if attachment.post_thumbnail%>
         <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
@@ -42,4 +42,4 @@
         <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
       <%end%> 
    <%end%>
-   </p>
+   </div>
