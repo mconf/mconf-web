@@ -3,6 +3,11 @@ require 'vpim/vevent'
 require 'vpim/duration'
 
 class EventsController < ApplicationController
+  # Include basic Resource methods
+  # See documentation: ActionController::StationResources
+  include ActionController::StationResources
+  include SpamControllerModule 
+
   before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
 

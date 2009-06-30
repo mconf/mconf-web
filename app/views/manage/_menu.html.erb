@@ -3,5 +3,6 @@
 		<li><%=link_to "SITE", site_path, :class => "#{'selected' if params[:controller] == 'sites'}"%></li>
 		<li><%=link_to "SPACES", manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"%></li>
 		<li><%=link_to "USERS", manage_users_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}"%></li> 
+		<li><%=link_to "SPAM", manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}"%></li> 
 	</ul>
 	</div>

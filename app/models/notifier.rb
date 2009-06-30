@@ -75,7 +75,16 @@ class Notifier < ActionMailer::Base
     @subject += ' Feedback  ' + subject
     @body ["text"] = body
   end
-
+  
+  #this methd is used when a user have sent feedback to the admin.
+  def spam_email(email,subject, body)
+    setup_email(Site.current.email)
+    
+    @from = email
+    @subject += subject
+    @body ["text"] = body
+  end
+  
   private
 
   def setup_email(recipients)

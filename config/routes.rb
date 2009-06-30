@@ -13,9 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :readers
     space.resources :events,
                      :collection => [:add_time, :copy_next_week, :remove_time],
-                     :member => { :token => :get }
+                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get }
 
-    space.resources :posts
+    space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
     space.resources :attachments
     space.resources :entries
     space.resource :logo, :member => {:precrop => :post}
@@ -55,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feedback
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
+  map.manage_spam '/manage/spam', :controller => 'manage', :action => 'spam'
   
 #LOCALE CONTROLLER (GLOBALIZE)
   map.connect ':locale/:controller/:action/:id'  

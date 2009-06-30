@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
   include ActionController::StationResources
+  include SpamControllerModule 
   
   set_params_from_atom :post, :only => [ :create, :update ]
   
