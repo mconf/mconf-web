@@ -6,18 +6,19 @@
 
 <div id="edit_thread">
 <h3>Edit thread</h3>
-  <div id="post-buttoms" class="actions">
+
+<% form_for([ @space, post ], :id => "edit-form",:html => { :multipart => true }) do |f| -%>
+  <div>
+    <label for="Title">Title</label><br/>
+    <%= f.text_field :title, :size => 25 %>
+  </div>
+  <div id="post-buttoms" class="actions margin-up">
     <ul>
       <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]), { :id => 'new_comment_link',:class =>"edit_thread_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
       <li><%= link_to 'Photos', space_posts_path(@space, :edit => params[:edit], :form => 'photos'), { :id => 'new_photo_link',:class =>"edit_thread_options #{"selected" if params[:form]=='photos'}" } %></li>
       <li><%= link_to 'Docs', space_posts_path(@space, :edit => params[:edit], :form => 'docs'), { :id => 'new_doc_link',:class =>"edit_thread_options #{"selected" if params[:form]=='docs'}" } %></li>
 	</ul>
   </div>
-<% form_for([ @space, post ], :id => "edit-form",:html => { :multipart => true }) do |f| -%>
-  <p>
-    <label for="Title">Title</label><br/>
-    <%= f.text_field :title, :size => 25 %>
-  </p>
 	
   <div id="new_photo_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
     <%= render :partial => "posts/form_photo", :object => f %>

@@ -1,12 +1,12 @@
 <h3>Add a new Thread</h3>
 
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
-  <p>
+  <div>
     <label for="Title">Title</label><br/>
     <%= f.text_field :title, :size => 25 %>
-  </p>
+  </div>
 	
-  <div id="post-buttoms" class="actions">
+  <div id="post-buttons" class="actions margin-up">
     <ul>
       <li><%= link_to 'Comment', space_posts_path(@space), { :id => 'new_comment_link',:class =>"new_thread_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
       <li><%= link_to 'Photos', space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_options #{"selected" if params[:form]=='photos'}" } %></li>

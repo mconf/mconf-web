@@ -41,6 +41,7 @@ div.slideshow span.image-wrapper {
 	float: left;
 	margin-left:22px;
 	padding-bottom: 12px;
+	min-height:381px;
 }
 
 div#caption{

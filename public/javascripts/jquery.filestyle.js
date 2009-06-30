@@ -40,7 +40,8 @@
                                 "background-position": "right",
                                 "display": "inline",
                                 "position": "absolute",
-                                "overflow": "hidden"
+                                "overflow": "hidden",
+								"margin-top": "-2px"
                             });
                             
             var filename = $('<input class="file">')
