@@ -47,11 +47,11 @@
 		<%= link_to image_tag("buttons/leave-space2.png", :alt => "Leave space" ), space_performance_path(@space, @performance), :method => :delete,:title => "Leave space", :confirm => "Are you sure you want to leave this space?" %>
   <%else%>
 	  <%if logged_in? && space.public?%>
-		  <% form_tag join_space_path(space), :id => "join_form" do %>
+		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
 	      <%= image_submit_tag("buttons/join-space.png") %>
 	    <% end %>
 		<%else%>
-		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), new_space_join_request_path(space), :class => "fancybox_link"%>
 		<%end%>
   <% end %>
 	</div>

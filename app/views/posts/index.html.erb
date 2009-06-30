@@ -121,7 +121,7 @@ $("a.edit_post_link").click(function(){
 <% content_for :sidebar do  %>
   <% unless space.users.include?(current_user) %>
   <div id="join">
-    <% form_tag join_space_path(space) do %>
+    <% form_tag space_join_requests_path(space) do %>
     <%= image_submit_tag("buttons/join-space.png") %>
     <% end %>
   </div>

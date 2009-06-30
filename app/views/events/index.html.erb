@@ -14,11 +14,11 @@
   	<%end%>
 	<%else%>
     	<%if logged_in? && space.public?%>
-		  <% form_tag join_space_path(space), :id => "join_form" do %>
+		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
 	      <%= image_submit_tag("buttons/join-space.png") %>
 	    <% end %>
 		<%else%>
-		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), join_space_path(space), :class => "fancybox_link"%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), new_space_join_request_path(space), :class => "fancybox_link"%>
 		<%end%>
 		
 		<div class="space-desc">

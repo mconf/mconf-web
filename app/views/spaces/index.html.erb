@@ -94,7 +94,7 @@
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
-              <%=link_logo(space, :size =>48, :url => join_space_path(space), :title=>space.name)%>
+              <%=link_logo(space, :size =>48, :url => new_space_join_request_path(space), :title=>space.name)%>
 			</div>
 		<% else %>
 		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 48, :title => space.name, :title => space.name)%></div>
