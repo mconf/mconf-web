@@ -1,3 +1,21 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+<%end%>
+
+<% content_for :javascript do%>
+  <%= render :partial => 'avatars/crop_avatar.js.erb' %>
+<% end %>
+
+<% content_for :sidebar do  %>
+   <div id="update_avatar">
+    <h3>Select Avatar</h3>
+    <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
+      <p><%= f.file_field :media %></p>
+      <p><%= f.submit "Update" %></p>
+    <%end%>
+  </div>
+<% end %>
+
 <div id="edit_profile" class="blue_title"><h3>Edit your profile</h3></div>
 
 <%= error_messages_for :profile %>
@@ -8,3 +26,5 @@
 
   <%= image_submit_tag 'buttons/update.png' %>
 <% end %>
+
+<div id="for_lightbox" style="display:none"></div>

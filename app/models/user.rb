@@ -66,6 +66,14 @@ def logo
   profile && profile.logo
 end
 
+def profile!
+  if profile.blank?
+    self.create_profile
+  else
+    profile
+  end
+end
+
   def spaces
     stages.select{ |s| s.is_a?(Space) }.sort_by{ |s| s.name }
   end
