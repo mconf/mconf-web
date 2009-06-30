@@ -3,6 +3,7 @@ require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/sourc
 
 class SourcesController
   before_filter :space!
+  authorization_filter [ :create, :content ], :space
 
   def create
     @source = space.sources.build(params[:source])
