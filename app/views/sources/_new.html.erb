@@ -1,0 +1,15 @@
+<div id="sources_sidebar">
+  <% setup_sources(@source || Source.new).each do |source| %>
+    <h3><%= source.title.present? && sanitize(source.title).to_s || "New source" %></h3>
+
+    <% form_for [ space, source ] do |f| %>
+      <%= f.error_messages %>
+
+      <%= render :partial => 'form', :object => f %>
+
+      <div class="margin-up">
+        <%= image_submit_tag "buttons/create.png" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

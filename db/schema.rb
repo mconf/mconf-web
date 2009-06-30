@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090618085839) do
+ActiveRecord::Schema.define(:version => 20090623101807) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -66,13 +66,13 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description",  :limit => 255
     t.string   "place"
     t.boolean  "isabel_event"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",       :default => ""
+    t.string   "colour",                      :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "marte_event",  :default => false
+    t.boolean  "marte_event",                 :default => false
     t.boolean  "marte_room"
   end
 
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
     t.integer  "space_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "guid"
   end
 
   create_table "open_id_associations", :force => true do |t|
@@ -195,19 +196,20 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
     t.string   "author_type"
     t.integer  "parent_id"
     t.integer  "event_id"
+    t.string   "guid"
   end
 
   create_table "private_messages", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",             :default => false
+    t.boolean  "checked",                            :default => false
     t.string   "title"
-    t.text     "body"
+    t.text     "body",                :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",   :default => false
-    t.boolean  "deleted_by_receiver", :default => false
+    t.boolean  "deleted_by_sender",                  :default => false
+    t.boolean  "deleted_by_receiver",                :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -221,14 +223,6 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
     t.string "province"
     t.string "country"
     t.string "user_id"
-  end
-
-  create_table "readers", :force => true do |t|
-    t.string   "url"
-    t.integer  "space_id"
-    t.datetime "last_updated"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -258,6 +252,17 @@ ActiveRecord::Schema.define(:version => 20090618085839) do
     t.boolean  "ssl",                           :default => false
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
+  end
+
+  create_table "sources", :force => true do |t|
+    t.integer  "uri_id"
+    t.string   "content_type"
+    t.string   "target"
+    t.integer  "container_id"
+    t.string   "container_type"
+    t.datetime "imported_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "spaces", :force => true do |t|

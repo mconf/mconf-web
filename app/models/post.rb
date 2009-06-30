@@ -46,7 +46,14 @@ class Post < ActiveRecord::Base
   }
   
   def author
-    User.find_with_disabled(author_id)
+    case author_type
+    when User
+      User.find_with_disabled(author_id)
+    when NilClass
+      Anonymous.current
+    else
+      author_type.constantize.find author_id
+    end
   end
   
   # This method return the 3 last comment of a thread if the thread has more than 3 comments. 
@@ -59,27 +66,27 @@ class Post < ActiveRecord::Base
     return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
   
-  def self.atom_parser(data)
+  def self.from_atom(entry)
     params = {}
-    e = Atom::Entry.parse(data)
 
-    params[:post] = {}
-    params[:post][:title] = e.title.to_s
-    params[:post][:text] = e.content.to_s
-    
-    t = []
-    e.categories.each do |c|
-      unless c.scheme
-        t << c.term
-      end
-    end
+    params[:title] = entry.title.to_s
+    params[:text] = entry.content.to_s
 
-    params[:post][:_tags] = t.join(",")
+    # Tags
+    # TODO: Move to Station plugin
+    #t = []
+    #e.categories.each do |c|
+    #  unless c.scheme
+    #    t << c.term
+    #  end
+    #end
+    #params[:_tags] = t.join(",")
 
-    ### esto es para cumplir con atom-threading
-    if in_reply_to = e.get_elem(e.to_xml, 'http://purl.org/syndication/thread/1.0', 'in-reply-to')
-      params[:posts][:parent_id] = Post.find(in_reply_to.text.to_i).id 
-    end
+    # TODO: fix this
+    ### atom-threading support
+    #if in_reply_to = entry.get_elem(entry.to_xml, 'http://purl.org/syndication/thread/1.0', 'in-reply-to')
+    #  params[:parent_id] = Post.find_by_source_entry_id(in_reply_to.text.to_s).try(:id)
+    #end
 
     #if the post is a comment, no public_read is given
     #TODO: cuando implementemos el hash de visibilidad
@@ -91,7 +98,7 @@ class Post < ActiveRecord::Base
     #entry[:public_read] = false
     #end
 
-    return params 
+    params 
   end    
 
   # Additional Permissions

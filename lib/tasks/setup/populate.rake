@@ -59,6 +59,14 @@ namespace :setup do
           group.space_id = space.id
           group.name = Populator.words(1..3).titleize
         end
+
+        News.populate 2..15 do |news|
+          news.space_id = space.id
+          news.title = Populator.words(3..8).titleize
+          news.text = Populator.sentences(2..10)
+          news.created_at = 2.years.ago..Time.now
+          news.updated_at = news.created_at..Time.now
+        end
       end
 
       users = User.all

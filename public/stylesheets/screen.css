@@ -312,10 +312,10 @@ div.pagination a{color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;}
 
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#new_invitation_div{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;overflow:auto;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3{margin-top:0;padding-top:0.75em;color:#244974;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea,{width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{height:8.3333em;margin-bottom:0.5em;}
 
 /*Actions of the sidebar: comment, photo and doc*/
@@ -333,11 +333,11 @@ div.pagination a{color:#244974;}
 
 /*admin*/
 #sidebar #space-conf div{padding-bottom:0.75em;}
-.news-wrapper{position:relative;padding-bottom:8px;border-bottom:1px #ccc solid;}
-.news-title,.news-content{padding:0 0.5em;}
-.news-title h3,.news-content{overflow:hidden;}
-.news-title h3{color:#244974;}
-.news-title ul.group_links,.news-content p{margin:0;}
+.news-wrapper,.source{position:relative;padding-bottom:8px;border-bottom:1px #ccc solid;}
+.news-title,.news-content,.source-title{padding:0 0.5em;}
+.news-title h3,.news-content,.source-title h3{overflow:hidden;}
+.news-title h3,.source-title h3{color:#244974;}
+.news-title ul.group_links,.news-content p,.source-title ul{margin:0;}
 #admission p{margin:0.75em;}
 #admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
 #admission .reqs{margin-bottom:2px;}
