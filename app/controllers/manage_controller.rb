@@ -9,4 +9,9 @@ class ManageController < ApplicationController
     @spaces=Space.find(:all,:order => "name")
   end
   
+  def spam
+    @spam_events= Event.find(:all, :conditions => {:spam => true})
+    @spam_posts = Post.find(:all, :conditions => {:spam => true})
+  end
+  
 end

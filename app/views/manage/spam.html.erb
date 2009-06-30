@@ -1,0 +1,24 @@
+<%content_for :search do%>
+  <h3>MANAGEMENT</h3>
+<%end%>
+
+<div id="manage">
+  
+  <%= render :partial => 'menu' %>
+  
+  <div "spam">
+    <%for spam in @spam_posts%>
+      <div class="spam_post">
+          <%=link_to spam.title, space_post_path(spam.space, spam)%>
+					<%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => "delete comment", :confirm => "are you sure?"}) if spam.authorizes?(:delete, :to => current_user)%> 
+					<%=link_to(image_tag("icons/confirm.png", :alt => "confirm"), edit_space_post_path(spam.space,spam,:valid => true), {:title => "this content is valid"}) if spam.authorizes?(:update, :to => current_user)%>       
+			</div>
+    <%end%>
+		<%for spam in @spam_events%>
+      <div class="spam_post">
+          <%=link_to spam.title, space_event_path(spam.space, spam)%>
+      </div>
+    <%end%>  
+  </div>
+
+</div>

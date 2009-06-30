@@ -13,12 +13,12 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :readers
     space.resources :events,
                      :collection => [:add_time, :copy_next_week, :remove_time],
-                     :member => { :token => :get }
+                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get }
 
-    space.resources :posts
+    space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
     space.resources :attachments
     space.resources :entries
-    space.resource :logo 
+    space.resource :logo, :member => {:precrop => :post}
 
     space.resources :groups
     space.resources :admissions, :collection => { :invitations => :post }
@@ -47,15 +47,17 @@ ActionController::Routing::Routes.draw do |map|
      user.resources :messages, :controller => 'private_messages' 
      user.resource :profile do |profile|
           profile.resource :logo
-	end
      end
+     user.resource :avatar, :member => {:precrop => :post}
+  end
   map.resources :roles
   map.resource :site
   map.resources :feedback
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
-
-  #LOCALE CONTROLLER (GLOBALIZE)
+  map.manage_spam '/manage/spam', :controller => 'manage', :action => 'spam'
+  
+#LOCALE CONTROLLER (GLOBALIZE)
   map.connect ':locale/:controller/:action/:id'  
   map.set 'locale/set/:id', :controller => 'locale' , :action => 'set'
 

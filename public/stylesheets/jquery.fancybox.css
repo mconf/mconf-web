@@ -81,7 +81,7 @@ div#fancy_content {
 	z-index: 100;
 	position: absolute;
 }
-
+/*
 div#fancy_div {
 	background: #000;
 	color: #FFF;
@@ -89,7 +89,7 @@ div#fancy_div {
 	width: 100%;
 	z-index: 100;
 }
-
+*/
 img#fancy_img {
 	position: absolute;
 	top: 0;
@@ -121,7 +121,7 @@ div#fancy_close {
 	display: none;
 }
 
-#fancy_ajax {
+#fancy_ajax,div#fancy_div {
 	width: 100%;
 	height: 100%;
 	overflow: auto;

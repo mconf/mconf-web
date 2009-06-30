@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090623101807) do
+ActiveRecord::Schema.define(:version => 20090629152925) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -66,13 +66,13 @@ ActiveRecord::Schema.define(:version => 20090623101807) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.text     "description",  :limit => 255
+    t.text     "description"
     t.string   "place"
     t.boolean  "isabel_event"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",                      :default => ""
+    t.string   "colour",       :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -83,8 +83,9 @@ ActiveRecord::Schema.define(:version => 20090623101807) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "marte_event",                 :default => false
+    t.boolean  "marte_event",  :default => false
     t.boolean  "marte_room"
+    t.boolean  "spam",         :default => false
   end
 
   create_table "groups", :force => true do |t|
@@ -196,6 +197,7 @@ ActiveRecord::Schema.define(:version => 20090623101807) do
     t.string   "author_type"
     t.integer  "parent_id"
     t.integer  "event_id"
+    t.boolean  "spam",        :default => false
     t.string   "guid"
   end
 
@@ -203,13 +205,13 @@ ActiveRecord::Schema.define(:version => 20090623101807) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",                            :default => false
+    t.boolean  "checked",             :default => false
     t.string   "title"
-    t.text     "body",                :limit => 255
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",                  :default => false
-    t.boolean  "deleted_by_receiver",                :default => false
+    t.boolean  "deleted_by_sender",   :default => false
+    t.boolean  "deleted_by_receiver", :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -266,7 +268,7 @@ ActiveRecord::Schema.define(:version => 20090623101807) do
   end
 
   create_table "spaces", :force => true do |t|
-    t.string   "name"
+    t.string   "name",        :default => "0",   :null => false
     t.integer  "parent_id"
     t.boolean  "deleted"
     t.boolean  "public",      :default => false

@@ -1,4 +1,10 @@
+require 'RMagick'
+
 class Avatar < Logo
+  include Magick
+  
+  ASPECT_RATIO = "1/1"
+  
   has_attachment :max_size => 2.megabyte,
                  :storage => :file_system,
                  :content_type => :image,
@@ -13,4 +19,13 @@ class Avatar < Logo
                    '22' => '22x22>',
                    '16' => '16x16>'
                  }
+                 
+  validate :aspect_ratio
+
+  def aspect_ratio
+    img = Magick::Image.read(temp_path).first
+    errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily.") unless img.rows.to_f/img.columns.to_f ==  ASPECT_RATIO.to_f
+  end
+
+  
 end

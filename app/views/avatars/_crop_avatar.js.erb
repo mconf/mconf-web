@@ -1,0 +1,52 @@
+  style_file_input();
+  $("div#update_avatar form").attr("action","<%=precrop_user_avatar_path(@profile.user)%>");
+	$("div#update_avatar form input[type=hidden][name=_method][value=put]").remove();
+	
+	$("div#update_avatar form").ajaxForm(function(data) {
+	  
+		$("#for_lightbox").append(data);
+		
+		$("<a href=#for_lightbox></a>").fancybox({
+		  'hideOnContentClick' : false,
+			'frameWidth' : 200,
+			'frameHeight' : 200,
+			'callbackOnShow' : function(){
+		      $("#for_lightbox").children().remove();
+					var size;
+					if ($("#croplogo").attr("width")<$("#croplogo").attr("height")){
+					  size = $("#croplogo").attr("width");
+					}else{
+					  size = $("#croplogo").attr("height");
+					}	    
+			    $("#croplogo").Jcrop({
+			      onSelect: cropImage,
+			      onChange: cropImage,
+			      aspectRatio: <%=Avatar::ASPECT_RATIO%>,
+						setSelect: [size/4,size/4,3*size/4,3*size/4]
+          });
+					if ($("#croplogo").height() +90 >200){
+					  $("#fancy_outer").height($("#croplogo").height() + 90);
+					}
+					if ($("#croplogo").width()+30 > 200){
+					  $("#lightbox-logo").width($("#croplogo").width()-18);
+						$("#fancy_outer").width($("#croplogo").width()+30);
+					}
+			  }
+		}).click(); 
+  });
+	
+	 $("#avatar_submit").click(function(){
+      if($("#avatar_media").val()==""){
+        alert("Select an image, please");
+        return false;
+      }
+  });
+	
+	 function cropImage (c){
+    $("#crop_size_x").val(c.x);
+    $("#crop_size_y").val(c.y);
+    $("#crop_size_height").val(c.h);
+    $("#crop_size_width").val(c.w);
+    // c.x, c.y, c.x2, c.y2, c.w, c.h
+
+  };

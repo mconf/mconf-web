@@ -1,4 +1,4 @@
-#fancy_ajax{background:#ebebeb;}
+#fancy_ajax, #fancy_div{background:#ebebeb;}
 #lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;text-shadow:#000 1px 1px 1px;color:#333;}
 #lightbox-logo{padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;}
 #lightbox-logo img{margin:0 4px -4px 0;}
@@ -26,6 +26,24 @@ div#feedback_form p label {float:left;display:block;width:20%;padding-top:0.25em
 div#feedback_form input[type="submit"]{margin-left:20%;}
 h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 
+/*
+ * Crop
+ */
+#crop-avatar-lightbox-content,#crop-logo-lightbox-content{text-align: center;margin-top:5px;}
+#avatar_submit, #logo_submit {
+  margin-top: 5px;
+  border:none;
+  font-family:"Lucida Grande";
+  font-size:95%;
+  line-height:135%;
+  text-decoration:none;
+  font-weight:bold;
+  background:#275b8a;
+  color:#FFF;
+  margin-right:4px;
+  cursor:pointer;
+  -webkit-border-radius:7px;-moz-border-radius:7px;
+}
 
 /*kikeCSS */
 .blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
