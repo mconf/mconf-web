@@ -44,11 +44,9 @@
 			<h5><img class="icon" src="images/icons/comment.png"/> Recent comments </h5>
 				<%for comment in @recent_posts%>
 					<ul>
-			  		<li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
-			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 100))%>  <%= link_to "read more>>" ,space_post_path(comment.space,comment)%></p>
-						
-			  		</li>
-												
+			  		  <li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
+			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to "read more>>" ,space_post_path(comment.space,comment)%></p>
+					  </li>							
 					</ul>
 				<%end%>			
 			

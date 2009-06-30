@@ -147,10 +147,11 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 #sidebar h5{font-size:1.1em;line-height:1.3636;color: #244974;}
 #sidebar h5{padding-bottom:0.75em;border-bottom:1px #ccc solid;}
 #sidebar .rcnt-posts li a{font-weight:bold;color:#244974;text-decoration:none;}
-#sidebar .rcnt-posts li a:hover{color:#555;}
+#sidebar .rcnt-posts li a:hover{text-decoration:underline;}
 .rel-users div img{margin-left:2.5px;margin-right:2.5px;}
 .rcnt-posts ul{list-style-type:none;margin-left:0;margin-bottom:0.5em;}
 .rcnt-posts .last p{margin-bottom:0;}
+.rcnt-posts ul img{display:none;}
 .updated{color:#8C8A8A;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
