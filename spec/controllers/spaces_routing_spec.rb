@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SpacesController do
+=begin
   describe "route generation" do
     it "should map #index" do
       route_for(:controller => "spaces", :action => "index").should == "/spaces"
@@ -56,4 +57,5 @@ describe SpacesController do
       params_from(:delete, "/spaces/1").should == {:controller => "spaces", :action => "destroy", :id => "1"}
     end
   end
+=end
 end

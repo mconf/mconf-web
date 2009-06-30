@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe SpacesController do
+=begin
   include ActionController::AuthenticationTestHelper
   fixtures :users , :spaces , :performances, :roles, :permissions
   
@@ -618,4 +619,5 @@ describe SpacesController do
       end
     end
   end   
+=end
 end

@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Post do
+=begin
   fixtures :users, :spaces
 
   before(:each) do
@@ -31,4 +32,5 @@ describe Post do
     a.container = @container
     a.should_not be_valid
   end
+=end
 end

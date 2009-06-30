@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe UsersController do
+=begin
   #integrate_views
   include ActionController::AuthenticationTestHelper
   fixtures :users , :spaces, :performances , :roles, :permissions
@@ -1088,4 +1089,5 @@ describe UsersController do
       end 
     end         
   end   
+=end
 end
