@@ -1,11 +1,13 @@
 <%content_for :search do%>
-  <h3>MANAGEMENT</h3>
+  <div id="management-title">
+	<span>MANAGEMENT</span>
+  </div>
 <%end%>
 
-<div id="manage">
+
   
   <%= render :partial => 'menu' %>
-  
+<div id="manage">  
   <div "spaces">
     <%for space in @spaces%>
       <div class="user">

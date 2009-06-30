@@ -1,19 +1,19 @@
-<div id="manage">
-	<%= render :partial => 'manage/menu' %>
 
+	<%= render :partial => 'manage/menu' %>
+<div id="manage">
   <p>
     <label><%= t('site.name') %>:</label>
-    <%= sanitize site.name %>
+    <span><%= sanitize site.name %></span>
   </p>
 
   <p>
     <label><%= t('site.description') %>:</label> 
-    <%= sanitize site.description %>
+    <span><%= sanitize site.description %></span>
   </p>
 
   <p>
     <label><%= t('site.logo') %>:</label> 
-    <%= logo(site, :size=> 96) %>
+    <%= logo(site, :size=> 'h96') %>
   </p>
 
   <p>
@@ -41,5 +41,5 @@
     <%= sanitize site.exception_notifications_email %>
   </p>
 
-  <p><%= link_to image_tag("buttons/edit.png", :alt => "Edit", :id => "edit_link"), edit_site_path %></p>
+  <div><%= link_to image_tag("buttons/edit.png", :alt => "Edit", :id => "edit_link"), edit_site_path %></div>
 </div>

@@ -287,7 +287,8 @@ a.box-link{position:absolute;display:block;text-indent:-9999em;top:-1px;left:-2p
 #events_links a{text-decoration:none;color:#244974;padding-left:2px; padding-right:2px;}
 #events_links a:hover{background-color:#244974;color:white;}
 p.event_name a, span.event-name {color:#8b0425;}
-p.event_name a{font-weight:bold;}
+p.event_name a{font-weight:bold;text-decoration:none;}
+p.event_name a:hover{text-decoration:underline;}
 li.author a, #change-event h3, #sidebar{color:#244974;}
 #sidebar a{text-decoration:none;color:#244974; }
 #sidebar a:hover{text-decoration:underline;}
@@ -380,15 +381,21 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 .vcard form div{margin-left:1.5em;}
 
 /*Manage*/
+div#management-title{width:384px;margin-left:190px;float:left;}
+div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div.user a{color:#8b0425;text-decoration:none;}
-div#manage p {clear:both;padding-top: 20px;margin:0;}
-div#manage label{font-weight:bold;float:left;display:block;width:150px}
-div#preview_logo{margin:0px 0px 20px 150px;}
+div#manage p {clear:both;padding:8px 9px 9px 9px;margin:0;/*border-bottom:1px #ccc solid;*/}
+div#manage label{color:#244974;font-weight:bold;display:inline-block;width:150px}
+div#preview_logo{margin:0px 0px 9px 10px;}
+div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
 div#manage input#site_submit{width:70px;margin-left:150px;}
 div#manage textarea{width:300px;height:100px;}
-div#manage img#edit_link{margin-left:150px;}
+div#manage img#edit_link{margin-left:163px;}
+div#manage .user{background:none;}
+div#manage .user a{color:#244974;font-weight:bold;text-decoration:none;}
+div#manage .user a:hover{text-decoration:underline;}
 
 /*footer*/
 .clearboth{clear:left;display:inline;}
@@ -405,12 +412,12 @@ div#manage img#edit_link{margin-left:150px;}
 /*Inbox*/
 #inbox-wrapper{background:#fff url("/images/dot1.png") repeat-x bottom;}
 ul#inbox{margin:0.75em 0 0 0;list-style-type:none;font-size:1em;line-height:1.5;font-weight:bold;}
-ul#inbox li{display:inline;margin-right:-4px;}
+ul#inbox li{display:inline;margin-right:-3px;}
 ul#inbox li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #f0f0f0;text-decoration:none;background:#BDD8EB; color:#244974;}
 ul#inbox li .selected{background:#f0f6f9;border-bottom:1px #f0f6f9 solid;color:#244974;padding-top:9px;border-right:1px #bdd8eb solid;border-left:1px #bdd8eb solid;border-top:1px #bdd8eb solid;}
 ul#inbox li a:hover,ul#inbox li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 ul#inbox li .selected:hover{background:#f0f6f9; color:#244974;}
-div#show-posts{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;}
+div#show-posts,#manage{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;}
 div.message_div{padding:0.5em 0;border-top:1px #ccc solid;}
 td.picture{width:40px;padding-left:0.5em;}
 td.name_date .name{width:120px;display:block;overflow:hidden;margin-right:20px;}

@@ -11,9 +11,10 @@
     });
 <%end%>
 
-<div id="manage">
-  <%= render :partial => 'manage/menu' %>
 
+  <%= render :partial => 'manage/menu' %>
+<div id="manage">
+  
   <%= error_messages_for :site %>
 
 <% form_for(:site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
@@ -28,7 +29,7 @@
   </p>
 
   <p>
-  	<%= f.label :logo, t('site.logo') %>
+  	<%= f.label :logo, t('site.logo') %><br/>
     <%= file_field_tag "site[_logo][media]" %>
     <div id="preview_logo"><%= preview site.logo %></div>
   </p>
@@ -39,7 +40,8 @@
   </p>
 
   <p>
-    <%= f.label :ssl, t('site.ssl') %>
+    <!--<%= f.label :ssl, t('site.ssl') %>-->
+	<strong class="blue">SSL </strong>
     <%= f.check_box :ssl %>
   </p>
 
@@ -49,7 +51,8 @@
   </p>
 
   <p>
-    <%= f.label :exception_notifications, t('site.exception_notifications') %>
+    <!--<%= f.label :exception_notifications, t('site.exception_notifications') %>-->
+	<strong class="blue">Send debug emails </strong>
     <%= f.check_box :exception_notifications %>
   </p>
 
