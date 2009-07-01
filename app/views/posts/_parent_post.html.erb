@@ -16,8 +16,8 @@
 			<li class="person_title">
                         <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
                                        post.author.name,
-                                       user_profile_path(post.author)
-                        %>
+                                       user_profile_path(post.author)%>
+			<span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span>
 			</li>
    			<%if post.text.size < 500%>
 	     	<li>

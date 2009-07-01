@@ -6,8 +6,7 @@
 		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete" ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => "delete" , :confirm => "Do you want to delete this thread?"}if @post.authorizes?(:delete, :to => current_user)%></li>		
 	  </ul>
 	</div>
-  	<h2><%=image_tag("icons/comment.png")%><%=link_to (@post.title, space_post_path(@space,@post))%>
-	<span class="updated"> Updated <%=time_ago_in_words(@post.updated_at)%> ago</span>
+  	<h2><%=image_tag("icons/comments.png")%><%=link_to (@post.title, space_post_path(@space,@post))%>
 	</h2>
 	
   </div>

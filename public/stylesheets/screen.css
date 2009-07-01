@@ -185,13 +185,15 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .even_thread .post-wrapper:hover{background:url("/images/comments-bg2.png") no-repeat scroll left top;}
 
 /*main format at threads and posts for the titles and divs */
+#change_view{border:1px #bdd8eb solid;background:#f0f6f9;/*text-align:right;*/padding:0.75em;margin-bottom:0.75em;color:#244974;}
 .thread-title{padding:0.5em 0;margin:0.25em 0;}
 #posts h2{margin-bottom:0;margin-left:0.75em;font-size:1.666em;line-height:1.333;}
 #post_with_children h2{margin-bottom:0;font-size:1.666em;line-height:1.333;}
+#posts h2 a.extend_thread,#posts h2 a.collapse_thread{margin-right:4px;}
 #posts h2 a,#post_with_children h2 a{color:#244974;text-decoration:none;}
 #posts h2 a:hover,#post_with_children h2 a:hover{text-decoration:underline;}
-#posts .updated,#post_with_children .updated{color:#666;font-weight:normal;font-size:0.555em;line-height:1.8;}
-/*.open,.close{margin-bottom:0.5em;}*/
+#posts .updated,#post_with_children .updated{color:#666;font-weight:normal;font-size:0.9166em;line-height:1.636;}
+.open,.close{margin-bottom:5px;}
 
 .post-wrapper, .event-comment-wrapper{margin-left:10px;padding-left:10px;}
 .post{background:white;clear:both;font-size:0.9166em;line-height:1.6363;overflow:hidden;position:relative;padding:0.5em;/*border-bottom:1px #CCC solid;*/}

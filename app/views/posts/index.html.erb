@@ -133,10 +133,7 @@ $("a.edit_post_link").click(function(){
   <% end %>
 <%end%>
 <% content_for :sidebar do  %>
-  <div id="change_view">
-  	<%=link_to "Switch to compact view", space_posts_path(@space) if params[:extended]%>
-		<%=link_to "Switch to extended view", space_posts_path(@space, :extended => true) unless params[:extended]%>
-  </div>
+
   <% unless space.users.include?(current_user) %>
   <div id="join">
     <% form_tag space_join_requests_path(space) do %>
@@ -169,6 +166,11 @@ $("a.edit_post_link").click(function(){
 <% end %>
 
 <!-- Content -->
+<div id="change_view">
+  <%=("Want to compress all conversations? " + link_to ("Switch to compact view", space_posts_path(@space))) if params[:extended]%>
+  <%=("Want to see more about the threads? " + link_to ("Switch to extended view", space_posts_path(@space, :extended => true))) unless params[:extended]%>
+</div>
+
 <%if params[:extended]%>
   <%= render :partial => "extended_threads", :locals => {:threads => @posts} %>
 <%else%>
