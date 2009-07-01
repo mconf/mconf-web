@@ -3,7 +3,7 @@ class SpacesController < ApplicationController
 
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
-  authorization_filter :delete, :space, :only => [:destroy]
+  authorization_filter :delete, :space, :only => [:destroy, :enable]
 
   set_params_from_atom :space, :only => [ :create, :update ]
 
@@ -172,13 +172,14 @@ class SpacesController < ApplicationController
   # DELETE /spaces/1.atom
   def destroy
     @space_destroy = Space.find_with_param(params[:id])
-    @space_destroy.destroy
-    flash[:notice] = 'Space was successfully removed.'
+    @space_destroy.disable
     respond_to do |format|
       format.html {
         if request.referer.include?("manage") && current_user.superuser?
-          redirect_to manage_path
+          flash[:notice] = 'Space was successfully disabled.'
+          redirect_to manage_spaces_path
         else
+          flash[:notice] = 'Space was successfully removed.'
           redirect_to(spaces_url)
         end
       }
@@ -196,9 +197,33 @@ class SpacesController < ApplicationController
       @group.users << @space.users(:role => "user")
   end
 
+  def enable
+    
+    unless @space.disabled?
+      flash[:notice] = "Space " + @space.name + " is already enabled"
+      redirect_to request.referer
+      return
+    end
+    
+    @space.enable
+    
+    flash[:success] = "Space succesfully enabled."
+    respond_to do |format|
+      format.html {
+          redirect_to manage_spaces_path
+      }
+      format.xml  { head :ok }
+      format.atom { head :ok }
+    end
+  end
+
   private
   
   def space
-    @space ||= Space.find_with_param(params[:id])
+    if params[:action] == "enable"
+      @space ||= Space.find_with_disabled_and_param(params[:id])
+    else
+      @space ||= Space.find_with_param(params[:id])  
+    end
   end
 end
