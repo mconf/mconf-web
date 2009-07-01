@@ -1,3 +1,9 @@
+<% content_for :javascript do %>
+  $(document).ready(function() {
+  	$("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+  })
+<% end %>
+
 <div id="new_reply">
 <h3 class="selector_title">New comment</h3>
   <div id="post-buttoms" class="actions">
