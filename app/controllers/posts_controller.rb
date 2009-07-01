@@ -350,10 +350,11 @@ end
 
   # DRY (used in index and create.js)
   def posts
+   per_page = params[:extended] ? 4 : 10
    @posts ||= Post.parent_scoped.in_container(@space).not_events().find(:all, 
                                                      :order => "updated_at DESC"
                                                    ).paginate(:page => params[:page],
-                                                              :per_page => 5)       
+                                                              :per_page => per_page)       
   
   end
 

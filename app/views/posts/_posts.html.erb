@@ -1,8 +1,0 @@
-<div id="posts">
-  <%if @posts.empty?%>
-    <p>There aren't messages in this forum</p>
-	<%end%>
-	<% posts.each do |post| -%>
-    <%= render :partial => "thread" , :object => post %>
-  <% end -%>
-</div>

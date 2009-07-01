@@ -7,6 +7,20 @@
 
 <% content_for :javascript do %>
 
+/*
+ *  Expand and collapse thread
+ */
+  extend_thread = function(id){
+	  $("#parent_" + id + " .extended_thread").show();
+		$("#parent_" + id + " .extend_thread").hide();
+		$("#parent_" + id + " .collapse_thread").show();
+	}
+	
+	collapse_thread = function(id){
+    $("#parent_" + id + " .extended_thread").hide();
+		$("#parent_" + id + " .extend_thread").show();
+    $("#parent_" + id + " .collapse_thread").hide();
+  }  
 
 /*
  *  New thread panel
@@ -119,6 +133,10 @@ $("a.edit_post_link").click(function(){
   <% end %>
 <%end%>
 <% content_for :sidebar do  %>
+  <div id="change_view">
+  	<%=link_to "Switch to compact view", space_posts_path(@space) if params[:extended]%>
+		<%=link_to "Switch to extended view", space_posts_path(@space, :extended => true) unless params[:extended]%>
+  </div>
   <% unless space.users.include?(current_user) %>
   <div id="join">
     <% form_tag space_join_requests_path(space) do %>
@@ -131,7 +149,7 @@ $("a.edit_post_link").click(function(){
 	  <p><%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%><%= sanitize(space.description) if space.description.present? %></p>
 	</div>	
 	<a id="add" name="add"></a>
-<%if @space.authorizes?([:create, :content],:to => current_user)%>
+  <%if @space.authorizes?([:create, :content],:to => current_user)%>
 	
   	<% if params[:reply_to]%>
       	<%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
@@ -150,5 +168,10 @@ $("a.edit_post_link").click(function(){
 	<% end %>
 <% end %>
 
-	<%= render :partial => "posts", :object => @posts %>
+<!-- Content -->
+<%if params[:extended]%>
+  <%= render :partial => "extended_threads", :locals => {:threads => @posts} %>
+<%else%>
+  <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
+<%end%>
 <%= will_paginate @posts %>

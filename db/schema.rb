@@ -197,8 +197,8 @@ ActiveRecord::Schema.define(:version => 20090629152925) do
     t.string   "author_type"
     t.integer  "parent_id"
     t.integer  "event_id"
-    t.boolean  "spam",        :default => false
     t.string   "guid"
+    t.boolean  "spam",        :default => false
   end
 
   create_table "private_messages", :force => true do |t|
@@ -268,7 +268,7 @@ ActiveRecord::Schema.define(:version => 20090629152925) do
   end
 
   create_table "spaces", :force => true do |t|
-    t.string   "name",        :default => "0",   :null => false
+    t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
     t.boolean  "public",      :default => false
