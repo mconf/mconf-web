@@ -11,7 +11,7 @@
     <h3>Select Avatar</h3>
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
       <p><%= f.file_field :media %></p>
-      <p><%= f.submit "Update" %></p>
+      <div class="margin-up"><%= image_submit_tag "buttons/update.png" %></div>
     <%end%>
   </div>
 <% end %>
