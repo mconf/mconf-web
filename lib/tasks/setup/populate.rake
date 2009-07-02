@@ -34,6 +34,7 @@ namespace :setup do
         space.permalink = PermalinkFu.escape(space.name)
         space.description = Populator.sentences(1..3)
         space.public = [ true, false ]
+        space.disabled = false
 
         Post.populate 10..100 do |post|
           post.space_id = space.id
