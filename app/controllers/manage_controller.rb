@@ -2,7 +2,7 @@ class ManageController < ApplicationController
   authorization_filter :manage, :site  
   
   def users
-    @users=User.find(:all,:order => "login")
+    @users=User.find_with_disabled(:all,:order => "login")
   end
 
   def spaces

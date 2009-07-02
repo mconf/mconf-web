@@ -29,6 +29,7 @@
 			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> Active Users</h5>
 			
 			<div>
+				<%debugger%>
 				<%for user in @relevant_users%>
 				  <%if user.authorizes?([:read, :profile],:to=> current_user)%>
 					  <%=link_to logo(user, {:size=>48, :title=> user.name }), user_profile_path(user)%>
