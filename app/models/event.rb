@@ -36,6 +36,10 @@ class Event < ActiveRecord::Base
   def author
     User.find_with_disabled(author_id)
   end
+  
+  def space
+    Space.find_with_disabled(space_id)
+  end      
       
   def validate
     if self.start_date.nil? || self.end_date.nil? 

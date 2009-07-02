@@ -6,7 +6,7 @@ class ManageController < ApplicationController
   end
 
   def spaces
-    @spaces=Space.find(:all,:order => "name")
+    @spaces=Space.find_with_disabled(:all,:order => "name")
   end
   
   def spam

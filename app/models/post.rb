@@ -56,6 +56,10 @@ class Post < ActiveRecord::Base
     end
   end
   
+  def space
+    Space.find_with_disabled(space_id)
+  end
+  
   # This method return the 3 last comment of a thread if the thread has more than 3 comments. 
   # If not, return the parent post and their comments
   def three_last_comment()

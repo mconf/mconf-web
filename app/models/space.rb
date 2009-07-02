@@ -25,6 +25,16 @@ class Space < ActiveRecord::Base
     { :conditions => { :public => true } }
   }
 
+  default_scope :conditions => {:disabled => false}
+  
+  def self.find_with_disabled *args
+    self.with_exclusive_scope { find(*args) }
+  end
+
+  def self.find_with_disabled_and_param *args
+    self.with_exclusive_scope { find_with_param(*args) }
+  end
+
   def emailize_name
     self.name.gsub(" ", "")
   end
@@ -67,4 +77,13 @@ class Space < ActiveRecord::Base
 
     affs
   end
+  
+  def disable
+    self.update_attribute(:disabled,true)
+  end
+
+  def enable
+    self.update_attribute(:disabled,false)
+  end
+  
 end

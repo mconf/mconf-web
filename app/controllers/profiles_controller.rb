@@ -17,9 +17,9 @@ class ProfilesController < ApplicationController
   # if params[:hcard] then hcard is rendered
   # GET /profile.atom
   def show
-    @user_spaces = @user.stages
+    @user_spaces = @user.spaces
     #The latest posts that the user has written in shared spaces with the current user 
-    @latest_posts= @user.posts.in_container(@user.stages & current_user.stages).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
+    @latest_posts= @user.posts.in_container(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
 =begin
     if params[:hcard]
       hcard

@@ -153,9 +153,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml  
   # DELETE /users/1.atom
   def destroy
-    #debugger
-    #@user = User.find(params[:id])
-    #@user.update_attribute :disabled,true
+
     @user.disable
     
     flash[:notice] = "User #{@user.login} deleted"
