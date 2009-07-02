@@ -40,7 +40,8 @@ namespace :setup do
           post.space_id = space.id
           post.title = Populator.words(1..4).titleize
           post.text = Populator.sentences(3..15)
-          post.created_at = 2.years.ago..Time.now
+          post.spam = false
+	  post.created_at = 2.years.ago..Time.now
           post.updated_at = post.created_at..Time.now
   #        post.tag_with Populator.words(1..4).gsub(" ", ",")
         end
@@ -50,6 +51,7 @@ namespace :setup do
           event.name = Populator.words(1..3).titleize
           event.description = Populator.sentences(0..3)
           event.place = Populator.sentences(0..2)
+	  event.spam = false
           event.created_at = 1.years.ago..Time.now
           event.updated_at = event.created_at..Time.now
           event.start_date = event.created_at..1.years.since(Time.now)
