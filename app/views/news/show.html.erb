@@ -1,5 +1,5 @@
-  <%=link_to ("view all",space_news_index_path(@space))%>
-	<%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_news_index_path(@space,:atom))%>
+  <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_news_index_path(@space,:atom))%>
+  <span class="person_title"> NEWS </span> <%=link_to ("Click here to see all",space_news_index_path(@space))%>
 	<div class="news-wrapper">
     <div class="news-title">
 	  <ul class="group_links">
