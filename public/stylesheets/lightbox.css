@@ -19,11 +19,13 @@ a.selected{text-decoration:none;color:#111;font-weight:bold;}
 /*
  * Feedback
  */
-textarea#feedback_textarea {height:8.3333em;margin-bottom:0.5em;width:60%;overflow:auto;}
-input#feedback_from,input#feedback_subject{width:60%;}
-div#feedback_form {margin-left:1.5em;padding-top:2em;}
-div#feedback_form p label {float:left;display:block;width:20%;padding-top:0.25em;}
-div#feedback_form input[type="submit"]{margin-left:20%;}
+textarea#feedback_textarea,textarea#spam_textarea {height:8.3333em;margin-bottom:0.5em;width:60%;overflow:auto;}
+input#feedback_form,input#feedback_subject,input#spam_form{width:60%;}
+div#feedback_form,#spam_form{margin-left:1.5em;padding-top:2em;}
+div#feedback_form p label{float:left;display:block;width:20%;padding-top:0.25em;}
+div#spam_form p label{float:left;display:block;width:20%;}
+div#spam_form p strong{line-height:1.5;}
+div#feedback_form input[type="submit"],div#spam_form input[type="submit"]{margin-left:20%;}
 h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 
 /*

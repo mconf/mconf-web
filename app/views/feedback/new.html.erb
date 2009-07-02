@@ -7,9 +7,9 @@
 <%form_tag(feedback_index_path()) do -%>
   <div id="feedback_form">
 	<p>
-    <label for="subject">Subject:</label>
-    <%= text_field_tag 'subject',params[:subject].present? ? params[:subject] : nil, :size => 25 %>
-  </p>
+      <label for="subject">Subject:</label>
+      <%= text_field_tag 'subject',params[:subject].present? ? params[:subject] : nil, :size => 25 %>
+    </p>
 	
 	<p>
     <label for="body">Body:</label>
