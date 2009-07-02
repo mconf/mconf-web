@@ -74,7 +74,7 @@ class Post < ActiveRecord::Base
     params = {}
 
     params[:title] = entry.title.to_s
-    params[:text] = entry.content.to_s
+    params[:text] = ( entry.content.to_s.present? ? entry.content.to_s : entry.title.to_s )
 
     # Tags
     # TODO: Move to Station plugin

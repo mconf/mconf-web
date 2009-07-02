@@ -8,7 +8,7 @@ class News < ActiveRecord::Base
   class << self
     def from_atom(entry)
       { :title => entry.title.to_s,
-        :text => entry.content.to_s }
+        :text => ( entry.content.to_s.present? ? entry.content.to_s : entry.title.to_s ) }
     end
   end
 end
