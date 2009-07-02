@@ -22,4 +22,14 @@ class SourcesController
       end
     end
   end
+
+  # Have to rewrite this method because space_news_index_path is not correctly inferred, because of singularization
+  def import
+    @source = Source.find(params[:id])
+    @source.import
+
+    redirect_to ( @source.target == "News" ? 
+                 space_news_index_path(@source.container) :
+                 [ @source.container, @source.target.constantize.new ])
+  end
 end
