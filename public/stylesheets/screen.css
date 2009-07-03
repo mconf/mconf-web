@@ -42,6 +42,7 @@ button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 .item_title{color:#244974;}
 .person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
 .blue{color:#244974;}
+.bold{font-weight:bolder;}
 .selector_title{color:#999;}
 .small {font-size:.8em;/*margin-bottom:1.875em;*/line-height:1.875em;}/**/
 .large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}/**/
@@ -187,7 +188,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 /*main format at threads and posts for the titles and divs */
 #change_view{border:1px #bdd8eb solid;background:#f0f6f9;/*text-align:right;*/padding:0.75em;margin-bottom:0.75em;color:#244974;}
 .thread-title{padding:0.5em 0;margin:0.25em 0;}
-#posts h2{margin-bottom:0;margin-left:0.75em;font-size:1.666em;line-height:1.333;}
+#posts h2{margin-bottom:0;margin-left:0.75em;font-size:1.333em;line-height:1.125;}
 #post_with_children h2{margin-bottom:0;font-size:1.666em;line-height:1.333;}
 #posts h2 a.extend_thread,#posts h2 a.collapse_thread{margin-right:4px;}
 #posts h2 a,#post_with_children h2 a{color:#244974;text-decoration:none;}
@@ -223,7 +224,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 div.add-new-comment,.show-more{clear:both;text-align:right;margin-right:0.5em;padding:0 0 6px 0;}
 
 /*options links for posts, threads, people..*/
-.thread_options ul{list-style-type:none;float:right;margin:5px 5px -5px 0;}
+.thread_options ul{list-style-type:none;float:right;margin:2px 5px -5px 0;}
 .thread_options ul li{display:inline;}
 .group_links{float:right;}
 .group_links ul{margin:0.75em 0 0.666em 0.5em;}
@@ -460,3 +461,6 @@ div#jedit_form img.logo{display:block;}
 
 /*kikeCSS */
 #login_div h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
+h5.up-event{color:#244974;}
+div.read_more img{float:right;}
+div.read_more{text-align:right;}

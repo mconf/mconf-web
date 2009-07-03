@@ -1,7 +1,7 @@
 <%div_for(event) do%>
   <div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
-    	<li><%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => "Report Spam"}) if logged_in? && event.spam == false%> </li>
+    	<li><%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => "Report Spam"}) if logged_in? && event.spam != true%> </li>
       	<li><%=link_to image_tag("icons/comments-add.png",:alt => "reply",:class=>"icon" ), space_event_path(@space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => "Add a new comment"}if @space.authorizes?([:create, :content],:to => current_user)%></li>
 	<li><%=link_to image_tag("./icons/pencil.png", :alt => "edit",:class=>"icon") , space_events_path(@space,:edit => event), :title => "edit" if event.authorizes?(:update, :to => current_user) %></li>
 	  <li><%=link_to image_tag("./icons/cancel.png", :alt => "delete",:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => "delete",:confirm => "are you sure?"} if event.authorizes?(:delete, :to => current_user) %></li>

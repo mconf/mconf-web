@@ -67,14 +67,17 @@
 		 <ul>  
 		  <% for event in @upcoming_events -%>
 		    <li class="event">
-		      <%event_link="<h5>" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
+		      <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
 			  <%=link_to event_link, space_event_path(@space,event)%>
 		      <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
 		    </li>
 		  <% end -%>
 		 </ul> 
+		 <br/>
 		 <div class="read_more">
+		 	<img src="../images/icons/reply.png"></img>
 		   <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user) %>
+		   
 		 </div>
   </div>
 <% end %>
