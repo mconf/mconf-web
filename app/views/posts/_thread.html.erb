@@ -12,7 +12,7 @@
 	  <h2>
 	  	<%=link_to_function image_tag("icons/add-orange.png",:class=>"icon",:title=>"enlarge"), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"%>
 		<%=link_to_function image_tag("icons/del-orange.png",:class=>"icon",:title=>"compress conversation"), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>
-	  	<!--<%=logo(thread.author, :size=>32, :title=>thread.author.name)%>--><%=image_tag("icons/comments.png")%><%=link_to (first_words(thread.title, 30), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+	  	<!--<%=logo(thread.author, :size=>32, :title=>thread.author.name)%>--><%=image_tag("icons/comments.png",:class=>"icon")%><%=link_to (first_words(thread.title, 30), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 		<!--<span class="updated"> Updated <%=time_ago_in_words(thread.updated_at)%> ago</span>-->
 		</h2>
 	  
