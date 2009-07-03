@@ -8,9 +8,13 @@
 
 <% content_for :sidebar do  %>
    <div id="update_avatar">
-    <h3>Select Avatar</h3>
+    <%if @profile.logo%>
+      <h3>Current Avatar</h3>
+      <p><%=logo(@profile.logo, :size => 64)%></p>
+      <%end%>
+		<h3><%=@profile.logo ? "Select New Avatar" : "Select Avatar"%></h3>
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
-      <p><%= f.file_field :media %></p>
+      <p><%= f.file_field :media %></p>		
       <div class="margin-up"><%= image_submit_tag "buttons/update.png" %></div>
     <%end%>
   </div>
