@@ -105,7 +105,7 @@ body .icon{margin-bottom:-2px;}
 #logo img.logo{width:100%;}
 #name-space{width:384px;margin-left:20px;float:left;}
 #name-space span{font-size:3em;line-height:2;color:#244974;}
-#search{margin-top:26px;margin-left:32px;}
+#search{margin-top:26px;margin-left:32px;}#8a1f11
 #search input[type="text"]{font-size:1em;width:150px;}
 #search a img,#search input[type="image"]{margin-bottom:-7px;}
 #eu{float:right;margin-top:10px;}
@@ -464,3 +464,24 @@ div#jedit_form img.logo{display:block;}
 h5.up-event{color:#244974;}
 div.read_more img{float:right;}
 div.read_more{text-align:right;}
+
+div.dialog{
+	border:solid 2px #611427;
+	text-align:center;
+	margin-top:10px;
+    color:#611427;
+	background-color:#F05257;
+	
+}
+
+#alert{
+	width:50px;
+	height:50px;
+	background-image:url(../images/icons/alert.png);
+	margin-left:205px;
+	margin-top:10px;
+	
+}
+h2.white{
+	color:white;
+}
