@@ -1,8 +1,4 @@
 namespace :setup do
-  desc "All production tasks"
-  task :production_tasks => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
-  end
-
   desc "Set production environment and run all production tasks"
   task :production do
     RAILS_ENV = ENV['RAILS_ENV'] = 'production'
@@ -10,18 +6,25 @@ namespace :setup do
   end
 
   desc "Setup development environment"
-  task :development => [ :production_taks, :populate ] do
+  task :development => [ :development_tasks, :production_tasks, :populate ] do
   end
 
-  desc "Copy database.yml if it doesn't exist"
-  task :config_database do
-    print "* Checking config/database.yml: "
-    db_file = "#{ RAILS_ROOT }/config/database.yml"
+  desc "All development tasks"
+  task :development_tasks => [ :config_ultrasphinx ]
 
-    if File.exist?(db_file)
-      puts "file exists."
+  desc "All production tasks"
+  task :production_tasks => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
+  end
+
+  desc "Copy config/ultrasphinx if it doesn't exist"
+  task :config_ultrasphinx do
+    print "* Checking config/ultrasphinx: "
+    u_dir = "#{ RAILS_ROOT }/config/ultrasphinx"
+
+    if File.exist?(u_dir)
+      puts "directory exists."
     else
-      `cp #{ db_file }.example #{ db_file }` 
+      `cp -r #{ u_dir }.example #{ u_dir }` 
       puts "copied."
     end
   end
@@ -36,6 +39,19 @@ namespace :setup do
     else
       system "git submodule init"
       system "git submodule update"
+    end
+  end
+
+  desc "Copy database.yml if it doesn't exist"
+  task :config_database do
+    print "* Checking config/database.yml: "
+    db_file = "#{ RAILS_ROOT }/config/database.yml"
+
+    if File.exist?(db_file)
+      puts "file exists."
+    else
+      `cp #{ db_file }.example #{ db_file }` 
+      puts "copied."
     end
   end
 end
