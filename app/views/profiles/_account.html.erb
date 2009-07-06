@@ -5,7 +5,7 @@
 		<p> <span class="interests_account"></span> Your Interests (Tags): <%= @user.tag_list if @user.tag_list%></p>
 		<p> <span class="notifications_account"></span> Email Notifications </p>
 	</div>
-<div id="editar">
+<div id="editar" class="margin-up">
 	<%if current_user.superuser? || @user==current_user%>	
 	<%= button_to 'Edit' , edit_user_path(@user), :method => :get%>
 	<%end%>

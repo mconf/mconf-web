@@ -27,8 +27,9 @@
 <% form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-
+<div class="margin-up">
   <%= image_submit_tag 'buttons/update.png' %>
+</div>
 <% end %>
 
 <div id="for_lightbox" style="display:none"></div>

@@ -1,26 +1,44 @@
-<p><label for="organization">Organization</label><br/>
-<%= f.text_field :organization %></p>
+<% content_for :javascript do%>
+  <%= render :partial => 'expand_vcard'%>
+<%end%>
 
-<p><label for="phone">Phone</label><br/>
-<%= f.text_field :phone %></p>
+<!--
+<div><label for="f_name">Full name</label><br/>
+<%= f.text_field :organization %></div>
 
-<p><label for="mobile">Mobile</label><br/>
-<%= f.text_field :mobile %></p>
+<div class="margin-up"><label for="e-mail">E-mail</label><br/>
+<%= f.text_field :organization %></div>
+-->
 
-<p><label for="fax">Fax</label><br/>
-<%= f.text_field :fax%></p>
+<div class="margin-up"><label for="organization">Organization</label><br/>
+<%= f.text_field :organization %></div>
 
-<p><label for="address">Address</label><br/>
-<%= f.text_field :address %></p>
+<div class="margin-up"><label for="city">City</label><br/>
+<%= f.text_field :city %></div>
 
-<p><label for="city">City</label><br/>
-<%= f.text_field :city %></p>
+<div class="margin-up"><label for="country">Country</label><br/>
+<%= f.text_field :country %></div>
 
-<p><label for="zipcode">Zipcode</label><br/>
-<%= f.text_field :zipcode%></p>
+<div class="margin-up">
+	<span>Add more details. <%=link_to "Click here","javascript:expand_vcard()",:id=>"toggle"%> to configure your <strong class="blue">vcard</strong></span>
+</div>
 
-<p><label for="province">Province</label><br/>
-<%= f.text_field :province %></p>
-
-<p><label for="country">Country</label><br/>
-<%= f.text_field :country %></p>
+<div id="expanded_vcard" style="display:none">
+	<div class="margin-up"><label for="phone">Phone</label><br/>
+	<%= f.text_field :phone %></div>
+	
+	<div class="margin-up"><label for="mobile">Mobile</label><br/>
+	<%= f.text_field :mobile %></div>
+	
+	<div class="margin-up"><label for="fax">Fax</label><br/>
+	<%= f.text_field :fax%></div>
+	
+	<div class="margin-up"><label for="address">Address</label><br/>
+	<%= f.text_field :address %></div>
+	
+	<div class="margin-up"><label for="province">Province</label><br/>
+	<%= f.text_field :province %></div>
+	
+	<div class="margin-up"><label for="zipcode">Zipcode</label><br/>
+	<%= f.text_field :zipcode%></div>
+</div>
