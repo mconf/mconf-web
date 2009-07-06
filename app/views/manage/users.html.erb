@@ -10,12 +10,11 @@
 <div id="manage">	
 	<div "users">
 	  <%for user in @users%>
-		  <div class="user">
-	      <div class="links">
-	        <%=link_to image_tag("icons/cancel.png", :alt => "Delete", :title => "Delete user"), user_path(user), :confirm => 'Are you sure?', :method => :delete%>
-	      </div>
-	        <%=link_to user.name, user_profile_path(user)%>
-		  </div>
+		  <%if user.disabled?%>
+        <%= render :partial => 'disabled_user', :locals => {:user => user}  %>
+      <%else%>
+        <%= render :partial => 'enabled_user', :locals => {:user => user} %>
+      <%end%>
 		<%end%>	
 	</div>
 </div>

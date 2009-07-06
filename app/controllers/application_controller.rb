@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
   include SimpleCaptcha::ControllerHelpers 
  
+  #alias_method :rescue_action_locally, :rescue_action_in_public
+ 
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -34,4 +36,41 @@ class ApplicationController < ActionController::Base
   def set_time_zone
     Time.zone = current_user.timezone if current_user && current_user.is_a?(User) && current_user.timezone 
   end
+  
+  def render_optional_error_file(status_code)
+    if status_code == 403
+      render_403
+    elsif status_code == 404
+      render_404
+    elsif status_code == 500
+      render_500
+    else
+      super
+    end
+  end
+  
+  def render_403
+    respond_to do |type| 
+      type.html { render :template => "errors/error_403", :layout => 'application', :status => 403 } 
+      type.all  { render :nothing => true, :status => 403 } 
+    end
+    true
+  end
+
+  def render_404
+    respond_to do |type| 
+      type.html { render :template => "errors/error_404", :layout => 'application', :status => 404 } 
+      type.all  { render :nothing => true, :status => 404 } 
+    end
+    true
+  end
+  
+  def render_500
+    respond_to do |type| 
+      type.html { render :template => "errors/error_500", :layout => 'application', :status => 500 } 
+      type.all  { render :nothing => true, :status => 500 } 
+    end
+    true
+  end
+  
 end

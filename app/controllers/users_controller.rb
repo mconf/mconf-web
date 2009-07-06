@@ -173,6 +173,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def enable
+    
+    @user = User.find_with_disabled(params[:id])
+    
+    unless @user.disabled?
+      flash[:notice] = "User " + @user.login + " is already enabled"
+      redirect_to request.referer
+      return
+    end
+    
+    @user.enable
+    
+    flash[:success] = "User succesfully enabled. The user is not a member of any space now and has to join spaces again."
+    respond_to do |format|
+      format.html {
+          redirect_to manage_users_path
+      }
+      format.xml  { head :ok }
+      format.atom { head :ok }
+    end
+  end
+
   def user_is_current_agent
     return if current_agent.superuser?
 

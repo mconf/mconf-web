@@ -1,0 +1,6 @@
+<div class="user enabled">
+  <div class="links">
+    <%=link_to image_tag("icons/cancel.png", :alt => "Disable", :title => "Disable user"), user_path(user), :confirm => 'Are you sure?', :method => :delete%>
+  </div>
+    <%=link_to user.name, user_profile_path(user)%>
+</div>

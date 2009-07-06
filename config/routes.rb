@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.resource :notifier
 
-  map.resources :users do |user|
+  map.resources :users, :member => {:enable => :post} do |user|
      user.resources :messages, :controller => 'private_messages' 
      user.resource :profile do |profile|
           profile.resource :logo

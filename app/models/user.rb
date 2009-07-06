@@ -139,5 +139,9 @@ end
     self.update_attribute(:disabled,true)
     self.agent_performances.each(&:destroy)
   end
+  
+  def enable
+    self.update_attribute(:disabled,false)
+  end
  
 end
