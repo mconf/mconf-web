@@ -28,8 +28,8 @@ class Event < ActiveRecord::Base
   
   before_validation do |event|
     if event.start_hour.present?
-      event.start_date += ( Time.parse(event.start_hour) - Time.today )
-      event.end_date   += ( Time.parse(event.end_hour)   - Time.today )
+      event.start_date += ( Time.parse(event.start_hour) - Time.now.midnight )
+      event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
     end
   end
       
@@ -63,7 +63,7 @@ class Event < ActiveRecord::Base
   end
 
   after_save do |event|
-    if event.marte_event? && ! event.marte_room?
+  	  if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
       mr = begin
              MarteRoom.create(:name => event.id)
            rescue => e
@@ -71,8 +71,8 @@ class Event < ActiveRecord::Base
              nil
            end
 
-      event.update_attribute(:marte_room, true) if mr
-    end
+           event.update_attribute(:marte_room, true) if mr
+    	end
   end
 
   after_destroy do |event|
@@ -84,7 +84,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def marte_room
+  def get_room_data
     return nil unless marte_event?
 
     begin
