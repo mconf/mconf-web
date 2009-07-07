@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 
-LINUX_PACKAGES = %w( ruby ruby-dev rdoc irb libopenssl-ruby libmysqlclient15-dev librmagick-ruby rake wget make curl )
+LINUX_PACKAGES = %w( ruby ruby-dev rdoc irb libopenssl-ruby libmysqlclient15-dev librmagick-ruby wget make curl )
 RUBY_GEMS_VERSION = "1.3.1"
 RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
 RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/45905/#{ RUBY_GEMS_PACKAGE }"
 
 GEMS = {
-  :common     => [ "rails -v 2.2.2",
+  :common     => [ "rails -v 2.3.2",
+                   "rake",
                    "vpim",
                    "ruby-debug",
                    "ruby-openid",
@@ -37,7 +38,7 @@ def install_gems(set)
   puts "Installing #{ set } gems.."
   GEMS[set].each do |gem|
     puts "Installing gem: #{ gem }"
-    system "sudo gem install #{ gem }"
+    system "sudo gem install #{ gem } --no-ri --no-rdoc"
   end
 end
 
@@ -67,6 +68,7 @@ def setup_development
   install_gem_subsystem
   install_gems(:common)
   install_gems(:development)
+  puts "Let's configure the environment"
   `rake setup:development`
 end
 
