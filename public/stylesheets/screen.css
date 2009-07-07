@@ -105,7 +105,7 @@ body .icon{margin-bottom:-2px;}
 #logo img.logo{width:100%;}
 #name-space{width:384px;margin-left:20px;float:left;}
 #name-space span{font-size:3em;line-height:2;color:#244974;}
-#search{margin-top:26px;margin-left:32px;}
+#search{margin-top:26px;margin-left:32px;}#8a1f11
 #search input[type="text"]{font-size:1em;width:150px;}
 #search a img,#search input[type="image"]{margin-bottom:-7px;}
 #eu{float:right;margin-top:10px;}
@@ -317,7 +317,7 @@ div.pagination a{color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;}
 
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#update_avatar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#update_avatar, #sources_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#update_avatar{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_avatar h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;overflow:auto;}
@@ -464,3 +464,34 @@ div#jedit_form img.logo{display:block;}
 h5.up-event{color:#244974;}
 div.read_more img{float:right;}
 div.read_more{text-align:right;}
+
+div.dialog{
+	border:solid 2px #611427;
+	text-align:center;
+	margin-top:10px;
+    color:#611427;
+	background-color:#F05257;
+	
+}
+
+#alert{
+	width:50px;
+	height:50px;
+	background-image:url(../images/icons/alert.png);
+	margin-left:205px;
+	margin-top:10px;
+	
+}
+h2.white{
+	color:white;
+}
+#admin_tabs a:link, #admin_tabs a:visited{
+	color:#244974;
+	margin-left:3px;
+}
+.center{
+	text-align:center;
+}
+ul.group_links a:link, ul.group_links a:visited, div.group_links a:link, div.group_links a:visited{
+	color:#244974;
+}
