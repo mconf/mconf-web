@@ -130,7 +130,7 @@
 
 <div id="space-conf">
 
-<h3>Space configuration</h3>
+<h3 class="center">-Space configuration-</h3>
 
 <div id="nonjavascript_form">
 	<% form_for @space, :html => { :multipart => true} do |f| %>
@@ -164,32 +164,41 @@
 </div>
 
 <div id="jedit_form" style="display:none">
+	<ul>
+ <li>
   <div>
-    <label for="name">Name:</label>
-	<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
+    <label for="name" class="bold">Name:</label>
+	<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit",:title=>"edit name", :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
   </div>
+  </li>
+  <li>
   <div>
-	 <label for="description">Description:</label><br/>
-	 <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
+	 <label for="description" class="bold">Description:</label><br/>
+	 <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => "edit", :title=>"edit description",:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
   </div>
+  </li>
+  <li>
   <div>
-    <label for="public">Allow public access:</label> 
+    <label for="public"class="bold">Allow public access:</label> 
     <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
   </div>
+  </li>
+  <li>
 	<div>
-		<label for="public">Click to change your logo:</label> 
+		<label for="public" class="bold">Click to change your logo:</label> 
 		<%= link_to_function logo(@space, :size => 'h128'), "edit_logo_fun()", :id => "edit_logo"%>
 	</div>
-
+	
 	<% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
 	  <p><%= f.file_field :media %></p>
     <p><%= image_submit_tag 'buttons/update.png' %></p>
   <%end%>
 		
-</div>
 
-<%= link_to "Delete space", space_path(@space), :confirm => 'Are you sure?', :method => :delete,:title => "Delete space" %>
+</li>
+<div><li><%= link_to "Delete space", space_path(@space), :confirm => 'Are you sure?', :method => :delete,:title => "Delete space", :class=>"bold" %></li></div>
 
+</ul>
 </div>
 
 <div id="for_lightbox" style="display:none"></div>

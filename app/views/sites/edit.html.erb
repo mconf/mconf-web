@@ -29,12 +29,6 @@
   </p>
 
   <p>
-  	<%= f.label :logo, t('site.logo') %><br/>
-    <%= file_field_tag "site[_logo][media]" %>
-    <div id="preview_logo"><%= preview site.logo %></div>
-  </p>
-
-  <p>
     <%= f.label :domain, t('site.domain') %>
     <%= f.text_field :domain %>
   </p>
