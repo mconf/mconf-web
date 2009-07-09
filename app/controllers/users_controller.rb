@@ -105,7 +105,7 @@ class UsersController < ApplicationController
     
   end
   
-  #This method returns the user to show the form to edit him
+  #This method returns the user to show the form to edit himself
   def edit
   end
   
@@ -121,7 +121,6 @@ class UsersController < ApplicationController
   # PUT /users/1.atom
   #this method updates a user
   def update
-    
     respond_to do |format|
       if @user.update_attributes(params[:user])
         @user.tag_with(params[:tags]) if params[:tags]
