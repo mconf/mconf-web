@@ -19,8 +19,8 @@ h3{font-size:1.0833em;line-height:1.3846;margin:0.666em 0 0.666em 0;font-weight:
 h3 img{margin-bottom:-3px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
-a:focus,a:hover{color:#1F488F;}
-a{color:#0476D9;text-decoration:underline;}
+a:focus,a:hover{color:#244974;}
+a{color:#244974;text-decoration:underline;}
 a.read_more_link{text-decoration:none;}
 a.read_more_link:hover,#sidebar a.read_more_link:hover{text-decoration:underline;}
 blockquote{margin:1.5em;color:#666;font-style:italic;}
@@ -147,7 +147,7 @@ h3.selector_title{color:#244974}
 #wrapper{padding:0 10px 10px 10px;}
 
 /*users and groups*/
-div.group{float:left;width:490px;;padding-bottom:0.5em;margin-top:2px;}
+div.group{float:left;width:490px;padding-bottom:0.5em;margin-top:2px;}
 .group h3,#admission h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
 .group ul{margin:0;}
 .group ul.group_links{padding:9px 0.5em 0 0;}
@@ -385,7 +385,7 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 .vcard form div{margin-left:1.5em;}
 
 /*Manage*/
-div#management-title{width:384px;margin-left:190px;float:left;}
+div#management-title{width:384px;margin-left:110px;float:left;}
 div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div.user a{color:#8b0425;text-decoration:none;}
@@ -494,4 +494,12 @@ h2.white{
 }
 ul.group_links a:link, ul.group_links a:visited, div.group_links a:link, div.group_links a:visited{
 	color:#244974;
+}
+
+div.user{
+	color:#244974;
+}
+div.user strong{color:#8B0425;}
+.yellow{
+	color:#FFA903;
 }

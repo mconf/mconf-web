@@ -58,7 +58,7 @@
 <%end%>
 <div class="user">
 	<ul class="group_links">
-		<li><%= link_to image_tag("icons/email.png", :alt=>"Send e-mail", :class=>"icon"), space_users_path(@space, :send_message => user.id)%></li>
+		<li><%= link_to image_tag("icons/email.png", :title=>"Send private message", :alt=>"Send private message", :class=>"icon"), space_users_path(@space, :send_message => user.id)%></li>
 		<li><%= link_to image_tag("icons/cancel.png", :alt => "Delete user from space",:class=>"icon" ), space_performance_path(@space, performance), :confirm => 'Are you sure?', :method => :delete,:title => "Delete user from space" %></li>
 	</ul>
 <div>

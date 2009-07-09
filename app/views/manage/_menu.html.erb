@@ -1,4 +1,5 @@
 	<div id="inbox-wrapper">
+		
 	<ul id="inbox">
 		<li><%=link_to "SITE", site_path, :class => "#{'selected' if params[:controller] == 'sites'}"%></li>
 		<li><%=link_to "SPACES", manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"%></li>

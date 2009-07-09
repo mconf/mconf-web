@@ -9,11 +9,11 @@
 		<div class="group">
 			<ul class="group_links">
 				<%if @space.users.include?(current_user) || current_user.superuser?%>
-					<li><%= link_to 'Send a Message', space_groups_path(@space, :send_message => group.users) %></li>
+					<li><%= link_to 'Send a Message', space_groups_path(@space, :send_message => group.users), :title=>"send a message to this group" %></li>
 					<!--<li><a>e-mail</a></li>-->
-					<li><%= link_to 'Join', space_group_path(@space, group, :add_user => current_user.id), :method => :put if @space.users.include?(current_user) && !group.users.include?(current_user)%></li>
+					<li><%= link_to 'Join', space_group_path(@space, group, :add_user => current_user.id), :title=>"join this group", :method => :put if @space.users.include?(current_user) && !group.users.include?(current_user)%></li>
 					<li><%= link_to 'Edit', edit_space_group_path(@space, group, :admin => params[:admin]) if @space.authorizes?([:manage, :group], :to => current_user)%></li>
-					<li><%= link_to 'Delete', space_group_path(@space, group, :admin => params[:admin]), :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' if @space.authorizes?([:manage, :group], :to => current_user)%></li>
+					<li><%= link_to 'Delete', space_group_path(@space, group, :admin => params[:admin]), :title=>"delete this group", :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' if @space.authorizes?([:manage, :group], :to => current_user)%></li>
 				<%end%>	
 			</ul>
 			<h3><%=sanitize(group.name)%><br/>
