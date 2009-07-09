@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
+  accepts_nested_attributes_for :user
 
   acts_as_taggable
   has_logo :class_name => "Avatar"

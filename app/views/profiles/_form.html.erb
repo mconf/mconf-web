@@ -2,13 +2,17 @@
   <%= render :partial => 'expand_vcard'%>
 <%end%>
 
-<!--
-<div><label for="f_name">Full name</label><br/>
-<%= f.text_field :organization %></div>
-
-<div class="margin-up"><label for="e-mail">E-mail</label><br/>
-<%= f.text_field :organization %></div>
--->
+<% f.fields_for :user do |user_form| %>
+	<div>
+		<%= user_form.label :login, "Full name" %><br/>
+		<%= user_form.text_field :login %>
+	</div>
+	
+	<div class="margin-up">
+		<%= user_form.label :email, "Email" %><br/>
+		<%= user_form.text_field :email %>
+	</div>
+<% end %>
 
 <div class="margin-up"><label for="organization">Organization</label><br/>
 <%= f.text_field :organization %></div>
