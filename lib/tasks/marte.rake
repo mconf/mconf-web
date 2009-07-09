@@ -10,12 +10,10 @@ namespace :marte do
 	  if room
 		room.destroy
 	  end
-	  e.marte_room = 0
 	rescue
-	  #if the room does not exist, delete it from the event
-	  e.marte_room = 0
 	end
-	e.save	
+	  e.update_attribute(:marte_room, false) 
+	#e.save	
       }
   }
 end

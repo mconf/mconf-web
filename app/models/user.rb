@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :superuser, :disabled
   attr_accessible :timezone
-  
+  attr_accessible :expanded_post, :notification
   
  is_indexed :fields => ['login','email'],
 :include => [#{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
