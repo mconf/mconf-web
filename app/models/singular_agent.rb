@@ -26,4 +26,8 @@ class SingularAgent
   def active?
     true
   end
+
+  def expanded_post
+    false
+  end
 end
