@@ -73,7 +73,7 @@ class LogosController
     crop_args = %w( x y width height ).map{ |k| params[:crop_size][k] }.map(&:to_i)
     crop_img = img.crop(*crop_args)
     f = ActionController::UploadedTempfile.open ("croplogo","tmp")
-    crop_img.write("jpeg:" + f.path)
+    crop_img.write("png:" + f.path)
     f.instance_variable_set "@original_filename",session[:tmp_logo][:original_filename]
     f.instance_variable_set "@content_type", session[:tmp_logo][:content_type]
     params[:logo] ||= {}
@@ -88,11 +88,11 @@ class LogosController
     if img.columns > img.rows && img.columns > size
       resized = img.resize(size.to_f/img.columns.to_f)
       f.close
-      resized.write("jpeg:" + path)
+      resized.write("png:" + path)
     elsif img.rows > img.columns && img.rows > size
       resized = img.resize(size.to_f/img.rows.to_f)
       f.close
-      resized.write("jpeg:" + path)
+      resized.write("png:" + path)
     end
     
   end
