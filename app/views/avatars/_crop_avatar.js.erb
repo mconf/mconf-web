@@ -21,6 +21,7 @@
 			    $("#croplogo").Jcrop({
 			      onSelect: cropImage,
 			      onChange: cropImage,
+						bgColor : 'white',
 			      aspectRatio: <%=Avatar::ASPECT_RATIO%>,
 						setSelect: [size/4,size/4,3*size/4,3*size/4]
           });
