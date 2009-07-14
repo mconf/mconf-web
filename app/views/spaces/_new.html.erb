@@ -2,7 +2,7 @@
 <div id="create_space">
 	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
 	<div class="form">
-		<% form_for :space, :url => spaces_path() do |f|%>
+          <% form_for :space, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
 
 		<%unless logged_in?%>
 		<div id="left">

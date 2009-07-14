@@ -1,7 +1,7 @@
 <div id="login_div" class="blue_title">
 	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
   	<div class="form">
-  		<% form_tag session_path do -%>
+          <% form_tag session_url(:protocol => current_site.protocol) do -%>
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
 			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
 			  <h3>Do you have an OpenID? </h3>
@@ -27,7 +27,7 @@
 
 
 		<div id="openid_form" <%='style="display:none;"' if request.xhr? %> >
-			<% form_tag session_path do -%>
+                  <% form_tag session_url(:protocol => current_site.protocol) do -%>
  	  			<div id="openid_label"><h3>Enter your OpenID <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag 'Log in'%></h3></div>
     		<% end -%>
   		</div>
