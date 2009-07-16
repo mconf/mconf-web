@@ -1,9 +1,11 @@
+<%=link_to "+", new_space_post_path(@space, :new_thread => true), :id => "big_new_thread", :class => "extract_form"%>
+
 <h3>Add a new Thread</h3>
 
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
   <div>
     <label for="Title">Title</label><br/>
-    <%= f.text_field :title, :size => 25 %>
+    <%= f.text_field :title, :size => 25, :class => "small_post_title" %>
   </div>
 	
   <div id="post-buttons" class="actions margin-up">
@@ -17,11 +19,6 @@
   <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
-
-
-  
-    <%= f.text_area :text%>
-  
-
-  <%= image_submit_tag "buttons/create.png" %>
+    <%= f.text_area :text, :class => "small_post_text" %>
+    <%= image_submit_tag "buttons/create.png" %>
 <% end -%>

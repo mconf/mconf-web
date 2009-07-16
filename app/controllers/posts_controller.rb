@@ -65,10 +65,41 @@ class PostsController < ApplicationController
     end
   end
 
-  def new 
-    session[:current_sub_tab] = "New post"
-    @post = Post.new
-    @title ||= "New Post"
+  def new
+    @post = Post.parent_scoped.in_container(@space).find(params[:reply]) if params[:reply]
+    
+    respond_to do |format|
+      format.html {
+        if params[:new_thread]
+          if request.xhr?
+            render "new_thread_big", :layout => false
+          else
+            render "new_thread_big"
+          end
+        elsif params[:reply]
+          if request.xhr?
+            render "new_reply_big", :layout => false
+          else
+            render "new_reply_big"
+          end
+        elsif params[:edit]
+          if !post.attachments.empty? 
+                  if !post.attachments.select{|a| a.image?}.empty?     
+                    params[:form]='photos'
+                  else
+                    params[:form]='docs'
+                  end
+                end
+            if post.parent_id
+              render :partial => "edit_reply", :locals => { :post => post }
+          else
+              render :partial => "edit_thread", :locals => { :post => post }
+            end
+          else
+            render :partial => "new_reply", :locals => { :post => @post }  
+          end
+        }
+    end
   end
 
   # Renders form for editing this Entry metadata
