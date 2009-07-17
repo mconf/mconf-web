@@ -49,6 +49,11 @@ h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#
   -webkit-border-radius:7px;-moz-border-radius:7px;
 }
 
+/*
+ * New posts
+ */ 
+#new_thread_big{width:700px}
+
 /*kikeCSS */
 .blue_title h3{color:#244974;margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
 

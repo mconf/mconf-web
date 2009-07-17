@@ -2,7 +2,7 @@
 <% atom_link_header(space, Post.new) %>
 
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle'%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor' %>
 <% end -%>
 
 <% content_for :javascript do %>
@@ -72,14 +72,29 @@ $("a.reply_to_link").click(function(){
         $(".new_reply_options").click(function(){
         $(".new_reply_options").removeClass("selected");
         $(this).addClass("selected");});
-	style_file_input();
-	var destination = $('#add').offset().top;
-	$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
-		window.location.hash = '#add'
-	});
-	setTimeout(function() {
-           $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-	}, 1000);
+				style_file_input();
+				var destination = $('#add').offset().top;
+				$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
+					window.location.hash = '#add'
+				});
+				setTimeout(function() {
+			           $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+				}, 1000);
+				
+				$("a#big_new_reply").fancybox({
+          'hideOnContentClick' : false,
+					'callbackOnShow' : function(){
+			      $(".big_post_text").html($(".small_post_text").val());
+			      big_textarea();
+			      $("#fancy_outer").width($("#new_thread_big").width() + 50);
+			      $(window).resize();
+			    },
+			    'callbackOnClose' : function(){
+			      var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+			      var data = oEditor.GetHTML();
+			      $(".small_post_text").val(data);
+			    }  
+        });
       }
     );
 	return false;
@@ -122,6 +137,82 @@ $("a.edit_post_link").click(function(){
 	  if(this.value == "Search Posts..."){
 		  this.value="";
 		}
+	});
+	
+	
+	/*Extended post creation*/
+	
+	/*New thread*/
+	
+	  $("a#big_new_thread").fancybox({
+    'hideOnContentClick' : false,
+    'callbackOnShow' : function(){
+      $(".big_post_title").val($(".small_post_title").val());
+      $(".big_post_text").html($(".small_post_text").val());
+      big_textarea();
+      $("#fancy_outer").width($("#new_thread_big").width() + 50);
+      $(window).resize();
+    },
+    'callbackOnClose' : function(){
+      $(".small_post_title").val($(".big_post_title").val());
+      var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+      var data = oEditor.GetHTML();
+      $(".small_post_text").val(data);
+    }    
+  });
+
+  $("a.new_thread_big_options").livequery("click", function(){
+    var route = $(this).attr("href");
+    var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+    var data = oEditor.GetHTML();
+    $.get(route,
+          {authenticity_token: "<%=form_authenticity_token()%>",
+           post_title: $(".big_post_title").val(),
+           post_text: data
+          },
+          function(data){
+            $("#new_thread_big").replaceWith(data);
+            big_textarea();
+            $(window).resize(); 
+          }
+        );
+    return false;
+  });
+  
+  big_textarea = function(){
+    var oFCKeditor = new FCKeditor( 'big_textarea' ) ;
+    oFCKeditor.BasePath = "/javascripts/fckeditor/" ;
+    oFCKeditor.ToolbarSet = 'vccToolbar' ;
+    oFCKeditor.ReplaceTextarea();
+  }
+
+/*Reply*/
+
+	$("#new_comment_big_link").livequery('click',function () {
+	  $(".new_reply_big_options").removeClass("selected");
+    $(this).addClass("selected"); 
+	  $("#new_photo_big_form").hide();
+		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$(window).resize();
+	  return false;
+	});
+	
+	$("#new_photo_big_link").livequery('click',function () {
+	  $(".new_reply_big_options").removeClass("selected");
+    $(this).addClass("selected");
+		$("#new_photo_big_form").show();
+		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$(window).resize();
+	  return false;
+	});
+	
+	$("#new_doc_big_link").livequery('click',function () {
+	  $(".new_reply_big_options").removeClass("selected");
+    $(this).addClass("selected");
+	  $("#new_photo_big_form").show();
+		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$(window).resize();
+	  return false;
 	});
 
 <% end %>

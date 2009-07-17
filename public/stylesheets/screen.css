@@ -504,3 +504,8 @@ div.user strong{color:#8B0425;}
 .yellow{
 	color:#FFA903;
 }
+
+/*
+ * Extract forms
+ */
+a.extract_form{float:right}
