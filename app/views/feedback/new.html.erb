@@ -6,6 +6,9 @@
 
 <%form_tag(feedback_index_path()) do -%>
   <div id="feedback_form">
+	<p class="note">
+		Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+	</p>
 	<p>
       <label for="subject">Subject:</label>
       <%= text_field_tag 'subject',params[:subject].present? ? params[:subject] : nil, :size => 25 %>

@@ -8,7 +8,13 @@
 	</div>
 <% end %>
 <div id="name-space">
-	<span><%=sanitize(space.name) if space%></span>
+	<%if space%>
+	<%if space.name.size > 20%>
+		<span id="small-title"><%=sanitize(first_words(space.name,30))%></span>
+	<%else%>
+		<span><%=sanitize(space.name)%></span>
+	<%end%>
+	<%end%>
 </div>
 
 <div id="search">

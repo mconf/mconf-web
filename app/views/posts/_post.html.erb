@@ -34,7 +34,7 @@
                                user_profile_path(post.author)
                 %>
 	  	</li>
-        <%if post.text.size < 120%>
+        <%if post.text.size < 120 %>
 		  <li>
 		    <%=sanitize(auto_link(simple_format(post.text)))%>
 		  </li>

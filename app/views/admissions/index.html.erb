@@ -9,7 +9,6 @@
 <% if @space.join_requests.pending.any? %>
   <div class="reqs">
   <% @space.join_requests.pending.each do |jr| %>
-	  <!--<div class="join_request_element">-->
 	 <div class="reqs-item">
 	  <div class="invitation-logo">
 		<%if jr.candidate.authorizes?([:read, :profile],:to=> current_user)%>

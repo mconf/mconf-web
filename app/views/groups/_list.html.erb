@@ -16,7 +16,7 @@
 					<li><%= link_to 'Delete', space_group_path(@space, group, :admin => params[:admin]), :title=>"delete this group", :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' if @space.authorizes?([:manage, :group], :to => current_user)%></li>
 				<%end%>	
 			</ul>
-			<h3><%=sanitize(group.name)%><br/>
+			<h3><%=sanitize(first_words(group.name,40))%><br/>
 			<%="Group Mailing list  " +  mail_to(sanitize("vcc-#{group.mailing_list}@dit.upm.es")) if group.users.include?(current_user) && group.mailing_list.present?%></h3>
 			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>

@@ -84,7 +84,7 @@ body .icon{margin-bottom:-2px;}
 #header{background-color:#fff;}
 #global,#space,#content,#footer{width:960px;margin:0 auto;display:block;}
 #space{background-color:#e1eef5;}
-#content{clear:left;min-height:600px;padding-top:1em;overflow:hidden;}
+#content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
 #global{padding:0.5em 0;}
@@ -105,7 +105,8 @@ body .icon{margin-bottom:-2px;}
 #logo img.logo{width:100%;}
 #name-space{width:384px;margin-left:20px;float:left;}
 #name-space span{font-size:3em;line-height:2;color:#244974;}
-#search{margin-top:26px;margin-left:32px;}#8a1f11
+#name-space #small-title{font-size:2em;line-height:3;}
+#search{margin-top:26px;margin-left:32px;}
 #search input[type="text"]{font-size:1em;width:150px;}
 #search a img,#search input[type="image"]{margin-bottom:-7px;}
 #eu{float:right;margin-top:10px;}

@@ -19,9 +19,11 @@ a.selected{text-decoration:none;color:#111;font-weight:bold;}
 /*
  * Feedback
  */
+.note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:1.5em;padding:5px;}
 textarea#feedback_textarea,textarea#spam_textarea {height:8.3333em;margin-bottom:0.5em;width:60%;overflow:auto;}
-input#feedback_form,input#feedback_subject,input#spam_form{width:60%;}
-div#feedback_form,#spam_form{margin-left:1.5em;padding-top:2em;}
+input#subject,input#from,input#feedback_form,input#feedback_subject,input#spam_form{width:60%;}
+div#feedback_form{margin-left:1.5em;padding-top:1em;}
+#spam_form{margin-left:1.5em;padding-top:2em;}
 div#feedback_form p label{float:left;display:block;width:20%;padding-top:0.25em;}
 div#spam_form p label{float:left;display:block;width:20%;}
 div#spam_form p strong{line-height:1.5;}
