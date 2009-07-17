@@ -114,23 +114,42 @@ $("a.edit_post_link").click(function(){
          $(".edit_thread_options").removeClass("selected");
          $(this).addClass("selected");});
 				 
-	 /*Edit reply*/
-	 $(".edit_reply_options").click(function(){
-	 $(".edit_reply_options").removeClass("selected");
-	 $(this).addClass("selected");});
-	 
-	 style_file_input();
-	 var destination = $('#add').offset().top;
-	 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
-		window.location.hash = '#add'
-	 });
-	 setTimeout(function() {
-           $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-	   $("#edit_thread").effect("highlight", {color:"#F5DF51"}, 3000);
-	 }, 1000);	
-      }
-    );
-  return false;
+		 /*Edit reply*/
+		 $(".edit_reply_options").click(function(){
+		 $(".edit_reply_options").removeClass("selected");
+		 $(this).addClass("selected");});
+		 
+		 style_file_input();
+		 
+		 /*Scroll to the edit form*/
+		 var destination = $('#add').offset().top;
+		 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
+		 window.location.hash = '#add'
+		 
+		 /*Extract form fancbox*/ 
+		 $("a#big_edit_thread").fancybox({
+        'hideOnContentClick' : false,
+        'callbackOnShow' : function(){
+          $(".big_post_text").html($(".small_post_text").val());
+          big_textarea();
+          $("#fancy_outer").width($("#new_thread_big").width() + 50);
+          $(window).resize();
+        },
+        'callbackOnClose' : function(){
+          var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+          var data = oEditor.GetHTML();
+          $(".small_post_text").val(data);
+        }
+		  });
+	});
+	
+	setTimeout(function() {
+	  $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+		$("#edit_thread").effect("highlight", {color:"#F5DF51"}, 3000);
+		}, 1000);	
+	});
+	
+	return false;
 });
 
 	$("#query").click(function(){
@@ -189,7 +208,7 @@ $("a.edit_post_link").click(function(){
 /*Reply*/
 
 	$("#new_comment_big_link").livequery('click',function () {
-	  $(".new_reply_big_options").removeClass("selected");
+	  $(".big_options").removeClass("selected");
     $(this).addClass("selected"); 
 	  $("#new_photo_big_form").hide();
 		$("#fancy_outer").height($("#new_thread_big").height() + 50);
@@ -198,7 +217,7 @@ $("a.edit_post_link").click(function(){
 	});
 	
 	$("#new_photo_big_link").livequery('click',function () {
-	  $(".new_reply_big_options").removeClass("selected");
+	  $(".big_options").removeClass("selected");
     $(this).addClass("selected");
 		$("#new_photo_big_form").show();
 		$("#fancy_outer").height($("#new_thread_big").height() + 50);
@@ -207,7 +226,7 @@ $("a.edit_post_link").click(function(){
 	});
 	
 	$("#new_doc_big_link").livequery('click',function () {
-	  $(".new_reply_big_options").removeClass("selected");
+	  $(".big_options").removeClass("selected");
     $(this).addClass("selected");
 	  $("#new_photo_big_form").show();
 		$("#fancy_outer").height($("#new_thread_big").height() + 50);

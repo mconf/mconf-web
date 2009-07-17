@@ -38,6 +38,21 @@ $("#new_doc_link").livequery('click',function () {
   return false;
 });
 
+$("a#big_new_reply").fancybox({
+  'hideOnContentClick' : false,
+  'callbackOnShow' : function(){
+    $(".big_post_text").html($(".small_post_text").val());
+    big_textarea();
+    $("#fancy_outer").width($("#new_thread_big").width() + 50);
+    $(window).resize();
+  },
+  'callbackOnClose' : function(){
+    var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+    var data = oEditor.GetHTML();
+    $(".small_post_text").val(data);
+  }  
+});
+
 $("a.edit_post_link").click(function(){
   var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name") + "?edit=true";
   $.get(route,
@@ -56,16 +71,59 @@ $("a.edit_post_link").click(function(){
          $(this).addClass("selected");});
 				 
 				 style_file_input();
+				 
+				 /*Extract form fancbox*/ 
+		     $("a#big_edit_thread").fancybox({
+		        'hideOnContentClick' : false,
+		        'callbackOnShow' : function(){
+		          $(".big_post_text").html($(".small_post_text").val());
+		          big_textarea();
+		          $("#fancy_outer").width($("#new_thread_big").width() + 50);
+		          $(window).resize();
+		        },
+		        'callbackOnClose' : function(){
+		          var oEditor = FCKeditorAPI.GetInstance('big_textarea') ;
+		          var data = oEditor.GetHTML();
+		          $(".small_post_text").val(data);
+		        }
+		      });
       }
     );
   return false;
 });
 
-	$("#query").click(function(){
-	  if(this.value == "Search Posts..."){
-		  this.value="";
-		}
-	});
+$("#query").click(function(){
+  if(this.value == "Search Posts..."){
+	  this.value="";
+	}
+});
+
+  $("#new_comment_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected"); 
+    $("#new_photo_big_form").hide();
+    $("#fancy_outer").height($("#new_thread_big").height() + 50);
+    $(window).resize();
+    return false;
+  });
+  
+  $("#new_photo_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected");
+    $("#new_photo_big_form").show();
+    $("#fancy_outer").height($("#new_thread_big").height() + 50);
+    $(window).resize();
+    return false;
+  });
+  
+  $("#new_doc_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected");
+    $("#new_photo_big_form").show();
+    $("#fancy_outer").height($("#new_thread_big").height() + 50);
+    $(window).resize();
+    return false;
+  });
 
 <% end %>
 
