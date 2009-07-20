@@ -2,7 +2,7 @@
 
 <div id="new_thread_big">
 
-<h3>Reply to <%= @post.title %> BIG</h3>
+<h3>Reply to <%= @post.title %></h3>
   <div id="post-buttoms" class="actions">
     <ul>
       <li><%= link_to 'Comment', new_space_post_path(@space, :reply => @post.id), { :id => 'new_comment_big_link',:class =>"big_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
@@ -16,9 +16,9 @@
   <div id="new_photo_big_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
-
+  <div id="big_textarea_div" >
     <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
-		
+	</div>	
   <%if @show_view%>
     <%= hidden_field_tag :show, "true"%>
   <%end%>

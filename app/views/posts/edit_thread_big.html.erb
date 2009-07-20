@@ -19,8 +19,9 @@
 	  <div id="new_photo_big_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
 	    <%= render :partial => "posts/form_photo", :object => f %>
 	  </div>
-	
-	  <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
+	  <div id="big_textarea_div" >
+	    <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
+		</div>
 	  <%= image_submit_tag "buttons/update.png" %>
 	<% end -%>
 </div>	
