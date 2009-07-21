@@ -9,16 +9,16 @@ class Notifier < ActionMailer::Base
     @body[:space] = invitation.group
   end
 
-  def processed_invitation_email(invitation)
-    setup_email(invitation.group.users(:role => 'Admin').map(&:email))
+  def processed_invitation_email(invitation, receiver)
+    setup_email(receiver.email)
 
     @subject += "Invitation #{ invitation.accepted? ? 'accepted' : 'discarded' }"
     @body[:invitation] = invitation
     @body[:space] = invitation.group
   end
 
-  def join_request_email(jr)
-    setup_email(jr.group.users(:role => 'Admin').map(&:email))
+  def join_request_email(jr, receiver)
+    setup_email(receiver.email)
 
     @subject += "Join Request"
     @body[:candidate] = jr.candidate

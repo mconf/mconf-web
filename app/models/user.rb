@@ -42,6 +42,10 @@ alias_attribute :name, :login
 
 default_scope :conditions => {:disabled => false}
 
+#constant for the notification attribute
+NOTIFICATION_VIA_EMAIL = 1
+NOTIFICATION_VIA_PM = 2
+
 def self.find_with_disabled *args
   self.with_exclusive_scope { find(*args) }
 end
