@@ -6,6 +6,16 @@
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
+
+
+<div><label for="expanded_post">View expanded posts</label>
+<%= f.check_box :expanded_post, {}, true,false %></div><br/>
+
+<div><label for="notification">Notifications</label><br/>
+<%= f.radio_button  :notification, "1"%> Email
+<%= f.radio_button  :notification, "2"%> Private message
+</div><br/>
+
 <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
 <p><label for="superuser">Admin</label><br/>
 <%= f.check_box("superuser", {}, "true", "false") %></p>
