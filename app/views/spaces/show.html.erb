@@ -64,14 +64,18 @@
   </div>	
 	<div id="inc-events">
      <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to " Upcoming Events", space_events_path(@space)%></h3>
-		 <ul>  
-		  <% for event in @upcoming_events -%>
-		    <li class="event">
-		      <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
-			  <%=link_to event_link, space_event_path(@space,event)%>
-		      <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
-		    </li>
-		  <% end -%>
+		 <ul>
+		 	<%if @upcoming_events.empty?%>
+			  <p>There aren't upcoming events</p>
+			<%else%>
+			  <% for event in @upcoming_events -%>
+          <li class="event">
+            <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
+            <%=link_to event_link, space_event_path(@space,event)%>
+            <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
+          </li>
+        <% end -%>
+			<%end%>  
 		 </ul> 
 		 <br/>
 		 <div class="read_more">
