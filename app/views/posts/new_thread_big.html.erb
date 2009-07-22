@@ -1,9 +1,11 @@
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+
 <div id="new_thread_big">
 
 	<% menu :posts %>
-	
-	<h3>New Thread</h3>
-	
+
+	  <!--<h3>New Thread</h3>-->
+<div id="feedback_form">	
 	<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
 	  <div>
 	    <label for="Title">Title</label><br/>
@@ -25,6 +27,10 @@
 	    <%= f.text_area :text, :id => "big_textarea", :class => "big_post_text", :value => params[:post_text]%>
 			<!--<textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>-->
 		</div>
+	  <div class="margin-up">
 	  <%= image_submit_tag "buttons/create.png" %>
+	  </div>
+</div>
 	<% end -%>
+
 </div>
