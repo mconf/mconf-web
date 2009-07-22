@@ -19,7 +19,7 @@
                                        user_profile_path(post.author)%>
 			<span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span>
 			</li>
-   			<%if post.text.size < 500%>
+   			<%if post.text.size < 500 || @show_view%>
 	     	<li>
 	     		<%=sanitize(auto_link(simple_format(post.text)))%>
 	     	</li>
