@@ -35,20 +35,20 @@
 			<table><tbody>
 			<tr>
 				<% if params[:sent_messages] %>
-					<%@receiver = User.find(private_message.receiver_id) %>
-		        	<td class="picture"><%= link_logo(@receiver,:size=>32)%></td>
+					<%@receiver = User.find_with_disabled(private_message.receiver_id) %>
+		      <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : link_logo(@receiver,:size=>32, :url => user_profile_path(@receiver))%></td>
 					<td class="name_date">
-					  <span class="name"><%=link_to (@receiver.name)%></span>
+					  <span class="name"><%=@receiver.disabled? ? @receiver.name : link_to (@receiver.name, user_profile_path(@receiver))%></span>
 					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
 					</td> 
-		        <% else%>
-					<%@sender = User.find(private_message.sender_id)%>
-			        <td class="picture"><%= link_logo(@sender,:size=>32)%></td>
+		    <% else%>
+					<%@sender = User.find_with_disabled(private_message.sender_id)%>
+			    <td class="picture"><%= @sender.disabled? ? logo(@sender, :size => 32) : link_logo(@sender,:size=>32, :url => user_profile_path(@sender))%></td>
 					<td class="name_date">
-					  <span class="name"><%=link_to (@sender.name)%></span>
+						<span class="name"><%=@sender.disabled? ? @sender.name : link_to (@sender.name, user_profile_path(@sender))%></span>
 					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
 					</td>
-		        <% end%>
+		    <% end%>
 					<td class="subject">
 						<div>
 							<span class="topic">Subject: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
