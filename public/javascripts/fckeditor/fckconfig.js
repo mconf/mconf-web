@@ -118,11 +118,8 @@ FCKConfig.ToolbarSets["Basic"] = [
 ] ;
 
 FCKConfig.ToolbarSets["vccToolbar"] = [
-  ['Source','-','Undo','Redo','-','SelectAll','RemoveFormat'],
-  ['Bold','Italic','Underline'],
-  ['OrderedList','UnorderedList','-','Outdent','Indent'],
-  ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'], ['FontSize'],
-  ['TextColor','BGColor']    // No comma for the last row.
+  ['Source','-','Undo','Redo','-','SelectAll','RemoveFormat','-','Bold','Italic','Underline','-','OrderedList','UnorderedList','-','Outdent','Indent',
+  '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull', '-' ,'FontSize','-','TextColor','BGColor']    // No comma for the last row.
 ] ;
 
 FCKConfig.EnterMode = 'p' ;			// p | div | br
