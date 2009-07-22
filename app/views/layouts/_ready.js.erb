@@ -114,7 +114,9 @@ $("a.login_lightbox_link").livequery("click", function(){
  */
  
 $("a#feedback_link").fancybox({
-  'hideOnContentClick' : false
+  'hideOnContentClick' : false,
+	'frameWidth' : 500,
+  'frameHeight' : <%=logged_in? ? '300' : '500'%>
 });
  
  /*
