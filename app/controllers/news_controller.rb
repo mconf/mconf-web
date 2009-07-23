@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   
-  before_filter :space, :only => [ :create, :index, :destroy, :edit, :update,:show ]
+  before_filter :space, :only => [ :create, :index, :destroy, :edit, :update,:show, :new ]
   
   def create
     @new = News.new(params[:new])
@@ -53,12 +53,21 @@ class NewsController < ApplicationController
   def edit
     respond_to do |format|
       format.html {
-        if request.xhr?
+        if params[:big]
           @edit_news = @space.news.find(params[:id])
-          render :partial => 'edit_news' 
+          if request.xhr?
+            render "edit_news_big", :layout => false
+          else
+            render "edit_news_big"  
+          end
         else
-          redirect_to space_news_index_path(@space, :edit_news => params[:id])  
-        end        
+          if request.xhr?
+            @edit_news = @space.news.find(params[:id])
+            render :partial => 'edit_news' 
+          else
+            redirect_to space_news_index_path(@space, :edit_news => params[:id])  
+          end
+        end
       }
       format.js { 
       }
@@ -80,4 +89,15 @@ class NewsController < ApplicationController
     end
   end
   
+  def new
+      respond_to do |format|
+      format.html {
+        if request.xhr?
+          render "create_news_big", :layout => false
+        else
+          render "create_news_big"
+        end
+      }
+    end   
+  end
 end
