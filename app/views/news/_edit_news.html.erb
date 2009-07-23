@@ -1,16 +1,18 @@
 <div id="news_sidebar">
 
+<%=link_to "+",  edit_space_news_path(@space, :big => true), :id => "big_edit_news", :class => "extract_form" %>
+
 <h3>Edit news</h3>
 
 <% form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
   
   <p>
-    <label for="title">Title:</label><%= f.text_field :title %>
+    <label for="title">Title:</label><%= f.text_field :title, :class => "small_news_title" %>
   </p>
   
   <p>
     <label for="text">Description:</label><br/>
-    <%= f.text_area :text, :class => "span-6"%>
+    <%= f.text_area :text, :class => "span-6 small_news_text"%>
   </p>
   <p>
     

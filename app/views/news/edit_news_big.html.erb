@@ -1,0 +1,22 @@
+<div id="news_big">
+
+<h3>Edit news</h3>
+
+<% form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
+  
+  <p>
+    <label for="title">Title:</label><%= f.text_field :title, :class => "big_news_title" %>
+  </p>
+  
+  <label for="text">Description:</label><br/>
+  <div id="big_textarea_div" >
+    <%= f.text_area :text, :class => "big_news_text"%>
+  </div>
+    
+    <%= submit_tag 'Update' %>
+
+<% end %>
+
+<%= link_to "Publish other piece of news", space_news_index_path(@space)%>
+
+</div>
