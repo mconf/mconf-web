@@ -509,3 +509,4 @@ div.user strong{color:#8B0425;}
  * Extract forms
  */
 a.extract_form{float:right}
+a.extract_form{margin-right:0.5em;}

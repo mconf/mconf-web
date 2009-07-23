@@ -53,9 +53,9 @@ h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#
 /*
  * New posts
  */ 
-
-
-#new_thread_big, #news_big{width:700px;}
+#new_thread_big{width:760px;}
+#new_thread_big div#post-buttons{margin-bottom:0.75em;}
+#news_big{width:700px;}
 
 
 /*kikeCSS */

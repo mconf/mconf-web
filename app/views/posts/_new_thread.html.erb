@@ -1,6 +1,6 @@
-<%=link_to image_tag("icons/expand.png",:size=>"16x16"), new_space_post_path(@space), :id => "big_new_thread", :class => "extract_form"%>
 
-<h3>Add a new Thread</h3>
+
+<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"expand"), new_space_post_path(@space), :id => "big_new_thread", :class => "extract_form"%> Add a new Thread</h3>
 
 <% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
   <div>
