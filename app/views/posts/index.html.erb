@@ -170,6 +170,7 @@ $("a.edit_post_link").click(function(){
       $(".big_post_text").val($(".small_post_text").val());
       big_textarea();
       $("#fancy_outer").width($("#new_thread_big").width() + 50);
+	  $("#fancy_outer").height($("#new_thread_big").height() + 80);
       $(window).resize();
     },
     'callbackOnClose' : function(){
@@ -191,8 +192,10 @@ $("a.edit_post_link").click(function(){
            post_text: data
           },
           function(data){
-            $("#new_thread_big").replaceWith(data);
+            $("#fancy_ajax").children().remove();
+			$("#fancy_ajax").append(data);
             big_textarea();
+			$("#fancy_outer").height($("#new_thread_big").height() + 80);
             $(window).resize(); 
           }
         );
@@ -205,7 +208,7 @@ $("a.edit_post_link").click(function(){
 	  $(".big_options").removeClass("selected");
     $(this).addClass("selected"); 
 	  $("#new_photo_big_form").hide();
-		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$("#fancy_outer").height($("#new_thread_big").height() + 80);
 		$(window).resize();
 	  return false;
 	});
@@ -214,7 +217,7 @@ $("a.edit_post_link").click(function(){
 	  $(".big_options").removeClass("selected");
     $(this).addClass("selected");
 		$("#new_photo_big_form").show();
-		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$("#fancy_outer").height($("#new_thread_big").height() + 80);
 		$(window).resize();
 	  return false;
 	});
@@ -223,7 +226,7 @@ $("a.edit_post_link").click(function(){
 	  $(".big_options").removeClass("selected");
     $(this).addClass("selected");
 	  $("#new_photo_big_form").show();
-		$("#fancy_outer").height($("#new_thread_big").height() + 50);
+		$("#fancy_outer").height($("#new_thread_big").height() + 80);
 		$(window).resize();
 	  return false;
 	});

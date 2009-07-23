@@ -6,9 +6,8 @@
 
 <div id="edit_thread">
 
-  <%=link_to "+", edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %>
 
-  <h3>Edit thread</h3>
+  <h3>  <%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"expand"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %> Edit thread</h3>
 
 	<% form_for([ @space, post ], :id => "edit-form",:html => { :multipart => true }) do |f| -%>
 	  <div>

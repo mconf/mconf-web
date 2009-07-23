@@ -1,8 +1,7 @@
 <div id="new_reply">
 
-<%=link_to "+", new_space_post_path(@space, :reply => post.id), :id => "big_new_reply", :class => "extract_form" %>
 
-<h3>Reply to <%= post.title %></h3>
+<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"expand"), new_space_post_path(@space, :reply => post.id), :id => "big_new_reply", :class => "extract_form" %> Reply to <%= post.title %></h3>
   <div id="post-buttoms" class="actions">
     <ul>
       <li><%= link_to 'Comment', get_reply_route(post), { :id => 'new_comment_link',:class =>"new_reply_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>

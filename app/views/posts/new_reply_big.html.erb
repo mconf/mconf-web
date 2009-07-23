@@ -1,9 +1,11 @@
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span> > Reply to <%= @post.title %></div>
+
 <% menu :posts %>
 
 <div id="new_thread_big">
 
-<h3>Reply to <%= @post.title %></h3>
-  <div id="post-buttoms" class="actions">
+<div id="feedback_form">
+  <div id="post-buttons" class="actions">
     <ul>
       <li><%= link_to 'Comment', new_space_post_path(@space, :reply => @post.id), { :id => 'new_comment_big_link',:class =>"big_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
       <li><%= link_to 'Photos', new_space_post_path(@space, :reply => @post.id, :form => "photos"),  { :id => 'new_photo_big_link',:class =>"big_options #{"selected" if params[:form]=='photos'}" } %></li>
@@ -25,6 +27,7 @@
   <%= hidden_field_tag "post[parent_id]", @post.id%>
   <div class="float">
   <%= image_submit_tag "buttons/create.png" %>
+  </div>
   </div>
 <% end -%>
 </div>
