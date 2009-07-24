@@ -1,4 +1,4 @@
-<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span> > Reply to <%= @post.title %></div>
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span> > Reply to <%= first_words(@post.title,40) %></div>
 
 <% menu :posts %>
 
@@ -25,9 +25,9 @@
     <%= hidden_field_tag :show, "true"%>
   <%end%>
   <%= hidden_field_tag "post[parent_id]", @post.id%>
-  <div class="float">
+  <div class="float margin-up">
   <%= image_submit_tag "buttons/create.png" %>
   </div>
-  </div>
 <% end -%>
+</div>
 </div>

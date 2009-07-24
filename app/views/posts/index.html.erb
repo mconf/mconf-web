@@ -87,6 +87,7 @@ $("a.reply_to_link").click(function(){
 			      $(".big_post_text").val($(".small_post_text").val());
 			      big_textarea();
 			      $("#fancy_outer").width($("#new_thread_big").width() + 50);
+				  $("#fancy_outer").height($("#new_thread_big").height() + 80);
 			      $(window).resize();
 			    },
 			    'callbackOnClose' : function(){
@@ -133,6 +134,7 @@ $("a.edit_post_link").click(function(){
           $(".big_post_text").val($(".small_post_text").val());
           big_textarea();
           $("#fancy_outer").width($("#new_thread_big").width() + 50);
+		  $("#fancy_outer").height($("#new_thread_big").height() + 80);
           $(window).resize();
         },
         'callbackOnClose' : function(){
