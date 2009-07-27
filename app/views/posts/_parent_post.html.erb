@@ -22,7 +22,7 @@
    			<%if post.text.size < 500 || @show_view%>
 	     	<li>
 	     		<div class="post_text">
-	     		<%=sanitize(auto_link(simple_format(post.text)))%>
+	     		<%=sanitize(auto_link(post_format(post.text)))%>
 					</div>
 	     	</li>
   		<%else%>
@@ -35,7 +35,7 @@
   		</ul>
      <div id="expanded_post_<%=post.id%>">
      	 <div class="post_text">
-         <%=sanitize(auto_link(simple_format(post.text)))%>
+         <%=sanitize(auto_link(post_format(post.text)))%>
 		   </div>
      </div>
    <%end%>   

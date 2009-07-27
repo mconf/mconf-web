@@ -52,5 +52,9 @@ module PostsHelper
   def thread(post)
     post.parent_id.nil? ? post : post.parent
   end
+
+  def post_format( text)
+    (text.include?("<") && text.include?("</") && text.include?(">")) ? text : simple_format(text)
+  end
   
 end

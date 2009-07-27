@@ -37,7 +37,7 @@
         <%if post.text.size < 120 %>
 		  <li>
 		  	<div class="post_text">
-		      <%=sanitize(auto_link(simple_format(post.text)))%>
+		      <%=sanitize(auto_link(post_format(post.text)))%>
 				</div>
 		  </li>
 		<%else%>
@@ -49,7 +49,7 @@
 		  </li>
 		  <li id="expanded_post_<%=post.id%>">
 		  	<div class="post_text">
-			    <%=sanitize(auto_link(simple_format(post.text)))%>
+			    <%=sanitize(auto_link(post_format(post.text)))%>
 			  </div>
 		  </li>
 		<%end%>
