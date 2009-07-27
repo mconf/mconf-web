@@ -10,7 +10,7 @@
 			<div id="openid_form" <%='style="display:none;"' if request.xhr? %> >
               <% form_tag session_url(:protocol => current_site.protocol) do -%>
  	  			<div id="openid_label"><h3>Enter your OpenID <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag 'Log in'%></h3></div>
-    		  <% end -%>
+    		  
   		    </div>	  		
 			<div>
 		  		<label for="login">Email or full name</label><br/>
@@ -25,6 +25,7 @@
 	  		</div>
     		<div class="button">
 				<%= submit_tag 'Log in'%>
+				<% end -%>
 				<span><%= link_to 'Register now', signup_path, :class => "login_lightbox_link" %> |  <%= link_to 'Have you lost your password?', lost_password_path, :class => "login_lightbox_link" %></span>
 			</div>
 
