@@ -36,15 +36,21 @@
 	  	</li>
         <%if post.text.size < 120 %>
 		  <li>
-		    <%=sanitize(auto_link(simple_format(post.text)))%>
+		  	<div class="post_text">
+		      <%=sanitize(auto_link(simple_format(post.text)))%>
+				</div>
 		  </li>
 		<%else%>
 		  <li id="collapsed_post_<%=post.id%>" style="display:none">
-			<%=sanitize(first_words(auto_link(post.text),120))%>
-			<%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+		  	<div class="post_text">
+			    <%=sanitize(first_words(auto_link(post.text),120))%>
+			    <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+			  </div>
 		  </li>
 		  <li id="expanded_post_<%=post.id%>">
-			<%=sanitize(auto_link(simple_format(post.text)))%>
+		  	<div class="post_text">
+			    <%=sanitize(auto_link(simple_format(post.text)))%>
+			  </div>
 		  </li>
 		<%end%>
 		<li class="attach">

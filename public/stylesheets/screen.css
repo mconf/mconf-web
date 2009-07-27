@@ -224,6 +224,8 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 #posts .comments-status{padding:3px 0.75em;margin-left:0.75em;margin-right:0.5em;}
 div.add-new-comment,.show-more{clear:both;text-align:right;margin-right:0.5em;padding:0 0 6px 0;}
 
+.post_text ul{margin:20px;list-style-type:disc;}
+
 /*options links for posts, threads, people..*/
 .thread_options ul{list-style-type:none;float:right;margin:2px 5px -5px 0;}
 .thread_options ul li{display:inline;}
