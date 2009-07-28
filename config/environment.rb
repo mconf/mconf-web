@@ -12,7 +12,7 @@ Rails::Initializer.run do |config|
   # -- all .rb files in that directory are automatically loaded.
 
   # Allowed html tags for sanitize  
-  config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td', 'embed'
+  config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td', 'embed', 'u'
   config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style'
 
   # Add additional load paths for your own custom dirs
