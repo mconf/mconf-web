@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
   attr_accessor :start_hour
   attr_accessor :end_hour
   attr_accessor :mails
+  attr_accessor :ids
   
   is_indexed :fields => ['name','description','place','start_date','end_date'],
              :include =>[{:class_name => 'Tag',
@@ -37,10 +38,17 @@ class Event < ActiveRecord::Base
   
   after_create do |event|
     event.mails.split(',').map(&:strip).map { |email|
-      params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event =>event}
+      params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event}
       i = event.space.event_invitations.build params
       i.introducer = event.author
       i
+    }.each(&:save)
+    event.ids.map { |user_id| 
+     user = User.find(user_id)
+     params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event}
+     i = event.space.event_invitations.build params
+     i.introducer = event.author
+     i
     }.each(&:save)
   end
       
