@@ -30,8 +30,22 @@
 		<%=f.check_box :marte_event,:class=>"icon"  %>
 		<label for="marte_event" class="label_izquierda" >Online event:</label>
 	</div>
+	<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
+	  <div>
+	    <label for="e-mails" class="label_izquierda" > Invite people from Email (separated by commas):</label>
+			<%= f.text_area :mails%>
+		</div>	
+	<%else%>
+	 <div>
+	       	
+	 </div>	
+	<%end%>	
+	<div>
+    <label for="Notes">Notes:</label>
+    <%=f.text_area :notes%>
+  </div>
 	<div class="margin-up">
-	<%= image_submit_tag "buttons/create.png" %>
+	 <%= image_submit_tag "buttons/create.png" %>
 	</div>
 <% end %>
 </div>

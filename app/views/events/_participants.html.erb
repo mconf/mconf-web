@@ -1,0 +1,42 @@
+<%unless @assistants.empty?%>
+	<p>People who will assist to this event</p>
+  <%for participant in @assistants%>
+	  <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
+      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
+    <%else%>
+      <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
+    <%end%> 
+	<%end%>
+<%end%>
+
+<%unless @no_assistants.empty?%>
+  <p>No Assist</p>
+  <%for participant in @no_assistants%>
+    <%if participant.user && participant.user.authorizes?([:read, :profile],:to=> current_user)%>
+      <%=link_to logo(participant, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
+    <%elsif participant.user%>
+      <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
+		<%else%>
+		  <%=image_tag("avatars/undefined.png", :title=> participant.email )%>
+    <%end%> 
+  <%end%>
+<%end%>
+
+<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorizes?([:update], :to=>current_user) %>
+  <%if !@not_responding_candidates.empty?%>
+    <p>People that has not confirmed</p>
+    <%for event_inv in @not_responding_candidates%>
+      <%if event_inv.candidate.authorizes?([:read, :profile],:to=> current_user)%>
+        <%=link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }), user_profile_path(event_inv.candidate)%>
+      <%else%>
+        <%=logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name })%>
+      <%end%> 
+    <%end%>
+	<%end%>
+	<%if !@not_responding_emails.empty?%>
+    <p>People that has not confirmed</p>
+    <%for event_inv in @not_responding_emails%>      
+        <%=image_tag("avatars/undefined.png", :title=> event_inv.email )%>
+    <%end%>
+  <%end%>
+<%end%>

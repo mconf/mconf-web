@@ -24,11 +24,13 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :admissions, :collection => { :invitations => :post }
     space.resources :invitations
     space.resources :join_requests
+    space.resources :event_invitations
     space.resources :performances
     space.resources :news
   end
 
   map.resources :invitations, :member => [ :accept ]
+  map.resources :event_invitations, :member => [ :accept ]
   map.resources :performances
   map.resources :admissions
 

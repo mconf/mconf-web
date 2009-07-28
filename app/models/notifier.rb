@@ -9,6 +9,16 @@ class Notifier < ActionMailer::Base
     @body[:space] = invitation.group
   end
 
+
+  def event_invitation_email(invitation)
+    setup_email(invitation.email)
+
+    @subject += "Invitation"
+    @body[:invitation] = invitation
+    @body[:space] = invitation.group
+  end
+
+
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)
 

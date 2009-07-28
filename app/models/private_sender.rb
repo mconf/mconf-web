@@ -11,6 +11,11 @@ class PrivateSender
   end
   
   
+  def event_invitation_message(invitation)
+    debugger
+  end
+  
+  
   def self.join_request_message(admission, receiver)    
       m = PrivateMessage.new :title => "Join Request to #{ admission.group.name }",
                              :body => "#{ admission.candidate.name } wants to participate in space #{ admission.group.name }, please <a href=\"/spaces/#{ admission.group.to_param }/admissions\">accept or deny the request</a>."
