@@ -24,8 +24,8 @@ class Admission < ActiveRecord::Base
 
   validate_on_create :candidate_without_role, :if => Proc.new { |admission| admission.type == Invitation || admission.type==JoinRequest }
 
-  after_save :to_performance!, :if => Proc.new { |admission| admission.type == Invitation || admission.type==JoinRequest }
-
+  after_save :to_performance!
+  
   acts_as_sortable :columns => [ :candidate,
                                  :email,
                                  :group,
@@ -89,8 +89,10 @@ class Admission < ActiveRecord::Base
   def to_performance!
     return unless recently_processed? && accepted? && group && role
 
-    Performance.create! :agent => candidate,
-                        :stage => group,
-                        :role  => role
+    unless group.role_for? candidate
+      Performance.create! :agent => candidate,
+                          :stage => group,
+                          :role  => role
+    end
   end
 end

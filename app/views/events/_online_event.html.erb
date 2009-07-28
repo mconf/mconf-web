@@ -21,13 +21,13 @@ Learn more about Flex at http://flex.org
 // -->
 
 <!--  BEGIN Browser History required section -->
-<link rel="stylesheet" type="text/css" href="history/history.css" />
+<%= stylesheet_link_tag "history", :media => "screen, projection" %>
 <!--  END Browser History required section -->
 
 <script src="/flash/AC_OETags.js" language="javascript"></script>
 
 <!--  BEGIN Browser History required section -->
-<script src="/flash/history/history.js" language="javascript"></script>
+ <%= javascript_include_tag 'history'%>
 <!--  END Browser History required section -->
 
 <style>
