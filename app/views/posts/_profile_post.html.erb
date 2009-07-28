@@ -8,12 +8,23 @@
 
    <p id="topic">Topic:  <%=link_to thread_title(post), space_post_path(post.space, thread(post)) if post.space.authorizes?([:read, :performance],:to=> current_user) %> in the space <%= post.authorizes?([:read, :content], :to =>current_user) ? link_to(post.space.name ,space_path(post.space)) : post.space.name %></p>
 
-   <p id="collapsed_post_<%=post.id%>" style="display:none">
-     <%=sanitize(first_words(post.text,200))%><br />
-     <%=link_to "more>>", "javascript:expand_post_#{post.id}()" if post.text.size > 200%>
-   </p>
-
-   <p id="expanded_post_<%=post.id%>">
-     <%=sanitize(post.text)%><br />
-   </p>
+   <%if post.text.size < 120 %>
+      <li>
+        <div class="post_text">
+          <%=sanitize(auto_link(post.text))%>
+        </div>
+      </li>
+    <%else%>
+      <li id="collapsed_post_<%=post.id%>" style="display:none">
+        <div class="post_text">
+          <%=sanitize(first_words(auto_link(post.text),120))%>
+          <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+        </div>
+      </li>
+      <li id="expanded_post_<%=post.id%>">
+        <div class="post_text">
+          <%=sanitize(auto_link(simple_format(post.text)))%>
+        </div>
+      </li>
+    <%end%>
 <%end%>

@@ -2,7 +2,8 @@ class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :posts
-  
+  has_many :participants
+  has_many :event_invitations, :dependent => :destroy
   
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
@@ -14,6 +15,7 @@ class Event < ActiveRecord::Base
   # Attributes for jQuery selectors
   attr_accessor :start_hour
   attr_accessor :end_hour
+  attr_accessor :mails
   
   is_indexed :fields => ['name','description','place','start_date','end_date'],
              :include =>[{:class_name => 'Tag',
@@ -31,6 +33,15 @@ class Event < ActiveRecord::Base
       event.start_date += ( Time.parse(event.start_hour) - Time.now.midnight )
       event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
     end
+  end
+  
+  after_create do |event|
+    event.mails.split(',').map(&:strip).map { |email|
+      params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event =>event}
+      i = event.space.event_invitations.build params
+      i.introducer = event.author
+      i
+    }.each(&:save)
   end
       
   def author

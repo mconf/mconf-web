@@ -12,6 +12,15 @@ class Informer
    end
    
    
+   def self.deliver_event_invitation(admission)
+     if !admission.candidate || admission.candidate.notification == User::NOTIFICATION_VIA_EMAIL
+       Notifier.deliver_event_invitation_email(admission)
+     elsif admission.candidate.notification == User::NOTIFICATION_VIA_PM
+       PrivateSender.event_invitation_message(admission)        
+     end
+   end
+      
+   
    def self.deliver_join_request(admission) 
      #in this case the deliver is to the admins of the space so we have to decide
      #whether using a Private Message or an Email depending on their profile
