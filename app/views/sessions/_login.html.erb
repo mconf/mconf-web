@@ -7,7 +7,7 @@
 			  <h3>Do you have an OpenID? </h3>
 			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> or use your email...</span>
 			</div>
-			<div id="openid_form" <%='style="display:none;"' if request.xhr? %> >
+			<div class="openid_form" <%='style="display:none;"' if request.xhr? %> >
               <% form_tag session_url(:protocol => current_site.protocol) do -%>
  	  			<div id="openid_label"><h3>Enter your OpenID <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag 'Log in'%></h3></div>
     		  
