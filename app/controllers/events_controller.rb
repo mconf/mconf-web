@@ -111,8 +111,8 @@ class EventsController < ApplicationController
   def show
     @assistants =  @event.participants.select{|p| p.attend == true}
     @no_assistants = @event.participants.select{|p| p.attend != true} 
-    @not_responding_candidates = @event.event_invitations.select{|e| e.candidate != nil && e.processed? != nil}
-    @not_responding_emails = @event.event_invitations.select{|e| e.candidate == nil && e.processed? != nil}
+    @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
+    @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
     #first check if it is an online event
 	if @event.marte_event && params[:show_conference]
 		#let's calculate the wait time

@@ -1,4 +1,13 @@
 module EventsHelper
+  
+  def get_user_state(event,event_user)
+      event.participants.select {|p| p.user == event_user}.first.attend
+    end
+    def get_participant(event,event_user)
+      event.participants.select {|p| p.user == event_user}.first
+    end
+    
+    
   #method to know if this event has been accomplished already
     def already_accomplished(event)
       for datetime in event.event_datetimes

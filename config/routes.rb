@@ -13,7 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :readers
     space.resources :events,
                      :collection => [:add_time, :copy_next_week, :remove_time],
-                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get }
+                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get } do |event|
+      event.resources :participants
+    end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
     space.resources :attachments
