@@ -13,7 +13,7 @@
   <p>No Assist</p>
   <%for participant in @no_assistants%>
     <%if participant.user && participant.user.authorizes?([:read, :profile],:to=> current_user)%>
-      <%=link_to logo(participant, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
+      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
     <%elsif participant.user%>
       <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
 		<%else%>

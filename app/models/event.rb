@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
       i.introducer = event.author
       i
     }.each(&:save)
-    event.ids.map { |user_id| 
+    event.ids.map { |user_id|
      user = User.find(user_id)
      params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event}
      i = event.space.event_invitations.build params
