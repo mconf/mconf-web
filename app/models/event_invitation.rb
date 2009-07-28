@@ -1,6 +1,7 @@
 class EventInvitation < Admission
   belongs_to :event
   validates_presence_of :email
+  
 
   before_create :generate_code
 

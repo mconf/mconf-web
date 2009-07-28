@@ -17,7 +17,7 @@ class AdmissionObserver < ActiveRecord::Observer
      when JoinRequest
        Informer.deliver_processed_join_request(admission)
      when EventInvitation
-       Participant.create({:user => admission.candidate, :email => admission.email, :event_id => admission.event_id, :attend => admission.accept})
+       Participant.create({:user => admission.candidate, :email => admission.email, :event_id => admission.event_id, :attend => admission.accepted})
      end if admission.recently_processed?
    end
 
