@@ -4,16 +4,15 @@
 <div id='participants'>
 <%if @event.participants.map(&:user).include?(current_user)%>
   <%if get_user_state(event,current_user) %>
-	  <p>you are going to assit to this event</p>
-		<p>Click here to change your state</p>
+    <p>You are planning to attend to this event</p>
+    <p>Changed your mind?</p>
 		<% form_for :participant, :url => space_event_participant_path(@space,@event,get_participant(event,current_user)),:html => { :method => :put , :class => "participant"} do |f| -%>
       <%=hidden_field_tag 'participant[attend]', false%>
 		  <%= image_submit_tag "buttons/notgo_event.png" %>		
 		<%end%>
 	
 	<%else%>
-	  <p>you are not going to assit to this event</p>
-    <p>Click here to change your state</p>
+    <p>You are planning not to attend to this event. Changed your mind?</p>
     
 		<% form_for :participant, :url => space_event_participant_path(@space,@event,get_participant(event,current_user)),:html => { :method => :put, :class => "participant"} do |f| -%>
       <%=hidden_field_tag 'participant[attend]', true%>

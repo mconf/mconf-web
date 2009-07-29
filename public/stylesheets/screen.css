@@ -512,3 +512,8 @@ div.user strong{color:#8B0425;}
  */
 a.extract_form{float:right}
 a.extract_form{margin-right:0.5em;}
+
+#participants{
+  margin-top:240px;
+}
+#participants p{margin:0 0 0em;}
