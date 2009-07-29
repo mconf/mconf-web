@@ -15,4 +15,4 @@ en:
     created: 'Your join request has been sent to the space administrators'
   event_invitation:
     discarded: "The invitation to this event has been discarded"  
-
+    accepted: "You have accepted the invitation to this event"
