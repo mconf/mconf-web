@@ -1,3 +1,24 @@
+<%if @event.participants.map(&:user).include?(current_user)%>
+  <%if get_user_state(event,current_user) %>
+	  <p>you are going to assit to this event</p>
+		<p>Click here to change your state</p>
+		<% form_for :participant, :url => space_event_participant_path(@space,@event,get_participant(event,current_user)),:html => { :method => :put} do |f| -%>
+      <%=hidden_field_tag 'participant[attend]', false%>
+		  <%= image_submit_tag "buttons/create.png" %>		
+		<%end%>
+	
+	<%else%>
+	  <p>you are not going to assit to this event</p>
+    <p>Click here to change your state</p>
+    <% form_for :participant, :url => space_event_participant_path(@space,@event,get_participant(event,current_user)),:html => { :method => :put} do |f| -%>
+      <%=hidden_field_tag 'participant[attend]', true%>
+      <%= image_submit_tag "buttons/create.png" %>
+	<%end%>
+ 
+        
+<%end%>
+
+
 <%unless @assistants.empty?%>
 	<p>People who will assist to this event</p>
   <%for participant in @assistants%>
