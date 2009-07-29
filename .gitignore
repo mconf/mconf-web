@@ -10,6 +10,7 @@ config/ultrasphinx
 public/logos
 attachments
 public/images/tmp/*
+spec/reports
 **/*~
 **/**/*~
 **/**/**/*~
