@@ -10,33 +10,29 @@ class ParticipantsController < ApplicationController
     if @participant.save    
       respond_to do |format|
       format.html {
-      flash[:success] = "your event participation has been successfully updated"
+      flash[:success] = "your attendance information has been successfully updated"
         redirect_to request.referer
       }
       format.js
     end
   else
-      message = ""
-      @participant.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-      flash[:error] = message
+      flash[:error] = "There was a problem updating your attendance information"
       redirect_to request.referer    
   end
 end
   
   def update
-    
     @participant = Participant.find(params[:id])
     if @participant.update_attributes(params[:participant])
       respond_to do |format|
       format.html {
-      flash[:success] = "your event participation has been successfully updated"
-        redirect_to request.referer
+      flash[:success] = "your attendance information has been successfully updated"
+      redirect_to request.referer
       }
+
       end
     else
-      message = ""
-      @participant.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-      flash[:error] = message
+      flash[:error] = "There was a problem updating your attendance information"
       redirect_to request.referer
     end
   end
