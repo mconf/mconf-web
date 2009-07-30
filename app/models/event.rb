@@ -36,20 +36,24 @@ class Event < ActiveRecord::Base
     end
   end
   
-  after_create do |event|
-    event.mails.split(',').map(&:strip).map { |email|
-      params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event}
-      i = event.space.event_invitations.build params
-      i.introducer = event.author
-      i
+  after_save do |event|
+    #fisrt of all we remove the emails that already has an invitation for this event (not to spam them)
+    mails_to_invite = event.mails.split(',').map(&:strip) - event.event_invitations.map{|ei| ei.email}
+    mails_to_invite.map { |email|      
+        params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event}
+        i = event.space.event_invitations.build params
+        i.introducer = event.author
+        i
     }.each(&:save)
-    event.ids.map { |user_id|
-     user = User.find(user_id)
-     params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event}
-     i = event.space.event_invitations.build params
-     i.introducer = event.author
-     i
-    }.each(&:save)
+    if event.ids
+      event.ids.map { |user_id|
+        user = User.find(user_id)
+        params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event}
+        i = event.space.event_invitations.build params
+        i.introducer = event.author
+        i
+      }.each(&:save)
+    end
   end
       
   def author

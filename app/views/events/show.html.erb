@@ -64,7 +64,10 @@
 			<li class=""> Follow this event  <%= link_to 'online', space_event_path(@space, @event, :show_conference => true)%></li>
 		<%end%>
 		
-		<li> Description: <%=sanitize(auto_link(simple_format(@event.description)))%></li>
+		<li  class="author"> Description: </li>
+		<li><%=sanitize(auto_link(simple_format(@event.description)))%></li>
+		<li class="author"> Remarks: </li>
+		<li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
     </ul>
  </div>
 <%unless @comments.empty?%> 
