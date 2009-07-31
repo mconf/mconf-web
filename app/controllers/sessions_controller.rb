@@ -17,9 +17,11 @@ class SessionsController
     authentication_methods_chain(:new)
     
     respond_to do |format|
-      format.js {
-        render :partial => "sessions/login" 
-      }
+      if request.xhr?
+        format.js {
+          render :partial => "sessions/login" 
+        }
+      end
       format.html
     end
   end

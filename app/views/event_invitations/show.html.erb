@@ -1,8 +1,9 @@
 <div class="invitation-box">
 	<div id="title">
-	  <h2 class="item_title"><%= t 'invitation.show', :group => @invitation.group.name %></h2>
-		Descripcion del espacio</p>
-		desc del evento
+	  <h2 class="item_title">Space: <%= t 'invitation.show', :group => @invitation.group.name %></h2>
+	    <%=@invitation.group.description%>
+	  <h2 class="item_title">Event: <%= Event.find(@invitation.event_id).name %></h2>
+	    <%=Event.find(@invitation.event_id).description%>
 	</div>
 <div id="invitation_content">
 <% form_for @invitation do |f| %>
@@ -30,14 +31,14 @@
     <% end %>
   <% end %>
 
-  <div>
+  <div id="accept_invitation">
     <%= f.submit t('invitation.accept') %>
   </div>
 <% end %>
 
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
-  <div>
+  <div id="discard_invitation">
     <%= f.submit t('invitation.discard') %>
   </div>
 

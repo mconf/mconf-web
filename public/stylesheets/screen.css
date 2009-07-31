@@ -361,7 +361,7 @@ div.invitation-logo,div.invitation-content{float:left;}
 .invitation-content form select,.invitation-content form input{font-size:0.9166em;line-height:1.6363;}
 
 /*invitation*/
-#invitation_content form{float:left;margin:9px 9px 9px 0;}
+#invitation_content form{margin:9px 9px 9px 0;}
 
 
 /*Profile*/
@@ -517,3 +517,5 @@ a.extract_form{margin-right:0.5em;}
   margin-top:240px;
 }
 #participants p{margin:0 0 0em;}
+
+#accept_invitation { width:140px;}
