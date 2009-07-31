@@ -66,8 +66,10 @@
 		
 		<li  class="author"> Description: </li>
 		<li><%=sanitize(auto_link(simple_format(@event.description)))%></li>
-		<li class="author"> Remarks: </li>
-		<li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
+		<%if @event.notes%>
+		  <li class="author"> Remarks: </li>
+		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
+		<%end%>
     </ul>
  </div>
 <%unless @comments.empty?%> 

@@ -1,6 +1,7 @@
 <div class="invitation-box">
 	<div id="title">
-	  <h2 class="item_title"><%= t 'invitation.show', :group => @invitation.group.name %></h2>
+	  <h2 class="item_title">Space: <%= t 'invitation.show', :group => @invitation.group.name %></h2>
+	   <%=@invitation.group.description%>
 	</div>
 <div id="invitation_content">
 <% form_for @invitation do |f| %>
