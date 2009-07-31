@@ -8,7 +8,7 @@
 		<span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
       </div>
 	  <div class="news-content">
-	    <p><%=sanitize(auto_link(simple_format(@news_to_show.text)))%></p>
+	    <p><%=sanitize(auto_link(@news_to_show.text))%></p>
 	  </div>
     </div>
 	<div id="news_navigation_div">
