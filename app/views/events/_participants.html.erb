@@ -1,4 +1,76 @@
 <%content_for :javascript do%>
+  $(".links a").attr("href", "#");
+
+  /*jquery for assistants div*/
+  $(".list_assistants").livequery('click',function () {
+    $("#assistants_lite").hide();
+		$("#all_assistants").hide();
+    $("#assistants_list").show();
+		return false;
+  });
+	
+	 $(".more_assistants").livequery('click',function () {
+    $("#assistants_lite").hide();
+		$("#assistants_list").hide();
+    $("#all_assistants").show();
+    return false;
+  });
+	 
+	 $(".less_assistants").livequery('click',function () {
+	   $("#all_assistants").hide();
+	   $("#assistants_list").hide();
+     $("#assistants_lite").show();
+    
+    return false;
+  });
+	
+	
+	  /*jquery for no-assistants div*/
+  $(".list_no_assistants").livequery('click',function () {
+    $("#no_assistants_lite").hide();
+    $("#all_no_assistants").hide();
+    $("#no_assistants_list").show();
+    return false;
+  });
+  
+   $(".more_no_assistants").livequery('click',function () {
+    $("#no_assistants_lite").hide();
+    $("#no_assistants_list").hide();
+    $("#all_no_assistants").show();
+    return false;
+  });
+   
+   $(".less_no_assistants").livequery('click',function () {
+     $("#all_no_assistants").hide();
+     $("#no_assistants_list").hide();
+     $("#no_assistants_lite").show();
+    
+    return false;
+  });
+	
+	   /*jquery for no-responding div*/
+  $(".list_no_responding").livequery('click',function () {
+    $("#no_responding_lite").hide();
+    $("#all_no_responding").hide();
+    $("#no_responding_list").show();
+    return false;
+  });
+  
+   $(".more_no_responding").livequery('click',function () {
+    $("#no_responding_lite").hide();
+    $("#no_responding_list").hide();
+    $("#all_no_responding").show();
+    return false;
+  });
+   
+   $(".less_no_responding").livequery('click',function () {
+     $("#all_no_responding").hide();
+     $("#no_responding_list").hide();
+     $("#no_responding_lite").show();
+    
+    return false;
+  });
+	
 <%end%>
 <div id='participants'>
 	
@@ -23,7 +95,7 @@
 
 <div id='asisstants'>
 	<%unless @assistants.empty?%>
-	  <div id="assistants-lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
+	  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
 			<h3>People who will assist to this event</h3>
 		  <%for participant in @assistants.first(5)%>
 			  <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -33,12 +105,12 @@
 		    <%end%> 
 			<%end%>
 			<div class="links">
-			  <%=link_to "show list version >>", space_event_path(@space,@event, :list_assistants => true)%>
-			  <%=link_to "more >>", space_event_path(@space,@event, :all_assistants => true) if @assistants.size >= 5%>
+			  <%=link_to "show list version >>", space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
+			  <%=link_to "more >>", space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size >= 5%>
 			</div>
 		</div>
 		
-		<div id="all-assistants" <%= 'style="display: none;"' unless params[:all_assistants]%>>
+		<div id="all_assistants" <%= 'style="display: none;"' unless params[:all_assistants]%>>
 			<h3>People who will assist to this event</h3>
 		    <%for participant in @assistants%>
 		      <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -48,12 +120,12 @@
 		      <%end%> 
 		    <%end%>
 				<div class="links">
-				 <%=link_to "show list version >>", space_event_path(@space,@event, :list_assistants => true)%>
-				 <%=link_to "colapse >>", space_event_path(@space,@event)%>
+				 <%=link_to "show list version >>", space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
+				 <%=link_to "colapse >>", space_event_path(@space,@event), :class => "less_assistants"%>
 				</div>	
 		</div>
 			
-	  <div id="attendants_list" <%= 'style="display: none;"' unless params[:list_assistants]%>>
+	  <div id="assistants_list" <%= 'style="display: none;"' unless params[:list_assistants]%>>
 	  	<h3>People who will assist to this event</h3>
 	    <%for participant in @assistants%>
 	      <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -63,7 +135,7 @@
 	      <%end%> 
 	    <%end%>
 			<div class="links">
-			  <%=link_to "photos view >>", space_event_path(@space,@event)%>
+			  <%=link_to "photos view >>", space_event_path(@space,@event), :class => "less_assistants"%>
 				</div>
 	  </div>   
   <%end%>
@@ -71,7 +143,7 @@
 <div id="no-assistants">
 	<%unless @no_assistants.empty?%>
 	  
-		<div id="assistants-lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
+		<div id="no_assistants_lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
 			<h3>People who won't assist to this event</h3>
 		  <%for participant in @no_assistants.first(5)%>
 		    <%if participant.user && participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -83,12 +155,12 @@
 		    <%end%> 
 		  <%end%>
 			<div class="links">
-			  <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_assistants => true)%>
-			  <%=link_to "more >>", space_event_path(@space,@event, :all_no_assistants => true) if @no_assistants.size >= 5%>
+			  <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
+			  <%=link_to "more >>", space_event_path(@space,@event, :all_no_assistants => true), :class => "more_no_assistants" if @no_assistants.size >= 5%>
 		  </div>
 		</div>
 		
-		<div id="all-no-assistants" <%= 'style="display: none;"' unless params[:all_no_assistants]%>>
+		<div id="all_no_assistants" <%= 'style="display: none;"' unless params[:all_no_assistants]%>>
 	    <h3>People who won't assist to this event</h3>
 	      <%for participant in @assistants%>
 	        <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -98,12 +170,12 @@
 	        <%end%> 
 	      <%end%>
 				<div class="links">
-				 <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_assistants => true)%>
-				 <%=link_to "colapse >>", space_event_path(@space,@event)%>
+				 <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
+				 <%=link_to "colapse >>", space_event_path(@space,@event), :class => "less_no_assistants"%>
 				</div>  
 	  </div>
 		
-	  <div id="no_attendants_list" <%= 'style="display: none;"' unless params[:list_no_assistants]%>>
+	  <div id="no_assistants_list" <%= 'style="display: none;"' unless params[:list_no_assistants]%>>
 	  	<h3>People who won't assist to this event</h3>
 	    <%for participant in @no_assistants%>
 	      <%if participant.user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -113,15 +185,15 @@
 	      <%end%> 
 	    <%end%>
 			<div class="links">
-			  <%=link_to "photos view >>", space_event_path(@space,@event)%>
+			  <%=link_to "photos view >>", space_event_path(@space,@event), :class => "less_no_assistants"%>
 			</div>
 	  </div>
 	<%end%>
 </div>
 
-<div id="not_responding">
+<div id="no_responding">
 	<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorizes?([:update], :to=>current_user) %>
-	  <div id="no-responding-lite" <%= 'style="display: none;"' if params[:all_no_responding] or params[:list_no_responding]%>>
+	  <div id="no_responding_lite" <%= 'style="display: none;"' if params[:all_no_responding] or params[:list_no_responding]%>>
 			<%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
 			 <h3>People that has not confirmed</h3>
 			<%end%>
@@ -141,13 +213,13 @@
 		  <%end%>
 			<%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
         <div class="links">
-          <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_responding => true)%>
-          <%=link_to "more >>", space_event_path(@space,@event, :all_no_responding => true) if (@not_responding_candidates.size + @not_responding_emails.size)  >= 5%>
+          <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
+          <%=link_to "more >>", space_event_path(@space,@event, :all_no_responding => true), :class => "more_no_responding" if (@not_responding_candidates.size + @not_responding_emails.size)  >= 5%>
         </div>
       <%end%>
 		</div>
 		
-		  <div id="no-responding" <%= 'style="display: none;"' unless params[:all_no_responding]%>>
+		  <div id="all_no_responding" <%= 'style="display: none;"' unless params[:all_no_responding]%>>
 		    <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
 		     <h3>People that has not confirmed</h3>
 				  
@@ -168,13 +240,13 @@
 		    <%end%>
 				<%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
            <div class="links">
-              <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_responding => true)%>
-              <%=link_to "colapse >>", space_event_path(@space,@event)%><br/>
+              <%=link_to "show list version >>", space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
+              <%=link_to "colapse >>", space_event_path(@space,@event), :class => "less_no_responding"%><br/>
            </div> 
       <%end%>
 	  </div>
 	  
-	  <div id="non_confirmed_list" <%= 'style="display: none;"' unless params[:list_no_responding]%>>
+	  <div id="no_responding_list" <%= 'style="display: none;"' unless params[:list_no_responding]%>>
 		  <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
 	     <h3>People that has not confirmed</h3>
 	    <%end%>
@@ -194,7 +266,7 @@
 			<%end%>
 			<%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
 			  <div class="links">
-          <%=link_to "view photo version >>", space_event_path(@space,@event)%>
+          <%=link_to "view photo version >>", space_event_path(@space,@event) , :class => "less_no_responding"%>
        </div>
 			<%end%>
 			
