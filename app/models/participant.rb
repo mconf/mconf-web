@@ -7,4 +7,13 @@ class Participant < ActiveRecord::Base
                         
   validates_uniqueness_of :email,
                           :scope => [ :event_id]
+                          
+  after_create do |participant|
+    invitation = participant.event.event_invitations.select{|e| e.candidate == participant.user or e.email == participant.user.email}.first
+    if !invitation.processed?
+      invitation.processed_at = Time.now
+      participant.attend? ? invitation.accepted = true : invitation.accepted = false
+      invitation.save
+    end
+  end
 end
