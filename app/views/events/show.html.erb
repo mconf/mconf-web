@@ -20,12 +20,12 @@
 
   <% content_for :sidebar do  %>
     <%if @space.authorizes?([:create, :content],:to => current_user)%>
-  	<%if params[:edit_event]%>
+  	 <%if params[:edit_event]%>
      	  <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	<%elsif params[:edit_comment]%>
-	  <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
-	<%else%>
-	  <%=render :partial => 'new_comment'%>
+	   <%elsif params[:edit_comment]%>
+	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
+	   <%else%>
+	     <%=render :partial => 'new_comment'%>
   	<%end%>
    <%end%>
    <%= render :partial => 'participants' %>
