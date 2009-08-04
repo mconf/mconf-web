@@ -14,6 +14,7 @@ en:
     empty: Select an image, please
   body: Body
   changed_mind: Changed your mind?
+  collapse>>: collapse >>
   comment:
     add_new: Add a new comment
     delete: Delete comment
@@ -49,6 +50,7 @@ en:
     follow: "Follow this event"
     held_with: "This event will be held with"
     Isabel: "Isabel event"
+    join: Join this event
     last_7_days: Last 7 days ({{size}})
     last_month: Last month ({{size}})
     not_attend: "You are planning not to attend to this event."
@@ -61,6 +63,7 @@ en:
       other: Past events
       show: Show all old events
     search: Search events...
+    select_date: Select a date for your event
     to: "To"
     today: Today ({{size}})
     today_and_yesterday: Today and yesterday ({{size}})
@@ -87,8 +90,11 @@ en:
       other: Pending invitations
   Isabel: Isabel
   keywords: Keywords (*)
+  mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
+  more>>: more >>
   name: Name
   new_spam_detected: New spam detected
+  not_going: I'm not going
   now!: Now!
   join_request:
     created: Your join request has been sent to the space administrators
@@ -106,6 +112,7 @@ en:
     other_in: "Members of {{stage}}"
   phone: phone
   photos: Photos
+  photos_view>>: photos view >>
   place: Place
   public: Public
   read_more>>: read more>>
@@ -126,6 +133,7 @@ en:
   time:
     end: End time
     start: Start time
+  show_version_version>>: show list version >>
   start_now!: Start now!
   subject: Subject
   timezone: Timezone
@@ -134,9 +142,14 @@ en:
   user:
     active:
       other: Active users
+    assist: People who will assist to this event
     disabled: User disabled
     filter: User filter
+    invite: Invite people to your event
     invite_email: Invite people by e-mail
+    invite_from_space_by_email: Invite people from your space by using the filter and others by email
     invited: Users already invited
+    not_assist: People who won't assist to this event
+    not_confirmed: People that has not confirmed
     other: Users
   vcc: "Virtual Conference Center 

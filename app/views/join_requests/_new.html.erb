@@ -1,8 +1,10 @@
-<div id="join_div" class="blue_title">
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre > Join</span></div>
 
-<h3>Join <%= space.name %></h3>
+<div id="join_form">
+
+
 <%if !space.public?%>
-  <p><%=space.name%> is a private space. You can send a join request to the admins of this space.</p>
+  <p class="note"><%=space.name%> is a private space. Send a join request to the administrators of this space to let you in.</p>
 <%end%>
 
 <%if logged_in?%>
@@ -10,14 +12,16 @@
     <%= submit_tag "Send join request" %>
   <% end %>
 <%else%>
-  <p>You need to be logged in to send a join request.</p>
+  <p class="note">You need to be logged in to send a join request.</p>
 	<% form_tag space_join_requests_path(space) do %>
-	    <ul>
-	      <li><%= link_to "Login", space_join_requests_path(space), {:class => "join_and_login_link", :name => space.permalink} %></li>
-	      <li><%= link_to "Register", new_space_join_request_path(:register => true), {:class => "join_and_register_link", :name => space.permalink}  %></li>
-	    </ul>
-	
-	    <p>
+	    <div class="options">
+			<ul>
+		      <li><%= link_to "Login", space_join_requests_path(space), {:class => "join_and_login_link", :name => space.permalink} %></li>
+		      <li> | </li>
+			  <li><%= link_to "Register", new_space_join_request_path(:register => true), {:class => "join_and_register_link", :name => space.permalink}  %></li>
+		    </ul>
+		</div>
+	    <div class="margin-up">
 	      <%fields_for :user do |user|%>
 	        <label for="email">Email</label><br/>
 	        <%= user.text_field :email %><br/>
@@ -34,8 +38,10 @@
 	          <%= hidden_field_tag "register", params[:register] if params[:register]%>
 	        <%end%>
 	        <%end%>
-	  </p>		
-	  <%= submit_tag "Send join request" %>
+	  </div>		
+	  <div class="margin-up">
+	    <%= submit_tag "Send join request" %>
+	  </div>
 	<% end %>
 <%end%>
 </div>
