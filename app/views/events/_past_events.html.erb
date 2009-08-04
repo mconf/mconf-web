@@ -1,11 +1,11 @@
 <div id="events_content">
 
-  <h3>Past Events</h3>
+  <h3><%= t('event.past.other') %></h3>
     <div id="past-events-men">
-    	<%=link_to "All Past (#{@all_past_events.size})", space_events_path(@space, :show => "past_events"),{:class => "#{!params[:day] ? 'date_link selected' : 'date_link'}"}%> |
-      <%=link_to "Today and yesterday(#{@today_and_yesterday_events.size})" , space_events_path(@space, :show => "past_events", :day => "yesterday"),{ :class => "#{params[:day] == 'yesterday' ? 'date_link selected' : 'date_link'}"}%> |
-      <%=link_to "Last 7 days (#{@last_week_events.size})", space_events_path(@space, :show => "past_events", :day => "last_week" ),{:class => "#{params[:day] == 'last_week' ? 'date_link selected' : 'date_link'}"}%> |
-      <%=link_to "Last Month (#{@last_month_events.size})", space_events_path(@space, :show => "past_events" , :day =>"last_month"),{:class => "#{params[:day] == 'last_month' ? 'date_link selected' : 'date_link'}"}%> |
+    	<%=link_to t('event.past.all', :size => @all_past_events.size), space_events_path(@space, :show => "past_events"),{:class => "#{!params[:day] ? 'date_link selected' : 'date_link'}"}%> |
+        <%=link_to t('event.today_and_yesterday', :size => @today_and_yesterday_events.size), space_events_path(@space, :show => "past_events", :day => "yesterday"),{ :class => "#{params[:day] == 'yesterday' ? 'date_link selected' : 'date_link'}"}%> |
+        <%=link_to t('event.last_7_days', :size => @last_week_events.size), space_events_path(@space, :show => "past_events", :day => "last_week" ),{:class => "#{params[:day] == 'last_week' ? 'date_link selected' : 'date_link'}"}%> |
+        <%=link_to t('event.last_month', :size => @last_month_events.size), space_events_path(@space, :show => "past_events" , :day =>"last_month"),{:class => "#{params[:day] == 'last_month' ? 'date_link selected' : 'date_link'}"}%> |
       <%if params[:order_by_time]%>
         <%=link_to image_tag("icons/arrow_down.png") + "order DESC", space_events_path(@space, :show => params[:show], :day => params[:day]), {:class => 'past_link event_navigation'}%>  
       <%else%>

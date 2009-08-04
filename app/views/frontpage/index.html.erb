@@ -12,21 +12,21 @@
  
  <%content_for :search do%>
   <% form_tag(spaces_path(), :method => 'get') do %>
-      <%= text_field_tag :filter, "Search space...", :id => "search_space"  %>
+      <%= text_field_tag :filter, t('space.search'), :id => "search_space"  %>
       <%= image_submit_tag "buttons/go.png"%>
 	  <!--<button>Go</button>-->
    <% end %>
  <%end%>
 
- <%content_for :sidebar do%>
+ <% content_for :sidebar do %>
 		  <div class="join">
-			<h2>Start now!</h2>
-			<p>Create your own space.<br/>Share, Participate, Discuss.</p>
+			<h2><%= t('start_now!') %></h2>
+			<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>
 			<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 	
 		  </div>
 
 		  <div class="rel-users">
-			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> Active Users</h5>
+			<h5><img class="icon" src="images/icons/user.png" alt="icon"/><%= t('user.active.other') %></h5>
 			
 			<div>
 				<%for user in @relevant_users%>
@@ -41,11 +41,11 @@
 		  </div>
 
 		  <div class="rcnt-posts">
-			<h5><img class="icon" src="images/icons/comment.png"/> Recent comments </h5>
+			<h5><img class="icon" src="images/icons/comment.png"/><%= t('comment.recent.other') %></h5>
 				<%for comment in @recent_posts%>
 					<ul>
-			  		  <li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> updated <%=time_ago_in_words(comment.updated_at)%> ago</span>
-			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to "read more>>" ,space_post_path(comment.space,comment)%></p>
+			  		  <li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> <%= t('updated_time_ago', :time => time_ago_in_words(comment.updated_at)) %></span>
+			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to t('read_more>>'), space_post_path(comment.space,comment)%></p>
 					  </li>							
 					</ul>
 				<%end%>			
@@ -55,7 +55,7 @@
  <%end%>
  
 		  <div class="wrapper">
-			<h3 class="title">Popular Spaces</h3>
+			<h3 class="title"><%= t('space.popular.other') %></h3>
 			
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for space in @popular_spaces%>
@@ -67,7 +67,7 @@
 		  </div>        
 
 		  <div class="wrapper">
-			<h3 class="title">Recent Spaces</h3>
+			<h3 class="title"><%= t('space.recent.other') %></h3>
 			
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->			
 			<%for space in @recent_spaces%>
@@ -85,7 +85,7 @@
 		  
 		  <div class="wrapper">
   	
-			<h3 class="title">Upcoming Events</h3>
+			<h3 class="title"><%= t('event.upcoming.other') %></h3>
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for event in @recent_events%>
 				<ul id="list-events">

@@ -6,10 +6,10 @@
   <div class="invitation-content">
     <ul>
 	  <li class="person_title"><%=sanitize(invitation.candidate_name)%></li>
-	  <li><span class="person_title">Role: </span><%= invitation.role && invitation.role.name %></li>
-	</ul>    
+	  <li><span class="person_title"><%= t('role.one') %>: </span><%= invitation.role && invitation.role.name %></li>
+	</ul>
   </div>
     <div class="group_links">
-    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm=>"Are you sure?",:title=>"delete"%>
+    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete, :confirm => t('delete.confirm'), :title => "delete"%>
   </div>
 <% end %>

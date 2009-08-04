@@ -5,7 +5,7 @@
       <%= text_field_tag :query, params[:query], :size=>'18' %>
 	   <%= image_submit_tag "buttons/search.png"%>
 	   <div id="advanced">
-	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
      </div>
    <% end %>
 <%end%>

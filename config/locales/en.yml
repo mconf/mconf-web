@@ -2,17 +2,141 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  user:
-    disabled: "User disabled"
+  about: About
+  advanced: Advanced
+  advanced_options: Advanced options
   agent:
-    one: "User"
+    one: User
+  all: All
+  all_rights_reserved: All rights reserved
+  avatar:
+    crop: Crop your Avatar
+    empty: Select an image, please
+  body: Body
+  changed_mind: Changed your mind?
+  comment:
+    add_new: Add a new comment
+    delete: Delete comment
+    edit: Edit comment
+    new: New comment
+    one: Comment
+    other: Comments
+    recent:
+      other: Recent comments
+  contact_information: Contact information
+  created_time_ago: Created {{time}} ago
+  date:
+    end: End date
+    start: Start date
+  delete:
+    confirm: Are you sure?
+  description: "Description"
+  docs: Docs
+  email:
+    commas: (separated by commas)
+    one: e-mail
+    other: e-mails
+  error:
+    403: The page you were looking for is forbidden.
+    404: The page you were looking for doesn't exist.
+    500: The page you were looking for doesn't exist.
+    mistyped_or_moved: You may have mistyped the address or the page may have been moved.
+    not_allowed: You are not allowed to perform that action.
+  event:
+    attend: "You are planning to attend to this event"
+    create: "Create new event"
+    edit: "Edit event"
+    follow: "Follow this event"
+    held_with: "This event will be held with"
+    Isabel: "Isabel event"
+    last_7_days: Last 7 days ({{size}})
+    last_month: Last month ({{size}})
+    not_attend: "You are planning not to attend to this event."
+    one: Event
+    other: Events
+    online: Online event 
+    past:
+      all: All past ({{size}})
+      none: No past events
+      other: Past events
+      show: Show all old events
+    search: Search events...
+    to: "To"
+    today: Today ({{size}})
+    today_and_yesterday: Today and yesterday ({{size}})
+    upcoming:
+      all: All upcoming ({{size}})
+      none: No upcoming events
+      other: Upcoming events
+      show: Show all upcoming events
+    will_attend: "Will you assist this event?"
+    within_7_days: Within 7 days ({{size}})
+    within_a_month: Within a month ({{size}})
+  feedback:
+    Send: Send feedback 
+    Send_us: Send us feedback
+    note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+  invitation:
+    accepted: You have accepted the invitation to this event
+    discarded: The invitation to this event has been discarded
+    new:
+      other: New invitations 
+    not_pending: 
+      other: There are no pending invitations.
+    pending:
+      other: Pending invitations
+  Isabel: Isabel
+  keywords: Keywords (*)
+  name: Name
+  new_spam_detected: New spam detected
+  now!: Now!
+  join_request:
+    created: Your join request has been sent to the space administrators
+    not_pending:
+      other: There are no pending join requests.
+    pending:
+      other: Pending join requests
+  online: "online"
+  organizer: Organizer
+  past: Past
   performance:
+    new: "New Member"
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
-    new: "New Member"
-  join_request:
-    created: 'Your join request has been sent to the space administrators'
-  event_invitation:
-    discarded: "The invitation to this event has been discarded"  
-    accepted: "You have accepted the invitation to this event"
+  phone: phone
+  photos: Photos
+  place: Place
+  public: Public
+  read_more>>: read more>>
+  remarks: "Remarks"
+  report_spam: "Report spam"
+  role:
+    one: "Role"
+    other: "Roles"
+  share_participate_discuss: Share, participate, discuss.
+  space:
+    create_own: Create your own space.
+    join: "Join space"
+    popular:
+      other: Popular spaces
+    recent:
+      other: Recent spaces
+    search: Search space...
+  time:
+    end: End time
+    start: Start time
+  start_now!: Start now!
+  subject: Subject
+  timezone: Timezone
+  upcoming: Upcoming
+  updated_time_ago: updated {{time}} ago
+  user:
+    active:
+      other: Active users
+    disabled: User disabled
+    filter: User filter
+    invite_email: Invite people by e-mail
+    invited: Users already invited
+    other: Users
+  vcc: "Virtual Conference Center 

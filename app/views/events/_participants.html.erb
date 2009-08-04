@@ -76,18 +76,18 @@
 	
 <%if @event.participants.map(&:user).include?(current_user)%>
   <%if get_user_state(event,current_user) %>
-    <p>You are planning to attend to this event</p>
-    <p>Changed your mind?</p>
+    <p><%= t('event.attend') %></p>
+    <p><%= t('changed_mind') %></p>
     <%=link_to image_tag("buttons/notgo_event.png"), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => false}),:method => :put, :class => "participant" %>
 	
 	<%else%>
-    <p>You are planning not to attend to this event. Changed your mind?</p>
+    <p><%= t('event.not_attend') %> <%= t('changed_mind') %></p>
     
     <%=link_to image_tag("buttons/join_event.png"), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => true}),:method => :put, :class => "participant" %>
 	<%end%>
 <%else%>
   <%if @space.authorizes?([:read, :content], :to => current_user) && logged_in?%>
-	<p>¿Will you assist to this event?</p>
+	<p><%= t('event.will_attend') %></p>
 	   <%=link_to image_tag("buttons/join_event.png"), space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant" %>
   <%=link_to image_tag("buttons/notgo_event.png"), space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "participant" %>
 	<%end%>	

@@ -1,16 +1,16 @@
 <div id="new_invitation_div">
-  <h3><%= "New Invitations" %></h3>
+  <h3><%= t('event_invitation.new.other') %></h3>
 
   <%= error_messages_for :object => (@invitations || []) %>
 
   <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
     <p>
-    <%= f.label :email, "Emails (separated by commas)" %><br />
+    <%= f.label :email, t('email.other') %> <%= t('email.commas')%><br />
     <%= f.text_field :email %>
     </p>
 
     <p>
-    <%= f.label :role, t('invitation.role') %>
+    <%= f.label :role, t('role.one') %>
 		<%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
     </p>
 

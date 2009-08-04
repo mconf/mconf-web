@@ -1,6 +1,6 @@
 <div>
   <%if events_group.empty?%>
-    <p><%=message%></p>
+    <p><%= message %></p>
   <%else%>
     <%for event in events_group%>
       <%= render :partial => event %>

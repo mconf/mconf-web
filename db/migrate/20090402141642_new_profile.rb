@@ -5,7 +5,7 @@ class NewProfile < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :profiles, :name
-    add_column :profiles, :lastname
+    add_column :profiles, :name, :string
+    add_column :profiles, :lastname, :string
   end
 end

@@ -30,13 +30,13 @@ class DeleteEntriesTable < ActiveRecord::Migration
       t.boolean  "public_write"
     end
 
-    remove_column :posts, :space_id
-    remove_column :posts, :author_id
-    remove_column :posts, :author_type
-    remove_column :posts, :parent_id
-    remove_column :events, :space_id, :integer
-    remove_column :events, :author_id, :integer
-    remove_column :events, :author_type, :string
+#    remove_column :posts, :space_id
+#    remove_column :posts, :author_id
+#    remove_column :posts, :author_type
+#    remove_column :posts, :parent_id
+#    remove_column :events, :space_id
+    remove_column :events, :author_id
+    remove_column :events, :author_type
     remove_column :attachments, :post_id
   end
 end

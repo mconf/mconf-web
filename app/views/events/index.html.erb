@@ -18,11 +18,11 @@
 	      <%= image_submit_tag("buttons/join-space.png") %>
 	    <% end %>
 		<%else%>
-		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), new_space_join_request_path(space), :class => "fancybox_link"%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => t('space.join')), new_space_join_request_path(space), :class => "fancybox_link" %>
 		<%end%>
 		
 		<div class="space-desc">
-			<h3>About <em><%=@space.name%></em></h3>
+			<h3><%= t('about') %> <em><%=@space.name%></em></h3>
 			<p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
 			<%= sanitize(space.description) if space.description.present? %></p>
   		</div>		
@@ -55,10 +55,10 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Events...")%>
+      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search'))%>
 	   <%= image_submit_tag "buttons/search.png"%>
 	   <div id="advanced">
-	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
      </div>
    <% end %>
 <%end%>
@@ -67,7 +67,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	
 <%if !@current_events.empty?%>
   <div id="current_events">
-    <h3>Now!</h3>
+    <h3><%= t('now!') %></h3>
     <%for event in @current_events%>
       <%= render :partial => event %>
     <%end%>
@@ -75,9 +75,9 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <%end%>
 	
 	<div class="group_links" id="events_links">
-	  <%=link_to "All", space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-	  <%=link_to "Upcoming", space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
-	  <%=link_to "Past", space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
+	  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+	  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
+	  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
 	</div>  
 	 
 	<%if params[:show] == 'past_events'%>

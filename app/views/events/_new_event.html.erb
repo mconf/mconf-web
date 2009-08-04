@@ -3,7 +3,7 @@
 <% end -%>
 
 <div id="change-event">
-<h3>Create new Event</h3>
+<h3><%= t('event.create') %></h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages %>				
@@ -12,34 +12,34 @@
     <%= f.text_field :name, :size =>25  %>
   </div>
   <div>
-	<label for="Description">Description:</label>
+	<label for="Description"><%= t('description') %>:</label>
 	<%=f.text_area :description%>
   </div>
 	 <div>
-    Timezone: <%=Time.zone%>
+    <%= t('timezone') %>: <%=Time.zone%>
   </div>
 	<div class="no_javascript">
 	<ul>
-		<li>Start Date</li>
+		<li><%= t('date.start') %></li>
 		<li><%=f.datetime_select :start_date%></li>
-		<li>End Date</li>
+		<li><%= t('date.end') %></li>
 		<li><%=f.datetime_select :end_date%></li>
 	</ul>
 	</div>
 	<div class="checkbox_event">
 		<%=f.check_box :isabel_event,:class=>"icon" %>
-		<label for="isabel_event" class="label_izquierda" >Isabel event:</label>
+		<label for="isabel_event" class="label_izquierda" ><%= t('event.Isabel') %>:</label>
 	</div>
 	<div class="checkbox_event">
 		<%=f.check_box :marte_event,:class=>"icon"  %>
-		<label for="marte_event" class="label_izquierda" >Online event:</label>
+		<label for="marte_event" class="label_izquierda" ><%= t('event.online') %>:</label>
 	</div>
 	
 	 <div id="selected_users">
     <label for="selected_users" style="display: none;">To:</label>
   </div>
   <div id="user_filter" style="display: none;">
-    <label for="User filter">User filter</label><br/>
+    <label for="User filter"><%= t('user.filter') %>User filter</label><br/>
     <%= text_field_tag :user_selector,'', :size => 25 %>
   </div>
   <div id="unselected_users"> 
@@ -53,7 +53,7 @@
 	
 	<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
 	  <div>
-	    <label for="e-mails" class="label_izquierda" > Invite people from Email (separated by commas):</label>
+	    <label for="e-mails" class="label_izquierda" ><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
 			<%= f.text_area :mails%>
 		</div>	
 	<%else%>

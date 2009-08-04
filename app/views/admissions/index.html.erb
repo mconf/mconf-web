@@ -5,7 +5,7 @@
 
 <%= render :partial => 'spaces/admin_tabs' %>
 <div id="admission">
-<h3>Pending Join Requests</h3>
+<h3><%= t('join_request.pending.other') %></h3>
 <% if @space.join_requests.pending.any? %>
   <div class="reqs">
   <% @space.join_requests.pending.each do |jr| %>
@@ -21,7 +21,7 @@
 	  	<span class="person_title"><%=sanitize(jr.candidate.name)%></span>
 	    <div class="float">
 		<% form_for [ @space, jr ] do |f| %>
-		  <label class="person_title">Role:</label>
+		  <label class="person_title"><%= t('role.one') %>:</label>
 	      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id } %>
 	      <%= f.hidden_field :accepted, :value => true %>
 	      <%= f.hidden_field :processed, :value => true %>
@@ -39,13 +39,13 @@
   <% end -%>
   </div>
 <% else -%>
-  <p>There are no pending join requests.</p>
+  <p><%= t('join_request.not_pending.other') %></p>
 <% end -%>
 
-<h3>Pending invitations</h3>
+<h3><%= t('invitation.pending.other') %></h3>
 <% if @space.invitations.pending.any? %>
   <%= render :partial => 'invitation', :collection => @space.invitations.pending %>
 <% else -%>
-  <p>There are no pending invitations</p>
+  <p><%= t('invitation.not_pending.other') %></p>
 <% end -%>
 </div>
