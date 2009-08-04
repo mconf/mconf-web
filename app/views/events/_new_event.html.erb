@@ -15,8 +15,11 @@
 	<label for="Description">Description:</label>
 	<%=f.text_area :description%>
   </div>
-	 <div>
-    Timezone: <%=Time.zone%>
+  <div class="margin-up">
+    <strong>Select a date for your event</strong>
+  </div>
+  <div class="margin-up">
+	<span>Actual Timezone: <%=Time.zone%></span>
   </div>
 	<div class="no_javascript">
 	<ul>
@@ -26,6 +29,9 @@
 		<li><%=f.datetime_select :end_date%></li>
 	</ul>
 	</div>
+  <div class="margin-up">
+    <strong>Mark the suitable checkbox if you are organising an Isabel or an online event</strong>
+  </div>
 	<div class="checkbox_event">
 		<%=f.check_box :isabel_event,:class=>"icon" %>
 		<label for="isabel_event" class="label_izquierda" >Isabel event:</label>
@@ -35,10 +41,16 @@
 		<label for="marte_event" class="label_izquierda" >Online event:</label>
 	</div>
 	
-	 <div id="selected_users">
+  <div class="margin-up">
+    <strong>Invite people to your event</strong>
+  </div>
+  <div class="margin-up">
+    <span>Invite people from your space by using the filter and others by email</span>
+  </div>
+  <div id="selected_users">
     <label for="selected_users" style="display: none;">To:</label>
   </div>
-  <div id="user_filter" style="display: none;">
+  <div id="user_filter" class="margin-up" style="display: none;">
     <label for="User filter">User filter</label><br/>
     <%= text_field_tag :user_selector,'', :size => 25 %>
   </div>
@@ -52,10 +64,10 @@
 	
 	
 	<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
-	  <div>
+	  <div class="margin-up">
 	    <label for="e-mails" class="label_izquierda" > Invite people from Email (separated by commas):</label>
 			<%= f.text_area :mails%>
-		</div>	
+	  </div>	
 	<%else%>
 	 <div>
 	       	

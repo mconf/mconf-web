@@ -119,7 +119,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs a:hover{text-decoration:underline;}
 
 #main{width:510px;margin-right:40px;margin-bottom:1.5em;background-color:#fff;}
-#sidebar{float:left;width:230px;padding-right:10px;}
+#sidebar{float:left;width:230px;padding-right:10px;margin-bottom:1.5em;}
 div.space-desc h3, div.space-desc p{color:#244974;}
 #inc-events h3{color:#8B0425;}
 #inc-events ul li.event p{color:#8B0425;}
