@@ -5,7 +5,7 @@
           entry.tag!('gd:email', :address => @user.email, :primary => true)
  
           entry.author do |author|
-            author.name("SIR")
+            author.name(t('feed.author'))
           end
 
     end

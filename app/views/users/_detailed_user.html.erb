@@ -1,8 +1,8 @@
 <div class="user">
   <%if detailed_user.authorizes?([:read, :profile],:to=> current_user) && current_user != detailed_user %>
 		<ul class="user-actions">
-			<li><%= link_to "Private message", space_users_path(@space, :send_message => detailed_user.id)%></li>
-			<li><%=mail_to(detailed_user.email,"e-mail")%></li>
+			<li><%= link_to t('user.private_message'), space_users_path(@space, :send_message => detailed_user.id)%></li>
+			<li><%=mail_to(detailed_user.email,t('user.e-mail'))%></li>
 		</ul>
   <%end%>
     <div><%= detailed_user.authorizes?([:read, :profile],:to=> current_user) ? link_logo(detailed_user, :size => 32, :url => user_profile_path(detailed_user), :title=>detailed_user.name) : logo(detailed_user, :size => 32, :title=>detailed_user.name) %></div>

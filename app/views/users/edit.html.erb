@@ -1,31 +1,31 @@
 
 <%= error_messages_for 'user' %>
 
-<div id="edit_account" class="blue_title"><h3>Edit your account</h3></div>
+<div id="edit_account" class="blue_title"><h3><%= t('user.edit_account')%></h3></div>
 <% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
 
 
-<div><label for="expanded_post">View expanded posts</label>
+<div><label for="expanded_post"><%= t('user.view_expanded_posts')%></label>
 <%= f.check_box :expanded_post, {}, true,false %></div><br/>
 
-<div><label for="notification">Notifications</label><br/>
-<%= f.radio_button  :notification, "1"%> Email
-<%= f.radio_button  :notification, "2"%> Private message
+<div><label for="notification"><%= t('user.notifications')%></label><br/>
+<%= f.radio_button  :notification, "1"%> <%=t('user.email')%>
+<%= f.radio_button  :notification, "2"%> <%=t('user.private_message')%>
 </div><br/>
 
 <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
-<p><label for="superuser">Admin</label><br/>
+<p><label for="superuser"><%=t('user.admin')%></label><br/>
 <%= f.check_box("superuser", {}, "true", "false") %></p>
 
-<p><label for="disabled">Disable</label><br/>
+<p><label for="disabled"><%=t('user.disable')%></label><br/>
 <%= f.check_box("disabled", {}, "true", "false") %></p>
 <% end -%>
 
 
-<%= submit_tag 'Save User' %>
+<%= submit_tag t('user.save') %>
         		  
 <% end -%>
 

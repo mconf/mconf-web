@@ -1,15 +1,15 @@
 <% div_for invitation do %>
 
   <div class="invitation-logo">
-    <%= invitation.candidate ? link_logo(invitation.candidate, :url => user_profile_path(invitation.candidate),:size => 32, :title=>invitation.candidate.name) : invitation.email %>
+    <%= invitation.candidate ? link_logo(invitation.candidate, :url => user_profile_path(invitation.candidate),:size => 32, :title=>invitation.candidate.name) : image_tag("avatars/undefined.png", :title => invitation.email)  %>
   </div>
   <div class="invitation-content">
     <ul>
-	  <li class="person_title"><%=sanitize(invitation.candidate_name)%></li>
-	  <li><span class="person_title"><%= t('role.one') %>: </span><%= invitation.role && invitation.role.name %></li>
-	</ul>
+    <li class="person_title"><%=sanitize(invitation.candidate ? invitation.candidate_name : invitation.email)%></li>
+    <li><span class="person_title"><%= t('role.one') %>: </span><%= invitation.role && invitation.role.name %></li>
+  </ul>    
   </div>
     <div class="group_links">
-    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete, :confirm => t('delete.confirm'), :title => "delete"%>
+    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm => t('delete.confirm'),:title=>"delete"%>
   </div>
 <% end %>

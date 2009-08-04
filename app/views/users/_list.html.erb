@@ -1,5 +1,5 @@
 	<div id="results_count">
-		<h3>People, <%=@users.size%> results</h3>	
+		<h3><%= t('user.results_count', :users_size => @users.size, :count => @users.size)%></h3>	
 	</div>
 	<% for user in @users -%>
 		<%= render :partial => 'users/detailed_user', :object => user %>		

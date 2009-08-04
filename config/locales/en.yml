@@ -2,7 +2,13 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  ########## A #########
+  
   about: About
+
+  admission:
+    one: "Admission"
+    other: "Admissions"
   advanced: Advanced
   advanced_options: Advanced options
   agent:
@@ -12,7 +18,13 @@ en:
   avatar:
     crop: Crop your Avatar
     empty: Select an image, please
+  
+  ######### B ###########
   body: Body
+  
+  ######### C ###########
+  can_also: "Or you can also:"
+  cancel: "Cancel"
   changed_mind: Changed your mind?
   collapse>>: collapse >>
   comment:
@@ -26,13 +38,17 @@ en:
       other: Recent comments
   contact_information: Contact information
   created_time_ago: Created {{time}} ago
+  
+  ######### D ###########
   date:
     end: End date
     start: Start date
   delete:
     confirm: Are you sure?
   description: "Description"
-  docs: Docs
+  docs: Docs  
+  
+  ######### E ###########
   email:
     commas: (separated by commas)
     one: e-mail
@@ -75,10 +91,22 @@ en:
     will_attend: "Will you assist this event?"
     within_7_days: Within 7 days ({{size}})
     within_a_month: Within a month ({{size}})
+  event_invitation:
+    accepted: "You have accepted the invitation to this event"
+    discarded: "The invitation to this event has been discarded"
+  ######### F ###########
   feedback:
     Send: Send feedback 
     Send_us: Send us feedback
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+  ######### G ###########
+  group:
+    add_to_group: "Add To Group"
+    add_to_others: "Add other Groups"
+    one: "Group"
+    other: "Groups"
+  ######### H ###########
+  ######### I ###########
   invitation:
     accepted: You have accepted the invitation to this event
     discarded: The invitation to this event has been discarded
@@ -89,21 +117,35 @@ en:
     pending:
       other: Pending invitations
   Isabel: Isabel
-  keywords: Keywords (*)
-  mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
-  more>>: more >>
-  name: Name
-  new_spam_detected: New spam detected
-  not_going: I'm not going
-  now!: Now!
+  ######### J ###########
   join_request:
     created: Your join request has been sent to the space administrators
     not_pending:
       other: There are no pending join requests.
     pending:
       other: Pending join requests
+  ######### K ###########
+  keywords: Keywords (*)
+  ######### L ###########
+  ######### M ###########
+  mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
+  more>>: more >>
+  ######### N ###########
+  name:
+    one: "Name" 
+    other: "Names"  
+  name: Name ###ojito lorito
+  new_spam_detected: New spam detected
+  news:
+    up: "NEWS"  
+  not_going: I'm not going
+  now!: Now!
+  ######### O ###########  
+  ok: "OK"
   online: "online"
   organizer: Organizer
+  
+  ######### P ###########  
   past: Past
   performance:
     new: "New Member"
@@ -114,42 +156,97 @@ en:
   photos: Photos
   photos_view>>: photos view >>
   place: Place
+  private_message:
+    send: Send private message
   public: Public
+  ######### R ###########  
   read_more>>: read more>>
+  register_now: "Register NOW!"
   remarks: "Remarks"
   report_spam: "Report spam"
   role:
     one: "Role"
     other: "Roles"
+  
+  ######### S ###########
+  select_image: "Select an image, please"
   share_participate_discuss: Share, participate, discuss.
+  show_version_version>>: show list version >>
+  source:
+    one: "Source"
+    other: "Sources" 
   space:
+    about: "About"
+    allow_public_access: "Allow public access?"
+    clic: "Click to edit..."
+    clic_logo: "Click to change your logo"
+    configuration: "-Space configuration-"
     create_own: Create your own space.
+    delete: "Delete Space"
+    edit_description: "edit description"
+    edit_name: "edit name"
     join: "Join space"
+    logo: "Space Logo"
     popular:
       other: Popular spaces
     recent:
       other: Recent spaces
     search: Search space...
+  start_now!: Start now!
+  subject: Subject
+  ######### T ###########
   time:
     end: End time
     start: Start time
-  show_version_version>>: show list version >>
-  start_now!: Start now!
-  subject: Subject
-  timezone: Timezone
+  timezone: Timezone  
+  ######### U ###########
   upcoming: Upcoming
-  updated_time_ago: updated {{time}} ago
+  updated_time_ago: updated {{time}} ago  
   user:
     active:
       other: Active users
+    admin: "Admin"
     assist: People who will assist to this event
-    disabled: User disabled
+
+    confirm_password: "Confirm Password"
+    delete_from_space: "Delete user from space"
+    disable: "Disable"
+    disabled: "User disabled"
+    edit_account: "Edit your account"
+    e-mail: "e-mail"
+    email: "Email" 
+    feed:
+      title: "Users"
+      author: "SIR"
     filter: User filter
+    full_name: "Full name"
     invite: Invite people to your event
     invite_email: Invite people by e-mail
     invite_from_space_by_email: Invite people from your space by using the filter and others by email
     invited: Users already invited
+    list_by: "List by"
+    lost_password: "Have you lost your password?"
     not_assist: People who won't assist to this event
-    not_confirmed: People that has not confirmed
-    other: Users
-  vcc: "Virtual Conference Center 
+    not_confirmed: People that has not confirmed    
+    notifications: "Notifications"
+    one: "Person"
+    other: "People"    
+    other: Users ##ojito que fallará
+    password: "Password"
+    password_info: "Enter the email address you used to create your account"
+    private_message: "Private Message"
+    request_password: "Request Password"
+    reset_password: "Reset Your Password"
+    results_count: 
+      one: "People, {{users_size}} result"
+      other: "People, {{users_size}} results"
+    save: "Save User"
+    search: "Search Users..."
+    timezone: "Timezone"    
+    view_expanded_posts: "View expanded posts"
+  ######### V ###########
+  vcc: "Virtual Conference Centre"
+  ######### W ###########
+  ######### X ###########
+  ######### Y ###########
+  ######### Z ###########

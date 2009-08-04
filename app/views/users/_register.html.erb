@@ -1,5 +1,5 @@
 <div id="login_div"  class="blue_title">
-	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc')%></span></div>
 	<%= error_messages_for :user %>
 	<div class="form">
 	<% form_for :user, :url => users_path do |f| -%>
@@ -9,8 +9,8 @@
 		<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 		
 		<div class="button">
-			<%= submit_tag 'Register Now!' %>
-			<span><%= link_to 'Log-in', login_path, :class => "login_lightbox_link" %> | <%= link_to 'Have you lost your password?', lost_password_path, :class => "login_lightbox_link" %></span>
+			<%= submit_tag t('register_now') %>
+			<span><%= link_to t('login'), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
 		</div>
 	<% end -%>
 	</div>
