@@ -24,7 +24,7 @@
 	<span>Complete your event following next steps:</span>
   </div>  
   <div class="margin-up">
-	<strong>1. <%= link_to (t('event.select_date'),"javascript:expand_date()",:id=>"toggle_date") %></strong>
+	<strong>1. <%= link_to (t('event.select_date'),"javascript:expanded_date()",:id=>"toggle_date") %></strong>
   </div>
   <div id="expanded_date" style="display:none">
 	<div class="margin-up">
@@ -41,7 +41,7 @@
   </div>
 
   <div class="margin-up">
-	<strong>2. <%= link_to (t('mark_checkbox'),"javascript:expand_online()",:id=>"toggle_online") %></strong>
+	<strong>2. <%= link_to (t('mark_checkbox'),"javascript:expanded_online()",:id=>"toggle_online") %></strong>
   </div>
   <div id="expanded_online" style="display:none">
 	<div class="checkbox_event">
@@ -55,7 +55,7 @@
   </div>
   
   <div class="margin-up">
-    <strong>3. <%= link_to(t('user.invite'),"javascript:expand_invite()",:id=>"toggle_invite") %></strong>
+    <strong>3. <%= link_to(t('user.invite'),"javascript:expanded_invite()",:id=>"toggle_invite") %></strong>
   </div>
   
   <div id="expanded_invite" style="display:none">
