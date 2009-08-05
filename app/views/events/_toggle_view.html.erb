@@ -1,5 +1,10 @@
   $(document).ready(function(){
-    
+    $(".without_javascript").hide();
+		$(".javascript").show();
+		$("#expanded_date").hide();
+		$("#expanded_online").hide();
+		$("#expanded_invite").hide();
+		
     $("a#toggle_date").click(function () {
       $("div#expanded_date").toggle("slow");
     });
