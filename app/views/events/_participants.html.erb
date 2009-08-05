@@ -84,7 +84,7 @@
     <%=link_to image_tag("buttons/join_event.png", :title => t('event.join')), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => true}),:method => :put, :class => "participant" %>
 	<%end%>
 <%else%>
-  <%if @space.authorizes?([:read, :content], :to => current_user) && logged_in?%>
+  <%if @space.authorizes?([:read, :content], :to => current_user) && logged_in? && @space.users.include?(current_user)%>
 	<p><%= t('event.will_attend') %></p>
 	<%=link_to image_tag("buttons/join_event.png", :title => t('event.join')), space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant" %>
   	<%=link_to image_tag("buttons/notgo_event.png", :title => t('not_going')), space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "participant" %>
