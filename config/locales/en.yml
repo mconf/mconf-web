@@ -80,6 +80,7 @@ en:
       show: Show all old events
     search: Search events...
     select_date: Select a date for your event
+    steps: "Complete your event following next steps:"
     to: "To"
     today: Today ({{size}})
     today_and_yesterday: Today and yesterday ({{size}})
