@@ -73,7 +73,8 @@
 	
 <%end%>
 
-
+<div id="assistance_info" class="margin-up">
+  <div id="assistance_title"><h3 class="blue"><%= t('event.assistance_title') %></h3></div>
 <%if @event.participants.map(&:user).include?(current_user)%>
   <%if get_user_state(event,current_user) %>
     <p><%= t('event.attend') %></p>
@@ -90,7 +91,7 @@
   	<%=link_to image_tag("buttons/notgo_event.png", :title => t('not_going')), space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "participant" %>
 	<%end%>	
 <%end%>
-
+</div>
 <div id='asisstants'>
 	<%unless @assistants.empty?%>
 	  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >

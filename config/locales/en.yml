@@ -60,6 +60,7 @@ en:
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
     not_allowed: You are not allowed to perform that action.
   event:
+    assistance_title: "Your attendance"
     attend: "You are planning to attend to this event"
     create: "Create new event"
     edit: "Edit event"

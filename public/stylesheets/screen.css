@@ -516,6 +516,8 @@ a.extract_form{margin-right:0.5em;}
 #participants{
   margin-top:240px;
 }
+
+#assistance_info{float:left;}
 #participants p{margin:0 0 0em;}
 
 #accept_invitation { width:140px;}
