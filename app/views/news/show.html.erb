@@ -1,10 +1,10 @@
-  <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_news_index_path(@space,:atom))%>
-  <span class="person_title"> NEWS </span> <%=link_to ("Click here to see all",space_news_index_path(@space))%>
+  <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt => t('RSS'), :title => t('RSS')),formatted_space_news_index_path(@space,:atom))%>
+  <span class="person_title"> NEWS </span> <%=link_to (t('click_to_see_all'),space_news_index_path(@space))%>
 	<div class="news-wrapper">
     <div class="news-title">
 	  <ul class="group_links">
-	  	<li><%=link_to image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), edit_space_news_path(@space,@news), {:title => "edit", :class => "edit_news_link"} if space.authorizes?(:update, :to => current_user)%></li>
-		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete",:class=>"icon" ), space_news_path(@space,@news),{:method => :delete, :title => "delete", :confirm => "Are you sure?" } if space.authorizes?(:delete, :to => current_user)%></li>
+	  	<li><%=link_to image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon" ), edit_space_news_path(@space,@news), {:title => t('edit'), :class => "edit_news_link"} if space.authorizes?(:update, :to => current_user)%></li>
+		<li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon" ), space_news_path(@space,@news),{:method => :delete, :title => "delete", :confirm => t('delete.confirm') } if space.authorizes?(:delete, :to => current_user)%></li>
 	  </ul>
   	  <h3>Title: <%=sanitize(first_words(@news.title,50))%></h3>
     </div>

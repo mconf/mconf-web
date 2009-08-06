@@ -1,6 +1,4 @@
 
-You have been invited to an event in the space: <%= @space.name %>  in the VCC application, please visit the following URL:
+<%= t('invitation.to_event', :space => @space.name, :url => event_invitation_url(@invitation, :host => Site.current.domain)) %>
 
-<%= event_invitation_url(@invitation, :host => Site.current.domain) %> in order to accept the invitation.
-
-Thank you
+<%= t('thank_you') %>

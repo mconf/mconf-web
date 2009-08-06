@@ -5,7 +5,11 @@ en:
   ########## A #########
   
   about: About
-
+  about_global: About GLOBAL
+  about_sxsw: About SXSW 
+  admin:
+    one: Admin
+    up: ADMIN
   admission:
     one: "Admission"
     other: "Admissions"
@@ -20,12 +24,14 @@ en:
     empty: Select an image, please
   
   ######### B ###########
+  beta: (BETA)
   body: Body
   
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
   changed_mind: Changed your mind?
+  click_to_see_all: click here to see all
   collapse>>: collapse >>
   comment:
     add_new: Add a new comment
@@ -37,6 +43,7 @@ en:
     recent:
       other: Recent comments
   contact_information: Contact information
+  consider_and_reply: Please consider it and reply to
   created_time_ago: Created {{time}} ago
   
   ######### D ###########
@@ -44,15 +51,21 @@ en:
     end: End date
     start: Start date
   delete:
+    one: Delete
     confirm: Are you sure?
   description: "Description"
+  disable: Disable
   docs: Docs  
   
   ######### E ###########
+  edit: Edit
   email:
     commas: (separated by commas)
+    confirm: To confirm your e-mail address, please visit the following URL: 
     one: e-mail
     other: e-mails
+    used_from: e-Mail used in contact form: {{dir}}
+  enable: Enable
   error:
     403: The page you were looking for is forbidden.
     404: The page you were looking for doesn't exist.
@@ -85,6 +98,8 @@ en:
     to: "To"
     today: Today ({{size}})
     today_and_yesterday: Today and yesterday ({{size}})
+    up:
+      other: EVENTS
     upcoming:
       all: All upcoming ({{size}})
       none: No upcoming events
@@ -96,52 +111,94 @@ en:
   event_invitation:
     accepted: "You have accepted the invitation to this event"
     discarded: "The invitation to this event has been discarded"
+  
   ######### F ###########
   feedback:
+    email: This is a feedback e-Mail:
     Send: Send feedback 
-    Send_us: Send us feedback
+    Send_us: Send us feedback!
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+  
   ######### G ###########
   group:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
+    create: Create new group
+    delete: Delete group
+    edit: Edit group
+    join: Join this group
+    mailing_list: Group mailing list
+    name: Group name
     one: "Group"
     other: "Groups"
+    send_message: Send a message to this group
+  groups_and_results: Groups, {{size}} results 
+  
   ######### H ###########
+  hello: Hello
+  help: Help
+  his_message_reads_thus: His message read thus
+  home:
+    up: HOME
+  
   ######### I ###########
+  inbox: Inbox ({{checked}})
   invitation:
     accepted: You have accepted the invitation to this event
     discarded: The invitation to this event has been discarded
+    to_event: You have been invited to an event in the space {{space}} in the VCC application, please visit the following URL: {{url}} in order to accept the invitation.
+    to_space:  You have been invited to the space: {{space}}  in the VCC application, please visit the following URL: {{url}} order to accept the invitation.
     new:
       other: New invitations 
     not_pending: 
       other: There are no pending invitations.
     pending:
       other: Pending invitations
+  invited: Invited
   Isabel: Isabel
+  
   ######### J ###########
+  join: Join
   join_request:
+    asked: {{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request.
     created: Your join request has been sent to the space administrators
+    not_logged_in: You need to be logged in to send a join request.
     not_pending:
       other: There are no pending join requests.
     pending:
       other: Pending join requests
+    send: Send join request
+    
   ######### K ###########
   keywords: Keywords (*)
+  
   ######### L ###########
+  list_by: List by
+  login: Login
+  login_or_register: Log in / Register
+  logout: Logout {{user}}
+  
   ######### M ###########
+  manage: Manage
+  mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
+  message: Message
   more>>: more >>
+  
   ######### N ###########
   name:
+    full: Full name
     one: "Name" 
-    other: "Names"  
-  name: Name ###ojito lorito
+    other: "Names"
   new_spam_detected: New spam detected
   news:
-    up: "NEWS"  
+    edit: Edit news
+    up: "NEWS"
+    publish_another: Publish another piece of news
+    publish_home: Publish news at home
   not_going: I'm not going
   now!: Now!
+  
   ######### O ###########  
   ok: "OK"
   online: "online"
@@ -149,35 +206,65 @@ en:
   
   ######### P ###########  
   past: Past
+  password:
+    one: Password
+    confirm: Confirm password
+    been_reset_email: {{user}}, your password has been reset.
+    reset_email: {{user}}, please follow the link in order to reset your password:
+  people:
+    up: PEOPLE
   performance:
     new: "New Member"
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
-  phone: phone
+  phone: Phone
+  phone_optional: Phone (optional)
   photos: Photos
   photos_view>>: photos view >>
   place: Place
+  post:
+    up:
+      other: POSTS
+  preferences: Preferences
   private_message:
     send: Send private message
+  profile: Profile
   public: Public
+  
   ######### R ###########  
   read_more>>: read more>>
+  received_message_more_machines: yo have received a message from {{user}} asking for more machines.
+  register:
+    one: Register
+    thank_you: Thank you for registering in VCC.
+  register_as_admin: Register as admin
+  register_as_invited: Register as invited
+  register_as_user: Register as user
   register_now: "Register NOW!"
   remarks: "Remarks"
+  remove: Remove
   report_spam: "Report spam"
   role:
     one: "Role"
     other: "Roles"
+  RSS: RSS
   
   ######### S ###########
   select_image: "Select an image, please"
+  send: Send
+  send_message: Send a message
   share_participate_discuss: Share, participate, discuss.
-  show_version_version>>: show list version >>
+  show_advanced_editor: Show advanced editor
+  show_list_version>>: show list version >>
+  site:
+    up: SITE
   source:
     one: "Source"
     other: "Sources" 
   space:
+    add_user:
+      other: Add users to the space
     about: "About"
     allow_public_access: "Allow public access?"
     clic: "Click to edit..."
@@ -185,23 +272,38 @@ en:
     configuration: "-Space configuration-"
     create_own: Create your own space.
     delete: "Delete Space"
+    disable: Disable space
     edit_description: "edit description"
     edit_name: "edit name"
-    join: "Join space"
+    enable: Enable space
+    is_private: is a private space. Send a join request to the administrator of this space to let you in.
+    join: Join space
     logo: "Space Logo"
+    main: Main space
+    one: Space
     popular:
       other: Popular spaces
     recent:
       other: Recent spaces
     search: Search space...
+    up:
+      other: SPACES
+  spam:
+    up: SPAM
+    reported: A user has reported spam in the application.
   start_now!: Start now!
   show_list_version>>: show list version>>
   subject: Subject
+  support: Support
+  
   ######### T ###########
+  thank_you: Thank you
   time:
     end: End time
     start: Start time
-  timezone: Timezone  
+  timezone: Timezone
+  title: Title
+  
   ######### U ###########
   upcoming: Upcoming
   updated_time_ago: updated {{time}} ago  
@@ -210,19 +312,22 @@ en:
       other: Active users
     admin: "Admin"
     assist: People who will assist to this event
-
     confirm_password: "Confirm Password"
     delete_from_space: "Delete user from space"
-    disable: "Disable"
+    disable: Disable user
     disabled: "User disabled"
     edit_account: "Edit your account"
     e-mail: "e-mail"
-    email: "Email" 
+    email: "Email"
+    enable: Enable user 
     feed:
       title: "Users"
       author: "SIR"
     filter: User filter
     full_name: "Full name"
+    include_registered: Include registered users
+    included:
+      other: Included users
     invite: Invite people to your event
     invite_email: Invite people by e-mail
     invite_from_space_by_email: Invite people from your space by using the filter and others by email
@@ -232,9 +337,8 @@ en:
     not_assist: People who won't assist to this event
     not_confirmed: People that has not confirmed    
     notifications: "Notifications"
-    one: "Person"
-    other: "People"    
-    other: Users ##ojito que fallará
+    one: User
+    other: Users
     password: "Password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Private Message"
@@ -245,10 +349,16 @@ en:
       other: "People, {{users_size}} results"
     save: "Save User"
     search: "Search Users..."
-    timezone: "Timezone"    
+    timezone: "Timezone"
+    up:
+      other: USERS
+    vcc_email: VCC user e-mail {{dir}}
     view_expanded_posts: "View expanded posts"
+    without_group: People without group
+    
   ######### V ###########
   vcc: "Virtual Conference Centre"
+  
   ######### W ###########
   ######### X ###########
   ######### Y ###########

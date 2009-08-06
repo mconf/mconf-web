@@ -37,9 +37,9 @@
 <%else%>
 
 	<div id="list_by_groups_selected" class="group_links">
-	  <span>List by: </span>
-	  <%= link_to 'Names', space_users_path(@space), { :id => 'names_link' } %>
-		<span class="selected">Groups</span>
+	  <span><%= t('list_by') %>: </span>
+	  <%= link_to t('name.other'), space_users_path(@space), { :id => 'names_link' } %>
+		<span class="selected"><%= t('group.other') %></span>
 	</div>
 
 <%end%>

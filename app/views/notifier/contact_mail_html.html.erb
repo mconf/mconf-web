@@ -1,17 +1,18 @@
-    <h3>Hello </h3>
+    <h3><%= t('hello') %></h3>
      
     <p>
-    You have recieved a message from "<%= @mail_info["from_name"] %>" asking for more machines
+		<%= t('received_message_more_machines', :user => @mail_info["from_name"]) %>
     </p>
      
     <br/>
-    His message reads thus:
+    <%= t('his_message_reads_thus') %>:
+	
     <br/>
    <p>
    <%= @mail_info["message"] %>
    <p>
-   Please consider it and reply to </p>
-<p>   VCC User Email <%= @mail_info["user_email"] %></p> 
-  <p>Email used in contact form:  <%= @mail_info["from_email"] %></p> 
+   <%= t('consider_and_reply') %></p>
+   <p><%= t('user.vcc_email', :dir => @mail_info["user_email"]) %></p> 
+   <p><%= t('email.used_contact'), :dir => @mail_info["from_email"]) %></p> 
    <br/>
 
