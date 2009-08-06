@@ -10,7 +10,7 @@ class Participant < ActiveRecord::Base
                           
   after_create do |participant|
     invitation = participant.event.event_invitations.select{|e| e.candidate == participant.user or e.email == participant.user.email}.first
-    if !invitation.processed?
+    if invitation && !invitation.processed?
       invitation.processed_at = Time.now
       participant.attend? ? invitation.accepted = true : invitation.accepted = false
       invitation.save

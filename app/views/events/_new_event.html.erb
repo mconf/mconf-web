@@ -24,9 +24,10 @@
 	<span> <%= t('event.steps') %></span>
   </div>  
   <div class="margin-up">
-	<strong>1. <%= link_to (t('event.select_date'),"javascript:expanded_date()",:id=>"toggle_date") %></strong>
+  <strong><span class ="without_javascript">1. <%= t('event.select_date')%></span></strong>	
+	<strong><span class ="javascript" style="display:none">1. <%= link_to (t('event.select_date'),"#",:id=>"toggle_date") %></span></strong>
   </div>
-  <div id="expanded_date" style="display:none">
+  <div id="expanded_date">
 	<div class="margin-up">
 	  <span><%= t('timezone') %>: <%=Time.zone%></span>
 	</div>
@@ -41,9 +42,10 @@
   </div>
 
   <div class="margin-up">
-	<strong>2. <%= link_to (t('mark_checkbox'),"javascript:expanded_online()",:id=>"toggle_online") %></strong>
+  <strong><span class ="without_javascript">2. 	<%= t('mark_checkbox')%> </span></strong>
+	<strong><span class ="javascript" style="display:none">2. <%= link_to (t('mark_checkbox'),"#expanded_date",:id=>"toggle_online") %></span></strong>
   </div>
-  <div id="expanded_online" style="display:none">
+  <div id="expanded_online">
 	<div class="checkbox_event">
 	  <%=f.check_box :isabel_event,:class=>"icon" %>
 	  <label for="isabel_event" class="label_izquierda" ><%= t('event.Isabel') %>:</label>
@@ -55,10 +57,11 @@
   </div>
   
   <div class="margin-up">
-    <strong>3. <%= link_to(t('user.invite'),"javascript:expanded_invite()",:id=>"toggle_invite") %></strong>
+  	<strong><span class ="without_javascript">3. <%= t('user.invite') %></span></strong>
+    <strong><span class ="javascript" style="display:none">3. <%= link_to(t('user.invite'),"#expanded_invite",:id=>"toggle_invite") %></span></strong>
   </div>
   
-  <div id="expanded_invite" style="display:none">
+  <div id="expanded_invite">
 	  <div class="margin-up">
 	    <span><%= t('user.invite_from_space_by_email') %></span>
 	  </div>
