@@ -1,4 +1,2 @@
 
-<%= @candidate.name %> wants to participate in space <%= @space.name %>, please visit the following URL:
- 
-<%= space_admissions_url(@space, :host => Site.current.domain) %> in order to accept or deny the request.
+<%= t('join_request', :candidate => @candidate.name, :space => @space.name, :url => space_admissions_url(@space, :host => Site.current.domain)) %>

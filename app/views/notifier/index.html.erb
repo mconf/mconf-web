@@ -4,7 +4,7 @@
     <table>
 	<tr>
 	    <td>
-                <label>name:</label>
+                <label><%= t('name.one') %>:</label>
             </td>
 	</tr>
 	<tr>
@@ -14,7 +14,7 @@
 	</tr>
 	<tr>
 	    <td>
-                <label>email:</label>
+                <label><%= t('email.one') %>:</label>
             </td>
 	</tr>
 	<tr>
@@ -25,7 +25,7 @@
 	</tr>
 	<tr>
 	    <td>
-                <label>phone:(optional)</label>
+                <label><%= t('phone_optional') %>:</label>
             </td>
 	</tr>
 	<tr>
@@ -36,7 +36,7 @@
 	</tr>
 	<tr>
 	    <td>
-                <label>message:</label>
+                <label><%= t('message') %>:</label>
             </td>
 	</tr>
 	<tr>
@@ -47,7 +47,7 @@
 	</tr>
 	<tr>
             <td>
-                <%= submit_tag "Send", :class => "send" %>
+                <%= submit_tag t('send'), :class => "send" %>
             </td>
 	</tr>
 </table>

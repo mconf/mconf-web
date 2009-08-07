@@ -1,4 +1,2 @@
 
-You have been invited to the space: <%= @space.name %>  in the VCC application, please visit the following URL:
- 
-<%= invitation_url(@invitation, :host => Site.current.domain) %> in order to accept the invitation.
+<%= t('invitation.to_space', :space => @space.name, :url => invitation_url(@invitation, :host => Site.current.domain)) %>

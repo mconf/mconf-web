@@ -81,10 +81,10 @@
   <div class="news-wrapper">
     <div class="news-title">
 	  <ul class="group_links">
-	  	<li><%=link_to image_tag("icons/pencil.png", :alt => "edit",:class=>"icon" ), edit_space_news_path(@space,news), {:title => "edit", :class => "edit_news_link"} if space.authorizes?(:update, :to => current_user)%></li>
-		<li><%=link_to image_tag("icons/cancel.png", :alt => "delete",:class=>"icon" ), space_news_path(@space,news),{:method => :delete, :title => "delete", :confirm => "Are you sure?" } if space.authorizes?(:delete, :to => current_user)%></li>
+	  	<li><%=link_to image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon" ), edit_space_news_path(@space,news), {:title => t('edit'), :class => "edit_news_link"} if space.authorizes?(:update, :to => current_user)%></li>
+		<li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon" ), space_news_path(@space,news),{:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm') } if space.authorizes?(:delete, :to => current_user)%></li>
 	  </ul>
-  	  <h3>Title: <%=sanitize(first_words(news.title,50))%></h3>
+  	  <h3><%= t('title') %>: <%=sanitize(first_words(news.title,50))%></h3>
     </div>
 	<div class="news-content">
 	  <p><%=sanitize(news.text)%></p>

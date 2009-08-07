@@ -4,35 +4,35 @@
 
 
 <%if !space.public?%>
-  <p class="note"><%=space.name%> is a private space. Send a join request to the administrators of this space to let you in.</p>
+  <p class="note"><%= space.name %> <%= t('space.is_private') %></p>
 <%end%>
 
 <%if logged_in?%>
   <% form_tag space_join_requests_path(space) do %>
-    <%= submit_tag "Send join request" %>
+    <%= submit_tag t('join_request.send') %>
   <% end %>
 <%else%>
-  <p class="note">You need to be logged in to send a join request.</p>
+  <p class="note"><%= t('join_request.not_logged_in') %></p>
 	<% form_tag space_join_requests_path(space) do %>
 	    <div class="options">
 			<ul>
-		      <li><%= link_to "Login", space_join_requests_path(space), {:class => "join_and_login_link", :name => space.permalink} %></li>
+		      <li><%= link_to t('login'), space_join_requests_path(space), {:class => "join_and_login_link", :name => space.permalink} %></li>
 		      <li> | </li>
-			  <li><%= link_to "Register", new_space_join_request_path(:register => true), {:class => "join_and_register_link", :name => space.permalink}  %></li>
+			  <li><%= link_to t('register.one'), new_space_join_request_path(:register => true), {:class => "join_and_register_link", :name => space.permalink}  %></li>
 		    </ul>
 		</div>
 	    <div class="margin-up">
 	      <%fields_for :user do |user|%>
-	        <label for="email">Email</label><br/>
+	        <label for="email"><%= t('email.one') %></label><br/>
 	        <%= user.text_field :email %><br/>
 	
-	        <label for="Password">Password</label><br/>
+	        <label for="Password"><%= t('password.one') %></label><br/>
 	        <%= user.password_field 'password' %><br/>
 	
 	        <%if params[:register]%>
-	          <label for="Confirm Password">Confirm Password</label><br/>
+	          <label for="Confirm Password"><%= t('password.confirm') %></label><br/>
 	          <%= user.password_field 'password_confirmation' %><br/>
-	          <label for="login">Full Name</label><br/>
+	          <label for="login"><%= t('name.full') %></label><br/>
 	          <%= user.text_field :login %><br/>
 	          <div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 	          <%= hidden_field_tag "register", params[:register] if params[:register]%>
@@ -40,7 +40,7 @@
 	        <%end%>
 	  </div>		
 	  <div class="margin-up">
-	    <%= submit_tag "Send join request" %>
+	    <%= submit_tag t('join_request.send') %>
 	  </div>
 	<% end %>
 <%end%>

@@ -1,5 +1,5 @@
 <%= @name %>,
-thank you for registering in VCC.
+<%= t('register.thank_you') %>
 
-To confirm your email address, please visit the following URL:
+<%= t('email.confirm') %>
 http://<%=Site.current.domain.to_s%>/activate/<%= @hash %>

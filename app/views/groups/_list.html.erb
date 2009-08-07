@@ -1,7 +1,7 @@
 
 <%unless params[:admin]%>	
 	<div id="results_count">
-		<h3>Groups, <%=@groups.size%> results</h3>	
+		<h3><%= t('groups_and_results', :size => @groups.size) %></h3>	
 	</div>
 <%end%>
 
@@ -9,15 +9,15 @@
 		<div class="group">
 			<ul class="group_links">
 				<%if @space.users.include?(current_user) || current_user.superuser?%>
-					<li><%= link_to 'Send a Message', space_groups_path(@space, :send_message => group.users), :title=>"send a message to this group" %></li>
+					<li><%= link_to t('send_message'), space_groups_path(@space, :send_message => group.users), :title => t('group.send_message') %></li>
 					<!--<li><a>e-mail</a></li>-->
-					<li><%= link_to 'Join', space_group_path(@space, group, :add_user => current_user.id), :title=>"join this group", :method => :put if @space.users.include?(current_user) && !group.users.include?(current_user)%></li>
-					<li><%= link_to 'Edit', edit_space_group_path(@space, group, :admin => params[:admin]) if @space.authorizes?([:manage, :group], :to => current_user)%></li>
-					<li><%= link_to 'Delete', space_group_path(@space, group, :admin => params[:admin]), :title=>"delete this group", :confirm => "Are you sure?", :method => :delete, :class => 'delete_group' if @space.authorizes?([:manage, :group], :to => current_user)%></li>
+					<li><%= link_to t('join'), space_group_path(@space, group, :add_user => current_user.id), :title => t('group.join'), :method => :put if @space.users.include?(current_user) && !group.users.include?(current_user)%></li>
+					<li><%= link_to t('edit'), edit_space_group_path(@space, group, :admin => params[:admin]) if @space.authorizes?([:manage, :group], :to => current_user)%></li>
+					<li><%= link_to t('delete.one'), space_group_path(@space, group, :admin => params[:admin]), :title => t('group.delete'), :confirm => t('delete.confirm'), :method => :delete, :class => 'delete_group' if @space.authorizes?([:manage, :group], :to => current_user)%></li>
 				<%end%>	
 			</ul>
 			<h3><%=sanitize(first_words(group.name,40))%><br/>
-			<%="Group Mailing list  " +  mail_to(sanitize("vcc-#{group.mailing_list}@dit.upm.es")) if group.users.include?(current_user) && group.mailing_list.present?%></h3>
+			<%= t('group.mailing_list') +  mail_to(sanitize("vcc-#{group.mailing_list}@dit.upm.es")) if group.users.include?(current_user) && group.mailing_list.present?%></h3>
 			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>
 			<% end -%>
@@ -25,7 +25,7 @@
 	<% end -%>
 	<% unless @users_without_group.empty? -%>
 		<div class="group">
-			<h3>People without group</h3>
+			<h3><%= t('user.without_group') %></h3>
 			<% for user in @users_without_group -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>
 			<% end -%>

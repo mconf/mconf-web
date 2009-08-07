@@ -1,15 +1,11 @@
-Hello 
+<%= t('hello') %> 
      
-   You have recieved a message from "<%= @mail_info["from_name"] %>" asking for  more machines
+   <%= t('received_message_more_machines', :user => @mail_info["from_name"]) %>
      
-   His message reads thus:
+   <%= t('his_message_reads_thus') %>:
      
     <%= @mail_info["message"] %>
      
-    Please consider it and reply to:
-	VCC User Email <%= @mail_info["user_email"] %>
-	Email used in contact form:  <%= @mail_info["from_email"] %>
-  
-  
-
-
+    <%= t('consider_and_reply') %>
+	<%= t('user.vcc_email', :dir => @mail_info["user_email"]) %>
+	<%= t('email.used_contact'), :dir => @mail_info["from_email"]) %>

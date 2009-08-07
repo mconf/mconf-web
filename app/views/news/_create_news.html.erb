@@ -1,16 +1,16 @@
 <div id="news_sidebar">
 
-<%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"),  new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %>
+<%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title => t('show_advanced_editor')),  new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %>
 
-<h3>Publish news at home</h3>
+<h3><%= t('news.publish_home') %></h3>
 
 <% form_for(:new, :url => space_news_index_path(@space)) do |f| %>
   
   <p>
-    <label for="title">Title:</label><%= f.text_field :title, :class => "small_news_title" %>
+    <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>
   </p>
   
-    <label for="text">Description:</label><br/>
+    <label for="text"><%= t('description') %>:</label><br/>
     <%= f.text_area :text, :class => "small_news_text"%>
 
   <div class="margin-up">
