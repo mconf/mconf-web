@@ -60,8 +60,8 @@ en:
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
     not_allowed: You are not allowed to perform that action.
   event:
-    assistance_title: "Your attendance"
-    attend: "You are planning to attend to this event"
+    assistance_title: "Your attendance's status"
+    attend: "Attending"
     create: "Create new event"
     edit: "Edit event"
     follow: "Follow this event"
@@ -70,7 +70,7 @@ en:
     join: Join this event
     last_7_days: Last 7 days ({{size}})
     last_month: Last month ({{size}})
-    not_attend: "You are planning not to attend to this event."
+    not_attend: "Not attending"
     one: Event
     other: Events
     online: Online event 

@@ -74,12 +74,15 @@
 <%end%>
 
 <div id="assistance_info" class="margin-up">
-  <div id="assistance_title"><h3 class="blue"><%= t('event.assistance_title') %></h3></div>
+  <div id="assistance_title"><h3><%= t('event.assistance_title') %></h3></div>
 <%if @event.participants.map(&:user).include?(current_user)%>
   <%if get_user_state(event,current_user) %>
-    <p><%= t('event.attend') %></p>
-    <p><%= t('changed_mind') %></p>
-    <%=link_to image_tag("buttons/notgo_event.png", :title => t('not_going')), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => false}),:method => :put, :class => "participant" %>
+    <ul>
+		<li><%= t('event.attend') %></li>
+	</ul>
+	<span><%= t('changed_mind') %></span>
+	<%=link_to image_tag("buttons/notgo_event.png", :title => t('not_going')), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => false}),:method => :put, :class => "participant" %>
+	
 	<%else%>
     <p><%= t('event.not_attend') %> <%= t('changed_mind') %></p>
     <%=link_to image_tag("buttons/join_event.png", :title => t('event.join')), space_event_participant_path(@space,@event,get_participant(event,current_user),:participant => {:attend => true}),:method => :put, :class => "participant" %>
