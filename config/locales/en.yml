@@ -115,8 +115,8 @@ en:
   ######### F ###########
   feedback:
     email: "This is a feedback e-Mail:"
-    Send: Send feedback 
-    Send_us: Send us feedback!
+    send: Send feedback 
+    send_us: Send us feedback!
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
   
   ######### G ###########
