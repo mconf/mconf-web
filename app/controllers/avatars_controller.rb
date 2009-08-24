@@ -70,7 +70,7 @@ class AvatarsController < ApplicationController
 
     crop_args = %w( x y width height ).map{ |k| params[:crop_size][k] }.map(&:to_i)
     crop_img = img.crop(*crop_args)
-    f = ActionController::UploadedTempfile.open ("cropavatar","tmp")
+    f = ActionController::UploadedTempfile.open("cropavatar","tmp")
     crop_img.write("png:" + f.path)
     f.instance_variable_set "@original_filename",session[:tmp_avatar][:original_filename]
     f.instance_variable_set "@content_type", session[:tmp_avatar][:content_type]

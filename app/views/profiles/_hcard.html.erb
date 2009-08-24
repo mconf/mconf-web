@@ -7,7 +7,7 @@
 	<div id="profile_content">
 		<%= @user_spaces.empty? ? @user.name + " doesn't belong to any space" : ""%>
 		<%for space in @user_spaces do%>
-			<div class="space_item"><%= space.authorizes? ([:read , :Content], :to => current_user) ? link_logo(space, :size => 48, :title=> space.name): logotype(space, :size => 48)%></div>
+			<div class="space_item"><%= space.authorizes?([:read , :Content], :to => current_user) ? link_logo(space, :size => 48, :title=> space.name): logotype(space, :size => 48)%></div>
 		<%end%>
 	</div>
   </div>

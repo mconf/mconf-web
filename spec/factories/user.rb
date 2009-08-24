@@ -11,3 +11,7 @@ end
 
 Factory.define :author, :parent => :user do |a|
 end
+
+Factory.define :superuser, :parent => :user do |u|
+  u.superuser true
+end
