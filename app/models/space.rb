@@ -71,17 +71,14 @@ class Space < ActiveRecord::Base
     { :space => space }
   end
 
-  def local_affordances
-    affs = []
-    if self.public?
-      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, :read)
-      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :content ])
-      affs << ActiveRecord::Authorization::Affordance.new(Anyone.current, [ :read, :performance ])
+  acl_set do |acl, space|
+    if space.public?
+      acl << [ Anyone.current, :read ]
+      acl << [ Anyone.current, :read, :content ]
+      acl << [ Anyone.current, :read, :performance ]
     end
-
-    affs
   end
-  
+
   def disable
     self.update_attribute(:disabled,true)
   end

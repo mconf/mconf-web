@@ -120,9 +120,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  # Additional Permissions
-  def local_affordances
-    [ ActiveRecord::Authorization::Affordance.new(author, :update),
-      ActiveRecord::Authorization::Affordance.new(author, :delete) ]
+  acl_set do |acl, event|
+    acl << [ event.author, :update ]
+    acl << [ event.author, :delete ]
   end
 end

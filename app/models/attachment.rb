@@ -18,10 +18,8 @@ class Attachment < ActiveRecord::Base
     return " " + (self.size/1024).to_s + " kb" 
   end
 
-  def local_affordances
-    parent ?
-      parent.affordances :
-      post.affordances
+  acl_set do |acl, attachment|
+    acl.concat(attachment.send(attachment.parent.present? ? :parent : :post).acl)
   end
 
   # Implement atom_entry_filter for AtomPub support

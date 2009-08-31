@@ -42,8 +42,8 @@ class PrivateMessage < ActiveRecord::Base
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
 
-  def local_affordances
-    [ ActiveRecord::Authorization::Affordance.new(sender,   :read),
-      ActiveRecord::Authorization::Affordance.new(receiver, :read) ]
+  acl_set do |acl, pm|
+    acl << [ pm.sender, :read ]
+    acl << [ pm.receiver, :read ]
   end
 end
