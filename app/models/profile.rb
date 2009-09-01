@@ -5,9 +5,13 @@ class Profile < ActiveRecord::Base
   acts_as_taggable
   has_logo :class_name => "Avatar"
 
-  def local_affordances
-    [ :read, :manage ].map{ |a| ActiveRecord::Authorization::Affordance.new(user, a) } +
-    user.fellows.map{ |f| ActiveRecord::Authorization::Affordance.new(f, :read) }
+  acl_set do |acl, profile|
+    acl << [ profile.user, :read ]
+    acl << [ profile.user, :manage ]
+
+    profile.user.fellows.each do |f|
+      acl << [ f, :read ]
+    end
   end
  
   def self.atom_parser(data)

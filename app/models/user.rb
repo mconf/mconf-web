@@ -130,15 +130,7 @@ end
     { :user => user, :tags => tags}     
   end
 
-  def local_affordances
-    if self.disabled
-      []
-    else
-      Array(ActiveRecord::Authorization::Affordance.new(self, [ :manage, :message ])) + 
-      self.fellows.map{|f| ActiveRecord::Authorization::Affordance.new(f, [:read, :profile])}  
-    end
-  end
-  
+
   def disable
     self.update_attribute(:disabled,true)
     self.agent_performances.each(&:destroy)
@@ -146,6 +138,15 @@ end
   
   def enable
     self.update_attribute(:disabled,false)
+  end
+
+  acl_set do |acl, user|
+    unless user.disabled?
+      acl << [ user, :manage, :message ]
+      user.fellows.each do |f|
+        acl << [ f, :read, :profile ]
+      end
+    end
   end
  
 end

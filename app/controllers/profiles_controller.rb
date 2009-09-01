@@ -101,7 +101,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
     flash[:notice] = 'Profile was successfully deleted.'
     respond_to do |format|
-      format.html { redirect_to(space_user_profile_url(@space, @user)) }
+      format.html { redirect_to(user_profile_path(@user)) }
       format.xml  { head :ok }
       format.atom  { head :ok }
     end

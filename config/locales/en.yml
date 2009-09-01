@@ -61,10 +61,10 @@ en:
   edit: Edit
   email:
     commas: (separated by commas)
-    confirm: To confirm your e-mail address, please visit the following URL: 
+    confirm: "To confirm your e-mail address, please visit the following URL:"
     one: e-mail
     other: e-mails
-    used_from: e-Mail used in contact form: {{dir}}
+    used_from: "e-Mail used in contact form: {{dir}}"
   enable: Enable
   error:
     403: The page you were looking for is forbidden.
@@ -114,9 +114,9 @@ en:
   
   ######### F ###########
   feedback:
-    email: This is a feedback e-Mail:
-    Send: Send feedback 
-    Send_us: Send us feedback!
+    email: "This is a feedback e-Mail:"
+    send: Send feedback 
+    send_us: Send us feedback!
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
   
   ######### G ###########
@@ -146,8 +146,8 @@ en:
   invitation:
     accepted: You have accepted the invitation to this event
     discarded: The invitation to this event has been discarded
-    to_event: You have been invited to an event in the space {{space}} in the VCC application, please visit the following URL: {{url}} in order to accept the invitation.
-    to_space:  You have been invited to the space: {{space}}  in the VCC application, please visit the following URL: {{url}} order to accept the invitation.
+    to_event: "You have been invited to an event in the space {{space}} in the VCC application, please visit the following URL: {{url}} in order to accept the invitation."
+    to_space:  "You have been invited to the space: {{space}}  in the VCC application, please visit the following URL: {{url}} order to accept the invitation."
     new:
       other: New invitations 
     not_pending: 
@@ -160,7 +160,7 @@ en:
   ######### J ###########
   join: Join
   join_request:
-    asked: {{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request.
+    asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request."
     created: Your join request has been sent to the space administrators
     not_logged_in: You need to be logged in to send a join request.
     not_pending:
@@ -209,8 +209,8 @@ en:
   password:
     one: Password
     confirm: Confirm password
-    been_reset_email: {{user}}, your password has been reset.
-    reset_email: {{user}}, please follow the link in order to reset your password:
+    been_reset_email: "{{user}}, your password has been reset."
+    reset_email: "{{user}}, please follow the link in order to reset your password:"
   people:
     up: PEOPLE
   performance:

@@ -2,6 +2,13 @@
   $("div#update_avatar form").attr("action","<%=precrop_user_avatar_path(@profile.user)%>");
 	$("div#update_avatar form input[type=hidden][name=_method][value=put]").remove();
 	
+	$("div#update_avatar form input[type=image]").click(function(){
+      if($("#avatar_media").val()==""){
+        alert('<%= t('select_image')%>');
+        return false;
+      }
+  });
+	
 	$("div#update_avatar form").ajaxForm(function(data) {
 	  
 		$("#for_lightbox").append(data);

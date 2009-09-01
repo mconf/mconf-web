@@ -24,7 +24,8 @@ GEMS = {
                     "mongrel",
                     "populator",
                     "faker",
-                    "thoughtbot-factory_girl -s http://gems.github.com/" ]
+                    "thoughtbot-factory_girl -s http://gems.github.com/",
+                    "ci_reporter" ]
 }
 
 def install_linux_packages

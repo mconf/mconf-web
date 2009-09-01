@@ -106,8 +106,8 @@ class Post < ActiveRecord::Base
   end    
 
   # Additional Permissions
-  def local_affordances
-    [ ActiveRecord::Authorization::Affordance.new(author, :update),
-      ActiveRecord::Authorization::Affordance.new(author, :delete) ]
+  acl_set do |acl, post|
+    acl << [ post.author, :update ]
+    acl << [ post.author, :delete ]
   end
 end

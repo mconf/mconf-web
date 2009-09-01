@@ -3,11 +3,11 @@ class NewsController < ApplicationController
   before_filter :space, :only => [ :create, :index, :destroy, :edit, :update,:show, :new ]
   
   def create
-    @new = News.new(params[:new])
-    @new.space = @space
+    @news = News.new(params[:news])
+    @news.space = @space
 
     respond_to do |format|
-      if @new.save
+      if @news.save
         flash[:success] = 'New was successfully published.'
         format.html { redirect_to request.referer }
       else
@@ -75,10 +75,6 @@ class NewsController < ApplicationController
   end
   
   def update
-    #it's very ugly but fix a bug
-    if params[:new]
-      params[:news][:text] = params[:new][:text]
-    end
     @news = @space.news.find(params[:id])
     if @news.update_attributes(params[:news])
       respond_to do |format|
