@@ -1,8 +1,6 @@
 <div id="news_sidebar">
 
-<%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title => t('show_advanced_editor')),  new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %>
-
-<h3><%= t('news.publish_home') %></h3>
+<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title => t('show_advanced_editor')),  new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %><%= t('news.publish_home') %></h3>
 
 <% form_for(News.new, :url => space_news_index_path(@space)) do |f| %>
   
