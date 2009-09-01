@@ -6,7 +6,7 @@ class News < ActiveRecord::Base
   acts_as_resource
 
   class << self
-    def from_atom(entry)
+    def params_from_atom(entry)
       { :title => entry.title.to_s,
         :text => ( entry.content.to_s.present? ? entry.content.to_s : entry.title.to_s ) }
     end
