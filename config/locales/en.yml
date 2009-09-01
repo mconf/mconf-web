@@ -30,10 +30,14 @@ en:
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
+  caption:
+    add: Add a caption
   changed_mind: Changed your mind?
   click_to_see_all: click here to see all
+  collapse: collapse
   collapse>>: collapse >>
   comment:
+    add: Add a comment
     add_new: Add a new comment
     delete: Delete comment
     edit: Edit comment
@@ -42,8 +46,11 @@ en:
     other: Comments
     recent:
       other: Recent comments
+    show_all: Show all comments
   contact_information: Contact information
   consider_and_reply: Please consider it and reply to
+  conversation:
+    compress: Compress conversation
   created_time_ago: Created {{time}} ago
   
   ######### D ###########
@@ -55,7 +62,8 @@ en:
     confirm: Are you sure?
   description: "Description"
   disable: Disable
-  docs: Docs  
+  docs: Docs
+  download_file: "Download file "
   
   ######### E ###########
   edit: Edit
@@ -66,6 +74,7 @@ en:
     other: e-mails
     used_from: "e-Mail used in contact form: {{dir}}"
   enable: Enable
+  enlarge: Enlarge
   error:
     403: The page you were looking for is forbidden.
     404: The page you were looking for doesn't exist.
@@ -73,8 +82,8 @@ en:
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
     not_allowed: You are not allowed to perform that action.
   event:
-    assistance_title: "Your attendance"
-    attend: "You are planning to attend to this event"
+    assistance_title: "Your attendance's status"
+    attend: "Attending"
     create: "Create new event"
     edit: "Edit event"
     follow: "Follow this event"
@@ -83,7 +92,7 @@ en:
     join: Join this event
     last_7_days: Last 7 days ({{size}})
     last_month: Last month ({{size}})
-    not_attend: "You are planning not to attend to this event."
+    not_attend: "Not attending"
     one: Event
     other: Events
     online: Online event 
@@ -182,20 +191,23 @@ en:
   manage: Manage
   mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
-  message: Message
+  message:
+    one: Message
+    other: Messages
   more>>: more >>
   
   ######### N ###########
   name:
     full: Full name
-    one: "Name" 
-    other: "Names"
+    one: Name
+    other: Names
   new_spam_detected: New spam detected
   news:
     edit: Edit news
     up: "NEWS"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
+  no_messages_in_forum: There aren't messages in this forum
   not_going: I'm not going
   now!: Now!
   
@@ -244,6 +256,8 @@ en:
   register_now: "Register NOW!"
   remarks: "Remarks"
   remove: Remove
+  reply: Reply
+  reply_to_words: Reply to {{words}}
   report_spam: "Report spam"
   role:
     one: "Role"
@@ -289,7 +303,9 @@ en:
     up:
       other: SPACES
   spam:
+    detected: New spam detected
     up: SPAM
+    report: Report spam
     reported: A user has reported spam in the application.
   start_now!: Start now!
   show_list_version>>: show list version>>
@@ -298,11 +314,22 @@ en:
   
   ######### T ###########
   thank_you: Thank you
+  thread:
+    add: Add a new thread
+    edit: Edit thread
+    one: Thread
+    or_add_new: or add a new thread
+    other: Threads
+    show_last_comment: Showing last {{size}} comments of {{children}}.
+    show_one_only_comment: Showing the only one comment of the thread.
+    show_comment_size: Showing the {{size}} comments of the thread.
+    
   time:
     end: End time
     start: Start time
   timezone: Timezone
   title: Title
+  topic: Topic
   
   ######### U ###########
   upcoming: Upcoming

@@ -6,7 +6,7 @@
 
 <%div_for post do%>
 
-   <p id="topic">Topic:  <%=link_to thread_title(post), space_post_path(post.space, thread(post)) if post.space.authorizes?([:read, :performance],:to=> current_user) %> in the space <%= post.authorizes?([:read, :content], :to =>current_user) ? link_to(post.space.name ,space_path(post.space)) : post.space.name %></p>
+   <p id="topic"><%= t('topic') %>:  <%=link_to thread_title(post), space_post_path(post.space, thread(post)) if post.space.authorizes?([:read, :performance],:to=> current_user) %> in the space <%= post.authorizes?([:read, :content], :to =>current_user) ? link_to(post.space.name ,space_path(post.space)) : post.space.name %></p>
 
    <%if post.text.size < 120 %>
       <li>
@@ -18,7 +18,7 @@
       <li id="collapsed_post_<%=post.id%>" style="display:none">
         <div class="post_text">
           <%=sanitize(first_words(auto_link(post.text),120))%>
-          <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+          <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
         </div>
       </li>
       <li id="expanded_post_<%=post.id%>">

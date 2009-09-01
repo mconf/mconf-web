@@ -1,22 +1,28 @@
+<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre > </span><%= t('news.edit') %></div>
+
 <div id="news_big">
 
-<h3><%= t('news.edit') %></h3>
+<!--<h3><%= t('news.edit') %></h3>-->
 
+<div id="feedback_form">
+	
 <% form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
   
-  <p>
-    <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "big_news_title" %>
-  </p>
+  <div>
+    <label for="title"><%= t('title') %>:</label><br/>
+	<%= f.text_field :title, :class => "big_news_title" %>
+  </div>
   
-  <label for="text"><%= t('description') %>:</label><br/>
+  <div class=margin-up><label for="text"><%= t('description') %>:</label><br/></div>
   <div id="big_textarea_div" >
     <%= f.text_area :text, :class => "big_news_text"%>
   </div>
-    
-    <%= submit_tag t('update') %>
-
+  <div class=margin-up>  
+    <%= image_submit_tag "buttons/update.png" %>
+  </div>
 <% end %>
 
 <%= link_to t('news.publish_another'), space_news_index_path(@space)%>
 
+</div>
 </div>

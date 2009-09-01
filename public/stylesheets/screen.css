@@ -344,7 +344,7 @@ div.pagination a{color:#244974;}
 
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#update_avatar, #sources_sidebar{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#update_avatar{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_avatar h3{margin-top:0;padding-top:0.75em;color:#244974;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_avatar h3#assistance_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea{height:8.3333em;margin-bottom:0.5em;}
 #update_avatar{width:218px;}
@@ -538,8 +538,10 @@ a.extract_form{margin-right:0.5em;}
 #participants{
   margin-top:240px;
 }
+#assistance_title h3{margin:0;padding:3px 10px;color:#244974;}
+#assistance_info{float:left;width:230px;border:1px #bdd8eb solid;}
+#assistance_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 
-#assistance_info{float:left;}
 #participants p{margin:0 0 0em;}
 
 #accept_invitation { width:140px;}

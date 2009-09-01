@@ -2,10 +2,10 @@
   <div class="thread-title">
 	<div class="thread_options">
 	  <ul>
-	    <%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam"), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => "Report Spam"}) if logged_in? && thread.spam != true%> 
-            <li><%=link_to image_tag("icons/comments-add.png",:alt => "reply" ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => "Add a new comment"}if @space.authorizes?([:create, :content],:to => current_user)%></li>
-            <li><%=link_to image_tag("icons/pencil.png", :alt => "edit"), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => "edit"} if thread.authorizes?(:update, :to => current_user)%></li>
-	    <li><%=link_to image_tag("icons/cancel.png", :alt => "delete" ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => "Do you want to delete this thread?", :method => :delete, :title => "delete" } if thread.authorizes?(:delete, :to => current_user)%></li>
+	    <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
+            <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorizes?([:create, :content],:to => current_user)%></li>
+            <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorizes?(:update, :to => current_user)%></li>
+	    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorizes?(:delete, :to => current_user)%></li>
 	  </ul>
 	</div>
 	<div class="thread_content">	 
@@ -17,8 +17,8 @@
 	  <div class="full-message">
 	    <div>
 	      <h2>
-	        <%=link_to_function image_tag("icons/add-orange.png",:class=>"icon",:title=>"enlarge"), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"%>
-	        <%=link_to_function image_tag("icons/del-orange.png",:class=>"icon",:title=>"compress conversation"), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>
+	        <%=link_to_function image_tag("icons/add-orange.png",:class=>"icon",:title=>t('enlarge')), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"%>
+	        <%=link_to_function image_tag("icons/del-orange.png",:class=>"icon",:title=>t('conversation.compress')), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>
 	        <!--<%=logo(thread.author, :size=>32, :title=>thread.author.name)%>-->
 	        <%=image_tag("icons/comments.png",:class=>"icon")%>
 	        <%if (logged_in? && thread.spam != true && @space.authorizes?([:create, :content ],:to => current_user) && thread.authorizes?(:update, :to => current_user)&& thread.authorizes?(:delete, :to => current_user))%>
@@ -36,8 +36,7 @@
 	    <% end %>
 	  </div>
 	</div>
-  </div>
-	
+
 	<div class="extended_thread" <%='style="display:none"' unless extended%> >
 	  <div class="thread-body">
 	  	<%=render :partial => "posts/parent_post",:locals => { :post =>  thread, :selected_post => false}%>  	
@@ -46,11 +45,12 @@
 	  <%unless thread.children.size==0 %>
 		  <div class="comments-status">
 				<%if thread.children.size==1 %>
-				  Showing the only one comment of the thread.
+				  <%= t('thread.show_one_only_comment') %>
 				<%elsif thread.children.size<4%>
-				  Showing the <%=thread.three_last_comment().size%> comments of the thread.
-				<%else%>  	
-		  	  Showing last <%=thread.three_last_comment().size%> comments of <%=thread.children.size%>. <%=link_to ("Show all comments", space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+				  <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
+				<%else%>
+				  <%= t('thread.show_last_comment', :size => thread.three_last_coment().size, :children => thread.children.size) %>
+				  <%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 				<%end%>
 		  </div>
 		<%end%>
@@ -63,7 +63,7 @@
 		
 		<%if @space.authorizes?([:create, :content],:to => current_user)%>
 			<div class="add-new-comment">
-				<%=link_to "add a new comment", space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => "reply"}%>
+				<%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
 			</div>
 		<%end%>
   </div>
