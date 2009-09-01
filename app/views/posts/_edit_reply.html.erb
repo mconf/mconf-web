@@ -6,7 +6,7 @@
 
 <div id="edit_reply">
 	
-	<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %> Edit comment</h3>
+	<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('comment.edit') %></h3>
 	  <div id="post-buttoms" class="actions">
 	    <ul>
 	      <li><%= link_to 'Comment', space_posts_path(@space, :edit => params[:edit]), { :id => 'new_comment_link',:class =>"edit_reply_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
