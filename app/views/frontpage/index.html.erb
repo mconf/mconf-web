@@ -26,7 +26,7 @@
 		  </div>
 
 		  <div class="rel-users">
-			<h5><img class="icon" src="images/icons/user.png" alt="icon"/><%= t('user.active.other') %></h5>
+			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> <%= t('user.active.other') %></h5>
 			
 			<div>
 				<%for user in @relevant_users%>
@@ -41,7 +41,7 @@
 		  </div>
 
 		  <div class="rcnt-posts">
-			<h5><img class="icon" src="images/icons/comment.png"/><%= t('comment.recent.other') %></h5>
+			<h5><img class="icon" src="images/icons/comment.png"/> <%= t('comment.recent.other') %></h5>
 				<%for comment in @recent_posts%>
 					<ul>
 			  		  <li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> <%= t('updated_time_ago', :time => time_ago_in_words(comment.updated_at)) %></span>
