@@ -1,5 +1,5 @@
 <% content_for :javascript do%>
-  <%= render :partial => 'collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
+  <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
 <%end%>
 
   <!-- Author photo and name -->
@@ -17,7 +17,7 @@
                         <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
                                        post.author.name,
                                        user_profile_path(post.author)%>
-			<span class="updated"> Updated <%=time_ago_in_words(post.updated_at)%> ago</span>
+			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
 			</li>
    			<%if post.text.size < 500 || @show_view%>
 	     	<li>
@@ -29,7 +29,7 @@
      <li id="collapsed_post_<%=post.id%>" style="display:none">
      	 <div class="post_text">
          <%=sanitize(first_words(auto_link(post.text),500))%>
-         <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+         <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
 			 </div>
      </li>
   		</ul>

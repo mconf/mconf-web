@@ -204,6 +204,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}
 .post .post-logo img:hover{border-color:#999;}
 .post .post-content{float:left;width:415px;}
+.div-logo {float:left;width:50px;padding:1px;}
 .post_moved {margin-right:0.5em;}
 .post-content p{margin-bottom:0;}
 .attachment{margin-top:5px;margin-left:65px;}
@@ -215,8 +216,8 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .thread-body .parent-post-logo img:hover{border-color:#999;}
 .thread-body .post-content{width:400px;}
 .post-content ul{margin:0;list-style-type:none;}
-.post-content .person_title a{text-decoration:none;}
-.post-content .person_title a:hover{text-decoration:underline;}
+.post-content, .person_title a{text-decoration:none;}
+.person_title a:hover{text-decoration:underline;}
 .post-content p embed{width:300px;height:243px;}
 .post-content p img,#profile_content p img{max-width:350px;}
 .post-content ul a,a.edit_post_link{text-decoration:none;}
@@ -229,6 +230,7 @@ div.add-new-comment,.show-more{clear:both;text-align:right;margin-right:0.5em;pa
 /*options links for posts, threads, people..*/
 .thread_options ul{list-style-type:none;float:right;margin:2px 5px -5px 0;}
 .thread_options ul li{display:inline;}
+.thread_content a img{vertical-align:top;}
 .group_links{float:right;}
 .group_links ul{margin:0.75em 0 0.666em 0.5em;}
 .group_links ul li,ul.group_links li{display:inline;}
@@ -305,6 +307,26 @@ div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#f0f6f9;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}
+.home_event ul{list-style-type:none;margin:0;}
+.home_event {position:relative;overflow:hidden;padding:0px 0.5em 0px 0.75em;}
+.home_event p{margin-bottom:0;}
+.next-events-title {border-bottom:1px #a8c0d1 solid;padding-bottom: 0.75em;margin-bottom:0.75em;}
+.next-events ul {list-style-type:none;margin:0;}
+.next-events-title p{margin-bottom:0;}
+.next-events-title strong{color:#8B0425;}
+.next-events-section {margin:0 0 1.5em;}
+.next-events-section b{color:#000000}
+
+#home-inbox-title {border-bottom:1px #a8c0d1 solid;padding-bottom: 0.75em;margin-bottom:0.75em;}
+#home-inbox-title a{color:#8B0425;font-weight: bold;padding-left: 0.75em;}
+#home-inbox-title a:hover{text-decoration:underline;}
+
+.home-inbox-message {padding-bottom: 5px;}
+
+.home-inbox-topic {font-weight: bold;color:#244974;}
+.user-logo {float:left;width:34px;padding:1px;}
+
+.event_padding {padding:10px 0 7px 0;}
 .date{color:#8B0425;}
 .author{color:#244974;font-weight:bold;}
 #change-event ul li{font-weight:bold;}

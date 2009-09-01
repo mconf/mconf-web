@@ -1,19 +1,19 @@
 <%if request.xhr?%>
-  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
 <%else%>
-  <h3 id="spam_no_lightbox">Report Spam</h3>
+  <h3 id="spam_no_lightbox"><%= t('spam.report') %></h3>
 <%end%>
 
 <%form_tag(spam_space_post_path(@space,@post)) do -%>
   <div id="spam_form">
 	<p>
-    <label for="subject">Subject: </label><strong class="blue"> New Spam Detected</strong>
+    <label for="subject"><%= t('subject') %>: </label><strong class="blue"> <%= t('spam.detected') %></strong>
   </p>
 	
 	<p>
-    <label for="body">Comments:</label>
+    <label for="body"><%= t('comment.other') %>:</label>
     <%= text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "spam_textarea" %>
   </p>	
-  <%= submit_tag "Report Spam" %>
+  <%= submit_tag t('spam.report') %>
 	</div>
 <% end -%>

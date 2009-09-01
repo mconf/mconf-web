@@ -56,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :roles
   map.resource :site
+  map.resource :home
   map.resources :feedback
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
