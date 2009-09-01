@@ -1,6 +1,6 @@
 <% content_for :javascript do%>
   
-	<%= render :partial => 'collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
+	<%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
 	
 <%end%>
 
@@ -9,7 +9,7 @@
 <div class="post-wrapper">
 
 
-<%div_for (post, :class=>"post_moved") do%>
+<%div_for(post, :class=>"post_moved") do%>
 
  
 	<div class="post-logo">
