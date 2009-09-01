@@ -19,7 +19,7 @@ describe Performance do
 
     @space.users.size.should == 1
 
-    #pending "bug #419"
+    pending "bug #419"
     assert_no_difference @space.users.count.to_s do
       @admin_performance.destroy.should be_false
     end
