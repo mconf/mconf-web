@@ -49,7 +49,7 @@
 				<%elsif thread.children.size<4%>
 				  <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
 				<%else%>
-				  <%= t('thread.show_last_comment', :size => thread.three_last_coment().size, :children => thread.children.size) %>
+				  <%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
 				  <%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 				<%end%>
 		  </div>
@@ -66,5 +66,6 @@
 				<%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
 			</div>
 		<%end%>
+	</div>
   </div>
 </div>
