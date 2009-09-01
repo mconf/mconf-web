@@ -70,7 +70,7 @@ class Post < ActiveRecord::Base
     return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
   
-  def self.from_atom(entry)
+  def self.params_from_atom(entry)
     params = {}
 
     params[:title] = entry.title.to_s
