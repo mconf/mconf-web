@@ -7,7 +7,7 @@
 	      <div class="div-logo">  
 	        <%=link_logo(@space, :size =>'w48', :url => space_path(@space), :title=>@space.name)%>
 	      </div>
-	      News item in the space <b><%= @space.name %></b>
+	      <b><%= t('news.item_in_home', :space=>@space.name) %></b>
 	    </div>
             <div class="news-title">
   	      <span class="person_title"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>

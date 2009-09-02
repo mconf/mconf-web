@@ -28,14 +28,14 @@
 <% content_for :sidebar do  %>
   <div class="next-events">
      <div class="next-events-title">
-       <p><strong><%=image_tag("icons/date.png",:class=>"icon")%> Upcoming Events </strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
+       <p><strong><%=image_tag("icons/date.png",:class=>"icon") + t('event.upcoming.other')%></strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
      </div>
 	<ul>
 	  <div class="next-events-section">
 	    <%if @today_events.empty?%>
-	      <b>Today</b> You have no events<br/>
+	    <b><%=t('today') + "</b> " + t('event.no_events')%> <br/>
 	    <%else%>
-	      <b>Today</b>
+	      <b><%=t('today')%></b>
 	      <% for event in @today_events -%>
                 <li class="event">
                   <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
@@ -47,9 +47,9 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @tomorrow_events.empty?%>
-	      <b>Tomorrow</b> You have no events<br/>
+	      <b><%=t('tomorrow') + "</b> " + t('event.no_events')%> <br/>
 	    <%else%>
-	      <b>Tomorrow</b>
+	      <b><%=t('tomorrow')%></b>
 	      <% for event in @tomorrow_events -%>
                 <li class="event">
                   <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
@@ -61,9 +61,9 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @week_events.empty?%>
-	      <b>Next week</b> You have no events<br/>
+	      <b><%=t('week.next') + "</b> " +  t('event.no_events')%> <br/>
 	    <%else%>
-	      <b>Next week</b>
+	      <b><%=t('week.next')%></b>
 	      <% for event in @week_events -%>
                 <li class="event">
                   <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
@@ -75,9 +75,9 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @upcoming_events.empty?%>
-	      <b>Upcoming events</b> You have no events<br/>
+	      <b><%=t('event.upcoming.other') + "</b> "  + t('event.no_events') %><br/>
 	    <%else%>
-	      <b>Upcoming events</b>
+	      <b><%=t('event.upcoming.other')%></b>
 	      <% for event in @upcoming_events -%>
                 <li class="event">
                   <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>

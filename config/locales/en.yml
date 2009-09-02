@@ -92,6 +92,7 @@ en:
     join: Join this event
     last_7_days: Last 7 days ({{size}})
     last_month: Last month ({{size}})
+    no_events: You have no events
     not_attend: "Not attending"
     one: Event
     other: Events
@@ -207,6 +208,7 @@ en:
     up: "NEWS"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
+    item_in_home: News item in the space {{space}}
   no_messages_in_forum: There aren't messages in this forum
   not_going: I'm not going
   now!: Now!
@@ -329,6 +331,8 @@ en:
     start: Start time
   timezone: Timezone
   title: Title
+  today: Today
+  tomorrow: Tomorrow
   topic: Topic
   
   ######### U ###########
@@ -387,6 +391,8 @@ en:
   vcc: "Virtual Conference Centre"
   
   ######### W ###########
+  week:
+    next: Next week
   ######### X ###########
   ######### Y ###########
   ######### Z ###########
