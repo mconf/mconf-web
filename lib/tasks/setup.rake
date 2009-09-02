@@ -13,7 +13,7 @@ namespace :setup do
   task :development_tasks => [ :config_ultrasphinx ]
 
   desc "All production tasks"
-  task :production_tasks => [ :git_submodules, :config_database, "db:migrate", "basic_data:all" ] do
+  task :production_tasks => [ :git_submodules, :config_database, "db:schema:load", "basic_data:all" ] do
   end
 
   desc "Copy config/ultrasphinx if it doesn't exist"
