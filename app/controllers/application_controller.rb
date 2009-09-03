@@ -36,7 +36,21 @@ class ApplicationController < ActionController::Base
   def set_time_zone
     Time.zone = current_user.timezone if current_user && current_user.is_a?(User) && current_user.timezone 
   end
-  
+
+  # Locale as param
+  before_filter :set_locale
+  def set_locale
+    if logged_in? && I18n.available_locales.include?(current_user.locale.to_sym)
+      I18n.locale = current_user.locale.to_sym
+    elsif session[:locale] and I18n.available_locales.include?(session[:locale])
+      I18n.locale = session[:locale]
+    elsif accept_language_header_locale and I18n.available_locales.include?(accept_language_header_locale)
+      I18n.locale = accept_language_header_locale
+    else
+      I18n.locale = I18n.default_locale  
+    end
+  end
+
   def render_optional_error_file(status_code)
     if status_code == 403
       render_403
@@ -73,4 +87,10 @@ class ApplicationController < ActionController::Base
     true
   end
   
+  private
+  
+  def accept_language_header_locale
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first.to_sym
+  end 
+    
 end

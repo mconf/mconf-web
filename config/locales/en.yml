@@ -184,6 +184,9 @@ en:
   
   ######### L ###########
   list_by: List by
+  locale:
+    changed: "Application language changed to " 
+    error: "Unable to change application language to "
   login: Login
   login_or_register: Log in / Register
   logout: Logout {{user}}

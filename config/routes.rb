@@ -58,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :site
   map.resource :home
   map.resources :feedback
+  map.resource :session_locale
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
   map.manage_spam '/manage/spam', :controller => 'manage', :action => 'spam'

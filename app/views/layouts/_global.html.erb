@@ -1,16 +1,19 @@
 <div id="global-wrapper">
   <div id="global">
 	  <ul id="prefs">
-        <% if logged_in? %>
-				<% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
-	      <li><%= link_to t('inbox', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
-	  	  <li><%= link_to t('profile'), user_profile_path(current_user), menu_options(:profile)%></li>
-          <li><%= link_to t('preferences'), edit_user_path(current_user), menu_options(:preferences) %></li>
-	  	  <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
+      <% if logged_in? %>
+			<% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
+        <li><%= link_to t('inbox', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
+  	    <li><%= link_to t('profile'), user_profile_path(current_user), menu_options(:profile)%></li>
+        <li><%= link_to t('preferences'), edit_user_path(current_user), menu_options(:preferences) %></li>
+  	    <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
 	    <% else %>
-	  	<li><%= link_to t('login_or_register'), login_path, :id => "login_link" %></li>
+	  	  <li><%= link_to t('login_or_register'), login_path, :id => "login_link" %></li>
 	    <% end %>
-	</ul>
+			<% for locale in (I18n.available_locales - [I18n.locale]) -%>
+			  <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+			<% end -%>
+	  </ul>
     <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
     <span id="feedback"><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></span>
 	<span id="about"><%=link_to(t('about_global'),"http://www.global-project.eu")%></span>
