@@ -13,8 +13,8 @@ en:
     one: Admin
     up: ADMIN
   admission:
-    one: "Admission"
-    other: "Admissions"
+    one: Admission
+    other: Admissions
   advanced: Advanced
   advanced_options: Advanced options
   agent:
@@ -61,7 +61,7 @@ en:
   conversation:
     compress: Compress conversation
   country: Country
-  created_time_ago: Created {{time}} ago
+  created_time_ago: "Created {{time}} ago"
   
   ######### D ###########
   date:
@@ -70,7 +70,7 @@ en:
   delete:
     one: Delete
     confirm: Are you sure?
-  description: "Description"
+  description: Description
   disable: Disable
   docs: Docs
   done: Done!
@@ -104,19 +104,19 @@ en:
     found:
       none: No events found
       one: 1 event was found
-      other: {{size}} events were found
+      other: "{{size}} events were found"
     held_with: "This event will be held with"
     Isabel: "Isabel event"
     join: Join this event
-    last_7_days: Last 7 days ({{size}})
-    last_month: Last month ({{size}})
+    last_7_days: "Last 7 days ({{size}})"
+    last_month: "Last month ({{size}})"
     no_events: You have no events
     not_attend: "Not attending"
     one: Event
     other: Events
     online: Online event 
     past:
-      all: All past ({{size}})
+      all: "All past ({{size}})"
       none: No past events
       other: Past events
       show: Show all old events
@@ -124,18 +124,18 @@ en:
     select_date: Select a date for your event
     steps: "Complete your event following next steps:"
     to: "To"
-    today: Today ({{size}})
-    today_and_yesterday: Today and yesterday ({{size}})
+    today: "Today ({{size}})"
+    today_and_yesterday: "Today and yesterday ({{size}})"
     up:
       other: EVENTS
     upcoming:
-      all: All upcoming ({{size}})
+      all: "All upcoming ({{size}})"
       none: No upcoming events
       other: Upcoming events
       show: Show all upcoming events
     will_attend: "Will you assist this event?"
-    within_7_days: Within 7 days ({{size}})
-    within_a_month: Within a month ({{size}})
+    within_7_days: "Within 7 days ({{size}})"
+    within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
     discarded: "The invitation to this event has been discarded"
@@ -162,7 +162,7 @@ en:
     one: "Group"
     other: "Groups"
     send_message: Send a message to this group
-  groups_and_results: Groups, {{size}} results 
+  groups_and_results: "Groups, {{size}} results" 
   
   ######### H ###########
   hello: Hello
@@ -210,7 +210,7 @@ en:
     error: "Unable to change application language to "
   login: Login
   login_or_register: Log in / Register
-  logout: Logout {{user}}
+  logout: "Logout {{user}}"
   
   ######### M ###########
   manage: Manage
@@ -242,7 +242,7 @@ en:
     up: "NEWS"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
-    item_in_home: News item in the space {{space}}
+    item_in_home: "News item in the space {{space}}"
   no_messages_in_forum: There aren't messages in this forum
   not_going: I'm not going
   now!: Now!
@@ -253,7 +253,7 @@ en:
   organization: Organization
   organizer: Organizer
   
-  ######### P ###########  
+  ######### P ###########
   past: Past
   password:
     one: Password
@@ -273,13 +273,13 @@ en:
   phone: Phone
   phone_optional: Phone (optional)
   photos: Photos
-  photos_view>>: photos view >>
+  photos_view>>: "photos view >>"
   place: Place
   post:
     found:
       none: No posts found
       one: 1 post was found
-      other: {{size}} posts were found
+      other: "{{size}} posts were found"
       show_all: Show all found posts
     other: Posts
     up:
@@ -293,7 +293,7 @@ en:
   
   ######### R ###########  
   read_more>>: read more>>
-  received_message_more_machines: yo have received a message from {{user}} asking for more machines.
+  received_message_more_machines: "yo have received a message from {{user}} asking for more machines."
   register:
     one: Register
     thank_you: Thank you for registering in VCC.
@@ -304,7 +304,7 @@ en:
   remarks: "Remarks"
   remove: Remove
   reply: Reply
-  reply_to_words: Reply to {{words}}
+  reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   role:
     editing: Editing role
@@ -333,12 +333,12 @@ en:
   share_participate_discuss: Share, participate, discuss.
   show: Show
   show_advanced_editor: Show advanced editor
-  show_list_version>>: show list version >>
+  show_list_version>>: "show list version >>"
   site:
     up: SITE
   source:
     one: "Source"
-    other: "Sources" 
+    other: "Sources"
   space:
     add_user:
       other: Add users to the space
@@ -372,7 +372,7 @@ en:
     reported: A user has reported spam in the application.
   stage_type: Stage type
   start_now!: Start now!
-  show_list_version>>: show list version>>
+  show_list_version>>: "show list version >>"
   subject: Subject
   support: Support
   
@@ -384,9 +384,9 @@ en:
     one: Thread
     or_add_new: or add a new thread
     other: Threads
-    show_last_comment: Showing last {{size}} comments of {{children}}.
-    show_one_only_comment: Showing the only one comment of the thread.
-    show_comment_size: Showing the {{size}} comments of the thread.
+    show_last_comment: "Showing last {{size}} comments of {{children}}."
+    show_one_only_comment: "Showing the only one comment of the thread."
+    show_comment_size: "Showing the {{size}} comments of the thread."
   time:
     end: End time
     start: Start time
@@ -401,7 +401,7 @@ en:
   ######### U ###########
   upcoming: Upcoming
   update: Update
-  updated_time_ago: updated {{time}} ago  
+  updated_time_ago: "updated {{time}} ago"  
   user:
     active:
       other: Active users
@@ -414,7 +414,7 @@ en:
     edit_account: "Edit your account"
     e-mail: "e-mail"
     email: "Email"
-    enable: Enable user 
+    enable: Enable user
     feed:
       title: "Users"
       author: "SIR"
@@ -422,7 +422,7 @@ en:
     found:
       none: No users found
       one: 1 user was found
-      other: {{size}} users were found
+      other: "{{size}} users were found"
     full_name: "Full name"
     include_registered: Include registered users
     included:
@@ -451,7 +451,7 @@ en:
     timezone: "Timezone"
     up:
       other: USERS
-    vcc_email: VCC user e-mail {{dir}}
+    vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "View expanded posts"
     without_group: People without group
     
