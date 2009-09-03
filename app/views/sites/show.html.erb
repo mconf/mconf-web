@@ -1,6 +1,6 @@
 <%content_for :search do%>
   <div id="management-title">
-	<h2 class="yellow">-MANAGEMENT-</h2>
+	<h2 class="yellow">-<%= t('management.up') %>-</h2>
   </div>
 <%end%>
 
@@ -41,5 +41,5 @@
     <%= sanitize site.exception_notifications_email %>
   </p>
 
-  <div><%= link_to image_tag("buttons/edit.png", :alt => "Edit", :id => "edit_link"), edit_site_path %></div>
+  <div><%= link_to image_tag("buttons/edit.png", :alt => t('edit'), :id => "edit_link"), edit_site_path %></div>
 </div>

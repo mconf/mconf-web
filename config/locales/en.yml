@@ -193,6 +193,7 @@ en:
     pending:
       other: Pending invitations
   invited: Invited
+  import: Import
   is_member_of: Is member of
   Isabel: Isabel
   
@@ -224,6 +225,8 @@ en:
   
   ######### M ###########
   manage: Manage
+  management:
+    up: MANAGEMENT
   mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
   message:
@@ -247,6 +250,7 @@ en:
     full: Full name
     one: Name
     other: Names
+  new_source: New source
   new_spam_detected: New spam detected
   news:
     edit: Edit news
@@ -351,6 +355,7 @@ en:
     users: Search users
   select_image: "Select an image, please"
   send: Send
+  send_debug_emails: Send debug e-Mails
   send_message: Send a message
   share_participate_discuss: Share, participate, discuss.
   show: Show

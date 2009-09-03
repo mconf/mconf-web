@@ -1,6 +1,6 @@
 <div id="sources_sidebar">
   <% setup_sources(@source || Source.new).each do |source| %>
-    <h3><%= source.title.present? && sanitize(source.title).to_s || "New source" %></h3>
+    <h3><%= source.title.present? && sanitize(source.title).to_s || t('new_source') %></h3>
 
     <% form_for [ space, source ] do |f| %>
       <%= f.error_messages %>
