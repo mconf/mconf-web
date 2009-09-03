@@ -1,5 +1,5 @@
 <%if @events ==  nil %>
-<%= "No Coming events" %>
+<%= t('event.none_coming') %>
 <%else %>
 	<%if @events.size != 0%>
        		<%=generate_event_table%> 

@@ -1,37 +1,35 @@
 <div id="login_div" class="blue_title">
-	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
   	<div class="form">
           <% form_tag session_url(:protocol => current_site.protocol) do -%>
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
 			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
-			  <h3>Do you have an OpenID? </h3>
-			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> or use your email...</span>
+			  <h3><%= t('openid.have') %></h3>
+			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> <%= t('or_use_email') %></span>
 			</div>
 			<div class="openid_form" <%='style="display:none;"' if request.xhr? %> >
               <% form_tag session_url(:protocol => current_site.protocol) do -%>
- 	  			<div id="openid_label"><h3>Enter your OpenID <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag 'Log in'%></h3></div>
+ 	  			<div id="openid_label"><h3><%= t('openid.enter') %> <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag t('login') %></h3></div>
     		  
   		    </div>	  		
 			<div>
-		  		<label for="login">Email or full name</label><br/>
+		  		<label for="login"><%= t('email_or_full_name') %></label><br/>
 		  		<%= text_field_tag 'login', params[:login] %>
 	  		</div>
 	  		<div>
-	  			<label for="password">Password</label><br/>
+	  			<label for="password"><%= t('password.one') %></label><br/>
 	    		<%= password_field_tag 'password' %>
 	  		</div>
 	  		<div>
-	  			<label for="remember_me">Remember me:</label><%= check_box_tag ('remember_me') %>
+	  			<label for="remember_me"><%= t('remember_me') %>:</label><%= check_box_tag ('remember_me') %>
 	  		</div>
     		<div class="button">
-				<%= submit_tag 'Log in'%>
+				<%= submit_tag t('login')%>
 				<% end -%>
-				<span><%= link_to 'Register now', signup_path, :class => "login_lightbox_link" %> |  <%= link_to 'Have you lost your password?', lost_password_path, :class => "login_lightbox_link" %></span>
+				<span><%= link_to t('register_now'), signup_path, :class => "login_lightbox_link" %> |  <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
 			</div>
 
     	<% end -%>
-
-
 
 	</div>
 </div>

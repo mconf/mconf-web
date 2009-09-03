@@ -1,6 +1,6 @@
 <div id="search_container">
 	
- <h4 class="title_sidebar"> Search Events</h4> 
+ <h4 class="title_sidebar"><%= t('search.events.no_dots') %></h4> 
 	
   <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>

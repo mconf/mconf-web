@@ -4,7 +4,7 @@
 <% build_tag_cloud(Tag.cloud, %w(nube1 nube2 nube3 nube4 nube5 nube6 )) do |tag, cloud_class| %>
 <%= link_to(name_format(h("#{tag}"),17,""), search_by_tag_path(@space, tag), { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) %>
 <% end %>
-<% else %>No tags found.
-
+<% else %>
+<%= t('no_tags_found') %>
 <% end %>
 </div>

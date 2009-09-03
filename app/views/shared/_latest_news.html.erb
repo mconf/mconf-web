@@ -1,5 +1,5 @@
 <%if @posts == nil%>
-No post created
+<%= t('post.none_created') %>
 <%else%>
 	<%@posts.each do |post|%>
 	<%=show_latest_news(post,@space)%>

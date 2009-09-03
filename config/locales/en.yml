@@ -6,6 +6,7 @@ en:
   
   about: About
   about_global: About GLOBAL
+  about_me: About me
   about_sxsw: About SXSW
   add_more_details: Add more details.
   address: Address 
@@ -37,6 +38,7 @@ en:
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
+  calendar: "Calendar"
   caption:
     add: Add a caption
   changed_mind: Changed your mind?
@@ -71,6 +73,7 @@ en:
     one: Delete
     confirm: Are you sure?
   description: Description
+  destroy: Destroy
   disable: Disable
   docs: Docs
   done: Done!
@@ -87,6 +90,7 @@ en:
     one: e-mail
     other: e-mails
     used_from: "e-Mail used in contact form: {{dir}}"
+  email_or_full_name: e-Mail or full name
   enable: Enable
   enlarge: Enlarge
   error:
@@ -98,6 +102,7 @@ en:
   event:
     assistance_title: "Your attendance's status"
     attend: "Attending"
+    coming: Coming events
     create: "Create new event"
     edit: "Edit event"
     follow: "Follow this event"
@@ -111,6 +116,7 @@ en:
     last_7_days: "Last 7 days ({{size}})"
     last_month: "Last month ({{size}})"
     no_events: You have no events
+    none_coming: No coming events
     not_attend: "Not attending"
     one: Event
     other: Events
@@ -124,8 +130,10 @@ en:
     select_date: Select a date for your event
     steps: "Complete your event following next steps:"
     to: "To"
-    today: "Today ({{size}})"
+    today: "Today events"
+    today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
+    tomorrow: Tomorrow events
     up:
       other: EVENTS
     upcoming:
@@ -204,6 +212,8 @@ en:
   keywords: Keywords (*)
   
   ######### L ###########
+  latest_events: Latest events
+  latest_news: Latest news
   list_by: List by
   locale:
     changed: "Application language changed to " 
@@ -230,6 +240,7 @@ en:
       other: Sent messages
   mobile: Mobile
   more>>: more >>
+  my_friends: My friends
   
   ######### N ###########
   name:
@@ -244,14 +255,19 @@ en:
     publish_home: Publish news at home
     item_in_home: "News item in the space {{space}}"
   no_messages_in_forum: There aren't messages in this forum
+  no_tags_found: No tags found
   not_going: I'm not going
   now!: Now!
   
   ######### O ###########  
   ok: "OK"
   online: "online"
+  openid:
+    enter: Enter your OpenID
+    have: Do you have an OpenID?
   organization: Organization
   organizer: Organizer
+  or_use_email: or use your email...
   
   ######### P ###########
   past: Past
@@ -281,6 +297,7 @@ en:
       one: 1 post was found
       other: "{{size}} posts were found"
       show_all: Show all found posts
+    none_created: No post created
     other: Posts
     up:
       other: POSTS
@@ -302,6 +319,7 @@ en:
   register_as_user: Register as user
   register_now: "Register NOW!"
   remarks: "Remarks"
+  remember_me: Remember me
   remove: Remove
   reply: Reply
   reply_to_words: "Reply to {{words}}"
@@ -322,11 +340,15 @@ en:
       advanced: Advanced events search
       description: Search in event's description
       dots: Search events...
+      no_dots: Search events
       title: Search by event's title
     explanation: (in title and description with exactly words)
+    one: Search
     posts:
       dots: Search posts...
+      no_dots: search posts
     results: Search results
+    users: Search users
   select_image: "Select an image, please"
   send: Send
   send_message: Send a message
@@ -357,12 +379,14 @@ en:
     join: Join space
     logo: "Space Logo"
     main: Main space
+    member_of: Member of the spaces
     one: Space
     popular:
       other: Popular spaces
     recent:
       other: Recent spaces
     search: Search space...
+    subscribed_to_none: You are not subscribed to any space
     up:
       other: SPACES
   spam:

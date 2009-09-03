@@ -2,7 +2,7 @@
 <%= "No Coming events" %>
 <%else %>
 	<%if !@today_events.empty?%>
-		<h2>Today Events</h2>
+		<h2><%= t('event.today') %></h2>
 			<% @today_events.each do |event| %>
 				<div class="summary">
 					<%if event.start_date.future?%>
@@ -13,7 +13,7 @@
 		<br/>
 	<%end %>
 	<%if !@tomorrow_events.empty?%>
-		<h2>Tomorrow Events</h2>
+		<h2><%= t('event.tomorrow') %></h2>
 			<% @tomorrow_events.each do |event| %>
 				<div class="summary">
     				<%=show_resume_event(event)%> <!--muestra cada uno de los eventos-->
@@ -22,7 +22,7 @@
 		<br/>
 	<%end %>
 	<%if !@coming_events.empty?%>
-		<h2>Coming Events</h2>
+		<h2><%= t('event.coming') %></h2>
 			<% @coming_events.each do |event| %>
 				<div class="summary">
     				<%=show_resume_event(event)%> <!--muestra cada uno de los eventos-->
