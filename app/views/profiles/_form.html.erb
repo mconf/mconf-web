@@ -4,45 +4,45 @@
 
 <% f.fields_for :user do |user_form| %>
 	<div>
-		<%= user_form.label :login, "Full name" %><br/>
+		<%= user_form.label :login, t('name.full') %><br/>
 		<%= user_form.text_field :login %>
 	</div>
 	
 	<div class="margin-up">
-		<%= user_form.label :email, "Email" %><br/>
+		<%= user_form.label :email, t('email.one') %><br/>
 		<%= user_form.text_field :email %>
 	</div>
 <% end %>
 
-<div class="margin-up"><label for="organization">Organization</label><br/>
+<div class="margin-up"><label for="organization"><%= t('organization') %></label><br/>
 <%= f.text_field :organization %></div>
 
-<div class="margin-up"><label for="city">City</label><br/>
+<div class="margin-up"><label for="city"><%= t('city') %></label><br/>
 <%= f.text_field :city %></div>
 
-<div class="margin-up"><label for="country">Country</label><br/>
+<div class="margin-up"><label for="country"><%= t('country') %></label><br/>
 <%= f.text_field :country %></div>
 
 <div class="margin-up">
-	<span>Add more details. <%=link_to "Click here","javascript:expand_vcard()",:id=>"toggle"%> to configure your <strong class="blue">vcard</strong></span>
+	<span><%= t('add_more_details') %> <%=link_to t('click_here'),"javascript:expand_vcard()",:id=>"toggle"%> <%= t('to_configure_your') %> <strong class="blue"><%= t('vcard') %></strong></span>
 </div>
 
 <div id="expanded_vcard" style="display:none">
-	<div class="margin-up"><label for="phone">Phone</label><br/>
+	<div class="margin-up"><label for="phone"><%= t('phone') %></label><br/>
 	<%= f.text_field :phone %></div>
 	
-	<div class="margin-up"><label for="mobile">Mobile</label><br/>
+	<div class="margin-up"><label for="mobile"><%= t('mobile') %></label><br/>
 	<%= f.text_field :mobile %></div>
 	
-	<div class="margin-up"><label for="fax">Fax</label><br/>
+	<div class="margin-up"><label for="fax"><%= t('fax') %></label><br/>
 	<%= f.text_field :fax%></div>
 	
-	<div class="margin-up"><label for="address">Address</label><br/>
+	<div class="margin-up"><label for="address"><%= t('address') %></label><br/>
 	<%= f.text_field :address %></div>
 	
-	<div class="margin-up"><label for="province">Province</label><br/>
+	<div class="margin-up"><label for="province"><%= t('province') %></label><br/>
 	<%= f.text_field :province %></div>
 	
-	<div class="margin-up"><label for="zipcode">Zipcode</label><br/>
+	<div class="margin-up"><label for="zipcode"><%= t('zipcode') %></label><br/>
 	<%= f.text_field :zipcode%></div>
 </div>

@@ -1,17 +1,17 @@
 <% rounded() do %>
 
 <p>
-  <b><%= 'Name' %>:</b>
+  <b><%= t('name.one') %>:</b>
   <%=h @role.name %>
 </p>
 
 <p>
-  <b><%= "Stage type" %>:</b> 
+  <b><%= t('stage_type') %>:</b> 
   <%=h @role.stage_type.humanize %>
 </p>
 
 <p>
-<b><%= "Permissions" %>:</b><br/>
+<b><%= t('permission.other') %>:</b><br/>
 
 <% if @role.permissions.any? -%>
   <% @role.permissions.each do |permission| -%>
@@ -23,8 +23,8 @@
 </p>
 
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<%= link_to t('edit'), edit_role_path(@role) %> |
+<%= link_to t('back'), roles_path %>
 
   <%end%>
 

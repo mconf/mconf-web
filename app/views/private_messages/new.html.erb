@@ -1,14 +1,14 @@
-<h1>New private_message</h1>
+<h1><%= t('message.private.new') %></h1>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>
 	<div>
-    <label for="Title">Title:</label>
+    <label for="Title"><%= t('title') %>:</label>
     <%= f.text_field :title, :size =>25  %>
   </div>
 	<br/>
 	<div>
-    <label for="Body">Body:</label><br/>
+    <label for="Body"><%= t('body') %>:</label><br/>
     <%= f.text_area :body, :class => "span-6"  %>
   </div>
   <%= hidden_field_tag "private_message[receiver_id]", params[:receiver]%>

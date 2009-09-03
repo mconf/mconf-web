@@ -1,6 +1,6 @@
 		<% rounded() do %>
 
-<h1>New role</h1>
+<h1><%= t('role.new') %></h1>
 
 <% form_for(@role) do |f| %>
   <%= f.error_messages %>
@@ -8,11 +8,11 @@
   <%= render :partial => 'form', :object => f %>
 
   <p>
-    <%= f.submit "Create" %>
+    <%= f.submit t('create') %>
   </p>
 <% end %>
 
-<%= link_to 'Back', roles_path %>
+<%= link_to t('back'), roles_path %>
 
   		<%end%>
 

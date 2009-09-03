@@ -10,15 +10,15 @@
 	<%= link_logotype(User.find(@show_message.sender_id), :size => 96, :title=>User.find(@show_message.sender_id).name)%> <%=@is_receiver ? "Received" : "Sent"%> <%=time_ago_in_words(@show_message.created_at)%> ago
 
 	<% if @is_receiver -%>
-    <%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => "reply" ), user_message_path(params[:user_id],@show_message, :reply_to => true), :title => "reply" unless params[:reply_to]%>
-    <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+    <%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => t('reply') ), user_message_path(params[:user_id],@show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]%>
+    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') %>
   <%else%>
-    <%= link_to image_tag("ui/icons/cross.png", :alt => "delete" ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "destroy" %>
+    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') %>
   <% end -%>
 </p>
 
 <p><%= sanitize(auto_link(simple_format(@show_message.body)))%></p>
 
-<%= link_to 'Back to Inbox', user_messages_path(params[:user_id])%>
+<%= link_to t('back_to_inbox'), user_messages_path(params[:user_id])%>
 
 

@@ -2,7 +2,7 @@
 <%content_for :sidebar do %>
   <div class="profile-box">
 	<div id="title">
-	 <h3 class="item_title"><span><%=@user.name%></span> is member of:</h3>
+	 <h3 class="item_title"><span><%=@user.name%></span> <%= t('is_member_of') %>:</h3>
 	</div>
 	<div id="profile_content">
 		<%= @user_spaces.empty? ? @user.name + " doesn't belong to any space" : ""%>
@@ -15,7 +15,7 @@
 
 <div class="profile-box">
   <div id="title">	
-	<h3 class="item_title">Personal Information</h3> 
+	<h3 class="item_title"><%= t('personal_information') %></h3> 
   </div>
   <div id="profile_content">
 	  <div class="logo">
@@ -23,10 +23,10 @@
 	  </div>
 	  <div class="vcard" id="card">
 	    <ul class="adr">	  
-		  <li class="fn n"><span class="person_title">Name: </span><%=@user.full_name%></li>
+		  <li class="fn n"><span class="person_title"><%= t('name.one') %>: </span><%=@user.full_name%></li>
 	 	  <!--<li class="street-address"> <%= @profile.address%></span></li>-->
-		  <li class="locality"><span class="person_title">City: </span><%= @profile.city%></li>
-		  <li class="country-name"><span class="person_title">Country: </span><%= @profile.country%></li>
+		  <li class="locality"><span class="person_title"><%= t('city') %>: </span><%= @profile.city%></li>
+		  <li class="country-name"><span class="person_title"><%= t('country') %>: </span><%= @profile.country%></li>
 		  <!--<li class="region"><%= @profile.province%></span></li>
 		  <li class="postal-code"> <%= @profile.zipcode%></span></li>-->
 		</ul>
@@ -35,11 +35,11 @@
 		    <li class="type"><span class="value"><%="Phone" if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%> <%=@profile.fax%></span></li>
 		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
 		    <li class= "org"><%= @profile.organization%></li>
-		    <li class="email"><span class="person_title">Email: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
+		    <li class="email"><span class="person_title"><%= t('email.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>
 		</div>
 		<%if current_user.superuser? || @user==current_user%>
-		  <%= button_to 'Edit Profile', edit_user_profile_path(@user) ,:method => :get %>  
+		  <%= button_to t('edit_profile'), edit_user_profile_path(@user) ,:method => :get %>  
 		<%end%> 
 	  </div>
   </div>

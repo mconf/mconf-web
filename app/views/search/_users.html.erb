@@ -2,18 +2,16 @@
 
 <div class="user_search">	
 	<%if @users == []%>
-		<h3 class="empty">Users: No users found</h3>
+		<h3 class="empty"><%= t('user.other') %>: <%= t('user.found.none') %></h3>
 	<%else%>
 	 	
 		<%if @users.size == 1%>
-	  	<h3 class="red">Users: 1 user found</h3>
+	  	<h3 class="red"><%= t('user.other') %>: <%= t('user.found.one') %></h3>
 		<%else%>
-		  <h3 class="red">Users: <%=@users.size%> users found</h3>
+		  <h3 class="red"><%= t('user.other') %>: <%= t('user.found.other', :size => @user.size) %></h3>
 		<%end%>
 		<%for user in @users do%>		
 				<%= render :partial => 'users/detailed_user', :object => user %>
 	  <%end%> 								   		   	
 	<%end%>	
 </div>
-
-

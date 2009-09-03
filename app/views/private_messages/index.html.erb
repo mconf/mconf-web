@@ -19,14 +19,14 @@
 <%end%>
 <div id="inbox-wrapper">
 <ul id="inbox">
-	<li><%=link_to "Incoming Messages" ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
-	<li><%=link_to "Sent Messages" ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
+	<li><%=link_to t('message.incoming.other') ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
+	<li><%=link_to t('message.sent.other') ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
 </ul>	
 </div>
 
 <div id="show-posts">
 <%if @private_messages.blank?%>
-  There are not privates messages
+  <%= t('message.private.no') %>
 <%else%>
 
 	<% for private_message in @private_messages %>
@@ -51,15 +51,15 @@
 		    <% end%>
 					<td class="subject">
 						<div>
-							<span class="topic">Subject: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
+							<span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
 							<!--<span><%= sanitize(private_message.body)%></span>-->							
 						</div>
 					</td>
-					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => "reply" ), user_messages_path(params[:user_id], :reply_to => private_message), :title => "reply" unless params[:sent_messages]%></td>
+					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]%></td>
 		        <% if params[:sent_messages] %>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => 'Are you sure?', :method => :delete,:title => "delete" %></td>
+		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm'), :method => :delete,:title => t('delete.one') %></td>
 		        <%else%>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => "delete" ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => 'Are you sure?', :method => :delete,:title => "delete" %></td>
+		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm'), :method => :delete,:title => t('delete.one') %></td>
 		        <%end%>
 			</tr>
 			</tbody></table>
@@ -73,5 +73,3 @@
 	<%= will_paginate @private_messages %>
 <%end%>
 </div>
-
-

@@ -9,10 +9,10 @@
 <% content_for :sidebar do  %>
    <div id="update_avatar">
     <%if @profile.logo%>
-      <h3>Current Avatar</h3>
+      <h3><%= t('avatar.current') %></h3>
       <p><%=logo(@profile.logo, :size => 64)%></p>
       <%end%>
-		<h3><%=@profile.logo ? "Select New Avatar" : "Select Avatar"%></h3>
+		<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
       <p><%= f.file_field :media %></p>		
       <div class="margin-up"><%= image_submit_tag "buttons/update.png" %></div>
@@ -20,7 +20,7 @@
   </div>
 <% end %>
 
-<div id="edit_profile" class="blue_title"><h3>Edit your profile</h3></div>
+<div id="edit_profile" class="blue_title"><h3><%= t('edit_your_profile') %></h3></div>
 
 <%= error_messages_for :profile %>
 

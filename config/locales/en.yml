@@ -6,7 +6,9 @@ en:
   
   about: About
   about_global: About GLOBAL
-  about_sxsw: About SXSW 
+  about_sxsw: About SXSW
+  add_more_details: Add more details.
+  address: Address 
   admin:
     one: Admin
     up: ADMIN
@@ -21,9 +23,14 @@ en:
   all_rights_reserved: All rights reserved
   avatar:
     crop: Crop your Avatar
+    current: Current avatar
     empty: Select an image, please
+    select: Select avatar
+    select_new: Select new avatar
   
   ######### B ###########
+  back: Back
+  back_to_inbox: Back to inbox
   beta: (BETA)
   body: Body
   
@@ -33,6 +40,8 @@ en:
   caption:
     add: Add a caption
   changed_mind: Changed your mind?
+  city: City
+  click_here: Click here
   click_to_see_all: click here to see all
   collapse: collapse
   collapse>>: collapse >>
@@ -51,6 +60,7 @@ en:
   consider_and_reply: Please consider it and reply to
   conversation:
     compress: Compress conversation
+  country: Country
   created_time_ago: Created {{time}} ago
   
   ######### D ###########
@@ -63,13 +73,17 @@ en:
   description: "Description"
   disable: Disable
   docs: Docs
+  done: Done!
   download_file: "Download file "
   
   ######### E ###########
   edit: Edit
+  edit_profile: Edit profile
+  edit_your_profile: Edit your profile
   email:
     commas: (separated by commas)
     confirm: "To confirm your e-mail address, please visit the following URL:"
+    notifications: e-Mail notifications
     one: e-mail
     other: e-mails
     used_from: "e-Mail used in contact form: {{dir}}"
@@ -87,6 +101,10 @@ en:
     create: "Create new event"
     edit: "Edit event"
     follow: "Follow this event"
+    found:
+      none: No events found
+      one: 1 event was found
+      other: {{size}} events were found
     held_with: "This event will be held with"
     Isabel: "Isabel event"
     join: Join this event
@@ -123,11 +141,13 @@ en:
     discarded: "The invitation to this event has been discarded"
   
   ######### F ###########
+  fax: Fax
   feedback:
     email: "This is a feedback e-Mail:"
     send: Send feedback 
     send_us: Send us feedback!
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+  from: From
   
   ######### G ###########
   group:
@@ -165,6 +185,7 @@ en:
     pending:
       other: Pending invitations
   invited: Invited
+  is_member_of: Is member of
   Isabel: Isabel
   
   ######### J ###########
@@ -196,8 +217,18 @@ en:
   mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
   message:
+    incoming:
+      other: Incoming messages
     one: Message
     other: Messages
+    private:
+      editing: Editing private message
+      new: New private message
+      no: There are not private messages
+    reply: Reply to message
+    sent:
+      other: Sent messages
+  mobile: Mobile
   more>>: more >>
   
   ######### N ###########
@@ -219,6 +250,7 @@ en:
   ######### O ###########  
   ok: "OK"
   online: "online"
+  organization: Organization
   organizer: Organizer
   
   ######### P ###########  
@@ -235,18 +267,28 @@ en:
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
+  permission:
+    other: Permissions
+  personal_information: Personal information
   phone: Phone
   phone_optional: Phone (optional)
   photos: Photos
   photos_view>>: photos view >>
   place: Place
   post:
+    found:
+      none: No posts found
+      one: 1 post was found
+      other: {{size}} posts were found
+      show_all: Show all found posts
+    other: Posts
     up:
       other: POSTS
   preferences: Preferences
   private_message:
     send: Send private message
   profile: Profile
+  province: Province
   public: Public
   
   ######### R ###########  
@@ -265,15 +307,31 @@ en:
   reply_to_words: Reply to {{words}}
   report_spam: "Report spam"
   role:
+    editing: Editing role
+    listing: Listing roles
+    new: New role
     one: "Role"
     other: "Roles"
   RSS: RSS
   
   ######### S ###########
+  search:
+    between_dates: You can search here between two dates
+    dots: Search...
+    events:
+      advanced: Advanced events search
+      description: Search in event's description
+      dots: Search events...
+      title: Search by event's title
+    explanation: (in title and description with exactly words)
+    posts:
+      dots: Search posts...
+    results: Search results
   select_image: "Select an image, please"
   send: Send
   send_message: Send a message
   share_participate_discuss: Share, participate, discuss.
+  show: Show
   show_advanced_editor: Show advanced editor
   show_list_version>>: show list version >>
   site:
@@ -312,6 +370,7 @@ en:
     up: SPAM
     report: Report spam
     reported: A user has reported spam in the application.
+  stage_type: Stage type
   start_now!: Start now!
   show_list_version>>: show list version>>
   subject: Subject
@@ -328,18 +387,20 @@ en:
     show_last_comment: Showing last {{size}} comments of {{children}}.
     show_one_only_comment: Showing the only one comment of the thread.
     show_comment_size: Showing the {{size}} comments of the thread.
-    
   time:
     end: End time
     start: Start time
   timezone: Timezone
   title: Title
+  to: To
+  to_configure_your: to configure your
   today: Today
   tomorrow: Tomorrow
   topic: Topic
   
   ######### U ###########
   upcoming: Upcoming
+  update: Update
   updated_time_ago: updated {{time}} ago  
   user:
     active:
@@ -358,6 +419,10 @@ en:
       title: "Users"
       author: "SIR"
     filter: User filter
+    found:
+      none: No users found
+      one: 1 user was found
+      other: {{size}} users were found
     full_name: "Full name"
     include_registered: Include registered users
     included:
@@ -391,11 +456,18 @@ en:
     without_group: People without group
     
   ######### V ###########
+  vcard: vCard
   vcc: "Virtual Conference Centre"
   
   ######### W ###########
   week:
     next: Next week
+  
   ######### X ###########
+  
   ######### Y ###########
+  your_interests_tags: Your interests (tags)
+  your_vcard: your vCard
+  
   ######### Z ###########
+  zipcode: Zip code

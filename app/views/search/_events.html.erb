@@ -1,14 +1,14 @@
 
 <div class="event_search">    
   <%if @events == []%>
-		<h3 class="empty">Events: No events found</h3>
+		<h3 class="empty"><%= t('event.other') %>: <%= t('event.found.none') %></h3>
 	<% elsif @events.size == 1%>
-		<h3>Events: 1 event was found</h3>
+		<h3><%= t('event.other') %>: <%= t('event.found.one') %></h3>
 		<% @events.each do |event| %>  
 			<%= render :partial => event %>
 		<% end %>
 	<%else%>
-		<h3>Events: <%= @events.size%> events were found</h3>
+		<h3><%= t('event.other') %>: <%= t('event.found.other', :size => @events.size) %></h3>
 	  <% @events.each do |event| %>  
       <%= render :partial => event %>
 		<% end %>

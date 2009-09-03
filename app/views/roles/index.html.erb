@@ -1,12 +1,12 @@
 		<% rounded() do %>
 
-<h1><%= "Listing roles" %></h1>
+<h1><%= t('role.listing') %></h1>
 
 <%= sortable_list @roles, Role %>
 
 <br />
 
-<%= link_to 'New role', new_role_path %>
+<%= link_to t('role.new'), new_role_path %>
 
 		<%end%>
 

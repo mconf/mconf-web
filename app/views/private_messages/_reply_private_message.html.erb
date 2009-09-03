@@ -1,15 +1,15 @@
 
 <div id="priv-msg">
-<h3>Reply to message</h3>
+<h3><%= t('message.reply') %></h3>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
   <%= f.error_messages %>
   <div>
-    <label for="Title">Title:</label>
+    <label for="Title"><%= t('title') %>:</label>
     <%= f.text_field :title, :size =>25, :value => "Re: " + previous_message.title %>
   </div>
   <div>
-    <label for="Body">Body:</label>
+    <label for="Body"><%= t('body') %>:</label>
     <%= f.text_area :body %>
   </div>
   <p>

@@ -10,7 +10,7 @@
 
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Posts...")%>
+      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.posts.dots'))%>
     <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 <% end %>

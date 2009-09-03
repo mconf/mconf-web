@@ -5,11 +5,11 @@
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space), :method => 'get') do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Events...")%>
+      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.events_') )%>
     <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 	<div id="advanced">
-	     <%= link_to 'Advanced', advanced_search_events_path(@space) %>
+	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
    </div>
 <% end %>
 
@@ -33,7 +33,7 @@ $(".datepicker").datepicker();
 
 <%end%>
 <div id="search">
-	<h4> Advanced Events Search</h4> (in title and description with exactly words)
+	<h4><%= t('search.events.advanced') %></h4> <%= t('search.explanation') %>
 	
   <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query] %>
@@ -42,28 +42,28 @@ $(".datepicker").datepicker();
    <% end %>
    
 
-Search by Event's Title
+<%= t('search.events.title') %>
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :title, params[:title] %>
 	  <%= image_submit_tag "buttons/search.png"%>
 
  <% end %>
 
- Search in Event's Description
+ <%= t('search.events.description') %>
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :description, params[:description] %>
 	  <%= image_submit_tag "buttons/search.png"%>
  
  <% end %>
   
-You can search here between two dates
+<%= t('search.between_dates') %>
 <% form_tag(search_events_path(@space)) do %>
      
      	<div class="no_javascript_1">
-	  		From <%=select_date Date.today, :prefix => "time1",:order => [:day, :month, :year],:include_blank => true%>
+	  		<%= t('from') %> <%=select_date Date.today, :prefix => "time1",:order => [:day, :month, :year],:include_blank => true%>
       </div>
 		 <div class="no_javascript_2">    
-     		To <%=select_date Date.today, :prefix => "time2", :order => [:day, :month, :year],:include_blank => true%> 
+     		<%= t('to') %> <%=select_date Date.today, :prefix => "time2", :order => [:day, :month, :year],:include_blank => true%> 
 		 </div>
 	  <%= image_submit_tag "buttons/search.png"%><br>
  <% end %>
