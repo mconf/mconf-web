@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   # Locale as param
   before_filter :set_locale
   def set_locale
-    if logged_in? && I18n.available_locales.include?(current_user.locale.to_sym)
+    if logged_in? && current_user.locale.present? && I18n.available_locales.include?(current_user.locale.to_sym)
       I18n.locale = current_user.locale.to_sym
     elsif session[:locale] and I18n.available_locales.include?(session[:locale])
       I18n.locale = session[:locale]
@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
   private
   
   def accept_language_header_locale
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first.to_sym
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first.to_sym if request.env['HTTP_ACCEPT_LANGUAGE'].present? 
   end 
     
 end
