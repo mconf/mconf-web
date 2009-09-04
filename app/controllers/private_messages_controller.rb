@@ -59,11 +59,11 @@ class PrivateMessagesController < ApplicationController
       end
       respond_to do |format|
         if @fail_messages.empty?
-          flash[:success] = 'Message sent.'
+          flash[:success] = t('message.created')
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
-          flash[:error] = 'Error sending private messages.'
+          flash[:error] = t('message.error.create')
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
@@ -74,7 +74,7 @@ class PrivateMessagesController < ApplicationController
   
       respond_to do |format|
         if @private_message.save
-          flash[:success] = 'PrivateMessage was successfully created.'
+          flash[:success] = t('message.created')
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
         else

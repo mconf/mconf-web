@@ -10,7 +10,7 @@ class SourcesController
 
     respond_to do |format|
       if @source.save
-        flash[:notice] = 'Source was successfully created.'
+        flash[:notice] = t('source.created')
         format.html { redirect_to([ space, Source.new ]) }
         format.xml  { render :xml => @source, :status => :created, :location => @source }
       else

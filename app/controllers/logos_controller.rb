@@ -40,10 +40,10 @@ class LogosController
     end
     @logo = space.build_logo(params[:logo])
     if @logo.save
-      flash[:success] = "Logo created successfully"
+      flash[:success] = t('logo.created')
       redirect_to edit_space_path(space)
     else
-      flash[:error] = "Error. " + @logo.errors.to_xml
+      flash[:error] = t('error', :count => @logo.errors.size) + @logo.errors.to_xml
       redirect_to edit_space_path(space)
     end
     
@@ -56,10 +56,10 @@ class LogosController
     end
     @logo = space.logo
     if @logo.update_attributes(params[:logo])
-      flash[:success] = "Logo created successfully"
+      flash[:success] = t('logo.created')
       redirect_to edit_space_path(space)
     else
-      flash[:error] = "Error. " + @logo.errors.to_xml
+      flash[:error] = t('error', :count => @logo.errors.size) + @logo.errors.to_xml
       redirect_to edit_space_path(space)
     end   
   end

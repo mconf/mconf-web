@@ -10,13 +10,13 @@ class ParticipantsController < ApplicationController
     if @participant.save    
       respond_to do |format|
       format.html {
-      flash[:success] = "your attendance information has been successfully updated"
+      flash[:success] = t('participant.created')
         redirect_to request.referer
       }
       format.js
     end
   else
-      flash[:error] = "There was a problem updating your attendance information"
+      flash[:error] = t('participant.error.create')
       redirect_to request.referer    
   end
 end
@@ -26,13 +26,13 @@ end
     if @participant.update_attributes(params[:participant])
       respond_to do |format|
       format.html {
-      flash[:success] = "your attendance information has been successfully updated"
+      flash[:success] = t('participant.created')
       redirect_to request.referer
       }
 
       end
     else
-      flash[:error] = "There was a problem updating your attendance information"
+      flash[:error] = t('participant.error.create')
       redirect_to request.referer
     end
   end

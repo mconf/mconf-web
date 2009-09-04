@@ -22,7 +22,10 @@ en:
     one: User
   all: All
   all_rights_reserved: All rights reserved
+  attachment:
+    not_valid: "The attachment is not valid"
   avatar:
+    created: "Avatar created successfully"
     crop: Crop your Avatar
     current: Current avatar
     empty: Select an image, please
@@ -42,6 +45,7 @@ en:
   caption:
     add: Add a caption
   changed_mind: Changed your mind?
+  check_mail: "Please, check your email"
   city: City
   click_here: Click here
   click_to_see_all: click here to see all
@@ -94,9 +98,13 @@ en:
   enable: Enable
   enlarge: Enlarge
   error:
+    one: Error.
+    other: Errors.
     403: The page you were looking for is forbidden.
     404: The page you were looking for doesn't exist.
     500: The page you were looking for doesn't exist.
+    change: "The change is not valid"
+    credentials: "Invalid credentials"
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
     not_allowed: You are not allowed to perform that action.
   event:
@@ -104,7 +112,10 @@ en:
     attend: "Attending"
     coming: Coming events
     create: "Create new event"
+    created: "Event was successfully created."
     edit: "Edit event"
+    error:
+      dates: 'The first date cannot be lower than the second one'
     follow: "Follow this event"
     found:
       none: No events found
@@ -136,6 +147,7 @@ en:
     tomorrow: Tomorrow events
     up:
       other: EVENTS
+    updated: "Event was successfully updated."
     upcoming:
       all: "All upcoming ({{size}})"
       none: No upcoming events
@@ -154,7 +166,9 @@ en:
     email: "This is a feedback e-Mail:"
     send: Send feedback 
     send_us: Send us feedback!
+    sent: "Your feedback information e-mail has been successfully sent. Thanks you"
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+  fill_fields: "You should fill in all the fields"
   from: From
   
   ######### G ###########
@@ -162,15 +176,21 @@ en:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
     create: Create new group
+    created: "The group {{name}} has been successfully created."
     delete: Delete group
+    deleted: "The group has been successfully deleted."
     edit: Edit group
     join: Join this group
     mailing_list: Group mailing list
     name: Group name
+    not_deleted: "Error deleting the group"
+    not_valid: "The group is not valid"
     one: "Group"
     other: "Groups"
     send_message: Send a message to this group
+    updated: "The group {{name}} has been successfully updated."
   groups_and_results: "Groups, {{size}} results" 
+
   
   ######### H ###########
   hello: Hello
@@ -200,11 +220,13 @@ en:
   ######### J ###########
   join: Join
   join_request:
+    already_sent: "You have already sent a joint request to this space"
     asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request."
     created: Your join request has been sent to the space administrators
+    joined: "You are already in the space"
     not_logged_in: You need to be logged in to send a join request.
-    not_pending:
-      other: There are no pending join requests.
+    not_pending: 
+      other: "There are no pending join requests."
     pending:
       other: Pending join requests
     send: Send join request
@@ -221,6 +243,10 @@ en:
     error: "Unable to change application language to "
   login: Login
   login_or_register: Log in / Register
+  logo:
+    created: "Logo created successfully"
+    error:
+      not_valid: The Space logo is not valid
   logout: "Logout {{user}}"
   
   ######### M ###########
@@ -230,6 +256,9 @@ en:
   mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
   message:
+    created: 'Message succesfully sent.'
+    error:
+      create: 'Error sending private messages.'
     incoming:
       other: Incoming messages
     one: Message
@@ -253,11 +282,18 @@ en:
   new_source: New source
   new_spam_detected: New spam detected
   news:
+    created: 'New was successfully published.'
+    deleted: "Item successfully deleted"
     edit: Edit news
-    up: "NEWS"
+    error:
+      create: 'There was a problem publishing news.'
+      delete: "Error deleting item"
+      update: "Item could not be updated"
+    item_in_home: "News item in the space {{space}}"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
-    item_in_home: "News item in the space {{space}}"
+    up: "NEWS"
+    updated: "Item successfully updated"
   no_messages_in_forum: There aren't messages in this forum
   no_tags_found: No tags found
   not_going: I'm not going
@@ -275,6 +311,10 @@ en:
   
   ######### P ###########
   past: Past
+  participant:
+    created: "Your attendance information has been successfully updated"
+    error:
+      create: "There was a problem updating your attendance information"
   password:
     one: Password
     confirm: Confirm password
@@ -287,6 +327,7 @@ en:
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
+    updated: "User performance successfully updated."
   permission:
     other: Permissions
   personal_information: Personal information
@@ -296,6 +337,11 @@ en:
   photos_view>>: "photos view >>"
   place: Place
   post:
+    created: "Post created."
+    deleted: "Post has been deleted"
+    error:
+      not_valid: "The comment is not valid"
+      empty: "The content of the post can't be empty"
     found:
       none: No posts found
       one: 1 post was found
@@ -305,10 +351,19 @@ en:
     other: Posts
     up:
       other: POSTS
+    updated: "Post updated"
   preferences: Preferences
   private_message:
     send: Send private message
-  profile: Profile
+  profile:
+    one: Profile
+    created: 'Profile was successfully created.'
+    deleted: 'Profile was successfully deleted.'
+    error:
+      exist: "You already have a profile."
+    must_create: 'You must create your profile first'
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful."
+    updated: 'Profile was successfully updated.'
   province: Province
   public: Public
   
@@ -357,6 +412,10 @@ en:
   send: Send
   send_debug_emails: Send debug e-Mails
   send_message: Send a message
+  session:
+    error:
+      exist: "You are already logged in"
+      fill: "Please fill in this data"
   share_participate_discuss: Share, participate, discuss.
   show: Show
   show_advanced_editor: Show advanced editor
@@ -364,6 +423,7 @@ en:
   site:
     up: SITE
   source:
+    created: 'Source was successfully created.'
     one: "Source"
     other: "Sources"
   space:
@@ -375,11 +435,17 @@ en:
     clic_logo: "Click to change your logo"
     configuration: "-Space configuration-"
     create_own: Create your own space.
+    created: 'Space was successfully created.'
     delete: "Delete Space"
+    deleted: 'Space was successfully removed.'
     disable: Disable space
+    disabeld: 'Space was successfully disabled.'
     edit_description: "edit description"
     edit_name: "edit name"
     enable: Enable space
+    enabled: "Space succesfully enabled."
+    error:
+      enabled: "Space {{name}} is already enabled"
     is_private: is a private space. Send a join request to the administrator of this space to let you in.
     join: Join space
     logo: "Space Logo"
@@ -394,8 +460,12 @@ en:
     subscribed_to_none: You are not subscribed to any space
     up:
       other: SPACES
+    updated: 'Space was successfully updated.'
   spam:
+    created: "A reporting spam e-mail has been successfully sent to the admin off the VCC. Thanks you"
     detected: New spam detected
+    error:
+      check: "There was a problem checking the resource as spam"
     up: SPAM
     report: Report spam
     reported: A user has reported spam in the application.
@@ -409,6 +479,7 @@ en:
   thank_you: Thank you
   thread:
     add: Add a new thread
+    deleted: "Thread has been deleted"
     edit: Edit thread
     one: Thread
     or_add_new: or add a new thread
@@ -419,11 +490,15 @@ en:
   time:
     end: End time
     start: Start time
-  timezone: Timezone
+  timezone:
+    one: Timezone
+    set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: Title
   to: To
   to_configure_your: to configure your
   today: Today
+  toke:
+    not_available: "Token not available"
   tomorrow: Tomorrow
   topic: Topic
   
@@ -444,6 +519,9 @@ en:
     e-mail: "e-mail"
     email: "Email"
     enable: Enable user
+    enabled: "User succesfully enabled. The user is not a member of any space now and has to join spaces again."
+    error:
+      enabled: "User {{name}} is already enabled"
     feed:
       title: "Users"
       author: "SIR"
@@ -462,6 +540,7 @@ en:
     invited: Users already invited
     list_by: "List by"
     lost_password: "Have you lost your password?"
+    not_activated: "Your account isn't activated. Please, check your email to activate it."
     not_assist: People who won't assist to this event
     not_confirmed: People that has not confirmed    
     notifications: "Notifications"
@@ -470,6 +549,7 @@ en:
     password: "Password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Private Message"
+    registered: "Thanks for registering! We have just sent instructions on how to activate your user account permanently."
     request_password: "Request Password"
     reset_password: "Reset Your Password"
     results_count: 
@@ -480,6 +560,7 @@ en:
     timezone: "Timezone"
     up:
       other: USERS
+    updated: 'User was successfully updated.'
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "View expanded posts"
     without_group: People without group

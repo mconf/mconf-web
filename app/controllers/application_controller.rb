@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   before_filter :not_activated_warning
   def not_activated_warning
     if authenticated? && ! current_agent.active?
-      flash[:notice] = "Your account isn't activated. Please, check your email to activate it."
+      flash[:notice] = t('user.not_activated')
     end
   end
   

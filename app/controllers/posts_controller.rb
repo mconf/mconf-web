@@ -128,22 +128,22 @@ class PostsController < ApplicationController
       respond_to do |format|
         format.js{
         if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = "The comment is not valid" 
+            flash[:error] =  t('post.error.not_valid')
             return
           else
-            flash[:error] = "The content of the post can't be empty"  
+            flash[:error] =  t('post.error.empty')
             return
           end
           
         }
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = "The comment is not valid" 
+            flash[:error] = t('post.error.not_valid') 
             posts
             render :action => "index"
 
           else
-            flash[:error] = "The content of the post can't be empty"
+            flash[:error] = t('post.error.empty')
             posts
             render :action => "index"
                
@@ -160,7 +160,7 @@ class PostsController < ApplicationController
      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
    end
    if @attachment && !@attachment.valid?
-     flash[:error] = "The attachment is not valid"
+     flash[:error] = t('attachment.not_valid')
      respond_to do |format|
        
        format.html{
@@ -199,22 +199,22 @@ if !@attachment and !@post.text.present?
 	 respond_to do |format|
         format.js{
         if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = "The comment is not valid" 
+            flash[:error] = t('post.error.not_valid') 
             return
           else
-            flash[:error] = "The content of the post can't be empty"  
+            flash[:error] = t('post.error.empty')  
             return
           end
           
         }
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = "The comment is not valid" 
+            flash[:error] = t('post.error.not_valid') 
             posts
             render :action => "index"
 
           else
-            flash[:error] = "The content of the post can't be empty"
+            flash[:error] = t('post.error.empty')
             posts
             render :action => "index"
                
@@ -227,7 +227,7 @@ if !@attachment and !@post.text.present?
 end
 
     @post.save! #salvamos el artículo y con ello su entrada asociada  
-    flash[:success] = "Post created"
+    flash[:success] = t('post.created')
     if @attachment
     @attachment.post = @post
     @attachment.save!
@@ -274,7 +274,7 @@ end
     unless @post.valid?
       respond_to do |format|
         format.html {
-          flash[:error] = "The content of the post can't be empty"  
+          flash[:error] = t('post.error.empty')  
           render :action => "edit"
         }
         format.atom { render :xml => @post.errors.to_xml, :status => :not_acceptable }
@@ -300,14 +300,14 @@ end
      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
    end
    if @attachment && !@attachment.valid?
-        flash[:error] = "The attachment is not valid"  
+        flash[:error] = t('attachment.not_valid') 
         render :action => "index"
         return
    end
    
    
    @post.save! #salvamos el artículo y con ello su entrada asociada  
-     flash[:success] = "Post updated"
+     flash[:success] = t('post.updated')
     if @attachment
       @attachment.post = @post
       @attachment.save!
@@ -361,13 +361,13 @@ end
    @post.destroy 
     respond_to do |format|
       if !@post.event.nil?
-      flash[:notice] = "Comment has been deleted"  
+      flash[:notice] = t('post.deleted')  
         format.html {redirect_to space_event_path(@space, @post.event)}
       elsif @post.parent_id.nil?
-        flash[:notice] = "Thread has been deleted"  
+        flash[:notice] = t('thread.deleted')  
         format.html { redirect_to space_posts_path(@space) }
       else
-        flash[:notice] = "Post has been deleted"  
+        flash[:notice] = t('post.deleted')  
         format.html { redirect_to request.referer }
       end  
       format.js 

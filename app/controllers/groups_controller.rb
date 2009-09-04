@@ -27,12 +27,12 @@ class GroupsController < ApplicationController
     if @group.save
       respond_to do |format|
       format.html {
-        flash[:success] = "The group " + @group.name + " has been successfully created"
+        flash[:success] = t('group.created', :name => @group.name)
         redirect_to request.referer
       }
       end
     else
-      flash[:error] = "The group is not valid"
+      flash[:error] = t('group.not_valid')
       redirect_to request.referer
     end
   end
@@ -59,7 +59,7 @@ class GroupsController < ApplicationController
     if result
       respond_to do |format|
       format.html {
-      flash[:success] = "The group " + @group.name + " has been successfully updated"
+      flash[:success] = t('group.updated', :name => @group.name)
         redirect_to request.referer
       }
       end
@@ -76,12 +76,12 @@ class GroupsController < ApplicationController
     if group.destroy
     respond_to do |format|
       format.html {
-        flash[:success] = "The group has been successfully deleted"
+        flash[:success] = t('group.deleted')
         redirect_to request.referer
       }
       end
     else
-      flash[:error] = "Error deleting the group"
+      flash[:error] = t('group.not_deleted')
       redirect_to request.referer
     end
   end

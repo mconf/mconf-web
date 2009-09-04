@@ -99,7 +99,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html {
         if logged_in? && current_user.timezone == nil
-          flash[:notice] = "You have not set up your time zone. <a href=\"#{edit_user_path(current_user)}\">Set it up now</a>"
+          flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user))
         end
         if request.xhr?
           render :layout => false;
@@ -174,7 +174,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:success] = 'Event was successfully created.'
+        flash[:success] = t('event.created')
         format.html {redirect_to request.referer }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -200,7 +200,7 @@ class EventsController < ApplicationController
 			@event.update_attribute(:marte_room, false)
 		end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:success] = 'Event was successfully updated.'
+        flash[:success] = t('event.updated')
         format.html {redirect_to space_events_path(@space) }
         format.xml  { head :ok }
       else
@@ -243,7 +243,7 @@ class EventsController < ApplicationController
 	      end
 	  end
 	  if @token.nil?
-		render :text => "Token not available", :status => 500
+		render :text => t('token.not_available'), :status => 500
 	  else
 	       render :text => @token.id
   	  end

@@ -5,17 +5,17 @@ module SpamControllerModule
     @spam = resource
     @spam.update_attribute(:spam, true)
       if @spam.save
-        Notifier.deliver_spam_email(current_user.email,"New Spam Detected", params[:body] )
+        Notifier.deliver_spam_email(current_user.email,t('spam.detected'), params[:body] )
         respond_to do |format|
           format.html {
-            flash[:success] = "A reporting spam e-mail has been successfully sent to the admin off the VCC. Thanks you"
+            flash[:success] = t('spam.created')
             redirect_to request.referer
           }
         end
       else
         respond_to do |format|
           format.html {
-            flash[:error] = "there was a problem checking the resource as spam"
+            flash[:error] = t('spam.error.check')
             render :action => "new" 
           }
         end

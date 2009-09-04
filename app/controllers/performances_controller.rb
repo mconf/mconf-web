@@ -58,7 +58,7 @@ class PerformancesController
     if @update_errors==""
       respond_to do |format|
         format.html {
-          flash[:success] = "User performance successfully updated."
+          flash[:success] = t('performance.updated')
           redirect_to request.referer
         }
         format.js {

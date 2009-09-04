@@ -8,7 +8,7 @@ class SessionsController
   # render new.rhtml
   def new
     if logged_in?
-      flash[:error] = "You are already logged in"
+      flash[:error] = t('session.error.exist')
       redirect_to root_path
       return
     end
@@ -30,10 +30,10 @@ class SessionsController
 
   def after_create_path
     if current_user.superuser == true && Site.current.new_record?
-      flash[:notice] = "Please fill in this data"
+      flash[:notice] = t('session.error.fill')
       edit_site_path
     elsif !current_user.profile
-      flash[:notice]= "You should <a href=" + new_user_profile_path(current_user) +"> create</a>  your profile. It's very useful."  
+      flash[:notice]= t('session.should_create', :path => new_user_profile_path(current_user))  
       spaces_path
     else
     spaces_path

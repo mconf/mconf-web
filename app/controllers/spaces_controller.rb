@@ -91,7 +91,7 @@ class SpacesController < ApplicationController
         
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
-          flash[:error] = "Invalid credentials"
+          flash[:error] = t('error.credentials')
           render :action => :new
           return
       end
@@ -109,7 +109,7 @@ class SpacesController < ApplicationController
     @group.space = @space
     respond_to do |format|
       if @space.save && @group.save
-        flash[:success] = 'Space was successfully created.'
+        flash[:success] = t('space.created')
         @space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
@@ -146,7 +146,7 @@ class SpacesController < ApplicationController
           end
         }
         format.html { 
-          flash[:success] = 'Space was successfully updated.'
+          flash[:success] = t('space.updated')
           redirect_to request.referer
         }
         format.atom { head :ok }
@@ -154,9 +154,9 @@ class SpacesController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:error] = "The change is not valid"
+        flash[:error] = t('error.change')
         format.js {
-        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\"> The Space logo is not valid </div>\")"
+        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('logo.error.not_valid') +  "</div>\")"
         }
         format.html { 
         redirect_to edit_space_path() }
@@ -176,10 +176,10 @@ class SpacesController < ApplicationController
     respond_to do |format|
       format.html {
         if request.referer.include?("manage") && current_user.superuser?
-          flash[:notice] = 'Space was successfully disabled.'
+          flash[:notice] = t('space.disabled')
           redirect_to manage_spaces_path
         else
-          flash[:notice] = 'Space was successfully removed.'
+          flash[:notice] = t('space.deleted')
           redirect_to(spaces_url)
         end
       }
@@ -200,14 +200,14 @@ class SpacesController < ApplicationController
   def enable
     
     unless @space.disabled?
-      flash[:notice] = "Space " + @space.name + " is already enabled"
+      flash[:notice] = t('space.error.enabled', :name => @space.name)
       redirect_to request.referer
       return
     end
     
     @space.enable
     
-    flash[:success] = "Space succesfully enabled."
+    flash[:success] = t('space.enabled')
     respond_to do |format|
       format.html {
           redirect_to manage_spaces_path

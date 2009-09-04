@@ -8,10 +8,10 @@ class NewsController < ApplicationController
 
     respond_to do |format|
       if @news.save
-        flash[:success] = 'New was successfully published.'
+        flash[:success] = t('news.created')
         format.html { redirect_to request.referer }
       else
-        flash[:error] = 'There was a problem publishing news.'
+        flash[:error] = t('news.error.create')
         format.html { redirect_to request.referer }
       end
     end
@@ -40,12 +40,12 @@ class NewsController < ApplicationController
     if news.destroy
     respond_to do |format|
       format.html {
-        flash[:success] = "Item successfully deleted"
+        flash[:success] = t('news.deleted')
         redirect_to request.referer
       }
       end
     else
-      flash[:error] = "Error deleting item"
+      flash[:error] = t('news.error.delete')
       redirect_to request.referer
     end
   end
@@ -79,12 +79,12 @@ class NewsController < ApplicationController
     if @news.update_attributes(params[:news])
       respond_to do |format|
       format.html {
-      flash[:success] = "Item successfully updated"
+      flash[:success] = t('news.updated')
         redirect_to space_news_index_path(@space)
       }
       end
     else
-      flash[:error] = "Item could not be updated"
+      flash[:error] = t('news.error.update')
       redirect_to space_news_index_path(@space)
     end
   end

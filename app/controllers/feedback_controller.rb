@@ -13,14 +13,14 @@ class FeedbackController < ApplicationController
         Notifier.deliver_feedback_email(params[:from],params[:subject], params[:body] )
         respond_to do |format|
           format.html {
-            flash[:success] = "your feedback information e-mail has been successfully sent. Thanks you"
+            flash[:success] = t('feedback.sent')
             redirect_to root_path()
           }
         end
       else
         respond_to do |format|
           format.html {
-            flash[:error] = "please, check your email"
+            flash[:error] = t('check_mail')
             render :action => "new" 
           }
         end
@@ -28,7 +28,7 @@ class FeedbackController < ApplicationController
     else
       respond_to do |format|
         format.html {
-          flash[:error] = "you should fill in all the fields"
+          flash[:error] = t('fill_fields')
           render :action => "new" 
         }
       end

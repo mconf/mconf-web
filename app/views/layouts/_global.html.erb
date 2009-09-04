@@ -4,7 +4,7 @@
       <% if logged_in? %>
 			<% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
         <li><%= link_to t('inbox', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
-  	    <li><%= link_to t('profile'), user_profile_path(current_user), menu_options(:profile)%></li>
+  	    <li><%= link_to t('profile', :count => 1), user_profile_path(current_user), menu_options(:profile)%></li>
         <li><%= link_to t('preferences'), edit_user_path(current_user), menu_options(:preferences) %></li>
   	    <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
 	    <% else %>

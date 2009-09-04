@@ -88,7 +88,7 @@ class UsersController < ApplicationController
       if @user.save_with_captcha 
         @user.tag_with(params[:tags]) if params[:tags]
         self.current_agent = @user
-        flash[:notice] = "Thanks for registering! We have just sent instructions on how to activate your user account permanently." 
+        flash[:notice] = t('user.registered') 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
         format.atom { 
@@ -125,7 +125,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         @user.tag_with(params[:tags]) if params[:tags]
         
-        flash[:success] = 'User was successfully updated.'     
+        flash[:success] = t('user.updated')     
         format.html { #the superuser will be redirected to list_users
           redirect_to(user_profile_path(@user))
         } 
@@ -155,7 +155,7 @@ class UsersController < ApplicationController
 
     @user.disable
     
-    flash[:notice] = "User #{@user.login} deleted"
+    flash[:notice] = t('user.disabled')
     
     respond_to do |format|
       format.html {
@@ -177,14 +177,14 @@ class UsersController < ApplicationController
     @user = User.find_with_disabled(params[:id])
     
     unless @user.disabled?
-      flash[:notice] = "User " + @user.login + " is already enabled"
+      flash[:notice] = t('user.error.enabled', :name => @user.login)
       redirect_to request.referer
       return
     end
     
     @user.enable
     
-    flash[:success] = "User succesfully enabled. The user is not a member of any space now and has to join spaces again."
+    flash[:success] = t('user.enabled')
     respond_to do |format|
       format.html {
           redirect_to manage_users_path

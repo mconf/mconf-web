@@ -60,7 +60,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        flash[:success] = 'Profile was successfully created.'
+        flash[:success] = t('profile.created')
         format.html { redirect_to :action => 'show' }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
         format.atom { 
@@ -82,7 +82,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        flash[:notice] = 'Profile was successfully updated.'
+        flash[:notice] = t('profile.updated')
         format.html { redirect_to :action => "show" }
         format.xml  { head :ok }
         format.atom { head :ok }
@@ -99,7 +99,7 @@ class ProfilesController < ApplicationController
   # DELETE /profile.atom
   def destroy
     @profile.destroy
-    flash[:notice] = 'Profile was successfully deleted.'
+    flash[:notice] = t('profile.deleted')
     respond_to do |format|
       format.html { redirect_to(user_profile_path(@user)) }
       format.xml  { head :ok }
@@ -118,7 +118,7 @@ class ProfilesController < ApplicationController
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
     if @profile.nil?
-      flash[:notice]= 'You must create your profile first'
+      flash[:notice]= t('profile.must_create')
       redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
       render :partial=>'hcard'
@@ -174,7 +174,7 @@ class ProfilesController < ApplicationController
   
   def unique_profile
     unless @user.profile.new_record?
-      flash[:error] = "You already have a profile."     
+      flash[:error] = t('profile.error.exist')     
       redirect_to user_profile_path(@user)
     end
  end

@@ -101,7 +101,7 @@ class SearchController < ApplicationController
         @filters = {'start_date' => date1.to_s..date2.to_s,'end_date' => date1.to_s..date2.to_s}
       end  
       if date1ok > date2ok
-        flash[:notice] = 'The first date cannot be lower than the second one'
+        flash[:notice] = t('event.error.dates')
         render :template => "events/search"
       else
       

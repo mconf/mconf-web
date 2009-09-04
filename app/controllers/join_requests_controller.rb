@@ -45,7 +45,7 @@ class JoinRequestsController
 
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
-        flash[:error] = "Invalid credentials"
+        flash[:error] = t('error.credentials')
         respond_to do |format|
           format.html {
             render :action => 'new'
@@ -57,7 +57,7 @@ class JoinRequestsController
     end
 
     if space.users.include?(current_agent)
-      flash[:notice] = "You are already in the space"
+      flash[:notice] = t('join_request.joined')
       if request.xhr?
         render :partial=> "redirect.js.erb", :locals => {:url => space_path(space)}
       else
@@ -72,7 +72,7 @@ class JoinRequestsController
     if @join_request.save
       flash[:notice] = t('join_request.created')
     else
-      flash[:notice] = "You have already sent a joint request to this space"
+      flash[:notice] = t('join_request.already_sent')
       #flash[:error] = jr.errors.to_xml
     end
 
