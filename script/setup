@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 
-LINUX_PACKAGES = %w( ruby ruby-dev rdoc irb libopenssl-ruby libmysqlclient15-dev librmagick-ruby wget make curl )
+LINUX_PACKAGES = {
+  :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl ),
+  :mysql  => %w( libmysqlclient15-dev mysql-server ),
+  :sqlite => %w( libsqlite3-dev )
+}
 RUBY_GEMS_VERSION = "1.3.1"
 RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
 RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/45905/#{ RUBY_GEMS_PACKAGE }"
@@ -20,19 +24,25 @@ GEMS = {
                    "feed-normalizer",
                    "rspec-rails",
                    "hoe" ],
-  :production  => [ "mysql" ],
+  :production  => [ ],
   :development => [ "capistrano",
                     "mongrel",
                     "populator",
                     "faker",
                     "thoughtbot-factory_girl -s http://gems.github.com/",
-                    "ci_reporter" ]
+                    "ci_reporter" ],
+  :mysql => [ "mysql" ],
+  :sqlite => [ "sqlite3-ruby" ]
 }
 
-def install_linux_packages
-  if `uname`.chomp == "Linux" && `which aptitude` != ""
-    puts "* Install Linux packages"
-    system "sudo aptitude install #{ LINUX_PACKAGES.join(" ") }"
+DATABASES = %w( MySQL SQLite )
+
+def install_linux_packages(set)
+  return unless `uname`.chomp == "Linux" && `which aptitude` != ""
+
+  puts "* Install #{ set } Linux packages"
+  if LINUX_PACKAGES[set].any?
+    system "sudo aptitude install #{ LINUX_PACKAGES[set].join(" ") }"
   end
 end
 
@@ -57,21 +67,54 @@ def install_gem_subsystem
   end
 end
 
-def setup_production
-  install_linux_packages
-  install_gem_subsystem
-  install_gems(:common)
-  install_gems(:production)
-  `rake setup:production`
+def install_database
+  print "* Checking config/database.yml: "
+
+  db_file = File.dirname(__FILE__) + "/../config/database.yml"
+
+  if File.exist?(db_file)
+    puts "file exists. Assuming configurated database."
+    return
+  end
+
+  db_type = ask_for_db_type
+  install_linux_packages(db_type)
+  install_gems(db_type)
+
+  `cp #{ db_file }.#{ db_type }.example #{ db_file }` 
+
+  if db_type == :mysql
+    puts
+    puts "***************************************************************"
+    puts
+    puts "MySQL support installed."
+    puts "Please, configure your MySQL database and run the script again."
+    exit(-1)
+  end
 end
 
-def setup_development
-  install_linux_packages
+def ask_for_db_type
+  puts
+  puts "Which database do you want to install?"
+  DATABASES.each_with_index do |db, index|
+    puts "#{ index + 1 }. #{ db }"
+  end
+  number = gets.chomp
+  while ! ( number =~ /[12]/ )
+    puts "Please, choose 1 or 2"
+    number = gets
+  end 
+
+  DATABASES[ number.to_i - 1].downcase.to_sym
+end
+
+def setup_environment(env)
+  install_linux_packages(:common)
   install_gem_subsystem
   install_gems(:common)
-  install_gems(:development)
-  puts "Let's configure the environment"
-  `rake setup:development`
+  install_gems(env)
+  install_database
+  system "rake setup:#{ env }"
 end
 
 def print_banner(env)
@@ -84,8 +127,8 @@ end
 
 if ARGV[0] =~ /production/
   print_banner("PRODUCTION")
-  setup_production
+  setup_environment(:production)
 else
-  print_banner("DEVELOPMENT ")
-  setup_development
+  print_banner("DEVELOPMENT")
+  setup_environment(:development)
 end
