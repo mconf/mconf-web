@@ -159,7 +159,8 @@ en:
   event_invitation:
     accepted: "You have accepted the invitation to this event"
     discarded: "The invitation to this event has been discarded"
-  
+    new:
+      other: "Invite people"
   ######### F ###########
   fax: Fax
   feedback:
