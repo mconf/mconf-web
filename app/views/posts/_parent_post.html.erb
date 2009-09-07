@@ -3,15 +3,15 @@
 <%end%>
 
   <!-- Author photo and name -->
-	<div class="parent-post-logo">
+	<!--<div class="parent-post-logo">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
 	    <%= link_logo(post.author, :size => 48, :url => user_profile_path(post.author), :title=>post.author.name) %>
 	  <%else%>
 	    <%=logo(post.author, :size=>48, :title=>post.author.name)%>
 	  <%end%>
-	</div>
+	</div>-->
 
-	<div class="post-content">
+	<!--<div class="post-content">
    		<ul>
 			<li class="person_title">
                         <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
@@ -23,7 +23,7 @@
 	     	<li>
 	     		<div class="post_text">
 	     		<%=sanitize(auto_link(post_format(post.text)))%>
-					</div>
+				</div>
 	     	</li>
   		<%else%>
      <li id="collapsed_post_<%=post.id%>" style="display:none">
@@ -39,7 +39,7 @@
 		   </div>
      </div>
    <%end%>   
-	</div> 
+	</div> -->
 	 <div class="attachment">
    <%for attachment in post.attachments%>
       <%if attachment.post_thumbnail%>

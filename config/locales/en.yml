@@ -23,6 +23,7 @@ en:
   all: All
   all_rights_reserved: All rights reserved
   attachment:
+    attach: "Attachment"
     not_valid: "The attachment is not valid"
   avatar:
     created: "Avatar created successfully"
@@ -506,7 +507,7 @@ en:
   ######### U ###########
   upcoming: Upcoming
   update: Update
-  updated_time_ago: "updated {{time}} ago"  
+  updated_time_ago: "{{time}} ago"  
   user:
     active:
       other: Active users
