@@ -6,7 +6,8 @@ RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
 RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/45905/#{ RUBY_GEMS_PACKAGE }"
 
 GEMS = {
-  :common     => [ "rails -v 2.3.2",
+  #TODO: get rails version from config/environment.rb
+  :common     => [ "rails -v 2.3.4",
                    "rake",
                    "vpim",
                    "ruby-debug",
