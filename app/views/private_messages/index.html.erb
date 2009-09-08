@@ -26,7 +26,7 @@
 
 <div id="show-posts">
 <%if @private_messages.blank?%>
-  <%= t('message.private.no') %>
+  <%= t('message.private.none') %>
 <%else%>
 
 	<% for private_message in @private_messages %>

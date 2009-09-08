@@ -1,14 +1,8 @@
 <div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%>">
   <div class="thread">
-	<!--<div class="thread_options">
-	  <ul>
-	    <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
-            <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorizes?([:create, :content],:to => current_user)%></li>
-            <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorizes?(:update, :to => current_user)%></li>
-	    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorizes?(:delete, :to => current_user)%></li>
-	  </ul>
-	</div>-->
-	<div class="thread_content">	 
+
+	<div class="thread_content">
+	   
 	  <%if defined? in_home && in_home %>
 	    <div class="div-logo">  
 	      <%=link_logo(@space, :size =>'w48', :url => space_path(@space), :title=>@space.name)%>
@@ -25,56 +19,75 @@
 	      <%=logo(thread.author, :size=>32, :title=>thread.author.name)%>
 	    <%end%>
 	  </div>	
-	  <div class="thread-title">
-	  	<ul>       
-	        <%if (logged_in? && thread.spam != true && @space.authorizes?([:create, :content ],:to => current_user) && thread.authorizes?(:update, :to => current_user)&& thread.authorizes?(:delete, :to => current_user))%>
-		  		<li>
-		  			<%=link_to (first_words(thread.title, 45), space_post_path(@space,thread),:class=>"bold")if @space.authorizes?([:read, :content],:to => current_user)%>
-					<%=image_tag ("icons/attach.png",:title=>t('attachment.attach'),:class=>"icon")%>
-					<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
-				</li>
-	        <%else%>
-		  		<li><%=link_to (first_words(thread.title, 45), space_post_path(@space,thread),:class=>"bold")if @space.authorizes?([:read, :content],:to => current_user)%> | <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span></li>
-	        <%end%>
-				<li class="grey"><%=first_words(thread.text,75)%></li>
-	      </ul>
+	  <div class="thread-title-wrapper">
+		  <ul class="thread_options extended_thread" <%='style="display:none"' unless extended%>>
+		    <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
+	        <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorizes?([:create, :content],:to => current_user)%></li>
+	        <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorizes?(:update, :to => current_user)%></li>
+		    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorizes?(:delete, :to => current_user)%></li>
+		  </ul>
+		  
+		  <ul class="thread-title">      
+	      <%if (logged_in? && thread.spam != true && @space.authorizes?([:create, :content ],:to => current_user) && thread.authorizes?(:update, :to => current_user)&& thread.authorizes?(:delete, :to => current_user))%>
+			<li>
+		      <%=link_to (first_words(thread.title, 30), space_post_path(@space,thread),:class=>"bold")if @space.authorizes?([:read, :content],:to => current_user)%>
+			  <%if thread.attachments.any? %>
+			    <%=image_tag ("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
+			  <%end%>
+			  <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
+			</li>
+	      <%else%>
+		  	<li>
+		  	  <%=link_to (first_words(thread.title, 45), space_post_path(@space,thread),:class=>"bold")if @space.authorizes?([:read, :content],:to => current_user)%>
+			  <%=image_tag ("icons/attach.png",:title=>t('attachment.attach'),:class=>"icon")%>
+			  <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
+			</li>
+	      <%end%>
+			<!--<li id="small_title_<%=thread.id%>" class="grey" <%='style="display:none"' if extended %>><%=first_words(thread.text,75)%></li>-->
+			<li>
+				<div id="small_title_<%=thread.id%>" class="grey" <%='style="display:none"' if extended %>>
+					<%=first_words(thread.text,75)%>
+				</div>
+				<div class="extended_thread grey" <%='style="display:none"' unless extended%>>
+
+	  			    <%=render :partial => "posts/parent_post",:locals => { :post =>  thread, :selected_post => false}%>  	
+
+				</div>
+			</li>	    
+		</ul>
 	  </div>
-	    <%if defined? in_home && in_home %>
-	      <div id="message-body-<%=thread.id%>" class="message-body">
-	        <%=first_words(thread.text, 70)%>
-	      </div>
-	    <% end %>
+	  <%if defined? in_home && in_home %>
+	    <div id="message-body-<%=thread.id%>" class="message-body">
+	      <%=first_words(thread.text, 70)%>
+	    </div>
+	  <% end %>
 	</div>
 
-	<div class="extended_thread" <%='style="display:none"' unless extended%> >
-	  <div class="thread-body">
-	  	<%=render :partial => "posts/parent_post",:locals => { :post =>  thread, :selected_post => false}%>  	
-	  </div>
-	
+	<div class="extended_thread" <%='style="display:none"' unless extended%> >	  	
 	  <%unless thread.children.size==0 %>
-		  <div class="comments-status">
-				<%if thread.children.size==1 %>
-				  <%= t('thread.show_one_only_comment') %>
-				<%elsif thread.children.size<4%>
-				  <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
-				<%else%>
-				  <%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
-				  <%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
-				<%end%>
-		  </div>
-		<%end%>
-	
-		<div class="<%=thread.three_last_comment().size == 3 ?  "open" : "close"%>"> 
-	    <%for comment in thread.three_last_comment()%>
-			  <%=render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}%>
+	    <div class="comments-status">
+		  <%if thread.children.size==1 %>
+		    <%= t('thread.show_one_only_comment') %>
+		  <%elsif thread.children.size<4%>
+		    <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
+		  <%else%>
+			<%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
+			<%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
 		  <%end%>
 		</div>
-		
-		<%if @space.authorizes?([:create, :content],:to => current_user)%>
-			<div class="add-new-comment">
-				<%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
-			</div>
+	  <%end%>
+	
+	  <div class="<%=thread.three_last_comment().size == 3 ?  "open" : "close"%>"> 
+	    <%for comment in thread.three_last_comment()%>
+		  <%=render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}%>
 		<%end%>
+	  </div>
+		
+	  <%if @space.authorizes?([:create, :content],:to => current_user)%>
+		<div class="add-new-comment">
+		  <%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
+	    </div>
+	  <%end%>
 	</div>
   </div>
 </div>

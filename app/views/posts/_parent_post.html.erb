@@ -11,41 +11,41 @@
 	  <%end%>
 	</div>-->
 
-	<!--<div class="post-content">
-   		<ul>
-			<li class="person_title">
+  <div class="post-content">
+
+			<!--<li class="person_title">
                         <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
                                        post.author.name,
                                        user_profile_path(post.author)%>
 			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-			</li>
-   			<%if post.text.size < 500 || @show_view%>
-	     	<li>
-	     		<div class="post_text">
-	     		<%=sanitize(auto_link(post_format(post.text)))%>
-				</div>
-	     	</li>
-  		<%else%>
-     <li id="collapsed_post_<%=post.id%>" style="display:none">
-     	 <div class="post_text">
-         <%=sanitize(first_words(auto_link(post.text),500))%>
-         <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
-			 </div>
-     </li>
-  		</ul>
-     <div id="expanded_post_<%=post.id%>">
+			</li>-->	
+	<%if post.text.size < 500 || @show_view%>
+
+ 		  <div class="post_text">
+ 		  <%=sanitize(auto_link(post_format(post.text)))%>
+		  </div>
+
+	<%else%>
+
+     	  <div id="collapsed_post_<%=post.id%>" class="post_text" style="display:none">
+            <%=sanitize(first_words(auto_link(post.text),500))%>
+            <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
+	      </div>
+
+
+    <div id="expanded_post_<%=post.id%>">
      	 <div class="post_text">
          <%=sanitize(auto_link(post_format(post.text)))%>
 		   </div>
-     </div>
+    </div>
    <%end%>   
-	</div> -->
-	 <div class="attachment">
-   <%for attachment in post.attachments%>
+  </div>
+   <div class="attachment">
+     <%for attachment in post.attachments%>
       <%if attachment.post_thumbnail%>
         <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
       <%else%>
         <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
       <%end%> 
-   <%end%>
+     <%end%>
    </div>
