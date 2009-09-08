@@ -42,7 +42,9 @@ en:
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
-  calendar: "Calendar"
+  calendar: 
+    one: "Calendar"
+    my: "My Calendar"
   caption:
     add: Add a caption
   changed_mind: Changed your mind?
@@ -222,9 +224,13 @@ en:
   his_message_reads_thus: His message read thus
   home:
     up: HOME
-  
+    my: My Home
+    activity: Recent activity
+    
   ######### I ###########
-  inbox: Inbox ({{checked}})
+  inbox: 
+    one: Inbox ({{checked}})
+    my: My Inbox ({{checked}})
   invitation:
     accepted: You have accepted the invitation to this event
     discarded: The invitation to this event has been discarded
@@ -313,7 +319,9 @@ en:
       create: 'There was a problem publishing news.'
       delete: "Error deleting item"
       update: "Item could not be updated"
-    item_in_home: "News item in the space {{space}}"
+    home: 
+      zero: "No news to show"
+      one: "News item in the space {{space}}"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
     up: "NEWS"

@@ -48,8 +48,8 @@ namespace :setup do
     task :permissions => :environment do
       puts "* Create Permissions"
 
-      # Permissions applied to self
-      %w( read update delete ).each do |action|
+      # Permissions without objective
+      %w( read update delete translate ).each do |action|
         Permission.find_or_create_by_action_and_objective action, nil
       end
 
@@ -67,6 +67,9 @@ namespace :setup do
     desc "Load Roles Data"
     task :roles => :permissions do
       puts "* Create Roles"
+      translator_role = Role.find_or_create_by_name_and_stage_type "Translator", "Site"
+      translator_role.permissions << Permission.find_by_action_and_objective('translate', nil)
+
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
       admin_role.permissions << Permission.find_by_action_and_objective('read',   nil)
       admin_role.permissions << Permission.find_by_action_and_objective('update', nil)

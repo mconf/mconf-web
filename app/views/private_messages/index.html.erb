@@ -3,11 +3,19 @@
   $(".message_link").attr('href', '#');
   $(".message_link").livequery('click', function() {
     $(this).parents(".message_div").find("div.message_content").toggle();
-		if ($(this).parents(".message_div").hasClass("new")){
-		  var route = "/users/<%=params[:user_id]%>/messages/" + $(this).parents(".message_div").attr("id")
-		  $.post(route, { _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'private_message[checked]': "true" },  function(data){eval(data);}, "script");
-	  }
+    if ($(this).parents(".message_div").hasClass("new")){
+      var route = "/users/<%=params[:user_id]%>/messages/" + $(this).parents(".message_div").attr("id")
+      $.post(route, { _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'private_message[checked]': "true" },  function(data){eval(data);}, "script");
+    }
   }); 
+  
+  <%if params[:message] %>
+    $("#<%=params[:message]%>").find("div.message_content").toggle();
+    setTimeout(function() {
+      $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+	$("#<%=params[:message]%>").effect("highlight", {color:"#F5DF51"}, 3000);
+	}, 1000);
+  <%end%>
 <%end%>
 
 <% content_for :sidebar do  %>
