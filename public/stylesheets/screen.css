@@ -170,7 +170,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 .user div.selected_groups{margin-left:0.5em;}
 .user .clearboth{margin-left:0.5em;}
 
-/*threads and posts (colors and boxes)*/
+/*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
 .odd_thread,.even_thread{/*padding:.8em;*/border:1px solid #ddd;margin-bottom:1px;/*-moz-border-radius:7px;*/}
 /*#post_with_children{-moz-border-radius:7px;border:1px solid #bdd8eb;background:#f0f6f9;}*/
 .odd_thread{background:#f0f6f9;border-color:#bdd8eb;}
