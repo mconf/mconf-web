@@ -1,13 +1,13 @@
-<div class="<%=cycle("even_thread" , "odd_thread")%>">
+<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud">
 	<%if @news_to_show.nil? %>
-	  <p>No news to show</p>
+	  <p><%=t('news.home.zero')%></p>
 	<%else%>
 	  <div>
 	    <div class="news-title">
 	      <div class="div-logo">  
 	        <%=link_logo(@space, :size =>'w48', :url => space_path(@space), :title=>@space.name)%>
 	      </div>
-	      <b><%= t('news.item_in_home', :space=>@space.name) %></b>
+	      <b><%= t('news.home.one', :space=>@space.name) %></b>
 	    </div>
             <div class="news-title">
   	      <span class="person_title"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>

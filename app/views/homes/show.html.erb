@@ -22,13 +22,27 @@
     $("#message-body-" + id).show();
   }  
   
+  
+  $("input#checkposts").click(function(){
+    $(".post_cloud").slideToggle("slow");
+  });
+  
+  $("input#events").click(function(){
+    $(".event_cloud").slideToggle("slow");
+  });
+  
+  $("input#news").click(function(){
+    $(".news_cloud").slideToggle("slow");
+  });
+  
+  
 <% end %>
 
 
 <% content_for :sidebar do  %>
   <div class="next-events">
      <div class="next-events-title">
-       <p><strong><%=image_tag("icons/date.png",:class=>"icon") + t('event.upcoming.other')%></strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
+       <p><strong><%=image_tag("icons/date.png",:class=>"icon") + t('calendar.my')%></strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
      </div>
 	<ul>
 	  <div class="next-events-section">
@@ -92,7 +106,7 @@
   </div>
   
   <div id="home-inbox-full">
-    <div id="home-inbox-title"><%=image_tag("icons/email.png",:class=>"icon")%><%= link_to t('inbox', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></div>
+    <div id="home-inbox-title"><%=image_tag("icons/email.png",:class=>"icon")%><%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></div>
     <% for private_message in @private_messages %>
       <%@sender=User.find_with_disabled(private_message.sender_id)%> 
       <div class="user-logo"><%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login)%></div>  
@@ -106,7 +120,13 @@
 <% end %>
 
 <div id="posts">
-  <%= will_paginate @all_in_all %><br/>
+  <div id="title_recent">
+    <%=t('home.activity')%>
+  </div>
+  <div id="show">
+    <%=t('show')%>:
+    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
+  </div>
   <% for item in @all_in_all do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
@@ -124,4 +144,5 @@
 	  I don't know what is a "<%item.class%>"
 	<%end%>
   <% end %>
+  <%= will_paginate @all_in_all %><br/>
 </div>
