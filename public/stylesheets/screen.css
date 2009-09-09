@@ -241,7 +241,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 .post-content p img,#profile_content p img{max-width:350px;}
 .post-content ul a,a.edit_post_link{text-decoration:none;}
 .post-content ul a:hover,a.edit_post_link:hover{text-decoration:underline;}
-#posts .comments-status{padding:3px 0.75em;margin-left:0.75em;margin-right:0.5em;}
+#posts .comments-status{padding:3px 0.75em;margin-left:0.75em;margin-right:0.5em;margin-top:6px;}
 div.add-new-comment,.show-more{clear:both;text-align:right;margin-right:0.5em;padding:0 0 6px 0;}
 
 .post_text ul{margin:20px;list-style-type:disc;}
