@@ -43,8 +43,8 @@
          <%=sanitize(auto_link(post_format(post.text)))%>
 		   </div>
     </div>
-   <%end%>   
-  </div>
+   <%end%>
+      
    <div class="attachment">
      <%for attachment in post.attachments%>
       <%if attachment.post_thumbnail%>
@@ -62,3 +62,5 @@
       <%end%> 
      <%end%>
    </div>
+  </div>
+

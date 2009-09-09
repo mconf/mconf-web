@@ -228,10 +228,10 @@ ul.thread-title{margin:0;list-style-type:none;}
 .thread-title-wrapper .attach div,.thread-title-wrapper .attachment div,.attach div,.attachment div{float:left;}
 .attach ul,.attachment ul{float:left;list-style-type:none;margin:0;}
 
-.thread-body{clear:both;position:relative;overflow:hidden;/*margin-bottom:0.75em;*/margin-left:0.75em;}
+.thread-body{clear:both;position:relative;overflow:hidden;margin-top:0.5em;margin-bottom:5px;margin-left:0.75em;}
 .thread-body div{float:left;}
-.thread-body .parent-post-logo{width:36px;height:37px;background:#fff;}
-.thread-body .parent-post-logo img{padding:1px;border:1px #ccc solid;margin-right:5px;}
+.thread-body .parent-post-logo{width:36px;height:36px;background:#fff;margin-right:0.75em;}
+.thread-body .parent-post-logo img{padding:1px;border:1px #ccc solid;width:32px;}
 .thread-body .parent-post-logo img:hover{border-color:#aaa;}
 .thread-body .post-content{width:400px;}
 .post-content ul{margin:0;list-style-type:none;}
