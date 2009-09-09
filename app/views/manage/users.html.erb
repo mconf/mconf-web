@@ -7,7 +7,7 @@
 <%= render :partial => 'menu' %>
 
 <div id="manage">	
-	<div "users">
+	<div class="users">
 	  <%for user in @users%>
 		  <%if user.disabled?%>
         <%= render :partial => 'disabled_user', :locals => {:user => user}  %>
