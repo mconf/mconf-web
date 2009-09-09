@@ -19,6 +19,31 @@ class PerformancesController
     end
   end
   
+  def create
+    @performance = Performance.new(params[:performance])
+    @performance.stage = stage
+
+    if @performance.save
+      respond_to do |format|
+        format.html{
+          flash[:success] = t('role.added', :role => @performance.role.name, :agent => @performance.agent.name)
+          redirect_to request.referer
+        }
+        format.js {
+          index_data
+        }
+      end
+    else
+      respond_to do |format|
+        format.html{
+          flash[:error] = @performance.errors.to_xml
+          redirect_to request.referer
+        }
+        format.js
+      end
+    end
+  end
+  
   def update 
     @update_errors=""
     if params[:update_groups]
@@ -52,7 +77,7 @@ class PerformancesController
     params[:performance].delete(:stage_type)
 
     unless @performance.update_attributes(params[:performance])
-        @update_errors += @performance.errors + "</br>"
+        @update_errors += @performance.errors.to_xml + "</br>"
     end
     
     if @update_errors==""
@@ -68,7 +93,7 @@ class PerformancesController
     else
       respond_to do |format|
         format.html {
-          flash[:error] = update_errors
+          flash[:error] = @update_errors
           redirect_to request.referer
         }
         format.js{
