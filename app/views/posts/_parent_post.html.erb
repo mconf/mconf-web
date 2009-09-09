@@ -3,22 +3,27 @@
 <%end%>
 
   <!-- Author photo and name -->
-	<!--<div class="parent-post-logo">
+	
+	<%if @show_view%>
+	<div class="parent-post-logo">
 	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
-	    <%= link_logo(post.author, :size => 48, :url => user_profile_path(post.author), :title=>post.author.name) %>
+	    <%= link_logo(post.author, :size => 32, :url => user_profile_path(post.author), :title=>post.author.name) %>
 	  <%else%>
-	    <%=logo(post.author, :size=>48, :title=>post.author.name)%>
+	    <%=logo(post.author, :size=>32, :title=>post.author.name)%>
 	  <%end%>
-	</div>-->
+	</div>
+	<%end%>
 
   <div class="post-content">
 
-			<!--<li class="person_title">
+			<%if @show_view%>
+			<div class="person_title">
                         <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
                                        post.author.name,
                                        user_profile_path(post.author)%>
 			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-			</li>-->	
+			</div>
+			<%end%>	
 	<%if post.text.size < 500 || @show_view%>
 
  		  <div class="post_text">
@@ -45,7 +50,15 @@
       <%if attachment.post_thumbnail%>
         <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
       <%else%>
-        <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
+        <div>
+		    <%=image_tag(logo_image_path(attachment, :size => 32))%>
+		</div>
+		
+			<ul>
+				<li><%=attachment.filename%></li>
+				<li><%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%></li>
+			</ul>
+		
       <%end%> 
      <%end%>
    </div>

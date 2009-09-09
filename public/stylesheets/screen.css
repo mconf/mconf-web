@@ -197,6 +197,9 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:10px 0.5em 
 /*#posts h2 a.extend_thread,#posts h2 a.collapse_thread{margin-right:4px;}*/
 .thread-title a,#post_with_children h2 a{color:#244974;text-decoration:none;}
 .thread-title a:hover,#post_with_children h2 a:hover{text-decoration:underline;}
+.thread-title li #grey{margin-top:5px;}
+
+
 /*#posts .updated,*/#post_with_children .updated{color:#666;font-weight:normal;font-size:0.9166em;line-height:1.636;}
 .open,.close{margin-bottom:5px;}
 
@@ -220,13 +223,16 @@ ul.thread-title{margin:0;list-style-type:none;}
 .div-logo {float:left;width:50px;padding:1px;}
 .post_moved {margin-right:0.5em;}
 .post-content p{margin-bottom:0;}
-.attachment{margin-top:5px;margin-left:65px;}
+.attachment{margin-top:5px;}
 .attach{margin-top:5px;}
+.thread-title-wrapper .attach div,.thread-title-wrapper .attachment div,.attach div,.attachment div{float:left;}
+.attach ul,.attachment ul{float:left;list-style-type:none;margin:0;}
 
 .thread-body{clear:both;position:relative;overflow:hidden;/*margin-bottom:0.75em;*/margin-left:0.75em;}
 .thread-body div{float:left;}
-.thread-body .parent-post-logo img{padding:2px;border:1px #ccc solid;margin-right:5px;width:54px;}
-.thread-body .parent-post-logo img:hover{border-color:#999;}
+.thread-body .parent-post-logo{width:36px;height:37px;background:#fff;}
+.thread-body .parent-post-logo img{padding:1px;border:1px #ccc solid;margin-right:5px;}
+.thread-body .parent-post-logo img:hover{border-color:#aaa;}
 .thread-body .post-content{width:400px;}
 .post-content ul{margin:0;list-style-type:none;}
 .post-content, .person_title a{text-decoration:none;}
@@ -241,10 +247,11 @@ div.add-new-comment,.show-more{clear:both;text-align:right;margin-right:0.5em;pa
 .post_text ul{margin:20px;list-style-type:disc;}
 
 /*options links for posts, threads, people..*/
-ul.thread_options {list-style-type:none;margin:2px 5px -5px 0;}
-ul.thread_options li{display:inline;}
-.thread_content .thread_options{float:right;opacity:0.6;}
-.thread_content .thread_options:hover{opacity:1;}
+ul.thread_options{list-style-type:none;margin:0 5px -5px 0;}
+.thread_options ul{list-style-type:none;margin:5px 5px -5px 0;}
+ul.thread_options li,.thread_options ul li{display:inline;}
+.thread_options{float:right;opacity:0.6;}
+.thread_options:hover{opacity:1;}
 .thread_content a img{vertical-align:top;}
 .post-content #edit{opacity:0.6;}
 .post-content #edit:hover{opacity:1;}
@@ -281,7 +288,7 @@ ul.edit-post li{list-style-type:none;}
 #latest_posts h3 span,#inc-events h3 span{float:right;}
 div.post a:hover{height:100%; width:100%;}
 div.user .u_name{color:#605E5E;}
-div.post{color:#605E5E;}/**/
+div.post{color:#444;}/*605E5E*/
 span.updated{color:#666;}
 a.read_more_link{color:#244974;}
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
