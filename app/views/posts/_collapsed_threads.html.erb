@@ -1,8 +1,38 @@
 <div id="posts">
-  <%if threads.empty?%>
+  <%if today.empty? && yesterday.empty? && last_week.empty? && older.empty?%>
     <p><%= t('no_messages_in_forum') %></p>
-	<%end%>
-	<% threads.each do |thread| -%>
-    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false} %>
+  <%end%>
+  
+  <%unless today.empty?%>
+    <div id="today-line"><b>Today</b>
+    </div>
+  <%end%>
+  <% today.each do |thread| -%>
+  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false} %>
   <% end -%>
+  
+  <%unless yesterday.empty?%>
+    <div id="yesterday-line"><b>Yesterday</b>
+    </div>
+  <%end%>
+  <% yesterday.each do |thread| -%>
+  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false} %>
+  <% end -%>
+  
+  <%unless last_week.empty?%>
+    <div id="last-week-line"><b>Last Week</b>
+    </div>
+  <%end%>
+  <% last_week.each do |thread| -%>
+  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false} %>
+  <% end -%>
+  
+  <%unless older.empty?%>
+    <div id="older-line"><b>Old items</b>
+    </div>
+  <%end%>
+  <% older.each do |thread| -%>
+  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false} %>
+  <% end -%>
+  
 </div>

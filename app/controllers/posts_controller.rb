@@ -19,7 +19,12 @@ class PostsController < ApplicationController
 
   def index
     posts
-   
+    unless params[:extended]
+      @today = @posts.select{|x| x.updated_at > Date.yesterday}
+      @yesterday = @posts.select{|x| x.updated_at > Date.yesterday - 1 && x.updated_at < Date.yesterday}
+      @last_week = @posts.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}
+      @older = @posts.select{|x| x.updated_at < Date.today - 7}
+    end
     respond_to do |format|
       format.html 
       format.atom 

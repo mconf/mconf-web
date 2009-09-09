@@ -127,8 +127,10 @@
     <%=t('show')%>:
     <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
   </div>
-  <div id="today-line"><b>Today</b>
-  </div>
+  <%unless @today.empty?%>
+    <div id="today-line"><b>Today</b>
+    </div>
+  <%end%>
   <% for item in @today do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
@@ -146,8 +148,10 @@
 	  I don't know what is a "<%item.class%>"
 	<%end%>
   <% end %>
-  <div id="yesterday-line"><b>Yesterday</b>
-  </div>
+  <%unless @yesterday.empty?%>
+    <div id="yesterday-line"><b>Yesterday</b>
+    </div>
+  <%end%>
   <% for item in @yesterday do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
@@ -165,8 +169,10 @@
 	  I don't know what is a "<%item.class%>"
 	<%end%>
   <% end %>
-  <div id="last-week-line"><b>Last Week</b>
-  </div>
+  <%unless @last_week.empty?%>
+    <div id="last-week-line"><b>Last Week</b>
+    </div>
+  <%end%>
   <% for item in @last_week do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
@@ -184,9 +190,10 @@
 	  I don't know what is a "<%item.class%>"
 	<%end%>
   <% end %>
-  
-  <div id="older-line"><b>Old items</b>
-  </div>
+  <%unless @older.empty?%>
+    <div id="older-line"><b>Old items</b>
+    </div>
+  <%end%>
   <% for item in @older do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
