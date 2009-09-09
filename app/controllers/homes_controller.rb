@@ -40,7 +40,7 @@ class HomesController < ApplicationController
     #sort the array with the updated_at date
     @all_in_all.sort!{|x,y| y.updated_at <=> x.updated_at}
     
-    @all_in_all = @all_in_all.paginate(:page=>params[:page], :per_page=>10)
+    @all_in_all = @all_in_all.paginate(:page=>params[:page], :per_page=>15)
     #debugger
   end
 end

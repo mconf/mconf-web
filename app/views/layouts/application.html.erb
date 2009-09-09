@@ -18,6 +18,11 @@
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf('Mac') != -1) { 
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      }
+    </script>
 
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
     <script type="text/javascript" charset="utf-8">
