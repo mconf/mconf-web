@@ -127,7 +127,9 @@
     <%=t('show')%>:
     <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
   </div>
-  <% for item in @all_in_all do %>	
+  <div id="today-line"><b>Today</b>
+  </div>
+  <% for item in @today do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
 	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
@@ -144,5 +146,65 @@
 	  I don't know what is a "<%item.class%>"
 	<%end%>
   <% end %>
+  <div id="yesterday-line"><b>Yesterday</b>
+  </div>
+  <% for item in @yesterday do %>	
+	<%if item.class == Post %>
+	  <%@space=item.space%>
+	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	<%elsif item.class == Event %>
+	  <%@space=item.space%>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	<%elsif item.class == News %>
+	  <%@space=item.space%>
+	  <%@news_to_show = item%>
+	  <%@news_position = 1 %>
+	  <%@news=[]%>
+	  <%= render :partial => 'spaces/news_in_home'%>
+	<%else%>
+	  I don't know what is a "<%item.class%>"
+	<%end%>
+  <% end %>
+  <div id="last-week-line"><b>Last Week</b>
+  </div>
+  <% for item in @last_week do %>	
+	<%if item.class == Post %>
+	  <%@space=item.space%>
+	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	<%elsif item.class == Event %>
+	  <%@space=item.space%>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	<%elsif item.class == News %>
+	  <%@space=item.space%>
+	  <%@news_to_show = item%>
+	  <%@news_position = 1 %>
+	  <%@news=[]%>
+	  <%= render :partial => 'spaces/news_in_home'%>
+	<%else%>
+	  I don't know what is a "<%item.class%>"
+	<%end%>
+  <% end %>
+  
+  <div id="older-line"><b>Old items</b>
+  </div>
+  <% for item in @older do %>	
+	<%if item.class == Post %>
+	  <%@space=item.space%>
+	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	<%elsif item.class == Event %>
+	  <%@space=item.space%>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	<%elsif item.class == News %>
+	  <%@space=item.space%>
+	  <%@news_to_show = item%>
+	  <%@news_position = 1 %>
+	  <%@news=[]%>
+	  <%= render :partial => 'spaces/news_in_home'%>
+	<%else%>
+	  I don't know what is a "<%item.class%>"
+	<%end%>
+  <% end %>
+  
+
   <%= will_paginate @all_in_all %><br/>
 </div>

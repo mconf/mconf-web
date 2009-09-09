@@ -33,12 +33,19 @@ class HomesController < ApplicationController
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
     
     #remove repeated users 
-    all_users.uniq!
+    #all_users.uniq!
     #join all three arrays
     @all_in_all = []
     @all_in_all += all_events + all_users + all_posts + all_news
     #sort the array with the updated_at date
     @all_in_all.sort!{|x,y| y.updated_at <=> x.updated_at}
+    @today = @all_in_all.select{|x| x.updated_at > Date.yesterday}
+    @yesterday = @all_in_all.select{|x| x.updated_at > Date.yesterday - 1 && x.updated_at < Date.yesterday}
+    @last_week = @all_in_all.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}
+    @older = @all_in_all.select{|x| x.updated_at < Date.today - 7}
+    
+    
+
     
     @all_in_all = @all_in_all.paginate(:page=>params[:page], :per_page=>15)
     #debugger

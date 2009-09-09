@@ -562,3 +562,8 @@ a.extract_form{margin-right:0.5em;}
 #participants p{margin:0 0 0em;}
 
 #accept_invitation { width:140px;}
+
+/*
+ * User home
+ */
+#show {padding:4px 6px 4px 6px;border-bottom: 1px solid #DDDDDD}
