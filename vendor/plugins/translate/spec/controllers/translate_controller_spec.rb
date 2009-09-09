@@ -99,8 +99,6 @@ describe TranslateController do
   
   describe "translate" do
     it "should store translations to I18n backend and then write them to a YAML file" do
-      session[:from_locale] = :sv
-      session[:to_locale] = :en
       translations = {
         :articles => {
           :new => {

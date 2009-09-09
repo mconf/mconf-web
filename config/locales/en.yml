@@ -8,6 +8,7 @@ en:
   about_global: About GLOBAL
   about_me: About me
   about_sxsw: About SXSW
+  add: Add
   add_more_details: Add more details.
   address: Address 
   admin:
@@ -47,6 +48,7 @@ en:
     my: "My Calendar"
   caption:
     add: Add a caption
+  change: Change
   changed_mind: Changed your mind?
   check_mail: "Please, check your email"
   city: City
@@ -70,6 +72,7 @@ en:
   conversation:
     compress: Compress conversation
   country: Country
+  create: Create
   created_time_ago: "Created {{time}} ago"
   
   ######### D ###########
@@ -326,6 +329,7 @@ en:
     publish_home: Publish news at home
     up: "NEWS"
     updated: "Item successfully updated"
+  none: None
   no_messages_in_forum: There aren't messages in this forum
   no_tags_found: No tags found
   not_going: I'm not going
@@ -337,6 +341,7 @@ en:
   openid:
     enter: Enter your OpenID
     have: Do you have an OpenID?
+  or: or
   organization: Organization
   organizer: Organizer
   or_use_email: or use your email...
@@ -416,7 +421,11 @@ en:
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   role:
+    add: "Add role..."
+    added: "{{role}} role succesfully added to {{agent}}"
+    change: "Change role..." 
     editing: Editing role
+    invalid: Role is invalid
     listing: Listing roles
     new: New role
     one: "Role"

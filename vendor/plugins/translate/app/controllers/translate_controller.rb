@@ -1,8 +1,7 @@
-class TranslateController < ActionController::Base
+class TranslateController < ApplicationController
   # It seems users with active_record_store may get a "no :secret given" error if we don't disable csrf protection,
   skip_before_filter :verify_authenticity_token
 
-  prepend_view_path(File.join(File.dirname(__FILE__), "..", "views"))
   layout 'translate'
 
   before_filter :init_translations
@@ -32,7 +31,8 @@ class TranslateController < ActionController::Base
     redirect_to :action => 'index'
   end
   
-  private
+private
+
   def initialize_keys
     @files = Translate::Keys.files
     @keys = (@files.keys.map(&:to_s) + Translate::Keys.new.i18n_keys(@from_locale)).uniq    

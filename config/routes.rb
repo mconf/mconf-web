@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
+
   map.connect '/ui/:action', :controller => 'ui'
   
   map.resources :logos

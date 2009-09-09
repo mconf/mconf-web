@@ -35,4 +35,8 @@ class Performance
       p.stage.admissions.find_by_candidate_id_and_candidate_type(p.agent.id, p.agent.class.base_class.to_s).try(:destroy)
     end
   }
+  
+  def validate
+    errors.add(I18n.t('role.one')) if self.role.nil?
+  end
 end

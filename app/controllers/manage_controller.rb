@@ -3,6 +3,7 @@ class ManageController < ApplicationController
   
   def users
     @users=User.find_with_disabled(:all,:order => "login")
+    @site_roles = Site.roles
   end
 
   def spaces
