@@ -10,7 +10,7 @@ class Space < ActiveRecord::Base
                  
   has_permalink :name
   acts_as_resource :param => :permalink
-  acts_as_container
+  acts_as_container :sources => true
   acts_as_stage
   attr_accessor :mailing_list
   has_logo
