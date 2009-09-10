@@ -36,7 +36,4 @@ class Performance
     end
   }
   
-  def validate
-    errors.add(I18n.t('role.one')) if self.role.nil?
-  end
 end

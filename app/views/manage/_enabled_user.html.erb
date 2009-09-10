@@ -39,7 +39,7 @@
 	        <li class="bold"><%=t('name.one')%>: <strong><%=sanitize(user.full_name) %></strong></li>
 	        <li class="bold">
 	        	<%=t('role.one')%>: <strong><%=t('none')%></strong>
-				<%=select "performance", "role_id", [t('role.add')] + @site_roles.collect {|p| [ p.name, p.id ]}, {:id => "role_select_#{user.id}",:class=>"small-font"} %>
+				<%=select "performance", "role_id", [[t('role.add'),""]] + @site_roles.collect {|p| [ p.name, p.id ]}, {:id => "role_select_#{user.id}",:class=>"small-font"} %>
 			  <%= hidden_field_tag 'performance[agent]', "user-#{user.id}"%>
 			  <%= submit_tag t('add'), :id=> "role_submit_button_#{user.id}"%>				
 			</li>
@@ -52,7 +52,7 @@
           <li class="bold"><%=t('name.one')%>: <strong><%=sanitize(user.full_name) %></strong></li>
           <li class="bold">
           	<%=t('role.one')%>: <strong><%=performance.role.name %></strong>
-			<%=select "performance", "role_id", [t('role.change')] + @site_roles.collect {|p| [ p.name, p.id ]}, {}, {:id => "role_select_#{user.id}",:class=>"small-font"} %></li>
+			<%=select "performance", "role_id", [[t('role.change'),""]] + @site_roles.collect {|p| [ p.name, p.id ]}, {}, {:id => "role_select_#{user.id}",:class=>"small-font"} %></li>
 			<%= submit_tag t('change'), :id=> "role_submit_button_#{user.id}"%>
 			<strong> <%=t('or')%> </strong><%= link_to t('delete.one'), site_performance_path(performance.id), :method => :delete %>
         </ul>
