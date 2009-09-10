@@ -1,5 +1,4 @@
 class FrontpageController < ApplicationController
-  layout "layouts/home"
   
 
   def index

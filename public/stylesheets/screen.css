@@ -107,8 +107,8 @@ body .icon{margin-bottom:-2px;}
 #logo:hover{border-color:#c0c0c0;}
 #logo img.logo{width:100%;}
 #name-space{width:500px;margin-left:20px;float:left;}
-#name-space span{font-size:3em;line-height:2;color:#244974;}
-#name-space #small-title{font-size:2em;line-height:3;}
+#name-space span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
+#name-space #small-title a{font-size:2em;line-height:3;}
 #search{margin-top:26px;margin-left:18px;}
 #search input[type="text"]{font-size:1em;width:150px;}
 #search a img,#search input[type="image"]{margin-bottom:-7px;}
@@ -576,10 +576,21 @@ a.extract_form{margin-right:0.5em;}
 /*
  * User home
  */
-#show {padding:4px 6px 4px 6px;border-bottom: 1px solid #DDDDDD}
+
+
 #news-text {padding:0;margin-left:58px;}
 .thread-home {width:448px;padding-left:10px;}
 .news-home-title a{text-decoration:none;color:black;}
 .news-home-title a:hover{text-decoration:underline;}
 .group_links {opacity: 0.6;}
 .group_links:hover{opacity: 1;}
+
+#show {padding:4px 6px 4px 6px;/*border-bottom: 1px solid #DDDDDD;*/float:right;}
+#home_menu{background:#bdd8eb;border-bottom:1px #244974 groove;border-right:1px #244974 groove;margin:1em 0;padding:0 6px;}
+#home_menu h3{margin:0;color:#244974;font-size:1.1666em;line-height:1.2857;font-weight:bold;padding:6px 0;}
+#home_menu ul{list-style-type:none;margin:0;font-size:1.1666em;line-height:1.2857;font-weight:bold;}
+#home_menu li{display:inline-block;padding:0.5em 2em;border-right:1px solid #d3e8f6;background:#244974; color:white}
+#line{background:url("/images/dot.png") center repeat-x;opacity:0.7;}
+#line span{background:#fff;padding:0 6px 0 6px;margin-left:226px;}
+#home_wrapper{padding:0 10px 10px 10px;}
+
