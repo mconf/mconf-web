@@ -134,7 +134,7 @@
   <% for item in @today do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -155,7 +155,7 @@
   <% for item in @yesterday do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -176,7 +176,7 @@
   <% for item in @last_week do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -197,7 +197,7 @@
   <% for item in @older do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
