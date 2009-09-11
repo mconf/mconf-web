@@ -5,6 +5,8 @@ class SessionsController
   # Don't render Station layout, use application layout instead
   layout 'application'
 
+  #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home 
+  
   # render new.rhtml
   def new
     if logged_in?
@@ -34,13 +36,17 @@ class SessionsController
       edit_site_path
     elsif !current_user.profile
       flash[:notice]= t('session.should_create', :path => new_user_profile_path(current_user))  
-      spaces_path
+      home_path
     else
-    spaces_path
+      home_path
     end
   end
 
   def after_destroy_path
     root_path
+  end
+  
+  def update_user
+    current_user.touch
   end
 end
