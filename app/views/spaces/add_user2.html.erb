@@ -2,9 +2,9 @@
 <div id="yui-main">
 <div class="yui-b main_column"><% rounded(:class => "tips") do %>
 	
-<title>Add Users to the Space</title>
+<title><%= t('space.add_user_other') %></title>
 
-<h1>Include registered users</h1>
+<h1><%= t('user_include_registered') %></h1>
 <script>
 	function register_admin(){
 		document.register_user_form.user_role.value = "Admin";
@@ -38,9 +38,9 @@
 			<%end%>
 			
 			<div id="buttons_register">
-				<%= link_to "Register as Admin",{},:onclick=>"register_admin()", :class => "secund" %><br/>
-				<%= link_to "Register as User",{},:onclick=>"register_user()", :class => "secund" %><br/>
-				<%= link_to "Register as Invited",{},:onclick=>"register_invited()", :class => "secund" %><br/>		
+				<%= link_to t('register_as_admin'),{},:onclick=>"register_admin()", :class => "secund" %><br/>
+				<%= link_to t('register_as_user'),{},:onclick=>"register_user()", :class => "secund" %><br/>
+				<%= link_to t('register_as_invited'),{},:onclick=>"register_invited()", :class => "secund" %><br/>		
 			</div>
 			
 		</div>
@@ -53,7 +53,7 @@
 
 	<div id="admin_users">
 		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_admin_form',:style => "display: inline;"}) do %>
-		<span>Role: Admin</span>
+		<span><%= t('role.one') %>: <%= t('admin.one') %></span>
 		<div id="admin_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
@@ -64,14 +64,14 @@
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
+			<%= link_to t('remove'),{},:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>
 
 	<div id="users_users">
 		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_user_form',:style => "display: inline;"}) do %>
-		<span>Role: User</span>
+		<span><%= t('role.one') %>: <%= t('user.one') %></span>
 		<div id="users_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
@@ -82,14 +82,14 @@
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
+			<%= link_to t('remove'),{},:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>
 
 	<div id="invited_users">
 		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_invited_form',:style => "display: inline;"}) do %>
-		<span>Role: Invited</span>
+		<span><%= t('role.one') %>: <%= t('invited') %></span>
 		<div id="invited_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
@@ -100,7 +100,7 @@
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
 		</div>	
 		<div class="buttons_remove">
-			<%= link_to "Remove",{},:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
+			<%= link_to t('remove'),{},:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>
 		<%end%>
 	</div>

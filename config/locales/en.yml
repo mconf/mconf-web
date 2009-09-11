@@ -54,6 +54,7 @@ en:
   city: City
   click_here: Click here
   click_to_see_all: click here to see all
+  close: Close
   collapse: collapse
   collapse>>: collapse >>
   comment:
@@ -74,6 +75,7 @@ en:
   country: Country
   create: Create
   created_time_ago: "Created {{time}} ago"
+  
   
   ######### D ###########
   date:
@@ -119,8 +121,8 @@ en:
     commas: (separated by commas)
     confirm: "To confirm your e-mail address, please visit the following URL:"
     notifications: e-Mail notifications
-    one: e-mail
-    other: e-mails
+    one: e-Mail
+    other: e-Mails
     used_from: "e-Mail used in contact form: {{dir}}"
   email_or_full_name: e-Mail or full name
   enable: Enable
@@ -159,6 +161,7 @@ en:
     no_events: You have no events
     none_coming: No coming events
     not_attend: "Not attending"
+    now: "Events at this moment: "
     one: Event
     other: Events
     online: Online event 
@@ -203,6 +206,7 @@ en:
   from: From
   
   ######### G ###########
+  GMT: GMT
   group:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
@@ -210,6 +214,7 @@ en:
     created: "The group {{name}} has been successfully created."
     delete: Delete group
     deleted: "The group has been successfully deleted."
+    different: Other groups
     edit: Edit group
     join: Join this group
     mailing_list: Group mailing list
@@ -334,6 +339,12 @@ en:
     up: "NEWS"
     updated: "Item successfully updated"
   none: None
+    none_to_show: No news to show
+    up: "NEWS"
+    publish_another: Publish another piece of news
+    publish_home: Publish news at home
+    item_in_home: "News item in the space {{space}}"
+  next: Next
   no_messages_in_forum: There aren't messages in this forum
   no_tags_found: No tags found
   not_going: I'm not going
@@ -390,12 +401,16 @@ en:
       show_all: Show all found posts
     home:
       one: "Post in the space {{space}}"
+    latest: Latest posts
     none_created: No post created
+    none_recent: There aren't any recent posts
     other: Posts
     up:
       other: POSTS
     updated: "Post updated"
   preferences: Preferences
+  previous: Previous
+  private: Private
   private_message:
     send: Send private message
   profile:
@@ -411,6 +426,7 @@ en:
   public: Public
   
   ######### R ###########  
+  read_more: Read more
   read_more>>: read more>>
   received_message_more_machines: "yo have received a message from {{user}} asking for more machines."
   register:
@@ -427,6 +443,9 @@ en:
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   request: request it
+  request:
+    info: Your request to joining the space has been succesfully sent to the space admins. Admins will manage it as soon as possible.
+    sent: Request sent!
   role:
     add: "Add role..."
     added: "{{role}} role succesfully added to {{agent}}"
@@ -455,6 +474,8 @@ en:
       dots: Search posts...
       no_dots: search posts
     results: Search results
+    space:
+      dots: Search space...
     users: Search users
   select_image: "Select an image, please"
   send: Send
@@ -483,6 +504,7 @@ en:
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "-Space configuration-"
+    confirm: "Are you sure you want to leave this space?"
     create_own: Create your own space.
     created: 'Space was successfully created.'
     delete: "Delete Space"
@@ -497,12 +519,17 @@ en:
       enabled: "Space {{name}} is already enabled"
     is_private: is a private space. Send a join request to the administrator of this space to let you in.
     join: Join space
+    leave: "Leave space"
     logo: "Space Logo"
     main: Main space
     member_of: Member of the spaces
     one: Space
     popular:
       other: Popular spaces
+    private: Private spaces
+    public:
+      one: Public space
+      other: Public spaces
     recent:
       other: Recent spaces
     search: Search space...
@@ -564,6 +591,9 @@ en:
   user:
     active:
       other: Active users
+    add:
+      instruction: "To add new users enter one or several email addresses separated by " ", "," or ";" and register them"
+      note: "For example: "John Silver "<"jsilver@example.com">", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
     admin: "Admin"
     assist: People who will assist to this event
     confirm_password: "Confirm Password"
@@ -610,6 +640,7 @@ en:
     password_info: "Enter the email address you used to create your account"
     private_message: "Private Message"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account permanently."
+    recent_join: "Recent users joined"
     request_password: "Request Password"
     reset_password: "Reset Your Password"
     results_count: 
@@ -624,6 +655,7 @@ en:
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "View expanded posts"
     without_group: People without group
+  username: Username
     
   ######### V ###########
   vcard: vCard

@@ -118,8 +118,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.change_space '/change_space', :controller => 'spaces', :action => 'change_space'
 
+  Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   
-#  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
+  #  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
   ###########################################
   # RUTAS A LIMPIAR

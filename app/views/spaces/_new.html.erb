@@ -1,6 +1,6 @@
 
 <div id="create_space">
-	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre</span></div>
+	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
 	<div class="form">
           <% form_for :space, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
 
@@ -8,10 +8,10 @@
 		<div id="left">
 			<div class="options">
 				<ul>
-				  <li class="title">Register or Log-in first:</li>
-			  	  <li><%=link_to "Login", new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
+				  <li class="title"><%= t('login_or_register') %>:</li>
+			  	  <li><%=link_to t('login'), new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
 				  <li> | </li>
-			      <li><%=link_to "Register", new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
+			      <li><%=link_to t('register.one'), new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
 				</ul>
 			</div>
 			
@@ -25,30 +25,30 @@
 		<div id="right">
 		<%end%>
 		
-			<div><span class="title">Create your space</span></div>
+			<div><span class="title"><%= t('space.create_own') %></span></div>
 			<div>
-		   		<label for="name">Name</label><br/>
+		   		<label for="name"><%= t('name.one') %></label><br/>
 				<%= f.text_field :name %>
 			</div>
 		
 			<div>
-		  		<label for="description">Description</label><br/>
+		  		<label for="description"><%= t('description') %></label><br/>
 		   		<%= f.text_area(:description,:class=>"area") %>
 			</div>
 		
 			<div>
-		   		<%= f.check_box(:public) %><label for="public">Public space</label>
+		   		<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
 			</div>
 			
 			<div id='check_mail'>
-		   		<%= check_box_tag(:mail) %><label for="mailing_list">Mailing List</label>
+		   		<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list') %></label>
 			</div>
 			
 			<div id='mail_group'>
 		   		<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list, :size =>10, :maxlength=>25 )%>@dit.upm.es</label>
 			</div>
 			
-			<%= submit_tag "Create" %>
+			<%= submit_tag t('create') %>
 		
 		<%unless logged_in?%>
 		</div>

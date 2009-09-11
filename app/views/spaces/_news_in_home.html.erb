@@ -13,7 +13,7 @@
 
 <div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding">
 	<%if @news_to_show.nil? %>
-	  <p><%=t('news.home.zero')%></p>
+	  <p><%= t('news.none_to_show') %></p>
 	<%else%>
 	  <div>
 	      <div class="div-logo">  
@@ -42,6 +42,15 @@
 		    </div>
                 </div>
               <%end%>
+	      </div>
+	      <b><%= t('news.item_in_home', :space=>@space.name) %></b>
+	    </div>
+            <div class="news-title">
+  	      <span class="person_title"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>
+  	      <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(@news_to_show.updated_at)) %></span>
+            </div>
+	    <div class="news-content">
+	      <p><%=sanitize(auto_link(@news_to_show.text))%></p>
 	    </div>
 		</div>
           </div>

@@ -92,13 +92,13 @@
 	 <% end %>
 	 
 	 <div style="display:none" id="other_groups_<%=performance.id%>" class="selected_groups">
-	  <label>Other groups: </label>
+	  <label><%= t('group.different') %>: </label>
 		<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
       <div>
 		<%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
       </div>
 		<%end%>
-		<%=link_to "[Close]", "javascript:close_other_groups_#{performance.id}()" %>
+		<%=link_to "[" + t('close') + "]", "javascript:close_other_groups_#{performance.id}()" %>
 	  </div>
 	  
 	  <%= submit_tag t('update'), :id=> "update_button_#{performance.id}"%> 

@@ -67,8 +67,8 @@
 
 <% content_for :sidebar do  %>
   <div class="join">
-    <h2>Start now!</h2>
-	<p>Create your own space.<br/>Share, Participate, Discuss.</p>
+    <h2><%= t('start_now!') %></h2>
+	<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>
 	<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 
   </div>
   <div id="space_description">
@@ -83,13 +83,13 @@
 <% @page_title = "Spaces"-%>
 
 <div id="space_filter" style="display:none">
-  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  "Search space...")%>
-  <%= check_box_tag "public","public",true%><%= label_tag "public"%>  <%= check_box_tag "private","private",true%><%= label_tag "private" %>
+  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
+  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
 </div>
 
 <div id = "private_spaces" class="space-box">
 
-  <div id="title"><h3 class="item_title">Private Spaces</h3></div>
+  <div id="title"><h3 class="item_title"><%= t('space.private') %></h3></div>
   <div id="space_content">
 	<% for space in @private_spaces %>
 	  <% unless space.authorizes?(:read, :to => current_agent) %>
@@ -105,7 +105,7 @@
 
 <div id = "public_spaces" class="space-box">
 
-  <div id="title"><h3 class="item_title">Public Spaces</h3></div>
+  <div id="title"><h3 class="item_title"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
   <% for space in @public_spaces %>
     <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'w48', :title => space.name)%></div>
