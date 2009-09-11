@@ -19,29 +19,31 @@
 	      <div class="div-logo">  
 	        <%=link_logo(@space, :size =>'w48', :url => space_path(@space), :title=>@space.name)%>
 	      </div>	     
-            <div class="news-home-title">
-              <%=image_tag("icons/newspaper.png", :title => t('news.home.one', :space=>@space.name))%>
-  	      <span><b><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></b></span>
-  	      <span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
-            </div>
-	    <div id="news-text" class="news-content">
+          <div class="news-content">
+		  <div class="news-home-title">
+	          <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.home.one', :space=>@space.name))%>
+	  	      <span class="bold"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>
+	  	      <span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
+          </div>
+	    <div id="news-text">
 	      <%if @news_to_show.text.size < 500 %>
  		 <div class="news_text">
  		   <%=sanitize(auto_link(@news_to_show.text))%>
 		 </div>
 	      <%else%>
-                <div id="collapsed_news_<%=@news_to_show.id%>">
+            <div id="collapsed_news_<%=@news_to_show.id%>">
                    <%=sanitize(first_words(auto_link(@news_to_show.text),500))%>
-                   <%=link_to t('more>>'), "javascript:expand_news_#{@news_to_show.id}()"%>
+                   <span> <%=link_to t('more>>'), "javascript:expand_news_#{@news_to_show.id}()"%></span>
 	        </div>
                 <div id="expanded_news_<%=@news_to_show.id%>" style="display:none">
      	          <div class="news_text">
                     <%=sanitize(auto_link(@news_to_show.text))%>
-                    <%=link_to "collapse", "javascript:collapse_news_#{@news_to_show.id}()"%>
-		  </div>
+                    <span> <%=link_to t("collapse>>"), "javascript:collapse_news_#{@news_to_show.id}()"%></span>
+		    </div>
                 </div>
               <%end%>
 	    </div>
+		</div>
           </div>
 	<%end%>
 </div>
