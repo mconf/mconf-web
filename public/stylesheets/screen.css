@@ -151,7 +151,7 @@ h3.selector_title{color:#244974}
 #wrapper{padding:0 10px 10px 10px;}
 
 /*users and groups*/
-div.group{float:left;width:490px;padding-bottom:0.5em;margin-top:2px;}
+div.group{float:left;width:510px;padding-bottom:0.5em;margin-top:2px;}
 .group h3,#admission h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
 .group ul{margin:0;}
 .group ul.group_links{padding:9px 0.5em 0 0;}
@@ -597,7 +597,8 @@ a.extract_form{margin-right:0.5em;}
 #home_wrapper{padding:0 10px 10px 10px;}
 #recent-activity .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
 #recent-activity .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
-#recent-activity .odd_thread,#recent-activity .even_thread{border:none;}
+#recent-activity .news_cloud{border:none;}
+#recent-activity .post_cloud,#recent-activity .event_cloud{border-bottom:1px #ccc solid;}
 #recent-activity .div-logo img:hover{border-color:#bbb;}
 #recent-activity .thread{padding:6px 0;}
 

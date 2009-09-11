@@ -4,7 +4,8 @@
   <%end%>
   
   <%unless today.empty?%>
-    <div id="today-line"><b>Today</b>
+    <div id="line">
+		<span class="bold">Today</span>
     </div>
   <%end%>
   <% today.each do |thread| -%>
@@ -12,7 +13,8 @@
   <% end -%>
   
   <%unless yesterday.empty?%>
-    <div id="yesterday-line"><b>Yesterday</b>
+    <div id="line">
+		<span class="bold">Yesterday</span>
     </div>
   <%end%>
   <% yesterday.each do |thread| -%>
@@ -20,7 +22,8 @@
   <% end -%>
   
   <%unless last_week.empty?%>
-    <div id="last-week-line"><b>Last Week</b>
+    <div id="line">
+		<span class="bold">Last Week</span>
     </div>
   <%end%>
   <% last_week.each do |thread| -%>
@@ -28,7 +31,8 @@
   <% end -%>
   
   <%unless older.empty?%>
-    <div id="older-line"><b>Old items</b>
+    <div id="line">
+		<span class="bold">Old Items</span>
     </div>
   <%end%>
   <% older.each do |thread| -%>
