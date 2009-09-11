@@ -149,6 +149,8 @@ en:
       none: No events found
       one: 1 event was found
       other: "{{size}} events were found"
+    home:
+      one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     Isabel: "Isabel event"
     join: Join this event
@@ -384,6 +386,8 @@ en:
       one: 1 post was found
       other: "{{size}} posts were found"
       show_all: Show all found posts
+    home:
+      one: "Post in the space {{space}}"
     none_created: No post created
     other: Posts
     up:
