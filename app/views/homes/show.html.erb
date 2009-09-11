@@ -119,22 +119,24 @@
   </div>
 <% end %>
 
-<div id="posts">
-  <div id="title_recent">
-    <%=t('home.activity')%>
-  </div>
+<div id="recent-activity">
+<div id="home_menu">  
   <div id="show">
     <%=t('show')%>:
     <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
   </div>
+	<h3><%=t('home.activity')%></h3>
+</div>
+
   <%unless @today.empty?%>
-    <div id="today-line"><b>Today</b>
+    <div id="line">
+		<span class="bold">Today</span>
     </div>
   <%end%>
   <% for item in @today do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -149,13 +151,14 @@
 	<%end%>
   <% end %>
   <%unless @yesterday.empty?%>
-    <div id="yesterday-line"><b>Yesterday</b>
+    <div id="line">
+		<span class="bold">Yesterday</span>
     </div>
   <%end%>
   <% for item in @yesterday do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -170,13 +173,14 @@
 	<%end%>
   <% end %>
   <%unless @last_week.empty?%>
-    <div id="last-week-line"><b>Last Week</b>
+    <div id="line">
+		<span class="bold">Last Week</span>
     </div>
   <%end%>
   <% for item in @last_week do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
@@ -191,13 +195,14 @@
 	<%end%>
   <% end %>
   <%unless @older.empty?%>
-    <div id="older-line"><b>Old items</b>
+    <div id="line">
+		<span class="bold">Older items</span>
     </div>
   <%end%>
   <% for item in @older do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/thread" , :locals => {:in_home => true, :thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
 	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>

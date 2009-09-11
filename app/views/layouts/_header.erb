@@ -10,9 +10,9 @@
 <div id="name-space">
 	<%if space%>
 	<%if space.name.size > 20%>
-		<span id="small-title"><%=sanitize(first_words(space.name,30))%></span>
+		<span id="small-title"><%=link_to(sanitize(first_words(space.name,30)),space_path(space), menu_options(:home))%></span>
 	<%else%>
-		<span><%=sanitize(space.name)%></span>
+		<span><%=link_to(sanitize(space.name),space_path(space), menu_options(:home))%></span>
 	<%end%>
 	<%end%>
 </div>
