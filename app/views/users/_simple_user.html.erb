@@ -8,9 +8,7 @@
 	<ul>
 	  <li>
 	    <strong><%=simple_user.authorizes?([:read, :profile],:to=> current_user) ? link_to(simple_user.full_name, user_profile_path(simple_user)) : sanitize(simple_user.full_name) %></strong>
-	    <% if in_home do%>
-	      joined the space <%= @space.name %>
-	    <% end %>
+
 	  </li>
 	  <li class="small-font"><%=sanitize(simple_user.organization) %></li>	
 	</ul>

@@ -140,7 +140,7 @@ en:
     attend: "Attending"
     coming: Coming events
     create: "Create new event"
-    created: "Event was successfully created."
+    created: "Event successfully created."
     edit: "Edit event"
     error:
       dates: 'The first date cannot be lower than the second one'
