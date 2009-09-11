@@ -1,0 +1,905 @@
+--- 
+es: 
+  invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
+  created_at: Creado
+  keywords: Palabras clave (*)
+  send_reset_password_request: "Enviar petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
+  today: Hoy
+  city: Ciudad
+  could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa direcci\xC3\xB3n de correo"
+  datetime: 
+    prompts: 
+      minute: Minuto
+      second: Segundos
+      month: Mes
+      hour: Horas
+      day: !binary |
+        RMOtYQ==
+
+      year: !binary |
+        QcOxbw==
+
+    distance_in_words: 
+      less_than_x_minutes: 
+        one: menos de 1 minuto
+        other: menos de {{count}} minutos
+      x_days: 
+        one: !binary |
+          MSBkw61h
+
+        other: "{{count}} d\xC3\xADas"
+      x_seconds: 
+        one: 1 segundo
+        other: "{{count}} segundos"
+      less_than_x_seconds: 
+        one: menos de 1 segundo
+        other: menos de {{count}} segundos
+      x_months: 
+        one: 1 mes
+        other: "{{count}} meses"
+      x_minutes: 
+        one: 1 minuto
+        other: "{{count}} minutos"
+      about_x_hours: 
+        one: alrededor de 1 hora
+        other: alrededor de {{count}} horas
+      about_x_years: 
+        one: "alrededor de 1 a\xC3\xB1o"
+        other: "alrededor de {{count}} a\xC3\xB1os"
+      about_x_months: 
+        one: alrededor de 1 mes
+        other: alrededor de {{count}} meses
+      over_x_years: 
+        one: "m\xC3\xA1s de 1 a\xC3\xB1o"
+        other: "m\xC3\xA1s de {{count}} a\xC3\xB1os"
+      half_a_minute: medio minuto
+  remove: Eliminar
+  user: 
+    e-mail: e-mail
+    not_confirmed: La gente que no ha confirmado
+    invite_from_space_by_email: "Invitar a gente de su espacio mediante el filtro y otros por correo electr\xC3\xB3nico"
+    list_by: Lista de
+    invite: Invitar a gente a su evento
+    lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
+    registered: "Gracias por registrarse! Acabamos de enviar instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario de forma permanente."
+    request_password: "Solicitar contrase\xC3\xB1a"
+    reset_password: "Restablecer la contrase\xC3\xB1a"
+    include_registered: Incluir a los usuarios registrados
+    filter: Filtro de usuarios
+    admin: Admin
+    found: 
+      none: No se encontraron usuarios
+      one: "1 usuario se encontr\xC3\xB3"
+      other: "{{size}} usuarios se han encontrado"
+    confirm_password: Confirm Password
+    edit_account: Modificar su cuenta
+    private_message: Mensaje Privado
+    enable: Habilitar usuario
+    timezone: Zona Horaria
+    not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
+    enabled: "Usuario habilitado correctamente. El usuario no es miembro de ning\xC3\xBAn espacio que ahora y tiene que unirse a los espacios de nuevo."
+    up: 
+      other: USUARIOS
+    activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
+    invite_email: Invitar a gente por e-mail
+    one: Usuario
+    save: Guardar usuario
+    other: Usuarios
+    full_name: Nombre completo
+    disabled: Usuario deshabilitado
+    disable: Deshabilitar usuario
+    vcc_email: VCC de usuario E-mail {{dir}}
+    included: 
+      other: Incluyendo a los usuarios
+    notifications: Notificaciones
+    password: "Contrase\xC3\xB1a"
+    invited: Ya a los usuarios
+    password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta de"
+    view_expanded_posts: Ver ampliado puestos
+    updated: El Usuario se ha actualizado correctamente.
+    assist: "La gente que asistir\xC3\xA1 a este evento"
+    delete_from_space: Eliminar el usuario desde el espacio
+    active: 
+      other: Usuarios activos
+    search: Buscar usuarios ...
+    not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
+    feed: 
+      author: SIR
+      title: Usuarios
+    without_group: Las personas sin grupo
+    email: Correo
+  Isabel: Isabel
+  his_message_reads_thus: "Su mensaje dec\xC3\xADa as\xC3\xAD"
+  cancel: Cancelar
+  place: Lugar
+  action: 
+    one: "Acci\xC3\xB3n"
+    other: Acciones
+  none: Ninguno
+  edit_your_profile: Editar tu perfil
+  online: "en l\xC3\xADnea"
+  account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
+  add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles."
+  new_spam_detected: Nueva spam detectado
+  locale: 
+    changed: "Aplicaci\xC3\xB3n para cambiar el idioma"
+    error: "No se puede cambiar el idioma de la aplicaci\xC3\xB3n de"
+  week: 
+    next: La semana que viene
+  password_has_been_reset: "La contrase\xC3\xB1a se ha cambiado"
+  create: Crear
+  help: Ayuda
+  can_also: "O tambi\xC3\xA9n puede:"
+  report_spam: Report spam
+  admin: 
+    up: ADMIN
+    one: Admin
+  read: Ver
+  subject: Tema
+  from: Desde
+  body: Cuerpo
+  register_now: "Reg\xC3\xADstrese AHORA!"
+  follow_reset_password: "{{agent}}, siga el enlace para cambiar su contrase\xC3\xB1a"
+  beta: (BETA)
+  login_or_register: Entrar / Registro
+  send_message: Enviar un mensaje
+  reset_password: "Cambiar Contrase\xC3\xB1a"
+  change: Cambiar
+  new_source: Nueva fuente
+  time: 
+    am: am
+    end: "Hora de finalizaci\xC3\xB3n"
+    formats: 
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      short: "%d de %b %H:%M"
+      long: "%d de %B de %Y %H:%M"
+    start: Hora de inicio
+    pm: pm
+  site: 
+    name: Nombre
+    ssl: SSL
+    exception_notifications_email: "Direcci\xC3\xB3n destinataria de los correos de depuraci\xC3\xB3n"
+    config: "Configuraci\xC3\xB3n del Sitio"
+    exception_notifications: "Enviar correos de depuraci\xC3\xB3n"
+    domain: Dominio
+    editing: "Editando la configuraci\xC3\xB3n del Sitio"
+    logo: Logo
+    up: SITIO
+    one: Sitio
+    other: Sitios
+    description: "Descripci\xC3\xB3n"
+    updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
+    email: "Correo electr\xC3\xB3nico"
+  home: 
+    my: Mi casa
+    activity: Actividad reciente
+    up: INICIO
+  account_created: Su cuenta se ha creado
+  now!: Ahora!
+  or_use_email: "o utilizar el correo electr\xC3\xB3nico ..."
+  please_activate_account: Por favor, active su cuenta
+  list_by: Lista de
+  docs: Docs
+  avatar: 
+    current: Avatar actual
+    crop: Recortar Avatar
+    empty: Seleccione una imagen, por favor,
+    select_new: Seleccionar Avatar nuevo
+    select: Seleccionar Avatar
+    created: "Avatar creado con \xC3\xA9xito"
+  register: 
+    thank_you: Gracias por registrarte en VCC.
+    one: Registro
+  phone_optional: "Tel\xC3\xA9fono (opcional)"
+  role: 
+    new: Nuevo Rol
+    name: Nombre
+    go_to_manage: Ir a gestionar roles
+    add: "A\xC3\xB1adir papel ..."
+    confirm_delete: "\xC2\xBFBorrar Rol?"
+    without_permissions: El rol {{role}} no tiene permisos
+    invalid: "El papel no es v\xC3\xA1lido"
+    editing: Editando Rol
+    change: Cambiar el papel ...
+    one: Rol
+    listing: Listado de funciones de
+    index: Lista de Roles
+    other: Roles
+    name_permissions: Permisos de {{name}}
+    stage_type: Tipo de escenario
+    select: 
+      one: Seleccionar Rol
+    updated: Rol actualizado satisfactoriamente.
+    created: Rol creado satisfactoriamente.
+  people: 
+    up: PERSONAS
+  reply: Responder
+  email_or_full_name: e-Mail o el nombre completo
+  caption: 
+    add: "Agregar un t\xC3\xADtulo"
+  to: Para
+  phone: "Tel\xC3\xA9fono"
+  edit: Editar
+  province: Provincia
+  layout_footnote: "{{site}} est\xC3\xA1 basado en {{plugin}}. Dise\xC3\xB1ado por {{designer}}."
+  search: 
+    results: "Resultados de la b\xC3\xBAsqueda"
+    dots: Buscar ...
+    events: 
+      dots: Buscar eventos ...
+      title: "Buscar por t\xC3\xADtulo evento"
+      advanced: "Eventos B\xC3\xBAsqueda avanzada"
+      no_dots: Buscar eventos
+      description: "B\xC3\xBAsqueda en la descripci\xC3\xB3n del evento en"
+    explanation: "(en el t\xC3\xADtulo y la descripci\xC3\xB3n con palabras exactamente)"
+    between_dates: "Usted puede buscar aqu\xC3\xAD entre dos fechas"
+    one: "B\xC3\xBAsqueda"
+    users: Buscar usuarios
+    posts: 
+      dots: Buscar entradas ...
+      no_dots: "puestos de b\xC3\xBAsqueda"
+  pagination: 
+    previous_label: "&laquo; Anterior"
+    next_label: Siguiente &raquo;
+  more>>: "m\xC3\xA1s&gt;&gt;"
+  remarks: Comentarios
+  mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
+  photos: Fotos
+  invitation: 
+    new: 
+      other: Nuevas invitaciones
+    not_pending: 
+      other: No hay invitaciones pendientes.
+    comment: Comentario
+    not_found: "Invitaci\xC3\xB3n no encontrada"
+    discarded: "Invitaci\xC3\xB3n descartada"
+    confirm_delete: "\xC2\xBFBorrar invitaci\xC3\xB3n?"
+    accept: "Aceptar invitaci\xC3\xB3n"
+    pending: 
+      other: Invitaciones pendientes
+    not_processed: "Invitaci\xC3\xB3n sin responder"
+    role: Rol
+    discarded_by: "{{candidate}} descart\xC3\xB3 la invitaci\xC3\xB3n"
+    accepted_by: "{{candidate}} acept\xC3\xB3 la invitaci\xC3\xB3n"
+    one: "Invitaci\xC3\xB3n"
+    other: Invitaciones
+    show: Unirse a {{group}}
+    send: 
+      one: "Enviar invitaci\xC3\xB3n"
+    accepted: "Invitaci\xC3\xB3n aceptada"
+    created: "Invitaci\xC3\xB3n enviada"
+    discard: "Descartar invitaci\xC3\xB3n"
+    email: "Correo electr\xC3\xB3nico"
+  public: "P\xC3\xBAblica"
+  container: 
+    one: Contenedor
+    other: Contenedores
+  join_request: 
+    already_sent: "Usted ya ha enviado una petici\xC3\xB3n conjunta a este espacio"
+    not_pending: 
+      other: No hay espera de unirse a las peticiones.
+    discarded: "Petici\xC3\xB3n descartada"
+    pending: 
+      other: En espera de unirse a las peticiones
+    not_processed: "Petici\xC3\xB3n sin responder"
+    joined: "Usted ya est\xC3\xA1 en el espacio"
+    not_logged_in: Necesitas estar conectado para enviar una solicitud de Ingreso.
+    one: "Petici\xC3\xB3n de incorporaci\xC3\xB3n"
+    other: "Peticiones de incorporaci\xC3\xB3n"
+    send: Enviar solicitud de Ingreso
+    updated: "Petici\xC3\xB3n actualizada"
+    accepted: "Petici\xC3\xB3n aceptada"
+    created: "Petici\xC3\xB3n enviada"
+  share_participate_discuss: Compartir, participar, discutir.
+  participant: 
+    created: "La informaci\xC3\xB3n de su asistencia se ha actualizado correctamente"
+    error: 
+      create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
+  login_to: Entrar en {{site}}
+  upload: Subir
+  invalid_credentials: "Credenciales inv\xC3\xA1lidas"
+  private_message: 
+    send: Enviar mensaje privado
+  name: 
+    one: Nombre
+    other: Nombres
+    full: Nombre completo
+  read_more>>: "Leer m\xC3\xA1s&gt;&gt;"
+  enable: Posibilitar
+  timezone: 
+    set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>
+    one: Zona Horaria
+  download_file: Download file
+  thread: 
+    show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
+    add: "A\xC3\xB1adir un nuevo hilo"
+    edit: Editar hilo
+    deleted: Hilo ha sido eliminado
+    or_add_new: "o a\xC3\xB1adir un nuevo hilo"
+    show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
+    one: Hilo
+    other: Threads
+  source: 
+    uri: URL
+    imported_at: Importada
+    errors: 
+      content_type: 
+        invalid: "es inv\xC3\xA1lido: {{content_type}}"
+      multiple_feeds: "La direcci\xC3\xB3n tiene varias fuentes"
+    one: Fuente
+    other: Fuentes
+    target: Objetivo
+    created: Fuente se ha creado correctamente.
+  logged_in_successfully: "Credenciales v\xC3\xA1lidas"
+  login: Entrar
+  my_friends: Mis amigos
+  category: 
+    new: "Nueva Categor\xC3\xADa"
+    name: "Nombre de la Categor\xC3\xADa"
+    confirm_delete: "\xC2\xBFBorrar la Categor\xC3\xADa?"
+    domain: 
+      one: Dominio
+      other: Dominios
+      without_categories: "{{domain}} no tiene categor\xC3\xADas"
+    editing: "Editando Categor\xC3\xADa"
+    one: "Categor\xC3\xADa"
+    other: "Categor\xC3\xADas"
+    description: "Descripci\xC3\xB3n"
+    other_in_domain: "Categor\xC3\xADas - {{domain}}"
+    updated: "Categor\xC3\xADa actualizada"
+    created: "Categor\xC3\xADa creada"
+  delete: 
+    confirm: "\xC2\xBFEst\xC3\xA1s seguro?"
+    one: Borrar
+  message: 
+    sent: 
+      other: Mensajes enviados
+    private: 
+      new: Nuevo mensaje privado
+      none: No hay mensajes privados
+      editing: "Edici\xC3\xB3n mensaje privado"
+    reply: Responder a un mensaje
+    one: Mensaje
+    other: Mensajes
+    created: Mensaje enviado correctamente.
+    error: 
+      create: "Mensajes de error privado de env\xC3\xADo."
+    incoming: 
+      other: Los mensajes entrantes
+  not_going: No voy
+  past: Anteriores
+  should_check_email_to_activate_account: Debe comprobar el correo para activar su cuenta.
+  management: 
+    up: "GESTI\xC3\x93N"
+  organization: "Organizaci\xC3\xB3n"
+  comment: 
+    new: Nuevo Comentario
+    add: "A\xC3\xB1adir un comentario"
+    edit: Editar comentario
+    delete: Eliminar comentario
+    show_all: Mostrar todos los comentarios
+    one: Comentario
+    add_new: "A\xC3\xB1ade un comentario nuevo"
+    other: Comentarios
+    recent: 
+      other: Comentarios recientes
+  post: 
+    none_created: "N \xC2\xBA puesto creado"
+    found: 
+      none: No hay mensajes encontrados
+      show_all: Mostrar todos los puestos encontrados
+      one: 1 entrada se ha encontrado
+      other: "{{size}} se encontraron puestos"
+    deleted: Anuncio ha sido eliminado
+    up: 
+      other: PUESTOS
+    other: Mensajes
+    updated: Entrada actualizada
+    created: Anuncio creado.
+    error: 
+      empty: "El contenido del mensaje no puede estar vac\xC3\xADo"
+      not_valid: "El comentario no es v\xC3\xA1lido"
+  your_vcard: vCard
+  mailing_list: Lista de correo
+  join: Unirse
+  topic: Tema
+  about_me: Acerca de mi
+  mobile: Mobile
+  activerecord: 
+    errors: 
+      models: 
+      messages: 
+        greater_than_or_equal_to: debe ser mayor que o igual a {{count}}
+        record_invalid: "Validaci\xC3\xB3n no: {{error}}"
+        confirmation: "no coincide con la confirmaci\xC3\xB3n"
+        less_than_or_equal_to: debe ser menor que o igual a {{count}}
+        blank: no puede estar en blanco
+        exclusion: "est\xC3\xA1 reservado"
+        invalid: "no es v\xC3\xA1lido"
+        odd: debe ser impar
+        even: debe ser par
+        too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
+        wrong_length: no tiene la longitud correcta ({{count}} caracteres exactos)
+        empty: "no puede estar vac\xC3\xADo"
+        less_than: debe ser menor que {{count}}
+        greater_than: debe ser mayor que {{count}}
+        equal_to: debe ser igual a {{count}}
+        too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
+        taken: "ya est\xC3\xA1 en uso"
+        accepted: debe ser aceptado
+        inclusion: "no est\xC3\xA1 incluido en la lista"
+        not_a_number: "no es un n\xC3\xBAmero"
+      attributes: 
+      full_messages: 
+        format: "{{atributo}} {{mensaje}}"
+      template: 
+        body: "Se encontraron problemas con los siguientes campos:"
+        header: 
+          one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
+          other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
+  hello: Hola
+  account_activated: Su cuenta ha sido activada
+  no_messages_in_forum: No hay mensajes en este foro
+  latest_events: "\xC3\x9Altimos eventos"
+  update: Actualizar
+  advanced: Avanzada
+  group: 
+    name: Nombre del grupo
+    join: "\xC3\x9Anete a este grupo"
+    edit: Editar grupo
+    add_to_others: "A\xC3\xB1adir otros grupos"
+    delete: Borrar grupo
+    send_message: Enviar un mensaje a este grupo
+    deleted: El grupo ha sido borrado correctamente.
+    one: Grupo
+    not_deleted: Error al eliminar el grupo
+    mailing_list: Lista de correo de grupo
+    other: Grupos
+    add_to_group: "A\xC3\xB1adir a grupo"
+    create: Crear nuevo grupo
+    not_valid: "El grupo no es v\xC3\xA1lido"
+    updated: El grupo de {{nombre}} ha sido actualizado correctamente.
+    created: "El grupo de {{nombre}} ha sido creado con \xC3\xA9xito."
+  disable: Desactivar
+  about_global: ACERCA DE GLOBAL
+  about: Sobre
+  agent: 
+    authentication: 
+      change_password: "Cambiar la contrase\xC3\xB1a"
+      lost_password: "\xC2\xA1Olvid\xC3\xA9 la contrase\xC3\xB1a!"
+      confirm_password: "Confirme la Contrase\xC3\xB1a"
+      password: "Contrase\xC3\xB1a"
+      login: Login
+    one: Agente
+    other: Agentes
+    select: 
+      one: Seleccionar Agente
+  join_to_site: Unirse a {{site}}
+  show_list_version>>: "versi\xC3\xB3n de lista muestran&gt;&gt;"
+  im_new: Soy nuevo
+  password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
+  country: !binary |
+    UGHDrXM=
+
+  updated_at_date: "Actualizado: {{date}}"
+  collapse>>: colapso&gt;&gt;
+  all: Todo
+  done: Hecho!
+  password_has_been_reset_with_agent: "{{agent}}, su contrase\xC3\xB1a se ha cambiado"
+  index: "\xC3\x8Dndice"
+  groups_and_results: Grupos, {{size}} resultados
+  invited: Invitado
+  organizer: Organizador
+  enlarge: Ampliar
+  feedback: 
+    sent: "Su informaci\xC3\xB3n de retroalimentaci\xC3\xB3n e-mail ha sido enviado con \xC3\xA9xito. Thanks you"
+    send_us: "Env\xC3\xADanos tus comentarios!"
+    note: "Ay\xC3\xBAdanos a mejorar VCC. Por favor env\xC3\xADe sus comentarios, problemas y sugerencias. Vamos a tratar de responder lo m\xC3\xA1s pronto posible."
+    send: Enviar comentarios
+    email: "Esta es una retroalimentaci\xC3\xB3n e-Mail:"
+  event: 
+    today_size: Hoy ({{size}})
+    steps: "Completa tu evento siguiente pasos:"
+    today: Los acontecimientos de hoy
+    coming: "Pr\xC3\xB3ximas actividades"
+    join: Formar parte de este evento
+    edit: Editar evento
+    no_events: "No tienes ning\xC3\xBAn evento"
+    last_month: El mes pasado ({{size}})
+    found: 
+      none: No se encontraron eventos
+      one: "1 caso se encontr\xC3\xB3"
+      other: "{{size}} eventos encontrados"
+    today_and_yesterday: Ayer y hoy ({{size}})
+    held_with: "Este evento se llevar\xC3\xA1 a cabo con"
+    to: Para
+    within_a_month: Dentro de un mes ({{size}})
+    up: 
+      other: EVENTOS
+    attend: "Asistir\xC3\xA1n"
+    one: Evento
+    follow: Siga este evento
+    will_attend: "\xC2\xBFQuieres asistir a este evento?"
+    other: Eventos
+    tomorrow: "Ma\xC3\xB1ana eventos"
+    upcoming: 
+      all: "Todos los pr\xC3\xB3ximos eventos ({{size}})"
+      none: "No hay pr\xC3\xB3ximos eventos"
+      other: "Pr\xC3\xB3ximos eventos"
+      show: "Mostrar todos los eventos pr\xC3\xB3ximos"
+    create: Crear un nuevo evento
+    assistance_title: El estado de su asistencia a la
+    last_7_days: "\xC3\x9Altimos 7 d\xC3\xADas ({{size}})"
+    not_attend: No asisten a la
+    Isabel: Caso de Isabel
+    past: 
+      all: Todos los anteriores ({{size}})
+      none: No hay eventos pasados
+      other: Eventos pasados
+      show: Mostrar todos los eventos antiguos
+    updated: Evento se ha actualizado correctamente.
+    created: "Evento fue creado con \xC3\xA9xito."
+    within_7_days: "Dentro de 7 d\xC3\xADas ({{size}})"
+    error: 
+      dates: La primera fecha no puede ser menor que el segundo
+    online: "Evento en l\xC3\xADnea"
+    search: Buscar eventos ...
+    select_date: Seleccione una fecha para su evento
+    none_coming: "No hay eventos pr\xC3\xB3ximos"
+  address: "Direcci\xC3\xB3n"
+  start_now!: Inicie ahora!
+  send: Enviar
+  manage: Administrar
+  are_you_sure: Are you sure?
+  visit_link_to_activate_account: Visite este enlace para activar su cuenta
+  tomorrow: "Ma\xC3\xB1ana"
+  fill_fields: Usted debe llenar todos los campos
+  create_: Crear...
+  import: "Importaci\xC3\xB3n"
+  RSS: RSS
+  space: 
+    clic_logo: Haga clic para cambiar el logotipo de
+    join: El espacio de Ingreso
+    add_user: 
+      other: "A\xC3\xB1adir a los usuarios del espacio"
+    delete: Eliminar el espacio
+    edit_name: editar el nombre de
+    subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
+    clic: Haga clic para editar ...
+    is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
+    logo: Espacio Logo
+    enable: Habilitar el espacio
+    create_own: Crea tu propio espacio.
+    disabeld: "El espacio con \xC3\xA9xito con discapacidad."
+    deleted: El espacio se ha eliminado correctamente.
+    up: 
+      other: ESPACIOS
+    enabled: Espacio habilitado correctamente.
+    one: Espacio
+    about: Sobre
+    main: El espacio principal
+    disable: Deshabilitar el espacio
+    allow_public_access: "Permitir el acceso p\xC3\xBAblico?"
+    member_of: Miembros de los espacios de
+    recent: 
+      other: Espacios Recientes
+    updated: El espacio se ha actualizado correctamente.
+    configuration: "La configuraci\xC3\xB3n espacial"
+    edit_description: "editar la descripci\xC3\xB3n de"
+    popular: 
+      other: Espacios populares
+    created: El espacio se ha creado correctamente.
+    search: "Espacio de b\xC3\xBAsqueda ..."
+    error: 
+      enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
+  conversation: 
+    compress: "Conversaci\xC3\xB3n Comprimir"
+  date: 
+    month_names: 
+    - 
+    - Enero
+    - Febrero
+    - Marzo
+    - Abril
+    - Mayo
+    - Junio
+    - Julio
+    - Agosto
+    - Septiembre
+    - Octubre
+    - Noviembre
+    - Diciembre
+    order: 
+    - :year
+    - :month
+    - :day
+    abbr_day_names: 
+    - Dom
+    - Lun
+    - Mar
+    - Mie
+    - Jue
+    - Vie
+    - Sab
+    end: "Fecha de finalizaci\xC3\xB3n"
+    formats: 
+      default: "%Y-%m-%d"
+      short: "%d de %b"
+      long: "%d de %B de %Y"
+    start: Fecha de inicio
+    day_names: 
+    - Domingo
+    - Lunes
+    - Martes
+    - "Mi\xC3\xA9rcoles"
+    - Jueves
+    - Viernes
+    - "S\xC3\xA1bado"
+    abbr_month_names: 
+    - 
+    - Ene
+    - Feb
+    - Mar
+    - Abr
+    - May
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Oct
+    - Nov
+    - Dic
+  show: Ver
+  support: 
+    array: 
+      sentence_connector: y
+  all_rights_reserved: Todos los derechos reservados
+  consider_and_reply: Favor de considerar y responder a
+  calendar: 
+    my: Mi Calendario
+    one: Calendario
+  preferences: Preferencias
+  permission: 
+    other: Permisos
+  save: Guardar
+  content: 
+    new: Nuevo Contenido
+    delete: 
+      one: Borrar Contenido
+      other: Borrar Contenidos
+    read: 
+      one: Ver Contenido
+      other: Ver Contenidos
+    one: Contenido
+    other: Contenidos
+    create: 
+      one: Crear Contenido
+      other: Crear Contenidos
+    update: 
+      one: Actualizar Contenido
+      other: Actualizar Contenidos
+  error: 
+    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
+    change: "El cambio no es v\xC3\xA1lido"
+    one: Error.
+    other: Errores.
+    credentials: "Credenciales no v\xC3\xA1lidas"
+    not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
+  number: 
+    format: 
+      separator: ","
+      precision: 3
+      delimiter: .
+    human: 
+      format: 
+        precision: 1
+        delimiter: ""
+      storage_units: 
+        format: n% u%
+        units: 
+          kb: KB
+          tb: TB
+          gb: GB
+          byte: 
+            one: Byte
+            other: Bytes
+          mb: MB
+    percentage: 
+      format: 
+        delimiter: ""
+    precision: 
+      format: 
+        delimiter: ""
+    currency: 
+      format: 
+        format: "%n %u"
+        unit: !binary |
+          4oKs
+
+        separator: ","
+        precision: 2
+        delimiter: .
+  register_as_admin: Registrarse como admin
+  detail: 
+    other: Detalles
+  password_reset: "Cambio de Contrase\xC3\xB1a"
+  bad_request: "Petici\xC3\xB3n Inv\xC3\xA1lida"
+  profile: 
+    deleted: Perfil ha sido borrado.
+    one: Perfil
+    must_create: Debes crear tu primer perfil
+    updated: Perfil se ha actualizado correctamente.
+    created: Perfil se ha creado correctamente.
+    error: 
+      exist: Usted ya tiene un perfil.
+    should_create: "Usted debe <a href={{path}}>crear</a> su perfil. Es muy \xC3\xBAtil."
+  collapse: colapso
+  advanced_options: Opciones avanzadas
+  performance: 
+    new: Nuevo Integrante
+    other_in: Integrantes de {{stage}}
+    confirm_delete: "\xC2\xBFBorrar el Integrante?"
+    delete: 
+      one: Borrar Integrante
+      other: Borrar Integrantes
+    read: 
+      one: Ver Integrante
+      other: Ver Integrantes
+    change: Cambiar
+    one: Miembros
+    other: Integrantes
+    without_roles_available: "No hay ning\xC3\xBAn Rol disponible. Los Integrantes no se pueden establecer."
+    create: 
+      one: Crear Integrante
+      other: Crear Integrantes
+    update: 
+      one: Actualizar Integrante
+      other: Actualizar Integrantes
+    updated: El rendimiento del usuario se ha actualizado correctamente.
+  session: 
+    error: 
+      fill: Por favor, rellene estos datos
+      exist: "Usted ya est\xC3\xA1 conectado"
+  back: !binary |
+    QXRyw6Fz
+
+  author: Autor
+  tag: 
+    show_title: Etiqueta '{{tag}}'
+    one: Etiqueta
+    other: Etiquetas
+  remember_me: Recordarme
+  click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
+  openid: 
+    title: OpenID
+    enter: Introduzca su OpenID
+    server: 
+      required_information_by: Informacion necesaria pedida por {{server}}
+      cancel: No, cancelar
+      once: "S\xC3\xAD, s\xC3\xB3lo esta vez"
+      trust: "S\xC3\xAD, y recordar a partir de ahora"
+      anti_phishing: "Esta p\xC3\xA1gina no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir t\xC3\xBA la direcci\xC3\xB3n en el navegador."
+      about_login_to: Vas a entrar en {{server}}
+      decision: "Debes elegir:"
+      login_to: Entrar en {{server}}
+      invalid_uri: "Esta identidad no te pertenece: {{uri}}"
+      optional_information_by: "Informaci\xC3\xB3n opcional pedida por {{server}}"
+      endpoint: Esto es un servidor de OpenID
+      must_login: Tienes que identificarte en {{server}}
+    client: 
+      id_attached_to_account: "OpenID: {{id}} asociado a su cuenta"
+      verification_failed: "La verificaci\xC3\xB3n fall\xC3\xB3: {{message}}"
+      discovery_failed: "El descubrimiento fall\xC3\xB3 para {{id}}: {{error}}"
+      verification_failed_with_id: "La verificaci\xC3\xB3n de {{id}} fall\xC3\xB3: {{message}}"
+      transaction_cancelled: "Transacci\xC3\xB3n de OpenID cancelada"
+      immediate_request_failed: "La petici\xC3\xB3n inmediata ha fallado. Se necesita configuraci\xC3\xB3n previa"
+      associating_to_id: "Asociando a OpenID: {{id}}"
+      verification_succeeded_with_id: "La verificaci\xC3\xB3n de {{id}} se realiz\xC3\xB3 con \xC3\xA9xito"
+    have: "\xC2\xBFTiene usted un OpenID?"
+  admission: 
+    errors: 
+      candidate_has_role: ya tiene un rol
+    one: "Admisi\xC3\xB3n"
+    other: Admisiones
+  spam: 
+    report: Report spam
+    detected: Nueva spam detectado
+    up: SPAM
+    reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
+    created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
+    error: 
+      check: Ha habido un problema control de los recursos como spam
+  vcc: Virtual Conference Centre
+  back_to_inbox: Volver a la bandeja de entrada
+  click_here: "Haga clic aqu\xC3\xAD"
+  created_at_date: "Creado: {{date}}"
+  register_as_user: Registrarse como usuario
+  event_invitation: 
+    new: 
+      other: Invitar a gente
+    discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
+    accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
+  title: "T\xC3\xADtulo"
+  ok: OK
+  register_as_invited: Registrarse como invitado
+  updated_at: Actualizado
+  show_advanced_editor: Mostrar editor avanzado
+  logo: 
+    current: Logo actual
+    one: Logo
+    created: "Logo creado con \xC3\xA9xito"
+    error: 
+      not_valid: "El logotipo de espacio no es v\xC3\xA1lido"
+  description: "Descripci\xC3\xB3n"
+  singular_agent: 
+    anonymous: 
+      name: "An\xC3\xB3nimo"
+    authenticated: 
+      name: Registrado
+    anyone: 
+      name: Cualquiera
+  request_change_password: "Petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
+  attachment: 
+    attach: Adjunto
+    not_valid: "El archivo adjunto no es v\xC3\xA1lido"
+  edit_profile: Editar perfil
+  logout: Salir
+  stage_type: 
+    one: Tipo de escenario
+  your_interests_tags: Sus intereses (tags)
+  changed_mind: Cambiado de idea?
+  news: 
+    publish_another: Publicar otra noticia
+    edit: "Noticias Edici\xC3\xB3n"
+    deleted: "Art\xC3\xADculo suprimido correctamente"
+    up: NOTICIAS
+    publish_home: "Noticias de publicar en el pa\xC3\xADs"
+    home: 
+      zero: No hay noticias para mostrar
+    updated: "Art\xC3\xADculo actualizado correctamente"
+    created: "Nuevo \xC3\xA9xito de publicaci\xC3\xB3n."
+    error: 
+      delete: Error al eliminar el tema
+      create: "Hubo un problema de publicaci\xC3\xB3n de noticias."
+      update: "Art\xC3\xADculo no se pudo actualizar"
+  about_sxsw: Acerca de SXSW
+  resource: 
+    one: Recurso
+    other: Recursos
+  zipcode: "C\xC3\xB3digo postal"
+  logged_out: "Has salido de la aplicaci\xC3\xB3n"
+  is_member_of: Es miembro de
+  personal_information: "La informaci\xC3\xB3n personal"
+  or: o
+  photos_view>>: ver fotos&gt;&gt;
+  thank_you: Gracias
+  toke: 
+    not_available: Token no disponible
+  select_image: Seleccione una imagen, por favor,
+  add: Agregar
+  stage: 
+    all: Todos
+    one: Escenario
+  to_configure_your: para configurar su
+  send_debug_emails: "Enviar E-Mails de depuraci\xC3\xB3n"
+  password: 
+    confirm: "Confirmar contrase\xC3\xB1a"
+    reset_email: "{{usuario}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
+    one: "Contrase\xC3\xB1a"
+    been_reset_email: "{{usuario}}, su contrase\xC3\xB1a se ha restablecido."
+  file: Fichero
+  fax: Fax
+  destroy: Destroy
+  contact_information: "Informaci\xC3\xB3n de contacto"
+  email: 
+    confirm: "Para confirmar su direcci\xC3\xB3n de e-mail, por favor visite la siguiente direcci\xC3\xB3n URL:"
+    used_from: "de correo electr\xC3\xB3nico utilizado en forma de contacto: {{dir}}"
+    one: e-mail
+    other: e-mails
+    notifications: "notificaciones de correo electr\xC3\xB3nico"
+    commas: (separados por comas)
+  latest_news: "\xC3\x9Altimas noticias"
+  vcard: vCard
+  no_tags_found: No se encontraron etiquetas
+  check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
+  upcoming: "Pr\xC3\xB3ximos"
