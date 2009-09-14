@@ -1,22 +1,22 @@
 <%
-  @page_title = "Translate"
+  @page_title = t('translate.one')
   show_filters = ["all", "untranslated", "translated"]
   show_filters << "changed" if @from_locale != @to_locale
 %>
 
 <%content_for :search do%>
   <div id="management-title">
-  <h2 class="yellow">-TRANSLATE-</h2>
+  <h2 class="yellow"><%=t('translate.up')%></h2>
   </div>
 <%end%>
 
 <fieldset>
-  <legend>Available translations</legend>
-	<p>VCC is now translated, or in translation process, to <%=I18n.available_locales.map{|l| l.to_s + " (" + image_tag("flags/" + l.to_s + ".png", :alt => l.to_s) + ")"}.join(", ")%>.</p>
-	<p>Are you thinking in translating VCC to another language? Please, <%=link_to("request it", new_feedback_path())%>.</p>
+  <legend><%=t('translate.availables')%></legend>
+	<p><%=t('translate.translated')%><%=I18n.available_locales.map{|l| l.to_s + " (" + image_tag("flags/" + l.to_s + ".png", :alt => l.to_s) + ")"}.join(", ")%>.</p>
+	<p><%=t('translate.request')%><%=link_to(t('request'), new_feedback_path())%>.</p>
 </fieldset>
 
-<h1>Translate</h1>
+<h1><%=t('translate.one')%></h1>
 
 <fieldset>
   <legend>Search filter</legend>

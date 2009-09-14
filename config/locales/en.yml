@@ -424,6 +424,7 @@ en:
   reply: Reply
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
+  request: request it
   role:
     add: "Add role..."
     added: "{{role}} role succesfully added to {{agent}}"
@@ -547,6 +548,12 @@ en:
     not_available: "Token not available"
   tomorrow: Tomorrow
   topic: Topic
+  translate:
+    availables: Available translations
+    one: Translate
+    request: "Are you thinking in translating VCC to another language? Please, "
+    up: -TRANSLATE-
+    translated: "VCC is now translated, or in translation process, to " 
   
   ######### U ###########
   upcoming: Upcoming
