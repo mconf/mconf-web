@@ -7,7 +7,7 @@ LINUX_PACKAGES = {
 }
 RUBY_GEMS_VERSION = "1.3.5"
 RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
-RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/45905/#{ RUBY_GEMS_PACKAGE }"
+RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/60718/#{ RUBY_GEMS_PACKAGE }"
 
 GEMS = {
   #TODO: get rails version from config/environment.rb
