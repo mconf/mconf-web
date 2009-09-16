@@ -11,9 +11,11 @@
 	    <% else %>
 	  	  <li><%= link_to t('login_or_register'), login_path, :id => "login_link" %></li>
 	    <% end %>
-			<% for locale in (I18n.available_locales - [I18n.locale]) -%>
-			  <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
-			<% end -%>
+			<% unless !current_site.authorizes? (:translate, :to => current_user) -%>
+				<% for locale in (I18n.available_locales - [I18n.locale]) -%>
+				  <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+				<% end -%>
+			<%end -%>
 	  </ul>
     <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
     

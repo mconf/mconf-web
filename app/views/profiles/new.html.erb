@@ -19,14 +19,14 @@
 <% end %>
 
 
-<div class="blue_title"><h3><%= t('profile') %></h3></div>
+<div class="blue_title"><h3><%= t('profile',:count=>1) %></h3></div>
 
 <%= error_messages_for :profile %>
 
 <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true } do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <div class="margin-up">
-    <%= f.submit t('done') %>
+    <%= image_submit_tag 'buttons/create.png' %>
   </div>
 <% end %>
 

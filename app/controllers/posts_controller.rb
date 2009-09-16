@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
   def index
     posts
-    unless params[:extended]
+    if params[:extended]=="false" || (!params[:extended] && !current_user.expanded_post)
       @today = @posts.select{|x| x.updated_at > Date.yesterday}
       @yesterday = @posts.select{|x| x.updated_at > Date.yesterday - 1 && x.updated_at < Date.yesterday}
       @last_week = @posts.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}

@@ -1,30 +1,3 @@
-<%content_for :javascript do%>
-  $("#aaaarole_submit_button_<%=user.id%>").remove();
-
-  $("#aaaarole_select_<%=user.id%>").livequery('change', function(){
-    val = $(this).val();
-		<%if performance.nil? -%>
-      $.post("<%=site_performances_path%>",{
-          authenticity_token: "<%=form_authenticity_token()%>",
-          'performance[role_id]': val,
-					'performance[agent]' : user, 
-          },
-          function(data){eval(data);}
-        );
-      });
-		<% else -%>
-		  $.post("<%=site_performance_path(performance.id)%>",{
-          _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
-          'performance[role_id]': val 
-          },
-          function(data){eval(data);}
-        );
-      });
-		<% end -%>
-  
-<%end%>
-
-
 <div class="user enabled role_#{Site.current.role_for(user).name}">
   <ul class="group_links">
     <%=link_to image_tag("icons/cancel.png", :alt => t('disable'), :title => t('user.disable')), user_path(user), :confirm => 'Are you sure?', :method => :delete%>

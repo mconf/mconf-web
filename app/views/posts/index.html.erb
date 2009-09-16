@@ -280,8 +280,8 @@ $("a.edit_post_link").click(function(){
 
 <!-- Content -->
 <div id="change_view">
-  <%=("Want to compress all conversations? " + link_to ("Switch to compact view", space_posts_path(@space, :extended => false))) if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
-  <%=("Want to see more about the threads? " + link_to ("Switch to extended view", space_posts_path(@space, :extended => true))) unless params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
+  <%=("Want to compress all conversations? " + link_to ("Switch to compact view", space_posts_path(@space, :extended => "false"))) if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
+  <%=("Want to see more about the threads? " + link_to ("Switch to extended view", space_posts_path(@space, :extended => "true"))) unless params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
 </div>
 
 <%if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
