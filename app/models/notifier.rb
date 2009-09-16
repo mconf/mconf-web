@@ -13,7 +13,7 @@ class Notifier < ActionMailer::Base
   def event_invitation_email(invitation)
     setup_email(invitation.email)
 
-    @subject += "Invitation"
+    @subject += I18n.t("invitation.subject",:space=>invitation.group,:username=>invitation.introducer)
     @body[:invitation] = invitation
     @body[:space] = invitation.group
   end

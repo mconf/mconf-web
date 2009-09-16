@@ -12,8 +12,9 @@ class PrivateSender
   
   
   def self.event_invitation_message(invitation)
-    m = PrivateMessage.new :title => "Invitation to event #{ Event.find(invitation.event_id).name }",
-    :body => "You have been invited to assist to an event called \"#{ Event.find(invitation.event_id).name }\" in the space: #{ invitation.group.name }, please <a href=\"/event_invitations/#{ invitation.code }\">accept or deny the invitation</a>. "
+    debugger
+    m = PrivateMessage.new :title => I18n.t("invitation.subject",:space=>invitation.group.name,:username=>invitation.introducer.login),
+      :body => invitation.comment.gsub('\'name\'',invitation.candidate.login) + "<br>" + I18n.t('invitation.ps',:url => 'http://' + Site.current.domain + '/event_invitations/' + invitation.code)
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!

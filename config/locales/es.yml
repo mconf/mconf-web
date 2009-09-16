@@ -82,6 +82,10 @@ es:
       other: USUARIOS
     activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
     invite_email: Invitar a gente por e-mail
+    invitation:
+        label: "Personalice su mensaje"
+        message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendrá lugar el dia 'f3echa' en 'lugar'."
+        sign: "Atentamente, 'firma'"
     one: Usuario
     save: Guardar usuario
     other: Usuarios
@@ -120,7 +124,7 @@ es:
   online: "en l\xC3\xADnea"
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
   add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles."
-  new_spam_detected: Nueva spam detectado
+  new_spam_detected: Nuevo spam detectado
   locale: 
     changed: "Aplicaci\xC3\xB3n para cambiar el idioma"
     error: "No se puede cambiar el idioma de la aplicaci\xC3\xB3n de"
@@ -171,7 +175,7 @@ es:
     updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
     email: "Correo electr\xC3\xB3nico"
   home: 
-    my: Mi casa
+    my: Inicio
     activity: Actividad reciente
     up: INICIO
   account_created: Su cuenta se ha creado
@@ -194,7 +198,7 @@ es:
   role: 
     new: Nuevo Rol
     name: Nombre
-    go_to_manage: Ir a gestionar roles
+    go_to_manage: Gestionar roles
     add: "A\xC3\xB1adir papel ..."
     confirm_delete: "\xC2\xBFBorrar Rol?"
     without_permissions: El rol {{role}} no tiene permisos
@@ -212,7 +216,7 @@ es:
     updated: Rol actualizado satisfactoriamente.
     created: Rol creado satisfactoriamente.
   people: 
-    up: PERSONAS
+    up: GENTE
   reply: Responder
   email_or_full_name: e-Mail o el nombre completo
   caption: 
@@ -237,7 +241,7 @@ es:
     users: Buscar usuarios
     posts: 
       dots: Buscar entradas ...
-      no_dots: "puestos de b\xC3\xBAsqueda"
+      no_dots: "Comentarios de b\xC3\xBAsqueda"
   pagination: 
     previous_label: "&laquo; Anterior"
     next_label: Siguiente &raquo;
