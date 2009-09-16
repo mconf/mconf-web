@@ -239,7 +239,9 @@ en:
   invitation:
     accepted: You have accepted the invitation to this event
     discarded: The invitation to this event has been discarded
-    to_event: "You have been invited to an event in the space {{space}} in the VCC application, please visit the following URL: {{url}} in order to accept the invitation."
+    ps: "P.S: Please visit the following URL: {{url}} in order to accept the invitation."
+    subject: "{{username}} has invited you to an event at space {{space}}"
+    to_event: "You have been invited to an event in the space {{space}} in the VCC application."
     to_space:  "You have been invited to the space: {{space}}  in the VCC application, please visit the following URL: {{url}} order to accept the invitation."
     new:
       other: New invitations 
@@ -289,7 +291,7 @@ en:
   management:
     up: MANAGEMENT
   mailing_list: Mailing list
-  mark_checkbox: Mark the suitable checkbox if you are organising an Isabel or an online event
+  mark_checkbox: Mark the suitable checkbox
   message:
     created: 'Message succesfully sent.'
     error:
@@ -578,7 +580,7 @@ en:
     feed:
       title: "Users"
       author: "SIR"
-    filter: User filter
+    filter: User Filter
     found:
       none: No users found
       one: 1 user was found
@@ -587,11 +589,16 @@ en:
     include_registered: Include registered users
     included:
       other: Included users
-    invite: Invite people to your event
+    invite: Invite people
     invite_email: Invite people by e-mail
-    invite_from_space_by_email: Invite people from your space by using the filter and others by email
+    invite_from_space_by_email: Invite people from your space
     invited: Users already invited
     list_by: "List by"
+    invitation:
+        label: "Customize your invitation message"
+        message: Dear 'name', I would like to invite you to the event 'event_name' which will be held on event_date.
+        sign: "Yours sincerely, {{username}}"
+        legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
     not_activated: "Your account isn't activated. Please, check your email to activate it."
     not_assist: People who won't assist to this event

@@ -17,6 +17,7 @@ class Event < ActiveRecord::Base
   attr_accessor :end_hour
   attr_accessor :mails
   attr_accessor :ids
+  attr_accessor :invite_msg
   
   is_indexed :fields => ['name','description','place','start_date','end_date'],
              :include =>[{:class_name => 'Tag',
@@ -41,7 +42,7 @@ class Event < ActiveRecord::Base
     if event.mails
       mails_to_invite = event.mails.split(',').map(&:strip) - event.event_invitations.map{|ei| ei.email}
       mails_to_invite.map { |email|      
-        params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event}
+        params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event, :comment => event.invite_msg}
         i = event.space.event_invitations.build params
         i.introducer = event.author
         i
@@ -50,7 +51,7 @@ class Event < ActiveRecord::Base
     if event.ids
       event.ids.map { |user_id|
         user = User.find(user_id)
-        params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event}
+        params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event, :comment => event.invite_msg}
         i = event.space.event_invitations.build params
         i.introducer = event.author
         i

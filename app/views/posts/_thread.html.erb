@@ -31,7 +31,7 @@
 		  <ul class="thread-title">      
 	      	<li>
 	      	   <%if thread.author.authorizes?([:read, :profile],:to=> current_user)%>
-		         <span><%=link_to (thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold")%></span>
+		         <span><%=link_to (thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
 			  <%else%>
 			    <span class="bold blue"><%=thread.author.name%>: </span>
 			  <%end%>

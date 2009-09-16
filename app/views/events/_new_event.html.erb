@@ -1,5 +1,38 @@
 <% content_for :javascript do%>
   <%= render :partial => 'toggle_view'%>
+  template = "<%= t('user.invitation.message') %>\n<%= t('user.invitation.sign',:username=>current_user.login) %>";
+  $("#event_name").blur(function(){
+    replace_invitation();
+  });
+  
+  function replace_invitation(){
+    if(edited_msg==true)
+      return;
+	
+    invitation_text = template;
+    if($("#event_name").val()!=""){
+     invitation_text = invitation_text.replace('event_name',$("#event_name").val());
+    }
+   if($("#start_datepicker").val()!=""){
+     invitation_text = invitation_text.replace('event_date',$("#start_datepicker").val() + " at " + $("#start_timepicker").val());
+   }  
+   $("#invite_msg").val(invitation_text);
+  };
+  
+  
+  //we detect the user editing the invitation message
+  old_text = "";
+  edited_msg = false;
+  $("#invite_msg").focus(function(){
+    old_text = $("#invite_msg").val();
+  });
+  
+  $("#invite_msg").blur(function(){
+    if( $("#invite_msg").val() != old_text)
+	{
+	  edited_msg = true;
+	}
+  });
 <%end%>
 
 <% content_for :headers do  -%>
@@ -20,16 +53,15 @@
 	<%=f.text_area :description%>
   </div>
 
-  <div class="margin-up">
+  <!--<div class="margin-up">
 	<span> <%= t('event.steps') %></span>
-  </div>  
+  </div>-->  
   <div class="margin-up">
-  <strong><span class ="without_javascript">1. <%= t('event.select_date')%></span></strong>	
-	<strong><span class ="javascript" style="display:none">1. <%= link_to (t('event.select_date'),"#",:id=>"toggle_date") %></span></strong>
+  <strong><span>1. <%= t('event.select_date')%></span></strong>	
   </div>
   <div id="expanded_date">
 	<div class="margin-up">
-	  <span><%= t('timezone') %>: <%=Time.zone%></span>
+	  <span><%= t('timezone.one') %>: <%=Time.zone%></span>
 	</div>
 	<div class="no_javascript">
 	  <ul>
@@ -42,29 +74,30 @@
   </div>
 
   <div class="margin-up">
-  <strong><span class ="without_javascript">2. 	<%= t('mark_checkbox')%> </span></strong>
-	<strong><span class ="javascript" style="display:none">2. <%= link_to (t('mark_checkbox'),"#expanded_date",:id=>"toggle_online") %></span></strong>
+  <strong><span>2. 	<%= t('mark_checkbox')%> </span></strong>
   </div>
   <div id="expanded_online">
 	<div class="checkbox_event">
 	  <%=f.check_box :isabel_event,:class=>"icon" %>
-	  <label for="isabel_event" class="label_izquierda" ><%= t('event.Isabel') %>:</label>
-	</div>
-	<div class="checkbox_event">
+	  <label for="isabel_event" class="label_izquierda" ><%= t('event.Isabel') %></label>
 	  <%=f.check_box :marte_event,:class=>"icon"  %>
-	  <label for="marte_event" class="label_izquierda" ><%= t('event.online') %>:</label>
+	  <label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
 	</div>
+	<!--<div class="checkbox_event">
+	  <%=f.check_box :marte_event,:class=>"icon"  %>
+	  <label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
+	</div>-->
   </div>
   
   <div class="margin-up">
-  	<strong><span class ="without_javascript">3. <%= t('user.invite') %></span></strong>
-    <strong><span class ="javascript" style="display:none">3. <%= link_to(t('user.invite'),"#expanded_invite",:id=>"toggle_invite") %></span></strong>
+  	<strong><span class ="without_javascript">3. <%= t('user.invite') %>:</span></strong>
+    <strong><span class ="javascript" style="display:none">3. <%= link_to(t('user.invite'),"#expanded_invite",:id=>"toggle_invite") %>:</span></strong>
   </div>
   
   <div id="expanded_invite">
-	  <div class="margin-up">
+	  <!--<div class="margin-up">
 	    <span><%= t('user.invite_from_space_by_email') %></span>
-	  </div>
+	  </div>-->
 	  <div id="selected_users">
 	    <label for="selected_users" style="display: none;">To:</label>
 	  </div>
@@ -87,6 +120,11 @@
 				<%= f.text_area :mails%>
 		  </div>	
 		<%end%>	
+	<div class="margin-up">
+	  <label for="message" class="label_izquierda"><%= t('user.invitation.label') %>:</label>
+	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('user.invitation.message') %> &#13<%= t('user.invitation.sign',:username=>current_user.login) %></textarea>
+	  <p>* <%= t('user.invitation.legend') %></p>
+	</div>
 </div>
 	<div class="margin-up">
 	 <%= image_submit_tag "buttons/create.png" %>

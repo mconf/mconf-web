@@ -14,14 +14,16 @@
   <br />
   <br />
 	
-  <div class="group_links"> 
+
+  <h3>
+  	
+	<div class="group_links"> 
     <%if params[:order_by_time]%>
       <%=link_to image_tag("icons/arrow_down.png") + "order DESC", space_events_path(@space), {:class => 'past_link event_navigation'}%>  
     <%else%>
       <%=link_to image_tag("icons/arrow_up.png") + "order ASC", space_events_path(@space, :order_by_time => "ASC"), {:class => 'past_link event_navigation'}%>
     <%end%>
-  </div>
-  <h3><%= t('event.past.other') %></h3>
+  </div><%= t('event.past.other') %></h3>
 	 
 	  <%if @last_past_events.empty?%>
 	    <p><%= t('event.past.none') %></p>
