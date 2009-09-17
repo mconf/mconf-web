@@ -332,7 +332,7 @@ en:
       delete: "Error deleting item"
       update: "Item could not be updated"
     home: 
-      zero: "No news to show"
+      none_to_show: "No news to show"
       one: "News item in the space {{space}}"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
