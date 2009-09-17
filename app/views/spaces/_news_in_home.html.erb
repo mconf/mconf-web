@@ -21,7 +21,7 @@
 	      </div>	     
           <div class="news-content">
 		  <div class="news-home-title">
-	          <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.home.one', :space=>@space.name))%>
+	          <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.item_in_home', :space=>@space.name))%>
 	  	      <span class="bold"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>
 	  	      <span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
           </div>

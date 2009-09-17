@@ -330,20 +330,14 @@ en:
     error:
       create: 'There was a problem publishing news.'
       delete: "Error deleting item"
-      update: "Item could not be updated"
-    home:
-      one: "News item in the space {{space}}"
+      update: "Item could not be updated"      
+    item_in_home: "News item in the space {{space}}"
+    none: None
     none_to_show: "No news to show"
-    publish_another: Publish another piece of news
-    publish_home: Publish news at home
     up: "NEWS"
     updated: "Item successfully updated"
-  none: None
-    none_to_show: No news to show
-    up: "NEWS"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
-    item_in_home: "News item in the space {{space}}"
   next: Next
   no_messages_in_forum: There aren't messages in this forum
   no_tags_found: No tags found
