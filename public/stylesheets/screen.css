@@ -328,8 +328,52 @@ p.event_name a:hover{text-decoration:underline;}
 li.author a, #change-event h3, #sidebar{color:#244974;}
 #sidebar a{text-decoration:none;color:#244974; }
 #sidebar a:hover{text-decoration:underline;}
+#asisstants,#no-assistants,#no_responding{padding:0 10px;clear:both;position:relative;}
+#sidebar #assistance_info #assistance_status{padding:0 10px;}
+#sidebar #assistance_info h5{margin:0;padding:10px 0;color:#244974;}
+#sidebar #assistance_info .event_options{padding:0 33px;position:relative;overflow:visible;}
+#sidebar #assistance_info .event_options div.option{float:left;position:relative;}
+#sidebar #assistance_info .event_options a{text-decoration:none;}
+#sidebar #assistance_info .event_options .option span{
+	background:transparent url("/images/icons/accept1.png") no-repeat scroll 0 0;
+	display:block;
+	left:-3px;
+	padding:8px;
+	position:absolute;
+	top:-4px;
+}
+#sidebar #assistance_info button{width:64px;}
+#sidebar #assistance_info button{
+	-moz-border-radius-bottomleft:2px;
+	-moz-border-radius-bottomright:2px;
+	-moz-border-radius-topleft:2px;
+	-moz-border-radius-topright:2px;
+	background:transparent url("/images/buttons/fondo-boton2.png") repeat scroll 0 0;
+	border:1px solid #CCCCCC;
+	color:#666666;
+	cursor:pointer;
+	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+	font-size:11px;
+	font-weight:normal;
+	height:24px;
+	line-height:18px !important;
+	outline-color:-moz-use-text-color;
+	outline-style:none;
+	outline-width:medium;
+	overflow:visible;
+	padding:0 5px;
+	text-align:center;
+	vertical-align:middle;
+}
+#sidebar #assistance_info button:hover{border-color:#8A8A8A;}
+#sidebar #assistance_info button#choice{
+	background:transparent url("/images/buttons/fondo-boton1.png") repeat scroll 0 0;
+	border:1px solid #64a3cf;
+	color:#fff;
+	font-weight:bold;
+}
+#sidebar #assistance_info button#choice:hover{border-color:#64a3cf;}
 div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
-
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0.75em;}
 div.single_event:hover{background:#f0f6f9;}
@@ -488,10 +532,12 @@ td.name_date .name{width:120px;display:block;overflow:hidden;margin-right:20px;}
 td.name_date .date{display:block;font-size:0.9166em;line-height:1.6363;color:#777;}
 td.name_date .name a,td.subject a{text-decoration:none;}
 td.name_date .name a:hover,td.subject a:hover{text-decoration:underline;}
-td.subject div{width:245px;display:block;overflow:hidden;}
+td.subject{width:265px;}
+td.subject div{display:block;overflow:hidden;}
 td.subject div span{color:#777;}
 td.subject span.topic{width:245px;display:block;overflow:hidden;margin-right:20px;}
-td.delete,td.reply{width:24px;}
+td.delete,td.reply{width:24px;opacity:0.6;}
+td.delete:hover,td.reply:hover{opacity:1;}
 div.message_content{padding:0.5em;}
 div.message_content p{margin:0;color:#777;}
 
@@ -570,11 +616,11 @@ div.user strong{color:#8B0425;}
 a.extract_form{float:right}
 a.extract_form{margin-right:0.5em;}
 
-#participants{
+/*#participants{
   margin-top:240px;
-}
+}*/
 #assistance_title h3{margin:0;padding:3px 10px;color:#244974;}
-#assistance_info{float:left;width:230px;border:1px #bdd8eb solid;}
+#assistance_info{float:left;width:230px;border:1px #bdd8eb solid;background:#f0f6f9;}
 #assistance_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 
 #participants p{margin:0 0 0em;}
