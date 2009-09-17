@@ -36,7 +36,7 @@
 
 <% content_for :search do  %>
   <% form_tag(search_all_path(@space), :method => 'get') do %>
-			<%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search...")%>
+			<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') )%>
       <%= image_submit_tag "buttons/search.png"%>
   <% end %>
 <%end%>
@@ -44,14 +44,14 @@
 <% content_for :sidebar do  %>
   <div id="join">
   <% if space.users.include?(current_user)%>
-		<%= link_to image_tag("buttons/leave-space2.png", :alt => "Leave space" ), space_performance_path(@space, @performance), :method => :delete,:title => "Leave space", :confirm => "Are you sure you want to leave this space?" %>
+		<%= link_to image_tag("buttons/leave-space2.png", :alt => t('space.leave') ), space_performance_path(@space, @performance), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm') %>
   <%else%>
 	  <%if logged_in? && space.public?%>
 		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
 	      <%= image_submit_tag("buttons/join-space.png") %>
 	    <% end %>
 		<%else%>
-		  <%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), new_space_join_request_path(space), :class => "fancybox_link"%>
+		  <%=link_to image_tag("buttons/join-space.png", :alt => t('space.join')), new_space_join_request_path(space), :class => "fancybox_link"%>
 		<%end%>
   <% end %>
 	</div>
@@ -63,10 +63,11 @@
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
-     <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to " Upcoming Events", space_events_path(@space)%></h3>
+     <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
+		 	<%= t('') %>
 		 	<%if @upcoming_events.empty?%>
-			  <p>There aren't upcoming events</p>
+			  <p><%= t('event.upcoming.none') %></p>
 			<%else%>
 			  <% for event in @upcoming_events -%>
           <li class="event">
@@ -88,12 +89,12 @@
 
 <% if !@current_events.empty? %>
   <div id="home_current_events">
-    <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to "Events at this moment:", space_events_path(@space)%></h3>
+    <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.now'), space_events_path(@space)%></h3>
   	<ul>
   		<%for event in @current_events do%>
   		  <li>
   		  	<%=link_to "<h5>#{event.name}</h5>", space_event_path(@space,event)%>
-			<span class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (GMT <%=Time.zone.formatted_offset%> )</span>
+			<span class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (<%= t('GMT') %> <%=Time.zone.formatted_offset%> )</span>
 		  </li>
 		<%end%>
   	</ul>
@@ -102,30 +103,30 @@
 
 <% if @news_to_show %>
   <div id="latest_news">
-	  <h3><%=image_tag("icons/information.png")%> Latest News</h3>
+	  <h3><%=image_tag("icons/information.png")%> <%= t('latest_news') %></h3>
     <%= render :partial => 'last_news' %>
 </div>
 <% end %>
 
 <div id="latest_posts">
-    <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_posts_path(@space,:atom))%></span><%=image_tag("icons/comment.png")%><%=link_to "Latest Posts", space_posts_path(@space)%></h3>
+    <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),formatted_space_posts_path(@space,:atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'), space_posts_path(@space)%></h3>
 	  <%if @lastest_posts.empty?%>
-	     <br/><p>There aren't any recent posts</p>
+	     <br/><p><%= t('post.none_recent') %></p>
 	  <%else%>
 	    <% for post in @lastest_posts -%>
 	      <div class="post">
-	        <strong><%=link_to sanitize(post.title),space_post_path(@space, post)%></strong><span class="updated"><%=link_to (" Updated " + time_ago_in_words(post.updated_at) + " ago",space_post_path(@space, post))%></span>
+	        <strong><%=link_to sanitize(post.title),space_post_path(@space, post)%></strong><span class="updated"><%=link_to ( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
 	        <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
 	      </div>
 	    <% end -%>
 	    <div class="read_more"> 
-	      <%= link_to "Read more", space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
+	      <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
 	    </div>
 	  <%end%>     
 </div>
 
 <div id="latest_users">
-  <h3><%=image_tag("icons/user.png")%><%=link_to "Recent Users Joined", space_users_path(@space)%> </h3>
+  <h3><%=image_tag("icons/user.png")%><%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
@@ -150,10 +151,8 @@
     </div>
   <% end -%>
   <div class="read_more">
-    <%= link_to "Read more", space_users_path(@space), :class => "read_more_link" if space.authorizes?([:read, :performance], :to => current_user)%>
+    <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorizes?([:read, :performance], :to => current_user)%>
   </div>
 </div>
 
 <div id="lightbox_content" style="display:none"></div>
-	
-	

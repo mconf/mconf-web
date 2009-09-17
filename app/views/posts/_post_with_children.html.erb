@@ -2,8 +2,9 @@
   <div id="parent_<%=@post.id%>" class="thread-title">
   	<div class="thread_options">
 	  <ul>
-		<li><%=link_to image_tag("icons/pencil.png", :alt => t('edit') ), get_edit_route(@post), {:name => @post.id, :class => 'edit_post_link', :title => t('edit')} if @post.authorizes?(:update, :to => current_user) %></li>
-		<li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => t('delete.one') , :confirm => t('delete.confirm')}if @post.authorizes?(:delete, :to => current_user)%></li>		
+	     <li><%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam != true%></li> 
+	     <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit') ), get_edit_route(@post), {:name => @post.id, :class => 'edit_post_link', :title => t('edit')} if @post.authorizes?(:update, :to => current_user) %></li>
+	     <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => t('delete.one') , :confirm => t('delete.confirm')}if @post.authorizes?(:delete, :to => current_user)%></li>		
 	  </ul>
 	</div>
   	<h2><%=image_tag("icons/comments.png")%><%=link_to (@post.title, space_post_path(@space,@post))%>

@@ -23,7 +23,7 @@
 
 <div class="contenido_main">
 
-<p>To add new users enter one or several email addresses separated by " ", "," or ";" and register them
+<p><%= t('user.add.instruction') %>
 <% form_tag({:controller=>"spaces", :action=>"add_user"}, {:name=>'invite_user_form',:style => "display: inline;"}) do  %>
 	<div id='text_area'>
 <%= text_area 'invitation', :email, :size => "30x5"%>
@@ -31,9 +31,9 @@
 </div>
 
 <div id='register_buttons'>
-				<%= link_to_function "Register as Admin", :onclick=>"register_admin()", :class => "secund" %><br/>
-				<%= link_to_function "Register as User",:onclick=>"register_user()", :class => "secund" %><br/>
-				<%= link_to_function "Register as Invited",:onclick=>"register_invited()", :class => "secund" %><br/>	
+				<%= link_to_function t('resgiter_as_admin'), :onclick=>"register_admin()", :class => "secund" %><br/>
+				<%= link_to_function t('register_as_user'),:onclick=>"register_user()", :class => "secund" %><br/>
+				<%= link_to_function t('register_as_invited'),:onclick=>"register_invited()", :class => "secund" %><br/>	
 				</div>	
 
 
@@ -41,11 +41,8 @@
 			
 			
 			<div id="note">
-				
-				<p>For example: "John Silver "<"jsilver@example.com">", jct@dit.es; Aaron aaron@example.net
-				and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send
-				and validation email to them.</p>
-				</div>
+				<p><%= t('user.add.note') %></p>
+			</div>
 <%end%>
 </div>
 </div>

@@ -39,7 +39,7 @@ class SpacesController < ApplicationController
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
     @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(3)
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date.future?}.first(5)
-    @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space})
+    @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in_container(@space).all :order => "start_date ASC").select{|e| !e.start_date.future? && e.end_date.future?}
     respond_to do |format|
       format.html{
@@ -67,7 +67,7 @@ class SpacesController < ApplicationController
   def edit
     #@users = @space.actors.sort {|x,y| x.name <=> y.name }
     @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
-    @roles = Role.find(:all)
+    @roles = Space.roles
   end
   
   
