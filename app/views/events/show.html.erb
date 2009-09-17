@@ -18,7 +18,7 @@
 <% end %>
 
 
-  <% content_for :sidebar do  %>
+<% content_for :sidebar do  %>
     <%if @space.authorizes?([:create, :content],:to => current_user)%>
   	 <%if params[:edit_event]%>
      	  <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>

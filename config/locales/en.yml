@@ -21,6 +21,7 @@ en:
   advanced_options: Advanced options
   agent:
     one: User
+  agree: "Yes"
   all: All
   all_rights_reserved: All rights reserved
   attachment:
@@ -106,6 +107,7 @@ en:
   delete:
     one: Delete
     confirm: Are you sure?
+  deny: "No"
   description: Description
   destroy: Destroy
   disable: Disable
@@ -138,7 +140,7 @@ en:
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
     not_allowed: You are not allowed to perform that action.
   event:
-    assistance_title: "Your attendance's status"
+    assistance_title: Participation
     attend: "Attending"
     coming: Coming events
     create: "Create new event"
@@ -186,7 +188,7 @@ en:
       none: No upcoming events
       other: Upcoming events
       show: Show all upcoming events
-    will_attend: "Will you assist this event?"
+    will_attend: "Are you attending this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
   event_invitation:
@@ -589,7 +591,7 @@ en:
       instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
     admin: "Admin"
-    assist: People who will assist to this event
+    assist: Attending
     confirm_password: "Confirm Password"
     delete_from_space: "Delete user from space"
     disable: Disable user
@@ -625,8 +627,8 @@ en:
         legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
     not_activated: "Your account isn't activated. Please, check your email to activate it."
-    not_assist: People who won't assist to this event
-    not_confirmed: People that has not confirmed    
+    not_assist: Not attending
+    not_confirmed: Not confirmed    
     notifications: "Notifications"
     one: User
     other: Users

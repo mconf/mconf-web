@@ -12,7 +12,6 @@ class PrivateSender
   
   
   def self.event_invitation_message(invitation)
-    debugger
     m = PrivateMessage.new :title => I18n.t("invitation.subject",:space=>invitation.group.name,:username=>invitation.introducer.login),
       :body => invitation.comment.gsub('\'name\'',invitation.candidate.login) + "<br>" + I18n.t('invitation.ps',:url => 'http://' + Site.current.domain + '/event_invitations/' + invitation.code)
     m.sender = invitation.introducer
