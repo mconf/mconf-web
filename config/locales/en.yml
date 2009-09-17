@@ -331,9 +331,9 @@ en:
       create: 'There was a problem publishing news.'
       delete: "Error deleting item"
       update: "Item could not be updated"
-    home: 
-      none_to_show: "No news to show"
+    home:
       one: "News item in the space {{space}}"
+    none_to_show: "No news to show"
     publish_another: Publish another piece of news
     publish_home: Publish news at home
     up: "NEWS"
