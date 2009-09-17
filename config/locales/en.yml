@@ -586,8 +586,8 @@ en:
     active:
       other: Active users
     add:
-      instruction: "To add new users enter one or several email addresses separated by " ", "," or ";" and register them"
-      note: "For example: "John Silver "<"jsilver@example.com">", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
+      instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
+      note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
     admin: "Admin"
     assist: People who will assist to this event
     confirm_password: "Confirm Password"
