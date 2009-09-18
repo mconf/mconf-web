@@ -330,6 +330,7 @@ li.author a, #change-event h3, #sidebar{color:#244974;}
 #sidebar a:hover{text-decoration:underline;}
 #asisstants,#no-assistants,#no_responding{padding:0 10px;clear:both;position:relative;}
 #sidebar #assistance_info #assistance_status{padding:0 10px;}
+#sidebar #assistance_info{padding-bottom:10px;}
 #sidebar #assistance_info h5{margin:0;padding:10px 0;color:#244974;}
 #sidebar #assistance_info .event_options{padding:0 33px;position:relative;overflow:visible;}
 #sidebar #assistance_info .event_options div.option{float:left;position:relative;}
