@@ -38,38 +38,29 @@
 	<body>
 	  <div id="site">
 		  <%= render :partial => "layouts/global" %>
-
 		  <div id="space">
 		    <div id="header">
 		      <%= render :partial => "layouts/home_header" %>
 		    </div>
-
 		    <div id="content">
 		      <div id="selector">
-  		      <%= render :partial => "layouts/selector" %>
+  		        <%= render :partial => "layouts/selector" %>
 		      </div>
-		      
 		      <div id="main">
-		        
-		        <%= render :partial => "layouts/home_menu" %>
-		        
+		        		        
 		        <div id="home_wrapper">
-		        <% flash.each do |name, msg| %>
-		          <div class="<%= name %>"><%= msg %></div>
-                <% end %>
-
-     		    <%= yield %>
-		      </div>
+		          <% flash.each do |name, msg| %>
+		            <div class="<%= name %>"><%= msg %></div>
+                  <% end %>
+     		      <%= yield %>
+		        </div>
 			  </div>
-      
 		      <div id="sidebar">
 		        <%= yield :sidebar %>
-          </div>
-        </div>
-	  <%= render :partial => "layouts/footer" %>  
-	  </div>
-	  
-
+              </div>
+            </div>
+	        <%= render :partial => "layouts/footer" %>  
+	      </div>
 	  </div>
 		<%if current_site.domain == "vcc.dit.upm.es"%>
 			<script type="text/javascript">
