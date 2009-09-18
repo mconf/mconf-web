@@ -245,6 +245,7 @@ en:
     my: My Inbox ({{checked}})
   invitation:
     accepted: You have accepted the invitation to this event
+    add_more: Invite more people
     discarded: The invitation to this event has been discarded
     ps: "P.S: Please visit the following URL: {{url}} in order to accept the invitation."
     subject: "{{username}} has invited you to an event at space {{space}}"
@@ -253,7 +254,7 @@ en:
     new:
       other: New invitations 
     not_pending: 
-      other: There are no pending invitations.
+      other: "There are no pending invitations."
     pending:
       other: Pending invitations
   invited: Invited

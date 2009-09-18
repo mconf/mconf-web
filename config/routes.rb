@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
                      :collection => [:add_time, :copy_next_week, :remove_time],
                      :member => { :token => :get, :spam => :post, :spam_lightbox => :get } do |event|
       event.resources :participants
+      event.resources :event_invitations
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
@@ -28,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :admissions, :collection => { :invitations => :post }
     space.resources :invitations
     space.resources :join_requests
-    space.resources :event_invitations
+#    space.resources :event_invitations
     space.resources :performances
     space.resources :news
   end

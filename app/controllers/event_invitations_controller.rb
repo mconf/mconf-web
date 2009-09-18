@@ -32,6 +32,14 @@ class EventInvitationsController < ApplicationController
     end
   end
 
+  
+  # GET /event_invitations/new
+  # GET /event_invitations/new.xml
+  def new
+    
+  end
+  
+  
   def create
     @invitation = ( group.try(:invitations) || Invitation ).new params[:invitation]
     @invitation.introducer = current_agent

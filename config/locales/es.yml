@@ -4,15 +4,15 @@ es:
   created_at: Creado
   keywords: Palabras clave (*)
   send_reset_password_request: "Enviar petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
-  city: Ciudad
   today: Hoy
+  city: Ciudad
   created_time_ago: Creada hace {{time}}
   could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa direcci\xC3\xB3n de correo"
   datetime: 
     prompts: 
       minute: Minuto
-      second: Segundos
       month: Mes
+      second: Segundos
       hour: Horas
       day: !binary |
         RMOtYQ==
@@ -32,6 +32,9 @@ es:
       x_seconds: 
         one: 1 segundo
         other: "{{count}} segundos"
+      about_x_hours: 
+        one: alrededor de 1 hora
+        other: alrededor de {{count}} horas
       less_than_x_seconds: 
         one: menos de 1 segundo
         other: menos de {{count}} segundos
@@ -41,9 +44,6 @@ es:
       x_minutes: 
         one: 1 minuto
         other: "{{count}} minutos"
-      about_x_hours: 
-        one: alrededor de 1 hora
-        other: alrededor de {{count}} horas
       about_x_years: 
         one: "alrededor de 1 a\xC3\xB1o"
         other: "alrededor de {{count}} a\xC3\xB1os"
@@ -59,22 +59,26 @@ es:
     e-mail: e-mail
     not_confirmed: La gente que no ha confirmado
     invite_from_space_by_email: "Invitar a gente de su espacio mediante el filtro y otros por correo electr\xC3\xB3nico"
-    list_by: Lista de
-    invite: Invitar a gente a su evento
-    lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
-    registered: "Gracias por registrarse! Acabamos de enviar instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario de forma permanente."
     request_password: "Solicitar contrase\xC3\xB1a"
+    lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
+    list_by: Lista de
     reset_password: "Restablecer la contrase\xC3\xB1a"
+    registered: "Gracias por registrarse! Acabamos de enviar instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario de forma permanente."
+    invite: Invitar a gente a su evento
     include_registered: Incluir a los usuarios registrados
     filter: Filtro de usuarios
-    admin: Admin
-    confirm_password: Confirm Password
+    edit_account: Modificar su cuenta
+    private_message: Mensaje Privado
     found: 
       none: No se encontraron usuarios
       one: "1 usuario se encontr\xC3\xB3"
       other: "{{size}} usuarios se han encontrado"
-    edit_account: Modificar su cuenta
-    private_message: Mensaje Privado
+    confirm_password: Confirm Password
+    admin: Admin
+    invitation: 
+      label: Personalice su mensaje
+      sign: Atentamente, 'firma'
+      message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendr\xC3\xA1 lugar el dia 'f3echa' en 'lugar'."
     enable: Habilitar usuario
     timezone: Zona Horaria
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
@@ -83,49 +87,45 @@ es:
       other: USUARIOS
     activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
     invite_email: Invitar a gente por e-mail
-    invitation:
-        label: "Personalice su mensaje"
-        message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendrá lugar el dia 'f3echa' en 'lugar'."
-        sign: "Atentamente, 'firma'"
     one: Usuario
     save: Guardar usuario
-    other: Usuarios
     full_name: Nombre completo
-    disabled: Usuario deshabilitado
-    vcc_email: VCC de usuario E-mail {{dir}}
+    other: Usuarios
     disable: Deshabilitar usuario
-    included: 
-      other: Incluyendo a los usuarios
     notifications: Notificaciones
     results_count: 
       one: ""
       other: ""
-    invited: Ya a los usuarios
-    password: "Contrase\xC3\xB1a"
+    included: 
+      other: Incluyendo a los usuarios
+    vcc_email: VCC de usuario E-mail {{dir}}
+    disabled: Usuario deshabilitado
     password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta de"
+    password: "Contrase\xC3\xB1a"
     view_expanded_posts: Ver ampliado puestos
     updated: El Usuario se ha actualizado correctamente.
     assist: "La gente que asistir\xC3\xA1 a este evento"
     delete_from_space: Eliminar el usuario desde el espacio
-    active: 
-      other: Usuarios activos
-    error: 
-      enabled: ""
+    invited: Ya a los usuarios
     search: Buscar usuarios ...
-    not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
-    without_group: Las personas sin grupo
     feed: 
       author: SIR
       title: Usuarios
+    error: 
+      enabled: ""
     email: Correo
+    not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
+    without_group: Las personas sin grupo
+    active: 
+      other: Usuarios activos
   Isabel: Isabel
   his_message_reads_thus: "Su mensaje dec\xC3\xADa as\xC3\xAD"
   cancel: Cancelar
   place: Lugar
-  none: Ninguno
   action: 
     one: "Acci\xC3\xB3n"
     other: Acciones
+  none: Ninguno
   edit_your_profile: Editar tu perfil
   online: "en l\xC3\xADnea"
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
@@ -149,13 +149,13 @@ es:
   from: Desde
   body: Cuerpo
   register_now: "Reg\xC3\xADstrese AHORA!"
-  login_or_register: Entrar / Registro
   follow_reset_password: "{{agent}}, siga el enlace para cambiar su contrase\xC3\xB1a"
   beta: (BETA)
+  login_or_register: Entrar / Registro
   send_message: Enviar un mensaje
-  reset_password: "Cambiar Contrase\xC3\xB1a"
   change: Cambiar
   new_source: Nueva fuente
+  reset_password: "Cambiar Contrase\xC3\xB1a"
   time: 
     am: am
     end: "Hora de finalizaci\xC3\xB3n"
@@ -171,9 +171,9 @@ es:
     exception_notifications_email: "Direcci\xC3\xB3n destinataria de los correos de depuraci\xC3\xB3n"
     config: "Configuraci\xC3\xB3n del Sitio"
     exception_notifications: "Enviar correos de depuraci\xC3\xB3n"
-    domain: Dominio
-    editing: "Editando la configuraci\xC3\xB3n del Sitio"
     logo: Logo
+    editing: "Editando la configuraci\xC3\xB3n del Sitio"
+    domain: Dominio
     up: SITIO
     one: Sitio
     other: Sitios
@@ -191,10 +191,10 @@ es:
     request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor,"
     availables: Traducciones disponibles
   account_created: Su cuenta se ha creado
+  list_by: Lista de
   now!: Ahora!
   or_use_email: "o utilizar el correo electr\xC3\xB3nico ..."
   please_activate_account: Por favor, active su cuenta
-  list_by: Lista de
   updated_time_ago: ""
   docs: Docs
   avatar: 
@@ -218,12 +218,12 @@ es:
     invalid: "El papel no es v\xC3\xA1lido"
     editing: Editando Rol
     change: Cambiar el papel ...
-    one: Rol
     listing: Listado de funciones de
+    one: Rol
     index: Lista de Roles
-    other: Roles
-    name_permissions: Permisos de {{name}}
     stage_type: Tipo de escenario
+    name_permissions: Permisos de {{name}}
+    other: Roles
     select: 
       one: Seleccionar Rol
     updated: Rol actualizado satisfactoriamente.
@@ -242,6 +242,7 @@ es:
   search: 
     results: "Resultados de la b\xC3\xBAsqueda"
     dots: Buscar ...
+    between_dates: "Usted puede buscar aqu\xC3\xAD entre dos fechas"
     events: 
       dots: Buscar eventos ...
       title: "Buscar por t\xC3\xADtulo evento"
@@ -249,7 +250,6 @@ es:
       no_dots: Buscar eventos
       description: "B\xC3\xBAsqueda en la descripci\xC3\xB3n del evento en"
     explanation: "(en el t\xC3\xADtulo y la descripci\xC3\xB3n con palabras exactamente)"
-    between_dates: "Usted puede buscar aqu\xC3\xAD entre dos fechas"
     one: "B\xC3\xBAsqueda"
     users: Buscar usuarios
     posts: 
@@ -263,18 +263,21 @@ es:
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
   photos: Fotos
   received_message_more_machines: ""
+  container: 
+    one: Contenedor
+    other: Contenedores
   invitation: 
     new: 
       other: Nuevas invitaciones
-    not_pending: 
-      other: No hay invitaciones pendientes.
+    discarded: "Invitaci\xC3\xB3n descartada"
     not_found: "Invitaci\xC3\xB3n no encontrada"
     comment: Comentario
-    discarded: "Invitaci\xC3\xB3n descartada"
+    not_pending: 
+      other: No hay invitaciones pendientes.
     confirm_delete: "\xC2\xBFBorrar invitaci\xC3\xB3n?"
-    accept: "Aceptar invitaci\xC3\xB3n"
     pending: 
       other: Invitaciones pendientes
+    accept: "Aceptar invitaci\xC3\xB3n"
     to_event: ""
     to_space: ""
     not_processed: "Invitaci\xC3\xB3n sin responder"
@@ -282,40 +285,37 @@ es:
     discarded_by: "{{candidate}} descart\xC3\xB3 la invitaci\xC3\xB3n"
     accepted_by: "{{candidate}} acept\xC3\xB3 la invitaci\xC3\xB3n"
     one: "Invitaci\xC3\xB3n"
-    other: Invitaciones
     show: Unirse a {{group}}
+    other: Invitaciones
     send: 
       one: "Enviar invitaci\xC3\xB3n"
     accepted: "Invitaci\xC3\xB3n aceptada"
-    created: "Invitaci\xC3\xB3n enviada"
-    discard: "Descartar invitaci\xC3\xB3n"
     email: "Correo electr\xC3\xB3nico"
+    discard: "Descartar invitaci\xC3\xB3n"
+    created: "Invitaci\xC3\xB3n enviada"
   public: "P\xC3\xBAblica"
-  container: 
-    one: Contenedor
-    other: Contenedores
   join_request: 
-    already_sent: "Usted ya ha enviado una petici\xC3\xB3n conjunta a este espacio"
+    discarded: "Petici\xC3\xB3n descartada"
     not_pending: 
       other: No hay espera de unirse a las peticiones.
-    discarded: "Petici\xC3\xB3n descartada"
+    already_sent: "Usted ya ha enviado una petici\xC3\xB3n conjunta a este espacio"
     pending: 
       other: En espera de unirse a las peticiones
-    not_processed: "Petici\xC3\xB3n sin responder"
     joined: "Usted ya est\xC3\xA1 en el espacio"
+    not_processed: "Petici\xC3\xB3n sin responder"
     not_logged_in: Necesitas estar conectado para enviar una solicitud de Ingreso.
     one: "Petici\xC3\xB3n de incorporaci\xC3\xB3n"
     asked: ""
     other: "Peticiones de incorporaci\xC3\xB3n"
     send: Enviar solicitud de Ingreso
-    updated: "Petici\xC3\xB3n actualizada"
     accepted: "Petici\xC3\xB3n aceptada"
+    updated: "Petici\xC3\xB3n actualizada"
     created: "Petici\xC3\xB3n enviada"
   share_participate_discuss: Compartir, participar, discutir.
   participant: 
-    created: "La informaci\xC3\xB3n de su asistencia se ha actualizado correctamente"
     error: 
       create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
+    created: "La informaci\xC3\xB3n de su asistencia se ha actualizado correctamente"
   login_to: Entrar en {{site}}
   upload: Subir
   invalid_credentials: "Credenciales inv\xC3\xA1lidas"
@@ -327,20 +327,20 @@ es:
     full: Nombre completo
   read_more>>: "Leer m\xC3\xA1s&gt;&gt;"
   enable: Posibilitar
+  download_file: Download file
   timezone: 
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>
     one: Zona Horaria
-  download_file: Download file
   thread: 
     show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
     add: "A\xC3\xB1adir un nuevo hilo"
     edit: Editar hilo
     deleted: Hilo ha sido eliminado
+    show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
     one: Hilo
     or_add_new: "o a\xC3\xB1adir un nuevo hilo"
-    show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
-    other: Threads
     show_comment_size: ""
+    other: Threads
   source: 
     uri: URL
     imported_at: Importada
@@ -360,15 +360,15 @@ es:
     new: "Nueva Categor\xC3\xADa"
     name: "Nombre de la Categor\xC3\xADa"
     confirm_delete: "\xC2\xBFBorrar la Categor\xC3\xADa?"
+    editing: "Editando Categor\xC3\xADa"
     domain: 
       one: Dominio
       other: Dominios
       without_categories: "{{domain}} no tiene categor\xC3\xADas"
-    editing: "Editando Categor\xC3\xADa"
     one: "Categor\xC3\xADa"
     other: "Categor\xC3\xADas"
-    description: "Descripci\xC3\xB3n"
     other_in_domain: "Categor\xC3\xADas - {{domain}}"
+    description: "Descripci\xC3\xB3n"
     updated: "Categor\xC3\xADa actualizada"
     created: "Categor\xC3\xADa creada"
   delete: 
@@ -384,9 +384,9 @@ es:
     reply: Responder a un mensaje
     one: Mensaje
     other: Mensajes
-    created: Mensaje enviado correctamente.
     error: 
       create: "Mensajes de error privado de env\xC3\xADo."
+    created: Mensaje enviado correctamente.
     incoming: 
       other: Los mensajes entrantes
   not_going: No voy
@@ -409,21 +409,21 @@ es:
   post: 
     none_created: "N \xC2\xBA puesto creado"
     found: 
-      show_all: Mostrar todos los puestos encontrados
       none: No hay mensajes encontrados
+      show_all: Mostrar todos los puestos encontrados
       one: 1 entrada se ha encontrado
       other: "{{size}} se encontraron puestos"
-    deleted: Anuncio ha sido eliminado
     up: 
       other: PUESTOS
+    deleted: Anuncio ha sido eliminado
     other: Mensajes
+    updated: Entrada actualizada
     home: 
       one: ""
-    updated: Entrada actualizada
-    created: Anuncio creado.
     error: 
       empty: "El contenido del mensaje no puede estar vac\xC3\xADo"
       not_valid: "El comentario no es v\xC3\xA1lido"
+    created: Anuncio creado.
   your_vcard: vCard
   mailing_list: Lista de correo
   request: soliciten
@@ -433,28 +433,28 @@ es:
   mobile: Mobile
   activerecord: 
     errors: 
-      models: 
       messages: 
-        greater_than_or_equal_to: debe ser mayor que o igual a {{count}}
         record_invalid: "Validaci\xC3\xB3n no: {{error}}"
-        confirmation: "no coincide con la confirmaci\xC3\xB3n"
+        greater_than_or_equal_to: debe ser mayor que o igual a {{count}}
         less_than_or_equal_to: debe ser menor que o igual a {{count}}
+        confirmation: "no coincide con la confirmaci\xC3\xB3n"
         blank: no puede estar en blanco
         exclusion: "est\xC3\xA1 reservado"
         invalid: "no es v\xC3\xA1lido"
         odd: debe ser impar
-        even: debe ser par
         too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
         wrong_length: no tiene la longitud correcta ({{count}} caracteres exactos)
         empty: "no puede estar vac\xC3\xADo"
+        even: debe ser par
         less_than: debe ser menor que {{count}}
-        greater_than: debe ser mayor que {{count}}
         equal_to: debe ser igual a {{count}}
-        too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
+        greater_than: debe ser mayor que {{count}}
         taken: "ya est\xC3\xA1 en uso"
         accepted: debe ser aceptado
-        inclusion: "no est\xC3\xA1 incluido en la lista"
+        too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
         not_a_number: "no es un n\xC3\xBAmero"
+        inclusion: "no est\xC3\xA1 incluido en la lista"
+      models: 
       attributes: 
       full_messages: 
         format: "{{atributo}} {{mensaje}}"
@@ -479,15 +479,15 @@ es:
     deleted: El grupo ha sido borrado correctamente.
     one: Grupo
     not_deleted: Error al eliminar el grupo
-    mailing_list: Lista de correo de grupo
     add_to_group: "A\xC3\xB1adir a grupo"
+    mailing_list: Lista de correo de grupo
     other: Grupos
     create: Crear nuevo grupo
     not_valid: "El grupo no es v\xC3\xA1lido"
     updated: El grupo de {{nombre}} ha sido actualizado correctamente.
     created: "El grupo de {{nombre}} ha sido creado con \xC3\xA9xito."
   disable: Desactivar
-  about: Sobre
+  about: Acerca de
   about_global: ACERCA DE GLOBAL
   agent: 
     authentication: 
@@ -501,9 +501,9 @@ es:
     select: 
       one: Seleccionar Agente
   join_to_site: Unirse a {{site}}
+  password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
   show_list_version>>: "versi\xC3\xB3n de lista muestran&gt;&gt;"
   im_new: Soy nuevo
-  password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
   country: !binary |
     UGHDrXM=
 
@@ -524,56 +524,56 @@ es:
     send: Enviar comentarios
     email: "Esta es una retroalimentaci\xC3\xB3n e-Mail:"
   event: 
-    today_size: Hoy ({{size}})
     steps: "Completa tu evento siguiente pasos:"
-    today: Los acontecimientos de hoy
-    join: Formar parte de este evento
-    edit: Editar evento
+    today_size: Hoy ({{size}})
     coming: "Pr\xC3\xB3ximas actividades"
-    last_month: El mes pasado ({{size}})
+    join: Formar parte de este evento
+    today: Los acontecimientos de hoy
+    edit: Editar evento
     no_events: "No tienes ning\xC3\xBAn evento"
+    last_month: El mes pasado ({{size}})
     today_and_yesterday: Ayer y hoy ({{size}})
     found: 
       none: No se encontraron eventos
       one: "1 caso se encontr\xC3\xB3"
       other: "{{size}} eventos encontrados"
-    held_with: "Este evento se llevar\xC3\xA1 a cabo con"
-    within_a_month: Dentro de un mes ({{size}})
-    to: Para
     up: 
       other: EVENTOS
-    follow: Siga este evento
+    to: Para
+    held_with: "Este evento se llevar\xC3\xA1 a cabo con"
+    within_a_month: Dentro de un mes ({{size}})
     one: Evento
+    follow: Siga este evento
     attend: "Asistir\xC3\xA1n"
-    other: Eventos
     tomorrow: "Ma\xC3\xB1ana eventos"
     will_attend: "\xC2\xBFQuieres asistir a este evento?"
+    other: Eventos
+    not_attend: No asisten a la
+    create: Crear un nuevo evento
     assistance_title: El estado de su asistencia a la
     last_7_days: "\xC3\x9Altimos 7 d\xC3\xADas ({{size}})"
-    create: Crear un nuevo evento
     upcoming: 
       all: "Todos los pr\xC3\xB3ximos eventos ({{size}})"
       none: "No hay pr\xC3\xB3ximos eventos"
-      other: "Pr\xC3\xB3ximos eventos"
       show: "Mostrar todos los eventos pr\xC3\xB3ximos"
-    not_attend: No asisten a la
-    home: 
-      one: Evento en el espacio {{space}}
+      other: "Pr\xC3\xB3ximos eventos"
+    Isabel: Caso de Isabel
+    updated: Evento se ha actualizado correctamente.
     past: 
       all: Todos los anteriores ({{size}})
       none: No hay eventos pasados
-      other: Eventos pasados
       show: Mostrar todos los eventos antiguos
-    updated: Evento se ha actualizado correctamente.
-    Isabel: Caso de Isabel
-    created: "Evento fue creado con \xC3\xA9xito."
+      other: Eventos pasados
+    home: 
+      one: Evento en el espacio {{space}}
     search: Buscar eventos ...
+    none_coming: "No hay eventos pr\xC3\xB3ximos"
     error: 
       dates: La primera fecha no puede ser menor que el segundo
-    online: "Evento en l\xC3\xADnea"
-    select_date: Seleccione una fecha para su evento
-    none_coming: "No hay eventos pr\xC3\xB3ximos"
     within_7_days: "Dentro de 7 d\xC3\xADas ({{size}})"
+    created: "Evento fue creado con \xC3\xA9xito."
+    select_date: Seleccione una fecha para su evento
+    online: "Evento en l\xC3\xADnea"
   address: "Direcci\xC3\xB3n"
   start_now!: Inicie ahora!
   send: Enviar
@@ -588,38 +588,38 @@ es:
   space: 
     clic_logo: Haga clic para cambiar el logotipo de
     join: El espacio de Ingreso
-    edit_name: editar el nombre de
-    delete: Eliminar el espacio
     add_user: 
       other: "A\xC3\xB1adir a los usuarios del espacio"
+    delete: Eliminar el espacio
+    edit_name: editar el nombre de
     clic: Haga clic para editar ...
     is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
     subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
     logo: Espacio Logo
-    create_own: Crea tu propio espacio.
     disabeld: "El espacio con \xC3\xA9xito con discapacidad."
     enable: Habilitar el espacio
-    deleted: El espacio se ha eliminado correctamente.
+    enabled: Espacio habilitado correctamente.
     up: 
       other: ESPACIOS
-    enabled: Espacio habilitado correctamente.
-    one: Espacio
+    deleted: El espacio se ha eliminado correctamente.
+    create_own: Crea tu propio espacio.
     about: Sobre
+    one: Espacio
     main: El espacio principal
     disable: Deshabilitar el espacio
     allow_public_access: "Permitir el acceso p\xC3\xBAblico?"
     member_of: Miembros de los espacios de
-    recent: 
-      other: Espacios Recientes
     edit_description: "editar la descripci\xC3\xB3n de"
+    configuration: "La configuraci\xC3\xB3n espacial"
+    updated: El espacio se ha actualizado correctamente.
     popular: 
       other: Espacios populares
-    updated: El espacio se ha actualizado correctamente.
-    configuration: "La configuraci\xC3\xB3n espacial"
-    created: El espacio se ha creado correctamente.
+    recent: 
+      other: Espacios Recientes
     search: "Espacio de b\xC3\xBAsqueda ..."
     error: 
       enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
+    created: El espacio se ha creado correctamente.
   conversation: 
     compress: "Conversaci\xC3\xB3n Comprimir"
   date: 
@@ -641,6 +641,7 @@ es:
     - :year
     - :month
     - :day
+    end: "Fecha de finalizaci\xC3\xB3n"
     abbr_day_names: 
     - Dom
     - Lun
@@ -649,7 +650,6 @@ es:
     - Jue
     - Vie
     - Sab
-    end: "Fecha de finalizaci\xC3\xB3n"
     formats: 
       default: "%Y-%m-%d"
       short: "%d de %b"
@@ -682,16 +682,37 @@ es:
     array: 
       sentence_connector: y
   all_rights_reserved: Todos los derechos reservados
-  consider_and_reply: Favor de considerar y responder a
   calendar: 
     my: Mi Calendario
     one: Calendario
+  consider_and_reply: Favor de considerar y responder a
   preferences: Preferencias
   permission: 
     other: Permisos
   save: Guardar
-  detail: 
-    other: Detalles
+  content: 
+    new: Nuevo Contenido
+    delete: 
+      one: Borrar Contenido
+      other: Borrar Contenidos
+    read: 
+      one: Ver Contenido
+      other: Ver Contenidos
+    one: Contenido
+    other: Contenidos
+    create: 
+      one: Crear Contenido
+      other: Crear Contenidos
+    update: 
+      one: Actualizar Contenido
+      other: Actualizar Contenidos
+  error: 
+    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
+    change: "El cambio no es v\xC3\xA1lido"
+    one: Error.
+    other: Errores.
+    credentials: "Credenciales no v\xC3\xA1lidas"
+    not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
   number: 
     format: 
       separator: ","
@@ -726,41 +747,20 @@ es:
         separator: ","
         precision: 2
         delimiter: .
-  content: 
-    new: Nuevo Contenido
-    delete: 
-      one: Borrar Contenido
-      other: Borrar Contenidos
-    read: 
-      one: Ver Contenido
-      other: Ver Contenidos
-    one: Contenido
-    other: Contenidos
-    create: 
-      one: Crear Contenido
-      other: Crear Contenidos
-    update: 
-      one: Actualizar Contenido
-      other: Actualizar Contenidos
-  error: 
-    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
-    change: "El cambio no es v\xC3\xA1lido"
-    one: Error.
-    other: Errores.
-    not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
-    credentials: "Credenciales no v\xC3\xA1lidas"
   register_as_admin: Registrarse como admin
+  detail: 
+    other: Detalles
   password_reset: "Cambio de Contrase\xC3\xB1a"
   bad_request: "Petici\xC3\xB3n Inv\xC3\xA1lida"
   profile: 
     deleted: Perfil ha sido borrado.
     one: Perfil
-    must_create: Debes crear tu primer perfil
     updated: Perfil se ha actualizado correctamente.
-    created: Perfil se ha creado correctamente.
+    must_create: Debes crear tu primer perfil
     error: 
       exist: Usted ya tiene un perfil.
     should_create: "Usted debe <a href={{path}}>crear</a> su perfil. Es muy \xC3\xBAtil."
+    created: Perfil se ha creado correctamente.
   collapse: colapso
   advanced_options: Opciones avanzadas
   performance: 
@@ -775,8 +775,8 @@ es:
       other: Ver Integrantes
     change: Cambiar
     one: Miembros
-    other: Integrantes
     without_roles_available: "No hay ning\xC3\xBAn Rol disponible. Los Integrantes no se pueden establecer."
+    other: Integrantes
     create: 
       one: Crear Integrante
       other: Crear Integrantes
@@ -786,8 +786,8 @@ es:
     updated: El rendimiento del usuario se ha actualizado correctamente.
   session: 
     error: 
-      fill: Por favor, rellene estos datos
       exist: "Usted ya est\xC3\xA1 conectado"
+      fill: Por favor, rellene estos datos
     should_create: "Usted debe crear su perfil, es muy \xC3\xBAtil"
   back: !binary |
     QXRyw6Fz
@@ -795,16 +795,16 @@ es:
   inbox: 
     my: ""
     one: Bandeja de entrada ({{checked}})
-  author: Autor
   tag: 
     show_title: Etiqueta '{{tag}}'
     one: Etiqueta
     other: Etiquetas
+  author: Autor
   remember_me: Recordarme
   click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
   openid: 
-    title: OpenID
     enter: Introduzca su OpenID
+    title: OpenID
     server: 
       required_information_by: Informacion necesaria pedida por {{server}}
       cancel: No, cancelar
@@ -812,44 +812,44 @@ es:
       trust: "S\xC3\xAD, y recordar a partir de ahora"
       anti_phishing: "Esta p\xC3\xA1gina no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir t\xC3\xBA la direcci\xC3\xB3n en el navegador."
       about_login_to: Vas a entrar en {{server}}
-      decision: "Debes elegir:"
-      invalid_uri: "Esta identidad no te pertenece: {{uri}}"
       login_to: Entrar en {{server}}
+      invalid_uri: "Esta identidad no te pertenece: {{uri}}"
+      decision: "Debes elegir:"
       optional_information_by: "Informaci\xC3\xB3n opcional pedida por {{server}}"
       endpoint: Esto es un servidor de OpenID
       must_login: Tienes que identificarte en {{server}}
     client: 
       id_attached_to_account: "OpenID: {{id}} asociado a su cuenta"
-      verification_failed: "La verificaci\xC3\xB3n fall\xC3\xB3: {{message}}"
       discovery_failed: "El descubrimiento fall\xC3\xB3 para {{id}}: {{error}}"
+      verification_failed: "La verificaci\xC3\xB3n fall\xC3\xB3: {{message}}"
       verification_failed_with_id: "La verificaci\xC3\xB3n de {{id}} fall\xC3\xB3: {{message}}"
       transaction_cancelled: "Transacci\xC3\xB3n de OpenID cancelada"
-      immediate_request_failed: "La petici\xC3\xB3n inmediata ha fallado. Se necesita configuraci\xC3\xB3n previa"
       associating_to_id: "Asociando a OpenID: {{id}}"
+      immediate_request_failed: "La petici\xC3\xB3n inmediata ha fallado. Se necesita configuraci\xC3\xB3n previa"
       verification_succeeded_with_id: "La verificaci\xC3\xB3n de {{id}} se realiz\xC3\xB3 con \xC3\xA9xito"
     have: "\xC2\xBFTiene usted un OpenID?"
-  spam: 
-    report: Report spam
-    detected: Nueva spam detectado
-    up: SPAM
-    reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
-    created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
-    error: 
-      check: Ha habido un problema control de los recursos como spam
   admission: 
     errors: 
       candidate_has_role: ya tiene un rol
     one: "Admisi\xC3\xB3n"
     other: Admisiones
+  spam: 
+    report: Report spam
+    detected: Nueva spam detectado
+    up: SPAM
+    reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
+    error: 
+      check: Ha habido un problema control de los recursos como spam
+    created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
   vcc: Virtual Conference Centre
   back_to_inbox: Volver a la bandeja de entrada
   click_here: "Haga clic aqu\xC3\xAD"
   created_at_date: "Creado: {{date}}"
   register_as_user: Registrarse como usuario
   event_invitation: 
+    discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
     new: 
       other: Invitar a gente
-    discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
     accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
   title: "T\xC3\xADtulo"
   ok: OK
@@ -859,9 +859,9 @@ es:
   logo: 
     current: Logo actual
     one: Logo
-    created: "Logo creado con \xC3\xA9xito"
     error: 
       not_valid: "El logotipo de espacio no es v\xC3\xA1lido"
+    created: "Logo creado con \xC3\xA9xito"
   description: "Descripci\xC3\xB3n"
   singular_agent: 
     anonymous: 
@@ -874,8 +874,8 @@ es:
   attachment: 
     attach: Adjunto
     not_valid: "El archivo adjunto no es v\xC3\xA1lido"
-  edit_profile: Editar perfil
   logout: Salir
+  edit_profile: Editar perfil
   stage_type: 
     one: Tipo de escenario
   your_interests_tags: Sus intereses (tags)
@@ -883,18 +883,18 @@ es:
   news: 
     publish_another: Publicar otra noticia
     edit: "Noticias Edici\xC3\xB3n"
-    deleted: "Art\xC3\xADculo suprimido correctamente"
     up: NOTICIAS
+    deleted: "Art\xC3\xADculo suprimido correctamente"
     publish_home: "Noticias de publicar en el pa\xC3\xADs"
+    updated: "Art\xC3\xADculo actualizado correctamente"
     home: 
       one: ""
       zero: No hay noticias para mostrar
-    updated: "Art\xC3\xADculo actualizado correctamente"
-    created: "Nuevo \xC3\xA9xito de publicaci\xC3\xB3n."
     error: 
       delete: Error al eliminar el tema
       create: "Hubo un problema de publicaci\xC3\xB3n de noticias."
       update: "Art\xC3\xADculo no se pudo actualizar"
+    created: "Nuevo \xC3\xA9xito de publicaci\xC3\xB3n."
   about_sxsw: Acerca de SXSW
   resource: 
     one: Recurso

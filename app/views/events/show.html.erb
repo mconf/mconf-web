@@ -2,10 +2,10 @@
 <% atom_link_header(space, Event.new) %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle' %>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
 <%end%>
 
-<% content_for :javascript do %>
+<% content_for :javascript do %>	
   <%= render :partial => 'date_and_timepicker.js.erb' %>
 	
 	style_file_input();
@@ -15,11 +15,24 @@
 		  this.value="";
 		}
 	});
+	
+	$("#show_inv").click(function(){
+	  $("#full_sidebar").hide();	  
+	  $("#expanded_invite").show();
+	});
+	
+	$("#add_comment").click(function(){
+	  $("#full_sidebar").show();	  
+	  $("#expanded_invite").hide();
+	  $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+	});
+	
 <% end %>
 
 
 <% content_for :sidebar do  %>
-    <%if @space.authorizes?([:create, :content],:to => current_user)%>
+    <div id="full_sidebar">
+      <%if @space.authorizes?([:create, :content],:to => current_user)%>
   	 <%if params[:edit_event]%>
      	  <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	   <%elsif params[:edit_comment]%>
@@ -27,8 +40,14 @@
 	   <%else%>
 	     <%=render :partial => 'new_comment'%>
   	<%end%>
+     <%end%>
+     <%= render :partial => 'participants' %>
+   </div>
+   <%if current_user.superuser || @event.authorizes?(:update, :to => current_user) %>
+     <div id="questions">
+        <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+     </div>
    <%end%>
-   <%= render :partial => 'participants' %>
 <%end%>
 
 
@@ -71,6 +90,12 @@
 		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
 		<%end%>
     </ul>
+    <%if current_user.superuser || @event.authorizes?(:update, :to => current_user) %>
+      <div id="questions">
+        <%=link_to t('invitation.add_more'), "#", {:id=>"show_inv", :title => t('invitation.add_more')} %>
+        <%=link_to t('comment.add'), "#", {:id=>"add_comment", :title => t('comment.add')} %>
+      </div>
+    <%end%>
  </div>
 <%unless @comments.empty?%> 
 	<div>

@@ -192,7 +192,6 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.xml
   def update
-
     respond_to do |format|
       if @event.update_attributes(params[:event])
 		#if the event is not marte, we have to remove the room in case it had it already assigned
@@ -201,7 +200,7 @@ class EventsController < ApplicationController
 		end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
-        format.html {redirect_to space_events_path(@space) }
+        format.html {redirect_to space_event_path(@space, @event) }
         format.xml  { head :ok }
       else
         format.html { message = ""
