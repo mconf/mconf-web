@@ -23,7 +23,12 @@ class EventInvitationsController < ApplicationController
       redirect_to root_path
       return
     end
-
+    @event = Event.find(@invitation.event_id);
+    @space = Space.find(@invitation.group_id);
+    @assistants = []
+    @no_assistants = []
+    @not_responding_candidates = []
+    @not_responding_emails = []
     respond_to do |format|
       format.html {
         @candidate = User.new

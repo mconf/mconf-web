@@ -188,7 +188,7 @@ en:
       none: No upcoming events
       other: Upcoming events
       show: Show all upcoming events
-    will_attend: "Are you attending this event?"
+    will_attend: "Planning to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
   event_invitation:
