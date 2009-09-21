@@ -25,10 +25,10 @@ class EventInvitationsController < ApplicationController
     end
     @event = Event.find(@invitation.event_id);
     @space = Space.find(@invitation.group_id);
-    @assistants = []
-    @no_assistants = []
-    @not_responding_candidates = []
-    @not_responding_emails = []
+    @assistants =  @event.participants.select{|p| p.attend == true}
+    @no_assistants = @event.participants.select{|p| p.attend != true} 
+    @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
+    @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
     respond_to do |format|
       format.html {
         @candidate = User.new

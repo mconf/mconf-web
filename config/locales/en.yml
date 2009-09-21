@@ -24,6 +24,7 @@ en:
   agree: "Yes"
   all: All
   all_rights_reserved: All rights reserved
+  at: at
   attachment:
     attach: "Attachment"
     not_valid: "The attachment is not valid"
@@ -196,6 +197,7 @@ en:
     discarded: "The invitation to this event has been discarded"
     new:
       other: "Invite people"
+    title: Event Invitation
   ######### F ###########
   fax: Fax
   feedback:
@@ -661,6 +663,7 @@ en:
   ######### W ###########
   week:
     next: Next week
+  when: When
   
   ######### X ###########
   

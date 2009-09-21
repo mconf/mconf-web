@@ -4,13 +4,21 @@
 
 <div class="invitation-box">
 	<div id="title">
-		<h3>Event Invitation</h3>
+		<h3><%=t("event_invitation.title")%></h3>
 	</div>
 <div id="invitation_content">
-		  <h2 class="item_title">Space: <%= t 'invitation.show', :group => @invitation.group.name %></h2>
-	    <%=@invitation.group.description%>
-	  <h2 class="item_title">Event: <%= @event.name %></h2>
-	    <%=@event.description%>
+	<div id="logo">
+	  <%= link_logo(@space, :size => "h64", :title=>@space.name) %>
+	</div>
+	<div id="invitation_content_inside" class="left-align">
+	  <h3 class="item_title"><%=image_tag("icons/date.png", :class=>"icon")%> <%= @event.name %></h3>
+	  <p><span class="bold blue"><%=t("when")%>:</span> <%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%> <%=t("at")%> <%=@event.start_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</p>
+	  <p><span class="bold blue"><%= t('organizer') %>:</span> <%=sanitize(@event.author.name)%></p>
+	  <p><span class="bold blue"><%=t("description")%>:</span> <%=@event.description%></p>
+	</div>
+
+
+
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
