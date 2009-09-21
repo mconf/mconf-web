@@ -140,13 +140,15 @@ end
     self.update_attribute(:disabled,false)
   end
 
-  acl_set do |acl, user|
-    unless user.disabled?
-      acl << [ user, :manage, :message ]
-      user.fellows.each do |f|
-        acl << [ f, :read, :profile ]
-      end
-    end
+  private
+
+  authorizing do |agent, permission|
+    return false if disabled?
+
+    return true if agent == self
+
+    return true if permission == [ :read, :profile ] && fellows.include?(agent)
+
+    false
   end
- 
 end

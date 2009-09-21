@@ -18,8 +18,14 @@ class Attachment < ActiveRecord::Base
     return " " + (self.size/1024).to_s + " kb" 
   end
 
-  acl_set do |acl, attachment|
-    acl.concat(attachment.send(attachment.parent.present? ? :parent : :post).acl)
+  def auth_delegate
+    parent.present? ?
+      parent :
+      post
+  end
+
+  authorizing do |agent, permission|
+    auth_delegate.authorize? permission, :to => agent
   end
 
   # Implement atom_entry_filter for AtomPub support

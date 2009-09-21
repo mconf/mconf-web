@@ -42,8 +42,9 @@ class PrivateMessage < ActiveRecord::Base
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
 
-  acl_set do |acl, pm|
-    acl << [ pm.sender, :read ]
-    acl << [ pm.receiver, :read ]
+  authorizing do |agent, permission|
+    return true if permission == :read && agent == sender
+    return true if permission == :read && agent == receiver
+    false
   end
 end

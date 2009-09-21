@@ -106,8 +106,9 @@ class Post < ActiveRecord::Base
   end    
 
   # Additional Permissions
-  acl_set do |acl, post|
-    acl << [ post.author, :update ]
-    acl << [ post.author, :delete ]
+  authorizing do |agent, permission|
+    return true if permission == :update && author == agent
+    return true if permission == :delete && author == agent
+    false
   end
 end

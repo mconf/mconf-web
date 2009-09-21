@@ -71,14 +71,6 @@ class Space < ActiveRecord::Base
     { :space => space }
   end
 
-  acl_set do |acl, space|
-    if space.public?
-      acl << [ Anyone.current, :read ]
-      acl << [ Anyone.current, :read, :content ]
-      acl << [ Anyone.current, :read, :performance ]
-    end
-  end
-
   def disable
     self.update_attribute(:disabled,true)
   end
@@ -86,5 +78,17 @@ class Space < ActiveRecord::Base
   def enable
     self.update_attribute(:disabled,false)
   end
-  
+
+  authorizing do |agent, permission|
+    return false unless self.public?
+
+    case permission
+    when :read, [ :read, :content ], [ :read, :performance ]
+      true
+    else
+      false
+    end
+  end
+
+ 
 end

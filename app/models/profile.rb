@@ -5,15 +5,6 @@ class Profile < ActiveRecord::Base
   acts_as_taggable
   has_logo :class_name => "Avatar"
 
-  acl_set do |acl, profile|
-    acl << [ profile.user, :read ]
-    acl << [ profile.user, :manage ]
-
-    profile.user.fellows.each do |f|
-      acl << [ f, :read ]
-    end
-  end
- 
   def self.atom_parser(data)
 
     e = Atom::Entry.parse(data)
@@ -44,5 +35,12 @@ class Profile < ActiveRecord::Base
     
     return resultado     
   end   
-  
+
+  authorizing do |agent, permission|
+    return true if self.user == agent
+
+    return true if permission == :read && self.user.fellows.include?(agent)
+
+    false
+  end
 end

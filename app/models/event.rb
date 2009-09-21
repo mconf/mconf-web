@@ -121,8 +121,9 @@ class Event < ActiveRecord::Base
     end
   end
 
-  acl_set do |acl, event|
-    acl << [ event.author, :update ]
-    acl << [ event.author, :delete ]
+  authorizing do |agent, permission|
+    return true if permission == :update && author == agent
+    return true if permission == :delete && author == agent
+    false
   end
 end
