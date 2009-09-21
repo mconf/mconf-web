@@ -65,7 +65,6 @@
 	<div id="inc-events">
      <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
-		 	<%= t('') %>
 		 	<%if @upcoming_events.empty?%>
 			  <p><%= t('event.upcoming.none') %></p>
 			<%else%>
