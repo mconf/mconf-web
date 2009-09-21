@@ -79,7 +79,7 @@ def profile!
 end
 
   def spaces
-    stages.select{ |s| s.is_a?(Space) }.sort_by{ |s| s.name }
+    stages.select{ |s| s.is_a?(Space) && !s.disabled? }.sort_by{ |s| s.name }
   end
 
   def other_public_spaces
