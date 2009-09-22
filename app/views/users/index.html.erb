@@ -11,7 +11,7 @@
 <!-- Ojo, esto hay que pensar qué queremos que se vea aquí -->
 	<%if params[:send_message]%>
 		<%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
-	<%elsif space.users.include?(current_user) and @space.authorizes?([:create, :performance], :to => current_user) %>
+	<%elsif space.users.include?(current_user) and @space.authorize?([:create, :performance], :to => current_user) %>
 		<%= render :partial => 'admissions/new_invitation' %>
 	<%else%>
 <!--

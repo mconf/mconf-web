@@ -13,23 +13,23 @@
 
  
 	<div class="post-logo">
-	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
+	  <%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
 		<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>
 	  <%else%>
 	    <%=logo(post.author, :size=>22, :title=>post.author.name)%>
 	  <%end%>
 	</div>	
 	<div class="post-content">
-	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+	  <%if post.author.authorize?([:read, :profile],:to=> current_user)%>
 	    <div id="edit" class="group_links">
 	    <%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam != true%> 
-	  	<%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorizes?(:update, :to => current_user)%> 
-		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm')}) if post.authorizes?(:delete, :to => current_user)%> 
+	  	<%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%> 
+		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm')}) if post.authorize?(:delete, :to => current_user)%> 
 	    </div>
 	  <%end%>
 	  <ul>
 	  	<li class="person_title">
-                <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
+                <%= link_to_if post.author.authorize?([:read, :profile],:to=> current_user),
                                post.author.name,
                                user_profile_path(post.author)
                 %>

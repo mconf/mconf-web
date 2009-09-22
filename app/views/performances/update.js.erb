@@ -1,5 +1,8 @@
 <% if @update_errors=="" %>
-alert("ok");
+$("#flash_div").html("Role successfully updated...");
+$("#flash_div").show();
+setTimeout('$("#flash_div").slideUp("slow")',3000);
+
 <% else %>
 alert("ERROR <br /> <%=@update_params%>");
 <% end %>

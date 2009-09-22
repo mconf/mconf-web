@@ -80,7 +80,7 @@
 		 <br/>
 		 <div class="read_more">
 		 	<img src="../images/icons/reply.png"></img>
-		   <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user) %>
+		   <%= link_to "Read more", space_events_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user) %>
 		   
 		 </div>
   </div>
@@ -119,7 +119,7 @@
 	      </div>
 	    <% end -%>
 	    <div class="read_more"> 
-	      <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorizes?([:read, :content], :to => current_user)%>
+	      <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user)%>
 	    </div>
 	  <%end%>     
 </div>
@@ -128,7 +128,7 @@
   <h3><%=image_tag("icons/user.png")%><%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
   <% for user in @lastest_users -%>
     <div class="user">
-    	<%if user.authorizes?([:read, :profile],:to=> current_user)%>
+    	<%if user.authorize?([:read, :profile],:to=> current_user)%>
 			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
 			<div><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
 			<div>
@@ -150,7 +150,7 @@
     </div>
   <% end -%>
   <div class="read_more">
-    <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorizes?([:read, :performance], :to => current_user)%>
+    <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorize?([:read, :performance], :to => current_user)%>
   </div>
 </div>
 

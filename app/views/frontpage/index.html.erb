@@ -30,7 +30,7 @@
 			
 			<div>
 				<%for user in @relevant_users%>
-				  <%if user.authorizes?([:read, :profile],:to=> current_user)%>
+				  <%if user.authorize?([:read, :profile],:to=> current_user)%>
 					  <%=link_to logo(user, {:size=>48, :title=> user.name }), user_profile_path(user)%>
 					<%else%>
 					  <%=logo(user, {:size=>48, :title=> user.name })%>

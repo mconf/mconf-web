@@ -37,10 +37,10 @@
 			<%end%>
 			
 			<div>
-				<%if @space.authorizes?(current_user, [:create , :Performance]) && (@space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true)%>
+				<%if @space.authorize?(current_user, [:create , :Performance]) && (@space.role_for?(current_user, :name => 'Admin') || current_user.superuser == true)%>
 				<%= link_to_function t('register_as_admin'), "register_admin()" %><br/>
 				<%end%>
-				<%if @space.authorizes?(current_user, [:create , :Performance]) %>
+				<%if @space.authorize?(current_user, [:create , :Performance]) %>
 				<%= link_to_function t('register_as_user'),:onclick=>"register_user()" %><br/>
 				<%= link_to_function t('register_as_invited'),:onclick=>"register_invited()"%><br/>		
 				<%end%>
@@ -67,7 +67,7 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Admin"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
+		<%if @space.authorize?(current_user, [:delete , :Performance])%>
 		<div>
 			<%= link_to_function t('remove'),:onclick=>"document.remove_admin_form.submit()", :class => "secund" %><br/>	
 		</div>
@@ -89,7 +89,7 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="User"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-				<%if @space.authorizes?(current_user, [:delete , :Performance])%>
+				<%if @space.authorize?(current_user, [:delete , :Performance])%>
 		<div >
 			<%= link_to_function t('remove'),:onclick=>"document.remove_user_form.submit()", :class => "secund" %><br/>	
 		</div>
@@ -110,7 +110,7 @@
 			             :size     => 10 } %>
 		    <input type=hidden name="user_role" id="user_role" value="Invited"/>
 			<input type=hidden name="remove_from_space" id="remove_from_space" value="true"/>
-		<%if @space.authorizes?(current_user, [:delete , :Performance])%>
+		<%if @space.authorize?(current_user, [:delete , :Performance])%>
 		<div>
 			<%= link_to_function t('remove'),:onclick=>"document.remove_invited_form.submit()", :class => "secund" %><br/>	
 		</div>

@@ -27,7 +27,7 @@
 <% content_for :sidebar do  %>
   <%if params[:send_message]%>
     <%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
-  <%elsif @space.authorizes?([:manage, :group], :to => current_user)%>
+  <%elsif @space.authorize?([:manage, :group], :to => current_user)%>
     <%= render :partial => 'create_group', :locals=> {:group => @editing_group} %>
   <%end%>
 <% end %>

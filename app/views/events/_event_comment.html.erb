@@ -7,7 +7,7 @@
 	<%div_for (post, :class=>"post_moved") do%>
 	  	
 			<div class="post-logo">
-				<%if post.author.authorizes?([:read, :profile],:to=> current_user)%>	
+				<%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
 					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>
 				<%else%>
 					<%=logo(post.author, :size=>22, :title=>post.author.name)%>
@@ -17,13 +17,13 @@
 		  <div class="post-content">
 		    <div id="edit" class="group_links">
 		    	<%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => "Report Spam"}) if logged_in? && post.spam == false%>
-	      	<%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorizes?(:update, :to => current_user)%>
-					<%=link_to(image_tag("icons/cancel.png", :alt => "delete comment"), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => "delete comment",:confirm => "are you sure?"}) if post.authorizes?(:update, :to => current_user)%>
+	      	<%=link_to(image_tag("icons/comment-edit.png", :alt => "edit comment"), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => "edit comment"}) if post.authorize?(:update, :to => current_user)%>
+					<%=link_to(image_tag("icons/cancel.png", :alt => "delete comment"), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => "delete comment",:confirm => "are you sure?"}) if post.authorize?(:update, :to => current_user)%>
 		    </div>
 
 				<ul>
 			  	<li class="person_title">
-				  	<%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+				  	<%if post.author.authorize?([:read, :profile],:to=> current_user)%>
 					    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
 					  <%else%>
 					    <%=post.author.name%>

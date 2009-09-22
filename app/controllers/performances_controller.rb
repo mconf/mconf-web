@@ -10,7 +10,7 @@ class PerformancesController
 
     respond_to do |format|
       format.html { 
-        redirect_to(@performance.stage.authorizes?(:read, :to => current_agent) ? request.referer : root_path)
+        redirect_to(@performance.stage.authorize?(:read, :to => current_agent) ? request.referer : root_path)
       }
 
       format.js {

@@ -76,8 +76,9 @@
 		    Admin
 		  <%else%>
 		    <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
-	          <%end%>
+	          <%end%>	          
 		</li>
+		
 	 </ul>
 	 
 	 <div id="selected_groups_<%=performance.id%>" class="selected_groups">
