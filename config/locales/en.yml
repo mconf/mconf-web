@@ -455,6 +455,7 @@ en:
     new: New role
     one: "Role"
     other: "Roles"
+    sucess_update: "Role successfully updated..."
   RSS: RSS
   
   ######### S ###########

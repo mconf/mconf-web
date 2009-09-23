@@ -1,5 +1,5 @@
 <% if @update_errors=="" %>
-$("#flash_div").html("Role successfully updated...");
+$("#flash_div").html("<%=I18n.t('role.sucess_update')%>");
 $("#flash_div").show();
 setTimeout('$("#flash_div").slideUp("slow")',3000);
 
