@@ -32,7 +32,7 @@ module PostsHelper
   end
   
   def first_words( text, size )
-    return truncate(text, size, "...")
+    return truncate(text, :lenght => size, :omision => "...")
 
     #!!!! WARNING !!!
     if text.length > size
