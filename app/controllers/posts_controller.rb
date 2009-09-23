@@ -244,7 +244,7 @@ class PostsController < ApplicationController
     respond_to do |format| 
       format.html {
         if request.referer == nil
-          redirect_to(:action => "index")
+          redirect_to(space_posts_path)
         else
           redirect_to request.referer
         end
