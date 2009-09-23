@@ -29,7 +29,10 @@ class ApplicationController < ActionController::Base
   before_filter :not_activated_warning
   def not_activated_warning
     if authenticated? && ! current_agent.active?
-      flash[:notice] = t('user.not_activated')
+      #if the account is going to be activated we only show the activaton flash not this one
+      unless params[:controller] == "users" && params[:action]=="activate"
+        flash[:notice] = t('user.not_activated')
+      end
     end
   end
   
