@@ -57,4 +57,21 @@ module PostsHelper
     (text.include?("<") && text.include?("</") && text.include?(">")) ? text : simple_format(text)
   end
   
+  def get_today_posts(posts)
+    posts.select{|x| x.updated_at > Date.yesterday}
+  end
+  
+  def get_yesterday_posts(posts)
+    posts.select{|x| x.updated_at > Date.yesterday - 1 && x.updated_at < Date.yesterday}
+  end
+  
+  def get_last_week_posts(posts)
+    posts.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}
+  end
+  
+  def get_older_posts(posts)
+    posts.select{|x| x.updated_at < Date.today - 7}
+  end
+  
+  
 end

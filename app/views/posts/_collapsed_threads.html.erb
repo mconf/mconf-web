@@ -1,4 +1,9 @@
 <div id="posts">
+	<% today = get_today_posts(threads) %>
+	<% yesterday = get_yesterday_posts(threads) %>
+	<% last_week = get_last_week_posts(threads) %>
+	<% older = get_older_posts(threads) %>
+	
   <%if today.empty? && yesterday.empty? && last_week.empty? && older.empty?%>
     <p><%= t('no_messages_in_forum') %></p>
   <%end%>

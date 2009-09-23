@@ -287,6 +287,6 @@ $("a.edit_post_link").click(function(){
 <%if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
   <%= render :partial => "extended_threads", :locals => {:threads => @posts} %>
 <%else%>
-  <%= render :partial => "collapsed_threads", :locals => {:today => @today, :yesterday => @yesterday, :last_week => @last_week, :older => @older} %>
+  <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
 <%end%>
 <%= will_paginate @posts %>
