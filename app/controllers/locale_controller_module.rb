@@ -1,6 +1,6 @@
 module LocaleControllerModule
   def set_vcc_locale
-    if !current_site.authorize? (:translate, :to => current_user)
+    if !current_site.authorize?(:translate, :to => current_user)
       I18n.locale = I18n.default_locale
     else
       if logged_in? && current_user.locale.present? && I18n.available_locales.include?(current_user.locale.to_sym)

@@ -31,13 +31,13 @@
 		  <ul class="thread-title">      
 	      	<li>
 	      	   <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>
-		         <span><%=link_to (thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
+		         <span><%=link_to(thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
 			  <%else%>
 			    <span class="bold blue"><%=thread.author.name%>: </span>
 			  <%end%>
-			  <%=link_to (first_words(thread.title, 32), space_post_path(@space,thread),:class=>"bold") if @space.authorize?([:read, :content],:to => current_user)%>
+			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"bold") if @space.authorize?([:read, :content],:to => current_user)%>
 			  <%if thread.attachments.any?%>
-			    <%=image_tag ("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
+			    <%=image_tag("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
 			  <%end%>
 			  <span class="updated extend_thread"<%='style="display:none"' if extended%>><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
 			</li>
@@ -70,7 +70,7 @@
 		    <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
 		  <%else%>-->
 			<%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
-			<%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
+			<%=link_to(t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
 		  <!--<%end%>-->
 		</div>
 	  <%end%>
