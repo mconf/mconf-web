@@ -64,6 +64,24 @@ a.button, button, #sidebar input[type=submit] {
   cursor:pointer;
   -webkit-border-radius:7px;-moz-border-radius:7px;
 }
+button.join-space,button.leave-space{
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-size:120%;
+  line-height:150%;
+  text-decoration:none;
+  font-weight:bold;
+  color:#FFF;
+  cursor:pointer;
+  -webkit-border-radius:5px;-moz-border-radius:5px;
+}
+
+#sidebar #join a:hover{text-decoration:none;}
+button.join-space{border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/tmp/fondo-join-space.png");width:195px;}
+button.join-space:hover{background:url("/images/tmp/fondo-join-space2.png");}
+button.leave-space{border-bottom:1px #626262 solid;border-top:1px #797979 solid;border-left:1px #797979 solid;border-right:1px #797979 solid;background:url("/images/tmp/leave-space-notext2.png");width:195px;}
+
+
+
 /* forms.css */
 .error, .notice, .success {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
