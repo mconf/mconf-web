@@ -70,7 +70,15 @@
 	  <%=hidden_field_tag 'update_groups'%>
 	  <ul>
 		<li><label for="name"><%=t('name.one')%>: </label><strong><%=sanitize(user.full_name) %></strong></li>
-		<li><label for="admin"><%=t('role.one')%>: </label><%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %></li>
+		<li>
+		  <label for="admin"><%=t('role.one')%>: </label>
+		  <%if is_last_admin(@space, performance)%>
+		    Admin
+		  <%else%>
+		    <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+	          <%end%>	          
+		</li>
+		
 	 </ul>
 	 
 	 <div id="selected_groups_<%=performance.id%>" class="selected_groups">

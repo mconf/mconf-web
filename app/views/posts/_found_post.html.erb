@@ -22,7 +22,7 @@
 
 <%div_for post do%>
 <div class="post-logo">
-  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>
+  <%if current_user.fellows.include?(post.author) or space.authorize?([:read, :performance],:to=> current_user)%>
     <%=link_logo(post.author,:size=>32, :url => user_profile_path(post.author), :title=>post.author.name)%>
   <%else%>
     <%=logo(post.author, :size=>32)%>
@@ -34,7 +34,7 @@
 	<%=link_to(image_tag("icons/comments-add.png", :alt => t('comment.add'), :class=>"icon", :title => t('comment.add')), space_post_path(post.space, thread(post), :reply_to => thread(post)))%>
   </div>
   <ul>
-  <%if current_user.fellows.include?(post.author) or space.authorizes?([:read, :performance],:to=> current_user)%>	
+  <%if current_user.fellows.include?(post.author) or space.authorize?([:read, :performance],:to=> current_user)%>	
 	<li class="person_title">Author: <%=link_to highlight(post.author.name, @query), user_profile_path(post.author)%> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
   <%else%>
     <li class="person_title">Author: <%=highlight(post.author.name, @query)%> Thread:  <%=link_to highligth(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
@@ -46,7 +46,7 @@
 
     <li id="expanded_post_<%=post.id%>">
      <%=sanitize(highlight(post.text,@query))%>
-     <%=link_to image_tag("icons/comment-edit.png", :alt => t('comment.edit')), get_edit_route(post), :title => t('comment.edit') if post.authorizes?(:update, :to => current_user)%>
+     <%=link_to image_tag("icons/comment-edit.png", :alt => t('comment.edit')), get_edit_route(post), :title => t('comment.edit') if post.authorize?(:update, :to => current_user)%>
     </li>
    </ul>
 </div>  

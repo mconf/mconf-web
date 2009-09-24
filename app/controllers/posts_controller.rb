@@ -10,28 +10,22 @@ class PostsController < ApplicationController
   before_filter :space!
   
   before_filter :post, :except => [ :index, :new, :create]
-
+  
   authorization_filter [ :read, :content ],   :space, :only => [ :index ]
   authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
   authorization_filter :read,   :post, :only => [ :show ]
   authorization_filter :update, :post, :only => [ :edit, :update ]
   authorization_filter :delete, :post, :only => [ :destroy ]
-
+  
   def index
     posts
-    if params[:extended]=="false" || (!params[:extended] && !current_user.expanded_post)
-      @today = @posts.select{|x| x.updated_at > Date.yesterday}
-      @yesterday = @posts.select{|x| x.updated_at > Date.yesterday - 1 && x.updated_at < Date.yesterday}
-      @last_week = @posts.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}
-      @older = @posts.select{|x| x.updated_at < Date.today - 7}
-    end
     respond_to do |format|
       format.html 
       format.atom 
       format.xml { render :xml => @posts }
     end
   end
-
+  
   # Show this Entry
   #   GET /posts/:id
   def show
@@ -40,18 +34,18 @@ class PostsController < ApplicationController
     else
       post_comments(post)  
     end
-
+    
     respond_to do |format|
       format.html {
         if request.xhr?
           if params[:edit]
-                if !post.attachments.empty? 
-                  if !post.attachments.select{|a| a.image?}.empty?     
-                    params[:form]='photos'
-                  else
-                    params[:form]='docs'
-                  end
-                end
+            if !post.attachments.empty? 
+              if !post.attachments.select{|a| a.image?}.empty?     
+                params[:form]='photos'
+              else
+                params[:form]='docs'
+              end
+            end
             if post.parent_id
               render :partial => "edit_reply", :locals => { :post => post }
             else
@@ -69,7 +63,7 @@ class PostsController < ApplicationController
       format.json { render :json => @post.to_json }
     end
   end
-
+  
   def new
     @post = Post.parent_scoped.in_container(@space).find(params[:reply]) if params[:reply]
     
@@ -91,7 +85,7 @@ class PostsController < ApplicationController
       }
     end  
   end
-
+  
   # Renders form for editing this Entry metadata
   #   GET /posts/:id/edit
   def edit
@@ -123,16 +117,16 @@ class PostsController < ApplicationController
     @post.author = current_agent
     # Para comentarios desde el espacio Public
     # FIXME? Quitar si se elimina el espacio Public
-
+    
     @post.space = params[:post][:parent_id] ?
-                         @post.parent.space :
-                         @space
-  
-  
+    @post.parent.space :
+    @space
+    
+    
     unless @post.valid?
       respond_to do |format|
         format.js{
-        if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] =  t('post.error.not_valid')
             return
           else
@@ -146,12 +140,12 @@ class PostsController < ApplicationController
             flash[:error] = t('post.error.not_valid') 
             posts
             render :action => "index"
-
+            
           else
             flash[:error] = t('post.error.empty')
             posts
             render :action => "index"
-               
+            
           end
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
@@ -161,23 +155,23 @@ class PostsController < ApplicationController
     end  
     
     #Creación de los Attachments
-   if params[:uploaded_data].present?
-     @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
-   end
-   if @attachment && !@attachment.valid?
-     flash[:error] = t('attachment.not_valid')
-     respond_to do |format|
-       
-       format.html{
-         posts
-         params[:form]="photos"
-         render :action => "index"
-         return
-       }
+    if params[:uploaded_data].present?
+      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+    end
+    if @attachment && !@attachment.valid?
+      flash[:error] = t('attachment.not_valid')
+      respond_to do |format|
+        
+        format.html{
+          posts
+          params[:form]="photos"
+          render :action => "index"
+          return
+        }
       end
-   end
-   
- 
+    end
+    
+    
 =begin    
     i=0;
     @attachments = []
@@ -199,11 +193,11 @@ class PostsController < ApplicationController
       end
     end
 =end
-
-if !@attachment and !@post.text.present?
-	 respond_to do |format|
+    
+    if !@attachment and !@post.text.present?
+      respond_to do |format|
         format.js{
-        if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] = t('post.error.not_valid') 
             return
           else
@@ -217,25 +211,25 @@ if !@attachment and !@post.text.present?
             flash[:error] = t('post.error.not_valid') 
             posts
             render :action => "index"
-
+            
           else
             flash[:error] = t('post.error.empty')
             posts
             render :action => "index"
-               
+            
           end
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
         format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
       end
       return
-end
-
+    end
+    
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.created')
     if @attachment
-    @attachment.post = @post
-    @attachment.save!
+      @attachment.post = @post
+      @attachment.save!
     end
     #asignacion de los padres del attachment al articulo
 =begin    @attachments.each do |attach|
@@ -249,7 +243,11 @@ end
 =end              
     respond_to do |format| 
       format.html {
-        redirect_to request.referer
+        if request.referer == nil
+          redirect_to(space_posts_path)
+        else
+          redirect_to request.referer
+        end
       }
       format.js {
         if params[:show]
@@ -275,7 +273,7 @@ end
     @post.attributes = params[:post]
     #@post.author = current_agent #Problema.Con esto edito al usuario por eso lo cambio
     
-
+    
     unless @post.valid?
       respond_to do |format|
         format.html {
@@ -299,20 +297,20 @@ end
     i += 1;
     }
 =end
-       #Creación de los Attachments
-   if params[:uploaded_data].present?
-     @post.attachments.destroy_all
-     @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
-   end
-   if @attachment && !@attachment.valid?
-        flash[:error] = t('attachment.not_valid') 
-        render :action => "index"
-        return
-   end
-   
-   
-   @post.save! #salvamos el artículo y con ello su entrada asociada  
-     flash[:success] = t('post.updated')
+    #Creación de los Attachments
+    if params[:uploaded_data].present?
+      @post.attachments.destroy_all
+      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+    end
+    if @attachment && !@attachment.valid?
+      flash[:error] = t('attachment.not_valid') 
+      render :action => "index"
+      return
+    end
+    
+    
+    @post.save! #salvamos el artículo y con ello su entrada asociada  
+    flash[:success] = t('post.updated')
     if @attachment
       @attachment.post = @post
       @attachment.save!
@@ -353,20 +351,20 @@ end
 =end           
     respond_to do |format|
       format.html { 
-          redirect_to request.referer
+        redirect_to request.referer
       }
       format.atom { head :ok }
     end
   end
-
+  
   # Delete this Entry
   #   DELETE /spaces/:id/posts/:id --> :method => delete
   def destroy
-   #destroy de content of the post. Then its container(post) is destroyed automatic.
-   @post.destroy 
+    #destroy de content of the post. Then its container(post) is destroyed automatic.
+    @post.destroy 
     respond_to do |format|
       if !@post.event.nil?
-      flash[:notice] = t('post.deleted')  
+        flash[:notice] = t('post.deleted')  
         format.html {redirect_to space_event_path(@space, @post.event)}
       elsif @post.parent_id.nil?
         flash[:notice] = t('thread.deleted')  
@@ -378,30 +376,30 @@ end
       format.js 
       format.atom { head :ok }
       # FIXME: Check AtomPub, RFC 5023
-#      format.send(mime_type) { head :ok }
+      #      format.send(mime_type) { head :ok }
       format.xml { head :ok }
     end
   end
-
+  
   private
-
+  
   # DRY (used in index and create.js)
   def posts
-   per_page = params[:extended] ? 6 : 15
-   @posts ||= Post.parent_scoped.in_container(@space).not_events().find(:all, 
+    per_page = params[:extended] ? 6 : 15
+    @posts ||= Post.parent_scoped.in_container(@space).not_events().find(:all, 
                                                      :order => "updated_at DESC"
-                                                   ).paginate(:page => params[:page],
+    ).paginate(:page => params[:page],
                                                               :per_page => per_page)       
-  
+    
   end
-
+  
   def post_comments(parent_post, options = {})
     total_posts = parent_post.children
     per_page = 5
     page = params[:page] || options[:last] && total_posts.size.to_f./(per_page).ceil
     page = nil if page == 0
-
+    
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
-
+  
 end

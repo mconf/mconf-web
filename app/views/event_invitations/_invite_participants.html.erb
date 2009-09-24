@@ -157,7 +157,7 @@
 	</div>
 	
 	<div id="no_responding">
-		<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorizes?([:update], :to=>current_user) %>
+		<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorize?([:update], :to=>current_user) %>
 		  <div id="no_responding_lite" <%= 'style="display: none;"' if params[:all_no_responding] or params[:list_no_responding]%>>
 				<%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
 				 <h5><%= t('user.not_confirmed') %></h5>

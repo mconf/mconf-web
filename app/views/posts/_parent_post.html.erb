@@ -6,7 +6,7 @@
 	
 	<%if @show_view%>
 	<div class="parent-post-logo">
-	  <%if post.author.authorizes?([:read, :profile],:to=> current_user)%>
+	  <%if post.author.authorize?([:read, :profile],:to=> current_user)%>
 	    <%= link_logo(post.author, :size => 32, :url => user_profile_path(post.author), :title=>post.author.name) %>
 	  <%else%>
 	    <%=logo(post.author, :size=>32, :title=>post.author.name)%>
@@ -18,7 +18,7 @@
 
 			<%if @show_view%>
 			<div class="person_title">
-                        <%= link_to_if post.author.authorizes?([:read, :profile],:to=> current_user),
+                        <%= link_to_if post.author.authorize?([:read, :profile],:to=> current_user),
                                        post.author.name,
                                        user_profile_path(post.author)%>
 			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>

@@ -259,7 +259,7 @@ $("a.edit_post_link").click(function(){
 	  <p><%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%><%= sanitize(space.description) if space.description.present? %></p>
 	</div>	
 	<a id="add" name="add"></a>
-  <%if @space.authorizes?([:create, :content],:to => current_user)%>
+  <%if @space.authorize?([:create, :content],:to => current_user)%>
 	
   	<% if params[:reply_to]%>
       	<%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
@@ -280,13 +280,13 @@ $("a.edit_post_link").click(function(){
 
 <!-- Content -->
 <div id="change_view">
-  <%=("Want to compress all conversations? " + link_to ("Switch to compact view", space_posts_path(@space, :extended => "false"))) if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
-  <%=("Want to see more about the threads? " + link_to ("Switch to extended view", space_posts_path(@space, :extended => "true"))) unless params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
+  <%=("Want to compress all conversations? " + link_to("Switch to compact view", space_posts_path(@space, :extended => "false"))) if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
+  <%=("Want to see more about the threads? " + link_to("Switch to extended view", space_posts_path(@space, :extended => "true"))) unless params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
 </div>
 
 <%if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
   <%= render :partial => "extended_threads", :locals => {:threads => @posts} %>
 <%else%>
-  <%= render :partial => "collapsed_threads", :locals => {:today => @today, :yesterday => @yesterday, :last_week => @last_week, :older => @older} %>
+  <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
 <%end%>
 <%= will_paginate @posts %>

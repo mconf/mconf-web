@@ -32,7 +32,7 @@
 
 <% content_for :sidebar do  %>
     <div id="full_sidebar">
-      <%if @space.authorizes?([:create, :content],:to => current_user)%>
+      <%if @space.authorize?([:create, :content],:to => current_user)%>
   	 <%if params[:edit_event]%>
      	  <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	   <%elsif params[:edit_comment]%>
@@ -43,7 +43,7 @@
      <%end%>
      <%= render :partial => 'participants' %>
    </div>
-   <%if current_user.superuser || @event.authorizes?(:update, :to => current_user) %>
+   <%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
      <div id="questions">
         <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
      </div>
@@ -65,9 +65,9 @@
 <div class="single_event">
     <ul class="group_links">
     	<li><%=link_to(image_tag("icons/exclamation.png", :alt => t('report_spam'), :class => "icon"), spam_lightbox_space_event_path(@space,@event),{:name => @event.id, :class => 'spam_link', :title => t('report_spam')}) if logged_in? && event.spam != true %></li>
-		<li><%=link_to image_tag("icons/comments-add.png", :alt => t('comment.one')), space_event_path(@space, @event), { :title => t('comment.add_new')} if @space.authorizes?([:create, :content], :to => current_user) %></li>
-      	<li><%=link_to image_tag("./icons/pencil.png", :alt => t('comment.edit')), space_event_path(@space, @event, :edit_event => @event), :title => t('comment.edit') if @event.authorizes?(:update, :to => current_user) %></li>
-	  	<li><%=link_to image_tag("./icons/cancel.png", :alt => t('comment.delete')), space_event_path(@space, @event), { :method => :delete, :title => t('comment.delete') } if @event.authorizes?(:delete, :to => current_user) %></li>
+		<li><%=link_to image_tag("icons/comments-add.png", :alt => t('comment.one')), space_event_path(@space, @event), { :title => t('comment.add_new')} if @space.authorize?([:create, :content], :to => current_user) %></li>
+      	<li><%=link_to image_tag("./icons/pencil.png", :alt => t('comment.edit')), space_event_path(@space, @event, :edit_event => @event), :title => t('comment.edit') if @event.authorize?(:update, :to => current_user) %></li>
+	  	<li><%=link_to image_tag("./icons/cancel.png", :alt => t('comment.delete')), space_event_path(@space, @event), { :method => :delete, :title => t('comment.delete') } if @event.authorize?(:delete, :to => current_user) %></li>
     </ul>
     <p><%=image_tag("icons/date.png", :class=>"icon")%> <span class="event-name"><%=sanitize(@event.title)%></span><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span></p>
     <ul>
@@ -76,7 +76,7 @@
 	    <%else%>
     		<li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%> - <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
     	<%end%>
-		<li class="author"><%= t('organizer') %>: <%=@event.author.authorizes?([:read, :profile],:to=> current_user) ? link_to(@event.author.name,user_profile_path(@event.author)): sanitize(@event.author.name)%></li>
+		<li class="author"><%= t('organizer') %>: <%=@event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(@event.author.name,user_profile_path(@event.author)): sanitize(@event.author.name)%></li>
 		<%if @event.isabel_event%>
 			<li class=""><%= t('event.held_with') %> <%= link_to t('Isabel'), 'http://isabel.dit.upm.es'%></li>
 		<%elsif @event.marte_event && (@event.end_date > Time.now)%>
@@ -90,7 +90,7 @@
 		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
 		<%end%>
     </ul>
-    <%if current_user.superuser || @event.authorizes?(:update, :to => current_user) %>
+    <%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
       <div id="questions">
         <%=link_to t('invitation.add_more'), "#", {:id=>"show_inv", :title => t('invitation.add_more')} %>
         <%=link_to t('comment.add'), "#", {:id=>"add_comment", :title => t('comment.add')} %>
@@ -106,7 +106,7 @@
 		  <%end%>
 				
 				
-			<%if @space.authorizes?([:create, :content],:to => current_user)%>
+			<%if @space.authorize?([:create, :content],:to => current_user)%>
 					<div class="add-new-comment">
 						<%=link_to t('comment.add_new'), space_event_path(@space, @event), { :title => t('comment.add_new') } %>
 					</div>

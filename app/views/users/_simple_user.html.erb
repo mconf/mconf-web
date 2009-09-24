@@ -1,5 +1,5 @@
 <div class="user">
-	<%if simple_user.authorizes?([:read, :profile],:to=> current_user)%>
+	<%if simple_user.authorize?([:read, :profile],:to=> current_user)%>
 	  <div><%= link_logo(simple_user, :size => 32, :url => user_profile_path(simple_user), :title=>simple_user.name) %></div>
 	<%else%>
   <div><%= logo(simple_user, :size => 32, :title=>simple_user.name) %></div>
@@ -7,7 +7,7 @@
   <div>
 	<ul>
 	  <li>
-	    <strong><%=simple_user.authorizes?([:read, :profile],:to=> current_user) ? link_to(simple_user.full_name, user_profile_path(simple_user)) : sanitize(simple_user.full_name) %></strong>
+	    <strong><%=simple_user.authorize?([:read, :profile],:to=> current_user) ? link_to(simple_user.full_name, user_profile_path(simple_user)) : sanitize(simple_user.full_name) %></strong>
 
 	  </li>
 	  <li class="small-font"><%=sanitize(simple_user.organization) %></li>	

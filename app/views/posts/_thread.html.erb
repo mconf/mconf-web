@@ -13,7 +13,7 @@
 	    <%=link_to_function image_tag("icons/del-orange.png",:size=>"16x16",:class=>"icon",:title=>t('conversation.compress')), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>	
 	  </div>
 	  <div class="post-logo">
-	    <%if thread.author.authorizes?([:read, :profile],:to=> current_user)%>	
+	    <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>	
 		  <%= link_logo(thread.author, :size => 32, :url => user_profile_path(thread.author), :title=>thread.author.name) %>
 	    <%else%>
 	      <%=logo(thread.author, :size=>32, :title=>thread.author.name)%>
@@ -23,21 +23,21 @@
 		  <!-- Options for the user to edit, delete or answer a thread..only visible at the extended view-->
 		  <ul class="thread_options extended_thread" <%='style="display:none"' unless extended%>>
 		    <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
-	        <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorizes?([:create, :content],:to => current_user)%></li>
-	        <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorizes?(:update, :to => current_user)%></li>
-		    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorizes?(:delete, :to => current_user)%></li>
+	        <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorize?([:create, :content],:to => current_user)%></li>
+	        <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorize?(:update, :to => current_user)%></li>
+		    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
 		  </ul>
 		  <!-- DARLE UNA VUELTA A LAS CONDICIONES PORQUE NO VEO CLARO QUE ESTÉ BIEN LO DE LOS PERMISOS-->
 		  <ul class="thread-title">      
 	      	<li>
-	      	   <%if thread.author.authorizes?([:read, :profile],:to=> current_user)%>
-		         <span><%=link_to (thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
+	      	   <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>
+		         <span><%=link_to(thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
 			  <%else%>
 			    <span class="bold blue"><%=thread.author.name%>: </span>
 			  <%end%>
-			  <%=link_to (first_words(thread.title, 32), space_post_path(@space,thread),:class=>"bold") if @space.authorizes?([:read, :content],:to => current_user)%>
+			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"bold") if @space.authorize?([:read, :content],:to => current_user)%>
 			  <%if thread.attachments.any?%>
-			    <%=image_tag ("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
+			    <%=image_tag("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
 			  <%end%>
 			  <span class="updated extend_thread"<%='style="display:none"' if extended%>><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
 			</li>
@@ -70,7 +70,7 @@
 		    <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
 		  <%else%>-->
 			<%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
-			<%=link_to (t('comment.show_all'), space_post_path(@space,thread))if @space.authorizes?([:read, :content],:to => current_user)%>
+			<%=link_to(t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
 		  <!--<%end%>-->
 		</div>
 	  <%end%>
@@ -81,7 +81,7 @@
 		<%end%>
 	  </div>
 		
-	  <%if @space.authorizes?([:create, :content],:to => current_user)%>
+	  <%if @space.authorize?([:create, :content],:to => current_user)%>
 		<div class="add-new-comment">
 		  <%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
 	    </div>
