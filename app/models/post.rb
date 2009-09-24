@@ -105,10 +105,10 @@ class Post < ActiveRecord::Base
     params 
   end    
 
-  # Additional Permissions
+  # Author Permissions
   authorizing do |agent, permission|
-    return true if permission == :update && author == agent
-    return true if permission == :delete && author == agent
-    false
+    author == agent &&
+      ( permission == :update || permission == :delete ) &&
+      space.role_for?(agent)
   end
 end
