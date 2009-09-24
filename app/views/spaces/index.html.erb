@@ -69,7 +69,7 @@
   <div class="join">
     <h2><%= t('start_now!') %></h2>
 	<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>
-	<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 
+	<%=link_to "<button class='create-space'>"+t("space.create_own")+"</button>",new_space_path(), :class => "new_space_link"%> 
   </div>
   <div id="space_description">
   	<% for space in @spaces %>

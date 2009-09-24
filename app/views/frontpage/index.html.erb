@@ -13,8 +13,7 @@
  <%content_for :search do%>
   <% form_tag(spaces_path(), :method => 'get') do %>
       <%= text_field_tag :filter, t('space.search'), :id => "search_space"  %>
-      <%= image_submit_tag "buttons/go.png"%>
-	  <!--<button>Go</button>-->
+	  <button type="submit"><%=t("button.go")%></button>
    <% end %>
  <%end%>
 
@@ -22,7 +21,7 @@
 		  <div class="join">
 			<h2><%= t('start_now!') %></h2>
 			<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>
-			<%=link_to image_tag("buttons/create_space_amarillo.png"),new_space_path(), :class => "new_space_link"%> 	
+			<%=link_to "<button class='create-space'>"+t("space.create_own")+"</button>",new_space_path(), :class => "new_space_link"%> 	
 		  </div>
 
 		  <div class="rel-users">
@@ -79,7 +78,7 @@
 		  </div>
 		  
 		  <div class="wrapper right">
-		  	<%=link_to image_tag("buttons/find_other_spaces.png"), spaces_path %>
+		  	<%=link_to ("<button>"+t('button.other_spaces')+"</button>"), spaces_path %>
 		  		<!--<a href="#nogo" class="right">Find other spaces</a>-->
 		  </div>
 		  

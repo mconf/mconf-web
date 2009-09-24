@@ -1,5 +1,5 @@
 <% unless params[:action]=='index' && params[:controller]=='spaces'%>
-  <%= link_to( image_tag("buttons/create_space_amarillo.png"), new_space_path,:class => "new_space_link")%>
+  <%= link_to "<button class='create-space'>"+t('space.create_own')+"</button>", new_space_path,:class => "new_space_link"%>
 <%end%>
 
 <ul class="first_ul">

@@ -1,5 +1,11 @@
 --- 
 es: 
+  button:
+    create: Crear
+    go: Buscar!
+    other_spaces: Más espacios
+    send: Enviar
+    update: Actualizar
   invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
   created_at: Creado
   keywords: Palabras clave (*)
@@ -602,7 +608,7 @@ es:
     up: 
       other: ESPACIOS
     deleted: El espacio se ha eliminado correctamente.
-    create_own: Crea tu propio espacio.
+    create_own: Crea tu propio espacio
     about: Sobre
     one: Espacio
     main: El espacio principal

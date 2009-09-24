@@ -20,5 +20,5 @@
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
     <%= f.text_area :text, :class => "small_post_text" %>
-    <%= image_submit_tag "buttons/create.png" %>
+    <button type="submit"><%=t("button.create")%></button>
 <% end -%>

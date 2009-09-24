@@ -12,7 +12,7 @@
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true } do |f| %>
       <p><%= f.file_field :media %></p>
       <div class="margin-up">
-      	<%=image_submit_tag("buttons/update.png")%>
+      	<button type="submit"><%=t("button.update")%></button>
       </div>
     <%end%>
   </div>
@@ -26,7 +26,7 @@
 <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true } do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
   <div class="margin-up">
-    <%= image_submit_tag 'buttons/create.png' %>
+    <button type="submit"><%=t("button.create")%></button>
   </div>
 <% end %>
 

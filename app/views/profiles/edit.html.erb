@@ -15,7 +15,7 @@
 		<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
       <p><%= f.file_field :media %></p>		
-      <div class="margin-up"><%= image_submit_tag "buttons/update.png" %></div>
+      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
     <%end%>
   </div>
 <% end %>
@@ -28,7 +28,7 @@
 
   <%= render :partial => 'form', :locals => { :f => f } %>
 <div class="margin-up">
-  <%= image_submit_tag 'buttons/update.png' %>
+  <button type="submit"><%=t("button.update")%></button>
 </div>
 <% end %>
 

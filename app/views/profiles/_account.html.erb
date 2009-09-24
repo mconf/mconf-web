@@ -7,7 +7,7 @@
 	</div>
 <div id="editar" class="margin-up">
 	<%if current_user.superuser? || @user==current_user%>	
-	<%= button_to t('edit') , edit_user_path(@user), :method => :get%>
+	  <%= button_to t('edit') , edit_user_path(@user), :method => :get%>
 	<%end%>
 </div>
 </div>

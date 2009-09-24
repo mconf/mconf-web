@@ -7,24 +7,23 @@
 
 <% content_for :sidebar do  %>
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
-	<%if params[:edit]%>
+	  <%if params[:edit]%>
     	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-  	<%else%>
+  	  <%else%>
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-  	<%end%>
+  	  <%end%>
 	<%else%>
-    	<%if logged_in? && space.public?%>
-		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
-	      <%= image_submit_tag("buttons/join-space.png") %>
+      <%if logged_in? && space.public?%>
+		<% form_tag space_join_requests_path(space), :id => "join_form" do %>
+	      <button class="join-space" type:"submit"><%=t('space.join')%></button>
 	    <% end %>
-		<%else%>
-		  <%=link_to image_tag("buttons/join-space.png", :alt => t('space.join')), new_space_join_request_path(space), :class => "fancybox_link" %>
-		<%end%>
-		
+	  <%else%>
+		<%=link_to "<button class='join-space'>"+t('space.join')+"</button>", new_space_join_request_path(space), :class => "fancybox_link" %>
+	  <%end%>
 		<div class="space-desc">
-			<h3><%= t('about') %> <em><%=@space.name%></em></h3>
-			<p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
-			<%= sanitize(space.description) if space.description.present? %></p>
+		  <h3><%= t('about') %> <em><%=@space.name%></em></h3>
+		  <p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
+		  <%= sanitize(space.description) if space.description.present? %></p>
   		</div>		
 	<%end%>
 <%end%>
@@ -56,7 +55,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search'))%>
-	   <%= image_submit_tag "buttons/search.png"%>
+	   <button type="submit"><%=t("button.go")%></button>
 	   <div id="advanced">
 	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
      </div>

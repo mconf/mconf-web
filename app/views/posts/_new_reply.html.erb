@@ -23,7 +23,7 @@
   <%end%>
   <%= hidden_field_tag "post[parent_id]", post.id%>
   <div class="float">
-  <%= image_submit_tag "buttons/create.png" %>
+  <button type="submit"><%=t("button.send")%></button>
   </div>
   <div class="float">
   <%= link_to t('thread.or_add_new'), space_posts_path(@space) %>

@@ -34,23 +34,28 @@ ul,ol{margin:0 1.5em 1.5em 1.5em;}
 ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
 .small {font-size:.8em;/*margin-bottom:1.875em;*/line-height:1.875em;}/**/
-
-
-a.button, button {
-  border:none;
-  background-color:#AAA;
-  font-family:"Lucida Grande";
+a.button, button, #sidebar input[type=submit] {
+  border:1px solid #244974;
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
   font-size:95%;
   line-height:135%;
   text-decoration:none;
   font-weight:bold;
+  background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;
   color:#FFF;
+  margin-right:4px;
   cursor:pointer;
-  -webkit-border-radius:7px;-moz-border-radius:7px;
+  -webkit-border-radius:4px;-moz-border-radius:4px;
 }
+a.button:hover, button:hover, #sidebar input[type=submit]:hover{border:1px solid #86B5D5;}
 
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
+
+.right a, .right a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
+button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");font-size:1.1666em;line-height:1.2857;}
+button.create-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
+#search button{padding-top:3px;padding-bottom:2px;}
 
 /* forms.css */
 .error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
@@ -84,8 +89,7 @@ body .icon{margin-bottom:-3px;}
 #logo, #search{float:left;}
 #logo{width:192px;}
 #search{margin-top:23px;margin-left:46px;}
-#search button{background-color:#244974;}
-#search a img,#search input[type="image"]{margin-bottom:-7px;}
+/*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
 #eu{float:right;margin-top:10px;}
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;}
 ul#prefs {list-style-type:none;margin:0;}
@@ -113,7 +117,7 @@ ul#prefs {list-style-type:none;margin:0;}
 .wrapper div.spc img:hover{border-color:#999;}
 .wrapper ul#list-events{margin:0;text-align:left;}
 .wrapper #list-events li{float:left;}
-.right img{float:right;}
+.right a{float:right;}
 #list-events li span{color:#244974;margin-left:20px;}
 #list-events a{text-decoration:none;color:#111;}
 #list-events a:hover{color:#555;}

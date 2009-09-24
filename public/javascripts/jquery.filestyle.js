@@ -41,7 +41,8 @@
                                 "display": "inline",
                                 "position": "absolute",
                                 "overflow": "hidden",
-								"margin-top": "-2px"
+								"margin-top": "-1px",								
+								"cursor": "pointer"
                             });
                             
             var filename = $('<input class="file">')

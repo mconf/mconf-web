@@ -26,7 +26,7 @@
   <%end%>
   <%= hidden_field_tag "post[parent_id]", @post.id%>
   <div class="float margin-up">
-  <%= image_submit_tag "buttons/create.png" %>
+    <button type="submit"><%=t("button.create")%></button>
   </div>
 <% end -%>
 </div>

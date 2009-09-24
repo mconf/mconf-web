@@ -45,16 +45,15 @@
   <% end %>
 
   <div id="accept_invitation">
-    <%= f.submit t('invitation.accept') %>
+  	<button type="submit"><%=t('invitation.accept')%></button>    
   </div>
 <% end %>
 
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <div id="discard_invitation">
-    <%= f.submit t('invitation.discard') %>
+  	<button type="submit"><%=t('invitation.discard')%></button>
   </div>
-
 <% end %>
 </div>
 </div>

@@ -24,7 +24,7 @@
 		<%end%>
 -->
 	<div class="space-desc">
-			<h3><%= t('space.about')%><em><%=@space.name%></em></h3>
+			<h3><%= t('space.about')%> <em><%=@space.name%></em></h3>
 			<p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
 			<%= sanitize(space.description) if space.description.present? %></p>
 		</div>

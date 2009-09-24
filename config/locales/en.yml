@@ -40,7 +40,13 @@ en:
   back: Back
   back_to_inbox: Back to inbox
   beta: (BETA)
-  body: Body  
+  body: Body 
+  button:
+    create: Create
+    go: Go!
+    other_spaces: Find other spaces
+    send: Send
+    update: Update
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -505,12 +511,13 @@ en:
     clic_logo: "Click to change your logo"
     configuration: "-Space configuration-"
     confirm: "Are you sure you want to leave this space?"
-    create_own: Create your own space.
+    create_own: Create new space
     created: 'Space was successfully created.'
     delete: "Delete Space"
     deleted: 'Space was successfully removed.'
     disable: Disable space
     disabeld: 'Space was successfully disabled.'
+    does_not_belong: doesn't belong to any space
     edit_description: "edit description"
     edit_name: "edit name"
     enable: Enable space

@@ -5,7 +5,7 @@
 	 <h3 class="item_title"><span><%=@user.name%></span> <%= t('is_member_of') %>:</h3>
 	</div>
 	<div id="profile_content">
-		<%= @user_spaces.empty? ? @user.name + " doesn't belong to any space" : ""%>
+		<%= @user_spaces.empty? ? @user.name + t("space.does_not_belong") : ""%>
 		<%for space in @user_spaces do%>
 			<div class="space_item"><%= space.authorize?([:read , :Content], :to => current_user) ? link_logo(space, :size => 'w48', :title=> space.name): logotype(space, :size => 48)%></div>
 		<%end%>

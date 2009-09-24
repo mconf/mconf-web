@@ -37,7 +37,7 @@
 <% content_for :search do  %>
   <% form_tag(search_all_path(@space), :method => 'get') do %>
 			<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') )%>
-      <%= image_submit_tag "buttons/search.png"%>
+     <button type="submit"><%=t("button.go")%></button>
   <% end %>
 <%end%>
 
@@ -63,7 +63,7 @@
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
-     <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%><%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
+     <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
 		 	<%if @upcoming_events.empty?%>
 			  <p><%= t('event.upcoming.none') %></p>
