@@ -45,7 +45,7 @@
 <% form_for(:event, :url => space_events_path(@space), :html => { :multipart => true }) do |f| -%>
   <%= f.error_messages %>				
   <div>
-    <label for="Name">Name:</label>
+    <label for="Name"><%= t('name.one')%>:</label>
     <%= f.text_field :name, :size =>25  %>
   </div>
   <div>
