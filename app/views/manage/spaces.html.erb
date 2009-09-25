@@ -20,8 +20,8 @@
 <%content_for :sidebar do%>
 	<div id="manage_space_filter" style="display:none">
 		<h3 class="blue">Show spaces:</h3>
-	  <%= check_box_tag "enabled","enabled",true%><%= label_tag "Enabled"%><br />
-		<%= check_box_tag "disabled","disabled",true%><%= label_tag "Disabled" %>
+	  <%= check_box_tag "enabled","enabled",true%><%= label_tag t("enabled")%><br />
+		<%= check_box_tag "disabled","disabled",true%><%= label_tag t("disabled") %>
 	</div>
 <%end%>
 

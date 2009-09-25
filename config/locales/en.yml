@@ -47,6 +47,7 @@ en:
     other_spaces: Find other spaces
     send: Send
     update: Update
+    edit: Edit
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -118,6 +119,7 @@ en:
   description: Description
   destroy: Destroy
   disable: Disable
+  disabled: Disabled
   docs: Docs
   done: Done!
   download_file: Download file
@@ -135,6 +137,7 @@ en:
     used_from: "e-Mail used in contact form: {{dir}}"
   email_or_full_name: e-Mail or full name
   enable: Enable
+  enabled: Enabled
   enlarge: Enlarge
   error:
     one: Error.
@@ -516,7 +519,7 @@ en:
     delete: "Delete Space"
     deleted: 'Space was successfully removed.'
     disable: Disable space
-    disabeld: 'Space was successfully disabled.'
+    disabled: 'Space was successfully disabled.'
     does_not_belong: doesn't belong to any space
     edit_description: "edit description"
     edit_name: "edit name"
@@ -540,6 +543,7 @@ en:
     recent:
       other: Recent spaces
     search: Search space...
+    show_all: Show all spaces
     subscribed_to_none: You are not subscribed to any space
     up:
       other: SPACES
@@ -552,6 +556,7 @@ en:
     up: SPAM
     report: Report spam
     reported: A user has reported spam in the application.
+    no_spam: Congratulations! No spam here
   stage_type: Stage type
   start_now!: Start now!
   show_list_version>>: "show list version >>"
