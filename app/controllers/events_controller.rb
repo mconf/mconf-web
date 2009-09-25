@@ -160,7 +160,7 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
+  def edit    
     @invited_candidates = @event.event_invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.event_invitations.select{|e| e.candidate.nil?}
   end
@@ -199,11 +199,15 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update_attributes(params[:event])
-		#if the event is not marte, we have to remove the room in case it had it already assigned
-		if params[:event][:marte_event]==0 &&  @event.marte_room?
-			@event.update_attribute(:marte_room, false)
-		end
+		    #if the event is not marte, we have to remove the room in case it had it already assigned
+		    if params[:event][:marte_event]==0 &&  @event.marte_room?
+			    @event.update_attribute(:marte_room, false)
+		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
+        #save the organizer/s with their proper role
+        if params[:organizers] && params[:organizers][:name]
+          create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
+        end
         flash[:success] = t('event.updated')
         format.html {redirect_to space_event_path(@space, @event) }
         format.xml  { head :ok }
@@ -276,6 +280,8 @@ class EventsController < ApplicationController
   end
 
   def create_performances_for_event(role, array_usernames)
+    #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
+    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @event}).each do |perf| perf.destroy end
     for name in array_usernames
       if user = User.find_by_login(name)
         Performance.create! :agent => user,

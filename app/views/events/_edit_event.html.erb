@@ -2,9 +2,20 @@
   $(document).ready(function() {
   	$("#change-event").effect("highlight", {color:"#F5DF51"}, 3000);
   })
+  
+  $("#organizers_name").fcbkcomplete({
+	cache: true,
+            filter_case: true,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4
+  });
+  
 <% end %>
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'user_filter'%>
+  <%= javascript_include_tag 'jquery.fcbkcomplete'%>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <% end -%>
 
 <div id="change-event">
@@ -21,11 +32,21 @@
 	<label for="Description"><%= t('description') %>:</label>
 	<%=f.text_area :description  %>
   </div>
+  <div>
+    <label for="Location"><%= t('event.location') %>:</label>
+    <%= f.text_field :location, :size =>25  %>
+  </div>
+  <div>
+    <label for="Organizer"><%= t('organizer') %>:</label>
+    <select id="organizers_name" multiple="multiple" name="organizers[name][]">
+      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, @event.organizers.map{|u| u.login})%>
+    </select>
+  </div>
    <div class="margin-up">
    <span class="bold">1. <%= t('event.select_date')%></span>
   </div>
  
-    <div id="expanded_date" class="javascript">
+  <div id="expanded_date" class="javascript">
 	<div class="margin-up">
 	  <span><%= t('timezone.one') %>: <%=Time.zone%></span>
 	</div>
@@ -39,12 +60,12 @@
     </div>
   </div>
   
-   <div class="margin-up">
+  <div class="margin-up">
   	  <span class="bold">2. <%= t('mark_checkbox')%> </span>
   </div>
   
   
-   <div id="expanded_online">
+  <div id="expanded_online">
 	 
   <div class="checkbox_event">
 		<%=f.check_box :isabel_event,:class=>"icon"  %>
@@ -52,14 +73,14 @@
 		<%=f.check_box :marte_event ,:class=>"icon" %>
 		<label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
 	</div>
-  <div>
+  </div>
 	
-	<div class="margin-up">
+  <div class="margin-up">
     <span class ="without_javascript bold">3. <%= t('user.invite') %>:</span>
     <span class ="javascript bold" style="display:none">3. <%= link_to(t('user.invite'),"#expanded_invite",:id=>"toggle_invite") %>:</span></strong>
-    </div> 
+  </div> 
 	
-	 <div id="already_invited_users">
+       <div id="already_invited_users">
 	 <%unless @invited_candidates.empty? && @invited_emails.empty?%>  
 	 <%= t('user.invited') %>:<br/>
 	   <% for event_inv in @invited_candidates %>
@@ -69,7 +90,7 @@
 	 	<%=event_inv.email%>
 	   <%end%>
 	 <%end%>
-	 </div>
+      </div>
    <div id="selected_users">
     <label for="selected_users" style="display: none;"><%= t('event.to') %>:</label>
   </div>
