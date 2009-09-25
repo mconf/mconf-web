@@ -170,6 +170,7 @@ en:
     join: Join this event
     last_7_days: "Last 7 days ({{size}})"
     last_month: "Last month ({{size}})"
+    location: "Location"
     no_events: You have no events
     none_coming: No coming events
     not_attend: "Not attending"
