@@ -173,7 +173,7 @@ en:
     now: "Events at this moment: "
     one: Event
     other: Events
-    online: Online event 
+    online: WebConference
     past:
       all: "All past ({{size}})"
       none: No past events

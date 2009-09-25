@@ -70,6 +70,8 @@ namespace :setup do
       translator_role = Role.find_or_create_by_name_and_stage_type "Translator", "Site"
       translator_role.permissions << Permission.find_by_action_and_objective('translate', nil)
 
+      organizer_role = Role.find_or_create_by_name_and_stage_type "Organizer", "Event"
+
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
       admin_role.permissions << Permission.find_by_action_and_objective('read',   nil)
       admin_role.permissions << Permission.find_by_action_and_objective('update', nil)

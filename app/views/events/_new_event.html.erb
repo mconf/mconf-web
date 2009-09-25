@@ -42,7 +42,7 @@
 <div id="change-event">
 <h3><%= t('event.create') %></h3>
 
-<% form_for(:event, :url => space_events_path(@space), :html => { :multipart => true }) do |f| -%>
+<% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
   <%= f.error_messages %>				
   <div>
     <label for="Name"><%= t('name.one')%>:</label>
@@ -56,6 +56,10 @@
   <!--<div class="margin-up">
 	<span> <%= t('event.steps') %></span>
   </div>-->  
+  <div>
+    <label for="Organizer"><%= t('organizer') %>:</label>
+    <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+  </div>
   <div class="margin-up">
   <strong><span>1. <%= t('event.select_date')%></span></strong>	
   </div>

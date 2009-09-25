@@ -171,11 +171,16 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
     @event.author = current_agent
     @event.container = @container
+
     respond_to do |format|
       if @event.save
+        #save the organizer/s with their proper role
+        if params[:organizers] && params[:organizers][:name]
+          create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
+        end
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.created')
-        format.html {redirect_to request.referer }
+        format.html {redirect_to space_event_path(@container, @event) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html {  
@@ -270,6 +275,16 @@ class EventsController < ApplicationController
       
   end
 
+  def create_performances_for_event(role, array_usernames)
+    for name in array_usernames
+      if user = User.find_by_login(name)
+        Performance.create! :agent => user,
+                            :stage => @event,
+                            :role  => role
+      end
+    end
+  end
+  
   def event
     @event = Event.find(params[:id])
   end

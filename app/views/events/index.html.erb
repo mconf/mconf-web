@@ -2,7 +2,8 @@
 <% atom_link_header(space, Event.new) %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel' %>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel', 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
 <% content_for :sidebar do  %>
@@ -46,6 +47,15 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	  if(this.value == "Search Events..."){
 		  this.value="";
 		}
+	});
+	
+	$("#organizers_name").fcbkcomplete({
+	cache: true,
+            filter_case: true,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4
 	});
 		
 <%= render :partial => 'date_and_timepicker.js.erb' %>

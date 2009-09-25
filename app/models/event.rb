@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
   acts_as_taggable
+  acts_as_stage
   alias_attribute :title, :name
   validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
@@ -67,6 +68,10 @@ class Event < ActiveRecord::Base
     Space.find_with_disabled(space_id)
   end      
       
+  def organizers
+    actors
+  end
+  
   def validate
     if self.start_date.nil? || self.end_date.nil? 
       errors.add_to_base("The event needs start date and end date ")
