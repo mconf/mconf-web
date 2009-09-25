@@ -43,5 +43,5 @@
 </ul>
 
 <% if !(params[:action]=='index' && params[:controller]=='spaces')%>
-  <%=link_to "Show all spaces", spaces_path, :class=>"blue bold"%>
+  <%=link_to t("space.show_all"), spaces_path, :class=>"blue bold"%>
 <%end%>

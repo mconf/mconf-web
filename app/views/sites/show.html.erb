@@ -41,5 +41,6 @@
     <%= sanitize site.exception_notifications_email %>
   </p>
 
-  <div><%= link_to image_tag("buttons/edit.png", :alt => t('edit'), :id => "edit_link"), edit_site_path %></div>
+  <div>
+	<%= link_to "<button>"+t('button.edit')+"</button>", edit_site_path %></div>
 </div>

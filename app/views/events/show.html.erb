@@ -16,17 +16,6 @@
 		}
 	});
 	
-	$("#show_inv").click(function(){
-	  $("#full_sidebar").hide();	  
-	  $("#expanded_invite").show();
-	});
-	
-	$("#add_comment").click(function(){
-	  $("#full_sidebar").show();	  
-	  $("#expanded_invite").hide();
-	  $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-	});
-	
 <% end %>
 
 
@@ -34,27 +23,24 @@
     <div id="full_sidebar">
       <%if @space.authorize?([:create, :content],:to => current_user)%>
   	 <%if params[:edit_event]%>
-     	  <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	   <%elsif params[:edit_comment]%>
-	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
-	   <%else%>
-	     <%=render :partial => 'new_comment'%>
+     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
+	 <%elsif params[:edit_comment]%>
+	   <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
+	 <%elsif params[:new_invitations]%>
+	   <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	 <%else%>
+	   <%= render :partial => 'participants' %>
+	   <%= render :partial => 'new_comment'%>
   	<%end%>
      <%end%>
-     <%= render :partial => 'participants' %>
    </div>
-   <%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
-     <div id="questions">
-        <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-     </div>
-   <%end%>
 <%end%>
 
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
      <%= text_field_tag  'query',(params[:query] ? params[:query] : t('event.search') ) %>
-	   <%= image_submit_tag "buttons/search.png"%>
+	   <button type="submit"><%=t("button.go")%></button>
 	   <div id="advanced">
 	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
      </div>
@@ -71,10 +57,10 @@
     </ul>
     <p><%=image_tag("icons/date.png", :class=>"icon")%> <span class="event-name"><%=sanitize(@event.title)%></span><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span></p>
     <ul>
-		<%if @event.start_date.to_date == @event.end_date.to_date %>
-    		<li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%> <%=@event.start_date.to_time.to_formatted_s(:time)%> - <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
-	    <%else%>
-    		<li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%> - <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
+	<%if @event.start_date.to_date == @event.end_date.to_date %>
+    	  <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%> <%=@event.start_date.to_time.to_formatted_s(:time)%> - <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+	<%else%>
+    	  <li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%> - <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
     	<%end%>
 		<li class="author"><%= t('organizer') %>:
 		  <%unless @event.actors.empty? %>
@@ -90,9 +76,14 @@
 		<%elsif @event.marte_event && (@event.end_date > Time.now)%>
 			<li class=""><%= t('event.follow') %> <%= link_to t('online'), space_event_path(@space, @event, :show_conference => true)%></li>
 		<%end%>
-		
-		<li  class="author"><%= t('description') %>: </li>
-		<li><%=sanitize(auto_link(simple_format(@event.description)))%></li>
+		<%if @event.description%>
+		  <li  class="author"><%= t('description') %>: </li>
+		  <li><%=sanitize(auto_link(simple_format(@event.description)))%></li>
+		<%end%>
+		<%if @event.location%>
+		  <li  class="author"><%= t('event.location') %>: </li>
+		  <li><%=sanitize(@event.location)%></li>
+		<%end%>
 		<%if @event.notes%>
 		  <li class="author"><%= t('remarks') %>: </li>
 		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
@@ -100,8 +91,8 @@
     </ul>
     <%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
       <div id="questions">
-        <%=link_to t('invitation.add_more'), "#", {:id=>"show_inv", :title => t('invitation.add_more')} %>
-        <%=link_to t('comment.add'), "#", {:id=>"add_comment", :title => t('comment.add')} %>
+        <%=link_to t('invitation.add_more'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :title => t('invitation.add_more')} %>
+        <%=link_to t('comment.add'), space_event_path(@space, @event), {:id=>"add_comment", :title => t('comment.add')} %>
       </div>
     <%end%>
  </div>
