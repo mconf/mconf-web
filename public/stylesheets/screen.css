@@ -685,3 +685,22 @@ a.extract_form{margin-right:0.5em;}
 .next-events-section li.event {margin-left:6px;}
 .next-events-section li.event:hover {text-decoration:underline;}
 .next-events-section li.event h5{margin-bottom:0;font-weight:normal;}
+
+
+
+#help, #help2{
+	width:16px;
+	height:16px;
+	background-image:url(../images/icons/information.png);
+	float:left;
+	padding-right:3px;
+	background-repeat:no-repeat;
+}
+
+#help{
+	margin-top:7px;
+	}
+.w-background{
+	background-color:white;
+	
+}
