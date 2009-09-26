@@ -607,7 +607,7 @@ en:
     add:
       instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
-    add_more: Add more >>
+    add_more: Add users >>
     admin: "Admin"
     assist: Attending
     confirm_password: "Confirm Password"

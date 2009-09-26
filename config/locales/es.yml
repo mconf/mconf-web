@@ -871,7 +871,7 @@ es:
     QXRyw6Fz
 
   inbox: 
-    my: ""
+    my: Mis mensajes ({{checked}})
     one: Bandeja de entrada ({{checked}})
   tag: 
     show_title: Etiqueta '{{tag}}'

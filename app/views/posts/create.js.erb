@@ -1,7 +1,7 @@
 /* Remove notifications */
 $(".notice").remove(); $(".success").remove(); $(".error").remove();
 
-<%if @post.valid? && (!@attachment || (@attachment && @attachment.valid?))%>
+<%if @post.valid? && ((!@attachment && !@post.text.empty?) || (@attachment && @attachment.valid?))%>
 	<%if params[:show]%>
 	  $("#post_with_children").replaceWith("<%= escape_javascript(render(:partial => "post_with_children")) %>");
 	  $(".pagination").replaceWith("<%= escape_javascript(will_paginate(@posts, :params => { :action => 'show', :id => @post.id })) %>");

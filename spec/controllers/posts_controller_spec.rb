@@ -5,113 +5,27 @@ describe PostsController do
   
   integrate_views
   
-  before(:all) do
-    @space = Factory(:space)
-    @space1 = Factory(:space)
-    @space_public = Factory(:public_space)
-    @space_private = Factory(:private_space)
-    
-    
-    @superadmin = Factory(:superuser)
-    #    @admin = Factory(:admin_performance, :stage => @space).agent
-    #    @user = Factory(:user_performance, :stage => @space).agent
-    #    @invited = Factory(:invited_performance, :stage => @space).agent
-    
-    @event = Factory(:event, :space => @space, :author => @admin)
-    
-    #    
-    #    @postsa = Factory(:post, :author => @superadmin, :space => @space)
-    #    @posta = Factory(:post, :author => @admin, :space => @space, :event => @event)
-    #    @postlu = Factory(:post, :author => @user, :space => @space)
-    #    @postau = Factory(:post, :author => @invited, :space => @space)
-    
-    #    @post_empty_title = Factory(:post_empty_title)
-    #    @post_empty_text = Factory(:post_empty_text)
-    #    @post_spam = Factory(:post_spam, :parent => @post)
-  end
-  
-  #  describe "as Anonymous" do
-  #    it "should not render index" do
-  #      #      get :index, :space_id => @space.to_param
-  #      #      assert_response 401
-  #      true.should be_true
-  #    end
-  #    
-  #  end
-  #  fixtures :users ,:spaces , :posts ,:entries , :attachments, :performances, :roles, :permissions
-  #  
-  #  def mock_post(stubs={})
-  #    @mock_post ||= mock_model(Post, stubs)
-  #  end
-  #  def mock_post(stubs={})
-  #    @mock_post ||= mock_model(Entry, stubs)
-  #  end
-  #  def mock_entry(stubs={})
-  #    @mock_entry ||= mock_model(Entry, stubs)
-  #  end  
-  #  
-  #  
-  #  def get_posts
-  #    @fixture_posts = []
-  #    for i in 1..30
-  #      @fixture_posts << posts(:"post_#{i}")
-  #    end
-  #    return @fixture_posts
-  #  end  
-  #  
-  #  
+ 
   
   describe "when you are logged as" do
     
-    #    describe "responding to GET index" do
-    
-    describe "super admin user" do
+    ############################################# Super User  ############################################# 
+    describe "super admin user" do 
       
       before(:each) do
-        @current_user = @superadmin
+        @current_user = Factory(:superuser)
         login_as(@current_user)
-        #        @spacea = Factory(:admin_performance, :agent => @superadmin).stage
-        #        @spaceu = Factory(:user_performance, :agent => @superadmin).stage
-        #        @spacei = Factory(:invited_performance, :agent => @superadmin).stage
-        #        
-        #        
-        #        
-        #        @postsa = Factory(:post, :author => @superadmin, :space => @space)
-        #        @posta = Factory(:post, :author => @admin, :space => @space)
-        #        @postlu = Factory(:post, :author => @user, :space => @space)
-        #        @postlu1 = Factory(:post, :author => @user1, :space => @space)
-        #        @postau = Factory(:post, :author => @invited, :space => @space)
-        #        
-        #        @postsae = Factory(:post, :author => @superadmin, :space => @space, :event => @event)
-        #        @postae = Factory(:post, :author => @admin, :space => @space, :event => @event)
-        #        @postlue = Factory(:post, :author => @user, :space => @space, :event => @event)
-        #        @postaue = Factory(:post, :author => @invited, :space => @space, :event => @event)
-        
-        
       end
       
       describe "and you are in a public space" do
         before(:each) do
           @current_space = Factory(:public_space)
-          #          @space = Factory(:admin_performance, :agent => @current_user).stage
-          #          @spaceu = Factory(:user_performance, :agent => @superadmin).stage
-          #          @spacei = Factory(:invited_performance, :agent => @superadmin).stage
-          @user = Factory(:user)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
           
           
           @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
-          @post__not_mine = Factory(:post, :author => @user, :space => @current_space)
-          #          @posta = Factory(:post, :author => @admin, :space => @space)
-          #          @postlu = Factory(:post, :author => @user, :space => @space)
-          #          @postlu1 = Factory(:post, :author => @user1, :space => @space)
-          #          @postau = Factory(:post, :author => @invited, :space => @space)
-          #          
-          #          @postsae = Factory(:post, :author => @superadmin, :space => @space, :event => @event)
-          #          @postae = Factory(:post, :author => @admin, :space => @space, :event => @event)
-          #          @postlue = Factory(:post, :author => @user, :space => @space, :event => @event)
-          #          @postaue = Factory(:post, :author => @invited, :space => @space, :event => @event)
-          
-          
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
         end
         
         describe "trying to see" do
@@ -127,7 +41,7 @@ describe PostsController do
             response.should render_template("posts/show.html.erb")
           end
           it "a post that isn't mine." do
-            get :show, :space_id => @current_space.to_param, :id => @post__not_mine.to_param
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
             response.should render_template("posts/show.html.erb")
           end
@@ -143,158 +57,996 @@ describe PostsController do
         describe "trying to create a new" do
           it "post." do
             valid_attributes = Factory.attributes_for(:post)
-            #                  valid_attributes["post_attributes"] = {"title"=> "Test", "text" => "Test"}
-            #      assert_difference 'Profile.count' do
-            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes #[:title => "Test", :text => "Test"]
-#            response.should redirect_to(post_path(@current_user))
-            
-            #          end
-            #            get :create, :space_id => @current_space.to_param
-            #            assert_response 200
-            #            response.should render_template("posts/new_thread_big.html.erb")
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+      end 
+      
+      
+      describe "and you are in a private space" do
+        before(:each) do
+          @current_space = Factory(:private_space)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+      end
+      describe "and you are in your space" do
+        before(:each) do
+          @current_space = Factory(:admin_performance, :agent => @current_user).stage
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "title empty post." do
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title"=> "", "text"=>  "Test"}
+            assert_response 200
+            flash[:error].should == "The content of the post can't be empty"
+            response.should render_template("posts/create.js.erb")
+          end       
+          it "text empty post." do
+            pending "Bug 463 found, to fix!"
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title" => "Test", "text" => ""}
+            assert_response 200
+            flash[:error].should == "The content of the post can't be empty"
+            response.should render_template("posts/create.js.erb")
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+      end
+      describe "and you are in a space that you belong" do
+        before(:each) do
+          @performance = Factory(:admin_performance)
+          
+          @admin = @performance.agent
+          @current_space = @performance.stage
+          
+          Factory(:user_performance, :stage => @current_space, :agent => @current_user)
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
           end       
         end
       end
       
       
-      
-      
-      
-      #      describe "and you are seeing everybody post" do
-      #        
-      #        it "in public space." do
-      #          get :index, :space_id => @space_public.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in private space." do
-      #          get :index, :space_id => @space_private.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in my space." do
-      #          get :index, :space_id => @spacea.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i belongs." do
-      #          get :index, :space_id => @spaceu.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i'm invited." do
-      #          get :index, :space_id => @spacei.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #      end
-      #      
-      #      describe "and you are seeing your post" do
-      #        
-      #        it "in public space." do
-      #          get :index, :space_id => @space_public.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in private space." do
-      #          get :index, :space_id => @space_private.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in my space." do
-      #          get :index, :space_id => @spacea.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i belongs." do
-      #          get :index, :space_id => @spaceu.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i'm invited." do
-      #          get :index, :space_id => @spacei.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #      end
-      #      
-      #      describe "and you are seeing the post that isn't mine" do
-      #        
-      #        it "in public space." do
-      #          get :index, :space_id => @space_public.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in private space." do
-      #          get :index, :space_id => @space_private.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in my space." do
-      #          get :index, :space_id => @spacea.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i belongs." do
-      #          get :index, :space_id => @spaceu.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #        
-      #        it "in a space where i'm invited." do
-      #          get :index, :space_id => @spacei.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/index.html.erb")
-      #        end
-      #      end
-      #      
-      #      describe "and you want to create a new post" do
-      #        
-      #        it "in public space." do
-      #                get :new, :space_id => @space_public.to_param
-      #                assert_response 200
-      #                response.should render_template("posts/new_thread_big.html.erb")
-      #        end
-      #        
-      #        it "in private space." do
-      #          get :new, :space_id => @space_private.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/new_thread_big.html.erb")
-      #        end
-      #        
-      #        it "in my space." do
-      #          get :new, :space_id => @spacea.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/new_thread_big.html.erb")
-      #        end
-      #        
-      #        it "in a space where i belongs." do
-      #          get :new, :space_id => @spaceu.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/new_thread_big.html.erb")
-      #        end
-      #        
-      #        it "in a space where i'm invited." do
-      #          get :new, :space_id => @spacei.to_param
-      #          assert_response 200
-      #          response.should render_template("posts/new_thread_big.html.erb")
-      #        end
-      #      end
-      #      
+      describe "and you are invited in one space" do
+        before(:each) do
+          @performance = Factory(:admin_performance)
+          
+          @admin = @performance.agent
+          @current_space = @performance.stage
+          
+          Factory(:invited_performance, :stage => @current_space, :agent => @current_user)
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+      end
     end
+    ############################################# Super User  ############################################# 
+    
+    ############################################# Space Admin User  ############################################# 
+    describe "space admin user" do 
+      
+      before(:each) do
+        @performace_universe = Factory(:admin_performance)
+        @space_universe = @performace_universe.stage
+        @current_user = @performace_universe.agent
+        login_as(@current_user)
+      end
+      
+      describe "and you are in a public space" do
+        before(:each) do
+          @current_space = Factory(:public_space)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 403
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end 
+      
+      
+      
+      
+      describe "and you are in a private space" do
+        before(:each) do
+          @current_space = Factory(:private_space)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 403
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 403
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end
+      
+      describe "and you are in your space" do
+        before(:each) do
+          #            @current_space = Factory(:admin_performance, :agent => @current_user).stage
+          @current_space = @space_universe
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "title empty post." do
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title"=> "", "text"=>  "Test"}
+            assert_response 200
+            flash[:error].should == "The content of the post can't be empty"
+            response.should render_template("posts/create.js.erb")
+          end       
+          it "text empty post." do
+            pending "Bug 463 found, to fix!"
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title" => "Test", "text" => ""}
+            assert_response 200
+            flash[:error].should == "The content of the post can't be empty"
+            response.should render_template("posts/create.js.erb")
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+      end   
+      
+    end
+    
+    ############################################# Space Admin User  ############################################# 
+    
+    ############################################# Logged User  ############################################# 
+    describe "logged user" do 
+      
+      before(:each) do
+        @performace_universe = Factory(:user_performance)
+        @space_universe = @performace_universe.stage
+        @current_user = @performace_universe.agent
+        login_as(@current_user)
+      end
+      
+      describe "and you are in a public space" do
+        before(:each) do
+          @current_space = Factory(:public_space)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 403
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end 
+      
+      
+      
+      
+      describe "and you are in a private space" do
+        before(:each) do
+          @current_space = Factory(:private_space)
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 403
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 403
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end
+      
+      
+      describe "and you are in a space that you belong" do
+        before(:each) do
+          @current_space = @space_universe
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/new_thread_big.html.erb")
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/edit_thread_big.html.erb")
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 302
+            response.should redirect_to(space_posts_path)
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end
+      
+      
+      describe "and you are invited in one space" do
+        before(:each) do
+          
+          @current_space = Factory(:invited_performance, :agent => @current_user).stage
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          @post_mine = Factory(:post, :author => @current_user, :space => @current_space)
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          
+          it "my post." do
+            get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 403
+          end       
+        end
+        describe "trying to edit" do
+          it "my post." do
+            pending "Feature #464"
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+        describe "trying to delete" do
+          it "my post." do
+            pending "Feature #464"
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
+            assert_response 403
+          end       
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 403
+          end       
+        end
+      end
+    end
+    
+    ############################################# Logged User  ############################################# 
+    
+    ############################################# No Logged User  ############################################# 
+    describe "no logged user" do 
+      
+      before(:each) do
+        #        @performace_universe = Factory(:admin_performance)
+        #        @space_universe = @performace_universe.stage
+        #        @current_user = Fac
+        #        login_as(@current_user)
+        @current_user= Factory(:user)
+      end
+      
+      describe "and you are in a public space" do
+        before(:each) do
+          @current_space = Factory(:public_space)
+          Anonymous.current.authorization_cache[@current_space] = Hash.new
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+          Anonymous.current.authorization_cache[@post_not_mine] = Hash.new
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 200
+            response.should render_template("posts/index.html.erb")
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 200
+            response.should render_template("posts/show.html.erb")
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 401
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 401
+          end       
+        end
+        describe "trying to edit" do
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 401
+          end       
+        end
+        describe "trying to delete" do
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 401
+          end       
+        end
+      end 
+      
+      
+      
+      describe "and you are in a private space" do
+        before(:each) do
+          @current_space = Factory(:private_space)
+          
+          Anonymous.current.authorization_cache[@current_space] = Hash.new
+          
+          @user = Factory(:user_performance, :stage => @current_space).agent
+          
+          
+          @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
+          Anonymous.current.authorization_cache[@post_not_mine] = Hash.new
+        end
+        
+        describe "trying to see" do
+          it "everybody post." do
+            get :index, :space_id => @current_space.to_param
+            assert_response 401
+          end
+          it "a post that isn't mine." do
+            get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 401
+          end
+        end
+        
+        describe "trying to acces to new" do
+          it "page." do
+            get :new, :space_id => @current_space.to_param
+            assert_response 401
+          end       
+        end
+        describe "trying to create a new" do
+          it "post." do
+            valid_attributes = Factory.attributes_for(:post)
+            post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => valid_attributes
+            assert_response 401
+          end       
+        end
+        describe "trying to edit" do
+          it "a post that isn't mine." do
+            get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_not_mine.to_param
+            assert_response 401
+          end       
+        end
+        describe "trying to delete" do
+          it "a post that isn't mine." do
+            delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
+            assert_response 401
+          end       
+        end
+      end
+    end
+    
+    ############################################# No Logged User  ############################################# 
+    
+    
   end
 end
+
+
+
+
+#  fixtures :users ,:spaces , :posts ,:entries , :attachments, :performances, :roles, :permissions
+#  
+#  def mock_post(stubs={})
+#    @mock_post ||= mock_model(Post, stubs)
+#  end
+#  def mock_post(stubs={})
+#    @mock_post ||= mock_model(Entry, stubs)
+#  end
+#  def mock_entry(stubs={})
+#    @mock_entry ||= mock_model(Entry, stubs)
+#  end  
+#  
+#  
+#  def get_posts
+#    @fixture_posts = []
+#    for i in 1..30
+#      @fixture_posts << posts(:"post_#{i}")
+#    end
+#    return @fixture_posts
+#  end  
+#
 #        describe "in a private space" do
 #          
 #          before(:each) do
