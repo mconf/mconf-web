@@ -706,5 +706,13 @@ a.extract_form{margin-right:0.5em;}
 	}
 .w-background{
 	background-color:white;
+	margin-top:-5px;
+}
+#triangle{
 	
+	width:24px;
+	height:10px;
+	margin-left:9%;
+	background-image: url(../images/flecha2.png);
+	margin-top:-5px;
 }
