@@ -2,7 +2,7 @@
 <% atom_link_header(space, Post.new) %>
 
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor' %>
+  <%= javascript_include_tag 'jquery.filestyle' %>
 <% end -%>
 
 <% content_for :javascript do %>
@@ -28,7 +28,7 @@
  *  New thread panel
  */
 
-/* Submit without ajax until it will be posible to render message errors when a post witj attachment fail*/
+/* Submit without ajax until it will be posible to render message errors when a post with attachment fail*/
 /*$("#thread-form").postsForm('<%= space_posts_url(@space) %>');*/
 
 $(".new_thread_options").click(function(){
@@ -235,7 +235,7 @@ $("a.edit_post_link").click(function(){
 	  return false;
 	});
 
-<%= render :partial => 'fckeditor_functions' %>
+
 
 <% end %>
 

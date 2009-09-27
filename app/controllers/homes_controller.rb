@@ -31,6 +31,10 @@ class HomesController < ApplicationController
         {:day_after_tomorrow=> Date.tomorrow + 1.day, :one_week_more => Date.tomorrow+7.days}], :order => "start_date DESC", :limit => 2)
       @upcoming_events += space.events.find(:all, :conditions => ["start_date > :one_week_more AND start_date < :one_month_more", 
         {:one_week_more => Date.tomorrow+7.days, :one_month_more => Date.tomorrow+37.days}], :order => "start_date DESC", :limit => 2)
+      if @upcoming_events.size<2
+        @upcoming_events += space.events.find(:all, :conditions => ["start_date > :one_month_more AND start_date < :two_months_more", 
+          {:one_month_more => Date.tomorrow+37.days, :two_months_more => Date.tomorrow+67.days}], :order => "start_date DESC", :limit => 2)
+      end
     end
     
     #let's get the inbox for the user
