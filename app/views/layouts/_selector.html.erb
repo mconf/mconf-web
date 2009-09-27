@@ -2,17 +2,19 @@
   <%= link_to "<button class='create-space'>"+t('space.create_own')+"</button>", new_space_path,:class => "new_space_link"%>
 <%end%>
 
-<ul class="first_ul">
+
 	<%@global = Space.find_by_name("GLOBAL")%>
 	<%if @global.present?%>
+	  <ul class="first_ul">
 		<h3 class="selector_title"><%= t('space.main') %></h3>
 		<%if @space == @global%>
 			<li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
 		<%else%>
 	  	<li class="vip-space"><%= link_to(@global.name, @global) %></li>
 		<%end%>
+      </ul>
 	<%end%>	
-</ul>
+
 <ul>
   <% if authenticated? && current_user.spaces.any? %>
   	

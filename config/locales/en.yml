@@ -478,7 +478,7 @@ en:
       dots: Search events...
       no_dots: Search events
       title: Search by event's title
-    explanation: (in title and description with exactly words)
+    explanation: Title and description with exactly words
     one: Search
     posts:
       dots: Search posts...

@@ -5,8 +5,8 @@
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space), :method => 'get') do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.events_') )%>
-    <%= image_submit_tag "buttons/search.png"%>
+    <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search') )%>
+    <button type="submit"><%=t("button.go")%></button>
   <% end %>
 	<div id="advanced">
 	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
@@ -15,45 +15,43 @@
 
 <% content_for :javascript do %>
 $(".no_javascript_1").after(
-  "<div class='javascript'> <input type='date' name='start_date' class= 'datepicker' ><br/></div> "  
+  "<div class='javascript'> <input type='date' name='start_date' class= 'datepicker' ></div> "  
 );
 $(".no_javascript_1").remove();
 $(".no_javascript_2").after(
-  "<div class='javascript'> <input type='date' name='end_date' class= 'datepicker' ><br/></div> "  
+  "<div class='javascript'> <input type='date' name='end_date' class= 'datepicker' ></div> "  
 
 );
 $(".no_javascript_2").remove();
 $(".datepicker").datepicker();
 
 	$("#query").click(function(){
-	  if(this.value == "Search Events..."){
+	  if(this.value == "Search events..."){
 		  this.value="";
 		}
 	});
 
 <%end%>
-<div id="search">
-	<h4><%= t('search.events.advanced') %></h4> <%= t('search.explanation') %>
-	
+<div id="advanced_search">
+  <h3 class="blue"><%= t('search.events.advanced') %></h3>
+
+  <%= t('search.explanation') %>
   <% form_tag(search_events_path(@space)) do %>
-      <%= text_field_tag :query, params[:query] %>
-	  <%= image_submit_tag "buttons/search.png"%>
-  
+      <%= text_field_tag :query, params[:query]%>
+      <button type="submit"><%=t("button.go")%></button>  
    <% end %>
    
 
 <%= t('search.events.title') %>
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :title, params[:title] %>
-	  <%= image_submit_tag "buttons/search.png"%>
-
+	  <button type="submit"><%=t("button.go")%></button>
  <% end %>
 
  <%= t('search.events.description') %>
  <% form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :description, params[:description] %>
-	  <%= image_submit_tag "buttons/search.png"%>
- 
+	  <button type="submit"><%=t("button.go")%></button> 
  <% end %>
   
 <%= t('search.between_dates') %>
@@ -65,7 +63,7 @@ $(".datepicker").datepicker();
 		 <div class="no_javascript_2">    
      		<%= t('to') %> <%=select_date Date.today, :prefix => "time2", :order => [:day, :month, :year],:include_blank => true%> 
 		 </div>
-	  <%= image_submit_tag "buttons/search.png"%><br>
+	  <button type="submit"><%=t("button.go")%></button><br>
  <% end %>
 
 
