@@ -43,8 +43,7 @@
 <h3><%= t('event.create') %></h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
-  <%= f.error_messages %>				
-  <div>
+ <div>
     <label for="Name"><%= t('name.one')%>:</label>
     <%= f.text_field :name, :size =>25  %>
   </div>
