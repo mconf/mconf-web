@@ -16,9 +16,13 @@
 <ul>
   <% if authenticated? && current_user.spaces.any? %>
   	
-	<div id="help"></div>
+	<div id="help" title="These are the spaces you belong to"></div>
+	
 	<h3 class="selector_title"><%= "My Spaces" %></h3>
+	<div id=triangle></div>
+	
 	<div class="w-background">
+		
     <% (current_user.spaces - [@global]).each do |s| %>
 		  <%if @space == s %>
         <li class="selected"><%= link_to(s.name, s, :class => "selected") %></li>
