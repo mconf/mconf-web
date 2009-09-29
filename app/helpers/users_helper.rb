@@ -9,6 +9,10 @@ module UsersHelper
 
   #method to know if an user is the only admin in the space
   def is_last_admin(space, performance)
+    #if the performance is nil it means that there is no current_user, it is anonymous
+    if performance == nil
+      return false
+    end
     #we check first if the performance is "Admin"
     if performance.role_id != Role.find_by_name("Admin").id
       return false
