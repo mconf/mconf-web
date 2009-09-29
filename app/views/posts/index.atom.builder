@@ -3,6 +3,7 @@ atom_feed('xmlns:gd' => 'http://schemas.google.com/g/2005',
           :root_url => polymorphic_url([ space, Post.new ])) do |feed|
   feed.title("Posts - #{ sanitize space.name }")
   feed.updated(@posts.any? && @posts.first.updated_at || Time.now)
+  feed.logo(logo_image_url(space, :size => 'h64'))
 
   @posts.each do |post|
     feed.entry(post, :url => space_post_url(space, post)) do |entry|

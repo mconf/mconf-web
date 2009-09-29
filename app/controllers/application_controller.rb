@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '29d7fe875960cb1f9357db1445e2b063'
+
+  # Don't log passwords
+  filter_parameter_logging :password, :password_confirmation
   
   # This method calls one from the plugin, to get the Space from params or session
   def space
