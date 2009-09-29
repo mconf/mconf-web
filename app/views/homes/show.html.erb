@@ -47,7 +47,7 @@
 	
 	  <div class="next-events-section">
 	    <%if @today_events.empty?%>
-	      <span class="bold"><%=t('today')%></span><%=t('event.no_events')%> <br/>
+	      <span class="bold"><%=t('today')%></span> <%=t('event.no_events')%> <br/>
 	    <%else%>
 	      <span class="bold"><%=t('today')%></span>
 	      <ul>
@@ -63,7 +63,7 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @tomorrow_events.empty?%>
-	      <span class="bold"><%=t('tomorrow')%></span><%=t('event.no_events')%> <br/>
+	      <span class="bold"><%=t('tomorrow')%></span> <%=t('event.no_events')%> <br/>
 	    <%else%>
 	      <span class="bold"><%=t('tomorrow')%></span>
 	      <ul>
@@ -79,7 +79,7 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @week_events.empty?%>
-	      <span class="bold blue"><%=t('week.next')%></span><%=t('event.no_events')%> <br/>
+	      <span class="bold blue"><%=t('week.next')%></span> <%=t('event.no_events')%> <br/>
 	    <%else%>
 	      <span class="bold blue"><%=t('week.next')%></span>
 	      <ul>
@@ -95,7 +95,7 @@
 	  </div>
 	  <div class="next-events-section">
 	    <%if @upcoming_events.empty?%>
-	      <span class="bold blue"><%=t('event.upcoming.other')%></span><%=t('event.no_events') %><br/>
+	      <span class="bold blue"><%=t('event.upcoming.other')%></span> <%=t('event.no_events') %><br/>
 	    <%else%>
 	      <span class="bold blue"><%=t('event.upcoming.other')%></span>
 	      <ul>

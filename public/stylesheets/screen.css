@@ -508,7 +508,11 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 .profile-box #profile_content,.invitation-box #invitation_content{-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
 #sidebar #profile_content{padding:6px;}
 #sidebar .space_item{margin-right:2px;}
+#profile_content .adr{margin-bottom:0.75em;}
 #profile_content div{float:left;}
+#profile_content .telecommunications,#profile_content .telecommunications #contact_line{width:440px;}
+#contact_line{background:url("/images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
+#contact_line span{background:#f0f6f9;padding:0 6px 0 6px;margin-left:10px;}
 #profile_content .post{background:none;border-bottom:1px #a8c0d1 solid;float:none;}
 #profile_content .post:hover{background:#fafafa;}
 #profile_content .post p{margin-bottom:0;}
