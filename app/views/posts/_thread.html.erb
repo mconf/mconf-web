@@ -44,7 +44,7 @@
 	     
 			<li>
 				<div class="grey extend_thread" <%='style="display:none"' if extended %>>
-					<%=first_words(thread.text,75)%>
+					<%=first_words(strip_tags(thread.text),75)%>
 				</div>
 				<div id="grey" class="extended_thread grey" <%='style="display:none"' unless extended%>>
 
