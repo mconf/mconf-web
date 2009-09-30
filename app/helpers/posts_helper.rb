@@ -73,5 +73,32 @@ module PostsHelper
     posts.select{|x| x.updated_at < Date.today - 7}
   end
   
+  #method to know if a thread or any of its comments has attachment/s
+  def has_attachments(thread)
+    if thread.attachments.any?
+      return true
+    end
+    #let's look around the children
+    for post in thread.children
+      if post.attachments.any?
+        return true
+      end
+    end
+    return false
+  end
+  
+  #method to get the attachment name
+  def attachment_name(thread)
+    if thread.attachments.any?
+      return thread.attachments.first.filename
+    end
+    #let's look around the children
+    for post in thread.children
+      if post.attachments.any?
+        return post.attachments.first.filename
+      end
+    end
+    return ""
+  end
   
 end
