@@ -588,6 +588,7 @@ h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;bor
 .post_search h3.empty,.event_search h3.empty,.user_search h3.empty{margin-bottom:1.5em;}
 .post_search .post-content{width:440px;}
 .post_search .post{border-bottom:1px #bdd8eb solid;}
+/*#advanced_search{background:#bdd8eb;margin:9px 50px;padding:20px 75px 20px 50px;}*/
 #advanced_search h3{margin:-3px 0 10px 0;}
 #advanced_search .javascript{float:left;}
 #advanced_search .javascript input.datepicker{width:85px;margin-right:3px;text-align:center;}
