@@ -14,7 +14,7 @@ module UsersHelper
       return false
     end
     #And now if it is the last one
-    if Performance.find_all_by_stage_id_and_stage_type_and_role_id(space.id, "Space", Role.find_by_name("Admin")).count < 2
+    if Performance.find_all_by_stage_id_and_stage_type_and_role_id(space.id, "Space", Role.find_by_name("Admin")).size < 2
       return true
     end
   end
