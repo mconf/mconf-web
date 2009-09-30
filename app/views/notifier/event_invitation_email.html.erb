@@ -5,4 +5,4 @@
 <%else%>
   <%=@invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%>
 <%end%>
-<%= t('invitation.ps',:url => event_invitation_url(@invitation, :host => Site.current.domain)) %>
+<%= t('invitation.ps',:url => event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>

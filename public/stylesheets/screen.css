@@ -159,7 +159,8 @@ div.space-desc h3, div.space-desc p{color:#244974;}
 #selector ul li:hover {background-color:#ffa903; }
 #selector .selected{text-decoration:none;font-weight:bold;}
 #selector .first_ul{margin:0 0 0 0;}
-h3.selector_title{color:#244974}
+#selector #help{margin-top:15px;}
+h3.selector_title{color:#244974;margin-top:15px;}
 #menu{background:#e1eef5;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
 #menu li{display:inline;margin-right:-3px;}
@@ -490,6 +491,7 @@ div.invitation-logo,div.invitation-content{float:left;}
 #invitation_content #logo{margin-right:6px;}
 #invitation_content_inside{margin-top:6px;width:395px;}
 #invitation_content_inside p{margin:0;}
+#invitation_content div#accept_invitation{margin-left:94px;}
 
 /*Profile*/
 .profile-box,.space-box,.invitation-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
@@ -586,6 +588,10 @@ h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;bor
 .post_search h3.empty,.event_search h3.empty,.user_search h3.empty{margin-bottom:1.5em;}
 .post_search .post-content{width:440px;}
 .post_search .post{border-bottom:1px #bdd8eb solid;}
+/*#advanced_search{background:#bdd8eb;margin:9px 50px;padding:20px 75px 20px 50px;}*/
+#advanced_search h3{margin:-3px 0 10px 0;}
+#advanced_search .javascript{float:left;}
+#advanced_search .javascript input.datepicker{width:85px;margin-right:3px;text-align:center;}
 
 /*index de spaces*/
 #space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}

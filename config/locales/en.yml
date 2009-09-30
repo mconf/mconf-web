@@ -144,7 +144,7 @@ en:
     other: Errors.
     403: The page you were looking for is forbidden.
     404: The page you were looking for doesn't exist.
-    500: The page you were looking for doesn't exist.
+    500: "The page you were looking for doesn't exist."
     change: "The change is not valid"
     credentials: "Invalid credentials"
     mistyped_or_moved: You may have mistyped the address or the page may have been moved.
@@ -478,7 +478,7 @@ en:
       dots: Search events...
       no_dots: Search events
       title: Search by event's title
-    explanation: (in title and description with exactly words)
+    explanation: Title and description with exactly words
     one: Search
     posts:
       dots: Search posts...
