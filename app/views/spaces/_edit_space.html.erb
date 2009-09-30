@@ -133,72 +133,63 @@
 <h3 class="center"><%=t('space.configuration')%></h3>
 
 <div id="nonjavascript_form">
-	<% form_for @space, :html => { :multipart => true} do |f| %>
-		
+	<% form_for @space, :html => { :multipart => true} do |f| %>		
 		<p>
 		  <label for="name"><%=t('name.one')%>:</label>
 		  <%= f.text_field :name %>
-		</p>
-		
+		</p>		
 		<p>
 		  <label for="description"><%=t('description')%>:</label><br/>
 		  <%= f.text_area :description%>
-		</p>
-	
+		</p>	
 		<p>
 		  <label for="public"><%=t('space.allow_public_access')%>:</label> 
 		  <%= check_box("space", "public")%>
-		</p>
-		
+		</p>		
 	  <p>
 	    <%= image_submit_tag "buttons/update.png"%>
-	  </p>
-	
+	  </p>	
 	<% end %>
 	<h3><%=t('space.logo')%></h3>
-	 <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>
-	  
-    <p><%= f.file_field :media %></p>
-    <p><%= image_submit_tag 'buttons/update.png' %></p>
-  <%end%>
+	<% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>	  
+      <p><%= f.file_field :media %></p>
+      <p><%= image_submit_tag 'buttons/update.png' %></p>
+    <%end%>
 </div>
 
 <div id="jedit_form" style="display:none">
-	<ul>
- <li>
-  <div>
-    <label for="name" class="bold"><%=t('name.one')%>:</label>
-	<span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
-  </div>
-  </li>
-  <li>
-  <div>
-	 <label for="description" class="bold"><%=t('description')%>:</label><br/>
-	 <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
-  </div>
-  </li>
-  <li>
-  <div>
-    <label for="public"class="bold"><%=t('space.allow_public_access')%>:</label> 
-    <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
-  </div>
-  </li>
-  <li>
-	<div>
+  <ul>
+    <li>
+      <div>
+        <label for="name" class="bold"><%=t('name.one')%>:</label>
+	    <span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
+      </div>
+    </li>
+    <li>
+      <div>
+	    <label for="description" class="bold"><%=t('description')%>:</label><br/>
+	    <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
+      </div>
+    </li>
+    <li>
+      <div>
+        <label for="public"class="bold"><%=t('space.allow_public_access')%>:</label> 
+        <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
+      </div>
+    </li>
+    <li>
+	  <div>
 		<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
 		<%= link_to_function logo(@space, :size => 'h128'), "edit_logo_fun()", :id => "edit_logo"%>
-	</div>
-	
-	<% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
-	  <p><%= f.file_field :media %></p>
-    <p><%= image_submit_tag 'buttons/update.png' %></p>
-  <%end%>
-		
-
-</li>
-<div><li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li></div>
-
-</ul>
+	  </div>
+	  <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
+	    <%= f.file_field :media, :class=>"file file1"%>
+        <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+      <%end%>
+    </li>
+    <li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li>
+  </ul>
 </div>
 
 <div id="for_lightbox" style="display:none"></div>
+</div>

@@ -466,6 +466,7 @@ div.pagination a{color:#244974;}
 #sidebar div.checkbox_event{padding:0.25em 0;margin:2px 10px 2px 0;}
 
 /*admin*/
+#sidebar #space-conf{width:218px;}
 #sidebar #space-conf div{padding-bottom:0.75em;}
 .news-wrapper,.source{position:relative;border-bottom:1px #ccc solid;padding:0 3px 8px 6px;}
 .source-title{padding:0 0.5em;}
