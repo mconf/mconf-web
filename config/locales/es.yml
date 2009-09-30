@@ -227,6 +227,16 @@ es:
 ####### E #########
   edit_your_profile: Editar tu perfil
   enabled: Espacios activos
+  error:
+    one: Error.
+    other: Errores.
+    403: El acceso a la p\xC3\xA1gina que busca se encuentra restringido.
+    404: La p\xC3\xA1gina que busca no existe
+    500: La p\xC3\xA1gina que busca no existe
+    change: "Este cambio no es v\xC3\xA1lido"
+    credentials: Alguno de los datos introducidos no es correcto
+    mistyped_or_moved: Quiz\xC3\xA1s hayas escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina haya sido cambiada de sitio.
+    not_allowed: No tienes permisos para realizar esta operaci\xC3\xB3n
   event: 
     steps: "Completa tu evento siguiente pasos:"
     today_size: Hoy ({{size}})

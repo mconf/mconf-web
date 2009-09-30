@@ -490,6 +490,7 @@ div.invitation-logo,div.invitation-content{float:left;}
 #invitation_content #logo{margin-right:6px;}
 #invitation_content_inside{margin-top:6px;width:395px;}
 #invitation_content_inside p{margin:0;}
+#invitation_content div#accept_invitation{margin-left:94px;}
 
 /*Profile*/
 .profile-box,.space-box,.invitation-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
