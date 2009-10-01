@@ -16,7 +16,7 @@
     <%= render :partial => "posts/form_photo", :object => f %>
   </div>
   
-    <%= f.text_area :text, :class => "small_post_text" %>
+ 	<%= small_post_text_area %>
   
   <%if @show_view%>
     <%= hidden_field_tag :show, "true"%>
