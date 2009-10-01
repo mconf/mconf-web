@@ -33,7 +33,7 @@ module PostsHelper
   
   def first_words( text, size )
     return truncate(text, :lenght => size, :omision => "...")
-
+    
     #!!!! WARNING !!!
     if text.length > size
       cutted_text = text[0..size]
@@ -52,9 +52,9 @@ module PostsHelper
   def thread(post)
     post.parent_id.nil? ? post : post.parent
   end
-
+  
   def post_format( text)
-    (text.include?("<") && text.include?("</") && text.include?(">")) ? text : simple_format(text)
+   (text.include?("<") && text.include?("</") && text.include?(">")) ? text : simple_format(text)
   end
   
   def get_today_posts(posts)
@@ -71,6 +71,10 @@ module PostsHelper
   
   def get_older_posts(posts)
     posts.select{|x| x.updated_at < Date.today - 7}
+  end
+  
+  def small_post_text_area(cont="")
+    text_area_tag "post[text]", cont, :class => "small_post_text"
   end
   
   #method to know if a thread or any of its comments has attachment/s
