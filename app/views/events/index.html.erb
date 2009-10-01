@@ -49,6 +49,13 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 		}
 	});
 
+	$("#query").blur(function(){
+	  if(this.value == ""){
+		  this.value="Search events...";
+		}
+	});
+
+
 	$("#organizers_name").fcbkcomplete({
 	cache: true,
             filter_case: true,
@@ -64,7 +71,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 
 <% content_for :search do  %>
   <% form_tag(search_events_path(@space)) do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search'))%>
+      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search')),:class=>"prueba"%>
 	   <button type="submit"><%=t("button.go")%></button>
 	   <div id="advanced">
 	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>

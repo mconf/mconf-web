@@ -24,10 +24,10 @@
 	  <div class="vcard" id="card">
 	    <ul class="adr">	  
 		  <li class="fn n"><span class="person_title"><%= t('name.one') %>: </span><%=@user.full_name%></li>
-	 	  <li class="street-address"><span class="person_title"><%= t('address') %>: </span> <%= @profile.address%></span></li>
-		  <li class="locality"><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><%= @profile.city%></li>
+	 	  <li class="street-address"><span class="person_title"><%= (t('address') + ":")if (@profile.address.present?) %> </span> <%= @profile.address%></span></li>
+		  <li class="locality"><span class="person_title"><%= (t('city')+ ":")%> </span><%= @profile.city%></li>
 		  <li class="region"><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><%= @profile.province%></span></li>
-		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><%= @profile.country%></li>
+		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":") %> </span><%= @profile.country%></li>
 		  <li class="postal-code"><span class="person_title"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) %> </span> <%= @profile.zipcode%></span></li>
 		</ul>
 		<div class="telecommunications">
@@ -35,7 +35,7 @@
 		  <ul>
 		    <li class="type"><span class="person_title"><%=t("phone") if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%></span><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%><%=@profile.fax%></li>
 		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
-		    <li class= "org"><span class="person_title"><%=t("organization") if (@profile.organization.present?)%>:</span> <%= @profile.organization%></li>
+		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
 		    <li class="email"><span class="person_title"><%= t('email.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>
 		</div>

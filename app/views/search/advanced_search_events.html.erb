@@ -25,9 +25,16 @@ $(".no_javascript_2").after(
 $(".no_javascript_2").remove();
 $(".datepicker").datepicker();
 
+	title = "<%=t('event.search')%>"
 	$("#query").click(function(){
-	  if(this.value == "Search events..."){
+	  if(this.value == title){
 		  this.value="";
+		}
+	});
+	
+	$("#query").blur(function(){
+	  if(this.value == ""){
+		  this.value=title;
 		}
 	});
 

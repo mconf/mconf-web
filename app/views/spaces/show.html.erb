@@ -22,12 +22,20 @@
           );
     return false;
   });
-	
+
+	title = "<%=t('search.dots')%>"
 	$("#query").click(function(){
-	  if(this.value == "Search..."){
-		  this.value="";
+	  if(this.value == title){
+		  this.value= "";
 		}
 	});
+	
+	$("#query").blur(function(){
+	  if(this.value == ""){
+		  this.value= title;
+		}
+	});
+	
 	$(".fancybox_link").fancybox({
     'hideOnContentClick' : false
   });

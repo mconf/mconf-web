@@ -1,9 +1,16 @@
 <% menu(:people) %>
 
 <% content_for :javascript do %>
+	title = "<%=t('user.search')%>"
 	$("#query").click(function(){
-	  if(this.value == "Search Users..."){
+	  if(this.value == title){
 		  this.value="";
+		}
+	});
+	
+	$("#query").blur(function(){
+	  if(this.value == ""){
+		  this.value= title;
 		}
 	});
 <% end %>

@@ -407,7 +407,7 @@ en:
       none: No posts found
       one: 1 post was found
       other: "{{size}} posts were found"
-      show_all: Show all found posts
+      show_all: Show all the results
     home:
       one: "Post in the space {{space}}"
     latest: Latest posts
@@ -417,7 +417,7 @@ en:
     up:
       other: POSTS
     updated: "Post updated"
-  preferences: Preferences
+  preferences: Account
   previous: Previous
   private: Private
   private_message:

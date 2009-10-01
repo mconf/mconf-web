@@ -9,8 +9,16 @@ $("#query").livequery('keyup', function() {
     });
 });
 
+title = "<%=t('user.search')%>"
+
 $("#query").click(function(){
-  if(this.value == "<%=t('user.search')%>"){
+  if(this.value == title){
 	  this.value="";
+	}
+});
+
+$("#query").blur(function(){
+  if(this.value == ""){
+	  this.value= title;
 	}
 });
