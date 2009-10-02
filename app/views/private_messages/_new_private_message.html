@@ -4,8 +4,9 @@
 <% content_for :javascript do%>
   <%= render :partial => 'users/expand_add_users'%>
 <%end%>
-
-<%unless getCospaceUsers().empty?%>
+<%if getCospaceUsers().empty?%>
+  <%=t("message.private.cant")%>
+<%else%>
 <div id="priv-msg">
 <h3><%= t('message.private.new') %></h3>
 

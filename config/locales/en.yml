@@ -324,6 +324,7 @@ en:
       editing: Editing private message
       new: New private message
       none: There are not private messages
+      cant: "You can´t send private messages because you have no partners in spaces"
     reply: Reply to message
     sent:
       other: Sent messages
