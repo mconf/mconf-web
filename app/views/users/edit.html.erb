@@ -7,13 +7,18 @@
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
 
+<div id="edit_account" class="blue_title"><h3><%= t('preferences')%></h3></div>
 
-<div><label for="expanded_post"><%= t('user.view_expanded_posts')%></label>
-<%= f.check_box :expanded_post, {}, true,false %></div><br/>
+<div>
+  <h5><%=t("post.show_expanded_pref")%></h5>
+  <%= f.check_box :expanded_post, {}, true,false %>
+  <label for="expanded_post"><%= t('user.view_expanded_posts')%></label>
+</div><br/>
 
-<div><label for="notification"><%= t('user.notifications')%></label><br/>
-<%= f.radio_button  :notification, "1"%> <%=t('user.email')%>
-<%= f.radio_button  :notification, "2"%> <%=t('user.private_message')%>
+<div>
+<h5><%= t('user.notifications')%></h5>
+<%= f.radio_button  :notification, "1"%> <%=t('user.by_email')%>
+<%= f.radio_button  :notification, "2"%> <%=t('user.by_private_message')%>
 </div><br/>
 
 <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
