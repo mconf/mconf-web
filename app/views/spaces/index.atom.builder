@@ -5,6 +5,7 @@ atom_feed({'xmlns:gd' => 'http://schemas.google.com/g/2005',
 
   @spaces.each do |space|
     feed.entry(space) do |entry|
+      entry.link(:href => logo_image_url(space, :size => 'h64'), :rel => :icon, :size => '84x64')
       entry.title(sanitize(space.name))
       entry.summary(sanitize(space.description), :type => 'html')
       entry.tag!('gd:deleted', space.deleted)
