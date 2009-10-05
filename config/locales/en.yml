@@ -8,6 +8,7 @@ en:
   about_global: About GLOBAL
   about_me: About me
   about_sxsw: About SXSW
+  account: Account
   add: Add
   add_more_details: Add more details.
   address: Address 
@@ -418,7 +419,8 @@ en:
     up:
       other: POSTS
     updated: "Post updated"
-  preferences: Account
+    show_expanded_pref: "How do you like to see your posts?"
+  preferences: Preferences
   previous: Previous
   private: Private
   private_message:
@@ -611,13 +613,15 @@ en:
     add_more: Add users >>
     admin: "Admin"
     assist: Attending
+    by_email: "By e-mail"
+    by_private_message: "By private message"
     confirm_password: "Confirm Password"
     delete_from_space: "Delete user from space"
     disable: Disable user
     disabled: "User disabled"
     edit_account: "Edit your account"
+    email: E-mail
     e-mail: "e-mail"
-    email: "Email"
     enable: Enable user
     enabled: "User succesfully enabled. The user is not a member of any space now and has to join spaces again."
     error:
@@ -648,7 +652,7 @@ en:
     not_activated: "Your account isn't activated. Please, check your email to activate it."
     not_assist: Not attending
     not_confirmed: Not confirmed    
-    notifications: "Notifications"
+    notifications: "How do you want to receive your notifications?"
     one: User
     other: Users
     password: "Password"
@@ -668,7 +672,7 @@ en:
       other: USERS
     updated: 'User was successfully updated.'
     vcc_email: "VCC user e-mail {{dir}}"
-    view_expanded_posts: "View expanded posts"
+    view_expanded_posts: "Show posts' expanded view by default"
     without_group: People without group
   username: Username
     
