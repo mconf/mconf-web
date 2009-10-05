@@ -137,15 +137,13 @@ class PostsController < ApplicationController
           end
         else
           @attachment.space = @space
-          @attachment.save;
-#          @post.attachments.build
-          @post.attachments = [ @attachment ]
+#          @attachment.save;
         end
       end
     end
     
     #    unless ( @post.valid? && ((@attachment && @attachment.valid?) || @post.text.present?))
-    unless @post.valid?
+    unless  @post.valid?  && ((@attachment && @attachment.valid?) || @post.text.present?)
       respond_to do |format|
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
@@ -179,6 +177,10 @@ class PostsController < ApplicationController
     
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.created')
+    if(@attachment) 
+      @attachment.post = @post
+      @attachment.save!
+    end
     
     respond_to do |format| 
       format.html {
@@ -222,15 +224,12 @@ class PostsController < ApplicationController
             }
           end
         else
-          @post.attachments.destroy_all
           @attachment.space = @space
-          @attachment.post = @post
-          @attachment.save;
         end
       end
     end
     
-    unless @post.valid? 
+    unless @post.valid?  && ((@attachment && @attachment.valid?) || (!@attachment && @post.attachments) || @post.text.present?)
       respond_to do |format|
         format.html {   
           flash[:error] = t('post.error.empty')
@@ -246,7 +245,12 @@ class PostsController < ApplicationController
     
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.updated')
-    
+    if(@attachment) 
+      @post.attachments.destroy_all
+      @attachment.post = @post
+      @attachment.save
+    @post.save! #salvamos el artículo y con ello su entrada asociada  
+    end
     
     respond_to do |format|
       format.html { 
