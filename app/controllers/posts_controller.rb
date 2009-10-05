@@ -229,6 +229,7 @@ class PostsController < ApplicationController
     flash[:success] = t('post.created')
     if @attachment
       @attachment.post = @post
+      @attachment.space = @space
       @attachment.save!
     end
     #asignacion de los padres del attachment al articulo
@@ -313,6 +314,7 @@ class PostsController < ApplicationController
     flash[:success] = t('post.updated')
     if @attachment
       @attachment.post = @post
+      @attachment.space = @space
       @attachment.save!
     end 
 =begin
