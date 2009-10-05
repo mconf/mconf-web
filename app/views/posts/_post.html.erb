@@ -55,17 +55,11 @@
 		<%end%>
 		<li class="attach">
 		  <%for attachment in post.attachments%>
-		    <%if attachment.post_thumbnail%>
-		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
-		    <%else%>
-		      <div><%=image_tag(logo_image_path(attachment, :size => 32))%></div>
-			  
-			  	<ul>
-			  		<li><%=attachment.filename%></li>
-					<li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment))%></li>
-				</ul>
-			  
-		    <%end%>	
+	      <div><%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%></div>
+		  	<ul>
+		  		<li><%=attachment.filename%></li>
+				  <li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%></li>
+				</ul>	
 		  <%end%>
 		</li>
 	  </ul> 

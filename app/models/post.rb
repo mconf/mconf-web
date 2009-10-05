@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
   belongs_to :author, :polymorphic => true
   has_many :attachments, :dependent => :destroy
   belongs_to :event
+  
+
 
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
@@ -35,7 +37,7 @@ class Post < ActiveRecord::Base
 
  
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? || post.event.present? }
-  #validates_presence_of :text, :if => Proc.new { |post| debugger post.attachments.empty?}
+  validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty?}
 
 
   # Update parent Posts when commenting to it

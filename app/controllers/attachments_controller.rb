@@ -16,20 +16,20 @@ class AttachmentsController < ApplicationController
   authorization_filter :update, :attachment, :only => [ :edit, :update ]
   authorization_filter :delete, :attachment, :only => [ :delete ]
   
-  def show
-      @image = Attachment.find(params[:id])
-
-    respond_to do |format|
-      format.html {
-      if @image
-      send_data @image.current_data, :filename => @image.filename,
-                                             :type => @image.content_type,
-                                             :disposition => 'inline'
-      end
-      } # show.html.erb
-      format.xml  { render :xml => @attachment }
-    end
-  end
+#  def show
+#      @image = Attachment.find(params[:id])
+#
+#    respond_to do |format|
+#      format.html {
+#      if @image
+#      send_data @image.current_data, :filename => @image.filename,
+#                                             :type => @image.content_type,
+#                                             :disposition => 'inline'
+#      end
+#      } # show.html.erb
+#      format.xml  { render :xml => @attachment }
+#    end
+#  end
   
   
   

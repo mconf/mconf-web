@@ -124,22 +124,28 @@ class PostsController < ApplicationController
     #Creación de los Attachments
     if params[:uploaded_data].present?
       @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
-      if @attachment && !@attachment.valid?
-        flash[:error] = t('attachment.not_valid')
-        respond_to do |format|
-          format.html{
-            posts
-            params[:form]="photos"
-            render :action => "index"
-            return
-          }
+      if @attachment 
+        if !@attachment.valid?
+          flash[:error] = t('attachment.not_valid')
+          respond_to do |format|
+            format.html{
+              posts
+              params[:form]="photos"
+              render :action => "index"
+              return
+            }
+          end
+        else
+          @attachment.space = @space
+          @attachment.save;
+#          @post.attachments.build
+          @post.attachments = [ @attachment ]
         end
-      else
-        @attachment.save;
       end
     end
     
-    unless ( @post.valid? && ((@attachment && @attachment.valid?) || @post.text.present?))
+    #    unless ( @post.valid? && ((@attachment && @attachment.valid?) || @post.text.present?))
+    unless @post.valid?
       respond_to do |format|
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
@@ -173,18 +179,10 @@ class PostsController < ApplicationController
     
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.created')
-    if @attachment
-      @attachment.post = @post
-      @attachment.save!
-    end
     
     respond_to do |format| 
       format.html {
-        if request.referer == nil
-          redirect_to(space_posts_path)
-        else
-          redirect_to request.referer
-        end
+        redirect_to(request.referer || space_posts_path)
       }
       format.js {
         if params[:show]
@@ -211,31 +209,33 @@ class PostsController < ApplicationController
     
     
     if params[:uploaded_data].present?
-      @post.attachments.destroy_all
       @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
-      if @attachment && !@attachment.valid?
-        flash[:error] = t('attachment.not_valid')
-        respond_to do |format|
-          format.html{
-            posts
-            params[:form]="photos"
-            render :action => "index"
-            return
-          }
+      if @attachment 
+        if !@attachment.valid?
+          flash[:error] = t('attachment.not_valid')
+          respond_to do |format|
+            format.html{
+              posts
+              params[:form]="photos"
+              render :action => "index"
+              return
+            }
+          end
+        else
+          @post.attachments.destroy_all
+          @attachment.space = @space
+          @attachment.post = @post
+          @attachment.save;
         end
-      else
-        @attachment.post = @post;
-        @attachment.save;
       end
     end
     
-    
-    unless ( @post.valid? && ((@attachment && @attachment.valid?) || (!@attachment && @post.attachments) || @post.text.present?))
+    unless @post.valid? 
       respond_to do |format|
         format.html {   
-            flash[:error] = t('post.error.empty')
-            posts
-            render :action => "index"
+          flash[:error] = t('post.error.empty')
+          posts
+          render :action => "index"
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
         format.atom {render :xml => @post.errors.to_xml, :status => :not_acceptable}
@@ -248,19 +248,10 @@ class PostsController < ApplicationController
     flash[:success] = t('post.updated')
     
     
-    respond_to do |format| 
-      format.html {
-        if request.referer == nil
-          redirect_to(space_posts_path)
-        else
-          redirect_to request.referer
-        end
+    respond_to do |format|
+      format.html { 
+        redirect_to(request.referer || space_posts_path)
       }
-#      format.atom { 
-#        headers["Location"] = formatted_space_post_url(@space, @post, :atom )
-#        render :action => :show,
-#               :status => :created
-#      }
       format.atom { head :ok }
     end
     
