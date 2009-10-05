@@ -59,14 +59,16 @@ class Attachment < ActiveRecord::Base
     FileUtils.rm_rf(RAILS_ROOT + "/attachments/#{id}/")
   end
   
-  def logo_image_path(options)
-    logo_image_path?(options) ?
-    [ self, { :format => format, :thumbnail => options[:size], :version => version } ] :
-    nil
+  def logo_image_path_with_thumbnails(options = {})
+    options[:size] ||= 16
+  
+    thumbnail_logo_image?(options) ?
+      [ self, { :format => format, :thumbnail => options[:size], :version => version } ] :
+      logo_image_path_without_thumbnails(options)
   end
   
   # Is there a logo_image_path available?
-  def logo_image_path?(options)
+  def thumbnail_logo_image?(options)
     # FIXME: this is only for AttachmentFu
     ! new_record? &&
       respond_to?(:attachment_options) &&
