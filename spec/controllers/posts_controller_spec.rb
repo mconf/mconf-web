@@ -207,13 +207,13 @@ describe PostsController do
             post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title"=> "", "text"=>  "Test"}
             assert_response 200
             flash[:error].should == "The content of the post can't be empty"
-            response.should render_template("posts/create.js.erb")
+            response.should render_template("posts/index.html.erb")
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title" => "Test", "text" => ""}
             assert_response 200
             flash[:error].should == "The content of the post can't be empty"
-            response.should render_template("posts/create.js.erb")
+            response.should render_template("posts/index.html.erb")
           end       
         end
         describe "trying to edit" do
@@ -579,13 +579,13 @@ describe PostsController do
             post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title"=> "", "text"=>  "Test"}
             assert_response 200
             flash[:error].should == "The content of the post can't be empty"
-            response.should render_template("posts/create.js.erb")
+            response.should render_template("posts/index.html.erb")
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :user_id => @current_user.id, :post => {"title" => "Test", "text" => ""}
             assert_response 200
             flash[:error].should == "The content of the post can't be empty"
-            response.should render_template("posts/create.js.erb")
+            response.should render_template("posts/index.html.erb")
           end       
         end
         describe "trying to edit" do

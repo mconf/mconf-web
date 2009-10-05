@@ -125,16 +125,6 @@ class PostsController < ApplicationController
     
     unless @post.valid?
       respond_to do |format|
-        format.js{
-          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] =  t('post.error.not_valid')
-            return
-          else
-            flash[:error] =  t('post.error.empty')
-            return
-          end
-          
-        }
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] = t('post.error.not_valid') 
@@ -147,6 +137,16 @@ class PostsController < ApplicationController
             render :action => "index"
             
           end
+        }
+        format.js{
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] =  t('post.error.not_valid')
+            return
+          else
+            flash[:error] =  t('post.error.empty')
+            return
+          end
+          
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
         format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
@@ -196,16 +196,6 @@ class PostsController < ApplicationController
     
     if !@attachment and !@post.text.present?
       respond_to do |format|
-        format.js{
-          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = t('post.error.not_valid') 
-            return
-          else
-            flash[:error] = t('post.error.empty')  
-            return
-          end
-          
-        }
         format.html {   
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] = t('post.error.not_valid') 
@@ -218,6 +208,16 @@ class PostsController < ApplicationController
             render :action => "index"
             
           end
+        }
+        format.js{
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = t('post.error.not_valid') 
+            return
+          else
+            flash[:error] = t('post.error.empty')  
+            return
+          end
+          
         }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
         format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
