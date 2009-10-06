@@ -1,0 +1,26 @@
+<%content_for :sidebar do%>
+  <%= render :partial => 'upload_form' %>
+<%end%>
+
+
+<%= render :partial => 'doc_filter' %>
+<%= render :partial => 'doc_table' %>
+
+	
+<h1>Update attachments</h1>
+<p>This code will disappear from here very very soon.</p>
+<%for attachment in @attachments%>
+  <h3>Update attachment <%=attachment.id%></h3>
+	<%for version in attachment.versions%>
+	<% att = attachment.revert_to(version.version)%>
+    <p> Version: <%=attachment.version%><br />
+		  Filename: <%=attachment.filename%><br />
+			Logo: <%=logo(attachment)%><br />
+			Download: <%= link_to( t('download_file') , space_attachment_path(@space,attachment,:version => attachment.version, :format=> attachment.format))%><br />
+	  </p>
+  <%end%>
+	<%form_for :attachment, :url => space_attachment_path(@space, attachment), :html => { :multipart => true, :method => :put} do |f|%>
+    <%= f.file_field :uploaded_data %>
+  <%= image_submit_tag "buttons/create.png" %>
+  <%end%>
+<%end%>
