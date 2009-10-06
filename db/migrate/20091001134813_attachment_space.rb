@@ -1,14 +1,15 @@
 class AttachmentSpace < ActiveRecord::Migration
+
+  class AttachmentMigration < ActiveRecord::Base
+    set_table_name "attachments"
+    
+    belongs_to :post, :space
+  end
+  
   def self.up
     add_column :attachments, :space_id, :integer
     add_column :attachments, :event_id, :integer
-    
-    class AttachmentMigration < ActiveRecord::Base
-      set_table_name "attachments"
       
-      belongs_to :post, :space
-    end
-    
     AttachmentMigration.record_timestamps = false
     AttachmentMigration.all.each do |a|
       unless a.post.blank?
@@ -28,3 +29,4 @@ class AttachmentSpace < ActiveRecord::Migration
     remove_column :attachments, :space_id
   end
 end
+
