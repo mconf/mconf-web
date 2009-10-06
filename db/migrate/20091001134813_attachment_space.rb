@@ -4,7 +4,7 @@ class AttachmentSpace < ActiveRecord::Migration
     add_column :attachments, :event_id, :integer
     Attachment.reset_column_information
     Attachment.record_timestamps = false
-    Attachment.parent_scoped.each do |a|
+    Attachment.all.each do |a|
       a.space = a.post.space unless a.post.blank?
       a.save #All attachments are resaved to add the first version
     end
