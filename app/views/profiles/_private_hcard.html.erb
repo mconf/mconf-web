@@ -1,0 +1,27 @@
+
+<div class="profile-box">
+  <div id="title">
+    <div id="help" title="<%= t('profile.private_description') %>"></div>
+	<h3 class="item_title"><%= t('profile.private') %></h3> 
+  </div>
+  <div id="profile_content">
+	  <div class="logo">
+	  	<%=logo(@user, :size => 48)%>
+	  </div>
+	  <div class="vcard" id="card">
+	    <ul class="adr">
+	 	  <li class="street-address"><span class="person_title"><%= (t('address') + ":") if (@profile.address.present?) %> </span> <%= @profile.address%></span></li>
+		  <li class="postal-code"><span class="person_title"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) %> </span> <%= @profile.zipcode%></span></li>
+		</ul>
+		<div class="telecommunications">
+		  <ul>
+		    <li class="type"><span class="person_title"><%=t("phone") if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%></span><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%><%=@profile.fax%></li>
+		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
+		    <li class="email"><span class="person_title"><%= t('email.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
+			<li><span class="person_title"><%=(t("skype") + ":") if (@profile.skype.present?)%></span> <%= link_to @profile.skype, "callto://"+@profile.skype %></li>
+			<li><span class="person_title"><%=(t("im") + ":") if (@profile.im.present?)%></span> <%= @profile.im%></li>
+		  </ul>
+		</div>
+	  </div>
+  </div>
+</div>

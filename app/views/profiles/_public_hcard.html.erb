@@ -1,0 +1,28 @@
+
+<div class="profile-box">
+  <div id="title">
+    <div id="help" title="<%= t('profile.public_description') %>"></div>
+	<h3 class="item_title"><%= t('profile.public') %></h3> 
+  </div>
+  <div id="profile_content">
+	  <div class="logo">
+	  	<%=logo(@user, :size => 48)%>
+	  </div>
+	  <div class="vcard" id="card">
+	    <ul class="adr">
+		  <li class="fn honorific-prefix"><span class="person_title"><%= (t('name.prefix')+ ":")if (@profile.prefix.present?) %> </span> <%= @profile.prefix%></span></li>
+		  <li class="fn n"><span class="person_title"><%= t('name.one') %>: </span><%=@user.full_name%></li>
+		  <li class="locality"><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><%= @profile.city%></li>
+		  <li class="region"><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><%= @profile.province%></span></li>
+		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><%= @profile.country%></li>
+		  <li><span class="person_title"><%= (t('description')+ ":")if (@profile.description.present?) %> </span> <%= @profile.description%></span></li>
+		</ul>
+		<div class="telecommunications">
+		  <ul>
+		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
+			<li class= "url"><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <%= @profile.url%></li>
+		  </ul>
+		</div>
+	  </div>
+  </div>
+</div>
