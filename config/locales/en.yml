@@ -380,8 +380,8 @@ en:
   password:
     one: Password
     confirm: Confirm password
-    been_reset_email: {{user}}, your password has been reset
-    reset_email: {{user}}, please follow the link in order to reset your password:
+    been_reset_email: "{{user}}, your password has been reset"
+    reset_email: "{{user}}, please follow the link in order to reset your password"
   people:
     up: PEOPLE
   performance:
