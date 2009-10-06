@@ -10,7 +10,7 @@ en:
   about_sxsw: About SXSW
   account: Account
   add: Add
-  add_more_details: Add more details.
+  add_more_details: Add more details
   address: Address 
   admin:
     one: Admin
@@ -30,12 +30,12 @@ en:
     attach: "Attachment"
     not_valid: "The attachment is not valid"
   avatar:
-    created: "Avatar created successfully"
-    crop: Crop your Avatar
-    current: Current avatar
-    empty: Select an image, please
-    select: Select avatar
-    select_new: Select new avatar
+    created: Picture uploaded successfully
+    crop: Crop your picture
+    current: Current picture
+    empty: Select picture, please
+    select: Select picture
+    select_new: Select new picture
   
   ######### B ###########
   back: Back
@@ -63,7 +63,7 @@ en:
   check_mail: "Please, check your email"
   city: City
   click_here: Click here
-  click_to_see_all: click here to see all
+  click_to_see_all: See all
   close: Close
   collapse: collapse
   collapse>>: collapse >>
@@ -79,7 +79,6 @@ en:
       other: Recent comments
     show_all: Show all comments
   contact_information: Contact information
-  consider_and_reply: Please consider it and reply to
   conversation:
     compress: Compress conversation
   country: Country
@@ -115,7 +114,7 @@ en:
         other: "{{count}} years"  
   delete:
     one: Delete
-    confirm: Are you sure you want to delete this item?
+    confirm: Delete {{element}}?
   deny: "No"
   description: Description
   destroy: Destroy
@@ -141,25 +140,24 @@ en:
   enabled: Enabled
   enlarge: Enlarge
   error:
-    one: Error.
-    other: Errors.
-    403: The page you were looking for is forbidden.
-    404: The page you were looking for doesn't exist.
-    500: "The page you were looking for doesn't exist."
-    change: "The change is not valid"
-    credentials: "Invalid credentials"
-    mistyped_or_moved: You may have mistyped the address or the page may have been moved.
-    not_allowed: You are not allowed to perform that action.
+    one: Error
+    other: Errors
+    e403: You are not allowed to see that page
+    e404: The page you were looking for doesn't exist
+    e500: The page you were looking for doesn't exist
+    change: Invalid change
+    credentials: Invalid credentials
+    mistyped_or_moved: You may have mistyped the address or the page may have been moved
+    not_allowed: You are not allowed to perform that action
   event:
     assistance_title: Participation
-    attend: "Attending"
-    coming: Coming events
-    create: "Create new event"
-    created: "Event successfully created."
-    edit: "Edit event"
+    attend: Attending
+    create: Create new event
+    created: Event created successfully
+    edit: Edit event
     error:
-      dates: 'The first date cannot be lower than the second one'
-    follow: "Follow this event"
+      dates: End date must be after start date
+    follow: Enter this Virtual Meeting
     found:
       none: No events found
       one: 1 event was found
@@ -194,29 +192,31 @@ en:
     tomorrow: Tomorrow events
     up:
       other: EVENTS
-    updated: "Event was successfully updated."
+    updated: Event updated successfully
     upcoming:
       all: "All upcoming ({{size}})"
       none: No upcoming events
       other: Upcoming events
       show: Show all upcoming events
-    will_attend: "Planning to attend this event?"
+    will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
-    discarded: "The invitation to this event has been discarded"
+    discarded: "You have discarded the invitation to this event"
     new:
       other: "Invite people"
     title: Event Invitation
   ######### F ###########
   fax: Fax
   feedback:
-    email: "This is a feedback e-Mail:"
+    email: "({{user}}) has reported the following feedback"
     send: Send feedback 
     send_us: Send us feedback!
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
+
     note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+
   fill_fields: "You should fill in all the fields"
   from: From
   
@@ -226,9 +226,9 @@ en:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
     create: Create new group
-    created: "The group {{name}} has been successfully created."
+    created: Group {{name}} created successfully
     delete: Delete group
-    deleted: "The group has been successfully deleted."
+    deleted: Group {{name}} deleted successfully
     different: Other groups
     edit: Edit group
     join: Join this group
@@ -239,7 +239,7 @@ en:
     one: "Group"
     other: "Groups"
     send_message: Send a message to this group
-    updated: "The group {{name}} has been successfully updated."
+    updated: Group {{name}} updated  successfully
   groups_and_results: "Groups, {{size}} results" 
 
   
@@ -257,17 +257,17 @@ en:
     one: Inbox ({{checked}})
     my: My Inbox ({{checked}})
   invitation:
-    accepted: You have accepted the invitation to this event
+    accepted: You have accepted the invitation to the {{event}} event
     add_more: Invite more people
-    discarded: The invitation to this event has been discarded
-    ps: "P.S: Please visit the following URL: {{url}} in order to accept the invitation."
-    subject: "{{username}} has invited you to an event at space {{space}}"
-    to_event: "You have been invited to an event in the space {{space}} in the VCC application."
-    to_space:  "You have been invited to the space: {{space}}  in the VCC application, please visit the following URL: {{url}} order to accept the invitation."
+    discarded: The invitation to {{event}} event has been discarded
+    ps: "P.S: Please visit the following URL: {{url}} to accept the invitation"
+    subject: "{{username}} would like you to attend {{event}} event at space {{space}}"
+    to_event: "{{username}} has invited you to {{event}} event in the space {{space}}"
+    to_space:  "{{username}} has invited you to space {{space}}, please visit the following URL: {{url}} to accept the invitation"
     new:
       other: New invitations 
     not_pending: 
-      other: "There are no pending invitations."
+      other: There are no pending invitations
     pending:
       other: Pending invitations
   invited: Invited
@@ -278,17 +278,17 @@ en:
   ######### J ###########
   join: Join
   join_request:
-    already_sent: "You have already sent a joint request to this space"
-    asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request."
-    created: Your join request has been sent to the space administrators
-    joined: "You are already in the space"
-    not_logged_in: You need to be logged in to send a join request.
+    already_sent: "You have already requested to join this space"
+    asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request"
+    created: Your join request has been sent to the space ({{space}}) administrators
+    joined: You are already a member of the space {{space}}
+    not_logged_in: You need to be logged in to send a join request
     not_pending: 
-      other: "There are no pending join requests."
+      other: There are no pending join requests
     pending:
       other: Pending join requests
     send: Send join request
-    
+
   ######### K ###########
   keywords: Keywords (*)
   
@@ -302,9 +302,9 @@ en:
   login: Login
   login_or_register: Log in / Register
   logo:
-    created: "Logo created successfully"
+    created: Logo uploaded successfully
     error:
-      not_valid: The Space logo is not valid
+      not_valid: Logo is not valid
   logout: "Logout {{user}}"
   
   ######### M ###########
@@ -314,9 +314,9 @@ en:
   mailing_list: Mailing list
   mark_checkbox: Mark the suitable checkbox
   message:
-    created: 'Message succesfully sent.'
+    created: Message sent succesfully
     error:
-      create: 'Error sending private messages.'
+      create: Error sending private message
     incoming:
       other: Incoming messages
     one: Message
@@ -324,9 +324,10 @@ en:
     private:
       editing: Editing private message
       new: New private message
-      none: There are not private messages
-      cant: "You can´t send private messages because you have no partners in spaces"
+      none: There are no private messages
+      cant: You cannot send private messages because you have no partners in any space
     reply: Reply to message
+    send: Send Message
     sent:
       other: Sent messages
   mobile: Mobile
@@ -341,24 +342,24 @@ en:
   new_source: New source
   new_spam_detected: New spam detected
   news:
-    created: 'New was successfully published.'
-    deleted: "Item successfully deleted"
-    edit: Edit news
+    created: News item published successfully
+    deleted: News item deleted successfully
+    edit: Edit news item
     error:
-      create: 'There was a problem publishing news.'
-      delete: "Error deleting item"
-      update: "Item could not be updated"      
-    item_in_home: "News item in the space {{space}}"
+      create: There was a problem publishing the news item
+      delete: Error deleting news item
+      update: News item could not be updated      
+    item_in_home: News item in space {{space}}
     none: None
-    none_to_show: "No news to show"
+    none_to_show: No news items to show
     up: "NEWS"
-    updated: "Item successfully updated"
-    publish_another: Publish another piece of news
-    publish_home: Publish news at home
+    updated: News item updated successfully
+    publish_another: Publish another news item
+    publish_home: Publish news item at home
   next: Next
-  no_messages_in_forum: There aren't messages in this forum
+  no_messages_in_forum: There are no messages in this forum
   no_tags_found: No tags found
-  not_going: I'm not going
+  not_going: I do not plan to attend
   now!: Now!
   
   ######### O ###########  
@@ -368,21 +369,21 @@ en:
     enter: Enter your OpenID
     have: Do you have an OpenID?
   or: or
-  organization: Organization
-  organizer: Organizer
+  organization: Organisation
+  organizer: Organiser
   or_use_email: or use your email...
   
   ######### P ###########
   past: Past
   participant:
-    created: "Your attendance information has been successfully updated"
+    created: Your attendance information has been updated successfully
     error:
-      create: "There was a problem updating your attendance information"
+      create: There was a problem updating your attendance information
   password:
     one: Password
     confirm: Confirm password
-    been_reset_email: "{{user}}, your password has been reset."
-    reset_email: "{{user}}, please follow the link in order to reset your password:"
+    been_reset_email: {{user}}, your password has been reset
+    reset_email: {{user}}, please follow the link in order to reset your password:
   people:
     up: PEOPLE
   performance:
@@ -390,36 +391,36 @@ en:
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
-    updated: "User performance successfully updated."
+    updated: User performance updated successfully
   permission:
-    other: Permissions
+    other: Access rights
   personal_information: Personal information
   phone: Phone
   phone_optional: Phone (optional)
-  photos: Photos
-  photos_view>>: "photos view >>"
+  photos: Pictures
+  photos_view>>: "pictures view >>"
   place: Place
   post:
-    created: "Post created."
-    deleted: "Post has been deleted"
+    created: Post created
+    deleted: Post {{postname}} has been deleted"
     error:
-      not_valid: "The comment is not valid"
-      empty: "The content of the post can't be empty"
+      not_valid: The comment is not valid
+      empty: The post cannot be empty
     found:
       none: No posts found
       one: 1 post was found
       other: "{{size}} posts were found"
       show_all: Show all the results
     home:
-      one: "Post in the space {{space}}"
+      one: Post in space {{space}}
     latest: Latest posts
     none_created: No post created
-    none_recent: There aren't any recent posts
+    none_recent: There are no recent posts
     other: Posts
     up:
       other: POSTS
-    updated: "Post updated"
-    show_expanded_pref: "How do you like to see your posts?"
+    updated: Post updated
+    show_expanded_pref: "How would you like to see your posts?"
   preferences: Preferences
   previous: Previous
   private: Private
@@ -427,20 +428,20 @@ en:
     send: Send private message
   profile:
     one: Profile
-    created: 'Profile was successfully created.'
-    deleted: 'Profile was successfully deleted.'
+    created: Profile created successfully
+    deleted: Profile deleted successfully
     error:
-      exist: "You already have a profile."
-    must_create: 'You must create your profile first'
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful."
-    updated: 'Profile was successfully updated.'
+      exist: Your profile already exists
+    must_create: Please create your profile first
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful
+    updated: Profile updated successfully
   province: Province
   public: Public
   
   ######### R ###########  
   read_more: Read more
   read_more>>: read more>>
-  received_message_more_machines: "yo have received a message from {{user}} asking for more machines."
+  received_message_more_machines: You have received a message from {{user}} asking for more machines
   register:
     one: Register
     thank_you: Thank you for registering in VCC.
@@ -456,7 +457,7 @@ en:
   report_spam: "Report spam"
   request: request it
   request:
-    info: Your request to joining the space has been succesfully sent to the space admins. Admins will manage it as soon as possible.
+    info: Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible
     sent: Request sent!
   role:
     add: "Add role..."
@@ -468,7 +469,7 @@ en:
     new: New role
     one: "Role"
     other: "Roles"
-    sucess_update: "Role successfully updated..."
+    sucess_update: "Role updated successfully..."
   RSS: RSS
   
   ######### S ###########
@@ -477,28 +478,26 @@ en:
     dots: Search...
     events:
       advanced: Advanced events search
-      description: Search in event's description
+      description: Search events by description
       dots: Search events...
       no_dots: Search events
-      title: Search by event's title
-    explanation: Title and description with exactly words
+      title: Search events by title
+    explanation: (search by title and description matching exact words)
     one: Search
     posts:
       dots: Search posts...
-      no_dots: search posts
+      no_dots: Search posts
     results: Search results
     space:
       dots: Search space...
     users: Search users
   select_image: "Select an image, please"
   send: Send
-  send_debug_emails: Send debug e-Mails
-  send_message: Send a message
+  send_debug_emails: Send debug emails
   session:
     error:
       exist: "You are already logged in"
       fill: "Please fill in this data"
-    should_create: "You should create your profile, it is very useful"
   share_participate_discuss: Share, participate, discuss.
   show: Show
   show_advanced_editor: Show advanced editor
@@ -506,7 +505,7 @@ en:
   site:
     up: SITE
   source:
-    created: 'Source was successfully created.'
+    created: 'Source created successfully'
     one: "Source"
     other: "Sources"
   space:
@@ -519,19 +518,19 @@ en:
     configuration: "-Space configuration-"
     confirm: "Are you sure you want to leave this space?"
     create_own: Create new space
-    created: 'Space was successfully created.'
+    created: Space created successfully
     delete: "Delete Space"
-    deleted: 'Space was successfully removed.'
+    deleted: Space removed successfully
     disable: Disable space
-    disabled: 'Space was successfully disabled.'
+    disabled: Space disabled successfully
     does_not_belong: doesn't belong to any space
     edit_description: "edit description"
     edit_name: "edit name"
     enable: Enable space
-    enabled: "Space succesfully enabled."
+    enabled: Space enabled succesfully
     error:
       enabled: "Space {{name}} is already enabled"
-    is_private: is a private space. Send a join request to the administrator of this space to let you in.
+    is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
     leave: "Leave this space"
     logo: "Space Logo"
@@ -551,19 +550,18 @@ en:
     subscribed_to_none: You are not subscribed to any space
     up:
       other: SPACES
-    updated: 'Space was successfully updated.'
+    updated: Space updated successfully
   spam:
-    created: "A reporting spam e-mail has been successfully sent to the admin off the VCC. Thanks you"
+    created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     detected: New spam detected
     error:
-      check: "There was a problem checking the resource as spam"
+      check: "There was a problem marking the resource as spam"
     up: SPAM
     report: Report spam
-    reported: A user has reported spam in the application.
+    reported: A user has reported spam in the application
     no_spam: Congratulations! No spam here
   stage_type: Stage type
   start_now!: Start now!
-  show_list_version>>: "show list version >>"
   subject: Subject
   support: Support
   
@@ -576,9 +574,9 @@ en:
     one: Thread
     or_add_new: or add a new thread
     other: Threads
-    show_last_comment: "Showing last {{size}} comments of {{children}}."
-    show_one_only_comment: "Showing the only one comment of the thread."
-    show_comment_size: "Showing the {{size}} comments of the thread."
+    show_last_comment: "Showing last {{size}} comments of {{children}}"
+    show_one_only_comment: "Showing the single comment of the thread"
+    show_comment_size: "Showing the {{size}} comments of the thread"
   time:
     end: End time
     start: Start time
@@ -596,8 +594,8 @@ en:
   translate:
     availables: Available translations
     one: Translate
-    request: "Are you thinking in translating VCC to another language? Please, "
-    up: -TRANSLATE-
+    request: "To translate a different language, please request for the administrator to add the new language and flag"
+    up: TRANSLATE
     translated: "VCC is now translated, or in translation process, to " 
   
   ######### U ###########
@@ -609,7 +607,7 @@ en:
       other: Active users
     add:
       instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
-      note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will regsiter those 3 email addresses as members of the space and will send and validation email to them."
+      note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
     add_more: Add users >>
     admin: "Admin"
     assist: Attending
@@ -623,7 +621,7 @@ en:
     email: E-mail
     e-mail: "e-mail"
     enable: Enable user
-    enabled: "User succesfully enabled. The user is not a member of any space now and has to join spaces again."
+    enabled: "User succesfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error:
       enabled: "User {{name}} is already enabled"
     feed:
@@ -644,12 +642,12 @@ en:
     invited: Users already invited
     list_by: "List by"
     invitation:
-        label: "Customize your invitation message"
-        message: Dear 'name', I would like to invite you to the event 'event_name' which will be held on event_date.
+        label: "Customise your invitation message"
+        message: Dear 'name', I would like to invite you to the event 'event_name' which will be held on 'event_date'
         sign: "Yours sincerely, {{username}}"
         legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
-    not_activated: "Your account isn't activated. Please, check your email to activate it."
+    not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: Not attending
     not_confirmed: Not confirmed    
     notifications: "How do you want to receive your notifications?"
@@ -658,7 +656,7 @@ en:
     password: "Password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Send Message"
-    registered: "Thanks for registering! We have just sent instructions on how to activate your user account permanently."
+    registered: "Thanks for registering! We have just sent instructions on how to activate your user account permanently"
     recent_join: "Recent users joined"
     request_password: "Request Password"
     reset_password: "Reset Your Password"
@@ -670,7 +668,7 @@ en:
     timezone: "Timezone"
     up:
       other: USERS
-    updated: 'User was successfully updated.'
+    updated: User updated successfully
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "Show posts' expanded view by default"
     without_group: People without group
