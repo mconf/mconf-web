@@ -3,7 +3,8 @@ class AttachmentSpace < ActiveRecord::Migration
   class AttachmentMigration < ActiveRecord::Base
     set_table_name "attachments"
     
-    belongs_to :post, :space
+    belongs_to :post
+    belongs_to :space
   end
   
   def self.up
