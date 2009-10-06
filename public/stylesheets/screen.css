@@ -119,7 +119,7 @@ body .icon{margin-bottom:-2px;}
 #feedback a{font-weight:normal;}
 #about{margin-left:50px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
-#feedback:hover,#about:hover{background:#275b96;/*otros colores  #2b578a;/*346aa8;*/}
+#feedback:hover,#about:hover{background:#275b96;/*otros colores  #2b578a;/*346aa8;#5C75AA*/}
 
 #header{padding-top:1em;height:68px;padding-bottom:1em;}
 #logo,#vcc-logo,#search{float:left;}
@@ -510,10 +510,16 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 #sidebar h3.item_title{margin:0;}
 .profile-box #profile_content,.space-box #space_content,.invitation-box #invitation_content{background:#f0f6f9;padding:9px;clear:both;overflow:hidden;position:relative;}
 .profile-box #profile_content,.invitation-box #invitation_content{-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
-#sidebar #profile_content{padding:6px;}
-#sidebar .space_item{margin-right:2px;}
-#profile_content .adr{margin-bottom:0.75em;}
+.space_item{display:inline;margin-bottom:4px;margin-right:3px;}
+.space_item img{padding:2px;border:1px #ccc solid;background:#ffffff;}
+.space_item img:hover {border-color:#bbb;}
+.space_item form{display:inline;}
+.space_item form div{display:inline;}
 #profile_content div{float:left;}
+#sidebar #profile_content{padding:10px 20px;}
+#sidebar #profile_content div.space_item{float:none;position:relative;}
+#profile_content div.space_item a.logo{height:70px;width:90px;}
+#profile_content .adr{margin-bottom:0.75em;}
 #profile_content .telecommunications,#profile_content .telecommunications #contact_line{width:440px;}
 #contact_line{background:url("/images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
 #contact_line span{background:#f0f6f9;padding:0 6px 0 6px;margin-left:10px;}
@@ -598,11 +604,6 @@ h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;bor
 /*index de spaces*/
 #space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}
 #space_filter input[type="text"]{color:#777;background:#f0f6f9;}
-.space_item{display:inline;margin-bottom:4px;margin-right:3px;width:52px;}
-.space_item img{padding:1px;border:1px #ccc solid;}
-.space_item img:hover {border:1px #bbb solid;}
-.space_item form{display:inline;}
-.space_item form div{display:inline;}
 #space_description h3{padding-bottom:8px;border-bottom:1px #ccc solid;color:#244974;}
 /*Edit space*/
 div#jedit_form img.logo{display:block;}
