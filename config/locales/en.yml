@@ -382,8 +382,8 @@ en:
   password:
     one: Password
     confirm: Confirm password
-    been_reset_email: {{user}}, your password has been reset
-    reset_email: {{user}}, please follow the link in order to reset your password:
+    been_reset_email: "{{user}}, your password has been reset"
+    reset_email: "{{user}}, please follow the link in order to reset your password:"
   people:
     up: PEOPLE
   performance:
@@ -408,11 +408,11 @@ en:
       empty: The post cannot be empty
     found:
       none: No posts found
-      one: 1 post was found
+      one: "1 post was found"
       other: "{{size}} posts were found"
       show_all: Show all the results
     home:
-      one: Post in space {{space}}
+      one: "Post in space {{space}}"
     latest: Latest posts
     none_created: No post created
     none_recent: There are no recent posts
@@ -433,15 +433,15 @@ en:
     error:
       exist: Your profile already exists
     must_create: Please create your profile first
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful"
     updated: Profile updated successfully
   province: Province
   public: Public
   
   ######### R ###########  
   read_more: Read more
-  read_more>>: read more>>
-  received_message_more_machines: You have received a message from {{user}} asking for more machines
+  read_more>>: "read more>>"
+  received_message_more_machines: "You have received a message from {{user}} asking for more machines"
   register:
     one: Register
     thank_you: Thank you for registering in VCC.
@@ -449,7 +449,7 @@ en:
   register_as_invited: Register as invited
   register_as_user: Register as user
   register_now: "Register NOW!"
-  remarks: "Remarks"
+  remarks: Remarks
   remember_me: Remember me
   remove: Remove
   reply: Reply
