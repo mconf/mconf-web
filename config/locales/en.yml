@@ -181,25 +181,25 @@ en:
     online: "WebConference"
     past:
       all: "All past ({{size}})"
-      none: No past events
-      other: Past events
-      show: Show all old events
-    search: Search events...
-    select_date: Select a date for your event
+      none: "No past events"
+      other: "Past events"
+      show: "Show all old events"
+    search: "Search events..."
+    select_date: "Select a date for your event"
     steps: "Complete your event following next steps:"
     to: "To"
     today: "Today events"
     today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
-    tomorrow: Tomorrow events
+    tomorrow: "Tomorrow events"
     up:
-      other: EVENTS
-    updated: Event updated successfully
+      other: "EVENTS"
+    updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
-      none: No upcoming events
-      other: Upcoming events
-      show: Show all upcoming events
+      none: "No upcoming events"
+      other: "Upcoming events"
+      show: "Show all upcoming events"
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
@@ -208,17 +208,15 @@ en:
     discarded: "You have discarded the invitation to this event"
     new:
       other: "Invite people"
-    title: Event Invitation
+    title: "Event Invitation"
   ######### F ###########
-  fax: Fax
+  fax: "Fax"
   feedback:
     email: "({{user}}) has reported the following feedback"
-    send: Send feedback 
-    send_us: Send us feedback!
+    send: "Send feedback" 
+    send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
-
-    note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
-
+    note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
   from: From
   
@@ -236,12 +234,12 @@ en:
     join: Join this group
     mailing_list: Group mailing list
     name: Group name
-    not_deleted: "Error deleting the group"
+    not_deleted: "Error deleting group {{name}}"
     not_valid: "The group is not valid"
     one: "Group"
     other: "Groups"
     send_message: Send a message to this group
-    updated: Group {{name}} updated  successfully
+    updated: "Group {{name}} updated successfully"
   groups_and_results: "Groups, {{size}} results" 
 
   
