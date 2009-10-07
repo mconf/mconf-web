@@ -540,9 +540,9 @@ div#manage label{color:#244974;font-weight:bold;display:inline-block;width:150px
 div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
-div#manage input#site_submit{width:70px;margin-left:150px;}
+div#manage #site_button{margin-left:162px;}
+div#manage #site_button button{padding-left:10px;padding-right:10px;}
 div#manage textarea{width:300px;height:100px;}
-div#manage img#edit_link{margin-left:163px;}
 div#manage .users select{margin-left:0.75em;}
 div#manage .users input{width:75px;}
 div#manage .user{background:none;}
