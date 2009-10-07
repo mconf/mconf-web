@@ -3,6 +3,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :post
   belongs_to :space
   belongs_to :event
+  belongs_to :author, :polymorphic => true
   
   has_attachment :max_size => 1000.megabyte,
   :path_prefix => 'attachments',
@@ -15,7 +16,7 @@ class Attachment < ActiveRecord::Base
   acts_as_content :reflection => :space
   
   validates_as_attachment
-  
+   
   def thumbnail_size
     thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end

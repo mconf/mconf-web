@@ -4,51 +4,51 @@
 en:
   ########## A #########
   
-  about: About
-  about_global: About GLOBAL
-  about_me: About me
-  about_sxsw: About SXSW
-  account: Account
-  add: Add
-  add_more_details: Add more details
-  address: Address 
+  about: "About"
+  about_global: "About GLOBAL"
+  about_me: "About me"
+  about_sxsw: "About SXSW"
+  account: "Account"
+  add: "Add"
+  add_more_details: "Add more details"
+  address: "Address" 
   admin:
-    one: Admin
-    up: ADMIN
+    one: "Admin"
+    up: "ADMIN"
   admission:
-    one: Admission
-    other: Admissions
-  advanced: Advanced
-  advanced_options: Advanced options
+    one: "Admission"
+    other: "Admissions"
+  advanced: "Advanced"
+  advanced_options: "Advanced options"
   agent:
-    one: User
+    one: "User"
   agree: "Yes"
-  all: All
-  all_rights_reserved: All rights reserved
-  at: at
+  all: "All"
+  all_rights_reserved: "All rights reserved"
+  at: "at"
   attachment:
     attach: "Attachment"
     not_valid: "The attachment is not valid"
   avatar:
-    created: Picture uploaded successfully
-    crop: Crop your picture
-    current: Current picture
-    empty: Select picture, please
-    select: Select picture
-    select_new: Select new picture
+    created: "Picture uploaded successfully"
+    crop: "Crop your picture"
+    current: "Current picture"
+    empty: "Select picture, please"
+    select: "Select picture"
+    select_new: "Select new picture"
   
   ######### B ###########
-  back: Back
-  back_to_inbox: Back to inbox
-  beta: (BETA)
-  body: Body 
+  back: "Back"
+  back_to_inbox: "Back to inbox"
+  beta: "(BETA)"
+  body: "Body" 
   button:
-    create: Create
-    go: Go!
-    other_spaces: Find other spaces
-    send: Send
-    update: Update
-    edit: Edit
+    create: "Create"
+    go: "Go!"
+    other_spaces: "Find other spaces"
+    send: "Send"
+    update: "Update"
+    edit: "Edit"
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -57,40 +57,40 @@ en:
     one: "Calendar"
     my: "My Calendar"
   caption:
-    add: Add a caption
-  change: Change
-  changed_mind: Changed your mind?
+    add: "Add a caption"
+  change: "Change"
+  changed_mind: "Changed your mind?"
   check_mail: "Please, check your email"
-  city: City
-  click_here: Click here
-  click_to_see_all: See all
-  close: Close
-  collapse: collapse
-  collapse>>: collapse >>
+  city: "City"
+  click_here: "Click here"
+  click_to_see_all: "See all"
+  close: "Close"
+  collapse: "collapse"
+  collapse>>: "collapse >>"
   comment:
-    add: Add a comment
-    add_new: Add a new comment
+    add: "Add a comment"
+    add_new: "Add a new comment"
     by: "comment by {{author}}"
-    delete: Delete comment
-    edit: Edit comment
-    new: New comment
-    one: Comment
-    other: Comments
+    delete: "Delete comment"
+    edit: "Edit comment"
+    new: "New comment"
+    one: "Comment"
+    other: "Comments"
     recent:
-      other: Recent comments
-    show_all: Show all comments
-  contact_information: Contact information
+      other: "Recent comments"
+    show_all: "Show all comments"
+  contact_information: "Contact information"
   conversation:
-    compress: Compress conversation
-  country: Country
-  create: Create
+    compress: "Compress conversation"
+  country: "Country"
+  create: "Create"
   created_time_ago: "Created {{time}} ago"
   
   
   ######### D ###########
   date:
-    end: End date
-    start: Start date
+    end: "End date"
+    start: "Start date"
     
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
@@ -114,70 +114,70 @@ en:
         one:  "1 year" 
         other: "{{count}} years"  
   delete:
-    one: Delete
-    confirm: Delete {{element}}?
+    one: "Delete"
+    confirm: "Delete {{element}}?"
   deny: "No"
-  description: Description
-  destroy: Destroy
-  disable: Disable
-  disabled: Disabled
-  docs: Docs
-  done: Done!
-  download_file: Download file
+  description: "Description"
+  destroy: "Destroy"
+  disable: "Disable"
+  disabled: "Disabled"
+  docs: "Docs"
+  done: "Done!"
+  download_file: "Download file"
   
   ######### E ###########
-  edit: Edit
-  edit_profile: Edit profile
-  edit_your_profile: Edit your profile
+  edit: "Edit"
+  edit_profile: "Edit profile"
+  edit_your_profile: "Edit your profile"
   email:
-    commas: (separated by commas)
-    confirm: "To confirm your e-mail address, please visit the following URL:"
-    notifications: e-Mail notifications
-    one: e-Mail
-    other: e-Mails
-    used_from: "e-Mail used in contact form: {{dir}}"
-  email_or_full_name: e-Mail or full name
-  enable: Enable
-  enabled: Enabled
-  enlarge: Enlarge
+    commas: "(separated by commas)"
+    confirm: "To confirm your email address, please visit the following URL:"
+    notifications: "email notifications"
+    one: "email"
+    other: "emails"
+    used_from: "email used in contact form: {{dir}}"
+  email_or_full_name: "email or full name"
+  enable: "Enable"
+  enabled: "Enabled"
+  enlarge: "Enlarge"
   error:
-    one: Error
-    other: Errors
-    e403: You are not allowed to see that page
-    e404: The page you were looking for doesn't exist
-    e500: The page you were looking for doesn't exist
-    change: Invalid change
-    credentials: Invalid credentials
-    mistyped_or_moved: You may have mistyped the address or the page may have been moved
-    not_allowed: You are not allowed to perform that action
+    one: "Error"
+    other: "Errors"
+    e403: "You are not allowed to see that page"
+    e404: "The page you were looking for doesn't exist"
+    e500: "The page you were looking for doesn't exist"
+    change: "Invalid change"
+    credentials: "Invalid credentials"
+    mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
+    not_allowed: "You are not allowed to perform that action"
   event:
-    assistance_title: Participation
-    attend: Attending
-    create: Create new event
-    created: Event created successfully
-    edit: Edit event
+    assistance_title: "Participation"
+    attend: "Attending"
+    create: "Create new event"
+    created: "Event created successfully"
+    edit: "Edit event"
     error:
-      dates: End date must be after start date
-    follow: Enter this Virtual Meeting
+      dates: "End date must be after start date"
+    follow: "Enter this Virtual Meeting"
     found:
-      none: No events found
-      one: 1 event was found
+      none: "No events found"
+      one: "1 event was found"
       other: "{{size}} events were found"
     home:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     Isabel: "Isabel event"
-    join: Join this event
+    join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
     last_month: "Last month ({{size}})"
     location: "Location"
-    no_events: You have no events
-    none_coming: No coming events
+    no_events: "You have no events"
+    none_coming: "No coming events"
     not_attend: "Not attending"
     now: "Events at this moment: "
-    one: Event
-    other: Events
-    online: WebConference
+    one: "Event"
+    other: "Events"
+    online: "WebConference"
     past:
       all: "All past ({{size}})"
       none: No past events
@@ -226,10 +226,10 @@ en:
   group:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
-    create: Create new group
-    created: Group {{name}} created successfully
-    delete: Delete group
-    deleted: Group {{name}} deleted successfully
+    create: "Create new group"
+    created: "Group {{name}} created successfully"
+    delete: "Delete group"
+    deleted: "Group {{name}} deleted successfully"
     different: Other groups
     edit: Edit group
     join: Join this group
@@ -255,8 +255,8 @@ en:
     
   ######### I ###########
   inbox: 
-    one: Inbox ({{checked}})
-    my: My Inbox ({{checked}})
+    one: "Inbox ({{checked}})"
+    my: "My Inbox ({{checked}})"
   invitation:
     accepted: You have accepted the invitation to the {{event}} event
     add_more: Invite more people
