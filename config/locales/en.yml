@@ -163,6 +163,7 @@ en:
       none: "No events found"
       one: "1 event was found"
       other: "{{size}} events were found"
+    has: "This event has"
     home:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
@@ -555,10 +556,11 @@ en:
     updated: Space updated successfully
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
-    detected: New spam detected
+    detected: "New spam detected"
     error:
       check: "There was a problem marking the resource as spam"
     up: SPAM
+    valid: "This content is valid"
     report: Report spam
     reported: A user has reported spam in the application
     no_spam: Congratulations! No spam here
