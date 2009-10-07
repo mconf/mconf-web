@@ -137,6 +137,7 @@ class PostsController < ApplicationController
           end
         else
           @attachment.space = @space
+          @attachment.author = current_agent
 #          @attachment.save;
         end
       end
@@ -225,6 +226,7 @@ class PostsController < ApplicationController
           end
         else
           @attachment.space = @space
+          @attachment.author = current_agent
         end
       end
     end
