@@ -257,15 +257,15 @@ en:
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
   invitation:
-    accepted: You have accepted the invitation to the {{event}} event
-    add_more: Invite more people
-    discarded: The invitation to {{event}} event has been discarded
+    accepted: "You have accepted the invitation to the {{event}} event"
+    add_more: "Invite more people"
+    discarded: "The invitation to {{event}} event has been discarded"
     ps: "P.S: Please visit the following URL: {{url}} to accept the invitation"
     subject: "{{username}} would like you to attend {{event}} event at space {{space}}"
     to_event: "{{username}} has invited you to {{event}} event in the space {{space}}"
     to_space:  "{{username}} has invited you to space {{space}}, please visit the following URL: {{url}} to accept the invitation"
     new:
-      other: New invitations 
+      other: "New invitations" 
     not_pending: 
       other: There are no pending invitations
     pending:
@@ -281,140 +281,140 @@ en:
   join_request:
     already_sent: "You have already requested to join this space"
     asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request"
-    created: Your join request has been sent to the space ({{space}}) administrators
-    joined: You are already a member of the space {{space}}
-    not_logged_in: You need to be logged in to send a join request
+    created: "Your join request has been sent to the space administrators"
+    joined: "You are already a member of the space"
+    not_logged_in: "You need to be logged in to send a join request"
     not_pending: 
-      other: There are no pending join requests
+      other: "There are no pending join requests"
     pending:
-      other: Pending join requests
-    send: Send join request
+      other: "Pending join requests"
+    send: "Send join request"
 
   ######### K ###########
-  keywords: Keywords (*)
+  keywords: "Keywords (*)"
   
   ######### L ###########
-  latest_events: Latest events
-  latest_news: Latest news
-  list_by: List by
+  latest_events: "Latest events"
+  latest_news: "Latest news"
+  list_by: "List by"
   locale:
     changed: "Application language changed to " 
     error: "Unable to change application language to "
-  login: Login
-  login_or_register: Log in / Register
+  login: "Login"
+  login_or_register: "Log in / Register"
   logo:
-    created: Logo uploaded successfully
+    created: "Logo uploaded successfully"
     error:
-      not_valid: Logo is not valid
+      not_valid: "Logo is not valid"
   logout: "Logout {{user}}"
   
   ######### M ###########
-  manage: Manage
+  manage: "Manage"
   management:
-    up: MANAGEMENT
-  mailing_list: Mailing list
-  mark_checkbox: Mark the suitable checkbox
+    up: "MANAGEMENT"
+  mailing_list: "Mailing list"
+  mark_checkbox: "Mark the suitable checkbox"
   message:
-    created: Message sent succesfully
+    created: "Message sent succesfully"
     error:
-      create: Error sending private message
+      create: "Error sending private message"
     incoming:
-      other: Incoming messages
-    one: Message
-    other: Messages
+      other: "Incoming messages"
+    one: "Message"
+    other: "Messages"
     private:
-      editing: Editing private message
-      new: New private message
-      none: There are no private messages
-      cant: You cannot send private messages because you have no partners in any space
-    reply: Reply to message
-    send: Send Message
+      editing: "Editing private message"
+      new: "New private message"
+      none: "There are no private messages"
+      cant: "You cannot send private messages because you have no partners in any space"
+    reply: "Reply to message"
+    send: "Send Message"
     sent:
-      other: Sent messages
-  mobile: Mobile
-  more>>: more >>
-  my_friends: My friends
+      other: "Sent messages"
+  mobile: "Mobile"
+  more>>: "more >>"
+  my_friends: "My friends"
   
   ######### N ###########
   name:
-    full: Full name
-    one: Name
-    other: Names
-  new_source: New source
-  new_spam_detected: New spam detected
+    full: "Full name"
+    one: "Name"
+    other: "Names"
+  new_source: "New source"
+  new_spam_detected: "New spam detected"
   news:
-    created: News item published successfully
-    deleted: News item deleted successfully
-    edit: Edit news item
+    created: "News item published successfully"
+    deleted: "News item deleted successfully"
+    edit: "Edit news item"
     error:
-      create: There was a problem publishing the news item
-      delete: Error deleting news item
-      update: News item could not be updated      
-    item_in_home: News item in space {{space}}
-    none: None
-    none_to_show: No news items to show
+      create: "There was a problem publishing the news item"
+      delete: "Error deleting news item"
+      update: "News item could not be updated"      
+    item_in_home: "News item in space {{space}}"
+    none: "None"
+    none_to_show: "No news items to show"
     up: "NEWS"
-    updated: News item updated successfully
-    publish_another: Publish another news item
-    publish_home: Publish news item at home
-  next: Next
-  no_messages_in_forum: There are no messages in this forum
-  no_tags_found: No tags found
-  not_going: I do not plan to attend
-  now!: Now!
+    updated: "News item updated successfully"
+    publish_another: "Publish another news item"
+    publish_home: "Publish news item at home"
+  next: "Next"
+  no_messages_in_forum: "There are no messages in this forum"
+  no_tags_found: "No tags found"
+  not_going: "I do not plan to attend"
+  now!: "Now!"
   
   ######### O ###########  
   ok: "OK"
   online: "online"
   openid:
-    enter: Enter your OpenID
-    have: Do you have an OpenID?
-  or: or
-  organization: Organisation
-  organizer: Organiser
-  or_use_email: or use your email...
+    enter: "Enter your OpenID"
+    have: "Do you have an OpenID?"
+  or: "or"
+  organization: "Organisation"
+  organizer: "Organiser"
+  or_use_email: "or use your email..."
   
   ######### P ###########
-  past: Past
+  past: "Past"
   participant:
-    created: Your attendance information has been updated successfully
+    created: "Your attendance information has been updated successfully"
     error:
-      create: There was a problem updating your attendance information
+      create: "There was a problem updating your attendance information"
   password:
-    one: Password
-    confirm: Confirm password
+    one: "Password"
+    confirm: "Confirm password"
     been_reset_email: "{{user}}, your password has been reset"
     reset_email: "{{user}}, please follow the link in order to reset your password:"
   people:
-    up: PEOPLE
+    up: "PEOPLE"
   performance:
     new: "New Member"
     one: "Member"
     other: "Members"
     other_in: "Members of {{stage}}"
-    updated: User performance updated successfully
+    updated: "User performance updated successfully"
   permission:
-    other: Access rights
-  personal_information: Personal information
-  phone: Phone
-  phone_optional: Phone (optional)
-  photos: Pictures
+    other: "Access rights"
+  personal_information: "Personal information"
+  phone: "Phone"
+  phone_optional: "Phone (optional)"
+  photos: "Pictures"
   photos_view>>: "pictures view >>"
-  place: Place
+  place: "Place"
   post:
-    created: Post created
-    deleted: Post {{postname}} has been deleted"
+    created: "Post created"
+    deleted: "Post {{postname}} has been deleted"
     error:
-      not_valid: The comment is not valid
-      empty: The post cannot be empty
+      not_valid: "The comment is not valid"
+      empty: "The post cannot be empty"
     found:
-      none: No posts found
+      none: "No posts found"
       one: "1 post was found"
       other: "{{size}} posts were found"
-      show_all: Show all the results
+      show_all: "Show all the results"
     home:
       one: "Post in space {{space}}"
-    latest: Latest posts
+    latest: "Latest posts"
     none_created: No post created
     none_recent: There are no recent posts
     other: Posts
@@ -441,220 +441,220 @@ en:
   
   ######### R ###########  
   read_more: Read more
-  read_more>>: "read more>>"
+  read_more>>: "read more >>"
   received_message_more_machines: "You have received a message from {{user}} asking for more machines"
   register:
-    one: Register
-    thank_you: Thank you for registering in VCC
-  register_as_admin: Register as admin
-  register_as_invited: Register as invited
-  register_as_user: Register as user
+    one: "Register"
+    thank_you: "Thank you for registering in VCC"
+  register_as_admin: "Register as admin"
+  register_as_invited: "Register as invited"
+  register_as_user: "Register as user"
   register_now: "Register NOW!"
-  remarks: Remarks
-  remember_me: Remember me
-  remove: Remove
-  reply: Reply
+  remarks: "Remarks"
+  remember_me: "Remember me"
+  remove: "Remove"
+  reply: "Reply"
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
-  request: request it
+  request: "request it"
   request:
-    info: Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible
-    sent: Request sent!
+    info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"
+    sent: "Request sent!"
   role:
     add: "Add role..."
     added: "{{role}} role succesfully added to {{agent}}"
     change: "Change role..." 
-    editing: Editing role
-    invalid: Role is invalid
-    listing: Listing roles
-    new: New role
+    editing: "Editing role"
+    invalid: "Role is invalid"
+    listing: "Listing roles"
+    new: "New role"
     one: "Role"
     other: "Roles"
     sucess_update: "Role updated successfully..."
-  RSS: RSS
+  RSS: "RSS"
   
   ######### S ###########
   search:
-    between_dates: You can search here between two dates
-    dots: Search...
+    between_dates: "You can search here between two dates"
+    dots: "Search..."
     events:
-      advanced: Advanced events search
-      description: Search events by description
-      dots: Search events...
-      no_dots: Search events
-      title: Search events by title
-    explanation: (search by title and description matching exact words)
-    one: Search
+      advanced: "Advanced events search"
+      description: "Search events by description"
+      dots: "Search events..."
+      no_dots: "Search events"
+      title: "Search events by title"
+    explanation: "(search by title and description matching exact words)"
+    one: "Search"
     posts:
-      dots: Search posts...
-      no_dots: Search posts
-    results: Search results
+      dots: "Search posts..."
+      no_dots: "Search posts"
+    results: "Search results"
     space:
-      dots: Search space...
-    users: Search users
+      dots: "Search space..."
+    users: "Search users"
   select_image: "Select an image, please"
-  send: Send
-  send_debug_emails: Send debug emails
+  send: "Send"
+  send_debug_emails: "Send debug emails"
   session:
     error:
       exist: "You are already logged in"
       fill: "Please fill in this data"
-  share_participate_discuss: Share, participate, discuss.
+  share_participate_discuss: "Share, participate, discuss"
   show: Show
-  show_advanced_editor: Show advanced editor
+  show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
-    up: SITE
+    up: "SITE"
   source:
-    created: 'Source created successfully'
+    created: "Source created successfully"
     one: "Source"
     other: "Sources"
   space:
     add_user:
-      other: Add users to the space
+      other: "Add users to the space"
     about: "About"
     allow_public_access: "Allow public access?"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
-    configuration: "-Space configuration-"
+    configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
-    create_own: Create new space
-    created: Space created successfully
+    create_own: "Create new space"
+    created: "Space created successfully"
     delete: "Delete Space"
-    deleted: Space removed successfully
-    disable: Disable space
-    disabled: Space disabled successfully
-    does_not_belong: doesn't belong to any space
+    deleted: "Space removed successfully"
+    disable: "Disable space"
+    disabled: "Space disabled successfully"
+    does_not_belong: "does not belong to any space"
     edit_description: "edit description"
     edit_name: "edit name"
-    enable: Enable space
-    enabled: Space enabled succesfully
+    enable: "Enable space"
+    enabled: "Space enabled succesfully"
     error:
       enabled: "Space {{name}} is already enabled"
-    is_private: is a private space. Send a join request to the administrator of this space to let you in
-    join: Join this space
+    is_private: "is a private space. Send a join request to the administrator of this space to let you in"
+    join: "Join this space"
     leave: "Leave this space"
     logo: "Space Logo"
-    main: Main space
-    member_of: Member of the spaces
-    one: Space
+    main: "Main space"
+    member_of: "Member of the spaces"
+    one: "Space"
     popular:
-      other: Popular spaces
-    private: Private spaces
+      other: "Popular spaces"
+    private: "Private spaces"
     public:
-      one: Public space
-      other: Public spaces
+      one: "Public space"
+      other: "Public spaces"
     recent:
-      other: Recent spaces
-    search: Search space...
-    show_all: Show all spaces
-    subscribed_to_none: You are not subscribed to any space
+      other: "Recent spaces"
+    search: "Search space..."
+    show_all: "Show all spaces"
+    subscribed_to_none: "You are not subscribed to any space"
     up:
-      other: SPACES
-    updated: Space updated successfully
+      other: "SPACES"
+    updated: "Space updated successfully"
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     detected: "New spam detected"
     error:
       check: "There was a problem marking the resource as spam"
-    up: SPAM
+    up: "SPAM"
     valid: "This content is valid"
-    report: Report spam
-    reported: A user has reported spam in the application
-    no_spam: Congratulations! No spam here
+    report: "Report spam"
+    reported: "A user has reported spam in the application"
+    no_spam: "Congratulations! No spam here"
   stage_type: Stage type
-  start_now!: Start now!
-  subject: Subject
-  support: Support
+  start_now!: "Start now!"
+  subject: "Subject"
+  support: "Support"
   
   ######### T ###########
-  thank_you: Thank you
+  thank_you: "Thank you"
   thread:
-    add: Add a new thread
+    add: "Add a new thread"
     deleted: "Thread has been deleted"
-    edit: Edit thread
-    one: Thread
-    or_add_new: or add a new thread
-    other: Threads
+    edit: "Edit thread"
+    one: "Thread"
+    or_add_new: "or add a new thread"
+    other: "Threads"
     show_last_comment: "Showing last {{size}} comments of {{children}}"
     show_one_only_comment: "Showing the single comment of the thread"
     show_comment_size: "Showing the {{size}} comments of the thread"
   time:
-    end: End time
-    start: Start time
+    end: "End time"
+    start: "Start time"
   timezone:
-    one: Timezone
+    one: "Timezone"
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
-  title: Title
-  to: to
-  to_configure_your: to configure your
-  today: Today
+  title: "Title"
+  to: "to"
+  to_configure_your: "to configure your"
+  today: "Today"
   toke:
     not_available: "Token not available"
-  tomorrow: Tomorrow
-  topic: Topic
+  tomorrow: "Tomorrow"
+  topic: "Topic"
   translate:
-    availables: Available translations
-    one: Translate
+    availables: "Available translations"
+    one: "Translate"
     request: "To translate a different language, please request for the administrator to add the new language and flag"
-    up: TRANSLATE
+    up: "TRANSLATE"
     translated: "VCC is now translated, or in translation process, to " 
   
   ######### U ###########
-  upcoming: Upcoming
-  update: Update
+  upcoming: "Upcoming"
+  update: "Update"
   updated_time_ago: "{{time}} ago"  
   user:
     active:
-      other: Active users
+      other: "Active users"
     add:
       instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
-    add_more: Add users >>
+    add_more: "Add users >>"
     admin: "Admin"
-    assist: Attending
-    by_email: "By e-mail"
+    assist: "Attending"
+    by_email: "By email"
     by_private_message: "By private message"
     confirm_password: "Confirm Password"
     delete_from_space: "Delete user from space"
-    disable: Disable user
-    disabled: "User disabled"
+    disable: "Disable user"
+    disabled: "User {{username}} disabled"
     edit_account: "Edit your account"
-    email: E-mail
-    e-mail: "e-mail"
-    enable: Enable user
+    email: "email"
+    e-mail: "email"
+    enable: "Enable user"
     enabled: "User succesfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error:
       enabled: "User {{name}} is already enabled"
     feed:
       title: "Users"
       author: "SIR"
-    filter: User Filter
+    filter: "User Filter"
     found:
-      none: No users found
-      one: 1 user was found
+      none: "No users found"
+      one: "1 user found"
       other: "{{size}} users were found"
     full_name: "Full name"
-    include_registered: Include registered users
+    include_registered: "Include registered users"
     included:
-      other: Included users
-    invite: Invite people
-    invite_email: Invite people by e-mail
-    invite_from_space_by_email: Invite people from your space
-    invited: Users already invited
+      other: "Included users"
+    invite: "Invite people"
+    invite_email: "Invite people by email"
+    invite_from_space_by_email: "Invite people from your space"
+    invited: "Users already invited"
     list_by: "List by"
     invitation:
         label: "Customise your invitation message"
-        message: Dear 'name', I would like to invite you to the event 'event_name' which will be held on 'event_date'
+        message: "Dear 'name', I would like to invite you to the event 'event_name' which will be held on 'event_date'"
         sign: "Yours sincerely, {{username}}"
         legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
     not_activated: "Your account is not activated. Please, check your email to activate it"
-    not_assist: Not attending
-    not_confirmed: Not confirmed    
+    not_assist: "Not attending"
+    not_confirmed: "Not confirmed"    
     notifications: "How do you want to receive your notifications?"
-    one: User
-    other: Users
+    one: "User"
+    other: "Users"
     password: "Password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Send Message"
@@ -669,27 +669,27 @@ en:
     search: "Search Users..."
     timezone: "Timezone"
     up:
-      other: USERS
-    updated: User updated successfully
+      other: "USERS"
+    updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "Show posts' expanded view by default"
-    without_group: People without group
-  username: Username
+    without_group: "People without group"
+  username: "Username"
     
   ######### V ###########
-  vcard: vCard
+  vcard: "vCard"
   vcc: "Virtual Conference Centre"
   
   ######### W ###########
   week:
-    next: Next week
-  when: When
+    next: "Next week"
+  when: "When"
   
   ######### X ###########
   
   ######### Y ###########
-  your_interests_tags: Your interests (tags)
-  your_vcard: your vCard
+  your_interests_tags: "Your interests (tags)"
+  your_vcard: "your vCard"
   
   ######### Z ###########
-  zipcode: Zip code
+  zipcode: "Zip code"
