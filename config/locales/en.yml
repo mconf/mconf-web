@@ -70,6 +70,7 @@ en:
   comment:
     add: Add a comment
     add_new: Add a new comment
+    by: "comment by {{author}}"
     delete: Delete comment
     edit: Edit comment
     new: New comment
@@ -270,6 +271,7 @@ en:
       other: There are no pending invitations
     pending:
       other: Pending invitations
+    other: invitation
   invited: Invited
   import: Import
   is_member_of: Is member of
@@ -444,7 +446,7 @@ en:
   received_message_more_machines: "You have received a message from {{user}} asking for more machines"
   register:
     one: Register
-    thank_you: Thank you for registering in VCC.
+    thank_you: Thank you for registering in VCC
   register_as_admin: Register as admin
   register_as_invited: Register as invited
   register_as_user: Register as user
@@ -584,7 +586,7 @@ en:
     one: Timezone
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: Title
-  to: To
+  to: to
   to_configure_your: to configure your
   today: Today
   toke:
