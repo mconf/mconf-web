@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091001134813) do
+ActiveRecord::Schema.define(:version => 20091006141622) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -43,8 +43,11 @@ ActiveRecord::Schema.define(:version => 20091001134813) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "post_id"
+    t.integer  "version"
     t.integer  "space_id"
     t.integer  "event_id"
+    t.integer  "author_id"
+    t.string   "author_type"
   end
 
   create_table "categories", :force => true do |t|
