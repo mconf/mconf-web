@@ -37,10 +37,10 @@ class Profile < ActiveRecord::Base
   end   
 
   authorizing do |agent, permission|
-    return true if self.user == agent
-
-    return true if permission == :read && self.user.fellows.include?(agent)
-
-    false
+    if self.user == agent
+      true
+    elsif permission == :read && self.user.fellows.include?(agent)
+      true 
+    end
   end
 end

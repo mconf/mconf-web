@@ -151,12 +151,12 @@ end
   private
 
   authorizing do |agent, permission|
-    return false if disabled?
-
-    return true if agent == self
-
-    return true if permission == [ :read, :profile ] && fellows.include?(agent)
-
-    false
+    if disabled?
+      false
+    elsif agent == self
+      true
+    elsif permission == [ :read, :profile ] && fellows.include?(agent)
+      true
+    end
   end
 end

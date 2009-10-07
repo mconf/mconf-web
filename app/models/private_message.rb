@@ -43,8 +43,10 @@ class PrivateMessage < ActiveRecord::Base
   end
 
   authorizing do |agent, permission|
-    return true if permission == :read && agent == sender
-    return true if permission == :read && agent == receiver
-    false
+    if permission == :read && agent == sender
+      true
+    elsif permission == :read && agent == receiver
+      true
+    end
   end
 end
