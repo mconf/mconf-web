@@ -9,7 +9,7 @@
   <div "spam">
     <%if @spam_posts.empty? && @spam_events.empty?%>
 	  <p>
-	  	<%=t("spam-no_spam")%>.
+	  	<%=t("spam.no_spam")%>.
 	  </p>	
     <%else%>
       <%for spam in @spam_posts%>
