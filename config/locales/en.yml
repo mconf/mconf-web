@@ -70,6 +70,7 @@ en:
   comment:
     add: Add a comment
     add_new: Add a new comment
+    by: "comment by {{author}}"
     delete: Delete comment
     edit: Edit comment
     new: New comment
