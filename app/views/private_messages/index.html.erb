@@ -64,10 +64,11 @@
 						</div>
 					</td>
 					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]%></td>
-		        <% if params[:sent_messages] %>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm'), :method => :delete,:title => t('delete.one') %></td>
+		        <%privatetitle = sanitize(private_message.title)%>
+			<% if params[:sent_messages] %>
+		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
 		        <%else%>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm'), :method => :delete,:title => t('delete.one') %></td>
+		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
 		        <%end%>
 			</tr>
 			</tbody></table>

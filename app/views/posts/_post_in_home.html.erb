@@ -10,7 +10,7 @@
 		    <%=link_to(image_tag("icons/exclamation.png",:class=>"icon",:alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
 	        <li><%=link_to image_tag("icons/comments-add.png",:class=>"icon",:alt => t('reply') ), space_post_path(@space,thread,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorize?([:create, :content],:to => current_user)%></li>
 	        <li><%=link_to image_tag("icons/pencil.png",:class=>"icon", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorize?(:update, :to => current_user)%></li>
-		    <li><%=link_to image_tag("icons/cancel.png",:class=>"icon", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
+		    <li><%=link_to image_tag("icons/cancel.png",:class=>"icon", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm', :element => thread.title), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
 		  </ul>
 		  <ul class="thread-title">  
 	      	<li>

@@ -11,9 +11,9 @@
 
 	<% if @is_receiver -%>
     <%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => t('reply') ), user_message_path(params[:user_id],@show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]%>
-    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') %>
+    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one') %>
   <%else%>
-    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') %>
+    <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one') %>
   <% end -%>
 </p>
 
