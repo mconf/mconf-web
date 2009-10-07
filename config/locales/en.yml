@@ -268,6 +268,7 @@ en:
       other: There are no pending invitations
     pending:
       other: Pending invitations
+    other: invitation
   invited: Invited
   import: Import
   is_member_of: Is member of
@@ -431,23 +432,23 @@ en:
     error:
       exist: Your profile already exists
     must_create: Please create your profile first
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful"
     updated: Profile updated successfully
   province: Province
   public: Public
   
   ######### R ###########  
   read_more: Read more
-  read_more>>: read more>>
+  read_more>>: "read more >>"
   received_message_more_machines: You have received a message from {{user}} asking for more machines
   register:
     one: Register
-    thank_you: Thank you for registering in VCC.
+    thank_you: Thank you for registering in VCC
   register_as_admin: Register as admin
   register_as_invited: Register as invited
   register_as_user: Register as user
   register_now: "Register NOW!"
-  remarks: "Remarks"
+  remarks: Remarks
   remember_me: Remember me
   remove: Remove
   reply: Reply
@@ -582,7 +583,7 @@ en:
     one: Timezone
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: Title
-  to: To
+  to: to
   to_configure_your: to configure your
   today: Today
   toke:

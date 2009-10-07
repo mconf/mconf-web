@@ -1,2 +1,2 @@
 
-<%= t('invitation.to_space', :space => @space.name, :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+<%= t('invitation.to_space', :username => @invitation.introducer, :space => @space.name, :url => invitation_url(@invitation, :host => Site.current.domain)) %>
