@@ -79,16 +79,18 @@ class Space < ActiveRecord::Base
     self.update_attribute(:disabled,false)
   end
 
+  # There are previous authorization rules because of the stage
+  # See acts_as_stage documentation
   authorizing do |agent, permission|
-    return false unless self.public?
-
-    case permission
-    when :read, [ :read, :content ], [ :read, :performance ]
-      true
-    else
+    if ! self.public?
       false
+    else
+      case permission
+      when :read, [ :read, :content ], [ :read, :performance ]
+        true
+      else
+        false
+      end
     end
   end
-
- 
 end

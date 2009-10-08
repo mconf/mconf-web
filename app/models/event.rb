@@ -127,8 +127,8 @@ class Event < ActiveRecord::Base
   end
 
   authorizing do |agent, permission|
-    return true if permission == :update && author == agent
-    return true if permission == :delete && author == agent
-    false
+    if ( permission == :update || permission == :delete ) && author == agent
+      true
+    end
   end
 end
