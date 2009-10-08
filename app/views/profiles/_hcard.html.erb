@@ -47,8 +47,8 @@
 </div>
 <div class="profile-box">
   <div id="title">
-  	<div id="help2" title="These are the latest posts or events that you've created"></div>
-	<h3 class="item_title"> Recent activity </h3>
+  	<div id="help2" title="<%= t('information.information3')%>"></div>
+	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
   </div>
   <div id="profile_content">
   	  <%= @latest_posts.empty? ? "The User doesn't have any recent activity" : "" %>

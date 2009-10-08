@@ -320,6 +320,7 @@ es:
     my: Inicio
     activity: Actividad reciente
     up: INICIO
+    
 ####### I #########
   invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
   invitation: 
@@ -351,8 +352,11 @@ es:
     discard: "Descartar invitaci\xC3\xB3n"
     created: "Invitaci\xC3\xB3n enviada"
   Isabel: Isabel
-
-  
+  information:
+      information1: Estos son los espacios a los que pertences
+      information2: Aquí puedes encontrar los post y eventos más recientes así como las noticias de los espacios a los que perteneces
+      information3: Estos son los últimos posts o eventos que has creado
+      
 ####### J #########
   join_request: 
     discarded: "Petici\xC3\xB3n descartada"
@@ -521,6 +525,8 @@ es:
 ####### Q #########
 ####### R #########
   read: Ver
+  recent:
+    activity: Actividad reciente
   remove: Eliminar
   report_spam: Denunciar spam
   role: 
@@ -616,6 +622,7 @@ es:
     updated: El espacio se ha actualizado correctamente.
     popular: 
       other: Espacios populares
+    possesion: My Spaces
     private: Private spaces
     public:
       one: "Espacio p\xC3\xBAblico"

@@ -274,7 +274,11 @@ en:
   import: Import
   is_member_of: Is member of
   Isabel: Isabel
-  
+  information:
+      information1: These are the spaces you belong to
+      information2: Here you can find the newest posts, events and news of the spaces you belong to
+      information3: These are the latest posts or events that you've created
+      
   ######### J ###########
   join: Join
   join_request:
@@ -441,6 +445,8 @@ en:
   read_more: Read more
   read_more>>: read more>>
   received_message_more_machines: "yo have received a message from {{user}} asking for more machines."
+  recent:
+     activity: Recent activity
   register:
     one: Register
     thank_you: Thank you for registering in VCC.
@@ -536,11 +542,13 @@ en:
     leave: "Leave this space"
     logo: "Space Logo"
     main: Main space
+    
     member_of: Member of the spaces
     one: Space
     popular:
       other: Popular spaces
     private: Private spaces
+    possesion: My Spaces
     public:
       one: Public space
       other: Public spaces
