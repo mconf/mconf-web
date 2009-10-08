@@ -6,7 +6,8 @@ class Notifier < ActionMailer::Base
 
     @subject += "Invitation"
     @body[:invitation] = invitation
-    @body[:space] = invitation.group
+    @body[:space] = invitation.group    
+    @body[:user] = invitation.introducer
   end
 
 
@@ -15,7 +16,9 @@ class Notifier < ActionMailer::Base
 
     @subject += I18n.t("invitation.subject",:space=>invitation.group,:username=>invitation.introducer)
     @body[:invitation] = invitation
-    @body[:space] = invitation.group
+    @body[:space] = invitation.group    
+    @body[:event] = invitation.event
+    @body[:user] = invitation.introducer
   end
 
 
@@ -33,6 +36,8 @@ class Notifier < ActionMailer::Base
     @subject += "Join Request"
     @body[:candidate] = jr.candidate
     @body[:space] = jr.group
+    @body ["contact_email"] = Site.current.email
+    @body[:sender] = jr.introducer
   end
 
   def processed_join_request_email(jr)
@@ -50,6 +55,7 @@ class Notifier < ActionMailer::Base
     @subject += "Welcome to VCC"
     @body["name"] = user.login
     @body["hash"] = user.activation_code
+    @body ["contact_email"] = Site.current.email
   end
 
   def activation(user)
@@ -57,6 +63,7 @@ class Notifier < ActionMailer::Base
 
     @subject     += I18n.t(:account_activated)
     @body[:user] = user
+    @body ["contact_email"] = Site.current.email
     @body[:url]  = "http://#{ Site.current.domain }/"
   end
   
@@ -66,6 +73,7 @@ class Notifier < ActionMailer::Base
 
     @subject += 'Request to change your password'
     @body ["name"] = user.login
+    @body ["contact_email"] = Site.current.email
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
   end
 
@@ -74,6 +82,7 @@ class Notifier < ActionMailer::Base
     setup_email(user.email)
 
     @body ["name"] = user.login
+    @body ["contact_email"] = Site.current.email
     @subject += 'Your password has been reset'
   end
   
@@ -84,15 +93,17 @@ class Notifier < ActionMailer::Base
     @from = email
     @subject += ' Feedback  ' + subject
     @body ["text"] = body
+    @body ["user"] = email
   end
   
   #this methd is used when a user have sent feedback to the admin.
-  def spam_email(email,subject, body)
+  def spam_email(user,subject, body)
     setup_email(Site.current.email)
     
-    @from = email
+    @from = user.email
     @subject += subject
     @body ["text"] = body
+    @body ["user"] = user.login
   end
   
   private
