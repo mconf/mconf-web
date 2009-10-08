@@ -9,7 +9,7 @@
 		<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 		
 		<div class="button">
-			<%= submit_tag t('register_now') %>
+			<button type="submit"><%=t("register_now")%></button>
 			<span><%= link_to t('login'), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
 		</div>
 	<% end -%>

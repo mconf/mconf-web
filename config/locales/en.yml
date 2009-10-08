@@ -143,13 +143,14 @@ en:
   error:
     one: "Error"
     other: "Errors"
-    e403: "You are not allowed to see that page"
-    e404: "The page you were looking for doesn't exist"
-    e500: "The page you were looking for doesn't exist"
+    e403: "You are not allowed to see that page."
+    e404: "The page you were looking for doesn't exist."
+    e500: "The page you were looking for doesn't exist."
     change: "Invalid change"
     credentials: "Invalid credentials"
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
+    vcc_warning: "VCC warning:"
   event:
     assistance_title: "Participation"
     attend: "Attending"
@@ -538,6 +539,7 @@ en:
     logo: "Space Logo"
     main: Main space
     member_of: Member of the spaces
+    my_spaces: My Spaces
     one: Space
     popular:
       other: Popular spaces

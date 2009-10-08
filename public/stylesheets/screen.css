@@ -615,24 +615,27 @@ div.read_more img{float:right;}
 div.read_more{text-align:right;}
 
 div.dialog{
-	border:solid 2px #611427;
+	border:2px #FFD324 solid;
+	padding:.8em;
+	margin-bottom:1em;
+	margin-top:7px;
 	text-align:center;
-	margin-top:10px;
-    color:#611427;
-	background-color:#F05257;
-	
+    color:#514721;
+	background-color:#FFF6BF;
 }
 
 #alert{
-	width:50px;
+	width:250px;
 	height:50px;
-	background-image:url(../images/icons/alert.png);
-	margin-left:205px;
+	background:url(../images/icons/alert.png) no-repeat left;
+	margin-left:140px;
 	margin-top:10px;
 	
 }
-h2.white{
-	color:white;
+#alert h2.yellow{line-height:2.5;}
+
+h2.yellow{
+	color:#e1b60a;
 }
 #admin_tabs a:link, #admin_tabs a:visited{
 	color:#244974;
