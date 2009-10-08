@@ -140,6 +140,14 @@ end
     self.update_attribute(:disabled,false)
   end
 
+  # Use profile.logo for users logo when present
+  def logo_image_path_with_logo(options = {})
+    logo.present? ?
+      logo.logo_image_path(options) :
+      logo_image_path_without_logo(options)
+  end
+  alias_method_chain :logo_image_path, :logo
+
   private
 
   authorizing do |agent, permission|

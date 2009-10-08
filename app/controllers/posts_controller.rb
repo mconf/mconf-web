@@ -137,6 +137,7 @@ class PostsController < ApplicationController
           end
         else
           @attachment.space = @space
+          @attachment.author = current_agent
 #          @attachment.save;
         end
       end
@@ -225,6 +226,7 @@ class PostsController < ApplicationController
           end
         else
           @attachment.space = @space
+          @attachment.author = current_agent
         end
       end
     end
@@ -268,13 +270,13 @@ class PostsController < ApplicationController
     @post.destroy 
     respond_to do |format|
       if !@post.event.nil?
-        flash[:notice] = t('post.deleted')  
+        flash[:notice] = t('post.deleted', :postname => @post.title)  
         format.html {redirect_to space_event_path(@space, @post.event)}
       elsif @post.parent_id.nil?
         flash[:notice] = t('thread.deleted')  
         format.html { redirect_to space_posts_path(@space) }
       else
-        flash[:notice] = t('post.deleted')  
+        flash[:notice] = t('post.deleted', :postname => @post.title)  
         format.html { redirect_to request.referer }
       end  
       format.js 
