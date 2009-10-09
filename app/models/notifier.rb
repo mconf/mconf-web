@@ -8,6 +8,11 @@ class Notifier < ActionMailer::Base
     @body[:invitation] = invitation
     @body[:space] = invitation.group    
     @body[:user] = invitation.introducer
+    if invitation.candidate
+      @body[:name] = invitation.candidate.login
+    else
+      @body[:name] = invitation.email
+    end
   end
 
 
