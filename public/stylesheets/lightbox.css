@@ -4,6 +4,7 @@
 #lightbox-logo img{margin:0 4px -4px 0;}
 .form{padding:1em 1.5em 0 1.5em;position:relative;overflow:hidden;}
 div#captcha,.form div{margin-bottom:0.75em;}
+#captcha #simple_captcha .simple_captcha_field input,#captcha #simple_captcha .simple_captcha_field{background:#fff;}
 #openid_form h3{clear:left;}
 div.button span{margin-left:1.5em;}
 #openid_label input#openid_identifier{width:40%;margin-left:0.75em;margin-right:0.75em;}
