@@ -1,2 +1,15 @@
+<%= t('email.dear', :name => @name) %>
 
-<%= t('invitation.to_space', :username => @invitation.introducer, :space => @space.name, :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+<%= t('invitation.space', :space => @space.name) %>
+
+<%= t('invitation.to_accept', :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+
+<%= t('email.copy_link', :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+
+<%= t('invitation.info_space', :space_url => "http://" + Site.current.domain.to_s + "/spaces/"+@space.name) %>
+
+<%= t('email.kind_regards') %>
+
+<%= @invitation.introducer.login%>
+<%= @invitation.introducer.email %>
+<%= @invitation.introducer.organization%>

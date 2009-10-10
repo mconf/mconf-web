@@ -1,0 +1,10 @@
+<%= t('email.dear', :name => @user.login) %>
+
+<%= t('email.account_activated')%>
+
+<%= t('email.url_activated', :name => @user.login, :url => "http://" + Site.current.domain.to_s + "/") %>
+
+<%= t('email.kind_regards') %>
+
+<%= t('email.vcc_team') %>
+<%= @contact_email %>
