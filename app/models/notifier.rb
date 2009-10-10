@@ -38,7 +38,7 @@ class Notifier < ActionMailer::Base
   def join_request_email(jr, receiver)
     setup_email(receiver.email)
 
-    @subject += I18n.t("email.join_request")	
+    @subject += I18n.t("e-mail.join_request")	
     @body[:candidate] = jr.candidate
     @body[:space] = jr.group
     @body ["contact_email"] = Site.current.email
@@ -57,7 +57,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     setup_email(user.email)
 
-    @subject += I18n.t("email.welcome")
+    @subject += I18n.t("e-mail.welcome")
     @body["name"] = user.login
     @body["hash"] = user.activation_code
     @body ["contact_email"] = Site.current.email
