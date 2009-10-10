@@ -36,7 +36,7 @@
 		    <li class="type"><span class="person_title"><%=t("phone") if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%></span><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%><%=@profile.fax%></li>
 		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
 		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
-		    <li class="email"><span class="person_title"><%= t('email.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
+		    <li class="email"><span class="person_title"><%= t('e-mail.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>
 		</div>
 		<%if current_user.superuser? || @user==current_user%>

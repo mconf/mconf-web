@@ -142,7 +142,7 @@ en:
     one: "email"
     other: "emails"
     used_from: "email used in contact form: {{dir}}"
-    vcc_team: "VCC team"
+    vcc_team: "The VCC Team"
     welcome: "Welcome to VCC"		
   email_or_full_name: "email or full name"
   enable: "Enable"
