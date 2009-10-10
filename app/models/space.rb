@@ -8,7 +8,8 @@ class Space < ActiveRecord::Base
            :dependent => :destroy,
            :as => :group
                  
-  has_permalink :name
+  has_permalink :name, :update=>true
+  
   acts_as_resource :param => :permalink
   acts_as_container :sources => true
   acts_as_stage
