@@ -132,8 +132,8 @@
 	    <%=t('show')%>:
 	    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
 	  </div>
-	  <div id="help" title="Here you can find the newest posts, events and news of the spaces you belong to"></div>
-		<h3><%=t('home.activity')%></h3>
+	  <div id="help" title= "<%= t('information.information2')%>"></div>
+	  	<h3><%=t('home.activity')%></h3>
 	</div>
 
   <%unless @today.empty?%>

@@ -118,13 +118,47 @@ class PostsController < ApplicationController
     # Para comentarios desde el espacio Public
     # FIXME? Quitar si se elimina el espacio Public
     
-    @post.space = params[:post][:parent_id] ?
-    @post.parent.space :
-    @space
+    @post.space = params[:post][:parent_id] ? @post.parent.space : @space
     
     
-    unless @post.valid?
+    #Creación de los Attachments
+    if params[:uploaded_data].present?
+      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+      if @attachment 
+        if !@attachment.valid?
+          flash[:error] = t('attachment.not_valid')
+          respond_to do |format|
+            format.html{
+              posts
+              params[:form]="photos"
+              render :action => "index"
+              return
+            }
+          end
+        else
+          @attachment.space = @space
+          @attachment.author = current_agent
+#          @attachment.save;
+        end
+      end
+    end
+    
+    #    unless ( @post.valid? && ((@attachment && @attachment.valid?) || @post.text.present?))
+    unless  @post.valid?  && ((@attachment && @attachment.valid?) || @post.text.present?)
       respond_to do |format|
+        format.html {   
+          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
+            flash[:error] = t('post.error.not_valid') 
+            posts
+            render :action => "index"
+            
+          else
+            flash[:error] = t('post.error.empty')
+            posts
+            render :action => "index"
+            
+          end
+        }
         format.js{
           if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
             flash[:error] =  t('post.error.not_valid')
@@ -135,119 +169,23 @@ class PostsController < ApplicationController
           end
           
         }
-        format.html {   
-          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = t('post.error.not_valid') 
-            posts
-            render :action => "index"
-            
-          else
-            flash[:error] = t('post.error.empty')
-            posts
-            render :action => "index"
-            
-          end
-        }
-        format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
-        format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
-      end
-      return
-    end  
-    
-    #Creación de los Attachments
-    if params[:uploaded_data].present?
-      @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
-    end
-    if @attachment && !@attachment.valid?
-      flash[:error] = t('attachment.not_valid')
-      respond_to do |format|
-        
-        format.html{
-          posts
-          params[:form]="photos"
-          render :action => "index"
-          return
-        }
-      end
-    end
-    
-    
-=begin    
-    i=0;
-    @attachments = []
-    @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
-    (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if post has attachments....
-          @attachment = Attachment.new(params[:"attachment#{i}"])
-          @attachments << @attachment #almacena referencias de los Attachments nuevos que se están creando
-      end
-      i += 1
-    }
-    
-    #validamos todos los attachments
-    @attachments.each do |attach|
-      if !attach.valid?
-        flash[:error] = "The attachment is not valid"  
-        render :action => "new"
-        return
-      end
-    end
-=end
-    
-    if !@attachment and !@post.text.present?
-      respond_to do |format|
-        format.js{
-          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = t('post.error.not_valid') 
-            return
-          else
-            flash[:error] = t('post.error.empty')  
-            return
-          end
-          
-        }
-        format.html {   
-          if params[:post][:parent_id] #mira si es un comentario o no para hacer el render
-            flash[:error] = t('post.error.not_valid') 
-            posts
-            render :action => "index"
-            
-          else
-            flash[:error] = t('post.error.empty')
-            posts
-            render :action => "index"
-            
-          end
-        }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
         format.atom {render :xml => @post.errors.to_xml, :status => :bad_request}
       end
       return
     end
+    
     
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.created')
-    if @attachment
+    if(@attachment) 
       @attachment.post = @post
       @attachment.save!
     end
-    #asignacion de los padres del attachment al articulo
-=begin    @attachments.each do |attach|
-      attach.post = @post
-    end
- 
-    #grabación de los attachments y las entries asociados
-    @attachments.each do |attach|
-      attach.save!
-    end
-=end              
+    
     respond_to do |format| 
       format.html {
-        if request.referer == nil
-          redirect_to(space_posts_path)
-        else
-          redirect_to request.referer
-        end
+        redirect_to(request.referer || space_posts_path)
       }
       format.js {
         if params[:show]
@@ -271,106 +209,74 @@ class PostsController < ApplicationController
   def update       
     #actualizo los atributos del artículo
     @post.attributes = params[:post]
-    #@post.author = current_agent #Problema.Con esto edito al usuario por eso lo cambio
     
     
-    unless @post.valid?
-      respond_to do |format|
-        format.html {
-          flash[:error] = t('post.error.empty')  
-          render :action => "edit"
-        }
-        format.atom { render :xml => @post.errors.to_xml, :status => :not_acceptable }
-      end
-      return
-    end  
-=begin        
-    #creo los attachments que ha subido el usuario
-    i=0;
-    @attachments = []
-    @last_attachment = params[:last_post] #miro el número de entradas de attachments que se han generado
-    (@last_attachment.to_i).times  {
-      if params[:"attachment#{i}"]!= nil && params[:"attachment#{i}"]!= {"uploaded_data"=>""} #if post has attachments....
-        @attachment = Attachment.new(params[:"attachment#{i}"]) 
-        @attachments << @attachment
-      end
-    i += 1;
-    }
-=end
-    #Creación de los Attachments
     if params[:uploaded_data].present?
-      @post.attachments.destroy_all
       @attachment = Attachment.new(:uploaded_data => params[:uploaded_data])
+      if @attachment 
+        if !@attachment.valid?
+          flash[:error] = t('attachment.not_valid')
+          respond_to do |format|
+            format.html{
+              posts
+              params[:form]="photos"
+              render :action => "index"
+              return
+            }
+          end
+        else
+          @attachment.space = @space
+          @attachment.author = current_agent
+        end
+      end
     end
-    if @attachment && !@attachment.valid?
-      flash[:error] = t('attachment.not_valid') 
-      render :action => "index"
+    
+    unless @post.valid?  && ((@attachment && @attachment.valid?) || (!@attachment && @post.attachments) || @post.text.present?)
+      respond_to do |format|
+        format.html {   
+          flash[:error] = t('post.error.empty')
+          posts
+          render :action => "index"
+        }
+        format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
+        format.atom {render :xml => @post.errors.to_xml, :status => :not_acceptable}
+      end
       return
     end
     
     
     @post.save! #salvamos el artículo y con ello su entrada asociada  
     flash[:success] = t('post.updated')
-    if @attachment
+    if(@attachment) 
+      @post.attachments.destroy_all
       @attachment.post = @post
-      @attachment.save!
-    end 
-=begin
-    #valido los attachments para ver si el contendio es correcto
-    @attachments.each do |attach|
-    # Attachments list may belong to a container
-    # /attachments
-    # /:container_type/:container_id/attachments
-      if !attach.valid?
-        flash[:error] = "The attachment is not valid"  
-        render :action => "edit"   
-        return
-      end
-    end 
-      
-        
-    @post.save! #salva el artículo y su entrada asociada        
-    flash[:valid] = "Post updated"
-           
-    #Creación de las entries asociadas a los attachments
-    @attachments.each do |attach|
-      attach.post = @post
-    end 
-        
-    #Salvamos los attachments y sus entries asociadas
-    @attachments.each do |attach|
-      attach.save!
-    end 
-            
-     #elimina los attachments quitados al pulsar el botón remove
-    @post.attachments.each do |attachment|
-      if params[attachment.id.to_s] == "false"
-        attachment.destroy
-      end
+      @attachment.save
+    @post.save! #salvamos el artículo y con ello su entrada asociada  
     end
-=end           
+    
     respond_to do |format|
       format.html { 
-        redirect_to request.referer
+        redirect_to(request.referer || space_posts_path)
       }
       format.atom { head :ok }
     end
+    
   end
   
   # Delete this Entry
   #   DELETE /spaces/:id/posts/:id --> :method => delete
+  #destroy de content of the post. Then its container(post) is destroyed automatic.
   def destroy
-    #destroy de content of the post. Then its container(post) is destroyed automatic.
     @post.destroy 
     respond_to do |format|
       if !@post.event.nil?
-        flash[:notice] = t('post.deleted')  
+        flash[:notice] = t('post.deleted', :postname => @post.title)  
         format.html {redirect_to space_event_path(@space, @post.event)}
       elsif @post.parent_id.nil?
         flash[:notice] = t('thread.deleted')  
         format.html { redirect_to space_posts_path(@space) }
       else
-        flash[:notice] = t('post.deleted')  
+        flash[:notice] = t('post.deleted', :postname => @post.title)  
         format.html { redirect_to request.referer }
       end  
       format.js 

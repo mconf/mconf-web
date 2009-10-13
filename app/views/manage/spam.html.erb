@@ -9,14 +9,14 @@
   <div "spam">
     <%if @spam_posts.empty? && @spam_events.empty?%>
 	  <p>
-	  	<%=t("spam-no_spam")%>.
+	  	<%=t("spam.report")%>.
 	  </p>	
     <%else%>
       <%for spam in @spam_posts%>
         <div class="spam_post">
           <%=link_to spam.title, space_post_path(spam.space, spam)%>
-		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => "delete comment", :confirm => "are you sure?"}) if spam.authorize?(:delete, :to => current_user)%> 
-	      <%=link_to(image_tag("icons/confirm.png", :alt => "confirm"), edit_space_post_path(spam.space,spam,:valid => true), {:title => "this content is valid"}) if spam.authorize?(:update, :to => current_user)%>       
+		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', spam.title)}) if spam.authorize?(:delete, :to => current_user)%> 
+	      <%=link_to(image_tag("icons/confirm.png", :alt => "confirm"), edit_space_post_path(spam.space,spam,:valid => true), {:title => t('spam.valid')}) if spam.authorize?(:update, :to => current_user)%>       
 		</div>
       <%end%>
 	  <%for spam in @spam_events%>

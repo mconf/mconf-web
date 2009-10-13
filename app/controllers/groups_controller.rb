@@ -76,12 +76,12 @@ class GroupsController < ApplicationController
     if group.destroy
     respond_to do |format|
       format.html {
-        flash[:success] = t('group.deleted')
+        flash[:success] = t('group.deleted', :name => group.name)
         redirect_to request.referer
       }
       end
     else
-      flash[:error] = t('group.not_deleted')
+      flash[:error] = t('group.not_deleted', :name => group.name)
       redirect_to request.referer
     end
   end

@@ -24,7 +24,7 @@
 	    <div id="edit" class="group_links">
 	    <%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam != true%> 
 	  	<%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%> 
-		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm')}) if post.authorize?(:delete, :to => current_user)%> 
+		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element => t('comment.by', :author => post.author.name))}) if post.authorize?(:delete, :to => current_user)%> 
 	    </div>
 	  <%end%>
 	  <ul>
@@ -55,17 +55,11 @@
 		<%end%>
 		<li class="attach">
 		  <%for attachment in post.attachments%>
-		    <%if attachment.post_thumbnail%>
-		      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
-		    <%else%>
-		      <div><%=image_tag(logo_image_path(attachment, :size => 32))%></div>
-			  
-			  	<ul>
-			  		<li><%=attachment.filename%></li>
-					<li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment))%></li>
-				</ul>
-			  
-		    <%end%>	
+	      <div><%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%></div>
+		  	<ul>
+		  		<li><%=attachment.filename%></li>
+				  <li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%></li>
+				</ul>	
 		  <%end%>
 		</li>
 	  </ul> 

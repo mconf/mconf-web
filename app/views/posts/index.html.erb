@@ -162,11 +162,18 @@ $("a.edit_post_link").click(function(){
 	 return false;
 });
 
-$("#query").click(function(){
-  if(this.value == "Search Posts..."){
-    this.value="";
-  }
-});
+
+	title = "<%=t('search.posts.dots')%>"
+	$("#query").click(function(){
+	  if(this.value == title){
+		  this.value="";
+		}
+	});
+	$("#query").blur(function(){
+	  if(this.value == ""){
+		  this.value= title;
+		}
+	});	
 
 
 /*Extended post creation*/
@@ -251,7 +258,7 @@ $("#new_doc_big_link").livequery('click',function () {
 
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
-		<%= text_field_tag 'query',(params[:query] ? params[:query] : "Search Posts...")%>
+		<%= text_field_tag 'query',(params[:query] ? params[:query] : t('search.posts.dots'))%>
 	  <button type="submit"><%=t("button.go")%></button>
   <% end %>
 <%end%>

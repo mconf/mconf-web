@@ -155,7 +155,7 @@ class UsersController < ApplicationController
 
     @user.disable
     
-    flash[:notice] = t('user.disabled')
+    flash[:notice] = t('user.disabled', :username => @user.login)
     
     respond_to do |format|
       format.html {

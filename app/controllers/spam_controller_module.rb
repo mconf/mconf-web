@@ -5,7 +5,7 @@ module SpamControllerModule
     @spam = resource
     @spam.update_attribute(:spam, true)
       if @spam.save
-        Notifier.deliver_spam_email(current_user.email,t('spam.detected'), params[:body] )
+        Notifier.deliver_spam_email(current_user,t('spam.detected'), params[:body] )
         respond_to do |format|
           format.html {
             flash[:success] = t('spam.created')

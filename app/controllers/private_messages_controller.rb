@@ -106,7 +106,11 @@ class PrivateMessagesController < ApplicationController
     @private_message.update_attributes(params[:private_message])
 
     respond_to do |format|
-      format.html { redirect_to(user_messages_path(params[:user_id])) }
+      if params[:private_message][:deleted_by_sender]
+        format.html { redirect_to(user_messages_path(params[:user_id], :sent_messages=>true)) }
+      else
+        format.html { redirect_to(user_messages_path(params[:user_id])) }
+      end
       format.xml  { head :ok }
     end
   end

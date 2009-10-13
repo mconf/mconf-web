@@ -4,30 +4,28 @@
 
 
 	<%@global = Space.find_by_name("GLOBAL")%>
-	<%if @global.present?%>
-	  <ul class="first_ul">
-		<h3 class="selector_title"><%= t('space.main') %></h3>
-		<%if @space == @global%>
-			<li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
-		<%else%>
-	  	<li class="vip-space"><%= link_to(@global.name, @global) %></li>
-		<%end%>
-      </ul>
-	<%end%>	
 
 <ul>
   <% if authenticated? && current_user.spaces.any? %>
   	
-	<div id="help" title="These are the spaces you belong to"></div>
+	<div id="help" title= "<%= t('information.information1')%>"></div>
 	
-	<h3 class="selector_title"><%= "My Spaces" %></h3>
+	<h3 class="selector_title"><%=t('space.possesion')%></h3>
+	
 	<div id=triangle></div>
 	
 	<div class="w-background">
+	  <%if @global.present?%>
+	    <%if @space == @global%>
+		  <li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
+	    <%else%>
+	      <li class="vip-space"><%= link_to(@global.name, @global) %></li>
+	    <%end%>
+	  <%end%>	
 		
     <% (current_user.spaces - [@global]).each do |s| %>
 		  <%if @space == s %>
-        <li class="selected"><%= link_to(s.name, s, :class => "selected") %></li>
+        	  <li class="selected"><%= link_to(s.name, s, :class => "selected") %></li>
 			<%else%>
 			  <li><%= link_to(s.name, s) %></li>
 			<%end%>
@@ -37,7 +35,14 @@
   <% public_spaces = Space.public.all(:order => :name ) %>
 	  <% if public_spaces.any? %>
 	    <h3 class="selector_title"><%= "Public Spaces" %></h3>
-	    <% (public_spaces - [@global]).each do |s| %>
+	    <%if @global.present?%>
+		  <%if @space == @global%>
+			<li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
+		  <%else%>
+	  	    <li class="vip-space"><%= link_to(@global.name, @global) %></li>
+		  <%end%>
+		<%end%>		
+		<% (public_spaces - [@global]).each do |s| %>
 	      <%if @space == s %>
           <li class="selected"><%= link_to(s.name, s, :class => "selected") %></li>
         <%else%>

@@ -21,12 +21,19 @@
       });
 	});
 	
+	title = "<%=t('search.space.dots')%>"
 	$("#space_name_filter").click(function(){
-	  if(this.value == "Search space..."){
+	  if(this.value == title){
 		  this.value="";
 		}
 	});
 
+	$("#space_name_filter").blur(function(){
+	  if(this.value == ""){
+		  this.value= title;
+		}
+	});
+	
   $(".space_item").hover(
 	  function () {
 		    var route = "div#" + $(this).attr("name");

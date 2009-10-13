@@ -20,81 +20,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
-    @events = (Event.in_container(@space).all :order => "start_date ASC")
-    
-      #Current events
-      @current_events = @events.select{|e| !e.start_date.future? && e.end_date.future?}
-    
-      #Upcoming events
-      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
-      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
-      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
-      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
-      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
-      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
-      @all_upcoming_events = @events.select{|e| e.start_date.future?}
-      @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 3)
-=begin      
-      if params[:day] == "today"
-        @upcoming_title = "Today Events"
-      elsif params[:day] == "next_week"
-        @upcoming_title = "Next Week Events"
-      elsif params[:day] == "next_month"
-        @upcoming_title = "Next Month Events"
-      else
-        @upcoming_title = "All upcoming Events"
-      end
-=end
-      #Past events
-      @today_and_yesterday_events = @events.select{|e| (e.end_date.to_date == Date.today || e.end_date.to_date == Date.yesterday) && !e.end_date.future?}      
-      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}
-      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 30) && !e.end_date.future?}
-      @all_past_events = @events.select{|e| !e.end_date.future?}
-      
-      if params[:order_by_time] != "ASC"
-       @today_and_yesterday_events.reverse! 
-       @last_week_events.reverse!
-       @last_month_events.reverse!
-       @all_past_events.reverse! 
-
-      end
-      @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 3)
-      @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 3)
-      @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 3)      
-      @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 3)
-
-=begin
-      if params[:day] == "yesterday"
-        @past_events_events = @today_and_yesterday_events 
-        @past_title = "Today Past Events and Yesterday Events"
-      elsif params[:day] == "last_week"
-        @past_events = @next_week_events
-        @past_title = "Last Week Events"
-      elsif params[:day] == "last_month"
-        @past_events = @next_month_events
-        @past_title = "Last Month Events"
-      else
-        @past_events = @all_past_events
-        @past_title = "All Past Events"
-      end           
-      
-      @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
-=end
-      #First 5 past and upcoming events
-      if params[:order_by_time] != "ASC"
-        @last_past_events = @events.select{|e| !e.end_date.future?}.reverse.first(2)
-      else
-        @last_past_events = @events.select{|e| !e.end_date.future?}.first(2)
-      end
-      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)
-      
-      if params[:edit]
-        @event_to_edit = Event.find(params[:edit])
-         @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
-        @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
-        #array of users of the space minus the users that has already been invited
-        @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
-      end
+    events
     
     respond_to do |format|
       format.html {
@@ -187,7 +113,8 @@ class EventsController < ApplicationController
         message = ""
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
-        redirect_to request.referer
+        events
+        render :action => "index"
         }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
@@ -294,6 +221,84 @@ class EventsController < ApplicationController
   def event
     @event = Event.find(params[:id])
   end
+  
+  def events
+      @events = (Event.in_container(@space).all :order => "start_date ASC")
+    
+      #Current events
+      @current_events = @events.select{|e| !e.start_date.future? && e.end_date.future?}
+    
+      #Upcoming events
+      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
+      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
+      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
+      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
+      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
+      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
+      @all_upcoming_events = @events.select{|e| e.start_date.future?}
+      @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 3)
+=begin      
+      if params[:day] == "today"
+        @upcoming_title = "Today Events"
+      elsif params[:day] == "next_week"
+        @upcoming_title = "Next Week Events"
+      elsif params[:day] == "next_month"
+        @upcoming_title = "Next Month Events"
+      else
+        @upcoming_title = "All upcoming Events"
+      end
+=end
+      #Past events
+      @today_and_yesterday_events = @events.select{|e| (e.end_date.to_date == Date.today || e.end_date.to_date == Date.yesterday) && !e.end_date.future?}      
+      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}
+      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 30) && !e.end_date.future?}
+      @all_past_events = @events.select{|e| !e.end_date.future?}
+      
+      if params[:order_by_time] != "ASC"
+       @today_and_yesterday_events.reverse! 
+       @last_week_events.reverse!
+       @last_month_events.reverse!
+       @all_past_events.reverse! 
+
+      end
+      @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 3)
+      @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 3)
+      @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 3)      
+      @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 3)
+
+=begin
+      if params[:day] == "yesterday"
+        @past_events_events = @today_and_yesterday_events 
+        @past_title = "Today Past Events and Yesterday Events"
+      elsif params[:day] == "last_week"
+        @past_events = @next_week_events
+        @past_title = "Last Week Events"
+      elsif params[:day] == "last_month"
+        @past_events = @next_month_events
+        @past_title = "Last Month Events"
+      else
+        @past_events = @all_past_events
+        @past_title = "All Past Events"
+      end           
+      
+      @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
+=end
+      #First 5 past and upcoming events
+      if params[:order_by_time] != "ASC"
+        @last_past_events = @events.select{|e| !e.end_date.future?}.reverse.first(2)
+      else
+        @last_past_events = @events.select{|e| !e.end_date.future?}.first(2)
+      end
+      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)
+      
+      if params[:edit]
+        @event_to_edit = Event.find(params[:edit])
+         @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
+        @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
+        #array of users of the space minus the users that has already been invited
+        @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
+      end
+    end
 end
 
 

@@ -1,0 +1,5 @@
+<h3>Create attachment</h3>
+<%form_for :attachment, :url => space_attachments_path(@space), :html => { :multipart => true} do |f|%>
+  <%= f.file_field :uploaded_data %>
+  <%= image_submit_tag "buttons/create.png" %>
+<%end%>

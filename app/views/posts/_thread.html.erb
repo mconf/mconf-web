@@ -25,7 +25,7 @@
 		    <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true%> 
 	        <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorize?([:create, :content],:to => current_user)%></li>
 	        <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorize?(:update, :to => current_user)%></li>
-		    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm'), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
+		    <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm', :element => thread.title), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
 		  </ul>
 		  <!-- DARLE UNA VUELTA A LAS CONDICIONES PORQUE NO VEO CLARO QUE ESTÉ BIEN LO DE LOS PERMISOS-->
 		  <ul class="thread-title">      
@@ -44,7 +44,7 @@
 	     
 			<li>
 				<div class="grey extend_thread" <%='style="display:none"' if extended %>>
-					<%=first_words(thread.text,75)%>
+					<%=first_words(strip_tags(thread.text),75)%>
 				</div>
 				<div id="grey" class="extended_thread grey" <%='style="display:none"' unless extended%>>
 

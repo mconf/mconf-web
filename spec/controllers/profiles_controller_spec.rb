@@ -49,7 +49,7 @@ describe ProfilesController do
     it "should NOT be able to get the new view for his profile if he already has one" do
       Factory(:profile, :user=>@superuser)
       get :new, :user_id => @superuser.id          
-      flash[:error].should == "You already have a profile."
+      flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@superuser))
     end
     it "should NOT be able to create his profile if he already has one" do
@@ -59,7 +59,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@superuser)
       assert_no_difference 'Profile.count' do
         post :create, :user_id => @superuser.id, :profile=> valid_attributes
-        flash[:error].should == "You already have a profile."
+        flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_profile_path(@superuser))
       end
     end 
@@ -72,7 +72,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@superuser)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @superuser
-        flash[:notice].should == 'Profile was successfully deleted.'
+        flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@superuser))
       end
     end
@@ -115,7 +115,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@user)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @user
-        flash[:notice].should == 'Profile was successfully deleted.'
+        flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@user))
       end
     end
@@ -162,7 +162,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@user)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @user
-        flash[:notice].should == 'Profile was successfully deleted.'
+        flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@user))
       end
     end
@@ -173,8 +173,8 @@ describe ProfilesController do
     end
     it "should NOT be able to get the new view for his profile if he has one" do
       Factory(:profile, :user=>@user)
-      get :new, :user_id => @user.id          
-      flash[:error].should == "You already have a profile."
+      get :new, :user_id => @user.id        
+      flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@user))
     end
     it "should NOT be able to create his profile if he already has one" do
@@ -184,7 +184,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@user)
       assert_no_difference 'Profile.count' do
         post :create, :user_id => @user.id, :profile=> valid_attributes
-        flash[:error].should == "You already have a profile."
+        flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_profile_path(@user))
       end
     end

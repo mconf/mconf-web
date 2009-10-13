@@ -2,12 +2,12 @@
 	<%if @number_of_posts == 0%>
      	<h3 class="empty"><%= t('post.other') %>: <%= t('post.found.none') %></h3>
 	<%elsif @number_of_posts == 1%>	   
-   	<h3><%= t('') %>: <%= t('post.found.one') %></h3>
+   	<h3><%= t('post.other') %>: <%= t('post.found.one') %></h3>
  		<% @posts.each do |post| %>
   			<%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false}%> 
 		<%end%>
   <%else%>
-    <h3 class="red"><%= t('') %>: <%= t('post.found.other', :size => @number_of_posts) %></h3>
+    <h3 class="red"><%= t('post.other') %>: <%= t('post.found.other', :size => @number_of_posts) %></h3>
  		<% @posts.each do |post| %>
 
  			  <%=render :partial => "posts/found_post", :locals => { :post =>  post, :selected_post => false} %>

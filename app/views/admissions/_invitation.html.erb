@@ -5,11 +5,12 @@
   </div>
   <div class="invitation-content">
     <ul>
-    <li class="person_title"><%=sanitize(invitation.candidate ? invitation.candidate_name : invitation.email)%></li>
+    <%receiver = sanitize(invitation.candidate ? invitation.candidate_name : invitation.email)%>
+    <li class="person_title"><%=receiver%></li>
     <li><span class="person_title"><%= t('role.one') %>: </span><%= invitation.role && invitation.role.name %></li>
   </ul>    
   </div>
     <div class="group_links">
-    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm => t('delete.confirm'),:title=>"delete"%>
+    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm => t('delete.confirm', :element => ' ' + t('invitation.other') + ' ' + t('to') + ' ' + receiver),:title=>"delete"%>
   </div>
 <% end %>

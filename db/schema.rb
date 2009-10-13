@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090925174917) do
+ActiveRecord::Schema.define(:version => 20091006141622) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -43,6 +43,10 @@ ActiveRecord::Schema.define(:version => 20090925174917) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "post_id"
+    t.integer  "space_id"
+    t.integer  "event_id"
+    t.integer  "author_id"
+    t.string   "author_type"
   end
 
   create_table "categories", :force => true do |t|
@@ -330,5 +334,17 @@ ActiveRecord::Schema.define(:version => 20090925174917) do
     t.integer  "notification",                            :default => 1
     t.string   "locale"
   end
+
+  create_table "versions", :force => true do |t|
+    t.integer  "versioned_id"
+    t.string   "versioned_type"
+    t.text     "changes"
+    t.integer  "number"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+  add_index "versions", ["number"], :name => "index_versions_on_number"
+  add_index "versions", ["versioned_type", "versioned_id"], :name => "index_versions_on_versioned_type_and_versioned_id"
 
 end

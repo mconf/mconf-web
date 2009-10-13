@@ -7,7 +7,7 @@
 	<div id="profile_content">
 		<%= @user_spaces.empty? ? @user.name + t("space.does_not_belong") : ""%>
 		<%for space in @user_spaces do%>
-			<div class="space_item"><%= space.authorize?([:read , :content], :to => current_user) ? link_logo(space, :size => 'w48', :title=> space.name): logotype(space, :size => 'w48')%></div>
+			<div class="space_item"><%= space.authorize?([:read , :content], :to => current_user) ? link_logo(space, :size => 'h64', :title=> space.name): logotype(space, :size => 'h64')%></div>
 		<%end%>
 	</div>
   </div>
@@ -24,10 +24,10 @@
 	  <div class="vcard" id="card">
 	    <ul class="adr">	  
 		  <li class="fn n"><span class="person_title"><%= t('name.one') %>: </span><%=@user.full_name%></li>
-	 	  <li class="street-address"><span class="person_title"><%= t('address') %>: </span> <%= @profile.address%></span></li>
-		  <li class="locality"><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><%= @profile.city%></li>
+	 	  <li class="street-address"><span class="person_title"><%= (t('address') + ":")if (@profile.address.present?) %> </span> <%= @profile.address%></span></li>
+		  <li class="locality"><span class="person_title"><%= (t('city')+ ":")%> </span><%= @profile.city%></li>
 		  <li class="region"><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><%= @profile.province%></span></li>
-		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><%= @profile.country%></li>
+		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":") %> </span><%= @profile.country%></li>
 		  <li class="postal-code"><span class="person_title"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) %> </span> <%= @profile.zipcode%></span></li>
 		</ul>
 		<div class="telecommunications">
@@ -35,7 +35,7 @@
 		  <ul>
 		    <li class="type"><span class="person_title"><%=t("phone") if (@profile.phone.present?)%><%= "/" if (@profile.fax.present? and @profile.phone.present?)%><%="Fax" if (@profile.fax.present?)%><%= ": " if (@profile.fax.present? or @profile.phone.present?)%></span><%= @profile.phone%><%= " / " if (@profile.fax.present? and @profile.phone.present?)%><%=@profile.fax%></li>
 		    <!--<li class="type"><span class="value"><%= @profile.mobile%></span></li>-->
-		    <li class= "org"><span class="person_title"><%=t("organization") if (@profile.organization.present?)%>:</span> <%= @profile.organization%></li>
+		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
 		    <li class="email"><span class="person_title"><%= t('email.one') %>: </span><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></li>
 		  </ul>
 		</div>
@@ -47,8 +47,8 @@
 </div>
 <div class="profile-box">
   <div id="title">
-  	<div id="help2" title="These are the latest posts or events that you've created"></div>
-	<h3 class="item_title"> Recent activity </h3>
+  	<div id="help2" title="<%= t('information.information3')%>"></div>
+	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
   </div>
   <div id="profile_content">
   	  <%= @latest_posts.empty? ? "The User doesn't have any recent activity" : "" %>
