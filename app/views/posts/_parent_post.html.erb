@@ -15,37 +15,37 @@
 	<%end%>
 
   <div class="post-content">
-
+  	<ul>
 			<%if @show_view%>
-			<div class="person_title">
+			<li class="person_title">
                         <%= link_to_if post.author.authorize?([:read, :profile],:to=> current_user),
                                        post.author.name,
                                        user_profile_path(post.author)%>
 			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-			</div>
+			</li>
 			<%end%>	
 	<%if post.text.size < 500 || @show_view%>
 
- 		  <div class="post_text">
+ 		  <li class="post_text">
  		  <%=sanitize(auto_link(post_format(post.text)))%>
-		  </div>
+		  </li>
 
 	<%else%>
 
-     	  <div id="collapsed_post_<%=post.id%>" class="post_text" style="display:none">
+     	  <li id="collapsed_post_<%=post.id%>" class="post_text" style="display:none">
             <%=sanitize(first_words(auto_link(post.text),500))%>
             <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
-	      </div>
+	      </li>
 
 
     <div id="expanded_post_<%=post.id%>">
-     	 <div class="post_text">
-         <%=sanitize(auto_link(post_format(post.text)))%>
-		   </div>
+     	 <li class="post_text">
+           <%=sanitize(auto_link(post_format(post.text)))%>
+		 </li>
     </div>
    <%end%>
       
-   <div class="attachment">
+   <li class="attachment">
      <%for attachment in post.attachments%>
         <div>
 		    <%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%>
@@ -57,6 +57,7 @@
 			</ul>
 		 
      <%end%>
-   </div>
+   </li>
+   </ul>
   </div>
 
