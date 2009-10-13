@@ -57,7 +57,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     setup_email(user.email)
 
-    @subject     += I18n.t("email.welcome")
+    @subject += I18n.t("email.welcome")
     @body["name"] = user.login
     @body["hash"] = user.activation_code
     @body ["contact_email"] = Site.current.email
@@ -66,7 +66,7 @@ class Notifier < ActionMailer::Base
   def activation(user)
     setup_email(user.email)
 
-    @subject     += I18n.t("account_activated")
+    @subject += I18n.t("account_activated")
     @body[:user] = user
     @body ["contact_email"] = Site.current.email
     @body[:url]  = "http://" + Site.current.domain + "/"
@@ -76,7 +76,7 @@ class Notifier < ActionMailer::Base
   def lost_password(user)
     setup_email(user.email)
 
-    @subject     += I18n.t("password.request")   
+    @subject += I18n.t("password.request")   
     @body ["name"] = user.login
     @body ["contact_email"] = Site.current.email
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
@@ -88,7 +88,7 @@ class Notifier < ActionMailer::Base
 
     @body ["name"] = user.login
     @body ["contact_email"] = Site.current.email
-    @subject     += I18n.t("password.reset_email")   	
+    @subject += I18n.t("password.reset_email")   	
   end
   
   #this methd is used when a user have sent feedback to the admin.
@@ -115,9 +115,9 @@ class Notifier < ActionMailer::Base
 
   def setup_email(recipients)
     @recipients = recipients
-    @from       = "#{ Site.current.name } <#{ Site.current.email }>"
-    @subject    = "[VCC] "
-    @sent_on    = Time.now
+    @from = "#{ Site.current.name } <#{ Site.current.email }>"
+    @subject = "[VCC] "
+    @sent_on = Time.now
   end
 
 end
