@@ -231,16 +231,22 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string "organization"
-    t.string "phone"
-    t.string "mobile"
-    t.string "fax"
-    t.string "address"
-    t.string "city"
-    t.string "zipcode"
-    t.string "province"
-    t.string "country"
-    t.string "user_id"
+    t.string  "organization"
+    t.string  "phone"
+    t.string  "mobile"
+    t.string  "fax"
+    t.string  "address"
+    t.string  "city"
+    t.string  "zipcode"
+    t.string  "province"
+    t.string  "country"
+    t.string  "user_id"
+    t.string  "prefix"
+    t.text    "description"
+    t.string  "url"
+    t.string  "skype"
+    t.string  "im"
+    t.integer "visibility",   :default => 2
   end
 
   create_table "roles", :force => true do |t|

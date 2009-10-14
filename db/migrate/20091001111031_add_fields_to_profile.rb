@@ -5,6 +5,7 @@ class AddFieldsToProfile < ActiveRecord::Migration
     add_column :profiles, :url, :string
     add_column :profiles, :skype, :string
     add_column :profiles, :im, :string
+    add_column :profiles, :visibility, :integer, :default => Profile::VISIBILITY.index("public_fellows".to_sym)
   end
 
   def self.down
@@ -13,5 +14,6 @@ class AddFieldsToProfile < ActiveRecord::Migration
     remove_column :profiles, :url
     remove_column :profiles, :skype
     remove_column :profiles, :im
+    remove_column :profiles, :visibility
   end
 end

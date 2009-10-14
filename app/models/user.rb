@@ -148,6 +148,15 @@ end
   end
   alias_method_chain :logo_image_path, :logo
 
+  def public_fellows
+    fellows
+  end
+  
+  def private_fellows
+    stages.select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
+  end
+
+
   private
 
   authorizing do |agent, permission|
@@ -159,4 +168,5 @@ end
       true
     end
   end
+
 end
