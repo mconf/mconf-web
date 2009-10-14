@@ -6,4 +6,7 @@
   <%=@invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%>
 <%end%>
 
+<%=@invitation.comment.gsub('\'url\'', event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>
+<%=@invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event) %>
+
 <%= t('invitation.copy_link',:url => event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>
