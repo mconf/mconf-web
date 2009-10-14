@@ -134,7 +134,7 @@ en:
     url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> URL </a>"
     commas: "(separated by commas)"
     confirm: "You need now to confirm your registration by clicking on the <a href=\"{{url}}\"> URL </a>"
-    copy_link: "If you can't click on the link above, please copy and paste the following link in your browser: {{url}}"
+    copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
     dear: "Dear {{name}},"
     kind_regards: "Kind regards,"
     join_request: "Joint Request"
