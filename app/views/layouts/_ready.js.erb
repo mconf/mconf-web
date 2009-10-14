@@ -20,7 +20,8 @@ $("#create_and_login_link").livequery("click", function(){
         function(data){
           $("#create_space").replaceWith(data);
 					$("#fancy_outer").height($("#create_space").height() + 50);
-					$(window).resize(); 
+          $("#mail_group").hide();
+					$(window).resize();
         }
       );
 });
@@ -33,6 +34,7 @@ $("#create_and_register_link").livequery("click", function(){
         function(data){
           $("#create_space").replaceWith(data);
 					$("#fancy_outer").height($("#create_space").height() + 50);
+          $("#mail_group").hide();
 					$(window).resize(); 
         }
       );
