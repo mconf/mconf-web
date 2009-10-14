@@ -35,7 +35,10 @@
   <% public_spaces = Space.public.all(:order => :name ) %>
 	  <% if public_spaces.any? %>
 	    <h3 class="selector_title"><%= "Public Spaces" %></h3>
-	    <%if @global.present?%>
+	<div id=triangle></div>
+	
+	  <div class="w-background">	    
+		<%if @global.present?%>
 		  <%if @space == @global%>
 			<li class="selected vip-space"><%= link_to(@global.name, @global, :class => "selected") %></li>
 		  <%else%>
@@ -50,6 +53,7 @@
         <%end%>
 	    <% end -%>
 	  <% end -%>
+	 </div>
 	<% end -%>
 </ul>
 
