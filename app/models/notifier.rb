@@ -118,6 +118,7 @@ class Notifier < ActionMailer::Base
     @from = "#{ Site.current.name } <#{ Site.current.email }>"
     @subject = "[VCC] "
     @sent_on = Time.now
+    @content_type ="text/html"
   end
 
 end
