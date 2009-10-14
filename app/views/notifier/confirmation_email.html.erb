@@ -1,12 +1,12 @@
-<%= t('email.dear', :name => @name) %>
+<%= t('e-mail.dear', :name => @name) %>
 
 <%= t('register.thank_you') %>
 
-<%= t('email.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %>
+<%= t('e-mail.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %>
 
-<%= t('email.copy_link', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %> 
+<%= t('e-mail.copy_link', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %> 
 
-<%= t('email.kind_regards') %>
+<%= t('e-mail.kind_regards') %>
 
-<%= t('email.vcc_team') %>
+<%= t('e-mail.vcc_team') %>
 <%= @contact_email %>

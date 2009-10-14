@@ -1,12 +1,12 @@
-<%= t('email.dear', :name => @sender.login) %>
+<%= t('e-mail.dear', :name => @sender.login) %>
 
 <%= t('join_request.asked', :candidate => @candidate.name, :space => @space.name) %>
 
 <%= t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain)) %>
 
-<%= t('email.copy_link', :url => space_admissions_url(@space, :host => Site.current.domain)) %>
+<%= t('e-mail.copy_link', :url => space_admissions_url(@space, :host => Site.current.domain)) %>
 
-<%= t('email.kind_regards') %>
+<%= t('e-mail.kind_regards') %>
 
-<%= t('email.vcc_team') %>
+<%= t('e-mail.vcc_team') %>
 <%= @contact_email %>
