@@ -129,7 +129,7 @@ en:
   edit: "Edit"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
-  email:
+  e-mail:
     account_activated: "Your account has been activated successfully."
     url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href={{url}}> URL </a>"
     commas: "(separated by commas)"
