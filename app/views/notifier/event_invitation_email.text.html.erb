@@ -1,12 +1,17 @@
+<html>
+<body>
 <%if @invitation.comment == ""%>
-  <%= t('invitation.to_event', :space => @space.name) %>
+  <%= t('invitation.to_event', :space => @space.name) %><br/>
 <%elsif @invitation.candidate!=nil%>
-  <%=@invitation.comment.gsub('\'name\'',@invitation.candidate.login)%>
+  <%=@invitation.comment.gsub('\'name\'',@invitation.candidate.login)%><br/>
 <%else%>
-  <%=@invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%>
+  <%=@invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%><br/>
 <%end%>
 
-<%=@invitation.comment.gsub('\'url\'', event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>
-<%=@invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event) %>
+<%=@invitation.comment.gsub('\'url\'', event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %><br/>
+<%=@invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event) %><br/>
 
-<%= t('invitation.copy_link',:url => event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>
+<%= t('invitation.copy_link',:url => event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %><br/>
+
+</body>
+</html>

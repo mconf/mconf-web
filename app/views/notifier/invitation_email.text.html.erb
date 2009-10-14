@@ -1,15 +1,20 @@
-<%= t('e-mail.dear', :name => @name) %>
+<html>
+<body>
+<%= t('e-mail.dear', :name => @name) %><br/>
 
-<%= t('invitation.space', :space => @space.name) %>
+<%= t('invitation.space', :space => @space.name) %><br/>
 
-<%= t('invitation.to_accept', :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+<%= t('invitation.to_accept', :url => invitation_url(@invitation, :host => Site.current.domain)) %><br/>
 
-<%= t('e-mail.copy_link', :url => invitation_url(@invitation, :host => Site.current.domain)) %>
+<%= t('e-mail.copy_link', :url => invitation_url(@invitation, :host => Site.current.domain)) %><br/>
 
-<%= t('invitation.info_space', :space_url => "http://" + Site.current.domain.to_s + "/spaces/"+@space.name) %>
+<%= t('invitation.info_space', :space_url => "http://" + Site.current.domain.to_s + "/spaces/"+@space.name) %><br/>
 
-<%= t('e-mail.kind_regards') %>
+<%= t('e-mail.kind_regards') %><br/>
 
-<%= @invitation.introducer.login%>
-<%= @invitation.introducer.email %>
-<%= @invitation.introducer.organization%>
+<%= @invitation.introducer.login%><br/>
+<%= @invitation.introducer.email %><br/>
+<%= @invitation.introducer.organization%><br/>
+
+</body>
+</html>

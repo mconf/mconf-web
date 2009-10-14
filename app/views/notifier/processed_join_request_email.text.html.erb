@@ -1,3 +1,8 @@
-Your request to join <%= @space.name %> was <%= @jr.accepted? ? 'accepted' : 'discarded' %>
+<html>
+<body>
+Your request to join <%= @space.name %> was <%= @jr.accepted? ? 'accepted' : 'discarded' %><br/>
 
-<%= space_url(@space, :host => Site.current.domain) if @jr.accepted? %>
+<%= space_url(@space, :host => Site.current.domain) if @jr.accepted? %><br/>
+
+</body>
+</html>

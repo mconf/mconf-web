@@ -1,16 +1,16 @@
 <html>
 <body>
-<%= t('e-mail.dear', :name => @name) %>
+<%= t('e-mail.dear', :name => @name) %><br/>
 
-<%= t('register.thank_you') %>
+<%= t('register.thank_you') %><br/>
 
-<%= t('e-mail.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %>
+<%= t('e-mail.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %><br/>
 
-<%= t('e-mail.copy_link', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %> 
+<%= t('e-mail.copy_link', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash ) %> <br/>
 
-<%= t('e-mail.kind_regards') %>
+<%= t('e-mail.kind_regards') %><br/>
 
-<%= t('e-mail.vcc_team') %>
-<%= @contact_email %>
+<%= t('e-mail.vcc_team') %><br/>
+<%= @contact_email %><br/>
 </body>
 </html>
