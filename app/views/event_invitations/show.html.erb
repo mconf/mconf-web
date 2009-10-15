@@ -19,7 +19,7 @@
 
 
 
-<% form_for @invitation do |f| %>
+<% form_for (:event_invitation, :url => "/event_invitations/" + @invitation.code, :html => {:method => :put}) do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
 
@@ -59,7 +59,10 @@
   <div id="accept_invitation">
   	<button type="submit"><%=t('invitation.accept')%></button>    
   </div>
-<% form_for @invitation do |f| %>
+
+
+<% form_for (:event_invitation, :url => "/event_invitations/" + @invitation.code, :html => {:method => :put}) do |f| %>
+
   <%= f.hidden_field :processed, :value => true %>
   <div id="discard_invitation">
   	<button type="submit"><%=t('invitation.discard')%></button>

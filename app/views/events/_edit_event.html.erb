@@ -75,7 +75,7 @@
   <div>
     <label for="Organizer"><%= t('organizer') %>:</label>
     <select id="organizers_name" multiple="multiple" name="organizers[name][]">
-      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, @event.organizers.map{|u| u.login})%>
+      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
     </select>
   </div>
    <div class="margin-up">

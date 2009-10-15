@@ -1,8 +1,9 @@
+  
   <%if !selected_post%>
     $("#collapsed_post_<%=post.id%>").show();
     $("#expanded_post_<%=post.id%>").hide();
   <%end%>
-    $("#expanded_post_<%=post.id%>").append("<%=(link_to "collapse", "javascript:collapse_post_#{post.id}()").gsub('"','\"')%>");
+    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to "<< collapse" , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
     
     expand_post_<%=post.id%> = function(){
        $("#collapsed_post_<%=post.id%>").hide();

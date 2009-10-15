@@ -220,6 +220,7 @@ en:
     full_name: Full name
     new:
       other: "Invite people"
+    not_processed: "The invitation could not be processed"
     title: "Event Invitation"
   ######### F ###########
   fax: "Fax"
