@@ -729,3 +729,9 @@ a.extract_form{margin-right:0.5em;}
 	margin-top:-5px;
 }
 
+div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
+	font-weight:bold;
+	color: #9b0e2f;
+	text-decoration: none;
+}
+
