@@ -11,7 +11,7 @@
         row.name           "#{link_to "+" if attachment.version>1} #{attachment.filename} (#{attachment.get_size.strip!})"
         row.author         link_to attachment.author.name, user_profile_path(attachment.author)
         row.updated        attachment.updated_at.to_date.to_formatted_s(:rfc822)
-        row.type           attachment.content_type.split("/").last
+        row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
         row.actions        table_actions(attachment)
       end
     end
