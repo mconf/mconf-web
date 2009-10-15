@@ -5,7 +5,7 @@
 
   <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
     <p>
-    <%= f.label :email, t('email.other') %> <%= t('email.commas')%><br />
+    <%= f.label :email, t('e-mail.other') %> <%= t('e-mail.commas')%><br />
     <%= f.text_field :email %>
     </p>
 

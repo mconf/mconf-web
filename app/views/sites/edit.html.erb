@@ -55,8 +55,8 @@
     <%= f.text_field :exception_notifications_email %>
   </p>
 
-  <p>
-		<%= image_submit_tag "buttons/update.png", :id => "site_submit"%>
-  </p>
+  <div id="site_button" class="margin-up">  
+	<button type="submit"><%=t("button.update")%></button>
+  </div>
 <% end %>
 </div>

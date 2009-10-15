@@ -1,6 +1,6 @@
 <% content_for :javascript do%>
   <%= render :partial => 'toggle_view'%>
-  template = "<%= t('user.invitation.message') %>\n<%= t('user.invitation.sign',:username=>current_user.login) %>";
+  template = "<%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %>";
   $("#event_name").blur(function(){
     replace_invitation();
   });
@@ -124,14 +124,14 @@
 		
 		<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
 		  <div class="margin-up">
-		    <label for="e-mails" class="label_izquierda"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
+		    <label for="e-mails" class="label_izquierda"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
 				<%= f.text_area :mails%>
 		  </div>	
 		<%end%>	
 	<div class="margin-up">
-	  <label for="message" class="label_izquierda"><%= t('user.invitation.label') %>:</label>
-	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('user.invitation.message') %> &#13<%= t('user.invitation.sign',:username=>current_user.login) %></textarea>
-	  <p>* <%= t('user.invitation.legend') %></p>
+	  <label for="message" class="label_izquierda"><%= t('invitation.label') %>:</label>
+	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %></textarea>
+	  <p>* <%= t('invitation.legend') %></p>
 	</div>
 </div>
 	<div class="margin-up">

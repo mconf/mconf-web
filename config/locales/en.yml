@@ -129,13 +129,21 @@ en:
   edit: "Edit"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
-  email:
+  e-mail:
+    account_activated: "Your account has been activated successfully."
+    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> URL </a>"
     commas: "(separated by commas)"
-    confirm: "To confirm your email address, please visit the following URL:"
+    confirm: "You need now to confirm your registration by clicking on the <a href=\"{{url}}\"> URL </a>"
+    copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
+    dear: "Dear {{name}},"
+    kind_regards: "Kind regards,"
+    join_request: "Joint Request"
     notifications: "email notifications"
     one: "email"
     other: "emails"
     used_from: "email used in contact form: {{dir}}"
+    vcc_team: "The VCC Team"
+    welcome: "Welcome to VCC"
   email_or_full_name: "email or full name"
   enable: "Enable"
   enabled: "Enabled"
@@ -213,7 +221,7 @@ en:
   ######### F ###########
   fax: "Fax"
   feedback:
-    email: "({{user}}) has reported the following feedback"
+    email: "You have received the following feedback email from {{email}}:"
     send: "Send feedback" 
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
@@ -260,11 +268,19 @@ en:
   invitation:
     accepted: "You have accepted the invitation to the {{event}} event"
     add_more: "Invite more people"
+    copy_link: "P.S: If you can't click on the URL, please copy and paste the following link in your browser: {{url}}"
     discarded: "The invitation to {{event}} event has been discarded"
-    ps: "P.S: Please visit the following URL: {{url}} to accept the invitation"
-    subject: "{{username}} would like you to attend {{event}} event at space {{space}}"
-    to_event: "{{username}} has invited you to {{event}} event in the space {{space}}"
-    to_space:  "{{username}} has invited you to space {{space}}, please visit the following URL: {{url}} to accept the invitation"
+    info_event: "You can find more information about this event in 'event_url'"
+    info_space: "You can find more information about this space in {{space_url}}"
+    label: "Customise your invitation message"
+    legend: "'name' will be replaced on the e-mails by the receiver's name."
+    message: "Dear 'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> URL. </a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
+    sign: "Yours sincerely, {{username}}"
+    subject: "{{username}} has invited you to an event in {{space}} space"
+    to_accept: "To accept my invitation please visit the <a href={{url}}> URL </a>"
+    to_event: "{{username}} has invited you to an event in the {{space}} space"
+    to_space:  "{{username}} has invited you to {{space}} space"
     new:
       other: "New invitations" 
     not_pending: 
@@ -285,7 +301,7 @@ en:
   join: Join
   join_request:
     already_sent: "You have already requested to join this space"
-    asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request"
+    asked: "The user <b>{{candidate}}</b> wants to participate in {{space}} space administrated by you."
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
     not_logged_in: "You need to be logged in to send a join request"
@@ -294,6 +310,7 @@ en:
     pending:
       other: "Pending join requests"
     send: "Send join request"
+    to_accept: "To accept or deny the request please visit the <a href={{url}}> URL </a>"
 
   ######### K ###########
   keywords: "Keywords (*)"
@@ -386,10 +403,12 @@ en:
     error:
       create: "There was a problem updating your attendance information"
   password:
-    one: "Password"
+    reset_email: "Your password has been reset"
+    reset_email_dot: "Your password has been reset."
     confirm: "Confirm password"
-    been_reset_email: "{{user}}, your password has been reset"
-    reset_email: "{{user}}, please follow the link in order to reset your password:"
+    one: "Password"
+    request: "Request to change your password"
+    to_reset: "To reset your password please visit the <a href={{url}}> URL </a>"
   people:
     up: "PEOPLE"
   performance:
@@ -450,10 +469,9 @@ en:
   received_message_more_machines: "You have received a message from {{user}} asking for more machines"
   recent:
      activity: Recent activity
-
   register:
     one: "Register"
-    thank_you: "Thank you for registering in VCC"
+    thank_you: "Welcome and thank you for registering in the Virtual Conference Centre."
   register_as_admin: "Register as admin"
   register_as_invited: "Register as invited"
   register_as_user: "Register as user"
@@ -547,12 +565,10 @@ en:
     member_of: Member of the spaces
     my_spaces: My Spaces
     one: Space
-
     popular:
       other: "Popular spaces"
     private: "Private spaces"
     possesion: My Spaces
-
     public:
       one: "Public space"
       other: "Public spaces"
@@ -572,7 +588,7 @@ en:
     up: "SPAM"
     valid: "This content is valid"
     report: "Report spam"
-    reported: "A user has reported spam in the application"
+    reported: "{{name}} has reported spam in the application."
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   start_now!: "Start now!"
@@ -655,11 +671,6 @@ en:
     invite_from_space_by_email: "Invite people from your space"
     invited: "Users already invited"
     list_by: "List by"
-    invitation:
-        label: "Customise your invitation message"
-        message: "Dear 'name', I would like to invite you to the event 'event_name' which will be held on 'event_date'"
-        sign: "Yours sincerely, {{username}}"
-        legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
