@@ -217,6 +217,7 @@ en:
     discarded: "You have discarded the invitation to this event"
     new:
       other: "Invite people"
+    not_processed: "The invitation could not be processed"
     title: "Event Invitation"
   ######### F ###########
   fax: "Fax"

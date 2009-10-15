@@ -7,7 +7,7 @@
   <%@invitation.comment = @invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%>
 <%end%>
 
-<%@invitation.comment = @invitation.comment.gsub('\'url\'', event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %>
+<%@invitation.comment = @invitation.comment.gsub('\'url\'', "http://" + Site.current.domain + "/event_invitations/" + @invitation.code) %>
 <%@invitation.comment = @invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event)) %>
 
 <%if @invitation.comment == ""%>
@@ -16,7 +16,7 @@
   <%=@invitation.comment%><br/>
 <%end%>
 
-<%= t('invitation.copy_link',:url => event_invitation_url(@invitation.event, @invitation, :host => Site.current.domain)) %><br/>
+<%= t('invitation.copy_link',:url => "http://" + Site.current.domain + "/event_invitations/" + @invitation.code) %><br/>
 
 </body>
 </html>
