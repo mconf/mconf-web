@@ -1,4 +1,23 @@
 <h3>Document table</h3>
+
+  <%=collection_table(@attachments) do |t|
+      t.header :name, sortable_header(t('name.one'),'filename')
+      t.header :author, sortable_header(t('author'),'author')
+      t.header :updated, sortable_header(t('updated'),'updated_at')
+      t.header :type, sortable_header(t('type'),'type')
+      t.header :actions, t('actions')
+
+      t.rows.each do |row, attachment, index|
+        row.name           "#{link_to "+" if attachment.version>1} #{attachment.filename} (#{attachment.get_size.strip!})"
+        row.author         link_to attachment.author.name, user_profile_path(attachment.author)
+        row.updated        attachment.updated_at.to_date.to_formatted_s(:rfc822)
+        row.type           attachment.content_type.split("/").last
+        row.actions        table_actions(attachment)
+      end
+    end
+  %>
+
+<br />
 <%for attachment in @attachments%>
   <p>Filename: <%=attachment.filename%><br />
 	   Logo: <%=logo(attachment)%><br />
