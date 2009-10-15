@@ -48,6 +48,7 @@ en:
     other_spaces: "Find other spaces"
     send: "Send"
     update: "Update"
+    upload: "Upload"
     edit: "Edit"
         
   ######### C ###########
@@ -121,6 +122,8 @@ en:
   destroy: "Destroy"
   disable: "Disable"
   disabled: "Disabled"
+  document:
+      add: "Add new document"
   docs: "Docs"
   done: "Done!"
   download_file: "Download file"
@@ -568,6 +571,8 @@ en:
   support: "Support"
   
   ######### T ###########
+  tag:
+      new: "New tag"
   thank_you: "Thank you"
   thread:
     add: "Add a new thread"

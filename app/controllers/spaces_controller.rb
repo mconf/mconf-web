@@ -175,7 +175,7 @@ class SpacesController < ApplicationController
     @space_destroy.disable
     respond_to do |format|
       format.html {
-        if request.referer.include?("manage") && current_user.superuser?
+        if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
           flash[:notice] = t('space.disabled')
           redirect_to manage_spaces_path
         else

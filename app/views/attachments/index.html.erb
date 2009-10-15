@@ -1,3 +1,9 @@
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<%end%>
+
+
 <%content_for :sidebar do%>
   <%= render :partial => 'upload_form' %>
 <%end%>
@@ -6,6 +12,7 @@
 <%= render :partial => 'doc_filter' %>
 <%= render :partial => 'doc_table' %>
 
+	
 	
 <h1>Update attachments</h1>
 <p>This code will disappear from here very very soon.</p>

@@ -3,6 +3,69 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe SpacesController do
+  
+  include ActionController::AuthenticationTestHelper
+  
+  integrate_views
+  
+  before(:all) do
+    #the superuser
+    @superuser = Factory(:superuser)
+    #a private space and three users in that space
+    @private_space = Factory(:private_space)
+    @admin = Factory(:admin_performance, :stage => @private_space).agent
+    @user = Factory(:user_performance, :stage => @private_space).agent
+    @invited = Factory(:invited_performance, :stage => @private_space).agent
+    #a public space
+    @public_space = Factory(:public_space)
+  end
+  
+  after(:all) do 
+    #remove all the stuff created
+    @superuser.destroy
+    @private_space.destroy
+    @admin.destroy
+    @user.destroy
+    @invited.destroy
+    @public_space.destroy
+  end
+  
+  describe "A Superadmin" do
+    before(:each) do
+      login_as(@superuser)
+    end
+    it "should be able to create a new space" do
+     valid_attributes = Factory.attributes_for(:public_space)
+     post :create, :space=> valid_attributes
+     assert_response 302
+     space = Space.find_by_name(valid_attributes[:name]) 
+     response.should redirect_to(space_path(space))
+   end
+   it "should be able to see public spaces " do
+       get :show, :id => @public_space.to_param
+       assert_response 200
+       response.should render :template =>("spaces/show.html.erb")
+   end
+   it "should be able to delete a public  space" do
+        delete :destroy , :id => @public_space.to_param
+        assert_response 302
+        response.should redirect_to(spaces_url)
+    end
+    it "should be able to see  private spaces" do
+      get :show, :id => @private_space.to_param, :user_id => @superuser.id
+      assert_response 200
+      response.should render :template =>("spaces/show.html.erb")
+    end
+   it "should be able to delete a private  space" do
+        delete :destroy , :id => @private_space.to_param, :user_id => @superuser.id
+        assert_response 302
+        response.should redirect_to(spaces_url)
+    end
+   
+  
+   
+       
+  end
 =begin
   include ActionController::AuthenticationTestHelper
   fixtures :users , :spaces , :performances, :roles, :permissions

@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
+
 <% content_for :sidebar do  %>
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
 	  <%if params[:edit]%>

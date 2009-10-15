@@ -31,6 +31,10 @@ class AttachmentsController < ApplicationController
 #    end
 #  end
   
+  def create
+    debugger
+  end
+  
   
   
 end

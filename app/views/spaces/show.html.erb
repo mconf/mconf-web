@@ -71,7 +71,7 @@
 	<%= sanitize(space.description) if space.description.present? %></p>
   </div>	
 	<div id="inc-events">
-     <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),formatted_space_events_path(@space,:atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
+     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
 		 	<%if @upcoming_events.empty?%>
 			  <p><%= t('event.upcoming.none') %></p>
@@ -116,13 +116,13 @@
 <% end %>
 
 <div id="latest_posts">
-    <h3><span><%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),formatted_space_posts_path(@space,:atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'), space_posts_path(@space)%></h3>
+    <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
 	  <%if @lastest_posts.empty?%>
 	     <br/><p><%= t('post.none_recent') %></p>
 	  <%else%>
 	    <% for post in @lastest_posts -%>
 	      <div class="post">
-	        <strong><%=link_to sanitize(post.title),space_post_path(@space, post)%></strong><span class="updated"><%=link_to ( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
+	        <strong><%=link_to sanitize(post.title),space_post_path(@space,post)%></strong><span class="updated"><%=link_to( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
 	        <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
 	      </div>
 	    <% end -%>
@@ -137,7 +137,7 @@
   <% for user in @lastest_users -%>
     <div class="user">
     	<%if user.authorize?([:read, :profile],:to=> current_user)%>
-			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
+			<%=link_to("", user_profile_path(user),:class=>"box-link")%>
 			<div><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
 			<div>
 			  <ul>
@@ -145,7 +145,7 @@
 			    <li><%=link_to sanitize(user.organization),user_profile_path(user),:class=>"small-font" %></li>
 			  </ul>
 			</div>
-			<%=link_to ("", user_profile_path(user),:class=>"box-link")%>
+			<%=link_to("", user_profile_path(user),:class=>"box-link")%>
 		<%else%>
 			<div><%=logo(user, :size=>32, :title=>user.name)%></div>
         	<div>
