@@ -287,13 +287,12 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",       :default => false
+    t.boolean  "public",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",     :default => false
-    t.boolean  "with_gallery", :default => true
+    t.boolean  "disabled",    :default => false
   end
 
   create_table "taggings", :force => true do |t|

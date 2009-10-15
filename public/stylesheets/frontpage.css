@@ -122,6 +122,8 @@ ul#prefs {list-style-type:none;margin:0;}
 #list-events a{text-decoration:none;color:#111;}
 #list-events a:hover{color:#555;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
+.spc p a{text-decoration:none;color:#244974;}
+.spc p a:hover{text-decoration:underline;}
 /*about global*/
 .about-wrapper{background:#fff;float:left;width:570px;font-size:1.0833em;line-height:1.3846em;color:#111;}
 .about-wrapper{margin-bottom:0.75em;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
