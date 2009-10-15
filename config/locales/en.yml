@@ -214,7 +214,10 @@ en:
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
+    clarify: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
     discarded: "You have discarded the invitation to this event"
+    email: Email
+    full_name: Full name
     new:
       other: "Invite people"
     title: "Event Invitation"

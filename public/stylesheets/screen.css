@@ -490,11 +490,15 @@ div.invitation-logo,div.invitation-content{float:left;}
 .invitation-content form select,.invitation-content form input{font-size:0.9166em;line-height:1.6363;}
 
 /*invitation*/
-#invitation_content form{margin:12px 9px 6px 0;float:left;}
+#invitation_content form{margin:12px 0px 6px 0;float:left;}
 #invitation_content #logo{margin-right:6px;}
 #invitation_content_inside{margin-top:6px;width:395px;}
 #invitation_content_inside p{margin:0;}
+div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
+#invitation_content .vline{border-left:1px #ddd solid;margin-left:85px;}
+#invitation_content form div.margin-up{margin-left:9px;}
 #invitation_content div#accept_invitation{margin-left:94px;}
+#invitation_content .note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:0;padding:5px;text-align:center;}
 
 /*Profile*/
 .profile-box,.space-box,.invitation-box{background:#bdd8eb;margin-bottom:1.5em;border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;clear:both;overflow:hidden;position:relative;}
