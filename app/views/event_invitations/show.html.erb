@@ -32,7 +32,7 @@
       <%if User.find_by_email(@invitation.email)%>
         <!--The user exist in the db, authenticate him-->        
         <p class="note">
-      	<%=t("event_invitation.clarify")%>
+      	<%=t("event_invitation.clarify_registered")%>
         </p>
 	  <div class="vline">
 	      <div class="margin-up">
@@ -47,7 +47,7 @@
 	  </div>
       <%else%>
         <p class="note">
-      	  <%=t("event_invitation.clarify")%>
+      	  <%=t("event_invitation.clarify_unregistered")%>
         </p>
 	  <div class="vline">
 		  <div class="margin-up">

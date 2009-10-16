@@ -26,6 +26,8 @@ class InvitationsController
     end
   end
   
+  
+  
   def destroy
     invitation.destroy
 
