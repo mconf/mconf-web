@@ -27,11 +27,28 @@
 <!--This is shown only in case the user is not authenticated or not registered -->
   <% unless authenticated? %>
     <% fields_for @candidate do |cf| %>
-      <%= cf.error_messages %>
-
-      <p class="note">
+    <%= cf.error_messages %>
+    
+      <%if User.find_by_email(@invitation.email)%>
+        <!--The user exist in the db, authenticate him-->        
+        <p class="note">
       	<%=t("event_invitation.clarify")%>
-      </p>
+        </p>
+	  <div class="vline">
+	      <div class="margin-up">
+	        <%= cf.label t('event_invitation.email') %><br />
+	        <%= cf.text_field :login,:value=>@invitation.email %>
+	      </div>
+	
+	      <div class="margin-up">
+	        <%= cf.label t('agent.authentication.password') %><br />
+	        <%= cf.password_field :password %>
+	      </div>
+	  </div>
+      <%else%>
+        <p class="note">
+      	  <%=t("event_invitation.clarify")%>
+        </p>
 	  <div class="vline">
 		  <div class="margin-up">
 	      <%= cf.label t('event_invitation.full_name') %><br />
@@ -40,7 +57,7 @@
 		  
 		  <div class="margin-up">
 	      <%= cf.label t('event_invitation.email') %><br />
-	        <%= cf.text_field :login,:value=>@invitation.email,:disabled=>true %>
+	        <%= cf.text_field :email,:value=>@invitation.email,:disabled=>true %>
 	      </div>
 	
 	      <div class="margin-up">
@@ -53,7 +70,8 @@
 	        <%= cf.password_field :password_confirmation %>
 	      </div>
 	  </div>
-    <% end %>
+        <%end%>
+      <% end %>
   <% end %>
 
   <div id="accept_invitation">

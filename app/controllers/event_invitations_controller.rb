@@ -21,13 +21,8 @@ class EventInvitationsController < ApplicationController
     get_show_params
     respond_to do |format|
       format.html {
-        if User.find_by_email(@invitation.email)
-          #the user exist in the application
-          redirect_to new_session_path
-        else
           @candidate = User.new
           render :action => "show"
-        end
       }
       format.xml  { render :xml => @invitation }
     end

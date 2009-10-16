@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
     if invitation.candidate
       @body[:name] = invitation.candidate.login
     else
-      @body[:name] = invitation.email
+      @body[:name] = invitation.email[0,invitation.email.index('@')]
     end
   end
 
