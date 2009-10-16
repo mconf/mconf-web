@@ -292,7 +292,7 @@ ul.edit-post li{list-style-type:none;}
 #admin_tabs{padding:9px 0.75em 8px;margin-bottom:2px;background:#bdd8eb;}
 #admin_tabs .selected{color:#244974;}
 #admin_tabs a{font-weight:bold;}
-#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3/*,.blue_title h3*/{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
+#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3,#edit_profile h3,#edit_account h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
 
 /*space home, latest users,posts and events*/
 #home_current_events{background:#FFF6BF;color:#514721;padding:.8em;margin-bottom:1em;border:2px solid #FFD324;}
@@ -490,9 +490,10 @@ div.invitation-logo,div.invitation-content{float:left;}
 .invitation-content form select,.invitation-content form input{font-size:0.9166em;line-height:1.6363;}
 
 /*invitation*/
-#invitation_content form{margin:12px 0px 6px 0;float:left;min-width:490px;}
+#invitation_content form{margin:12px 0px 6px 0;float:left;width:490px;}
 #invitation_content #logo{margin-right:6px;}
-#invitation_content_inside{margin-top:6px;width:395px;}
+#invitation_content_inside{/*margin-top:6px;*/width:395px;}
+#invitation_content #invitation_content_inside form{width:395px;margin-top:6px;}
 #invitation_content_inside p{margin:0;}
 div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #invitation_content .vline{border-left:1px #ddd solid;margin-left:85px;}

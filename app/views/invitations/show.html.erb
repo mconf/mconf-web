@@ -11,13 +11,32 @@
 	<div id="invitation_content_inside" class="left-align">
 	  <h3 class="item_title"><%=t("name.one")%>: <%= @invitation.group.name %></h3>
 	  <p><span class="bold blue"><%=t("description")%>:</span> <%=@invitation.group.description%></p>
+	  
+	  <%if authenticated?%>
+		<% form_for @invitation do |f| %>
+  		  <%= f.hidden_field :processed, :value => true %>
+  		  <%= f.hidden_field :accepted, :value => true %>
+		  
+		    <button type="submit"><%=t('invitation.accept')%></button>
+		  
+		
+		  <% form_for @invitation do |f| %>
+		  <%= f.hidden_field :processed, :value => true %>
+		  
+		    <button type="submit"><%=t('invitation.discard')%></button>
+		  
+		  <% end %>
+		<% end %>
+	  <% end %>
+	  
 	</div>
-	
+
+
+<% unless authenticated? %>
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
-
-  <% unless authenticated? %>
+  
     <% fields_for @candidate do |cf| %>
       <%= cf.error_messages %>
       
@@ -61,7 +80,6 @@
 		</div>
       <%end%>
     <% end %>
-  <% end %>
 
   <div id="accept_invitation">
     <button type="submit"><%=t('invitation.accept')%></button>
@@ -72,6 +90,7 @@
   <div id="discard_invitation">
     <button type="submit"><%=t('invitation.discard')%></button>
   </div>
+  <% end %>
   <% end %>
 <% end %>
 

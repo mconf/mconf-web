@@ -49,6 +49,7 @@ en:
     send: "Send"
     update: "Update"
     edit: "Edit"
+    invite: Invite!
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -500,6 +501,7 @@ en:
     invalid: "Role is invalid"
     listing: "Listing roles"
     new: "New role"
+    none: "No assigned role"
     one: "Role"
     other: "Roles"
     sucess_update: "Role updated successfully..."
