@@ -215,12 +215,14 @@ en:
   event_invitation:
     accepted: "You have accepted the invitation to this event"
     clarify: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    confirm_password: Confirm password
     discarded: "You have discarded the invitation to this event"
     email: Email
     full_name: Full name
     new:
       other: "Invite people"
     not_processed: "The invitation could not be processed"
+    password: Password
     title: "Event Invitation"
   ######### F ###########
   fax: "Fax"
@@ -563,6 +565,10 @@ en:
       enabled: "Space {{name}} is already enabled"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
+    join_invitation:
+      title: "Join space >"
+      clarify_unregistered: "Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space."
+      clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
     main: Main space
