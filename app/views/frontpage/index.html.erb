@@ -68,7 +68,7 @@
 			<%for space in @popular_spaces%>
 				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
 			  	<%=link_logo (space, :size=> 'front', :title => space.name)%>
-			  	<p><%=sanitize(space.name)%></p>
+			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>					  		
 		  </div>        
@@ -80,14 +80,13 @@
 			<%for space in @recent_spaces%>
 				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
 			  	<%=link_logo (space, :size=> 'front',:title => space.name )%>
-			  	<p><%=sanitize(space.name)%></p>
+			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>		  		
 		  </div>
 		  
 		  <div class="wrapper right">
-		  	<%=link_to ("<button>"+t('button.other_spaces')+"</button>"), spaces_path %>
-		  		<!--<a href="#nogo" class="right">Find other spaces</a>-->
+		  	<%=link_to (("<button>" + t('button.other_spaces') + "</button>"), spaces_path) %>
 		  </div>
 		  
 		  <div class="wrapper">

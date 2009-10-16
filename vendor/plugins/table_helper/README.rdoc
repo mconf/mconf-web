@@ -1,0 +1,171 @@
+= table_helper
+
++table_helper+ adds a helper method for generating HTML tables from collections.
+
+== Resources
+
+API
+
+* http://api.pluginaweek.org/table_helper
+
+Bugs
+
+* http://pluginaweek.lighthouseapp.com/projects/13290-table_helper
+
+Development
+
+* http://github.com/pluginaweek/table_helper
+
+Source
+
+* git://github.com/pluginaweek/table_helper.git
+
+== Description
+
+Tables of summary data for ActiveRecord models are often formatted in the same
+way by creating a header indicating the attribute and a body containing the
+data from each record in separate rows.  table_helper makes it easier to create
+these types of tables by DRYing much of the html being generated.
+
+== Usage
+
+=== Basic Example
+
+  <%= collection_table Person.find(:all) %>
+
+...is compiled to (formatted here for the sake of sanity):
+
+  <table cellpadding="0" cellspacing="0" class="people ui-collection">
+  <thead>
+    <tr>
+      <th class="person-first_name" scope="col">First Name</th>
+      <th class="person-last_name" scope="col">Last Name</th>
+      <th class="person-company_id" scope="col">Company</th>
+      <th class="person-role" scope="col">Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="person ui-collection-result">
+      <td class="person-first_name">John</td>
+      <td class="person-last_name">Doe</td>
+      <td class="person-company_id">1</td>
+      <td class="person-role">President</td>
+    </tr>
+    <tr class="person ui-collection-result">
+      <td class="person-first_name">Jane</td>
+      <td class="person-last_name">Doe</td>
+      <td class="person-company_id">1</td>
+      <td class="person-role">Vice-President</td>
+    </tr>
+  </tbody>
+  <table>
+
+=== Advanced Example
+
+  <%=
+    collection_table(@posts, :id => 'posts', :class => 'summary') do |t|
+      t.header :title
+      t.header :category
+      t.header :author
+      t.header :publish_date, 'Date<br \>Published'
+      t.header :num_comments, '# Comments'
+      t.header :num_trackbacks, '# Trackbacks'
+      
+      t.rows.alternate = :odd
+      t.rows.each do |row, post, index|
+        # Notice there's no need to explicitly define the title
+        row.category       post.category.name
+        row.author         post.author.name
+        row.publish_date   time_ago_in_words(post.published_at)
+        row.num_comments   post.comments.empty? ? '-' : post.comments.size
+        row.num_trackbacks post.trackbacks.empty? ? '-' : post.trackbacks.size
+      end
+      
+      t.footer :num_comments, @posts.inject(0) {|sum, post| sum += post.comments.size}
+      t.footer :num_trackbacks, @posts.inject(0) {|sum, post| sum += post.trackbacks.size}
+    end
+  %>
+
+...is compiled to (formatted here for the sake of sanity):
+
+  <table cellpadding="0" cellspacing="0" class="summary posts ui-collection" id="posts">
+  <thead>
+    <tr>
+      <th class="post-title" scope="col">Title</th>
+      <th class="post-category" scope="col">Category</th>
+      <th class="post-author" scope="col">Author</th>
+      <th class="post-publish_date" scope="col">Date<br \>Published</th>
+      <th class="post-num_comments" scope="col"># Comments</th>
+      <th class="post-num_trackbacks" scope="col"># Trackbacks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="post ui-collection-result">
+      <td class="post-title">Open-source projects: The good, the bad, and the ugly</td>
+      <td class="post-category">General</td>
+      <td class="post-author">John Doe</td>
+      <td class="post-publish_date">23 days</td>
+      <td class="post-num_comments">-</td>
+      <td class="post-num_trackbacks">-</td>
+    </tr>
+    <tr class="post ui-collection-result ui-state-alternate">
+      <td class="post-title">5 reasons you should care about Rails</td>
+      <td class="post-category">Rails</td>
+      <td class="post-author">John Q. PUblic</td>
+      <td class="post-publish_date">21 days</td>
+      <td class="post-num_comments">-</td>
+      <td class="post-num_trackbacks">-</td>
+    </tr>
+    <tr class="post ui-collection-result">
+      <td class="post-title">Deprecation: Stop digging yourself a hole</td>
+      <td class="post-category">Rails</td>
+      <td class="post-author">Jane Doe</td>
+      <td class="post-publish_date">17 days</td>
+      <td class="post-num_comments">-</td>
+      <td class="post-num_trackbacks">-</td>
+    </tr>
+    <tr class="post ui-collection-result ui-state-alternate">
+      <td class="post-title">Jumpstart your Rails career at RailsConf 2007</td>
+      <td class="post-category">Conferences</td>
+      <td class="post-author">Jane Doe</td>
+      <td class="post-publish_date">4 days</td>
+      <td class="post-num_comments">-</td>
+      <td class="post-num_trackbacks">-</td>
+    </tr>
+    <tr class="post ui-collection-result">
+      <td class="post-title">Getting some REST</td>
+      <td class="post-category">Rails</td>
+      <td class="post-author">John Doe</td>
+      <td class="post-publish_date">about 18 hours</td>
+      <td class="post-num_comments">-</td>
+      <td class="post-num_trackbacks">-</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="post-num_comments">0</td>
+      <td class="post-num_trackbacks" colspan="5">0</td>
+    </tr>
+  </tfoot>
+  </table>
+
+=== Caveat Emptor
+
+See the API for more information on syntax, options, and examples.  You should only
+use table_helper if it fits the needs of your application.  Remember one of the key
+principles of Rails, KISS (Keep It Simple Stupid).  table_helper works really
+well when you need to quickly output several of these types of summary tables.
+If this is not the case, you may want to stick to using actual html.
+
+== Testing
+
+Before you can run any tests, the following gem must be installed:
+* plugin_test_helper[http://github.com/pluginaweek/plugin_test_helper]
+
+To run against a specific version of Rails:
+
+  rake test RAILS_FRAMEWORK_ROOT=/path/to/rails
+
+== Dependencies
+
+* Rails 2.0 or later

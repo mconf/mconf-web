@@ -20,6 +20,7 @@ en:
     other: "Admissions"
   advanced: "Advanced"
   advanced_options: "Advanced options"
+  advanced_editor: "Advanced editor"
   agent:
     one: "User"
   agree: "Yes"
@@ -49,6 +50,7 @@ en:
     send: "Send"
     update: "Update"
     edit: "Edit"
+    invite: Invite!
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -131,19 +133,19 @@ en:
   edit_your_profile: "Edit your profile"
   e-mail:
     account_activated: "Your account has been activated successfully."
-    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href={{url}}> URL </a>"
+    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> URL </a>"
     commas: "(separated by commas)"
-    confirm: "You need now to confirm your registration by clicking on the <a href={{url}}> URL </a>"
-    copy_link: "If you can't click on the link above, please copy and paste the following link in your browser: {{url}}"	
+    confirm: "You need now to confirm your registration by clicking on the <a href=\"{{url}}\"> URL </a>"
+    copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
     dear: "Dear {{name}},"
     kind_regards: "Kind regards,"
-    join_request: "Joint Request"		
+    join_request: "Joint Request"
     notifications: "email notifications"
     one: "email"
     other: "emails"
     used_from: "email used in contact form: {{dir}}"
     vcc_team: "The VCC Team"
-    welcome: "Welcome to VCC"		
+    welcome: "Welcome to VCC"
   email_or_full_name: "email or full name"
   enable: "Enable"
   enabled: "Enabled"
@@ -214,9 +216,16 @@ en:
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
+    clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    clarify_registered: "Please introduce your password in order to confirm your attendance to the event"
+    confirm_password: Confirm password
     discarded: "You have discarded the invitation to this event"
+    email: Email
+    full_name: Full name
     new:
       other: "Invite people"
+    not_processed: "The invitation could not be processed"
+    password: Password
     title: "Event Invitation"
   ######### F ###########
   fax: "Fax"
@@ -268,14 +277,16 @@ en:
   invitation:
     accepted: "You have accepted the invitation to the {{event}} event"
     add_more: "Invite more people"
-    copy_link: "P.S: If you can't click on the URL, please copy and paste the following link in your browser: {{url}}"		
+    copy_link: "P.S: If you can't click on the URL, please copy and paste the following link in your browser: {{url}}"
     discarded: "The invitation to {{event}} event has been discarded"
     info_event: "You can find more information about this event in 'event_url'"
-    info_space: "You can find more information about this space in {{space_url}}"	
+    info_space: "You can find more information about this space in {{space_url}}"
     label: "Customise your invitation message"
     legend: "'name' will be replaced on the e-mails by the receiver's name."
     message: "Dear 'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> URL. </a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
-    space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."	
+    not_created: "could not be invited to this space because it already belongs to it"
+    not_created_2: "could not be invited to this space because he/she has already been invited"
+    space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
     to_accept: "To accept my invitation please visit the <a href={{url}}> URL </a>"
@@ -404,10 +415,10 @@ en:
       create: "There was a problem updating your attendance information"
   password:
     reset_email: "Your password has been reset"
-    reset_email_dot: "Your password has been reset."	
+    reset_email_dot: "Your password has been reset."
     confirm: "Confirm password"
     one: "Password"
-    request: "Request to change your password"	
+    request: "Request to change your password"
     to_reset: "To reset your password please visit the <a href={{url}}> URL </a>"
   people:
     up: "PEOPLE"
@@ -494,6 +505,7 @@ en:
     invalid: "Role is invalid"
     listing: "Listing roles"
     new: "New role"
+    none: "No assigned role"
     one: "Role"
     other: "Roles"
     sucess_update: "Role updated successfully..."
@@ -559,6 +571,10 @@ en:
       enabled: "Space {{name}} is already enabled"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
+    join_invitation:
+      title: "Join space >"
+      clarify_unregistered: "Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space."
+      clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
     main: Main space

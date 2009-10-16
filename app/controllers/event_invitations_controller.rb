@@ -1,6 +1,6 @@
 class EventInvitationsController < ApplicationController
-  before_filter :invitation, :only => [ :show, :update, :delete ]
-  before_filter :candidate_authenticated, :only => [ :show, :update ]
+  before_filter :invitation, :only => [ :show, :update, :delete, :get_show_params ]
+  #before_filter :candidate_authenticated, :only => [ :update ]
 
   # GET /event_invitations
   # GET /event_invitations.xml
@@ -18,6 +18,17 @@ class EventInvitationsController < ApplicationController
   # GET /event_invitations/1
   # GET /event_invitations/1.xml
   def show
+    get_show_params
+    respond_to do |format|
+      format.html {
+          @candidate = User.new
+          render :action => "show"
+      }
+      format.xml  { render :xml => @invitation }
+    end
+  end
+
+  def get_show_params
     unless @invitation
       flash[:error] = t('invitation.not_found')
       redirect_to root_path
@@ -29,14 +40,8 @@ class EventInvitationsController < ApplicationController
     @no_assistants = @event.participants.select{|p| p.attend != true} 
     @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
     @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
-    respond_to do |format|
-      format.html {
-        @candidate = User.new
-      }
-      format.xml  { render :xml => @invitation }
-    end
   end
-
+  
   
   # GET /event_invitations/new
   # GET /event_invitations/new.xml
@@ -44,7 +49,7 @@ class EventInvitationsController < ApplicationController
     
   end
   
-  
+  #http://localhost:3000/event_invitations/0659ef4a97ca8d147c963f74a153d40409e6cc50
   def create
     @invitation = ( group.try(:invitations) || Invitation ).new params[:invitation]
     @invitation.introducer = current_agent
@@ -82,6 +87,7 @@ class EventInvitationsController < ApplicationController
         @candidate.activated_at = Time.now if @candidate.agent_options[:activation]
         
         unless @candidate.save
+          get_show_params
           render :action => :show
           return
         end
