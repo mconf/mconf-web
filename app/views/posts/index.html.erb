@@ -202,6 +202,28 @@ $("a#big_new_thread").fancybox({
 			       }    
 });
 
+$("a#big_new_thread_link").fancybox({
+  'hideOnContentClick' : false,
+			       'callbackOnShow' : function(){
+				 $(".big_post_title").val($(".small_post_title").val());
+				 $(".big_post_text").val($(".small_post_text").val());
+				 $("textarea#post_text").remove(); //IE Compatibility
+				 big_textarea();
+				 $("#fancy_outer").width($("#new_thread_big").width() + 50);
+				 $("#fancy_outer").height($("#new_thread_big").height() + 80);
+				 $(window).resize();
+			       },
+			       'callbackOnClose' : function(){
+				 $(".small_post_title").val($(".big_post_title").val());
+				 /*close_lightbox();*/
+				 
+				 var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
+				 var data = oEditor.GetHTML();
+				 $("form#thread-form button").before("<%= escape_javascript(small_post_text_area) %>"); //IE Compatibility
+				 $(".small_post_text").val(data);
+			       }    
+});
+
 $("a.new_thread_big_options").livequery("click", function(){
   var route = $(this).attr("href");
   var oEditor = FCKeditorAPI.GetInstance('post[text]') ;

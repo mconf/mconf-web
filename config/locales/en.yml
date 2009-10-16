@@ -20,6 +20,7 @@ en:
     other: "Admissions"
   advanced: "Advanced"
   advanced_options: "Advanced options"
+  advanced_editor: "Advanced editor"
   agent:
     one: "User"
   agree: "Yes"
@@ -215,7 +216,8 @@ en:
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
-    clarify: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    clarify_registered: "Please introduce your password in order to confirm your attendance to the event"
     confirm_password: Confirm password
     discarded: "You have discarded the invitation to this event"
     email: Email
@@ -282,6 +284,8 @@ en:
     label: "Customise your invitation message"
     legend: "'name' will be replaced on the e-mails by the receiver's name."
     message: "Dear 'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> URL. </a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    not_created: "could not be invited to this space because it already belongs to it"
+    not_created_2: "could not be invited to this space because he/she has already been invited"
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
