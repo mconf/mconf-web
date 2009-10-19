@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006141622) do
+ActiveRecord::Schema.define(:version => 20091019113449) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -144,7 +144,6 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.integer  "space_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "guid"
   end
 
   create_table "open_id_associations", :force => true do |t|
@@ -213,7 +212,6 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.string   "author_type"
     t.integer  "parent_id"
     t.integer  "event_id"
-    t.string   "guid"
     t.boolean  "spam",        :default => false
   end
 
@@ -270,6 +268,15 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.boolean  "ssl",                           :default => false
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
+  end
+
+  create_table "source_importations", :force => true do |t|
+    t.integer  "source_id"
+    t.integer  "importation_id"
+    t.string   "importation_type"
+    t.string   "guid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sources", :force => true do |t|
