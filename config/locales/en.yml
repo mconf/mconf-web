@@ -723,6 +723,7 @@ en:
   week:
     next: "Next week"
   when: "When"
+  where: "Where"
   
   ######### X ###########
   
