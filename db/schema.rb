@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006141622) do
+ActiveRecord::Schema.define(:version => 20091008131943) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",       :default => ""
+    t.string   "colour",                 :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -88,11 +88,12 @@ ActiveRecord::Schema.define(:version => 20091006141622) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "marte_event",  :default => false
+    t.boolean  "marte_event",            :default => false
     t.boolean  "marte_room"
-    t.boolean  "spam",         :default => false
+    t.boolean  "spam",                   :default => false
     t.text     "notes"
     t.text     "location"
+    t.text     "external_streaming_url"
   end
 
   create_table "groups", :force => true do |t|

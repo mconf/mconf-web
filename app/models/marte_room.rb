@@ -1,7 +1,7 @@
    class MarteRoom < ActiveResource::Base
 	self.site = "http://marte3.dit.upm.es/MarteServer/rest"
 	self.element_name = "room"
-	
+	#self.timeout = 5
 	
 	#KEY="123asd123"	
 	#SERVICE_NAME="standalone"

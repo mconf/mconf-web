@@ -21,6 +21,11 @@ en:
   advanced: "Advanced"
   advanced_options: "Advanced options"
   advanced_editor: "Advanced editor"
+  agenda: 
+    add_entry: "Add entry"
+    entry:
+      created: 'Agenda entry was successfully created.'
+    upload: "Upload Agenda"
   agent:
     one: "User"
   agree: "Yes"
@@ -37,6 +42,7 @@ en:
     empty: "Select picture, please"
     select: "Select picture"
     select_new: "Select new picture"
+    upload: "Upload Picture"
   
   ######### B ###########
   back: "Back"
@@ -164,6 +170,8 @@ en:
   event:
     assistance_title: "Participation"
     attend: "Attending"
+    basic_info: "Introduce basic information"
+    choose_location: "Choose location"
     create: "Create new event"
     created: "Event created successfully"
     edit: "Edit event"
@@ -197,7 +205,6 @@ en:
       show: "Show all old events"
     search: "Search events..."
     select_date: "Select a date for your event"
-    steps: "Complete your event following next steps:"
     to: "To"
     today: "Today events"
     today_size: "Today ({{size}})"
@@ -227,6 +234,7 @@ en:
     not_processed: "The invitation could not be processed"
     password: Password
     title: "Event Invitation"
+  export_widget: "Export Widget"
   ######### F ###########
   fax: "Fax"
   feedback:
@@ -608,6 +616,9 @@ en:
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   start_now!: "Start now!"
+  streaming:
+    add_url: "Add streaming URL"
+    edit: "Edit streaming URL"
   subject: "Subject"
   support: "Support"
   

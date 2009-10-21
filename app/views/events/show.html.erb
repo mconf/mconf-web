@@ -89,13 +89,14 @@
 		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
 		<%end%>
     </ul>
-    <%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
-      <div id="questions">
-        <%=link_to t('invitation.add_more'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :title => t('invitation.add_more')} %>
-        <%=link_to t('comment.add'), space_event_path(@space, @event), {:id=>"add_comment", :title => t('comment.add')} %>
-      </div>
-    <%end%>
- </div>
+  </div>
+  <div id="actions">
+    <span class="author">More actions</span><br/>
+    <%=render :partial => "more_actions"%>
+  </div>
+ 
+   <%=render :partial => "external_streaming"%>
+
 <%unless @comments.empty?%> 
 	<div>
 		<h3 class="selector_title"><%= t('comment.other') %></h3>
