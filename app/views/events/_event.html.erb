@@ -7,11 +7,13 @@
 	    <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) %></li>
     </ul>
     
-    <div class="event_image">
-      <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
-      <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
-      <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
-    </div>
+		<a class="event_image" href="<%=space_event_path(@space, event)%>">
+	    <div>
+	      <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
+	      <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
+	      <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
+	    </div>
+		</a>
     
     <p class="event_title">
       <!--<%=image_tag("icons/date.png",:class=>"icon")%>-->
