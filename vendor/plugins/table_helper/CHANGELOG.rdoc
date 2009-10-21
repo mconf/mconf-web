@@ -1,0 +1,45 @@
+== master
+
+== 0.2.1 / 2009-04-25
+
+* Automatically determine the colspan for the last footer to match the number of headers
+* Fix default headers including all model columns when using :select in the collection query
+
+== 0.2.0 / 2009-04-25
+
+* Reorganize documentation
+* Allow css classes to be customized
+* Use the jQuery UI css naming convention
+* Allow multiple headers to be created at once
+* No longer allow pre-existing headers to be customized (instead must re-define all headers)
+* Remove :header / :footer options
+* Simplify public interface
+
+== 0.1.0 / 2008-12-14
+
+* Remove the PluginAWeek namespace
+* Update tests to use ActionView::TestCase
+
+== 0.0.5 / 2008-06-22
+
+* Remove log files from gems
+
+== 0.0.4 / 2008-06-15
+
+* Support cell/column names that conflict with existing method names on the Row/Header classes
+* Avoid string evaluation for dynamic methods
+
+== 0.0.3 / 2008-06-01
+
+* Remove dependency on set_or_append
+
+== 0.0.2 / 2008-05-05
+
+* Updated documentation
+
+== 0.0.1 / 2007-08-18
+
+* Add README documentation
+* Add gem dependency on set_or_append
+* Refactor test method names
+* Convert dos newlines to unix newlines

@@ -11,7 +11,7 @@
 	      <ul>
 	        <li class="bold"><%=t('name.one')%>: <strong><%=sanitize(user.full_name) %></strong></li>
 	        <li class="bold">
-	        	<%=t('role.one')%>: <strong><%=t('none')%></strong>
+	        	<%=t('role.one')%>: <strong><%=t('role.none')%></strong>
 				<%=select "performance", "role_id", [[t('role.add'),""]] + @site_roles.collect {|p| [ p.name, p.id ]}, {:id => "role_select_#{user.id}",:class=>"small-font"} %>
 			  <%= hidden_field_tag 'performance[agent]', "user-#{user.id}"%>
 			  <%= submit_tag t('add'), :id=> "role_submit_button_#{user.id}"%>				

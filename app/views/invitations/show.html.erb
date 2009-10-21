@@ -1,45 +1,99 @@
 <div class="invitation-box">
 	<div id="title">
-	  <h2 class="item_title"><%= t('space.one') %>: <%= t ('invitation.show'), :group => @invitation.group.name %></h2>
-	   <%=@invitation.group.description%>
+	  <h3><%=t("space.join_invitation.title")%> <%=@invitation.group.name %></h3>
+	   <!--<%=@invitation.group.description%>-->
 	</div>
 <div id="invitation_content">
+	
+	<div id="logo">
+	  <%= link_logo(@invitation.group, :size => "h64", :title=>@invitation.group.name) %>
+	</div>
+	<div id="invitation_content_inside" class="left-align">
+	  <h3 class="item_title"><%=t("name.one")%>: <%= @invitation.group.name %></h3>
+	  <p><span class="bold blue"><%=t("description")%>:</span> <%=@invitation.group.description%></p>
+	  
+	  <%if authenticated?%>
+		<% form_for @invitation do |f| %>
+  		  <%= f.hidden_field :processed, :value => true %>
+  		  <%= f.hidden_field :accepted, :value => true %>
+		  
+		    <button type="submit"><%=t('invitation.accept')%></button>
+		  
+		
+		  <% form_for @invitation do |f| %>
+		  <%= f.hidden_field :processed, :value => true %>
+		  
+		    <button type="submit"><%=t('invitation.discard')%></button>
+		  
+		  <% end %>
+		<% end %>
+	  <% end %>
+	  
+	</div>
+
+
+<% unless authenticated? %>
 <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
-
-  <% unless authenticated? %>
+  
     <% fields_for @candidate do |cf| %>
       <%= cf.error_messages %>
+      
+      <%if User.find_by_email(@invitation.email)%>
+        <!--The user exist in the db, authenticate him-->  
+        <p class="note">
+      	  <%=t("space.join_invitation.clarify_registered")%>
+        </p>
+		<div class="vline">
+        <div class="margin-up">
+          <%= cf.label t('event_invitation.email') %><br />
+          <%= cf.text_field :login,:value=>@invitation.email %>
+        </div>        
+        <div class="margin-up">
+          <%= cf.label t('event_invitation.password') %><br />
+          <%= cf.password_field :password %>
+        </div>
+		</div>
+      <%else%>  
+        <p class="note">
+      	  <%=t("space.join_invitation.clarify_unregistered")%>
+        </p>
+		<div class="vline">
+        <div class="margin-up">
+          <%= cf.label t('event_invitation.full_name') %><br />
+          <%= cf.text_field :login %>
+        </div>
+        <div class="margin-up">
+           <%= cf.label t('event_invitation.email') %><br />
+	   <%= cf.text_field :email,:value=>@invitation.email,:disabled=>true %>
+	</div>
+        <div class="margin-up">
+          <%= cf.label t('event_invitation.password') %><br />
+          <%= cf.password_field :password %>
+        </div>
 
-      <p>
-      <%= cf.label t('agent.authentication.login') %><br />
-        <%= cf.text_field :login %>
-      </p>
-
-      <p>
-        <%= cf.label t('agent.authentication.password') %><br />
-        <%= cf.password_field :password %>
-      </p>
-
-      <p>
-        <%= cf.label t('agent.authentication.confirm_password') %><br />
-        <%= cf.password_field :password_confirmation %>
-      </p>
+        <div class="margin-up">
+          <%= cf.label t('event_invitation.confirm_password') %><br />
+          <%= cf.password_field :password_confirmation %>
+        </div>
+		</div>
+      <%end%>
     <% end %>
-  <% end %>
 
-  <div>
-    <%= f.submit t('invitation.accept') %>
+  <div id="accept_invitation">
+    <button type="submit"><%=t('invitation.accept')%></button>
   </div>
-<% end %>
 
-<% form_for @invitation do |f| %>
+  <% form_for @invitation do |f| %>
   <%= f.hidden_field :processed, :value => true %>
-  <div>
-    <%= f.submit t('invitation.discard') %>
+  <div id="discard_invitation">
+    <button type="submit"><%=t('invitation.discard')%></button>
   </div>
-
+  <% end %>
+  <% end %>
 <% end %>
+
+
 </div>
 </div>

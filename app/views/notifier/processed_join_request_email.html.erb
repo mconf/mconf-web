@@ -1,3 +1,0 @@
-Your request to join <%= @space.name %> was <%= @jr.accepted? ? 'accepted' : 'discarded' %>
-
-<%= space_url(@space, :host => Site.current.domain) if @jr.accepted? %>

@@ -1,8 +1,4 @@
-<% content_for :javascript do %>
-  $(document).ready(function() {
-  	$("#change-event").effect("highlight", {color:"#F5DF51"}, 3000);
-  })
-  
+<% content_for :javascript do %>  
   $("#organizers_name").fcbkcomplete({
 	cache: true,
             filter_case: false,
@@ -12,6 +8,44 @@
             maxshownitems: 4
   });
   
+  template = "<%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %>";
+  $("#event_name").blur(function(){
+    replace_invitation();
+  });
+  
+  function replace_invitation(){
+    if(edited_msg==true)
+      return;
+	
+    invitation_text = template;
+    if($("#event_name").val()!=""){
+     invitation_text = invitation_text.replace('event_name',$("#event_name").val());
+    }
+   if($("#start_datepicker").val()!=""){
+     invitation_text = invitation_text.replace('event_date',$("#start_datepicker").val() + " at " + $("#start_timepicker").val());
+   }  
+   $("#invite_msg").val(invitation_text);
+  };
+  
+  
+  //we detect the user editing the invitation message
+  old_text = "";
+  edited_msg = false;
+  $("#invite_msg").focus(function(){
+    old_text = $("#invite_msg").val();
+  });
+  
+  $("#invite_msg").blur(function(){
+    if( $("#invite_msg").val() != old_text)
+	{
+	  edited_msg = true;
+	}
+  });
+  
+  $(document).ready(function() {
+  	$("#change-event").effect("highlight", {color:"#F5DF51"}, 3000);
+  	 replace_invitation();
+  });
 <% end %>
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.fcbkcomplete'%>
@@ -21,7 +55,7 @@
 <div id="change-event">
 
 <div id="help" title="These are the latest posts or events that you've created"></div>
-<h3><%= t('event.edit') %>hola</h3>
+<h3><%= t('event.edit') %></h3>
 
 <% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
   <%= f.error_messages %>				
@@ -41,7 +75,7 @@
   <div>
     <label for="Organizer"><%= t('organizer') %>:</label>
     <select id="organizers_name" multiple="multiple" name="organizers[name][]">
-      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, @event.organizers.map{|u| u.login})%>
+      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
     </select>
   </div>
    <div class="margin-up">
@@ -115,14 +149,20 @@
 	  
 	   
 	  <div class="margin-up">
-	    <label for="e-mails" class="label_izquierda" ><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
+	    <label for="e-mails" class="label_izquierda" ><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
 			<%= f.text_area :mails%>
 		</div>	
 	<%else%>
 	 <div>
 	       	
 	 </div>	
-	<%end%>	
+	<%end%>
+        <div class="margin-up">
+	  <label for="message" class="label_izquierda"><%= t('invitation.label') %>:</label>
+	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %></textarea>
+	  <p>* <%= t('invitation.legend') %></p>
+	</div>	
+	
 	<div>
   </div>
 	<div class="margin-up">

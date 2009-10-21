@@ -55,15 +55,15 @@ def <=>(user)
 end
 
 def organization
-  profile ? profile.organization : "Organization"
+  profile ? profile.organization : ""
 end
 
 def city
-  profile ? profile.city : "City"
+  profile ? profile.city : ""
 end
 
 def country
-  profile ? profile.country : "Country"
+  profile ? profile.country : ""
 end
 
 def logo
