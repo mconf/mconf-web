@@ -18,6 +18,16 @@
       <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
     <%end%>
   </div>
+  
+  <div id="upload_vcard">
+	<h3><%=t("vCard.use")%></h3>
+    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
+		<p><%= file_field 'vcard_file', 'data' %></p>
+
+		<div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+	<% end %>
+  </div> 
+  
 <% end %>
 
 <div id="edit_profile" class="blue_title"><h3><%= t('edit_your_profile') %></h3></div>
