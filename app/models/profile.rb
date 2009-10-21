@@ -16,7 +16,7 @@ class Profile < ActiveRecord::Base
         when VISIBILITY.index(:everybody)
           true
         when VISIBILITY.index(:members)
-          agent != Anonymous.current      
+          agent != Anonymous.current
         when VISIBILITY.index(:public_fellows)
           self.user.public_fellows.include?(agent)
         when VISIBILITY.index(:private_fellows)
