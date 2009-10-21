@@ -8,14 +8,12 @@
 		<%= user_form.label :login, t('name.full') %><br/>
 		<%= user_form.text_field :login %>
 	</div>
-<<<<<<< HEAD:app/views/profiles/_form.html.erb
-=======
-	
+
 	<div class="margin-up">
 		<%= user_form.label :email, t('e-mail.one') %><br/>
 		<%= user_form.text_field :email %>
 	</div>
->>>>>>> 2efaed60c29f958e3a22aeded50f9d8e2db78046:app/views/profiles/_form.html.erb
+
 <% end %>
 
 <div class="margin-up"><label for="organization"><%= t('organization') %></label><br/>
@@ -48,7 +46,7 @@
 
 <% f.fields_for :user do |user_form| %>
 	<div class="margin-up">
-		<%= user_form.label :email, t('email.one') %><br/>
+		<%= user_form.label :email, t('e-mail.one') %><br/>
 		<%= user_form.text_field :email %>
 	</div>
 <% end %>
@@ -71,11 +69,7 @@
 <div class="margin-up"><label for="address"><%= t('address') %></label><br/>
 <%= f.text_field :address %></div>
 	
-<<<<<<< HEAD:app/views/profiles/_form.html.erb
 <div class="margin-up"><label for="zipcode"><%= t('zipcode') %></label><br/>
 <%= f.text_field :zipcode%></div>
-=======
-	<div class="margin-up"><label for="zipcode"><%= t('zipcode') %></label><br/>
-	<%= f.text_field :zipcode%></div>
-</div>
->>>>>>> 2efaed60c29f958e3a22aeded50f9d8e2db78046:app/views/profiles/_form.html.erb
+
+
