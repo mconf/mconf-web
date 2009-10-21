@@ -145,7 +145,7 @@ en:
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
     dear: "Dear {{name}},"
     kind_regards: "Kind regards,"
-    join_request: "Joint Request"
+    join_request: "Join Request"
     notifications: "email notifications"
     one: "email"
     other: "emails"
