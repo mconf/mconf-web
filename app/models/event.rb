@@ -4,11 +4,14 @@ class Event < ActiveRecord::Base
   has_many :posts
   has_many :participants
   has_many :event_invitations, :dependent => :destroy
+  has_one :agenda
+  
   
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
   acts_as_taggable
   acts_as_stage
+  acts_as_container :content => :agenda
   alias_attribute :title, :name
   validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
@@ -19,6 +22,7 @@ class Event < ActiveRecord::Base
   attr_accessor :mails
   attr_accessor :ids
   attr_accessor :invite_msg
+  attr_accessor :external_streaming_url
   
   is_indexed :fields => ['name','description','place','start_date','end_date'],
              :include =>[{:class_name => 'Tag',
@@ -36,6 +40,11 @@ class Event < ActiveRecord::Base
       event.start_date += ( Time.parse(event.start_hour) - Time.now.midnight )
       event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
     end
+  end
+  
+  after_create do |event|
+    debugger
+    event.agenda = Agenda.create
   end
   
   after_save do |event|

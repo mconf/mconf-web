@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   Translate::Routes.translation_ui(map)
 
   map.connect '/ui/:action', :controller => 'ui'
@@ -18,6 +17,10 @@ ActionController::Routing::Routes.draw do |map|
                      :member => { :token => :get, :spam => :post, :spam_lightbox => :get } do |event|
       event.resources :participants
       event.resources :event_invitations
+      event.resource :agenda do |agenda|
+        agenda.resources :agenda_entries
+        agenda.resources :agenda_record_entries
+      end
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}

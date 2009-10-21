@@ -125,7 +125,7 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if @event.update_attributes(params[:event])        
 		    #if the event is not marte, we have to remove the room in case it had it already assigned
 		    if params[:event][:marte_event]==0 &&  @event.marte_room?
 			    @event.update_attribute(:marte_room, false)
@@ -136,8 +136,8 @@ class EventsController < ApplicationController
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
         format.js{
-          if params[:event][:external_streaming_url]
-            @result = params[:event][:external_streaming_url]
+          if params[:event][:other_streaming_url]
+            @result = params[:event][:other_streaming_url]
           end
         }
         flash[:success] = t('event.updated')
