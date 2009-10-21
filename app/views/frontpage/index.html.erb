@@ -86,7 +86,7 @@
 		  </div>
 		  
 		  <div class="wrapper right">
-		  	<%=link_to (("<button>" + t('button.other_spaces') + "</button>"), spaces_path) %>
+                        <a href="<%=spaces_path%>"><button type="button" onclick="document.location='<%=spaces_path%>'"><%=t('button.other_spaces')%></button></a>
 		  </div>
 		  
 		  <div class="wrapper">

@@ -4,43 +4,26 @@ class Profile < ActiveRecord::Base
 
   acts_as_taggable
   has_logo :class_name => "Avatar"
-
-  def self.atom_parser(data)
-
-    e = Atom::Entry.parse(data)
-      
-      profile = {}
-      profile[:address] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "address").text
-      profile[:city] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "city").text
-      profile[:zipcode] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "zipcode").text
-      profile[:province] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "province").text
-      profile[:country] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "country").text
-      
-      e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "phoneNumber").each do |times|
-        type = times.attribute('rel').to_s.sub('http://schemas.google.com/g/2005#', '')
-        if type == "home"
-          profile[:phone] = times.text 
-        else
-          profile[type.to_sym] = times.text
-        end 
-      end
-
-      org = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "organization")
-      profile[:organization] = org.each_element_with_text('orgName')[0].text
-
-            
-    resultado = {}
-    
-    resultado[:profile] = profile
-    
-    return resultado     
-  end   
-
+  
+  # The order implies inclusion: everybody > members > public_fellows > private_fellows
+  VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
+  
   authorizing do |agent, permission|
     if self.user == agent
       true
-    elsif permission == :read && self.user.fellows.include?(agent)
-      true 
+    elsif (permission == :read)
+      case visibility
+        when VISIBILITY.index(:everybody)
+          true
+        when VISIBILITY.index(:members)
+          agent != Anonymous.current
+        when VISIBILITY.index(:public_fellows)
+          self.user.public_fellows.include?(agent)
+        when VISIBILITY.index(:private_fellows)
+          self.user.private_fellows.include?(agent)
+        when VISIBILITY.index(:nobody)
+          false
+      end
     end
   end
 end
