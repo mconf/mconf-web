@@ -1,2 +1,37 @@
 <% menu :profile %>
-<%= render :partial=>'hcard'%>
+
+<%content_for :sidebar do %>
+  <div class="profile-box">
+	<div id="title">
+	 <h3 class="item_title"><span><%=@user.name%></span> <%= t('is_member_of') %>:</h3>
+	</div>
+	<div id="profile_content">
+		<%= @user_spaces.empty? ? @user.name + t("space.does_not_belong") : ""%>
+		<%for space in @user_spaces do%>
+			<div class="space_item"><%= space.authorize?([:read , :content], :to => current_user) ? link_logo(space, :size => 'h64', :title=> space.name): logotype(space, :size => 'h64')%></div>
+		<%end%>
+	</div>
+  </div>
+<%end%>
+
+<%= render :partial=>'public_hcard'%>
+
+<% if @profile.authorize? :read, :to => current_user %>
+	<%= render :partial=>'private_hcard'%>
+<% end %>
+
+<%if current_user.superuser? || @user==current_user%>
+  <%= button_to t('edit_profile'), edit_user_profile_path(@user) ,:method => :get %>  
+<%end%> 
+<div class="profile-box">
+  <div id="title">
+  	<div id="help2" title="<%= t('information.information3')%>"></div>
+	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
+  </div>
+  <div id="profile_content">
+  	  <%= @latest_posts.empty? ? "The User doesn't have any recent activity" : "" %>
+	  <% for post in @latest_posts -%>
+		<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
+	  <%end%>
+  </div>	
+</div>
