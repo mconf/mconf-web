@@ -117,7 +117,7 @@ ul#prefs {list-style-type:none;margin:0;}
 .wrapper div.spc img:hover{border-color:#999;}
 .wrapper ul#list-events{margin:0;text-align:left;}
 .wrapper #list-events li{float:left;}
-.right a{float:right;}
+.right a,.right button{float:right;}
 #list-events li span{color:#244974;margin-left:20px;}
 #list-events a{text-decoration:none;color:#111;}
 #list-events a:hover{color:#555;}
