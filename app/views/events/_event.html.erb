@@ -1,7 +1,7 @@
 <%div_for(event) do%>
   <div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
-    	<li><%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true%> </li>
+      <li><%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true%> </li>
       <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply'),:class=>"icon" ), space_event_path(@space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => t('comment.add_new')}if @space.authorize?([:create, :content],:to => current_user)%></li>
 		  <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , space_event_path(@space, event, :edit_event => event), :title => t('edit')) if event.authorize?(:update, :to => current_user) %></li>
 	    <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) %></li>
@@ -13,27 +13,27 @@
       <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
     </div>
     
-    <p class="event_name">
+    <p class="event_title">
       <!--<%=image_tag("icons/date.png",:class=>"icon")%>-->
       <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event)%>
     </p>
     
     <ul>
     
-      <li class="date">
+      <li class="event_date">
         <%= t('when')%>: <%=sanitize(event.start_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
       </li>
   
       <%if event.location%>
-      <li class="location">
+      <li class="event_location">
         <%= t('where')%>: <%=sanitize(event.location)%>
       </li>
       <%end%>
       
-      <li class="author">
+      <li class="event_author">
         <%= t('organizer') %>: <%=event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(event.author.name,@query),user_profile_path(event.author)): sanitize(highlight(event.author.name,@query))%>
       </li>
       
     </ul>
- </div>
-  <%end%>
+  </div>
+<%end%>
