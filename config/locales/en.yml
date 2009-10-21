@@ -271,6 +271,7 @@ en:
     activity: Recent Activity...
     
   ######### I ###########
+  im: Instant Messaging
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
@@ -373,6 +374,7 @@ en:
     full: "Full name"
     one: "Name"
     other: "Names"
+    prefix: "Honorific prefix"
   new_source: "New source"
   new_spam_detected: "New spam detected"
   news:
@@ -469,11 +471,22 @@ en:
     error:
       exist: Your profile already exists
     must_create: Please create your profile first
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful"
+    private: Private profile
+    private_description: Only your partners can access this information
+    public: Public profile
+    public_description: Anyone can access this information
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful."
     updated: Profile updated successfully
+    visibility: Visibility
+    visibility_everybody: Everyone can see your private profile.
+    visibility_members: Only registered members can see your private profile. 
+    visibility_public_fellows: Only your partners in a public or private space can see your private profile.
+    visibility_private_fellows: Only your partners in a private space can see your private profile.
+    visibility_nobody: Nobody can see your private profile.
+    visibility_description: Choose who will be able to see your private profile
   province: Province
   public: Public
-  
+    
   ######### R ###########  
   read_more: Read more
   read_more>>: "read more >>"
@@ -543,6 +556,7 @@ en:
   show_list_version>>: "show list version >>"
   site:
     up: "SITE"
+  skype: Skype
   source:
     created: "Source created successfully"
     one: "Source"
@@ -647,7 +661,8 @@ en:
   ######### U ###########
   upcoming: "Upcoming"
   update: "Update"
-  updated_time_ago: "{{time}} ago"  
+  updated_time_ago: "{{time}} ago"
+  url: "Website"
   user:
     active:
       other: "Active users"
@@ -717,6 +732,11 @@ en:
     
   ######### V ###########
   vcard: "vCard"
+  vCard: 
+      use: "Use your vCard"
+      no_selection: "no vCard"
+      success: "Vcard successfully loaded"
+      corrupt: "The Vcard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
   
   ######### W ###########

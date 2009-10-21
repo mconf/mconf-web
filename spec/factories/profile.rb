@@ -3,6 +3,12 @@ Factory.define :profile do |p|
   p.organization "dit"
   p.city "madrid"
   p.country "spain"
+  p.prefix "Mr."
+  p.description "This is my description."
+  p.url "http://website.example.com"
+  p.skype "myskypename"
+  p.im "im@example.com"
+  p.visibility Profile::VISIBILITY.index(:public_fellows)
 end
 
 Factory.define :vcard, :parent=>:profile do |v|

@@ -1,25 +1,23 @@
 require 'vpim/vcard'
 
 class ProfilesController < ApplicationController
-  before_filter :authentication_required
+  #before_filter :authentication_required
 
   before_filter :get_user
   
-  authorization_filter :read, :profile, :only => [ :show ]
+  #authorization_filter :read, :profile, :only => [ :show ]
   authorization_filter :manage, :profile, :except => [ :show ]
 
   before_filter :unique_profile, :only=> [:new, :create]
   
-  set_params_from_atom :profile, :only => [ :create, :update ]
-    
   # GET /profile
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
-  # GET /profile.atom
   def show
     @user_spaces = @user.spaces
     #The latest posts that the user has written in shared spaces with the current user 
-    @latest_posts= @user.posts.in_container(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
+    #@latest_posts= @user.posts.in_container(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
+    @latest_posts=[]
 =begin
     if params[:hcard]
       hcard
@@ -30,13 +28,13 @@ class ProfilesController < ApplicationController
       format.html 
       format.xml  { render :xml => @profile }
       format.vcf  { vcard }
-      format.atom
     end
   end
   
   # GET /profile/new
   # GET /profile/new.xml
   def new
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @profile }
@@ -54,56 +52,63 @@ class ProfilesController < ApplicationController
   
   # POST /profile
   # POST /profile.xml
-  # POST /profile.atom
   def create
-	  @profile = @user.build_profile(params[:profile])
+    
+    @profile = @user.build_profile(params[:profile])
+
+    if params[:vcard_file].present?
+      
+      upload_vcard
+      
+      render :action => 'new'
+      return
+    end
 
     respond_to do |format|
       if @profile.save
         flash[:success] = t('profile.created')
         format.html { redirect_to :action => 'show' }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
-        format.atom { 
-          headers["Location"] = formatted_user_profile_url(@user, :atom )
-          render :action => 'show',
-                 :status => :created
-        }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @profile.errors.to_xml, :status => :bad_request }
       end
     end
   end
   
   # PUT /profile
   # PUT /profile.xml
-  # PUT /profile.atom
   def update
+    
+    if params[:vcard_file].present?
+      
+      upload_vcard
+      
+      #redirect_to :action => 'edit'
+      render :action => 'edit'
+      return
+    end
+    
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:notice] = t('profile.updated')
         format.html { redirect_to :action => "show" }
         format.xml  { head :ok }
-        format.atom { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @profile.errors.to_xml, :status => :not_acceptable }
       end
     end
   end
   
   # DELETE /profile
   # DELETE /profile.xml
-  # DELETE /profile.atom
   def destroy
     @profile.destroy
     flash[:notice] = t('profile.deleted')
     respond_to do |format|
       format.html { redirect_to(user_profile_path(@user)) }
       format.xml  { head :ok }
-      format.atom  { head :ok }
     end
   end
   
@@ -121,7 +126,10 @@ class ProfilesController < ApplicationController
       flash[:notice]= t('profile.must_create')
       redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
-      render :partial=>'hcard'
+        render :partial=>'public_hcard'
+      if @profile.authorize? :read, :to => current_user
+        render :partial=>'private_hcard'
+      end
     end
   end
   
@@ -133,6 +141,7 @@ class ProfilesController < ApplicationController
       maker.add_name do |name|
         name.given = profile.name
         name.family = profile.lastname
+        name.prefix = profile.prefix
       end
       maker.add_addr do |addr|
         addr.preferred = true
@@ -168,6 +177,7 @@ class ProfilesController < ApplicationController
         end
       end
       maker.add_email(email) { |e| e.location = 'work' }
+      maker.add_url(profile.url)
     end
     send_data @card.to_s, :filename => "vcard_#{profile.name}.vcf"
   end
@@ -178,4 +188,112 @@ class ProfilesController < ApplicationController
       redirect_to user_profile_path(@user)
     end
  end
+ 
+  def upload_vcard
+    @vcard = params[:vcard_file][:data]
+   begin
+      @vcard = Vpim::Vcard.decode(@vcard).first
+      
+        #TELEFONO: Primero el preferente, sino, trabajo, sino, casa, 
+        #y sino, cualquier otro numero
+        if !@vcard.telephone('pref').nil? 
+          @profile.phone = @vcard.telephone('pref')
+        else 
+          if !@vcard.telephone('work').nil?
+            @profile.phone = @vcard.telephone('work')
+          elsif !@vcard.telephone('home').nil?
+            @profile.phone = @vcard.telephone('home')
+          elsif !(@vcard.telephones.nil?||@vcard.telephones[0].nil?)
+            @profile.phone = @vcard.telephones[0]
+          end
+        end
+        
+        #FAX: Si existe bien, sino no se altera
+        if !@vcard.telephone('fax').nil?
+          @profile.fax = @vcard.telephone('fax') 
+        end
+ 
+       #NOMBRE: Guardamos el prefijo si existe en su campo
+       #y con el resto formamos el nombre de la forma
+       # "given" + "additional" + "family"
+       if !@vcard.name.nil?
+         
+          temporal = ''
+          
+          if !@vcard.name.prefix.eql? ''
+            @profile.prefix = @vcard.name.prefix
+          end  
+          if !@vcard.name.given.eql? ''
+            temporal =  @vcard.name.given + ' '
+          end
+          if !@vcard.name.additional.eql? ''
+            temporal = temporal + @vcard.name.additional + ' ' 
+          end             
+          if !@vcard.name.family.eql? ''
+            temporal = temporal + @vcard.name.family
+          end
+          
+          if !temporal.eql? '' 
+            @profile.user.login = temporal.unpack('M*')[0];
+          end
+       end
+          
+        #EMAIL: Primero el preferente, sino, trabajo, sino, casa, 
+        #y sino, cualquier otro mail
+        if !@vcard.email('pref').nil? 
+          @profile.user.email = @vcard.email('pref')
+        else 
+          if !@vcard.email('work').nil?
+            @profile.user.email = @vcard.email('work')
+          elsif !@vcard.email('home').nil?
+            @profile.user.email = @vcard.email('home')
+          elsif !(@vcard.emails.nil?||@vcard.emails[0].nil?)
+            @profile.user.email = @vcard.emails[0]
+          end
+        end
+        
+        #URL: Primero el preferente, sino, trabajo, sino, casa, 
+        #y sino, cualquier otro mail
+        if !@vcard.url.nil?
+            @profile.url = @vcard.url.uri.to_s
+        end
+
+        #DESCRIPCIÓN: Si existe Note, se pone en descripción
+        if !@vcard.note.nil?
+            @profile.description = @vcard.note.unpack('M*')[0]
+        end
+      
+        #ORGANIZACIÓN: Por ahora solo se tiene en cuenta
+        #el nombre de la organización. Hay campos para 
+        #departamentos ... ¿útiles?
+        if !@vcard.org.nil?  
+          @profile.organization = @vcard.org[0].unpack('M*')[0]
+        end 
+      
+        #DIRECCIÓN: Buscamos preferente, sino trabajo, sino
+        #cualquier otra dirección. Solo ejecutamos los cambios
+        #si hay una address en la vcard
+        address = nil;              
+        if !@vcard.address('pref').nil? 
+          address = @vcard.address('pref')
+        else 
+          if !@vcard.address('work').nil?
+            address = @vcard.address('work')
+          elsif !(@vcard.addresses.nil?||@vcard.addresses[0].nil?)
+            address = @vcard.addresses[0]
+          end
+        end            
+        if !address.nil? #Si ha habido algún resultado, lo guardamos
+              @profile.address = address.street.unpack('M*')[0] + ' ' + address.extended.unpack('M*')[0]
+              @profile.city = address.locality.unpack('M*')[0]
+              @profile.zipcode = address.postalcode.unpack('M*')[0]
+              @profile.province = address.region.unpack('M*')[0]
+              @profile.country = address.country.unpack('M*')[0]
+        end
+      flash.now[:notice] = t("vCard.success")
+    rescue
+      flash.now[:error] = t("vCard.corrupt")
+    end
+  end
 end
+
