@@ -9,7 +9,7 @@
     
     <div class="event_image">
       <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
-      <div class="event_month"> <%= localize(Time.now, :format => "%b")%> </div>
+      <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
       <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
     </div>
     
@@ -35,5 +35,6 @@
       </li>
       
     </ul>
+		
   </div>
 <%end%>
