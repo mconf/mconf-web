@@ -48,7 +48,7 @@ class AttachmentsController < ApplicationController
 #  end
   
   def create
-    debugger
+    #debugger
   end
   
   

@@ -43,7 +43,6 @@ class Event < ActiveRecord::Base
   end
   
   after_create do |event|
-    debugger
     event.agenda = Agenda.create
   end
   
