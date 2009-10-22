@@ -30,7 +30,8 @@ class ProfilesController < ApplicationController
       format.vcf  { vcard }
     end
   end
-  
+
+=begin
   # GET /profile/new
   # GET /profile/new.xml
   def new
@@ -40,6 +41,7 @@ class ProfilesController < ApplicationController
       format.xml  { render :xml => @profile }
     end
   end
+=end
   
   # GET /profiles/edit
   def edit
@@ -49,7 +51,7 @@ class ProfilesController < ApplicationController
     end
   end
   
-  
+=begin
   # POST /profile
   # POST /profile.xml
   def create
@@ -76,6 +78,8 @@ class ProfilesController < ApplicationController
     end
   end
   
+=end
+
   # PUT /profile
   # PUT /profile.xml
   def update
