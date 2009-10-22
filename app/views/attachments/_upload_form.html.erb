@@ -1,5 +1,37 @@
-<h3>Create attachment</h3>
-<%form_for :attachment, :url => space_attachments_path(@space), :html => { :multipart => true} do |f|%>
-  <%= f.file_field :uploaded_data %>
-  <%= image_submit_tag "buttons/create.png" %>
+<%content_for :javascript do %>
+ 
+ $("#tags_name").fcbkcomplete({
+			cache: true,
+            filter_case: false,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4,
+			newel: true
+			
+	});
+
+
+
 <%end%>
+
+<div id="add_new_doc">	
+
+<h3><%=t('document.add') %></h3>
+<%form_for :attachment, :url => space_attachments_path(@space), :html => { :multipart => true} do |f|%>
+  <div id="cabinet">
+  <%= file_field_tag :uploaded_data , :class=>"file_1"%>
+</div>
+<br/>
+<h4><%=t('tag.new')%></h4>
+ 
+<% Tag.create :name => "documentos", :id => 1%> 
+<div id=tags><%=select(:tags, :name, Tag.find(:all).map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
+
+  <!--<%= image_submit_tag "buttons/create.png" %>-->
+  <br/>
+  <br/>
+  
+   <button type="submit"><%=t("button.upload")%></button>
+<%end%>
+</div>
