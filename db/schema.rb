@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",              :default => ""
+    t.string   "colour",       :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
+
   end
 
   create_table "groups", :force => true do |t|
