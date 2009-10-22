@@ -30,7 +30,7 @@ describe SpacesController do
     @invited.destroy
     @public_space.destroy
   end
-  
+
   describe "A Superadmin" do
     before(:each) do
       login_as(@superuser)
@@ -136,10 +136,10 @@ describe SpacesController do
     it "should  NOT be able to create a new space" do
      valid_attributes = Factory.attributes_for(:public_space)
      post :create, :space=> valid_attributes
-      assert_response 403    
+      assert_response 302    
   end
   
- end
+end
  
  describe " A NOT logged user" do
    it "should be able to see public spaces" do
@@ -149,10 +149,15 @@ describe SpacesController do
    end
    
    it "should NOT be able to see private spaces" do
-     get :show, :id => @private_space.to_param
-       assert_response 403
+     private_space3= Factory(:private_space)
+     get :show, :id => private_space3.to_param, :format => :html
+       assert_response 302
       
-   end
+  end
+  it "should NOT be able to delete a space" do
+     delete :destroy, :id => @public_space.to_param
+      assert_response 401
+  end
  end
 =begin
   include ActionController::AuthenticationTestHelper
