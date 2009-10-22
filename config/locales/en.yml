@@ -23,8 +23,13 @@ en:
   advanced_editor: "Advanced editor"
   agenda: 
     add_entry: "Add entry"
+    del_entry: "Delete"
+    edit_entry: "Edit"
     entry:
       created: 'Agenda entry was successfully created.'
+      failed: "Agenda entry could not be saved"
+      updated: 'Agenda entry was successfully updated.'
+    title: "Agenda for the event"
     upload: "Upload Agenda"
   agent:
     one: "User"

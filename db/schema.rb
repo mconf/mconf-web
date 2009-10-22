@@ -30,6 +30,33 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.integer  "event_id"
   end
 
+  create_table "agenda_entries", :force => true do |t|
+    t.integer  "agenda_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "exclude_from_recording"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "agenda_record_entries", :force => true do |t|
+    t.integer  "agenda_id"
+    t.string   "title"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "exclude_from_recording"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "agendas", :force => true do |t|
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attachments", :force => true do |t|
     t.string   "type"
     t.integer  "size"
@@ -47,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.integer  "event_id"
     t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "agenda_entry_id"
   end
 
   create_table "categories", :force => true do |t|
@@ -77,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",                 :default => ""
+    t.string   "colour",              :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -88,12 +116,12 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "marte_event",            :default => false
+    t.boolean  "marte_event",         :default => false
     t.boolean  "marte_room"
-    t.boolean  "spam",                   :default => false
+    t.boolean  "spam",                :default => false
     t.text     "notes"
     t.text     "location"
-    t.text     "external_streaming_url"
+    t.text     "other_streaming_url"
   end
 
   create_table "groups", :force => true do |t|
@@ -302,12 +330,13 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    :default => false
+    t.boolean  "disabled",     :default => false
+    t.boolean  "with_gallery", :default => true
   end
 
   create_table "taggings", :force => true do |t|

@@ -50,13 +50,20 @@
  
   <%= render :partial => "event_card_show" %>
 
+  <%if @event.agenda.present?%>
+     <%= render :partial => "agendas/edit" %>
+   <%end%>
+   
+  <%=render :partial => "external_streaming"%>
+  
   <div id="actions">
     <span class="author">More actions</span><br/>
     <%=render :partial => "more_actions"%>
   </div>
  
-   <%=render :partial => "external_streaming"%>
+   
 
+   
 
 <%unless @comments.empty?%> 
 	<div>
