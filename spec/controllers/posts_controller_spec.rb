@@ -912,13 +912,11 @@ describe PostsController do
       describe "and you are in a public space" do
         before(:each) do
           @current_space = Factory(:public_space)
-          Anonymous.current.authorization_cache[@current_space] = Hash.new
           
           @user = Factory(:user_performance, :stage => @current_space).agent
           
           
           @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
-          Anonymous.current.authorization_cache[@post_not_mine] = Hash.new
         end
         
         describe "trying to see" do
@@ -967,13 +965,10 @@ describe PostsController do
         before(:each) do
           @current_space = Factory(:private_space)
           
-          Anonymous.current.authorization_cache[@current_space] = Hash.new
-          
           @user = Factory(:user_performance, :stage => @current_space).agent
           
           
           @post_not_mine = Factory(:post, :author => @user, :space => @current_space)
-          Anonymous.current.authorization_cache[@post_not_mine] = Hash.new
         end
         
         describe "trying to see" do

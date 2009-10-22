@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<h3><%= t('hello') %></h3>
+     
+    <p>
+		<%= t('received_message_more_machines', :user => @mail_info["from_name"]) %>
+    </p>
+     
+    <br/>
+    <%= t('his_message_reads_thus') %>:
+	
+    <br/>
+   <p>
+   <%= @mail_info["message"] %>
+   <p>
+   <%= t('consider_and_reply') %></p>
+   <p><%= t('user.vcc_email', :dir => @mail_info["user_email"]) %></p> 
+   <p><%= t('e-mail.used_from'), :dir => @mail_info["from_email"]) %></p> 
+   <br/>
+</body>
+</html>

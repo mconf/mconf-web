@@ -1,8 +1,10 @@
 <% content_for :javascript do%>
   
+	
 	<%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => false, :post => post } %>
 	
 <%end%>
+
 <div class="event-comment-wrapper">		  
 	<%div_for (post, :class=>"post_moved") do%>
 	  	
@@ -17,7 +19,7 @@
 		  <div class="post-content">
 		    <div id="edit" class="group_links">
 		    	<%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam == false%>
-	      	<%=link_to(image_tag("icons/comment-edit.png", :alt => t('comment.edit')), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%>
+	      	<%=link_to(image_tag("icons/pencil.png", :alt => t('comment.edit')), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%>
 					<%=link_to(image_tag("icons/cancel.png", :alt => t('comment.delete')), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => t('comment.delete'),:confirm => t('delete.confirm', :element => t('comment.by', :author => post.author.name))}) if post.authorize?(:update, :to => current_user)%>
 		    </div>
 
@@ -30,15 +32,6 @@
 					  <%end%>
 			  	</li>
 					
-					<li class="attach">
-					  <%for attachment in post.attachments%>
-					    <%if attachment.post_thumbnail%>
-					      <%=link_to(image_tag(space_attachment_path(@space,attachment.post_thumbnail())), space_attachment_path(@space,attachment))%>
-					    <%else%>
-					      <%=image_tag(logo_image_path(attachment, :size => 32))%> <%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment))%>
-					    <%end%>	
-					  <%end%>
-					</li>
 	        <%if post.text.size < 100%>
 					  <li>
 					    <%=sanitize(auto_link(post.text))%>
@@ -52,6 +45,17 @@
 							<%=sanitize(auto_link(simple_format(post.text)))%><br />
 					  </li>
 					<%end%>
+					
+					<li class="attach">
+			      <%for attachment in post.attachments%>
+			        <div><%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%>
+			        <ul>
+			          <li><%=attachment.filename%></li>
+			          <li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%></li>
+			        </ul>
+							</div> 
+			      <%end%>
+					</li>
 				</ul> 
 			</div>
 	<%end%>

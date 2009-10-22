@@ -223,6 +223,7 @@ es:
         other: "m\xC3\xA1s de {{count}} a\xC3\xB1os"
       half_a_minute: medio minuto
   deny: "No"
+  description: Descripción
   disabled: Espacios deshabilitados
 ####### E #########
   edit_your_profile: Editar tu perfil
@@ -320,7 +321,9 @@ es:
     my: Inicio
     activity: Actividad reciente
     up: INICIO
+    
 ####### I #########
+  im: Mensajería Instantánea
   invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
   invitation: 
     add_more: "Invita a m\xC3\xA1s gente"
@@ -351,8 +354,11 @@ es:
     discard: "Descartar invitaci\xC3\xB3n"
     created: "Invitaci\xC3\xB3n enviada"
   Isabel: Isabel
-
-  
+  information:
+      information1: Estos son los espacios a los que pertences
+      information2: Aquí puedes encontrar los post y eventos más recientes así como las noticias de los espacios a los que perteneces
+      information3: Estos son los últimos posts o eventos que has creado
+      
 ####### J #########
   join_request: 
     discarded: "Petici\xC3\xB3n descartada"
@@ -394,6 +400,8 @@ es:
     incoming: 
       other: Los mensajes entrantes
 ####### N #########
+  name:
+    prefix: Prefijo honorífico
   new_spam_detected: Nuevo spam detectado
   none: Ninguno
   number: 
@@ -517,10 +525,25 @@ es:
       exist: Usted ya tiene un perfil.
     should_create: "Usted debe <a href={{path}}>crear</a> su perfil. Es muy \xC3\xBAtil."
     created: Perfil se ha creado correctamente.
+    private: Perfil privado
+    private_description: Sólo sus compañeros podrán acceder a esta información
+    public: Perfil público
+    public_description: Cualquiera podrá acceder a esta información
+    visibility: Visibilidad
+    visibility_everyone: Todos pueden ver su perfil privado.
+    visibility_members: Sólo los usuarios registrados pueden ver su perfil privado. 
+    visibility_public_fellows: Sólo sus compañeros en un espacio público o privado pueden ver su perfil privado.
+    visibility_private_fellows: Sólo sus compañeros en un espacio privado pueden ver su perfil privado.
+    visibility_nobody: Nadie puede ver su perfil privado.
+    visibility_description: Choose who will be able to see your private profile
+    visibility_description: Elija quién podrá ver su perfil privado.
   province: Provincia
+
 ####### Q #########
 ####### R #########
   read: Ver
+  recent:
+    activity: Actividad reciente
   remove: Eliminar
   report_spam: Denunciar spam
   role: 
@@ -576,6 +599,7 @@ es:
     description: "Descripci\xC3\xB3n"
     updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
     email: "Correo electr\xC3\xB3nico"
+  skype: Skype
   source: 
     uri: URL
     imported_at: Importada
@@ -616,6 +640,7 @@ es:
     updated: El espacio se ha actualizado correctamente.
     popular: 
       other: Espacios populares
+    possesion: My Spaces
     private: Private spaces
     public:
       one: "Espacio p\xC3\xBAblico"
@@ -721,7 +746,12 @@ es:
     without_group: Las personas sin grupo
     active: 
       other: Usuarios activos
+  url: Sitio web
 ####### V #########
+  vcard: vcard
+  vCard:
+      use: "Usa tu vCard"
+      no_selection: "No hay ninguna vCard cargada"
 ####### W #########
   week: 
     next: La semana que viene
@@ -995,7 +1025,6 @@ es:
     notifications: "notificaciones de correo electr\xC3\xB3nico"
     commas: (separados por comas)
   latest_news: "\xC3\x9Altimas noticias"
-  vcard: vCard
   no_tags_found: No se encontraron etiquetas
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   upcoming: "Pr\xC3\xB3ximos"

@@ -16,7 +16,12 @@ class Attachment < ActiveRecord::Base
   acts_as_content :reflection => :space
   
   validates_as_attachment
-   
+  
+  named_scope :sorted, lambda { |order, direction|
+          { :order => sanitize_order_and_direction(order, direction) }
+        }
+
+  
   def thumbnail_size
     thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end
@@ -77,6 +82,22 @@ class Attachment < ActiveRecord::Base
       thumbnails.find_by_thumbnail(options[:size].to_s).present? &&
       version == thumbnails.find_by_thumbnail(options[:size].to_s).version
       
+  end
+  
+  # Sanitize user send params
+  def self.sanitize_order_and_direction(order, direction)
+    default_order = 'filename'
+    default_direction = "DESC"
+
+    # Remove all but letters and dots
+    # filename if author
+    order = (order && order!='author') ? order.gsub(/[^\w\.]/, '') : default_order
+
+    direction = direction && %w{ ASC DESC }.include?(direction.upcase) ?
+      direction :
+      default_direction
+
+    "#{ order } #{ direction }"
   end
 
 end

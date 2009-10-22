@@ -55,15 +55,15 @@ def <=>(user)
 end
 
 def organization
-  profile ? profile.organization : "Organization"
+  profile ? profile.organization : ""
 end
 
 def city
-  profile ? profile.city : "City"
+  profile ? profile.city : ""
 end
 
 def country
-  profile ? profile.country : "Country"
+  profile ? profile.country : ""
 end
 
 def logo
@@ -148,15 +148,25 @@ end
   end
   alias_method_chain :logo_image_path, :logo
 
+  def public_fellows
+    fellows
+  end
+  
+  def private_fellows
+    stages.select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
+  end
+
+
   private
 
   authorizing do |agent, permission|
-    return false if disabled?
-
-    return true if agent == self
-
-    return true if permission == [ :read, :profile ] && fellows.include?(agent)
-
-    false
+    if disabled?
+      false
+    elsif agent == self
+      true
+    elsif permission == [ :read, :profile ] && fellows.include?(agent)
+      true
+    end
   end
+
 end

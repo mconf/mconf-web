@@ -20,6 +20,7 @@ en:
     other: "Admissions"
   advanced: "Advanced"
   advanced_options: "Advanced options"
+  advanced_editor: "Advanced editor"
   agent:
     one: "User"
   agree: "Yes"
@@ -50,6 +51,7 @@ en:
     update: "Update"
     upload: "Upload"
     edit: "Edit"
+    invite: Invite!
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -132,13 +134,21 @@ en:
   edit: "Edit"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
-  email:
+  e-mail:
+    account_activated: "Your account has been activated successfully."
+    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> URL </a>"
     commas: "(separated by commas)"
-    confirm: "To confirm your email address, please visit the following URL:"
+    confirm: "You need now to confirm your registration by clicking on the <a href=\"{{url}}\"> URL </a>"
+    copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
+    dear: "Dear {{name}},"
+    kind_regards: "Kind regards,"
+    join_request: "Join Request"
     notifications: "email notifications"
     one: "email"
     other: "emails"
     used_from: "email used in contact form: {{dir}}"
+    vcc_team: "The VCC Team"
+    welcome: "Welcome to VCC"
   email_or_full_name: "email or full name"
   enable: "Enable"
   enabled: "Enabled"
@@ -146,13 +156,14 @@ en:
   error:
     one: "Error"
     other: "Errors"
-    e403: "You are not allowed to see that page"
-    e404: "The page you were looking for doesn't exist"
-    e500: "The page you were looking for doesn't exist"
+    e403: "You are not allowed to see that page."
+    e404: "The page you were looking for doesn't exist."
+    e500: "The page you were looking for doesn't exist."
     change: "Invalid change"
     credentials: "Invalid credentials"
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
+    vcc_warning: "VCC warning:"
   event:
     assistance_title: "Participation"
     attend: "Attending"
@@ -208,14 +219,21 @@ en:
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
+    clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    clarify_registered: "Please introduce your password in order to confirm your attendance to the event"
+    confirm_password: Confirm password
     discarded: "You have discarded the invitation to this event"
+    email: Email
+    full_name: Full name
     new:
       other: "Invite people"
+    not_processed: "The invitation could not be processed"
+    password: Password
     title: "Event Invitation"
   ######### F ###########
   fax: "Fax"
   feedback:
-    email: "({{user}}) has reported the following feedback"
+    email: "You have received the following feedback email from {{email}}:"
     send: "Send feedback" 
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
@@ -256,17 +274,28 @@ en:
     activity: Recent Activity...
     
   ######### I ###########
+  im: Instant Messaging
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
   invitation:
     accepted: "You have accepted the invitation to the {{event}} event"
     add_more: "Invite more people"
+    copy_link: "P.S: If you can't click on the URL, please copy and paste the following link in your browser: {{url}}"
     discarded: "The invitation to {{event}} event has been discarded"
-    ps: "P.S: Please visit the following URL: {{url}} to accept the invitation"
-    subject: "{{username}} would like you to attend {{event}} event at space {{space}}"
-    to_event: "{{username}} has invited you to {{event}} event in the space {{space}}"
-    to_space:  "{{username}} has invited you to space {{space}}, please visit the following URL: {{url}} to accept the invitation"
+    info_event: "You can find more information about this event in 'event_url'"
+    info_space: "You can find more information about this space in {{space_url}}"
+    label: "Customise your invitation message"
+    legend: "'name' will be replaced on the e-mails by the receiver's name."
+    message: "Dear 'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> URL. </a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    not_created: "could not be invited to this space because it already belongs to it"
+    not_created_2: "could not be invited to this space because he/she has already been invited"
+    space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
+    sign: "Yours sincerely, {{username}}"
+    subject: "{{username}} has invited you to an event in {{space}} space"
+    to_accept: "To accept my invitation please visit the <a href={{url}}> URL </a>"
+    to_event: "{{username}} has invited you to an event in the {{space}} space"
+    to_space:  "{{username}} has invited you to {{space}} space"
     new:
       other: "New invitations" 
     not_pending: 
@@ -278,12 +307,16 @@ en:
   import: Import
   is_member_of: Is member of
   Isabel: Isabel
-  
+  information:
+      information1: These are the spaces you belong to
+      information2: Here you can find the newest posts, events and news of the spaces you belong to
+      information3: These are the latest posts or events that you've created
+      
   ######### J ###########
   join: Join
   join_request:
     already_sent: "You have already requested to join this space"
-    asked: "{{candidate}} wants to participate in space {{space}}, please visit the following URL: {{url}} in order to accept or deny the request"
+    asked: "The user <b>{{candidate}}</b> wants to participate in {{space}} space administrated by you."
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
     not_logged_in: "You need to be logged in to send a join request"
@@ -292,6 +325,7 @@ en:
     pending:
       other: "Pending join requests"
     send: "Send join request"
+    to_accept: "To accept or deny the request please visit the <a href={{url}}> URL </a>"
 
   ######### K ###########
   keywords: "Keywords (*)"
@@ -343,6 +377,7 @@ en:
     full: "Full name"
     one: "Name"
     other: "Names"
+    prefix: "Honorific prefix"
   new_source: "New source"
   new_spam_detected: "New spam detected"
   news:
@@ -384,10 +419,12 @@ en:
     error:
       create: "There was a problem updating your attendance information"
   password:
-    one: "Password"
+    reset_email: "Your password has been reset"
+    reset_email_dot: "Your password has been reset."
     confirm: "Confirm password"
-    been_reset_email: "{{user}}, your password has been reset"
-    reset_email: "{{user}}, please follow the link in order to reset your password:"
+    one: "Password"
+    request: "Request to change your password"
+    to_reset: "To reset your password please visit the <a href={{url}}> URL </a>"
   people:
     up: "PEOPLE"
   performance:
@@ -437,18 +474,31 @@ en:
     error:
       exist: Your profile already exists
     must_create: Please create your profile first
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful"
+    private: Private profile
+    private_description: Only your partners can access this information
+    public: Public profile
+    public_description: Anyone can access this information
+    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful."
     updated: Profile updated successfully
+    visibility: Visibility
+    visibility_everybody: Everyone can see your private profile.
+    visibility_members: Only registered members can see your private profile. 
+    visibility_public_fellows: Only your partners in a public or private space can see your private profile.
+    visibility_private_fellows: Only your partners in a private space can see your private profile.
+    visibility_nobody: Nobody can see your private profile.
+    visibility_description: Choose who will be able to see your private profile
   province: Province
   public: Public
-  
+    
   ######### R ###########  
   read_more: Read more
   read_more>>: "read more >>"
   received_message_more_machines: "You have received a message from {{user}} asking for more machines"
+  recent:
+     activity: Recent activity
   register:
     one: "Register"
-    thank_you: "Thank you for registering in VCC"
+    thank_you: "Welcome and thank you for registering in the Virtual Conference Centre."
   register_as_admin: "Register as admin"
   register_as_invited: "Register as invited"
   register_as_user: "Register as user"
@@ -471,6 +521,7 @@ en:
     invalid: "Role is invalid"
     listing: "Listing roles"
     new: "New role"
+    none: "No assigned role"
     one: "Role"
     other: "Roles"
     sucess_update: "Role updated successfully..."
@@ -508,6 +559,7 @@ en:
   show_list_version>>: "show list version >>"
   site:
     up: "SITE"
+  skype: Skype
   source:
     created: "Source created successfully"
     one: "Source"
@@ -536,14 +588,20 @@ en:
       enabled: "Space {{name}} is already enabled"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
+    join_invitation:
+      title: "Join space >"
+      clarify_unregistered: "Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space."
+      clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
-    main: "Main space"
-    member_of: "Member of the spaces"
-    one: "Space"
+    main: Main space
+    member_of: Member of the spaces
+    my_spaces: My Spaces
+    one: Space
     popular:
       other: "Popular spaces"
     private: "Private spaces"
+    possesion: My Spaces
     public:
       one: "Public space"
       other: "Public spaces"
@@ -563,7 +621,7 @@ en:
     up: "SPAM"
     valid: "This content is valid"
     report: "Report spam"
-    reported: "A user has reported spam in the application"
+    reported: "{{name}} has reported spam in the application."
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   start_now!: "Start now!"
@@ -608,7 +666,8 @@ en:
   ######### U ###########
   upcoming: "Upcoming"
   update: "Update"
-  updated_time_ago: "{{time}} ago"  
+  updated_time_ago: "{{time}} ago"
+  url: "Website"
   user:
     active:
       other: "Active users"
@@ -648,11 +707,6 @@ en:
     invite_from_space_by_email: "Invite people from your space"
     invited: "Users already invited"
     list_by: "List by"
-    invitation:
-        label: "Customise your invitation message"
-        message: "Dear 'name', I would like to invite you to the event 'event_name' which will be held on 'event_date'"
-        sign: "Yours sincerely, {{username}}"
-        legend: "'name' will be replaced on the e-mails by the receiver's name."
     lost_password: "Have you lost your password?"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
@@ -683,12 +737,18 @@ en:
     
   ######### V ###########
   vcard: "vCard"
+  vCard: 
+      use: "Use your vCard"
+      no_selection: "no vCard"
+      success: "Vcard successfully loaded"
+      corrupt: "The Vcard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
   
   ######### W ###########
   week:
     next: "Next week"
   when: "When"
+  where: "Where"
   
   ######### X ###########
   

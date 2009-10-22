@@ -206,9 +206,9 @@ class EventsController < ApplicationController
       
   end
 
-  def create_performances_for_event(role, array_usernames)
+  def create_performances_for_event(role, array_usernames)    
     #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
-    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @event}).each do |perf| perf.destroy end
+    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @event}).each do |perf| perf.delete end
     for name in array_usernames
       if user = User.find_by_login(name)
         Performance.create! :agent => user,

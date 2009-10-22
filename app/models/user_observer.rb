@@ -1,6 +1,6 @@
 class UserObserver < ActiveRecord::Observer
   def after_create(user)
-    Notifier.deliver_confirmation_email(user)
+    Notifier.deliver_confirmation_email(user) unless user.activated_at
   end
 
   def after_save(user)

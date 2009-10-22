@@ -16,10 +16,21 @@
       </div>
     <%end%>
   </div>
+  
+  <div id="upload_vcard">
+
+	<h3><%=t("vCard.use")%></h3>
+    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true } do |f| %>
+		<p><%= file_field 'vcard_file', 'data' %></p>
+
+		<div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+	<% end %>
+
+  </div>
 <% end %>
 
 
-<div class="blue_title"><h3><%= t('profile',:count=>1) %></h3></div>
+<div id="edit_profile" class="blue_title"><h3><%= t('profile',:count=>1) %></h3></div>
 
 <%= error_messages_for :profile %>
 

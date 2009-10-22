@@ -1,11 +1,11 @@
 <div id="questions">
-<div id="expanded_invite">
+<div id="more_invitations">
   <% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
 	  <div id="selected_users">
 	    <label for="selected_users" style="display: none;">To:</label>
 	  </div>
 	  <div id="user_filter" class="margin-up" style="display: none;">
-	    <label for="User filter"><%= t('user.filter') %></label><br/>
+	    <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
 	    <%= text_field_tag :user_selector,'', :size => 25 %>
 	  </div>
 	  <div id="unselected_users"> 
@@ -19,14 +19,14 @@
 		
 		<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
 		  <div class="margin-up">
-		    <label for="e-mails" class="label_izquierda"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
+		    <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
 				<%= f.text_area :mails%>
 		  </div>	
 		<%end%>	
 	<div class="margin-up">
-	  <label for="message" class="label_izquierda"><%= t('user.invitation.label') %>:</label>
-	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('user.invitation.message').gsub('event_name',@event.name).gsub('event_date', @event.start_date.to_s("%a %b %d %H:%M:%S")) %> &#13<%= t('user.invitation.sign',:username=>current_user.login) %></textarea>
-	  <p>* <%= t('user.invitation.legend') %></p>
+	  <label for="message" class="label_izquierda bold"><%= t('user.invitation.label') %>:</label>
+	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_name',@event.name).gsub('event_date', @event.start_date.to_s("%a %b %d %H:%M:%S")) %> &#13<%= t('user.invitation.sign',:username=>current_user.login) %></textarea>
+	  <p>* <%= t('invitation.legend') %></p>
 	</div>
 	<div class="margin-up">
 	<button type="submit"><%=t("button.send")%></button>
