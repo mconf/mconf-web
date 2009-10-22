@@ -20,7 +20,7 @@
 		<div class="telecommunications">
 		  <ul>
 		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
-			<li class= "url"><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <%= @profile.url%></li>
+			<li class= "url"><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <%=( link_to @profile.url, @profile.url, :target => "_blank") if (@profile.url.present?)%></li>
 		  </ul>
 		</div>
 	  </div>
