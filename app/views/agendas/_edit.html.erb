@@ -1,0 +1,46 @@
+<% content_for :javascript do%>
+  $('#new_agenda_entry').hide();
+
+  $('#add_entry').click(function(){
+    $('#add_entry').hide();
+    $('#new_agenda_entry').show();
+  });
+  
+  $('#edit_entry').click(function(){
+    var edit_entry_button = $(this);
+    var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
+    $.get(route,{
+          authenticity_token: "<%=form_authenticity_token()%>"
+          }, function(data){             
+              edit_entry_button.parents("div:first").replaceWith(data);
+    });
+  });
+  
+<%end%>
+
+<div id="agenda_full">
+<span> <%=t("agenda.title")%> </span>
+<%if @event.start_date.to_date == @event.end_date.to_date %>
+	  
+  <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>
+  <%=@event.start_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+
+  <%for entry in @event.agenda.agenda_entries%>
+      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry}%>
+  <%end%>
+  
+  
+  <button class='create-space' id="add_entry"><%=t("agenda.add_entry")%></button>
+  <div id="new_agenda_entry">
+    <%= render :partial => "agenda_entries/new"%>
+  </div>
+	  
+	  
+	  
+  <li class="date"><%=@event.end_date.to_time.to_formatted_s(:time)%> </li>
+<%else%>
+  <li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%>(GMT <%= Time.zone.formatted_offset%>)</li>
+	  
+  <li class="date"><%=sanitize(@event.end_date.to_formatted_s(:short))%></li>
+<%end%>
+</div>

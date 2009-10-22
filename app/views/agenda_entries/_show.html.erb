@@ -1,0 +1,25 @@
+<div id="agenda_entry">
+<p>
+  <b>Title:</b>
+  <%=h agenda_entry.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h agenda_entry.description %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h agenda_entry.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h agenda_entry.end_time %>
+</p>
+
+<%= link_to "<button class='create-space' id='del_entry'>"+t('agenda.del_entry')+"</button>", space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title) %>
+
+<button class='create-space' id="edit_entry" name="<%=agenda_entry.id%>"><%=t("agenda.edit_entry")%></button>
+</div>

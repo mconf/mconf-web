@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @agenda_record_entry.title %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h @agenda_record_entry.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h @agenda_record_entry.end_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_agenda_record_entry_path(@agenda_record_entry) %> |
+<%= link_to 'Back', agenda_record_entries_path %>

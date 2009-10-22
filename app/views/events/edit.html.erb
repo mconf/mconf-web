@@ -1,0 +1,100 @@
+<% menu :events %>
+<% atom_link_header(space, Event.new) %>
+
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
+<%end%>
+
+<% content_for :javascript do %>	
+  <%= render :partial => 'date_and_timepicker.js.erb' %>
+	
+	style_file_input();
+	
+	$("#query").click(function(){
+	  if(this.value == "Search events..."){
+		  this.value="";
+		}
+	});
+	
+<% end %>
+
+
+<% content_for :sidebar do  %>
+    <div id="full_sidebar">
+      <%if @space.authorize?([:create, :content],:to => current_user)%>
+  	 <%if params[:edit_event]%>
+     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
+	 <%elsif params[:edit_comment]%>
+	   <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
+	 <%elsif params[:new_invitations]%>
+	   <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	 <%else%>
+	   <%= render :partial => 'participants' %>
+	   <%= render :partial => 'new_comment'%>
+  	<%end%>
+     <%end%>
+   </div>
+<%end%>
+
+
+<% content_for :search do  %>
+  <% form_tag(search_events_path(@space)) do %>
+     <%= text_field_tag  'query',(params[:query] ? params[:query] : t('event.search') ) %>
+	   <button type="submit"><%=t("button.go")%></button>
+	   <div id="advanced">
+	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
+     </div>
+   <% end %>
+<%end%>
+
+ 
+<div class="single_event">
+    <ul class="group_links">
+    	<li><%=link_to(image_tag("icons/exclamation.png", :alt => t('report_spam'), :class => "icon"), spam_lightbox_space_event_path(@space,@event),{:name => @event.id, :class => 'spam_link', :title => t('report_spam')}) if logged_in? && event.spam != true %></li>
+		<li><%=link_to image_tag("icons/comments-add.png", :alt => t('comment.one')), space_event_path(@space, @event), { :title => t('comment.add_new')} if @space.authorize?([:create, :content], :to => current_user) %></li>
+      	<li><%=link_to image_tag("./icons/pencil.png", :alt => t('edit')), space_event_path(@space, @event, :edit_event => @event), :title => t('edit') if @event.authorize?(:update, :to => current_user) %></li>
+	  	<li><%=link_to image_tag("./icons/cancel.png", :alt => t('delete.one')), space_event_path(@space, @event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => @event.title) } if @event.authorize?(:delete, :to => current_user) %></li>
+    </ul>
+    <p><%=image_tag("icons/date.png", :class=>"icon")%> <span class="event-name"><%=sanitize(@event.title)%></span><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span></p>
+    <ul>
+	<%if @event.start_date.to_date == @event.end_date.to_date %>
+    	  <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%> <%=@event.start_date.to_time.to_formatted_s(:time)%> - <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+	<%else%>
+    	  <li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%> - <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
+    	<%end%>
+		<li class="author"><%= t('organizer') %>:
+		  <%unless @event.actors.empty? %>
+		    <%for actor in @event.actors%>
+		      <%=actor.authorize?([:read, :profile],:to=> current_user) ? link_to(actor.name,user_profile_path(actor)): sanitize(actor.name)%>
+		    <%end%>
+		  <%else%>
+		    <%=@event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(@event.author.name,user_profile_path(@event.author)): sanitize(@event.author.name)%>
+		  <%end%>
+		</li>
+		<%if @event.isabel_event%>
+			<li class=""><%= t('event.held_with') %> <%= link_to t('Isabel'), 'http://isabel.dit.upm.es'%></li>
+		<%elsif @event.marte_event && (@event.end_date > Time.now)%>
+			<li class=""><%= t('event.follow') %> <%= link_to t('online'), space_event_path(@space, @event, :show_conference => true)%></li>
+		<%end%>
+		<%if @event.description%>
+		  <li  class="author"><%= t('description') %>: </li>
+		  <li><%=sanitize(auto_link(simple_format(@event.description)))%></li>
+		<%end%>
+		<%if @event.location%>
+		  <li  class="author"><%= t('event.location') %>: </li>
+		  <li><%=sanitize(@event.location)%></li>
+		<%end%>
+		<%if @event.notes%>
+		  <li class="author"><%= t('remarks') %>: </li>
+		  <li><%=sanitize(auto_link(simple_format(@event.notes)))%></li>
+		<%end%>
+    </ul>
+  </div>
+  <div id="actions">
+    <span class="author">More actions</span><br/>
+    <%=render :partial => "more_actions"%>
+  </div>
+ 
+   <%=render :partial => "external_streaming"%>
+
+

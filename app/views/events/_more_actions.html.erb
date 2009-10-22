@@ -1,0 +1,12 @@
+<%if current_user.superuser || @event.authorize?(:update, :to => current_user) %>
+  <%=link_to t('invitation.add_more'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :title => t('invitation.add_more')} %>
+  <%=link_to t('streaming.add_url'), space_event_path(@space, @event), {:title => t('streaming.add_url')} %>
+  <%=link_to t('avatar.upload'), space_event_path(@space, @event), {:title => t('avatar.upload')} %>
+  <%=link_to t('agenda.upload'), space_event_path(@space, @event), {:title => t('agenda.upload')} %>
+  <br/>
+<%end%>
+<%=link_to t('comment.add'), space_event_path(@space, @event), {:id=>"add_comment", :title => t('comment.add')} %>
+<br/>
+<%if @space.public %>
+  <%=link_to t('export_widget'), "#"%>
+<%end%>

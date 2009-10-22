@@ -1,0 +1,11 @@
+<h1>New agenda</h1>
+
+<% form_for(@agenda) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', space_event_agenda_path(@space, @event, @agenda) %>

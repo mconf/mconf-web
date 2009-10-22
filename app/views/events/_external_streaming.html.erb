@@ -1,0 +1,34 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle' %>
+<%end%>
+
+<% content_for :javascript do%>
+$('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
+        method : 'PUT',
+	tooltip   : '<%= t('space.clic')%>',
+        cancel    : '<%= t('cancel')%>',
+        submit    : '<%= t('ok')%>',
+        indicator : '<img src="ui/icons/accept.png" />',
+        name : 'event[other_streaming_url]',
+	width : 185,
+        submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+	callback : function(value, settings) {
+           $('#edit_streaming_icon').show();
+        }
+   });
+	 
+   $('#streaming_url_value form input').livequery("blur",function(){
+     $('#edit_streaming_icon').show();
+   });
+   
+   edit_streaming = function(){
+     $('#streaming_url_value').click();
+     $('#edit_streaming_icon').hide();
+   };
+   
+<%end%>
+   
+<div id="streaming_url">
+  <label for="streaming" class="bold"><%=t('streaming.add_url')%>:</label>
+  <span id="streaming_url_value"><%=@event.other_streaming_url%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon"%>
+</div>
