@@ -1,9 +1,11 @@
 <html>
 <body>
-<%= t('spam.reported', :name => @user) %><br/><br/>
+<%= t('spam.reported', :name => @user, :sitename => @sitename)%>.<br/><br/>
 
 
 <%=@text%><br/>
+
+<%= @signature %><br/>
 
 </body>
 </html>
