@@ -17,8 +17,8 @@ h3{font-size:1.0833em;line-height:1.3846;margin:0.75em 0 0 0;font-weight:bold;}
 h3 img{margin-bottom:-4px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
-a:focus,a:hover{color:#1F488F;}
-a{color:#0476D9;text-decoration:underline;}
+a:focus,a:hover{text-decoration:underline;}
+a{color:#1F488F;}
 blockquote{margin:1.5em;color:#666;font-style:italic;}
 strong{font-weight:bold;}
 em,dfn{font-style:italic;}
@@ -50,6 +50,7 @@ a.button, button, #sidebar input[type=submit] {
 a.button:hover, button:hover, #sidebar input[type=submit]:hover{border:1px solid #86B5D5;}
 
 button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}
+#go-vcc button{background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll 0% 50%;padding:6px 7px 6px 6px;margin-left:-1px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 
 .right a, .right a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
@@ -97,8 +98,8 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs a{color:#f0f0f0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
-
-#content{clear:left;min-height:600px;}
+#about2{float:right;margin-right:50px;margin-top:27px;}
+#content{clear:both;min-height:600px;overflow:hidden;}
 #main{float:left;margin-bottom:1.5em;}
 #main{width:610px;margin-right:10px;padding-left:10px;}
 #sidebar{float:left;width:270px;padding-right:10px;}
@@ -141,8 +142,8 @@ ul#prefs {list-style-type:none;margin:0;}
 #about-sidebar .partners ul, #about-sidebar .global-posts ul{margin-bottom:0;padding-bottom:8px;border-bottom:1px #b0cadb solid;margin-bottom:9px;}
 #about-sidebar .partners a, #about-sidebar .global-posts a {font-weight:bold;color:#244974;text-decoration:none;}
 #about-sidebar .partners a:hover, #about-sidebar .global-posts a:hover{text-decoration:underline;}
-#about-sidebar #go-vcc img{border:1px #bdd8eb solid;}
-#about-sidebar #go-vcc img:hover{border-color:#B0CADB;}
+#about-sidebar #go-vcc {border:1px #bdd8eb solid;background:#fff;padding:6px 6px 9px 31px;}
+/*#about-sidebar #go-vcc {border-color:#B0CADB;}*/
 #about-sidebar .global-posts h5 span{float:right;}
 
 /*sidebar*/
