@@ -573,6 +573,7 @@ en:
   site:
     up: "SITE"
   skype: Skype
+  signature: "Signature"
   source:
     created: "Source created successfully"
     one: "Source"

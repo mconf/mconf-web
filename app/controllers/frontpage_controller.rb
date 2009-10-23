@@ -28,4 +28,9 @@ class FrontpageController < ApplicationController
     @latest_global_posts = Post.last_news(@global)
     render :layout=>false
   end
+  
+  def about2   
+    render :layout=>false
+  end
+  
 end
