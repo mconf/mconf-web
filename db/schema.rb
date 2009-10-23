@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",       :default => ""
+    t.string   "colour",              :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
-
   end
 
   create_table "groups", :force => true do |t|
@@ -331,13 +330,12 @@ ActiveRecord::Schema.define(:version => 20091021153622) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",       :default => false
+    t.boolean  "public",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",     :default => false
-    t.boolean  "with_gallery", :default => true
+    t.boolean  "disabled",    :default => false
   end
 
   create_table "taggings", :force => true do |t|

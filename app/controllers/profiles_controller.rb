@@ -35,19 +35,19 @@ class ProfilesController < ApplicationController
   # GET /profile/new
   # GET /profile/new.xml
   def new
-    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @profile }
     end
   end
 =end
-  
+
   # GET /profiles/edit
   def edit
     if @profile.new_record?
       #flash[:notice]= 'You must create your profile first'
-      redirect_to new_user_profile_path(@user)
+      #redirect_to new_user_profile_path(@user)
+      @profile = @user.profile.create
     end
   end
   
