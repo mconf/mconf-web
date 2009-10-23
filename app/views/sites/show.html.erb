@@ -43,7 +43,9 @@
   
   <p>
     <label><%= t('site.signature') %>:</label>
-    <%= site.signature.gsub(/\r\n?/,'<br>') %>
+    <%= if site.signature.present? 
+          site.signature.gsub(/\r\n?/,'<br>') 
+        end%>
   </p>
 
   <div id="site_button">
