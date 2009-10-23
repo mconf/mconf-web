@@ -572,8 +572,8 @@ en:
   show_list_version>>: "show list version >>"
   site:
     up: "SITE"
+    signature: "Signature"
   skype: Skype
-  signature: "Signature"
   source:
     created: "Source created successfully"
     one: "Source"
