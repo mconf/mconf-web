@@ -43,7 +43,10 @@ class Event < ActiveRecord::Base
   end
   
   after_create do |event|
+<<<<<<< HEAD:app/models/event.rb
     #create an empty agenda
+=======
+>>>>>>> d9131edd00ce780cb84059718024975677b4e01c:app/models/event.rb
     event.agenda = Agenda.create
   end
   

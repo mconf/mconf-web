@@ -46,6 +46,10 @@ default_scope :conditions => {:disabled => false}
 NOTIFICATION_VIA_EMAIL = 1
 NOTIFICATION_VIA_PM = 2
 
+def after_create
+  self.profile = Profile.create  
+end
+
 def self.find_with_disabled *args
   self.with_exclusive_scope { find(*args) }
 end

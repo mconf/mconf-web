@@ -34,9 +34,6 @@ class SessionsController
     if current_user.superuser == true && Site.current.new_record?
       flash[:notice] = t('session.error.fill')
       edit_site_path
-    elsif !current_user.profile
-      flash[:notice]= t('profile.should_create', :path => new_user_profile_path(current_user))  
-      home_path
     else
       home_path
     end
