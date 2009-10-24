@@ -242,6 +242,7 @@ en:
     discarded: "You have discarded the invitation to this event"
     email: Email
     full_name: Full name
+    logout_and_reload: "You are not the user that received this invitation, please logout and try again"
     new:
       other: "Invite people"
     not_processed: "The invitation could not be processed"
