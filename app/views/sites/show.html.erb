@@ -43,9 +43,7 @@
   
   <p>
     <label><%= t('site.signature') %>:</label>
-    <%= if site.signature.present? 
-          site.signature
-        end%>
+    <%= site.signature_in_html %>
   </p>
 
   <div id="site_button">

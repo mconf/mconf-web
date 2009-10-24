@@ -4,7 +4,7 @@ require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/models/site"
 class Site
 
 
-  def signature
+  def signature_in_html
     if signature
       return signature.gsub(/\r\n?/,'<br>')
     else

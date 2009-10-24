@@ -34,7 +34,7 @@ class Notifier < ActionMailer::Base
     @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name)
     @body[:invitation] = invitation
     @body[:space] = invitation.group
-    @body[:signature]  = Site.current.signature
+    @body[:signature]  = Site.current.signature_in_html
     @body[:action] = action
   end
 
@@ -46,7 +46,7 @@ class Notifier < ActionMailer::Base
     @body[:space] = jr.group
     @body ["contact_email"] = Site.current.email
     @body[:sender] = receiver
-    @body[:signature]  = Site.current.signature	
+    @body[:signature]  = Site.current.signature_in_html
   end
 
   def processed_join_request_email(jr)
@@ -67,7 +67,7 @@ class Notifier < ActionMailer::Base
     @body["name"] = user.login
     @body["hash"] = user.activation_code
     @body ["contact_email"] = Site.current.email
-    @body[:signature]  = Site.current.signature		
+    @body[:signature]  = Site.current.signature_in_html	
   end
 
   def activation(user)
@@ -78,7 +78,7 @@ class Notifier < ActionMailer::Base
     @body ["contact_email"] = Site.current.email
     @body[:url]  = "http://" + Site.current.domain + "/"
     @body[:sitename]  = Site.current.name
-    @body[:signature]  = Site.current.signature	
+    @body[:signature]  = Site.current.signature_in_html	
   end
   
   #This is used when a user ask for his password.
@@ -89,7 +89,7 @@ class Notifier < ActionMailer::Base
     @body ["name"] = user.login
     @body ["contact_email"] = Site.current.email
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
-    @body[:signature]  = Site.current.signature		
+    @body[:signature]  = Site.current.signature_in_html		
   end
 
   #this methd is used when a user have asked for his old password, and then he reset it.
@@ -98,7 +98,7 @@ class Notifier < ActionMailer::Base
 
     @subject += I18n.t("password.reset_email", :sitename=>Site.current.name)
     @body[:sitename]  = Site.current.name	
-   	@body[:signature]  = Site.current.signature		
+   	@body[:signature]  = Site.current.signature_in_html		
   end
   
   #this methd is used when a user have sent feedback to the admin.
@@ -120,7 +120,7 @@ class Notifier < ActionMailer::Base
     @body ["text"] = body
     @body ["user"] = user.login
     @body[:sitename]  = Site.current.name
-	@body[:signature]  = Site.current.signature		
+	@body[:signature]  = Site.current.signature_in_html		
   end
   
   private
