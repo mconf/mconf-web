@@ -5,7 +5,7 @@
 
 <%= t('invitation.to_accept', :url => invitation_url(@invitation, :host => Site.current.domain)) %><br/>
 
-<%= t('invitation.info_space', :space_url => "http://" + Site.current.domain.to_s + "/spaces/"+@space.name) %><br/><br/>
+<%= t('invitation.info_space', :space_url => @space.permalink) %><br/><br/>
 
 <%= t('e-mail.kind_regards') %><br/><br/>
 
