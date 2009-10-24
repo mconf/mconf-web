@@ -42,7 +42,7 @@
 <% content_for :sidebar do  %>
   <div class="next-events">
      <div class="next-events-title">
-       <p><strong><%=image_tag("icons/date.png",:class=>"icon") + t('calendar.my')%></strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
+       <h3><%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></h3>
      </div>
 	
 	  <div class="next-events-section">
@@ -109,22 +109,33 @@
 	      </ul>
 		<%end%>
 	  </div> 
-	<br/>
+	
   </div>
   
-  <div id="home-inbox-full">
-    <div id="home-inbox-title"><%=image_tag("icons/email.png",:class=>"icon")%><%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></div>
-    <% for private_message in @private_messages %>
-      <%@sender=User.find_with_disabled(private_message.sender_id)%> 
-      <div class="user-logo"><%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login)%></div>  
-      <div class="home-inbox-message">
-        <span class="home-inbox-topic"> <%= link_to sanitize(private_message.title), user_messages_path(current_user, :message=>private_message.id)%></span><br/>
-        <%= sanitize(first_words(private_message.body,35))%>
-      </div>
-      
-    <% end %>
+  <div id="home-inbox-full" class="margin-up">
+    
+	<div id="home-inbox-title">
+    	<h3><%=image_tag("icons/email.png",:class=>"icon")%> <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></h3>
+	</div>
+	<%if @private_messages.empty?%>
+	  <div class="next-events-section">
+	    <span> <%=t("message.private.none")%></span>
+	  </div> 	
+	<%else%>
+	    <% for private_message in @private_messages %>
+	      <%@sender=User.find_with_disabled(private_message.sender_id)%>
+		  <div class="next-events-section">
+		      <div class="user-logo"><%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login)%></div>  
+		      <div class="home-inbox-message">
+		        <span class="home-inbox-topic"> <%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id)%></span><br/>
+		        <%= sanitize(first_words(private_message.body,35))%>
+		      </div>
+		  </div>  
+	    <% end %>
+	<% end %>
   </div>
-<% end %>
+<% end %>  
+
 
 <div id="recent-activity">
 	<div id="home_menu">  

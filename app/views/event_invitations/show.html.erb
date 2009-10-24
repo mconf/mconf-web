@@ -83,7 +83,7 @@
 	  <div id="accept_invitation">
 		<button type="submit"><%=t('invitation.accept')%></button>    
 	  </div>
-	
+	  <%end%>
 	
 	<% form_for (:event_invitation, :url => "/event_invitations/" + @invitation.code, :html => {:method => :put}) do |f| %>
 	
@@ -93,10 +93,6 @@
 	  </div>
 	<% end %>
 	
-	<% end %>
-	
-	
 	</div>
 	</div>
-
 <%end%>
