@@ -336,7 +336,7 @@ en:
   join: Join
   join_request:
     already_sent: "You have already requested to join this space"
-    asked: "The user <b>{{candidate}}</b> wants to participate in {{space}} space administrated by you."
+    asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you."
     ask_subject: "{{candidate}} wants to participate in {{space}}"	
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
