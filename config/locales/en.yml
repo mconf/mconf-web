@@ -15,6 +15,7 @@ en:
   admin:
     one: "Admin"
     up: "ADMIN"
+    space: "The administrator of {{spacename}}"
   admission:
     one: "Admission"
     other: "Admissions"
@@ -146,20 +147,23 @@ en:
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
   e-mail:
-    account_activated: "Your account has been activated successfully."
-    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> URL </a>"
+    account_activated: "Your account at {{sitename}} has been activated successfully."
+    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
     commas: "(separated by commas)"
-    confirm: "You need now to confirm your registration by clicking on the <a href=\"{{url}}\"> URL </a>"
+    confirm: "You need now to confirm your registration by clicking on <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
+    invitation_result: 
+      admin_side: "{{name}} has {{action}} the invitation to {{spacename}}"
+      user_side: "The administrator of {{spacename}} has {{action}} your join request"			
     dear: "Dear {{name}},"
-    kind_regards: "Kind regards,"
+    thanks: "Thanks for visiting {{sitename}}"
     join_request: "Join Request"
     notifications: "email notifications"
     one: "email"
     other: "emails"
     used_from: "email used in contact form: {{dir}}"
     vcc_team: "The VCC Team"
-    welcome: "Welcome to VCC"
+    welcome: "Welcome to {{sitename}}"
   email_or_full_name: "email or full name"
   enable: "Enable"
   enabled: "Enabled"
@@ -246,7 +250,7 @@ en:
   ######### F ###########
   fax: "Fax"
   feedback:
-    email: "You have received the following feedback email from {{email}}:"
+    email: "{{email}} sent the following feedback:"
     send: "Send feedback" 
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
@@ -293,29 +297,32 @@ en:
     my: "My Inbox ({{checked}})"
   invitation:
     accepted: "You have accepted the invitation to the {{event}} event"
+    access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
+    rejoin_space: "If you would like to request membership again please go to {{space_url}}"		
     add_more: "Invite more people"
-    copy_link: "P.S: If you can't click on the URL, please copy and paste the following link in your browser: {{url}}"
     discarded: "The invitation to {{event}} event has been discarded"
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in {{space_url}}"
     label: "Customise your invitation message"
     legend: "'name' will be replaced on the e-mails by the receiver's name."
-    message: "Dear 'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> URL. </a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    message: "'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> {{url}}</a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
-    to_accept: "To accept my invitation please visit the <a href={{url}}> URL </a>"
-    to_event: "{{username}} has invited you to an event in the {{space}} space"
-    to_space:  "{{username}} has invited you to {{space}} space"
+    to_accept: "To accept my invitation please visit <a href={{url}}> {{url} </a>"
+    to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
+    to_space:  "{{username}} invites you to space {{space}}"
     new:
       other: "New invitations" 
+    no:  "not accepted"		  
     not_pending: 
       other: There are no pending invitations
     pending:
       other: Pending invitations
     other: invitation
+    yes:  "accepted"		
   invited: Invited
   import: Import
   is_member_of: Is member of
@@ -330,6 +337,7 @@ en:
   join_request:
     already_sent: "You have already requested to join this space"
     asked: "The user <b>{{candidate}}</b> wants to participate in {{space}} space administrated by you."
+    ask_subject: "{{candidate}} wants to participate in {{space}}"	
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
     not_logged_in: "You need to be logged in to send a join request"
@@ -338,7 +346,7 @@ en:
     pending:
       other: "Pending join requests"
     send: "Send join request"
-    to_accept: "To accept or deny the request please visit the <a href={{url}}> URL </a>"
+    to_accept: "To answer the request please visit <a href={{url}}>{{url}}</a>"
 
   ######### K ###########
   keywords: "Keywords (*)"
@@ -432,12 +440,11 @@ en:
     error:
       create: "There was a problem updating your attendance information"
   password:
-    reset_email: "Your password has been reset"
-    reset_email_dot: "Your password has been reset."
+    reset_email: "Your password has been reset in {{sitename}}"
     confirm: "Confirm password"
     one: "Password"
-    request: "Request to change your password"
-    to_reset: "To reset your password please visit the <a href={{url}}> URL </a>"
+    request: "Password reset in {{sitename}}"
+    to_reset: "To reset your password please visit <a href={{url}}> {{url}} </a>"
   people:
     up: "PEOPLE"
   performance:
@@ -511,7 +518,7 @@ en:
      activity: Recent activity
   register:
     one: "Register"
-    thank_you: "Welcome and thank you for registering in the Virtual Conference Centre."
+    thank_you: "Welcome and thank you for registering in {{sitename}}"
   register_as_admin: "Register as admin"
   register_as_invited: "Register as invited"
   register_as_user: "Register as user"
@@ -634,7 +641,7 @@ en:
     up: "SPAM"
     valid: "This content is valid"
     report: "Report spam"
-    reported: "{{name}} has reported spam in the application."
+    reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   start_now!: "Start now!"

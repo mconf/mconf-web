@@ -29,26 +29,28 @@ class Notifier < ActionMailer::Base
 
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)
-
-    @subject += "Invitation #{ invitation.accepted? ? 'accepted' : 'discarded' }"
+	@action = invitation.accepted? ? I18n.t("invitation.yes") : I18n.t("invitation.no")
+    @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => @action, :spacename =>invitation.group.name)
     @body[:invitation] = invitation
     @body[:space] = invitation.group
+    @body[:signature]  = Site.current.signature	
   end
 
   def join_request_email(jr, receiver)
     setup_email(receiver.email)
 
-    @subject += I18n.t("e-mail.join_request")	
+    @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate, :space => jr.group)	
     @body[:candidate] = jr.candidate
     @body[:space] = jr.group
     @body ["contact_email"] = Site.current.email
     @body[:sender] = receiver
+    @body[:signature]  = Site.current.signature	
   end
 
   def processed_join_request_email(jr)
     setup_email(jr.candidate.email)
-
-    @subject += "Join Request #{ jr.accepted? ? 'accepted' : 'discarded' }"
+	@action = jr.accepted? ? I18n.t("invitation.yes") : I18n.t("invitation.no")
+    @subject += I18n.t("e-mail.invitation_result.user_side", :action => @action, :spacename =>jr.group.name)	
     @body[:jr] = jr
     @body[:space] = jr.group
   end
@@ -57,38 +59,42 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     setup_email(user.email)
 
-    @subject += I18n.t("e-mail.welcome")
+    @subject += I18n.t("e-mail.welcome",:sitename=>Site.current.name)
     @body["name"] = user.login
     @body["hash"] = user.activation_code
     @body ["contact_email"] = Site.current.email
+    @body[:signature]  = Site.current.signature		
   end
 
   def activation(user)
     setup_email(user.email)
 
-    @subject += I18n.t("account_activated")
+    @subject += I18n.t("account_activated", :sitename=>Site.current.name)
     @body[:user] = user
     @body ["contact_email"] = Site.current.email
     @body[:url]  = "http://" + Site.current.domain + "/"
+    @body[:sitename]  = Site.current.name
+    @body[:signature]  = Site.current.signature	
   end
   
   #This is used when a user ask for his password.
   def lost_password(user)
     setup_email(user.email)
 
-    @subject += I18n.t("password.request")   
+    @subject += I18n.t("password.request", :sitename=>Site.current.name)   
     @body ["name"] = user.login
     @body ["contact_email"] = Site.current.email
     @body["url"]  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
+    @body[:signature]  = Site.current.signature		
   end
 
   #this methd is used when a user have asked for his old password, and then he reset it.
   def reset_password(user)
     setup_email(user.email)
 
-    @body ["name"] = user.login
-    @body ["contact_email"] = Site.current.email
-    @subject += I18n.t("password.reset_email")   	
+    @subject += I18n.t("password.reset_email", :sitename=>Site.current.name)
+    @body[:sitename]  = Site.current.name	
+   	@body[:signature]  = Site.current.signature		
   end
   
   #this methd is used when a user have sent feedback to the admin.
@@ -109,6 +115,8 @@ class Notifier < ActionMailer::Base
     @subject += subject
     @body ["text"] = body
     @body ["user"] = user.login
+    @body[:sitename]  = Site.current.name
+	@body[:signature]  = Site.current.signature		
   end
   
   private
