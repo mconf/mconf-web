@@ -29,7 +29,8 @@ class Notifier < ActionMailer::Base
 
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)
-	@action = invitation.accepted? ? I18n.t("invitation.yes") : I18n.t("invitation.no")
+	
+    @action += invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
     @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => @action, :spacename =>invitation.group.name)
     @body[:invitation] = invitation
     @body[:space] = invitation.group
@@ -49,7 +50,8 @@ class Notifier < ActionMailer::Base
 
   def processed_join_request_email(jr)
     setup_email(jr.candidate.email)
-	@action = jr.accepted? ? I18n.t("invitation.yes") : I18n.t("invitation.no")
+	
+    @action += jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
     @subject += I18n.t("e-mail.invitation_result.user_side", :action => @action, :spacename =>jr.group.name)	
     @body[:jr] = jr
     @body[:space] = jr.group

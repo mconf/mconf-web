@@ -1,6 +1,7 @@
 require "digest/sha1"
 class UsersController < ApplicationController
   include ActionController::Agents
+  include ActionController::Sessions::Openid
   
   before_filter :space!, :only => [ :index ]
   before_filter :agent, :only => [ :show, :edit, :update, :destroy ]
