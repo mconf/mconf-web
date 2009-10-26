@@ -235,16 +235,16 @@ en:
     within_a_month: "Within a month ({{size}})"
   event_invitation:
     accepted: "You have accepted the invitation to this event"
-    clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event."
+    clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event"
     clarify_registered: "Please introduce your password in order to confirm your attendance to the event"
-    confirm_password: Confirm password
+    confirm_password: "Confirm password"
     discarded: "You have discarded the invitation to this event"
     email: Email
     full_name: Full name
     new:
       other: "Invite people"
     not_processed: "The invitation could not be processed"
-    password: Password
+    password: "Password"
     title: "Event Invitation"
   export_widget: "Export Widget"
   ######### F ###########
@@ -256,10 +256,10 @@ en:
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
-  from: From
+  from: "From"
   
   ######### G ###########
-  GMT: GMT
+  GMT: "GMT"
   group:
     add_to_group: "Add To Group"
     add_to_others: "Add other Groups"
@@ -267,31 +267,31 @@ en:
     created: "Group {{name}} created successfully"
     delete: "Delete group"
     deleted: "Group {{name}} deleted successfully"
-    different: Other groups
-    edit: Edit group
-    join: Join this group
-    mailing_list: Group mailing list
-    name: Group name
+    different: "Other groups"
+    edit: "Edit group"
+    join: "Join this group"
+    mailing_list: "Group mailing list"
+    name: "Group name"
     not_deleted: "Error deleting group {{name}}"
     not_valid: "The group is not valid"
     one: "Group"
     other: "Groups"
-    send_message: Send a message to this group
+    send_message: "Send a message to this group"
     updated: "Group {{name}} updated successfully"
   groups_and_results: "Groups, {{size}} results" 
 
   
   ######### H ###########
-  hello: Hello
-  help: Help
-  his_message_reads_thus: His message read thus
+  hello: "Hello"
+  help: "Help"
+  his_message_reads_thus: "His message reads thus"
   home:
-    up: HOME
-    my: My Home
-    activity: Recent Activity...
+    up: "HOME"
+    my: "My Home"
+    activity: "Recent Activity..."
     
   ######### I ###########
-  im: Instant Messaging
+  im: "Instant Messaging"
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
@@ -321,19 +321,19 @@ en:
       other: "There are no pending invitations"
     pending:
       other: "Pending invitations"
-    other: invitation
+    other: "invitation"
     yes_accepted: "accepted"
-  invited: Invited
-  import: Import
-  is_member_of: Is member of
-  Isabel: Isabel
+  invited: "Invited"
+  import: "Import"
+  is_member_of: "Is member of"
+  Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
       information2: "Here you can find the newest posts, events and news of the spaces you belong to"
       information3: "These are the latest posts or events that you have created"
       
   ######### J ###########
-  join: Join
+  join: "Join"
   join_request:
     already_sent: "You have already requested to join this space"
     asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you."
@@ -475,47 +475,47 @@ en:
     home:
       one: "Post in space {{space}}"
     latest: "Latest posts"
-    none_created: No post created
-    none_recent: There are no recent posts
-    other: Posts
+    none_created: "No post created"
+    none_recent: "There are no recent posts"
+    other: "Posts"
     up:
-      other: POSTS
-    updated: Post updated
+      other: "POSTS"
+    updated: "Post updated"
     show_expanded_pref: "How would you like to see your posts?"
-  preferences: Preferences
-  previous: Previous
-  private: Private
+  preferences: "Preferences"
+  previous: "Previous"
+  private: "Private"
   private_message:
-    send: Send private message
+    send: "Send private message"
   profile:
-    one: Profile
-    created: Profile created successfully
-    deleted: Profile deleted successfully
+    one: "Profile"
+    created: "Profile created successfully"
+    deleted: "Profile deleted successfully"
     error:
-      exist: Your profile already exists
-    must_create: Please create your profile first
-    private: Private profile
-    private_description: Only your partners can access this information
-    public: Public profile
-    public_description: Anyone can access this information
-    should_create: "You should <a href={{path}}> create</a>  your profile. It's very useful."
-    updated: Profile updated successfully
-    visibility: Visibility
-    visibility_everybody: Everyone can see your private profile.
-    visibility_members: Only registered members can see your private profile. 
-    visibility_public_fellows: Only your partners in a public or private space can see your private profile.
-    visibility_private_fellows: Only your partners in a private space can see your private profile.
-    visibility_nobody: Nobody can see your private profile.
-    visibility_description: Choose who will be able to see your private profile
-  province: Province
-  public: Public
+      exist: "Your profile already exists"
+    must_create: "Please create your profile first"
+    private: "Private profile"
+    private_description: "Only your partners can access this information"
+    public: "Public profile"
+    public_description: "Anyone can access this information"
+    should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
+    updated: "Profile updated successfully"
+    visibility: "Visibility"
+    visibility_everybody: "Everyone can see your private profile."
+    visibility_members: "Only registered members can see your private profile." 
+    visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
+    visibility_private_fellows: "Only your partners in a private space can see your private profile."
+    visibility_nobody: "Nobody can see your private profile."
+    visibility_description: "Choose who will be able to see your private profile"
+  province: "Province"
+  public: "Public"
     
   ######### R ###########  
-  read_more: Read more
+  read_more: "Read more"
   read_more>>: "read more >>"
   received_message_more_machines: "You have received a message from {{user}} asking for more machines"
   recent:
-     activity: Recent activity
+     activity: "Recent activity"
   register:
     one: "Register"
     thank_you: "Welcome and thank you for registering in {{sitename}}"
@@ -615,14 +615,14 @@ en:
       clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
-    main: Main space
-    member_of: Member of the spaces
-    my_spaces: My Spaces
-    one: Space
+    main: "Main space"
+    member_of: "Member of the spaces"
+    my_spaces: "My Spaces"
+    one: "Space"
     popular:
       other: "Popular spaces"
     private: "Private spaces"
-    possesion: My Spaces
+    possesion: "My Spaces"
     public:
       one: "Public space"
       other: "Public spaces"
@@ -683,7 +683,7 @@ en:
   translate:
     availables: "Available translations"
     one: "Translate"
-    request: "To translate a different language, please request for the administrator to add the new language and flag"
+    request: "To translate to a different language, please request the administrator to add the new language and flag"
     up: "TRANSLATE"
     translated: "VCC is now translated, or in translation process, to " 
   
@@ -745,7 +745,7 @@ en:
     password: "Password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Send Message"
-    registered: "Thanks for registering! We have just sent instructions on how to activate your user account permanently"
+    registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     recent_join: "Recent users joined"
     request_password: "Request Password"
     reset_password: "Reset Your Password"
@@ -770,8 +770,8 @@ en:
   vCard: 
       use: "Use your vCard"
       no_selection: "no vCard"
-      success: "Vcard successfully loaded"
-      corrupt: "The Vcard you sent is corrupted or is a non-supported version"
+      success: "vCard successfully loaded"
+      corrupt: "The vCard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
   
   ######### W ###########
