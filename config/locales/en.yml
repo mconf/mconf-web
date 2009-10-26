@@ -313,24 +313,24 @@ en:
     subject: "{{username}} has invited you to an event in {{space}} space"
     to_accept: "To accept my invitation please visit <a href={{url}}> {{url} </a>"
     to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
-    to_space:  "{{username}} invites you to space {{space}}"
+    to_space: "{{username}} invites you to space {{space}}"
     new:
-      other: "New invitations" 
-    no:  "not accepted"		  
+      other: "New invitations"
+    not_accepted: "not accepted"	  
     not_pending: 
-      other: There are no pending invitations
+      other: "There are no pending invitations"
     pending:
-      other: Pending invitations
+      other: "Pending invitations"
     other: invitation
-    yes:  "accepted"		
+    yes_accepted: "accepted"
   invited: Invited
   import: Import
   is_member_of: Is member of
   Isabel: Isabel
   information:
-      information1: These are the spaces you belong to
-      information2: Here you can find the newest posts, events and news of the spaces you belong to
-      information3: These are the latest posts or events that you've created
+      information1: "These are the spaces you belong to"
+      information2: "Here you can find the newest posts, events and news of the spaces you belong to"
+      information3: "These are the latest posts or events that you have created"
       
   ######### J ###########
   join: Join
