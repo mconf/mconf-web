@@ -157,6 +157,7 @@ en:
       user_side: "The administrator of {{spacename}} has {{action}} your join request"			
     dear: "Dear {{name}},"
     thanks: "Thanks for visiting {{sitename}}"
+    kind_regards: "Kind regards,"
     join_request: "Join Request"
     notifications: "email notifications"
     one: "email"
@@ -311,7 +312,7 @@ en:
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
-    to_accept: "To accept my invitation please visit <a href={{url}}> {{url} </a>"
+    to_accept: "To accept my invitation please visit <a href={{url}}> {{url}} </a>"
     to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
     to_space: "{{username}} invites you to space {{space}}"
     new:
