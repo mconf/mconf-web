@@ -306,7 +306,7 @@ en:
     info_space: "You can find more information about this space in {{space_url}}"
     label: "Customise your invitation message"
     legend: "'name' will be replaced on the e-mails by the receiver's name."
-    message: "'name',<br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br>To accept my invitation please visit the <a href={{url}}> {{url}}</a><br>You can find more information about this event in 'event_url'.<br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    message: "'name',<br><br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br><br>To accept my invitation please visit <a href={{url}}> {{url}}</a><br><br>You can find more information about this event in 'event_url'.<br><br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
