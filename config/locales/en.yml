@@ -737,6 +737,10 @@ en:
     not_confirmed: "Not confirmed"    
     notifications: "How do you want to receive your notifications?"
     one: "User"
+    openid:
+      one: "OpenID"
+      other: "OpenIDs"
+      edit: "Edit your OpenIDs"
     other: "Users"
     password: "Password"
     password_info: "Enter the email address you used to create your account"
@@ -748,7 +752,9 @@ en:
     results_count: 
       one: "People, {{users_size}} result"
       other: "People, {{users_size}} results"
-    save: "Save User"
+    save:
+      account: "Save account"
+      preferences: "Save preferences"
     search: "Search Users..."
     timezone: "Timezone"
     up:
