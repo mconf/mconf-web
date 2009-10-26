@@ -30,11 +30,12 @@ class Notifier < ActionMailer::Base
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)
 	
-    @action += invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
-    @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => @action, :spacename =>invitation.group.name)
+    action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+    @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name)
     @body[:invitation] = invitation
     @body[:space] = invitation.group
-    @body[:signature]  = Site.current.signature	
+    @body[:signature]  = Site.current.signature
+    @body[:action] = action
   end
 
   def join_request_email(jr, receiver)
@@ -51,10 +52,11 @@ class Notifier < ActionMailer::Base
   def processed_join_request_email(jr)
     setup_email(jr.candidate.email)
 	
-    @action += jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
-    @subject += I18n.t("e-mail.invitation_result.user_side", :action => @action, :spacename =>jr.group.name)	
+    action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+    @subject += I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name)	
     @body[:jr] = jr
     @body[:space] = jr.group
+    @body[:action] = action
   end
 
   #This is used when an user register in the application, in order to confirm his registration 
