@@ -77,8 +77,7 @@
   <div id="accept_invitation">
   	<button type="submit"><%=t('invitation.accept')%></button>    
   </div>
-
-
+<% end %>
 <% form_for (:event_invitation, :url => "/event_invitations/" + @invitation.code, :html => {:method => :put}) do |f| %>
 
   <%= f.hidden_field :processed, :value => true %>
@@ -86,9 +85,6 @@
   	<button type="submit"><%=t('invitation.discard')%></button>
   </div>
 <% end %>
-
-<% end %>
-
 
 </div>
 </div>
