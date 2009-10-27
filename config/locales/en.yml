@@ -384,7 +384,7 @@ en:
     private:
       editing: "Editing private message"
       new: "New private message"
-      none: "There are no private messages"
+      none: "There are no messages"
       cant: "You cannot send private messages because you have no partners in any space"
     reply: "Reply to message"
     send: "Send Message"
