@@ -22,28 +22,28 @@
     <div class="news-content">
 	  <div class="news-home-title">
 	    <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.item_in_home', :space=>@space.name))%>
-	  	<span class="bold"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>
+	  	<span class="unified_news"><%=link_to(sanitize(@news_to_show.title), space_path(@space)) %></span>
 	  	<span class="updated"> Updated <%=time_ago_in_words(@news_to_show.updated_at)%> ago</span>
       </div>
 	  <div id="news-text">
 	    <%if @news_to_show.text.size < 500 %>
- 		<div class="news_text">
+ 		<div class="news_text grey">
  		  <%=sanitize(auto_link(@news_to_show.text))%>
 		</div>
 	    <%else%>
-        <div id="collapsed_news_<%=@news_to_show.id%>">
+        <div id="collapsed_news_<%=@news_to_show.id%>" class="grey">
           <%=sanitize(first_words(auto_link(@news_to_show.text),500))%>
           <span> <%=link_to t('more>>'), "javascript:expand_news_#{@news_to_show.id}()"%></span>
 	    </div>
         <div id="expanded_news_<%=@news_to_show.id%>" style="display:none">
-     	  <div class="news_text">
+     	  <div class="news_text grey">
             <%=sanitize(auto_link(@news_to_show.text))%>
             <span> <%=link_to t("collapse>>"), "javascript:collapse_news_#{@news_to_show.id}()"%></span>
 		  </div>
         </div>
         <%end%>
 	  </div>
-	  <b><%= t('news.item_in_home', :space=>@space.name) %></b>
+	  <b>(<%= t('news.item_in_home', :space=>@space.name) %>)</b>
 	</div>
   </div>
   <%end%>
