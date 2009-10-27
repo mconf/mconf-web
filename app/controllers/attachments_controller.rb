@@ -17,7 +17,7 @@ class AttachmentsController < ApplicationController
   authorization_filter :delete, :attachment, :only => [ :delete ]
   
   def index
-    @attachments = Attachment.parent_scoped.in_container(@space).sorted(params[:order],params[:direction])
+    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
     @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
     @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
     @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
