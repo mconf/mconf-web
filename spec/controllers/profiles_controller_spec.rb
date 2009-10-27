@@ -22,30 +22,16 @@ describe ProfilesController do
       @user = Factory(:user_performance, :stage => @private_space).agent
       login_as(@superuser)
     end
-    it "should be able to get the new view for his profile" do
-      get :new, :user_id => @superuser.id
-      assert_response 200
-      response.should render_template("profiles/new.html.erb")
-    end
-    it "should be able to create his profile if he does not have one" do
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>@superuser.email}
-      assert_difference 'Profile.count' do
-        post :create, :user_id => @superuser.id, :profile=> valid_attributes
-        response.should redirect_to(user_profile_path(@superuser))
-      end
-    end 
-    it "should NOT be able to get the new view for his profile if he already has one" do
-      Factory(:profile, :user=>@superuser)
+    it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
+      "creating the user automatically creates the profile") do
       get :new, :user_id => @superuser.id          
       flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@superuser))
     end
-    it "should NOT be able to create his profile if he already has one" do
+    it ("should NOT be able to create his profile even if it hasn't been explicitly created, because" + 
+      "creating the user automatically creates the profile") do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>@superuser.email}
-      #we create the user profile first
-      Factory(:profile, :user=>@superuser)
       assert_no_difference 'Profile.count' do
         post :create, :user_id => @superuser.id, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')
@@ -184,21 +170,6 @@ describe ProfilesController do
       @user_public_2 = Factory(:user_performance, :stage => @public_space).agent
     end
     
-    it "should be able to get the new view for his profile" do
-      login_as(@user)
-      get :new, :user_id => @user.id
-      assert_response 200
-      response.should render_template("profiles/new.html.erb")
-    end
-    it "should be able to create his profile" do 
-      login_as(@user)
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>@user.email}
-      assert_difference 'Profile.count' do
-        post :create, :user_id => @user.id, :profile=> valid_attributes
-        response.should redirect_to(user_profile_path(@user))
-      end
-    end
     it "should be able to get the edit view for his profile" do
       login_as(@user)
       #first we create the user profile
@@ -225,19 +196,18 @@ describe ProfilesController do
         response.should redirect_to(user_profile_path(@user))
       end
     end
-    it "should NOT be able to get the new view for his profile if he has one" do
+    it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
+      "creating the user automatically creates the profile") do
       login_as(@user)
-      Factory(:profile, :user=>@user)
       get :new, :user_id => @user.id        
       flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@user))
     end
-    it "should NOT be able to create his profile if he already has one" do
+    it ("should NOT be able to create his profile even if it hasn't been explicitly created, because" + 
+      "creating the user automatically creates the profile") do
       login_as(@user)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>@user.email}
-      #we create the user profile first
-      Factory(:profile, :user=>@user)
       assert_no_difference 'Profile.count' do
         post :create, :user_id => @user.id, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')

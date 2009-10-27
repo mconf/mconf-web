@@ -1,8 +1,14 @@
 <html>
 <body>
-Your request to join <%= @space.name %> was <%= @jr.accepted? ? 'accepted' : 'discarded' %><br/>
+<%= t('e-mail.invitation_result.user_side', :action => @action, :spacename =>@space.name)%><br/><br/>	
 
-<%= space_url(@space, :host => Site.current.domain) if @jr.accepted? %><br/>
+<%if @jr.accepted?%>
+  <%= t('invitation.access_space', :spacename => @space.name, :space_url => space_url(@space, :host => Site.current.domain)) %><br/><br/>
+<%else%>
+  <%= t('invitation.rejoin_space', :space_url => new_space_join_request_url(@space, :host => Site.current.domain)) %><br/><br/>
+<%end%>
+
+<%= t('admin.space', :spacename => @space.name)%>
 
 </body>
 </html>

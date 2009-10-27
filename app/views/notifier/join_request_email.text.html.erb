@@ -1,17 +1,11 @@
 <html>
 <body>
-<%= t('e-mail.dear', :name => @sender.login) %><br/><br/>
 
 <%= t('join_request.asked', :candidate => @candidate.name, :space => @space.name) %><br/><br/>
 
 <%= t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain)) %><br/><br/>
 
-<%= t('e-mail.copy_link', :url => space_admissions_url(@space, :host => Site.current.domain)) %><br/><br/>
-
-<%= t('e-mail.kind_regards') %><br/><br/>
-
-<%= t('e-mail.vcc_team') %><br/>
-<%= @contact_email %><br/>
+<%= @signature %><br/>
 
 </body>
 </html>

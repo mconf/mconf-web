@@ -3,6 +3,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 
 describe UsersController do
+  include ActionController::AuthenticationTestHelper
+  
+  integrate_views
+  
+  it "should automatically create the profile of a user after creating the user" do
+    @user = Factory(:user)
+    @user.profile.should_not be_nil
+  end
+
 =begin
   #integrate_views
   include ActionController::AuthenticationTestHelper

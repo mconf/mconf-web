@@ -5,7 +5,7 @@
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
 			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
 			  <h3><%= t('openid.have') %></h3>
-			  <%=link_to image_tag ("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> <%= t('or_use_email') %></span>
+			  <%=link_to image_tag("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> <%= t('or_use_email') %></span>
 			</div>
 			<div class="openid_form" <%='style="display:none;"' if request.xhr? %> >
               <% form_tag session_url(:protocol => current_site.protocol) do -%>

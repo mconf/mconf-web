@@ -40,6 +40,11 @@
     <label><%= t('site.exception_notifications_email') %>:</label>
     <%= sanitize site.exception_notifications_email %>
   </p>
+  
+  <p>
+    <label><%= t('site.signature') %>:</label>
+    <%= site.signature_in_html %>
+  </p>
 
   <div id="site_button">
 	<%= link_to "<button>"+t('button.edit')+"</button>", edit_site_path %></div>

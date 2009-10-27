@@ -1,6 +1,9 @@
 <html>
 <body>
-<%= @invitation.candidate.name %> <%= @invitation.accepted? ? 'accepted' : 'discarted' %> the invitation to join <%= @space.name %><br/>
+
+<%= t('e-mail.invitation_result.admin_side',:name=>@invitation.candidate.name, :action => @action, :spacename =>@space.name)%><br/><br/>
+
+<%= @signature %><br/>
 
 </body>
 </html>

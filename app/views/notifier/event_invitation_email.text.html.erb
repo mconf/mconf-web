@@ -11,12 +11,10 @@
 <%@invitation.comment = @invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event)) %>
 
 <%if @invitation.comment == ""%>
-  <%= t('invitation.to_event', :space => @space.name) %><br/><br/>
+  <%= t('invitation.to_event', :username => @user.login,:eventname => @invitation.event.name, :space => @space.name) %><br/><br/>
 <%else%>
   <%=@invitation.comment%><br/><br/>
 <%end%>
-
-<%= t('invitation.copy_link',:url => "http://" + Site.current.domain + "/event_invitations/" + @invitation.code) %><br/><br/>
 
 </body>
 </html>

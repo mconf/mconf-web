@@ -83,15 +83,8 @@ class Space < ActiveRecord::Base
   # There are previous authorization rules because of the stage
   # See acts_as_stage documentation
   authorizing do |agent, permission|
-    if ! self.public?
-      false
-    else
-      case permission
-      when :read, [ :read, :content ], [ :read, :performance ]
-        true
-      else
-        false
-      end
+    if self.public? && [ :read, [ :read, :content ], [ :read, :performance ] ].include?(permission)
+      true
     end
   end
 end

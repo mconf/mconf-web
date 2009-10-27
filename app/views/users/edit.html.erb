@@ -7,7 +7,33 @@
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
 
+<%= submit_tag t('user.save.account') %>
+
+<% end -%><br/>
+ 
+<div id="edit_openids" class="blue_title"><h3><%= t('user.openid.edit')%></h3></div>
+
+<div>
+  <% if current_user.openid_uris.any? %>
+  <ul>
+    <% current_user.openid_ownings.each do |owning| %>
+    <li><%= link_to owning.uri, owning.uri.to_s %> <%= link_to t('delete.one'), owning, :method => :delete %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <% form_tag OpenIdOwning.new do -%>
+  <div id="openid_label">
+    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag t('add') %>
+  </div>
+  <% end -%><br/>
+</div>
+
 <div id="edit_account" class="blue_title"><h3><%= t('preferences')%></h3></div>
+
+<% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
+
+<div><label for="timezone"><%=t('user.timezone')%></label><br/>
+<%= f.time_zone_select :timezone, nil, :include_blank => true%></div><br/>
 
 <div>
   <h5><%=t("post.show_expanded_pref")%></h5>
@@ -30,7 +56,7 @@
 <% end -%>
 
 
-<%= submit_tag t('user.save') %>
+<%= submit_tag t('user.save.preferences') %>
         		  
 <% end -%>
 

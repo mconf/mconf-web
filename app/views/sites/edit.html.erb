@@ -54,6 +54,11 @@
     <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %>
     <%= f.text_field :exception_notifications_email %>
   </p>
+  
+  <p>
+    <%= f.label :signature, t('site.signature') %>
+    <%= f.text_area :signature %>
+  </p>
 
   <div id="site_button" class="margin-up">  
 	<button type="submit"><%=t("button.update")%></button>
