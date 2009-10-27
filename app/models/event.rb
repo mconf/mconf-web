@@ -50,7 +50,7 @@ class Event < ActiveRecord::Base
   after_save do |event|
     #fisrt of all we remove the emails that already has an invitation for this event (not to spam them)
     if event.mails
-      mails_to_invite = event.mails.split(',').map(&:strip) - event.event_invitations.map{|ei| ei.email}
+      mails_to_invite = event.mails.split(/[\r,]/).map(&:strip) - event.event_invitations.map{|ei| ei.email}
       mails_to_invite.map { |email|      
         params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event, :comment => event.invite_msg}
         i = event.space.event_invitations.build params
