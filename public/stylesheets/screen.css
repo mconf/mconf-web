@@ -444,6 +444,7 @@ div.single_event:hover{background:#f0f6f9;}
 
 /*.event_date,.event_location,.event_author{color:#244974;font-weight:bold;}*/
 .event_image{display:block;color:black;float:left;padding:0;margin-right: 10px;text-align:center;font-weight: bold;vertical-align: middle;}
+a.event_image:hover{text-decoration:none;}
 .event_day{font-size: 3em;margin:0;line-height:90%;width:100%;}
 .event_month{font-size: 2em;margin:0;line-height:70%;width:100%;}
 .event_hour{font-size: 1.2em;margin:0;width:100%;}
