@@ -51,6 +51,29 @@
     </ul>
   </div>
 	
-
+	<% content_for :headers do%>
+	  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+	<%end%>
+	
+	<% content_for :javascript do%>
+	  <%= render :partial => 'logos/crop_logo.js.erb',
+               :locals => { :url_form   => precrop_space_event_logo_path(@event.space, @event),
+                            :aspect_ratio => EventLogo::ASPECT_RATIO 
+                          } %>
+	<% end %>
+	
+  <div id="update_logo">
+    <%if @event.logo%>
+      <h3><%= t('event_logo.current') %></h3>
+      <p><%=logo(@event.logo, :size => 64)%></p>
+      <%end%>
+    <h3><%=@event.logo ? t('event_logo.select_new') : t('event_logo.select') %></h3>
+    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+      <p><%= f.file_field :media, :id => 'logo_media' %></p>   
+      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+    <%end%>
+  </div>
 	
  </div>
+
+  <div id="for_lightbox" style="display:none"></div>

@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_one :agenda
   
+  has_logo :class_name => "EventLogo"
   
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space

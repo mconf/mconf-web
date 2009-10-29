@@ -28,9 +28,11 @@ class LogosController
 
     resize_if_bigger f.path, 600 
     
-    render :layout => false
-
-   
+    @logo_crop_text = "Crop space logo"
+    @form_for       = [@space,@logo]
+    @form_url       = space_logo_path(@space.id)
+    
+    render :template => "logos/precrop", :layout => false
   end
   
   def create
