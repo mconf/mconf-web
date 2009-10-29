@@ -1,15 +1,23 @@
-<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Crop space logo</span></div>
+<div id="lightbox-logo">
+  <span>
+    <%= image_tag("bola_global_peque.png",:class=>"icon")%><%= @logo_crop_text %>
+  </span>
+</div>
+
 <div id="crop-logo-lightbox-content">
   <%=image_tag @image, :id => "croplogo"%>
-	<% form_for [@space,@logo], :url => space_logo_path(@space.id) do |f| %>
-	  <% fields_for :crop_size do |fc|%>
-			<%= fc.hidden_field :x %>
-	    <%= fc.hidden_field :y %>
-	    <%= fc.hidden_field :width %>
-	    <%= fc.hidden_field :height %>
-		<%end%>
-<div class="margin-up">  
-    <%= image_submit_tag ("buttons/go.png") %>
-</div>
+  
+  <% form_for @form_for, :url => @form_url do |f| %>
+    <% fields_for :crop_size do |fc|%>
+      <%= fc.hidden_field :x %>
+      <%= fc.hidden_field :y %>
+      <%= fc.hidden_field :width %>
+      <%= fc.hidden_field :height %>
+    <%end%>
+  
+    <div class="margin-up">
+      <button type="submit"><%=t("button.go")%></button>    
+    </div>
+  
   <%end%>
 </div>

@@ -21,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
         agenda.resources :agenda_entries
         agenda.resources :agenda_record_entries
       end
+      event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}

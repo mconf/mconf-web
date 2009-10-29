@@ -8,11 +8,20 @@
       <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) %></li>
     </ul>
     
-    <a href="<%=space_event_path(@space, event)%>">
+		
+    <a href="<%=space_event_path(@space, event)%>">			
       <div class="event_image">
-        <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
-        <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
-        <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
+	      <%if @event.logo%>
+	        <div class="event_logo">
+	        	<%=logo(@event.logo, :size => 64)%>
+					</div>
+			  <%else%>
+				  <div class="event_date_image">
+		        <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
+		        <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
+		        <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
+					</div>
+	      <%end%>
       </div>
     </a>
     
@@ -51,6 +60,25 @@
     </ul>
   </div>
 	
-
+	<% content_for :headers do%>
+	  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+	<%end%>
+	
+	<% content_for :javascript do%>
+	  <%= render :partial => 'logos/crop_logo.js.erb',
+               :locals => { :url_form   => precrop_space_event_logo_path(@event.space, @event),
+                            :aspect_ratio => EventLogo::ASPECT_RATIO 
+                          } %>
+	<% end %>
+	
+  <div id="update_logo">
+    <h3><%=@event.logo ? t('event_logo.select_new') : t('event_logo.select') %></h3>
+    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+      <p><%= f.file_field :media, :id => 'logo_media' %></p>   
+      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+    <%end%>
+  </div>
 	
  </div>
+
+  <div id="for_lightbox" style="display:none"></div>
