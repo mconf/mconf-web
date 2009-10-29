@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
   has_many :posts
   has_many :participants
   has_many :event_invitations, :dependent => :destroy
+  has_many :attachments, :dependent => :destroy
   has_one :agenda
   
   
@@ -15,7 +16,7 @@ class Event < ActiveRecord::Base
   alias_attribute :title, :name
   validates_presence_of :name, :start_date , :end_date,
                           :message => "must be specified"
-
+  
   # Attributes for jQuery selectors
   attr_accessor :start_hour
   attr_accessor :end_hour
@@ -29,11 +30,11 @@ class Event < ActiveRecord::Base
                           :field => 'name',
                           :as => 'tags',
                           :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-                          {:class_name => 'User',
+  {:class_name => 'User',
                                :field => 'login',
                                :as => 'login_user',
                                :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
-                        ]
+  ]
   
   before_validation do |event|
     if event.start_hour.present?
@@ -68,7 +69,7 @@ class Event < ActiveRecord::Base
       }.each(&:save)
     end
   end
-      
+  
   def author
     User.find_with_disabled(author_id)
   end
@@ -76,7 +77,7 @@ class Event < ActiveRecord::Base
   def space
     Space.find_with_disabled(space_id)
   end      
-      
+  
   def organizers
     actors
   end
@@ -86,35 +87,35 @@ class Event < ActiveRecord::Base
       errors.add_to_base("The event needs start date and end date ")
     else
       unless self.start_date < self.end_date
-      errors.add_to_base("The event start date must be previous than the event end date ")
+        errors.add_to_base("The event start date must be previous than the event end date ")
       end  
     end
-	if self.marte_event? && ! self.marte_room?
-		#check connectivity with Marte
-		begin
-			MarteRoom.find(:all)
-		rescue => e
-			errors.add_to_base("Could not create virtual conference")
-		end
-	end
-#    unless self.start_date.future? 
-#      errors.add_to_base("The event start date should be a future date  ")
-#    end
+    if self.marte_event? && ! self.marte_room?
+      #check connectivity with Marte
+      begin
+        MarteRoom.find(:all)
+      rescue => e
+        errors.add_to_base("Could not create virtual conference")
+      end
+    end
+    #    unless self.start_date.future? 
+    #      errors.add_to_base("The event start date should be a future date  ")
+    #    end
   end
-
+  
   after_save do |event|
-  	  if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
+    if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
       mr = begin
-             MarteRoom.create(:name => event.id)
-           rescue => e
-             logger.warn "Failed to create MarteRoom: #{ e }"
-             nil
-           end
-
-           event.update_attribute(:marte_room, true) if mr
-    	end
+        MarteRoom.create(:name => event.id)
+      rescue => e
+        logger.warn "Failed to create MarteRoom: #{ e }"
+        nil
+      end
+      
+      event.update_attribute(:marte_room, true) if mr
+    end
   end
-
+  
   after_destroy do |event|
     if event.marte_event? && event.marte_room?
       begin
@@ -123,10 +124,10 @@ class Event < ActiveRecord::Base
       end
     end
   end
-
+  
   def get_room_data
     return nil unless marte_event?
-
+    
     begin
       MarteRoom.find(self.id)
     rescue
@@ -134,7 +135,7 @@ class Event < ActiveRecord::Base
       nil
     end
   end
-
+  
   authorizing do |agent, permission|
     if ( permission == :update || permission == :delete ) && author == agent
       true

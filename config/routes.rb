@@ -121,6 +121,8 @@ ActionController::Routing::Routes.draw do |map|
   map.search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
   map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
   
+  map.search_attachments '/spaces/:space_id/search/attachments', :controller => 'search', :action=> 'attachments'
+  
   map.change_space '/change_space', :controller => 'spaces', :action => 'change_space'
 
   Translate::Routes.translation_ui(map) if RAILS_ENV != "production"

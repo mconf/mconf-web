@@ -551,6 +551,9 @@ en:
   
   ######### S ###########
   search:
+    attachments:
+      dots: "Search attachments..."
+      no_dots: "Search attachments"
     between_dates: "You can search here between two dates"
     dots: "Search..."
     events:

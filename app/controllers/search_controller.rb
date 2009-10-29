@@ -5,10 +5,20 @@ class SearchController < ApplicationController
     search_events(params)
     search_users(params)
     search_posts(params)
+#    search_attachments(params)
     respond_to do |format|        
       format.html     
     end
   end
+  
+  def attachments
+    search_attachments(params)
+    
+    respond_to do |format|        
+      format.html     
+    end
+    
+  end 
   
   def events
     search_events(params)
@@ -144,6 +154,14 @@ end
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'User')
     @search.run
     @users = @search.results.select {|user| @space.actors.include?(user)}
+  end
+  
+  def search_attachments (params)
+    @query = params[:query]
+    
+   @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment')
+   @search.run
+   @attachments = @search.results.select {|attachment| @space.attachments.include?(attachment)}
   end
 end
 
