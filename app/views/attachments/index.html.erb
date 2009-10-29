@@ -3,6 +3,9 @@
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
+<% content_for :search do  %>
+   <%= render :partial => 'search' %>
+<%end%>
 
 <%content_for :sidebar do%>
   <%= render :partial => 'upload_form' %>

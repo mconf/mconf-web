@@ -3,6 +3,7 @@ class Space < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
+  has_many :attachments, :dependent => :destroy
 
   has_many :event_invitations,
            :dependent => :destroy,
