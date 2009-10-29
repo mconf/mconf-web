@@ -11,9 +11,26 @@ module AttachmentsHelper
   def sortable_header(title,column)
     html = title
     html << " "
-    html << link_to("DESC", space_attachments_path(@space, :order => column, :direction => 'desc'), :class => "sortable desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
+    html << link_to("DESC", space_attachments_path(@space, :order => column, :direction => 'desc', :expand_versions => params[:expand_versions]), :class => "sortable desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
     html << " "
-    html << link_to("ASC", space_attachments_path(@space, :order => column, :direction => 'asc'), :class => "sortable desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
+    html << link_to("ASC", space_attachments_path(@space, :order => column, :direction => 'asc', :expand_versions => params[:expand_versions]), :class => "sortable desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
     html  
+  end
+  
+  def version_attachment(attachments,versioned_attachment_ids)
+    att_version_array = attachments.clone
+
+    if versioned_attachment_ids.present?
+      versioned_attachment_ids.each do |id|
+        if attachments.map(&:id).include?(id.to_i)
+          attachment = Attachment.find(id.to_i)
+          index = att_version_array.index(attachment)
+          att_version_array[index] = attachment.versions.reverse
+          att_version_array.flatten!
+        end
+      end
+    end
+
+    att_version_array 
   end
 end
