@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091023213252) do
+ActiveRecord::Schema.define(:version => 20091027160546) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -75,22 +75,6 @@ ActiveRecord::Schema.define(:version => 20091023213252) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "agenda_entry_id"
-  end
-
-  create_table "categories", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "domain_id"
-    t.string   "domain_type"
-    t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "categorizations", :force => true do |t|
-    t.integer "category_id"
-    t.integer "categorizable_id"
-    t.string  "categorizable_type"
   end
 
   create_table "db_files", :force => true do |t|
@@ -348,10 +332,12 @@ ActiveRecord::Schema.define(:version => 20091023213252) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
 
   create_table "tags", :force => true do |t|
-    t.string "name", :default => "", :null => false
+    t.string  "name",           :default => "", :null => false
+    t.integer "container_id"
+    t.string  "container_type"
   end
 
-  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+  add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
 
   create_table "uris", :force => true do |t|
     t.string "uri"
