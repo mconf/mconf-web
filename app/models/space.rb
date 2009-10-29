@@ -4,6 +4,7 @@ class Space < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
+  has_many :tags, :dependent => :destroy, :as => :container
 
   has_many :event_invitations,
            :dependent => :destroy,
