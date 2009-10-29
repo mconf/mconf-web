@@ -38,6 +38,7 @@ li ul,li ol{margin:0 1.5em;}
 ul,ol{margin:0 1.5em 1.5em 1.5em;}
 ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
+
 /*Definición de la tipografia*/
 .unified_user{color:#666;font-weight:bold;}
 .unified_event{color:#8B0425;font-weight:bold;}
@@ -63,10 +64,9 @@ ol{list-style-type:decimal;}
 
 .left-align {float:left;}
 .right-align {float:right;}
+.margin-up{margin-top:0.75em;}
 
-
-
-
+/*BOTONES*/
 button{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 
@@ -95,9 +95,6 @@ button.join-space,button.leave-space{
   -webkit-border-radius:5px;-moz-border-radius:5px;
 }
 
-
-
-
 #sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover,#manage div a,#manage div a:hover{text-decoration:none;}
 #search button{padding-top:3px;padding-bottom:2px;}
 button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
@@ -121,9 +118,13 @@ button.leave-space:hover{background:url("/images/buttons/leave-space-notext4.png
 /*File upload button*/
 .file_1{color:#888;font-size:0.9166em;background:#FFF;margin-right:5px;}
 
-/*----------------------- grid.css ---------------------------*/
+
+
+
+
+/*----------------------- GRID.css ---------------------------*/
 /*body{background:url(/images/grid.png);}*/
-.margin-up{margin-top:0.75em;}
+
 
 /*all css for the header and the navigation part(tabs, search,etc*/
 body{min-width:960px;background-color:white;}
@@ -172,7 +173,7 @@ div.space-desc h3, div.space-desc p{color:#244974;}
 #inc-events h3{color:#8B0425;}
 #inc-events ul li.event p{color:#8B0425;}
 
-#selector, #main,#main1{float:left;/*background-color:#f0f0f0*/;}
+#selector, #main/*,#main1*/{float:left;}
 #selector{width:150px;margin-right:10px;padding-left:10px;}
 #selector h5{color:#888;margin-bottom:0.75em;}
 #selector ul{font-size:0.9em;line-height:1.666;list-style-type:none;margin:0 0 2em 0;white-space:nowrap;overflow:hidden;color:#999;}
@@ -441,7 +442,6 @@ div.single_event:hover{background:#f0f6f9;}
 .news_padding {padding:6px 0 6px 0;}
 /*.date{color:#8B0425;}
 .author{color:#244974;font-weight:bold;}*/
-
 /*.event_date,.event_location,.event_author{color:#244974;font-weight:bold;}*/
 .event_image{display:block;color:black;float:left;padding:0;margin-right: 10px;text-align:center;font-weight: bold;vertical-align: middle;}
 
@@ -721,7 +721,8 @@ a.extract_form{margin-right:0.5em;}
 #recent-activity .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
 #recent-activity .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
 #recent-activity .news_cloud{border:none;}
-#recent-activity .post_cloud,#recent-activity .event_cloud{border-bottom:1px #ccc solid;}
+#recent-activity .post_cloud,#recent-activity .event_cloud,#recent-activity .news_cloud{border-bottom:1px #ccc solid;}
+#recent-activity .post_cloud.last,#recent-activity .event_cloud.last{border-bottom:none;}
 #recent-activity .div-logo img:hover{border-color:#bbb;}
 #recent-activity .thread{padding:6px 0;}
 

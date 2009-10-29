@@ -11,7 +11,7 @@
  	 }
 <%end%>
 
-<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding">
+<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding  <%='last' if last %>">
   <%if @news_to_show.nil? %>
 	<p><%= t('news.none_to_show') %></p>
   <%else%>
