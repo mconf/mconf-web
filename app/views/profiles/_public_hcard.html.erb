@@ -8,21 +8,15 @@
 	  <div class="logo">
 	  	<%=logo(@user, :size => 48)%>
 	  </div>
-	  <div class="vcard" id="card">
-	    <ul class="adr">
-		  <li class="fn honorific-prefix"><span class="person_title"><%= (t('name.prefix')+ ":")if (@profile.prefix.present?) %> </span> <%= @profile.prefix%></li>
-		  <li class="fn n"><span class="person_title"><%= t('name.one') %>: </span><%=@user.full_name%></li>
-		  <li class="locality"><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><%= @profile.city%></li>
-		  <li class="region"><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><%= @profile.province%></li>
-		  <li class="country-name"><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><%= @profile.country%></li>
-		  <li><span class="person_title"><%= (t('description')+ ":")if (@profile.description.present?) %> </span> <%= @profile.description%></li>
-		</ul>
-		<div class="telecommunications">
-		  <ul>
-		    <li class= "org"><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <%= @profile.organization%></li>
-			<li class= "url"><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <%=( link_to @profile.url, @profile.url, :target => "_blank") if (@profile.url.present?)%></li>
-		  </ul>
-		</div>
-	  </div>
+	  
+      <ul>
+		<li><span class="person_title"><%= t('name.one') %>: </span><span class="fn n"> <span class="honorific-prefix"><%= @profile.prefix%></span><span class="given-name"> <%=@user.full_name%></span></span></li>
+		<li><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><span class="locality"><%= @profile.city%></span></li>
+		<li><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><span class="region"><%= @profile.province%></span></li>
+		<li><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><span class="country-name"><%= @profile.country%></span></li>
+		<li><span class="person_title"><%= (t('description')+ ":")if (@profile.description.present?) %> </span> <%= @profile.description%></li>
+        <li><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <span class= "org"><%= @profile.organization%></span></li>
+		<li><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <span class= "url"><%=( link_to @profile.url, @profile.url, :target => "_blank") if (@profile.url.present?)%></span></li>
+      </ul>
   </div>
 </div>

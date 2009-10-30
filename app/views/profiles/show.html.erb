@@ -13,13 +13,15 @@
 	</div>
   </div>
 <%end%>
+<div class="vcard" id="card">
+  <span class="adr">
+    <%= render :partial=>'public_hcard'%>
 
-<%= render :partial=>'public_hcard'%>
-
-<% if @profile.authorize? :read, :to => current_user %>
-	<%= render :partial=>'private_hcard'%>
-<% end %>
-
+	<% if @profile.authorize? :read, :to => current_user %>
+	  <%= render :partial=>'private_hcard'%>
+	<% end %>
+  </span>
+</div>
 <%if current_user.superuser? || @user==current_user%>
   <%= button_to t('edit_profile'), edit_user_profile_path(@user) ,:method => :get %>  
 <%end%> 
