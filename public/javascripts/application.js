@@ -31,12 +31,15 @@ jQuery.fn.postsForm = function(route){
  */
  
 style_file_input = function(){
-  $("input[type=file]").filestyle({ 
-     image: "/images/buttons/browse.png",
-     imageheight : 23,
-     imagewidth : 63,
-     width : 115
-  });
+  $("input[type=file]")
+	  .filter(function(index) {
+      if ($(this).css("opacity") != "0") return true;
+    }).filestyle({ 
+        image: "/images/buttons/browse.png",
+        imageheight : 23,
+        imagewidth : 63,
+        width : 115
+      });
 };
 
 /*

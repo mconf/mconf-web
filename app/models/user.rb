@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
 
   acts_as_stage
-  acts_as_taggable
+  acts_as_taggable :container => false
 
   has_one :profile
   has_many :events, :as => :author

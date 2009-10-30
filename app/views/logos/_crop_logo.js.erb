@@ -1,15 +1,16 @@
-  style_file_input();
-  $("div#update_avatar form").attr("action","<%=precrop_user_avatar_path(@profile.user)%>");
-	$("div#update_avatar form input[type=hidden][name=_method][value=put]").remove();
+  style_file_input()
+  
+	$("div#update_logo form").attr("action","<%= url_form %>");
+	$("div#update_logo form input[type=hidden][name=_method][value=put]").remove();
 	
-	$("div#update_avatar form input[type=image]").click(function(){
-      if($("#avatar_media").val()==""){
+	$("div#update_logo form input[type=image]").click(function(){
+      if($("#logo_media").val()==""){
         alert('<%= t('select_image')%>');
         return false;
       }
   });
 	
-	$("div#update_avatar form").ajaxForm(function(data) {
+	$("div#update_logo form").ajaxForm(function(data) {
 	  
 		$("#for_lightbox").append(data);
 		
@@ -29,7 +30,7 @@
 			      onSelect: cropImage,
 			      onChange: cropImage,
 						bgColor : 'white',
-			      aspectRatio: <%=Avatar::ASPECT_RATIO%>,
+			      aspectRatio: <%=aspect_ratio%>,
 						setSelect: [size/4,size/4,3*size/4,3*size/4]
           });
 					if ($("#croplogo").height() +105 >200){
@@ -44,9 +45,9 @@
 		}).click(); 
   });
 	
-	 $("#avatar_submit").click(function(){
-      if($("#avatar_media").val()==""){
-        alert(t('avatar.empty'));
+	 $("#logo_submit").click(function(){
+      if($("#logo_media").val()==""){
+        alert(<%=t('logo.empty')%>);
         return false;
       }
   });
