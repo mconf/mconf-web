@@ -50,10 +50,23 @@
  
   <%= render :partial => "event_card_show" %>
 
+  <div>
+    <h3><%=@event.logo ? t('event_logo.select_new') : t('event_logo.select') %></h3>
+    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+      <p><%= f.file_field :media, :id => 'logo_media' %></p>   
+      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+    <%end%>
+  </div>
+	<div id="for_lightbox" style="display:none"></div>
+
   <%if @event.agenda.present?%>
      <%= render :partial => "agendas/edit" %>
    <%end%>
    
+	<%if @event.agenda.present?%>
+	  <%= link_to t('show_agenda_record_entries'), space_event_agenda_agenda_record_entries_path(@space, @event) %>
+	<%end%>
+	 
   <%=render :partial => "external_streaming"%>
   
   <div id="actions">

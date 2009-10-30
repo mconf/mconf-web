@@ -70,15 +70,5 @@
                             :aspect_ratio => EventLogo::ASPECT_RATIO 
                           } %>
 	<% end %>
-	
-  <div id="update_logo">
-    <h3><%=@event.logo ? t('event_logo.select_new') : t('event_logo.select') %></h3>
-    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-      <p><%= f.file_field :media, :id => 'logo_media' %></p>   
-      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
-    <%end%>
-  </div>
-	
+		
  </div>
-
-  <div id="for_lightbox" style="display:none"></div>
