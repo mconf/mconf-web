@@ -78,8 +78,8 @@
 			<%else%>
 			  <% for event in @upcoming_events -%>
           <li class="event">
-            <%event_link="<h5 class="'up-event'">" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
-            <%=link_to event_link, space_event_path(@space,event)%>
+            <%event_link="<h5 class="'unified_event'">" + sanitize(event.title) + "</strong></h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
+            <%=link_to event_link, space_event_path(@space,event),:class=>""%>
             <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
           </li>
         <% end -%>
@@ -95,12 +95,13 @@
 <% end %>
 
 <% if !@current_events.empty? %>
-  <div id="home_current_events">
-    <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.now'), space_events_path(@space)%></h3>
+  <div id="home_current_events">   
   	<ul>
+  		<li><h3><%=link_to t('event.now'), space_events_path(@space)%></h3></li>
   		<%for event in @current_events do%>
-  		  <li>
-  		  	<%=link_to "<h5>#{event.name}</h5>", space_event_path(@space,event)%>
+  		  <li class="margin-up">
+  		  	<h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to (event.name,space_event_path(@space,event),:class=>"unified_event")%></h3> 			
+		  </li><li>	
 			<span class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (<%= t('GMT') %> <%=Time.zone.formatted_offset%> )</span>
 		  </li>
 		<%end%>
@@ -121,10 +122,42 @@
 	     <br/><p><%= t('post.none_recent') %></p>
 	  <%else%>
 	    <% for post in @lastest_posts -%>
-	      <div class="post">
-	        <strong><%=link_to sanitize(post.title),space_post_path(@space,post)%></strong><span class="updated"><%=link_to( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
+	      <div class="thread post">
+	      	<div class="thread_content">
+			  <div class="post-logo">
+			    <%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
+				  <%= link_logo(post.author, :size => 32, :url => user_profile_path(post.author), :title=>post.author.name) %>
+			    <%else%>
+			      <%=logo(post.author, :size=>32, :title=>post.author.name)%>
+			    <%end%>
+			  </div>
+			  <div class="thread-title-wrapper">
+			  	<ul class="thread-title">      
+			      	<li>
+			      	   <%if post.author.authorize?([:read, :profile],:to=> current_user)%>
+				         <span class="unified_user"><%=link_to(post.author.name,user_profile_path(post.author),:class=>"unified_user")%>:</span> 
+					  <%else%>
+					    <span class="unified_user"><%=post.author.name%>: </span> 
+					  <%end%>
+					  <%=link_to(first_words(post.title, 40), space_post_path(@space,post),:class=>"unified_posts")%>
+					  <%if has_attachments(post)%>
+					    <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>
+					  <%end%>
+					  <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
+					</li>	     
+					<li>
+						<div class="grey">
+							<%=first_words(strip_tags(post.text),90)%>
+						</div>
+					</li>	    
+			    </ul>
+			  </div>
+			</div>
+		  </div>		  
+		  <!--<div class="post">
+	        <%=link_to sanitize(post.title),space_post_path(@space,post),:class=>"unified_posts"%> <span class="updated"><%=link_to( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
 	        <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
-	      </div>
+	      </div>-->
 	    <% end -%>
 	    <div class="read_more"> 
 	      <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user)%>
@@ -133,24 +166,25 @@
 </div>
 
 <div id="latest_users">
-  <h3><%=image_tag("icons/user.png")%><%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
+  <h3><%=image_tag("icons/user.png")%> <%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
   <% for user in @lastest_users -%>
+
     <div class="user">
     	<%if user.authorize?([:read, :profile],:to=> current_user)%>
-			<%=link_to("", user_profile_path(user),:class=>"box-link")%>
-			<div><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
+			
+			<div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
 			<div>
 			  <ul>
-			    <li><strong><%=link_to sanitize(user.full_name),user_profile_path(user),:class=>"u_name"%></strong></li>
+			    <li><%=link_to sanitize(user.full_name),user_profile_path(user),:class=>"unified_user"%></li>
 			    <li><%=link_to sanitize(user.organization),user_profile_path(user),:class=>"small-font" %></li>
 			  </ul>
 			</div>
-			<%=link_to("", user_profile_path(user),:class=>"box-link")%>
+			
 		<%else%>
-			<div><%=logo(user, :size=>32, :title=>user.name)%></div>
+			<div class="post-logo"><%=logo(user, :size=>32, :title=>user.name)%></div>
         	<div>
           	  <ul>
-            	<li class="u_name"><strong><%=sanitize(user.full_name)%></strong></li>
+            	<li class="unified_user"><%=sanitize(user.full_name)%></li>
             	<li class="small-font"><%=sanitize(user.organization) %></li>
           	  </ul>
          	</div>

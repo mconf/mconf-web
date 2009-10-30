@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   accepts_nested_attributes_for :user
 
-  acts_as_taggable
+  acts_as_taggable :container => false
   has_logo :class_name => "Avatar"
   
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
