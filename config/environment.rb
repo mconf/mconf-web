@@ -13,7 +13,7 @@ Rails::Initializer.run do |config|
 
   # Allowed html tags for sanitize  
   config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td', 'embed', 'u'
-  config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style'
+  config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style', 'allowFullscreen'
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )

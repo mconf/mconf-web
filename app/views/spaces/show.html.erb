@@ -141,7 +141,7 @@
 					  <%end%>
 					  <%=link_to(first_words(post.title, 40), space_post_path(@space,post),:class=>"unified_posts")%>
 					  <%if has_attachments(post)%>
-					    <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>
+					    <%=image_tag("icons/attach.png",:title=>attachment_name(post),:class=>"icon")%>
 					  <%end%>
 					  <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
 					</li>	     
