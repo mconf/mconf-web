@@ -1,17 +1,25 @@
 class AgendaRecordEntriesController < ApplicationController
  
-=begin
+
   # GET /agenda_record_entries
   # GET /agenda_record_entries.xml
   def index
-    @agenda_record_entries = AgendaRecordEntry.all
+    @event = Event.find(params[:event_id])
+    @agenda = @event.agenda
+    @agenda_record_entries = @agenda.agenda_record_entries if @agenda
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @agenda_record_entries }
+      if @agenda
+        format.html # index.html.erb
+        format.xml  { render :xml => @agenda_record_entries }
+      else
+        format.html { redirect_to(@event) }
+        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+      end
     end
   end
-
+  
+=begin
   # GET /agenda_record_entries/1
   # GET /agenda_record_entries/1.xml
   def show

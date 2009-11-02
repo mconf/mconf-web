@@ -28,8 +28,15 @@ en:
     edit_entry: "Edit"
     entry:
       created: 'Agenda entry was successfully created.'
+      description: "Description"
+      end_time: "End time"
+      exclude_from_recording: "Exclude from recording"
       failed: "Agenda entry could not be saved"
+      no_exclude: "No"
+      one: "Entry"
+      start_time: "Start time"
       updated: 'Agenda entry was successfully updated.'
+      yes_exclude: "Yes"
     title: "Agenda for the event"
     upload: "Upload Agenda"
   agent:
@@ -391,7 +398,6 @@ en:
     send: "Send Message"
     sent:
       other: "Sent messages"
-  mobile: "Mobile"
   more>>: "more >>"
   my_friends: "My friends"
   
@@ -458,7 +464,10 @@ en:
   permission:
     other: "Access rights"
   personal_information: "Personal information"
-  phone: "Phone"
+  phone:
+    landline: "Landline"
+    mobile: "Mobile"
+    one: "Phone"
   phone_optional: "Phone (optional)"
   photos: "Pictures"
   photos_view>>: "pictures view >>"

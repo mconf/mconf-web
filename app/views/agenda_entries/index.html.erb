@@ -14,6 +14,7 @@
     <td><%=h agenda_entry.description %></td>
     <td><%=h agenda_entry.start_time %></td>
     <td><%=h agenda_entry.end_time %></td>
+	<td><%=h agenda_entry.exclude_from_recording %></td>
     <td><%= link_to 'Show', agenda_entry %></td>
     <td><%= link_to 'Edit', edit_agenda_entry_path(agenda_entry) %></td>
     <td><%= link_to 'Destroy', agenda_entry, :confirm => 'Are you sure?', :method => :delete %></td>

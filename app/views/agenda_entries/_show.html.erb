@@ -1,22 +1,31 @@
 <div id="agenda_entry">
 <p>
-  <b>Title:</b>
+  <b><%=t('agenda.entry.one')%>:</b>
   <%=h agenda_entry.title %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b><%=t('agenda.entry.description')%>:</b>
   <%=h agenda_entry.description %>
 </p>
 
 <p>
-  <b>Start time:</b>
+  <b><%=t('agenda.entry.start_time')%>:</b>
   <%=h agenda_entry.start_time %>
 </p>
 
 <p>
-  <b>End time:</b>
+  <b><%=t('agenda.entry.end_time')%>:</b>
   <%=h agenda_entry.end_time %>
+</p>
+
+<p>
+  <b><%=t('agenda.entry.exclude_from_recording')%>:</b>
+  <%if agenda_entry.exclude_from_recording then%>
+    <%=t('agenda.entry.yes_exclude')%>
+  <%else%>
+    <%=t('agenda.entry.no_exclude')%>
+  <%end%>
 </p>
 
 <%= link_to "<button class='create-space' id='del_entry'>"+t('agenda.del_entry')+"</button>", space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title) %>
