@@ -111,7 +111,7 @@ class Post < ActiveRecord::Base
   authorizing do |agent, permission|
     if author == agent &&
         ( permission == :update || permission == :delete ) &&
-        space.role_for?(agent)
+        space.authorize?([ :create, :content ], :to => agent)
       true
     end
   end
