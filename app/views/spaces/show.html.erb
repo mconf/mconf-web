@@ -100,7 +100,7 @@
   		<li><h3><%=link_to t('event.now'), space_events_path(@space)%></h3></li>
   		<%for event in @current_events do%>
   		  <li class="margin-up">
-  		  	<h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to (event.name,space_event_path(@space,event),:class=>"unified_event")%></h3> 			
+  		  	<h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to(event.name,space_event_path(@space,event),:class=>"unified_event")%></h3> 			
 		  </li><li>	
 			<span class='small-font'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (<%= t('GMT') %> <%=Time.zone.formatted_offset%> )</span>
 		  </li>
