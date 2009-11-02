@@ -121,8 +121,9 @@
 	  <%if @lastest_posts.empty?%>
 	     <br/><p><%= t('post.none_recent') %></p>
 	  <%else%>
+	    <%last_post = @lastest_posts.last%>
 	    <% for post in @lastest_posts -%>
-	      <div class="thread post">
+		  <div class="thread post <%= 'last' if (post == last_post)%>" >
 	      	<div class="thread_content">
 			  <div class="post-logo">
 			    <%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
@@ -167,9 +168,10 @@
 
 <div id="latest_users">
   <h3><%=image_tag("icons/user.png")%> <%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
+  <%last_user = @lastest_users.last%>
   <% for user in @lastest_users -%>
 
-    <div class="user">
+    <div class="user <%= 'last' if (user == last_user)%>">
     	<%if user.authorize?([:read, :profile],:to=> current_user)%>
 			
 			<div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>

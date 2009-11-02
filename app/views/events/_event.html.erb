@@ -25,13 +25,13 @@
     
     <p class="event_title">
       <!--<%=image_tag("icons/date.png",:class=>"icon")%>-->
-      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event)%>
+      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event),:class=>"unified_event"%>
     </p>
     
     <ul>
     
       <li class="event_date">
-        <%= t('when')%>: <%=sanitize(event.start_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
+        <%= t('when')%>: <span class="unified_date"><%=sanitize(event.start_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</span>
       </li>
   
       <%if event.location%>
@@ -41,7 +41,7 @@
       <%end%>
       
       <li class="event_author">
-        <%= t('organizer') %>: <%=event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(event.author.name,@query),user_profile_path(event.author)): sanitize(highlight(event.author.name,@query))%>
+        <%= t('organizer') %>: <%=event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(event.author.name,@query),user_profile_path(event.author),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(event.author.name,@query) + "</span>"))%>
       </li>
       
     </ul>

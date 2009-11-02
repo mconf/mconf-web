@@ -1,4 +1,4 @@
-<div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%> post_cloud">
+<div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%> post_cloud <%= 'last' if last %>">
   <div class="thread">
 
 	<div class="thread_content">
@@ -31,11 +31,11 @@
 		  <ul class="thread-title">      
 	      	<li>
 	      	   <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>
-		         <span><%=link_to(thread.author.name + ": ",user_profile_path(thread.author),:class=>"bold author")%></span>
+		         <span class="unified_user"><%=link_to(thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>: </span>
 			  <%else%>
-			    <span class="bold blue"><%=thread.author.name%>: </span>
+			    <span class="unified_user"><%=thread.author.name%>: </span>
 			  <%end%>
-			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"bold") if @space.authorize?([:read, :content],:to => current_user)%>
+			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)%>
 			  <%if has_attachments(thread)%>
 			    <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>
 			  <%end%>
