@@ -24,6 +24,7 @@ en:
   advanced_editor: "Advanced editor"
   agenda: 
     add_entry: "Add entry"
+    define: "Define Agenda"
     del_entry: "Delete"
     edit_entry: "Edit"
     entry:
@@ -211,6 +212,8 @@ en:
     home:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
+    help:
+      edit: "Form to edit an event"
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"

@@ -6,8 +6,9 @@
 <%end%>
 
 <% content_for :javascript do %>	
-  <%= render :partial => 'date_and_timepicker.js.erb' %>
-	
+  <%= render :partial => 'date_and_timepicker.js.erb' %>	
+  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+
 	style_file_input();
 	
 	$("#query").click(function(){
@@ -15,6 +16,18 @@
 		  this.value="";
 		}
 	});
+	
+	$("#define_agenda").click(function(){
+	  $("upload_agenda_full").hide();
+	  $("#agenda_full").show();
+	});
+	
+	
+	$("#upload_agenda").click(function(){
+	  $("#agenda_full").hide();
+	  $("#upload_agenda_full").show();
+	});
+	
 	
 <% end %>
 
@@ -61,7 +74,12 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
+     <button class='create-space' id="define_agenda"><%=t("agenda.define")%></button>
+     or
+     <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
+     
      <%= render :partial => "agendas/edit" %>
+     <%= render :partial => "agendas/upload" %>
    <%end%>
    
 	<%if @event.agenda.present?%>
