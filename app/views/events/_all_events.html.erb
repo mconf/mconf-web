@@ -19,9 +19,9 @@
   	
 	<div class="group_links"> 
     <%if params[:order_by_time]%>
-      <%=link_to image_tag("icons/arrow_down.png") + "order DESC", space_events_path(@space), {:class => 'past_link event_navigation'}%>  
+      <%=image_tag("icons/16/arrow-down.png")%> <%=link_to "order DESC", space_events_path(@space), {:class => 'past_link event_navigation'}%>  
     <%else%>
-      <%=link_to image_tag("icons/arrow_up.png") + "order ASC", space_events_path(@space, :order_by_time => "ASC"), {:class => 'past_link event_navigation'}%>
+      <%=image_tag("icons/16/arrow-up.png")%> <%=link_to "order ASC", space_events_path(@space, :order_by_time => "ASC"), {:class => 'past_link event_navigation'}%>
     <%end%>
   </div><%= t('event.past.other') %></h3>
 	 

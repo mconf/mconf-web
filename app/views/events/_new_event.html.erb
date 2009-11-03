@@ -62,8 +62,8 @@
 <% end -%>
 
 <div id="change-event">
-	<div id="help" title="Create your simple event in four steps:"></div>
-<h3><%= t('event.create') %></h3>
+	
+<h3><div id="help" title="Create your simple event in four steps:"></div><%= t('event.create') %></h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
  <div>

@@ -8,13 +8,13 @@
     </div>
 	<div id="upcoming_div">
 		<%if params[:day] == 'today'%>
-		  <%= render :partial => 'events_group', :locals => {:events_group => @today_paginate_events, :message => "No today events"} %>
+		  <%= render :partial => 'events_group', :locals => {:events_group => @today_paginate_events, :message => t("event.upcoming.today")} %>
 		<%elsif params[:day] == 'next_week'%>
-		  <%= render :partial => 'events_group', :locals => {:events_group => @next_week_paginate_events, :message => "No next week events"} %>
+		  <%= render :partial => 'events_group', :locals => {:events_group => @next_week_paginate_events, :message => t("event.upcoming.next_week")} %>
     <%elsif params[:day] == 'next_month'%>
-		  <%= render :partial => 'events_group', :locals => {:events_group => @next_month_paginate_events, :message => "No next month events"} %>
+		  <%= render :partial => 'events_group', :locals => {:events_group => @next_month_paginate_events, :message => t("event.upcoming.next_month")} %>
     <%else%>
-		  <%= render :partial => 'events_group', :locals => {:events_group => @all_upcoming_paginate_events, :message => "No upcoming events"} %>
+		  <%= render :partial => 'events_group', :locals => {:events_group => @all_upcoming_paginate_events, :message => t("event.upcoming.none")} %>
 		<%end%>
   </div>
 </div>

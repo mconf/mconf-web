@@ -40,9 +40,9 @@ ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
 
 /*Definición de la tipografia*/
-.unified_user{color:#666;font-weight:bold;}
+.unified_user{color:#244974;font-weight:bold;}
 .unified_event{color:#8B0425;font-weight:bold;}
-.unified_posts{color:#244974;font-weight:bold;}
+.unified_posts{color:#666;font-weight:bold;}
 .unified_news{color:#111;font-weight:bold;}
 .unified_date{color:#244974;}
 .updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
@@ -184,7 +184,7 @@ div.space-desc h3, div.space-desc p{color:#244974;}
 #selector ul li:hover {background-color:#ffa903; }
 #selector .selected{text-decoration:none;font-weight:bold;}
 #selector .first_ul{margin:0 0 0 0;}
-#selector #help{margin-top:15px;}
+#selector #help{margin-top:14px;}
 h3.selector_title{color:#244974;margin-top:15px;}
 #menu{background:#e1eef5;margin-bottom:1em;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
@@ -467,7 +467,7 @@ div.pagination a{color:#244974;}
 #sidebar input[type="text"]{width:92%;}
 #sidebar #expanded_date .javascript a.timepicker_launcher{margin-left:5px;}
 #sidebar #expanded_date .javascript label{margin-right:38px;}
-#sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;}
+#sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
 #sidebar input[type="time"]{text-align:center;}
 
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
@@ -747,6 +747,8 @@ a.extract_form{margin-right:0.5em;}
 #help{
 	margin-top:7px;
 	}
+h3 #help{margin-top:0;}
+
 .w-background{
 	background-color:white;
 	margin-top:-5px;
@@ -761,8 +763,8 @@ a.extract_form{margin-right:0.5em;}
 }
 
 div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
-	font-weight:bold;
-	color: #9b0e2f;
-	text-decoration: none;
+	/*font-weight:bold;*/
+	/*color: #9b0e2f;*/
+	/*text-decoration: none;*/
 }
 

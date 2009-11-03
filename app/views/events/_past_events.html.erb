@@ -14,13 +14,13 @@
     </div>
   <div>
     <%if params[:day] == 'yesterday'%>
-      <%= render :partial => 'events_group', :locals => {:events_group => @today_and_yesterday_paginate_events, :message => "No yesterday or today past events"} %>
+      <%= render :partial => 'events_group', :locals => {:events_group => @today_and_yesterday_paginate_events, :message => t("event.past.today")} %>
     <%elsif params[:day] == 'last_week'%>
-      <%= render :partial => 'events_group', :locals => {:events_group => @last_week_paginate_events, :message => "No last week events"} %>
+      <%= render :partial => 'events_group', :locals => {:events_group => @last_week_paginate_events, :message => t("event.past.last_week")} %>
     <%elsif params[:day] == 'last_month'%>
-      <%= render :partial => 'events_group', :locals => {:events_group => @last_month_paginate_events, :message => "No last month events"} %>
+      <%= render :partial => 'events_group', :locals => {:events_group => @last_month_paginate_events, :message => t("event.past.last_month")} %>
     <%else%>
-      <%= render :partial => 'events_group', :locals => {:events_group => @all_past_paginate_events, :message => "No past events"} %>
+      <%= render :partial => 'events_group', :locals => {:events_group => @all_past_paginate_events, :message => t("event.past.none")} %>
     <%end%>
   </div>
 </div>
