@@ -679,6 +679,7 @@ en:
   ######### T ###########
   tag:
       new: "New tag"
+  text: "Text"
   thank_you: "Thank you"
   thread:
     add: "Add a new thread"
