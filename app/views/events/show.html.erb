@@ -82,10 +82,6 @@
      <%= render :partial => "agendas/upload" %>
    <%end%>
    
-    <%if @event.agenda.present?%>
-	  <%= link_to t('show_agenda_record_entries'), space_event_agenda_agenda_record_entries_path(@space, @event) %>
-    <%end%>
-	 
   <%=render :partial => "external_streaming"%>
   
   <div id="actions">

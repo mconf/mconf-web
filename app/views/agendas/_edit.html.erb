@@ -14,7 +14,8 @@
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){             
               edit_entry_button.parents("div:first").replaceWith(data);
-			  $('#cannot_exclude').hide();
+	      $('#cannot_exclude').hide();
+	      <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
     });
 	
   });
@@ -61,7 +62,7 @@
 
 
 
-<div id="agenda_full">
+<div id="agenda_full" style="display:none">
 <h3> <%=t("agenda.title")%> </h3>
 	  
   <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>
