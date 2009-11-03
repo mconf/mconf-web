@@ -1,7 +1,7 @@
 <div id="events_content">
   <h3><%= t('event.upcoming.other') %></h3> 
 	  <%if @first_upcoming_events.empty?%>
-      <p><%= t('event.upcoming.none') %></p>
+      <p class="main_text"><%= t('event.upcoming.none') %></p>
 	  <%else%>
 	    <%for event in @first_upcoming_events%>
 	      <%= render :partial => event %>
@@ -26,7 +26,7 @@
   </div><%= t('event.past.other') %></h3>
 	 
 	  <%if @last_past_events.empty?%>
-	    <p><%= t('event.past.none') %></p>
+	    <p class="main_text"><%= t('event.past.none') %></p>
 	  <%else%>
 	    <%for event in @last_past_events%>
 	      <%= render :partial => event %>
