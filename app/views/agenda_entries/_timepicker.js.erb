@@ -1,0 +1,51 @@
+$(".without_javascript").after(
+  "<div class='javascript'>"
+	+ "<%="Start hour"%><br/>"
+	+ "<input type='time' id='start_timep-icker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>"   
+	+ "<%="End hour"%><br/>"
+	+ "<input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'></div>"
+);
+
+$(".without_javascript").remove();
+
+/*
+ * Timepicker and datepicker configuration
+ */
+
+
+$('.timepicker').timeEntry({show24Hours: true, showSeconds: false, spinnerImage: '../../images/up-down.png', 
+    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true });
+
+start_timepicker_setTime = function(){
+  $("#start_timepicker_agenda").timeEntry('setTime');
+};
+
+
+/*
+ * Timepicker and datepicker launch functions
+ */
+
+end_timepicker_setTime = function(){
+  if($("#start_timepicker_agenda").val()!=""){
+    $("#end_timepicker_agenda").val($("#start_timepicker_agenda").val());
+  }else{
+    $("#end_timepicker_agenda").timeEntry('setTime');
+  }
+};
+
+/*
+ * Jquery timepicker calls to set timepicker clicking time
+ */
+
+$("#start_timepicker_agenda").click(function(){
+  if($(this).val()==""){
+    start_timepicker_setTime();
+	}
+});
+
+$("#end_timepicker_agenda").click(function(){
+  if($(this).val()==""){
+	  end_timepicker_setTime();
+	}
+});
+
