@@ -653,6 +653,7 @@ es:
       enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
     created: El espacio se ha creado correctamente.
 ####### T #########
+  text: "Texto"
   thread: 
     show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
     add: "A\xC3\xB1adir un nuevo hilo"

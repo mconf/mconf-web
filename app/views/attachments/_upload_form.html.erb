@@ -18,9 +18,13 @@
 <div id="add_new_doc">	
 
 <h3><%=t('document.add') %></h3>
-<%form_for attachment, :html => { :multipart => true} do |f|%>
+
+<% @attachment ||= Attachment.new %>
+<% @attachment.post ||= Post.new %>
+
+<%form_for (@attachment, :url=> space_attachments_path(@space), :html => { :multipart => true}) do |f|%>
   <div id="cabinet">
-  <%= file_field_tag :uploaded_data , :class=>"file_1"%>
+  <%= f.file_field :uploaded_data, :class=>"file_1"%>
 </div>
 <br/>
 <h4><%=t('tag.new')%></h4>
@@ -30,6 +34,15 @@
   <!--<%= image_submit_tag "buttons/create.png" %>-->
   <br/>
   <br/>
+  <% f.fields_for :post do |post_form| %>  
+	<div>
+		<%= post_form.label :title, t('title') %><br/>
+		<%= post_form.text_field :title %>
+		<%= post_form.label :text, t('text') %><br/>
+		<%= post_form.text_area :text%>
+	</div>
+
+<% end %>
   
    <button type="submit"><%=t("button.upload")%></button>
 <%end%>

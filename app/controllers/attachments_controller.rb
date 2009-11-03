@@ -6,7 +6,7 @@ class AttachmentsController < ApplicationController
   
   # Needs a space always
   before_filter :space!
-      
+  
   # Get Attachment in member actions
   before_filter :attachment, :except => [ :index, :new, :create ]
   
@@ -24,31 +24,78 @@ class AttachmentsController < ApplicationController
     @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
   end
   
-#  def index_with_vcc
-#    index_without_vcc do
-#      get_sorted_objects(params)
-#    end
-#  end
-# 
-#  alias_method_chain :index, :vcc
-  
-#  def show
-#      @image = Attachment.find(params[:id])
-#
-#    respond_to do |format|
-#      format.html {
-#      if @image
-#      send_data @image.current_data, :filename => @image.filename,
-#                                             :type => @image.content_type,
-#                                             :disposition => 'inline'
+#  def create
+#    debugger
+#    # if params[:attachment][:uploaded_data].present?
+#    @attachment = Attachment.new(:uploaded_data => params[:attachment][:uploaded_data])
+#    if @attachment 
+#      if !@attachment.valid?
+#        flash[:error] = t('attachment.not_valid')
+#        respond_to do |format|
+#          format.html{
+#            attachments
+#            render :action => "index"
+#            return
+#          }
+#        end
+#      else
+#        @attachment.space = @space
+#        @attachment.author = current_agent
+#        @attachment.save!
+#        
+#              
+#        if params[:attachment][:post].present?
+##          @post= Post.new(params[:attachment][:post])
+##          if !@post.valid?
+##            flash[:error]= t('post.not_valid')
+##            respond_to do |format|
+##              format.html{
+##                attachments
+##                render :action => "index"
+##                return
+##              }
+##            end
+##          else
+##            @post.attachments << @attachment
+##            @post.save!
+##          end
+#        end
+#        
 #      end
-#      } # show.html.erb
-#      format.xml  { render :xml => @attachment }
+#      
+#      respond_to do |format| 
+#        format.html {
+#            redirect_to(request.referer || space_attachments_path)
+#        }
+#      end
+#      
 #    end
-#  end
-  
-  
-  
-end
-
-
+#    
+#  end    
+   
+    #  def index_with_vcc
+    #    index_without_vcc do
+    #      get_sorted_objects(params)
+    #    end
+    #  end
+    # 
+    #  alias_method_chain :index, :vcc
+    
+    #  def show
+    #      @image = Attachment.find(params[:id])
+    #
+    #    respond_to do |format|
+    #      format.html {
+    #      if @image
+    #      send_data @image.current_data, :filename => @image.filename,
+    #                                             :type => @image.content_type,
+    #                                             :disposition => 'inline'
+    #      end
+    #      } # show.html.erb
+    #      format.xml  { render :xml => @attachment }
+    #    end
+    #  end
+    
+    
+    
+  end
