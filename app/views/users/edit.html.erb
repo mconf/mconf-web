@@ -32,7 +32,7 @@
 
 <% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
 
-<div><label for="timezone"><%=t('user.timezone')%></label><br/>
+<div id="timezone"><label for="timezone"><div id="help" title= "<%= t('information.info_timezone')%>"></div><%=t('user.timezone')%></label><br/>
 <%= f.time_zone_select :timezone, nil, :include_blank => true%></div><br/>
 
 <div>

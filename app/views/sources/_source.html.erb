@@ -10,7 +10,7 @@
   </div>
   <div class="source-content">
     <ul class="source-entries">
-      <% source.feed.entries.first(3).each do |entry| %>
+      <% source.entries.first(3).each do |entry| %>
       <% link = entry.links.select{ |l| l.rel == 'alternate' && l.type == 'text/html' }.first %>
       <li class="source-entry"><%= link_to_if link, sanitize(entry.title.to_s), link.href %></li>
       <% end -%>

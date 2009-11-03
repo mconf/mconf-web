@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027160546) do
+ActiveRecord::Schema.define(:version => 20091106104127) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.text     "description"
     t.string   "permalink"
     t.boolean  "disabled",    :default => false
+    t.boolean  "repository",  :default => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -335,6 +336,7 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.string  "name",           :default => "", :null => false
     t.integer "container_id"
     t.string  "container_type"
+    t.integer "taggings_count", :default => 0
   end
 
   add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"

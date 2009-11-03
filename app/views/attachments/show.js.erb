@@ -1,1 +1,13 @@
 $("div#doc_info").replaceWith("<%=escape_javascript(render(:partial => 'doc_info', :locals => {:attachment => @attachment}))%>");
+$("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'upload_form'))%>");
+$("#attachment__tags").fcbkcomplete({
+			cache: true,
+            filter_case: false,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4,
+			newel: true
+		});    
+
+$("#add_new_doc").hide();

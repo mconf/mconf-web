@@ -39,6 +39,9 @@
 			<div>
 		   		<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
 			</div>
+			<div>
+		   		<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
+			</div>
 			
 			<div id='check_mail' class="check_mail_blinking">
 		   		<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list') %></label>

@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   belongs_to :event
   
-
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
@@ -39,13 +39,18 @@ class Post < ActiveRecord::Base
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? || post.event.present? }
 #  validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty?}
 
+  # Fill attachments author and space
+  before_validation do |post|
+    post.attachments.each do |a|
+      a.space  = post.space
+      a.author = post.author
+    end
+  end
 
   # Update parent Posts when commenting to it
-  after_save { |post|
-    if post.parent_id
-      post.parent.update_attribute(:updated_at, Time.now)
-    end
-  }
+  after_save do |post|
+    post.parent.try(:touch)
+  end
   
   def author
     case author_type
@@ -59,7 +64,9 @@ class Post < ActiveRecord::Base
   end
   
   def space
-    Space.find_with_disabled(space_id)
+    space_id.present? ?
+      Space.find_with_disabled(space_id) :
+      nil
   end
   
   # This method return the 3 last comment of a thread if the thread has more than 3 comments. 

@@ -29,15 +29,18 @@ en:
     edit_entry: "Edit"
     entry:
       created: 'Agenda entry was successfully created.'
+      cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
       end_time: "End time"
-      exclude_from_recording: "Exclude from recording"
+      record: "Record"
       failed: "Agenda entry could not be saved"
-      no_exclude: "No"
+      minutes: "minutes"
+      no_record: "No"
       one: "Entry"
+      speakers: "Speakers"
       start_time: "Start time"
       updated: 'Agenda entry was successfully updated.'
-      yes_exclude: "Yes"
+      yes_record: "Yes"
     title: "Agenda for the event"
     upload: "Upload Agenda"
   agent:
@@ -45,13 +48,16 @@ en:
   agree: "Yes"
   all: "All"
   all_rights_reserved: "All rights reserved"
+  any_field: "Any field"
   at: "at"
   attachment:
     attach: "Attachment"
+    created: "Attachment created successfully"
     info: "Document info"
     loading: "Loading document information..."
     not_valid: "The attachment is not valid"
     not_selected: "No document selected"
+    updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
     created: "Picture uploaded successfully"
@@ -282,9 +288,13 @@ en:
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
+  find_in: "Find in:"
+  form:
+    loading: "The form is loading..."
   from: "From"
   
   ######### G ###########
+  getting_started: "Getting started!"
   GMT: "GMT"
   group:
     add_to_group: "Add To Group"
@@ -358,6 +368,7 @@ en:
       information1: "These are the spaces you belong to"
       information2: "Here you can find the newest posts, events and news of the spaces you belong to"
       information3: "These are the latest posts or events that you have created"
+      info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
       
   ######### J ###########
   join: "Join"
@@ -507,6 +518,7 @@ en:
     none_created: "No post created"
     none_recent: "There are no recent posts"
     other: "Posts"
+    other_in_space: "Posts in space {{space}}"
     up:
       other: "POSTS"
     updated: "Post updated"
@@ -559,6 +571,10 @@ en:
   reply_to: "Reply to:"
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
+  repository:
+    enable: "Enable repository?"
+    loading: "Refreshing document repository..."
+    up: "REPOSITORY"    
   request: "request it"
   request:
     info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"
@@ -679,7 +695,6 @@ en:
     reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
-  start_now!: "Start now!"
   streaming:
     add_url: "Add streaming URL"
     edit: "Edit streaming URL"
@@ -688,7 +703,13 @@ en:
   
   ######### T ###########
   tag:
+    one: "tag"
+    other: "tags"
+    filter: "Tag filter:"
     new: "New tag"
+    selected:
+      one: "Selected tag:"
+      other: "Selected tags:"
   tags: Tags
   text: "Text"
   thank_you: "Thank you"
@@ -721,7 +742,8 @@ en:
     one: "Translate"
     request: "To translate to a different language, please request the administrator to add the new language and flag"
     up: "TRANSLATE"
-    translated: "VCC is now translated, or in translation process, to " 
+    translated: "VCC is now translated, or in translation process, to "
+  type: "Type"
   
   ######### U ###########
   upcoming: "Upcoming"

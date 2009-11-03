@@ -41,5 +41,8 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 #demo ul.holder li.bit-input input { padding: 2px 0 1px; border: 1px solid #999; }
 .ie6fix {height:1px;width:1px; position:absolute;top:0px;left:0px;z-index:1;}
 
+.default span { cursor: pointer; border: 1px solid #CAD8F3;; font: 11px "Lucida Grande", "Verdana"; background-color: #DEE7F8; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; padding: 1px 5px 2px; }
+.default span:hover { background: #4173CC; color: #fff; }
+
 #organizers_name_annoninput { width: 100% }
 #organizers_name_annoninput input { width: 100% }

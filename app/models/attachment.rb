@@ -1,5 +1,4 @@
 class Attachment < ActiveRecord::Base
-  belongs_to :db_file
   belongs_to :post
   belongs_to :space
   belongs_to :event
@@ -8,8 +7,8 @@ class Attachment < ActiveRecord::Base
   accepts_nested_attributes_for :post
   
   has_attachment :max_size => 1000.megabyte,
-  :path_prefix => 'attachments',
-  :thumbnails => { 'post' => '96x96>',
+                 :path_prefix => 'attachments',
+                 :thumbnails => { 'post' => '96x96>',
                                   '16' => '16x16',
                                   '32' => '32x32'}
   acts_as_resource :has_media => :attachment_fu
@@ -24,31 +23,20 @@ class Attachment < ActiveRecord::Base
   }
   
   is_indexed :fields => ['filename', 'type'],
-  :include =>[{:class_name => 'Tag',
-    :field => 'name',
-    :as => 'tags',
-    :association_sql => "LEFT OUTER JOIN taggings ON (attachments.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Attachment') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-  #                          {:class_name => 'User',:field => 'name',:as => 'author_name'},
-  #                          {:class_name => 'User',:field => 'lastname',:as => 'author_lastname'},
-  {:class_name => 'User',
-    :field => 'login',
-    :as => 'author',
-    :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
+             :include =>[{:class_name => 'Tag',
+             :field => 'name',
+             :as => 'tags',
+             :association_sql => "LEFT OUTER JOIN taggings ON (attachments.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Attachment') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
+             { :class_name => 'User',
+               :field => 'login',
+               :as => 'author',
+               :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
   ]
   
   
-  #              :include =>[{:class_name => 'User',
-  #                               :field => 'author',
-  #                               :as => 'author',
-  #                               :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}#, 
-  #                          {:class_name => 'Profile',:field=> 'name',:as => 'name_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"},
-  #                          {:class_name => 'Profile',:field=> 'lastname',:as => 'lastname_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"}
-  #                          ]
-  
-  
-   before_validation_on_create do |attachment|
-     if attachment.post.present?
-       if attachment.post.title.blank? && attachment.post.text.blank?
+  before_validation_on_create do |attachment|
+    if attachment.post.present?
+      if attachment.post.title.blank? && attachment.post.text.blank?
         attachment.post = nil
       else
         attachment.post.author = attachment.author
@@ -134,5 +122,4 @@ class Attachment < ActiveRecord::Base
     
     "#{ order } #{ direction }"
   end
-  
 end

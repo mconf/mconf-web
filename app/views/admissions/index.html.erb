@@ -7,8 +7,9 @@
 <div id="admission">
 <h3><%= t('join_request.pending.other') %></h3>
 <% if @space.join_requests.pending.any? %>
-  <div class="reqs">
+  <%last_request = @space.join_requests.pending.last%>  
   <% @space.join_requests.pending.each do |jr| %>
+	<div class="reqs <%='last' if (jr==last_request)%>"> 
 	 <div class="reqs-item">
 	  <div class="invitation-logo">
 		<%if jr.candidate.authorize?([:read, :profile],:to=> current_user)%>
@@ -18,34 +19,35 @@
 		<%end%>
 	  </div>
 	  <div class="invitation-content">
-	  	<span class="person_title"><%=sanitize(jr.candidate.name)%></span>
+	  	<span class="unified_user"><%=sanitize(jr.candidate.name)%></span>
 	    <div class="float">
 		<% form_for [ @space, jr ] do |f| %>
-		  <label class="person_title"><%= t('role.one') %>:</label>
-	      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id } %>
+		  <label class="main_text"><%= t('role.one') %>:</label>
+	      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id },:class=>"main_text" %>
 	      <%= f.hidden_field :accepted, :value => true %>
 	      <%= f.hidden_field :processed, :value => true %>
-	      <%= f.submit "Accept" %>
+	      <%= f.submit "Accept",:class=>"main_text" %>
 	    <% end -%>
 		</div>
 		<div class="float">
 	    <% form_for [ @space, jr ] do |f| %>
 	      <%= f.hidden_field :processed, :value => true %>
-	      <%= f.submit "Deny" %>
+	      <%= f.submit "Deny",:class=>"main_text" %>
 	    <% end -%>
 		</div>
 	  </div>
     </div>
-  <% end -%>
   </div>
+  <% end -%>
+  
 <% else -%>
-  <p><%= t('join_request.not_pending.other') %></p>
+  <p class="main_text"><%= t('join_request.not_pending.other') %></p>
 <% end -%>
 
 <h3><%= t('invitation.pending.other') %></h3>
 <% if @space.invitations.pending.any? %>
   <%= render :partial => 'invitation', :collection => @space.invitations.pending %>
 <% else -%>
-  <p><%= t('invitation.not_pending.other') %></p>
+  <p class="main_text"><%= t('invitation.not_pending.other') %></p>
 <% end -%>
 </div>

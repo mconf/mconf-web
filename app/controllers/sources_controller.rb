@@ -16,6 +16,7 @@ class SourcesController
       else
         format.html {
           @sources = space.sources.reload
+          flash[:error] = @source.errors.to_xml
           render :action => "index"
         }
         format.xml  { render :xml => @source.errors, :status => :unprocessable_entity }
