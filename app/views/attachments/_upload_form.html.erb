@@ -1,4 +1,4 @@
-<div id="doc_action">
+<div id="doc_action" rel="new_doc">
 	
 	<div id="add_document_label"><%=t('document.add') %></div>
 	
@@ -7,6 +7,7 @@
 	<% @attachment ||= Attachment.new %>
 	<% @attachment.post ||= Post.new %>
 	
+	<h3>Add new document</h3>
 	<%form_for (@attachment, :url=> space_attachments_path(@space), :html => { :multipart => true}) do |f|%>
 	  <div id="cabinet">
 	    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>

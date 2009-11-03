@@ -1,4 +1,5 @@
 $("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'new_version_form', :locals => {:attachment => @attachment}))%>");
+$("div#doc_action").attr("rel","new_version");
 $("#attachment_new_version_tags").fcbkcomplete({
 	cache: true,
 	      filter_case: false,

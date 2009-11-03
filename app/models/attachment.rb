@@ -34,7 +34,7 @@ class Attachment < ActiveRecord::Base
   ]
   
   
-  before_validation_on_create do |attachment|
+  before_validation do |attachment|
     if attachment.post.present?
       if attachment.post.title.blank? && attachment.post.text.blank?
         attachment.post = nil

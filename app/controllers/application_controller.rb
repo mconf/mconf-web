@@ -83,6 +83,8 @@ class ApplicationController < ActionController::Base
     true
   end
   
+  
+  
   private
   
   def accept_language_header_locale

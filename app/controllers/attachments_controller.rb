@@ -7,6 +7,8 @@ class AttachmentsController < ApplicationController
   # Needs a space always
   before_filter :space!
   
+  before_filter :has_repository?
+  
   # Get Attachment in member actions
   #before_filter :attachment, :except => [ :index, :new, :create ]
   
@@ -17,25 +19,12 @@ class AttachmentsController < ApplicationController
   authorization_filter :delete, :attachment, :only => [ :delete ]
   
   def index
-    @tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(@space).find(t.to_i)} : Array.new
-    
-    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
-    
-    #ask tapi to do it better
-    @tags.each do |t|
-      @attachments = @attachments.select{|a| a.tags.include?(t)}
-    end
-    
-    @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
-    @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
-    
-    if params[:doc_info].present?
-      @attachment=Attachment.find(params[:doc_info])
-      @attachment.revert_to(params[:version].to_i) if params[:version].present?
-    end
+    attachments
+end
 
+def new
+   @attachment ||= Attachment.new 
+   @attachment.post ||= Post.new 
 end
 
 def edit
@@ -76,5 +65,38 @@ end
   end
   def after_update_with_success
     redirect_to [ space, Attachment.new ]
+  end
+  
+  def after_update_with_errors
+    flash[:error] = @attachment.errors.to_xml
+    attachments
+    render :action => :index
+  end
+  
+  def attachments
+    @tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(@space).find(t.to_i)} : Array.new
+    
+    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
+    
+    #ask tapi to do it better
+    @tags.each do |t|
+      @attachments = @attachments.select{|a| a.tags.include?(t)}
+    end
+    
+    @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
+    @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
+    @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
+    @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+  end
+
+  def has_repository?   
+    if  !space.repository?
+      
+      respond_to do |type| 
+        type.html { render :template => "errors/error_403", :layout => 'application', :status => 403 } 
+        type.all  { render :nothing => true, :status => 403 } 
+      end
+    end
+    true
   end
 end

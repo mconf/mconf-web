@@ -1,0 +1,17 @@
+$("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'upload_form'))%>");
+$("div#doc_action").attr("rel","new_doc");
+$("#attachment__tags").fcbkcomplete({
+	cache: true,
+	      filter_case: false,
+	      filter_hide: false,
+	      firstselected: true,
+	      filter_selected: true,
+	      maxshownitems: 4,
+	newel: true     
+});
+
+if ($.fragment().action=="expanded"){
+  expand_new_doc_form();
+}else{
+  collapse_new_doc_form();
+}
