@@ -4,13 +4,13 @@
 	<%else%>
   <div><%= logo(simple_user, :size => 32, :title=>simple_user.name) %></div>
 	<%end%>
-  <div>
+  <div class="user_data">
 	<ul>
 	  <li>
-	    <strong><%=simple_user.authorize?([:read, :profile],:to=> current_user) ? link_to(simple_user.full_name, user_profile_path(simple_user)) : sanitize(simple_user.full_name) %></strong>
+	    <span class="unified_user"><%=simple_user.authorize?([:read, :profile],:to=> current_user) ? link_to(simple_user.full_name, user_profile_path(simple_user),:class=>"unified_user") : sanitize(simple_user.full_name) %></span>
 
 	  </li>
-	  <li class="small-font"><%=sanitize(simple_user.organization) %></li>	
+	  <li class="small-font main_text"><%=sanitize(simple_user.organization) %></li>	
 	</ul>
   </div>
 </div>

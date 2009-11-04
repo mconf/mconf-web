@@ -40,8 +40,8 @@ ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
 
 /*Definición de la tipografia*/
-.unified_user{color:#244974;font-weight:bold;}
-.unified_event{color:#8B0425;font-weight:bold;}
+.unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
+.unified_event{color:#8B0425;font-weight:bold;font-size:13px;line-height:18px;}
 .unified_posts{color:#666;font-weight:bold;}
 .unified_news{color:#111;font-weight:bold;}
 .main_text{color:#555;fot-weight:normal;}
@@ -234,12 +234,12 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .even_thread .thread{/*background:#f2cc1f;*/}/*amarillo*/
 .odd_thread .post,.odd_thread .comments-status,.odd-posts .post, .event-comment-wrapper .post,.even_thread .post,.even_thread .comments-status{background:#d5e0e8;border-top:none;margin-top:2px;}/*verde*/
 /*.even_thread .post,.even_thread .comments-status{background:#faec96;border-top:none;margin-top:2px;}*//*amarillo*/
-.odd_thread .post:hover,.odd_thread .comments-status:hover,.odd-posts .post:hover, .event-comment-wrapper .post:hover,.even_thread .post:hover,.even_thread .comments-status:hover{background:#a0c5de;}/*verde*/
+/*.odd_thread .post:hover,.odd_thread .comments-status:hover,.odd-posts .post:hover, .event-comment-wrapper .post:hover,.even_thread .post:hover,.even_thread .comments-status:hover{background:#a0c5de;}/*verde*/
 /*.even_thread .post:hover,.even_thread .comments-status:hover{background:#f5df51;}*//*amarillo*/
 .odd_thread .post_i,.even_thread .post_i{border-top-color:#bdd8eb;}
 /*.even_thread .post_i{border-top-color:#FFD324;}*/
 .odd_thread .post-wrapper,.odd-posts .post-wrapper, .event-comment-wrapper,.even_thread .post-wrapper {background:url("/images/comments-bg3.png") no-repeat scroll left top;}
-.odd_thread .post-wrapper:hover,.odd-posts .post-wrapper:hover, .event-comment-wrapper:hover,.even_thread .post-wrapper:hover {background:url("/images/comments-bg4.png") no-repeat scroll left top;}
+/*.odd_thread .post-wrapper:hover,.odd-posts .post-wrapper:hover, .event-comment-wrapper:hover,.even_thread .post-wrapper:hover {background:url("/images/comments-bg4.png") no-repeat scroll left top;}*/
 /*.even_thread .post-wrapper{background:url("/images/comments-bg1.png") no-repeat scroll left top;}
 .even_thread .post-wrapper:hover{background:url("/images/comments-bg2.png") no-repeat scroll left top;}*/
 
@@ -547,7 +547,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 .profile-box,.invitation-box{-webkit-border-radius:7px;-moz-border-radius:7px;}
 .invitation-box{margin-top:0.75em;margin-bottom:0.75em;}
 
-h3.item_title,h2.item_title{margin:0;}
+#title h3,#title h2{margin:0;}
 h3.item_title span{font-size:1.25em;line-height:1.2;}
 #sidebar h3.item_title{margin:0;}
 .profile-box #profile_content,.space-box #space_content,.invitation-box #invitation_content{background:#f0f6f9;padding:9px;clear:both;overflow:hidden;position:relative;}

@@ -15,9 +15,9 @@
       <p><%=image_tag("icons/date.png",:class=>"icon", :title => t('event.home.one', :space=>@space.name))%> <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event),:class=>"unified_event"%><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(event.created_at))) %></span></p>
       <ul>
       <%if event.start_date.to_date == event.end_date.to_date %>
-	<li class="unified_date"><%=sanitize(event.start_date.to_date.to_formatted_s(:short))%> <%=event.start_date.to_time.to_formatted_s(:time)%> - <%=event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+	<li class="main_date small-font"><%=sanitize(event.start_date.to_date.to_formatted_s(:short))%> <%=event.start_date.to_time.to_formatted_s(:time)%> - <%=event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
       <%else%>
-	<li class="unified_date"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
+	<li class="main_date small-font"><%=sanitize(event.start_date.to_formatted_s(:short))%> - <%=sanitize(event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)</li>
       <%end%>
       <%if event.posts.size ==1%>
 	<li><%=t('event.has') + ' '%><%= link_to (event.posts.size.to_s + ' ' + t('comment.one'), space_event_path(@space,event))%></li>
