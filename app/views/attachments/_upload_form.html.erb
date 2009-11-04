@@ -1,15 +1,6 @@
 <%content_for :javascript do %>
  
- $("#attachment__tags").fcbkcomplete({
-			cache: true,
-            filter_case: false,
-            filter_hide: true,
-            firstselected: true,
-            filter_selected: true,
-            maxshownitems: 4,
-			newel: true
-			
-	});
+ 
 
 $("input#Expandir").click(function(){
 	  $("#with_post").slideToggle("slow");
@@ -19,11 +10,22 @@ $(document).ready(function(){
 	$("add_new_doc").hide();
     $("#add_document_label").click(function(){
         $("#add_new_doc").show("slow");
-        $("#add_document_label").hide("slow");       
+        $("#add_document_label").hide("slow");   
+		$("#attachment__tags").fcbkcomplete({
+			cache: true,
+            filter_case: false,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4,
+			newel: true
+			
+	});    
     });
 	 $("#hide").click(function(){
         $("#add_document_label").show("slow");
-        $("#add_new_doc").hide("slow");       
+        $("#add_new_doc").hide("slow");  
+		 
     });
  
     
@@ -45,7 +47,7 @@ $(document).ready(function(){
 <br/>
 <h4><%=t('tag.new')%></h4>
  
-<div id=tags><%= select(:attachment, :_tags, attachment.space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
+<div id=tags><%= select(:attachment, :_tags, space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
 
   <!--<%= image_submit_tag "buttons/create.png" %>-->
   <br/>
