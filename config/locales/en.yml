@@ -48,6 +48,7 @@ en:
   attachment:
     attach: "Attachment"
     info: "Document info"
+    loading: "Loading document information..."
     not_valid: "The attachment is not valid"
     not_selected: "No document selected"
     upload_with_post: "Notify the upload with a post"

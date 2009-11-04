@@ -8,12 +8,12 @@
 
   $("a.doc_show").livequery("click", function() {
     $.setFragment({ "doc_info" : $.queryString(this.href).doc_info, "version" : $.queryString(this.href).version})
-    $("#doc_info").html("Document information is loading...");
     return false;
   });;
   
   $.fragmentChange(true);
   $(document).bind("fragmentChange.doc_info", function() {
+	  $("#doc_info").html("<h3><%=t('attachment.info')%></h3><p><%=t('attachment.loading')%></p>");
     $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "?version=" + $.fragment().version);
   });
   

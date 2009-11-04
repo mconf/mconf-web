@@ -121,7 +121,7 @@ class Attachment < ActiveRecord::Base
   
   # Sanitize user send params
   def self.sanitize_order_and_direction(order, direction)
-    default_order = 'filename'
+    default_order = 'updated_at'
     default_direction = "DESC"
     
     # Remove all but letters and dots
