@@ -11,13 +11,29 @@
 			
 	});
 
+$("input#Expandir").click(function(){
+	  $("#with_post").slideToggle("slow");
+	});
 
-
+$(document).ready(function(){
+	$("add_new_doc").hide();
+    $("#add_document_label").click(function(){
+        $("#add_new_doc").show("slow");
+        $("#add_document_label").hide("slow");       
+    });
+	 $("#hide").click(function(){
+        $("#add_document_label").show("slow");
+        $("#add_new_doc").hide("slow");       
+    });
+ 
+    
+    
+});
 <%end%>
 
-<div id="add_new_doc">	
+<div id="add_document_label"><h3><%=t('document.add') %></h3></div>
 
-<h3><%=t('document.add') %></h3>
+<div id="add_new_doc"  style="display:none">	
 
 <% @attachment ||= Attachment.new %>
 <% @attachment.post ||= Post.new %>
@@ -34,16 +50,21 @@
   <!--<%= image_submit_tag "buttons/create.png" %>-->
   <br/>
   <br/>
+  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "Expandir", "with_post", false %>
+</h4>
+  
   <% f.fields_for :post do |post_form| %>  
-	<div>
+	<div id="with_post" style="display:none">
 		<%= post_form.label :title, t('title') %><br/>
-		<%= post_form.text_field :title %>
+		<%= post_form.text_field :title%>
 		<%= post_form.label :text, t('text') %><br/>
-		<%= post_form.text_area :text%>
+		<%= post_form.text_area :text, :rows => 5, :cols=>25%>
 	</div>
 
 <% end %>
   
    <button type="submit"><%=t("button.upload")%></button>
 <%end%>
+
+<div id="hide"><%=t('hide')%></div>
 </div>

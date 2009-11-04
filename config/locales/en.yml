@@ -48,6 +48,7 @@ en:
   attachment:
     attach: "Attachment"
     not_valid: "The attachment is not valid"
+    upload_with_post: "Notify the upload with a post"
   avatar:
     created: "Picture uploaded successfully"
     crop: "Crop your picture"
@@ -299,6 +300,7 @@ en:
   ######### H ###########
   hello: "Hello"
   help: "Help"
+  hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
     up: "HOME"
