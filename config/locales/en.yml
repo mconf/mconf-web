@@ -212,6 +212,9 @@ en:
     last_7_days: "Last 7 days ({{size}})"
     last_month: "Last month ({{size}})"
     location: "Location"
+    logo:
+      new: Add a picture for your event
+      select: Change your logo 
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
@@ -546,6 +549,7 @@ en:
   remember_me: "Remember me"
   remove: "Remove"
   reply: "Reply"
+  reply_to: "Reply to:"
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   request: "request it"

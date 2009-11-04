@@ -8,7 +8,7 @@
 		<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(@news_to_show.updated_at)) %></span>
       </div>
 	  <div class="news-content">
-	    <p class="grey"><%=sanitize(auto_link(@news_to_show.text))%></p>
+	    <p class="main_text"><%=sanitize(auto_link(@news_to_show.text))%></p>
 	  </div>
     </div>
 	<div id="news_navigation_div">	  

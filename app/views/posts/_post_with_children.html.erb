@@ -7,7 +7,7 @@
 	     <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,@post),{ :class => 'delete_thread', :method => :delete, :title => t('delete.one') , :confirm => t('delete.confirm', :element => @post.title)}if @post.authorize?(:delete, :to => current_user)%></li>		
 	  </ul>
 	</div>
-  	<h2><%=image_tag("icons/comments.png")%><%=link_to(@post.title, space_post_path(@space,@post))%>
+  	<h2><%=image_tag("icons/comments.png")%><%=link_to(@post.title, space_post_path(@space,@post),:class=>"unified_posts")%>
 	</h2>
 	
   </div>
