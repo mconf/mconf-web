@@ -47,13 +47,13 @@ class Attachment < ActiveRecord::Base
   
   
    before_validation_on_create do |attachment|
-    return if attachment.post.blank?
-    
-    if attachment.post.title.blank? && attachment.post.text.blank?
-      attachment.post = nil
-    else
-      attachment.post.author = attachment.author
-      attachment.post.space = attachment.space
+     if attachment.post.present?
+       if attachment.post.title.blank? && attachment.post.text.blank?
+        attachment.post = nil
+      else
+        attachment.post.author = attachment.author
+        attachment.post.space = attachment.space
+      end
     end
   end
   

@@ -23,7 +23,7 @@ class AttachmentsController < ApplicationController
     @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
   end
-  
+
 #  def create
 #    debugger
 #    # if params[:attachment][:uploaded_data].present?
@@ -96,6 +96,11 @@ class AttachmentsController < ApplicationController
     #    end
     #  end
     
-    
-    
+
+  private
+
+  # Redirect to spaces/:permalink/attachments if new attachment is created
+  def after_create_with_success
+    redirect_to [ space, Attachment.new ]
   end
+end
