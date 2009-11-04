@@ -3,12 +3,14 @@ class AttachmentsController < ApplicationController
   
   # Authentication Filter
   before_filter :authentication_required, :except => [ :index, :show ]
-  
+
   # Needs a space always
   before_filter :space!
   
+  before_filter :attachments, :only => [:index]
+  
   # Get Attachment in member actions
-  before_filter :attachment, :except => [ :index, :new, :create ]
+  #before_filter :attachment, :except => [ :index, :new, :create ]
   
   authorization_filter [ :read, :content ],   :space, :only => [ :index ]
   authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
@@ -17,13 +19,23 @@ class AttachmentsController < ApplicationController
   authorization_filter :delete, :attachment, :only => [ :delete ]
   
   def index
+    if params[:doc_info].present?
+      @attachment=Attachment.find(params[:doc_info])
+      @attachment.revert_to(params[:version].to_i) if params[:version].present?
+    end
+
+  end
+    
+  private
+  
+  def attachments
     @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
     @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
     @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
     @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
   end
-  
+
 #  def create
 #    debugger
 #    # if params[:attachment][:uploaded_data].present?
@@ -96,6 +108,11 @@ class AttachmentsController < ApplicationController
     #    end
     #  end
     
-    
-    
+
+  private
+
+  # Redirect to spaces/:permalink/attachments if new attachment is created
+  def after_create_with_success
+    redirect_to [ space, Attachment.new ]
   end
+end

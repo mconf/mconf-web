@@ -47,7 +47,10 @@ en:
   at: "at"
   attachment:
     attach: "Attachment"
+    info: "Document info"
+    loading: "Loading document information..."
     not_valid: "The attachment is not valid"
+    not_selected: "No document selected"
     upload_with_post: "Notify the upload with a post"
   avatar:
     created: "Picture uploaded successfully"
@@ -148,6 +151,7 @@ en:
       add: "Add new document"
   docs: "Docs"
   done: "Done!"
+  download: "Download"
   download_file: "Download file"
   
   ######### E ###########
@@ -606,6 +610,7 @@ en:
   site:
     up: "SITE"
     signature: "Signature"
+  size: Size
   skype: Skype
   source:
     created: "Source created successfully"
@@ -680,7 +685,8 @@ en:
   
   ######### T ###########
   tag:
-      new: "New tag"
+    new: "New tag"
+  tags: Tags
   text: "Text"
   thank_you: "Thank you"
   thread:
@@ -717,6 +723,7 @@ en:
   ######### U ###########
   upcoming: "Upcoming"
   update: "Update"
+  updated: "Updated"
   updated_time_ago: "{{time}} ago"
   url: "Website"
   user:
@@ -795,11 +802,13 @@ en:
   ######### V ###########
   vcard: "vCard"
   vCard: 
-      use: "Use your vCard"
-      no_selection: "no vCard"
-      success: "vCard successfully loaded"
-      corrupt: "The vCard you sent is corrupted or is a non-supported version"
+    use: "Use your vCard"
+    no_selection: "no vCard"
+    success: "vCard successfully loaded"
+    corrupt: "The vCard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
+  version:
+    new: "New version"
   
   ######### W ###########
   week:
