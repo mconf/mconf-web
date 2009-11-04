@@ -27,6 +27,20 @@ jQuery.fn.postsForm = function(route){
 };
 
 /*
+ * Link with ajax the same url
+ */
+
+jQuery.fn.ajaxLink = function(){
+  this.click(function(data) {
+    $.get(this.href,{},function(data){
+		  eval(data);
+	  },"script");
+    return false;
+  })
+  return this;
+};
+
+/*
  *  Input files style
  */
  

@@ -1,16 +1,42 @@
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-url' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
+
+<% content_for :javascript do%>
+  $("#enable_javascript").hide();
+
+  $("a.doc_show").livequery("click", function() {
+    $.setFragment({ "doc_info" : $.queryString(this.href).doc_info, "version" : $.queryString(this.href).version})
+    $("#doc_info").html("Document information is loading...");
+    return false;
+  });;
+  
+  $.fragmentChange(true);
+  $(document).bind("fragmentChange.doc_info", function() {
+    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "?version=" + $.fragment().version);
+  });
+  
+  if ($.fragment().doc_info) {
+    $(document).trigger("fragmentChange.doc_info");
+  };
+
+  $("a.table_params").livequery("click",function(){
+    $(this).attr("href",$.fragment(this.href,$.fragment(document.location.href)));
+	});
+
+<% end %>
 
 <% content_for :search do  %>
    <%= render :partial => 'search' %>
 <%end%>
 
 <%content_for :sidebar do%>
+  <%= render :partial => 'doc_info', :locals => {:attachment => @attachment} %>
   <%= render :partial => 'upload_form' %>
 <%end%>
 
+<div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 
 <%= render :partial => 'doc_filter' %>
 <%= render :partial => 'doc_table' %>

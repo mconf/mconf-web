@@ -1,0 +1,53 @@
+<div id="doc_info">
+	<h3><%=t('attachment.info')%></h3>
+	<%#Current version%>
+	<%if attachment.present? && attachment.versions.size==attachment.version%>
+	  <h4><%=attachment.filename%></h4>
+		<p>
+			<%=logo(attachment,:size => '32')%>
+			<ul>
+				<li><%=t('author')%>: <%=link_to attachment.author.name, user_profile_path(attachment.author)%></li>
+				<li><%=t('size')%>: <%=attachment.get_size.strip!%></li>
+				<li><%=t('updated_at')%>: <%=attachment.updated_at.to_date.to_formatted_s(:rfc822)%></li>
+				<li><%=t('tags')%>: <%=attachment.tags%></li>
+			</ul>
+		</p>
+		<h4>Actions:</h4>
+		<ul>
+        <li><%=link_to t('download'), space_attachment_path(@space,attachment,:version => attachment.version, :format => attachment.format)%></li>
+			<%if attachment.authorize?(:delete, :to => current_user)%>
+        <li><%=link_to t('delete.one'), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}%></li>
+			<%end%>
+			  <li><%=link_to t('version.new')%></li>
+			<%if attachment.post.present?%>
+				<li><%=link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post))%></li>
+			<%end%>
+			<%if attachment.event.present?%>
+			  <li><%=link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event))%></li>
+			<%end%>
+    </ul>
+	<%#Versions%>
+	<%elsif attachment.present?%>
+	  <h4><%=attachment.filename%></h4>
+    <p>
+      <%=logo(attachment,:size => '32')%>
+      <ul>
+        <li><%=t('author')%>: <%=link_to attachment.author.name, user_profile_path(attachment.author)%></li>
+        <li><%=t('size')%>: <%=attachment.get_size.strip!%></li>
+        <li><%=t('updated_at')%>: <%=attachment.updated_at.to_date.to_formatted_s(:rfc822)%></li>
+      </ul>
+    </p>
+    <h4>Actions:</h4>
+    <ul>
+        <li><%=link_to t('download'), space_attachment_path(@space,attachment,:version => attachment.version, :format => attachment.format)%></li>
+      <%if attachment.post.present?%>
+        <li><%=link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post))%></li>
+      <%end%>
+      <%if attachment.event.present?%>
+        <li><%=link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event))%></li>
+      <%end%>
+    </ul>
+	<%else%>
+	  <p><%=t('attachment.not_selected')%></p>
+	<%end%>
+</div>
