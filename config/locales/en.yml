@@ -28,15 +28,18 @@ en:
     edit_entry: "Edit"
     entry:
       created: 'Agenda entry was successfully created.'
+      cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
       end_time: "End time"
-      exclude_from_recording: "Exclude from recording"
+      record: "Record"
       failed: "Agenda entry could not be saved"
-      no_exclude: "No"
+      minutes: "minutes"
+      no_record: "No"
       one: "Entry"
+      speakers: "Speakers"
       start_time: "Start time"
       updated: 'Agenda entry was successfully updated.'
-      yes_exclude: "Yes"
+      yes_record: "Yes"
     title: "Agenda for the event"
     upload: "Upload Agenda"
   agent:

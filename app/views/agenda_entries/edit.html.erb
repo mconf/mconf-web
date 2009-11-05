@@ -6,6 +6,10 @@
     <%= f.text_field :title %>
   </p>
   <p>
+    <%= f.label :speakers %><br />
+    <%= f.text_field :speakers %>
+  </p>
+  <p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
@@ -17,9 +21,10 @@
     <%= f.label :end_time %><br />
     <%= f.datetime_select :end_time %>
   </p>
-  <p>
-    <%= f.check_box :exclude_from_recording%>
-    <%= f.label :exclude_from_recording %>
+  <p id="p_record">
+    <%= f.check_box :record %>
+    <%= f.label :record %>
+	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
   </p>
   <p>
     <%= f.submit 'Update'%>

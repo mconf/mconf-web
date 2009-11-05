@@ -5,6 +5,11 @@
 </p>
 
 <p>
+  <b><%=t('agenda.entry.speakers')%>:</b>
+  <%=h agenda_entry.speakers %>
+</p>
+
+<p>
   <b><%=t('agenda.entry.description')%>:</b>
   <%=h agenda_entry.description %>
 </p>
@@ -20,11 +25,11 @@
 </p>
 
 <p>
-  <b><%=t('agenda.entry.exclude_from_recording')%>:</b>
-  <%if agenda_entry.exclude_from_recording then%>
-    <%=t('agenda.entry.yes_exclude')%>
+  <b><%=t('agenda.entry.record')%>:</b>
+  <%if agenda_entry.record then%>
+    <%=t('agenda.entry.yes_record')%>
   <%else%>
-    <%=t('agenda.entry.no_exclude')%>
+    <%=t('agenda.entry.no_record')%>
   <%end%>
 </p>
 

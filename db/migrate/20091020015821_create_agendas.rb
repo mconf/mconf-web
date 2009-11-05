@@ -9,9 +9,10 @@ class CreateAgendas < ActiveRecord::Migration
       t.integer :agenda_id
       t.string :title
       t.text :description
+      t.string :speakers
       t.datetime :start_time
       t.datetime :end_time
-      t.boolean :exclude_from_recording
+      t.boolean :record
       t.timestamps
     end
     
@@ -20,7 +21,7 @@ class CreateAgendas < ActiveRecord::Migration
       t.string :title
       t.datetime :start_time
       t.datetime :end_time
-      t.boolean :exclude_from_recording
+      t.boolean :record
       t.timestamps
     end
     

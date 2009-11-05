@@ -1,5 +1,6 @@
 <% content_for :javascript do%>
   $('#new_agenda_entry').hide();
+  $('#cannot_exclude').hide();
 
   $('#add_entry').click(function(){
     $('#add_entry').hide();
@@ -13,46 +14,53 @@
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){             
               edit_entry_button.parents("div:first").replaceWith(data);
+			  $('#cannot_exclude').hide();
     });
 	
   });
 
-  $('select').filter(function() {
-    return this.id.match('agenda_entry_(start|end)_time_');
-  }).change(function(){
+  $('select').livequery(function(){
+    $(this).filter(function() {
+      return this.id.match('agenda_entry_(start|end)_time_');
+    }).change(function(){
 
-    var start_year = ($('#agenda_entry_start_time_1i').val());
-	var start_month = -1 + parseInt(($('#agenda_entry_start_time_2i').val()),10);
-	var start_day = ($('#agenda_entry_start_time_3i').val());
-	var start_hour = ($('#agenda_entry_start_time_4i').val());
-	var start_minute = ($('#agenda_entry_start_time_5i').val());
-	var start_seconds = 0;
+      var start_year = ($('#agenda_entry_start_time_1i').val());
+	  var start_month = -1 + parseInt(($('#agenda_entry_start_time_2i').val()),10);
+  	  var start_day = ($('#agenda_entry_start_time_3i').val());
+	  var start_hour = ($('#agenda_entry_start_time_4i').val());
+	  var start_minute = ($('#agenda_entry_start_time_5i').val());
+	  var start_seconds = 0;
 	
-	var start_date = new Date(start_year,start_month,start_day,start_hour,start_minute,start_seconds); 
+	  var start_date = new Date(start_year,start_month,start_day,start_hour,start_minute,start_seconds); 
 	
-	var end_year = ($('#agenda_entry_end_time_1i').val());
-	var end_month = -1 + parseInt(($('#agenda_entry_end_time_2i').val()),10);
-	var end_day = ($('#agenda_entry_end_time_3i').val());
-	var end_hour = ($('#agenda_entry_end_time_4i').val());
-	var end_minute = ($('#agenda_entry_end_time_5i').val());
-	var end_seconds = 0;
+	  var end_year = ($('#agenda_entry_end_time_1i').val());
+	  var end_month = -1 + parseInt(($('#agenda_entry_end_time_2i').val()),10);
+	  var end_day = ($('#agenda_entry_end_time_3i').val());
+	  var end_hour = ($('#agenda_entry_end_time_4i').val());
+	  var end_minute = ($('#agenda_entry_end_time_5i').val());
+	  var end_seconds = 0;
 	
-	var end_date = new Date(end_year,end_month,end_day,end_hour,end_minute,end_seconds);
+	  var end_date = new Date(end_year,end_month,end_day,end_hour,end_minute,end_seconds);
 	
-	var minutes_difference = (end_date - start_date) / 60000; 
-	if (minutes_difference < <%=AgendaEntry::MINUTES_NOT_EXCLUDED%>) {
-      $('#agenda_entry_exclude_from_recording').attr('disabled', 'disabled'); 
-	} else {
-      $('#agenda_entry_exclude_from_recording').removeAttr('disabled'); 
-	}
+      var minutes_difference = (end_date - start_date) / 60000; 
+	  if (minutes_difference < <%=AgendaEntry::MINUTES_NOT_EXCLUDED%>) {
+	    $('#agenda_entry_record').attr('checked', 'true');
+        $('#agenda_entry_record').attr('disabled', 'disabled');
+	    $('#cannot_exclude').show();
+	    $('#p_record').addClass('fade');
+	  } else {
+        $('#agenda_entry_record').removeAttr('disabled');
+	    $('#cannot_exclude').hide();
+	    $('#p_record').removeClass('fade');
+	  }
 	
+    });
   });
  
 <%end%>
 
 <div id="agenda_full">
 <h3> <%=t("agenda.title")%> </h3>
-<%if @event.start_date.to_date == @event.end_date.to_date %>
 	  
   <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>
   <%=@event.start_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
@@ -68,10 +76,7 @@
 	  
 	  
 	  
-  <li class="date"><%=@event.end_date.to_time.to_formatted_s(:time)%> </li>
-<%else%>
-  <li class="date"><%=sanitize(@event.start_date.to_formatted_s(:short))%>(GMT <%= Time.zone.formatted_offset%>)</li>
-	  
-  <li class="date"><%=sanitize(@event.end_date.to_formatted_s(:short))%></li>
-<%end%>
+  <li class="date"><%=sanitize(@event.end_date.to_date.to_formatted_s(:short))%>
+  <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
+
 </div>

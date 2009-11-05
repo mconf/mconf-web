@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.integer  "agenda_id"
     t.string   "title"
     t.text     "description"
+    t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "exclude_from_recording"
+    t.boolean  "record"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.string   "title"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "exclude_from_recording"
+    t.boolean  "record"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
