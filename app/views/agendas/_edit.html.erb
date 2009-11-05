@@ -19,7 +19,7 @@
 <%end%>
 
 <div id="agenda_full">
-<span> <%=t("agenda.title")%> </span>
+<h3> <%=t("agenda.title")%> </h3>
 <%if @event.start_date.to_date == @event.end_date.to_date %>
 	  
   <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>

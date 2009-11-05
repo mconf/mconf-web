@@ -435,7 +435,7 @@ div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
-#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3{border-bottom:1px #CCC solid;}
+#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3{border-bottom:1px #CCC solid;}
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
 /*div.single_event:hover{background:#f0f6f9;}*/
