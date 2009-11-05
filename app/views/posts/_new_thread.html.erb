@@ -1,8 +1,6 @@
-
-
 <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=> t('show_advanced_editor')), new_space_post_path(@space), :id => "big_new_thread", :class => "extract_form"%><%= t('thread.add') %></h3>
 
-<% form_for(:post, :url => space_posts_path(@space), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
+<% form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
   <div>
     <label for="Title"><%= t('title') %></label><br/>
     <%= f.text_field :title, :size => 25, :class => "small_post_title" %>
@@ -17,7 +15,7 @@
   </div>
   	
   <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
-    <%= render :partial => "posts/form_photo", :object => f %>
+    <%= render :partial => "posts/form_attachments", :object => f %>
   </div>
  	<%= small_post_text_area %>
  	

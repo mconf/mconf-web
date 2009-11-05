@@ -14,10 +14,10 @@
     </ul>
   </div>
 
-<% form_for([ @space, post ], :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
+<% form_for(prepare_for_form(post), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
   
   <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
-    <%= render :partial => "posts/form_photo", :object => f %>
+    <%= render :partial => "posts/form_attachments", :object => f %>
   </div>
   
     <%= f.text_area :text%>

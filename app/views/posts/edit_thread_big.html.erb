@@ -4,7 +4,7 @@
 
 <div id="new_thread_big">
 	<div id="feedback_form">	
-		<% form_for([ @space, post ], :id => "edit-form",:html => { :multipart => true }) do |f| -%>
+		<% form_for(prepare_for_form(post), :id => "edit-form",:html => { :multipart => true }) do |f| -%>
 		  <div>
 		    <label for="Title"><%= t('title') %></label><br/>
 		    <%= f.text_field :title, :size => 25, :class => "big_post_title" %>
@@ -18,7 +18,7 @@
 		  </div>
 			
 		  <div id="new_photo_big_form" <%= 'style="display: none;"' if params[:form] != 'photos' %>>
-		    <%= render :partial => "posts/form_photo", :object => f %>
+		    <%= render :partial => "posts/form_attachments", :object => f %>
 		  </div>
 		  <div id="big_textarea_div" >
 		    <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
