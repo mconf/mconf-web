@@ -99,7 +99,7 @@ button.join-space,button.leave-space{
   -webkit-border-radius:5px;-moz-border-radius:5px;
 }
 
-#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover,#manage div a,#manage div a:hover{text-decoration:none;}
+#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
 #search button{padding-top:3px;padding-bottom:2px;}
 button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
 button.create-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
@@ -513,7 +513,7 @@ div.pagination a{color:#244974;}
 /*.news-title h3,.source-title h3{color:#244974;}*/
 .news-title ul.group_links,.news-content p,.source-title ul{margin:0;}
 #admission p{margin:0.75em;}
-#admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
+#admission .reqs,#admission .invitation.spam_post{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
 /*#admission .reqs{margin-bottom:2px;}*/
 div.invitation,div.reqs,#admission .reqs-item{position:relative;overflow:hidden;}
 div.invitation-logo,div.invitation-content{float:left;}
@@ -590,6 +590,8 @@ div#manage .users input{width:75px;}
 div#manage .user{background:none;}
 div#manage .user a{color:#244974;font-weight:bold;text-decoration:none;}
 div#manage .user a:hover{text-decoration:underline;}
+.spam_post{padding:0.75em 0.5em;border-top:1px #ccc solid;}
+#spam h3{margin:6px 6px 3px 6px;color:#244974;}
 
 /*footer*/
 .clearboth{clear:left;display:inline;}

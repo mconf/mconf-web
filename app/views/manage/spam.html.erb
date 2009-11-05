@@ -6,22 +6,30 @@
 
   <%= render :partial => 'menu' %>
 <div id="manage">  
-  <div "spam">
+  <div id="spam">
     <%if @spam_posts.empty? && @spam_events.empty?%>
-	  <p>
+	  <p class="main_text">
 	  	<%=t("spam.report")%>.
 	  </p>	
-    <%else%>
-      <%for spam in @spam_posts%>
+    <%else%>	  
+      <%if !@spam_posts.empty?%>
+	    <h3>Spam in Posts</h3>
+	  <%end%>
+	  <%for spam in @spam_posts%>
         <div class="spam_post">
-          <%=link_to spam.title, space_post_path(spam.space, spam)%>
-		  <%=link_to(image_tag("icons/cancel.png", :alt => "delete"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', spam.title)}) if spam.authorize?(:delete, :to => current_user)%> 
-	      <%=link_to(image_tag("icons/confirm.png", :alt => "confirm"), edit_space_post_path(spam.space,spam,:valid => true), {:title => t('spam.valid')}) if spam.authorize?(:update, :to => current_user)%>       
+		  <div class="group_links">
+		    <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)}) if spam.authorize?(:delete, :to => current_user)%> 
+	        <%=link_to(image_tag("icons/accept.png", :alt => "confirm",:class=>"icon"), edit_space_post_path(spam.space,spam,:valid => true), {:title => t('spam.valid')}) if spam.authorize?(:update, :to => current_user)%>
+		  </div> 
+          <%=link_to spam.title, space_post_path(spam.space, spam),:class=>"unified_posts"%>      
 		</div>
       <%end%>
+      <%if !@spam_events.empty?%>
+	    <h3>Spam in Events</h3>
+	  <%end%>
 	  <%for spam in @spam_events%>
         <div class="spam_post">
-          <%=link_to spam.title, space_event_path(spam.space, spam)%>
+          <%=link_to spam.title, space_event_path(spam.space, spam),:class=>"unified_event"%>
         </div>
       <%end%>
 	<%end%>  
