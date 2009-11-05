@@ -1,0 +1,7 @@
+<div id="cabinet">  
+  <% form_attachments.fields_for :attachments do |form| %>
+    <%= form.file_field :uploaded_data, :class => "file_1" %>
+  <% end -%>
+</div>
+<div id="caption"><%= t('caption.add') %></div>
+

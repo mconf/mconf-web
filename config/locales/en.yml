@@ -509,6 +509,7 @@ en:
     none_created: "No post created"
     none_recent: "There are no recent posts"
     other: "Posts"
+    other_in_space: "Posts in space {{space}}"
     up:
       other: "POSTS"
     updated: "Post updated"

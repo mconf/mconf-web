@@ -24,4 +24,21 @@ module ApplicationHelper
          options_for_select.join("\n")
  end
 
+  # Initialize an object for a form with suitable params
+  def prepare_for_form(obj, options = {})
+    case obj
+    when Post
+      obj.attachments << Attachment.new if obj.attachments.blank?
+
+      obj.space = @space if obj.space.blank?
+    else
+      raise "Unknown object #{ obj.class }"
+    end
+
+    options.each_pair do |method, value|  # Set additional attributes like:
+      obj.__send__ "#{ method }=", value         # post.event = @event
+    end
+
+    obj
+  end
 end

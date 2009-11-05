@@ -104,5 +104,4 @@ module PostsHelper
     end
     return ""
   end
-  
 end

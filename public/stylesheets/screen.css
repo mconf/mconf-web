@@ -44,7 +44,7 @@ ol{list-style-type:decimal;}
 .unified_event{color:#8B0425;font-weight:bold;font-size:13px;line-height:18px;}
 .unified_posts{color:#666;font-weight:bold;}
 .unified_news{color:#111;font-weight:bold;}
-.main_text{color:#555;fot-weight:normal;}
+.main_text{color:#555;font-weight:normal;}
 .sidebar_text{color:#244974;font-weight:normal;}
 .main_date{color:#555;}
 .sidebar_date{color:#244974;}
@@ -100,7 +100,7 @@ button.join-space,button.leave-space{
   -webkit-border-radius:5px;-moz-border-radius:5px;
 }
 
-#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover,#manage div a,#manage div a:hover{text-decoration:none;}
+#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
 #search button{padding-top:3px;padding-bottom:2px;}
 button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
 button.create-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
@@ -221,8 +221,8 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
 .user div{float:left; }
-.user div.selected_groups,.user .user_data{margin-left:0.5em;}
-.user .clearboth{margin-left:0.5em;}
+/*.user div.selected_groups,*/.user .user_data{margin-left:0.5em;}
+/*.user .clearboth{margin-left:0.5em;}*/
 
 /*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
 .odd_thread,.even_thread{/*padding:.8em;*/border-bottom:1px solid #ddd;/*margin-bottom:1px;-moz-border-radius:7px;*/}
@@ -511,11 +511,11 @@ div.pagination a{color:#244974;}
 .source-title{padding:0 0.5em;}
 .news-title h3{margin-bottom:0.333em;}
 .news-title h3,.news-content,.source-title h3{overflow:hidden;}
-.news-title h3,.source-title h3{color:#244974;}
+/*.news-title h3,.source-title h3{color:#244974;}*/
 .news-title ul.group_links,.news-content p,.source-title ul{margin:0;}
 #admission p{margin:0.75em;}
-#admission .reqs,#admission .invitation{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
-#admission .reqs{margin-bottom:2px;}
+#admission .reqs,#admission .invitation.spam_post{padding:0.75em 0.5em;border-bottom:1px #ccc solid;}
+/*#admission .reqs{margin-bottom:2px;}*/
 div.invitation,div.reqs,#admission .reqs-item{position:relative;overflow:hidden;}
 div.invitation-logo,div.invitation-content{float:left;}
 .invitation-logo{width:36px;margin-right:0.75em;}
@@ -591,6 +591,8 @@ div#manage .users input{width:75px;}
 div#manage .user{background:none;}
 div#manage .user a{color:#244974;font-weight:bold;text-decoration:none;}
 div#manage .user a:hover{text-decoration:underline;}
+.spam_post{padding:0.75em 0.5em;border-top:1px #ccc solid;}
+#spam h3{margin:6px 6px 3px 6px;color:#244974;}
 
 /*footer*/
 .clearboth{clear:left;display:inline;}
@@ -738,7 +740,7 @@ a.extract_form{margin-right:0.5em;}
 #recent-activity .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
 #recent-activity .news_cloud{border:none;}
 #recent-activity .post_cloud,#recent-activity .event_cloud,#recent-activity .news_cloud{border-bottom:1px #ccc solid;}
-#recent-activity .post_cloud.last,#recent-activity .event_cloud.last{border-bottom:none;}
+#recent-activity .post_cloud.last,#recent-activity .event_cloud.last,#admission .reqs.last{border-bottom:none;}
 #recent-activity .div-logo img:hover{border-color:#bbb;}
 #recent-activity .thread{padding:6px 0;}
 

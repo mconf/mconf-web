@@ -4,15 +4,15 @@
   <%= error_messages_for :object => (@invitations || []) %>
 
   <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
-    <p>
+    <div>
     <%= f.label :email, t('e-mail.other') %> <%= t('e-mail.commas')%><br />
-    <%= f.text_field :email %>
-    </p>
+    <%= f.text_field :email,:class=>"small-font main_text" %>
+    </div>
 
-    <p>
+    <div class="margin-up">
     <%= f.label :role, t('role.one') %>
-		<%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] } %>
-    </p>
+		<%= f.select :role_id, Space.roles.map{|r| [ r.name, r.id ]}, {:selected=> Space.role("User").id },:class=>"small-font"%>
+    </div>
 
     <div class="margin-up">
       <button type="submit"><%=t('button.invite')%></button>
