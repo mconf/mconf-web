@@ -15,7 +15,7 @@ div.options ul li.title,span.title{font-size:1.1666em;line-height:1.2857;margin-
 input#space_name{width:90%;}
 textarea#space_description{height:8.3333em;margin-bottom:0.5em;width:90%;overflow:auto;}
 textarea#feedback_body{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:auto;}
-a.selected{text-decoration:none;color:#111;font-weight:bold;}
+#fancy_ajax a.selected{text-decoration:none;color:#111;font-weight:bold;}
 .person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}
 
 /*

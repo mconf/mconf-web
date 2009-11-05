@@ -65,11 +65,11 @@
 <div>
   <%=link_logo(user, :size => 32, :url => user_profile_path(user), :title=>user.name)%>
 </div>
-<div>
+<div class="user_data">
 	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
 	  <%=hidden_field_tag 'update_groups'%>
-	  <ul>
-		<li><label for="name"><%=t('name.one')%>: </label><strong><%=sanitize(user.full_name) %></strong></li>
+	  <ul class="main_text">
+		<li><label for="name"><%=t('name.one')%>: </label><span class="unified_user"><%=sanitize(user.full_name) %></span></li>
 		<li>
 		  <label for="admin"><%=t('role.one')%>: </label>
 		  <%if is_last_admin(@space, performance)%>

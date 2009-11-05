@@ -1,32 +1,34 @@
 <h3>Document table</h3>
-  <%expand_versions=(params[:expand_versions].present? ? params[:expand_versions].split(",").map(&:to_i) : Array.new) %>
-  <%=collection_table(version_attachment(@attachments,expand_versions)) do |t|
+  <%=collection_table(version_attachment(@attachments)) do |t|
 
       t.header :name, sortable_header(t('name.one'),'filename')
       t.header :author, sortable_header(t('author'),'author')
       t.header :updated, sortable_header(t('updated'),'updated_at')
-      t.header :type, sortable_header(t('type'),'type')
-      t.header :actions, t('actions')
+      t.header :tags, t('tags')
+#      t.header :type, sortable_header(t('type'),'type')
+#      t.header :actions, t('actions')
 
       t.rows.each do |row, object, index|
         if object.instance_of?(Attachment)
           attachment=object
 
-          row.name           "#{link_to "+",space_attachments_path(@space,:order=>params[:order], :direction=>params[:direction],:expand_versions => (expand_versions + [attachment.id]).uniq.join(",")) if attachment.version>1} #{link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format)} (#{attachment.get_size.strip!})"
+          row.name           "#{link_to "+",path_for_attachments({:expanded => attachment.id}), :class => "table_params" if attachment.version>1} #{link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id, :version => attachment.version), :class => "doc_show"} (#{attachment.get_size.strip!})"
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        attachment.updated_at.to_date.to_formatted_s(:rfc822)
-          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
-          row.actions        table_actions(attachment)
+          row.tags           attachment.tags.map{|t| link_to t.name,path_for_attachments({:add_tag=>t.id})}.join(",")
+#          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
+#          row.actions        table_actions(attachment)
 
         elsif object.instance_of?(Version)
           attachment=object.versioned
           attachment.revert_to(object.version)
 
-          row.name           "#{link_to "-",space_attachments_path(@space,:order=>params[:order], :direction=>params[:direction],:expand_versions => (expand_versions - [attachment.id]).uniq.join(",")) if attachment.version==attachment.versions.size} #{attachment.version} #{link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format,:version => attachment.version)} (#{attachment.get_size.strip!})"
+          row.name           "#{link_to "-",path_for_attachments({:not_expanded => attachment.id}), :class => "table_params" if attachment.version==attachment.versions.size} #{attachment.version} #{link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id, :version => attachment.version), :class => "doc_show"} (#{attachment.get_size.strip!})"
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        attachment.updated_at.to_date.to_formatted_s(:rfc822)
-          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
-          row.actions        table_actions(attachment)
+          row.tags           attachment.version==attachment.versions.size ? attachment.tags.map{|t| link_to t.name,path_for_attachments({:add_tag=>t.id})}.join(",") : ""
+#          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.mime_type.to_sym}"
+#          row.actions        table_actions(attachment)
 
         else
           

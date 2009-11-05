@@ -873,7 +873,6 @@ describe PostsController do
         end
         describe "trying to edit" do
           it "my post." do
-            pending "Feature #464"
             get :edit, :space_id => @current_space.to_param, :user_id => @current_user.id, :id => @post_mine.to_param
             assert_response 403
           end       
@@ -884,7 +883,6 @@ describe PostsController do
         end
         describe "trying to delete" do
           it "my post." do
-            pending "Feature #464"
             delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 403
           end       

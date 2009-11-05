@@ -47,7 +47,11 @@ en:
   at: "at"
   attachment:
     attach: "Attachment"
+    info: "Document info"
+    loading: "Loading document information..."
     not_valid: "The attachment is not valid"
+    not_selected: "No document selected"
+    upload_with_post: "Notify the upload with a post"
   avatar:
     created: "Picture uploaded successfully"
     crop: "Crop your picture"
@@ -147,6 +151,7 @@ en:
       add: "Add new document"
   docs: "Docs"
   done: "Done!"
+  download: "Download"
   download_file: "Download file"
   
   ######### E ###########
@@ -211,6 +216,9 @@ en:
     last_7_days: "Last 7 days ({{size}})"
     last_month: "Last month ({{size}})"
     location: "Location"
+    logo:
+      new: Add a picture for your event
+      select: Change your logo 
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
@@ -223,6 +231,9 @@ en:
       none: "No past events"
       other: "Past events"
       show: "Show all old events"
+      today: "No events for yesterday nor today."
+      last_week: "No events for last week."
+      last_month: "No events for last month."
     search: "Search events..."
     select_date: "Select a date for your event"
     to: "To"
@@ -238,6 +249,9 @@ en:
       none: "No upcoming events"
       other: "Upcoming events"
       show: "Show all upcoming events"
+      today: "There are no events for today."
+      next_week: "There are no events for next week."
+      next_month: "There are no events for next month."
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
@@ -265,6 +279,8 @@ en:
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
+  form:
+    loading: "The form is loading..."
   from: "From"
   
   ######### G ###########
@@ -293,6 +309,7 @@ en:
   ######### H ###########
   hello: "Hello"
   help: "Help"
+  hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
     up: "HOME"
@@ -417,7 +434,7 @@ en:
       create: "There was a problem publishing the news item"
       delete: "Error deleting news item"
       update: "News item could not be updated"      
-    item_in_home: "News item in space {{space}}"
+    item_in_home: "News item in space"
     none: "None"
     none_to_show: "No news items to show"
     up: "NEWS"
@@ -538,6 +555,7 @@ en:
   remember_me: "Remember me"
   remove: "Remove"
   reply: "Reply"
+  reply_to: "Reply to:"
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   request: "request it"
@@ -594,6 +612,7 @@ en:
   site:
     up: "SITE"
     signature: "Signature"
+  size: Size
   skype: Skype
   source:
     created: "Source created successfully"
@@ -668,7 +687,9 @@ en:
   
   ######### T ###########
   tag:
-      new: "New tag"
+    new: "New tag"
+  tags: Tags
+  text: "Text"
   thank_you: "Thank you"
   thread:
     add: "Add a new thread"
@@ -704,6 +725,7 @@ en:
   ######### U ###########
   upcoming: "Upcoming"
   update: "Update"
+  updated: "Updated"
   updated_time_ago: "{{time}} ago"
   url: "Website"
   user:
@@ -782,11 +804,13 @@ en:
   ######### V ###########
   vcard: "vCard"
   vCard: 
-      use: "Use your vCard"
-      no_selection: "no vCard"
-      success: "vCard successfully loaded"
-      corrupt: "The vCard you sent is corrupted or is a non-supported version"
+    use: "Use your vCard"
+    no_selection: "no vCard"
+    success: "vCard successfully loaded"
+    corrupt: "The vCard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
+  version:
+    new: "New version"
   
   ######### W ###########
   week:

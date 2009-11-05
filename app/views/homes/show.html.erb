@@ -53,7 +53,7 @@
 	      <ul>
 		  <% for event in @today_events -%>
                 <li class="event">
-                  <%event_link="<h5 class='unified_event'>" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                  <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
                   <%=link_to event_link, space_event_path(event.space,event)%>
                   <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
                 </li>
@@ -69,7 +69,7 @@
 	      <ul>
 		    <% for event in @tomorrow_events -%>
               <li class="event">
-                <%event_link="<h5 class='unified_event'>" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/><span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
                 <%=link_to event_link, space_event_path(event.space,event)%>
                 <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
               </li>
@@ -85,7 +85,7 @@
 	      <ul>
 		    <% for event in @week_events -%>
               <li class="event">
-                <%event_link="<h5 class='unified_event'>" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
                 <%=link_to event_link, space_event_path(event.space,event)%>
                 <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
               </li>
@@ -101,7 +101,7 @@
 	      <ul>
 		    <% for event in @upcoming_events -%>
               <li class="event">
-                <%event_link="<h5 class='unified_event'>" + sanitize(event.title) + "</h5> <span class='small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span><br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
                 <%=link_to event_link, space_event_path(event.space,event)%>
                 <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
               </li>
@@ -138,33 +138,28 @@
 
 
 <div id="recent-activity">
-	<div id="home_menu">  
-	  <div id="show">
-	    <%=t('show')%>:
-	    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%>
-	  </div>
-	  <div id="help" title= "<%= t('information.information2')%>"></div>
-	  	<h3><%=t('home.activity')%></h3>
-	</div>
 
   <%unless @today.empty?%>
     <div id="line">
 		<span class="bold">Today</span>
     </div>
   <%end%>
-  <% for item in @today do %>	
+  <%today_last_item = @today.last%>
+  <% for item in @today do %>
+
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
+	  
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==today_last_item } %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==today_last_item} %>
 	<%elsif item.class == News %>
 	  <%@space=item.space%>
 	  <%@news_to_show = item%>
 	  <%@news_position = 1 %>
 	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home'%>
+	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==today_last_item}%>
 	<%else%>
 	  I don't know what is a "<%item.class%>"
 	<%end%>
@@ -174,19 +169,21 @@
 		<span class="bold">Yesterday</span>
     </div>
   <%end%>
+  <%yesterday_last_item = @yesterday.last%>
+  
   <% for item in @yesterday do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==yesterday_last_item} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==yesterday_last_item} %>
 	<%elsif item.class == News %>
 	  <%@space=item.space%>
 	  <%@news_to_show = item%>
 	  <%@news_position = 1 %>
 	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home'%>
+	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==yesterday_last_item}%>
 	<%else%>
 	  I don't know what is a "<%item.class%>"
 	<%end%>
@@ -196,19 +193,20 @@
 		<span class="bold">Last Week</span>
     </div>
   <%end%>
+  <%week_last_item = @last_week.last%>
   <% for item in @last_week do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==week_last_item} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==week_last_item} %>
 	<%elsif item.class == News %>
 	  <%@space=item.space%>
 	  <%@news_to_show = item%>
 	  <%@news_position = 1 %>
 	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home'%>
+	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==week_last_item}%>
 	<%else%>
 	  I don't know what is a "<%item.class%>"
 	<%end%>
@@ -218,19 +216,20 @@
 		<span class="bold">Older items</span>
     </div>
   <%end%>
+  <%older_last_item = @older.last%>
   <% for item in @older do %>	
 	<%if item.class == Post %>
 	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false} %>
+	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==older_last_item} %>
 	<%elsif item.class == Event %>
 	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item} %>
+	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==older_last_item} %>
 	<%elsif item.class == News %>
 	  <%@space=item.space%>
 	  <%@news_to_show = item%>
 	  <%@news_position = 1 %>
 	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home'%>
+	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==older_last_item}%>
 	<%else%>
 	  I don't know what is a "<%item.class%>"
 	<%end%>

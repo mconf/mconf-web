@@ -11,13 +11,16 @@ module AttachmentsHelper
   def sortable_header(title,column)
     html = title
     html << " "
-    html << link_to("DESC", space_attachments_path(@space, :order => column, :direction => 'desc', :expand_versions => params[:expand_versions]), :class => "sortable desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
+    html << link_to("DESC", path_for_attachments({:order => column, :direction => 'desc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
     html << " "
-    html << link_to("ASC", space_attachments_path(@space, :order => column, :direction => 'asc', :expand_versions => params[:expand_versions]), :class => "sortable desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
+    html << link_to("ASC", path_for_attachments({:order => column, :direction => 'asc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
     html  
   end
   
-  def version_attachment(attachments,versioned_attachment_ids)
+  def version_attachment(attachments)
+    
+    versioned_attachment_ids = expand_versions_to_array
+    
     att_version_array = attachments.clone
 
     if versioned_attachment_ids.present?
@@ -32,5 +35,23 @@ module AttachmentsHelper
     end
 
     att_version_array 
+  end
+  
+  def path_for_attachments(p={})
+    direction = p[:direction].present? ? p[:direction] : params[:direction]
+    order = p[:order].present? ? p[:order] : params[:order]
+    expand_versions=expand_versions_to_array - [p[:not_expanded]] + [p[:expanded]]
+    tags = tags_to_array - [p[:rm_tag]] + [p[:add_tag]]
+    space_attachments_path(@space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+  end
+  
+  private
+  
+  def expand_versions_to_array
+    params[:expand_versions].present? ? params[:expand_versions].split(",").map(&:to_i) : Array.new
+  end
+  
+  def tags_to_array
+    params[:tags].present? ? params[:tags].split(",").map(&:to_i) : Array.new
   end
 end

@@ -1,36 +1,94 @@
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-url' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
+
+<% content_for :javascript do%>
+
+  ajax_new_version = function(){
+    $("#doc_action").html("<p><%=t('form.loading')%></p>");
+    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().new_version + "/edit");
+  };
+  
+  ajax_doc_info = function(){
+    $("#doc_info").html("<h3><%=t('attachment.info')%></h3><p><%=t('attachment.loading')%></p>");
+    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "?version=" + $.fragment().version); 
+  };
+
+  $("#enable_javascript").hide();
+
+  $("a.doc_show").livequery("click", function() {
+	  $("#doc_action").html("");
+    $.setFragment({ "doc_info" : $.queryString(this.href).doc_info, "version" : $.queryString(this.href).version, "new_version": ""});
+    return false;
+  });
+	
+	$("a.new_version").livequery("click", function() {
+    $.setFragment({ "new_version" : $.queryString(this.href).new_version});
+    return false;
+  });
+  
+  $.fragmentChange(true);
+	
+  $(document).bind("fragmentChange", function() {
+    if ($.fragment().new_version) {
+      ajax_new_version();
+    }else if ($.fragment().doc_info) {
+		  ajax_doc_info();
+		}
+  });
+  
+  if ($.fragment().doc_info) {
+    ajax_doc_info();
+  };
+
+  if ($.fragment().new_version) {
+    ajax_new_version();
+  };
+
+  $("a.table_params").livequery("click",function(){
+    $(this).attr("href",$.fragment(this.href,$.fragment(document.location.href)));
+	});
+
+  //Upload form
+	$("#attachment__tags").fcbkcomplete({
+      cache: true,
+            filter_case: false,
+            filter_hide: true,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4,
+      newel: true
+   }); 
+	
+	$("input#Expandir").livequery("click",function(){
+	    $("#with_post").slideToggle("slow");
+	 
+	});
+
+  $("#add_document_label").livequery("click",function(){
+    $("#add_new_doc").show("slow");
+    $("#add_document_label").hide("slow");   
+  });
+
+  $("#hide").livequery("click",function(){
+      $("#add_document_label").show("slow");
+      $("#add_new_doc").hide("slow");  
+   
+  });
+
+<% end %>
 
 <% content_for :search do  %>
    <%= render :partial => 'search' %>
 <%end%>
 
 <%content_for :sidebar do%>
+  <%= render :partial => 'doc_info', :locals => {:attachment => @attachment} %>
   <%= render :partial => 'upload_form' %>
 <%end%>
 
+<div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 
 <%= render :partial => 'doc_filter' %>
 <%= render :partial => 'doc_table' %>
-
-	
-	
-<h1>Update attachments</h1>
-<p>This code will disappear from here very very soon.</p>
-<%for attachment in @attachments%>
-  <h3>Update attachment <%=attachment.id%></h3>
-	<%for version in attachment.versions%>
-	<% att = attachment.revert_to(version.version)%>
-    <p> Version: <%=attachment.version%><br />
-		  Filename: <%=attachment.filename%><br />
-			Logo: <%=logo(attachment)%><br />
-			Download: <%= link_to( t('download_file') , space_attachment_path(@space,attachment,:version => attachment.version, :format=> attachment.format))%><br />
-	  </p>
-  <%end%>
-	<%form_for :attachment, :url => space_attachment_path(@space, attachment), :html => { :multipart => true, :method => :put} do |f|%>
-    <%= f.file_field :uploaded_data %>
-  <%= image_submit_tag "buttons/create.png" %>
-  <%end%>
-<%end%>

@@ -96,7 +96,7 @@
 
 <div id = "private_spaces" class="space-box">
 
-  <div id="title"><h3 class="item_title"><%= t('space.private') %></h3></div>
+  <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
   <div id="space_content">
 	<% for space in @private_spaces %>
 	  <% unless space.authorize?(:read, :to => current_agent) %>
@@ -112,7 +112,7 @@
 
 <div id = "public_spaces" class="space-box">
 
-  <div id="title"><h3 class="item_title"><%= t('space.public.other') %></h3></div>
+  <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
   <% for space in @public_spaces %>
     <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'w48', :title => space.name)%></div>

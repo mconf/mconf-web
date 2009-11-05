@@ -1,1 +1,8 @@
 <h3>Document filter</h3>
+<%if @tags%>
+	<p>Selected tags :
+	  <%@tags.each do |t|%>
+		  <%=link_to t.name, path_for_attachments({:rm_tag => t.id})%>
+		<%end%>
+	</p>
+<%end%>

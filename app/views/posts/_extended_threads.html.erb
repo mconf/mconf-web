@@ -2,7 +2,8 @@
   <%if threads.empty?%>
     <p><%= t('no_messages_in_forum') %></p>
 	<%end%>
+	
 	<% threads.each do |thread| -%>
-    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => true} %>
+    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => true,:last => false} %>
   <% end -%>
 </div>

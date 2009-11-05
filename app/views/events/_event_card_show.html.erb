@@ -1,4 +1,4 @@
-<div class="single_event">
+
 	
   <div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
@@ -25,40 +25,39 @@
       </div>
     </a>
     
-    <p class="event_title">
-      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event)%> <span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
+    <p>
+      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event),:class=>"unified_event"%> <span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
     </p>
     
     <ul>
     
-      <li class="event_date">
+      <li class="main_date">
         <%= t('from')%>: <%=sanitize(@event.start_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
       </li>
-			<li class="event_date">
+			<li class="main_date">
 				<%= t('to').capitalize%>: <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
 			</li>
   
       <%if event.location%>
-      <li class="event_location">
+      <li class="main_text">
         <%= t('where')%>: <%=sanitize(@event.location)%>
       </li>
       <%end%>
       
-      <li class="event_author">
-        <%= t('organizer') %>: <%=@event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(@event.author.name,@query),user_profile_path(@event.author)): sanitize(highlight(@event.author.name,@query))%>
+      <li class="main_text">
+        <%= t('organizer') %>: <%=@event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(@event.author.name,@query),user_profile_path(@event.author),:class=>"unified_user"): "<span class='unified_user'>" + sanitize(highlight(@event.author.name,@query)+ "</span>")%>
       </li>
-			
-      <%if @event.description%>
-      <li class="event_author">
-      	<%= t('description') %>:
-		  </li>
-      <li>
-      	<%=sanitize(auto_link(simple_format(@event.description)))%>
-			</li>
+	</ul>	
+	</div>	
+      <%if @event.description != ""%>
+	      <div>
+	      	<h3><%= t('description') %>:</h3>
+			<span class="main_text"><%=sanitize(auto_link(simple_format(@event.description)))%></span>
+		  </div>      	
       <%end%>
       
-    </ul>
-  </div>
+    
+  
 	
 	<% content_for :headers do%>
 	  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
@@ -71,4 +70,3 @@
                           } %>
 	<% end %>
 		
- </div>

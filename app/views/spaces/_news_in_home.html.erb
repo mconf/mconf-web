@@ -11,7 +11,7 @@
  	 }
 <%end%>
 
-<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding">
+<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding  <%='last' if last %>">
   <%if @news_to_show.nil? %>
 	<p><%= t('news.none_to_show') %></p>
   <%else%>
@@ -43,7 +43,7 @@
         </div>
         <%end%>
 	  </div>
-	  <b>(<%= t('news.item_in_home', :space=>@space.name) %>)</b>
+	  <span class="main_text">(<%= t('news.item_in_home')%>: <span class="bold"><%= @space.name %></span>)</span>
 	</div>
   </div>
   <%end%>
