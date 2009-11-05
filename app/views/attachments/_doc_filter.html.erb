@@ -1,8 +1,12 @@
 <h3>Document filter</h3>
 <%if @tags%>
 	<p>Selected tags :
-	  <%@tags.each do |t|%>
-		  <%=link_to t.name, path_for_attachments({:rm_tag => t.id})%>
+		<select id="attachment_tags_filter" multiple="multiple" name="tags[]">
+      <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
+    </select>
+		 Other tags:
+	  <%(@space.tags - @tags).each do |t|%>
+		  <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
 		<%end%>
 	</p>
 <%end%>

@@ -45,6 +45,14 @@ module AttachmentsHelper
     space_attachments_path(@space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
   end
   
+  def options_for_fcbkcomplete(collection,value,text,selected=nil)
+    html=""
+    collection.each do |t|
+      html << %(<option value="#{t.send(value)}"#{"class=selected" if selected.include?(t)}>#{t.send(text)}</option>)
+    end
+    html
+  end
+  
   private
   
   def expand_versions_to_array

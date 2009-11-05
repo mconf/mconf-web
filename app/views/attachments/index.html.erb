@@ -79,6 +79,56 @@ $("#add_new_doc").hide();
       $("#add_document_label").show("slow");
       $("#add_new_doc").hide("slow");     
   });
+	
+	
+//Filter_tag
+add_tag = function (){
+  tags_array = tags_array();
+  if($.queryString(document.location.href).tags != tags_array.join(",")){
+	  hide_table();
+    location.href=$.queryString(document.location.href, { "tags" : tags_array.join(",")});
+  }
+};
+
+rm_tag = function (item){
+  tags_array = tags_array();
+  tags_array.splice(tags_array.indexOf(item._value), 1);
+  if($.queryString(document.location.href).tags != tags_array.join(",")){
+	  hide_table();
+    location.href=$.queryString(document.location.href, { "tags" : tags_array.join(",")});
+  }
+};
+
+tags_array = function(){
+  array = new Array($("#attachment_tags_filter option.selected").size());
+  i = 0
+  $("#attachment_tags_filter option.selected").each(function(){
+    array[i] = this.value;
+    i++;
+  });
+  return array;
+};
+
+hide_table = function(){
+  $("#doc_table").html("<%=t('repository.loading')%>");
+}
+
+$("#attachment_tags_filter").fcbkcomplete({
+  cache: true,
+  filter_case: false,
+  filter_hide: true,
+  firstselected: true,
+  filter_selected: true,
+  maxshownitems: 4,
+  newel: false,
+  onremove: "rm_tag",
+  onselect: "add_tag"
+  
+ });
+ 
+ $(".add_tag_filter").click(function(){
+   hide_table();
+ });
 
 <% end %>
 

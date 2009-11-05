@@ -564,6 +564,8 @@ en:
   reply_to: "Reply to:"
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
+  repository:
+    loading: "Refreshing document repository..."
   request: "request it"
   request:
     info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"

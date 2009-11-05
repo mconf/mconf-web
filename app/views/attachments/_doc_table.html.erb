@@ -1,3 +1,4 @@
+<div id="doc_table">
 <h3>Document table</h3>
   <%=collection_table(version_attachment(@attachments)) do |t|
 
@@ -36,11 +37,4 @@
       end
     end
   %>
-
-<br />
-<%for attachment in @attachments%>
-  <p>Filename: <%=attachment.filename%><br />
-	   Logo: <%=logo(attachment)%><br />
-		 Download: <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%>
-  </p>
-<%end%>
+</div>
