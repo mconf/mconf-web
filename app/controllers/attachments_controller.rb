@@ -42,54 +42,7 @@ def edit
   @attachment = Attachment.find(params[:id])
 end
 
-#  def create
-#    debugger
-#    # if params[:attachment][:uploaded_data].present?
-#    @attachment = Attachment.new(:uploaded_data => params[:attachment][:uploaded_data])
-#    if @attachment 
-#      if !@attachment.valid?
-#        flash[:error] = t('attachment.not_valid')
-#        respond_to do |format|
-#          format.html{
-#            attachments
-#            render :action => "index"
-#            return
-#          }
-#        end
-#      else
-#        @attachment.space = @space
-#        @attachment.author = current_agent
-#        @attachment.save!
-#        
-#              
-#        if params[:attachment][:post].present?
-##          @post= Post.new(params[:attachment][:post])
-##          if !@post.valid?
-##            flash[:error]= t('post.not_valid')
-##            respond_to do |format|
-##              format.html{
-##                attachments
-##                render :action => "index"
-##                return
-##              }
-##            end
-##          else
-##            @post.attachments << @attachment
-##            @post.save!
-##          end
-#        end
-#        
-#      end
-#      
-#      respond_to do |format| 
-#        format.html {
-#            redirect_to(request.referer || space_attachments_path)
-#        }
-#      end
-#      
-#    end
-#    
-#  end    
+   
    
     #  def index_with_vcc
     #    index_without_vcc do
@@ -119,6 +72,9 @@ end
 
   # Redirect to spaces/:permalink/attachments if new attachment is created
   def after_create_with_success
+    redirect_to [ space, Attachment.new ]
+  end
+  def after_update_with_success
     redirect_to [ space, Attachment.new ]
   end
 end

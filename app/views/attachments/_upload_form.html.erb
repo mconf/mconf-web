@@ -1,7 +1,7 @@
 <div id="doc_action">
 	<div id="add_document_label"><%=t('document.add') %></div>
 	
-	<div id="add_new_doc" style="display:none">	
+	<div id="add_new_doc">	
 	
 	<% @attachment ||= Attachment.new %>
 	<% @attachment.post ||= Post.new %>
@@ -13,7 +13,9 @@
 	  <br/>
 	  <h4><%=t('tag.new')%></h4>
 	 
-	  <div id=tags><%= select(:attachment, :_tags, space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
+	  <div id=tags><%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
+	  
+	  </div>
 	
 	  <!--<%= image_submit_tag "buttons/create.png" %>-->
 	  <br/>

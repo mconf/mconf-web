@@ -52,14 +52,17 @@
 
   //Upload form
 	$("#attachment__tags").fcbkcomplete({
-      cache: true,
+			cache: true,
             filter_case: false,
             filter_hide: true,
             firstselected: true,
             filter_selected: true,
             maxshownitems: 4,
-      newel: true
-   }); 
+			newel: true
+		});    
+
+$("#add_new_doc").hide();
+
 	
 	$("input#Expandir").livequery("click",function(){
 	    $("#with_post").slideToggle("slow");
@@ -69,12 +72,12 @@
   $("#add_document_label").livequery("click",function(){
     $("#add_new_doc").show("slow");
     $("#add_document_label").hide("slow");   
+	
   });
 
   $("#hide").livequery("click",function(){
       $("#add_document_label").show("slow");
-      $("#add_new_doc").hide("slow");  
-   
+      $("#add_new_doc").hide("slow");     
   });
 
 <% end %>
