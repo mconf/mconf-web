@@ -3,7 +3,7 @@ class AgendaEntry < ActiveRecord::Base
   
   #acts_as_content :reflection => :agenda
   
-  #minimum duration IN SECONDS of an agenda entry that is excluded from recording
-  MIN_TO_EXCLUDE =  1800
+  #minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
+  MINUTES_NOT_EXCLUDED =  30
   
 end

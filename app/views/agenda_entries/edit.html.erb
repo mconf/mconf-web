@@ -1,7 +1,6 @@
-
 <h1>Editing agenda_entry</h1>
 
- <% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put}) do |f| %>
+<% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put}) do |f| %>
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
@@ -18,16 +17,11 @@
     <%= f.label :end_time %><br />
     <%= f.datetime_select :end_time %>
   </p>
-#need to choose in script if check box is disabled or not if (agenda_entry.end_time - agenda_entry.start_time) < AgendaEntry::MIN_TO_EXCLUDE
   <p>
-  	<%= f.check_box :exclude_from_recording %>
+    <%= f.check_box :exclude_from_recording%>
     <%= f.label :exclude_from_recording %>
   </p>
   <p>
-  	<%= f.check_box :exclude_from_recording, :disabled => '' %>
-    <%= f.label :exclude_from_recording %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update'%>
   </p>
 <% end %>

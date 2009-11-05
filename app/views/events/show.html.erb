@@ -60,12 +60,12 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
-     <%= render :partial => "agendas/edit" %>
-   <%end%>
+    <%= render :partial => "agendas/edit" %>
+  <%end%>
    
-	<%if @event.agenda.present?%>
+    <%if @event.agenda.present?%>
 	  <%= link_to t('show_agenda_record_entries'), space_event_agenda_agenda_record_entries_path(@space, @event) %>
-	<%end%>
+    <%end%>
 	 
   <%=render :partial => "external_streaming"%>
   
