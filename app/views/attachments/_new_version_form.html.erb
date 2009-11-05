@@ -1,0 +1,22 @@
+<%content_for :javascript do %>
+$("#attachment__tags").fcbkcomplete({
+			cache: true,
+            filter_case: false,
+            filter_hide: false,
+            firstselected: true,
+            filter_selected: true,
+            maxshownitems: 4,
+			newel: true			
+	});    
+<%end%>
+<div id="new_version_label"><h3><%=t('version.new') %></h3></div>
+<%form_for :attachment, :url => space_attachment_path(@space, attachment), :html => { :multipart => true, :method => :put} do |f|%>
+   <%= f.file_field :uploaded_data %>
+   <div id=tags>
+    <select id="attachment__tags" multiple="multiple" name="attachment[tags][]">
+      <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
+    </select>
+   
+   </div>
+   <button type="submit"><%=t("button.update")%></button>
+<%end%>
