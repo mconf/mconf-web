@@ -13,10 +13,10 @@
     </ul>
   </div>
 
-<% form_for([ @space, Post.new ], :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
+  <% form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
 	
   <div id="new_photo_big_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
-    <%= render :partial => "posts/form_photo", :object => f %>
+    <%= render :partial => "posts/form_attachments", :object => f %>
   </div>
   <div id="big_textarea_div" >
     <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
@@ -24,7 +24,7 @@
   <%if @show_view%>
     <%= hidden_field_tag :show, "true"%>
   <%end%>
-  <%= hidden_field_tag "post[parent_id]", @post.id%>
+  <%= f.hidden_field :parent_id %>
   <div class="float margin-up">
     <button type="submit"><%=t("button.create")%></button>
   </div>

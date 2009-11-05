@@ -14,16 +14,16 @@
     </ul>
   </div>
 
-<% form_for([ @space, Post.new ], :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
+  <% form_for(prepare_for_form(Post.new, :event => @event), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
   
   <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
-    <%= render :partial => "posts/form_photo", :object => f %>
+    <%= render :partial => "posts/form_attachments", :object => f %>
   </div>
   
     <%= f.text_area :text%>
   
 
-  <%= hidden_field_tag "post[event_id]", @event.id%>
+  <%= f.hidden_field :event_id %>
   <div class="float">
   <button type="submit"><%=t("button.create")%></button>
   </div>
