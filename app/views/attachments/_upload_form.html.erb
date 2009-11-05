@@ -1,72 +1,39 @@
-<%content_for :javascript do %>
- 
- 
-
-$("input#Expandir").click(function(){
-	  $("#with_post").slideToggle("slow");
-	});
-
-$(document).ready(function(){
-	$("add_new_doc").hide();
-    $("#add_document_label").click(function(){
-        $("#add_new_doc").show("slow");
-        $("#add_document_label").hide("slow");   
-		$("#attachment__tags").fcbkcomplete({
-			cache: true,
-            filter_case: false,
-            filter_hide: true,
-            firstselected: true,
-            filter_selected: true,
-            maxshownitems: 4,
-			newel: true
-			
-	});    
-    });
-	 $("#hide").click(function(){
-        $("#add_document_label").show("slow");
-        $("#add_new_doc").hide("slow");  
-		 
-    });
- 
-    
-    
-});
-<%end%>
-
-<div id="add_document_label"><h3><%=t('document.add') %></h3></div>
-
-<div id="add_new_doc"  style="display:none">	
-
-<% @attachment ||= Attachment.new %>
-<% @attachment.post ||= Post.new %>
-
-<%form_for (@attachment, :url=> space_attachments_path(@space), :html => { :multipart => true}) do |f|%>
-  <div id="cabinet">
-  <%= f.file_field :uploaded_data, :class=>"file_1"%>
-</div>
-<br/>
-<h4><%=t('tag.new')%></h4>
- 
-<div id=tags><%= select(:attachment, :_tags, space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
-
-  <!--<%= image_submit_tag "buttons/create.png" %>-->
-  <br/>
-  <br/>
-  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "Expandir", "with_post", false %>
-</h4>
-  
-  <% f.fields_for :post do |post_form| %>  
-	<div id="with_post" style="display:none">
-		<%= post_form.label :title, t('title') %><br/>
-		<%= post_form.text_field :title%>
-		<%= post_form.label :text, t('text') %><br/>
-		<%= post_form.text_area :text, :rows => 5, :cols=>25%>
+<div id="doc_action">
+	<div id="add_document_label"><%=t('document.add') %></div>
+	
+	<div id="add_new_doc" style="display:none">	
+	
+	<% @attachment ||= Attachment.new %>
+	<% @attachment.post ||= Post.new %>
+	
+	<%form_for (@attachment, :url=> space_attachments_path(@space), :html => { :multipart => true}) do |f|%>
+	  <div id="cabinet">
+	    <%= f.file_field :uploaded_data, :class=>"file_1"%>
+	  </div>
+	  <br/>
+	  <h4><%=t('tag.new')%></h4>
+	 
+	  <div id=tags><%= select(:attachment, :_tags, space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
+	
+	  <!--<%= image_submit_tag "buttons/create.png" %>-->
+	  <br/>
+	  <br/>
+	  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "Expandir", "with_post", false %>
+	</h4>
+	  
+	  <% f.fields_for :post do |post_form| %>  
+		<div id="with_post" style="display:none">
+			<%= post_form.label :title, t('title') %><br/>
+			<%= post_form.text_field :title%>
+			<%= post_form.label :text, t('text') %><br/>
+			<%= post_form.text_area :text, :rows => 5, :cols=>25%>
+		</div>
+	
+	<% end %>
+	  
+	   <button type="submit"><%=t("button.upload")%></button>
+	<%end%>
+	
+	<div id="hide"><%=t('hide')%></div>
 	</div>
-
-<% end %>
-  
-   <button type="submit"><%=t("button.upload")%></button>
-<%end%>
-
-<div id="hide"><%=t('hide')%></div>
 </div>

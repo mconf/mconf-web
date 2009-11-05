@@ -7,8 +7,6 @@ class AttachmentsController < ApplicationController
   # Needs a space always
   before_filter :space!
   
-  before_filter :attachments, :only => [:index]
-  
   # Get Attachment in member actions
   #before_filter :attachment, :except => [ :index, :new, :create ]
   
@@ -19,22 +17,30 @@ class AttachmentsController < ApplicationController
   authorization_filter :delete, :attachment, :only => [ :delete ]
   
   def index
+    @tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(@space).find(t.to_i)} : Array.new
+    
+    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
+    
+    #ask tapi to do it better
+    @tags.each do |t|
+      @attachments = @attachments.select{|a| a.tags.include?(t)}
+    end
+    
+    @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
+    @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
+    @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
+    @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+    
     if params[:doc_info].present?
       @attachment=Attachment.find(params[:doc_info])
       @attachment.revert_to(params[:version].to_i) if params[:version].present?
     end
 
-  end
-    
-  private
-  
-  def attachments
-    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
-    @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
-    @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
-  end
+end
+
+def edit
+  @attachment = Attachment.find(params[:id])
+end
 
 #  def create
 #    debugger

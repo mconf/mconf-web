@@ -1,0 +1,10 @@
+$("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'new_version_form', :locals => {:attachment => @attachment}))%>");
+$("#attachment_new_version_tags").fcbkcomplete({
+	cache: true,
+	      filter_case: false,
+	      filter_hide: false,
+	      firstselected: true,
+	      filter_selected: true,
+	      maxshownitems: 4,
+	newel: true     
+});

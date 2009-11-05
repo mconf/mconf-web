@@ -41,12 +41,17 @@ module AttachmentsHelper
     direction = p[:direction].present? ? p[:direction] : params[:direction]
     order = p[:order].present? ? p[:order] : params[:order]
     expand_versions=expand_versions_to_array - [p[:not_expanded]] + [p[:expanded]]
-    space_attachments_path(@space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","))
+    tags = tags_to_array - [p[:rm_tag]] + [p[:add_tag]]
+    space_attachments_path(@space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
   end
   
   private
   
   def expand_versions_to_array
     params[:expand_versions].present? ? params[:expand_versions].split(",").map(&:to_i) : Array.new
+  end
+  
+  def tags_to_array
+    params[:tags].present? ? params[:tags].split(",").map(&:to_i) : Array.new
   end
 end
