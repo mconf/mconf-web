@@ -65,6 +65,14 @@
         _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[public]': val          
       });
     });
+	
+	$("#repository_checkbox").click(function () { 
+	    var val = $(this).is(":checked");
+      $.post("<%=space_path(@space)%>",{
+        _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[repository]': val          
+      });
+    });
+		
 		
 		edit_logo_fun = function(){
 		  $('#update_logo').show();
@@ -146,6 +154,10 @@
 		  <label for="public"><%=t('space.allow_public_access')%>:</label> 
 		  <%= check_box("space", "public")%>
 		</p>		
+		<p>
+		  <label for="repository">Enable space repository?:</label> 
+		  <%= check_box("space", "repository")%>
+		</p>	
 	  <p>
 	    <%= image_submit_tag "buttons/update.png"%>
 	  </p>	
@@ -177,6 +189,13 @@
         <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
       </div>
     </li>
+	<li>
+      <div>
+        <label for="repository"class="bold">Enable space repository?:</label> 
+        <%= check_box_tag "space[repository]", false, @space.repository?, :id => "repository_checkbox"%>
+      </div>
+    </li>
+	
     <li>
 	  <div>
 		<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 

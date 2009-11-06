@@ -565,7 +565,9 @@ en:
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   repository:
+     enable: "Enable repository?"
     loading: "Refreshing document repository..."
+    up: "REPOSITORY"    
   request: "request it"
   request:
     info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"

@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091106085530) do
+
+ActiveRecord::Schema.define(:version => 20091106104127) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -321,6 +322,7 @@ ActiveRecord::Schema.define(:version => 20091106085530) do
     t.text     "description"
     t.string   "permalink"
     t.boolean  "disabled",    :default => false
+    t.boolean  "repository",  :default => false
   end
 
   create_table "taggings", :force => true do |t|
