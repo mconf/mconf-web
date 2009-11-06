@@ -47,6 +47,7 @@ en:
   agree: "Yes"
   all: "All"
   all_rights_reserved: "All rights reserved"
+  any_field: "Any field"
   at: "at"
   attachment:
     attach: "Attachment"
@@ -284,6 +285,7 @@ en:
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
+  find_in: "Find in:"
   form:
     loading: "The form is loading..."
   from: "From"
@@ -697,7 +699,13 @@ en:
   
   ######### T ###########
   tag:
+    one: "tag"
+    other: "tags"
+    filter: "Tag filter:"
     new: "New tag"
+    selected:
+      one: "Selected tag:"
+      other: "Selected tags:"
   tags: Tags
   text: "Text"
   thank_you: "Thank you"
@@ -730,7 +738,8 @@ en:
     one: "Translate"
     request: "To translate to a different language, please request the administrator to add the new language and flag"
     up: "TRANSLATE"
-    translated: "VCC is now translated, or in translation process, to " 
+    translated: "VCC is now translated, or in translation process, to "
+  type: "Type"
   
   ######### U ###########
   upcoming: "Upcoming"

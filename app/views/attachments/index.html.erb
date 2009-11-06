@@ -110,7 +110,7 @@ tags_array = function(){
 };
 
 hide_table = function(){
-  $("#doc_table").html("<%=t('repository.loading')%>");
+  $("#doc_repository").html("<%=t('repository.loading')%>");
 }
 
 $("#attachment_tags_filter").fcbkcomplete({
@@ -142,6 +142,7 @@ $("#attachment_tags_filter").fcbkcomplete({
 <%end%>
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
-
-<%= render :partial => 'doc_filter' %>
-<%= render :partial => 'doc_table' %>
+<div id ="doc_repository">
+	<%= render :partial => 'doc_filter' %>
+	<%= render :partial => 'doc_table' %>
+</div>
