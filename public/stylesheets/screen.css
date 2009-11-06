@@ -102,8 +102,10 @@ button.join-space,button.leave-space{
 
 #sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
 #search button{padding-top:3px;padding-bottom:2px;}
-button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
-button.create-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
+
+
+button.create-space, #add_document_label{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
+button.create-space:hover, #add_document_label:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.join-space{border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");width:195px;}
 button.join-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.leave-space{border-bottom:1px #a2042b solid;border-top:1px #d60337 solid;border-left:1px #d60337 solid;border-right:1px #d60337 solid;background:url("/images/buttons/leave-space-notext3.png");width:195px;}
@@ -482,9 +484,9 @@ div.pagination a{color:#244974;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
 #sidebar input[type="time"]{text-align:center;}
 
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #update_logo,#upload_vcard{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#update_logo,#upload_vcard, #more_invitations{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#update_logo,#upload_vcard, #more_invitations, #add_new_doc, #doc_info{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {width:92%;overflow:auto;}
@@ -783,3 +785,24 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 	/*text-decoration: none;*/
 }
 
+/*REPOSITORIO*/
+#add_new_doc, #doc_info{
+	width:220px;
+	float: none;
+}
+form.new_attachment{
+	
+	
+}
+
+#add_new_doc{
+	padding-top:20px;
+}
+
+#add_document_label{
+	margin-top:20px;
+	width:130px;
+	color:white;
+	font-weight:bold;
+	padding-left:20px;
+}

@@ -1,4 +1,5 @@
 <div id="doc_action">
+	
 	<div id="add_document_label"><%=t('document.add') %></div>
 	
 	<div id="add_new_doc">	
@@ -8,7 +9,7 @@
 	
 	<%form_for (@attachment, :url=> space_attachments_path(@space), :html => { :multipart => true}) do |f|%>
 	  <div id="cabinet">
-	    <%= f.file_field :uploaded_data, :class=>"file_1"%>
+	    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
 	  </div>
 	  <br/>
 	  <h4><%=t('tag.new')%></h4>
