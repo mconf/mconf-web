@@ -565,7 +565,7 @@ en:
   reply_to_words: "Reply to {{words}}"
   report_spam: "Report spam"
   repository:
-     enable: "Enable repository?"
+    enable: "Enable repository?"
     loading: "Refreshing document repository..."
     up: "REPOSITORY"    
   request: "request it"
