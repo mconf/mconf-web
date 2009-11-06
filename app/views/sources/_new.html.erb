@@ -3,7 +3,6 @@
     <h3><%= source.title.present? && sanitize(source.title).to_s || t('new_source') %></h3>
 
     <% form_for [ space, source ] do |f| %>
-      <%= f.error_messages %>
 
       <%= render :partial => 'form', :object => f %>
 
