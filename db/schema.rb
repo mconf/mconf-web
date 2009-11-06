@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027160546) do
+ActiveRecord::Schema.define(:version => 20091106085530) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -34,10 +34,9 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.integer  "agenda_id"
     t.string   "title"
     t.text     "description"
-    t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "record"
+    t.boolean  "exclude_from_recording"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.string   "title"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "record"
+    t.boolean  "exclude_from_recording"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -336,6 +335,7 @@ ActiveRecord::Schema.define(:version => 20091027160546) do
     t.string  "name",           :default => "", :null => false
     t.integer "container_id"
     t.string  "container_type"
+    t.integer "taggings_count", :default => 0
   end
 
   add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
