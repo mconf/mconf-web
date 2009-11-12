@@ -9,6 +9,10 @@
     $("#doc_action").html("<p><%=t('form.loading')%></p>");
     $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().new_version + "/edit");
   };
+  ajax_upload_form = function(){
+    $("#doc_action").html("<p><%=t('form.loading')%></p>");
+    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().upload_form + "/new");
+  };
   
   ajax_doc_info = function(){
     $("#doc_info").html("<h3><%=t('attachment.info')%></h3><p><%=t('attachment.loading')%></p>");
@@ -27,15 +31,25 @@
     $.setFragment({ "new_version" : $.queryString(this.href).new_version});
     return false;
   });
+  $("a.upload_form").livequery("click", function() {
+    $.setFragment({ "upload_form" : $.queryString(this.href).upload_form});
+    return false;
+  });
   
   $.fragmentChange(true);
 	
   $(document).bind("fragmentChange", function() {
-    if ($.fragment().new_version) {
+    if ($.fragment().upload_form){
+	   ajax_uploadd_form();
+	}else if ($.fragment().doc_info) {
+		  ajax_doc_info();
+		}
+	if ($.fragment().new_version) {
       ajax_new_version();
     }else if ($.fragment().doc_info) {
 		  ajax_doc_info();
 		}
+		
   });
   
   if ($.fragment().doc_info) {

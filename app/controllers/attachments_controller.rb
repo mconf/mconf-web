@@ -7,6 +7,8 @@ class AttachmentsController < ApplicationController
   # Needs a space always
   before_filter :space!
   
+  before_filter :has_repository?
+  
   # Get Attachment in member actions
   #before_filter :attachment, :except => [ :index, :new, :create ]
   
@@ -36,6 +38,10 @@ class AttachmentsController < ApplicationController
       @attachment.revert_to(params[:version].to_i) if params[:version].present?
     end
 
+end
+
+def new
+   @attachment = Attachment.find(params[:id])
 end
 
 def edit
@@ -77,4 +83,14 @@ end
   def after_update_with_success
     redirect_to [ space, Attachment.new ]
   end
+end
+def has_repository?   
+  if  !space.repository?
+    
+    respond_to do |type| 
+      type.html { render :template => "errors/error_403", :layout => 'application', :status => 403 } 
+      type.all  { render :nothing => true, :status => 403 } 
+    end
+  end
+  true
 end

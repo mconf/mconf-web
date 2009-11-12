@@ -1,13 +1,26 @@
 <div id="doc_action">
-	<div id="new_version_label"><h3><%=t('version.new') %></h3></div>
-	<%form_for :attachment, :url => space_attachment_path(@space, attachment), :html => { :multipart => true, :method => :put} do |f|%>
-	   <%= f.file_field :uploaded_data %>
+	<div id="new_version_label"><%=t('version.new') %></div>
+	<%form_for @attachment, :url => space_attachment_path(@space, @attachment), :html => { :multipart => true, :method => :put} do |f|%>
+	   <%= f.file_field :uploaded_data, :size=>15 %>
 	   <div id=tags>
 	    <select id="attachment_new_version_tags" multiple="multiple" name="attachment[_tags][]">
 	      <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
 	    </select>
 	   
 	   </div>
+	   
+	    <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "Expandir", "with_post", false %>
+	</h4>
+	    <% f.fields_for :post do |post_form| %>  
+		<div id="with_post" style="display:none">
+			<%= post_form.label :title, t('title') %><br/>
+			<%= post_form.text_field :title%>
+			<%= post_form.label :text, t('text') %><br/>
+			<%= post_form.text_area :text, :rows => 5, :cols=>25%>
+		</div>
+	
+	<% end %>
 	   <button type="submit"><%=t("button.update")%></button>
 	<%end%>
+	<%=link_to t('document.add'), space_attachments_path(@space)%></li>
 </div>
