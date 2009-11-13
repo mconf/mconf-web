@@ -151,6 +151,8 @@ jQuery(
 	                    }
 	                );
 	                
+			hideCompleteItem(value);
+
 	                if (!preadded) 
 	                {						
 	                    $("#"+elemid + "_annoninput").remove();
@@ -193,7 +195,7 @@ jQuery(
 					element.children("option[value=" + item.attr("rel") + "]").removeAttr("selected");
 					element.children("option[value=" + item.attr("rel") + "]").removeClass("selected");
 
-					showCompleteItem(item);
+					showCompleteItem(item.attr("rel"));
                     item.remove();					
 					deleting = 0;					
 				}
@@ -642,7 +644,6 @@ jQuery(
 					{
 						var o = $(this);
 						addItem(o.text(), o.attr("rel"));
-						o.fadeOut("fast");
 						complete.hide;
 					}
 				);
@@ -658,8 +659,12 @@ jQuery(
 			);
 		}
 
-		function showCompleteItem(item) {
-			complete.children(".default").children("span[rel=" + item.attr("rel") + "]").fadeIn("fast");
+		function hideCompleteItem(rel_value) {
+			complete.children(".default").children("span[rel=" + rel_value + "]").css("display", "none");
+		}
+
+		function showCompleteItem(rel_value) {
+			complete.children(".default").children("span[rel=" + rel_value + "]").fadeIn("fast");
 		}
 				
 		        var options = $.extend({
