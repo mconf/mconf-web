@@ -27,9 +27,11 @@
 
  <% content_for :sidebar do %>
 		  <div class="join">
-			<h2><%= t('start_now!') %></h2>
-			<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>
-			<%=link_to "<button class='create-space'>"+t("space.create_own")+"</button>",new_space_path(), :class => "new_space_link"%> 	
+			<h2><%= t('getting_started') %></h2>
+			<!--<p><%= t('share_participate_discuss') %></p>-->
+			<div class="margin-up">
+			  <%=link_to "<button class='create-space'>"+t("register.one")+"</button>",signup_path(), :id => "login_link"%>
+			</div> 	
 		  </div>
 
 		  <div class="rel-users">

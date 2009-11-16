@@ -291,6 +291,7 @@ en:
   from: "From"
   
   ######### G ###########
+  getting_started: "Getting started!"
   GMT: "GMT"
   group:
     add_to_group: "Add To Group"
@@ -364,6 +365,7 @@ en:
       information1: "These are the spaces you belong to"
       information2: "Here you can find the newest posts, events and news of the spaces you belong to"
       information3: "These are the latest posts or events that you have created"
+      info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
       
   ######### J ###########
   join: "Join"
@@ -690,7 +692,6 @@ en:
     reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
-  start_now!: "Start now!"
   streaming:
     add_url: "Add streaming URL"
     edit: "Edit streaming URL"

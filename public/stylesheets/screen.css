@@ -105,6 +105,7 @@ button.join-space,button.leave-space{
 
 
 button.create-space, #add_document_label{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
+.join button.create-space{font-size:1.1666em;line-height:1.2857;padding:4px 15px 5px 15px;}
 button.create-space:hover, #add_document_label:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.join-space{border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");width:195px;}
 button.join-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
@@ -475,7 +476,7 @@ div.pagination span.current, div.pagination a:hover{background:#244974; color:wh
 div.pagination a.next_page, div.pagination a.prev_page {text-decoration:none;}
 div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
-#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;*/margin-top:10px;border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
+#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*/border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
 #sidebar input[type="text"]{width:92%;}
@@ -765,6 +766,8 @@ a.extract_form{margin-right:0.5em;}
 	margin-top:7px;
 	}
 h3 #help{margin-top:0;}
+
+#timezone #help{margin-top:0;}
 
 .w-background{
 	background-color:white;
