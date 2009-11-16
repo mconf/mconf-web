@@ -88,8 +88,13 @@ $("a.join_and_register_link").livequery("click", function(){
  * Log in
  */
 
-$("a#login_link").fancybox({
+$("a.login_link").fancybox({
   'hideOnContentClick' : false
+});
+
+$("a.register_link").fancybox({
+  'hideOnContentClick' : false,
+  'frameHeight' :450
 });
 
 openid = function(){

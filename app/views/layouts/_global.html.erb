@@ -9,7 +9,7 @@
             <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
   	        <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
 	    <% else %>
-	  	    <li><%= link_to t('login_or_register'), login_path, :id => "login_link" %></li>
+	  	    <li><%= link_to t('login_or_register'), login_path, :class => "login_link" %></li>
 	    <% end %>
 		<% unless !current_site.authorize?(:translate, :to => current_user) -%>
 		  <% for locale in (I18n.available_locales - [I18n.locale]) -%>
