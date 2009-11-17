@@ -150,7 +150,7 @@ es:
     - Vie
     - Sab
     formats: 
-      default: "%Y-%m-%d"
+      default: "%d/%m/%y"
       short: "%d de %b"
       long: "%d de %B de %Y"
     start: Fecha de inicio
