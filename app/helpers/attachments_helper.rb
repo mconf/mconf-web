@@ -11,9 +11,9 @@ module AttachmentsHelper
   def sortable_header(title,column)
     html = title
     html << " "
-    html << link_to("DESC", path_for_attachments({:order => column, :direction => 'desc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
+    html << link_to (image_tag("down.png"), path_for_attachments({:order => column, :direction => 'desc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
     html << " "
-    html << link_to("ASC", path_for_attachments({:order => column, :direction => 'asc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
+    html << link_to(image_tag("up.png"), path_for_attachments({:order => column, :direction => 'asc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
     html  
   end
   

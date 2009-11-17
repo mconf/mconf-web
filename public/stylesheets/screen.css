@@ -793,14 +793,6 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 	width:220px;
 	float: none;
 }
-form.new_attachment{
-	
-	
-}
-
-#add_new_doc{
-	padding-top:20px;
-}
 
 #add_document_label{
 	margin-top:20px;
@@ -808,4 +800,21 @@ form.new_attachment{
 	color:white;
 	font-weight:bold;
 	padding-left:20px;
+}
+
+/*Table*/
+th.attachment-name{
+	width:30%;
+}
+th.attachment-author{
+	width:20%;
+}
+th.attachment-updated{
+	width:17%;
+}
+
+
+#doc_table table{
+	width:510px;
+	
 }
