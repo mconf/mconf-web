@@ -11,6 +11,15 @@ class Attachment < ActiveRecord::Base
                  :thumbnails => { 'post' => '96x96>',
                                   '16' => '16x16',
                                   '32' => '32x32'}
+
+  # Define this authorization method before acts_as_content to priorize it
+  #
+  # Deny all requests except reading an already saved attachment in a space that hasn't repository
+  # Otherwise, we'll check permissions below
+  authorizing do |agent, permission|
+    false unless space.repository? || ( permission == :read && ! new_record? )
+  end
+
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
   versioned
