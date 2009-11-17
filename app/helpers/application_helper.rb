@@ -31,6 +31,10 @@ module ApplicationHelper
       obj.attachments << Attachment.new if obj.attachments.blank?
 
       obj.space = @space if obj.space.blank?
+    when Attachment
+      obj.post ||= Post.new
+      
+      obj.space = @space if obj.space.blank?
     else
       raise "Unknown object #{ obj.class }"
     end

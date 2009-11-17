@@ -1,4 +1,9 @@
-<div id="doc_info">
+<%if params[:doc_info].present?
+    attachment=Attachment.find(params[:doc_info])
+    attachment.revert_to(params[:version].to_i) if params[:version].present?
+  end
+%>
+<div id="doc_info" rel="<%=attachment.present? ? "#{attachment.id}-#{attachment.version}" : ""%>">
 	<h3><%=t('attachment.info')%></h3>
 	<%#Current version%>
 	<%if attachment.present? && attachment.versions.size==attachment.version%>
