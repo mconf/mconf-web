@@ -45,6 +45,23 @@ class Attachment < ActiveRecord::Base
     end
   end
   
+  after_validation do |attachment|
+    e = attachment.errors.clone
+    attachment.errors.clear
+    error_no_file =0
+    others_errors = []
+    e.each() do |attr,msg| 
+      if (attr == "size" && (msg==I18n.t('activerecord.errors.messages.blank')||msg ==I18n.t('activerecord.errors.messages.inclusion')))||(attr=="content_type" && msg==I18n.t('activerecord.errors.messages.blank'))||(attr=="filename" && msg==I18n.t('activerecord.errors.messages.blank'))
+        error_no_file+=1      
+      else       
+        attachment.errors.add(attr,msg)
+      end
+    end  
+    if error_no_file==4
+      attachment.errors.add("upload_data",I18n.t('activerecord.errors.messages.missing'))
+    end      
+  end
+  
   def thumbnail_size
     thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end
@@ -122,4 +139,6 @@ class Attachment < ActiveRecord::Base
     
     "#{ order } #{ direction }"
   end
+  
+  
 end

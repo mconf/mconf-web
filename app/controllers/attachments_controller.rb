@@ -73,6 +73,12 @@ end
     render :action => :index
   end
   
+  def after_create_with_errors
+     flash[:error] =  @attachment.errors.to_xml
+     attachments
+    render :action => :index
+  end
+  
   def attachments
     @tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(@space).find(t.to_i)} : Array.new
     

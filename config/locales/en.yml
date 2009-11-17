@@ -9,6 +9,10 @@ en:
   about_me: "About me"
   about_sxsw: "About SXSW"
   account: "Account"
+  activerecord:
+    errors:
+      messages:
+        missing: "is missing"
   add: "Add"
   add_more_details: "Add more details"
   address: "Address" 
