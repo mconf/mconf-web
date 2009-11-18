@@ -1,7 +1,7 @@
 $(".without_javascript").after(
   "<div class='javascript'>"
 	+ "<%="Start hour"%><br/>"
-	+ "<input type='time' id='start_timep-icker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>"   
+	+ "<input type='time' id='start_timepicker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>"   
 	+ "<%="End hour"%><br/>"
 	+ "<input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'></div>"
 );

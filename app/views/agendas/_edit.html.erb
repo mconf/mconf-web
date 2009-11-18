@@ -17,7 +17,9 @@
 	      $('#cannot_exclude').hide();
 	      <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
     });
-	
+    $('#new_agenda_entry').hide();
+    $('#add_entry').show();
+
   });
 
   $('select').livequery(function(){
@@ -46,16 +48,23 @@
       var minutes_difference = (end_date - start_date) / 60000; 
 	  if (minutes_difference < <%=AgendaEntry::MINUTES_NOT_EXCLUDED%>) {
 	    $('#agenda_entry_record').attr('checked', 'true');
-        $('#agenda_entry_record').attr('disabled', 'disabled');
+        $('#agenda_entry_record').attr('readonly', 'readonly');
 	    $('#cannot_exclude').show();
 	    $('#p_record').addClass('fade');
 	  } else {
-        $('#agenda_entry_record').removeAttr('disabled');
+        $('#agenda_entry_record').removeAttr('readonly');
 	    $('#cannot_exclude').hide();
 	    $('#p_record').removeClass('fade');
 	  }
 	
     });
+	
+  });
+  
+  $('#agenda_entry_record').livequery('change',function(){
+    if ($('#agenda_entry_record').attr('readonly')) {
+      $('#agenda_entry_record').attr('checked', 'true');
+    } 
   });
  
 <%end%>
@@ -68,9 +77,7 @@
   <li class="date"><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>
   <%=@event.start_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</li>
 
-  <%for entry in @event.agenda.agenda_entries%>
-      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry}%>
-  <%end%>
+  <%= render :partial => "agenda_entries/index"%>
   
   <button class='create-space' id="add_entry"><%=t("agenda.add_entry")%></button>
   <div id="new_agenda_entry">
