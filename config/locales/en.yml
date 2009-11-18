@@ -842,6 +842,7 @@ en:
   vcc: "Virtual Conference Centre"
   version:
     new: "New version"
+    one: "Version"
   
   ######### W ###########
   week:
