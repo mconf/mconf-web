@@ -4,7 +4,8 @@
   end
 %>
 <div id="doc_info" rel="<%=attachment.present? ? "#{attachment.id}-#{attachment.version}" : ""%>">
-	<h3><%=t('attachment.info')%></h3>
+
+	<h3 class="blue top"><%=t('attachment.info')%></h3>
 	<%#Current version%>
 	<%if attachment.present? && attachment.versions.size==attachment.version%>
 	  <h4><%=attachment.filename%></h4>
