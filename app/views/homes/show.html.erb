@@ -4,47 +4,6 @@
 <% end -%>
 
 <% content_for :javascript do %>
-	
-	$(function() {
-		var altura;
-		$("#button").toggle(
-			function() {
-				altura = $("#effect").height();
-				$("#effect").animate({backgroundColor: '#aa0000', color: '#fff', width: 500, height: 250}, 1000);
-			},
-			function() {
-				$("#effect").animate({backgroundColor: '#fff', color: '#000', width: 240, height: altura}, 1000);
-			}
-		);
-	});
-	
-	
-	$(function() {
-		$(".column").sortable({
-			connectWith: '.column',
-			opacity: 0.7
-		});
-
-		$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-			.find(".portlet-header")
-				.addClass("ui-widget-header ui-corner-all")
-				.prepend('<span class="ui-icon ui-icon-plusthick"></span>')
-				.prepend('<span class="ui-icon ui-icon-closethick"></span>')
-				.end()
-			.find(".portlet-content");
-
-		$(".portlet-header .ui-icon").click(function() {
-			$(this).toggleClass("ui-icon-minusthick");
-			$(this).parents(".portlet:first").find(".portlet-content").toggle();
-		});
-
-		$(".portlet-header .ui-icon-closethick").click(function() {
-			$(this).parents(".portlet:first").hide();
-		});
-		
-		$(".column").disableSelection();
-	});
-
 
 /*
  *  Expand and collapse thread
@@ -80,61 +39,12 @@
 <% end %>
 
 
-	<style type="text/css">
-	.column { width: 250px; float: left; padding-bottom: 100px;}
-	.portlet { margin: 0 1em 1em 0;background:#fff;}
-	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em;cursor:pointer; }
-	.portlet-header .ui-icon { float: right; }
-	.portlet-content { padding: 0.4em; }
-	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
-	.ui-sortable-placeholder * { visibility: hidden; }
-	</style>
-
-<style type="text/css">
-		.toggler { width: 500px; height: 200px; position: relative;}
-		#button { padding: .5em 1em; text-decoration: none; }
-		#effect { width: 240px;padding: 0.4em; position: relative; background: #fff; }
-		#effect h3 { margin: 0; padding: 0.4em; text-align: center; }
-	</style>
-	
-<div class="demo">
-
-<div id="wrap" class="toggler">
-	<div id="effect" class="ui-widget-content ui-corner-all">
-		<h3 class="ui-widget-header ui-corner-all">Animate <a href="#" id="button" class="ui-state-default ui-corner-all">Toggle Effect</a></h3>
-		<p>
-			Etiam libero neque, luctus a, eleifend nec, semper at, lorem. Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit vitae, mi.
-		</p>
-	</div>
-</div>
-
-
-
-</div><!-- End demo -->
-
-<div style="display: none;" class="demo-description">
-
-<p>Click the button above to preview the effect.</p>
-
-</div>
-
-	
-<div class="column">
-
-  <div class="portlet">
+<% content_for :sidebar do  %>
   <div class="next-events">
-<<<<<<< Updated upstream:app/views/homes/show.html.erb
      <div class="next-events-title">
        <h3><%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></h3>
-=======
-     <div class="portlet-header">
-	 <div class="next-events-title">
-       <p><strong><%=image_tag("icons/date.png",:class=>"icon") + t('calendar.my')%></strong> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></p>
->>>>>>> Stashed changes:app/views/homes/show.html.erb
      </div>
-	</div>
 	
-	<div class="portlet-content">
 	  <div class="next-events-section">
 	    <%if @today_events.empty?%>
 	      <span class="bold"><%=t('today')%></span> <%=t('event.no_events')%> <br/>
@@ -199,7 +109,6 @@
 	      </ul>
 		<%end%>
 	  </div> 
-<<<<<<< Updated upstream:app/views/homes/show.html.erb
 	
   </div>
   
@@ -329,43 +238,3 @@
   <%@space=nil #to avoid the selector highlight any space%>
   <%= will_paginate @all_in_all %><br/>
 </div>
-=======
-	<br/>
-	</div>
-  </div>
-  </div>
-</div>
- 
-  <div class="column">
-  <div class="portlet">
-  <div id="home-inbox-full">
-    <div id="home-inbox-title" class="portlet-header"><%=image_tag("icons/email.png",:class=>"icon")%><%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></div>
-    <div class="portlet-content">
-	<% for private_message in @private_messages %>
-      <%@sender=User.find_with_disabled(private_message.sender_id)%> 
-      <div class="user-logo"><%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login)%></div>  
-      <div class="home-inbox-message">
-        <span class="home-inbox-topic"> <%= link_to sanitize(private_message.title), user_messages_path(current_user, :message=>private_message.id)%></span><br/>
-        <%= sanitize(first_words(private_message.body,35))%>
-      </div>  
-    <% end %>
-	</div>
-  </div>
-  </div>
-  </div>
-  
-  
-  <div class="column">
-  <div class="portlet">
-  <div id="home-inbox-full">
-    <div id="home-inbox-title" class="portlet-header"><%=image_tag("icons/email.png",:class=>"icon")%><%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></div>
-    <div class="portlet-content">
-      <div class="home-inbox-message">
-        <span class="home-inbox-topic"> Lorem ipsum etcacwuis  kldfhsklf sfhkj sflsfhsl shfklshf shlkhfklsdfs</span>
-      </div>  
-	</div>
-  </div>
-  </div>
-  </div>
-  
->>>>>>> Stashed changes:app/views/homes/show.html.erb

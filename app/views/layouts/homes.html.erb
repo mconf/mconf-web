@@ -9,7 +9,7 @@
     
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery-ui-sortable", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
 	<%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
 	<%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
@@ -24,7 +24,7 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery','ui.sortable','ui.core' 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
 	        <%= render :partial => 'layouts/ready.js.erb' %>
@@ -46,13 +46,8 @@
 		      <div id="selector">
   		        <%= render :partial => "layouts/selector" %>
 		      </div>
-<<<<<<< Updated upstream:app/views/layouts/homes.html.erb
 		      <div id="main">
 		        <%= render :partial => "layouts/home_menu" %>	        
-=======
-		      <div id="main1">
-		        		        
->>>>>>> Stashed changes:app/views/layouts/homes.html.erb
 		        <div id="home_wrapper">
 		          <% flash.each do |name, msg| %>
 		            <div class="<%= name %>"><%= msg %></div>
@@ -60,7 +55,9 @@
      		      <%= yield %>
 		        </div>
 			  </div>
-
+		      <div id="sidebar">
+		        <%= yield :sidebar %>
+              </div>
             </div>
 	        <%= render :partial => "layouts/footer" %>  
 	      </div>
