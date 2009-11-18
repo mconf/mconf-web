@@ -35,14 +35,17 @@ en:
       created: 'Agenda entry was successfully created.'
       cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
+      edit: "Edit Agenda Entry"
       end_time: "End time"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
+      new: "New agenda entry"
       no_record: "No"
       one: "Entry"
       speakers: "Speakers"
       start_time: "Start time"
+      title: "Title"
       updated: 'Agenda entry was successfully updated.'
       yes_record: "Yes"
     title: "Agenda for the event"

@@ -2,40 +2,34 @@
   <%= javascript_include_tag 'jquery.timeentry' %>
 <%end%>
 
-<h1>New agenda entry</h1>
+<div class="blue_title"><h3><%=t('agenda.entry.new')%></h3></div>
 
 <% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post}) do |f| %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :speakers %><br />
-    <%= f.text_field :speakers %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
+  <div class="margin-up"><label for="title"><%= t('agenda.entry.title') %></label><br/>
+  <%= f.text_field :title %></div>
+  
+  <div class="margin-up"><label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
+  <%= f.text_field :speakers %></div>
+  
+  <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
+  <%= f.text_area :description, :size => "34x7" %></div>
+  
   <div class="without_javascript">
-  <p>
-    <%= f.label :start_time %><br />
-    <%= f.datetime_select :start_time %>
-  </p>
-  <p>
-    <%= f.label :end_time %><br />
-    <%= f.datetime_select :end_time %>
-  </p>
+  	<div class="margin-up"><label for="start_time"><%= t('agenda.entry.start_time') %></label><br/>
+    <%= f.datetime_select :start_time %></div>
+
+    <div class="margin-up"><label for="end_time"><%= t('agenda.entry.end_time') %></label><br/>
+    <%= f.datetime_select :end_time %></div>
   </div>
  
-  <p id="p_record">
+  <div class="margin-up" id="record_block">
     <%= f.check_box :record %>
     <%= f.label :record %>
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
-
-  </p>
-  <p>
+  </div>
+  
+  <div class="margin-up">
     <button type="submit" class='create-space' id="add_entry_button"><%=t("button.create")%></button>
-  </p>
+  </div>
 <% end %>
 

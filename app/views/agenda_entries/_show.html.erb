@@ -1,39 +1,23 @@
-<div id="agenda_entry">
-<p>
-  <b><%=t('agenda.entry.one')%>:</b>
-  <%=h agenda_entry.title %>
-</p>
+<div id="agenda_entry" class="profile-box">
+  <div id="title">
+	<h3 class="item_title"><%=t('agenda.entry.title')%>:  <%=h agenda_entry.title %></h3> 
+  </div>
 
-<p>
-  <b><%=t('agenda.entry.speakers')%>:</b>
-  <%=h agenda_entry.speakers %>
-</p>
-
-<p>
-  <b><%=t('agenda.entry.description')%>:</b>
-  <%=h agenda_entry.description %>
-</p>
-
-<p>
-  <b><%=t('agenda.entry.start_time')%>:</b>
-  <%=h agenda_entry.start_time %>
-</p>
-
-<p>
-  <b><%=t('agenda.entry.end_time')%>:</b>
-  <%=h agenda_entry.end_time %>
-</p>
-
-<p>
-  <b><%=t('agenda.entry.record')%>:</b>
-  <%if agenda_entry.record then%>
-    <%=t('agenda.entry.yes_record')%>
-  <%else%>
-    <%=t('agenda.entry.no_record')%>
-  <%end%>
-</p>
-
-<%= link_to "<button class='create-space' id='del_entry'>"+t('agenda.del_entry')+"</button>", space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title) %>
-
-<button class='create-space' id="edit_entry" name="<%=agenda_entry.id%>"><%=t("agenda.edit_entry")%></button>
+  <div id="profile_content">
+    <ul>
+      <li class="person_title"><%=t('agenda.entry.speakers')%>:  <%=h agenda_entry.speakers %></li>
+	  <li class="person_title"><%=t('agenda.entry.description')%>:  <%=h agenda_entry.description %></li>
+	  <li class="person_title"><%=t('agenda.entry.start_time')%>:  <%=h agenda_entry.start_time %></li>
+	  <li class="person_title"><%=t('agenda.entry.end_time')%>:  <%=h agenda_entry.end_time %></li>
+      <li class="person_title"><%=t('agenda.entry.record')%>:
+        <%if agenda_entry.record then%>
+          <%=t('agenda.entry.yes_record')%>
+        <%else%>
+          <%=t('agenda.entry.no_record')%>
+        <%end%>
+	  </li>
+    </ul>
+    <%= link_to "<button class='create-space' id='del_entry'>"+t('agenda.del_entry')+"</button>", space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title) %>
+    <button class='create-space' id="edit_entry" name="<%=agenda_entry.id%>"><%=t("agenda.edit_entry")%></button>
+  </div>
 </div>

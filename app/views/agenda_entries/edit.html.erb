@@ -6,34 +6,33 @@ $(document).ready(function() {
 });
 </script>
 
-<h1>Edit Agenda Entry</h1>
+<div class="blue_title"><h3><%=t('agenda.entry.edit')%></h3></div>
+
 <% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put}) do |f| %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :speakers %><br />
-    <%= f.text_field :speakers %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
+
+  <div class="margin-up"><label for="title"><%= t('agenda.entry.title') %></label><br/>
+  <%= f.text_field :title %></div>
+  
+  <div class="margin-up"><label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
+  <%= f.text_field :speakers %></div>
+  
+  <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
+  <%= f.text_area :description, :size => "34x7" %></div>
+
   <div class='javascript'>
-	<%="Start hour"%><br/>
+	<%= t('agenda.entry.start_time') %><br/>
 	<input type='time' id='start_timepicker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>   
-	<%="End hour"%><br/>
+	<%= t('agenda.entry.end_time') %><br/>
 	<input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'>
   </div>
 
-
-  <p id="p_record">
+  <div class="margin-up" id="record_block">
     <%= f.check_box :record %>
     <%= f.label :record %>
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
-  </p>
-  <p>
-    <%= f.submit 'Update'%>
-  </p>
+  </div>
+  
+  <div class="margin-up">
+    <button type="submit"><%=t("button.update")%></button>
+  </div>
 <% end %>
