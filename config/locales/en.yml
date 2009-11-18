@@ -9,6 +9,10 @@ en:
   about_me: "About me"
   about_sxsw: "About SXSW"
   account: "Account"
+  activerecord:
+    errors:
+      messages:
+        missing: "is missing"
   add: "Add"
   add_more_details: "Add more details"
   address: "Address" 
@@ -123,6 +127,10 @@ en:
   ######### D ###########
   date:
     end: "End date"
+    formats: 
+      default: "%y/%m/%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
     start: "Start date"
     
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()

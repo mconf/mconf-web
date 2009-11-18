@@ -41,16 +41,16 @@
 // Document repository navigation
 
   ajax_new_version = function(){
-    $("#doc_action").html("<p><%=t('form.loading')%></p>");
+    $("#doc_action").html("<p><%=escape_javascript(t('form.loading'))%></p>");
     $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "/edit");
   };
   ajax_doc_new = function(){
-    $("#doc_action").html("<p><%=t('form.loading')%></p>");
+    $("#doc_action").html("<p><%=escape_javascript(t('form.loading'))%></p>");
     $.getScript("<%=new_space_attachment_path(@space)%>");
   };
   
   ajax_doc_info = function(){
-    $("#doc_info").html("<h3><%=t('attachment.info')%></h3><p><%=t('attachment.loading')%></p>");
+    $("#doc_info").html("<h3><%=escape_javascript(t('attachment.info'))%></h3><p><%=escape_javascript(t('attachment.loading'))%></p>");
     $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "?version=" + $.fragment().version); 
   };
 
@@ -149,7 +149,7 @@ tags_array = function(){
 };
 
 hide_table = function(){
-  $("#doc_repository").html("<%=t('repository.loading')%>");
+  $("#doc_repository").html("<%=escape_javascript(t('repository.loading'))%>");
 }
 
 $("#attachment_tags_filter").fcbkcomplete({

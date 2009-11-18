@@ -11,6 +11,15 @@ class Attachment < ActiveRecord::Base
                  :thumbnails => { 'post' => '96x96>',
                                   '16' => '16x16',
                                   '32' => '32x32'}
+
+  # Define this authorization method before acts_as_content to priorize it
+  #
+  # Deny all requests except reading an already saved attachment in a space that hasn't repository
+  # Otherwise, we'll check permissions below
+  authorizing do |agent, permission|
+    false unless space.repository? || ( permission == :read && ! new_record? )
+  end
+
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
   versioned
@@ -43,6 +52,23 @@ class Attachment < ActiveRecord::Base
         attachment.post.space = attachment.space
       end
     end
+  end
+  
+  after_validation do |attachment|
+    e = attachment.errors.clone
+    attachment.errors.clear
+    error_no_file =0
+    others_errors = []
+    e.each() do |attr,msg| 
+      if (attr == "size" && (msg==I18n.t('activerecord.errors.messages.blank')||msg ==I18n.t('activerecord.errors.messages.inclusion')))||(attr=="content_type" && msg==I18n.t('activerecord.errors.messages.blank'))||(attr=="filename" && msg==I18n.t('activerecord.errors.messages.blank'))
+        error_no_file+=1      
+      else       
+        attachment.errors.add(attr,msg)
+      end
+    end  
+    if error_no_file==4
+      attachment.errors.add("upload_data",I18n.t('activerecord.errors.messages.missing'))
+    end      
   end
   
   def thumbnail_size
@@ -122,4 +148,6 @@ class Attachment < ActiveRecord::Base
     
     "#{ order } #{ direction }"
   end
+  
+  
 end
