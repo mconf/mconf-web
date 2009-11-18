@@ -810,11 +810,21 @@ th.attachment-author{
 	width:20%;
 }
 th.attachment-updated{
-	width:17%;
+	width:15%;
 }
 
 
 #doc_table table{
 	width:510px;
-	
+	margin-top:20px;
 }
+
+#doc_table table th{
+	border-bottom:solid 1px #244974;
+	color:#244974;
+	font-weight:bold;
+}
+
+ #doc_table td{
+ 	padding-top:5px;
+ }

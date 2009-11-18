@@ -69,11 +69,12 @@
 	<select id="attachment_tags_filter" multiple="multiple" name="tags[]">
     <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
   </select>
-	<label>Other tags:</label>
+	<!--<label>Other tags:</label>
   <%(@space.tags - @tags).each do |t|%>
 	  <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
-	<%end%>
+	<%end%>-->
 </div>
+
 <div id="mixed_filter">
 	<label><%=t('find_in')%></label>
 	<select id="mix_filter">

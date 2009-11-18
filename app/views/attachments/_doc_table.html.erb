@@ -1,8 +1,8 @@
 <div id="doc_table">
-<h3>Document table</h3>
+
   <%=collection_table(version_attachment(@attachments)) do |t|
 
-      t.header :name, sortable_header(t('name.one'),'filename')
+      t.header :name, sortable_header(t('title'),'filename')
       t.header :author, sortable_header(t('author'),'author')
       t.header :updated, sortable_header(t('updated'),'updated_at')
       t.header :tags, t('tags')
