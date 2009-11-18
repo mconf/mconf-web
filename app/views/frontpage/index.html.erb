@@ -53,8 +53,8 @@
 			<h5><img class="icon" src="images/icons/comment.png"/> <%= t('comment.recent.other') %></h5>
 				<%for comment in @recent_posts%>
 					<ul>
-			  		  <li><strong class="user_name"><%=sanitize(comment.author.name)%></strong><span class="updated"> <%= t('updated_time_ago', :time => time_ago_in_words(comment.updated_at)) %></span>
-			  			<p class="dark_blue"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to t('read_more>>'), space_post_path(comment.space,comment)%></p>
+			  		  <li><span class="unified_user"><%=sanitize(comment.author.name)%></span> <span class="updated"> <%= t('updated_time_ago', :time => time_ago_in_words(comment.updated_at)) %></span>
+			  			<p class="sidebar_text"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to t('read_more>>'), space_post_path(comment.space,comment)%></p>
 					  </li>							
 					</ul>
 				<%end%>			
@@ -97,7 +97,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for event in @recent_events%>
 				<ul id="list-events">
-					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="red"> <%=sanitize(event.start_date.strftime("%d/%m/%Y"))%>  <%=sanitize(event.title)%></span> <span><%=sanitize(event.description.size >= 73 ? event.description.first(70) + "..." : event.description.first(70))  %></span></a></li>
+					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="unified_event"> <%=sanitize(event.title)%></span> <span class="main_date bold"><%=sanitize(event.start_date.strftime("%d/%m/%Y"))%></span> <span class="main_text"><%=sanitize(event.description.size >= 73 ? event.description.first(70) + "..." : event.description.first(70))  %></span></a></li>
 				</ul>	
 			<%end%>								  
 			  

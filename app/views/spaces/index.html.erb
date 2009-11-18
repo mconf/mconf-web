@@ -73,6 +73,8 @@
 
 
 <% content_for :sidebar do  %>
+
+<% unless logged_in? %>
   <div class="join">
     <h2><%= t('getting_started') %></h2>
 	<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
@@ -80,6 +82,9 @@
 	  <%=link_to "<button class='create-space'>"+t("register.one")+"</button>",signup_path(), :class => "register_link"%>
 	</div> 
   </div>
+<% end %>
+
+
   <div id="space_description">
   	<% for space in @spaces %>
 		  <div style="display:none;" id="<%=space.permalink%>" >
@@ -103,7 +108,7 @@
 	<% for space in @private_spaces %>
 	  <% unless space.authorize?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
-              <%=link_logo(space, :size =>'w48', :url => new_space_join_request_path(space), :title=>space.name)%>
+              <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>space.name)%>
 			</div>
 		<% else %>
 		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'w48', :title => space.name)%></div>
@@ -117,7 +122,7 @@
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
   <% for space in @public_spaces %>
-    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'w48', :title => space.name)%></div>
+    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
   <% end %>
   </div>
 </div>

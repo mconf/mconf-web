@@ -74,6 +74,7 @@ ol{list-style-type:decimal;}
 /*BOTONES*/
 button{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
+#b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}
 
 a.button, button, #sidebar input[type=submit] {
   border:1px solid #244974;
@@ -100,7 +101,7 @@ button.join-space,button.leave-space{
   -webkit-border-radius:5px;-moz-border-radius:5px;
 }
 
-#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
+#sidebar #join a:hover,#sidebar .join a:hover,a.new_space_link,a.new_space_link:hover,a.show_all_link:hover{text-decoration:none;}
 #search button{padding-top:3px;padding-bottom:2px;}
 
 
@@ -556,7 +557,7 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 #sidebar h3.item_title{margin:0;}
 .profile-box #profile_content,.space-box #space_content,.invitation-box #invitation_content{background:#f0f6f9;padding:9px;clear:both;overflow:hidden;position:relative;}
 .profile-box #profile_content,.invitation-box #invitation_content{-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;}
-.space_item{display:inline;margin-bottom:4px;margin-right:3px;}
+.space_item{display:inline;margin-bottom:4px;margin-right:7px;}
 .space_item img{padding:2px;border:1px #ccc solid;background:#ffffff;}
 .space_item img:hover {border-color:#bbb;}
 .space_item form{display:inline;}
