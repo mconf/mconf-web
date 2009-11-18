@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
-    space.resources :attachments
+    space.resources :attachments, :member => {:edit_tags => :get} 
     space.resources :entries
     space.resource :logo, :member => {:precrop => :post}
 
