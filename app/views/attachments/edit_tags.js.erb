@@ -1,0 +1,10 @@
+$("#attachment_tags_list").replaceWith("<%=escape_javascript(render(:partial => 'edit_tags_form'))%>");
+$("#attachment_edit_tags").fcbkcomplete({
+  cache: true,
+        filter_case: false,
+        filter_hide: false,
+        firstselected: true,
+        filter_selected: true,
+        maxshownitems: 4,
+  newel: true     
+});

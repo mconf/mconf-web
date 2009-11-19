@@ -168,6 +168,12 @@ $("#attachment_tags_filter").fcbkcomplete({
  $(".add_tag_filter").click(function(){
    hide_table();
  });
+ 
+ //Edit attachment tags
+ $("a#edit_attachment_tags").livequery("click",function(){
+   $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "/edit_tags");
+   return false;
+ });
 
 <% end %>
 

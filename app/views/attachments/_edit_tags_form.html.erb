@@ -1,0 +1,8 @@
+<%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
+  <%=hidden_field(:filename, attachment.filename)%>
+  <%=t('tags')%>:
+	<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
+	  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
+	</select>
+  <button type="submit"><%=t("button.update")%></button>
+<%end%>

@@ -714,6 +714,8 @@ en:
   
   ######### T ###########
   tag:
+    add: "Add tags"
+    edit: "Edit tags"
     one: "tag"
     other: "tags"
     filter: "Tag filter:"

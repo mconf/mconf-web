@@ -4,7 +4,8 @@
   end
 %>
 <div id="doc_info" rel="<%=attachment.present? ? "#{attachment.id}-#{attachment.version}" : ""%>">
-	<h3><%=t('attachment.info')%></h3>
+
+	<h3 class="blue top"><%=t('attachment.info')%></h3>
 	<%#Current version%>
 	<%if attachment.present? && attachment.versions.size==attachment.version%>
 	  <h4><%=attachment.filename%></h4>
@@ -14,7 +15,7 @@
 				<li><%=t('author')%>: <%=link_to attachment.author.name, user_profile_path(attachment.author)%></li>
 				<li><%=t('size')%>: <%=attachment.get_size.strip!%></li>
 				<li><%=t('updated_at')%>: <%=attachment.updated_at.to_date.to_formatted_s(:rfc822)%></li>
-				<li><%=t('tags')%>: <%=attachment.tags%></li>
+				<li id="attachment_tags_list"><%=t('tags')%>: <%=attachment.tags%><br/><%=link_to "#{attachment.tags.size>0 ? t('tag.edit') : t('tag.add') }", "", :id => "edit_attachment_tags"%></li>
 			</ul>
 		</p>
 		<h4>Actions:</h4>
