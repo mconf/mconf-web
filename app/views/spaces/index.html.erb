@@ -65,13 +65,18 @@
   });
 	
 	
-	 <%if params[:filter]%>
+<%if params[:filter]%>
     $("#space_name_filter").keyup();
   <%end%>
 	
 <% end %>
 
-
+<% content_for :search do  %>
+<div id="space_filter" style="display:none">
+  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
+  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
+</div>  
+<% end %>
 <% content_for :sidebar do  %>
 
 <% unless logged_in? %>
@@ -96,12 +101,7 @@
 
 <% @page_title = "Spaces"-%>
 
-<div id="space_filter" style="display:none">
-  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
-</div>
-
-<div id = "private_spaces" class="space-box">
+<div id = "private_spaces" class="space-box margin-up">
 
   <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
   <div id="space_content">
