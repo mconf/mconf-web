@@ -83,6 +83,12 @@ class Event < ActiveRecord::Base
     actors
   end
   
+  #return the number of days of this event duration
+  def days
+    end_date.day - start_date.day + 1
+  end
+  
+  
   def validate
     if self.start_date.nil? || self.end_date.nil? 
       errors.add_to_base("The event needs start date and end date ")

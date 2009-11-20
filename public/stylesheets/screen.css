@@ -204,7 +204,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .admin{background:#ffa903;color:#FFF;}
 #menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 
-#menu li .selected:hover{background:white; color:#244974}
+#menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:0 10px 10px 10px;}
 
@@ -830,3 +830,22 @@ th.attachment-updated{
  #doc_table td{
  	padding-top:5px;
  }
+ 
+/*Agenda for events*/
+
+.entry_hour{
+  width:100px;
+  background:#bdd8eb;
+}
+
+.entry_name{
+  width:410px;
+  background:#f0f6f9;
+}
+
+#agenda_tabs{background:#e1eef5;margin-bottom:1em;}
+#agenda_tabs ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
+#agenda_tabs li{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white;}
+#agenda_tabs li:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
+#agenda_tabs .selected{background:white; color:#244974;}
+#agenda_tabs .selected:hover{background:white; color:#244974;}

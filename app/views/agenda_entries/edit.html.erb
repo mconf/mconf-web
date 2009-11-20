@@ -1,11 +1,3 @@
-<script type=="text/javascript">
-alert("entra");
-$(document).ready(function() {
-		alert("carga");
-  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
-});
-</script>
-
 <div class="blue_title"><h3><%=t('agenda.entry.edit')%></h3></div>
 
 <% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put}) do |f| %>

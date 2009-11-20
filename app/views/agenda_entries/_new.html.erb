@@ -14,8 +14,10 @@
   <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
   <%= f.text_area :description, :size => "34x7" %></div>
   
+  <input type="hidden" id="entry_day" name="agenda_entry[entry_day]" value="">
+  
   <div class="without_javascript">
-  	<div class="margin-up"><label for="start_time"><%= t('agenda.entry.start_time') %></label><br/>
+    <div class="margin-up"><label for="start_time"><%= t('agenda.entry.start_time') %></label><br/>
     <%= f.datetime_select :start_time %></div>
 
     <div class="margin-up"><label for="end_time"><%= t('agenda.entry.end_time') %></label><br/>

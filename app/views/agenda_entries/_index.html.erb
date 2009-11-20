@@ -1,3 +1,48 @@
-<%for entry in @event.agenda.agenda_entries%>
-    <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry}%>
+<% content_for :javascript do%>
+
+  $('.agenda_entry').click(function(){
+    $(this).children(".agenda_entry_description").toggle("slow");
+  });
+  
+  
+  <%for i in (0..@event.days-1)%>
+    $('#date<%=i%>').click(function(){
+      <%for e in (0..@event.days-1)%>
+        $('#date<%=e%>').removeClass("selected");
+        $('#agenda_page<%=e%>').hide();
+      <%end%>
+      $(this).addClass("selected");
+      $('#agenda_page<%=i%>').show();
+    });
+    
+    $('#add_entry<%=i%>').click(function(){
+      $('#add_entry<%=i%>').hide();
+      $('#new_agenda_entry').show();
+      $('#entry_day').val("<%=i%>");
+    });
+    
+  <%end%>
+  
+  $('#date0').addClass("selected");
+  $('#agenda_page0').show();
+  
+  
+<%end%>
+
+<div id="agenda_tabs">
+<ul>
+<%for i in (0..@event.days-1)%>
+  <li id="date<%=i%>" class="date"><%=(@event.start_date+i.day).strftime("%A %d %b")%></li>
+<%end%>
+</ul>
+</div>
+<br/>
+
+<%for i in (0..@event.days-1)%>
+  <div id="agenda_page<%=i%>" style="display:none">
+    <%for entry in @event.agenda.agenda_entries_for_day(i)%>
+      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry}%>
+    <%end%>
+  </div>
+  <button class='create-space' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
 <%end%>
