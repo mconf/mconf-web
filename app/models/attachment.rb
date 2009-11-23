@@ -49,7 +49,7 @@ class Attachment < ActiveRecord::Base
         attachment.post = nil
       else
         attachment.post.author = attachment.author
-        attachment.post.space = attachment.space
+        attachment.post.space ||= attachment.space
       end
     end
   end
