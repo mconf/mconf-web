@@ -1,4 +1,21 @@
 <div id="upload_agenda_full" style="display:none">
-upload agenda
 
+  <%form_for (prepare_for_form(@event.agenda), :url=>space_event_agenda_path(@space, @event), :html => { :multipart => true}) do |f|%>
+    <% f.fields_for :attachment do |attachment_form| %>
+      <%= attachment_form.file_field :uploaded_data %>
+	<%end%>
+	<div><button type="submit" class='create-space'><%=t("button.upload")%></button></div>
+  <%end%>
+  
 </div>
+
+<%if (@event.agenda.attachment != nil) then%>
+  <div>
+    <div><%=image_tag(logo_image_path(@event.agenda.attachment, :size => @event.agenda.attachment.thumbnail_size))%>
+      <ul>
+        <li><%=@event.agenda.attachment.filename%></li>
+        <li><%=@event.agenda.attachment.get_size()%> <%= link_to( t('download_file') , polymorphic_path(@event.agenda.attachment, :format => @event.agenda.attachment.format))%></li>
+      </ul>
+    </div> 
+  </div>
+<%end%>

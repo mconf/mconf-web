@@ -18,7 +18,7 @@
 	});
 	
 	$("#define_agenda").click(function(){
-	  $("upload_agenda_full").hide();
+	  $("#upload_agenda_full").hide();
 	  $("#agenda_full").show();
 	});
 	
@@ -77,9 +77,9 @@
      <button class='create-space' id="define_agenda"><%=t("agenda.define")%></button>
      or
      <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
-     
+
+     <%= render :partial => "agendas/upload" %>     
      <%= render :partial => "agendas/edit" %>
-     <%= render :partial => "agendas/upload" %>
    <%end%>
    
   <%=render :partial => "external_streaming"%>

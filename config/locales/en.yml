@@ -49,6 +49,7 @@ en:
       updated: 'Agenda entry was successfully updated.'
       yes_record: "Yes"
     title: "Agenda for the event"
+    update: "Agenda was successfully updated."
     upload: "Upload Agenda"
   agent:
     one: "User"
@@ -710,7 +711,9 @@ en:
     add_url: "Add streaming URL"
     edit: "Edit streaming URL"
   subject: "Subject"
-  support: "Support"
+  support:
+    one: "Support"
+    words_connector: ","
   
   ######### T ###########
   tag:
