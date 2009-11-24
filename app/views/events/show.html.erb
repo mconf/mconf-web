@@ -17,14 +17,7 @@
 		}
 	});
 	
-	$("#define_agenda").click(function(){
-	  $("#upload_agenda_full").hide();
-	  $("#agenda_full").show();
-	});
-	
-	
 	$("#upload_agenda").click(function(){
-	  $("#agenda_full").hide();
 	  $("#upload_agenda_full").show();
 	});
 	
@@ -74,11 +67,11 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
-   <div id="agenda_full">
+    <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
+    <%= render :partial => "agendas/upload" %>
+	<div id="agenda_full">
       <h3><%=t('agenda.title')%></h3>
-      <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
       <%= render :partial => "agendas/edit" %>
-      <%= render :partial => "agendas/upload" %>
     </div>
   <%end%>
    
