@@ -15,4 +15,14 @@ class Agenda < ActiveRecord::Base
     agenda.attachment.event  ||= agenda.event
   end
 
+  def agenda_entries_for_day(i)
+    all_entries = []
+    for entry in agenda_entries
+      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
+        all_entries << entry
+      end
+    end
+    all_entries
+  end
+  
 end

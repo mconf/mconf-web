@@ -2,6 +2,8 @@ class AgendaEntriesController < ApplicationController
   before_filter :space!
   before_filter :event
   
+  before_filter :fill_start_and_end_time, :only => [:create, :update]
+  
   # POST /agenda_entries
   # POST /agenda_entries.xml
   def create
@@ -12,7 +14,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.save
         flash[:notice] = t('agenda.entry.created')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        day = @event.day_for(@agenda_entry).to_s
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
       else
         flash[:notice] = t('agenda.entry.failed')
         format.html { redirect_to(space_event_path(@space, @event)) }
@@ -37,7 +40,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
         flash[:notice] = t('agenda.entry.updated')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        day = @event.day_for(@agenda_entry).to_s
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
       else
         flash[:notice] = t('agenda.entry.failed')
         format.html { redirect_to(space_event_path(@space, @event)) }
@@ -48,11 +52,12 @@ class AgendaEntriesController < ApplicationController
   # DELETE /agenda_entries/1
   # DELETE /agenda_entries/1.xml
   def destroy
+    day = @event.day_for(@agenda_entry).to_s
     @agenda_entry = AgendaEntry.find(params[:id])
     @agenda_entry.destroy
 
     respond_to do |format|
-      format.html { redirect_to(space_event_path(@space, @event)) }
+      format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
     end
   end
   
@@ -66,6 +71,17 @@ class AgendaEntriesController < ApplicationController
     @space = Space.find_by_permalink(params[:space_id])
   end
   
+  
+  #in the params we receive the hour and minutes (in start_time and end_time)
+  #and a param called entry_day that indicates the day of the event
+  #with this method we fill the real start and end time with the full time 
+  def fill_start_and_end_time
+    
+    thedate = @event.start_date.to_date + params[:entry_day].to_i
+    params[:agenda_entry][:start_time] = thedate.to_s + " " + params[:agenda_entry][:start_time]
+    params[:agenda_entry][:end_time] = thedate.to_s + " " + params[:agenda_entry][:end_time]
+    
+  end
   
 =begin
   # GET /agenda_entries
