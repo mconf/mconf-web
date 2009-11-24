@@ -1,7 +1,7 @@
 <% content_for :javascript do%>
 
-  $('.agenda_entry').click(function(){
-    $(this).children(".agenda_entry_description").toggle("slow");
+  $('.title_name_and_hour').click(function(){
+    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
   });
   
   
@@ -36,13 +36,12 @@
 <%end%>
 </ul>
 </div>
-<br/>
 
 <%for i in (0..@event.days-1)%>
   <div id="agenda_page<%=i%>" style="display:none">
     <%for entry in @event.agenda.agenda_entries_for_day(i)%>
-      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry}%>
+      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => @event.agenda.agenda_entries_for_day(i).count < 4 }%>
     <%end%>
-  </div>
-  <button class='create-space' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
+    <button class='create-space' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
+  </div>  
 <%end%>

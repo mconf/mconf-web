@@ -2,6 +2,8 @@ class AgendaEntriesController < ApplicationController
   before_filter :space!
   before_filter :event
   
+  before_filter :fill_start_and_end_time, :only => [:create]
+  
   # POST /agenda_entries
   # POST /agenda_entries.xml
   def create
@@ -66,6 +68,17 @@ class AgendaEntriesController < ApplicationController
     @space = Space.find_by_permalink(params[:space_id])
   end
   
+  
+  #in the params we receive the hour and minutes (in start_time and end_time)
+  #and a param called entry_day that indicates the day of the event
+  #with this method we fill the real start and end time with the full time 
+  def fill_start_and_end_time
+    
+    thedate = @event.start_date.to_date + params[:entry_day].to_i
+    params[:agenda_entry][:start_time] = thedate.to_s + " " + params[:agenda_entry][:start_time]
+    params[:agenda_entry][:end_time] = thedate.to_s + " " + params[:agenda_entry][:end_time]
+    
+  end
   
 =begin
   # GET /agenda_entries

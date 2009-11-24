@@ -833,6 +833,10 @@ th.attachment-updated{
  
 /*Agenda for events*/
 
+.entry_title{
+
+}
+
 .entry_hour{
   width:100px;
   background:#bdd8eb;
@@ -841,6 +845,21 @@ th.attachment-updated{
 .entry_name{
   width:410px;
   background:#f0f6f9;
+  font-size: 1.0833em;
+  font-weight: bold;
+  line-height: 1.3846;
+  margin-left: 5px;
+  
+}
+
+.title_name_and_hour{
+  width: 90%;
+  float: left;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.group_agenda_links{
+  margin: 0;  
 }
 
 #agenda_tabs{background:#e1eef5;margin-bottom:1em;}
@@ -849,3 +868,10 @@ th.attachment-updated{
 #agenda_tabs li:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 #agenda_tabs .selected{background:white; color:#244974;}
 #agenda_tabs .selected:hover{background:white; color:#244974;}
+
+
+.agenda_list_content{
+  list-style-type: none;
+  margin: 0 1.5em 0.5em;
+}
+

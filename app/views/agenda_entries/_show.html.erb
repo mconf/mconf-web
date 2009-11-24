@@ -1,32 +1,25 @@
 <div class="agenda_entry" class="profile-box">
 
-<div id="title" class="entry_title">
-  <span class="entry_hour">
-    <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
-  </span>
-  <span class="entry_name">
-    <h3 class="item_title">
+<div class="entry_title">
+  <div class="title_name_and_hour">
+    <span class="entry_hour">
+      <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
+    </span>
+    <span class="entry_name">
       <%=h agenda_entry.title %>
-    </h3>
-  </span>
+    </span>
+  </div>
+    <ul class="group_links group_agenda_links">
+      <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , "#", :title => t('edit'), :id=>"edit_entry", :name=>agenda_entry.id.to_s) if event.authorize?(:update, :to => current_user) %></li>
+      <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if event.authorize?(:delete, :to => current_user) %></li>
+    </ul>
 </div>
 
-<div id="profile_content" class="agenda_entry_description" style="display:none"> 
-  <ul>
-      <li class="person_title"><%=t('agenda.entry.speakers')%>:  <%=h agenda_entry.speakers %></li>
-	  <li class="person_title"><%=t('agenda.entry.description')%>:  <%=h agenda_entry.description %></li>
-      <li class="person_title"><%=t('agenda.entry.record')%>:
-        <%if agenda_entry.record then%>
-          <%=t('agenda.entry.yes_record')%>
-        <%else%>
-          <%=t('agenda.entry.no_record')%>
-        <%end%>
-	  </li>
-    </ul>
-
-<%= link_to "<button class='create-space' id='del_entry'>"+t('agenda.del_entry')+"</button>", space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title) %>
-
-<button class='create-space' id="edit_entry" name="<%=agenda_entry.id%>"><%=t("agenda.edit_entry")%></button>
+<div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
+  <ul class="agenda_list_content">
+    <li><span class="person_title"><%=t('agenda.entry.speakers')%>:</span>  <%=h agenda_entry.speakers %></li>
+    <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
+  </ul>
 </div>
 
 </div>

@@ -74,13 +74,13 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
-     <button class='create-space' id="define_agenda"><%=t("agenda.define")%></button>
-     or
-     <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
-     
-     <%= render :partial => "agendas/edit" %>
-     <%= render :partial => "agendas/upload" %>
-   <%end%>
+   <div id="agenda_full">
+      <h3><%=t('agenda.title')%></h3>
+      <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
+      <%= render :partial => "agendas/edit" %>
+      <%= render :partial => "agendas/upload" %>
+    </div>
+  <%end%>
    
   <%=render :partial => "external_streaming"%>
   
@@ -89,10 +89,7 @@
     <%=render :partial => "more_actions"%>
   </div>
  
-   
-
-   
-
+ 
 <%unless @comments.empty?%> 
 	<div>
 		<h3 class="selector_title"><%= t('comment.other') %></h3>
