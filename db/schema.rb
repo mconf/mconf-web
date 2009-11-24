@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091119154135) do
+ActiveRecord::Schema.define(:version => 20091106104127) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(:version => 20091119154135) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "agenda_entry_id"
-    t.integer  "agenda_id"
   end
 
   create_table "db_files", :force => true do |t|
