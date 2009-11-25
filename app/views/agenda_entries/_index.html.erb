@@ -23,8 +23,13 @@
     
   <%end%>
   
-  $('#date0').addClass("selected");
-  $('#agenda_page0').show();
+  <%if params[:show_day] %>
+     $('#date<%=params[:show_day]%>').addClass("selected");
+    $('#agenda_page<%=params[:show_day]%>').show();
+  <%else%>
+    $('#date0').addClass("selected");
+    $('#agenda_page0').show();
+  <%end%>
   
   
 <%end%>

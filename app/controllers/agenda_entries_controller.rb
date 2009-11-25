@@ -2,7 +2,7 @@ class AgendaEntriesController < ApplicationController
   before_filter :space!
   before_filter :event
   
-  before_filter :fill_start_and_end_time, :only => [:create]
+  before_filter :fill_start_and_end_time, :only => [:create, :update]
   
   # POST /agenda_entries
   # POST /agenda_entries.xml
@@ -14,7 +14,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.save
         flash[:notice] = t('agenda.entry.created')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        day = @event.day_for(@agenda_entry).to_s
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
       else
         flash[:notice] = t('agenda.entry.failed')
         format.html { redirect_to(space_event_path(@space, @event)) }
@@ -39,7 +40,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
         flash[:notice] = t('agenda.entry.updated')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        day = @event.day_for(@agenda_entry).to_s
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
       else
         flash[:notice] = t('agenda.entry.failed')
         format.html { redirect_to(space_event_path(@space, @event)) }
@@ -50,11 +52,12 @@ class AgendaEntriesController < ApplicationController
   # DELETE /agenda_entries/1
   # DELETE /agenda_entries/1.xml
   def destroy
+    day = @event.day_for(@agenda_entry).to_s
     @agenda_entry = AgendaEntry.find(params[:id])
     @agenda_entry.destroy
 
     respond_to do |format|
-      format.html { redirect_to(space_event_path(@space, @event)) }
+      format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
     end
   end
   

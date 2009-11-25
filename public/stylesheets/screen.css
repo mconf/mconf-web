@@ -860,7 +860,7 @@ th.attachment-updated{
 
 .group_agenda_links{
   margin: 0;  
-}
+}bl
 
 #agenda_tabs{background:#e1eef5;margin-bottom:1em;}
 #agenda_tabs ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
@@ -875,3 +875,17 @@ th.attachment-updated{
   margin: 0 1.5em 0.5em;
 }
 
+#agenda_title_label{
+  float: left; 
+  width: 100%;
+}
+
+.agenda_blue_title{
+  float: left; 
+  width: 100%; 
+  display: block; 
+  background: #BDD8EB none repeat scroll 0 0;
+  color: #244974;
+  
+  
+}

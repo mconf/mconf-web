@@ -1,16 +1,23 @@
 <% content_for :javascript do%>
+  
+
   $('#new_agenda_entry').hide();
   $('#cannot_exclude').hide();
  
-  $('#edit_entry').click(function(){
+  $('.edit_entry').click(function(){
     var edit_entry_button = $(this);
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
     $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){             
-              edit_entry_button.parents("div:first").replaceWith(data);
+              edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
+              edit_entry_button.parents(".agenda_entry").append(data);
 	      $('#cannot_exclude').hide();
 	      <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+	      $("input.agenda_edit_close").click(function(){
+                $(this).parents(".agenda_edit_entry").hide();
+                edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
+              });
     });
     $('#new_agenda_entry').hide();
     $('#add_entry').show();
@@ -62,6 +69,7 @@
     } 
   });
  
+  
 <%end%>
 
   <%= render :partial => "agenda_entries/index"%>
