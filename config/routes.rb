@@ -20,7 +20,6 @@ ActionController::Routing::Routes.draw do |map|
       event.resource :agenda do |agenda|
         agenda.resources :agenda_entries
         agenda.resources :agenda_record_entries
-        agenda.resource :attachment
       end
       event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
     end
@@ -38,8 +37,6 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :performances
     space.resources :news
   end
-
-  map.resources :agendas
 
   map.resources :invitations, :member => [ :accept ]
   map.resources :event_invitations, :member => [ :accept ]

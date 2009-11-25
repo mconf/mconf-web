@@ -8,28 +8,10 @@ class AgendasController < ApplicationController
   end
   
 
-  # PUT /agendas/1
-  # PUT /agendas/1.xml
-  def update
-    @agenda = event.agenda
-
-    respond_to do |format|
-      if @agenda.update_attributes(params[:agenda])
-        flash[:notice] = t('agenda.update')
-        format.html { redirect_to([@event.space, event]) }
-        format.xml  { head :ok }
-      else
-        format.html { flash[:error] = @agenda.errors.to_xml ; render :action => "edit" }
-        format.xml  { render :xml => @agenda.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-  
-  
   private
   
   def event
-    @event ||= Event.find(params[:event_id])
+    @event = Event.find(params[:event_id])
   end
   
   def space!
@@ -91,10 +73,24 @@ class AgendasController < ApplicationController
       end
     end
   end
-=end
 
+  # PUT /agendas/1
+  # PUT /agendas/1.xml
+  def update
+    @agenda = event.agenda
 
-=begin
+    respond_to do |format|
+      if @agenda.update_attributes(params[:agenda])
+        flash[:notice] = t('agenda.update')
+        format.html { redirect_to([@event.space, event]) }
+        format.xml  { head :ok }
+      else
+        format.html { flash[:error] = @agenda.errors.to_xml ; render :action => "edit" }
+        format.xml  { render :xml => @agenda.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /agendas/1
   # DELETE /agendas/1.xml
   def destroy
