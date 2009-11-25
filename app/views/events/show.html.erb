@@ -17,11 +17,6 @@
 		}
 	});
 	
-	$("#upload_agenda").click(function(){
-	  $("#upload_agenda_full").show();
-	});
-	
-	
 <% end %>
 
 
@@ -59,7 +54,7 @@
 
   <div id="event_picture">
     <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :post} do |f| %>
       <div><%= f.file_field :media, :id => 'logo_media' %></div>   
       <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
     <%end%>
@@ -67,13 +62,17 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
-    <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
-    <div id="agenda_full">
+    <div id="agenda_full">      
       <h3><%=t('agenda.title')%></h3>
       <%= render :partial => "agendas/edit" %>
     </div>
   <%end%>
    
+  <div id="event_repo">
+    <h3><%=t('event.repository')%></h3>
+    khoh
+  </div>
+  
   <div id="actions">
     <h3>More actions</h3>
     <%=render :partial => "more_actions"%>

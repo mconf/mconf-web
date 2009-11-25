@@ -255,6 +255,7 @@ en:
       today: "No events for yesterday nor today."
       last_week: "No events for last week."
       last_month: "No events for last month."
+    repository: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
     to: "To"
