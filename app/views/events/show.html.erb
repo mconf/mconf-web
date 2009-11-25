@@ -68,15 +68,12 @@
 
   <%if @event.agenda.present?%>
     <button class='create-space' id="upload_agenda"><%=t("agenda.upload")%></button>
-    <%= render :partial => "agendas/upload" %>
-	<div id="agenda_full">
+    <div id="agenda_full">
       <h3><%=t('agenda.title')%></h3>
       <%= render :partial => "agendas/edit" %>
     </div>
   <%end%>
    
-  <%=render :partial => "external_streaming"%>
-  
   <div id="actions">
     <h3>More actions</h3>
     <%=render :partial => "more_actions"%>
