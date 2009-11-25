@@ -2,10 +2,11 @@
   <%= javascript_include_tag 'jquery.timeentry' %>
 <%end%>
 
-<div class="blue_title"><h3><%=t('agenda.entry.new')%></h3></div>
+<div class="agenda_new_entry">
+<div class="agenda_blue_title"><%=t('agenda.entry.new')%></div>
 
 <% form_for(@agenda_entry, :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post}) do |f| %>
-  <div class="margin-up"><label for="title"><%= t('agenda.entry.title') %></label><br/>
+  <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
   <%= f.text_field :title %></div>
   
   <div class="margin-up"><label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
@@ -32,6 +33,7 @@
   
   <div class="margin-up">
     <button type="submit" class='create-space' id="add_entry_button"><%=t("button.create")%></button>
+    <input type="button" value="<%=t('close')%>" class="agenda_new_close"/>
   </div>
 <% end %>
-
+</div>
