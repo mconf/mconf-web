@@ -281,7 +281,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 .post .post-content{float:left;width:433px;}
 .div-logo {float:left;width:50px;padding:1px;}
 .post_moved {margin-right:0.5em;}
-.post-content p{margin-bottom:0;}
+.post-content p{margin-bottom:0;}3.49 
 .attachment{margin-top:5px;}
 .attach{margin-top:5px;}
 .thread-title-wrapper .attach div,.thread-title-wrapper .attachment div,.attach div,.attachment div{float:left;}
@@ -886,6 +886,19 @@ th.attachment-updated{
   display: block; 
   background: #BDD8EB none repeat scroll 0 0;
   color: #244974;
-  
-  
+}
+
+tr.version_expanded{
+	background-color:#ffcf72;
+	
+}
+td.attachment-updated{
+	color:#244974;
+}
+tr.version_expanded td{
+	font-weight:bold;
+}
+.version_number{
+	color: #ba3939;
+	font-weight:bold;
 }
