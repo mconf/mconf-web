@@ -10,6 +10,9 @@
     </span>
   </div>
     <ul class="group_links group_agenda_links">
+      <%if agenda_entry.attachment then%>
+		<%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename,:class=>"icon")%>
+	  <%end%>
       <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , "#", :title => t('edit'), :class=>"edit_entry", :name=>agenda_entry.id.to_s) if event.authorize?(:update, :to => current_user) %></li>
       <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if event.authorize?(:delete, :to => current_user) %></li>
     </ul>
@@ -21,6 +24,17 @@
     <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
   </ul>
 </div>
+
+<%if agenda_entry.attachment then%>
+  <div>
+    <div><%=image_tag(logo_image_path(agenda_entry.attachment, :size => agenda_entry.attachment.thumbnail_size))%>
+      <ul>
+        <li><%=agenda_entry.attachment.filename%></li>
+        <li><%=agenda_entry.attachment.get_size()%> <%= link_to( t('download_file') , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%></li>
+      </ul>
+    </div> 
+  </div>
+<%end%>
 
 </div>
 

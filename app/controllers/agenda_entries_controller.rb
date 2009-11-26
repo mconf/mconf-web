@@ -10,7 +10,7 @@ class AgendaEntriesController < ApplicationController
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
-    
+
     respond_to do |format|
       if @agenda_entry.save
         flash[:notice] = t('agenda.entry.created')
