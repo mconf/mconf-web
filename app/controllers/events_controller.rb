@@ -136,11 +136,14 @@ class EventsController < ApplicationController
         if params[:organizers] && params[:organizers][:name]
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
-        #format.js{
-        #  if params[:event][:other_streaming_url]
-        #    @result = params[:event][:other_streaming_url]
-        #  end
-        #}
+        format.js{
+          if params[:event][:other_streaming_url]
+            @result = params[:event][:other_streaming_url]
+          end
+          if params[:event][:description]
+            @result = params[:event][:description]
+          end
+        }
         flash[:success] = t('event.updated')
         format.html {redirect_to space_event_path(@space, @event) }
         format.xml  { head :ok }
