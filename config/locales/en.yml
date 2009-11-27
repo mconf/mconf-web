@@ -136,7 +136,7 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
     start: "Start date"
-    
+  days: "Days"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words: 
@@ -234,7 +234,8 @@ en:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     help:
-      edit: "Form to edit an event"
+      create: "Create your simple event in three steps:"
+      edit: "Edit your event"
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"

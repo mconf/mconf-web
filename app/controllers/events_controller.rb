@@ -11,6 +11,8 @@ class EventsController < ApplicationController
   before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
 
+  before_filter :adapt_new_date, :only => [:create, :update]
+  
   authorization_filter [ :read,   :content ], :space, :only => [ :index ]
   authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
   authorization_filter :read,   :event, :only => [ :show ]
@@ -195,6 +197,15 @@ class EventsController < ApplicationController
   
   
   private
+  
+  #method to adapt the start_date + number of days to the start_date and end_date that the event expects
+  def adapt_new_date
+    if params[:ndays]
+      params[:event][:end_date] = Date.parse(params[:event][:start_date]) + params[:ndays].to_i - 1
+    end
+    
+  end
+  
   def future_and_past_events
     @future_events = @events.select{|e| e.start_date.future?}
     @past_events = @events.select{|e| e.start_date.past?}.sort!{|x,y| y.start_date <=> x.start_date} #Los eventos pasados van en otro inversos

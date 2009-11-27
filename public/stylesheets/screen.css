@@ -471,7 +471,7 @@ a.event_image:hover{text-decoration:none;}
 .event_date_image{margin: 0px 10px 0px 5px;width:100%;}
 .event_day{font-size: 3em;line-height:90%;}
 .event_month{font-size: 2em;line-height:70%;}
-.event_hour{font-size: 1.2em;}
+.event_hour{font-size: 1.2em;min-width: 30px; min-height: 20px;}
 
 
 #change-event ul li{font-weight:bold;}

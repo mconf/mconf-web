@@ -110,7 +110,7 @@
 
   <%if @event.agenda.present?%>
     <div id="agenda_full">      
-      <div id="agenda_title"><h3><%=t('agenda.title')%></h3></div>
+      <div id="agenda_title"><h3><%=t('agenda.title')%></h3><span><%= t('timezone.one') %>: <%=Time.zone%></span></div>
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
       </div>

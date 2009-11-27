@@ -79,8 +79,10 @@
 
   <%= render :partial => "agenda_entries/index"%>
   
-  <div id="new_agenda_entry">
-    <%= render :partial => "agenda_entries/new"%>
-  </div>
+  <% if event.authorize?(:update, :to => current_user) %>
+    <div id="new_agenda_entry">
+      <%= render :partial => "agenda_entries/new"%>
+    </div>
+  <%end%>
 
 

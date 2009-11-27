@@ -52,12 +52,12 @@ class AgendaEntriesController < ApplicationController
   # DELETE /agenda_entries/1
   # DELETE /agenda_entries/1.xml
   def destroy
-    day = @event.day_for(@agenda_entry).to_s
     @agenda_entry = AgendaEntry.find(params[:id])
+    day = @event.day_for(@agenda_entry).to_s
     @agenda_entry.destroy
 
     respond_to do |format|
-      format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
+      format.html { redirect_to(space_event_path(@space, @event)) }
     end
   end
   

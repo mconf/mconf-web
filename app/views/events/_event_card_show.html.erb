@@ -19,7 +19,7 @@
 				  <div class="event_date_image">
 		        <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
 		        <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
-		        <div class="event_hour"> <%= sanitize(event.start_date.strftime("%H:%M")) %> </div>
+		        <div class="event_hour"> <%= event.get_formatted_hour %> </div>
 					</div>
 	      <%end%>
       </div>
@@ -32,11 +32,8 @@
     <ul>
     
       <li class="main_date">
-        <%= t('from')%>: <%=sanitize(@event.start_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
+        <%= t('when')%>: <%=@event.get_formatted_date%>
       </li>
-			<li class="main_date">
-				<%= t('to').capitalize%>: <%=sanitize(@event.end_date.to_formatted_s(:short))%> (GMT <%= Time.zone.formatted_offset%>)
-			</li>
   
       <%if event.location%>
       <li class="main_text">

@@ -55,7 +55,7 @@
 <div id="change-event">
 
 
-<div id="help" title="t(event.help.edit)"></div>
+<div id="help" title="<%=t('event.help.edit')%>"></div>
 <h3><%= t('event.edit') %></h3>
 
 <% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
@@ -70,22 +70,19 @@
 	<label for="Description"><%= t('description') %>:</label>
 	<%=f.text_area :description  %>
   </div>
-  <!--
+  
   <div>
     <label for="Organizer"><%= t('organizer') %>:</label>
     <select id="organizers_name" multiple="multiple" name="organizers[name][]">
       <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
     </select>
   </div>
-  -->
+  
    <div class="margin-up">
      <strong><span>2. <%= t('event.select_date')%></span></strong>	
    </div>
  
   <div id="expanded_date" class="javascript">
-	<div class="margin-up">
-	  <span><%= t('timezone.one') %>: <%=Time.zone%></span>
-	</div>
     <div class="no_javascript">
     <ul>
       <li><%= t('date.start') %></li>

@@ -1,13 +1,10 @@
-$(".no_javascript").after(
-  "<div class='javascript'><label><%=escape_javascript(link_to "Start date", "javascript:start_datepicker_setdate()")%></label> "  
-	+ "<%=escape_javascript(link_to "Start hour", "javascript:start_timepicker_setTime()")%><br/>"
-	+ "<input type='date' id='start_datepicker' name='event[start_date]' class= 'datepicker small-font' value='<%=escape_javascript( @event_to_edit.present? ? @event_to_edit.start_date.strftime("%d %b %Y") : DateTime.now.strftime("%d %b %Y")) %>'>"
-	+ "<input type='time' id='start_timepicker' name='event[start_hour]' class='timepicker small-font' value='<%= @event_to_edit.present? ? @event_to_edit.start_date.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>"   
-	+ "<label><%=escape_javascript(link_to "End date", "javascript:end_datepicker_setdate()")%></label>"
-	+ "<%=escape_javascript(link_to "End hour", "javascript:end_timepicker_setTime()", :class => "timepicker_launcher")%><br/>"
-	+ "<input type='date' id='end_datepicker' name='event[end_date]' class='datepicker small-font' value='<%=escape_javascript( @event_to_edit.present? ? @event_to_edit.end_date.strftime("%d %b %Y") : DateTime.now.strftime("%d %b %Y")) %>'>"
-	+ "<input type='time' id='end_timepicker' name='event[end_hour]' class='timepicker small-font' value='<%= @event_to_edit.present? ? @event_to_edit.end_date.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'></div>"
+var theselect = <%=select_tag "ndays", options_for_select({ "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5" },@event_to_edit.present? ? @event_to_edit.days.to_s : "1")%>;
 
+$(".no_javascript").after(
+  "<div class='javascript'><label><%=t('date.start')%></label> "  
+	+ "<label><%=t('days')%></label><br/>"
+	+ "<input type='date' id='start_datepicker' name='event[start_date]' class= 'datepicker small-font' value='<%=escape_javascript( @event_to_edit.present? ? @event_to_edit.start_date.strftime("%d %b %Y") : DateTime.now.strftime("%d %b %Y")) %>'>"
+	+ theselect + "<br/>"
 );
 $(".no_javascript").remove();
 
@@ -15,16 +12,10 @@ $(".no_javascript").remove();
  * Timepicker and datepicker configuration
  */
 
-$("#end_datepicker").datepicker({
-   dateFormat: 'd M yy'
-});
 
 $("#start_datepicker").datepicker({
    dateFormat: 'd M yy',
    onSelect: function(dateText) {
-     if($("#end_datepicker").val()==""){
-       $("#end_datepicker").val(dateText);
-     }
 	 replace_invitation();
    }
 });
@@ -45,21 +36,11 @@ start_timepicker_setTime = function(){
  * Timepicker and datepicker launch functions
  */
 
-end_timepicker_setTime = function(){
-  if($("#start_timepicker").val()!=""){
-    $("#end_timepicker").val($("#start_timepicker").val());
-  }else{
-    $("#end_timepicker").timeEntry('setTime');
-  }
-};
 
 start_datepicker_setdate = function(){
   $("#start_datepicker").datepicker('show');
 };
 
-end_datepicker_setdate = function(){
-	 $("#end_datepicker").datepicker('show');
-};
 
 /*
  * Jquery timepicker calls to set timepicker clicking time
@@ -71,9 +52,4 @@ $("#start_timepicker").click(function(){
 	}
 });
 
-$("#end_timepicker").click(function(){
-  if($(this).val()==""){
-	  end_timepicker_setTime();
-	}
-});
 

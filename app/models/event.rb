@@ -80,6 +80,11 @@ class Event < ActiveRecord::Base
   end      
   
   def organizers
+    if actors.count == 0
+      ar = Array.new
+      ar << author
+      return ar
+    end
     actors
   end
   
@@ -96,6 +101,38 @@ class Event < ActiveRecord::Base
   def get_attachments
     return Attachment.find(:all)
   end
+  
+  #method to get the starting date of an event in the correct format
+  #the problem is that the starting hour comes from the agenda
+  def get_formatted_date
+    if agenda.present? && agenda.agenda_entries.count>0
+      first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
+      #check that the entry is the first day
+      if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
+        return first_entry.start_time.strftime("%A, %d %b %Y at %H:%M") + " (GMT " + Time.zone.formatted_offset + ")"
+      else
+        return start_date.to_date.strftime("%A, %d %b %Y")
+      end
+    end
+    return start_date.to_date.strftime("%A, %d %b %Y")
+  end
+  
+  
+  #method to get the starting hour of an event in the correct format
+  #the problem is that the starting hour comes from the agenda
+  def get_formatted_hour
+    if agenda.present? && agenda.agenda_entries.count>0
+      first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
+      #check that the entry is the first day
+      if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
+        return first_entry.start_time.strftime("%H:%M")
+      else
+        return ""
+      end
+    end
+    return ""
+  end
+  
   
   def validate
     if self.start_date.nil? || self.end_date.nil? 
