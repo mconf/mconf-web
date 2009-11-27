@@ -17,6 +17,53 @@
 		}
 	});
 	
+	$("#event_description_title").click(function(){
+	  $("#event_description_content").toggle("slow");
+	});
+	
+	$("#agenda_title").click(function(){
+	  $("#agenda_content").toggle("slow");
+	});
+	
+	$("#repository_title").click(function(){
+	  $("#repository_content").toggle("slow");
+	});
+	
+	$("#streaming_title").click(function(){
+	  $("#streaming_content").toggle("slow");
+	});
+	
+   <%if event.authorize?(:update, :to => current_user)%> 
+     $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+        method : 'PUT',
+	tooltip   : '<%= t('dblclick')%>',
+        cancel    : '<%= t('cancel')%>',
+        submit    : '<%= t('ok')%>',
+        indicator : '<img src="ui/icons/accept.png" />',
+        type      : 'textarea',
+        name : 'event[description]',
+	width : 500,
+	height: 250,
+	event     : "dblclick",
+	data: function(value, settings) {
+          /* Convert <br> to newline. */
+          var retval = value.replace(/<br[\s\/]?>/gi, '');
+          retval = retval.replace(/<p[\s\/]?>/gi, '');
+          retval = retval.replace(/<\/p[\s\/]?>/gi, '');
+          return retval;
+        },
+        submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+     });
+	 
+     $('#event_description_content form input').livequery("blur",function(){
+       $('#edit_description_icon').show();
+     });
+   
+     edit_description = function(){
+       $('#event_description_content').dblclick();
+     };
+   <%end%>
+   
 <% end %>
 
 
@@ -63,22 +110,23 @@
 
   <%if @event.agenda.present?%>
     <div id="agenda_full">      
-      <h3><%=t('agenda.title')%></h3>
-      <%= render :partial => "agendas/edit" %>
+      <div id="agenda_title"><h3><%=t('agenda.title')%></h3></div>
+      <div id="agenda_content">
+        <%= render :partial => "agendas/edit" %>
+      </div>
     </div>
   <%end%>
    
   <div id="event_repo">
-    <h3><%=t('event.repository')%></h3>
-    khoh
+    <div id="repository_title"><h3><%=t('event.repository')%></h3></div>
+    <div id="repository_content">
+      <%@attachments=@event.get_attachments%>
+      <%= render :partial => "attachments/doc_table" %>
+    </div>
   </div>
   
-  <div id="actions">
-    <h3>More actions</h3>
-    <%=render :partial => "more_actions"%>
-  </div>
- 
- 
+  <%=render :partial => "external_streaming"%>
+  
 <%unless @comments.empty?%> 
 	<div>
 		<h3 class="selector_title"><%= t('comment.other') %></h3>

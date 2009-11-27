@@ -442,6 +442,9 @@ div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
 #event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3,#event_repo h3{border-bottom:1px #CCC solid;}
+#streaming_url h3{width: 95%; float: left;}
+#streaming_url a{float: right;margin: 0.666em 0}
+
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
 /*div.single_event:hover{background:#f0f6f9;}*/
@@ -860,7 +863,7 @@ th.attachment-updated{
 
 .group_agenda_links{
   margin: 0;  
-}bl
+}
 
 #agenda_tabs{background:#e1eef5;margin-bottom:1em;}
 #agenda_tabs ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
@@ -882,7 +885,7 @@ th.attachment-updated{
 
 .agenda_blue_title{
   float: left; 
-  width: 100%; 
+  width: 100%;                                                      
   display: block; 
   background: #BDD8EB none repeat scroll 0 0;
   color: #244974;
@@ -902,3 +905,6 @@ tr.version_expanded td{
 	color: #ba3939;
 	font-weight:bold;
 }
+
+#event_description_title h3{width: 95%; float: left;}
+#event_description_line a{float: right; margin: 0.666em 0;}

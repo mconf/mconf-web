@@ -93,6 +93,10 @@ class Event < ActiveRecord::Base
     return agenda_entry.start_time.to_date - start_date.to_date
   end
   
+  def get_attachments
+    return Attachment.find(:all)
+  end
+  
   def validate
     if self.start_date.nil? || self.end_date.nil? 
       errors.add_to_base("The event needs start date and end date ")

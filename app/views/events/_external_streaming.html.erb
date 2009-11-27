@@ -3,18 +3,20 @@
 <%end%>
 
 <% content_for :javascript do%>
-$('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
+
+<%if @event.authorize?(:update, :to => current_user)%> 
+  $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
-	tooltip   : '<%= t('space.clic')%>',
+	tooltip   : '<%= t('dblclic')%>',
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
+        type      : 'textarea',
         name : 'event[other_streaming_url]',
-	width : 185,
+	width : 500,
+	height: 150,
+	event     : "dblclick",
         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
-	callback : function(value, settings) {
-           $('#edit_streaming_icon').show();
-        }
    });
 	 
    $('#streaming_url_value form input').livequery("blur",function(){
@@ -22,13 +24,18 @@ $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
    });
    
    edit_streaming = function(){
-     $('#streaming_url_value').click();
-     $('#edit_streaming_icon').hide();
+     $('#streaming_url_value').dblclick();
    };
-   
+<%end%>
+
 <%end%>
    
 <div id="streaming_url" class="margin-up">
-  <h3><%=t('streaming.add_url')%>:</h3>
-  <span id="streaming_url_value"><%=@event.other_streaming_url%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon"%>
+  <span>
+    <div id="streaming_title"><h3><%=t('event.streaming.title')%>:</h3></div>
+    <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
+  </span>
+  <div id="streaming_content">
+    <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
+  </div>
 </div>
