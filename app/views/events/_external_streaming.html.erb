@@ -7,10 +7,11 @@
 <%if @event.authorize?(:update, :to => current_user)%> 
   $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
-	tooltip   : '<%= t('dblclic')%>',
+	tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
+        placeholder: '',
         type      : 'textarea',
         name : 'event[other_streaming_url]',
 	width : 500,
