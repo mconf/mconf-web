@@ -13,6 +13,8 @@
 					 return(data);
 				 });
 			 },{
+			 cancel    : '<%= t('cancel')%>',
+         submit    : '<%= t('ok')%>',
 			 tooltip   : '<%= t('space.clic')%>',
 			 width : 185
    });
@@ -30,7 +32,6 @@
 	 type : 'textarea',
 	 cancel    : '<%= t('cancel')%>',
          submit    : '<%= t('ok')%>',
-         indicator : '<img src="ui/icons/accept.png" />',
          tooltip   : '<%= t('space.clic')%>',
          name : 'space[description]',
 	 width : 185,
@@ -70,7 +71,12 @@
 	    var val = $(this).is(":checked");
       $.post("<%=space_path(@space)%>",{
         _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[repository]': val          
-      });
+        },function(data){
+				  eval(data);
+        },
+				"script"
+			);
+
     });
 		
 		
