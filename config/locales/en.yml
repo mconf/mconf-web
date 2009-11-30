@@ -221,7 +221,9 @@ en:
     create: "Create new event"
     created: "Event created successfully"
     description:
+      add: "Add description."
       edit: "Edit description"
+      none: "No one has written a description"
     edit: "Edit event"
     error:
       dates: "End date must be after start date"
