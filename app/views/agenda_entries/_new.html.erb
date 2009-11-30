@@ -25,16 +25,17 @@
       <div class="margin-up"><label for="end_time"><%= t('agenda.entry.end_time') %></label><br/>
       <%= f.datetime_select :end_time %></div>
     </div>
- 
+ <!--
     <div class="margin-up" id="record_block">
       <%= f.check_box :record %>
       <%= f.label :record %>
 	  <span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
-
+ -->
+	<div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
     <% f.fields_for :attachment do |attachment_form| %>
       <%= attachment_form.file_field :uploaded_data %>
-    <%end%>
+    <%end%></div>
 
     <div class="margin-up">
       <button type="submit" class='create-space' id="add_entry_button"><%=t("button.create")%></button>

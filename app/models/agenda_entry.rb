@@ -14,6 +14,7 @@ class AgendaEntry < ActiveRecord::Base
     if (agenda_entry.attachment != nil) then
       agenda_entry.attachment.space  ||= agenda_entry.agenda.event.space
       agenda_entry.attachment.event  ||= agenda_entry.agenda.event
+      agenda_entry.attachment.author ||= agenda_entry.agenda.event.author 
     end
   end
   
