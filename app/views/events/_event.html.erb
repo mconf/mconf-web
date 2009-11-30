@@ -42,8 +42,14 @@
       
       <li class="main_text">
         <%= t('organizer') %>: 
+        <%isfirst=true%>
         <%event.organizers.each do |org|%>
-             <%=org.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(org.name,@query),user_profile_path(org),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(org.name,@query) + "</span>"))%>
+          <%if isfirst%>
+            <%isfirst=false%>
+          <%else%>
+            ,
+          <%end%>
+          <%=org.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(org.name,@query),user_profile_path(org),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(org.name,@query) + "</span>"))%>
         <%end%>
       </li>
       
