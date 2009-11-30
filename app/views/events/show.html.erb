@@ -99,9 +99,9 @@
   <%= render :partial => "event_card_show" %>
   </div>
 
-  <div id="event_picture">
+  <div id="update_logo">
     <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :post} do |f| %>
+    <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
       <div><%= f.file_field :media, :id => 'logo_media' %></div>   
       <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
     <%end%>
