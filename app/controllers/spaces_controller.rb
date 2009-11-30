@@ -140,9 +140,12 @@ class SpacesController < ApplicationController
         format.js{
           if params[:space][:name]
             @result = "window.location=\"#{edit_space_path(@space)}\";"
-          end
-          if params[:space][:description]
+            render "result.js"
+          elsif params[:space][:description]
             @result=params[:space][:description]
+            render "result.js"
+          else
+            render "update.js"
           end
         }
         format.html { 

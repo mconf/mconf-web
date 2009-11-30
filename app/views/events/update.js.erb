@@ -1,1 +1,5 @@
-<%=sanitize(auto_link(simple_format(@result)))%>
+<%if @result==""%>
+  <%return%>
+<%else%>
+  <%=sanitize(auto_link(simple_format(@result)))%>
+<%end%>
