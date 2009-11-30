@@ -111,7 +111,7 @@
 	<div id="for_lightbox" style="display:none"></div>
 
   <%if @event.agenda.present?%>
-    <div id="agenda_full">      
+    <div id="agenda_full" class="margin-up">      
       <div id="agenda_title"><h3><%=t('agenda.title')%></h3><span><%= t('timezone.one') %>: <%=Time.zone%></span></div>
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
@@ -119,7 +119,7 @@
     </div>
   <%end%>
    
-  <div id="event_repo">
+  <div id="event_repo" class="margin-up">
     <div id="repository_title"><h3><%=t('event.repository')%></h3></div>
     <div id="repository_content">
       <%@attachments=@event.get_attachments%>

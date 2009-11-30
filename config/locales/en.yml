@@ -266,8 +266,10 @@ en:
     search: "Search events..."
     select_date: "Select a date for your event"
     streaming: 
+      add: "Add one."
       title: "Streaming/Recording"
       edit: "Edit streaming code"
+      none: "No one has posted any streaming url." 
     to: "To"
     today: "Today events"
     today_size: "Today ({{size}})"

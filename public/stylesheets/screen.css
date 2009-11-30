@@ -442,8 +442,8 @@ div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
 /*#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3,#event_repo h3{border-bottom:1px #CCC solid;}*/
-#streaming_url h3{width: 95%; float: left;}
-#streaming_url a{float: right;margin: 0.666em 0}
+/*#streaming_url h3{width: 95%; float: left;}
+#streaming_url a{float: right;margin: 0.666em 0}*/
 
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
@@ -833,6 +833,8 @@ th.attachment-updated{
 #doc_table td{
  	padding-top:5px;
 }
+
+#doc_table .ui-collection-empty td{padding-top:0;}
  
 #mixed_filter{
   margin-bottom: 20px; 
@@ -911,10 +913,10 @@ tr.version_expanded td{
 }
 
 
-#event_description_wrapper{background:#f7f7f7;}
-h3#event_description_title{padding:3px 8px;background:#bdd8eb;margin:0;border-top:1px solid #A8C0D1;}
+#event_description_wrapper,#agenda_full,#event_repo,#streaming_url{background:#f7f7f7;}
+h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_title h3{padding:3px 8px;background:#bdd8eb;margin:0;border-top:1px solid #A8C0D1;}
 #event_description_line{}
-#event_description_line a{float: right;margin-right:8px;margin-top:3px;}
-#event_description_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
+#event_description_content,#agenda_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 #event_description_content p{margin:0;}
 

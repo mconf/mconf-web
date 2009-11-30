@@ -11,7 +11,7 @@
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
-        placeholder: '',
+        placeholder: '<%=t("event.streaming.none")%> <%=link_to_function t('event.streaming.add'), "edit_streaming()", :id => "add_streaming_link"%>',
         type      : 'textarea',
         name : 'event[other_streaming_url]',
 	width : 500,
@@ -31,12 +31,16 @@
 
 <%end%>
    
-<div id="streaming_url" class="margin-up">
-  <span>
-    <div id="streaming_title"><h3><%=t('event.streaming.title')%>:</h3></div>
+<div id="streaming_url" class="margin-up main_text">
+  
     <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
-  </span>
+    <div id="streaming_title"><h3><%=t('event.streaming.title')%>:</h3></div>
+  
   <div id="streaming_content">
-    <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
+  	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+	    <%=t("event.streaming.none")%>
+	<%else%>
+      <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
+	<%end%>
   </div>
 </div>
