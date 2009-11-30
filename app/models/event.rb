@@ -99,7 +99,7 @@ class Event < ActiveRecord::Base
   end
   
   def get_attachments
-    return Attachment.find(:all)
+    return Attachment.find_all_by_event_id(id)
   end
   
   #method to get the starting date of an event in the correct format

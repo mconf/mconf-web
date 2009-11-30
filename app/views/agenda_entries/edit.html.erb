@@ -20,16 +20,17 @@
 	<%= t('agenda.entry.end_time') %><br/>
 	<input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'>
     </div>
-
+ <!--
     <div class="margin-up" id="record_block">
       <%= f.check_box :record %>
       <%= f.label :record %>
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
-    
+ -->
+	<div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
 	<% f.fields_for :attachment do |attachment_form| %>
       <%= attachment_form.file_field :uploaded_data %>
-	<%end%>
+	<%end%></div>
   
     <div class="margin-up">
       <button type="submit"><%=t("button.update")%></button>

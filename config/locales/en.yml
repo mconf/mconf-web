@@ -65,6 +65,7 @@ en:
     loading: "Loading document information..."
     not_valid: "The attachment is not valid"
     not_selected: "No document selected"
+    one: "Attachment"
     updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
