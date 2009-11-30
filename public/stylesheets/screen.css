@@ -441,7 +441,7 @@ div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
-#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3,#event_repo h3{border-bottom:1px #CCC solid;}
+/*#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3,#event_repo h3{border-bottom:1px #CCC solid;}*/
 #streaming_url h3{width: 95%; float: left;}
 #streaming_url a{float: right;margin: 0.666em 0}
 
@@ -910,5 +910,9 @@ tr.version_expanded td{
 	font-weight:bold;
 }
 
-#event_description_title h3{width: 95%; float: left;}
-#event_description_line a{float: right; margin: 0.666em 0;}
+#event_description_wrapper{background:#f7f7f7;}
+h3#event_description_title{padding:3px 8px;background:#bdd8eb;margin:0;border-top:1px solid #A8C0D1;}
+#event_description_line{}
+#event_description_line a{float: right;margin-right:8px;margin-top:3px;}
+#event_description_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#event_description_content p{margin:0;}
