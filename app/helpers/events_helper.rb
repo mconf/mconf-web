@@ -1,5 +1,11 @@
 module EventsHelper
   
+  #returns the day of the agenda entry, 0 for the first day, 1 for the second day, ...
+  def day_for(event, agenda_entry)
+    return agenda_entry.start_time.to_date - event.start_date.to_date
+  end
+  
+  
   def get_user_state(event,event_user)
       event.participants.select {|p| p.user == event_user}.first.attend
     end

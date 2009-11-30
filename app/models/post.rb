@@ -42,7 +42,7 @@ class Post < ActiveRecord::Base
   # Fill attachments author and space
   before_validation do |post|
     post.attachments.each do |a|
-      a.space  = post.space
+      a.space  ||= post.space
       a.author = post.author
     end
   end

@@ -1,21 +1,28 @@
 <% content_for :javascript do%>
+  
+  $("input.agenda_new_close").click(function(){
+    $('#new_agenda_entry').hide();
+    str = "#add_entry" + $('#entry_day').val();
+    $(str).show();
+  });
+
   $('#new_agenda_entry').hide();
   $('#cannot_exclude').hide();
-
-  $('#add_entry').click(function(){
-    $('#add_entry').hide();
-    $('#new_agenda_entry').show();
-  });
-  
-  $('#edit_entry').click(function(){
+ 
+  $('.edit_entry').click(function(){
     var edit_entry_button = $(this);
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
     $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){             
-              edit_entry_button.parents("div:first").replaceWith(data);
+              edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
+              edit_entry_button.parents(".agenda_entry").append(data);
 	      $('#cannot_exclude').hide();
 	      <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+	      $("input.agenda_edit_close").click(function(){
+                $(this).parents(".agenda_edit_entry").hide();
+                edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
+              });
     });
     $('#new_agenda_entry').hide();
     $('#add_entry').show();
@@ -67,29 +74,15 @@
     } 
   });
  
+  
 <%end%>
-
-
-
-<div id="agenda_full" style="display:none">
-
-  <div class="blue_title"><h3><%=t('agenda.title')%></h3></div>
-
-  <div class="blue_title">	  
-    <h3><%=sanitize(@event.start_date.to_date.to_formatted_s(:short))%>
-    <%=@event.start_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</h3>
-  </div>
 
   <%= render :partial => "agenda_entries/index"%>
   
-  <button class='create-space' id="add_entry"><%=t("agenda.add_entry")%></button>
-  <div id="new_agenda_entry">
-    <%= render :partial => "agenda_entries/new"%>
-  </div>
-	  
-  <div class="blue_title">
-  	<h3><%=sanitize(@event.end_date.to_date.to_formatted_s(:short))%>
-    <%=@event.end_date.to_time.to_formatted_s(:time)%> (GMT <%= Time.zone.formatted_offset%>)</h3>
-  </div>
+  <% if event.authorize?(:update, :to => current_user) %>
+    <div id="new_agenda_entry">
+      <%= render :partial => "agenda_entries/new"%>
+    </div>
+  <%end%>
 
-</div>
+

@@ -7,9 +7,7 @@ class AgendasController < ApplicationController
     @agenda_entry = AgendaEntry.new
   end
   
-  
-  
-  
+
   private
   
   def event
@@ -79,15 +77,15 @@ class AgendasController < ApplicationController
   # PUT /agendas/1
   # PUT /agendas/1.xml
   def update
-    @agenda = Agenda.find(params[:id])
+    @agenda = event.agenda
 
     respond_to do |format|
       if @agenda.update_attributes(params[:agenda])
-        flash[:notice] = 'Agenda was successfully updated.'
-        format.html { redirect_to(@agenda) }
+        flash[:notice] = t('agenda.update')
+        format.html { redirect_to([@event.space, event]) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { flash[:error] = @agenda.errors.to_xml ; render :action => "edit" }
         format.xml  { render :xml => @agenda.errors, :status => :unprocessable_entity }
       end
     end

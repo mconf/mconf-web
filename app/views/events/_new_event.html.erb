@@ -63,7 +63,7 @@
 
 <div id="change-event">
 	
-<h3><div id="help" title="Create your simple event in four steps:"></div><%= t('event.create') %></h3>
+<h3><div id="help" title=<%=t('event.help.create')%>></div><%= t('event.create') %></h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
  <div>
@@ -76,19 +76,15 @@
 	<%=f.text_area :description%>
   </div>
   
-  <!--
   <div>
     <label for="Organizer"><%= t('organizer') %>:</label>
     <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
   </div>
-  -->
+
   <div class="margin-up">
   <strong><span>2. <%= t('event.select_date')%></span></strong>	
   </div>
   <div id="expanded_date">
-	<div class="margin-up">
-	  <span><%= t('timezone.one') %>: <%=Time.zone%></span>
-	</div>
 	<div class="no_javascript">
 	  <ul>
 		<li><%= t('date.start') %></li>

@@ -49,6 +49,7 @@ en:
       updated: 'Agenda entry was successfully updated.'
       yes_record: "Yes"
     title: "Agenda for the event"
+    update: "Agenda was successfully updated."
     upload: "Upload Agenda"
   agent:
     one: "User"
@@ -135,7 +136,7 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
     start: "Start date"
-    
+  days: "Days"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words: 
@@ -157,6 +158,7 @@ en:
       over_x_years:
         one:  "1 year" 
         other: "{{count}} years"  
+  dblclick: "Double click to edit..."
   delete:
     one: "Delete"
     confirm: "Delete {{element}}?"
@@ -217,6 +219,8 @@ en:
     choose_location: "Choose location"
     create: "Create new event"
     created: "Event created successfully"
+    description:
+      edit: "Edit description"
     edit: "Edit event"
     error:
       dates: "End date must be after start date"
@@ -230,7 +234,8 @@ en:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     help:
-      edit: "Form to edit an event"
+      create: "Create your simple event in three steps:"
+      edit: "Edit your event"
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
@@ -254,8 +259,12 @@ en:
       today: "No events for yesterday nor today."
       last_week: "No events for last week."
       last_month: "No events for last month."
+    repository: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    streaming: 
+      title: "Streaming/Recording"
+      edit: "Edit streaming code"
     to: "To"
     today: "Today events"
     today_size: "Today ({{size}})"
@@ -706,11 +715,10 @@ en:
     reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
-  streaming:
-    add_url: "Add streaming URL"
-    edit: "Edit streaming URL"
   subject: "Subject"
-  support: "Support"
+  support:
+    one: "Support"
+    words_connector: ","
   
   ######### T ###########
   tag:

@@ -165,6 +165,7 @@ class PostsController < ApplicationController
     flash[:error] = @post.errors.to_xml
     posts
     render :index
+    flash.delete([:error])
   end
 
   def after_update_with_success
@@ -177,5 +178,6 @@ class PostsController < ApplicationController
     flash[:error] = @post.errors.to_xml
     posts
     render :index
+    flash.delete([:error])
   end
 end

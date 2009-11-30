@@ -204,7 +204,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .admin{background:#ffa903;color:#FFF;}
 #menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
 
-#menu li .selected:hover{background:white; color:#244974}
+#menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:0 10px 10px 10px;}
 
@@ -281,7 +281,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 .post .post-content{float:left;width:433px;}
 .div-logo {float:left;width:50px;padding:1px;}
 .post_moved {margin-right:0.5em;}
-.post-content p{margin-bottom:0;}
+.post-content p{margin-bottom:0;}3.49 
 .attachment{margin-top:5px;}
 .attach{margin-top:5px;}
 .thread-title-wrapper .attach div,.thread-title-wrapper .attachment div,.attach div,.attachment div{float:left;}
@@ -441,7 +441,10 @@ div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
 div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
-#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3{border-bottom:1px #CCC solid;}
+#event_card_show h3,#event_picture h3,#streaming_url h3,#actions h3,#agenda_full h3,#event_repo h3{border-bottom:1px #CCC solid;}
+#streaming_url h3{width: 95%; float: left;}
+#streaming_url a{float: right;margin: 0.666em 0}
+
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
 /*div.single_event:hover{background:#f0f6f9;}*/
@@ -468,7 +471,7 @@ a.event_image:hover{text-decoration:none;}
 .event_date_image{margin: 0px 10px 0px 5px;width:100%;}
 .event_day{font-size: 3em;line-height:90%;}
 .event_month{font-size: 2em;line-height:70%;}
-.event_hour{font-size: 1.2em;}
+.event_hour{font-size: 1.2em;min-width: 30px; min-height: 20px;}
 
 
 #change-event ul li{font-weight:bold;}
@@ -819,7 +822,6 @@ th.attachment-updated{
 
 #doc_table table{
 	width:510px;
-	margin-top:20px;
 }
 
 #doc_table table th{
@@ -828,6 +830,85 @@ th.attachment-updated{
 	font-weight:bold;
 }
 
- #doc_table td{
+#doc_table td{
  	padding-top:5px;
- }
+}
+ 
+#mixed_filter{
+  margin-bottom: 20px; 
+}
+ 
+/*Agenda for events*/
+
+.entry_title{
+
+}
+
+.entry_hour{
+  width:100px;
+  background:#bdd8eb;
+}
+
+.entry_name{
+  width:410px;
+  background:#f0f6f9;
+  font-size: 1.0833em;
+  font-weight: bold;
+  line-height: 1.3846;
+  margin-left: 5px;
+  
+}
+
+.title_name_and_hour{
+  width: 90%;
+  float: left;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.group_agenda_links{
+  margin: 0;  
+}
+
+#agenda_tabs{background:#e1eef5;margin-bottom:1em;}
+#agenda_tabs ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
+#agenda_tabs li{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white;}
+#agenda_tabs li:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
+#agenda_tabs .selected{background:white; color:#244974;}
+#agenda_tabs .selected:hover{background:white; color:#244974;}
+
+
+.agenda_list_content{
+  list-style-type: none;
+  margin: 0 1.5em 0.5em;
+}
+
+#agenda_title_label{
+  float: left; 
+  width: 100%;
+}
+
+.agenda_blue_title{
+  float: left; 
+  width: 100%;                                                      
+  display: block; 
+  background: #BDD8EB none repeat scroll 0 0;
+  color: #244974;
+}
+
+tr.version_expanded{
+	background-color:#ffcf72;
+	
+}
+td.attachment-updated{
+	color:#244974;
+}
+tr.version_expanded td{
+	font-weight:bold;
+}
+.version_number{
+	color: #ba3939;
+	font-weight:bold;
+}
+
+#event_description_title h3{width: 95%; float: left;}
+#event_description_line a{float: right; margin: 0.666em 0;}

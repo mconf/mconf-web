@@ -35,6 +35,8 @@ module ApplicationHelper
       obj.post ||= Post.new
       
       obj.space = @space if obj.space.blank?
+    when AgendaEntry
+      obj.attachment ||= Attachment.new
     else
       raise "Unknown object #{ obj.class }"
     end
