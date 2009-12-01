@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091106104127) do
+ActiveRecord::Schema.define(:version => 20091119151350) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -34,10 +34,9 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.integer  "agenda_id"
     t.string   "title"
     t.text     "description"
-    t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "record"
+    t.boolean  "exclude_from_recording"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.string   "title"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "record"
+    t.boolean  "exclude_from_recording"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -70,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "post_id"
     t.integer  "space_id"
     t.integer  "event_id"
     t.integer  "author_id"
@@ -213,6 +211,12 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
   create_table "permissions_roles", :id => false, :force => true do |t|
     t.integer "permission_id"
     t.integer "role_id"
+  end
+
+  create_table "post_attachments", :force => true do |t|
+    t.integer "post_id"
+    t.integer "attachment_id"
+    t.integer "attachment_version"
   end
 
   create_table "posts", :force => true do |t|

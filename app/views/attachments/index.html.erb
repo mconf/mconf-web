@@ -6,10 +6,10 @@
 <% content_for :javascript do%>
 
   //Upload form
-
-  $("input#Expandir").livequery("click",function(){
+  $("input#add_post").livequery("click",function(){
     $("#with_post").slideToggle("slow");
   });
+
   
   expand_new_doc_form = function(){
 	  $("#add_new_doc").show();
@@ -33,7 +33,24 @@
             newel: true,
             complete_opts: true
 		});
-	collapse_new_doc_form();    
+
+	<%if attachment.new_record? && attachment.errors.any?%>
+	  expand_new_doc_form();
+	<%elsif attachment.errors.any?%>
+	  $("#attachment_new_version_tags").fcbkcomplete({
+	    cache: true,
+	          filter_case: false,
+	          filter_hide: false,
+	          firstselected: true,
+	          filter_selected: true,
+	          maxshownitems: 4,
+	    newel: true     
+	  });
+	<%else%>
+	  collapse_new_doc_form();
+	<%end%>
+	
+	    
 
   $("#add_document_label").livequery("click",expand_new_doc_form);
   $("#hide").livequery("click",collapse_new_doc_form);
@@ -185,7 +202,13 @@ $("#attachment_tags_filter").fcbkcomplete({
 
 <%content_for :sidebar do%>
   <%= render :partial => 'doc_info' %>
-  <%= render :partial => 'upload_form' %>
+	<%if attachment.new_record? && attachment.errors.any?%>
+	  <%= render :partial => 'upload_form' %>
+	<%elsif attachment.errors.any?%>
+	  <%= render :partial => 'new_version_form' %>
+	<%else%>
+    <%= render :partial => 'upload_form' %>
+	<%end%>
 <%end%>
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
