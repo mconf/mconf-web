@@ -22,13 +22,16 @@
     <ul class="agenda_list_content">
       <li><span class="person_title"><%=t('agenda.entry.speakers')%>:</span>  
       <%isfirst=true%>
-      <%agenda_entry.speakers.each do |speaker|%>
+      <%agenda_entry.actors.each do |speaker|%>
           <%if isfirst%>
             <%isfirst=false%>
           <%else%>
             ,
           <%end%>
           <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
+        <%end%>
+        <%if agenda_entry.speakers %>
+          , <%= agenda_entry.speakers %>
         <%end%>
       <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
     </ul>

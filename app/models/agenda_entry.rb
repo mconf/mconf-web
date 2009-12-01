@@ -20,8 +20,4 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
-  
-  def speakers
-    actors
-  end
 end

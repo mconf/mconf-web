@@ -14,7 +14,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.save
         if params[:speakers] && params[:speakers][:name]
-          create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+          unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+          @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
         end
         flash[:notice] = t('agenda.entry.created')
         day = @event.day_for(@agenda_entry).to_s
@@ -43,7 +44,8 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
         if params[:speakers] && params[:speakers][:name]
-          create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+          unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+          @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
         end
         flash[:notice] = t('agenda.entry.updated')
         day = @event.day_for(@agenda_entry).to_s
@@ -90,16 +92,23 @@ class AgendaEntriesController < ApplicationController
   end
   
   
-  def create_performances_for_agenda_entry(role, array_usernames)    
+  #this method returns an array with the users unknown
+  def create_performances_for_agenda_entry(role, array_usernames)
+    unknown_users = []    
     #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
     Performance.find(:all, :conditions => {:role_id => role, :stage_id => @agenda_entry}).each do |perf| perf.delete end
     for name in array_usernames
+      #if the user is in the db we create the performance, if not it is a name that we do not know, we store it in the speakers field in db
       if user = User.find_by_login(name)
         Performance.create! :agent => user,
                             :stage => @agenda_entry,
                             :role  => role
+      else
+        #we do not know this user, we store the name in the array
+        unknown_users << name
       end
     end
+    unknown_users
   end
   
   
