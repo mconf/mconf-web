@@ -1,3 +1,4 @@
+
 <div class="agenda_entry" class="profile-box">
 
   <div class="entry_title">
@@ -42,6 +43,7 @@
         <ul>
           <li><%=agenda_entry.attachment.filename%></li>
           <li><%=agenda_entry.attachment.get_size()%> <%= link_to( t('download_file') , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%></li>
+					<li><%=t('tags')%> <%=agenda_entry.attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")%></li>
         </ul>
       </div> 
     </div>

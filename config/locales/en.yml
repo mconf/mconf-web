@@ -730,6 +730,7 @@ en:
   ######### T ###########
   tag:
     add: "Add tags"
+    attachment: "Tags for the attachment"
     edit: "Edit tags"
     one: "tag"
     other: "tags"

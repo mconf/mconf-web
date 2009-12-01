@@ -5,6 +5,23 @@
 
 <% content_for :javascript do%>
   
+  $("#agenda_entry\\[attachment_attributes\\]__tags").livequery(function () {
+	  $(this).attr("id","agenda_entryattachment_attributes__tags");
+	}); 
+  
+  $("#agenda_entryattachment_attributes__tags").livequery(function () {
+	  $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+    });
+	});	
+	
   $("input.agenda_new_close").click(function(){
     $('#new_agenda_entry').hide();
     str = "#add_entry" + $('#entry_day').val();
@@ -42,7 +59,7 @@
                 edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
               });
               $("#speakers_name_edit").fcbkcomplete({
-	        cache: true,
+                cache: true,
                 filter_case: false,
                 filter_hide: true,
                 firstselected: true,
