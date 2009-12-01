@@ -78,15 +78,28 @@ describe AttachmentsController do
   end
 # 
 # 
-  describe "A logged user" do  
-   
+  describe "A logged user" do     
     
    it "should not be able to delete his own attachment" do     
       login_as(@user_space2)
       @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
       delete :destroy ,:id => @attachment, :space_id => @private_space2.to_param
-      #(Attachment.find_by_id(@attachment.id)).should_not_be_nil
+      assert_not_nil Attachment.find_by_id(@attachment.id)
       assert_response 403
+    end
+    
+  end
+  describe "A not logged user" do
+    it "should be able to see space repository in a public space if it is enabled"do
+      @public_space_with_repository=Factory(:public_space_with_repository)
+      get :index, :space_id =>  @public_space_with_repository.to_param
+      assert_response 200
+      response.should render_template("attachments/index.html.erb")
+    end
+    it "should not be able to see space repository in a private space "do
+      @private_space_with_repository=Factory(:private_space_with_repository)
+      get :index, :space_id =>  @private_space_with_repository.to_param
+      assert_response 401      
     end
     
   end

@@ -16,7 +16,10 @@ Factory.define :private_space_with_repository, :parent => :space do |s|
   s.public false
   s.repository true
 end
-
+Factory.define :public_space_with_repository, :parent => :space do |s|
+  s.public true
+  s.repository true
+end
 def populated_space(s)
   2.times do
     Factory.create(:admin_performance, :stage => s)
