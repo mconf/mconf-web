@@ -14,7 +14,7 @@ class Agenda < ActiveRecord::Base
         all_entries << entry
       end
     end
-    all_entries
+    all_entries.sort!{|a,b| a.start_time <=> b.start_time}
   end
   
 end
