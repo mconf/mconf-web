@@ -1,10 +1,10 @@
 class PostAttachments < ActiveRecord::Migration
   def self.up
-#    create_table :post_attachments do |t|
-#      t.references :post
-#      t.references :attachment
-#      t.integer :attachment_version
-#    end
+    create_table :post_attachments do |t|
+      t.references :post
+      t.references :attachment
+      t.integer :attachment_version
+    end
     
     Attachment.all.each do |a|
       next if a.post_id.blank?
