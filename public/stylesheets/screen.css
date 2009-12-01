@@ -465,7 +465,7 @@ div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 /*.date{color:#8B0425;}
 .author{color:#244974;font-weight:bold;}*/
 /*.event_date,.event_location,.event_author{color:#244974;font-weight:bold;}*/
-.event_image{display:block;color:black;float:left;padding:0;margin-right: 7px;text-align:center;font-weight: bold;vertical-align: middle;}
+.event_image{display:block;color:black;float:left;padding:0;margin-right: 7px;text-align:center;font-weight: bold;vertical-align: middle;cursor:pointer;}
 
 a.event_image:hover{text-decoration:none;}
 .event_date_image{margin: 0px 10px 0px 5px;width:100%;}
@@ -920,3 +920,4 @@ h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_titl
 #event_description_content,#agenda_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 #event_description_content p{margin:0;}
 
+#buttons_event{margin-bottom: 10px;}

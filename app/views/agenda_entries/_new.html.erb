@@ -1,7 +1,3 @@
-<%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry' %>
-<%end%>
-
 <div class="agenda_new_entry">
   <div class="agenda_blue_title"><%=t('agenda.entry.new')%></div>
 
@@ -10,8 +6,10 @@
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
   
-    <div class="margin-up"><label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
-    <%= f.text_field :speakers %></div>
+    <div class="margin-up">
+      <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
+      <%=select(:speakers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+    </div>
   
     <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
     <%= f.text_area :description, :size => "34x7" %></div>

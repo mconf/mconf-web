@@ -71,6 +71,13 @@ namespace :setup do
       translator_role.permissions << Permission.find_by_action_and_objective('translate', nil)
 
       organizer_role = Role.find_or_create_by_name_and_stage_type "Organizer", "Event"
+      organizer_role.permissions << Permission.find_by_action_and_objective('read', nil)
+      organizer_role.permissions << Permission.find_by_action_and_objective('update', nil)
+      
+      speaker_role = Role.find_or_create_by_name_and_stage_type "Speaker", "AgendaEntry"
+      speaker_role.permissions << Permission.find_by_action_and_objective('read', nil)
+      speaker_role.permissions << Permission.find_by_action_and_objective('update', nil)
+      
 
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
       admin_role.permissions << Permission.find_by_action_and_objective('read',   nil)

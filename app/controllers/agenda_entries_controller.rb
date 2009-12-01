@@ -13,6 +13,9 @@ class AgendaEntriesController < ApplicationController
 
     respond_to do |format|
       if @agenda_entry.save
+        if params[:speakers] && params[:speakers][:name]
+          create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+        end
         flash[:notice] = t('agenda.entry.created')
         day = @event.day_for(@agenda_entry).to_s
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
@@ -39,6 +42,9 @@ class AgendaEntriesController < ApplicationController
 
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
+        if params[:speakers] && params[:speakers][:name]
+          create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
+        end
         flash[:notice] = t('agenda.entry.updated')
         day = @event.day_for(@agenda_entry).to_s
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
@@ -82,6 +88,20 @@ class AgendaEntriesController < ApplicationController
     params[:agenda_entry][:end_time] = thedate.to_s + " " + params[:agenda_entry][:end_time]
     
   end
+  
+  
+  def create_performances_for_agenda_entry(role, array_usernames)    
+    #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
+    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @agenda_entry}).each do |perf| perf.delete end
+    for name in array_usernames
+      if user = User.find_by_login(name)
+        Performance.create! :agent => user,
+                            :stage => @agenda_entry,
+                            :role  => role
+      end
+    end
+  end
+  
   
 =begin
   # GET /agenda_entries

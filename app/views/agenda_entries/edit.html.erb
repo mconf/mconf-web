@@ -6,8 +6,12 @@
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
   
-    <div class="margin-up"><label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
-    <%= f.text_field :speakers %></div>
+    <div class="margin-up">
+      <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
+      <select id="speakers_name_edit" multiple="multiple" name="speakers[name][]">
+        <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, @agenda_entry.speakers.map{|u| u.login})%>
+      </select>
+    </div>
   
     <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
     <%= f.text_area :description, :size => "34x7" %></div>

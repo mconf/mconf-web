@@ -1,3 +1,8 @@
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.timeentry', 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>  
+<%end%>
+
 <% content_for :javascript do%>
   
   $("input.agenda_new_close").click(function(){
@@ -5,7 +10,19 @@
     str = "#add_entry" + $('#entry_day').val();
     $(str).show();
   });
-
+  
+  <%if @event.authorize?(:update, :to => current_user)%> 
+    //it is important that this code is before the hiding of new_agenda_entry to function properly
+    $("#speakers_name").fcbkcomplete({
+	cache: true,
+        filter_case: false,
+        filter_hide: true,
+        firstselected: true,
+        filter_selected: true,
+        maxshownitems: 4
+    });
+  <%end%>
+  
   $('#new_agenda_entry').hide();
   $('#cannot_exclude').hide();
  
@@ -23,6 +40,14 @@
                 $(this).parents(".agenda_edit_entry").hide();
                 edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
               });
+              $("#speakers_name_edit").fcbkcomplete({
+	        cache: true,
+                filter_case: false,
+                filter_hide: true,
+                firstselected: true,
+                filter_selected: true,
+                maxshownitems: 4
+	      });
     });
     $('#new_agenda_entry').hide();
     $('#add_entry').show();
