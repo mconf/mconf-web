@@ -87,7 +87,18 @@ describe AttachmentsController do
       assert_not_nil Attachment.find_by_id(@attachment.id)
       assert_response 403
     end
-    
+    it"should be able to create a new version of an attachment in a public space"do
+      login_as(@user)
+      @public_space_with_repository=Factory(:public_space_with_repository)
+      @attachment = Factory(:attachment,:space => @public_space_with_repository,:author => @user_space2)
+      put :update, :space_id => @public_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+    end
+    it"should be able to create a new version of an attachment in a private space if he belongs to its"do
+      login_as(@user_space2)
+      @private_space_with_repository=Factory(:private_space_with_repository)
+      @attachment = Factory(:attachment,:space => @private_space_with_repository,:author => @admin2)
+      put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+    end
   end
   describe "A not logged user" do
     it "should be able to see space repository in a public space if it is enabled"do
