@@ -77,8 +77,7 @@ describe PostsController do
         describe "trying to delete" do
           it "my post." do
             delete :destroy, :space_id => @current_space.to_param, :id => @post_mine.to_param
-            assert_response 302
-            response.should redirect_to(space_posts_path)
+            assert_nil Post.find_by_id(@post_mine.id) 
           end       
           it "a post that isn't mine." do
             delete :destroy, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
