@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.integer  "agenda_id"
     t.string   "title"
     t.text     "description"
+    t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "exclude_from_recording"
+    t.boolean  "record"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.string   "title"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "exclude_from_recording"
+    t.boolean  "record"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -320,13 +321,14 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    :default => false
-    t.boolean  "repository",  :default => false
+    t.boolean  "disabled",     :default => false
+    t.boolean  "with_gallery", :default => true
+    t.boolean  "repository",   :default => false
   end
 
   create_table "taggings", :force => true do |t|
