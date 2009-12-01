@@ -106,9 +106,9 @@ button.leave-space:hover{background:url("/images/buttons/leave-space-notext4.png
 
 
 /* forms.css */
-.error, .notice, .success {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
+.error, .notice, .success, #enable_javascript {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
-.notice {background:#FFF6BF;color:#514721;border-color:#FFD324;}
+.notice, #enable_javascript {background:#FFF6BF;color:#514721;border-color:#FFD324;}
 .success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
@@ -455,7 +455,7 @@ div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 /*.date{color:#8B0425;}
 .author{color:#244974;font-weight:bold;}*/
 /*.event_date,.event_location,.event_author{color:#244974;font-weight:bold;}*/
-.event_image{display:block;color:black;float:left;padding:0;margin-right: 7px;text-align:center;font-weight: bold;vertical-align: middle;}
+.event_image{display:block;color:black;float:left;padding:0;margin-right: 7px;text-align:center;font-weight: bold;vertical-align: middle;cursor:pointer;}
 
 a.event_image:hover{text-decoration:none;}
 .event_date_image{margin: 0px 10px 0px 5px;width:100%;}
@@ -914,3 +914,4 @@ h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_titl
 #agenda_content{padding:3px 8px;}
 #event_description_content p{margin:0;}
 
+#buttons_event{margin-bottom: 10px;}

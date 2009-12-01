@@ -245,6 +245,7 @@ en:
     last_month: "Last month ({{size}})"
     location: "Location"
     logo:
+      button: Change logo
       new: Add a picture for your event
       select: Change your logo 
     no_events: "You have no events"
@@ -424,6 +425,7 @@ en:
   login: "Login"
   login_or_register: "Log in / Register"
   logo:
+    click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
     error:
       not_valid: "Logo is not valid"

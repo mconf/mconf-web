@@ -9,21 +9,19 @@
     </ul>
     
 		
-    <a href="<%=space_event_path(@space, event)%>">			
       <div class="event_image">
-	      <%if @event.logo%>
-	        <div class="event_logo">
-	        	<%=logo(@event.logo, :size => 64)%>
-					</div>
-			  <%else%>
-				  <div class="event_date_image">
-		        <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
-		        <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
-		        <div class="event_hour"> <%= event.get_formatted_hour %> </div>
-					</div>
-	      <%end%>
+        <%if @event.logo%>
+	  <div class="event_logo">
+	    <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')})%>
+	  </div>
+	<%else%>
+	  <div class="event_date_image">
+	    <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
+	    <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
+	    <div class="event_hour"> <%= event.get_formatted_hour %> </div>
+          </div>
+	<%end%>
       </div>
-    </a>
     
     <p>
       <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event),:class=>"unified_event"%> <span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
@@ -55,6 +53,13 @@
         </li>
 	</ul>	
 	</div>	
+      
+      <div id="buttons_event">
+        <%if event.authorize?(:update, :to => current_user) %>
+          <button id="change_logo" class="create_space"><%=t('event.logo.button')%></button>
+          <%=link_to "<button id='invite_more_people' class='create_space'>"+t('event_invitation.new.other')+"</button>", space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :title => t('invitation.add_more')} %>
+        <%end%>
+        </div>
       
   <div id="event_description_wrapper">
   	<div id="event_description_line">

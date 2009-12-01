@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091106104127) do
+ActiveRecord::Schema.define(:version => 20091119151350) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "post_id"
     t.integer  "space_id"
     t.integer  "event_id"
     t.integer  "author_id"
@@ -215,6 +214,12 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.integer "role_id"
   end
 
+  create_table "post_attachments", :force => true do |t|
+    t.integer "post_id"
+    t.integer "attachment_id"
+    t.integer "attachment_version"
+  end
+
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.text     "text"
@@ -316,13 +321,14 @@ ActiveRecord::Schema.define(:version => 20091106104127) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    :default => false
-    t.boolean  "repository",  :default => false
+    t.boolean  "disabled",     :default => false
+    t.boolean  "with_gallery", :default => true
+    t.boolean  "repository",   :default => false
   end
 
   create_table "taggings", :force => true do |t|

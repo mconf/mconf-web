@@ -4,6 +4,8 @@ class AgendaEntry < ActiveRecord::Base
   has_one :attachment, :dependent => :destroy
   accepts_nested_attributes_for :attachment
   
+  acts_as_stage
+  
   #acts_as_content :reflection => :agenda
   
   #minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -18,4 +20,8 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+  
+  def speakers
+    actors
+  end
 end

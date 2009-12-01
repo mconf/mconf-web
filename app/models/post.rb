@@ -1,10 +1,15 @@
 class Post < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
-  has_many :attachments, :dependent => :destroy
+  has_many :post_attachments, :dependent => :destroy
+  has_many :last_version_attachments, :through => :post_attachments, :source => :attachment
   belongs_to :event
+
+  def attachments
+    post_attachments.map{ |pa| a = pa.attachment; a.revert_to(pa.attachment_version); a}
+  end
   
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
+  accepts_nested_attributes_for :last_version_attachments, :allow_destroy => true
 
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
@@ -15,9 +20,11 @@ class Post < ActiveRecord::Base
     { :joins => :space,
       :conditions => [ 'public = ?', true ] }
   }
-    named_scope :not_events, lambda {
+  named_scope :not_events, lambda {
     {:conditions => {:event_id =>  nil} }
   }
+
+
 
   is_indexed :fields => ['text','title'],
              :include =>[{:class_name => 'Tag',
@@ -41,7 +48,7 @@ class Post < ActiveRecord::Base
 
   # Fill attachments author and space
   before_validation do |post|
-    post.attachments.each do |a|
+    post.last_version_attachments.each do |a|
       a.space  ||= post.space
       a.author = post.author
     end
@@ -50,6 +57,12 @@ class Post < ActiveRecord::Base
   # Update parent Posts when commenting to it
   after_save do |post|
     post.parent.try(:touch)
+  end
+  
+  after_create do |post|
+    post.post_attachments.each do |pa|
+      pa.update_attribute(:attachment_version, pa.attachment.version)
+    end
   end
   
   def author

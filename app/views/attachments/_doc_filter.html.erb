@@ -62,34 +62,39 @@
 		$("tr.ui-collection-result").css("display","");
 		$("#" + $(this).val()).val("").show();
   });
+	
+	$("#repository_filters").show()
 <%end%>
 
-<div id="tag_filter">
-  <label><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
-	<select id="attachment_tags_filter" multiple="multiple" name="tags[]">
-    <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
-  </select>
-	<!--<label>Other tags:</label>
-  <%(@space.tags - @tags).each do |t|%>
-	  <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
-	<%end%>-->
-</div>
+<div id="repository_filters" style="display:none">
 
-<div id="mixed_filter">
-	<label><%=t('find_in')%></label>
-	<select id="mix_filter">
-		<option value="any_field_filter"><%=t('any_field')%></option>
-		<option value="author_filter"><%=t('author')%></option>
-		<option value="type_filter"><%=t('type')%></option>
-		<option value="title_filter"><%=t('title')%></option>
-	</select>
-	<%=text_field_tag :any_field,'', :id => "any_field_filter", :class => "mixed_alternative" %>
-	<%=text_field_tag :title,'', :id => "title_filter", :class => "mixed_alternative", :style => "display:none" %>
-	<%=text_field_tag :author,'', :id => "author_filter", :class => "mixed_alternative", :style => "display:none" %>
-	<select id="type_filter" class="mixed_alternative" style="display:none">
-	 	<%@attachments.select{|a| a.mime_type.present?}.map{|a| a.mime_type.to_sym.to_s}.uniq.each do |type|%>
-		  <option value="<%=type%>"><%=type%></option>  
-		<%end%>
-  </select>
-
+	<div id="tag_filter">
+	  <label><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
+		<select id="attachment_tags_filter" multiple="multiple" name="tags[]">
+	    <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
+	  </select>
+		<!--<label>Other tags:</label>
+	  <%(@space.tags - @tags).each do |t|%>
+		  <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
+		<%end%>-->
+	</div>
+	
+	<div id="mixed_filter">
+		<label><%=t('find_in')%></label>
+		<select id="mix_filter">
+			<option value="any_field_filter"><%=t('any_field')%></option>
+			<option value="author_filter"><%=t('author')%></option>
+			<option value="type_filter"><%=t('type')%></option>
+			<option value="title_filter"><%=t('title')%></option>
+		</select>
+		<%=text_field_tag :any_field,'', :id => "any_field_filter", :class => "mixed_alternative" %>
+		<%=text_field_tag :title,'', :id => "title_filter", :class => "mixed_alternative", :style => "display:none" %>
+		<%=text_field_tag :author,'', :id => "author_filter", :class => "mixed_alternative", :style => "display:none" %>
+		<select id="type_filter" class="mixed_alternative" style="display:none">
+		 	<%@attachments.select{|a| a.mime_type.present?}.map{|a| a.mime_type.to_sym.to_s}.uniq.each do |type|%>
+			  <option value="<%=type%>"><%=type%></option>  
+			<%end%>
+	  </select>
+	</div>
+	
 </div>
