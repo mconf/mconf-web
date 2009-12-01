@@ -1,10 +1,19 @@
 class Attachment < ActiveRecord::Base
-  belongs_to :post
+  attr_accessor :post_title, :post_text
+  
+  has_many :post_attachments, :dependent => :destroy
+  has_many :posts, :through => :post_attachments
   belongs_to :space
   belongs_to :event
   belongs_to :author, :polymorphic => true
   
-  accepts_nested_attributes_for :post
+  def version_posts
+    post_attachments.version(version).map(&:post)
+  end
+  
+  def post
+    version_posts.first
+  end
   
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
@@ -43,16 +52,6 @@ class Attachment < ActiveRecord::Base
   ]
   
   
-  before_validation do |attachment|
-    if attachment.post.present?
-      if attachment.post.title.blank? && attachment.post.text.blank?
-        attachment.post = nil
-      else
-        attachment.post.author = attachment.author
-        attachment.post.space ||= attachment.space
-      end
-    end
-  end
   
   after_validation do |attachment|
     e = attachment.errors.clone
@@ -71,6 +70,18 @@ class Attachment < ActiveRecord::Base
     end      
   end
   
+  after_save do |attachment|
+    if attachment.post_title.present?
+      p = Post.new(:title => attachment.post_title, :text => attachment.post_text)
+      p.author = attachment.author
+      p.space = attachment.space
+      p.save!
+      
+      pa = attachment.post_attachments.new(:post => p, :attachment_version => attachment.version)
+      pa.save!
+    end
+  end
+  
   def thumbnail_size
     thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end
@@ -79,14 +90,8 @@ class Attachment < ActiveRecord::Base
     return " " + (self.size/1024).to_s + " kb" 
   end
   
-  def auth_delegate
-    parent.present? ?
-    parent :
-    post
-  end
-  
   authorizing do |agent, permission|
-    auth_delegate.authorize? permission, :to => agent
+    parent.authorize?(permission, :to => agent) if parent.present? 
   end
   
   # Implement atom_entry_filter for AtomPub support
@@ -149,5 +154,9 @@ class Attachment < ActiveRecord::Base
     "#{ order } #{ direction }"
   end
   
+  protected
+  def validate
+    errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?   
+  end
   
 end

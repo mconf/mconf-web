@@ -1,14 +1,11 @@
 <div id="doc_action" rel="new_doc">
 	
-	<div id="add_document_label"><%=t('document.add') %></div>
+	<div id="add_document_label" style="display:none"><%=t('document.add') %></div>
 	
 	<div id="add_new_doc">	
 	
-	<% @attachment ||= Attachment.new %>
-	<% @attachment.post ||= Post.new %>
-	
 	<h3>Add new document</h3>
-	<%form_for (prepare_for_form(@attachment), :html => { :multipart => true}) do |f|%>
+	<%form_for (prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
 	  <div id="cabinet">
 	    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
 	  </div>
@@ -18,24 +15,17 @@
 	  <div id=tags><%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
 	  
 	  </div>
-	
-	  <!--<%= image_submit_tag "buttons/create.png" %>-->
+
 	  <br/>
-	  <br/>
-	  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "Expandir", "with_post", false %>
-	</h4>
+	  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%></h4>
+    <div id="with_post" <%="style=\"display:none\"" if !(attachment.post_title.present? || attachment.post_text.present?)%>>
+      <%= f.label :post_title, t('title') %><br/>
+      <%= f.text_field :post_title%>
+      <%= f.label :post_text, t('text') %><br/>
+      <%= f.text_area :post_text, :rows => 5, :cols=>25%>
+    </div>
 	  
-	  <% f.fields_for :post do |post_form| %>  
-		<div id="with_post" style="display:none">
-			<%= post_form.label :title, t('title') %><br/>
-			<%= post_form.text_field :title%>
-			<%= post_form.label :text, t('text') %><br/>
-			<%= post_form.text_area :text, :rows => 5, :cols=>25%>
-		</div>
-	
-	<% end %>
-	  
-	   <button type="submit"><%=t("button.upload")%></button>
+    <button type="submit"><%=t("button.upload")%></button>
 	<%end%>
 	
 	<div id="hide"><%=t('hide')%></div>
