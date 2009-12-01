@@ -3,11 +3,10 @@ class AttachmentsController < ApplicationController
   
   # Always needs a space
   before_filter :space!
-  
   authorization_filter :create, :attachment, :only => [ :new, :create ]
   authorization_filter :read,   :attachment, :only => [ :index, :show ]
   authorization_filter :update, :attachment, :only => [ :edit, :update ]
-  authorization_filter :delete, :attachment, :only => [ :delete ]
+  authorization_filter :delete, :attachment, :only => [ :destroy ]
   
   def index
     attachments
@@ -16,7 +15,6 @@ class AttachmentsController < ApplicationController
   def edit_tags
     @attachment = Attachment.find(params[:id])
   end
-
 
   private
 
