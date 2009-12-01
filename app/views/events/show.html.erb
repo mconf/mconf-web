@@ -40,7 +40,7 @@
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
-        placeholder: '',
+        placeholder: '<%=t("event.description.none")%>. <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
         type      : 'textarea',
         name : 'event[description]',
 	width : 500,
