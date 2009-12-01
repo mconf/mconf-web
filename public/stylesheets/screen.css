@@ -852,8 +852,6 @@ th.attachment-updated{
 }
 
 .title_name_and_hour{
-  width: 85%;
-  float: left;
   border-bottom: 1px solid #CCCCCC;
 }
 
@@ -862,11 +860,11 @@ th.attachment-updated{
 }
 
 #agenda_tabs{margin-top:6px;border-bottom:1px solid #FFD324;}
-#agenda_tabs ul{list-style-type:none;margin:0;margin-left:6px;font-size:0.9166em;line-height:1.6363;}
-#agenda_tabs li{display:inline-block;padding:0.25em 0.75em;text-decoration:none;background:#FFD324; color:#514721;}/*background:#FFF6BF;color:#514721;border-color:#FFD324;*/
+#agenda_tabs ul{list-style-type:none;margin:0;margin-left:6px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
+#agenda_tabs li{display:inline-block;padding:0.25em 0.75em;text-decoration:none;background:#FFF6BF; color:#514721;border-top:1px solid #FFD324;border-left:1px solid #FFD324;border-right:1px solid #FFD324;}/*background:#FFF6BF;color:#514721;border-color:#FFD324;*/
 #agenda_tabs li{-webkit-border-radius-topleft:5px;-webkit-border-radius-topright:5px;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
-#agenda_tabs li:hover{background:#FFD324;color:#514721;border-right-color:#f7f7f7;cursor:pointer;font-weight:bold;}
-#agenda_tabs .selected{background:#FFD324; color:#514721;font-weight:bold;}
+#agenda_tabs li:hover{background:#FFD324;color:#514721;border-right-color:#f7f7f7;cursor:pointer;}
+#agenda_tabs .selected{background:#FFD324; color:#514721;}
 #agenda_tabs .selected:hover{background:#FFD324; color:#514721;cursor:pointer;}
 .agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;}
 
@@ -905,8 +903,9 @@ tr.version_expanded td{
 
 
 #event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
-
+#streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
+#event_description_line,#agenda_title,#repository_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
 h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_title h3{padding:3px 8px;background:#bdd8eb;margin:0;border-top:1px solid #A8C0D1;}
 #event_description_line{}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
