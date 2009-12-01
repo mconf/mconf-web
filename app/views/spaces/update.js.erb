@@ -1,1 +1,2 @@
-<%=@result%>
+$("div#menu").replaceWith("<%=escape_javascript(render(:partial => './layouts/menu', :locals => {:space=> @space}))%>");
+
