@@ -22,8 +22,6 @@ p{margin:0 0 1.5em;}
 a{color:#244974;}
 a{text-decoration:none;}
 a:hover{text-decoration:underline;}
-/*a.read_more_link{text-decoration:none;}
-a.read_more_link:hover,#sidebar a.read_more_link:hover{text-decoration:underline;}*/
 blockquote{margin:1.5em;color:#666;font-style:italic;}
 strong{font-weight:bold;}
 em,dfn{font-style:italic;}
@@ -59,14 +57,6 @@ h3.top{padding-top:10px;}
 .bold{font-weight:bolder;}
 .fade{opacity:0.6;}
 /*Fin tipografia*/
-
-/*.item_title{color:#244974;}
-.person_title{font-weight:bold;font-size:1.0833em;line-height:1.3846;color:#244974;}*/
-
-/*.selector_title{color:#999;}*/
-/*.small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}
-.large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}
-*/
 
 .left-align {float:left;}
 .right-align {float:right;}
@@ -871,13 +861,14 @@ th.attachment-updated{
   margin: 0;  
 }
 
-#agenda_tabs{background:#e1eef5;margin-bottom:1em;}
-#agenda_tabs ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;}
-#agenda_tabs li{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white;}
-#agenda_tabs li:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
-#agenda_tabs .selected{background:white; color:#244974;}
-#agenda_tabs .selected:hover{background:white; color:#244974;}
-
+#agenda_tabs{margin-top:6px;}
+#agenda_tabs ul{list-style-type:none;margin:0;margin-left:6px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
+#agenda_tabs li{display:inline-block;padding:0.25em 0.75em;text-decoration:none;background:#FFD324; color:#514721;}/*background:#FFF6BF;color:#514721;border-color:#FFD324;*/
+#agenda_tabs li{-webkit-border-radius-topleft:5px;-webkit-border-radius-topright:5px;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;}
+#agenda_tabs li:hover{background:white;color:#244974;border-right-color:#d3e8f6;cursor:pointer;}
+#agenda_tabs .selected{background:#244974; color:#f7f7f7;}
+#agenda_tabs .selected:hover{background:#244974; color:#f7f7f7;cursor:pointer;}
+.agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;}
 
 .agenda_list_content{
   list-style-type: none;
@@ -913,10 +904,13 @@ tr.version_expanded td{
 }
 
 
-#event_description_wrapper,#agenda_full,#event_repo,#streaming_url{background:#f7f7f7;}
+#event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
+
+#agenda_title span{padding:2px 8px;}
 h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_title h3{padding:3px 8px;background:#bdd8eb;margin:0;border-top:1px solid #A8C0D1;}
 #event_description_line{}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
-#event_description_content,#agenda_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#agenda_content{padding:3px 8px;}
 #event_description_content p{margin:0;}
 
