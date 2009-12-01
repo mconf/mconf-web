@@ -214,6 +214,9 @@ en:
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
   event:
+    agenda:
+      no_entries: "There are no entries yet."
+      add_entry: "Add one."
     assistance_title: "Participation"
     attend: "Attending"
     basic_info: "Introduce basic information"

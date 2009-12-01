@@ -7,7 +7,6 @@ Factory.define :user do |u|
   u.updated_at { Time.now }
   u.activated_at { Time.now }
   u.disabled false
-  u.activation_code "44rfrfr"
 end
 
 Factory.define :author, :parent => :user do |a|

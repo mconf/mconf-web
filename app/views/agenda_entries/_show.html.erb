@@ -2,6 +2,14 @@
 <div class="agenda_entry" class="profile-box">
 
   <div class="entry_title">
+      <ul class="group_links group_agenda_links">
+        <%if agenda_entry.attachment then%>
+	  	<%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename,:class=>"icon")%>
+	    <%end%>
+        <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , "#", :title => t('edit'), :class=>"edit_entry", :name=>agenda_entry.id.to_s) if agenda_entry.authorize?(:update, :to => current_user) %></li>
+        <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if agenda_entry.authorize?(:delete, :to => current_user) %></li>
+      </ul>
+
     <div class="title_name_and_hour">
       <span class="entry_hour">
         <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
@@ -10,13 +18,7 @@
         <%=h agenda_entry.title %>
       </span>
     </div>
-      <ul class="group_links group_agenda_links">
-        <%if agenda_entry.attachment then%>
-	  	<%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename,:class=>"icon")%>
-	    <%end%>
-        <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , "#", :title => t('edit'), :class=>"edit_entry", :name=>agenda_entry.id.to_s) if agenda_entry.authorize?(:update, :to => current_user) %></li>
-        <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if agenda_entry.authorize?(:delete, :to => current_user) %></li>
-      </ul>
+
   </div>
 
   <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 

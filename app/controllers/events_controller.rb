@@ -201,7 +201,7 @@ class EventsController < ApplicationController
   #method to adapt the start_date + number of days to the start_date and end_date that the event expects
   def adapt_new_date
     if params[:ndays]
-      params[:event][:end_date] = Date.parse(params[:event][:start_date]) + params[:ndays].to_i - 1
+      params[:event][:end_date] = (Date.parse(params[:event][:start_date]) + params[:ndays].to_i).strftime("%d %b %Y")
     end
     
   end
