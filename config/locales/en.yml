@@ -48,6 +48,9 @@ en:
       title: "Title"
       updated: 'Agenda entry was successfully updated.'
       yes_record: "Yes"
+    error:
+      dates: "The start date must be previous than the end date"
+      omit_date: "The entry for the agenda needs start date and end date "
     title: "Agenda for the event"
     update: "Agenda was successfully updated."
     upload: "Upload Agenda"
@@ -230,6 +233,9 @@ en:
     edit: "Edit event"
     error:
       dates: "End date must be after start date"
+      dates1: "The event start date must be previous than the event end date "
+      marte: "Could not create virtual conference"
+      omit_date: "The event needs start date and end date "
     follow: "Enter this Virtual Meeting"
     found:
       none: "No events found"

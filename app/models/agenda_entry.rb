@@ -22,4 +22,15 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+  
+   def validate
+     if self.start_time.nil? || self.end_time.nil? 
+       errors.add_to_base(I18n.t('agenda.error.omit_date'))
+     else
+       unless self.start_time < self.end_time
+         errors.add_to_base(I18n.t('agenda.error.dates'))
+       end  
+     end
+  end
+  
 end

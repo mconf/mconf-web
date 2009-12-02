@@ -136,10 +136,10 @@ class Event < ActiveRecord::Base
   
   def validate
     if self.start_date.nil? || self.end_date.nil? 
-      errors.add_to_base("The event needs start date and end date ")
+      errors.add_to_base(I18n.t('event.error.omit_date'))
     else
       unless self.start_date < self.end_date
-        errors.add_to_base("The event start date must be previous than the event end date ")
+        errors.add_to_base(I18n.t('event.error.dates1'))
       end  
     end
     if self.marte_event? && ! self.marte_room?
@@ -147,7 +147,7 @@ class Event < ActiveRecord::Base
       begin
         MarteRoom.find(:all)
       rescue => e
-        errors.add_to_base("Could not create virtual conference")
+        errors.add_to_base(I18n.t('event.error.marte'))
       end
     end
     #    unless self.start_date.future? 
