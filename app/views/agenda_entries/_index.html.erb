@@ -45,20 +45,20 @@
 
 <%for i in (0..@event.days-1)%>
   <div id="agenda_page<%=i%>" class="agenda_tab" style="display:none">
-    <%if @event.agenda.agenda_entries_for_day(i).empty?%>
+  <%if @event.agenda.agenda_entries_for_day(i).empty?%>
 	  <div id="no_entries" class="main_text">
 	  	<%=t("event.agenda.no_entries")%>
-		<%if event.authorize?(:update, :to => current_user)%>
-		  <a href='#' id="add_entry<%=i%>"><%=t("event.agenda.add_entry")%></a>
-        <%end%>
+		  <%if event.authorize?(:update, :to => current_user)%>
+		    <a href='#' id="add_entry<%=i%>"><%=t("event.agenda.add_entry")%></a>
+      <%end%>
 	  </div>
 	<%else%>
 	  <%for entry in @event.agenda.agenda_entries_for_day(i)%>
-        <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => @event.agenda.agenda_entries_for_day(i).count < 4 }%>
-      <%end%>
-      <%if event.authorize?(:update, :to => current_user)%>
-        <button class='create-space margin-up' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
-      <%end%>
+      <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => @event.agenda.agenda_entries_for_day(i).count < 4 }%>
+    <%end%>
+    <%if event.authorize?(:update, :to => current_user)%>
+      <button class='create-space margin-up' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
+    <%end%>
 	<%end%>
   </div>  
 <%end%>

@@ -49,8 +49,13 @@ en:
       updated: 'Agenda entry was successfully updated.'
       yes_record: "Yes"
     error:
-      dates: "The start date must be previous than the end date"
+      dates: "The start time must be previous to the end time"
+      end_time_overlaps: "The end time overlaps with an existing agenda entry"
       omit_date: "The entry for the agenda needs start date and end date "
+      omit_title: "A title must be given for the agenda entry"
+      overlaps: "The agenda entry overlaps with an existing entry"
+      start_time_overlaps: "The start time overlaps with an existing agenda entry"
+
     title: "Agenda for the event"
     update: "Agenda was successfully updated."
     upload: "Upload Agenda"
