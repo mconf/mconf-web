@@ -13,10 +13,12 @@ class AgendaEntry < ActiveRecord::Base
   
   # Fill attachments event and space
   before_validation do |agenda_entry|
-    if (agenda_entry.attachment != nil) then
+    if (agenda_entry.attachment.filename != nil) then
       agenda_entry.attachment.space  ||= agenda_entry.agenda.event.space
       agenda_entry.attachment.event  ||= agenda_entry.agenda.event
-      agenda_entry.attachment.author ||= agenda_entry.agenda.event.author 
+      agenda_entry.attachment.author ||= agenda_entry.agenda.event.author
+    else
+      agenda_entry.attachment = nil
     end
   end
   
