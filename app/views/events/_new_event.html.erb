@@ -1,6 +1,6 @@
 <% content_for :javascript do%>
   <%= render :partial => 'toggle_view'%>
-  template = "<%= scape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
+  template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
   $("#event_name").blur(function(){
     replace_invitation();
   });
