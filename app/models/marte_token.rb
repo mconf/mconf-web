@@ -20,7 +20,6 @@
 	  
 	  #define the headers to add Authentication
 	  def self.headers(attributes = {})
-		#debugger
 		#get the params to fill in the headers
 		userName = attributes['username']
 		role = attributes['role']

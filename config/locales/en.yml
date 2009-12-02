@@ -509,7 +509,7 @@ en:
     have: "Do you have an OpenID?"
   or: "or"
   organization: "Organisation"
-  organizer: "Organiser"
+  organizer: "Organisers"
   or_use_email: "or use your email..."
   
   ######### P ###########
