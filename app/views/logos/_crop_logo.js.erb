@@ -47,7 +47,7 @@
 	
 	 $("#logo_submit").click(function(){
       if($("#logo_media").val()==""){
-        alert(<%=t('logo.empty')%>);
+        alert("<%=escape_javascript(t('logo.empty'))%>");
         return false;
       }
   });

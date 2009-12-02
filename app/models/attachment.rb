@@ -154,6 +154,34 @@ class Attachment < ActiveRecord::Base
     "#{ order } #{ direction }"
   end
   
+  def self.repository_attachments(container, params)
+    
+    space = (container.is_a?(Space) ? container : container.space)
+    
+    #Waiting for station refactorization...
+    #attachments = roots.in_container(container).sorted(params[:order],params[:direction])
+    
+    attachments = case container
+      when is_a?(Space) then roots.in_container(container).sorted(params[:order],params[:direction])
+      else container.attachments.roots.sorted(params[:order],params[:direction])
+    end
+   
+    tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(space).find(t.to_i)} : Array.new
+    
+    #ask tapi to do it better
+    tags.each do |t|
+      attachments = attachments.select{|a| a.tags.include?(t)}
+    end
+    
+    attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
+    attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
+    attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
+    attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+    
+    [attachments,tags]
+    
+  end
+  
   protected
   def validate
     errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?   

@@ -1,4 +1,4 @@
-var theselect = <%=select_tag "ndays", options_for_select({ "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5" },@event_to_edit.present? ? @event_to_edit.days.to_s : "1")%>;
+var theselect = "<%=escape_javascript(select_tag "ndays", options_for_select({ "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5" },@event_to_edit.present? ? @event_to_edit.days.to_s : "1"))%>";
 
 $(".no_javascript").after(
   "<div class='javascript'><label><%=t('date.start')%></label> "  

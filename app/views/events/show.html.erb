@@ -2,7 +2,7 @@
 <% atom_link_header(space, Event.new) %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter','jquery.ba-url' %>
 <%end%>
 
 <% content_for :javascript do %>	
@@ -119,6 +119,8 @@
    <% end %>
 <%end%>
 
+  <%= error_messages_for :agenda_entry %>
+
   <div id="event_card_show">
   <%= render :partial => "event_card_show" %>
   </div>
@@ -139,7 +141,7 @@
   <div id="event_repo" class="margin-up">
     <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
     <div id="repository_content">
-      <%@attachments=@event.get_attachments%>
+    	<%= render :partial => 'attachments/tag_filter' %>
       <%= render :partial => "attachments/doc_table" %>
     </div>
   </div>

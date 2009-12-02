@@ -42,7 +42,7 @@ module AttachmentsHelper
     order = p[:order].present? ? p[:order] : params[:order]
     expand_versions=expand_versions_to_array - [p[:not_expanded]] + [p[:expanded]]
     tags = tags_to_array - [p[:rm_tag]] + [p[:add_tag]]
-    space_attachments_path(@space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+    url_for(:space_id => @space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
   end
   
   def options_for_fcbkcomplete(collection,value,text,selected=nil)
@@ -51,6 +51,15 @@ module AttachmentsHelper
       html << %(<option value="#{t.send(value)}"#{"class=selected" if selected.include?(t)}>#{t.send(text)}</option>)
     end
     html
+  end
+  
+  def attachment_link(attachment)
+    #Temp workaround to display attachments in events. Fix it as soon as possible
+    if(params[:controller]=="attachments")
+      link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id, :version => attachment.version), :class => "doc_show"
+    else
+      link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format, :version => attachment.version)
+    end
   end
   
   private

@@ -24,6 +24,9 @@ class AgendaEntriesController < ApplicationController
       else
         
         flash[:notice] = t('agenda.entry.failed')
+        message = ""
+        @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
       end
     end
@@ -53,7 +56,9 @@ class AgendaEntriesController < ApplicationController
         day = @event.day_for(@agenda_entry).to_s
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
       else
-        flash[:notice] = t('agenda.entry.failed')
+        message = ""
+        @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
       end
     end
