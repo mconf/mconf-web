@@ -4,6 +4,17 @@ class AgendaEntriesController < ApplicationController
   
   before_filter :fill_start_and_end_time, :only => [:create, :update]
   
+  # GET /agenda_entries/new
+  # GET /agenda_entries/new.xml
+  def new
+     @agenda_entry = AgendaEntry.new
+     @day=params[:day]
+     
+     if request.xhr?
+       render "new", :layout => false
+     end
+  end
+  
   # POST /agenda_entries
   # POST /agenda_entries.xml
   def create

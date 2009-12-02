@@ -41,15 +41,18 @@ class AgendaEntry < ActiveRecord::Base
       # Check the times don't overlap with existing entries 
       for entry in self.agenda.agenda_entries_for_day(self.start_time.day - self.agenda.event.start_date.day)
         if (self.id != entry.id) then
-          if ((self.start_time >= entry.start_time) & (self.start_time <= entry.end_time))
+          if ((self.start_time >= entry.start_time) && (self.start_time < entry.end_time))
             errors.add_to_base(I18n.t('agenda.error.start_time_overlaps'))
           end
-          if ((self.end_time >= entry.start_time) & (self.end_time <= entry.end_time))
+          if ((self.end_time > entry.start_time) && (self.end_time <= entry.end_time))
             errors.add_to_base(I18n.t('agenda.error.end_time_overlaps'))
           end
-          if ((self.start_time <= entry.start_time) & (self.end_time >= entry.end_time))
+          if ((self.start_time < entry.start_time) && (self.end_time > entry.end_time))
             errors.add_to_base(I18n.t('agenda.error.overlaps'))
           end
+          if ((self.start_time == entry.start_time) && (self.end_time == entry.end_time))
+            errors.add_to_base(I18n.t('agenda.error.overlaps'))
+          end          
         end   
       end
     end
