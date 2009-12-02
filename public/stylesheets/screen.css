@@ -63,11 +63,14 @@ h3.top{padding-top:10px;}
 .margin-up{margin-top:0.75em;}
 
 /*BOTONES*/
-button{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
+button,input[type=button]{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 #b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}
 
-a.button, button, #sidebar input[type=submit] {
+a.rounded {
+  width:auto;
+  overflow:visible;
+  padding:4px 7px 4px 6px;
   border:1px solid #244974;
   font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
   font-size:95%;
@@ -80,7 +83,22 @@ a.button, button, #sidebar input[type=submit] {
   cursor:pointer;
   -webkit-border-radius:4px;-moz-border-radius:4px;
 }
-a.button:hover, button:hover, #sidebar input[type=submit]:hover{border:1px solid #86B5D5;}
+
+a.button, button, #sidebar input[type=submit],input[type=button] {
+  border:1px solid #244974;
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-size:95%;
+  line-height:135%;
+  text-decoration:none;
+  font-weight:bold;
+  background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;
+  color:#FFF;
+  margin-right:4px;
+  cursor:pointer;
+  -webkit-border-radius:4px;-moz-border-radius:4px;
+}
+a.button:hover, button:hover, #sidebar input[type=submit]:hover,input[type=button]:hover,a.rounded:hover{border:1px solid #86B5D5;}
+
 button.join-space,button.leave-space{
   font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
   font-size:120%;
@@ -96,9 +114,10 @@ button.join-space,button.leave-space{
 #search button{padding-top:3px;padding-bottom:2px;}
 
 
-button.create-space, #add_document_label{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
-.join button.create-space{font-size:1.1666em;line-height:1.2857;padding:4px 15px 5px 15px;}
-button.create-space:hover, #add_document_label:hover{background:url("/images/buttons/fondo-join-space2.png");}
+.create-space, #add_document_label{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");padding-top:3px;padding-bottom:3px;}
+.create_rounded{padding-left:6px;padding-right:7px;color:#fff;font-weight:bold;}
+.join .create-space{font-size:1.1666em;line-height:1.2857;padding:4px 15px 5px 15px;}
+.create-space:hover, #add_document_label:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.join-space{border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");width:195px;}
 button.join-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.leave-space{border-bottom:1px #a2042b solid;border-top:1px #d60337 solid;border-left:1px #d60337 solid;border-right:1px #d60337 solid;background:url("/images/buttons/leave-space-notext3.png");width:195px;}
@@ -860,7 +879,7 @@ th.attachment-updated{
 }
 
 #agenda_tabs{margin-top:6px;background:url("/images/tab_bottom.png") repeat-x bottom;}
-#agenda_tabs ul{list-style-type:none;margin:0;margin-left:6px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
+#agenda_tabs ul{list-style-type:none;margin:0;margin-left:9px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
 
 #agenda_tabs li{
 	display:inline-block;
@@ -894,7 +913,7 @@ th.attachment-updated{
 	cursor:pointer;
 	}
 
-.agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;}
+.agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;border-bottom:1px solid #FFD324;border-left:1px solid #FFD324;border-right:1px solid #FFD324;}
 
 .agenda_list_content{
   list-style-type: none;
@@ -934,11 +953,15 @@ h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_titl
 	margin:0;
 	border-top:1px solid #A8C0D1;
 	}
-#event_description_line{}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
-#agenda_content{padding:3px 8px;background:#f7f7f7}
-#event_description_content p{margin:0;}
-
+#agenda_content{padding:3px 8px;}
+#new_entry_content{background:#f7f7f7;padding:9px 40px;}
+input#agenda_entry_title,#agenda_entry_description{width:99%;}
+#entry_start_time,#entry_end_time{display:inline-block;}
+#entry_start_time .timeEntry_wrap,#entry_end_time .timeEntry_wrap{width:25%;}
+#entry_end_time{margin-left:20px;}
+#entry_attachment{position:relative;display:block;clear:both;}
+#event_description_content p,#new_entry_content p{margin:0;}
 #buttons_event{margin-bottom: 10px;}
 #hide{width: 30px;}

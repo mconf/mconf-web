@@ -129,7 +129,7 @@
 
   <%if @event.agenda.present?%>
     <div id="agenda_full" class="margin-up">      
-      <div id="agenda_title"><h3><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
+      <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
       </div>
@@ -137,7 +137,7 @@
   <%end%>
    
   <div id="event_repo" class="margin-up">
-    <div id="repository_title"><h3><%=t('event.repository')%></h3></div>
+    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
     <div id="repository_content">
       <%@attachments=@event.get_attachments%>
       <%= render :partial => "attachments/doc_table" %>

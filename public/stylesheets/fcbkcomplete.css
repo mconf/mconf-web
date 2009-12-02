@@ -6,6 +6,7 @@ ul.holder li.bit-box, ul.holder li.bit-input input { font: 11px "Lucida Grande",
 ul.holder li.bit-box { -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: 1px solid #CAD8F3; background: #DEE7F8; padding: 1px 5px 2px; }
 ul.holder li.bit-box-focus { border-color: #598BEC; background: #598BEC; color: #fff; }
 ul.holder li.bit-input input { width: auto; overflow:visible; margin: 0; outline: 0; padding: 3px 0px 2px; } /* no left/right padding here please */
+#new_entry_content ul.holder li.bit-input input{width:120px;}
 ul.holder li.bit-input input.smallinput { width: 20px; }
 
 /* Facebook demo CSS */      

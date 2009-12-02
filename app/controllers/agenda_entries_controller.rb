@@ -13,6 +13,7 @@ class AgendaEntriesController < ApplicationController
 
     respond_to do |format|
       if @agenda_entry.save
+        
         if params[:speakers] && params[:speakers][:name]
           unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
@@ -21,6 +22,7 @@ class AgendaEntriesController < ApplicationController
         day = @event.day_for(@agenda_entry).to_s
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
       else
+        
         flash[:notice] = t('agenda.entry.failed')
         format.html { redirect_to(space_event_path(@space, @event)) }
       end
