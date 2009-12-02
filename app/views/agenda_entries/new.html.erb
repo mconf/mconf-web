@@ -1,0 +1,59 @@
+
+<div class="agenda_new_entry">
+  <div id="agenda_blue_title" class="margin-up">
+  	<h3 class="blue"><%=t('agenda.entry.new')%></h3>
+  </div>
+
+  <div id="new_entry_content">
+  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true}) do |f| %>
+
+    <div>
+      <label for="title" id="agenda_title_label" class="main_text"><%= t('agenda.entry.title') %></label><br/>
+      <%= f.text_field :title %>
+	</div>
+  
+    <div class="margin-up">
+      <label for="speakers" class="main_text"><%= t('agenda.entry.speakers') %></label><br/>
+      <%=select(:speakers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+    </div>
+  
+    <div class="margin-up"><label for="description" class="main_text"><%= t('description') %></label><br/>
+    <%= f.text_area :description, :size => "34x7" %></div>
+  
+    <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
+  
+    <div class="without_javascript">
+      <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
+      <%= f.datetime_select :start_time %></div>
+
+      <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.end_time') %></label><br/>
+      <%= f.datetime_select :end_time %></div>
+    </div>
+ <!--
+    <div class="margin-up" id="record_block">
+      <%= f.check_box :record %>
+      <%= f.label :record %>
+	  <span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
+    </div>
+ -->
+  	<div id="entry_attachment" class="margin-up">
+  	  
+      <% f.fields_for :attachment do |attachment_form| %>
+        <div id="entry_att_browse">
+          <label for="attachment" class="main_text"><%= t('attachment.one') %></label><br/>
+		  <%= attachment_form.file_field :uploaded_data %>
+		</div>
+		<div id="entry_att_tags" class="margin-up">
+		  <label for="attachment_tags" class="main_text"><%= t('tag.attachment') %></label><br/>
+          <%= attachment_form.tags_select()%>
+		</div>
+      <%end%>
+    </div>
+
+    <div class="margin-up">
+      <button type="submit" id="add_entry_button"><%=t("button.create")%></button>
+      <input type="button" value="<%=t('close')%>" class="agenda_new_close"/>
+    </div>
+  <% end %>
+  </div>
+</div>
