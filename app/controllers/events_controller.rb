@@ -46,6 +46,10 @@ class EventsController < ApplicationController
     @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
     @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
     @agenda_entry = AgendaEntry.new
+    
+    #For event repository
+    @attachments,@tags = Attachment.repository_attachments(@event, params)
+    
     #first check if it is an online event
 	if @event.marte_event && params[:show_conference]
 		#let's calculate the wait time

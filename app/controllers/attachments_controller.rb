@@ -19,19 +19,7 @@ class AttachmentsController < ApplicationController
   private
 
   def attachments
-    @tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(@space).find(t.to_i)} : Array.new
-    
-    @attachments = Attachment.roots.in_container(@space).sorted(params[:order],params[:direction])
-    
-    #ask tapi to do it better
-    @tags.each do |t|
-      @attachments = @attachments.select{|a| a.tags.include?(t)}
-    end
-    
-    @attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
-    @attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
-    @attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+    @attachments,@tags = Attachment.repository_attachments(@space, params)
   end
 
   # Redirect to spaces/:permalink/attachments if new attachment is created
