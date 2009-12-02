@@ -37,20 +37,11 @@
           , <%= agenda_entry.speakers %>
         <%end%>
       <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
+      <%if agenda_entry.attachment then%>
+			  <li><span class="person_title"><%=t('attachment.one')%>:</span> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%>
+				  <span class="person_title"><%=t('tags')%></span> <%=agenda_entry.attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")%></li>
+      <%end%>
     </ul>
-	
-	<%if agenda_entry.attachment then%>
-    <div>
-      <div><%=image_tag(logo_image_path(agenda_entry.attachment, :size => agenda_entry.attachment.thumbnail_size))%>
-        <ul>
-          <li><%=agenda_entry.attachment.filename%></li>
-          <li><%=agenda_entry.attachment.get_size()%> <%= link_to( t('download_file') , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%></li>
-					<li><%=t('tags')%> <%=agenda_entry.attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")%></li>
-        </ul>
-      </div> 
-    </div>
-    <%end%>
-  
   </div>
 
 </div>
