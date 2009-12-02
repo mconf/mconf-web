@@ -125,6 +125,8 @@
 
   <div id="for_lightbox" style="display:none"></div>
 
+  <%=render :partial => "external_streaming"%>
+
   <%if @event.agenda.present?%>
     <div id="agenda_full" class="margin-up">      
       <div id="agenda_title"><h3><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
@@ -142,8 +144,7 @@
     </div>
   </div>
   
-  <%=render :partial => "external_streaming"%>
-  
+ 
 <%unless @comments.empty?%> 
 	<div>
 		<h3 class="selector_title"><%= t('comment.other') %></h3>
