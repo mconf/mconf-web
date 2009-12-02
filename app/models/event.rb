@@ -80,7 +80,7 @@ class Event < ActiveRecord::Base
   end      
   
   def organizers
-    if actors.count == 0
+    if actors.size == 0
       ar = Array.new
       ar << author
       return ar
