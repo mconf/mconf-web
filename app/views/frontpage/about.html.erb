@@ -328,7 +328,7 @@
 						  <%if post.text.size < 70%>
 							<%=sanitize(post.text)%>
 						  <%else%>									
-							<%=sanitize(first_words(post.text,70))%> <%=link_to ("more >>", space_post_url(@global, post, :host => current_site.domain))%>
+							<%=sanitize(first_words(post.text,70))%> <%=link_to ("more>>", space_post_url(@global, post, :host => current_site.domain))%>
 						  <%end%>	
 						</li>
 					</ul>	
