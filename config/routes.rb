@@ -20,6 +20,9 @@ ActionController::Routing::Routes.draw do |map|
       event.resource :agenda, :member => {:generate_pdf => :get}
       event.resource :agenda do |agenda|
         agenda.resources :agenda_entries
+        agenda.resources :agenda_entries do |entry|
+          entry.resource :attachment
+        end
         agenda.resources :agenda_record_entries
       end
       event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}

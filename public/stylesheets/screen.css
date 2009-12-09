@@ -67,6 +67,44 @@ button,input[type=button]{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 #b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}
 
+.puff{
+	overflow:hidden;
+	width:100%;
+}
+
+a.repuff {
+    background: transparent url("/images/buttons/fondo-join-space.png");
+    display: block;
+    float: left;
+	font-size:1.0833em;
+	line-height:1.3846;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+}
+
+a.repuff span {
+    background: transparent url("/images/buttons/fondo-join-space.png");
+    display: block;
+	font-weight:bold;
+	color:#fff;
+    line-height: 16px;
+	width:110px;
+    padding: 5px 0 5px 18px;
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+}
+
+a.repuff:hover {
+    background:url("/images/buttons/fondo-join-space2.png");
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.repuff:hover span {
+    background:url("/images/buttons/fondo-join-space2.png");
+	padding: 6px 0 4px 18px; /* push text down 1px */
+} 
+
 a.rounded {
   width:auto;
   overflow:visible;

@@ -24,7 +24,9 @@
 			<%if attachment.authorize?(:delete, :to => current_user)%>
         <li><%=link_to t('delete.one'), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}%></li>
 			<%end%>
-			  <li><%=link_to t('version.new'), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version"%></li>
+			<%if @space.authorize?([:create, :content],:to => current_user)%>
+			  <li><%=link_to t('version.new'), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version" %></li>
+			<%end%>
 			<%if attachment.post.present?%>
 				<li><%=link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post))%></li>
 			<%end%>

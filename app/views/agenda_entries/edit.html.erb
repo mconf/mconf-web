@@ -36,7 +36,11 @@
     </div>
  -->
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
-      <% f.fields_for :attachment do |attachment_form| %>
+      <%if @agenda_entry.attachment then%>
+        <%= link_to( @agenda_entry.attachment.filename , polymorphic_path(@agenda_entry.attachment, :format => @agenda_entry.attachment.format, :version => @agenda_entry.attachment.version))%>
+				<%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_attachment_path(@space, @event, @agenda_entry), :method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element=>@agenda_entry.attachment.filename)) if @agenda_entry.authorize?(:delete, :to => current_user) || @event.authorize?(:update, :to => current_user) %>
+      <%end%>
+			<% f.fields_for :attachment do |attachment_form| %>
         <%= attachment_form.file_field :uploaded_data %>
         <div class="margin-up"><label for="attachment_tags"><%= t('tag.attachment') %></label><br/>
         <%= attachment_form.tags_select()%></div>

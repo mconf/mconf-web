@@ -35,6 +35,10 @@
 	};
 	
 	filter_type = function(type){
+	  if(type==""){
+		  $("tr.ui-collection-result").show();
+		  return;
+		}
 	  $("tr.ui-collection-result").each(function() {
       if($(this).children("td.attachment-name").attr("rel")==type){
         $(this).css("display","");
@@ -79,6 +83,7 @@
 	<%=text_field_tag :title,'', :id => "title_filter", :class => "mixed_alternative", :style => "display:none" %>
 	<%=text_field_tag :author,'', :id => "author_filter", :class => "mixed_alternative", :style => "display:none" %>
 	<select id="type_filter" class="mixed_alternative" style="display:none">
+		<option value="" id="blank_option"><%=t('all')%></option> 
 	 	<%@attachments.select{|a| a.mime_type.present?}.map{|a| a.mime_type.to_sym.to_s}.uniq.each do |type|%>
 		  <option value="<%=type%>"><%=type%></option>  
 		<%end%>
