@@ -12,6 +12,12 @@ hr {margin:-8px auto 11px;}
 * html .clearfix, * html .container {height:1%;}
 fieldset {padding-top:0;}
 
+/*botones*/
+a.repuff {
+	font-size:12px;
+	line-height:18px;
+}
+
 /*KikeCSS*/
 #footer ul li{display:inline;margin-right:0.5em;}
 
