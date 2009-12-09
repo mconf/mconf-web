@@ -62,6 +62,7 @@
 <%end%>
 
 <div id="agenda_tabs">
+
 <ul>
 <%for i in (0..@event.days-1)%>
   <li id="date<%=i%>" class="date"><%=(@event.start_date+i.day).strftime("%A %d %b")%></li>

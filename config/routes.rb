@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
                      :member => { :token => :get, :spam => :post, :spam_lightbox => :get } do |event|
       event.resources :participants
       event.resources :event_invitations
+      event.resource :agenda, :member => {:generate_pdf => :get}
       event.resource :agenda do |agenda|
         agenda.resources :agenda_entries
         agenda.resources :agenda_record_entries
@@ -130,6 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   
   #  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
   
+
   ###########################################
   # RUTAS A LIMPIAR
   # #########################################

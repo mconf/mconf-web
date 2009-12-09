@@ -134,6 +134,11 @@
       <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
+		<br><br>
+		<%= link_to 'Generar PDF', generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
+		<br>
+		<%= link_to "Volver", space_event_path(space, event) %>
+		<br>
       </div>
     </div>
   <%end%>
