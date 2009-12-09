@@ -1,9 +1,11 @@
 <% if logged_in?%>
-  <%= link_to t('space.create_own'), new_space_path,:id=>'b-selector',:class => "new_space_link create-space create_rounded"%>
+  <div class="puff">
+    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link repuff"%>
+  </div>
 <%end%>
 <% if !(params[:action]=='index' && params[:controller]=='spaces')%>
-  <div class="margin-up">
-    <%=link_to t("space.show_all"), spaces_path,:id=>'b-selector',:class => "show_all_link rounded"%> 
+  <div class="margin-up puff">
+    <%=link_to "<span>" + t("space.show_all") + "</span>", spaces_path,:class => "show_all_link repuff"%> 
   </div>
 <%end%>
 
