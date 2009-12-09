@@ -1,9 +1,4 @@
 <%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
-  <% f.fields_for :post do |post_f| %>
-	  <%= post_f.hidden_field :title %>
-		<%= post_f.hidden_field :text %>
-	<% end %>
-	
   <%=t('tags')%>:
 	<input id="attachment_tags" type="hidden" value="" name="attachment[_tags][]"/>
 	<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
