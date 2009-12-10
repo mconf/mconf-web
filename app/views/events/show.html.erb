@@ -135,9 +135,9 @@
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
 		<br><br>
-		<%= link_to 'Generar PDF', generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
+		<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
 		<br>
-		<%= link_to "Volver", space_event_path(space, event) %>
+		<%= link_to t('back'), space_event_path(space, event) %>
 		<br>
       </div>
     </div>

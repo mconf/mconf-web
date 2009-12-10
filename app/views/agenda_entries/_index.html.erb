@@ -20,6 +20,10 @@
       $('#add_entry<%=i%>').hide();
       $('#new_agenda_entry').show();
       $('#entry_day').val("<%=i%>");
+			var destination_add1<%=i%> = $('#new_entry_anchor').offset().top;
+       $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add1<%=i%>}, 1100, function() {
+         window.location.hash = '#new_entry_anchor';
+       });
     });
     
     $('#add_entry<%=i%>').click(function(){
@@ -44,10 +48,13 @@
                 filter_selected: true,
                 maxshownitems: 4,
                 newel: true
-	      });
-          
-       });
+	          });
+            var destination_add2<%=i%> = $('#new_entry_anchor').offset().top;
+            $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add2<%=i%>}, 1100, function() {
+              window.location.hash = '#new_entry_anchor';
+            });
      });
+   });
        
   <%end%>
   
@@ -63,11 +70,11 @@
 
 <div id="agenda_tabs">
 
-<ul>
-<%for i in (0..@event.days-1)%>
-  <li id="date<%=i%>" class="date"><%=(@event.start_date+i.day).strftime("%A %d %b")%></li>
-<%end%>
-</ul>
+  <ul>
+    <%for i in (0..@event.days-1)%>
+      <li id="date<%=i%>" class="date"><%=(@event.start_date+i.day).strftime("%A %d %b")%></li>
+    <%end%>
+  </ul>
 </div>
 
 <%for i in (0..@event.days-1)%>

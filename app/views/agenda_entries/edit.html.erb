@@ -1,5 +1,5 @@
-
-<div class="agenda_edit_entry">
+<div class="agenda_edit_entry" >
+  <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
 
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true}) do |f| %>

@@ -247,6 +247,7 @@ en:
       none: "No events found"
       one: "1 event was found"
       other: "{{size}} events were found"
+    generate_pdf: "Generate PDF"
     has: "This event has"
     home:
       one: "Event in the space {{space}}"
