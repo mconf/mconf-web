@@ -45,21 +45,23 @@
 <% content_for :search do  %>
   <% form_tag(search_all_path(@space), :method => 'get') do %>
 			<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') )%>
-     <button type="submit"><%=t("button.go")%></button>
+     <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
   <% end %>
 <%end%>
 
 <% content_for :sidebar do  %>
   <div id="join">
   <% if space.users.include?(current_user) && !is_last_admin(@space, @performance.first)%>
-		<%= link_to "<button class='leave-space'>"+t('space.leave')+"</button>", space_performance_path(@space, @performance), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm') %>
+	  <div class="button_wrapper">
+		<%= link_to "<span>"+t('space.leave')+"</span>", space_performance_path(@space, @performance), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm'),:class => "big_button red_button" %>
+	  </div>
   <%elsif !is_last_admin(@space, @performance.first)%>
 	  <%if logged_in? && space.public?%>
 		<% form_tag space_join_requests_path(space), :id => "join_form" do %>
-		  <button class="join-space" type:"submit"><%=t('space.join')%></button>
+		  <button class="orange_button big_button" type:"submit"><%=t('space.join')%></button>
 	    <% end %>
 		<%else%>
-  		  <%=link_to "<button class='join-space'>"+t('space.join')+"</button>", new_space_join_request_path(space), :class => "fancybox_link" %>
+  		  <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "fancybox_link orange_button big_button" %>
 		<%end%>
   <% end %>
 	</div>

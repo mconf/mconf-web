@@ -1,11 +1,11 @@
 <% if logged_in?%>
-  <div class="puff">
-    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link repuff"%>
+  <div class="button_wrapper">
+    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link medium_button orange_button"%>
   </div>
 <%end%>
 <% if !(params[:action]=='index' && params[:controller]=='spaces')%>
-  <div class="margin-up puff">
-    <%=link_to "<span>" + t("space.show_all") + "</span>", spaces_path,:class => "show_all_link repuff"%> 
+  <div class="margin-up button_wrapper">
+    <%=link_to "<span>" + t("space.show_all") + "</span>", spaces_path,:class => "show_all_link medium_button blue_button"%> 
   </div>
 <%end%>
 
