@@ -713,6 +713,7 @@ en:
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
     one: "Space"
+    other: "Spaces"
     popular:
       other: "Popular spaces"
     private: "Private spaces"
