@@ -59,7 +59,7 @@
 <%end%>
 
 <div id="tag_filter" style="display:none">
-  <label><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
+  <label class="blue bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
   <select id="attachment_tags_filter" multiple="multiple" name="tags[]">
     <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
   </select>
