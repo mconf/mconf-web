@@ -85,7 +85,7 @@
 			    <%end%>
 				<div class="links">
 				  <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
-				  <%=link_to t('more >>'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6%>
+				  <%=link_to t('more>>'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6%>
 				</div>
 			</div>
 			

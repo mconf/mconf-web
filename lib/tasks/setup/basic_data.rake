@@ -59,6 +59,8 @@ namespace :setup do
           Permission.find_or_create_by_action_and_objective action, objective
         end
       end
+      
+      Permission.find_or_create_by_action_and_objective "update", "attachment"
 
       # Permission applied to Group
       Permission.find_or_create_by_action_and_objective "manage", "group"
@@ -97,6 +99,7 @@ namespace :setup do
       user_role.permissions << Permission.find_by_action_and_objective('read',   nil)
       user_role.permissions << Permission.find_by_action_and_objective('create', 'content')
       user_role.permissions << Permission.find_by_action_and_objective('read',   'content')
+      user_role.permissions << Permission.find_by_action_and_objective('update', 'attachment')
       user_role.permissions << Permission.find_by_action_and_objective('create', 'performance')
       user_role.permissions << Permission.find_by_action_and_objective('read',   'performance')
 

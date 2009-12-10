@@ -1,4 +1,4 @@
-/* reset.css */
+	/* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 td{text-align:left;}
 body{line-height:1.5;}
@@ -912,7 +912,31 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 	font-weight:bold;
 	padding-left:20px;
 }
+#tag_filter{
+	margin-top:20px;
+}
+#doc_info img.logo{
+	border:solid 1px;
+	padding:2px;
+	float:right;
+	margin-right:3px;
+	
+		
+}
 
+#doc_info ul.doc_actions{
+	list-style:none;
+}
+#doc_info ul.doc_actions li{
+	display:inline;
+}
+span.float{
+	float:left;
+}
+span.inline{
+	display:inline;
+	float:left;
+}
 /*Table*/
 th.attachment-name{
 	width:30%;
@@ -1061,3 +1085,7 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 #event_description_content p,#new_entry_content p{margin:0;}
 #buttons_event{margin-bottom: 10px;}
 #hide{width: 30px;}
+
+.ten{
+	padding-top:10px;
+}

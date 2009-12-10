@@ -31,13 +31,13 @@
   <%if @event.authorize?(:update, :to => current_user)%> 
     //it is important that this code is before the hiding of new_agenda_entry to function properly
     $("#speakers_name").fcbkcomplete({
-	cache: true,
-        filter_case: false,
-        filter_hide: true,
-        firstselected: true,
-        filter_selected: true,
-        maxshownitems: 4,
-        newel: true
+	    cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true
     });
   <%end%>
   
@@ -56,9 +56,9 @@
           }, function(data){             
               edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
               edit_entry_button.parents(".agenda_entry").append(data);
-	      $('#cannot_exclude').hide();
-	      <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
-	      $("input.agenda_edit_close").click(function(){
+	            $('#cannot_exclude').hide();
+	            <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+	            $("input.agenda_edit_close").click(function(){
                 edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
                 $(".agenda_edit_entry").empty();
               });
@@ -70,8 +70,13 @@
                 filter_selected: true,
                 maxshownitems: 4,
                 newel: true
-	      });
+	            });
+							var destination_edit = $('#edit_entry_anchor').offset().top;
+              $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+                window.location.hash = '#edit_entry_anchor';
+              });
     });
+		
   });
 
 /*

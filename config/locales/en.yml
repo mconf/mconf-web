@@ -69,6 +69,7 @@ en:
   attachment:
     attach: "Attachment"
     created: "Attachment created successfully"
+    delete: "Delete attachment"
     info: "Document info"
     loading: "Loading document information..."
     not_valid: "The attachment is not valid"
@@ -246,6 +247,7 @@ en:
       none: "No events found"
       one: "1 event was found"
       other: "{{size}} events were found"
+    generate_pdf: "Generate PDF"
     has: "This event has"
     home:
       one: "Event in the space {{space}}"
@@ -711,6 +713,7 @@ en:
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
     one: "Space"
+    other: "Spaces"
     popular:
       other: "Popular spaces"
     private: "Private spaces"
