@@ -13,24 +13,26 @@
 		<p>
 			
 			<ul>
-				<li><span class="bold"><%=t('agenda.entry.title')%></span> : <%=link_to attachment.filename%>
+				<li><span class="bold"><%=t('agenda.entry.title')%></span> : <%=attachment.filename%>
 				<li><span class="bold"><%=t('author')%></span>: <%=link_to attachment.author.name, user_profile_path(attachment.author)%></li>
 				<li><span class="bold"><%=t('size')%></span>: <%=attachment.get_size.strip!%></li>
 				<li><span class="bold"><%=t('updated_at')%></span>: <%=attachment.updated_at.to_date.to_formatted_s(:rfc822)%></li>
-				<li id="attachment_tags_list"><span class="bold inline"><%=t('tags')%></span>: <%=attachment.tags%></li>
+				<li id="attachment_tags_list"><%=t('tags')%>: <%=attachment.tags%></li>
 			</ul>
 		</p>
 		
 		<ul class="doc_actions">
-		
-		<li><%= attachment.tags.size>0 ? link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags") : link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags")%></li>
-        <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment,:version => attachment.version, :format => attachment.format))%></li>
-			<%if attachment.authorize?(:delete, :to => current_user)%>
-			
+		  <%if attachment.authorize?(:update,:to => current_user)%>
+		    <li><%= attachment.tags.size>0 ? link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags") : link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags")%></li>
+      <%end%>  
+			<%if attachment.authorize?(:read,:to => current_user) %>
+			 <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment,:version => attachment.version, :format => attachment.format))%></li>
+			<%end%>
+			<%if attachment.authorize?(:delete, :to => current_user)%>			
         <li><%=link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))})%></li>
 			<%end%>
 
-		<%if @space.authorize?([:create, :content],:to => current_user)%>
+		<%if attachment.authorize?(:update,:to => current_user)%>
         	<li><%=link_to(image_tag("icons/new_version_doc.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version")%></li>
 		<%end%>
 		
@@ -56,8 +58,10 @@
     </p>
     <h4>Actions:</h4>
     <ul>
+    	  <%if attachment.authorize?(:read,:to => current_user) %>
         <li><%=link_to t('download'), space_attachment_path(@space,attachment,:version => attachment.version, :format => attachment.format)%></li>
-      <%if attachment.post.present?%>
+  			<%end%>
+				<%if attachment.post.present?%>
         <li><%=link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post))%></li>
       <%end%>
       <%if attachment.event.present?%>

@@ -18,9 +18,9 @@
 	<%elsif attachment.errors.any?%>
 	  <%= render :partial => 'new_version_form' %>
 	<%else%>
-    <%if @space.authorize?([:create, :content],:to => current_user)%>
+    
 		<%= render :partial => 'upload_form' %>
-		<%end%>
+
 	<%end%>
 <%end%>
 
