@@ -91,7 +91,7 @@
       <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => @event.agenda.agenda_entries_for_day(i).size < 4 }%>
     <%end%>
     <%if event.authorize?(:update, :to => current_user)%>
-      <button class='create-space margin-up' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
+      <button class='basic_button blue_button margin-up' id="add_entry<%=i%>"><%=t("agenda.add_entry")%></button>
     <%end%>
 	<%end%>
   </div>  

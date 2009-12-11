@@ -7,9 +7,9 @@
         <%=link_to t('event.last_7_days', :size => @last_week_events.size), space_events_path(@space, :show => "past_events", :day => "last_week" ),{:class => "#{params[:day] == 'last_week' ? 'date_link selected' : 'date_link'}"}%> |
         <%=link_to t('event.last_month', :size => @last_month_events.size), space_events_path(@space, :show => "past_events" , :day =>"last_month"),{:class => "#{params[:day] == 'last_month' ? 'date_link selected' : 'date_link'}"}%> |
       <%if params[:order_by_time]%>
-        <%=link_to image_tag("icons/arrow_down.png") + "order DESC", space_events_path(@space, :show => params[:show], :day => params[:day]), {:class => 'past_link event_navigation'}%>  
+        <%=link_to image_tag("icons/16/arrow-down.png",:class=>"icon") + "order DESC", space_events_path(@space, :show => params[:show], :day => params[:day]), {:class => 'past_link event_navigation'}%>  
       <%else%>
-        <%=link_to image_tag("icons/arrow_up.png") + "order ASC", space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC"), {:class => 'past_link event_navigation'}%>
+        <%=link_to image_tag("icons/16/arrow-up.png",:class=>"icon") + "order ASC", space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC"), {:class => 'past_link event_navigation'}%>
       <%end%>
     </div>
   <div>

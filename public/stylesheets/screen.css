@@ -71,13 +71,13 @@ h3.top{padding-top:10px;}
 */
 
 /*COMMON PROPERTIES*/
-button{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
+button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
 
 .button_wrapper{
 	overflow:hidden;
 	width:100%;}
 
-a.big_button, a.medium_button, a.basic_button, button{
+a.big_button,a.medium_button,a.basic_button,button,input[type=button]{
 	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
 	font-weight:bold;
 	text-align:center;
@@ -134,7 +134,7 @@ a.medium_button span{
 }
 
 /*BASIC BUTTONS..........*/
-a.basic_button,button.basic_button{
+a.basic_button,button.basic_button,input[type=button].basic_button{
 	-webkit-border-radius:4px;-moz-border-radius:4px;
 	font-size:95%;
 	line-height:135%;
@@ -145,8 +145,10 @@ a.basic_button,button.basic_button{
 a.basic_button span{
 	-webkit-border-radius:4px;-moz-border-radius:4px;
     line-height: 16px;
-    padding: 6px 4px 7px 4px;
+    padding:4px;
 }
+
+button#change_logo{float:left;}
 
 /*BUTTON COLOURS*/
 .orange_button,.orange_button span{color:#fff;background: transparent url("/images/buttons/fondo-join-space.png");}
@@ -171,13 +173,13 @@ a.basic_button span{
 
 .blue_button,.blue_button span{color:#FFF;background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;}
 	
-.blue_button span,button.blue_button{border:1px solid #244974;}
+.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
 
-.blue_button span:hover,button.blue_button:hover{border:1px solid #86B5D5;}
+.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
 
-button,input[type=button]{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
+/*button,input[type=button]{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
-#b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}
+#b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}*/
 
 /*
 a.button, button, #sidebar input[type=submit],input[type=button] {

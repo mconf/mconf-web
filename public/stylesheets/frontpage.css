@@ -135,7 +135,7 @@ a.basic_button,button.basic_button{
 a.basic_button span{
 	-webkit-border-radius:4px;-moz-border-radius:4px;
     line-height: 16px;
-    padding: 6px 4px 7px 4px;
+    padding: 4px;
 }
 
 /*BUTTON COLOURS*/
