@@ -1,5 +1,5 @@
 <div id="doc_action" rel="new_doc">
-	
+	<%if attachment.authorize?(:create,:to => current_user)%>
 	<div id="add_document_label" style="display:none"><%=t('document.add') %></div>
 	
 	<div id="add_new_doc">	
@@ -30,4 +30,5 @@
 	
 	<div id="hide"><%=t('hide')%></div>
 	</div>
+	<%end%>
 </div>
