@@ -996,6 +996,21 @@ th.attachment-updated{
   border-bottom: 1px solid #CCCCCC;
 }
 
+#video_preview{
+	float:right;
+	margin-top:6px;
+	width:120px;
+}
+
+#video_preview a{
+	width:120px;
+	position:absolute;}
+	
+#video_preview a img{
+	width:120px;
+}
+
+
 .group_agenda_links{
   margin: 0;  
 }
@@ -1035,7 +1050,7 @@ th.attachment-updated{
 	cursor:pointer;
 	}
 
-.agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;border-bottom:1px solid #FFD324;border-left:1px solid #FFD324;border-right:1px solid #FFD324;}
+.agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;border-bottom:1px solid #FFD324;border-left:1px solid #FFD324;border-right:1px solid #FFD324;overflow:hidden;}
 
 .agenda_list_content{
   list-style-type: none;
