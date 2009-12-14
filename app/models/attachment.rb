@@ -41,15 +41,16 @@ class Attachment < ActiveRecord::Base
   }
   
   is_indexed :fields => ['filename', 'type'],
-             :include =>[{:class_name => 'Tag',
-             :field => 'name',
-             :as => 'tags',
-             :association_sql => "LEFT OUTER JOIN taggings ON (attachments.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Attachment') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-             { :class_name => 'User',
-               :field => 'login',
-               :as => 'author',
-               :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
-  ]
+             :include => [
+               { :class_name => 'Tag',
+                 :field => 'name',
+                  :as => 'tags',
+                  :association_sql => "LEFT OUTER JOIN taggings ON (attachments.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Attachment') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
+               { :class_name => 'User',
+                 :field => 'login',
+                 :as => 'author',
+                 :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
+             ]
   
   
   

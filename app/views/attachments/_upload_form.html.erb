@@ -1,10 +1,10 @@
 <div id="doc_action" rel="new_doc">
-	
+	<%if attachment.authorize?(:create,:to => current_user)%>
 	<div id="add_document_label" style="display:none"><%=t('document.add') %></div>
 	
 	<div id="add_new_doc">	
 	
-	<h3>Add new document</h3>
+	<h3 class="blue bold ten">Add new document</h3>
 	<%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
 	  <div id="cabinet">
 	    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
@@ -30,4 +30,5 @@
 	
 	<div id="hide"><%=t('hide')%></div>
 	</div>
+	<%end%>
 </div>

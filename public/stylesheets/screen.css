@@ -1,4 +1,4 @@
-/* reset.css */
+	/* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 td{text-align:left;}
 body{line-height:1.5;}
@@ -62,66 +62,124 @@ h3.top{padding-top:10px;}
 .right-align {float:right;}
 .margin-up{margin-top:0.75em;}
 
-/*BOTONES*/
+/************************************************** BUTTONS ********************************************/
+/*
+ * TYPES OF BUTTONS
+ * 1- BASIC_BUTTON: blue, small-padding
+ * 2- MEDIUM_BUTTON: blue or yellow,
+ * 3- BIG_BUTTON: red or yellow
+*/
+
+/*COMMON PROPERTIES*/
+button{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
+
+.button_wrapper{
+	overflow:hidden;
+	width:100%;}
+
+a.big_button, a.medium_button, a.basic_button, button{
+	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+	font-weight:bold;
+	text-align:center;
+}
+a.big_button, a.medium_button, a.basic_button{
+    display: block;
+	float: left;
+	text-decoration: none;
+	}
+
+a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+
+a.big_button span, a.medium_button span, a.basic_button span{
+    display: block;}
+
+a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
+    outline: none; /* hide dotted outline in Firefox */}
+
+/*********BIG BUTTONS***************/
+a.big_button,button.big_button{
+	-webkit-border-radius:5px;-moz-border-radius:5px;
+    font-size:120%;
+    line-height:150%;
+    margin-right: 6px;
+	cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+a.big_button span{
+	-webkit-border-radius:5px;-moz-border-radius:5px;
+    line-height: 18px;
+	width:192px;
+    padding: 5px 18px 5px 18px;
+}
+
+.join a.big_button span{width:120px;}
+
+button.big_button{padding:3px 18px 3px 18px;width:230px;}
+
+/********MEDIUM BUTTONS*************/
+a.medium_button{
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+	font-size:1.0833em;
+	line-height:1.3846;
+    margin-right: 6px;
+	cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+a.medium_button span{
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+	color:#fff;
+    line-height: 16px;
+	width:110px;
+    padding: 5px 18px 5px 18px;
+}
+
+/*BASIC BUTTONS..........*/
+a.basic_button,button.basic_button{
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+	font-size:95%;
+	line-height:135%;
+	margin-right:4px;
+	cursor:pointer;
+	/*padding-right: 4px; /* sliding doors padding */
+}
+a.basic_button span{
+	-webkit-border-radius:4px;-moz-border-radius:4px;
+    line-height: 16px;
+    padding: 6px 4px 7px 4px;
+}
+
+/*BUTTON COLOURS*/
+.orange_button,.orange_button span{color:#fff;background: transparent url("/images/buttons/fondo-join-space.png");}
+
+.orange_button span,button.orange_button{
+	border-bottom:1px #C18500 solid;
+	border-top:1px #FFC14A solid;
+	border-left:1px #FFC14A solid;
+	border-right:1px #FFC14A solid;
+}
+.orange_button:hover,.orange_button span:hover{background:url("/images/buttons/fondo-join-space2.png");}
+
+.red_button,.red_button span{color:#fff;background:url("/images/buttons/leave-space-notext3.png");}
+	
+.red_button span{
+	border-bottom:1px #a2042b solid;
+	border-top:1px #d60337 solid;
+	border-left:1px #d60337 solid;
+	border-right:1px #d60337 solid;
+	}
+.red_button:hover,.red_button span:hover{background:url("/images/buttons/leave-space-notext4.png");}
+
+.blue_button,.blue_button span{color:#FFF;background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;}
+	
+.blue_button span,button.blue_button{border:1px solid #244974;}
+
+.blue_button span:hover,button.blue_button:hover{border:1px solid #86B5D5;}
+
 button,input[type=button]{width:auto;overflow:visible;padding:3px 7px 3px 6px;}
 *:first-child+html button[type]{padding:4px 7px 5px 6px;}
 #b-selector{width:140px;font-size:1.0833em;line-height:1.3846;}
 
-.puff{
-	overflow:hidden;
-	width:100%;
-}
-
-a.repuff {
-    background: transparent url("/images/buttons/fondo-join-space.png");
-    display: block;
-    float: left;
-	font-size:1.0833em;
-	line-height:1.3846;
-    margin-right: 6px;
-    padding-right: 18px; /* sliding doors padding */
-    text-decoration: none;
-	-webkit-border-radius:4px;-moz-border-radius:4px;
-}
-
-a.repuff span {
-    background: transparent url("/images/buttons/fondo-join-space.png");
-    display: block;
-	font-weight:bold;
-	color:#fff;
-    line-height: 16px;
-	width:110px;
-    padding: 5px 0 5px 18px;
-	-webkit-border-radius:4px;-moz-border-radius:4px;
-}
-
-a.repuff:hover {
-    background:url("/images/buttons/fondo-join-space2.png");
-    outline: none; /* hide dotted outline in Firefox */
-}
-
-a.repuff:hover span {
-    background:url("/images/buttons/fondo-join-space2.png");
-	padding: 6px 0 4px 18px; /* push text down 1px */
-} 
-
-a.rounded {
-  width:auto;
-  overflow:visible;
-  padding:4px 7px 4px 6px;
-  border:1px solid #244974;
-  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-  font-size:95%;
-  line-height:135%;
-  text-decoration:none;
-  font-weight:bold;
-  background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;
-  color:#FFF;
-  margin-right:4px;
-  cursor:pointer;
-  -webkit-border-radius:4px;-moz-border-radius:4px;
-}
-
+/*
 a.button, button, #sidebar input[type=submit],input[type=button] {
   border:1px solid #244974;
   font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
@@ -160,7 +218,7 @@ button.join-space{border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;b
 button.join-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
 button.leave-space{border-bottom:1px #a2042b solid;border-top:1px #d60337 solid;border-left:1px #d60337 solid;border-right:1px #d60337 solid;background:url("/images/buttons/leave-space-notext3.png");width:195px;}
 button.leave-space:hover{background:url("/images/buttons/leave-space-notext4.png");}
-
+*/
 
 /* forms.css */
 .error, .notice, .success, #enable_javascript {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
@@ -854,7 +912,31 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 	font-weight:bold;
 	padding-left:20px;
 }
+#tag_filter{
+	margin-top:20px;
+}
+#doc_info img.logo{
+	border:solid 1px;
+	padding:2px;
+	float:right;
+	margin-right:3px;
+	
+		
+}
 
+#doc_info ul.doc_actions{
+	list-style:none;
+}
+#doc_info ul.doc_actions li{
+	display:inline;
+}
+span.float{
+	float:left;
+}
+span.inline{
+	display:inline;
+	float:left;
+}
 /*Table*/
 th.attachment-name{
 	width:30%;
@@ -1003,3 +1085,7 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 #event_description_content p,#new_entry_content p{margin:0;}
 #buttons_event{margin-bottom: 10px;}
 #hide{width: 30px;}
+
+.ten{
+	padding-top:10px;
+}

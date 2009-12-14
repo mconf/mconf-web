@@ -1,5 +1,5 @@
-
-<div class="agenda_edit_entry">
+<div class="agenda_edit_entry" >
+  <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
 
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true}) do |f| %>
@@ -36,9 +36,9 @@
     </div>
  -->
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
-      <%if @agenda_entry.attachment then%>
+      <%unless @agenda_entry.attachment.new_record? then%>
         <%= link_to( @agenda_entry.attachment.filename , polymorphic_path(@agenda_entry.attachment, :format => @agenda_entry.attachment.format, :version => @agenda_entry.attachment.version))%>
-				<%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_agenda_agenda_entry_attachment_path(@space, @event, @agenda_entry), :method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element=>@agenda_entry.attachment.filename)) if @agenda_entry.authorize?(:delete, :to => current_user) || @event.authorize?(:update, :to => current_user) %>
+				<%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_attachment_path(@space, @agenda_entry.attachment), :method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element=>@agenda_entry.attachment.filename)) if @agenda_entry.authorize?(:delete, :to => current_user) || @event.authorize?(:update, :to => current_user) %>
       <%end%>
 			<% f.fields_for :attachment do |attachment_form| %>
         <%= attachment_form.file_field :uploaded_data %>

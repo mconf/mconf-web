@@ -49,17 +49,17 @@
    <%if event.authorize?(:update, :to => current_user)%> 
      $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
-	tooltip   : '<%= t('dblclick')%>',
+	      tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
         placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
         type      : 'textarea',
         name : 'event[description]',
-	width : 490,
-	height: 250,
-	event     : "dblclick",
-	data: function(value, settings) {
+        width : 490,
+	      height: 250,
+	      event     : "dblclick",
+	      data: function(value, settings) {
           /* Convert <br> to newline. */
           var retval = value.replace(/<br[\s\/]?>/gi, '');
           retval = retval.replace(/<p[\s\/]?>/gi, '');
@@ -135,9 +135,9 @@
       <div id="agenda_content">
         <%= render :partial => "agendas/edit" %>
 		<br><br>
-		<%= link_to 'Generar PDF', generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
+		<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
 		<br>
-		<%= link_to "Volver", space_event_path(space, event) %>
+		<%= link_to t('back'), space_event_path(space, event) %>
 		<br>
       </div>
     </div>

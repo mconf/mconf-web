@@ -18,11 +18,13 @@
 	<%elsif attachment.errors.any?%>
 	  <%= render :partial => 'new_version_form' %>
 	<%else%>
-    <%if @space.authorize?([:create, :content],:to => current_user)%>
+    
 		<%= render :partial => 'upload_form' %>
-		<%end%>
+
 	<%end%>
 <%end%>
+
+<% menu(:repository) %>
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">

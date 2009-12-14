@@ -13,7 +13,7 @@ hr {margin:-8px auto 11px;}
 fieldset {padding-top:0;}
 
 /*botones*/
-a.repuff {
+a.big_button, a.medium_button, a.basic_button{
 	font-size:12px;
 	line-height:18px;
 }

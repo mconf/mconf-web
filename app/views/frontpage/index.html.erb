@@ -21,7 +21,7 @@
  <%content_for :search do%>
   <% form_tag(spaces_path(), :method => 'get') do %>
       <%= text_field_tag :filter, t('space.search'), :id => "search_space"  %>
-	  <button type="submit"><%=t("button.go")%></button>
+	  <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
    <% end %>
  <%end%>
 
@@ -29,8 +29,8 @@
 		  <div class="join">
 			<h2><%= t('getting_started') %></h2>
 			<!--<p><%= t('share_participate_discuss') %></p>-->
-			<div class="margin-up">
-			  <%=link_to "<button class='create-space'>"+t("register.one")+"</button>",signup_path(), :class => "register_link"%>
+			<div class="button_wrapper margin-up">
+			  <%=link_to "<span>"+t("register.one")+"</span>",signup_path(), :class => "register_link big_button orange_button"%>
 			</div> 	
 		  </div>
 
@@ -87,8 +87,8 @@
 			<%end%>		  		
 		  </div>
 		  
-		  <div class="wrapper right">
-            <button type="button" onclick="document.location='<%=spaces_path%>'"><%=t('button.other_spaces')%></button>
+		  <div class="wrapper right button_wrapper">
+              <%=link_to "<span>" + t("space.show_all") + "</span>", spaces_path,:class => "show_all_link medium_button blue_button"%> 
 		  </div>
 		  
 		  <div class="wrapper">
