@@ -28,7 +28,7 @@ module ApplicationHelper
   def prepare_for_form(obj, options = {})
     case obj
     when Post
-      obj.last_version_attachments << Attachment.new if obj.new_record? && obj.last_version_attachments.blank? 
+      obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank? 
 
       obj.space = @space if obj.space.blank?
     when Attachment    

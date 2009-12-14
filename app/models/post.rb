@@ -2,14 +2,11 @@ class Post < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :post_attachments, :dependent => :destroy
-  has_many :last_version_attachments, :through => :post_attachments, :source => :attachment
+  has_many :attachments, :through => :post_attachments
+  
   belongs_to :event
 
-  def attachments
-    post_attachments.map{ |pa| a = pa.attachment; a.revert_to(pa.attachment_version); a}
-  end
-  
-  accepts_nested_attributes_for :last_version_attachments, :allow_destroy => true
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   acts_as_resource :per_page => 10
   acts_as_content :reflection => :space
@@ -48,7 +45,7 @@ class Post < ActiveRecord::Base
 
   # Fill attachments author and space
   before_validation do |post|
-    post.last_version_attachments.each do |a|
+    post.attachments.each do |a|
       a.space  ||= post.space
       a.author = post.author
     end
@@ -57,12 +54,6 @@ class Post < ActiveRecord::Base
   # Update parent Posts when commenting to it
   after_save do |post|
     post.parent.try(:touch)
-  end
-  
-  after_create do |post|
-    post.post_attachments.each do |pa|
-      pa.update_attribute(:attachment_version, pa.attachment.version)
-    end
   end
   
   def author
@@ -91,41 +82,6 @@ class Post < ActiveRecord::Base
   def self.last_news(space)
     return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
-  
-  def self.params_from_atom(entry)
-    params = {}
-
-    params[:title] = entry.title.to_s
-    params[:text] = ( entry.content.to_s.present? ? entry.content.to_s : entry.title.to_s )
-
-    # Tags
-    # TODO: Move to Station plugin
-    #t = []
-    #e.categories.each do |c|
-    #  unless c.scheme
-    #    t << c.term
-    #  end
-    #end
-    #params[:_tags] = t.join(",")
-
-    # TODO: fix this
-    ### atom-threading support
-    #if in_reply_to = entry.get_elem(entry.to_xml, 'http://purl.org/syndication/thread/1.0', 'in-reply-to')
-    #  params[:parent_id] = Post.find_by_source_entry_id(in_reply_to.text.to_s).try(:id)
-    #end
-
-    #if the post is a comment, no public_read is given
-    #TODO: cuando implementemos el hash de visibilidad
-    #unless entry[:comment]
-    #vis = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
-    #if vis == "public" 
-    #entry[:public_read] = true
-    #else
-    #entry[:public_read] = false
-    #end
-
-    params 
-  end    
 
   # Author Permissions
   authorizing do |agent, permission|
