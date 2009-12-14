@@ -71,4 +71,12 @@ module AttachmentsHelper
   def tags_to_array
     params[:tags].present? ? params[:tags].split(",").map(&:to_i) : Array.new
   end
+  
+  def tags_list array
+    html = "<ul class=\"holder\">"
+    array.each do |element|
+      html << "<li class=\"bit-box\">#{element}</li>"
+    end
+    html << "</ul>"
+  end
 end
