@@ -110,7 +110,7 @@ class SpacesController < ApplicationController
     respond_to do |format|
       if @space.save && @group.save
         flash[:success] = t('space.created')
-        @space.stage_performances.create :agent => current_user, :role => Space.roles.find{ |r| r.name == 'Admin' }
+        @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom { 
