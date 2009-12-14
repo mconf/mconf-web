@@ -70,6 +70,7 @@ en:
     attach: "Attachment"
     created: "Attachment created successfully"
     delete: "Delete attachment"
+    deleted: "Attachment successfully deleted"
     info: "Document info"
     loading: "Loading document information..."
     not_valid: "The attachment is not valid"
