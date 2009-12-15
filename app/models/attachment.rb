@@ -36,13 +36,22 @@ class Attachment < ActiveRecord::Base
     Attachment.version_family(version_family_id)
   end
   
+  def version
+    version_family.reverse.index(self) +1
+  end
+  
+  def current_version?
+    version_child_id.nil?
+  end
+  
   named_scope :version_family, lambda{ |id|
-    {:conditions => {:version_family_id => id}}
-    #Sort in version order
+    {:order => 'id DESC',
+    :conditions => {:version_family_id => id}}
   }
 
   named_scope :sorted, lambda { |order, direction|
-    { :order => sanitize_order_and_direction(order, direction) }
+    { :order => sanitize_order_and_direction(order, direction),
+      :conditions => {:version_child_id => nil}}
   }
   
   is_indexed :fields => ['filename', 'type'],
@@ -57,7 +66,22 @@ class Attachment < ActiveRecord::Base
                  :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
              ]
   
+  protected
   
+  def validate
+    errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
+    if version_parent_id.present?
+      @version_parent = Attachment.find(version_parent_id)
+      if @version_parent.present?
+        self.version_family_id = @version_parent.version_family_id
+        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.taken')) if @version_parent.version_child_id.present?
+      else
+        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.missing'))
+      end
+    end
+  end
+  
+  public
   
   after_validation do |attachment|
     e = attachment.errors.clone
@@ -77,24 +101,30 @@ class Attachment < ActiveRecord::Base
   end
   
   after_create do |attachment|
-    if attachment.version_parent.present?
-      parent = attachment.version_parent
-      parent.without_timestamps do |p|
-        p.update_attribute(:version_child_id, attachment.id)
+    unless attachment.thumbnail?
+      
+      if attachment.version_parent.present?
+        parent = attachment.version_parent
+        parent.without_timestamps do |p|
+          p.update_attribute(:version_child_id, attachment.id)
+        end
+      else
+        attachment.update_attribute(:version_family_id,attachment.id)
       end
-    else
-      attachment.update_attribute(:version_family_id,attachment.id)
     end
-    
     
   end
   
   after_save do |attachment|
     if attachment.post_title.present?
-      p = posts.build(:title => attachment.post_title, :text => attachment.post_text)
+      p = Post.new(:title => attachment.post_title, :text => attachment.post_text)
       p.author = attachment.author
       p.space = attachment.space
       p.save!
+
+      attachment.posts << p
+
+      attachment.post_title = attachment.post_text = nil
     end
   end
   
@@ -166,25 +196,13 @@ class Attachment < ActiveRecord::Base
     
   end
   
-  protected
-  def validate
-    errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
-    if version_parent_id.present?
-      @version_parent = Attachment.find(version_parent_id)
-      if @version_parent.present?
-        version_family_id = @version_parent.version_family_id
-        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.taken')) if @version_parent.version_child_id.present?
-      else
-        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.missing'))
-      end
-    end
-  end
-  
   def without_timestamps
     rt = self.class.record_timestamps
     self.class.record_timestamps=false
     yield self
     self.class.record_timestamps=rt
-  end
+  end  
   
+
+
 end

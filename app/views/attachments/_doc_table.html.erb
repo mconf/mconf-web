@@ -12,11 +12,11 @@
       t.rows.each do |row, attachment, index|
 
         #expanded
-        if expand_versions_to_array.include?(attachment.version_family_id)
+        if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
 
           row[:class] += " version_expanded"
 
-          row.name           "#{link_to image_tag("down.png"),path_for_attachments({:not_expanded => version_family_id}), :class => "table_params" if attachment.version_child_id.nil?} <span class=\"version_number\" title=\"#{t('version.one')} #{attachment.id}\">V#{attachment.id}</span> #{attachment_link(attachment)}"
+          row.name           "#{link_to image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params" if attachment.current_version?} <span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}"
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
           row.tags           attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")

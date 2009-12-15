@@ -1,6 +1,7 @@
 <div id="doc_action" rel="new_version">
 	<div id="new_version_label"><%=t('version.new') %></div>
-	<%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
+	<%form_for prepare_for_form(Attachment.new, :version_parent_id => @attachment.id), :html => { :multipart => true} do |f|%>
+	  <%= f.hidden_field :version_parent_id %>
 		<%= f.file_field :uploaded_data, :size=>15 %>
 		<div id=tags>
 			<select id="attachment_new_version_tags" multiple="multiple" name="attachment[_tags][]">
@@ -11,9 +12,9 @@
     <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%></h4>
     <div id="with_post" <%="style=\"display:none\"" if !(attachment.post_title.present? || attachment.post_text.present?)%>>
       <%= f.label :post_title, t('title') %><br/>
-      <%= f.text_field :post_title%>
+      <%= f.text_field :post_title %>
       <%= f.label :post_text, t('text') %><br/>
-      <%= f.text_area :post_text, :rows => 5, :cols=>25%>
+      <%= f.text_area :post_text, :rows => 5, :cols=>25 %>
     </div>
 
 	  <button type="submit"><%=t("button.update")%></button>

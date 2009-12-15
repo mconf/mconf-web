@@ -25,8 +25,8 @@ module AttachmentsHelper
 
     if versioned_attachment_ids.present?
       versioned_attachment_ids.each do |id|
-        if attachments.map(&:id).include?(id.to_i)
-          family = Attachment.find_by_version_family_id(id.to_i)
+        if attachments.map(&:version_family_id).include?(id.to_i)
+          family = Attachment.version_family(id.to_i)
           attachment = (family & attachments).first
           index = att_version_array.index(attachment)
           att_version_array[index] = family

@@ -15,7 +15,7 @@ class AttachmentRefactorized < ActiveRecord::Migration
     drop_table :versions
 
     AttachmentMigration.record_timestamps = false
-    AttachmentMigration.all.each do |a|
+    AttachmentMigration.all.select{|a| !a.thumbnail?}.each do |a|
       a.update_attribute(:version_family_id, a.id)
     end
   end
