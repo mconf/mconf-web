@@ -281,7 +281,7 @@ $("#new_doc_big_link").livequery('click',function () {
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
 		<%= text_field_tag 'query',(params[:query] ? params[:query] : t('search.posts.dots'))%>
-	  <button type="submit"><%=t("button.go")%></button>
+	  <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
   <% end %>
 <%end%>
 <% content_for :sidebar do  %>
@@ -289,7 +289,7 @@ $("#new_doc_big_link").livequery('click',function () {
   <% unless space.users.include?(current_user) %>
   <div id="join">
     <% form_tag space_join_requests_path(space) do %>
-	<button class="join-space" type:"submit"><%=t('space.join')%></button>
+	  <button class="orange_button big_button" type:"submit"><%=t('space.join')%></button>
     <% end %>
   </div>
   <% end %>

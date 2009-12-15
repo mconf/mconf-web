@@ -12,7 +12,7 @@
     <%= f.text_area :body, :class => "span-6"  %>
   </div>
   <%= hidden_field_tag "private_message[receiver_id]", params[:receiver]%>
-  <p>
-    <%= image_submit_tag("buttons/send.png") %>
-  </p>
+  <div class="margin-up">
+  	<button type="submit" class="basic_button blue_button"><%=t('button.send')%></button>
+  </div>
 <% end %>

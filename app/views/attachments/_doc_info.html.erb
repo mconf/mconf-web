@@ -17,7 +17,7 @@
 				<li><span class="bold"><%=t('author')%></span>: <%=link_to attachment.author.name, user_profile_path(attachment.author)%></li>
 				<li><span class="bold"><%=t('size')%></span>: <%=attachment.get_size.strip!%></li>
 				<li><span class="bold"><%=t('updated_at')%></span>: <%=attachment.updated_at.to_date.to_formatted_s(:rfc822)%></li>
-				<li id="attachment_tags_list"><%=t('tags')%>: <%=attachment.tags%></li>
+				<li id="attachment_tags_list"><span class="bold"><%=t('tags')%></span>:<%=tags_list attachment.tags%></li>
 			</ul>
 		</p>
 		
