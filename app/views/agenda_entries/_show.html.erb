@@ -40,7 +40,7 @@
         <%end%>
       <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
       <%if agenda_entry.attachment then%>
-			  <li><span class="person_title"><%=t('attachment.one')%>:</span> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
+			  <li><span class="person_title"><%=t('attachment.one')%>:</span> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%></li>
       <%end%>
     </ul>
   </div>
