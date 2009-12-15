@@ -21,10 +21,13 @@
   </div>
 
   <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
-    <ul class="agenda_list_content">
-      <li><span class="person_title"><%=t('agenda.entry.speakers')%>:</span>  
-      <%isfirst=true%>
-      <%agenda_entry.actors.each do |speaker|%>
+    <div id="video_preview">
+    	<%=link_to image_tag("demo/belief.png"),'#'%>
+	</div>
+	<ul class="agenda_list_content">
+      <li>  
+      	<%isfirst=true%>
+      	<%agenda_entry.actors.each do |speaker|%>
           <%if isfirst%>
             <%isfirst=false%>
           <%else%>
@@ -38,7 +41,9 @@
           <%end%>
           <%= agenda_entry.speakers %>
         <%end%>
-      <li><span class="person_title"><%=t('agenda.entry.description')%>:</span>  <%=h agenda_entry.description %></li>
+	  </li>
+	  
+      <li><%=h agenda_entry.description %></li>
       <%if agenda_entry.attachment then%>
 			  <li><span class="person_title"><%=t('attachment.one')%>:</span> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%></li>
       <%end%>

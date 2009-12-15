@@ -25,6 +25,7 @@ GEMS = {
                    "rspec-rails",
                    "hoe",
                    "httparty",
+		   "pdf-writer",
                    "vestal_versions"],
   :production  => [ ],
   :development => [ "capistrano",

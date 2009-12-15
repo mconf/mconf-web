@@ -15,7 +15,7 @@
   <p>
   	<%= hidden_field_tag 'private_message[parent_id]', previous_message.id %>
 	<%= hidden_field_tag 'private_message[receiver_id]', previous_message.sender_id %>
-    <button type="submit"><%=t("button.send")%></button>
+    <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
   </p>
 <% end %>
 </div>

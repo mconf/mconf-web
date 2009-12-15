@@ -54,10 +54,10 @@
 	</ul>	
 	</div>	
       
-      <div id="buttons_event">
+      <div id="buttons_event" class="button_wrapper">
         <%if event.authorize?(:update, :to => current_user) %>
-          <button id="change_logo" class="create_space"><%=t('event.logo.button')%></button>
-          <%=link_to t('event_invitation.new.other'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"create_space rounded",:title => t('invitation.add_more')} %>
+          <button id="change_logo" class="basic_button blue_button"><%=t('event.logo.button')%></button>
+		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"blue_button basic_button",:title => t('invitation.add_more')} %>
         <%end%>
         </div>
       
