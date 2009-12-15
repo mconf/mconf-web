@@ -38,6 +38,7 @@ class Attachment < ActiveRecord::Base
   
   named_scope :version_family, lambda{ |id|
     {:conditions => {:version_family_id => id}}
+    #Sort in version order
   }
 
   named_scope :sorted, lambda { |order, direction|

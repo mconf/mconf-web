@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091119151350) do
+ActiveRecord::Schema.define(:version => 20091214104211) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -75,7 +75,12 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "agenda_entry_id"
+    t.integer  "version_child_id"
+    t.integer  "version_family_id"
   end
+
+  add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
+  add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
   create_table "db_files", :force => true do |t|
     t.binary "data"
@@ -217,7 +222,6 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
   create_table "post_attachments", :force => true do |t|
     t.integer "post_id"
     t.integer "attachment_id"
-    t.integer "attachment_version"
   end
 
   create_table "posts", :force => true do |t|
@@ -321,13 +325,14 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    :default => false
-    t.boolean  "repository",  :default => false
+    t.boolean  "disabled",     :default => false
+    t.boolean  "with_gallery", :default => true
+    t.boolean  "repository",   :default => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -372,17 +377,5 @@ ActiveRecord::Schema.define(:version => 20091119151350) do
     t.integer  "notification",                            :default => 1
     t.string   "locale"
   end
-
-  create_table "versions", :force => true do |t|
-    t.integer  "versioned_id"
-    t.string   "versioned_type"
-    t.text     "changes"
-    t.integer  "number"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
-  add_index "versions", ["number"], :name => "index_versions_on_number"
-  add_index "versions", ["versioned_type", "versioned_id"], :name => "index_versions_on_versioned_type_and_versioned_id"
 
 end

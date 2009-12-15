@@ -26,9 +26,10 @@ module AttachmentsHelper
     if versioned_attachment_ids.present?
       versioned_attachment_ids.each do |id|
         if attachments.map(&:id).include?(id.to_i)
-          attachment = Attachment.find(id.to_i)
+          family = Attachment.find_by_version_family_id(id.to_i)
+          attachment = (family & attachments).first
           index = att_version_array.index(attachment)
-          att_version_array[index] = attachment.versions.reverse
+          att_version_array[index] = family
           att_version_array.flatten!
         end
       end
@@ -56,9 +57,9 @@ module AttachmentsHelper
   def attachment_link(attachment)
     #Temp workaround to display attachments in events. Fix it as soon as possible
     if(params[:controller]=="attachments")
-      link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id, :version => attachment.version), :class => "doc_show"
+      link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id), :class => "doc_show"
     else
-      link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format, :version => attachment.version)
+      link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format)
     end
   end
   
