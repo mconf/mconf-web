@@ -38,9 +38,9 @@
 		</div>
 		<div class="margin-up">
 		<% if params[:edit_group] -%>
-		  <%= image_submit_tag "buttons/update.png" %>
+		  <button type="submit" class="blue_button basic_button"><%=t("button.update")%></button>
 		<% else -%>
-		  <%= image_submit_tag "buttons/create.png" %>
+		  <button type="submit" class="blue_button basic_button"><%=t("button.create")%></button>
 		<% end -%>
 		</div>		
 	<% end -%>

@@ -6,8 +6,7 @@
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
-
-<%= submit_tag t('user.save.account') %>
+<div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t('user.save.account')%></button></div>
 
 <% end -%><br/>
  
@@ -23,7 +22,7 @@
   <% end %>
   <% form_tag OpenIdOwning.new do -%>
   <div id="openid_label">
-    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag t('add') %>
+    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><button type="submit" class="blue_button basic_button"><%=t('add')%></button>
   </div>
   <% end -%><br/>
 </div>
@@ -55,9 +54,7 @@
 <%= f.check_box("disabled", {}, "true", "false") %></p>
 <% end -%>
 
-
-<%= submit_tag t('user.save.preferences') %>
-        		  
+<button type="submit" class="blue_button basic_button"><%=t('user.save.preferences') %></button>		  
 <% end -%>
 
 

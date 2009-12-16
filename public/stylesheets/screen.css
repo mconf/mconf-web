@@ -1,4 +1,4 @@
-	/* reset.css */
+/* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 td{text-align:left;}
 body{line-height:1.5;}
@@ -76,6 +76,10 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 .button_wrapper{
 	overflow:hidden;
 	width:100%;}
+
+.join .button_wrapper {
+	padding:0 25px;
+}
 
 a.big_button,a.medium_button,a.basic_button,button,input[type=button]{
 	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
@@ -599,6 +603,7 @@ div.pagination a{color:#244974;}
 
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #update_logo,#upload_vcard{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
+#update_space_logo{float:left;width:180px;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#update_logo,#upload_vcard, #more_invitations, #add_new_doc, #doc_info{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 
@@ -700,7 +705,7 @@ div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
 div#manage #site_button{margin-left:162px;}
-div#manage #site_button button{padding-left:10px;padding-right:10px;}
+div#manage #site_button span{padding-left:10px;padding-right:10px;}
 div#manage textarea{width:300px;height:100px;}
 div#manage .users select{margin-left:0.75em;}
 div#manage .users input{width:75px;}

@@ -14,6 +14,6 @@
     <label for="body"><%= t('comment.other') %>:</label>
     <%= text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "spam_textarea" %>
   </p>	
-  <%= submit_tag t('report_spam') %>
+	  <button type="submit" class="blue_button basic_button"><%=t("report_spam")%></button>
 	</div>
 <% end -%>

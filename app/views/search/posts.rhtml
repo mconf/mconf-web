@@ -18,7 +18,7 @@
 <% content_for :search do  %>
   <% form_tag(search_posts_path(@space), :method => 'get') do %>
     <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.posts.dots'))%>
-    <button type="submit"><%=t("button.go")%></button>
+    <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
   <% end %>
 <% end %>
 

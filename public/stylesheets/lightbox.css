@@ -1,5 +1,5 @@
 #fancy_ajax, #fancy_div{background:#ebebeb;}
-#lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;text-shadow:#000 1px 1px 1px;color:#333;}
+#lightbox-logo {font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;/*text-shadow:#000 1px 1px 1px;color:#333;*/}
 #lightbox-logo{padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;}
 #lightbox-logo img{margin:0 4px -4px 0;}
 .form{padding:1em 1.5em 0 1.5em;position:relative;overflow:hidden;}
@@ -30,7 +30,7 @@ div#feedback_form,div#join_form{margin-left:1.5em;padding-top:1em;}
 div#feedback_form p label{float:left;display:block;width:20%;padding-top:0.25em;}
 div#spam_form p label{float:left;display:block;width:20%;}
 div#spam_form p strong{line-height:1.5;}
-div#feedback_form input[type="submit"],div#spam_form input[type="submit"]{margin-left:20%;}
+div#feedback_form button[type="submit"],div#spam_form button[type="submit"]{margin-left:20%;}
 h3#feedback_no_lightbox{margin:0;padding:5px 5px 3px;background:#bdd8eb; color:#244974;}
 
 /*

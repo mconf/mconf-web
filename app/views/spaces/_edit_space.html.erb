@@ -81,12 +81,12 @@
 		
 		
 		edit_logo_fun = function(){
-		  $('#update_logo').show();
+		  $('#update_space_logo').show();
 			$('#edit_logo').parent().hide();
 			style_file_input();
 			
-			$("form#update_logo").attr("action","<%=precrop_space_logo_path(@space.id)%>");
-			$("form#update_logo input[type=hidden][name=_method][value=put]").remove();
+			$("form#update_space_logo").attr("action","<%=precrop_space_logo_path(@space.id)%>");
+			$("form#update_space_logo input[type=hidden][name=_method][value=put]").remove();
 		};
 		
 
@@ -164,14 +164,16 @@
 		  <label for="repository">Enable space repository?:</label> 
 		  <%= check_box("space", "repository")%>
 		</p>	
-	  <p>
-	    <%= image_submit_tag "buttons/update.png"%>
-	  </p>	
+	  <div class="margin-up">
+	    <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+	  </div>	
 	<% end %>
 	<h3><%=t('space.logo')%></h3>
 	<% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>	  
-      <p><%= f.file_field :media %></p>
-      <p><%= image_submit_tag 'buttons/update.png' %></p>
+      <div><%= f.file_field :media %></div>
+      <div class="margin-up">
+      	<button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+	  </div>
     <%end%>
 </div>
 
@@ -207,9 +209,9 @@
 		<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
 		<%= link_to_function logo(@space, :size => 'h128'), "edit_logo_fun()", :id => "edit_logo"%>
 	  </div>
-	  <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_logo", :style => "display:none" } do |f| %>
+	  <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_space_logo", :style => "display:none" } do |f| %>
 	    <%= f.file_field :media, :class=>"file file1"%>
-        <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+        <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t("button.update")%></button></div>
       <%end%>
     </li>
     <li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li>

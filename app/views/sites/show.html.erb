@@ -46,6 +46,7 @@
     <%= site.signature_in_html %>
   </p>
 
-  <div id="site_button">
-	<%= link_to "<button>"+t('button.edit')+"</button>", edit_site_path %></div>
+  <div id="site_button" class="button_wrapper">
+    <%= link_to "<span>" + t('button.edit') + "</span>", edit_site_path,:class => "blue_button basic_button"%>
+  </div>
 </div>

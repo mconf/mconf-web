@@ -18,11 +18,9 @@
     <%= f.text_area :text, :class => "big_news_text"%>
   </div>
   <div class=margin-up>  
-    <%= image_submit_tag "buttons/update.png" %>
+    <button class="blue_button basic_button" type="submit"><%=t("button.update")%></button>
+	<%= link_to t('news.publish_another'), space_news_index_path(@space)%>
   </div>
 <% end %>
-
-<%= link_to t('news.publish_another'), space_news_index_path(@space)%>
-
 </div>
 </div>

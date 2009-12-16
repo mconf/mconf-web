@@ -83,9 +83,9 @@
   <div class="join">
     <h2><%= t('getting_started') %></h2>
 	<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
-	<div class="margin-up">
-	  <%=link_to "<button class='create-space'>"+t("register.one")+"</button>",signup_path(), :class => "register_link"%>
-	</div> 
+	<div class="button_wrapper margin-up">
+    <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
+  </div>
   </div>
 <% end %>
 

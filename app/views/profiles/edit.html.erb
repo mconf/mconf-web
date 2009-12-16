@@ -18,16 +18,16 @@
 		<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
     <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
       <p><%= f.file_field :media, :id => 'logo_media' %></p>		
-      <div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+      <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
     <%end%>
   </div>
   
-  <div id="upload_vcard">
+  <div id="upload_vcard" class="margin-up">
 	<h3><%=t("vCard.use")%></h3>
     <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
 		<p><%= file_field 'vcard_file', 'data' %></p>
 
-		<div class="margin-up"><button type="submit"><%=t("button.update")%></button></div>
+		<div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
 	<% end %>
   </div> 
   
@@ -41,7 +41,7 @@
 
   <%= render :partial => 'form', :locals => { :f => f } %>
 <div class="margin-up">
-  <button type="submit"><%=t("button.update")%></button>
+  <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
 </div>
 <% end %>
 

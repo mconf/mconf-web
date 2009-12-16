@@ -23,7 +23,9 @@
   </span>
 </div>
 <%if current_user.superuser? || @user==current_user%>
-  <%= button_to t('edit_profile'), edit_user_profile_path(@user) ,:method => :get %>  
+	  <div class="button_wrapper">
+	    <%= link_to "<span>" + t('edit_profile') + "</span>",edit_user_profile_path(@user),:class => "basic_button blue_button"%>
+	  </div>    
 <%end%> 
 <div class="profile-box">
   <div id="title">
