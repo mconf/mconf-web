@@ -1,5 +1,6 @@
 class Attachment < ActiveRecord::Base
-  attr_accessor :post_title, :post_text
+  attr_accessor :post_title, :post_text, :version_parent_id
+  attr_reader :version_parent
   
   has_many :post_attachments, :dependent => :destroy
   has_many :posts, :through => :post_attachments
@@ -7,12 +8,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :event
   belongs_to :author, :polymorphic => true
   
-  def version_posts
-    post_attachments.version(version).map(&:post)
-  end
-  
   def post
-    version_posts.first
+    posts.first
   end
   
   has_attachment :max_size => 1000.megabyte,
@@ -31,13 +28,30 @@ class Attachment < ActiveRecord::Base
 
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
-  versioned
   acts_as_content :reflection => :space
   
   validates_as_attachment
+   
+  def version_family
+    Attachment.version_family(version_family_id)
+  end
   
+  def version
+    version_family.reverse.index(self) +1
+  end
+  
+  def current_version?
+    version_child_id.nil?
+  end
+  
+  named_scope :version_family, lambda{ |id|
+    {:order => 'id DESC',
+    :conditions => {:version_family_id => id}}
+  }
+
   named_scope :sorted, lambda { |order, direction|
-    { :order => sanitize_order_and_direction(order, direction) }
+    { :order => sanitize_order_and_direction(order, direction),
+      :conditions => {:version_child_id => nil}}
   }
   
   is_indexed :fields => ['filename', 'type'],
@@ -52,7 +66,22 @@ class Attachment < ActiveRecord::Base
                  :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
              ]
   
+  protected
   
+  def validate
+    errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
+    if version_parent_id.present?
+      @version_parent = Attachment.find(version_parent_id)
+      if @version_parent.present?
+        self.version_family_id = @version_parent.version_family_id
+        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.taken')) if @version_parent.version_child_id.present?
+      else
+        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.missing'))
+      end
+    end
+  end
+  
+  public
   
   after_validation do |attachment|
     e = attachment.errors.clone
@@ -71,15 +100,40 @@ class Attachment < ActiveRecord::Base
     end      
   end
   
+  after_create do |attachment|
+    unless attachment.thumbnail?
+      
+      if attachment.version_parent.present?
+        parent = attachment.version_parent
+        parent.without_timestamps do |p|
+          p.update_attribute(:version_child_id, attachment.id)
+        end
+      else
+        attachment.update_attribute(:version_family_id,attachment.id)
+      end
+    end
+    
+  end
+  
   after_save do |attachment|
     if attachment.post_title.present?
       p = Post.new(:title => attachment.post_title, :text => attachment.post_text)
       p.author = attachment.author
       p.space = attachment.space
       p.save!
-      
-      pa = attachment.post_attachments.new(:post => p, :attachment_version => attachment.version)
-      pa.save!
+
+      attachment.posts << p
+
+      attachment.post_title = attachment.post_text = nil
+    end
+  end
+  
+  after_destroy do |attachment|
+    parents = Attachment.find_all_by_version_child_id(attachment.id)
+    parents.each do |parent|
+      parent.without_timestamps do |p|
+        p.update_attribute(:version_child_id, attachment.version_child_id)
+      end
     end
   end
   
@@ -94,51 +148,11 @@ class Attachment < ActiveRecord::Base
   authorizing do |agent, permission|
     parent.authorize?(permission, :to => agent) if parent.present? 
   end
-  
-  # Implement atom_entry_filter for AtomPub support
-  # Return hash with content attributes
-  def self.atom_entry_filter(entry)
-    # Example:
-    #{ :body => entry.content.xml.to_s }
-    {}
-  end
-  
+
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
   end
-  
-  #Disable attachment_fu method, wich delete an attachment when attachment is updated
-  def rename_file
-  end
-  
-  def partitioned_path(*args)
-   ("%08d" % attachment_path_id).scan(/..../) + ["/v#{version}/"] + args
-  end
-  
-  #Destroy all versions when destroy
-  def after_destroy
-    FileUtils.rm_rf(RAILS_ROOT + "/attachments/#{id}/")
-  end
-  
-  def logo_image_path_with_thumbnails(options = {})
-    options[:size] ||= 16
-    
-    thumbnail_logo_image?(options) ?
-    [ self, { :format => format, :thumbnail => options[:size], :version => version } ] :
-    logo_image_path_without_thumbnails(options)
-  end
-  
-  # Is there a logo_image_path available?
-  def thumbnail_logo_image?(options)
-    # FIXME: this is only for AttachmentFu
-    ! new_record? &&
-    respond_to?(:attachment_options) &&
-    attachment_options[:thumbnails].keys.include?(options[:size].to_s) &&
-    thumbnails.find_by_thumbnail(options[:size].to_s).present? &&
-    version == thumbnails.find_by_thumbnail(options[:size].to_s).version
-    
-  end
-  
+ 
   # Sanitize user send params
   def self.sanitize_order_and_direction(order, direction)
     default_order = 'updated_at'
@@ -169,7 +183,6 @@ class Attachment < ActiveRecord::Base
    
     tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in_container(space).find(t.to_i)} : Array.new
     
-    #ask tapi to do it better
     tags.each do |t|
       attachments = attachments.select{|a| a.tags.include?(t)}
     end
@@ -183,9 +196,13 @@ class Attachment < ActiveRecord::Base
     
   end
   
-  protected
-  def validate
-    errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?   
-  end
+  def without_timestamps
+    rt = self.class.record_timestamps
+    self.class.record_timestamps=false
+    yield self
+    self.class.record_timestamps=rt
+  end  
   
+
+
 end

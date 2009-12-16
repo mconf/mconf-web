@@ -9,32 +9,28 @@
 #      t.header :type, sortable_header(t('type'),'type')
 #      t.header :actions, t('actions')
 
-      t.rows.each do |row, object, index|
-        if object.instance_of?(Attachment)
-          attachment=object
+      t.rows.each do |row, attachment, index|
 
-          row.name           "#{link_to image_tag("right.png"),path_for_attachments({:expanded => attachment.id}), :class => "table_params" if attachment.version>1} #{attachment_link(attachment)}", :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
+        #expanded
+        if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
+
+          row[:class] += " version_expanded"
+
+          row.name           "#{link_to image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params" if attachment.current_version?} <span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}"
+          row.author         link_to attachment.author.name, user_profile_path(attachment.author)
+          row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
+          row.tags           attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")
+#          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.mime_type.to_sym}"
+#          row.actions        table_actions(attachment)
+
+        #collapsed
+        else
+          row.name           "#{link_to image_tag("right.png"),path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params" if attachment.version_family.size>1} #{attachment_link(attachment)}", :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
           row.tags           attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",")
 #          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
 #          row.actions        table_actions(attachment)
-
-        elsif object.instance_of?(Version)
-          attachment=object.versioned
-          attachment.revert_to(object.version)
-          
-          row[:class] += " version_expanded"
-
-          row.name           "#{link_to image_tag("down.png"),path_for_attachments({:not_expanded => attachment.id}), :class => "table_params" if attachment.version==attachment.versions.size} <span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}"
-          row.author         link_to attachment.author.name, user_profile_path(attachment.author)
-          row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
-          row.tags           attachment.version==attachment.versions.size ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : ""
-#          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.mime_type.to_sym}"
-#          row.actions        table_actions(attachment)
-
-        else
-          
         end
       end
     end
