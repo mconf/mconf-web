@@ -3,6 +3,7 @@
 
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter','jquery.ba-url' %>
+  <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle' %>
 <%end%>
 
 <% content_for :javascript do %>	
@@ -32,6 +33,10 @@
 	$("#streaming_title").click(function(){
 	  $("#streaming_content").toggle("slow");
 	});
+	
+	<%if @event.future? && !@event.authorize?(:update, :to => current_user)%>
+	  $("#streaming_content").hide();
+	<%end%>
 	
 	$("#change_logo").click(function(){
 	  $('#assistance_info').hide();
@@ -127,7 +132,9 @@
 
   <div id="for_lightbox" style="display:none"></div>
 
-  <%=render :partial => "external_streaming"%>
+  <%unless @event.past?%>
+    <%=render :partial => "external_streaming"%>
+  <%end%>
 
   <%if @event.agenda.present?%>
     <div id="agenda_full" class="margin-up">      
@@ -136,9 +143,6 @@
         <%= render :partial => "agendas/edit" %>
 		<br><br>
 		<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
-		<br>
-		<%= link_to t('back'), space_event_path(space, event) %>
-		<br>
       </div>
     </div>
   <%end%>

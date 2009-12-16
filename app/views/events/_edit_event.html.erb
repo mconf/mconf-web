@@ -13,6 +13,9 @@
     replace_invitation();
   });
   
+  //we detect the user editing the invitation message
+  old_text = "";
+  edited_msg = false;
   function replace_invitation(){
     if(edited_msg==true)
       return;
@@ -28,9 +31,7 @@
   };
   
   
-  //we detect the user editing the invitation message
-  old_text = "";
-  edited_msg = false;
+
   $("#invite_msg").focus(function(){
     old_text = $("#invite_msg").val();
   });

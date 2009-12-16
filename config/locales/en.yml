@@ -36,6 +36,7 @@ en:
       cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
       edit: "Edit Agenda Entry"
+      embedded_video: "Embed video for the entry"
       end_time: "End time"
       record: "Record"
       failed: "Agenda entry could not be saved"
@@ -47,6 +48,7 @@ en:
       start_time: "Start time"
       title: "Title"
       updated: 'Agenda entry was successfully updated.'
+      video: "recording of the entry"
       yes_record: "Yes"
     error:
       dates: "The start time must be previous to the end time"
@@ -285,9 +287,10 @@ en:
     select_date: "Select a date for your event"
     streaming: 
       add: "Add one."
-      title: "Streaming/Recording"
+      title: "Streaming"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
+      will_be_available: "The streaming will be available during the event"
     to: "To"
     today: "Today events"
     today_size: "Today ({{size}})"

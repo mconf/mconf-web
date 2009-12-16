@@ -1,7 +1,3 @@
-<% content_for :headers do%>
-  <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle' %>
-<%end%>
-
 <% content_for :javascript do%>
 
 <%if @event.authorize?(:update, :to => current_user)%> 
@@ -29,13 +25,19 @@
    };
 <%end%>
 
+
 <%end%>
    
 <div id="streaming_url" class="margin-up main_text">
   
     <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
-    <div id="streaming_title"><h3 class="blue"><%=t('event.streaming.title')%></h3></div>
-  
+    <div id="streaming_title"><h3 class="blue">
+	<%if @event.is_happening_now?%>
+	  <%=t('event.streaming.title')%>
+	<%else%>
+	  <%=t('event.streaming.will_be_available')%>
+	<%end%>
+    </h3></div>
   <div id="streaming_content">
   	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
 	    <%=t("event.streaming.none")%>
