@@ -29,7 +29,7 @@
 			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format))%></li>
 			<%end%>
 			
-			<%if attachment.authorize?(:delete, :to => current_user)%>			
+			<%if attachment.authorize?(:delete, :to => current_user)%>		
         <li><%=link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))})%></li>
 			<%end%>
 

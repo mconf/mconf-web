@@ -4,8 +4,9 @@ class SearchController < ApplicationController
   def all    
     search_events(params)
     search_users(params)
-    search_posts(params)
-#    search_attachments(params)
+    search_posts(params)    
+    search_attachments(params)
+    
     respond_to do |format|        
       format.html     
     end
