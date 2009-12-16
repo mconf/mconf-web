@@ -203,6 +203,13 @@ class Attachment < ActiveRecord::Base
     self.class.record_timestamps=rt
   end  
   
-
+# Author Permissions
+  authorizing do |agent, permission|
+    if author == agent &&
+        permission == :delete  &&
+        space.authorize?([ :create, :content ], :to => agent)
+      true
+    end
+  end
 
 end

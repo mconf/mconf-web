@@ -22,6 +22,11 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+  before_save do |entry|
+    if entry.embedded_video.present?
+      entry.video_thumbnail  = entry.get_background_from_embed
+    end    
+  end
   
   def validate
     # Check title presence
@@ -55,6 +60,20 @@ class AgendaEntry < ActiveRecord::Base
           end          
         end   
       end
+    end
+  end
+  
+  def get_background_from_embed
+    start_key = "image="   #this is the key where the background url starts
+    end_key = "&amp;"      #this is the key where the background url ends
+    start_index = embedded_video.index(start_key)
+    if start_index
+      temp_str = embedded_video[start_index+start_key.length..-1]
+      endindex = temp_str.index(end_key)
+      result = temp_str[0..endindex-1]
+      return result
+    else
+      return nil
     end
   end
   

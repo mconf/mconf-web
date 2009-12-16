@@ -41,9 +41,10 @@ module AttachmentsHelper
   def path_for_attachments(p={})
     direction = p[:direction].present? ? p[:direction] : params[:direction]
     order = p[:order].present? ? p[:order] : params[:order]
+    query = p[:query].present? ? p[:query] : params[:query]
     expand_versions=expand_versions_to_array - [p[:not_expanded]] + [p[:expanded]]
     tags = tags_to_array - [p[:rm_tag]] + [p[:add_tag]]
-    url_for(:space_id => @space,:direction => direction, :order => order, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+    url_for(:space_id => @space,:direction => direction, :order => order, :query => query, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
   end
   
   def options_for_fcbkcomplete(collection,value,text,selected=nil)

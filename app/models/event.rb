@@ -98,6 +98,21 @@ class Event < ActiveRecord::Base
     return agenda_entry.start_time.to_date - start_date.to_date
   end
   
+  #method to know if this event is happening now
+  def is_happening_now?
+    return !start_date.future? && end_date.future?   
+  end
+  
+  #method to know if an event happens in the future
+  def future?
+    return start_date.future?    
+  end
+  
+  #method to know if an event happens in the past
+  def past?
+    return end_date.past?
+  end
+  
   def get_attachments
     return Attachment.find_all_by_event_id(id)
   end

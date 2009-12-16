@@ -1,17 +1,12 @@
-
-
 <div class="attachment_search">	
 	<%if @attachments == []%>
 		<h3 class="empty"><%= t('attachment.other') %>: <%= t('attachment.found.none') %></h3>
 	<%else%>
-	 	
 		<%if @attachments.size == 1%>
-	  	<h3 class="red"><%= t('attachment.other') %>: <%= t('attachment.found.one') %></h3>
+	  	<h3><%= t('attachment.other') %>: <%= t('attachment.found.one') %></h3>
 		<%else%>
-		  <h3 class="red"><%= t('attachment.other') %>: <%= t('attachment.found.other', :size => @attachments.size) %></h3>
+		  <h3><%= t('attachment.other') %>: <%= t('attachment.found.other', :size => @attachments.size) %></h3>
 		<%end%>
-		<%for user in @attachments do%>		
-				<%= render :partial => 'attachments/show', :object => attachment %>
-	  <%end%> 								   		   	
+		<%= render :partial => 'attachments/doc_table', :locals => {:interactive => false} %>
 	<%end%>	
 </div>
