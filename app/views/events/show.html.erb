@@ -86,8 +86,7 @@
 	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
        $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
-          }, function(data){ 
-		         
+          }, function(data){ 		         
 		      $("#agenda_entry_video" + agenda_entry_id).html(data);               
           });
 	 };
