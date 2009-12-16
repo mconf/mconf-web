@@ -38,6 +38,7 @@ en:
       edit: "Edit Agenda Entry"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
+      has_video: "Video available for this entry"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
@@ -48,7 +49,7 @@ en:
       start_time: "Start time"
       title: "Title"
       updated: 'Agenda entry was successfully updated.'
-      video: "recording of the entry"
+      video: "Recording"
       yes_record: "Yes"
     error:
       dates: "The start time must be previous to the end time"
@@ -230,6 +231,7 @@ en:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
     assistance_title: "Participation"
+    assistants_none: "Nobody has confirmed yet"
     attend: "Attending"
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
@@ -512,7 +514,7 @@ en:
   online: "online"
   openid:
     enter: "Enter your OpenID"
-    have: "Do you have an OpenID?"
+    have: "Do you have an OpenID? Click on the logo!"
   or: "or"
   organization: "Organisation"
   organizer: "Organisers"

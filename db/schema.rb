@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091216135100) do
+ActiveRecord::Schema.define(:version => 20091217135100) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20091216135100) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "embedded_video"
+    t.text     "video_thumbnail"
   end
 
   create_table "agenda_record_entries", :force => true do |t|
