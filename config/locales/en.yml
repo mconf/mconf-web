@@ -71,11 +71,16 @@ en:
     created: "Attachment created successfully"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
+    found:
+      none: "No attachments found"
+      one: "1 attachment was found"
+      other: "{{size}} attachments were found"
     info: "Document info"
     loading: "Loading document information..."
     not_valid: "The attachment is not valid"
     not_selected: "No document selected"
     one: "Attachment"
+    other: "Attachments"
     updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
@@ -563,6 +568,7 @@ en:
     latest: "Latest posts"
     none_created: "No post created"
     none_recent: "There are no recent posts"
+    one: "Post"
     other: "Posts"
     other_in_space: "Posts in space {{space}}"
     up:
