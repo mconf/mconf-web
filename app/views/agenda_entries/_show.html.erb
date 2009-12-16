@@ -25,12 +25,15 @@
 
   <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
     <%if agenda_entry.embedded_video.present?%>
-	  <div id="video_preview">
+	  <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
 	    <%if !agenda_entry.video_thumbnail.present?%>
-	      <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :id=>"entry_video_link" %>
+	      <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
 	    <%else%>
-	      <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :id=>"entry_video_link" %>
+	      <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
 	    <%end%>
+	  </div>
+	  <div class="video_hide" id="video_hide<%=agenda_entry.id.to_s%>">
+	    <%=link_to_function image_tag("iamges/buttons/Log-in.png", :alt => t('agenda.entry.hidevideo')),'hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link" %>
 	  </div>
 	<%end%>
 	<ul class="agenda_list_content">

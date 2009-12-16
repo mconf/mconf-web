@@ -80,12 +80,12 @@ describe AttachmentsController do
 # 
   describe "A logged user" do     
     
-   it "should not be able to delete his own attachment" do     
+   it "should be able to delete his own attachment" do     
       login_as(@user_space2)
       @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
       delete :destroy ,:id => @attachment, :space_id => @private_space2.to_param
-      assert_not_nil Attachment.find_by_id(@attachment.id)
-      assert_response 403
+      assert_nil Attachment.find_by_id(@attachment.id)
+      assert_response 302
     end
     it"should be able to create a new version of an attachment in a public space"do
       login_as(@user)

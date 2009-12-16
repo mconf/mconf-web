@@ -1003,21 +1003,21 @@ th.attachment-updated{
   border-bottom: 1px solid #CCCCCC;
 }
 
-#video_preview{
+.video_preview{
 	float:right;
 	margin-top:6px;
 	width:120px;
 }
 
-#video_preview a{
+.video_preview a{
 	display:block;
 	width:100%;
 	height:100%;
 	}
 	
-#video_preview a,#video_preview a:focus,#video_preview a:hover,#video_preview a:active{outline:none;}
+.video_preview a,.video_preview a:focus,.video_preview a:hover,.video_preview a:active{outline:none;}
 	
-#video_preview a img{
+.video_preview a img{
 	width:120px;
 }
 
