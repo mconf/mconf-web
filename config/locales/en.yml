@@ -39,6 +39,7 @@ en:
       embedded_video: "Embed video for the entry"
       end_time: "End time"
       has_video: "Video available for this entry"
+      hidevideo: "Hide video"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
