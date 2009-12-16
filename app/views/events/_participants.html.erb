@@ -73,9 +73,10 @@
 	
 <%end%>
 
-<%if logged_in?%>
+
 <div id="assistance_info" class="margin-up">
 	<div id="assistance_title"><h3><%= t('event.assistance_title') %></h3></div>
+	<%if logged_in?%>
 	<div id="assistance_status">
 	  <%if @event.participants.map(&:user).include?(current_user)%>
 		  <h5><%= t('event.will_attend') %></h5>
@@ -110,7 +111,11 @@
 		  <%end%>	
 	  <%end%>
 	</div>
+	<%end%>
 	<div id='asisstants'>
+		<%if @assistants.empty?%>
+			<div class="margin-up"><span class="sidebar_text"><%=t("event.assistants_none")%></span></div>
+		<%end%>
 		<%unless @assistants.empty?%>
 		  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
 				<h5><%= t('user.assist') %></h5>
@@ -161,7 +166,6 @@
 	</div>
 	<div id="no-assistants">
 		<%unless @no_assistants.empty?%>
-		  
 			<div id="no_assistants_lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
 				<h5><%= t('user.not_assist') %></h5>
 			  <%for participant in @no_assistants.first(6)%>
@@ -298,4 +302,3 @@
 		<%end%>
 	</div>
 </div>
-<%end%>

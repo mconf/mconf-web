@@ -24,7 +24,7 @@
 	  			<label for="remember_me"><%= t('remember_me') %>:</label><%= check_box_tag ('remember_me') %>
 	  		</div>
     		<div class="button">
-    			<button type="submit"><%=t("login")%></button>
+    			<button type="submit" class="basic_button blue_button"><%=t("login")%></button>
 				<% end -%>
 				<span><%= link_to t('register_now'), signup_path, :class => "login_lightbox_link" %> |  <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
 			</div>

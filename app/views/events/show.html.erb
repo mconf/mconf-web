@@ -83,19 +83,19 @@
 
 
 <% content_for :sidebar do  %>
-    <div id="full_sidebar">
-      <%if @space.authorize?([:create, :content],:to => current_user)%>
-  	 <%if params[:edit_event]%>
-     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	 <%elsif params[:edit_comment]%>
-	   <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
-	 <%elsif params[:new_invitations]%>
-	   <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-	 <%else%>
-	   <%= render :partial => 'participants' %>
+  <div id="full_sidebar">
+  	<%= render :partial => 'participants' %>
+    <%if @space.authorize?([:create, :content],:to => current_user)%>
+  	  <%if params[:edit_event]%>
+     	 <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
+	  <%elsif params[:edit_comment]%>
+	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
+	  <%elsif params[:new_invitations]%>
+	     <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	  <%else%>
 	   <%= render :partial => 'new_comment'%>
-  	<%end%>
-     <%end%>
+  	  <%end%>
+    <%end%>
      <%if event.authorize?(:update, :to => current_user) %>
        <div id="update_logo" style="display:none">
          <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
@@ -105,7 +105,7 @@
          <%end%>
        </div>
      <%end%>
-   </div>
+  </div>
 <%end%>
 
 

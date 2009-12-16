@@ -1,4 +1,4 @@
-<div class="agenda_entry" class="profile-box">
+<div class="agenda_entry margin-up"> <!--class="profile-box"-->
 
   <div class="entry_title">
       <ul class="group_links group_agenda_links">
@@ -25,7 +25,7 @@
     	<%=link_to image_tag("demo/belief.png"),'#'%>
 	</div>
 	<ul class="agenda_list_content">
-      <li>  
+      <li class="unified_user">  
       	<%isfirst=true%>
       	<%agenda_entry.actors.each do |speaker|%>
           <%if isfirst%>
@@ -39,13 +39,13 @@
           <%unless isfirst%>
             ,
           <%end%>
-          <%= agenda_entry.speakers %>
+          <span class="unified_user"><%= agenda_entry.speakers %></span>
         <%end%>
 	  </li>
 	  
       <li><%=h agenda_entry.description %></li>
       <%if agenda_entry.attachment then%>
-	    <li><span class="person_title"><%=t('attachment.one')%>:</span> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
+	    <li><%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
       <%end%>
     </ul>
   </div>
