@@ -323,15 +323,21 @@ en:
     clarify_unregistered: "Please introduce your full name and a password to register onto the Virtual Conference Centre and confirm your attendance to the event"
     clarify_registered: "Please introduce your password in order to confirm your attendance to the event"
     confirm_password: "Confirm password"
+    deselect_all_users: "Deselect all users"
     discarded: "You have discarded the invitation to this event"
     email: Email
     full_name: Full name
+    hide_all_users: "Hide all users"
     logout_and_reload: "You are not the user that received this invitation, please logout and try again"
+    message_title: "Invite people to join your event"
     new:
       other: "Invite people"
     not_processed: "The invitation could not be processed"
     password: "Password"
+    select_all_users: "Select all users"
+    show_all_users: "Show all users"
     title: "Event Invitation"
+    will_invite: "People you will invite:"
   export_widget: "Export Widget"
   ######### F ###########
   fax: "Fax"

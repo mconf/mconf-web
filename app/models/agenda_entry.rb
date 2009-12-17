@@ -33,7 +33,8 @@ class AgendaEntry < ActiveRecord::Base
     if self.title.empty?
       errors.add_to_base(I18n.t('agenda.error.omit_title'))
     end
-     
+    
+=begin
     # Check start and end times presence
     if self.start_time.nil? || self.end_time.nil? 
       errors.add_to_base(I18n.t('agenda.error.omit_date'))
@@ -61,6 +62,7 @@ class AgendaEntry < ActiveRecord::Base
         end   
       end
     end
+=end
   end
   
   def get_background_from_embed

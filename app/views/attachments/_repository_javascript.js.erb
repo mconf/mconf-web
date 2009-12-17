@@ -8,12 +8,14 @@
 	  $("#add_new_doc").show();
     $("#add_document_label").hide();
 		$.setFragment({ "action" : "expanded"});
+		return false;
   };
   
   collapse_new_doc_form = function(){
     $("#add_document_label").show();
     $("#add_new_doc").hide();
 		$.setFragment({ "action" : ""});
+		return false;
   };
   
 	$("#attachment__tags").fcbkcomplete({
@@ -45,8 +47,8 @@
 	
 	    
 
-  $("#add_document_label").livequery("click",expand_new_doc_form);
-  $("#hide").livequery("click",collapse_new_doc_form);
+  $("#add_document_label_link").livequery("click",expand_new_doc_form);
+  $("#hide_link").livequery("click",collapse_new_doc_form);
 
 
 // Document repository navigation

@@ -77,7 +77,7 @@ module AttachmentsHelper
   def tags_list tag_array
     html = "<ul class=\"holder\">"
     tag_array.each do |tag|
-      html << "<li class=\"bit-box\">#{tag.name}</li>"
+      html << "<li class=\"w-cross\">#{tag.name}</li>"
     end
     html << "</ul>"
   end

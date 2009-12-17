@@ -595,7 +595,7 @@ div.pagination a{color:#244974;}
 #sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*/border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
-#sidebar input[type="text"]{width:92%;}
+/*#sidebar input[type="text"]{width:92%;}*/
 #sidebar #expanded_date .javascript a.timepicker_launcher{margin-left:5px;}
 #sidebar #expanded_date .javascript label{margin-right:38px;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
@@ -808,9 +808,7 @@ h2.yellow{
 	color:#244974;
 	margin-left:3px;
 }
-.center{
-	text-align:center;
-}
+
 ul.group_links a:link, ul.group_links a:visited, div.group_links a:link, div.group_links a:visited{
 	color:#244974;
 }
@@ -914,10 +912,8 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 
 #add_document_label{
 	margin-top:20px;
-	width:130px;
 	color:white;
 	font-weight:bold;
-	padding-left:20px;
 }
 #tag_filter{
 	margin-top:20px;
@@ -927,10 +923,14 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 	padding:2px;
 	float:right;
 	margin-right:3px;
-	
-		
+	margin-top:10px;
 }
-
+li.w-cross{
+	padding-right:0px;
+}
+ul.holder li.center{
+	padding-left:15px;
+}
 #doc_info ul.doc_actions{
 	list-style:none;
 }
@@ -943,6 +943,9 @@ span.float{
 span.inline{
 	display:inline;
 	float:left;
+}
+add_document_label{
+	
 }
 /*Table*/
 th.attachment-name{
@@ -1008,11 +1011,10 @@ th.attachment-updated{
 	position:relative;
 	margin-top:6px;
 	margin-bottom:6px;
-	width:120px;
+	/*width:120px;*/
 }
 
-
-.video_preview a{
+.video_preview a.entry_video_link{
 	opacity:0.7;
 	display:block;
 	width:100%;
@@ -1020,17 +1022,19 @@ th.attachment-updated{
 	}
 
 .video_preview span.play_icon{
-	background:url('/images/play.png') no-repeat center center;
+	background:url('/images/icons/32/play.png') no-repeat center center;
 	display:block;
-	left:39%;
-	padding:16px;
+	left:0%;
+	padding:45px 60px;
 	position:absolute;
-	top:30%;
+	top:0%;
 	cursor:pointer;}
 	
-.video_preview a,.video_preview a:focus,.video_preview a:hover,.video_preview a:active{outline:none;}
+.video_preview span.play_icon:hover{background:url('/images/icons/32/play1.png') no-repeat center center;}
 	
-.video_preview a img{
+.video_preview a,.entry_title a{outline:none;}
+	
+.video_preview a.entry_video_link img{
 	width:120px;
 }
 

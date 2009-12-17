@@ -26,6 +26,7 @@
     $("#hide_all_users_link").hide();
     $("#select_all_users_link").hide();
     $("#deselect_all_users_link").show();
+	$("#selected_users label:first").show();
   };
   
   deselect_all_users = function(){
@@ -37,6 +38,7 @@
     $("#show_all_users_link").show();
     $("#select_all_users_link").show();
     $("#deselect_all_users_link").hide();
+	$("#selected_users label:first").hide();
   }; 
   
 	selected_users_check = function(){
@@ -90,8 +92,6 @@
     $(".user_checkbox input").each(function() {
       $(this).allocate();
     });
-		$("#user_filter").append("<a href=\"javascript:show_all_users()\" id=\"show_all_users_link\">Show all users</a> <a href=\"javascript:hide_all_users()\" id=\"hide_all_users_link\">Hide all users</a> ");
-		$("#user_filter").append("<a href=\"javascript:select_all_users()\" id=\"select_all_users_link\">Select all users</a>  <a href=\"javascript:deselect_all_users()\" id=\"deselect_all_users_link\">Deselect all users</a>");
 		$("#hide_all_users_link").hide();
     $("#deselect_all_users_link").hide();
 		clear_users();
