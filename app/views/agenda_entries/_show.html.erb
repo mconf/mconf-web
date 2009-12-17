@@ -32,7 +32,7 @@
 	    <%else%>
 	      <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
 	    <%end%>
-		<span id="play_icon"></span>
+		<span class="play_icon"></span>
 	  </div>
 
 	  <div class="video_hide" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">

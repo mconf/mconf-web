@@ -1019,7 +1019,7 @@ th.attachment-updated{
 	height:100%;
 	}
 
-.video_preview span#play_icon{
+.video_preview span.play_icon{
 	background:url('/images/play.png') no-repeat center center;
 	display:block;
 	left:39%;

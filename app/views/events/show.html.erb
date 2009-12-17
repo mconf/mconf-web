@@ -96,10 +96,12 @@
 	 hide_video = function(agenda_entry_id){
 	   $("#video_hide" + agenda_entry_id).hide();
 	   $("#agenda_entry_video" + agenda_entry_id).html("");
-	   $("#video_preview" + agenda_entry_id).show();
-       
-	   
+	   $("#video_preview" + agenda_entry_id).show();	   
 	 };
+	 
+	 $(".play_icon").click(function(){
+	   $(this).siblings("a").click();
+	 });
    <%end%>
    
 <% end %>
