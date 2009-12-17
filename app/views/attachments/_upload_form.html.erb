@@ -1,7 +1,9 @@
 <div id="doc_action" rel="new_doc">
 	<%if attachment.authorize?(:create,:to => current_user)%>
 	
-	<div id="add_document_label" class="button_wrapper"><%=link_to "<span>" + t('document.add')+ "</span>", space_attachments_path(@space), :class => "big_button orange_button"%></div>
+	<div id="add_document_label" class="button_wrapper">
+		<%=link_to "<span>" +t('document.add')+"</span>", "", :id => "add_document_label_link", :class => "big_button orange_button"%>%>
+	</div>
 	<div id="add_new_doc">	
 	
 	<h3 class="blue bold ten">Add new document</h3>
@@ -28,7 +30,7 @@
     <button type="submit"><%=t("button.upload")%></button>
 	<%end%>
 	
-	<div id="hide"><%=t('hide')%></div>
+	<div id="hide"><%=link_to t('hide'),"",:id => "hide_link"%></div>
 	</div>
 	<%end%>
 </div>
