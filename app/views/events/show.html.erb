@@ -113,9 +113,7 @@
   	  <%if params[:edit_event]%>
      	 <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	  <%elsif params[:edit_comment]%>
-	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>
-	  <%elsif params[:new_invitations]%>
-	     <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
 	  <%else%>
 	   <%= render :partial => 'new_comment'%>
   	  <%end%>
@@ -151,29 +149,36 @@
 
   <div id="for_lightbox" style="display:none"></div>
 
-  <%unless @event.past?%>
-    <%=render :partial => "external_streaming"%>
-  <%end%>
-
-  <%if @event.agenda.present?%>
-    <div id="agenda_full" class="margin-up">      
-      <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
-      <div id="agenda_content">
-        <%= render :partial => "agendas/edit" %>
-		<br><br>
-		<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
-      </div>
-    </div>
-  <%end%>
-   
-  <div id="event_repo" class="margin-up">
-    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
-    <div id="repository_content">
-    	<%= render :partial => 'attachments/tag_filter' %>
-      <%= render :partial => "attachments/doc_table" %>
-    </div>
-  </div>
+  <%if params[:new_invitations]%>
   
+	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	 
+  <%else%>
+
+	  <%unless @event.past?%>
+	    <%=render :partial => "external_streaming"%>
+	  <%end%>
+	
+	  <%if @event.agenda.present?%>
+	    <div id="agenda_full" class="margin-up">      
+	      <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
+	      <div id="agenda_content">
+	        <%= render :partial => "agendas/edit" %>
+			<br><br>
+			<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
+	      </div>
+	    </div>
+	  <%end%>
+	   
+	  <div id="event_repo" class="margin-up">
+	    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
+	    <div id="repository_content">
+	    	<%= render :partial => 'attachments/tag_filter' %>
+	      <%= render :partial => "attachments/doc_table" %>
+	    </div>
+	  </div>
+	  
+  <%end%>
  
 <%unless @comments.empty?%> 
 	<div>
