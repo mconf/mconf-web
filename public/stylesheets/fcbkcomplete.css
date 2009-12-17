@@ -1,12 +1,12 @@
 /* TextboxList sample CSS */
 ul.holder { margin: 0; border: 0px solid #999; overflow: hidden; height: auto !important; height: 1%; padding: 4px 0px 0; }
 *:first-child+html ul.holder { padding-bottom: 2px; } * html ul.holder { padding-bottom: 2px; } /* ie7 and below */
-ul.holder li {list-style-type: none; margin: 0 5px 4px 0; white-space:nowrap;}
+ul.holder li { float: left; list-style-type: none; margin: 0 5px 4px 0; white-space:nowrap;}
 ul.holder li.bit-box, ul.holder li.bit-input input { font: 11px "Lucida Grande", "Verdana"; }
-ul.holder li.bit-box { -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: 1px solid #CAD8F3; background: #DEE7F8; padding: 1px 5px 2px; }
+ul.holder li.bit-box, ul.holder li.w-cross { -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; border: 1px solid #CAD8F3; background: #DEE7F8; padding: 1px 5px 2px; }
 ul.holder li.bit-box-focus { border-color: #598BEC; background: #598BEC; color: #fff; }
 ul.holder li.bit-input input { width: auto; overflow:visible; margin: 0; outline: 0; padding: 3px 0px 2px; } /* no left/right padding here please */
-#new_entry_content ul.holder li.bit-input input,#repository_content ul.holder li.bit-input input{width:120px;}
+#new_entry_content ul.holder li.bit-input input{width:120px;}
 ul.holder li.bit-input input.smallinput { width: 20px; }
 
 /* Facebook demo CSS */      
@@ -36,6 +36,7 @@ ul.holder li.bit-box-focus a.closebutton, ul.holder li.bit-box-focus a.closebutt
 .facebook-auto ul li em { font-weight: bold; font-style: normal; background: #ccc; }
 .facebook-auto ul li.auto-focus { background: #4173CC; color: #fff; }
 .facebook-auto ul li.auto-focus em { background: none; }
+div.facebook-auto button{color: #244974}
 .deleted { background-color:#4173CC !important; color:#ffffff !important;}
 .hidden { display:none;}
 
