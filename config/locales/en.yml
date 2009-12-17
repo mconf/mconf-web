@@ -593,7 +593,7 @@ en:
       exist: "Your profile already exists"
     must_create: "Please create your profile first"
     private: "Private profile"
-    private_description: "Only your partners can access this information"
+    private_description: "This information is visible only to the people you choose when you edit your profile"
     public: "Public profile"
     public_description: "Anyone can access this information"
     should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
