@@ -114,7 +114,10 @@
 	<%end%>
 	<div id='asisstants'>
 		<%if @assistants.empty?%>
-			<div class="margin-up"><span class="sidebar_text"><%=t("event.assistants_none")%></span></div>
+		  <div id="assistants_lite">
+			<h5><%= t('user.assist') %></h5>
+			<span class="sidebar_text"><%=t("event.assistants_none")%></span>
+		  </div>
 		<%end%>
 		<%unless @assistants.empty?%>
 		  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
