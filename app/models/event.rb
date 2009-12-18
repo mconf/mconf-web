@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :external_streaming_url
   
-  is_indexed :fields => ['name','description','place','start_date','end_date'],
+  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
                           :as => 'tags',

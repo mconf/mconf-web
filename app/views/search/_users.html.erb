@@ -8,7 +8,7 @@
 		<%if @users.size == 1%>
 	  	<h3 class="red"><%= t('user.other') %>: <%= t('user.found.one') %></h3>
 		<%else%>
-		  <h3 class="red"><%= t('user.other') %>: <%= t('user.found.other', :size => @user.size) %></h3>
+		  <h3 class="red"><%= t('user.other') %>: <%= t('user.found.other', :size => @users.size) %></h3>
 		<%end%>
 		<%for user in @users do%>		
 				<%= render :partial => 'users/detailed_user', :object => user %>

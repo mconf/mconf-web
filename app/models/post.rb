@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
 
 
 
-  is_indexed :fields => ['text','title'],
+  is_indexed :fields => ['text','title','space_id'],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
                           :as => 'tags',
