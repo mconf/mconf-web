@@ -9,7 +9,7 @@
 
 <%if logged_in?%>
   <% form_tag space_join_requests_path(space) do %>
-    <button type="submit"><%=t('join_request.send')%></button>
+    <button type="submit" class="blue_button basic_button"><%=t('join_request.send')%></button>
   <% end %>
 <%else%>
   <p class="note"><%= t('join_request.not_logged_in') %></p>
@@ -40,7 +40,7 @@
 	        <%end%>
 	  </div>		
 	  <div class="margin-up">
-	    <button type="submit"><%=t('join_request.send')%></button>
+	    <button type="submit" class="blue_button basic_button"><%=t('join_request.send')%></button>
 	  </div>
 	<% end %>
 <%end%>
