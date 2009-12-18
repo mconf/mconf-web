@@ -2,7 +2,7 @@
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
 
-  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true}) do |f| %>
+  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
@@ -51,8 +51,13 @@
     <%= f.text_area :embedded_video, :size => "34x7" %></div>
 	
     <div class="margin-up">
+<<<<<<< HEAD:app/views/agenda_entries/edit.html.erb
       <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
       <input type="button" value="<%=t('close')%>" class="agenda_edit_close basic_button blue_button"/>
+=======
+      <input type="button" value="<%=t("button.update")%>" class="agenda_edit_update"/>
+			<input type="button" value="<%=t('close')%>" class="agenda_edit_close"/>
+>>>>>>> 93f4bed19a7344f6782295003cc9dda974a18cf2:app/views/agenda_entries/edit.html.erb
     </div>
 		
   <% end %>
