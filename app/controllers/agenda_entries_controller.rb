@@ -36,6 +36,7 @@ class AgendaEntriesController < ApplicationController
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
+    @agenda_entry.author = current_user
 
     respond_to do |format|
       if @agenda_entry.save
@@ -71,7 +72,8 @@ class AgendaEntriesController < ApplicationController
   # PUT /agenda_entries/1.xml
   def update
     @agenda_entry = AgendaEntry.find(params[:id])
-
+    @agenda_entry.author = current_user
+    
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
         if params[:speakers] && params[:speakers][:name]
