@@ -4,13 +4,7 @@
 <%end%>
 
 <% content_for :search do  %>
-  <% form_tag(search_events_path(@space), :method => 'get') do %>
-    <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search') )%>
-    <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
-  <% end %>
-	<div id="advanced">
-	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
-   </div>
+  <%= render :partial => 'events/search' %>
 <% end %>
 
 <% content_for :javascript do %>
@@ -43,26 +37,26 @@ $(".datepicker").datepicker();
   <h3 class="blue"><%= t('search.events.advanced') %></h3>
 
   <%= t('search.explanation') %>
-  <% form_tag(search_events_path(@space)) do %>
+  <% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
       <%= text_field_tag :query, params[:query]%>
       <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>  
    <% end %>
    
 
-<%= t('search.events.title') %>
- <% form_tag(search_events_path(@space)) do %>
+ <%= t('search.events.title') %>
+ <% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
       <%= text_field_tag :title, params[:title] %>
 	  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
  <% end %>
 
  <%= t('search.events.description') %>
- <% form_tag(search_events_path(@space)) do %>
+ <% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
       <%= text_field_tag :description, params[:description] %>
 	  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button> 
  <% end %>
   
-<%= t('search.between_dates') %>
-<% form_tag(search_events_path(@space)) do %>
+  <%= t('search.between_dates') %>
+  <% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
      
      	<div class="no_javascript_1">
 	  		<%= t('from') %> <%=select_date Date.today, :prefix => "time1",:order => [:day, :month, :year],:include_blank => true%>

@@ -132,13 +132,7 @@
 
 
 <% content_for :search do  %>
-  <% form_tag(search_events_path(@space)) do %>
-     <%= text_field_tag  'query',(params[:query] ? params[:query] : t('event.search') ) %>
-	   <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-	   <div id="advanced">
-	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
-     </div>
-   <% end %>
+  <%= render :partial => 'search' %>
 <%end%>
 
   <%= error_messages_for :agenda_entry %>

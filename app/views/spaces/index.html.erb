@@ -71,24 +71,23 @@
 	
 <% end %>
 
-<% content_for :search do  %>
-<div id="space_filter" style="display:none">
-  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
-</div>  
+<% content_for :search do  %>	
+	<div id="space_filter" style="display:none">
+	  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
+	  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
+	</div>  
 <% end %>
+
 <% content_for :sidebar do  %>
-
-<% unless logged_in? %>
-  <div class="join">
-    <h2><%= t('getting_started') %></h2>
-	<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
-	<div class="button_wrapper margin-up">
-    <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
-  </div>
-  </div>
-<% end %>
-
+	<% unless logged_in? %>
+	  <div class="join">
+	    <h2><%= t('getting_started') %></h2>
+  		<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
+			<div class="button_wrapper margin-up">
+		    <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
+		  </div>
+	  </div>
+	<% end %>
 
   <div id="space_description">
   	<% for space in @spaces %>
