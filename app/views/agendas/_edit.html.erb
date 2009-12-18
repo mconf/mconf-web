@@ -83,6 +83,25 @@
     });
   });  
 
+	$("#add_entry_button").livequery('click',function(){
+    // Validate title
+    var title = ($('#agenda_entry_title').val());
+    if (title == "") {
+      
+      $("#agenda_title_label").append(
+        "<div class='error'><%= t('agenda.error.omit_title') %></div>"
+      );
+      
+      var destination_add = $('#new_entry_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_entry_anchor';
+      });
+      
+    } else {
+      document.forms["agenda_entry_new_form"].submit();
+    }
+    
+  });
 	
 	
   // Edit agenda entry view
@@ -124,6 +143,25 @@
     });
   });
 
+  $("input.agenda_edit_update").livequery('click',function(){
+    // Validate title
+		var title = ($('#agenda_entry_title').val());
+		if (title == "") {
+		  
+			$("#agenda_title_label").append(
+			  "<div class='error'><%= t('agenda.error.omit_title') %></div>"
+			);
+			
+			var destination_edit = $('#edit_entry_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+        window.location.hash = '#edit_entry_anchor';
+      });
+			
+		} else {
+		  document.forms["agenda_entry_edit_form"].submit();
+		}
+		
+  });
 
 
   // Show agenda entry view
@@ -145,9 +183,9 @@
       return this.id.match('agenda_entry_(start|end)_time_');
     }).change(function(){
 
-      var start_year = ($('#agenda_entry_start_time_1i').val());
+    var start_year = ($('#agenda_entry_start_time_1i').val());
 	  var start_month = -1 + parseInt(($('#agenda_entry_start_time_2i').val()),10);
-  	  var start_day = ($('#agenda_entry_start_time_3i').val());
+  	var start_day = ($('#agenda_entry_start_time_3i').val());
 	  var start_hour = ($('#agenda_entry_start_time_4i').val());
 	  var start_minute = ($('#agenda_entry_start_time_5i').val());
 	  var start_seconds = 0;

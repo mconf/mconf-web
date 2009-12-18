@@ -5,7 +5,7 @@
   </div>
 
   <div id="new_entry_content">
-  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true}) do |f| %>
+  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
 
     <div>
       <label for="title" id="agenda_title_label" class="main_text"><%= t('agenda.entry.title') %></label><br/>
@@ -54,7 +54,7 @@
     <%= f.text_area :embedded_video, :size => "34x7" %></div>
 	
     <div class="margin-up">
-      <button type="submit" id="add_entry_button" class="basic_button blue_button"><%=t("button.create")%></button>
+    	<input type="button" id="add_entry_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>
       <input type="button" value="<%=t('close')%>" class="agenda_new_close basic_button blue_button"/>
     </div>
 		
