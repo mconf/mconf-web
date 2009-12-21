@@ -1,13 +1,7 @@
 <% menu :events %>
 
 <% content_for :search do  %>
-  <% form_tag(search_events_path(@space)) do %>
-      <%= text_field_tag :query, params[:query], :size=>'18' %>
-	   <%= image_submit_tag "buttons/search.png"%>
-	   <div id="advanced">
-	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
-     </div>
-   <% end %>
+  <%= render :partial => 'search' %>
 <%end%>
 
 <!-- 

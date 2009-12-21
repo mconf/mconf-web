@@ -44,7 +44,12 @@ module AttachmentsHelper
     query = p[:query].present? ? p[:query] : params[:query]
     expand_versions=expand_versions_to_array - [p[:not_expanded]] + [p[:expanded]]
     tags = tags_to_array - [p[:rm_tag]] + [p[:add_tag]]
-    url_for(:space_id => @space,:direction => direction, :order => order, :query => query, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+    if @space.nil?
+      url_for(:direction => direction, :order => order, :query => query, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+    else
+      url_for(:space_id => @space,:direction => direction, :order => order, :query => query, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
+    end
+      
   end
   
   def options_for_fcbkcomplete(collection,value,text,selected=nil)
@@ -58,9 +63,9 @@ module AttachmentsHelper
   def attachment_link(attachment)
     #Temp workaround to display attachments in events. Fix it as soon as possible
     if(params[:controller]=="attachments")
-      link_to attachment.filename,space_attachments_path(@space, :doc_info => attachment.id), :class => "doc_show"
+      link_to attachment.filename,space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show"
     else
-      link_to attachment.filename,space_attachment_path(@space,attachment, :format => attachment.format)
+      link_to attachment.filename,space_attachment_path(attachment.space,attachment, :format => attachment.format)
     end
   end
   

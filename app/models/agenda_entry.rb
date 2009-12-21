@@ -3,7 +3,7 @@ class AgendaEntry < ActiveRecord::Base
 
   has_one :attachment, :dependent => :destroy
   accepts_nested_attributes_for :attachment
-  
+  attr_accessor :author
   acts_as_stage
   
   #acts_as_content :reflection => :agenda
@@ -11,12 +11,12 @@ class AgendaEntry < ActiveRecord::Base
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
   
-  # Fill attachments event and space
   before_validation do |agenda_entry|
-    if (agenda_entry.attachment.filename != nil) then
+    # Fill attachment fields
+    if (agenda_entry.attachment.filename.present?) then
       agenda_entry.attachment.space  ||= agenda_entry.agenda.event.space
       agenda_entry.attachment.event  ||= agenda_entry.agenda.event
-      agenda_entry.attachment.author ||= agenda_entry.agenda.event.author
+      agenda_entry.attachment.author ||= agenda_entry.author
     else
       agenda_entry.attachment = nil
     end
