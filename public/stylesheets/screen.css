@@ -883,7 +883,7 @@ a.extract_form{margin-right:0.5em;}
 	}
 h3 #help{margin-top:0;}
 
-#timezone #help{margin-top:0;}
+#timezone #help,.title_name_and_hour #help{margin-top:0;}
 
 .w-background{
 	background-color:white;
@@ -1117,6 +1117,7 @@ h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_titl
 	margin:0;
 	border-top:1px solid #A8C0D1;
 	}
+#agenda_title a.group_links{margin-top:4px;margin-right:8px;}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 #agenda_content{padding:3px 8px;}

@@ -811,6 +811,7 @@ en:
   topic: "Topic"
   translate:
     availables: "Available translations"
+    change: "Switch language"
     one: "Translate"
     request: "To translate to a different language, please request the administrator to add the new language and flag"
     up: "TRANSLATE"

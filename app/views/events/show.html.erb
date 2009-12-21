@@ -155,11 +155,9 @@
 	
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
+	      <div id="agenda_title"><%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
 	      <div id="agenda_content">
-	        <%= render :partial => "agendas/edit" %>
-			<br><br>
-			<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
+	        <%= render :partial => "agendas/edit" %>			
 	      </div>
 	    </div>
 	  <%end%>

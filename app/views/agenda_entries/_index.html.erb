@@ -16,8 +16,7 @@
 		    <a href='#' id="add_entry<%=i%>"><%=t("event.agenda.add_entry")%></a>
       <%end%>
 	  </div>
-	<%else%>
-		<div id="help" title="<%= t('agenda.expand_help') %>"></div>  
+	<%else%>  
 	  <%for entry in array_entries%>
         <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => true }%>
       <%end%>
