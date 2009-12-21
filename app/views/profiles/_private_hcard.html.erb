@@ -2,14 +2,13 @@
 <div class="profile-box">
   <div id="title">
     <div id="help" title="<%= t('profile.private_description') %>"></div>
-	<h3 class="item_title"><%= t('profile.private') %></h3> 
+    <h3 class="item_title"><%= t('profile.private') %></h3> 
   </div>
 
   <div id="profile_content">
-      <div id="help" title="<%= t('profile.visibility_description') %>"></div>
-  	  <span class="person_title"><%= t('profile.visibility') + ":" %> <%= t( 'profile.visibility_' + (Profile::VISIBILITY[@profile.visibility]).to_s ) %></span>
 	  	
       <ul>
+      	<li><span class="person_title"><%= t('profile.visibility') + ":" %> <%= t( 'profile.visibility_' + (Profile::VISIBILITY[@profile.visibility]).to_s ) %></span></li>
         <li><span class="person_title"><%= (t('address') + ":") if (@profile.address.present?) %> </span> <span class="street-address"><%= @profile.address%></span></li>
         <li><span class="person_title"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) %> </span> <span class="postal-code"><%= @profile.zipcode%></span></li>
         <li><span class="person_title"><%=(t("phone.landline") + ":") if (@profile.phone.present?)%></span><span class="tel"><span class="value"><%= @profile.phone%></span></span></li>

@@ -26,7 +26,7 @@ class EventLogosController < ApplicationController
 
     resize_if_bigger f.path, 600 
     
-    @logo_crop_text = I18n.t('event_logo.crop')
+    @logo_crop_text = I18n.t('event.logo.crop')
     @form_for       = [@event,@event_logo]
     @form_url       = space_event_logo_path(@event.space, @event)
     
@@ -44,7 +44,7 @@ class EventLogosController < ApplicationController
     @event_logo = event.build_logo(params[:event_logo])
 
     if @event_logo.save
-      flash[:notice] = t('event_logo.created')
+      flash[:notice] = t('event.logo.created')
       redirect_to(space_event_path(event.space, event))
     else
       flash[:error] = t('error', :count => @event_logo.errors.size) + @event_logo.errors.to_xml
@@ -61,7 +61,7 @@ class EventLogosController < ApplicationController
     end
 
     if event.logo.update_attributes(params[:event_logo])
-      flash[:notice] = t('event_logo.created')
+      flash[:notice] = t('event.logo.created')
       redirect_to(space_event_path(event.space, event))
     else
       flash[:error] = t('error', :count => event.errors.size) + event.errors.to_xml

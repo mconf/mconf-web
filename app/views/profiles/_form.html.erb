@@ -1,4 +1,7 @@
-<div class="blue_title"><h3><%= t('profile.public') %></h3></div>
+<div class="blue_title">
+	<div id="help" title="<%= t('profile.public_description') %>"></div>
+	<h3><%= t('profile.public') %></h3>
+</div>
 
 <div class="margin-up"><label for="prefix"><%= t('name.prefix') %></label><br/>
 <%= f.text_field :prefix %></div>
@@ -30,7 +33,10 @@
 <%= f.text_field :url%></div>
 
 
-<div class="blue_title"><h3><%= t('profile.private') %></h3></div>
+<div class="blue_title">
+	<div id="help" title="<%= t('profile.private_description') %>"></div>
+	<h3><%= t('profile.private') %></h3>
+</div>
 
 <%= t('profile.visibility') %>
 <div class="profile_visibility_gradient"><%= image_tag "gradient.jpg" %></div>
