@@ -1,13 +1,13 @@
-	<div class="agenda_entry margin-up"> <!--class="profile-box"-->
+<div class="agenda_entry margin-up"> <!--class="profile-box"-->
 
   <div class="entry_title">
       <ul class="group_links group_agenda_links">
         <%if agenda_entry.embedded_video.present? then%>
-	  	  <%=link_to_function image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'),:title=>t('agenda.entry.has_video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
-	    <%end%>
-		<%if agenda_entry.attachment then%>
-	  	  <%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename)%>
-	    <%end%>
+	  	    <%=link_to_function image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'),:title=>t('agenda.entry.has_video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+        <%end%>
+		    <%if agenda_entry.attachment then%>
+          <%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename)%>
+        <%end%>
         <li><%=link_to_function(image_tag("icons/pencil.png", :alt => t('edit'), :title => t('edit')) , "return false;", :class=>"edit_entry", :name=>agenda_entry.id.to_s) if event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user) %></li>
         <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one')) , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:delete, :to => current_user) %></li>
       </ul>
@@ -26,20 +26,20 @@
   <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
     <%if agenda_entry.embedded_video.present?%>
 	  
-	  <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
-	    <%if !agenda_entry.video_thumbnail.present?%>
-	      <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
-	    <%else%>
-	      <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
-	    <%end%>
-		<span class="play_icon"></span>
-	  </div>
+      <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
+        <%if !agenda_entry.video_thumbnail.present?%>
+          <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+        <%else%>
+          <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+        <%end%>
+        <span class="play_icon"></span>
+      </div>
 
-	  <div class="video_hide video_preview" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">
-	    <%=link_to_function 'Hide video','hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link" %>
-	  </div>
-	<%end%>
-	<ul class="agenda_list_content">
+      <div class="video_hide video_preview" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">
+        <%=link_to_function 'Hide video','hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link" %>
+      </div>
+    <%end%>
+    <ul class="agenda_list_content">
       <li class="unified_user">  
       	<%isfirst=true%>
       	<%agenda_entry.actors.each do |speaker|%>
@@ -56,19 +56,19 @@
           <%end%>
           <span class="unified_user"><%= agenda_entry.speakers %></span>
         <%end%>
-	  </li>
+      </li>
 	  
       <li><%=h agenda_entry.description %></li>
       <%if agenda_entry.attachment then%>
 
-	    <li><%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
+        <li><%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
 		<!--<%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%>-->
 
       <%end%>
     </ul>
-	<div id="agenda_entry_video<%=agenda_entry.id%>" >		
+    <div id="agenda_entry_video<%=agenda_entry.id%>" >		
     </div>
+		
   </div>
 
 </div>
-

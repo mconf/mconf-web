@@ -36,6 +36,7 @@ en:
       cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
       edit: "Edit Agenda Entry"
+      embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
       has_video: "Video available for this entry"
@@ -59,7 +60,7 @@ en:
       omit_title: "A title must be given for the agenda entry"
       overlaps: "The agenda entry overlaps with an existing entry"
       start_time_overlaps: "The start time overlaps with an existing agenda entry"
-
+    expand_help: "Click on the title of an agenda entry to expand it or contract it"
     title: "Agenda for the event"
     update: "Agenda was successfully updated."
     upload: "Upload Agenda"
@@ -273,6 +274,8 @@ en:
     location: "Location"
     logo:
       button: Change logo
+      created: "Event logo successfully created"
+      crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
     no_events: "You have no events"
@@ -473,7 +476,7 @@ en:
   mailing_list: "Mailing list"
   mark_checkbox: "Mark the suitable checkbox"
   message:
-    created: "Message sent succesfully"
+    created: "Message sent successfully"
     error:
       create: "Error sending private message"
     incoming:
@@ -640,11 +643,11 @@ en:
     up: "REPOSITORY"    
   request: "request it"
   request:
-    info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"
+    info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
   role:
     add: "Add role..."
-    added: "{{role}} role succesfully added to {{agent}}"
+    added: "{{role}} role successfully added to {{agent}}"
     change: "Change role..." 
     editing: "Editing role"
     invalid: "Role is invalid"
@@ -717,7 +720,7 @@ en:
     edit_description: "edit description"
     edit_name: "edit name"
     enable: "Enable space"
-    enabled: "Space enabled succesfully"
+    enabled: "Space enabled successfully"
     error:
       enabled: "Space {{name}} is already enabled"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
@@ -836,7 +839,7 @@ en:
     email: "email"
     e-mail: "email"
     enable: "Enable user"
-    enabled: "User succesfully enabled. The user currently belongs to no space, and will have to join spaces again."
+    enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error:
       enabled: "User {{name}} is already enabled"
     feed:
