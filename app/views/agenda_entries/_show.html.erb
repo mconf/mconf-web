@@ -3,7 +3,7 @@
   <div class="entry_title">
       <ul class="group_links group_agenda_links">
         <%if agenda_entry.embedded_video.present? then%>
-	  	    <%=link_to_function image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'),:title=>t('agenda.entry.has_video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+	  	    <%=image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'), :title=>t('agenda.entry.has_video'), :class=>"entry_video_link") %>
         <%end%>
 		    <%if agenda_entry.attachment then%>
           <%=image_tag ("icons/attach.png",:title=>agenda_entry.attachment.filename)%>
