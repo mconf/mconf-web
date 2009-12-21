@@ -10,6 +10,9 @@ en:
   about_sxsw: "About SXSW"
   account: "Account"
   activerecord:
+    attributes:
+      user:
+        login: "Full name"
     errors:
       messages:
         missing: "is missing"
