@@ -2,8 +2,10 @@
 require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/performances_controller"
 
 class PerformancesController
-  
   before_filter :performance, :only => [ :destroy, :update ]
+
+  authorization_filter nil, :performance
+
   
   def destroy
     @performance.destroy
