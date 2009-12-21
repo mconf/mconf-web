@@ -227,8 +227,8 @@ button.leave-space:hover{background:url("/images/buttons/leave-space-notext4.png
 */
 
 /* forms.css */
-.error, .notice, .success, #enable_javascript {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
-.error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
+.error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
+.error,.errorExplanation {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
 .notice, #enable_javascript {background:#FFF6BF;color:#514721;border-color:#FFD324;}
 .success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
 .error a {color:#8a1f11;}
