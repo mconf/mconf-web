@@ -2,7 +2,7 @@
 	<%if attachment.authorize?(:create,:to => current_user)%>
 	
 	<div id="add_document_label" class="button_wrapper">
-		<%=link_to "<span>" +t('document.add')+"</span>", "", :id => "add_document_label_link", :class => "big_button orange_button"%>%>
+		<%=link_to "<span>" +t('document.add')+"</span>", "", :id => "add_document_label_link", :class => "big_button orange_button"%>
 	</div>
 	<div id="add_new_doc">	
 	
@@ -27,7 +27,7 @@
       <%= f.text_area :post_text, :rows => 5, :cols=>25%>
     </div>
 	  
-    <button type="submit"><%=t("button.upload")%></button>
+    <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
 	<%end%>
 	
 	<div id="hide"><%=link_to t('hide'),"",:id => "hide_link"%></div>

@@ -1,29 +1,10 @@
- <% content_for :javascript do  %>
-	title = "<%=t('search.space.dots')%>"
-    $("#search_space").click(function(){
-    if(this.value == title){
-      this.value="";
-    }
-  });
-
-    $("#search_space").blur(function(){
-    if(this.value == ""){
-      this.value= title;
-    }
-  });  
-  
- <%end%>
- 
  <%content_for :logo do%>
  	<%= image_tag("vcc-logo-transparente1.png") %>
  <%end%>
  
- <%content_for :search do%>
-  <% form_tag(spaces_path(), :method => 'get') do %>
-      <%= text_field_tag :filter, t('space.search'), :id => "search_space"  %>
-	  <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-   <% end %>
- <%end%>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
 
  <% content_for :sidebar do %>
 		  <div class="join">

@@ -31,9 +31,10 @@ class Attachment < ActiveRecord::Base
   
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
-                 :thumbnails => { 'post' => '96x96>',
-                                  '16' => '16x16',
-                                  '32' => '32x32'}
+                 :thumbnails => { '16' => '16x16',
+                                  '32' => '32x32',
+                                  '64' => '64x64',
+                                  '128' => '128x128'}
 
   # Define this authorization method before acts_as_content to priorize it
   #

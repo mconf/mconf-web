@@ -162,20 +162,6 @@ $("a.edit_post_link").click(function(){
 	 return false;
 });
 
-
-	title = "<%=t('search.posts.dots')%>"
-	$("#query").click(function(){
-	  if(this.value == title){
-		  this.value="";
-		}
-	});
-	$("#query").blur(function(){
-	  if(this.value == ""){
-		  this.value= title;
-		}
-	});	
-
-
 /*Extended post creation*/
 
 /*New thread*/
@@ -279,7 +265,7 @@ $("#new_doc_big_link").livequery('click',function () {
 <% end %>
 
 <% content_for :search do  %>
-  <%= render :partial => 'search' %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <% content_for :sidebar do  %>
