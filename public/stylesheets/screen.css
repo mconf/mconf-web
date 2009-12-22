@@ -51,7 +51,8 @@ ol{list-style-type:decimal;}
 
 /*ayudas de color*/
 .blue{color:#244974;}
-h3.top{padding-top:10px;}
+.top{padding-top:10px;}
+.bottom{padding-bottom:10px;}
 .grey{color:#555;}
 .red{color:#8B0425;}
 .bold{font-weight:bolder;}
@@ -601,11 +602,14 @@ div.pagination a{color:#244974;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
 #sidebar input[type="time"]{text-align:center;}
 
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+
 .update_logo,#upload_vcard{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,.update_logo,#upload_vcard, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #update_space_logo{float:left;width:180px;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,.update_logo,#upload_vcard, #more_invitations, #add_new_doc, #doc_info{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,.update_logo h3,#upload_vcard h3,#assistance_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
+
+
 
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
@@ -905,7 +909,9 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 }
 
 /*REPOSITORIO*/
-#add_new_doc, #doc_info{
+
+
+#add_new_doc, #doc_info, #doc_action.new_version{
 	width:220px;
 	float: none;
 }
@@ -937,6 +943,7 @@ ul.holder li.center{
 #doc_info ul.doc_actions li{
 	display:inline;
 }
+.no-dot{outline: none; }
 span.float{
 	float:left;
 }
