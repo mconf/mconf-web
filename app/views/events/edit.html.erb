@@ -10,12 +10,6 @@
 	
 	style_file_input();
 	
-	$("#query").click(function(){
-	  if(this.value == "Search events..."){
-		  this.value="";
-		}
-	});
-	
 <% end %>
 
 
@@ -38,7 +32,7 @@
 
 
 <% content_for :search do  %>
-	<%= render :partial => 'search' %>
+  <%= render :partial => 'search/form' %>
 <%end%>
  
 <div class="single_event">

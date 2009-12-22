@@ -1,18 +1,4 @@
 <% menu(:events) %>
-<% content_for :javascript do %>
-	title = "<%=t('search.events.dots')%>"
-	$("#query").click(function(){
-	  if(this.value == title){
-		  this.value="";
-		}
-	});
-	
-	$("#query").blur(function(){
-	  if(this.value == ""){
-		  this.value= title;
-		}
-	});
-<% end %>
 
 <% content_for :search do  %>
   <%= render :partial => 'events/search' %>

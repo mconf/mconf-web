@@ -1,10 +1,7 @@
 <% menu :people %>
-<% content_for :javascript do %>
-  <%= render :partial => 'jquery_users_search' %>
-<% end %>
 
 <% content_for :search do  %>
-  <%= render :partial => 'search' %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <% content_for :sidebar do  %>

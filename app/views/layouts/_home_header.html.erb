@@ -4,6 +4,11 @@
 <div id="name-space">
   <span id="small-title"><%=link_to (image_tag("icons/MyHome3.png",:class=>"icon") + " MyHome","")%></span>
 </div>
+
+<div id="search">
+  <%= yield :search %>
+</div>
+
 <div id="eu">
 	<%=image_tag("flags/union_europea.jpg",:size=>"72x48")%>
 </div>

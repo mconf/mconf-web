@@ -1,3 +1,17 @@
+<% content_for :search do %>
+	$("#query").click(function(){
+    if(this.value == "<%=t('event.search.dots')%>"){
+      this.value="";
+    }
+  });
+
+  $("#query").blur(function(){
+    if(this.value == ""){
+      this.value="<%=t('event.search.dots')%>";
+    }
+  });
+<%end%>
+
 <% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
    <%= text_field_tag  'query',(params[:query] ? params[:query] : t('event.search.dots') ) %>
    <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
