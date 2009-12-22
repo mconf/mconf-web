@@ -1,0 +1,56 @@
+# The directory where icons are
+source_dir: /usr/share/icons/oxygen
+# The directory to copy the icons to
+destination_dir: public/images/models
+
+# The sizes to be copied
+resource_sizes: [ 16, 32, 64, 128 ]
+
+# Icons by Mime Type
+#
+# Copied in all resource_sizes
+mime_types:
+  - application-pdf.png
+  - application-zip.png
+  - application-vnd.ms-powerpoint.png
+  - application-vnd.oasis.opendocument.text.png
+  - text-plain.png
+
+#TODO
+todo:
+  - video/x-ms-wmv
+  - application/x-download
+  - application/x-msdownload
+  - application/vnd.openxmlformats-officedocument.presentationml.presentation
+  - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+# Resource Icons
+#
+# Each option is:
+# dir: oxygen category
+# file: oxyge filename
+# name: destination filename
+# size: array of sizes. Defaults to resource_sizes by default
+resources:
+  # Change MS Word MimeType
+  - dir: mimetypes
+    file: application-msword.png
+    name: application-vnd.ms-word.png
+  # Use generic audio for mp3
+  - dir: mimetypes
+    file: audio-x-generic.png
+    name: audio-mpeg.png
+  # Use generic audio for ogg
+  - dir: mimetypes
+    file: audio-x-generic.png
+    name: audio-x-vorbis-ogg.png
+  - dir: mimetypes
+    file: application-octet-stream.png
+    name: attachment.png
+
+# New resources icons
+#
+# size is 16 by default
+new_resources:
+  # New article
+  # FIXME!
