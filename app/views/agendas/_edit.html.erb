@@ -7,10 +7,6 @@
 
   // Code for several agenda entry views
 	
-	$('.title_name_and_hour').click(function(){
-    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
-  });
-  
 	// Removes brackets from attachment selectors to avoid problems with fcbkcomplete	
   $("#agenda_entry\\[attachment_attributes\\]__tags").livequery(function () {
 	  $(this).attr("id","agenda_entryattachment_attributes__tags");
@@ -102,6 +98,7 @@
     }
     
   });
+
 	
 	
   // Edit agenda entry view
@@ -143,7 +140,7 @@
     });
   });
 
-  $("input.agenda_edit_update").livequery('click',function(){
+  $("#edit_entry_button").livequery('click',function(){
     // Validate title
 		var title = ($('#agenda_entry_title').val());
 		if (title == "") {
@@ -164,6 +161,7 @@
   });
 
 
+
   // Show agenda entry view
 
   <%if params[:show_day] %>
@@ -174,7 +172,9 @@
     $('#agenda_page0').show();
   <%end%>
 	
-
+  $('.title_name_and_hour').click(function(){
+    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
+  });
 
 /*
   // Record checkbox

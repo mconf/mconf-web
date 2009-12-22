@@ -134,11 +134,9 @@ $("#query").click(function(){
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_posts_path(@space), :method => 'get') do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Posts...")%>
-	  <button type="submit"><%=t("button.go")%></button>
-  <% end %>
+  <%= render :partial => 'search' %>
 <%end%>
+
 <%if @space.authorize?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
 	  <%if params[:edit]%>

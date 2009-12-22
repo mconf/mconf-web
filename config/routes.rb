@@ -2,6 +2,25 @@ ActionController::Routing::Routes.draw do |map|
   Translate::Routes.translation_ui(map)
 
   map.connect '/ui/:action', :controller => 'ui'
+
+  #Global search
+  map.search_all '/search', :controller => 'search', :action=> 'all' #=> /search, SearchController  
+  map.search_events '/search/events', :controller => 'search', :action => 'events' #=> /search/events, SearchController
+  map.advanced_search_events '/search/advanced/events', :controller => 'search', :action => 'advanced_search_events' #=> /search/avanced/events, SearchController
+  map.search_posts '/search/posts', :controller => 'search', :action=> 'posts' #=> /search/posts, SearchController
+  map.search_users '/search/users', :controller => 'search', :action=> 'users'
+  map.search_attachments '/search/attachments', :controller => 'search', :action=> 'attachments'
+  map.search_by_tag '/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
+
+  #Search in the space
+  map.space_search_all '/spaces/:space_id/search', :controller => 'search', :action=> 'all' #=> /search, SearchController  
+  map.space_search_events '/spaces/:space_id/search/events', :controller => 'search', :action => 'events' #=> /search/events, SearchController
+  map.space_advanced_search_events '/spaces/:space_id/search/advanced/events', :controller => 'search', :action => 'advanced_search_events' #=> /search/avanced/events, SearchController
+  map.space_search_posts '/spaces/:space_id/search/posts', :controller => 'search', :action=> 'posts' #=> /search/posts, SearchController
+  map.space_search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
+  map.space_search_attachments '/spaces/:space_id/search/attachments', :controller => 'search', :action=> 'attachments'
+  map.space_search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
+  
   
   map.resources :logos
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
@@ -110,23 +129,6 @@ ActionController::Routing::Routes.draw do |map|
   #map.add_time '/spaces/:space_id/add_time', :controller => 'events', :action => 'add_time' #=> TimesController o (NO REST) Añadir a events :member => [ :add_time ]
   #map.copy_next_week '/spaces/:space_id/copy_next_week', :controller => 'events', :action => 'copy_next_week' #=> TimesController o (NO REST) Añadir a events :member => [ :copy_next_week ]
   #map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time' #=> TimesController o (NO REST) Añadir a events :member => [ :remove_time ]
-
-  
-  
-  #!arreglada=>  map.search '/spaces/:space_id/search', :controller => 'events', :action => 'search' #=> /search/events, SearchController
-  
-  map.search_events '/spaces/:space_id/search/events', :controller => 'search', :action => 'events' #=> /search/events, SearchController
-  map.advanced_search_events '/spaces/:space_id/search/advanced/events', :controller => 'search', :action => 'advanced_search_events' #=> /search/avanced/events, SearchController
-  #!arreglada=>    map.search_by_title '/spaces/:space_id/search_by_title', :controller => 'events', :action => 'search_by_title' #=> /search/title/events, SearchController
-  #!arreglada=>    map.search_in_description '/spaces/:space_id/search_description', :controller => 'events', :action => 'search_in_description' #=> /search/description/events, SearchController
-  #!arreglada=>    map.search_by_date '/spaces/:space_id/search_by_date', :controller => 'events', :action => 'search_by_date' #=> /search/date/events, SearchController
-  
-  map.search_posts '/spaces/:space_id/search/posts', :controller => 'search', :action=> 'posts' #=> /search/posts, SearchController
-  map.search_all '/spaces/:space_id/search', :controller => 'search', :action=> 'all' #=> /search, SearchController
-  map.search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
-  map.search_users '/spaces/:space_id/search/users', :controller => 'search', :action=> 'users'
-  
-  map.search_attachments '/spaces/:space_id/search/attachments', :controller => 'search', :action=> 'attachments'
   
   map.change_space '/change_space', :controller => 'spaces', :action => 'change_space'
 

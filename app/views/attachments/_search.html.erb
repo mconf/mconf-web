@@ -12,7 +12,7 @@
 	});	
 <%end%>
 
-<% form_tag(search_attachments_path(@space), :method => 'get') do %>
+<% form_tag(@space.nil? ? search_attachments_path : space_search_attachments_path(@space), :method => 'get') do %>
 		<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.attachments.dots'))%>
 	  <button type="submit"><%=t("button.go")%></button>
   <% end %>

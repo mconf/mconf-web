@@ -32,7 +32,7 @@
 
         #collapsed
         else
-          row.name           "#{link_to image_tag("right.png"),path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params" if attachment.version_family.size>1} #{attachment_link(attachment)}", :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
+          row.name           "#{link_to image_tag("right.png"),path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params" if interactive && attachment.version_family.size>1} #{attachment_link(attachment)}", :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
           row.tags           interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : attachment.tags.map{|t| t.name}.join(",")

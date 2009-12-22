@@ -4,5 +4,5 @@
 	<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
 	  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
 	</select>
-  <button type="submit"><%=t("button.update")%></button>
+  <button class="basic_button blue_button" type="submit"><%=t("button.update")%></button>
 <%end%>

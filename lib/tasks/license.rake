@@ -1,3 +1,5 @@
+namespace :license do
+  LICENSE_HEADER = <<-EOS
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -15,27 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-class AdmissionObserver < ActiveRecord::Observer
-   def after_create(admission)
-     case admission
-     when Invitation
-       Informer.deliver_invitation(admission)       
-     when JoinRequest
-       Informer.deliver_join_request(admission) 
-     when EventInvitation
-       Informer.deliver_event_invitation(admission)
-     end
-   end
+  EOS
+  LICENSE_DIRS = %w( app/controllers app/models )
 
-   def after_update(admission)
-     case admission
-     when Invitation
-       Informer.deliver_processed_invitation(admission)   
-     when JoinRequest
-       Informer.deliver_processed_join_request(admission)
-     when EventInvitation
-       Participant.create({:user => admission.candidate, :email => admission.email, :event_id => admission.event_id, :attend => admission.accepted})
-     end if admission.recently_processed?
-   end
+  desc "Add license file in all controllers and models"
+  task :add do
+    LICENSE_DIRS.each do |dir|
+      Dir[File.join(RAILS_ROOT, dir, '*')].each do |file|
+        content = File.new(file, 'r').read
+        next if content.include?(LICENSE_HEADER)
+        File.new(file, 'w').write(LICENSE_HEADER + content)
+      end
+    end
+  end
 
+  task :remove do
+    LICENSE_DIRS.each do |dir|
+      Dir[File.join(RAILS_ROOT, dir, '*')].each do |file|
+        content = File.new(file, 'r').read
+        File.new(file, 'w').write(content.gsub(LICENSE_HEADER, ""))
+      end
+    end
+  end
 end

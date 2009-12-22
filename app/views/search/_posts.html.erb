@@ -15,7 +15,8 @@
  		<%end%>
 		<%if first_five%>
 		  <div class="show-more">
-		    <%=  link_to t('post.found.show_all'), search_posts_path(@space, :query => params[:query] ? params[:query] : "")%>
+		    <%=  link_to t('post.found.show_all'), @space.nil? ? search_posts_path(:query => params[:query]) : space_search_posts_path(@space, :query => params[:query])%> 
+<%#search_posts_path(@space, :query => params[:query] ? params[:query] : "")%>
 		  </div>
 		<%else%>
 		  <%= will_paginate @posts %>

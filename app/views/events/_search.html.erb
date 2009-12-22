@@ -1,0 +1,7 @@
+<% form_tag(@space.nil? ? search_events_path : space_search_events_path(@space), :method => 'get') do %>
+   <%= text_field_tag  'query',(params[:query] ? params[:query] : t('event.search.dots') ) %>
+   <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
+   <div id="advanced">
+     <%= link_to t('advanced'), @space.nil? ? advanced_search_events_path : space_advanced_search_events_path(@space) %>
+   </div>
+ <% end %>

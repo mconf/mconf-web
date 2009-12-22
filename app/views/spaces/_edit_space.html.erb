@@ -79,66 +79,19 @@
 
     });
 		
+
+  <%= render :partial => 'logos/crop_logo.js.erb',
+             :locals => { :url_form   => precrop_space_logo_path(@space.id),
+                          :aspect_ratio => Logo::ASPECT_RATIO_S
+                        } %>
 		
 		edit_logo_fun = function(){
-		  $('#update_space_logo').show();
-			$('#edit_logo').parent().hide();
-			style_file_input();
-			
-			$("form#update_space_logo").attr("action","<%=precrop_space_logo_path(@space.id)%>");
-			$("form#update_space_logo input[type=hidden][name=_method][value=put]").remove();
+		  $('div#update_logo').show();
+			$('#logo_preview').hide();
 		};
 		
 
-  $("form#update_logo").ajaxForm(function(data) {
-    
-    $("#for_lightbox").append(data);
-    
-    $("<a href=#for_lightbox></a>").fancybox({
-      'hideOnContentClick' : false,
-      'frameWidth' : 200,
-      'frameHeight' : 200,
-      'callbackOnShow' : function(){
-          $("#for_lightbox").children().remove();
-          var size;
-          if ($("#croplogo").attr("width")<$("#croplogo").attr("height")){
-            size = $("#croplogo").attr("width");
-          }else{
-            size = $("#croplogo").attr("height");
-          }     
-          $("#croplogo").Jcrop({
-            onSelect: cropImage,
-            onChange: cropImage,
-            aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
-            setSelect: [size/4,size/4,3*size/4,3*size/4]
-          });
-          if ($("#croplogo").height() +105 >200){
-            $("#fancy_outer").height($("#croplogo").height() + 105);
-          }
-          if ($("#croplogo").width()+30 > 200){
-            $("#lightbox-logo").width($("#croplogo").width()-18);
-            $("#fancy_outer").width($("#croplogo").width()+30);
-          }
-					$(window).resize();
-        }
-    }).click(); 
-  });
-	
-	$("form#update_logo input[type=image]").click(function(){
-		  if($("#logo_media").val()==""){
-		    alert('<%= t('select_image')%>');
-				return false;
-		  }
-	});
-  
-   function cropImage (c){
-    $("#crop_size_x").val(c.x);
-    $("#crop_size_y").val(c.y);
-    $("#crop_size_height").val(c.h);
-    $("#crop_size_width").val(c.w);
-    // c.x, c.y, c.x2, c.y2, c.w, c.h
 
-  };
 	 
 <%end%>
 
@@ -204,16 +157,21 @@
       </div>
     </li>
 	
-    <li>
-	  <div>
-		<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
-		<%= link_to_function logo(@space, :size => 'h128'), "edit_logo_fun()", :id => "edit_logo"%>
-	  </div>
-	  <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_space_logo", :style => "display:none" } do |f| %>
-	    <%= f.file_field :media, :class=>"file file1"%>
-        <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t("button.update")%></button></div>
-      <%end%>
+    <li> 
+			<div id="logo_preview">
+				<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
+				<%= link_to_function logo(@space, :size => 'h128'), "edit_logo_fun()", :id => "edit_logo"%>
+			</div>
+		
+			<div id="update_logo" style="display:none">
+				<label for="public" class="bold"><%=t('avatar.select_new')%>:</label>
+		   <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_space_logo" } do |f| %>
+		      <%= f.file_field :media, :class=>"file file1"%>
+	        <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t("button.update")%></button></div>
+	      <%end%>
+			</div>
     </li>
+
     <li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li>
   </ul>
 </div>

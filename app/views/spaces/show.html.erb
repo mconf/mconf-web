@@ -43,10 +43,7 @@
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_all_path(@space), :method => 'get') do %>
-			<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') )%>
-     <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-  <% end %>
+  <%= render :partial => 'search' %>
 <%end%>
 
 <% content_for :sidebar do  %>
@@ -121,7 +118,11 @@
 <div id="latest_posts">
     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
 	  <%if @lastest_posts.empty?%>
-	     <br/><p class="main_text"><%= t('post.none_recent') %></p>
+	    <div class="thread post last">
+		 <span class="main_text"><%= t('post.none_recent') %></span>    	
+	    </div>
+	    <div class="read_more"> 
+	    </div>
 	  <%else%>
 	    <%last_post = @lastest_posts.last%>
 	    <% for post in @lastest_posts -%>
