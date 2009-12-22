@@ -25,6 +25,7 @@ namespace :license do
     LICENSE_DIRS.each do |dir|
       Dir[File.join(RAILS_ROOT, dir, '*')].each do |file|
         content = File.new(file, 'r').read
+        next if content.include?(LICENSE_HEADER)
         File.new(file, 'w').write(LICENSE_HEADER + content)
       end
     end
