@@ -1,4 +1,4 @@
-<div id="lightbox-logo">
+<div id="lightbox-logo" style="z-index:1">
   <span>
     <%= image_tag("bola_global_peque.png",:class=>"icon")%><%= @logo_crop_text %>
   </span>
@@ -16,7 +16,7 @@
     <%end%>
   
     <div class="margin-up">
-      <button type="submit"><%=t("button.go")%></button>    
+      <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>    
     </div>
   
   <%end%>
