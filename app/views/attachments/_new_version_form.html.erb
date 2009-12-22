@@ -19,5 +19,9 @@
 
 	  <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
 	<%end%>
-	<%=link_to t('document.add'), space_attachments_path(@space), :class => "new_doc"%></li>
+	
 </div>
+
+<div id="add_document_label" class="button_wrapper">
+		<%=link_to "<span>" +t('document.add')+"</span>", "", :id => "add_document_label_link", :class => "big_button orange_button"%>
+	</div>
