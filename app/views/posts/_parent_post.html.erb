@@ -48,7 +48,7 @@
    <li class="attachment">
      <%for attachment in post.attachments%>
         <div>
-		    <%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%>
+		    <%=image_tag(logo_image_path(attachment, :size => '64'))%>
 		</div>
 		
 			<ul class="small-font main_text">
