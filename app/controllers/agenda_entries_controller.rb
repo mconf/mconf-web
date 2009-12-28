@@ -21,6 +21,10 @@ class AgendaEntriesController < ApplicationController
   
   before_filter :fill_start_and_end_time, :only => [:create, :update]
   
+  #authorization_filter :create, :agenda_entry, :only => [ :new, :create ]
+  #authorization_filter :update, :agenda_entry, :only => [ :edit, :update ]
+  #authorization_filter :delete, :agenda_entry, :only => [ :destroy ]
+  
   # GET /agenda_entries/1
   # GET /agenda_entries/1.xml
   def show

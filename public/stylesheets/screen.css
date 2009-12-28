@@ -288,7 +288,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
 
-#main{width:530px;margin-right:20px;margin-bottom:1.5em;background-color:#fff;}
+#main{width:700px;margin-right:20px;margin-bottom:1.5em;background-color:#fff;}
 /*#main1{width:770px;margin-right:20px;margin-bottom:1.5em;background-color:#fff;}*/
 #sidebar{float:left;width:230px;padding-right:10px;margin-bottom:1.5em;}
 div.space-desc h3, div.space-desc p{color:#244974;}
