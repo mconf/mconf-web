@@ -1,4 +1,8 @@
+<% content_for :javascript do %>
+  <%= render :partial => 'users/jquery_users_search' %>
+<%end%>
+
 <% form_tag(search_users_path(@space), :method => 'get') do %>
 		<%= text_field_tag 'query',(params[:query] ? params[:query] :  t('user.search'))%>
 	  <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-  <% end %>
+<% end %>

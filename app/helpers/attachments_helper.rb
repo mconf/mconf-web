@@ -63,9 +63,9 @@ module AttachmentsHelper
   def attachment_link(attachment)
     #Temp workaround to display attachments in events. Fix it as soon as possible
     if(params[:controller]=="attachments")
-      link_to attachment.filename,space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show"
+      link_to truncate(attachment.filename, :length => 28),space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show", :title => attachment.filename
     else
-      link_to attachment.filename,space_attachment_path(attachment.space,attachment, :format => attachment.format)
+      link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format), :title => attachment.filename
     end
   end
   
