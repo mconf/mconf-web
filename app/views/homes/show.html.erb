@@ -43,6 +43,22 @@
 <%end%>
 
 <% content_for :sidebar do  %>
+  
+  <%if current_user.spaces.any?%>
+    <div class="margin-up">    
+	  <div id="myspaces-title">
+		<div id="help" title= "<%= t('information.information4')%>"></div>
+    	<h3><%=t('space.my_spaces')%></h3>
+	  </div>
+	  <ul>
+	    <% current_user.spaces.each do |s| %>		  
+		  <li><%= link_to(s.name, s) %></li>
+        <% end %>
+	  </ul>
+    </div>
+  <%end%>
+
+
   <div class="next-events">
      <div class="next-events-title">
        <h3><%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%> <span class="small-font">(GMT <%= Time.zone.formatted_offset %> )</span></h3>
