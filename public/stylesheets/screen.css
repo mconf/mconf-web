@@ -506,8 +506,10 @@ li.author a, #change-event h3, #sidebar{color:#244974;}
 #sidebar #assistance_info #assistance_status,.next-events-section,#sidebar .my_spaces ul,.my_spaces a.list_my_spaces,.my_spaces a.less_spaces,.my_spaces a.more_spaces{padding:0 10px;}
 #sidebar #assistance_info,#sidebar .my_spaces{padding-bottom:10px;}
 #sidebar .my_spaces ul{margin:0.75em 0 0 0;list-style-type:none;}
-#sidebar .my_spaces ul.inline li{display:inline;position:relative;vertical-align:middle;}
-#sidebar .my_spaces ul.inline a{height:100%;width:100%;display:inline-block;}
+#sidebar .my_spaces ul.inline li{display:inline-block;position:relative;margin:0 4px;padding-bottom:4px;height:70px;}
+#sidebar .my_spaces ul.inline a{position:relative;float:left;height:70px;}
+#sidebar .my_spaces ul.inline img{background:#fff;padding:2px;border:1px solid #dcdcdc;}
+#sidebar .my_spaces ul.inline img:hover{border:1px solid #ccc;}
 #sidebar #assistance_info h5{margin:0;padding:10px 0;color:#244974;}
 #sidebar #assistance_info .event_options{padding:0 33px;position:relative;overflow:visible;}
 #sidebar #assistance_info .event_options div.option{float:left;position:relative;}
