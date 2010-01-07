@@ -27,7 +27,7 @@
       	  <%end%>  
 			
 			<%if attachment.authorize?(:read,:to => current_user) %>
-			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format), :class=>"no-dot")%></li>
+			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")%></li>
 			<%end%>
 			
 			<%if attachment.authorize?(:delete, :to => current_user)%>		
