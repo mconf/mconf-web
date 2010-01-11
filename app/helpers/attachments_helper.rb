@@ -65,7 +65,7 @@ module AttachmentsHelper
     if(params[:controller]=="attachments")
       link_to truncate(attachment.filename, :length => 28),space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show", :title => attachment.filename
     else
-      link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format), :title => attachment.filename
+      link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => attachment.filename
     end
   end
   
