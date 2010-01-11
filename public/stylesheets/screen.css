@@ -381,7 +381,12 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .post .post-logo{float:left;width:26px;height:26px;}
 ul.thread-title{margin:0;list-style-type:none;}
 .thread_content{position:relative;clear:both;overflow:hidden;}
-/*.thread_content div{float:left;}*/
+.thread_content div{float:left;}
+#recent-activity .thread_content div.thread-home{
+	float:none;
+	overflow:hidden;
+	position:relative;
+	}
 .thread_content .thread-title-wrapper{width:435px;}
 .thread_content .thread-title-wrapper div{float:none;}
 .thread_content .post-logo,.user .post-logo{width:36px;height:36px;}
