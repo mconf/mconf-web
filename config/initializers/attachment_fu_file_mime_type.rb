@@ -10,7 +10,7 @@ module Technoweenie::AttachmentFu::InstanceMethods
       `#{ unix_file } -v 2>&1` =~ /^file-(.*)$/
       version = $1
 
-      self.content_type = if version >= "4.26"
+      self.content_type = if version >= "4.24"
                             `#{ unix_file } -b --mime-type #{ tmp_file.path }`.chomp
                           else
                             `#{ unix_file } -bi #{ tmp_file.path }`.chomp =~ /(\w*\/[\w+-\.]*)/
