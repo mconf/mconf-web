@@ -163,6 +163,11 @@ class Attachment < ActiveRecord::Base
     return " " + (self.size/1024).to_s + " kb" 
   end
   
+  # Return format if Mymetype is present or "all" if not
+  def format!
+    format ? format : :all
+  end
+  
   authorizing do |agent, permission|
     parent.authorize?(permission, :to => agent) if parent.present? 
   end

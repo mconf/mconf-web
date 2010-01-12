@@ -82,16 +82,17 @@ class SearchController < ApplicationController
     elsif params[:description]
       @query = filters[:description] = params[:description]
      
-    elsif (params[:time1] && params[:time2]) or (params[:start_date] && params[:end_date])
+   elsif (params[:time1] && params[:time2]) or (params[:start_date] && params[:end_date])
+      date1ok = date2ok = 0
       @query = ""
-      if (params[:time1] && params[:time2])
+      if (params[:time1] && params[:time2] && !params[:time1].blank? && !params[:time2].blank?)
         date1 = Date.civil(params[:time1][:year].to_i, params[:time1][:month].to_i, params[:time1][:day].to_i)
         date2 = Date.civil(params[:time2][:year].to_i, params[:time2][:month].to_i, params[:time2][:day].to_i)
         date1ok =  date1.strftime("%Y%m%d")
         date2ok =  date2.strftime("%Y%m%d")
         filters[:start_date] = date1.to_s..date2.to_s
         filters[:end_date] = date1.to_s..date2.to_s
-      elsif params[:start_date] && params[:end_date]
+      elsif params[:start_date] && params[:end_date] && !params[:start_date].blank? && !params[:end_date].blank?
         date1 = params[:start_date].to_date
         date2 = params[:end_date].to_date
         date1ok =  date1.strftime("%Y%m%d")

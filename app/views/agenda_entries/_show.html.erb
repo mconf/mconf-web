@@ -62,8 +62,8 @@
       <li><%=h agenda_entry.description %></li>
       <%if agenda_entry.attachment then%>
 
-        <li><%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format, :version => agenda_entry.attachment.version))%></li>
-		<!--<%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format))%>-->
+        <li><%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format!, :version => agenda_entry.attachment.version))%></li>
+		<!--<%= link_to( agenda_entry.attachment.filename , polymorphic_path(agenda_entry.attachment, :format => agenda_entry.attachment.format!))%>-->
 
       <%end%>
     </ul>
