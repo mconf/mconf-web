@@ -17,9 +17,8 @@
   <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
     <%= render :partial => "posts/form_attachments", :object => f %>
   </div>
- 	<%= small_post_text_area %>
- 	
-        <%=link_to  t('advanced_editor'), new_space_post_path(@space), :id => "big_new_thread_link", :class => "extract_form"%>
+  <%= small_post_text_area %>	
+  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :id => "big_new_thread_link", :class => "extract_form"%>
 
     <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
 <% end -%>

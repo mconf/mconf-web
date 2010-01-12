@@ -387,7 +387,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 	overflow:hidden;
 	position:relative;
 	}
-.thread_content .thread-title-wrapper{width:435px;}
+.thread_content .thread-title-wrapper{width:580px;}
 .thread_content .thread-title-wrapper div{float:none;}
 .thread_content .post-logo,.user .post-logo{width:36px;height:36px;}
 .post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}
@@ -395,7 +395,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 .post .post-logo img:hover{border-color:#aaa;}
 .thread_content .post-logo img:hover,.user .post-logo img:hover {border-color:#aaa;}
 .thread_content a.extend_thread,.thread_content a.collapse_thread {margin-left:5px;margin-right:5px;}
-.post .post-content{float:left;width:600px;}
+.post .post-content{float:left;width:580px;}
 .div-logo {float:left;width:50px;padding:1px;}
 .post_moved {margin-right:0.5em;}
 .post-content p{margin-bottom:0;}3.49 
@@ -617,7 +617,7 @@ div.pagination a{color:#244974;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #update_space_logo{float:left;width:180px;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {width:92%;overflow:auto;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title {width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
 
