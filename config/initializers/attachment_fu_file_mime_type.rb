@@ -7,7 +7,15 @@ module Technoweenie::AttachmentFu::InstanceMethods
     tmp_file = self.uploaded_data_without_unix_file_mime_type=(file_data)
 
     if tmp_file.present? && (unix_file = `which file`.chomp).present? && File.exists?(unix_file)
-      self.content_type = `#{ unix_file } -b --mime-type #{ tmp_file.path }`.chomp
+      `#{ unix_file } -v 2>&1` =~ /^file-(.*)$/
+      version = $1
+
+      self.content_type = if version >= "4.24"
+                            `#{ unix_file } -b --mime-type #{ tmp_file.path }`.chomp
+                          else
+                            `#{ unix_file } -bi #{ tmp_file.path }`.chomp =~ /(\w*\/[\w+-\.]*)/
+                            $1
+                          end
     end
 
     tmp_file

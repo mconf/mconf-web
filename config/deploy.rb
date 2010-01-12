@@ -22,6 +22,7 @@ set :deploy_via, :export
 
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
+after 'deploy:restart', 'deploy:reload_ultrasphinx'
 
 namespace(:deploy) do
   task :fix_file_permissions do
@@ -42,6 +43,12 @@ namespace(:deploy) do
   desc "Restarting mod_rails with restart.txt"
     task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{current_path}/tmp/restart.txt"
+  end
+
+  task :reload_ultrasphinx do
+    run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
+    run "cd #{ current_path } && sudo -u www-data /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
+    run "cd #{ current_path } && sudo -u www-data rake ultrasphinx:daemon:restart RAILS_ENV=production"
   end
 end
 
