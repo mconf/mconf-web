@@ -40,7 +40,7 @@ class Post < ActiveRecord::Base
 
 
 
-  is_indexed :fields => ['text','title','space_id'],
+  is_indexed :fields => ['text','title','space_id','updated_at'],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
                           :as => 'tags',

@@ -1,7 +1,0 @@
-<% menu(:posts) %>
-
-<% content_for :search do  %>
-  <%= render :partial => 'posts/search' %>
-<% end %>
-
-<%= render :partial =>'posts', :locals=> {:first_five => false} %>
