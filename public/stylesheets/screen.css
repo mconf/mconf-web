@@ -321,7 +321,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #wrapper{padding:0 10px 10px 10px;}
 
 /*users and groups*/
-div.group{float:left;width:680px;padding-bottom:0.5em;margin-top:2px;}
+div.group{/*float:left;width:680px;*/padding-bottom:0.5em;margin-top:2px;}
 .group h3,#admission h3{padding:8px 0.75em 7px 0.75em;background:#d2e5f1;}
 .group ul{margin:0;}
 .group ul.group_links{padding:9px 0.5em 0 0;}
@@ -614,10 +614,11 @@ div.pagination a{color:#244974;}
 
 .update_logo,#upload_vcard{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,.update_logo,#upload_vcard, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg, #change-event,#space-conf,#news_sidebar,#new_invitation_div,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #add_new_doc, #doc_info, #doc_action.new_version{background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#priv-msg,#Create_new_group, #change-event,#space-conf,#news_sidebar,#new_invitation_div{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #update_space_logo{float:left;width:180px;}
 #new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title {width:92%;overflow:auto;}
+#new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector{width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
 
