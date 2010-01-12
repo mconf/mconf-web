@@ -1130,6 +1130,8 @@ h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_titl
 	margin:0;
 	border-top:1px solid #A8C0D1;
 	}
+h3#event_description_title div,#agenda_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
+h3#event_description_title div img,#agenda_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}

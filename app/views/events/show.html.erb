@@ -14,18 +14,22 @@
 	
 	$("#event_description_title").click(function(){
 	  $("#event_description_content").toggle("slow");
+	  $("#event_description_title .jqueryToggle").toggle();
 	});
 	
 	$("#agenda_title").click(function(){
 	  $("#agenda_content").toggle("slow");
+	  $("#agenda_title .jqueryToggle").toggle();
 	});
 	
 	$("#repository_title").click(function(){
 	  $("#repository_content").toggle("slow");
+	  $("#repository_title .jqueryToggle").toggle();
 	});
 	
 	$("#streaming_title").click(function(){
 	  $("#streaming_content").toggle("slow");
+	  $("#streaming_title .jqueryToggle").toggle();
 	});
 	
 	<%if @event.future? && !@event.authorize?(:update, :to => current_user)%>
@@ -149,7 +153,13 @@
 	
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title"><%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
+	      <div id="agenda_title">
+	      	<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %>
+		    <h3 class="blue">
+		    	<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+				<%=t('agenda.title')%> 
+				<span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3>
+		  </div>
 	      <div id="agenda_content">
 	        <%= render :partial => "agendas/edit" %>			
 	      </div>
@@ -157,7 +167,12 @@
 	  <%end%>
 	   
 	  <div id="event_repo" class="margin-up">
-	    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
+	    <div id="repository_title">
+	    	<h3 class="blue">
+	    		<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+				<%=t('event.repository')%>
+			</h3>
+		</div>
 	    <div id="repository_content">
 	    	<%= render :partial => 'attachments/tag_filter' %>
 	      <%= render :partial => "attachments/doc_table" %>
