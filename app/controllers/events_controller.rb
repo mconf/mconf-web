@@ -165,6 +165,7 @@ class EventsController < ApplicationController
           end
           if params[:event][:description]
             @result = params[:event][:description]
+            @description=true
           end
         }
         flash[:success] = t('event.updated')
