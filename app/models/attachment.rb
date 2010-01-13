@@ -72,7 +72,8 @@ class Attachment < ActiveRecord::Base
       :conditions => {:version_child_id => nil}}
   }
   
-  is_indexed :fields => ['filename', 'type', 'space_id'],
+  is_indexed :fields => ['filename', 'type', 'space_id', 'updated_at'],
+             :conditions => 'parent_id IS NULL',
              :include => [
                { :class_name => 'Tag',
                  :field => 'name',

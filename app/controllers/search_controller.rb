@@ -18,27 +18,28 @@
 class SearchController < ApplicationController
   before_filter :space
   
-  def all    
-    search_events(params)
-    search_users(params)
-    search_posts(params)    
-    search_attachments(params)
-  end
-  
-  def attachments
-    search_attachments(params)    
-  end 
-  
-  def events
-    search_events(params)
-  end 
+  def index
     
-  def posts
-    search_posts(params)
-  end
-  
-  def users
-    search_users(params)
+    if params[:start_date].blank? && params[:end_date].blank? && params[:query].blank?
+    elsif params[:start_date].blank? && params[:end_date].blank? && params[:query].length < 3
+      flash[:notice] = t('search.parameters')
+    else
+      case params[:type]
+        when "events"
+          search_events(params)
+        when "posts"
+          search_posts(params)
+        when "attachments"
+          search_attachments(params)
+        when "users"
+          search_users(params)
+        else
+          search_events(params)
+          search_users(params)
+          search_posts(params)    
+          search_attachments(params)
+      end
+    end    
   end
   
   def tag
@@ -72,39 +73,9 @@ class SearchController < ApplicationController
   
   def search_events(params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
+    @query = params[:query]
     
-    if params[:query]
-      @query = params[:query]
-      
-    elsif params[:title]
-      @query = filters[:name] = params[:title]
-      
-    elsif params[:description]
-      @query = filters[:description] = params[:description]
-     
-   elsif (params[:time1] && params[:time2]) or (params[:start_date] && params[:end_date])
-      date1ok = date2ok = 0
-      @query = ""
-      if (params[:time1] && params[:time2] && !params[:time1].blank? && !params[:time2].blank?)
-        date1 = Date.civil(params[:time1][:year].to_i, params[:time1][:month].to_i, params[:time1][:day].to_i)
-        date2 = Date.civil(params[:time2][:year].to_i, params[:time2][:month].to_i, params[:time2][:day].to_i)
-        date1ok =  date1.strftime("%Y%m%d")
-        date2ok =  date2.strftime("%Y%m%d")
-        filters[:start_date] = date1.to_s..date2.to_s
-        filters[:end_date] = date1.to_s..date2.to_s
-      elsif params[:start_date] && params[:end_date] && !params[:start_date].blank? && !params[:end_date].blank?
-        date1 = params[:start_date].to_date
-        date2 = params[:end_date].to_date
-        date1ok =  date1.strftime("%Y%m%d")
-        date2ok =  date2.strftime("%Y%m%d")
-        filters[:start_date] = date1.to_s..date2.to_s
-        filters[:end_date] = date1.to_s..date2.to_s
-      end  
-      if date1ok > date2ok
-        flash[:notice] = t('event.error.dates')
-        render :template => "events/search"
-      end
-    end
+    filter_date(params, filters, [:start_date, :end_date])
     
     @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'Event',:filters => filters)
     @search.run
@@ -113,9 +84,11 @@ class SearchController < ApplicationController
   end
   
   def search_posts (params)
-    filters = @space.nil? ? {} : {'space_id' => @space.id}
-    
+    filters = @space.nil? ? {} : {'space_id' => @space.id}    
     @query = params[:query] 
+    
+    filter_date(params, filters, [:updated_at])
+    
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Post', :filters => filters)
     @search.run
     posts = @space.nil? ? authorize_read?(@search.results) : @search.results
@@ -137,11 +110,29 @@ class SearchController < ApplicationController
   
   def search_attachments (params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
-    
     @query = params[:query] 
+    
+    filter_date(params, filters, [:updated_at])
+    
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters)
     @search.run
     @attachments = @space.nil? ? authorize_read?(@search.results) : @search.results
+  end
+  
+  def filter_date(params, filters, values)
+    if params[:start_date] && params[:end_date] && !params[:start_date].blank? && !params[:end_date].blank?
+      date1 = params[:start_date].to_date
+      date2 = params[:end_date].to_date
+      date1ok =  date1.strftime("%Y%m%d")
+      date2ok =  date2.strftime("%Y%m%d")
+      if date1ok > date2ok
+        flash[:notice] = t('event.error.dates')
+      else
+        values.each do |value|        
+          filters[value] = date1.to_s..date2.to_s
+        end
+      end        
+    end
   end
 end
 
