@@ -665,10 +665,14 @@ en:
   
   ######### S ###########
   search:
+    advanced: "Advanced search"
     attachments:
       dots: "Search attachments..."
       no_dots: "Search attachments"
-    between_dates: "You can search here between two dates"
+    between_dates:
+      attachments: "Search only attachments updated between two dates"
+      events: "Search only event dated between two dates"
+      posts: "Search only posts updated between two dates"
     dots: "Search..."
     events:
       advanced: "Advanced events search"
@@ -677,14 +681,18 @@ en:
       no_dots: "Search events"
       title: "Search events by title"
     explanation: "(search by title and description matching exact words)"
+    in: "Search in"
     one: "Search"
+    parameters: "Query string too sort"
     posts:
       dots: "Search posts..."
       no_dots: "Search posts"
     results: "Search results"
     space:
       dots: "Search space..."
+    switch: "Switch to global search"
     users: "Search users"
+  searching_in: "You are searching in "
   select_image: "Select an image, please"
   send: "Send"
   send_debug_emails: "Send debug emails"
@@ -786,6 +794,7 @@ en:
   tags: Tags
   text: "Text"
   thank_you: "Thank you"
+  the_string: "the string"
   thread:
     add: "Add a new thread"
     deleted: "Thread has been deleted"
