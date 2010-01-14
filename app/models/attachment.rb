@@ -1,3 +1,20 @@
+# Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
+#
+# This file is part of VCC (Virtual Conference Center).
+#
+# VCC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# VCC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with VCC.  If not, see <http://www.gnu.org/licenses/>.
+
 class Attachment < ActiveRecord::Base
   attr_accessor :post_title, :post_text, :version_parent_id
   attr_reader :version_parent
@@ -14,9 +31,10 @@ class Attachment < ActiveRecord::Base
   
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
-                 :thumbnails => { 'post' => '96x96>',
-                                  '16' => '16x16',
-                                  '32' => '32x32'}
+                 :thumbnails => { '16' => '16x16',
+                                  '32' => '32x32',
+                                  '64' => '64x64',
+                                  '128' => '128x128'}
 
   # Define this authorization method before acts_as_content to priorize it
   #
@@ -54,7 +72,8 @@ class Attachment < ActiveRecord::Base
       :conditions => {:version_child_id => nil}}
   }
   
-  is_indexed :fields => ['filename', 'type'],
+  is_indexed :fields => ['filename', 'type', 'space_id', 'updated_at'],
+             :conditions => 'parent_id IS NULL',
              :include => [
                { :class_name => 'Tag',
                  :field => 'name',
@@ -143,6 +162,11 @@ class Attachment < ActiveRecord::Base
   
   def get_size()
     return " " + (self.size/1024).to_s + " kb" 
+  end
+  
+  # Return format if Mymetype is present or "all" if not
+  def format!
+    format ? format : :all
   end
   
   authorizing do |agent, permission|

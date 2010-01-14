@@ -2,7 +2,7 @@
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
 
-  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true}) do |f| %>
+  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
@@ -37,7 +37,7 @@
  -->
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
       <%unless @agenda_entry.attachment.new_record? then%>
-        <%= link_to( @agenda_entry.attachment.filename , polymorphic_path(@agenda_entry.attachment, :format => @agenda_entry.attachment.format))%>
+        <%= link_to( @agenda_entry.attachment.filename , polymorphic_path(@agenda_entry.attachment, :format => @agenda_entry.attachment.format!))%>
 				<%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_attachment_path(@space, @agenda_entry.attachment), :method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element=>@agenda_entry.attachment.filename)) if @agenda_entry.authorize?(:delete, :to => current_user) || @event.authorize?(:update, :to => current_user) %>
       <%end%>
 			<% f.fields_for :attachment do |attachment_form| %>
@@ -47,12 +47,15 @@
       <%end%>
     </div>
   
-    <div class="margin-up"><label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
-    <%= f.text_area :embedded_video, :size => "34x7" %></div>
+    <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
+    <div class="margin-up">
+    	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
+      <%= f.text_area :embedded_video, :size => "34x7" %>
+		</div>
 	
     <div class="margin-up">
-      <button type="submit"><%=t("button.update")%></button>
-      <input type="button" value="<%=t('close')%>" class="agenda_edit_close"/>
+			<input type="button" id="edit_entry_button" value="<%=t("button.update")%>" class="basic_button blue_button"/>
+      <input type="button" value="<%=t('close')%>" class="agenda_edit_close basic_button blue_button"/>
     </div>
 		
   <% end %>

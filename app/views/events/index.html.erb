@@ -44,19 +44,6 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	return(false);
 });
 
-	$("#query").click(function(){
-	  if(this.value == "Search events..."){
-		  this.value="";
-		}
-	});
-
-	$("#query").blur(function(){
-	  if(this.value == ""){
-		  this.value="Search events...";
-		}
-	});
-
-
 	$("#organizers_name").fcbkcomplete({
 	cache: true,
             filter_case: false,
@@ -71,13 +58,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_events_path(@space)) do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('event.search')),:class=>"prueba"%>
-	   <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-	   <div id="advanced">
-	     <%= link_to t('advanced'), advanced_search_events_path(@space) %>
-     </div>
-   <% end %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <div id="events_content">

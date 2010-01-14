@@ -48,7 +48,7 @@
 					
 					<li class="attach">
 			      <%for attachment in post.attachments%>
-			        <div><%=image_tag(logo_image_path(attachment, :size => attachment.thumbnail_size))%>
+			        <div><%=image_tag(logo_image_path(attachment, :size => '64'))%>
 			        <ul>
 			          <li><%=attachment.filename%></li>
 			          <li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%></li>

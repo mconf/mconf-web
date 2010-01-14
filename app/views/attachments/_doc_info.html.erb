@@ -7,7 +7,7 @@
 	<h3 class="blue top"><%=t('attachment.info')%></h3>
 	
 	<%if attachment.present? %>
-	  <%=logo(attachment,:size => 'post')%>
+	  <%=logo(attachment,:size => '64')%>
 			
 		<p>
 			<ul>
@@ -21,28 +21,29 @@
 		</p>
 		
 		<ul class="doc_actions">
+		  
 		  <%if attachment.authorize?(:update,:to => current_user)%>
-		    <li><%= attachment.tags.size>0 ? link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags") : link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags")%></li>
-      <%end%>  
+		    <li><%= attachment.tags.size>0 ? link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags", :class=>"no-dot") : link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags", :class=>"no-dot")%></li>
+      	  <%end%>  
 			
 			<%if attachment.authorize?(:read,:to => current_user) %>
-			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format))%></li>
+			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")%></li>
 			<%end%>
 			
 			<%if attachment.authorize?(:delete, :to => current_user)%>		
-        <li><%=link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))})%></li>
+        <li><%=link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")%></li>
 			<%end%>
 
 			<%if attachment.current_version? && attachment.authorize?(:update,:to => current_user)%>
-      	<li><%=link_to(image_tag("icons/new_version_doc.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version")%></li>
+      	<li><%=link_to(image_tag("icons/new_version_doc.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")%></li>
 			<%end%>
 		
 			<%if attachment.post.present?%>
-    		<li><%=link_to(image_tag("icons/comment_doc.png", :title => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post))%></li>
+    		<li><%=link_to(image_tag("icons/comment_doc.png", :title => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post), :class=>"no-dot")%></li>
 			<%end%>
 			
 			<%if attachment.event.present?%>
-		    <li><%=link_to(image_tag("icons/date_doc.png", :title => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event))%></li>
+		    <li><%=link_to(image_tag("icons/date_doc.png", :title => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event), :class=>"no-dot")%></li>
 			<%end%>
     </ul>
 

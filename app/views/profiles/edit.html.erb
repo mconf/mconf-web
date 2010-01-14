@@ -10,7 +10,7 @@
 <% end %>
 
 <% content_for :sidebar do  %>
-   <div id="update_logo">
+   <div id="update_logo" class="update_logo">
     <%if @profile.logo%>
       <h3><%= t('avatar.current') %></h3>
       <p><%=logo(@profile.logo, :size => 64)%></p>

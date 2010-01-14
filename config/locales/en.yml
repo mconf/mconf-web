@@ -10,6 +10,9 @@ en:
   about_sxsw: "About SXSW"
   account: "Account"
   activerecord:
+    attributes:
+      user:
+        login: "Full name"
     errors:
       messages:
         missing: "is missing"
@@ -27,7 +30,7 @@ en:
   advanced_options: "Advanced options"
   advanced_editor: "Advanced editor"
   agenda: 
-    add_entry: "Add entry"
+    add_entry: "Add new entry"
     define: "Define Agenda"
     del_entry: "Delete"
     edit_entry: "Edit"
@@ -36,6 +39,7 @@ en:
       cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
       edit: "Edit Agenda Entry"
+      embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
       has_video: "Video available for this entry"
@@ -59,7 +63,7 @@ en:
       omit_title: "A title must be given for the agenda entry"
       overlaps: "The agenda entry overlaps with an existing entry"
       start_time_overlaps: "The start time overlaps with an existing agenda entry"
-
+    expand_help: "Click on the title of an agenda entry to expand it or contract it"
     title: "Agenda for the event"
     update: "Agenda was successfully updated."
     upload: "Upload Agenda"
@@ -274,6 +278,8 @@ en:
     location: "Location"
     logo:
       button: Change logo
+      created: "Event logo successfully created"
+      crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
     no_events: "You have no events"
@@ -474,7 +480,7 @@ en:
   mailing_list: "Mailing list"
   mark_checkbox: "Mark the suitable checkbox"
   message:
-    created: "Message sent succesfully"
+    created: "Message sent successfully"
     error:
       create: "Error sending private message"
     incoming:
@@ -600,7 +606,7 @@ en:
       exist: "Your profile already exists"
     must_create: "Please create your profile first"
     private: "Private profile"
-    private_description: "Only your partners can access this information"
+    private_description: "This information is visible only to the people you choose when you edit your profile"
     public: "Public profile"
     public_description: "Anyone can access this information"
     should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
@@ -641,11 +647,11 @@ en:
     up: "REPOSITORY"    
   request: "request it"
   request:
-    info: "Your request to join the space has been succesfully sent to the space admins. An admin will take care of it as soon as possible"
+    info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
   role:
     add: "Add role..."
-    added: "{{role}} role succesfully added to {{agent}}"
+    added: "{{role}} role successfully added to {{agent}}"
     change: "Change role..." 
     editing: "Editing role"
     invalid: "Role is invalid"
@@ -659,10 +665,14 @@ en:
   
   ######### S ###########
   search:
+    advanced: "Advanced search"
     attachments:
       dots: "Search attachments..."
       no_dots: "Search attachments"
-    between_dates: "You can search here between two dates"
+    between_dates:
+      attachments: "Search only attachments updated between two dates"
+      events: "Search only event dated between two dates"
+      posts: "Search only posts updated between two dates"
     dots: "Search..."
     events:
       advanced: "Advanced events search"
@@ -671,14 +681,18 @@ en:
       no_dots: "Search events"
       title: "Search events by title"
     explanation: "(search by title and description matching exact words)"
+    in: "Search in"
     one: "Search"
+    parameters: "Query string too sort"
     posts:
       dots: "Search posts..."
       no_dots: "Search posts"
     results: "Search results"
     space:
       dots: "Search space..."
+    switch: "Switch to global search"
     users: "Search users"
+  searching_in: "You are searching in "
   select_image: "Select an image, please"
   send: "Send"
   send_debug_emails: "Send debug emails"
@@ -718,7 +732,7 @@ en:
     edit_description: "edit description"
     edit_name: "edit name"
     enable: "Enable space"
-    enabled: "Space enabled succesfully"
+    enabled: "Space enabled successfully"
     error:
       enabled: "Space {{name}} is already enabled"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
@@ -780,6 +794,7 @@ en:
   tags: Tags
   text: "Text"
   thank_you: "Thank you"
+  the_string: "the string"
   thread:
     add: "Add a new thread"
     deleted: "Thread has been deleted"
@@ -837,7 +852,7 @@ en:
     email: "email"
     e-mail: "email"
     enable: "Enable user"
-    enabled: "User succesfully enabled. The user currently belongs to no space, and will have to join spaces again."
+    enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error:
       enabled: "User {{name}} is already enabled"
     feed:

@@ -1,3 +1,20 @@
+# Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
+#
+# This file is part of VCC (Virtual Conference Center).
+#
+# VCC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# VCC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with VCC.  If not, see <http://www.gnu.org/licenses/>.
+
 class Group < ActiveRecord::Base
  
     has_many :memberships, :dependent => :destroy
@@ -93,7 +110,7 @@ class Group < ActiveRecord::Base
     def mail_list
        str =""
        self.users.each do |person|
-       str << "#{person.login}  <#{person.email}> \n"
+         str << "#{Group.remove_accents(person.login)}  <#{person.email}> \n"
        end
        str
    end
@@ -134,5 +151,32 @@ class Group < ActiveRecord::Base
   def temp_file
      @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
   end
+
+   def self.remove_accents(str)    
+    accents = { 
+      ['á','à','â','ä','ã'] => 'a',
+      ['Ã','Ä','Â','À'] => 'A',
+      ['é','è','ê','ë'] => 'e',
+      ['Ë','É','È','Ê'] => 'E',
+      ['í','ì','î','ï'] => 'i',
+      ['Î','Ì'] => 'I',
+      ['ó','ò','ô','ö','õ'] => 'o',
+      ['Õ','Ö','Ô','Ò','Ó'] => 'O',
+      ['ú','ù','û','ü'] => 'u',
+      ['Ú','Û','Ù','Ü'] => 'U',
+      ['ç'] => 'c', ['Ç'] => 'C',
+      ['ñ'] => 'n', ['Ñ'] => 'N'
+      }
+    accents.each do |ac,rep|
+      ac.each do |s|
+      str = str.gsub(s, rep)
+      end
+    end
+    str = str.gsub(/[^a-zA-Z0-9 ]/,"")    
+    str = str.gsub(/[ ]+/," ")
+    str = str.gsub(/ /,"-")    
+    #str = str.downcase
+  end
+
 
 end

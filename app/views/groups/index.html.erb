@@ -5,10 +5,10 @@
 <%end%>
 
 <% content_for :javascript do %>
-  <%= render :partial => 'users/jquery_users_search' %>
-		<%unless @editing_group and @editing_group.mailing_list.present?%>
-			$(".mail_group").hide(); 
-		<%end%>
+
+	<%unless @editing_group and @editing_group.mailing_list.present?%>
+		$(".mail_group").hide(); 
+	<%end%>
 	$(".check_mail input:mail").livequery("click", function(){
   if($(this).attr("checked")){
 		$(".mail_group").show();
@@ -21,7 +21,7 @@
 <% end %>
 
 <% content_for :search do  %>
-  <%= render :partial => 'users/search' %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <% content_for :sidebar do  %>

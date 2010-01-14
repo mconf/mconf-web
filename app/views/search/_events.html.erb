@@ -9,8 +9,16 @@
 		<% end %>
 	<%else%>
 		<h3><%= t('event.other') %>: <%= t('event.found.other', :size => @events.size) %></h3>
-	  <% @events.each do |event| %>  
-      <%= render :partial => event %>
-		<% end %>
+	  <%if @space.nil?%>
+			<% @events.each do |event| %>
+			  <% @space = event.space %>
+	      <%= render :partial => event %>
+			<% end %>
+			<% @space = nil %>
+		<%else%>
+			<% @events.each do |event| %>
+	        <%= render :partial => event %>
+	      <% end %>
+			<%end%>
 	<%end%>
 </div>

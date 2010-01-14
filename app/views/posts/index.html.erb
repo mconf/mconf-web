@@ -157,20 +157,6 @@ $("a.edit_post_link").click(function(){
 	 return false;
 });
 
-
-	title = "<%=t('search.posts.dots')%>"
-	$("#query").click(function(){
-	  if(this.value == title){
-		  this.value="";
-		}
-	});
-	$("#query").blur(function(){
-	  if(this.value == ""){
-		  this.value= title;
-		}
-	});	
-
-
 /*Extended post creation*/
 
 /*New thread*/
@@ -267,11 +253,9 @@ $("#new_attachment_big_link").livequery('click',function () {
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_posts_path(@space), :method => 'get') do %>
-		<%= text_field_tag 'query',(params[:query] ? params[:query] : t('search.posts.dots'))%>
-	  <button type="submit" class="basic_button blue_button"><%=t("button.go")%></button>
-  <% end %>
+  <%= render :partial => 'search/form' %>
 <%end%>
+
 <% content_for :sidebar do  %>
 
   <% unless space.users.include?(current_user) %>

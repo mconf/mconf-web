@@ -1,0 +1,33 @@
+<% menu(:home) %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'form' if params[:advanced].blank? %>
+<%end%>
+
+<% if params[:advanced]%>
+  <h2 class="search-results blue"><%= t('search.advanced') %></h2>
+	<%= render :partial =>'advanced_form'%>
+	<br />
+<%end%>
+
+<%if (params[:start_date].present? && params[:end_date].present?) || (params[:query].present? && params[:query].length > 2) %>
+	<h2 class="search-results blue"><%= t('search.results') %></h2>
+	
+	<%=
+	case params[:type]
+	  when "events"
+	    render :partial =>'events'
+	  when "posts"
+	    render :partial =>'posts', :locals => {:first_five => false}
+	  when "attachments"
+	    render :partial => 'attachments'
+	  when "users"
+	    render :partial =>'users'
+	  else
+			render( :partial =>'posts', :locals => {:first_five => true}) +
+			render( :partial =>'events') +
+			render( :partial =>'users') +
+	    render( :partial =>'attachments')
+	end
+%>
+<%end%>

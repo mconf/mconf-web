@@ -96,12 +96,6 @@ $("a.edit_post_link").click(function(){
   return false;
 });
 
-$("#query").click(function(){
-  if(this.value == "Search Posts..."){
-	  this.value="";
-	}
-});
-
   $("#new_comment_big_link").livequery('click',function () {
     $(".big_options").removeClass("selected");
     $(this).addClass("selected"); 
@@ -134,11 +128,9 @@ $("#query").click(function(){
 <% end %>
 
 <% content_for :search do  %>
-  <% form_tag(search_posts_path(@space), :method => 'get') do %>
-      <%= text_field_tag 'query',(params[:query] ? params[:query] :  "Search Posts...")%>
-	  <button type="submit"><%=t("button.go")%></button>
-  <% end %>
+  <%= render :partial => 'search/form' %>
 <%end%>
+
 <%if @space.authorize?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
 	  <%if params[:edit]%>

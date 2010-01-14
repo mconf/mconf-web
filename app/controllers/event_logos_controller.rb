@@ -1,3 +1,20 @@
+# Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
+#
+# This file is part of VCC (Virtual Conference Center).
+#
+# VCC is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# VCC is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with VCC.  If not, see <http://www.gnu.org/licenses/>.
+
 require 'RMagick'
 
 class EventLogosController < ApplicationController
@@ -26,7 +43,7 @@ class EventLogosController < ApplicationController
 
     resize_if_bigger f.path, 600 
     
-    @logo_crop_text = I18n.t('event_logo.crop')
+    @logo_crop_text = I18n.t('event.logo.crop')
     @form_for       = [@event,@event_logo]
     @form_url       = space_event_logo_path(@event.space, @event)
     
@@ -44,7 +61,7 @@ class EventLogosController < ApplicationController
     @event_logo = event.build_logo(params[:event_logo])
 
     if @event_logo.save
-      flash[:notice] = t('event_logo.created')
+      flash[:notice] = t('event.logo.created')
       redirect_to(space_event_path(event.space, event))
     else
       flash[:error] = t('error', :count => @event_logo.errors.size) + @event_logo.errors.to_xml
@@ -61,7 +78,7 @@ class EventLogosController < ApplicationController
     end
 
     if event.logo.update_attributes(params[:event_logo])
-      flash[:notice] = t('event_logo.created')
+      flash[:notice] = t('event.logo.created')
       redirect_to(space_event_path(event.space, event))
     else
       flash[:error] = t('error', :count => event.errors.size) + event.errors.to_xml
