@@ -1,0 +1,7 @@
+<div id="videos">
+  <div class="video_full">
+    <%if @video_entries[params[:show_video].to_i]%>
+      <%=@video_entries[params[:show_video].to_i].embedded_video%>
+    <%end%>
+  </div>  
+</div>

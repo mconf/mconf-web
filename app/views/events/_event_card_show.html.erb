@@ -24,7 +24,7 @@
       </div>
     
     <p>
-      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, event),:class=>"unified_event"%> <span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
+      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, @event),:class=>"unified_event"%> <span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
     </p>
     
     <ul>
@@ -59,6 +59,10 @@
           <button id="change_logo" class="basic_button blue_button"><%=t('event.logo.button')%></button>
 		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"blue_button basic_button",:title => t('invitation.add_more')} %>
         <%end%>
+		<%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event), {:id=>"view_agenda", :class=>"blue_button basic_button",:title => t('event.view_agenda')} %>
+		<%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"blue_button basic_button",:title => t('event.view_repo')} %>
+        <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"blue_button basic_button",:title => t('event.view_recordings')} %>
+        
         </div>
       
   <div id="event_description_wrapper">

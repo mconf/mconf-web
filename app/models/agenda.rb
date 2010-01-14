@@ -34,4 +34,26 @@ class Agenda < ActiveRecord::Base
     all_entries.sort!{|a,b| a.start_time <=> b.start_time}
   end
   
+  #returns a hash with the id of the entries and the thumbnail of the associated video
+  def get_videos    
+      entries_with_video = {}
+      for entry in agenda_entries  
+        
+        if entry.embedded_video.present?
+          entries_with_video[entry.id] = entry       
+        end    
+        
+      end
+      return entries_with_video
+  end
+  
+  
+  def first_video_entry_id
+     for entry in agenda_entries  
+        if entry.embedded_video.present?
+          return entry.id       
+        end    
+     end
+    
+  end
 end

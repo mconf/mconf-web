@@ -4,6 +4,7 @@
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter','jquery.ba-url' %>
   <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle', 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
 <%end%>
 
 <% content_for :javascript do %>	
@@ -97,31 +98,44 @@
 	 $(".play_icon").click(function(){
 	   $(this).siblings("a").click();
 	 });
+	 
+	 request_video_in_recordings = function(agenda_entry_id){
+	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
+       $.get(route,{
+          authenticity_token: "<%=form_authenticity_token()%>"
+          }, function(data){ 		         
+		      $(".video_full").html(data);
+          });
+	 };
 <% end %>
 
-
+<%@video_entries = @event.agenda.get_videos%>
 <% content_for :sidebar do  %>
   <div id="full_sidebar">
-  	<%= render :partial => 'participants' %>
-    <%if @space.authorize?([:create, :content],:to => current_user)%>
-  	  <%if params[:edit_event]%>
-     	 <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	  <%elsif params[:edit_comment]%>
-	     <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
-	  <%else%>
-	   <%= render :partial => 'new_comment'%>
-  	  <%end%>
-    <%end%>
-     <%if event.authorize?(:update, :to => current_user) %>
-       <div id="update_logo" class="update_logo" style="display:none">
-         <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-         <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-           <div><%= f.file_field :media, :id => 'logo_media' %></div>   
-           <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-         <%end%>
-       </div>
-     <%end%>
-  </div>
+  	<%if params[:show_video]%>
+	  <%= render :partial => "agendas/show_recordings_sidebar" %>
+	<%else%>
+  	  <%= render :partial => 'participants' %>
+      <%if @space.authorize?([:create, :content],:to => current_user)%>
+  	    <%if params[:edit_event]%>
+     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
+	    <%elsif params[:edit_comment]%>
+	       <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
+	    <%else%>
+	     <%= render :partial => 'new_comment'%>
+  	    <%end%>
+      <%end%>
+       <%if event.authorize?(:update, :to => current_user) %>
+         <div id="update_logo" class="update_logo" style="display:none">
+           <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
+           <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+             <div><%= f.file_field :media, :id => 'logo_media' %></div>   
+             <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+           <%end%>
+         </div>
+       <%end%>
+    </div>
+  <%end%>
 <%end%>
 
 
@@ -141,6 +155,21 @@
   
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
 	 
+  <%elsif params[:show_repository]%>
+     <div id="event_repo" class="margin-up">
+	    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
+	    <div id="repository_content">
+	      <%= render :partial => "attachments/doc_table" %>
+	    </div>
+	  </div>
+  
+  <%elsif params[:show_video]%>
+     <div id="event_recordings" class="margin-up">
+	    <div id="recordings_title"><h3 class="blue"><%=t('event.recording.one')%></h3></div>
+	    <div id="recordings_content">
+	      <%= render :partial => "agendas/show_recordings" %>
+	    </div>
+	  </div>
   <%else%>
 
 	  <%unless @event.past?%>
@@ -152,20 +181,12 @@
 	      <div id="agenda_title"><h3 class="blue"><%=t('agenda.title')%> <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3></div>
 	      <div id="agenda_content">
 	        <%= render :partial => "agendas/edit" %>
-			<br><br>
+			<br>
 			<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
 	      </div>
 	    </div>
 	  <%end%>
-	   
-	  <div id="event_repo" class="margin-up">
-	    <div id="repository_title"><h3 class="blue"><%=t('event.repository')%></h3></div>
-	    <div id="repository_content">
-	    	<%= render :partial => 'attachments/tag_filter' %>
-	      <%= render :partial => "attachments/doc_table" %>
-	    </div>
-	  </div>
-	  
+	   	  
   <%end%>
  
 <%unless @comments.empty?%> 

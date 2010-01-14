@@ -288,9 +288,9 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
 
-#main{width:680px;margin-right:20px;margin-left:15px;margin-bottom:1.5em;background-color:#fff;}
+#main{width:680px;margin-right:15px;margin-left:15px;margin-bottom:1.5em;background-color:#fff;}
 /*#main1{width:770px;margin-right:20px;margin-bottom:1.5em;background-color:#fff;}*/
-#sidebar{float:left;width:230px;padding-right:10px;margin-bottom:1.5em;}
+#sidebar{float:left;width:240px;padding-right:10px;margin-bottom:1.5em;}
 div.space-desc h3, div.space-desc p{color:#244974;}
 #inc-events h3{color:#8B0425;}
 #inc-events ul li.event p{color:#8B0425;}
@@ -612,6 +612,7 @@ div.pagination a{color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
+#more_invitations{width:645px;}
 
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:1em;line-height:1.5;}
@@ -1019,7 +1020,15 @@ th.attachment-updated{
 	/*width:120px;*/
 }
 
-.video_preview a.entry_video_link{
+.video_preview_sidebar{
+	float:left;
+	position:relative;
+	margin-top:6px;
+	margin-bottom:6px;
+	width: 222px;
+}
+
+.video_preview a.entry_video_link, .video_preview_sidebar a.entry_video_link{
 	opacity:0.7;
 	display:block;
 	width:100%;
@@ -1035,14 +1044,28 @@ th.attachment-updated{
 	top:0%;
 	cursor:pointer;}
 	
-.video_preview span.play_icon:hover{background:url('/images/icons/32/play1.png') no-repeat center center;}
+.video_preview_sidebar span.play_icon{
+	background:url('/images/icons/16/play.png') no-repeat center center;
+	display:block;
+	left:0%;
+	padding:35px 45px;
+	position:absolute;
+	top:0%;
+	cursor:pointer;}
 	
-.video_preview a,.entry_title a{outline:none;}
+.video_preview span.play_icon:hover{background:url('/images/icons/32/play1.png') no-repeat center center;}
+
+.video_preview_sidebar span.play_icon:hover{background:url('/images/icons/32/play1.png') no-repeat center center;}
+	
+.video_preview a, .video_preview_sidebar a,.entry_title a{outline:none;}
 	
 .video_preview a.entry_video_link img{
 	width:120px;
 }
 
+.video_preview_sidebar a.entry_video_link img{
+	width:90px;
+}
 
 .group_agenda_links{
   margin: 0;  
@@ -1115,13 +1138,14 @@ tr.version_expanded td{
 #event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
 #streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
-#event_description_line,#agenda_title,#repository_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
-h3#event_description_title,#agenda_title h3,#repository_title h3,#streaming_title h3,#agenda_blue_title h3{
+#event_description_line,#agenda_title,#repository_title,#recordings_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
+h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
 	border-top:1px solid #A8C0D1;
 	}
+#carrusel_title h3 {padding-right:0;}
 #event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 #agenda_content{padding:3px 8px;}
@@ -1139,3 +1163,7 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 .ten{
 	padding-top:10px;
 }
+
+#carrusel {height: 650px; overflow: auto;}
+.video_description {float: right;width:127px;padding-left:5px;}
+.video_thumbnail {float: left;}
