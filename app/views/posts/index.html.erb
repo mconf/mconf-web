@@ -3,7 +3,9 @@
 
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor' %>
+    
 <% end -%>
+
 
 <% content_for :javascript do %>
 
@@ -42,20 +44,13 @@ style_file_input();
 *  Reply panel
 */
 
-$("#new_comment_link").livequery('click',function () { 
-  $("#new_photo_form").hide();
+
+$("#new_attachment_link").livequery('click',function () {
+  $("#new_attachment_form").show(); 
   return false;
 });
 
-$("#new_photo_link").livequery('click',function () {
-  $("#new_photo_form").show(); 
-  return false;
-});
 
-$("#new_doc_link").livequery('click',function () {
-  $("#new_photo_form").show();
-  return false;
-});
 
 /*
 *  Replace with Ajax links
@@ -63,7 +58,7 @@ $("#new_doc_link").livequery('click',function () {
 
 $("a.reply_to_link").click(function(){
   var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name");
-  $.get(route,
+	$.get(route,
 	 {authenticity_token: "<%=form_authenticity_token()%>"},
 	 function(data){
 	   $("#sidebar").children("div:last").replaceWith(data);
@@ -180,7 +175,7 @@ $("a.edit_post_link").click(function(){
 
 /*New thread*/
 
-$("a#big_new_thread").fancybox({
+$("a#new_thread_big").fancybox({
   'hideOnContentClick' : false,
 			       'callbackOnShow' : function(){
 				 $(".big_post_title").val($(".small_post_title").val());
@@ -256,23 +251,16 @@ $("#new_comment_big_link").livequery('click',function () {
   return false;
 });
 
-$("#new_photo_big_link").livequery('click',function () {
+$("#new_attachment_big_link").livequery('click',function () {
   $(".big_options").removeClass("selected");
   $(this).addClass("selected");
-  $("#new_photo_big_form").show();
+  $("#new_attachment_big_form").show();
   $("#fancy_outer").height($("#new_thread_big").height() + 80);
   $(window).resize();
   return false;
 });
 
-$("#new_doc_big_link").livequery('click',function () {
-  $(".big_options").removeClass("selected");
-  $(this).addClass("selected");
-  $("#new_photo_big_form").show();
-  $("#fancy_outer").height($("#new_thread_big").height() + 80);
-  $(window).resize();
-  return false;
-});
+
 
 <%= render :partial => 'fckeditor_functions' %>
 
@@ -311,7 +299,7 @@ $("#new_doc_big_link").livequery('click',function () {
     	<% end %>
   	<%else%>
     	<div id="new_thread" >
-      	<%= render :partial => "new_thread" %>
+      	<%= render :partial => "new_thread", :locals => {:p_id => nil, :id => "thread-form"  }%>
     	</div>
   	<%end%>  
 	<% end %>

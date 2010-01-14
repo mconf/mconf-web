@@ -1,25 +1,78 @@
+<% content_for :javascript do %>
+  $(".newAttach").livequery('click',function () {
+    var new_id = new Date().getTime();
+    $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
+  });		
+<%end%>
+
+<% if @post.nil?%>
 <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=> t('show_advanced_editor')), new_space_post_path(@space), :id => "big_new_thread", :class => "extract_form"%><%= t('thread.add') %></h3>
 
-<% form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
-  <div>
+<%else%>
+<div id="new_reply">
+<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), new_space_post_path(@space, :reply => post.id), :id => "big_new_reply", :class => "extract_form" %> <%=t("reply_to")%> <span class="unified_posts"><%= post.title %></span></h3>
+ 
+<%end%>
+
+<%  form_for(prepare_for_form(Post.new, :parent_id => p_id), :html => { :multipart => true ,:id => id}) do |f| -%>
+
+	<% content_for :javascript do%>
+    <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
+  <% end %>
+	<% if  @post.nil? %>
+	<div>
     <label for="Title"><%= t('title') %></label><br/>
-    <%= f.text_field :title, :size => 25, :class => "small_post_title" %>
+    <%= f.text_field :title, :size => 25, :class => "small_post_title"%>   
+  </div>
+  <%end%>
+   <div id="post-buttoms" class="actions">
+    <ul>
+      <li><%= t('comment.one') %></li>
+    </ul> 
+  </div>      
+        <%= small_post_text_area %>
+  <div id="post-buttoms" class="actions">
+    <ul>      
+      <li><%= link_to t('attachment.add'), get_reply_route(post,'attachments'),  { :id => 'new_attachment_link',:class =>"new_reply_options #{"selected" if params[:form]=='attachments'}" } %></li>   
+    </ul>
   </div>
 	
-  <div id="post-buttons" class="actions margin-up">
-    <ul>
-      <li><%= link_to t('comment.one'), space_posts_path(@space), { :id => 'new_comment_link',:class =>"new_thread_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
-      <li><%= link_to t('photos'), space_posts_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_options #{"selected" if params[:form]=='photos'}" } %></li>
-      <li><%= link_to t('docs'), space_posts_path(@space, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_thread_options #{"selected" if params[:form]=='docs'}" } %></li>
-	</ul>
+  <div  id="new_attachment_form" <%= 'style="display: none;"' if (params[:form] != 'attachments' ) %>>
+ 
+    <div id="cabinet">      
+      <% f.fields_for(:attachments) do |at_form| %>
+        <%= render :partial => 'attachment', :locals => {:f => at_form} %>
+      <%end%>
+            <p class="newAttach"><%=t('attachment.new')%></p> 
+        </br> 
+    </div> 
   </div>
-  	
-  <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
-    <%= render :partial => "posts/form_attachments", :object => f %>
-  </div>
- 	<%= small_post_text_area %>
- 	
-        <%=link_to  t('advanced_editor'), new_space_post_path(@space), :id => "big_new_thread_link", :class => "extract_form"%>
 
-    <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
-<% end -%>
+  </br>
+	<%if @post.nil?%>
+    
+  <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+	<%=link_to  t('advanced_editor'), new_space_post_path(@space), :id => "big_new_thread_link", :class => "extract_form" %>
+<%else%>
+	
+	
+	<%if @show_view%>
+       <%= hidden_field_tag :show, "true"%>
+    <%end%>
+    <%= f.hidden_field :parent_id %>
+    <div class="float">
+      <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
+    </div>
+    <div class="float">
+      <%= link_to t('thread.or_add_new'), space_posts_path(@space) %>
+			<%=link_to  t('advanced_editor'), new_space_post_path(@space, :reply => post.id), :id => "big_new_reply", :class => "extract_form"%>
+
+    </div>
+ </div>
+<%end%>
+  
+<% end -%> 	
+ 
+
+
+  
