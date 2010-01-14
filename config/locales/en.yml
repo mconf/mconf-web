@@ -786,11 +786,12 @@ en:
     edit: "Edit tags"
     one: "tag"
     other: "tags"
-    filter: "Tag filter:"
+    filter: "Filter by tag:"
     new: "New tag"
     selected:
       one: "Selected tag:"
       other: "Selected tags:"
+    start: "Start typing.."
   tags: Tags
   text: "Text"
   thank_you: "Thank you"

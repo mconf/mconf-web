@@ -6,31 +6,36 @@
 	</div>
 	<div id="add_new_doc">	
 	
-	<h3 class="blue bold ten">Add new document</h3>
-	<%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
-	  <div id="cabinet">
-	    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
-	  </div>
-	  <br/>
-	  <h4><%=t('tag.new')%></h4>
-	 
-	  <div id=tags><%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
-	  
-	  </div>
-
-	  <br/>
-	  <h4><%=t('attachment.upload_with_post')%><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%></h4>
-    <div id="with_post" <%="style=\"display:none\"" if !(attachment.post_title.present? || attachment.post_text.present?)%>>
-      <%= f.label :post_title, t('title') %><br/>
-      <%= f.text_field :post_title%>
-      <%= f.label :post_text, t('text') %><br/>
-      <%= f.text_area :post_text, :rows => 5, :cols=>25%>
-    </div>
-	  
-    <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
-	<%end%>
-	
-	<div id="hide"><%=link_to t('hide'),"",:id => "hide_link"%></div>
+	<h3 class="blue">Add new document</h3>
+		<%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
+		<div class="new_doc_content">
+		  <div id="cabinet">
+		    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
+		  </div>
+		</div>
+		<div class="new_doc_content">
+		  <span class="bold"><%=t('tag.new')%></span>		 
+		  <div id=tags>
+		  	<%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
+		  </div>
+		</div>
+		<div class="new_doc_content">
+			<span><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%> <%=t('attachment.upload_with_post')%></span>
+		    <div id="with_post" <%="style=\"display:none\"" if !(attachment.post_title.present? || attachment.post_text.present?)%>>
+		      <%= f.label :post_title, t('title') %><br/>
+		      <%= f.text_field :post_title%>
+		      <%= f.label :post_text, t('text') %><br/>
+		      <%= f.text_area :post_text, :rows => 5, :cols=>25%>
+		    </div>
+			<div class="margin-up">
+			  <div id="hide"><%=link_to t('hide'),"",:id => "hide_link"%></div> 
+		      <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
+			</div>
+			<%end%>
+			
+			
+		</div>
+		
+		<%end%>
 	</div>
-	<%end%>
 </div>

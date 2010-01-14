@@ -2,7 +2,7 @@
 	$("#tag_filter").show();
 
   hide_table = function(){
-    $("#tag_filter").parent().html("<%=escape_javascript(t('repository.loading'))%>");
+    $("#doc_repository").parent().html("<%=escape_javascript(t('repository.loading'))%>");
   }
 	
 	 tags_array = function(){
@@ -58,13 +58,14 @@
 	 });
 <%end%>
 
-<div id="tag_filter" style="display:none">
-  <label class="blue bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
-  <select id="attachment_tags_filter" multiple="multiple" name="tags[]">
-    <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
-  </select>
-  <!--<label>Other tags:</label>
-  <%(@space.tags - @tags).each do |t|%>
-    <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
-  <%end%>-->
-</div>
+
+	<div id="tag_filter" style="display:none">
+	  <label class="bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
+	  <select id="attachment_tags_filter" multiple="multiple" name="tags[]">
+	    <%=options_for_fcbkcomplete(@space.tags,:id,:name,@tags)%>
+	  </select>
+	  <!--<label>Other tags:</label>
+	  <%(@space.tags - @tags).each do |t|%>
+	    <%=link_to t.name, path_for_attachments({:add_tag => t.id}), :class => "add_tag_filter"%>
+	  <%end%>-->
+	</div>
