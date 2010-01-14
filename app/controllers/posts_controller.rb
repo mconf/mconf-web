@@ -56,20 +56,11 @@ class PostsController < ApplicationController
       format.html {
         if request.xhr?
           if params[:edit]
-            if !post.attachments.empty? 
-              if !post.attachments.select{|a| a.image?}.empty?     
-                params[:form]='photos'
-              else
-                params[:form]='docs'
-              end
-            end
-            if post.parent_id
-              render :partial => "edit_reply", :locals => { :post => post }
-            else
-              render :partial => "edit_thread", :locals => { :post => post }
-            end
+            
+            params[:form]='attachments'                      
+            render :partial => "edit_thread", :locals => { :post => post }            
           else
-            render :partial => "new_reply", :locals => { :post => @post }  
+            render :partial => "new_thread", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"}  
           end
         else
           @show_view = true  
@@ -85,7 +76,8 @@ class PostsController < ApplicationController
     @post = Post.roots.in_container(@space).find(params[:reply]) if params[:reply]
     
     respond_to do |format|
-      format.html {
+      format.html {      
+                        
         if params[:reply]
           if request.xhr?
             render "new_reply_big", :layout => false
@@ -94,14 +86,18 @@ class PostsController < ApplicationController
           end
         else
           if request.xhr?
-            render "new_thread_big", :layout => false
+            render "new_thread_big",:layout => false
           else
             render "new_thread_big"
           end
         end
+        
       }
     end  
   end
+  
+  
+  
   
   # Renders form for editing this Entry metadata
   #   GET /posts/:id/edit
@@ -110,15 +106,15 @@ class PostsController < ApplicationController
       format.html {
         if @post.parent.nil?
           if request.xhr?
-            render "edit_thread_big", :layout => false
+            render "edit_thread_big", :layout => false, :locals => { :post => @post} 
           else
-            render "edit_thread_big"
+            render "edit_thread_big", :locals => { :post => @post}
           end
         else
           if request.xhr?
-            render "edit_reply_big", :layout => false
+            render "edit_thread_big", :layout => false, :locals => { :post => @post} 
           else
-            render "edit_reply_big"
+            render "edit_thread_big", :locals => { :post => @post}
           end
         end
       }
@@ -178,7 +174,7 @@ class PostsController < ApplicationController
 
   def after_create_with_errors
     # This should be in the view
-    params[:form] = 'photos' if @post.attachments.any?
+    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     posts
     render :index
@@ -191,7 +187,7 @@ class PostsController < ApplicationController
 
   def after_update_with_errors
     # This should be in the view
-    params[:form] = 'photos' if @post.attachments.any?
+    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     posts
     render :index

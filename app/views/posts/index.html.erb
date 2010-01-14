@@ -45,8 +45,8 @@ style_file_input();
 */
 
 
-$("#new_attachment_link").livequery('click',function () {
-  $("#new_attachment_form").show(); 
+$(".new_attachment_link").livequery('click',function () {
+  $(".new_attachment_form").show(); 
   return false;
 });
 
@@ -183,7 +183,7 @@ $("a#new_thread_big").fancybox({
 			       }    
 });
 
-$("a#big_new_thread_link").fancybox({
+$("a.big_new_thread_link").fancybox({
   'hideOnContentClick' : false,
 			       'callbackOnShow' : function(){
 				 $(".big_post_title").val($(".small_post_title").val());
@@ -228,19 +228,12 @@ $("a.new_thread_big_options").livequery("click", function(){
 
 /*Reply*/
 
-$("#new_comment_big_link").livequery('click',function () {
-  $(".big_options").removeClass("selected");
-  $(this).addClass("selected"); 
-  $("#new_photo_big_form").hide();
-  $("#fancy_outer").height($("#new_thread_big").height() + 80);
-  $(window).resize();
-  return false;
-});
+
 
 $("#new_attachment_big_link").livequery('click',function () {
   $(".big_options").removeClass("selected");
   $(this).addClass("selected");
-  $("#new_attachment_big_form").show();
+  $("#new_attachment_form").show();
   $("#fancy_outer").height($("#new_thread_big").height() + 80);
   $(window).resize();
   return false;
