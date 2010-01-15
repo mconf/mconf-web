@@ -1,7 +1,43 @@
+<%if @video_entries[params[:show_video].to_i]%>
+  <%entry = @video_entries[params[:show_video].to_i]%>
+<%end%>
 <div id="videos">
   <div class="video_full">
-    <%if @video_entries[params[:show_video].to_i]%>
-      <%=@video_entries[params[:show_video].to_i].embedded_video%>
+    <%if entry%>
+      <%=entry.embedded_video%>
     <%end%>
   </div>  
+  <div class="video_properties">  	
+  	  <div class="video_title">
+  	  	<%if entry%>
+  	      <%=entry.title%>
+		<%end%>     
+	  </div>
+	  <div class="unified_user">  
+	    <%if entry%>
+          <%isfirst=true%>
+          <%entry.actors.each do |speaker|%>
+             <%if isfirst%>
+               <%isfirst=false%>
+             <%else%>
+               ,
+             <%end%>
+             <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
+           <%end%>
+           <%if entry.speakers && !entry.speakers.empty?%>
+             <%unless isfirst%>
+               ,
+             <%end%>
+             <%= entry.speakers %>
+           <%end%>
+		 <%end%>
+	  </div>
+	  <div class="video_attachments">
+	  	<%if entry%>
+          <%if entry.attachment%>
+            <%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( entry.attachment.filename , polymorphic_path(entry.attachment, :format => entry.attachment.format!, :version => entry.attachment.version))%>
+		  <%end%>
+		<%end%>
+	  </div>
+  </div>
 </div>

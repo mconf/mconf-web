@@ -1,1 +1,34 @@
-<%=@result%>
+<%if params[:embedded_video]%>
+  <%=@agenda_entry.embedded_video%>
+<%else%>
+  <div class="video_full">
+      <%=@agenda_entry.embedded_video%>
+  </div>  
+  <div class="video_properties">  	
+  	  <div class="video_title">
+  	      <%=@agenda_entry.title%>  
+	  </div>
+	  <div class="unified_user">  
+          <%isfirst=true%>
+          <%@agenda_entry.actors.each do |speaker|%>
+             <%if isfirst%>
+               <%isfirst=false%>
+             <%else%>
+               ,
+             <%end%>
+             <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
+           <%end%>
+           <%if @agenda_entry.speakers && !@agenda_entry.speakers.empty?%>
+             <%unless isfirst%>
+               ,
+             <%end%>
+             <%= @agenda_entry.speakers %>
+           <%end%>
+	  </div>
+	  <div class="video_attachments">
+          <%if @agenda_entry.attachment%>
+            <%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( @agenda_entry.attachment.filename , polymorphic_path(@agenda_entry.attachment, :format => @agenda_entry.attachment.format!, :version => @agenda_entry.attachment.version))%>
+		  <%end%>
+	  </div>
+  </div>
+<%end%>

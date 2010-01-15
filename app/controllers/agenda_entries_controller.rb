@@ -31,9 +31,7 @@ class AgendaEntriesController < ApplicationController
     @agenda_entry = AgendaEntry.find(params[:id])
 
     respond_to do |format|
-      format.js{
-        @result = @agenda_entry.embedded_video
-      }
+      format.js
       format.html # show.html.erb
       format.xml  { render :xml => @agenda_entry }
     end

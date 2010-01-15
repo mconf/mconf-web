@@ -35,8 +35,8 @@
 	
 	$("#change_logo").click(function(){
 	  $('#assistance_info').hide();
-	  $('#new_reply').hide();
-	  $('#questions').hide();
+	  $('#new_reply').hide();	
+	  $('#carrusel').hide();  
 	  $("#update_logo").show();
 	  $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
 	});
@@ -79,7 +79,7 @@
    <%end%>
    
    request_video = function(agenda_entry_id){
-	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
+	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id + "?embedded_video=true";
        $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){ 		         
@@ -104,7 +104,7 @@
        $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){ 		         
-		      $(".video_full").html(data);
+		      $("#videos").html(data);
           });
 	 };
 <% end %>
@@ -112,6 +112,15 @@
 <%@video_entries = @event.agenda.get_videos%>
 <% content_for :sidebar do  %>
   <div id="full_sidebar">
+  	<%if event.authorize?(:update, :to => current_user) %>
+         <div id="update_logo" class="update_logo" style="display:none">
+           <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
+           <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+             <div><%= f.file_field :media, :id => 'logo_media' %></div>   
+             <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+           <%end%>
+         </div>
+     <%end%>
   	<%if params[:show_video]%>
 	  <%= render :partial => "agendas/show_recordings_sidebar" %>
 	<%else%>
@@ -125,17 +134,8 @@
 	     <%= render :partial => 'new_comment'%>
   	    <%end%>
       <%end%>
-       <%if event.authorize?(:update, :to => current_user) %>
-         <div id="update_logo" class="update_logo" style="display:none">
-           <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-           <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-             <div><%= f.file_field :media, :id => 'logo_media' %></div>   
-             <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-           <%end%>
-         </div>
-       <%end%>
-    </div>
-  <%end%>
+	<%end%>    
+  </div>  
 <%end%>
 
 
