@@ -22,23 +22,14 @@ $(".new_reply_options").click(function(){
     $(this).addClass("selected");
 });
 
-$("#new_comment_link").livequery('click',function () { 
-  $("#new_photo_form").hide();
-  $("#new_doc_form").hide();
+
+
+$(".new_attachment_link").livequery('click',function () {
+  $(".new_attachment_form").show(); 
   return false;
 });
 
-$("#new_photo_link").livequery('click',function () {
-  $("#new_photo_form").show(); 
-  $("#new_doc_form").hide();
-  return false;
-});
 
-$("#new_doc_link").livequery('click',function () {
-  $("#new_photo_form").hide();
-  $("#new_doc_form").show();
-  return false;
-});
 
 $("a#big_new_reply").fancybox({
   'hideOnContentClick' : false,
@@ -136,13 +127,13 @@ $("a.edit_post_link").click(function(){
 	  <%if params[:edit]%>
 		  <% post = Post.find(params[:edit]) %>
       <% if post.parent_id %>
-          <%= render :partial => "edit_reply", :locals => { :post => post } %>
+          <%= render :partial => "edit_thread", :locals => { :post => post } %>
       <% else %>
           <%= render :partial => "edit_thread", :locals => { :post => post } %>
       <% end %>
 		<%else%>
   	  <% params[:reply_to] = @post.id %>
-  	  <%= render :partial => "new_reply", :locals => { :post => @post } %>
+  	  <%= render :partial => "new_thread", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
 		<%end%>
 	<% end %>
 <% end %>

@@ -102,10 +102,9 @@ def ask_for_db_type
   DATABASES.each_with_index do |db, index|
     puts "#{ index + 1 }. #{ db }"
   end
-  number = gets.chomp
-  while ! ( number =~ /[12]/ )
+
+  until ( number = STDIN.gets.chomp ) =~ /[12]/
     puts "Please, choose 1 or 2"
-    number = gets
   end 
 
   DATABASES[ number.to_i - 1].downcase.to_sym

@@ -28,6 +28,7 @@ module ApplicationHelper
   def prepare_for_form(obj, options = {})
     case obj
     when Post
+      #obj.attachments.build
       obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank? 
 
       obj.space = @space if obj.space.blank?
@@ -46,4 +47,21 @@ module ApplicationHelper
 
     obj
   end
+  
+  
+  def generate_html(form_builder, method, options = {})
+    options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
+    options[:partial] ||= method.to_s.singularize
+    options[:form_builder_local] ||= :f
+
+    form_builder.fields_for(method, options[:object], :child_index => 'NEW_RECORD') do |f|
+      locals = { options[:form_builder_local] => f }
+      render(:partial => options[:partial], :locals => locals)
+    end
+  end
+
+  def generate_template(form_builder, method, options = {})
+    escape_javascript generate_html(form_builder, method, options)
+  end
+
 end
