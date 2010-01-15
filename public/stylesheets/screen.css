@@ -846,7 +846,7 @@ a.extract_form{margin-right:0.5em;}
 #assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 #add_new_doc,#doc_info,#doc_action.new_version,.tag_filter_wrapper{background:#ebebeb;border-bottom:1px #A8C0D1 solid;}
 #doc_info,.tag_filter_wrapper{margin-top:0.75em;}
-input.mixed_alternative{width:55%;}
+#sidebar input.mixed_alternative{width:55%;}
 #sidebar .new_doc_content,.tag_filter_wrapper .tag_filter_content{border-width:1px;border-style:solid;border-color:#fff #dcdcdc #dcdcdc;padding:9px;}
 #sidebar #add_new_doc h3,#sidebar #doc_info h3,#sidebar #doc_action.new_version h3,#sidebar .tag_filter_wrapper h3{
 	background:#BDD8EB none repeat scroll 0 0;
