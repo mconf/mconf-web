@@ -48,7 +48,6 @@ class AgendaEntriesController < ApplicationController
   # POST /agenda_entries
   # POST /agenda_entries.xml
   def create
-    debugger
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
