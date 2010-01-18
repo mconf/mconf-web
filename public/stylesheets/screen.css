@@ -1172,3 +1172,6 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 .video_description {float: right;width:127px;padding-left:5px;}
 .video_thumbnail {float: left;}
 .video_full {text-align: center; margin-top: 3px;}
+
+#spaces_select {align: left}
+#form_space_select {width: 100px;}

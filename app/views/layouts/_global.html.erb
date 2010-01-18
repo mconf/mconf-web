@@ -4,7 +4,21 @@
         <% if logged_in? %>
 				  <% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
 		      <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
-          <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
+          <li id="spaces_select">
+          	<% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+			  <%if current_user.spaces.any?%>	
+			    <%if @space%>
+				  <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [sp.name, sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
+				<%else%>		  
+		          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [sp.name, sp.permalink]}), :onchange => "this.form.submit()"%>
+				<%end%>
+		      <%else%>
+			    <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]]) %>
+			  <%end%>
+			<%end%>
+		  </li>
+			
+		  <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
 	        <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
   	      <li><%= link_to t('profile', :count => 1), user_profile_path(current_user), menu_options(:profile)%></li>
           <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>

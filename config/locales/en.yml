@@ -724,6 +724,7 @@ en:
     add_user:
       other: "Add users to the space"
     about: "About"
+    all: "All Spaces"
     allow_public_access: "Allow public access?"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"

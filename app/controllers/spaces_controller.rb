@@ -28,6 +28,10 @@ class SpacesController < ApplicationController
   # GET /spaces.xml
   # GET /spaces.atom
   def index
+    if params[:space_id] && params[:space_id]!= "all" && params[:space_id]!="my"
+      redirect_to space_path(Space.find_by_permalink(params[:space_id]))
+      return
+    end
     @spaces = Space.find(:all)
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
