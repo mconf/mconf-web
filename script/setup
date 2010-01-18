@@ -25,15 +25,16 @@ GEMS = {
                    "rspec-rails",
                    "hoe",
                    "httparty",
-		   "pdf-writer",
-                   "vestal_versions"],
+		               "pdf-writer",
+                   "vestal_versions",
+                   "ci_reporter"],
   :production  => [ ],
   :development => [ "capistrano",
                     "mongrel",
                     "populator",
                     "faker",
-                    "thoughtbot-factory_girl -s http://gems.github.com/",
-                    "ci_reporter" ],
+                    "thoughtbot-factory_girl -s http://gems.github.com/"
+                     ],
   :mysql => [ "mysql" ],
   :sqlite => [ "sqlite3-ruby" ]
 }
