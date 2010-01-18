@@ -2,22 +2,8 @@
   <div id="global">
 	  <ul id="prefs">
         <% if logged_in? %>
-				  <% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
-		      <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
-          <li id="spaces_select">
-          	<% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
-			  <%if current_user.spaces.any?%>	
-			    <%if @space%>
-				  <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [sp.name, sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
-				<%else%>		  
-		          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [sp.name, sp.permalink]}), :onchange => "this.form.submit()"%>
-				<%end%>
-		      <%else%>
-			    <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]]) %>
-			  <%end%>
-			<%end%>
-		  </li>
-			
+		  <% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
+		  <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>			
 		  <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
 	        <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
   	      <li><%= link_to t('profile', :count => 1), user_profile_path(current_user), menu_options(:profile)%></li>
@@ -28,10 +14,27 @@
 	    <% end %>
 		<% unless !current_site.authorize?(:translate, :to => current_user) -%>
 		  <% for locale in (I18n.available_locales - [I18n.locale]) -%>
-			<li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+			<li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s,:title=>t("translate.change")), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
 		  <% end -%>
 		<%end -%>
 	  </ul>
+	  <span id="spaces_select">
+          	<% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+			  <%if logged_in? && current_user.spaces.any?%>	
+			    <%if @space%>
+				  <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, 16), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
+				<%else%>		  
+		          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, 16), sp.permalink]}), :onchange => "this.form.submit()"%>
+				<%end%>
+		      <%else%>
+			    <%if @space%>
+			       <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, 16), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
+			    <%else%>
+			      <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, 16), sp.permalink]}), :onchange => "this.form.submit()"%>
+				<%end%>
+			  <%end%>
+			<%end%>
+	</span>
     <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
     
 	<span id="about"><%=link_to(t('about_global'),"http://www.global-project.eu")%></span>

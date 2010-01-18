@@ -47,10 +47,12 @@
 
 		    <div id="content">		      
 		      <div id="main">
-		        
 		        <%= render :partial => "layouts/menu" %>
 		        
 		        <div id="wrapper">
+		        <!--<div id="breadcrum">
+		        	<span>You are at: <a href="#">All Spaces</a href="#"> > <a href="#">My Spaces</a> > <a href="#">GLOBAL</a> > Events</span>
+		        </div>-->		        
 		        <% flash.each do |name, msg| %>
 		          <div class="<%= name %>"><%= msg %></div>
 		        <% end %>

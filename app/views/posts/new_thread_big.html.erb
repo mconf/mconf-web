@@ -5,40 +5,32 @@
 	<% menu :posts %>
 
 	  <!--<h3>New Thread</h3>-->
-<div id="feedback_form">	
-	<% form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread_form"}) do |f| %>
-	 <% content_for :javascript do%>
-    <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
-   <% end %>
-	 
-	 <div>
-    <label for="Title"><%= t('title') %></label><br/>
-    <%= f.text_field :title, :size => 25, :value => params[:post_title], :class => "big_post_title"%>
-   </div>
-  
-   <div id="post-buttons" class="actions margin-up">
-    <ul>
-      <li><%= t('comment.one') %></li>
-       <div id="big_textarea_div" >
-        <%= f.text_area :text, :id => "big_textarea", :class => "big_post_text", :value => params[:post_text]%>
-       </div>   
-      <li><%= link_to t('attachment.add'), get_reply_route(post,'attachments'),  { :class => 'new_attachment_link'} %></li>
-      </br>
-    </ul>
-   </div>
-    
-  <div class="new_attachment_form" <%= 'style="display: none;"' if (params[:form] != 'attachments' ) %>>
-  
-      <div id="cabinet">
-      <% f.fields_for(:attachments) do |at_form| %>
-        <%= render :partial => 'attachment', :locals => {:f => at_form} %>
-      <%end%>
-        <p class="newAttach"><%=t('attachment.new')%></p>   
-        </br> 
-      </div>
-  </div>
-  </br>
-  <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+<div id="text_form">	
+	<% form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
+	  <div>
+	    <label for="Title">Title</label><br/>
+	    <%= f.text_field :title, :size => 25, :value => params[:post_title], :class => "big_post_title" %>
+	  </div>
+		
+	  <div id="post-buttons" class="actions margin-up">
+	    <ul>
+	      <li><%= link_to t('comment.one'), new_space_post_path(@space), { :id => 'new_comment_link',:class =>"new_thread_big_options #{"selected" if (!params[:form] || params[:form]=='')}" } %></li>
+	      <li><%= link_to t('photos'), new_space_post_path(@space, :form => 'photos'), { :id => 'new_photo_link', :class =>"new_thread_big_options #{"selected" if params[:form]=='photos'}" } %></li>
+	      <li><%= link_to t('docs'), new_space_post_path(@space, :form => 'docs'), { :id => 'new_doc_link',:class =>"new_thread_big_options #{"selected" if params[:form]=='docs'}" } %></li>
+		</ul>
+	  </div>
+	  	
+	  <div id="new_photo_form" <%= 'style="display: none;"' if (params[:form] != 'photos' && params[:form] != 'docs') %>>
+	    <%= render :partial => "posts/form_attachments", :object => f %>
+	  </div>
+		<div id="big_textarea_div" >
+	    <%= f.text_area :text, :id => "big_textarea", :class => "big_post_text", :value => params[:post_text]%>
+			<!--<textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>-->
+		</div>
+	  <div class="margin-up">
+	    <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+	  </div>
+</div>
 
 	 
 	<% end -%>

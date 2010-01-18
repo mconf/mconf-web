@@ -12,23 +12,29 @@
 <%end%>
 
 <%content_for :sidebar do%>
-  <%= render :partial => 'doc_info' %>
 	<%if attachment.new_record? && attachment.errors.any?%>
 	  <%= render :partial => 'upload_form' %>
 	<%elsif attachment.errors.any?%>
 	  <%= render :partial => 'new_version_form' %>
 	<%else%>
-    
 		<%= render :partial => 'upload_form' %>
-
 	<%end%>
+	
+	<div class="tag_filter_wrapper">
+		<h3 class="blue">Document Search:</h3>
+		<div class="tag_filter_content">
+			<%= render :partial => 'mixed_filter' %>
+		</div>
+		<div class="tag_filter_content">
+			<%= render :partial => 'tag_filter' %>
+		</div>
+	</div>
+    <div class="margin-up"><%= render :partial => 'doc_info' %></div>
 <%end%>
 
 <% menu(:repository) %>
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
-	<%= render :partial => 'tag_filter' %>
-	<%= render :partial => 'mixed_filter' %>
 	<%= render :partial => 'doc_table' %>
 </div>

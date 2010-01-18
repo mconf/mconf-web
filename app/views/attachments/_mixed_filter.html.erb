@@ -69,10 +69,11 @@
 		$("tr.ui-collection-result").css("display","");
 		$("#" + $(this).val()).val("").show();
   });
+  
 <%end%>
 
 <div id="mixed_filter" style="display:none">
-	<label class="bold blue"><%=t('find_in')%></label>
+	<label class="bold blue"><%=t('find_in')%></label><br/>
 	<select id="mix_filter">
 		<option value="any_field_filter"><%=t('any_field')%></option>
 		<option value="author_filter"><%=t('author')%></option>

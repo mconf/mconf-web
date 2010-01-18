@@ -312,3 +312,6 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 
 #thumbs ul li{display: inline;list-style-type: none;}
 .right-align {float:right}
+
+#spaces_select {float: right;}
+#form_space_select {width: 150px;}

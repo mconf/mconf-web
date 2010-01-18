@@ -7,6 +7,7 @@ ul.holder li.bit-box, ul.holder li.w-cross { -moz-border-radius: 6px; -webkit-bo
 ul.holder li.bit-box-focus { border-color: #598BEC; background: #598BEC; color: #fff; }
 ul.holder li.bit-input input { width: auto; overflow:visible; margin: 0; outline: 0; padding: 3px 0px 2px; } /* no left/right padding here please */
 #new_entry_content ul.holder li.bit-input input{width:120px;}
+#sidebar .tag_filter_wrapper ul.holder li.bit-input input,#sidebar .new_doc_content ul.holder li.bit-input input{width:75px;}
 ul.holder li.bit-input input.smallinput { width: 20px; }
 
 /* Facebook demo CSS */      

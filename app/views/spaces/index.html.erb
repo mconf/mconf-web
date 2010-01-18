@@ -100,7 +100,17 @@
 
 <% @page_title = "Spaces"-%>
 
-<div id = "private_spaces" class="space-box margin-up">
+<div id = "public_spaces" class="space-box margin-up">
+
+  <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
+  <div id="space_content">
+  <% for space in @public_spaces %>
+    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+  <% end %>
+  </div>
+</div>
+
+<div id = "private_spaces" class="space-box">
 
   <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
   <div id="space_content">
@@ -113,16 +123,6 @@
 		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
 		<% end %>
 	<% end %>
-  </div>
-</div>
-
-<div id = "public_spaces" class="space-box">
-
-  <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
-  <div id="space_content">
-  <% for space in @public_spaces %>
-    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
-  <% end %>
   </div>
 </div>
 

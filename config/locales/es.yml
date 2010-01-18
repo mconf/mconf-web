@@ -2,6 +2,7 @@
 es: 
 
 ####### A #########
+  account: Cuenta
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
   action: 
     one: "Acci\xC3\xB3n"
@@ -358,6 +359,7 @@ es:
       information1: Estos son los espacios a los que pertences
       information2: Aquí puedes encontrar los post y eventos más recientes así como las noticias de los espacios a los que perteneces
       information3: Estos son los últimos posts o eventos que has creado
+      info_timezone: "Seleccionando tu zona horaria no habrá malentendidos con gente de otros países al crear tus eventos."
       
 ####### J #########
   join_request: 
@@ -505,6 +507,7 @@ es:
       show_all: Mostrar todos los comentarios encontrados
       one: 1 entrada se ha encontrado
       other: "{{size}} se encontraron comentarios"
+    show_expanded_pref: ¿Cómo quieres que se muestren tus comentarios?
     up: 
       other: COMENTARIOS
     deleted: Anuncio ha sido eliminado
@@ -546,6 +549,8 @@ es:
     activity: Actividad reciente
   remove: Eliminar
   report_spam: Denunciar spam
+  repository:
+      up: REPOSITORIO
   role: 
     new: Nuevo Rol
     name: Nombre
@@ -685,7 +690,10 @@ es:
     availables: Traducciones disponibles
 ####### U #########
   user: 
+    add_more: "add more>>"
     e-mail: e-mail
+    by_email: a través de e-mail
+    by_private_message: a través de mensaje privado
     not_confirmed: Gente que no ha confirmado
     invite_from_space_by_email: "Invitar a gente de su espacio mediante el filtro y otros por correo electr\xC3\xB3nico"
     request_password: "Solicitar contrase\xC3\xB1a"
@@ -697,6 +705,8 @@ es:
     include_registered: Incluir a los usuarios registrados
     filter: Filtro de usuarios
     edit_account: Modificar su cuenta
+    openid:
+        edit: Edita tus OpenId's
     private_message: Mensaje Privado
     found: 
       none: No se encontraron usuarios
@@ -717,7 +727,10 @@ es:
     activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
     invite_email: Invitar a gente por e-mail
     one: Usuario
-    save: Guardar usuario
+    save:
+        one: Guardar usuario
+        account: Guardar
+        preferences: Guardar preferencias
     full_name: Nombre completo
     other: Usuarios
     disable: Deshabilitar usuario
@@ -880,6 +893,7 @@ es:
   support: 
     array: 
       sentence_connector: y
+    one: Soporte
   all_rights_reserved: Todos los derechos reservados
   calendar: 
     my: Mi Calendario
