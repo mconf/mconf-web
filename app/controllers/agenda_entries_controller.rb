@@ -42,14 +42,13 @@ class AgendaEntriesController < ApplicationController
      @agenda_entry = AgendaEntry.new
      @day=params[:day]
      
-     if request.xhr?
-       render "new", :layout => false
-     end
+
   end
   
   # POST /agenda_entries
   # POST /agenda_entries.xml
   def create
+    debugger
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
@@ -79,9 +78,7 @@ class AgendaEntriesController < ApplicationController
   # GET /agenda_entries/1/edit
   def edit
     @agenda_entry = AgendaEntry.find(params[:id])
-     if request.xhr?
-            render "edit", :layout => false
-     end
+     
   end
   
   

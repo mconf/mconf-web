@@ -34,7 +34,7 @@ en:
     define: "Define Agenda"
     del_entry: "Delete"
     edit_entry: "Edit"
-    entry:
+    entry:      
       created: 'Agenda entry was successfully created.'
       cannot_exclude: 'You cannot exclude from recording an entry shorter than'
       description: "Description"
@@ -42,6 +42,7 @@ en:
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
+      has_attachment: 'This entry has attachments.'
       has_video: "Video available for this entry"
       hidevideo: "Hide video"
       record: "Record"

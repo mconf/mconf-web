@@ -1,0 +1,30 @@
+edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
+edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit')%>");
+ <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+$("input.agenda_edit_close").click(function(){
+  edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
+  $(".agenda_edit_entry").empty();
+});
+var destination_edit = $('#edit_entry_anchor').offset().top;
+$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+  window.location.hash = '#edit_entry_anchor';
+});
+ 
+ <%= yield :agenda_attachments%>
+
+$(".newAttach").livequery('click',function () { 
+  var new_id = new Date().getTime(); 
+  $(this).before( attachment.replace(/NEW_RECORD/g, new_id) ); 
+	
+	// Applies tags to the attachment
+  $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+  }); 
+}); 

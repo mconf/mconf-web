@@ -17,9 +17,8 @@
 
 class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
-
-  has_one :attachment, :dependent => :destroy
-  accepts_nested_attributes_for :attachment
+  has_many :attachments, :dependent => :destroy
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
   attr_accessor :author
   acts_as_stage
   
@@ -30,13 +29,11 @@ class AgendaEntry < ActiveRecord::Base
   
   before_validation do |agenda_entry|
     # Fill attachment fields
-    if (agenda_entry.attachment.filename.present?) then
-      agenda_entry.attachment.space  ||= agenda_entry.agenda.event.space
-      agenda_entry.attachment.event  ||= agenda_entry.agenda.event
-      agenda_entry.attachment.author ||= agenda_entry.author
-    else
-      agenda_entry.attachment = nil
-    end
+     agenda_entry.attachments.each do |a|
+      a.space  ||= agenda_entry.agenda.event.space
+      a.event  ||= agenda_entry.agenda.event
+      a.author ||= agenda_entry.author
+     end     
   end
   
   before_save do |entry|
