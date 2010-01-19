@@ -32,9 +32,10 @@
 	  </div>
 	  <div class="video_attachments">
 	  	<%if @display_entry%>
-          <%if @display_entry.attachment%>
-            <%=image_tag("icons/attach.png", :class=>"icon")%> <%= link_to( @display_entry.attachment.filename , polymorphic_path(@display_entry.attachment, :format => @display_entry.attachment.format!, :version => @display_entry.attachment.version))%>
-		  <%end%>
+		  <% @display_entry.attachments.each  do |a| %>
+            <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
+            <%=a.filename %>
+          <%end %>
 		<%end%>
 	  </div>
     </div>
