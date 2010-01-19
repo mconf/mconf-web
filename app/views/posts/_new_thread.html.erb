@@ -1,11 +1,35 @@
 <% content_for :javascript do %>
-  $(".newAttach").livequery('click',function () {
-    var new_id = new Date().getTime();
+
+
+		 // Applies tags to the attachment
+  $("#post_attachments_attributes_0__tags").fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+  }); 
+  $(".newAttach").livequery('click',function () { 
+    var new_id = new Date().getTime(); 
     $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
-  });		
+    $("#post_attachments_attributes_"+new_id+"__tags").fcbkcomplete({
+        cache: true,
+        filter_case: false,
+        filter_hide: true,
+        firstselected: true,
+        filter_selected: true,
+        maxshownitems: 4,
+        newel: true,
+        complete_opts: true
+    }); 
+ 
+}); 
 <%end%>
 
-<% if @post.nil?%>
+<% if p_id.nil?%>
 <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=> t('show_advanced_editor')),new_space_post_path(@space), :class => "big_new_thread_link extract_form"%><%= t('thread.add') %></h3>
 
 <%else%>
@@ -18,7 +42,7 @@
 	<% content_for :javascript do%>
     <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
   <% end %>
-	<% if  @post.nil? %>
+	<% if  p_id.nil? %>
 	<div>
     <label for="Title"><%= t('title') %></label><br/>
     <%= f.text_field :title, :size => 25, :class => "small_post_title"%>   
@@ -40,7 +64,7 @@
  
     <div id="cabinet">      
       <% f.fields_for(:attachments) do |at_form| %>
-        <%= render :partial => 'attachment', :locals => {:f => at_form} %>
+        <%= render :partial => 'posts/attachment', :locals => {:f => at_form} %>
       <%end%>
             <p class="newAttach"><%=t('attachment.new')%></p> 
         </br> 
