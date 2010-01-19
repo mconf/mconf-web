@@ -68,7 +68,12 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  
+  <% if logged_in?%>
+    <div class="button_wrapper">
+      <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link medium_button orange_button"%>
+    </div>
+  <%end%>
+
   <%if current_user.spaces.any?%>
     <div class="my_spaces">    
 	  <div id="my_spaces_title">

@@ -2,12 +2,12 @@
   
 	$("#space_filter").show();
 
-	$("input#Public").click(function(){
-	  $("#public_spaces").slideToggle("slow");
+	$("input#spaces_all").click(function(){
+	  $(".other").show();
 	});
 	
-	$("input#Private").click(function(){
-    $("#private_spaces").slideToggle("slow");
+	$("input#spaces_my").click(function(){
+	  $(".other").hide();  
   });
 	
 	$("#space_name_filter").keyup(function(){
@@ -64,6 +64,9 @@
     'hideOnContentClick' : false
   });
 	
+	<%if params[:space_id]=="my"%>
+	   $("input#spaces_my").click();
+	<%end%>
 	
 <%if params[:filter]%>
     $("#space_name_filter").keyup();
@@ -74,12 +77,19 @@
 <% content_for :search do  %>	
 	<div id="space_filter" style="display:none">
 	  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-	  <%= check_box_tag t('public'), "public", true %><%= label_tag t('public') %>  <%= check_box_tag t('private'), "private" , true%><%= label_tag t('private') %>
+	  <%if logged_in?%>
+	    <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
+	    <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
+	  <%end%>
 	</div>  
 <% end %>
 
 <% content_for :sidebar do  %>
-	<% unless logged_in? %>
+	<% if logged_in?%>
+      <div class="button_wrapper">
+        <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link medium_button orange_button"%>
+      </div>
+    <%else%>
 	  <div class="join">
 	    <h2><%= t('getting_started') %></h2>
   		<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
@@ -99,13 +109,17 @@
 <% end %>
 
 <% @page_title = "Spaces"-%>
-
+<%if logged_in? && current_user.spaces.any?%>
+  <% @user_spaces = current_user.spaces%>
+<%else%>
+  <%@user_spaces = []%>
+<%end%>
 <div id = "public_spaces" class="space-box margin-up">
 
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
   <% for space in @public_spaces %>
-    <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+    <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
   <% end %>
   </div>
 </div>
@@ -117,11 +131,11 @@
 	<% for space in @private_spaces %>
 	  <% unless space.authorize?(:read, :to => current_agent) %>
 	    <div class="space_item unautorized" name="<%=space.permalink%>">
-              <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>space.name)%>
-			</div>
-		<% else %>
-		  <div class="space_item" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
-		<% end %>
+          <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>space.name)%>
+		</div>
+	  <% else %>
+		<div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+	  <% end %>
 	<% end %>
   </div>
 </div>

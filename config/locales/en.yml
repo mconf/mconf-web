@@ -300,6 +300,8 @@ en:
     recording: 
       one: "Event Video"
       other: "Event Videos"
+      share: "Share Video"
+      notice: "People will need access rights in order to see this videos"
     repository: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
@@ -766,6 +768,7 @@ en:
     recent:
       other: "Recent spaces"
     search: "Search space..."
+    select: "Select one"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     up:
@@ -843,6 +846,7 @@ en:
   updated: "Updated"
   updated_time_ago: "{{time}} ago"
   url: "Website"
+  url_plain: "URL"
   user:
     active:
       other: "Active users"

@@ -3,7 +3,7 @@
 		<h3><%= t('event.recording.other') %></h3>
 	</div>
     <%@video_entries.each do |key, entry|%>
-      <div class="video_preview_sidebar" id="video_preview<%=entry.id.to_s%>">
+      <div class="video_preview_sidebar <%="preview_selected" if entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
         <div class="video_thumbnail">
 		  <%if entry.video_thumbnail.present?%>
 		    <%=link_to_function image_tag(entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
@@ -13,7 +13,7 @@
 		<span class="play_icon"></span>
 		</div>
 		<div class="video_description">
-			<%=truncate(entry.title, 32)%><br>			
+			<%=link_to  truncate(entry.title, 32) ,space_event_path(@space, @event, :show_video => entry.id), :class=>"entry_video_link" %>			
             <span class="unified_user">  
       	      <%isfirst=true%>
       	      <%entry.actors.each do |speaker|%>

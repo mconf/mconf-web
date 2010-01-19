@@ -101,19 +101,26 @@
 	 
 	 $(".play_icon").click(function(){
 	   $(this).siblings("a").click();
+
 	 });
 	 
 	 request_video_in_recordings = function(agenda_entry_id){
-	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
-       $.get(route,{
-          authenticity_token: "<%=form_authenticity_token()%>"
-          }, function(data){ 		         
-		      $("#videos").html(data);
-          });
+	   var route = "<%=space_event_path(@space, @event)%>"+ "?show_video=" + agenda_entry_id;
+	   document.location = route;
+	   //var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
+       //$.get(route,{
+       //   authenticity_token: "<%=form_authenticity_token()%>"
+       //   }, function(data){ 		         
+	   //	      $("#videos").html(data);
+       //   });
+	 };	 
+	 
+	 show_share_url = function(){
+	   $('.url_share').show();
 	 };
 <% end %>
 
-<%@video_entries = @event.agenda.get_videos%>
+
 <% content_for :sidebar do  %>
   <div id="full_sidebar">
   	<%if event.authorize?(:update, :to => current_user) %>

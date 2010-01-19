@@ -61,8 +61,9 @@
         <%end%>
 		<%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event), {:id=>"view_agenda", :class=>"blue_button basic_button",:title => t('event.view_agenda')} %>
 		<%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"blue_button basic_button",:title => t('event.view_repo')} %>
-        <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"blue_button basic_button",:title => t('event.view_recordings')} %>
-        
+        <%if @event.agenda.present?%>
+		  <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"blue_button basic_button",:title => t('event.view_recordings')} %>
+        <%end%>
         </div>
     
 <%unless params[:show_video]%>  

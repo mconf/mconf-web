@@ -28,7 +28,7 @@ class SpacesController < ApplicationController
   # GET /spaces.xml
   # GET /spaces.atom
   def index
-    if params[:space_id] && params[:space_id]!= "all" && params[:space_id]!="my"
+    if params[:space_id] && params[:space_id]!= "all" && params[:space_id]!="my" && params[:space_id]!=""
       redirect_to space_path(Space.find_by_permalink(params[:space_id]))
       return
     end

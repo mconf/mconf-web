@@ -89,6 +89,16 @@ class EventsController < ApplicationController
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
     
+    if params[:show_video]
+      if @event.agenda.present?
+        @video_entries = @event.agenda.get_videos
+      else
+        @video_entries = []
+      end
+      if @video_entries[params[:show_video].to_i]
+        @display_entry = @video_entries[params[:show_video].to_i]
+      end
+    end    
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }
