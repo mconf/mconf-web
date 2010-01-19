@@ -18,9 +18,9 @@
 	  $("#event_description_title .jqueryToggle").toggle();
 	});
 	
-	$("#agenda_title").click(function(){
+	$("#agenda_title_partial").click(function(){
 	  $("#agenda_content").toggle("slow");
-	  $("#agenda_title .jqueryToggle").toggle();
+	  $("#agenda_title_partial .jqueryToggle").toggle();
 	});
 	
 	$("#repository_title").click(function(){
@@ -195,16 +195,17 @@
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
 	      <div id="agenda_title">
-	      	<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %>
-		    <h3 class="blue">
-		    	<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%=t('agenda.title')%> 
-				<span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span></h3>
+	      	<h3 class="blue">
+	      	  <%= link_to t('event.agenda.download'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %>
+		      <div id="agenda_title_partial">
+			    <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+			    <%=t('agenda.title')%> 
+			    <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
+			  </div>
+			</h3>
 		  </div>
 	      <div id="agenda_content">
 	        <%= render :partial => "agendas/edit" %>
-			<br>
-			<%= link_to t('event.generate_pdf'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get %>
 	      </div>
 	    </div>
 	  <%end%>	   	  	   
