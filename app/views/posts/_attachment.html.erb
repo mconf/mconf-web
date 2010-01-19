@@ -2,4 +2,6 @@
 	</br>
   <%= f.file_field :uploaded_data, :class => "file file_1", :size => 14 %>
 	</br>
+	<h4><%=t('tag.new')%></h4>
+  <div id=tags><%= f.select(:_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
 </div>

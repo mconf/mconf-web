@@ -35,20 +35,9 @@
       $('#add_entry<%=i%>').hide();
       //first we remove the rest of the edit divs in case the user has an open one
       $(".agenda_edit_entry").empty();
-      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=" + <%=i%>;
-      $.get(route,{
-        authenticity_token: "<%=form_authenticity_token()%>"
-        }, function(data){
-          $('#add_entry<%=i%>').parent().append(data);
-            
-          <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
-          var destination_add<%=i%> = $('#new_entry_anchor').offset().top;
-          $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add<%=i%>}, 1100, function() {
-            window.location.hash = '#new_entry_anchor';
-          });
-          
-      });
-
+      
+			var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=" + <%=i%>;
+      $.getScript(route);
     });
     
     $("input.agenda_new_close").livequery('click',function(){
@@ -99,28 +88,13 @@
   // Edit agenda entry view
 	
   $('.edit_entry').click(function(){
-    var edit_entry_button = $(this);
-    //first we remove the rest of the edit divs in case the user has an open one
+    edit_entry_button = $(this);
+		//first we remove the rest of the edit divs in case the user has an open one
     $(".agenda_edit_entry").empty();
     $(".agenda_new_entry").siblings("button").show();
     $(".agenda_new_entry").empty();
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
-    $.get(route,{
-          authenticity_token: "<%=form_authenticity_token()%>"
-          }, function(data){             
-              edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
-              edit_entry_button.parents(".agenda_entry").append(data);
-	            <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
-	            $("input.agenda_edit_close").click(function(){
-                edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
-                $(".agenda_edit_entry").empty();
-              });
-              var destination_edit = $('#edit_entry_anchor').offset().top;
-              $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
-                window.location.hash = '#edit_entry_anchor';
-              });
-    });
-		
+    $.getScript(route);
   });
 	
   $("#speakers_name_edit").livequery(function () {
