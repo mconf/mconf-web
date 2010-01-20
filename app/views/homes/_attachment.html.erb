@@ -1,0 +1,24 @@
+<div class="<%=cycle("even_thread" , "odd_thread")%> attachment_cloud <%='last' if last%>">
+
+	<div class="event event_padding">
+	  <div class="div-logo">  
+	    <%=link_logo(attachment.space, :size =>'w48', :url => space_path(attachment.space), :title=>attachment.space.name)%>
+	  </div>  
+	  <div class="home_event">
+	  	<ul class="group_links">
+				<li><%=link_to image_tag("./icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_attachment_path(attachment.space, attachment),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => attachment.filename)} if attachment.authorize?(:delete, :to => current_user) %></li>
+      </ul>
+			<!--<div class="logo_home" style="float:right; padding-right:100px;"><%=logo(attachment,:size => '32')%></div>-->
+	    <p><%=image_tag("icons/attach.png",:class=>"icon", :title => t('attachment.home.one', :space=>attachment.space.name))%> <%=link_to sanitize(attachment.filename), space_attachment_path(attachment.space, attachment, :format => attachment.format!),:class=>"unified_event"%><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(attachment.created_at))) %></span></p>
+			<ul>
+				<li class="main_date small-font"><%=t('author')%>: 
+					<%if attachment.author.authorize?([:read, :profile],:to=> current_user)%>
+	             <span class="unified_user"><%=link_to (attachment.author.name,user_profile_path(attachment.author),:class=>"unified_user")%></span>
+	        <%else%>
+	          <span class="unified_user"><%=attachment.author.name%> </span>
+					<%end%>
+				</li>
+			</ul>
+	  </div>
+	</div>
+</div>
