@@ -35,8 +35,7 @@ module ApplicationHelper
     when Attachment    
       obj.space = @space if obj.space.blank?
     when AgendaEntry
-      obj.attachment ||= Attachment.new
-      obj.attachment.space  ||= @space
+       obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
     else
       raise "Unknown object #{ obj.class }"
     end
@@ -46,8 +45,7 @@ module ApplicationHelper
     end
 
     obj
-  end
-  
+  end  
   
   def generate_html(form_builder, method, options = {})
     options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
