@@ -63,7 +63,8 @@
       <li><%=h agenda_entry.description %></li>
       <% agenda_entry.attachments.each  do |a| %>
         <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
-        <%=a.filename %>
+				<%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>
+        
       <%end %>
 		     </ul>
     <div id="agenda_entry_video<%=agenda_entry.id%>" >		
