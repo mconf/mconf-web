@@ -15,7 +15,7 @@
 		</p>
 		
 		<p class="check_mail">
-			<label for="mailing_list"><%= t('mailing_list') %></label><%= check_box_tag(:mail,"1",group.mailing_list.present?) %>
+			<%= check_box_tag(:mail,"1",group.mailing_list.present?) %> <label for="mailing_list"><%= t('mailing_list') %></label>
 		</p>
 		
 		<p class="mail_group">

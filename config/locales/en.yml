@@ -488,7 +488,7 @@ en:
   manage: "Manage"
   management:
     up: "MANAGEMENT"
-  mailing_list: "Mailing list"
+  mailing_list: "Associate mailing list to your group"
   mark_checkbox: "Mark the suitable checkbox"
   message:
     created: "Message sent successfully"
@@ -874,7 +874,7 @@ en:
     feed:
       title: "Users"
       author: "SIR"
-    filter: "User Filter"
+    filter: "User filter"
     found:
       none: "No users found"
       one: "1 user found"

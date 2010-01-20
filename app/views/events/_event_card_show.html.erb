@@ -64,7 +64,7 @@
         <%if @event.agenda.present?%>
 		  <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"blue_button basic_button",:title => t('event.view_recordings')} %>
         <%end%>
-        </div>
+       </div>
     
 <%unless params[:show_video]%>  
   <div id="event_description_wrapper">

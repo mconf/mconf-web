@@ -76,7 +76,7 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 
 .button_wrapper{
 	overflow:hidden;
-	width:100%;}
+	}
 
 .join .button_wrapper {
 	padding:0 25px;
@@ -628,8 +628,6 @@ div.pagination a{color:#244974;}
 .actions{font-size:1em;line-height:1.5;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
 .actions li{display:inline;margin-right:8px;}
-#sidebar .actions li a.selected{text-decoration:none;font-weight:bold;}
-#sidebar .actions li a{text-decoration:underline;}
 .no_javascript ul{margin-right:1.5em;}
 #new_photo_form,#new_doc_form{margin-top:0.75em;}
 #sidebar #caption{margin-top:0.75em;}
@@ -1175,7 +1173,12 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 #entry_end_time{margin-left:20px;}
 #entry_attachment{position:relative;display:block;clear:both;}
 #event_description_content p,#new_entry_content p{margin:0;}
-#buttons_event{margin-bottom: 10px;}
+#buttons_event{
+	margin-bottom: 10px;
+	padding:6px 9px;
+	background:#ebebeb;
+	border-top:1px solid #dcdcdc;
+	}
 #hide{float:right;margin-top:9px;}
 
 .ten{
