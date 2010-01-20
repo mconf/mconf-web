@@ -26,7 +26,7 @@
 				<%elsif params[:space_id]=="all"%>		  
 		          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, 16), sp.permalink]}, [t('space.all'), "all"]), :onchange => "this.form.submit()"%>
 				<%else%>
-				  <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, 16), sp.permalink]}), :onchange => "this.form.submit()"%>
+				  <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.select'),""], [t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, 16), sp.permalink]}, [t('space.select'),""]), :onchange => "this.form.submit()"%>
 				<%end%>
 		      <%else%>
 			    <%if @space%>

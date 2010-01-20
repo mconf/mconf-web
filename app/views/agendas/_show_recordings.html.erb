@@ -33,8 +33,8 @@
 	  <div class="video_attachments">
 	  	<%if @display_entry%>
 		  <% @display_entry.attachments.each  do |a| %>
-            <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
-            <%=a.filename %>
+		    <%=image_tag("icons/attach.png", :class=>"icon")%>            
+            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>
           <%end %>
 		<%end%>
 	  </div>
