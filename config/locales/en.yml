@@ -659,7 +659,12 @@ en:
   repository:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
-    up: "REPOSITORY"    
+    up: "REPOSITORY"
+    add_document: Add new document
+    download: Download
+    remove: Remove
+    add_tags: Add Tags
+    rem_tags: Remove Tags
   request: "request it"
   request:
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"

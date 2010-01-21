@@ -155,6 +155,18 @@ a.basic_button span{
 
 button#change_logo{float:left;}
 
+/*GREY BAR BUTTONS*/
+.grey_bar a.grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
+.grey_bar button{line-height:16px;}
+.grey_bar .grey_button span{
+	line-height:18px;
+	color:#222;
+	background:url("/images/buttons/grey-button.png") repeat-x scroll 0 4%;
+	padding:3px 7px 3px 6px;}
+.grey_button span:hover{background:url("/images/buttons/grey-button.png") repeat-x scroll 0% 100%;}	
+.grey_button span{border:1px solid #999;}
+.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
+
 /*BUTTON COLOURS*/
 .orange_button,.orange_button span{color:#fff;background: transparent url("/images/buttons/fondo-join-space.png");}
 
@@ -636,12 +648,7 @@ div.pagination a{color:#244974;}
 #sidebar div.checkbox_event{padding:0.25em 0;margin:2px 10px 2px 0;}
 
 /* sidebar posts*/
-.newAttach{cursor:pointer; }
-
-/* new attachment */
-.newAttachment li {float:left; display:inline;}
-
-
+.newAttach{cursor:pointer;}
 
 /*admin*/
 #sidebar #space-conf{width:218px;}
@@ -1178,11 +1185,12 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 #entry_end_time{margin-left:20px;}
 #entry_attachment{position:relative;display:block;clear:both;}
 #event_description_content p,#new_entry_content p{margin:0;}
-#buttons_event{
+.grey_bar{
 	margin-bottom: 10px;
 	padding:6px 9px;
-	background:#ebebeb;
+	background:#f2f2f2;
 	border-top:1px solid #dcdcdc;
+	overflow:hidden;
 	}
 #hide{float:right;margin-top:9px;}
 
