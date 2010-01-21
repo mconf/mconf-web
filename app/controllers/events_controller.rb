@@ -275,7 +275,7 @@ class EventsController < ApplicationController
   end
   
   def events
-      @events = (Event.in_container(@space).all :order => "start_date ASC")
+      @events = (Event.in(@space).all :order => "start_date ASC")
     
       #Current events
       @current_events = @events.select{|e| !e.start_date.future? && e.end_date.future?}
