@@ -6,14 +6,14 @@
   </div>
 
   <div id="new_entry_content">
-  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
-    <% content_for :agenda_attachments do%>
-      <%= "var attachment='#{ generate_template(f,:attachments) }'" %>
-    <% end %>
-    <div>
+    <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
+      <% content_for :agenda_attachments do%>
+        <%= "attachment='#{ generate_template(f,:attachments) }'" %>
+      <% end %>
+   
       <label for="title" id="agenda_title_label" class="main_text"><%= t('agenda.entry.title') %></label><br/>
       <%= f.text_field :title %>
-	</div>
+	
   
     <div class="margin-up">
       <label for="speakers" class="main_text"><%= t('agenda.entry.speakers') %></label><br/>
@@ -42,19 +42,11 @@
  <div id="entry_attachment" class="margin-up">
      <div class="new_attachment_form">
          <% f.fields_for(:attachments) do |at_form| %>
-         <div id="entry_att_browse">
-             <%= render :partial => 'attachment', :locals => {:f => at_form} %>
-         </div>
-         <div id="entry_att_tags" class="margin-up">
-             
-						
-   
-    
+            <%= render :partial => 'attachment', :locals => {:f => at_form} %>                        
          <%end %>
-     </div>
-     <p class="newAttach">
-         <%=t('attachment.new') %>
-     </p>
+			</div>	 
+    
+     <p class="newAttach"><%=t('attachment.new') %></p>
  </div>
     
 		<div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
