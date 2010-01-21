@@ -198,9 +198,7 @@
  
  
  $(".newAttach").livequery('click',function () { 
-alert("hola");
   var new_id = new Date().getTime(); 
-  alert(attachment);
   $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
 
   // Applies tags to the attachment
