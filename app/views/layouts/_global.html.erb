@@ -18,6 +18,8 @@
 		  <% end -%>
 		<%end -%>
 	  </ul>
+	  
+	  
 	  <span id="spaces_select">
           	<% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
 			  <%if logged_in? && current_user.spaces.any?%>	
