@@ -26,7 +26,6 @@ GEMS = {
                    "hoe",
                    "httparty",
 		               "pdf-writer",
-                   "vestal_versions",
                    "ci_reporter"],
   :production  => [ ],
   :development => [ "capistrano",
