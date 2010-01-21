@@ -5,7 +5,7 @@
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <% content_for :agenda_attachments do%>
-      <%= "var attachment='#{ generate_template(f,:attachments) }'" %>
+      <%= "attachment='#{ generate_template(f,:attachments) }'" %>
     <% end %>
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
@@ -45,31 +45,26 @@
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
 		
 		
-		 <div id="new_attachment_form">
-        <div id="cabinet">
-        <% f.fields_for(:attachments) do |at_form| %>
-        <% unless at_form.object.new_record? %>
-        <%=image_tag(logo_image_path(at_form.object, :size => at_form.object.thumbnail_size)) %>
-        <%=at_form.object.filename %>
-        <%= at_form.check_box '_delete' %>
-        <%= at_form.label '_delete', t('delete.one') %>
-        <% end %>
-        <%end %>
+		 <div id="entry_attachment">
+        <div class="new_attachment_form">
+          <% f.fields_for(:attachments) do |at_form| %>
+            <% unless at_form.object.new_record? %>
+              <%=image_tag(logo_image_path(at_form.object, :size => at_form.object.thumbnail_size)) %>
+              <%=at_form.object.filename %>
+              <%= at_form.check_box '_delete' %>
+              <%= at_form.label '_delete', t('delete.one') %>
+            <% end %>
+          <%end %>
         </br>
+      </div>
     </div>
-    </div>
-    <div id="post-buttoms" class="actions">
-        <ul>
-            <li>
-                <p class="newAttach">
-                    <%=t('attachment.new') %>
-                </p>
-            </li>
-        </ul>
-    </div>
+    
+         <p class="newAttach"><%=t('attachment.new') %></p>
+    
 		
 			
     <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
+	 </div>
     <div class="margin-up">
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
       <%= f.text_area :embedded_video, :size => "34x7" %>

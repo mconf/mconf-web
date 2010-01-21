@@ -59,6 +59,10 @@
   $("input#news").click(function(){
     $(".news_cloud").slideToggle("slow");
   });
+	
+	$("input#attachments").click(function(){
+    $(".attachment_cloud").slideToggle("slow");
+  });
   
   
 <% end %>
@@ -209,117 +213,47 @@
 	<%else%>
 	    <% for private_message in @private_messages %>
 	      <%@sender=User.find_with_disabled(private_message.sender_id)%>
-		  <div class="next-events-section">
-		      <div class="user-logo"><%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login)%></div>  
-		      <div class="home-inbox-message">
-		        <span class="home-inbox-topic"> <%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id)%></span><br/>
-		        <%= sanitize(first_words(private_message.body,35))%>
-		      </div>
-		  </div>  
-	    <% end %>
-	<% end %>
-  </div>
+          <div class="next-events-section">
+              <div class="user-logo">
+                  <%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login) %>
+              </div>
+              <div class="home-inbox-message">
+                  <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+                  <br/>
+                  <%= sanitize(first_words(private_message.body,35)) %>
+              </div>
+          </div>
+          <% end %>
+          <% end %>
+          </div>
 <% end %>  
 
-
 <div id="recent-activity">
+	
+<%for interval in intervals(@all_contents) do -%>
+	
+	<%unless interval[:contents].empty? -%>
+    <div id="line">
+      <span class="bold"><%=interval[:name]%></span>
+    </div>
+  <%end -%>
+	
+  <% interval[:contents].each do |content| -%>
+    <% case content 
+       when Post -%>
+	    <%= render :partial => "post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content)} %>
+		<% when Event -%>
+	    <%= render :partial => "event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
+	  <% when News -%>
+	    <%= render :partial => "news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
+		<% when Attachment -%>
+		  <%content = content.reload -%>
+      <%= render :partial => "attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content)} if content.post.blank?%>
+	  <% else -%>
+	    <div><%=t('unknown_content', :content => content.class)%></div>
+	  <% end -%>
+	<% end -%>
+<% end -%>
 
-  <%unless @today.empty?%>
-    <div id="line">
-		<span class="bold">Today</span>
-    </div>
-  <%end%>
-  <%today_last_item = @today.last%>
-  <% for item in @today do %>
-
-	<%if item.class == Post %>
-	  <%@space=item.space%>
-	  
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==today_last_item } %>
-	<%elsif item.class == Event %>
-	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==today_last_item} %>
-	<%elsif item.class == News %>
-	  <%@space=item.space%>
-	  <%@news_to_show = item%>
-	  <%@news_position = 1 %>
-	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==today_last_item}%>
-	<%else%>
-	  I don't know what is a "<%item.class%>"
-	<%end%>
-  <% end %>
-  <%unless @yesterday.empty?%>
-    <div id="line">
-		<span class="bold">Yesterday</span>
-    </div>
-  <%end%>
-  <%yesterday_last_item = @yesterday.last%>
-  
-  <% for item in @yesterday do %>	
-	<%if item.class == Post %>
-	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==yesterday_last_item} %>
-	<%elsif item.class == Event %>
-	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==yesterday_last_item} %>
-	<%elsif item.class == News %>
-	  <%@space=item.space%>
-	  <%@news_to_show = item%>
-	  <%@news_position = 1 %>
-	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==yesterday_last_item}%>
-	<%else%>
-	  I don't know what is a "<%item.class%>"
-	<%end%>
-  <% end %>
-  <%unless @last_week.empty?%>
-    <div id="line">
-		<span class="bold">Last Week</span>
-    </div>
-  <%end%>
-  <%week_last_item = @last_week.last%>
-  <% for item in @last_week do %>	
-	<%if item.class == Post %>
-	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==week_last_item} %>
-	<%elsif item.class == Event %>
-	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==week_last_item} %>
-	<%elsif item.class == News %>
-	  <%@space=item.space%>
-	  <%@news_to_show = item%>
-	  <%@news_position = 1 %>
-	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==week_last_item}%>
-	<%else%>
-	  I don't know what is a "<%item.class%>"
-	<%end%>
-  <% end %>
-  <%unless @older.empty?%>
-    <div id="line">
-		<span class="bold">Older items</span>
-    </div>
-  <%end%>
-  <%older_last_item = @older.last%>
-  <% for item in @older do %>	
-	<%if item.class == Post %>
-	  <%@space=item.space%>
-	  <%= render :partial => "posts/post_in_home" , :locals => {:thread => item, :extended => false, :last => item==older_last_item} %>
-	<%elsif item.class == Event %>
-	  <%@space=item.space%>
-	  <%= render :partial => 'events/event_in_home', :locals => {:event=>item, :last => item==older_last_item} %>
-	<%elsif item.class == News %>
-	  <%@space=item.space%>
-	  <%@news_to_show = item%>
-	  <%@news_position = 1 %>
-	  <%@news=[]%>
-	  <%= render :partial => 'spaces/news_in_home', :locals =>{:last => item==older_last_item}%>
-	<%else%>
-	  I don't know what is a "<%item.class%>"
-	<%end%>
-  <% end %>
-  
-  <%@space=nil #to avoid the selector highlight any space%>
-  <%= will_paginate @all_in_all %><br/>
+  <%= will_paginate @all_contents %><br/>
 </div>

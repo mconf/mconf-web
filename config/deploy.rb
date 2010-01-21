@@ -1,6 +1,7 @@
 servers = {
   :production => 'isabel@vcc.dit.upm.es',
-  :test => 'isabel@vcc-test.dit.upm.es'
+  :test => 'isabel@vcc-test.dit.upm.es',
+  :gplaza => 'isabel@138.4.17.137'
 }
 
 default_env = :test
@@ -9,7 +10,7 @@ current_env = ( ARGV[1] || default_env ).to_sym
 
 
 set :application, "global2"
-set :repository,  "git://git-isabel.dit.upm.es/global2.git"
+set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
 

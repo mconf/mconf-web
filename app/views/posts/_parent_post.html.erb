@@ -53,7 +53,7 @@
 		
 			<ul class="small-font main_text">
 				<li><%=attachment.filename%></li>
-				<li><%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(@space,attachment, :format => attachment.format))%></li>
+				<li><%=attachment.get_size()%> <%= link_to("Download file  " , space_attachment_path(post.space,attachment, :format => attachment.format))%></li>
 			</ul>
 		 
      <%end%>

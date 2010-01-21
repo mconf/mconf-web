@@ -636,7 +636,12 @@ div.pagination a{color:#244974;}
 #sidebar div.checkbox_event{padding:0.25em 0;margin:2px 10px 2px 0;}
 
 /* sidebar posts*/
-.newAttach{cursor:pointer;}
+.newAttach{cursor:pointer; }
+
+/* new attachment */
+.newAttachment li {float:left; display:inline;}
+
+
 
 /*admin*/
 #sidebar #space-conf{width:218px;}

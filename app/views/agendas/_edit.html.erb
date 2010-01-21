@@ -93,6 +93,7 @@
     $(".agenda_edit_entry").empty();
     $(".agenda_new_entry").siblings("button").show();
     $(".agenda_new_entry").empty();
+		$(".newAttachment").empty();
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
     $.getScript(route);
   });
@@ -110,6 +111,7 @@
   });
 
   $("#edit_entry_button").livequery('click',function(){
+	  $(".newAttachment").empty();
     // Validate title
 		var title = ($('#agenda_entry_title').val());
 		if (title == "") {
@@ -192,6 +194,25 @@
     } 
   });
  */
+ 
+ 
+ 
+ $(".newAttach").livequery('click',function () { 
+  var new_id = new Date().getTime(); 
+  $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
+
+  // Applies tags to the attachment
+  $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+  }); 
+}); 
   
 <%end%>
 

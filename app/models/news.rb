@@ -21,6 +21,7 @@ class News < ActiveRecord::Base
   validates_presence_of :title, :text, :space_id
 
   acts_as_resource
+  acts_as_content :reflection => :space
 
   class << self
     def params_from_atom(entry)

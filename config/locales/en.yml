@@ -84,6 +84,8 @@ en:
       none: "No attachments found"
       one: "1 attachment was found"
       other: "{{size}} attachments were found"
+    home:
+      one: "File in space {{space}}"
     info: "Document info"
     loading: "Loading document information..."
     new: "New attachment"
@@ -470,6 +472,7 @@ en:
   ######### L ###########
   latest_events: "Latest events"
   latest_news: "Latest news"
+  last_week: "Last week"
   list_by: "List by"
   locale:
     changed: "Application language changed to " 
@@ -541,6 +544,7 @@ en:
   
   ######### O ###########  
   ok: "OK"
+  older: "Older"
   online: "online"
   openid:
     enter: "Enter your OpenID"
@@ -843,6 +847,7 @@ en:
   type: "Type"
   
   ######### U ###########
+  unknown_content: "Unknown content {{content}}"
   upcoming: "Upcoming"
   update: "Update"
   updated: "Updated"
@@ -943,6 +948,7 @@ en:
   ######### X ###########
   
   ######### Y ###########
+  yesterday: "Yesterday"
   your_interests_tags: "Your interests (tags)"
   your_vcard: "your vCard"
   
