@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
   def show
     @user_spaces = @user.spaces
     #The latest posts that the user has written in shared spaces with the current user 
-    #@latest_posts= @user.posts.in_container(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
+    #@latest_posts= @user.posts.in(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
     @latest_posts=[]
 =begin
     if params[:hcard]

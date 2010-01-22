@@ -36,12 +36,12 @@ class ApplicationController < ActionController::Base
   
   # This method calls one from the plugin, to get the Space from params or session
   def space
-    current_container
+    path_container
   end
 
   # This method is the same as space, but raises error if no Space is found
   def space!
-    current_container!
+    path_container!
   end
 
   helper_method :space, :space!
