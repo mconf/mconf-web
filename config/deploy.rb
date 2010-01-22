@@ -31,7 +31,12 @@ namespace(:deploy) do
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
+    sudo "/bin/chgrp -R www-data #{ release_path }/log/production.log"
+    run "/bin/chmod g+w #{ release_path }/log/production.log"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
+    sudo "/bin/mkdir -p /opt/local"
+    sudo "/bin/chgrp -R www-data /opt/local"
+    sudo "/bin/chmod g+w /opt/local"
   end
 
   task :link_files do

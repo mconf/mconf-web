@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 LINUX_PACKAGES = {
-  :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl ),
+  :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl aspell-es aspell-en),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
   :sqlite => %w( libsqlite3-dev )
 }
