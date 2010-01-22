@@ -35,7 +35,7 @@ class Group < ActiveRecord::Base
         errors.add("The mailing list vcc-sir@dit.upm.es is reserved")
       end
       
-      if self.mailing_list && self.mailing_list.match("[^a-z0-9\s]")
+      if self.mailing_list && self.mailing_list.match(/^[a-zA-Z1-9][\s\w\-\.]*$/).to_s != self.mailing_list
         errors.add("The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
       end
       
