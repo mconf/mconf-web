@@ -1,0 +1,13 @@
+<%content_for :javascript do%>
+  $("#event_filter").show();
+<%end%>
+
+<div id="event_filter" style="display:none">
+	<label class="bold blue"><%=t('event.colon')%></label>
+	<select id="event_select">
+		<option value="" id="blank_option"><%=t('any')%></option> 
+	 	<%@attachments.map(&:event).compact.uniq.each do |event|%>
+		  <option value="<%=event.id%>"><%=event.name%></option>  
+		<%end%>
+  </select>
+</div>

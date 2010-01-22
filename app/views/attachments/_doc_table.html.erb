@@ -1,3 +1,7 @@
+<% content_for :javascript do%>
+  <%= render :partial => 'repository_filter.js' %>
+<% end %>
+
 <div id="doc_table" class="main_text">
 	<% interactive = interactive.nil? ? true : interactive%>
 
@@ -17,6 +21,8 @@
 #      t.header :actions, t('actions')
 
       t.rows.each do |row, attachment, index|
+
+        row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
 
         #expanded
         if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
