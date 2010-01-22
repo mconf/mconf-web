@@ -25,16 +25,16 @@ class HomesController < ApplicationController
 
   
   def show
-    @today_events = Event.in_container(current_user.spaces).all(:conditions => ["start_date > :now_date AND start_date < :tomorrow", 
+    @today_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :now_date AND start_date < :tomorrow", 
       {:now_date=> Time.now, :tomorrow => Date.tomorrow}], :order => "start_date DESC")
-    @tomorrow_events = Event.in_container(current_user.spaces).all(:conditions => ["start_date > :tomorrow AND start_date < :day_after_tomorrow", 
+    @tomorrow_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :tomorrow AND start_date < :day_after_tomorrow", 
       {:day_after_tomorrow=> Date.tomorrow + 1.day, :tomorrow => Date.tomorrow}], :order => "start_date DESC")
     @week_events = Event.all(:conditions => ["start_date > :day_after_tomorrow AND start_date < :one_week_more", 
       {:day_after_tomorrow=> Date.tomorrow + 1.day, :one_week_more => Date.tomorrow+7.days}], :order => "start_date DESC", :limit => 2)
-    @upcoming_events = Event.in_container(current_user.spaces).all(:conditions => ["start_date > :one_week_more AND start_date < :one_month_more", 
+    @upcoming_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :one_week_more AND start_date < :one_month_more", 
       {:one_week_more => Date.tomorrow+7.days, :one_month_more => Date.tomorrow+37.days}], :order => "start_date DESC", :limit => 2)
     if @upcoming_events.size<2
-      @upcoming_events = Event.in_container(current_user.spaces).all(:conditions => ["start_date > :one_month_more AND start_date < :two_months_more", 
+      @upcoming_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :one_month_more AND start_date < :two_months_more", 
         {:one_month_more => Date.tomorrow+37.days, :two_months_more => Date.tomorrow+67.days}], :order => "start_date DESC", :limit => 2)
     end
     

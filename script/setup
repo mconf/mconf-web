@@ -2,6 +2,8 @@
 
 LINUX_PACKAGES = {
   :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl ),
+  :production => %w( awstats ),
+  :development => %w( ),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
   :sqlite => %w( libsqlite3-dev )
 }
@@ -26,7 +28,6 @@ GEMS = {
                    "hoe",
                    "httparty",
 		               "pdf-writer",
-                   "vestal_versions",
                    "ci_reporter"],
   :production  => [ ],
   :development => [ "capistrano",
@@ -113,6 +114,7 @@ end
 
 def setup_environment(env)
   install_linux_packages(:common)
+  install_linux_packages(env)
   install_gem_subsystem
   install_gems(:common)
   install_gems(env)

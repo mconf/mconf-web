@@ -73,7 +73,7 @@ class PostsController < ApplicationController
   end
   
   def new
-    @post = Post.roots.in_container(@space).find(params[:reply]) if params[:reply]
+    @post = Post.roots.in(@space).find(params[:reply]) if params[:reply]
     
     respond_to do |format|
       format.html {      
@@ -152,7 +152,7 @@ class PostsController < ApplicationController
   # DRY (used in index and create.js)
   def posts
     per_page = params[:extended] ? 6 : 15
-    @posts ||= Post.roots.in_container(@space).not_events().find(:all, 
+    @posts ||= Post.roots.in(@space).not_events().find(:all, 
                                                      :order => "updated_at DESC"
     ).paginate(:page => params[:page],
                                                               :per_page => per_page)       
