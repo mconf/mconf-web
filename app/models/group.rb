@@ -32,19 +32,21 @@ class Group < ActiveRecord::Base
       end
       
       if self.mailing_list == "sir"
-        errors.add("", "The mailing list vcc-sir@dit.upm.es is reserved")
+        errors.add("The mailing list vcc-sir@dit.upm.es is reserved")
       end
       
       if self.mailing_list && self.mailing_list.match("[^a-z0-9\s]")
-        errors.add("", "The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
+        errors.add("The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
       end
       
     end
+    
     before_save { |group|
       if group.mailing_list.present?
         group.mailing_list = group.mailing_list.gsub(/ /, "-")
       end
     }
+    
     after_create { |group|
         #create the new mailing_list if it has the option activated
         if group.mailing_list.present?
