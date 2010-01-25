@@ -15,9 +15,9 @@
   <%= render :partial => 'manage/menu' %>
 <div id="manage">
   
-  <%= error_messages_for :site %>
+  <%= error_messages_for :current_site %>
 
-<% form_for(:site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
+<% form_for(:current_site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
   <p>
     <%= f.label :name, t('site.name') %>
     <%= f.text_field :name %>

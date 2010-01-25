@@ -8,42 +8,42 @@
 <div id="manage">
   <p>
     <label><%= t('site.name') %>:</label>
-    <span><%= sanitize site.name %></span>
+    <span><%= sanitize current_site.name %></span>
   </p>
 
   <p>
     <label><%= t('site.description') %>:</label> 
-    <span><%= sanitize site.description %></span>
+    <span><%= sanitize current_site.description %></span>
   </p>
 
   <p>
     <label><%= t('site.domain') %>:</label> 
-    <%= sanitize site.domain %>
+    <%= sanitize current_site.domain %>
   </p>
 
   <p>
     <label><%= t('site.ssl') %>:</label> 
-    <%= site.ssl? %>
+    <%= current_site.ssl? %>
   </p>
 
   <p>
     <label><%= t('site.email') %>:</label> 
-    <%= sanitize site.email %>
+    <%= sanitize current_site.email %>
   </p>
 
   <p>
     <label><%= t('site.exception_notifications') %>:</label>
-    <%= site.exception_notifications? %>
+    <%= current_site.exception_notifications? %>
   </p>
 
   <p>
     <label><%= t('site.exception_notifications_email') %>:</label>
-    <%= sanitize site.exception_notifications_email %>
+    <%= sanitize current_site.exception_notifications_email %>
   </p>
   
   <p>
     <label><%= t('site.signature') %>:</label>
-    <%= site.signature_in_html %>
+    <%= current_site.signature_in_html %>
   </p>
 
   <div id="site_button" class="button_wrapper">
