@@ -1,0 +1,73 @@
+
+  // Global variables
+	
+	  //in mixed filter
+	filtered_title = null;
+	filtered_author = null;
+	filtered_type = null;
+	filtered_any = null;
+	
+	  //in event filter
+	filtered_event = null;
+	
+	// Show attachments according to global filtered_* variables
+  filter_attachments = function(){
+	  $("tr.ui-collection-result").each(function() {
+		  if(
+			  (filtered_title==null  || $(this).children("td.attachment-name").children("a").text().toLowerCase().search(filtered_title.toLowerCase())>=0) &&
+			  (filtered_author==null || $(this).children("td.attachment-author").children("a").text().toLowerCase().search(filtered_author.toLowerCase())>=0) &&
+				(filtered_type==null   || $(this).children("td.attachment-name").attr("rel")==filtered_type) &&
+				(filtered_any==null    || $(this).children("td.attachment-name").children("a").text().toLowerCase().search(filtered_any.toLowerCase())>=0
+                               || $(this).children("td.attachment-author").children("a").text().toLowerCase().search(filtered_any.toLowerCase())>=0)&&
+				(filtered_event==null  || $(this).attr("rel")==filtered_event)
+			  ){
+        $(this).css("display","");
+      }else{
+        $(this).hide();
+      }
+		});
+	}
+	
+	
+	//Mixed filter event listeners
+	
+	$("#title_filter").livequery('keyup', function() {
+    filtered_title=this.value;
+    filter_attachments();
+  });
+  
+  $("#author_filter").livequery('keyup', function() {
+    filtered_author=this.value;
+    filter_attachments();
+  });
+  
+  $("#any_field_filter").livequery('keyup', function() {
+    filtered_any=this.value;
+    filter_attachments();
+  });
+  
+  $("#type_filter").livequery('change', function() {
+    filtered_type = $(this).val()=="" ? null : $(this).val();
+    filter_attachments();
+  });
+  
+  $("#mix_filter").livequery('change', function() {
+    filtered_title = null;
+    filtered_author = null;
+    filtered_type = null;
+    filtered_any = null;
+    
+    $(".mixed_alternative").hide();
+    $("#" + $(this).val()).val("").show();
+    
+    filter_attachments();
+    
+  });
+
+	
+	//Event filter event listener
+	
+	$("#event_select").livequery('change', function() {
+    filtered_event = $(this).val()=="" ? null : "event_" + $(this).val();
+    filter_attachments();
+  });

@@ -73,6 +73,7 @@ en:
   agree: "Yes"
   all: "All"
   all_rights_reserved: "All rights reserved"
+  any: Any
   any_field: "Any field"
   at: "at"
   attachment:
@@ -250,6 +251,7 @@ en:
     attend: "Attending"
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
+    colon: "Event:"
     create: "Create new event"
     created: "Event created successfully"
     description:

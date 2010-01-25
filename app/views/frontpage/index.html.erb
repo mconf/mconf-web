@@ -52,7 +52,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for space in @popular_spaces%>
 				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
-			  	<%=link_logo (space, :size=> 'front', :title => space.name)%>
+			  	<%=link_logo(space, :size=> 'front', :title => space.name)%>
 			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>					  		
@@ -64,7 +64,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->			
 			<%for space in @recent_spaces%>
 				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
-			  	<%=link_logo (space, :size=> 'front',:title => space.name )%>
+			  	<%=link_logo(space, :size=> 'front',:title => space.name )%>
 			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>		  		

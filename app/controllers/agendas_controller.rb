@@ -58,7 +58,7 @@ class AgendasController < ApplicationController
    c3_width = 170
    c4_width = 360
    
-   pdf.select_font ("Helvetica" , { :encondig => "WinAnsiEnconding" } )
+   pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
    pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
 
    i1 = "#{RAILS_ROOT}/public/images/cabeceraVCC_pdf.jpg"
