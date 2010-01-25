@@ -25,8 +25,9 @@ class Event < ActiveRecord::Base
   has_one :agenda
   
   has_logo :class_name => "EventLogo"
+  has_permalink :name, :update=>true
   
-  acts_as_resource :per_page => 10
+  acts_as_resource :per_page => 10, :param => :permalink
   acts_as_content :reflection => :space
   acts_as_taggable
   acts_as_stage
@@ -64,6 +65,9 @@ class Event < ActiveRecord::Base
   after_create do |event|
     #create an empty agenda
     event.agenda = Agenda.create
+    #create a directory to save attachments
+    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
+
   end
   
   after_save do |event|
@@ -201,6 +205,8 @@ class Event < ActiveRecord::Base
   end
   
   after_destroy do |event|
+    
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
     if event.marte_event? && event.marte_room?
       begin
         MarteRoom.find(event.id).destroy

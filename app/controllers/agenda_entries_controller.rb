@@ -122,7 +122,7 @@ class AgendaEntriesController < ApplicationController
   private
   
   def event
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_permalink(params[:event_id])
   end
   
   def space!

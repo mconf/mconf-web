@@ -270,10 +270,6 @@ class EventsController < ApplicationController
     end
   end
   
-  def event
-    @event = Event.find(params[:id])
-  end
-  
   def events
       @events = (Event.in(@space).all :order => "start_date ASC")
     
