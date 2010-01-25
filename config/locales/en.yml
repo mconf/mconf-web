@@ -4,6 +4,7 @@
 en:
   ########## A #########
   
+  abc: "ABC"
   about: "About"
   about_global: "About GLOBAL"
   about_me: "About me"
@@ -587,6 +588,7 @@ en:
   photos: "Pictures"
   photos_view>>: "pictures view >>"
   place: "Place"
+  popularity: "Popularity"
   post:
     created: "Post created"
     deleted: "Post {{postname}} has been deleted"
@@ -812,6 +814,7 @@ en:
       other: "Selected tags:"
     start: "Start typing.."
   tags: Tags
+  tags_by: "Tags by:"
   text: "Text"
   thank_you: "Thank you"
   the_string: "the string"

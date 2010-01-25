@@ -86,4 +86,24 @@ module AttachmentsHelper
     end
     html << "</ul>"
   end
+  
+  def tag_count(elements, less=[], p={})
+    order = p[:order] || "popularity"
+    
+    tags_with_duplicates = elements.map(&:tags).flatten.compact - less
+    
+    #Count elements
+    count = Hash.new(0)
+    tags_with_duplicates.each do |tag|
+      count[tag] += 1
+    end
+
+    case order
+    when "abc"
+      count.keys.sort{|x,y| x.name <=> y.name }.map{|t| {:tag=> t, :count => count[t]}}
+    else
+      count.keys.sort{|x,y| count[y] <=> count[x]}.map{|t| {:tag=> t, :count => count[t]}}
+    end
+    
+  end
 end
