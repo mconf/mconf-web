@@ -5,7 +5,7 @@
         <%if agenda_entry.embedded_video.present? then%>
 	  	    <%=image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'), :title=>t('agenda.entry.has_video'), :class=>"entry_video_link") %>
         <%end%>
-		    <%if agenda_entry.attachments then%> 
+		<%unless agenda_entry.attachments.empty?%> 
           <%=image_tag ("icons/attach.png", :title=>t('agenda.entry.has_attachment'))%>
         <%end%>
 

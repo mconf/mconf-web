@@ -82,7 +82,7 @@ class EventsController < ApplicationController
     @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
     if params[:edit_event]
-      @event_to_edit = Event.find(params[:edit_event])
+      @event_to_edit = Event.find_by_permalink(params[:edit_event])
       @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
       @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
       #array of users of the space minus the users that has already been invited
@@ -340,7 +340,7 @@ class EventsController < ApplicationController
       @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)
       
       if params[:edit]
-        @event_to_edit = Event.find(params[:edit])
+        @event_to_edit = Event.find_by_permalink(params[:edit])
          @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
         @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
         #array of users of the space minus the users that has already been invited
