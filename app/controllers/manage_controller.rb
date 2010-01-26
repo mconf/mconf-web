@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class ManageController < ApplicationController
-  authorization_filter :manage, :site  
+  authorization_filter :manage, :current_site  
   
   def users
     @users=User.find_with_disabled(:all,:order => "login")

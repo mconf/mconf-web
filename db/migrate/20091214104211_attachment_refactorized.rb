@@ -21,5 +21,13 @@ class AttachmentRefactorized < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :attachments, :version_child_id
+    remove_column :attachments, :version_family_id
+    
+    add_column :post_attachments, :attachment_version, :integer
+    
+    create_table :versions do |t|
+      
+    end
   end
 end
