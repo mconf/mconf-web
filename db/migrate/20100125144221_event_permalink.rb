@@ -2,6 +2,7 @@ class EventPermalink < ActiveRecord::Migration
   def self.up
     add_column :events, :permalink, :string
     Event.record_timestamps =false
+    Event.reset_column_information
     Event.all.each do |event|
       event.permalink = event.__send__(:create_permalink_for, [:name])
       event.save!
