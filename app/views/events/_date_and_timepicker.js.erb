@@ -1,8 +1,8 @@
 var theselect = "<%=escape_javascript(select_tag "ndays", options_for_select({ "1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5" },@event_to_edit.present? ? @event_to_edit.days.to_s : "1"))%>";
 
 $(".no_javascript").after(
-  "<div class='javascript'><label><%=t('date.start')%></label> "  
-	+ "<label><%=t('days')%></label><br/>"
+  "<div class='javascript'><label><%=escape_javascript(t('date.start'))%></label> "  
+	+ "<label><%=escape_javascript(t('days'))%></label><br/>"
 	+ "<input type='date' id='start_datepicker' name='event[start_date]' class= 'datepicker small-font' value='<%=escape_javascript( @event_to_edit.present? ? @event_to_edit.start_date.strftime("%d %b %Y") : DateTime.now.strftime("%d %b %Y")) %>'>"
 	+ theselect + "<br/>"
 );
