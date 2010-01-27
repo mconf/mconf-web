@@ -664,8 +664,8 @@ en:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
     up: "REPOSITORY"    
-  request: "request it"
   request:
+    default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
   role:
