@@ -99,7 +99,7 @@
 	   $("#video_preview" + agenda_entry_id).show();	   
 	 };
 	 
-	 $(".play_icon").click(function(){
+	 $(".play_icon").livequery('click',function(){
 	   $(this).siblings("a").click();
 
 	 });
