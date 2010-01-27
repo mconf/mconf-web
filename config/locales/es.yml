@@ -657,6 +657,9 @@ es:
     error: 
       enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
     created: El espacio se ha creado correctamente.
+    select: "Elige uno"
+    my_spaces: "Mis espacios"
+    all: "Todos los espacios"
 ####### T #########
   text: "Texto"
   thread: 
