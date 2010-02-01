@@ -992,15 +992,21 @@ th.attachment-updated{
 	width:15%;
 }
 
-
 #doc_table table{
 	width:660px;
 }
 
 #doc_table table th{
-	border-bottom:solid 1px #244974;
 	color:#244974;
 	font-weight:bold;
+	background:#BDD8EB none repeat scroll 0 0;
+	border-bottom:1px solid #A8C0D1;
+	margin:0;
+	padding:3px 9px;
+}
+
+#doc_repository tr.attachment{
+	border-bottom:1px solid #ccc;
 }
 
 #doc_table td{
@@ -1160,6 +1166,11 @@ tr.version_expanded td{
 
 
 #event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
+#doc_repository thead{
+	background:#BDD8EB;
+	margin:0;
+	}
+	
 #streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
 #event_description_line,#agenda_title,#repository_title,#recordings_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
