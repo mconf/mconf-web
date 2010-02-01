@@ -1005,7 +1005,9 @@ th.attachment-updated{
 #doc_table tbody tr td{
 	border-bottom: 1px solid #cccccc;
 }
-
+#doc_table tbody tr:hover{
+	background-color:#ffcf72;
+}
 #doc_table .ui-collection-empty td{padding-top:0;}
  
 /*Agenda for events*/
