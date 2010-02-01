@@ -6,13 +6,17 @@
   
   expand_new_doc_form = function(){
 	  $("#add_new_doc").show();
-    $("#add_document_label").hide();
+    $("#tag_collapsed_list").show();
+	$("#tag_used_list").hide();
+	$("#tag_abc_list").hide();
 		$.setFragment({ "action" : "expanded"});
 		return false;
   };
   
   collapse_new_doc_form = function(){
-    $("#add_document_label").show();
+    $("#tag_used_list").show();
+	$("#tag_abc_list").hide();
+	$("#tag_collapsed_list").hide();
     $("#add_new_doc").hide();
 		$.setFragment({ "action" : ""});
 		return false;

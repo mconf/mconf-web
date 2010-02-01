@@ -12,14 +12,6 @@
 <%end%>
 
 <%content_for :sidebar do%>
-	<%if attachment.new_record? && attachment.errors.any?%>
-	  <%= render :partial => 'upload_form' %>
-	<%elsif attachment.errors.any?%>
-	  <%= render :partial => 'new_version_form' %>
-	<%else%>
-		<%= render :partial => 'upload_form' %>
-	<%end%>
-	
 	<div class="tag_filter_wrapper">
 		<h3 class="blue">Document Search:</h3>
 		<div class="tag_filter_content">
@@ -28,10 +20,18 @@
 		<div class="tag_filter_content">
       <%= render :partial => 'event_filter' %>
     </div>
-		<div class="tag_filter_content">
-			<%= render :partial => 'tag_filter' %>
-		</div>
+		
+		<%= render :partial => 'tag_filter' %>
+
 	</div>
+	
+	<%if attachment.new_record? && attachment.errors.any?%>
+	  <%= render :partial => 'upload_form' %>
+	<%elsif attachment.errors.any?%>
+	  <%= render :partial => 'new_version_form' %>
+	<%else%>
+		<%= render :partial => 'upload_form' %>
+	<%end%>
     <div class="margin-up"><%= render :partial => 'doc_info' %></div>
 <%end%>
 
@@ -39,5 +39,13 @@
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
+	<div class="grey_bar button_wrapper">
+	  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),'', {:id=>"add_document_label_link",:class=>"grey_button basic_button"} %>
+	  <span class="separator">|</span>
+	  <%=link_to ("<span>" + t('repository.download') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+	  <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+	  <%=link_to ("<span>" + t('repository.add_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+  	  <%=link_to ("<span>" + t('repository.rem_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+	</div>
 	<%= render :partial => 'doc_table' %>
 </div>

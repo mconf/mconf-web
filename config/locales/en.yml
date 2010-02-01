@@ -10,6 +10,7 @@ en:
   about_me: "About me"
   about_sxsw: "About SXSW"
   account: "Account"
+  actions: "Actions"
   activerecord:
     attributes:
       user:
@@ -494,7 +495,7 @@ en:
   manage: "Manage"
   management:
     up: "MANAGEMENT"
-  mailing_list: "Mailing list"
+  mailing_list: "Associate mailing list to your group"
   mark_checkbox: "Mark the suitable checkbox"
   message:
     created: "Message sent successfully"
@@ -663,7 +664,13 @@ en:
   repository:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
-    up: "REPOSITORY"    
+    up: "REPOSITORY"
+    add_document: Add new document
+    download: Download
+    remove: Remove
+    add_tags: Add Tags
+    rem_tags: Remove Tags
+  request: "request it"
   request:
     default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
@@ -810,7 +817,7 @@ en:
     filter: "Filter by tag:"
     new: "New tag"
     selected:
-      one: "Selected tag:"
+      one: "Select a tag:"
       other: "Selected tags:"
     start: "Start typing.."
   tags: Tags
@@ -884,7 +891,7 @@ en:
     feed:
       title: "Users"
       author: "SIR"
-    filter: "User Filter"
+    filter: "User filter"
     found:
       none: "No users found"
       one: "1 user found"
