@@ -105,7 +105,7 @@ class SpacesController < ApplicationController
           message = ""
           @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
-          render :action => :new
+          render :action => :new, :layout => "frontpage"
           return
         end
       end
@@ -113,7 +113,7 @@ class SpacesController < ApplicationController
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
           flash[:error] = t('error.credentials')
-          render :action => :new
+          render :action => :new, :layout => "frontpage"
           return
       end
     end
@@ -124,7 +124,7 @@ class SpacesController < ApplicationController
       message = ""
       @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
       flash[:error] = message
-      render :action => :new
+      render :action => :new, :layout => "frontpage"
       return
     end
     @group.space = @space
@@ -144,7 +144,7 @@ class SpacesController < ApplicationController
           message = ""
           @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
-          render :action => :new }
+          render :action => :new, :layout => "frontpage" }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end

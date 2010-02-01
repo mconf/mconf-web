@@ -1,8 +1,8 @@
 $(".without_javascript").after(
   "<div class='javascript margin-up'>"
-	+ "<div id='entry_start_time'><p class='main_text'><%= t('agenda.entry.start_time') %></p>"
+	+ "<div id='entry_start_time'><p class='main_text'><%= escape_javascript(t('agenda.entry.start_time')) %></p>"
 	+ "<input type='time' id='start_timepicker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'></div>"   
-	+ "<div id='entry_end_time'><p class='main_text'><%= t('agenda.entry.end_time') %></p>"
+	+ "<div id='entry_end_time'><p class='main_text'><%= escape_javascript(t('agenda.entry.end_time')) %></p>"
 	+ "<input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'></div></div>"
 );
 

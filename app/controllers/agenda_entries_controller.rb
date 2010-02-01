@@ -25,6 +25,19 @@ class AgendaEntriesController < ApplicationController
   #authorization_filter :update, :agenda_entry, :only => [ :edit, :update ]
   #authorization_filter :delete, :agenda_entry, :only => [ :destroy ]
   
+
+  #GET /agenda_entries
+  #GET /agenda_entries.xml
+  #returns the agenda_entries for the days 2 to end by ajax
+  def index
+    if @event.days > 1
+      @days = (1..@event.days-1).to_a
+    end
+    respond_to do |format|
+      format.js
+    end 
+  end
+
   # GET /agenda_entries/1
   # GET /agenda_entries/1.xml
   def show
@@ -122,7 +135,7 @@ class AgendaEntriesController < ApplicationController
   private
   
   def event
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_permalink(params[:event_id])
   end
   
   def space!

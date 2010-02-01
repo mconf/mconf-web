@@ -4,6 +4,7 @@
 en:
   ########## A #########
   
+  abc: "ABC"
   about: "About"
   about_global: "About GLOBAL"
   about_me: "About me"
@@ -73,6 +74,7 @@ en:
   agree: "Yes"
   all: "All"
   all_rights_reserved: "All rights reserved"
+  any: Any
   any_field: "Any field"
   at: "at"
   attachment:
@@ -250,6 +252,7 @@ en:
     attend: "Attending"
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
+    colon: "Event:"
     create: "Create new event"
     created: "Event created successfully"
     description:
@@ -585,6 +588,7 @@ en:
   photos: "Pictures"
   photos_view>>: "pictures view >>"
   place: "Place"
+  popularity: "Popularity"
   post:
     created: "Post created"
     deleted: "Post {{postname}} has been deleted"
@@ -667,6 +671,7 @@ en:
     rem_tags: Remove Tags
   request: "request it"
   request:
+    default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
   role:
@@ -815,6 +820,7 @@ en:
       other: "Selected tags:"
     start: "Start typing.."
   tags: Tags
+  tags_by: "Tags by:"
   text: "Text"
   thank_you: "Thank you"
   the_string: "the string"

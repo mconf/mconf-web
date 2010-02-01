@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091214104211) do
+ActiveRecord::Schema.define(:version => 20100125144221) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20091214104211) do
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
+    t.string   "permalink"
   end
 
   create_table "groups", :force => true do |t|
@@ -327,13 +328,14 @@ ActiveRecord::Schema.define(:version => 20091214104211) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",      :default => false
+    t.boolean  "public",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",    :default => false
-    t.boolean  "repository",  :default => false
+    t.boolean  "disabled",     :default => false
+    t.boolean  "with_gallery", :default => true
+    t.boolean  "repository",   :default => false
   end
 
   create_table "taggings", :force => true do |t|

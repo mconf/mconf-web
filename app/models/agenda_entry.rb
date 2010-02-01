@@ -32,14 +32,26 @@ class AgendaEntry < ActiveRecord::Base
      agenda_entry.attachments.each do |a|
       a.space  ||= agenda_entry.agenda.event.space
       a.event  ||= agenda_entry.agenda.event
-      a.author ||= agenda_entry.author
-     end     
+      a.author ||= agenda_entry.author    
+    end     
   end
   
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
     end    
+    
+  end
+  
+  after_save do |entry|
+    entry.attachments.each do |a|
+      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}")
+      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+    end
+  end
+  
+  after_destroy do |entry|    
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.name}/#{entry.title.gsub(" ","_")}")
   end
   
   def validate

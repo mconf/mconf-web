@@ -37,7 +37,7 @@
   //fist we detect if the option is checked and update the location field
   if($("#event_marte_event").is(":checked"))
   {
-    $("#event_location").val("<%= t('event.online') %>");
+    $("#event_location").val("<%= escape_javascript(t('event.online')) %>");
     $("#event_location").attr('disabled', true);
   }
     
@@ -45,7 +45,7 @@
   $("#event_marte_event").click(function(){
     if($("#event_marte_event").is(":checked"))
     {
-      $("#event_location").val("<%= t('event.online') %>");
+      $("#event_location").val("<%= escape_javascript(t('event.online')) %>");
       $("#event_location").attr('disabled', true);
     }
     else

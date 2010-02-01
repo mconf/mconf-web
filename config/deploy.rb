@@ -13,7 +13,7 @@ set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
-
+set :use_sudo, false
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -31,7 +31,12 @@ namespace(:deploy) do
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
+    sudo "/bin/chgrp -R www-data #{ release_path }/log/production.log"
+    run "/bin/chmod g+w #{ release_path }/log/production.log"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
+    sudo "/bin/mkdir -p /opt/local"
+    sudo "/bin/chgrp -R www-data /opt/local"
+    sudo "/bin/chmod g+w /opt/local"
   end
 
   task :link_files do

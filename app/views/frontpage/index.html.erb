@@ -7,6 +7,7 @@
 <%end%>
 
  <% content_for :sidebar do %>
+	<%if !logged_in?%>
 		  <div class="join">
 			<h2><%= t('getting_started') %></h2>
 			<!--<p><%= t('share_participate_discuss') %></p>-->
@@ -14,6 +15,7 @@
 			  <%=link_to "<span>"+t("register.one")+"</span>",signup_path(), :class => "register_link big_button orange_button"%>
 			</div> 	
 		  </div>
+    <%end%>
 
 		  <div class="rel-users">
 			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> <%= t('user.active.other') %></h5>
@@ -50,7 +52,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
 			<%for space in @popular_spaces%>
 				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
-			  	<%=link_logo (space, :size=> 'front', :title => space.name)%>
+			  	<%=link_logo(space, :size=> 'front', :title => space.name)%>
 			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>					  		
@@ -62,7 +64,7 @@
 			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->			
 			<%for space in @recent_spaces%>
 				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
-			  	<%=link_logo (space, :size=> 'front',:title => space.name )%>
+			  	<%=link_logo(space, :size=> 'front',:title => space.name )%>
 			  	<p><%=link_to(sanitize(space.name),space)%></p>
 				</div> 
 			<%end%>		  		

@@ -13,7 +13,7 @@
 <fieldset>
   <legend><%=t('translate.availables')%></legend>
 	<p><%=t('translate.translated')%><%=I18n.available_locales.map{|l| l.to_s + " (" + image_tag("flags/" + l.to_s + ".png", :alt => l.to_s) + ")"}.join(", ")%>.</p>
-	<p><%=t('translate.request')%><%=link_to(t('request'), new_feedback_path())%>.</p>
+	<p><%=t('translate.request')%> (<%=link_to(t('request.default'), new_feedback_path())%>).</p>
 </fieldset>
 
 <h1><%=t('translate.one')%></h1>
