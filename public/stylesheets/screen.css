@@ -1197,7 +1197,7 @@ h3#event_description_title div img,#agenda_title div img,#streaming_title div im
 #event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 #agenda_content{padding:3px 8px;}
 #new_entry_content{background:#f7f7f7;padding:9px 40px;}
-input#agenda_entry_title,#agenda_entry_description{width:99%;}
+input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{width:99%;}
 .agenda_entry_description{position:relative;clear:both;overflow:hidden;}
 #entry_start_time,#entry_end_time{display:inline-block;}
 #entry_start_time .timeEntry_wrap,#entry_end_time .timeEntry_wrap{width:25%;}
