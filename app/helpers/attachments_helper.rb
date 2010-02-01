@@ -8,9 +8,9 @@ module AttachmentsHelper
     #html
     
     html=""
-    html << link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
-    html << link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
-    html << link_to(image_tag("icons/new_version_doc.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
+    html << link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
+    html << link_to(image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
+    html << link_to(image_tag("icons/new_version_doc20.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
     html
    
   end
