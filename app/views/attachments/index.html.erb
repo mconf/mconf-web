@@ -20,9 +20,9 @@
 		<div class="tag_filter_content">
       <%= render :partial => 'event_filter' %>
     </div>
-		<div class="tag_filter_content">
-			<%= render :partial => 'tag_filter' %>
-		</div>
+		
+		<%= render :partial => 'tag_filter' %>
+
 	</div>
 	
 	<%if attachment.new_record? && attachment.errors.any?%>

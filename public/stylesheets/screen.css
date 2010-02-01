@@ -977,9 +977,10 @@ span.inline{
 	display:inline;
 	float:left;
 }
-add_document_label{
-	
-}
+#tag_used_list ul,#tag_abc_list ul{margin-bottom:0;margin-top:3px;}
+
+
+
 /*Table*/
 th.attachment-name{
 	width:30%;

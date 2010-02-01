@@ -816,7 +816,7 @@ en:
     filter: "Filter by tag:"
     new: "New tag"
     selected:
-      one: "Selected tag:"
+      one: "Select a tag:"
       other: "Selected tags:"
     start: "Start typing.."
   tags: Tags
