@@ -145,12 +145,12 @@ class Event < ActiveRecord::Base
       first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
       #check that the entry is the first day
       if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
-        return first_entry.start_time.strftime("%A, %d %b %Y at %H:%M") + " (GMT " + Time.zone.formatted_offset + ")"
+        return I18n::localize(first_entry.start_time, :format => "%A, %d %b %Y") + " " + I18n::translate('date.at') + " " + first_entry.start_time.strftime("%H:%M") + " (GMT " + Time.zone.formatted_offset + ")"
       else
-        return start_date.to_date.strftime("%A, %d %b %Y")
+        return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
       end
     end
-    return start_date.to_date.strftime("%A, %d %b %Y")
+    return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
   end
   
   
