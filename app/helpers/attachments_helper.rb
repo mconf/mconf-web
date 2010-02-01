@@ -1,11 +1,18 @@
 module AttachmentsHelper
   def table_actions(attachment)
-    html = ""
-    html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
-    html << link_to("NV")
-    html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
-    html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
+    #html = ""
+    #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
+    #html << link_to("NV")
+    #html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
+    #html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
+    #html
+    
+    html=""
+    html << link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
+    html << link_to(image_tag("icons/delete_doc.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
+    html << link_to(image_tag("icons/new_version_doc.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
     html
+   
   end
   
   def sortable_header(title,column)

@@ -10,6 +10,7 @@ en:
   about_me: "About me"
   about_sxsw: "About SXSW"
   account: "Account"
+  actions: "Actions"
   activerecord:
     attributes:
       user:

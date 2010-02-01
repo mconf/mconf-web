@@ -999,6 +999,11 @@ th.attachment-updated{
 
 #doc_table td{
  	padding-top:5px;
+	
+}
+
+#doc_table tbody tr td{
+	border-bottom: 1px solid #cccccc;
 }
 
 #doc_table .ui-collection-empty td{padding-top:0;}
