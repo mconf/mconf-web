@@ -35,16 +35,18 @@ class Agenda < ActiveRecord::Base
   end
   
   #returns a hash with the id of the entries and the thumbnail of the associated video
-  def get_videos    
+  def get_videos
+    array_of_days = {}
+    for day in 0..event.days-1
       entries_with_video = {}
-      for entry in agenda_entries  
-        
+      for entry in agenda_entries_for_day(day)        
         if entry.embedded_video.present?
           entries_with_video[entry.id] = entry       
-        end    
-        
+        end        
       end
-      return entries_with_video
+      array_of_days[day] = entries_with_video      
+    end
+    return array_of_days
   end
   
   

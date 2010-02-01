@@ -1200,3 +1200,38 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 
 #spaces_select {float: right;}
 #form_space_select {width: 150px;}
+
+#carrusel_tabs{margin-top:6px;background:url("/images/tab_bottom.png") repeat-x bottom;}
+#carrusel_tabs ul{list-style-type:none;margin:0;margin-left:9px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
+
+#carrusel_tabs li{
+	display:inline-block;
+	padding:0.25em 0.75em;
+	text-decoration:none;
+	background:#FFD324;/*amarillo oscuro*/
+	color:#514721;
+	border:1px solid #FFD324;}/*background:#FFF6BF;color:#514721;border-color:#FFD324;*/
+	
+#carrusel_tabs li{
+	-webkit-border-radius-topleft:5px;
+	-webkit-border-radius-topright:5px;
+	-moz-border-radius-topleft:5px;
+	-moz-border-radius-topright:5px;
+	}
+	
+#carrusel_tabs li:hover{
+	background:#FFF6BF;
+	color:#514721;
+	cursor:pointer;
+	}
+	
+#carrusel_tabs .selected{
+	background:#FFF6BF;
+	color:#514721;
+	border-bottom-color:#FFF6BF;
+	}
+#carrusel_tabs .selected:hover{
+	background:#FFF6BF;
+	color:#514721;
+	cursor:pointer;
+	}
