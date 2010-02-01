@@ -856,7 +856,6 @@ a.extract_form{margin-right:0.5em;}
 #assistance_info,.next-events,#home-inbox-full,.my_spaces{float:left;width:230px;border:1px #bdd8eb solid;background:#f0f6f9;}
 #assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 #add_new_doc,#doc_info,#doc_action.new_version,.tag_filter_wrapper{background:#ebebeb;border-bottom:1px #A8C0D1 solid;}
-#doc_info,.tag_filter_wrapper{margin-top:0.75em;}
 #sidebar input.mixed_alternative{width:55%;}
 #sidebar .new_doc_content,.tag_filter_wrapper .tag_filter_content{border-width:1px;border-style:solid;border-color:#fff #dcdcdc #dcdcdc;padding:9px;}
 #sidebar #add_new_doc h3,#sidebar #doc_info h3,#sidebar #doc_action.new_version h3,#sidebar .tag_filter_wrapper h3{
@@ -943,6 +942,7 @@ div.post_text a:link, div.post_text a:hover, div.post-content ul li a.collapse{
 #doc_action,.tag_filter_wrapper{
 	clear:both;
 	overflow:hidden;
+	margin-bottom:0.75em;
 }
 
 #add_document_label{
@@ -1209,5 +1209,5 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 .only_url{color: #666666; font-weight: bold;}
 .preview_selected {background-color: #EEEEEE;}
 
-#spaces_select {float: right;}
-#form_space_select {width: 150px;}
+#spaces_select {float:right;}
+#spaces_select select{font-size:93%;line-height:1.5;}
