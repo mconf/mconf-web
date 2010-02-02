@@ -36,14 +36,31 @@ class AgendaEntry < ActiveRecord::Base
     end     
   end
   
-  before_validation_on_create do |entry|
-    if entry.agenda.event.isabel_event?
-      cm_session = ConferenceManager::CmSession.new(:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.id )
-      if cm_session.save
+  validate_on_create do |entry|
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if entry.agenda.event.isabel_event
+      cm_session = ConferenceManager::Session.new(:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id )
+      begin
+        cm_session.save
         entry.cm_session_id = cm_session.id
-      end
-    end  
-    
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+       end     
+    end   
+  end
+  
+  validate_on_update do |entry|
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if entry.agenda.event.isabel_event      
+      cm_session = ConferenceManager::Session.find(entry.cm_session_id, :params=> {:event_id => entry.agenda.event.cm_event_id})
+      my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      cm_session.load(my_params) 
+      begin
+        cm_session.save
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+      end             
+    end   
     
   end
   

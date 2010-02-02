@@ -68,7 +68,13 @@ class Event < ActiveRecord::Base
   before_validation_on_create do |event|
   
     if event.isabel_event
-      cm_event = ConferenceManager::CmEvent.new(:name=> event.name, :mode =>"meeting", :enable_web => true, :enable_isabel => true, :enable_sip => true)
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end  
+      cm_event = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true)
       if cm_event.save
         event.cm_event_id = cm_event.id
       else
@@ -78,13 +84,19 @@ class Event < ActiveRecord::Base
   end
   
   before_validation_on_update do |event|
-  
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
     if event.isabel_event
-      cm_event = ConferenceManager::CmEvent.update(:name=> event.name, :mode =>"meeting", :enable_web => true, :enable_isabel => true, :enable_sip => true)
-      if cm_event.save
-        event.cm_event_id = cm_event.id
-      else
-         errors.add_to_base(I18n.t('event.error.videoconference'))  
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end    
+      my_params = {:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true}
+      cm_event = ConferenceManager::Event.find(event.cm_event_id)
+      cm_event.load(my_params)     
+      unless cm_event.save
+        errors.add_to_base(I18n.t('event.error.videoconference'))  
       end
     end  
   end
