@@ -73,6 +73,7 @@ class PostsController < ApplicationController
   end
   
   def new
+    
     @post = Post.roots.in(@space).find(params[:reply]) if params[:reply]
     
     respond_to do |format|

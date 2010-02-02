@@ -36,11 +36,21 @@ class AgendaEntry < ActiveRecord::Base
     end     
   end
   
+  before_validation_on_create do |entry|
+    if entry.agenda.event.isabel_event?
+      cm_session = ConferenceManager::CmSession.new(:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.id )
+      if cm_session.save
+        entry.cm_session_id = cm_session.id
+      end
+    end  
+    
+    
+  end
+  
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
-    end    
-    
+    end      
   end
   
   after_save do |entry|
