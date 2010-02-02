@@ -787,7 +787,7 @@ en:
     recent:
       other: "Recent spaces"
     search: "Search space..."
-    select: "Select one"
+    select: "Spaces"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     up:
