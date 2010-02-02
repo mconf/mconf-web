@@ -40,7 +40,11 @@
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
 	<div class="grey_bar button_wrapper">
-	  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),'', {:id=>"add_document_label_link",:class=>"grey_button basic_button"} %>
+	  <%if logged_in?%>
+		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),'', {:id=>"add_document_label_link",:class=>"grey_button basic_button"} %>
+		<%else%>
+		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),'', {:id=>"add_document_label_link",:class=>"grey_button basic_button"} %>
+		<%end%>
 	  <span class="separator">|</span>
 	  <%=link_to ("<span>" + t('repository.download') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
 	  <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>

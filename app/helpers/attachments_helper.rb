@@ -8,9 +8,26 @@ module AttachmentsHelper
     #html
     
     html=""
-    html << link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
-    html << link_to(image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
-    html << link_to(image_tag("icons/new_version_doc20.png", :title=> t('version.new'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
+    html << if attachment.authorize?(:update,:to => current_user)
+              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags", :class=>"no-dot")) : (link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags", :class=>"no-dot"))
+            else
+              image_tag("icons/edit_tag.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
+            end
+    html << if attachment.authorize?(:read,:to => current_user)
+              link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
+          else
+              image_tag("icons/download_doc20.png", :title => t('login_request' + 'download'),:class=>"icon fade")
+            end
+    html << if attachment.authorize?(:delete, :to => current_user)
+              link_to(image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
+           else
+              image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon fade")
+           end
+    html << if attachment.current_version? && attachment.authorize?(:update,:to => current_user)
+            link_to(image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
+            else
+          image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon fade")
+            end
     html
    
   end

@@ -6,6 +6,8 @@
 	<% interactive = interactive.nil? ? true : interactive%>
 
   <%=collection_table(version_attachment(@attachments)) do |t|
+      t.header :selector, ""
+
 
       if interactive
 				t.header :name, sortable_header(t('title'),'filename')
@@ -25,6 +27,7 @@
       t.rows.each do |row, attachment, index|
 
         row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
+        row.selector        check_box_tag(attachment)
 
         #expanded
         if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
