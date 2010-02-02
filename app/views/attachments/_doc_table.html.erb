@@ -6,7 +6,7 @@
 	<% interactive = interactive.nil? ? true : interactive%>
 
   <%=collection_table(version_attachment(@attachments)) do |t|
-      t.header :selector, ""
+      t.header :selector, check_box_tag(attachment)
 
 
       if interactive

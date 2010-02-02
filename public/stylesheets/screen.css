@@ -1012,7 +1012,7 @@ th.attachment-updated{
 	background:#BDD8EB none repeat scroll 0 0;
 	border-bottom:1px solid #A8C0D1;
 	margin:0;
-	padding:3px 9px;
+	padding:3px 0px;
 }
 
 #doc_repository tr.attachment{
@@ -1027,9 +1027,9 @@ th.attachment-updated{
 #doc_table tbody tr td{
 	border-bottom: 1px solid #cccccc;
 }
-#doc_table tbody tr:hover{
+/*#doc_table tbody tr:hover{
 	background-color:#ffcf72;
-}
+}*/
 #doc_table .ui-collection-empty td{padding-top:0;}
  
 /*Agenda for events*/
@@ -1060,11 +1060,17 @@ th.attachment-updated{
 }
 
 .video_preview{
-	float:right;
+	float:left;
 	position:relative;
 	margin-top:6px;
 	margin-bottom:6px;
 	/*width:120px;*/
+}
+.video_preview_right{
+	float:right;
+  position:relative;
+  margin-top:6px;
+  margin-bottom:6px;
 }
 
 .video_preview_sidebar{
@@ -1156,8 +1162,9 @@ th.attachment-updated{
 .agenda_tab{padding:12px 8px 6px 8px;background:#FFF6BF;border-bottom:1px solid #FFD324;border-left:1px solid #FFD324;border-right:1px solid #FFD324;overflow:hidden;}
 
 .agenda_list_content{
+	float:left;
   list-style-type: none;
-  margin: 0 0.75em 0.5em 0;
+  margin: 0.75em 0.75em 0.5em 0.75em;
   width:73%;
 }
 

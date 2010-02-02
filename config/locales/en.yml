@@ -32,7 +32,7 @@ en:
   advanced_options: "Advanced options"
   advanced_editor: "Advanced editor"
   agenda: 
-    add_entry: "Add new entry"
+    add_entry: "Add session"
     define: "Define Agenda"
     del_entry: "Delete"
     edit_entry: "Edit"
