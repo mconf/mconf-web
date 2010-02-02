@@ -6,10 +6,8 @@
 	<% interactive = interactive.nil? ? true : interactive%>
 
   <%=collection_table(version_attachment(@attachments)) do |t|
-      t.header :selector, check_box_tag(attachment)
-
-
       if interactive
+        t.header :selector, "<input type=\"checkbox\"/>"
 				t.header :name, sortable_header(t('title'),'filename')
 				t.header :author, sortable_header(t('author'),'author')
 	      		t.header :updated, sortable_header(t('updated'),'updated_at')
@@ -27,7 +25,8 @@
       t.rows.each do |row, attachment, index|
 
         row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
-        row.selector        check_box_tag(attachment)
+
+        row.selector        check_box_tag(attachment) if interactive
 
         #expanded
         if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
@@ -39,7 +38,7 @@
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
           row.tags           interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : attachment.tags.map{|t| t.name}.join(",") 
 #          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.mime_type.to_sym}"
-          row.actions        table_actions(attachment)
+          row.actions        table_actions(attachment, interactive)
 
         #collapsed
         else
@@ -48,7 +47,7 @@
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
           row.tags           interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : attachment.tags.map{|t| t.name}.join(",")
 #          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
-          row.actions        table_actions(attachment)
+          row.actions        table_actions(attachment, interactive)
         end
       end
     end

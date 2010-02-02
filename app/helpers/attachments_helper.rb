@@ -1,5 +1,5 @@
 module AttachmentsHelper
-  def table_actions(attachment)
+  def table_actions(attachment, interactive)
     #html = ""
     #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
     #html << link_to("NV")
@@ -8,8 +8,8 @@ module AttachmentsHelper
     #html
     
     html=""
-    html << if attachment.authorize?(:update,:to => current_user)
-              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags", :class=>"no-dot")) : (link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags", :class=>"no-dot"))
+    html << if interactive && attachment.authorize?(:update,:to => current_user)
+              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot")) : (link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot"))
             else
               image_tag("icons/edit_tag.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
             end
@@ -23,8 +23,8 @@ module AttachmentsHelper
            else
               image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon fade")
            end
-    html << if attachment.current_version? && attachment.authorize?(:update,:to => current_user)
-            link_to(image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon"), space_attachments_path(@space, :new_version => attachment.id), :class => "new_version no-dot")
+    html << if interactive && attachment.current_version? && attachment.authorize?(:update,:to => current_user)
+            link_to(image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon"), edit_space_attachment_path(@space, attachment), :class => "repository_sidebar_action no-dot")
             else
           image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon fade")
             end
@@ -85,12 +85,7 @@ module AttachmentsHelper
   end
   
   def attachment_link(attachment)
-    #Temp workaround to display attachments in events. Fix it as soon as possible
-    if(params[:controller]=="attachments")
-      link_to truncate(attachment.filename, :length => 28),space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show", :title => attachment.filename
-    else
-      link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => attachment.filename
-    end
+    link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => attachment.filename
   end
   
   private

@@ -1,142 +1,24 @@
-  //Upload form
-  $("input#add_post").livequery("click",function(){
-    $("#with_post").slideToggle("slow");
-  });
+$("#enable_javascript").hide();
 
-  
-  expand_new_doc_form = function(){
-	  $("#add_new_doc").show();
-    $("#tag_collapsed_list").show();
-	$("#tag_used_list").hide();
-	$("#tag_abc_list").hide();
-		$.setFragment({ "action" : "expanded"});
-		return false;
-  };
-  
-  collapse_new_doc_form = function(){
-    $("#tag_used_list").show();
-	$("#tag_abc_list").hide();
-	$("#tag_collapsed_list").hide();
-    $("#add_new_doc").hide();
-		$.setFragment({ "action" : ""});
-		return false;
-  };
-  
-	$("#attachment__tags").fcbkcomplete({
-			cache: true,
-            filter_case: false,
-            filter_hide: true,
-            firstselected: true,
-            filter_selected: true,
-            maxshownitems: 4,
-            newel: true,
-            complete_opts: true
-		});
+//Upload form
+$("input#add_post").livequery("click",function(){
+  $("#with_post").slideToggle("slow");
+});
 
-	<%if attachment.new_record? && attachment.errors.any?%>
-	  expand_new_doc_form();
-	<%elsif attachment.errors.any?%>
-	  $("#attachment_new_version_tags").fcbkcomplete({
-	    cache: true,
-	          filter_case: false,
-	          filter_hide: false,
-	          firstselected: true,
-	          filter_selected: true,
-	          maxshownitems: 4,
-	    newel: true     
-	  });
-	<%else%>
-	  collapse_new_doc_form();
-	<%end%>
-	
-	    
-
-  $("#add_document_label_link").livequery("click",expand_new_doc_form);
-  $("#hide_link").livequery("click",collapse_new_doc_form);
-
-
-// Document repository navigation
-
-  ajax_new_version = function(){
-    $("#doc_action").html("<p><%=escape_javascript(t('form.loading'))%></p>");
-    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "/edit");
-  };
-  ajax_doc_new = function(){
-    $("#doc_action").html("<p><%=escape_javascript(t('form.loading'))%></p>");
-    $.getScript("<%=new_space_attachment_path(@space)%>");
-  };
-  
-  ajax_doc_info = function(){
-    $("#doc_info").html("<h3><%=escape_javascript(t('attachment.info'))%></h3><p><%=escape_javascript(t('attachment.loading'))%></p>");
-    $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "?version=" + $.fragment().version); 
-  };
-
-  $("#enable_javascript").hide();
-
-  $("a.doc_show").livequery("click", function() {
-    $.setFragment({ "doc_info" : $.queryString(this.href).doc_info, "version" : $.queryString(this.href).version, "action": ""});
-    return false;
-  });
-	
-  $("a.new_version").livequery("click", function() {
-    $.setFragment({ "action" : "new_version"});
-    return false;
-  });
-  $("a.new_doc").livequery("click", function() {
-    $.setFragment({ "action" : "expanded", "doc_info" : "", "version" : ""});
-    return false;
-  });
-  
-  $.fragmentChange(true);
-	
-  $(document).bind("fragmentChange", function() {
-    
-		//Doc info form
-		if ($.fragment().doc_info){
-		  if($("div#doc_info").attr("rel") != $.fragment().doc_info + "-" + $.fragment().version){
-		    ajax_doc_info();
-		  }
-		}else{
-		  if($("div#doc_info").attr("rel")!=""){
-		    $("div#doc_info").html("<%=escape_javascript("<p>#{t('attachment.not_selected')}</p>")%>");
-			$("div#doc_info").attr("rel","");
-		  }
-		}
-		
-		//Upload form
-		if ($.fragment().action=="new_version") {
-		  if($("div#doc_action").attr("rel")!="new_version"){
-		    ajax_new_version();
-		  }
-		}else{
-		  if($("div#doc_action").attr("rel")!="new_doc"){
-	      ajax_doc_new();
-	    }
-			if ($.fragment().action=="expanded"){
-	      expand_new_doc_form();
-	    }else{
-	      collapse_new_doc_form();
-	    } 
-		}
-		
- 
-  });
-  
-  if ($.fragment().doc_info) {
-    ajax_doc_info();
-  };
-
-  if ($.fragment().new_version) {
-    ajax_new_version();
-  };
-
-
-  $("a.table_params").livequery("click",function(){
-    $(this).attr("href",$.fragment(this.href,$.fragment(document.location.href)));
+$("#attachment__tags").fcbkcomplete({
+		cache: true,
+          filter_case: false,
+          filter_hide: true,
+          firstselected: true,
+          filter_selected: true,
+          maxshownitems: 4,
+          newel: true,
+          complete_opts: true
 	});
- 
- //Edit attachment tags
- $("a#edit_attachment_tags").livequery("click",function(){
-   $.getScript("<%=space_attachments_path(@space)%>/" + $.fragment().doc_info + "/edit_tags");
-   return false;
- });
+
+// Action links
+$("a.repository_sidebar_action").livequery("click",function(){
+  collapse_tag_list();
+  $.getScript(this.href);
+  return false;
+});

@@ -1,3 +1,5 @@
+<% menu(:repository) %>
+
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-url' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
@@ -25,23 +27,20 @@
 
 	</div>
 	
-	<%if attachment.new_record? && attachment.errors.any?%>
+	<%if attachment.errors.any?%>
 	  <%= render :partial => 'upload_form' %>
-	<%elsif attachment.errors.any?%>
-	  <%= render :partial => 'new_version_form' %>
-	<%else%>
-		<%= render :partial => 'upload_form' %>
+  <%else%>
+	  <div id="doc_action"></div>
 	<%end%>
-    <div class="margin-up"><%= render :partial => 'doc_info' %></div>
 <%end%>
 
-<% menu(:repository) %>
+
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
 	<div class="grey_bar button_wrapper">
 	  <%if (logged_in? && attachment.authorize?(:read,:to => current_user))%>
-		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),'', {:id=>"add_document_label_link",:class=>"grey_button basic_button"} %>
+		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),new_space_attachment_path(@space), {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button"} %>
 		<%else%>
 		  <span class="disabled_grey_button disabled_button"><%=t('repository.add_document')%></span>
 		<%end%>
@@ -55,7 +54,7 @@
 		<%end%>
 		
 		<%if attachment.authorize?(:delete,:to => current_user)%>
-	  <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+	    <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
 		<%else%>
 		  <span class="disabled_grey_button disabled_button"><%=t('repository.remove')%></span>
 		<%end%>

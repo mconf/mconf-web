@@ -1,8 +1,11 @@
-<%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
-  <%=t('tags')%>:
-	<input id="attachment_tags" type="hidden" value="" name="attachment[_tags][]"/>
-	<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
-	  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
-	</select>
-  <button class="basic_button blue_button" type="submit"><%=t("button.update")%></button>
-<%end%>
+<div id="doc_action">
+	<h3 class="blue top">Tags for <%=@attachment.filename%></h3>
+	<%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
+	  <%=t('tags')%>:
+		<input id="attachment_tags" type="hidden" value="" name="attachment[_tags][]"/>
+		<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
+		  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
+		</select>
+	  <button class="basic_button blue_button" type="submit"><%=t("button.update")%></button>
+	<%end%>
+</div>
