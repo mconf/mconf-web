@@ -140,7 +140,7 @@ class EventsController < ApplicationController
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:success] = t('event.created')
+        #flash[:success] = t('event.created')
         format.html {redirect_to space_event_path(@container, @event) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else

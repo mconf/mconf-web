@@ -623,7 +623,7 @@ div.pagination a{color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
 #more_invitations{width:645px;}
-
+#new_reply{width:230px;}
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:1em;line-height:1.5;}
 .actions ul,.no_javascript ul{list-style-type:none;margin:0;}
@@ -1200,3 +1200,5 @@ input#agenda_entry_title,#agenda_entry_description{width:99%;}
 
 #spaces_select {float: right;}
 #form_space_select {width: 150px;}
+
+#event_help {margin-bottom: 0;}

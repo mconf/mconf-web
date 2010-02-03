@@ -118,9 +118,9 @@ ActiveRecord::Schema.define(:version => 20100203113319) do
     t.string   "permalink"
     t.integer  "cm_event_id"
     t.integer  "vc_mode",             :default => 0
-    t.string   "web_interface"
-    t.string   "isabel_interface"
-    t.string   "sip_interface"
+    t.boolean  "web_interface"
+    t.boolean  "isabel_interface"
+    t.boolean  "sip_interface"
   end
 
   create_table "groups", :force => true do |t|
@@ -335,14 +335,13 @@ ActiveRecord::Schema.define(:version => 20100203113319) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "deleted"
-    t.boolean  "public",       :default => false
+    t.boolean  "public",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
     t.string   "permalink"
-    t.boolean  "disabled",     :default => false
-    t.boolean  "with_gallery", :default => true
-    t.boolean  "repository",   :default => false
+    t.boolean  "disabled",    :default => false
+    t.boolean  "repository",  :default => false
   end
 
   create_table "taggings", :force => true do |t|

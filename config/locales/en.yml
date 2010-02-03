@@ -253,6 +253,11 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
+    connection:
+      info: "Connection info for this event"
+      isabel: "Isabel server"
+      sip: "Proxy SIP"
+      web: "Web client"
     create:
       info: 
         basic: "Here you can organize three kind of events"
@@ -294,7 +299,13 @@ en:
     held_with: "This event will be held with"
     help:
       create: "Create your simple event in three steps:"
+      creating_entries: "creating entries"
+      define: "Define your program"
+      description: "Write a complete description"
       edit: "Edit your event"
+      invite: "Invite people"
+      in_agenda: "in the agenda"
+      now: "Now you can"      
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
@@ -338,6 +349,7 @@ en:
       title: "Streaming"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
+      ready: "The streaming is booked. It will be available during the event"
       will_be_available: "The streaming will be available during the event"
     to: "To"
     today: "Today events"

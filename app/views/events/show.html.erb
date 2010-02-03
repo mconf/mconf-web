@@ -51,7 +51,15 @@
 
 	
    <%if event.authorize?(:update, :to => current_user)%> 
-     $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+     $('#event_description_content form input').livequery("blur",function(){
+       $('#edit_description_icon').show();
+     });
+   
+     edit_description = function(){
+       $('#event_description_content').dblclick();
+     };	 
+	 
+	 $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
 	      tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
@@ -71,15 +79,8 @@
             return retval;
         },
         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
-     });
-	 
-     $('#event_description_content form input').livequery("blur",function(){
-       $('#edit_description_icon').show();
-     });
-   
-     edit_description = function(){
-       $('#event_description_content').dblclick();
-     };	 
+     });	 
+     
    <%end%>
    
    request_video = function(agenda_entry_id){
@@ -118,6 +119,10 @@
 	 show_share_url = function(){
 	   $('.url_share').show();
 	 };
+	 
+	 $('#help_add_entry').click(function(){
+	   $('#add_entry0').click();
+	 });
 <% end %>
 
 
@@ -135,14 +140,14 @@
   	<%if params[:show_video]%>
 	  <%= render :partial => "agendas/show_recordings_sidebar" %>
 	<%else%>
-  	  <%= render :partial => 'participants' %>
       <%if @space.authorize?([:create, :content],:to => current_user)%>
   	    <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	    <%elsif params[:edit_comment]%>
 	       <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
 	    <%else%>
-	     <%= render :partial => 'new_comment'%>
+		  <%= render :partial => 'participants' %>
+	     <%= render :partial => 'connection_info'%>
   	    <%end%>
       <%end%>
 	<%end%>    
@@ -156,8 +161,20 @@
 
   <%= error_messages_for :agenda_entry %>
 
+  <%if current_user==@event.author%>
+    <div class="success">
+		<strong><%=t('event.help.now')%></strong><br/>
+		<ul id="event_help">
+		<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.creating_entries')%> <%=t('event.help.in_agenda')%></a><br/></li>
+		<li><%= link_to t('event.help.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv",:title => t('invitation.add_more')} %></li>
+		<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
+		<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
+		</ul>
+    </div>
+  <%end%>
+
   <div id="event_card_show">
-  <%= render :partial => "event_card_show" %>
+    <%= render :partial => "event_card_show" %>
   </div>
 
   <div id="for_lightbox" style="display:none"></div>
