@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resource :logo, :member => {:precrop => :post}
 
     space.resources :groups
-    space.resources :admissions, :collection => { :invitations => :post }
+    space.resources :admissions
     space.resources :invitations
     space.resources :join_requests
 #    space.resources :event_invitations

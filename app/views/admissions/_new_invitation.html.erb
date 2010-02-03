@@ -3,7 +3,7 @@
 
   <%= error_messages_for :object => (@invitations || []) %>
 
-  <% form_for Invitation.new, :url => polymorphic_path([ @space, Admission.new ], :action => :invitations) do |f| %>
+  <% form_for [ space, Invitation.new ] do |f| %>
     <div>
     <%= f.label :email, t('e-mail.other') %> <%= t('e-mail.commas')%><br />
     <%= f.text_field :email,:class=>"small-font main_text" %>

@@ -3,7 +3,7 @@
 
 <%= t('invitation.to_space', :username => @user.login, :space => @space.name) %><br/><br/>
 
-<%= t('invitation.to_accept', :url => invitation_url(@invitation, :host => Site.current.domain)) %><br/>
+<%= t('invitation.to_accept', :url => space_invitation_url(@space, @invitation, :host => Site.current.domain)) %><br/>
 
 <%= t('invitation.info_space', :space_url => @space.permalink) %><br/><br/>
 

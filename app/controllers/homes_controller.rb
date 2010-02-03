@@ -44,7 +44,7 @@ class HomesController < ApplicationController
       @week_events = []
       @upcoming_events = []
     end
-    @all_contents=ActiveRecord::Content.paginate(:containers => current_user.spaces, :page=>params[:page], :per_page=>15)
+    @all_contents=ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15 },{ :containers => current_user.spaces } )
     
     #let's get the inbox for the user
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)

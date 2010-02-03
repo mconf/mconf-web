@@ -20,38 +20,41 @@ require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/invit
 
 class InvitationsController
   skip_before_filter :candidate_authenticated, :only => [ :show, :update ]
-  
-  
-  # GET /invitations/1
-  # GET /invitations/1.xml
-  def show
-    get_show_params
+
+  def index
+    redirect_to [ space, Admission.new ]
+  end
+
+  def create
+    @invitations = params[:invitation][:email].split(',').map(&:strip).map { |email|
+      if space.actors.map{|a| a.email} && space.actors.map{|a| a.email}.include?(email)
+        #the user is already in the space
+        flash[:notice] = email + " " + t('invitation.not_created')
+        next
+      end
+
+      if space.invitations.map{|a| a.email} && space.invitations.map{|a| a.email}.include?(email)
+        #the user is already invited to the space
+        flash[:notice] = email + " " + t('invitation.not_created_2')
+        next
+      end
+      
+      i = space.invitations.build params[:invitation].update(:email => email)
+      i.introducer = current_user
+      i
+    }.compact.each(&:save)
+
     respond_to do |format|
-      format.html {
-          @candidate = User.new
-          render :action => "show"
+      format.html { 
+        redirect_to [ group, Admission.new ]
       }
-      format.xml  { render :xml => @invitation }
     end
   end
 
-  def get_show_params
-    unless @invitation
-      flash[:error] = t('invitation.not_found')
-      redirect_to root_path
-      return
-    end
-  end
-  
-  
-  
-  def destroy
-    invitation.destroy
+  private
 
-    respond_to do |format|
-      format.html { redirect_to [ invitation.group, Admission.new ] }
-      format.xml  { head :ok }
-    end
+  def space
+    group
   end
 end
 

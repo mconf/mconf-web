@@ -37,7 +37,7 @@
   <%= f.hidden_field :processed, :value => true %>
   <%= f.hidden_field :accepted, :value => true %>
   
-    <% fields_for @candidate do |cf| %>
+    <% fields_for @candidate || User.new do |cf| %>
       <%= cf.error_messages %>
       
       <%if User.find_by_email(@invitation.email)%>
