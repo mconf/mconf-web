@@ -1076,9 +1076,10 @@ th.attachment-updated{
 .video_preview_sidebar{
 	float:left;
 	position:relative;
-	margin-top:6px;
-	margin-bottom:6px;
-	width: 222px;
+	padding:3px 6px;
+	margin-top:3px;
+	margin-bottom:3px;
+	width: 226px;
 }
 
 .video_preview a.entry_video_link, .video_preview_sidebar a.entry_video_link{
@@ -1234,7 +1235,13 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	padding-top:10px;
 }
 
-#carrusel {height: 600px; overflow: auto; margin-top: 168px;}
+#carrusel {height: 514px; overflow: auto; margin-top: 132px;background:#f0f6f9;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;border-bottom:1px solid #bdd8eb;}
+#carrusel .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
+#carrusel .event_video_tabs{border-bottom:1px solid #A8C0D1;}
+#carrusel .event_video_tabs ul{list-style-type:none;margin:0;}
+#carrusel .event_video_tabs ul li{display:inline-block;padding:0.25em 0.75em;border-right:1px solid #A8C0D1;cursor:pointer;}
+#carrusel .event_video_tabs ul li:hover,#carrusel .event_video_tabs ul .selected{text-decoration:underline;}
+#carrusel #carrusel_content{position:relative;display:block;overflow:auto;}
 .video_description {float: right;width:127px;padding-left:5px;}
 .video_thumbnail {float: left;}
 .video_full {text-align: center; margin-top: 3px;}
@@ -1244,9 +1251,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .video_share span{background:#8f8f8f;color:#f1f1f1;font-weight:bold;}
 .url_share{/*border-top: 1px solid #CCCCCC;*/background:#ccc;margin-bottom:3px;}
 .url_share form{display:inline-block;margin-top:4px;}
-.url_share input{font-size:93%;color:#333;width:300px;height:12px;}
+.url_share input{font-size:93%;color:#333;width:500px;height:12px;}
 .only_url{color: #666666; font-weight: bold;}
-.preview_selected {background-color: #EEEEEE;}
+.preview_selected {background-color: #FFF6BF;}
 
 #spaces_select {float: right;}
 #form_space_select select{font-size:93%;}
