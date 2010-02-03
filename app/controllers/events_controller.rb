@@ -132,6 +132,7 @@ class EventsController < ApplicationController
     @event.author = current_agent
     @event.container = @container
 
+
     respond_to do |format|
       if @event.save
         #save the organizer/s with their proper role

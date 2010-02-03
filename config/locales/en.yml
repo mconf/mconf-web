@@ -281,6 +281,7 @@ en:
       dates1: "The event start date must be previous than the event end date "
       marte: "Could not create virtual conference"
       omit_date: "The event needs start date and end date "
+      videoconference: "Could not create videoconference event"
     follow: "Enter this Virtual Meeting"
     found:
       none: "No events found"
