@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100202112750) do
+ActiveRecord::Schema.define(:version => 20100203113319) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -118,6 +118,9 @@ ActiveRecord::Schema.define(:version => 20100202112750) do
     t.string   "permalink"
     t.integer  "cm_event_id"
     t.integer  "vc_mode",             :default => 0
+    t.string   "web_interface"
+    t.string   "isabel_interface"
+    t.string   "sip_interface"
   end
 
   create_table "groups", :force => true do |t|
