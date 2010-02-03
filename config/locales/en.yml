@@ -253,13 +253,29 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
-    create: "Create new event"
+    create:
+      info: 
+        basic: "Here you can organize three kind of events"
+        presential: 
+          name: "In person meeting"
+        meeting:
+          name: "Virtual meeting"
+          message: " with automatic streaming recording and easy to participate"
+        conference:
+          name: "Virtual conference"
+          message: " as the virtual meeting but also with tv-like production managed by an operator" 
+      title: "Create new event"      
     created: "Event created successfully"
     description:
       add: "Add description."
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event"
+    enable:
+      participation: "Select participation modes"
+      isabel: "Isabel"
+      sip: "SIP"
+      web: "Web"
     error:
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
@@ -289,6 +305,10 @@ en:
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
+    new:
+      conference: "Virtual-conference"
+      meeting: "Virtual-meeting"
+      presential: "In-person meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
