@@ -309,7 +309,7 @@ en:
     recording: 
       one: "Event Video"
       other: "Event Videos"
-      share: "Share Video"
+      share: "Share"
       notice: "People will need access rights in order to see this videos"
     repository: "Event documents"
     search: "Search events..."

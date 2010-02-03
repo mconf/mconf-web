@@ -1238,10 +1238,13 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .video_description {float: right;width:127px;padding-left:5px;}
 .video_thumbnail {float: left;}
 .video_full {text-align: center; margin-top: 3px;}
-.video-bar {width: 660px; height: 60px; background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;}
-.video_properties {width: 460px;float: left;}
-.share_video{width: 195px; float: left;}
-.url_share{width: 660px;float:left; background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;}
+.video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;}
+.video_properties{padding:3px 6px;}
+.video_share{background:url("/images/share.png") no-repeat 100% center;margin-right:10px;padding:6px 17px 6px 6px;display:inline-block;}
+.video_share span{background:#8f8f8f;color:#f1f1f1;font-weight:bold;}
+.url_share{/*border-top: 1px solid #CCCCCC;*/background:#ccc;margin-bottom:3px;}
+.url_share form{display:inline-block;margin-top:4px;}
+.url_share input{font-size:93%;color:#333;width:300px;height:12px;}
 .only_url{color: #666666; font-weight: bold;}
 .preview_selected {background-color: #EEEEEE;}
 

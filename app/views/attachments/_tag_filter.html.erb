@@ -100,7 +100,7 @@
 	  </select>
 	</div>
 	
-	<div id="tag_used_list">
+	<div id="tag_used_list" class="tag_filter_content">
 		<span><label class="bold"><%=t 'tags_by'%> </label> <label class="bold"><%=t 'popularity'%></label> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
 		<ul>
 	      <% tag_count(@attachments, @tags, :order => "popularity").each do |t|%>
@@ -109,7 +109,7 @@
 		</ul>
 	</div>
 	
-	<div id="tag_abc_list" style="display:none">
+	<div id="tag_abc_list" class="tag_filter_content" style="display:none">
 	  <span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <label class="bold"><%=t 'abc'%></label></span>
       <ul>
         <% tag_count(@attachments, @tags, :order => "abc").each do |t|%>
