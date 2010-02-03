@@ -31,7 +31,7 @@
       $('#agenda_page<%=i%>').show();
     });
     
-    $('#add_entry<%=i%>').click(function(){
+    $('#add_entry<%=i%>').livequery('click', function(){
       $('#add_entry<%=i%>').hide();
       //first we remove the rest of the edit divs in case the user has an open one
       $(".agenda_edit_entry").empty();
@@ -41,8 +41,8 @@
     });
     
     $("input.agenda_new_close").livequery('click',function(){
+	  $('.margin_up#add_entry<%=i%>').show();
       $(".agenda_new_entry").empty();
-      $('#add_entry<%=i%>').show();
     });
        
   <%end%>
@@ -69,7 +69,7 @@
     if (title == "") {
       
       $("#agenda_title_label").append(
-        "<div class='error'><%= t('agenda.error.omit_title') %></div>"
+        "<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>"
       );
       
       var destination_add = $('#new_entry_anchor').offset().top;
@@ -87,7 +87,7 @@
 	
   // Edit agenda entry view
 	
-  $('.edit_entry').click(function(){
+  $('.edit_entry').livequery('click', function(){
     edit_entry_button = $(this);
 		//first we remove the rest of the edit divs in case the user has an open one
     $(".agenda_edit_entry").empty();
@@ -117,7 +117,7 @@
 		if (title == "") {
 		  
 			$("#agenda_title_label").append(
-			  "<div class='error'><%= t('agenda.error.omit_title') %></div>"
+			  "<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>"
 			);
 			
 			var destination_edit = $('#edit_entry_anchor').offset().top;
@@ -143,7 +143,7 @@
     $('#agenda_page0').show();
   <%end%>
 	
-  $('.title_name_and_hour').click(function(){
+  $('.title_name_and_hour').livequery('click', function(){
     $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
   });
 
@@ -214,8 +214,31 @@
   }); 
 }); 
   
+  <%if @event.days > 1%>
+    //after the page finishes loading we call for the next pages of the agenda
+    $(window).bind('load', function() {
+      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>";
+      $.get(route,{
+          authenticity_token: "<%=form_authenticity_token()%>"
+          }, function(data){ 	
+			$('#agenda_pages').append(data);	         
+          });
+    });
+  <%end%>
+  
 <%end%>
 
+<div id="agenda_tabs">
+  <ul>
+    <%for i in (0..@event.days-1)%>
+      <li id="date<%=i%>" class="date"><%=(@event.start_date+i.day).strftime("%A %d %b")%></li>
+    <%end%>
+  </ul>
+</div>
+
+<div id="agenda_pages">
+  <%@days=[0]%>
   <%= render :partial => "agenda_entries/index"%>
+</div>
   
 

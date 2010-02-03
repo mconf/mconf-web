@@ -3,7 +3,6 @@ edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :
  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
 $("input.agenda_edit_close").click(function(){
   edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
-	alert("holaaaaaaaaaaaaaa");
   $(".agenda_edit_entry").empty();
 });
 var destination_edit = $('#edit_entry_anchor').offset().top;

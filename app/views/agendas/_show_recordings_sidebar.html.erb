@@ -1,38 +1,73 @@
+<% content_for :javascript do%>
+  <%for i in (0..@event.days-1)%>
+    $('#day<%=i%>').click(function(){
+      <%for e in (0..@event.days-1)%>
+        $('#day<%=e%>').removeClass("selected");
+        $('#videos_page<%=e%>').hide();
+      <%end%>
+      $(this).addClass("selected");
+      $('#videos_page<%=i%>').show();
+    });         
+  <%end%>
+  
+  <%if @show_day %>
+     $('#day<%=@show_day%>').addClass("selected");
+    $('#videos_page<%=@show_day%>').show();
+  <%else%>
+    $('#day0').addClass("selected");
+    $('#videos_page0').show();
+  <%end%>
+  
+<%end%>
+
 <div id="carrusel" class="margin-up">
-	<div id="carrusel_title">
-		<h3><%= t('event.recording.other') %></h3>
-	</div>
-    <%@video_entries.each do |key, entry|%>
-      <div class="video_preview_sidebar <%="preview_selected" if entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
-        <div class="video_thumbnail">
-		  <%if entry.video_thumbnail.present?%>
-		    <%=link_to_function image_tag(entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
-		  <%else%>
-		    <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
-		  <%end%>
-		<span class="play_icon"></span>
-		</div>
-		<div class="video_description">
-			<%=link_to  truncate(entry.title, 32) ,space_event_path(@space, @event, :show_video => entry.id), :class=>"entry_video_link" %>			
-            <span class="unified_user">  
-      	      <%isfirst=true%>
-      	      <%entry.actors.each do |speaker|%>
-                <%if isfirst%>
-                  <%isfirst=false%>
-                <%else%>
-                  ,
-                <%end%>
-                <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
-              <%end%>
-              <%if entry.speakers && !entry.speakers.empty?%>
-                <%unless isfirst%>
-                  ,
-                <%end%>
-                <%= entry.speakers %>
-              <%end%>
-			</span>
-		</div>
-      </div>
+  <div class="event_video_title">
+	<h3><%= t('event.recording.other') %></h3>
+  </div>
+  <div class="event_video_tabs">
+  	<ul>
+      <%for day in 0..@video_entries.size-1%>
+        <li id="day<%=day%>" class="date">Day <%=day+1%></li>
+      <%end%>
+    </ul>
+  </div>
+  <div id="carrusel_content">
+    <%for day in 0..@video_entries.size-1%>    
+	  <div id="videos_page<%=day%>" style="display:none">
+	    <%@video_entries[day].each do |key, entry|%>
+	      <div class="video_preview_sidebar <%="preview_selected" if entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
+	        <div class="video_thumbnail">
+			  <%if entry.video_thumbnail.present?%>
+			    <%=link_to_function image_tag(entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
+			  <%else%>
+			    <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
+			  <%end%>
+			<span class="play_icon"></span>
+			</div>
+			<div class="video_description">
+				<%=link_to  truncate(entry.title, 32) ,space_event_path(@space, @event, :show_video => entry.id), :class=>"entry_video_link" %>			
+	            <span class="unified_user">  
+	      	      <%isfirst=true%>
+	      	      <%entry.actors.each do |speaker|%>
+	                <%if isfirst%>
+	                  <%isfirst=false%>
+	                <%else%>
+	                  ,
+	                <%end%>
+	                <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
+	              <%end%>
+	              <%if entry.speakers && !entry.speakers.empty?%>
+	                <%unless isfirst%>
+	                  ,
+	                <%end%>
+	                <%= entry.speakers %>
+	              <%end%>
+				</span>
+			</div>
+	      </div>
+	    <%end%>
+	  </div>
     <%end%>
+  </div>
 </div>
   	
