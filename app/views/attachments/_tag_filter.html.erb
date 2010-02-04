@@ -1,11 +1,14 @@
 <%content_for :javascript do%>
+	
+	//Add and rm tags functions
+	
 	$("#tag_filter").show();
 
   hide_table = function(){
     $("#doc_repository").parent().html("<%=escape_javascript(t('repository.loading'))%>");
   }
 	
-	 tags_array = function(){
+	tags_array = function(){
     var array = new Array($("#attachment_tags_filter option.selected").size());
     var i = 0
     $("#attachment_tags_filter option.selected").each(function(){
@@ -57,33 +60,65 @@
 	   hide_table();
 	 });
 	 
-	 $("a.tag_list_order").click(function(){
-	   $("#tag_used_list").toggle();
-		 $("#tag_abc_list").toggle();
+	 //Tag list functions
+	 
+	 collapse_tag_list = function(){
+	   $("#tag_abc_list").hide();
+     $("#tag_used_list").hide();
+		 $("#tag_collapsed_list").show();
+	 }
+	 
+	 used_tag_list = function(){
+     $("#tag_abc_list").hide();
+     $("#tag_used_list").show();
+     $("#tag_collapsed_list").hide();
+   }
+	 
+	 abc_tag_list = function(){
+     $("#tag_abc_list").show();
+     $("#tag_used_list").hide();
+     $("#tag_collapsed_list").hide();
+   }
+	 
+	 $("a.tag_list_abc_order").click(function(){
+	   abc_tag_list();
 		 return false;
 	 });
+	 
+	 $("a.tag_list_used_order").click(function(){
+     used_tag_list();
+     return false;
+   });
 <%end%>
 
 
-	<div id="tag_filter" style="display:none">
+<div id="tag_filter" style="display:none">
+	<div class="tag_filter_content">
 	  <label class="bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
 	  <select id="attachment_tags_filter" multiple="multiple" name="tags[]">
 	    <%=options_for_fcbkcomplete(@attachments.map(&:tags).flatten.compact.uniq,:id,:name,@tags)%>
 	  </select>
-    <div id="tag_used_list">
-    	<span><label class="bold"><%=t 'tags_by'%> </label> <label class="bold"><%=t 'popularity'%></label> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_order"%></span>
-    	<ul>
+	</div>
+	
+	<div id="tag_used_list" class="tag_filter_content">
+		<span><label class="bold"><%=t 'tags_by'%> </label> <label class="bold"><%=t 'popularity'%></label> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
+		<ul>
 	      <% tag_count(@attachments, @tags, :order => "popularity").each do |t|%>
 	        <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
 	      <%end%>
-			</ul>
-    </div>
-		<div id="tag_abc_list" style="display:none">
-			<span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_order"%> | <label class="bold"><%=t 'abc'%></label></span>
+		</ul>
+	</div>
+	
+	<div id="tag_abc_list" class="tag_filter_content" style="display:none">
+	  <span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <label class="bold"><%=t 'abc'%></label></span>
       <ul>
         <% tag_count(@attachments, @tags, :order => "abc").each do |t|%>
           <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
         <%end%>
       </ul>
-		</div>
 	</div>
+	
+	<div id="tag_collapsed_list" style="display:none" class="tag_filter_content">
+		<span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
+	</div>
+</div>

@@ -8,7 +8,7 @@
             maxshownitems: 4
   });
   
-  template = "<%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %>";
+  template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
   $("#event_name").blur(function(){
     replace_invitation();
   });
@@ -78,7 +78,10 @@
       <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
     </select>
   </div>
-  
+  <div>
+    <label for="Location"><%= t('event.location') %>:</label>
+    <%= f.text_field :location, :size =>25  %>
+  </div>
    <div class="margin-up">
      <strong><span>2. <%= t('event.select_date')%></span></strong>	
    </div>
@@ -93,22 +96,25 @@
 	</ul>
     </div>
   </div>
-  
-  <div class="margin-up">
-  	  <strong><span>3. 	<%= t('event.choose_location')%> </span></strong>
-  </div>
-  
-  
-  <div id="expanded_online">
-    <div class="checkbox_event">
-      <%=f.check_box :marte_event,:class=>"icon"  %>
-      <label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
-    </div>
-    <div>
-      <label for="Location"><%= t('event.location') %>:</label>
-      <%= f.text_field :location, :size =>25  %>
-    </div>
-  </div>
+  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+	  <div id="extra-info">
+	    <div class="margin-up">
+	      <strong><span>3. <%= t('event.enable.participation')%></span></strong>	
+	    </div>
+	    <div class="checkbox_event">
+		  <%=f.check_box :isabel_interface,:class=>"icon"%>
+		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.isabel') %></label>
+		</div>
+		<div class="checkbox_event">
+		  <%=f.check_box :web_interface,:class=>"icon"%>
+		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.web') %></label>
+		</div>
+		<div class="checkbox_event">
+		  <%=f.check_box :sip_interface,:class=>"icon"%>
+		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
+		</div>
+	  </div>
+  <%end%>
   
   <!--
   <div class="margin-up">

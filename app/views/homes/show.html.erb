@@ -74,12 +74,12 @@
 <% content_for :sidebar do  %>
   <% if logged_in?%>
     <div class="button_wrapper">
-      <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link medium_button orange_button"%>
+      <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
     </div>
   <%end%>
 
   <%if current_user.spaces.any?%>
-    <div class="my_spaces">    
+    <div class="my_spaces margin-up">    
 	  <div id="my_spaces_title">
     	<h3><%=image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4'))%> <%=t('space.my_spaces')%></h3>
 	  </div>

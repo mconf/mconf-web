@@ -314,4 +314,4 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .right-align {float:right}
 
 #spaces_select {float: right;}
-#form_space_select {width: 150px;}
+#spaces_select select{font-size:93%;line-height:1.5;}

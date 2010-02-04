@@ -10,6 +10,7 @@ en:
   about_me: "About me"
   about_sxsw: "About SXSW"
   account: "Account"
+  actions: "Actions"
   activerecord:
     attributes:
       user:
@@ -31,7 +32,7 @@ en:
   advanced_options: "Advanced options"
   advanced_editor: "Advanced editor"
   agenda: 
-    add_entry: "Add new entry"
+    add_entry: "Add session"
     define: "Define Agenda"
     del_entry: "Delete"
     edit_entry: "Edit"
@@ -170,6 +171,7 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
     start: "Start date"
+    at: "at"
   days: "Days"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
@@ -257,13 +259,34 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
-    create: "Create new event"
+    connection:
+      info: "Connection info for this event"
+      isabel: "Isabel server"
+      sip: "Proxy SIP"
+      web: "Web client"
+    create:
+      info: 
+        basic: "Here you can organize three kind of events"
+        presential: 
+          name: "In person meeting"
+        meeting:
+          name: "Virtual meeting"
+          message: " with automatic streaming recording and easy to participate"
+        conference:
+          name: "Virtual conference"
+          message: " as the virtual meeting but also with tv-like production managed by an operator" 
+      title: "Create new event"      
     created: "Event created successfully"
     description:
       add: "Add description."
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event"
+    enable:
+      participation: "Select participation modes"
+      isabel: "Isabel"
+      sip: "SIP"
+      web: "Web"
     error:
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
@@ -282,7 +305,13 @@ en:
     held_with: "This event will be held with"
     help:
       create: "Create your simple event in three steps:"
+      creating_entries: "creating entries"
+      define: "Define your program"
+      description: "Write a complete description"
       edit: "Edit your event"
+      invite: "Invite people"
+      in_agenda: "in the agenda"
+      now: "Now you can"      
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
@@ -294,6 +323,10 @@ en:
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
+    new:
+      conference: "Virtual-conference"
+      meeting: "Virtual-meeting"
+      presential: "In-person meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
@@ -312,7 +345,7 @@ en:
     recording: 
       one: "Event Video"
       other: "Event Videos"
-      share: "Share Video"
+      share: "Share"
       notice: "People will need access rights in order to see this videos"
     repository: "Event documents"
     search: "Search events..."
@@ -322,6 +355,7 @@ en:
       title: "Streaming"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
+      ready: "The streaming is booked. It will be available during the event"
       will_be_available: "The streaming will be available during the event"
     to: "To"
     today: "Today events"
@@ -487,6 +521,7 @@ en:
     error: "Unable to change application language to "
   login: "Login"
   login_or_register: "Log in / Register"
+  login_request: "You need to be logged in to "
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
@@ -499,7 +534,7 @@ en:
   manage: "Manage"
   management:
     up: "MANAGEMENT"
-  mailing_list: "Mailing list"
+  mailing_list: "Associate mailing list to your group"
   mark_checkbox: "Mark the suitable checkbox"
   message:
     created: "Message sent successfully"
@@ -668,9 +703,15 @@ en:
   repository:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
-    up: "REPOSITORY"    
+    up: "REPOSITORY"
+    add_document: Add new document
+    download: Download
+    remove: Remove
+    add_tags: Add Tags
+    rem_tags: Remove Tags
   request: "request it"
   request:
+    default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
     sent: "Request sent!"
   role:
@@ -783,7 +824,7 @@ en:
     recent:
       other: "Recent spaces"
     search: "Search space..."
-    select: "Select one"
+    select: "Spaces"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     up:
@@ -815,7 +856,7 @@ en:
     filter: "Filter by tag:"
     new: "New tag"
     selected:
-      one: "Selected tag:"
+      one: "Select a tag:"
       other: "Selected tags:"
     start: "Start typing.."
   tags: Tags
@@ -889,7 +930,7 @@ en:
     feed:
       title: "Users"
       author: "SIR"
-    filter: "User Filter"
+    filter: "User filter"
     found:
       none: "No users found"
       one: "1 user found"

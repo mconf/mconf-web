@@ -1,3 +1,5 @@
+<% menu(:repository) %>
+
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-url' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
@@ -12,14 +14,6 @@
 <%end%>
 
 <%content_for :sidebar do%>
-	<%if attachment.new_record? && attachment.errors.any?%>
-	  <%= render :partial => 'upload_form' %>
-	<%elsif attachment.errors.any?%>
-	  <%= render :partial => 'new_version_form' %>
-	<%else%>
-		<%= render :partial => 'upload_form' %>
-	<%end%>
-	
 	<div class="tag_filter_wrapper">
 		<h3 class="blue">Document Search:</h3>
 		<div class="tag_filter_content">
@@ -28,16 +22,49 @@
 		<div class="tag_filter_content">
       <%= render :partial => 'event_filter' %>
     </div>
-		<div class="tag_filter_content">
-			<%= render :partial => 'tag_filter' %>
-		</div>
+		
+		<%= render :partial => 'tag_filter' %>
+
 	</div>
-    <div class="margin-up"><%= render :partial => 'doc_info' %></div>
+	
+	<%if attachment.errors.any?%>
+	  <%= render :partial => 'upload_form' %>
+  <%else%>
+	  <div id="doc_action"></div>
+	<%end%>
 <%end%>
 
-<% menu(:repository) %>
+
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
+	<div class="grey_bar button_wrapper">
+	  <%if (logged_in? && attachment.authorize?(:read,:to => current_user))%>
+		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),new_space_attachment_path(@space), {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button"} %>
+		<%else%>
+		  <span class="disabled_grey_button disabled_button"><%=t('repository.add_document')%></span>
+		<%end%>
+		
+	  <span class="separator">|</span>
+	  
+		<%if logged_in? && attachment.authorize?(:read,:to => current_user)%>
+		  <%=link_to ("<span>" + t('repository.download') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+		<%else%>
+		  <span class="disabled_grey_button disabled_button"><%=t('repository.download')%></span>
+		<%end%>
+		
+		<%if attachment.authorize?(:delete,:to => current_user)%>
+	    <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+		<%else%>
+		  <span class="disabled_grey_button disabled_button"><%=t('repository.remove')%></span>
+		<%end%>
+		
+		<%if attachment.authorize?(:update,:to => current_user)%>
+	   <%=link_to ("<span>" + t('repository.add_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
+		<%else%>
+		  <span class="disabled_grey_button disabled_button"><%=t('repository.add_tags')%></span>
+		<%end%>
+  	  <!--<%=link_to ("<span>" + t('repository.rem_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>-->
+	</div>
 	<%= render :partial => 'doc_table' %>
 </div>

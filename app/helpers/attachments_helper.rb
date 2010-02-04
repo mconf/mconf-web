@@ -1,11 +1,35 @@
 module AttachmentsHelper
-  def table_actions(attachment)
-    html = ""
-    html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
-    html << link_to("NV")
-    html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
-    html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
+  def table_actions(attachment, interactive)
+    #html = ""
+    #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
+    #html << link_to("NV")
+    #html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
+    #html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
+    #html
+    
+    html=""
+    html << if interactive && attachment.authorize?(:update,:to => current_user)
+              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot")) : (link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot"))
+            else
+              image_tag("icons/edit_tag.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
+            end
+    html << if attachment.authorize?(:read,:to => current_user)
+              link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
+          else
+              image_tag("icons/download_doc20.png", :title => t('login_request' + 'download'),:class=>"icon fade")
+            end
+    html << if attachment.authorize?(:delete, :to => current_user)
+              link_to(image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon"), space_attachment_path(@space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
+           else
+              image_tag("icons/delete_doc20.png", :title => t('delete.one'), :class =>"icon fade")
+           end
+    html << if interactive && attachment.current_version? && attachment.authorize?(:update,:to => current_user)
+            link_to(image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon"), edit_space_attachment_path(@space, attachment), :class => "repository_sidebar_action no-dot")
+            else
+          image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon fade")
+            end
     html
+   
   end
   
   def sortable_header(title,column)
@@ -61,12 +85,7 @@ module AttachmentsHelper
   end
   
   def attachment_link(attachment)
-    #Temp workaround to display attachments in events. Fix it as soon as possible
-    if(params[:controller]=="attachments")
-      link_to truncate(attachment.filename, :length => 28),space_attachments_path(attachment.space, :doc_info => attachment.id), :class => "doc_show", :title => attachment.filename
-    else
-      link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => attachment.filename
-    end
+    link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => attachment.filename
   end
   
   private

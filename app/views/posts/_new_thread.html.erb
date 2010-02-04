@@ -70,13 +70,10 @@
         </br> 
     </div> 
   </div>  
-  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form" %>
-
-
-  </br>
+  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
 	<%if @post.nil?%>
     
-  <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+  <button type="submit" class="basic_button blue_button margin-up"><%=t("button.create")%></button>
 	
 <%else%>
 	

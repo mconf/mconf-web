@@ -1,8 +1,8 @@
 class AddInterfacesToEvent < ActiveRecord::Migration
   def self.up
-    add_column :events, :web_interface, :string
-    add_column :events, :isabel_interface, :string
-    add_column :events, :sip_interface, :string
+    add_column :events, :web_interface, :boolean
+    add_column :events, :isabel_interface, :boolean
+    add_column :events, :sip_interface, :boolean
   end
 
   def self.down

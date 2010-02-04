@@ -18,6 +18,8 @@
 		  <% end -%>
 		<%end -%>
 	  </ul>
+	  
+	  
 	  <span id="spaces_select">
           	<% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
 			  <%if logged_in? && current_user.spaces.any?%>	
@@ -40,9 +42,6 @@
 			<%end%>
 	</span>
     <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
-    
-	<span id="about"><%=link_to(t('about_global'),"http://www.global-project.eu")%></span>
-
   </div>
   
 </div>

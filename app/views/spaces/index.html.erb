@@ -21,7 +21,7 @@
       });
 	});
 	
-	title = "<%=t('search.space.dots')%>";
+	title = "<%=escape_javascript(t('search.space.dots'))%>";
 	$("#space_name_filter").click(function(){
 	  if(this.value == title){
 		  this.value="";
@@ -87,7 +87,7 @@
 <% content_for :sidebar do  %>
 	<% if logged_in?%>
       <div class="button_wrapper">
-        <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link medium_button orange_button"%>
+        <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
       </div>
     <%else%>
 	  <div class="join">
@@ -130,7 +130,7 @@
   <div id="space_content">
 	<% for space in @private_spaces %>
 	  <% unless space.authorize?(:read, :to => current_agent) %>
-	    <div class="space_item unautorized" name="<%=space.permalink%>">
+	    <div class="space_item unautorized other" name="<%=space.permalink%>">
           <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>space.name)%>
 		</div>
 	  <% else %>
