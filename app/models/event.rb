@@ -75,11 +75,12 @@ class Event < ActiveRecord::Base
           mode = "conference"
       end  
       cm_event = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true)
-      if cm_event.save
+      begin
+        cm_event.save
         event.cm_event_id = cm_event.id
-      else
-         errors.add_to_base(I18n.t('event.error.videoconference'))  
-      end
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+      end    
     end  
   end
   
@@ -105,7 +106,7 @@ class Event < ActiveRecord::Base
     #create an empty agenda
     event.agenda = Agenda.create
     #create a directory to save attachments
-    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
+    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
 
 end
 
@@ -248,13 +249,18 @@ end
   
   after_destroy do |event|
     
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
     if event.marte_event? && event.marte_room?
       begin
         MarteRoom.find(event.id).destroy
       rescue
       end
     end
+    
+    #Delete event in conference Manager
+    cm_event = ConferenceManager::Event.find(event.cm_event_id)
+    cm_event.destroy    
+    
   end
   
   def get_room_data

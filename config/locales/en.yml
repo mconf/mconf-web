@@ -43,6 +43,10 @@ en:
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
+      error:
+        create: 'Error creating session in remote videoconference system'
+        delete: 'Error deleting session in remote videoconference system'
+        update: 'Error updating session in remote videoconference system'
       has_attachment: 'This entry has attachments.'
       has_video: "Video available for this entry"
       hidevideo: "Hide video"

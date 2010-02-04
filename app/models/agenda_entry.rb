@@ -44,7 +44,7 @@ class AgendaEntry < ActiveRecord::Base
         cm_session.save
         entry.cm_session_id = cm_session.id
       rescue Exception => e  
-        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+        entry.errors.add_to_base(I18n.t('agenda.entry.error.create')) 
        end     
     end   
   end
@@ -52,13 +52,13 @@ class AgendaEntry < ActiveRecord::Base
   validate_on_update do |entry|
     #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
     if entry.agenda.event.isabel_event      
-      cm_session = ConferenceManager::Session.find(entry.cm_session_id, :params=> {:event_id => entry.agenda.event.cm_event_id})
+      cm_session = entry.cm_session
       my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
       cm_session.load(my_params) 
       begin
         cm_session.save
       rescue Exception => e  
-        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+        entry.errors.add_to_base(I18n.t('agenda.entry.error.update')) 
       end             
     end   
     
@@ -70,15 +70,38 @@ class AgendaEntry < ActiveRecord::Base
     end      
   end
   
-  after_save do |entry|
+  after_create do |entry|
     entry.attachments.each do |a|
-      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}")
-      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
     end
   end
   
+  after_update do |entry|
+    #Delete old attachments
+     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #create new attachments
+    entry.attachments.reload
+    entry.attachments.each do |a|
+      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+    end
+  end
+  
+  
   after_destroy do |entry|    
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.name}/#{entry.title.gsub(" ","_")}")
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #Delete session in Conference Manager
+    begin
+      cm_session = entry.cm_session
+      cm_session.destroy    
+    rescue Exception => e  
+       entry.errors.add_to_base(I18n.t('entry.error.delete')) 
+    end   
+  end
+  
+  def cm_session
+     cm_session = ConferenceManager::Session.find(self.cm_session_id, :params=> {:event_id => self.agenda.event.cm_event_id})    
   end
   
   def validate
