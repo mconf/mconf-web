@@ -66,7 +66,7 @@ class Event < ActiveRecord::Base
     #create an empty agenda
     event.agenda = Agenda.create
     #create a directory to save attachments
-    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
+    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
 
   end
   
@@ -206,7 +206,7 @@ class Event < ActiveRecord::Base
   
   after_destroy do |event|
     
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.name}") 
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
     if event.marte_event? && event.marte_room?
       begin
         MarteRoom.find(event.id).destroy

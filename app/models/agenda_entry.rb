@@ -43,15 +43,26 @@ class AgendaEntry < ActiveRecord::Base
     
   end
   
-  after_save do |entry|
+  after_create do |entry|
     entry.attachments.each do |a|
-      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}")
-      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.name}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+    end
+  end
+  
+  after_update do |entry|
+    #Delete old attachments
+     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #create new attachments
+    entry.attachments.reload
+    entry.attachments.each do |a|
+      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
     end
   end
   
   after_destroy do |entry|    
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.name}/#{entry.title.gsub(" ","_")}")
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
   end
   
   def validate
