@@ -167,15 +167,7 @@ button#change_logo{float:left;}
 .grey_button span{border:1px solid #999;}
 .separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
 /*-------------disabled grey buttons-----------*/
-.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;}
-.grey_bar span.disabled_grey_button{-webkit-border-radius:2px;-moz-border-radius:2px;}
-.grey_bar span.disabled_grey_button{
-	font-weight:bold;
-	color:#222;
-	background:url("/images/buttons/grey-button.png") repeat-x scroll 0 4%;  
-  padding:3px 7px 3px 6px;	
-	border:1px solid #999;
-  }
+.grey_bar a.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
 
 /*BUTTON COLOURS*/
 .orange_button,.orange_button span{color:#fff;background: transparent url("/images/buttons/fondo-join-space.png");}

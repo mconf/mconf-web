@@ -1,0 +1,18 @@
+<div class="grey_bar button_wrapper">
+	<% if logged_in? && attachment.authorize?(:read,:to => current_user)%>
+	  <%=link_to ("<span>#{t('repository.add_document')}</span>"),new_space_attachment_path(@space),
+               {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button"} %>
+  <%else%>
+	  <%=link_to ("<span>#{t('repository.add_document')}</span>"),'#',
+               {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button disabled_button"} %>
+	<%end%>
+  <span class="separator">|</span>
+	
+	<span id="selected_info"></span>
+  
+  <%=link_to ("<span>#{t('repository.download')}</span>"),'#', {:id=>"multiple_download",:class=>"grey_button basic_button disabled_button"} %>
+	
+  <%=link_to ("<span>#{t('repository.remove')}</span>"),'#', {:id=>"multiple_delete",:class=>"grey_button basic_button disabled_button"} %>
+	
+  <%=link_to ("<span>#{t('repository.add_tags')}</span>"),'#', {:id=>"",:class=>"grey_button basic_button disabled_button"} %>
+</div>

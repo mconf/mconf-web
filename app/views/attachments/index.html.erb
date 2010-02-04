@@ -38,33 +38,6 @@
 
 <div id="enable_javascript">Please, active javascript to enjoy document repository</div>
 <div id ="doc_repository">
-	<div class="grey_bar button_wrapper">
-	  <%if (logged_in? && attachment.authorize?(:read,:to => current_user))%>
-		  <%=link_to ("<span>" + t('repository.add_document') + "</span>"),new_space_attachment_path(@space), {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button"} %>
-		<%else%>
-		  <span class="disabled_grey_button disabled_button"><%=t('repository.add_document')%></span>
-		<%end%>
-		
-	  <span class="separator">|</span>
-	  
-		<%if logged_in? && attachment.authorize?(:read,:to => current_user)%>
-		  <%=link_to ("<span>" + t('repository.download') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
-		<%else%>
-		  <span class="disabled_grey_button disabled_button"><%=t('repository.download')%></span>
-		<%end%>
-		
-		<%if attachment.authorize?(:delete,:to => current_user)%>
-	    <%=link_to ("<span>" + t('repository.remove') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
-		<%else%>
-		  <span class="disabled_grey_button disabled_button"><%=t('repository.remove')%></span>
-		<%end%>
-		
-		<%if attachment.authorize?(:update,:to => current_user)%>
-	   <%=link_to ("<span>" + t('repository.add_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>
-		<%else%>
-		  <span class="disabled_grey_button disabled_button"><%=t('repository.add_tags')%></span>
-		<%end%>
-  	  <!--<%=link_to ("<span>" + t('repository.rem_tags') + "</span>"),'#', {:id=>"",:class=>"grey_button basic_button"} %>-->
-	</div>
+  <%= render :partial => 'multiple_actions' %>
 	<%= render :partial => 'doc_table' %>
 </div>

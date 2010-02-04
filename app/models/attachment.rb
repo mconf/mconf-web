@@ -197,6 +197,8 @@ class Attachment < ActiveRecord::Base
     
     space = (container.is_a?(Space) ? container : container.space)
     
+    #Select attachments in container
+    
     #Waiting for station refactorization...
     #attachments = roots.in(container).sorted(params[:order],params[:direction])
     
@@ -204,11 +206,17 @@ class Attachment < ActiveRecord::Base
       when is_a?(Space) then roots.in(container).sorted(params[:order],params[:direction])
       else container.attachments.roots.sorted(params[:order],params[:direction])
     end
-   
+
+    # Filter by tag 
     tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in(space).find(t.to_i)} : Array.new
-    
     tags.each do |t|
       attachments = attachments.select{|a| a.tags.include?(t)}
+    end
+    
+    # Filter by attachment_ids
+    if params[:attachment_ids].present?
+      att_ids = params[:attachment_ids].split(",")
+      attachments = attachments.select{|a| att_ids.include?(a.id.to_s)}
     end
     
     attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'

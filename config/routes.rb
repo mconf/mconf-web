@@ -38,7 +38,12 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}
-    space.resources :attachments, :member => {:edit_tags => :get} 
+    
+    #Route to delete attachment collections with a DELETE to /:space_id/attachments
+    space.attachments 'attachments', :controller => 'attachments' , :action => 'delete_collection', :conditions => { :method => :delete }
+    space.resources :attachments,
+                    :member => {:edit_tags => :get} 
+    
     space.resources :entries
     space.resource :logo, :member => {:precrop => :post}
 

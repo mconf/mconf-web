@@ -1,5 +1,3 @@
-$("#enable_javascript").hide();
-
 //Upload form
 $("input#add_post").livequery("click",function(){
   $("#with_post").slideToggle("slow");
@@ -18,7 +16,109 @@ $("#attachment__tags").fcbkcomplete({
 
 // Action links
 $("a.repository_sidebar_action").livequery("click",function(){
-  collapse_tag_list();
-  $.getScript(this.href);
-  return false;
+  if($(this).hasClass("disabled_button")){
+    return false;
+  }else{
+		collapse_tag_list();
+	  $.getScript(this.href);
+	  return false;
+	}
 });
+
+//Multiple selectors actions
+
+selected_attachments = function(){
+	var sa = new Array();
+	$(".attachment_checkbox").each(function(){
+	  if($(this).attr('checked')){
+		  sa.push($(this).attr("value"));
+		}
+  });
+	return sa;
+};
+
+can_delete_selected = function(){
+  var can_delete = true
+  $(".attachment_checkbox:checked").each(function(){
+    if(!$(this).parents("tr.attachment").hasClass("can_delete")){
+      can_delete = false;
+    }
+  });
+  return can_delete;
+};
+
+update_selected = function(){
+  var sa = selected_attachments();
+  if(sa.length==0){
+    $("#selected_info").html("<%=escape_javascript(t('attachment.selected.none'))%>");
+		$("#multiple_download").addClass("disabled_button");
+		$("#multiple_delete").addClass("disabled_button");
+  }else{
+	  if(sa.length==1){
+      $("#selected_info").html(sa.length + "<%=escape_javascript(t('attachment.selected.one'))%>");
+		}else{
+		  $("#selected_info").html(sa.length + "<%=escape_javascript(t('attachment.selected.other'))%>");
+		}
+		$("#multiple_download").removeClass("disabled_button");
+		//Check permissions
+		if(can_delete_selected()){
+      $("#multiple_delete").removeClass("disabled_button");
+		}else{
+		  $("#multiple_delete").addClass("disabled_button");
+		}
+  }
+}
+
+$(".attachment_checkbox").click(function(){
+  update_selected();
+});
+
+$("#select_all_checkbox").click(function(){
+  if($(this).attr("checked")){
+	  $(".attachment_checkbox").attr("checked", true);
+	}else{
+	  $(".attachment_checkbox").attr("checked", false);
+	}
+	update_selected();
+});
+
+$("#multiple_download").click(function(){
+  if($(this).hasClass("disabled_button")){
+	  return false;
+	}else{
+	  var sa = selected_attachments();
+    $(this).attr("href", "<%=space_attachments_path(@space, :format => "zip")%>" + "&attachment_ids=" + sa.join(","));
+	}
+});
+
+$("#multiple_delete").click(function(){
+  if($(this).hasClass("disabled_button")){
+    return false;
+  }else{
+	  if(confirm('Delete selected attachments?')){
+	    var sa = selected_attachments();
+			var f = document.createElement('form');
+			f.style.display = 'none';
+			this.parentNode.appendChild(f);
+			f.method = 'POST';
+			f.action = "<%=space_attachments_path(@space)%>" + "?attachment_ids=" + sa.join(",");
+			var m = document.createElement('input');
+			m.setAttribute('type', 'hidden');
+			m.setAttribute('name', '_method');
+			m.setAttribute('value', 'delete');
+			f.appendChild(m);
+			var s = document.createElement('input');
+			s.setAttribute('type', 'hidden');
+			s.setAttribute('name', 'authenticity_token');
+			s.setAttribute('value', '<%=form_authenticity_token()%>');
+			f.appendChild(s);
+			f.submit();
+		}
+		return false;
+  }
+});
+
+//Initial actions
+$("#enable_javascript").hide();
+update_selected();
+

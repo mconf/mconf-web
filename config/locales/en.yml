@@ -83,6 +83,9 @@ en:
     created: "Attachment created successfully"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
+    error:
+      not_deleted: "{{file}} do not deleted correctly. "
+      not_permission: "{{user}} cannot delete {{file}}. "
     found:
       none: "No attachments found"
       one: "1 attachment was found"
@@ -96,6 +99,10 @@ en:
     not_selected: "No document selected"
     one: "Attachment"
     other: "Attachments"
+    selected:
+      none: "No files selected"
+      one: " file selected:"
+      other: " files selected:"
     updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
