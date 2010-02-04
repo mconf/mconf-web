@@ -1295,3 +1295,6 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	color:#514721;
 	cursor:pointer;
 	}
+
+#change_logo{float:right;}
+#show_inv{float:right;}

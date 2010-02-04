@@ -54,15 +54,15 @@
 	</ul>	
 	</div>	
       
-      <div class="button_wrapper grey_bar">
-        <%if event.authorize?(:update, :to => current_user) %>
-		  <%=link_to ("<span>" + t('event.logo.button') + "</span>"),'#', {:id=>"change_logo",:class=>"grey_button basic_button"} %>
-		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"grey_button basic_button",:title => t('invitation.add_more')} %>
-        <%end%>
+      <div class="button_wrapper grey_bar">        
 		<%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event), {:id=>"view_agenda", :class=>"grey_button basic_button",:title => t('event.view_agenda')} %>
 		<%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} %>
         <%if @event.agenda.present?%>
 		  <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"grey_button basic_button",:title => t('event.view_recordings')} %>
+        <%end%>
+		<%if event.authorize?(:update, :to => current_user) %>
+		  <%=link_to ("<span>" + t('event.logo.button') + "</span>"),'#', {:id=>"change_logo",:class=>"grey_button basic_button"} %>
+		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"grey_button basic_button",:title => t('invitation.add_more')} %>
         <%end%>
       </div>
     

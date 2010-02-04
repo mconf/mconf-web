@@ -56,6 +56,19 @@
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
       <%= f.text_area :embedded_video, :size => "85x7" %>
     </div>
+  <%else%>
+    <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	<div class="margin-up">
+      <label for="embedded_video" class="main_text"><%= t('agenda.entry.options.title') %></label><br/>
+      <div class="checkbox_event">
+	    <%=f.check_box :streaming,:class=>"icon", :checked => true  %>
+	    <label for="entry_streaming" class="label_izquierda" ><%= t('agenda.entry.options.streaming') %></label>
+	  </div>
+	  <div class="checkbox_event">
+	    <%=f.check_box :recording,:class=>"icon", :checked => true  %>
+	    <label for="entry_recording" class="label_izquierda" ><%= t('agenda.entry.options.recording') %></label>
+	  </div>
+    </div>
   <%end%>
     <div class="margin-up">
     	<input type="button" id="add_entry_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>

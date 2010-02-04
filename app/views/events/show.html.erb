@@ -147,7 +147,9 @@
 	       <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
 	    <%else%>
 		  <%= render :partial => 'participants' %>
-	     <%= render :partial => 'connection_info'%>
+	      <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
+		    <%= render :partial => 'connection_info'%>
+		  <%end%>
   	    <%end%>
       <%end%>
 	<%end%>    
@@ -166,7 +168,7 @@
 		<strong><%=t('event.help.now')%></strong><br/>
 		<ul id="event_help">
 		<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.creating_entries')%> <%=t('event.help.in_agenda')%></a><br/></li>
-		<li><%= link_to t('event.help.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv",:title => t('invitation.add_more')} %></li>
+		<li><%= link_to t('event.help.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
 		<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
 		<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
 		</ul>

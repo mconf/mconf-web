@@ -50,12 +50,20 @@ en:
         update: 'Error updating session in remote videoconference system'
       has_attachment: 'This entry has attachments.'
       has_video: "Video available for this entry"
+      help:
+        recording: "Recording enabled for this session"
+        streaming: "Streaming enabled for this session"
       hidevideo: "Hide video"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
       new: "New agenda entry"
       no_record: "No"
+      options:
+        help: "Here you can decide if you want to record or streaming this session or not"
+        recording: "Recording"
+        streaming: "Streaming"
+        title: "Options"
       one: "Entry"
       speakers: "Speakers"
       start_time: "Start time"
