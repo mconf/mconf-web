@@ -351,11 +351,14 @@ en:
       last_week: "No events for last week."
       last_month: "No events for last month."
     recording: 
+      button_disabled: "This button will be enabled when the event has any recording"
       one: "Event Video"
       other: "Event Videos"
       share: "Share"
       notice: "People will need access rights in order to see this videos"
-    repository: "Event documents"
+    repository: 
+      help: "This repository show the documents uploaded in the sessions of the event agenda"
+      title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
     streaming: 

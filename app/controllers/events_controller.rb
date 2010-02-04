@@ -95,6 +95,7 @@ class EventsController < ApplicationController
       else
         @video_entries = []
       end
+      @show_day=0
       for day in 0..@event.days-1
         if @video_entries[day][params[:show_video].to_i]
           @show_day = day

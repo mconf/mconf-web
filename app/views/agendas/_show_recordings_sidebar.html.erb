@@ -35,7 +35,7 @@
     <%for day in 0..@video_entries.size-1%>    
 	  <div id="videos_page<%=day%>" style="display:none">
 	    <%@video_entries[day].each do |key, entry|%>
-	      <div class="video_preview_sidebar <%="preview_selected" if entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
+	      <div class="video_preview_sidebar <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
 	        <div class="video_thumbnail">
 			  <%if entry.video_thumbnail.present?%>
 			    <%=link_to_function image_tag(entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
