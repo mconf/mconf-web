@@ -1,0 +1,29 @@
+<% content_for :javascript do %>
+  $(document).ready(function() {
+  	$("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+  })
+<% end %>
+
+<div id="new_reply">
+<h3 class="selector_title"><%= t('event.connection.info') %></h3>
+  <ul>
+  	<%if @event.web_interface%>
+      <li>
+    	<span><%= t('event.connection.web') %>:</span><br/>
+	    <strong><span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span></strong>
+	  </li>
+	<%end%>
+	<%if @event.isabel_interface%>
+	  <li>
+    	<span><%= t('event.connection.isabel') %>:</span><br/>
+	    <strong><span>isabel://master.dit.upm.es</span></strong>
+	  </li>
+	<%end%>
+	<%if @event.sip_interface%>
+	  <li>
+    	<span><%= t('event.connection.sip') %>:</span><br/>
+	    <strong><span>mcux.dit.upm.es</span></strong>
+	  </li>
+	<%end%>
+  </ul>
+</div>

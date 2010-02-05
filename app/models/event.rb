@@ -42,7 +42,8 @@ class Event < ActiveRecord::Base
   attr_accessor :mails
   attr_accessor :ids
   attr_accessor :invite_msg
-  attr_accessor :external_streaming_url
+  attr_accessor :external_streaming_url 
+  
   
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
@@ -55,11 +56,50 @@ class Event < ActiveRecord::Base
                                :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
   ]
   
+  VC_MODE = [:in_person, :meeting, :teleconference]
+  
   before_validation do |event|
     if event.start_hour.present?
       event.start_date += ( Time.parse(event.start_hour) - Time.now.midnight )
       event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
-    end
+    end     
+  end
+  
+  before_validation_on_create do |event|
+  
+    if event.isabel_event
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end  
+      cm_event = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true)
+      begin
+        cm_event.save
+        event.cm_event_id = cm_event.id
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
+      end    
+    end  
+  end
+  
+  before_validation_on_update do |event|
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if event.isabel_event
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end    
+      my_params = {:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true}
+      cm_event = ConferenceManager::Event.find(event.cm_event_id)
+      cm_event.load(my_params)     
+      unless cm_event.save
+        errors.add_to_base(I18n.t('event.error.videoconference'))  
+      end
+    end  
   end
   
   after_create do |event|
@@ -68,7 +108,9 @@ class Event < ActiveRecord::Base
     #create a directory to save attachments
     FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
 
-  end
+end
+
+ 
   
   after_save do |event|
     #fisrt of all we remove the emails that already has an invitation for this event (not to spam them)
@@ -90,6 +132,7 @@ class Event < ActiveRecord::Base
         i
       }.each(&:save)
     end
+    
   end
   
   def author
@@ -213,6 +256,11 @@ class Event < ActiveRecord::Base
       rescue
       end
     end
+    
+    #Delete event in conference Manager
+    cm_event = ConferenceManager::Event.find(event.cm_event_id)
+    cm_event.destroy    
+    
   end
   
   def get_room_data

@@ -36,11 +36,38 @@ class AgendaEntry < ActiveRecord::Base
     end     
   end
   
+  validate_on_create do |entry|
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if entry.agenda.event.isabel_event
+      cm_session = ConferenceManager::Session.new(:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id )
+      begin
+        cm_session.save
+        entry.cm_session_id = cm_session.id
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('agenda.entry.error.create')) 
+       end     
+    end   
+  end
+  
+  validate_on_update do |entry|
+    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if entry.agenda.event.isabel_event      
+      cm_session = entry.cm_session
+      my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      cm_session.load(my_params) 
+      begin
+        cm_session.save
+      rescue Exception => e  
+        entry.errors.add_to_base(I18n.t('agenda.entry.error.update')) 
+      end             
+    end   
+    
+  end
+  
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
-    end    
-    
+    end      
   end
   
   after_create do |entry|
@@ -50,6 +77,7 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+ 
   after_update do |entry|
     #Delete old attachments
      FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
@@ -61,8 +89,20 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+  
   after_destroy do |entry|    
     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #Delete session in Conference Manager
+    begin
+      cm_session = entry.cm_session
+      cm_session.destroy    
+    rescue Exception => e  
+       entry.errors.add_to_base(I18n.t('entry.error.delete')) 
+    end   
+  end
+  
+  def cm_session
+     cm_session = ConferenceManager::Session.find(self.cm_session_id, :params=> {:event_id => self.agenda.event.cm_event_id})    
   end
   
   def validate

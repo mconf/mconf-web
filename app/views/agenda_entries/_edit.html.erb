@@ -33,8 +33,8 @@
     </div>
  <!--
     <div class="margin-up" id="record_block">
-      <%= f.check_box :record %>
-      <%= f.label :record %>
+      <%= f.check_box :recording %>
+      <%= f.label :recording %>
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
  -->
@@ -42,7 +42,7 @@
  
  
  
-    <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
+    <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/></div>
 		
 		
 		 <div id="entry_attachment">
@@ -62,14 +62,26 @@
          <p class="newAttach"><%=t('attachment.new') %></p>
     
 		
-			
-    <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
-	 </div>
-    <div class="margin-up">
+	<%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>		
+      <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
+      <div class="margin-up">
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
-      <%= f.text_area :embedded_video, :size => "25x5" %>
-		</div>
-	
+        <%= f.text_area :embedded_video, :size => "25x5" %>
+	  </div>
+	<%else%>
+	  <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	<div class="margin-up">
+      <label for="embedded_video" class="main_text"><%= t('agenda.entry.options.title') %></label><br/>
+      <div class="checkbox_event">
+	    <%=f.check_box :streaming,:class=>"icon" %>
+	    <label for="entry_streaming" class="label_izquierda" ><%= t('agenda.entry.options.streaming') %></label>
+	  </div>
+	  <div class="checkbox_event">
+	    <%=f.check_box :recording,:class=>"icon" %>
+	    <label for="entry_recording" class="label_izquierda" ><%= t('agenda.entry.options.recording') %></label>
+	  </div>
+    </div>
+	<%end%>
     <div class="margin-up">
 			<input type="button" id="edit_entry_button" value="<%=t("button.update")%>" class="basic_button blue_button"/>
       <input type="button" value="<%=t('close')%>" class="agenda_edit_close basic_button blue_button"/>

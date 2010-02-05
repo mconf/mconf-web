@@ -44,14 +44,26 @@ en:
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
+      error:
+        create: 'Error creating session in remote videoconference system'
+        delete: 'Error deleting session in remote videoconference system'
+        update: 'Error updating session in remote videoconference system'
       has_attachment: 'This entry has attachments.'
       has_video: "Video available for this entry"
+      help:
+        recording: "Recording enabled for this session"
+        streaming: "Streaming enabled for this session"
       hidevideo: "Hide video"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
       new: "New agenda entry"
       no_record: "No"
+      options:
+        help: "Here you can decide if you want to record or streaming this session or not"
+        recording: "Recording"
+        streaming: "Streaming"
+        title: "Options"
       one: "Entry"
       speakers: "Speakers"
       start_time: "Start time"
@@ -262,18 +274,40 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
-    create: "Create new event"
+    connection:
+      info: "Connection info for this event"
+      isabel: "Isabel server"
+      sip: "Proxy SIP"
+      web: "Web client"
+    create:
+      info: 
+        basic: "Here you can organize three kind of events"
+        presential: 
+          name: "In person meeting"
+        meeting:
+          name: "Virtual meeting"
+          message: " with automatic streaming recording and easy to participate"
+        conference:
+          name: "Virtual conference"
+          message: " as the virtual meeting but also with tv-like production managed by an operator" 
+      title: "Create new event"      
     created: "Event created successfully"
     description:
       add: "Add description."
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event"
+    enable:
+      participation: "Select participation modes"
+      isabel: "Isabel"
+      sip: "SIP"
+      web: "Web"
     error:
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
       marte: "Could not create virtual conference"
       omit_date: "The event needs start date and end date "
+      videoconference: "Could not create videoconference event"
     follow: "Enter this Virtual Meeting"
     found:
       none: "No events found"
@@ -286,7 +320,13 @@ en:
     held_with: "This event will be held with"
     help:
       create: "Create your simple event in three steps:"
+      creating_entries: "creating entries"
+      define: "Define your program"
+      description: "Write a complete description"
       edit: "Edit your event"
+      invite: "Invite people"
+      in_agenda: "in the agenda"
+      now: "Now you can"      
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
@@ -298,6 +338,10 @@ en:
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
+    new:
+      conference: "Virtual-conference"
+      meeting: "Virtual-meeting"
+      presential: "In-person meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
@@ -314,11 +358,14 @@ en:
       last_week: "No events for last week."
       last_month: "No events for last month."
     recording: 
+      button_disabled: "This button will be enabled when the event has any recording"
       one: "Event Video"
       other: "Event Videos"
       share: "Share"
       notice: "People will need access rights in order to see this videos"
-    repository: "Event documents"
+    repository: 
+      help: "This repository show the documents uploaded in the sessions of the event agenda"
+      title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
     streaming: 
@@ -326,6 +373,7 @@ en:
       title: "Streaming"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
+      ready: "The streaming is booked. It will be available during the event"
       will_be_available: "The streaming will be available during the event"
     to: "To"
     today: "Today events"
