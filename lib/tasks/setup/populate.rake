@@ -26,6 +26,25 @@ namespace :setup do
         user.crypted_password = User.encrypt("test", "")
         user.activated_at = 2.years.ago..Time.now
         user.disabled = false
+        
+        Profile.populate 1 do |profile|
+          profile.user_id = user.id
+          profile.organization = Populator.words(1..3).titleize
+          profile.phone = Faker::PhoneNumber.phone_number
+          profile.mobile = Faker::PhoneNumber.phone_number
+          profile.fax = Faker::PhoneNumber.phone_number
+          profile.address = Faker::Address.street_address
+          profile.city = Faker::Address.city
+          profile.zipcode = Faker::Address.zip_code
+          profile.province = Faker::Address.uk_county
+          profile.country = Faker::Address.uk_country
+          profile.prefix = Faker::Name.prefix
+          profile.description = Populator.sentences(1..3)
+          profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
+          profile.skype = Populator.words(1)
+          profile.im = Faker::Internet.email
+          profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
+        end
       end
 
       puts "* Create Spaces"
@@ -41,7 +60,7 @@ namespace :setup do
           post.title = Populator.words(1..4).titleize
           post.text = Populator.sentences(3..15)
           post.spam = false
-	  post.created_at = 2.years.ago..Time.now
+          post.created_at = 2.years.ago..Time.now
           post.updated_at = post.created_at..Time.now
   #        post.tag_with Populator.words(1..4).gsub(" ", ",")
         end
@@ -51,11 +70,47 @@ namespace :setup do
           event.name = Populator.words(1..3).titleize
           event.description = Populator.sentences(0..3)
           event.place = Populator.sentences(0..2)
-	  event.spam = false
+          event.spam = false
           event.created_at = 1.years.ago..Time.now
           event.updated_at = event.created_at..Time.now
           event.start_date = event.created_at..1.years.since(Time.now)
           event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
+          
+          
+          Agenda.populate 1 do |agenda|
+            agenda.event_id = event.id
+            agenda.created_at = event.created_at..Time.now
+            agenda.updated_at = agenda.created_at..Time.now
+            
+            # inferior limit for the start time of the first agenda entry
+            last_agenda_entry_end_time = event.start_date
+            
+            AgendaEntry.populate 2..10 do |agenda_entry|
+              agenda_entry.agenda_id = agenda.id
+              agenda_entry.title = Populator.words(1..3).titleize
+              agenda_entry.description = Populator.sentences(0..2)
+              agenda_entry.speakers = Populator.words(2..6).titleize
+              agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
+              agenda_entry.end_time = agenda_entry.start_time..event.end_date
+             
+              # updating the inferior limit for the next agenda entry
+              last_agenda_entry_end_time = agenda_entry.end_time
+              
+              if (rand(0) > 0.5)
+                agenda_entry.record = true
+              else
+                agenda_entry.record = false
+              end
+              agenda_entry.created_at = agenda.created_at..Time.now
+              agenda_entry.updated_at = agenda_entry.created_at..Time.now
+              agenda_entry.embedded_video = "<object width='425' height='344'><param name='movie' " +
+                "value='http://www.youtube.com/v/9ri3y2RDzUM&hl=es_ES&fs=1&'></param><param name='allowFullScreen'" +
+                " value='true'></param><param name='allowscriptaccess' value='always'></param><embed" +
+                " src='http://www.youtube.com/v/9ri3y2RDzUM&hl=es_ES&fs=1&' type='application/x-shockwave-flash'" +
+                " allowscriptaccess='always' allowfullscreen='true' width='425' height='344'></embed></object>"
+              agenda_entry.video_thumbnail = "http://i2.ytimg.com/vi/9ri3y2RDzUM/default.jpg"
+            end
+          end
         end
 
         Group.populate 2..4 do |group|

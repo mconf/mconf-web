@@ -17,7 +17,7 @@
 
 class Agenda < ActiveRecord::Base
   belongs_to :event
-  has_many :agenda_entries
+  has_many :agenda_entries, :dependent => :destroy
   has_many :agenda_record_entries
   has_many :attachments, :through => :agenda_entries
   

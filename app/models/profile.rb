@@ -25,6 +25,15 @@ class Profile < ActiveRecord::Base
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
   
+  before_validation do |profile|
+    if profile.url
+      if (profile.url.index('http') != 0)
+        profile.url = "http://" << profile.url 
+      end
+    end
+  end
+  
+  
   authorizing do |agent, permission|
     if self.user == agent
       true
