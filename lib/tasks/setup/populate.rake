@@ -97,9 +97,15 @@ namespace :setup do
               last_agenda_entry_end_time = agenda_entry.end_time
               
               if (rand(0) > 0.5)
-                agenda_entry.record = true
+                agenda_entry.streaming = true
               else
-                agenda_entry.record = false
+                agenda_entry.streaming = false
+              end
+              
+              if (rand(0) > 0.5)
+                agenda_entry.recording = true
+              else
+                agenda_entry.recording = false
               end
               agenda_entry.created_at = agenda.created_at..Time.now
               agenda_entry.updated_at = agenda_entry.created_at..Time.now
