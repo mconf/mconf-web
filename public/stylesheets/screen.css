@@ -636,7 +636,7 @@ div.pagination a{color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text{width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
-#more_invitations{width:645px;}
+#more_invitations{width:645px;margin-bottom:1.5em;}
 
 /*Actions of the sidebar: comment, photo and doc*/
 .actions{font-size:1em;line-height:1.5;}
@@ -1093,10 +1093,10 @@ th.attachment-updated{
 .video_preview_sidebar span.play_icon{
 	background:url('/images/icons/16/play.png') no-repeat center center;
 	display:block;
-	left:0%;
+	left:6px;
 	padding:35px 45px;
 	position:absolute;
-	top:0%;
+	top:3px;
 	cursor:pointer;}
 	
 .video_preview span.play_icon:hover{background:url('/images/icons/32/play1.png') no-repeat center center;}
