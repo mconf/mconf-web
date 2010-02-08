@@ -546,6 +546,7 @@ en:
     item_in_home: "News item in space"
     none: "None"
     none_to_show: "No news items to show"
+    other: "News"
     up: "NEWS"
     updated: "News item updated successfully"
     publish_another: "Publish another news item"

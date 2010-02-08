@@ -1,7 +1,7 @@
 	<div id="home_menu">  
 	  <div id="show">
 	    <%=t('show')%>:
-	    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%><%= check_box_tag "attachments","attachments",true%><%= label_tag "Attachments"%>
+	    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag t('post.other')%>  <%= check_box_tag "events","events",true%><%= label_tag t('event.other') %><%= check_box_tag "news","news",true%><%= label_tag t('news.other')%><%= check_box_tag "attachments","attachments",true%><%= label_tag t('attachment.other')%>
 	  </div>
 	  <div id="help" title= "<%= h(t('information.information2'))%>"></div>
 	  	<h3><%=t('home.activity')%></h3>
