@@ -95,18 +95,9 @@ namespace :setup do
              
               # updating the inferior limit for the next agenda entry
               last_agenda_entry_end_time = agenda_entry.end_time
-              
-              if (rand(0) > 0.5)
-                agenda_entry.streaming = true
-              else
-                agenda_entry.streaming = false
-              end
-              
-              if (rand(0) > 0.5)
-                agenda_entry.recording = true
-              else
-                agenda_entry.recording = false
-              end
+
+              agenda_entry.streaming = (rand(0) > 0.5) 
+              agenda_entry.recording = (rand(0) > 0.5)
               agenda_entry.created_at = agenda.created_at..Time.now
               agenda_entry.updated_at = agenda_entry.created_at..Time.now
               agenda_entry.embedded_video = "<object width='425' height='344'><param name='movie' " +
@@ -154,6 +145,20 @@ namespace :setup do
             group.users << user if rand > 0.7
           end
         end
+        
+        space.events.each do |event|
+          available_event_participants = space.users.dup
+          Participant.populate 0..space.users.count do |participant|
+            participant_aux = available_event_participants.delete_at((rand * available_event_participants.size).to_i)
+            participant.user_id = participant_aux.id
+            participant.email = participant_aux.email
+            participant.event_id = event.id
+            participant.created_at = event.created_at..Time.now
+            participant.updated_at = participant.created_at..Time.now
+            participant.attend = (rand(0) > 0.5)
+          end
+        end
+
       end
 
       Post.record_timestamps = false
