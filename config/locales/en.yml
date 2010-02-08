@@ -86,6 +86,7 @@ en:
     error:
       not_deleted: "{{file}} do not deleted correctly. "
       not_permission: "{{user}} cannot delete {{file}}. "
+    file: "File: "
     found:
       none: "No attachments found"
       one: "1 attachment was found"
@@ -101,8 +102,8 @@ en:
     other: "Attachments"
     selected:
       none: "No files selected"
-      one: " file selected:"
-      other: " files selected:"
+      one: " file selected"
+      other: " files selected"
     updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
