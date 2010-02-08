@@ -63,7 +63,7 @@
 
 <div id="change-event">
 	
-<h3><div id="help" title=<%=t('event.help.create')%>></div><%= t('event.create') %></h3>
+<h3><div id="help" title=<%=h(t('event.help.create'))%>></div><%= t('event.create') %></h3>
 
 <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
  <div>

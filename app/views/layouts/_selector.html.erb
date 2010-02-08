@@ -14,7 +14,7 @@
 <ul>
   <% if authenticated? && current_user.spaces.any? %>
   	
-	<div id="help" title= "<%= t('information.information1')%>"></div>
+	<div id="help" title= "<%= h(t('information.information1'))%>"></div>
 	
 	<h3 class="selector_title"><%=t('space.possesion')%></h3>
 	

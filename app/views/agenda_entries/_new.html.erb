@@ -49,7 +49,7 @@
      <p class="newAttach"><%=t('attachment.new') %></p>
  </div>
     
-		<div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
+		<div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
     <div class="margin-up">
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
       <%= f.text_area :embedded_video, :size => "85x7" %>

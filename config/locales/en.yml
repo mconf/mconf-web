@@ -454,7 +454,7 @@ en:
     yes_accepted: "accepted"
   invited: "Invited"
   import: "Import"
-  is_member_of: "Is member of"
+  is_member_of: "is member of"
   Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
@@ -532,7 +532,7 @@ en:
     full: "Full name"
     one: "Name"
     other: "Names"
-    prefix: "Honorific prefix"
+    prefix: "Title"
   new_source: "New source"
   new_spam_detected: "New spam detected"
   news:
@@ -592,7 +592,7 @@ en:
     other: "Access rights"
   personal_information: "Personal information"
   phone:
-    landline: "Landline"
+    landline: "Telephone"
     mobile: "Mobile"
     one: "Phone"
   phone_optional: "Phone (optional)"
@@ -916,6 +916,7 @@ en:
     invited: "Users already invited"
     list_by: "List by"
     lost_password: "Have you lost your password?"
+    noactivity: "User has no recent activity"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"    

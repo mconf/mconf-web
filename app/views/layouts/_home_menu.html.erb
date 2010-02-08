@@ -3,6 +3,6 @@
 	    <%=t('show')%>:
 	    <%= check_box_tag "checkposts","checkposts",true%><%= label_tag "Posts"%>  <%= check_box_tag "events","events",true%><%= label_tag "Events" %><%= check_box_tag "news","news",true%><%= label_tag "News"%><%= check_box_tag "attachments","attachments",true%><%= label_tag "Attachments"%>
 	  </div>
-	  <div id="help" title= "<%= t('information.information2')%>"></div>
+	  <div id="help" title= "<%= h(t('information.information2'))%>"></div>
 	  	<h3><%=t('home.activity')%></h3>
 	</div>
