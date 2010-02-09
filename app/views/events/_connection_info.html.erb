@@ -4,26 +4,26 @@
   })
 <% end %>
 
-<div id="new_reply">
-<h3 class="selector_title"><%= t('event.connection.info') %></h3>
-  <ul>
+<div id="connection_info" class="margin-up">
+  <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
+  <div class="connection_content">
   	<%if @event.web_interface%>
-      <li>
-    	<span><%= t('event.connection.web') %>:</span><br/>
-	    <strong><span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span></strong>
-	  </li>
+
+    	<h5><%= t('event.connection.web') %>:</h5>
+	    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span>
+
 	<%end%>
 	<%if @event.isabel_interface%>
-	  <li>
-    	<span><%= t('event.connection.isabel') %>:</span><br/>
-	    <strong><span>isabel://master.dit.upm.es</span></strong>
-	  </li>
+
+    	<h5><%= t('event.connection.isabel') %>:</h5>
+	    <span>isabel://master.dit.upm.es</span>
+
 	<%end%>
 	<%if @event.sip_interface%>
-	  <li>
-    	<span><%= t('event.connection.sip') %>:</span><br/>
-	    <strong><span>mcux.dit.upm.es</span></strong>
-	  </li>
+
+    	<h5><%= t('event.connection.sip') %>:</h5>
+	    <span>mcux.dit.upm.es</span>
+
 	<%end%>
-  </ul>
+  </div>
 </div>

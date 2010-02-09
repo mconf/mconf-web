@@ -61,6 +61,16 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
   <%= render :partial => 'search/form' %>
 <%end%>
 
+<div class="grey_bar">
+  <h3><%= t('event.create.title') %></h3>
+  <span><%=t('event.create.info.basic')%>:</span>
+  <ul>
+    <li><strong><%=t('event.create.info.presential.name')%></strong></li>
+    <li><strong><span><%=t('event.create.info.meeting.name')%>:</span></strong><%=t('event.create.info.meeting.message')%></li>
+    <li><strong><span><%=t('event.create.info.conference.name')%>:</span></strong><%=t('event.create.info.conference.message')%></li>
+  </ul>
+</div>
+
 <div id="events_content">
 	
 <%if !@current_events.empty?%>
