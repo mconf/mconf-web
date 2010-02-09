@@ -27,7 +27,7 @@ class Group < ActiveRecord::Base
     def validate
       for user in users
         unless user.stages.include?(space)
-          errors.add(:users, "not belongs to the space of the group")
+          errors.add(:users, "do not belong to the same space as the group")
         end
       end
       
@@ -87,7 +87,7 @@ class Group < ActiveRecord::Base
     #end
     
     def self.request_list_update
-      `/usr/local/bin/newautomatic.sh`
+      #`/usr/local/bin/newautomatic.sh`
     end
     
     def self.copy_list(group,list)
