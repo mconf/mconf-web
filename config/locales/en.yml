@@ -322,6 +322,7 @@ en:
     repository: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    spam: "Spam in events"
     streaming: 
       add: "Add one."
       title: "Streaming"
