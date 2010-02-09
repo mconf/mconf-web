@@ -24,7 +24,7 @@ namespace :setup do
     if File.exist?(cron_file)
       puts "file exists."
     else
-      `sudo cp #{ RAILS_ROOOT }/extras/cron/vcc #{ cron_file }` 
+      `sudo cp #{ RAILS_ROOT }/extras/cron/vcc #{ cron_file }` 
       puts "copied."
     end
   end
