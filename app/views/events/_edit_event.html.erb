@@ -1,13 +1,19 @@
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<%end%>
+
 <% content_for :javascript do %>  
-  $("#organizers_name").fcbkcomplete({
-	cache: true,
-            filter_case: false,
-            filter_hide: true,
-            firstselected: true,
-            filter_selected: true,
-            maxshownitems: 4
-  });
   
+	$("#organizers_name").fcbkcomplete({
+    cache: true,
+    filter_case: false,
+    filter_hide: true,
+    firstselected: true,
+    filter_selected: true,
+    maxshownitems: 4
+  });
+	
   template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
   $("#event_name").blur(function(){
     replace_invitation();
@@ -48,16 +54,12 @@
   	 replace_invitation();
   });
 <% end %>
-<% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete'%>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
-<% end -%>
 
 <div id="change-event">
 
 
-<div id="help" title="<%=t('event.help.edit')%>"></div>
-<h3><%= t('event.edit') %></h3>
+  <div id="help" title="<%=t('event.help.edit')%>"></div>
+  <h3><%= t('event.edit') %></h3>
 
 <% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
   <%= f.error_messages %>				
