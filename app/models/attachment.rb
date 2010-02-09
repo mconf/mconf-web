@@ -194,20 +194,10 @@ class Attachment < ActiveRecord::Base
   end
   
   def self.repository_attachments(container, params)
-    
+    attachments = container.attachments.roots.sorted(params[:order],params[:direction])
+
     space = (container.is_a?(Space) ? container : container.space)
     
-    #Select attachments in container
-    
-    #Waiting for station refactorization...
-    #attachments = roots.in(container).sorted(params[:order],params[:direction])
-    
-    attachments = case container
-      when is_a?(Space) then roots.in(container).sorted(params[:order],params[:direction])
-      else container.attachments.roots.sorted(params[:order],params[:direction])
-    end
-
-    # Filter by tag 
     tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in(space).find(t.to_i)} : Array.new
     tags.each do |t|
       attachments = attachments.select{|a| a.tags.include?(t)}
@@ -224,8 +214,7 @@ class Attachment < ActiveRecord::Base
     attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
     
-    [attachments,tags]
-    
+    [attachments, tags]
   end
   
   def without_timestamps
