@@ -94,10 +94,16 @@ class Space < ActiveRecord::Base
 
   def disable
     self.update_attribute(:disabled,true)
+    for group in self.groups
+      Group.disable_list(group,group.mailing_list)
+    end
   end
 
   def enable
     self.update_attribute(:disabled,false)
+    for group in self.groups
+      Group.enable_list(group,group.mailing_list)
+    end
   end
 
   # There are previous authorization rules because of the stage

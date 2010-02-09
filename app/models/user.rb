@@ -120,12 +120,12 @@ end
       if user.email_changed? 
         user.groups.each do |group|
           if group.mailing_list.present?
-            delete_at_jungla(group,group.mailing_list)
+            delete_list(group,group.mailing_list)
             group.mail_list_archive
-            copy_at_jungla(group,group.mailing_list)
+            copy_list(group,group.mailing_list)
           end
         end
-        Group.request_update_at_jungla
+        Group.request_update
       end
   }
   

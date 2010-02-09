@@ -51,16 +51,16 @@ class Group < ActiveRecord::Base
         #create the new mailing_list if it has the option activated
         if group.mailing_list.present?
           group.mail_list_archive
-          copy_at_jungla(group, group.mailing_list)
-          request_update_at_jungla
+          copy_list(group, group.mailing_list)
+          request_list_update
         end
     }
     
     after_destroy { |group|
         if group.mailing_list
           #destroy the existing mailing_list
-          delete_at_jungla(group, group.mailing_list)
-          request_update_at_jungla
+          delete_list(group, group.mailing_list)
+          request_list_update
         end
     }   
     
@@ -68,17 +68,17 @@ class Group < ActiveRecord::Base
     
         #delete the old mailing_list      
         if group.mailing_list_changed?
-          delete_at_jungla(group,group.mailing_list_was) if group.mailing_list_was.present?
+          delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
         else
-          delete_at_jungla(group,group.mailing_list) if group.mailing_list.present?
+          delete_list(group,group.mailing_list) if group.mailing_list.present?
         end
   
         #create the new mailing_list
         if group.mailing_list.present?  
           group.mail_list_archive        
-          copy_at_jungla(group,group.mailing_list)
+          copy_list(group,group.mailing_list)
         end
-        request_update_at_jungla
+        request_list_update
     }
        
     # Do not reload mail list server if not in production mode, it could cause server overload
@@ -86,26 +86,24 @@ class Group < ActiveRecord::Base
       #RAILS_ENV == "production"
     #end
     
-    def self.check_domain
-      Site.current.domain == "vcc.dit.upm.es"
+    def self.request_list_update
+      `/usr/local/bin/newautomatic.sh`
     end
     
-    def self.request_update_at_jungla
-      if check_domain
-        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
-      end
+    def self.copy_list(group,list)
+      `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
-    def self.copy_at_jungla(group,list)
-      if check_domain
-        `sudo -u vcc-list scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{list}`
-      end
+    def self.delete_list(group,list)
+      `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
-    def self.delete_at_jungla(group,list)
-      if check_domain
-        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{list}`
-      end
+    def self.disable_list(group,list)
+      `mv -f /var/lib/mailman/data/listas_automaticas/vcc-#{list} /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name}`
+    end
+
+    def self.enable_list(group,list)
+      `mv -f /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name} /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
     # Transforms the list of users in the group into a string for the mail list server
