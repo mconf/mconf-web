@@ -58,4 +58,6 @@ class Agenda < ActiveRecord::Base
      end
     
   end
+
+  
 end
