@@ -125,7 +125,7 @@ end
             copy_list(group,group.mailing_list)
           end
         end
-        Group.request_update
+        Group.request_list_update
       end
   }
   
