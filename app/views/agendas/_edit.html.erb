@@ -91,10 +91,22 @@
     edit_entry_button = $(this);
 		//first we remove the rest of the edit divs in case the user has an open one
     $(".agenda_edit_entry").empty();
+		$(".agenda_edit_hours_entry").empty();
     $(".agenda_new_entry").siblings("button").show();
     $(".agenda_new_entry").empty();
 		$(".newAttachment").empty();
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
+    $.getScript(route);
+  });
+	
+	// Edit hours in an agenda entry
+	$('.edit_hours_entry').livequery('click', function(){
+    edit_entry_button = $(this);
+    //first we remove the rest of the edit divs in case the user has an open one
+    $(".agenda_edit_entry").empty();
+		$(".agenda_edit_hours_entry").empty();
+    $(".agenda_new_entry").empty();
+    var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit?hours=true";
     $.getScript(route);
   });
 	
@@ -224,7 +236,7 @@
           });
     });
   <%end%>
-  
+  	
 <%end%>
 
 <div id="agenda_tabs">

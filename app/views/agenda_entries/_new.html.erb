@@ -7,69 +7,19 @@
 
   <div id="new_entry_content">
     <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
-      <% content_for :agenda_attachments do%>
-        <%= "attachment='#{ generate_template(f,:attachments) }'" %>
-      <% end %>
-   
-      <label for="title" id="agenda_title_label" class="main_text"><%= t('agenda.entry.title') %></label><br/>
-      <%= f.text_field :title %>
-	
-  
-    <div class="margin-up">
-      <label for="speakers" class="main_text"><%= t('agenda.entry.speakers') %></label><br/>
-      <%=select(:speakers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
-    </div>
-  
-    <div class="margin-up"><label for="description" class="main_text"><%= t('description') %></label><br/>
-    <%= f.text_area :description, :size => "85x7" %></div>
-  
+       
+    
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
   
     <div class="without_javascript">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
-      <%= f.datetime_select :start_time %></div>
-
+      <%= f.time_select :start_time, :default => @event.last_hour_for_day(@day.to_i) %></div>
+      
       <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.end_time') %></label><br/>
-      <%= f.datetime_select :end_time %></div>
+      <%= f.time_select :end_time, :default => @event.last_hour_for_day(@day.to_i)+ 2.hour %></div>
     </div>
- <!--
-    <div class="margin-up" id="record_block">
-      <%= f.check_box :recording %>
-      <%= f.label :recording %>
-	  <span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
-    </div>
- -->
- <div id="entry_attachment" class="margin-up">
-     <div class="new_attachment_form">
-         <% f.fields_for(:attachments) do |at_form| %>
-            <%= render :partial => 'attachment', :locals => {:f => at_form} %>                        
-         <%end %>
-			</div>	 
-    
-     <p class="newAttach"><%=t('attachment.new') %></p>
- </div>
-    
-		
-  <%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>
-    <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
-	<div class="margin-up">
-    	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
-      <%= f.text_area :embedded_video, :size => "85x7" %>
-    </div>
-  <%else%>
-    <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
-	<div class="margin-up">
-      <label for="embedded_video" class="main_text"><%= t('agenda.entry.options.title') %></label><br/>
-      <div class="checkbox_event">
-	    <%=f.check_box :streaming,:class=>"icon", :checked => true  %>
-	    <label for="entry_streaming" class="label_izquierda" ><%= t('agenda.entry.options.streaming') %></label>
-	  </div>
-	  <div class="checkbox_event">
-	    <%=f.check_box :recording,:class=>"icon", :checked => true  %>
-	    <label for="entry_recording" class="label_izquierda" ><%= t('agenda.entry.options.recording') %></label>
-	  </div>
-    </div>
-  <%end%>
+ 
+ 
     <div class="margin-up">
     	<input type="button" id="add_entry_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>
       <input type="button" value="<%=t('close')%>" class="agenda_new_close basic_button blue_button"/>

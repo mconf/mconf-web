@@ -1,7 +1,6 @@
 <div class="agenda_edit_entry" >
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
-
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <% content_for :agenda_attachments do%>
@@ -21,16 +20,7 @@
     </div>
   
     <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
-    <%= f.text_area :description, :size => "85x7" %></div>
-  
-    <input type="hidden" id="entry_day" name="entry_day" value="<%=day_for(@event, @agenda_entry)%>">
-  
-    <div class='javascript'>
-      <%= t('agenda.entry.start_time') %><br/>
-      <input type='time' id='start_timepicker_agenda' name='agenda_entry[start_time]' class='timepicker small-font' value='<%= @agenda_entry.start_time.present? ? @agenda_entry.start_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'><br/>   
-      <%= t('agenda.entry.end_time') %><br/>
-      <input type='time' id='end_timepicker_agenda' name='agenda_entry[end_time]' class='timepicker small-font' value='<%= @agenda_entry.end_time.present? ? @agenda_entry.end_time.strftime("%H:%M") : DateTime.now.strftime("%H:%M") %>'>
-    </div>
+    <%= f.text_area :description, :size => "85x7" %></div> 
  <!--
     <div class="margin-up" id="record_block">
       <%= f.check_box :recording %>
@@ -38,10 +28,6 @@
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
  -->
- 
- 
- 
- 
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/></div>
 		
 		
@@ -57,11 +43,8 @@
           <%end %>
         </br>
       </div>
-    </div>
-    
-         <p class="newAttach"><%=t('attachment.new') %></p>
-    
-		
+    </div>    
+         <p class="newAttach"><%=t('attachment.new') %></p>  
 	<%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>		
       <div id="help" title="<%= t('agenda.entry.embed_help') %>"></div>
       <div class="margin-up">

@@ -1,6 +1,6 @@
 $('#add_entry<%=@day%>').parent().append("<%=escape_javascript(render :partial => 'new')%>");
   $(".newAttachment").empty();
-<%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+
 var destination_add<%=@day%> = $('#new_entry_anchor').offset().top;
 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add<%=@day%>}, 1100, function() {
   window.location.hash = '#new_entry_anchor'; 

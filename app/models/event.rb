@@ -44,6 +44,11 @@ class Event < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :external_streaming_url 
   
+  #Attibutes for Conference Manager
+  attr_accessor :web_interface
+  attr_accessor :isabel_interface
+  attr_accessor :sip_interface
+  
   
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
@@ -65,41 +70,54 @@ class Event < ActiveRecord::Base
     end     
   end
   
-  before_validation_on_create do |event|
-  
-    if event.isabel_event
+  validate_on_create do |event|
+   if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
       mode = ""
       if event.vc_mode == Event::VC_MODE.index(:meeting)
         mode = "meeting"
       elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
           mode = "conference"
-      end  
-      cm_event = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true)
-      begin
-        cm_event.save
-        event.cm_event_id = cm_event.id
-      rescue Exception => e  
-        entry.errors.add_to_base(I18n.t('event.error.videoconference')) 
-      end    
+      end 
+      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
+      begin 
+       cm_e.save
+       event.cm_event_id = cm_e.id
+     rescue StandardError =>e
+       event.errors.add_to_base(e.to_s)
+      end        
     end  
   end
   
-  before_validation_on_update do |event|
-    #if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
-    if event.isabel_event
+  validate_on_update do |event|
+    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
       mode = ""
       if event.vc_mode == Event::VC_MODE.index(:meeting)
         mode = "meeting"
       elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
           mode = "conference"
       end    
-      my_params = {:name=> event.name, :mode =>mode, :enable_web => true, :enable_isabel => true, :enable_sip => true}
-      cm_event = ConferenceManager::Event.find(event.cm_event_id)
-      cm_event.load(my_params)     
-      unless cm_event.save
-        errors.add_to_base(I18n.t('event.error.videoconference'))  
+      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "#{RAILS_ROOT}/attachments/conferences/#{event.permalink}" }
+      cm_event = event.cm_event
+      cm_event.load(my_params)  
+      begin
+        cm_event.save
+      rescue  StandardError =>e
+        event.errors.add_to_base(e.to_s)  
       end
     end  
+  end
+  
+  before_destroy do |event|
+    #Delete event in conference Manager
+    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+      begin
+        cm_event = ConferenceManager::Event.find(event.cm_event_id)
+        cm_event.destroy  
+      rescue => e
+        event.errors.add_to_base(I18n.t('event.error.delete'))  
+        false
+      end
+    end
   end
   
   after_create do |event|
@@ -160,6 +178,16 @@ end
   #returns the day of the agenda entry, 0 for the first day, 1 for the second day, ...
   def day_for(agenda_entry)
     return agenda_entry.start_time.to_date - start_date.to_date
+  end
+  
+  #returns the hour of the last agenda_entry
+  def last_hour_for_day(day)
+    ordered_entries = agenda.agenda_entries_for_day(day).sort{|x,y| x.end_time <=> y.end_time }
+    unless ordered_entries.empty?
+      ordered_entries.last.end_time
+    else
+      self.start_date + day.days + 9.hour
+    end  
   end
   
   #method to know if this event is happening now
@@ -255,12 +283,43 @@ end
         MarteRoom.find(event.id).destroy
       rescue
       end
-    end
-    
-    #Delete event in conference Manager
-    cm_event = ConferenceManager::Event.find(event.cm_event_id)
-    cm_event.destroy    
-    
+    end     
+  end
+  
+  def cm_event?
+    cm_event.present?
+  end
+  
+  def cm_event
+    begin
+      @cm_event ||= ConferenceManager::Event.find(self.cm_event_id)
+    rescue
+      nil
+    end  
+  end
+  
+  def sip_interface?
+      cm_event.try(:enable_sip?)
+  end
+  
+  def isabel_interface?
+      cm_event.try(:enable_isabel?)  
+  end
+  
+  def web_interface?
+      cm_event.try(:enable_web?)  
+  end
+  
+  def web_url
+      cm_event.try(:web_url)
+  end
+  
+  def sip_url
+      cm_event.try(:sip_url)
+  end
+  
+  def isabel_url
+      cm_event.try(:isabel_url) 
   end
   
   def get_room_data

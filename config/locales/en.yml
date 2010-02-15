@@ -227,6 +227,7 @@ en:
   
   ######### E ###########
   edit: "Edit"
+  edit_hours: "Edit hours"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
   e-mail:
@@ -303,8 +304,10 @@ en:
       sip: "SIP"
       web: "Web"
     error:
+      cm_connection: "Connection to remote videoconference system fails"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
+      delete: "The event could not be deleted"
       marte: "Could not create virtual conference"
       omit_date: "The event needs start date and end date "
       videoconference: "Could not create videoconference event"

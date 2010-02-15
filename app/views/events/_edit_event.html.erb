@@ -104,15 +104,15 @@
 	      <strong><span>3. <%= t('event.enable.participation')%></span></strong>	
 	    </div>
 	    <div class="checkbox_event">
-		  <%=f.check_box :isabel_interface,:class=>"icon"%>
+		  <%=f.check_box :isabel_interface,:class=>"icon", :checked => @event.isabel_interface?%>
 		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.isabel') %></label>
 		</div>
 		<div class="checkbox_event">
-		  <%=f.check_box :web_interface,:class=>"icon"%>
+		  <%=f.check_box :web_interface,:class=>"icon", :checked => @event.web_interface?%>
 		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.web') %></label>
 		</div>
 		<div class="checkbox_event">
-		  <%=f.check_box :sip_interface,:class=>"icon"%>
+		  <%=f.check_box :sip_interface,:class=>"icon", :checked => @event.sip_interface?%>
 		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
 		</div>
 	  </div>

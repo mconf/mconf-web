@@ -203,6 +203,9 @@ class EventsController < ApplicationController
     @event.destroy
 
     respond_to do |format|
+      message = ""
+      @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+      flash[:error] = message
       format.html { redirect_to(space_events_path(@space)) }
       format.xml  { head :ok }
     end
