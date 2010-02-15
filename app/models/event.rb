@@ -109,7 +109,7 @@ class Event < ActiveRecord::Base
   
   before_destroy do |event|
     #Delete event in conference Manager
-    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
       begin
         cm_event = ConferenceManager::Event.find(event.cm_event_id)
         cm_event.destroy  
