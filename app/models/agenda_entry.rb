@@ -63,7 +63,6 @@ class AgendaEntry < ActiveRecord::Base
       begin        
         cm_s.save
       rescue => e
-        debugger
        if cm_s.present?  
          entry.errors.add_to_base(e.to_s) 
        end  

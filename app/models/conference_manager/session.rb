@@ -1,7 +1,7 @@
 module ConferenceManager
   class Session < ActiveResource::Base
     self.element_name = "session" 
-    #self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id"
+    self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id"
     
     #redefined to remove format.extension
     def self.collection_path(prefix_options = {}, query_options = nil)

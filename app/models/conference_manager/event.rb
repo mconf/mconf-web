@@ -1,7 +1,7 @@
 module ConferenceManager
   class Event < ActiveResource::Base
     self.element_name = "event"
-    #self.site = "http://vcc.globalplaza.co.cc:8080"
+    self.site = "http://vcc.globalplaza.co.cc:8080"
     
     #redefined to remove format.extension
     def self.collection_path(prefix_options = {}, query_options = nil)
