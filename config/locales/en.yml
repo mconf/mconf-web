@@ -37,14 +37,14 @@ en:
     del_entry: "Delete"
     edit_entry: "Edit"
     entry:      
-      created: 'Agenda entry was successfully created.'
-      cannot_exclude: 'You cannot exclude from recording an entry shorter than'
+      created: "Agenda entry was successfully created"
+      cannot_exclude: "You cannot exclude from recording an entry shorter than"
       description: "Description"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
-      has_attachment: 'This entry has attachments.'
+      has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
       hidevideo: "Hide video"
       record: "Record"
@@ -56,7 +56,7 @@ en:
       speakers: "Speakers"
       start_time: "Start time"
       title: "Title"
-      updated: 'Agenda entry was successfully updated.'
+      updated: "Agenda entry was successfully updated"
       video: "Recording"
       yes_record: "Yes"
     error:
@@ -84,7 +84,7 @@ en:
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
     error:
-      not_deleted: "{{file}} do not deleted correctly. "
+      not_deleted: "{{file}} not deleted correctly. "
       not_permission: "{{user}} cannot delete {{file}}. "
     file: "File: "
     found:
@@ -318,7 +318,7 @@ en:
       one: "Event Video"
       other: "Event Videos"
       share: "Share"
-      notice: "People will need access rights in order to see this videos"
+      notice: "People will need access rights to this space to see this videos"
     repository: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
@@ -342,9 +342,9 @@ en:
       none: "No upcoming events"
       other: "Upcoming events"
       show: "Show all upcoming events"
-      today: "There are no events for today."
-      next_week: "There are no events for next week."
-      next_month: "There are no events for next month."
+      today: "There are no events for today"
+      next_week: "There are no events for next week"
+      next_month: "There are no events for next month"
     view_agenda: "Agenda"
     view_repo: "Repository"
     view_recordings: "Recordings"
@@ -677,12 +677,11 @@ en:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
     up: "REPOSITORY"
-    add_document: Add new document
-    download: Download
-    remove: Remove
-    add_tags: Add Tags
-    rem_tags: Remove Tags
-  request: "request it"
+    add_document: "Add new document"
+    download: "Download"
+    remove: "Remove"
+    add_tags: "Add Tags"
+    rem_tags: "Remove Tags"
   request:
     default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
@@ -709,7 +708,7 @@ en:
       no_dots: "Search attachments"
     between_dates:
       attachments: "Search only attachments updated between two dates"
-      events: "Search only event dated between two dates"
+      events: "Search only events held between two dates"
       posts: "Search only posts updated between two dates"
     dots: "Search..."
     events:
