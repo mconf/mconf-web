@@ -398,6 +398,7 @@ en:
     deleted: "Group {{name}} deleted successfully"
     different: "Other groups"
     edit: "Edit group"
+    existing: "name has already been taken"
     join: "Join this group"
     mailing_list: "Group mailing list"
     name: "Group name"
@@ -506,7 +507,10 @@ en:
   manage: "Manage"
   management:
     up: "MANAGEMENT"
-  mailing_list: "Associate mailing list to your group"
+  mailing_list: 
+    associate: "Associate mailing list to your group"
+    invalid: "The mailing list has invalid characters. Only letters, numbers, underscores and hyphens are allowed"
+    reserved: "The mailing list {{systemMailingList}} is reserved"
   mark_checkbox: "Mark the suitable checkbox"
   message:
     created: "Message sent successfully"
@@ -773,6 +777,7 @@ en:
     enabled: "Space enabled successfully"
     error:
       enabled: "Space {{name}} is already enabled"
+    group_not_belong: " do not belong to the same space as the group"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
     join_invitation:

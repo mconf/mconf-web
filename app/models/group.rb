@@ -22,21 +22,27 @@ class Group < ActiveRecord::Base
     belongs_to :space
     
     validates_presence_of :name
-    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true,:message => "name has already been taken")
+    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
     
     def validate
       for user in users
         unless user.stages.include?(space)
-          errors.add(:users, "do not belong to the same space as the group")
+          errors.add(:users, I18n.t('space.group_not_belong'))
         end
       end
       
-      if self.mailing_list == "sir"
-        errors.add("The mailing list vcc-sir@dit.upm.es is reserved")
-      end
-      
-      if self.mailing_list && self.mailing_list.match(/^[a-zA-Z1-9][\s\w\-\.]*$/).to_s != self.mailing_list
-        errors.add("The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
+      if self.mailing_list && self.mailing_list.present?
+        
+        self.mailing_list = self.mailing_list.downcase
+        
+        if self.mailing_list == "sir"
+          errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-sir@dit.upm.es"))
+        end
+        
+        if self.mailing_list.match(/^[a-z0-9][\w\-\.]*$/).to_s == ""
+          errors.add(I18n.t('mailing_list.invalid'))
+        end
+        
       end
       
     end
