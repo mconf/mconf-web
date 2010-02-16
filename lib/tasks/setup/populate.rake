@@ -96,8 +96,6 @@ namespace :setup do
               # updating the inferior limit for the next agenda entry
               last_agenda_entry_end_time = agenda_entry.end_time
 
-              agenda_entry.streaming = (rand(0) > 0.5) 
-              agenda_entry.recording = (rand(0) > 0.5)
               agenda_entry.created_at = agenda.created_at..Time.now
               agenda_entry.updated_at = agenda_entry.created_at..Time.now
               agenda_entry.embedded_video = "<object width='425' height='344'><param name='movie' " +
