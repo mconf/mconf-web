@@ -23,7 +23,6 @@ en:
   address: "Address" 
   admin:
     one: "Admin"
-    up: "ADMIN"
     space: "The administrator of {{spacename}}"
   admission:
     one: "Admission"
@@ -334,8 +333,6 @@ en:
     today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
-    up:
-      other: "EVENTS"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
@@ -417,7 +414,7 @@ en:
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
-    up: "HOME"
+    one: "home"
     my: "My Home"
     activity: "Recent Activity..."
     
@@ -505,8 +502,7 @@ en:
   
   ######### M ###########
   manage: "Manage"
-  management:
-    up: "MANAGEMENT"
+  management: "management"
   mailing_list: 
     associate: "Associate mailing list to your group"
     invalid: "The mailing list has invalid characters. Only letters, numbers, underscores and hyphens are allowed"
@@ -552,7 +548,6 @@ en:
     none: "None"
     none_to_show: "No news items to show"
     other: "News"
-    up: "NEWS"
     updated: "News item updated successfully"
     publish_another: "Publish another news item"
     publish_home: "Publish news item at home"
@@ -586,8 +581,7 @@ en:
     one: "Password"
     request: "Password reset in {{sitename}}"
     to_reset: "To reset your password please visit <a href={{url}}> {{url}} </a>"
-  people:
-    up: "PEOPLE"
+  people: "people"
   performance:
     new: "New Member"
     one: "Member"
@@ -625,8 +619,6 @@ en:
     one: "Post"
     other: "Posts"
     other_in_space: "Posts in space {{space}}"
-    up:
-      other: "POSTS"
     updated: "Post updated"
     show_expanded_pref: "How would you like to see your posts?"
   preferences: "Preferences"
@@ -680,7 +672,7 @@ en:
   repository:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
-    up: "REPOSITORY"
+    one: "repository"
     add_document: "Add new document"
     download: "Download"
     remove: "Remove"
@@ -746,7 +738,7 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
-    up: "SITE"
+    default: "site"
     signature: "Signature"
   size: Size
   skype: Skype
@@ -804,15 +796,13 @@ en:
     select: "Spaces"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
-    up:
-      other: "SPACES"
     updated: "Space updated successfully"
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
+    default: "spam"
     detected: "New spam detected"
     error:
       check: "There was a problem marking the resource as spam"
-    up: "SPAM"
     valid: "This content is valid"
     report: "Report spam"
     reported: "{{name}} has reported spam in {{sitename}}"
@@ -870,7 +860,6 @@ en:
     change: "Switch language"
     one: "Translate"
     request: "To translate to a different language, please request the administrator to add the new language and flag"
-    up: "TRANSLATE"
     translated: "VCC is now translated, or in translation process, to "
   type: "Type"
   
@@ -948,8 +937,6 @@ en:
       preferences: "Save preferences"
     search: "Search Users..."
     timezone: "Timezone"
-    up:
-      other: "USERS"
     updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "Show posts' expanded view by default"
