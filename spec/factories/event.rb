@@ -25,10 +25,15 @@ end
 
 Factory.define :event_public, :parent => :event do |e|
   e.public_read true
+  e.association :space, :factory => :public_space
+  # The author should be in the space
+  e.author { |e| Factory(:admin_performance, :stage => e.space).agent }
 end
 
 Factory.define :event_private, :parent => :event do |e|
   e.public_read false
+  e.association :space, :factory => :private_space
+  e.author { |e| Factory(:admin_performance, :stage => e.space).agent }
 end
 
 Factory.define :event_spam, :parent => :event do |e|

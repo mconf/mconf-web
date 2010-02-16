@@ -53,6 +53,7 @@ class EventsController < ApplicationController
       format.xml  { render :xml => @events }
       format.atom
     end
+
   end
 
   # GET /events/1
@@ -72,10 +73,14 @@ class EventsController < ApplicationController
 		#let's calculate the wait time
      @wait = (@event.start_date - Time.now).floor
      respond_to do |format|
-     format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
+       format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
        format.xml  { render :xml => @event }
        format.js 
        format.ical {export_ical}
+       format.pdf { 
+         name = "agenda_" + @event.name + ".pdf"
+         send_data @event.to_pdf, :filename => "#{name}"
+       }
      end
 	else
   
@@ -109,6 +114,10 @@ class EventsController < ApplicationController
            format.xml  {render :xml => @event }
            format.js 
            format.ical {export_ical}
+           format.pdf { 
+              nombre = "agenda_" + @event.name + ".pdf"
+              send_data @event.to_pdf, :filename => "#{nombre}"
+           }  
     end
 	end
   end
@@ -135,7 +144,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.author = current_agent
-    @event.container = @container
+    @event.container = space
 
 
     respond_to do |format|
@@ -145,8 +154,10 @@ class EventsController < ApplicationController
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        #flash[:success] = t('event.created')
-        format.html {redirect_to space_event_path(@container, @event) }
+        format.html {
+          flash[:success] = t('event.created')
+          redirect_to space_event_path(space, @event)
+        }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html {  
@@ -242,7 +253,7 @@ class EventsController < ApplicationController
   #method to adapt the start_date + number of days to the start_date and end_date that the event expects
   def adapt_new_date
     if params[:ndays]
-      params[:event][:end_date] = (Date.parse(params[:event][:start_date]) + params[:ndays].to_i).strftime("%d %b %Y")
+      params[ :event][:end_date] = (Date.parse(params[:event][:start_date]) + params[:ndays].to_i).strftime("%d %b %Y")
     end
     
   end

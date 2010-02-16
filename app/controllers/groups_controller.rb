@@ -59,17 +59,17 @@ class GroupsController < ApplicationController
   end
   
   def update
-    
+
     @group = @space.groups.find(params[:id])
     
-    if params[:mail].blank?
-      params[:group][:mailing_list] = ""
-    end
     if params[:add_user]
       @group.user_ids += [params[:add_user]]
       @group.user_ids.uniq!
       result = @group.save
     else
+      if params[:mail].blank?
+        params[:group][:mailing_list] = ""
+      end
       result = @group.update_attributes(params[:group])
     end
         

@@ -175,35 +175,35 @@ es:
   created_time_ago: Creado hace {{time}}
   date: 
     abbr_day_names: 
-    - Dom
-    - Lun
-    - Mar
-    - Mie
-    - Jue
-    - Vie
-    - Sab
+    - dom
+    - lun
+    - mar
+    - mie
+    - jue
+    - vie
+    - sab
     abbr_month_names: 
     - 
-    - Ene
-    - Feb
-    - Mar
-    - Abr
-    - May
-    - Jun
-    - Jul
-    - Ago
-    - Set
-    - Oct
-    - Nov
-    - Dic
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
     day_names: 
-    - Domingo
-    - Lunes
-    - Martes
-    - "Mi\xC3\xA9rcoles"
-    - Jueves
-    - Viernes
-    - "S\xC3\xA1bado"
+    - domingo
+    - lunes
+    - martes
+    - "mi\xC3\xA9rcoles"
+    - jueves
+    - viernes
+    - "s\xC3\xA1bado"
     end: "Fecha de finalizaci\xC3\xB3n"
     formats: 
       default: "%d/%m/%y"
@@ -211,18 +211,18 @@ es:
       short: "%d de %b"
     month_names: 
     - 
-    - Enero
-    - Febrero
-    - Marzo
-    - Abril
-    - Mayo
-    - Junio
-    - Julio
-    - Agosto
-    - Septiembre
-    - Octubre
-    - Noviembre
-    - Diciembre
+    - enero
+    - febrero
+    - marzo
+    - abril
+    - mayo
+    - junio
+    - julio
+    - agosto
+    - septiembre
+    - octubre
+    - noviembre
+    - diciembre
     order: 
     - :year
     - :month

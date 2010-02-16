@@ -18,8 +18,6 @@
       <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.end_time') %></label><br/>
       <%= f.time_select :end_time, :default => @event.last_hour_for_day(@day.to_i)+ 2.hour %></div>
     </div>
- 
- 
     <div class="margin-up">
     	<input type="button" id="add_entry_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>
       <input type="button" value="<%=t('close')%>" class="agenda_new_close basic_button blue_button"/>

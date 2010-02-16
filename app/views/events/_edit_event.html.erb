@@ -57,8 +57,7 @@
 
 <div id="change-event">
 
-
-  <div id="help" title="<%=t('event.help.edit')%>"></div>
+  <div id="help" title="<%=h(t('event.help.edit'))%>"></div>
   <h3><%= t('event.edit') %></h3>
 
 <% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
