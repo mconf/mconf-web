@@ -1,0 +1,8 @@
+# This file should be in /etc/cron.d/vcc
+
+# Every hour, at five minutes
+5 * * * * www-data cd /home/isabel/global2/current && rake --silent cron:hourly RAILS_ENV=production
+
+# Daily
+15 4 * * * www-data cd /home/isabel/global2/current && rake --silent cron:daily RAILS_ENV=production
+

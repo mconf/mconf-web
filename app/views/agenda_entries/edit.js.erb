@@ -1,6 +1,10 @@
 edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
-edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit')%>");
- <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+<%if params[:hours]%>
+  edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit_hours')%>");
+<%else%>
+  edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit')%>");
+<%end%>
+
 $("input.agenda_edit_close").click(function(){
   edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
   $(".agenda_edit_entry").empty();
@@ -9,7 +13,5 @@ var destination_edit = $('#edit_entry_anchor').offset().top;
 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
   window.location.hash = '#edit_entry_anchor';
 });
- 
- <%= yield :agenda_attachments%>
 
 

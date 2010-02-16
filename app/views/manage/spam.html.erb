@@ -25,7 +25,7 @@
 		</div>
       <%end%>
       <%if !@spam_events.empty?%>
-	    <h3>Spam in Events</h3>
+	    <h3><%= t('event.spam') %></h3>
 	  <%end%>
 	  <%for spam in @spam_events%>
         <div class="spam_post">

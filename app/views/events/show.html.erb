@@ -9,7 +9,7 @@
 
 <% content_for :javascript do %>	
   <%= render :partial => 'date_and_timepicker.js.erb' %>	
-  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+  
 
 	style_file_input();
 	
@@ -215,7 +215,8 @@
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
 	      <div id="agenda_title">
-	      	<%= link_to t('event.agenda.download'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %>
+			<%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
+			<!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
 	      	<h3 id="agenda_title_partial" class="blue">
 			    <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
 			    <%=t('agenda.title')%> 

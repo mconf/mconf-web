@@ -9,7 +9,7 @@
 		<div class="group">
 			<ul class="group_links">
 				<%if @space.users.include?(current_user) || current_user.superuser?%>
-					<li><%= link_to t('message.send'), space_groups_path(@space, :send_message => group.users), :title => t('group.send_message') %></li>
+					<li><%= link_to t('message.send'), space_groups_path(@space, :send_message => group.users), :title => t('group.send_message') if !group.users.empty?%></li>
 					<!--<li><a>e-mail</a></li>-->
 					<li><%= link_to t('join'), space_group_path(@space, group, :add_user => current_user.id), :title => t('group.join'), :method => :put if @space.users.include?(current_user) && !group.users.include?(current_user)%></li>
 					<li><%= link_to t('edit'), edit_space_group_path(@space, group, :admin => params[:admin]) if @space.authorize?([:manage, :group], :to => current_user)%></li>

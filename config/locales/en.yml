@@ -23,7 +23,6 @@ en:
   address: "Address" 
   admin:
     one: "Admin"
-    up: "ADMIN"
     space: "The administrator of {{spacename}}"
   admission:
     one: "Admission"
@@ -37,18 +36,18 @@ en:
     del_entry: "Delete"
     edit_entry: "Edit"
     entry:      
-      created: 'Agenda entry was successfully created.'
-      cannot_exclude: 'You cannot exclude from recording an entry shorter than'
+      created: "Agenda entry was successfully created"
+      cannot_exclude: "You cannot exclude from recording an entry shorter than"
       description: "Description"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
       error:
-        create: 'Error creating session in remote videoconference system'
-        delete: 'Error deleting session in remote videoconference system'
-        update: 'Error updating session in remote videoconference system'
-      has_attachment: 'This entry has attachments.'
+        create: "Error creating session in remote videoconference system"
+        delete: "Error deleting session in remote videoconference system"
+        update: "Error updating session in remote videoconference system"
+      has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
       help:
         recording: "Recording enabled for this session"
@@ -68,7 +67,7 @@ en:
       speakers: "Speakers"
       start_time: "Start time"
       title: "Title"
-      updated: 'Agenda entry was successfully updated.'
+      updated: "Agenda entry was successfully updated"
       video: "Recording"
       yes_record: "Yes"
     error:
@@ -96,8 +95,9 @@ en:
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
     error:
-      not_deleted: "{{file}} do not deleted correctly. "
+      not_deleted: "{{file}} not deleted correctly. "
       not_permission: "{{user}} cannot delete {{file}}. "
+    file: "File: "
     found:
       none: "No attachments found"
       one: "1 attachment was found"
@@ -113,8 +113,8 @@ en:
     other: "Attachments"
     selected:
       none: "No files selected"
-      one: " file selected:"
-      other: " files selected:"
+      one: " file selected"
+      other: " files selected"
     updated: "Attachment updated successfully"
     upload_with_post: "Notify the upload with a post"
   avatar:
@@ -227,6 +227,7 @@ en:
   
   ######### E ###########
   edit: "Edit"
+  edit_hours: "Edit hours"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
   e-mail:
@@ -303,8 +304,10 @@ en:
       sip: "SIP"
       web: "Web"
     error:
+      cm_connection: "Connection to remote videoconference system fails"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
+      delete: "The event could not be deleted"
       marte: "Could not create virtual conference"
       omit_date: "The event needs start date and end date "
       videoconference: "Could not create videoconference event"
@@ -362,12 +365,13 @@ en:
       one: "Event Video"
       other: "Event Videos"
       share: "Share"
-      notice: "People will need access rights in order to see this videos"
+      notice: "People will need access rights to this space to see this videos"
     repository: 
       help: "This repository show the documents uploaded in the sessions of the event agenda"
       title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    spam: "Spam in events"
     streaming: 
       add: "Add one."
       title: "Streaming"
@@ -380,17 +384,15 @@ en:
     today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
-    up:
-      other: "EVENTS"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
       none: "No upcoming events"
       other: "Upcoming events"
       show: "Show all upcoming events"
-      today: "There are no events for today."
-      next_week: "There are no events for next week."
-      next_month: "There are no events for next month."
+      today: "There are no events for today"
+      next_week: "There are no events for next week"
+      next_month: "There are no events for next month"
     view_agenda: "Agenda"
     view_repo: "Repository"
     view_recordings: "Recordings"
@@ -444,6 +446,7 @@ en:
     deleted: "Group {{name}} deleted successfully"
     different: "Other groups"
     edit: "Edit group"
+    existing: "name has already been taken"
     join: "Join this group"
     mailing_list: "Group mailing list"
     name: "Group name"
@@ -462,7 +465,7 @@ en:
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
-    up: "HOME"
+    one: "home"
     my: "My Home"
     activity: "Recent Activity..."
     
@@ -504,7 +507,7 @@ en:
     yes_accepted: "accepted"
   invited: "Invited"
   import: "Import"
-  is_member_of: "Is member of"
+  is_member_of: "is member of"
   Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
@@ -553,9 +556,11 @@ en:
   
   ######### M ###########
   manage: "Manage"
-  management:
-    up: "MANAGEMENT"
-  mailing_list: "Associate mailing list to your group"
+  management: "management"
+  mailing_list: 
+    associate: "Associate mailing list to your group"
+    invalid: "The mailing list has invalid characters. Only letters, numbers, underscores and hyphens are allowed"
+    reserved: "The mailing list {{systemMailingList}} is reserved"
   mark_checkbox: "Mark the suitable checkbox"
   message:
     created: "Message sent successfully"
@@ -582,7 +587,7 @@ en:
     full: "Full name"
     one: "Name"
     other: "Names"
-    prefix: "Honorific prefix"
+    prefix: "Title"
   new_source: "New source"
   new_spam_detected: "New spam detected"
   news:
@@ -596,7 +601,7 @@ en:
     item_in_home: "News item in space"
     none: "None"
     none_to_show: "No news items to show"
-    up: "NEWS"
+    other: "News"
     updated: "News item updated successfully"
     publish_another: "Publish another news item"
     publish_home: "Publish news item at home"
@@ -630,8 +635,7 @@ en:
     one: "Password"
     request: "Password reset in {{sitename}}"
     to_reset: "To reset your password please visit <a href={{url}}> {{url}} </a>"
-  people:
-    up: "PEOPLE"
+  people: "people"
   performance:
     new: "New Member"
     one: "Member"
@@ -642,7 +646,7 @@ en:
     other: "Access rights"
   personal_information: "Personal information"
   phone:
-    landline: "Landline"
+    landline: "Telephone"
     mobile: "Mobile"
     one: "Phone"
   phone_optional: "Phone (optional)"
@@ -669,8 +673,6 @@ en:
     one: "Post"
     other: "Posts"
     other_in_space: "Posts in space {{space}}"
-    up:
-      other: "POSTS"
     updated: "Post updated"
     show_expanded_pref: "How would you like to see your posts?"
   preferences: "Preferences"
@@ -724,13 +726,12 @@ en:
   repository:
     enable: "Enable repository?"
     loading: "Refreshing document repository..."
-    up: "REPOSITORY"
-    add_document: Add new document
-    download: Download
-    remove: Remove
-    add_tags: Add Tags
-    rem_tags: Remove Tags
-  request: "request it"
+    one: "repository"
+    add_document: "Add new document"
+    download: "Download"
+    remove: "Remove"
+    add_tags: "Add Tags"
+    rem_tags: "Remove Tags"
   request:
     default: "request it"
     info: "Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible"
@@ -757,7 +758,7 @@ en:
       no_dots: "Search attachments"
     between_dates:
       attachments: "Search only attachments updated between two dates"
-      events: "Search only event dated between two dates"
+      events: "Search only events held between two dates"
       posts: "Search only posts updated between two dates"
     dots: "Search..."
     events:
@@ -791,7 +792,7 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
-    up: "SITE"
+    default: "site"
     signature: "Signature"
   size: Size
   skype: Skype
@@ -822,6 +823,7 @@ en:
     enabled: "Space enabled successfully"
     error:
       enabled: "Space {{name}} is already enabled"
+    group_not_belong: " do not belong to the same space as the group"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
     join_invitation:
@@ -848,15 +850,13 @@ en:
     select: "Spaces"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
-    up:
-      other: "SPACES"
     updated: "Space updated successfully"
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
+    default: "spam"
     detected: "New spam detected"
     error:
       check: "There was a problem marking the resource as spam"
-    up: "SPAM"
     valid: "This content is valid"
     report: "Report spam"
     reported: "{{name}} has reported spam in {{sitename}}"
@@ -914,7 +914,6 @@ en:
     change: "Switch language"
     one: "Translate"
     request: "To translate to a different language, please request the administrator to add the new language and flag"
-    up: "TRANSLATE"
     translated: "VCC is now translated, or in translation process, to "
   type: "Type"
   
@@ -966,6 +965,7 @@ en:
     invited: "Users already invited"
     list_by: "List by"
     lost_password: "Have you lost your password?"
+    noactivity: "User has no recent activity"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"    
@@ -991,8 +991,6 @@ en:
       preferences: "Save preferences"
     search: "Search Users..."
     timezone: "Timezone"
-    up:
-      other: "USERS"
     updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
     view_expanded_posts: "Show posts' expanded view by default"

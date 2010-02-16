@@ -9,9 +9,9 @@ module AttachmentsHelper
     
     html=""
     html << if interactive && attachment.authorize?(:update,:to => current_user)
-              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot")) : (link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot"))
+              attachment.tags.size>0 ? (link_to(image_tag("icons/edit_tag20.png", :title=> t('tag.edit'),:class=>"icon"),edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot")) : (link_to(image_tag('icons/add_tag20.png', :title => t('tag.add'),:class=>"icon"), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot"))
             else
-              image_tag("icons/edit_tag.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
+              image_tag("icons/edit_tag20.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
             end
     html << if attachment.authorize?(:read,:to => current_user)
               link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")
