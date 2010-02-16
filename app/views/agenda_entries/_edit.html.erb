@@ -74,3 +74,10 @@
   <br/>
 </div>
 
+
+<%content_for :javascript do%>
+  <%if params[:edit_entry].present?%>
+    <%= yield :agenda_attachments%>
+  <%end%>
+<%end%>
+
