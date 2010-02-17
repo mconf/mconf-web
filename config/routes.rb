@@ -106,10 +106,11 @@ ActionController::Routing::Routes.draw do |map|
   # (se quedará obsoleto con la nueva versión del plugin)
   #  
   
-  map.open_id_complete 'session', { :open_id_complete => true,
-                                    :conditions => { :method => :get },
-                                    :controller => "sessions",
-                                    :action => "create" }
+  map.open_id_complete 'session/open_id_complete',
+                       { :open_id_complete => true,
+                         :conditions => { :method => :get },
+                         :controller => "sessions",
+                         :action => "create" }
   map.resource :session
 
   map.login  '/login', :controller => 'sessions', :action => 'new'
