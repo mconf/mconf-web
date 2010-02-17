@@ -48,18 +48,20 @@
 			    <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
 					<%= f.text_field :mails %>
 			  </div>	
-			<%end%>	
-			<div class="margin-up">
-			  <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
-			  <textarea style="display:none" id="invite_msg" name="event[invite_msg]"><%= t('invitation.message',:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %> </textarea>
+			<%end%>
+
+      <div class="margin-up">
+        <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
+        <textarea style="display:none" id="invite_msg" name="event[invite_msg]"><%= t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %> </textarea>
         <div class="grey_bar">
-        	<p><%= '\'' + t('name.one') + '\','%></p>
-					<textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
-					<%= t('invitation.message',:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %>
-				</div>
-			  <p>* <%= t('invitation.legend.name') %><br/>
-				* <%= t('invitation.legend.URL') %></p>
-			</div>
+          <p><%= '\'' + t('name.one') + '\','%></p>
+          <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
+          <%= t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %>
+        </div>
+        <p>* <%= t('invitation.legend.name') %><br/>
+        * <%= t('invitation.legend.URL') %></p>
+      </div>
+			
 			<div class="margin-up">
 				<input type="button" id="send_invitation_button" value="<%=t("button.send")%>" />
 			</div>

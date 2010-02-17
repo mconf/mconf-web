@@ -19,7 +19,10 @@
 	$('#change-event').hide();
 	
 	<%= render :partial => 'toggle_view'%>
-	template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
+	
+
+/* DEPRECATED DUE TO CHANGES IN THE INVITATIONS
+  template = "escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization))";
   $("#event_name").blur(function(){
     replace_invitation();
   });
@@ -52,7 +55,9 @@
 	  edited_msg = true;
 	}
   });
-  
+*/
+
+
   //fist we detect if the option is checked and update the location field
   if($("#event_marte_event").is(":checked"))
   {

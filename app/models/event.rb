@@ -73,7 +73,7 @@ class Event < ActiveRecord::Base
       event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
     end     
   end
-  
+=begin
   validate_on_create do |event|
    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
       mode = ""
@@ -123,7 +123,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-  
+=end  
   after_create do |event|
     #create an empty agenda
     event.agenda = Agenda.create
@@ -135,9 +135,10 @@ end
  
   
   after_save do |event|
-    #fisrt of all we remove the emails that already has an invitation for this event (not to spam them)
     if event.mails
-      mails_to_invite = event.mails.split(/[\r,]/).map(&:strip) - event.event_invitations.map{|ei| ei.email}
+      #NOT ANY MORE: first of all we remove the emails that already has an invitation for this event (not to spam them)
+      #mails_to_invite = event.mails.split(/[\r,]/).map(&:strip) - event.event_invitations.map{|ei| ei.email}
+      mails_to_invite = event.mails.split(/[\r,]/).map(&:strip)
       mails_to_invite.map { |email|      
         params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event, :comment => event.invite_msg}
         i = event.space.event_invitations.build params
