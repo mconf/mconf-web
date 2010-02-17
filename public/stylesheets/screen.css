@@ -518,7 +518,7 @@ div.newAttachment ul{list-style-type:none;}
 	border:1px solid #8FBDDE;
 	margin-right:9px;
 	margin-bottom:1px;}
-.select_left{float:left;width:9%;padding:10px 0 0 0;}
+.select_left{float:left;width:9%;padding:5px 0 5px 0;}
 .select_right{float:left;width:90%;padding:2px 0 0 0;}
 
 #events_content #current_events {border:1px #FFA903 solid; background:#ffe9bd;margin-bottom:0.75em;}
