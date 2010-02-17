@@ -52,7 +52,15 @@ class Event < ActiveRecord::Base
   attr_accessor :web_interface
   attr_accessor :isabel_interface
   attr_accessor :sip_interface
-  
+  #Attributes for ConferenceManager video display
+  attr_accessor :web_width
+  attr_accessor :web_heigth
+  attr_accessor :player_width
+  attr_accessor :player_height
+  attr_accessor :editor_width
+  attr_accessor :editor_height
+  attr_accessor :streaming_width
+  attr_accessor :streaming_height
   
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
@@ -82,7 +90,7 @@ class Event < ActiveRecord::Base
       elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
           mode = "conference"
       end 
-      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
+      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "attachments/conferences/#{event.permalink}")
       begin 
        cm_e.save
        event.cm_event_id = cm_e.id
@@ -100,7 +108,7 @@ class Event < ActiveRecord::Base
       elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
           mode = "conference"
       end    
-      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "#{RAILS_ROOT}/attachments/conferences/#{event.permalink}" }
+      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "attachments/conferences/#{event.permalink}" }
       cm_event = event.cm_event
       cm_event.load(my_params)  
       begin
@@ -327,6 +335,44 @@ end
       cm_event.try(:isabel_url) 
   end
   
+  #Return  a String that contains a html with the video of the Isabel Web Gateway
+  def web
+    begin
+      cm_web ||= ConferenceManager::Web.find(:one,:from=>"/events/#{self.cm_event_id}/web")
+      cm_web.html
+    rescue
+      nil
+    end
+  end
+  
+  #Return  a String that contains a html with the video player for this conference
+  def player
+    begin
+      cm_player ||= ConferenceManager::Player.find(:one,:from=>"/events/#{self.cm_event_id}/player")
+      cm_player.html
+    rescue
+      nil
+    end
+  end
+  #Return  a String that contains a html with the video editor for this conference
+  def editor
+    begin
+      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor")
+      cm_editor.html
+    rescue
+      nil
+    end
+  end
+  #Return  a String that contains a html with the streaming of this conference
+  def streaming
+    begin
+      cm_streaming ||= ConferenceManager::Streaming.find(:one,:from=>"/events/#{self.cm_event_id}/streaming")
+      cm_streaming.html
+    rescue
+      nil
+    end
+  end
+    
   def get_room_data
     return nil unless marte_event?
     

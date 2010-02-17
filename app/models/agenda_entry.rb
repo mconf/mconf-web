@@ -149,6 +149,15 @@ class AgendaEntry < ActiveRecord::Base
     cm_session.try(:name)
   end
   
+  #Return  a String that contains a html with the video player for this session
+  def player
+    begin
+      cm_player_session ||= ConferenceManager::PlayerSession.find(:one,:from=>"/events/#{self.agenda.event.cm_event_id}/sessions/#{self.cm_session.id}/player")
+      cm_player.html
+    rescue
+      nil
+    end
+  end
   def validate
     # Check title presence
    # if self.title.empty?
