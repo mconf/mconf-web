@@ -18,7 +18,7 @@
 		
       end
       #Internacionalizar!!!
-      t.header :tags, "Post/Event/Tags"
+      t.header :tags, t("post.one")+"/"+t("event.one")+"/"+t("tag.other_capital")
 #      t.header :type, sortable_header(t('type'),'type')
 #      
 	  t.header :actions, t('actions')
@@ -37,7 +37,7 @@
           row.name           "#{link_to image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params" if attachment.current_version?} <span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}"
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
-          row.tags           "#{link_to ("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?} #{link_to ("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?} #{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : attachment.tags.map{|t| t.name}.join(",")}" 
+          row.tags           "#{link_to ("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?} #{link_to ("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?} #{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}" 
 #          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.mime_type.to_sym}"
           row.actions        table_actions(row, attachment, interactive)
 
@@ -46,7 +46,7 @@
           row.name           "#{link_to image_tag("right.png"),path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params" if interactive && attachment.version_family.size>1} #{attachment_link(attachment)}", :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
           row.author         link_to attachment.author.name, user_profile_path(attachment.author)
           row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>"
-          row.tags           "#{link_to ("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?} #{link_to ("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?} #{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(",") : attachment.tags.map{|t| t.name}.join(",")}"
+          row.tags           "#{link_to ("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?} #{link_to ("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?} #{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
 #          row.type           "#{image_tag(attachment.logo_image_path_without_thumbnails, :alt => "")} #{attachment.content_type.split("/").last.upcase}"
           row.actions        table_actions(row, attachment, interactive)
         end

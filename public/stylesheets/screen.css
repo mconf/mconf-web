@@ -985,13 +985,41 @@ span.inline{
 
 /*Table*/
 th.attachment-name{
-	width:30%;
+	width:28%;
 }
 th.attachment-author{
-	width:20%;
+	width:15%;
+}
+th.attachment-selector{
+  width:3%;
 }
 th.attachment-updated{
-	width:15%;
+	width:11%;
+}
+th.attachment-tags{
+  width:25%;
+}
+
+td.attachment-actions{
+	 width:14%;
+	 padding-left:3px;
+}
+
+td.attachment-tags .post_in_tags{
+	padding:1px 3px;
+	background:#ebebeb;
+	border:1px solid #ccc;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+
+td.attachment-tags .event_in_tags{
+  padding:1px 3px;
+  background:#E8C1CB;
+  border:1px solid #8B0425;
+	color:#8B0425;
+  -moz-border-radius:3px;
+	-webkit-border-radius:3px;
 }
 
 #doc_table table{

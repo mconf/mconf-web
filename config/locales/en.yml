@@ -820,6 +820,7 @@ en:
     edit: "Edit tags"
     one: "tag"
     other: "tags"
+    other_capital: Tags
     filter: "Filter by tag:"
     new: "New tag"
     selected:
