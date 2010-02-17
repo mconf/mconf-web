@@ -201,6 +201,7 @@ en:
   delete:
     one: "Delete"
     confirm: "Delete {{element}}?"
+    select: Select to delete
   deny: "No"
   description: "Description"
   destroy: "Destroy"

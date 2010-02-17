@@ -26,31 +26,6 @@ collapse_thread = function(id){
   
 }  
 
-/*
-*  New thread panel
-*/
-
-/* Submit without ajax until it will be posible to render message errors when a post witj attachment fail*/
-/*$("#thread-form").postsForm('<%= space_posts_url(@space) %>');*/
-
-$(".new_thread_options").click(function(){
-  $(".new_thread_options").removeClass("selected");
-  $(this).addClass("selected");
-});
-
-style_file_input();
-
-/*
-*  Reply panel
-*/
-
-
-$(".new_attachment_link").livequery('click',function () {
-  $(".new_attachment_form").show(); 
-  return false;
-});
-
-
 
 /*
 *  Replace with Ajax links
@@ -66,35 +41,31 @@ $("a.reply_to_link").click(function(){
 	   /* Reply panel javascript*/
 	   /*$("#reply-form").postsForm('<%= space_posts_url(@space) %>');*/
 	   
-	   $(".new_reply_options").click(function(){
-	     $(".new_reply_options").removeClass("selected");
-	     $(this).addClass("selected");});
-	     style_file_input();
-	     var destination = $('#add').offset().top;
-	     $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
-	       window.location.hash = '#add'
-	     });
-	     setTimeout(function() {
-	       $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-	     }, 1000);
+	   var destination = $('#add').offset().top;
+	   $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
+	     window.location.hash = '#add'
+	   });
+	   setTimeout(function() {
+	     $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
+	   }, 1000);
 	     
-	     $("a#big_new_reply").fancybox({
-	       'hideOnContentClick' : false,
-					   'callbackOnShow' : function(){
-					     $(".big_post_text").val($(".small_post_text").val());
-						 $("textarea#post_text").remove();//IE Compatibility
-					     big_textarea();
-					     $("#fancy_outer").width($("#new_thread_big").width() + 50);
-					     $("#fancy_outer").height($("#new_thread_big").height() + 80);
-					     $(window).resize();
-					   },
-					   'callbackOnClose' : function(){
-					     var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
-					     var data = oEditor.GetHTML();
-						 $("form#reply-form button").before("<%= escape_javascript(small_post_text_area) %>");//IE Compatibility
-					     $(".small_post_text").val(data);
-					   }
-	     });
+	   $("a#big_new_reply").fancybox({
+       'hideOnContentClick' : false,
+				   'callbackOnShow' : function(){
+				     $(".big_post_text").val($(".small_post_text").val());
+					 $("textarea#post_text").remove();//IE Compatibility
+				     big_textarea();
+				     $("#fancy_outer").width($("#new_thread_big").width() + 50);
+				     $("#fancy_outer").height($("#new_thread_big").height() + 80);
+				     $(window).resize();
+				   },
+				   'callbackOnClose' : function(){
+				     var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
+				     var data = oEditor.GetHTML();
+					 $("form#reply-form button").before("<%= escape_javascript(small_post_text_area) %>");//IE Compatibility
+				     $(".small_post_text").val(data);
+				   }
+     });
 	 }
 	 );
 	 return false;
@@ -163,7 +134,7 @@ $("a.edit_post_link").click(function(){
 
 $("a#new_thread_big").fancybox({
   'hideOnContentClick' : false,
-			       'callbackOnShow' : function(){
+			 'callbackOnShow' : function(){
 				 $(".big_post_title").val($(".small_post_title").val());
 				 $(".big_post_text").val($(".small_post_text").val());
 				 $("textarea#post_text").remove(); //IE Compatibility

@@ -1,18 +1,9 @@
 <% content_for :javascript do %>
 
-
-		 // Applies tags to the attachment
-  $("#post_attachments_attributes_0__tags").fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4,
-      newel: true,
-      complete_opts: true
-  }); 
-  $(".newAttach").livequery('click',function () { 
+  $(".newAttach").livequery('click',function () {
+	  $(".newAttach1").show();
+		$(".newAttach.add").hide();
+		$(".newAttach.new_one").show();
     var new_id = new Date().getTime(); 
     $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
     $("#post_attachments_attributes_"+new_id+"__tags").fcbkcomplete({
@@ -25,8 +16,7 @@
         newel: true,
         complete_opts: true
     }); 
- 
-}); 
+  }); 
 <%end%>
 
 <% if p_id.nil?%>
@@ -48,19 +38,21 @@
     <%= f.text_field :title, :size => 25, :class => "small_post_title"%>   
   </div>
   <%end%>
-   <div id="post-buttoms" class="actions">
+   <div class="actions">
     <ul>
       <li><%= t('comment.one') %></li>
     </ul> 
   </div>      
         <%= small_post_text_area %>
+	<p class ='newAttach1' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
   <div id="post-buttoms" class="actions">
     <ul>      
-      <li><%= link_to t('attachment.add'), get_reply_route(post,'attachments'),  { :class => 'new_attachment_link'} %></li>   
+      <li class ='newAttach add'><%= t('attachment.add')%></li>
+			<li class ='newAttach new_one' <%= 'style="display: none;"'%> ><%= t('attachment.new')%></li>
     </ul>
   </div>
 	
-  <div  class="new_attachment_form" <%= 'style="display: none;"' if (params[:form] != 'attachments' ) %>>
+  <!--<div  class="new_attachment_form" <%= 'style="display: none;"' if (params[:form] != 'attachments' ) %>>
  
     <div id="cabinet">      
       <% f.fields_for(:attachments) do |at_form| %>
@@ -69,25 +61,26 @@
             <p class="newAttach"><%=t('attachment.new')%></p> 
         </br> 
     </div> 
-  </div>  
-  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
+  </div>-->  
 	<%if @post.nil?%>
-    
+  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
   <button type="submit" class="basic_button blue_button margin-up"><%=t("button.create")%></button>
 	
 <%else%>
 	
 	
-	<%if @show_view%>
+	  <%if @show_view%>
        <%= hidden_field_tag :show, "true"%>
     <%end%>
-    <%= f.hidden_field :parent_id %>
-    <div class="float">
-      <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
-    </div>
-    <div class="float">
-      <%= link_to t('thread.or_add_new'), space_posts_path(@space) %>
-			
+    
+		<%= f.hidden_field :parent_id %>
+    
+		<div class="margin-up">
+      <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
+		  <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
+			<% if !p_id.nil?%>
+			      <%= link_to t('thread.or_add_new'), space_posts_path(@space),:class=>"float" %>
+			<%end%>
     </div>
  </div>
 <%end%>
