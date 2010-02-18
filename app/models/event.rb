@@ -25,7 +25,7 @@ class Event < ActiveRecord::Base
   has_many :posts
   has_many :participants
   has_many :event_invitations, :dependent => :destroy
-  has_many :event_notifications, :dependent => :destroy
+  has_many :event_notifications
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
   
