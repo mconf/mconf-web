@@ -31,7 +31,7 @@
 	<% if event.present?%>
 	  <h3><%= t('comment.new') %></h3>
 	<% elsif p_id.present?%>
-	  <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), new_space_post_path(@space, :reply => post.id), :id => "big_new_reply", :class => "extract_form" %> <%=t("reply_to")%> <span class="unified_posts"><%= post.title %></span></h3>
+	  <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), new_space_post_path(@space, :reply => post.id), :class => "big_new_reply extract_form" %> <%=t("reply_to")%> <span class="unified_posts"><%= post.title %></span></h3>
 	<%else%>
 	  <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=> t('show_advanced_editor')),new_space_post_path(@space), :class => "big_new_thread_link extract_form"%><%= t('thread.add') %></h3>
 	<%end%>
@@ -42,7 +42,7 @@
 		<%= f.hidden_field :parent_id %>
 	  <%= f.hidden_field :event_id %>
 		
-		<div>
+		<div id="new_post_content">
 	
 			<%# Post title - only for new threads %>
 			<%if p_id.nil? && event.nil? %>
@@ -69,14 +69,15 @@
 	  </div>
 	
 	  <%# Footer %>
-    <%if event.nil?%>
-		  <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
-		<%end%>
+	  <% if event.nil? && p_id.present?%>
+	    <%=link_to t('advanced_editor'), new_space_post_path(@space, :reply => post.id), :class => "big_new_reply extract_form"%>
+	  <%elsif event.nil?%>
+	    <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
+	  <%end%>
 		<button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
 		<% if event.nil? && p_id.present?%>
 		  <%= link_to t('thread.or_add_new'), space_posts_path(@space),:class=>"float" %>
 		<%end%>
-
 	<% end %> 		 
 </div>
 

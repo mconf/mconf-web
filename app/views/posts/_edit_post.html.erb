@@ -33,7 +33,7 @@
 	
 	<%# Form %>
 	<% form_for(prepare_for_form(post),:html => { :multipart => true, :id => "edit-form"}) do |f| -%>  
-    <div>
+    <div id="edit_post_content">
 		
 		  <%# Title %>		
 			<%if post.parent_id.nil? && post.event.nil?%>
