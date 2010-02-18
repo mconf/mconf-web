@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title><%= yield :title %></title>
+    <title><%= yield(:title) || current_site.name %></title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>

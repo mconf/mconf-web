@@ -180,15 +180,4 @@ describe Profile do
     #we restore the visibility to the default value
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
   end 
-
-  after(:each) do 
-    #remove all the stuff created
-    @private_space.destroy
-    @admin.destroy
-    @user.destroy
-    @public_space.destroy
-    @user_public_1.destroy
-    @user_public_2.destroy
-  end
-
 end
