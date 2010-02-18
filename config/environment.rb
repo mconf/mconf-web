@@ -45,21 +45,3 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
  
 end
-
-  # smtp_settings - Allows detailed configuration for :smtp delivery method:
-  #  :address - Allows you to use a remote mail server. Just change it from its default "localhost" setting.
-  #  :port - On the off chance that your mail server doesn‘t run on port 25, you can change it.
-  #  :domain - If you need to specify a HELO domain, you can do it here.
-  #  :user_name - If your mail server requires authentication, set the username in this setting.
-  #  :password - If your mail server requires authentication, set the password in this setting.
-  #  :authentication - If your mail server requires authentication, you need to specify the authentication type here. This is a symbol and one of :plain, :login, :cram_md5.
-  #  :enable_starttls_auto - When set to true, detects if STARTTLS is enabled in your SMTP server and starts to use it. It works only on Ruby >= 1.8.7 and Ruby >= 1.9. Default is true.
-  ActionMailer::Base.raise_delivery_errors = true
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.perform_deliveries = true
-  ActionMailer::Base.default_charset = "utf-8"
-  ActionMailer::Base.smtp_settings = {
-    :address => "jungla.dit.upm.es",
-    :port => 25,
-    :domain => "dit.upm.es"
-  }
