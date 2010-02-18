@@ -25,6 +25,7 @@ class Event < ActiveRecord::Base
   has_many :posts
   has_many :participants
   has_many :event_invitations, :dependent => :destroy
+  has_many :event_notifications, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
   
@@ -45,6 +46,7 @@ class Event < ActiveRecord::Base
   attr_accessor :end_hour
   attr_accessor :mails
   attr_accessor :ids
+  attr_accessor :notification_ids
   attr_accessor :invite_msg
   attr_accessor :external_streaming_url 
   
@@ -155,7 +157,14 @@ end
         i
       }.each(&:save)
     end
-    
+    if event.notification_ids
+      event.notification_ids.each { |user_id|
+        user = User.find(user_id)
+        params = {:event => event, :email => user.email, :sender_login => event.author.login, :receiver_login => user.login, :comment => event.notify_msg}
+        n = event.event_notifications.build params
+        Informer.deliver_event_notification(n)
+      }
+    end
   end
   
   def author

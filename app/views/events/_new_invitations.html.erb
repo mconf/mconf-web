@@ -7,7 +7,8 @@
 		var header = "<%= '<p>\'' + escape_javascript(t('name.one')) + '\',</p>'%>";
 		// Changing the new line characters to <br/>
 		var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
-    var complete_msg = header + personal_msg + '<br/>' + ($('#invite_msg').val()); 
+		var ending = "<%= escape_javascript(t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))) %>"
+    var complete_msg = header + personal_msg + '<br/>' + ending; 
     
 		$('#invite_msg').text(complete_msg);
 
@@ -52,7 +53,7 @@
 
       <div class="margin-up">
         <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
-        <textarea style="display:none" id="invite_msg" name="event[invite_msg]"><%= t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %> </textarea>
+        <textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>

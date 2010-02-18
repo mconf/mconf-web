@@ -67,6 +67,7 @@
 		<%if event.authorize?(:update, :to => current_user) %>
 		  <%=link_to ("<span>" + t('event.logo.button') + "</span>"),'#', {:id=>"change_logo",:class=>"grey_button basic_button"} %>
 		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"grey_button basic_button",:title => t('invitation.add_more')} %>
+      <%=link_to ("<span>" + t('event.notification.button') + "</span>"), space_event_path(@space, @event, :notification => @event), {:id=>"show_inv", :class=>"grey_button basic_button",:title => t('notification.title')} %>
     <%end%>
   </div>
     

@@ -13,8 +13,9 @@
     filter_selected: true,
     maxshownitems: 4
   });
-	
-  template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
+
+/* DEPRECATED DUE TO CHANGES IN THE INVITATIONS	
+  template = "escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization))";
   $("#event_name").blur(function(){
     replace_invitation();
   });
@@ -48,10 +49,12 @@
 	  edited_msg = true;
 	}
   });
+*/
   
   $(document).ready(function() {
   	$("#change-event").effect("highlight", {color:"#F5DF51"}, 3000);
-  	 replace_invitation();
+    // DEPRECATED DUE TO CHANGES IN THE INVITATIONS
+  	// replace_invitation();
   });
 <% end %>
 
