@@ -58,12 +58,10 @@ class PostsController < ApplicationController
           if params[:edit]
             
             params[:form]='attachments'                      
-            render :partial => "edit_thread", :locals => { :post => post }            
+            render :partial => "edit_post", :locals => { :post => post }            
           else
-            render :partial => "new_thread", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"}  
+            render :partial => "new_post", :locals => { :p_id=> @post.id, :id => "reply-form"}  
           end
-        else
-          @show_view = true  
         end
       }
       format.xml { render :xml => @post.to_xml }

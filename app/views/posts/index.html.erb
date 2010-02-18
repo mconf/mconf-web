@@ -236,18 +236,11 @@ $("#new_attachment_big_link").livequery('click',function () {
   <%if @space.authorize?([:create, :content],:to => current_user)%>
 	
   	<% if params[:reply_to]%>
-      	<%= render :partial => "new_reply", :locals => { :post => Post.find(params[:reply_to]) } %>
+  		<%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
   	<% elsif params[:edit] %>
-    	<% post = Post.find(params[:edit]) %>
-    	<% if post.parent_id %>
-        	<%= render :partial => "edit_reply", :locals => { :post => post } %>
-    	<% else %>
-        	<%= render :partial => "edit_thread", :locals => { :post => post } %>
-    	<% end %>
+  		<%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
   	<%else%>
-    	<div id="new_thread" >
-      	<%= render :partial => "new_thread", :locals => {:p_id => nil, :id => "thread-form"  }%>
-    	</div>
+     	<%= render :partial => "new_post", :locals => {:id => "thread-form" }%>
   	<%end%>  
 	<% end %>
 <% end %>

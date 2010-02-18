@@ -124,15 +124,10 @@ $("a.edit_post_link").click(function(){
 <%if @space.authorize?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
 	  <%if params[:edit]%>
-		  <% post = Post.find(params[:edit]) %>
-      <% if post.parent_id %>
-          <%= render :partial => "edit_thread", :locals => { :post => post } %>
-      <% else %>
-          <%= render :partial => "edit_thread", :locals => { :post => post } %>
-      <% end %>
+		  <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
 		<%else%>
   	  <% params[:reply_to] = @post.id %>
-  	  <%= render :partial => "new_thread", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
+  	  <%= render :partial => "new_post", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
 		<%end%>
 	<% end %>
 <% end %>

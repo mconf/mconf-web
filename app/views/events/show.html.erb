@@ -137,11 +137,11 @@
   	    <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	    <%elsif params[:edit_comment]%>
-	       <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
+				 <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
 	    <%else%>
-	     <%= render :partial => 'new_comment'%>
-  	    <%end%>
-      <%end%>
+				<%= render :partial => "posts/new_post", :locals => {:id => "event-comment-form", :event => @event }%>
+  	  <%end%>
+    <%end%>
 	<%end%>    
   </div>  
 <%end%>
