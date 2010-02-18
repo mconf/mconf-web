@@ -134,10 +134,6 @@ class AgendaEntriesController < ApplicationController
    
   end
   
-  def space!
-    @space = Space.find_by_permalink(params[:space_id])
-  end
-  
   
   #in the params we receive the hour and minutes (in start_time and end_time)
   #and a param called entry_day that indicates the day of the event
