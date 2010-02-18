@@ -16,7 +16,6 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class EventNotification
-  belongs_to :event
   
   attr_accessor :email
   attr_accessor :sender_login

@@ -25,7 +25,6 @@ class Event < ActiveRecord::Base
   has_many :posts
   has_many :participants
   has_many :event_invitations, :dependent => :destroy
-  has_many :event_notifications
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
   
@@ -169,7 +168,7 @@ end
       event.notification_ids.each { |user_id|
         user = User.find(user_id)
         params = {:event => event, :email => user.email, :sender_login => event.author.login, :receiver_login => user.login, :comment => event.notify_msg}
-        n = event.event_notifications.build params
+        n = EventNotification.build params
         Informer.deliver_event_notification(n)
       }
     end
