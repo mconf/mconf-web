@@ -20,7 +20,8 @@
               <%= f.text_area :text, :id => "big_textarea", :class => "big_post_text", :value => params[:post_text] %>
               <!--<textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>-->
           </div>
-          <div id="post-buttoms" class="actions">
+          <p class ='newAttach1' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
+					<div id="post-buttoms" class="actions">
               <ul>
                   <li class ='newAttach add'>
                       <%= t('attachment.add') %>
