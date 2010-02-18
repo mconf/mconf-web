@@ -1,7 +1,7 @@
 servers = {
   :production => 'isabel@vcc.dit.upm.es',
   :test => 'isabel@vcc-test.dit.upm.es',
-  :gplaza => 'isabel@globalplaza.co.cc'
+  :cm => 'isabel@globalplaza.co.cc'
 }
 
 default_env = :test
@@ -13,7 +13,7 @@ set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
-set :branch, "gplaza"
+set :branch, "cm"
 
 set :use_sudo, false
 
