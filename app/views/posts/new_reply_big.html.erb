@@ -1,46 +1,42 @@
-<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span> > <%= t('reply_to_words', :words => first_words(@post.title, 40)) %></div>
-
+<div id="lightbox-logo">
+    <span><%= image_tag("bola_global_peque.png",:class=>"icon") %><%= t('vcc') %></span>
+    > <%= t('reply_to_words', :words => first_words(@post.title, 40)) %>
+</div>
 <% menu :posts %>
-
 <div id="new_thread_big">
-
-<div id="feedback_form">
-  
-  <% form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
-  <% content_for :javascript do%>
-    <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
-   <% end %>
-	 
-	 <div id="post-buttons" class="actions margin-up">
-    <ul>
-      <li><%= t('comment.one') %></li>
-         <div id="big_textarea_div" >
-    <textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>
-  </div>    
-      <li><%= link_to t('attachment.add'), new_space_post_path(@space, :form => 'attachments'), { :class => 'new_attachment_link' } %></li>
-      </br>
-    </ul>
-   </div>
-	 
-	 <div class="new_attachment_form" <%= 'style="display: none;"' if (params[:form] != 'attachments' ) %>>
-      <div id="cabinet">
-      <% f.fields_for(:attachments) do |at_form| %>
-        <%= render :partial => 'attachment', :locals => {:f => at_form} %>
-      <%end%>
-        <p class="newAttach"><%=t('attachment.new')%></p>   
-        </br> 
-      </div>
-  </div>
-	 
-  
-
-  <%if @show_view%>
-    <%= hidden_field_tag :show, "true"%>
-  <%end%>
-  <%= f.hidden_field :parent_id %>
-  <div class="float margin-up">
-    <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
-  </div>
+    <div id="feedback_form">
+        <% form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
+        <% content_for :javascript do %>
+        <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
+        <% end %>
+				<div> <%= t('comment.one') %></div>
+				
+        <div id="big_textarea_div">
+            <textarea id="big_textarea" name="post[text]" class="big_post_text">
+                 <%=params[:post_text] %>
+            </textarea>
+        </div>			
+				<div id="post-buttoms" class="actions margin-up">
+              <ul>
+                  <li class ='newAttach add'>
+                      <%= t('attachment.add') %>
+                  </li>
+                  <li class ='newAttach new_one'<%= 'style="display: none;"' %>>
+                      <%= t('attachment.new') %>
+                  </li>
+              </ul>
+          </div>
+        
+</div>
+<%if @show_view %>
+<%= hidden_field_tag :show, "true" %>
+<%end %>
+<%= f.hidden_field :parent_id %>
+<div class="float margin-up">
+    <button type="submit" class="basic_button blue_button">
+        <%=t("button.create") %>
+    </button>
+</div>
 <% end -%>
 </div>
 </div>
