@@ -5,7 +5,7 @@
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <% content_for :agenda_attachments do%>
-      <%= "attachment='#{ generate_template(f,:attachments) }'" %>
+      <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
     <% end %>
     <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
     <%= f.text_field :title %></div>
@@ -42,8 +42,8 @@
  
  
  
-    <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/>
-		
+    <div class="margin-up">
+		<p class ='newAttach2' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
 		
 		 <div id="entry_attachment">
         <div class="new_attachment_form">
@@ -59,7 +59,7 @@
       </div>
     </div>
     
-         <p class="newAttach"><%=t('attachment.new') %></p>
+         <p class="newAttachEvent"><%=t('attachment.new') %></p>
     
 		
 			

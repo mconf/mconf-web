@@ -509,6 +509,7 @@ div.newAttachment{
 	border-left:1px solid #8FBDDE;
 	border-right:1px solid #8FBDDE;}
 div.newAttachment ul{list-style-type:none;}
+div#entry_attachment .newAttachment{margin-right:0;}
 
 #new_attachment_form .select_wrapper{
 	position:relative;
@@ -674,7 +675,7 @@ div.pagination a{color:#244974;}
 /* sidebar posts*/
 .newAttach{cursor:pointer;}
 .newAttach:hover{text-decoration:underline;}
-p.newAttach1{
+p.newAttach1,p.newAttach2{
 	
 	padding-left:6px;
 	margin:0;
