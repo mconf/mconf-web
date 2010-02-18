@@ -50,7 +50,6 @@ es:
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
-    up: ADMIN
   admission: 
     errors: 
       candidate_has_role: ya tiene un rol
@@ -349,8 +348,6 @@ es:
     today_and_yesterday: Ayer y hoy ({{size}})
     today_size: Hoy ({{size}})
     tomorrow: "Ma\xC3\xB1ana eventos"
-    up: 
-      other: EVENTOS
     upcoming: 
       all: "Todos los pr\xC3\xB3ximos eventos ({{size}})"
       none: "No hay pr\xC3\xB3ximos eventos"
@@ -400,7 +397,7 @@ es:
   home: 
     activity: Actividad reciente
     my: Inicio
-    up: INICIO
+    one: Inicio
   im: "Mensajer\xC3\xADa Instant\xC3\xA1nea"
   im_new: Soy nuevo
   import: "Importaci\xC3\xB3n"
@@ -486,8 +483,7 @@ es:
   logout: Salir
   mailing_list: Lista de correo
   manage: Administrar
-  management: 
-    up: "GESTI\xC3\x93N"
+  management: "Gestión"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
   message: 
     created: Mensaje enviado correctamente.
@@ -524,9 +520,9 @@ es:
     home: 
       one: ""
       zero: No hay noticias para mostrar
+    other: "Noticias"
     publish_another: Publicar otra noticia
     publish_home: "Noticias de publicar en el pa\xC3\xADs"
-    up: NOTICIAS
     updated: "Art\xC3\xADculo actualizado correctamente"
   no_messages_in_forum: No hay mensajes en este foro
   no_tags_found: No se encontraron etiquetas
@@ -607,7 +603,7 @@ es:
     error: 
       create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
   password: 
-    been_reset_email: "{{usuario}}, su contrase\xC3\xB1a se ha restablecido."
+    been_reset_email: "{{usuario}}, su contrase\xC3\xB1a se ha restablecido"
     confirm: "Confirmar contrase\xC3\xB1a"
     one: "Contrase\xC3\xB1a"
     reset_email: "{{usuario}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
@@ -616,8 +612,7 @@ es:
   password_reset: "Cambio de Contrase\xC3\xB1a"
   password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
   past: Anteriores
-  people: 
-    up: GENTE
+  people: Gente
   performance: 
     change: Cambiar
     confirm_delete: "\xC2\xBFBorrar el Integrante?"
@@ -664,8 +659,6 @@ es:
     none_created: "N \xC2\xBA puesto creado"
     other: Mensajes
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
-    up: 
-      other: COMENTARIOS
     updated: Entrada actualizada
   preferences: Preferencias
   private: Privados
@@ -712,7 +705,7 @@ es:
   reply_to_words: ""
   report_spam: Denunciar spam
   repository: 
-    up: REPOSITORIO
+    one: "Repositorio"
   request: 
     default: solicitar
   request_change_password: "Petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
@@ -784,6 +777,7 @@ es:
   site: 
     config: "Configuraci\xC3\xB3n del Sitio"
     description: "Descripci\xC3\xB3n"
+    default: "Sitio"
     domain: Dominio
     editing: "Editando la configuraci\xC3\xB3n del Sitio"
     email: "Correo electr\xC3\xB3nico"
@@ -794,7 +788,6 @@ es:
     one: Sitio
     other: Sitios
     ssl: SSL
-    up: SITIO
     updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
   skype: Skype
   source: 
@@ -838,6 +831,7 @@ es:
     member_of: Miembros de los espacios de
     my_spaces: Mis espacios
     one: Espacio
+    other: Espacios
     popular: 
       other: Espacios populares
     possesion: My Spaces
@@ -851,18 +845,16 @@ es:
     select: Elige uno
     show_all: Ver todos los espacios
     subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
-    up: 
-      other: ESPACIOS
     updated: El espacio se ha actualizado correctamente.
   spam: 
     created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
     detected: Nueva spam detectado
+    default: Spam
     error: 
       check: Ha habido un problema control de los recursos como spam
     no_spam: Felicidades! no hay spam
     report: Report spam
     reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
-    up: SPAM
   stage: 
     all: Todos
     one: Escenario
@@ -922,7 +914,6 @@ es:
     one: Traducir
     request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
     translated: "VCC esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
-    up: -Translate -
   upcoming: "Pr\xC3\xB3ximos"
   update: Actualizar
   updated_at: Actualizado
@@ -995,8 +986,6 @@ es:
       preferences: Guardar preferencias
     search: Buscar usuarios ...
     timezone: Zona Horaria
-    up: 
-      other: USUARIOS
     updated: El Usuario se ha actualizado correctamente.
     vcc_email: VCC de usuario E-mail {{dir}}
     view_expanded_posts: Ampliar comentarios
