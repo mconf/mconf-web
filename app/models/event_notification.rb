@@ -17,6 +17,10 @@
 
 class EventNotification
   
+  attr_accessor :sender_id
+  attr_accessor :receiver_id
+  attr_accessor :event_name
+  attr_accessor :space_name
   attr_accessor :email
   attr_accessor :sender_login
   attr_accessor :receiver_login

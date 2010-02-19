@@ -46,7 +46,7 @@ class Notifier < ActionMailer::Base
   def event_notification_email(notification)
     setup_email(notification.email)
     
-    @subject += I18n.t("event.notification.subject",:eventname=>notification.event.name,:space=>notification.event.space.name,:username=>notification.sender_login)
+    @subject += I18n.t("event.notification.subject",:eventname=>notification.event_name,:space=>notification.space_name,:username=>notification.sender_login)
     @body[:notification] = notification
   end
 

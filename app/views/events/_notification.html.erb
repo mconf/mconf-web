@@ -7,7 +7,7 @@
     var beginning = "<%= escape_javascript(t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))) %>"
     // Changing the new line characters to <br/>
     var personal_msg = ($('#notify_personal').val()).replace(/\n/g,'<br/>');
-    var ending = "<%= escape_javascript(t('event.notification.message.ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %>"
+    var ending = "<%= escape_javascript(t('event.notification.message_ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %>"
     var complete_msg = beginning + personal_msg + '<br/>' + ending; 
     
     $('#notify_msg').text(complete_msg);
@@ -17,8 +17,8 @@
 
 <%end%>
 
-<div>
-  <div>
+<div id="questions">
+  <div id="more_notifications">
     <div id="notification_title">
       <h3 class="blue"><%=t('event.notification.message_title')%></h3>
     </div>
@@ -27,7 +27,7 @@
         <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('event.notification.selected_attendants')%>:</label>
       </div>
       <div id="user_filter" class="margin-up" style="display: none;">
-        <label for="User filter" class="bold"><%= t('event.notification.attendand.filter') %></label><br/>
+        <label for="User filter" class="bold"><%= t('event.notification.attendant.filter') %></label><br/>
         <%= text_field_tag :user_selector,'', :size => 25 %>
       </div>
       <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('event.notification.show_all_attendants')%></a> 
@@ -51,7 +51,7 @@
         <div class="grey_bar">
           <%= t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) %>
           <textarea id="notify_personal"><%= t('event.notification.personal') %></textarea>
-          <%= t('event.notification.message.ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
+          <%= t('event.notification.message_ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
         </div>
         <p>* <%= t('event.notification.legend.name') %></p>
       </div>

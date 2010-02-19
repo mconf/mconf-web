@@ -47,6 +47,7 @@ class Event < ActiveRecord::Base
   attr_accessor :ids
   attr_accessor :notification_ids
   attr_accessor :invite_msg
+  attr_accessor :notify_msg
   attr_accessor :external_streaming_url 
   
   #Attibutes for Conference Manager
@@ -167,8 +168,15 @@ end
     if event.notification_ids
       event.notification_ids.each { |user_id|
         user = User.find(user_id)
-        params = {:event => event, :email => user.email, :sender_login => event.author.login, :receiver_login => user.login, :comment => event.notify_msg}
-        n = EventNotification.build params
+        n = EventNotification.new
+        n.sender_id = event.author.id
+        n.receiver_id = user_id
+        n.event_name = event.name
+        n.space_name = event.space.name
+        n.email = user.email
+        n.sender_login = event.author.login
+        n.receiver_login = user.login
+        n.comment = event.notify_msg
         Informer.deliver_event_notification(n)
       }
     end

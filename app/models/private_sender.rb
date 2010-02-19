@@ -29,10 +29,19 @@ class PrivateSender
   
   
   def self.event_invitation_message(invitation)
-    m = PrivateMessage.new :title => I18n.t("invitation.subject",:space=>invitation.group.name,:username=>invitation.introducer.login),
-      :body => invitation.comment.gsub('\'name\'',invitation.candidate.login) + "<br>" + I18n.t('invitation.ps',:url => 'http://' + Site.current.domain + '/event_invitations/' + invitation.code)
+    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.event.name,:space=>invitation.group.name,:username=>invitation.introducer.login),
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login) + "<br>" + I18n.t('invitation.ps',:url => 'http://' + Site.current.domain + '/event_invitations/' + invitation.code)
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
+    m.save!
+  end
+
+  
+  def self.event_notification_message(notification)
+    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>notification.event_name,:space=>notification.space_name,:username=>notification.sender_login),
+      :body => ( notification.comment.gsub('\'' + I18n.t('name.one') + '\'',notification.receiver_login) + "<br/><br/>" )
+    m.sender = User.find(notification.sender_id)
+    m.receiver = User.find(notification.receiver_id)
     m.save!
   end
   
