@@ -339,9 +339,9 @@ en:
       new: Add a picture for your event
       select: Change your logo 
     new:
-      conference: "Virtual-conference"
-      meeting: "Virtual-meeting"
-      presential: "In-person meeting"
+      conference: "Virtual Congress"
+      meeting: "Virtual Meeting"
+      presential: "Meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"

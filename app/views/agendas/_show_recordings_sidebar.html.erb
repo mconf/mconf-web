@@ -20,17 +20,17 @@
   
 <%end%>
 
-<div id="carrusel" class="margin-up">
   <div class="event_video_title">
-	<h3><%= t('event.recording.other') %></h3>
+  <h3><%= t('event.recording.other') %></h3>
   </div>
   <div class="event_video_tabs">
-  	<ul>
+    <ul>
       <%for day in 0..@video_entries.size-1%>
         <li id="day<%=day%>" class="date">Day <%=day+1%></li>
       <%end%>
     </ul>
   </div>
+<div id="carrusel">
   <div id="carrusel_content">
     <%for day in 0..@video_entries.size-1%>    
 	  <div id="videos_page<%=day%>" style="display:none">

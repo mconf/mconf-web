@@ -57,7 +57,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<div class="orange_bar">
+<div id="orange_bar">
 	<ul>
 		<li class="orange_one">
 			<h3>Meetings</h3>
@@ -72,6 +72,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	    <p>Advanced, big meetings. TV-likeproduction managed by an operator</p>
 		</li>
 	</ul>
+	<span id="pico_naranja"></span>
 <!--  <ul>
     <li><strong><%=t('event.create.info.presential.name')%></strong></li>
     <li><strong><span><%=t('event.create.info.meeting.name')%>:</span></strong><%=t('event.create.info.meeting.message')%></li>

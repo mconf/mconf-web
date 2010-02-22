@@ -268,7 +268,7 @@ body .icon{margin-bottom:-2px;}
 #header{background-color:#fff;}
 #global,#space,#content,#footer{width:960px;margin:0 auto;display:block;}
 #space{background-color:#e1eef5;}
-#content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;}
+#content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;position:relative;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
 #global{padding:0.5em 0;}
@@ -628,11 +628,11 @@ div.pagination a{color:#244974;}
 #sidebar input[type="time"]{text-align:center;}
 
 .update_logo,#upload_vcard{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,.update_logo,#upload_vcard, #more_invitations, #event_creation /*, #add_new_doc, #doc_info, #doc_action.new_version*/{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_thread,#new_reply,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #event_creation {background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,.update_logo,#upload_vcard, #more_invitations/*, #add_new_doc, #doc_info, #doc_action.new_version*/{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+#new_thread,#new_reply,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations {background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #priv-msg,#Create_new_group, #change-event,#space-conf,#news_sidebar,#new_invitation_div/*, #add_new_doc, #doc_info, #doc_action.new_version*/{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #update_space_logo{float:left;width:180px;}
-#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #event_creation h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
+#new_thread h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text{width:92%;overflow:auto;}
 #new_thread textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 .update_logo,#upload_vcard{width:218px;}
@@ -1230,57 +1230,81 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
   line-height:18px;
   padding:5px 7px 3px 6px;}
 
-.orange_bar{background: transparent url("/images/linea_naranja.png") repeat-x;}
-.orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}
-.orange_bar ul li{
+#orange_bar{background: transparent url("../images/linea_naranja.png") repeat-x;overflow:visible;}
+#orange_bar #pico_naranja{
+	padding:25px;
+	background:transparent url("../images/pico_naranja.png") no-repeat;position:absolute;right:0;top:0;
+	right:226px;
+	top:80px;
+	z-index:1;}
+#orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}
+#orange_bar ul li{
 	float:left;
 	height:150px;
 	border-right:1px solid #fde6ad;
 	margin-bottom:6px;}
-.orange_bar ul li h3{margin:5px 0 0 50px;color:#353535;font-size:1.25em;line-height:2.4;}
-.orange_bar ul li p{margin:0 0 0 0;padding:0 15px;color:#505050;font-size:1.0833em;line-height:1.3846;}
+#orange_bar ul li h3{margin:5px 0 0 50px;color:#353535;font-size:1.25em;line-height:2.4;}
+#orange_bar ul li p{margin:0 0 0 0;padding:0 15px;color:#505050;font-size:1.0833em;line-height:1.3846;}
 
-.orange_bar ul li.orange_one{background:transparent url("/images/meeting.png") no-repeat 15px 7px;width:31%;}
-.orange_bar ul li.orange_two{background:transparent url("/images/virtual_meeting.png") no-repeat 15px 9px;width:34%;}
-.orange_bar ul li.orange_three{border:none;width:34%;background:transparent url("/images/congress_icon_big.png") no-repeat 15px 5px;}
-.orange_bar ul li.orange_three h3{margin-left:70px;}
-.orange_bar ul li.orange_three p{margin-top:18px;}
+#orange_bar ul li.orange_one{background:transparent url("/images/meeting.png") no-repeat 15px 7px;width:31%;}
+#orange_bar ul li.orange_two{background:transparent url("/images/virtual_meeting.png") no-repeat 15px 9px;width:34%;}
+#orange_bar ul li.orange_three{border:none;width:34%;background:transparent url("/images/congress_icon_big.png") no-repeat 15px 5px;}
+#orange_bar ul li.orange_three h3{margin-left:70px;}
+#orange_bar ul li.orange_three p{margin-top:18px;}
 /* botones del crear evento*/
-.create_event{position:relative;overflow:hidden;clear:both;background:#f0f6f9;}
-.create_event ul{list-style-type:none;margin:0 0 0 0;border:1px solid #5c96bf;}
+#create_event{position:relative;overflow:hidden;clear:both;background:#f0f6f9;margin-top:30px;}
+#create_event ul{list-style-type:none;margin:0 0 0 0;border:1px solid #5c96bf;border-bottom:none;clear:both;overflow:hidden;}
+#create_event ul li{text-align:center;position:relative;clear:both;height:100%;width:238px;}
+#create_event ul li.event_b_title{overflow:visible;}
+#create_event ul li.event_b_title span.pico_azul{padding:3px 25px;background:transparent url("../images/pico_azul.png") no-repeat center center;}
 
-.create_event ul li{width:100%;text-align:center;}
-.create_event ul li.event_b_title{overflow:visible;}
-.create_event ul li.event_b_title span.pico_azul{padding:2px 25px;background:transparent url("../images/pico_azul.png") no-repeat bottom center;}
-
-#sidebar .create_event ul li h3{
+#sidebar #create_event ul li h3{
 	margin:0;
 	padding:3px 0;
 	font-size:1.25em;
 	line-height:2.4;
 	background:transparent url("../images/linea_azul.png") repeat-x scroll 0 102%;
 	border-bottom:1px solid #5c96bf;}
-.event_b_item{font-size:1.16667em;line-height:2.5714;font-weight:bold;background:#f0f6f9;}
-.create_event ul li.event_b_item:hover{background:#D5E0E8;}
-.create_event ul li a{outline:none;width:100%;height:100%;}
-.create_event ul li a:hover{text-decoration:none;}
-.create_event ul li a span{padding:3px 7px;width:100%;}
-.create_event ul li.event_b_item a.l_one{background:transparent url("../images/meeting.png") no-repeat left center;}
-.create_event ul li.event_b_item a.l_two{background:transparent url("../images/virtual_meeting.png") no-repeat left center;}
-.create_event ul li.event_b_item a.l_three{background:transparent url("../images/congress_icon.png") no-repeat left center;}
+.event_b_item{font-size:1.16667em;line-height:2.5714;font-weight:bold;background:#f0f6f9;border-bottom:1px solid #5C96BF;}
+#create_event ul li.event_b_item:hover{background:#D5E0E8;}
+
+#create_event ul li a{
+	outline:none;
+	display:block;
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+	}
+	
+#create_event ul li a:hover{text-decoration:none;}
+
+#create_event ul li a span{
+	padding:3px 7px;
+	width:100%;
+	}
+#create_event ul li.event_b_item a.l_one{
+	background:transparent url("../images/meeting.png") no-repeat 27% center;
+	padding-left:6px;}
+#create_event ul li.event_b_item a.l_two{
+	background:transparent url("../images/virtual_meeting.png") no-repeat 17% center;
+	padding:4px 0 4px 16px;}
+#create_event ul li.event_b_item a.l_three{
+	background:transparent url("../images/congress_icon.png") no-repeat 13% center;
+	padding:4px 0 4px 30px;}
 
 #hide{float:right;margin-top:9px;}
-
+#change-event button{float:left;padding:4px 5px;}
 .ten{
 	padding-top:10px;
 }
 
-#carrusel {height: 514px; overflow: auto; margin-top: 132px;background:#f0f6f9;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;border-bottom:1px solid #bdd8eb;}
-#carrusel .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
-#carrusel .event_video_tabs{border-bottom:1px solid #A8C0D1;}
-#carrusel .event_video_tabs ul{list-style-type:none;margin:0;}
-#carrusel .event_video_tabs ul li{display:inline-block;padding:0.25em 0.75em;border-right:1px solid #A8C0D1;cursor:pointer;}
-#carrusel .event_video_tabs ul li:hover,#carrusel .event_video_tabs ul .selected{text-decoration:underline;}
+#carrusel {height:463px;overflow:auto;background:#f0f6f9;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;border-bottom:1px solid #bdd8eb;}
+.event_video_title{margin-top: 132px;}
+#sidebar .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
+.event_video_tabs{border-bottom:1px solid #A8C0D1;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;}
+.event_video_tabs ul{list-style-type:none;margin:0;}
+.event_video_tabs ul li{display:inline-block;padding:0.25em 0.75em;border-right:1px solid #A8C0D1;cursor:pointer;}
+.event_video_tabs ul li:hover,#carrusel .event_video_tabs ul .selected{text-decoration:underline;}
 #carrusel #carrusel_content{position:relative;display:block;overflow:auto;}
 .video_description {float: right;width:127px;padding-left:5px;}
 .video_thumbnail {float: left;}
