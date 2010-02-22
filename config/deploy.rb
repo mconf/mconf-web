@@ -1,7 +1,7 @@
 servers = {
   :production => 'isabel@vcc.dit.upm.es',
   :test => 'isabel@vcc-test.dit.upm.es',
-  :gplaza => 'isabel@138.4.17.137'
+  :cm => 'isabel@globalplaza.co.cc'
 }
 
 default_env = :test
@@ -13,6 +13,8 @@ set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
+set :branch, "cm"
+
 set :use_sudo, false
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -34,9 +36,6 @@ namespace(:deploy) do
     sudo "/bin/chgrp -R www-data #{ release_path }/log/production.log"
     run "/bin/chmod g+w #{ release_path }/log/production.log"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
-    sudo "/bin/mkdir -p /opt/local"
-    sudo "/bin/chgrp -R www-data /opt/local"
-    sudo "/bin/chmod g+w /opt/local"
   end
 
   task :link_files do
@@ -53,8 +52,8 @@ namespace(:deploy) do
 
   task :reload_ultrasphinx do
     run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
-    run "cd #{ current_path } && sudo -u www-data /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
-    run "cd #{ current_path } && sudo -u www-data rake ultrasphinx:daemon:restart RAILS_ENV=production"
+    run "cd #{ current_path } && sudo /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
+    run "sudo /etc/init.d/sphinxsearch restart"
   end
 end
 

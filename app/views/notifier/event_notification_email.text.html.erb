@@ -1,0 +1,6 @@
+<html>
+  <body>
+      <%@notification.comment = @notification.comment.gsub('\'' + t('name.one') + '\'',@notification.receiver_login)%>
+      <%=@notification.comment%><br/><br/>
+  </body>
+</html>

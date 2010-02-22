@@ -6,14 +6,32 @@ namespace :setup do
   end
 
   desc "Setup development environment"
-  task :development => [ :development_tasks, :production_tasks, :populate ] do
+  task :development => [ :development_tasks, :populate ] do
   end
 
   desc "All development tasks"
-  task :development_tasks => [ ]
+  task :development_tasks => [ :common_tasks ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_ultrasphinx, :git_submodules, "db:schema:load", "basic_data:all" ] do
+  task :production_tasks => [ :config_cron, :common_tasks ] do
+  end
+
+  desc "All production tasks"
+  task :common_tasks => [ :config_ultrasphinx, :git_submodules, "db:schema:load", "basic_data:all" ] do
+  end
+
+
+  desc "Copy cron.d/vcc if it doesn't exist"
+  task :config_cron do
+    print "* Checking /etc/cron.d/vcc: "
+    cron_file = "/etc/cron.d/vcc"
+
+    if File.exist?(cron_file)
+      puts "file exists."
+    else
+      `sudo cp #{ RAILS_ROOT }/extras/cron/vcc #{ cron_file }` 
+      puts "copied."
+    end
   end
 
   desc "Copy config/ultrasphinx if it doesn't exist"

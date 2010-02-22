@@ -1,8 +1,10 @@
+<% if @event.cm_event?%>
 <% content_for :javascript do %>
   $(document).ready(function() {
   	$("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
   })
 <% end %>
+
 
 <div id="connection_info" class="margin-up">
   <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
@@ -27,3 +29,8 @@
 	<%end%>
   </div>
 </div>
+<%else%>
+  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+	   <strong><span><%= t('event.error.cm_connection')%></span></strong>
+	<%end%> 
+<%end%>

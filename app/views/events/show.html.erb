@@ -9,7 +9,7 @@
 
 <% content_for :javascript do %>	
   <%= render :partial => 'date_and_timepicker.js.erb' %>	
-  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+  
 
 	style_file_input();
 	
@@ -59,7 +59,7 @@
        $('#event_description_content').dblclick();
      };	 
 	 
-	 $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+	   $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
 	      tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
@@ -175,10 +175,10 @@
     <div class="success">
 		<strong><%=t('event.help.now')%></strong><br/>
 		<ul id="event_help">
-		<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.creating_entries')%> <%=t('event.help.in_agenda')%></a><br/></li>
-		<li><%= link_to t('event.help.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
-		<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
-		<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
+			<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.creating_entries')%> <%=t('event.help.in_agenda')%></a><br/></li>
+			<li><%= link_to t('event.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
+			<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
+			<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
 		</ul>
     </div>
   <%end%>
@@ -190,9 +190,11 @@
   <div id="for_lightbox" style="display:none"></div>
 
   <%if params[:new_invitations]%>
-  
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-	 
+
+  <%elsif params[:notification]%>
+   <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
+
   <%elsif params[:show_repository]%>
      <div id="event_repo" class="margin-up">
 	    <div id="repository_title">
@@ -223,18 +225,20 @@
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
 	      <div id="agenda_title">
-	      	<%= link_to t('event.agenda.download'), generate_pdf_space_event_agenda_path(@space, @event), :method => :get,:class=>"group_links" %>
+          <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
+          <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
 	      	<h3 id="agenda_title_partial" class="blue">
-			    <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-			    <%=t('agenda.title')%> 
-			    <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
-			</h3>
-		  </div>
+            <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+            <%=t('agenda.title')%> 
+            <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
+          </h3>
+        </div>
 	      <div id="agenda_content">
 	        <%= render :partial => "agendas/edit" %>
 	      </div>
 	    </div>
-	  <%end%>	   	  	   
+	  <%end%>
+		
   <%end%>
  
 <%unless @comments.empty?%> 

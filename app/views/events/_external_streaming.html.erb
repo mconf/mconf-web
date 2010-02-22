@@ -36,12 +36,16 @@
 	<%if @event.is_happening_now?%>
 	  <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
 	  <%=t('event.streaming.title')%>
+		
 	<%else%>
 	  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
 	  <%=t('event.streaming.will_be_available')%>
 	<%end%>
     </h3></div>
   <div id="streaming_content">
+  	<%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+        <%= @event.streaming%>
+      <%end%> 
   	<%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>
   	  <%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
 	    <%=t("event.streaming.none")%>

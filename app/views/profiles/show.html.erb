@@ -29,11 +29,11 @@
 <%end%> 
 <div class="profile-box">
   <div id="title">
-  	<div id="help2" title="<%= t('information.information3')%>"></div>
+  	<div id="help2" title="<%= h(t('information.information3'))%>"></div>
 	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
   </div>
   <div id="profile_content">
-  	  <%= @latest_posts.empty? ? "The User doesn't have any recent activity" : "" %>
+  	  <%= @latest_posts.empty? ? t('user.noactivity') : "" %>
 	  <% for post in @latest_posts -%>
 		<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
 	  <%end%>

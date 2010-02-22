@@ -22,21 +22,27 @@ class Group < ActiveRecord::Base
     belongs_to :space
     
     validates_presence_of :name
-    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true,:message => "name has already been taken")
+    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
     
     def validate
       for user in users
         unless user.stages.include?(space)
-          errors.add(:users, "not belongs to the space of the group")
+          errors.add(:users, I18n.t('space.group_not_belong'))
         end
       end
       
-      if self.mailing_list == "sir"
-        errors.add("The mailing list vcc-sir@dit.upm.es is reserved")
-      end
-      
-      if self.mailing_list && self.mailing_list.match(/^[a-zA-Z1-9][\s\w\-\.]*$/).to_s != self.mailing_list
-        errors.add("The mailing list have invalid characters. Only lowercase letters and numbers are allowed")
+      if self.mailing_list && self.mailing_list.present?
+        
+        self.mailing_list = self.mailing_list.downcase
+        
+        if self.mailing_list == "sir"
+          errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-sir@dit.upm.es"))
+        end
+        
+        if self.mailing_list.match(/^[a-z0-9][\w\-\.]*$/).to_s == ""
+          errors.add(I18n.t('mailing_list.invalid'))
+        end
+        
       end
       
     end
@@ -51,16 +57,16 @@ class Group < ActiveRecord::Base
         #create the new mailing_list if it has the option activated
         if group.mailing_list.present?
           group.mail_list_archive
-          copy_at_jungla(group, group.mailing_list)
-          request_update_at_jungla
+          copy_list(group, group.mailing_list)
+          request_list_update
         end
     }
     
     after_destroy { |group|
         if group.mailing_list
           #destroy the existing mailing_list
-          delete_at_jungla(group, group.mailing_list)
-          request_update_at_jungla
+          delete_list(group, group.mailing_list)
+          request_list_update
         end
     }   
     
@@ -68,17 +74,17 @@ class Group < ActiveRecord::Base
     
         #delete the old mailing_list      
         if group.mailing_list_changed?
-          delete_at_jungla(group,group.mailing_list_was) if group.mailing_list_was.present?
+          delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
         else
-          delete_at_jungla(group,group.mailing_list) if group.mailing_list.present?
+          delete_list(group,group.mailing_list) if group.mailing_list.present?
         end
   
         #create the new mailing_list
         if group.mailing_list.present?  
           group.mail_list_archive        
-          copy_at_jungla(group,group.mailing_list)
+          copy_list(group,group.mailing_list)
         end
-        request_update_at_jungla
+        request_list_update
     }
        
     # Do not reload mail list server if not in production mode, it could cause server overload
@@ -86,26 +92,24 @@ class Group < ActiveRecord::Base
       #RAILS_ENV == "production"
     #end
     
-    def self.check_domain
-      Site.current.domain == "vcc.dit.upm.es"
+    def self.request_list_update
+      #`/usr/local/bin/newautomatic.sh`
     end
     
-    def self.request_update_at_jungla
-      if check_domain
-        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es touch /users/jungla/vcc/listas/automaticas/vcc-ACTUALIZAR`
-      end
+    def self.copy_list(group,list)
+      `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
-    def self.copy_at_jungla(group,list)
-      if check_domain
-        `sudo -u vcc-list scp #{ group.temp_file } vcc@jungla.dit.upm.es:/users/jungla/vcc/listas/automaticas/vcc-#{list}`
-      end
+    def self.delete_list(group,list)
+      `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
-    def self.delete_at_jungla(group,list)
-      if check_domain
-        `sudo -u vcc-list ssh vcc@jungla.dit.upm.es rm /users/jungla/vcc/listas/automaticas/vcc-#{list}`
-      end
+    def self.disable_list(group,list)
+      `mv -f /var/lib/mailman/data/listas_automaticas/vcc-#{list} /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name}`
+    end
+
+    def self.enable_list(group,list)
+      `mv -f /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name} /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
     
     # Transforms the list of users in the group into a string for the mail list server
