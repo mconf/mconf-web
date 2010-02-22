@@ -37,12 +37,11 @@ class Informer
      end
    end
    
-   def self.deliver_event_notification(notification)
-     receiver = User.find(notification.receiver_id)
+   def self.deliver_event_notification(event,receiver)
      if receiver.notification == User::NOTIFICATION_VIA_EMAIL
-       Notifier.deliver_event_notification_email(notification)
+       Notifier.deliver_event_notification_email(event,receiver)
      elsif receiver.notification == User::NOTIFICATION_VIA_PM
-       PrivateSender.event_notification_message(notification)        
+       PrivateSender.event_notification_message(event,receiver)        
      end
    end
       

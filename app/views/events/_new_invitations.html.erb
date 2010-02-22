@@ -8,7 +8,7 @@
 		// Changing the new line characters to <br/>
 		var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
 		var ending = "<%= escape_javascript(t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))) %>"
-    var complete_msg = header + personal_msg + '<br/>' + ending; 
+    var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
     
 		$('#invite_msg').text(complete_msg);
 

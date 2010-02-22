@@ -43,11 +43,12 @@ class Notifier < ActionMailer::Base
     @body[:user] = invitation.introducer
   end
   
-  def event_notification_email(notification)
-    setup_email(notification.email)
+  def event_notification_email(event,receiver)
+    setup_email(receiver.email)
     
-    @subject += I18n.t("event.notification.subject",:eventname=>notification.event_name,:space=>notification.space_name,:username=>notification.sender_login)
-    @body[:notification] = notification
+    @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>event.author.login)
+    @body[:event] = event
+    @body[:receiver] = receiver
   end
 
 

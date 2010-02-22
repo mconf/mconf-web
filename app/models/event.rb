@@ -168,16 +168,7 @@ end
     if event.notification_ids
       event.notification_ids.each { |user_id|
         user = User.find(user_id)
-        n = EventNotification.new
-        n.sender_id = event.author.id
-        n.receiver_id = user_id
-        n.event_name = event.name
-        n.space_name = event.space.name
-        n.email = user.email
-        n.sender_login = event.author.login
-        n.receiver_login = user.login
-        n.comment = event.notify_msg
-        Informer.deliver_event_notification(n)
+        Informer.deliver_event_notification(event,user)
       }
     end
   end

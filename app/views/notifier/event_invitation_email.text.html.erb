@@ -5,7 +5,7 @@
     <%else%>
       <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.email[0,@invitation.email.index('@')])%>
     <%end%>
-    <%@invitation.comment = @invitation.comment.gsub('\'' + t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/event_invitations/" + @invitation.code + "\">http://" + Site.current.domain + "/event_invitations/" + @invitation.code) %>
+    <%@invitation.comment = @invitation.comment.gsub('\'' + t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/event_invitations/" + @invitation.code + "\">http://" + Site.current.domain + "/event_invitations/" + @invitation.code + "</a>") %>
     <%if @invitation.comment == ""%>
       <%= t('invitation.to_event', :username => @user.login,:eventname => @invitation.event.name, :space => @space.name) %><br/><br/>
     <%else%>
