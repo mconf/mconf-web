@@ -753,7 +753,7 @@ h3.item_title span{font-size:1.25em;line-height:1.2;}
 #profile_content .post p#topic{font-size:1.0833em;line-height:1.3846;color:#244974;font-weight:bold;margin-bottom:0.75em;}
 .vcard ul{list-style-type:none;}
 .vcard form div{margin-left:1.5em;}
-.profile_visibility_gradient{float:left;}
+.profile_visibility_gradient{float:left;margin-top:2.1em;}
 
 /*Manage*/
 div#management-title{width:384px;margin-left:110px;float:left;}
