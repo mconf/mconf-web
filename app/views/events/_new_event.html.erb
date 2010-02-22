@@ -107,6 +107,19 @@
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
 
+  <div class="create_event">
+    <ul>
+      <li class="event_b_title">
+      	<h3 class="blue">Create event</h3>
+				<span class="pico_azul"></span>
+			</li>
+      <li class="event_b_item blue"><%=link_to("<span>Meeting<span>","#",:class=>"l_one")%></li>
+      <li class="event_b_item blue"><%=link_to("<span>Virtual Meeting</span>","#",:class=>"l_two")%></li>
+      <li class="event_b_item blue"><%=link_to("<span>Virtual Congress</span>","#",:class=>"l_three")%></li>
+    </ul>
+  </div>
+
+<!--
 <div id="event_creation">
   	<div class="button_wrapper">
   	  <button id="presential_event" class="big_button orange_button margin-up"><%=t('event.new.presential')%></button>
@@ -114,6 +127,7 @@
   	  <button id="conference_event" class="big_button orange_button margin-up"><%=t('event.new.conference')%></button>
     </div>
 </div>
+-->
 
 <div id="change-event">
 	

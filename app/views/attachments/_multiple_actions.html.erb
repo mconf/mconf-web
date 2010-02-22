@@ -8,11 +8,12 @@
 	<%end%>
   <span class="separator">|</span>
 	
-	<span id="selected_info"></span>
-  
+	 
   <%=link_to ("<span>#{t('repository.download')}</span>"),'#', {:id=>"multiple_download",:class=>"grey_button basic_button disabled_button"} %>
 	
   <%=link_to ("<span>#{t('repository.remove')}</span>"),'#', {:id=>"multiple_delete",:class=>"grey_button basic_button disabled_button"} %>
 	
   <%=link_to ("<span>#{t('repository.add_tags')}</span>"),'#', {:id=>"",:class=>"grey_button basic_button disabled_button"} %>
+	
+	<span id="selected_info"></span>
 </div>
