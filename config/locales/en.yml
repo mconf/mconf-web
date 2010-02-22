@@ -9,6 +9,7 @@ en:
   about_global: "About GLOBAL"
   about_me: "About me"
   about_sxsw: "About SXSW"
+  about_vcc: "About VCC"  
   account: "Account"
   actions: "Actions"
   activerecord:
@@ -412,6 +413,9 @@ en:
   ######### H ###########
   hello: "Hello"
   help: "Help"
+  help_vcc:
+    info: "Here you can find information about the VCC"
+    topics: "Topics"  
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
