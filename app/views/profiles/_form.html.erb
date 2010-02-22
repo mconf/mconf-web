@@ -39,7 +39,7 @@
 </div>
 
 <%= t('profile.visibility') %>
-<div class="profile_visibility_gradient"><%= image_tag "gradient.jpg" %></div>
+<div class="profile_visibility_gradient"><%= image_tag "gradient.png" %></div>
 <% for vis_symbol in Profile::VISIBILITY do %>
   <div class="margin-up"><%= f.radio_button :visibility, Profile::VISIBILITY.index(vis_symbol)%>
   <label for=<<%=('visibility_' + vis_symbol.to_s)%>><%= t( 'profile.visibility_' + vis_symbol.to_s ) %></label><br/></div>
