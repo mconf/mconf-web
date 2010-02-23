@@ -29,10 +29,19 @@ class PrivateSender
   
   
   def self.event_invitation_message(invitation)
-    m = PrivateMessage.new :title => I18n.t("invitation.subject",:space=>invitation.group.name,:username=>invitation.introducer.login),
-      :body => invitation.comment.gsub('\'name\'',invitation.candidate.login) + "<br>" + I18n.t('invitation.ps',:url => 'http://' + Site.current.domain + '/event_invitations/' + invitation.code)
+    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.event.name,:space=>invitation.group.name,:username=>invitation.introducer.login),
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/event_invitations/" + invitation.code + "\">http://" + Site.current.domain + "/event_invitations/" + invitation.code + "</a>")
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
+    m.save!
+  end
+
+  
+  def self.event_notification_message(event,receiver)
+    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>event.author.login),
+      :body => ( event.notify_msg.gsub('\'' + I18n.t('name.one') + '\'',receiver.login) + "<br/><br/>" )
+    m.sender = event.author
+    m.receiver = receiver
     m.save!
   end
   

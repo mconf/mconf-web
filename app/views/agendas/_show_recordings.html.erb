@@ -12,7 +12,7 @@
       <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
       <form>
         <span class="only_url"><%=t('url_plain')%>:</span>
-        <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry.id) %>" name="video_link"></input>
+        <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
       </form>
     </div>
 

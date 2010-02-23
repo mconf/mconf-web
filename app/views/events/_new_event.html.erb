@@ -1,6 +1,28 @@
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<%end%>
+
 <% content_for :javascript do%>
-  <%= render :partial => 'toggle_view'%>
-  template = "<%= escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization)) %>";
+
+	$("#organizers_name").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4
+    });
+  });
+	
+	$('#change-event').hide();
+	
+	<%= render :partial => 'toggle_view'%>
+	
+
+/* DEPRECATED DUE TO CHANGES IN THE INVITATIONS
+  template = "escape_javascript(t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization))";
   $("#event_name").blur(function(){
     replace_invitation();
   });
@@ -11,12 +33,12 @@
 	
     invitation_text = template;
     if($("#event_name").val()!=""){
-     invitation_text = invitation_text.replace('event_name',$("#event_name").val());
+      invitation_text = invitation_text.replace('event_name',$("#event_name").val());
     }
-   if($("#start_datepicker").val()!=""){
-     invitation_text = invitation_text.replace('event_date',$("#start_datepicker").val() + " at " + $("#start_timepicker").val());
-   }  
-   $("#invite_msg").val(invitation_text);
+    if($("#start_datepicker").val()!=""){
+      invitation_text = invitation_text.replace('event_date',$("#start_datepicker").val() + " at " + $("#start_timepicker").val());
+    }  
+    $("#invite_msg").val(invitation_text);
   };
   
   
@@ -33,7 +55,9 @@
 	  edited_msg = true;
 	}
   });
-  
+*/
+
+
   //fist we detect if the option is checked and update the location field
   if($("#event_marte_event").is(":checked"))
   {
@@ -55,104 +79,127 @@
     }
     
   });
+  
+  $('#cancel_event').click(function(){
+    $('#extra-info').hide();
+    $('#change-event').hide();
+		$('#pico_naranja').slideDown();
+    $('#create_event').slideDown("slow");
+		$('#orange_bar').slideDown();
+  });
+  
+  $('#presential_event').click(function(){
+    $('#create_event').hide();
+		$('#pico_naranja').hide();
+		$('#orange_bar').slideUp("slow");
+    $('#change-event').slideDown("slow");
+    $('#event_vc_mode').val('<%=Event::VC_MODE.index(:in_person)%>');
+  });
+  
+  $('#meeting_event').click(function(){
+    $('#create_event').hide();
+		$('#pico_naranja').hide();
+		$('#orange_bar').slideUp("slow");
+    $('#change-event').slideDown("slow");
+    $('#extra-info').slideDown();
+    $('#event_vc_mode').val('<%=Event::VC_MODE.index(:meeting)%>');
+  });
+  
+  $('#conference_event').click(function(){
+    $('#create_event').hide();
+		$('#pico_naranja').hide();
+		$('#orange_bar').slideUp("slow");
+    $('#change-event').slideDown("slow");
+    $('#extra-info').slideDown();
+    $('#event_vc_mode').val('<%=Event::VC_MODE.index(:teleconference)%>');
+  });
+  
 <%end%>
 
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
 
+  <div id="create_event">
+    <ul>
+      <li class="event_b_title">
+      	<h3 class="blue">Create event</h3>
+				<span class="pico_azul"></span>
+			</li>
+      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.presential') +"</span>","#",:id=>"presential_event",:class=>"l_one")%></li>
+      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.meeting') +"</span>","#",:id=>"meeting_event",:class=>"l_two")%></li>
+      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.conference') +"</span>","#",:id=>"conference_event",:class=>"l_three")%></li>
+    </ul>
+  </div>
+
+<!--
+<div id="event_creation">
+  	<div class="button_wrapper">
+  	  <button id="presential_event" class="big_button orange_button margin-up"><%=t('event.new.presential')%></button>
+	  <button id="meeting_event" class="big_button orange_button margin-up"><%=t('event.new.meeting')%></button>
+  	  <button id="conference_event" class="big_button orange_button margin-up"><%=t('event.new.conference')%></button>
+    </div>
+</div>
+--> 
+
 <div id="change-event">
 	
-<h3><div id="help" title=<%=h(t('event.help.create'))%>></div><%= t('event.create') %></h3>
-
-<% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
- <div>
-    <strong><span>1. <%= t('event.basic_info')%></span></strong><br/>
-    <label for="Name"><%= t('name.one')%>:</label>
-    <%= f.text_field :name, :size =>25  %>
-  </div>
-  <div>
-	<label for="Description"><%= t('description') %>:</label>
-	<%=f.text_area :description%>
-  </div>
+  <h3><div id="help" title=<%=h(t('event.help.create'))%>></div><%= t('event.create.title') %></h3>
+  <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
+    <div>
+      <strong><span>1. <%= t('event.basic_info')%></span></strong><br/>
+      <label for="Name"><%= t('name.one')%>:</label>
+      <%= f.text_field :name, :size =>25  %>
+    </div>
+    <div>
+      <label for="Description"><%= t('description') %>:</label>
+      <%=f.text_area :description%>
+    </div>
   
-  <div>
-    <label for="Organizer"><%= t('organizer') %>:</label>
-    <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
-  </div>
-
-  <div class="margin-up">
-  <strong><span>2. <%= t('event.select_date')%></span></strong>	
-  </div>
-  <div id="expanded_date">
-	<div class="no_javascript">
-	  <ul>
-		<li><%= t('date.start') %></li>
-		<li><%=f.datetime_select :start_date%></li>
-		<li><%= t('date.end') %></li>
-		<li><%=f.datetime_select :end_date%></li>
-	  </ul>
-	</div>
-  </div>
-
-  <div class="margin-up">
-  <strong><span>3. 	<%= t('event.choose_location')%> </span></strong>
-  </div>
-  <div id="expanded_online">
-	<div class="checkbox_event">
-	  <!--<%=f.check_box :isabel_event,:class=>"icon" %>
-	  <label for="isabel_event" class="label_izquierda" ><%= t('event.Isabel') %></label>-->
-	  <%=f.check_box :marte_event,:class=>"icon"  %>
-	  <label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
-	</div>
-	<div>
-          <label for="Location"><%= t('event.location') %>:</label>
-          <%= f.text_field :location, :size =>25  %>
-        </div>
-	<!--<div class="checkbox_event">
-	  <%=f.check_box :marte_event,:class=>"icon"  %>
-	  <label for="marte_event" class="label_izquierda" ><%= t('event.online') %></label>
-	</div>-->
-  </div>
-  
-  <!--<div class="margin-up">
-  	<strong><span class ="without_javascript">3. <%= t('user.invite') %>:</span></strong>
-    <strong><span class ="javascript" style="display:none">3. <%= link_to(t('user.invite'),"#expanded_invite",:id=>"toggle_invite") %>:</span></strong>
-  </div>
-  
-  <div id="expanded_invite">	  
-	  <div id="selected_users">
-	    <label for="selected_users" style="display: none;">To:</label>
-	  </div>
-	  <div id="user_filter" class="margin-up" style="display: none;">
-	    <label for="User filter"><%= t('user.filter') %></label><br/>
-	    <%= text_field_tag :user_selector,'', :size => 25 %>
-	  </div>
-	  <div id="unselected_users"> 
-	  <% for user in @space.users -%>
-	      <div class=user_checkbox>
-	        <%= check_box_tag "event[ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
-	      </div>
-	  <%end%>
-	  </div>
-		
-		
-		<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
-		  <div class="margin-up">
-		    <label for="e-mails" class="label_izquierda"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
-				<%= f.text_area :mails%>
-		  </div>	
-		<%end%>	
-	<div class="margin-up">
-	  <label for="message" class="label_izquierda"><%= t('invitation.label') %>:</label>
-	  <textarea id="invite_msg" name="event[invite_msg]"><%= t('invitation.message',:space=>@space.name,:url=>"'url'",:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization) %></textarea>
-	  <p>* <%= t('invitation.legend') %></p>
-	</div>
-</div>-->
-	<div class="margin-up">
-	 <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
-	</div>
-<% end %>
+    <div>
+      <label for="Organizer"><%= t('organizer') %>:</label>
+      <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+    </div>
+    <div>
+      <label for="Location"><%= t('event.location') %>:</label>
+      <%= f.text_field :location, :size =>25  %>
+    </div>
+    <div class="margin-up">
+      <strong><span>2. <%= t('event.select_date')%></span></strong>	
+    </div>
+    <div id="expanded_date">
+      <div class="no_javascript">
+        <ul>
+          <li><%= t('date.start') %></li>
+          <li><%=f.datetime_select :start_date%></li>
+          <li><%= t('date.end') %></li>
+          <li><%=f.datetime_select :end_date%></li>
+        </ul>
+      </div>
+    </div>
+    <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(:in_person) %>
+    <div id="extra-info"  style="display:none">
+      <div class="margin-up">
+        <strong><span>3. <%= t('event.enable.participation')%></span></strong>	
+      </div>
+      <div class="checkbox_event">
+        <%=f.check_box :isabel_interface,:class=>"icon", :checked => true  %>
+        <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.isabel') %></label>
+      </div>
+      <div class="checkbox_event">
+        <%=f.check_box :web_interface,:class=>"icon", :checked => true  %>
+        <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.web') %></label>
+      </div>
+	   <div class="checkbox_event">
+       <%=f.check_box :sip_interface,:class=>"icon", :checked => true  %>
+        <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
+      </div>
+    </div>
+	 <div class="margin-up">
+     <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+      <%= link_to "<span>" + t('cancel') + "</span>", "#",:class => "basic_button blue_button", :id=>"cancel_event"%>
+	 </div>
+  <% end %>
 </div>
 
 

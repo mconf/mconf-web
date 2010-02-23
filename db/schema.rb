@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100218144143) do
+ActiveRecord::Schema.define(:version => 20100222144439) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(:version => 20100218144143) do
     t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "record"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "embedded_video"
     t.text     "video_thumbnail"
+    t.integer  "cm_session_id"
     t.text     "uid"
   end
 
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(:version => 20100218144143) do
     t.text     "location"
     t.text     "other_streaming_url"
     t.string   "permalink"
+    t.integer  "cm_event_id"
+    t.integer  "vc_mode",             :default => 0
   end
 
   create_table "groups", :force => true do |t|

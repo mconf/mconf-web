@@ -1,0 +1,42 @@
+<% if @event.cm_event?%>
+<% content_for :javascript do %>
+  $(document).ready(function() {
+  	$("#connection_info").effect("highlight", {color:"#F5DF51"}, 3000);
+  })
+<% end %>
+
+
+<div id="connection_info" class="margin-up">
+  <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
+  <div class="connection_content">
+  	
+	<%if @event.agenda.agenda_entries.empty?%>
+	  <h5>To get streaming and/or recording, you need to define a schedule for your agenda</h5>
+	<%end%>
+	
+  	<%if @event.web_interface?%>
+
+    	<h5><%= t('event.connection.web') %>:</h5>
+	    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span>
+
+	<%end%>
+	<%if @event.isabel_interface?%>
+
+    	<h5><%= t('event.connection.isabel') %>:</h5>
+	    <span>isabel://master.dit.upm.es</span>
+
+	<%end%>
+	<%if @event.sip_interface?%>
+
+    	<h5><%= t('event.connection.sip') %>:</h5>
+	    <span>mcux.dit.upm.es</span>
+
+	<%end%>
+
+  </div>
+</div>
+<%else%>
+  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+	   <strong><span><%= t('event.error.cm_connection')%></span></strong>
+	<%end%> 
+<%end%>

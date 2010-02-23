@@ -20,22 +20,22 @@
   
 <%end%>
 
-<div id="carrusel" class="margin-up">
   <div class="event_video_title">
-	<h3><%= t('event.recording.other') %></h3>
+  <h3><%= t('event.recording.other') %></h3>
   </div>
   <div class="event_video_tabs">
-  	<ul>
+    <ul>
       <%for day in 0..@video_entries.size-1%>
         <li id="day<%=day%>" class="date">Day <%=day+1%></li>
       <%end%>
     </ul>
   </div>
+<div id="carrusel">
   <div id="carrusel_content">
     <%for day in 0..@video_entries.size-1%>    
 	  <div id="videos_page<%=day%>" style="display:none">
 	    <%@video_entries[day].each do |key, entry|%>
-	      <div class="video_preview_sidebar <%="preview_selected" if entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
+	      <div class="video_preview_sidebar <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
 	        <div class="video_thumbnail">
 			  <%if entry.video_thumbnail.present?%>
 			    <%=link_to_function image_tag(entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>

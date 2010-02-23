@@ -22,13 +22,10 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :author
   acts_as_stage
   
-  after_create do |entry|
-    if entry.uid.nil? or entry.uid.eql? ''
-      entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
-      entry.save
-    end
-  end
-  
+  #Attributes for Conference Manager
+  attr_accessor :streaming
+  attr_accessor :recording
+
   #acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -43,11 +40,55 @@ class AgendaEntry < ActiveRecord::Base
     end     
   end
   
+  validate_on_create do |entry|
+    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
+      cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
+      begin
+        cm_s.save
+        entry.cm_session_id = cm_s.id
+      rescue => e
+        entry.errors.add_to_base(e.to_s) 
+      end        
+    end
+  end
+  
+  validate_on_update do |entry|
+    if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
+      cm_s = entry.cm_session
+      my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      if entry.cm_session?
+        cm_s.load(my_params) 
+      else
+        entry.errors.add_to_base(I18n.t('event.error.cm_connection'))
+      end
+      begin        
+        cm_s.save
+      rescue => e
+       if cm_s.present?  
+         entry.errors.add_to_base(e.to_s) 
+       end  
+      end       
+    end    
+  end
+  
+  before_destroy do |entry|
+    #Delete session in Conference Manager if event is not in-person
+    if (entry.agenda.event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+      begin
+        cm_s = entry.cm_session     
+        cm_s.destroy    
+      rescue => e  
+        entry.errors.add_to_base(I18n.t('agenda.entry.error.delete'))
+        false
+      end     
+    end 
+  end
+  
+  
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
-    end    
-    
+    end      
   end
   
   after_create do |entry|
@@ -55,11 +96,16 @@ class AgendaEntry < ActiveRecord::Base
       FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
       FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
     end
+    
+    if entry.uid.nil? or entry.uid.eql? ''
+      entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
+      entry.save
+    end
   end
-  
+ 
   after_update do |entry|
     #Delete old attachments
-     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     #create new attachments
     entry.attachments.reload
     entry.attachments.each do |a|
@@ -68,45 +114,67 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
-  after_destroy do |entry|    
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+#  after_save do |entry|
+#    entry.event.syncronize_date
+#  end
+  
+  
+  after_destroy do |entry|  
+   # event.syncronize_date
+    if entry.title.present?
+      FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
+    end      
   end
   
-  def validate
-    # Check title pre12sence
-    if self.title.empty?
-      errors.add_to_base(I18n.t('agenda.error.omit_title'))
+  def event
+    agenda.event
+  end
+  
+  
+  def cm_session?
+    cm_session.present?
+  end
+  
+  def cm_session
+    begin
+      @cm_session ||= ConferenceManager::Session.find(self.cm_session_id, :params=> {:event_id => self.agenda.event.cm_event_id})
+    rescue
+      nil
+    end  
+  end
+  
+  def recording?
+   cm_session.try(:recording?)
+  end
+  
+  def streaming?
+    cm_session.try(:streaming?)
+  end
+  
+  def initDate
+    DateTime.strptime(cm_session.initDate)
+  end
+  
+  def endDate
+    DateTime.strptime(cm_session.endDate)
+  end
+  
+  def name
+    cm_session.try(:name)
+  end
+  
+  #Return  a String that contains a html with the video player for this session
+  def player
+    begin
+      cm_player_session ||= ConferenceManager::PlayerSession.find(:one,:from=>"/events/#{self.agenda.event.cm_event_id}/sessions/#{self.cm_session.id}/player")
+      cm_player.html
+    rescue
+      nil
     end
-    
-=begin
-    # Check start and end times presence
-    if self.start_time.nil? || self.end_time.nil? 
-      errors.add_to_base(I18n.t('agenda.error.omit_date'))
-    else
-      # Check start time is previous to end time
-      unless self.start_time <= self.end_time
-        errors.add_to_base(I18n.t('agenda.error.dates'))
-      end
-       
-      # Check the times don't overlap with existing entries 
-      for entry in self.agenda.agenda_entries_for_day(self.start_time.day - self.agenda.event.start_date.day)
-        if (self.id != entry.id) then
-          if ((self.start_time >= entry.start_time) && (self.start_time < entry.end_time))
-            errors.add_to_base(I18n.t('agenda.error.start_time_overlaps'))
-          end
-          if ((self.end_time > entry.start_time) && (self.end_time <= entry.end_time))
-            errors.add_to_base(I18n.t('agenda.error.end_time_overlaps'))
-          end
-          if ((self.start_time < entry.start_time) && (self.end_time > entry.end_time))
-            errors.add_to_base(I18n.t('agenda.error.overlaps'))
-          end
-          if ((self.start_time == entry.start_time) && (self.end_time == entry.end_time))
-            errors.add_to_base(I18n.t('agenda.error.overlaps'))
-          end          
-        end   
-      end
-    end
-=end
+  end
+
+  def has_error?
+    return self.cm_error.present?
   end
   
   def get_background_from_embed

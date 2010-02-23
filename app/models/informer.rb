@@ -36,6 +36,14 @@ class Informer
        PrivateSender.event_invitation_message(admission)        
      end
    end
+   
+   def self.deliver_event_notification(event,receiver)
+     if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+       Notifier.deliver_event_notification_email(event,receiver)
+     elsif receiver.notification == User::NOTIFICATION_VIA_PM
+       PrivateSender.event_notification_message(event,receiver)        
+     end
+   end
       
    
    def self.deliver_join_request(admission) 
