@@ -1,0 +1,9 @@
+<div class="help-info">
+  <div class="help-title">
+    <h3><%=image_tag("icons/information.png",:class=>"icon",:title=>t('help_title.info')) + "  " + t('help_title.topics')%> </h3>
+  </div>    
+  <div class="topics-section">
+    <li><%=link_to(t('help_title.about_vcc'),:action=>"index")%><br/>
+    <li><%=link_to(t('help_title.create_user'),:action=>"createuser")%><br/>     
+  </div>
+</div>      
