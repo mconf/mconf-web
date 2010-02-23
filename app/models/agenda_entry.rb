@@ -38,7 +38,7 @@ class AgendaEntry < ActiveRecord::Base
       a.author ||= agenda_entry.author    
     end     
   end
-=begin  
+  
   validate_on_create do |entry|
     if (entry.agenda.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.agenda.event.vc_mode == Event::VC_MODE.index(:teleconference))
       cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
@@ -82,7 +82,7 @@ class AgendaEntry < ActiveRecord::Base
       end     
     end 
   end
-=end  
+  
   
   before_save do |entry|
     if entry.embedded_video.present?
