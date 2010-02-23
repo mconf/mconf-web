@@ -9,7 +9,6 @@ en:
   about_global: "About GLOBAL"
   about_me: "About me"
   about_sxsw: "About SXSW"
-  about_vcc: "About VCC"  
   account: "Account"
   actions: "Actions"
   activerecord:
@@ -413,9 +412,22 @@ en:
   ######### H ###########
   hello: "Hello"
   help: "Help"
-  help_vcc:
-    info: "Here you can find information about the VCC"
-    topics: "Topics"  
+  help_title:
+    about_vcc: "About VCC"  
+    create_user: "Creating a User"
+    info: "Here you can find information about the VCC"    
+    topics: "Topics"
+  help_index:
+    part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
+    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating posts to communicate with other participants in the space or upload documents or photographs to be shared."
+    part3: "To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>."              
+  help_createuser:
+    part1: "To create a user in VCC:"
+    part2: "1. Click on <a href={{url}}>register</a> item from the top menu bar."    
+    part3: "2. Type an email, password and full name."
+    part4: "3. Type the code from the image showed."
+    part5: "4. Once you have completed your registration, click on Done button."
+    part6: "5. After registering for an account, you will receive an email confirmation with the link in order to activate your account."                      
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
