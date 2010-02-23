@@ -6,9 +6,10 @@
     <% content_for :agenda_attachments do%>
       <%= "attachment='#{ generate_template(f,:attachments) }'" %>
     <% end %>
-    <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
-    <%= f.text_field :title %></div>
-  
+		<%unless @event.past?%>
+      <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
+      <%= f.text_field :title %></div>
+    <%end%>
     <div class="margin-up">
       <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
       <select id="speakers_name_edit" multiple="multiple" name="speakers[name][]">
@@ -52,18 +53,27 @@
         <%= f.text_area :embedded_video, :size => "25x5" %>
 	  </div>
 	<%else%>
-	  <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
-	<div class="margin-up">
-      <label for="embedded_video" class="main_text"><%= t('agenda.entry.options.title') %></label><br/>
-      <div class="checkbox_event">
-	    <%=f.check_box :streaming,:class=>"icon" %>
-	    <label for="entry_streaming" class="label_izquierda" ><%= t('agenda.entry.options.streaming') %></label>
-	  </div>
-	  <div class="checkbox_event">
-	    <%=f.check_box :recording,:class=>"icon" %>
-	    <label for="entry_recording" class="label_izquierda" ><%= t('agenda.entry.options.recording') %></label>
-	  </div>
-    </div>
+	   <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	   <%unless @event.past?%>	
+       <div class="margin-up">
+           <label for="embedded_video" class="main_text">
+               <%= t('agenda.entry.options.title') %>
+           </label>
+           <br/>
+           <div class="checkbox_event">
+               <%=f.check_box :streaming,:class=>"icon", :checked => @agenda_entry.streaming?%>
+               <label for="entry_streaming" class="label_izquierda">
+                   <%= t('agenda.entry.options.streaming') %>
+               </label>
+           </div>
+           <div class="checkbox_event">
+               <%=f.check_box :recording,:class=>"icon", :checked => @agenda_entry.recording? %>
+               <label for="entry_recording" class="label_izquierda">
+                   <%= t('agenda.entry.options.recording') %>
+               </label>
+           </div>
+       </div>
+	   <%end%>	
 	<%end%>
     <div class="margin-up">
 			<input type="button" id="edit_entry_button" value="<%=t("button.finish")%>" class="basic_button blue_button"/>

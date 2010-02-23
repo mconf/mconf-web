@@ -89,7 +89,7 @@
    <div class="margin-up">
      <strong><span>2. <%= t('event.select_date')%></span></strong>	
    </div>
- 
+  <%if (@event.vc_mode == Event::VC_MODE.index(:in_person)) || @event.agenda.agenda_entries.empty?%>
   <div id="expanded_date" class="javascript">
     <div class="no_javascript">
     <ul>
@@ -100,6 +100,7 @@
 	</ul>
     </div>
   </div>
+	<%end%>
   <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
 	  <div id="extra-info">
 	    <div class="margin-up">

@@ -4,7 +4,7 @@
 	<%if array_entries.empty?%>
 	  <div id="no_entries" class="main_text">
 	  	<%=t("event.agenda.no_entries")%>
-		  <%if @event.authorize?(:update, :to => current_user)%>
+		  <%if @event.authorize?(:update, :to => current_user) && !@event.past?%>
 		    <a href='#' id="add_entry<%=day%>"><%=t("event.agenda.add_entry")%></a>
       <%end%>
 	  </div>

@@ -40,7 +40,7 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   validate_on_create do |entry|
-    if (entry.agenda.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.agenda.event.vc_mode == Event::VC_MODE.index(:teleconference))
+    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
       cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
       begin
         cm_s.save
@@ -52,7 +52,7 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   validate_on_update do |entry|
-    if (entry.agenda.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.agenda.event.vc_mode == Event::VC_MODE.index(:teleconference))  
+    if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
       cm_s = entry.cm_session
       my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
       if entry.cm_session?
@@ -100,7 +100,7 @@ class AgendaEntry < ActiveRecord::Base
  
   after_update do |entry|
     #Delete old attachments
-     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     #create new attachments
     entry.attachments.reload
     entry.attachments.each do |a|
@@ -109,11 +109,20 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
+#  after_save do |entry|
+#    entry.event.syncronize_date
+#  end
   
-  after_destroy do |entry|    
+  
+  after_destroy do |entry|  
+   # event.syncronize_date
     if entry.title.present?
-      FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.agenda.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     end      
+  end
+  
+  def event
+    agenda.event
   end
   
   

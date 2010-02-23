@@ -211,15 +211,19 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy
-    @event.destroy
-
+    
     respond_to do |format|
-      message = ""
-      @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-      flash[:error] = message
-      format.html { redirect_to(space_events_path(@space)) }
-      format.xml  { head :ok }
-    end
+      if @event.destroy
+        format.html { redirect_to(space_events_path(@space)) }
+        format.xml  { head :ok }
+      else
+        format.html { message = ""
+        @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
+        redirect_to request.referer }
+        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+      end
+    end  
   end
   
   

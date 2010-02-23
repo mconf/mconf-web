@@ -116,15 +116,20 @@ class AgendaEntriesController < ApplicationController
   # DELETE /agenda_entries/1.xml
   def destroy
     @agenda_entry = AgendaEntry.find(params[:id])
-    day = @event.day_for(@agenda_entry).to_s
-    @agenda_entry.destroy
-       
+    day = @event.day_for(@agenda_entry).to_s  
     respond_to do |format|
-      message = ""
-      @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-      flash[:error] = message
-      format.html { redirect_to(space_event_path(@space, @event)) }
-    end
+      if @agenda_entry.destroy
+        flash[:notice] = t('agenda.entry.delete')
+        format.html { redirect_to(space_event_path(@space, @event)) }
+        format.xml  { head :ok }
+      else
+        message = ""
+        @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
+        format.html { redirect_to(space_event_path(@space, @event)) }
+      end
+    end  
+    
   end
   
   private

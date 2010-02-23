@@ -41,7 +41,6 @@ class Event < ActiveRecord::Base
                           :message => "must be specified"
   
   # Attributes for jQuery selectors
-  attr_accessor :start_hour
   attr_accessor :end_hour
   attr_accessor :mails
   attr_accessor :ids
@@ -75,12 +74,58 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :meeting, :teleconference]
+
+  validate_on_create do |event|
+   if event.start_date.to_date.past?
+     event.errors.add_to_base(I18n.t('event.error.date_past'))
+   end
+   if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end 
+      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "attachments/conferences/#{event.permalink}")
+      begin 
+       cm_e.save
+       event.cm_event_id = cm_e.id
+     rescue StandardError =>e
+       event.errors.add_to_base(e.to_s)
+      end        
+    end  
+  end
   
-  before_validation do |event|
-    if event.start_hour.present?
-      event.start_date += ( Time.parse(event.start_hour) - Time.now.midnight )
-      event.end_date   += ( Time.parse(event.end_hour)   - Time.now.midnight )
-    end     
+  validate_on_update do |event|
+    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
+      mode = ""
+      if event.vc_mode == Event::VC_MODE.index(:meeting)
+        mode = "meeting"
+      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
+          mode = "conference"
+      end    
+      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "attachments/conferences/#{event.permalink}" }
+      cm_event = event.cm_event
+      cm_event.load(my_params)  
+      begin
+        cm_event.save
+      rescue  StandardError =>e
+        event.errors.add_to_base(e.to_s)  
+      end
+    end  
+  end
+  
+  before_destroy do |event|
+    #Delete event in conference Manager
+    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
+      begin
+        cm_event = ConferenceManager::Event.find(event.cm_event_id)
+        cm_event.destroy  
+      rescue => e
+        event.errors.add_to_base(I18n.t('event.error.delete'))  
+        false
+      end
+    end
   end
 
   validate_on_create do |event|
@@ -138,10 +183,7 @@ class Event < ActiveRecord::Base
     event.agenda = Agenda.create
     #create a directory to save attachments
     FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
-
-end
-
- 
+  end
   
   after_save do |event|
     if event.mails
@@ -207,13 +249,27 @@ end
     unless ordered_entries.empty?
       ordered_entries.last.end_time
     else
-      self.start_date + day.days + 9.hour
+      if (start_date + day.days).day == Time.now.day
+        Time.now
+      else
+        self.start_date + day.days + 9.hour
+      end  
     end  
   end
   
+  def entries_ordered_by_date
+    agenda.agenda_entries.sort{|x,y| x.end_time <=> y.end_time}  
+  end
+  
+  def syncronize_date
+     self.start_date = entries_ordered_by_date.first.start_time
+     self.end_date = entries_ordered_by_date.last.end_time
+  end
+    
+    
   #method to know if this event is happening now
   def is_happening_now?
-    return !start_date.future? && end_date.future?   
+     return !start_date.future? && end_date.future?
   end
   
   #method to know if an event happens in the future
