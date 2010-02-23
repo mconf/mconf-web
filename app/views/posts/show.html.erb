@@ -1,7 +1,8 @@
 <% menu :posts %>
 
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor'%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.fcbkcomplete'%>
+	<%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
 <% end -%>
 
 <% content_for :javascript do %>
@@ -31,7 +32,7 @@ $(".new_attachment_link").livequery('click',function () {
 
 
 
-$("a#big_new_reply").fancybox({
+$("a.big_new_reply").fancybox({
   'hideOnContentClick' : false,
   'callbackOnShow' : function(){
     $(".big_post_text").val($(".small_post_text").val());
@@ -112,9 +113,7 @@ $("a.edit_post_link").click(function(){
     $("#fancy_outer").height($("#new_thread_big").height() + 80);
     $(window).resize();
     return false;
-  });
-	
-	
+  });	
 
 <% end %>
 
@@ -125,15 +124,10 @@ $("a.edit_post_link").click(function(){
 <%if @space.authorize?([:create, :content],:to => current_user)%>
 	<% content_for :sidebar do  %>
 	  <%if params[:edit]%>
-		  <% post = Post.find(params[:edit]) %>
-      <% if post.parent_id %>
-          <%= render :partial => "edit_thread", :locals => { :post => post } %>
-      <% else %>
-          <%= render :partial => "edit_thread", :locals => { :post => post } %>
-      <% end %>
+		  <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
 		<%else%>
   	  <% params[:reply_to] = @post.id %>
-  	  <%= render :partial => "new_thread", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
+  	  <%= render :partial => "new_post", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
 		<%end%>
 	<% end %>
 <% end %>
