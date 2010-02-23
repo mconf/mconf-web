@@ -1,88 +1,70 @@
- <%content_for :logo do%>
- 	<%= image_tag("vcc-logo-transparente1.png") %>
- <%end%>
- 
-<% content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
- <% content_for :sidebar do %>
-	<%if !logged_in?%>
-		  <div class="join">
-			<h2><%= t('getting_started') %></h2>
-			<!--<p><%= t('share_participate_discuss') %></p>-->
-			<div class="button_wrapper margin-up">
-			  <%=link_to "<span>"+t("register.one")+"</span>",signup_path(), :class => "register_link big_button orange_button"%>
-			</div> 	
-		  </div>
-    <%end%>
-
-		  <div class="rel-users">
-			<h5><img class="icon" src="images/icons/user.png" alt="icon"/> <%= t('user.active.other') %></h5>
-			
-			<div>
-				<%for user in @relevant_users%>
-				  <%if user.authorize?([:read, :profile],:to=> current_user)%>
-					  <%=link_to logo(user, {:size=>48, :title=> user.name }), user_profile_path(user)%>
-					<%else%>
-					  <%=logo(user, {:size=>48, :title=> user.name })%>
-					<%end%> 
-				<%end%>
+<div class="left column span-11 borde">         
+		<div id="left_espacio"></div>
+		<div id="left_contenido">
+			<div id="vcc_title">VCC is a Free service for publishing and discovering videoconferences
+				<span id="text_bottom_title"><br /> 50 videoconferences organized - 320 videos stored </span>
 			</div>
-			
-		  </div>
-
-		  <div class="rcnt-posts">
-			<h5><img class="icon" src="images/icons/comment.png"/> <%= t('comment.recent.other') %></h5>
-				<%for comment in @recent_posts%>
-					<ul>
-			  		  <li><span class="unified_user"><%=sanitize(comment.author.name)%></span> <span class="updated"> <%= t('updated_time_ago', :time => time_ago_in_words(comment.updated_at)) %></span>
-			  			<p class="sidebar_text"><%=sanitize(first_words(comment.text, 80))%>  <%= link_to t('read_more>>'), space_post_path(comment.space,comment)%></p>
-					  </li>							
+			<br />
+	
+			<div id="share">
+				<span><img src="./images/frontpage/share.gif"></img></span>
+				<span>
+					<ul class="purple">
+						<li><img src="./images/frontpage/purple_sq.png">Videoconference video and streaming</img></li>
+						<li><img src="./images/frontpage/purple_sq.png">Documents, video and video repositories</img></li>
+						<li><img src="./images/frontpage/purple_sq.png">Your contacts and relations</img></li>
 					</ul>
-				<%end%>			
-			
-		  </div>
+				</span>
+			</div>
+	
+			<div id="meet" class="no_float_left">
+				<span><img src="./images/frontpage/meet.gif"></img></span>
+				<span class="no_float">
+					<ul class="green">
+						<li><img src="./images/frontpage/green_sq.png">Discover best online videoconferences</img></li>
+						<li><img src="./images/frontpage/green_sq.png">Meet interesting people and groups</img></li>
+						<li><img src="./images/frontpage/green_sq.png">Video chat your colleagues</img></li>
+					</ul>
+				</span>
+			</div>
+	
+			<div id="collaborate" class="no_float_left">
+				<span><img src="./images/frontpage/collaborate.gif"></img></span>
+				<span>
+					<ul class="yellow">
+						<li><img src="./images/frontpage/yellow_sq.png">Organize your projects and activities</img></li>
+						<li><img src="./images/frontpage/yellow_sq.png">Participate in conferences and events</img></li>
+						<li><img src="./images/frontpage/yellow_sq.png">Create your own space and conferences</img></li>
+					</ul>
+				</span>		
+			</div>
+	
 
- <%end%>
- 
-		  <div class="wrapper">
-			<h3 class="title"><%= t('space.popular.other') %></h3>
-			
-			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
-			<%for space in @popular_spaces%>
-				<div id="<%= "end" if space==@popular_spaces[2]%>"  class="spc">
-			  	<%=link_logo(space, :size=> 'front', :title => space.name)%>
-			  	<p><%=link_to(sanitize(space.name),space)%></p>
-				</div> 
-			<%end%>					  		
-		  </div>        
+			<br />
+			<div id="join_form" class="no_float_left">								
+				
+					<%= link_to image_tag("join.gif", :alt=>"register"), signup_path, :class => "register_link" %>
+			</div>
+		</div>	
 
-		  <div class="wrapper">
-			<h3 class="title"><%= t('space.recent.other') %></h3>
-			
-			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->			
-			<%for space in @recent_spaces%>
-				<div id="<%= "end" if space==@recent_spaces[2]%>"  class="spc">
-			  	<%=link_logo(space, :size=> 'front',:title => space.name )%>
-			  	<p><%=link_to(sanitize(space.name),space)%></p>
-				</div> 
-			<%end%>		  		
-		  </div>
-		  
-		  <div class="wrapper right button_wrapper">
-              <%=link_to "<span>" + t("space.show_all") + "</span>", spaces_path,:class => "show_all_link medium_button blue_button"%> 
-		  </div>
-		  
-		  <div class="wrapper">
-  	
-			<h3 class="title"><%= t('event.upcoming.other') %></h3>
-			<!--<ul><li><img class="icon" src="images/icons/feed.png"/> <a href="#">Subscribe >></a></li></ul>-->
-			<%for event in @recent_events%>
-				<ul id="list-events">
-					<li><a href="<%=space_event_path(event.space,event)%>"><img class="icon" src="images/icons/date.png"/><span class="unified_event"> <%=sanitize(event.title)%></span> <span class="main_date bold"><%=sanitize(event.start_date.strftime("%d/%m/%Y"))%></span> <span class="main_text"><%=sanitize(event.description.size >= 73 ? event.description.first(70) + "..." : event.description.first(70))  %></span></a></li>
-				</ul>	
-			<%end%>								  
-			  
-		  </div>
-		
+</div>
+
+<div class="right column span-12 borde">
+	<div id="caracteristics" >
+				<span><img src="images/video.gif" alt="videos online" /></span>
+				<br /><br />
+				<ul>
+				<li><img src="images/right_videoconference.gif" alt="videoconference" />Conferences</li>
+				<li><img src="images/right_webcam.gif" alt="participants" />Participants</li>
+				<li><img src="images/right_organizers.gif" alt="organizers" />Organizers</li>
+				<li><img src="images/right_people.gif" alt="spaces" />Spaces</li>
+				<li><img src="images/right_comments.gif" alt="comments" />Comments</li>
+				<li><img src="images/right_tags.gif" alt="tags" />Tags</li>
+				<li><img src="images/right_social.gif"  alt="social networks" />Social Networks</li>
+				</ul>
+			</div>
+
+</div>
+
+<div id="espacio_body_bottom"></div>
+<div class="idioma">English - Español</div>

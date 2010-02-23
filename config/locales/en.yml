@@ -380,6 +380,8 @@ en:
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
+  find:
+    browse: "Browse"
   find_in: "Find in:"
   form:
     loading: "The form is loading..."
