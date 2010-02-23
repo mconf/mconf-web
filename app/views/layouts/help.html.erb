@@ -7,7 +7,7 @@
     <title><%= yield :title %></title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     
-	<%= stylesheet_link_tag "frontpage", :media => "screen, projection" %>
+	<%= stylesheet_link_tag "help", :media => "screen, projection" %>
 	<%= stylesheet_link_tag "print", :media => "print" %>
 		
     <!--[if IE]> 
@@ -17,18 +17,8 @@
   </head>
 
   <body>
-	<%content_for :logo do%>
-	  <%= image_tag("vcc-logo-transparente1.png") %>
-	<%end%>
-	 
-	<% content_for :search do  %>
-	  <%= render :partial => 'search/form' %>
-	<%end%>
-	
-
-
 	<div id="site">
-	  <%= render :partial => "layouts/global" %>
+	  <%= render :partial => "layouts/frontpage_global" %>
 
 	  <div id="home">
 		<div id="header">
