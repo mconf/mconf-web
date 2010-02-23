@@ -1,25 +1,13 @@
- <div id="logo">
-	<%= yield :logo %>
-</div>
-
-<div id="search">
-  <%= yield :search %>
-</div>
-
-<div id="eu">
-	<%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
-</div>
-
-
-<!--<div id="prefs">
-	<ul>
-    <% if logged_in? %>
-	    <li><%= link_to "Inbox (#{PrivateMessage.find_all_by_receiver_id(current_user).select{|msg| !msg.checked}.size})", user_messages_path(current_user), :id => "user_inbox_link"%></li>
-	  	<li><%= link_to "Profile", user_profile_path(current_user)%></li>
-	  	<li>Preferences</li>
-	  	<li><%= link_to 'Logout', logout_path %></li>	
-	  <% else %>
-	  	<li><%= link_to 'Log in', login_path, :id => "login_link" %></li>
-	  <% end %>
-	</ul>
-</div> -->
+<div class="banner_busqueda">
+    <div id="espacio_busqueda"></div> 
+    <div class="div_busqueda">
+              <div id="subtexto_busqueda">
+                <%=link_to t("find.browse"), spaces_path,:class => "show_all_link"%> 
+                |
+                <a href="#">Help</a>
+            </div>      
+           
+           <%= render :partial => 'search/form_frontpage' %>
+    </div>
+    <br class="clearfloat" />
+  </div>

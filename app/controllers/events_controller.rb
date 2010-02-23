@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     
     #For event repository
     @attachments,@tags = Attachment.repository_attachments(@event, params)
-    
+            
     #first check if it is an online event
 	if @event.marte_event && params[:show_conference]
 		#let's calculate the wait time
@@ -76,7 +76,8 @@ class EventsController < ApplicationController
        format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
        format.xml  { render :xml => @event }
        format.js 
-       format.ical {export_ical}
+       format.ics {name = "agenda_" + @event.name + ".ics"
+         send_data @event.to_ics, :filename => "#{name}"}
        format.pdf { 
          name = "agenda_" + @event.name + ".pdf"
          send_data @event.to_pdf, :filename => "#{name}"
@@ -112,7 +113,10 @@ class EventsController < ApplicationController
        format.html # show.html.erb
            format.xml  {render :xml => @event }
            format.js 
-           format.ical {export_ical}
+           format.ics {
+              name = "agenda_" + @event.name + ".ics"
+              send_data @event.to_ics, :filename => "#{name}"
+           }
            format.pdf { 
               nombre = "agenda_" + @event.name + ".pdf"
               send_data @event.to_pdf, :filename => "#{nombre}"

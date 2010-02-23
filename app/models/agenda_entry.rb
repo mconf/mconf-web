@@ -22,6 +22,13 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :author
   acts_as_stage
   
+  after_create do |entry|
+    if entry.uid.nil? or entry.uid.eql? ''
+      entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
+      entry.save
+    end
+  end
+  
   #acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -66,7 +73,7 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def validate
-    # Check title presence
+    # Check title pre12sence
     if self.title.empty?
       errors.add_to_base(I18n.t('agenda.error.omit_title'))
     end
@@ -118,5 +125,10 @@ class AgendaEntry < ActiveRecord::Base
       return nil
     end
   end
-  
+    
+  def generate_uid
+     
+     Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
+    
+  end
 end

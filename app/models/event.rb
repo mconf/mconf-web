@@ -31,6 +31,7 @@ class Event < ActiveRecord::Base
   has_permalink :name, :update=>true
   
   include EventToPdf
+  include EventToIcs
   
   acts_as_resource :per_page => 10, :param => :permalink
   acts_as_content :reflection => :space
