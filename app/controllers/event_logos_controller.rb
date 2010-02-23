@@ -28,7 +28,7 @@ class EventLogosController < ApplicationController
       return
     end
     
-    @event = Event.find(params[:event_id])
+    @event = Event.find_by_permalink(params[:event_id])
     @event_logo = @event.logo || EventLogo.new 
 
     f = File.open(File.join(TMP_PATH,"precropevent_logo-#{@event.id}"), "w+")
@@ -54,7 +54,7 @@ class EventLogosController < ApplicationController
   # POST /event_logos
   # POST /event_logos.xml
   def create
-    event = Event.find(params[:event_id])
+    event = Event.find_by_permalink(params[:event_id])
     if params[:crop_size].present?
       crop_and_resize
     end

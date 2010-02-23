@@ -159,9 +159,10 @@
     $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
   });
  
- $(".newAttach").livequery('click',function () { 
+ $(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 
-  $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
+  $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
+	$(".newAttach2").show();
 
   // Applies tags to the attachment
   $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({

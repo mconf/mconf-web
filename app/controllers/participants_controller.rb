@@ -21,7 +21,7 @@ class ParticipantsController < ApplicationController
   def create
 
     @participant = Participant.new(params[:participant])
-    @participant.event_id = params[:event_id]
+    @participant.event_id = Event.find_by_permalink(params[:event_id]).id
     @participant.user = current_user
     @participant.email = current_user.email
     if @participant.save    

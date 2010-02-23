@@ -1,10 +1,5 @@
 <div class="newAttachment">
-	</br>
   <%= f.file_field :uploaded_data, :class => "file file_1", :size => 14 %>
-	</br>
-	<ul>
-	   <li><h4><%=t('tag.new')%>:</h4></li>
-     <li><%= f.select(:_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></li>
-	</ul>
-	</br>
+	   <div><span><%=t('tag.new')%>:</span></div>
+     <div><%= f.select(:_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
 </div>

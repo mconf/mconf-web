@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-
-
 describe SpacesController do
   
   include ActionController::AuthenticationTestHelper
@@ -21,16 +19,6 @@ describe SpacesController do
     @public_space = Factory(:public_space)
   end
   
-  after(:all) do 
-    #remove all the stuff created
-    @superuser.destroy
-    @private_space.destroy
-    @admin.destroy
-    @user.destroy
-    @invited.destroy
-    @public_space.destroy
-  end
-
   describe "A Superadmin" do
     before(:each) do
       login_as(@superuser)
