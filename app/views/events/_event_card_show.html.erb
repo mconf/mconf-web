@@ -58,6 +58,7 @@
         <%if event.authorize?(:update, :to => current_user) %>
 		  <%=link_to ("<span>" + t('event.logo.button') + "</span>"),'#', {:id=>"change_logo",:class=>"grey_button basic_button"} %>
 		  <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv", :class=>"grey_button basic_button",:title => t('invitation.add_more')} %>
+		  <%=link_to ("<span>" + t('icalendar.import') + "</span>"), '#', {:id=>"import_icalendar_button", :class=>"grey_button basic_button",:title => t('icalendar.import')} %>		  
         <%end%>
 		<%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event), {:id=>"view_agenda", :class=>"grey_button basic_button",:title => t('event.view_agenda')} %>
 		<%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} %>

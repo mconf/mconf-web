@@ -41,8 +41,18 @@
 	  $('#assistance_info').hide();
 	  $('#new_reply').hide();	
 	  $('#carrusel').hide();  
+	  $("#import_icalendar").hide();
 	  $("#update_logo").show();
 	  $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
+	});
+	
+	$("#import_icalendar_button").click(function(){
+	  $('#assistance_info').hide();
+	  $('#new_reply').hide();	
+	  $('#carrusel').hide();  
+	  $("#update_logo").hide();
+	  $("#import_icalendar").show();
+	  $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
 	});
 	
 	$(".event_image").click(function(){
@@ -128,6 +138,20 @@
              <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
            <%end%>
          </div>
+         <div id="import_icalendar" class="import_icalendar"  style="display:none" >
+             <h3><%=t("icalendar.import") %></h3>
+             <% form_for @event.agenda, :url => space_event_agenda_path(@space, event), :html => { :multipart => true, :method => :post } do |f| %>
+             <%= file_field 'icalendar_file', 'data' , :class => "browse" %>
+             <div class="margin-up">
+                 <% submit_tag t("icalendar.add"), :id => 'icalendar_add',:name => 'add', :class => "blue_button basic_button" %>
+                 <% submit_tag t("icalendar.overwrite"), :id => 'icalendar_overwrite', :name => 'overwrite', :class => "basic_button blue_button" %>
+				 <button type="submit" class="basic_button blue_button" name="add" value="overwrite"><%=t("icalendar.add")%></button>
+				 <button type="submit" class="basic_button blue_button" name="overwrite" value="overwrite"><%=t("icalendar.overwrite")%></button>
+				 
+             </div>
+             <%=t("icalendar.instruction") %>
+             <% end %>
+         </div>
      <%end%>
   	<%if params[:show_video]%>
 	  <%= render :partial => "agendas/show_recordings_sidebar" %>
@@ -143,7 +167,8 @@
   	  <%end%>
     <%end%>
 	<%end%>    
-  </div>  
+  </div> 
+   
 <%end%>
 
 
@@ -191,8 +216,9 @@
 	
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title">
+	      <div id="agenda_title">	      	
 			<%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
+			<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
 			<!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
 	      	<h3 id="agenda_title_partial" class="blue">
 			    <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
