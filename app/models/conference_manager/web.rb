@@ -1,7 +1,6 @@
 module ConferenceManager
   class Web < ActiveResource::Base
     self.element_name = "web" 
-    self.format = "html"
     self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id"
     
     #redefined to remove format.extension

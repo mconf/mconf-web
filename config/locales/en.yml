@@ -38,6 +38,7 @@ en:
     entry:      
       created: "Agenda entry was successfully created"
       cannot_exclude: "You cannot exclude from recording an entry shorter than"
+      delete: "Agenda entry was successfully created"
       description: "Description"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
@@ -305,6 +306,7 @@ en:
       web: "Web"
     error:
       cm_connection: "Connection to remote videoconference system fails"
+      date_past: "Start date could not be past"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
       delete: "The event could not be deleted"
