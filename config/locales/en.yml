@@ -135,12 +135,14 @@ en:
   button:
     create: "Create"
     go: "Go!"
+    next: Next Step
     other_spaces: "Find other spaces"
     send: "Send"
     update: "Update"
     upload: "Upload"
     edit: "Edit"
     invite: Invite!
+    finish: Finish
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -327,7 +329,7 @@ en:
     help:
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
-      define: "Define your program"
+      define: "Define the schedule of your meeting"
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
