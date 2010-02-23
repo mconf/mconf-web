@@ -84,21 +84,17 @@ class EventInvitationsController < ApplicationController
   # PUT /event_invitations/1.xml
   def update
     unless authenticated?
-      # To update an Invitation, we require always Authentication.
-      #
-      # The agent may register or signup with her account, due to other email.
-      klass = ActiveRecord::Agent::Invite.classes.first
-
-      # We first try to authenticate the credentials
-      # TODO: other authentication methods like OpenID
-      @candidate = params[klass.to_s.underscore].present? ?
-        klass.authenticate_with_login_and_password(params[klass.to_s.underscore][:login],
-                                                   params[klass.to_s.underscore][:password]) :
-        nil
+      
+      if params[:user].present? then
+        @candidate = params[:user]
+        User.authenticate_with_login_and_password(params[:user][:login],params[:user][:password])
+      else
+        @candidate = nil
+      end
 
       if @candidate.blank?
         # If agent is not authenticated, try to register
-        @candidate = klass.new(params[klass.to_s.underscore])
+        @candidate = User.new(params[:user])
         @candidate.email = invitation.email
         # Agent has read the invitation email, so it's already activated
         @candidate.activated_at = Time.now if @candidate.agent_options[:activation]
