@@ -2,32 +2,35 @@
 <% atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }") %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel', 'jquery.fcbkcomplete' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel' %>
 <%end%>
 
 
 <% content_for :sidebar do  %>
+
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
 	  <%if params[:edit]%>
     	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-  	  <%else%>
+  	<%else%>
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-  	  <%end%>
+  	<%end%>
 	<%else%>
-      <%if logged_in? && space.public?%>
-		<% form_tag space_join_requests_path(space), :id => "join_form" do %>
+
+	  <!--<%if logged_in? && space.public?%>
+		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
 	      <button class="big_button orange_button" type:"submit"><%=t('space.join')%></button>
 	    <% end %>
 	  <%else%>
-		<%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "fancybox_link orange_button big_button" %>
+		  <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "fancybox_link orange_button big_button" %>
 	  <%end%>
+		
 		<div class="space-desc">
 		  <h3><%= t('about') %> <em><%=@space.name%></em></h3>
 		  <p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
 		  <%= sanitize(space.description) if space.description.present? %></p>
-  		</div>		
-	<%end%>
+  	</div>-->	
+<%end%>
+	
 <%end%>
 
 <% content_for :javascript do %>
@@ -44,14 +47,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	return(false);
 });
 
-	$("#organizers_name").fcbkcomplete({
-	cache: true,
-            filter_case: false,
-            filter_hide: true,
-            firstselected: true,
-            filter_selected: true,
-            maxshownitems: 4
-	});
+
 		
 <%= render :partial => 'date_and_timepicker.js.erb' %>
 
@@ -61,16 +57,39 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
   <%= render :partial => 'search/form' %>
 <%end%>
 
+<div id="orange_bar">
+	<ul>
+		<li class="orange_one">
+			<h3>Meetings</h3>
+			<p>Great for quick and simple meetings. No need of video orrecording. Notify your partners,upload documents</p>
+		</li>
+		<li class="orange_two">
+			<h3>Virtual Meetings</h3>
+	    <p>Add easy videoconference participation. Just need a webcam and microphone. Also automatic recording andstreaming of your meetings</p>
+		</li>
+		<li class="orange_three">
+			<h3>Virtual Congress</h3>
+	    <p>Advanced, big meetings. TV-likeproduction managed by an operator</p>
+		</li>
+	</ul>
+	<span id="pico_naranja"></span>
+<!--  <ul>
+    <li><strong><%=t('event.create.info.presential.name')%></strong></li>
+    <li><strong><span><%=t('event.create.info.meeting.name')%>:</span></strong><%=t('event.create.info.meeting.message')%></li>
+    <li><strong><span><%=t('event.create.info.conference.name')%>:</span></strong><%=t('event.create.info.conference.message')%></li>
+  </ul>-->
+</div>
+
 <div id="events_content">
 	
-<%if !@current_events.empty?%>
-  <div id="current_events">
-    <h3><%= t('now!') %></h3>
-    <%for event in @current_events%>
-      <%= render :partial => event %>
-    <%end%>
-  </div>
-<%end%>
+  <%if !@current_events.empty?%>
+    <div id="current_events">
+      <h3><%= t('now!') %></h3>
+      <%for event in @current_events%>
+        <%= render :partial => event %>
+      <%end%>
+    </div>
+  <%end%>
 	
 	<div class="group_links" id="events_links">
 	  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |

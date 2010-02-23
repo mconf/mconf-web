@@ -101,6 +101,7 @@ class EventsController < ApplicationController
       else
         @video_entries = []
       end
+      @show_day=0
       for day in 0..@event.days-1
         if @video_entries[day][params[:show_video].to_i]
           @show_day = day
@@ -149,6 +150,7 @@ class EventsController < ApplicationController
     @event.author = current_agent
     @event.container = space
 
+
     respond_to do |format|
       if @event.save
         #save the organizer/s with their proper role
@@ -156,8 +158,10 @@ class EventsController < ApplicationController
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        flash[:success] = t('event.created')
-        format.html {redirect_to space_event_path(space, @event) }
+        format.html {
+          flash[:success] = t('event.created')
+          redirect_to space_event_path(space, @event)
+        }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html {  
@@ -211,12 +215,19 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy
-    @event.destroy
-
+    
     respond_to do |format|
-      format.html { redirect_to(space_events_path(@space)) }
-      format.xml  { head :ok }
-    end
+      if @event.destroy
+        format.html { redirect_to(space_events_path(@space)) }
+        format.xml  { head :ok }
+      else
+        format.html { message = ""
+        @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+        flash[:error] = message
+        redirect_to request.referer }
+        format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
+      end
+    end  
   end
   
   

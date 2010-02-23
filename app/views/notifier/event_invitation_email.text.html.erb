@@ -1,20 +1,15 @@
 <html>
-<body>
-
-<%if @invitation.candidate!=nil%>
-  <%@invitation.comment = @invitation.comment.gsub('\'name\'',@invitation.candidate.login)%>
-<%else%>
-  <%@invitation.comment = @invitation.comment.gsub('\'name\'',@invitation.email[0,@invitation.email.index('@')])%>
-<%end%>
-
-<%@invitation.comment = @invitation.comment.gsub('\'url\'', "http://" + Site.current.domain + "/event_invitations/" + @invitation.code) %>
-<%@invitation.comment = @invitation.comment.gsub('\'event_url\'', space_event_url(@invitation.group, @invitation.event)) %>
-
-<%if @invitation.comment == ""%>
-  <%= t('invitation.to_event', :username => @user.login,:eventname => @invitation.event.name, :space => @space.name) %><br/><br/>
-<%else%>
-  <%=@invitation.comment%><br/><br/>
-<%end%>
-
-</body>
+  <body>
+    <%if @invitation.candidate!=nil%>
+      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.candidate.login)%>
+    <%else%>
+      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.email[0,@invitation.email.index('@')])%>
+    <%end%>
+    <%@invitation.comment = @invitation.comment.gsub('\'' + t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/event_invitations/" + @invitation.code + "\">http://" + Site.current.domain + "/event_invitations/" + @invitation.code + "</a>") %>
+    <%if @invitation.comment == ""%>
+      <%= t('invitation.to_event', :username => @user.login,:eventname => @invitation.event.name, :space => @space.name) %><br/><br/>
+    <%else%>
+      <%=@invitation.comment%><br/><br/>
+    <%end%>
+  </body>
 </html>

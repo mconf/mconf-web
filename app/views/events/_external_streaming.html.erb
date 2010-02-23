@@ -29,22 +29,24 @@
 <%end%>
    
 <div id="streaming_url" class="margin-up main_text">
-  
+  <%if @event.vc_mode==Event::VC_MODE.index(:in_person) %>
     <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
-    <div id="streaming_title"><h3 class="blue">
-	<%if @event.is_happening_now?%>
-	  <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-	  <%=t('event.streaming.title')%>
+  <%end %>
+  <div id="streaming_title"><h3 class="blue">
+  <%if @event.is_happening_now?%>
+	 <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	   <%=t('event.streaming.title')%>		
 	<%else%>
 	  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
 	  <%=t('event.streaming.will_be_available')%>
 	<%end%>
     </h3></div>
   <div id="streaming_content">
-  	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
-	    <%=t("event.streaming.none")%>
-	<%else%>
-      <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
-	<%end%>
+    <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+      <%if @event.is_happening_now?%>				 
+		    <%= @event.streaming%>				
+		  <%end%>	
+    <%end%> 
+  	
   </div>
 </div>

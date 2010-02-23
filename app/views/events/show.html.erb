@@ -9,7 +9,7 @@
 
 <% content_for :javascript do %>	
   <%= render :partial => 'date_and_timepicker.js.erb' %>	
-  <%= render :partial => 'agenda_entries/timepicker.js.erb' %>
+  
 
 	style_file_input();
 	
@@ -61,7 +61,15 @@
 
 	
    <%if event.authorize?(:update, :to => current_user)%> 
-     $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+     $('#event_description_content form input').livequery("blur",function(){
+       $('#edit_description_icon').show();
+     });
+   
+     edit_description = function(){
+       $('#event_description_content').dblclick();
+     };	 
+	 
+	   $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
 	      tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
@@ -81,15 +89,8 @@
             return retval;
         },
         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
-     });
-	 
-     $('#event_description_content form input').livequery("blur",function(){
-       $('#edit_description_icon').show();
-     });
-   
-     edit_description = function(){
-       $('#event_description_content').dblclick();
-     };	 
+     });	 
+     
    <%end%>
    
    request_video = function(agenda_entry_id){
@@ -125,6 +126,21 @@
        //   });
 	 };	 
 	 
+	 show_share_url = function(){
+	   $('.url_share').show();
+	 };
+	 
+	 $('#help_add_entry').click(function(){
+	   $('#add_entry0').click();
+	 });
+	 
+	// Action links
+	$("a.repository_sidebar_action").livequery("click",function(){
+	  if($(this).hasClass("disabled_button")){
+	    return false;
+	  }
+	});
+	
 <% end %>
 
 
@@ -156,16 +172,18 @@
   	<%if params[:show_video]%>
 	  <%= render :partial => "agendas/show_recordings_sidebar" %>
 	<%else%>
-  	  <%= render :partial => 'participants' %>
       <%if @space.authorize?([:create, :content],:to => current_user)%>
   	    <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	    <%elsif params[:edit_comment]%>
 				 <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
 	    <%else%>
-				<%= render :partial => "posts/new_post", :locals => {:id => "event-comment-form", :event => @event }%>
-  	  <%end%>
-    <%end%>
+		  <%= render :partial => 'participants' %>
+	      <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
+		    <%= render :partial => 'connection_info'%>
+		  <%end%>
+  	    <%end%>
+      <%end%>
 	<%end%>    
   </div> 
    
@@ -178,25 +196,40 @@
 
   <%= error_messages_for :agenda_entry %>
 
+  <%if current_user==@event.author%>
+    <div class="success">
+		<strong><%=t('event.help.now')%></strong><br/>
+		<ul id="event_help">
+			<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.in_agenda')%></a><br/></li>
+			<li><%= link_to t('event.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
+			<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
+			<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
+		</ul>
+    </div>
+  <%end%>
+
   <div id="event_card_show">
-  <%= render :partial => "event_card_show" %>
+    <%= render :partial => "event_card_show" %>
   </div>
 
   <div id="for_lightbox" style="display:none"></div>
 
   <%if params[:new_invitations]%>
-  
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-	 
+
+  <%elsif params[:notification]%>
+   <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
+
   <%elsif params[:show_repository]%>
      <div id="event_repo" class="margin-up">
 	    <div id="repository_title">
 	    	<h3 class="blue">
 	    		<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%=t('event.repository')%>
+				<%=t('event.repository.title')%>
 			</h3>
 		</div>
 	    <div id="repository_content">
+	      <span><%=t('event.repository.help')%></span>
 	      <%= render :partial => "attachments/doc_table", :locals => {:interactive => false} %>
 	    </div>
 	  </div>
@@ -216,21 +249,23 @@
 	
 	  <%if @event.agenda.present?%>
 	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title">	      	
-			<%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
-			<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-			<!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
+	      <div id="agenda_title">
+          <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
+					<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
+          <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
+
 	      	<h3 id="agenda_title_partial" class="blue">
-			    <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-			    <%=t('agenda.title')%> 
-			    <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
-			</h3>
-		  </div>
+            <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+            <%=t('agenda.title')%> 
+            <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
+          </h3>
+        </div>
 	      <div id="agenda_content">
 	        <%= render :partial => "agendas/edit" %>
 	      </div>
 	    </div>
-	  <%end%>	   	  	   
+	  <%end%>
+		
   <%end%>
  
 <%unless @comments.empty?%> 
