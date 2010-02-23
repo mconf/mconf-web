@@ -49,7 +49,4 @@ class FrontpageController < ApplicationController
   def about2   
     render :layout=>false
   end
-
-  def help
-  end
 end
