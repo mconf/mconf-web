@@ -4,11 +4,12 @@
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <% content_for :agenda_attachments do%>
-      <%= "attachment='#{ generate_template(f,:attachments) }'" %>
+      <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
     <% end %>
-    <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
-    <%= f.text_field :title %></div>
-  
+		<%unless @event.past?%>
+      <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
+      <%= f.text_field :title %></div>
+    <%end%>
     <div class="margin-up">
       <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
       <select id="speakers_name_edit" multiple="multiple" name="speakers[name][]">
@@ -28,9 +29,9 @@
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
  -->
+
     <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/></div>
-		
-		
+		  <p class ='newAttach2' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
 		 <div id="entry_attachment">
         <div class="new_attachment_form">
           <% f.fields_for(:attachments) do |at_form| %>
@@ -43,27 +44,37 @@
           <%end %>
         </br>
       </div>
+
     </div>    
-         <p class="newAttach"><%=t('attachment.new') %></p>  
+         <p class="newAttachEvent"><%=t('attachment.new') %></p>
 	<%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>		
       <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
-      <div class="margin-up">
+    <div class="margin-up">
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
         <%= f.text_area :embedded_video, :size => "25x5" %>
 	  </div>
 	<%else%>
-	  <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
-	<div class="margin-up">
-      <label for="embedded_video" class="main_text"><%= t('agenda.entry.options.title') %></label><br/>
-      <div class="checkbox_event">
-	    <%=f.check_box :streaming,:class=>"icon" %>
-	    <label for="entry_streaming" class="label_izquierda" ><%= t('agenda.entry.options.streaming') %></label>
-	  </div>
-	  <div class="checkbox_event">
-	    <%=f.check_box :recording,:class=>"icon" %>
-	    <label for="entry_recording" class="label_izquierda" ><%= t('agenda.entry.options.recording') %></label>
-	  </div>
-    </div>
+	   <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	   <%unless @event.past?%>	
+       <div class="margin-up">
+           <label for="embedded_video" class="main_text">
+               <%= t('agenda.entry.options.title') %>
+           </label>
+           <br/>
+           <div class="checkbox_event">
+               <%=f.check_box :streaming,:class=>"icon", :checked => @agenda_entry.streaming?%>
+               <label for="entry_streaming" class="label_izquierda">
+                   <%= t('agenda.entry.options.streaming') %>
+               </label>
+           </div>
+           <div class="checkbox_event">
+               <%=f.check_box :recording,:class=>"icon", :checked => @agenda_entry.recording? %>
+               <label for="entry_recording" class="label_izquierda">
+                   <%= t('agenda.entry.options.recording') %>
+               </label>
+           </div>
+       </div>
+	   <%end%>	
 	<%end%>
     <div class="margin-up">
 			<input type="button" id="edit_entry_button" value="<%=t("button.update")%>" class="basic_button blue_button"/>
@@ -76,8 +87,6 @@
 
 
 <%content_for :javascript do%>
-  <%if params[:edit_entry].present?%>
     <%= yield :agenda_attachments%>
-  <%end%>
 <%end%>
 

@@ -158,58 +158,11 @@
   $('.title_name_and_hour').livequery('click', function(){
     $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
   });
-
-/*
-  // Record checkbox
-  $('select').livequery(function(){
-    $(this).filter(function() {
-      return this.id.match('agenda_entry_(start|end)_time_');
-    }).change(function(){
-
-    var start_year = ($('#agenda_entry_start_time_1i').val());
-	  var start_month = -1 + parseInt(($('#agenda_entry_start_time_2i').val()),10);
-  	var start_day = ($('#agenda_entry_start_time_3i').val());
-	  var start_hour = ($('#agenda_entry_start_time_4i').val());
-	  var start_minute = ($('#agenda_entry_start_time_5i').val());
-	  var start_seconds = 0;
-	
-	  var start_date = new Date(start_year,start_month,start_day,start_hour,start_minute,start_seconds); 
-	
-	  var end_year = ($('#agenda_entry_end_time_1i').val());
-	  var end_month = -1 + parseInt(($('#agenda_entry_end_time_2i').val()),10);
-	  var end_day = ($('#agenda_entry_end_time_3i').val());
-	  var end_hour = ($('#agenda_entry_end_time_4i').val());
-	  var end_minute = ($('#agenda_entry_end_time_5i').val());
-	  var end_seconds = 0;
-	
-	  var end_date = new Date(end_year,end_month,end_day,end_hour,end_minute,end_seconds);
-	
-      var minutes_difference = (end_date - start_date) / 60000; 
-	  if (minutes_difference < <%=AgendaEntry::MINUTES_NOT_EXCLUDED%>) {
-	    $('#agenda_entry_record').attr('checked', 'true');
-        $('#agenda_entry_record').attr('readonly', 'readonly');
-	    $('#cannot_exclude').show();
-	    $('#record_block').addClass('fade');
-	  } else {
-        $('#agenda_entry_record').removeAttr('readonly');
-	    $('#cannot_exclude').hide();
-	    $('#record_block').removeClass('fade');
-	  }
-	
-    });
-	
-  });
-  
-  $('#agenda_entry_record').livequery('change',function(){
-    if ($('#agenda_entry_record').attr('readonly')) {
-      $('#agenda_entry_record').attr('checked', 'true');
-    } 
-  });
- */
  
- $(".newAttach").livequery('click',function () { 
+ $(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 
-  $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
+  $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
+	$(".newAttach2").show();
 
   // Applies tags to the attachment
   $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({

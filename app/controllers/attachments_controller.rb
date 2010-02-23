@@ -99,7 +99,7 @@ class AttachmentsController < ApplicationController
     require 'zip/zip'
     require 'zip/zipfilesystem'
   
-    t = Tempfile.new("#{@attachments.size} files from #{@space.name} - #{Time.now.to_f}.zip")
+    t = Tempfile.new("#{@attachments.size}files-#{Time.now.to_f}.zip")
     
     Zip::ZipOutputStream.open(t.path) do |zos|
       @attachments.each do |file|

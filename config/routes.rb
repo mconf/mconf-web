@@ -99,6 +99,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'frontpage'
   map.about 'about', :controller => 'frontpage', :action => 'about'
   map.about2 'about2', :controller => 'frontpage', :action => 'about2'
+  map.help 'help', :controller => 'frontpage', :action => 'help'
 
   # #######################################################################
   # CMSplugin
@@ -106,10 +107,11 @@ ActionController::Routing::Routes.draw do |map|
   # (se quedará obsoleto con la nueva versión del plugin)
   #  
   
-  map.open_id_complete 'session', { :open_id_complete => true,
-                                    :conditions => { :method => :get },
-                                    :controller => "sessions",
-                                    :action => "create" }
+  map.open_id_complete 'session/open_id_complete',
+                       { :open_id_complete => true,
+                         :conditions => { :method => :get },
+                         :controller => "sessions",
+                         :action => "create" }
   map.resource :session
 
   map.login  '/login', :controller => 'sessions', :action => 'new'

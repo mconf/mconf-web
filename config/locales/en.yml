@@ -38,6 +38,7 @@ en:
     entry:      
       created: "Agenda entry was successfully created"
       cannot_exclude: "You cannot exclude from recording an entry shorter than"
+      delete: "Agenda entry was successfully created"
       description: "Description"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
@@ -213,6 +214,7 @@ en:
   delete:
     one: "Delete"
     confirm: "Delete {{element}}?"
+    select: Select to delete
   deny: "No"
   description: "Description"
   destroy: "Destroy"
@@ -305,6 +307,7 @@ en:
       web: "Web"
     error:
       cm_connection: "Connection to remote videoconference system fails"
+      date_past: "Start date could not be past"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
       delete: "The event could not be deleted"
@@ -497,7 +500,7 @@ en:
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
     rejoin_space: "If you would like to request membership again please go to {{space_url}}"
     add_more: "Invite more people"
-    discarded: "The invitation to {{event}} event has been discarded" 
+    discarded: "The invitation to {{event}} event has been discarded"
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in {{space_url}}"
     label: "Customise your invitation message"
@@ -895,6 +898,7 @@ en:
     edit: "Edit tags"
     one: "tag"
     other: "tags"
+    other_capital: Tags
     filter: "Filter by tag:"
     new: "New tag"
     selected:

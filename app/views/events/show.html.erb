@@ -152,7 +152,7 @@
   	    <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
 	    <%elsif params[:edit_comment]%>
-	       <%=render :partial => 'edit_comment', :locals => {:post => Post.find(params[:edit_comment])}%>	  
+				 <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
 	    <%else%>
 		  <%= render :partial => 'participants' %>
 	      <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>

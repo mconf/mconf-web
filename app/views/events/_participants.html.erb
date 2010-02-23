@@ -102,12 +102,12 @@
 			</div>
 		  <%end%>
 		<%else%>
-		  <%if @space.authorize?([:read, :content], :to => current_user) && logged_in?%>
+		  <%if @space.authorize?([:read, :content], :to => current_user) && logged_in? && !@event.past?%>
 			<h5><%= t('event.will_attend') %></h5>
 			  <div class="event_options">
 			  	<%=link_to "<button>"+t('agree')+"</button>", space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant" %>
 		  	    <%=link_to "<button>"+t('deny')+"</button>", space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "participant" %>
-		      </div>
+		      </div>	
 		  <%end%>	
 	  <%end%>
 	</div>

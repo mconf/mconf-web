@@ -21,17 +21,8 @@ describe AttachmentsController do
     @public_space = Factory(:public_space)
    
   end
-   after(:all) do 
-    #remove all the stuff created
-    @superuser.destroy
-    @private_space.destroy
-    @private_space2.destroy
-    @admin.destroy
-    @user.destroy
-    @invited.destroy
-    @public_space.destroy   
-  end
-   describe "A Superadmin" do
+
+  describe "A Superadmin" do
     before(:each) do
       login_as(@superuser)
     end

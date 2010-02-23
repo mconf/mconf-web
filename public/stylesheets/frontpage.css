@@ -238,7 +238,18 @@ ul#prefs {list-style-type:none;margin:0;}
 #content{clear:both;min-height:600px;overflow:hidden;}
 #main{float:left;margin-bottom:1.5em;}
 #main{width:610px;margin-right:10px;padding-left:10px;}
+#wrapper{padding:0 10px 10px 10px;background:#fff;margin-top: 0.5em;}
 #sidebar{float:left;width:270px;padding-right:10px;}
+
+.help-wrapper{background:#fff;float:left;width:570px;font-size:1.0833em;line-height:1.3846em;color:#111;}
+.help-wrapper{margin-bottom:0.75em;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
+.help-wrapper #description{padding:9px;}
+.help-wrapper h3.title{color:#244974; font-size:1.2em;line-height:1.25;padding:8px 9px;margin:0 0 2px 0;background:#bdd8eb;}
+.help-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;} 
+.help-wrapper div#end{margin-bottom:0.75em;}
+.help-wrapper div.pics img{float:left;}
+.help-wrapper div.pics img{width:275px;}
+.help-wrapper object {margin-left:5px;}
 
 /*content*/
 .wrapper{float:left;width:590px;}
@@ -300,7 +311,10 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
 #list-events li span.red{color:#611427;font-weight:bold;}
-
+.help-info{padding-bottom: 10px; float:left;width:230px;border:1px #bdd8eb solid;background:#f0f6f9;margin-top: 0.5em;}
+.help-title {background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
+.help-title h3{margin-top:0;padding-top:0.5em;color:#244974;}
+.topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
 #footer{background:#fff;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
