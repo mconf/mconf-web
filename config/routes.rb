@@ -99,7 +99,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'frontpage'
   map.about 'about', :controller => 'frontpage', :action => 'about'
   map.about2 'about2', :controller => 'frontpage', :action => 'about2'
-  map.help 'help', :controller => 'frontpage', :action => 'help'
+  map.help 'help', :controller => 'help', :action => 'index'
+  
 
   # #######################################################################
   # CMSplugin
@@ -209,6 +210,7 @@ map.group_details '/spaces/:space_id/group_details/:group_id', :controller => 'r
 map.edit_group '/spaces/:space_id/edit_group/:group_id', :controller => 'roles', :action=> 'edit_group' #=> /spaces/:space_id/groups/:id/edit, GroupsController#edit
 map.update_group '/spaces/:space_id/update_group/:group_id', :controller => 'roles', :action=> 'update_group' #=> /spaces/:space_id/groups/:id, GroupsController#update
 =end
-
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 
 end
