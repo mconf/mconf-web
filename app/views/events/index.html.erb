@@ -58,20 +58,20 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <%end%>
 
 <div id="orange_bar">
-	<ul>
-		<li class="orange_one">
-			<h3>Meetings</h3>
-			<p>Great for quick and simple meetings. No need of video orrecording. Notify your partners,upload documents</p>
-		</li>
-		<li class="orange_two">
-			<h3>Virtual Meetings</h3>
-	    <p>Add easy videoconference participation. Just need a webcam and microphone. Also automatic recording andstreaming of your meetings</p>
-		</li>
-		<li class="orange_three">
-			<h3>Virtual Congress</h3>
-	    <p>Advanced, big meetings. TV-likeproduction managed by an operator</p>
-		</li>
-	</ul>
+  <ul>
+    <li class="orange_one">
+      <h3><%=t('event.new.presential')%></h3>
+      <p><%=t('event.create.info.presential.message')%></p>
+    </li>
+    <li class="orange_two">
+      <h3><%=t('event.new.meeting')%></h3>
+      <p><%=t('event.create.info.meeting.message')%></p>
+    </li>
+    <li class="orange_three">
+      <h3><%=t('event.new.conference')%></h3>
+      <p><%=t('event.create.info.conference.message')%></p>
+    </li>
+  </ul>
 	<span id="pico_naranja"></span>
 <!--  <ul>
     <li><strong><%=t('event.create.info.presential.name')%></strong></li>

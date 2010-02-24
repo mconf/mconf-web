@@ -263,7 +263,19 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
-    create: "Create new event"
+    create:
+      info: 
+        basic: "Here you can organize three kind of events"
+        presential: 
+          name: "Meeting"
+          message: "Great for quick and simple meetings. No need of video orrecording. Notify your partners,upload documents"
+        meeting:
+          name: "Virtual Meeting"
+          message: "Add easy videoconference participation. Just need a webcam and microphone. Also automatic recording andstreaming of your meetings"
+        conference:
+          name: "Virtual Congress"
+          message: "Advanced, big meetings. TV-likeproduction managed by an operator." 
+      title: "Create new event"
     created: "Event created successfully"
     description:
       add: "Add description."
@@ -298,7 +310,11 @@ en:
       created: "Event logo successfully created"
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
-      select: Change your logo 
+      select: Change your logo
+    new:
+      conference: "Virtual Congress"
+      meeting: "Virtual Meeting"
+      presential: "Meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
