@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   ########## A #########
   
@@ -9,6 +6,7 @@ en:
   about_global: "About GLOBAL"
   about_me: "About me"
   about_sxsw: "About SXSW"
+  about_vcc: "About VCC"  
   account: "Account"
   actions: "Actions"
   activerecord:
@@ -38,19 +36,32 @@ en:
     entry:      
       created: "Agenda entry was successfully created"
       cannot_exclude: "You cannot exclude from recording an entry shorter than"
+      delete: "Agenda entry was successfully created"
       description: "Description"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
       end_time: "End time"
+      error:
+        create: "Error creating session in remote videoconference system"
+        delete: "Error deleting session in remote videoconference system"
+        update: "Error updating session in remote videoconference system"
       has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
+      help:
+        recording: "Recording enabled for this session"
+        streaming: "Streaming enabled for this session"
       hidevideo: "Hide video"
       record: "Record"
       failed: "Agenda entry could not be saved"
       minutes: "minutes"
       new: "New agenda entry"
       no_record: "No"
+      options:
+        help: "Here you can decide if you want to record or streaming this session or not"
+        recording: "Recording"
+        streaming: "Streaming"
+        title: "Options"
       one: "Entry"
       speakers: "Speakers"
       start_time: "Start time"
@@ -122,12 +133,14 @@ en:
   button:
     create: "Create"
     go: "Go!"
+    next: "Next Step"
     other_spaces: "Find other spaces"
     send: "Send"
     update: "Update"
     upload: "Upload"
     edit: "Edit"
     invite: Invite!
+    finish: Finish
         
   ######### C ###########
   can_also: "Or you can also:"
@@ -216,6 +229,7 @@ en:
   
   ######### E ###########
   edit: "Edit"
+  edit_hours: "Edit hours"
   edit_profile: "Edit profile"
   edit_your_profile: "Edit your profile"
   e-mail:
@@ -263,18 +277,43 @@ en:
     basic_info: "Introduce basic information"
     choose_location: "Choose location"
     colon: "Event:"
-    create: "Create new event"
+    connection:
+      info: "Connection info for this event"
+      isabel: "Isabel server"
+      sip: "Proxy SIP"
+      web: "Web client"
+    create:
+      info: 
+        basic: "Here you can organize three kind of events"
+        presential: 
+          name: "In person meeting"
+        meeting:
+          name: "Virtual meeting"
+          message: " with automatic streaming recording and easy to participate"
+        conference:
+          name: "Virtual conference"
+          message: " as the virtual meeting but also with tv-like production managed by an operator" 
+      title: "Create new event"      
     created: "Event created successfully"
     description:
       add: "Add description."
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event"
+    enable:
+      participation: "Select participation modes"
+      isabel: "Isabel"
+      sip: "SIP"
+      web: "Web"
     error:
+      cm_connection: "Connection to remote videoconference system fails"
+      date_past: "Start date could not be past"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
+      delete: "The event could not be deleted"
       marte: "Could not create virtual conference"
       omit_date: "The event needs start date and end date "
+      videoconference: "Could not create videoconference event"
     follow: "Enter this Virtual Meeting"
     found:
       none: "No events found"
@@ -287,7 +326,13 @@ en:
     held_with: "This event will be held with"
     help:
       create: "Create your simple event in three steps:"
+      creating_entries: "creating entries"
+      define: "Define the schedule of your meeting"
+      description: "Write a complete description"
       edit: "Edit your event"
+      in_agenda: "in the agenda"
+      now: "Now you can"      
+    invite: "Invite people"
     Isabel: "Isabel event"
     join: "Join this event"
     last_7_days: "Last 7 days ({{size}})"
@@ -299,9 +344,31 @@ en:
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
       select: Change your logo 
+    new:
+      conference: "Virtual Congress"
+      meeting: "Virtual Meeting"
+      presential: "Meeting"
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
+    notification:
+      attendant:
+        filter: "Attendant filter"
+      button: "Notify attendants"
+      deselect_all_attendants: "Deselect all attendants"
+      hide_all_attendants: "Hide all attendants"
+      label: "Customise your notification message"
+      legend:
+        name: "'Name' will be replaced in the message by the receiver's name."
+      message_beginning: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
+      message_ending: "<p>You can find more information about the event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      message_title: "Send a notification to the attendants"
+      personal: "Write your personal text here."
+      select_all_attendants: "Select all attendants"
+      selected_attendants: "Attendants you want to notify:"
+      show_all_attendants: "Show all attendants"
+      subject: "{{username}} has sent a notification to you about event {{eventname}} in space {{space}}"
+      title: "Notify the attendants of the event"
     now: "Events at this moment: "
     one: "Event"
     other: "Events"
@@ -315,11 +382,14 @@ en:
       last_week: "No events for last week."
       last_month: "No events for last month."
     recording: 
+      button_disabled: "This button will be enabled when the event has any recording"
       one: "Event Video"
       other: "Event Videos"
       share: "Share"
       notice: "People will need access rights to this space to see this videos"
-    repository: "Event documents"
+    repository: 
+      help: "This repository show the documents uploaded in the sessions of the event agenda"
+      title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
     spam: "Spam in events"
@@ -328,6 +398,7 @@ en:
       title: "Streaming"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
+      ready: "The streaming is booked. It will be available during the event"
       will_be_available: "The streaming will be available during the event"
     to: "To"
     today: "Today events"
@@ -469,10 +540,16 @@ en:
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in {{space_url}}"
     label: "Customise your invitation message"
-    legend: "'name' will be replaced on the e-mails by the receiver's name."
-    message: "'name',<br><br> I would like to invite you to 'event_name' event in {{space}} space on 'event_date'.<br><br>To accept my invitation please visit <a href={{url}}> {{url}}</a><br><br>You can find more information about this event in 'event_url'.<br><br>Kind regards,<br><br>{{username}}<br>{{useremail}}<br>{{userorg}}"
+    legend:
+      name: "'Name' will be replaced in the message by the receiver's name."
+      URL: "'URL' will be replaced in the message by the URL of the invitation."
+    message:
+      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
+    personal: "Write your personal text here."
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
@@ -1008,3 +1085,4 @@ en:
   
   ######### Z ###########
   zipcode: "Zip code"
+
