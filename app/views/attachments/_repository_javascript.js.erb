@@ -3,6 +3,10 @@ $("input#add_post").livequery("click",function(){
   $("#with_post").slideToggle("slow");
 });
 
+$("#add_document_label_link").click(function() {
+  $("#new_attachment").effect("highlight", {color:"#F5DF51"}, 3000);
+});
+
 $("#attachment__tags").fcbkcomplete({
 		cache: true,
           filter_case: false,

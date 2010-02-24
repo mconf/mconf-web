@@ -382,6 +382,7 @@ en:
       today: "No events for yesterday nor today."
       last_week: "No events for last week."
       last_month: "No events for last month."
+    player: Player
     recording: 
       button_disabled: "This button will be enabled when the event has any recording"
       one: "Event Video"
@@ -415,6 +416,7 @@ en:
       today: "There are no events for today"
       next_week: "There are no events for next week"
       next_month: "There are no events for next month"
+    video_part: Video participation
     view_agenda: "Agenda"
     view_repo: "Repository"
     view_recordings: "Recordings"

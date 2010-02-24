@@ -146,6 +146,7 @@
 
 <% content_for :sidebar do  %>
   <div id="full_sidebar">
+  	
   	<%if event.authorize?(:update, :to => current_user) %>
          <div id="update_logo" class="update_logo" style="display:none">
            <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
@@ -198,13 +199,13 @@
 
   <%if current_user==@event.author%>
     <div class="success">
-		<strong><%=t('event.help.now')%></strong><br/>
-		<ul id="event_help">
-			<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.in_agenda')%></a><br/></li>
-			<li><%= link_to t('event.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
-			<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
-			<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
-		</ul>
+			<strong><%=t('event.help.now')%></strong><br/>
+			<ul id="event_help">
+				<li><a href='#' id="help_add_entry"><%=t('event.help.define')%> <%=t('event.help.in_agenda')%></a><br/></li>
+				<li><%= link_to t('event.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
+				<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
+				<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
+			</ul>
     </div>
   <%end%>
 
