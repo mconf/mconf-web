@@ -174,6 +174,8 @@ class Event < ActiveRecord::Base
       begin
         cm_event = ConferenceManager::Event.find(event.cm_event_id)
         cm_event.destroy  
+      rescue ResourceNotFound => e
+        true  
       rescue => e
         event.errors.add_to_base(I18n.t('event.error.delete'))  
         false

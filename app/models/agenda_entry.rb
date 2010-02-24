@@ -91,11 +91,13 @@ class AgendaEntry < ActiveRecord::Base
     end      
   end
   
+ 
   after_create do |entry|
-    entry.attachments.each do |a|
-      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
-      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
-    end
+     # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
+#    entry.attachments.each do |a|
+#      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+#      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+#    end
     
     if entry.uid.nil? or entry.uid.eql? ''
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
@@ -105,7 +107,7 @@ class AgendaEntry < ActiveRecord::Base
  
   after_update do |entry|
     #Delete old attachments
-     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
+    # FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     #create new attachments
     entry.attachments.reload
     entry.attachments.each do |a|
