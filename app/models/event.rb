@@ -117,56 +117,7 @@ class Event < ActiveRecord::Base
       end
     end  
   end
-  
-  before_destroy do |event|
-    #Delete event in conference Manager
-    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
-      begin
-        cm_event = ConferenceManager::Event.find(event.cm_event_id)
-        cm_event.destroy  
-      rescue => e
-        event.errors.add_to_base(I18n.t('event.error.delete'))  
-        false
-      end
-    end
-  end
 
-  validate_on_create do |event|
-   if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
-      mode = ""
-      if event.vc_mode == Event::VC_MODE.index(:meeting)
-        mode = "meeting"
-      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
-          mode = "conference"
-      end 
-      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "attachments/conferences/#{event.permalink}")
-      begin 
-       cm_e.save
-       event.cm_event_id = cm_e.id
-     rescue StandardError =>e
-       event.errors.add_to_base(e.to_s)
-      end        
-    end  
-  end
-  
-  validate_on_update do |event|
-    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
-      mode = ""
-      if event.vc_mode == Event::VC_MODE.index(:meeting)
-        mode = "meeting"
-      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
-          mode = "conference"
-      end    
-      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "attachments/conferences/#{event.permalink}" }
-      cm_event = event.cm_event
-      cm_event.load(my_params)  
-      begin
-        cm_event.save
-      rescue  StandardError =>e
-        event.errors.add_to_base(e.to_s)  
-      end
-    end  
-  end
   
   before_destroy do |event|
     #Delete event in conference Manager
@@ -174,9 +125,9 @@ class Event < ActiveRecord::Base
       begin
         cm_event = ConferenceManager::Event.find(event.cm_event_id)
         cm_event.destroy  
-      rescue ResourceNotFound => e
+      rescue ActiveResource::ResourceNotFound => e
         true  
-      rescue => e
+      else
         event.errors.add_to_base(I18n.t('event.error.delete'))  
         false
       end
