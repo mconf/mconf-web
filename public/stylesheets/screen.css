@@ -1433,3 +1433,71 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 
 #change_logo{float:right;}
 #show_inv{float:right;}
+
+/*********************** footer */ 
+
+#footerFront {
+  width:100%; 
+  padding:0;
+  background:#BDDAEE;
+}
+
+
+.banner_footer {
+  width:960px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:0;
+  position:relative;
+}
+
+
+.banner_footer #footer_content{
+  text-align:left;
+  color: #ccc;
+  
+}
+.banner_footer{
+  width:960px;
+  color: #0656a4;
+  margin-left:auto;
+  margin-right:auto;
+  padding-top:2px;
+  
+  position:relative;
+}
+
+.banner_footer .a_border{
+  border-right:thin solid;
+  color:#0656a4;
+  padding:0px 7px;
+  text-decoration:underline;  
+}
+.banner_footer a{
+  color:#0656a4;
+  padding:0px 7px;
+  text-decoration:underline;  
+}
+
+
+#logo_UE {
+  margin-left:0px;
+  margin-top:0px;
+  width:30px;
+  height:16px;
+  margin-bottom:0px;
+  display:inline;
+}
+#espacio_body_bottom{
+  margin-left:0px;
+
+  display: block;
+  height: 150px;
+  
+}
+div.banner_footer a{
+  font-family:Helvetica;
+}
+.banner_footer span{
+  font-family:sans-serif;
+}

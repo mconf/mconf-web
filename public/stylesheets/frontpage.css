@@ -9,11 +9,11 @@ blockquote,q{quotes:"" "";}
 a img{border:none;}
 
 /* typography.css */
-body{font-size:75%;color:#222;/*background:#fff;*/background-color:#f8f9f9;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
+body{font-size:75%;color:#222;background-color:#f8f9f9;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;color:#244974;}
-h2{font-size:2em;/*margin-bottom:0.75em;*/color: #244974;}
-h3{font-size:1.0833em;line-height:1.3846;/*margin:0.75em 0 0 0;font-weight:bold;*/text-align:center;}
+h2{font-size:2em;color: #244974;}
+h3{font-size:1.0833em;line-height:1.3846;text-align:center;}
 h3 img{margin-bottom:-4px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
@@ -33,7 +33,7 @@ li ul,li ol{margin:0 1.5em;}
 ul,ol{margin:0 1.5em 1.5em 1.5em;}
 ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
-.small {font-size:.8em;/*margin-bottom:1.875em;*/line-height:1.875em;}/**/
+.small {font-size:.8em;line-height:1.875em;}
 
 /*Definición de la tipografia*/
 .unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
@@ -167,32 +167,6 @@ a.basic_button span{
 .blue_button span:hover,button.blue_button:hover{border:1px solid #86B5D5;}
 
 
-/*a.button, button, #sidebar input[type=submit] {
-  border:1px solid #244974;
-  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-  font-size:95%;
-  line-height:135%;
-  text-decoration:none;
-  font-weight:bold;
-  background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll;
-  color:#FFF;
-  margin-right:4px;
-  cursor:pointer;
-  -webkit-border-radius:4px;-moz-border-radius:4px;
-}
-a.button:hover, button:hover, #sidebar input[type=submit]:hover{border:1px solid #86B5D5;}
-
-button{width:auto;overflow:visible;padding:4px 7px 5px 6px;}*/
-/*.join button{padding:4px 15px 5px 15px;}*/
-/*#go-vcc button{background:#275b8a url("/images/buttons/boton-generico1.png") repeat-x scroll 0% 50%;padding:6px 7px 6px 6px;margin-left:-1px;}
-*:first-child+html button[type]{padding:4px 7px 5px 6px;}
-
-.right a, .right a:hover,a.new_space_link,a.new_space_link:hover{text-decoration:none;}
-button.create-space{-webkit-border-radius:5px;-moz-border-radius:5px;border-bottom:1px #C18500 solid;border-top:1px #FFC14A solid;border-left:1px #FFC14A solid;border-right:1px #FFC14A solid;background:url("/images/buttons/fondo-join-space.png");font-size:1.1666em;line-height:1.2857;}
-button.create-space:hover{background:url("/images/buttons/fondo-join-space2.png");}
-#search button{padding-top:3px;padding-bottom:2px;}
-button#missing_pswd{padding-top:2px;padding-bottom:2px;}*/
-
 /* forms.css */
 .error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
@@ -205,11 +179,10 @@ button#missing_pswd{padding-top:2px;padding-bottom:2px;}*/
 
 /* grid.css */
 body{min-width:910px;}
-/*body{background:url(../images/grid.png);}*/
 body .icon{margin-bottom:-3px;}
 
-#global,#home,#footer{/*width:920px;*/width:960px;margin:0 auto;}
-#home{/*background:#e1eef5;*/ background-color:#f8f9f9;}
+#global,#home,#footer{width:960px;margin:0 auto;}
+#home{background-color:#f8f9f9;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
 #global{padding:0.5em 0;}
@@ -220,14 +193,12 @@ body .icon{margin-bottom:-3px;}
 #feedback a{font-weight:normal;}
 #about{margin-left:50px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
-#feedback:hover,#about:hover{background:#275b96;/*#2b578a;/*346aa8;*/}
+#feedback:hover,#about:hover{background:#275b96;}
 
-#header{/*background:#fff;*/background-color:#f8f9f9;padding-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
+#header{background-color:#f8f9f9;padding-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
 #logo{float:left;}
 #logo{width:192px;}
 #search{float:right;}
-/*#search{margin-top:23px;margin-left:46px;}*/
-/*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
 #search{margin-top:23px;}
 #eu{float:right;margin-top:10px;}
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;font-family:Helvetica;}
@@ -239,7 +210,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #about2{float:right;margin-right:50px;margin-top:27px;}
 #content{clear:both;min-height:600px;overflow:hidden;}
 #main{float:left;margin-bottom:1.5em;}
-#main{/*width:610px*/width:100%;margin-right:10px;padding-left:10px;}
+#main{width:100%;margin-right:10px;padding-left:10px;}
 #wrapper{padding:0 10px 10px 10px;background:#fff;margin-top: 0.5em;}
 #sidebar{float:left;width:270px;padding-right:10px;}
 
@@ -705,7 +676,9 @@ div {
 	position:relative;
 }
 
-
+.banner_footer span{
+	font-family:sans-serif;
+}
 .banner_footer #footer_content{
 	text-align:left;
 	color: #ccc;
