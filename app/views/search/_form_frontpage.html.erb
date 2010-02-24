@@ -16,7 +16,7 @@
 
 <% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
-  <span class="find">Find</span><input type="image" src="images/find.png"/>
+  <span class="find">Find</span><input type="image" src="/images/find.png"/>
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
   
   <div id="advanced">
