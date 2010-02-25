@@ -55,16 +55,7 @@ class Event < ActiveRecord::Base
   attr_accessor :web_interface
   attr_accessor :isabel_interface
   attr_accessor :sip_interface
-  #Attributes for ConferenceManager video display
-  attr_accessor :web_width
-  attr_accessor :web_heigth
-  attr_accessor :player_width
-  attr_accessor :player_height
-  attr_accessor :editor_width
-  attr_accessor :editor_height
-  attr_accessor :streaming_width
-  attr_accessor :streaming_height
-  
+    
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
@@ -78,6 +69,26 @@ class Event < ActiveRecord::Base
   
   VC_MODE = [:in_person, :meeting, :teleconference]
 
+   def validate
+    if self.start_date.nil? || self.end_date.nil? 
+      errors.add_to_base(I18n.t('event.error.omit_date'))
+    else
+      unless self.start_date < self.end_date
+        errors.add_to_base(I18n.t('event.error.dates1'))
+      end  
+    end
+    if self.marte_event? && ! self.marte_room?
+      #check connectivity with Marte
+      begin
+        MarteRoom.find(:all)
+      rescue => e
+        errors.add_to_base(I18n.t('event.error.marte'))
+      end
+    end
+    #    unless self.start_date.future? 
+    #      errors.add_to_base("The event start date should be a future date  ")
+    #    end
+  end
   validate_on_create do |event|
    if event.start_date.to_date.past?
      event.errors.add_to_base(I18n.t('event.error.date_past'))
@@ -168,6 +179,27 @@ class Event < ActiveRecord::Base
         Informer.deliver_event_notification(event,user)
       }
     end
+    if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
+      mr = begin
+        MarteRoom.create(:name => event.id)
+      rescue => e
+        logger.warn "Failed to create MarteRoom: #{ e }"
+        nil
+      end
+      
+      event.update_attribute(:marte_room, true) if mr
+    end
+  end
+  
+  after_destroy do |event|
+    
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
+    if event.marte_event? && event.marte_room?
+      begin
+        MarteRoom.find(event.id).destroy
+      rescue
+      end
+    end     
   end
   
   def author
@@ -296,52 +328,6 @@ class Event < ActiveRecord::Base
     return ""
   end
   
-  
-  def validate
-    if self.start_date.nil? || self.end_date.nil? 
-      errors.add_to_base(I18n.t('event.error.omit_date'))
-    else
-      unless self.start_date < self.end_date
-        errors.add_to_base(I18n.t('event.error.dates1'))
-      end  
-    end
-    if self.marte_event? && ! self.marte_room?
-      #check connectivity with Marte
-      begin
-        MarteRoom.find(:all)
-      rescue => e
-        errors.add_to_base(I18n.t('event.error.marte'))
-      end
-    end
-    #    unless self.start_date.future? 
-    #      errors.add_to_base("The event start date should be a future date  ")
-    #    end
-  end
-  
-  after_save do |event|
-    if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
-      mr = begin
-        MarteRoom.create(:name => event.id)
-      rescue => e
-        logger.warn "Failed to create MarteRoom: #{ e }"
-        nil
-      end
-      
-      event.update_attribute(:marte_room, true) if mr
-    end
-  end
-  
-  after_destroy do |event|
-    
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
-    if event.marte_event? && event.marte_room?
-      begin
-        MarteRoom.find(event.id).destroy
-      rescue
-      end
-    end     
-  end
-  
   def cm_event?
     cm_event.present?
   end
@@ -379,16 +365,32 @@ class Event < ActiveRecord::Base
   end
   
   #Return  a String that contains a html with the video of the Isabel Web Gateway
+  def web(width, height)
+    begin      
+      cm_web ||= ConferenceManager::Web.find(:one,:from=>"/events/#{self.cm_event_id}/web",:params =>{:width=>width, :height=>height})
+      cm_web.html 
+    rescue
+      nil
+    end
+  end
   def web
     begin
       cm_web ||= ConferenceManager::Web.find(:one,:from=>"/events/#{self.cm_event_id}/web")
       cm_web.html
     rescue
       nil
-    end
+    end      
   end
   
   #Return  a String that contains a html with the video player for this conference
+  def player(width,height)
+    begin
+      cm_player ||= ConferenceManager::Player.find(:one,:from=>"/events/#{self.cm_event_id}/player",:params =>{:width=>width, :height=>height})
+      cm_player.html
+    rescue
+      nil
+    end
+  end
   def player
     begin
       cm_player ||= ConferenceManager::Player.find(:one,:from=>"/events/#{self.cm_event_id}/player")
@@ -406,10 +408,26 @@ class Event < ActiveRecord::Base
       nil
     end
   end
+  def editor(width,height)
+    begin
+      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor",:params =>{:width=>width, :height=>height})
+      cm_editor.html
+    rescue
+      nil
+    end
+  end
   #Return  a String that contains a html with the streaming of this conference
   def streaming
     begin
       cm_streaming ||= ConferenceManager::Streaming.find(:one,:from=>"/events/#{self.cm_event_id}/streaming")
+      cm_streaming.html
+    rescue
+      nil
+    end
+  end
+  def streaming(width,height)
+    begin
+      cm_streaming ||= ConferenceManager::Streaming.find(:one,:from=>"/events/#{self.cm_event_id}/streaming",:params =>{:width=>width, :height=>height})
       cm_streaming.html
     rescue
       nil
