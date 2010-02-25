@@ -215,11 +215,36 @@ class Event < ActiveRecord::Base
     agenda.agenda_entries.sort{|x,y| x.end_time <=> y.end_time}  
   end
   
+  #method to syncronize event start and end time with their agenda real length
   def syncronize_date
      self.start_date = entries_ordered_by_date.first.start_time
      self.end_date = entries_ordered_by_date.last.end_time
   end
-    
+  
+  #method to know if any of the agenda_entry of the event has streaming 
+  #(only event associated to one cm_event could have streaming)
+  def has_streaming?
+    begin
+      agenda.agenda_entries.each do |entry|
+        return true if entry.cm_session.streaming?
+      end
+      false 
+    rescue
+      nil
+    end
+   end
+  #method to know if any of the agenda_entry of the event has recording
+  #(only event associated to one cm_event could have recording)
+  def has_recording?
+    begin
+      agenda.agenda_entries.each do |entry|
+        return true if entry.cm_session.recording?
+      end    
+      false
+    rescue
+      nil
+    end
+  end
     
   #method to know if this event is happening now
   def is_happening_now?
