@@ -24,4 +24,12 @@ class HelpController < ApplicationController
   def createuser
     
   end
+
+  def logging
+    
+  end
+
+  def createspace
+    
+  end
 end
