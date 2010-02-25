@@ -553,7 +553,8 @@ li.author a, #change-event h3, #sidebar{color:#244974;}
 #sidebar .my_spaces ul.inline img{background:#fff;padding:2px;border:1px solid #dcdcdc;}
 #sidebar .my_spaces ul.inline img:hover{border:1px solid #ccc;}
 #sidebar #assistance_info h5,#sidebar #connection_info h5{margin:0;padding:10px 0 6px 0;color:#244974;}
-p.sidebar_info{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background:#E1EEF5;}
+p.sidebar_info1{margin:6px 0 0 0;}
+p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background:#E1EEF5;}
 #sidebar #assistance_info .event_options{padding:0 33px;position:relative;overflow:visible;}
 #sidebar #assistance_info .event_options div.option{float:left;position:relative;}
 #sidebar #assistance_info .event_options a{text-decoration:none;}

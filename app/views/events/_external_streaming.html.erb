@@ -27,7 +27,8 @@
 
 
 <%end%>
-   
+
+  
 <div id="streaming_url" class="margin-up main_text">
   <%if @event.vc_mode==Event::VC_MODE.index(:in_person) %>
     <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
@@ -39,10 +40,14 @@
 			 <%=t("event.player")%>  		
 			<%elsif @event.is_happening_now?%>
 			  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-			  <%=t('event.video_part')%>
+				<%if @event.web_interface? && !@event.has_streaming?%>
+				  <%=t('event.video_part')%>
+				<%else%>
+				  <%=t('event.streaming.title')%> & <%=t('event.video_part')%>
+				<%end%>
 			<%else%>
         <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%=t('event.streaming.title')%>
+				<%=t('event.streaming.title')%> & <%=t('event.video_part')%>
 			<%end%>
     </h3>
 	</div>
@@ -56,21 +61,40 @@
 				<%end%>
 				<%= @event.editor%>        
       <%end%>
+			
       <%if @event.is_happening_now?%>				 
-		    <!--<%if @event.web_interface? && !@event.streaming%>-->
-				<!--  <%= @event.web%>
-				<%else%>-->
-          <%if @event.web_interface?%>
+		    <%if @event.web_interface? && !@event.has_streaming?%>
+				  <%= @event.web%>
+				<%else%>
+				  <%if @event.web_interface?%>
 				    <%=link_to("participate in the conference","#")%>
 				  <%end%>
           <%= @event.streaming%>
-				<!--<%end%>-->
+			  <%end%>
 		  <%end%>
+			
 			<%if @event.future?%>         
-        <div class="video_wrapper">
-        	<%=image_tag("visor_video.png")%>
-					<span>Video streaming will be available at the time of the event</span>
-        </div>        
+        
+				<%if @event.agenda.agenda_entries.empty?%>
+				  Please define a schedule in your agenda to get web participation and streaming.
+				<%elsif @event.has_streaming?%>
+          <div class="video_wrapper">
+            <%=image_tag("visor_video.png")%>
+            <%if @event.web_interface?%>
+						  <span>Web participation and streaming will be available at the time of the event</span>
+						<%else%>
+						  <span>Video streaming will be available at the time of the event</span>
+						<%end%>
+          </div>
+				<%elsif @event.web_interface?%>
+          <div class="video_wrapper">
+            <%=image_tag("visor_video.png")%>
+            <span>Web participation will be available at the time of the event</span>
+          </div>
+				<%else%>
+				  	There is no streaming defined in the agenda.			  
+				<%end%>
+				      
       <%end%>
 
     <%end%> 

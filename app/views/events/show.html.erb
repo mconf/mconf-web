@@ -244,7 +244,7 @@
 	  </div>
   <%else%>
 
-	  <%unless @event.past?%>
+	  <%unless @event.past? && !@event.has_recording?%>
 	    <%=render :partial => "external_streaming"%>
 	  <%end%>
 	

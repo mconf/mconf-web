@@ -9,31 +9,35 @@
 <div id="connection_info" class="margin-up">
   <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
   <div class="connection_content">
-  	
-	<%if @event.agenda.agenda_entries.empty?%>
-	  <p class="sidebar_info">To get streaming and/or recording, you need to define a schedule for your agenda</p>
-	<%end%>
+
+  <%if @event.agenda.agenda_entries.empty?%>
+    <p class="sidebar_info1">Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda.</p>
+  <%else%> 	
+
+		<%if !@event.has_streaming? || !@event.has_recording? %>
+		  <p class="sidebar_info2">To get streaming and/or recording, please indicate it in your schedule</p>
+		<%end%>
+		
+	  	<%if @event.web_interface?%>
 	
-  	<%if @event.web_interface?%>
-
-    	<h5><%= t('event.connection.web') %>:</h5>
-	    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span>
-
-	<%end%>
-	<%if @event.isabel_interface?%>
-
-    	<h5><%= t('event.connection.isabel') %>:</h5>
-	    <span>isabel://master.dit.upm.es</span>
-
-	<%end%>
-	<%if @event.sip_interface?%>
-
-    	<h5><%= t('event.connection.sip') %>:</h5>
-	    <span>mcux.dit.upm.es</span>
-
-	<%end%>
-
-  </div>
+	    	<h5><%= t('event.connection.web') %>:</h5>
+		    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span>
+	
+		<%end%>
+		<%if @event.isabel_interface?%>
+	
+	    	<h5><%= t('event.connection.isabel') %>:</h5>
+		    <span>isabel://master.dit.upm.es</span>
+	
+		<%end%>
+		<%if @event.sip_interface?%>
+	
+	    	<h5><%= t('event.connection.sip') %>:</h5>
+		    <span>mcux.dit.upm.es</span>
+	
+		<%end%>
+  <%end%>
+</div>
 </div>
 <%else%>
   <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
