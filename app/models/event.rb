@@ -70,6 +70,9 @@ class Event < ActiveRecord::Base
   VC_MODE = [:in_person, :meeting, :teleconference]
 
    def validate
+    if start_date.to_date.past?
+      errors.add_to_base(I18n.t('event.error.date_past'))
+    end
     if self.start_date.nil? || self.end_date.nil? 
       errors.add_to_base(I18n.t('event.error.omit_date'))
     else
@@ -90,9 +93,6 @@ class Event < ActiveRecord::Base
     #    end
   end
   validate_on_create do |event|
-   if event.start_date.to_date.past?
-     event.errors.add_to_base(I18n.t('event.error.date_past'))
-   end
    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
       mode = ""
       if event.vc_mode == Event::VC_MODE.index(:meeting)
