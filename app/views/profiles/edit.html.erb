@@ -25,7 +25,7 @@
   <div id="upload_vcard" class="margin-up">
 	<h3><%=t("vCard.use")%></h3>
     <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
-		<p><%= file_field 'vcard_file', 'data' %></p>
+		<p><%= f.file_field 'vcard' %></p>
 
 		<div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
 	<% end %>
