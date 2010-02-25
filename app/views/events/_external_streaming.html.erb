@@ -48,6 +48,7 @@
 	</div>
   <div id="streaming_content">
     <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+
       <%if @event.past?%>        
         <%= @event.player%>
 				<%if @event.authorize?(:update, :to => current_user)%>
@@ -66,8 +67,12 @@
 				<!--<%end%>-->
 		  <%end%>
 			<%if @event.future?%>         
-        aqui va una imagen        
+        <div class="video_wrapper">
+        	<%=image_tag("visor_video.png")%>
+					<span>Video streaming will be available at the time of the event</span>
+        </div>        
       <%end%>
+
     <%end%> 
   </div>
 </div>
