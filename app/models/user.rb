@@ -63,9 +63,9 @@ default_scope :conditions => {:disabled => false}
 NOTIFICATION_VIA_EMAIL = 1
 NOTIFICATION_VIA_PM = 2
 
-def after_create
-  self.profile = Profile.create  
-end
+  def after_create
+    self.create_profile
+  end
 
 def self.find_with_disabled *args
   self.with_exclusive_scope { find(*args) }
@@ -91,13 +91,13 @@ def logo
   profile && profile.logo
 end
 
-def profile!
-  if profile.blank?
-    self.create_profile
-  else
-    profile
+  def profile!
+    if profile.blank?
+      self.create_profile
+    else
+      profile
+    end
   end
-end
 
   def spaces
     stages.select{ |s| s.is_a?(Space) && !s.disabled? }.sort_by{ |s| s.name }
