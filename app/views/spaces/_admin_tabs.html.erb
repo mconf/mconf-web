@@ -1,11 +1,8 @@
-<div id="admin_tabs">
-	<ul class="group_links">
-		<li class="blue"><%=link_to t('user.other'), edit_space_path(@space), :class => params[:controller] == "spaces" ? "selected" : ""  %></li>
-		<li><%=link_to t('group.other'), space_groups_path(@space, :admin => true), :class => params[:controller]== "groups" ? "selected" : ""%></li>
-		<li><%=link_to t('admission.other'), space_admissions_path(@space), :class => params[:controller]== "admissions" ? "selected" : "" %></li>
-	</ul>
-        <%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=> t('RSS'),:title=> t('RSS')), space_news_index_path(@space, :format => :atom)) %>
-        <%=link_to t('news.other').upcase, space_news_index_path(@space), :class => params[:controller]== "news" ? "selected" : "" %>
-        <%=link_to t('source.other'), space_sources_path(@space), :class => params[:controller]== "sources" ? "selected" : "" %>
-
+<div  class="button_wrapper grey_bar">
+	<%=link_to ("<span>" + t('user.other') + "</span>"), edit_space_path(@space), :class=>"grey_button basic_button show_inv" %>
+	<%=link_to ("<span>" + t('group.other') + "</span>"), space_groups_path(@space, :admin => true), :class=>"grey_button basic_button show_inv" %>
+  <%=link_to ("<span>" + t('admission.other') + "</span>"), space_admissions_path(@space), :class=>"grey_button basic_button show_inv" %>
+  <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=> t('RSS'),:title=> t('RSS')), space_news_index_path(@space, :format => :atom)) %>
+  <%=link_to ("<span>" + t('news.other').upcase + "</span>"), space_news_index_path(@space), :class => "grey_button basic_button" %>
+  <%=link_to ("<span>" + t('source.other') + "</span>"), space_sources_path(@space), :class => "grey_button basic_button" %>
 </div>
