@@ -197,7 +197,7 @@
 
   <%= error_messages_for :agenda_entry %>
 
-  <%if current_user==@event.author%>
+  <%if current_user==@event.author && !params[:show_repository] && !params[:show_video]%>
     <div class="success">
 			<strong><%=t('event.help.now')%></strong><br/>
 			<ul id="event_help">
