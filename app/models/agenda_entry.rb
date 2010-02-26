@@ -73,7 +73,7 @@ class AgendaEntry < ActiveRecord::Base
   
   before_destroy do |entry|
     #Delete session in Conference Manager if event is not in-person
-    if (entry.agenda.event.vc_mode == Event::VC_MODE.index(:meeting)) || (Event::VC_MODE.index(:teleconference))
+    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
       begin
         cm_s = entry.cm_session     
         cm_s.destroy    
