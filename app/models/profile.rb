@@ -16,6 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'vpim/vcard'
+require 'mofo'
 
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
@@ -146,6 +147,71 @@ class Profile < ActiveRecord::Base
     end
   rescue
     @vcard_errors = I18n.t("vCard.corrupt")
+  end
+
+  def from_hcard(uri)
+    hcard = hCard.find(uri)
+
+    if hcard.blank?
+      errors.add_to_base(I18n.t("hcard.not_found"))
+      return
+    end
+
+    # FIXME: this should be DRYed with from_vcard
+
+    if hcard.try(:tel)
+      self.phone = hcard.tel
+    end
+
+    if hcard.try(:n)
+      if hcard.n.try(:prefix)
+        self.prefix = hcard.n.prefix
+      end  
+
+      full_name = hcard.try(:fn) ||
+                  "#{ hcard.n.try(:given_name) } #{ hcard.n.try(:additional_name) } #{ hcard.n.try(:family_name) }".strip
+
+      if full_name.present?
+        user.login = full_name
+      end
+    end
+
+    if hcard.try(:fn)
+      user.login = hcard.fn
+    end
+      
+    if hcard.try(:email)
+      user.email = hcard.email
+    end
+    
+    if hcard.try(:url)
+        self.url = Array(hcard.url).first
+    end
+
+    if hcard.try(:org)
+      self.organization = hcard.org
+    end 
+  
+    if hcard.try(:adr)
+      if hcard.adr.try(:street_address) || hcard.adr.try(:extended_address)
+        self.address = "#{ hcard.adr.try(:street_address) } #{ hcard.adr.try(:extended_address) }".strip
+      end
+
+      if hcard.adr.try(:locality)
+        self.city = hcard.adr.locality
+      end
+
+      if hcard.adr.try(:postal_code)
+        self.zipcode = hcard.adr.postal_code
+      end
+
+      if hcard.adr.try(:region)
+        self.province = hcard.adr.region
+      end
+      if hcard.adr.try(:country)
+        self.country = hcard.adr.country_name
+      end
+    end
   end
  
   #this method is used to compose the vcard file (.vcf) with the profile of an user

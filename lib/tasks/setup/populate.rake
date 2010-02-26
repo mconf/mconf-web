@@ -75,7 +75,8 @@ namespace :setup do
           event.updated_at = event.created_at..Time.now
           event.start_date = event.created_at..1.years.since(Time.now)
           event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
-          
+          event.vc_mode = Event::VC_MODE.index(:in_person)
+          event.permalink = PermalinkFu.escape(event.name)
           
           Agenda.populate 1 do |agenda|
             agenda.event_id = event.id
@@ -179,7 +180,8 @@ namespace :setup do
         # Author
         ( space.posts + space.events ).each do |item|
           item.author = space.users.rand
-          item.save!
+          # Save the items without performing validations, to allow further testing
+          item.save(false)
         end
 
       end
