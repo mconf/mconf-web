@@ -80,7 +80,7 @@
 	<span class="separator">|</span>
   <%if event.authorize?(:update, :to => current_user) %>
     <%=link_to ("<span>" + t('event.logo.button') + "</span>"),'#', {:id=>"change_logo",:class=>"grey_button basic_button"} %>
-    <%=link_to ("<span>" + t('event_invitation.new.other') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:class=>"grey_button basic_button show_inv",:title => t('invitation.add_more')} %>
+    <%=link_to ("<span>" + t('invitation.title') + "</span>"), space_event_path(@space, @event, :new_invitations => @event), {:class=>"grey_button basic_button show_inv",:title => t('invitation.add_more')} %>
 		<%=link_to ("<span>" + t('icalendar.import') + "</span>"), '#', {:id=>"import_icalendar_button", :class=>"grey_button basic_button show_inv",:title => t('icalendar.import')} %>
 		<%=link_to ("<span>" + t('event.notification.button') + "</span>"), space_event_path(@space, @event, :notification => @event), {:class=>"grey_button basic_button show_inv",:title => t('event.notification.title')} %>
   <%end %>

@@ -570,6 +570,7 @@ en:
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
+    title: "Invite people"
     to_accept: "To accept my invitation please visit <a href={{url}}> {{url}} </a>"
     to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
     to_space: "{{username}} invites you to space {{space}}"
@@ -901,6 +902,7 @@ en:
     error:
       enabled: "Space {{name}} is already enabled"
     group_not_belong: " do not belong to the same space as the group"
+    invitation:
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
     join_invitation:

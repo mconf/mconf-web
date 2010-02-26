@@ -244,7 +244,7 @@
 	  </div>
   <%else%>
 
-	  <%unless @event.past? && !@event.has_recording?%>
+	  <%unless ( (@event.past? && !@event.has_recording?) || (@event.vc_mode==Event::VC_MODE.index(:in_person)) )%>
 	    <%=render :partial => "external_streaming"%>
 	  <%end%>
 	
