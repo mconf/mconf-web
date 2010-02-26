@@ -486,6 +486,8 @@ en:
 
   
   ######### H ###########
+  hcard:
+    not_found: "hCard not found"
   hello: "Hello"
   help: "Help"
   help_title:
@@ -764,6 +766,8 @@ en:
     deleted: "Profile deleted successfully"
     error:
       exist: "Your profile already exists"
+    hcard:
+      fill_with: "Fill your profile with your hCard"
     must_create: "Please create your profile first"
     private: "Private profile"
     private_description: "This information is visible only to the people you choose when you edit your profile"
