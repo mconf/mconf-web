@@ -893,6 +893,7 @@ a.extract_form{margin-right:0.5em;}
 
 #assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3{margin:0;padding:3px 10px;color:#244974;}
 #assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces{float:left;width:240px;border:1px #bdd8eb solid;background:#f0f6f9;}
+#sidebar #assistance_info{margin-top:30px;}
 #assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title,.connection_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 #add_new_doc,#doc_info,#doc_action.new_version,.tag_filter_wrapper{background:#ebebeb;border-bottom:1px #A8C0D1 solid;}
 /*
