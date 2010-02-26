@@ -16,7 +16,13 @@
   <% if current_user.openid_uris.any? %>
   <ul>
     <% current_user.openid_ownings.each do |owning| %>
-      <li><%= link_to owning.uri, owning.uri.to_s %> <%= link_to t('delete.one'), owning, :method => :delete %></li>
+    <li>
+      <%= link_to owning.uri, owning.uri.to_s %>
+      <% if owning.uri.hcard? %>
+        <%= link_to t('profile.hcard.fill_with'), edit_user_profile_path(current_user, :hcard_uri => owning.uri.to_s ) %>
+      <% end %>
+      <%= link_to t('delete.one'), owning, :method => :delete %>
+    </li>
     <% end %>
   </ul>
   <% end %>
