@@ -40,6 +40,9 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/edit
   def edit
+    if params[:hcard_uri]
+      @profile.from_hcard(params[:hcard_uri])
+    end
   end
   
   # PUT /profile

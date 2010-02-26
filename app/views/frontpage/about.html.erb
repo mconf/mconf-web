@@ -7,7 +7,7 @@
     <title></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
-  <link href="stylesheets/frontpage.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/about.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
 
   <link rel="stylesheet" href="stylesheets/galleriffic.css" type="text/css" />
@@ -18,6 +18,31 @@
     <link href="stylesheets/ie.css?1242919478" media="screen, projection" rel="stylesheet" type="text/css" />
     <![endif]-->
     
+	<script type="text/javascript">
+	  change_video = function(id){
+	  	if(id==1){
+			$(".video_properties").html('<h3 class="title video_title">Virtual Conference Centre</h3><object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>');
+		}
+		else if (id==2)
+		{
+			$(".video_properties").html('<h3 class="title video_title">Virtual Conference Centre</h3><embed name="player" src="http://stream3.dit.upm.es/reproductor/mediaplayer.swf?id=video_7_12_2009_10_25&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;image=http://stream3.dit.upm.es/captures/video_7_12_2009_10_25_0.jpg&amp;bufferlength=3&amp;file=rtmp://stream3.dit.upm.es/venusStore/_definst_/" allowfullscreen="true" wmode="transparent" height="376" width="475">');
+		}
+		else if (id==3)
+		{
+			$(".video_properties").html('<h3 class="title video_title">Virtual Conference Centre</h3><embed name="player" src="http://stream3.dit.upm.es/reproductor/mediaplayer.swf?id=video_7_12_2009_12_45_0&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;image=http://stream3.dit.upm.es/captures/video_7_12_2009_12_45_0.jpg&amp;bufferlength=3&amp;file=rtmp://stream3.dit.upm.es/venusStore/_definst_/" allowfullscreen="true" wmode="transparent" height="376" width="475">');
+		}
+		else
+		{
+			$(".video_properties").html('');
+		}
+		
+	  };
+	  
+	 $(".play_icon").livequery('click',function(){
+	   $(this).siblings("a").click();
+	 });
+	</script>
+	
   </head>
 
   <body>
@@ -59,11 +84,11 @@
 		    </div>              
     	  </div>        
 
-    	  <div class="about-wrapper">
-      	    <h3 class="title">Virtual Conference Centre</h3>
-    	    <object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>
+          <div class="about-wrapper video_properties">
+		    <h3 class="title video_title">Virtual Conference Centre</h3>
+			<object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/oCDR3TZCw3M&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>
 		  </div>
-
+		  
     	  <div class="about-wrapper">
       	    <h3 class="title">User experience</h3>
 			<p>Peter: It is great what this project does.</p>
@@ -316,6 +341,67 @@
 			  <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("bola_global_peque.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
 			</div>
 			<br/>			
+			
+		<!--<div class="screencast">
+			<h5>Screencasts</h5>         
+			  <div>
+				<ul>
+				  <li><a href="#">How to set up a virtual meeting</a></li>
+				  <li><a href="#">How to set up a remote auditorium</a></li>
+				  <li><a href="#">How to organise a virtual event</a></li>
+				  <li><a href="#">Trouble-shooting guide</a></li>
+				</ul>
+			  </div>    
+			</div>
+		-->
+			<div class="screencast">
+			  <h5>Latest videos</h5> 			  
+					
+						
+				<div id="carrusel">
+				  <div id="carrusel_content">  
+					  <div class="video_preview_sidebar" id="video_preview0">
+					        <div class="video_thumbnail">
+							  <%=link_to_function image_tag("global-video-thumbnail.jpg", :alt => t('agenda.entry.video')),'change_video(1)', :class=>"entry_video_link" %>
+							  <span class="play_icon"></span>
+							</div>
+							<div class="video_description">
+								<%=link_to_function  "GLOBAL Project video" ,'change_video(1)', :class=>"entry_video_link" %>			
+							</div>
+					  </div>
+					  <div class="video_preview_sidebar" id="video_preview1">
+					        <div class="video_thumbnail">
+							  <%=link_to_function image_tag("http://stream3.dit.upm.es/captures/video_7_12_2009_10_25_0.jpg", :alt => t('agenda.entry.video')),'change_video(2)', :class=>"entry_video_link" %>
+							  <span class="play_icon"></span>
+							</div>
+							<div class="video_description">
+								<%=link_to_function  "5th Belief Symposium Welcome speech" ,'change_video(2)', :class=>"entry_video_link" %>
+								<span class="unified_user">
+									Happy Sithole  
+								</span>			
+							</div>
+					  </div>
+					  <div class="video_preview_sidebar" id="video_preview2">
+					        <div class="video_thumbnail">
+							  <%=link_to_function image_tag("http://stream3.dit.upm.es/captures/video_7_12_2009_12_45_0.jpg", :alt => t('agenda.entry.video')),'change_video(3)', :class=>"entry_video_link" %>
+							  <span class="play_icon"></span>
+							</div>
+							<div class="video_description">
+								<%=link_to_function  "Talk about \"CHPC computational platforms\"" ,'change_video(3)', :class=>"entry_video_link" %>
+								<span class="unified_user">
+									Dorah Thobye 
+								</span>			
+							</div>
+					  </div>
+					  
+					  
+					  
+				  </div>
+				
+				</div>
+			
+			</div>
+
 			<div class="global-posts">
 				<%unless @latest_global_posts.empty?%>
 					<h5><span> <%=link_to (image_tag("icons/feed.png",:class=>"icon",:alt=>"RSS",:title=>"RSS"),formatted_space_posts_url(@global,:atom,:host => current_site.domain))%></span><%=link_to ("Latest News", space_posts_url(@global,:host => current_site.domain))%></h5>	
@@ -336,17 +422,6 @@
 				<%end%>	
 			</div>
 			
-			<div class="screencast">
-			<h5>Screencasts</h5>         
-			  <div>
-				<ul>
-				  <li><a href="#">How to set up a virtual meeting</a></li>
-				  <li><a href="#">How to set up a remote auditorium</a></li>
-				  <li><a href="#">How to organise a virtual event</a></li>
-				  <li><a href="#">Trouble-shooting guide</a></li>
-				</ul>
-			  </div>    
-			</div>
 			
 			<div class="contact">
 			  <h5><%= t('contact_information') %></h5>
@@ -359,9 +434,11 @@
 				<li><%= t('phone') %>: +43/ 1 495 04 42 -  63</li>
 			  </ul>     
 			</div>
+			
+	
 		  </div>
-		</div>
-      </div>
+		</div>		
+	  
 	  <div id="footer">
 	    <ul>
 	      <li id="trade_mark"><img alt="Bola_global_peque" class="icon" src="/images/bola_global_peque.png?1242226208" /> global-project.eu</li>
@@ -370,8 +447,9 @@
 	    </ul>
 	  </div>
     </div>
-
+   
   </div>
+</div>
   <script type="text/javascript">
 			// We only want these styles applied when javascript is enabled
 			$('div.navigation').css({'width' : '506px', 'float' : 'left','padding' : '0 10px 10px 10px', 'margin' : '0 22px'});

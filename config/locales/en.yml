@@ -486,6 +486,8 @@ en:
 
   
   ######### H ###########
+  hcard:
+    not_found: "hCard not found"
   hello: "Hello"
   help: "Help"
   help_title:
@@ -570,6 +572,7 @@ en:
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
+    title: "Invite people"
     to_accept: "To accept my invitation please visit <a href={{url}}> {{url}} </a>"
     to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
     to_space: "{{username}} invites you to space {{space}}"
@@ -763,6 +766,8 @@ en:
     deleted: "Profile deleted successfully"
     error:
       exist: "Your profile already exists"
+    hcard:
+      fill_with: "Fill your profile with your hCard"
     must_create: "Please create your profile first"
     private: "Private profile"
     private_description: "This information is visible only to the people you choose when you edit your profile"
@@ -901,6 +906,7 @@ en:
     error:
       enabled: "Space {{name}} is already enabled"
     group_not_belong: " do not belong to the same space as the group"
+    invitation:
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
     join_invitation:

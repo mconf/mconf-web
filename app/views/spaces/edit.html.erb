@@ -5,6 +5,10 @@
 
 <%= render :partial => 'admin_tabs' %>
 
+<%if params[:new_invitations]%>
+   <%=render :partial => 'new_invitation', :locals => {:checked_users => Array.new} %>
+<%end%>
+
 <div>
 	<% for performance in @performances -%>
     <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    
