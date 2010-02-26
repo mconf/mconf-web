@@ -41,7 +41,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
   $.get(route,
       {authenticity_token: "<%=form_authenticity_token()%>"},
       function(data){
-        $("#events_content").replaceWith(data);
+        $("#events_wrapper").replaceWith(data);
       }
     );
 	return(false);
@@ -57,47 +57,54 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<div id="orange_bar">
-  <ul>
-    <li class="orange_one">
-      <h3><%=t('event.new.presential')%></h3>
-      <p><%=t('event.create.info.presential.message')%></p>
-    </li>
-    <li class="orange_two">
-      <h3><%=t('event.new.meeting')%></h3>
-      <p><%=t('event.create.info.meeting.message')%></p>
-    </li>
-    <li class="orange_three">
-      <h3><%=t('event.new.conference')%></h3>
-      <p><%=t('event.create.info.conference.message')%></p>
-    </li>
-  </ul>
-	<span id="pico_naranja"></span>
-
-</div>
-
-<div id="events_content">
+<div id="events_wrapper">
 	
-  <%if !@current_events.empty?%>
-    <div id="current_events">
-      <h3><%= t('now!') %></h3>
-      <%for event in @current_events%>
-        <%= render :partial => event %>
-      <%end%>
-    </div>
-  <%end%>
+	<div id="orange_bar">
+	  <ul>
+	    <li class="orange_one">
+	      <h3><%=t('event.new.presential')%></h3>
+	      <p><%=t('event.create.info.presential.message')%></p>
+	    </li>
+	    <li class="orange_two">
+	      <h3><%=t('event.new.meeting')%></h3>
+	      <p><%=t('event.create.info.meeting.message')%></p>
+	    </li>
+	    <li class="orange_three">
+	      <h3><%=t('event.new.conference')%></h3>
+	      <p><%=t('event.create.info.conference.message')%></p>
+	    </li>
+	  </ul>
+	  <%if flash[:notice]%>
+	    <span id="pico_naranja" class="bajado"></span>
+	  <%else%>
+		<span id="pico_naranja"></span>
+	  <%end%>
+	</div>
 	
-	<div class="group_links" id="events_links">
-	  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-	  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
-	  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
-	</div>  
-	 
-	<%if params[:show] == 'past_events'%>
-			<%= render :partial => 'past_events' %>
-	<%elsif params[:show] == 'upcoming_events' %>
-		  <%= render :partial => 'upcoming_events' %>
-	<%else%>	
-		  <%= render :partial => 'all_events' %>
-	<%end%>
+	<div id="events_content">
+		
+	  <%if !@current_events.empty?%>
+	    <div id="current_events">
+	      <h3><%= t('now!') %></h3>
+	      <%for event in @current_events%>
+	        <%= render :partial => event %>
+	      <%end%>
+	    </div>
+	  <%end%>
+		
+		<div class="group_links" id="events_links">
+		  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+		  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
+		  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
+		</div>  
+		 
+		<%if params[:show] == 'past_events'%>
+				<%= render :partial => 'past_events' %>
+		<%elsif params[:show] == 'upcoming_events' %>
+			  <%= render :partial => 'upcoming_events' %>
+		<%else%>	
+			  <%= render :partial => 'all_events' %>
+		<%end%>
+	</div>
+
 </div>
