@@ -74,8 +74,9 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	      <p><%=t('event.create.info.conference.message')%></p>
 	    </li>
 	  </ul>
-	  <%if flash[:notice]%>
-	    <span id="pico_naranja" class="bajado"></span>
+
+	  <%if flash[:notice] || flash[:error] || flash[:success]%>
+	    <span id="pico_naranja" class="get_down"></span>
 	  <%else%>
 		<span id="pico_naranja"></span>
 	  <%end%>
