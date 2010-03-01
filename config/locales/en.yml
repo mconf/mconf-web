@@ -329,6 +329,7 @@ en:
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
+      define2: "Please define a schedule in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
@@ -352,6 +353,11 @@ en:
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
+    note:
+      both: "Web participation and streaming will be available at the time of the event"
+      none: "There is no streaming defined in the agenda."
+      participation: "Web participation will be available at the time of the event" 
+      streaming: "Video streaming will be available at the time of the event"     
     notification:
       attendant:
         filter: "Attendant filter"

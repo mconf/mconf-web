@@ -66,32 +66,37 @@
 		    <%if @event.web_interface? && !@event.has_streaming?%>
 				  <%= @event.web%>
 			<%else%>
-				  <%if @event.web_interface?%>
-				    <%=link_to("participate in the conference","#")%>
-				  <%end%>
-                  <%= @event.streaming(640, 385)%>
+				  <%if @event.web_interface? && !params[:web_client]%>
+				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
+					<%= @event.streaming(640, 385)%>
+				  <%elsif @event.web_interface? && params[:web_client]%>
+				    <%=link_to("close",space_event_path(@space, @event))%>
+					<%= @event.web%>
+				  <%else%>
+				    <%= @event.streaming(640, 385)%>
+				  <%end%>                  
 		    <%end%>
 		  <%end%>
 			
 	  <%if @event.future?%>         
       		<%if @event.agenda.agenda_entries.empty?%>
-			  Please define a schedule in your agenda to get web participation and streaming.
+			  <%=t('event.help.define2')%>
 			<%elsif @event.has_streaming?%>
               <div class="video_wrapper">
                 <%=image_tag("visor_video.png")%>
                 <%if @event.web_interface?%>
-				  <span>Web participation and streaming will be available at the time of the event</span>
+				  <span><%=t('event.note.both')%></span>
 			    <%else%>
-				  <span>Video streaming will be available at the time of the event</span>
+				  <span><%=t('event.note.streaming')%></span>
 			    <%end%>
               </div>
 			<%elsif @event.web_interface?%>
               <div class="video_wrapper">
                 <%=image_tag("visor_video.png")%>
-                <span>Web participation will be available at the time of the event</span>
+                <span><%=t('event.note.participation')%></span>
               </div>
 			<%else%>
-				  	There is no streaming defined in the agenda.			  
+				  	<%=t('event.note.none')%>		  
 			<%end%>
 				      
       <%end%>
