@@ -13,13 +13,26 @@ namespace :setup do
   task :development_tasks => [ :common_tasks ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_cron, :common_tasks ] do
+  task :production_tasks => [ :config_sphinx, :config_cron, :common_tasks ] do
   end
 
-  desc "All production tasks"
+  desc "All common tasks"
   task :common_tasks => [ :config_ultrasphinx, :git_submodules, "db:schema:load", "basic_data:all" ] do
   end
 
+
+  desc "Link /etc/sphinxsearch/sphinx.conf to current/config/ultrasphinx/production.conf"
+  task :config_sphinx do
+    print "* Checking /etc/sphinxsearch/sphinx.conf: "
+    sphinx_file = "/etc/sphinxsearch/sphinx.conf"
+
+    if File.exist?(sphinx_file)
+      puts "file exists."
+    else
+      `sudo ln -s #{ RAILS_ROOT }/config/ultrasphinx/production.conf #{ sphinx_file }` 
+      puts "copied."
+    end
+  end
 
   desc "Copy cron.d/vcc if it doesn't exist"
   task :config_cron do
