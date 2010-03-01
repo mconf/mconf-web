@@ -27,7 +27,7 @@
 		<%if @event.isabel_interface?%>
 	
 	    	<h5><%= t('event.connection.isabel') %>:</h5>
-		    <span>isabel://master.dit.upm.es</span>
+		    <span><%=@event.isabel_url%></span>
 	
 		<%end%>
 		<%if @event.sip_interface?%>
