@@ -13,7 +13,7 @@ set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
-set :branch, "cm"
+#set :branch, "cm"
 
 set :use_sudo, false
 
@@ -26,6 +26,7 @@ set :deploy_via, :export
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 after 'deploy:restart', 'deploy:reload_ultrasphinx'
+after 'deploy:setup', 'setup:create_shared'
 
 namespace(:deploy) do
   task :fix_file_permissions do
@@ -33,8 +34,8 @@ namespace(:deploy) do
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
-    sudo "/bin/chgrp -R www-data #{ release_path }/log/production.log"
-    run "/bin/chmod g+w #{ release_path }/log/production.log"
+    #sudo "/bin/chgrp -R www-data #{ release_path }/log/production.log"
+    #run "/bin/chmod g+w #{ release_path }/log/production.log"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
   end
 
@@ -57,6 +58,19 @@ namespace(:deploy) do
   end
 end
 
+namespace(:setup) do
+  task :create_shared do
+    run "/bin/mkdir -p #{ shared_path }/attachments"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/attachments"
+    run "/bin/mkdir -p #{ shared_path }/config"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/config"
+    run "/bin/mkdir -p #{ shared_path }/public/logos"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/public"
+    run "/usr/bin/touch #{ shared_path }/log/production.log"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/log"
+    run "/bin/chmod -R g+w #{ shared_path }/log"
+  end
+end
 
 role :app, servers[current_env]
 role :web, servers[current_env]
