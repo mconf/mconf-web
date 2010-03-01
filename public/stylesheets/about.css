@@ -319,6 +319,12 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .screencast{overflow:hidden;}
 .contact{clear:both;}
 
+#carrusel #carrusel_content {
+  display:block;
+  overflow:auto;
+  position:relative;
+}
+
 .video_preview{
 	float:left;
 	position:relative;
@@ -341,6 +347,14 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 	margin-bottom:3px;
 	width: 226px;
 }
+
+.video_description {
+float:right;
+padding-left:5px;
+width:127px;
+}
+
+.video_thumbnail{float:left;}
 
 .video_preview a.entry_video_link, .video_preview_sidebar a.entry_video_link{
 	opacity:0.7;

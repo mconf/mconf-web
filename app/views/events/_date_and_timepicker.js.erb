@@ -14,18 +14,13 @@ $(".no_javascript").remove();
 
 
 $("#start_datepicker").datepicker({
-   dateFormat: 'd M yy',
-   onSelect: function(dateText) {
-	 replace_invitation();
-   }
+   dateFormat: 'd M yy'
 });
 
 
 $('.timepicker').timeEntry({show24Hours: true, showSeconds: false, spinnerImage: '../../images/up-down.png', 
-    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true }).change(function(){
-	replace_invitation();
-	}	
-	);
+    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true }
+ );
 
 start_timepicker_setTime = function(){
   $("#start_timepicker").timeEntry('setTime');
