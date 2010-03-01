@@ -62,10 +62,13 @@ namespace(:setup) do
   task :create_shared do
     run "/bin/mkdir -p #{ shared_path }/attachments"
     sudo "/bin/chgrp -R www-data #{ shared_path }/attachments"
+    run "/bin/chmod -R g+w #{ shared_path }/attachments"
     run "/bin/mkdir -p #{ shared_path }/config"
     sudo "/bin/chgrp -R www-data #{ shared_path }/config"
+    run "/bin/chmod -R g+w #{ shared_path }/config"
     run "/bin/mkdir -p #{ shared_path }/public/logos"
     sudo "/bin/chgrp -R www-data #{ shared_path }/public"
+    run "/bin/chmod -R g+w #{ shared_path }/public"
     run "/usr/bin/touch #{ shared_path }/log/production.log"
     sudo "/bin/chgrp -R www-data #{ shared_path }/log"
     run "/bin/chmod -R g+w #{ shared_path }/log"
