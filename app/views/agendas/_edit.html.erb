@@ -40,15 +40,16 @@
 			var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=" + <%=i%>;
       $.getScript(route);
     });
-    
-    $("input.agenda_new_close").livequery('click',function(){
-	  $('.margin_up#add_entry<%=i%>').show();
-      $(".agenda_new_entry").empty();
-    });
        
   <%end%>
 
 	
+    
+    $("input.agenda_new_close").livequery('click',function(){
+	  var id = $(this).attr('id');
+	  $('#add_entry'+ id).show();
+      $(".agenda_new_entry").empty();
+    });
 	
 	// New agenda entry view
 

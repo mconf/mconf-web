@@ -427,7 +427,7 @@ a.login{
 
 /*DENTRO DE LA CABECERA: LOGIN*/
 
-.div_login{	
+.div_login, .div_login_openid {	
 	color:#FFF;
 	width:580px;
 	display:inline-block;
@@ -438,43 +438,43 @@ a.login{
 	font-weight:normal;
 }
 
-.div_login #username{
+.div_login #username, .div_login_openid #username{
 	height:10px;
 }
 
-.div_login .input_username{
+.div_login, .div_login_openid, .input_username{
 	position:relative;
 	padding: 0px;
 	border: 0px;
 	
 }
 
-.div_login #login_button{
+.div_login #login_button, .div_login_openid #login_button,{
 	width:61px;
 	height:18px;
 	
 }
-.div_login a.login{
+.div_login a.login, .div_login_openid a.login{
 	background-color:#497FC1;
 	padding-right:2px;
 	padding-left:2px;
 	color:white;
 }
 
-.div_login #subtexto{
+.div_login #subtexto, .div_login_openid #subtexto{
 	padding-top: 10px;
 	height:12px;	
 	font-size: 10px;
   font-family:Helvetica;
 }
 
-.div_login a{
+.div_login a, .div_login_openid a{
 	color:#FFFFFF;
 	padding:0px 7px;
 	text-decoration:underline;	
 }
 
-.div_login .a_border{
+.div_login .a_border, .div_login_open_id .a_border{
 	border-right:thin solid;
 	padding:0px 7px;
 	text-decoration:underline;	

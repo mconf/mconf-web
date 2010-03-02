@@ -3,7 +3,7 @@
 <%if @event.authorize?(:update, :to => current_user)%> 
   $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
-	tooltip   : '<%= t('dblclick')%>',
+	    tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
@@ -23,6 +23,10 @@
    edit_streaming = function(){
      $('#streaming_url_value').dblclick();
    };
+   
+   $('#add_first_entry').click(function(){
+     $('#add_entry0').click();
+   });
 <%end%>
 
 
@@ -61,9 +65,11 @@
 				  <%= @event.editor%>   
 				<%end%>				     
       <%end%>
-			
-      <%if @event.is_happening_now?%>				 
-		    <%if @event.web_interface? && !@event.has_streaming?%>
+
+      <%if @event.is_happening_now?%>		
+	        <%if @event.agenda.agenda_entries.empty?%>
+				  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
+		    <%elsif @event.web_interface? && !@event.has_streaming?%>
 				  <%= @event.web%>
 			<%else%>
 				  <%if @event.web_interface? && !params[:web_client]%>
@@ -80,7 +86,7 @@
 			
 	  <%if @event.future?%>         
       		<%if @event.agenda.agenda_entries.empty?%>
-			  <%=t('event.help.define2')%>
+			  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
 			<%elsif @event.has_streaming?%>
               <div class="video_wrapper">
                 <%=image_tag("visor_video.png")%>

@@ -47,25 +47,25 @@
     <label for="Location"><%= t('event.location') %>:</label>
     <%= f.text_field :location, :size =>25  %>
   </div>
-   <div class="margin-up">
-     <strong><span>2. <%= t('event.select_date')%></span></strong>	
-   </div>
   <%if (@event.vc_mode == Event::VC_MODE.index(:in_person)) || @event.agenda.agenda_entries.empty?%>
-  <div id="expanded_date" class="javascript">
-    <div class="no_javascript">
-    <ul>
-      <li><%= t('date.start') %></li>
-	  <li><%=f.datetime_select :start_date%></li>
-   	  <li><%= t('date.end') %></li>
-	  <li><%=f.datetime_select :end_date%></li>
-	</ul>
-    </div>
-  </div>
-	<%end%>
+	  <div class="margin-up">
+	     <strong><span>2. <%= t('event.select_date')%></span></strong>	
+	  </div>  
+	  <div id="expanded_date" class="javascript">
+	    <div class="no_javascript">
+	    <ul>
+	      <li><%= t('date.start') %></li>
+		  <li><%=f.datetime_select :start_date%></li>
+	   	  <li><%= t('date.end') %></li>
+		  <li><%=f.datetime_select :end_date%></li>
+		</ul>
+	    </div>
+	  </div>
+  <%end%>
   <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
 	  <div id="extra-info">
 	    <div class="margin-up">
-	      <strong><span>3. <%= t('event.enable.participation')%></span></strong>	
+	      <strong><span>2. <%= t('event.enable.participation')%></span></strong>	
 	    </div>
 	    <div class="checkbox_event">
 		  <%=f.check_box :isabel_interface,:class=>"icon", :checked => @event.isabel_interface?%>
