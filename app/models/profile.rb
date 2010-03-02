@@ -20,7 +20,7 @@ require 'mofo'
 
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
-
+  
   belongs_to :user
   accepts_nested_attributes_for :user
 

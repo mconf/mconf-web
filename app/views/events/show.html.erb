@@ -150,6 +150,7 @@
    	<%if params[:show_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
 	  <%else%>
+
       <%if @space.authorize?([:create, :content],:to => current_user)%>
   	   <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
@@ -179,12 +180,9 @@
         <div class="icalendar_content">
 					<p><%=t("icalendar.instruction") %></p>
 					<% form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
-	          <%= file_field 'icalendar_file', 'data' , :class => "browse" %>
+	          <%= f.file_field :icalendar_file %>
 	          <div class="margin-up">
-	            <% submit_tag t("icalendar.add"), :id => 'icalendar_add',:name => 'add', :class => "blue_button basic_button" %>
-	            <% submit_tag t("icalendar.overwrite"), :id => 'icalendar_overwrite', :name => 'overwrite', :class => "basic_button blue_button" %>
-	            <button type="submit" class="basic_button blue_button" name="add" value="overwrite"><%=t("icalendar.add")%></button>
-	            <button type="submit" class="basic_button blue_button" name="overwrite" value="overwrite"><%=t("icalendar.overwrite")%></button>
+				<button type="submit" class="basic_button blue_button"><%=t("icalendar.add")%></button>
 	          </div>
 	        <% end %>
 				</div>
