@@ -329,7 +329,8 @@ en:
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
-      define2: "Please define a schedule in your agenda to get web participation and streaming."
+      define2: " define a schedule "
+      define3: "in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
@@ -630,6 +631,7 @@ en:
     changed: "Application language changed to " 
     error: "Unable to change application language to "
   login: "Login"
+  login_traditional: "User/Password login"
   login_or_register: "Log in / Register"
   login_request: "You need to be logged in to "
   logo:
@@ -704,6 +706,7 @@ en:
   openid:
     enter: "Enter your OpenID"
     have: "Do you have an OpenID? Click on the logo!"
+    login: "Login with OpenID"
   or: "or"
   organization: "Organisation"
   organizer: "Organisers"
@@ -739,6 +742,7 @@ en:
   photos: "Pictures"
   photos_view>>: "pictures view >>"
   place: "Place"
+  please: "Please"
   popularity: "Popularity"
   post:
     created: "Post created"
