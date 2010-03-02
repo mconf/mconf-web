@@ -21,13 +21,6 @@ class User < ActiveRecord::Base
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true
 
-  # CAS Authentication::
-  #
-  #acts_as_agent :authentication => [:cas ],
-  #              :cas_filter => {
-  #                 :cas_base_url => "https://kimi.dit.upm.es/cas/"
-  #              }
-
   validates_presence_of :email
 
   acts_as_stage
