@@ -21,12 +21,14 @@
              <% form_tag session_url(:protocol => current_site.protocol) do -%>
                 <span>
                  <label for="login"><%= t('username') %></label>
+								</span>
                  <%= text_field_tag 'login', params[:login], :class=>"input_username" %>
-                </span>
+                
                 <span>
                   <label for="password"><%= t('password.one') %></label>
+								</span>
                   <%= password_field_tag 'password', nil, :class=>"input_username" %>
-                </span>
+                
                 <button type="submit" class="other_blue"><%=t("login")%></button>
              <% end -%>
                  
@@ -38,23 +40,22 @@
          </div> 
 		 
 		 <div class="div_login_openid" style="display:none">
-             <div class="openid_form">
-              <% form_tag session_url(:protocol => current_site.protocol) do -%>
- 	  			<div id="openid_label">
- 	  				<span>
- 	  					<%= t('openid.enter') %> 
-						<%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag t('login') %>
-					</span>
-				</div>   
-			  <% end -%> 		  
-  		    </div>	                 
-             <div id="subtexto">
-               <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %> 
-							 <span>|</span>
-               <%= link_to_function t('login_traditional'), "show_user_password_form()" %>
-             </div>  
-         </div> 
-        <br class="clearfloat" /> 
+       <div class="openid_form">
+         <% form_tag session_url(:protocol => current_site.protocol) do -%>
+			     <div id="openid_label">
+				     <span><%= t('openid.enter') %></span>
+			       <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
+						 <button type="submit" class="other_blue"><%=t("login")%></button>
+		       </div>   
+			   <% end -%> 		  
+  		 </div>	                 
+       <div id="subtexto">
+         <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %> 
+				 <span>|</span>
+         <%= link_to_function t('login_traditional'), "show_user_password_form()" %>
+       </div>  
+     </div> 
+     <br class="clearfloat" /> 
   
         <% end %>
         
