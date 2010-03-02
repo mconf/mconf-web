@@ -38,7 +38,7 @@
 	<%end%>
 	
 	$("#change_logo").click(function(){
-	  $('#assistance_info').hide();
+
 	  $('#new_reply').hide();	
 	  $('#carrusel').hide();  
 	  $("#import_icalendar").hide();
@@ -145,48 +145,52 @@
 
 
 <% content_for :sidebar do  %>
+
   <div id="full_sidebar">
-  	
-  	<%if event.authorize?(:update, :to => current_user) %>
-         <div id="update_logo" class="update_logo" style="display:none">
-           <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-           <% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-             <div><%= f.file_field :media, :id => 'logo_media' %></div>   
-             <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-           <%end%>
-         </div>
-         <div id="import_icalendar" class="import_icalendar"  style="display:none" >
-             <h3><%=t("icalendar.import") %></h3>
-             <% form_for @event.agenda, :url => space_event_agenda_path(@space, event), :html => { :multipart => true, :method => :post } do |f| %>
-             <%= file_field 'icalendar_file', 'data' , :class => "browse" %>
-             <div class="margin-up">
-                 <% submit_tag t("icalendar.add"), :id => 'icalendar_add',:name => 'add', :class => "blue_button basic_button" %>
-                 <% submit_tag t("icalendar.overwrite"), :id => 'icalendar_overwrite', :name => 'overwrite', :class => "basic_button blue_button" %>
-				 <button type="submit" class="basic_button blue_button" name="add" value="overwrite"><%=t("icalendar.add")%></button>
-				 <button type="submit" class="basic_button blue_button" name="overwrite" value="overwrite"><%=t("icalendar.overwrite")%></button>
-				 
-             </div>
-             <%=t("icalendar.instruction") %>
-             <% end %>
-         </div>
-     <%end%>
-  	<%if params[:show_video]%>
-	  <%= render :partial => "agendas/show_recordings_sidebar" %>
-	<%else%>
+   	<%if params[:show_video]%>
+	   <%= render :partial => "agendas/show_recordings_sidebar" %>
+	  <%else%>
       <%if @space.authorize?([:create, :content],:to => current_user)%>
-  	    <%if params[:edit_event]%>
+  	   <%if params[:edit_event]%>
      	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	    <%elsif params[:edit_comment]%>
-				 <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
-	    <%else%>
-		  <%= render :partial => 'participants' %>
-	      <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
-		    <%= render :partial => 'connection_info'%>
-		  <%end%>
-  	    <%end%>
+	     <%elsif params[:edit_comment]%>
+			   <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
+	     <%else%>
+		     <%= render :partial => 'participants' %>
+	       <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
+		       <%= render :partial => 'connection_info'%>
+		     <%end%>
+  	   <%end%>
       <%end%>
-	<%end%>    
-  </div> 
+	  <%end%>  
+        
+		<%if event.authorize?(:update, :to => current_user) %>
+      <div id="update_logo" class="update_logo margin-up" style="display:none">
+        <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
+	       <div class="logo_content">
+					<% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+	          <div><%= f.file_field :media, :id => 'logo_media' %></div>   
+	          <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+	        <%end%>
+				 </div>
+      </div>
+      <div id="import_icalendar" class="import_icalendar margin-up"  style="display:none" >
+        <h3><%=t("icalendar.import") %></h3>
+        <div class="icalendar_content">
+					<p><%=t("icalendar.instruction") %></p>
+					<% form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
+	          <%= file_field 'icalendar_file', 'data' , :class => "browse" %>
+	          <div class="margin-up">
+	            <% submit_tag t("icalendar.add"), :id => 'icalendar_add',:name => 'add', :class => "blue_button basic_button" %>
+	            <% submit_tag t("icalendar.overwrite"), :id => 'icalendar_overwrite', :name => 'overwrite', :class => "basic_button blue_button" %>
+	            <button type="submit" class="basic_button blue_button" name="add" value="overwrite"><%=t("icalendar.add")%></button>
+	            <button type="submit" class="basic_button blue_button" name="overwrite" value="overwrite"><%=t("icalendar.overwrite")%></button>
+	          </div>
+	        <% end %>
+				</div>
+      </div>
+    <%end%>
+	</div> 
    
 <%end%>
 
