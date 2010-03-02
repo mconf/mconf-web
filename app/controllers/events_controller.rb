@@ -94,7 +94,7 @@ class EventsController < ApplicationController
       #array of users of the space minus the users that has already been invited
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
-    debugger
+
     if params[:show_video]
       if @event.agenda.present?
         @video_entries = @event.agenda.get_videos
