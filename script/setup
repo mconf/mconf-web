@@ -2,12 +2,12 @@
 
 LINUX_PACKAGES = {
   :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl aspell-es aspell-en),
-  :production => %w( awstats ),
+  :production => %w( awstats logrotate),
   :development => %w( ),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
   :sqlite => %w( libsqlite3-dev )
 }
-RUBY_GEMS_VERSION = "1.3.5"
+RUBY_GEMS_VERSION = "1.3.6"
 RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
 RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/60718/#{ RUBY_GEMS_PACKAGE }"
 

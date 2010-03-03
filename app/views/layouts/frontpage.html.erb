@@ -17,7 +17,17 @@
    
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing' %>
     <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {
+      show_open_id_form = function(){
+	  	$(".div_login").hide();
+		$(".div_login_openid").show();
+	  };
+	  
+	  show_user_password_form = function(){
+	  	$(".div_login_openid").hide();
+		$(".div_login").show();
+	  };
+	  
+	  $(document).ready(function() {
 				<%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
@@ -27,29 +37,29 @@
   </head>
 
   <body>
-	<div id="site">
-	  <%= render :partial => "layouts/frontpage_global" %>
-
-	  <div id="home">
-		<div id="header">
-		  <%= render :partial => "layouts/frontpage_header" %>
-		</div>
-		<div id="content">	
-	       
-			
-	          <% flash.each do |name, msg| %>
-		      <div class="<%= name %>"><%= msg %></div>
-	          <% end %>
+		<div id="site">
+		  <%= render :partial => "layouts/frontpage_global" %>
 	
-		      <%= yield %>
-				
-			 	</div>
-		  
-      </div>
-	  <div id="footer-wrapper">
-<%= render :partial => "layouts/footer" %>
-</div>  
-	 </div>
+		  <div id="home">
+				<div id="header">
+				  <%= render :partial => "layouts/frontpage_header" %>
+				</div>
+				<div id="content">	
+			       
+					
+			          <% flash.each do |name, msg| %>
+				      <div class="<%= name %>"><%= msg %></div>
+			          <% end %>
+			
+				      <%= yield %>
+						
+				</div>
+	    </div>
+		  <div id="footer-wrapper">
+		   <%= render :partial => "layouts/footer" %>
+			</div>  
+	   </div>
+	 
 	 <%if current_site.domain == "vcc.dit.upm.es"%>
 			<script type="text/javascript">
 				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -62,5 +72,6 @@
 				} catch(err) {}
 			</script>
 		<%end%>
-  </body>
+  
+	</body>
 </html>

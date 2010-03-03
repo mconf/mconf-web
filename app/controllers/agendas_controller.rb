@@ -19,6 +19,7 @@
 class AgendasController < ApplicationController
   before_filter :space!
   before_filter :event
+  before_filter :agenda
   
   # GET /agenda/edit
   def edit
@@ -28,25 +29,54 @@ class AgendasController < ApplicationController
   # POST /agendas
   # POST /agendas.xml
   def create
-    if params[:icalendar_file].present?
-     #flash[:notice] = t('icalendar.succes_import')
-
-     import_icalendar
-          
-     redirect_to(space_event_path(@space, @event))
-     return
-    end
     
-   respond_to do |format|
-        format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
-   end
 
+#    if params[:icalendar_file].present?
+#     import_icalendar
+#     redirect_to(space_event_path(@space, @event))
+#     return
+#    end
+
+  # respond_to do |format|
+   #    format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
+  # end
+
+
+    respond_to do |format|
+      #if @event.update_attributes(params[:agenda])
+      #if true
+      if @agenda.update_attributes(params[:agenda])
+        if !@agenda.notices.nil?
+          flash[:notice] = @agenda.notices
+        end
+        format.html { redirect_to(space_event_path(@space, @event)) }
+      else
+        flash[:error] = @agenda.errors.to_xml
+        format.html { redirect_to(space_event_path(@space, @event)) }
+        #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
+      end
+    end
 
     
   end
   
-private
   
+  def update
+        respond_to do |format|
+      #if @event.update_attributes(params[:agenda])
+      #if true
+      if @agenda.update_attributes(params[:agenda])
+        format.html { redirect_to(space_event_path(@space, @event)) }
+      else
+        format.html { redirect_to(space_event_path(@space, @event)) }
+        #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
+      end
+    end
+  end
+  
+private
+
+ 
   def event
     @event = Event.find_by_permalink(params[:event_id])
   end
@@ -55,6 +85,9 @@ private
     @space = Space.find_by_permalink(params[:space_id])
   end
 
+  def agenda
+    @agenda = @event.agenda
+  end
 
   
 =begin
@@ -128,106 +161,5 @@ private
 
 
 
-def import_icalendar
-  
-    begin
-      @icalendar = params[:icalendar_file][:data]    
-      @icalendar = Vpim::Icalendar.decode(@icalendar)
-      overwrite = false;     
-      
-      if params[:overwrite].present? #overwrite
-        overwrite = true;     
-        @event.agenda.destroy    
-        agenda = Agenda.new()
-        @event.agenda = agenda
-      else #o just add
-        agenda = @event.agenda
-      end
-      
-      has_updated = false;
-      has_conflict = false;
-      has_outofbounds = false;
-      updated_entries = Array.new();
-      conflictive_entries = Array.new();
-      outofbounds_entries = Array.new();
-      total_entries = Array.new();
-      
-      @icalendar.each do |cal|
-     
-        entries = cal.events
-        
-        
-        entries.each do |e|
-          
-          if !overwrite && !(agenda_entry = AgendaEntry.find(:first, :conditions => ["agenda_id = ? AND uid = ?", agenda.id, e.uid])).nil?
-            if agenda_entry.updated_at == agenda_entry.created_at #Not modified on VCC
-              has_updated = true;
-              updated_entries.push(agenda_entry.title)
-              agenda_entry.destroy; #update
-            else #Modified on VCC, conflict and error
-              has_conflict = true;
-              conflictive_entries.push(agenda_entry.title)
-              next;
-            end
-          end
-          
-                             
-          agenda_entry = AgendaEntry.new()
-          
-          agenda_entry.agenda = agenda
-          
-          agenda_entry.title = e.summary.to_s
-          agenda_entry.description = e.description.to_s
-          agenda_entry.start_time = e.dtstart.to_s
-          agenda_entry.end_time = e.dtend.to_s
-          agenda_entry.speakers = e.organizer.to_s
-          agenda_entry.uid = e.uid        
-          
-          if (!((@event.start_date < agenda_entry.start_time)&&(@event.end_date > agenda_entry.end_time)))
-            has_outofbounds = true;
-            outofbounds_entries.push(agenda_entry.title)
-            next;
-          end           
-           
-          agenda_entry.save!
-          total_entries.push(agenda_entry.title);
-         
-        end     
-        
-      end
-      
-    flash[:notice] = t("icalendar.succes_import")  + "<br>"
-    
-    if has_updated && !overwrite
-      if updated_entries.length == 1 
-        flash[:notice] = flash[:notice] + "<br>" + t("icalendar.updated1")
-      else        
-        flash[:notice] = flash[:notice] + "<br>" + updated_entries.length.to_s + t("icalendar.updatedn")
-      end 
-    end    
-    
-    if has_conflict && !overwrite
-      if conflictive_entries.length == 1 
-        flash[:notice] = flash[:notice] + "<br>" + t("icalendar.conflictive1")
-      else        
-        flash[:notice] = flash[:notice] + "<br>" + conflictive_entries.length.to_s + t("icalendar.conflictiven")
-      end 
-    end 
-    
-    if has_outofbounds
-      if outofbounds_entries.length == 1 
-        flash[:notice] = flash[:notice] + "<br>" + t("icalendar.outbounds1")
-      else        
-        flash[:notice] = flash[:notice] + "<br>" + outofbounds_entries.length.to_s + t("icalendar.outboundsn")
-      end 
-    end 
- 
-    flash[:notice] = flash[:notice] + "<br>"+ t("icalendar.importMessage1") + (outofbounds_entries.length + conflictive_entries.length + total_entries.length).to_s +
-     t("icalendar.importMessage2") + total_entries.length.to_s  + t("icalendar.importMessage3")
 
-  
-    rescue Exception => exc
-      flash[:error] = t("icalendar.error_import") + "<br>" + t("icalendar.importMessage4") + exc.message
-    end
-  end
 end

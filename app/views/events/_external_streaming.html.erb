@@ -3,7 +3,7 @@
 <%if @event.authorize?(:update, :to => current_user)%> 
   $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
         method : 'PUT',
-	tooltip   : '<%= t('dblclick')%>',
+	    tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
@@ -23,6 +23,10 @@
    edit_streaming = function(){
      $('#streaming_url_value').dblclick();
    };
+   
+   $('#add_first_entry').click(function(){
+     $('#add_entry0').click();
+   });
 <%end%>
 
 
@@ -58,42 +62,48 @@
         <%= @event.player%>
 				<%if @event.authorize?(:update, :to => current_user)%>
 				  <%=link_to("Edit Video","#")%>
-				<%end%>
-				<%= @event.editor%>        
+				  <%= @event.editor%>   
+				<%end%>				     
       <%end%>
-			
-      <%if @event.is_happening_now?%>				 
-		    <%if @event.web_interface? && !@event.has_streaming?%>
+
+      <%if @event.is_happening_now?%>		
+	        <%if @event.agenda.agenda_entries.empty?%>
+				  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
+		    <%elsif @event.web_interface? && !@event.has_streaming?%>
 				  <%= @event.web%>
-				<%else%>
-				  <%if @event.web_interface?%>
-				    <%=link_to("participate in the conference","#")%>
-				  <%end%>
-          <%= @event.streaming%>
-			  <%end%>
+			<%else%>
+				  <%if @event.web_interface? && !params[:web_client]%>
+				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
+					<%= @event.streaming(640, 385)%>
+				  <%elsif @event.web_interface? && params[:web_client]%>
+				    <%=link_to("close",space_event_path(@space, @event))%>
+					<%= @event.web%>
+				  <%else%>
+				    <%= @event.streaming(640, 385)%>
+				  <%end%>                  
+		    <%end%>
 		  <%end%>
 			
-			<%if @event.future?%>         
-        
-				<%if @event.agenda.agenda_entries.empty?%>
-				  Please define a schedule in your agenda to get web participation and streaming.
-				<%elsif @event.has_streaming?%>
-          <div class="video_wrapper">
-            <%=image_tag("visor_video.png")%>
-            <%if @event.web_interface?%>
-						  <span>Web participation and streaming will be available at the time of the event</span>
-						<%else%>
-						  <span>Video streaming will be available at the time of the event</span>
-						<%end%>
-          </div>
-				<%elsif @event.web_interface?%>
-          <div class="video_wrapper">
-            <%=image_tag("visor_video.png")%>
-            <span>Web participation will be available at the time of the event</span>
-          </div>
-				<%else%>
-				  	There is no streaming defined in the agenda.			  
-				<%end%>
+	  <%if @event.future?%>         
+      		<%if @event.agenda.agenda_entries.empty?%>
+			  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
+			<%elsif @event.has_streaming?%>
+              <div class="video_wrapper">
+                <%=image_tag("visor_video.png")%>
+                <%if @event.web_interface?%>
+				  <span><%=t('event.note.both')%></span>
+			    <%else%>
+				  <span><%=t('event.note.streaming')%></span>
+			    <%end%>
+              </div>
+			<%elsif @event.web_interface?%>
+              <div class="video_wrapper">
+                <%=image_tag("visor_video.png")%>
+                <span><%=t('event.note.participation')%></span>
+              </div>
+			<%else%>
+				  	<%=t('event.note.none')%>		  
+			<%end%>
 				      
       <%end%>
 

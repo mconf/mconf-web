@@ -94,7 +94,7 @@ class EventsController < ApplicationController
       #array of users of the space minus the users that has already been invited
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
-    
+
     if params[:show_video]
       if @event.agenda.present?
         @video_entries = @event.agenda.get_videos
@@ -190,6 +190,7 @@ class EventsController < ApplicationController
         if params[:organizers] && params[:organizers][:name]
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
+        
         format.js{
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
@@ -218,6 +219,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.destroy
+        flash[:success] = t('event.deleted')
         format.html { redirect_to(space_events_path(@space)) }
         format.xml  { head :ok }
       else

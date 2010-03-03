@@ -21,19 +21,19 @@
 	  	<%if @event.web_interface?%>
 	
 	    	<h5><%= t('event.connection.web') %>:</h5>
-		    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event)%></span>
+		    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event, :web_client=>true)%></span>
 	
 		<%end%>
 		<%if @event.isabel_interface?%>
 	
 	    	<h5><%= t('event.connection.isabel') %>:</h5>
-		    <span>isabel://master.dit.upm.es</span>
+		    <span><%=@event.isabel_url%></span>
 	
 		<%end%>
 		<%if @event.sip_interface?%>
 	
 	    	<h5><%= t('event.connection.sip') %>:</h5>
-		    <span>mcux.dit.upm.es</span>
+		    <span><%=@event.sip_url%></span>
 	
 		<%end%>
   <%end%>

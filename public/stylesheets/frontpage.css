@@ -195,7 +195,7 @@ body .icon{margin-bottom:-3px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
 #feedback:hover,#about:hover{background:#275b96;}
 
-#header{background-color:#f8f9f9;padding-top:1em;height:68px;margin-bottom:1em;padding-bottom:1em;}
+#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;}
 #logo{float:left;}
 #logo{width:192px;}
 #search{float:right;}
@@ -287,7 +287,7 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .help-title h3{margin-top:0;padding-top:0.5em;color:#244974;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
-#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
+#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:0.75em 0;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
 #footer ul li{display:inline-block;margin-right:0.5em;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
@@ -342,6 +342,7 @@ a.login{
 #share ul, #meet ul, #collaborate ul{
 	list-style:none;
 	font-size:14px;
+	margin-top:3px;
 }
 #share ul li img, #meet ul li img, #collaborate ul li img, #right_actions ul img{
 	padding-right:5px;
@@ -427,7 +428,7 @@ a.login{
 
 /*DENTRO DE LA CABECERA: LOGIN*/
 
-.div_login{	
+.div_login, .div_login_openid {	
 	color:#FFF;
 	width:580px;
 	display:inline-block;
@@ -436,48 +437,64 @@ a.login{
 	padding-top: 5px;
 	font-family:Helvetica;
 	font-weight:normal;
+	margin-top:3px;
 }
 
-.div_login #username{
+.div_login #username, .div_login_openid #username{
 	height:10px;
 }
 
-.div_login .input_username{
+.div_login, .div_login_openid, .input_username{
 	position:relative;
 	padding: 0px;
 	border: 0px;
 	
 }
 
-.div_login #login_button{
+.div_login #login_button, .div_login_openid #login_button,{
 	width:61px;
 	height:18px;
 	
 }
-.div_login a.login{
+.div_login a.login, .div_login_openid a.login{
 	background-color:#497FC1;
 	padding-right:2px;
 	padding-left:2px;
 	color:white;
 }
 
-.div_login #subtexto{
+.div_login #subtexto, .div_login_openid #subtexto{
 	padding-top: 10px;
 	height:12px;	
-	font-size: 10px;
+	font-size: 11px;
   font-family:Helvetica;
 }
 
-.div_login a{
+#global .div_login a,#global .div_login_openid a{
 	color:#FFFFFF;
+	padding:0px 7px;	
+}
+
+#global .div_login a:hover,#global .div_login_openid a:hover{text-decoration:underline;}
+
+.div_login .a_border, .div_login_open_id .a_border{
+	border-right:thin solid;
 	padding:0px 7px;
 	text-decoration:underline;	
 }
 
-.div_login .a_border{
-	border-right:thin solid;
-	padding:0px 7px;
-	text-decoration:underline;	
+div#openid_label{
+	font-size:12px;
+	line-height:135%;
+	font-family:"Helvetica";
+}
+
+div#openid_label input#openid_identifier{
+	border:0 none;
+	padding:0 0 0 16px;
+	margin-right:0;
+	position:relative;
+	background:#fff url("../images/open-id-logos/openid1.png") no-repeat scroll left center;
 }
 
 /**************BÚSQUEDA*****************/
@@ -613,13 +630,23 @@ div {
 #caracteristics ul{
 	list-style: none;
 	margin: 0px;
+	float:left;
 	
 }
 #caracteristics ul li{
 	font-size:13px;
 	font-family: Helvetica;
-	
+	line-height:18px;
+	padding:7px 0 8px 30px;	
 }
+
+li.conferences{background: transparent url("../images/right_videoconference.gif") no-repeat left center;}
+li.participants{background: transparent url("../images/right_webcam.gif") no-repeat left center;}
+li.organizers{background: transparent url("../images/right_organizers.gif") no-repeat left center;}
+li.spaces{background: transparent url("../images/right_people.gif") no-repeat left center;}
+li.comments{background: transparent url("../images/right_comments.gif") no-repeat left center;}
+li.tags{background: transparent url("../images/right_tags.gif") no-repeat left center;}
+li.networks{background: transparent url("../images/right_social.gif") no-repeat left center;}
 
 /****************FOOTER**********************/ 
 
@@ -703,7 +730,6 @@ button.other_blue{
   margin-right:4px;
 	color:white;
 	padding:1px;
-	font-weight:normal;
-	font-size:10px;
+	font-weight:normal;11px;
 	font-family:Verdana;
 }

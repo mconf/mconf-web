@@ -296,6 +296,7 @@ en:
           message: "Advanced, big meetings. TV-likeproduction managed by an operator." 
       title: "Create new event"
     created: "Event created successfully"
+    deleted: "Event deleted successfully"
     description:
       add: "Add description."
       edit: "Edit description"
@@ -329,6 +330,8 @@ en:
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
+      define2: " define a schedule "
+      define3: "in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
@@ -352,6 +355,11 @@ en:
     no_events: "You have no events"
     none_coming: "No coming events"
     not_attend: "Not attending"
+    note:
+      both: "Web participation and streaming will be available at the time of the event"
+      none: "There is no streaming defined in the agenda."
+      participation: "Web participation will be available at the time of the event" 
+      streaming: "Video streaming will be available at the time of the event"     
     notification:
       attendant:
         filter: "Attendant filter"
@@ -529,23 +537,23 @@ en:
     
   ######### I ###########
   icalendar:
+
     add: "Update and Add new entries"
-    conflictive1: "One entry of your iCalendar was on the Vcc application and has been modified. You must update it manually to avoid problems"
-    conflictive1: " entries of your iCalendar were on the Vcc application and have been modified. You must update them manually to avoid problems"
-    error_import: "An error ocurred while importing the iCalendar"
+    conflictive1: "One entry of your iCalendar was on the Vcc application and has been modified. You must update it manually to avoid problems. "
+    conflictiven: " entries of your iCalendar were on the Vcc application and have been modified. You must update them manually to avoid problems. "
+    error_import: "An error ocurred while importing the iCalendar."
     export: "Export iCalendar"
     import: "Import iCalendar"
-    instruction: "Use Add to add new entries to the current agenda and Overwrite to replace the entire agenda with the iCalendar entries"
-    outbounds1: "One entry of your iCalendar doesn't match in the event dates and wasn't imported"
-    outboundsn: " entries of your iCalendar don't match in the event dates and weren't imported"  
-    overwrite: "Overwrite all entries"      
+    instruction: "Use to add new entries to the current agenda with the iCalendar. "
+    outbounds1: "One entry of your iCalendar doesn't match in the event dates and wasn't imported. "
+    outboundsn: " entries of your iCalendar don't match in the event dates and weren't imported. "  
     succes_import: "iCalendar was successfully imported."
-    updated1: "One entry of your iCalendar were already on your event agenda and were updated"
-    updatedn: " entries of your iCalendar were already on your event agenda and were updated"
+    updated1: "One entry of your iCalendar were already on your event agenda and were updated. "
+    updatedn: " entries of your iCalendar were already on your event agenda and were updated. "
     importMessage1: "A total of "
-    importMessage2: " were read from your iCalendar and "
-    importMessage3: " were saved"
-    importMessage4: "Debug: "
+    importMessage2: " were read from your iCalendar."
+    importMessage3: " of them were saved or updated correctly."
+    report: "Report: "
   im: "Instant Messaging"
   inbox: 
     one: "Inbox ({{checked}})"
@@ -624,6 +632,7 @@ en:
     changed: "Application language changed to " 
     error: "Unable to change application language to "
   login: "Login"
+  login_traditional: "User/Password login"
   login_or_register: "Log in / Register"
   login_request: "You need to be logged in to "
   logo:
@@ -698,6 +707,7 @@ en:
   openid:
     enter: "Enter your OpenID"
     have: "Do you have an OpenID? Click on the logo!"
+    login: "Login with OpenID"
   or: "or"
   organization: "Organisation"
   organizer: "Organisers"
@@ -733,6 +743,7 @@ en:
   photos: "Pictures"
   photos_view>>: "pictures view >>"
   place: "Place"
+  please: "Please"
   popularity: "Popularity"
   post:
     created: "Post created"
