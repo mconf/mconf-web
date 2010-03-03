@@ -149,7 +149,27 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def recording?
-   cm_session.try(:recording?)
+    if embedded_video.present?
+      return true
+    else
+      return cm_session.try(:recording?)
+    end   
+  end
+  
+  def thumbnail
+    if video_thumbnail
+      return video_thumbnail
+    else
+      "default_background.jpg"
+    end
+  end
+  
+  def video_player
+    if embedded_video
+      return embedded_video
+    else
+      return player
+    end
   end
   
   def streaming?
@@ -172,7 +192,7 @@ class AgendaEntry < ActiveRecord::Base
   def player
     begin
       cm_player_session ||= ConferenceManager::PlayerSession.find(:one,:from=>"/events/#{self.agenda.event.cm_event_id}/sessions/#{self.cm_session.id}/player")
-      cm_player.html
+      cm_player_session.html
     rescue
       nil
     end
