@@ -190,6 +190,7 @@ class EventsController < ApplicationController
         if params[:organizers] && params[:organizers][:name]
           create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
         end
+        
         format.js{
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
@@ -218,6 +219,7 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.destroy
+        flash[:success] = t('event.deleted')
         format.html { redirect_to(space_events_path(@space)) }
         format.xml  { head :ok }
       else

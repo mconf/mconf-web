@@ -296,6 +296,7 @@ en:
           message: "Advanced, big meetings. TV-likeproduction managed by an operator." 
       title: "Create new event"
     created: "Event created successfully"
+    deleted: "Event deleted successfully"
     description:
       add: "Add description."
       edit: "Edit description"
