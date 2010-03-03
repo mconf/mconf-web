@@ -53,4 +53,16 @@ class Performance
     end
   }
   
+  
+  authorizing do |agent, permission|
+    if agent == self.agent 
+        if permission == :delete
+          true
+        end
+    end
+  end
+  
+  authorization_delegate(:stage)
+  
+  
 end

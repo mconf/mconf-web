@@ -21,7 +21,10 @@ require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/perfo
 class PerformancesController
   before_filter :performance, :only => [ :destroy, :update ]
 
-  authorization_filter [ :manage, :performance ], :stage
+  authorization_filter :create, :performance, :only => [ :new, :create ]
+  authorization_filter :read,   :performance, :only => [ :index, :show ]
+  authorization_filter :update, :performance, :only => [ :edit, :update ]
+  authorization_filter :delete, :performance, :only => [ :destroy ]
 
   
   def destroy

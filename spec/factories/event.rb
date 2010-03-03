@@ -4,7 +4,7 @@ Factory.define :event do |e|
   e.sequence(:place) { |n| "Place #{ n }" }
   #  e.isabel_event
   e.start_date { Time.now }
-  e.end_date { Time.now }
+  e.end_date { Time.now + 60}
   #  e.machine_id 
   #  e.colour",       :default => ""
   #  e.repeat"
@@ -21,6 +21,7 @@ Factory.define :event do |e|
   #  e.marte_room"
   #  e.spam",         :default => false
   #  e.notes"
+  e.vc_mode {0}
 end
 
 Factory.define :event_public, :parent => :event do |e|
