@@ -1,6 +1,9 @@
 <% menu :profile %>
 
 <%content_for :sidebar do %>
+    <div class="logo">
+      <%=logo(@user, :size => '128')%>
+    </div>
   <div class="profile-box">
 	<div id="title">
 	 <h3 class="item_title"><span><%=@user.name%></span> <%= t('is_member_of') %>:</h3>

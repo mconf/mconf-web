@@ -5,9 +5,7 @@
     <h3 class="item_title"><%= t('profile.public') %></h3> 
   </div>
   <div id="profile_content">
-	  <div class="logo">
-	  	<%=logo(@user, :size => 48)%>
-	  </div>
+
 	  
       <ul>
 		<li><span class="person_title"><%= t('name.one') %>: </span><span class="fn n"> <span class="honorific-prefix"><%= @profile.prefix%></span><span class="given-name"> <%=@user.full_name%></span></span></li>

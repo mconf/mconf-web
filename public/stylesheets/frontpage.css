@@ -491,7 +491,7 @@ div#openid_label{
 
 div#openid_label input#openid_identifier{
 	border:0 none;
-	padding:0 0 0 16px;
+	padding:0 0 0 18px;
 	margin-right:0;
 	position:relative;
 	background:#fff url("../images/open-id-logos/openid1.png") no-repeat scroll left center;
