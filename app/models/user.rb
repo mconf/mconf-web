@@ -169,12 +169,10 @@ class User < ActiveRecord::Base
   end
 
   authorizing do |agent, permission|
-    if disabled?
-      false
-    elsif agent == self
-      true
-    elsif permission == [ :read, :profile ] && fellows.include?(agent)
-      true
-    end
+    false if disabled?
+  end
+
+  authorizing do |agent, permission|
+    true if agent == self
   end
 end
