@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   acts_as_stage
   acts_as_taggable :container => false
 
-  has_one :profile
+  has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
@@ -38,51 +38,23 @@ class User < ActiveRecord::Base
   attr_accessible :timezone
   attr_accessible :expanded_post, :notification
   
- is_indexed :fields => ['login','email'],
-:include => [#{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
-             {:class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
-             #{:class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
+  is_indexed :fields => ['login','email'],
+             :include => [ #{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
+             { :class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
+            #{ :class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
 ],
-:concatenate => [{:class_name => 'Tag',:field => 'name',:as => 'tags',
-:association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
-}]
+             :concatenate => [ { :class_name => 'Tag',:field => 'name',:as => 'tags',
+                                 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
+             }]
 
-alias_attribute :full_name, :login
-alias_attribute :name, :login
 
-default_scope :conditions => {:disabled => false}
+  default_scope :conditions => {:disabled => false}
 
-#constant for the notification attribute
-NOTIFICATION_VIA_EMAIL = 1
-NOTIFICATION_VIA_PM = 2
+  #constant for the notification attribute
+  NOTIFICATION_VIA_EMAIL = 1
+  NOTIFICATION_VIA_PM = 2
 
-  def after_create
-    self.create_profile
-  end
-
-def self.find_with_disabled *args
-  self.with_exclusive_scope { find(*args) }
-end
-
-def <=>(user)
-  self.name <=> user.name
-end
-
-def organization
-  profile ? profile.organization : ""
-end
-
-def city
-  profile ? profile.city : ""
-end
-
-def country
-  profile ? profile.country : ""
-end
-
-def logo
-  profile && profile.logo
-end
+  # Profile
 
   def profile!
     if profile.blank?
@@ -90,6 +62,28 @@ end
     else
       profile
     end
+  end
+
+  delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
+  alias_attribute :name, :login
+  alias_attribute :title, :full_name
+
+  # Full name must go to the profile, but it is provided by the user in singing up
+  # so we have to temporally cache it until the user is created; :_full_name
+  attr_accessor :_full_name
+  attr_accessible :_full_name
+  has_permalink :_full_name, :login
+
+  after_create do |user|
+    user.create_profile :full_name => user._full_name
+  end
+
+  def self.find_with_disabled *args
+    self.with_exclusive_scope { find(*args) }
+  end
+
+  def <=>(user)
+    self.login <=> user.login
   end
 
   def spaces
@@ -100,12 +94,18 @@ end
     Space.public.all(:order => :name) - spaces
   end
 
-#this method let's the user to login with his e-mail
+  #this method let's the user to login with his e-mail
   def self.authenticate_with_login_and_password(login, password)
-    u = find_by_login(login) # need to get the salt
-    unless u
-      u = find_by_email(login)
-    end
+    u = if login =~ /@/
+          if login =~ /(.*)@#{ Site.current.presence_domain }$/
+            find_by_login $1
+          else
+            find_by_email login
+          end
+        else
+          find_by_login login
+        end
+
     u && u.password_authenticated?(password) ? u : nil
   end
   
@@ -122,9 +122,7 @@ end
       end
   }
   
- 
- def self.atom_parser(data)
-
+  def self.atom_parser(data)
     e = Atom::Entry.parse(data)
     user = {}
     user[:login] = e.title.to_s
@@ -170,9 +168,6 @@ end
     stages(:type => "Space").select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
   end
 
-
-  private
-
   authorizing do |agent, permission|
     if disabled?
       false
@@ -182,5 +177,4 @@ end
       true
     end
   end
-
 end
