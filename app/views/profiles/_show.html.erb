@@ -1,0 +1,40 @@
+<%content_for :sidebar do %>
+  <div class="profile-box">
+	<div id="title">
+	 <h3 class="item_title"><span><%=@user.name%></span> <%= t('is_member_of') %>:</h3>
+	</div>
+	<div id="profile_content">
+		<%= @user.spaces.empty? ? @user.name + " " + t("space.does_not_belong") : ""%>
+		<%for space in @user.spaces do%>
+			<div class="space_item"><%= space.authorize?([:read , :content], :to => current_user) ? link_logo(space, :size => 'h64', :title=> space.name): logo(space, :size => 'h64', :title => space.name)%></div>
+		<%end%>
+	</div>
+  </div>
+<%end%>
+<div class="vcard" id="card">
+  <span class="adr">
+    <%= render :partial=>'profiles/public_hcard'%>
+
+	<% if @profile.authorize? :read, :to => current_user %>
+	  <%= render :partial=>'profiles/private_hcard'%>
+	<% end %>
+  </span>
+</div>
+<%if @profile.authorize? :read, :to => current_user%>
+	  <div class="button_wrapper">
+	    <%= link_to "<span>" + t('edit_profile') + "</span>",edit_user_profile_path(@user),:class => "basic_button blue_button"%>
+	  </div>    
+<%end%> 
+<div class="profile-box">
+  <div id="title">
+  	<div id="help2" title="<%= h(t('information.information3'))%>"></div>
+	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
+  </div>
+  <div id="profile_content">
+    <% @latest_posts = [] # TODO %>
+  	  <%= @latest_posts.empty? ? t('user.noactivity') : "" %>
+	  <% for post in @latest_posts -%>
+		<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
+	  <%end%>
+  </div>	
+</div>

@@ -26,11 +26,6 @@ class ProfilesController < ApplicationController
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
   def show
-    @user_spaces = @user.spaces
-    #The latest posts that the user has written in shared spaces with the current user 
-    #@latest_posts= @user.posts.in(@user.spaces & current_user.spaces).sort{|a,b| b.updated_at <=> a.updated_at }.first(5)
-    @latest_posts=[]
-
     respond_to do |format|
       format.html 
       format.xml { render :xml => @profile }
