@@ -12,7 +12,7 @@ en:
   activerecord:
     attributes:
       user:
-        login: "Full name"
+        login: "Login"
     errors:
       messages:
         missing: "is missing"
@@ -887,6 +887,8 @@ en:
   site:
     default: "site"
     signature: "Signature"
+    domain: "Application Domain"
+    presence_domain: "Presence Domain"
   size: Size
   skype: Skype
   source:
@@ -1059,6 +1061,7 @@ en:
     invite_from_space_by_email: "Invite people from your space"
     invited: "Users already invited"
     list_by: "List by"
+    login: "Login"
     lost_password: "Have you lost your password?"
     noactivity: "User has no recent activity"
     not_activated: "Your account is not activated. Please, check your email to activate it"

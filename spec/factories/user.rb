@@ -1,5 +1,5 @@
 Factory.define :user do |u|
-  u.sequence(:login) { |n| "User #{ n }" }
+  u.sequence(:login) { |n| "user-#{ n }" }
   u.sequence(:email) { |n| "user#{ n }@example.com" }
   u.password "test"
   u.password_confirmation "test"
@@ -14,4 +14,8 @@ end
 
 Factory.define :superuser, :parent => :user do |u|
   u.superuser true
+end
+
+Factory.define :new_user, :parent => :user do |u|
+  u.sequence(:_full_name) { |n| "User #{ n }" }
 end

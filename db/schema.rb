@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100222144439) do
+ActiveRecord::Schema.define(:version => 20100304121052) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -189,13 +189,13 @@ ActiveRecord::Schema.define(:version => 20100222144439) do
     t.integer "agent_id"
     t.string  "agent_type"
     t.integer "uri_id"
+    t.boolean "local",      :default => false
   end
 
   create_table "open_id_trusts", :force => true do |t|
     t.integer "agent_id"
     t.string  "agent_type"
     t.integer "uri_id"
-    t.boolean "local",      :default => false
   end
 
   create_table "participants", :force => true do |t|
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(:version => 20100222144439) do
     t.string  "skype"
     t.string  "im"
     t.integer "visibility",   :default => 2
+    t.string  "full_name"
   end
 
   create_table "roles", :force => true do |t|
@@ -304,6 +305,7 @@ ActiveRecord::Schema.define(:version => 20100222144439) do
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
     t.text     "signature"
+    t.string   "presence_domain"
   end
 
   create_table "source_importations", :force => true do |t|

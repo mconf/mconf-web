@@ -34,6 +34,11 @@
   </p>
 
   <p>
+    <%= f.label :presence_domain, t('site.presence_domain') %>
+    <%= f.text_field :presence_domain %>
+  </p>
+
+  <p>
     <!--<%= f.label :ssl, t('site.ssl') %>-->
 	<strong class="blue">SSL </strong>
     <%= f.check_box :ssl %>
