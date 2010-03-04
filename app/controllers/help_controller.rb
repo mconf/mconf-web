@@ -32,4 +32,8 @@ class HelpController < ApplicationController
   def createspace
     
   end
+  
+  def newdocument
+    
+  end
 end
