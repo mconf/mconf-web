@@ -22,6 +22,11 @@
   </p>
 
   <p>
+    <label><%= t('site.presence_domain') %>:</label> 
+    <%= sanitize current_site.presence_domain %>
+  </p>
+
+  <p>
     <label><%= t('site.ssl') %>:</label> 
     <%= current_site.ssl? %>
   </p>

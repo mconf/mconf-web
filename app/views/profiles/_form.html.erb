@@ -6,13 +6,8 @@
 <div class="margin-up"><label for="prefix"><%= t('name.prefix') %></label><br/>
 <%= f.text_field :prefix %></div>
 
-<% f.fields_for :user do |user_form| %>
-	<div>
-		<%= user_form.label :login, t('name.full') %><br/>
-		<%= user_form.text_field :login %>
-	</div>
-
-<% end %>
+<div class="margin-up"><label for="prefix"><%= t('name.full') %></label><br/>
+<%= f.text_field :full_name %></div>
 
 <div class="margin-up"><label for="organization"><%= t('organization') %></label><br/>
 <%= f.text_field :organization %></div>
