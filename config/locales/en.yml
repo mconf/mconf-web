@@ -504,7 +504,8 @@ en:
     create_user: "Creating a User"
     info: "Here you can find information about the VCC"
     logging: "Logging In to your Account"
-    new_doc: "Adding a new document"            
+    new_doc: "Adding a new document"
+    new_post: "Creating a new post"                
     topics: "Topics"
   help_index:
     part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
