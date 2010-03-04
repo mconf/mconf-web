@@ -58,36 +58,16 @@
   <div id="streaming_content">
     <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
 
-      <%if @event.past?%>        
-        <%= @event.player%>
-				<%if @event.authorize?(:update, :to => current_user)%>
+      <%if @event.agenda.agenda_entries.empty?%>
+				  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
+	  <%elsif @event.past?%>        
+          <%= @event.player%>
+			<%if @event.authorize?(:update, :to => current_user)%>
 				  <%=link_to("Edit Video","#")%>
 				  <%= @event.editor%>   
-				<%end%>				     
-      <%end%>
-
-      <%if @event.is_happening_now?%>		
-	        <%if @event.agenda.agenda_entries.empty?%>
-				  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
-		    <%elsif @event.web_interface? && !@event.has_streaming?%>
-				  <%= @event.web%>
-			<%else%>
-				  <%if @event.web_interface? && !params[:web_client]%>
-				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
-					<%= @event.streaming(640, 385)%>
-				  <%elsif @event.web_interface? && params[:web_client]%>
-				    <%=link_to("close",space_event_path(@space, @event))%>
-					<%= @event.web%>
-				  <%else%>
-				    <%= @event.streaming(640, 385)%>
-				  <%end%>                  
-		    <%end%>
-		  <%end%>
-			
-	  <%if @event.future?%>         
-      		<%if @event.agenda.agenda_entries.empty?%>
-			  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
-			<%elsif @event.has_streaming?%>
+			<%end%>				     
+      <%elsif @event.future?%>         
+			<%if @event.has_streaming?%>
               <div class="video_wrapper">
                 <%=image_tag("visor_video.png")%>
                 <%if @event.web_interface?%>
@@ -103,9 +83,40 @@
               </div>
 			<%else%>
 				  	<%=t('event.note.none')%>		  
-			<%end%>
-				      
+			<%end%>				      
+	  <%elsif @entry = @event.get_session_now%>	        
+		    <%if @event.web_interface?%>
+				  <%if @entry.streaming? && !params[:web_client]%>
+				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
+					<%= @event.streaming(640, 385)%>
+				  <%else%>
+				      <%=link_to("close",space_event_path(@space, @event))%>
+					  <%= @event.web%>
+				  <%end%>
+			<%else%>
+			      <%if @entry.streaming?%>
+				    <%= @event.streaming(640, 385)%>
+				  <%else%>
+				    <div class="video_wrapper">
+				      <%=image_tag("visor_video.png")%>
+                      <span><%=t('event.note.nothing')%></span>
+					</div>
+				  <%end%>				              
+		   <%end%>
+	  <%else%>
+	    <div class="video_wrapper">
+	      <%=image_tag("visor_video.png")%>
+          <span><%=t('event.note.nothing')%></span>
+		</div>
+	  <%end%>
+			
+	<%else%>  
+	  <%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+            <%=t("event.streaming.none")%>
+      <%else%>
+        <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
       <%end%>
+
 
     <%end%> 
   </div>

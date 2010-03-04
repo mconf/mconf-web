@@ -67,7 +67,7 @@ class Agenda < ActiveRecord::Base
     
   def first_video_entry_id
     for entry in agenda_entries  
-      if entry.embedded_video.present?
+      if entry.recording?
         return entry.id       
       end    
     end

@@ -30,8 +30,13 @@ class AgendaEntriesController < ApplicationController
   #GET /agenda_entries.xml
   #returns the agenda_entries for the days 2 to end by ajax
   def index
-    if @event.days > 1
-      @days = (1..@event.days-1).to_a
+    @days = (0..@event.days-1).to_a
+    if @event.days > 1   
+      unless params[:page_shown]
+        params[:page_shown]="0"
+      end
+      #the agenda has shown params[:page_shown], let's remove it from the pages to be shown     
+      @days.delete(params[:page_shown])
     end
     respond_to do |format|
       format.js
@@ -70,7 +75,7 @@ class AgendaEntriesController < ApplicationController
 
     respond_to do |format|
       if @agenda_entry.save
-        format.html {redirect_to(space_event_path(@space, @event, :edit_entry => @agenda_entry.id )) }
+        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@event.day_for(@agenda_entry), :edit_entry => @agenda_entry.id )) }
       else    
         flash[:notice] = t('agenda.entry.failed')
         message = ""
