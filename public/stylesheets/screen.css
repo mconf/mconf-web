@@ -353,6 +353,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user ul.user-actions{float:right;margin-right:0.5em;}
 .user ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
 .user div{float:left; }
+.user div.non_float{float:none;}
 /*.user div.selected_groups,*/.user .user_data{margin-left:0.5em;}
 /*.user .clearboth{margin-left:0.5em;}*/
 
