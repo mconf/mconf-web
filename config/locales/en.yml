@@ -503,7 +503,8 @@ en:
     create_space: "Creating a Space"    
     create_user: "Creating a User"
     info: "Here you can find information about the VCC"
-    logging: "Logging In to your Account"        
+    logging: "Logging In to your Account"
+    new_doc: "Adding a new document"            
     topics: "Topics"
   help_index:
     part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
@@ -527,7 +528,16 @@ en:
   help_logging:
     part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your username and password at the main screen."
     part2: "You can login automatically if you have an account with an OpenID provider."
-    part3: "If you have forgotten your password you can use this form to recover it and have it automatically emailed to you."              
+    part3: "If you have forgotten your password you can use this form to recover it and have it automatically emailed to you."
+  help_newdoc:
+    part1: "To add a new document in VCC:"
+    part2: "1. Click on <b>Repository </b> tab."    
+    part3: "2. Click on <b>Add new document</b> button."
+    part4: "3. Click on <b>Choose file</b> on the right side of the page."
+    part5: "4. Once your file is selected, click on Open button."
+    part6: "5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag."
+    part7: "6. If you want to <b>notify</b> the document with a post, choose this option."
+    part8: "7. Finally, click on <b>Upload</b> button to add the file to the repository."                              
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
   home:
