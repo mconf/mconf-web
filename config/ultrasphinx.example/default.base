@@ -1,0 +1,266 @@
+
+#
+# Sphinx/Ultrasphinx user-configurable options.
+#
+# Copy this file to RAILS_ROOT/config/ultrasphinx. You can use individual 
+# namespaces if you want (e.g. development.base, production.base, 
+# test.base). Note that ERb is also allowed.
+#
+# This file should not be handed directly to Sphinx. Use the rake task 
+#
+#   rake ultrasphinx::configure
+#
+# to generate a parallel default.conf file. This is the file that Sphinx itself will
+# use. The Ultrasphinx rake tasks automatically pass the correct file to 
+# to Sphinx.
+# 
+# It is safe to edit .base files by hand. It is not safe to edit the generated 
+# .conf files. Do not symlink the .conf file to the .base file; it's wrong.
+#
+
+# Indexing options
+indexer
+{  
+  mem_limit = 256M 
+
+  # Ultrasphinx-specific key
+  delta = <%= 1.day + 30.minutes %> 
+}
+
+# Daemon options
+# Use Ubuntu package sphinxsearch
+# Currently, only in lucid: http://packages.ubuntu.com/lucid/i386/sphinxsearch/
+searchd
+{  
+        # IP address to bind on
+        # optional, default is 0.0.0.0 (ie. listen on all interfaces)
+        #
+        address                               = 127.0.0.1
+        # address                               = 192.168.0.1
+
+
+        # searchd TCP port number
+        # mandatory, default is 3312
+        port                            = 3312
+
+        # log file, searchd run info is logged here
+        # optional, default is 'searchd.log'
+        log                                     = /var/log/sphinxsearch/searchd.log
+
+        # query log file, all search queries are logged here
+        # optional, default is empty (do not log queries)
+        query_log                       = /var/log/sphinxsearch/query.log
+
+        # client read timeout, seconds
+        # optional, default is 5
+        read_timeout            = 5
+        # maximum amount of children to fork (concurrent searches to run)
+        # optional, default is 0 (unlimited)
+        max_children            = 30
+
+        # PID file, searchd process ID file name
+        # mandatory
+        pid_file                        = /var/run/searchd.pid
+
+        # max amount of matches the daemon ever keeps in RAM, per-index
+        # WARNING, THERE'S ALSO PER-QUERY LIMIT, SEE SetLimits() API CALL
+        # default is 1000 (just like Google)
+        max_matches                     = 1000
+
+        # seamless rotate, prevents rotate stalls if precaching huge datasets
+        # optional, default is 1
+        seamless_rotate         = 1
+
+        # whether to forcibly preopen all indexes on startup
+        # optional, default is 0 (do not preopen)
+        preopen_indexes         = 0
+
+        # whether to unlink .old index copies on succesful rotation.
+        # optional, default is 1 (do unlink)
+        unlink_old                      = 1
+}
+
+# Client options
+client
+{
+  # Name of the Aspell dictionary (two letters max)
+  dictionary_name = ap
+  
+  # How your application connects to the search daemon (not necessarily the same as above)
+  server_host = localhost
+  server_port = 3312
+}
+
+# Individual SQL source options
+source
+{  
+  sql_ranged_throttle = 0  
+  sql_range_step = 5000   
+  sql_query_post =
+}
+
+#############################################################################
+## index definition
+#############################################################################
+
+index
+{
+	# document source(s) to index
+	# multi-value, mandatory
+	# document IDs must be globally unique across all sources
+	#source			= src1
+
+	# index files path and file name, without extension
+	# mandatory, path must be writable, extensions will be auto-appended
+	path			= /var/lib/sphinxsearch/data
+
+	# document attribute values (docinfo) storage mode
+	# optional, default is 'extern'
+	# known values are 'none', 'extern' and 'inline'
+	docinfo			= extern
+
+	# memory locking for cached data (.spa and .spi), to prevent swapping
+	# optional, default is 0 (do not mlock)
+	# requires searchd to be run from root
+	mlock			= 0
+
+	# a list of morphology preprocessors to apply
+	# optional, default is empty
+	#
+	# builtin preprocessors are 'none', 'stem_en', 'stem_ru', 'stem_enru',
+	# 'soundex', and 'metaphone'; additional preprocessors available from
+	# libstemmer are 'libstemmer_XXX', where XXX is algorithm code
+	# (see libstemmer_c/libstemmer/modules.txt)
+	#
+	# morphology 	= stem_en, stem_ru, soundex
+	# morphology	= libstemmer_german
+	# morphology	= libstemmer_sv
+	# morphology		= none
+        morphology      = stem_en
+
+	# stopword files list (space separated)
+	# optional, default is empty
+	# contents are plain text, charset_table and stemming are both applied
+	#
+	# stopwords			= /var/lib/sphinxsearch/data/stopwords.txt
+
+
+	# wordforms file, in "mapfrom > mapto" plain text format
+	# optional, default is empty
+	#
+	# wordforms			= /var/lib/sphinxsearch/data/wordforms.txt
+
+
+	# tokenizing exceptions file
+	# optional, default is empty
+	#
+	# plain text, case sensitive, space insensitive in map-from part
+	# one "Map Several Words => ToASingleOne" entry per line
+	#
+	# exceptions		= /var/lib/sphinxsearch/data/exceptions.txt
+
+
+	# minimum indexed word length
+	# default is 1 (index everything)
+	min_word_len		= 1
+
+	# charset encoding type
+	# optional, default is 'sbcs'
+	# known types are 'sbcs' (Single Byte CharSet) and 'utf-8'
+	charset_type		= utf-8
+
+	# charset definition and case folding rules "table"
+	# optional, default value depends on charset_type
+	#
+	# defaults are configured to include English and Russian characters only
+	# you need to change the table to include additional ones
+	# this behavior MAY change in future versions
+	#
+	# 'sbcs' default value is
+	# charset_table		= 0..9, A..Z->a..z, _, a..z, U+A8->U+B8, U+B8, U+C0..U+DF->U+E0..U+FF, U+E0..U+FF
+	#
+	# 'utf-8' default value is
+	# charset_table		= 0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F
+
+	charset_table = 0..9, A..Z->a..z, -, _, ., &, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F,U+C5->U+E5, U+E5, U+C4->U+E4, U+E4, U+D6->U+F6, U+F6, U+16B, U+0c1->a, U+0c4->a, U+0c9->e, U+0cd->i, U+0d3->o, U+0d4->o, U+0da->u, U+0dd->y, U+0e1->a, U+0e4->a, U+0e9->e, U+0ed->i, U+0f3->o, U+0f4->o, U+0fa->u, U+0fd->y, U+104->U+105, U+105, U+106->U+107, U+10c->c, U+10d->c, U+10e->d, U+10f->d, U+116->U+117, U+117, U+118->U+119, U+11a->e, U+11b->e, U+12E->U+12F, U+12F, U+139->l, U+13a->l, U+13d->l, U+13e->l, U+141->U+142, U+142, U+143->U+144, U+144,U+147->n, U+148->n, U+154->r, U+155->r, U+158->r, U+159->r, U+15A->U+15B, U+15B, U+160->s, U+160->U+161, U+161->s, U+164->t, U+165->t, U+16A->U+16B, U+16B, U+16e->u, U+16f->u, U+172->U+173, U+173, U+179->U+17A, U+17A, U+17B->U+17C, U+17C, U+17d->z, U+17e->z,
+
+	# ignored characters list
+	# optional, default value is empty
+	#
+	# ignore_chars		= U+00AD
+
+
+	# minimum word prefix length to index
+	# optional, default is 0 (do not index prefixes)
+	#
+	# min_prefix_len	= 0
+
+
+	# minimum word infix length to index
+	# optional, default is 0 (do not index infixes)
+	#
+	# min_infix_len		= 0
+
+
+	# list of fields to limit prefix/infix indexing to
+	# optional, default value is empty (index all fields in prefix/infix mode)
+	#
+	# prefix_fields		= filename
+	# infix_fields		= url, domain
+
+
+	# enable star-syntax (wildcards) when searching prefix/infix indexes
+	# known values are 0 and 1
+	# optional, default is 0 (do not use wildcard syntax)
+	#
+	# enable_star		= 1
+
+
+	# n-gram length to index, for CJK indexing
+	# only supports 0 and 1 for now, other lengths to be implemented
+	# optional, default is 0 (disable n-grams)
+	#
+	# ngram_len				= 1
+
+
+	# n-gram characters list, for CJK indexing
+	# optional, default is empty
+	#
+	# ngram_chars			= U+3000..U+2FA1F
+
+
+	# phrase boundary characters list
+	# optional, default is empty
+	#
+	# phrase_boundary		= ., ?, !, U+2026 # horizontal ellipsis
+
+
+	# phrase boundary word position increment
+	# optional, default is 0
+	#
+	# phrase_boundary_step	= 100
+
+
+	# whether to strip HTML tags from incoming documents
+	# known values are 0 (do not strip) and 1 (do strip)
+	# optional, default is 0
+	html_strip				= 0
+
+	# what HTML attributes to index if stripping HTML
+	# optional, default is empty (do not index anything)
+	#
+	# html_index_attrs		= img=alt,title; a=title;
+
+
+	# what HTML elements contents to strip
+	# optional, default is empty (do not strip element contents)
+	#
+	# html_remove_elements	= style, script
+
+
+	# whether to preopen index data files on startup
+	# optional, default is 0 (do not preopen)
+	#
+	# preopen				= 1
+}
+
