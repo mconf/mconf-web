@@ -52,8 +52,8 @@ class Performance
       p.stage.admissions.find_by_candidate_id_and_candidate_type(p.agent.id, p.agent.class.base_class.to_s).try(:destroy)
     end
   }
-  
-  
+
+  # FIXME: provide support in Station to insert Authorization Blocks before
   authorizing do |agent, permission|
     if agent == self.agent 
         if permission == :delete
@@ -61,8 +61,4 @@ class Performance
         end
     end
   end
-  
-  authorization_delegate(:stage)
-  
-  
 end
