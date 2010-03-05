@@ -282,19 +282,19 @@ class Event < ActiveRecord::Base
     end
   end
   
-  
-  #method to know if any of the agenda_entry of the event has recording
-  #(only event associated to one cm_event could have recording)
-  def has_recording?
-    begin
-      agenda.agenda_entries.each do |entry|
-        return true if entry.cm_session.recording?
-      end    
-      false
-    rescue
-      nil
-    end
-  end
+#better the method agenda.has_entries_with_video?
+#
+#  #method to know if any of the agenda_entry of the event has recording
+#  def has_recording?
+#    begin
+#      agenda.agenda_entries.each do |entry|
+#        return true if entry.cm_session.recording?
+#      end    
+#      false
+#    rescue
+#      nil
+#    end
+#  end
     
     
   #method to know if this event is happening now

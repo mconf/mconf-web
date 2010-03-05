@@ -246,7 +246,7 @@
 	  </div>
   <%else%>
 
-	  <%unless (@event.past? && !@event.has_recording?) %>
+	  <%unless (@event.past? && !@event.agenda.has_entries_with_video?) %>
 	    <%=render :partial => "external_streaming"%>
 	  <%end%>
 	

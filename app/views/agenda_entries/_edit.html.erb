@@ -2,6 +2,11 @@
   $("input.close2").click(function(){   
     $(".agenda_edit_entry").empty();
   });
+  
+  var destination_edit = $('#edit_entry_anchor').offset().top;
+  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+    window.location.hash = '#edit_entry_anchor';
+  });
 <%end%>
 
 <div class="agenda_edit_entry" >

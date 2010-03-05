@@ -14,7 +14,7 @@
     <p class="sidebar_info1">Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda.</p>
   <%else%> 	
 
-		<%if !@event.has_streaming? || !@event.has_recording? %>
+		<%if !@event.has_streaming? || !@event.agenda.has_entries_with_video? %>
 		  <p class="sidebar_info2">To get streaming and/or recording, please indicate it in your schedule</p>
 		<%end%>
 		
