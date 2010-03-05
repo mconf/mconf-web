@@ -1,7 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-
-
 describe UsersController do
   include ActionController::AuthenticationTestHelper
   
@@ -12,36 +10,24 @@ describe UsersController do
     @user.profile.should_not be_nil
   end
 
-=begin
-  #integrate_views
-  include ActionController::AuthenticationTestHelper
-  fixtures :users , :spaces, :performances , :roles, :permissions
-  
-  
-  
-  def mock_user(stubs={})
-    @mock_user ||= mock_model(user, stubs)
-  end
-  
-  
   describe "responding to GET index" do
     
     describe " when you are logged in" do
       
       describe " as SuperAdmin" do
         
-        before(:each) do
-          login_as(:user_admin)
+        before do
+          login_as Factory(:superuser)
         end
         
         describe "in a private space" do
           
           before(:each) do
-            @space = spaces(:private_no_roles)
+            @space = Factory(:private_space)
           end
           
           it "should let the Super Admin to see the users" do
-            get :index , :space_id => @space.name
+            get :index , :space_id => @space.to_param
             assert_response 200
           end         
         end
@@ -49,26 +35,29 @@ describe UsersController do
         describe "in the public space" do
           
           before(:each) do
-            @space = spaces(:public)
+            @space = Factory(:public_space)
           end
           
           it "should let the Super Admin to see the users" do
-            get :index , :space_id => @space.name
+            get :index , :space_id => @space.to_param
             assert_response 200            
           end
         end
       end
       
-      describe " as a normal user" do
+=begin
+      
+      describe "as a normal user" do
         
-        before(:each) do
-          login_as(:user_normal)
+        before(:all) do
+          login_as Factory(:user)
         end
+
         describe "in a private space" do
-          
+
           describe " where the user has the role Admin" do
             
-            before(:each) do
+            before do
               @space = spaces(:private_admin)  
             end
             
@@ -124,32 +113,43 @@ describe UsersController do
           end
         end
       end
+=end
+
     end
     
     describe " If you are not logged in" do
       describe "in a private space" do
         before(:each) do
-          @space = spaces(:private_no_roles)
+          @space = Factory(:private_space)
         end
         it "should NOT let the user to see the users" do
-          get :index , :space_id => @space.name
-          assert_response 403
+          get :index , :space_id => @space.to_param
+          assert_response 401
         end
       end
+
       describe "in the public space" do
         before(:each) do
-          @space = spaces(:public)
+          @space = Factory(:public_space)
         end
+
         it "should let the user to see the users " do
-          get :index , :space_id => @space.name
+          get :index , :space_id => @space.to_param
           assert_response 200
         end
       end
     end
   end
+
+  it "should show user" do
+    get :show, :id => Factory(:user).to_param
+
+    assert_response 200
+  end
   
   #####################
   
+=begin
   
   describe "responding to GET show" do
     

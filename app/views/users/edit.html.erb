@@ -2,7 +2,7 @@
 <%= error_messages_for 'user' %>
 
 <div id="edit_account" class="blue_title"><h3><%= t('user.edit_account')%></h3></div>
-<% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
+<% form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f| -%>
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>

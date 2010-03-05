@@ -5,14 +5,6 @@ describe ProfilesController do
   
   integrate_views
   
-  before(:all) do
-
-  end
-  
-  after(:all) do 
-
-  end
-
   describe "A Superadmin" do
     before(:each) do
       #the superuser
@@ -22,9 +14,10 @@ describe ProfilesController do
       @user = Factory(:user_performance, :stage => @private_space).agent
       login_as(@superuser)
     end
+
     it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
       "creating the user automatically creates the profile") do
-      get :new, :user_id => @superuser.id          
+      get :new, :user_id => @superuser.to_param
       flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@superuser))
     end
@@ -33,7 +26,7 @@ describe ProfilesController do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>@superuser.email}
       assert_no_difference 'Profile.count' do
-        post :create, :user_id => @superuser.id, :profile=> valid_attributes
+        post :create, :user_id => @superuser.to_param, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_profile_path(@superuser))
       end
@@ -42,7 +35,7 @@ describe ProfilesController do
     it "should be able to delete his profile" do
       Factory(:profile, :user=>@superuser)
       assert_difference 'Profile.count', -1 do
-        delete :destroy, :user_id => @superuser
+        delete :destroy, :user_id => @superuser.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@superuser))
       end
@@ -50,7 +43,7 @@ describe ProfilesController do
     it "should be able to get the edit view for his profile" do
       #first we create the user profile
       Factory(:profile, :user=>@superuser)
-      get :edit, :user_id => @superuser
+      get :edit, :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
@@ -59,12 +52,12 @@ describe ProfilesController do
       Factory(:profile, :user=>@superuser)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @superuser, :profile => valid_attributes              
+      put :update, :user_id => @superuser.to_param, :profile => valid_attributes              
       response.should redirect_to(user_profile_path(@superuser))
     end
     it "should be able to get the edit view for any user's profile" do 
       Factory(:profile, :user=>@user)
-      get :edit, :user_id => @user
+      get :edit, :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
@@ -73,14 +66,14 @@ describe ProfilesController do
       Factory(:profile, :user=>@user)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @user, :profile => valid_attributes              
+      put :update, :user_id => @user.to_param, :profile => valid_attributes              
       response.should redirect_to(user_profile_path(@user))
     end
     it "should be able to delete any user's profile" do 
       #first we create the user profile
       Factory(:profile, :user=>@user)
       assert_difference 'Profile.count', -1 do
-        delete :destroy, :user_id => @user
+        delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@user))
       end
@@ -92,7 +85,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @superuser.id
+      get :show , :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -108,7 +101,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @superuser.id
+      get :show , :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -124,7 +117,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -140,7 +133,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -174,7 +167,7 @@ describe ProfilesController do
       login_as(@user)
       #first we create the user profile
       Factory(:profile, :user=>@user)
-      get :edit, :user_id => @user
+      get :edit, :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
@@ -184,14 +177,14 @@ describe ProfilesController do
       Factory(:profile, :user=>@user)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @user, :profile => valid_attributes              
+      put :update, :user_id => @user.to_param, :profile => valid_attributes              
       response.should redirect_to(user_profile_path(@user))
     end
     it "should be able to delete his profile" do
       login_as(@user)
       Factory(:profile, :user=>@user)
       assert_difference 'Profile.count', -1 do
-        delete :destroy, :user_id => @user
+        delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_profile_path(@user))
       end
@@ -199,7 +192,7 @@ describe ProfilesController do
     it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
       "creating the user automatically creates the profile") do
       login_as(@user)
-      get :new, :user_id => @user.id        
+      get :new, :user_id => @user.to_param
       flash[:error].should == I18n.t('profile.error.exist')
       response.should redirect_to(user_profile_path(@user))
     end
@@ -209,14 +202,14 @@ describe ProfilesController do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>@user.email}
       assert_no_difference 'Profile.count' do
-        post :create, :user_id => @user.id, :profile=> valid_attributes
+        post :create, :user_id => @user.to_param, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_profile_path(@user))
       end
     end
     it "should NOT be able to get the new view for anyone's profile" do
       login_as(@user)
-      get :new, :user_id => @user_public_1.id
+      get :new, :user_id => @user_public_1.to_param
       assert_response 403
     end
 
@@ -225,15 +218,15 @@ describe ProfilesController do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
       assert_no_difference 'Profile.count' do
-        post :create, :user_id => @invited.id, :profile=> valid_attributes
+        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 403
       end
     end
     it "should NOT be able to get the edit view for anyone's profile" do
       login_as(@user)
-      get :edit, :user_id => @user_public_1.id
+      get :edit, :user_id => @user_public_1.to_param
       assert_response 403
-      get :edit, :user_id => @admin.id
+      get :edit, :user_id => @admin.to_param
       assert_response 403
     end
     it "shoud NOT be able to edit anyone's profile" do 
@@ -242,14 +235,14 @@ describe ProfilesController do
       Factory(:profile, :user=>@invited)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @invited, :profile => valid_attributes              
+      put :update, :user_id => @invited.to_param, :profile => valid_attributes              
       assert_response 403
     end
     it "should NOT be able to delete anyone's profile" do
       login_as(@user)
       Factory(:profile, :user=>@invited)
       assert_no_difference 'Profile.count' do
-        delete :destroy, :user_id => @invited
+        delete :destroy, :user_id => @invited.to_param
         assert_response 403
       end
     end
@@ -261,7 +254,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -278,7 +271,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -295,7 +288,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @user_public_1.id
+      get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -311,7 +304,7 @@ describe ProfilesController do
       Factory(:profile, :user=>@user_public_1)
       #we set the visibility to :members and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
-      get :show , :user_id => @user_public_1.id
+      get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -329,7 +322,7 @@ describe ProfilesController do
 
       #we set the visibility to :public_fellows and try to see the profile
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
-      get :show , :user_id => @user_public_2.id
+      get :show , :user_id => @user_public_2.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -347,7 +340,7 @@ describe ProfilesController do
 
       #we set the visibility to :public_fellows and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
-      get :show , :user_id => @user_public_1.id
+      get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -365,7 +358,7 @@ describe ProfilesController do
 
       #we set the visibility to :private_fellows and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
-      get :show , :user_id => @admin.id
+      get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -384,7 +377,7 @@ describe ProfilesController do
 
       #we set the visibility to :private_fellows and try to see the profile
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
-      get :show , :user_id => @user_public_2.id
+      get :show , :user_id => @user_public_2.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -401,7 +394,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @admin.id
+      get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -434,21 +427,21 @@ describe ProfilesController do
       login_as(@admin)
     end        
     it "should NOT be able to get the new view for anyone's profile" do
-      get :new, :user_id => @invited.id
+      get :new, :user_id => @invited.to_param
       assert_response 403
     end
     it "should NOT be able to create anyone's profile" do 
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
       assert_no_difference 'Profile.count' do
-        post :create, :user_id => @invited.id, :profile=> valid_attributes
+        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 403
       end
     end
     it "should NOT be able to get the edit view for anyone's profile" do
-      get :edit, :user_id => @invited.id
+      get :edit, :user_id => @invited.to_param
       assert_response 403
-      get :edit, :user_id => @user.id
+      get :edit, :user_id => @user.to_param
       assert_response 403
     end
     it "shoud NOT be able to edit anyone's profile" do 
@@ -456,13 +449,13 @@ describe ProfilesController do
       Factory(:profile, :user=>@invited)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @invited, :profile => valid_attributes              
+      put :update, :user_id => @invited.to_param, :profile => valid_attributes              
       assert_response 403
     end
     it "should NOT be able to delete anyone's profile" do
       Factory(:profile, :user=>@invited)
       assert_no_difference 'Profile.count' do
-        delete :destroy, :user_id => @invited
+        delete :destroy, :user_id => @invited.to_param
         assert_response 403
       end
     end
@@ -476,7 +469,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @admin.id
+      get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -492,7 +485,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @admin.id
+      get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -508,7 +501,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -524,7 +517,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @user.id
+      get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -554,21 +547,21 @@ describe ProfilesController do
     end    
     
     it "should NOT be able to get the new view for anyone's profile" do
-      get :new, :user_id => @invited.id
+      get :new, :user_id => @invited.to_param
       assert_response 401
     end
     it "should NOT be able to create anyone's profile" do 
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
       assert_no_difference 'Profile.count' do
-        post :create, :user_id => @invited.id, :profile=> valid_attributes
+        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 401
       end
     end
     it "should NOT be able to get the edit view for anyone's profile" do
-      get :edit, :user_id => @invited.id
+      get :edit, :user_id => @invited.to_param
       assert_response 401
-      get :edit, :user_id => @user.id
+      get :edit, :user_id => @user.to_param
       assert_response 401
     end
     it "shoud NOT be able to edit anyone's profile" do 
@@ -576,13 +569,13 @@ describe ProfilesController do
       Factory(:profile, :user=>@invited)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
-      put :update, :user_id => @invited, :profile => valid_attributes              
+      put :update, :user_id => @invited.to_param, :profile => valid_attributes              
       assert_response 401
     end
     it "should NOT be able to delete anyone's profile" do
       Factory(:profile, :user=>@invited)
       assert_no_difference 'Profile.count' do
-        delete :destroy, :user_id => @invited
+        delete :destroy, :user_id => @invited.to_param
         assert_response 401
       end
     end
@@ -593,7 +586,7 @@ describe ProfilesController do
 
       #we set the visibility to :everybody and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-      get :show , :user_id => @invited.id
+      get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -609,7 +602,7 @@ describe ProfilesController do
 
       #we set the visibility to :members and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
-      get :show , :user_id => @invited.id
+      get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -625,7 +618,7 @@ describe ProfilesController do
 
       #we set the visibility to :public_fellows and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
-      get :show , :user_id => @invited.id
+      get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -641,7 +634,7 @@ describe ProfilesController do
 
       #we set the visibility to :private_fellows and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
-      get :show , :user_id => @invited.id
+      get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))
@@ -657,7 +650,7 @@ describe ProfilesController do
 
       #we set the visibility to :nobody and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
-      get :show , :user_id => @invited.id
+      get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
       response.should include_text(I18n.t('profile.public'))

@@ -17,10 +17,10 @@
 
 require "digest/sha1"
 class UsersController < ApplicationController
+  include ActionController::StationResources
   include ActionController::Agents
   
   before_filter :space!, :only => [ :index ]
-  before_filter :agent, :only => [ :show, :edit, :update, :destroy ]
 
   # Permission filters
   authorization_filter [ :read, :performance ], :space, :only => [ :index ]
@@ -55,6 +55,8 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   # GET /users/1.atom 
   def show
+    user
+
     respond_to do |format|
       format.html
       format.xml { render :xml => @user }
@@ -66,8 +68,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml  
   def new
-    @user = @agent = model_class.new
-    @user.openid_identifier = session[:openid_identifier]
+    user.openid_identifier = session[:openid_identifier]
     render :partial => "register" if request.xhr?
   end
   
@@ -84,15 +85,12 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session    
-    @agent = @user = User.new(params[:user])
-    if @user.respond_to?(:openid_identifier)
-      @user.openid_identifier = session[:openid_identifier]
-    end
+    user.openid_identifier = session[:openid_identifier]
     
     respond_to do |format|
-      if @user.save_with_captcha 
-        @user.tag_with(params[:tags]) if params[:tags]
-        self.current_agent = @user
+      if user.save_with_captcha 
+        user.tag_with(params[:tags]) if params[:tags]
+        self.current_agent = user
         flash[:notice] = t('user.registered') 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
@@ -127,8 +125,8 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        @user.tag_with(params[:tags]) if params[:tags]
+      if user.update_attributes(params[:user])
+        user.tag_with(params[:tags]) if params[:tags]
         
         flash[:success] = t('user.updated')     
         format.html { #the superuser will be redirected to list_users
@@ -157,8 +155,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml  
   # DELETE /users/1.atom
   def destroy
-
-    @user.disable
+    user.disable
     
     flash[:notice] = t('user.disabled', :username => @user.login)
     
@@ -178,7 +175,6 @@ class UsersController < ApplicationController
   end
 
   def enable
-    
     @user = User.find_with_disabled(params[:id])
     
     unless @user.disabled?
