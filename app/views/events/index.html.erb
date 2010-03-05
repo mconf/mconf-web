@@ -11,9 +11,9 @@
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
 	  <%if params[:edit]%>
     	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-  	<%else%>
+  	  <%else%>
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-  	<%end%>
+  	  <%end%>
 	<%else%>
 
 	  <!--<%if logged_in? && space.public?%>
@@ -59,6 +59,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 
 <div id="events_wrapper">
 	
+  <%if current_user && @space.authorize?([:create, :content],:to => current_user) %>
 	<div id="orange_bar">
 	  <ul>
 	    <li class="orange_one">
@@ -81,7 +82,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 		<span id="pico_naranja"></span>
 	  <%end%>
 	</div>
-	
+  <%end%>
 	<div id="events_content">
 		
 	  <%if !@current_events.empty?%>

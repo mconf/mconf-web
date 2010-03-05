@@ -60,7 +60,9 @@
 				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
 					<%= @event.streaming(640, 385)%>
 				  <%else%>
+				    <%if params[:web_client]%>
 				      <%=link_to("close",space_event_path(@space, @event))%>
+					<%end%>
 					  <%= @event.web%>
 				  <%end%>
 			<%else%>
