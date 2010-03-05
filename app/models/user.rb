@@ -19,7 +19,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   apply_simple_captcha :message => "image and text were different"
   # LoginAndPassword Authentication:
-  acts_as_agent :activation => true
+  acts_as_agent :activation => true,
+                :openid_server => true
 
   validates_presence_of :email
 

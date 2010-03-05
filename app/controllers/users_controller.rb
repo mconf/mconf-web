@@ -58,9 +58,12 @@ class UsersController < ApplicationController
     user
 
     respond_to do |format|
-      format.html
-      format.xml { render :xml => @user }
+      format.html {
+        headers['X-XRDS-Location'] = user_path(user, :format => :xrds)
+      }
+      format.xml { render :xml => user }
       format.atom
+      format.xrds
       format.atomsvc
     end
   end
