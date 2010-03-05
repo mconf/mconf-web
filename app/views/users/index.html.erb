@@ -11,7 +11,7 @@
 	<%elsif space.users.include?(current_user) and @space.authorize?([:create, :performance], :to => current_user) %>
     <div class="space-desc">
       <h3><%= t('space.about')%> <em><%=@space.name%></em></h3>
-      <p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
+      <p><%=image_tag(logo_image_path(@space, :size =>h48), :align => "left")%>
       <%= sanitize(space.description) if space.description.present? %></p>
     </div>
 	<%else%>

@@ -179,9 +179,9 @@
 }); 
   
   <%if @event.days > 1%>
-    //after the page finishes loading we call for the next pages of the agenda
+    //after the page finishes loading we call for the other pages of the agenda
     $(window).bind('load', function() {
-      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>";
+      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event, :page_shown=>params[:show_day]) %>";
       $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){ 	
@@ -201,7 +201,7 @@
 </div>
 
 <div id="agenda_pages">
-  <%@days=[0]%>
+  <%@days=[params[:show_day].to_i]%>
   <%= render :partial => "agenda_entries/index"%>	
 </div>
   

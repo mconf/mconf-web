@@ -55,7 +55,7 @@ class Agenda < ActiveRecord::Base
     for day in 0..event.days-1
       entries_with_video = {}
       for entry in agenda_entries_for_day(day)        
-        if entry.embedded_video.present?
+        if entry.recording?
           entries_with_video[entry.id] = entry       
         end        
       end
@@ -64,10 +64,10 @@ class Agenda < ActiveRecord::Base
     return array_of_days
   end
   
-  
+    
   def first_video_entry_id
     for entry in agenda_entries  
-      if entry.embedded_video.present?
+      if entry.recording?
         return entry.id       
       end    
     end

@@ -71,7 +71,7 @@
 <div class="button_wrapper grey_bar">
   <%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event), {:id=>"view_agenda", :class=>"grey_button basic_button",:title => t('event.view_agenda')} %>
   <%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} %>
-  <%if @event.agenda.present? && event.agenda.has_entries_with_video? %>
+  <%if @event.past? && @event.agenda.has_entries_with_video?%>
     <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"grey_button basic_button",:title => t('event.view_recordings')} %>
   <%else %>
 	  <%=link_to ("<span>" + t('event.view_recordings') + "</span>"),'#', {:id=>"view_recordings", :class=>"grey_button basic_button disabled_button",:title => "There are no " + t('event.view_recordings') + " yet"} %>

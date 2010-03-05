@@ -358,6 +358,7 @@ en:
     note:
       both: "Web participation and streaming will be available at the time of the event"
       none: "There is no streaming defined in the agenda."
+      nothing: "No web participation or streaming booked at this time"
       participation: "Web participation will be available at the time of the event" 
       streaming: "Video streaming will be available at the time of the event"     
     notification:
@@ -1133,4 +1134,4 @@ en:
   
   ######### Z ###########
   zipcode: "Zip code"
-
+  

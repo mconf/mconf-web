@@ -18,27 +18,14 @@
 require "digest/sha1"
 class UsersController < ApplicationController
   include ActionController::Agents
-  include ActionController::Sessions::Openid
   
   before_filter :space!, :only => [ :index ]
   before_filter :agent, :only => [ :show, :edit, :update, :destroy ]
 
   # Permission filters
   authorization_filter [ :read, :performance ], :space, :only => [ :index ]
-  before_filter :authentication_required, :only => [:edit, :update, :destroy]
-  # Accounts
-  before_filter :user_is_current_agent, :only => [ :show, :edit, :update ]
+  authorization_filter :update, :user, :only => [ :edit, :update ]
   authorization_filter :delete, :user, :only => [ :destroy ]
-
-=begin
-  # Filter for activation actions
-  before_filter :activation_required, :only => [ :activate, 
-                                                 :lost_password, 
-                                                 :reset_password ]
-  # Filter for password recovery actions
-  before_filter :login_and_pass_auth_required, :only => [ :lost_password,
-                                                          :reset_password ]
-=end
 
   set_params_from_atom :user, :only => [ :create, :update ]  
   
@@ -210,11 +197,5 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
       format.atom { head :ok }
     end
-  end
-
-  def user_is_current_agent
-    return if current_agent.superuser?
-
-    not_authorized unless current_agent == @user
   end
 end

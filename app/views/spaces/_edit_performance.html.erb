@@ -39,12 +39,15 @@
 							var new_checkbox = old_checkbox.clone();
 							$("div#selected_groups_<%=performance.id%>").append(new_checkbox);
 							old_checkbox.remove();
+							if($("#other_groups_<%=performance.id%> div").size() == 0){
+							  $("#other_groups_<%=performance.id%>").hide();
+							}
 						}
 	        );
 		}else{
 		  $(this).addClass("clicked_checkbox");
 		  var route = "/groups/" + $(this).val() + "/memberships/" + $(this).attr("id")
-    $.post(route,{
+      $.post(route,{
           _method: "delete", authenticity_token: "<%=form_authenticity_token()%>"          
           },
           function(data){
@@ -84,8 +87,8 @@
 	 <div id="selected_groups_<%=performance.id%>" class="selected_groups">
 	  <label for="groups"><%=t('group.other')%>: </label>
 		<%for group in @space.groups.select{|g| g.users.include?(user)} do %>
-          <div>
-	        <%= check_box_tag "groups_to_delete[]", group.id, true, {:class => "group_checkbox_#{performance.id}", :id => user.memberships.select{|g| g.group_id==group.id}.first.id} %><%= label("checkbox",sanitize(group.name))%>
+      <div class="non_float">
+	      <%= check_box_tag "groups_to_delete[]", group.id, true, {:class => "group_checkbox_#{performance.id}", :id => user.memberships.select{|g| g.group_id==group.id}.first.id} %><%= label("checkbox",sanitize(group.name))%>
 		  </div>
 		<%end%>
 	 </div>
@@ -103,7 +106,7 @@
 	 <div style="display:none" id="other_groups_<%=performance.id%>" class="selected_groups">
 	  <label><%= t('group.different') %>: </label>
 		<%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
-      <div>
+      <div class="non_float">
 		<%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
       </div>
 		<%end%>

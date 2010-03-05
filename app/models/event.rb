@@ -282,26 +282,46 @@ class Event < ActiveRecord::Base
     end
   end
   
-  
-  #method to know if any of the agenda_entry of the event has recording
-  #(only event associated to one cm_event could have recording)
-  def has_recording?
-    begin
-      agenda.agenda_entries.each do |entry|
-        return true if entry.cm_session.recording?
-      end    
-      false
-    rescue
-      nil
-    end
-  end
+#better the method agenda.has_entries_with_video?
+#
+#  #method to know if any of the agenda_entry of the event has recording
+#  def has_recording?
+#    begin
+#      agenda.agenda_entries.each do |entry|
+#        return true if entry.cm_session.recording?
+#      end    
+#      false
+#    rescue
+#      nil
+#    end
+#  end
     
     
   #method to know if this event is happening now
   def is_happening_now?
-     return !start_date.future? && end_date.future?
+     #first we check if start date is past and end date is future
+     if start_date.past? && end_date.future?
+       #now we check the sessions
+       agenda.agenda_entries.each do |entry|
+         return true if entry.start_time.past? && entry.end_time.future?
+       end  
+     else
+       return false
+     end
   end
-  
+    
+    
+  #method to know if this event is happening now
+  def get_session_now
+     #first we check if start date is past and end date is future
+     if !start_date.future? && end_date.future?
+       #now we check the sessions
+       agenda.agenda_entries.each do |entry|
+         return entry if entry.start_time.past? && entry.end_time.future?
+       end   
+     end
+     return nil
+  end
   
   #method to know if an event happens in the future
   def future?
