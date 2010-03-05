@@ -454,12 +454,11 @@ class Event < ActiveRecord::Base
       nil
     end
   end
-  
-  
-  #Return  a String that contains a html with the video editor for this conference
-  def editor
+ 
+ 
+  def editor(width,height)
     begin
-      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor")
+      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor",:params =>{:width=>width, :height=>height})
       cm_editor.html
     rescue
       nil
@@ -467,9 +466,10 @@ class Event < ActiveRecord::Base
   end
   
   
-  def editor(width,height)
+  #Return  a String that contains a html with the video editor for this conference
+  def editor
     begin
-      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor",:params =>{:width=>width, :height=>height})
+      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor")
       cm_editor.html
     rescue
       nil
