@@ -1,6 +1,6 @@
 <% content_for :javascript do  %>
-	title = "<%=escape_javascript(t('search.dots'))%>"
-	  $("#search_text_field").click(function(){
+	var title = "<%=escape_javascript(t('search.dots'))%>"
+	$("#search_text_field").click(function(){
 	  if(this.value == title){
 	    this.value="";
 	  }

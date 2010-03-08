@@ -5,6 +5,7 @@
 <div id="new_thread_big">
 	<div id="text_form">	
 		<% form_for(prepare_for_form(post), :id => "edit-form",:html => { :multipart => true }) do |f| -%>
+		  <%=hidden_field_tag 'format', 'html'%>
 		 
    <% if @post.parent_id.nil?%>
 			<div>

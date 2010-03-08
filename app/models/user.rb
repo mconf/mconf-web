@@ -36,9 +36,9 @@ class User < ActiveRecord::Base
   
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
-  attr_accessible :superuser, :disabled
   attr_accessible :timezone
   attr_accessible :expanded_post, :notification
+  attr_accessible :chat_activation
   
   is_indexed :fields => ['login','email'],
              :include => [ #{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},

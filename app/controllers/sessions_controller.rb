@@ -23,6 +23,8 @@ class SessionsController
   layout 'application'
 
   #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home 
+
+  skip_before_filter :verify_authenticity_token
   
   # render new.rhtml
   def new
@@ -52,7 +54,12 @@ class SessionsController
       flash[:notice] = t('session.error.fill')
       edit_site_path
     else
-      home_path
+      if current_user.chat_activation
+        #url_for :controller => "p", :action => "index", :only_path => true
+        home_path
+      else
+        home_path
+      end
     end
   end
 

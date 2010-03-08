@@ -152,6 +152,9 @@ en:
     add: "Add a caption"
   change: "Change"
   changed_mind: "Changed your mind?"
+  chat:
+    edit_question: "Would you like to enalbe chat?"
+    edit_enabled: "Enable chat"
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
