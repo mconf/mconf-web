@@ -70,7 +70,7 @@ class ProfilesController < ApplicationController
   private
 
   def user!
-    @user = User.find(params[:user_id]) || raise(ActiveRecord::RecordNotFound)
+    @user = User.find_with_param(params[:user_id]) || raise(ActiveRecord::RecordNotFound)
     @profile = @user.profile!
   end
   

@@ -103,20 +103,24 @@ class Attachment < ActiveRecord::Base
   public
   
   after_validation do |attachment|
-    e = attachment.errors.clone
-    attachment.errors.clear
-    error_no_file =0
-    others_errors = []
-    e.each() do |attr,msg| 
-      if (attr == "size" && (msg==I18n.t('activerecord.errors.messages.blank')||msg ==I18n.t('activerecord.errors.messages.inclusion')))||(attr=="content_type" && msg==I18n.t('activerecord.errors.messages.blank'))||(attr=="filename" && msg==I18n.t('activerecord.errors.messages.blank'))
-        error_no_file+=1      
-      else       
-        attachment.errors.add(attr,msg)
-      end
-    end  
-    if error_no_file==4
+    # Replace 4 missing file errors with a unique, more descriptive error
+    missing_file_errors = {
+      "size"         => [ I18n.t('activerecord.errors.messages.blank'),
+                          I18n.t('activerecord.errors.messages.inclusion') ],
+      "content_type" => [ I18n.t('activerecord.errors.messages.blank') ],
+      "filename"     => [ I18n.t('activerecord.errors.messages.blank') ]
+    }
+
+    if attachment.errors.select{ |e| missing_file_errors[e.first].include?(e.last) }.size >= 4
+      errors = attachment.errors.clone
+      attachment.errors.clear
       attachment.errors.add("upload_data",I18n.t('activerecord.errors.messages.missing'))
-    end      
+      errors.each do |att, msg|
+        unless missing_file_errors[att].include?(msg)
+          attachment.errors.add(att, msg)
+        end
+      end
+    end
   end
   
   after_create do |attachment|

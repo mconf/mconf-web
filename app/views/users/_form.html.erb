@@ -1,7 +1,7 @@
 <div><label for="email"><%=t('user.email')%></label><br/>
 <%= f.text_field :email %></div>
 
-<% if @agent.needs_password? -%>
+<% if f.object.needs_password? -%>
 
 <div><label for="password"><%=t('user.password')%></label><br/>
 <%= f.password_field :password %></div>
