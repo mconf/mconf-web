@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100304121052) do
+ActiveRecord::Schema.define(:version => 20100308104837) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -383,6 +383,7 @@ ActiveRecord::Schema.define(:version => 20100304121052) do
     t.boolean  "expanded_post",                           :default => false
     t.integer  "notification",                            :default => 1
     t.string   "locale"
+    t.boolean  "chat_activation",                         :default => true
   end
 
 end
