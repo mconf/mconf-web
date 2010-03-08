@@ -16,7 +16,7 @@
       <p><%=logo(@profile.logo, :size => 64)%></p>
       <%end%>
 		<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
-    <% form_for :avatar, :url => user_avatar_path(@profile.user), :html => { :multipart => true, :method => :put} do |f| %>
+    <% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
       <p><%= f.file_field :media, :id => 'logo_media' %></p>		
       <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
     <%end%>
