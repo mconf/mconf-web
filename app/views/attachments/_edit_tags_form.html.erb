@@ -2,6 +2,7 @@
 	<h3><%=t("tag.edit")%></h3>
 	<div class="doc_action_content">
 	<%form_for prepare_for_form(@attachment), :html => { :multipart => true, :method => :put} do |f|%>
+		<%=hidden_field_tag 'format', 'html'%>
 	  <span class="bold"><%=t('attachment.file')%></span> <span><%=@attachment.filename%></span>
 		<div class="margin-up"><span class="bold"><%=t('tags')%>:</span></div>
 		<input id="attachment_tags" type="hidden" value="" name="attachment[_tags][]"/>

@@ -34,6 +34,7 @@
 	<%# Form %>
 	<% form_for(prepare_for_form(post),:html => { :multipart => true, :id => "edit-form"}) do |f| -%>  
     <div id="edit_post_content">
+    	<%=hidden_field_tag 'format', 'html'%>
 		
 		  <%# Title %>		
 			<%if post.parent_id.nil? && post.event.nil?%>
