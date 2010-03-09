@@ -14,7 +14,7 @@ describe SessionsController do
   end
 
   describe "create" do
-    describe 'with valid login and password' do
+    describe 'with valid login and password of user with chat' do
       before do
         user_attributes = Factory.attributes_for(:user)
         @user = User.create(user_attributes)
@@ -24,11 +24,29 @@ describe SessionsController do
         }
       end
 
-      it 'should validate user' do
+      it 'should validate user and redirect to home with chat' do
         post :create, @credentials
         
         assert controller.current_user == @user
-        response.should redirect_to(home_path) 
+        response.should redirect_to( p_path )
+      end
+    end
+    
+    describe 'with valid login and password of user without chat' do
+      before do
+        user_attributes = Factory.attributes_for(:user_without_chat)
+        @user = User.create(user_attributes)
+        @user.activate
+        @credentials = user_attributes.reject{ |k, v| 
+          ! [ :login, :password ].include?(k)
+        }
+      end
+
+      it 'should validate user and redirect to home without chat' do
+        post :create, @credentials
+        
+        assert controller.current_user == @user
+        response.should redirect_to(home_path)
       end
     end
 
