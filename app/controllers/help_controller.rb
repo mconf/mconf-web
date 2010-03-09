@@ -36,4 +36,8 @@ class HelpController < ApplicationController
   def newdocument
     
   end
+
+  def createpost
+    
+  end
 end

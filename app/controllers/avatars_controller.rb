@@ -43,9 +43,9 @@ class AvatarsController < ApplicationController
 
     resize_if_bigger f.path, 600 
     
-    @logo_crop_text = I18n.t('avatar.crop')
-    @form_for       = t('avatar.crop')
-    @form_url       = user_avatar_path(@user)
+    @logo_crop_text = t('avatar.crop')
+    @form_for       = @avatar
+    @form_url       = [@user, @avatar]
     
     render :template => "logos/precrop", :layout => false
   end

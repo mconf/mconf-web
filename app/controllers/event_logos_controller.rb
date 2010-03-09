@@ -72,7 +72,7 @@ class EventLogosController < ApplicationController
   # PUT /event_logos/1
   # PUT /event_logos/1.xml
   def update
-    event = Event.find(params[:event_id])
+    event = Event.find_by_permalink(params[:event_id])
     if params[:crop_size].present?
       crop_and_resize
     end
