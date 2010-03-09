@@ -184,6 +184,10 @@ class AgendaEntry < ActiveRecord::Base
     DateTime.strptime(cm_session.endDate)
   end
   
+  def past?
+    return end_time.past?
+  end  
+  
   def name
     cm_session.try(:name)
   end
