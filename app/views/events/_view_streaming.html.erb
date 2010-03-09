@@ -21,7 +21,7 @@
 	  
         <div id="videos">
           
-		  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%> <!-- Only test... -->
+		  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%> <!-- Only test... delete -->
 		  <div class="video_full">
 		      <%if @event.agenda.agenda_entries.empty?%>
 		        <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
