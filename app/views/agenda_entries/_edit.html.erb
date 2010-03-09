@@ -2,6 +2,11 @@
   $("input.close2").click(function(){   
     $(".agenda_edit_entry").empty();
   }); 
+  
+  var destination_edit = $('#edit_entry_anchor').offset().top;
+  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+    window.location.hash = '#edit_entry_anchor';
+  });
 <%end%>
 
 <div class="agenda_edit_entry" >
@@ -59,10 +64,10 @@
     	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
         <%= f.text_area :embedded_video, :size => "25x5" %>
 	  </div>
-	<%else%>
-	   <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	<%else%>	   
 	   <%unless @event.past?%>	
-       <div class="margin-up">
+         <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+		 <div class="margin-up">
            <label for="embedded_video" class="main_text">
                <%= t('agenda.entry.options.title') %>
            </label>
@@ -84,7 +89,7 @@
 	<%end%>
     <div class="margin-up">
 			<input type="button" id="edit_entry_button" value="<%=t("button.finish")%>" class="basic_button blue_button"/>
-      <input type="button" value="<%=t('close')%>" class="agenda_edit_close close2 basic_button blue_button"/>
+      <input type="button" value="<%=t('close')%>" id="<%=@day%>" class="agenda_edit_close close2 basic_button blue_button"/>
     </div>
 		
   <% end %>

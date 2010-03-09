@@ -3,18 +3,16 @@
     <%array_entries = @event.agenda.agenda_entries_for_day(day)%>
 	<%if array_entries.empty?%>
 	  <div id="no_entries" class="main_text">
-	  	<%=t("event.agenda.no_entries")%>
-		  <%if @event.authorize?(:update, :to => current_user) && !@event.past?%>
-		    <a href='#' id="add_entry<%=day%>"><%=t("event.agenda.add_entry")%></a>
-      <%end%>
+	  	<%=t("event.agenda.no_entries")%>		  
 	  </div>
 	<%else%>  
 	  <%for entry in array_entries%>
-        <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => true }%>
-      <%end%>
-      <%if @event.authorize?(:update, :to => current_user)%>
-        <div class="margin-up"><button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button></div>
-      <%end%>
+        <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => true, :day=>day }%>
+      <%end%>      
 	<%end%>
+	
+	<%if @event.authorize?(:update, :to => current_user) && !@event.past?%>
+        <div class="margin-up"><button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button></div>
+    <%end%>
   </div>  
 <%end%>

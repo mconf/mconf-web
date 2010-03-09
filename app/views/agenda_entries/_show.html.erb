@@ -11,8 +11,9 @@
 
         <li><%=link_to_function(image_tag("icons/pencil.png", :alt => t('edit'), :title => t('edit')) , "return false;", :class=>"edit_entry", :name=>agenda_entry.id.to_s) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user) %></li>
         <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one')) , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:delete, :to => current_user) %></li>
-			  <li><%=link_to_function(t('edit_hours'), "return false;", :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && !agenda_entry.past? %></li>
-      </ul>
+		<li><%=link_to_function(t('edit_hours'), "return false;", :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && !agenda_entry.past? %></li>
+        <input type="hidden" class="entry_day" value="<%=day%>">
+	  </ul>
 
     <div class="title_name_and_hour">
 	  <div id="help" title="<%= h(t('agenda.expand_help')) %>"></div>
@@ -74,10 +75,10 @@
   </div>
   <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
     <div id="entry_options_show">
-      <%if agenda_entry.recording%>
+      <%if agenda_entry.recording?%>
 	    <%=image_tag("icons/world.png", :title=> t('agenda.entry.help.recording'), :class=>"icon fade")%>
 	  <%end%>
-	  <%if agenda_entry.streaming%>
+	  <%if agenda_entry.streaming?%>
 	    <%=image_tag("right.png", :title=> t('agenda.entry.help.streaming'), :class=>"icon fade")%>
 	  <%end%>
 	</div>
