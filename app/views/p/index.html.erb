@@ -107,7 +107,6 @@
         $(iframeSelector).load(function(){
           resizeIframe();
           prepareLinks();
-          setTimeout(function(){iJab.login(ijab_auto_user,"")}, 500);
         });
 
         $(window).bind( "hashchange", function(e) {
@@ -137,6 +136,8 @@
         });
 
         $(window).trigger( "hashchange" );
+
+        setTimeout(function(){iJab.login(ijab_auto_user,"")}, 500);
 
         $(document).unload(function() {
           iJab.logout();
