@@ -59,6 +59,8 @@ en:
       no_record: "No"
       options:
         help: "Here you can decide if you want to record or streaming this session or not"
+        help2: "This session has already happened you can not edit streaming or recording options"
+        help3: "This session is happening now you can only change whether you want streaming or not"
         recording: "Recording"
         streaming: "Streaming"
         title: "Options"

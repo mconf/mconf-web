@@ -4,7 +4,7 @@
 		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed' %>
 
     <script>
-      var ijab_port = "<%= @current_site_jab_port %>";
+      var ijab_port = <%= @current_site_jab_port %>;
       var ijab_domain = "<%= @current_site_jab_domain %>";
       var ijab_httpbind = "<%= @current_site_jab_httpbind %>";
       var ijab_servertype = "EJabberd";<!-- EJabberd,Openfire,Others-->
@@ -137,7 +137,7 @@
 
         $(window).trigger( "hashchange" );
 
-        setTimeout(function(){iJab.login(ijab_auto_user,"")}, 500);
+        setTimeout(function(){iJab.login(ijab_auto_user,"")}, 2000);
 
         $(document).unload(function() {
           iJab.logout();

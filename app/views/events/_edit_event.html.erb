@@ -62,7 +62,7 @@
 	    </div>
 	  </div>
   <%end%>
-  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
+  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person) || @event.is_happening_now?%>
 	  <div id="extra-info">
 	    <div class="margin-up">
 	      <strong><span>2. <%= t('event.enable.participation')%></span></strong>	

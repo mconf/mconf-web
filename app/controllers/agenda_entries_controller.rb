@@ -72,7 +72,7 @@ class AgendaEntriesController < ApplicationController
 
     @agenda_entry.agenda = @event.agenda
     @agenda_entry.author = current_user
-
+    
     respond_to do |format|
       if @agenda_entry.save
         format.html {redirect_to(space_event_path(@space, @event, :show_day=>@event.day_for(@agenda_entry), :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
