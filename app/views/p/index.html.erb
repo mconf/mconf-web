@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <script type="text/javascript" language="javascript" src="ijabbar/ijabbar.nocache.js"></script>
+		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed' %>
+
+    <script>
+      var ijab_port = "<%= @current_site_jab_port %>";
+      var ijab_domain = "<%= @current_site_jab_domain %>";
+      var ijab_httpbind = "<%= @current_site_jab_httpbind %>";
+      var ijab_servertype = "EJabberd";<!-- EJabberd,Openfire,Others-->
+      var ijab_rostermode = "All";<!-- All,Online,None -->
+      var ijab_debug = false;
+      var ijab_enableLoginBox = false;
+      var ijab_autoLogin = true;
+      var ijab_auto_user = "<%=current_user.login%>";
+      var ijab_auto_password = "SID";
+      var ijab_anonymous_prefix = "";
+      var ijab_reconnect_count = 3;
+    </script>
+
+    <script type="text/javascript">
+      baUrlInternal(jQuery);
+      var iframeSelector = "#main_iframe";
+      var contentIframeSelector = "#site";
+
+      var absoluteBaseUrlApp = "<%=root_url%>";
+      var absoluteInitPage = "<%=@init_url%>";
+      $.urlInternalHost( absoluteBaseUrlApp );
+
+      function resizeIframe() {
+        var siteHeight = $(iframeSelector).contents().find(contentIframeSelector).height();
+        if ( siteHeight < $(window).height() ) {
+          $(iframeSelector).height( "100%" );
+        } else {
+          $(iframeSelector).height( siteHeight );
+        }
+      }
+
+      // Override the current url anchor and return it
+      function setAnchorUrl(url) {
+        var newAnchor = $.url.setUrl(url).attr("relative");
+
+        var currentUrl = window.location.href;
+        var newUrl = $.param.fragment( currentUrl, newAnchor, 2 );
+        return newAnchor;
+      }
+
+      function isEqualsToCurrentUrl(urlToCompare) {
+        var urlIframe = $(iframeSelector).contents().attr("location").href;
+        var relativeUrlIframe = $.url.setUrl(urlIframe).attr("relative");
+        
+        var relativeUrlToCompare = $.url.setUrl(urlToCompare).attr("relative");
+        
+        return ( relativeUrlIframe == relativeUrlToCompare )
+      }
+
+      function skipIframe(aLink) {
+        $(aLink).attr("target", "_top");
+      }
+
+      function prepareLinks() {
+        $(iframeSelector).contents().find("a:urlExternal").click(function(){
+          skipIframe(this);
+        });
+
+        $(iframeSelector).contents().find("#logout_link").click(function(){
+          skipIframe(this);
+        });
+
+        var linksWithoutEvents;
+        // Test if children page has loaded jQuery
+        if ($(iframeSelector)[0].contentWindow.jQuery != null) {
+          baUrlInternal($(iframeSelector)[0].contentWindow.jQuery);
+          $(iframeSelector)[0].contentWindow.jQuery.urlInternalHost( absoluteBaseUrlApp );
+          var internalLinks = $(iframeSelector)[0].contentWindow.jQuery("a:urlInternal");
+
+          linksWithoutEvents = $.map(internalLinks, function(element, index) {
+            var elementWithData = internalLinks.filter(function(i){return (i==index) });
+            var event_data = elementWithData.data("events");
+            var onclick_data = elementWithData.attr("onclick");
+            // return element if NO event.click AND NO code in onclick attribute
+            return ( (event_data == null || event_data.click == null)
+                    && (onclick_data == null)) ? element : null;
+          });
+        } else {
+          linksWithoutEvents = $(iframeSelector).contents().find("a:urlInternal");
+        }
+
+        $(linksWithoutEvents).click(function(){
+          // Copy URL in clicked link to anchor in window.location
+          var hrefTo = $(this).attr("href");
+
+          var newAnchor = setAnchorUrl(hrefTo);
+
+          $.bbq.pushState({ url: newAnchor });
+        });
+      }
+
+      function getAnchor(url){
+        return $.url.setUrl(url).attr("anchor");
+			}
+
+      $(document).ready(function(){
+
+        $(window).bind("resize", resizeIframe);
+
+        $(iframeSelector).load(function(){
+          resizeIframe();
+          prepareLinks();
+        });
+
+        $(window).bind( "hashchange", function(e) {
+          // If NO anchor -> go to initPage and modify URL anchor
+          // If anchor AND anchor == iframe.src -> do nothing.
+          // If anchor AND anchor != iframe.src -> URL in anchor is copied to src.iframe
+          var newUrl = "";
+          var completeUrlAnchor = getAnchor(window.location.href);
+          if ( completeUrlAnchor ) {
+            // If anchor match with iframe.src do nothing
+            // If it is different, set iframe.src with url in anchor
+            var splittedString = completeUrlAnchor.split("=",2);
+            if ( splittedString.length == 2 ) {
+              var anchorUrl = $.url.setUrl(splittedString[1]).attr("relative");
+            }
+            if (!isEqualsToCurrentUrl(anchorUrl)) {
+              $(iframeSelector).attr("src", anchorUrl);
+            }
+          } else {
+            if (!isEqualsToCurrentUrl(absoluteInitPage)) {
+              $(iframeSelector).attr("src", absoluteInitPage);
+            }
+						// Anycase -> set anchor to init page
+            var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative")
+            $.bbq.pushState({ url: relativeInitPage });
+          }
+        });
+
+        $(window).trigger( "hashchange" );
+
+        setTimeout(function(){iJab.login(ijab_auto_user,"")}, 500);
+
+        $(document).unload(function() {
+          iJab.logout();
+        });
+
+      });
+    </script>
+  </head>
+
+  <style>
+    body{margin:0px;width:100%;}
+    #main_iframe{width:100%;border:none;padding-bottom:40px;}
+  </style>
+
+  <body>
+    <iframe id="main_iframe" src="<%=@init_url%>" scrolling="no">
+      <p>No IFrame Support</p>
+    </iframe>
+  </body>
+</html> 
+

@@ -1,3 +1,3 @@
 [submodule "vendor/plugins/station"]
 	path = vendor/plugins/station
-	url = git://github.com/atd/station.git
+	url = http://git-isabel.dit.upm.es/station.git

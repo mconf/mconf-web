@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   Translate::Routes.translation_ui(map)
 
+  map.p '/p', :controller => 'p', :action => 'index'
+
   map.connect '/ui/:action', :controller => 'ui'
 
   #Global search

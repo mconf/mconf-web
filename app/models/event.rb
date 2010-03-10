@@ -141,9 +141,9 @@ class Event < ActiveRecord::Base
         cm_event.destroy  
       rescue ActiveResource::ResourceNotFound => e
         true  
-      else
-        event.errors.add_to_base(I18n.t('event.error.delete'))  
-        false
+      else        
+        #event.errors.add_to_base(I18n.t('event.error.delete'))  
+        true
       end
     end
   end

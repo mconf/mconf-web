@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='xmpp4gwt'>
+	<inherits name="com.google.gwt.http.HTTP" />
+	<inherits name="com.google.gwt.xml.XML" />
+	<inherits name="com.google.gwt.json.JSON" />
+	
+	<inherits name="anzsoft.iJabBar.IJabBar" /> 
+	
+	<entry-point class='anzsoft.iJabBar.client.IJabBar'/>
+	
+	<script src="persist-all-min.js" />
+	<script src="jsxml.js" />
+</module>
