@@ -1,0 +1,13 @@
+<h1><%= t('role.new') %></h1>
+
+<% form_for(@role) do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => 'form', :object => f %>
+
+  <p>
+    <%= f.submit t(:create) %>
+  </p>
+<% end %>
+
+<%= link_to t(:index), roles_path %>

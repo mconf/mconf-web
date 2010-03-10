@@ -20,17 +20,17 @@
 class PrivateSender
   
   def self.invitation_message(invitation)
-     m = PrivateMessage.new :title => "Invitation to #{ invitation.group.name }",
-                            :body => "You have been invited to the space: #{ invitation.group.name }, please <a href=\"/invitations/#{ invitation.code }\">accept or deny the invitation</a>. "
-     m.sender = invitation.introducer
-     m.receiver = invitation.candidate
-     m.save!
+    m = PrivateMessage.new :title => "Invitation to #{ invitation.group.name }",
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
+    m.sender = invitation.introducer
+    m.receiver = invitation.candidate
+    m.save!
   end
   
   
   def self.event_invitation_message(invitation)
-    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.event.name,:space=>invitation.group.name,:username=>invitation.introducer.login),
-      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/event_invitations/" + invitation.code + "\">http://" + Site.current.domain + "/event_invitations/" + invitation.code + "</a>")
+    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.login),
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!
@@ -47,21 +47,21 @@ class PrivateSender
   
   
   def self.join_request_message(admission, receiver)    
-      m = PrivateMessage.new :title => "Join Request to #{ admission.group.name }",
-                             :body => "#{ admission.candidate.name } wants to participate in space #{ admission.group.name }, please <a href=\"/spaces/#{ admission.group.to_param }/admissions\">accept or deny the request</a>."
-      m.sender = admission.candidate
-      m.receiver = receiver
-      m.save!
+    m = PrivateMessage.new :title => "Join Request to #{ admission.group.name }",
+                           :body => "#{ admission.candidate.name } wants to participate in space #{ admission.group.name }, please <a href=\"/spaces/#{ admission.group.to_param }/admissions\">accept or deny the request</a>."
+    m.sender = admission.candidate
+    m.receiver = receiver
+    m.save!
   end
   
   
   def self.processed_invitation_message(admission, receiver)
-        m = PrivateMessage.new :title => "Invitation to #{ admission.group.name } #{ admission.accepted? ? 'accepted' : 'discarded' }",
-                               :body => "#{ admission.candidate.name } #{ admission.accepted? ? 'accepted' : 'discarted' } the invitation to join #{ admission.group.name }"
+    m = PrivateMessage.new :title => "Invitation to #{ admission.group.name } #{ admission.accepted? ? 'accepted' : 'discarded' }",
+                           :body => "#{ admission.candidate.name } #{ admission.accepted? ? 'accepted' : 'discarted' } the invitation to join #{ admission.group.name }"
 
-        m.sender = admission.candidate
-        m.receiver = receiver
-        m.save!
+    m.sender = admission.candidate
+    m.receiver = receiver
+    m.save!
   end
   
   

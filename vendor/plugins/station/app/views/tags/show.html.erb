@@ -1,0 +1,7 @@
+<h1><%= t('tag.show_title', :tag => @tag.name) %></h1>
+
+<% @taggables.each do |t| %>
+  <% div_for(t) do %>
+  <%= link_logotype t, :size => 64, :spacer => '<br />' %>
+  <% end %>
+<% end -%>

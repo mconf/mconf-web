@@ -36,10 +36,10 @@ class Notifier < ActionMailer::Base
   def event_invitation_email(invitation)
     setup_email(invitation.email)
 
-    @subject += I18n.t("invitation.to_event",:eventname=>invitation.event.name,:space=>invitation.group.name,:username=>invitation.introducer.login)
+    @subject += I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.login)
     @body[:invitation] = invitation
-    @body[:space] = invitation.group    
-    @body[:event] = invitation.event
+    @body[:space] = invitation.group.space    
+    @body[:event] = invitation.group
     @body[:user] = invitation.introducer
   end
   
@@ -56,7 +56,11 @@ class Notifier < ActionMailer::Base
     setup_email(receiver.email)
 	
     action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
-    @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name)
+    if invitation.candidate != nil
+      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name)
+    else
+      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name)
+    end
     @body[:invitation] = invitation
     @body[:space] = invitation.group
     @body[:signature]  = Site.current.signature_in_html

@@ -31,9 +31,11 @@ namespace :setup do
       u = User.create :login => "vcc",
                       :email => 'vcc@dit.upm.es',
                       :password => "admin",
-                      :password_confirmation => "admin",
-                      :superuser => true
+                      :password_confirmation => "admin"
+      u.update_attribute(:superuser,true)
       u.activate
+      u.profile!.update_attribute(:full_name, "Vcc")
+
     end
 
     desc "Load Spaces Data"

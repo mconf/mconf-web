@@ -24,8 +24,8 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :events,
                      :collection => [:add_time, :copy_next_week, :remove_time],
                      :member => { :token => :get, :spam => :post, :spam_lightbox => :get } do |event|
+      event.resources :invitations
       event.resources :participants
-      event.resources :event_invitations
       event.resource :agenda, :member => {:generate_pdf => :get}
       event.resource :agenda do |agenda|
         agenda.resources :agenda_entries
@@ -57,7 +57,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :invitations, :member => [ :accept ]
-  map.resources :event_invitations, :member => [ :accept ]
   map.resources :performances
   map.resources :admissions
 

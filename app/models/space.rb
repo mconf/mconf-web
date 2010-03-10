@@ -22,18 +22,19 @@ class Space < ActiveRecord::Base
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
-
-  has_many :event_invitations,
-           :dependent => :destroy,
-           :as => :group
-                 
+           
   has_permalink :name, :update=>true
   
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],
                     :sources => true
   acts_as_stage
-  attr_accessor :mailing_list
+  attr_accessor :mailing_list_for_group
+  attr_accessor :invitation_ids
+  attr_accessor :invitation_mails
+  attr_accessor :invite_msg
+  attr_accessor :inviter_id
+  attr_accessor :invitations_role_id
   has_logo
 
   validates_presence_of :name, :description
@@ -45,6 +46,27 @@ class Space < ActiveRecord::Base
       #group.users << space.users(:role => "user")
       #group.save
   #}
+  
+  after_save do |space|
+    if space.invitation_mails
+      mails_to_invite = space.invitation_mails.split(/[\r,]/).map(&:strip)
+      mails_to_invite.map { |email|      
+        params =  {:role_id => space.invitations_role_id.to_s, :email => email, :comment => space.invite_msg}
+        i = space.invitations.build params
+        i.introducer = User.find(space.inviter_id)
+        i
+      }.each(&:save)
+    end
+    if space.invitation_ids
+      space.invitation_ids.map { |user_id|
+        user = User.find(user_id)
+        params = {:role_id => space.invitations_role_id.to_s, :email => user.email, :comment => space.invite_msg}
+        i = space.invitations.build params
+        i.introducer = User.find(space.inviter_id)
+        i
+      }.each(&:save)
+    end
+  end
 
   named_scope :public, lambda {
     { :conditions => { :public => true } }

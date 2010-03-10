@@ -21,7 +21,7 @@ namespace :setup do
 
       puts "* Create Users"
       User.populate 15 do |user|
-        user.login = Faker::Name.name
+        user.login = Populator.words(1)
         user.email = Faker::Internet.email
         user.crypted_password = User.encrypt("test", "")
         user.activated_at = 2.years.ago..Time.now
@@ -29,6 +29,7 @@ namespace :setup do
         
         Profile.populate 1 do |profile|
           profile.user_id = user.id
+          profile.full_name = Faker::Name.name
           profile.organization = Populator.words(1..3).titleize
           profile.phone = Faker::PhoneNumber.phone_number
           profile.mobile = Faker::PhoneNumber.phone_number

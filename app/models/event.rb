@@ -23,7 +23,6 @@ class Event < ActiveRecord::Base
   belongs_to :author, :polymorphic => true
   has_many :posts
   has_many :participants
-  has_many :event_invitations, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
   
@@ -160,12 +159,10 @@ class Event < ActiveRecord::Base
   
   after_save do |event|
     if event.mails
-      #NOT ANY MORE: first of all we remove the emails that already has an invitation for this event (not to spam them)
-      #mails_to_invite = event.mails.split(/[\r,]/).map(&:strip) - event.event_invitations.map{|ei| ei.email}
       mails_to_invite = event.mails.split(/[\r,]/).map(&:strip)
       mails_to_invite.map { |email|      
-        params =  {:role_id => Role.find_by_name("User").id.to_s, :email => email, :event => event, :comment => event.invite_msg}
-        i = event.space.event_invitations.build params
+        params =  {:role_id => Role.find_by_name("Invited").id.to_s, :email => email, :comment => event.invite_msg}
+        i = event.invitations.build params
         i.introducer = event.author
         i
       }.each(&:save)
@@ -173,8 +170,8 @@ class Event < ActiveRecord::Base
     if event.ids
       event.ids.map { |user_id|
         user = User.find(user_id)
-        params = {:role_id => Role.find_by_name("User").id.to_s, :email => user.email, :event => event, :comment => event.invite_msg}
-        i = event.space.event_invitations.build params
+        params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => user.email, :comment => event.invite_msg}
+        i = event.invitations.build params
         i.introducer = event.author
         i
       }.each(&:save)

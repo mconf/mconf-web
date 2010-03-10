@@ -1,0 +1,44 @@
+<div id="accept-invitation">
+  <% form_for @invitation do |f| %>
+    <%= f.hidden_field :processed, :value => true %>
+    <%= f.hidden_field :accepted, :value => true %>
+
+    <%= f.error_messages %>
+
+    <% unless authenticated? %>
+      <% fields_for @candidate || Invitation.candidate_class.new do |cf| %>
+        <%= cf.error_messages %>
+
+        <p>
+        <%= cf.label t('agent.authentication.login') %><br />
+          <%= cf.text_field :login %>
+        </p>
+
+        <p>
+          <%= cf.label t('agent.authentication.password') %><br />
+          <%= cf.password_field :password %>
+        </p>
+
+        <p>
+          <%= cf.label t('agent.authentication.confirm_password') %><br />
+          <%= cf.password_field :password_confirmation %>
+        </p>
+      <% end %>
+    <% end %>
+
+    <p>
+      <%= f.submit t('invitation.accept') %>
+    </p>
+  <% end %>
+</div>
+
+<div id="discard-invitation">
+  <% form_for @invitation do |f| %>
+    <%= f.hidden_field :processed, :value => true %>
+    <p>
+      <%= f.submit t('invitation.discard') %>
+    </p>
+
+  <% end %>
+</div>
+
