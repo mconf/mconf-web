@@ -223,6 +223,10 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
     
+  def is_happening_now?
+    return start_time.past? && end_time.future?    
+  end
+    
   def generate_uid
      
      Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 

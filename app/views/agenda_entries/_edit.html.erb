@@ -1,7 +1,14 @@
 <% content_for :javascript do%>
   $("input.close2").click(function(){   
     $(".agenda_edit_entry").empty();
+	var id = $(this).attr('id');
+    $('#add_entry'+ id).show();
   }); 
+  
+  <%if params[:show_day]%>
+    <%@day=params[:show_day]%>
+	$("#add_entry"+<%=@day%>).hide();
+  <%end%>
   
   var destination_edit = $('#edit_entry_anchor').offset().top;
   $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
@@ -66,20 +73,26 @@
 	  </div>
 	<%else%>	   
 	   <%unless @event.past?%>	
-         <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+	     <%if @agenda_entry.past?%>
+		   <div id="help" title="<%= t('agenda.entry.options.help2') %>"></div>
+		 <%elsif @agenda_entry.is_happening_now?%>
+		   <div id="help" title="<%= t('agenda.entry.options.help3') %>"></div>
+		 <%else%>
+		   <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+		 <%end%>         
 		 <div class="margin-up">
            <label for="embedded_video" class="main_text">
                <%= t('agenda.entry.options.title') %>
            </label>
            <br/>
            <div class="checkbox_event">
-               <%=f.check_box :streaming,:class=>"icon", :checked => @agenda_entry.streaming?%>
+               <%=f.check_box :streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
                <label for="entry_streaming" class="label_izquierda">
                    <%= t('agenda.entry.options.streaming') %>
                </label>
            </div>
            <div class="checkbox_event">
-               <%=f.check_box :recording,:class=>"icon", :checked => @agenda_entry.recording? %>
+               <%=f.check_box :recording,:class=>"icon", :checked => @agenda_entry.recording?, :disabled => (@agenda_entry.past? || @agenda_entry.is_happening_now?) ? true:false %>
                <label for="entry_recording" class="label_izquierda">
                    <%= t('agenda.entry.options.recording') %>
                </label>
