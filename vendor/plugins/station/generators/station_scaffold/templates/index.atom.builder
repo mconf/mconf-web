@@ -1,0 +1,1 @@
+render :partial => 'resources/feed'

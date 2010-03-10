@@ -5,11 +5,6 @@ describe UsersController do
   
   integrate_views
   
-  it "should automatically create the profile of a user after creating the user" do
-    @user = Factory(:user)
-    @user.profile.should_not be_nil
-  end
-
   describe "responding to GET index" do
     
     describe " when you are logged in" do
@@ -304,11 +299,13 @@ describe UsersController do
   
   ##########################
   
+=end
+
   describe "responding to GET new" do
     describe "when you are logged in" do
       describe "as super Admin" do
         before(:each)do
-          login_as(:user_admin)
+          login_as Factory(:superuser)
         end
         
         it "should let the user to create a new account" do
@@ -319,7 +316,7 @@ describe UsersController do
       
       describe "as a normal user" do
         before(:each)do
-          login_as(:user_normal)
+          login_as Factory(:user)
         end
         
         it "should let the user to create a new account" do
@@ -337,6 +334,7 @@ describe UsersController do
     end
   end
   
+=begin
   
   ##########################
   describe "responding to GET edit" do

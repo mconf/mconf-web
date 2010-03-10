@@ -61,8 +61,8 @@ class EventsController < ApplicationController
   def show
     @assistants =  @event.participants.select{|p| p.attend == true}
     @no_assistants = @event.participants.select{|p| p.attend != true} 
-    @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
-    @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
+    @not_responding_candidates = @event.invitations.select{|e| !e.candidate.nil? && !e.processed?}
+    @not_responding_emails = @event.invitations.select{|e| e.candidate.nil? && !e.processed?}
     @agenda_entry = AgendaEntry.new
     
     #For event repository

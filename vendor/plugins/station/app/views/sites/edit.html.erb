@@ -1,0 +1,50 @@
+<h1><%= t(:"site.editing") %></h1>
+
+<%= error_messages_for :site %>
+
+<% form_for(:current_site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
+  <p>
+    <%= f.label :name, t('site.name') %><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :description, t('site.description') %><br />
+    <%= f.text_area :description %>
+  </p>
+
+  <p>
+    <%= f.label :logo, t('site.logo') %><br />
+    <%= file_field_tag "current_site[_logo][media]" %>
+    <%= preview current_site.logo %>
+  </p>
+
+  <p>
+    <%= f.label :domain, t('site.domain') %><br />
+    <%= f.text_field :domain %>
+  </p>
+
+  <p>
+    <%= f.label :ssl, t('site.ssl') %><br />
+    <%= f.check_box :ssl %>
+  </p>
+
+  <p>
+    <%= f.label :email, t('site.email') %><br />
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :exception_notifications, t('site.exception_notifications') %><br />
+    <%= f.check_box :exception_notifications %>
+  </p>
+
+  <p>
+    <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %><br />
+    <%= f.text_field :exception_notifications_email %>
+  </p>
+
+  <p>
+    <%= f.submit t(:update) %>
+  </p>
+<% end %>

@@ -25,9 +25,9 @@ class PrivateMessagesController < ApplicationController
 
   def index
     if params[:sent_messages]
-      @private_messages = PrivateMessage.sent(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
+      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
     else  
-      @private_messages = PrivateMessage.inbox(params[:user_id]).paginate(:page => params[:page], :per_page => 10)
+      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
     end
     
 
@@ -39,7 +39,7 @@ class PrivateMessagesController < ApplicationController
 
   def show
     @show_message = PrivateMessage.find(params[:id])
-    if @is_receiver = params[:user_id].to_i == @show_message.receiver_id
+    if @is_receiver = user.id == @show_message.receiver_id
       @show_message.checked = true
       @show_message.save
     end
@@ -65,7 +65,7 @@ class PrivateMessagesController < ApplicationController
       @success_messages = Array.new
       @fail_messages = Array.new
       for receiver in params[:receiver_ids].uniq
-        params[:private_message][:sender_id] = params[:user_id]
+        params[:private_message][:sender_id] = user.id
         params[:private_message][:receiver_id] = receiver
         private_message = PrivateMessage.new(params[:private_message])
         if private_message.save
@@ -86,7 +86,7 @@ class PrivateMessagesController < ApplicationController
         end
       end
     else  
-      params[:private_message][:sender_id] = params[:user_id]
+      params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
   
       respond_to do |format|
@@ -124,9 +124,9 @@ class PrivateMessagesController < ApplicationController
 
     respond_to do |format|
       if params[:private_message][:deleted_by_sender]
-        format.html { redirect_to(user_messages_path(params[:user_id], :sent_messages=>true)) }
+        format.html { redirect_to(user_messages_path(user.id, :sent_messages=>true)) }
       else
-        format.html { redirect_to(user_messages_path(params[:user_id])) }
+        format.html { redirect_to(user_messages_path(user.id)) }
       end
       format.xml  { head :ok }
     end

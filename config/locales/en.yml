@@ -153,7 +153,7 @@ en:
   change: "Change"
   changed_mind: "Changed your mind?"
   chat:
-    edit_question: "Would you like to enalbe chat?"
+    edit_question: "Would you like to enable chat?"
     edit_enabled: "Enable chat"
   check_mail: "Please, check your email"
   city: "City"
@@ -442,8 +442,8 @@ en:
     confirm_password: "Confirm password"
     deselect_all_users: "Deselect all users"
     discarded: "You have discarded the invitation to this event"
-    email: Email
-    full_name: Full name
+    email: "Email"
+    full_name: "Full name"
     hide_all_users: "Hide all users"
     logout_and_reload: "You are not the user that received this invitation, please logout and try again"
     message_title: "Invite people to join your event"
@@ -494,7 +494,7 @@ en:
     other: "Groups"
     send_message: "Send a message to this group"
     updated: "Group {{name}} updated successfully"
-  groups_and_results: "Groups, {{size}} results" 
+  groups_and_results: "Groups, {{size}} results"
 
   
   ######### H ###########
@@ -590,29 +590,40 @@ en:
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
   invitation:
-    accepted: "You have accepted the invitation to the {{event}} event"
+    accepted: "You have accepted the invitation"
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
-    rejoin_space: "If you would like to request membership again please go to {{space_url}}"
     add_more: "Invite more people"
-    discarded: "The invitation to {{event}} event has been discarded"
+    deselect_all_users: "Deselect all users"
+    discarded: "The invitation has been discarded"
+    email: "E-mail"
+    hide_all_users: "Hide all users"
     info_event: "You can find more information about this event in 'event_url'"
-    info_space: "You can find more information about this space in {{space_url}}"
+    info_space: "You can find more information about this space in <a href={{space_url}}> {{space_url}} </a>"
+    introducer: "Introducer"
     label: "Customise your invitation message"
     legend:
       name: "'Name' will be replaced in the message by the receiver's name."
       URL: "'URL' will be replaced in the message by the URL of the invitation."
+    logout_and_reload: "You are not the user that received this invitation, please logout and try again"
     message:
       in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_title: "Invite people to join your space"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
     personal: "Write your personal text here."
+    rejoin_space: "If you would like to request membership again please go to {{space_url}}"
+    role_label: "Role for the invited people"
+    select_all_users: "Select all users"
+    show_all_users: "Show all users"
     space: "I would like to invite you to {{space}} space in the Virtual Conference Centre."
     sign: "Yours sincerely, {{username}}"
     subject: "{{username}} has invited you to an event in {{space}} space"
     title: "Invite people"
+    title2: "Space Invitation"
     to_accept: "To accept my invitation please visit <a href={{url}}> {{url}} </a>"
+    to_accept_space: "To accept my invitation please visit {{url}}"
     to_event: "{{username}} invites you to event {{eventname}} in space {{space}}"
     to_space: "{{username}} invites you to space {{space}}"
     new:
@@ -623,6 +634,9 @@ en:
     pending:
       other: "Pending invitations"
     other: "invitation"
+    was_processed:
+      discarded: "The invitation has already been discarded"
+    will_invite: "People you will invite"
     yes_accepted: "accepted"
   invited: "Invited"
   import: "Import"
@@ -1153,4 +1167,3 @@ en:
   
   ######### Z ###########
   zipcode: "Zip code"
-  

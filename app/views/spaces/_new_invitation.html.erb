@@ -1,21 +1,92 @@
-<div id="new_invitation_div">
-  <h3><%= t('invitation.title') %></h3>
+<%content_for :headers do%>
+  <%= javascript_include_tag 'user_filter' %>
+<%end%>
 
-  <%= error_messages_for :object => (@invitations || []) %>
+<% content_for :javascript do%>
 
-  <% form_for [ space, Invitation.new ] do |f| %>
-    <div>
-    <%= f.label :email, t('e-mail.other') %> <%= t('e-mail.commas')%><br />
-    <%= f.text_field :email,:class=>"small-font main_text" %>
+  $("#send_invitation_button").livequery('click',function(){ 
+
+    // Build invitation message by putting its parts together
+    
+    var header = "<%= '<p>\'' + escape_javascript(t('name.one')) + '\',</p>'%>" + "<b><%= escape_javascript(t('invitation.to_space', :username => current_user.login, :space => @space.name)) %></b><br/><br/>";
+    // Changing the new line characters to <br/>
+    var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
+    
+    var ending = "<%= escape_javascript(t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'')) %><br/>" +
+          "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
+          "<%= escape_javascript(t('e-mail.kind_regards')) %><br/><br/>" +
+          "<%= current_user.login%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>";
+    
+    var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
+    
+    $('#invite_msg').text(complete_msg);
+
+    document.forms["invitation_edit_form"].submit();
+    
+  });
+
+<%end%>
+
+<div id="questions">
+  <div id="more_invitations">
+    <div id="invitations_title">
+      <h3 class="blue"><%=t('invitation.message_title')%></h3>
     </div>
+    <% form_for([@space], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
+      <div id="selected_users">
+        <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('invitation.will_invite')%>:</label>
+      </div>
+      <div id="user_filter" class="margin-up" style="display: none;">
+        <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
+        <%= text_field_tag :user_selector,'', :size => 25 %>
+      </div>
+      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 
+      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a> 
+      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>  
+      <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
+      
+      <div id="unselected_users"> 
+        <% for user in User.all -%>
+          <div class=user_checkbox>
+            <%= check_box_tag "space[invitation_ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
+          </div>
+        <%end%>
+      </div>
+      
+      
+      <div class="margin-up">
+        <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
+        <%= f.text_field :invitation_mails %>
+      </div>
+      
+      <div class="margin-up">
+        <label class="label_izquierda bold"><%= t('invitation.role_label') %>:</label>
+        <%= f.select :invitations_role_id, Space.roles.map{|r| [ r.name, r.id ]}, {:selected=> Space.role("User").id },:class=>"small-font"%>
+      </div>
 
-    <div class="margin-up">
-    <%= f.label :role, t('role.one') %>
-    <%= f.select :role_id, Space.roles.map{|r| [ r.name, r.id ]}, {:selected=> Space.role("User").id },:class=>"small-font"%>
-    </div>
+      <%= f.text_field :inviter_id, :style => 'display:none', :value => current_user.id %>
 
-    <div class="margin-up">
-      <button type="submit" class="basic_button blue_button"><%=t('button.invite')%></button>
-    </div>
-  <% end %>
+      <div class="margin-up">
+        <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
+        <textarea style="display:none" id="invite_msg" name="space[invite_msg]"></textarea>
+        <div class="grey_bar">
+          <p><%= '\'' + t('name.one') + '\','%></p>
+          <b><%= t('invitation.to_space', :username => current_user.login, :space => @space.name) %></b><br/><br/>
+          <textarea id="invite_personal"><%= t('invitation.personal') %></textarea><br/>
+          <%= t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'') %><br/>
+          <%= t('invitation.info_space', :space_url => space_url(@space)) %><br/><br/>
+          <%= t('e-mail.kind_regards') %><br/><br/>
+          <%= current_user.login%><br/>
+          <%= current_user.email %><br/>
+          <%= current_user.organization%><br/>
+        </div>
+        <p>* <%= t('invitation.legend.name') %><br/>
+        * <%= t('invitation.legend.URL') %></p>
+      </div>
+      
+      <div class="margin-up">
+        <input type="button" id="send_invitation_button" value="<%=t("button.send")%>" />
+      </div>
+    <% end %>
+  </div>
 </div>
