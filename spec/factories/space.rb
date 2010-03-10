@@ -1,7 +1,7 @@
 Factory.define :space do |s|
   s.sequence(:name) { |n| "Space #{ n }" }
   s.description "Space description"
-  s.mailing_list "list@vcc-test.dit.upm.es"
+  s.mailing_list_for_group "list@vcc-test.dit.upm.es"
 end
 
 Factory.define :public_space, :parent => :space do |s|
