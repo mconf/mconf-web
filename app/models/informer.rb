@@ -24,7 +24,7 @@ class Informer
     if !admission.candidate || admission.candidate.notification == User::NOTIFICATION_VIA_EMAIL
        Notifier.deliver_invitation_email(admission)
      elsif admission.candidate.notification == User::NOTIFICATION_VIA_PM
-         PrivateSender.invitation_message(admission)        
+       PrivateSender.invitation_message(admission)        
      end
    end
    
@@ -60,9 +60,9 @@ class Informer
    
    
    def self.deliver_processed_invitation(admission)
-       #in this case the deliver is to the admins of the space so we have to decide
-       #whether using a Private Message or an Email depending on their profile
-       admission.group.users(:role => 'Admin').each do |admin|
+     #in this case the deliver is to the admins of the space so we have to decide
+     #whether using a Private Message or an Email depending on their profile
+     admission.group.users(:role => 'Admin').each do |admin|
        if admin.notification == User::NOTIFICATION_VIA_EMAIL
          Notifier.deliver_processed_invitation_email(admission, admin)
        elsif admin.notification == User::NOTIFICATION_VIA_PM

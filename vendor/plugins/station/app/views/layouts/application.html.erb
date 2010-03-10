@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title><%= yield(:title_header) || title("", :append_site_name => true) %></title>
+  <meta name="description" content="<%= yield :description_header %>" />
+  <meta name="keywords" content="<%= yield :keywords_header %>" />
+  <meta name="author" content="<%= yield :author_header %>" />
+
+  <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "style", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "print", :media => "print" %>
+  <!--[if IE]>
+    <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+  <![endif]-->
+
+  <%= javascript_include_tag :defaults %>
+
+  <%= yield :headers %>
+</head>
+
+<body>
+  <div id="site" class="container ">
+    <div id="header" class="span-24 last">
+      <div id="header_logo" class="prepend-1 span-3">
+        <%= link_logo(current_site, :size => 96, :url => root_path) %>
+      </div>
+      <div id="header_title" class="prepend-1 span-8">
+        <%= link_to current_site.name, root_path %>
+      </div>
+    </div>
+    <hr class="site">
+    <div id="content" class="prepend-1 span-22 append-1 last">
+      <div id="notification" class="span-22 last">
+        <%= notification_area %>
+      </div>
+      <div id="main" class="span-16">
+        <%= yield %>
+      </div>
+      <div id="sidebar" class="span-6 last">
+        <%= yield :sidebar %>
+      </div>
+      <div id="pagination_container" class="prepend-16 span-7 last">
+        <%= yield :pagination %>
+      </div>
+    </div>
+    <hr class="site">
+    <div id="footer">
+      <div id="footer-copy" class="prepend-10">
+        <p><%= link_to "Station", 'http://github.com/atd/station' %> &copy; 2009 atd</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

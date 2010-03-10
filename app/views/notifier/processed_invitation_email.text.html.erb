@@ -1,9 +1,9 @@
 <html>
-<body>
+  <body>
 
-<%= t('e-mail.invitation_result.admin_side',:name=>@invitation.candidate.name, :action => @action, :spacename =>@space.name)%><br/><br/>
+    <%= t('e-mail.invitation_result.admin_side',:name=>@invitation.email, :action => @action, :spacename =>@space.name)%><br/><br/>
 
-<%= @signature %><br/>
+    <%= @signature %><br/>
 
-</body>
+  </body>
 </html>

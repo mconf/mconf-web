@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
              :include => [ #{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
              { :class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
             #{ :class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
-],
+            ],
+
              :concatenate => [ { :class_name => 'Tag',:field => 'name',:as => 'tags',
                                  :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
              }]
@@ -67,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
-  alias_attribute :name, :login
+  alias_attribute :name, :full_name
   alias_attribute :title, :full_name
 
   # Full name must go to the profile, but it is provided by the user in singing up
