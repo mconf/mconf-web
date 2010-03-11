@@ -292,13 +292,13 @@ en:
         basic: "Here you can organize three kind of events"
         presential: 
           name: "Meeting"
-          message: "Great for quick and simple meetings. No need of video orrecording. Notify your partners,upload documents"
+          message: "Great for quick and simple meetings. No need of video or recording. Notify your partners,upload documents."
         meeting:
           name: "Virtual Meeting"
-          message: "Add easy videoconference participation. Just need a webcam and microphone. Also automatic recording andstreaming of your meetings"
+          message: "Add easy videoconference participation. Just need a webcam and microphone. Also automatic recording and streaming of your meetings."
         conference:
           name: "Virtual Congress"
-          message: "Advanced, big meetings. TV-likeproduction managed by an operator." 
+          message: "Advanced, big meetings. TV-like production managed by an operator." 
       title: "Create new event"
     created: "Event created successfully"
     deleted: "Event deleted successfully"
