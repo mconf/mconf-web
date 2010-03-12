@@ -1,8 +1,8 @@
 <div class="left column span-11 borde">         
 		<div id="left_espacio"></div>
 		<div id="left_contenido">
-			<div id="vcc_title">VCC is a Free service for publishing and discovering videoconferences
-				<span id="text_bottom_title"><br /> 50 videoconferences organized - 320 videos stored </span>
+			<div id="vcc_title"><%= t('frontpage.main_title') %>
+				<span id="text_bottom_title"><br /><%= t('frontpage.stats', :vc => 50, :vs => 320) %></span>
 			</div>
 			<br />
 	
@@ -10,9 +10,9 @@
 				<span><%=image_tag("../images/frontpage/share.gif")%></span>
 				<span>
 					<ul class="purple">
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%>Videoconference video and streaming</img></li>
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%>Documents, video and video repositories</img></li>
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%>Your contacts and relations</img></li>
+						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence1') %></img></li>
+						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence2') %></img></li>
+						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence3') %></img></li>
 					</ul>
 				</span>
 			</div>
@@ -21,9 +21,9 @@
 				<span><%=image_tag("../images/frontpage/meet.gif")%></span>
 				<span class="no_float">
 					<ul class="green">
-						<li><%=image_tag("../images/frontpage/green_sq.png")%>Discover best online videoconferences</img></li>
-						<li><%=image_tag("../images/frontpage/green_sq.png")%>Meet interesting people and groups</img></li>
-						<li><%=image_tag("../images/frontpage/green_sq.png")%>Video chat your colleagues</img></li>
+						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence1') %></img></li>
+						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence2') %></img></li>
+						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence3') %></img></li>
 					</ul>
 				</span>
 			</div>
@@ -32,9 +32,9 @@
 				<span><%=image_tag("../images/frontpage/collaborate.gif")%></span>
 				<span>
 					<ul class="yellow">
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%>Organize your projects and activities</img></li>
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%>Participate in conferences and events</img></li>
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%>Create your own space and conferences</img></li>
+						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence1') %></img></li>
+						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence2') %></img></li>
+						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence3') %></img></li>
 					</ul>
 				</span>		
 			</div>
@@ -54,13 +54,13 @@
 				<span><img src="images/video.gif" alt="videos online" /></span>
 				<br /><br />
 				<ul>
-				<li class="conferences">Conferences</li>
-				<li class="participants">Participants</li>
-				<li class="organizers">Organizers</li>
-				<li class="spaces">Spaces</li>
-				<li class="comments">Comments</li>
-				<li class="tags">Tags</li>
-				<li class="networks">Social Networks</li>
+				<li class="conferences"><%= t('frontpage.elements.conferences')%></li>
+				<li class="participants"><%= t('frontpage.elements.participants')%></li>
+				<li class="organizers"><%= t('frontpage.elements.organizers')%></li>
+				<li class="spaces"><%= t('frontpage.elements.spaces')%></li>
+				<li class="comments"><%= t('frontpage.elements.comments')%></li>
+				<li class="tags"><%= t('frontpage.elements.tags')%></li>
+				<li class="networks"><%= t('frontpage.elements.networks')%></li>
 				</ul>
 			</div>
 

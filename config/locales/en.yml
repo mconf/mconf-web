@@ -473,6 +473,29 @@ en:
   form:
     loading: "The form is loading..."
   from: "From"
+  frontpage:
+    main_title: "VCC is a collaboration service for publishing and discovering videoconferences"
+    stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
+    share:
+      sentence1: "Videoconference video and streaming"
+      sentence2: "Documents, videos and video repositories"
+      sentence3: "Your contacts and relations"
+    meet:
+      sentence1: "Discover best online videoconferences"
+      sentence2: "Meet interesting people and groups"
+      sentence3: "Video chat your colleagues"
+    collaborate:
+      sentence1: "Organize your projects and activities"
+      sentence2: "Participate in conferences and events"
+      sentence3: "Create your own space and conferences"
+    elements:
+      conferences: "Conferences"
+      participants: "Participants"
+      organizers: "Organizers"
+      spaces: "Spaces"
+      comments: "Comments"
+      tags: "Tags"
+      networks: "Social Networks"
   
   ######### G ###########
   getting_started: "Getting started!"
