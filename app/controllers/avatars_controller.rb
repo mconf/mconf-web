@@ -40,7 +40,7 @@ class AvatarsController < ApplicationController
     session[:tmp_avatar][:original_filename] = params['avatar']['media'].original_filename
     session[:tmp_avatar][:content_type] = params['avatar']['media'].content_type
 
-
+    reshape_image f.path, 1.0
     resize_if_bigger f.path, 600 
     
     @logo_crop_text = t('avatar.crop')
@@ -111,6 +111,30 @@ class AvatarsController < ApplicationController
       f.close
       resized.write("png:" + path)
     end
+    
+  end
+  
+  def reshape_image path, aspect_ratio
+    
+    f = File.open(path)
+    img = Magick::Image.read(f).first
+    aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
+    if aspect_ratio_orig < aspect_ratio
+      # target image is more 'horizontal' than original image
+      target_size_y = img.rows
+      target_size_x = target_size_y * aspect_ratio
+    else
+      # target image is more 'vertical' than original image
+      target_size_x = img.columns
+      target_size_y = target_size_x / aspect_ratio
+    end
+    # We center the image inside the white canvas
+    decenter_x = -(target_size_x - img.columns) / 2;
+    decenter_y = -(target_size_y - img.rows) / 2;
+    
+    reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
+    f.close
+    reshaped.write("png:" + path)
     
   end
   
