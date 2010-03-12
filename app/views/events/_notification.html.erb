@@ -7,7 +7,7 @@
     var beginning = "<%= escape_javascript(t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))) %>"
     // Changing the new line characters to <br/>
     var personal_msg = ($('#notify_personal').val()).replace(/\n/g,'<br/>');
-    var ending = "<%= escape_javascript(t('event.notification.message_ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %>"
+    var ending = "<%= escape_javascript(t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %>"
     var complete_msg = beginning + personal_msg + '<br/>' + ending; 
     
     $('#notify_msg').text(complete_msg);
@@ -51,7 +51,7 @@
         <div class="grey_bar">
           <%= t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) %>
           <textarea id="notify_personal"><%= t('event.notification.personal') %></textarea>
-          <%= t('event.notification.message_ending' ,:username=>current_user.login,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
+          <%= t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
         </div>
         <p>* <%= t('event.notification.legend.name') %></p>
       </div>

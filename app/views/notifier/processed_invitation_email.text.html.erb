@@ -1,9 +1,13 @@
 <html>
   <body>
 
-    <%= t('e-mail.invitation_result.admin_side',:name=>@invitation.email, :action => @action, :spacename =>@space.name)%><br/><br/>
+    <p><%= @invitation.introducer.full_name + ',' %></p>
 
-    <%= @signature %><br/>
+    <p><%= t('e-mail.invitation_result.admin_side',:name=>@invitation.candidate.full_name, :action => @action, :spacename =>@space.name)%>.</p>
+
+    <p><%= t('invitation.info_users', :users_url => space_users_url(@space))%></p>
+
+    <p><%= @signature %></p>
 
   </body>
 </html>

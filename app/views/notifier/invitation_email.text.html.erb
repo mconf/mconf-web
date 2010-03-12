@@ -1,7 +1,7 @@
 <html>
   <body>
     <%if @invitation.candidate!=nil%>
-      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.candidate.login)%>
+      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.candidate.full_name)%>
     <%else%>
       <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.email[0,@invitation.email.index('@')])%>
     <%end%>

@@ -186,6 +186,9 @@ namespace :setup do
         end
 
       end
+      
+      Site.find(1).update_attribute(:signature, "VCC")
+      
     end
   end
 end

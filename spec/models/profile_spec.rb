@@ -23,8 +23,8 @@ describe Profile do
   end
 
   it "should authorize its own user with visibility :everybody" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :everybody and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -35,8 +35,8 @@ describe Profile do
   end
   
   it "should authorize its own user with visibility :members" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :members and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
@@ -47,8 +47,8 @@ describe Profile do
   end
 
   it "should authorize its own user with visibility :public_fellows" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :public_fellows and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -59,8 +59,8 @@ describe Profile do
   end
   
   it "should authorize its own user with visibility :private_fellows" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :private_fellows and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -71,8 +71,8 @@ describe Profile do
   end
   
   it "should authorize its own user with visibility :nobody" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :nobody and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -83,8 +83,8 @@ describe Profile do
   end
   
   it "should authorize a NOT logged user (not the owner of the profile) with visibility :everybody" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :everybody and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -95,8 +95,8 @@ describe Profile do
   end
   
   it "should NOT authorize a NOT logged user (not the owner of the profile) with visibility :members" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :members and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
@@ -107,8 +107,9 @@ describe Profile do
   end
   
   it "should authorize a logged user (not the owner of the profile) with visibility :members" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
+
     #we set the visibility to :members and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
     (@user.profile.authorize? :read, :to => @user_public_1).should be_true
@@ -119,8 +120,8 @@ describe Profile do
 
   it ("should NOT authorize a logged user (not the owner of the profile) with visibility :public_fellows " +
     "if that user is NOT in the same public or private space as the owner of the profile") do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :public_fellows and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -132,8 +133,8 @@ describe Profile do
 
   it ("should authorize a logged user (not the owner of the profile) with visibility :public_fellows " +
     "if that user is in the same public or private space as the owner of the profile") do
-    #first we create the user profile
-    Factory(:profile, :user=>@user_public_2)
+    #first we fill the user profile
+    @user_public_2.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :public_fellows and check the authorization
     @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -145,8 +146,8 @@ describe Profile do
 
   it ("should NOT authorize a logged user (not the owner of the profile) with visibility :private_fellows " +
     "if that user is NOT in the same PRIVATE space as the owner of the profile") do
-    #first we create the user profile
-    Factory(:profile, :user=>@user_public_2)
+    #first we fill the user profile
+    @user_public_2.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :private_fellows and check the authorization
     @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -158,8 +159,8 @@ describe Profile do
 
   it ("should authorize a logged user (not the owner of the profile) with visibility :private_fellows " +
     "if that user is in the same PRIVATE space as the owner of the profile") do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :private_fellows and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -170,8 +171,8 @@ describe Profile do
   end
 
   it "should NOT authorize a logged user (not the owner of the profile) with visibility :nobody" do
-    #first we create the user profile
-    Factory(:profile, :user=>@user)
+    #first we fill the user profile
+    @user.profile.update_attributes Factory.attributes_for(:profile)
     
     #we set the visibility to :nobody and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -180,4 +181,16 @@ describe Profile do
     #we restore the visibility to the default value
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
   end 
+
+  after(:each) do
+                          
+    @private_space.destroy
+    @admin.destroy
+    @user.destroy
+    @public_space.destroy
+    @user_public_1.destroy
+    @user_public_2.destroy
+    
+  end
+
 end

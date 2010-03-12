@@ -244,7 +244,7 @@ en:
     confirm: "You need now to confirm your registration by clicking on <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
     invitation_result: 
-      admin_side: "{{name}} has {{action}} the invitation to {{spacename}}"
+      admin_side: "{{name}} has {{action}} the invitation to space {{spacename}}"
       user_side: "The administrator of {{spacename}} has {{action}} your join request"
     dear: "Dear {{name}},"
     thanks: "Thanks for visiting {{sitename}}"
@@ -624,6 +624,7 @@ en:
     hide_all_users: "Hide all users"
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in <a href={{space_url}}> {{space_url}} </a>"
+    info_users: "You can see the current list of users of the space in <a href={{users_url}}> {{users_url}} </a>"
     introducer: "Introducer"
     label: "Customise your invitation message"
     legend:

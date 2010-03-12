@@ -1,6 +1,6 @@
 <html>
   <body>
-      <%@event.notify_msg = @event.notify_msg.gsub('\'' + t('name.one') + '\'',@receiver.login)%>
+      <%@event.notify_msg = @event.notify_msg.gsub('\'' + t('name.one') + '\'',@receiver.full_name)%>
       <%=@event.notify_msg%><br/><br/>
   </body>
 </html>

@@ -33,7 +33,7 @@ describe ProfilesController do
     end 
 
     it "should be able to delete his profile" do
-      Factory(:profile, :user=>@superuser)
+      @superuser.profile.update_attributes Factory.attributes_for(:profile)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @superuser.to_param
         flash[:notice].should == I18n.t('profile.deleted')
@@ -41,37 +41,37 @@ describe ProfilesController do
       end
     end
     it "should be able to get the edit view for his profile" do
-      #first we create the user profile
-      Factory(:profile, :user=>@superuser)
+      #first we fill the user profile
+      @superuser.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
     it "should be able to edit his profile" do
-      #first we create the user profile
-      Factory(:profile, :user=>@superuser)
+      #first we fill the user profile
+      @superuser.profile.update_attributes Factory.attributes_for(:profile)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @superuser.to_param, :profile => valid_attributes              
       response.should redirect_to(user_profile_path(@superuser))
     end
     it "should be able to get the edit view for any user's profile" do 
-      Factory(:profile, :user=>@user)
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
     it "should be able to edit any user's profile" do
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @user.to_param, :profile => valid_attributes              
       response.should redirect_to(user_profile_path(@user))
     end
     it "should be able to delete any user's profile" do 
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
@@ -80,9 +80,8 @@ describe ProfilesController do
     end
 
     it "should be able to see his public and private profiles with visibility :everybody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@superuser)
-
+      #first we fill the user profile
+      @superuser.profile.update_attributes Factory.attributes_for(:profile)
       #we set the visibility to :everybody and try to see the profile
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
       get :show , :user_id => @superuser.to_param
@@ -96,8 +95,8 @@ describe ProfilesController do
     end
     
     it "should be able to see his public and private profiles with visibility :nobody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@superuser)
+      #first we fill the user profile
+      @superuser.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -112,8 +111,8 @@ describe ProfilesController do
     end
     
     it "should be able to see a user's public and private profiles with visibility :everybody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -128,8 +127,8 @@ describe ProfilesController do
     end
     
     it "should be able to see a user's public and private profiles with visibility :nobody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -165,16 +164,16 @@ describe ProfilesController do
     
     it "should be able to get the edit view for his profile" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/edit.html.erb")
     end
     it "should be able to edit his profile" do 
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @user.to_param, :profile => valid_attributes              
@@ -182,7 +181,7 @@ describe ProfilesController do
     end
     it "should be able to delete his profile" do
       login_as(@user)
-      Factory(:profile, :user=>@user)
+      @user.profile.update_attributes Factory.attributes_for(:profile)
       assert_difference 'Profile.count', -1 do
         delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
@@ -231,8 +230,8 @@ describe ProfilesController do
     end
     it "shoud NOT be able to edit anyone's profile" do 
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @invited.to_param, :profile => valid_attributes              
@@ -240,7 +239,7 @@ describe ProfilesController do
     end
     it "should NOT be able to delete anyone's profile" do
       login_as(@user)
-      Factory(:profile, :user=>@invited)
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
       assert_no_difference 'Profile.count' do
         delete :destroy, :user_id => @invited.to_param
         assert_response 403
@@ -249,8 +248,8 @@ describe ProfilesController do
     
     it "should be able to see his public and private profiles with visibility :everybody" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -266,8 +265,8 @@ describe ProfilesController do
     
     it "should be able to see his public and private profiles with visibility :nobody" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -283,8 +282,8 @@ describe ProfilesController do
     
     it "should be able to see a user's public and private profiles with visibility :everybody" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user_public_1)
+      #first we fill the user profile
+      @user_public_1.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -300,8 +299,9 @@ describe ProfilesController do
 
     it "should be able to see a user's public and private profiles with visibility :members" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user_public_1)
+      #first we fill the user profile
+      @user_public_1.profile.update_attributes Factory.attributes_for(:profile)
+
       #we set the visibility to :members and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
       get :show , :user_id => @user_public_1.to_param
@@ -317,8 +317,8 @@ describe ProfilesController do
     it ("should be able to see a user's public and private profiles with visibility :public_fellows " +
       "if the other user is in the same public or private space") do
       login_as(@user_public_1)
-      #first we create the user profile
-      Factory(:profile, :user=>@user_public_2)
+      #first we fill the user profile
+      @user_public_2.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :public_fellows and try to see the profile
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -335,8 +335,8 @@ describe ProfilesController do
     it ("should be able to see ONLY a user's public profile (NOT the private profile) with visibility " +
       ":public_fellows if the other user is NOT in the same public or private space") do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@user_public_1)
+      #first we fill the user profile
+      @user_public_1.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :public_fellows and try to see the profile
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -353,8 +353,8 @@ describe ProfilesController do
     it ("should be able to see a user's public and private profiles with visibility :private_fellows " +
       "if the other user is in the same PRIVATE space") do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@admin)
+      #first we fill the user profile
+      @admin.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :private_fellows and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -372,8 +372,8 @@ describe ProfilesController do
       ":private_fellows if the other user is NOT in the same PRIVATE space") do
       login_as(@user_public_1)
 
-      #first we create the user profile
-      Factory(:profile, :user=>@user_public_2)
+      #first we fill the user profile
+      @user_public_2.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :private_fellows and try to see the profile
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -389,8 +389,8 @@ describe ProfilesController do
 
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :nobody" do
       login_as(@user)
-      #first we create the user profile
-      Factory(:profile, :user=>@admin)
+      #first we fill the user profile
+      @admin.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -445,15 +445,16 @@ describe ProfilesController do
       assert_response 403
     end
     it "shoud NOT be able to edit anyone's profile" do 
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
+      
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @invited.to_param, :profile => valid_attributes              
       assert_response 403
     end
     it "should NOT be able to delete anyone's profile" do
-      Factory(:profile, :user=>@invited)
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
       assert_no_difference 'Profile.count' do
         delete :destroy, :user_id => @invited.to_param
         assert_response 403
@@ -464,8 +465,8 @@ describe ProfilesController do
     #it has already been tested in the previous describe block
     
     it "should be able to see his public and private profiles with visibility :everybody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@admin)
+      #first we fill the user profile
+      @admin.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -480,9 +481,9 @@ describe ProfilesController do
     end
     
     it "should be able to see his public and private profiles with visibility :nobody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@admin)
-
+      #first we fill the user profile
+      @admin.profile.update_attributes Factory.attributes_for(:profile)
+      
       #we set the visibility to :nobody and try to see the profile
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
       get :show , :user_id => @admin.to_param
@@ -496,8 +497,8 @@ describe ProfilesController do
     end
     
     it "should be able to see a user's public and private profiles with visibility :everybody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -512,8 +513,8 @@ describe ProfilesController do
     end
     
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :nobody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@user)
+      #first we fill the user profile
+      @user.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))
@@ -565,15 +566,15 @@ describe ProfilesController do
       assert_response 401
     end
     it "shoud NOT be able to edit anyone's profile" do 
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @invited.to_param, :profile => valid_attributes              
       assert_response 401
     end
     it "should NOT be able to delete anyone's profile" do
-      Factory(:profile, :user=>@invited)
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
       assert_no_difference 'Profile.count' do
         delete :destroy, :user_id => @invited.to_param
         assert_response 401
@@ -581,8 +582,8 @@ describe ProfilesController do
     end
   
     it "should be able to see a user's public and private profiles with visibility :everybody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :everybody and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
@@ -597,8 +598,8 @@ describe ProfilesController do
     end
 
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :members" do
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :members and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
@@ -613,8 +614,8 @@ describe ProfilesController do
     end
 
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :public_fellows" do
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :public_fellows and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -629,8 +630,8 @@ describe ProfilesController do
     end
     
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :private_fellows" do
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :private_fellows and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:private_fellows))
@@ -645,8 +646,8 @@ describe ProfilesController do
     end
 
     it "should be able to see ONLY a user's public profile (NOT the private profile) with visibility :nobody" do
-      #first we create the user profile
-      Factory(:profile, :user=>@invited)
+      #first we fill the user profile
+      @invited.profile.update_attributes Factory.attributes_for(:profile)
 
       #we set the visibility to :nobody and try to see the profile
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:nobody))

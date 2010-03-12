@@ -8,14 +8,14 @@
 
     // Build invitation message by putting its parts together
     
-    var header = "<%= '<p>\'' + escape_javascript(t('name.one')) + '\',</p>'%>" + "<b><%= escape_javascript(t('invitation.to_space', :username => current_user.login, :space => @space.name)) %></b><br/><br/>";
+    var header = "<%= '<p>\'' + escape_javascript(t('name.one')) + '\',</p>'%>" + "<b><%= escape_javascript(t('invitation.to_space', :username => current_user.full_name, :space => @space.name)) %>.</b><br/><br/>";
     // Changing the new line characters to <br/>
     var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
     
     var ending = "<%= escape_javascript(t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'')) %><br/>" +
           "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
           "<%= escape_javascript(t('e-mail.kind_regards')) %><br/><br/>" +
-          "<%= current_user.login%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>";
+          "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>";
     
     var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
     
@@ -71,12 +71,12 @@
         <textarea style="display:none" id="invite_msg" name="space[invite_msg]"></textarea>
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>
-          <b><%= t('invitation.to_space', :username => current_user.login, :space => @space.name) %></b><br/><br/>
+          <b><%= t('invitation.to_space', :username => current_user.full_name, :space => @space.name) %>.</b><br/><br/>
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea><br/>
           <%= t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'') %><br/>
           <%= t('invitation.info_space', :space_url => space_url(@space)) %><br/><br/>
           <%= t('e-mail.kind_regards') %><br/><br/>
-          <%= current_user.login%><br/>
+          <%= current_user.full_name%><br/>
           <%= current_user.email %><br/>
           <%= current_user.organization%><br/>
         </div>
