@@ -3,7 +3,7 @@
       <%=logo(@user, :size => '128')%>
     </div>
 
-		<%= render :partial => 'user_spaces', :locals => {:show_user =>@user, :title=>@user.name + " " + t('is_member_of')} %>
+		<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>@user.name + " " + t('is_member_of')} %>
 
 <%end%>
 <div class="vcard" id="card">
