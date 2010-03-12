@@ -1,0 +1,114 @@
+1. Install Openfire-3.6.4
+
+2. Access to http://localhost:9090/
+- Choose Language -> English
+- Server Settings
+  * Domain: chat.vcc.dit.upm.es
+  * Admin Console Port: 9090
+  * Secure Admin Console Port: 9091
+- Database Settings -> Embedded Database
+- Profile Settings -> Default
+- Administrator Account -> Set your administration account
+
+3. Restart Openfire
+# /etc/init.d/openfire restart 
+
+4. Copy vccCustomAuthentication.jar to Openfire Installation directory.
+Ej. # cp vccCustomAuthentication.jar /usr/share/openfire/lib/
+
+4. Restart Openfire
+# /etc/init.d/openfire restart
+
+5. Config Openfire
+Server -> Server Manager -> System Properties
+
+admin.authorizedJIDs
+vcc@chat.vcc.dit.upm.es,admin@chat.vcc.dit.upm.es
+
+jdbcGroupProvider.allGroupsSQL
+SELECT name FROM spaces
+
+jdbcGroupProvider.descriptionSQL
+SELECT `description` FROM `spaces` WHERE `name`=?
+
+jdbcGroupProvider.groupCountSQL
+SELECT count(*) FROM spaces
+
+jdbcGroupProvider.loadAdminsSQL
+SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name`=?) AND `agent_type` LIKE 'User' AND `stage_type`LIKE 'Space' AND `role_id`=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+
+jdbcGroupProvider.loadMembersSQL
+SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name`=?) AND `agent_type` LIKE 'User' AND `stage_type`LIKE 'Space' AND `role_id`!=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+
+jdbcGroupProvider.userGroupsSQL
+SELECT `name` FROM `spaces` WHERE `id`=ANY (SELECT `stage_id` FROM `performances` WHERE `agent_id`=(SELECT `id` FROM `users` WHERE `login`=?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space')
+
+jdbcProvider.connectionString
+jdbc:mysql://127.0.0.1/vcc?user=database_user_name&password=database_password
+
+jdbcProvider.driver
+com.mysql.jdbc.Driver
+
+jdbcUserProvider.allUsersSQL
+SELECT login FROM users
+
+jdbcUserProvider.emailField
+email
+
+jdbcUserProvider.loadUserSQL
+SELECT login,email FROM users WHERE login=?
+
+jdbcUserProvider.nameField
+login
+
+jdbcUserProvider.searchSQL
+SELECT login FROM users WHERE
+
+jdbcUserProvider.userCountSQL
+SELECT COUNT(*) FROM users
+
+jdbcUserProvider.usernameField
+login
+
+provider.admin.className
+org.jivesoftware.openfire.admin.DefaultAdminProvider
+
+provider.auth.className
+org.jivesoftware.openfire.auth.VccCustomAuthProvider
+
+provider.group.className
+org.jivesoftware.openfire.group.VccCustomGroupProvider
+
+provider.lockout.className
+org.jivesoftware.openfire.lockout.DefaultLockOutProvider
+
+provider.securityAudit.className
+org.jivesoftware.openfire.security.DefaultSecurityAuditProvider
+
+provider.user.className
+org.jivesoftware.openfire.user.JDBCUserProvider
+
+provider.vcard.className
+org.jivesoftware.openfire.vcard.DefaultVCardProvider
+
+vccCustomAuthProvider.userNameHash
+8aa40001b9b39cb257fe646a561a80840c806c55
+
+vccCustomAuthProvider.vccSessionUrl
+http://chotis.dit.upm.es/vcc/session.xml
+
+xmpp.auth.anonymous
+true
+
+xmpp.domain
+chat.vcc.dit.upm.es
+
+xmpp.session.conflict-limit
+0
+
+xmpp.socket.ssl.active
+true
+
+
+
+
