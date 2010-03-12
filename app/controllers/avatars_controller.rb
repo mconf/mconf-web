@@ -45,7 +45,7 @@ class AvatarsController < ApplicationController
     
     @logo_crop_text = t('avatar.crop')
     @form_for       = @avatar
-    @form_url       = [@user, @avatar]
+    @form_url       = [@user, :avatar]
     
     render :template => "logos/precrop", :layout => false
   end
