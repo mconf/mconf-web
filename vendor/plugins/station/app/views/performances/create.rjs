@@ -1,9 +1,0 @@
-if error_messages_for(:performance).blank?
-  page.replace "performances_list", sortable_list(@performances, Performance, :actions => [ :delete ])
-  page.replace "new_performance_form", :partial => 'new_performance_form'
-  page.visual_effect :highlight, "performances_list"
-  page.visual_effect :highlight, "new_performance_form"
-
-else
-  page.alert(error_messages_for(:performance))
-end

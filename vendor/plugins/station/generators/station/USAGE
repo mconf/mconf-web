@@ -1,8 +1,0 @@
-Description:
-    Create standard station environment
-
-Example:
-    ./script/generate station
-
-    This will create:
-        what/will/it/create

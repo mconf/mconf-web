@@ -1,9 +1,0 @@
-<h1><%%= title %></h1>
-
-<%% form_for @<%= singular_name %> do |f| %>
-  <%%= f.error_messages %>
-
-  <%%= render :partial => 'form', :object => f %>
-
-  <%%= f.submit t(:create) %>
-<%% end %>

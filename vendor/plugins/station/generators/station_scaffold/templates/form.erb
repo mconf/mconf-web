@@ -1,9 +1,0 @@
-<% attributes.each do |attribute| -%>
-<% next if %w( created_at updated_at).include?(attribute.name) -%>
-<p>
-  <label><%%= form.label :<%= attribute.name %>, t('<%= singular_name %>.<%= attribute.name %>')%></label><br />
-  <%%= form.<%= attribute.field_type %> :<%= attribute.name %> %>
-</p>
-
-<% end -%>
-

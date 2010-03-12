@@ -1,1 +1,0 @@
-system "script/generate station"
