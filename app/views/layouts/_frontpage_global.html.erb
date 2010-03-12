@@ -33,6 +33,8 @@
              <% end -%>
                  
              <div id="subtexto">
+               <%= link_to t('register.one'), signup_path, :class => "register_link" %> 
+               <span>|</span>
                <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %> 
 							 <span>|</span>
                <%= link_to_function t('openid.login'), "show_open_id_form()" %>

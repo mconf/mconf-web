@@ -9,7 +9,9 @@
 			</div>
 			<div class="openid_form" <%='style="display:none;"' if request.xhr? %> >
               <% form_tag session_url(:protocol => current_site.protocol) do -%>
- 	  			<div id="openid_label"><h3><%= t('openid.enter') %> <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><%= submit_tag t('login') %></h3></div>
+ 	  			<div id="openid_label"><h3><%= t('openid.enter') %> <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
+					<button type="submit" class="basic_button blue_button"><%=t("login")%></button>
+					</h3></div>
     		  
   		    </div>	  		
 			<div>

@@ -33,26 +33,8 @@ li ul,li ol{margin:0 1.5em;}
 ul,ol{margin:0 1.5em 1.5em 1.5em;}
 ul{list-style-type:disc;}
 ol{list-style-type:decimal;}
-.small {font-size:.8em;line-height:1.875em;}
 
-/*Definición de la tipografia*/
-.unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
-.unified_event{color:#8B0425;font-weight:bold;font-size:13px;line-height:18px;}
-.unified_posts{color:#666;font-weight:bold;}
-.unified_news{color:#111;font-weight:bold;}
-.main_text{color:#555;font-weight:normal;}
-.sidebar_text{color:#244974;font-weight:normal;}
-.main_date{color:#555;}
-.sidebar_date{color:#244974;}
-.updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
-.small-font{font-size:0.9166em;line-height:1.6363;}
 
-/*ayudas de color*/
-.blue{color:#244974;}
-.grey{color:#555;}
-.red{color:#8B0425;}
-.bold{font-weight:bolder;}
-.fade{opacity:0.6;}
 /*Fin tipografia*/
 
 /************************************************** BUTTONS ********************************************/
@@ -70,58 +52,23 @@ button{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
 	overflow:hidden;
 	width:100%;}
 
-a.big_button, a.medium_button, a.basic_button,button{
+a.basic_button,button{
 	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
     font-weight:bold;}
 
-a.big_button, a.medium_button, a.basic_button{
+a.basic_button{
 	display: block;
     float: left;
     text-decoration: none;
 	}
 
-a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
 
-a.big_button span, a.medium_button span, a.basic_button span{
+a.basic_button span{
     display: block;}
 
-a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
+a.basic_button span:hover{
     outline: none; /* hide dotted outline in Firefox */}
-
-/*********BIG BUTTONS***************/
-a.big_button{
-	-webkit-border-radius:5px;-moz-border-radius:5px;
-    font-size:120%;
-    line-height:150%;
-    margin-right: 6px;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.big_button span{
-	-webkit-border-radius:5px;-moz-border-radius:5px;
-    line-height: 16px;
-	width:195px;
-    padding: 7px 18px 7px 18px;
-}
-
-.join a.big_button span{width:120px;}
-.join .button_wrapper{padding:0 45px;}
-
-/********MEDIUM BUTTONS*************/
-a.medium_button{
-	-webkit-border-radius:4px;-moz-border-radius:4px;
-	font-size:1.0833em;
-	line-height:1.3846;
-    margin-right: 6px;
-	cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.medium_button span{
-	-webkit-border-radius:4px;-moz-border-radius:4px;
-	color:#fff;
-    line-height: 16px;
-	width:110px;
-    padding: 5px 18px 5px 18px;
-}
 
 /*BASIC BUTTONS*/
 a.basic_button,button.basic_button{
@@ -139,27 +86,6 @@ a.basic_button span{
 }
 
 /*BUTTON COLOURS*/
-.orange_button,.orange_button span{background: transparent url("../images/buttons/fondo-join-space.png");}
-
-.orange_button span{
-	color:#fff;
-	border-bottom:1px #C18500 solid;
-	border-top:1px #FFC14A solid;
-	border-left:1px #FFC14A solid;
-	border-right:1px #FFC14A solid;
-}
-.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
-
-.red_button,.red_button span{background:url("../images/buttons/leave-space-notext3.png");}
-	
-.red_button span{
-	border-bottom:1px #a2042b solid;
-	border-top:1px #d60337 solid;
-	border-left:1px #d60337 solid;
-	border-right:1px #d60337 solid;
-	}
-.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
-
 .blue_button,.blue_button span{background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;color:#FFF;}
 	
 .blue_button span,button.blue_button{border:1px solid #244974;}

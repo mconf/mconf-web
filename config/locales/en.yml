@@ -680,7 +680,6 @@ en:
     error: "Unable to change application language to "
   login: "Login"
   login_traditional: "User/Password login"
-  login_or_register: "Log in / Register"
   login_request: "You need to be logged in to "
   logo:
     click_to_change: "Click to change the logo"
