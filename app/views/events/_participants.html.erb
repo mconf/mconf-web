@@ -122,7 +122,7 @@
 		<%unless @assistants.empty?%>
 		  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
 				<h5><%= t('user.assist') %></h5>
-			  <%for participant in @assistants.first(6)%>
+			  <%for participant in @assistants.first(12)%>
 				  <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
 			      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
 			    <%else%>
@@ -171,7 +171,7 @@
 		<%unless @no_assistants.empty?%>
 			<div id="no_assistants_lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
 				<h5><%= t('user.not_assist') %></h5>
-			  <%for participant in @no_assistants.first(6)%>
+			  <%for participant in @no_assistants.first(12)%>
 			    <%if participant.user && participant.user.authorize?([:read, :profile],:to=> current_user)%>
 			      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
 			    <%elsif participant.user%>
