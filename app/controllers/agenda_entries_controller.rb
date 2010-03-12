@@ -39,6 +39,7 @@ class AgendaEntriesController < ApplicationController
       @days.delete(params[:page_shown])
     end
     respond_to do |format|
+      format.html { redirect_to [ @event.space, @event ] }
       format.js
     end 
   end
@@ -140,7 +141,7 @@ class AgendaEntriesController < ApplicationController
   private
   
   def event
-    @event = Event.find_by_permalink(params[:event_id])
+    @event = Event.find_by_permalink(params[:event_id]) || raise ActiveRecord::RecordNotFound
   end
   
   
