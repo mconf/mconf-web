@@ -16,3 +16,4 @@ spec/reports
 **/**/**/*~
 **/**/**/**/*~
 config/locales/log
+.svn
