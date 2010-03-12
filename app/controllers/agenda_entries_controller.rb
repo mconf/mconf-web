@@ -141,7 +141,7 @@ class AgendaEntriesController < ApplicationController
   private
   
   def event
-    @event = Event.find_by_permalink(params[:event_id]) || raise ActiveRecord::RecordNotFound
+    @event = Event.find_by_permalink(params[:event_id]) || raise(ActiveRecord::RecordNotFound)
   end
   
   
