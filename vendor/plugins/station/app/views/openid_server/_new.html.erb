@@ -1,0 +1,21 @@
+<h2><%= t('openid.server.login_to', :server => @trust_root) %></h2>
+
+<%= t('openid.server.about_login_to', :server => @trust_root) %>
+
+<% form_tag url_for(:action => "create") do %>
+  <%= radio_button_tag "decision", "once" %> <%= t('openid.server.once') %><br />
+  <%= radio_button_tag "decision", "trust" %> <%= t('openid.server.trust') %><br />
+  <%= radio_button_tag "decision", "cancel" %> <%= t('openid.server.cancel') %><br />
+
+  <% unless @required.blank? -%>
+  <h3><%= t('openid.server.required_information_by', :server => @trust_root) %></h3>
+  <%= sreg_fields @required %>
+  <% end -%>
+
+  <% unless @optional.blank? -%>
+  <h3><%= t('openid.server.optional_information_by', :server => @trust_root) %></h3>
+  <%= sreg_fields @optional %>
+  <% end -%>
+
+  <%= submit_tag t(:send) %>
+<% end %>

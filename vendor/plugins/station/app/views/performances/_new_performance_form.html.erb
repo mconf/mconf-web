@@ -1,0 +1,8 @@
+<div id="new_performance_form">
+  <% remote_form_for [ @stage, Performance.new ] do |f| %>
+    <%= f.select :agent, @agents.map{ |a| [ a.name, "#{ a.class.base_class.to_s.underscore }-#{ a.id }" ] }%>
+    <%= f.select :role_id, @roles.map{ |r| [ r.name, r.id ] } %>
+    <%= submit_tag :add %>
+  <% end -%>
+</div>
+

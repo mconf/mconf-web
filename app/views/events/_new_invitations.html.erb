@@ -30,10 +30,10 @@
 		    <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
 		    <%= text_field_tag :user_selector,'', :size => 25 %>
 		  </div>
-		  <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('event_invitation.show_all_users')%></a> 
-		  <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('event_invitation.hide_all_users')%></a> 
-		  <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('event_invitation.select_all_users')%></a>  
-		  <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('event_invitation.deselect_all_users')%></a>
+		  <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 
+		  <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a> 
+		  <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>  
+		  <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
 		  
 		  <div id="unselected_users"> 
 		    <% for user in @space.users -%>

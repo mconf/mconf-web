@@ -55,8 +55,7 @@ class SessionsController
       edit_site_path
     else
       if current_user.chat_activation
-        #url_for :controller => "p", :action => "index", :only_path => true
-        home_path
+        url_for :controller => "p", :action => "index", :only_path => true
       else
         home_path
       end

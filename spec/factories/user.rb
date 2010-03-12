@@ -7,6 +7,8 @@ Factory.define :user do |u|
   u.updated_at { Time.now }
   u.activated_at { Time.now }
   u.disabled false
+  u.chat_activation true
+  u.sequence(:_full_name) { |n| "User #{ n }" }
 end
 
 Factory.define :author, :parent => :user do |a|
@@ -16,6 +18,6 @@ Factory.define :superuser, :parent => :user do |u|
   u.superuser true
 end
 
-Factory.define :new_user, :parent => :user do |u|
-  u.sequence(:_full_name) { |n| "User #{ n }" }
+Factory.define :user_without_chat, :parent => :user do |u|
+  u.chat_activation false
 end

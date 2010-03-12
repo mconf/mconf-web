@@ -61,8 +61,8 @@ class EventsController < ApplicationController
   def show
     @assistants =  @event.participants.select{|p| p.attend == true}
     @no_assistants = @event.participants.select{|p| p.attend != true} 
-    @not_responding_candidates = @event.event_invitations.select{|e| !e.candidate.nil? && !e.processed?}
-    @not_responding_emails = @event.event_invitations.select{|e| e.candidate.nil? && !e.processed?}
+    @not_responding_candidates = @event.invitations.select{|e| !e.candidate.nil? && !e.processed?}
+    @not_responding_emails = @event.invitations.select{|e| e.candidate.nil? && !e.processed?}
     @agenda_entry = AgendaEntry.new
     
     #For event repository
@@ -89,8 +89,8 @@ class EventsController < ApplicationController
 
     if params[:edit_event]
       @event_to_edit = Event.find_by_permalink(params[:edit_event])
-      @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
-      @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
+      @invited_candidates = @event_to_edit.invitations.select{|e| !e.candidate.nil?}
+      @invited_emails = @event_to_edit.invitations.select{|e| e.candidate.nil?}
       #array of users of the space minus the users that has already been invited
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
@@ -139,8 +139,8 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit    
-    @invited_candidates = @event.event_invitations.select{|e| !e.candidate.nil?}
-    @invited_emails = @event.event_invitations.select{|e| e.candidate.nil?}
+    @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
+    @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
   end
 
   # POST /events
@@ -371,8 +371,8 @@ class EventsController < ApplicationController
       
       if params[:edit]
         @event_to_edit = Event.find_by_permalink(params[:edit])
-         @invited_candidates = @event_to_edit.event_invitations.select{|e| !e.candidate.nil?}
-        @invited_emails = @event_to_edit.event_invitations.select{|e| e.candidate.nil?}
+         @invited_candidates = @event_to_edit.invitations.select{|e| !e.candidate.nil?}
+        @invited_emails = @event_to_edit.invitations.select{|e| e.candidate.nil?}
         #array of users of the space minus the users that has already been invited
         @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
       end

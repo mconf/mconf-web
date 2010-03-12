@@ -28,7 +28,7 @@ class AvatarsController < ApplicationController
       return
     end
     
-    @user = User.find(params[:user_id])
+    @user = User.find_by_login(params[:user_id])
     @avatar = @user.profile!.logo || Avatar.new 
 
     f = File.open(File.join(TMP_PATH,"precropavatar-#{@user.id}"), "w+")
@@ -51,7 +51,7 @@ class AvatarsController < ApplicationController
   end
   
   def create
-    user = User.find(params[:user_id])
+    user = User.find_by_login(params[:user_id])
     if params[:crop_size].present?
       crop_and_resize
     end
@@ -67,7 +67,7 @@ class AvatarsController < ApplicationController
   end
   
   def update
-     user = User.find(params[:user_id])
+     user = User.find_by_login(params[:user_id])
     if params[:crop_size].present?
       crop_and_resize
     end

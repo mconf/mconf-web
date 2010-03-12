@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='ijabbar'>
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <!-- <inherits name="com.google.gwt.core.Core" /> -->
+  <!-- <add-linker name="xs" /> -->
+
+
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.http.HTTP" />
+  <inherits name="com.google.gwt.xml.XML" />
+  <inherits name="com.google.gwt.json.JSON" />
+  
+  <inherits name="anzsoft.xmpp4gwt.Xmpp4gwt" />
+
+  <script src="persist-all-min.js" />
+  <script src="jsxml.js" />
+  <stylesheet src="ijabbar.css" />
+
+  <!-- Other module inherits                                      -->
+  <inherits name='com.extjs.gxt.ui.GXT'/>
+
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='anzsoft.iJabBar.client.IJabBar'/>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client'/>
+  
+  <extend-property name="locale" values="en" />
+
+</module>

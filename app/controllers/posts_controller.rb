@@ -54,6 +54,7 @@ class PostsController < ApplicationController
     
     respond_to do |format|
       format.html {
+        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
         if request.xhr?
           if params[:edit]
             
@@ -77,6 +78,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html {      
                         
+        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
         if params[:reply]
           if request.xhr?
             render "new_reply_big", :layout => false
@@ -103,6 +105,7 @@ class PostsController < ApplicationController
   def edit
     respond_to do |format|
       format.html {
+        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
         if @post.parent.nil?
           if request.xhr?
             render "edit_thread_big", :layout => false, :locals => { :post => @post} 

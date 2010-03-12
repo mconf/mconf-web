@@ -184,6 +184,10 @@ class AgendaEntry < ActiveRecord::Base
     DateTime.strptime(cm_session.endDate)
   end
   
+  def past?
+    return end_time.past?
+  end  
+  
   def name
     cm_session.try(:name)
   end
@@ -217,6 +221,10 @@ class AgendaEntry < ActiveRecord::Base
     else
       return nil
     end
+  end
+    
+  def is_happening_now?
+    return start_time.past? && end_time.future?    
   end
     
   def generate_uid
