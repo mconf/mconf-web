@@ -1,13 +1,16 @@
-servers = {
+set :servers,  {
   :production => 'isabel@vcc.dit.upm.es',
   :test => 'isabel@vcc-test.dit.upm.es',
   :gplaza => 'isabel@138.4.17.137'
 }
 
-default_env = :test
-# Set environment
-current_env = ( ARGV[1] || default_env ).to_sym
+set :branches, {
+  :production => :stable,
+  :test => :master,
+  :gplaza => :master
+}
 
+set :environment, :test
 
 set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
@@ -21,6 +24,14 @@ set :use_sudo, false
 set :deploy_to, "/home/isabel/#{ application }"
 set :deploy_via, :export
 
+role(:app) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
+role(:web) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
+role(:db, :primary => true) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
+
+set(:branch) { ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}
+
+before 'deploy:migrations', 'vcc:info'
+before 'deploy:setup', 'vcc:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 after 'deploy:restart', 'deploy:reload_ultrasphinx'
@@ -58,11 +69,26 @@ namespace(:deploy) do
   end
 end
 
+namespace(:vcc) do
 
-role :app, servers[current_env]
-role :web, servers[current_env]
-role :db,  servers[current_env], :primary => true
-
-task :vcc do
-  deploy.migrations
+  task :info do
+    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
+    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
+  end
+  
+  task :production do
+    set :environment, :production
+    deploy.migrations
+  end
+  
+  task :gplaza do
+    set :environment, :gplaza
+    deploy.migrations
+  end
+  
+  task :default do
+    deploy.migrations
+  end
 end
+
+
