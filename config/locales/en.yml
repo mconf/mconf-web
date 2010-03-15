@@ -262,6 +262,8 @@ en:
     notifications: "email notifications"
     one: "email"
     other: "emails"
+    spam_activation: "If you did not register at this site please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a>"
+    spam_invitation: "If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a>"        
     used_from: "email used in contact form: {{dir}}"
     vcc_team: "The VCC Team"
     welcome: "Welcome to {{sitename}}"
