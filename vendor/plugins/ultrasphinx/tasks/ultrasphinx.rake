@@ -152,7 +152,7 @@ def ultrasphinx_index(index)
   rotate = ultrasphinx_daemon_running?
   ultrasphinx_create_index_path
   
-  cmd = "/usr/local/bin/indexer --config '#{Ultrasphinx::CONF_PATH}'"
+  cmd = "indexer --config '#{Ultrasphinx::CONF_PATH}'"
   cmd << " #{ENV['OPTS']} " if ENV['OPTS']
   cmd << " --rotate" if rotate
   cmd << " #{index}"
@@ -171,7 +171,7 @@ def ultrasphinx_merge
     raise "#{index} index is missing" unless File.exist? "#{Ultrasphinx::INDEX_SETTINGS['path']}/sphinx_index_#{index}.spa"
   end
   
-  cmd = "/usr/local/bin/indexer --config '#{Ultrasphinx::CONF_PATH}'"
+  cmd = "indexer --config '#{Ultrasphinx::CONF_PATH}'"
   cmd << " #{ENV['OPTS']} " if ENV['OPTS']
   cmd << " --rotate" if rotate
   cmd << " --merge #{indexes.join(' ')}"
