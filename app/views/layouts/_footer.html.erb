@@ -7,7 +7,7 @@
 	<li>-</li>
 	<li><%=link_to(t('help'), help_path)%></li>
 	<li>-</li>
-	<li><%=link_to(t('support.one'), root_path)%></li>
+	<li><%=link_to(t('support.one'), new_feedback_path(), :id => "feedback_link" )%></li>
 	<li>-</li>
 	<li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
 	<li>-</li>
