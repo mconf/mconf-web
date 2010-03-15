@@ -5,6 +5,8 @@
 
 <%= t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain)) %><br/><br/>
 
+<%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %><br/><br/>
+
 <%= @signature %><br/>
 
 </body>
