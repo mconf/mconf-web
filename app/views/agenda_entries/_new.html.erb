@@ -12,10 +12,17 @@
   
     <div class="without_javascript">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
-      <%= f.time_select :start_time, :default => @event.last_hour_for_day(@day.to_i) %></div>
+	  <%last_hour = @event.last_hour_for_day(@day.to_i)%>
+      <%= f.time_select :start_time, :default => last_hour %></div>
       
       <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.end_time') %></label><br/>
-      <%= f.time_select :end_time, :default => @event.last_hour_for_day(@day.to_i)+ 2.hour %></div>
+      
+	  <%if last_hour.hour < 22%>
+	    <%= f.time_select :end_time, :default => last_hour + 2.hour %></div>
+	  <%else%>
+	    <%= f.time_select :end_time, :default => Time.parse(last_hour.strftime("%m/%d/%Y 23:59")) %></div>
+	  <%end%>
+	  
     </div>
     <div class="margin-up">
     	<input type="button" id="add_entry_button" value="<%=t("button.next")%>" class="basic_button blue_button"/>

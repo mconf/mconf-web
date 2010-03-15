@@ -33,21 +33,29 @@
     });
     
     $('#add_entry<%=i%>').livequery('click', function(){
-      $('#add_entry<%=i%>').hide();
+      $('#add_buttons<%=i%>').hide();
       //first we remove the rest of the edit divs in case the user has an open one
       $(".agenda_edit_entry").empty();
       
-			var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=" + <%=i%>;
+			var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=<%=i%>";
       $.getScript(route);
     });
-       
+     
+	$('#add_divider<%=i%>').livequery('click', function(){
+      $('#add_buttons<%=i%>').hide();
+      //first we remove the rest of the edit divs in case the user has an open one
+      $(".agenda_edit_entry").empty();
+      
+	  var route = "<%= space_event_agenda_agenda_dividers_path(@space, @event) %>" + "/new?day=<%=i%>&divider=true";
+      $.getScript(route);
+    });  
   <%end%>
 
 	
     
     $("input.agenda_new_close").livequery('click',function(){
 	  var id = $(this).attr('id');
-	  $('#add_entry'+ id).show();
+	  $('#add_buttons'+ id).show();
       $(".agenda_new_entry").empty();
     });
 	
@@ -84,6 +92,26 @@
     }
     
   });
+  
+  $("#add_divider_button").livequery('click',function(){
+    // Validate title
+    var title = ($('#agenda_divider_title').val());
+    if (title == "") {
+      
+      $("#agenda_title_label").append(
+        "<div class='error'><%= escape_javascript(t('agenda.error.omit_title_divider')) %></div>"
+      );
+      
+      var destination_add = $('#new_entry_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_entry_anchor';
+      });
+      
+    } else {
+      document.forms["agenda_divider_new_form"].submit();
+    }
+    
+  });
 
 	
 	
@@ -97,10 +125,24 @@
     $(".agenda_new_entry").siblings("button").show();
     $(".agenda_new_entry").empty();
 	$(".newAttachment").empty();
-	$("#add_entry"+$(this).parent().siblings(".entry_day").val()).hide();
+	$("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
     var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
     $.getScript(route);
   });
+	
+  $('.edit_divider').livequery('click', function(){
+    edit_divider_button = $(this);
+	//first we remove the rest of the edit divs in case the user has an open one
+    $(".agenda_edit_entry").empty();
+	$(".agenda_edit_hours_entry").empty();
+    $(".agenda_new_entry").siblings("button").show();
+    $(".agenda_new_entry").empty();
+	$(".newAttachment").empty();
+	$("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
+    var route = "<%= space_event_agenda_agenda_dividers_path(@space, @event) %>" + "/" + edit_divider_button.attr("name") + "/edit";
+    $.getScript(route);
+  });
+	
 	
 	// Edit hours in an agenda entry
 	$('.edit_hours_entry').livequery('click', function(){
@@ -109,7 +151,7 @@
       $(".agenda_edit_entry").empty();
 	  $(".agenda_edit_hours_entry").empty();
       $(".agenda_new_entry").empty();
-	  $("#add_entry"+$(this).parent().siblings(".entry_day").val()).hide();
+	  $("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
       var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit?hours=true";
       $.getScript(route);
   });
@@ -127,26 +169,32 @@
   });
 
   $("#edit_entry_button").livequery('click',function(){	
-    // Validate title
-		var title = ($('#agenda_entry_title').val());
-		if (title == "") {
-		  
-			$("#agenda_title_label").append(
-			  "<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>"
-			);
-			
-			var destination_edit = $('#edit_entry_anchor').offset().top;
-      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
-        window.location.hash = '#edit_entry_anchor';
-      });
-			
-		} else {
+      // Validate title
+	  var title = ($('#agenda_entry_title').val());
+	  if (title == "") {		  
+		$("#agenda_title_label").append("<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>");			
+	    var destination_edit = $('#edit_entry_anchor').offset().top;
+        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+          window.location.hash = '#edit_entry_anchor';
+         });
+	  } else {
 		  document.forms["agenda_entry_edit_form"].submit();
-		}
-		
+	  }
   });
 
-
+  $("#edit_divider_button").livequery('click',function(){	
+      // Validate title
+	  var title = ($('#agenda_divider_title').val());
+	  if (title == "") {		  
+		$("#agenda_title_label").append("<div class='error'><%= escape_javascript(t('agenda.error.omit_title_divider')) %></div>");			
+	    var destination_edit = $('#edit_divider_anchor').offset().top;
+        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+          window.location.hash = '#edit_entry_anchor';
+         });
+	  } else {
+		  document.forms["agenda_divider_edit_form"].submit();
+	  }
+  });
 
   // Show agenda entry view
 
@@ -183,7 +231,7 @@
   <%if @event.days > 1%>
     //after the page finishes loading we call for the other pages of the agenda
     $(window).bind('load', function() {
-      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event, :page_shown=>params[:show_day]) %>";
+      var route = "<%= space_event_agenda_path(@space, @event, :page_shown=>params[:show_day]) %>";
       $.get(route,{
           authenticity_token: "<%=form_authenticity_token()%>"
           }, function(data){ 	
@@ -204,7 +252,7 @@
 
 <div id="agenda_pages">
   <%@days=[params[:show_day].to_i]%>
-  <%= render :partial => "agenda_entries/index"%>	
+  <%=render :partial=> "agendas/show"%>
 </div>
   
 

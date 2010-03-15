@@ -1539,3 +1539,12 @@ div.banner_footer a{
   font-family:sans-serif;
 }
 
+.divider_title{
+	color: #4972A2;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.divider_full_line{
+	text-align: center;
+}

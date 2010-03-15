@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100308104837) do
+ActiveRecord::Schema.define(:version => 20100310150954) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20100308104837) do
     t.text     "comment"
     t.boolean  "accepted"
     t.integer  "event_id"
+  end
+
+  create_table "agenda_dividers", :force => true do |t|
+    t.integer  "agenda_id"
+    t.string   "title"
+    t.datetime "start_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "agenda_entries", :force => true do |t|

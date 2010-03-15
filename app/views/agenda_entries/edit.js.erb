@@ -5,12 +5,14 @@ edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description")
   edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit')%>");
 <%end%>
 
+$('#add_buttons'+ <%=@day%>).hide();
+
 $("input.agenda_edit_close").livequery("click", function(){
   edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
   $(".agenda_edit_entry").empty();  
   $(".agenda_edit_hours_entry").empty();
   var id = $(this).attr('id');
-  $('#add_entry'+ id).show();
+  $('#add_buttons'+ id).show();
 });
 
   var destination_edit = $('#edit_entry_anchor').offset().top;

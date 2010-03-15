@@ -1,5 +1,5 @@
 $('#add_buttons<%=@day%>').parent().append("<%=escape_javascript(render :partial => 'new')%>");
-  $(".newAttachment").empty();
+
 
 var destination_add<%=@day%> = $('#new_entry_anchor').offset().top;
 $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add<%=@day%>}, 1100, function() {

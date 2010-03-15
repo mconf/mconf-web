@@ -26,23 +26,26 @@ class AgendaEntriesController < ApplicationController
   #authorization_filter :delete, :agenda_entry, :only => [ :destroy ]
   
 
-  #GET /agenda_entries
-  #GET /agenda_entries.xml
-  #returns the agenda_entries for the days 2 to end by ajax
-  def index
-    @days = (0..@event.days-1).to_a
-    if @event.days > 1   
-      unless params[:page_shown]
-        params[:page_shown]="0"
-      end
-      #the agenda has shown params[:page_shown], let's remove it from the pages to be shown     
-      @days.delete(params[:page_shown])
-    end
-    respond_to do |format|
-      format.html { redirect_to [ @event.space, @event ] }
-      format.js
-    end 
-  end
+#  #GET /agenda_entries
+#  #GET /agenda_entries.xml
+#  #returns the agenda_entries for the days 2 to end by ajax
+#  def index
+#    @days = (0..@event.days-1).to_a
+#    if @event.days > 1   
+#      unless params[:page_shown]
+#        params[:page_shown]="0"
+#      end
+#      #the agenda has shown params[:page_shown], let's remove it from the pages to be shown     
+#      @days.delete(params[:page_shown])
+#    end
+#    respond_to do |format|
+#      if request.xhr?
+#        format.js
+#      else
+#        format.html { redirect_to [ @event.space, @event ] }
+#      end
+#    end 
+#  end
 
   # GET /agenda_entries/1
   # GET /agenda_entries/1.xml
