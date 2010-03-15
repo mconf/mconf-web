@@ -192,7 +192,7 @@ public class VccCustomAuthProvider implements AuthProvider {
 	    URL url;
 		URLConnection con = null;
 		try {
-			url = new URL("http://chotis.dit.upm.es/vcc/session.xml");
+			url = new URL( vccSessionUrl );
 			con = url.openConnection();
 	    	
 			if ( con != null ) {
