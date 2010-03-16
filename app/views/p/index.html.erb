@@ -26,6 +26,8 @@
       var absoluteBaseUrlApp = "<%=root_url%>";
       var absoluteInitPage = "<%=@init_url%>";
       $.urlInternalHost( absoluteBaseUrlApp );
+			
+			var iframeChanged = false;
 
       function resizeIframe() {
         var siteHeight = $(iframeSelector).contents().find(contentIframeSelector).height();
@@ -51,7 +53,7 @@
         
         var relativeUrlToCompare = $.url.setUrl(urlToCompare).attr("relative");
         
-        return ( relativeUrlIframe == relativeUrlToCompare )
+        return ( relativeUrlIframe == relativeUrlToCompare );
       }
 
       function skipIframe(aLink) {
@@ -92,6 +94,7 @@
 
           var newAnchor = setAnchorUrl(hrefTo);
 
+          iframeChanged = true;
           $.bbq.pushState({ url: newAnchor });
         });
       }
@@ -129,15 +132,16 @@
           // If anchor AND anchor != iframe.src -> URL in anchor is copied to src.iframe
           var newUrl = "";
           var anchorUrl = getUrlInAnchor(window.location.href);
+					
           if ( anchorUrl ) {
             // If anchor match with iframe.src do nothing
             // If it is different, set iframe.src with url in anchor
-            if (!isEqualsToCurrentUrl(anchorUrl)) {
+            if (!isEqualsToCurrentUrl(anchorUrl) && !iframeChanged) {
               //$(iframeSelector).attr("src", anchorUrl);
               $(iframeSelector).contents().attr("location").href = anchorUrl;
             }
           } else {
-            if (!isEqualsToCurrentUrl(absoluteInitPage)) {
+            if (!isEqualsToCurrentUrl(absoluteInitPage) && !iframeChanged) {
               //$(iframeSelector).attr("src", absoluteInitPage);
               $(iframeSelector).contents().attr("location").href = absoluteInitPage;
             }
@@ -145,8 +149,10 @@
             var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative");
             $.bbq.pushState({ url: relativeInitPage });
           }
+          iframeChanged = false;
         });
 
+        iframeChanged = true;
         $(window).trigger( "hashchange" );
 
         setTimeout(function(){iJab.login(ijab_auto_user,"")}, 2000);
