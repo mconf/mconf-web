@@ -610,10 +610,11 @@ en:
     importMessage2: " were read from your iCalendar."
     importMessage3: " of them were saved or updated correctly."
     report: "Report: "
-  im: "Instant Messaging"
+  im: "IM"
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
+  internet: Internet
   invitation:
     accepted: "You have accepted the invitation"
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
@@ -779,7 +780,7 @@ en:
     have: "Do you have an OpenID? Click on the logo!"
     login: "Login with OpenID"
   or: "or"
-  organization: "Organisation"
+  organization: "Organization"
   organizer: "Organisers"
   or_use_email: "or use your email..."
   
@@ -809,6 +810,7 @@ en:
     landline: "Telephone"
     mobile: "Mobile"
     one: "Phone"
+    plural: Telephones
   phone_optional: "Phone (optional)"
   photos: "Pictures"
   photos_view>>: "pictures view >>"
@@ -845,6 +847,8 @@ en:
     one: "Profile"
     created: "Profile created successfully"
     deleted: "Profile deleted successfully"
+    description:
+      add: "Write something about you"
     error:
       exist: "Your profile already exists"
     hcard:
@@ -1028,6 +1032,7 @@ en:
     reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
+  street: Street
   subject: "Subject"
   support:
     one: "Support"
@@ -1091,6 +1096,7 @@ en:
   updated: "Updated"
   updated_time_ago: "{{time}} ago"
   url: "Website"
+  url_add: Add your Website
   url_plain: "URL"
   user:
     active:
@@ -1133,7 +1139,7 @@ en:
     list_by: "List by"
     login: "Login"
     lost_password: "Have you lost your password?"
-    noactivity: "User has no recent activity"
+    noactivity: "{{user}} has no recent activity"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"    

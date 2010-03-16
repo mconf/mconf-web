@@ -1,20 +1,51 @@
+<div class="title">
+  <!--<div id="help" title="<%= h(t('profile.public_description')) %>"></div>-->
+  <h3 class="item_title"><%= t('personal_information') %></h3> 
+</div>
 
-<div class="profile-box">
-  <div id="title">
-    <div id="help" title="<%= h(t('profile.public_description')) %>"></div>
-    <h3 class="item_title"><%= t('profile.public') %></h3> 
+<div id="profile_content">	  
+  <div class="profile_content_item">
+    <ul>
+			<li><span class="category"><%= t('name.one') %>: </span><span class="fn n data"><span class="honorific-prefix unified_user"><%= @profile.prefix%></span><span class="given-name unified_user"> <%=@user.full_name%></span></span></li>
+      <li><span class="category"><%=(t("organization") + ":") if (@profile.organization.present?)%></span><span class= "org data"><%= @profile.organization%></span></li>
+    </ul>
+		<%if (@profile.address.present? && (@profile.authorize? :read, :to => current_user)) || (@profile.city.present?) ||(@profile.province.present?) || (@profile.country.present?) || (@profile.zipcode.present? && (@profile.authorize? :read, :to => current_user))%>
+		<h4><%= t('address') %></h4>
+		<ul>
+			<li><span class="category"><%= (t('street') + ":") if ((@profile.address.present?) && (@profile.authorize? :read, :to => current_user)) %> </span> <span class="street-address data"><%= @profile.address%></span></li>
+			<li><span class="category"><%= (t('city')+ ":") if (@profile.city.present?) %></span><span class="locality data"><%= @profile.city%></span></li>
+      <li><span class="category"><%= (t('province')+ ":")if (@profile.province.present?) %></span><span class="region data"><%= @profile.province%></span></li>
+      <li><span class="category"><%= (t('country')+ ":")if (@profile.country.present?) %></span><span class="country-name data"><%= @profile.country%></span></li>
+      <li><span class="category"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) && (@profile.authorize? :read, :to => current_user) %> </span> <span class="postal-code data"><%= @profile.zipcode%></span></li>
+		</ul>
+		<%end%>
   </div>
-  <div id="profile_content">
-
-	  
-      <ul>
-		<li><span class="person_title"><%= t('name.one') %>: </span><span class="fn n"> <span class="honorific-prefix"><%= @profile.prefix%></span><span class="given-name"> <%=@user.full_name%></span></span></li>
-		<li><span class="person_title"><%= (t('city')+ ":") if (@profile.city.present?) %> </span><span class="locality"><%= @profile.city%></span></li>
-		<li><span class="person_title"><%= (t('province')+ ":")if (@profile.province.present?) %> </span><span class="region"><%= @profile.province%></span></li>
-		<li><span class="person_title"><%= (t('country')+ ":")if (@profile.country.present?) %> </span><span class="country-name"><%= @profile.country%></span></li>
-		<li><span class="person_title"><%= (t('description')+ ":")if (@profile.description.present?) %> </span> <%= @profile.description%></li>
-        <li><span class="person_title"><%=(t("organization") + ":") if (@profile.organization.present?)%></span> <span class= "org"><%= @profile.organization%></span></li>
-		<li><span class="person_title"><%=(t("url") + ":") if (@profile.url.present?)%></span> <span class= "url"><%=( link_to @profile.url, @profile.url, :target => "_blank") if (@profile.url.present?)%></span></li>
-      </ul>
-  </div>
+  
+	<%if (@profile.url.present?)%>	
+		<div class="profile_content_item">
+			<h4><%=t("url")%></h4>
+	    <ul>
+	      <li><span class= "url"><%=( link_to @profile.url, @profile.url, :target => "_blank")%></span></li>
+	    </ul>
+	  </div>
+  <%elsif @user==current_user%>
+   <div class="profile_content_item">
+     <h4><%=t('url')%></h4>
+     <ul><li><%= link_to t('url_add'),edit_user_profile_path(@user, :anchor => "profile_description")%></li></ul>
+   </div>	
+	<%end%>
+	
+	
+  <%if @profile.description.present?%>
+		<div class="profile_content_item">
+		 <h4><%=t('description')%></h4>
+		 <ul><li><%= @profile.description%></li></ul>
+		</div>
+	<%elsif @user==current_user%>
+	 <div class="profile_content_item">
+	   <h4><%=t('description')%></h4>
+		 <ul><li><%= link_to t('profile.description.add'),edit_user_profile_path(@user, :anchor => "profile_country")%></li></ul>
+	 </div>
+	<%end%>
+	
 </div>
