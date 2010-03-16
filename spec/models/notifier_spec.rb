@@ -161,10 +161,60 @@ describe Notifier do
   
   describe "in the processed invitation email, when the invited user is" do
     it "unregistered it should include the receiver's name, the invited user's email and response, the name of the space, the URL of the space users and the signature of the site" do
+
+      # Build the invitation
+      params = {:role_id => Role.find_by_name("User").id.to_s, :email => @unregistered_user_email}
+      invitation = @space.invitations.build params
+      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
+        I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
+        I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
+        I18n.t('e-mail.kind_regards') + "<br/><br/>" +
+        @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
+      invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
+      invitation.update_attribute(:accepted, true)
+      action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+
+      # Check the subject content
+      ActionMailer::Base.deliveries[1].subject.should include_text(@unregistered_user_email)
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      
+      # Check the body content
+      ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
+      ActionMailer::Base.deliveries[1].body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
+      ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
       
     end
     
     it "registered it should include the receiver's name, the invited user's name and response, the name of the space, the URL of the space users and the signature of the site" do
+
+      # Build the invitation
+      params = {:role_id => Role.find_by_name("User").id.to_s, :email => @registered_user.email}
+      invitation = @space.invitations.build params
+      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
+        I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
+        I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
+        I18n.t('e-mail.kind_regards') + "<br/><br/>" +
+        @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
+      invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
+      invitation.update_attribute(:accepted, true)
+      action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+
+      # Check the subject content
+      ActionMailer::Base.deliveries[1].subject.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      
+      # Check the body content
+      ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
+      ActionMailer::Base.deliveries[1].body.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
+      ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
 
     end
 
