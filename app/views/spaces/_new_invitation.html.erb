@@ -14,6 +14,7 @@
     
     var ending = "<%= escape_javascript(t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'')) %><br/>" +
           "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
+		  "<%= escape_javascript(t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>" +
           "<%= escape_javascript(t('e-mail.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>";
     
@@ -75,6 +76,7 @@
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea><br/>
           <%= t('invitation.to_accept_space', :url=>'\'' + t('url_plain') + '\'') %><br/>
           <%= t('invitation.info_space', :space_url => space_url(@space)) %><br/><br/>
+		  <%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %><br/><br/>		  
           <%= t('e-mail.kind_regards') %><br/><br/>
           <%= current_user.full_name%><br/>
           <%= current_user.email %><br/>
