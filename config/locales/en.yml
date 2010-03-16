@@ -473,10 +473,11 @@ en:
   fax: "Fax"
   feedback:
     email: "{{email}} sent the following feedback:"
+    note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
+    one: "Feedback"
     send: "Send feedback" 
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
-    note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
   find:
     browse: "Browse"
@@ -1184,6 +1185,7 @@ en:
     success: "vCard successfully loaded"
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
+  vcc_mail_label: "[VCC]"
   version:
     new: "New version"
     one: "Version"

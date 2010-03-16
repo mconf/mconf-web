@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Notifier do
 
   before(:each) do
-    #a space and three users in that space
+
     @space = Factory(:space)
     @event = Factory(:event)
     @admin = Factory(:admin_performance, :stage => @space).agent

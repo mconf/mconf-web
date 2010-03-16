@@ -135,7 +135,7 @@ class Notifier < ActionMailer::Base
     setup_email(Site.current.email)
     
     @from = email
-    @subject += 'Feedback ' + subject
+    @subject += I18n.t("feedback.one") + " " + subject
     @body ["text"] = body
     @body ["user"] = email
   end
@@ -157,7 +157,7 @@ class Notifier < ActionMailer::Base
   def setup_email(recipients)
     @recipients = recipients
     @from = "#{ Site.current.name } <#{ Site.current.email }>"
-    @subject = "[VCC] "
+    @subject = I18n.t("vcc_mail_label") + " "
     @sent_on = Time.now
     @content_type ="text/html"
   end
