@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
 
-  # Full name must go to the profile, but it is provided by the user in singing up
+  # Full name must go to the profile, but it is provided by the user in signing up
   # so we have to temporally cache it until the user is created; :_full_name
   attr_accessor :_full_name
   attr_accessible :_full_name

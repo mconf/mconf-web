@@ -27,6 +27,7 @@ class Agenda < ActiveRecord::Base
   
   belongs_to :event
   has_many :agenda_entries, :dependent => :destroy
+  has_many :agenda_dividers, :dependent => :destroy
   has_many :agenda_record_entries
   has_many :attachments, :through => :agenda_entries
   
@@ -48,6 +49,34 @@ class Agenda < ActiveRecord::Base
     end
     all_entries.sort!{|a,b| a.start_time <=> b.start_time}
   end
+  
+  
+  def entries_and_dividers_for_day(i)
+   all_entries = []
+   for divider in agenda_dividers
+      if divider.start_time > (event.start_date + i.day).to_date && divider.start_time < (event.start_date + 1.day + i.day).to_date
+        all_entries << divider
+      end
+    end
+    for entry in agenda_entries
+      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
+        all_entries << entry
+      end
+    end    
+    all_entries.sort! do |a,b| 
+      comp = a.start_time <=> b.start_time
+      if comp.nonzero?
+        comp
+      else
+        if a.class==AgendaDivider
+          -1
+        else
+          1
+        end
+      end
+    end
+  end
+  
   
   #returns a hash with the id of the entries and the thumbnail of the associated video
   def get_videos

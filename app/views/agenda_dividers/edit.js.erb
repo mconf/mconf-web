@@ -1,0 +1,15 @@
+edit_divider_button.parents(".agenda_divider").append("<%=escape_javascript(render :partial => 'edit')%>");
+
+$('#add_buttons'+ <%=@day%>).hide();
+
+$("input.agenda_edit_close").livequery("click", function(){
+  $(".agenda_edit_divider").empty();
+	var id = $(this).attr('id');
+    $('#add_buttons'+ id).show();
+});
+
+  var destination_edit = $('#edit_divider_anchor').offset().top;
+  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+    window.location.hash = '#edit_entry_anchor';
+  });
+

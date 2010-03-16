@@ -99,6 +99,18 @@
       function getAnchor(url){
         return $.url.setUrl(url).attr("anchor");
 			}
+			
+			function getUrlInAnchor(url) {
+		    var anchor = $.url.setUrl(url).attr("anchor");
+				var anchorUrl;
+				if ( anchor ) {
+          var splittedString = anchor.split("=",2);
+          if ( splittedString.length == 2 && splittedString[0] == "url" ) {
+            anchorUrl = $.url.setUrl(splittedString[1]).attr("relative");
+          }					
+				}
+				return anchorUrl;
+			}
 
       $(document).ready(function(){
 
@@ -107,6 +119,12 @@
         $(iframeSelector).load(function(){
           resizeIframe();
           prepareLinks();
+					// If iframe load comes from redirect (eg. space selector)... 
+					if (!isEqualsToCurrentUrl(getUrlInAnchor(window.location.href))) {
+						var iframeLocation = $(iframeSelector).contents().attr("location").href;
+						var relativeIframeLocation = $.url.setUrl( iframeLocation ).attr("relative");
+						$.bbq.pushState({ url: relativeIframeLocation });
+					}
         });
 
         $(window).bind( "hashchange", function(e) {
@@ -114,23 +132,21 @@
           // If anchor AND anchor == iframe.src -> do nothing.
           // If anchor AND anchor != iframe.src -> URL in anchor is copied to src.iframe
           var newUrl = "";
-          var completeUrlAnchor = getAnchor(window.location.href);
-          if ( completeUrlAnchor ) {
+					var anchorUrl = getUrlInAnchor(window.location.href);
+					if ( anchorUrl ) {
             // If anchor match with iframe.src do nothing
             // If it is different, set iframe.src with url in anchor
-            var splittedString = completeUrlAnchor.split("=",2);
-            if ( splittedString.length == 2 ) {
-              var anchorUrl = $.url.setUrl(splittedString[1]).attr("relative");
-            }
             if (!isEqualsToCurrentUrl(anchorUrl)) {
-              $(iframeSelector).attr("src", anchorUrl);
+              //$(iframeSelector).attr("src", anchorUrl);
+							$(iframeSelector).contents().attr("location").href = anchorUrl;
             }
           } else {
             if (!isEqualsToCurrentUrl(absoluteInitPage)) {
-              $(iframeSelector).attr("src", absoluteInitPage);
+              //$(iframeSelector).attr("src", absoluteInitPage);
+							$(iframeSelector).contents().attr("location").href = absoluteInitPage;
             }
 						// Anycase -> set anchor to init page
-            var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative")
+            var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative");
             $.bbq.pushState({ url: relativeInitPage });
           }
         });

@@ -2,12 +2,12 @@
   $("input.close2").click(function(){   
     $(".agenda_edit_entry").empty();
 	var id = $(this).attr('id');
-    $('#add_entry'+ id).show();
+    $('#add_buttons'+ id).show();
   }); 
   
   <%if params[:show_day]%>
     <%@day=params[:show_day]%>
-	$("#add_entry"+<%=@day%>).hide();
+	$("#add_buttons"+<%=@day%>).hide();
   <%end%>
   
   var destination_edit = $('#edit_entry_anchor').offset().top;
