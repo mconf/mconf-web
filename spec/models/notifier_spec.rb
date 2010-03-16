@@ -134,7 +134,7 @@ describe Notifier do
   end
   
   describe "in the event notification email" do
-    it "it should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
+    it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
 
       # Build the notification
       msg = I18n.t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
