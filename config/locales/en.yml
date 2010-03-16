@@ -30,8 +30,16 @@ en:
   advanced_editor: "Advanced editor"
   agenda: 
     add_entry: "Add session"
+    add_divider: "Add divider"
     define: "Define Agenda"
     del_entry: "Delete"
+    divider:
+      delete: "Divider was successfully created"
+      edit: "Edit Divider"
+      new: "New agenda divider"
+      start_time: "Start time" 
+      title: "Title"
+      updated: "Divider was successfully updated"
     edit_entry: "Edit"
     entry:      
       created: "Agenda entry was successfully created"
@@ -76,6 +84,7 @@ en:
       end_time_overlaps: "The end time overlaps with an existing agenda entry"
       omit_date: "The entry for the agenda needs start date and end date "
       omit_title: "A title must be given for the agenda entry"
+      omit_title_divider: "Divider title can't be empty"
       overlaps: "The agenda entry overlaps with an existing entry"
       start_time_overlaps: "The start time overlaps with an existing agenda entry"
     expand_help: "Click on the title of an agenda entry to expand it or contract it"
@@ -253,6 +262,8 @@ en:
     notifications: "email notifications"
     one: "email"
     other: "emails"
+    spam_activation: "If you did not register at this site, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a>"
+    spam_invitation: "If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a>"        
     used_from: "email used in contact form: {{dir}}"
     vcc_team: "The VCC Team"
     welcome: "Welcome to {{sitename}}"
@@ -462,10 +473,11 @@ en:
   fax: "Fax"
   feedback:
     email: "{{email}} sent the following feedback:"
+    note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
+    one: "Feedback"
     send: "Send feedback" 
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
-    note: "Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible"
   fill_fields: "You should fill in all the fields"
   find:
     browse: "Browse"
@@ -632,9 +644,9 @@ en:
       URL: "'URL' will be replaced in the message by the URL of the invitation."
     logout_and_reload: "You are not the user that received this invitation, please logout and try again"
     message:
-      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a></p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     message_title: "Invite people to join your space"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
@@ -1173,6 +1185,7 @@ en:
     success: "vCard successfully loaded"
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
   vcc: "Virtual Conference Centre"
+  vcc_mail_label: "[VCC]"
   version:
     new: "New version"
     one: "Version"

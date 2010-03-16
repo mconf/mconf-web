@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
       event.resources :participants
       event.resource :agenda, :member => {:generate_pdf => :get}
       event.resource :agenda do |agenda|
+        agenda.resources :agenda_dividers
         agenda.resources :agenda_entries
         agenda.resources :agenda_entries do |entry|
           entry.resource :attachment

@@ -20,8 +20,8 @@
 class PrivateSender
   
   def self.invitation_message(invitation)
-    m = PrivateMessage.new :title => "Invitation to #{ invitation.group.name }",
-      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
+    m = PrivateMessage.new :title => I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name),
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.full_name).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!
@@ -29,8 +29,8 @@ class PrivateSender
   
   
   def self.event_invitation_message(invitation)
-    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.login),
-      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.login).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
+    m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name),
+      :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.full_name).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
     m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!
@@ -38,38 +38,65 @@ class PrivateSender
 
   
   def self.event_notification_message(event,receiver)
-    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>event.author.login),
-      :body => ( event.notify_msg.gsub('\'' + I18n.t('name.one') + '\'',receiver.login) + "<br/><br/>" )
+    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>event.author.full_name),
+      :body => ( event.notify_msg.gsub('\'' + I18n.t('name.one') + '\'',receiver.full_name) + "<br/><br/>" )
     m.sender = event.author
     m.receiver = receiver
     m.save!
   end
   
   
-  def self.join_request_message(admission, receiver)    
-    m = PrivateMessage.new :title => "Join Request to #{ admission.group.name }",
-                           :body => "#{ admission.candidate.name } wants to participate in space #{ admission.group.name }, please <a href=\"/spaces/#{ admission.group.to_param }/admissions\">accept or deny the request</a>."
-    m.sender = admission.candidate
+  def self.join_request_message(jr, receiver)
+    m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
+      :body => I18n.t('join_request.asked', :candidate => jr.candidate.name, :space => jr.group.name) + "<br/><br/>" +
+        I18n.t('join_request.to_accept', :url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink + "/admissions") + "<br/><br/>" +
+        I18n.t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) + "<br/><br/>" + Site.current.signature_in_html + "<br/>"
+    m.sender = jr.candidate
     m.receiver = receiver
     m.save!
   end
   
   
-  def self.processed_invitation_message(admission, receiver)
-    m = PrivateMessage.new :title => "Invitation to #{ admission.group.name } #{ admission.accepted? ? 'accepted' : 'discarded' }",
-                           :body => "#{ admission.candidate.name } #{ admission.accepted? ? 'accepted' : 'discarted' } the invitation to join #{ admission.group.name }"
+  def self.processed_invitation_message(invitation, receiver)
+    action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+    
+    if invitation.candidate != nil
+      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name),
+        :body => "<p>" + invitation.introducer.full_name + ",</p>" +
+          "<p>" + I18n.t('e-mail.invitation_result.admin_side',:name=>invitation.candidate.full_name, :action => action, :spacename =>invitation.group.name) + ".</p>" +
+          "<p>" + I18n.t('invitation.info_users', :users_url => "http://" + Site.current.domain + "/spaces/" + invitation.group.permalink + "/users") + "</p>" +
+          "<p>" + Site.current.signature_in_html + "</p>"
+    else
+      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name),
+        :body => "<p>" + invitation.introducer.full_name + ",</p>" +
+          "<p>" + I18n.t('e-mail.invitation_result.admin_side',:name=>invitation.email[0,invitation.email.index('@')], :action => action, :spacename =>invitation.group.name) + ".</p>" +
+          "<p>" + I18n.t('invitation.info_users', :users_url => "http://" + Site.current.domain + "/spaces/" + invitation.group.permalink + "/users") + "</p>" +
+          "<p>" + Site.current.signature_in_html + "</p>" 
+    end
 
-    m.sender = admission.candidate
+    m.sender = invitation.candidate
     m.receiver = receiver
     m.save!
   end
   
   
-  def self.processed_join_request_message(admission)
-    m = PrivateMessage.new :title => "Join Request #{ admission.accepted? ? 'accepted' : 'discarded' }",
-                           :body => "Your request to join #{ admission.group.name } was #{ admission.accepted? ? 'accepted' : 'discarded' }" 
-    m.sender = admission.introducer
-    m.receiver = admission.candidate
+  def self.processed_join_request_message(jr)
+    action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+    
+    if jr.accepted?
+      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
+      :body => I18n.t('e-mail.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
+        I18n.t('invitation.access_space', :spacename => jr.group.name, :space_url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink) + "<br/><br/>" +
+        I18n.t('admin.space', :spacename => jr.group.name)
+    else
+      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
+      :body => I18n.t('e-mail.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
+        I18n.t('invitation.rejoin_space', :space_url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink + "/join_requests/new") + "<br/><br/>" +
+        I18n.t('admin.space', :spacename => jr.group.name)
+    end
+     
+    m.sender = jr.introducer
+    m.receiver = jr.candidate
     m.save!
   end
   
