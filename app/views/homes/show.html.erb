@@ -1,6 +1,6 @@
 
 <% content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor' %>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
 
 <% content_for :javascript do %>
@@ -23,20 +23,23 @@
   }  
   
   
-  $("input#checkposts").click(function(){
-    $(".post_cloud").slideToggle("slow");
-  });
-  
-  $("input#events").click(function(){
-    $(".event_cloud").slideToggle("slow");
-  });
-  
-  $("input#news").click(function(){
-    $(".news_cloud").slideToggle("slow");
-  });
-	
-	$("input#attachments").click(function(){
-    $(".attachment_cloud").slideToggle("slow");
+  $("input.home_menu_checkbox").click(function(){
+	  var contents;
+		var value = this.value
+		if ($.deparam.querystring().contents == null){
+      contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
+    }else{
+      contents = $.deparam.querystring().contents.split(",");
+    }
+		
+    if ($(this).attr("checked")){
+      contents.push(value);
+		}else{
+			contents = jQuery.grep(contents, function (a) {
+			  return a != value;
+			});
+		}
+		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
   
   
@@ -154,6 +157,9 @@
           <% end %>
           </div>
 <% end %>  
+<% content_for :menu do  %>
+  <%= render :partial => "menu" %>
+<% end %>
 
 <div id="recent-activity">
 	
