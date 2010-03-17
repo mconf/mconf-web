@@ -37,7 +37,7 @@
 		  
 		  <div id="unselected_users"> 
 		    <% for user in @space.users -%>
-		      <div class=user_checkbox>
+		      <div class="user_checkbox">
 		        <%= check_box_tag "event[ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
 		      </div>
 		    <%end%>

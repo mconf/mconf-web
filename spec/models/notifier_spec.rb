@@ -223,7 +223,9 @@ describe Notifier do
   after(:each) do 
     #remove all the stuff created
     @space.destroy
+    @event.destroy
     @admin.destroy
     @registered_user.destroy
   end
+
 end
