@@ -11,6 +11,5 @@
     <%else%>
       <%=@invitation.comment%><br/><br/>
     <%end%>
-	<%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %><br/><br/>
   </body>
 </html>

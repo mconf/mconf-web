@@ -25,14 +25,14 @@
     </script>
 
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
-    <script type="text/javascript" charset="utf-8">
+    <%= yield :headers %>
+	  <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
 	        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
-		
-	<%= yield :headers %>
+	
   </head>
 
 	<body>
@@ -44,10 +44,12 @@
 		    </div>
 		    <div id="content">		      
 		      <div id="main">
+
             <% flash.each do |name, msg| %>
               <div class="<%= name %>"><%= msg %></div>
             <% end %>
-						<%= render :partial => "layouts/home_menu" %>	        
+
+		      	<%= yield :menu %>
 		        <div id="home_wrapper">
      		      <%= yield %>
 		        </div>
