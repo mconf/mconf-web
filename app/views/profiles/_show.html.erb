@@ -10,29 +10,29 @@
 <%end%>
 
 <div id="profile_left">
-  <div class="profile_logo">
-    <%=logo(@user, :size => '128')%>
-  </div>
-	
-  <%if @profile.authorize? :update, :to => current_user%>
-      <div class="button_wrapper">
-        <%= link_to t('edit_profile'),edit_user_profile_path(@user)%>
-      </div>    
-  <%end%>
+	<div class="profile_logo">
+	  <%=logo(@user, :size => '128')%>
+	</div>
 	
   <span class="adr">
     <%= render :partial=>'profiles/public_hcard'%>
   </span>
+	
+	<ul class="last_options">
+	  <li><%=link_to "Block user", "#" if @user != current_user %></li>
+		<li><%=link_to "Report spam user", "#" if @user != current_user %></li>
+  </ul>
  
 </div>
 
 <div class="profile_center">
-	<!--
-	<div class="button_wrapper grey_bar">
-	  <%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user), {:class=>"grey_button basic_button",:title => t('event.view_agenda')} %>
-	  <%=link_to ("<span>" + "write a message" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} %>
-	</div>
-  -->
+
+		<div class="button_wrapper grey_bar">
+		  <%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user), {:class=>"grey_button basic_button",:title => t('event.view_agenda')} if @profile.authorize? :update, :to => current_user %>
+		  <%=link_to ("<span>" + "Send a message" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
+      <%=link_to ("<span>" + "Add contact" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
+		</div>
+
   <div class="title">
   	<h3 class="item_title">
   		<div id="help2" title="<%= h(t('information.information3'))%>"></div>

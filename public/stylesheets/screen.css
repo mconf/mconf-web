@@ -285,6 +285,7 @@ body .icon{margin-bottom:-2px;}
 #feedback:hover,#about:hover{background:#275b96;/*otros colores  #2b578a;/*346aa8;#5C75AA*/}
 
 #header,#profile_header{padding-top:1em;padding-bottom:1em;}
+#profile_header{overflow:visible !important;}
 #header{height:68px;}
 #logo,#vcc-logo,#search{float:left;}
 #vcc-logo{height:68px;}
@@ -730,11 +731,14 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #invitation_content .note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:0;padding:5px;text-align:center;}
 
 /*Profile*/
-.profile_logo{text-align:center;}
+.profile_logo{
+	text-align:center;
+	margin-bottom:9px;}
+	
 .profile_logo img{padding:3px;background:#ebebeb;border:1px solid #ccc;}
 #profile_wrapper{position:relative;overflow:hidden;clear:both;background:#fff;}
 
-#profile_left{position:relative;float:left;width:200px;padding-right:10px;background:#E1EEF5;overflow:hiden}
+#profile_left{position:relative;float:left;width:200px;padding-right:10px;background:#E1EEF5;overflow:hiden;}
 #profile_content .category,#profile_content .data{float:left;}
 #profile_content .category{width:80px;}
 #profile_content .data{width:105px;}
@@ -747,9 +751,12 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
   border-right:1px solid #BDD8EB;
   border-bottom:1px solid #BDD8EB;}
 
+#profile_left .last_options{list-style-type:none;margin-top:6px;margin-left:6px;}
+
 #profile_right #profile_content{border-right:none;border-left:1px solid #BDD8EB;}
 
 .profile_center{position:relative;float:left;width:470px;}
+
 #profile_wrapper .title,#sidebar #profile_right .title{
 	background:#BDD8EB none repeat scroll 0 0;
   border-bottom:1px solid #A8C0D1;}
@@ -1364,8 +1371,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	border-top:1px solid #dcdcdc;
 	overflow:hidden;
 	}
-
 	
+.profile_center .grey_bar{margin-bottom:0;background:#E1EEF5;border:none;}
+
 .grey_bar span#selected_info{
   float:left;
   display:block;
