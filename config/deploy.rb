@@ -103,7 +103,7 @@ namespace(:vcc) do
     unless commit =~ /Finished one cherry\-pick/
       puts "There were problems when merging translations"
       puts "Resolve the conflicts, commit and push"
-      puts "Then, deploy again!"
+      puts "Then, deploy with MERGE_LOCALES=false"
       puts commit
       
       exit
@@ -117,7 +117,9 @@ namespace(:vcc) do
  
   task :production do
     set :environment, :production
-    commit_remote_translations
+    if ENV['MERGE_LOCALES'] != 'false'
+      commit_remote_translations
+    end
     deploy.migrations
   end
   
