@@ -66,8 +66,8 @@ namespace(:deploy) do
 
   task :reload_ultrasphinx do
     run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
-    run "cd #{ current_path } && sudo /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
-    run "sudo /etc/init.d/sphinxsearch restart"
+    run "cd #{ current_path } && sudo -u www-data /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
+    run "cd #{ current_path } && sudo -u www-data rake ultrasphinx:daemon:restart RAILS_ENV=production"
   end
 end
 
