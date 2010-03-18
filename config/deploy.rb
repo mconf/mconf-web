@@ -92,21 +92,27 @@ namespace(:vcc) do
     # Commit translations
     system "git commit config/locales -m \"Merge translations in production server\""
 
-    translations_commit = `cat .git/HEAD`
+    translations_commit = `cat .git/HEAD`.chomp
 
-    # Go to stable branch
-    system "git checkout stable"
+    # Go to deployment branch
+    system "git checkout #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }"
 
     # Add translations commit
-    unless system("git cherry-pick #{ translations_commit }")
+    commit = `git cherry-pick #{ translations_commit } 2>&1`
+
+    unless commit =~ /Finished one cherry\-pick/
       puts "There were problems when merging translations"
       puts "Resolve the conflicts, commit and push"
       puts "Then, deploy again!"
+      puts commit
       
       exit
     end
 
-    system "git push"
+    unless system("git push origin #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }")
+      puts "Unable to push to origin"
+      exit
+    end
   end
  
   task :production do
