@@ -36,7 +36,7 @@ class AgendaDividersController < ApplicationController
     
     respond_to do |format|
       if @agenda_divider.save
-        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@event.day_for(@agenda_divider), :anchor=>"edit_entry_anchor" )) }
+        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@agenda_divider.event_day, :anchor=>"edit_entry_anchor" )) }
       else    
         flash[:notice] = t('agenda.divider.failed')
         message = ""
@@ -50,7 +50,7 @@ class AgendaDividersController < ApplicationController
   # GET /agenda_dividers/1/edit
   def edit
     @agenda_divider = AgendaDivider.find(params[:id])
-    @day=@agenda_divider.agenda.event.day_for(@agenda_divider)
+    @day=@agenda_divider.event_day
   end
   
   
@@ -62,7 +62,7 @@ class AgendaDividersController < ApplicationController
     respond_to do |format|
       if @agenda_divider.update_attributes(params[:agenda_divider])        
         flash[:notice] = t('agenda.divider.updated')
-        day = @event.day_for(@agenda_divider).to_s
+        day = @agenda_divider.event_day
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
       else
         message = ""
@@ -77,11 +77,11 @@ class AgendaDividersController < ApplicationController
   # DELETE /agenda_dividers/1.xml
   def destroy
     @agenda_divider = AgendaDivider.find(params[:id])
-    day = @event.day_for(@agenda_divider).to_s  
+    day = @agenda_divider.event_day 
     respond_to do |format|
       if @agenda_divider.destroy
         flash[:notice] = t('agenda.divider.delete')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
         format.xml  { head :ok }
       else
         message = ""

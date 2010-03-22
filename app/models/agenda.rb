@@ -40,30 +40,26 @@ class Agenda < ActiveRecord::Base
     errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
   end
   
-  def agenda_entries_for_day(i)
-    all_entries = []
+    
+  def all_entries_for_day(i)
+    all_entries_array = []
     for entry in agenda_entries
-      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << entry
+      if entry.event_day==i
+        all_entries_array << entry
       end
     end
-    all_entries.sort!{|a,b| a.start_time <=> b.start_time}
+    for entry in agenda_dividers
+      if entry.event_day==i
+        all_entries_array << entry
+      end
+    end
+    all_entries_array    
   end
   
   
-  def entries_and_dividers_for_day(i)
-   all_entries = []
-   for divider in agenda_dividers
-      if divider.start_time > (event.start_date + i.day).to_date && divider.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << divider
-      end
-    end
-    for entry in agenda_entries
-      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << entry
-      end
-    end    
-    all_entries.sort! do |a,b| 
+  def ordered_entries_and_dividers_for_day(i)
+   all_entries_array = all_entries_for_day(i)
+   all_entries_array.sort! do |a,b| 
       comp = a.start_time <=> b.start_time
       if comp.nonzero?
         comp
@@ -78,10 +74,30 @@ class Agenda < ActiveRecord::Base
   end
   
   
+  def starting_time
+    all_in_all = all_entries    
+    all_in_all.sort!{|x,y| x.start_time <=> y.start_time}  
+    all_in_all.first.start_time
+  end
+  
+  
+  def ending_time
+    all_in_all = all_entries
+    all_in_all.sort!{|x,y| x.start_time <=> y.start_time}  
+    all_in_all.last.end_time
+  end
+  
+  def all_entries
+    all_entries_array = []
+    all_entries_array << agenda_dividers
+    all_entries_array << agenda_entries
+    all_entries_array.flatten!    
+  end
+  
   #returns a hash with the id of the entries and the thumbnail of the associated video
   def get_videos
     array_of_days = {}
-    for day in 0..event.days-1
+    for day in 1..event.days
       entries_with_video = {}
       for entry in agenda_entries_for_day(day)        
         if entry.recording?

@@ -1,6 +1,6 @@
   <%for day in @days%>
 	  <div id="agenda_page<%=day%>" class="agenda_tab" style="display:none">
-	    <%entries_and_dividers = @event.agenda.entries_and_dividers_for_day(day)%>
+	    <%entries_and_dividers = @event.agenda.ordered_entries_and_dividers_for_day(day)%>
 		<%if entries_and_dividers.empty?%>
 		  <div id="no_entries" class="main_text">
 		  	<%=t("event.agenda.no_entries")%>		  

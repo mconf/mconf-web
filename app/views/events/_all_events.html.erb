@@ -1,4 +1,11 @@
 <div id="events_content">
+	<%unless @events_undated.empty?%>
+	  <h3><%= t('event.undated.title') %></h3> 
+	  <%for event in @events_undated%>
+	      <%= render :partial => event %>
+	  <%end%>
+	<%end%>
+	
   <h3><%= t('event.upcoming.other') %></h3> 
 	  <%if @first_upcoming_events.empty?%>
       <p class="main_text"><%= t('event.upcoming.none') %></p>

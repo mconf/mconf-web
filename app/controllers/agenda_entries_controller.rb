@@ -79,7 +79,8 @@ class AgendaEntriesController < ApplicationController
     
     respond_to do |format|
       if @agenda_entry.save
-        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@event.day_for(@agenda_entry), :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
+        @event.reload  #reload the event in case the start date or end date has changed
+        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@agenda_entry.event_day, :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
       else    
         flash[:notice] = t('agenda.entry.failed')
         message = ""
@@ -93,7 +94,7 @@ class AgendaEntriesController < ApplicationController
   # GET /agenda_entries/1/edit
   def edit
     @agenda_entry = AgendaEntry.find(params[:id])
-    @day=@agenda_entry.agenda.event.day_for(@agenda_entry)
+    @day=@agenda_entry.event_day
   end
   
   
@@ -110,7 +111,7 @@ class AgendaEntriesController < ApplicationController
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
         end
         flash[:notice] = t('agenda.entry.updated')
-        day = @event.day_for(@agenda_entry).to_s
+        day = @agenda_entry.event_day
         format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
       else
         message = ""
@@ -125,11 +126,11 @@ class AgendaEntriesController < ApplicationController
   # DELETE /agenda_entries/1.xml
   def destroy
     @agenda_entry = AgendaEntry.find(params[:id])
-    day = @event.day_for(@agenda_entry).to_s  
+    day = @agenda_entry.event_day
     respond_to do |format|
       if @agenda_entry.destroy
         flash[:notice] = t('agenda.entry.delete')
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
         format.xml  { head :ok }
       else
         message = ""

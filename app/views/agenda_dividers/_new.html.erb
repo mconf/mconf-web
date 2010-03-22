@@ -12,7 +12,7 @@
   
 
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.divider.start_time') %></label><br/>
-      <%= f.time_select :start_time, :default => @event.last_hour_for_day(@day.to_i) %></div>
+      <%= f.datetime_select :start_time, :default => @event.last_hour_for_day(@day.to_i) %></div>
       
 	  <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.divider.title') %></label><br/>
       <%= f.text_field :title %></div>

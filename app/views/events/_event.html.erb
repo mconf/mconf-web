@@ -1,5 +1,5 @@
 <%div_for(event) do%>
-  <div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
+  <div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
       <li><%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(event.space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true%> </li>
       <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply'),:class=>"icon" ), space_event_path(event.space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => t('comment.add_new')}if event.space.authorize?([:create, :content],:to => current_user)%></li>
@@ -13,11 +13,15 @@
           <div class="event_logo">
             <%=logo(event.logo, :size => 64)%>
           </div>
-        <%else%>
+        <%elsif event.has_date?%>
           <div class="event_date_image">
             <div class="event_day"> <%= sanitize(event.start_date.strftime("%d")) %> </div>
             <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
             <div class="event_hour"> <%= event.get_formatted_hour %> </div>
+          </div>
+		<%else%>
+		  <div class="event_date_image">
+            <div class="event_day"> Undef </div>
           </div>
         <%end%>
       </div>

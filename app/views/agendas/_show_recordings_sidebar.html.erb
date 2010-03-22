@@ -1,7 +1,7 @@
 <% content_for :javascript do%>
-  <%for i in (0..@event.days-1)%>
+  <%for i in (1..@event.days)%>
     $('#day<%=i%>').click(function(){
-      <%for e in (0..@event.days-1)%>
+      <%for e in (1..@event.days)%>
         $('#day<%=e%>').removeClass("selected");
         $('#videos_page<%=e%>').hide();
       <%end%>

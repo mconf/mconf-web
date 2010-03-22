@@ -30,10 +30,10 @@ class AgendasController < ApplicationController
   # GET /agendas/1.xml
   #returns the agenda_entries for the days 2 to end by ajax
   def show
-    @days = (0..@event.days-1).to_a
+    @days = (1..@event.days).to_a
     if @event.days > 1   
       unless params[:page_shown]
-        params[:page_shown]="0"
+        params[:page_shown]="1"
       end
       #the agenda has shown params[:page_shown], let's remove it from the pages to be shown     
       @days.delete(params[:page_shown])
