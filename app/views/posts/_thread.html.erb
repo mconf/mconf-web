@@ -13,11 +13,7 @@
 	    <%=link_to_function image_tag("icons/del-orange.png",:size=>"16x16",:class=>"icon",:title=>t('conversation.compress')), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>	
 	  </div>
 	  <div class="post-logo">
-	    <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>	
-		  <%= link_logo(thread.author, :size => 32, :url => user_profile_path(thread.author), :title=>thread.author.name) %>
-	    <%else%>
-	      <%=logo(thread.author, :size=>32, :title=>thread.author.name)%>
-	    <%end%>
+	      <%= link_logo(thread.author, :size => 32, :url => user_profile_path(thread.author), :title=>thread.author.name) %>	    
 	  </div>	
 	  <div class="thread-title-wrapper">
 		  <!-- Options for the user to edit, delete or answer a thread..only visible at the extended view-->
@@ -30,11 +26,8 @@
 		  <!-- DARLE UNA VUELTA A LAS CONDICIONES PORQUE NO VEO CLARO QUE ESTÉ BIEN LO DE LOS PERMISOS-->
 		  <ul class="thread-title">      
 	      	<li>
-	      	   <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>
-		         <span class="unified_user"><%=link_to(thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>: </span>
-			  <%else%>
-			    <span class="unified_user"><%=thread.author.name%>: </span>
-			  <%end%>
+	      	      <span class="unified_user"><%=link_to(thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>: </span>
+			  
 			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)%>
 			  <%if has_attachments(thread)%>
 			    <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>

@@ -67,7 +67,7 @@ class SearchController < ApplicationController
   
   def authorize_read?(elements)
     elements.select{|e| e.is_a?(User) ?
-                        e.authorize?([:read, :profile],:to=> current_user) :
+                        true :
                         e.authorize?(:read, :to => current_user)}
   end
   

@@ -15,11 +15,8 @@
 		  <ul class="thread-title">  
 	      	<li>
 	      	  <%=image_tag("icons/comments.png",:class=>"icon", :title => t('post.home.one', :space=>thread.space.name))%>
-	      	  <%if thread.author.authorize?([:read, :profile],:to=> current_user)%>
-		         <span class="unified_user"><%=link_to (thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>:</span>
-			  <%else%>
-			    <span class="unified_user"><%=thread.author.name%>: </span>
-			  <%end%>
+	      	  <span class="unified_user"><%=link_to (thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>:</span>
+			  
 			    <%=link_to (first_words(thread.title, 30), space_post_path(thread.space,thread),:class=>"unified_posts") if thread.space.authorize?([:read, :content],:to => current_user)%>
 			  <%if thread.attachments.any?%>
 			    <%=image_tag ("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>
