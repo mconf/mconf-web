@@ -177,6 +177,10 @@ class User < ActiveRecord::Base
   end
 
   authorizing do |agent, permission|
+    true if permission == :read
+  end
+
+  authorizing do |agent, permission|
     true if agent == self
   end
   

@@ -17,6 +17,7 @@
 
 class SearchController < ApplicationController
   before_filter :space
+  authorization_filter [ :read, :content ], :space, :if => proc { space.present? }
   
   def index
     
@@ -66,9 +67,7 @@ class SearchController < ApplicationController
   private
   
   def authorize_read?(elements)
-    elements.select{|e| e.is_a?(User) ?
-                        true :
-                        e.authorize?(:read, :to => current_user)}
+    elements.select{|e| e.authorize?(:read, :to => current_user)}
   end
   
   def search_events(params)
