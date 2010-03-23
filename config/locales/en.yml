@@ -549,6 +549,7 @@ en:
     not_found: "hCard not found"
   hello: "Hello"
   help: "Help"
+  help_support: "Help & Support"
   help_title:
     about_vcc: "About VCC"  
     create_post: "Creating a Post"    
