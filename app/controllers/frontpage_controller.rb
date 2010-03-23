@@ -34,9 +34,13 @@ class FrontpageController < ApplicationController
     #recent_events = The upcoming events in public spaces
     @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| !p.space.disabled? && p.space.public? && p.start_date.future?}.first(2)
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @spaces }
-      format.atom
+      if logged_in?
+        format.html { redirect_to home_path}
+      else
+        format.html # index.html.erb
+        format.xml  { render :xml => @spaces }
+        format.atom
+      end
     end
   end
   
