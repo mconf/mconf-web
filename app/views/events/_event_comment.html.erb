@@ -5,12 +5,8 @@
 <div class="event-comment-wrapper">		  
 	<%div_for (post, :class=>"post_moved") do%>
 	  	
-			<div class="post-logo">
-				<%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
-					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>
-				<%else%>
-					<%=logo(post.author, :size=>22, :title=>post.author.name)%>
-				<%end%>
+			<div class="post-logo">				
+					<%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>				
 			</div>
 			
 		  <div class="post-content">
@@ -22,11 +18,7 @@
 
 				<ul>
 			  	<li class="person_title">
-				  	<%if post.author.authorize?([:read, :profile],:to=> current_user)%>
-					    <%= link_to(post.author.name, :url => user_profile_path(post.author)) %>
-					  <%else%>
-					    <%=post.author.name%>
-					  <%end%>
+				  	<%= link_to(post.author.name, :url => user_profile_path(post.author)) %>					  
 			  	</li>
 					
 	        <%if post.text.size < 100%>

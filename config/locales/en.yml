@@ -202,6 +202,7 @@ en:
       long: "%B %d, %Y"
     start: "Start date"
     at: "at"
+    undefined: "Undefined"
   days: "Days"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
@@ -291,6 +292,13 @@ en:
     assistants_none: "Nobody has confirmed yet"
     attend: "Attending"
     basic_info: "Introduce basic information"
+    button:
+      attevents: "Attending events"
+      atteventstitle0: "Events that you have confirmed your attendance"
+      atteventstitle1: "You have not confirmed your attendance to any event"      
+      myevents: "My events"
+      myeventstitle0: "Events you have created"
+      myeventstitle1: "You haven't created any event"
     choose_location: "Choose location"
     colon: "Event:"
     connection:
@@ -432,6 +440,8 @@ en:
     today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
+    undated:
+      title: "Events without date"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
@@ -908,7 +918,9 @@ en:
     one: "repository"
     add_document: "Add new document"
     download: "Download"
+    need_javascript: "Please, active javascript to enjoy document repository"
     remove: "Remove"
+    search: "Document Search:"
     add_tags: "Add Tags"
     rem_tags: "Remove Tags"
   request:

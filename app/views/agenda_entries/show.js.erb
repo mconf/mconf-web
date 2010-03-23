@@ -16,7 +16,7 @@
              <%else%>
                ,
              <%end%>
-             <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
+             <%=link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user")%>
            <%end%>
            <%if @agenda_entry.speakers && !@agenda_entry.speakers.empty?%>
              <%unless isfirst%>

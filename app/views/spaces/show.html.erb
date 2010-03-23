@@ -129,20 +129,12 @@
 		  <div class="thread post <%= 'last' if (post == last_post)%>" >
 	      	<div class="thread_content">
 			  <div class="post-logo">
-			    <%if post.author.authorize?([:read, :profile],:to=> current_user)%>	
-				  <%= link_logo(post.author, :size => 32, :url => user_profile_path(post.author), :title=>post.author.name) %>
-			    <%else%>
-			      <%=logo(post.author, :size=>32, :title=>post.author.name)%>
-			    <%end%>
+			    <%= link_logo(post.author, :size => 32, :url => user_profile_path(post.author), :title=>post.author.name) %>
 			  </div>
 			  <div class="thread-title-wrapper">
 			  	<ul class="thread-title">      
-			      	<li>
-			      	   <%if post.author.authorize?([:read, :profile],:to=> current_user)%>
-				         <span class="unified_user"><%=link_to(post.author.name,user_profile_path(post.author),:class=>"unified_user")%>:</span> 
-					  <%else%>
-					    <span class="unified_user"><%=post.author.name%>: </span> 
-					  <%end%>
+			      	<li>		      	   
+			         <span class="unified_user"><%=link_to(post.author.name,user_profile_path(post.author),:class=>"unified_user")%>:</span> 
 					  <%=link_to(first_words(post.title, 40), space_post_path(@space,post),:class=>"unified_posts")%>
 					  <%if has_attachments(post)%>
 					    <%=image_tag("icons/attach.png",:title=>attachment_name(post),:class=>"icon")%>
@@ -175,25 +167,13 @@
   <% for user in @lastest_users -%>
 
     <div class="user <%= 'last' if (user == last_user)%>">
-    	<%if user.authorize?([:read, :profile],:to=> current_user)%>
-			
 			<div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_profile_path(user)%></div>
 			<div>
 			  <ul>
 			    <li><%=link_to sanitize(user.full_name),user_profile_path(user),:class=>"unified_user"%></li>
 			    <li><%=link_to sanitize(user.organization),user_profile_path(user),:class=>"small-font main_text" %></li>
 			  </ul>
-			</div>
-			
-		<%else%>
-			<div class="post-logo"><%=logo(user, :size=>32, :title=>user.name)%></div>
-        	<div>
-          	  <ul>
-            	<li class="unified_user"><%=sanitize(user.full_name)%></li>
-            	<li class="small-font main_text"><%=sanitize(user.organization) %></li>
-          	  </ul>
-         	</div>
-		<%end%>        
+			</div>       
     </div>
   <% end -%>
   <div class="read_more">

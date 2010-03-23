@@ -9,7 +9,7 @@
     } %>
 <% end %>
 
-<div class="<%= (!event.start_date.future? && event.end_date.future?) ? 'single_event current_single_event' : 'single_event'%>">
+<div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
   <ul class="group_links">
     <li>
       <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true %>
@@ -29,7 +29,7 @@
       <div class="event_logo">
         <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')}) %>
       </div>
-    <%else %>
+    <%elsif @event.has_date? %>
       <div class="event_date_image">
         <div class="event_day">
           <%= sanitize(event.start_date.strftime("%d")) %>
@@ -41,6 +41,10 @@
           <%= event.get_formatted_hour %>
         </div>
       </div>
+	<%else%>
+		  <div class="event_date_image">
+            <div class="event_day"></div>
+          </div>
     <%end %>
   </div>
   <p>
@@ -62,7 +66,7 @@
             <%isfirst=false %>
           <%else %>
           ,<%end %>
-          <%=org.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(org.name,@query),user_profile_path(org),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(org.name,@query) + "</span>")) %>
+          <%=link_to(highlight(org.name,@query),user_profile_path(org),:class=>"unified_user")%>
         <%end %>
       </li>
   </ul>

@@ -9,12 +9,8 @@
     <% @space.join_requests.pending.each do |jr| %>
       <div class="reqs <%='last' if (jr==last_request)%>"> 
         <div class="reqs-item">
-          <div class="invitation-logo">
-		        <%if jr.candidate.authorize?([:read, :profile],:to=> current_user)%>
-              <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>
-		        <%else%>
-		          <%= logo(jr.candidate,:size=>32, :title=>jr.candidate.name) %>
-		        <%end%>
+          <div class="invitation-logo">		        
+              <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>		        
 	        </div>
           <div class="invitation-content">
 	  	      <span class="unified_user"><%=sanitize(jr.candidate.name)%></span>

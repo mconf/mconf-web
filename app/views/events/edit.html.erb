@@ -54,10 +54,10 @@
 	  <li class="author"><%= t('organizer') %>:
 	  <%unless @event.actors.empty? %>
 	    <%for actor in @event.actors%>
-	      <%=actor.authorize?([:read, :profile],:to=> current_user) ? link_to(actor.name,user_profile_path(actor)): sanitize(actor.name)%>
+	      <%=link_to(actor.name,user_profile_path(actor))%>
 	    <%end%>
 	  <%else%>
-	    <%=@event.author.authorize?([:read, :profile],:to=> current_user) ? link_to(@event.author.name,user_profile_path(@event.author)): sanitize(@event.author.name)%>
+	    <%=link_to(@event.author.name,user_profile_path(@event.author))%>
 	  <%end%>
 	  </li>
 	  <%if @event.isabel_event%>

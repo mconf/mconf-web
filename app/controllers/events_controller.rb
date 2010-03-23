@@ -102,7 +102,7 @@ class EventsController < ApplicationController
         @video_entries = []
       end
       @show_day=0
-      for day in 0..@event.days-1
+      for day in 1..@event.days
         if @video_entries[day][params[:show_video].to_i]
           @show_day = day
           @display_entry = @video_entries[day][params[:show_video].to_i]
@@ -304,16 +304,19 @@ class EventsController < ApplicationController
       @events = (Event.in(@space).all :order => "start_date ASC")
     
       #Current events
-      @current_events = @events.select{|e| !e.start_date.future? && e.end_date.future?}
+      @current_events = @events.select{|e| e.is_happening_now?}
+    
+      #events without date
+      @events_undated = @events.select{|e| !e.has_date?}
     
       #Upcoming events
-      @today_events = @events.select{|e| e.start_date.to_date == Date.today && e.start_date.future?}
+      @today_events = @events.select{|e| e.has_date? && e.start_date.to_date == Date.today && e.start_date.future?}
       @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
-      @next_week_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
+      @next_week_events = @events.select{|e| e.has_date? && e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
       @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
-      @next_month_events = @events.select{|e| e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
+      @next_month_events = @events.select{|e| e.has_date? && e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
       @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
-      @all_upcoming_events = @events.select{|e| e.start_date.future?}
+      @all_upcoming_events = @events.select{|e| e.has_date? && e.start_date.future?}
       @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 3)
 =begin      
       if params[:day] == "today"
@@ -327,10 +330,10 @@ class EventsController < ApplicationController
       end
 =end
       #Past events
-      @today_and_yesterday_events = @events.select{|e| (e.end_date.to_date == Date.today || e.end_date.to_date == Date.yesterday) && !e.end_date.future?}      
-      @last_week_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}
-      @last_month_events = @events.select{|e| e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 30) && !e.end_date.future?}
-      @all_past_events = @events.select{|e| !e.end_date.future?}
+      @today_and_yesterday_events = @events.select{|e| e.has_date? && ( e.end_date.to_date==Date.today || e.end_date.to_date==Date.yesterday) && !e.end_date.future?}      
+      @last_week_events = @events.select{|e| e.has_date? && e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}
+      @last_month_events = @events.select{|e| e.has_date? && e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 30) && !e.end_date.future?}
+      @all_past_events = @events.select{|e| e.has_date? && !e.end_date.future?}
       
       if params[:order_by_time] != "ASC"
        @today_and_yesterday_events.reverse! 
@@ -363,11 +366,11 @@ class EventsController < ApplicationController
 =end
       #First 5 past and upcoming events
       if params[:order_by_time] != "ASC"
-        @last_past_events = @events.select{|e| !e.end_date.future?}.reverse.first(2)
+        @last_past_events = @events.select{|e| e.past?}.reverse.first(2)
       else
-        @last_past_events = @events.select{|e| !e.end_date.future?}.first(2)
+        @last_past_events = @events.select{|e| e.past?}.first(2)
       end
-      @first_upcoming_events = @events.select{|e| e.start_date.future?}.first(2)
+      @first_upcoming_events = @events.select{|e| e.future?}.first(2)
       
       if params[:edit]
         @event_to_edit = Event.find_by_permalink(params[:edit])

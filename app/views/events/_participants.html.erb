@@ -122,12 +122,8 @@
 		<%unless @assistants.empty?%>
 		  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
 				<h5><%= t('user.assist') %></h5>
-			  <%for participant in @assistants.first(12)%>
-				  <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
+			  <%for participant in @assistants.first(12)%>				  
 			      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
-			    <%else%>
-			      <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
-			    <%end%> 
 				<%end%>
 				<div class="links">
 				  <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
@@ -137,12 +133,8 @@
 			
 			<div id="all_assistants" <%= 'style="display: none;"' unless params[:all_assistants]%>>
 				<h5><%= t('user.assist') %></h5>
-			    <%for participant in @assistants%>
-			      <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
-			        <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
-			      <%else%>
-			        <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
-			      <%end%> 
+			    <%for participant in @assistants%>			      
+			        <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>			      
 			    <%end%>
 					<div class="links">
 					 <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
@@ -153,12 +145,8 @@
 		  <div id="assistants_list" <%= 'style="display: none;"' unless params[:list_assistants]%>>
 		  	<h5><%= t('user.assist') %></h5>
 		    <ul>
-			<%for participant in @assistants%>
-		      <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
+			<%for participant in @assistants%>		      
 		        <li><%=link_to participant.user.name, user_profile_path(participant.user)%></li>
-		      <%else%>
-		        <li><%=participant.user.name%></li>
-		      <%end%> 
 		    <%end%>
 			</ul>
 			<div class="links">
@@ -171,11 +159,9 @@
 		<%unless @no_assistants.empty?%>
 			<div id="no_assistants_lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
 				<h5><%= t('user.not_assist') %></h5>
-			  <%for participant in @no_assistants.first(12)%>
-			    <%if participant.user && participant.user.authorize?([:read, :profile],:to=> current_user)%>
-			      <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
-			    <%elsif participant.user%>
-			      <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
+			  <%for participant in @no_assistants.first(12)%>			    			      
+			    <%if participant.user%>
+			     <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
 				<%else%>
 				  <%=image_tag("avatars/undefined.png", :title=> participant.email )%>
 			    <%end%> 
@@ -189,11 +175,7 @@
 			<div id="all_no_assistants" <%= 'style="display: none;"' unless params[:all_no_assistants]%>>
 		    <h5><%= t('user.not_assist') %></h5>
 		      <%for participant in @assistants%>
-		        <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
 		          <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }), user_profile_path(participant.user)%>
-		        <%else%>
-		          <%=logo(participant.user, {:size=>32, :title=> participant.user.name })%>
-		        <%end%> 
 		      <%end%>
 					<div class="links">
 					 <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
@@ -204,12 +186,8 @@
 		  <div id="no_assistants_list" <%= 'style="display: none;"' unless params[:list_no_assistants]%>>
 		  	<h5><%= t('user.not_assist') %></h5>
 		    <ul>
-			<%for participant in @no_assistants%>
-		      <%if participant.user.authorize?([:read, :profile],:to=> current_user)%>
-		        <li><%=link_to participant.user.name, user_profile_path(participant.user)%></li>
-		      <%else%>
-		        <li><%=participant.user.name%></li>
-		      <%end%> 
+			<%for participant in @no_assistants%>		      
+		        <li><%=link_to participant.user.name, user_profile_path(participant.user)%></li>		      
 		    <%end%>
 			</ul>
 				<div class="links">
@@ -226,12 +204,8 @@
 				 <h5><%= t('user.not_confirmed') %></h5>
 				<%end%>
 				<%if !@not_responding_candidates.empty?%>  
-			    <%for event_inv in @not_responding_candidates.first(6)%>
-			      <%if event_inv.candidate.authorize?([:read, :profile],:to=> current_user)%>
-			        <%=link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }), user_profile_path(event_inv.candidate)%>
-			      <%else%>
-			        <%=logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name })%>
-			      <%end%> 
+			    <%for event_inv in @not_responding_candidates.first(6)%>			      
+			        <%=link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }), user_profile_path(event_inv.candidate)%>			      
 			    <%end%>
 				<%end%>
 				<%if !@not_responding_emails.empty? and @not_responding_candidates.size < 5 %>
@@ -253,12 +227,8 @@
 					  
 			    <%end%>
 			    <%if !@not_responding_candidates.empty?%>  
-			      <%for event_inv in @not_responding_candidates%>
-			        <%if event_inv.candidate.authorize?([:read, :profile],:to=> current_user)%>
-			          <%=link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }), user_profile_path(event_inv.candidate)%>
-			        <%else%>
-			          <%=logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name })%>
-			        <%end%> 
+			      <%for event_inv in @not_responding_candidates%>			        
+			          <%=link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }), user_profile_path(event_inv.candidate)%>			        
 			      <%end%>
 			    <%end%>
 			    <%if !@not_responding_emails.empty?%>
@@ -280,12 +250,8 @@
 		    <%end%>
 		    <%if !@not_responding_candidates.empty?%>
 		      <ul>
-			  <%for event_inv in @not_responding_candidates%>
-		        <%if event_inv.candidate.authorize?([:read, :profile],:to=> current_user)%>
-		          <li><%=link_to event_inv.candidate.name, user_profile_path(event_inv.candidate)%></li>
-		        <%else%>
-		          <li><%=event_inv.candidate.name%></li>
-		        <%end%>
+			  <%for event_inv in @not_responding_candidates%>		        
+		          <li><%=link_to event_inv.candidate.name, user_profile_path(event_inv.candidate)%></li>		        
 			  <%end%>
 			  </ul> 
 		    <%end%>

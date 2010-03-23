@@ -58,6 +58,21 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <%end%>
 
 <div id="events_wrapper">
+  <%if logged_in?%>
+    <div class="grey_bar button_wrapper">
+  	  <%if current_user.has_events_in_this_space?(@space)%>
+	    <%=link_to ("<span>#{t('event.button.myevents')}</span>"),space_events_path(@space,:user=>current_user), {:title=>t('event.button.myeventstitle0'), :id=>"myevents",:class=>"grey_button basic_button"} %>
+	  <%else%>
+	  	<%=link_to ("<span>#{t('event.button.myevents')}</span>"),'#', {:title=>t('event.button.myeventstitle1'), :id=>"myevents",:class=>"grey_button basic_button disabled_button"} %>
+	  <%end%>
+	  
+	  <%if current_user.is_participant_in_this_space?(@space)%>
+	    <%=link_to ("<span>#{t('event.button.attevents')}</span>"),space_events_path(@space,:attending=>current_user), {:title=>t('event.button.atteventstitle0'),:id=>"attevents",:class=>"grey_button basic_button"} %>
+	  <%else%>
+	    <%=link_to ("<span>#{t('event.button.attevents')}</span>"),'#', {:title=>t('event.button.atteventstitle1'),:id=>"attevents",:class=>"grey_button basic_button disabled_button"} %>
+	  <%end%>	  
+    </div>
+  <%end%>
 	
   <%if current_user && @space.authorize?([:create, :content],:to => current_user) %>
 	<div id="orange_bar">
