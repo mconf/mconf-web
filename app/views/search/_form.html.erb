@@ -1,14 +1,15 @@
+
 <% content_for :javascript do  %>
-	var title = "<%=escape_javascript(t('search.dots'))%>"
+	var title1 = "<%=escape_javascript(t('search.dots'))%>"
 	$("#search_text_field").click(function(){
-	  if(this.value == title){
+	  if(this.value == title1){
 	    this.value="";
 	  }
 	});
 	
 	  $("#search_text_field").blur(function(){
 	  if(this.value == ""){
-	    this.value= title;
+	    this.value= title1;
 	  }
 	});  
 
@@ -16,7 +17,6 @@
 
 <% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
-	
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
 	<div id="advanced">

@@ -441,7 +441,7 @@ en:
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
     undated:
-      title: "Events without date"
+      title: "Events without agenda defined"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
@@ -728,6 +728,7 @@ en:
   login: "Login"
   login_traditional: "User/Password login"
   login_request: "You need to be logged in to "
+  login_or_register: "Login / Register"
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
@@ -754,7 +755,7 @@ en:
     other: "Messages"
     private:
       editing: "Editing private message"
-      new: "New private message"
+      new: "Private message"
       none: "There are no messages"
       cant: "You cannot send private messages because you have no partners in any space"
     reply: "Reply to message"
@@ -805,6 +806,7 @@ en:
   organization: "Organization"
   organizer: "Organisers"
   or_use_email: "or use your email..."
+  other: "Other"
   
   ######### P ###########
   past: "Past"
@@ -827,6 +829,7 @@ en:
     updated: "User performance updated successfully"
   permission:
     other: "Access rights"
+  per_page: "per page"
   personal_information: "Personal information"
   phone:
     landline: "Telephone"
@@ -1098,6 +1101,10 @@ en:
     one: "Timezone"
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: "Title"
+  title_formal:
+    mr: "Mr."
+    ms: "Ms."
+    mrs: "Mrs."
   to: "to"
   to_configure_your: "to configure your"
   today: "Today"

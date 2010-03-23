@@ -43,6 +43,10 @@ class Profile < ActiveRecord::Base
   def validate
     errors.add_to_base(@vcard_errors) if @vcard_errors.present?
   end
+  
+  def prefix
+    self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
+  end
 
   def from_vcard
     return unless @vcard.present?

@@ -285,7 +285,7 @@ body .icon{margin-bottom:-2px;}
 #feedback:hover,#about:hover{background:#275b96;/*otros colores  #2b578a;/*346aa8;#5C75AA*/}
 
 #header,#profile_header{padding-top:1em;padding-bottom:1em;}
-#profile_header{overflow:visible !important;}
+#profile_header{overflow:visible !important;position:relative;}
 #header{height:68px;}
 #logo,#vcc-logo,#search{float:left;}
 #vcc-logo{height:68px;}
@@ -730,6 +730,13 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #invitation_content div#accept_invitation{margin-left:96px;}
 #invitation_content .note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:0;padding:5px;text-align:center;}
 
+
+/*Edit profile*/
+#profile_edit_title{float:left;margin-left:15px;}
+#profile_edit_title h2{margin:0;}
+#profile_header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;left:30px;}
+#profile_prefix{width:50px;margin-right:20px;}
+
 /*Profile*/
 .profile_logo{
 	text-align:center;
@@ -751,7 +758,9 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
   border-right:1px solid #BDD8EB;
   border-bottom:1px solid #BDD8EB;}
 
-#profile_left .last_options{list-style-type:none;margin-top:6px;margin-left:6px;}
+#profile_left .last_options,#profile_left .first_options{list-style-type:none;margin:6px 6px 9px 6px;}
+#profile_left .first_options{border-bottom:1px solid #A8C0D1;}
+#profile_left .first_options li{border-top:1px solid #A8C0D1;}
 
 #profile_right #profile_content{border-right:none;border-left:1px solid #BDD8EB;}
 
@@ -769,8 +778,8 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 
 #sidebar #profile_spaces .my_spaces{width:240px;margin-top:0;}
 /*#profile_content h3{margin:0;color:#244974;padding:2px 6px;border-bottom:1px solid #A8C0D1;background:#BDD8EB;}*/
-#profile_content h4{border-bottom:1px solid #A8C0D1;color:#244974;}
-#profile_content .profile_content_item{padding:0 6px;position:relative;overflow:hidden;}	
+.profile_content_item h4{border-bottom:1px solid #A8C0D1;color:#244974;}
+.profile_content_item{padding:0 6px;position:relative;overflow:hidden;}	
 #profile_content ul{list-style-type:none;margin:0;padding:6px 0;overflow:hidden;}
 #profile_content p.nothing{padding:3px 10px;text-align:center;color:#999;margin:9px 0;}
 

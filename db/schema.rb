@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310150954) do
+ActiveRecord::Schema.define(:version => 20100322180714) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(:version => 20100310150954) do
     t.string  "province"
     t.string  "country"
     t.string  "user_id"
-    t.string  "prefix"
+    t.string  "prefix_key"
     t.text    "description"
     t.string  "url"
     t.string  "skype"
