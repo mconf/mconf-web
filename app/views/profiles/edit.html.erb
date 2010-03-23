@@ -2,6 +2,18 @@
   <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
 <%end%>
 
+<% content_for :header do%>
+	<div id="profile_edit_title">
+	  <h2 class="blue"><%=t('edit_your_profile')%></h2>
+	</div>
+	
+	<div id="search">
+	  <%= render :partial => 'search/form' %>
+	</div>
+	
+	<span class="triangle_css"></span>
+<%end%>
+
 <% content_for :javascript do%>
   <%= render :partial => 'logos/crop_logo.js.erb',
              :locals => { :url_form   => precrop_user_avatar_path(@profile.user),
@@ -32,8 +44,6 @@
   </div> 
   
 <% end %>
-
-<div id="edit_profile" class="blue_title"><h3><%= t('edit_your_profile') %></h3></div>
 
 <%= error_messages_for :profile %>
 

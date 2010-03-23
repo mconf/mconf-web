@@ -755,7 +755,7 @@ en:
     other: "Messages"
     private:
       editing: "Editing private message"
-      new: "New private message"
+      new: "Private message"
       none: "There are no messages"
       cant: "You cannot send private messages because you have no partners in any space"
     reply: "Reply to message"
@@ -806,6 +806,7 @@ en:
   organization: "Organization"
   organizer: "Organisers"
   or_use_email: "or use your email..."
+  other: "Other"
   
   ######### P ###########
   past: "Past"
@@ -1100,6 +1101,10 @@ en:
     one: "Timezone"
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: "Title"
+  title_formal:
+    mr: "Mr."
+    ms: "Ms."
+    mrs: "Mrs."
   to: "to"
   to_configure_your: "to configure your"
   today: "Today"

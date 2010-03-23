@@ -1,8 +1,5 @@
 <%content_for :sidebar do %>
 <div id="profile_right">
-  <% if @profile.authorize? :read, :to => current_user %>
-    <%= render :partial=>'profiles/private_hcard'%>
-  <% end %>
   <div id="profile_spaces">
 	  <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{@user.name} #{t('is_member_of')}"} %>
   </div>
@@ -13,10 +10,19 @@
 	<div class="profile_logo">
 	  <%=logo(@user, :size => '128')%>
 	</div>
+
+  <ul class="first_options">
+    <%="<li> #{link_to t('edit_profile'), edit_user_profile_path(@user)} </li>" if @profile.authorize? :update, :to => current_user%>
+    <%="<li> #{link_to t('message.private.new'), '#'} </li>" if (@user != current_user) && (@profile.authorize? :read, :to => current_user)%>
+  </ul>
 	
   <span class="adr">
     <%= render :partial=>'profiles/public_hcard'%>
   </span>
+	
+  <% if @profile.authorize? :read, :to => current_user %>
+    <%= render :partial=>'profiles/private_hcard'%>
+  <% end %>
 	
 	<ul class="last_options">
 	  <li><%=link_to "Block user", "#" if @user != current_user %></li>
@@ -27,12 +33,12 @@
 
 <div class="profile_center">
 
-		<div class="button_wrapper grey_bar">
+<!--		<div class="button_wrapper grey_bar">
 		  <%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user), {:class=>"grey_button basic_button",:title => t('event.view_agenda')} if @profile.authorize? :update, :to => current_user %>
 		  <%=link_to ("<span>" + "Send a message" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
       <%=link_to ("<span>" + "Add contact" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
 		</div>
-
+-->
   <div class="title">
   	<h3 class="item_title">
   		<div id="help2" title="<%= h(t('information.information3'))%>"></div>
