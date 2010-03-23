@@ -87,8 +87,8 @@ describe ProfilesController do
       get :show , :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@superuser.full_name)
+      response.should include_text(@superuser.email)
       
       #we restore the visibility to the default value
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -103,8 +103,8 @@ describe ProfilesController do
       get :show , :user_id => @superuser.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@superuser.full_name)
+      response.should include_text(@superuser.email)
       
       #we restore the visibility to the default value
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -119,8 +119,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -135,8 +135,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -256,8 +256,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -273,8 +273,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -290,8 +290,8 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user_public_1.full_name)
+      response.should include_text(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -307,8 +307,8 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user_public_1.full_name)
+      response.should include_text(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -325,8 +325,8 @@ describe ProfilesController do
       get :show , :user_id => @user_public_2.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user_public_2.full_name)
+      response.should include_text(@user_public_2.email)
       
       #we restore the visibility to the default value
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -343,8 +343,8 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@user_public_1.full_name)
+      response.should_not include_text(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -361,8 +361,8 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@admin.full_name)
+      response.should include_text(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -380,8 +380,8 @@ describe ProfilesController do
       get :show , :user_id => @user_public_2.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@user_public_2.full_name)
+      response.should_not include_text(@user_public_2.email)
       
       #we restore the visibility to the default value
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -397,8 +397,8 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@admin.full_name)
+      response.should_not include_text(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -473,8 +473,8 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@admin.full_name)
+      response.should include_text(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -489,8 +489,8 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@admin.full_name)
+      response.should include_text(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -505,8 +505,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -521,8 +521,8 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@user.full_name)
+      response.should_not include_text(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -590,8 +590,8 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should include_text(I18n.t('profile.private'))
+      response.should include_text(@invited.full_name)
+      response.should include_text(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -606,8 +606,8 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@invited.full_name)
+      response.should_not include_text(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -622,8 +622,8 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@invited.full_name)
+      response.should_not include_text(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -638,8 +638,8 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@invited.full_name)
+      response.should_not include_text(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -654,8 +654,8 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(I18n.t('profile.public'))
-      response.should_not include_text(I18n.t('profile.private'))
+      response.should include_text(@invited.full_name)
+      response.should_not include_text(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
