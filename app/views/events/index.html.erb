@@ -58,6 +58,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <%end%>
 
 <div id="events_wrapper">
+<!--	
   <%if logged_in?%>
     <div class="grey_bar button_wrapper">
   	  <%if current_user.has_events_in_this_space?(@space)%>
@@ -73,7 +74,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 	  <%end%>	  
     </div>
   <%end%>
-	
+	-->
   <%if current_user && @space.authorize?([:create, :content],:to => current_user) %>
 	<div id="orange_bar">
 	  <ul>
