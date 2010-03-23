@@ -42,7 +42,7 @@
         <% for participant in @event.participants -%>
           <% if participant.attend then%>
             <div class="user_checkbox">
-              <%= check_box_tag "event[notification_ids][]", participant.user.id, checked_attendants.include?(participant.user.id.to_s) %><%= label("checkbox",sanitize(participant.user.full_name))%><br />
+              <%= check_box_tag "event[notification_ids][]", participant.id, checked_attendants.include?(participant.id.to_s) %><%= label("checkbox",sanitize(participant.user.full_name))%><br />
             </div>
 					<%end%>
         <%end%>

@@ -177,9 +177,11 @@ class Event < ActiveRecord::Base
       }.each(&:save)
     end
     if event.notification_ids
-      event.notification_ids.each { |user_id|
-        user = User.find(user_id)
-        Informer.deliver_event_notification(event,user)
+      event.notification_ids.each { |participant_id|
+        participant = Participant.find(participant_id)
+        if event.participants.include? participant
+          Informer.deliver_event_notification(event,participant.user)
+        end
       }
     end
     if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
