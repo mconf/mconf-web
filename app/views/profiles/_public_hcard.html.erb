@@ -12,11 +12,11 @@
 		<%if (@profile.address.present? && (@profile.authorize? :read, :to => current_user)) || (@profile.city.present?) ||(@profile.province.present?) || (@profile.country.present?) || (@profile.zipcode.present? && (@profile.authorize? :read, :to => current_user))%>
 		<h4><%= t('address') %></h4>
 		<ul>
-			<li><span class="category"><%= (t('street') + ":") if ((@profile.address.present?) && (@profile.authorize? :read, :to => current_user)) %> </span> <span class="street-address data"><%= @profile.address%></span></li>
+			<li><span class="category"><%= (t('street') + ":") if ((@profile.address.present?) && (@profile.authorize? :read, :to => current_user)) %> </span> <span class="street-address data"><%= @profile.address if  @profile.authorize? :read, :to => current_user%></span></li>
 			<li><span class="category"><%= (t('city')+ ":") if (@profile.city.present?) %></span><span class="locality data"><%= @profile.city%></span></li>
       <li><span class="category"><%= (t('province')+ ":")if (@profile.province.present?) %></span><span class="region data"><%= @profile.province%></span></li>
       <li><span class="category"><%= (t('country')+ ":")if (@profile.country.present?) %></span><span class="country-name data"><%= @profile.country%></span></li>
-      <li><span class="category"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) && (@profile.authorize? :read, :to => current_user) %> </span> <span class="postal-code data"><%= @profile.zipcode%></span></li>
+      <li><span class="category"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) && (@profile.authorize? :read, :to => current_user) %> </span> <span class="postal-code data"><%= @profile.zipcode if  @profile.authorize? :read, :to => current_user%></span></li>
 		</ul>
 		<%end%>
   </div>
