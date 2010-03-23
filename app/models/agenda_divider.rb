@@ -18,6 +18,8 @@
 class AgendaDivider < ActiveRecord::Base
   belongs_to :agenda
   
+  default_scope :order => 'start_time ASC'
+  
   after_save do |divider|
     divider.event.syncronize_date
   end

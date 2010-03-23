@@ -97,18 +97,19 @@ class EventsController < ApplicationController
 
     if params[:show_video]
       if @event.agenda.present?
-        @video_entries = @event.agenda.get_videos
+        @video_entries = @event.agenda.agenda_entries.select{|ae| ae.recording?}
       else
         @video_entries = []
       end
-      @show_day=0
-      for day in 1..@event.days
-        if @video_entries[day][params[:show_video].to_i]
-          @show_day = day
-          @display_entry = @video_entries[day][params[:show_video].to_i]
-          break
-        end
-      end
+      @display_entry = AgendaEntry.find(params[:show_video].to_i)
+#      #@show_day=0
+#      for day in 1..@event.days
+#        if @video_entries[day][params[:show_video].to_i]
+#          #@show_day = day
+#          @display_entry = @video_entries[day][params[:show_video].to_i]
+#          break
+#        end
+#      end
     end    
     respond_to do |format|
        format.html # show.html.erb

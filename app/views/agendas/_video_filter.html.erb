@@ -1,0 +1,53 @@
+<%content_for :javascript do%>
+
+// Global variables  
+filtered_text = null;
+filtered_day = null;
+
+// Show video previews according to global filtered_* variables
+filter_previews = function(){
+  $("div.video_preview_sidebar").each(function() {
+    if(
+      (filtered_text==null || $(this).text().toLowerCase().search(filtered_text.toLowerCase())>=0) &&
+      (filtered_day==null || $(this).hasClass("event_day_" + filtered_day))
+      ){
+      $(this).css("display","");
+    }else{
+      $(this).hide();
+    }
+  });
+}
+
+//Day filter
+$("#event_day_select").livequery('change', function() {
+  filtered_day = $(this).val()=="" ? null : $(this).val();
+  filter_previews();
+});
+
+//Text_filter
+$("#event_text_input").livequery('keyup', function() {
+  filtered_text=this.value;
+  filter_previews();
+});
+<%end%>
+
+<div id="carrusel_filter">
+  <%#Day filter%>
+	<% if @event.days > 1 %>
+  	<div id="event_day_filter">
+		  <label class="bold blue"><%=t('find_in_day')%></label>
+		  <select id="event_day_select">
+		    <option value="" id="blank_option"><%=t('any')%></option>
+		    <%(1..@event.days).each do |day|%>
+		      <option value="<%=day%>"><%=day%></option>  
+		    <%end%>
+		  </select>
+		</div>
+	<% end %>
+	
+	<%#Text filter%>
+	<div id="event_text_filter">
+		<label class="bold blue"><%=t('find_in_name_speakers')%></label>
+		<%=text_field_tag :text_filter,'', :id => "event_text_input"%>
+	</div>
+</div>

@@ -493,6 +493,8 @@ en:
   find:
     browse: "Browse"
   find_in: "Find in:"
+  find_in_day: "Find in day:"
+  find_in_name_speakers: "Find in name/speakers:"
   form:
     loading: "The form is loading..."
   from: "From"
@@ -550,6 +552,7 @@ en:
     not_found: "hCard not found"
   hello: "Hello"
   help: "Help"
+  help_support: "Help & Support"
   help_title:
     about_vcc: "About VCC"  
     create_post: "Creating a Post"    
