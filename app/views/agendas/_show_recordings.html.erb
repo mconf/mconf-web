@@ -25,22 +25,8 @@
 	    </div>
 		  <div class="video_users unified_user">  
 		    <%if @display_entry%>
-	          <%isfirst=true%>
-	          <%@display_entry.actors.each do |speaker|%>
-	             <%if isfirst%>
-	               <%isfirst=false%>
-	             <%else%>
-	               ,
-	             <%end%>
-	             <%=link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user")%>
-	           <%end%>
-	           <%if @display_entry.speakers && !@display_entry.speakers.empty?%>
-	             <%unless isfirst%>
-	               ,
-	             <%end%>
-	             <%= @display_entry.speakers %>
-	           <%end%>
-			  <%end%>
+				  <%=entry_speakers(@display_entry)%>
+	      <%end%>
 		  </div>
 		  <div class="video_attachments">
 		  	<%if @display_entry%>
