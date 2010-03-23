@@ -26,6 +26,7 @@ namespace :setup do
         user.crypted_password = User.encrypt("test", "")
         user.activated_at = 2.years.ago..Time.now
         user.disabled = false
+        user.notification = User::NOTIFICATION_VIA_EMAIL
         
         Profile.populate 1 do |profile|
           profile.user_id = user.id
@@ -39,7 +40,7 @@ namespace :setup do
           profile.zipcode = Faker::Address.zip_code
           profile.province = Faker::Address.uk_county
           profile.country = Faker::Address.uk_country
-          profile.prefix = Faker::Name.prefix
+          profile.prefix_key = Faker::Name.prefix
           profile.description = Populator.sentences(1..3)
           profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
           profile.skype = Populator.words(1)

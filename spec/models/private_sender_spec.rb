@@ -73,7 +73,7 @@ describe PrivateSender do
       params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => @registered_user.email}
       invitation = @event.invitations.build params
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
       # Check the message of the sender
@@ -116,7 +116,7 @@ describe PrivateSender do
     it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
 
       # Build the notification
-      msg = I18n.t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
+      msg = I18n.t('event.notification.message_beginning_with_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
         I18n.t('event.notification.message_ending' ,:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       @event.update_attribute(:notify_msg, msg)
       Informer.deliver_event_notification(@event,@registered_user)

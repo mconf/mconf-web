@@ -394,7 +394,8 @@ en:
       label: "Customise your notification message"
       legend:
         name: "'Name' will be replaced in the message by the receiver's name."
-      message_beginning: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
+      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
+      message_beginning_whithout_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
       message_ending: "<p>You can find more information about the event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Send a notification to the attendants"
       personal: "Write your personal text here."
@@ -654,10 +655,14 @@ en:
       name: "'Name' will be replaced in the message by the receiver's name."
       URL: "'URL' will be replaced in the message by the URL of the invitation."
     logout_and_reload: "You are not the user that received this invitation, please logout and try again"
-    message:
+    message_with_start_date:
       in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a></p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_without_start_date:
+      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a></p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     message_title: "Invite people to join your space"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
