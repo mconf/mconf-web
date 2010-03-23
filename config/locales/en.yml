@@ -441,7 +441,7 @@ en:
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
     undated:
-      title: "Events without date"
+      title: "Events without agenda defined"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
