@@ -134,7 +134,7 @@ en:
     empty: "Select picture, please"
     select: "Select picture"
     select_new: "Select new picture"
-    upload: "Upload Picture"
+    upload: "Upload picture"
   
   ######### B ###########
   back: "Back"
@@ -162,6 +162,7 @@ en:
   caption:
     add: "Add a caption"
   change: "Change"
+  change_pic: Change picture
   changed_mind: "Changed your mind?"
   chat:
     edit_question: "Would you like to enable chat?"
@@ -640,7 +641,9 @@ en:
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
-  internet: Internet
+  internet: 
+    ppal: Internet
+    on_the: On the Internet
   invitation:
     accepted: "You have accepted the invitation"
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
@@ -874,6 +877,7 @@ en:
     wall: "Wall"
   preferences: "Preferences"
   previous: "Previous"
+  privacy: "Privacy"
   private: "Private"
   private_message:
     send: "Send private message"
@@ -895,6 +899,7 @@ en:
     should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
     updated: "Profile updated successfully"
     visibility: "Visibility"
+    visibility_edit: "Edit your profile visibility"
     visibility_everybody: "Everyone can see your private profile."
     visibility_members: "Only registered members can see your private profile." 
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
@@ -954,6 +959,8 @@ en:
   RSS: "RSS"
   
   ######### S ###########
+  save: Save
+  save_ch: Save changes
   search:
     advanced: "Advanced search"
     attachments:

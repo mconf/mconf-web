@@ -1,4 +1,4 @@
-<div class="title">
+<div class="title margin-up">
   <h3 class="item_title"><%= t('contact_information') %></h3> 
 </div>
 
@@ -12,7 +12,7 @@
       <li><span class="category"><%=(t("fax") + ":") if (@profile.fax.present?)%></span> <span class="tel data"><span class="value"><%= @profile.fax%></span></span></li>
     </ul>
 		<%end%>
-    <ul><li><h4><%= t('internet') %></h4></li></ul>
+    <ul><li><h4><%= t('internet.ppal') %></h4></li></ul>
 		<ul>
 			<li><span class="category"><%= t('e-mail.one') %>: </span><span class="email data"><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></span></li>
       <li><span class="category"><%=(t("skype") + ":") if (@profile.skype.present?)%></span><span class="data"><%=( link_to @profile.skype, "callto://"+@profile.skype )if (@profile.skype.present?)%></span></li>
