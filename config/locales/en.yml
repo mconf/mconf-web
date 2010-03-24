@@ -126,7 +126,7 @@ en:
       one: " file selected"
       other: " files selected"
     updated: "Attachment updated successfully"
-    upload_with_post: "Notify the upload with a post"
+    upload_with_post: "Notify the upload with a message in the wall"
   avatar:
     created: "Picture uploaded successfully"
     crop: "Crop your picture"
@@ -555,7 +555,7 @@ en:
   help_support: "Help & Support"
   help_title:
     about_vcc: "About VCC"  
-    create_post: "Creating a Post"    
+    create_post: "Creating a Message in the wall"    
     create_space: "Creating a Space"    
     create_user: "Creating a User"
     info: "Here you can find information about the VCC"
@@ -564,13 +564,13 @@ en:
     topics: "Topics"
   help_index:
     part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
-    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating posts to communicate with other participants in the space or upload documents or photographs to be shared."
+    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating messages in the wall to communicate with other participants in the space or upload documents or photographs to be shared."
     part3: "To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>."
   help_createpost:                  
-    part1: "To create a post in VCC:"
-    part2: "1. Click on <b>Post</b> tab."    
-    part3: "2. You can <b>Add a new thread</b> on the right side of the page."    
-    part4: "3. Type a title and comment for your post."
+    part1: "To create a message in the wall in VCC:"
+    part2: "1. Click on <b>WALL</b> tab."    
+    part3: "2. You can <b>Create a new message</b> on the right side of the page."    
+    part4: "3. Type a title and comment for your message."
     part5: "4. Click on <b>Add attachment</b> link to enclose a file."
     part6: "5. Click on <b>Choose file</b> to browse and find the file you want to attach."
     part7: "6. You can add tags to your file. Tags allow you to find files easily.  Press enter to confirm each tag."
@@ -581,7 +581,7 @@ en:
     part12: "c. Insert/Edit links."
     part13: "d. Add attachments"
     part14: "e. Tags files"
-    part15: "9. Finally, click on <b>Send</b> button to create your post."    
+    part15: "9. Finally, click on <b>Send</b> button to put your message in the wall."    
   help_createspace:
     part1: "To create a space in VCC:"
     part2: "1. Click on <a href={{url}}> My Home </a> item from the top menu bar."    
@@ -608,7 +608,7 @@ en:
     part4: "3. Click on <b>Choose file</b> on the right side of the page."
     part5: "4. Once your file is selected, click on Open button."
     part6: "5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag."
-    part7: "6. If you want to <b>notify</b> the document with a post, choose this option."
+    part7: "6. If you want to <b>notify</b> the document with a message in the wall, choose this option."
     part8: "7. Finally, click on <b>Upload</b> button to add the file to the repository."                              
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
@@ -701,8 +701,8 @@ en:
   Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
-      information2: "Here you can find the newest posts, events and news of the spaces you belong to"
-      information3: "These are the latest posts or events that you have created"
+      information2: "Here you can find the newest messages, events and news of the spaces you belong to"
+      information3: "These are the latest messages or events that you have created"
       information4: "These are the spaces you belong to"
       info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
       
@@ -962,7 +962,7 @@ en:
     between_dates:
       attachments: "Search only attachments updated between two dates"
       events: "Search only events held between two dates"
-      posts: "Search only posts updated between two dates"
+      posts: "Search only messages updated between two dates"
     dots: "Search..."
     events:
       advanced: "Advanced events search"
@@ -975,8 +975,8 @@ en:
     one: "Search"
     parameters: "Query string too sort"
     posts:
-      dots: "Search posts..."
-      no_dots: "Search posts"
+      dots: "Search messages..."
+      no_dots: "Search messages"
     results: "Search results"
     space:
       dots: "Search space..."
@@ -1211,7 +1211,7 @@ en:
     timezone: "Timezone"
     updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
-    view_expanded_posts: "Show posts' expanded view by default"
+    view_expanded_posts: "Show messages in wall with the expanded view by default"
     without_group: "People without group"
   username: "Username"
     
