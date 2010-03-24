@@ -312,7 +312,11 @@ class Event < ActiveRecord::Base
     
   #method to know if this event has any session now
   def has_session_now?
-     #first we check if start date is past and end date is future
+     get_session_now
+  end
+  
+  def get_session_now
+    #first we check if start date is past and end date is future
      if is_happening_now?
        #now we check the sessions
        agenda.agenda_entries.each do |entry|
@@ -369,11 +373,7 @@ class Event < ActiveRecord::Base
       if agenda.present? && agenda.agenda_entries.count>0
         first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
         #check that the entry is the first day
-        if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
-          return first_entry.start_time.strftime("%H:%M")
-        else
-          return ""
-        end
+        return first_entry.start_time.strftime("%H:%M")        
       end
       return ""
     else
