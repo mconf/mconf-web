@@ -157,6 +157,14 @@ namespace :setup do
             participant.created_at = event.created_at..Time.now
             participant.updated_at = participant.created_at..Time.now
             participant.attend = (rand(0) > 0.5)
+
+            Performance.populate 1 do |performance|
+              performance.stage_id = event.id
+              performance.stage_type = 'Event'
+              performance.role_id = role_ids
+              performance.agent_id = participant.user_id
+              performance.agent_type = 'User'
+            end
           end
         end
 
