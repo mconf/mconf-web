@@ -194,6 +194,11 @@ class AgendaEntry < ActiveRecord::Base
     cm_session.try(:name)
   end
   
+  def can_edit_hours?
+    #an user can only edit hours if the event is in person or is virtual and future
+    return true unless cm_session? && past? 
+  end
+  
   #Return  a String that contains a html with the video player for this session
   def player
     begin

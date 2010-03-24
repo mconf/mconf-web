@@ -284,6 +284,10 @@ en:
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
   event:
+    action:
+      
+      select: "Action"
+      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -354,8 +358,6 @@ en:
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
-      define2: " define a schedule "
-      define3: "in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
@@ -367,7 +369,7 @@ en:
     last_month: "Last month ({{size}})"
     location: "Location"
     logo:
-      button: Change logo
+      button: "Change logo"
       created: "Event logo successfully created"
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
@@ -454,8 +456,13 @@ en:
       next_month: "There are no events for next month"
     video_part: Web participation
     view_agenda: "Agenda"
+    view_participation: "Participation"
+    view_participation_disabled: "Participation available during event"
     view_repo: "Repository"
     view_recordings: "Recordings"
+    view_recordings_disabled: "There are no recordings yet"
+    view_streaming: "Streaming"
+    view_streaming_disabled: "Streaming available during the event"
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"

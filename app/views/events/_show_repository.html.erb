@@ -1,0 +1,12 @@
+<div id="event_repo" class="margin-up">
+    <div id="repository_title">
+    	<h3 class="blue">
+    		<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+			<%=t('event.repository.title')%>
+		</h3>
+	</div>
+    <div id="repository_content">
+      <span><%=t('event.repository.help')%></span>
+      <%= render :partial => "attachments/doc_table", :locals => {:interactive => false} %>
+    </div>
+</div>

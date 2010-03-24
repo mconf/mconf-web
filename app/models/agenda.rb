@@ -123,6 +123,16 @@ class Agenda < ActiveRecord::Base
     return first_video_entry_id!=0
   end
   
+  
+  def has_past_session_with_video?
+    for entry in agenda_entries
+      if entry.past? && entry.recording?
+        return true
+      end
+    end    
+    return false
+  end
+  
   def from_icalendar    
     
     return unless @icalendar_file.present?

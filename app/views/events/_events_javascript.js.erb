@@ -24,23 +24,23 @@ $("#streaming_title").click(function(){
   $("#streaming_content").hide();
 <%end%>
 
-$("#change_logo").click(function(){
+change_logo = function(){
 
   $('#new_reply').hide();	
   $('#carrusel').hide();  
   $("#import_icalendar").hide();
   $("#update_logo").show();
   $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
-});
+};
 
-$("#import_icalendar_button").click(function(){
+import_icalendar = function(){
   $('#assistance_info').hide();
   $('#new_reply').hide();	
   $('#carrusel').hide();  
   $("#update_logo").hide();
   $("#import_icalendar").show();
   $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
-});
+};
 
 $(".event_image").click(function(){
   $("#change_logo").click();
@@ -368,4 +368,25 @@ $("a.repository_sidebar_action").livequery("click",function(){
           });
     });
   <%end%>
-	
+  
+  <%if event.authorize?(:update, :to => current_user) %>
+    perform_select_action = function(){
+	  switch($("#event_select option:selected").attr("value"))
+	  {
+	    case "change":
+		  change_logo();
+		break;
+		case "invite":
+		  var route = "<%=space_event_path(@space, @event, :new_invitations => @event)%>";
+          document.location = route;		  
+		break;
+		case "notify":		
+		  var route = "<%=space_event_path(@space, @event, :notification => @event)%>";
+          document.location = route;
+		break;
+		case "import":
+		  import_icalendar();
+		break;		
+	  }
+	};
+  <%end%>

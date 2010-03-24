@@ -1604,3 +1604,7 @@ div.banner_footer a{
 .divider_full_line{
 	text-align: center;
 }
+
+#event_select {
+	float: right;
+}

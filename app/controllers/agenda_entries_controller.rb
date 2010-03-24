@@ -80,7 +80,7 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.save
         @event.reload  #reload the event in case the start date or end date has changed
-        format.html {redirect_to(space_event_path(@space, @event, :show_day=>@agenda_entry.event_day, :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
+        format.html {redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day=>@agenda_entry.event_day, :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
       else    
         flash[:notice] = t('agenda.entry.failed')
         message = ""
@@ -112,7 +112,7 @@ class AgendaEntriesController < ApplicationController
         end
         flash[:notice] = t('agenda.entry.updated')
         day = @agenda_entry.event_day
-        format.html { redirect_to(space_event_path(@space, @event, :show_day => day) ) }
+        format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day) ) }
       else
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
@@ -130,7 +130,7 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.destroy
         flash[:notice] = t('agenda.entry.delete')
-        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
+        format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day)) }
         format.xml  { head :ok }
       else
         message = ""

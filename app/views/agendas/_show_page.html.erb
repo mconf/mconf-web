@@ -1,0 +1,25 @@
+  <%for day in @days%>
+	  <div id="agenda_page<%=day%>" class="agenda_tab" style="display:none">
+	    <%entries_and_dividers = @event.agenda.ordered_entries_and_dividers_for_day(day)%>
+		<%if entries_and_dividers.empty?%>
+		  <div id="no_entries" class="main_text">
+		  	<%=t("event.agenda.no_entries")%>		  
+		  </div>
+		<%else%>  
+		  <%for entry in entries_and_dividers%>
+ 			<%if entry.class==AgendaEntry%>
+			  <%=render :partial =>"agenda_entries/show", :locals =>{:agenda_entry => entry, :expanded => true, :day=>day }%>
+			<%else%>
+			  <%=render :partial =>"agenda_dividers/show", :locals =>{:agenda_divider => entry, :day=>day }%>
+			<%end%>
+	      <%end%>      
+		<%end%>
+		
+		<%if @event.authorize?(:update, :to => current_user) && (!@event.past? || @event.is_in_person?)%>
+	      <div id="add_buttons<%=day%>">
+			<div class="margin-up"><button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button></div>
+			<div class="margin-up"><button class='basic_button blue_button' id="add_divider<%=day%>"><%=t("agenda.add_divider")%></button></div>
+	      </div>
+	    <%end%>
+	  </div>  
+  <%end%>	
