@@ -24,7 +24,7 @@
     <% content_for :agenda_attachments do%>
       <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
     <% end %>
-		<%unless @event.past?%>
+		<%unless @event.past? && @event.is_virtual?%>
       <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
       <%= f.text_field :title %></div>
     <%end%>

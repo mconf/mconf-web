@@ -46,9 +46,9 @@
         <%end%>
         </ul>
       <div class="links">
-        <%=link_to t('show_list_version>>'), user_profile_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
+        <%=link_to t('show_list_version>>'), user_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
         <span class="sidebar_text">|</span>
-        <%=link_to t('more>>'), user_profile_path(show_user, :all_my_spaces => true),:class => "more_spaces" if show_user.spaces.size > 6%>
+        <%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces" if show_user.spaces.size > 6%>
       </div>
       </div>
       
@@ -63,9 +63,9 @@
 					<% end %>
         </ul>
       <div class="links">
-       <%=link_to t('show_list_version>>'), user_profile_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
+       <%=link_to t('show_list_version>>'), user_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
         <span class="sidebar_text">|</span>
-       <%=link_to t('collapse>>'), user_profile_path(show_user), :class => "less_spaces"%>
+       <%=link_to t('collapse>>'), user_path(show_user), :class => "less_spaces"%>
       </div>
       </div>
       
@@ -80,7 +80,7 @@
         <% end %>
       </ul>
       <div class="links">
-        <%=link_to t('photos_view>>'), user_profile_path(show_user), :class => "less_spaces"%>
+        <%=link_to t('photos_view>>'), user_path(show_user), :class => "less_spaces"%>
       </div>
       </div>
     <%end%>

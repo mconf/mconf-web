@@ -1,3 +1,6 @@
+<% last ||= false -%>
+<% show_author ||= false -%>
+
 <div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%> post_cloud <%='last' if last%>">
   <div class="thread">
     <div class="thread_content">
@@ -15,8 +18,9 @@
 		  <ul class="thread-title">  
 	      	<li>
 	      	  <%=image_tag("icons/comments.png",:class=>"icon", :title => t('post.home.one', :space=>thread.space.name))%>
-	      	  <span class="unified_user"><%=link_to (thread.author.name,user_profile_path(thread.author),:class=>"unified_user")%>:</span>
-			  
+	      	  <% if show_author -%>
+						  <span class="unified_user"><%=link_to (thread.author.name,user_path(thread.author),:class=>"unified_user")%>:</span>
+						<% end -%>
 			    <%=link_to (first_words(thread.title, 30), space_post_path(thread.space,thread),:class=>"unified_posts") if thread.space.authorize?([:read, :content],:to => current_user)%>
 			  <%if thread.attachments.any?%>
 			    <%=image_tag ("icons/attach.png",:title=>thread.attachments.first.filename,:class=>"icon")%>

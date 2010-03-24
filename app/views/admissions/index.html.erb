@@ -10,10 +10,10 @@
       <div class="reqs <%='last' if (jr==last_request)%>"> 
         <div class="reqs-item">
           <div class="invitation-logo">		        
-              <%= link_logo(jr.candidate, :url => user_profile_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>		        
+              <%= link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>		        
 	        </div>
           <div class="invitation-content">
-	  	      <span class="unified_user"><%=sanitize(jr.candidate.name)%></span>
+	  	      <span class="unified_user"><%=link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")%></span>
             <div class="float">
 		          <% form_for [ @space, jr ] do |f| %>
 		            <label class="main_text"><%= t('role.one') %>:</label>

@@ -1,0 +1,9 @@
+<div id="update_logo" class="update_logo margin-up" style="display:none">
+    <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
+       <div class="logo_content">
+		<% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
+          <div><%= f.file_field :media, :id => 'logo_media' %></div>   
+          <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+        <%end%>
+ 	 </div>
+</div>

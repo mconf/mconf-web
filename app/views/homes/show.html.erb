@@ -145,7 +145,7 @@
 	      <%@sender=User.find_with_disabled(private_message.sender_id)%>
           <div class="next-events-section">
               <div class="user-logo">
-                  <%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login) %>
+                  <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
               </div>
               <div class="home-inbox-message">
                   <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
@@ -174,14 +174,14 @@
   <% interval[:contents].each do |content| -%>
     <% case content 
        when Post -%>
-	    <%= render :partial => "post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content)} %>
+	    <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
 		<% when Event -%>
-	    <%= render :partial => "event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
+	    <%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
 	  <% when News -%>
-	    <%= render :partial => "news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
+	    <%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
 		<% when Attachment -%>
 		  <%content = content.reload -%>
-      <%= render :partial => "attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content)} if content.post.blank?%>
+      <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
 	  <% else -%>
 	    <div><%=t('unknown_content', :content => content.class)%></div>
 	  <% end -%>

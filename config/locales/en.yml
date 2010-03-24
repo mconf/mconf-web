@@ -126,7 +126,7 @@ en:
       one: " file selected"
       other: " files selected"
     updated: "Attachment updated successfully"
-    upload_with_post: "Notify the upload with a post"
+    upload_with_post: "Notify the upload with a message in the wall"
   avatar:
     created: "Picture uploaded successfully"
     crop: "Crop your picture"
@@ -134,7 +134,7 @@ en:
     empty: "Select picture, please"
     select: "Select picture"
     select_new: "Select new picture"
-    upload: "Upload Picture"
+    upload: "Upload picture"
   
   ######### B ###########
   back: "Back"
@@ -162,6 +162,7 @@ en:
   caption:
     add: "Add a caption"
   change: "Change"
+  change_pic: Change picture
   changed_mind: "Changed your mind?"
   chat:
     edit_question: "Would you like to enable chat?"
@@ -284,6 +285,8 @@ en:
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
   event:
+    action:      
+      select: "Action"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -305,7 +308,8 @@ en:
       info: "Connection info for this event"
       isabel: "Isabel server"
       sip: "Proxy SIP"
-      web: "Web client"
+      str: "Streaming"
+      web: "Participation"
     create:
       info: 
         basic: "Here you can organize three kind of events"
@@ -351,15 +355,15 @@ en:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     help:
+      book: "Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda."
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
-      define2: " define a schedule "
-      define3: "in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
-      now: "Now you can"      
+      now: "Now you can"   
+      without_str: "To get streaming and/or recording, please indicate it in your schedule"   
     invite: "Invite people"
     Isabel: "Isabel event"
     join: "Join this event"
@@ -367,7 +371,7 @@ en:
     last_month: "Last month ({{size}})"
     location: "Location"
     logo:
-      button: Change logo
+      button: "Change logo"
       created: "Event logo successfully created"
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
@@ -428,6 +432,7 @@ en:
       title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    session_now: "Session now"
     spam: "Spam in events"
     streaming: 
       add: "Add one."
@@ -454,8 +459,13 @@ en:
       next_month: "There are no events for next month"
     video_part: Web participation
     view_agenda: "Agenda"
+    view_participation: "Participation"
+    view_participation_disabled: "Participation available during event"
     view_repo: "Repository"
     view_recordings: "Recordings"
+    view_recordings_disabled: "There are no recordings yet"
+    view_streaming: "Streaming"
+    view_streaming_disabled: "Streaming available during the event"
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
@@ -555,7 +565,7 @@ en:
   help_support: "Help & Support"
   help_title:
     about_vcc: "About VCC"  
-    create_post: "Creating a Post"    
+    create_post: "Creating a Message in the wall"    
     create_space: "Creating a Space"    
     create_user: "Creating a User"
     info: "Here you can find information about the VCC"
@@ -564,13 +574,13 @@ en:
     topics: "Topics"
   help_index:
     part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
-    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating posts to communicate with other participants in the space or upload documents or photographs to be shared."
+    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating messages in the wall to communicate with other participants in the space or upload documents or photographs to be shared."
     part3: "To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>."
   help_createpost:                  
-    part1: "To create a post in VCC:"
-    part2: "1. Click on <b>Post</b> tab."    
-    part3: "2. You can <b>Add a new thread</b> on the right side of the page."    
-    part4: "3. Type a title and comment for your post."
+    part1: "To create a message in the wall in VCC:"
+    part2: "1. Click on <b>WALL</b> tab."    
+    part3: "2. You can <b>Create a new message</b> on the right side of the page."    
+    part4: "3. Type a title and comment for your message."
     part5: "4. Click on <b>Add attachment</b> link to enclose a file."
     part6: "5. Click on <b>Choose file</b> to browse and find the file you want to attach."
     part7: "6. You can add tags to your file. Tags allow you to find files easily.  Press enter to confirm each tag."
@@ -581,7 +591,7 @@ en:
     part12: "c. Insert/Edit links."
     part13: "d. Add attachments"
     part14: "e. Tags files"
-    part15: "9. Finally, click on <b>Send</b> button to create your post."    
+    part15: "9. Finally, click on <b>Send</b> button to put your message in the wall."    
   help_createspace:
     part1: "To create a space in VCC:"
     part2: "1. Click on <a href={{url}}> My Home </a> item from the top menu bar."    
@@ -608,7 +618,7 @@ en:
     part4: "3. Click on <b>Choose file</b> on the right side of the page."
     part5: "4. Once your file is selected, click on Open button."
     part6: "5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag."
-    part7: "6. If you want to <b>notify</b> the document with a post, choose this option."
+    part7: "6. If you want to <b>notify</b> the document with a message in the wall, choose this option."
     part8: "7. Finally, click on <b>Upload</b> button to add the file to the repository."                              
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
@@ -640,7 +650,9 @@ en:
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
-  internet: Internet
+  internet: 
+    ppal: Internet
+    on_the: On the Internet
   invitation:
     accepted: "You have accepted the invitation"
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
@@ -701,8 +713,8 @@ en:
   Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
-      information2: "Here you can find the newest posts, events and news of the spaces you belong to"
-      information3: "These are the latest posts or events that you have created"
+      information2: "Here you can find the newest messages, events and news of the spaces you belong to"
+      information3: "These are the latest messages or events that you have created"
       information4: "These are the spaces you belong to"
       info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
       
@@ -797,7 +809,7 @@ en:
     publish_another: "Publish another news item"
     publish_home: "Publish news item at home"
   next: "Next"
-  no_messages_in_forum: "There are no messages in this forum"
+  no_messages_in_wall: "There are no messages in the wall"
   no_tags_found: "No tags found"
   not_going: "I do not plan to attend"
   now!: "Now!"
@@ -851,28 +863,30 @@ en:
   please: "Please"
   popularity: "Popularity"
   post:
-    created: "Post created"
-    deleted: "Post {{postname}} has been deleted"
+    created: "Message created"
+    deleted: "Comment {{postname}} has been deleted"
     error:
       not_valid: "The comment is not valid"
-      empty: "The post cannot be empty"
+      empty: "The message cannot be empty"
     found:
-      none: "No posts found"
-      one: "1 post was found"
-      other: "{{size}} posts were found"
+      none: "No messages found"
+      one: "1 message was found"
+      other: "{{size}} messages were found"
       show_all: "Show all the results"
     home:
-      one: "Post in space {{space}}"
-    latest: "Latest posts"
-    none_created: "No post created"
-    none_recent: "There are no recent posts"
-    one: "Post"
-    other: "Posts"
-    other_in_space: "Posts in space {{space}}"
-    updated: "Post updated"
-    show_expanded_pref: "How would you like to see your posts?"
+      one: "Message in space {{space}}"
+    latest: "Latest messages"
+    none_created: "No message created"
+    none_recent: "There are no recent messages"
+    one: "Message"
+    other: "Messages"
+    other_in_space: "Messages in space {{space}}"
+    show_expanded_pref: "How would you like to see your messages?"
+    updated: "Message updated"
+    wall: "Wall"
   preferences: "Preferences"
   previous: "Previous"
+  privacy: "Privacy"
   private: "Private"
   private_message:
     send: "Send private message"
@@ -894,6 +908,7 @@ en:
     should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
     updated: "Profile updated successfully"
     visibility: "Visibility"
+    visibility_edit: "Edit your profile visibility"
     visibility_everybody: "Everyone can see your private profile."
     visibility_members: "Only registered members can see your private profile." 
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
@@ -953,6 +968,8 @@ en:
   RSS: "RSS"
   
   ######### S ###########
+  save: Save
+  save_ch: Save changes
   search:
     advanced: "Advanced search"
     attachments:
@@ -961,7 +978,7 @@ en:
     between_dates:
       attachments: "Search only attachments updated between two dates"
       events: "Search only events held between two dates"
-      posts: "Search only posts updated between two dates"
+      posts: "Search only messages updated between two dates"
     dots: "Search..."
     events:
       advanced: "Advanced events search"
@@ -974,8 +991,8 @@ en:
     one: "Search"
     parameters: "Query string too sort"
     posts:
-      dots: "Search posts..."
-      no_dots: "Search posts"
+      dots: "Search messages..."
+      no_dots: "Search messages"
     results: "Search results"
     space:
       dots: "Search space..."
@@ -1093,15 +1110,19 @@ en:
   thank_you: "Thank you"
   the_string: "the string"
   thread:
-    add: "Add a new thread"
-    deleted: "Thread has been deleted"
-    edit: "Edit thread"
+    add: "Create new message"
+    compact_view: "Switch to compact view"
+    deleted: "Message (with its comments) has been deleted"
+    edit: "Edit message"
+    extended_view: "Switch to extended view"
     one: "Thread"
-    or_add_new: "or add a new thread"
+    or_add_new: "or create a new message"
     other: "Threads"
+    see_less: "Want to compress all messages?"
+    see_more: "Want to see more about the messages?"
     show_last_comment: "Showing last {{size}} comments of {{children}}"
-    show_one_only_comment: "Showing the single comment of the thread"
-    show_comment_size: "Showing the {{size}} comments of the thread"
+    show_one_only_comment: "Showing the single comment to the message"
+    show_comment_size: "Showing the {{size}} comments to the message"
   time:
     end: "End time"
     start: "Start time"
@@ -1206,7 +1227,7 @@ en:
     timezone: "Timezone"
     updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
-    view_expanded_posts: "Show posts' expanded view by default"
+    view_expanded_posts: "Show messages in wall with the expanded view by default"
     without_group: "People without group"
   username: "Username"
     

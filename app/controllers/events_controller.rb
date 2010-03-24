@@ -95,9 +95,24 @@ class EventsController < ApplicationController
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
 
-    if params[:show_video]
+   
+    if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
+      #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
+      # and recordings for past events
+      if event.past?
+        params[:show_video]=@event.agenda.first_video_entry_id
+      elsif event.future?
+        params[:show_agenda]=true
+      elsif event.is_happening_now?
+        params[:show_streaming]=true
+      elsif !event.has_date?
+        params[:show_agenda]=true
+      end
+    end
+    
+     if params[:show_video]
       if @event.agenda.present?
-        @video_entries = @event.agenda.agenda_entries.select{|ae| ae.recording?}
+        @video_entries = @event.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
       else
         @video_entries = []
       end
@@ -110,7 +125,8 @@ class EventsController < ApplicationController
 #          break
 #        end
 #      end
-    end    
+    end
+
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }

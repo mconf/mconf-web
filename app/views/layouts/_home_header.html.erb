@@ -1,5 +1,5 @@
 <div id="logo">
-	<%=link_logo(current_user,:size => "64",:url => user_profile_path(current_user),:title=>current_user.name)%>
+	<%=link_logo(current_user,:size => "64",:url => user_path(current_user),:title=>current_user.name)%>
 </div>
 <div id="name-space">
   <span id="small-title"><%=link_to (image_tag("icons/MyHome3.png",:class=>"icon") + " MyHome","")%></span>

@@ -1,4 +1,9 @@
 <% content_for :headers, "<link rel=\"openid2.server\" href=\"#{ openid_server_url }\" />" %>
 
-<% @profile = user.profile! %>
+<%content_for :header do %>
+  <%= render :partial => 'layouts/profile_header' %>
+<%end%>
+
+<% menu :profile %>
+
 <%= render :partial => 'profiles/show' %>
