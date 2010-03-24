@@ -1,44 +1,41 @@
 <% if @event.cm_event?%>
-<% content_for :javascript do %>
-  $(document).ready(function() {
-  	$("#connection_info").effect("highlight", {color:"#F5DF51"}, 3000);
-  })
-<% end %>
+	<% content_for :javascript do %>
+	  $(document).ready(function() {
+	  	$("#connection_info").effect("highlight", {color:"#F5DF51"}, 3000);
+	  })
+	<% end %>
 
 
-<div id="connection_info" class="margin-up">
-  <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
-  <div class="connection_content">
-
-  <%if @event.agenda.agenda_entries.empty?%>
-    <p class="sidebar_info1">Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda.</p>
-  <%else%> 	
-
-		<%if !@event.has_streaming? || !@event.agenda.has_entries_with_video? %>
-		  <p class="sidebar_info2">To get streaming and/or recording, please indicate it in your schedule</p>
-		<%end%>
-		
-	  	<%if @event.web_interface?%>
+	<div id="connection_info" class="margin-up">
+	  <div class="connection_title"><h3><%= t('event.connection.info') %></h3></div>
+	  <div class="connection_content">
 	
-	    	<h5><%= t('event.connection.web') %>:</h5>
-		    <span><%=link_to space_event_url(@space, @event), space_event_url(@space, @event, :web_client=>true)%></span>
+	  <%if @event.agenda.agenda_entries.empty?%>
+	    <p class="sidebar_info1"><%=t('event.help.book')%></p>
+	  <%else%> 	
 	
-		<%end%>
-		<%if @event.isabel_interface?%>
-	
-	    	<h5><%= t('event.connection.isabel') %>:</h5>
-		    <span><%=@event.isabel_url%></span>
-	
-		<%end%>
-		<%if @event.sip_interface?%>
-	
-	    	<h5><%= t('event.connection.sip') %>:</h5>
-		    <span><%=@event.sip_url%></span>
-	
-		<%end%>
-  <%end%>
-</div>
-</div>
+			<%if !@event.has_streaming? || !@event.agenda.has_entries_with_video? %>
+			  <p class="sidebar_info2"><%=t('event.help.without_str')%></p>
+			<%end%>
+			<%if @event.has_streaming?%>		
+		    	<h5><%= t('event.connection.str') %>:</h5>
+			    <span><%=link_to space_event_url(@space, @event, :show_streaming=>true), space_event_url(@space, @event, :show_streaming=>true)%></span>		
+			<%end%>
+		  	<%if @event.web_interface?%>		
+		    	<h5><%= t('event.connection.web') %>:</h5>
+			    <span><%=link_to space_event_url(@space, @event, :show_participation=>true), space_event_url(@space, @event, :show_participation=>true)%></span>		
+			<%end%>
+			<%if @event.isabel_interface?%>		
+		    	<h5><%= t('event.connection.isabel') %>:</h5>
+			    <span><%=@event.isabel_url%></span>		
+			<%end%>
+			<%if @event.sip_interface?%>		
+		    	<h5><%= t('event.connection.sip') %>:</h5>
+			    <span><%=@event.sip_url%></span>		
+			<%end%>
+	  <%end%>
+	</div>
+	</div>
 <%else%>
   <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
 	   <strong><span><%= t('event.error.cm_connection')%></span></strong>

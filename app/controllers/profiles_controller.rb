@@ -26,6 +26,13 @@ class ProfilesController < ApplicationController
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
   def show
+
+    if @user.spaces.size > 0
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.id, :author_type => "User"} },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+    else
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+    end
+    
     respond_to do |format|
       format.html 
       format.xml { render :xml => @profile }

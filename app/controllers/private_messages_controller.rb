@@ -47,11 +47,15 @@ class PrivateMessagesController < ApplicationController
   end
 
   def new
-    
+       
     @private_message = PrivateMessage.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
       format.xml  { render :xml => @private_message }
     end
   end
