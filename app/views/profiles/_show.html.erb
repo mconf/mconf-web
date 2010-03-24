@@ -62,12 +62,21 @@
 			<%=t('recent.activity')%> </h3>
   </div>
   <div id="profile_content">
-    <% @latest_posts = [] # TODO %>
-  	  <%if @latest_posts.empty?%>
-			 <p class="nothing"><%=t('user.noactivity', :user=>@user.name)%></p>
-			<%end%> 
-	  <% for post in @latest_posts -%>
-		  <%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
+ 	  <%if @recent_activity.empty?%>
+      <p class="nothing"><%=t('user.noactivity', :user=>@user.name)%></p>
+		<%end%> 
+	  <% @recent_activity.each do |content| -%>
+		  <% case content 
+         when Post -%>
+          <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false} %>
+      <% when Event -%>
+          <%= render :partial => "events/unified_event", :locals => {:event => content.reload} %>
+      <% when Attachment -%>
+          <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content.reload} if content.post.blank?%>
+    <% else -%>
+      <div><%=t('unknown_content', :content => content.class)%></div>
+    <% end -%> 
 	  <%end%>
+		<%= will_paginate @recent_activity %>
   </div>	
 </div>

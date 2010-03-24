@@ -303,18 +303,15 @@ class Event < ActiveRecord::Base
   def is_happening_now?
      #first we check if start date is past and end date is future
      if has_date? && start_date.past? && end_date.future?
-       #now we check the sessions
-       agenda.agenda_entries.each do |entry|
-         return true if entry.start_time.past? && entry.end_time.future?
-       end  
+       true      
      else
        return false
      end
   end
     
     
-  #method to know if this event is happening now
-  def get_session_now
+  #method to know if this event has any session now
+  def has_session_now?
      #first we check if start date is past and end date is future
      if is_happening_now?
        #now we check the sessions
@@ -428,6 +425,13 @@ class Event < ActiveRecord::Base
       cm_event.try(:isabel_url) 
   end
   
+  def is_in_person?
+    vc_mode == Event::VC_MODE.index(:in_person)
+  end
+  
+  def is_virtual?
+    !is_in_person?
+  end
   
   #Return  a String that contains a html with the video of the Isabel Web Gateway
   def web(width, height)

@@ -86,56 +86,22 @@
 
   <%if params[:new_invitations]%>
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-
   <%elsif params[:notification]%>
    <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
-
+  <%elsif params[:show_streaming] && @event.is_in_person? %>
+    <%=render :partial => "external_streaming"%>
+  <%elsif params[:show_streaming]%>
+    <%=render :partial => "cm_streaming"%>
+  <%elsif params[:show_participation]%>
+    <%=render :partial => "cm_participation"%>
   <%elsif params[:show_repository]%>
-     <div id="event_repo" class="margin-up">
-	    <div id="repository_title">
-	    	<h3 class="blue">
-	    		<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%=t('event.repository.title')%>
-			</h3>
-		</div>
-	    <div id="repository_content">
-	      <span><%=t('event.repository.help')%></span>
-	      <%= render :partial => "attachments/doc_table", :locals => {:interactive => false} %>
-	    </div>
-	  </div>
-  
-  <%elsif params[:show_video]%>
-     <div id="event_recordings" class="margin-up">
-	    <div id="recordings_title"><h3 class="blue"><%=t('event.recording.one')%></h3></div>
-	    <div id="recordings_content">
-	      <%= render :partial => "agendas/show_recordings" %>
-	    </div>
-	  </div>
-  <%else%>
-      <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
-	    <%unless (@event.past? && !@event.agenda.has_entries_with_video?) %>
-	      <%=render :partial => "cm_streaming"%>
-	    <%end%>
-	  <%end%>
-	  
-	  <%if @event.agenda.present?%>
-	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title">
-          <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
-					<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-          <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
-
-	      	<h3 id="agenda_title_partial" class="blue">
-            <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-            <%=t('agenda.title')%> 
-            <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
-          </h3>
-        </div>
-	      <div id="agenda_content">
-	        <%= render :partial => "agendas/edit" %>
-	      </div>
-	    </div>
-	  <%end%>
+     <%=render :partial => "show_repository"%>
+  <%elsif params[:show_agenda]%>
+    <%=render :partial => "agendas/show"%>
+  <%elsif params[:show_video]%>     
+	<%= render :partial => "agendas/show_recordings" %>	   
+  <%else%><!-- if there is no param-->
+     No param selected  
 		
   <%end%>
  

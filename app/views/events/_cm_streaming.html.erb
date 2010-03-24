@@ -1,86 +1,20 @@
-<%if @event.authorize?(:update, :to => current_user)%>     
-  <% content_for :javascript do%>
-	   $('#add_first_entry').click(function(){
-	     $('#add_entry1').click();
-	   });
-	<%end%>
-<%end%>
-
-  
 <div id="streaming_url" class="margin-up main_text">
   <div id="streaming_title">
-  	<h3 class="blue">  	 
-		  <%if @event.past?%>
-			 <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-			 <%=t("event.player")%>  		
-		  <%elsif @event.is_happening_now?%>
-			  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%if @event.web_interface? && !@event.has_streaming?%>
-				  <%=t('event.video_part')%>
-				<%else%>
-				  <%=t('event.streaming.title')%> & <%=t('event.video_part')%>
-				<%end%>
-		  <%else%>
-             <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-			 <%=t('event.streaming.title')%> & <%=t('event.video_part')%>
-		  <%end%>	  
+  	<h3 class="blue">  	 		  
+	    <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+		  <%=t('event.streaming.title')%>
     </h3>
   </div>
 	
   <div id="streaming_content">   
-      <%if @event.agenda.agenda_entries.empty?%>
-				  <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
-	  <%elsif @event.past?%>        
-          <%= @event.player%>
-			<%if @event.authorize?(:update, :to => current_user)%>
-				  <%=link_to("Edit Video","#")%>
-				  <%= @event.editor%>   
-			<%end%>				     
-      <%elsif @event.future?%>         
-			<%if @event.has_streaming?%>
-              <div class="video_wrapper">
-                <%=image_tag("visor_video.png")%>
-                <%if @event.web_interface?%>
-				  <span><%=t('event.note.both')%></span>
-			    <%else%>
-				  <span><%=t('event.note.streaming')%></span>
-			    <%end%>
-              </div>
-			<%elsif @event.web_interface?%>
-              <div class="video_wrapper">
-                <%=image_tag("visor_video.png")%>
-                <span><%=t('event.note.participation')%></span>
-              </div>
-			<%else%>
-				  	<%=t('event.note.none')%>		  
-			<%end%>				      
-	  <%elsif @entry = @event.get_session_now%>	        
-		    <%if @event.web_interface?%>
-				  <%if @entry.streaming? && !params[:web_client]%>
-				    <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
-					<%= @event.streaming(640, 385)%>
-				  <%else%>
-				    <%if params[:web_client]%>
-				      <%=link_to("close",space_event_path(@space, @event))%>
-					<%end%>
-					  <%= @event.web%>
-				  <%end%>
-			<%else%>
-			      <%if @entry.streaming?%>
-				    <%= @event.streaming(640, 385)%>
-				  <%else%>
-				    <div class="video_wrapper">
-				      <%=image_tag("visor_video.png")%>
-                      <span><%=t('event.note.nothing')%></span>
-					</div>
-				  <%end%>				              
-		   <%end%>
-	  <%else%>
-	    <div class="video_wrapper">
-	      <%=image_tag("visor_video.png")%>
-          <span><%=t('event.note.nothing')%></span>
-		</div>
-	  <%end%>
-	
+    <%if @event.has_session_now?%>
+	  <%= @event.streaming(640, 385)%>
+	<%else%>
+	  <div class="video_wrapper">
+        <%=image_tag("visor_video.png")%>
+		<span><%=t('event.note.streaming')%></span>
+	  </div>				
+	<%end%>
   </div>
+  
 </div>
