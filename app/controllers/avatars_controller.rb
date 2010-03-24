@@ -58,10 +58,10 @@ class AvatarsController < ApplicationController
     @avatar = user.profile!.build_logo(params[:avatar])
     if @avatar.save
       flash[:success] = t('avatar.created')
-      redirect_to user_profile_path(user)
+      redirect_to user_path(user)
     else
       flash[:error] = t('error', :count => @avatar.errors.size) + @avatar.errors.to_xml
-      redirect_to user_profile_path(user)
+      redirect_to user_path(user)
     end
     
   end
@@ -74,10 +74,10 @@ class AvatarsController < ApplicationController
     @avatar = user.profile
     if @avatar.logo.update_attributes(params[:avatar])
       flash[:success] = t('avatar.created')
-      redirect_to user_profile_path(user)
+      redirect_to user_path(user)
     else
       flash[:error] = t('error', :count => @avatar.logo.errors.size) + @avatar.logo.errors.to_xml
-      redirect_to user_profile_path(user)
+      redirect_to user_path(user)
     end   
   end
   

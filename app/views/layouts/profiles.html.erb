@@ -43,23 +43,17 @@
 		  <%= render :partial => "layouts/global" %>
 
 		  <div id="space">
-
-				<div id="header">
-		      <%= render :partial => "layouts/header" %>
-		    </div>
+		    	
+			  <div id="profile_header">
+          <%= yield :header %>
+        </div>
 
 		    <div id="content">		      	      				
 					<div id="main">
 		        
-						<div id="flash_div" class="success" style="display:none"></div>
-					    <% flash.each do |name, msg| %>
-                <div class="<%= name %>"><%= msg %></div>
-              <% end %>
-
-							
 						<%= render :partial => "layouts/menu" %>
 		        
-						<div id="wrapper">		
+						<div id="profile_wrapper">		
 	     		    <%= yield %>
 			      </div>
 			    </div>

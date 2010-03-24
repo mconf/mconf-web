@@ -54,10 +54,10 @@
 	  <li class="author"><%= t('organizer') %>:
 	  <%unless @event.actors.empty? %>
 	    <%for actor in @event.actors%>
-	      <%=link_to(actor.name,user_profile_path(actor))%>
+	      <%=link_to(actor.name,user_path(actor))%>
 	    <%end%>
 	  <%else%>
-	    <%=link_to(@event.author.name,user_profile_path(@event.author))%>
+	    <%=link_to(@event.author.name,user_path(@event.author))%>
 	  <%end%>
 	  </li>
 	  <%if @event.isabel_event%>

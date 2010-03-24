@@ -57,9 +57,18 @@ class UsersController < ApplicationController
   def show
     user
 
+    if @user.spaces.size > 0
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.id, :author_type => "User"} },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+    else
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+    end
+
+    @profile = user.profile!
+
     respond_to do |format|
       format.html {
         headers['X-XRDS-Location'] = user_path(user, :format => :xrds)
+        render :layout => 'profiles'
       }
       format.xml { render :xml => user }
       format.atom
@@ -133,7 +142,7 @@ class UsersController < ApplicationController
         
         flash[:success] = t('user.updated')     
         format.html { #the superuser will be redirected to list_users
-          redirect_to(user_profile_path(@user))
+          redirect_to(user_path(@user))
         } 
         format.xml  { render :xml => @user }
         format.atom { head :ok }
@@ -144,7 +153,7 @@ class UsersController < ApplicationController
             #redirect_to(space_users_path(@space))
           else
              render :action => "edit" 
-            #redirect_to(space_user_profile_path(@space, @user)) 
+            #redirect_to(space_user_path(@space, @user)) 
           end }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }

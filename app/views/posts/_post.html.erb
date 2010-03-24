@@ -13,7 +13,7 @@
 
  
 	<div class="post-logo">
-	  <%= link_logo(post.author, :size => 22, :url => user_profile_path(post.author), :title=>post.author.name) %>	  
+	  <%= link_logo(post.author, :size => 22, :url => user_path(post.author), :title=>post.author.name) %>	  
 	</div>	
 	<div class="post-content">
 	    <div id="edit" class="group_links">
@@ -23,7 +23,7 @@
 	    </div>
 	  <ul>
 	  	<li class="unified_user">
-                <%= link_to(post.author.name, user_profile_path(post.author),:class=>"unified_user") %>
+                <%= link_to(post.author.name, user_path(post.author),:class=>"unified_user") %>
 	  	</li>
         <%if post.text.size < 120 %>
 		  <li>
