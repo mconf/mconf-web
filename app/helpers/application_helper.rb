@@ -61,5 +61,13 @@ module ApplicationHelper
   def generate_template(form_builder, method, options = {})
     escape_javascript generate_html(form_builder, method, options)
   end 
+  
+#  def t(key, options = {})
+#    I18n.t(key, options) + link_to("T", :action => 'index', :controller => 'translate',
+#                                        :key_type => 'starts_with',
+#                                        :key_pattern => key.downcase,
+#                                        :from_locale => I18n.locale,
+#                                        :to_locale => I18n.locale)
+#  end
 
 end
