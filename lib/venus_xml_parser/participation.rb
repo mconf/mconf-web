@@ -21,7 +21,7 @@ module VenusXmlParser
           names << author.attributes["name"]
         } 
         
-#        principalName = @tags[0].attributes["name"]
+#        principalAuthor = @tags[0].attributes["name"]
         
         names   
     end
@@ -42,15 +42,6 @@ module VenusXmlParser
         
     end
     
-    
-    def getAuthorsLength    
-      i = 0;   
-      @tags[0].elements.each("metadata/author"){
-        i=i+1;
-      } 
-      i       
-    end
-    
     def getTagsLength    
       return @tags.length     
     end   
@@ -59,7 +50,7 @@ module VenusXmlParser
          @tags[0].elements["metadata/startedBy"].attributes["date"]
     end
     
-    def imprime
+    def print
       @tags.each do |tag|
         puts tag
       end
@@ -84,10 +75,6 @@ module VenusXmlParser
     def getTitle
       @tags[0].attributes["title"]  
     end
-    
-
-    
-
   
   end
   
