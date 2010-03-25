@@ -172,7 +172,7 @@
       // Validate title
 	  var title = ($('#agenda_entry_title').val());
 	  if (title == "") {		  
-		$("#agenda_title_label").append("<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>");			
+		$("#error_title").show();			
 	    var destination_edit = $('#edit_entry_anchor').offset().top;
         $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
           window.location.hash = '#edit_entry_anchor';

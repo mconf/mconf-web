@@ -49,8 +49,7 @@ class Profile < ActiveRecord::Base
 
     @vcard = Vpim::Vcard.decode(@vcard).first
     
-    #TELEFONO: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro numero
+    #TELEPHONE
     if !@vcard.telephone('pref').nil? 
       self.phone = @vcard.telephone('pref')
     else 
@@ -63,14 +62,12 @@ class Profile < ActiveRecord::Base
       end
     end
     
-    #FAX: Si existe bien, sino no se altera
+    #FAX
     if !@vcard.telephone('fax').nil?
       self.fax = @vcard.telephone('fax') 
     end
 
-   #NOMBRE: Guardamos el prefijo si existe en su campo
-   #y con el resto formamos el nombre de la forma
-   # "given" + "additional" + "family"
+   #NAME
    if !@vcard.name.nil?
      
       temporal = ''
@@ -89,12 +86,11 @@ class Profile < ActiveRecord::Base
       end
       
       if !temporal.eql? '' 
-        self.user.login = temporal.unpack('M*')[0];
+        self.full_name = temporal.unpack('M*')[0];
       end
    end
       
-    #EMAIL: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro mail
+    #EMAIL
     if !@vcard.email('pref').nil? 
       self.user.email = @vcard.email('pref')
     else 
@@ -107,27 +103,22 @@ class Profile < ActiveRecord::Base
       end
     end
     
-    #URL: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro mail
+    #URL
     if !@vcard.url.nil?
         self.url = @vcard.url.uri.to_s
     end
 
-    #DESCRIPCIÓN: Si existe Note, se pone en descripción
+    #DESCRIPTION
     if !@vcard.note.nil?
         self.description = @vcard.note.unpack('M*')[0]
     end
   
-    #ORGANIZACIÓN: Por ahora solo se tiene en cuenta
-    #el nombre de la organización. Hay campos para 
-    #departamentos ... ¿útiles?
+    #ORGANIZATION
     if !@vcard.org.nil?  
       self.organization = @vcard.org[0].unpack('M*')[0]
     end 
   
-    #DIRECCIÓN: Buscamos preferente, sino trabajo, sino
-    #cualquier otra dirección. Solo ejecutamos los cambios
-    #si hay una address en la vcard
+    #DIRECTION
     address = nil;              
     if !@vcard.address('pref').nil? 
       address = @vcard.address('pref')
@@ -138,7 +129,7 @@ class Profile < ActiveRecord::Base
         address = @vcard.addresses[0]
       end
     end            
-    if !address.nil? #Si ha habido algún resultado, lo guardamos
+    if !address.nil? 
           self.address = address.street.unpack('M*')[0] + ' ' + address.extended.unpack('M*')[0]
           self.city = address.locality.unpack('M*')[0]
           self.zipcode = address.postalcode.unpack('M*')[0]

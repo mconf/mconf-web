@@ -25,6 +25,7 @@ class LogosController
   TMP_PATH = File.join(RAILS_ROOT, "public", "images", "tmp")
   
   def precrop
+    
     if params['logo']['media'].blank?
       redirect_to request.referer
       return
@@ -58,6 +59,7 @@ class LogosController
     if params[:crop_size].present?
       crop_and_resize
     end
+    #debugger
     @logo = space.build_logo(params[:logo])
     if @logo.save
       flash[:success] = t('logo.created')

@@ -841,6 +841,9 @@ h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;bor
 #space_description h3{padding-bottom:8px;border-bottom:1px #ccc solid;color:#244974;}
 /*Edit space*/
 div#jedit_form img.logo{display:block;}
+.default_space_logo {
+	padding: 4px;	
+}
 
 /*kikeCSS */
 #login_div h3{margin-bottom:7px;padding:8px 0.75em 7px 0.75em;background:#bdd8eb;}
@@ -1516,6 +1519,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
   text-decoration:underline;  
 }
 
+input#space_name {
+  width:99%;
+}
 
 #logo_UE {
   margin-left:0px;
@@ -1539,6 +1545,7 @@ div.banner_footer a{
   font-family:sans-serif;
 }
 
+
 .divider_title{
 	color: #4972A2;
 	font-weight: bold;
@@ -1548,3 +1555,4 @@ div.banner_footer a{
 .divider_full_line{
 	text-align: center;
 }
+

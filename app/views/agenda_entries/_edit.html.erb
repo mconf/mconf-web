@@ -26,6 +26,9 @@
     <% end %>
 		<%unless @event.past?%>
       <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
+	  
+	  <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
+	  
       <%= f.text_field :title %></div>
     <%end%>
     <div class="margin-up">

@@ -1,8 +1,56 @@
+	<% content_for :javascript do%>
+	
+	$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFA903');
 
+selectDefaultImage = function(image){
+	
+	$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFFFFF');
+	$("#" + image.replace(".","")).css('background-color','#FFA903');
+	$("#space_image").attr('value', image);
+	
+
+	//alert( $("#space_image").val() );
+}
+
+$("#create_space_button").livequery('click',function(){
+
+    // Validate name
+    var name = ($('#space_name').val());
+    if (name == "") {
+	   $("#error_name").show();
+	  var destination_add = $('#new_space_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_space_anchor';
+      });
+    }else{
+		$("#error_name").hide();
+	} 
+			
+    // Validate description
+    var description = ($('#space_description').val());
+    if (description == "") {
+	  $("#error_description").show();
+	  var destination_add = $('#new_space_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_space_anchor';
+      });
+	}else{
+		$("#error_description").hide();
+	} 
+	
+	if ((name != "") && (description != "")) {
+		document.forms["space_new_form"].submit();
+	}
+	
+	
+ });
+
+	<% end %>
+	
 <div id="create_space" class="create_space_blinking">
-	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
+<a id="new_space_anchor" name="new_space_anchor" ></a>
 	<div class="form">
-    <% form_for :space, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
+    <% form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
 
 		  <%unless logged_in?%>
 		    <div id="left">
@@ -27,12 +75,14 @@
 		
 			<div><span class="title"><%= t('space.create_own') %></span></div>
 			<div>
-		   	<label for="name"><%= t('name.one') %></label><br/>
+		   	<label for="name" id= "space_name_label"><%= t('name.one') %></label><br/>
+			<div class='error' id="error_name" style="display:none" ><%= escape_javascript(t('space.name_none'))%></div>
 				<%= f.text_field :name %>
 			</div>
 		
 			<div>
-		  	<label for="description"><%= t('description') %></label><br/>
+		  	<label for="description" id= "space_description_label"><%= t('description') %></label><br/>
+			<div class='error' id="error_description" style="display:none" ><%= escape_javascript(t('space.description_none'))%></div>
 		   	<%= f.text_area(:description,:class=>"area") %>
 			</div>
 		
@@ -47,12 +97,42 @@
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
 			</div>
 			
-			<div id='mail_group' class="mail_group_blinking">
-		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@dit.upm.es</label>
+
+			<div id='mail_group' class="mail_group_blinking" style="display:none">
+		 	  	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@dit.upm.es</label>
 			</div>
+			<div id='default_space_images'>
+				
+            <% 
+				@files = Dir.entries("public/images/default_space_logos/")
+			    images_for_row = 5 # number of images per row
+				images_now = 1
+				@files.delete(".")
+				@files.delete("..")
+				selected = rand(@files.length)
+ 			%>
 			
-			<button type="submit" class="blue_button basic_button"><%=t("button.create")%></button>
-	
+			<%= hidden_field "space","image",:value => @files[selected].to_s, :name => "space[default_logo]" %>
+			
+			
+			<%
+	         for file in @files
+				
+					images_now+= 1
+			%>
+			<%=link_to (image_tag "default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>	
+						
+   			<%	if images_now > images_for_row %>
+						<br>
+						<% images_now=1;
+					end %>				
+				<% end %>
+			</div>
+           <!-- QUITAR 
+		   <button id = "Acreate_space_button" type="submit" class="blue_button basic_button">
+                <%=t("button.create") %>
+            </button>-->
+			<input type="button" id="create_space_button" value="<%=t("button.create") %>" class="basic_button blue_button"/>
 		  <%unless logged_in?%>
 		  </div>
 		  <%end%>

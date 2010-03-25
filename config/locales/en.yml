@@ -991,6 +991,7 @@ en:
     created: "Space created successfully"
     delete: "Delete Space"
     deleted: "Space removed successfully"
+    description_none: "A space description must be given to create a new space"
     disable: "Disable space"
     disabled: "Space disabled successfully"
     does_not_belong: "does not belong to any space"
@@ -1013,6 +1014,7 @@ en:
     main: "Main space"
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
+    name_none: "A space name must be given to create a new space"
     one: "Space"
     other: "Spaces"
     popular:
