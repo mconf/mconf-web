@@ -48,6 +48,8 @@ namespace(:deploy) do
     sudo "/bin/mkdir -p /opt/local"
     sudo "/bin/chgrp -R www-data /opt/local"
     sudo "/bin/chmod g+w /opt/local"
+    # Allow Translators modify locale files
+    sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
   end
 
   task :link_files do
@@ -75,9 +77,49 @@ namespace(:vcc) do
     puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
     puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
   end
-  
+
+  task :commit_remote_translations do
+    run("cat #{ File.join(current_path, 'REVISION') }") do |channel, stream, data| 
+      exit unless system("git checkout #{ data }")
+    end
+
+    # Get remote translations in production server
+    get File.join(current_path, "config", "locales"),
+        "config/locales", :recursive => true
+    # Remove log
+    system "rm -r config/locales/log"
+
+    # Commit translations
+    system "git commit config/locales -m \"Merge translations in production server\""
+
+    translations_commit = `cat .git/HEAD`.chomp
+
+    # Go to deployment branch
+    system "git checkout #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }"
+
+    # Add translations commit
+    commit = `git cherry-pick #{ translations_commit } 2>&1`
+
+    unless commit =~ /Finished one cherry\-pick/
+      puts "There were problems when merging translations"
+      puts "Resolve the conflicts, commit and push"
+      puts "Then, deploy with MERGE_LOCALES=false"
+      puts commit
+      
+      exit
+    end
+
+    unless system("git push origin #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }")
+      puts "Unable to push to origin"
+      exit
+    end
+  end
+ 
   task :production do
     set :environment, :production
+    if ENV['MERGE_LOCALES'] != 'false'
+      commit_remote_translations
+    end
     deploy.migrations
   end
   
