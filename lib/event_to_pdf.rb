@@ -22,11 +22,11 @@ module EventToPdf
 
     pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
 
-    #Parameters of the the table.
-    c1_width = 75
-    c2_width = 135
-    c3_width = 170
-    c4_width = 360
+    #Parameters of the the table.  
+    @c1_width = 75
+    @c2_width = 135
+    @c3_width = 170
+    @c4_width = 360
     
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
@@ -38,12 +38,11 @@ module EventToPdf
     
     write_event_title(pdf,name)
     
-    
     days.times do |i|
         
       date = (start_date+i.day).strftime("%A %d %b")
 
-      @entries = agenda.agenda_entries_for_day(i)
+      @entries = agenda.ordered_entries_and_dividers_for_day(i+1)
     
       unless i == days or i == 0 or @entries.empty?
         pdf.start_new_page  
@@ -51,48 +50,46 @@ module EventToPdf
  
       @entries_array = fragment_entries(@entries)
        
+      heads = true;
+      heads_after_special_title = false;  
+       
       @entries_array.each do |entries|
-           
-      if entries == @entries_array[0]
-        #First entrie in the day. Its a special case.
-
-        #if entries[0].special_title    #The first entrie in the day has a special title.
-        if random_boolean(0)
-          pdf.fill_color  Color::RGB::Black
+             
+        if entries == @entries_array[0] and isSpecialTitle(entries[0])
+          #The first entrie in the day has a special title.
+          pdf.fill_color!  Color::RGB::Black
           pdf.text "#{date}", :font_size => 14, :justification => :center
-          pdf.text " ", :font_size => 2
-        
-          #Two types of special titles. To test we will chose one of them randomly.
-          if random_boolean(50)
-            write_special_title(pdf,c1_width + c2_width,c3_width + c4_width,entries[0],true)
+          heads = true;
+        end
+              
+        if isSpecialTitle(entries[0])
+          
+          index_next_entry = @entries_array.index(entries) + 1
+          actual_entry = entries[0]
+          next_entry = []
+          
+          if(@entries_array[index_next_entry] != nil)
+            next_entry = @entries_array[index_next_entry]
+            
+            if need_new_page(pdf,actual_entry,next_entry,false)
+              pdf.start_new_page
+            end    
+            
+          end      
+          
+          write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
+          
+          if(entries == @entries_array[0])
+            heads = true;
           else
-            write_special_title_b(pdf,c1_width + c2_width,c3_width + c4_width,entries[0],true)
-          end
-
-          if entries.length > 1
-            generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,nil      ,   true,       false)
-            #generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,tab_title,heading,first_entrie)
+            heads = heads_after_special_title;
           end
           
         else
-          generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,date     ,   true,        true)
+          generate_entrie_table(pdf,entries,nil,heads)
+          heads = heads_after_special_title;
         end
-            
-      else
-        #if entries[0].special_title 
-        if random_boolean(0)         
-          write_special_title_b(pdf,c1_width + c2_width ,c3_width + c4_width,entries[0],true)
-            
-          if entries.length > 1
-            generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,nil,false,false)
-          end
-            
-          else
-            generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,nil,true,true)
-          end
-          
-        end 
-        
+    
       end 
       
     end     #All Day Ends. PDF finished.
@@ -102,6 +99,89 @@ module EventToPdf
   end
   
   private
+  
+  
+  def need_new_page(pdf,actual_entry,next_entries,hasHour)
+    
+    unless isSpecialTitle(actual_entry) and next_entries[0].class == AgendaEntry
+      return false
+    end
+       
+    height_table = getFirstRowTableHeight(next_entries)
+    height_rectangle = getRectangleHeight(false,actual_entry)
+    
+    height_total = height_table + height_rectangle
+
+    bottom_space = pdf.y
+    margin_space = 20
+      
+    #Test if the special title fits in the page.
+    if height_total > (bottom_space - margin_space)
+      return true
+    else
+      return false
+    end
+
+  end
+  
+  def getFirstRowTableHeight(next_entries)
+    #Calculate the height of the first row and heads in the table.
+    
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    init_y = pdf_test.y 
+    
+    generate_entrie_table_test(pdf_test,next_entries,nil,false)
+    pdf_test.text " ", :font_size => 3 #Space added to the margin between special title and table.
+      
+    final_y = pdf_test.y
+    height_table = init_y - final_y 
+    return height_table
+  end
+  
+  def getRectangleHeight(hasHour,divider)
+    
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    #Calculate the height of the rectangle.
+    pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
+    title_width = pdf_test.text_line_width(text_to_iso("#{divider.title}"), 18)  
+    
+    if hasHour    
+      f_rectangle = (title_width / 590)
+    else
+      f_rectangle = (title_width / 735)
+    end
+
+    if f_rectangle < 5
+      f_rectangle = f_rectangle.ceil
+    else
+      f_rectangle = f_rectangle + 1
+    end
+      
+    case f_rectangle
+      when 0
+        f_rectangle = 1
+        h = 29
+      when 1
+        h = 29
+      when 2
+        h = 26
+      when 3
+        h = 24
+      when 4
+        h = 22
+    else
+        h = 22
+    end
+
+    height_rectangle = h*f_rectangle
+    
+    return height_rectangle
+  end
+  
+  
+  def isSpecialTitle(entry)
+    return  !(entry.class == AgendaEntry)
+  end
   
   #Returns a random boolean, only for test.
   #trueProbability is a number in the range (0,100) (%)
@@ -129,11 +209,17 @@ module EventToPdf
     
     entries.each do |entrie|    
       
-      #if entrie.special_title
-      if random_boolean(0)
+      unless entrie.class == AgendaEntry
+        
+        unless entries_temp.empty?
+          array_entries << entries_temp
+          entries_temp = []
+        end
+        
         entries_temp << entrie
         array_entries << entries_temp
         entries_temp = []
+        
       else
         entries_temp << entrie
           
@@ -152,11 +238,84 @@ module EventToPdf
   #Generate and fill a table with the dates contained in entries.
   #tab_title Title of the table. Nil if we want the table without title.
   #heading True to show the table heading.
-  #First_entrie False if we want to ignore the first row in the table.
-  def generate_entrie_table(pdf,c1_width,c2_width,c3_width,c4_width,entries,tab_title,heading,first_entrie)
+  def generate_entrie_table(pdf,entries,tab_title,heading)
     
     @entries = entries
     
+    PDF::SimpleTable.new do |tab|
+    
+    if tab_title
+      tab.title = tab_title
+      tab.title_color = Color::RGB::Black
+      tab.title_font_size = 14
+      tab.title_gap = 8
+    end 
+
+    tab.row_gap = 3
+    
+    tab.show_lines =:all
+    tab.show_headings = heading
+    tab.bold_headings = true
+    tab.shade_headings  = true
+    tab.heading_font_size = 11
+    tab.orientation = :center
+    tab.position = :center
+    tab.minimum_space = 50
+    tab.shade_heading_color = Color::RGB.new(134,154,184)
+    tab.shade_color = Color::RGB::Grey90
+#    tab.shade_color2 = Color::RGB::Black
+    tab.text_color = Color::RGB::Black
+
+    tab.column_order = ["col1","col2","col3","col4"]
+    
+    tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
+      |col| 
+      col.width = @c1_width
+      col.heading = "Hour"
+      col.heading.justification = :center 
+    }
+    
+    tab.columns["col2"] = PDF::SimpleTable::Column.new("col2") { 
+      |col| 
+      col.width = @c2_width
+      col.heading = "Title" 
+      col.heading.justification = :center   
+    }
+    
+    tab.columns["col3"] = PDF::SimpleTable::Column.new("col3") { 
+      |col| 
+      col.width = @c3_width
+      col.heading = "Speakers"
+      col.heading.justification = :center 
+    }
+    
+    tab.columns["col4"] = PDF::SimpleTable::Column.new("col4") { |col| 
+      col.width = @c4_width
+      col.heading = "Description" 
+      col.heading.justification = :center    
+    }
+    
+
+    data = []
+    
+      @entries.each do |entrie|
+      
+        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s() 
+        add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)
+ 
+      end
+    
+      tab.render_on(pdf)
+      
+      pdf.fill_color!  Color::RGB::Black
+
+    end
+  
+  end
+  
+  #Use to calculate the height of a future table.
+  def generate_entrie_table_test(pdf,entries,tab_title,heading)
+         
     PDF::SimpleTable.new do |tab|
     
     if tab_title
@@ -184,50 +343,42 @@ module EventToPdf
     
     tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
       |col| 
-      col.width = c1_width
+      col.width = @c1_width
       col.heading = "Hour"
       col.heading.justification = :center 
     }
     
     tab.columns["col2"] = PDF::SimpleTable::Column.new("col2") { 
       |col| 
-      col.width = c2_width
+      col.width = @c2_width
       col.heading = "Title" 
       col.heading.justification = :center   
     }
     
     tab.columns["col3"] = PDF::SimpleTable::Column.new("col3") { 
       |col| 
-      col.width = c3_width
+      col.width = @c3_width
       col.heading = "Speakers"
       col.heading.justification = :center 
     }
     
     tab.columns["col4"] = PDF::SimpleTable::Column.new("col4") { |col| 
-      col.width = c4_width
+      col.width = @c4_width
       col.heading = "Description" 
       col.heading.justification = :center    
     }
     
 
     data = []
-    
-      @entries.each do |entrie|
-      
-        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s() 
-        
-        unless !first_entrie and (entrie == @entries[0])
-          add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)
-        end
+     
+    hour =  entries[0].start_time.strftime("%H:%M").to_s() + " to " + entries[0].end_time.strftime("%H:%M").to_s() 
+    add_row(tab,data,hour,entries[0].title,entries[0].speakers,entries[0].description)
  
-      end
-    
-      tab.render_on(pdf)
+    tab.render_on(pdf)
 
     end
   
   end
-  
   
   #Method to add a row in the table tab.
   def add_row(tab,data,hour,title,speakers,description)       
@@ -276,8 +427,8 @@ module EventToPdf
   end
 
 
-  #Add special title to the pdf. Model 2
-  def write_special_title_b(pdf,width_hour,width_title,entrie,hasHour)
+  #Add special title to the pdf.
+  def write_special_title(pdf,width_hour,width_title,divider,hasHour)
       
     vccColor = Color::RGB.new(36, 73, 116)
     pdf.text " ", :font_size => 3
@@ -285,40 +436,7 @@ module EventToPdf
 
     x = pdf.absolute_left_margin+20    
 
-    #f_rectangle estimated lines occupied by the text.
-    title_width = pdf.text_line_width(text_to_iso("#{entrie.title}"), 18)  
-    
-    if hasHour    
-      f_rectangle = (title_width / 590)
-    else
-      f_rectangle = (title_width / 735)
-    end
-
-    #1-4 lines cases are treated specified.
-    if f_rectangle < 5
-      f_rectangle = f_rectangle.ceil
-    else
-      f_rectangle = f_rectangle + 1
-    end
-      
-    case f_rectangle
-      when 0
-        f_rectangle = 1
-        h = 29
-      when 1
-        h = 29
-      when 2
-        h = 26
-      when 3
-        h = 24
-      when 4
-        h = 22
-    else
-        h = 22
-    end
-
-
-    height_rectangle = h*f_rectangle
+    height_rectangle = getRectangleHeight(false,divider)
  
     bottom_space = pdf.y
     margin_space = 20
@@ -328,19 +446,22 @@ module EventToPdf
       pdf.start_new_page
     end
 
+    pdf.y = pdf.y - 3
     last_y = pdf.y
 
-    pdf.fill_color  vccColor
+    pdf.fill_color!  vccColor
     #rounded_rectangle(x, y, w, h, r)
     #Draw a rounded rectangle with corners (x, y) and (x + w, y - h) and corner radius r. The radius should be significantly smaller than h and w.
-    pdf.rounded_rectangle(pdf.absolute_left_margin+20, pdf.y, 735, height_rectangle, 10).close_fill_stroke
+    rectangle = pdf.rounded_rectangle(pdf.absolute_left_margin+20, pdf.y, 735, height_rectangle, 15)
+    rectangle.stroke_color!(Color::RGB::White)  
+    rectangle.close_fill_stroke
     
-    pdf.fill_color  Color::RGB::White
+    pdf.fill_color!  Color::RGB::White
     
     #pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right) previous margins
     
     if hasHour
-      hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
+      hour =  divider.start_time.strftime("%H:%M").to_s() + " to " + divider.end_time.strftime("%H:%M").to_s()
         
       #add_text(x, y, text, size = nil, angle = 0, word_space_adjust = 0)
       #Add text to the document at (x, y) location at size and angle. 
@@ -352,81 +473,11 @@ module EventToPdf
       pdf.margins_pt(25, 55, 25, 55)
     end
 
-    pdf.text text_to_iso("#{entrie.title}"), :font_size => 18, :justification => :center
+    pdf.text text_to_iso("#{divider.title}"), :font_size => 18, :justification => :center
     pdf.margins_pt(25, 30, 25, 30)
-    pdf.y = last_y - height_rectangle
-    pdf.fill_color  Color::RGB::Black
+    pdf.y = last_y - height_rectangle - 1
+    pdf.fill_color!  Color::RGB::Black
     pdf.text " ", :font_size => 3 
-
-  end
- 
- 
-  #Add special title to the pdf. Model 1
-  def write_special_title(pdf,width_hour,width_title,entrie,hasHour)
-
-    pdf.text " ", :font_size => 2
-    pdf.select_font("Helvetica-Bold", { :encondig => "WinAnsiEnconding" } )
-    
-    @specialTable = PDF::SimpleTable.new do |tab|  
-    
-      data = [] 
-    
-      if hasHour
-    
-        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
-    
-        tab.column_order = ["col1","col2"]
-    
-        tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
-          |col| 
-          col.width = width_hour
-          col.justification = :center
-        }
-    
-        tab.columns["col2"] = PDF::SimpleTable::Column.new("col2") { 
-          |col| 
-          col.width = width_title
-          col.justification = :center
-        }
-    
-        data << { "col1" => text_to_iso("#{hour}"), "col2" => text_to_iso("#{entrie.title}") }
-    
-        pdf.select_font("Helvetica-Bold", { :encondig => "WinAnsiEnconding" } )
-        tab.font_size = 13
-    
-      else  
-    
-        tab.column_order = ["col1"]
-    
-        tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
-          |col| 
-          col.width = width_hour + width_title
-          col.justification = :center
-        }
-
-        data << { "col1" => text_to_iso("#{entrie.title}") }
-    
-        tab.font_size = 15
-    
-      end
-
-      tab.show_lines =:none
-      tab.show_headings = false
-      tab.orientation = :center
-      tab.position = :center
-      tab.shade_color = Color::RGB.new(225, 238, 245)
-      #tab.line_color = vccColor
-
-      tab.data.replace data  
-      tab.text_color = Color::RGB::Black
-    
-      tab.render_on(pdf)  
-   
-    end
-  
-    pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
-    pdf.fill_color  Color::RGB::Black
-    pdf.text " ", :font_size => 5
 
   end
 
