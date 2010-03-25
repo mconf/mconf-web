@@ -47,8 +47,10 @@
         </ul>
       <div class="links">
         <%=link_to t('show_list_version>>'), user_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
-        <span class="sidebar_text">|</span>
-        <%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces" if show_user.spaces.size > 6%>
+		<% if show_user.spaces.size > 6 %>
+        	<span class="sidebar_text">|</span>
+        	<%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces"%>
+		<% end %>
       </div>
       </div>
       
