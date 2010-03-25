@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+
+<comp:SearchWindow xmlns:comp="com.jivesoftware.spark.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	title="{Localizator.getText('title.user.search.window')}">
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
+			import com.jivesoftware.spark.managers.ChatManager;
+			import mx.core.Application;
+			import mx.managers.PopUpManager;
+			import com.jivesoftware.spark.managers.Localizator;
+			import com.jivesoftware.spark.managers.SparkManager;
+			import com.jivesoftware.spark.managers.AbstractSearchManager;
+			import com.jivesoftware.spark.managers.UserSearchManager;
+			import com.jivesoftware.spark.managers.Localizator;
+
+			public override function get searchManager():AbstractSearchManager
+            {
+            	return UserSearchManager.sharedInstance;
+            }
+            
+            protected override function buttonOneAction():void
+            {
+            	var selectedJID:UnescapedJID = new UnescapedJID(userSearchResults.selectedItem.jid);
+             	
+            	close();
+            	AddUserWindow.showAddUser(selectedJID, selectedJID.node);
+            }
+            
+            protected override function buttonTwoAction():void 
+            {
+            	ChatManager.sharedInstance.startChat(new UnescapedJID(userSearchResults.selectedItem.jid));
+            	close();
+            }
+            
+            protected override function get buttonOneText():String
+			{
+				return Localizator.getText('label.add.contact');
+			}
+			
+			protected override function get buttonTwoText():String
+			{
+				return Localizator.getText('label.start.chat');
+			}
+			
+			// Pops up the search window and sets up the initial search, or if one is already
+			// popped up, interacts with that one.
+			public static function showSearch(search:String, s:String):UserSearchWindow
+			{
+				UserSearchManager.sharedInstance.server = s;
+				var window:UserSearchWindow = UserSearchWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), UserSearchWindow, false));
+				PopUpManager.centerPopUp(window);
+				window.prepSearch(search);
+				return window;	
+			}
+		]]>
+	</mx:Script>
+   
+</comp:SearchWindow>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:VBox
+		xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:sparkComp="com.jivesoftware.spark.*"
+		filters="{[]}" 
+		verticalScrollPolicy="off" 
+	    horizontalScrollPolicy="off"
+	    color="#355491"
+		width="100%"
+	    height="50"
+	    click="event.preventDefault(); event.stopImmediatePropagation();"
+	    doubleClick="event.preventDefault(); event.stopImmediatePropagation();"
+		verticalAlign="middle"
+	    verticalGap="0"
+	    paddingLeft="60"
+	    borderSides="top bottom"
+		implements="mx.managers.IFocusManagerComponent">
+ 
+<mx:Script>
+	<![CDATA[
+		import org.jivesoftware.xiff.conference.Room;
+		import org.jivesoftware.xiff.conference.RoomOccupant;
+		import com.jivesoftware.spark.managers.SparkManager;
+		import com.jivesoftware.spark.managers.Localizator;
+		import com.jivesoftware.spark.managers.ChatManager;
+		import org.jivesoftware.xiff.data.im.RosterItemVO;
+		import org.jivesoftware.xiff.data.im.Contact;
+		
+		protected var _contact:RosterItemVO = null;
+		protected var _occupant:RoomOccupant = null;
+		protected var _room:Room = null;
+		
+		public function set room(r:Room):void
+		{
+			_room = r;
+		}
+		
+		[Bindable]
+		public function get room():Room
+		{
+			return _room;
+		}
+		
+		public function set contact(inContact:Contact):void
+		{
+			_occupant = inContact as RoomOccupant;
+			room = _occupant.room;
+			if(_occupant.jid)
+				rosterItem = RosterItemVO.get(_occupant.jid, true);
+		}
+		
+		[Bindable]
+		public function get contact():Contact
+		{
+			return rosterItem;
+		}
+		
+		protected function set rosterItem(r:RosterItemVO):void
+		{
+			_contact = r;
+		}
+		
+		[Bindable]
+		protected function get rosterItem():RosterItemVO
+		{
+			return _contact;
+		}
+		
+		public function kickUser():void {
+			// TODO: Include reason for kick and also report errors when the kick fails (by listenening to RoomEvent.ADMIN_ERROR)
+			room.kickOccupant(contact.displayName, '');
+		}
+		
+		public function banUser():void 
+		{
+			if(!contact)
+				return;
+			// TODO: Include reason for ban and also report errors when the ban fails (by listenening to RoomEvent.ADMIN_ERROR)
+
+			room.ban([contact.jid]);
+		}
+	]]>
+</mx:Script>
+
+<mx:LinkButton enabled="{room.role == Room.MODERATOR_ROLE}" fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.groupchat.kick.user')}" click="kickUser()" />
+<mx:LinkButton enabled="{room.affiliation == Room.OWNER_AFFILIATION || room.affiliation == Room.ADMIN_AFFILIATION}" fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.groupchat.ban.user')}" click="banUser()" />
+
+</mx:VBox>

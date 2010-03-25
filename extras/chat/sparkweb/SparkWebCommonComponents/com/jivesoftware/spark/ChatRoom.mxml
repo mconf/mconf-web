@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:VDividedBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+	     xmlns:local="*"
+	     xmlns:jive="com.jivesoftware.spark.ui.*"
+	     xmlns:spark="com.jivesoftware.spark.*"
+	     width="100%"
+	     height="100%"
+	     verticalScrollPolicy="off"
+	     horizontalScrollPolicy="off"
+	     creationComplete="setup()"
+	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
+	     backgroundColor="#EDEDED"
+	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*">
+	     
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.data.im.Contact;
+			import mx.events.ListEvent;
+			import com.jivesoftware.spark.managers.Localizator;
+			import org.jivesoftware.xiff.events.RoomEvent;
+			import org.jivesoftware.xiff.conference.Room;
+			import org.jivesoftware.xiff.data.im.RosterItemVO;
+			import com.jivesoftware.spark.chats.*;
+			import com.jivesoftware.spark.events.EditorEvent;
+			import com.jivesoftware.spark.ui.MessageElement;
+			import org.jivesoftware.xiff.data.Presence;
+			import com.jivesoftware.spark.managers.SparkManager;
+			import com.jivesoftware.spark.displayfilters.EmoticonFilter;
+			import com.jivesoftware.spark.displayfilters.HTMLEscapingFilter;
+			import com.jivesoftware.spark.displayfilters.URLFilter;
+			import com.jivesoftware.spark.managers.StringUtils;
+			private var _active:Boolean = false;
+			protected var _isTyping:Boolean = false;
+			[Bindable]
+			protected var unreadMessageCount:uint = 0;
+			private var _chat:SparkChat;
+			protected var lastMessage:SparkMessage = null;
+			//fire an event at midnight each day so we can post a divider message to chats
+ 			protected static var dayTimer:Timer = new Timer(0,1);
+		
+			protected static var displayFilters:Array = [HTMLEscapingFilter, URLFilter, EmoticonFilter];
+			
+			private var completionPrefix:String = null;
+			private var lastCompletedString:String = null;
+			private var secondPass:Boolean = false;
+			
+			[Embed(source="/assets/images/message_information.png")]
+			private static const sparkIcon:Class;
+			
+			[Embed(source="/assets/images/message_edit.png")]
+			private static const editIcon:Class;
+			
+			[Embed(source="/assets/images/conference_16x16.png")]
+			private static const conferenceIcon:Class;
+			
+			private var selectedUser:Contact = null;
+			
+			protected function setup():void
+			{
+				occupantList.addEventListener("change", highlightUser);
+				editor.addEventListener(EditorEvent.MESSAGE_CREATED, function(evt:EditorEvent):void {
+					var text:String = evt.message;
+					if(text.length == 0)
+						return;
+						
+					//run commands like /away, /clear
+					if(runCommand(text))
+						return;
+					
+					var message:SparkMessage = new SparkMessage(SparkManager.connectionManager.connection.jid, text);
+					message.local = true;
+					message.chat = chat;
+					// Send Message
+					chat.transmitMessage(message);
+					chat.insertMessage(message);
+				});
+				dayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function(evt:TimerEvent):void {
+					addSystemMessage(new Date().toLocaleDateString());
+					setupDateChangeEvent();
+				});
+				setupDateChangeEvent();
+			}
+			
+			protected function highlightUser(event:ListEvent):void
+			{
+				if(selectedUser)
+					history.setUserMessageType(selectedUser.displayName, SparkManager.me.displayName == selectedUser.displayName ? "user" : null);
+				
+				selectedUser = (event.itemRenderer as BuddyRenderer).contact;
+				
+				history.setUserMessageType(selectedUser.displayName, "selected");
+			}
+			
+			protected function setupDateChangeEvent():void
+		    {
+		        var now:Date = new Date();
+		        var alarmTime:Date = new Date(now.fullYear, now.month, now.date, 23, 59);
+		        alarmTime.time += 60000; //add 1 minute
+	
+		        dayTimer.reset();
+		        dayTimer.delay = alarmTime.time - now.time;
+		        dayTimer.start();
+		    }
+			
+			public function addMessage(message:SparkMessage):void
+			{
+				for each(var filter:* in displayFilters)
+				{
+					message.body = filter.apply(message.body);
+				}
+				var id:String = message.nick;
+				isTyping = false;
+				if(!message.time)
+					message.time = new Date();
+				else
+				{
+					if(!lastMessage || message.time.date != lastMessage.time.date)
+						addSystemMessage(message.time.toLocaleDateString());
+				}
+				
+				history.addUserMessage(id, id, message.body, message.time, message.local ? (selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null);
+				
+				if(!message.local)
+					increaseMessageCount();
+				lastMessage = message;
+			}
+			
+			protected function runCommand(message:String):Boolean
+			{
+				var segments:Array = message.split(" ");
+				if(!message.charAt(0) == '/')
+					return false;
+				switch((segments.shift() as String).substring(1))
+				{
+					case "away":
+					case "brb":
+						SparkManager.presenceManager.changePresence(Presence.SHOW_AWAY, segments.length > 0 ? segments.join(" ") : "Away");
+						return true;
+					case "back":
+					case "available":
+						SparkManager.presenceManager.changePresence(null, segments.length > 0 ? segments.join(" ") : "Available");
+						return true;
+					
+				}
+				return false;
+			}
+			
+			//TODO: fix this up. It works, but there's a lot that could be better
+			public function completeWord(event:EditorEvent):void
+			{
+				var runningSecondPass:Boolean = secondPass;
+				if(completionPrefix === null)
+				{
+					completionPrefix = event.message;
+					completionPrefix = completionPrefix.substring(completionPrefix.lastIndexOf(" ") + 1);
+				}
+				var completion:String = history.getMostRecentlyActiveUserName(completionPrefix, lastCompletedString);
+				if(!completion)
+					resetCompletion(false);
+				if(completion)
+				{
+					editor.text = editor.text.substr(0, editor.text.length - (lastCompletedString !== null ? lastCompletedString.length : completionPrefix.length)) + completion;
+					lastCompletedString = completion;
+					editor.textArea.selectionBeginIndex = editor.textArea.selectionEndIndex = editor.textArea.length;
+				}
+			}
+			
+			private function resetCompletion(resetPrefix:Boolean = true):void
+			{
+				if(resetPrefix)
+					completionPrefix = null;
+				lastCompletedString = null;
+				secondPass = false;
+			}
+			
+			//TODO: reference loop
+			public function set chat(c:SparkChat):void
+			{
+				_chat = c;
+				if(chat is SparkGroupChat)
+				{
+					(chat as SparkGroupChat).room.addEventListener(RoomEvent.ROOM_JOIN, setupContextMenu);
+				}
+			}
+			
+			/**
+			 * Used to setup the room's context menu after the user has joined the room.
+			 * This is done asynchronously since we do not have access to occupant role
+			 * data until this point and we can determine whether to show/hide menu items
+			 * based on the user's role.
+			 */
+	  	    public function setupContextMenu(event:RoomEvent):void
+	  	    {
+				//// Setup the custom context menu
+	  	    	//var inviteMenuItem:ContextMenuItem = new ContextMenuItem(Localizator.getText('menu.groupchat.invite.users'));
+				//inviteMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, function(evt:ContextMenuEvent):void { MUCInviteSendWindow.show(chat.room.roomJID); });
+				
+				if (contextMenu == null)
+					contextMenu = new ContextMenu();
+	
+				// TODO: This needs to be figured out properly at some point.  Air apps don't have customItems or hideBuiltInItems
+           		if (contextMenu is ContextMenu)
+           		{
+					(contextMenu as ContextMenu).hideBuiltInItems();
+			//		(contextMenu as ContextMenu).customItems.push(inviteMenuItem);
+           		}
+				
+				if (chat.room.affiliation == Room.OWNER_AFFILIATION) {
+					var configureRoomMenuItem:ContextMenuItem = new ContextMenuItem(Localizator.getText('menu.groupchat.configure.room')); 
+					configureRoomMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,
+						function(evt:ContextMenuEvent):void
+						{
+							MUCConfigurationWindow.showMUCConfigureWindow(chat.room);
+						});
+					
+					// TODO: This needs to be figured out properly at some point.  Air apps don't have customItems.
+	           		if (contextMenu is ContextMenu)
+           			{
+						(contextMenu as ContextMenu).customItems.push(configureRoomMenuItem);
+           			}
+				}
+				
+				chat.room.removeEventListener(RoomEvent.ROOM_JOIN, setupContextMenu);
+			}
+			
+			public function addSystemMessage(body:String, time:Date = null):void {
+				history.addSystemMessage(body, time, null);
+			}
+			
+			//todo: figure out how to make this statically typed without breaking bindings
+			[Bindable]
+			public function get chat():*
+			{
+				return _chat;
+			}
+			
+			public function get active():Boolean
+			{
+				return _active;
+			}
+			
+			public function set active(flag:Boolean):void
+			{
+				if(_active == flag)
+					return;
+				_active = flag;
+			  
+			    if(active) 
+				{	
+					clearMessageCount();
+					label = chat.displayName;
+					editor.focus();
+				}
+			}
+			
+			public function increaseMessageCount():void 
+			{
+				if(active)
+					return;
+					
+				unreadMessageCount++;
+				label = chat.displayName + " (" + unreadMessageCount + ")";
+			}
+			
+			public function clearMessageCount():void {
+				unreadMessageCount = 0;
+			}
+			
+			public function getIcon(presence:String = Presence.UNAVAILABLE_TYPE, typing:Boolean = false, messageCount:int = 0):Class
+			{
+				if(typing)
+					return editIcon;
+				if(messageCount > 0)
+			    	return sparkIcon;
+			    	
+				return chat is SparkGroupChat ? conferenceIcon : SparkManager.presenceManager.getIconFromPresence(presence);
+			}
+			
+			public function set isTyping(flag:Boolean):void
+			{
+				_isTyping = flag;
+			}
+			
+			[Bindable]
+			public function get isTyping():Boolean
+			{
+				return _isTyping;
+			}
+			
+			public function getTopicHTMLText(text:String):String
+			{
+				return "<font color='#666666'>Topic:</font> <font color='#333333'>" + StringUtils.escapeHTML(text) + "</font>";
+			}
+			
+			public function addNotification(text:String, color:String):void
+			{
+				history.addNotification(text, color);
+			}
+		]]>
+	</mx:Script>
+
+	<filts:DropShadowFilter alpha="0.2" angle="90" blurY="7" blurX="3" inner="true" id="topshadow"/>
+
+    <!-- Add Top UI -->
+   <mx:HDividedBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
+   
+		<mx:Canvas id="mainContentBox" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%">
+			<mx:TextArea 
+				id="topicBox" 
+				top="0" 
+				left="0" 
+				right="0" 
+				borderSides="right left" 
+				editable="false" 
+				borderStyle="solid" 
+				fontSize="13" 
+				color="#666666" 
+				maxHeight="{chat is SparkGroupChat &amp;&amp; chat.room.subject ? NaN : 0}" 
+				htmlText="{getTopicHTMLText(chat is SparkGroupChat &amp;&amp; chat.room.subject ? chat.room.subject : '')}" 
+				height="{chat.room.subject ? 25 : 0}" 
+				paddingLeft="5" 
+				backgroundColor="#DDDDDD" 
+				paddingTop="3" 
+				fontWeight="bold" 
+				fontFamily="Lucida Sans, Myriad Pro, Arial, sans serif" />
+			<jive:MessageHistory
+			    top="{topicBox.height}"
+				id="history" 
+				height="{mainContentBox.height - topicBox.height}" 
+				width="{mainContentBox.width}"
+				borderStyle="solid" 
+				horizontalScrollPolicy="off"
+			    verticalScrollPolicy="on" />
+		</mx:Canvas>
+		
+		<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 225 : 0}">
+			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" height="100%" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
+				<spark:ListGroup 
+					creationComplete="{ScrollWheelManager.registerForScrollEvents(occupantList.navBox)}" 
+					headerHeight="25" 
+					headerFontSize="13" 
+					headerFontColors="{['#666666', '#333333']}" 
+					borderStyle="none"
+					collapsable="false" 
+					maxHeight="{mucControls.height}"
+					groupName="Participants" 
+					id="occupantList"
+					left="0"
+					right="0"
+					top="0"
+					bottom="0"
+					dataProvider="{chat.room ? chat.room : null}"/>
+				<spark:MUCInvitePane 
+					visible="false" 
+					id="invitePane" 
+					creationComplete="{invitePane.addEventListener('close', function(evt:*):void {invitePane.visible = false; occupantList.visible = true; inviteButton.visible = true;});}" 
+					left="0"
+					right="0"
+					room="{chat.room}"/>
+				<mx:LinkButton 
+					id="inviteButton" 
+					click="{occupantList.visible = false; inviteButton.visible = false; invitePane.visible = true; invitePane.rebuildCompletionList();}" 
+					label="Invite" 
+					color="#555555" 
+					textDecoration="underline" 
+					right="0" 
+					top="0"/>
+			</mx:Canvas>
+			
+			<!--<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucFiles" height="150" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
+				<spark:ListGroup headerHeight="25" headerFontSize="13" headerFontColors="{['#666666', '#333333']}" borderStyle="none" alternatingItemColors="{[0xDDDDDD, 0xEEEEEE]}" collapsable="false" maxHeight="{mucControls.height}" verticalScrollPolicy="auto" groupName="Recent Files" id="fileList" dataProvider="{chat.files ? chat.files : null}"/>
+				<spark:MUCUploadPane visible="false" id="uploadPane" creationComplete="{uploadPane.addEventListener('close', function(evt:*):void {uploadPane.visible = false; fileList.visible = true; uploadButton.visible = true;});}" width="{mucControls.width}" room="{chat.room}"/>
+				<mx:LinkButton id="uploadButton" click="{fileList.visible = false; uploadButton.visible = false; uploadPane.visible = true;}" label="Upload" color="#555555" textDecoration="underline" right="0" top="0"/>				
+			</mx:Canvas>-->
+		</mx:VDividedBox>
+	
+	</mx:HDividedBox>
+
+	<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
+	
+</mx:VDividedBox>

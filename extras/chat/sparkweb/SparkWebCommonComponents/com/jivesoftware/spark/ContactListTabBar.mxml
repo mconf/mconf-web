@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" cornerRadius="0" paddingTop="-1" horizontalGap="1">
+		<mx:Metadata><![CDATA[
+			[Event( name="selectionChanged", type="flash.events.Event" )]
+		]]></mx:Metadata>
+		<mx:Script>
+			<![CDATA[
+				import mx.events.FlexEvent;
+				import mx.controls.Label;
+				import mx.containers.Box;
+				import com.jivesoftware.spark.managers.Localizator;
+				
+				[Bindable]
+				private var _selectedTabIndex:uint = 0;
+				
+				public function set selectedTabIndex(idx:uint):void
+				{
+					selectedTab.selected = false;
+					_selectedTabIndex = idx;
+					selectedTab.selected = true;
+					dispatchEvent(new Event("selectionChanged"));
+				}
+				
+				public function get selectedTab():ContactListTab
+				{
+					return getChildAt(selectedTabIndex) as ContactListTab;
+				}
+				
+				public function get selectedTabIndex():uint
+				{
+					return _selectedTabIndex;
+				}
+				
+				private function selectClickedTab(event:MouseEvent):void
+				{
+					selectedTabIndex = getChildIndex(event.currentTarget as ContactListTab); 
+				}
+				
+				public function insertTabAt(name:String, idx:uint):void
+				{
+					var newTab:ContactListTab = new ContactListTab();
+					newTab.addEventListener(FlexEvent.CREATION_COMPLETE, function():void { newTab.text = name; });
+					newTab.addEventListener(MouseEvent.CLICK, selectClickedTab);
+					addChildAt(newTab, idx);
+				}
+			
+			]]>
+		</mx:Script>
+    	
+</mx:HBox>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+
+<!-- Move and/or copy a contact to one or multiple groups. -->
+
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+	title="{Localizator.getText('title.group.change.window')}" showCloseButton="true" close="close()" >
+
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
+			import mx.collections.ListCollectionView;
+			import mx.core.Application;
+			import org.jivesoftware.xiff.data.im.RosterGroup;
+			import mx.controls.TextInput;
+			import mx.containers.ControlBar;
+			import mx.containers.HBox;
+			import mx.controls.Label;
+			import mx.controls.CheckBox;
+			import mx.controls.Button;
+			import mx.managers.PopUpManager;
+			
+			import org.jivesoftware.xiff.data.im.RosterItemVO;
+			import com.jivesoftware.spark.managers.Localizator;			
+			import com.jivesoftware.spark.managers.SparkManager;
+			
+			private const dropShadowFilters:Array = [new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)];
+			private var contact:RosterItemVO;
+			
+			/**
+			 * Programmatically adds this window's group controls based on the current group
+			 * names in the roster.
+			 */
+			public function addGroupControls():void 
+			{
+				// For each group name, create a check box and label with the group name.
+				for each(var rosterGroup:RosterGroup in SparkManager.roster.groups) 
+				{
+					var groupLabel:String = rosterGroup.label;
+					if (groupLabel == "General")
+						continue;
+
+					// The submit() method is dependant on the order of hBox's childrenœ
+					var hBox:HBox = new HBox();
+					hBox.setStyle("horizontalGap", 1);
+					
+					var checkBox:CheckBox = new CheckBox();
+					if (rosterGroup.contains(contact))
+						checkBox.selected = true;
+					
+					var label:Label = new Label();
+					label.text = groupLabel;
+					
+					if (rosterGroup.shared) 
+					{
+						checkBox.enabled = false;
+						checkBox.alpha = 0.5;
+						label.setStyle("color", "#A0A0A0");	// Mid-Grey
+					}
+					
+					hBox.addChild(checkBox);
+					hBox.addChild(label);
+					
+					this.addChild(hBox);
+				}
+				
+				// Include an editable option for a new group
+				hBox = new HBox();
+				hBox.setStyle("horizontalGap", 1);
+				
+				checkBox = new CheckBox();
+				hBox.addChild(checkBox);
+				
+				var textInput:TextInput = new TextInput();
+				const newGroupInstr:String = Localizator.getText('textinput.enter.new.group');
+				textInput.text = newGroupInstr;
+				textInput.setStyle("color", "#A0A0A0");	// Mid-grey
+				textInput.addEventListener(FocusEvent.FOCUS_IN,
+					function ():void {
+						if (textInput.text == newGroupInstr) {
+							textInput.text = "";
+							textInput.setStyle("color", "#000000");
+						}
+					});
+				hBox.addChild(textInput);
+				
+				this.addChild(hBox);
+			}
+			
+			/**
+			 * Submits the roster group changes to the server, respecting
+             * the edit policies for shared groups (eg. no modifying of shared groups).
+			 */
+			private function submit():void {
+				var groups:Array = [];
+				
+				// Add selected groups to the array
+				var children:Array = this.getChildren();				
+				for each(var child:* in children) {
+					if (child is HBox) {
+						var hBoxChildren:Array = (child as HBox).getChildren();
+						
+						// Dependant on the order of the children in hBoxChildren.
+						var checkBox:CheckBox = hBoxChildren[0] as CheckBox;
+						
+						if (checkBox.selected) {
+							var groupName:String = hBoxChildren[1].text;
+							
+							groups.push(groupName);
+						}
+					}
+				}
+				
+				SparkManager.roster.updateContactGroups(contact, groups);
+			}
+            
+            /**
+             * Performs runtime custimizations to the dialog when it becomes visible.
+             */
+            public function show(jid:UnescapedJID):void 
+            {
+            	contact = RosterItemVO.get(jid, true);
+
+            	instructions.text = Localizator.getTextWithParams('text.select.groups', [jid.toString()]);
+            	
+            	this.titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+           		this.titleTextField.styleName = "title";
+            	
+            	addGroupControls();
+            }
+            
+            private function close():void {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            public static function showGroupChangeWindow(jid:UnescapedJID):void 
+            {
+            	var groupChangeWindow:GroupChangeWindow = GroupChangeWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), GroupChangeWindow));
+            	PopUpManager.centerPopUp(groupChangeWindow);
+            	groupChangeWindow.show(jid);
+            }
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Text id="instructions" paddingTop="10" paddingBottom="10"/>
+	
+	<!-- Between these components we will have our action script defined group controls. -->
+
+	<mx:ControlBar horizontalAlign="right">
+    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.cancel')}"
+				   click="close()" />
+		<mx:Button id="submitButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.submit')}"
+				   click="{submit(); close();}"/>
+	</mx:ControlBar>  
+	
+</comp:ColorShiftingTitleWindow>
