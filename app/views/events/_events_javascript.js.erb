@@ -20,6 +20,11 @@ $("#streaming_title").click(function(){
   $("#streaming_title .jqueryToggle").toggle();
 });
 
+$("#participation_title").click(function(){
+  $("#participation_content").toggle("slow");
+  $("#participation .jqueryToggle").toggle();
+});
+
 <%if @event.future? && !@event.authorize?(:update, :to => current_user)%>
   $("#streaming_content").hide();
 <%end%>

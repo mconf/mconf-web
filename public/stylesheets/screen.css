@@ -1341,16 +1341,16 @@ tr.version_expanded td{
 }
 
 
-#event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
+#event_description_wrapper,#event_repo,#participation_url,#streaming_url{background:#f7f7f7;}
 #doc_repository thead{
 	background:#BDD8EB;
 	margin:0;
 	}
 	
-#streaming_url_value p{max-width:490px;}
+#participation_url_value p,#streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
-#event_description_line,#agenda_title,#repository_title,#recordings_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
-h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#streaming_title h3,#agenda_blue_title h3{
+#event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
+h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
@@ -1359,11 +1359,11 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 
 #carrusel_title h3 {padding-right:0;}
 
-h3#event_description_title div,#agenda_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
-h3#event_description_title div img,#agenda_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
+h3#event_description_title div,#agenda_title div,#participation_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
+h3#event_description_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
-#event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
-#event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
+#event_description_content,#repository_content,#participation_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 
 .video_wrapper{
 	position:relative;
