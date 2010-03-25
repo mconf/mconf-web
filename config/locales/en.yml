@@ -412,6 +412,13 @@ en:
     one: "Event"
     other: "Events"
     online: "WebConference"
+    participation:
+      add: "Add one."
+      title: "Participation "
+      edit: "Edit web client code"
+      none: "No one has posted any participation url." 
+      ready: "The participation is booked. It will be available during the event"
+      will_be_available: "The participation will be available during the event"
     past:
       all: "All past ({{size}})"
       none: "No past events"

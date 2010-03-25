@@ -17,6 +17,7 @@ module VenusXmlParser
    
       sequences = []
       @participations = []
+      @doc = doc
    
       doc.elements.each("//seq"){ 
         |seq| 
@@ -34,7 +35,7 @@ module VenusXmlParser
       
       @participations = VenusXmlParser.generateParticipations(@seq)
    
-      puts "VenusXmlParser Created [OK]"
+#      puts "VenusXmlParser Created [OK]"
         
     end
     
@@ -127,14 +128,35 @@ module VenusXmlParser
       
       participationNames = []
       
-      @participations.each do |participation|  
-          participationsNames << participation.getAuthor        
+      @participations.each do |participation|
+        
+        authors = participation.getAuthors
+          
+        authors.each do |author|
+          unless hasItem(participationNames,author)
+            participationNames << author
+          end
+        end
+                  
       end  
       
       participationNames
   
     end
     
+    def hasItem(array,string)
+      array.each do |item|
+        if item == string
+          return true
+        end
+      end
+      return false
+    end
+    
+    
+    def print
+      puts @doc
+    end
     
     def printParticipationTags 
       i = 1
@@ -168,4 +190,5 @@ module VenusXmlParser
   
   end
 
+  
 end

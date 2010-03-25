@@ -212,6 +212,9 @@ class EventsController < ApplicationController
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
           end
+          if params[:event][:other_participation_url]
+            @result = params[:event][:other_participation_url]
+          end
           if params[:event][:description]
             @result = params[:event][:description]
             @description=true

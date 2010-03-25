@@ -46,7 +46,7 @@
       	<%=entry_speakers(agenda_entry)%>        
       </li>
 	  
-      <li><%=sanitize(post_format(agenda_entry.description)) %></li>
+      <li><%=sanitize(simple_format(agenda_entry.description)) %></li>
       <% agenda_entry.attachments.each  do |a| %>
         <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
 				<%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>

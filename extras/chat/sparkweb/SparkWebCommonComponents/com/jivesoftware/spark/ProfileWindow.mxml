@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+     
+<components:ColorShiftingTitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:components="com.jivesoftware.spark.*"
+	color="white" title="{Localizator.getText('title.profile.window')}" showCloseButton="true" close="close()"
+	creationComplete="init()" creationPolicy="all">
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+    <mx:Script>
+        <![CDATA[
+        	import mx.core.Application;
+        	import org.jivesoftware.xiff.vcard.VCard;
+        	import org.jivesoftware.xiff.events.VCardEvent;
+        	import com.jivesoftware.spark.managers.SparkManager;
+        	import com.jivesoftware.spark.ColorShiftingPanel;
+        	import org.jivesoftware.xiff.data.im.RosterItemVO;
+        	import flash.utils.getTimer;
+        	import com.jivesoftware.spark.managers.Localizator;
+            import mx.managers.PopUpManager;
+            import mx.controls.Text;
+            
+            [Bindable]
+            private var editable:Boolean;
+            
+            private function close():void {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            public function show(contact:RosterItemVO, editable:Boolean=false):void 
+            {
+            	var vcard:VCard = VCard.getVCard(SparkManager.connectionManager.connection, contact);
+	    		if(vcard.loaded)
+	    			loadVCard(vcard);
+	    		else
+	    			vcard.addEventListener(VCardEvent.LOADED,
+	    				function(event:VCardEvent):void { loadVCard(event.vcard); });
+	    		
+	    		if (editable)
+	    		{
+	    			this.editable = editable;
+	    			instructions.visible = true;
+	    			saveButton.visible = true;
+	    		}
+            }
+            
+            private function loadVCard(vcard:VCard):void
+            {
+            	// Load Avatar
+            	if (vcard.avatar != null)
+            		avatarImage.source = vcard.avatar;
+
+            	// Load Personal fields
+            	firstNameText.text = vcard.firstName;
+            	middleNameText.text = vcard.middleName;
+            	lastNameText.text = vcard.lastName;
+            	nicknameText.text = vcard.nickname;
+            	emailText.text = vcard.email;
+            	
+            	// Load Business fields
+            	companyText.text = vcard.company;
+            	deptText.text = vcard.department;
+            	jobTitleText.text = vcard.title;
+            	addressText.text = vcard.workAddress;
+            	cityText.text = vcard.workCity;
+            	stateProvinceText.text = vcard.workStateProvince;
+            	postalCodeText.text = vcard.workPostalCode;
+            	countryText.text = vcard.workCountry;
+            	phoneText.text = vcard.workVoiceNumber;
+            	faxText.text = vcard.workFaxNumber;
+            	pagerText.text = vcard.workPagerNumber;
+            	mobileText.text = vcard.workCellNumber;
+            	webPageText.text = vcard.url;
+            	
+            	// Load Home fields
+            	homeAddressText.text = vcard.homeAddress;
+            	homeCityText.text = vcard.homeCity;
+            	homeStateProvinceText.text = vcard.homeStateProvince;
+            	homePostalCodeText.text = vcard.homePostalCode;
+            	homeCountryText.text = vcard.homeCountry;
+            	homePhoneText.text = vcard.homeVoiceNumber;
+            	homeFaxText.text = vcard.homeFaxNumber;
+            	homePagerText.text = vcard.homePagerNumber;
+            	homeMobileText.text = vcard.homeCellNumber;
+            }
+            
+            public static function showProfile(contact:RosterItemVO, editable:Boolean=false):void 
+			{
+            	var profileWindow:ProfileWindow = ProfileWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), ProfileWindow));
+				PopUpManager.centerPopUp(profileWindow);
+            	profileWindow.show(contact, editable);
+			}
+            
+            public function init():void {
+           		this.titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+           		this.titleTextField.styleName = "title";
+            }
+            
+            private function save():void
+            {
+            	var savedVCard:VCard = new VCard();
+            	
+            	// Save Personal fields
+            	savedVCard.firstName = firstNameText.text;
+            	savedVCard.middleName = middleNameText.text;
+            	savedVCard.lastName = lastNameText.text;
+            	savedVCard.nickname = nicknameText.text;
+            	savedVCard.email = emailText.text;
+            	
+            	// Save Business fields
+            	savedVCard.company = companyText.text;
+            	savedVCard.department = deptText.text;
+            	savedVCard.title = jobTitleText.text;
+            	savedVCard.workAddress = addressText.text;
+            	savedVCard.workCity = cityText.text;
+            	savedVCard.workStateProvince = stateProvinceText.text;
+            	savedVCard.workPostalCode = postalCodeText.text;
+            	savedVCard.workCountry = countryText.text;
+            	savedVCard.workVoiceNumber = phoneText.text;
+            	savedVCard.workFaxNumber = faxText.text;
+            	savedVCard.workPagerNumber = pagerText.text;
+            	savedVCard.workCellNumber = mobileText.text;
+            	savedVCard.url = webPageText.text;
+            	
+            	// Save Home fields
+            	savedVCard.homeAddress = homeAddressText.text;
+            	savedVCard.homeCity = homeCityText.text;
+            	savedVCard.homeStateProvince = homeStateProvinceText.text;
+            	savedVCard.homePostalCode = homePostalCodeText.text;
+            	savedVCard.homeCountry = homeCountryText.text;
+            	savedVCard.homeVoiceNumber = homePhoneText.text;
+            	savedVCard.homeFaxNumber = homeFaxText.text;
+            	savedVCard.homePagerNumber = homePagerText.text;
+            	savedVCard.homeCellNumber = homeMobileText.text;
+            	
+            	savedVCard.saveVCard(SparkManager.connectionManager.connection, SparkManager.me);
+            }
+        ]]>
+    </mx:Script>
+    <mx:HBox horizontalAlign="left" width="100%">
+    	<mx:Text id="instructions" text="{Localizator.getText('text.profile.edit.instructions')}" visible="false" />
+    	<mx:HBox horizontalAlign="right" width="100%">
+    		<mx:Image id="avatarImage" source="@Embed(source='/assets/images/dummyContact.png')" maxHeight="64" maxWidth="64" />	
+    	</mx:HBox>
+    </mx:HBox>
+	
+	<mx:TabNavigator backgroundColor="#AAAAAA" width="587" height="277" color="black">
+		<mx:Form id="personal" label="Personal" width="100%">
+			<mx:FormItem label="{Localizator.getText('vcard.label.first.name')}" width="100%">
+				<mx:TextInput id="firstNameText" editable="{editable}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="{Localizator.getText('vcard.label.middle.name')}" width="100%">
+				<mx:TextInput id="middleNameText" editable="{editable}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="{Localizator.getText('vcard.label.last.name')}" width="100%">
+				<mx:TextInput id="lastNameText" editable="{editable}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="{Localizator.getText('vcard.label.nickname')}" width="100%">
+				<mx:TextInput id="nicknameText" editable="{editable}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="{Localizator.getText('vcard.label.email')}" width="100%">
+				<mx:TextInput id="emailText" editable="{editable}" width="100%" />
+			</mx:FormItem>
+		</mx:Form>
+		
+		<mx:HBox label="Business">
+			<mx:Form id="businessLeft">
+				<mx:FormItem label="{Localizator.getText('vcard.label.company')}">
+					<mx:TextInput id="companyText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}"/>
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.address')}">
+					<mx:TextInput id="addressText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.city')}">
+					<mx:TextInput id="cityText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.state.or.province')}">
+					<mx:TextInput id="stateProvinceText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.postal.code')}">
+					<mx:TextInput id="postalCodeText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.country')}">
+					<mx:TextInput id="countryText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+			</mx:Form>
+			<mx:Form id="businessRight">
+				<mx:FormItem label="{Localizator.getText('vcard.label.job.title')}">
+					<mx:TextInput id="jobTitleText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.department')}">
+					<mx:TextInput id="deptText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.phone')}">
+					<mx:TextInput id="phoneText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.fax')}">
+					<mx:TextInput id="faxText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.pager')}">
+					<mx:TextInput id="pagerText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.mobile')}">
+					<mx:TextInput id="mobileText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.web.page')}">
+					<mx:TextInput id="webPageText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+			</mx:Form>
+		</mx:HBox>
+		
+		<mx:HBox label="Home">
+			<mx:Form id="homeLeft">
+				<mx:FormItem label="{Localizator.getText('vcard.label.address')}">
+					<mx:TextInput id="homeAddressText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.city')}">
+					<mx:TextInput id="homeCityText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.state.or.province')}">
+					<mx:TextInput id="homeStateProvinceText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.postal.code')}">
+					<mx:TextInput id="homePostalCodeText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.country')}">
+					<mx:TextInput id="homeCountryText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+			</mx:Form>
+			<mx:Form id="homeRight">
+				<mx:FormItem label="{Localizator.getText('vcard.label.phone')}">
+					<mx:TextInput id="homePhoneText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.fax')}">
+					<mx:TextInput id="homeFaxText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.pager')}">
+					<mx:TextInput id="homePagerText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+				<mx:FormItem label="{Localizator.getText('vcard.label.mobile')}">
+					<mx:TextInput id="homeMobileText" editable="{editable}" maxWidth="{DEFAULT_MEASURED_WIDTH}" />
+				</mx:FormItem>
+			</mx:Form>
+		</mx:HBox>
+	</mx:TabNavigator>
+
+	<mx:ControlBar horizontalAlign="right">
+		<mx:Button id="saveButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.save')}"
+				   click="{save(); close();}" visible="false" />
+    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.close')}" click="close()" />
+	</mx:ControlBar> 
+ 
+</components:ColorShiftingTitleWindow>

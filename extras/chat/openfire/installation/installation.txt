@@ -97,6 +97,9 @@ vccCustomAuthProvider.userNameHash
 vccCustomAuthProvider.vccSessionUrl
 http://chotis.dit.upm.es/vcc/session.xml
 
+vccCustomAuthProvider.vccCookieSession
+_prueba_session
+
 xmpp.auth.anonymous
 true
 
@@ -109,6 +112,13 @@ xmpp.session.conflict-limit
 xmpp.socket.ssl.active
 true
 
+
+6. Continue Openfire Configuration
+
+Group Chat > Group Chat Settings > Create New Service
+
+Group chat service name: events
+Group chat service description (optional): Event Chats
 
 
 

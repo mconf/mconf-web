@@ -42,15 +42,6 @@ module VenusXmlParser
         
     end
     
-    
-    def getAuthorsLength    
-      i = 0;   
-      @tags[0].elements.each("metadata/author"){
-        i=i+1;
-      } 
-      i       
-    end
-    
     def getTagsLength    
       return @tags.length     
     end   
