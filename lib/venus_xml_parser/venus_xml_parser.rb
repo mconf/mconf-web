@@ -5,8 +5,7 @@ module VenusXmlParser
 
   class VenusXmlParser
     
-    def initialize(path)
-        
+    def initialize(path)     
         
       if VenusXmlParser.isUrl(path)
         xml_data = Net::HTTP.get_response(URI.parse(path)).body     
@@ -15,42 +14,31 @@ module VenusXmlParser
       end
         
       doc = REXML::Document.new(xml_data)
-
-
-#      doc = REXML::Document.new file
-  
-  #   puts doc 
-  #   puts "\n Impresion del documento finalizada \n"
-  #   puts " "
    
       sequences = []
       @participations = []
    
       doc.elements.each("//seq"){ 
         |seq| 
-        #puts seq.attributes["name"]
         sequences << seq
       }
   
       if sequences.length == 1
         @seq = sequences[0];
       else
-        puts "More or less than 1 sequence... ¿Valid case?"
-        puts "Syntax error"
-        return
+        puts "Xml format error"
+        return nil
       end
    
-      #New actions
+      #Actions
       
       @participations = VenusXmlParser.generateParticipations(@seq)
-   
    
       puts "VenusXmlParser Created [OK]"
         
     end
     
-    
-    def self.imprimeTag(tag)
+    def self.printTag(tag)
       puts ""
       puts tag
       puts ""
@@ -66,7 +54,6 @@ module VenusXmlParser
     
     def self.hasParticipationInit(tag)
           
-       #tag.elements.each("*/startedBy")
        tag.elements.each("metadata/startedBy"){
         |started|
    
@@ -82,17 +69,16 @@ module VenusXmlParser
     
     def self.hasParticipationEnd(tag)
           
-       #tag.elements.each("*/startedBy")
-       tag.elements.each("metadata/startedBy"){
+      tag.elements.each("metadata/startedBy"){
         |started|
-   
+      
         if(started.attributes["event"] == "participation_end")
             return true;
         end    
          
-       }
+      }
        
-       return false  
+      return false  
       
     end
     
@@ -107,18 +93,15 @@ module VenusXmlParser
         |video|
       
         if VenusXmlParser.hasParticipationInit(video)
-#          puts "Has participation init" 
           participation.addTag(video)
           moreTags = true
   
         else
-#          puts "No Has participation init"
           
           if moreTags
             participation.addTag(video)
           
             if VenusXmlParser.hasParticipationEnd(video)
-#              puts "Has participation end"
               participations << participation
               participation = Participation.new
               moreTags = false
@@ -140,15 +123,15 @@ module VenusXmlParser
     end
     
     
-    def getParticipationsNames
+    def getParticipationNames
       
-      participationsNames = []
+      participationNames = []
       
       @participations.each do |participation|  
           participationsNames << participation.getAuthor        
       end  
       
-      participationsNames
+      participationNames
   
     end
     
@@ -160,7 +143,7 @@ module VenusXmlParser
           puts ""
         end  
         puts "Participation " + i.to_s()
-        puts participation.imprime     
+        puts participation.print     
         i = i+1
       end     
     end
