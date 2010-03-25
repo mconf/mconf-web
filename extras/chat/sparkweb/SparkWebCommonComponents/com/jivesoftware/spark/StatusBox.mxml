@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:component="com.jivesoftware.spark.*">
+  <mx:Script>
+        <![CDATA[
+        	import com.jivesoftware.spark.IconComboBox;
+        	import org.jivesoftware.xiff.events.VCardEvent;
+        	import org.jivesoftware.xiff.vcard.VCard;
+        	import mx.core.UIComponent;
+        	import org.jivesoftware.xiff.events.RosterEvent;
+        	import mx.events.CollectionEvent;
+        	import mx.events.PropertyChangeEvent;
+        	import org.jivesoftware.xiff.events.PresenceEvent;
+        	import org.jivesoftware.xiff.data.im.RosterItemVO;
+        	import org.jivesoftware.xiff.core.XMPPConnection;
+        	import mx.events.DropdownEvent;
+        	import mx.events.ListEvent;
+        	import org.jivesoftware.xiff.data.Presence;
+            import flash.events.MouseEvent;
+            import mx.collections.ArrayCollection;
+            import mx.controls.*;
+            import com.jivesoftware.spark.managers.*;
+            import org.jivesoftware.xiff.util.*;
+            import com.jivesoftware.spark.ProfileWindow;
+        
+			private var _defaultPresence:*;
+		         
+		    public function loadVCard():void 
+		    {
+		    	var con:XMPPConnection = SparkManager.connectionManager.connection;
+		    	var me:RosterItemVO = SparkManager.me;
+		    	me.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(evt:PropertyChangeEvent):void {
+		    		if(evt.property == "show")
+		    		{
+		    			for each(var pres:* in presences.dataProvider)
+		    			{
+		    				if(pres.presence == evt.newValue)
+		    				{
+		    					presences.selectedItem = pres;
+		    					break;
+		    				}
+		    			}
+		    		}
+		    		
+		    		if(evt.property == "status" && evt.newValue)
+		    			presences.text = evt.newValue as String;
+		    	});
+		    	
+		    	var vcard:VCard = VCard.getVCard(con, me);
+		    	if(vcard.loaded)
+		    	{
+		    		displayVCard(vcard);
+		    		if(vcard.avatar)
+		    			displayAvatar(vcard);
+		    	}
+		    	else
+		    	{
+		    		vcard.addEventListener(VCardEvent.AVATAR_LOADED, function(event:VCardEvent):void { displayAvatar(event.vcard); });
+		    		vcard.addEventListener(VCardEvent.LOADED, function(event:VCardEvent):void { displayVCard(event.vcard); });
+		    	}
+		    
+		    	//Send Presence
+		    	presences.selectedIndex = 1;
+		    	setupDefaults();
+		    }
+		    
+		    private function displayAvatar(card:VCard):void
+		    {
+		    	var img:ByteArray = card.avatar;
+       			var avatarLoader:Loader = new Loader();
+        		avatarLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(evt:Event):void {
+        			avatarLoader.width = avatarLoader.width > 48 ? 48 : avatarLoader.width;
+        			avatarLoader.height = avatarLoader.height > 48 ? 48 : avatarLoader.height;
+        			var avatarImage:Image = new Image();
+        			avatarImage.source = avatarLoader;
+        			avatarImage.id = "avatar";
+        			
+        			setupContextMenu(avatarImage);
+        			
+        			if((hbox.getChildAt(0) as UIComponent).id == "avatar")
+        				hbox.removeChildAt(0);
+        			hbox.addChildAt(avatarImage, 0);
+        		});
+        		avatarLoader.loadBytes(img);
+		    }
+		    
+		    public function displayVCard(card:VCard):void 
+		    {
+		    	var nickname:String = card.nickname;
+		    	var firstName:String = card.firstName;
+		    	var lastName:String = card.lastName;
+		    	var fullName:String = card.fullName;
+		    	if(nickname && nickname.length > 0)
+		    		SparkManager.me.displayName = nickname;
+		    	else if(fullName && fullName.length > 0)
+		    		SparkManager.me.displayName = fullName;
+		    	else if(firstName && firstName.length > 0 && lastName && lastName.length > 0)
+		    		SparkManager.me.displayName = firstName + " " + lastName;	
+		    }
+		    
+		    private function setupDefaults():void 
+		    {
+		    	_defaultPresence = presences.selectedItem;
+		    	setupContextMenu(avatar);
+		    }
+		    
+			private function setupContextMenu(component:UIComponent):void
+			{
+				var profileMenu:ContextMenu = new ContextMenu();
+				profileMenu.hideBuiltInItems();
+				
+				var editProfileMenuItem:ContextMenuItem = new ContextMenuItem(Localizator.getText('menu.user.edit.profile'));
+				editProfileMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, editMyProfile);
+				profileMenu.customItems.push(editProfileMenuItem);
+				
+				component.contextMenu = profileMenu;
+			}
+		    
+		    public function changePresence():void 
+		    {
+		    	var p:* = presences.selectedItem;
+		    	if(!p)
+		    		p = _defaultPresence;
+		    	
+		    	var customText:String = presences.text;
+
+		    	var status:String = p.status;
+		    	if(!status && customText)
+		    		status = customText;	
+		    	
+		    	SparkManager.presenceManager.changePresence(p.presence, status);
+				
+		        _defaultPresence = p;
+		    }
+		    
+		    public function clicked():void 
+		    {
+		    	presences.getTextInput().selectionBeginIndex = 0;
+		   		presences.getTextInput().selectionEndIndex = presences.text.length;
+		    }
+		    
+		    public function editMyProfile(event:ContextMenuEvent):void
+		    {
+		    	ProfileWindow.showProfile(SparkManager.me, true);
+		    }
+		         
+          ]]>
+    </mx:Script>
+	<mx:HBox filters="{[new DropShadowFilter(3, 90, 0, 0.7, 8, 8)]}" paddingRight="5" paddingLeft="5" cornerRadius="5" borderColor="#CCCCCC" id="hbox" borderThickness="0.5" borderStyle="solid" width="100%" height="100%" backgroundColor="#DDDDDD" backgroundAlpha="0.3" paddingTop="5" paddingBottom="5">
+		<mx:Image id="avatar" source="@Embed(source='/assets/images/dummyContact.png')" />	
+		<mx:VBox horizontalGap="0" verticalGap="0" width="100%" paddingRight="0" paddingLeft="0">
+			<mx:Label filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)]}" id="username" text="{SparkManager.me.displayName}" color="white" fontSize="15" fontWeight="bold" />
+			<component:IconComboBox 
+				focusEnabled="true" 
+				id="presences" 
+				filters="{[]}"
+				dataProvider="{PresenceManager.presences}"
+				rowCount="{PresenceManager.presences.length}"
+				close="changePresence()" 
+				mouseDown="clicked()"
+				editable="true" 
+				width="100%"/>
+		</mx:VBox>
+	</mx:HBox>
+</mx:Canvas>

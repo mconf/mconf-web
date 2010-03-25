@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:Box xmlns:mx="http://www.adobe.com/2006/mxml" height="30" cornerRadius="5" color="white" backgroundAlpha="0.3" filters="{selected ? [selectedShadow] : [deselectedShadow]}" backgroundColor="{selected ? 0xCCCCCC : 0x999999}" borderStyle="solid" borderThickness="0.5" borderSides="left bottom right">
+	<mx:Script>
+		<![CDATA[
+			private var _selected:Boolean;
+			private static const selectedShadow:DropShadowFilter = new DropShadowFilter(3, 90, 0, 0.8, 8, 8);
+			private static const deselectedShadow:DropShadowFilter = new DropShadowFilter(1, 90, 0, 0.7, 5, 5);
+			private static const textShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0, 1, 2);
+			
+			public function set text(t:String):void
+			{
+				lbl.text = t;
+			}
+			
+			public function get text():String
+			{
+				return lbl.text;
+			}
+			
+			[Bindable]
+			public function set selected(s:Boolean):void
+			{
+				_selected = s;
+			}
+			
+			public function get selected():Boolean
+			{
+				return _selected;
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Canvas height="30">
+		<mx:Label id="lbl" fontWeight="{selected ? 'bold' : 'normal'}" filters="{[textShadow]}" bottom="6" right="3" left="3" />
+	</mx:Canvas>
+</mx:Box>

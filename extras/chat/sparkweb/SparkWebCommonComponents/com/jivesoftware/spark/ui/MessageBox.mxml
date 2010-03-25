@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" horizontalGap="0" verticalGap="0">
+	<mx:Style>
+   		.username { font-weight:bold;}
+	</mx:Style>
+	<mx:Script><![CDATA[
+		import mx.events.FlexEvent;
+		import mx.events.ChildExistenceChangedEvent;
+		import mx.controls.TextArea;
+		private var _userId:String;
+		private var _type:String;
+		
+		public function set userId(userId:String):void {
+			this._userId = userId;
+		}
+		
+		public function get userId():String {
+			return this._userId;
+		}
+		
+		public function set username(username:String):void {
+			username_label.text = username;
+		}
+		
+		public function get username():String {
+			return username_label.text;
+		}
+		
+		public function set type(type:String):void {
+			this._type = type;
+		}
+		
+		[Bindable]
+		public function get type():String {
+			return this._type;
+		}
+		
+		public function addMessage(message:String, date:Date, styleName:String = "text", dateStyleName:String = null):void {
+			var messageArea:MessageElement = new MessageElement();
+			messageArea.styleName = styleName;
+			if(dateStyleName)
+				messageArea.dateStyleName = dateStyleName;
+			message_list.addChild(messageArea);	
+			messageArea.text = message;
+			messageArea.date = date;
+		}
+		
+		public function get messageElements():Array
+		{
+			return message_list.getChildren();
+		}
+		
+		public function setMessageHighlight(usernameColor:String, messageColor:String):void {
+			username_container.setStyle("backgroundColor", (!usernameColor ? "#F5F6FB" : usernameColor));
+			message_list.setStyle("backgroundColor", messageColor);
+		}
+	]]></mx:Script>
+	<mx:Canvas id="username_container" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100" backgroundColor="#F5F6FB">
+		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="10" bottom="10" textAlign="right" width="100%"/>
+	</mx:Canvas>
+	<mx:VBox id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="3" verticalScrollPolicy="off" paddingTop="10" paddingBottom="10" paddingLeft="2">
+	</mx:VBox>
+</mx:HBox>

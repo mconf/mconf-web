@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+	title="{Localizator.getText('title.muc.invite.send.window')}" showCloseButton="true" close="close()" 
+	creationComplete="init()">
+	
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
+			import com.jivesoftware.spark.managers.ChatManager;
+			import mx.core.Application;
+			import mx.core.UITextField;
+			import mx.managers.FocusManager;
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			import flash.ui.ContextMenu;
+
+			import com.jivesoftware.spark.chats.SparkGroupChat;
+			import com.jivesoftware.spark.managers.Localizator;
+			
+			import org.jivesoftware.xiff.events.RosterEvent;
+			
+			private const MIN_FIELD_WIDTH:uint = 384;
+			private var errorFilters:Array = [new GlowFilter(0xFF9B26)];
+			private var mucInviteSendRosterWindow:MUCInviteSendRosterWindow = null;
+			
+			[Bindable]
+			private var dropShadowFilters:Array = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+			
+			[Bindable]
+			private var invitationRecipients:ArrayCollection;
+
+			private function init():void {
+				invitationRecipients = new ArrayCollection();
+            	this.titleTextField.filters = dropShadowFilters;
+           		this.titleTextField.styleName = "title";
+           		focusManager.setFocus(jidTextInput);
+           		jidTextInput.minWidth = reasonTextInput.width - (addButton.width + rosterButton.width + (2 * hBox.getStyle('horizontalGap')));
+           		
+           		// Setup the 'Invited Users' list's context menu
+           		var removeMenuItem:ContextMenuItem = new ContextMenuItem(Localizator.getText('label.remove'));
+				removeMenuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, removeRecipient);
+           		jidList.contextMenu = new ContextMenu();
+   				// TODO: This needs to be figured out properly at some point.  Air apps don't have customItems or hideBuiltInItems
+           		if (jidList.contextMenu is ContextMenu)
+           		{
+	           		(jidList.contextMenu as ContextMenu).hideBuiltInItems();
+	           		(jidList.contextMenu as ContextMenu).customItems.push(removeMenuItem);
+	           	}
+            }
+            
+            private function close():void {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            /**
+             * Performs runtime custimizations to the dialog when it becomes visible.
+             */
+            public function showWindow(roomJid:UnescapedJID):void {
+            	roomJidLabel.text = roomJid.toString();
+            }
+            
+            private function addRecipient():void 
+            {
+            	var j:UnescapedJID;
+            	try
+            	{
+            		//Does no actual validation right now; Fix JID validation, then add true as the second argument
+            		j = new UnescapedJID(jidTextInput.text);
+            	}
+            	catch(e:*)
+            	{
+            		jidTextInput.filters = errorFilters;
+            		showErrorText(Localizator.getText('message.invalid.jid'));
+            		return;
+            	}
+            	
+            	resetErrorState();
+
+            	invitationRecipients.addItem(j);
+            	jidTextInput.text = '';
+            	focusManager.setFocus(jidTextInput);
+            }
+            
+            private function addRecipients(event:RosterEvent):void 
+            {
+            	if (!event.data)
+            		return;
+        		for each(var item:* in event.data) 
+        		{
+        			var found:Boolean = false;
+        			for each(var recip:UnescapedJID in invitationRecipients)
+        			{
+        				if(recip.equals(item.jid, false))
+        				{
+        					found = true;
+        					break;
+        				}
+        			}
+        			if(!found)
+        				invitationRecipients.addItem(item.jid);
+        		}
+            }
+            
+            /**
+             * Removes an invite recipient from the list control.
+             */
+            private function removeRecipient(event:ContextMenuEvent):void {
+            	var itemIndex:int = invitationRecipients.getItemIndex((event.mouseTarget as UITextField).text);
+            	
+            	if (itemIndex >= 0) {
+            		invitationRecipients.removeItemAt(itemIndex);
+            	}
+            }
+            
+            /**
+             * Sends the conference invitation.
+             */
+            private function send():void 
+            {
+            	var groupChat:SparkGroupChat = ChatManager.sharedInstance.getChat(new UnescapedJID(roomJidLabel.text)) as SparkGroupChat;
+            	
+            	if (groupChat && groupChat.room) {
+            		for each(var recipient:UnescapedJID in invitationRecipients) {
+            			groupChat.room.invite(recipient, reasonTextInput.text);
+            		}
+            	}
+            }
+		
+			private function handleKeyUp(event:KeyboardEvent):void {
+				if(event.keyCode == Keyboard.ENTER){
+					focusManager.setFocus(jidList);
+					addRecipient();
+				}
+			}
+
+			private function showErrorText(text:String):void {
+				errorLabel.text = text;
+			}
+			
+			/**
+			 * Removes error label text and input text error filters.
+			 */
+			private function resetErrorState():void {
+            	if (jidTextInput.filters.length != 0)
+            		jidTextInput.filters = [];
+            	
+            	if (errorLabel.text.length != 0)
+            		errorLabel.text = '';
+			}
+			
+			private function removeSelectedRecipients():void
+			{
+				invitationRecipients.disableAutoUpdate();
+				for each(var itemIndex:uint in jidList.selectedIndices)
+				{
+					invitationRecipients.removeItemAt(itemIndex);
+				}
+				invitationRecipients.enableAutoUpdate();
+			}
+			
+			private function showRosterWindow():void 
+			{
+				mucInviteSendRosterWindow = MUCInviteSendRosterWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), MUCInviteSendRosterWindow));
+				mucInviteSendRosterWindow.addEventListener("rosterContactsChosen", addRecipients);
+				PopUpManager.centerPopUp(mucInviteSendRosterWindow);
+			}
+			
+			public static function show(roomJID:UnescapedJID):void
+	  	    {
+	  	    	var mucInviteSendWindow:MUCInviteSendWindow = MUCInviteSendWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), MUCInviteSendWindow));
+				PopUpManager.centerPopUp(mucInviteSendWindow);
+				mucInviteSendWindow.showWindow(roomJID);
+	  	    }
+		]]>
+	</mx:Script>
+	
+	<mx:Form width="100%" paddingLeft="0" paddingRight="0">	
+		<mx:FormItem label="{Localizator.getText('label.room')}">
+			<mx:Label id="roomJidLabel" />
+		</mx:FormItem>
+		
+        <mx:FormItem label="{Localizator.getText('label.reason')}">
+        	<mx:TextInput id="reasonTextInput" text="{Localizator.getText('label.initial.invite.reason')}" minWidth="{MIN_FIELD_WIDTH}"/>
+        </mx:FormItem>
+        
+        <mx:FormItem label="{Localizator.getText('label.add.jid')}">
+        	<mx:HBox id="hBox">
+        		<mx:TextInput id="jidTextInput" keyUp="handleKeyUp(event)" focusIn="resetErrorState()" />
+        		<mx:Button id="addButton" filters="{dropShadowFilters}" label="{Localizator.getText('label.add')}" click="addRecipient()"/>
+        		<mx:Button id="rosterButton" filters="{dropShadowFilters}" label="{Localizator.getText('label.roster')}" click="showRosterWindow()"/>
+        	</mx:HBox>
+        </mx:FormItem>
+        
+        <mx:FormItem label="{Localizator.getText('label.invited.users')}">
+        	<mx:List id="jidList" allowMultipleSelection="true" dataProvider="{invitationRecipients}" minWidth="{reasonTextInput.width}" color="black" rollOverColor="0xFFCC00" selectionColor="0xDDB000" alternatingItemColors="{[0xAAAAAA, 0xBBBBBB]}" />
+        	<mx:Button id="removeButton" filters="{dropShadowFilters}" label="{Localizator.getText('label.remove')}" click="removeSelectedRecipients()"/>
+        </mx:FormItem>
+        
+    </mx:Form>
+
+	<mx:ControlBar horizontalAlign="right">
+		<mx:HBox horizontalAlign="left" width="100%">
+			<mx:Label id="errorLabel" fontSize="12" fontWeight="bold" filters="{dropShadowFilters}" color="#FF9B26" />
+		</mx:HBox>
+    	<mx:Button color="white" filters="{dropShadowFilters}" label="{Localizator.getText('label.cancel')}"
+				   click="{close();}" />
+		<mx:Button id="inviteButton" color="white" filters="{dropShadowFilters}" label="{Localizator.getText('label.invite')}"
+				   click="{send(); close();}"/>
+	</mx:ControlBar>
+	
+</comp:ColorShiftingTitleWindow>

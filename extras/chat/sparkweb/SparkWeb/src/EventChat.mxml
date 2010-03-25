@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+				xmlns:local="com.jivesoftware.spark.*"
+				preinitialize="presetup()"
+				creationComplete="init()"
+				applicationComplete="initKey()"
+				layout="absolute">
+ 
+ <!-- TODO: Add initialize="StyleManager.loadStyleDeclarations('assets/css/SparkWebSkin.swf')" back in... once we figure out why Flex Builder isn't copying the file right -->
+ <mx:Style source="../assets/css/messenger.css" />
+ 
+ 
+<mx:Style>
+	.nicknameLabel {
+		font-family: "Lucida Sans, Myriad Pro, Arial, sans serif";
+		font-weight:bold;
+		font-size:12;
+	}
+	
+	.logoutButton {
+		font-family: "Lucida Sans, Myriad Pro, Arial, sans serif";
+		font-weight:bold;
+		font-size:12;
+	}
+	
+    Alert {
+    	modalTransparencyBlur: 12;
+    	modalTransparency: 0.6;
+    	modalTransparencyColor: #000000;
+    	modalTransparencyDuration: 300;
+	}
+</mx:Style>
+ 	<mx:Script>
+ 		<![CDATA[
+ 			import com.jivesoftware.spark.utils.UniqueingQueue;
+ 			import org.jivesoftware.xiff.events.ConnectionSuccessEvent;
+ 			import org.jivesoftware.xiff.core.UnescapedJID;
+ 			import com.jivesoftware.spark.managers.ChatManager;
+ 			import com.jivesoftware.spark.ScrollWheelManager;
+ 			import com.jivesoftware.spark.AlertWindow;
+ 			import org.jivesoftware.xiff.data.Presence;
+ 			import com.jivesoftware.spark.ChatRoom;
+ 			import org.jivesoftware.xiff.data.Message;
+ 			import com.jivesoftware.spark.events.NotifyEvent;
+ 			import org.hasseg.externalMouseWheel.ExternalMouseWheelSupport;
+ 			import org.jivesoftware.xiff.events.LoginEvent;
+ 			import mx.events.CollectionEvent;
+ 			import org.jivesoftware.xiff.events.RosterEvent;
+ 			import com.jivesoftware.spark.SubscriptionRequestWindow;
+ 			import com.jivesoftware.spark.ContactList;
+ 			import com.jivesoftware.spark.MUCInviteReceiveWindow;
+ 			import org.jivesoftware.xiff.events.InviteEvent;
+ 			import org.jivesoftware.xiff.core.XMPPConnection;
+ 			import org.jivesoftware.xiff.data.im.RosterItemVO;
+ 			import com.jivesoftware.spark.managers.Localizator;
+ 			import com.jivesoftware.spark.utils.Key;
+ 			import mx.controls.Alert;
+ 			import org.jivesoftware.xiff.events.XIFFErrorEvent;
+ 			import com.jivesoftware.spark.managers.ConnectionManager;
+ 			import com.jivesoftware.spark.managers.SparkManager;
+			import org.jivesoftware.xiff.util.*;
+			import com.kebinger.flexlayout.*;
+			import org.jivesoftware.xiff.core.XMPPBOSHConnection;
+			import org.jivesoftware.xiff.auth.External;
+ 			
+ 			private var connectionManager:ConnectionManager;
+ 			
+ 			private static var _mwSupport:ExternalMouseWheelSupport = ExternalMouseWheelSupport.instance;
+ 			
+ 			private static const layoutDebug:Boolean = false;
+ 			[Bindable]
+ 			private var shouldShowLoginWindow:Boolean = true;
+			private var shouldUseExternal:Boolean = false;
+ 			private static var externalConfig:Object;
+			
+			public function presetup():void 
+			{
+				ScrollWheelManager.registrationFunction = _mwSupport.registerObject;
+				SparkManager.configProvider = function (key:String):String { 
+					if(!externalConfig)
+					{
+						externalConfig = {};
+						
+						// First, we will attempt to load from a javascript function called jive_sparkweb_getConfig
+						var tempConfig:Object = ExternalInterface.call("jive_sparkweb_getConfig");
+						for (var extKey:String in tempConfig)
+						{
+							externalConfig[extKey.toLowerCase()] = tempConfig[extKey];
+						}
+						
+						// Next, we will attempt to load passed in flash vars, overriding previous settings
+						for (var extParam:String in Application.application.parameters) {
+							externalConfig[extParam.toLowerCase()] = Application.application.parameters[extParam];
+						}
+					}
+					return externalConfig[key]; 
+				};
+				
+				SparkManager.errorHandler = displayError;
+				var server:String = SparkManager.getConfigValueForKey("server");
+
+				var policyFileURL:String = SparkManager.getConfigValueForKey("policyFileURL");
+				if (policyFileURL)
+					Security.loadPolicyFile(policyFileURL);
+				else
+					Security.loadPolicyFile("xmlsocket://"+server+":5229");
+
+				Security.allowDomain( "*" );
+				Security.allowInsecureDomain("*");
+				shouldShowLoginWindow = SparkManager.getConfigValueForKey("autoLogin") != "true";
+				shouldUseExternal = SparkManager.getConfigValueForKey("useExternalAuth") == "true";
+				if(shouldUseExternal) {
+					XMPPConnection.registerSASLMechanism("EXTERNAL",External);
+				}
+				//XMPPConnection.disableSASLMechanism("ANONYMOUS");
+			}
+			
+			
+ 			
+ 			public function displayError(name:String, message:String, fatal:Boolean):void
+ 			{
+ 				AlertWindow.show(message, name);
+ 				if(fatal)
+ 					logout();
+ 			}
+ 			
+ 			public function init():void 
+ 			{
+ 				connectionManager = SparkManager.connectionManager;
+ 				var connection:XMPPConnection = connectionManager.connection;
+				connection.addEventListener("login", connected);
+				connection.addEventListener("disconnection", handleDisconnect);
+				connection.addEventListener("error", handleError);
+				SparkManager.inviteListener.addEventListener(InviteEvent.INVITED, MUCInviteReceiveWindow.show);
+				
+				//set up UI event listeners
+				ExternalInterface.addCallback("setFocused", setFocused);
+				var foo:NotifyEvent
+				chatContainer.addEventListener(NotifyEvent.NEW_MESSAGE, function(evt:NotifyEvent):void {
+					var message:Message = evt.message;
+					ExternalInterface.call("alertTitle", "SparkWeb", RosterItemVO.get(message.from.unescaped, false).displayName+"!");
+				});
+ 			}
+ 			
+ 			protected function setFocused(focused:Boolean):void
+ 			{
+ 				var chatRoom:ChatRoom = chatContainer.chatFrame.selectedChild as ChatRoom;
+				if(!chatRoom)
+					return;
+					
+				chatRoom.active = focused;
+				
+				chatContainer.inFocus = focused;
+				if(focused)
+					ExternalInterface.call("changeTitle", "SparkWeb");
+ 			}
+ 			
+ 			public function initKey():void 
+ 			{
+ 				if(layoutDebug)
+ 					new ShowBorders();
+
+				var serverURL:String = "chotis.dit.upm.es"; 				
+				Security.loadPolicyFile("xmlsocket://"+serverURL+":5229");
+				Security.allowDomain( "*" );
+				Security.allowInsecureDomain("*");
+
+ 				SparkManager.connectionManager.connection.useAnonymousLogin = false;
+ 				var userName:* = SparkManager.getConfigValueForKey("username");
+ 				var userPass:* = SparkManager.getConfigValueForKey("password");
+ 				
+ 				if (userName == "") {
+ 					// If userName and userPass are null, login will be anonymous
+ 					userName = null;
+ 					userPass = null;
+ 					SparkManager.connectionManager.connection.useAnonymousLogin = true;
+ 				}
+ 				
+ 				SparkManager.connectionManager.login(userName, userPass, serverURL);
+ 				
+ 				//commented out until such time as firefox fixes their stupid focus issues that stop it from actually working
+ 				//stage.focus = loginDialog.userNameField;
+ 			}
+ 				
+ 			public function connected(event:Event):void 
+ 			{
+ 				/*loginDialog.visible = false;
+ 				contactListContainer.visible = true;
+ 				contactListContainer.contacts.showsOfflineContacts = true;
+ 				SparkManager.roster.addEventListener(RosterEvent.ROSTER_LOADED, function():void { 
+ 					contactListContainer.contacts.dataProvider = SparkManager.roster.groups; 
+ 				});*/
+ 		//		contactListContainer.contacts.dataProvider = SparkManager.roster.groups;
+ 				//TODO: invisible login UI
+ 				//if(!invisible)
+					SparkManager.connectionManager.connection.send(new Presence());
+ 				SparkManager.roster.addEventListener(RosterEvent.SUBSCRIPTION_REQUEST, SubscriptionRequestWindow.showSubscriptionRequestWindow);
+ 				//callLater(contactListContainer.statusBox.loadVCard);
+ 				
+ 				var roomJid:String = SparkManager.getConfigValueForKey("roomJid")
+ 				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
+ 			}
+ 			
+ 			public var suppressErrors:Boolean = false;
+ 			
+ 			public function handleError(event:XIFFErrorEvent):void 
+ 			{
+ 				if(suppressErrors) return;
+ 				switch(event.errorCode) 
+ 				{
+ 					case 400:
+ 						//loginDialog.reset();
+ 						//loginDialog.showErrorText(Localizator.getText('message.bad.request'));
+ 						break;
+ 					case 401:
+ 						//loginDialog.reset();
+ 						//loginDialog.showErrorText(Localizator.getText('message.not.authorized'));
+ 						break;
+ 					case 501:
+ 						//loginDialog.reset();
+ 						/*if (event.errorMessage && event.errorCondition == "TLS required")
+ 							loginDialog.showErrorText(Localizator.getText('message.tls.required'));
+ 						else
+ 							loginDialog.showErrorText(Localizator.getText('message.generic.error'));*/
+ 						break;
+ 					case 503:
+ 						/*loginDialog.reset();
+ 						loginDialog.showErrorText(Localizator.getText('message.service.unavailable'));*/
+ 						break;
+ 				}
+ 			}
+ 			
+ 			public function handleDisconnect(event:Event):void {
+ 				/* if (loginDialog.visible == false)
+ 					ExternalInterface.call("refreshPage"); */
+ 			}
+		    
+		    public static function logout():void {
+		    	ExternalInterface.call("refreshPage");
+		    }
+		    
+		    /*public function showCreateAccount():void 
+		    {
+				loginDialog.visible = false;
+				createAccountDialog.focusUsername();
+				createAccountDialog.visible = true;
+			}*/
+			
+			/*public function showLogin(username:String="", password:String="", serverURL:String=""):void 
+			{
+				createAccountDialog.visible = false;
+				loginDialog.focusUsername();
+				loginDialog.visible = true;
+				loginDialog.userNameField.text = username;
+				loginDialog.passwordField.text = password;
+				for each(var item:* in loginDialog.serverBox.dataProvider)
+				{
+					if(item == serverURL)
+						loginDialog.serverBox.selectedItem = item;
+				}
+			}*/
+			
+			public static function get rootContainer():DisplayObject
+			{
+				return Application.application.systemManager;
+			}
+ 		]]>
+ 		
+ 	</mx:Script>
+ 	
+ 	<!--<mx:DropShadowFilter distance="0" angle="45.0" color="0" alpha="1.0" blurX="6.0" id="shadow" />
+    
+ 	<mx:HBox id="mainBox" width="100%" height="100%" horizontalGap="5" paddingLeft="5" paddingTop="5" paddingBottom="5" paddingRight="5">
+ 		<local:ContactListContainer top="10" left="10" bottom="10" id="contactListContainer" visible="false" height="100%" width="400" maxWidth="400" />
+ 		<mx:Spacer/>
+ 		<local:ChatContainer id="chatContainer" height="100%" width="80%" visible="false" />
+ 	</mx:HBox>
+ 	
+ 	<mx:Fade id="fade" />-->
+ 	
+ 	<local:ChatContainer id="chatContainer" height="100%" width="100%" visible="false" />
+
+	<!--<local:LoginDialog filters="{[shadow]}" showEffect="fade" id="loginDialog" verticalCenter="0" horizontalCenter="0" visible="{shouldShowLoginWindow}" />
+	<local:CreateAccountDialog filters="{[shadow]}" showEffect="fade" hideEffect="fade" id="createAccountDialog" verticalCenter="0" horizontalCenter="0" visible="false" />-->
+	
+	<!--<mx:HBox filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)]}" left="0" width="100%" height="20" bottom="0" borderColor="black" borderStyle="solid" borderSides="top left" backgroundColor="#BD5711">
+		<mx:Label text="Powered by Jive Software" />
+	</mx:HBox>-->
+
+</mx:Application>
