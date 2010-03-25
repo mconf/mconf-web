@@ -19,7 +19,7 @@
         <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
       </span>
       <span class="entry_name">
-        <%=h agenda_entry.title %>
+        <%=sanitize(agenda_entry.title) %>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       	<%=entry_speakers(agenda_entry)%>        
       </li>
 	  
-      <li><%=h agenda_entry.description %></li>
+      <li><%=sanitize(post_format(agenda_entry.description)) %></li>
       <% agenda_entry.attachments.each  do |a| %>
         <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
 				<%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>

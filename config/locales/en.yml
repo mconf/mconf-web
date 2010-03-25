@@ -436,7 +436,7 @@ en:
     spam: "Spam in events"
     streaming: 
       add: "Add one."
-      title: "Streaming"
+      title: "Streaming session"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
       ready: "The streaming is booked. It will be available during the event"
@@ -447,6 +447,8 @@ en:
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
     undated:
+      none: "There are no events without agenda"
+      show: "Show all undated events"
       title: "Events without agenda defined"
     updated: "Event updated successfully"
     upcoming:
@@ -1150,6 +1152,7 @@ en:
   type: "Type"
   
   ######### U ###########
+  undated: "Undated"
   unknown_content: "Unknown content {{content}}"
   upcoming: "Upcoming"
   update: "Update"
