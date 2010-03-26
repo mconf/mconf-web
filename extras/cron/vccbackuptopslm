@@ -1,0 +1,32 @@
+#! /bin/sh
+
+PSLMDIR=/mnt/pslm
+PSLMBKDIR=$PSLMDIR/backups/sir
+
+echo "Backup de los ficheros del sir a $PSLMBKDIR"
+
+if [ ! -d "$PSLMBKDIR" ] ; then
+  mount $PSLMDIR
+fi
+
+sleep 10
+
+if [ ! -d "$PSLMBKDIR" ] ; then
+  echo "No puedo montar pslm. ¿Esta apagada?"
+  umount $PSLMDIR
+  exit
+fi
+
+dia=$(date "+%d")
+
+cd /
+mysqldump -u root -pisabel2005 --all-databases > /tmp/db_backup
+
+tar cvfz tmp/backup-sir-$dia.tgz tmp/db_backup home/isabel/global2/current/* home/isabel/global2/shared etc/apache2/sites-available etc/logrotate.conf etc/logrotate.d/ etc/awstats/ var/lib/awstats/ var/log/apache2/  
+cp /tmp/backup-sir-$dia.tgz $PSLMBKDIR/.
+rm -f /tmp/backup-sir-$dia.tgz /tmp/db_backup
+
+#umount $PSLMDIR
+
+echo "Terminado backups del sir"
+
