@@ -106,6 +106,8 @@ class AgendaEntriesController < ApplicationController
     
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
+        #first we delete the old performances if there were some (this is for the update operation that creates new performances in the event)
+        Performance.find(:all, :conditions => {:role_id => Role.find_by_name("Speaker"), :stage_id => @agenda_entry}).each do |perf| perf.delete end
         if params[:speakers] && params[:speakers][:name]
           unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
@@ -163,8 +165,6 @@ class AgendaEntriesController < ApplicationController
   #this method returns an array with the users unknown
   def create_performances_for_agenda_entry(role, array_usernames)
     unknown_users = []    
-    #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
-    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @agenda_entry}).each do |perf| perf.delete end
     for name in array_usernames
       #if the user is in the db we create the performance, if not it is a name that we do not know, we store it in the speakers field in db
       if user = User.find_by_login(name)
