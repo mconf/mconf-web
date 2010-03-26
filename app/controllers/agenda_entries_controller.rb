@@ -105,7 +105,7 @@ class AgendaEntriesController < ApplicationController
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
         #first we delete the old performances if there were some (this is for the update operation that creates new performances in the event)
-        Performance.find(:all, :conditions => {:role_id => role, :stage_id => @agenda_entry}).each do |perf| perf.delete end
+        Performance.find(:all, :conditions => {:role_id => Role.find_by_name("Speaker"), :stage_id => @agenda_entry}).each do |perf| perf.delete end
         if params[:speakers] && params[:speakers][:name]
           unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
