@@ -1,7 +1,7 @@
 set :servers,  {
   :production => 'isabel@vcc.dit.upm.es',
   :test => 'isabel@vcc-test.dit.upm.es',
-  :gplaza => 'isabel@138.4.17.137'
+  :gplaza => 'isabel@globalplaza.co.cc'
 }
 
 set :branches, {
@@ -16,6 +16,7 @@ set :application, "global2"
 set :repository,  "http://git-isabel.dit.upm.es/global2.git"
 set :scm, "git"
 set :git_enable_submodules, 1
+
 set :use_sudo, false
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -35,6 +36,7 @@ before 'deploy:setup', 'vcc:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 after 'deploy:restart', 'deploy:reload_ultrasphinx'
+after 'deploy:setup', 'setup:create_shared'
 
 namespace(:deploy) do
   task :fix_file_permissions do
@@ -43,9 +45,6 @@ namespace(:deploy) do
     run "/bin/chmod -R g+w #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
-    sudo "/bin/mkdir -p /opt/local"
-    sudo "/bin/chgrp -R www-data /opt/local"
-    sudo "/bin/chmod g+w /opt/local"
     # Allow Translators modify locale files
     sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
   end
@@ -64,19 +63,35 @@ namespace(:deploy) do
 
   task :reload_ultrasphinx do
     run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
-    run "cd #{ current_path } && sudo -u www-data /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
-    run "cd #{ current_path } && sudo -u www-data rake ultrasphinx:daemon:restart RAILS_ENV=production"
+    run "cd #{ current_path } && sudo /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
+    run "sudo /etc/init.d/sphinxsearch restart"
+  end
+end
+
+namespace(:setup) do
+  task :create_shared do
+    run "/bin/mkdir -p #{ shared_path }/attachments"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/attachments"
+    run "/bin/chmod -R g+w #{ shared_path }/attachments"
+    run "/bin/mkdir -p #{ shared_path }/config"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/config"
+    run "/bin/chmod -R g+w #{ shared_path }/config"
+    run "/bin/mkdir -p #{ shared_path }/public/logos"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/public"
+    run "/bin/chmod -R g+w #{ shared_path }/public"
+    run "/usr/bin/touch #{ shared_path }/log/production.log"
+    sudo "/bin/chgrp -R www-data #{ shared_path }/log"
+    run "/bin/chmod -R g+w #{ shared_path }/log"
   end
 end
 
 namespace(:vcc) do
-
   task :info do
     puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
     puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
   end
 
-  task :commit_remote_translations do
+   task :commit_remote_translations do
     run("cat #{ File.join(current_path, 'REVISION') }") do |channel, stream, data| 
       exit unless system("git checkout #{ data }")
     end
@@ -112,7 +127,7 @@ namespace(:vcc) do
       exit
     end
   end
- 
+  
   task :production do
     set :environment, :production
     if ENV['MERGE_LOCALES'] != 'false'
