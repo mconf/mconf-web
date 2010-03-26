@@ -17,7 +17,7 @@
 				<%end%>	
 			</ul>
 			<h3><%=sanitize(first_words(group.name,40))%><br/>
-			<%= t('group.mailing_list') + " " + mail_to(sanitize("vcc-#{group.mailing_list}@dit.upm.es")) if group.users.include?(current_user) && group.mailing_list.present?%></h3>
+			<%= t('group.mailing_list') + " " + mail_to(sanitize("vcc-#{group.mailing_list}@#{current_site.domain}")) if group.users.include?(current_user) && group.mailing_list.present?%></h3>
 			<% for user in group.users.sort {|x,y| x.name <=> y.name } -%>
 				<%= render :partial => 'users/simple_user', :object=> user %>
 			<% end -%>
