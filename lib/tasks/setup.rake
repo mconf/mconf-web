@@ -13,7 +13,7 @@ namespace :setup do
   task :development_tasks => [ :common_tasks ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_cron, :config_logrotate, :common_tasks ] do
+  task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks ] do
   end
 
   desc "All production tasks"
@@ -43,6 +43,19 @@ namespace :setup do
       puts "file exists."
     else
       `sudo cp #{ RAILS_ROOT }/extras/logrotate/vcc #{ logrotate_file }` 
+      puts "copied."
+    end
+  end
+
+  desc "Copy awstats configuration files"
+  task :config_awstats do
+    print "* Checking /etc/awstats/awstats.global-project.eu.conf: "
+    aw_file = "/etc/awstats/awstats.global-project.eu.conf"
+
+    if File.exist?(aw_file)
+      puts "files exist."
+    else
+      `sudo cp #{ RAILS_ROOT }/extras/awstats/* /etc/awstats/` 
       puts "copied."
     end
   end
