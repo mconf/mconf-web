@@ -8,12 +8,14 @@
 
 <% content_for :sidebar do  %>
 
+  <%= render :partial => 'spaces/sidebar' %>
+
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
 	  <%if params[:edit]%>
     	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-  	  <%else%>
+  	<%else%>
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-  	  <%end%>
+  	<%end%>
 	<%else%>
 
 	  <!--<%if logged_in? && space.public?%>
