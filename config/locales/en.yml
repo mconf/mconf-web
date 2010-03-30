@@ -250,7 +250,7 @@ en:
   edit_your_profile: "Edit your profile"
   e-mail:
     account_activated: "Your account at {{sitename}} has been activated successfully."
-    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
+    url_activated: "You can now login to your account with your email \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
     commas: "(separated by commas)"
     confirm: "You need now to confirm your registration by clicking on <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
@@ -412,6 +412,13 @@ en:
     one: "Event"
     other: "Events"
     online: "WebConference"
+    participation:
+      add: "Add one."
+      title: "Participation "
+      edit: "Edit web client code"
+      none: "No one has posted any participation url." 
+      ready: "The participation is booked. It will be available during the event"
+      will_be_available: "The participation will be available during the event"
     past:
       all: "All past ({{size}})"
       none: "No past events"
@@ -610,7 +617,7 @@ en:
     part5: "4. Once you have completed your registration, click on Done button."
     part6: "5. After registering for an account, you will receive an email confirmation with the link in order to activate your account."                      
   help_logging:
-    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your username and password at the main screen."
+    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your email and password at the main screen."
     part2: "You can login automatically if you have an account with an OpenID provider."
     part3: "If you have forgotten your password you can use this form to recover it and have it automatically emailed to you."
   help_newdoc:

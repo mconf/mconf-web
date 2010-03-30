@@ -99,9 +99,9 @@ class EventsController < ApplicationController
     if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
       #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
       # and recordings for past events
-      if event.past?
+      if event.past? && event.agenda.has_entries_with_video?
         params[:show_video]=@event.agenda.first_video_entry_id
-      elsif event.future?
+      elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
         params[:show_agenda]=true
       elsif event.is_happening_now?
         params[:show_streaming]=true
@@ -211,6 +211,9 @@ class EventsController < ApplicationController
         format.js{
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
+          end
+          if params[:event][:other_participation_url]
+            @result = params[:event][:other_participation_url]
           end
           if params[:event][:description]
             @result = params[:event][:description]

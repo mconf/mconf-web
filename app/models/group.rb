@@ -25,6 +25,9 @@ class Group < ActiveRecord::Base
     validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
     
     def validate
+      
+      reserved_mailing_list = 'sir'
+      
       for user in users
         unless user.stages.include?(space)
           errors.add(:users, I18n.t('space.group_not_belong'))
@@ -35,8 +38,8 @@ class Group < ActiveRecord::Base
         
         self.mailing_list = self.mailing_list.downcase
         
-        if self.mailing_list == "sir"
-          errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-sir@dit.upm.es"))
+        if self.mailing_list == reserved_mailing_list
+          errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-#{reserved_mailing_list}"))
         end
         
         if self.mailing_list.match(/^[a-z0-9][\w\-\.]*$/).to_s == ""

@@ -12,17 +12,6 @@
           );
 	});
 	
-	$("#join_form").submit(function(){
-    var route = $(this).attr("action");
-    $.post(route,
-            {authenticity_token: "<%=form_authenticity_token()%>"},
-            function(data){
-              eval(data);
-            }
-          );
-    return false;
-  });
-
 	title = "<%=escape_javascript(t('search.dots'))%>";
 	$("#query").click(function(){
 	  if(this.value == title){
@@ -47,28 +36,8 @@
 <%end%>
 
 <% content_for :sidebar do  %>
-  <div id="join">
-  <% if space.users.include?(current_user) && !is_last_admin(@space, @performance.first)%>
-	  <div class="button_wrapper">
-		<%= link_to "<span>"+t('space.leave')+"</span>", space_performance_path(@space, @performance), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm'),:class => "big_button red_button" %>
-	  </div>
-  <%elsif !is_last_admin(@space, @performance.first)%>
-	  <%if logged_in? && space.public?%>
-		<% form_tag space_join_requests_path(space), :id => "join_form" do %>
-		  <button class="orange_button big_button" type:"submit"><%=t('space.join')%></button>
-	    <% end %>
-		<%else%>
-  		  <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "fancybox_link orange_button big_button" %>
-		<%end%>
-  <% end %>
-	</div>
-  <div class="space-desc">
+  <%= render :partial => 'sidebar' %>
 
-	  <h3><%=t("space.about")%> <em><%=@space.name%></em></h3>
-
-	<p><%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
-	<%= sanitize(space.description) if space.description.present? %></p>
-  </div>	
 	<div id="inc-events">
      <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
