@@ -18,9 +18,10 @@
 -->
 
 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" visible="{dataProvider != null &amp;&amp; dataProvider.length > 0}" maxHeight="{visible ? NaN : 0}" xmlns:spark="com.jivesoftware.spark.*" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" paddingBottom="0" paddingTop="0" borderStyle="none" verticalGap="0">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" height="{(collapsed)? innerBox.height : (innerBox.height + navBox.height) }" visible="{dataProvider != null &amp;&amp; dataProvider.length > 0}" maxHeight="{visible ? NaN : 0}" xmlns:spark="com.jivesoftware.spark.*" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" paddingBottom="0" paddingTop="0" borderStyle="none" verticalGap="0">
 <mx:Script>
 	<![CDATA[
+		import org.jivesoftware.xiff.events.BookmarkChangedEvent;
 		import mx.events.ListEvent;
 		import mx.events.FlexEvent;
 		import org.jivesoftware.xiff.data.im.Contact;
@@ -169,11 +170,12 @@
 		{
 			return "<font color='" + _headerFontColors.getItemAt(0) + "'>" + groupName + ":</font><font color='" + _headerFontColors.getItemAt(1) + "'> " + count + " </font>";
 		}
+		
 	]]>
 </mx:Script>
 
 <!-- Collapsible Item -->
-<mx:HBox width="100%" id="innerBox" filters="{[]}" borderSides="bottom" borderStyle="solid" backgroundColor="#DDDDDD" height="{headerHeight}" verticalAlign="middle" horizontalGap="0" click="collapsed = !collapsed" paddingBottom="0" paddingTop="0">
+<mx:HBox width="100%" id="innerBox" filters="{[]}" borderSides="bottom" borderStyle="solid" backgroundColor="#DDDDDD" height="{headerHeight}" verticalAlign="middle" horizontalGap="0" paddingBottom="0" paddingTop="0" buttonMode="true" click="{collapsed = !collapsed;}"  mouseChildren="false">
 	<mx:Spacer height="100%" width="5"/>
 	<mx:Image id="arrows" source="{collapsable ? (collapsed ? blueArrowRight : blueArrowDown) : null}" />
 	<mx:Spacer height="100%" width="5"/>
