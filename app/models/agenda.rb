@@ -26,53 +26,37 @@ class Agenda < ActiveRecord::Base
   attr_accessor :notices
   
   belongs_to :event
-  has_many :agenda_entries, :dependent => :destroy
-  has_many :agenda_dividers, :dependent => :destroy
+  has_many :agenda_entries, :dependent => :destroy, :order => 'start_time ASC'
+  has_many :agenda_dividers, :dependent => :destroy, :order => 'id DESC'
   has_many :agenda_record_entries
   has_many :attachments, :through => :agenda_entries
   
   before_validation :from_icalendar
   
-  #acts_as_container :content => :agenda_entries
+  acts_as_container :contents => [:agenda_entries, :agenda_dividers],
+                    :scope => {:order => 'start_time ASC'}
   #acts_as_content :reflection => :event
   
   def validate
     errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
   end
   
+  def start_date
+    event.start_date
+  end
+  
+  def end_date
+    event.end_date
+  end
     
-  def all_entries_for_day(i)
-    all_entries_array = []
-    for entry in agenda_entries
-      if entry.event_day==i
-        all_entries_array << entry
-      end
-    end
-    for entry in agenda_dividers
-      if entry.event_day==i
-        all_entries_array << entry
-      end
-    end
-    all_entries_array    
+  def contents_for_day(i)
+    contents(:conditions => [
+                   "start_time >= :day_start AND start_time < :day_end",
+                     {:day_start => start_date.to_date + (i-1).day,
+                     :day_end => start_date.to_date + i.day} ],
+                  :order=>'start_time ASC'
+                 ).each{|content| content.reload}
   end
-  
-  
-  def ordered_entries_and_dividers_for_day(i)
-   all_entries_array = all_entries_for_day(i)
-   all_entries_array.sort! do |a,b| 
-      comp = a.start_time <=> b.start_time
-      if comp.nonzero?
-        comp
-      else
-        if a.class==AgendaDivider
-          -1
-        else
-          1
-        end
-      end
-    end
-  end
-  
   
   def starting_time
     all_in_all = all_entries    
