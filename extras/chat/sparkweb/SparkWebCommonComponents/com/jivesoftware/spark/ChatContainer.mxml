@@ -119,7 +119,7 @@
 				{
 					child = new ChatRoom();
 					//TODO: to change the user nickname
-					//var room:Room = MUCManager.manager.getRoom( new UnescapedJID("conferencia@events.chotis.dit.upm.es") );
+					//var room:Room = MUCManager.manager.getRoom( new UnescapedJID("conferencia@events.domain.example.com") );
 					//room.nickname = "guess001";
 					chat.ui = child;
 					child.id = chat.jid.bareJID;
