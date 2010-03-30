@@ -70,6 +70,7 @@
 			import mx.events.ChildExistenceChangedEvent;
 			import flexlib.controls.SuperTabBar;
 			import flexlib.containers.SuperTabNavigator;
+			import flexlib.controls.tabBarClasses.SuperTab;
 			import mx.controls.TabBar;
 			import mx.events.CollectionEvent;
 			
@@ -118,7 +119,7 @@
 				{
 					child = new ChatRoom();
 					//TODO: to change the user nickname
-					var room:Room = MUCManager.manager.getRoom( new UnescapedJID("conferencia@events.chotis.dit.upm.es") );
+					//var room:Room = MUCManager.manager.getRoom( new UnescapedJID("conferencia@events.chotis.dit.upm.es") );
 					//room.nickname = "guess001";
 					chat.ui = child;
 					child.id = chat.jid.bareJID;
@@ -151,7 +152,8 @@
 				});
 				addEventListener(Event.CLOSE, closeAll);
 				
-				chatFrame.closePolicy = "close_always";
+				//chatFrame.closePolicy = "close_always";
+				chatFrame.closePolicy = SuperTab.CLOSE_NEVER;
 				
 				SparkManager.connectionManager.connection.addEventListener("message", handleMessages);
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, createChatUI);
