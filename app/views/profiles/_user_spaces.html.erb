@@ -57,8 +57,8 @@
       <div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
         <ul class="inline">
           <% show_user.spaces.each do |s| %>
-					  <%if space.authorize? :read, :to => current_user%>     
-              <li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(space) %></li>
+					  <%if s.authorize? :read, :to => current_user%>     
+              <li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(s) %></li>
             <%else%>
 					    <li><%= logo(s,{:size=>"h64", :title=> s.name })%></li>
 						<%end%>
