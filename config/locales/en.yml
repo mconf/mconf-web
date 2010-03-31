@@ -1027,7 +1027,7 @@ en:
     signature: "Signature"
     domain: "Application Domain"
     presence_domain: "Presence Domain"
-    chat_group_service_jid: "Event Chat Group Service JID"
+    chat_group_service_jid: "Event Chat Group Service"
   size: Size
   skype: Skype
   source:
