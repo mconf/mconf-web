@@ -1,5 +1,9 @@
 <%= javascript_include_tag 'AC_OETags' %>
 
+<style type="text/css">
+#EventChat {height:400px}
+</style>
+
 <div id="event_chat">
 	<script type="text/javascript"> 
 	    var mw_flashMovieId = "EventChat"; // the id/name of your flash app's HTML DOM element     
@@ -38,18 +42,18 @@
 	function jive_sparkweb_getConfig()
 	{
 	  return {
-	    server: "chotis.dit.upm.es",
+	    server: "<%=current_site.domain%>",
 	    connectionType: "http",
 	    port: "80",
 	    bindPath: "/http-bind/",
 	    autologin: "false",
-			<% if (current_user.login == "Anonymous") -%>
-	    username: "",
+			<% if (authenticated?) -%>
+      username: "<%=current_user.login%>",
 			<% else -%>
-			username: "<%=current_user.login%>",
+      username: "",
 			<% end -%>
 	    password: "8aa40001b9b39cb257fe646a561a80840c806c55--" + getCookie("<%=ActionController::Base.session_options[:key]%>"),
-	    roomJid: "<%=@event.permalink + "@events.chotis.dit.upm.es" %>"
+	    roomJid: "<%=@event.permalink + "@" + current_site.chat_group_service_jid %>"
 	    //policyFileURL: "http://www.example.com/sub/dir/crossdomain.xml"
 	    //policyFileURL: "xmlsocket://foo.com:414"
 	  };
