@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100325095249) do
+ActiveRecord::Schema.define(:version => 20100331091006) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -315,6 +315,7 @@ ActiveRecord::Schema.define(:version => 20100325095249) do
     t.string   "exception_notifications_email"
     t.text     "signature"
     t.string   "presence_domain"
+    t.string   "chat_group_service_jid"
   end
 
   create_table "source_importations", :force => true do |t|

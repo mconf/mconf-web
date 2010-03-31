@@ -18,6 +18,8 @@
 class AgendaDivider < ActiveRecord::Base
   belongs_to :agenda
   
+  acts_as_content :reflection => :agenda
+  
   default_scope :order => 'start_time ASC'
   
   after_save do |divider|

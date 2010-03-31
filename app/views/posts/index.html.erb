@@ -180,17 +180,8 @@ $("#new_attachment_big_link").livequery('click',function () {
 
 <% content_for :sidebar do  %>
 
-  <% unless space.users.include?(current_user) %>
-  <div id="join">
-    <% form_tag space_join_requests_path(space) do %>
-	  <button class="orange_button big_button" type:"submit"><%=t('space.join')%></button>
-    <% end %>
-  </div>
-  <% end %>
-  <div class="space-desc">
-	<h3>About <em><%=@space.name%></em></h3>
-	  <p><%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%><%= sanitize(space.description) if space.description.present? %></p>
-	</div>	
+  <%= render :partial => 'spaces/sidebar' %>
+	
   <%if @space.authorize?([:create, :content],:to => current_user)%>
 	
   	<% if params[:reply_to]%>

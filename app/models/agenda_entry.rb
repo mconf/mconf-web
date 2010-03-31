@@ -26,12 +26,10 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :streaming
   attr_accessor :recording
 
-  #acts_as_content :reflection => :agenda
+  acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
-  
-  default_scope :order => 'start_time ASC'
   
   before_validation do |agenda_entry|
     # Fill attachment fields

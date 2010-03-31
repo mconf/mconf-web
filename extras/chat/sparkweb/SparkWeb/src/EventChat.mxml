@@ -160,7 +160,7 @@
  				if(layoutDebug)
  					new ShowBorders();
 
-				var serverURL:String = "chotis.dit.upm.es"; 				
+				var serverURL:String = SparkManager.getConfigValueForKey("server");
 				Security.loadPolicyFile("xmlsocket://"+serverURL+":5229");
 				Security.allowDomain( "*" );
 				Security.allowInsecureDomain("*");

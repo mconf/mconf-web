@@ -120,5 +120,10 @@ Group Chat > Group Chat Settings > Create New Service
 Group chat service name: events
 Group chat service description (optional): Event Chats
 
-
+7. Configure Vcc
+Login with admin user
+Visit: vccdomain/site
+Configure ->
+Presence Domain: chat.vcc.dit.upm.es
+Event Chat Group Service: events.chat.vcc.dit.upm.es
 

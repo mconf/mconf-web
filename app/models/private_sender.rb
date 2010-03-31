@@ -46,11 +46,9 @@ class PrivateSender
   end
   
   
-  def self.join_request_message(jr, receiver)
+  def self.join_request_message(jr,receiver)
     m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
-      :body => I18n.t('join_request.asked', :candidate => jr.candidate.name, :space => jr.group.name) + "<br/><br/>" +
-        I18n.t('join_request.to_accept', :url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink + "/admissions") + "<br/><br/>" +
-        I18n.t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) + "<br/><br/>" + Site.current.signature_in_html + "<br/>"
+      :body => jr.comment
     m.sender = jr.candidate
     m.receiver = receiver
     m.save!

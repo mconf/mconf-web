@@ -29,11 +29,12 @@ var requiredRevision = 28;
 function jive_sparkweb_getConfig()
 {
 	return {
-		server: "chotis.dit.upm.es",
-		connectionType: "socket",
-		port: "5222",
-		//bindPath: "/http-bind/",
-		//connectionType : "http",
+		server: "domain.example.com",
+		//connectionType: "socket",
+		//port: "5222",
+		port: "80",
+		bindPath: "/http-bind/",
+		connectionType : "http",
 		autologin: "false",
 		username: "selina",
 		password: "test",

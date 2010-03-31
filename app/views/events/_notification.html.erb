@@ -59,7 +59,7 @@
           <%end%>
           <textarea id="notify_personal"><%= t('event.notification.personal') %></textarea>
           <%= t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
-		  <br/><br/><%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %>		  
+		      <br/><br/><%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %>		  
         </div>
         <p>* <%= t('event.notification.legend.name') %></p>
       </div>
