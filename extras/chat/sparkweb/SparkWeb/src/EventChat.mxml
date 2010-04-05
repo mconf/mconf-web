@@ -4,7 +4,7 @@
 				preinitialize="presetup()"
 				creationComplete="init()"
 				applicationComplete="initKey()"
-				layout="absolute" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#FFFFFF, #FFFFFF]">
+				layout="absolute" backgroundGradientAlphas="[0.0, 0.0]" cornerRadius="0">
  
  <!-- TODO: Add initialize="StyleManager.loadStyleDeclarations('assets/css/SparkWebSkin.swf')" back in... once we figure out why Flex Builder isn't copying the file right -->
  <mx:Style source="../assets/css/messenger.css" />
@@ -143,6 +143,8 @@
 				
 				var message:String = SparkManager.getConfigValueForKey("connecting_message");
 				connection_message.text = message;
+				var backgroundColor:String = SparkManager.getConfigValueForKey("background_color");
+				this.setStyle("backgroundColor", backgroundColor);
  			}
  			
  			protected function setFocused(focused:Boolean):void
