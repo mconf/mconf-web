@@ -18,7 +18,7 @@
 -->
 
 
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
 	verticalScrollPolicy="off" horizontalScrollPolicy="off" horizontalGap="0" verticalGap="0">
 	<mx:Style>
    		.username { font-weight:bold;}
@@ -62,7 +62,7 @@
 				messageArea.dateStyleName = dateStyleName;
 			message_list.addChild(messageArea);	
 			messageArea.text = message;
-			messageArea.date = date;
+			//messageArea.date = date;
 		}
 		
 		public function get messageElements():Array
@@ -75,9 +75,9 @@
 			message_list.setStyle("backgroundColor", messageColor);
 		}
 	]]></mx:Script>
-	<mx:Canvas id="username_container" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100" backgroundColor="#F5F6FB">
-		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="10" bottom="10" textAlign="right" width="100%"/>
+	<mx:Canvas id="username_container" height="25" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" backgroundColor="#F5F6FB">
+		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="5" bottom="5" left="5" right="5" textAlign="left" width="100%"/>
 	</mx:Canvas>
 	<mx:VBox id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="3" verticalScrollPolicy="off" paddingTop="10" paddingBottom="10" paddingLeft="2">
 	</mx:VBox>
-</mx:HBox>
+</mx:VBox>

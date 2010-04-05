@@ -4,7 +4,7 @@
 				preinitialize="presetup()"
 				creationComplete="init()"
 				applicationComplete="initKey()"
-				layout="absolute">
+				layout="absolute" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#FFFFFF, #FFFFFF]">
  
  <!-- TODO: Add initialize="StyleManager.loadStyleDeclarations('assets/css/SparkWebSkin.swf')" back in... once we figure out why Flex Builder isn't copying the file right -->
  <mx:Style source="../assets/css/messenger.css" />
@@ -138,8 +138,11 @@
 				var foo:NotifyEvent
 				chatContainer.addEventListener(NotifyEvent.NEW_MESSAGE, function(evt:NotifyEvent):void {
 					var message:Message = evt.message;
-					ExternalInterface.call("alertTitle", "SparkWeb", RosterItemVO.get(message.from.unescaped, false).displayName+"!");
+					//ExternalInterface.call("alertTitle", "SparkWeb", RosterItemVO.get(message.from.unescaped, false).displayName+"!");
 				});
+				
+				var message:String = SparkManager.getConfigValueForKey("connecting_message");
+				connection_message.text = message;
  			}
  			
  			protected function setFocused(focused:Boolean):void
@@ -151,8 +154,8 @@
 				chatRoom.active = focused;
 				
 				chatContainer.inFocus = focused;
-				if(focused)
-					ExternalInterface.call("changeTitle", "SparkWeb");
+				//if(focused)
+				//	ExternalInterface.call("changeTitle", "SparkWeb");
  			}
  			
  			public function initKey():void 
@@ -192,13 +195,15 @@
  				});*/
  		//		contactListContainer.contacts.dataProvider = SparkManager.roster.groups;
  				//TODO: invisible login UI
+
  				//if(!invisible)
-					SparkManager.connectionManager.connection.send(new Presence());
+				SparkManager.connectionManager.connection.send(new Presence());
  				SparkManager.roster.addEventListener(RosterEvent.SUBSCRIPTION_REQUEST, SubscriptionRequestWindow.showSubscriptionRequestWindow);
  				//callLater(contactListContainer.statusBox.loadVCard);
- 				
- 				var roomJid:String = SparkManager.getConfigValueForKey("roomJid")
+
+ 				var roomJid:String = SparkManager.getConfigValueForKey("roomJid");
  				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
+ 				connection_message.text = "";
  			}
  			
  			public var suppressErrors:Boolean = false;
@@ -279,6 +284,7 @@
  	<mx:Fade id="fade" />-->
  	
  	<local:ChatContainer id="chatContainer" height="100%" width="100%" visible="false" />
+	<mx:Label id="connection_message" x="10" y="10"/>
 
 	<!--<local:LoginDialog filters="{[shadow]}" showEffect="fade" id="loginDialog" verticalCenter="0" horizontalCenter="0" visible="{shouldShowLoginWindow}" />
 	<local:CreateAccountDialog filters="{[shadow]}" showEffect="fade" hideEffect="fade" id="createAccountDialog" verticalCenter="0" horizontalCenter="0" visible="false" />-->
