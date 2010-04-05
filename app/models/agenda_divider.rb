@@ -22,12 +22,12 @@ class AgendaDivider < ActiveRecord::Base
   
   default_scope :order => 'start_time ASC'
   
-  after_save do |divider|
-    divider.event.syncronize_date
+  before_save do |divider|
+    divider.end_time = divider.start_time
   end
   
-  def end_time
-    start_time
+  after_save do |divider|
+    divider.event.syncronize_date
   end
   
   def event

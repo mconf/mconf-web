@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100331091006) do
+ActiveRecord::Schema.define(:version => 20100405132757) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20100331091006) do
     t.datetime "start_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "end_time"
   end
 
   create_table "agenda_entries", :force => true do |t|
