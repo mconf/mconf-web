@@ -43,6 +43,7 @@ public class VccCustomAuthProvider implements AuthProvider {
 
     private String vccSessionUrl;
     private String userNameHash;
+    private String vccCookieSession;
     
     /**
      * Constructs a new VccCustom authentication provider.
@@ -50,19 +51,25 @@ public class VccCustomAuthProvider implements AuthProvider {
     public VccCustomAuthProvider() {
     	String prop1 = "vccCustomAuthProvider.userNameHash";
     	String prop2 = "vccCustomAuthProvider.vccSessionUrl";
+    	String prop3 = "vccCustomAuthProvider.vccCookieSession";
     	
         // Convert XML based provider setup to Database based
         JiveGlobals.migrateProperty(prop1);
     	JiveGlobals.migrateProperty(prop2);
+    	JiveGlobals.migrateProperty(prop3);
 
         userNameHash  = JiveGlobals.getProperty(prop1);
         vccSessionUrl = JiveGlobals.getProperty(prop2);
+        vccCookieSession = JiveGlobals.getProperty(prop3);
         
         if ( userNameHash == null ) {
-        	Log.error("System property " + prop1 + "is not set");
+        	Log.error("System property " + prop1 + " is not set");
         }
         if ( vccSessionUrl == null ) {
-        	Log.error("System property " + prop2 + "is not set");
+        	Log.error("System property " + prop2 + " is not set");
+        }
+        if ( vccSessionUrl == null ) {
+        	Log.error("System property " + prop3 + " is not set");
         }
     }
 
@@ -175,7 +182,7 @@ public class VccCustomAuthProvider implements AuthProvider {
     	} catch (IOException e1) { }
 	   
     	if (con != null) {
-    	    String myCookie = "_prueba_session=" + cookie;
+    	    String myCookie = vccCookieSession + "=" + cookie;
     	    con.setRequestProperty("Cookie", myCookie);
     	    
     	    String xml = getXmlFromOpenConnection( con );

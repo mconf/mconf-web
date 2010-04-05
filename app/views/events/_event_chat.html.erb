@@ -1,0 +1,585 @@
+<%= javascript_include_tag 'AC_OETags' %>
+
+<style type="text/css">
+#EventChat {height:400px}
+</style>
+
+<div id="event_chat">
+	<script type="text/javascript"> 
+	    var mw_flashMovieId = "EventChat"; // the id/name of your flash app's HTML DOM element     
+	    var mw_flashContainerId = "container"; // the id/name of the flash element's surrounding div element  
+	</script>
+	<script type="text/javascript">
+	<!--
+	// -----------------------------------------------------------------------------
+	// Globals
+	// Major version of Flash required
+	var requiredMajorVersion = 9;
+	// Minor version of Flash required
+	var requiredMinorVersion = 0;
+	// Minor version of Flash required
+	var requiredRevision = 28;
+	// -----------------------------------------------------------------------------
+	// -->
+	</script>
+	<script type="text/javascript">
+	function getCookie(c_name)
+	{
+	if (document.cookie.length>0)
+	  {
+	  c_start=document.cookie.indexOf(c_name + "=");
+	  if (c_start!=-1)
+	    {
+	    c_start=c_start + c_name.length+1;
+	    c_end=document.cookie.indexOf(";",c_start);
+	    if (c_end==-1) c_end=document.cookie.length;
+	    return unescape(document.cookie.substring(c_start,c_end));
+	    }
+	  }
+	return "";
+	}
+		
+	function jive_sparkweb_getConfig()
+	{
+	  return {
+	    server: "<%=current_site.domain%>",
+	    connectionType: "http",
+	    port: "80",
+	    bindPath: "/http-bind/",
+	    autologin: "false",
+			<% if (authenticated?) -%>
+      username: "<%=current_user.login%>",
+			<% else -%>
+      username: "",
+			<% end -%>
+	    password: "8aa40001b9b39cb257fe646a561a80840c806c55--" + getCookie("<%=ActionController::Base.session_options[:key]%>"),
+	    roomJid: "<%=@event.permalink + "@" + current_site.chat_group_service_jid %>"
+	    //policyFileURL: "http://www.example.com/sub/dir/crossdomain.xml"
+	    //policyFileURL: "xmlsocket://foo.com:414"
+	  };
+	}
+	</script>
+	<script type="text/javascript">
+	    // Copyright 2007 www.flexcapacitor.com, www.drumbeatinsight.com 
+	    // Version 1.0.0
+	    
+	    // global array of html elements
+	    htmlControls = new Array();
+	    
+	    var timer;
+	    var titleStr;
+	    var nicknameStr;
+	    var bodyStr;
+	    var flashPlayer;
+	    
+	    
+	  // add HTML element to the page
+	    function addChild(o) {
+	      if (o.type=="division") {
+	        addChildDivision(o);
+	      }
+	      else if (o.type=="iframe") {
+	        addChildIFrame(o);
+	      }
+	    }
+	    
+	    function detectFlashPlayer(){
+	    try {
+	      if(navigator.appName.indexOf("Microsoft") != -1){
+	        flashPlayer = window.EventChat;
+	      }
+	      else {
+	        flashPlayer = window.document.EventChat;
+	      }
+	    }
+	      catch(e){
+	        alert(e);
+	      }
+	    }
+	    
+	    window.onblur = function() {
+	      if(flashPlayer != null && flashPlayer.setFocused){
+	      flashPlayer.setFocused(false);      
+	    }
+	  };
+	  
+	  window.onfocus = function() {
+	    if(flashPlayer != null && flashPlayer.setFocused){
+	      flashPlayer.setFocused(true);
+	    }
+	  };
+	  
+	  
+	  function isReady(){
+	    return true;
+	  }
+	  
+	    
+	    // add iframe to the page
+	    function addChildIFrame(o) {
+	    
+	      if (getElement(o.id)) {  
+	      // do nothing for now
+	      }
+	      
+	    var newElement = document.createElement("iframe");
+	    newElement.id = o.id;
+	    newElement.name = o.name;
+	    newElement.movieId = o.movieId;
+	    newElement.width = o.width;
+	    newElement.height = o.height;   
+	    newElement.frameBorder = o.frameborder;
+	    newElement.style.position = o.position;
+	    setSize(newElement,o.width,o.height);
+	    moveElementTo(newElement,o.x,o.y);
+	    //newElement.style.backgroundColor = "transparent";
+	    // always 0px - do not add a border to the iframe itself
+	    // add a child div and add a border to that or add border in mxml
+	    newElement.style.border = o.border;
+	    newElement.src = o.source;
+	    
+	    //  use innerHTML or DOM element creation methods to put content into body
+	    document.body.appendChild(newElement);
+	    
+	    newElement.onload = new function() {
+	      // set a flag so the application knows the page is loaded
+	      // looking for a reliable method that works cross browser
+	    }
+	    }
+	    
+	    // add division to the page
+	    function addChildDivision(o) {
+	    var newElement = document.createElement("div");
+	    newElement.id = o.id;
+	    newElement.name = o.name;
+	    newElement.movieId = o.movieId;
+	    
+	    newElement.style.position = o.position;
+	    setSize(newElement,o.width,o.height);
+	    moveElementTo(newElement,o.x,o.y);
+	    newElement.style.backgroundColor = "#" + o.backgroundColor;
+	    newElement.style.padding = "0px";
+	    newElement.style.margin = "0px";
+	    // always 0px - do not add a border to the container div tag
+	    // add a border in mxml or add a child div tag in the htmlText property and add a border to that
+	    newElement.style.border = o.border;
+	    newElement.innerHTML = o.htmlText;
+	    
+	    document.body.appendChild(newElement);
+	    setScrollPolicyById(o.id, o.htmlScrollPolicy);
+	    
+	    addToGlobalArray(newElement, o.type);
+	    }
+	    
+	  // add to associative array
+	  function addToGlobalArray(el, elementType) {
+	    var newElement = new Object();
+	    newElement.element = el;
+	    newElement.id = el.id;
+	    newElement.loaded = false;
+	    newElement.type = elementType;
+	    htmlControls[el.id] = newElement;
+	  }
+	    
+	  // gets the element by name
+	  function getElement(id) {
+	    if (htmlControls[id]) {
+	      return htmlControls[id].element;
+	    }
+	    return document.getElementById(id);
+	  }
+	  
+	  function appendMessage(id, message){
+	    try {
+	      var f = getElement(id);
+	      var p = f.contentWindow.document;
+	          window[id].appendMessage(message);
+	    }
+	    catch(err){
+	      setTimeout('appendMessage("+id+", "+message+")', 3000);
+	    }
+	  }
+	  
+	  function isReady(id){
+	    try {
+	      var f = getElement(id);
+	      var p = f.contentWindow.document;
+	          return window[id].isReady();
+	    }
+	    catch(err){
+	    }
+	    return false;
+	  }
+	  
+	  function changeTitle(title){
+	    window.document.title = title;
+	    clearTimeout(timer);
+	  }
+	  
+	  function alertTitle(title, username){
+	    clearTimeout(timer);
+	    window.document.title = title;
+	    titleStr = title;
+	    nicknameStr = username;
+	    timer = setTimeout("showNickname()", 1000);
+	  }
+	  
+	  function showNickname(){
+	    window.document.title = nicknameStr;
+	    timer = setTimeout("showTitle()", 1000);
+	  }
+	  
+	  function showTitle(){
+	    window.document.title = titleStr;
+	    timer = setTimeout("showNickname()", 1000);
+	  }
+	  
+	  
+	  function showBody(){
+	    window.document.title = bodyStr;
+	    timer = setTimeout("showTitle()", 1000);
+	  }
+	  
+	  function refreshPage(){
+	    window.location.reload( false );
+	  }
+	  
+	  
+	  
+	  // cannot get height of pages loaded from different domains
+	  // ie, page is hosted at www.yoursite.com and you load www.google.com will fail with return value of -1
+	  // works in ff and ie. not tested in mac browsers - 
+	  function getElementHeight(id){
+	    var el = getElement(id);
+	    moz = (document.getElementById && !document.all);
+	    
+	    if (el){
+	    
+	      // check the height value
+	      try {
+	      
+	        /*** return div height ***/
+	        if (el.nodeName.toLowerCase()=="div") {
+	          var scrollHeight = el.scrollHeight;
+	          var divHeight = el.style.height;
+	          divHeight = (scrollHeight > parseInt(divHeight)) ? scrollHeight : divHeight;
+	          return divHeight;
+	        }
+	        
+	        /*** return iframe height ***/
+	        //moz
+	        if (moz) {
+	          return el.contentDocument.body.scrollHeight;
+	        }
+	        else if (el.Document) {
+	          return el.Document.body.scrollHeight;
+	        }
+	      }
+	      catch(e)
+	      {
+	        //An error is raised if the IFrame domain != its container's domain
+	        //alert('Error: ' + e.number + '; ' + e.description+'\nPossibly - Cannot access because page domain does not equal container domain');
+	        return -1;
+	      }
+	    }
+	  }
+	
+	  // get property value
+	  function getElementValue(id, elProperty){
+	    
+	    // if periods are in the name assume absolute path 
+	    // otherwise assume element id
+	    if (id.indexOf('.')!=-1) {
+	      var newArr = id.split('.');
+	      var elValue = "";
+	      
+	      try {
+	        el = window;
+	        for (var i=0;i < newArr.length;i++) {
+	          el = el[newArr[i]];
+	        }
+	        return el;
+	      }
+	      catch (e) {
+	        //alert("Whoooops!! Cant find " + elId);
+	        // should return null or undefined here
+	        return -1;
+	      }
+	    }
+	    else {
+	      // try and get property value
+	      try {
+	        var el = getElement(id);
+	        var elValue = el[elProperty];
+	        return elValue;
+	      }
+	      catch(e) {
+	        //alert("Error: Can't find " + elId + "." + elProperty);
+	        // should return null or undefined here
+	        return -1;
+	      }
+	    }
+	  }
+	  
+	  // get HTML content
+	  function getHTML(id, elementType) {
+	    var el = getElement(id);
+	    if (el!=null) {
+	      
+	      if (elementType =="division") {
+	        return el.innerHTML;
+	      }
+	    }
+	    return "";
+	  }
+	
+	  // get reference to the flash movie 
+	  function getMovieById(id) {
+	    if (navigator.appName.indexOf ("Microsoft") !=-1) {
+	      return window[id];
+	    } else {
+	      return window.document[id];
+	    }
+	  }
+	  
+	  // hide element by name
+	  // set height of content to 0px so the 
+	  // flash context menu appears in the right location
+	  function hide(id, hideOffscreen, offscreenOffset) {
+	    var el = getElement(id);
+	    if (hideOffscreen) {
+	      el.style.width = "0px";
+	      el.style.height = "0px";
+	    }
+	    el.style.visibility = "hidden";
+	  }
+	  
+	  // move element to new location
+	  function moveElementTo(el,x,y) {
+	    el.style.left = parseInt(x) + "px";
+	    el.style.top = parseInt(y) + "px";
+	  }
+	  
+	  // forces redraw
+	  function refresh(id) {
+	    var el = getElement(id);
+	    el.style.cssText = el.style.cssText;
+	  }
+	  
+	  function removeEle(id){
+	    var olddiv = getElement(id);
+	      document.body.removeChild(olddiv);      
+	  }
+	  
+	  // remove
+	  function remove(id) {
+	    hide(id, true);
+	    var el = getElement(id);
+	    //el = undefined; // not sure how to delete
+	  }
+	    
+	  // set document title
+	    function setDocumentTitle(title) {
+	        window.document.title = title;
+	        return 1;
+	    }
+	  
+	  // set HTML content
+	  function setHTML(id, htmlText, elementType) {
+	    var el = getElement(id);
+	    if (el!=null) {
+	    
+	      if (elementType =="division") {
+	        el.innerHTML = htmlText;
+	      }
+	    }
+	  }
+	  
+	  // set position
+	  function setPosition(id,x,y) {
+	    var el = getElement(id);
+	
+	    // LEFT
+	    if (x != undefined) {
+	      el.style.left = x + "px";
+	    }
+	    // TOP
+	    if (y != undefined) {
+	      //alert(y)
+	      el.style.top = y + "px";
+	    }
+	  }
+	  
+	  // set scroll policy of element
+	  function setScrollPolicy(el, overflow) {
+	    if (overflow != "resize") {
+	      el.style.overflow = overflow;
+	    }
+	  }
+	  
+	  // set scroll policy of element by id
+	  function setScrollPolicyById(id, overflow) {
+	    var el = getElement(id);
+	    
+	    // setting this to anything other than auto in ff fails it
+	    if (overflow != "resize") {
+	      el.style.overflow = overflow;
+	    }
+	  }
+	  
+	  // set size
+	  function setSize(el,w,h) {
+	    // WIDTH
+	    if (w != undefined) {
+	      // if width is a percentage pass in the string as is
+	      if (String(w).indexOf("%")!=-1) {
+	        el.style.width = w;
+	      }
+	      else {
+	        el.style.width = parseInt(w) + "px";
+	      }
+	    }
+	    
+	    // HEIGHT
+	    if (h!=undefined) {
+	      if (String(h).indexOf("%")!=-1) {
+	        el.style.height = h;
+	      }
+	      else {
+	        el.style.height = parseInt(h) + "px"; 
+	      }
+	    }
+	  }
+	  
+	  // set size called by id
+	  function setSizeByValue(id,w,h) {
+	    var el = getElement(id);
+	    if (el.style.visibility=="hidden") { return; }
+	    
+	    // WIDTH
+	    if (w != undefined) {
+	      // if width is a percentage pass in the string as is
+	      if (String(w).indexOf("%")!=-1) {
+	        el.style.width = w;
+	      }
+	      else {
+	        el.style.width = parseInt(w) + "px";
+	      }
+	    }
+	    
+	    // HEIGHT
+	    if (h!=undefined) {
+	      if (String(h).indexOf("%")!=-1) {
+	        el.style.height = h;
+	      }
+	      else {
+	        el.style.height = parseInt(h) + "px"; 
+	      }
+	    }
+	  }
+	  
+	  // set iframe location
+	  function setSource(id,source){
+	    var el = getElement(id);
+	    el.src = source;
+	  }
+	  
+	  // show element by name
+	  function show(id, hideOffscreen, left, width, height) {
+	    var el = getElement(id);
+	    el.style.visibility = "visible";
+	    if (hideOffscreen) {
+	      el.style.width = parseInt(width) + "px";
+	      el.style.height = parseInt(height) + "px";
+	    }
+	  }
+	  
+	  function showIt(id, height){
+	    var el = getElement(id);
+	    el.style.visibility = "visible";
+	      el.style.height = parseInt(height - 5) + "px";
+	  }
+	    
+	</script>
+	<body scroll="no" id="myBody" onLoad="document.getElementById('EventChat').focus();">
+	
+	<script type="text/javascript">
+	<!--
+	// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+	var hasProductInstall = DetectFlashVer(6, 0, 65);
+	
+	// Version check based upon the values defined in globals
+	var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+	
+	
+	// Check to see if a player with Flash Product Install is available and the version does not meet the requirements for playback
+	if ( hasProductInstall && !hasRequestedVersion ) {
+	  // MMdoctitle is the stored document.title value used by the installation process to close the window that started the process
+	  // This is necessary in order to close browser windows that are still utilizing the older version of the player after installation has completed
+	  // DO NOT MODIFY THE FOLLOWING FOUR LINES
+	  // Location visited after installation is complete if installation is required
+	  var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
+	  var MMredirectURL = window.location;
+	    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
+	    var MMdoctitle = document.title;
+	
+	  AC_FL_RunContent(
+	    "src", "playerProductInstall",
+	    "FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
+	    "width", "100%",
+	    "height", "100%",
+	    "align", "middle",
+	    "id", "EventChat",
+	    "quality", "high",
+	    "bgcolor", "#869ca7",
+	    "name", "EventChat",
+	    "allowScriptAccess","sameDomain",
+	    "type", "application/x-shockwave-flash",
+	    "pluginspage", "http://www.adobe.com/go/getflashplayer"
+	  );
+	} else if (hasRequestedVersion) {
+	  // if we've detected an acceptable version
+	  // embed the Flash Content SWF when all tests are passed
+	  AC_FL_RunContent(
+	      "src", "<%=root_path%>chat/EventChat",
+	      "width", "100%",
+	      "height", "100%",
+	      "align", "middle",
+	      "id", "EventChat",
+	      "quality", "high",
+	      "bgcolor", "#869ca7",
+	      "name", "EventChat",
+	      "wmode", "opaque",
+	      "allowScriptAccess","sameDomain",
+	      "type", "application/x-shockwave-flash",
+	      "pluginspage", "http://www.adobe.com/go/getflashplayer"
+	  );
+	  } else {  // flash is too old or we can't detect the plugin 
+	    var alternateContent = 'This content requires the Adobe Flash Player. '
+	    + '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
+	    document.write(alternateContent);  // insert non-flash content
+	  }
+	  detectFlashPlayer()
+	// -->
+	</script>
+	
+	<noscript>
+	    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+	       width="100%" height="100%"
+	      codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+	      <param name="movie" value="EventChat.swf" />
+	      <param name="quality" value="high" />
+	      <param name="bgcolor" value="#869ca7" />
+	      <param name="allowScriptAccess" value="sameDomain" />
+	      <embed src="<%=root_path%>chat/EventChat.swf" quality="high" bgcolor="#869ca7"
+	        width="100%" height="100%" name="EventChat" align="middle"
+	        play="true"
+	        loop="false"
+	        quality="high"
+	        allowScriptAccess="sameDomain"
+	        type="application/x-shockwave-flash"
+	        pluginspage="http://www.adobe.com/go/getflashplayer">
+	      </embed>
+	  </object>
+	</noscript>
+</div>

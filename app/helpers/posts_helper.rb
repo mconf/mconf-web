@@ -54,6 +54,7 @@ module PostsHelper
   end
   
   def post_format( text)
+   text ||=""
    (text.include?("<") && text.include?("</") && text.include?(">")) ? text : simple_format(text)
   end
   

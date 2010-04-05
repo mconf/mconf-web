@@ -657,8 +657,8 @@ div.pagination a{color:#244974;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
 #sidebar input[type="time"]{text-align:center;}
 
-#new_post,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#more_invitations, #more_notifications, #event_creation /*, #add_new_doc, #doc_info, #doc_action.new_version*/{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_post,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #more_notifications, #event_creation {background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
+#new_post,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#more_invitations, #more_notifications, #more_join_requests, #event_creation /*, #add_new_doc, #doc_info, #doc_action.new_version*/{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+#new_post,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #more_notifications, #more_join_requests, #event_creation {background:#bdd8eb;padding:0 0 10px 10px;float:left;margin-top:1.5em;}
 #priv-msg,#Create_new_group, #change-event,#space-conf,#news_sidebar,#new_invitation_div/*, #add_new_doc, #doc_info, #doc_action.new_version*/{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #update_space_logo{float:left;width:180px;}
 
@@ -668,9 +668,9 @@ div.pagination a{color:#244974;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 
 .update_logo .logo_content{padding-top:10px;}
-#more_invitations, #more_notifications {width:645px;margin-bottom:1.5em;}
-#more_notifications .grey_bar,#more_invitations .grey_bar{margin-right:10px;}
-#more_notifications .grey_bar textarea,#more_invitations .grey_bar textarea{width:99%;}
+#more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
+#more_notifications .grey_bar,#more_invitations .grey_bar,#more_join_requests .grey_bar{margin-right:10px;}
+#more_notifications .grey_bar textarea,#more_invitations .grey_bar textarea,#more_join_requests .grey_bar textarea{width:99%;}
 #new_reply{width:230px;}
 
 /*Actions of the sidebar: comment, photo and doc*/
@@ -1344,16 +1344,16 @@ tr.version_expanded td{
 }
 
 
-#event_description_wrapper,#event_repo,#streaming_url{background:#f7f7f7;}
+#event_description_wrapper,#event_repo,#participation_url,#streaming_url{background:#f7f7f7;}
 #doc_repository thead{
 	background:#BDD8EB;
 	margin:0;
 	}
 	
-#streaming_url_value p{max-width:490px;}
+#participation_url_value p,#streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
-#event_description_line,#agenda_title,#repository_title,#recordings_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
-h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#streaming_title h3,#agenda_blue_title h3{
+#event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
+h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
@@ -1362,11 +1362,11 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 
 #carrusel_title h3 {padding-right:0;}
 
-h3#event_description_title div,#agenda_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
-h3#event_description_title div img,#agenda_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
+h3#event_description_title div,#agenda_title div,#participation_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
+h3#event_description_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
-#event_description_line a,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
-#event_description_content,#repository_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
+#event_description_content,#repository_content,#participation_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
 
 .video_wrapper{
 	position:relative;

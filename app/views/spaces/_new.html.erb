@@ -48,7 +48,7 @@
 			</div>
 			
 			<div id='mail_group' class="mail_group_blinking">
-		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@dit.upm.es</label>
+		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@<%= current_site.domain %></label>
 			</div>
 			
 			<button type="submit" class="blue_button basic_button"><%=t("button.create")%></button>

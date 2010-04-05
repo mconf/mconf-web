@@ -91,13 +91,9 @@ class Space < ActiveRecord::Base
   # Options:
   # role:: Name of the role actors play in this space
   def users(options = {})
-    if options[:role]
-      stage_performances.select{ |p| p.role.name == options[:role] }.map(&:agent)
-    else
-      actors
-    end
+    actors(options)
   end
- 
+
   # AtomPub
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)
@@ -126,6 +122,19 @@ class Space < ActiveRecord::Base
     for group in self.groups
       Group.enable_list(group,group.mailing_list)
     end
+  end
+
+  def is_last_admin?(user)
+
+    admins = self.actors(:role => 'Admin')
+    if admins.length != 1 then
+      false
+    elsif admins.include?(user)
+      true
+    else
+      false
+    end
+
   end
 
   # There are previous authorization rules because of the stage

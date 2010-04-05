@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<!--
+OfflineListGroup is a special group that always contains all the offline contacts on the Roster. This allows actual list groups to concern themselves only with online contacts.
+-->
+<ListGroup xmlns="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.data.im.Contact;
+			import mx.collections.ListCollectionView;
+			import com.jivesoftware.spark.managers.SparkManager;
+			import org.jivesoftware.xiff.data.Presence;
+			import com.jivesoftware.spark.ContactListContainer;
+			import org.jivesoftware.xiff.data.im.RosterGroup;
+			import org.jivesoftware.xiff.data.im.RosterItemVO;
+			import com.jivesoftware.spark.managers.Localizator;
+			import mx.collections.SortField;
+						
+			protected function init():void
+			{
+				collapsed = true;
+				dataProvider = SparkManager.roster;
+			}
+			
+			protected override function defaultFilter(contact:Contact):Boolean
+			{
+				return (filter.length == 0 || contact.displayName.toLowerCase().indexOf(filter) == 0) && (contact is RosterItemVO ? (contact as RosterItemVO).online == false : false);
+			}
+			
+			public override function set groupName(nameString:String):void {}
+			
+			[Bindable]
+			public override function get groupName():String
+			{
+				if(!_name)
+					_name = Localizator.getText('group.name.offline');
+				return _name;
+			}
+		]]>
+	</mx:Script>
+</ListGroup>

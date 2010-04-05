@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+	title="{Localizator.getText('title.subscription.request.window')}" showCloseButton="true" close="close()" 
+	creationComplete="init()">
+	
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
+			import mx.core.Application;
+			import org.jivesoftware.xiff.data.im.RosterGroup;
+			import org.jivesoftware.xiff.events.RosterEvent;
+			import org.jivesoftware.xiff.data.im.RosterItemVO;
+			import mx.collections.ArrayCollection;
+		
+			import org.jivesoftware.xiff.im.Roster;
+			import org.jivesoftware.xiff.core.XMPPConnection;
+			import org.jivesoftware.xiff.data.Presence;
+			import mx.managers.PopUpManager;
+			import com.jivesoftware.spark.managers.Localizator;
+			import com.jivesoftware.spark.managers.SparkManager;
+			
+			private var fromJid:UnescapedJID;
+
+			private function init():void 
+			{
+            	titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+           		titleTextField.styleName = "title";
+            }
+            
+            /**
+             * Performs runtime custimizations to the dialog when it becomes visible.
+             */
+            public function show(j:UnescapedJID):void 
+            {
+            	fromJid = j;
+            	usernameLabel.text = fromJid.toString(); 
+            	
+            	formHeading.text = Localizator.getTextWithParams('text.allow.subscription', [fromJid.toString()]);
+            	
+            	// If the contact already exists in our roster, hide the 'add user' form.
+            	if (SparkManager.roster.contains(RosterItemVO.get(fromJid, false))) 
+            	{
+            		checkBox.selected = false;
+
+            		checkBoxFormItem.visible = false;
+            		checkBoxFormItem.height = 0;
+            		
+            		usernameFormItem.visible = false;
+            		usernameFormItem.height = 0;
+            		
+            		nicknameFormItem.visible = false;
+            		nicknameFormItem.height = 0;
+            		
+            		groupFormItem.visible = false;
+            		groupFormItem.height = 0;
+            	}
+            }
+            
+            private function close():void {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            /**
+             * Enables fields when the checkbox is checked and disables fields
+             * when the checkbox is unchecked.
+             */
+            private function clicked():void {
+            	if (!checkBox.selected) {
+            		nicknameField.enabled = false;
+            		groupField.enabled = false;
+            	}
+            	else {
+            		nicknameField.enabled = true;
+            		groupField.enabled = true;
+            	}
+            }
+            
+            /**
+             * Accepts a presence subscription request.
+             */
+            private function accept():void {
+				if (checkBox.selected) {
+					SparkManager.roster.addContact(fromJid, nicknameField.text, groupField.text);
+				}
+				SparkManager.roster.grantSubscription(fromJid, false);
+            }
+            
+            public static function showSubscriptionRequestWindow(event:RosterEvent):void 
+            {
+            	var fromJid:UnescapedJID = event.jid;
+            	
+            	var subscriptionRequestWindow:SubscriptionRequestWindow = SubscriptionRequestWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), SubscriptionRequestWindow));
+            	PopUpManager.centerPopUp(subscriptionRequestWindow);
+            	subscriptionRequestWindow.show(fromJid);
+            }
+
+		]]>
+	</mx:Script>
+
+	<mx:Form>
+		<!-- Using Text instead of FormHeader so that the text will wrap when containing an extremely long JID. -->
+		<mx:Text id="formHeading" />
+
+		<mx:FormItem id="checkBoxFormItem">
+			<mx:CheckBox id="checkBox" label="{Localizator.getText('label.add.user.to.your.roster')}" click="clicked()" selected="true"/>	
+		</mx:FormItem>
+		<mx:FormItem id="usernameFormItem" label="{Localizator.getText('label.im.address')}">
+			<mx:Label id="usernameLabel" />
+		</mx:FormItem>
+		<mx:FormItem id="nicknameFormItem" label="{Localizator.getText('label.nickname')}">
+			<mx:TextInput id="nicknameField" />
+		</mx:FormItem>
+        <mx:FormItem id="groupFormItem" label="{Localizator.getText('label.group')}">
+            <mx:ComboBox id="groupField" editable="true" dataProvider="{SparkManager.roster.groups}" labelField="label" minWidth="{nicknameField.width}" />
+        </mx:FormItem>
+	</mx:Form>
+
+	<mx:ControlBar horizontalAlign="right">
+    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.deny')}"
+				   click="{SparkManager.roster.denySubscription(fromJid); close();}" />
+		<mx:Button id="submitButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.accept')}"
+				   click="{accept(); close();}"/>
+	</mx:ControlBar>  
+
+</comp:ColorShiftingTitleWindow>

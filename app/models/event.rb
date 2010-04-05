@@ -250,7 +250,7 @@ class Event < ActiveRecord::Base
     if agenda.agenda_entries.empty? && agenda.agenda_dividers.empty?
       return (Time.now + 1.day).to_date + 9.hour  #9 in the morning    
     end    
-    ordered_entries = agenda.all_entries_for_day(day).sort{|x,y| x.end_time <=> y.end_time }
+    ordered_entries = agenda.contents_for_day(day)
     unless ordered_entries.empty?
       ordered_entries.last.end_time
     else

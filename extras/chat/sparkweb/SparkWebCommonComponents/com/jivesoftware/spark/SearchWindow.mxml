@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<ColorShiftingTitleWindow xmlns="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" showCloseButton="true" close="close()"
+	creationComplete="init()" width="630" color="white" titleIcon="@Embed(source='/assets/images/tiny-search.png')">
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	 <mx:Script>
+        <![CDATA[
+        	import org.jivesoftware.xiff.core.EscapedJID;
+        	import org.jivesoftware.xiff.core.UnescapedJID;
+        	import mx.managers.IFocusManagerComponent;
+        	import mx.controls.dataGridClasses.DataGridColumn;
+        	import org.jivesoftware.xiff.data.forms.FormExtension;
+        	import org.jivesoftware.xiff.data.forms.FormField;
+        	import org.jivesoftware.xiff.data.im.RosterItemVO;
+        	import mx.controls.CheckBox;
+        	import mx.collections.SortField;
+        	import mx.collections.Sort;
+        	import mx.events.FlexEvent;
+        	import mx.events.ListEvent;
+        	import org.jivesoftware.xiff.data.search.SearchExtension;
+        	import org.jivesoftware.xiff.data.search.SearchItem;
+        	import org.jivesoftware.xiff.core.XMPPConnection;
+        	import org.jivesoftware.xiff.im.Roster;       
+        	import com.jivesoftware.spark.managers.*;
+        	import mx.controls.Text;
+    		import mx.collections.ArrayCollection; 
+    		import org.jivesoftware.xiff.data.XMPPStanza;
+    		import org.jivesoftware.xiff.util.Callback; 
+    		import org.jivesoftware.xiff.events.SearchPrepEvent;
+    		import mx.managers.PopUpManager;
+            
+            private var _explicitHeight:int;
+            private var initialDataGridWidth:uint;
+            private var currentServerName:String;         
+            
+            public function get searchManager():AbstractSearchManager
+            {
+            	return null;
+            }   
+           
+            // Event handler for the add contact button.
+            protected function buttonOneAction():void 
+            {
+            	
+            }
+            
+            // Event handler for the open chat button.
+            protected function buttonTwoAction():void 
+            {
+            	
+            }
+            
+            private function get selectedServiceJID():EscapedJID
+            {
+            	var item:* = userSearchService.selectedItem;
+            	if (!item)
+            		return null;
+            	
+            	return new EscapedJID(searchManager.dataFormsActive ? item.JID : item.jid);
+            }
+            
+            // Resets and closes the search window, called by the Close button as well as
+            // an after effect of adding contacts and opening chats.
+            protected function close():void 
+            {
+            	searchManager.removeEventListener(SearchPrepEvent.SEARCH_PREP_COMPLETE, prepComplete);
+				PopUpManager.removePopUp(this);
+            }
+            
+            // Called after the window is created.
+            public function init():void
+            {
+            	searchManager.addEventListener(SearchPrepEvent.SEARCH_PREP_COMPLETE, prepComplete);
+           		titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+           		titleTextField.styleName = "title"; 
+           		initialDataGridWidth = userSearchResults.width;
+           		
+           		currentServerName = searchManager.server;
+           		setButtonsEnabled(false);
+           		
+           		userSearchResults.addEventListener(ListEvent.CHANGE, handleDataGridItemClicked);
+            }
+            
+            // Prepares search text for when the search is complete.
+            public function prepSearch(text:String = ""):void 
+            {
+            	searchManager.addEventListener(SearchPrepEvent.SEARCH_PREP_COMPLETE, prepComplete);
+            	userSearchServer.text = searchManager.server;
+           		userSearchField.text = text;
+           		if (searchManager.searchReady)
+           		{
+           			userSearchService.selectedIndex = 0;
+           			updateSearchFields();
+           		}
+            }
+            
+            // Handles event where we are told the search preparations are complete.
+            protected function prepComplete(ev:SearchPrepEvent):void
+            {
+            	userSearchService.selectedIndex = 0;
+	            updateSearchFields();
+            }
+            
+            // Handles events where someone changes the setting on the search service
+            // field.  Causes the checkboxes to be populated and a new search to be performed.
+            private function handleServiceChanged(event:Event):void
+            {
+				if (userSearchService.selectedIndex >= 0) 
+					updateSearchFields();
+            }
+            
+            // Updates the list of checkboxes to determine what fields to search.
+            private function updateSearchFields(triggerSearch:Boolean=true):void 
+            {
+            	var updated:Boolean = searchManager.dataFormsActive ? updateSearchFieldsDataForms() : updateSearchFieldsGeneric();
+            	if(!updated)
+            		return;
+            	
+            	// Re-center the window
+            	PopUpManager.centerPopUp(this);
+        		
+        		if (triggerSearch)
+        			performSearch();
+            }
+            
+            private function updateSearchFieldsDataForms():Boolean
+            {
+            	var jid:UnescapedJID = new UnescapedJID(userSearchService.selectedItem.JID);
+        		var fields:Array = searchManager.getDataFormFields(jid);
+        		
+        		if (!fields)
+        			return false;
+        		
+        		// Hide the generic search form
+        		for each (var formItem:FormItem in getDynamicFormItems())
+        		{
+        			myForm.removeChild(formItem);
+        		}
+        		
+        		// Setup the dynamic Data Form search form
+        		for each (var formField:FormField in fields)
+        		{
+        			var newFormItem:FormItem;
+        			switch (formField.type)
+        			{
+        				case FormExtension.FIELD_TYPE_TEXT_SINGLE:
+        					newFormItem = new FormItem();
+        					newFormItem.label = formField.label;
+        					newFormItem.id = formField.name;
+        					var textInput:TextInput = new TextInput();
+        					textInput.addEventListener(KeyboardEvent.KEY_UP, handleQueryKeyUp);
+        					newFormItem.addChild(textInput);
+        					myForm.addChild(newFormItem);
+        					break;
+
+        				case FormExtension.FIELD_TYPE_BOOLEAN:
+        					newFormItem = new FormItem();
+        					newFormItem.label = formField.label;
+        					newFormItem.id = formField.name;
+        					var checkBox:CheckBox = new CheckBox();
+        					checkBox.selected = true;
+        					newFormItem.addChild(checkBox);
+        					myForm.addChild(newFormItem);
+        					break;
+        			}
+        		}
+        		return true;
+            }
+            
+            private function updateSearchFieldsGeneric():Boolean
+        	{
+        		userSearchFields.removeAllChildren();
+
+            	var jid:UnescapedJID = new UnescapedJID(userSearchService.selectedItem.JID);
+        		var fields:Array = searchManager.getFields(jid);
+
+            	if (!fields)
+            		return false;
+            		
+            	// Remove any data form items
+        		for each (var formItem:FormItem in getDynamicFormItems())
+        		{
+        			myForm.removeChild(formItem);
+          		}
+            	
+            	// Show the generic search form if it was hidden
+            	if (!searchTextFormItem.parent)
+            	{
+            		userSearchField.text = '';
+            		myForm.addChild(searchTextFormItem);
+            	}
+            	if (!searchFieldsFormItem.parent)
+            		myForm.addChild(searchFieldsFormItem);
+            	
+        		for each (var field:String in fields) 
+        		{
+        			var cb:CheckBox = new CheckBox();
+        			cb.label = field;
+        			cb.selected = true;
+        			cb.setStyle("color", "white");
+        			userSearchFields.addChild(cb);
+        		}
+        		return true;
+            }
+            
+            // Returns an array of those form items that may be added or removed
+            // during the course of execution. (eg. such form items that correspond
+            // to form fields that are provided by a search service at runtime).
+            private function getDynamicFormItems():Array
+            {
+            	var dynamicFormItems:Array = [];
+            	for each (var formItem:FormItem in myForm.getChildren())
+        		{
+        			if (formItem.id == "serverTextFormItem" || formItem.id == "searchServiceFormItem")
+        				continue;
+        			
+        			dynamicFormItems.push(formItem);
+        		}
+        		return dynamicFormItems;
+            }
+            
+            // Watches for and handles the enter key being pressed in the server field,
+            // which repopulates the list of services based off the new server target.
+            private function handleServerKeyUp(event:KeyboardEvent):void 
+            {
+            	if (event.keyCode == Keyboard.ENTER) 
+            	{
+            		setSearchManagerServer();
+            	}
+            }
+            
+            private function setSearchManagerServer():void
+            {
+            	if (currentServerName == userSearchServer.text)
+            		return;
+
+            	currentServerName = userSearchServer.text;
+        		if (currentServerName.length > 0) 
+        			searchManager.server = currentServerName;			
+            }
+            
+            // Watches for and handles the enter key being pressed in the query field,
+            // triggering an actual search.
+    		private function handleQueryKeyUp(event:KeyboardEvent):void 
+    		{
+				if (event.keyCode == Keyboard.ENTER)
+					performSearch();
+			}
+            
+            private function handleDataGridItemClicked(event:ListEvent):void
+            {
+            	setButtonsEnabled(userSearchResults.selectedItem != null);
+            }
+            
+            private function setButtonsEnabled(enabled:Boolean):void
+            {
+            	buttonOne.enabled = enabled;
+            	buttonTwo.enabled = enabled;
+            }
+			
+			// Triggered by hitting enter in the search query field (or pressing the search button),
+			// performs the actual search based off the service choice and query provided.
+			private function performSearch():void 
+			{
+				if (searchManager.dataFormsActive)
+					performDataFormsSearch();
+				else
+					performGenericSearch();
+				
+				// Keep buttons disabled until a search result item is clicked
+				setButtonsEnabled(false);
+			}
+			
+			private function performDataFormsSearch():void
+			{
+				var service:UnescapedJID = selectedServiceJID.unescaped;
+				var formFields:Array = [];
+					
+				for each (var formItem:FormItem in getDynamicFormItems())
+				{
+					// Set the form field's 'var' attribute
+					var formField:FormField = new FormField();
+					formField.name = formItem.id;
+
+					// Set the form field's value
+					var child:Object = formItem.getChildAt(0)
+					if (child is CheckBox && (child as CheckBox).selected)
+					{
+						formField.value = "1"
+						formFields.push(formField);
+					}
+					else if (child is TextInput && (child as TextInput).text.length > 0)
+					{
+						formField.value = (child as TextInput).text;
+						formFields.push(formField);
+					}
+				}
+				
+				searchManager.performDataFormSearch(service, formFields, new Callback(this, this["_processDataFormSearchResults"]));
+			}
+			
+			private function performGenericSearch():void
+			{
+				var service:UnescapedJID = selectedServiceJID.unescaped;
+				// Setup the columns in the search results data grid
+				var newColumns:Array = [new DataGridColumn("JID"),
+										new DataGridColumn("Name"),
+										new DataGridColumn("EMail")];
+				userSearchResults.columns = newColumns;
+
+				if (userSearchField.length == 0)
+					return;
+				
+				if (userSearchService.selectedIndex >= 0 && userSearchService.selectedItem != null) 
+				{
+					var checkFields:Array = [];
+					//updateSearchFields(service, false);
+					for each (var field:CheckBox in userSearchFields.getChildren()) 
+					{
+						if (field.selected)
+							checkFields.push(field.label);
+					}
+					searchManager.performSearch(service, userSearchField.text, new Callback(this, this["_processSearchResults"]), checkFields);
+				}
+			}
+			
+			private function _processDataFormSearchResults(resultsIq:XMPPStanza):void
+			{
+				// Get the data form extension
+				resultsIq.deserialize(resultsIq.getNode());
+				trace(resultsIq.getNode());
+				var extensions:Array = resultsIq.getAllExtensionsByNS(SearchExtension.NS);
+				if (!extensions || extensions.length == 0) 
+					return;
+				var searchExt:SearchExtension = extensions[0];
+				var dataFormExtensions:Array = searchExt.getAllExtensionsByNS(FormExtension.NS);
+				if (!dataFormExtensions || dataFormExtensions.length == 0) 
+					return;
+				var dataFormExt:FormExtension = dataFormExtensions[0];
+
+				// Setup the columns in the search results data grid
+				var newColumns:Array =[];
+				for each (var formField:FormField in dataFormExt.getReportedFields())
+				{
+					var newColumn:DataGridColumn = new DataGridColumn(formField.name);
+					newColumn.headerText = formField.label;
+					newColumn.minWidth = 100;
+					newColumn.width = 200;					
+					newColumns.push(newColumn);
+				}
+				if (newColumns.length > 0)
+				{
+					userSearchResults.columns = newColumns;
+					userSearchResults.width = initialDataGridWidth;
+				}
+				
+				// Process the search result items in the data form extension
+				var dataOutput:Array = [];
+				for each (var itemFields:Array in dataFormExt.getAllItems()) 
+				{
+					var item:Object = {};
+					for each(var itemField:FormField in itemFields)
+					{
+						item[itemField.name] = itemField.value;
+					}
+					dataOutput.push(item);
+				}
+				userSearchData.source = dataOutput;
+			}
+			
+			// Reads the search results from performSearch and turns them into an array of
+			// arrays to be used as the data source for the data grid.
+			private function _processSearchResults(resultsIq:XMPPStanza):void 
+			{
+				var extensions:Array = resultsIq.getAllExtensionsByNS(SearchExtension.NS);
+				if (extensions == null || extensions.length < 1) return;
+				var searchData:SearchExtension = extensions[0];
+				
+				var dataOutput:Array = [];
+				for each (var searchItem:SearchItem in searchData.getAllItems()) 
+				{
+					var name:String = "";
+					// for some reason we are getting an entire name?  not in the spec!
+					if (searchItem.name)
+						name = searchItem.name;
+					else 
+					{
+						// piece together the name as best we can
+						if (searchItem.first)
+							name = name + searchItem.first;
+						if (searchItem.last) 
+						{
+							if (name != "")
+								name = name + " ";
+							name = name + searchItem.last;
+						}
+						if (searchItem.nick) 
+						{
+							if (name == "")
+								name = searchItem.nick;
+							else
+								name = name + " \"" + searchItem.nick + "\"";
+						}
+					}
+					var jid:String = searchItem.jid;
+					var email:String = "";
+					if (searchItem.email)
+						email = searchItem.email;
+					
+					dataOutput.push({Name:name, JID:jid, EMail:email});	
+				}
+
+				userSearchData.source = dataOutput.sortOn(["Name", "JID"]);
+			}
+			
+			protected function get buttonOneText():String
+			{
+				return "";
+			}
+			
+			protected function get buttonTwoText():String
+			{
+				return "";
+			}
+			
+            // Contains the results of a search, with columns Name, JID, and EMail
+            // Used as the data source for the data grid.
+			[Bindable]
+			public var userSearchData:ArrayCollection = new ArrayCollection();
+         ]]>
+     </mx:Script>
+     <mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" visible="{searchManager.searchUnavailable || searchManager.searchLoading}" height="{searchManager.searchUnavailable || searchManager.searchLoading ? 100 : 0}">
+     	<mx:Label text="{searchManager.searchLoading ? Localizator.getText('label.loading.search') : Localizator.getText('label.search.unavailable')}" />
+     </mx:HBox>
+     
+	 <mx:Form id="myForm" maxHeight="{searchManager.searchUnavailable || searchManager.searchLoading ? 0 : NaN}" width="100%">
+	 	<mx:FormItem id="serverTextFormItem" label="{Localizator.getText('label.server')}">
+	 		<mx:TextInput id="userSearchServer" keyUp="handleServerKeyUp(event)" focusOut="setSearchManagerServer()" />
+	 	</mx:FormItem>
+     	<mx:FormItem id="searchServiceFormItem" visible="{searchManager.services.length > 1}" label="{Localizator.getText('label.service')}">
+			<mx:ComboBox id="userSearchService" color="white" selectionColor="#505050" fontSize="11" focusRoundedCorners="br, tr" paddingLeft="-2" borderColor="gray" fontWeight="normal" width="100%" selectedIndex="0" editable="false" labelField="Name" dataProvider="{searchManager.services}" change="handleServiceChanged(event)"/>
+		</mx:FormItem>
+        <mx:FormItem id="searchTextFormItem" label="{Localizator.getText('label.search')}">
+            <mx:TextInput id="userSearchField" keyUp="handleQueryKeyUp(event)" />
+        </mx:FormItem>
+        <mx:FormItem id="searchFieldsFormItem" label="{Localizator.getText('label.fields')}">
+         	<mx:Tile id="userSearchFields" direction="horizontal" width="100%" verticalScrollPolicy="auto"/>
+        </mx:FormItem>
+    </mx:Form>
+    <mx:DataGrid id="userSearchResults" visible="{userSearchData.length > 0}" dataProvider="{userSearchData}" color="black" rollOverColor="0xFFCC00" selectionColor="0xDDB000" alternatingItemColors="{[0xAAAAAA, 0xBBBBBB]}" width="100%" height="{userSearchData.length > 0 ? 233 : 0}" draggableColumns="false" horizontalScrollPolicy="auto">
+    	<mx:columns>
+    		<mx:DataGridColumn />
+    	</mx:columns>
+    </mx:DataGrid>
+	<mx:HBox horizontalAlign="right" maxHeight="{searchManager.searchUnavailable || searchManager.searchLoading ? 0 : NaN}" width="100%" paddingTop="30">
+		<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{buttonOneText}" id="buttonOne" click="buttonOneAction()" />
+		<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{buttonTwoText}" id="buttonTwo" click="buttonTwoAction()" />
+		<mx:Spacer width="3" />
+		<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.search')}" id="searchButton" click="performSearch()" />
+	</mx:HBox>
+</ColorShiftingTitleWindow>

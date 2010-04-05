@@ -120,8 +120,8 @@
     </div>
   
     <div>
-      <label for="Organizer"><%= t('organizer') %>:</label>
-      <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+      <label for="Organizer"><%= t('organizer') %>:</label>ayuda
+      <%=select(:organizers, :name, @space.users.map{|u| u.full_name}, {}, {:multiple=>"multiple"})%>
     </div>
     <div>
       <label for="Location"><%= t('event.location') %>:</label>
