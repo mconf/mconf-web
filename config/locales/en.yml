@@ -167,6 +167,7 @@ en:
   chat:
     edit_question: "Would you like to enable chat?"
     edit_enabled: "Enable chat at next login"
+    connecting_message: "Connecting to event chat..."
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
