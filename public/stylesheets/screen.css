@@ -791,7 +791,10 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #profile_right #profile_content{border-right:none;border-left:1px solid #BDD8EB;}
 
 .profile_center{position:relative;float:left;width:470px;}
-.profile_center #profile_content{background:#fff;min-height:300px;}
+.profile_center #profile_content{background:#fff;min-height:300px;padding:0 10px;}
+.profile_center #profile_content .odd_thread{background:#fff;}
+.profile_center #profile_content .home_event{padding:0;}
+.profile_center #profile_content .thread_content div{float:none;position:relative;}
 
 #profile_wrapper .title,#sidebar #profile_right .title{
 	background:#BDD8EB none repeat scroll 0 0;
