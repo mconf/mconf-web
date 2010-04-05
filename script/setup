@@ -29,6 +29,7 @@ GEMS = {
                    "httparty",
 		   "pdf-writer",
                    "ci_reporter",
+                   "prism",
                    "rubyzip" ],
   :production  => [ ],
   :development => [ "capistrano",
