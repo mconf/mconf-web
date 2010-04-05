@@ -364,6 +364,7 @@ en:
       edit: "Edit your event"
       in_agenda: "in the agenda"
       now: "Now you can"   
+      organisers: "Select the space users that will organise this event"
       without_str: "To get streaming and/or recording, please indicate it in your schedule"   
     invite: "Invite people"
     Isabel: "Isabel event"
