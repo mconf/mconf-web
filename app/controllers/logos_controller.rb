@@ -23,8 +23,28 @@ class LogosController
   include Magick
   
   TMP_PATH = File.join(RAILS_ROOT, "public", "images", "tmp")
+  #for i in 1..5
+   #   create_auto_logo "Global Plaza Project", i
+    #end
+  
+  def new 
+    if params[:text]
+      #debugger
+   for i in 1..5
+      create_auto_logo params[:text], i
+    end    
+   for i in 1..5
+      #create_auto_logo "Global Plaza Project", i
+    end 
+    
+    
+    render :template => "spaces/_generate_text_logos", :layout => false
+    
+    end
+  end
   
   def precrop
+    
     if params['logo']['media'].blank?
       redirect_to request.referer
       return
@@ -32,6 +52,8 @@ class LogosController
     
     @space = Space.find(params[:space_id])
     @logo = @space.logo || Logo.new 
+
+     #debugger
 
     f = File.open(File.join(TMP_PATH,"precroplogo-#{@space.id}"), "w+")
     f.write(params['logo']['media'].read)
@@ -44,8 +66,8 @@ class LogosController
 
     reshape_image f.path, Logo::ASPECT_RATIO_F
     resize_if_bigger f.path, 600
-
     
+ 
     @logo_crop_text = "Crop space logo"
     @form_for       = [@space,@logo]
     @form_url       = space_logo_path(@space.id)
@@ -58,6 +80,7 @@ class LogosController
     if params[:crop_size].present?
       crop_and_resize
     end
+    #debugger
     @logo = space.build_logo(params[:logo])
     if @logo.save
       flash[:success] = t('logo.created')
@@ -84,6 +107,16 @@ class LogosController
     end   
   end
   
+    def generate_text_logos
+    
+   # for i in 1..5
+   #   create_auto_logo "Global Plaza Project", i
+    #end    
+    
+    #render :template => "spaces/generate_text_logos", :layout => false
+    
+
+  end
   private
 
   def crop_and_resize 
@@ -139,5 +172,85 @@ class LogosController
     f.close
     reshaped.write("png:" + path)
     
+  end
+  
+  def max_word_length text
+    first_pos = 0
+    max_length = 0
+    while !((pos = (text+" ").index(' ', first_pos)).nil?)
+      if (pos - first_pos) > max_length
+        max_length = pos - first_pos
+      end
+      first_pos = pos + 1
+    end
+    return max_length
+  end
+  
+
+  
+  def create_auto_logo text, logo_style
+    
+    # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
+    images_path = File.join(RAILS_ROOT, "public", "images")
+    tmp_path = File.join(images_path, "tmp")
+    final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:rand_name]}")
+    background_generic = File.join(images_path, "vcc-logo-bg.png")
+    #background_generated = File.join(tmp_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
+    background_generated = File.join(final_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
+    
+    # We open, read-only, the generic background image
+    f = File.open(background_generic, "r+")
+    img = Magick::Image.read(f).first
+    
+    # This will be the blank image which will contain the text
+    logo_text = Magick::Image.new(img.columns, img.rows)
+    # To create the text, we use a new "Draw" object, and set some basic styles
+    gc = Magick::Draw.new
+    gc.font_family = "Helvetica"
+    gc.font_style = Magick::ObliqueStyle
+    gc.font_weight = Magick::LighterWeight
+    gc.gravity = Magick::CenterGravity
+    gc.stroke = "darkblue"
+    gc.stroke_opacity(1)
+    gc.text_antialias(true)
+    gc.stroke_antialias(true)
+    gc.stroke_linecap("round")
+    gc.fill = "darkblue"
+
+    # Depending on the desired logo_style, we create a text or another 
+    case logo_style
+      when 1
+        gc.pointsize = 1.7 * img.columns / text.length
+        gc.gravity = Magick::SouthGravity
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text+"\n")
+        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
+      when 2
+        gc.pointsize = 1.7 * img.columns / text.length
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        logo_text = logo_text.shade(true, 300, 30)
+        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
+      when 3
+        gc.pointsize = 1.5 * img.columns / (max_word_length text)
+        text = text.gsub(" ", "\\n")
+        gc.annotate(logo_text,0,0,0,0,text)
+        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
+      when 4
+        gc.pointsize = 1.5 * img.columns / (max_word_length text)
+        text = text.gsub(" ", "\\n")
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        logo_text = logo_text.shade(true, 300, 70)
+        auto_logo = logo_text
+      when 5
+        gc.pointsize = 1.5 * img.columns / (max_word_length text)
+        text = text.gsub(" ", "\\n")
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        logo_text = logo_text.shade(false, 300, 30)
+        blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#EBEBEB', '#BDD8EB'))
+        auto_logo = blank_bg.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
+    end
+    f.close
+    
+    # Finally, we store the new image in the temp path
+    auto_logo.write("png:" + background_generated)
   end
 end

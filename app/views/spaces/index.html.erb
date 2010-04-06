@@ -1,5 +1,5 @@
 <% content_for :javascript do  %>
-  
+  	
 	$("#space_filter").show();
 
 	$("input#spaces_all").click(function(){
@@ -27,6 +27,7 @@
 		  this.value="";
 		}
 	});
+
 
 	$("#space_name_filter").blur(function(){
 	  if(this.value == ""){
@@ -63,6 +64,14 @@
 	$(".unautorized a").fancybox({
     'hideOnContentClick' : false
   });
+  
+
+	
+	
+	
+	
+
+	
 	
 	<%if params[:space_id]=="my"%>
 	   $("input#spaces_my").click();

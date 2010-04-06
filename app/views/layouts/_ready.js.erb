@@ -2,9 +2,9 @@
  * Create new space
  */
 
-$("a.new_space_link").fancybox({
+$("Aa.new_space_link").fancybox({
   'hideOnContentClick' : false,
-	'frameHeight' : 410,
+	'frameHeight' : 500,
 	'frameWidth' : <%=logged_in? ? '300' : '560'%>,
 	'callbackOnShow' : function(){
     $(".mail_group_blinking:last").hide();
@@ -42,6 +42,13 @@ $("#create_and_register_link").livequery("click", function(){
 
 $("#mail_group").hide();
 
+  $("#show_icons").livequery("click", function(){
+	  $("#show_default_icons").show();
+	  $("#show_icons").hide();
+	  $(window).resize();
+	});
+
+
 $(".check_mail_blinking:last input:mail").livequery("click", function(){
   if($(this).attr("checked")){
 		$(".mail_group_blinking:last").show();
@@ -53,6 +60,9 @@ $(".check_mail_blinking:last input:mail").livequery("click", function(){
 	$("#fancy_outer").height($(".create_space_blinking:last").height() + 50);
 	$(window).resize();
 });
+
+
+
 
 /*
  * Join space
