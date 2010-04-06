@@ -50,16 +50,23 @@ class Agenda < ActiveRecord::Base
   end
     
   def contents_for_day(i)
-    contents.all(:conditions => [
+    if start_date
+      contents.all(:conditions => [
                    "start_time >= :day_start AND start_time < :day_end",
                      {:day_start => start_date.to_date + (i-1).day,
                      :day_end => start_date.to_date + i.day} ],
                   :order=>'start_time ASC, type ASC'
                  ).each{|content| content.reload}
+    else
+      return Array.new
+    end
   end
   
   #returns the hour of the last agenda_entry
   def last_hour_for_day(i)
+    if start_date.nil?
+      return Time.now
+    end
     ordered_entries = contents.all(:conditions => [
                    "start_time >= :day_start AND start_time < :day_end",
                      {:day_start => start_date.to_date + (i-1).day,
