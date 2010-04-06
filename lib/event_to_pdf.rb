@@ -41,22 +41,22 @@ module EventToPdf
     days.times do |i|
         
       date = (start_date+i.day).strftime("%A %d %b")
-
-      @entries = agenda.ordered_entries_and_dividers_for_day(i+1)
+      
+      #Array of entries and dividers.
+      @entries = agenda.contents_for_day(i+1)
     
       unless i == days or i == 0 or @entries.empty?
         pdf.start_new_page  
       end
  
+      #Array of entrie arrays and array who contains a single divider.
       @entries_array = fragment_entries(@entries)
        
-      heads = true;
-      heads_after_special_title = false;  
        
       @entries_array.each do |entries|
              
         if entries == @entries_array[0] and isSpecialTitle(entries[0])
-          #The first entrie in the day has a special title.
+          #The first entrie in the day has a special title. [Special case]
           pdf.fill_color!  Color::RGB::Black
           pdf.text "#{date}", :font_size => 14, :justification => :center
           heads = true;
@@ -69,25 +69,36 @@ module EventToPdf
           next_entry = []
           
           if(@entries_array[index_next_entry] != nil)
-            next_entry = @entries_array[index_next_entry]
+            next_entry = @entries_array[index_next_entry]         
             
-            if need_new_page(pdf,actual_entry,next_entry,false)
+            #Return the quantity of rows that fits in the actual page of the document.
+            nRows = getTableRows(pdf,actual_entry,next_entry,false)
+            
+            if nRows < 1
               pdf.start_new_page
-            end    
+            elsif nRows < next_entry.length
+              
+              entrie_fragment_a = []
+              entrie_fragment_b = @entries_array.delete_at(index_next_entry)
+              
+              nRows.times do |i|
+                entrie_fragment_a << entrie_fragment_b[i]
+                entrie_fragment_b.delete_at(i)    
+              end
+
+              @entries_array.insert(index_next_entry, entrie_fragment_a) 
+              @entries_array.insert(index_next_entry+1, entrie_fragment_b) 
+              
+            end  
             
           end      
           
           write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
           
-          if(entries == @entries_array[0])
-            heads = true;
-          else
-            heads = heads_after_special_title;
-          end
-          
-        else
-          generate_entrie_table(pdf,entries,nil,heads)
-          heads = heads_after_special_title;
+      else
+        
+        generate_entrie_table(pdf,entries,nil,true)
+        
         end
     
       end 
@@ -100,48 +111,66 @@ module EventToPdf
   
   private
   
-  
-  def need_new_page(pdf,actual_entry,next_entries,hasHour)
-    
-    unless isSpecialTitle(actual_entry) and next_entries[0].class == AgendaEntry
-      return false
-    end
-       
-    height_table = getFirstRowTableHeight(next_entries)
-    height_rectangle = getRectangleHeight(false,actual_entry)
-    
-    height_total = height_table + height_rectangle
-
-    bottom_space = pdf.y
-    margin_space = 20
-      
-    #Test if the special title fits in the page.
-    if height_total > (bottom_space - margin_space)
-      return true
-    else
-      return false
-    end
-
-  end
-  
-  def getFirstRowTableHeight(next_entries)
-    #Calculate the height of the first row and heads in the table.
-    
+  #Calculate the height of the table generate with the entries array.
+  def getTableHeight(entries)
+     
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
-    init_y = pdf_test.y 
-    
-    generate_entrie_table_test(pdf_test,next_entries,nil,false)
-    pdf_test.text " ", :font_size => 3 #Space added to the margin between special title and table.
-      
+    init_y = pdf_test.y   
+    generate_entrie_table(pdf_test,entries,nil,false)
     final_y = pdf_test.y
-    height_table = init_y - final_y 
+    height_table = init_y - final_y
+    
     return height_table
   end
   
+  #Calculate how many rows can be write in the actual page of the pdf document.
+  def getTableRows(pdf,actual_entry,next_entries,hasHour)
+    
+    unless isSpecialTitle(actual_entry) and next_entries[0].class == AgendaEntry
+      return nil
+    end
+    
+    bottom_space = pdf.y
+    margin_space = 20
+       
+    height_rectangle = getRectangleHeight(false,actual_entry)
+       
+    #Test if need a new page before print special title.
+    first_row_entrie = []
+    first_row_entrie << next_entries[0]  
+    height_table = getTableHeight(first_row_entrie)
+    height_total = height_table + height_rectangle
+    
+    if height_total > (bottom_space - margin_space)
+      return 0
+    end
+    
+    #Normal cases
+    
+    maxRow = 0 
+    entries_test = []
+    
+    next_entries.length.times do |i|
+      
+      entries_test << next_entries[i]
+      
+      height_table = getTableHeight(entries_test) 
+      height_total = height_table + height_rectangle
+  
+      if height_total < (bottom_space - margin_space)
+        maxRow = i+1
+      end
+     
+    end
+
+    return maxRow  
+
+  end
+  
+  #Calculate the height of the rectangle.
   def getRectangleHeight(hasHour,divider)
     
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
-    #Calculate the height of the rectangle.
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
     title_width = pdf_test.text_line_width(text_to_iso("#{divider.title}"), 18)  
     
@@ -182,26 +211,14 @@ module EventToPdf
   def isSpecialTitle(entry)
     return  !(entry.class == AgendaEntry)
   end
-  
-  #Returns a random boolean, only for test.
-  #trueProbability is a number in the range (0,100) (%)
-  def random_boolean(trueProbability)
-    
-    @random_boolean = false
-    num_aleat = rand(10)
 
-    if num_aleat > (9-(trueProbability/10))
-      @random_boolean = true
-    end
-    
-    @random_boolean
-    
-  end
-  
-  
+
   #Fragment the entries of one day.
-  #Returns a array of entries, i.e , a array of entrie arrays.
   #It used to fragment the inicial table of one day into two or more tables around the entries with special titles.
+  #Returns an array of entrie arrays and arrays that contains a single divider.
+  #Format example: {[Entrie_Array[]][Divider][Entrie_Array[]][Divider][Divider][Entrie_Array[]]]}
+  #An element that contains an array of entries its never preceded by another element that contains an array of entries too.
+  #An element that contains an array that contains a divider always have only one element.
   def fragment_entries(entries)
     
     array_entries = []
@@ -263,7 +280,6 @@ module EventToPdf
     tab.minimum_space = 50
     tab.shade_heading_color = Color::RGB.new(134,154,184)
     tab.shade_color = Color::RGB::Grey90
-#    tab.shade_color2 = Color::RGB::Black
     tab.text_color = Color::RGB::Black
 
     tab.column_order = ["col1","col2","col3","col4"]
@@ -313,72 +329,6 @@ module EventToPdf
   
   end
   
-  #Use to calculate the height of a future table.
-  def generate_entrie_table_test(pdf,entries,tab_title,heading)
-         
-    PDF::SimpleTable.new do |tab|
-    
-    if tab_title
-      tab.title = tab_title
-      tab.title_color = Color::RGB::Black
-      tab.title_font_size = 14
-      tab.title_gap = 8
-    end 
-
-    tab.row_gap = 3
-    
-    tab.show_lines =:all
-    tab.show_headings = heading
-    tab.bold_headings = true
-    tab.shade_headings  = true
-    tab.heading_font_size = 11
-    tab.orientation = :center
-    tab.position = :center
-    tab.minimum_space = 50
-    tab.shade_heading_color = Color::RGB.new(134,154,184)
-    tab.shade_color = Color::RGB::Grey90
-    tab.text_color = Color::RGB::Black
-
-    tab.column_order = ["col1","col2","col3","col4"]
-    
-    tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
-      |col| 
-      col.width = @c1_width
-      col.heading = "Hour"
-      col.heading.justification = :center 
-    }
-    
-    tab.columns["col2"] = PDF::SimpleTable::Column.new("col2") { 
-      |col| 
-      col.width = @c2_width
-      col.heading = "Title" 
-      col.heading.justification = :center   
-    }
-    
-    tab.columns["col3"] = PDF::SimpleTable::Column.new("col3") { 
-      |col| 
-      col.width = @c3_width
-      col.heading = "Speakers"
-      col.heading.justification = :center 
-    }
-    
-    tab.columns["col4"] = PDF::SimpleTable::Column.new("col4") { |col| 
-      col.width = @c4_width
-      col.heading = "Description" 
-      col.heading.justification = :center    
-    }
-    
-
-    data = []
-     
-    hour =  entries[0].start_time.strftime("%H:%M").to_s() + " to " + entries[0].end_time.strftime("%H:%M").to_s() 
-    add_row(tab,data,hour,entries[0].title,entries[0].speakers,entries[0].description)
- 
-    tab.render_on(pdf)
-
-    end
-  
-  end
   
   #Method to add a row in the table tab.
   def add_row(tab,data,hour,title,speakers,description)       
