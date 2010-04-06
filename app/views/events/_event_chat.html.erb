@@ -53,7 +53,7 @@
       username: "",
 			<% end -%>
 	    password: "8aa40001b9b39cb257fe646a561a80840c806c55--" + getCookie("<%=ActionController::Base.session_options[:key]%>"),
-	    roomJid: "<%=@event.permalink + "@" + current_site.chat_group_service_jid %>",
+	    roomJid: "<%="#{@event.permalink}@#{current_site.chat_group_service_jid}" %>",
 			connecting_message: "<%=t('chat.connecting_message')%>",
 			background_color: "#E1EEF5"
 	    //policyFileURL: "http://www.example.com/sub/dir/crossdomain.xml"
