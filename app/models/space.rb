@@ -72,6 +72,8 @@ class Space < ActiveRecord::Base
       }.each(&:save)
     end
   end
+  
+  
   after_create do |space|
     #puts space.default_logo + "  -000000000000000000000000000000000000"
     #logo = Logo.new
@@ -114,7 +116,7 @@ class Space < ActiveRecord::Base
  
   def logo_mi
     return unless @default_logo.present?
-      puts '-----------------' + @default_logo.to_s  + '*************************'
+      #puts '-----------------' + @default_logo.to_s  + '*************************'
   end
 
   
