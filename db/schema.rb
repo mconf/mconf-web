@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405132757) do
+ActiveRecord::Schema.define(:version => 20100406081706) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -315,8 +315,8 @@ ActiveRecord::Schema.define(:version => 20100405132757) do
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
     t.text     "signature"
-    t.string   "presence_domain"
-    t.string   "chat_group_service_jid"
+    t.string   "presence_domain",               :default => "sir.dit.upm.es "
+    t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
   end
 
   create_table "source_importations", :force => true do |t|
