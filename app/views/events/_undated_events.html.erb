@@ -1,0 +1,6 @@
+<div id="events_content">
+  <h3><%= t('event.undated.title') %></h3>	  
+	<div id="undated_div">
+	  <%= render :partial => 'events_group', :locals => {:events_group => @undated_paginated_events, :message => t("event.upcoming.today")} %>
+    </div>
+</div>

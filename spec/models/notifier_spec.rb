@@ -12,7 +12,9 @@ describe Notifier do
     @unregistered_user_email = "unregistered@example.com"
     
     @admin.profile.update_attributes Factory.attributes_for(:profile)
+    @admin.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
     @registered_user.profile.update_attributes Factory.attributes_for(:profile)
+    @registered_user.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
     @event.update_attribute(:space, @space)
     @event.update_attribute(:author, @admin)
 
@@ -85,7 +87,7 @@ describe Notifier do
       params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => @unregistered_user_email}
       invitation = @event.invitations.build params
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
       # Check the subject content
@@ -111,7 +113,7 @@ describe Notifier do
       params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => @registered_user.email}
       invitation = @event.invitations.build params
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
       # Check the subject content
@@ -134,10 +136,10 @@ describe Notifier do
   end
   
   describe "in the event notification email" do
-    it "it should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
+    it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
 
       # Build the notification
-      msg = I18n.t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
+      msg = I18n.t('event.notification.message_beginning_with_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
         I18n.t('event.notification.message_ending' ,:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       @event.update_attribute(:notify_msg, msg)
       Informer.deliver_event_notification(@event,@registered_user)
@@ -182,7 +184,7 @@ describe Notifier do
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
       ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
       ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
       ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
@@ -211,10 +213,63 @@ describe Notifier do
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
       ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
       ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
       ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
+
+    end
+
+  end
+
+  describe "in the space join request email" do
+
+    it "should include the candidate's name, the name of the space, the URL of the admissions of the space and the signature of the site" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      
+      # Check the content of the subject
+      ActionMailer::Base.deliveries.first.subject.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
+      
+      # Check the content of the body
+      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+      ActionMailer::Base.deliveries.first.body.should include_text(Site.current.signature_in_html)
+
+    end
+
+  end
+
+  describe "in the processed join request email" do
+    
+    it "should include whether the request has been accepted or not and the name and URL of the space" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      jr.update_attributes(:accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
+      action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+      
+      # Check the content of the subject
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      
+      # Check the content of the body
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
 
     end
 
@@ -223,7 +278,9 @@ describe Notifier do
   after(:each) do 
     #remove all the stuff created
     @space.destroy
+    @event.destroy
     @admin.destroy
     @registered_user.destroy
   end
+
 end

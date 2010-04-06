@@ -3,7 +3,7 @@ Factory.define :profile do |p|
   p.organization "dit"
   p.city "madrid"
   p.country "spain"
-  p.prefix "Mr."
+  p.prefix_key "Mr."
   p.description "This is my description."
   p.url "http://website.example.com"
   p.skype "myskypename"

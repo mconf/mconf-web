@@ -107,7 +107,7 @@
 
 <div id="change-event">
 	
-  <h3><div id="help" title=<%=h(t('event.help.create'))%>></div><%= t('event.create.title') %></h3>
+  <h3><div id="help" title="<%=h(t('event.help.create'))%>"></div><%= t('event.create.title') %></h3>
   <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
     <div>
       <strong><span>1. <%= t('event.basic_info')%></span></strong><br/>
@@ -120,30 +120,17 @@
     </div>
   
     <div>
-      <label for="Organizer"><%= t('organizer') %>:</label>
-      <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+      <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
+      <%=select(:organizers, :name, @space.users.map{|u| u.full_name}, {}, {:multiple=>"multiple"})%>
     </div>
     <div>
       <label for="Location"><%= t('event.location') %>:</label>
       <%= f.text_field :location, :size =>25  %>
-    </div>
-    <div class="margin-up">
-      <strong><span>2. <%= t('event.select_date')%></span></strong>	
-    </div>
-    <div id="expanded_date">
-      <div class="no_javascript">
-        <ul>
-          <li><%= t('date.start') %></li>
-          <li><%=f.datetime_select :start_date%></li>
-          <li><%= t('date.end') %></li>
-          <li><%=f.datetime_select :end_date%></li>
-        </ul>
-      </div>
-    </div>
+    </div>    
     <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(:in_person) %>
     <div id="extra-info"  style="display:none">
       <div class="margin-up">
-        <strong><span>3. <%= t('event.enable.participation')%></span></strong>	
+        <strong><span>2. <%= t('event.enable.participation')%></span></strong>	
       </div>
       <div class="checkbox_event">
         <%=f.check_box :isabel_interface,:class=>"icon", :checked => true  %>

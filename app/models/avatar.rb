@@ -27,6 +27,7 @@ class Avatar < Logo
                  :content_type => :image,
                  :thumbnails => {
                    '256' => '256x256>',
+                   '200' => '200x200>',
                    '128' => '128x128>',
                    '96' => '96x96>',
                    '72' => '72x72>',

@@ -1,0 +1,51 @@
+<% content_for :javascript do%>
+
+<%if @event.authorize?(:update, :to => current_user)%> 
+  $('#streaming_url_value').editable('<%=space_event_path(@space, @event)%>',{
+        method : 'PUT',
+	tooltip   : '<%= t('dblclick')%>',
+        cancel    : '<%= t('cancel')%>',
+		onblur : 'ignore',
+        submit    : '<%= t('ok')%>',
+        indicator : '<img src="ui/icons/accept.png" />',
+        placeholder: '<%=t("event.streaming.none")%> <%=link_to_function t('event.streaming.add'), "edit_streaming()", :id => "add_streaming_link"%>',
+        type      : 'textarea',
+        name : 'event[other_streaming_url]',
+	width : 635,
+	height: 150,
+	event     : "dblclick",
+        submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+   });
+	 
+   $('#streaming_url_value form input').livequery("blur",function(){
+     $('#edit_streaming_icon').show();
+   });
+   
+   edit_streaming = function(){
+     $('#streaming_url_value').dblclick();
+   };
+<%end%>
+
+
+<%end%>
+   
+<div id="streaming_url" class="margin-up main_text">
+  
+    <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
+    <div id="streaming_title"><h3 class="blue">
+	<%if @event.is_happening_now?%>
+	  <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	  <%=t('event.streaming.title')%>
+	<%else%>
+	  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	  <%=t('event.streaming.will_be_available')%>
+	<%end%>
+    </h3></div>
+  <div id="streaming_content">
+  	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+	    <%=t("event.streaming.none")%>
+	<%else%>
+      <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
+	<%end%>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <title><%= yield(:title) || current_site.name %></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    
+    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+		
+    <!--[if IE]> 
+    <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+    <![endif]-->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf('Mac') != -1) { 
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      }
+    </script>
+
+    <%= javascript_include_tag 'jquery', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application' %>
+    <%= yield :headers %>
+    
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+	<%= render :partial => 'layouts/ready.js.erb' %>
+        <%= yield :javascript %>
+      })
+    </script>
+    
+  </head>
+
+	<body>
+	  <div id="site">
+		  <%= render :partial => "layouts/global" %>
+
+		  <div id="space">
+		    	
+			  <div id="profile_header">
+          <%= yield :header %>
+        </div>
+
+		    <div id="content">		      	      				
+					<div id="main">
+		        
+						<%= render :partial => "layouts/menu" %>
+		        
+						<div id="profile_wrapper">		
+	     		    <%= yield %>
+			      </div>
+			    </div>
+      
+		      <div id="sidebar">
+		        <%= yield :sidebar %>
+          </div>
+        </div>
+	  <%= render :partial => "layouts/footer" %>  
+	  </div>
+	  
+
+	  </div>
+		<%if current_site.domain == "vcc.dit.upm.es"%>
+			<script type="text/javascript">
+				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+				try {
+					var pageTracker = _gat._getTracker("UA-12096965-1");
+					pageTracker._trackPageview();
+				} catch(err) {}
+			</script>
+		<%end%>
+	</body>
+</html>

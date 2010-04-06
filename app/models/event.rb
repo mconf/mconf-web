@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :posts
-  has_many :participants
+  has_many :participants, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
   
@@ -36,10 +36,10 @@ class Event < ActiveRecord::Base
   acts_as_content :reflection => :space
   acts_as_taggable
   acts_as_stage
-  acts_as_container :content => :agenda
+  acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
-  validates_presence_of :name, :start_date , :end_date,
-                          :message => "must be specified"
+  validates_presence_of :name,
+                        :message => "must be specified"
   
   # Attributes for jQuery selectors
   attr_accessor :end_hour
@@ -70,16 +70,16 @@ class Event < ActiveRecord::Base
 
 
    def validate
-    if start_date.to_date.past?
-      errors.add_to_base(I18n.t('event.error.date_past'))
-    end
-    if self.start_date.nil? || self.end_date.nil? 
-      errors.add_to_base(I18n.t('event.error.omit_date'))
-    else
-      unless self.start_date < self.end_date
-        errors.add_to_base(I18n.t('event.error.dates1'))
-      end  
-    end
+#    if start_date.to_date.past?
+#      errors.add_to_base(I18n.t('event.error.date_past'))
+#    end
+#    if self.start_date.nil? || self.end_date.nil? 
+#      errors.add_to_base(I18n.t('event.error.omit_date'))
+#    else
+#      unless self.start_date < self.end_date
+#        errors.add_to_base(I18n.t('event.error.dates1'))
+#      end  
+#    end
     if self.marte_event? && ! self.marte_room?
       #check connectivity with Marte
       begin
@@ -177,9 +177,11 @@ class Event < ActiveRecord::Base
       }.each(&:save)
     end
     if event.notification_ids
-      event.notification_ids.each { |user_id|
-        user = User.find(user_id)
-        Informer.deliver_event_notification(event,user)
+      event.notification_ids.each { |participant_id|
+        participant = Participant.find(participant_id)
+        if event.participants.include? participant
+          Informer.deliver_event_notification(event,participant.user)
+        end
       }
     end
     if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
@@ -229,40 +231,19 @@ class Event < ActiveRecord::Base
   
    #return the number of days of this event duration
   def days
-    (end_date.to_date - start_date.to_date).to_i     
-  end
-  
-  
-  #returns the day of the agenda entry, 0 for the first day, 1 for the second day, ...
-  def day_for(agenda_entry)
-    return agenda_entry.start_time.to_date - start_date.to_date
-  end
-  
-  
-  #returns the hour of the last agenda_entry
-  def last_hour_for_day(day)
-    ordered_entries = agenda.agenda_entries_for_day(day).sort{|x,y| x.end_time <=> y.end_time }
-    unless ordered_entries.empty?
-      ordered_entries.last.end_time
+    if has_date?
+      (end_date.to_date - start_date.to_date).to_i + 1
     else
-      if (start_date + day.days).day == Time.now.day
-        Time.now
-      else
-        self.start_date + day.days + 9.hour
-      end  
-    end  
+      return 0
+    end
   end
   
-  
-  def entries_ordered_by_date
-    agenda.agenda_entries.sort{|x,y| x.end_time <=> y.end_time}  
-  end
-  
-  
+    
   #method to syncronize event start and end time with their agenda real length
+  #we have to take into account the timezone, because we are saving the time in the database directly
   def syncronize_date
-     self.start_date = entries_ordered_by_date.first.start_time
-     self.end_date = entries_ordered_by_date.last.end_time
+     self.update_attributes({:start_date => agenda.recalculate_start_time,
+                             :end_date => agenda.recalculate_end_time})
   end
   
   
@@ -297,21 +278,22 @@ class Event < ActiveRecord::Base
   #method to know if this event is happening now
   def is_happening_now?
      #first we check if start date is past and end date is future
-     if start_date.past? && end_date.future?
-       #now we check the sessions
-       agenda.agenda_entries.each do |entry|
-         return true if entry.start_time.past? && entry.end_time.future?
-       end  
+     if has_date? && start_date.past? && end_date.future?
+       true      
      else
        return false
      end
   end
     
     
-  #method to know if this event is happening now
+  #method to know if this event has any session now
+  def has_session_now?
+     get_session_now
+  end
+  
   def get_session_now
-     #first we check if start date is past and end date is future
-     if !start_date.future? && end_date.future?
+    #first we check if start date is past and end date is future
+     if is_happening_now?
        #now we check the sessions
        agenda.agenda_entries.each do |entry|
          return entry if entry.start_time.past? && entry.end_time.future?
@@ -322,49 +304,35 @@ class Event < ActiveRecord::Base
   
   #method to know if an event happens in the future
   def future?
-    return start_date.future?    
+    return has_date? && start_date.future?    
   end
   
   
   #method to know if an event happens in the past
   def past?
-    return end_date.past?
+    return has_date? && end_date.past?
   end
   
+  
+  def has_date?
+    start_date
+  end
   
   def get_attachments
     return Attachment.find_all_by_event_id(id)
   end
   
   #method to get the starting date of an event in the correct format
-  #the problem is that the starting hour comes from the agenda
   def get_formatted_date
-    if agenda.present? && agenda.agenda_entries.count>0
-      first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
-      #check that the entry is the first day
-      if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
-        return I18n::localize(first_entry.start_time, :format => "%A, %d %b %Y") + " " + I18n::translate('date.at') + " " + first_entry.start_time.strftime("%H:%M") + " (GMT " + Time.zone.formatted_offset + ")"
-      else
-        return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
-      end
-    end
-    return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
+    has_date? ?
+      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M (GMT #{Time.zone.formatted_offset})") :
+      I18n::t('date.undefined')       
   end
   
   
   #method to get the starting hour of an event in the correct format
-  #the problem is that the starting hour comes from the agenda
   def get_formatted_hour
-    if agenda.present? && agenda.agenda_entries.count>0
-      first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
-      #check that the entry is the first day
-      if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
-        return first_entry.start_time.strftime("%H:%M")
-      else
-        return ""
-      end
-    end
-    return ""
+    has_date? ? start_date.strftime("%H:%M") : I18n::t('date.undefined')  
   end
   
   
@@ -411,6 +379,13 @@ class Event < ActiveRecord::Base
       cm_event.try(:isabel_url) 
   end
   
+  def is_in_person?
+    vc_mode == Event::VC_MODE.index(:in_person)
+  end
+  
+  def is_virtual?
+    !is_in_person?
+  end
   
   #Return  a String that contains a html with the video of the Isabel Web Gateway
   def web(width, height)

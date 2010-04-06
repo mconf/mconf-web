@@ -126,7 +126,7 @@ en:
       one: " file selected"
       other: " files selected"
     updated: "Attachment updated successfully"
-    upload_with_post: "Notify the upload with a post"
+    upload_with_post: "Notify the upload with a message in the wall"
   avatar:
     created: "Picture uploaded successfully"
     crop: "Crop your picture"
@@ -134,7 +134,7 @@ en:
     empty: "Select picture, please"
     select: "Select picture"
     select_new: "Select new picture"
-    upload: "Upload Picture"
+    upload: "Upload picture"
   
   ######### B ###########
   back: "Back"
@@ -162,10 +162,12 @@ en:
   caption:
     add: "Add a caption"
   change: "Change"
+  change_pic: Change picture
   changed_mind: "Changed your mind?"
   chat:
     edit_question: "Would you like to enable chat?"
     edit_enabled: "Enable chat at next login"
+    connecting_message: "Connecting to event chat..."
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
@@ -202,6 +204,7 @@ en:
       long: "%B %d, %Y"
     start: "Start date"
     at: "at"
+    undefined: "Undefined"
   days: "Days"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
@@ -248,7 +251,7 @@ en:
   edit_your_profile: "Edit your profile"
   e-mail:
     account_activated: "Your account at {{sitename}} has been activated successfully."
-    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
+    url_activated: "You can now login to your account with your email \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
     commas: "(separated by commas)"
     confirm: "You need now to confirm your registration by clicking on <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
@@ -283,6 +286,8 @@ en:
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
   event:
+    action:      
+      select: "Action"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -291,13 +296,21 @@ en:
     assistants_none: "Nobody has confirmed yet"
     attend: "Attending"
     basic_info: "Introduce basic information"
+    button:
+      attevents: "Attending events"
+      atteventstitle0: "Events that you have confirmed your attendance"
+      atteventstitle1: "You have not confirmed your attendance to any event"      
+      myevents: "My events"
+      myeventstitle0: "Events you have created"
+      myeventstitle1: "You haven't created any event"
     choose_location: "Choose location"
     colon: "Event:"
     connection:
       info: "Connection info for this event"
       isabel: "Isabel server"
       sip: "Proxy SIP"
-      web: "Web client"
+      str: "Streaming"
+      web: "Participation"
     create:
       info: 
         basic: "Here you can organize three kind of events"
@@ -343,15 +356,16 @@ en:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     help:
+      book: "Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda."
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
-      define2: " define a schedule "
-      define3: "in your agenda to get web participation and streaming."
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
-      now: "Now you can"      
+      now: "Now you can"   
+      organisers: "Select the space users that will organise this event"
+      without_str: "To get streaming and/or recording, please indicate it in your schedule"   
     invite: "Invite people"
     Isabel: "Isabel event"
     join: "Join this event"
@@ -359,7 +373,7 @@ en:
     last_month: "Last month ({{size}})"
     location: "Location"
     logo:
-      button: Change logo
+      button: "Change logo"
       created: "Event logo successfully created"
       crop: "Select what part of the image to crop"
       new: Add a picture for your event
@@ -386,7 +400,8 @@ en:
       label: "Customise your notification message"
       legend:
         name: "'Name' will be replaced in the message by the receiver's name."
-      message_beginning: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
+      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
+      message_beginning_whithout_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
       message_ending: "<p>You can find more information about the event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Send a notification to the attendants"
       personal: "Write your personal text here."
@@ -399,6 +414,13 @@ en:
     one: "Event"
     other: "Events"
     online: "WebConference"
+    participation:
+      add: "Add one."
+      title: "Participation "
+      edit: "Edit web client code"
+      none: "No one has posted any participation url." 
+      ready: "The participation is booked. It will be available during the event"
+      will_be_available: "The participation will be available during the event"
     past:
       all: "All past ({{size}})"
       none: "No past events"
@@ -419,10 +441,11 @@ en:
       title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    session_now: "Session now"
     spam: "Spam in events"
     streaming: 
       add: "Add one."
-      title: "Streaming"
+      title: "Streaming session"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
       ready: "The streaming is booked. It will be available during the event"
@@ -432,6 +455,10 @@ en:
     today_size: "Today ({{size}})"
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
+    undated:
+      none: "There are no events without agenda"
+      show: "Show all undated events"
+      title: "Events without agenda defined"
     updated: "Event updated successfully"
     upcoming:
       all: "All upcoming ({{size}})"
@@ -443,8 +470,13 @@ en:
       next_month: "There are no events for next month"
     video_part: Web participation
     view_agenda: "Agenda"
+    view_participation: "Participation"
+    view_participation_disabled: "Participation available during event"
     view_repo: "Repository"
     view_recordings: "Recordings"
+    view_recordings_disabled: "There are no recordings yet"
+    view_streaming: "Streaming"
+    view_streaming_disabled: "Streaming available during the event"
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days ({{size}})"
     within_a_month: "Within a month ({{size}})"
@@ -482,6 +514,8 @@ en:
   find:
     browse: "Browse"
   find_in: "Find in:"
+  find_in_day: "Find in day:"
+  find_in_name_speakers: "Find in name/speakers:"
   form:
     loading: "The form is loading..."
   from: "From"
@@ -539,9 +573,10 @@ en:
     not_found: "hCard not found"
   hello: "Hello"
   help: "Help"
+  help_support: "Help & Support"
   help_title:
     about_vcc: "About VCC"  
-    create_post: "Creating a Post"    
+    create_post: "Creating a Message in the wall"    
     create_space: "Creating a Space"    
     create_user: "Creating a User"
     info: "Here you can find information about the VCC"
@@ -550,13 +585,13 @@ en:
     topics: "Topics"
   help_index:
     part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Politécnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
-    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating posts to communicate with other participants in the space or upload documents or photographs to be shared."
+    part2: "The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating messages in the wall to communicate with other participants in the space or upload documents or photographs to be shared."
     part3: "To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>."
   help_createpost:                  
-    part1: "To create a post in VCC:"
-    part2: "1. Click on <b>Post</b> tab."    
-    part3: "2. You can <b>Add a new thread</b> on the right side of the page."    
-    part4: "3. Type a title and comment for your post."
+    part1: "To create a message in the wall in VCC:"
+    part2: "1. Click on <b>WALL</b> tab."    
+    part3: "2. You can <b>Create a new message</b> on the right side of the page."    
+    part4: "3. Type a title and comment for your message."
     part5: "4. Click on <b>Add attachment</b> link to enclose a file."
     part6: "5. Click on <b>Choose file</b> to browse and find the file you want to attach."
     part7: "6. You can add tags to your file. Tags allow you to find files easily.  Press enter to confirm each tag."
@@ -567,7 +602,7 @@ en:
     part12: "c. Insert/Edit links."
     part13: "d. Add attachments"
     part14: "e. Tags files"
-    part15: "9. Finally, click on <b>Send</b> button to create your post."    
+    part15: "9. Finally, click on <b>Send</b> button to put your message in the wall."    
   help_createspace:
     part1: "To create a space in VCC:"
     part2: "1. Click on <a href={{url}}> My Home </a> item from the top menu bar."    
@@ -584,7 +619,7 @@ en:
     part5: "4. Once you have completed your registration, click on Done button."
     part6: "5. After registering for an account, you will receive an email confirmation with the link in order to activate your account."                      
   help_logging:
-    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your username and password at the main screen."
+    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your email and password at the main screen."
     part2: "You can login automatically if you have an account with an OpenID provider."
     part3: "If you have forgotten your password you can use this form to recover it and have it automatically emailed to you."
   help_newdoc:
@@ -594,7 +629,7 @@ en:
     part4: "3. Click on <b>Choose file</b> on the right side of the page."
     part5: "4. Once your file is selected, click on Open button."
     part6: "5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag."
-    part7: "6. If you want to <b>notify</b> the document with a post, choose this option."
+    part7: "6. If you want to <b>notify</b> the document with a message in the wall, choose this option."
     part8: "7. Finally, click on <b>Upload</b> button to add the file to the repository."                              
   hide: "Hide"
   his_message_reads_thus: "His message reads thus"
@@ -622,10 +657,13 @@ en:
     importMessage2: " were read from your iCalendar."
     importMessage3: " of them were saved or updated correctly."
     report: "Report: "
-  im: "Instant Messaging"
+  im: "IM"
   inbox: 
     one: "Inbox ({{checked}})"
     my: "My Inbox ({{checked}})"
+  internet: 
+    ppal: Internet
+    on_the: On the Internet
   invitation:
     accepted: "You have accepted the invitation"
     access_space: "You are now a member of {{spacename}} and now you can access it on {{space_url}}"
@@ -643,10 +681,14 @@ en:
       name: "'Name' will be replaced in the message by the receiver's name."
       URL: "'URL' will be replaced in the message by the URL of the invitation."
     logout_and_reload: "You are not the user that received this invitation, please logout and try again"
-    message:
-      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_with_start_date:
+      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a></p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_without_start_date:
+      in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a></p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href='event_url'>event_url</a> </p><p>If you believe this message is a spam, please <a href=\"mailto:{{contact}}\"> contact us </a> or send us <a href=\"{{feedback}}\"> feedback.</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     message_title: "Invite people to join your space"
     not_created: "could not be invited to this space because it already belongs to it"
     not_created_2: "could not be invited to this space because he/she has already been invited"
@@ -682,8 +724,8 @@ en:
   Isabel: "Isabel"
   information:
       information1: "These are the spaces you belong to"
-      information2: "Here you can find the newest posts, events and news of the spaces you belong to"
-      information3: "These are the latest posts or events that you have created"
+      information2: "Here you can find the newest messages, events and news of the spaces you belong to"
+      information3: "These are the latest messages or events that you have created"
       information4: "These are the spaces you belong to"
       info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
       
@@ -691,15 +733,19 @@ en:
   join: "Join"
   join_request:
     already_sent: "You have already requested to join this space"
-    asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you."
+    asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you:"
+    asked_anonymous: "Someone wants to participate in {{space}} space administered by you:"
     ask_subject: "{{candidate}} wants to participate in {{space}}"
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
+    label: "Customise your join request message"
+    message_title: "Send a join request to the administrators of the space"
     not_logged_in: "You need to be logged in to send a join request"
     not_pending: 
       other: "There are no pending join requests"
     pending:
       other: "Pending join requests"
+    personal: "Write your personal text here."
     send: "Send join request"
     to_accept: "To answer the request please visit <a href={{url}}>{{url}}</a>"
 
@@ -717,6 +763,7 @@ en:
   login: "Login"
   login_traditional: "User/Password login"
   login_request: "You need to be logged in to "
+  login_or_register: "Login / Register"
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
@@ -743,7 +790,7 @@ en:
     other: "Messages"
     private:
       editing: "Editing private message"
-      new: "New private message"
+      new: "Private message"
       none: "There are no messages"
       cant: "You cannot send private messages because you have no partners in any space"
     reply: "Reply to message"
@@ -777,7 +824,7 @@ en:
     publish_another: "Publish another news item"
     publish_home: "Publish news item at home"
   next: "Next"
-  no_messages_in_forum: "There are no messages in this forum"
+  no_messages_in_wall: "There are no messages in the wall"
   no_tags_found: "No tags found"
   not_going: "I do not plan to attend"
   now!: "Now!"
@@ -791,9 +838,10 @@ en:
     have: "Do you have an OpenID? Click on the logo!"
     login: "Login with OpenID"
   or: "or"
-  organization: "Organisation"
+  organization: "Organization"
   organizer: "Organisers"
   or_use_email: "or use your email..."
+  other: "Other"
   
   ######### P ###########
   past: "Past"
@@ -816,11 +864,13 @@ en:
     updated: "User performance updated successfully"
   permission:
     other: "Access rights"
+  per_page: "per page"
   personal_information: "Personal information"
   phone:
     landline: "Telephone"
     mobile: "Mobile"
     one: "Phone"
+    plural: Telephones
   phone_optional: "Phone (optional)"
   photos: "Pictures"
   photos_view>>: "pictures view >>"
@@ -828,28 +878,30 @@ en:
   please: "Please"
   popularity: "Popularity"
   post:
-    created: "Post created"
-    deleted: "Post {{postname}} has been deleted"
+    created: "Message created"
+    deleted: "Comment {{postname}} has been deleted"
     error:
       not_valid: "The comment is not valid"
-      empty: "The post cannot be empty"
+      empty: "The message cannot be empty"
     found:
-      none: "No posts found"
-      one: "1 post was found"
-      other: "{{size}} posts were found"
+      none: "No messages found"
+      one: "1 message was found"
+      other: "{{size}} messages were found"
       show_all: "Show all the results"
     home:
-      one: "Post in space {{space}}"
-    latest: "Latest posts"
-    none_created: "No post created"
-    none_recent: "There are no recent posts"
-    one: "Post"
-    other: "Posts"
-    other_in_space: "Posts in space {{space}}"
-    updated: "Post updated"
-    show_expanded_pref: "How would you like to see your posts?"
+      one: "Message in space {{space}}"
+    latest: "Latest messages"
+    none_created: "No message created"
+    none_recent: "There are no recent messages"
+    one: "Message"
+    other: "Messages"
+    other_in_space: "Messages in space {{space}}"
+    show_expanded_pref: "How would you like to see your messages?"
+    updated: "Message updated"
+    wall: "Wall"
   preferences: "Preferences"
   previous: "Previous"
+  privacy: "Privacy"
   private: "Private"
   private_message:
     send: "Send private message"
@@ -857,6 +909,8 @@ en:
     one: "Profile"
     created: "Profile created successfully"
     deleted: "Profile deleted successfully"
+    description:
+      add: "Write something about you"
     error:
       exist: "Your profile already exists"
     hcard:
@@ -869,6 +923,7 @@ en:
     should_create: "You should <a href={{path}}> create</a>  your profile. It is very useful."
     updated: "Profile updated successfully"
     visibility: "Visibility"
+    visibility_edit: "Edit your profile visibility"
     visibility_everybody: "Everyone can see your private profile."
     visibility_members: "Only registered members can see your private profile." 
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
@@ -904,7 +959,9 @@ en:
     one: "repository"
     add_document: "Add new document"
     download: "Download"
+    need_javascript: "Please, active javascript to enjoy document repository"
     remove: "Remove"
+    search: "Document Search:"
     add_tags: "Add Tags"
     rem_tags: "Remove Tags"
   request:
@@ -926,6 +983,8 @@ en:
   RSS: "RSS"
   
   ######### S ###########
+  save: Save
+  save_ch: Save changes
   search:
     advanced: "Advanced search"
     attachments:
@@ -934,7 +993,7 @@ en:
     between_dates:
       attachments: "Search only attachments updated between two dates"
       events: "Search only events held between two dates"
-      posts: "Search only posts updated between two dates"
+      posts: "Search only messages updated between two dates"
     dots: "Search..."
     events:
       advanced: "Advanced events search"
@@ -947,8 +1006,8 @@ en:
     one: "Search"
     parameters: "Query string too sort"
     posts:
-      dots: "Search posts..."
-      no_dots: "Search posts"
+      dots: "Search messages..."
+      no_dots: "Search messages"
     results: "Search results"
     space:
       dots: "Search space..."
@@ -971,6 +1030,7 @@ en:
     signature: "Signature"
     domain: "Application Domain"
     presence_domain: "Presence Domain"
+    chat_group_service_jid: "Event Chat Group Service"
   size: Size
   skype: Skype
   source:
@@ -1051,6 +1111,7 @@ en:
     reported: "{{name}} has reported spam in {{sitename}}"
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
+  street: Street
   subject: "Subject"
   support:
     one: "Support"
@@ -1076,15 +1137,19 @@ en:
   thank_you: "Thank you"
   the_string: "the string"
   thread:
-    add: "Add a new thread"
-    deleted: "Thread has been deleted"
-    edit: "Edit thread"
+    add: "Create new message"
+    compact_view: "Switch to compact view"
+    deleted: "Message (with its comments) has been deleted"
+    edit: "Edit message"
+    extended_view: "Switch to extended view"
     one: "Thread"
-    or_add_new: "or add a new thread"
+    or_add_new: "or create a new message"
     other: "Threads"
+    see_less: "Want to compress all messages?"
+    see_more: "Want to see more about the messages?"
     show_last_comment: "Showing last {{size}} comments of {{children}}"
-    show_one_only_comment: "Showing the single comment of the thread"
-    show_comment_size: "Showing the {{size}} comments of the thread"
+    show_one_only_comment: "Showing the single comment to the message"
+    show_comment_size: "Showing the {{size}} comments to the message"
   time:
     end: "End time"
     start: "Start time"
@@ -1092,6 +1157,10 @@ en:
     one: "Timezone"
     set_up: "You have not set up your time zone. <a href=\"{{path}}\">Set it up now</a>"
   title: "Title"
+  title_formal:
+    mr: "Mr."
+    ms: "Ms."
+    mrs: "Mrs."
   to: "to"
   to_configure_your: "to configure your"
   today: "Today"
@@ -1108,12 +1177,14 @@ en:
   type: "Type"
   
   ######### U ###########
+  undated: "Undated"
   unknown_content: "Unknown content {{content}}"
   upcoming: "Upcoming"
   update: "Update"
   updated: "Updated"
   updated_time_ago: "{{time}} ago"
   url: "Website"
+  url_add: Add your Website
   url_plain: "URL"
   user:
     active:
@@ -1156,7 +1227,7 @@ en:
     list_by: "List by"
     login: "Login"
     lost_password: "Have you lost your password?"
-    noactivity: "User has no recent activity"
+    noactivity: "{{user}} has no recent activity"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"    
@@ -1184,7 +1255,7 @@ en:
     timezone: "Timezone"
     updated: "User updated successfully"
     vcc_email: "VCC user e-mail {{dir}}"
-    view_expanded_posts: "Show posts' expanded view by default"
+    view_expanded_posts: "Show messages in wall with the expanded view by default"
     without_group: "People without group"
   username: "Username"
     

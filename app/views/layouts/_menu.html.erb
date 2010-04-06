@@ -3,7 +3,7 @@
 <div id="menu">
   <ul>
     <li><%= link_to t('home.one').upcase, space_path(space), menu_options(:home) %></li>
-    <li><%= link_to t('post.other').upcase, space_posts_path(space), menu_options(:posts) %></li>
+    <li><%= link_to t('post.wall').upcase, space_posts_path(space), menu_options(:posts) %></li>
     <li><%= link_to t('event.other').upcase, space_events_path(space), menu_options(:events) %></li>
     <li><%= link_to(t('people').upcase, space_users_path(space), menu_options(:people)) if space.authorize?([:read, :performance], :to => current_user) %></li>
 	<li><%= link_to(t('repository.one').upcase, space_attachments_path(space), menu_options(:repository)) if space.repository?%></li>

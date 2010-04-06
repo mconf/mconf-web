@@ -1,47 +1,109 @@
+<% content_for :javascript do%>
+  <%= render :partial => 'logos/crop_logo.js.erb',:locals => { :url_form => precrop_user_avatar_path(@profile.user),:aspect_ratio => Avatar::ASPECT_RATIO } %>
+
+  $("#change_pic").click(function(){
+	 $("#update_logo").show()
+	});
+	
+	$("#vcard_use").click(function(){
+   $("#upload_vcard").show()
+  });
+
+  $("#update_logo .close_pic").click(function(){
+   $("#update_logo").hide()
+  });
+  
+  $("#upload_vcard .close_vcard").click(function(){
+   $("#upload_vcard").hide()
+  });
+	
+<% end %>
+
 <% content_for :headers do%>
   <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
 <%end%>
 
-<% content_for :javascript do%>
-  <%= render :partial => 'logos/crop_logo.js.erb',
-             :locals => { :url_form   => precrop_user_avatar_path(@profile.user),
-                          :aspect_ratio => Avatar::ASPECT_RATIO
-                        } %>
-<% end %>
+<% content_for :header do%>
+	<div id="profile_edit_title">
+	  <h2 class="blue"><%=t('edit_your_profile')%></h2>
+	</div>
+	
+	<div id="search">
+	  <%= render :partial => 'search/form' %>
+	</div>
+	
+	<span class="triangle_css"></span>
+<%end%>
+
 
 <% content_for :sidebar do  %>
-   <div id="update_logo" class="update_logo">
-    <%if @profile.logo%>
-      <h3><%= t('avatar.current') %></h3>
-      <p><%=logo(@profile.logo, :size => 64)%></p>
-      <%end%>
-		<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
-    <% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
-      <p><%= f.file_field :media, :id => 'logo_media' %></p>		
-      <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-    <%end%>
-  </div>
-  
-  <div id="upload_vcard" class="margin-up">
-	<h3><%=t("vCard.use")%></h3>
-    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
-		<p><%= f.file_field 'vcard' %></p>
+  <div id="edit_profile_sidebar">
+		<%if @profile.logo%>	
+			<div class="profile_logo">
+		    <%=logo(@user, :size => '128')%>
+		  </div>
+			
+	    <ul class="first_options">
+	      <li id="change_pic"><%=t('change_pic')%></li>
+	      <li id="vcard_use"><%=t('vCard.use') %></li>
+	    </ul>
+		<%else%>
+		  <ul class="first_options">
+	      <li id="change_pic"><%=t('avatar.upload')%></li>
+	      <li id="vcard_use"><%=t('vCard.use') %></li>
+		  </ul>
+	  <%end%>
 
-		<div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-	<% end %>
-  </div> 
-  
+		<div id="update_logo" class="update_logo" style="display:none">
+      <h3 class="blue"><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
+			<% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
+        <p><%= f.file_field :media, :id => 'logo_media' %></p>    
+        <div class="margin-up">
+         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+			   <input type="button" value="<%=t('cancel')%>" class="close_pic basic_button blue_button"/>
+			 </div>
+      <%end%> 
+	  </div>
+	
+	<!--   <div id="update_logo" class="update_logo">
+	    <%if @profile.logo%>
+	      <h3><%= t('avatar.current') %></h3>
+	      <p><%=logo(@profile.logo, :size => 64)%></p>
+	      <%end%>
+			<h3><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
+	    <% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
+	      <p><%= f.file_field :media, :id => 'logo_media' %></p>		
+	      <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+	    <%end%>
+	  </div>
+	-->
+	  
+	  <div id="upload_vcard" style="display:none">
+			<h3><%=t("vCard.use")%></h3>
+			<p class="sidebar_info2">Use your Vcard to automatically fill in your profile</p>
+		    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
+				<p><%= f.file_field 'vcard' %></p>
+		
+				<div class="margin-up">
+					<button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+					<input type="button" value="<%=t('cancel')%>" class="close_vcard basic_button blue_button"/>
+				</div>
+			<% end %>
+	  </div> 
+  </div>
 <% end %>
 
-<div id="edit_profile" class="blue_title"><h3><%= t('edit_your_profile') %></h3></div>
-
+<div id="flash_div" class="success" style="display:none"></div>
+  <% flash.each do |name, msg| %>
+    <div class="<%= name %>"><%= msg %></div>
+  <% end %>
 <%= error_messages_for :profile %>
 
 <% form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-<div class="margin-up">
-  <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+<div class="profile_save_ch">
+  <button type="submit" class="basic_button blue_button"><%=t("save_ch")%></button>
 </div>
 <% end %>
 

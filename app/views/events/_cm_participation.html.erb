@@ -1,0 +1,20 @@
+<div id="streaming_url" class="margin-up main_text">
+  <div id="streaming_title">
+  	<h3 class="blue">  	 		  
+	    <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+		  <%=t('event.video_part')%>		
+    </h3>
+  </div>
+  
+  <div id="streaming_content">   
+    <%if @event.has_session_now?%>
+	  <%= @event.web%>
+	<%else%>
+	  <div class="video_wrapper">
+        <%=image_tag("visor_video.png")%>
+		<span><%=t('event.note.participation')%></span>
+	  </div>				
+	<%end%>
+  </div>
+  
+</div>

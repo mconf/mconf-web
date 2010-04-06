@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'vpim/vcard'
-require 'mofo'
+require 'prism'
 
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
@@ -42,6 +42,10 @@ class Profile < ActiveRecord::Base
 
   def validate
     errors.add_to_base(@vcard_errors) if @vcard_errors.present?
+  end
+  
+  def prefix
+    self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
   end
 
   def from_vcard
@@ -73,7 +77,7 @@ class Profile < ActiveRecord::Base
       temporal = ''
       
       if !@vcard.name.prefix.eql? ''
-        self.prefix = @vcard.name.prefix
+        self.prefix_key = @vcard.name.prefix
       end  
       if !@vcard.name.given.eql? ''
         temporal =  @vcard.name.given + ' '
@@ -141,7 +145,7 @@ class Profile < ActiveRecord::Base
   end
 
   def from_hcard(uri)
-    hcard = hCard.find(uri)
+    hcard = Prism.find(uri, :hcard)
 
     if hcard.blank?
       errors.add_to_base(I18n.t("hcard.not_found"))
@@ -150,56 +154,52 @@ class Profile < ActiveRecord::Base
 
     # FIXME: this should be DRYed with from_vcard
 
-    if hcard.try(:tel)
+    if hcard.tel
       self.phone = hcard.tel
     end
 
-    if hcard.try(:n)
-      if hcard.n.try(:prefix)
-        self.prefix = hcard.n.prefix
+    if hcard.n
+      if hcard.n.honorific_prefix
+        self.prefix_key = hcard.n.honorific_prefix
       end  
 
-      full_name = hcard.try(:fn) ||
+      full_name = hcard.fn ||
                   "#{ hcard.n.try(:given_name) } #{ hcard.n.try(:additional_name) } #{ hcard.n.try(:family_name) }".strip
 
       if full_name.present?
-        user.login = full_name
+        self.full_name = full_name
       end
     end
 
-    if hcard.try(:fn)
-      user.login = hcard.fn
-    end
-      
-    if hcard.try(:email)
+    if hcard.email
       user.email = hcard.email
     end
     
-    if hcard.try(:url)
+    if hcard.url
         self.url = Array(hcard.url).first
     end
 
-    if hcard.try(:org)
+    if hcard.org
       self.organization = hcard.org
     end 
   
-    if hcard.try(:adr)
-      if hcard.adr.try(:street_address) || hcard.adr.try(:extended_address)
-        self.address = "#{ hcard.adr.try(:street_address) } #{ hcard.adr.try(:extended_address) }".strip
+    if hcard.adr
+      if hcard.adr.street_address || hcard.adr.extended_address
+        self.address = "#{ hcard.adr.street_address } #{ hcard.adr.extended_address }".strip
       end
 
-      if hcard.adr.try(:locality)
+      if hcard.adr.locality
         self.city = hcard.adr.locality
       end
 
-      if hcard.adr.try(:postal_code)
+      if hcard.adr.postal_code
         self.zipcode = hcard.adr.postal_code
       end
 
-      if hcard.adr.try(:region)
+      if hcard.adr.region
         self.province = hcard.adr.region
       end
-      if hcard.adr.try(:country)
+      if hcard.adr.country_name
         self.country = hcard.adr.country_name
       end
     end

@@ -3,8 +3,11 @@
   $("#send_notification_button").livequery('click',function(){ 
 
     // Build notification message by putting its parts together
-    
-    var beginning = "<%= escape_javascript(t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))) %>"
+    <%if @event.start_date%>
+      var beginning = "<%= escape_javascript(t('event.notification.message_beginning_with_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))) %>"
+    <%else%>
+      var beginning = "<%= escape_javascript(t('event.notification.message_beginning_without_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name)) %>"
+    <%end%>
     // Changing the new line characters to <br/>
     var personal_msg = ($('#notify_personal').val()).replace(/\n/g,'<br/>');
     var ending = "<%= escape_javascript(t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %>"
@@ -38,8 +41,8 @@
       <div id="unselected_users"> 
         <% for participant in @event.participants -%>
           <% if participant.attend then%>
-            <div class=user_checkbox>
-              <%= check_box_tag "event[notification_ids][]", participant.user.id, checked_attendants.include?(participant.user.id.to_s) %><%= label("checkbox",sanitize(participant.user.full_name))%><br />
+            <div class="user_checkbox">
+              <%= check_box_tag "event[notification_ids][]", participant.id, checked_attendants.include?(participant.id.to_s) %><%= label("checkbox",sanitize(participant.user.full_name))%><br />
             </div>
 					<%end%>
         <%end%>
@@ -49,9 +52,14 @@
         <label for="message" class="label_izquierda bold"><%= t('event.notification.label') %>:</label>
         <textarea style="display:none" id="notify_msg" name="event[notify_msg]"></textarea>
         <div class="grey_bar">
-          <%= t('event.notification.message_beginning' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) %>
+          <%if @event.start_date%>
+            <%= t('event.notification.message_beginning_with_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) %>
+          <%else%>
+            <%= t('event.notification.message_beginning_without_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name) %>
+          <%end%>
           <textarea id="notify_personal"><%= t('event.notification.personal') %></textarea>
           <%= t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event)) %>
+		      <br/><br/><%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %>		  
         </div>
         <p>* <%= t('event.notification.legend.name') %></p>
       </div>

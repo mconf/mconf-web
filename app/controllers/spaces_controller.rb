@@ -59,9 +59,9 @@ class SpacesController < ApplicationController
     @posts = @space.posts
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
     @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(3)
-    @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date.future?}.first(5)
+    @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
-    @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| !e.start_date.future? && e.end_date.future?}
+    @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
     respond_to do |format|
       format.html{
         if request.xhr?

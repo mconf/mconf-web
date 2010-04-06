@@ -1,0 +1,398 @@
+style_file_input();
+	
+$("#event_description_title").click(function(){
+  $("#event_description_content").toggle("slow");
+  $("#event_description_title .jqueryToggle").toggle();
+});
+
+$("#agenda_title_partial").click(function(){
+  $("#agenda_content").toggle("slow");
+  $("#agenda_title_partial .jqueryToggle").toggle();
+});
+
+$("#repository_title").click(function(){
+  $("#repository_content").toggle("slow");
+  $("#repository_title .jqueryToggle").toggle();
+});
+
+$("#streaming_title").click(function(){
+  $("#streaming_content").toggle("slow");
+  $("#streaming_title .jqueryToggle").toggle();
+});
+
+$("#participation_title").click(function(){
+  $("#participation_content").toggle("slow");
+  $("#participation .jqueryToggle").toggle();
+});
+
+<%if @event.future? && !@event.authorize?(:update, :to => current_user)%>
+  $("#streaming_content").hide();
+<%end%>
+
+change_logo = function(){
+
+  $('#new_reply').hide();	
+  $('#carrusel').hide();  
+  $("#import_icalendar").hide();
+  $("#update_logo").show();
+  $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
+};
+
+import_icalendar = function(){
+  $('#assistance_info').hide();
+  $('#new_reply').hide();	
+  $('#carrusel').hide();  
+  $("#update_logo").hide();
+  $("#import_icalendar").show();
+  $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
+};
+
+$(".event_image").click(function(){
+  $("#change_logo").click();
+});
+
+
+<%if event.authorize?(:update, :to => current_user)%> 
+ $('#event_description_content form input').livequery("blur",function(){
+   $('#edit_description_icon').show();
+ });
+
+ edit_description = function(){
+   $('#event_description_content').dblclick();
+ };	 
+ 
+   $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+    method : 'PUT',
+      tooltip   : '<%= t('dblclick')%>',
+    cancel    : '<%= t('cancel')%>',
+    submit    : '<%= t('ok')%>',
+    indicator : '<img src="ui/icons/accept.png" />',
+	onblur : 'ignore',
+    placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
+    type      : 'textarea',
+    name : 'event[description]',
+    width : 635,
+      height: 150,
+      event: "dblclick",
+      data: function(value, settings) {
+        /* Convert <br> to newline. */
+        var retval = value.replace(/<br[\s\/]?>/gi, '');
+        retval = retval.replace(/<p[\s\/]?>/gi, '');
+        retval = retval.replace(/<\/p[\s\/]?>/gi, '');
+        return retval;
+    },
+    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+ });	 
+ 
+<%end%>
+
+request_video = function(agenda_entry_id){
+   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id + "?embedded_video=true";
+   $.get(route,{
+      authenticity_token: "<%=form_authenticity_token()%>"
+      }, function(data){ 		         
+	      $("#video_preview" + agenda_entry_id).hide();
+		  $("#video_hide" + agenda_entry_id).show();
+	      $("#agenda_entry_video" + agenda_entry_id).html(data);
+      });
+ };
+ 
+ hide_video = function(agenda_entry_id){
+   $("#video_hide" + agenda_entry_id).hide();
+   $("#agenda_entry_video" + agenda_entry_id).html("");
+   $("#video_preview" + agenda_entry_id).show();	   
+ };
+ 
+ $(".play_icon").livequery('click',function(){
+   $(this).siblings("a").click();
+
+ });
+ 
+ request_video_in_recordings = function(agenda_entry_id){
+   var route = "<%=space_event_path(@space, @event)%>"+ "?show_video=" + agenda_entry_id;
+   document.location = route;
+   //var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
+   //$.get(route,{
+   //   authenticity_token: "<%=form_authenticity_token()%>"
+   //   }, function(data){ 		         
+   //	      $("#videos").html(data);
+   //   });
+ };	 
+ 
+ show_share_url = function(){
+   $('.url_share').show();
+ };
+ 
+ $('#help_add_entry').click(function(){
+   $('#add_entry0').click();
+ });
+ 
+// Action links
+$("a.repository_sidebar_action").livequery("click",function(){
+  if($(this).hasClass("disabled_button")){
+    return false;
+  }
+});
+
+
+  // Code for several agenda entry views
+	
+	// Removes brackets from attachment selectors to avoid problems with fcbkcomplete	
+  $("#agenda_entry\\[attachment_attributes\\]__tags").livequery(function () {
+	  $(this).attr("id","agenda_entryattachment_attributes__tags");
+	}); 
+  // Applies tags to the attachment
+  $("#agenda_entryattachment_attributes__tags").livequery(function () {
+	  $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+    });
+	});	
+	
+  <%i=1%>
+  <%begin%>    
+    $('#date<%=i%>').click(function(){
+      <%for e in (1..@event.days)%>
+        $('#date<%=e%>').removeClass("selected");
+        $('#agenda_page<%=e%>').hide();
+      <%end%>
+      $(this).addClass("selected");
+      $('#agenda_page<%=i%>').show();
+    });
+    
+    $('#add_entry<%=i%>').livequery('click', function(){
+      $('#add_buttons<%=i%>').hide();
+      //first we remove the rest of the edit divs in case the user has an open one
+      $(".agenda_edit_entry").empty();
+      $(".agenda_new_entry").empty();
+	  var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/new?day=<%=i%>";
+      $.getScript(route);
+    });
+     
+	$('#add_divider<%=i%>').livequery('click', function(){
+      $('#add_buttons<%=i%>').hide();
+      //first we remove the rest of the edit divs in case the user has an open one
+      $(".agenda_edit_entry").empty();
+      $(".agenda_new_entry").empty();
+	  var route = "<%= space_event_agenda_agenda_dividers_path(@space, @event) %>" + "/new?day=<%=i%>&divider=true";
+      $.getScript(route);
+    });  
+	<%i+=1%>
+  <%end while i<=@event.days%>
+
+	
+    
+    $("input.agenda_new_close").livequery('click',function(){
+	  var id = $(this).attr('id');
+	  $('#add_buttons'+ id).show();
+      $(".agenda_new_entry").empty();
+    });
+	
+	// New agenda entry view
+
+  $("#speakers_name").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true
+    });
+  });  
+
+	$("#add_entry_button").livequery('click',function(){
+    // Validate title
+    var title = ($('#agenda_entry_title').val());
+    if (title == "") {
+      
+      $("#agenda_title_label").append(
+        "<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>"
+      );
+      
+      var destination_add = $('#new_entry_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_entry_anchor';
+      });
+      
+    } else {
+      document.forms["agenda_entry_new_form"].submit();
+    }
+    
+  });
+  
+  $("#add_divider_button").livequery('click',function(){
+    // Validate title
+    var title = ($('#agenda_divider_title').val());
+    if (title == "") {
+      
+      $("#agenda_title_label").append(
+        "<div class='error'><%= escape_javascript(t('agenda.error.omit_title_divider')) %></div>"
+      );
+      
+      var destination_add = $('#new_entry_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_entry_anchor';
+      });
+      
+    } else {
+      document.forms["agenda_divider_new_form"].submit();
+    }
+    
+  });
+
+	
+	
+  // Edit agenda entry view
+	
+  $('.edit_entry').livequery('click', function(){
+    edit_entry_button = $(this);
+	//first we remove the rest of the edit divs in case the user has an open one
+    $(".agenda_edit_entry").empty();
+	$(".agenda_edit_hours_entry").empty();
+    $(".agenda_new_entry").siblings("button").show();
+    $(".agenda_new_entry").empty();
+	$(".newAttachment").empty();
+	$("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
+    var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit";
+    $.getScript(route);
+  });
+	
+  $('.edit_divider').livequery('click', function(){
+    edit_divider_button = $(this);
+	//first we remove the rest of the edit divs in case the user has an open one
+    $(".agenda_edit_entry").empty();
+	$(".agenda_edit_hours_entry").empty();
+    $(".agenda_new_entry").siblings("button").show();
+    $(".agenda_new_entry").empty();
+	$(".newAttachment").empty();
+	$("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
+    var route = "<%= space_event_agenda_agenda_dividers_path(@space, @event) %>" + "/" + edit_divider_button.attr("name") + "/edit";
+    $.getScript(route);
+  });
+	
+	
+	// Edit hours in an agenda entry
+	$('.edit_hours_entry').livequery('click', function(){
+      edit_entry_button = $(this);
+      //first we remove the rest of the edit divs in case the user has an open one
+      $(".agenda_edit_entry").empty();
+	  $(".agenda_edit_hours_entry").empty();
+      $(".agenda_new_entry").empty();
+	  $("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
+      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit?hours=true";
+      $.getScript(route);
+  });
+	
+  $("#speakers_name_edit").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true
+    });
+  });
+
+  $("#edit_entry_button").livequery('click',function(){	
+      // Validate title
+	  var title = ($('#agenda_entry_title').val());
+	  if (title == "") {		  
+		$("#agenda_title_label").append("<div class='error'><%= escape_javascript(t('agenda.error.omit_title')) %></div>");			
+	    var destination_edit = $('#edit_entry_anchor').offset().top;
+        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+          window.location.hash = '#edit_entry_anchor';
+         });
+	  } else {
+		  document.forms["agenda_entry_edit_form"].submit();
+	  }
+  });
+
+  $("#edit_divider_button").livequery('click',function(){	
+      // Validate title
+	  var title = ($('#agenda_divider_title').val());
+	  if (title == "") {		  
+		$("#agenda_title_label").append("<div class='error'><%= escape_javascript(t('agenda.error.omit_title_divider')) %></div>");			
+	    var destination_edit = $('#edit_divider_anchor').offset().top;
+        $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
+          window.location.hash = '#edit_entry_anchor';
+         });
+	  } else {
+		  document.forms["agenda_divider_edit_form"].submit();
+	  }
+  });
+
+  // Show agenda entry view
+
+  <%if params[:show_day] %>
+     $('#date<%=params[:show_day]%>').addClass("selected");
+    $('#agenda_page<%=params[:show_day]%>').show();
+  <%else%>
+    $('#date1').addClass("selected");
+    $('#agenda_page1').show();
+  <%end%>
+	
+  $('.title_name_and_hour').livequery('click', function(){
+    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
+  });
+ 
+ $(".newAttachEvent").livequery('click',function () { 
+  var new_id = new Date().getTime(); 
+  $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
+	$(".newAttach2").show();
+
+  // Applies tags to the attachment
+  $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true,
+      complete_opts: true
+  }); 
+}); 
+  
+  <%if @event.days > 1%>
+    //after the page finishes loading we call for the other pages of the agenda
+    $(window).bind('load', function() {
+      var route = "<%= space_event_agenda_path(@space, @event, :page_shown=>params[:show_day]) %>";
+      $.get(route,{
+          authenticity_token: "<%=form_authenticity_token()%>"
+          }, function(data){ 	
+			$('#agenda_pages').append(data);	         
+          });
+    });
+  <%end%>
+  
+  <%if event.authorize?(:update, :to => current_user) %>
+    perform_select_action = function(){
+	  switch($("#event_select option:selected").attr("value"))
+	  {
+	    case "change":
+		  change_logo();
+		break;
+		case "invite":
+		  var route = "<%=space_event_path(@space, @event, :new_invitations => @event)%>";
+          document.location = route;		  
+		break;
+		case "notify":		
+		  var route = "<%=space_event_path(@space, @event, :notification => @event)%>";
+          document.location = route;
+		break;
+		case "import":
+		  import_icalendar();
+		break;		
+	  }
+	};
+  <%end%>

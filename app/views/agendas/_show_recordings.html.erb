@@ -1,57 +1,46 @@
-<div id="videos">
-  <div class="video_full">
-    <%if @display_entry%>
-      <%=@display_entry.video_player%>
-    <%end%>
-  </div>  
-
-    <div class="url_share">
-      <%unless @space.public?%>
-        <%=t('event.recording.notice')%><br/>
-      <%end%>
-      <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
-      <form>
-        <span class="only_url"><%=t('url_plain')%>:</span>
-        <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
-      </form>
-    </div>
-
-  <div class="video-bar"> 	
-	  <div class="video_properties">
-			<div class="video_title">
-		  	<%if @display_entry%>
-		      <%=@display_entry.title%>
-		    <%end%>     
+<div id="event_recordings" class="margin-up">
+  <div id="recordings_title"><h3 class="blue"><%=t('event.recording.one')%></h3></div>
+  <div id="recordings_content">	    	
+	<div id="videos">
+	  <div class="video_full">
+	    <%if @display_entry%>
+	      <%=@display_entry.video_player%>
+	    <%end%>
+	  </div>  
+	
+	    <div class="url_share">
+	      <%unless @space.public?%>
+	        <%=t('event.recording.notice')%><br/>
+	      <%end%>
+	      <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
+	      <form>
+	        <span class="only_url"><%=t('url_plain')%>:</span>
+	        <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
+	      </form>
 	    </div>
-		  <div class="video_users unified_user">  
-		    <%if @display_entry%>
-	          <%isfirst=true%>
-	          <%@display_entry.actors.each do |speaker|%>
-	             <%if isfirst%>
-	               <%isfirst=false%>
-	             <%else%>
-	               ,
-	             <%end%>
-	             <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
-	           <%end%>
-	           <%if @display_entry.speakers && !@display_entry.speakers.empty?%>
-	             <%unless isfirst%>
-	               ,
-	             <%end%>
-	             <%= @display_entry.speakers %>
-	           <%end%>
-			  <%end%>
-		  </div>
-		  <div class="video_attachments">
-		  	<%if @display_entry%>
-			  <% @display_entry.attachments.each  do |a| %>
-			    <%=image_tag("icons/attach.png", :class=>"icon")%>            
-	            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>
-	          <%end %>
-			  <%end%>
-		  </div>
-	 </div>
+	
+	  <div class="video-bar"> 	
+		  <div class="video_properties">
+				<div class="video_title">
+			  	<%if @display_entry%>
+			      <%=@display_entry.title%>
+			    <%end%>     
+		    </div>
+			  <div class="video_users unified_user">  
+			    <%if @display_entry%>
+					  <%=entry_speakers(@display_entry)%>
+		      <%end%>
+			  </div>
+			  <div class="video_attachments">
+			  	<%if @display_entry%>
+				  <% @display_entry.attachments.each  do |a| %>
+				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
+		            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>
+		          <%end %>
+				  <%end%>
+			  </div>
+		 </div>
+	  </div>
+	</div>
   </div>
-
-  
 </div>

@@ -7,7 +7,11 @@
 		var header = "<%= '<p>\'' + escape_javascript(t('name.one')) + '\',</p>'%>";
 		// Changing the new line characters to <br/>
 		var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
-		var ending = "<%= escape_javascript(t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))) %>"
+    <%if @event.start_date%>
+      var ending = "<%= escape_javascript(t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path(),:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)))%>"
+    <%else%>
+      var ending = "<%= escape_javascript(t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path(),:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event)))%>"
+    <%end%>
     var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
     
 		$('#invite_msg').text(complete_msg);
@@ -37,7 +41,7 @@
 		  
 		  <div id="unselected_users"> 
 		    <% for user in @space.users -%>
-		      <div class=user_checkbox>
+		      <div class="user_checkbox">
 		        <%= check_box_tag "event[ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
 		      </div>
 		    <%end%>
@@ -57,7 +61,11 @@
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
-          <%= t('invitation.message.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)) %>
+          <%if @event.start_date%>
+            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path(),:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
+          <%else%>
+            <%= t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path(),:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
+          <%end%>
         </div>
         <p>* <%= t('invitation.legend.name') %><br/>
         * <%= t('invitation.legend.URL') %></p>

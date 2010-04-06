@@ -9,21 +9,7 @@
   	      <%=@agenda_entry.title%>  
 	  </div>
 	  <div class="unified_user">  
-          <%isfirst=true%>
-          <%@agenda_entry.actors.each do |speaker|%>
-             <%if isfirst%>
-               <%isfirst=false%>
-             <%else%>
-               ,
-             <%end%>
-             <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
-           <%end%>
-           <%if @agenda_entry.speakers && !@agenda_entry.speakers.empty?%>
-             <%unless isfirst%>
-               ,
-             <%end%>
-             <%= @agenda_entry.speakers %>
-           <%end%>
+          <%=entry_speakers(@agenda_entry)%>
 	  </div>
 	  <div class="video_attachments">
           <%if @agenda_entry.attachment%>

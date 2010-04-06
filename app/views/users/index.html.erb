@@ -6,34 +6,10 @@
 
 <% content_for :sidebar do  %>
 <!-- Ojo, esto hay que pensar qué queremos que se vea aquí -->
+  <%= render :partial => 'spaces/sidebar' %>
+
 	<%if params[:send_message]%>
 		<%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>
-	<%elsif space.users.include?(current_user) and @space.authorize?([:create, :performance], :to => current_user) %>
-    <div class="space-desc">
-      <h3><%= t('space.about')%> <em><%=@space.name%></em></h3>
-      <p><%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
-      <%= sanitize(space.description) if space.description.present? %></p>
-    </div>
-	<%else%>
-<!--
-		<%if !space.users.include?(current_user) and logged_in? and space.public?%>
-	  	<% form_tag space_join_requests_path(space), :id => "join_form" do %>
-   			<%= image_submit_tag("buttons/join-space.png") %>
- 			<% end %>
-		<%elsif !space.users.include?(current_user) and logged_in? and !space.public?%>
-	  	<%=link_to image_tag("buttons/join-space.png", :alt => "Join space"), new_space_join_request_path(space), :class => "fancybox_link"%>					
-		<%end%>
--->
-    <div id="join">
-      <% form_tag space_join_requests_path(space) do %>
-        <button class="big_button orange_button" type:"submit"><%=t('space.join')%></button>
-      <% end %>
-    </div>
-  	<div class="space-desc">
-  		<h3><%= t('space.about')%> <em><%=@space.name%></em></h3>
-  		<p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
-  		<%= sanitize(space.description) if space.description.present? %></p>
-  	</div>
 	<%end%>
 <% end %>
 

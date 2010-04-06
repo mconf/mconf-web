@@ -22,12 +22,15 @@ class ProfilesController < ApplicationController
 
   before_filter :unique_profile, :only => [:new, :create]
   
+  layout "profiles"
+  
   # GET /profile
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
   def show
+    
     respond_to do |format|
-      format.html 
+      format.html { redirect_to user_path(@user)}
       format.xml { render :xml => @profile }
       format.vcf { send_data @profile.to_vcard.to_s, :filename => "#{ @user.name}.vcf" }
     end
@@ -46,7 +49,7 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         flash[:notice] = t('profile.updated')
-        format.html { redirect_to :action => "show" }
+        format.html { redirect_to user_path(@user) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -61,7 +64,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
     flash[:notice] = t('profile.deleted')
     respond_to do |format|
-      format.html { redirect_to(user_profile_path(@user)) }
+      format.html { redirect_to(user_path(@user)) }
       format.xml  { head :ok }
     end
   end
@@ -90,7 +93,7 @@ class ProfilesController < ApplicationController
   def unique_profile
     unless @user.profile.new_record?
       flash[:error] = t('profile.error.exist')     
-      redirect_to user_profile_path(@user)
+      redirect_to user_path(@user)
     end
   end
 end

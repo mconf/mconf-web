@@ -1,7 +1,7 @@
 <% menu(:repository) %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-url' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
@@ -15,7 +15,7 @@
 
 <%content_for :sidebar do%>
 	<div class="tag_filter_wrapper">
-		<h3 class="blue">Document Search:</h3>
+		<h3 class="blue"><%=t('repository.search')%></h3>
 		<div class="tag_filter_content">
 			<%= render :partial => 'mixed_filter' %>
 		</div>
@@ -36,7 +36,7 @@
 
 
 
-<div id="enable_javascript">Please, active javascript to enjoy document repository</div>
+<div id="enable_javascript"><%=t('repository.need_javascript')%></div>
 <div id ="doc_repository">
   <%= render :partial => 'multiple_actions' %>
 	<%= render :partial => 'doc_table' %>

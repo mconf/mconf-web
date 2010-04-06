@@ -163,9 +163,9 @@ $("#create_space_button").livequery('click',function(){
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
 			</div>
 			
-
 			<div id='mail_group' class="mail_group_blinking" style="display:none">
-		 	  	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@dit.upm.es</label>
+		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@<%= current_site.domain %></label>
+
 			</div>
 			
 				

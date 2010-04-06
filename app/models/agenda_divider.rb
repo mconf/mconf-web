@@ -18,8 +18,24 @@
 class AgendaDivider < ActiveRecord::Base
   belongs_to :agenda
   
+  acts_as_content :reflection => :agenda
+  
+  default_scope :order => 'start_time ASC'
+  
+  before_save do |divider|
+    divider.end_time = divider.start_time
+  end
+  
+  after_save do |divider|
+    divider.event.syncronize_date
+  end
   
   def event
     agenda.event
+  end
+  
+   #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
+  def event_day
+    return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
   end
 end

@@ -1,35 +1,82 @@
-<%content_for :sidebar do %>
-    <div class="logo">
-      <%=logo(@user, :size => '128')%>
-    </div>
+<%content_for :javascript do%>
 
-		<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>@user.name + " " + t('is_member_of')} %>
+	/*
+	 * Send Private Message
+	 */
+	 
+	$("a#new_private_message_link").fancybox({
+	  'hideOnContentClick' : false,
+	  'frameWidth' : 450,
+	  'frameHeight' : 430
+	});
 
 <%end%>
-<div class="vcard" id="card">
+
+<%content_for :sidebar do %>
+<div id="profile_right">
+  <div id="profile_spaces">
+	  <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{@user.name} #{t('is_member_of')}"} %>
+  </div>
+</div>
+<%end%>
+
+<div id="profile_left">
+	<div class="profile_logo">
+	  <%=logo(@user, :size => '128')%>
+	</div>
+
+  <ul class="first_options">
+    <%="<li> #{link_to t('edit_profile'), edit_user_profile_path(@user)} </li>" if @profile.authorize? :update, :to => current_user%>
+    <%="<li> #{link_to t('message.private.new'), new_user_message_path(:user_id => current_user.to_param, :receiver => @user.id), :id => "new_private_message_link"} </li>" if (@user != current_user)%>
+  </ul>
+	
   <span class="adr">
     <%= render :partial=>'profiles/public_hcard'%>
-
-	<% if @profile.authorize? :read, :to => current_user %>
-	  <%= render :partial=>'profiles/private_hcard'%>
-	<% end %>
   </span>
+	
+  <% if @profile.authorize? :read, :to => current_user %>
+    <%= render :partial=>'profiles/private_hcard'%>
+  <% end %>
+	
+	<ul class="last_options">
+	  <li><%=link_to "Block user", "#" if @user != current_user %></li>
+		<li><%=link_to "Report spam user", "#" if @user != current_user %></li>
+  </ul>
+ 
 </div>
-<%if @profile.authorize? :read, :to => current_user%>
-	  <div class="button_wrapper">
-	    <%= link_to "<span>" + t('edit_profile') + "</span>",edit_user_profile_path(@user),:class => "basic_button blue_button"%>
-	  </div>    
-<%end%> 
-<div class="profile-box">
-  <div id="title">
-  	<div id="help2" title="<%= h(t('information.information3'))%>"></div>
-	<h3 class="item_title"> <%=t('recent.activity')%> </h3>
+
+<div class="profile_center">
+  <div id="flash_div" class="success" style="display:none"></div>
+  <% flash.each do |name, msg| %>
+    <div class="<%= name %>"><%= msg %></div>
+  <% end %>
+<!--		<div class="button_wrapper grey_bar">
+		  <%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user), {:class=>"grey_button basic_button",:title => t('event.view_agenda')} if @profile.authorize? :update, :to => current_user %>
+		  <%=link_to ("<span>" + "Send a message" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
+      <%=link_to ("<span>" + "Add contact" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
+		</div>
+-->
+  <div class="title">
+  	<h3 class="item_title">
+  		<div id="help2" title="<%= h(t('information.information3'))%>"></div>
+			<%=t('recent.activity')%> </h3>
   </div>
   <div id="profile_content">
-    <% @latest_posts = [] # TODO %>
-  	  <%= @latest_posts.empty? ? t('user.noactivity') : "" %>
-	  <% for post in @latest_posts -%>
-		<%=render :partial => "posts/profile_post", :locals => { :post =>  post, :selected_post => false} %> 
+ 	  <%if @recent_activity.empty?%>
+      <p class="nothing"><%=t('user.noactivity', :user=>@user.name)%></p>
+		<%end%> 
+	  <% @recent_activity.each do |content| -%>
+		  <% case content 
+         when Post -%>
+          <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false} %>
+      <% when Event -%>
+          <%= render :partial => "events/unified_event", :locals => {:event => content.reload} %>
+      <% when Attachment -%>
+          <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content.reload} if content.post.blank?%>
+    <% else -%>
+      <div><%=t('unknown_content', :content => content.class)%></div>
+    <% end -%> 
 	  <%end%>
+		<%= will_paginate @recent_activity %>
   </div>	
 </div>

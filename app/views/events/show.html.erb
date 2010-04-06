@@ -2,192 +2,36 @@
 <% atom_link_header(space, Event.new) %>
 
 <%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter','jquery.ba-url' %>
+  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
   <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle', 'jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
 <%end%>
 
-<% content_for :javascript do %>	
-  <%= render :partial => 'date_and_timepicker.js.erb' %>	
-  
-
-	style_file_input();
-	
-	$("#event_description_title").click(function(){
-	  $("#event_description_content").toggle("slow");
-	  $("#event_description_title .jqueryToggle").toggle();
-	});
-	
-	$("#agenda_title_partial").click(function(){
-	  $("#agenda_content").toggle("slow");
-	  $("#agenda_title_partial .jqueryToggle").toggle();
-	});
-	
-	$("#repository_title").click(function(){
-	  $("#repository_content").toggle("slow");
-	  $("#repository_title .jqueryToggle").toggle();
-	});
-	
-	$("#streaming_title").click(function(){
-	  $("#streaming_content").toggle("slow");
-	  $("#streaming_title .jqueryToggle").toggle();
-	});
-	
-	<%if @event.future? && !@event.authorize?(:update, :to => current_user)%>
-	  $("#streaming_content").hide();
-	<%end%>
-	
-	$("#change_logo").click(function(){
-
-	  $('#new_reply').hide();	
-	  $('#carrusel').hide();  
-	  $("#import_icalendar").hide();
-	  $("#update_logo").show();
-	  $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
-	});
-	
-	$("#import_icalendar_button").click(function(){
-	  $('#assistance_info').hide();
-	  $('#new_reply').hide();	
-	  $('#carrusel').hide();  
-	  $("#update_logo").hide();
-	  $("#import_icalendar").show();
-	  $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
-	});
-	
-	$(".event_image").click(function(){
-	  $("#change_logo").click();
-	});
-
-	
-   <%if event.authorize?(:update, :to => current_user)%> 
-     $('#event_description_content form input').livequery("blur",function(){
-       $('#edit_description_icon').show();
-     });
-   
-     edit_description = function(){
-       $('#event_description_content').dblclick();
-     };	 
-	 
-	   $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
-        method : 'PUT',
-	      tooltip   : '<%= t('dblclick')%>',
-        cancel    : '<%= t('cancel')%>',
-        submit    : '<%= t('ok')%>',
-        indicator : '<img src="ui/icons/accept.png" />',
-        placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
-        type      : 'textarea',
-        name : 'event[description]',
-        width : 635,
-	      height: 150,
-	      event: "dblclick",
-	      data: function(value, settings) {
-            /* Convert <br> to newline. */
-            var retval = value.replace(/<br[\s\/]?>/gi, '');
-            retval = retval.replace(/<p[\s\/]?>/gi, '');
-            retval = retval.replace(/<\/p[\s\/]?>/gi, '');
-            return retval;
-        },
-        submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
-     });	 
-     
-   <%end%>
-   
-   request_video = function(agenda_entry_id){
-	   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id + "?embedded_video=true";
-       $.get(route,{
-          authenticity_token: "<%=form_authenticity_token()%>"
-          }, function(data){ 		         
-		      $("#video_preview" + agenda_entry_id).hide();
-			  $("#video_hide" + agenda_entry_id).show();
-		      $("#agenda_entry_video" + agenda_entry_id).html(data);
-          });
-	 };
-	 
-	 hide_video = function(agenda_entry_id){
-	   $("#video_hide" + agenda_entry_id).hide();
-	   $("#agenda_entry_video" + agenda_entry_id).html("");
-	   $("#video_preview" + agenda_entry_id).show();	   
-	 };
-	 
-	 $(".play_icon").livequery('click',function(){
-	   $(this).siblings("a").click();
-
-	 });
-	 
-	 request_video_in_recordings = function(agenda_entry_id){
-	   var route = "<%=space_event_path(@space, @event)%>"+ "?show_video=" + agenda_entry_id;
-	   document.location = route;
-	   //var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
-       //$.get(route,{
-       //   authenticity_token: "<%=form_authenticity_token()%>"
-       //   }, function(data){ 		         
-	   //	      $("#videos").html(data);
-       //   });
-	 };	 
-	 
-	 show_share_url = function(){
-	   $('.url_share').show();
-	 };
-	 
-	 $('#help_add_entry').click(function(){
-	   $('#add_entry0').click();
-	 });
-	 
-	// Action links
-	$("a.repository_sidebar_action").livequery("click",function(){
-	  if($(this).hasClass("disabled_button")){
-	    return false;
-	  }
-	});
-	
+<% content_for :javascript do%>
+  <%= render :partial => 'events_javascript.js' %>
 <% end %>
-
 
 <% content_for :sidebar do  %>
 
   <div id="full_sidebar">
-   	<%if params[:show_video]%>
+  	<%if params[:edit_event]%>
+        <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
+	<%elsif params[:edit_comment]%>
+	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
+	<%elsif params[:show_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
-	  <%else%>
-
-      <%if @space.authorize?([:create, :content],:to => current_user)%>
-  	   <%if params[:edit_event]%>
-     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	     <%elsif params[:edit_comment]%>
-			   <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
-	     <%else%>
-		     <%= render :partial => 'participants' %>
-	       <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
-		       <%= render :partial => 'connection_info'%>
-		     <%end%>
-  	   <%end%>
-      <%end%>
-	  <%end%>  
-        
-		<%if event.authorize?(:update, :to => current_user) %>
-      <div id="update_logo" class="update_logo margin-up" style="display:none">
-        <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-	       <div class="logo_content">
-					<% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-	          <div><%= f.file_field :media, :id => 'logo_media' %></div>   
-	          <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-	        <%end%>
-				 </div>
-      </div>
-      <div id="import_icalendar" class="import_icalendar margin-up"  style="display:none" >
-        <h3><%=t("icalendar.import") %></h3>
-        <div class="icalendar_content">
-					<p><%=t("icalendar.instruction") %></p>
-					<% form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
-	          <%= f.file_field :icalendar_file %>
-	          <div class="margin-up">
-				<button type="submit" class="basic_button blue_button"><%=t("icalendar.add")%></button>
-	          </div>
-	        <% end %>
-				</div>
-      </div>
+	<%else%>
+	   <%= render :partial => 'participants' %>
+	   <%unless @event.is_in_person? || @event.past?%>
+		  <%= render :partial => 'connection_info'%>
+	   <%end%>
+   <%end%>  
+           
+	<%if event.authorize?(:update, :to => current_user) %>
+      <%= render :partial => "change_logo" %>
+	  <%= render :partial => "import_icalendar" %>      
     <%end%>
+		
 	</div> 
    
 <%end%>
@@ -219,56 +63,34 @@
 
   <%if params[:new_invitations]%>
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
-
   <%elsif params[:notification]%>
    <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
-
+  <%elsif params[:show_streaming] && @event.is_in_person? %>
+    <%=render :partial => "external_streaming"%>
+    <%if event.is_happening_now?%>
+      <% content_for :sidebar do  %>
+        <%= render :partial => "event_chat" %>
+      <%end%>
+    <%end%>
+  <%elsif params[:show_participation] && @event.is_in_person? %>
+    <%=render :partial => "external_participation"%>
+  <%elsif params[:show_streaming]%>
+    <%=render :partial => "cm_streaming"%>
+    <%if event.is_happening_now?%>
+      <% content_for :sidebar do  %>
+        <%= render :partial => "event_chat" %>
+      <%end%>
+    <%end%>
+  <%elsif params[:show_participation]%>
+    <%=render :partial => "cm_participation"%>
   <%elsif params[:show_repository]%>
-     <div id="event_repo" class="margin-up">
-	    <div id="repository_title">
-	    	<h3 class="blue">
-	    		<div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-				<%=t('event.repository.title')%>
-			</h3>
-		</div>
-	    <div id="repository_content">
-	      <span><%=t('event.repository.help')%></span>
-	      <%= render :partial => "attachments/doc_table", :locals => {:interactive => false} %>
-	    </div>
-	  </div>
-  
-  <%elsif params[:show_video]%>
-     <div id="event_recordings" class="margin-up">
-	    <div id="recordings_title"><h3 class="blue"><%=t('event.recording.one')%></h3></div>
-	    <div id="recordings_content">
-	      <%= render :partial => "agendas/show_recordings" %>
-	    </div>
-	  </div>
-  <%else%>
-      <%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
-	    <%unless (@event.past? && !@event.agenda.has_entries_with_video?) %>
-	      <%=render :partial => "cm_streaming"%>
-	    <%end%>
-	  <%end%>
-	  
-	  <%if @event.agenda.present?%>
-	    <div id="agenda_full" class="margin-up">      
-	      <div id="agenda_title">
-          <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
-					<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-          <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
-
-	      	<h3 id="agenda_title_partial" class="blue">
-            <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-            <%=t('agenda.title')%> 
-            <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
-          </h3>
-        </div>
-	      <div id="agenda_content">
-	        <%= render :partial => "agendas/edit" %>
-	      </div>
-	    </div>
-	  <%end%>
+     <%=render :partial => "show_repository"%>
+  <%elsif params[:show_agenda]%>
+    <%=render :partial => "agendas/show"%>
+  <%elsif params[:show_video]%>     
+	<%= render :partial => "agendas/show_recordings" %>	   
+  <%else%><!-- if there is no param-->
+     No param selected  
 		
   <%end%>
  
@@ -291,4 +113,6 @@
 			      <%= will_paginate @comments%>
 			</div>
 	</div>
+	
 <%end%>
+

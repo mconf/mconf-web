@@ -1,18 +1,17 @@
 <div class="agenda_entry margin-up"> <!--class="profile-box"-->
-
   <div class="entry_title">
       <ul class="group_links group_agenda_links">
-        <%if agenda_entry.embedded_video.present? then%>
+        <%if agenda_entry.recording? then%>
 	  	    <%=image_tag("icons/16/play.png", :alt => t('agenda.entry.has_video'), :title=>t('agenda.entry.has_video'), :class=>"entry_video_link") %>
         <%end%>
 		<%unless agenda_entry.attachments.empty?%> 
           <%=image_tag ("icons/attach.png", :title=>t('agenda.entry.has_attachment'))%>
         <%end%>
-
+        
+		<li><%=link_to_function(image_tag("icons/clock.png", :alt=>t('edit_hours'), :title => t('edit_hours')), "return false;", :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && agenda_entry.can_edit_hours? %></li>
         <li><%=link_to_function(image_tag("icons/pencil.png", :alt => t('edit'), :title => t('edit')) , "return false;", :class=>"edit_entry", :name=>agenda_entry.id.to_s) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user) %></li>
         <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one')) , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:delete, :to => current_user)) && !agenda_entry.is_happening_now? %></li>
-		<li><%=link_to_function(t('edit_hours'), "return false;", :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && !agenda_entry.past? %></li>
-        <input type="hidden" class="entry_day" value="<%=day%>">
+		<input type="hidden" class="entry_day" value="<%=day%>">
 	  </ul>
 
     <div class="title_name_and_hour">
@@ -20,14 +19,14 @@
         <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
       </span>
       <span class="entry_name">
-        <%=h agenda_entry.title %>
+        <%=sanitize(agenda_entry.title) %>
       </span>
     </div>
 
   </div>
 
   <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
-    <%if agenda_entry.embedded_video.present?%>
+    <%if agenda_entry.past? && agenda_entry.recording?%>
 	  
       <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
         <%if !agenda_entry.video_thumbnail.present?%>
@@ -44,24 +43,10 @@
     <%end%>
     <ul class="agenda_list_content">
       <li class="unified_user">  
-      	<%isfirst=true%>
-      	<%agenda_entry.actors.each do |speaker|%>
-          <%if isfirst%>
-            <%isfirst=false%>
-          <%else%>
-            ,
-          <%end%>
-          <%=speaker.authorize?([:read, :profile],:to=> current_user) ? link_to(highlight(speaker.name,@query),user_profile_path(speaker),:class=>"unified_user"): ("<span class='unified_user'>" + sanitize(highlight(speaker.name,@query) + "</span>"))%>
-        <%end%>
-        <%if agenda_entry.speakers && !agenda_entry.speakers.empty?%>
-          <%unless isfirst%>
-            ,
-          <%end%>
-          <span class="unified_user"><%= agenda_entry.speakers %></span>
-        <%end%>
+      	<%=entry_speakers(agenda_entry)%>        
       </li>
 	  
-      <li><%=h agenda_entry.description %></li>
+      <li><%=sanitize(simple_format(agenda_entry.description)) %></li>
       <% agenda_entry.attachments.each  do |a| %>
         <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
 				<%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>

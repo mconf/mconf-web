@@ -14,6 +14,7 @@
 				 });
 			 },{
 			 cancel    : '<%= t('cancel')%>',
+			 onblur : 'ignore',
          submit    : '<%= t('ok')%>',
 			 tooltip   : '<%= t('space.clic')%>',
 			 width : 185
@@ -34,6 +35,7 @@
          submit    : '<%= t('ok')%>',
          tooltip   : '<%= t('space.clic')%>',
          name : 'space[description]',
+		 onblur : 'ignore',
 	 width : 185,
 	 height : 90,
          submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},

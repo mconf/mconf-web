@@ -64,7 +64,7 @@ class LogosController
     session[:tmp_logo][:original_filename] = params['logo']['media'].original_filename
     session[:tmp_logo][:content_type] = params['logo']['media'].content_type
 
-    reshape_image f.path, 4.0 / 3.0
+    reshape_image f.path, Logo::ASPECT_RATIO_F
     resize_if_bigger f.path, 600
     
  

@@ -17,9 +17,9 @@ describe FrontpageController do
       login_as Factory(:user)
     end
 
-    it "should render index" do
+    it "should redirect to home" do
       get :index
-      assert_response :success
+      response.should redirect_to(home_path)
     end
   end
 end

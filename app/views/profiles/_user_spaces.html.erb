@@ -46,26 +46,28 @@
         <%end%>
         </ul>
       <div class="links">
-        <%=link_to t('show_list_version>>'), user_profile_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
-        <span class="sidebar_text">|</span>
-        <%=link_to t('more>>'), user_profile_path(show_user, :all_my_spaces => true),:class => "more_spaces" if show_user.spaces.size > 6%>
+        <%=link_to t('show_list_version>>'), user_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
+		<% if show_user.spaces.size > 6 %>
+        	<span class="sidebar_text">|</span>
+        	<%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces"%>
+		<% end %>
       </div>
       </div>
       
       <div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
         <ul class="inline">
           <% show_user.spaces.each do |s| %>
-					  <%if space.authorize? :read, :to => current_user%>     
-              <li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(space) %></li>
+					  <%if s.authorize? :read, :to => current_user%>     
+              <li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(s) %></li>
             <%else%>
 					    <li><%= logo(s,{:size=>"h64", :title=> s.name })%></li>
 						<%end%>
 					<% end %>
         </ul>
       <div class="links">
-       <%=link_to t('show_list_version>>'), user_profile_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
+       <%=link_to t('show_list_version>>'), user_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
         <span class="sidebar_text">|</span>
-       <%=link_to t('collapse>>'), user_profile_path(show_user), :class => "less_spaces"%>
+       <%=link_to t('collapse>>'), user_path(show_user), :class => "less_spaces"%>
       </div>
       </div>
       
@@ -80,7 +82,7 @@
         <% end %>
       </ul>
       <div class="links">
-        <%=link_to t('photos_view>>'), user_profile_path(show_user), :class => "less_spaces"%>
+        <%=link_to t('photos_view>>'), user_path(show_user), :class => "less_spaces"%>
       </div>
       </div>
     <%end%>

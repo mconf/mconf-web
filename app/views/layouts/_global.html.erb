@@ -2,16 +2,16 @@
   <div id="global">
     <ul id="prefs">
         <% if logged_in? %>
-      <% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
-      <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>      
-      <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
-          <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
-          <li><%= link_to t('profile', :count => 1), user_profile_path(current_user), menu_options(:profile)%></li>
-          <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
-          <li><%= link_to t('logout', :user => current_user.name), logout_path, :id => "logout_link" %></li>
-      <% else %>
-          <li><%= link_to t('login_or_register'), login_path, :class => "login_link" %></li>
-      <% end %>
+      		<% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
+      		<% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>      
+      		<li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
+          	<li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
+          	<li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
+          	<li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
+          	<li><%= link_to t('logout', :user => current_user.name), logout_path, :id => "logout_link" %></li>
+     	<% else %>
+          <li><%= link_to t('login_or_register'), login_path %></li>
+      	<% end %>
     <% unless !current_site.authorize?(:translate, :to => current_user) -%>
       <% for locale in (I18n.available_locales - [I18n.locale]) -%>
       <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s,:title=>t("translate.change")), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
@@ -41,7 +41,17 @@
         <%end%>
       <%end%>
   </span>
-    <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="<%=root_path%>"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
+  <span id="global-logo">
+  	<%= image_tag("bola_global_peque.png",:class=>"icon")%>
+  	<% if logged_in? %>
+	  <%= link_to t('vcc'), home_path, menu_options(:home)%>
+	  <em class="small"><%= link_to t('beta'), home_path, menu_options(:home)%></em>
+	<% else %>
+	  <a href="<%=root_path%>">
+	  <%= t('vcc') %><em class="small"><%= t('beta') %></em>
+	<% end %>
+    </a>
+  </span>
   </div>
   
 </div>

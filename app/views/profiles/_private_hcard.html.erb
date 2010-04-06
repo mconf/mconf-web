@@ -1,23 +1,22 @@
+<div class="title margin-up">
+  <h3 class="item_title"><%= t('contact_information') %></h3> 
+</div>
 
-<div class="profile-box">
-  <div id="title">
-    <div id="help" title="<%= h(t('profile.private_description')) %>"></div>
-    <h3 class="item_title"><%= t('profile.private') %></h3> 
-  </div>
-
-  <div id="profile_content">
-	  	
-      <ul>
-      	<li><span class="person_title"><%= t('profile.visibility') + ":" %> <%= t( 'profile.visibility_' + (Profile::VISIBILITY[@profile.visibility]).to_s ) %></span></li>
-        <li><span class="person_title"><%= (t('address') + ":") if (@profile.address.present?) %> </span> <span class="street-address"><%= @profile.address%></span></li>
-        <li><span class="person_title"><%= (t('zipcode')+ ":")if (@profile.zipcode.present?) %> </span> <span class="postal-code"><%= @profile.zipcode%></span></li>
-        <li><span class="person_title"><%=(t("phone.landline") + ":") if (@profile.phone.present?)%></span><span class="tel"><span class="value"><%= @profile.phone%></span></span></li>
-        <li><span class="person_title"><%=(t("phone.mobile") + ":") if (@profile.mobile.present?)%></span> <span class="tel"><span class="value"><%= @profile.mobile%></span></span></li>
-        <li><span class="person_title"><%=(t("fax") + ":") if (@profile.fax.present?)%></span> <span class="tel"><span class="value"><%= @profile.fax%></span></span></li>
-        <li><span class="person_title"><%= t('e-mail.one') %>: </span><span class="email"><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></span></li>
-        <li><span class="person_title"><%=(t("skype") + ":") if (@profile.skype.present?)%></span> <%=( link_to @profile.skype, "callto://"+@profile.skype )if (@profile.skype.present?)%></li>
-        <li><span class="person_title"><%=(t("im") + ":") if (@profile.im.present?)%></span> <%= @profile.im%></li>
-      </ul>
-
+<div id="profile_content">
+  <div class="profile_content_item">	
+    <%if (@profile.phone.present?) || (@profile.mobile.present?) || (@profile.fax.present?)%>
+		<ul><li><h4><%=t('phone.plural')%></h4></li></ul>
+		<ul>
+      <li><span class="category"><%=(t("phone.one") + ":") if (@profile.phone.present?)%></span><span class="tel data"><span class="value"><%= @profile.phone%></span></span></li>
+      <li><span class="category"><%=(t("phone.mobile") + ":") if (@profile.mobile.present?)%></span> <span class="tel data"><span class="value"><%= @profile.mobile%></span></span></li>
+      <li><span class="category"><%=(t("fax") + ":") if (@profile.fax.present?)%></span> <span class="tel data"><span class="value"><%= @profile.fax%></span></span></li>
+    </ul>
+		<%end%>
+    <ul><li><h4><%= t('internet.ppal') %></h4></li></ul>
+		<ul>
+			<li><span class="category"><%= t('e-mail.one') %>: </span><span class="email data"><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></span></li>
+      <li><span class="category"><%=(t("skype") + ":") if (@profile.skype.present?)%></span><span class="data"><%=( link_to @profile.skype, "callto://"+@profile.skype )if (@profile.skype.present?)%></span></li>
+      <li><span class="category"><%=(t("im") + ":") if (@profile.im.present?)%></span><span class="data"><%= @profile.im%></span></li>
+    </ul>
   </div>
 </div>

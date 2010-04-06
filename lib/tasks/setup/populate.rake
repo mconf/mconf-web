@@ -26,6 +26,7 @@ namespace :setup do
         user.crypted_password = User.encrypt("test", "")
         user.activated_at = 2.years.ago..Time.now
         user.disabled = false
+        user.notification = User::NOTIFICATION_VIA_EMAIL
         
         Profile.populate 1 do |profile|
           profile.user_id = user.id
@@ -39,7 +40,7 @@ namespace :setup do
           profile.zipcode = Faker::Address.zip_code
           profile.province = Faker::Address.uk_county
           profile.country = Faker::Address.uk_country
-          profile.prefix = Faker::Name.prefix
+          profile.prefix_key = Faker::Name.prefix
           profile.description = Populator.sentences(1..3)
           profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
           profile.skype = Populator.words(1)
@@ -156,6 +157,14 @@ namespace :setup do
             participant.created_at = event.created_at..Time.now
             participant.updated_at = participant.created_at..Time.now
             participant.attend = (rand(0) > 0.5)
+
+            Performance.populate 1 do |performance|
+              performance.stage_id = event.id
+              performance.stage_type = 'Event'
+              performance.role_id = role_ids
+              performance.agent_id = participant.user_id
+              performance.agent_type = 'User'
+            end
           end
         end
 

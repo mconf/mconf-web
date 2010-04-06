@@ -26,74 +26,74 @@ class Agenda < ActiveRecord::Base
   attr_accessor :notices
   
   belongs_to :event
-  has_many :agenda_entries, :dependent => :destroy
-  has_many :agenda_dividers, :dependent => :destroy
+  has_many :agenda_entries, :dependent => :destroy, :order => 'start_time ASC'
+  has_many :agenda_dividers, :dependent => :destroy, :order => 'id DESC'
   has_many :agenda_record_entries
   has_many :attachments, :through => :agenda_entries
   
   before_validation :from_icalendar
   
-  #acts_as_container :content => :agenda_entries
-  #acts_as_content :reflection => :event
+  acts_as_container :contents => [:agenda_entries, :agenda_dividers],
+                    :scope => {:order => 'start_time ASC, type ASC'}
+  acts_as_content :reflection => :event
   
   def validate
     errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
   end
   
-  def agenda_entries_for_day(i)
-    all_entries = []
-    for entry in agenda_entries
-      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << entry
-      end
-    end
-    all_entries.sort!{|a,b| a.start_time <=> b.start_time}
+  def start_date
+    event.start_date
   end
   
-  
-  def entries_and_dividers_for_day(i)
-   all_entries = []
-   for divider in agenda_dividers
-      if divider.start_time > (event.start_date + i.day).to_date && divider.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << divider
-      end
-    end
-    for entry in agenda_entries
-      if entry.start_time > (event.start_date + i.day).to_date && entry.start_time < (event.start_date + 1.day + i.day).to_date
-        all_entries << entry
-      end
-    end    
-    all_entries.sort! do |a,b| 
-      comp = a.start_time <=> b.start_time
-      if comp.nonzero?
-        comp
-      else
-        if a.class==AgendaDivider
-          -1
-        else
-          1
-        end
-      end
-    end
+  def end_date
+    event.end_date
   end
-  
-  
-  #returns a hash with the id of the entries and the thumbnail of the associated video
-  def get_videos
-    array_of_days = {}
-    for day in 0..event.days-1
-      entries_with_video = {}
-      for entry in agenda_entries_for_day(day)        
-        if entry.recording?
-          entries_with_video[entry.id] = entry       
-        end        
-      end
-      array_of_days[day] = entries_with_video      
-    end
-    return array_of_days
-  end
-  
     
+  def contents_for_day(i)
+    if start_date
+      contents.all(:conditions => [
+                   "start_time >= :day_start AND start_time < :day_end",
+                     {:day_start => start_date.to_date + (i-1).day,
+                     :day_end => start_date.to_date + i.day} ],
+                  :order=>'start_time ASC, type ASC'
+                 ).each{|content| content.reload}
+    else
+      return Array.new
+    end
+  end
+  
+  #returns the hour of the last agenda_entry
+  def last_hour_for_day(i)
+    if start_date.nil?
+      return Time.now
+    end
+    ordered_entries = contents.all(:conditions => [
+                   "start_time >= :day_start AND start_time < :day_end",
+                     {:day_start => start_date.to_date + (i-1).day,
+                     :day_end => start_date.to_date + i.day} ],
+                  :order=>'end_time ASC'
+                 )
+    unless ordered_entries.empty?
+      ordered_entries.last.end_time
+    else
+      if (start_date + day.days).day == Time.now.day
+        Time.now
+      else
+        self.start_date.to_date + (day-1).days + 9.hour #9 in the morning
+      end  
+    end  
+  end
+  
+  # Used to calculate event start time from agenda contents
+  def recalculate_start_time
+    contents.first.start_time
+  end
+  
+  # Used to calculate event end time from agenda contents
+  def recalculate_end_time
+    contents.all(:order=>'end_time ASC').last.end_time
+  end
+       
   def first_video_entry_id
     for entry in agenda_entries  
       if entry.recording?
@@ -105,6 +105,16 @@ class Agenda < ActiveRecord::Base
   
   def has_entries_with_video?
     return first_video_entry_id!=0
+  end
+  
+  
+  def has_past_session_with_video?
+    for entry in agenda_entries
+      if entry.past? && entry.recording?
+        return true
+      end
+    end    
+    return false
   end
   
   def from_icalendar    

@@ -26,7 +26,7 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :streaming
   attr_accessor :recording
 
-  #acts_as_content :reflection => :agenda
+  acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
@@ -55,7 +55,7 @@ class AgendaEntry < ActiveRecord::Base
   validate_on_update do |entry|
     if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
       cm_s = entry.cm_session
-      my_params = {:name => entry.title, :recording => entry.recording, :streaming => entry.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      my_params = {:name => entry.title, :recording => entry.recording ? entry.recording : cm_s.recording, :streaming => entry.streaming ? entry.streaming : cm_s.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
       if entry.cm_session?
         cm_s.load(my_params) 
       else
@@ -119,9 +119,9 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
-#  after_save do |entry|
-#    entry.event.syncronize_date
-#  end
+  after_save do |entry|
+    entry.event.syncronize_date
+  end
   
   
   after_destroy do |entry|  
@@ -192,6 +192,11 @@ class AgendaEntry < ActiveRecord::Base
     cm_session.try(:name)
   end
   
+  def can_edit_hours?
+    #an user can only edit hours if the event is in person or is virtual and future
+    return true unless cm_session? && past? 
+  end
+  
   #Return  a String that contains a html with the video player for this session
   def player
     begin
@@ -205,6 +210,12 @@ class AgendaEntry < ActiveRecord::Base
   def has_error?
     return self.cm_error.present?
   end
+  
+  #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
+  def event_day
+    return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+  end
+  
   
   def get_background_from_embed
     start_key = "image="   #this is the key where the background url starts
