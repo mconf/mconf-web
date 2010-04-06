@@ -153,6 +153,15 @@ class SpacesController < ApplicationController
       end
       
     end
+    
+    
+    
+    
+    
+   
+   
+ 
+    
   end
   
   
