@@ -226,9 +226,9 @@ class LogosController
     # Depending on the desired logo_style, we create a text or another 
     case logo_style
       when 1
-        gc.pointsize = singleline_point_size text, img.columns
+        gc.pointsize = 0.7 * (multiline_point_size text+"\\n", img.columns, img.rows)
         gc.gravity = Magick::SouthGravity
-        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text+"\\n")
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
       when 2
         gc.pointsize = singleline_point_size text, img.columns
