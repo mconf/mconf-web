@@ -40,7 +40,7 @@ class AvatarsController < ApplicationController
     session[:tmp_avatar][:original_filename] = params['avatar']['media'].original_filename
     session[:tmp_avatar][:content_type] = params['avatar']['media'].content_type
 
-    reshape_image f.path, 1.0
+    reshape_image f.path, Avatar::ASPECT_RATIO.to_f
     resize_if_bigger f.path, 600 
     
     @logo_crop_text = t('avatar.crop')

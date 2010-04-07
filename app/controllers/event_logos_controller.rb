@@ -40,7 +40,7 @@ class EventLogosController < ApplicationController
     session[:tmp_event_logo][:original_filename] = params['event_logo']['media'].original_filename
     session[:tmp_event_logo][:content_type] = params['event_logo']['media'].content_type
 
-
+    reshape_image f.path, EventLogo::ASPECT_RATIO.to_f
     resize_if_bigger f.path, 600 
     
     @logo_crop_text = I18n.t('event.logo.crop')
@@ -121,5 +121,29 @@ class EventLogosController < ApplicationController
     
   end
 
+
+  def reshape_image path, aspect_ratio
+    
+    f = File.open(path)
+    img = Magick::Image.read(f).first
+    aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
+    if aspect_ratio_orig < aspect_ratio
+      # target image is more 'horizontal' than original image
+      target_size_y = img.rows
+      target_size_x = target_size_y * aspect_ratio
+    else
+      # target image is more 'vertical' than original image
+      target_size_x = img.columns
+      target_size_y = target_size_x / aspect_ratio
+    end
+    # We center the image inside the white canvas
+    decenter_x = -(target_size_x - img.columns) / 2;
+    decenter_y = -(target_size_y - img.rows) / 2;
+    
+    reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
+    f.close
+    reshaped.write("png:" + path)
+    
+  end
 
 end

@@ -184,7 +184,7 @@ describe Notifier do
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
       ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
       ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
       ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
@@ -213,10 +213,63 @@ describe Notifier do
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
       ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
       ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
       ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
+
+    end
+
+  end
+
+  describe "in the space join request email" do
+
+    it "should include the candidate's name, the name of the space, the URL of the admissions of the space and the signature of the site" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      
+      # Check the content of the subject
+      ActionMailer::Base.deliveries.first.subject.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
+      
+      # Check the content of the body
+      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+      ActionMailer::Base.deliveries.first.body.should include_text(Site.current.signature_in_html)
+
+    end
+
+  end
+
+  describe "in the processed join request email" do
+    
+    it "should include whether the request has been accepted or not and the name and URL of the space" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      jr.update_attributes(:accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
+      action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+      
+      # Check the content of the subject
+      ActionMailer::Base.deliveries[1].subject.should include_text(action)
+      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      
+      # Check the content of the body
+      ActionMailer::Base.deliveries[1].body.should include_text(action)
+      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
 
     end
 

@@ -201,6 +201,81 @@ describe PrivateSender do
     end
 
   end
+
+  describe "in the space join request private message, both for the sent message and the received message," do
+
+    it "should include the candidate's name, the name of the space, the URL of the admissions of the space and the signature of the site" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      
+      # Check the message of the sender
+        # Check the content of the title
+        PrivateMessage.sent(@registered_user).first.title.should include_text(@registered_user.full_name)
+        PrivateMessage.sent(@registered_user).first.title.should include_text(@space.name)
+        
+        # Check the content of the body
+        PrivateMessage.sent(@registered_user).first.body.should include_text(@registered_user.full_name)
+        PrivateMessage.sent(@registered_user).first.body.should include_text(@space.name)
+        PrivateMessage.sent(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+        PrivateMessage.sent(@registered_user).first.body.should include_text(Site.current.signature_in_html)
+        
+      # Check the message of the receiver
+        # Check the content of the title
+        PrivateMessage.inbox(@admin).first.title.should include_text(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.title.should include_text(@space.name)
+        
+        # Check the content of the body
+        PrivateMessage.inbox(@admin).first.body.should include_text(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.body.should include_text(@space.name)
+        PrivateMessage.inbox(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+        PrivateMessage.inbox(@admin).first.body.should include_text(Site.current.signature_in_html)
+    end
+
+  end
+
+  describe "in the processed join request private message, both for the sent message and the received message," do
+    
+    it "should include whether the request has been accepted or not and the name and URL of the space" do
+
+      # Build the join request
+      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + Site.current.signature_in_html + "</p>"
+      params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
+      jr = @space.join_requests.build params
+      jr.save!
+      jr.update_attributes(:accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
+      action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+      
+      # Check the message of the sender
+        # Check the content of the title
+        PrivateMessage.sent(@admin).first.title.should include_text(action)
+        PrivateMessage.sent(@admin).first.title.should include_text(@space.name)
+        
+        # Check the content of the body
+        PrivateMessage.sent(@admin).first.body.should include_text(action)
+        PrivateMessage.sent(@admin).first.body.should include_text(@space.name)
+        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+        
+      # Check the message of the receiver
+        # Check the content of the title
+        PrivateMessage.inbox(@registered_user).first.title.should include_text(action)
+        PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
+        
+        # Check the content of the body
+        PrivateMessage.inbox(@registered_user).first.body.should include_text(action)
+        PrivateMessage.inbox(@registered_user).first.body.should include_text(@space.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+
+    end
+
+  end
   
   after(:each) do 
     #remove all the stuff created

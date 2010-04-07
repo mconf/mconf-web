@@ -1,6 +1,10 @@
 1. Install Openfire-3.6.4
+# sudo apt-get install sun-java6-jre
+# cd /tmp
+# wget http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_3.6.4_all.deb
+# sudo dpkg -i openfire_3.6.4_all.deb
 
-2. Access to http://localhost:9090/
+2. Access to http://chat.vcc.dit.upm.es:9090/
 - Choose Language -> English
 - Server Settings
   * Domain: chat.vcc.dit.upm.es
@@ -14,7 +18,7 @@
 # /etc/init.d/openfire restart 
 
 4. Copy vccCustomAuthentication.jar to Openfire Installation directory.
-Ej. # cp vccCustomAuthentication.jar /usr/share/openfire/lib/
+Ej. # cp /home/isabel/global2/current/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/
 
 4. Restart Openfire
 # /etc/init.d/openfire restart
@@ -44,7 +48,7 @@ jdbcGroupProvider.userGroupsSQL
 SELECT `name` FROM `spaces` WHERE `id`=ANY (SELECT `stage_id` FROM `performances` WHERE `agent_id`=(SELECT `id` FROM `users` WHERE `login`=?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space')
 
 jdbcProvider.connectionString
-jdbc:mysql://127.0.0.1/vcc?user=database_user_name&password=database_password
+jdbc:mysql://127.0.0.1/database_name?user=database_user_name&password=database_password
 
 jdbcProvider.driver
 com.mysql.jdbc.Driver
@@ -95,7 +99,7 @@ vccCustomAuthProvider.userNameHash
 8aa40001b9b39cb257fe646a561a80840c806c55
 
 vccCustomAuthProvider.vccSessionUrl
-http://chotis.dit.upm.es/vcc/session.xml
+http://vcc.dit.upm.es/session.xml
 
 vccCustomAuthProvider.vccCookieSession
 _prueba_session
@@ -120,10 +124,35 @@ Group Chat > Group Chat Settings > Create New Service
 Group chat service name: events
 Group chat service description (optional): Event Chats
 
-7. Configure Vcc
-Login with admin user
-Visit: vccdomain/site
+7. Restart Openfire
+# /etc/init.d/openfire restart
+
+8. Configure Vcc
+
+Login with admin user and visit url vcc.dit.upm.es/site
+
 Configure ->
 Presence Domain: chat.vcc.dit.upm.es
 Event Chat Group Service: events.chat.vcc.dit.upm.es
 
+9. Congigure Apache
+
+ - Enable mod_proxy apache module
+   # a2enmod proxy
+   # a2enmod proxy_http
+
+ - Add this lines to /etc/apache/sites-enabled/000-default
+       ProxyRequests On
+       ProxyPass /http-bind/ http://127.0.0.1:7070/http-bind/
+       ProxyPassReverse /http-bind/ http://127.0.0.1:7070/http-bind/
+
+ - Properly config /etc/apache/mods-enabled/proxy.conf
+        <Proxy *>
+                AddDefaultCharset off
+                Order deny,allow
+                #Deny from all
+                Allow from 127.0.0.1
+        </Proxy>
+
+10. Restart Apache
+# /etc/init.d/apache reload
