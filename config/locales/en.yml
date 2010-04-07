@@ -36,6 +36,9 @@ en:
     divider:
       delete: "Divider was successfully created"
       edit: "Edit Divider"
+      error:
+        coinciding_dates: "There is a conflict with the date of the divider and existing agenda entries or dividers."
+        empty_title: "The title of the divider cannot be empty."
       new: "New agenda divider"
       start_time: "Start time" 
       title: "Title"
