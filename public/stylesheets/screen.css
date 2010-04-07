@@ -794,7 +794,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 .profile_center #profile_content{background:#fff;min-height:300px;padding:0 10px;}
 .profile_center #profile_content .odd_thread{background:#fff;}
 .profile_center #profile_content .home_event{padding:0;}
-.profile_center #profile_content .thread_content div{float:none;position:relative;}
+.profile_center #profile_content .thread_content div.thread-home{float:none;position:relative;}
 
 #profile_wrapper .title,#sidebar #profile_right .title{
 	background:#BDD8EB none repeat scroll 0 0;
@@ -1027,12 +1027,12 @@ a.extract_form{margin-right:0.5em;}
 #line span{background:#fff;padding:0 6px 0 6px;margin-left:25px;}
 #home_wrapper{padding:10px 10px 10px 10px;background:#fff;}
 #recent-activity .odd_thread{background:none;}
-#recent-activity .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
-#recent-activity .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
+#recent-activity .div-logo,#profile_content .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
+#recent-activity .div-logo img,#profile_content .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
 #recent-activity .news_cloud{border:none;}
 #recent-activity .post_cloud,#recent-activity .event_cloud,#recent-activity .news_cloud{border-bottom:1px #ccc solid;}
 #recent-activity .post_cloud.last,#recent-activity .event_cloud.last,#admission .reqs.last{border-bottom:none;}
-#recent-activity .div-logo img:hover{border-color:#bbb;}
+#recent-activity .div-logo img:hover,#profile_content .div-logo img:hover{border-color:#bbb;}
 #recent-activity .thread{padding:6px 0;}
 
 .next-events-section li.event {margin-left:6px;}
