@@ -107,7 +107,7 @@
 
 <div id="change-event">
 	
-  <h3><div id="help" title=<%=h(t('event.help.create'))%>></div><%= t('event.create.title') %></h3>
+  <h3><div id="help" title="<%=h(t('event.help.create'))%>"></div><%= t('event.create.title') %></h3>
   <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
     <div>
       <strong><span>1. <%= t('event.basic_info')%></span></strong><br/>
@@ -120,8 +120,8 @@
     </div>
   
     <div>
-      <label for="Organizer"><%= t('organizer') %>:</label>
-      <%=select(:organizers, :name, @space.users.map{|u| u.login}, {}, {:multiple=>"multiple"})%>
+      <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
+      <%=select(:organizers, :name, @space.users.map{|u| u.full_name}, {}, {:multiple=>"multiple"})%>
     </div>
     <div>
       <label for="Location"><%= t('event.location') %>:</label>

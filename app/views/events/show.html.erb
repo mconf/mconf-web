@@ -14,47 +14,24 @@
 <% content_for :sidebar do  %>
 
   <div id="full_sidebar">
-   	<%if params[:show_video]%>
+  	<%if params[:edit_event]%>
+        <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
+	<%elsif params[:edit_comment]%>
+	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
+	<%elsif params[:show_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
-	  <%else%>
-
-      <%if @space.authorize?([:create, :content],:to => current_user)%>
-  	   <%if params[:edit_event]%>
-     	   <%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-	     <%elsif params[:edit_comment]%>
-			   <%= render :partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) } %>	  
-	     <%else%>
-		     <%= render :partial => 'participants' %>
-	       <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
-		       <%= render :partial => 'connection_info'%>
-		     <%end%>
-  	   <%end%>
-      <%end%>
-	  <%end%>  
-        
-		<%if event.authorize?(:update, :to => current_user) %>
-      <div id="update_logo" class="update_logo margin-up" style="display:none">
-        <h3><%=@event.logo ? t('event.logo.select') : t('event.logo.new') %></h3>
-	       <div class="logo_content">
-					<% form_for :event_logo, :url => space_event_logo_path(@space, @event), :html => { :multipart => true, :method => :put} do |f| %>
-	          <div><%= f.file_field :media, :id => 'logo_media' %></div>   
-	          <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-	        <%end%>
-				 </div>
-      </div>
-      <div id="import_icalendar" class="import_icalendar margin-up"  style="display:none" >
-        <h3><%=t("icalendar.import") %></h3>
-        <div class="icalendar_content">
-					<p><%=t("icalendar.instruction") %></p>
-					<% form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
-	          <%= f.file_field :icalendar_file %>
-	          <div class="margin-up">
-				<button type="submit" class="basic_button blue_button"><%=t("icalendar.add")%></button>
-	          </div>
-	        <% end %>
-				</div>
-      </div>
+	<%else%>
+	   <%= render :partial => 'participants' %>
+	   <%unless @event.is_in_person? || @event.past?%>
+		  <%= render :partial => 'connection_info'%>
+	   <%end%>
+   <%end%>  
+           
+	<%if event.authorize?(:update, :to => current_user) %>
+      <%= render :partial => "change_logo" %>
+	  <%= render :partial => "import_icalendar" %>      
     <%end%>
+		
 	</div> 
    
 <%end%>
@@ -90,8 +67,20 @@
    <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
   <%elsif params[:show_streaming] && @event.is_in_person? %>
     <%=render :partial => "external_streaming"%>
+    <%if event.is_happening_now?%>
+      <% content_for :sidebar do  %>
+        <%= render :partial => "event_chat" %>
+      <%end%>
+    <%end%>
+  <%elsif params[:show_participation] && @event.is_in_person? %>
+    <%=render :partial => "external_participation"%>
   <%elsif params[:show_streaming]%>
     <%=render :partial => "cm_streaming"%>
+    <%if event.is_happening_now?%>
+      <% content_for :sidebar do  %>
+        <%= render :partial => "event_chat" %>
+      <%end%>
+    <%end%>
   <%elsif params[:show_participation]%>
     <%=render :partial => "cm_participation"%>
   <%elsif params[:show_repository]%>
@@ -124,4 +113,6 @@
 			      <%= will_paginate @comments%>
 			</div>
 	</div>
+	
 <%end%>
+

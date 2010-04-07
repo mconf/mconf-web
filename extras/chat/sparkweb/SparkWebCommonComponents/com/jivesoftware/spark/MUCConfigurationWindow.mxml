@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<ColorShiftingTitleWindow xmlns="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+	title="{Localizator.getText('title.room.config.window')}" showCloseButton="true" close="close()"
+	horizontalScrollPolicy="auto" verticalScrollPolicy="auto" height="480" width="640"
+	creationComplete="init()">
+	
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.jivesoftware.spark.managers.SparkManager;
+			import mx.core.Application;
+			import mx.controls.Text;
+			import flexlib.scheduling.scheduleClasses.utils.Selection;
+			import mx.core.UIComponent;
+			import mx.controls.TextArea;
+			import mx.collections.ArrayCollection;
+			import mx.controls.List;
+			import mx.controls.ComboBox;
+			import mx.controls.CheckBox;
+			import mx.controls.TextInput;
+			import mx.containers.FormItem;
+			import mx.containers.FormHeading;
+			import mx.containers.Form;
+			import org.jivesoftware.xiff.data.forms.FormField;
+			import org.jivesoftware.xiff.data.forms.FormExtension;
+			import mx.controls.Label;
+			import org.jivesoftware.xiff.events.RoomEvent;
+			import org.jivesoftware.xiff.conference.Room;
+			import com.jivesoftware.spark.managers.Localizator;
+			import mx.managers.PopUpManager;
+			
+			private var room:Room = null;
+			private var formExtension:FormExtension = null;
+			private var roomConfigForm:Form = null;
+			private const textAreaHeight:uint = 80;
+			private const formPercentWidth:uint = 100;
+			private const formName:String = "roomConfigForm";
+			
+			[Bindable]
+			private var dropShadowFilters:Array = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+
+			private function init():void {
+				// Hide until the form is retreived from the server
+				visible = false
+				
+            	this.titleTextField.filters = dropShadowFilters;
+           		this.titleTextField.styleName = "title";
+            }
+            
+            public function show(room:Room):void {
+            	this.room = room;
+            	this.room.addEventListener(RoomEvent.CONFIGURE_ROOM, retrieveRoomConfigForm);
+            	this.room.addEventListener(RoomEvent.ADMIN_ERROR, retrieveRoomConfigForm);
+            }
+            
+            public function retrieveRoomConfigForm(roomEvent:RoomEvent):void
+            {
+            	// Report a possible error in our request for the configuration form
+            	if (!roomEvent.data)
+            	{
+            		switch (roomEvent.errorType)
+            		{
+            			case "auth":
+            				SparkManager.displayError(Localizator.getText('mucconfig.error.auth'), Localizator.getText('mucconfig.error'), false);
+            				break;
+            			default:
+            				SparkManager.displayError(Localizator.getText('mucconfig.error.default'), Localizator.getText('mucconfig.error'), false);
+            				break;
+            		}
+            		close();
+            	}
+            	else
+            	{
+            		// Form was retrieved, show the window.
+            		visible = true;
+            		renderRoomConfigForm(roomEvent);
+            	}
+            }
+            
+            public function renderRoomConfigForm(roomEvent:RoomEvent):void
+            {
+            	formExtension = roomEvent.data;
+            	roomConfigForm = new Form();
+            	roomConfigForm.id = formName;
+            	roomConfigForm.percentWidth = formPercentWidth;
+            	
+            	if (formExtension.title.length > 0)
+            		title = formExtension.title;
+
+            	if (formExtension.instructions.length > 0)
+            	{
+            		var formInstructions:Text = new Text();
+            		formInstructions.text = formExtension.instructions;
+            		formInstructions.percentWidth = formPercentWidth;
+            		roomConfigForm.addChild(formInstructions);
+            	}
+            	
+            	for each(var formField:FormField in formExtension.getAllFields())
+            	{
+            		var formItem:FormItem = new FormItem();
+            		formItem.percentWidth = formPercentWidth;
+            		formItem.label = formField.label;
+            		
+            		switch (formField.type)
+            		{
+            			case FormExtension.FIELD_TYPE_TEXT_SINGLE:
+            				var textInput:TextInput = new TextInput();
+            				textInput.percentWidth = formPercentWidth;
+            				textInput.id = formField.name;
+            				textInput.text = formField.value;
+            				formItem.addChild(textInput);
+            				break;
+            			case FormExtension.FIELD_TYPE_BOOLEAN:
+            				var checkBox:CheckBox = new CheckBox();
+            				checkBox.id = formField.name;
+            				checkBox.selected = (formField.value == '1');
+            				formItem.addChild(checkBox); 
+            				break;
+            			case FormExtension.FIELD_TYPE_TEXT_PRIVATE:
+            				var privateInput:TextInput = new TextInput();
+            				privateInput.percentWidth = formPercentWidth;
+            				privateInput.id = formField.name;
+            				privateInput.text = formField.value;
+            				privateInput.displayAsPassword = true;
+            				formItem.addChild(privateInput);
+            				break;
+            			case FormExtension.FIELD_TYPE_LIST_SINGLE:
+            				var comboBox:ComboBox = new ComboBox();
+            				comboBox.percentWidth = formPercentWidth;
+            				comboBox.setStyle("color", "white");
+            				comboBox.id = formField.name;
+            				comboBox.dataProvider = formField.getAllOptions();
+            				for each(var listSingleOption:Object in comboBox.dataProvider)
+            				{
+            					if (listSingleOption.value == formField.value)
+            					{
+            						comboBox.selectedItem = listSingleOption;
+            						break;
+            					}
+            				}
+            				formItem.addChild(comboBox);
+            				break;
+            			case FormExtension.FIELD_TYPE_LIST_MULTI:
+            				var list:List = new List();
+            				list.percentWidth = formPercentWidth;
+            				list.id = formField.name;
+            				list.allowMultipleSelection = true;
+            				list.rowCount = 4;
+            				
+            				list.setStyle("color", "black");
+            				list.setStyle("rollOverColor", 0xFFCC00);
+            				list.setStyle("selectionColor", 0xDDB000);
+            				list.setStyle("alternatingItemColors", [0xAAAAAA, 0xBBBBBB]);
+            				
+            				list.dataProvider = formField.getAllOptions();
+            				var fieldValues:ArrayCollection = new ArrayCollection(formField.getAllValues());
+            				var selectedItems:Array = [];
+            				for each(var listMultiOption:Object in list.dataProvider)
+            				{
+            					if (fieldValues.contains(listMultiOption.value))
+	            					selectedItems.push(listMultiOption);
+            				}
+            				list.selectedItems = selectedItems;
+            				formItem.addChild(list);
+            				break;
+            			case FormExtension.FIELD_TYPE_FIXED:
+            				var fixedText:Text = new Text();
+            				fixedText.percentWidth = formPercentWidth;
+            				fixedText.width = 256;
+            				fixedText.text = formField.value;
+            				formItem.addChild(fixedText);
+            				break;
+            			case FormExtension.FIELD_TYPE_JID_MULTI:
+            				var textArea:TextArea = new TextArea();
+            				textArea.percentWidth = formPercentWidth;
+            				textArea.height = textAreaHeight;
+            				textArea.id = formField.name;
+            				for each(var jid:String in formField.getAllValues())
+            					textArea.text += (jid + '\n');
+            				formItem.addChild(textArea);
+            				break;
+            		}
+            		
+            		roomConfigForm.addChild(formItem);
+            	}
+            	
+            	configCanvas.addChild(roomConfigForm);
+            }
+            
+            public function requestConfiguration():void {
+            	room.requestConfiguration();
+            }
+            
+            private function close():void {
+            	PopUpManager.removePopUp(this);
+            	room.removeEventListener(RoomEvent.CONFIGURE_ROOM, retrieveRoomConfigForm);
+            	room.removeEventListener(RoomEvent.ADMIN_ERROR, retrieveRoomConfigForm);
+            }
+            
+            private function submit():void {
+            	var fieldMap:Object = new Object();
+            	
+            	// Construct the fieldMap object as described in org.jivesoftware.xiff.conference.Room#configure
+            	for each(var formChild:Object in roomConfigForm.getChildren())
+            	{
+            		// If the child is not a FormItem or is a FormItem but does not have a child with an id, continue.
+            		if (!(formChild is FormItem))
+            			continue;
+            		var formItemChildren:Array = (formChild as FormItem).getChildren();
+            		if (formItemChildren != null)
+	            		var formItemChild:UIComponent = formItemChildren[0] as UIComponent;
+	            	else
+	            		continue;
+            		if (!formItemChild || !formItemChild.id || formItemChild.id.length == 0)
+            			continue;
+
+					// Add the form item's child's value to the field-map in a manner that makes sense for its type.
+					if (formItemChild is TextInput)
+					{
+						fieldMap[formItemChild.id] = [(formItemChild as TextInput).text];
+					}
+					else if (formItemChild is CheckBox)
+					{
+						fieldMap[formItemChild.id] = [(formItemChild as CheckBox).selected ? '1' : '0'];
+					}
+					else if (formItemChild is ComboBox)
+					{
+						fieldMap[formItemChild.id] = [(formItemChild as ComboBox).selectedItem.value as String];
+					}
+            		else if (formItemChild is List)
+            		{
+            			var values:Array = new Array();
+            			for each(var selectedItem:Object in (formItemChild as List).selectedItems)
+            				values.push(selectedItem.value as String);
+						fieldMap[formItemChild.id] = values;            				
+            		}
+            		else if (formItemChild is TextArea)
+            		{
+            			var jids:Array = (formItemChild as TextArea).text.split('\r');
+            			var lastString:String = jids.pop();
+            			if (lastString.length != 0)
+            				jids.push(lastString);
+            			
+            			fieldMap[formItemChild.id] = jids;
+            		}
+            	}
+            	
+            	// Sends a configuration packet based on our modified form 
+            	room.configure(fieldMap);
+            }
+            
+            private function cancel():void {
+            	room.cancelConfiguration();
+            }
+            
+            public static function showMUCConfigureWindow(room:Room):void
+	  	    {
+	  	    	var mucConfigurationWindow:MUCConfigurationWindow = MUCConfigurationWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), MUCConfigurationWindow));
+	  	    	PopUpManager.centerPopUp(mucConfigurationWindow);
+	  	    	mucConfigurationWindow.show(room);
+	  	    	mucConfigurationWindow.requestConfiguration();
+	  	    }
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas id="configCanvas" width="100%" />
+
+	<mx:ControlBar horizontalAlign="right">
+    	<mx:Button color="white" filters="{dropShadowFilters}" label="{Localizator.getText('label.cancel')}"
+				   click="{cancel(); close();}" />
+		<mx:Button id="okButton" color="white" filters="{dropShadowFilters}" label="{Localizator.getText('label.ok')}"
+				   click="{submit(); close();}"/>
+	</mx:ControlBar>
+	
+</ColorShiftingTitleWindow>

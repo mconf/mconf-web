@@ -1,5 +1,5 @@
 <% content_for :javascript do  %>
-  
+  	
 	$("#space_filter").show();
 
 	$("input#spaces_all").click(function(){
@@ -27,6 +27,7 @@
 		  this.value="";
 		}
 	});
+
 
 	$("#space_name_filter").blur(function(){
 	  if(this.value == ""){
@@ -63,6 +64,14 @@
 	$(".unautorized a").fancybox({
     'hideOnContentClick' : false
   });
+  
+
+	
+	
+	
+	
+
+	
 	
 	<%if params[:space_id]=="my"%>
 	   $("input#spaces_my").click();
@@ -118,9 +127,9 @@
 
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
-  <% for space in @public_spaces %>
-    <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
-  <% end %>
+    <% for space in @public_spaces %>
+      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+    <% end %>
   </div>
 </div>
 
@@ -128,15 +137,15 @@
 
   <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
   <div id="space_content">
-	<% for space in @private_spaces %>
-	  <% unless space.authorize?(:read, :to => current_agent) %>
-	    <div class="space_item unautorized other" name="<%=space.permalink%>">
+  	<% for space in @private_spaces %>
+  	  <% unless space.authorize?(:read, :to => current_agent) %>
+  	    <div class="space_item other" name="<%=space.permalink%>">
           <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>space.name)%>
-		</div>
-	  <% else %>
-		<div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
-	  <% end %>
-	<% end %>
+  		  </div>
+  	  <% else %>
+  		  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+  	  <% end %>
+  	<% end %>
   </div>
 </div>
 

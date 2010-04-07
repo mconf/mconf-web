@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<components:ColorShiftingPanel
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:components="com.jivesoftware.spark.*"
+    implements="mx.core.IToolTip"
+	color="black" 
+	title=""
+	headerHeight="0">
+    <mx:Script>
+        <![CDATA[
+        	import org.jivesoftware.xiff.core.UnescapedJID;
+        	import org.jivesoftware.xiff.vcard.VCard;
+        	import com.jivesoftware.spark.managers.SparkManager;
+        	import org.jivesoftware.xiff.data.im.RosterItemVO;
+        	
+        	[Bindable]
+        	private var contact:RosterItemVO;
+        	
+        	[Bindable]
+        	private var contactVCard:VCard;
+            
+            public function set text(value:String):void
+            {
+            	contact = RosterItemVO.get(new UnescapedJID(value), true);
+            	contactVCard = VCard.getVCard(SparkManager.connectionManager.connection, contact);
+            }
+            
+            public function get text():String { return ""; }
+        ]]>
+	</mx:Script>
+
+	<mx:HBox width="100%" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+		<mx:Image id="presenceIconImage" maxWidth="{contact.online ? NaN : 0}" source="{SparkManager.presenceManager.getIconFromRosterItem(contact, contact.show, contact.online, contact.pending)}" />
+		<mx:VBox verticalGap="1">
+			<mx:HBox width="100%" verticalAlign="middle" horizontalGap="0">
+				<mx:Label text="{contact.displayName}" fontWeight="bold" fontSize="11" />
+				<mx:Label text="{(contact.displayName == contact.jid.toString()) ? '' : ('(' + contact.jid.toString() + ')')}" fontSize="11" />	
+			</mx:HBox>
+			
+			<mx:HBox verticalAlign="middle" horizontalGap="0" width="100%" >
+				<mx:Label text="Status:" textAlign="right" />
+				<mx:Label paddingTop="1" right="0" width="100%" textAlign="left" text="{contact.pending ? 'Pending' : contact.status}" fontSize="9" />
+			</mx:HBox>
+			<mx:HBox verticalAlign="middle" horizontalGap="0" width="100%" maxHeight="{contactVCard.title ? NaN : 0}">
+				<mx:Label paddingLeft="11" text="Title:" textAlign="right" />
+				<mx:Label paddingTop="1" text="{contactVCard.title}" fontSize="9" />
+			</mx:HBox>
+			<mx:HBox verticalAlign="middle" horizontalGap="0" width="100%" maxHeight="{contactVCard.email ? NaN : 0}">
+				<mx:Label paddingLeft="5" text="Email:" textAlign="right" />
+				<mx:Label paddingTop="1" id="emailLabel" text="{contactVCard.email}" fontSize="9" />
+			</mx:HBox>
+ 
+		</mx:VBox>
+	</mx:HBox>	
+ 	
+</components:ColorShiftingPanel>

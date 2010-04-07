@@ -3,7 +3,7 @@
 
 <%= t('e-mail.account_activated', :sitename => @sitename)%><br/><br/>
 
-<%= t('e-mail.url_activated', :name => @user.login, :url => "http://" + Site.current.domain.to_s + "/") %><br/><br/>
+<%= t('e-mail.url_activated', :name => @user.email, :url => "http://" + Site.current.domain.to_s + "/") %><br/><br/>
 
 <%= @signature %><br/>
 </body>

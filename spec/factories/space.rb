@@ -2,6 +2,7 @@ Factory.define :space do |s|
   s.sequence(:name) { |n| "Space #{ n }" }
   s.description "Space description"
   s.mailing_list_for_group "list@vcc-test.dit.upm.es"
+  s.default_logo "perfil.jpg"
 end
 
 Factory.define :public_space, :parent => :space do |s|
@@ -16,10 +17,12 @@ Factory.define :private_space_with_repository, :parent => :space do |s|
   s.public false
   s.repository true
 end
+
 Factory.define :public_space_with_repository, :parent => :space do |s|
   s.public true
   s.repository true
 end
+
 def populated_space(s)
   2.times do
     Factory.create(:admin_performance, :stage => s)

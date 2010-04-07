@@ -167,6 +167,7 @@ en:
   chat:
     edit_question: "Would you like to enable chat?"
     edit_enabled: "Enable chat at next login"
+    connecting_message: "Connecting to event chat..."
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
@@ -250,7 +251,7 @@ en:
   edit_your_profile: "Edit your profile"
   e-mail:
     account_activated: "Your account at {{sitename}} has been activated successfully."
-    url_activated: "You can now login to your account with your username \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
+    url_activated: "You can now login to your account with your email \"{{name}}\" and your password in <a href=\"{{url}}\"> {{url}}</a>"
     commas: "(separated by commas)"
     confirm: "You need now to confirm your registration by clicking on <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "If you can not click on the link above, please copy and paste the following line in your browser:<br/> {{url}}"
@@ -285,10 +286,8 @@ en:
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
   event:
-    action:
-      
-      select: "Action"
-      
+    action:      
+      select: "Action"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -310,7 +309,8 @@ en:
       info: "Connection info for this event"
       isabel: "Isabel server"
       sip: "Proxy SIP"
-      web: "Web client"
+      str: "Streaming"
+      web: "Participation"
     create:
       info: 
         basic: "Here you can organize three kind of events"
@@ -356,13 +356,16 @@ en:
       one: "Event in the space {{space}}"
     held_with: "This event will be held with"
     help:
+      book: "Booking resources is needed in order to make a videoconference. Please define your schedule in the agenda."
       create: "Create your simple event in three steps:"
       creating_entries: "creating entries"
       define: "Define the schedule of your meeting"
       description: "Write a complete description"
       edit: "Edit your event"
       in_agenda: "in the agenda"
-      now: "Now you can"      
+      now: "Now you can"   
+      organisers: "Select the space users that will organise this event"
+      without_str: "To get streaming and/or recording, please indicate it in your schedule"   
     invite: "Invite people"
     Isabel: "Isabel event"
     join: "Join this event"
@@ -398,7 +401,7 @@ en:
       legend:
         name: "'Name' will be replaced in the message by the receiver's name."
       message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
-      message_beginning_whithout_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
+      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
       message_ending: "<p>You can find more information about the event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Send a notification to the attendants"
       personal: "Write your personal text here."
@@ -411,6 +414,13 @@ en:
     one: "Event"
     other: "Events"
     online: "WebConference"
+    participation:
+      add: "Add one."
+      title: "Participation "
+      edit: "Edit web client code"
+      none: "No one has posted any participation url." 
+      ready: "The participation is booked. It will be available during the event"
+      will_be_available: "The participation will be available during the event"
     past:
       all: "All past ({{size}})"
       none: "No past events"
@@ -431,10 +441,11 @@ en:
       title: "Event documents"
     search: "Search events..."
     select_date: "Select a date for your event"
+    session_now: "Session now"
     spam: "Spam in events"
     streaming: 
       add: "Add one."
-      title: "Streaming"
+      title: "Streaming session"
       edit: "Edit streaming code"
       none: "No one has posted any streaming url." 
       ready: "The streaming is booked. It will be available during the event"
@@ -445,6 +456,8 @@ en:
     today_and_yesterday: "Today and yesterday ({{size}})"
     tomorrow: "Tomorrow events"
     undated:
+      none: "There are no events without agenda"
+      show: "Show all undated events"
       title: "Events without agenda defined"
     updated: "Event updated successfully"
     upcoming:
@@ -606,7 +619,7 @@ en:
     part5: "4. Once you have completed your registration, click on Done button."
     part6: "5. After registering for an account, you will receive an email confirmation with the link in order to activate your account."                      
   help_logging:
-    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your username and password at the main screen."
+    part1: "If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your email and password at the main screen."
     part2: "You can login automatically if you have an account with an OpenID provider."
     part3: "If you have forgotten your password you can use this form to recover it and have it automatically emailed to you."
   help_newdoc:
@@ -720,15 +733,19 @@ en:
   join: "Join"
   join_request:
     already_sent: "You have already requested to join this space"
-    asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you."
+    asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you:"
+    asked_anonymous: "Someone wants to participate in {{space}} space administered by you:"
     ask_subject: "{{candidate}} wants to participate in {{space}}"
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
+    label: "Customise your join request message"
+    message_title: "Send a join request to the administrators of the space"
     not_logged_in: "You need to be logged in to send a join request"
     not_pending: 
       other: "There are no pending join requests"
     pending:
       other: "Pending join requests"
+    personal: "Write your personal text here."
     send: "Send join request"
     to_accept: "To answer the request please visit <a href={{url}}>{{url}}</a>"
 
@@ -1013,6 +1030,7 @@ en:
     signature: "Signature"
     domain: "Application Domain"
     presence_domain: "Presence Domain"
+    chat_group_service_jid: "Event Chat Group Service"
   size: Size
   skype: Skype
   source:
@@ -1033,6 +1051,7 @@ en:
     created: "Space created successfully"
     delete: "Delete Space"
     deleted: "Space removed successfully"
+    description_none: "A space description must be given to create a new space"
     disable: "Disable space"
     disabled: "Space disabled successfully"
     does_not_belong: "does not belong to any space"
@@ -1052,9 +1071,19 @@ en:
       clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
+    logo_selected:    
+        close: "Close"
+        close_gallery: "Close the gallery"
+        default_message: "The logo of the space will be this:"
+        open_gallery: "Open the gallery"
+        text_logo: "Create a text logo"
+        upload_logo: "Upload your own logo"
+        enter_text: "Enter a text to generate logos:"
+        generate_logo: "Generate"
     main: "Main space"
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
+    name_none: "A space name must be given to create a new space"
     one: "Space"
     other: "Spaces"
     popular:
@@ -1148,6 +1177,7 @@ en:
   type: "Type"
   
   ######### U ###########
+  undated: "Undated"
   unknown_content: "Unknown content {{content}}"
   upcoming: "Upcoming"
   update: "Update"

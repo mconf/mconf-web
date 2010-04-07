@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<mx:VBox xmlns:sho="sho.ui.*" xmlns:comp="com.jivesoftware.spark.*" horizontalAlign="center" xmlns:mx="http://www.adobe.com/2006/mxml" initialize="init()">
+	
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.controls.Alert;
+			import org.jivesoftware.xiff.conference.Room;
+			
+			public var room:Room;
+		
+			private var fileReference:FileReference;
+		
+			private function init():void {
+				fileReference = new FileReference();
+				configureListeners(fileReference);
+			}
+			
+			private function browseFiles():void {
+				// open file browser window
+				fileReference.browse();
+			}
+			
+			private function uploadFile():void {
+				// set up url for room webdav service
+				var serverSideScript:String = "http://" +
+					room.connection.server +
+					"/webdav/rooms/" +
+					room.conferenceServer.replace("."+room.connection.server, "") +
+					"/" +
+					room.roomName;
+					
+				// set up request	
+				var urlRequest:URLRequest = new URLRequest(serverSideScript);
+				urlRequest.method = URLRequestMethod.POST;
+				urlRequest.data = new URLVariables();
+				urlRequest.data.username = room.connection.jid;
+				// TODO: get this from server, what we have here is very insecure
+				urlRequest.data.authtoken = "1234567890";
+				
+				// start upload
+				fileReference.upload(urlRequest);
+			}
+			
+	        private function configureListeners(dispatcher:IEventDispatcher):void {
+	            dispatcher.addEventListener(Event.CANCEL, cancelHandler);
+	            dispatcher.addEventListener(Event.COMPLETE, completeHandler);
+	            dispatcher.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
+	            dispatcher.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+	            dispatcher.addEventListener(Event.OPEN, openHandler);
+	            dispatcher.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+	            dispatcher.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+	            dispatcher.addEventListener(Event.SELECT, selectHandler);
+	        }
+		
+	        private function cancelHandler(event:Event):void {
+	        	filename.text = "";
+	        	fileReference = new FileReference();
+	        }
+	
+	        private function completeHandler(event:Event):void {
+	        	closeUploadScreen();
+	        }
+	        
+	        private function closeUploadScreen():void {
+	        	filename.text = "";
+	        	fileReference = new FileReference();
+	        	dispatchEvent(new Event('close'))	
+	        }
+	
+	        private function httpStatusHandler(event:HTTPStatusEvent):void {
+	        	if (event.status != 200) {
+		        	Alert.show("HTTP Error Code: "+event.status, "File Upload Error");
+		        }
+	        }
+	        
+	        private function ioErrorHandler(event:IOErrorEvent):void {
+	        	Alert.show("IO Error: "+event.text, "File Upload Error");
+	        }
+	
+	        private function openHandler(event:Event):void {
+				// update the status text
+				statusText.text = "Uploading...";
+	        }
+	
+	        private function progressHandler(event:ProgressEvent):void {
+				// update the status text
+				statusText.text = "Uploading: "+event.bytesLoaded+"/"+event.bytesTotal+" bytes";
+	        }
+	
+	        private function securityErrorHandler(event:SecurityErrorEvent):void {
+	        	Alert.show("Security Error: "+event.text, "File Upload Error");
+	        }
+	
+	        private function selectHandler(event:Event):void {
+	            fileReference = FileReference(event.target);
+	            filename.text = fileReference.name;
+	        }
+			
+		]]>
+	</mx:Script>
+	
+	<mx:TextArea borderSides="right" borderStyle="solid" text="Upload a File" height="20" paddingLeft="5" backgroundColor="#DDDDDD" width="100%" paddingTop="3" fontWeight="bold" color="black" fontFamily="Lucida Sans, Myriad Pro, Arial, sans serif" fontSize="12"/>
+	<mx:Text width="{width - 16}" focusEnabled="false" link="browseFiles()">
+		<mx:htmlText><![CDATA[<a href='event:browse'><font color='#555555'><u>Browse and select</u></font></a> the file you would like to share.]]></mx:htmlText>
+	</mx:Text>
+	<mx:TextInput id="filename" editable="false" width="{width - 16}" focusEnabled="false"/>
+
+	<mx:HBox>
+	<mx:Button click="uploadFile();" label="Upload File"/>
+	<mx:LinkButton id="uploadButton" click="closeUploadScreen()" label="Cancel" color="#555555" textDecoration="underline" right="0" top="0"/>		
+	</mx:HBox>
+	
+	<mx:Text id="statusText" text=""/>
+	
+</mx:VBox>

@@ -16,7 +16,7 @@
 			<ul>
   			<li class="main_date small-font">
 					<% if show_author -%> 					
-            <%=t('author')%>:<span class="unified_user"><%=link_to (attachment.author.name,user_profile_path(attachment.author),:class=>"unified_user")%></span>	        
+            <%=t('author')%>:<span class="unified_user"><%=link_to (attachment.author.name,user_path(attachment.author),:class=>"unified_user")%></span>	        
 					<% end -%>
 				</li>
 			</ul>

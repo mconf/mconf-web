@@ -3,7 +3,7 @@
     <%=link_to image_tag("icons/cancel.png", :alt => t('disable'), :title => t('user.disable')), user_path(user), :confirm => 'Are you sure?', :method => :delete%>
   </ul>
   <div>
-    <%=link_logo(user, :size => 32, :url => user_profile_path(user), :title=>user.name)%>
+    <%=link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)%>
   </div>
 	<div class="user_data">
 	  <% if performance.nil? -%>

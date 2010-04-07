@@ -99,9 +99,9 @@ class EventsController < ApplicationController
     if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
       #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
       # and recordings for past events
-      if event.past?
+      if event.past? && event.agenda.has_entries_with_video?
         params[:show_video]=@event.agenda.first_video_entry_id
-      elsif event.future?
+      elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
         params[:show_agenda]=true
       elsif event.is_happening_now?
         params[:show_streaming]=true
@@ -212,6 +212,9 @@ class EventsController < ApplicationController
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
           end
+          if params[:event][:other_participation_url]
+            @result = params[:event][:other_participation_url]
+          end
           if params[:event][:description]
             @result = params[:event][:description]
             @description=true
@@ -309,8 +312,8 @@ class EventsController < ApplicationController
     #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
     Performance.find(:all, :conditions => {:role_id => role, :stage_id => @event}).each do |perf| perf.delete end
     for name in array_usernames
-      if user = User.find_by_login(name)
-        Performance.create! :agent => user,
+      if prof = Profile.find_by_full_name(name)
+        Performance.create! :agent => prof.user,
                             :stage => @event,
                             :role  => role
       end
@@ -324,17 +327,18 @@ class EventsController < ApplicationController
       @current_events = @events.select{|e| e.is_happening_now?}
     
       #events without date
-      @events_undated = @events.select{|e| !e.has_date?}
+      @undated_events = @events.select{|e| !e.has_date?}
     
       #Upcoming events
       @today_events = @events.select{|e| e.has_date? && e.start_date.to_date == Date.today && e.start_date.future?}
-      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 3)
+      @today_paginate_events = @today_events.paginate(:page => params[:page], :per_page => 5)
       @next_week_events = @events.select{|e| e.has_date? && e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 7) && e.start_date.future?}
-      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 3)
+      @next_week_paginate_events= @next_week_events.paginate(:page => params[:page], :per_page => 5)
       @next_month_events = @events.select{|e| e.has_date? && e.start_date.to_date >= (Date.today) && e.start_date.to_date <= (Date.today + 30) && e.start_date.future?}
-      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 3)
+      @next_month_paginate_events = @next_month_events.paginate(:page => params[:page], :per_page => 5)
       @all_upcoming_events = @events.select{|e| e.has_date? && e.start_date.future?}
-      @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 3)
+      @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 5)
+      @undated_paginated_events = @undated_events.paginate(:page => params[:page], :per_page => 5)
 =begin      
       if params[:day] == "today"
         @upcoming_title = "Today Events"
@@ -359,10 +363,10 @@ class EventsController < ApplicationController
        @all_past_events.reverse! 
 
       end
-      @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 3)
-      @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 3)
-      @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 3)      
-      @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 3)
+      @today_and_yesterday_paginate_events = @today_and_yesterday_events.paginate(:page => params[:page], :per_page => 5)
+      @last_week_paginate_events = @last_week_events.paginate(:page => params[:page], :per_page => 5)
+      @last_month_paginate_events = @last_month_events.paginate(:page => params[:page], :per_page => 5)      
+      @all_past_paginate_events = @all_past_events.paginate(:page => params[:page], :per_page => 5)
 
 =begin
       if params[:day] == "yesterday"
@@ -382,16 +386,14 @@ class EventsController < ApplicationController
       @past_events = @events.select{|e| !e.start_date.future?}.reverse.paginate(:page => params[:page], :per_page => 10)
 =end
       #First 5 past and upcoming events
-      if params[:order_by_time] != "ASC"
-        @last_past_events = @events.select{|e| e.past?}.reverse.first(2)
-      else
-        @last_past_events = @events.select{|e| e.past?}.first(2)
-      end
-      @first_upcoming_events = @events.select{|e| e.future?}.first(2)
+      
+      @last_past_events = @all_past_events.first(2)     
+      @first_upcoming_events = @all_upcoming_events.first(2)
+      @first_undated_events = @undated_events.first(2)
       
       if params[:edit]
         @event_to_edit = Event.find_by_permalink(params[:edit])
-         @invited_candidates = @event_to_edit.invitations.select{|e| !e.candidate.nil?}
+        @invited_candidates = @event_to_edit.invitations.select{|e| !e.candidate.nil?}
         @invited_emails = @event_to_edit.invitations.select{|e| e.candidate.nil?}
         #array of users of the space minus the users that has already been invited
         @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)

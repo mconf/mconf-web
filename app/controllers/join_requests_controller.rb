@@ -83,7 +83,7 @@ class JoinRequestsController
       return
     end
 
-    @join_request = space.join_requests.new
+    @join_request = space.join_requests.new(params[:join_request])
     @join_request.candidate = current_user
 
     if @join_request.save

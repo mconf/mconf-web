@@ -124,8 +124,9 @@ class SpacesController < ApplicationController
       message = ""
       @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
       flash[:error] = message
-      render :action => :new, :layout => "frontpage"
+      render :action => :new, :layout => "application"
       return
+
     end
     @group.space = @space
     respond_to do |format|
@@ -144,12 +145,25 @@ class SpacesController < ApplicationController
           message = ""
           @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
-          render :action => :new, :layout => "frontpage" }
+          render :action => :new, :layout => "application" 
+          }
+        #format.html { redirect_to :action => "new"}
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
+      
     end
+    
+    
+    
+    
+    
+   
+   
+ 
+    
   end
+  
   
   
   # PUT /spaces/1
@@ -180,7 +194,7 @@ class SpacesController < ApplicationController
       respond_to do |format|
         flash[:error] = t('error.change')
         format.js {
-        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('logo.error.not_valid') +  "</div>\")"
+        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
         }
         format.html { 
         redirect_to edit_space_path() }

@@ -14,11 +14,13 @@ describe JoinRequestsController do
 
   describe "as Anonymous" do
     it "should render new form" do
+      pending "define identification priority or alias before testing (see Bug #646)"
       get :new, :space_id => @space.to_param
       response.should be_success
     end
 
     it "should not create join request when sending invalid params" do
+      pending "define identification priority or alias before testing (see Bug #646)"
       post :create, :space_id => @space.to_param,
         :user => {}
       response.should be_success

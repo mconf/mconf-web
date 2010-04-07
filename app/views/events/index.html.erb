@@ -8,12 +8,14 @@
 
 <% content_for :sidebar do  %>
 
+  <%= render :partial => 'spaces/sidebar' %>
+
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
 	  <%if params[:edit]%>
     	<%=render :partial => 'edit_event', :locals => {:event => @event_to_edit}%>
-  	  <%else%>
+  	<%else%>
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-  	  <%end%>
+  	<%end%>
 	<%else%>
 
 	  <!--<%if logged_in? && space.public?%>
@@ -112,6 +114,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 		
 		<div class="group_links" id="events_links">
 		  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+		  <%=link_to t('undated'), space_events_path(@space, :show => "undated_events"), {:class => "#{params[:show] == 'undated_events' ? 'event_navigation undated_link event_selected' : 'event_navigation undated_link'}"}%> |
 		  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
 		  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
 		</div>  
@@ -120,6 +123,8 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 				<%= render :partial => 'past_events' %>
 		<%elsif params[:show] == 'upcoming_events' %>
 			  <%= render :partial => 'upcoming_events' %>
+	    <%elsif params[:show] == 'undated_events' %>
+			  <%= render :partial => 'undated_events' %>
 		<%else%>	
 			  <%= render :partial => 'all_events' %>
 		<%end%>

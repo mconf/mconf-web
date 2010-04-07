@@ -2,7 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   Translate::Routes.translation_ui(map)
 
   map.p '/p', :controller => 'p', :action => 'index'
+  # Route for text logos creation
 
+  
   map.connect '/ui/:action', :controller => 'ui'
 
   #Global search
@@ -15,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   
   
   map.resources :logos
+  
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 
   map.resources :spaces, :member => {:enable => :post} do |space|
@@ -135,6 +138,8 @@ ActionController::Routing::Routes.draw do |map|
   Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   
   #  map.register '/spaces/:space_id/register', :controller=> 'users', :action => 'new'
+  
+
   
 
   ###########################################

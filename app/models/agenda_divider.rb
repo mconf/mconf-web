@@ -18,14 +18,16 @@
 class AgendaDivider < ActiveRecord::Base
   belongs_to :agenda
   
+  acts_as_content :reflection => :agenda
+  
   default_scope :order => 'start_time ASC'
+  
+  before_save do |divider|
+    divider.end_time = divider.start_time
+  end
   
   after_save do |divider|
     divider.event.syncronize_date
-  end
-  
-  def end_time
-    start_time
   end
   
   def event

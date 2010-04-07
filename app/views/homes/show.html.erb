@@ -145,7 +145,7 @@
 	      <%@sender=User.find_with_disabled(private_message.sender_id)%>
           <div class="next-events-section">
               <div class="user-logo">
-                  <%=link_logo(@sender,:size=>32, :url => user_profile_path(@sender), :title=>@sender.login) %>
+                  <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
               </div>
               <div class="home-inbox-message">
                   <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>

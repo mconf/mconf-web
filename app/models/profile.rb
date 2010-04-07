@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'vpim/vcard'
-require 'mofo'
+require 'prism'
 
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
@@ -53,8 +53,7 @@ class Profile < ActiveRecord::Base
 
     @vcard = Vpim::Vcard.decode(@vcard).first
     
-    #TELEFONO: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro numero
+    #TELEPHONE
     if !@vcard.telephone('pref').nil? 
       self.phone = @vcard.telephone('pref')
     else 
@@ -67,20 +66,18 @@ class Profile < ActiveRecord::Base
       end
     end
     
-    #FAX: Si existe bien, sino no se altera
+    #FAX
     if !@vcard.telephone('fax').nil?
       self.fax = @vcard.telephone('fax') 
     end
 
-   #NOMBRE: Guardamos el prefijo si existe en su campo
-   #y con el resto formamos el nombre de la forma
-   # "given" + "additional" + "family"
+   #NAME
    if !@vcard.name.nil?
      
       temporal = ''
       
       if !@vcard.name.prefix.eql? ''
-        self.prefix = @vcard.name.prefix
+        self.prefix_key = @vcard.name.prefix
       end  
       if !@vcard.name.given.eql? ''
         temporal =  @vcard.name.given + ' '
@@ -93,12 +90,11 @@ class Profile < ActiveRecord::Base
       end
       
       if !temporal.eql? '' 
-        self.user.login = temporal.unpack('M*')[0];
+        self.full_name = temporal.unpack('M*')[0];
       end
    end
       
-    #EMAIL: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro mail
+    #EMAIL
     if !@vcard.email('pref').nil? 
       self.user.email = @vcard.email('pref')
     else 
@@ -111,27 +107,22 @@ class Profile < ActiveRecord::Base
       end
     end
     
-    #URL: Primero el preferente, sino, trabajo, sino, casa, 
-    #y sino, cualquier otro mail
+    #URL
     if !@vcard.url.nil?
         self.url = @vcard.url.uri.to_s
     end
 
-    #DESCRIPCIÓN: Si existe Note, se pone en descripción
+    #DESCRIPTION
     if !@vcard.note.nil?
         self.description = @vcard.note.unpack('M*')[0]
     end
   
-    #ORGANIZACIÓN: Por ahora solo se tiene en cuenta
-    #el nombre de la organización. Hay campos para 
-    #departamentos ... ¿útiles?
+    #ORGANIZATION
     if !@vcard.org.nil?  
       self.organization = @vcard.org[0].unpack('M*')[0]
     end 
   
-    #DIRECCIÓN: Buscamos preferente, sino trabajo, sino
-    #cualquier otra dirección. Solo ejecutamos los cambios
-    #si hay una address en la vcard
+    #DIRECTION
     address = nil;              
     if !@vcard.address('pref').nil? 
       address = @vcard.address('pref')
@@ -142,7 +133,7 @@ class Profile < ActiveRecord::Base
         address = @vcard.addresses[0]
       end
     end            
-    if !address.nil? #Si ha habido algún resultado, lo guardamos
+    if !address.nil? 
           self.address = address.street.unpack('M*')[0] + ' ' + address.extended.unpack('M*')[0]
           self.city = address.locality.unpack('M*')[0]
           self.zipcode = address.postalcode.unpack('M*')[0]
@@ -154,7 +145,7 @@ class Profile < ActiveRecord::Base
   end
 
   def from_hcard(uri)
-    hcard = hCard.find(uri)
+    hcard = Prism.find(uri, :hcard)
 
     if hcard.blank?
       errors.add_to_base(I18n.t("hcard.not_found"))
@@ -163,56 +154,52 @@ class Profile < ActiveRecord::Base
 
     # FIXME: this should be DRYed with from_vcard
 
-    if hcard.try(:tel)
+    if hcard.tel
       self.phone = hcard.tel
     end
 
-    if hcard.try(:n)
-      if hcard.n.try(:prefix)
-        self.prefix = hcard.n.prefix
+    if hcard.n
+      if hcard.n.honorific_prefix
+        self.prefix_key = hcard.n.honorific_prefix
       end  
 
-      full_name = hcard.try(:fn) ||
+      full_name = hcard.fn ||
                   "#{ hcard.n.try(:given_name) } #{ hcard.n.try(:additional_name) } #{ hcard.n.try(:family_name) }".strip
 
       if full_name.present?
-        user.login = full_name
+        self.full_name = full_name
       end
     end
 
-    if hcard.try(:fn)
-      user.login = hcard.fn
-    end
-      
-    if hcard.try(:email)
+    if hcard.email
       user.email = hcard.email
     end
     
-    if hcard.try(:url)
+    if hcard.url
         self.url = Array(hcard.url).first
     end
 
-    if hcard.try(:org)
+    if hcard.org
       self.organization = hcard.org
     end 
   
-    if hcard.try(:adr)
-      if hcard.adr.try(:street_address) || hcard.adr.try(:extended_address)
-        self.address = "#{ hcard.adr.try(:street_address) } #{ hcard.adr.try(:extended_address) }".strip
+    if hcard.adr
+      if hcard.adr.street_address || hcard.adr.extended_address
+        self.address = "#{ hcard.adr.street_address } #{ hcard.adr.extended_address }".strip
       end
 
-      if hcard.adr.try(:locality)
+      if hcard.adr.locality
         self.city = hcard.adr.locality
       end
 
-      if hcard.adr.try(:postal_code)
+      if hcard.adr.postal_code
         self.zipcode = hcard.adr.postal_code
       end
 
-      if hcard.adr.try(:region)
+      if hcard.adr.region
         self.province = hcard.adr.region
       end
-      if hcard.adr.try(:country)
+      if hcard.adr.country_name
         self.country = hcard.adr.country_name
       end
     end

@@ -66,7 +66,7 @@
             <%isfirst=false %>
           <%else %>
           ,<%end %>
-          <%=link_to(highlight(org.name,@query),user_profile_path(org),:class=>"unified_user")%>
+          <%=link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")%>
         <%end %>
       </li>
   </ul>
@@ -82,7 +82,7 @@
     <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button disabled_button",:title => t('event.view_streaming_disabled')} %>
   <%end%>
   
-  <%if @event.is_virtual? && @event.is_happening_now? && @event.web_interface?%>
+  <%if (@event.is_virtual? && @event.is_happening_now? && @event.web_interface?) || @event.is_in_person?%>
     <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
   <%elsif @event.is_virtual? && @event.web_interface?%>
     <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button disabled_button",:title => t('event.view_participation_disabled')} %>

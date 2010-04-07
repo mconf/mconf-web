@@ -1,0 +1,51 @@
+<% content_for :javascript do%>
+
+<%if @event.authorize?(:update, :to => current_user)%> 
+  $('#participation_url_value').editable('<%=space_event_path(@space, @event)%>',{
+        method : 'PUT',
+	tooltip   : '<%= t('dblclick')%>',
+        cancel    : '<%= t('cancel')%>',
+		onblur : 'ignore',
+        submit    : '<%= t('ok')%>',
+        indicator : '<img src="ui/icons/accept.png" />',
+        placeholder: '<%=t("event.participation.none")%> <%=link_to_function t('event.participation.add'), "edit_participation()", :id => "add_participation_link"%>',
+        type      : 'textarea',
+        name : 'event[other_participation_url]',
+	width : 635,
+	height: 150,
+	event     : "dblclick",
+        submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+   });
+	 
+   $('#participation_url_value form input').livequery("blur",function(){
+     $('#edit_participation_icon').show();
+   });
+   
+   edit_participation = function(){
+     $('#participation_url_value').dblclick();
+   };
+<%end%>
+
+
+<%end%>
+   
+<div id="participation_url" class="margin-up main_text">
+  
+    <%= link_to_function (image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.participation.edit'), :class=>"icon" ), "edit_participation()", :id => "edit_participation_icon") if @event.authorize?(:update, :to => current_user) %>
+    <div id="participation_title"><h3 class="blue">
+	<%if @event.is_happening_now?%>
+	  <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	  <%=t('event.participation.title')%>
+	<%else%>
+	  <div><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	  <%=t('event.participation.will_be_available')%>
+	<%end%>
+    </h3></div>
+  <div id="participation_content">
+  	<%if (@event.other_participation_url== nil || @event.other_participation_url=="") && !@event.authorize?(:update, :to => current_user)%>
+	    <%=t("event.participation.none")%>
+	<%else%>
+      <div id="participation_url_value"><%=@event.other_participation_url%></div>
+	<%end%>
+  </div>
+</div>

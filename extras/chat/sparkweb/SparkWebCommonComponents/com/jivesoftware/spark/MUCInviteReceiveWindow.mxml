@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This file is part of SparkWeb.
+    
+    SparkWeb is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    SparkWeb is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+    
+    You should have received a copy of the GNU Lesser General Public License
+    along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+	title="{Localizator.getText('title.muc.invite.receive.window')}" showCloseButton="true" close="close()" 
+	creationComplete="init()">
+	
+	<mx:Style>
+		.title {
+			fontWeight: bold;
+			fontSize: 12pt;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
+			import com.jivesoftware.spark.managers.ChatManager;
+			import mx.core.Application;
+			import org.jivesoftware.xiff.events.InviteEvent;
+			import com.jivesoftware.spark.managers.Localizator;
+			import org.jivesoftware.xiff.conference.Room;
+			import mx.managers.PopUpManager;
+			private var roomJid:UnescapedJID;
+			
+			protected function init():void {
+            	this.titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+           		this.titleTextField.styleName = "title";
+            }
+            
+            protected function close():void {
+            	PopUpManager.removePopUp(this);
+            }
+            
+            protected function accept():void {
+            	ChatManager.sharedInstance.joinGroupChat(roomJid);
+            }
+            
+            protected function showWindow(fromJid:UnescapedJID, room:Room, reason:String=''):void 
+            {
+            	invitationToLabel.text = room.roomJID.toString();
+            	invitationFromLabel.text = fromJid.toString();
+            	invitationReasonLabel.text = reason;
+            }
+            
+            public static function show(event:InviteEvent):void 
+            {
+            	var mucInviteReceiveWindow:MUCInviteReceiveWindow = MUCInviteReceiveWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), MUCInviteReceiveWindow));
+            	PopUpManager.centerPopUp(mucInviteReceiveWindow);
+            	mucInviteReceiveWindow.showWindow(event.from, event.room, event.reason);
+            }
+		]]>
+	</mx:Script>
+	
+	<mx:Form>
+		<mx:FormItem label="{Localizator.getText('label.invitation.to')}">
+			<mx:Label id="invitationToLabel" />
+		</mx:FormItem>
+		<mx:FormItem label="{Localizator.getText('label.received.from')}">
+			<mx:Label id="invitationFromLabel" />
+		</mx:FormItem>
+		<mx:FormItem label="{Localizator.getText('label.reason')}">
+			<mx:TextArea id="invitationReasonLabel" width="100%" minWidth="{invitationToLabel.width}" editable="false"/>
+		</mx:FormItem>
+	</mx:Form>
+
+	<mx:ControlBar horizontalAlign="right">
+    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.decline')}"
+				   click="close()" />
+		<mx:Button id="submitButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.accept')}"
+				   click="{accept(); close();}"/>
+	</mx:ControlBar> 
+	
+</comp:ColorShiftingTitleWindow>
