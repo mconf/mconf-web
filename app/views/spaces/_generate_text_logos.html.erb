@@ -1,4 +1,4 @@
-<%= params[:text]%>
+<% params[:text]%>
 
 
 
@@ -17,7 +17,7 @@
 				
 					images_now+= 1
 			%>
-			<%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>	
+			<%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectGeneratedImage("tmp/'+ params[:rand_name].to_s + "/" + ( file.to_s ) + '");' %>	
 						
    			<%	if images_now > images_for_row %>
 						<br>

@@ -6,12 +6,24 @@ selectDefaultImage = function(image){
 	
 	//$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFFFFF');
 	//$("#" + image.replace(".","")).css('background-color','#FFA903');
-	$("#space_image").attr('value', image);
+	$("#space_image").attr('value', "default_space_logos/" + image);
 	$("#selected_logo_image").attr('src', "/images/default_space_logos/" + image);
 
 	//alert( $("#space_image").val() );
 }
-$("#selected_logo_image").attr('src', "/images/default_space_logos/" + ($("#space_image").val()));
+
+selectGeneratedImage = function(image){
+	
+	//$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFFFFF');
+	//$("#" + image.replace(".","")).css('background-color','#FFA903');
+	$("#space_image").attr('value', image);
+	$("#selected_logo_image").attr('src', "/images/" + image);
+
+	//alert( $("#space_image").val() );
+}
+
+
+$("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
 closeUploadLogo = function(){
 	$("#default_upload_logo").hide("slow");	
 	 $("#open_upload_logo_link").show();
@@ -178,7 +190,7 @@ $("#create_space_button").livequery('click',function(){
 				selected = rand(@files.length)
  			%>
 			
-			<%= hidden_field "space","image",:value => @files[selected].to_s, :name => "space[default_logo]" %>
+			<%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
 		<div class="button_wrapper grey_bar">
 			<%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
 			<%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>"), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.text_logo')} %>
@@ -202,7 +214,7 @@ $("#create_space_button").livequery('click',function(){
             	<%= f.text_field :text_logo %>
 				<input type="button" id="generate_text_logo_button" value="<%=t("space.logo_selected.generate_logo") %>" class="basic_button blue_button"/>
 				
-				<div id = "generated_text_logos">PITOP</div>
+				<div id = "generated_text_logos"></div>
 				
 			</div>
 						
