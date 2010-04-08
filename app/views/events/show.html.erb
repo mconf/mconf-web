@@ -22,7 +22,6 @@
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
 	<%elsif params[:show_streaming]%>
       <%= render :partial => "event_chat" %>
-    <%end%>
 	<%else%>
 	  <%= render :partial => 'participants' %>
 	  <%unless @event.is_in_person? || @event.past?%>
