@@ -40,7 +40,6 @@ change_logo = function(){
 };
 
 import_icalendar = function(){
-  $('#assistance_info').hide();
   $('#new_reply').hide();	
   $('#carrusel').hide();  
   $("#update_logo").hide();
@@ -64,12 +63,12 @@ $(".event_image").click(function(){
  };	 
  
    $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
-    method : 'PUT',
+		method : 'PUT',
       tooltip   : '<%= t('dblclick')%>',
     cancel    : '<%= t('cancel')%>',
     submit    : '<%= t('ok')%>',
     indicator : '<img src="ui/icons/accept.png" />',
-	onblur : 'ignore',
+	  onblur : 'ignore',
     placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
     type      : 'textarea',
     name : 'event[description]',
