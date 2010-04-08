@@ -36,6 +36,7 @@ change_logo = function(){
   $("#import_icalendar").hide();
   $("#update_logo").show();
   $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
+	$("ul#actions_menu").hide();
 };
 
 import_icalendar = function(){
@@ -45,6 +46,7 @@ import_icalendar = function(){
   $("#update_logo").hide();
   $("#import_icalendar").show();
   $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
+	$("ul#actions_menu").hide();
 };
 
 $(".event_image").click(function(){
@@ -376,23 +378,22 @@ $("a.repository_sidebar_action").livequery("click",function(){
   <%end%>
   
   <%if event.authorize?(:update, :to => current_user) %>
-    perform_select_action = function(){
-	  switch($("#event_select option:selected").attr("value"))
-	  {
-	    case "change":
-		  change_logo();
-		break;
-		case "invite":
-		  var route = "<%=space_event_path(@space, @event, :new_invitations => @event)%>";
-          document.location = route;		  
-		break;
-		case "notify":		
-		  var route = "<%=space_event_path(@space, @event, :notification => @event)%>";
-          document.location = route;
-		break;
-		case "import":
-		  import_icalendar();
-		break;		
-	  }
-	};
+	
+	    $(".event_select").click(function(e) {
+        e.preventDefault();
+        $("ul#actions_menu").toggle();
+        $(".event_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("a.event_select").length==0) {
+            $(".event_select").removeClass("menu-open");
+            $("ul#actions_menu").hide();
+          }
+        });
+    });
+
+    $("ul#actions_menu").mouseup(function() {
+        return false
+    });
+		
   <%end%>

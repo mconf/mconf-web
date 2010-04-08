@@ -92,6 +92,7 @@ a.big_button, a.medium_button, a.basic_button{
     display: block;
 	float: left;
 	text-decoration: none;
+	outline:none;
 	}
 
 a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
@@ -114,7 +115,7 @@ a.big_button,button.big_button{
 a.big_button span{
 	-webkit-border-radius:5px;-moz-border-radius:5px;
     line-height: 18px;
-	width:192px;
+	width:202px;
     padding: 5px 18px 5px 18px;
 }
 
@@ -292,7 +293,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 
 #menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
-#wrapper{padding:10px 10px 10px 10px;background-color:#fff;}
+#wrapper{padding:10px 10px 10px 10px;background-color:#fff;overflow:hidden;}
 
 /*users and groups*/
 div.group{padding-bottom:0.5em;margin-top:2px;}
@@ -540,6 +541,29 @@ div.single_event{position:relative;clear:both;overflow:hidden;}
 div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
 
+/* actions menu for the grey bar in events*/
+a.event_select.menu-open span{background:#F2F2F2 none repeat scroll 0 0;background:#F2F2F2;}
+
+ul#actions_menu{
+	background:#F2F2F2;
+	border-color:#999999;
+	border-style:solid;
+	border-width:1px 1px 2px;
+	margin-right:-1px;
+	margin-top:-1px;
+	min-width:170px;
+	position:absolute;
+  right:14px;
+  top:33px;
+	z-index:1;
+	list-style-type:none;
+}
+
+ul#actions_menu li{cursor:pointer;border-bottom:1px solid #ccc;}
+ul#actions_menu li:hover{background:transparent url("../images/buttons/fondo-boton2.png") repeat-x;}
+ul#actions_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
+ul#actions_menu li a:hover{text-decoration:none;}
+/**/
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
 .single_event ul{list-style-type:none;margin:0;}
@@ -556,14 +580,13 @@ div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 
 .event_padding {padding:6px 0 6px 0;}
 .news_padding {padding:6px 0 6px 0;}
-.event_image{display:block;color:black;float:left;padding:0;margin-right: 7px;text-align:center;font-weight: bold;vertical-align: middle;cursor:pointer;}
-
+.event_image{display:block;color:black;float:left;padding:0;text-align:center;font-weight: bold;vertical-align: middle;cursor:pointer;}
+div.event_image{margin-right: 7px;margin-left:5px;}
 a.event_image:hover{text-decoration:none;}
-.event_date_image{margin: 0px 10px 0px 5px;width:100%;}
+.event_date_image{margin: 0px 10px 0px 0px;width:100%;}
 .event_day{font-size: 3em;line-height:90%;}
 .event_month{font-size: 2em;line-height:70%;}
 .event_hour{font-size: 1.2em;min-width: 30px; min-height: 20px;}
-
 
 #change-event ul li{font-weight:bold;}
 #events_links a.event_selected{background:#244974; color:white;}
@@ -1305,6 +1328,7 @@ h3#event_description_title div img,#agenda_title div img,#participation_title di
 }
 
 #agenda_content{padding:3px 8px;}
+#agenda_content #agenda_pages.no_date{border-top:1px solid #FFD324;}
 #new_entry_content{background:#f7f7f7;padding:9px 40px;}
 input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{width:99%;}
 .agenda_entry_description{position:relative;clear:both;overflow:hidden;}
@@ -1318,10 +1342,10 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	padding:6px 9px;
 	background:#f2f2f2;
 	border-top:1px solid #dcdcdc;
-	overflow:hidden;
+	/*overflow:hidden;*/
 	}
-	
 .profile_center .grey_bar{margin-bottom:0;background:#E1EEF5;border:none;}
+#jar{position:relative;}
 
 .grey_bar span#selected_info{
   float:left;
