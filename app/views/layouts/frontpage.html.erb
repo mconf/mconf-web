@@ -30,36 +30,34 @@
       })
     </script>
 		
-		<%= yield :headers %>
+	<%= yield :headers %>
   </head>
 
   <body>
-		<div id="site">
-		  <%= render :partial => "layouts/frontpage_global" %>
-	
-		  <div id="home">
-				<div id="header">
-				  <%= render :partial => "layouts/frontpage_header" %>
-				</div>
-				<div id="content">	
-			       
-					
-			          <% flash.each do |name, msg| %>
-				      <div class="<%= name %>"><%= msg %></div>
-			          <% end %>
+  	<div id="site">
+  		<%= render :partial => "layouts/frontpage_global" %>
+		
+		<div id="home">
+			<div id="header">
+				<%= render :partial => "layouts/frontpage_header" %>
+			</div>
 			
-				      <%= yield %>
-						
-				</div>
+			<div id="content">
+				<% flash.each do |name, msg| %>
+					<div class="<%= name %>"><%= msg %></div>
+			    <% end %>
+				<%= yield %>
+			</div>
 	    </div>
 
 		<div id="sponsor-wrapper">
 			<%= render :partial => "layouts/sponsor" %>
 		</div>
-		  <div id="footer-wrapper">
-		   <%= render :partial => "layouts/footer" %>
-			</div>  
-	   </div>
+		
+		<div id="footer-wrapper">
+			<%= render :partial => "layouts/footer" %>
+		</div>
+	</div>
 	 
 	 <%if current_site.domain == "vcc.dit.upm.es"%>
 			<script type="text/javascript">
