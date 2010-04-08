@@ -95,6 +95,9 @@ class EventsController < ApplicationController
       @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
     end
 
+    # Clear bad params 
+    params[:show_streaming]=false if !event.is_happening_now?
+    params[:show_video]=nil if event.future?
    
     if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
       #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
