@@ -36,6 +36,9 @@ en:
     divider:
       delete: "Divider was successfully created"
       edit: "Edit Divider"
+      error:
+        coinciding_dates: "There is a conflict with the date of the divider and existing agenda entries or dividers."
+        empty_title: "The title of the divider cannot be empty."
       new: "New agenda divider"
       start_time: "Start time" 
       title: "Title"
@@ -285,6 +288,7 @@ en:
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
+  eu_commision: "European Commission"    
   event:
     action:      
       select: "Actions"      
@@ -520,16 +524,16 @@ en:
     loading: "The form is loading..."
   from: "From"
   frontpage:
-    main_title: "VCC is a collaboration service for publishing and discovering videoconferences"
+    main_title: "VCC a hosting service for publishing and discovering videoconferences"
     stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
     share:
-      sentence1: "Videoconference video and streaming"
-      sentence2: "Documents, videos and video repositories"
+      sentence1: "Videoconference recording and streaming"
+      sentence2: "Document and video repositories"
       sentence3: "Your contacts and relations"
     meet:
       sentence1: "Discover best online videoconferences"
       sentence2: "Meet interesting people and groups"
-      sentence3: "Video chat your colleagues"
+      sentence3: "Video chat with your colleagues"
     collaborate:
       sentence1: "Organize your projects and activities"
       sentence2: "Participate in conferences and events"
@@ -1112,6 +1116,7 @@ en:
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   street: Street
+  society_media: "Information Society and Media"
   subject: "Subject"
   support:
     one: "Support"

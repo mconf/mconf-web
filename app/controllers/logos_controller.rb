@@ -107,16 +107,6 @@ class LogosController
     end   
   end
   
-    def generate_text_logos
-    
-   # for i in 1..5
-   #   create_auto_logo "Global Plaza Project", i
-    #end    
-    
-    #render :template => "spaces/generate_text_logos", :layout => false
-    
-
-  end
   private
 
   def crop_and_resize 
@@ -186,7 +176,23 @@ class LogosController
     return max_length
   end
   
-
+  def count_potential_lines text
+    return text.count(" ")
+  end
+  
+  def multiline_point_size text, width, height
+    size_based_on_width = 1.7 * width / max_word_length(text)
+    size_based_on_lines = 0.6 * height / count_potential_lines(text)
+    if size_based_on_width > size_based_on_lines
+      return size_based_on_lines
+    else
+      return size_based_on_width
+    end
+  end
+  
+  def singleline_point_size text, width
+    return 1.7 * width / text.length
+  end
   
   def create_auto_logo text, logo_style
     
@@ -220,33 +226,34 @@ class LogosController
     # Depending on the desired logo_style, we create a text or another 
     case logo_style
       when 1
-        gc.pointsize = 1.7 * img.columns / text.length
+        gc.pointsize = 0.7 * (multiline_point_size text+"\\n", img.columns, img.rows)
         gc.gravity = Magick::SouthGravity
-        gc.annotate(logo_text,img.columns,img.rows,0,0,text+"\n")
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text+"\\n")
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
       when 2
-        gc.pointsize = 1.7 * img.columns / text.length
+        gc.pointsize = singleline_point_size text, img.columns
         gc.annotate(logo_text,img.columns,img.rows,0,0,text)
         logo_text = logo_text.shade(true, 300, 30)
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
       when 3
-        gc.pointsize = 1.5 * img.columns / (max_word_length text)
+        gc.pointsize = multiline_point_size text, img.columns, img.rows 
         text = text.gsub(" ", "\\n")
         gc.annotate(logo_text,0,0,0,0,text)
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
       when 4
-        gc.pointsize = 1.5 * img.columns / (max_word_length text)
-        text = text.gsub(" ", "\\n")
-        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
-        logo_text = logo_text.shade(true, 300, 70)
-        auto_logo = logo_text
-      when 5
-        gc.pointsize = 1.5 * img.columns / (max_word_length text)
+        gc.pointsize = multiline_point_size text, img.columns, img.rows
         text = text.gsub(" ", "\\n")
         gc.annotate(logo_text,img.columns,img.rows,0,0,text)
         logo_text = logo_text.shade(false, 300, 30)
         blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#EBEBEB', '#BDD8EB'))
         auto_logo = blank_bg.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
+      when 5
+        gc.pointsize = multiline_point_size text, img.columns, img.rows
+        text = text.gsub(" ", "\\n")
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        logo_text = logo_text.shade(true, 300, 25)
+        #blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#EBEBEB', '#BDD8EB'))
+        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
     end
     f.close
     

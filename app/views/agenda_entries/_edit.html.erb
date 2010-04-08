@@ -27,9 +27,10 @@
 		<%unless @event.past? && @event.is_virtual?%>
       <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
 	  
-	  <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
+        <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
 	  
-      <%= f.text_field :title %></div>
+        <%= f.text_field :title %>
+      </div>
     <%end%>
     <div class="margin-up">
       <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
