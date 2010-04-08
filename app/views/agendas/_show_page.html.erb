@@ -17,8 +17,10 @@
 		
 		<%if @event.authorize?(:update, :to => current_user) && (!@event.past? || @event.is_in_person?)%>
 	      <div id="add_buttons<%=day%>">
-			<div class="margin-up"><button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button></div>
-			<div class="margin-up"><button class='basic_button blue_button' id="add_divider<%=day%>"><%=t("agenda.add_divider")%></button></div>
+					<div class="margin-up">
+						<button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button>
+						<button class='basic_button blue_button' id="add_divider<%=day%>"><%=t("agenda.add_divider")%></button>
+					</div>
 	      </div>
 	    <%end%>
 	  </div>  

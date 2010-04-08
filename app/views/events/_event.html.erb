@@ -19,10 +19,9 @@
             <div class="event_month"> <%= localize(event.start_date, :format => "%b")%> </div>
             <div class="event_hour"> <%= event.get_formatted_hour %> </div>
           </div>
-		<%else%>
-		  <div class="event_date_image">
-            <div class="event_day"></div>
-          </div>
+		    <%else%>
+				  <div class="event_date_image">
+		      </div>
         <%end%>
       </div>
 		</a>

@@ -291,7 +291,7 @@ en:
   eu_commision: "European Commission"    
   event:
     action:      
-      select: "Action"      
+      select: "Actions"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
