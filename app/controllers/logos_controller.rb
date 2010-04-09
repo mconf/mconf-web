@@ -30,17 +30,19 @@ class LogosController
   def new 
     if params[:text]
       #debugger
-   for i in 1..5
-      create_auto_logo params[:text], i
-    end    
-   for i in 1..5
-      #create_auto_logo "Global Plaza Project", i
-    end 
-    
-    
-    render :template => "spaces/_generate_text_logos", :layout => false
-    
-    end
+     for i in 1..5
+        create_auto_logo params[:text], i
+     end    
+     render :template => "spaces/_generate_text_logos", :layout => false
+   end
+  
+   if params[:upload]
+      #debugger
+     
+     render :template => "logos/precrop_without_space", :layout => false
+   end
+   
+   
   end
   
   def precrop
@@ -57,6 +59,7 @@ class LogosController
 
     f = File.open(File.join(TMP_PATH,"precroplogo-#{@space.id}"), "w+")
     f.write(params['logo']['media'].read)
+    puts "******************" + params['logo'].to_s + "**************"
     f.close
     @image = "tmp/" + File.basename(f.path)
     session[:tmp_logo] = {}
@@ -73,6 +76,38 @@ class LogosController
     @form_url       = space_logo_path(@space.id)
     
     render :template => "logos/precrop", :layout => false
+  end
+  
+  def precrop_without_space
+    
+    if params['logo']['media'].blank?
+      redirect_to request.referer
+      return
+    end
+
+    @logo = Logo.new 
+
+     #debugger
+
+    f = File.open(File.join(TMP_PATH,"precroplogo-#{params[:rand]}"), "w+")
+    f.write(params['logo']['media'].read)
+    f.close
+    @image = "tmp/" + File.basename(f.path)
+    session[:tmp_logo] = {}
+    session[:tmp_logo][:basename] = File.basename(f.path)
+    session[:tmp_logo][:original_filename] = params['logo']['media'].original_filename
+    session[:tmp_logo][:content_type] = params['logo']['media'].content_type
+
+    reshape_image f.path, Logo::ASPECT_RATIO_F
+    resize_if_bigger f.path, 600
+    
+ 
+    @logo_crop_text = "Crop space logo"
+    @form_for       = [@logo]
+    @form_url       = space_logo_path(@space.id)
+    
+    render :template => "logos/precrop_without_space", :layout => false
+    
   end
   
   def create
