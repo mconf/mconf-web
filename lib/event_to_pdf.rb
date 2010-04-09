@@ -50,17 +50,23 @@ module EventToPdf
       end
  
       #Array of entrie arrays and array who contains a single divider.
-      @entries_array = fragment_entries(@entries)
-       
+      @entries_array = fragment_entries(@entries)      
+      
+      heads = true
+      nPage =  -1
        
       @entries_array.each do |entries|
              
-        if entries == @entries_array[0] and isSpecialTitle(entries[0])
-          #The first entrie in the day has a special title. [Special case]
+        if entries == @entries_array[0]
+          
           pdf.fill_color!  Color::RGB::Black
           pdf.text "#{date}", :font_size => 14, :justification => :center
-          heads = true;
-        end
+          
+          unless isSpecialTitle(entries[0])
+            pdf.text " ", :font_size => 5, :justification => :center         
+          end
+
+        end       
               
         if isSpecialTitle(entries[0])
           
@@ -71,33 +77,50 @@ module EventToPdf
           if(@entries_array[index_next_entry] != nil)
             next_entry = @entries_array[index_next_entry]         
             
-            #Return the quantity of rows that fits in the actual page of the document.
-            nRows = getTableRows(pdf,actual_entry,next_entry,false)
-            
-            if nRows < 1
-              pdf.start_new_page
-            elsif nRows < next_entry.length
+            unless isSpecialTitle(next_entry[0])
               
-              entrie_fragment_a = []
-              entrie_fragment_b = @entries_array.delete_at(index_next_entry)
+              #Return the quantity of rows that fits in the actual page of the document.
+              nRows = getTableRows(pdf,actual_entry,next_entry,false)
               
-              nRows.times do |i|
-                entrie_fragment_a << entrie_fragment_b[i]
-                entrie_fragment_b.delete_at(i)    
+              if nRows == 0
+                pdf.start_new_page
+              elsif nRows < next_entry.length
+                
+                entrie_fragment_a = []
+                entrie_fragment_b = @entries_array.delete_at(index_next_entry)
+                
+                nRows.times do |i|
+                  entrie_fragment_a << entrie_fragment_b[i]
+                  entrie_fragment_b.delete_at(i)    
+                end
+  
+                @entries_array.insert(index_next_entry, entrie_fragment_a) 
+                @entries_array.insert(index_next_entry+1, entrie_fragment_b) 
+              
+                
               end
-
-              @entries_array.insert(index_next_entry, entrie_fragment_a) 
-              @entries_array.insert(index_next_entry+1, entrie_fragment_b) 
               
-            end  
+            end
+              
             
           end      
           
           write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
           
       else
+      
+        if (getTableRows(pdf,nil,entries,false) == 0)
+          pdf.start_new_page
+        end
         
-        generate_entrie_table(pdf,entries,nil,true)
+        if(pdf.current_page_number() == nPage)
+          heads = false
+        else
+          heads = true
+          nPage = pdf.current_page_number()
+        end
+        
+        generate_entrie_table(pdf,entries,nil,heads)
         
         end
     
@@ -112,38 +135,53 @@ module EventToPdf
   private
   
   #Calculate the height of the table generate with the entries array.
-  def getTableHeight(entries)
+  def getTableHeight(entries,heading)
      
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
-    init_y = pdf_test.y   
-    generate_entrie_table(pdf_test,entries,nil,false)
+    init_y = pdf_test.y
+    
+    generate_entrie_table(pdf_test,entries,nil,heading)
+    
     final_y = pdf_test.y
-    height_table = init_y - final_y
+    nPageEnd = pdf_test.current_page_number()
+    
+    height_table = (nPageEnd-1) * pdf_test.page_height + (init_y - final_y)
     
     return height_table
   end
   
   #Calculate how many rows can be write in the actual page of the pdf document.
+  #Return -1 if the first entrie of the table is more high than the pdf page.
   def getTableRows(pdf,actual_entry,next_entries,hasHour)
     
-    unless isSpecialTitle(actual_entry) and next_entries[0].class == AgendaEntry
+    unless next_entries[0].class == AgendaEntry
       return nil
     end
     
+    headings = true
     bottom_space = pdf.y
-    margin_space = 20
-       
-    height_rectangle = getRectangleHeight(false,actual_entry)
-       
-    #Test if need a new page before print special title.
-    first_row_entrie = []
-    first_row_entrie << next_entries[0]  
-    height_table = getTableHeight(first_row_entrie)
-    height_total = height_table + height_rectangle
+    margin_space = 25
     
-    if height_total > (bottom_space - margin_space)
-      return 0
+    if isSpecialTitle(actual_entry)
+      
+      headings = false
+      
+      height_rectangle = getRectangleHeight(false,actual_entry)
+       
+      #Test if need a new page before print special title.
+      first_row_entrie = []
+      first_row_entrie << next_entries[0]  
+      height_table = getTableHeight(first_row_entrie,headings)
+      height_total = height_table + height_rectangle
+      
+      if height_total > (bottom_space - margin_space)
+        return 0
+      end
+      
+    else  
+      height_rectangle = 0
     end
+    
     
     #Normal cases
     
@@ -154,11 +192,13 @@ module EventToPdf
       
       entries_test << next_entries[i]
       
-      height_table = getTableHeight(entries_test) 
-      height_total = height_table + height_rectangle
+      height_table = getTableHeight(entries_test, headings) 
+      height_total = height_table + height_rectangle       
   
       if height_total < (bottom_space - margin_space)
         maxRow = i+1
+      else
+          return maxRow       
       end
      
     end
@@ -208,8 +248,12 @@ module EventToPdf
   end
   
   
-  def isSpecialTitle(entry)
-    return  !(entry.class == AgendaEntry)
+  def isSpecialTitle(entry)  
+    if entry == nil
+      return false
+    else
+      return  !(entry.class == AgendaEntry)
+    end  
   end
 
 
@@ -256,7 +300,7 @@ module EventToPdf
   #tab_title Title of the table. Nil if we want the table without title.
   #heading True to show the table heading.
   def generate_entrie_table(pdf,entries,tab_title,heading)
-    
+  
     @entries = entries
     
     PDF::SimpleTable.new do |tab|
@@ -317,7 +361,7 @@ module EventToPdf
       @entries.each do |entrie|
       
         hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s() 
-        add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)
+        add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)       
  
       end
     
