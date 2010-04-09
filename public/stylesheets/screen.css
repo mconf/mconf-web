@@ -464,8 +464,13 @@ div.newAttachment{
 	border-bottom:1px solid #8FBDDE;
 	border-left:1px solid #8FBDDE;
 	border-right:1px solid #8FBDDE;}
+	
+#new_entry_content div.newAttachment{margin-right:0;}
+#new_entry_content form #help{margin-top:0;}
 div.newAttachment ul{list-style-type:none;}
 div#entry_attachment .newAttachment{margin-right:0;}
+.newAttachEvent{cursor:pointer;color:#244974;}
+.newAttachEvent:hover{text-decoration:underline;}
 
 #new_attachment_form .select_wrapper{
 	position:relative;
@@ -1131,12 +1136,29 @@ td.attachment-tags .event_in_tags{
 #doc_table .ui-collection-empty td{padding-top:0;}
  
 /*Agenda for events*/
+.session_wrapper1,.session_wrapper2{float:left;display:block;}
+.session_wrapper1{
+	width:14%;
+	text-align:center;
+	margin:15px 0 15px 0;
+	}
+.session_wrapper2{width:86%;}
 
 .entry_title{
 
-}
+  }
 
-.agenda_entry{clear:both;}
+.agenda_entry{
+	clear:both;
+	position:relative;
+	overflow:hidden;
+	}
+
+.agenda_edit_entry{
+	clear:both;
+	position:relative;
+	margin-top:18px;
+}
 
 .entry_hour{
   width:100px;
@@ -1145,10 +1167,10 @@ td.attachment-tags .event_in_tags{
 
 .entry_name{
   width:410px;
-  background:#f0f6f9;
-  font-size: 1.0833em;
+  /*background:#f0f6f9;*/
+  font-size: 1.1667em;
   font-weight: bold;
-  line-height: 1.3846;
+  line-height: 1.2857;
   margin-left: 5px;
   
 }
@@ -1267,6 +1289,9 @@ td.attachment-tags .event_in_tags{
   width:73%;
 }
 
+.agenda_list_content p{
+	margin:0;
+}
 #agenda_title_label{
   float: left; 
   width: 100%;
@@ -1303,7 +1328,7 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 	margin:0;
 	border-top:1px solid #A8C0D1;
 	}
-
+.agenda_new_entry #agenda_blue_title h3{clear:both;}
 #carrusel_title h3 {padding-right:0;}
 
 h3#event_description_title div,#agenda_title div,#participation_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
@@ -1575,13 +1600,15 @@ div.banner_footer a{
 
 
 .divider_title{
-	color: #4972A2;
+	color: #514721;
 	font-weight: bold;
 	font-size: 1.2em;
 }
 
 .divider_full_line{
 	text-align: center;
+	padding:5px 5px;
+	background:#FFD324;
 }
 
 #event_select {
