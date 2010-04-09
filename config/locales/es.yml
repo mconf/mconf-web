@@ -809,6 +809,7 @@ es:
       other: "A\xC3\xB1adir a los usuarios del espacio"
     all: Todos los espacios
     allow_public_access: "Permitir el acceso p\xC3\xBAblico?"
+    be_fan: Ser FAN    
     clic: Haga clic para editar ...
     clic_logo: Haga clic para cambiar el logotipo de
     configuration: "La configuraci\xC3\xB3n espacial"

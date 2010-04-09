@@ -6,11 +6,7 @@
   </ul>
 </div>
 
-<%if @event.days==0%>
-  aqui se mete una linea para cerrar el cuadro porque no hay tabs
-<%end%>
-
-<div id="agenda_pages">
+<div id="agenda_pages" <%= "class='no_date'" if @event.days==0 %> >
   <%@days= params[:show_day] ? [params[:show_day].to_i]:[1]%>
   <%=render :partial=> "agendas/show_page"%>
 </div>

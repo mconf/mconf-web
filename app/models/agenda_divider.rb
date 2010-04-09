@@ -21,21 +21,43 @@ class AgendaDivider < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   
   default_scope :order => 'start_time ASC'
-  
-  before_save do |divider|
+
+  before_validation do |divider|
     divider.end_time = divider.start_time
   end
   
+  validate do |divider|
+
+    if divider.title.empty?
+      divider.errors.add_to_base(I18n.t('agenda.divider.error.empty_title'))
+    end
+
+    divider.agenda.contents_for_day(divider.event_day).each do |content|
+      next if ( (content.class == AgendaDivider) && (content.id == divider.id) )
+      next if (content.start_time == divider.time) || (content.end_time == divider.time)
+       
+      if (content.start_time..content.end_time) === divider.time
+        divider.errors.add_to_base(I18n.t('agenda.divider.error.coinciding_dates'))
+        break
+      end
+    end
+
+  end
+
   after_save do |divider|
     divider.event.syncronize_date
   end
-  
+
   def event
     agenda.event
   end
-  
+
    #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
   def event_day
     return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+  end
+  
+  def time
+    return start_time
   end
 end
