@@ -6,12 +6,24 @@ selectDefaultImage = function(image){
 	
 	//$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFFFFF');
 	//$("#" + image.replace(".","")).css('background-color','#FFA903');
-	$("#space_image").attr('value', image);
+	$("#space_image").attr('value', "default_space_logos/" + image);
 	$("#selected_logo_image").attr('src', "/images/default_space_logos/" + image);
 
 	//alert( $("#space_image").val() );
 }
-$("#selected_logo_image").attr('src', "/images/default_space_logos/" + ($("#space_image").val()));
+
+selectGeneratedImage = function(image){
+	
+	//$("#" + ($("#space_image").val()).replace(".","")).css('background-color','#FFFFFF');
+	//$("#" + image.replace(".","")).css('background-color','#FFA903');
+	$("#space_image").attr('value', image);
+	$("#selected_logo_image").attr('src', "/images/" + image);
+
+	//alert( $("#space_image").val() );
+}
+
+
+$("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
 closeUploadLogo = function(){
 	$("#default_upload_logo").hide("slow");	
 	 $("#open_upload_logo_link").show();
@@ -75,6 +87,32 @@ $("#generate_text_logo_button").livequery('click',function(){
 
 	
 });
+
+
+
+$("#upload_logo_button").livequery('click',function(){
+	var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
+    // Validate logo to upload
+    var upload_logo = ($('#space_upload_logo').val());
+    if (upload_logo == "") {
+	   $("#error_upload").show();
+	  var destination_add = $('#new_space_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_space_anchor';
+      });
+    }else{
+		$("#error_upload").hide();
+	} 
+	
+	alert("antes");
+	alert(($("#space_upload_logo").val()));
+	$.post('/logos/new?upload=yes&logo[media]='+ ($("#space_upload_logo").val()) + '&rand_name=' + rand , function(data) {
+  		$('#uploaded_logo').html(data);
+	});	
+	alert("despues");
+ });
+
+
 
 $("#create_space_button").livequery('click',function(){
 
@@ -178,11 +216,11 @@ $("#create_space_button").livequery('click',function(){
 				selected = rand(@files.length)
  			%>
 			
-			<%= hidden_field "space","image",:value => @files[selected].to_s, :name => "space[default_logo]" %>
+			<%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
 		<div class="button_wrapper grey_bar">
 			<%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
 			<%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>"), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.text_logo')} %>
-			<%=link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>"), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
+			<%link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>"), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
 						
 		</div>
 		
@@ -190,7 +228,24 @@ $("#create_space_button").livequery('click',function(){
 			<br>
 			
 			<div id='default_upload_logo' style="display:none">
-				EDU ES GAY
+				
+				 <%= f.file_field :media, :class=>"file file1"%>
+		 	    
+				<label for="logo_text" id= "space_logo_text_label">
+                	<%= t('space.logo_selected.upload_logo') %>	
+            	</label>
+            	<br/>
+				<div class='error' id="error_upload" style="display:none" ><%= escape_javascript(t('space.upload_none'))%></div>
+            	<%= f.file_field :upload_logo %>
+				<br><br>
+				<input type="button" id="upload_logo_button" value="<%= t("space.logo_selected.upload_text") %>" class="basic_button blue_button"/>
+				
+				<div id = "uploaded_logo">
+					
+				</div>		
+			
+				
+				
 			</div>
 			
 			<div id='default_text_logo' style="display:none">
@@ -202,7 +257,7 @@ $("#create_space_button").livequery('click',function(){
             	<%= f.text_field :text_logo %>
 				<input type="button" id="generate_text_logo_button" value="<%=t("space.logo_selected.generate_logo") %>" class="basic_button blue_button"/>
 				
-				<div id = "generated_text_logos">PITOP</div>
+				<div id = "generated_text_logos"></div>
 				
 			</div>
 						
@@ -222,10 +277,7 @@ $("#create_space_button").livequery('click',function(){
 					end %>				
 				<% end %>
 			</div>
-           <!-- QUITAR 
-		   <button id = "Acreate_space_button" type="submit" class="blue_button basic_button">
-                <%=t("button.create") %>
-            </button>-->
+
 			<br><input type="button" id="create_space_button" value="<%=t("button.create") %>" class="basic_button blue_button"/>
 		  <%unless logged_in?%>
 		  </div>
@@ -237,18 +289,19 @@ $("#create_space_button").livequery('click',function(){
 <% content_for :sidebar do%>	
 	   <div id="import_icalendar" class="import_icalendar margin-up">
        	 <h3><%=t('space.logo_selected.default_message') %></h3>
-    <div id = "selected_logo" >
-        <center><%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"} %></center>
+    <div id = "selected_logo" style="padding-bottom:10px;">
+        <center><%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %></center>
+		
     </div>
-	    <div style="padding-left:4px">
-		<%=link_to I18n.t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();',{:id=> "open_gallery_link"} %>
-        <%=link_to I18n.t('space.logo_selected.close'), 'javascript:closeGallery();',{:id=> "close_gallery_link", :style=>'display:none'} %>
-        <br>
-        <%=link_to I18n.t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();',{:id=> "open_text_logo_link"} %>
-        <%=link_to I18n.t('space.logo_selected.close'), 'javascript:closeTextLogo();',{:id=> "close_text_logo_link", :style=>'display:none'} %>
-        <br>
-        <%=link_to I18n.t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();',{:id=> "open_upload_logo_link"} %>
-        <%=link_to I18n.t('space.logo_selected.close'), 'javascript:closeUploadLogo();',{:id=> "close_upload_logo_link", :style=>'display:none'} %>
+	    <div >
+		<%link_to I18n.t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();',{:id=> "open_gallery_link"} %>
+        <%link_to I18n.t('space.logo_selected.close'), 'javascript:closeGallery();',{:id=> "close_gallery_link", :style=>'display:none'} %>
+        
+        <%link_to I18n.t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();',{:id=> "open_text_logo_link"} %>
+        <%link_to I18n.t('space.logo_selected.close'), 'javascript:closeTextLogo();',{:id=> "close_text_logo_link", :style=>'display:none'} %>
+        
+        <%link_to I18n.t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();',{:id=> "open_upload_logo_link"} %>
+        <%link_to I18n.t('space.logo_selected.close'), 'javascript:closeUploadLogo();',{:id=> "close_upload_logo_link", :style=>'display:none'} %>
 
 		</div>
 	

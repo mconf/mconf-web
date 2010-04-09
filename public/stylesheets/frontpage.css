@@ -214,8 +214,8 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
 #footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:0.75em 0;}
-#footer ul{list-style-type:none;margin:0 0.75em; }
-#footer ul li{display:inline-block;margin-right:0.5em;}
+#footer ul{list-style-type:none;margin:0 0.75em;}
+#footer ul li{display:inline;margin-right:0.5em;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
 #footer a{color:#666;}
 #footer a:hover{color:#444;}

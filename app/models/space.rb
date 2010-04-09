@@ -39,6 +39,7 @@ class Space < ActiveRecord::Base
   attr_accessor :inviter_id
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
+  attr_accessor :text_logo
 
   has_logo
 
@@ -79,7 +80,7 @@ class Space < ActiveRecord::Base
     #logo = Logo.new
     
    
-    original = File.open(File.join("public/images/default_space_logos", space.default_logo))
+    original = File.open(File.join("public/images/", space.default_logo))
     original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
     original_tmp.write(original.read)
     original_tmp.instance_variable_set "@original_filename",space.default_logo
