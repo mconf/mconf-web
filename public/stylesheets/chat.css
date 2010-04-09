@@ -1,0 +1,115 @@
+
+.clear{
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+    line-height: 0;
+}
+
+
+
+/******* MENU *******/
+#chat_event_online{
+    margin:auto;
+}
+#chat_event_online ul{
+    list-style:none;
+    list-style-position:outside;
+    margin: 0px;
+}
+#chat_event_online ul.menu li{
+    float:left;
+    
+    margin-right:2px;
+    margin-bottom:-1px;
+    
+}
+#chat_event_online ul.menu li{
+    font-weight:11px;
+    display:block;
+    padding:3px 3px;
+    background:#E1EFF8;
+    margin-bottom:-1px;
+    border:1px solid #2A3890;
+    border-width:1px 1px 1px 1px;
+    position:relative;
+    cursor:pointer;
+}
+#chat_event_online ul.menu li:hover{
+    color:#2A3890;
+}
+#chat_event_online ul.menu li.active{
+    background:#1F4A75;
+    /*top:1px;*/
+    border-bottom:0;
+    color:#fff;
+}
+
+
+/******* CONTENT-CHAT *******/
+.content_chat{
+    margin:0pt auto;
+    border:1px solid #2A3890;
+    text-align:left;
+    padding:0px;
+    padding-bottom:5px;
+    font-size:11px;
+    color:#2A3890;
+    font-size: 10px;
+	display:block;
+}
+/******* vcc_chat *******/
+.content_chat.flash{
+    display:block;
+}
+.content_chat.flash a{
+    color:#498BBF;
+}
+
+/******* facebook *******/
+
+ 
+.content_chat.facebook{
+    display:none;
+    width: 100%;
+}
+
+
+
+.content_chat .facebook .flash{
+	font-size: 5px;
+}
+
+
+
+/********************************ONLINE CONFERENCE DIV*******************/
+#online_conference {
+	border-top: thin solid #D4E4EA;
+	border-bottom: thin solid #D4E4EA;
+	padding-left: 4px;
+	background: #ffffff;
+	height: 420px;
+	
+}
+#keynote {
+	padding-bottom: 4px;
+	padding-top: 4px;
+}
+
+#keynote_name {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+
+
+
+.inputsubmit{
+	padding: 0px;
+	font-size: 8px;
+}
+
+
+
+

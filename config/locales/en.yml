@@ -155,7 +155,7 @@ en:
     edit: "Edit"
     invite: Invite!
     finish: Finish
-        
+ 
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
@@ -1047,6 +1047,7 @@ en:
     about: "About"
     all: "All Spaces"
     allow_public_access: "Allow public access?"
+    be_fan: Be Fan
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
