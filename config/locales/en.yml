@@ -162,7 +162,7 @@ en:
     edit: "Edit"
     invite: Invite!
     finish: Finish
-        
+ 
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
@@ -298,7 +298,7 @@ en:
   eu_commision: "European Commission"    
   event:
     action:      
-      select: "Action"      
+      select: "Actions"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -1054,6 +1054,7 @@ en:
     about: "About"
     all: "All Spaces"
     allow_public_access: "Allow public access?"
+    be_fan: Be Fan
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
@@ -1091,6 +1092,8 @@ en:
         upload_logo: "Upload your own logo"
         enter_text: "Enter a text to generate logos:"
         generate_logo: "Generate"
+        upload_logo: "Select a logo to upload"
+        upload_text: "Upload"
     main: "Main space"
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
@@ -1111,6 +1114,7 @@ en:
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     updated: "Space updated successfully"
+    upload_none: "You have to select a logo to upload."
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: "spam"

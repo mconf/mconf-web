@@ -107,7 +107,7 @@ a.basic_button span{
 body{min-width:910px;}
 body .icon{margin-bottom:-3px;}
 
-#global,#home,#footer{width:960px;margin:0 auto;}
+#global,#home,#footer,#sponsor{width:960px;margin:0 auto;}
 #home{background-color:#f8f9f9;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
@@ -214,16 +214,23 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
 #footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:0.75em 0;}
-#footer ul{list-style-type:none;margin:0 0.75em; }
-#footer ul li{display:inline-block;margin-right:0.5em;}
-#footer ul li#trade_mark{font-weight:bold;color:#111;}
-#footer a{color:#666;}
-#footer a:hover{color:#444;}
+#footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
+#footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;}
+#footer ul li#trade_mark,#sponsor ul li#trademark{font-weight:bold;color:#111;}
+#footer ul li#trade_mark_logo{font-weight:normal;}
+#footer a, #sponsor a{color:#666;}
+#footer a:hover, #sponsor a:hover{color:#444;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 #footer-wrapper{background-color:#e1eef5;}
+#footer_right{font-weight:normal;}
+#footer_right{ font-size: 10px; line-height: 1.1em;}
+
+
 #thumbs ul li{display: inline;list-style-type: none;}
 .right-align {float:right}
 
+
+#sponsor-wrapper{ text-align:right; vertical-align:middle; padding-bottom: 5px;}
 #spaces_select {float: right;}
 #spaces_select select{font-size:93%;line-height:1.5;}
 column, div.span-1, div.span-2, div.span-3, div.span-4, div.span-5, div.span-6, div.span-7, div.span-8, div.span-9, div.span-10, div.span-11, div.span-12, div.span-13, div.span-14, div.span-15, div.span-16, div.span-17, div.span-18, div.span-19, div.span-20, div.span-21, div.span-22, div.span-23, div.span-24 {float:left;min-height:580px;/*margin-right:10px;*/}
@@ -496,11 +503,13 @@ span.find{
 /**************** LEFT CONTENT *************/
 
 #vcc_title{
-	font-size: 24px;
+	font-size: 17px;
+	font-weight:bold;
 	color: #1F4A75;
 	vertical-align: top;
 	margin: 0px;
 	text-align: center;
+	padding: 0px;
 }
 #text_bottom_title{
 	font-size: 14px;

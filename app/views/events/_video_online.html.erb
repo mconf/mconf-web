@@ -1,0 +1,34 @@
+<script type="text/javascript" >
+$(document).ready(function(){
+    $(".menu > li").click(function(e){
+        var a = e.target.id;
+        //desactivamos seccion y activamos elemento de menu
+        $(".menu li.active").removeClass("active");
+        $(".menu #"+a).addClass("active");
+        //ocultamos divisiones, mostramos la seleccionada
+        $(".content_chat").css("display", "none");
+        $("."+a).fadeIn();
+    });
+});    	
+</script>
+<%= stylesheet_link_tag "chat" %>	
+<div id="chat_event_online">
+    <ul class="menu">
+    	<li id="flash" class="active">Chat online</li>
+        <li id="facebook"  >Facebook</li>
+    </ul>
+    <span class="clear"></span>
+    <div class="content_chat flash">
+    	<%=render :partial => "event_chat"%>
+    </div>				
+    <div class="content_chat facebook">
+		<div style="position: relative; overflow: hidden">		
+		<iframe id="live_feed_widget99034582463" name="live_feed_widget99034582463" 
+		class="live_feed_widget inputsubmit" 
+		src="http://www.facebook.com/widgets/livefeed.php?app_id=99034582463&amp;height=350&amp;width=240&amp;xid=YOUR_EVENT_XID" 
+		width="240" height="350" frameborder="0" scrolling="no" 
+		marginwidth="0" marginheight="0">
+		</iframe>
+		</div>
+	</div>
+</div>
