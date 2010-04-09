@@ -20,6 +20,7 @@ class AgendaEntry < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
   attr_accessor :author
+  attr_accessor :setting_times
   acts_as_stage
   
   #Attributes for Conference Manager
@@ -38,6 +39,53 @@ class AgendaEntry < ActiveRecord::Base
       a.event  ||= agenda_entry.agenda.event
       a.author ||= agenda_entry.author    
     end     
+  end
+  
+  def validate
+
+    unless self.setting_times
+      if self.title.nil?
+        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
+        return
+      elsif self.title.empty?
+        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
+        return
+      end
+    end
+    
+    if self.agenda.nil?
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
+      return
+    end
+
+    if (self.start_time.nil? || self.end_time.nil?)
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
+      return
+    end
+
+    if (self.start_time > self.end_time)
+      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+      return
+    end
+
+    self.agenda.contents_for_day(self.event_day).each do |content|
+      next if ( (content.class == AgendaEntry) && (content.id == self.id) )
+      
+      if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
+        self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+        return
+      elsif (content.start_time..content.end_time) === self.start_time
+        unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          return
+        end
+      elsif (content.start_time..content.end_time) === self.end_time
+        unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          return
+        end
+      end
+    end
   end
   
   validate_on_create do |entry|
