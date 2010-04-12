@@ -19,28 +19,24 @@
 require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/performances_controller"
 
 class PerformancesController
-  before_filter :performance, :only => [ :destroy, :update ]
-
   authorization_filter :create, :performance, :only => [ :new, :create ]
   authorization_filter :read,   :performance, :only => [ :index, :show ]
   authorization_filter :update, :performance, :only => [ :edit, :update ]
   authorization_filter :delete, :performance, :only => [ :destroy ]
 
   
-  def destroy
-    @performance.destroy
+  def index
+    if stage.is_a?(Event)
+      @performances = stage.stage_performances + stage.container.stage_performances
+    else
+      performances
+    end
 
     respond_to do |format|
-      format.html { 
-        redirect_to(@performance.stage.authorize?(:read, :to => current_agent) ? request.referer : root_path)
-      }
-
-      format.js {
-        index_data
-      }
+      format.xml  { render :xml => @performances }
     end
   end
-  
+ 
   def create
     @performance = Performance.new(params[:performance])
     @performance.stage = stage
@@ -52,7 +48,7 @@ class PerformancesController
           redirect_to request.referer
         }
         format.js {
-          index_data
+          performances
         }
       end
     else
@@ -121,6 +117,20 @@ class PerformancesController
         format.js{
         } 
       end
+    end
+  end
+
+  def destroy
+    @performance.destroy
+
+    respond_to do |format|
+      format.html { 
+        redirect_to(@performance.stage.authorize?(:read, :to => current_agent) ? request.referer : root_path)
+      }
+
+      format.js {
+        performances
+      }
     end
   end
 end
