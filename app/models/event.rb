@@ -481,6 +481,20 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def to_xml(options = {})
+    options[:indent] ||= 2
+    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
+    xml.instruct! unless options[:skip_instruct]
+    xml.event do
+      xml.id         self.id
+      xml.public     self.space.public?, :type => "boolean"
+      xml.start_date self.start_date,    :type => "datetime"
+      xml.end_date   self.end_date,      :type => "datetime"
+      xml.place      self.place
+      xml.permalink  self.permalink
+      xml.name       self.name
+    end
+  end
   
   authorizing do |agent, permission|
     if ( permission == :update || permission == :delete ) && author == agent
