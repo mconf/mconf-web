@@ -80,8 +80,8 @@ class AvatarsController < ApplicationController
       raise ActiveRecord::RecordNotFound
     end
     
-    params[:size] ||= "16"
-    logo =  (logo.thumbnails.map(&:thumbnail).include?(params[:size]) ? logo.thumbnails.find_by_thumbnail(params[:size]) : logo.thumbnails.find_by_thumbnail("16"))
+    params[:size] ||= "64"
+    logo =  (logo.thumbnails.map(&:thumbnail).include?(params[:size]) ? logo.thumbnails.find_by_thumbnail(params[:size]) : logo.thumbnails.find_by_thumbnail("64"))
     send_data logo.__send__(:current_data),
                     :filename => logo.filename,
                     :type => logo.content_type,
