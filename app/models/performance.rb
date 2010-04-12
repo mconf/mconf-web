@@ -61,4 +61,25 @@ class Performance
         end
     end
   end
+
+  def to_xml(options = {})
+    options[:indent] ||= 2
+    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
+    xml.instruct! unless options[:skip_instruct]
+    xml.performance do
+      xml.agent do
+        xml.id agent.id
+        xml.type agent.type
+        xml.login(agent.login) if agent.respond_to?(:login)
+      end
+      xml.role do
+        xml.id role.id
+        xml.name role.name
+      end
+      xml.stage do
+        xml.id stage.id
+        xml.type stage.type
+      end
+    end
+  end
 end
