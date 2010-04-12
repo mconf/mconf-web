@@ -778,6 +778,7 @@ en:
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
+    crop: "Crop space logo"
     empty: "The logo is empty"
     error:
       not_valid: "Logo is not valid"

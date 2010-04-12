@@ -1,13 +1,14 @@
 <div id="lightbox-logo" style="z-index:1">
   <span>
-    <%= image_tag("bola_global_peque.png",:class=>"icon")%><%= @logo_crop_text %>
+    <%= image_tag("bola_global_peque.png",:class=>"icon")%><%= logo_crop_text %>
   </span>
 </div>
 
 <div id="crop-logo-lightbox-content">
-  <%=image_tag @image, :id => "croplogo"%>
+
+  <%=image_tag image, :id => "croplogo"%>
   
-  <% form_for @form_for, :url => @form_url do |f| %>
+  <% form_for form_for, :url => form_url do |f| %>
     <% fields_for :crop_size do |fc|%>
       <%= fc.hidden_field :x %>
       <%= fc.hidden_field :y %>
