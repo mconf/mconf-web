@@ -70,5 +70,22 @@ class AvatarsController < ApplicationController
       redirect_to user_path(user)
     end   
   end
+  
+  def show
+    user = User.find_by_login(params[:user_id])
+    
+    if user.logo.present?
+      logo = user.logo
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+    
+    params[:size] ||= "16"
+    logo =  (logo.thumbnails.map(&:thumbnail).include?(params[:size]) ? logo.thumbnails.find_by_thumbnail(params[:size]) : logo.thumbnails.find_by_thumbnail("16"))
+    send_data logo.__send__(:current_data),
+                    :filename => logo.filename,
+                    :type => logo.content_type,
+                    :disposition => logo.class.resource_options[:disposition].to_s
+  end
 
 end
