@@ -21,7 +21,7 @@
 <sparkComp:ColorShiftingPanel
 	headerHeight="0"
 	filters="{[new DropShadowFilter(0, 45, 0.0, 0.75, 6.0)]}" height="100%" width="80%" visible="false" 
-	backgroundAlpha=".4"
+	backgroundAlpha="0"
 	resize="chatFrame.validateDisplayList();"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:gui="com.jivesoftware.spark.*" 
@@ -232,8 +232,8 @@
      		 scrollSpeed="100"
      		 dragEnabled="false"
      		 dropEnabled="false"
-     		 minTabWidth="80"
-     		 tabWidth="150"
+     		 minTabWidth="200"
+     		 tabWidth="200"
      		 change="activeRoom = event.relatedObject as ChatRoom"
      	/>
  </sparkComp:ColorShiftingPanel>
