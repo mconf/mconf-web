@@ -7,7 +7,7 @@
       	<h3 id="agenda_title_partial" class="blue">
         <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
         <%=t('agenda.title')%> 
-        <span class="main_text"><%= t('timezone.one') %>: <%=Time.zone%></span>
+        <span class="main_text"><%=@event.get_formatted_timezone%></span>
       </h3>
   </div>
   <div id="agenda_content">

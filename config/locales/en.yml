@@ -38,9 +38,11 @@ en:
       edit: "Edit Divider"
       error:
         coinciding_times: "There is a conflict with the time of the new divider and existing agenda entries or dividers"
+        date_out_of_event: "The date of the divider exceeds the maximum duration of the event: {{max_days}} days"
         missing_agenda: "The agenda of the divider must be specified"
         missing_time: "The time of the divider must be specified"
         missing_title: "The title of the divider must be specified"
+      failed: "There was a problem with the agenda divider"
       new: "New agenda divider"
       start_time: "Start time" 
       title: "Title"
@@ -58,11 +60,13 @@ en:
       error:
         create: "Error creating session in remote videoconference system"
         coinciding_times: "There is a conflict with the time of the new agenda entry and existing agenda entries or dividers"
+        date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: "Error deleting session in remote videoconference system"
         disordered_times: "The start time must be previous to the end time"
         missing_agenda: "The agenda of the agenda entry must be specified"
         missing_time: "The times of the agenda entry must be specified"
         missing_title: "The title of the agenda entry must be specified"
+        several_days: "One agenda entry must start and end on the same day"
         update: "Error updating session in remote videoconference system"
       has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
@@ -1038,11 +1042,14 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
+    cm_domain: "Conference Manager domain"
     default: "site"
     signature: "Signature"
     domain: "Application Domain"
     presence_domain: "Presence Domain"
     chat_group_service_jid: "Event Chat Group Service"
+    xmpp_server_password: "XMPP Server password"
+    xmpp_server_password_confirmation: "XMPP Server password confirmation"
   size: Size
   skype: Skype
   source:
@@ -1296,7 +1303,9 @@ en:
   where: "Where"
   
   ######### X ###########
-  
+  xmpp_server:
+    password_invalid: "invalid password"
+
   ######### Y ###########
   yesterday: "Yesterday"
   your_interests_tags: "Your interests (tags)"

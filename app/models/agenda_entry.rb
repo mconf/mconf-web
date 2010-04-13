@@ -23,10 +23,6 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :setting_times
   acts_as_stage
   
-  #Attributes for Conference Manager
-  attr_accessor :streaming
-  attr_accessor :recording
-
   acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -44,48 +40,60 @@ class AgendaEntry < ActiveRecord::Base
   def validate
 
     unless self.setting_times
-      if self.title.nil?
+      if self.title.blank?
         self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
-        return
-      elsif self.title.empty?
-        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
-        return
       end
     end
     
-    if self.agenda.nil?
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
-      return
-    end
-
-    if (self.start_time.nil? || self.end_time.nil?)
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
-      return
-    end
-
-    if (self.start_time > self.end_time)
-      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
-      return
-    end
-
-    self.agenda.contents_for_day(self.event_day).each do |content|
-      next if ( (content.class == AgendaEntry) && (content.id == self.id) )
+    if self.agenda.blank?
       
-      if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
-        self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
+      
+    elsif (self.start_time.blank? || self.end_time.blank?)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
+      
+    elsif (self.start_time > self.end_time)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+      
+    elsif (self.start_time.to_date != self.end_time.to_date)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.several_days'))
+      
+    # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
+    elsif !(self.agenda.event.start_date.blank?)
+  
+      if (self.end_time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
         return
-      elsif (content.start_time..content.end_time) === self.start_time
-        unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
-          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
-          return
-        end
-      elsif (content.start_time..content.end_time) === self.end_time
-        unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
-          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
-          return
+      elsif (self.agenda.event.end_date.to_date - self.start_time.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        return        
+      end
+
+      self.agenda.contents_for_day(self.event_day).each do |content|
+        next if ( (content.class == AgendaEntry) && (content.id == self.id) )
+
+        if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
+          unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
+        elsif (content.start_time..content.end_time) === self.start_time
+          unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
+        elsif (content.start_time..content.end_time) === self.end_time
+          unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
         end
       end
     end
+
   end
   
   validate_on_create do |entry|
@@ -103,7 +111,9 @@ class AgendaEntry < ActiveRecord::Base
   validate_on_update do |entry|
     if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
       cm_s = entry.cm_session
-      my_params = {:name => entry.title, :recording => entry.recording ? entry.recording : cm_s.recording, :streaming => entry.streaming ? entry.streaming : cm_s.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      entry.cm_streaming ||= cm_s.streaming
+      entry.cm_recording ||= cm_s.recording
+      my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
       if entry.cm_session?
         cm_s.load(my_params) 
       else
@@ -168,19 +178,19 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_save do |entry|
-    entry.event.syncronize_date
+    entry.agenda.event.syncronize_date
   end
   
   
   after_destroy do |entry|  
-   # event.syncronize_date
     if entry.title.present?
       FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
-    end      
+    end
+    entry.event.syncronize_date
   end
   
   def event
-    agenda.event
+    self.agenda.event
   end
   
   
@@ -197,11 +207,16 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def recording?
+
     if embedded_video.present?
       return true
     else
-      return cm_session.try(:recording?)
+      return cm_recording #cm_session.try(:recording?)
     end   
+  end
+  
+  def streaming?
+    return cm_streaming
   end
   
   def thumbnail
@@ -220,9 +235,9 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
-  def streaming?
-    cm_session.try(:streaming?)
-  end
+  #def streaming?
+  #  cm_session.try(:streaming?)
+  #end
   
   def initDate
     DateTime.strptime(cm_session.initDate)
@@ -261,7 +276,7 @@ class AgendaEntry < ActiveRecord::Base
   
   #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
   def event_day
-    return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+    return ((self.start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
   end
   
   

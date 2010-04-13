@@ -38,9 +38,24 @@
     <%= f.text_field :presence_domain %>
   </p>
 	
+	<p>
+    <%= f.label :cm_domain, t('site.cm_domain') %>
+    <%= f.text_field :cm_domain %>
+  </p>
+	
   <p>
     <%= f.label :chat_group_service_jid, t('site.chat_group_service_jid') %>
     <%= f.text_field :chat_group_service_jid %>
+  </p>
+
+  <p>
+    <%= f.label :xmpp_server_password, t('site.xmpp_server_password') %>
+    <%= f.password_field :xmpp_server_password %>
+  </p>
+
+  <p>
+    <%= f.label :xmpp_server_password_confirmation, t('site.xmpp_server_password_confirmation') %>
+    <%= f.password_field :xmpp_server_password_confirmation %>
   </p>
 
   <p>

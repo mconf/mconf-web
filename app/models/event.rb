@@ -67,6 +67,9 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :meeting, :teleconference]
+  
+  # Maximum number of consecutive days for the event
+  MAX_DAYS = 5
 
 
    def validate
@@ -242,8 +245,8 @@ class Event < ActiveRecord::Base
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
   def syncronize_date
-     self.update_attributes({:start_date => agenda.recalculate_start_time,
-                             :end_date => agenda.recalculate_end_time})
+     self.update_attributes({:start_date => self.agenda.recalculate_start_time,
+                             :end_date => self.agenda.recalculate_end_time})
   end
   
   
@@ -325,10 +328,15 @@ class Event < ActiveRecord::Base
   #method to get the starting date of an event in the correct format
   def get_formatted_date
     has_date? ?
-      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M (GMT #{Time.zone.formatted_offset})") :
+      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M. #{get_formatted_timezone}") :
       I18n::t('date.undefined')       
   end
   
+  def get_formatted_timezone
+    has_date? ?
+      "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})" :
+      I18n::t('date.undefined')
+  end
   
   #method to get the starting hour of an event in the correct format
   def get_formatted_hour
@@ -498,6 +506,12 @@ class Event < ActiveRecord::Base
   
   authorizing do |agent, permission|
     if ( permission == :update || permission == :delete ) && author == agent
+      true
+    end
+  end
+
+  authorizing do |agent, permission|
+    if permission == :read && agent.is_a?(XmppServer)
       true
     end
   end

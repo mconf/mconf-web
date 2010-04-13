@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
   acts_as_agent :activation => true,
                 :openid_server => true
 
-  validates_presence_of :email
+  validates_presence_of  :email
+  validates_exclusion_of :login, :in => %w( xmpp_server )
 
   acts_as_stage
   acts_as_taggable :container => false

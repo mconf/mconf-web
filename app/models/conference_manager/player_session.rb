@@ -1,7 +1,7 @@
 module ConferenceManager
-  class PlayerSession < ActiveResource::Base
+  class PlayerSession < CmResource
     self.element_name = "player_session" 
-    self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id/sessions/:session_id"
+    self.site = domain + "/events/:event_id/sessions/:session_id"
     
     
     #redefined to remove format.extension

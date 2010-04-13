@@ -609,16 +609,20 @@ NumericStepper
 Panel
 {
 
-	closeButtonDisabledSkin: Embed(source="messenger.swf",symbol="Panel_closeButtonDisabledSkin");
+	/*closeButtonDisabledSkin: Embed(source="messenger.swf",symbol="Panel_closeButtonDisabledSkin");
 	closeButtonDownSkin: Embed(source="messenger.swf",symbol="Panel_closeButtonDownSkin");
 	closeButtonOverSkin: Embed(source="messenger.swf",symbol="Panel_closeButtonOverSkin");
 	closeButtonUpSkin: Embed(source="messenger.swf",symbol="Panel_closeButtonUpSkin");
-	borderSkin: Embed(source="messenger.swf", symbol="Panel_borderSkin");
+	borderSkin: Embed(source="messenger.swf", symbol="Panel_borderSkin");*/
 	/*titleBackgroundSkin: Embed(source="empty.swf", symbol="Panel_titleBackgroundSkin");*/
-	borderThicknessLeft: 10;
+	/*borderThicknessLeft: 10;
 	borderThicknessRight: 11;
 	borderThicknessTop: 0;
-	borderThicknessBottom: 3;
+	borderThicknessBottom: 3;*/
+	borderThicknessLeft: 0;
+	borderThicknessRight: 0;
+	borderThicknessTop: 0;
+	borderThicknessBottom: 0;
 	headerHeight: 30;
 	titleStyleName: "panelTitle";
 }
