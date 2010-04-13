@@ -74,6 +74,27 @@ SELECT COUNT(*) FROM users
 jdbcUserProvider.usernameField
 login
 
+plugin.vccRooms.adminRoles
+Admin,Organizer
+
+plugin.vccRooms.vccEventProfilesUrl
+http://vcc.dit.upm.es/events/{event-id}/performances.xml
+
+plugin.vccRooms.vccEventsUrl
+http://vcc.dit.upm.es/events/{event-id}
+
+plugin.vccRooms.xmppServerUser
+vcc
+
+plugin.vccRooms.xmppServerPassword
+admin
+
+plugin.vccRooms.adminRoles
+Admin,Organizer
+
+plugin.vccRooms.vccAvatarUrl
+http://vcc.dit.upm.es/users/{user-id}/avatar
+
 provider.admin.className
 org.jivesoftware.openfire.admin.DefaultAdminProvider
 

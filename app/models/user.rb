@@ -71,6 +71,7 @@ class User < ActiveRecord::Base
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
+  alias_attribute :permalink, :login
 
   # Full name must go to the profile, but it is provided by the user in signing up
   # so we have to temporally cache it until the user is created; :_full_name

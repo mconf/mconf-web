@@ -83,7 +83,7 @@
 		
 
   <%= render :partial => 'logos/crop_logo.js.erb',
-             :locals => { :url_form   => precrop_space_logo_path(@space.id),
+             :locals => { :url_form   => precrop_space_logo_path(@space),
                           :aspect_ratio => Logo::ASPECT_RATIO_S
                         } %>
 		
@@ -167,7 +167,7 @@
 		
 			<div id="update_logo" style="display:none">
 				<label for="public" class="bold"><%=t('avatar.select_new')%>:</label>
-		   <% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true, :id => "update_space_logo" } do |f| %>
+		   <% form_for :logo, :url => space_logo_path(@space),:html => { :multipart => true, :id => "update_space_logo" } do |f| %>
 		      <%= f.file_field :media, :class=>"file file1"%>
 	        <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t("button.update")%></button></div>
 	      <%end%>

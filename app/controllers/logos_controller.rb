@@ -22,7 +22,6 @@ require 'RMagick'
 class LogosController
   include Magick
   
-  TMP_PATH = File.join(RAILS_ROOT, "public", "images", "tmp")
   #for i in 1..5
    #   create_auto_logo "Global Plaza Project", i
     #end
@@ -51,31 +50,19 @@ class LogosController
       redirect_to request.referer
       return
     end
-    
-    @space = Space.find(params[:space_id])
-    @logo = @space.logo || Logo.new 
 
-     #debugger
+    @logo = space.logo || Logo.new 
 
-    f = File.open(File.join(TMP_PATH,"precroplogo-#{@space.id}"), "w+")
-    f.write(params['logo']['media'].read)
-    puts "******************" + params['logo'].to_s + "**************"
-    f.close
-    @image = "tmp/" + File.basename(f.path)
-    session[:tmp_logo] = {}
-    session[:tmp_logo][:basename] = File.basename(f.path)
-    session[:tmp_logo][:original_filename] = params['logo']['media'].original_filename
-    session[:tmp_logo][:content_type] = params['logo']['media'].content_type
+    temp_logo = TempLogo.new(Logo, space, params[:logo])
+    TempLogo.to_session(session, temp_logo)
 
-    reshape_image f.path, Logo::ASPECT_RATIO_F
-    resize_if_bigger f.path, 600
-    
- 
-    @logo_crop_text = "Crop space logo"
-    @form_for       = [@space,@logo]
-    @form_url       = space_logo_path(@space.id)
-    
-    render :template => "logos/precrop", :layout => false
+    render :template => "logos/precrop",
+           :layout => false,
+           :locals => {:logo_crop_text => t('logo.crop'),
+                       :form_for => [space,@logo],
+                       :form_url => space_logo_path(space),
+                       :image => temp_logo.image 
+                      }
   end
   
   def precrop_without_space
@@ -111,11 +98,10 @@ class LogosController
   end
   
   def create
-    space = Space.find(params[:space_id])
     if params[:crop_size].present?
-      crop_and_resize
+      temp_logo = TempLogo.from_session(session)
+      params[:logo] = temp_logo.crop_and_resize params[:crop_size]
     end
-    #debugger
     @logo = space.build_logo(params[:logo])
     if @logo.save
       flash[:success] = t('logo.created')
@@ -128,9 +114,9 @@ class LogosController
   end
   
   def update
-    space = Space.find(params[:space_id])
     if params[:crop_size].present?
-      crop_and_resize
+      temp_logo = TempLogo.from_session(session)
+      params[:logo] = temp_logo.crop_and_resize params[:crop_size]
     end
     @logo = space.logo
     if @logo.update_attributes(params[:logo])
@@ -143,61 +129,6 @@ class LogosController
   end
   
   private
-
-  def crop_and_resize 
-      
-    img = Magick::Image.read(File.open(File.join(TMP_PATH,session[:tmp_logo][:basename]))).first
-
-    crop_args = %w( x y width height ).map{ |k| params[:crop_size][k] }.map(&:to_i)
-    crop_img = img.crop(*crop_args)
-    f = ActionController::UploadedTempfile.open("croplogo","tmp")
-    crop_img.write("png:" + f.path)
-    f.instance_variable_set "@original_filename",session[:tmp_logo][:original_filename]
-    f.instance_variable_set "@content_type", session[:tmp_logo][:content_type]
-    params[:logo] ||= {}
-    params[:logo][:media] = f
-
-  end
-
-  def resize_if_bigger path, size
-    
-    f = File.open(path)
-    img = Magick::Image.read(f).first
-    if img.columns > img.rows && img.columns > size
-      resized = img.resize(size.to_f/img.columns.to_f)
-      f.close
-      resized.write("png:" + path)
-    elsif img.rows > img.columns && img.rows > size
-      resized = img.resize(size.to_f/img.rows.to_f)
-      f.close
-      resized.write("png:" + path)
-    end
-    
-  end
-  
-  def reshape_image path, aspect_ratio
-    
-    f = File.open(path)
-    img = Magick::Image.read(f).first
-    aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
-    if aspect_ratio_orig < aspect_ratio
-      # target image is more 'horizontal' than original image
-      target_size_y = img.rows
-      target_size_x = target_size_y * aspect_ratio
-    else
-      # target image is more 'vertical' than original image
-      target_size_x = img.columns
-      target_size_y = target_size_x / aspect_ratio
-    end
-    # We center the image inside the white canvas
-    decenter_x = -(target_size_x - img.columns) / 2;
-    decenter_y = -(target_size_y - img.rows) / 2;
-    
-    reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
-    f.close
-    reshaped.write("png:" + path)
-    
-  end
   
   def max_word_length text
     first_pos = 0

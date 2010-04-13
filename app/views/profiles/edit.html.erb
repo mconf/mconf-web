@@ -1,5 +1,5 @@
 <% content_for :javascript do%>
-  <%= render :partial => 'logos/crop_logo.js.erb',:locals => { :url_form => precrop_user_avatar_path(@profile.user),:aspect_ratio => Avatar::ASPECT_RATIO } %>
+  <%= render :partial => 'logos/crop_logo.js.erb',:locals => { :url_form => precrop_user_avatar_path(@profile.user),:aspect_ratio => Avatar::ASPECT_RATIO_S } %>
 
   $("#change_pic").click(function(){
 	 $("#update_logo").show()

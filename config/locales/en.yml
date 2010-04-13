@@ -179,8 +179,8 @@ en:
   change_pic: Change picture
   changed_mind: "Changed your mind?"
   chat:
-    edit_question: "Would you like to enable chat?"
-    edit_enabled: "Enable chat at next login"
+    edit_question: "Would you like to enable experimental chat feature?"
+    edit_enabled: "Enable experimental chat at next login"
     connecting_message: "Connecting to event chat..."
   check_mail: "Please, check your email"
   city: "City"
@@ -782,6 +782,7 @@ en:
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
+    crop: "Crop space logo"
     empty: "The logo is empty"
     error:
       not_valid: "Logo is not valid"
