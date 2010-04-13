@@ -279,13 +279,13 @@ ActiveRecord::Schema.define(:version => 20100413130833) do
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
-    t.integer "user_id"
-    t.string  "prefix_key",   :default => ""
+    t.integer "user_id",      :limit => 255
+    t.string  "prefix_key",                  :default => ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   :default => 2
+    t.integer "visibility",                  :default => 2
     t.string  "full_name"
   end
 
@@ -303,6 +303,8 @@ ActiveRecord::Schema.define(:version => 20100413130833) do
 
   create_table "singular_agents", :force => true do |t|
     t.string "type"
+    t.string "crypted_password", :limit => 40
+    t.string "salt",             :limit => 40
   end
 
   create_table "sites", :force => true do |t|

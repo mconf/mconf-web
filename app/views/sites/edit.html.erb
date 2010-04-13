@@ -49,6 +49,16 @@
   </p>
 
   <p>
+    <%= f.label :xmpp_server_password, t('site.xmpp_server_password') %>
+    <%= f.password_field :xmpp_server_password %>
+  </p>
+
+  <p>
+    <%= f.label :xmpp_server_password_confirmation, t('site.xmpp_server_password_confirmation') %>
+    <%= f.password_field :xmpp_server_password_confirmation %>
+  </p>
+
+  <p>
     <!--<%= f.label :ssl, t('site.ssl') %>-->
 	<strong class="blue">SSL </strong>
     <%= f.check_box :ssl %>

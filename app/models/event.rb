@@ -510,4 +510,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  authorizing do |agent, permission|
+    if permission == :read && agent.is_a?(XmppServer)
+      true
+    end
+  end
+
 end
