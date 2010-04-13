@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100331091006) do
+ActiveRecord::Schema.define(:version => 20100413075244) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20100331091006) do
     t.datetime "start_time"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "end_time"
   end
 
   create_table "agenda_entries", :force => true do |t|
@@ -314,8 +315,8 @@ ActiveRecord::Schema.define(:version => 20100331091006) do
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
     t.text     "signature"
-    t.string   "presence_domain"
-    t.string   "chat_group_service_jid"
+    t.string   "presence_domain",               :default => "sir.dit.upm.es "
+    t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
   end
 
   create_table "source_importations", :force => true do |t|
@@ -393,7 +394,7 @@ ActiveRecord::Schema.define(:version => 20100331091006) do
     t.boolean  "expanded_post",                           :default => false
     t.integer  "notification",                            :default => 1
     t.string   "locale"
-    t.boolean  "chat_activation",                         :default => true
+    t.boolean  "chat_activation",                         :default => false
   end
 
 end

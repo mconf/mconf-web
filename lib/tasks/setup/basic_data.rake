@@ -43,7 +43,8 @@ namespace :setup do
       puts "* Create Space \"VCC Start Page\""
       Space.create :name => "VCC Start Page",
                    :description => "Virtual Conference Centre (VCC)",
-                   :public => true
+                   :public => true,
+                   :default_logo => "models/front/space.png"
     end
 
     desc "Load Spaces Data"

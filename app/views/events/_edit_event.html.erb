@@ -38,7 +38,7 @@
   </div>
   
   <div>
-    <label for="Organizer"><%= t('organizer') %>:</label>
+    <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
     <select id="organizers_name" multiple="multiple" name="organizers[name][]">
       <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
     </select>

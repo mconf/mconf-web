@@ -20,6 +20,7 @@ class AgendaEntry < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
   attr_accessor :author
+  attr_accessor :setting_times
   acts_as_stage
   
   #Attributes for Conference Manager
@@ -38,6 +39,65 @@ class AgendaEntry < ActiveRecord::Base
       a.event  ||= agenda_entry.agenda.event
       a.author ||= agenda_entry.author    
     end     
+  end
+  
+  def validate
+
+    unless self.setting_times
+      if self.title.blank?
+        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
+      end
+    end
+    
+    if self.agenda.blank?
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
+      
+    elsif (self.start_time.blank? || self.end_time.blank?)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
+      
+    elsif (self.start_time > self.end_time)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+      
+    elsif (self.start_time.to_date != self.end_time.to_date)
+      
+      self.errors.add_to_base(I18n.t('agenda.entry.error.several_days'))
+      
+    # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
+    elsif !(self.agenda.event.start_date.blank?)
+  
+      if (self.end_time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        return
+      elsif (self.agenda.event.end_date.to_date - self.start_time.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        return        
+      end
+
+      self.agenda.contents_for_day(self.event_day).each do |content|
+        next if ( (content.class == AgendaEntry) && (content.id == self.id) )
+
+        if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
+          unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
+        elsif (content.start_time..content.end_time) === self.start_time
+          unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
+        elsif (content.start_time..content.end_time) === self.end_time
+          unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+            return
+          end
+        end
+      end
+    end
+
   end
   
   validate_on_create do |entry|
@@ -120,19 +180,19 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_save do |entry|
-    entry.event.syncronize_date
+    entry.agenda.event.syncronize_date
   end
   
   
   after_destroy do |entry|  
-   # event.syncronize_date
     if entry.title.present?
       FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
-    end      
+    end
+    entry.event.syncronize_date
   end
   
   def event
-    agenda.event
+    self.agenda.event
   end
   
   
@@ -213,7 +273,7 @@ class AgendaEntry < ActiveRecord::Base
   
   #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
   def event_day
-    return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+    return ((self.start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
   end
   
   

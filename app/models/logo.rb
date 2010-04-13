@@ -23,8 +23,7 @@ class Logo
   include Magick
   
   ASPECT_RATIO_S = "188/143"
-  ASPECT_RATIO_F = 188/143.to_f
-  
+  ASPECT_RATIO_F = 188.0/143
   
   has_attachment :max_size => 2.megabyte,
                  :storage => :file_system,
@@ -51,7 +50,7 @@ class Logo
                     'front' => '188x143!'
                  }
                  
-  validate :aspect_ratio
+  #validate :aspect_ratio
 
   def aspect_ratio
     img = Magick::Image.read(temp_path).first

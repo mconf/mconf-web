@@ -1,5 +1,5 @@
 <%space = @space%>
-<% if space %>
+<% if space && space.id!=nil %>
 <div id="menu">
   <ul>
     <li><%= link_to t('home.one').upcase, space_path(space), menu_options(:home) %></li>

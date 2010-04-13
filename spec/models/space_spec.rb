@@ -4,7 +4,7 @@ describe Space do
   extend ActiveRecord::AuthorizationTestHelper
 
   before(:each) do
-    @valid_attributes = {:name => 'title', :description => 'text' }
+    @valid_attributes = {:name => 'title', :description => 'text',:default_logo => "models/front/space.png" }
   end
 
   it "should create a new instance given valid attributes" do

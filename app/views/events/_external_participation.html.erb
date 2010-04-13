@@ -5,6 +5,7 @@
         method : 'PUT',
 	tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
+		onblur : 'ignore',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
         placeholder: '<%=t("event.participation.none")%> <%=link_to_function t('event.participation.add'), "edit_participation()", :id => "add_participation_link"%>',

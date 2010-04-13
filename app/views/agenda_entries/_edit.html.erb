@@ -18,7 +18,11 @@
 
 <div class="agenda_edit_entry" >
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
-  <div class="agenda_blue_title"><%=t('agenda.entry.edit')%></div>
+	<div id="agenda_blue_title" class="margin-up">
+    <h3 class="blue"><%=t('agenda.entry.edit')%></h3>
+  </div>
+	
+	<div id="new_entry_content">
   <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
 
     <% content_for :agenda_attachments do%>
@@ -26,7 +30,11 @@
     <% end %>
 		<%unless @event.past? && @event.is_virtual?%>
       <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
-      <%= f.text_field :title %></div>
+	  
+        <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
+	  
+        <%= f.text_field :title %>
+      </div>
     <%end%>
     <div class="margin-up">
       <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
@@ -47,7 +55,7 @@
 	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
     </div>
  -->
-    <div class="margin-up"><label for="attachment"><%= t('attachment.one') %></label><br/></div>
+    <div class="margin-up"><label for="attachment"><%= t('attachment.other') %></label><br/></div>
 		  <p class ='newAttach2' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
 
 		 <div id="entry_attachment">
@@ -63,12 +71,13 @@
         </br>
       </div>
     </div>    
-         <p class="newAttachEvent"><%=t('attachment.new') %></p>
+    <span class="newAttachEvent"><%=t('attachment.new') %></span>
 	<%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>		
-      <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
+      
 
     <div class="margin-up">
-    	<label for="embedded_video" class="main_text"><%= t('agenda.entry.embedded_video') %></label><br/>
+    	<div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
+			<label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
         <%= f.text_area :embedded_video, :size => "25x5" %>
 	  </div>
 	<%else%>	   
@@ -106,6 +115,7 @@
     </div>
 		
   <% end %>
+	</div>
   <br/>
 </div>
 

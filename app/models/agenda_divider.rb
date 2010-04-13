@@ -21,21 +21,68 @@ class AgendaDivider < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   
   default_scope :order => 'start_time ASC'
+
+  before_validation do |divider|
+    if divider.start_time
+      divider.end_time = divider.start_time
+    end
+  end
   
+  def validate
+
+    if self.title.blank?
+      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_title'))
+    end
+
+    if self.agenda.blank?
+
+      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_agenda'))
+
+    elsif self.time.blank?
+
+      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_time'))
+
+    # if the event has no start_date, then there won't be any agenda entries or dividers, so these validations should be skipped
+    elsif !(self.agenda.event.start_date.blank?)
+      if (self.time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        return
+      elsif (self.agenda.event.end_date.to_date - self.time.to_date) >= Event::MAX_DAYS
+        self.errors.add_to_base(I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        return        
+      end
+
+      self.agenda.contents_for_day(self.event_day).each do |content|
+        next if ( (content.class == AgendaDivider) && (content.id == self.id) )
+        next if (content.start_time == self.time) || (content.end_time == self.time)
+ 
+        if (content.start_time..content.end_time) === self.time
+          self.errors.add_to_base(I18n.t('agenda.divider.error.coinciding_times'))
+          return
+        end
+      end
+    end
+    
+  end
+
   after_save do |divider|
-    divider.event.syncronize_date
+    divider.agenda.event.syncronize_date
   end
-  
-  def end_time
-    start_time
+
+  after_destroy do |divider|  
+    divider.agenda.event.syncronize_date
   end
-  
+
   def event
-    agenda.event
+    self.agenda.event
   end
-  
+
    #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
   def event_day
-    return ((start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+    return ((self.time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
+  end
+  
+  def time
+    return start_time
   end
 end

@@ -20,7 +20,8 @@ require 'RMagick'
 class EventLogo < Logo
   include Magick
   
-  ASPECT_RATIO = "1/1"
+  ASPECT_RATIO_S = "1/1"
+  ASPECT_RATIO_F = 1
   
   has_attachment :max_size => 2.megabyte,
                  :storage => :file_system,
@@ -41,6 +42,6 @@ class EventLogo < Logo
 
   def aspect_ratio
     img = Magick::Image.read(temp_path).first
-    errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily.") unless img.rows.to_f/img.columns.to_f ==  ASPECT_RATIO.to_f
+    errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily.") unless img.rows.to_f/img.columns.to_f ==  ASPECT_RATIO_F
   end
 end

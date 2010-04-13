@@ -4,8 +4,12 @@
 
     // Build join request message by putting its parts together
 
-    var header = "<p><%= escape_javascript(t('join_request.asked', :candidate => current_user.full_name, :space => @space.name)) %></p>";
-    
+    <%if current_user != Anonymous.current%>
+      var header = "<p><%= escape_javascript(t('join_request.asked', :candidate => current_user.full_name, :space => @space.name)) %></p>";
+    <%else%>
+      var header = "<p><%= escape_javascript(t('join_request.asked_anonymous', :space => @space.name)) %></p>";
+    <%end%>
+
     // Changing the new line characters to <br/>
     var personal_msg = ($('#join_request_personal').val()).replace(/\n/g,'<br/>');
     
@@ -43,7 +47,12 @@
           <label for="message" class="label_izquierda bold"><%= t('join_request.label') %>:</label>
 
           <div class="grey_bar">
-            <p><%= t('join_request.asked', :candidate => current_user.full_name, :space => @space.name) %></p>
+
+            <%if current_user != Anonymous.current%>
+              <p><%= t('join_request.asked', :candidate => current_user.full_name, :space => @space.name) %></p>
+            <%else%>
+              <p><%= t('join_request.asked_anonymous', :space => @space.name) %></p>
+            <%end%>
 
             <textarea id="join_request_personal"><%= t('join_request.personal') %></textarea><br/>
             <%= f.text_area :comment, :style => "display:none" %>

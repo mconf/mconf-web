@@ -17,20 +17,7 @@
     	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
   	<%end%>
 	<%else%>
-
-	  <!--<%if logged_in? && space.public?%>
-		  <% form_tag space_join_requests_path(space), :id => "join_form" do %>
-	      <button class="big_button orange_button" type:"submit"><%=t('space.join')%></button>
-	    <% end %>
-	  <%else%>
-		  <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "fancybox_link orange_button big_button" %>
-	  <%end%>
-		
-		<div class="space-desc">
-		  <h3><%= t('about') %> <em><%=@space.name%></em></h3>
-		  <p><%=image_tag(logo_image_path(@space, :size =>48), :align => "left")%>
-		  <%= sanitize(space.description) if space.description.present? %></p>
-  	</div>-->	
+	
 <%end%>
 	
 <%end%>

@@ -36,6 +36,13 @@ en:
     divider:
       delete: "Divider was successfully created"
       edit: "Edit Divider"
+      error:
+        coinciding_times: "There is a conflict with the time of the new divider and existing agenda entries or dividers"
+        date_out_of_event: "The date of the divider exceeds the maximum duration of the event: {{max_days}} days"
+        missing_agenda: "The agenda of the divider must be specified"
+        missing_time: "The time of the divider must be specified"
+        missing_title: "The title of the divider must be specified"
+      failed: "There was a problem with the agenda divider"
       new: "New agenda divider"
       start_time: "Start time" 
       title: "Title"
@@ -52,7 +59,14 @@ en:
       end_time: "End time"
       error:
         create: "Error creating session in remote videoconference system"
+        coinciding_times: "There is a conflict with the time of the new agenda entry and existing agenda entries or dividers"
+        date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: "Error deleting session in remote videoconference system"
+        disordered_times: "The start time must be previous to the end time"
+        missing_agenda: "The agenda of the agenda entry must be specified"
+        missing_time: "The times of the agenda entry must be specified"
+        missing_title: "The title of the agenda entry must be specified"
+        several_days: "One agenda entry must start and end on the same day"
         update: "Error updating session in remote videoconference system"
       has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
@@ -84,7 +98,7 @@ en:
       end_time_overlaps: "The end time overlaps with an existing agenda entry"
       omit_date: "The entry for the agenda needs start date and end date "
       omit_title: "A title must be given for the agenda entry"
-      omit_title_divider: "Divider title can't be empty"
+      omit_title_divider: "Divider title cannot be empty"
       overlaps: "The agenda entry overlaps with an existing entry"
       start_time_overlaps: "The start time overlaps with an existing agenda entry"
     expand_help: "Click on the title of an agenda entry to expand it or contract it"
@@ -152,7 +166,7 @@ en:
     edit: "Edit"
     invite: Invite!
     finish: Finish
-        
+ 
   ######### C ###########
   can_also: "Or you can also:"
   cancel: "Cancel"
@@ -165,8 +179,9 @@ en:
   change_pic: Change picture
   changed_mind: "Changed your mind?"
   chat:
-    edit_question: "Would you like to enable chat?"
-    edit_enabled: "Enable chat at next login"
+    edit_question: "Would you like to enable experimental chat feature?"
+    edit_enabled: "Enable experimental chat at next login"
+    connecting_message: "Connecting to event chat..."
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
@@ -284,9 +299,10 @@ en:
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
     vcc_warning: "VCC warning:"
+  eu_commision: "European Commission"    
   event:
     action:      
-      select: "Action"      
+      select: "Actions"      
     agenda:
       no_entries: "There are no entries yet."
       add_entry: "Add one."
@@ -363,6 +379,7 @@ en:
       edit: "Edit your event"
       in_agenda: "in the agenda"
       now: "Now you can"   
+      organisers: "Select the space users that will organise this event"
       without_str: "To get streaming and/or recording, please indicate it in your schedule"   
     invite: "Invite people"
     Isabel: "Isabel event"
@@ -399,7 +416,7 @@ en:
       legend:
         name: "'Name' will be replaced in the message by the receiver's name."
       message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b> on 'event_date':</p>"
-      message_beginning_whithout_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
+      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space {{space}}</b>:</p>"
       message_ending: "<p>You can find more information about the event in <a href='event_url'>event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Send a notification to the attendants"
       personal: "Write your personal text here."
@@ -518,16 +535,16 @@ en:
     loading: "The form is loading..."
   from: "From"
   frontpage:
-    main_title: "VCC is a collaboration service for publishing and discovering videoconferences"
+    main_title: "VCC a hosting service for publishing and discovering videoconferences"
     stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
     share:
-      sentence1: "Videoconference video and streaming"
-      sentence2: "Documents, videos and video repositories"
+      sentence1: "Videoconference recording and streaming"
+      sentence2: "Document and video repositories"
       sentence3: "Your contacts and relations"
     meet:
       sentence1: "Discover best online videoconferences"
       sentence2: "Meet interesting people and groups"
-      sentence3: "Video chat your colleagues"
+      sentence3: "Video chat with your colleagues"
     collaborate:
       sentence1: "Organize your projects and activities"
       sentence2: "Participate in conferences and events"
@@ -732,6 +749,7 @@ en:
   join_request:
     already_sent: "You have already requested to join this space"
     asked: "<b>{{candidate}}</b> wants to participate in {{space}} space administered by you:"
+    asked_anonymous: "Someone wants to participate in {{space}} space administered by you:"
     ask_subject: "{{candidate}} wants to participate in {{space}}"
     created: "Your join request has been sent to the space administrators"
     joined: "You are already a member of the space"
@@ -764,6 +782,7 @@ en:
   logo:
     click_to_change: "Click to change the logo"
     created: "Logo uploaded successfully"
+    crop: "Crop space logo"
     empty: "The logo is empty"
     error:
       not_valid: "Logo is not valid"
@@ -1040,6 +1059,7 @@ en:
     about: "About"
     all: "All Spaces"
     allow_public_access: "Allow public access?"
+    be_fan: Be Fan
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
@@ -1048,6 +1068,7 @@ en:
     created: "Space created successfully"
     delete: "Delete Space"
     deleted: "Space removed successfully"
+    description_none: "A space description must be given to create a new space"
     disable: "Disable space"
     disabled: "Space disabled successfully"
     does_not_belong: "does not belong to any space"
@@ -1067,9 +1088,21 @@ en:
       clarify_registered: "Please introduce password in order to join this space."
     leave: "Leave this space"
     logo: "Space Logo"
+    logo_selected:    
+        close: "Close"
+        close_gallery: "Close the gallery"
+        default_message: "The logo of the space will be this:"
+        open_gallery: "Open the gallery"
+        text_logo: "Create a text logo"
+        upload_logo: "Upload your own logo"
+        enter_text: "Enter a text to generate logos:"
+        generate_logo: "Generate"
+        upload_logo: "Select a logo to upload"
+        upload_text: "Upload"
     main: "Main space"
     member_of: "Member of the spaces"
     my_spaces: "My Spaces"
+    name_none: "A space name must be given to create a new space"
     one: "Space"
     other: "Spaces"
     popular:
@@ -1086,6 +1119,7 @@ en:
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     updated: "Space updated successfully"
+    upload_none: "You have to select a logo to upload."
   spam:
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: "spam"
@@ -1098,6 +1132,7 @@ en:
     no_spam: "Congratulations! No spam here"
   stage_type: Stage type
   street: Street
+  society_media: "Information Society and Media"
   subject: "Subject"
   support:
     one: "Support"

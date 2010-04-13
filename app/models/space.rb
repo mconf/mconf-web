@@ -16,6 +16,9 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class Space < ActiveRecord::Base
+  
+  TMP_PATH = File.join(RAILS_ROOT, "public", "images", "tmp")
+  
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
@@ -35,11 +38,14 @@ class Space < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :inviter_id
   attr_accessor :invitations_role_id
+  attr_accessor :default_logo
+  attr_accessor :text_logo
+
   has_logo
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
-  
+
   #after_create { |space|
       #group = Group.new(:name => space.emailize_name, :space_id => space.id, :mailing_list => space.mailing_list)
       #group.users << space.users(:role => "admin")
@@ -67,7 +73,54 @@ class Space < ActiveRecord::Base
       }.each(&:save)
     end
   end
+  
+  
+  after_create do |space|
+    #puts space.default_logo + "  -000000000000000000000000000000000000"
+    #logo = Logo.new
+    
+   
+    original = File.open(File.join("public/images/", space.default_logo))
+    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
+    original_tmp.write(original.read)
+    original_tmp.instance_variable_set "@original_filename",space.default_logo
+    original_tmp.instance_variable_set "@content_type", "image/jpeg"
+    logo = {}
+    logo[:media] = original_tmp
+    logo = space.build_logo(logo)
+        
+    unless logo.save
+      puts logo.errors.to_xml
+    end
+    
 
+  end
+
+  def resize path, size
+    
+    f = File.open(path)
+    img = Magick::Image.read(f).first
+    if img.columns > img.rows && img.columns > size
+      resized = img.resize(size.to_f/img.columns.to_f)
+      f.close
+      resized.write("png:" + path)
+    elsif img.rows > img.columns && img.rows > size
+      resized = img.resize(size.to_f/img.rows.to_f)
+      f.close
+      resized.write("png:" + path)
+    end
+    
+  end
+
+
+  after_validation :logo_mi
+ 
+  def logo_mi
+    return unless @default_logo.present?
+      #puts '-----------------' + @default_logo.to_s  + '*************************'
+  end
+
+  
   named_scope :public, lambda {
     { :conditions => { :public => true } }
   }

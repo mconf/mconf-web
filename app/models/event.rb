@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
   acts_as_content :reflection => :space
   acts_as_taggable
   acts_as_stage
-  acts_as_container :content => :agenda
+  acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
   validates_presence_of :name,
                         :message => "must be specified"
@@ -67,6 +67,9 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :meeting, :teleconference]
+  
+  # Maximum number of consecutive days for the event
+  MAX_DAYS = 5
 
 
    def validate
@@ -238,36 +241,12 @@ class Event < ActiveRecord::Base
     end
   end
   
-  
-#  #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
-#  def day_for(agenda_entry)
-#    return agenda_entry.start_time.to_date - start_date.to_date + 1
-#  end
-  
-  
-  #returns the hour of the last agenda_entry
-  def last_hour_for_day(day)
-    if agenda.agenda_entries.empty? && agenda.agenda_dividers.empty?
-      return (Time.now + 1.day).to_date + 9.hour  #9 in the morning    
-    end    
-    ordered_entries = agenda.contents_for_day(day)
-    unless ordered_entries.empty?
-      ordered_entries.last.end_time
-    else
-      if (start_date + day.days).day == Time.now.day
-        Time.now
-      else
-        self.start_date.to_date + (day-1).days + 9.hour #9 in the morning
-      end  
-    end  
-  end
-  
-  
+    
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
   def syncronize_date
-     self.update_attribute(:start_date, agenda.starting_time)
-     self.update_attribute(:end_date, agenda.ending_time)
+     self.update_attributes({:start_date => self.agenda.recalculate_start_time,
+                             :end_date => self.agenda.recalculate_end_time})
   end
   
   
@@ -347,38 +326,16 @@ class Event < ActiveRecord::Base
   end
   
   #method to get the starting date of an event in the correct format
-  #the problem is that the starting hour comes from the agenda
   def get_formatted_date
-     if has_date?
-      if agenda.present? && agenda.agenda_entries.count>0
-        first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
-        #check that the entry is the first day
-        if first_entry.start_time > start_date && first_entry.start_time < start_date + 1.day
-          return I18n::localize(first_entry.start_time, :format => "%A, %d %b %Y") + " " + I18n::translate('date.at') + " " + first_entry.start_time.strftime("%H:%M") + " (GMT " + Time.zone.formatted_offset + ")"
-        else
-          return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
-        end
-      end
-      return I18n::localize(start_date.to_date, :format => "%A, %d %b %Y")
-    else
-      return I18n::t('date.undefined')
-    end
+    has_date? ?
+      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M (GMT #{Time.zone.formatted_offset})") :
+      I18n::t('date.undefined')       
   end
   
   
   #method to get the starting hour of an event in the correct format
-  #the problem is that the starting hour comes from the agenda
   def get_formatted_hour
-    if has_date?
-      if agenda.present? && agenda.agenda_entries.count>0
-        first_entry = agenda.agenda_entries.sort_by{|x| x.start_time}[0]
-        #check that the entry is the first day
-        return first_entry.start_time.strftime("%H:%M")        
-      end
-      return ""
-    else
-      return I18n::t('date.undefined')  
-    end
+    has_date? ? start_date.strftime("%H:%M") : I18n::t('date.undefined')  
   end
   
   
@@ -527,6 +484,20 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def to_xml(options = {})
+    options[:indent] ||= 2
+    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
+    xml.instruct! unless options[:skip_instruct]
+    xml.event do
+      xml.id         self.id
+      xml.public     self.space.public?, :type => "boolean"
+      xml.start_date self.start_date,    :type => "datetime"
+      xml.end_date   self.end_date,      :type => "datetime"
+      xml.place      self.place
+      xml.permalink  self.permalink
+      xml.name       self.name
+    end
+  end
   
   authorizing do |agent, permission|
     if ( permission == :update || permission == :delete ) && author == agent
