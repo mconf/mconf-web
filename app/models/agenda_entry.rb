@@ -23,10 +23,6 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :setting_times
   acts_as_stage
   
-  #Attributes for Conference Manager
-  attr_accessor :streaming
-  attr_accessor :recording
-
   acts_as_content :reflection => :agenda
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -115,7 +111,9 @@ class AgendaEntry < ActiveRecord::Base
   validate_on_update do |entry|
     if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
       cm_s = entry.cm_session
-      my_params = {:name => entry.title, :recording => entry.recording ? entry.recording : cm_s.recording, :streaming => entry.streaming ? entry.streaming : cm_s.streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+      entry.cm_streaming ||= cm_s.streaming
+      entry.cm_recording ||= cm_s.recording
+      my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
       if entry.cm_session?
         cm_s.load(my_params) 
       else
@@ -209,11 +207,16 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def recording?
+
     if embedded_video.present?
       return true
     else
-      return cm_session.try(:recording?)
+      return cm_recording #cm_session.try(:recording?)
     end   
+  end
+  
+  def streaming?
+    return cm_streaming
   end
   
   def thumbnail
@@ -232,9 +235,9 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
   
-  def streaming?
-    cm_session.try(:streaming?)
-  end
+  #def streaming?
+  #  cm_session.try(:streaming?)
+  #end
   
   def initDate
     DateTime.strptime(cm_session.initDate)
