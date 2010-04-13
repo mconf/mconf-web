@@ -328,10 +328,13 @@ class Event < ActiveRecord::Base
   #method to get the starting date of an event in the correct format
   def get_formatted_date
     has_date? ?
-      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M (GMT #{Time.zone.formatted_offset})") :
+      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M. #{get_formatted_timezone}") :
       I18n::t('date.undefined')       
   end
   
+  def get_formatted_timezone
+    "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})"
+  end
   
   #method to get the starting hour of an event in the correct format
   def get_formatted_hour
