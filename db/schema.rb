@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100413110941) do
+ActiveRecord::Schema.define(:version => 20100413130833) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -319,6 +319,7 @@ ActiveRecord::Schema.define(:version => 20100413110941) do
     t.text     "signature"
     t.string   "presence_domain",               :default => "sir.dit.upm.es "
     t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
+    t.string   "cm_domain"
   end
 
   create_table "source_importations", :force => true do |t|

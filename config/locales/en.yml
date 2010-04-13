@@ -1042,6 +1042,7 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
+    cm_domain: "Conference Manager domain"
     default: "site"
     signature: "Signature"
     domain: "Application Domain"
