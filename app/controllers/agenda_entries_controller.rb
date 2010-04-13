@@ -129,10 +129,15 @@ class AgendaEntriesController < ApplicationController
   def destroy
     @agenda_entry = AgendaEntry.find(params[:id])
     day = @agenda_entry.event_day
+    agenda = @agenda_entry.agenda
     respond_to do |format|
       if @agenda_entry.destroy
         flash[:notice] = t('agenda.entry.delete')
-        format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day)) }
+        if agenda.contents_for_day(day).blank?
+          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => 1)) }
+        else
+          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day)) }
+        end
         format.xml  { head :ok }
       else
         message = ""

@@ -77,11 +77,16 @@ class AgendaDividersController < ApplicationController
   # DELETE /agenda_dividers/1.xml
   def destroy
     @agenda_divider = AgendaDivider.find(params[:id])
-    day = @agenda_divider.event_day 
+    day = @agenda_divider.event_day
+    agenda = @agenda_divider.agenda
     respond_to do |format|
       if @agenda_divider.destroy
         flash[:notice] = t('agenda.divider.delete')
-        format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
+        if agenda.contents_for_day(day).blank?
+          format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
+        else
+          format.html { redirect_to(space_event_path(@space, @event, :show_day => day)) }
+        end
         format.xml  { head :ok }
       else
         message = ""

@@ -86,12 +86,20 @@ class Agenda < ActiveRecord::Base
   
   # Used to calculate event start time from agenda contents
   def recalculate_start_time
-    contents.first.start_time
+    unless contents.blank?
+      return contents.first.start_time
+    else
+      return nil
+    end
   end
   
   # Used to calculate event end time from agenda contents
   def recalculate_end_time
-    contents.all(:order=>'end_time ASC').last.end_time
+    unless contents.blank?
+      return contents.all(:order=>'end_time ASC').last.end_time
+    else
+      return nil
+    end
   end
        
   def first_video_entry_id
@@ -220,9 +228,6 @@ class Agenda < ActiveRecord::Base
       end 
     end 
  
-    
-
-    
     rescue Exception => exc
       @icalendar_file_errors = I18n.t("icalendar.error_import")      
     end

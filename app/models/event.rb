@@ -67,6 +67,9 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :meeting, :teleconference]
+  
+  # Maximum number of consecutive days for the event
+  MAX_DAYS = 5
 
 
    def validate
@@ -242,8 +245,8 @@ class Event < ActiveRecord::Base
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
   def syncronize_date
-     self.update_attributes({:start_date => agenda.recalculate_start_time,
-                             :end_date => agenda.recalculate_end_time})
+     self.update_attributes({:start_date => self.agenda.recalculate_start_time,
+                             :end_date => self.agenda.recalculate_end_time})
   end
   
   
