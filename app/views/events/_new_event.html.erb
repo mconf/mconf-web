@@ -140,8 +140,8 @@
         <%=f.check_box :web_interface,:class=>"icon", :checked => true  %>
         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.web') %></label>
       </div>
-	   <div class="checkbox_event">
-       <%=f.check_box :sip_interface,:class=>"icon", :checked => true  %>
+	   <div style="display:none" class="checkbox_event">
+       <%=f.check_box :sip_interface,:class=>"icon", :checked => false  %>
         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
       </div>
     </div>

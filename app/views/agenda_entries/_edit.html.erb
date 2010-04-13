@@ -48,13 +48,7 @@
   
     <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
     <%= f.text_area :description, :size => "85x7" %></div> 
- <!--
-    <div class="margin-up" id="record_block">
-      <%= f.check_box :recording %>
-      <%= f.label :recording %>
-	<span id="cannot_exclude"> - <%= t('agenda.entry.cannot_exclude') + " " + AgendaEntry::MINUTES_NOT_EXCLUDED.to_s + " " + t('agenda.entry.minutes')%>.</span>
-    </div>
- -->
+
     <div class="margin-up"><label for="attachment"><%= t('attachment.other') %></label><br/></div>
 		  <p class ='newAttach2' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
 
@@ -95,13 +89,13 @@
            </label>
            <br/>
            <div class="checkbox_event">
-               <%=f.check_box :streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
+               <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
                <label for="entry_streaming" class="label_izquierda">
                    <%= t('agenda.entry.options.streaming') %>
                </label>
            </div>
            <div class="checkbox_event">
-               <%=f.check_box :recording,:class=>"icon", :checked => @agenda_entry.recording?, :disabled => (@agenda_entry.past? || @agenda_entry.is_happening_now?) ? true:false %>
+               <%=f.check_box :cm_recording,:class=>"icon", :checked => @agenda_entry.recording?, :disabled => (@agenda_entry.past? || @agenda_entry.is_happening_now?) ? true:false %>
                <label for="entry_recording" class="label_izquierda">
                    <%= t('agenda.entry.options.recording') %>
                </label>
