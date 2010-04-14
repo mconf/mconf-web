@@ -62,6 +62,7 @@
     <%end %>
       <li class="main_text">
         <%= t('organizer') %>:<%isfirst=true %>
+
         <%event.organizers.each do |org| %>
           <%if isfirst %>
             <%isfirst=false %>
