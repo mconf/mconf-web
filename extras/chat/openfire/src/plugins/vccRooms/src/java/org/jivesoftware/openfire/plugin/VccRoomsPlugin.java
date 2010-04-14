@@ -19,10 +19,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.jivesoftware.util.AlreadyExistsException;
-import org.jivesoftware.util.JiveGlobals;
-import org.jivesoftware.util.NotFoundException;
 import org.jivesoftware.openfire.XMPPServer;
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
@@ -32,10 +30,16 @@ import org.jivesoftware.openfire.muc.ConflictException;
 import org.jivesoftware.openfire.muc.ForbiddenException;
 import org.jivesoftware.openfire.muc.MUCEventDispatcher;
 import org.jivesoftware.openfire.muc.MUCEventListener;
+import org.jivesoftware.openfire.muc.MUCRole;
 import org.jivesoftware.openfire.muc.MUCRoom;
 import org.jivesoftware.openfire.muc.NotAllowedException;
 import org.jivesoftware.openfire.session.Session;
+import org.jivesoftware.openfire.user.User;
+import org.jivesoftware.openfire.user.UserNotFoundException;
 import org.jivesoftware.openfire.vcard.VCardManager;
+import org.jivesoftware.util.AlreadyExistsException;
+import org.jivesoftware.util.JiveGlobals;
+import org.jivesoftware.util.NotFoundException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -59,12 +63,16 @@ public class VccRoomsPlugin implements Plugin {
 	private static final String CONFIG_ADMIN_ROLES          = "plugin.vccRooms.adminRoles";
 	private static final String CONFIG_AVATAR_URL           = "plugin.vccRooms.vccAvatarUrl";
 
+	private JID serverAddress;
+	
 	private VccRoomsMUCEventListener mucListener = new VccRoomsMUCEventListener();
 	private VccRoomsSessionEventListener mucSessionListener = new VccRoomsSessionEventListener();
 	
 	private ArrayList<String> adminRoles = new ArrayList<String>();
 	
 	public void initializePlugin(PluginManager manager, File pluginDirectory) {
+		serverAddress = new JID(XMPPServer.getInstance().getServerInfo().getXMPPDomain());
+		
 		MUCEventDispatcher.addListener(mucListener);
 		SessionEventDispatcher.addListener(mucSessionListener);
 		
@@ -72,11 +80,15 @@ public class VccRoomsPlugin implements Plugin {
 	}
 
 	public void destroyPlugin() {
+		serverAddress = null;
+		
 		MUCEventDispatcher.removeListener(mucListener);
 		SessionEventDispatcher.removeListener(mucSessionListener);
 
 		mucListener = null;
 		mucSessionListener = null;
+		
+		adminRoles = null;
 	}
 
 	private String getProperty(String propertyName) {
@@ -85,13 +97,6 @@ public class VccRoomsPlugin implements Plugin {
 	
 	private class VccRoomsMUCEventListener implements MUCEventListener {
 
-		/**
-		 * HashMap with the list of users in this event
-		 * key   - user name
-		 * value - role in this event 
-		 */
-		private HashMap<String,String> userList = new HashMap<String,String>();
-		
 		/**
 		 * Event triggered when a new room was created.
 		 * 
@@ -103,16 +108,25 @@ public class VccRoomsPlugin implements Plugin {
 					.getMultiUserChatManager().getMultiUserChatService(roomJID)
 					.getChatRoom(roomJID.getNode());
 			try {
-				// get event name
+				// Get event name
 				String eventId = roomJID.getNode();
+
+				// userList is a HashMap with the list of users in this event
+				// * key   - user name
+				// * value - role in this event (User | Admin | Organizer | ...)
+				HashMap<String,String> userList = new HashMap<String,String>();
 				
-				// update user list from VCC
-				updateUserList(eventId);
+				// Update user list from VCC
+				userList = updateUserList(eventId);
+
+				// Get user administrator list from VCC
+				updateAdmins(mucRoom, userList);
 				
-				// get user administrator list from VCC
-				updateAdmins(mucRoom);
-				
+				// Config room
 				mucRoom.setModerated(true);
+				mucRoom.setCanOccupantsChangeSubject(false);
+				mucRoom.setChangeNickname(false);
+				
 				// During configuration room was locked
 				// It is necessary to unlock
 				mucRoom.unlock(mucRoom.getRole());
@@ -134,15 +148,23 @@ public class VccRoomsPlugin implements Plugin {
 			MUCRoom mucRoom = XMPPServer.getInstance()
 					.getMultiUserChatManager().getMultiUserChatService(roomJID)
 					.getChatRoom(roomJID.getNode());
-
-			// get user name
-			String userName = user.getNode();
+			// userList is a HashMap with the list of users in this event
+			// * key   - user name
+			// * value - role in this event (User | Admin | Organizer | ...)
+			HashMap<String,String> userList = new HashMap<String,String>();
 			
-			// get event name
+			// Get event name
 			String eventId = roomJID.getNode();
 
-			// update user list from VCC
-			updateUserList(eventId);
+			// Update user list from VCC
+			userList = updateUserList(eventId);
+			
+			// Get registered user, null if anonymous
+			User registeredUser = null;
+			try {
+				 registeredUser = XMPPServer.getInstance().getUserManager().getUser(user.toBareJID());
+			} catch (UserNotFoundException e1) {
+			}
 			
 			// if administrator -> add owner
 			// if normal user -> add member as participant
@@ -151,23 +173,32 @@ public class VccRoomsPlugin implements Plugin {
 			Presence presence = null;
 			List<Presence> presences = null;
 			try {
-				updateAdmins(mucRoom);
+				updateAdmins(mucRoom, userList);
 				
-				if ( isMember(userName) && isAdministrator(userName) ) {
+				// change nickname if not anonymous
+				if (registeredUser != null) {
+					changeNickname(mucRoom, user, registeredUser.getName(), nickname);
+				}
+
+				if ( isMember(user.toBareJID(),userList) && isAdministrator(user.toBareJID(),userList) ) {
 					// if is administrator
 					presences = mucRoom.addOwner(user.toBareJID(), mucRoom.getRole());
-				} else if ( isMember(userName) && !isAdministrator(userName) ) {
+				} else if ( isMember(user.toBareJID(),userList) && !isAdministrator(user.toBareJID(),userList) ) {
 					// if is normal user but not a administrator
 					mucRoom.addMember(user.toBareJID(), null, mucRoom.getRole());
 					presence = mucRoom.addParticipant(user, "all members are participants", mucRoom.getRole());
-				} else if ( !isMember(userName) ) {
+				} else if ( !isMember(user.toBareJID(),userList) ) {
 					// if is not member
-					// First pass member to avoid NotAllowedException
-					mucRoom.addMember(user.toBareJID(), null, mucRoom.getRole());
-					mucRoom.addNone(user.toBareJID(), mucRoom.getRole());
-					if (isPublicEvent(eventId)) {
+					if (isRoomOwner(mucRoom, user.toBareJID())) {
+						// First pass member to avoid NotAllowedException
+						mucRoom.addMember(user.toBareJID(), null, mucRoom.getRole());
+					}
+					
+					if (isPublicEvent(eventId) && registeredUser != null) {
+						presence = mucRoom.addParticipant(user, "all members are participants", mucRoom.getRole());
+					} else if(isPublicEvent(eventId) && registeredUser == null) {
 						// See but do not touch this
-						presence = mucRoom.addVisitor(user, mucRoom.getRole());
+						presence = mucRoom.addVisitor(user, mucRoom.getRole());						
 					} else {
 						// Kick
 						presence = mucRoom.kickOccupant(user, null, "not allowed");
@@ -198,18 +229,44 @@ public class VccRoomsPlugin implements Plugin {
 		public void messageReceived(JID roomJID, JID user, String nickname, Message message) { /*ignore*/ }
 
 		public void roomSubjectChanged(JID roomJID, JID user, String newSubject) { /*ignore*/ }
+
+		private void changeNickname(MUCRoom mucRoom, JID user, String newNickname, String oldNickname) {
+			Presence packet = new Presence();
+			packet.setFrom(user.toBareJID());
+			JID roomJID = mucRoom.getJID();
+			JID to = new JID(roomJID.getNode(), roomJID.getDomain(), newNickname);
+			packet.setTo(to);
+			try {
+				MUCRole role = mucRoom.getOccupant(oldNickname);
+				
+                // Send "unavailable" presence for the old nickname
+                Presence userPresence = role.getPresence().createCopy();
+                // Switch the presence to OFFLINE
+                userPresence.setType(Presence.Type.unavailable);
+                userPresence.setStatus(null);
+                // Add the new nickname and status 303 as properties
+                Element frag = userPresence.getChildElement("x",
+                        "http://jabber.org/protocol/muc#user");
+                frag.element("item").addAttribute("nick", newNickname);
+                frag.addElement("status").addAttribute("code", "303");
+                role.getChatRoom().send(userPresence);
+
+				mucRoom.nicknameChanged(role, packet, oldNickname, newNickname);
+			} catch (UserNotFoundException e) {
+			}
+		}
 		
-		private void updateAdmins(MUCRoom mucRoom) throws ForbiddenException {
+		private void updateAdmins(MUCRoom mucRoom, HashMap<String,String> userList) throws ForbiddenException {
 			// Get administrator list from VCC
 			ArrayList<String> vccAdminList = new ArrayList<String>();
 			for( String userName : userList.keySet() ) {
-				if (isAdministrator(userName)) {
+				if (isAdministrator(userName,userList)) {
 					vccAdminList.add(userName);
 				}
 			}
 
 			// Get administrator list from MUC Room
-			ArrayList<String> roomAdminList = new ArrayList<String>(mucRoom.getAdmins());
+			ArrayList<String> roomAdminList = new ArrayList<String>(mucRoom.getOwners());
 			
 			// Set administrators in chat room
 			// VCC - current = administrators to add
@@ -223,9 +280,11 @@ public class VccRoomsPlugin implements Plugin {
 			try {
 				for (String adminUser : adminsToRemove) {
 					mucRoom.addMember(adminUser, null, mucRoom.getRole());
-					mucRoom.addNone(adminUser, mucRoom.getRole());
+					mucRoom.addVisitor(new JID(adminUser), mucRoom.getRole());
 				}
 			} catch (ConflictException e) {
+				e.printStackTrace();
+			} catch (NotAllowedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -252,7 +311,7 @@ public class VccRoomsPlugin implements Plugin {
 			return resultArray;
 		}
 		
-		private boolean isAdministrator(String userName) {
+		private boolean isAdministrator(String userName, HashMap<String,String> userList) {
 			String userRole = userList.get(userName);
 			for (String role : adminRoles) {
 				if (role.equals(userRole)) {
@@ -262,7 +321,20 @@ public class VccRoomsPlugin implements Plugin {
 			return false;
 		}
 		
-		private boolean isMember(String userName) {
+		private boolean isRoomOwner(MUCRoom mucRoom, String userName) {
+			// Get administrator list from MUC Room
+			ArrayList<String> roomOwnerList = new ArrayList<String>(mucRoom.getOwners());
+			
+			for (String ownerUser : roomOwnerList) {
+				if (ownerUser.equals(userName)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
+		private boolean isMember(String userName, HashMap<String,String> userList) {
 			String userRole = userList.get(userName);
 			return (userRole != null) ? true : false; 
 		}
@@ -270,7 +342,10 @@ public class VccRoomsPlugin implements Plugin {
 		private boolean isPublicEvent(String eventName) {
 			boolean isPublic = false;
 			
-			URLConnection con = openAuthorizedConnection( getProperty(CONFIG_EVENTS_URL) + eventName );
+			String eventUrl = getProperty(CONFIG_EVENTS_URL);
+			eventUrl = eventUrl.replaceFirst("\\{event-id\\}", eventName + ".xml");
+			
+			URLConnection con = openAuthorizedConnection( eventUrl );
 
     	    String xmlString = getXmlFromOpenConnection( con );
         	
@@ -298,10 +373,10 @@ public class VccRoomsPlugin implements Plugin {
 			return isPublic;
 		}
 		
-		private void updateUserList(String eventId) {
+		private HashMap<String,String> updateUserList(String eventId) {
 			HashMap<String,String> localUserList = new HashMap<String,String>();
 			String xmlString = getUserListXML(eventId);
-	    	
+
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder;
 			Document doc = null;
@@ -333,7 +408,8 @@ public class VccRoomsPlugin implements Plugin {
 					// process agent tag
 		    		Node agentNode = el.getElementsByTagName("agent").item(0);
 		    		userName = getContentOfTag(agentNode, "login");
-		            
+		            userName += "@" + serverAddress;
+		    		
 		            // process role tag
 		    		Node roleNode = el.getElementsByTagName("role").item(0);
 		    		userRole = getContentOfTag(roleNode, "name");	            
@@ -348,7 +424,7 @@ public class VccRoomsPlugin implements Plugin {
 				
 			}
 			
-			userList = localUserList;
+			return localUserList;
 		}
 		
 		private String getUserListXML(String eventId) {

@@ -143,6 +143,8 @@
 			    
 			    if(inFocus && (activate || chatFrame.getChildren().length == 1))
 			    	activeRoom = child;
+			    	
+			    callLater(initNonClosableTab);
 			}
 			
 			public function init():void 
@@ -152,14 +154,18 @@
 				});
 				addEventListener(Event.CLOSE, closeAll);
 				
-				//chatFrame.closePolicy = "close_always";
-				chatFrame.closePolicy = SuperTab.CLOSE_NEVER;
+				//chatFrame.closePolicy = SuperTab.CLOSE_NEVER;
+				chatFrame.closePolicy = SuperTab.CLOSE_ALWAYS;
 				
 				SparkManager.connectionManager.connection.addEventListener("message", handleMessages);
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, createChatUI);
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_ENDED, handleChatClosed);
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_ERROR, handleChatError);
 			}
+			
+            private function initNonClosableTab():void {
+                    chatFrame.setClosePolicyForTab(0, SuperTab.CLOSE_NEVER);
+            }
 			
 			protected function handleChatError(evt:ChatEvent):void
 			{
@@ -232,8 +238,8 @@
      		 scrollSpeed="100"
      		 dragEnabled="false"
      		 dropEnabled="false"
-     		 minTabWidth="200"
-     		 tabWidth="200"
+     		 minTabWidth="80"
+     		 tabWidth="100"
      		 change="activeRoom = event.relatedObject as ChatRoom"
      	/>
  </sparkComp:ColorShiftingPanel>

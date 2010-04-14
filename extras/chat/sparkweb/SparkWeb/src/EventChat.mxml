@@ -32,6 +32,10 @@
 </mx:Style>
  	<mx:Script>
  		<![CDATA[
+ 			import com.jivesoftware.spark.managers.MUCManager;
+ 			import org.jivesoftware.xiff.conference.Room;
+ 			import com.jivesoftware.spark.chats.SparkGroupChat;
+ 			import com.jivesoftware.spark.events.ChatEvent;
  			import com.jivesoftware.spark.utils.UniqueingQueue;
  			import org.jivesoftware.xiff.events.ConnectionSuccessEvent;
  			import org.jivesoftware.xiff.core.UnescapedJID;
@@ -62,6 +66,7 @@
 			import com.kebinger.flexlayout.*;
 			import org.jivesoftware.xiff.core.XMPPBOSHConnection;
 			import org.jivesoftware.xiff.auth.External;
+			import flexlib.controls.tabBarClasses.SuperTab;
  			
  			private var connectionManager:ConnectionManager;
  			
@@ -171,8 +176,8 @@
 				Security.allowInsecureDomain("*");
 
  				SparkManager.connectionManager.connection.useAnonymousLogin = false;
- 				var userName:* = SparkManager.getConfigValueForKey("username");
- 				var userPass:* = SparkManager.getConfigValueForKey("password");
+ 				var userName:String = SparkManager.getConfigValueForKey("username");
+ 				var userPass:String = SparkManager.getConfigValueForKey("password");
  				
  				if (userName == "") {
  					// If userName and userPass are null, login will be anonymous
@@ -203,10 +208,21 @@
  				SparkManager.roster.addEventListener(RosterEvent.SUBSCRIPTION_REQUEST, SubscriptionRequestWindow.showSubscriptionRequestWindow);
  				//callLater(contactListContainer.statusBox.loadVCard);
 
+				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, roomConnected);
  				var roomJid:String = SparkManager.getConfigValueForKey("roomJid");
  				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
  				connection_message.text = "";
  			}
+ 			
+			public function roomConnected(event:Event):void {
+				ChatManager.sharedInstance.removeEventListener(ChatEvent.CHAT_STARTED, roomConnected);
+ 				if (SparkManager.connectionManager.connection.useAnonymousLogin) {
+ 					var activeRoom:ChatRoom = chatContainer.activeRoom;
+ 					var message:String = SparkManager.getConfigValueForKey("please_login_message");
+ 					activeRoom.editor.text = message;
+ 					activeRoom.editor.enabled = false;
+ 				}
+			} 
  			
  			public var suppressErrors:Boolean = false;
  			
