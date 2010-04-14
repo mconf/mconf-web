@@ -26,6 +26,11 @@
     <%= sanitize current_site.presence_domain %>
   </p>
 	
+	<p>
+    <label><%= t('site.cm_domain') %>:</label> 
+    <%= sanitize current_site.cm_domain %>
+  </p>
+	
   <p>
     <label><%= t('site.chat_group_service_jid') %>:</label> 
     <%= sanitize current_site.chat_group_service_jid %>

@@ -171,7 +171,7 @@ class LogosController
     background_generated = File.join(final_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
     
     # We open, read-only, the generic background image
-    f = File.open(background_generic, "r+")
+    f = File.open(background_generic, "r")
     img = Magick::Image.read(f).first
     
     # This will be the blank image which will contain the text

@@ -53,6 +53,13 @@ class Performance
     end
   }
 
+  # Authorize the XMPP Server reading Performances
+  authorizing do |agent, permission|
+    if permission == :read && agent.is_a?(XmppServer)
+      true
+    end
+  end
+
   # FIXME: provide support in Station to insert Authorization Blocks before
   authorizing do |agent, permission|
     if agent == self.agent 

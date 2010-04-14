@@ -70,7 +70,8 @@ namespace(:deploy) do
   end
   
   task :copy_openfire_code do
-    run "sudo cp #{ current_path }/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"
+    run "sudo cp #{ release_path }/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"
+    run "sudo cp #{ release_path }/extras/chat/openfire/installation/vccRooms.jar /usr/share/openfire/plugins/"
   end
   
   task :reload_openfire do

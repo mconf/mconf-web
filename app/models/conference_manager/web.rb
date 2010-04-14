@@ -1,7 +1,7 @@
 module ConferenceManager
-  class Web < ActiveResource::Base
+  class Web < CmResource
     self.element_name = "web" 
-    self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id"
+    self.site = domain + "/events/:event_id"
     
     #redefined to remove format.extension
     def self.collection_path(prefix_options = {}, query_options = nil)
