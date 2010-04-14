@@ -89,9 +89,6 @@ vcc
 plugin.vccRooms.xmppServerPassword
 admin
 
-plugin.vccRooms.adminRoles
-Admin,Organizer
-
 plugin.vccRooms.vccAvatarUrl
 http://vcc.dit.upm.es/users/{user-id}/avatar
 
