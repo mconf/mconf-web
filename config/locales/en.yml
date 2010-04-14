@@ -182,6 +182,7 @@ en:
     edit_question: "Would you like to enable experimental chat feature?"
     edit_enabled: "Enable experimental chat at next login"
     connecting_message: "Connecting to event chat..."
+    please_login_message: "Please, login/register to participate"
   check_mail: "Please, check your email"
   city: "City"
   click_here: "Click here"
