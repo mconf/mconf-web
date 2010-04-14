@@ -1,7 +1,7 @@
 module ConferenceManager
-  class Editor < ActiveResource::Base
+  class Editor < CmResource
     self.element_name = "editor" 
-    self.site = "http://vcc.globalplaza.co.cc:8080/events/:event_id"
+    self.site = domain + "/events/:event_id"
     
     
     #redefined to remove format.extension

@@ -1042,11 +1042,14 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version>>: "show list version >>"
   site:
+    cm_domain: "Conference Manager domain"
     default: "site"
     signature: "Signature"
     domain: "Application Domain"
     presence_domain: "Presence Domain"
     chat_group_service_jid: "Event Chat Group Service"
+    xmpp_server_password: "XMPP Server password"
+    xmpp_server_password_confirmation: "XMPP Server password confirmation"
   size: Size
   skype: Skype
   source:
@@ -1300,7 +1303,9 @@ en:
   where: "Where"
   
   ######### X ###########
-  
+  xmpp_server:
+    password_invalid: "invalid password"
+
   ######### Y ###########
   yesterday: "Yesterday"
   your_interests_tags: "Your interests (tags)"

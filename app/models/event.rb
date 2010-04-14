@@ -333,7 +333,9 @@ class Event < ActiveRecord::Base
   end
   
   def get_formatted_timezone
-    "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})"
+    has_date? ?
+      "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})" :
+      I18n::t('date.undefined')
   end
   
   #method to get the starting hour of an event in the correct format
@@ -504,6 +506,12 @@ class Event < ActiveRecord::Base
   
   authorizing do |agent, permission|
     if ( permission == :update || permission == :delete ) && author == agent
+      true
+    end
+  end
+
+  authorizing do |agent, permission|
+    if permission == :read && agent.is_a?(XmppServer)
       true
     end
   end
