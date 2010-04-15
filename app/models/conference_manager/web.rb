@@ -1,7 +1,12 @@
 module ConferenceManager
-  class Web < CmResource
+  class Web < Resource
+    
+    def self.domain
+      super +  "/events/:event_id" 
+    end
+    
     self.element_name = "web" 
-    self.site = domain + "/events/:event_id"
+    self.site = domain
     
     #redefined to remove format.extension
     def self.collection_path(prefix_options = {}, query_options = nil)

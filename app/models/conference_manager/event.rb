@@ -1,5 +1,6 @@
 module ConferenceManager
-  class Event < CmResource
+  class Event < Resource
+    
     self.element_name = "event"
     self.site = domain
     

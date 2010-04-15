@@ -1,7 +1,12 @@
 module ConferenceManager
-  class Editor < CmResource
+  class Editor < Resource
+    
+    def self.domain
+      super + "/events/:event_id"
+    end
+    
     self.element_name = "editor" 
-    self.site = domain + "/events/:event_id"
+    self.site = domain
     
     
     #redefined to remove format.extension

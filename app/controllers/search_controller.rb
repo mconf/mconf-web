@@ -17,7 +17,7 @@
 
 class SearchController < ApplicationController
   before_filter :space
-  authorization_filter [ :read, :content ], :space, :if => proc { space.present? }
+  authorization_filter [ :read, :content ], :space, :if => :space
   
   def index
     

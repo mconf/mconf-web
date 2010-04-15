@@ -1,8 +1,12 @@
 module ConferenceManager
-  class PlayerSession < CmResource
-    self.element_name = "player_session" 
-    self.site = domain + "/events/:event_id/sessions/:session_id"
+  class PlayerSession < Resource
+   
+    def self.domain
+      super  + "/events/:event_id/sessions/:session_id" 
+    end
     
+    self.element_name = "player_session" 
+    self.site = domain
     
     #redefined to remove format.extension
     def self.collection_path(prefix_options = {}, query_options = nil)
