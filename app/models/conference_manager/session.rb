@@ -1,7 +1,12 @@
 module ConferenceManager
-  class Session < CmResource
+  class Session < Resource
+    
+    def self.domain
+      super + "/events/:event_id"
+    end
+    
     self.element_name = "session" 
-    self.site = domain + "/events/:event_id"
+    self.site = domain
     
     
     #redefined to remove format.extension
