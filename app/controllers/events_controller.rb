@@ -173,10 +173,6 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        #save the organizer/s with their proper role
-        if params[:organizers] && params[:organizers][:name]
-          create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
-        end
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
@@ -206,10 +202,6 @@ class EventsController < ApplicationController
 			    @event.update_attribute(:marte_room, false)
 		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        #save the organizer/s with their proper role
-        if params[:organizers] && params[:organizers][:name]
-          create_performances_for_event(Role.find_by_name("Organizer"), params[:organizers][:name])
-        end
         
         format.js{
           if params[:event][:other_streaming_url]
@@ -311,18 +303,6 @@ class EventsController < ApplicationController
       
   end
 
-  def create_performances_for_event(role, array_usernames)    
-    #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
-    Performance.find(:all, :conditions => {:role_id => role, :stage_id => @event}).each do |perf| perf.delete end
-    for name in array_usernames
-      if prof = Profile.find_by_full_name(name)
-        Performance.create! :agent => prof.user,
-                            :stage => @event,
-                            :role  => role
-      end
-    end
-  end
-  
   def events
       @events = (Event.in(@space).all :order => "start_date ASC")
     

@@ -322,7 +322,7 @@
 	<filts:DropShadowFilter alpha="0.2" angle="90" blurY="7" blurX="3" inner="true" id="topshadow"/>
 
     <!-- Add Top UI -->
-    <mx:VBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
+    <mx:VDividedBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
    
 		<mx:Canvas id="mainContentBox" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%">
 			<mx:TextArea 
@@ -394,8 +394,8 @@
 			</mx:Canvas>-->
 		<!--</mx:VDividedBox>-->
 	
-	</mx:VBox>
+	</mx:VDividedBox>
 
-	<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
+	<jive:Editor resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
 	
 </mx:VDividedBox>

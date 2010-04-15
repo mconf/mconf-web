@@ -49,6 +49,7 @@ class Event < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :notify_msg
   attr_accessor :external_streaming_url 
+  attr_accessor :new_organizers
   
   #Attibutes for Conference Manager
   attr_accessor :web_interface
@@ -156,7 +157,10 @@ class Event < ActiveRecord::Base
     #create an empty agenda
     event.agenda = Agenda.create
     #create a directory to save attachments
-    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
+    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
+    if event.author.present?
+      event.stage_performances.create! :agent => event.author, :role  => Event.role("Organizer")
+    end
   end
   
   
@@ -187,6 +191,7 @@ class Event < ActiveRecord::Base
         end
       }
     end
+    
     if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
       mr = begin
         MarteRoom.create(:name => event.id)
@@ -197,6 +202,23 @@ class Event < ActiveRecord::Base
       
       event.update_attribute(:marte_room, true) if mr
     end
+    
+    if event.new_organizers.present?
+
+      #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
+      past_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Organizer")})
+      past_organizers = past_performances.map(&:agent).map(&:login)
+      
+      # we add those organizers that were not past organizers
+      (event.new_organizers - past_organizers).each do |login|
+        event.stage_performances.create! :agent => User.find_by_login(login), :role  => Event.role("Organizer")
+      end
+      
+      # we remove those organizers that are not organizers any more
+      past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.login)}.map(&:destroy)
+
+    end
+    
   end
   
   
@@ -213,7 +235,11 @@ class Event < ActiveRecord::Base
   
   
   def author
-    User.find_with_disabled(author_id)
+    unless author_id.blank?
+      return User.find_with_disabled(author_id)
+    else
+      return nil
+    end
   end
   
   
@@ -223,12 +249,7 @@ class Event < ActiveRecord::Base
   
   
   def organizers
-    if actors.size == 0
-      ar = Array.new
-      ar << author
-      return ar
-    end
-    actors
+    actors(:role => "Organizer")
   end
   
   

@@ -39,8 +39,8 @@
   
   <div>
     <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
-    <select id="organizers_name" multiple="multiple" name="organizers[name][]">
-      <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, event.organizers.map{|u| u.login})%>
+    <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
+      <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login})%>
     </select>
   </div>
   <div>
@@ -60,7 +60,7 @@
 		  <%=f.check_box :web_interface,:class=>"icon", :checked => @event.web_interface?%>
 		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.web') %></label>
 		</div>
-		<div class="checkbox_event">
+		<div style="display:none" class="checkbox_event">
 		  <%=f.check_box :sip_interface,:class=>"icon", :checked => @event.sip_interface?%>
 		  <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
 		</div>
