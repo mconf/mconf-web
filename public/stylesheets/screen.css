@@ -200,7 +200,7 @@ button#change_logo{float:left;}
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
-#event_description_content form button{
+#event_description_content form button,#participation_content form button,#more_invitations form input,#more_notifications form input[type="button"]{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -208,7 +208,7 @@ button#change_logo{float:left;}
   font-size:95%;
   line-height:135%;
 }
-#event_description_content form button:hover{border:1px solid #86B5D5;}
+#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
 
 
 /* forms.css */
@@ -549,6 +549,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 	border:1px solid #64A3CF;
 	color:#fff;
 	font-weight:bold;
+	outline:none;
 }
 #sidebar #assistance_info button#choice:hover{border-color:#64a3cf;}
 
@@ -1107,6 +1108,10 @@ td.attachment-tags .event_in_tags{
 
 #doc_table table{
 	width:660px;
+}
+
+#event_repo #doc_table table{
+  width:644px;
 }
 
 #doc_table table th{
