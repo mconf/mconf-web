@@ -124,7 +124,7 @@ class Event < ActiveRecord::Base
         mode = "meeting"
       elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
           mode = "conference"
-      end    
+      end
       my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "attachments/conferences/#{event.permalink}" }
       cm_event = event.cm_event
       cm_event.load(my_params)  

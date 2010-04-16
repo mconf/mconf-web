@@ -97,36 +97,40 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   validate_on_create do |entry|
-    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
-      cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
-      begin
-        cm_s.save
-        entry.cm_session_id = cm_s.id
-      rescue => e
-        entry.errors.add_to_base(e.to_s) 
-      end        
+    if entry.errors.empty?
+      if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
+        cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
+        begin
+          cm_s.save
+          entry.cm_session_id = cm_s.id
+        rescue => e
+          entry.errors.add_to_base(e.to_s) 
+        end        
+      end
     end
   end
   
   validate_on_update do |entry|
-    if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
-      cm_s = entry.cm_session
-      entry.cm_streaming ||= cm_s.streaming
-      entry.cm_recording ||= cm_s.recording
-      my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
-      if entry.cm_session?
-        cm_s.load(my_params) 
-      else
-        entry.errors.add_to_base(I18n.t('event.error.cm_connection'))
-      end
-      begin        
-        cm_s.save
-      rescue => e
-       if cm_s.present?  
-         entry.errors.add_to_base(e.to_s) 
-       end  
-      end       
-    end    
+    if entry.errors.empty?
+      if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
+        cm_s = entry.cm_session
+        entry.cm_streaming ||= cm_s.streaming
+        entry.cm_recording ||= cm_s.recording
+        my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
+        if entry.cm_session?
+          cm_s.load(my_params) 
+        else
+          entry.errors.add_to_base(I18n.t('event.error.cm_connection'))
+        end
+        begin        
+          cm_s.save
+        rescue => e
+         if cm_s.present?  
+           entry.errors.add_to_base(e.to_s) 
+         end  
+        end       
+      end    
+    end
   end
   
   before_destroy do |entry|
