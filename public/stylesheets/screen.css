@@ -200,7 +200,7 @@ button#change_logo{float:left;}
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
-#event_description_content form button{
+#event_description_content form button,#participation_content form button,#more_invitations form input,#more_notifications form input[type="button"]{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -208,7 +208,7 @@ button#change_logo{float:left;}
   font-size:95%;
   line-height:135%;
 }
-#event_description_content form button:hover{border:1px solid #86B5D5;}
+#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
 
 
 /* forms.css */
@@ -328,7 +328,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user .user_data{margin-left:0.5em;}
 
 /*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
-.odd_thread,.even_thread{border-bottom:1px solid #ddd;}
+.odd_thread,.even_thread{border-bottom:1px solid #ddd;position:relative;overflow:hidden;}
 .odd_thread.last,.even_thread.last{border-bottom:none;}
 .odd_thread{background:#f0f6f9;}
 .odd-posts{margin-bottom:1.5em;}
@@ -549,6 +549,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 	border:1px solid #64A3CF;
 	color:#fff;
 	font-weight:bold;
+	outline:none;
 }
 #sidebar #assistance_info button#choice:hover{border-color:#64a3cf;}
 
@@ -628,7 +629,6 @@ div.pagination a{color:#244974;}
 
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_invitation_mails{width:92%;overflow:auto;}
-
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 
 .update_logo .logo_content{padding-top:10px;}
@@ -1109,6 +1109,10 @@ td.attachment-tags .event_in_tags{
 	width:660px;
 }
 
+#event_repo #doc_table table{
+  width:644px;
+}
+
 #doc_table table th{
 	color:#244974;
 	font-weight:bold;
@@ -1141,6 +1145,7 @@ td.attachment-tags .event_in_tags{
 	width:14%;
 	text-align:center;
 	margin:15px 0 15px 0;
+	color:#514721;
 	}
 .session_wrapper2{width:86%;}
 
