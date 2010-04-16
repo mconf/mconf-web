@@ -70,7 +70,7 @@ describe PrivateSender do
     it "should include the receiver's name, the introducer's name, email and organization, the name of the space, the name and URL of the event and the URL of the invitation" do
 
       # Build the invitation
-      params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => @registered_user.email}
+      params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => @registered_user.email}
       invitation = @event.invitations.build params
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
         I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
@@ -167,7 +167,7 @@ describe PrivateSender do
         I18n.t('e-mail.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
-      invitation.update_attribute(:accepted, true)
+      invitation.update_attributes(:processed => true, :accepted => true)
       action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
 
       # Check the message of the sender
@@ -250,7 +250,7 @@ describe PrivateSender do
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
       jr.save!
-      jr.update_attributes(:accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
+      jr.update_attributes(:processed => true, :accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
       action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
       
       # Check the message of the sender

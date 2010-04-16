@@ -79,6 +79,9 @@ namespace :setup do
       organizer_role.permissions << Permission.find_by_action_and_objective('read', nil)
       organizer_role.permissions << Permission.find_by_action_and_objective('update', nil)
       
+      invitedevent_role = Role.find_or_create_by_name_and_stage_type "Invitedevent", "Event"
+      invitedevent_role.permissions << Permission.find_by_action_and_objective('read', nil)
+      
       speaker_role = Role.find_or_create_by_name_and_stage_type "Speaker", "AgendaEntry"
       speaker_role.permissions << Permission.find_by_action_and_objective('read', nil)
       speaker_role.permissions << Permission.find_by_action_and_objective('update', nil)

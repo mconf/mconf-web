@@ -35,7 +35,7 @@ describe Event do
       assert_equal("Invitation",invitation_1.type)
       assert_equal(@unregistered_user_email_1,invitation_1.email)
       assert_equal(@event,invitation_1.group)
-      assert_equal(Role.find_by_name("Invited").id,invitation_1.role.id)
+      assert_equal(Role.find_by_name("Invitedevent").id,invitation_1.role.id)
       assert_equal(@admin,invitation_1.introducer)
       assert_equal(@msg,invitation_1.comment)
       
@@ -43,7 +43,7 @@ describe Event do
       assert_equal("Invitation",invitation_2.type)
       assert_equal(@unregistered_user_email_2,invitation_2.email)
       assert_equal(@event,invitation_2.group)
-      assert_equal(Role.find_by_name("Invited").id,invitation_2.role.id)
+      assert_equal(Role.find_by_name("Invitedevent").id,invitation_2.role.id)
       assert_equal(@admin,invitation_2.introducer)
       assert_equal(@msg,invitation_2.comment)
 
@@ -63,7 +63,7 @@ describe Event do
       assert_equal(@registered_user_1,invitation_1.candidate)
       assert_equal(@registered_user_1.email,invitation_1.email)
       assert_equal(@event,invitation_1.group)
-      assert_equal(Role.find_by_name("Invited").id,invitation_1.role.id)
+      assert_equal(Role.find_by_name("Invitedevent").id,invitation_1.role.id)
       assert_equal(@admin,invitation_1.introducer)
       assert_equal(@msg,invitation_1.comment)
       
@@ -72,7 +72,7 @@ describe Event do
       assert_equal(@registered_user_2,invitation_2.candidate)
       assert_equal(@registered_user_2.email,invitation_2.email)
       assert_equal(@event,invitation_2.group)
-      assert_equal(Role.find_by_name("Invited").id,invitation_2.role.id)
+      assert_equal(Role.find_by_name("Invitedevent").id,invitation_2.role.id)
       assert_equal(@admin,invitation_2.introducer)
       assert_equal(@msg,invitation_2.comment)
 

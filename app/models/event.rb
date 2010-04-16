@@ -168,7 +168,7 @@ class Event < ActiveRecord::Base
     if event.mails
       mails_to_invite = event.mails.split(/[\r,]/).map(&:strip)
       mails_to_invite.map { |email|      
-        params =  {:role_id => Role.find_by_name("Invited").id.to_s, :email => email, :comment => event.invite_msg}
+        params =  {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => email, :comment => event.invite_msg}
         i = event.invitations.build params
         i.introducer = event.author
         i
@@ -177,7 +177,7 @@ class Event < ActiveRecord::Base
     if event.ids
       event.ids.map { |user_id|
         user = User.find(user_id)
-        params = {:role_id => Role.find_by_name("Invited").id.to_s, :email => user.email, :comment => event.invite_msg}
+        params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => user.email, :comment => event.invite_msg}
         i = event.invitations.build params
         i.introducer = event.author
         i
