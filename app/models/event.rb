@@ -18,7 +18,6 @@
 
 
 class Event < ActiveRecord::Base
-  
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :posts
@@ -51,11 +50,6 @@ class Event < ActiveRecord::Base
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
   
-  #Attibutes for Conference Manager
-  attr_accessor :web_interface
-  attr_accessor :isabel_interface
-  attr_accessor :sip_interface
-    
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
@@ -68,7 +62,12 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :meeting, :teleconference]
-  
+
+  # The vc_mode symbol of this event
+  def vc_mode_sym
+    VC_MODE[vc_mode]
+  end
+
   # Maximum number of consecutive days for the event
   MAX_DAYS = 5
 
@@ -97,62 +96,6 @@ class Event < ActiveRecord::Base
     #    end
   end
   
-  
-  validate_on_create do |event|
-   if (event.vc_mode == Event::VC_MODE.index(:meeting)) || ( event.vc_mode == Event::VC_MODE.index(:teleconference))
-      mode = ""
-      if event.vc_mode == Event::VC_MODE.index(:meeting)
-        mode = "meeting"
-      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
-          mode = "conference"
-      end 
-      cm_e = ConferenceManager::Event.new(:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel => event.isabel_interface, :enable_sip => event.sip_interface, :path => "attachments/conferences/#{event.permalink}")
-      begin 
-       cm_e.save
-       event.cm_event_id = cm_e.id
-     rescue StandardError =>e
-       event.errors.add_to_base(e.to_s)
-      end        
-    end  
-  end
-  
-  
-  validate_on_update do |event|
-    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
-      mode = ""
-      if event.vc_mode == Event::VC_MODE.index(:meeting)
-        mode = "meeting"
-      elsif event.vc_mode == Event::VC_MODE.index(:teleconference)
-          mode = "conference"
-      end
-      my_params = {:name=> event.name, :mode =>mode, :enable_web => event.web_interface , :enable_isabel =>event.isabel_interface, :enable_sip => event.sip_interface,:path => "attachments/conferences/#{event.permalink}" }
-      cm_event = event.cm_event
-      cm_event.load(my_params)  
-      begin
-        cm_event.save
-      rescue  StandardError =>e
-        event.errors.add_to_base(e.to_s)  
-      end
-    end  
-  end
-
-  
-  before_destroy do |event|
-    #Delete event in conference Manager
-    if (event.vc_mode == Event::VC_MODE.index(:meeting)) || (event.vc_mode == Event::VC_MODE.index(:teleconference))
-      begin
-        cm_event = ConferenceManager::Event.find(event.cm_event_id)
-        cm_event.destroy  
-      rescue ActiveResource::ResourceNotFound => e
-        true  
-      else        
-        #event.errors.add_to_base(I18n.t('event.error.delete'))  
-        true
-      end
-    end
-  end
- 
- 
   after_create do |event|
     #create an empty agenda
     event.agenda = Agenda.create
@@ -162,7 +105,6 @@ class Event < ActiveRecord::Base
       event.stage_performances.create! :agent => event.author, :role  => Event.role("Organizer")
     end
   end
-  
   
   after_save do |event|
     if event.mails
@@ -223,7 +165,6 @@ class Event < ActiveRecord::Base
   
   
   after_destroy do |event|
-    
     FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
     if event.marte_event? && event.marte_room?
       begin
@@ -365,140 +306,15 @@ class Event < ActiveRecord::Base
   end
   
   
-  def cm_event?
-    cm_event.present?
-  end
-  
-  
-  def cm_event
-    begin
-      @cm_event ||= ConferenceManager::Event.find(self.cm_event_id)
-    rescue
-      nil
-    end  
-  end
-  
-  
-  def sip_interface?
-      cm_event.try(:enable_sip?)
-  end
-  
-  
-  def isabel_interface?
-      cm_event.try(:enable_isabel?)  
-  end
-  
-  
-  def web_interface?
-      cm_event.try(:enable_web?)  
-  end
-  
-  
-  def web_url
-      cm_event.try(:web_url)
-  end
-  
-  
-  def sip_url
-      cm_event.try(:sip_url)
-  end
-  
-  
-  def isabel_url
-      cm_event.try(:isabel_url) 
-  end
-  
   def is_in_person?
-    vc_mode == Event::VC_MODE.index(:in_person)
+    vc_mode_sym == :in_person
   end
   
   def is_virtual?
-    !is_in_person?
+    ! is_in_person?
   end
   
-  #Return  a String that contains a html with the video of the Isabel Web Gateway
-  def web(width, height)
-    begin      
-      cm_web ||= ConferenceManager::Web.find(:one,:from=>"/events/#{self.cm_event_id}/web",:params =>{:width=>width, :height=>height})
-      cm_web.html 
-    rescue
-      nil
-    end
-  end
-  
-  
-  def web
-    begin
-      cm_web ||= ConferenceManager::Web.find(:one,:from=>"/events/#{self.cm_event_id}/web")
-      cm_web.html
-    rescue
-      nil
-    end      
-  end
-  
-  
-  #Return  a String that contains a html with the video player for this conference
-  def player(width,height)
-    begin
-      cm_player ||= ConferenceManager::Player.find(:one,:from=>"/events/#{self.cm_event_id}/player",:params =>{:width=>width, :height=>height})
-      cm_player.html
-    rescue
-      nil
-    end
-  end
-  
-  def player
-    begin
-      cm_player ||= ConferenceManager::Player.find(:one,:from=>"/events/#{self.cm_event_id}/player")
-      cm_player.html
-    rescue
-      nil
-    end
-  end
- 
- 
-  def editor(width,height)
-    begin
-      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor",:params =>{:width=>width, :height=>height})
-      cm_editor.html
-    rescue
-      nil
-    end
-  end
-  
-  
-  #Return  a String that contains a html with the video editor for this conference
-  def editor
-    begin
-      cm_editor ||= ConferenceManager::Editor.find(:one,:from=>"/events/#{self.cm_event_id}/editor")
-      cm_editor.html
-    rescue
-      nil
-    end
-  end
-  
-  
-  #Return  a String that contains a html with the streaming of this conference
-  def streaming
-    begin
-      cm_streaming ||= ConferenceManager::Streaming.find(:one,:from=>"/events/#{self.cm_event_id}/streaming")
-      cm_streaming.html
-    rescue
-      nil
-    end
-  end
-  
-  
-  def streaming(width,height)
-    begin
-      cm_streaming ||= ConferenceManager::Streaming.find(:one,:from=>"/events/#{self.cm_event_id}/streaming",:params =>{:width=>width, :height=>height})
-      cm_streaming.html
-    rescue
-      nil
-    end
-  end
-    
-    
+   
   def get_room_data
     return nil unless marte_event?
     
@@ -537,4 +353,5 @@ class Event < ActiveRecord::Base
     end
   end
 
+  include ConferenceManager::Support::Event
 end
