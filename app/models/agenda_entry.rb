@@ -22,8 +22,11 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :author
   attr_accessor :setting_times
   acts_as_stage
-  
   acts_as_content :reflection => :agenda
+  
+  validates_inclusion_of :setting_times, :in => ["true", "false"]
+  validates_presence_of :title, :if => Proc.new {|entry| (entry.setting_times != "true")}
+  validates_presence_of :agenda, :start_time, :end_time
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
@@ -36,24 +39,12 @@ class AgendaEntry < ActiveRecord::Base
       a.author ||= agenda_entry.author    
     end     
   end
-  
+
   def validate
 
-    unless self.setting_times
-      if self.title.blank?
-        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
-      end
-    end
-    
-    if self.agenda.blank?
+    return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
-      
-    elsif (self.start_time.blank? || self.end_time.blank?)
-      
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
-      
-    elsif (self.start_time > self.end_time)
+    if (self.start_time > self.end_time)
       
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
       
