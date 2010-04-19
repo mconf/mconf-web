@@ -113,9 +113,23 @@ class AgendaEntry < ActiveRecord::Base
   validate_on_update do |entry|
     if entry.errors.empty?
       if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
+
         cm_s = entry.cm_session
-        entry.cm_streaming ||= cm_s.streaming
-        entry.cm_recording ||= cm_s.recording
+
+        # cm_s streaming and recording are String values, not boolean, so there must be a careful conversion
+        if entry.cm_streaming.nil?
+          case cm_s.streaming
+            when "true": entry.cm_streaming = true
+            when "false": entry.cm_streaming = false
+          end
+        end
+        if entry.cm_recording.nil?
+          case cm_s.recording
+            when "true": entry.cm_recording = true
+            when "false": entry.cm_recording = false
+          end
+        end
+
         my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
         if entry.cm_session?
           cm_s.load(my_params) 
@@ -125,9 +139,9 @@ class AgendaEntry < ActiveRecord::Base
         begin        
           cm_s.save
         rescue => e
-         if cm_s.present?  
-           entry.errors.add_to_base(e.to_s) 
-         end  
+          if cm_s.present?  
+            entry.errors.add_to_base(e.to_s) 
+          end  
         end       
       end    
     end
