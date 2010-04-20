@@ -14,7 +14,7 @@ module ConferenceManager
                                                 :event_id => entry.event.cm_event_id) 
                 begin
                   cm_s.save
-                  entry.cm_session_id = cm_s.id
+                  entry.cm_session = cm_s
                 rescue => e
                   entry.errors.add_to_base(e.to_s) 
                 end        
@@ -30,7 +30,7 @@ module ConferenceManager
                                :streaming => entry.cm_streaming?,
                                :initDate => entry.start_time,
                                :endDate => entry.end_time,
-                               :event_id => entry.agenda.event.cm_event_id }
+                               :event_id => entry.event.cm_event_id }
 
                 if entry.cm_session?
                   cm_s.load(new_params) 
@@ -72,6 +72,11 @@ module ConferenceManager
         rescue
           nil
         end  
+      end
+      
+      def cm_session=(cms_s)
+        self.cm_session_id = cms_s.id
+        @cm_session = cms_s
       end
 
       def cm_session?

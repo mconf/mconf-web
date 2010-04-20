@@ -2,21 +2,21 @@ module ConferenceManager
   module Support
     # This module provides support for Events organized by the ConferenceManger
     module Event
+      
+      CM_ATTRIBUTES = ["name", "cm_mode", "web_interface", "isabel_interface", "sip_interface", "permalink"]
+      
       class << self
         def included(base)
           base.class_eval do
-            attr_accessor :web_interface
-            attr_accessor :isabel_interface
-            attr_accessor :sip_interface
 
             validate_on_create do |event|
               if event.uses_conference_manager?
                 cm_e =
                   ConferenceManager::Event.new(:name => event.name,
                                                :mode => event.cm_mode,
-                                               :enable_web => event.web_interface ,
-                                               :enable_isabel => event.isabel_interface,
-                                               :enable_sip => event.sip_interface,
+                                               :enable_web => event.web_interface?,
+                                               :enable_isabel => event.isabel_interface?,
+                                               :enable_sip => event.sip_interface?,
                                                :path => "attachments/conferences/#{event.permalink}")
                 begin 
                   cm_e.save
@@ -28,12 +28,12 @@ module ConferenceManager
             end
            
             validate_on_update do |event|
-              if event.uses_conference_manager?
+              if event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
                 new_params = { :name => event.name,
                                :mode => event.cm_mode,
-                               :enable_web => event.web_interface,
-                               :enable_isabel => event.isabel_interface,
-                               :enable_sip => event.sip_interface,
+                               :enable_web => event.web_interface?,
+                               :enable_isabel => event.isabel_interface?,
+                               :enable_sip => event.sip_interface?,
                                :path => "attachments/conferences/#{event.permalink}" }
 
                 cm_event = event.cm_event
@@ -96,19 +96,7 @@ module ConferenceManager
       def cm_event?
         cm_event.present?
       end
-      
-      def sip_interface?
-        cm_event.try(:enable_sip?)
-      end
-      
-      def isabel_interface?
-        cm_event.try(:enable_isabel?)  
-      end
-      
-      def web_interface?
-        cm_event.try(:enable_web?)  
-      end
-      
+
       def web_url
         cm_event.try(:web_url)
       end
