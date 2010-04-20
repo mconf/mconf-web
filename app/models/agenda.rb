@@ -76,10 +76,10 @@ class Agenda < ActiveRecord::Base
     unless ordered_entries.empty?
       ordered_entries.last.end_time
     else
-      if (start_date + day.days).day == Time.now.day
+      if (start_date + i.days).day == Time.now.day
         Time.now
       else
-        self.start_date.to_date + (day-1).days + 9.hour #9 in the morning
+        self.start_date.to_date + (i-1).days + 9.hour #9 in the morning
       end  
     end  
   end
