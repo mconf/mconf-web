@@ -37,7 +37,7 @@ module ConferenceManager
                                :path => "attachments/conferences/#{event.permalink}" }
 
                 cm_event = event.cm_event
-                cm_event.load(my_params)  
+                cm_event.load(new_params)  
 
                 begin
                   cm_event.save
