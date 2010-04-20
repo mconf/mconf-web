@@ -292,17 +292,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
       $.getScript(route);
   });
 	
-  $("#speakers_name_edit").livequery(function () {
-    $(this).fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4,
-      newel: true
-    });
-  });
+  
 
   $("#edit_entry_button").livequery('click',function(){	
       // Validate title

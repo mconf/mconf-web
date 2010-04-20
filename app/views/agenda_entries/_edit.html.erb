@@ -14,6 +14,20 @@
   $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
     window.location.hash = '#edit_entry_anchor';
   });
+  
+  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it 
+  //when the html is not shown it does not work properly, with will be set to 0px
+  $("#speakers_name_edit").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true
+    });
+  });
 <%end%>
 
 <div class="agenda_edit_entry" >
