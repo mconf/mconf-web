@@ -60,7 +60,6 @@ en:
         date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: "Error deleting session in remote videoconference system"
         disordered_times: "The start time must be previous to the end time"
-        several_days: "One agenda entry must start and end on the same day"
         update: "Error updating session in remote videoconference system"
       has_attachment: "This entry has attachments"
       has_video: "Video available for this entry"
