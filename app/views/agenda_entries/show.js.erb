@@ -1,8 +1,8 @@
 <%if params[:embedded_video]%>
-  <%=@agenda_entry.embedded_video%>
+  <%=@agenda_entry.video_player%>
 <%else%>
   <div class="video_full">
-      <%=@agenda_entry.embedded_video%>
+      <%=@agenda_entry.video_player%>
   </div>  
   <div class="video_properties">  	
   	  <div class="video_title">

@@ -9,25 +9,13 @@
     <%@day=params[:show_day]%>
 	$("#add_buttons"+<%=@day%>).hide();
   <%end%>
-  
+    
   var destination_edit = $('#edit_entry_anchor').offset().top;
   $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
     window.location.hash = '#edit_entry_anchor';
   });
   
-  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it 
-  //when the html is not shown it does not work properly, with will be set to 0px
-  $("#speakers_name_edit").livequery(function () {
-    $(this).fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4,
-      newel: true
-    });
-  });
+  
 <%end%>
 
 <div class="agenda_edit_entry" >
@@ -117,6 +105,19 @@
            </div>
        </div>
 	   <%end%>	
+	   <%if @agenda_entry.past?%>
+	     <div class="checkbox_event">
+               <%=check_box_tag "add_video_checkbox", "yes", @agenda_entry.embedded_video.present? ? true:false, :class=>"icon" %>
+               <label for="entry_video" class="label_izquierda">
+                   <%= t('agenda.entry.options.add_video') %>
+               </label>
+         </div>
+		 <div class="margin-up" id="video_embed_div">
+    	    <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
+			<label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
+            <%= f.text_area :embedded_video, :size => "25x5" %>
+	     </div>  
+	   <%end%>
 	<%end%>
     <div class="margin-up">
 			<input type="button" id="edit_entry_button" value="<%=t("button.finish")%>" class="basic_button blue_button"/>
