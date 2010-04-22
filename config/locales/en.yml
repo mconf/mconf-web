@@ -1096,7 +1096,7 @@ en:
         upload_logo: "Upload your own logo"
         enter_text: "Enter a text to generate logos:"
         generate_logo: "Generate"
-        upload_logo: "Select a logo to upload"
+        upload_logo_text: "Select a logo to upload:"
         upload_text: "Upload"
     main: "Main space"
     member_of: "Member of the spaces"

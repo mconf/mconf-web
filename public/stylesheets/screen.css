@@ -420,6 +420,21 @@ ul.edit-post li{list-style-type:none;}
 #news_navigation_div,#latest_news h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3,#edit_profile h3,#edit_account h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
 #news_navigation_div,#latest_news h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more{border-right:none;}
 /*space home, latest users,posts and events*/
+#upload_logo_button,#logo_media{
+-webkit-border-radius:4px;-moz-border-radius:4px;
+border:1px solid #244974;
+font-size:95%;
+line-height:135%;
+margin-right:4px;
+margin-bottom:4px;
+cursor:pointer;
+font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+font-weight:bold;
+text-align:center;
+overflow:visible;
+padding:3px 7px 3px 6px;
+width:auto;
+}
 #home_current_events{background:#FFF6BF;color:#514721;padding:.8em;margin-bottom:1em;border:2px solid #FFD324;}
 #home_current_events ul{margin:0 0 0 0.75em;list-style-type:none;}
 #home_current_events h3{margin:0;}

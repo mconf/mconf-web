@@ -2,16 +2,6 @@
  * Create new space
  */
 
-$("Aa.new_space_link").fancybox({
-  'hideOnContentClick' : false,
-	'frameHeight' : 500,
-	'frameWidth' : <%=logged_in? ? '300' : '560'%>,
-	'callbackOnShow' : function(){
-    $(".mail_group_blinking:last").hide();
-		$(window).resize(); 
-	}
-});
-
 $("#create_and_login_link").livequery("click", function(){
   $(this).attr("href","javascript:void(0)").addClass("selected");
   $("#create_and_register_link").removeClass("selected")

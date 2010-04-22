@@ -21,10 +21,10 @@ require 'RMagick'
 
 class LogosController
   include Magick
-  
-  #for i in 1..5
-   #   create_auto_logo "Global Plaza Project", i
-    #end
+
+    REL_TMP_PATH = File.join("tmp")
+    ABS_TMP_PATH = File.join(RAILS_ROOT, "public", "images", REL_TMP_PATH)
+    FORMAT = Mime::Type.lookup "image/png"
   
   def new 
     if params[:text]
@@ -37,10 +37,38 @@ class LogosController
   
    if params[:upload]
       #debugger
+     #puts params[:logo]
      
+     images_path = File.join(RAILS_ROOT, "public", "images")
+     tmp_path = File.join(images_path, "tmp")
+     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
+     uploaded_image = File.join(final_path, "uploaded_logo.png")
+     
+     temp_file = File.open(uploaded_image, "w+")
+     temp_file.write(params[:logo][:media].read)
+     temp_file.close
+
      render :template => "logos/precrop_without_space", :layout => false
    end
-   
+   if params[:upload_crop]
+     images_path = File.join("images")
+     tmp_path = File.join(images_path, "tmp")
+     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
+     uploaded_image = File.join(final_path, "uploaded_logo.png")
+     uploaded_image = File.join(RAILS_ROOT, "public",uploaded_image)
+              
+     img = Magick::Image.read(uploaded_image).first
+
+     crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
+     crop_img = img.crop(*crop_args)
+
+     temp_file = File.open(uploaded_image, "w+")
+     crop_img.write(temp_file.path)
+     temp_file.close
+    
+      render :text => ""
+     #render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>" 
+   end
    
   end
   
@@ -67,35 +95,25 @@ class LogosController
   
   def precrop_without_space
     
-    if params['logo']['media'].blank?
-      redirect_to request.referer
-      return
-    end
+#    if params['logo']['media'].blank?
+#      redirect_to request.referer
+#      return
+#    end
+#
+#    @logo = Logo.new 
+#
+#    temp_logo = TempLogo.new(Logo, space, params[:logo])
+#    TempLogo.to_session(session, temp_logo)
+#
+#    render :template => "logos/precrop",
+#           :layout => false,
+#           :locals => {:logo_crop_text => t('logo.crop'),
+#                       :form_for => [space,@logo],
+#                       :form_url => space_logo_path(space),
+#                       :image => temp_logo.image 
+#                      }
 
-    @logo = Logo.new 
-
-     #debugger
-
-    f = File.open(File.join(TMP_PATH,"precroplogo-#{params[:rand]}"), "w+")
-    f.write(params['logo']['media'].read)
-    f.close
-    @image = "tmp/" + File.basename(f.path)
-    session[:tmp_logo] = {}
-    session[:tmp_logo][:basename] = File.basename(f.path)
-    session[:tmp_logo][:original_filename] = params['logo']['media'].original_filename
-    session[:tmp_logo][:content_type] = params['logo']['media'].content_type
-
-    reshape_image f.path, Logo::ASPECT_RATIO_F
-    resize_if_bigger f.path, 600
-    
- 
-    @logo_crop_text = "Crop space logo"
-    @form_for       = [@logo]
-    @form_url       = space_logo_path(@space.id)
-    
-    render :template => "logos/precrop_without_space", :layout => false
-    
-  end
+  end 
   
   def create
     if params[:crop_size].present?

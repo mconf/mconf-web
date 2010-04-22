@@ -17,7 +17,10 @@
 
 class SpacesController < ApplicationController
   before_filter :space
-
+  
+  #AUTORIAZACIÓN PARA CREAR ESPACIOS !
+  
+  authentication_filter :only => [:new,:create]
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
