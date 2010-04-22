@@ -128,13 +128,10 @@ module ConferenceManager
       end
       
       def start!
-        begin
-          ConferenceManager::Start.create(:event_id => cm_event_id)
-        rescue
-          nil
-        end
+        ConferenceManager::Start.create(:event_id => cm_event_id)
+      rescue  StandardError => e
+        errors.add_to_base(e.to_s)  
       end
-        
     end
   end
 end

@@ -33,7 +33,7 @@ class EventsController < ApplicationController
   authorization_filter [ :read,   :content ], :space, :only => [ :index ]
   authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
   authorization_filter :read,   :event, :only => [ :show ]
-  authorization_filter :update, :event, :only => [ :edit, :update ]
+  authorization_filter :update, :event, :only => [ :edit, :update, :start ]
   authorization_filter :delete, :event, :only => [ :destroy ]
 
   # GET /events
@@ -271,7 +271,15 @@ class EventsController < ApplicationController
 	       render :text => @token.id
   	  end
   end
-  
+
+  def start
+    event.start!
+    event.errors.any? ?
+      flash[:error] = event.errors.to_xml :
+      flash[:success] = t('event.started')
+
+    redirect_to event
+  end
   
   private
   
