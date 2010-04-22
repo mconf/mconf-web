@@ -21,6 +21,7 @@ package com.jivesoftware.spark.chats
 	import com.jivesoftware.spark.managers.ChatManager;
 	import com.jivesoftware.spark.managers.Localizator;
 	import com.jivesoftware.spark.managers.MUCManager;
+	import com.jivesoftware.spark.managers.SparkManager;
 	
 	import flash.events.Event;
 	
@@ -47,6 +48,7 @@ package com.jivesoftware.spark.chats
   	    public override function setup(j:UnescapedJID):void
   	    {
   	    	room = MUCManager.manager.getRoom(j);
+  	    	room.nickname = SparkManager.getConfigValueForKey("nickname");
   	    	displayName = room.roomJID.toString();
   	    	if (roomPassword != null)
   	    		room.password = roomPassword;
