@@ -17,7 +17,7 @@ namespace :setup do
   end
 
   desc "All production tasks"
-  task :common_tasks => [ :config_ultrasphinx, :git_submodules, "db:schema:load", "basic_data:all" ] do
+  task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all" ] do
   end
 
 
@@ -60,19 +60,6 @@ namespace :setup do
     end
   end
 
-
-  desc "Copy config/ultrasphinx if it doesn't exist"
-  task :config_ultrasphinx do
-    print "* Checking config/ultrasphinx: "
-    u_dir = "#{ RAILS_ROOT }/config/ultrasphinx"
-
-    if File.exist?(u_dir)
-      puts "directory exists."
-    else
-      `cp -r #{ u_dir }.example #{ u_dir }` 
-      puts "copied."
-    end
-  end
 
   desc "Update Git Submodules"
   task :git_submodules do
