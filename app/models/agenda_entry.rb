@@ -19,8 +19,7 @@ class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  attr_accessor :author
-  attr_accessor :setting_times
+  attr_accessor :author, :setting_times, :duration 
   acts_as_stage
   acts_as_content :reflection => :agenda
   
@@ -32,6 +31,9 @@ class AgendaEntry < ActiveRecord::Base
   MINUTES_NOT_EXCLUDED =  30
   
   before_validation do |agenda_entry|
+    # Convert duration in end_time
+     agenda_entry.end_time = agenda_entry.start_time + agenda_entry.duration.to_i.minutes 
+    
     # Fill attachment fields
      agenda_entry.attachments.each do |a|
       a.space  ||= agenda_entry.agenda.event.space
@@ -131,11 +133,14 @@ class AgendaEntry < ActiveRecord::Base
     entry.event.syncronize_date
   end
   
+  def duration
+    @duration ||= end_time - start_time
+  end
+  
   def event
     self.agenda.event
   end
-  
-  
+    
   def recording?
     embedded_video.present? || cm_recording?
   end

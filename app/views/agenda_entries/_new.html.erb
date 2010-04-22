@@ -14,20 +14,14 @@
   
     <div class="without_javascript">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
-        <%last_hour = @event.agenda.last_hour_for_day(@day.to_i)%>
-        <%= f.datetime_select :start_time, :default => last_hour %>
+        <%= f.datetime_select :start_time, :default => @event.agenda.last_hour_for_day(@day.to_i) %>
       </div>
-      
-      <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.end_time') %></label><br/>
-      
-        <%if last_hour.hour < 22%>
-          <%= f.datetime_select :end_time, :default => last_hour + 1.hour %>
-        <%else%>
-          <%= f.datetime_select :end_time, :default => Time.parse(last_hour.strftime("%m/%d/%Y 23:59")) %>
-        <%end%>
+			<div class="margin-up"><label for="duration" class="main_text"><%= t('agenda.entry.duration') %></label><br/>
+			  <select name="agenda_entry[duration]">
+          <%= duration_options_for_select 180, 5, 60 %>
+			  </select>
+      </div>
 
-      </div>
-	  
     </div>
 
     <div class="margin-up">

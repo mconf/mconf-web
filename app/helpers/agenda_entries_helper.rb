@@ -8,4 +8,9 @@ module AgendaEntriesHelper
                            (a=="" ? nil : a)
                         }.compact.join(",")
   end
+  
+  def duration_options_for_select(total, interval, selected = nil)
+    values = (1..total/interval).to_a.map{|x| y = x*interval; ["#{y/60}h #{y%60}m", y]}
+    options_for_select(values, selected)
+  end
 end

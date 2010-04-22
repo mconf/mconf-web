@@ -50,6 +50,7 @@ en:
       cannot_exclude: "You cannot exclude from recording an entry shorter than"
       delete: "Agenda entry was successfully created"
       description: "Description"
+      duration: "Duration"
       edit: "Edit Agenda Entry"
       embed_help: "Can be filled with HTML code to embed a video"
       embedded_video: "Embed video for the entry"
