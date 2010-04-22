@@ -32,7 +32,9 @@ class AgendaEntry < ActiveRecord::Base
   
   before_validation do |agenda_entry|
     # Convert duration in end_time
-     agenda_entry.end_time = agenda_entry.start_time + agenda_entry.duration.to_i.minutes 
+    if agenda_entry.end_time.nil? || (agenda_entry.duration != agenda_entry.end_time - agenda_entry.start_time)
+      agenda_entry.end_time = agenda_entry.start_time + agenda_entry.duration.to_i.minutes
+    end
     
     # Fill attachment fields
      agenda_entry.attachments.each do |a|
