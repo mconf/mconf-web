@@ -9,6 +9,8 @@
 				images_now = 1
 				@files.delete(".")
 				@files.delete("..")
+				@files.delete("uploaded_logo.png")
+				
 				selected = rand(@files.length)
 %>
 		<%
