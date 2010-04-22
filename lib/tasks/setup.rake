@@ -47,19 +47,6 @@ namespace :setup do
     end
   end
 
-  desc "Copy config/ultrasphinx if it doesn't exist"
-  task :config_ultrasphinx do
-    print "* Checking config/ultrasphinx: "
-    u_dir = "#{ RAILS_ROOT }/config/ultrasphinx"
-
-    if File.exist?(u_dir)
-      puts "directory exists."
-    else
-      `cp -r #{ u_dir }.example #{ u_dir }` 
-      puts "copied."
-    end
-  end
-
   desc "Update Git Submodules"
   task :git_submodules do
     puts "* Updating Git submodules"
