@@ -52,6 +52,14 @@ class Performance
       p.stage.admissions.find_by_candidate_id_and_candidate_type(p.agent.id, p.agent.class.base_class.to_s).try(:destroy)
     end
   }
+  
+  after_create { |p|
+    if p.stage.is_a?(Event) && p.agent.is_a?(User) && !(p.stage.space.role_for? p.agent)
+      Performance.create! :agent => p.agent,
+                          :stage => p.stage.space,
+                          :role  => Role.find_by_name("Invited")
+    end
+  }
 
   # Authorize the XMPP Server reading Performances
   authorizing do |agent, permission|

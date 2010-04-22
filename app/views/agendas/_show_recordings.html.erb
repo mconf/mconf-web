@@ -35,7 +35,7 @@
 			  	<%if @display_entry%>
 				  <% @display_entry.attachments.each  do |a| %>
 				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
-		            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format))%>
+		            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
 		          <%end %>
 				  <%end%>
 			  </div>

@@ -1,22 +1,17 @@
 module ConferenceManager
-  class Web < CmResource
+  class Web < Resource
+    singleton
+
     self.element_name = "web" 
-    self.site = domain + "/events/:event_id"
+    self.site = domain
+    self.prefix = "/events/:event_id/" 
     
-    #redefined to remove format.extension
-    def self.collection_path(prefix_options = {}, query_options = nil)
-      prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-            "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
+    def html
+      tag = attributes.inject(""){ |tag, at|
+              tag << "#{ at.first }=\"#{ at.last }\" "
+            }
+
+      "<embed #{ tag }/>"
     end
-    
-    def self.element_path(id, prefix_options = {}, query_options = nil)
-    prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-           "#{prefix(prefix_options)}#{collection_name}/#{id}#{query_string(query_options)}"
-    end
-    
-    def html     
-      "<embed name = '"+name+"' allowfullscreen= '"+allowfullscreen+"' src= '"+src+"' height='"+height+"' wmode='"+wmode+"' width='"+width+"'/>"
-    end
-    
   end
 end

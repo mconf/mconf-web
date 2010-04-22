@@ -6,17 +6,17 @@
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>
-	<div>
-    <label for="Title"><%= t('title') %>:</label>
-    <%= f.text_field :title, :size =>25  %>
-  </div>
-	<br/>
-	<div>
-    <label for="Body"><%= t('body') %>:</label><br/>
-    <%= f.text_area :body, :class => "span-6"  %>
-  </div>
-  <%= hidden_field_tag "private_message[receiver_id]", params[:receiver]%>
-  <div class="margin-up">
-  	<button type="submit" class="basic_button blue_button"><%=t('button.send')%></button>
-  </div>
+	<div id="feedback_form">
+		<p>
+	    <label for="Title"><%= t('subject') %>:</label>
+	    <%= f.text_field :title, :id=> "subject", :size =>25  %>
+	  </p>
+		<p>
+	    <label for="Body"><%= t('body') %>:</label>
+	    <%= f.text_area :body ,:id => "private_msg_textarea",:size=>"38x15" %>
+	  </p>
+	  <%= hidden_field_tag "private_message[receiver_id]", params[:receiver]%>
+	  <button type="submit" class="basic_button blue_button"><%=t('button.send')%></button>
+
+	</div>
 <% end %>

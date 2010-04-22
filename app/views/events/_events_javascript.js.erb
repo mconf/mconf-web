@@ -124,10 +124,7 @@ request_video = function(agenda_entry_id){
    $('.url_share').show();
  };
  
- $('#help_add_entry').click(function(){
-   $('#add_entry0').click();
- });
- 
+
 // Action links
 $("a.repository_sidebar_action").livequery("click",function(){
   if($(this).hasClass("disabled_button")){
@@ -292,17 +289,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
       $.getScript(route);
   });
 	
-  $("#speakers_name_edit").livequery(function () {
-    $(this).fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4,
-      newel: true
-    });
-  });
+  
 
   $("#edit_entry_button").livequery('click',function(){	
       // Validate title

@@ -31,18 +31,17 @@ class AdmissionObserver < ActiveRecord::Observer
   end
 
   def after_update(admission)
-    case admission
-      when Invitation
-        if (admission.group.class == Space) then
-          Informer.deliver_processed_invitation(admission)
-        elsif (admission.group.class == Event) then
-          Participant.create({:user => admission.candidate, :email => admission.email, :event_id => admission.group.id, :attend => admission.accepted})
-        end
-      when JoinRequest
-        Informer.deliver_processed_join_request(admission)
-    end
-    if admission.recently_processed?
-      
+    if admission.processed?
+      case admission
+        when Invitation
+          if (admission.group.class == Space) then
+            Informer.deliver_processed_invitation(admission)
+          elsif (admission.group.class == Event) then
+            Participant.create({:user => admission.candidate, :email => admission.email, :event_id => admission.group.id, :attend => admission.accepted})
+          end
+        when JoinRequest
+          Informer.deliver_processed_join_request(admission)
+      end
     end
   end
 

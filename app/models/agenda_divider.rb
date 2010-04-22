@@ -21,6 +21,8 @@ class AgendaDivider < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   
   default_scope :order => 'start_time ASC'
+  
+  validates_presence_of :title, :agenda, :time
 
   before_validation do |divider|
     if divider.start_time
@@ -30,20 +32,10 @@ class AgendaDivider < ActiveRecord::Base
   
   def validate
 
-    if self.title.blank?
-      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_title'))
-    end
-
-    if self.agenda.blank?
-
-      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_agenda'))
-
-    elsif self.time.blank?
-
-      self.errors.add_to_base(I18n.t('agenda.divider.error.missing_time'))
-
+    return if self.agenda.blank? || self.time.blank?
+    
     # if the event has no start_date, then there won't be any agenda entries or dividers, so these validations should be skipped
-    elsif !(self.agenda.event.start_date.blank?)
+    if !(self.agenda.event.start_date.blank?)
       if (self.time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
         self.errors.add_to_base(I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
         return

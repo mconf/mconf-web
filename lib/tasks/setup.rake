@@ -17,7 +17,7 @@ namespace :setup do
   end
 
   desc "All common tasks"
-  task :common_tasks => [ :config_ultrasphinx, :git_submodules, "db:schema:load", "basic_data:all" ] do
+  task :common_tasks => [:git_submodules, "db:schema:load", "basic_data:all" ] do
   end
 
 
@@ -29,8 +29,8 @@ namespace :setup do
     if File.exist?(sphinx_file)
       puts "file exists."
     else
-      `sudo ln -s #{ RAILS_ROOT }/config/ultrasphinx/production.conf #{ sphinx_file }` 
-      puts "copied."
+      `sudo ln -s #{ RAILS_ROOT.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }` 
+      puts "linked."
     end
   end
 

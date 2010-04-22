@@ -210,9 +210,8 @@ describe PostsController do
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :post => {"title" => "Test", "text" => ""}
-            pending "confirm blank text in posts"
             assert_response 200
-            flash[:error].should == I18n.t('post.error.empty')
+            assert flash[:error].include?(I18n.t('activerecord.errors.messages.blank'))
             response.should render_template("posts/index.html.erb")
           end       
         end
@@ -583,9 +582,8 @@ describe PostsController do
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :post => {"title" => "Test", "text" => ""}
-            pending "confirm blank text in posts"
             assert_response 200
-            flash[:error].should == I18n.t('post.error.empty')
+            assert flash[:error].include?(I18n.t('activerecord.errors.messages.blank'))
             response.should render_template("posts/index.html.erb")
           end       
         end

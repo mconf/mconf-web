@@ -51,10 +51,15 @@ class Site
                        :message => I18n.t('xmpp_server.password_invalid')
 
   after_save :save_xmpp_server
+  after_save :reload_cm_classes
 
   private
 
   def save_xmpp_server
     xmpp_server.save! if xmpp_server.password.present? && xmpp_server.__send__(:password_not_saved?)
+  end
+  
+  def reload_cm_classes
+    ConferenceManager::Resource.reload
   end
 end

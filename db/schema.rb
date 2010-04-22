@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100413130833) do
+ActiveRecord::Schema.define(:version => 20100420152458) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -129,6 +129,9 @@ ActiveRecord::Schema.define(:version => 20100413130833) do
     t.integer  "cm_event_id"
     t.integer  "vc_mode",                 :default => 0
     t.text     "other_participation_url"
+    t.boolean  "web_interface",           :default => false
+    t.boolean  "isabel_interface",        :default => false
+    t.boolean  "sip_interface",           :default => false
   end
 
   create_table "groups", :force => true do |t|

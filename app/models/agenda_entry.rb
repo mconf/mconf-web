@@ -19,16 +19,23 @@ class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  attr_accessor :author
-  attr_accessor :setting_times
+  attr_accessor :author, :setting_times, :duration 
   acts_as_stage
-  
   acts_as_content :reflection => :agenda
+  
+  validates_inclusion_of :setting_times, :in => ["true", "false"]
+  validates_presence_of :title, :if => Proc.new {|entry| (entry.setting_times != "true")}
+  validates_presence_of :agenda, :start_time, :end_time
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
   
   before_validation do |agenda_entry|
+    # Convert duration in end_time
+    if agenda_entry.end_time.nil? || (agenda_entry.duration != agenda_entry.end_time - agenda_entry.start_time)
+      agenda_entry.end_time = agenda_entry.start_time + agenda_entry.duration.to_i.minutes
+    end
+    
     # Fill attachment fields
      agenda_entry.attachments.each do |a|
       a.space  ||= agenda_entry.agenda.event.space
@@ -36,30 +43,18 @@ class AgendaEntry < ActiveRecord::Base
       a.author ||= agenda_entry.author    
     end     
   end
-  
+
   def validate
 
-    unless self.setting_times
-      if self.title.blank?
-        self.errors.add_to_base(I18n.t('agenda.entry.error.missing_title'))
-      end
-    end
-    
-    if self.agenda.blank?
+    return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_agenda'))
-      
-    elsif (self.start_time.blank? || self.end_time.blank?)
-      
-      self.errors.add_to_base(I18n.t('agenda.entry.error.missing_time'))
-      
-    elsif (self.start_time > self.end_time)
+    if (self.start_time > self.end_time)
       
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
       
-    elsif (self.start_time.to_date != self.end_time.to_date)
+    elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
       
-      self.errors.add_to_base(I18n.t('agenda.entry.error.several_days'))
+      self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
       
     # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
     elsif !(self.agenda.event.start_date.blank?)
@@ -93,63 +88,14 @@ class AgendaEntry < ActiveRecord::Base
         end
       end
     end
-
   end
-  
-  validate_on_create do |entry|
-    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
-      cm_s = ConferenceManager::Session.new(:name => "none", :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id ) 
-      begin
-        cm_s.save
-        entry.cm_session_id = cm_s.id
-      rescue => e
-        entry.errors.add_to_base(e.to_s) 
-      end        
-    end
-  end
-  
-  validate_on_update do |entry|
-    if ((entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))) && !entry.agenda.event.past?  
-      cm_s = entry.cm_session
-      entry.cm_streaming ||= cm_s.streaming
-      entry.cm_recording ||= cm_s.recording
-      my_params = {:name => entry.title, :recording => entry.cm_recording, :streaming => entry.cm_streaming, :initDate=> entry.start_time, :endDate=>entry.end_time, :event_id => entry.agenda.event.cm_event_id}
-      if entry.cm_session?
-        cm_s.load(my_params) 
-      else
-        entry.errors.add_to_base(I18n.t('event.error.cm_connection'))
-      end
-      begin        
-        cm_s.save
-      rescue => e
-       if cm_s.present?  
-         entry.errors.add_to_base(e.to_s) 
-       end  
-      end       
-    end    
-  end
-  
-  before_destroy do |entry|
-    #Delete session in Conference Manager if event is not in-person
-    if (entry.event.vc_mode == Event::VC_MODE.index(:meeting)) || (entry.event.vc_mode == Event::VC_MODE.index(:teleconference))
-      begin
-        cm_s = entry.cm_session     
-        cm_s.destroy    
-      rescue => e  
-        entry.errors.add_to_base(I18n.t('agenda.entry.error.delete'))
-        false
-      end     
-    end 
-  end
-  
-  
+ 
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
     end      
   end
   
- 
   after_create do |entry|
      # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
 #    entry.attachments.each do |a|
@@ -178,7 +124,7 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_save do |entry|
-    entry.agenda.event.syncronize_date
+    entry.event.syncronize_date
   end
   
   
@@ -189,36 +135,22 @@ class AgendaEntry < ActiveRecord::Base
     entry.event.syncronize_date
   end
   
+  def duration
+    @duration ||= end_time - start_time
+  end
+  
   def event
     self.agenda.event
   end
-  
-  
-  def cm_session?
-    cm_session.present?
-  end
-  
-  def cm_session
-    begin
-      @cm_session ||= ConferenceManager::Session.find(self.cm_session_id, :params=> {:event_id => self.agenda.event.cm_event_id})
-    rescue
-      nil
-    end  
-  end
-  
+    
   def recording?
+    embedded_video.present? || cm_recording?
+  end
 
-    if embedded_video.present?
-      return true
-    else
-      return cm_recording #cm_session.try(:recording?)
-    end   
-  end
-  
   def streaming?
-    return cm_streaming
+    cm_streaming?
   end
-  
+ 
   def thumbnail
     if video_thumbnail
       return video_thumbnail
@@ -228,16 +160,8 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def video_player
-    if embedded_video
-      return embedded_video
-    else
-      return player
-    end
+    embedded_video || player
   end
-  
-  #def streaming?
-  #  cm_session.try(:streaming?)
-  #end
   
   def initDate
     DateTime.strptime(cm_session.initDate)
@@ -260,16 +184,6 @@ class AgendaEntry < ActiveRecord::Base
     return true unless cm_session? && past? 
   end
   
-  #Return  a String that contains a html with the video player for this session
-  def player
-    begin
-      cm_player_session ||= ConferenceManager::PlayerSession.find(:one,:from=>"/events/#{self.agenda.event.cm_event_id}/sessions/#{self.cm_session.id}/player")
-      cm_player_session.html
-    rescue
-      nil
-    end
-  end
-
   def has_error?
     return self.cm_error.present?
   end
@@ -306,4 +220,6 @@ class AgendaEntry < ActiveRecord::Base
      Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
     
   end
+
+  include ConferenceManager::Support::AgendaEntry
 end
