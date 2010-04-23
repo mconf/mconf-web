@@ -52,7 +52,9 @@ openTextLogo = function(){
 var dateTime = new Date();
 var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
 
-$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
+//$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
+$("#logo_rand").attr('value', rand);
+$("#space_rand_value").attr('value', rand);
 
 $("#generate_text_logo_button").livequery('click',function(){
 	$.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
@@ -144,7 +146,7 @@ function cropImage (c){
 <a id="new_space_anchor" name="new_space_anchor" ></a>
 	<div class="form">
     <% form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
-
+		<%= f.hidden_field "rand_value" %>
 		  <%unless logged_in?%>
 		    <div id="left">
           <div class="options">
