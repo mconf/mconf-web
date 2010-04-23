@@ -1,6 +1,9 @@
 module ConferenceManager
   module Support
     module AgendaEntry
+      
+      CM_ATTRIBUTES = ["title", "cm_streaming", "cm_recording", "start_time", "end_time"]
+      
       class << self
         def included(base)
           base.class_eval do
@@ -22,7 +25,7 @@ module ConferenceManager
             end
             
             validate_on_update do |entry|
-              if entry.errors.empty? && entry.event.uses_conference_manager?
+              if entry.errors.empty? && entry.event.uses_conference_manager? && (entry.changed & CM_ATTRIBUTES).any? 
                 cm_s = entry.cm_session
 
                 new_params = { :name => entry.title,
