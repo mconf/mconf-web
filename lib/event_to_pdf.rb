@@ -50,7 +50,7 @@ module EventToPdf
       end
  
       #Array of entrie arrays and array who contains a single divider.
-      @entries_array = fragment_entries(@entries)      
+      @entries_array = fragment_entries(@entries)
       
       heads = true
       nPage =  -1
@@ -67,7 +67,7 @@ module EventToPdf
           end
 
         end       
-              
+
         if isSpecialTitle(entries[0])
           
           index_next_entry = @entries_array.index(entries) + 1
@@ -107,20 +107,20 @@ module EventToPdf
           
           write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
           
-      else
-      
-        if (getTableRows(pdf,nil,entries,false) == 0)
-          pdf.start_new_page
-        end
-        
-        if(pdf.current_page_number() == nPage)
-          heads = false
         else
-          heads = true
-          nPage = pdf.current_page_number()
-        end
-        
-        generate_entrie_table(pdf,entries,nil,heads)
+      
+          if (getTableRows(pdf,nil,entries,false) == 0)
+            pdf.start_new_page
+          end
+          
+          if(pdf.current_page_number() == nPage)
+            heads = false
+          else
+            heads = true
+            nPage = pdf.current_page_number()
+          end
+          
+          generate_entrie_table(pdf,entries,nil,heads)
         
         end
     
@@ -263,6 +263,7 @@ module EventToPdf
   #Format example: {[Entrie_Array[]][Divider][Entrie_Array[]][Divider][Divider][Entrie_Array[]]]}
   #An element that contains an array of entries its never preceded by another element that contains an array of entries too.
   #An element that contains an array that contains a divider always have only one element.
+  #Fragment individual entries application limit description.
   def fragment_entries(entries)
     
     array_entries = []
@@ -270,7 +271,7 @@ module EventToPdf
     
     entries.each do |entrie|    
       
-      unless entrie.class == AgendaEntry
+      if isSpecialTitle(entrie)
         
         unless entries_temp.empty?
           array_entries << entries_temp
@@ -282,7 +283,18 @@ module EventToPdf
         entries_temp = []
         
       else
-        entries_temp << entrie
+        
+        unless entrie == entries[0]
+          maxLength = 3200
+        else
+          maxLength = 1800
+        end
+        
+        fragment_entries_by_description = fragment_entrie_by_description(entrie,maxLength)
+        
+        fragment_entries_by_description.each do |entrie_fragment_by_description|
+          entries_temp << entrie_fragment_by_description
+        end  
           
         if entrie==entries[entries.length-1]
           array_entries << entries_temp
@@ -294,6 +306,67 @@ module EventToPdf
 
     array_entries
    
+  end
+  
+     
+  def fragment_entrie_by_description(entrie,maxLength)
+        
+    fragment_entries_by_description = []
+    subfragments = []
+    lineLenght = 70; #= f(@c4)
+    index_length = 1
+    line_number = entrie.description.count("\n");
+    
+
+    #Analice if the entrie fits in one page.
+    if (entrie.description.length + line_number * lineLenght) > maxLength
+               
+        #Remove the multiples \n.
+        entrie.description = entrie.description.gsub(/([\n])+/, "\n")
+        #Remove simple \n.
+        entrie.description = entrie.description.gsub(/([\n])+/, "")
+        
+        line_number = entrie.description.count("\n")
+        
+        #Copy the entrie, and cuts the description.
+        entrie_a = AgendaEntry.new
+        entrie_a.start_time = entrie.start_time
+        entrie_a.end_time = entrie.end_time
+        entrie_a.title = entrie.title
+        entrie_a.speakers = entrie.speakers
+        
+        aux = entrie.description
+   
+        #Set the index_lenght at the min value to ensure that the entry fits in one page.
+        while aux.length + aux.count("\n") * lineLenght > maxLength          
+            index_length = index_length + 1
+            aux = entrie.description[0,maxLength-index_length]
+        end
+        
+#        Try to cut in a space. (10 caracteres checked)       
+        10.times do    
+          
+          if(entrie.description[maxLength-index_length] == 32) #Whitespace
+            break
+          end
+          
+          index_length = index_length + 1
+        end
+        
+        
+        #Cuts the string.      
+        entrie_a.description = entrie.description[0,maxLength-index_length] + "..."
+        fragment_entries_by_description << entrie_a
+        
+        min_index = [entrie.description.length-1, 2*maxLength-index_length].min       
+        entrie.description = "..." + entrie.description[maxLength-index_length,min_index]   
+        entrie.title = entrie.title + "\n(Cont)"        
+        fragment_entries_by_description << entrie
+        
+    end
+    
+    fragment_entries_by_description
+      
   end
      
   #Generate and fill a table with the dates contained in entries.
