@@ -176,7 +176,7 @@ public class VccRoomsPlugin implements Plugin {
 				updateAdmins(mucRoom, userList);
 				
 				// If it is a registed user (not anomymous) but his nickname is different from his name -> force to correct nickname 
-				if ( (registeredUser != null) && (registeredUser.getName() != nickname) ) {
+				if ( (registeredUser != null) && !(registeredUser.getName().equals(nickname)) ) {
 					changeNickname(mucRoom, user, registeredUser.getName(), nickname);
 				}
 
