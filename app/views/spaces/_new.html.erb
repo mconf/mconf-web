@@ -8,7 +8,7 @@ selectDefaultImage = function(image){
 
 selectGeneratedImage = function(image){
 	$("#space_image").attr('value', image);
-	$("#selected_logo_image").attr('src', "/images/" + image);
+	$("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
 }
 
 $("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
