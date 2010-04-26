@@ -49,6 +49,7 @@
 	    autologin: "false",
 			<% if (authenticated?) -%>
       username: "<%=current_user.login%>",
+			nickname: "<%=current_user.profile!.full_name%>",
 			<% else -%>
       username: "",
 			<% end -%>

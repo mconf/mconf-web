@@ -40,6 +40,7 @@ class Space < ActiveRecord::Base
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
   attr_accessor :text_logo
+  attr_accessor :rand_value
 
   has_logo
 
@@ -93,7 +94,9 @@ class Space < ActiveRecord::Base
       puts logo.errors.to_xml
     end
     
-
+     images_path = File.join(RAILS_ROOT, "public", "images")
+     tmp_path = File.join(images_path, "tmp")
+     final_path = FileUtils.rm_rf(tmp_path + "/#{space.rand_value}")
   end
 
   def resize path, size

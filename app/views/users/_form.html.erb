@@ -11,6 +11,12 @@
  
 <% end -%>
 
+<% if f.object.new_record? # User is not registered yet, generate login from full_name
+%>
 <div><label for="full_name"><%=t('user.full_name')%></label><br/>
 <%= f.text_field :_full_name %></div>
+<% else -%>
+<div><label for="login"><%=t('user.login')%></label><br/>
+<%= f.text_field :login %></div>
+<% end -%>
 
