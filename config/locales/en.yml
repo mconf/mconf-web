@@ -925,6 +925,7 @@ en:
     updated: Join Request updated
   join_to_site: Join in {{site}}
   keywords: Keywords (*)
+  language: Language
   last_week: Last week
   latest_events: Latest events
   latest_news: Latest news
