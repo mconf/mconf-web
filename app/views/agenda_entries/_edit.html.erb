@@ -45,7 +45,7 @@
         <%if @agenda_entry.speakers!=nil%>
           <%=options_for_select_with_class_selected(@agenda_entry.speakers.split(", "), @agenda_entry.speakers.split(", "))%>
         <%end%>
-        <%=options_for_select_with_class_selected(@space.users.map{|u| u.login}, @agenda_entry.actors.map{|u| u.login})%>
+        <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, @agenda_entry.actors.map{|u| u.login})%>
       </select>
     </div>
   

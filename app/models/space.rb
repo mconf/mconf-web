@@ -77,10 +77,7 @@ class Space < ActiveRecord::Base
   
   
   after_create do |space|
-    #puts space.default_logo + "  -000000000000000000000000000000000000"
-    #logo = Logo.new
-    
-   
+ 
     original = File.open(File.join("public/images/", space.default_logo))
     original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
     original_tmp.write(original.read)
@@ -96,7 +93,11 @@ class Space < ActiveRecord::Base
     
      images_path = File.join(RAILS_ROOT, "public", "images")
      tmp_path = File.join(images_path, "tmp")
+    
+    if space.rand_value != nil
      final_path = FileUtils.rm_rf(tmp_path + "/#{space.rand_value}")
+    end
+    
   end
 
   def resize path, size

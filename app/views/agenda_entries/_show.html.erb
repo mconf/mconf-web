@@ -78,18 +78,7 @@
 			
 	  </div>
 	</div>
-	
-  <%unless @event.vc_mode==Event::VC_MODE.index(:in_person)%>
-    <div id="entry_options_show">
-      <%if agenda_entry.recording?%>
-	    <%=image_tag("icons/world.png", :title=> t('agenda.entry.help.recording'), :class=>"icon fade")%>
-	  <%end%>
-	  <%if agenda_entry.streaming?%>
-	    <%=image_tag("right.png", :title=> t('agenda.entry.help.streaming'), :class=>"icon fade")%>
-	  <%end%>
-	</div>
-  <%end%>
-  
+	  
 	<%if params[:edit_entry].to_i== agenda_entry.id%>
 	  <%@agenda_entry=agenda_entry%>
 	  <%=render :partial=> "agenda_entries/edit"%>

@@ -460,24 +460,23 @@ en:
       sip: Proxy SIP
       str: Streaming
       web: Participation
-    create: 
+    create:
       info: 
-        basic: Here you can organize three kind of events
+        basic: "Here you can organize three kind of events"
         conference: 
-          message: Advanced, big meetings. TV-like production managed by an operator.
-          name: Virtual Congress
+          message: "Advanced, big meetings. TV-like production managed by an operator."
+          name: "Virtual Congress"
         meeting: 
-          message: Easy videoconference participation with document sharing and automatic streaming and recording.
-          name: Virtual Meeting
+          message: "Easy videoconference participation with document sharing and automatic streaming and recording."
+          name: "Virtual Meeting"
         presential: 
-          message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording.
+          message: "Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording."
           name: Meeting
       title: Create new event
     created: Event created successfully
     deleted: Event deleted successfully
     choose_location: Choose location
     colon: "Event:"
-    create: Create new event
     created: Event created successfully
     description: 
       add: Add description.

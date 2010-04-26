@@ -3,6 +3,7 @@
 
 
  <% 
+	time = Time.new
 
 	@files = Dir.entries("public/images/tmp/#{params[:rand_name]}")
 	    images_for_row = 5 # number of images per row
@@ -19,7 +20,7 @@
 				
 					images_now+= 1
 			%>
-			<%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectGeneratedImage("tmp/'+ params[:rand_name].to_s + "/" + ( file.to_s ) + '");' %>	
+			<%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s + "?#{time.min}#{time.sec}", {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectGeneratedImage("tmp/'+ params[:rand_name].to_s + "/" + ( file.to_s ) + '");' %>	
 						
    			<%	if images_now > images_for_row %>
 						<br>
