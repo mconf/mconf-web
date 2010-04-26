@@ -151,8 +151,18 @@ class Event < ActiveRecord::Base
       past_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Organizer")})
       past_organizers = past_performances.map(&:agent).map(&:login)
       
+      invited_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Invitedevent")})
+      
       # we add those organizers that were not past organizers
       (event.new_organizers - past_organizers).each do |login|
+
+        # we remove the previous Invited role in the event if it exists
+        invited_performances.each do |p|
+          if (p.role == Event.role("Invitedevent")) && (p.agent.login == login)
+            p.destroy
+          end
+        end
+        
         event.stage_performances.create! :agent => User.find_by_login(login), :role  => Event.role("Organizer")
       end
       
