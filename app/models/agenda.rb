@@ -110,7 +110,7 @@ class Agenda < ActiveRecord::Base
     end
     return 0
   end
-  
+ 
   def has_entries_with_video?
     return first_video_entry_id!=0
   end
