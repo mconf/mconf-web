@@ -15,7 +15,7 @@
 <%content_for :sidebar do %>
 <div id="profile_right">
   <div id="profile_spaces">
-	  <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{@user.name} #{t('is_member_of')}"} %>
+	  <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{t('space.other')}"} %>
   </div>
 </div>
 <%end%>

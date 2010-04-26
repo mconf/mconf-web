@@ -200,7 +200,7 @@ button#change_logo{float:left;}
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
-#event_description_content form button,#participation_content form button,#more_invitations form input,#more_notifications form input[type="button"]{
+#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"]{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -598,7 +598,7 @@ ul#actions_menu li a:hover{text-decoration:none;}
 /*Now the changes for the language selection*/
 a.language_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
 #footer a.language_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
-
+div#language_select{display:inline-block;}
 #language_select ul#language_menu{
   background:#fff;
   border-color:#999999;
