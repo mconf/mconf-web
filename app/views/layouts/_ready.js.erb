@@ -130,7 +130,7 @@ $("a#feedback_link").fancybox({
 /*
  * Select language
  */
-<%if current_site.authorize?(:translate, :to => current_user)%>
+
       $(".language_select").click(function(e) {
         e.preventDefault();
         $("#language_select ul#language_menu").toggle();
@@ -147,7 +147,7 @@ $("a#feedback_link").fancybox({
     $("#language_select ul#language_menu").mouseup(function() {
         return false
     });
-<%end%>
+
 
  /*
  * Report Spam
