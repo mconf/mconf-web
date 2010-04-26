@@ -29,6 +29,11 @@ class LogosController
   def new 
     if params[:text]
       #debugger
+      if params[:text].eql?""
+        params[:text] = " "
+      end
+      
+      
      for i in 1..5
         create_auto_logo params[:text], i
      end    
