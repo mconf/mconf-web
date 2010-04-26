@@ -30,9 +30,8 @@ class EventsController < ApplicationController
 
   before_filter :adapt_new_date, :only => [:create, :update]
   
-  authorization_filter [ :read,   :content ], :space, :only => [ :index ]
-  authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
-  authorization_filter :read,   :event, :only => [ :show ]
+  authorization_filter :create, :event, :only => [ :new, :create ]
+  authorization_filter :read,   :event, :only => [ :show, :index ]
   authorization_filter :update, :event, :only => [ :edit, :update, :start ]
   authorization_filter :delete, :event, :only => [ :destroy ]
 

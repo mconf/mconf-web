@@ -36,6 +36,10 @@ class Agenda < ActiveRecord::Base
   acts_as_container :contents => [:agenda_entries, :agenda_dividers],
                     :scope => {:order => 'start_time ASC, type ASC'}
   acts_as_content :reflection => :event
+
+  def space
+    event.space
+  end
   
   def validate
     errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
@@ -232,4 +236,6 @@ class Agenda < ActiveRecord::Base
       @icalendar_file_errors = I18n.t("icalendar.error_import")      
     end
   end
+  
+  authorization_delegate(:space,:as => :content)
 end

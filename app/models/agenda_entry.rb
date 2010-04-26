@@ -22,6 +22,7 @@ class AgendaEntry < ActiveRecord::Base
   attr_accessor :author, :setting_times, :duration 
   acts_as_stage
   acts_as_content :reflection => :agenda
+  acts_as_resource
   
   validates_inclusion_of :setting_times, :in => ["true", "false"]
   validates_presence_of :title, :if => Proc.new {|entry| (entry.setting_times != "true")}
@@ -139,6 +140,10 @@ class AgendaEntry < ActiveRecord::Base
     @duration ||= end_time - start_time
   end
   
+  def space
+    event.space
+  end
+  
   def event
     self.agenda.event
   end
@@ -220,6 +225,9 @@ class AgendaEntry < ActiveRecord::Base
      Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
     
   end
-
+  
+  authorization_delegate(:space,:as => :content)
+  authorization_delegate(:event,:as => :content)
+  
   include ConferenceManager::Support::AgendaEntry
 end

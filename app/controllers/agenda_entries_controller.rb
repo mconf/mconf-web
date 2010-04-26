@@ -16,10 +16,19 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class AgendaEntriesController < ApplicationController
+  include ActionController::StationResources
+
   before_filter :space!
   before_filter :event
   
+  
   #before_filter :fill_start_and_end_time, :only => [:create, :update]
+
+  authorization_filter :create, :agenda_entry, :only => [ :new, :create ]
+  authorization_filter :read,   :agenda_entry, :only => [ :show, :index ]
+  authorization_filter :update, :agenda_entry, :only => [ :edit, :update ]
+  authorization_filter :delete, :agenda_entry, :only => [ :destroy ]
+
   
   #authorization_filter :create, :agenda_entry, :only => [ :new, :create ]
   #authorization_filter :update, :agenda_entry, :only => [ :edit, :update ]
@@ -155,7 +164,6 @@ class AgendaEntriesController < ApplicationController
     @event = Event.find_by_permalink(params[:event_id]) || raise(ActiveRecord::RecordNotFound)
   end
   
-  
   #in the params we receive the hour and minutes (in start_time and end_time)
   #and a param called entry_day that indicates the day of the event
   #with this method we fill the real start and end time with the full time 
@@ -182,5 +190,15 @@ class AgendaEntriesController < ApplicationController
       end
     end
     unknown_users
+  end
+  
+  # Redefining path_container method from Station as the container (Agenda) does not have
+  # its ID in the path because Event has_one Agenda instead of has_many
+  def path_container(options = {})
+    if (options[:type]).nil? || (options[:type] == Agenda)
+      return event.agenda
+    else
+      super
+    end
   end
 end

@@ -16,8 +16,15 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class AgendaDividersController < ApplicationController
+  include ActionController::StationResources
+  
   before_filter :space!
   before_filter :event
+  
+  authorization_filter :create, :agenda_divider, :only => [ :new, :create ]
+  authorization_filter :read,   :agenda_divider, :only => [ :show, :index ]
+  authorization_filter :update, :agenda_divider, :only => [ :edit, :update ]
+  authorization_filter :delete, :agenda_divider, :only => [ :destroy ]
   
   # GET /agenda_dividers/new
   # GET /agenda_dividers/new.xml
@@ -103,6 +110,16 @@ class AgendaDividersController < ApplicationController
   
   def event
     @event = Event.find_by_permalink(params[:event_id]) || raise(ActiveRecord::RecordNotFound)
+  end
+  
+  # Redefining path_container method from Station as the container (Agenda) does not have
+  # its ID in the path because Event has_one Agenda instead of has_many
+  def path_container(options = {})
+    if (options[:type]).nil? || (options[:type] == Agenda)
+      return event.agenda
+    else
+      super
+    end
   end
   
 end

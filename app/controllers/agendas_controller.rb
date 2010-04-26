@@ -17,9 +17,16 @@
 
 
 class AgendasController < ApplicationController
+  include ActionController::StationResources
+  
   before_filter :space!
   before_filter :event
   before_filter :agenda
+
+  authorization_filter :create, :agenda, :only => [ :new, :create ]
+  authorization_filter :read,   :agenda, :only => [ :index, :show ]
+  authorization_filter :update, :agenda, :only => [ :edit, :update ]
+  authorization_filter :delete, :agenda, :only => [ :destroy ]
   
   # GET /agenda/edit
   def edit

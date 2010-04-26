@@ -19,6 +19,8 @@ class AgendaDivider < ActiveRecord::Base
   belongs_to :agenda
   
   acts_as_content :reflection => :agenda
+  acts_as_stage
+  acts_as_resource
   
   default_scope :order => 'start_time ASC'
   
@@ -65,6 +67,10 @@ class AgendaDivider < ActiveRecord::Base
     divider.agenda.event.syncronize_date
   end
 
+  def space
+    event.space
+  end
+
   def event
     self.agenda.event
   end
@@ -77,4 +83,8 @@ class AgendaDivider < ActiveRecord::Base
   def time
     return start_time
   end
+  
+  authorization_delegate(:space,:as => :content)
+  authorization_delegate(:event,:as => :content)
+  
 end

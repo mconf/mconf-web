@@ -16,11 +16,11 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class SpacesController < ApplicationController
+  include ActionController::StationResources
+  
   before_filter :space
   
-  #AUTORIAZACIÓN PARA CREAR ESPACIOS !
-  
-  authentication_filter :only => [:new,:create]
+  authentication_filter :only => [:new, :create, :index]
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
