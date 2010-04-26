@@ -1,0 +1,4 @@
+# You can overrides config directives here.
+# This is particularly useful for users with several configs for
+# different virtual servers, who want to reuse common parameters.
+# Also, this file is not updated with each new upstream release.

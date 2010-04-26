@@ -127,7 +127,28 @@ $("a#feedback_link").fancybox({
   'frameHeight' : <%=logged_in? ? '430' : '470'%>
 });
 
- 
+/*
+ * Select language
+ */
+
+      $(".language_select").click(function(e) {
+        e.preventDefault();
+        $("#language_select ul#language_menu").toggle();
+        $("#language_select .language_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#language_select a.language_select").length==0) {
+            $("#language_select .language_select").removeClass("menu-open");
+            $("#language_select ul#language_menu").hide();
+          }
+        });
+    });
+
+    $("#language_select ul#language_menu").mouseup(function() {
+        return false
+    });
+
+
  /*
  * Report Spam
  */

@@ -445,7 +445,7 @@ div#openid_label input#openid_identifier{
 .banner_busqueda #espacio_busqueda {
 	width:712px;	
 	margin-left:0px;
-	margin-top:0px;
+	margin-top:20px;
 	height:45px;
 	margin-bottom:0px;
 	float:left;

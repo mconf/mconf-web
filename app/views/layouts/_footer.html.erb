@@ -11,16 +11,26 @@
 	<li>-</li>
 	<li><%=link_to(t('help'), help_path)%></li>
 	<li>-</li>
-	<li><%=link_to(t('support.one'), root_path)%></li>
+	<li><%=link_to(t('support.one'), new_feedback_path(), :id => "feedback_link" )%></li>
 -->
 	<li>-</li>
 	<li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
 	<li>-</li>
 	<li><%=link_to(t('about_global'),"http://www.global-project.eu")%></li>
 	<li>-</li>
-	<li>Language</li>	
+	<li>
+		<div id="language_select">
+		  <%=link_to ("<span>" + t('language') + "</span>"),'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
+		  <ul id="language_menu" style="display:none">					  
+		      <% for locale in (I18n.available_locales) -%>
+		      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+		      <% end -%>
+		  </ul>
+		</div>
+	</li>
   </ul>
 </div>
+
 
 <!--
 <div id="footerFront">

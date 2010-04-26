@@ -12,16 +12,11 @@
      	<% else %>
           <li><%= link_to t('login_or_register'), login_path %></li>
       	<% end %>
-    <% unless !current_site.authorize?(:translate, :to => current_user) -%>
-      <% for locale in (I18n.available_locales - [I18n.locale]) -%>
-      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s,:title=>t("translate.change")), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
-      <% end -%>
-    <%end -%>
     </ul>
     
     
     <span id="spaces_select">
-            <% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+      <% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
         <%if logged_in? && current_user.spaces.any?%> 
           <%if @space%>
           <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>

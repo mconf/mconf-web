@@ -1,20 +1,15 @@
-#you need to add a file to /etc/cron.daily called cleanrooms.sh and give it execution rights (chmod +x /etc/cron.daily/cleanrooms.sh) and in that file call this rake (cd /sir_directory;rake marte:cleanrooms)
-
 namespace :marte do
   desc "Clean the rooms for the past events"
-  task(:cleanrooms => :environment) {
-      @past_events = Event.find(:all, :conditions => ["end_date < ? and marte_room = 1", Date.yesterday])
-      @past_events.select{|e| 
-	begin
-	  room = MarteRoom.find(e.id)
-	  if room
-		room.destroy
-	  end
-	rescue
-	end
-	  e.update_attribute(:marte_room, false) 
-	#e.save	
-      }
-  }
+  task(:cleanrooms => :environment) do
+    Event.all(:conditions => ["end_date < ? and marte_room = 1", Date.yesterday]).each do |e|
+      begin
+        room = MarteRoom.find(e.id)
+        room.destroy if room.present?
+      rescue
+        puts "Couldn't destroy MarteRoom for event #{ e.id }"
+      end
+      e.update_attribute(:marte_room, false) 
+    end
+  end
 end
 

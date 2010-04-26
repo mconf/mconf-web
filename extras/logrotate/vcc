@@ -1,0 +1,13 @@
+/home/isabel/global2/current/log/production.log {
+  daily
+  missingok
+  rotate 52
+  notifempty
+  create 660 isabel www-data
+  sharedscripts
+  compress
+  delaycompress
+  postrotate
+    touch /home/isabel/global2/current/tmp/restart.txt
+  endscript
+}

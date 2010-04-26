@@ -200,7 +200,7 @@ button#change_logo{float:left;}
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
-#event_description_content form button,#participation_content form button,#more_invitations form input,#more_notifications form input[type="button"]{
+#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"]{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -595,6 +595,28 @@ ul#actions_menu li{cursor:pointer;border-bottom:1px solid #ccc;}
 ul#actions_menu li:hover{background:transparent url("../images/buttons/fondo-boton2.png") repeat-x;}
 ul#actions_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
 ul#actions_menu li a:hover{text-decoration:none;}
+/*Now the changes for the language selection*/
+a.language_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
+#footer a.language_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+div#language_select{display:inline-block;}
+#language_select ul#language_menu{
+  background:#fff;
+  border-color:#999999;
+  border-style:solid;
+  border-width:1px 1px 1px;
+  margin-right:-1px;
+  margin-bottom:-1px;
+  min-width:90px;
+  position:absolute;
+  right:1px;
+  bottom:22px;
+  z-index:1;
+  list-style-type:none;
+}
+#footer ul#language_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
+ul#language_menu li:hover{background:#244974;}
+ul#language_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
+ul#language_menu li a:hover{text-decoration:none;color:#fff;}
 /**/
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
@@ -833,9 +855,9 @@ div#manage .user a:hover{text-decoration:underline;}
 .clearboth{clear:left;display:inline;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
-#footer{clear:left;background:#fff;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
+#footer{position:relative;clear:left;background:#fff;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
-#footer ul li{display:inline-block;margin-right:0.5em;}
+#footer ul li{display:inline-block;position:relative;margin-right:0.5em;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
 #footer a{color:#666;}
 #footer a:hover{color:#444;}

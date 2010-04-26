@@ -13,11 +13,11 @@ namespace :setup do
   task :development_tasks => [ :common_tasks ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_sphinx, :config_cron, :common_tasks ] do
+  task :production_tasks => [ :config_sphinx, :config_cron, :config_logrotate, :config_awstats, :common_tasks ] do
   end
 
-  desc "All common tasks"
-  task :common_tasks => [:git_submodules, "db:schema:load", "basic_data:all" ] do
+  desc "All production tasks"
+  task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all" ] do
   end
 
 
@@ -43,6 +43,32 @@ namespace :setup do
       puts "file exists."
     else
       `sudo cp #{ RAILS_ROOT }/extras/cron/vcc #{ cron_file }` 
+      puts "copied."
+    end
+  end
+
+  desc "Copy logrotate.d/vcc if it doesn't exist"
+  task :config_logrotate do
+    print "* Checking /etc/logrotate.d/vcc: "
+    logrotate_file = "/etc/logrotate.d/vcc"
+
+    if File.exist?(logrotate_file)
+      puts "file exists."
+    else
+      `sudo cp #{ RAILS_ROOT }/extras/logrotate/vcc #{ logrotate_file }` 
+      puts "copied."
+    end
+  end
+
+  desc "Copy awstats configuration files"
+  task :config_awstats do
+    print "* Checking /etc/awstats/awstats.global-project.eu.conf: "
+    aw_file = "/etc/awstats/awstats.global-project.eu.conf"
+
+    if File.exist?(aw_file)
+      puts "files exist."
+    else
+      `sudo cp #{ RAILS_ROOT }/extras/awstats/* /etc/awstats/` 
       puts "copied."
     end
   end

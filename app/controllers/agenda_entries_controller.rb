@@ -177,7 +177,7 @@ class AgendaEntriesController < ApplicationController
   
   #this method returns an array with the users unknown
   def create_performances_for_agenda_entry(role, array_usernames)
-    unknown_users = []    
+    unknown_users = []
     for name in array_usernames
       #if the user is in the db we create the performance, if not it is a name that we do not know, we store it in the speakers field in db
       if user = User.find_by_login(name)

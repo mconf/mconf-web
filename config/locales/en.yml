@@ -82,6 +82,9 @@ en:
       start_time: Start time
       title: Title
       updated: Divider was successfully updated
+    add_entry: Add session
+    define: Define Agenda
+    del_entry: Delete
     edit_entry: Edit
     entry: 
       cannot_exclude: You cannot exclude from recording an entry shorter than
@@ -457,21 +460,24 @@ en:
       sip: Proxy SIP
       str: Streaming
       web: Participation
-    create: 
+    create:
       info: 
-        basic: Here you can organize three kind of events
+        basic: "Here you can organize three kind of events"
         conference: 
-          message: Advanced, big meetings. TV-like production managed by an operator.
-          name: Virtual Congress
+          message: "Advanced, big meetings. TV-like production managed by an operator."
+          name: "Virtual Congress"
         meeting: 
-          message: Easy videoconference participation with document sharing and automatic streaming and recording.
-          name: Virtual Meeting
+          message: "Easy videoconference participation with document sharing and automatic streaming and recording."
+          name: "Virtual Meeting"
         presential: 
-          message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording.
+          message: "Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording."
           name: Meeting
       title: Create new event
     created: Event created successfully
     deleted: Event deleted successfully
+    choose_location: Choose location
+    colon: "Event:"
+    created: Event created successfully
     description: 
       add: Add description.
       edit: Edit description
@@ -555,6 +561,9 @@ en:
       show_all_attendants: Show all attendants
       subject: "{{username}} has sent a notification to you about event {{eventname}} in space {{space}}"
       title: Notify the attendants of the event
+    no_events: You have no events
+    none_coming: No coming events
+    not_attend: Not attending
     now: "Events at this moment: "
     one: Event
     online: WebConference
@@ -772,6 +781,9 @@ en:
     info: Here you can find information about the VCC
     logging: Logging In to your Account
     new_doc: Adding a new document
+  hello: Hello
+  help_vcc: 
+    info: Here you can find information about the VCC
     topics: Topics
   hide: Hide
   his_message_reads_thus: His message reads thus
@@ -912,6 +924,7 @@ en:
     updated: Join Request updated
   join_to_site: Join in {{site}}
   keywords: Keywords (*)
+  language: Language
   last_week: Last week
   latest_events: Latest events
   latest_news: Latest news
@@ -955,7 +968,7 @@ en:
     private: 
       cant: You cannot send private messages because you have no partners in any space
       editing: Editing private message
-      new: Private message
+      new: New Private message
       none: There are no messages
     reply: Reply to message
     send: Send Message
