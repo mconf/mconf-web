@@ -765,6 +765,7 @@ en:
   keywords: "Keywords (*)"
   
   ######### L ###########
+  language: Language
   latest_events: "Latest events"
   latest_news: "Latest news"
   last_week: "Last week"
