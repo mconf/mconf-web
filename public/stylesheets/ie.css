@@ -24,3 +24,8 @@ a.big_button, a.medium_button, a.basic_button{
 #logo img.logo{height:auto; width: auto; display:block;}
 .post {height:auto; /*width: 100%;*/}
 .post_moved {margin-right:0.5em;}
+
+#language_select ul#language_menu{
+  right:4px;
+  bottom:20px;
+}
