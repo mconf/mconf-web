@@ -89,7 +89,7 @@ $("#create_space_button").livequery('click',function(){
 	} 
 	
 	if ((name != "") && (description != "")) {
-		document.forms["space_new_form"].submit();
+		$("form#space_new_form").submit();
 	}
 	
 	
@@ -145,7 +145,7 @@ function cropImage (c){
 <div id="create_space" class="create_space_blinking">
 <a id="new_space_anchor" name="new_space_anchor" ></a>
 	<div class="form">
-    <% form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
+    <% form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
 		<%= f.hidden_field "rand_value" %>
 		  <%unless logged_in?%>
 		    <div id="left">
