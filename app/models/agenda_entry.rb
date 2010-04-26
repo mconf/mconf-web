@@ -225,9 +225,9 @@ class AgendaEntry < ActiveRecord::Base
      Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
     
   end
-  
-  authorization_delegate(:space,:as => :content)
+
   authorization_delegate(:event,:as => :content)
+  authorization_delegate(:space,:as => :content)
   
   include ConferenceManager::Support::AgendaEntry
 end

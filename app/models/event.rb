@@ -342,7 +342,7 @@ class Event < ActiveRecord::Base
   end
   
   authorizing do |agent, permission|
-    if ( permission == :update || permission == :delete ) && author == agent
+    if ( permission == :update || permission == :delete || permission == [:update, :content] || permission == [:delete, :content] ) && author == agent
       true
     end
   end
