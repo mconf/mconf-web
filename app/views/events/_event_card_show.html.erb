@@ -105,6 +105,9 @@
 	        <li><%=link_to t('icalendar.import'),"javascript:import_icalendar()" %></li>
 	        <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
 	        <li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>
+                <% if @event.authorize?(:start, :to => current_user) %>
+                <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
+                <% end %>
 				</ul>
 			</div>
 	  <%end %>

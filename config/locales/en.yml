@@ -461,6 +461,7 @@ en:
       none: "No one has posted any streaming url." 
       ready: "The streaming is booked. It will be available during the event"
       will_be_available: "The streaming will be available during the event"
+    start: "Start event"
     started: "Start request send successfully"
     to: "To"
     today: "Today events"
