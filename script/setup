@@ -2,7 +2,7 @@
 
 LINUX_PACKAGES = {
   :common => %w( ruby-dev rdoc irb libopenssl-ruby librmagick-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev),
-  :production => %w( awstats logrotate),
+  :production => %w( awstats logrotate nfs-common ),
   :development => %w( ),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
   :sqlite => %w( libsqlite3-dev )

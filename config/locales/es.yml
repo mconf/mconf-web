@@ -1,11 +1,14 @@
 --- 
 es: 
+  GMT: GMT
   Isabel: Isabel
   RSS: RSS
+  abc: ""
   about: Acerca de
   about_global: ACERCA DE GLOBAL
   about_me: Acerca de mi
   about_sxsw: Acerca de SXSW
+  about_vcc: ""
   account: Cuenta
   account_activated: Su cuenta ha sido activada
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
@@ -13,7 +16,11 @@ es:
   action: 
     one: "Acci\xC3\xB3n"
     other: Acciones
+  actions: ""
   activerecord: 
+    attributes: 
+      user: 
+        login: ""
     errors: 
       attributes: 
       full_messages: 
@@ -32,6 +39,7 @@ es:
         invalid: "no es v\xC3\xA1lido"
         less_than: debe ser menor que {{count}}
         less_than_or_equal_to: debe ser menor que o igual a {{count}}
+        missing: ""
         not_a_number: "no es un n\xC3\xBAmero"
         odd: debe ser impar
         record_invalid: "Validaci\xC3\xB3n no: {{error}}"
@@ -50,6 +58,7 @@ es:
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
+    space: ""
   admission: 
     errors: 
       candidate_has_role: ya tiene un rol
@@ -64,13 +73,12 @@ es:
       login: Login
       lost_password: "\xC2\xA1Olvid\xC3\xA9 la contrase\xC3\xB1a!"
       password: "Contrase\xC3\xB1a"
+    email: "Correo electr\xC3\xB3nico"
     one: Agente
     other: Agentes
     select: 
       one: Seleccionar Agente
-  agree: !binary |
-    U8Ot
-
+  agree: "S\xC3\xAD"
   all: Todo
   all_rights_reserved: Todos los derechos reservados
   are_you_sure: Are you sure?
@@ -85,9 +93,7 @@ es:
     empty: Seleccione una imagen, por favor,
     select: Seleccionar Avatar
     select_new: Seleccionar Avatar nuevo
-  back: !binary |
-    QXRyw6Fz
-
+  back: "Atr\xC3\xA1s"
   back_to_inbox: Volver a la bandeja de entrada
   bad_request: "Petici\xC3\xB3n Inv\xC3\xA1lida"
   beta: (BETA)
@@ -164,9 +170,7 @@ es:
   conversation: 
     compress: "Conversaci\xC3\xB3n Comprimir"
   could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa direcci\xC3\xB3n de correo"
-  country: !binary |
-    UGHDrXM=
-
+  country: "Pa\xC3\xADs"
   create: Crear
   create_: Crear...
   created_at: Creado
@@ -195,6 +199,7 @@ es:
     - oct
     - nov
     - dic
+    at: a las
     day_names: 
     - domingo
     - lunes
@@ -227,7 +232,6 @@ es:
     - :month
     - :day
     start: Fecha de inicio
-    at: "a las"
   datetime: 
     distance_in_words: 
       about_x_hours: 
@@ -250,9 +254,7 @@ es:
         one: "m\xC3\xA1s de 1 a\xC3\xB1o"
         other: "m\xC3\xA1s de {{count}} a\xC3\xB1os"
       x_days: 
-        one: !binary |
-          MSBkw61h
-
+        one: "1 d\xC3\xADa"
         other: "{{count}} d\xC3\xADas"
       x_minutes: 
         one: 1 minuto
@@ -264,16 +266,12 @@ es:
         one: 1 segundo
         other: "{{count}} segundos"
     prompts: 
-      day: !binary |
-        RMOtYQ==
-
+      day: "D\xC3\xADa"
       hour: Horas
       minute: Minuto
       month: Mes
       second: Segundos
-      year: !binary |
-        QcOxbw==
-
+      year: "A\xC3\xB1o"
   delete: 
     confirm: "\xC2\xBFEst\xC3\xA1s seguro?"
     one: Borrar
@@ -440,6 +438,9 @@ es:
     show: Unirse a {{group}}
     to_event: ""
     to_space: ""
+    was_processed: 
+      accepted: "La invitaci\xC3\xB3n ya fue aceptada"
+      discarted: "La invitaci\xC3\xB3n ya fue descartada"
   invited: Invitado
   is_member_of: Es miembro de
   join: Unirse
@@ -483,7 +484,7 @@ es:
   logout: Salir
   mailing_list: Lista de correo
   manage: Administrar
-  management: "Gestión"
+  management: "Gesti\xC3\xB3n"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
   message: 
     created: Mensaje enviado correctamente.
@@ -520,7 +521,7 @@ es:
     home: 
       one: ""
       zero: No hay noticias para mostrar
-    other: "Noticias"
+    other: Noticias
     publish_another: Publicar otra noticia
     publish_home: "Noticias de publicar en el pa\xC3\xADs"
     updated: "Art\xC3\xADculo actualizado correctamente"
@@ -705,7 +706,7 @@ es:
   reply_to_words: ""
   report_spam: Denunciar spam
   repository: 
-    one: "Repositorio"
+    one: Repositorio
   request: 
     default: solicitar
   request_change_password: "Petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
@@ -776,8 +777,8 @@ es:
       name: Cron
   site: 
     config: "Configuraci\xC3\xB3n del Sitio"
+    default: Sitio
     description: "Descripci\xC3\xB3n"
-    default: "Sitio"
     domain: Dominio
     editing: "Editando la configuraci\xC3\xB3n del Sitio"
     email: "Correo electr\xC3\xB3nico"
@@ -849,8 +850,8 @@ es:
     updated: El espacio se ha actualizado correctamente.
   spam: 
     created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
-    detected: Nueva spam detectado
     default: Spam
+    detected: Nueva spam detectado
     error: 
       check: Ha habido un problema control de los recursos como spam
     no_spam: Felicidades! no hay spam
