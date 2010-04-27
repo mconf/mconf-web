@@ -89,8 +89,9 @@ class JoinRequestsController
     if @join_request.save
       flash[:notice] = t('join_request.created')
     else
-      flash[:notice] = t('join_request.already_sent')
-      #flash[:error] = jr.errors.to_xml
+      flash[:error] = t('join_request.already_sent')
+      # TODO: identify errors for better usability
+      # flash[:error] << @join_request.errors.to_xml
     end
 
     if request.xhr?

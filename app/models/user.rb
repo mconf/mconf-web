@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of  :email
   validates_exclusion_of :login, :in => %w( xmpp_server )
+  validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
 
   acts_as_stage
   acts_as_taggable :container => false
