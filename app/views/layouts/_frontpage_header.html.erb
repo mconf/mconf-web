@@ -1,17 +1,11 @@
-<div class="banner_busqueda">
-    <div id="espacio_busqueda">
-    	  <% flash.each do |name, msg| %>
-          <div class="<%= name %>"><%= msg %></div>
-        <% end %>
-    </div> 
-    <div class="div_busqueda">
-              <div id="subtexto_busqueda">
-                <%=link_to t("find.browse"), spaces_path,:class => "show_all_link"%> 
-                |
-                <a href="help">Help</a>
-            </div>      
-           
-           <%= render :partial => 'search/form' %>
-    </div>
-    <br class="clearfloat" />
-  </div>
+<div class="div_busqueda">
+          <div id="subtexto_busqueda">
+            <%=link_to t("find.browse"), spaces_path,:class => "show_all_link"%> 
+            |
+            <a href="help">Help</a>
+        </div>      
+       
+       <%= render :partial => 'search/form' %>
+</div>
+<br class="clearfloat" />
+  
