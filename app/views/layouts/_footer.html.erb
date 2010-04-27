@@ -7,12 +7,6 @@
 	<li><%= t('all_rights_reserved') %></li>
 	<li>-</li>
 	<li><%=link_to(t('help_support'), help_path)%></li>
-<!--
-	<li>-</li>
-	<li><%=link_to(t('help'), help_path)%></li>
-	<li>-</li>
-	<li><%=link_to(t('support.one'), new_feedback_path(), :id => "feedback_link" )%></li>
--->
 	<li>-</li>
 	<li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
 	<li>-</li>
@@ -28,24 +22,9 @@
 		  </ul>
 		</div>
 	</li>
+	<% if current_site.authorize?(:translate, :to => current_user)%>
+		<li>-</li>
+		<li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li>
+	<%end%>
   </ul>
 </div>
-
-
-<!--
-<div id="footerFront">
-	<div class="banner_footer">
-		<a href="index.htm"><img src="/images/UE.gif" id="logo_UE"  alt="" /></a>
-		<span>Virtual Conference Centre 2010 </span>
-		
-         <%=link_to("About Us","http://www.global-project.eu", :class=>"a_border")%>
-         <a href="#" class="a_border" >Advertising</a>
-         <a href="#" class="a_border" >Developers</a>
-         <a href="#" class="a_border" >Conditions</a>	         	         	         
-         <a href="#" class="a_border" >Find Videconferences</a>
-         <a href="#" class="a_border" >Privacy</a>	         	         
-         <%=link_to(t('help'), help_path)%>	 
-		</ul>        
-	</div>
-</div>
--->
