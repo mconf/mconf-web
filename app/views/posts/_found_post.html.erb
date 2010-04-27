@@ -30,9 +30,6 @@
 </div>
 
 <div class="post-content">
-  <div id="edit" class="group_links">
-	<%=link_to(image_tag("icons/comments-add.png", :alt => t('comment.add'), :class=>"icon", :title => t('comment.add')), space_post_path(post.space, thread(post), :reply_to => thread(post)))%>
-  </div>
   <ul>
   <%if current_user.fellows.include?(post.author) or (space.present? && space.authorize?([:read, :performance],:to=> current_user))%>	
 	<li class="person_title">Author: <%=link_to highlight(post.author.name, @query), user_path(post.author)%> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
