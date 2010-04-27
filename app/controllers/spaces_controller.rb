@@ -20,7 +20,7 @@ class SpacesController < ApplicationController
   
   before_filter :space
   
-  authentication_filter :only => [:new, :create, :index]
+  authentication_filter :only => [:new, :create]
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
