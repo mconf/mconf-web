@@ -5,7 +5,7 @@
   </div>
   <div class="invitation-content">
     <ul>
-    <%receiver = sanitize(invitation.candidate ? invitation.candidate_name : invitation.email)%>
+    <%receiver = sanitize(invitation.candidate ? link_to(invitation.candidate_name, user_path(invitation.candidate)) : invitation.email)%>
     <li class="unified_user"><%=receiver%></li>
     <li class="main_text"><%= t('role.one') %>: <%= invitation.role && invitation.role.name %></li>
   </ul>    
