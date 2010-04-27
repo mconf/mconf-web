@@ -60,7 +60,7 @@ jdbcUserProvider.emailField
 email
 
 jdbcUserProvider.loadUserSQL
-SELECT full_name,email FROM users join profiles WHERE users.id = profiles.id AND users.login=?
+SELECT full_name,email FROM users join profiles WHERE users.id = profiles.user_id AND users.login=?
 
 jdbcUserProvider.nameField
 login
