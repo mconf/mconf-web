@@ -53,6 +53,8 @@ public class JabberApp {
 	public String autoPassword = "";
 	public int reconnect_count = 3;
 
+	private String vccSessionCookie = "_vcc_session";
+	
 	public void addNativeHandler(JavaScriptObject jso) {
 		session.addListener(new NativeHandler(jso));
 	}
@@ -314,7 +316,7 @@ public class JabberApp {
 		String userName = id;
 		String pass = password;
 		String hash = "8aa40001b9b39cb257fe646a561a80840c806c55";
-		String cookieName = "_prueba_session";
+		String cookieName = vccSessionCookie;
 		if (autoLogin) {
 			userName = autoUser;
 			pass = hash + "--" + Cookies.getCookie(cookieName);
@@ -388,6 +390,7 @@ public class JabberApp {
 			this.@anzsoft.iJabBar.client.JabberApp::autoUser = $wnd.ijab_auto_user;
 			this.@anzsoft.iJabBar.client.JabberApp::autoPassword = $wnd.ijab_auto_password;
 			this.@anzsoft.iJabBar.client.JabberApp::reconnect_count = $wnd.ijab_reconnect_count;
+			this.@anzsoft.iJabBar.client.JabberApp::vccSessionCookie = $wnd.ijab_vcc_session_cookie;
 		}
 		catch(e)
 		{
