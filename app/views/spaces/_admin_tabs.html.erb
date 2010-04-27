@@ -3,7 +3,7 @@
   <%= link_to "<span>" + t('group.other') + "</span>", space_groups_path(@space, :admin => true), :class => "grey_button basic_button show_inv" %>
   <%= link_to "<span>" + t('admission.other') + "</span>", space_admissions_path(@space), :class => "grey_button basic_button show_inv" %>
   <%= link_to "<span>" + t('invitation.title') + "</span>", edit_space_path(@space, :new_invitations => @space), {:class=>"grey_button basic_button show_inv",:title => t('invitation.add_more')} %>
-  <%= link_to image_tag("icons/feed.png",:class=>"icon left-align",:alt=> t('RSS'),:title=> t('RSS')), space_news_index_path(@space, :format => :atom) %>
+  <%= link_to image_tag("icons/feed.png",:id=>"feeds_link",:class=>"icon left-align",:alt=> t('RSS'),:title=> t('RSS')), space_news_index_path(@space, :format => :atom) %>
   <%= link_to "<span>" + t('news.other').upcase + "</span>", space_news_index_path(@space), :class => "grey_button basic_button" %>
   <%= link_to "<span>" + t('source.other') + "</span>", space_sources_path(@space), :class => "grey_button basic_button" %>
 </div>
