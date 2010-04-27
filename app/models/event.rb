@@ -46,6 +46,8 @@ class Event < ActiveRecord::Base
   attr_accessor :ids
   attr_accessor :notification_ids
   attr_accessor :invite_msg
+  attr_accessor :invit_introducer_id
+  attr_accessor :notif_sender_id
   attr_accessor :notify_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
@@ -112,7 +114,7 @@ class Event < ActiveRecord::Base
       mails_to_invite.map { |email|      
         params =  {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => email, :comment => event.invite_msg}
         i = event.invitations.build params
-        i.introducer = event.author
+        i.introducer = User.find(event.invit_introducer_id)
         i
       }.each(&:save)
     end
@@ -121,7 +123,7 @@ class Event < ActiveRecord::Base
         user = User.find(user_id)
         params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => user.email, :comment => event.invite_msg}
         i = event.invitations.build params
-        i.introducer = event.author
+        i.introducer = User.find(event.invit_introducer_id)
         i
       }.each(&:save)
     end

@@ -17,3 +17,5 @@ spec/reports
 **/**/**/**/*~
 config/locales/log
 .svn
+config/initializers/mail_conf.rb
+

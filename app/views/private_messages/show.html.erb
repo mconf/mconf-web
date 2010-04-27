@@ -7,10 +7,13 @@
 <h3><%=sanitize(@show_message.title)%></h3>
 
 <p>
-	<%= link_logotype(User.find(@show_message.sender_id), :size => 96, :title=>User.find(@show_message.sender_id).name)%> <%=@is_receiver ? "Received" : "Sent"%> <%=time_ago_in_words(@show_message.created_at)%> ago
-
+  <%if @show_message.sender_id.present?%>
+	   <%= link_logotype(User.find(@show_message.sender_id), :size => 96, :title=>User.find(@show_message.sender_id).name)%> <%=@is_receiver ? "Received" : "Sent"%> <%=time_ago_in_words(@show_message.created_at)%> ago
+  <%end%>
 	<% if @is_receiver -%>
-    <%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => t('reply') ), user_message_path(params[:user_id],@show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]%>
+    <%if @show_message.sender_id.present?%>
+      <%= link_to image_tag("ui/icons/arrow-rotate-anticlockwise.png", :alt => t('reply') ), user_message_path(params[:user_id],@show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]%>
+    <%end%>
     <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one') %>
   <%else%>
     <%= link_to image_tag("ui/icons/cross.png", :alt => t('delete.one') ), user_message_path(params[:user_id],@show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one') %>

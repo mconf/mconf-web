@@ -22,7 +22,6 @@ class PrivateSender
   def self.invitation_message(invitation)
     m = PrivateMessage.new :title => I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name),
       :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.full_name).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
-    m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!
   end
@@ -31,16 +30,14 @@ class PrivateSender
   def self.event_invitation_message(invitation)
     m = PrivateMessage.new :title => I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name),
       :body => invitation.comment.gsub('\'' + I18n.t('name.one') + '\'',invitation.candidate.full_name).gsub('\'' + I18n.t('url_plain') + '\'', "<a href=\"http://" + Site.current.domain + "/invitations/" + invitation.code + "\">http://" + Site.current.domain + "/invitations/" + invitation.code + "</a>")
-    m.sender = invitation.introducer
     m.receiver = invitation.candidate
     m.save!
   end
 
   
   def self.event_notification_message(event,receiver)
-    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>event.author.full_name),
+    m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>(User.find(event.notif_sender_id)).full_name),
       :body => ( event.notify_msg.gsub('\'' + I18n.t('name.one') + '\'',receiver.full_name) + "<br/><br/>" )
-    m.sender = event.author
     m.receiver = receiver
     m.save!
   end
@@ -49,7 +46,6 @@ class PrivateSender
   def self.join_request_message(jr,receiver)
     m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
       :body => jr.comment
-    m.sender = jr.candidate
     m.receiver = receiver
     m.save!
   end
@@ -72,7 +68,6 @@ class PrivateSender
           "<p>" + Site.current.signature_in_html + "</p>" 
     end
 
-    m.sender = invitation.candidate
     m.receiver = receiver
     m.save!
   end
@@ -93,7 +88,6 @@ class PrivateSender
         I18n.t('admin.space', :spacename => jr.group.name)
     end
      
-    m.sender = jr.introducer
     m.receiver = jr.candidate
     m.save!
   end

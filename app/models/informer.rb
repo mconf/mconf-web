@@ -41,7 +41,7 @@ class Informer
      if receiver.notification == User::NOTIFICATION_VIA_EMAIL
        Notifier.deliver_event_notification_email(event,receiver)
      elsif receiver.notification == User::NOTIFICATION_VIA_PM
-       PrivateSender.event_notification_message(event,receiver)        
+       PrivateSender.event_notification_message(event,receiver)
      end
    end
       

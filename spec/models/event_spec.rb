@@ -28,7 +28,7 @@ describe Event do
       " and those Invitations should have the proper content in their fields" do
 
       assert_difference 'Admission.count', +2 do
-        @event.update_attributes(:mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2, :invite_msg => @msg)
+        @event.update_attributes(:mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2, :invite_msg => @msg, :invit_introducer_id => @admin.id)
       end
 
       invitation_1 = Admission.find_by_email(@unregistered_user_email_1)
@@ -55,7 +55,7 @@ describe Event do
       " and those Invitations should have the proper content in their fields" do
 
       assert_difference 'Admission.count', +2 do
-        @event.update_attributes(:ids => [@registered_user_1.id , @registered_user_2.id], :invite_msg => @msg)
+        @event.update_attributes(:ids => [@registered_user_1.id , @registered_user_2.id], :invite_msg => @msg, :invit_introducer_id => @admin.id)
       end
 
       invitation_1 = Admission.find_by_email(@registered_user_1.email)

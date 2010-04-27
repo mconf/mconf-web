@@ -1,21 +1,21 @@
 
 <div id="priv-msg">
-<h3><%= t('message.reply') %></h3>
-
-<% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
-  <%= f.error_messages %>
-  <div>
-    <label for="Title"><%= t('title') %>:</label>
-    <%= f.text_field :title, :size =>25, :value => "Re: " + previous_message.title %>
-  </div>
-  <div>
-    <label for="Body"><%= t('body') %>:</label>
-    <%= f.text_area :body %>
-  </div>
-  <p>
-  	<%= hidden_field_tag 'private_message[parent_id]', previous_message.id %>
-	<%= hidden_field_tag 'private_message[receiver_id]', previous_message.sender_id %>
-    <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
-  </p>
-<% end %>
+  <h3><%= t('message.reply') %></h3>
+  
+  <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
+    <%= f.error_messages %>
+    <div>
+      <label for="Title"><%= t('title') %>:</label>
+      <%= f.text_field :title, :size =>25, :value => "Re: " + previous_message.title %>
+    </div>
+    <div>
+      <label for="Body"><%= t('body') %>:</label>
+      <%= f.text_area :body %>
+    </div>
+    <p>
+    	<%= hidden_field_tag 'private_message[parent_id]', previous_message.id %>
+      <%= hidden_field_tag 'private_message[receiver_id]', previous_message.sender_id %>
+      <button type="submit" class="basic_button blue_button"><%=t("button.send")%></button>
+    </p>
+  <% end %>
 </div>

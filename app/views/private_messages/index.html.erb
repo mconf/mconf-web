@@ -13,8 +13,8 @@
     $("#<%=params[:message]%>").find("div.message_content").toggle();
     setTimeout(function() {
       $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-	$("#<%=params[:message]%>").effect("highlight", {color:"#F5DF51"}, 3000);
-	}, 1000);
+      $("#<%=params[:message]%>").effect("highlight", {color:"#F5DF51"}, 3000);
+	  }, 1000);
   <%end%>
 <%end%>
 
@@ -26,59 +26,69 @@
 	<%end%>
 <%end%>
 <div id="inbox-wrapper">
-<ul id="inbox">
-	<li><%=link_to t('message.incoming.other') ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
-	<li><%=link_to t('message.sent.other') ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
-</ul>	
+  <ul id="inbox">
+	 <li><%=link_to t('message.incoming.other') ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
+	 <li><%=link_to t('message.sent.other') ,user_messages_path(params[:user_id],:sent_messages => true), :class=>"#{params[:sent_messages] ? 'selected' : ''}"  %></li>
+  </ul>	
 </div>
 
 <div id="show-posts">
-<%if @private_messages.blank?%>
-  <%= t('message.private.none') %>
-<%else%>
+  <%if @private_messages.blank?%>
+    <%= t('message.private.none') %>
+  <%else%>
 
-	<% for private_message in @private_messages %>
-	  <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div new"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
-		  <div class="message_header">
-			<table><tbody>
-			<tr>
-				<% if params[:sent_messages] %>
-					<%@receiver = User.find_with_disabled(private_message.receiver_id) %>
-		      <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : link_logo(@receiver,:size=>32, :url => user_path(@receiver))%></td>
-					<td class="name_date">
-					  <span class="name"><%=@receiver.disabled? ? @receiver.name : link_to (@receiver.name, user_path(@receiver))%></span>
-					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
-					</td> 
-		    <% else%>
-					<%@sender = User.find_with_disabled(private_message.sender_id)%>
-			    <td class="picture"><%= @sender.disabled? ? logo(@sender, :size => 32) : link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login)%></td>
-					<td class="name_date">
-						<span class="name"><%=@sender.disabled? ? @sender.name : link_to (@sender.name, user_path(@sender))%></span>
-					  <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
-					</td>
-		    <% end%>
-					<td class="subject">
-						<div>
-							<span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
+    <% for private_message in @private_messages %>
+      <div <%if !params[:sent_messages] && !private_message.checked%>class="message_div new"<%else%>class="message_div"<%end%> id="<%=private_message.id%>">
+		    <div class="message_header">
+          <table>
+            <tbody>
+              <tr>
+				        <% if params[:sent_messages] %>
+                  <%@receiver = User.find_with_disabled(private_message.receiver_id) %>
+		              <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : link_logo(@receiver,:size=>32, :url => user_path(@receiver))%></td>
+					        <td class="name_date">
+                    <span class="name"><%=@receiver.disabled? ? @receiver.name : link_to (@receiver.name, user_path(@receiver))%></span>
+                    <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
+                  </td> 
+                <% else%>
+                  <%if @sender.present?%>
+                    <%@sender = User.find_with_disabled(private_message.sender_id)%>
+                    <td class="picture"><%= @sender.disabled? ? logo(@sender, :size => 32) : link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login)%></td>
+                    <td class="name_date">
+                      <span class="name"><%=@sender.disabled? ? @sender.name : link_to (@sender.name, user_path(@sender))%></span>
+                      <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
+                    </td>
+                  <%else%>
+                    <td class="name_date">
+                      <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
+                    </td>
+                  <%end%>
+                <% end%>
+                <td class="subject">
+						      <div>
+                    <span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
 							<!--<span><%= sanitize(private_message.body)%></span>-->							
-						</div>
-					</td>
-					<td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]%></td>
-		        <%privatetitle = sanitize(private_message.title)%>
-			<% if params[:sent_messages] %>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
-		        <%else%>
-		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
-		        <%end%>
-			</tr>
-			</tbody></table>
-		  </div>
-			<div class="message_content" style="display:none;">
-			 	<p><%= sanitize(auto_link(simple_format(private_message.body)))%></p>
-			</div>
+						      </div>
+                </td>
+                <%if @sender.present?%>
+                  <td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]%></td>
+                <%end%>
+                <%privatetitle = sanitize(private_message.title)%>
+                <% if params[:sent_messages] %>
+                  <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
+		            <%else%>
+    		          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
+		            <%end%>
+        			</tr>
+            </tbody>
+          </table>
+		    </div>
+        <div class="message_content" style="display:none;">
+          <p><%= sanitize(auto_link(simple_format(private_message.body)))%></p>
+        </div>
 		 	
-		</div> 
-	<% end %>
-	<%= will_paginate @private_messages %>
-<%end%>
+		  </div> 
+    <% end %>
+    <%= will_paginate @private_messages %>
+  <%end%>
 </div>

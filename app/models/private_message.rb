@@ -21,7 +21,7 @@ class PrivateMessage < ActiveRecord::Base
 
   acts_as_resource :per_page => 10
 
-  validates_presence_of :sender_id, :receiver_id , :title, :body,
+  validates_presence_of :receiver_id , :title, :body,
                           :message => "must be specified"
 
   named_scope :inbox, lambda{ |user|

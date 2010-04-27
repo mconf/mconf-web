@@ -33,20 +33,6 @@ describe PrivateSender do
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
-      # Check the message of the sender
-        # Check the title content
-        PrivateMessage.sent(@admin).first.title.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.title.should include_text(@admin.name)
-        
-        # Check the body content
-        PrivateMessage.sent(@admin).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.email)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.organization)
-        PrivateMessage.sent(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
-        
       # Check the message of the receiver
         # Check the title content
         PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
@@ -76,22 +62,6 @@ describe PrivateSender do
         I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
-      # Check the message of the sender
-        # Check the title content
-        PrivateMessage.sent(@admin).first.title.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.title.should include_text(@event.name)
-        PrivateMessage.sent(@admin).first.title.should include_text(@admin.name)
-
-        # Check the body content
-        PrivateMessage.sent(@admin).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.email)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.organization)
-        PrivateMessage.sent(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@event.name)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
-
       # Check the message of the receiver
         # Check the title content
         PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
@@ -118,23 +88,8 @@ describe PrivateSender do
       # Build the notification
       msg = I18n.t('event.notification.message_beginning_with_start_date' ,:space=>@space.name).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")) +
         I18n.t('event.notification.message_ending' ,:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      @event.update_attribute(:notify_msg, msg)
+      @event.update_attributes(:notify_msg => msg, :notif_sender_id => @admin.id)
       Informer.deliver_event_notification(@event,@registered_user)
-      
-      # Check the message of the sender
-        # Check the title content
-        PrivateMessage.sent(@admin).first.title.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.title.should include_text(@event.name)
-        PrivateMessage.sent(@admin).first.title.should include_text(@admin.name)
-
-        # Check the body content
-        PrivateMessage.sent(@admin).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.email)
-        PrivateMessage.sent(@admin).first.body.should include_text(@admin.organization)
-        PrivateMessage.sent(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.body.should include_text(@event.name)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       
       # Check the message of the receiver
         # Check the title content
@@ -170,20 +125,6 @@ describe PrivateSender do
       invitation.update_attributes(:processed => true, :accepted => true)
       action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
 
-      # Check the message of the sender
-        # Check the title content
-        PrivateMessage.sent(@registered_user).first.title.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@registered_user).first.title.should include_text(action)
-        PrivateMessage.sent(@registered_user).first.title.should include_text(@space.name)
-
-        # Check the body content
-        PrivateMessage.sent(@registered_user).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@registered_user).first.body.should include_text(@admin.name)
-        PrivateMessage.sent(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@registered_user).first.body.should include_text(action)
-        PrivateMessage.sent(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
-        PrivateMessage.sent(@registered_user).first.body.should include_text(Site.current.signature_in_html)
-      
       # Check the message of the receiver
         # Check the title content
         PrivateMessage.inbox(@admin).first.title.should include_text(@registered_user.full_name)
@@ -214,17 +155,6 @@ describe PrivateSender do
       jr = @space.join_requests.build params
       jr.save!
       
-      # Check the message of the sender
-        # Check the content of the title
-        PrivateMessage.sent(@registered_user).first.title.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@registered_user).first.title.should include_text(@space.name)
-        
-        # Check the content of the body
-        PrivateMessage.sent(@registered_user).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.sent(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
-        PrivateMessage.sent(@registered_user).first.body.should include_text(Site.current.signature_in_html)
-        
       # Check the message of the receiver
         # Check the content of the title
         PrivateMessage.inbox(@admin).first.title.should include_text(@registered_user.full_name)
@@ -253,16 +183,6 @@ describe PrivateSender do
       jr.update_attributes(:processed => true, :accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
       action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
       
-      # Check the message of the sender
-        # Check the content of the title
-        PrivateMessage.sent(@admin).first.title.should include_text(action)
-        PrivateMessage.sent(@admin).first.title.should include_text(@space.name)
-        
-        # Check the content of the body
-        PrivateMessage.sent(@admin).first.body.should include_text(action)
-        PrivateMessage.sent(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.sent(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-        
       # Check the message of the receiver
         # Check the content of the title
         PrivateMessage.inbox(@registered_user).first.title.should include_text(action)

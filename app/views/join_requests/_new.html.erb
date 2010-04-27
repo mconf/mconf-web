@@ -57,11 +57,6 @@
             <textarea id="join_request_personal"><%= t('join_request.personal') %></textarea><br/>
             <%= f.text_area :comment, :style => "display:none" %>
 
-            <p><%= t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain)) %></p>
-
-            <p><%= t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path()) %></p>
-
-            <p><%= Site.current.signature_in_html %></p>
           </div>
 
         </div>
