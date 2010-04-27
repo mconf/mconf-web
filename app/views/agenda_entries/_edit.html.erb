@@ -78,15 +78,16 @@
         <%= f.text_area :embedded_video, :size => "25x5" %>
 	  </div>
 	<%else%>	   
-	   <%unless @event.past?%>	
-	     <%if @agenda_entry.past?%>
-		   <div id="help" title="<%= t('agenda.entry.options.help2') %>"></div>
-		 <%elsif @agenda_entry.is_happening_now?%>
-		   <div id="help" title="<%= t('agenda.entry.options.help3') %>"></div>
-		 <%else%>
-		   <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
-		 <%end%>         
+        
 		 <div class="margin-up">
+		 <%unless @event.past?%>  
+       <%if @agenda_entry.past?%>
+       <div id="help" title="<%= t('agenda.entry.options.help2') %>"></div>
+     <%elsif @agenda_entry.is_happening_now?%>
+       <div id="help" title="<%= t('agenda.entry.options.help3') %>"></div>
+     <%else%>
+       <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+     <%end%> 
            <label for="embedded_video" class="main_text">
                <%= t('agenda.entry.options.title') %>
            </label>
