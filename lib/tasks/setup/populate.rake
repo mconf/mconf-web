@@ -87,13 +87,20 @@ namespace :setup do
             
             # inferior limit for the start time of the first agenda entry
             last_agenda_entry_end_time = event.start_date
+            first_agenda_entry = true
             
             AgendaEntry.populate 2..10 do |agenda_entry|
               agenda_entry.agenda_id = agenda.id
               agenda_entry.title = Populator.words(1..3).titleize
               agenda_entry.description = Populator.sentences(0..2)
               agenda_entry.speakers = Populator.words(2..6).titleize
-              agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
+              if first_agenda_entry
+                # fixing the start_time of the first agenda entry to the start_date of the event
+                agenda_entry.start_time = event.start_date
+                first_agenda_entry = false
+              else
+                agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
+              end
               agenda_entry.end_time = agenda_entry.start_time..event.end_date
              
               # updating the inferior limit for the next agenda entry
@@ -108,6 +115,10 @@ namespace :setup do
                 " allowscriptaccess='always' allowfullscreen='true' width='425' height='344'></embed></object>"
               agenda_entry.video_thumbnail = "http://i2.ytimg.com/vi/9ri3y2RDzUM/default.jpg"
             end
+            
+            # fixing the end_date of the event to the end_time of the last_agenda_entry
+            event.end_date = last_agenda_entry_end_time
+            
           end
         end
 
