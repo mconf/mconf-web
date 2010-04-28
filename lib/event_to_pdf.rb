@@ -50,7 +50,7 @@ module EventToPdf
       end
  
       #Array of entrie arrays and array who contains a single divider.
-      @entries_array = fragment_entries(@entries)
+      @entries_array = fragment_entries(@entries,i)
       
       heads = true
       nPage =  -1
@@ -264,7 +264,7 @@ module EventToPdf
   #An element that contains an array of entries its never preceded by another element that contains an array of entries too.
   #An element that contains an array that contains a divider always have only one element.
   #Fragment individual entries application limit description.
-  def fragment_entries(entries)
+  def fragment_entries(entries,day)
     
     array_entries = []
     entries_temp = []
@@ -286,7 +286,7 @@ module EventToPdf
         
         #Select maxLenght...
         
-        if entrie == entries[0]
+        if entrie == entries[0] and day == 0
           maxLength = 2000
         else
           
@@ -294,11 +294,15 @@ module EventToPdf
           index_previous_entry = entries.index(entrie) - 1
           
           if isSpecialTitle(entries[index_previous_entry])
-            unless index_previous_entry == 0
-              maxLength = 3000
-            else
+            
+            if index_previous_entry == 0 and day == 0
               maxLength = 1800
+            elsif index_previous_entry == 0
+              maxLength = 2800
+            else
+              maxLength = 3000
             end
+            
           else    
             maxLength = 3200        
           end
