@@ -98,8 +98,9 @@ namespace :setup do
                 # fixing the start_time of the first agenda entry to the start_date of the event
                 agenda_entry.start_time = event.start_date
                 first_agenda_entry = false
+              else
+                agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
               end
-              agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
               agenda_entry.end_time = agenda_entry.start_time..event.end_date
              
               # updating the inferior limit for the next agenda entry
