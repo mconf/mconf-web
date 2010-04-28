@@ -284,13 +284,28 @@ module EventToPdf
         
       else
         
-        unless entrie == entries[0]
-          maxLength = 3200
+        #Select maxLenght...
+        
+        if entrie == entries[0]
+          maxLength = 2000
         else
-          maxLength = 1800
+          
+          #index_previous_entry will be 0 at least.
+          index_previous_entry = entries.index(entrie) - 1
+          
+          if isSpecialTitle(entries[index_previous_entry])
+            unless index_previous_entry == 0
+              maxLength = 3000
+            else
+              maxLength = 1800
+            end
+          else    
+            maxLength = 3200        
+          end
+          
         end
         
-        fragment_entries_by_description = fragment_entrie_by_description(entrie,maxLength)
+        fragment_entries_by_description = fragment_entrie_by_description(entrie,maxLength,true)
         
         fragment_entries_by_description.each do |entrie_fragment_by_description|
           entries_temp << entrie_fragment_by_description
@@ -309,9 +324,10 @@ module EventToPdf
   end
   
      
-  def fragment_entrie_by_description(entrie,maxLength)
+  def fragment_entrie_by_description(entrie,maxLength,first_cont)
   
     fragment_entries_by_description = []
+    subfragment_entries_by_description = []
     lineLenght = 70; #= f(@c4)
     index_length = 1
     line_number = entrie.description.count("\n");
@@ -322,10 +338,24 @@ module EventToPdf
                
         #Remove the multiples \n.
         entrie.description = entrie.description.gsub(/([\n])+/, "\n")
+        
+        line_number = entrie.description.count("\n");
+        
+        if (entrie.description.length + line_number * lineLenght) < maxLength
+          fragment_entries_by_description << entrie
+          return fragment_entries_by_description
+        end
+ 
         #Remove simple \n.
         entrie.description = entrie.description.gsub(/([\n])+/, "")
         
         line_number = entrie.description.count("\n")
+        
+        if (entrie.description.length + line_number * lineLenght) < maxLength 
+          fragment_entries_by_description << entrie
+          return fragment_entries_by_description
+        end    
+        
         
         #Copy the entrie, and cuts the description.
         entrie_a = AgendaEntry.new
@@ -353,16 +383,32 @@ module EventToPdf
         end
         
         
-        #Cuts the string.      
+        #Cuts the string.
+        
+       #Test if the additional row has very low length. 
+       if entrie.description[maxLength-index_length,entrie.description.length].length < 10
+         entrie_a.description = entrie.description[0,entrie.description.length]
+         fragment_entries_by_description << entrie_a
+         return fragment_entries_by_description;
+       end
+          
         entrie_a.description = entrie.description[0,maxLength-index_length] + "..."
         fragment_entries_by_description << entrie_a
         
-        min_index = [entrie.description.length-1, 2*maxLength-index_length].min       
-        entrie.description = "..." + entrie.description[maxLength-index_length,min_index]   
-        entrie.title = entrie.title + "\n(Cont)"        
-        fragment_entries_by_description << entrie
+        entrie.description = "..." + entrie.description[maxLength-index_length,entrie.description.length]
+   
+        if first_cont
+          entrie.title = entrie.title + "\n(Cont)"
+          first_cont = false;
+        end
+        
+        subfragment_entries_by_description = fragment_entrie_by_description(entrie,3200,false)
+         
+        subfragment_entries_by_description.each do |subfragment|
+          fragment_entries_by_description << subfragment
+        end
      
-   else
+    else
      
       fragment_entries_by_description << entrie
       
