@@ -72,7 +72,7 @@ en:
     define: Define Agenda
     del_entry: Delete
     divider: 
-      delete: Divider was successfully created
+      delete: Divider was successfully deleted
       edit: Edit Divider
       error: 
         coinciding_times: There is a conflict with the time of the new divider and existing agenda entries or dividers
@@ -89,7 +89,7 @@ en:
     entry: 
       cannot_exclude: You cannot exclude from recording an entry shorter than
       created: Agenda entry was successfully created
-      delete: Agenda entry was successfully created
+      delete: Agenda entry was successfully deleted
       description: Description
       duration: Duration
       edit: Edit Agenda Entry
