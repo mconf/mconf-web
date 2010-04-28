@@ -310,9 +310,8 @@ module EventToPdf
   
      
   def fragment_entrie_by_description(entrie,maxLength)
-        
+  
     fragment_entries_by_description = []
-    subfragments = []
     lineLenght = 70; #= f(@c4)
     index_length = 1
     line_number = entrie.description.count("\n");
@@ -362,7 +361,11 @@ module EventToPdf
         entrie.description = "..." + entrie.description[maxLength-index_length,min_index]   
         entrie.title = entrie.title + "\n(Cont)"        
         fragment_entries_by_description << entrie
-        
+     
+   else
+     
+      fragment_entries_by_description << entrie
+      
     end
     
     fragment_entries_by_description
