@@ -301,17 +301,19 @@ $("a.repository_sidebar_action").livequery("click",function(){
           window.location.hash = '#edit_entry_anchor';
          });
 	  } else {
-	  	  if ($("#add_video_checkbox").is(":checked"))
-		  {
-		    document.forms["agenda_entry_edit_form"].submit();
-		  }
-		  else
-		  {
-		    //delete the content in video_embed
-			$("#agenda_entry_embedded_video").val("");
-		    document.forms["agenda_entry_edit_form"].submit();
-		  }
-		  
+      if ($("#add_video_checkbox").length == 0) {
+        // if the add_video_checkbox does not exist, submit the form
+        document.forms["agenda_entry_edit_form"].submit();
+      } else {
+  	  	if ($("#add_video_checkbox").is(":checked")) {
+          // if it exists and it is checked, submit the form
+  		    document.forms["agenda_entry_edit_form"].submit();
+  		  } else {
+  		    // if it exists but it is not checked, delete the content in video_embed
+          $("#agenda_entry_embedded_video").val("");
+  		      document.forms["agenda_entry_edit_form"].submit();
+  		  }
+      }
 	  }
   });
 
