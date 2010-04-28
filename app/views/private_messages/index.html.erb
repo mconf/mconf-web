@@ -51,7 +51,7 @@
                     <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
                   </td> 
                 <% else%>
-                  <%if @sender.present?%>
+                  <%if private_message.sender_id.present?%>
                     <%@sender = User.find_with_disabled(private_message.sender_id)%>
                     <td class="picture"><%= @sender.disabled? ? logo(@sender, :size => 32) : link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login)%></td>
                     <td class="name_date">

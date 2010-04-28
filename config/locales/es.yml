@@ -463,6 +463,7 @@ es:
     updated: "Petici\xC3\xB3n actualizada"
   join_to_site: Unirse a {{site}}
   keywords: Palabras clave (*)
+  language: Lenguaje
   latest_events: "\xC3\x9Altimos eventos"
   latest_news: "\xC3\x9Altimas noticias"
   layout_footnote: "{{site}} est\xC3\xA1 basado en {{plugin}}. Dise\xC3\xB1ado por {{designer}}."
