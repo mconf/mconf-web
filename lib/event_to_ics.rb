@@ -7,7 +7,7 @@ module EventToIcs
     
     self.days.times do |i|
       
-      entries = agenda.agenda_entries_for_day(i)
+      entries = agenda.contents_for_day(i+1)
       
       entries.each do |entry|
         
