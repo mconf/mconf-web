@@ -30,6 +30,7 @@ class Notifier < ActionMailer::Base
     else
       @body[:name] = invitation.email[0,invitation.email.index('@')]
     end
+    @headers.store("Reply-To",invitation.introducer.email)
   end
 
 
@@ -41,14 +42,17 @@ class Notifier < ActionMailer::Base
     @body[:space] = invitation.group.space    
     @body[:event] = invitation.group
     @body[:user] = invitation.introducer
+    @headers.store("Reply-To",invitation.introducer.email)
   end
   
   def event_notification_email(event,receiver)
     setup_email(receiver.email)
 
-    @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>(User.find(event.notif_sender_id)).full_name)
+    user_sender = User.find(event.notif_sender_id)
+    @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name)
     @body[:event] = event
     @body[:receiver] = receiver
+    @headers.store("Reply-To",user_sender.email)
   end
 
 
@@ -65,6 +69,7 @@ class Notifier < ActionMailer::Base
     @body[:space] = invitation.group
     @body[:signature]  = Site.current.signature_in_html
     @body[:action] = action
+    @headers.store("Reply-To",invitation.email)
   end
 
   def join_request_email(jr,receiver)
@@ -74,6 +79,7 @@ class Notifier < ActionMailer::Base
     @body[:join_request] = jr
     @body ["contact_email"] = Site.current.email
     @body[:signature]  = Site.current.signature_in_html
+    @headers.store("Reply-To",jr.candidate.email)
   end
 
   def processed_join_request_email(jr)
@@ -147,7 +153,7 @@ class Notifier < ActionMailer::Base
     @body ["text"] = body
     @body ["user"] = user.full_name
     @body[:sitename]  = Site.current.name
-	@body[:signature]  = Site.current.signature_in_html		
+    @body[:signature]  = Site.current.signature_in_html		
   end
   
   private
