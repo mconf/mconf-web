@@ -1,8 +1,8 @@
 <div class="event_video_title">
     <h3><%= t('event.recording.other') %></h3>
 </div>
+<%= render :partial => 'agendas/video_filter' %>
 <div id="carrusel">
-  <%= render :partial => 'agendas/video_filter' %>
   <div id="carrusel_content">
       <%@video_entries.each do |entry| %>
       <div class="video_preview_sidebar event_day_<%=entry.event_day%> <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
