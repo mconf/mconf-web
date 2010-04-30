@@ -1365,6 +1365,7 @@ en:
     invitation: 
     is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
+    join_pending: Join request being processed
     join_invitation: 
       clarify_registered: Please introduce password in order to join this space.
       clarify_unregistered: Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space.

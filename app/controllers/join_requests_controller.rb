@@ -96,9 +96,17 @@ class JoinRequestsController
     end
 
     if request.xhr?
-        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      if space.public
+        render :partial => "redirect.js.erb", :locals => {:url => space_path(space)}
       else
-        redirect_to spaces_path  
+        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      end
+    else
+      if space.public
+        redirect_to space_path(space)
+      else
+        redirect_to spaces_path
+      end
     end
   end
  
