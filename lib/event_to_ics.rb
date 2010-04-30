@@ -8,6 +8,7 @@ module EventToIcs
     self.days.times do |i|
       
       entries = agenda.contents_for_day(i+1)
+
       entries.each do |entry|
         
         cal.add_event do |e|

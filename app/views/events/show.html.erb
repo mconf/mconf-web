@@ -15,15 +15,15 @@
 
   <div id="full_sidebar">
   	<%if params[:edit_event]%>
-        <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
-	<%elsif params[:edit_comment]%>
+      <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
+    <%elsif params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
-	<%elsif params[:show_video]%>
+    <%elsif params[:show_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
-	<%elsif params[:show_streaming]%>
+    <%elsif params[:show_streaming]%>
       <%=render :partial => "video_online"%>
-	<%else%>
-	  <%= render :partial => 'participants' %>
+    <%else%>
+      <%= render :partial => 'participants' %>
 	  <%unless @event.is_in_person? || @event.past?%>
 		  <%= render :partial => 'connection_info'%>
 	  <%end%>
@@ -81,10 +81,9 @@
   <%elsif params[:show_agenda]%>
     <%=render :partial => "agendas/show"%>
   <%elsif params[:show_video]%>     
-	<%= render :partial => "agendas/show_recordings" %>	   
+    <%= render :partial => "agendas/show_recordings" %>	   
   <%else%><!-- if there is no param-->
-     No param selected  
-		
+    <%= t('event.no_param') %>		
   <%end%>
  
 <%unless @comments.empty?%> 

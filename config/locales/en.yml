@@ -534,6 +534,7 @@ en:
       meeting: Virtual Meeting
       presential: Meeting
     no_events: You have no events
+    no_param: No param selected
     none_coming: No coming events
     not_attend: Not attending
     note: 
