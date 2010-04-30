@@ -54,7 +54,6 @@ class AgendaEntry < ActiveRecord::Base
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
       
     elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
-      
       self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
       
     # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped

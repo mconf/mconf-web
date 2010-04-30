@@ -3,12 +3,11 @@ module EventToIcs
   
  def to_ics
     agenda = self.agenda
-    cal = Vpim::Icalendar.create2
+    cal = Vpim::Icalendar.create
     
     self.days.times do |i|
       
-      entries = agenda.agenda_entries_for_day(i)
-      
+      entries = agenda.contents_for_day(i+1)
       entries.each do |entry|
         
         cal.add_event do |e|
@@ -25,15 +24,12 @@ module EventToIcs
           
           e.organizer do |o|
             o.cn = entry.speakers.to_s
-            o.uri = "nil"
+            o.uri = "none"
           end 
           
         end
-        
       end
     end
-    
-    
     
     return cal.encode      
   end
