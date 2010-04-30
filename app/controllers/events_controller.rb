@@ -95,7 +95,6 @@ class EventsController < ApplicationController
     end
 
     # Clear bad params 
-    params[:show_streaming]=false if !event.is_happening_now?
     params[:show_video]=nil if event.future?
    
     if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
