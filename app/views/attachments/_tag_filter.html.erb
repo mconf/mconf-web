@@ -9,37 +9,32 @@
   }
 	
 	tags_array = function(){
-    var array = new Array($("#attachment_tags_filter option.selected").size());
-    var i = 0
-    $("#attachment_tags_filter option.selected").each(function(){
-      array[i] = this.value;
-      i++;
-    });
-    return array;
+		return $.map($("#attachment_tags_filter option.selected"), function(element){
+		  return element.value;
+		});
   };
 	
+	update_tags = function(tags){
+	  if($.deparam.querystring().tags != tags.join(",")){
+      hide_table();
+      window.location = $.param.querystring(window.location + "", "tags=" + tags.join(","));
+    }
+	};
+	
 	add_tag = function (){
-	  tags_array = tags_array();
-	  if($.queryString(document.location.href).tags != tags_array.join(",")){
-	    hide_table();
-	    location.href=$.queryString(document.location.href, { "tags" : tags_array.join(",")});
-	  }
+	  var tags= tags_array();
+	  update_tags(tags);
 	};
 	
 	rm_tag = function (item){
-	  tags_array = tags_array();
-		//Changed because indexOf doesn't work in Explorer
-		//tags_array.splice(tags_array.indexOf(item._value), 1);
-		for (var i = 0; i < tags_array.length; i++) {
-		  if (tags_array[i] == item._value) {
-		    tags_array.splice(i, 1);
+	  var tags = tags_array();
+		for (var i = 0; i < tags.length; i++) {
+		  if (tags[i] == item._value) {
+		    tags.splice(i, 1);
 		    break;
 		  }
 		}
-	  if($.queryString(document.location.href).tags != tags_array.join(",")){
-	    hide_table();
-	    location.href=$.queryString(document.location.href, { "tags" : tags_array.join(",")});
-	  }
+	  update_tags(tags);
 	};
 		
 	$("#attachment_tags_filter").fcbkcomplete({
