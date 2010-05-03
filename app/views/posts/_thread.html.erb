@@ -28,7 +28,7 @@
 	      	<li>
 	      	      <span class="unified_user"><%=link_to(thread.author.name,user_path(thread.author),:class=>"unified_user")%>: </span>
 			  
-			  <%=link_to(first_words(thread.title, 32), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)%>
+			  <%=link_to(truncate(thread.title,:length=>80), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)%>
 			  <%if has_attachments(thread)%>
 			    <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>
 			  <%end%>
@@ -37,7 +37,7 @@
 	     
 			<li>
 				<div class="grey extend_thread" <%='style="display:none"' if extended %>>
-					<%=first_words(strip_tags(thread.text),75)%>
+					<%=truncate(strip_tags(thread.text),:length=>100)%>
 				</div>
 				<div id="grey" class="extended_thread grey" <%='style="display:none"' unless extended%>>
 
@@ -49,36 +49,36 @@
 	  </div>
 	  <%if defined? in_home && in_home %>
 	    <div id="message-body-<%=thread.id%>" class="message-body">
-	      <%=first_words(thread.text, 70)%>
+	      <%=truncate(thread.text,:length=> 70)%>
 	    </div>
 	  <% end %>
 	</div>
 
-	<div class="extended_thread" <%='style="display:none"' unless extended%> >	  	
-	  <%unless thread.children.size<4 %>
-	    <div class="comments-status">
-		  <!--<%if thread.children.size==1 %>
-		    <%= t('thread.show_one_only_comment') %>
-		  <%elsif thread.children.size<4%>
-		    <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
-		  <%else%>-->
-			<%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
-			<%=link_to(t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
-		  <!--<%end%>-->
-		</div>
-	  <%end%>
-	
-	  <div class="<%=thread.three_last_comment().size == 3 ?  "open" : "close"%>"> 
-	    <%for comment in thread.three_last_comment()%>
-		  <%=render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}%>
-		<%end%>
-	  </div>
+		<div class="extended_thread" <%='style="display:none"' unless extended%> >	  	
+		  <%unless thread.children.size<4 %>
+			    <div class="comments-status">
+				  <!--<%if thread.children.size==1 %>
+				    <%= t('thread.show_one_only_comment') %>
+				  <%elsif thread.children.size<4%>
+				    <%= t('thread.show_comment_size', :size => thread.three_last_comment().size) %>
+				  <%else%>-->
+					<%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
+					<%=link_to(t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
+				  <!--<%end%>-->
+				</div>
+		  <%end%>
 		
-	  <%if @space.authorize?([:create, :content],:to => current_user)%>
-		<div class="add-new-comment">
-		  <%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
-	    </div>
-	  <%end%>
-	</div>
+		  <div class="<%=thread.three_last_comment().size == 3 ?  "open" : "close"%>"> 
+		    <%for comment in thread.three_last_comment()%>
+			    <%=render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}%>
+			  <%end%>
+		  </div>
+			
+		  <%if @space.authorize?([:create, :content],:to => current_user)%>
+				<div class="add-new-comment">
+				  <%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
+			  </div>
+		  <%end%>
+		</div>
   </div>
 </div>
