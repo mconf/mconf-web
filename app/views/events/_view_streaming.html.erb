@@ -30,12 +30,12 @@
 		      <%else%>
 		        <%if @event.web_interface? && !params[:web_client]%>
   			      <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>
-			      <%= @event.streaming(640, 385)%>
+			      <%= @event.streaming(640, 480)%>
 			    <%elsif @event.web_interface? && params[:web_client]%>
 			      <%=link_to("close",space_event_path(@space, @event))%>
 			      <%= @event.web%>
 			    <%else%>
-			      <%= @event.streaming(640, 385)%>
+			      <%= @event.streaming(640, 480)%>
 		        <%end%>                  
 		      <%end%>
           </div> 
