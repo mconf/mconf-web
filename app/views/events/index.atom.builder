@@ -8,9 +8,11 @@ atom_feed('xmlns:gd' => 'http://schemas.google.com/g/2005',
     feed.entry(event, :url => space_event_path(space, event)) do |entry|
       entry.title(sanitize event.name)
       entry.summary(sanitize event.description)
-          
-      entry.tag!('gd:when', :startTime => event.start_date.to_datetime, :endTime => event.end_date.to_datetime)
-
+      
+      if event.start_date   
+        entry.tag!('gd:when', :startTime => event.start_date.to_datetime, :endTime => event.end_date.to_datetime)
+      end
+      
       entry.author do |author|
         author.name(sanitize(event.author.name))
       end
