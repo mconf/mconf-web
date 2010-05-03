@@ -35,6 +35,10 @@ class AgendaEntriesController < ApplicationController
   #authorization_filter :delete, :agenda_entry, :only => [ :destroy ]
   
 
+  def index
+    raise ActiveRecord::RecordNotFound    
+  end
+
 #  #GET /agenda_entries
 #  #GET /agenda_entries.xml
 #  #returns the agenda_entries for the days 2 to end by ajax
