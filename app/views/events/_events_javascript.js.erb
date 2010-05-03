@@ -62,7 +62,7 @@ $(".event_image").click(function(){
    $('#event_description_content').dblclick();
  };	 
  
-   $('#event_description_content').editable('<%=space_event_path(@space, @event)%>',{
+   $('#event_description_content').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
 		method : 'PUT',
       tooltip   : '<%= t('dblclick')%>',
     cancel    : '<%= t('cancel')%>',

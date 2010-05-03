@@ -155,16 +155,7 @@ class SpacesController < ApplicationController
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
       
-    end
-    
-    
-    
-    
-    
-   
-   
- 
-    
+    end    
   end
   
   
@@ -175,6 +166,11 @@ class SpacesController < ApplicationController
   def update
     if @space.update_attributes(params[:space]) 
       respond_to do |format|
+        format.html { 
+          flash[:success] = t('space.updated')
+          redirect_to request.referer
+        }
+        format.atom { head :ok }
         format.js{
           if params[:space][:name]
             @result = "window.location=\"#{edit_space_path(@space)}\";"
@@ -186,12 +182,6 @@ class SpacesController < ApplicationController
             render "update.js"
           end
         }
-        format.html { 
-          flash[:success] = t('space.updated')
-          redirect_to request.referer
-        }
-        format.atom { head :ok }
-
       end
     else
       respond_to do |format|

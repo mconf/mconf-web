@@ -200,7 +200,9 @@ class EventsController < ApplicationController
 			    @event.update_attribute(:marte_room, false)
 		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        
+        flash[:success] = t('event.updated')
+        format.html {redirect_to space_event_path(@space, @event) }
+        format.xml  { head :ok }
         format.js{
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
@@ -213,9 +215,6 @@ class EventsController < ApplicationController
             @description=true
           end
         }
-        flash[:success] = t('event.updated')
-        format.html {redirect_to space_event_path(@space, @event) }
-        format.xml  { head :ok }
       else
         format.html { message = ""
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
