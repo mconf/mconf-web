@@ -117,7 +117,12 @@ class EventsController < ApplicationController
       else
         @video_entries = []
       end
-      @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
+      if params[:show_video].class == String
+        @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      else
+        @display_entry = nil
+      end
 #      #@show_day=0
 #      for day in 1..@event.days
 #        if @video_entries[day][params[:show_video].to_i]
