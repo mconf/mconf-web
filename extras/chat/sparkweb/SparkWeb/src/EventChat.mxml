@@ -257,6 +257,7 @@
  					case -1:
  						connection_message.text = SparkManager.getConfigValueForKey("connecting_error_message");
  						reconnect_link.enabled  = true;
+ 						reconnect_link.visible  = true;
  				}
  			}
  			
@@ -317,7 +318,7 @@
  	<local:ChatContainer id="chatContainer" height="100%" width="100%" visible="false" />
  	<mx:Canvas id="info_box" width="100%" height="100%" y="0" x="0">
 		<mx:Label id="connection_message" y="10" x="10" textAlign="left" horizontalCenter="0"/>
-		<mx:LinkButton click="reconnect()" id="reconnect_link" horizontalCenter="0" y="38"/> 		
+		<mx:LinkButton click="reconnect()" id="reconnect_link" horizontalCenter="0" y="38" visible="false"/> 		
  	</mx:Canvas>
 
 

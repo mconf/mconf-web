@@ -354,7 +354,7 @@
 		</mx:Canvas>
 		
 		<!--<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 225 : 0}">-->
-			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" borderSides="right left bottom" borderStyle="solid" width="100%">
+			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" borderSides="right left bottom top" borderStyle="solid" width="100%">
 				<spark:ListGroup 
 					creationComplete="{ScrollWheelManager.registerForScrollEvents(occupantList.navBox)}" 
 					headerHeight="25" 
