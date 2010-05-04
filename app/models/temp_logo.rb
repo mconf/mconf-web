@@ -81,11 +81,11 @@ class TempLogo
     
     f = File.open(path)
     img = Magick::Image.read(f).first
-    if img.columns > img.rows && img.columns > size
+    if img.columns >= img.rows && img.columns > size
       resized = img.resize(size.to_f/img.columns.to_f)
       f.close
       resized.write("#{FORMAT.to_sym.to_s}:" + path)
-    elsif img.rows > img.columns && img.rows > size
+    elsif img.rows >= img.columns && img.rows > size
       resized = img.resize(size.to_f/img.rows.to_f)
       f.close
       resized.write("#{FORMAT.to_sym.to_s}:" + path)
