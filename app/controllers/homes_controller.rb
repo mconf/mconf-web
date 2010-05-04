@@ -19,37 +19,18 @@ class HomesController < ApplicationController
   
   before_filter :authentication_required
 
-  
   def index
   end
-
   
   def show
-    unless current_user.spaces.empty?
-      @today_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :now_date AND start_date < :tomorrow", 
-        {:now_date=> Time.now, :tomorrow => Date.tomorrow}], :order => "start_date DESC")
-      @tomorrow_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :tomorrow AND start_date < :day_after_tomorrow", 
-        {:day_after_tomorrow=> Date.tomorrow + 1.day, :tomorrow => Date.tomorrow}], :order => "start_date DESC")
-      @week_events = Event.all(:conditions => ["start_date > :day_after_tomorrow AND start_date < :one_week_more", 
-        {:day_after_tomorrow=> Date.tomorrow + 1.day, :one_week_more => Date.tomorrow+7.days}], :order => "start_date DESC", :limit => 2)
-      @upcoming_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :one_week_more AND start_date < :one_month_more", 
-        {:one_week_more => Date.tomorrow+7.days, :one_month_more => Date.tomorrow+37.days}], :order => "start_date DESC", :limit => 2)
-      if @upcoming_events.size<2
-        @upcoming_events = Event.in(current_user.spaces).all(:conditions => ["start_date > :one_month_more AND start_date < :two_months_more", 
-          {:one_month_more => Date.tomorrow+37.days, :two_months_more => Date.tomorrow+67.days}], :order => "start_date DESC", :limit => 2)
-      end
-    else
-      @today_events = []
-      @tomorrow_events = []
-      @week_events = []
-      @upcoming_events = []
-    end
+    @events_of_user = Event.in(current_user.spaces).all(:order => "start_date DESC")
+    
     @contents_per_page = params[:per_page] || 15
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents 
     @all_contents=ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>@contents_per_page.to_i, :order=>'updated_at DESC' },{ :containers => current_user.spaces, :contents => @contents} )
 
     #let's get the inbox for the user
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
-  
   end
+
 end

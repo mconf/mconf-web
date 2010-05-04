@@ -1596,6 +1596,7 @@ en:
   visit_link_to_activate_account: Visit this link to activate your account
   week: 
     next: Next week
+    this: This week
   when: When
   where: Where
   xmpp_server: 
