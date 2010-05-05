@@ -59,8 +59,10 @@
 
 	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
 
-  <%unless current_user.spaces.empty?%>
+  <%if !(current_user.spaces.empty?)%>
     <%periods = select_periods(@events_of_user)%>
+  <%else%>
+    <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
   <%end%>
 
 	<div class="next-events margin-up">
