@@ -3,14 +3,14 @@
   <div id="recordings_title"><h3 class="blue">
 	<%unless @event.vc_mode == Event::VC_MODE.index(:in_person)%>
 	  <%if @event.past? %>
-	    Past Event
+	    <%= t('event.past.one') %>
 	  <% elsif @event.is_happening_now? %>
-	    Event Streaming
+	    <%= t('event.streaming.now') %>
 	  <% else %>
-	    Future Event
+	    <%= t('event.future') %>
 	  <% end %>
 	<% else %>
-		No Streaming at meetings
+		<%= t('event.streaming.no_at_events') %>
 	<% end %>
   </h3></div>
 

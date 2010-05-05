@@ -506,6 +506,7 @@ en:
       none: No events found
       one: 1 event was found
       other: "{{size}} events were found"
+    future: Future Event
     generate_pdf: Generate PDF
     has: This event has
     held_with: This event will be held with
@@ -586,6 +587,7 @@ en:
       last_week: No events for last week.
       none: No past events
       other: Past events
+      one: Past Event
       show: Show all old events
       today: No events for yesterday nor today.
     player: Player
@@ -607,7 +609,9 @@ en:
     streaming: 
       add: Add one.
       edit: Edit streaming code
-      none: No one has posted any streaming url.
+      none: No one has posted any streaming url
+      no_at_events: No Streaming at meetings
+      now: Event Streaming
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
       will_be_available: The streaming will be available during the event
