@@ -1453,6 +1453,7 @@ en:
   the_string: the string
   thread: 
     add: Create new message
+    comments: "{{children}} comments"
     compact_view: Switch to compact view
     deleted: Message (with its comments) has been deleted
     edit: Edit message
