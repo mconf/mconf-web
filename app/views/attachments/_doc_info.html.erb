@@ -24,7 +24,7 @@
 		  
 		  <%if attachment.authorize?(:update,:to => current_user)%>
 		    <li><%= attachment.tags.size>0 ? link_to(image_tag("icons/edit_tag.png", :title=> t('tag.edit')),"", :id => "edit_attachment_tags", :class=>"no-dot") : link_to(image_tag('icons/add_tag.png', :title => t('tag.add')), "", :id => "edit_attachment_tags", :class=>"no-dot")%></li>
-      	  <%end%>  
+      <%end%>  
 			
 			<%if attachment.authorize?(:read,:to => current_user) %>
 			  <li><%=link_to(image_tag("icons/download_doc.png", :title => t('download'),:class=>"icon"), space_attachment_path(@space,attachment, :format => attachment.format!), :class=>"no-dot")%></li>
