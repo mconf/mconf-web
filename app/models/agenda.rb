@@ -187,7 +187,6 @@ class Agenda < ActiveRecord::Base
         agenda_entry.uid = e.uid        
         
         
-        agenda_entry.setting_times = "true"
         agenda_entry.save
         total_entries.push(agenda_entry.title);
         

@@ -19,13 +19,12 @@ class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  attr_accessor :author, :setting_times, :duration 
+  attr_accessor :author, :duration 
   acts_as_stage
   acts_as_content :reflection => :agenda
   acts_as_resource
   
-  validates_inclusion_of :setting_times, :in => ["true", "false"]
-  validates_presence_of :title, :if => Proc.new {|entry| (entry.setting_times != "true")}
+  validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
