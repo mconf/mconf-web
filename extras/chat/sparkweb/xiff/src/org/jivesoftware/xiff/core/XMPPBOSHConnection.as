@@ -368,6 +368,7 @@ package org.jivesoftware.xiff.core
 		
 		private function httpError(req:XMLNode, isPollResponse:Boolean, evt:FaultEvent):void
 		{
+			requestCount--; // Line added by Diego Moreno
 			disconnect();
 			dispatchError("Unknown HTTP Error", evt.fault.rootCause.text, "", -1);
 		}

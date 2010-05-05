@@ -56,7 +56,9 @@
 	    password: "8aa40001b9b39cb257fe646a561a80840c806c55--" + getCookie("<%=ActionController::Base.session_options[:key]%>"),
 	    roomJid: "<%="#{@event.permalink}@#{current_site.chat_group_service_jid}" %>",
 			connecting_message: "<%=t('chat.connecting_message')%>",
+			connecting_error_message: "<%=t('chat.connecting_error_message')%>",
 			please_login_message: "<%=t('chat.please_login_message')%>",
+			reconnect_message: "<%=t('chat.reconnect_message')%>",
 			background_color: "#E1EEF5"
 	    //policyFileURL: "http://www.example.com/sub/dir/crossdomain.xml"
 	    //policyFileURL: "xmlsocket://foo.com:414"

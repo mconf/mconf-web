@@ -19,7 +19,7 @@
 require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/join_requests_controller"
 
 class JoinRequestsController
-  before_filter :space
+  before_filter :space!
 
   def new
     respond_to do |format|

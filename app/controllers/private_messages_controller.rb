@@ -128,9 +128,9 @@ class PrivateMessagesController < ApplicationController
 
     respond_to do |format|
       if params[:private_message][:deleted_by_sender]
-        format.html { redirect_to(user_messages_path(user.id, :sent_messages=>true)) }
+        format.html { redirect_to(user_messages_path(user, :sent_messages=>true)) }
       else
-        format.html { redirect_to(user_messages_path(user.id)) }
+        format.html { redirect_to(user_messages_path(user)) }
       end
       format.xml  { head :ok }
     end

@@ -1,7 +1,7 @@
 <% content_for :javascript do%>
 
 <%if @event.authorize?(:update, :to => current_user)%> 
-  $('#participation_url_value').editable('<%=space_event_path(@space, @event)%>',{
+  $('#participation_url_value').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
         method : 'PUT',
 	tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
