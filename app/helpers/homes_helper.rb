@@ -25,7 +25,7 @@ module HomesHelper
   end
 
   def select_period(set_of_events, start_datetime, end_datetime)
-    return set_of_events.select{|e| (start_datetime < e.start_date.gmtime) && (e.start_date.gmtime < end_datetime)}
+    return set_of_events.select{|e| e.has_date? && (start_datetime < e.start_date.gmtime) && (e.start_date.gmtime < end_datetime)}
   end
   
   def intervals(contents)
