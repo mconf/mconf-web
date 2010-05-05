@@ -49,13 +49,13 @@ class AgendaEntry < ActiveRecord::Base
 
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
-    if (self.start_time > self.end_time)
-      
-      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
-      
-    elsif (self.agenda.event.vc_mode != Event::VC_MODE.index(:in_person)) && ((self.start_time < Time.now) || (self.end_time < Time.now))
+    if(self.start_time > self.end_time)
     
-      self.errors.add_to_base(I18n.t('agenda.entry.error.past_times'))
+      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+
+    elsif(self.agenda.sooner_allowed_start_date.present? && self.start_time < self.agenda.sooner_allowed_start_date)  
+    
+      self.errors.add_to_base(I18n.t('agenda.entry.error.past_times', :min_date => self.agenda.sooner_allowed_start_date.strftime("%A, %d %b %Y at %H:%M")))
 
     elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
       self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
@@ -186,7 +186,7 @@ class AgendaEntry < ActiveRecord::Base
   def name
     cm_session.try(:name)
   end
-  
+   
   def can_edit_hours?
     #an user can only edit hours if the event is in person or is virtual and future
     return true unless cm_session? && past? 

@@ -103,7 +103,7 @@ en:
         date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: Error deleting session in remote videoconference system
         disordered_times: The start time must be previous to the end time
-        past_times: "This type of event cannot have past times"
+        past_times: "The start time of the session must be {{min_date}} or later"
         update: Error updating session in remote videoconference system
       failed: Agenda entry could not be saved
       has_attachment: This entry has attachments
