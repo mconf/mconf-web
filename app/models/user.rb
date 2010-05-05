@@ -190,16 +190,6 @@ class User < ActiveRecord::Base
   def has_events_in_this_space?(space)
     !events.select{|ev| ev.space==space}.empty?
   end
-  
-#  def has_event_drafts_in_this_space?(space)
-#    events_without_sessions = events.select{|ev| ev.space==space && ev.agenda.agenda_entries.empty?}
-#    return !events_without_sessions.empty?
-#  end
-  
-  def is_participant_in_this_space?(space)
-    events_participating = participants.select{|par| par.event.space==space}
-    return !events_participating.empty?
     
-  end
   
 end
