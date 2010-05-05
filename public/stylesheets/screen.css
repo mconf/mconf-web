@@ -793,7 +793,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 .profile_center #profile_content{background:#fff;min-height:300px;padding:0 10px;}
 .profile_center #profile_content .odd_thread{background:#fff;}
 .profile_center #profile_content .home_event{padding:0;}
-.profile_center #profile_content .thread_content div.thread-home{float:none;position:relative;}
+.profile_center #profile_content .thread_content div.thread-home{float:none;position:relative;overflow:hidden;}
 
 #profile_wrapper .title,#sidebar #profile_right .title{
 	background:#BDD8EB none repeat scroll 0 0;
