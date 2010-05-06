@@ -52,10 +52,6 @@ class AgendaEntry < ActiveRecord::Base
     
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
 
-    elsif(self.agenda.sooner_allowed_start_date.present? && self.start_time < self.agenda.sooner_allowed_start_date)  
-    
-      self.errors.add_to_base(I18n.t('agenda.entry.error.past_times', :min_date => self.agenda.sooner_allowed_start_date.strftime("%A, %d %b %Y at %H:%M")))
-
     elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
       self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
       
@@ -106,7 +102,7 @@ class AgendaEntry < ActiveRecord::Base
 #      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
 #    end
     
-    if entry.uid.nil? or entry.uid.eql? ''
+    if entry.uid.blank?
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
     end
@@ -184,11 +180,6 @@ class AgendaEntry < ActiveRecord::Base
   
   def name
     cm_session.try(:name)
-  end
-   
-  def can_edit_hours?
-    #an user can only edit hours if the event is in person or is virtual and future
-    return true unless cm_session? && past? 
   end
   
   def has_error?

@@ -105,6 +105,7 @@ en:
         disordered_times: The start time must be previous to the end time
         past_times: "The start time of the session must be {{min_date}} or later"
         update: Error updating session in remote videoconference system
+        attribute_unchangeable: You have tried to change an unchangeable attribute for this session
       failed: Agenda entry could not be saved
       has_attachment: This entry has attachments
       has_video: Video available for this entry

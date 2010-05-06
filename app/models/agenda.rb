@@ -69,7 +69,7 @@ class Agenda < ActiveRecord::Base
   #returns the hour of the last agenda_entry
   def last_hour_for_day(i)
     if start_date.nil?
-      return sooner_allowed_start_date.present? ? sooner_allowed_start_date + 1.minute : Time.zone.now
+      return event.uses_conference_manager? ? Time.zone.now + ConferenceManager::Support::AgendaEntry::WAKE_UP_TIME + 1.minute : Time.zone.now
     end
     ordered_entries = contents.all(:conditions => [
                    "start_time >= :day_start AND start_time < :day_end",
@@ -81,20 +81,11 @@ class Agenda < ActiveRecord::Base
       ordered_entries.last.end_time
     else
       if (start_date + i.days).day == Time.now.day
-        sooner_allowed_start_date.present? ? sooner_allowed_start_date + 1.minute : Time.zone.now
+        return event.uses_conference_manager? ? Time.zone.now + ConferenceManager::Support::AgendaEntry::WAKE_UP_TIME + 1.minute : Time.zone.now
       else
         self.start_date.to_date + (i-1).days + 9.hour #9 in the morning
       end  
     end  
-  end
-  
-  # Return the sooner allowed date for the session or nil if any is allowed (Introduced to adjust conference manager event starting time)
-  def sooner_allowed_start_date
-    if event.vc_mode == Event::VC_MODE.index(:in_person)
-      nil
-    else
-      Time.zone.now + 2.minutes
-    end
   end
   
   # Used to calculate event start time from agenda contents
