@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20100506103259) do
     t.integer  "stage_id"
     t.string   "stage_type"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "permissions", :force => true do |t|
