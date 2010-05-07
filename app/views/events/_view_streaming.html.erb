@@ -26,7 +26,7 @@
 		      <%if @event.agenda.agenda_entries.empty?%>
 		        <%=t('please')%><a href='#' id="add_first_entry"><%=t("event.help.define2")%></a> <%=t('event.help.define3')%>
 		      <%elsif @event.web_interface? && !@event.has_streaming?%>
-		        <%= @event.web%>
+                        <%= @event.web current_user.login %>
 		      <%else%>
 		        <%if @event.web_interface? && !params[:web_client]%>
   			      <%=link_to("participate",space_event_path(@space, @event, :web_client=>true))%>

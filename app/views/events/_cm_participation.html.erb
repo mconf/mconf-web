@@ -8,7 +8,7 @@
   
   <div id="streaming_content">   
     <%if @event.has_session_now?%>
-	  <%= @event.web%>
+	  <%= @event.web current_user.login %>
 	<%else%>
 	  <div class="video_wrapper">
         <%=image_tag("visor_video.png")%>
