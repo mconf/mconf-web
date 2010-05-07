@@ -160,7 +160,8 @@ class Agenda < ActiveRecord::Base
             
             agenda_entry.start_time = e.dtstart.to_s
             agenda_entry.end_time = e.dtend.to_s
-            agenda_entry.speakers = e.organizer.to_s            
+            agenda_entry.speakers = e.organizer.cn.to_s
+            #debugger
             total_entries.push(agenda_entry.title);
             next
         end
@@ -174,10 +175,10 @@ class Agenda < ActiveRecord::Base
         agenda_entry.description = e.description.to_s
         agenda_entry.start_time = e.dtstart.to_s
         agenda_entry.end_time = e.dtend.to_s
-        agenda_entry.speakers = e.organizer.to_s
+        agenda_entry.speakers = e.organizer.cn.to_s
         agenda_entry.uid = e.uid        
         
-        
+        #debugger
         agenda_entry.save
         total_entries.push(agenda_entry.title);
         
