@@ -9,8 +9,11 @@
     <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
 
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
-  
-    <input id="agenda_entry_setting_times" type="hidden" size="30" name="agenda_entry[setting_times]" value="true"/>
+
+    <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %></label><br/>
+      <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
+      <%= f.text_field :title %>
+    </div>
   
     <div class="without_javascript">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>

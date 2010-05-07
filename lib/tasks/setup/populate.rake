@@ -175,6 +175,8 @@ namespace :setup do
               performance.role_id = role_ids
               performance.agent_id = participant.user_id
               performance.agent_type = 'User'
+              performance.created_at = participant.created_at
+              performance.updated_at = performance.created_at
             end
           end
         end
