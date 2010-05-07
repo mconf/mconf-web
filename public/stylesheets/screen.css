@@ -89,7 +89,7 @@ a.big_button,a.medium_button,a.basic_button,button,input[type=button]{
 	text-align:center;
 }
 a.big_button, a.medium_button, a.basic_button{
-    display: block;
+  display: block;
 	float: left;
 	text-decoration: none;
 	outline:none;
