@@ -45,7 +45,7 @@ module ConferenceManager
                   entry.errors.add_to_base(I18n.t('agenda.entry.error.attribute_unchangeable')) if (entry.changed & PAST_UNCHANGEABLE_ATTRIBUTES).any?
                 
                 # Validation: In current sessions cannot be edited CURRENT_UNCHANGEABLE_ATTRIBUTES
-                elsif entry.start_time_was.present? && Time.zone.now < (entry.start_time - WAKE_UP_TIME)
+                elsif entry.end_time_was.present? && !(entry.end_time_was.past?) && entry.start_time_was.present? && Time.now.in_time_zone > (entry.start_time_was - WAKE_UP_TIME)
                   entry.errors.add_to_base(I18n.t('agenda.entry.error.attribute_unchangeable')) if (entry.changed & CURRENT_UNCHANGEABLE_ATTRIBUTES).any?
                 end
               end
