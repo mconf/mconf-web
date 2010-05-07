@@ -34,7 +34,7 @@
 		<%else%>
 		  <li id="collapsed_post_<%=post.id%>" style="display:none">
 		  	<div class="main_text">
-			    <%=sanitize(first_words(auto_link(post.text),120))%>
+			    <%=sanitize(truncate(auto_link(post.text),:length=>120))%>
 			    <%=link_to t('more>>') , "javascript:expand_post_#{post.id}()"%>
 			  </div>
 		  </li>

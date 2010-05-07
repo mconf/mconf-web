@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100420152458) do
+ActiveRecord::Schema.define(:version => 20100506103259) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -223,11 +223,13 @@ ActiveRecord::Schema.define(:version => 20100420152458) do
   end
 
   create_table "performances", :force => true do |t|
-    t.integer "agent_id"
-    t.string  "agent_type"
-    t.integer "role_id"
-    t.integer "stage_id"
-    t.string  "stage_type"
+    t.integer  "agent_id"
+    t.string   "agent_type"
+    t.integer  "role_id"
+    t.integer  "stage_id"
+    t.string   "stage_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "permissions", :force => true do |t|

@@ -208,6 +208,16 @@ class Space < ActiveRecord::Base
 
   end
 
+  def pending_join_requests_for?(user)
+    jrs = self.admissions.find(:all, :conditions => {:type => "JoinRequest", :candidate_type => user.class.to_s, :candidate_id => user.id})
+    jrs.each do |jr|
+      if !(jr.processed?)
+        return true
+      end
+    end
+    return false
+  end
+
   # There are previous authorization rules because of the stage
   # See acts_as_stage documentation
   authorizing do |agent, permission|

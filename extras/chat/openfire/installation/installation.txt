@@ -29,6 +29,24 @@ Server -> Server Manager -> System Properties
 admin.authorizedJIDs
 vcc@chat.vcc.dit.upm.es,admin@chat.vcc.dit.upm.es
 
+cache.group.maxLifetime
+30000
+
+cache.listsCache.maxLifetime
+30000
+
+cache.remoteUsersCache.maxLifetime
+30000
+
+cache.userCache.maxLifetime
+30000
+
+cache.userGroup.maxLifetime
+30000
+
+cache.username2roster.maxLifetime
+30000
+
 jdbcGroupProvider.allGroupsSQL
 SELECT name FROM spaces
 

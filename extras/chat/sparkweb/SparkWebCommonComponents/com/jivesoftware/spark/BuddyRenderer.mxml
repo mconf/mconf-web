@@ -243,7 +243,8 @@
 				
 				addListeners();
 					
-				if(rosterItem && rosterItem.online)
+				//if(rosterItem && rosterItem.online) // Line changed by Diego Moreno
+				if(rosterItem)
 					loadVCard(rosterItem);
 				dispatchEvent(new Event("dataChanged"));
 			}

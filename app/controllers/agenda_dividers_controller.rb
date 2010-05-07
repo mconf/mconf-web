@@ -26,6 +26,12 @@ class AgendaDividersController < ApplicationController
   authorization_filter :update, :agenda_divider, :only => [ :edit, :update ]
   authorization_filter :delete, :agenda_divider, :only => [ :destroy ]
   
+  
+  def index
+    raise ActiveRecord::RecordNotFound    
+  end
+  
+  
   # GET /agenda_dividers/new
   # GET /agenda_dividers/new.xml
   def new

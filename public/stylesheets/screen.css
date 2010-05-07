@@ -330,7 +330,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 /*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
 .odd_thread,.even_thread{border-bottom:1px solid #ddd;position:relative;overflow:hidden;}
 .odd_thread.last,.even_thread.last{border-bottom:none;}
-.odd_thread{background:#f0f6f9;}
+/*.odd_thread{background:#f0f6f9;}*/
 .odd-posts{margin-bottom:1.5em;}
 .odd_thread .post,.odd_thread .comments-status,.odd-posts .post, .event-comment-wrapper .post,.even_thread .post,.even_thread .comments-status{background:#d5e0e8;border-top:none;margin-top:2px;}/*verde*/
 .odd_thread .post_i,.even_thread .post_i{border-top-color:#bdd8eb;}
@@ -360,7 +360,7 @@ ul.thread-title{margin:0;list-style-type:none;}
 	overflow:hidden;
 	position:relative;
 	}
-.thread_content .thread-title-wrapper{width:580px;}
+.thread_content .thread-title-wrapper{width:615px;/*580px*/}
 .thread_content .thread-title-wrapper div{float:none;}
 .thread_content .post-logo,.user .post-logo{width:36px;height:36px;}
 .post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}
@@ -793,7 +793,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 .profile_center #profile_content{background:#fff;min-height:300px;padding:0 10px;}
 .profile_center #profile_content .odd_thread{background:#fff;}
 .profile_center #profile_content .home_event{padding:0;}
-.profile_center #profile_content .thread_content div.thread-home{float:none;position:relative;}
+.profile_center #profile_content .thread_content div.thread-home{float:none;position:relative;overflow:hidden;}
 
 #profile_wrapper .title,#sidebar #profile_right .title{
 	background:#BDD8EB none repeat scroll 0 0;

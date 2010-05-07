@@ -19,7 +19,7 @@
 require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/join_requests_controller"
 
 class JoinRequestsController
-  before_filter :space
+  before_filter :space!
 
   def new
     respond_to do |format|
@@ -96,9 +96,17 @@ class JoinRequestsController
     end
 
     if request.xhr?
-        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      if space.public
+        render :partial => "redirect.js.erb", :locals => {:url => space_path(space)}
       else
-        redirect_to spaces_path  
+        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+      end
+    else
+      if space.public
+        redirect_to space_path(space)
+      else
+        redirect_to spaces_path
+      end
     end
   end
  

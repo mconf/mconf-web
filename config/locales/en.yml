@@ -77,6 +77,7 @@ en:
       error: 
         coinciding_times: There is a conflict with the time of the new divider and existing agenda entries or dividers
         date_out_of_event: "The date of the divider exceeds the maximum duration of the event: {{max_days}} days"
+        past_times: "This type of event cannot have past times"
       failed: There was a problem with the agenda divider
       new: New agenda divider
       start_time: Start time
@@ -102,7 +103,9 @@ en:
         date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: Error deleting session in remote videoconference system
         disordered_times: The start time must be previous to the end time
+        past_times: "The start time of the session must be {{min_date}} or later"
         update: Error updating session in remote videoconference system
+        attribute_unchangeable: You have tried to change an unchangeable attribute for this session
       failed: Agenda entry could not be saved
       has_attachment: This entry has attachments
       has_video: Video available for this entry
@@ -116,7 +119,7 @@ en:
       one: Entry
       options: 
         add_video: Discard automatic video and add an embed
-        help: Here you can decide if you want to record or streaming this session or not
+        help: Check streaming and/or recording services as needed
         help2: This session has already happened you can not edit streaming or recording options
         help3: This session is happening now you can only change whether you want streaming or not
         recording: Recording
@@ -225,9 +228,11 @@ en:
   changed_mind: Changed your mind?
   chat: 
     connecting_message: Connecting to event chat...
+    connecting_error_message: Error while connecting
     edit_enabled: Enable experimental chat at next login
     edit_question: Would you like to enable experimental chat feature?
     please_login_message: Please, login/register to participate
+    reconnect_message: Reconnect
   check_mail: Please, check your email
   city: City
   click_here: Click here
@@ -502,6 +507,7 @@ en:
       none: No events found
       one: 1 event was found
       other: "{{size}} events were found"
+    future: Future Event
     generate_pdf: Generate PDF
     has: This event has
     held_with: This event will be held with
@@ -582,6 +588,7 @@ en:
       last_week: No events for last week.
       none: No past events
       other: Past events
+      one: Past Event
       show: Show all old events
       today: No events for yesterday nor today.
     player: Player
@@ -603,7 +610,9 @@ en:
     streaming: 
       add: Add one.
       edit: Edit streaming code
-      none: No one has posted any streaming url.
+      none: No one has posted any streaming url
+      no_at_events: No Streaming at meetings
+      now: Event Streaming
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
       will_be_available: The streaming will be available during the event
@@ -1365,6 +1374,7 @@ en:
     invitation: 
     is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
+    join_pending: Join request being processed
     join_invitation: 
       clarify_registered: Please introduce password in order to join this space.
       clarify_unregistered: Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space.
@@ -1450,6 +1460,7 @@ en:
   the_string: the string
   thread: 
     add: Create new message
+    comments: "{{children}} comments"
     compact_view: Switch to compact view
     deleted: Message (with its comments) has been deleted
     edit: Edit message
@@ -1591,6 +1602,7 @@ en:
   visit_link_to_activate_account: Visit this link to activate your account
   week: 
     next: Next week
+    this: This week
   when: When
   where: Where
   xmpp_server: 

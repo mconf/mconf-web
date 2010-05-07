@@ -77,6 +77,7 @@
  			private var shouldShowLoginWindow:Boolean = true;
 			private var shouldUseExternal:Boolean = false;
  			private static var externalConfig:Object;
+ 			private var connectingMessage:String = "";
 			
 			public function presetup():void 
 			{
@@ -146,8 +147,11 @@
 					//ExternalInterface.call("alertTitle", "SparkWeb", RosterItemVO.get(message.from.unescaped, false).displayName+"!");
 				});
 				
-				var message:String = SparkManager.getConfigValueForKey("connecting_message");
-				connection_message.text = message;
+				connectingMessage = SparkManager.getConfigValueForKey("connecting_message");
+				connection_message.text = connectingMessage;
+				
+				reconnect_link.label    = SparkManager.getConfigValueForKey("reconnect_message");
+				
 				var backgroundColor:String = SparkManager.getConfigValueForKey("background_color");
 				this.setStyle("backgroundColor", backgroundColor);
  			}
@@ -211,7 +215,7 @@
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, roomConnected);
  				var roomJid:String = SparkManager.getConfigValueForKey("roomJid");
  				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
- 				connection_message.text = "";
+ 				info_box.visible = false;
  			}
  			
 			public function roomConnected(event:Event):void {
@@ -250,7 +254,17 @@
  						/*loginDialog.reset();
  						loginDialog.showErrorText(Localizator.getText('message.service.unavailable'));*/
  						break;
+ 					case -1:
+ 						connection_message.text = SparkManager.getConfigValueForKey("connecting_error_message");
+ 						reconnect_link.enabled  = true;
+ 						reconnect_link.visible  = true;
  				}
+ 			}
+ 			
+ 			public function reconnect():void {
+ 				connection_message.text = connectingMessage;
+ 				reconnect_link.enabled = false;
+ 				initKey();
  			}
  			
  			public function handleDisconnect(event:Event):void {
@@ -302,7 +316,11 @@
  	<mx:Fade id="fade" />-->
  	
  	<local:ChatContainer id="chatContainer" height="100%" width="100%" visible="false" />
-	<mx:Label id="connection_message" x="10" y="10"/>
+ 	<mx:Canvas id="info_box" width="100%" height="100%" y="0" x="0">
+		<mx:Label id="connection_message" y="10" x="10" textAlign="left" horizontalCenter="0"/>
+		<mx:LinkButton click="reconnect()" id="reconnect_link" horizontalCenter="0" y="38" visible="false"/> 		
+ 	</mx:Canvas>
+
 
 	<!--<local:LoginDialog filters="{[shadow]}" showEffect="fade" id="loginDialog" verticalCenter="0" horizontalCenter="0" visible="{shouldShowLoginWindow}" />
 	<local:CreateAccountDialog filters="{[shadow]}" showEffect="fade" hideEffect="fade" id="createAccountDialog" verticalCenter="0" horizontalCenter="0" visible="false" />-->

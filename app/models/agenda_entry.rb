@@ -19,13 +19,12 @@ class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  attr_accessor :author, :setting_times, :duration 
+  attr_accessor :author, :duration 
   acts_as_stage
   acts_as_content :reflection => :agenda
   acts_as_resource
   
-  validates_inclusion_of :setting_times, :in => ["true", "false"]
-  validates_presence_of :title, :if => Proc.new {|entry| (entry.setting_times != "true")}
+  validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
   
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
@@ -49,10 +48,10 @@ class AgendaEntry < ActiveRecord::Base
 
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
-    if (self.start_time > self.end_time)
-      
+    if(self.start_time > self.end_time)
+    
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
-      
+
     elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
       self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
       
@@ -103,7 +102,7 @@ class AgendaEntry < ActiveRecord::Base
 #      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
 #    end
     
-    if entry.uid.nil? or entry.uid.eql? ''
+    if entry.uid.blank?
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
     end
@@ -181,11 +180,6 @@ class AgendaEntry < ActiveRecord::Base
   
   def name
     cm_session.try(:name)
-  end
-  
-  def can_edit_hours?
-    #an user can only edit hours if the event is in person or is virtual and future
-    return true unless cm_session? && past? 
   end
   
   def has_error?

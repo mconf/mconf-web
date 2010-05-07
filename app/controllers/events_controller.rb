@@ -117,7 +117,12 @@ class EventsController < ApplicationController
       else
         @video_entries = []
       end
-      @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
+      if params[:show_video].class == String
+        @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      else
+        @display_entry = nil
+      end
 #      #@show_day=0
 #      for day in 1..@event.days
 #        if @video_entries[day][params[:show_video].to_i]
@@ -200,7 +205,9 @@ class EventsController < ApplicationController
 			    @event.update_attribute(:marte_room, false)
 		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
-        
+        flash[:success] = t('event.updated')
+        format.html {redirect_to space_event_path(@space, @event) }
+        format.xml  { head :ok }
         format.js{
           if params[:event][:other_streaming_url]
             @result = params[:event][:other_streaming_url]
@@ -213,9 +220,6 @@ class EventsController < ApplicationController
             @description=true
           end
         }
-        flash[:success] = t('event.updated')
-        format.html {redirect_to space_event_path(@space, @event) }
-        format.xml  { head :ok }
       else
         format.html { message = ""
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}

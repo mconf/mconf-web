@@ -61,7 +61,7 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
     @posts = @space.posts
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
-    @lastest_users=@space.actors.sort {|x,y| y.created_at <=> x.created_at }.first(3)
+    @lastest_users=@space.stage_performances.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{|performance| performance.agent}
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
@@ -155,16 +155,7 @@ class SpacesController < ApplicationController
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
       
-    end
-    
-    
-    
-    
-    
-   
-   
- 
-    
+    end    
   end
   
   
@@ -175,6 +166,11 @@ class SpacesController < ApplicationController
   def update
     if @space.update_attributes(params[:space]) 
       respond_to do |format|
+        format.html { 
+          flash[:success] = t('space.updated')
+          redirect_to request.referer
+        }
+        format.atom { head :ok }
         format.js{
           if params[:space][:name]
             @result = "window.location=\"#{edit_space_path(@space)}\";"
@@ -186,12 +182,6 @@ class SpacesController < ApplicationController
             render "update.js"
           end
         }
-        format.html { 
-          flash[:success] = t('space.updated')
-          redirect_to request.referer
-        }
-        format.atom { head :ok }
-
       end
     else
       respond_to do |format|
