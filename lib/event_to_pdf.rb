@@ -134,7 +134,21 @@ module EventToPdf
   
   private
   
-  #Calculate the height of the table generate with the entries array.
+  #Calculate if one entry fits in one page.
+  def isLongEntry(entry,heading)
+     
+    entries = [] 
+    entries << entry      
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    pdf_test.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
+  
+    generate_entrie_table(pdf_test,entries,nil,heading)
+    
+    return (pdf_test.current_page_number()!=1)
+
+  end
+  
+  #Calculate if one entrie fits in a page.
   def getTableHeight(entries,heading)
      
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
@@ -285,7 +299,7 @@ module EventToPdf
       else
         
         #Select maxLenght...
-        
+ 
         if entrie == entries[0] and day == 0
           maxLength = 2000
         else
@@ -308,6 +322,7 @@ module EventToPdf
           end
           
         end
+        #maxLenght selected.
         
         fragment_entries_by_description = fragment_entrie_by_description(entrie,maxLength,true)
         
@@ -327,40 +342,38 @@ module EventToPdf
    
   end
   
-     
-  def fragment_entrie_by_description(entrie,maxLength,first_cont)
+  #Fragment long entries that not fit in one page into two or more short entries.    
+  def fragment_entrie_by_description(entrie,maxLength,first)
   
     fragment_entries_by_description = []
     subfragment_entries_by_description = []
-    lineLenght = 70; #= f(@c4)
     index_length = 1
-    line_number = entrie.description.count("\n");
     
-
     #Analice if the entrie fits in one page.
-    if (entrie.description.length + line_number * lineLenght) > maxLength
-               
-        #Remove the multiples \n.
-        entrie.description = entrie.description.gsub(/([\n])+/, "\n")
+    if isLongEntry(entrie,true)
+       
         
-        line_number = entrie.description.count("\n");
+        if first
+         
+          #Remove the multiples \n.
+          entrie.description = entrie.description.gsub(/([\n])+/, "\n")
+            
+            unless isLongEntry(entrie, true)
+              fragment_entries_by_description << entrie
+              return fragment_entries_by_description
+            end
+     
+          #Remove simple \n.
+          entrie.description = entrie.description.gsub(/([\n])+/, "")
+          
+          unless isLongEntry(entrie, true)
+            fragment_entries_by_description << entrie
+            return fragment_entries_by_description
+          end 
         
-        if (entrie.description.length + line_number * lineLenght) < maxLength
-          fragment_entries_by_description << entrie
-          return fragment_entries_by_description
-        end
- 
-        #Remove simple \n.
-        entrie.description = entrie.description.gsub(/([\n])+/, "")
-        
-        line_number = entrie.description.count("\n")
-        
-        if (entrie.description.length + line_number * lineLenght) < maxLength 
-          fragment_entries_by_description << entrie
-          return fragment_entries_by_description
-        end    
-        
-        
+        end   
+            
+             
         #Copy the entrie, and cuts the description.
         entrie_a = AgendaEntry.new
         entrie_a.start_time = entrie.start_time
@@ -371,7 +384,7 @@ module EventToPdf
         aux = entrie.description
    
         #Set the index_lenght at the min value to ensure that the entry fits in one page.
-        while aux.length + aux.count("\n") * lineLenght > maxLength          
+        while aux.length > maxLength          
             index_length = index_length + 1
             aux = entrie.description[0,maxLength-index_length]
         end
@@ -386,24 +399,36 @@ module EventToPdf
           index_length = index_length + 1
         end
         
-        
+                
         #Cuts the string.
         
-       #Test if the additional row has very low length. 
-       if entrie.description[maxLength-index_length,entrie.description.length].length < 10
-         entrie_a.description = entrie.description[0,entrie.description.length]
-         fragment_entries_by_description << entrie_a
-         return fragment_entries_by_description;
-       end
+        #Test if the additional row has very low length. 
+        if entrie.description[maxLength-index_length,entrie.description.length].length < 10
+          entrie_a.description = entrie.description[0,entrie.description.length]
+         
+          if isLongEntry(entrie_a, true)
+            return fragment_entrie_by_description(entrie,maxLength-100,first)
+          else
+            fragment_entries_by_description << entrie_a
+            return fragment_entries_by_description;
+          end
+        
+        end
           
         entrie_a.description = entrie.description[0,maxLength-index_length] + "..."
+        
+        #Real comprobation
+        if isLongEntry(entrie_a, true)
+          return fragment_entrie_by_description(entrie,maxLength-100,first)
+        end
+
         fragment_entries_by_description << entrie_a
         
         entrie.description = "..." + entrie.description[maxLength-index_length,entrie.description.length]
    
-        if first_cont
+        if first
           entrie.title = entrie.title + "\n(Cont)"
-          first_cont = false;
+          first = false;
         end
         
         subfragment_entries_by_description = fragment_entrie_by_description(entrie,3200,false)
