@@ -78,7 +78,21 @@ class Space < ActiveRecord::Base
   
   after_create do |space|
  
-    original = File.open(File.join("public/images/", space.default_logo))
+     img_orig = Magick::Image.read(File.join("public/images/", space.default_logo)).first
+     img_orig = img_orig.scale(337, 256)
+     images_path = File.join(RAILS_ROOT, "public", "images")
+     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{space.rand_value}"))
+     img_orig.write(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
+     #debugger
+     
+     #img_orig.write(File.join("public/images/", space.default_logo + "tmp")) 
+
+     #FileUtils.copy(File.join("public/images/", space.default_logo),File.join("public/images/", space.default_logo + "tmp"))
+     #final_path = FileUtils.touch(File.join("public/images/tmp/", space.default_logo))
+     #debugger
+ 
+    original = File.open(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
+    #original = File.open(File.join("public/images/", space.default_logo + "tmp"))
     original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
     original_tmp.write(original.read)
     original_tmp.instance_variable_set "@original_filename",space.default_logo
@@ -86,7 +100,7 @@ class Space < ActiveRecord::Base
     logo = {}
     logo[:media] = original_tmp
     logo = space.build_logo(logo)
-        
+    #File.delete(File.join("public/images/", space.default_logo + "tmp"))
     unless logo.save
       puts logo.errors.to_xml
     end

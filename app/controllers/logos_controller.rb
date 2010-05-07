@@ -52,7 +52,11 @@ class LogosController
      temp_file = File.open(uploaded_image, "w+")
      temp_file.write(params[:logo][:media].read)
      temp_file.close
-
+     
+     img_orig = Magick::Image.read(uploaded_image).first
+     img_orig = img_orig.resize_to_fit(600, 600)
+     img_orig.write(uploaded_image)
+      
      render :template => "logos/precrop_without_space", :layout => false
    end
    if params[:upload_crop]
