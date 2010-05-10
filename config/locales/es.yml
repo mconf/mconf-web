@@ -24,7 +24,7 @@ es:
     errors: 
       attributes: 
       full_messages: 
-        format: "{{atributo}} {{mensaje}}"
+        format: "{{attribute}} {{message}}"
       messages: 
         accepted: debe ser aceptado
         blank: no puede estar en blanco
@@ -42,7 +42,7 @@ es:
         missing: falta
         not_a_number: "no es un n\xC3\xBAmero"
         odd: debe ser impar
-        record_invalid: "Validaci\xC3\xB3n no: {{error}}"
+        record_invalid: "Validaci\xC3\xB3n no: {{errors}}"
         taken: "ya est\xC3\xA1 en uso"
         too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
         too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
@@ -58,7 +58,7 @@ es:
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
-    space: ""
+    space: The administrator of {{spacename}}
   admission: 
     errors: 
       candidate_equals_introducer: "Candidato e introductor no pueden ser la misma persona. (Seguramente tengas que salir de la sessi\xC3\xB3n)"
@@ -170,14 +170,14 @@ es:
     delete: Eliminar archivo adjunto
     deleted: Adjunto se han eliminado correctamente
     error: 
-      not_deleted: "{{Archivo}} no se eliminan correctamente."
+      not_deleted: "{{file}} no se eliminan correctamente."
     file: "Archivo:"
     found: 
       none: "No encontr\xC3\xB3 los archivos adjuntos"
       one: "1 adjunto se encontr\xC3\xB3"
       other: "{{Size}} se encontraron archivos adjuntos"
     home: 
-      one: Archivo en el espacio {{espacio}}
+      one: Archivo en el espacio {{space}}
     info: "Informaci\xC3\xB3n sobre el documento"
     loading: "Cargando informaci\xC3\xB3n del documento ..."
     new: "Nueva conexi\xC3\xB3n"
@@ -260,7 +260,7 @@ es:
   comment: 
     add: "A\xC3\xB1adir un comentario"
     add_new: "A\xC3\xB1ade un comentario nuevo"
-    by: comentario de {{autor}}
+    by: comentario de {{author}}
     delete: Eliminar comentario
     edit: Editar comentario
     new: Nuevo Comentario
@@ -426,11 +426,11 @@ es:
   download: Descargar
   download_file: Download file
   e-mail: 
-    account_activated: "Tu cuenta en {{SITENAME}} ha sido activado con \xC3\xA9xito."
+    account_activated: "Tu cuenta en {{sitename}} ha sido activado con \xC3\xA9xito."
     commas: (Separados por comas)
     confirm: Es necesario ahora para confirmar su registro haciendo clic en <a href="{{url}}">{{url}}</a>
     copy_link: "Si usted no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
-    dear: Estimado {{nombre}},
+    dear: Estimado {{name}},
     join_request: "\xC3\x9Anete a solicitud"
     kind_regards: Un cordial saludo,
     notifications: "notificaciones por correo electr\xC3\xB3nico"
@@ -438,11 +438,11 @@ es:
     other: "mensajes de correo electr\xC3\xB3nico"
     spam_activation: Si no se ha registrado en este sitio, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
     spam_invitation: Si crees que este mensaje es un spam, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
-    thanks: Gracias por visitar la {{SITENAME}}
-    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{nombre}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
+    thanks: Gracias por visitar la {{sitename}}
+    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{name}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
     used_from: "correo electr\xC3\xB3nico utilizado en la forma de contacto: {{dir}}"
     vcc_team: El equipo de VCC
-    welcome: Bienvenido a {{SITENAME}}
+    welcome: Bienvenido a {{sitename}}
   edit: Editar
   edit_hours: Editar horas
   edit_profile: Editar perfil
@@ -588,8 +588,8 @@ es:
       label: "Personaliza tus mensajes de notificaci\xC3\xB3n"
       legend: 
         name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
-      message_beginning_with_start_date: "<p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{espacio}}</b> en &quot;event_date&#39;: </p>"
-      message_beginning_without_start_date: <p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{espacio}}:</b> </p>
+      message_beginning_with_start_date: "<p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}</b> en &quot;event_date&#39;: </p>"
+      message_beginning_without_start_date: <p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}:</b> </p>
       message_title: "Enviar una notificaci\xC3\xB3n a los asistentes"
       personal: "Escribe el texto de su personal aqu\xC3\xAD."
       select_all_attendants: Seleccionar todos los asistentes
@@ -739,7 +739,7 @@ es:
     add_to_group: "A\xC3\xB1adir a grupo"
     add_to_others: "A\xC3\xB1adir otros grupos"
     create: Crear nuevo grupo
-    created: "El grupo de {{nombre}} ha sido creado con \xC3\xA9xito."
+    created: "El grupo de {{name}} ha sido creado con \xC3\xA9xito."
     delete: Borrar grupo
     deleted: El grupo ha sido borrado correctamente.
     different: Otros grupos
@@ -753,7 +753,7 @@ es:
     one: Grupo
     other: Grupos
     send_message: Enviar un mensaje a este grupo
-    updated: El grupo de {{nombre}} ha sido actualizado correctamente.
+    updated: El grupo de {{name}} ha sido actualizado correctamente.
   groups_and_results: Grupos, {{size}} resultados
   hcard: 
     not_found: hCard que no se encuentra
@@ -905,13 +905,13 @@ es:
     show: Unirse a {{group}}
     show_all_users: Mostrar todos los usuarios
     sign: Atentamente, ((nombre de usuario))
-    space: "Me gustar\xC3\xADa invitar a usted a {{espacio}} espacio en el Centro Virtual de la Conferencia."
+    space: "Me gustar\xC3\xADa invitar a usted a {{space}} espacio en el Centro Virtual de la Conferencia."
     title: Invitar a la gente
     title2: "Espacio Invitaci\xC3\xB3n"
     to_accept: "Para aceptar mi invitaci\xC3\xB3n por favor, visite <a href={{url}}>{{url}}</a>"
     to_accept_space: "Para aceptar mi invitaci\xC3\xB3n por favor, visite {{url}}"
     to_event: ""
-    to_space: ((Nombre de usuario)) te invita al espacio {{espacio}}
+    to_space: ((Nombre de usuario)) te invita al espacio {{space}}
     was_processed: 
       accepted: "La invitaci\xC3\xB3n ya fue aceptada"
       discarded: "La invitaci\xC3\xB3n ya ha sido descartado"
@@ -1105,11 +1105,11 @@ es:
     error: 
       create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
   password: 
-    been_reset_email: "{{usuario}}, su contrase\xC3\xB1a se ha restablecido"
+    been_reset_email: "{{user}}, su contrase\xC3\xB1a se ha restablecido"
     confirm: "Confirmar contrase\xC3\xB1a"
     one: "Contrase\xC3\xB1a"
-    request: "De restablecimiento de contrase\xC3\xB1a en {{SITENAME}}"
-    reset_email: "{{usuario}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
+    request: "De restablecimiento de contrase\xC3\xB1a en {{sitename}}"
+    reset_email: "{{user}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
     to_reset: "Para restablecer su contrase\xC3\xB1a, por favor visite <a href={{url}}>{{url}}</a>"
   password_has_been_reset: "La contrase\xC3\xB1a se ha cambiado"
   password_has_been_reset_with_agent: "{{agent}}, su contrase\xC3\xB1a se ha cambiado"
@@ -1168,13 +1168,13 @@ es:
       other: "{{size}} se encontraron comentarios"
       show_all: Mostrar todos los comentarios encontrados
     home: 
-      one: Mensaje en el espacio {{espacio}}
+      one: Mensaje en el espacio {{space}}
     latest: "\xC3\x9Altimos mensajes"
     none_created: "N \xC2\xBA puesto creado"
     none_recent: No hay mensajes recientes
     one: Mensaje
     other: Mensajes
-    other_in_space: Mensajes en el espacio {{espacio}}
+    other_in_space: Mensajes en el espacio {{space}}
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
     updated: Entrada actualizada
     wall: Pared
@@ -1215,7 +1215,7 @@ es:
   read: Ver
   read_more: "Leer m\xC3\xA1s"
   read_more>>: "Leer m\xC3\xA1s&gt;&gt;"
-  received_message_more_machines: "Ha recibido un mensaje de {{usuario}} pidiendo m\xC3\xA1s m\xC3\xA1quinas"
+  received_message_more_machines: "Ha recibido un mensaje de {{user}} pidiendo m\xC3\xA1s m\xC3\xA1quinas"
   recent: 
     activity: Actividad reciente
   register: 
@@ -1391,7 +1391,7 @@ es:
     enable: Habilitar el espacio
     enabled: Espacio habilitado correctamente.
     error: 
-      enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
+      enabled: "Espacio {{name}} ya est\xC3\xA1 habilitado"
     group_not_belong: no pertenecen al mismo espacio que el grupo
     is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
     join: Unete a este espacio!
@@ -1528,7 +1528,7 @@ es:
     translated: "VCC esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
   type: Tipo
   undated: Sin fecha
-  unknown_content: Desconocida contenido {{contenido}}
+  unknown_content: Desconocida contenido {{content}}
   upcoming: "Pr\xC3\xB3ximos"
   update: Actualizar
   updated: Actualizado
@@ -1561,7 +1561,7 @@ es:
     enable: Habilitar usuario
     enabled: "Usuario habilitado correctamente. El usuario no es miembro de ning\xC3\xBAn espacio que ahora y tiene que unirse a los espacios de nuevo."
     error: 
-      enabled: "Usuario {{nombre}} ya est\xC3\xA1 habilitado"
+      enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
       author: SIR
       title: Usuarios
@@ -1585,7 +1585,7 @@ es:
     list_by: Lista de
     login: Login
     lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
-    noactivity: "{{Usuario}} no tiene actividad reciente"
+    noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
     not_confirmed: Gente que no ha confirmado
