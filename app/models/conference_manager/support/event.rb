@@ -110,7 +110,7 @@ module ConferenceManager
       end
 
       # Returns a String that contains a html with the video of the Isabel Web Gateway
-      %w( web player editor streaming ).each do |obj|
+      %w( player editor streaming ).each do |obj|
         eval <<-EOM
       def #{ obj }(width = '640', height = '480')
         begin      
@@ -126,7 +126,21 @@ module ConferenceManager
       end
         EOM
       end
-      
+
+      def web(username, width = '640', height = '480')
+        begin      
+          cm_web ||=
+            ConferenceManager::Web.find(:web,
+                                        :params => { :username => username,
+                                                     :width => width,
+                                                     :height => height,
+                                                     :event_id => cm_event_id })
+          cm_web.html 
+        rescue
+          nil
+        end
+      end
+   
       def start!
         ConferenceManager::Start.create(:event_id => cm_event_id)
       rescue  StandardError => e
