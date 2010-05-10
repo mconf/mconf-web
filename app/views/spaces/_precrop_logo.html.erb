@@ -1,0 +1,56 @@
+	<%content_for :javascript do%>
+
+	$('#select_logo_form').ajaxForm({ 
+        // target identifies the element(s) to update with the server response 
+        target: '#resultado', 
+ 
+        // success identifies the function to invoke when the server response 
+        // has been received; here we apply a fade-in effect to the new content 
+        success: function() { 
+            $('#resultado').fadeIn('slow');
+			size = 188;
+			$("#croplogo").Jcrop({
+			      onSelect: cropImage,
+			      onChange: cropImage,
+						bgColor : 'white',
+			     	 aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
+						setSelect: [188/4,188/4,3*188/4,3*188/4]
+         	});
+			
+			$('#crop_logo_form').ajaxForm({ 
+				beforeSubmit:function() {  
+					$("#selected_logo_image").attr('src', "");
+				},
+        		target: '#resultado',
+        		success: function() {
+            		$('#resultado').fadeIn('slow');
+					$("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+					$("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+					closeUploadLogo();
+        		} 
+    		});
+       }
+		 
+    });
+
+
+function cropImage (c){
+   	$("#crop_size_x").val(c.x);
+   	$("#crop_size_y").val(c.y);
+   	$("#crop_size_height").val(c.h);
+   	$("#crop_size_width").val(c.w);
+};
+<%end%>
+
+
+	<div id="default_upload_logo" style="display:none">
+        <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+		<%= t("space.logo_selected.upload_logo_text")%><br>
+        <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
+		
+        <%= f.hidden_field  "rand" %><br>
+        <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+        <div id = "resultado">
+        </div>
+    </div>
+

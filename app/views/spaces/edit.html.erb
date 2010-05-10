@@ -12,5 +12,8 @@
     <% for performance in @performances -%>
       <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    
     <% end -%>
+	<%= render :partial => 'precrop_logo' %>
+
+	
   </div>
 <%end%>
