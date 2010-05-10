@@ -24,6 +24,12 @@ class AgendaEntry < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   acts_as_resource
   
+  is_indexed :fields => ['title','description','speakers','start_time','end_time'],
+             :include =>[{:class_name => 'Event',
+                          :field => 'name',
+                          :as => 'event_name',
+                          :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}]
+  
   validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
   

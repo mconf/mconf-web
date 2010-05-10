@@ -1657,3 +1657,10 @@ div.banner_footer a{
 	float: right;
 }
 
+.video_title{
+	color:#244974;
+	font-size:1.15em;
+	font-weight:bold;
+	line-height:1.3846;
+}
+

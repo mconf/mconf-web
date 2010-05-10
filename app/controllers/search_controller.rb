@@ -28,6 +28,8 @@ class SearchController < ApplicationController
       case params[:type]
         when "events"
           search_events(params)
+        when "videos"
+          search_videos(params)
         when "posts"
           search_posts(params)
         when "attachments"
@@ -36,6 +38,7 @@ class SearchController < ApplicationController
           search_users(params)
         else
           search_events(params)
+          search_videos(params)
           search_users(params)
           search_posts(params)    
           search_attachments(params)
@@ -85,6 +88,22 @@ class SearchController < ApplicationController
     @search.run
 
     @events = @space.nil? ? authorize_read?(@search.results) : @search.results 
+  end
+  
+  def search_agenda_entries(params)
+    filters = @space.nil? ? {} : {'space_id' => @space.id}
+    @query = params[:query]
+    
+    filter_date(params, filters, [:start_time, :end_time])
+    
+    @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'AgendaEntry',:filters => filters)
+    @search.run
+
+    @agenda_entries = @space.nil? ? authorize_read?(@search.results) : @search.results 
+  end
+  
+  def search_videos(params)
+    @videos = @agenda_entries = search_agenda_entries(params).select(&:recording?)
   end
   
   def search_posts (params)
