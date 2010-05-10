@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/ui/:action', :controller => 'ui'
 
   #Global search
-  map.search_all '/search', :controller => 'search', :action=> 'index' #=> /search, SearchController  
+  map.search_all '/search.:format', :controller => 'search', :action=> 'index' #=> /search, SearchController  
   map.search_by_tag '/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
 
   #Search in the space

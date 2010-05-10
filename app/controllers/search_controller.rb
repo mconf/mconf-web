@@ -41,6 +41,11 @@ class SearchController < ApplicationController
           search_attachments(params)
       end
     end    
+
+    respond_to do |format|
+      format.html
+      format.rss
+    end
   end
   
   def tag
