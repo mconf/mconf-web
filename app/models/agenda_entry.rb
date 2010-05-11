@@ -24,6 +24,12 @@ class AgendaEntry < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   acts_as_resource
   
+  is_indexed :fields => ['title','description','speakers','start_time','end_time'],
+             :include =>[{:class_name => 'Event',
+                          :field => 'name',
+                          :as => 'event_name',
+                          :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}]
+  
   validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
   
@@ -155,11 +161,9 @@ class AgendaEntry < ActiveRecord::Base
   end
  
   def thumbnail
-    if video_thumbnail
-      return video_thumbnail
-    else
+    video_thumbnail.present? ?
+      video_thumbnail :
       "default_background.jpg"
-    end
   end
   
   def video_player
@@ -192,21 +196,20 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   
+  def parse_embedded_video
+    Nokogiri.parse embedded_video
+  end
+
+  def embedded_video_attribute(a)
+    parse_embedded_video.xpath("//@#{ a }").first.try(:value)
+  end
+
   def get_background_from_embed
-    start_key = "image="   #this is the key where the background url starts
-    end_key = "&"      #this is the key where the background url ends
-    start_index = embedded_video.index(start_key)
-    if start_index
-      temp_str = embedded_video[start_index+start_key.length..-1]
-      endindex = temp_str.index(end_key)
-      if endindex==nil
-        return nil
-      end
-      result = temp_str[0..endindex-1]
-      return result
-    else
-      return nil
-    end
+    embedded_video_attribute("image")
+  end
+
+  def get_src_from_embed
+    embedded_video_attribute("src")
   end
     
   def is_happening_now?

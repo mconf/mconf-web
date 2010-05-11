@@ -3,12 +3,12 @@ es:
   GMT: GMT
   Isabel: Isabel
   RSS: RSS
-  abc: ""
+  abc: ABC
   about: Acerca de
   about_global: ACERCA DE GLOBAL
   about_me: Acerca de mi
   about_sxsw: Acerca de SXSW
-  about_vcc: ""
+  about_vcc: Acerca de VCC
   account: Cuenta
   account_activated: Su cuenta ha sido activada
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
@@ -16,15 +16,15 @@ es:
   action: 
     one: "Acci\xC3\xB3n"
     other: Acciones
-  actions: ""
+  actions: Acciones
   activerecord: 
     attributes: 
       user: 
-        login: ""
+        login: Login
     errors: 
       attributes: 
       full_messages: 
-        format: "{{atributo}} {{mensaje}}"
+        format: "{{attribute}} {{message}}"
       messages: 
         accepted: debe ser aceptado
         blank: no puede estar en blanco
@@ -39,10 +39,10 @@ es:
         invalid: "no es v\xC3\xA1lido"
         less_than: debe ser menor que {{count}}
         less_than_or_equal_to: debe ser menor que o igual a {{count}}
-        missing: ""
+        missing: falta
         not_a_number: "no es un n\xC3\xBAmero"
         odd: debe ser impar
-        record_invalid: "Validaci\xC3\xB3n no: {{error}}"
+        record_invalid: "Validaci\xC3\xB3n no: {{errors}}"
         taken: "ya est\xC3\xA1 en uso"
         too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
         too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
@@ -58,14 +58,90 @@ es:
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
-    space: ""
+    space: The administrator of {{spacename}}
   admission: 
     errors: 
+      candidate_equals_introducer: "Candidato e introductor no pueden ser la misma persona. (Seguramente tengas que salir de la sessi\xC3\xB3n)"
       candidate_has_role: ya tiene un rol
     one: "Admisi\xC3\xB3n"
     other: Admisiones
   advanced: Avanzada
+  advanced_editor: Editor avanzado
   advanced_options: Opciones avanzadas
+  agenda: 
+    add_divider: "A\xC3\xB1adir divisor"
+    add_entry: "A\xC3\xB1adir per\xC3\xADodo de sesiones"
+    define: Definir la Agenda
+    del_entry: Borrar
+    divider: 
+      delete: Divisor ha sido borrado
+      edit: Editar Divisor
+      error: 
+        coinciding_times: Hay un conflicto con la hora del divisor de nuevo y las entradas de agenda o divisores
+        past_times: Este tipo de evento no puede tener otros tiempos
+      failed: "Ha habido un problema con el divisor del orden del d\xC3\xADa"
+      new: Nuevo programa divisor
+      start_time: Hora de inicio
+      title: "T\xC3\xADtulo"
+      updated: Divisor se ha actualizado correctamente
+    edit_entry: Editar
+    entry: 
+      cannot_exclude: "No se puede excluir de la grabaci\xC3\xB3n de una entrada m\xC3\xA1s corta que"
+      created: entrada de Agenda se ha creado correctamente
+      delete: "Orden del d\xC3\xADa de entrada ha sido borrado"
+      description: "Descripci\xC3\xB3n"
+      duration: "Duraci\xC3\xB3n"
+      edit: Editar entrada Agenda
+      embed_help: "\xC2\xBFPuede ser llenado con el c\xC3\xB3digo HTML para incrustar un v\xC3\xADdeo"
+      embedded_video: "Incrustar v\xC3\xADdeo para la entrada"
+      end_time: "Hora de finalizaci\xC3\xB3n"
+      error: 
+        attribute_unchangeable: "Has intentado cambiar un atributo inalterable para esta sesi\xC3\xB3n"
+        coinciding_times: Hay un conflicto con el momento de la entrada nueva agenda y las entradas de agenda o divisores
+        create: Error al crear el sistema de sesiones de videoconferencia a distancia
+        delete: "Error al eliminar el per\xC3\xADodo de sesiones en el sistema de videoconferencia a distancia"
+        disordered_times: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
+        update: Error al actualizar sesiones de sistema de videoconferencia a distancia
+      failed: "entrada de Agenda no se podr\xC3\xADan salvar"
+      has_attachment: Esta entrada tiene archivos adjuntos
+      has_video: Video disponible para esta entrada
+      help: 
+        recording: "Grabaci\xC3\xB3n habilitado para este per\xC3\xADodo de sesiones"
+        streaming: "Streaming habilitado para este per\xC3\xADodo de sesiones"
+      hidevideo: "Ocultar v\xC3\xADdeo"
+      minutes: acta
+      new: Nueva entrada del programa
+      no_record: "No"
+      one: Entrada
+      options: 
+        add_video: "Descarte autom\xC3\xA1tico de v\xC3\xADdeo y a\xC3\xB1adir una incrustar"
+        help: "Compruebe la transmisi\xC3\xB3n y / o servicios de grabaci\xC3\xB3n, seg\xC3\xBAn sea necesario"
+        help2: "En esta sesi\xC3\xB3n ya ha sucedido y no puede editar flujos de v\xC3\xADdeo o las opciones de grabaci\xC3\xB3n"
+        help3: "Esta sesi\xC3\xB3n est\xC3\xA1 sucediendo ahora s\xC3\xB3lo se puede cambiar si desea o no streaming"
+        recording: "Grabaci\xC3\xB3n"
+        streaming: Streaming
+        title: Opciones
+      record: Registro
+      speakers: Intervienen
+      start_time: Hora de inicio
+      title: "T\xC3\xADtulo"
+      updated: entrada de Agenda se ha actualizado correctamente
+      video: "Grabaci\xC3\xB3n"
+      yes_record: !binary |
+        U8Ot
+
+    error: 
+      dates: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
+      end_time_overlaps: Las coincidencias finaliza con una entrada agenda actual
+      omit_date: "La entrada para el programa de necesidades de la fecha de inicio y de finalizaci\xC3\xB3n"
+      omit_title: "Un t\xC3\xADtulo debe ser dado para la entrada del programa"
+      omit_title_divider: "Divisor t\xC3\xADtulo no puede estar vac\xC3\xADo"
+      overlaps: Las coincidencias de entrada del programa con una entrada existente
+      start_time_overlaps: La hora de inicio se solapa con una entrada agenda actual
+    expand_help: "Haga clic en el t\xC3\xADtulo de una entrada de agenda para ampliarlo o contrato que"
+    title: Agenda para el evento
+    update: Programa se ha actualizado correctamente.
+    upload: Subir Agenda
   agent: 
     authentication: 
       change_password: "Cambiar la contrase\xC3\xB1a"
@@ -78,13 +154,43 @@ es:
     other: Agentes
     select: 
       one: Seleccionar Agente
-  agree: "S\xC3\xAD"
+  agree: !binary |
+    U8Ot
+
   all: Todo
   all_rights_reserved: Todos los derechos reservados
+  any: Cualquier
+  any_field: Cualquier campo
   are_you_sure: Are you sure?
+  at: en
   attachment: 
+    add: Agregar archivo adjunto
     attach: Adjunto
+    created: Adjunto creado correctamente
+    delete: Eliminar archivo adjunto
+    deleted: Adjunto se han eliminado correctamente
+    error: 
+      not_deleted: "{{file}} no se eliminan correctamente."
+    file: "Archivo:"
+    found: 
+      none: "No encontr\xC3\xB3 los archivos adjuntos"
+      one: "1 adjunto se encontr\xC3\xB3"
+      other: "{{Size}} se encontraron archivos adjuntos"
+    home: 
+      one: Archivo en el espacio {{space}}
+    info: "Informaci\xC3\xB3n sobre el documento"
+    loading: "Cargando informaci\xC3\xB3n del documento ..."
+    new: "Nueva conexi\xC3\xB3n"
+    not_selected: N documento seleccionado
     not_valid: "El archivo adjunto no es v\xC3\xA1lido"
+    one: Accesorio
+    other: Adjuntos
+    selected: 
+      none: No hay archivos seleccionados
+      one: archivo seleccionado
+      other: archivos seleccionados
+    updated: Anexo actualizado correctamente
+    upload_with_post: Notificar a la carga con un mensaje en la pared
   author: Autor
   avatar: 
     created: "Avatar creado con \xC3\xA9xito"
@@ -93,7 +199,10 @@ es:
     empty: Seleccione una imagen, por favor,
     select: Seleccionar Avatar
     select_new: Seleccionar Avatar nuevo
-  back: "Atr\xC3\xA1s"
+    upload: Cargar foto
+  back: !binary |
+    QXRyw6Fz
+
   back_to_inbox: Volver a la bandeja de entrada
   bad_request: "Petici\xC3\xB3n Inv\xC3\xA1lida"
   beta: (BETA)
@@ -101,10 +210,14 @@ es:
   button: 
     create: Crear
     edit: Editar
+    finish: Acabado
     go: Buscar!
+    invite: Invite!
+    next: Siguiente Paso
     other_spaces: "M\xC3\xA1s espacios"
     send: Enviar
     update: Actualizar
+    upload: Subir
   calendar: 
     my: Mi Calendario
     one: Calendario
@@ -128,16 +241,26 @@ es:
     other_in_domain: "Categor\xC3\xADas - {{domain}}"
     updated: "Categor\xC3\xADa actualizada"
   change: Cambiar
+  change_pic: Cambiar la imagen
   changed_mind: Cambiado de idea?
+  chat: 
+    connecting_error_message: "Error durante la conexi\xC3\xB3n"
+    connecting_message: "Conexi\xC3\xB3n al evento chat ..."
+    edit_enabled: "Habilitar chat experimental en la siguiente sesi\xC3\xB3n"
+    edit_question: "\xC2\xBFDesea habilitar experimentales funci\xC3\xB3n de chat?"
+    please_login_message: "Por favor, inicie una sesi\xC3\xB3n / registrarse para participar"
+    reconnect_message: Vuelva a conectar
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   city: Ciudad
   click_here: "Haga clic aqu\xC3\xAD"
   click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
+  close: Cerrar
   collapse: colapso
   collapse>>: colapso&gt;&gt;
   comment: 
     add: "A\xC3\xB1adir un comentario"
     add_new: "A\xC3\xB1ade un comentario nuevo"
+    by: comentario de {{author}}
     delete: Eliminar comentario
     edit: Editar comentario
     new: Nuevo Comentario
@@ -170,7 +293,9 @@ es:
   conversation: 
     compress: "Conversaci\xC3\xB3n Comprimir"
   could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa direcci\xC3\xB3n de correo"
-  country: "Pa\xC3\xADs"
+  country: !binary |
+    UGHDrXM=
+
   create: Crear
   create_: Crear...
   created_at: Creado
@@ -232,6 +357,7 @@ es:
     - :month
     - :day
     start: Fecha de inicio
+    undefined: Indefinido
   datetime: 
     distance_in_words: 
       about_x_hours: 
@@ -254,7 +380,9 @@ es:
         one: "m\xC3\xA1s de 1 a\xC3\xB1o"
         other: "m\xC3\xA1s de {{count}} a\xC3\xB1os"
       x_days: 
-        one: "1 d\xC3\xADa"
+        one: !binary |
+          MSBkw61h
+
         other: "{{count}} d\xC3\xADas"
       x_minutes: 
         one: 1 minuto
@@ -266,15 +394,24 @@ es:
         one: 1 segundo
         other: "{{count}} segundos"
     prompts: 
-      day: "D\xC3\xADa"
+      day: !binary |
+        RMOtYQ==
+
       hour: Horas
       minute: Minuto
       month: Mes
       second: Segundos
-      year: "A\xC3\xB1o"
+      year: !binary |
+        QcOxbw==
+
+  days: !binary |
+    RMOtYXM=
+
+  dblclick: Haga doble clic para editar ...
   delete: 
     confirm: "\xC2\xBFEst\xC3\xA1s seguro?"
     one: Borrar
+    select: Seleccionar para eliminar
   deny: "No"
   description: "Descripci\xC3\xB3n"
   destroy: Destroy
@@ -283,9 +420,31 @@ es:
   disable: Desactivar
   disabled: Espacios deshabilitados
   docs: Docs
+  document: 
+    add: Agregar nuevo documento
   done: Hecho!
+  download: Descargar
   download_file: Download file
+  e-mail: 
+    account_activated: "Tu cuenta en {{sitename}} ha sido activado con \xC3\xA9xito."
+    commas: (Separados por comas)
+    confirm: Es necesario ahora para confirmar su registro haciendo clic en <a href="{{url}}">{{url}}</a>
+    copy_link: "Si usted no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
+    dear: Estimado {{name}},
+    join_request: "\xC3\x9Anete a solicitud"
+    kind_regards: Un cordial saludo,
+    notifications: "notificaciones por correo electr\xC3\xB3nico"
+    one: "correo electr\xC3\xB3nico"
+    other: "mensajes de correo electr\xC3\xB3nico"
+    spam_activation: Si no se ha registrado en este sitio, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
+    spam_invitation: Si crees que este mensaje es un spam, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
+    thanks: Gracias por visitar la {{sitename}}
+    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{name}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
+    used_from: "correo electr\xC3\xB3nico utilizado en la forma de contacto: {{dir}}"
+    vcc_team: El equipo de VCC
+    welcome: Bienvenido a {{sitename}}
   edit: Editar
+  edit_hours: Editar horas
   edit_profile: Editar perfil
   edit_your_profile: Editar tu perfil
   email: 
@@ -302,83 +461,290 @@ es:
   error: 
     change: "El cambio no es v\xC3\xA1lido"
     credentials: "Credenciales no v\xC3\xA1lidas"
+    e403: "No est\xC3\xA1 autorizado para ver esa p\xC3\xA1gina."
+    e404: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
+    e500: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
     mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
     not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
     one: Error.
     other: Errores.
+    vcc_warning: "VCC advertencia:"
+  eu_commision: "Comisi\xC3\xB3n Europea"
   event: 
     Isabel: Caso de Isabel
+    action: 
+      select: Acciones
+    agenda: 
+      add_entry: "A\xC3\xB1adir una."
+      download: Descargar PDF
+      no_entries: No hay entradas.
     assistance_title: Asistencia
+    assistants_none: "Nadie ha confirmado todav\xC3\xADa"
     attend: "Asistir\xC3\xA1n"
+    basic_info: "Introducir la informaci\xC3\xB3n b\xC3\xA1sica"
+    button: 
+      attevents: Asistir a eventos
+      atteventstitle0: Eventos que han confirmado su asistencia
+      atteventstitle1: Usted no ha confirmado su asistencia a cualquier evento
+      myevents: Mis eventos
+      myeventstitle0: Eventos que ha creado
+      myeventstitle1: "No ha creado ning\xC3\xBAn caso"
+    choose_location: "Elija la ubicaci\xC3\xB3n"
+    colon: "Evento:"
     coming: "Pr\xC3\xB3ximas actividades"
-    create: Crear un nuevo evento
+    connection: 
+      info: "Informaci\xC3\xB3n de conexi\xC3\xB3n para este evento"
+      isabel: Isabel servidor
+      sip: Proxy SIP
+      str: Streaming
+      web: "Participaci\xC3\xB3n"
+    create: 
+      info: 
+        basic: "Aqu\xC3\xAD puede organizar tres tipos de eventos"
+        conference: 
+          message: "Avanzada, reuniones grandes. la producci\xC3\xB3n de televisi\xC3\xB3n como gestionado por un operador."
+          name: Congreso Virtual
+        meeting: 
+          message: "F\xC3\xA1cil de videoconferencia con la participaci\xC3\xB3n de compartir documentos y autom\xC3\xA1tica de streaming y grabaci\xC3\xB3n."
+          name: Encuentro Virtual
+        presential: 
+          message: "Ideal para reuniones r\xC3\xA1pida y simple. Notifique a sus parejas, cargar documentos de trabajo. No tiene video streaming autom\xC3\xA1tica ni grabaci\xC3\xB3n."
+          name: "Reuni\xC3\xB3n"
+      title: Crear nuevo evento
     created: "Evento fue creado con \xC3\xA9xito."
+    deleted: Evento eliminado correctamente
+    description: 
+      add: "Agregar descripci\xC3\xB3n."
+      edit: "Editar descripci\xC3\xB3n"
+      none: "Nadie ha escrito una descripci\xC3\xB3n todav\xC3\xADa."
     edit: Editar evento
+    enable: 
+      isabel: Isabel
+      participation: "Seleccione los modos de participaci\xC3\xB3n"
+      sip: SIP
+      web: Web
     error: 
+      cm_connection: "La conexi\xC3\xB3n al sistema de videoconferencia a distancia no"
+      date_past: Fecha de inicio no puede ser pasado
       dates: La primera fecha no puede ser menor que el segundo
+      dates1: "La fecha de inicio de eventos debe ser anterior a la fecha de finalizaci\xC3\xB3n del evento"
+      delete: "El evento no se podr\xC3\xADa eliminar"
+      marte: No se puede crear una conferencia virtual
+      omit_date: "El evento necesidades fecha de inicio y fecha de finalizaci\xC3\xB3n"
+      videoconference: No se pudo crear videoconferencia caso
     follow: Siga este evento
     found: 
       none: No se encontraron eventos
       one: "1 caso se encontr\xC3\xB3"
       other: "{{size}} eventos encontrados"
+    future: Futuros eventos
+    generate_pdf: Generar PDF
+    has: Este evento se ha
     held_with: "Este evento se llevar\xC3\xA1 a cabo con"
+    help: 
+      book: Reserva los recursos que se necesita para hacer una videoconferencia. Por favor, defina su horario en el programa.
+      create: "Crear un evento simple en tres pasos:"
+      creating_entries: "la creaci\xC3\xB3n de entradas"
+      define: Definir el calendario de sus reuniones
+      description: "Escriba una descripci\xC3\xB3n completa"
+      edit: Editar su evento
+      in_agenda: en el programa
+      now: Ahora puede
+      organisers: "Seleccione los usuarios espacio que organizar\xC3\xA1 este evento"
+      without_str: "Para recibir un flujo y / o grabaci\xC3\xB3n, por favor indicarlo en su horario"
     home: 
       one: Evento en el espacio {{space}}
+    invite: Invitar a la gente
     join: Formar parte de este evento
     last_7_days: "\xC3\x9Altimos 7 d\xC3\xADas ({{size}})"
     last_month: El mes pasado ({{size}})
+    location: "Ubicaci\xC3\xB3n"
+    logo: 
+      button: Cambiar el logotipo
+      created: "logotipo de evento creado con \xC3\xA9xito"
+      crop: "Seleccione qu\xC3\xA9 parte de la imagen para la cosecha"
+      new: Agregar una imagen para su evento
+      select: Cambiar el logotipo
+    new: 
+      conference: Congreso Virtual
+      meeting: Encuentro Virtual
+      presential: "Reuni\xC3\xB3n"
     no_events: "No tienes ning\xC3\xBAn evento"
+    no_param: "No hay par\xC3\xA1metros seleccionados"
     none_coming: "No hay eventos pr\xC3\xB3ximos"
     not_attend: No asisten a la
+    note: 
+      both: "Web de la participaci\xC3\xB3n y la transmisi\xC3\xB3n estar\xC3\xA1 disponible en el momento del evento"
+      none: "No hay transmisi\xC3\xB3n se definen en el orden del d\xC3\xADa."
+      nothing: "Sin participaci\xC3\xB3n de streaming web o reservado en este momento"
+      participation: "la participaci\xC3\xB3n de la web estar\xC3\xA1 disponible en el momento del evento"
+      streaming: "Transmisi\xC3\xB3n de video estar\xC3\xA1 disponible en el momento del evento"
+    notification: 
+      attendant: 
+        filter: Operador de filtro
+      button: Notificar a los asistentes
+      deselect_all_attendants: "Anular la selecci\xC3\xB3n de todos los asistentes"
+      hide_all_attendants: Ocultar todos los asistentes
+      label: "Personaliza tus mensajes de notificaci\xC3\xB3n"
+      legend: 
+        name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
+      message_beginning_with_start_date: "<p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}</b> en &quot;event_date&#39;: </p>"
+      message_beginning_without_start_date: <p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}:</b> </p>
+      message_title: "Enviar una notificaci\xC3\xB3n a los asistentes"
+      personal: "Escribe el texto de su personal aqu\xC3\xAD."
+      select_all_attendants: Seleccionar todos los asistentes
+      selected_attendants: "Asistentes desea notificar a:"
+      show_all_attendants: Mostrar todos los asistentes
+      title: Notificar a los asistentes del evento
+    now: "Eventos en este momento:"
     one: Evento
     online: "Evento en l\xC3\xADnea"
     other: Eventos
+    participation: 
+      add: "A\xC3\xB1adir una."
+      edit: "Editar c\xC3\xB3digo de cliente web"
+      none: "Nadie ha publicado ning\xC3\xBAn url participaci\xC3\xB3n."
+      ready: "La participaci\xC3\xB3n est\xC3\xA1 reservada. Estar\xC3\xA1 disponible durante el evento"
+      title: "Participaci\xC3\xB3n"
+      will_be_available: "La participaci\xC3\xB3n estar\xC3\xA1 disponible durante el evento"
     past: 
       all: Todos los anteriores ({{size}})
+      last_month: Sin eventos para el mes pasado.
+      last_week: No hay eventos para la semana pasada.
       none: No hay eventos pasados
+      one: Evento pasado
       other: Eventos pasados
       show: Mostrar todos los eventos antiguos
+      today: Sin eventos para ayer ni hoy.
+    player: Jugador
+    recording: 
+      button_disabled: "Este bot\xC3\xB3n se activar\xC3\xA1 cuando el evento tiene ninguna grabaci\xC3\xB3n"
+      notice: La gente debe tener derechos de acceso a este espacio para ver estos videos
+      one: Evento Video
+      other: "V\xC3\xADdeos de eventos"
+      share: Compartir
+    repository: 
+      help: Este &quot;banco de mostrar los documentos cargados en las sesiones de la agenda del evento
+      title: documentos de eventos
     search: Buscar eventos ...
     select_date: Seleccione una fecha para su evento
+    session_now: "Sesi\xC3\xB3n ahora"
+    spam: Spam en los eventos
+    start: evento de inicio
+    started: solicitud de inicio enviar correctamente
     steps: "Completa tu evento siguiente pasos:"
+    streaming: 
+      add: "A\xC3\xB1adir una."
+      edit: "Editar el c\xC3\xB3digo de streaming"
+      no_at_events: No Streaming en las reuniones
+      none: "Nadie ha publicado ning\xC3\xBAn url de streaming"
+      now: Streaming de eventos
+      ready: "El streaming es reservado. Estar\xC3\xA1 disponible durante el evento"
+      title: "Streaming per\xC3\xADodo de sesiones"
+      will_be_available: "La transmisi\xC3\xB3n estar\xC3\xA1 disponible durante el evento"
     to: Para
     today: Los acontecimientos de hoy
     today_and_yesterday: Ayer y hoy ({{size}})
     today_size: Hoy ({{size}})
     tomorrow: "Ma\xC3\xB1ana eventos"
+    undated: 
+      none: No hay eventos sin agenda
+      show: Mostrar todos los eventos sin fecha
+      title: Eventos sin agenda definida
     upcoming: 
       all: "Todos los pr\xC3\xB3ximos eventos ({{size}})"
+      next_month: "No hay eventos para el pr\xC3\xB3ximo mes"
+      next_week: "No hay eventos para la pr\xC3\xB3xima semana"
       none: "No hay pr\xC3\xB3ximos eventos"
       other: "Pr\xC3\xB3ximos eventos"
       show: "Mostrar todos los eventos pr\xC3\xB3ximos"
+      today: No hay eventos para hoy
     updated: Evento se ha actualizado correctamente.
+    video_part: "Web de la participaci\xC3\xB3n"
+    view_agenda: "Orden del d\xC3\xADa"
+    view_participation: "Participaci\xC3\xB3n"
+    view_participation_disabled: "Participaci\xC3\xB3n disponibles durante el evento"
+    view_recordings: Grabaciones
+    view_recordings_disabled: "No hay grabaciones todav\xC3\xADa"
+    view_repo: Repositorio
+    view_streaming: Streaming
+    view_streaming_disabled: Streaming disponibles durante el evento
     will_attend: "\xC2\xBFQuieres asistir a este evento?"
     within_7_days: "Dentro de 7 d\xC3\xADas ({{size}})"
     within_a_month: Dentro de un mes ({{size}})
   event_invitation: 
     accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
+    clarify_registered: "Por favor, introduzca su contrase\xC3\xB1a para confirmar su asistencia al evento"
+    clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el Centro Virtual de Conferencias y confirmar su asistencia al evento"
+    confirm_password: "Confirma la contrase\xC3\xB1a"
+    deselect_all_users: "Anular la selecci\xC3\xB3n de todos los usuarios"
     discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
+    email: "Correo electr\xC3\xB3nico"
+    full_name: Nombre completo
+    hide_all_users: Ocultar todos los usuarios
+    logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre de sesi\xC3\xB3n y vuelva a intentarlo"
+    message_title: Invitar gente a unirse a su evento
     new: 
       other: Invitar a gente
+    not_processed: "La invitaci\xC3\xB3n no se podr\xC3\xADa procesar"
+    password: "Contrase\xC3\xB1a"
+    select_all_users: Seleccionar todos los usuarios
+    show_all_users: Mostrar todos los usuarios
+    title: "Invitaci\xC3\xB3n Evento"
+    will_invite: "La gente te invitar\xC3\xA1 a:"
+  export_widget: "Exportaci\xC3\xB3n Widget"
   fax: Fax
   feedback: 
     email: "Esta es una retroalimentaci\xC3\xB3n e-Mail:"
     note: "Ay\xC3\xBAdanos a mejorar VCC. Por favor env\xC3\xADe sus comentarios, problemas y sugerencias. Vamos a tratar de responder lo m\xC3\xA1s pronto posible."
+    one: "Realimentaci\xC3\xB3n"
     send: Enviar comentarios
     send_us: "Env\xC3\xADanos tus comentarios!"
     sent: "Su informaci\xC3\xB3n de retroalimentaci\xC3\xB3n e-mail ha sido enviado con \xC3\xA9xito. Thanks you"
   file: Fichero
   fill_fields: Usted debe llenar todos los campos
+  find: 
+    browse: Navegar
+  find_in: "Buscar en:"
+  find_in_day: "Encuentre en d\xC3\xADa:"
+  find_in_name_speakers: "Buscar en el nombre de altavoces:"
   follow_reset_password: "{{agent}}, siga el enlace para cambiar su contrase\xC3\xB1a"
+  form: 
+    loading: "El formulario est\xC3\xA1 cargando ..."
   from: Desde
+  frontpage: 
+    collaborate: 
+      sentence1: Organiza tus proyectos y actividades
+      sentence2: Participar en conferencias y eventos
+      sentence3: Crea tu propio espacio y conferencias
+    elements: 
+      comments: Comentarios
+      conferences: Conferencias
+      networks: Redes Sociales
+      organizers: Organizadores
+      participants: Los participantes
+      spaces: Espacios
+      tags: Etiquetas
+    main_title: "VCC un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
+    meet: 
+      sentence1: "Descubre lo mejor en l\xC3\xADnea videoconferencias"
+      sentence2: Conozca gente interesante y grupos
+      sentence3: Videoconferencias con sus colegas
+    share: 
+      sentence1: "Videoconferencia de grabaci\xC3\xB3n y descarga"
+      sentence2: "Documento y v\xC3\xADdeo repositorios"
+      sentence3: Su persona de contacto y las relaciones
+  getting_started: "Por d\xC3\xB3nde empezar!"
   group: 
     add_to_group: "A\xC3\xB1adir a grupo"
     add_to_others: "A\xC3\xB1adir otros grupos"
     create: Crear nuevo grupo
-    created: "El grupo de {{nombre}} ha sido creado con \xC3\xA9xito."
+    created: "El grupo de {{name}} ha sido creado con \xC3\xA9xito."
     delete: Borrar grupo
     deleted: El grupo ha sido borrado correctamente.
+    different: Otros grupos
     edit: Editar grupo
+    existing: nombre ya ha sido tomada
     join: "\xC3\x9Anete a este grupo"
     mailing_list: Lista de correo de grupo
     name: Nombre del grupo
@@ -387,15 +753,96 @@ es:
     one: Grupo
     other: Grupos
     send_message: Enviar un mensaje a este grupo
-    updated: El grupo de {{nombre}} ha sido actualizado correctamente.
+    updated: El grupo de {{name}} ha sido actualizado correctamente.
   groups_and_results: Grupos, {{size}} resultados
+  hcard: 
+    not_found: hCard que no se encuentra
   hello: Hola
   help: Ayuda
+  help_createpost: 
+    part1: "Para crear un mensaje en la pared en VCC:"
+    part10: "a. Ver c\xC3\xB3digo fuente HTML"
+    part11: "b. Cambiar el estilo de fuente (negrita, cursiva y subrayado), tama\xC3\xB1o de fuente y color del texto y la alineaci\xC3\xB3n del texto."
+    part12: "c. Insertar / Editar v\xC3\xADnculos."
+    part13: d. Agregar archivos adjuntos
+    part14: e. Etiquetas archivos
+    part15: "9. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Enviar</b> para poner su mensaje en la pared."
+    part2: "1. Haga clic en la pesta\xC3\xB1a <b>PARED.</b>"
+    part3: "2. Puede <b>crear un mensaje nuevo</b> en el lado derecho de la p\xC3\xA1gina."
+    part4: "3. Escriba un t\xC3\xADtulo y comentario de su mensaje."
+    part5: 4. Haga clic en <b>Agregar archivo adjunto</b> enlace a un archivo adjunto.
+    part6: 5. Haga clic en <b>Elegir archivo</b> para buscar y encontrar el archivo que desea adjuntar.
+    part7: "6. Usted puede a\xC3\xB1adir a su archivo. Etiquetas permitir\xC3\xA1 encontrar f\xC3\xA1cilmente los archivos. Pulse Aceptar para confirmar cada etiqueta."
+    part8: 7. Repita el paso 4, 5 y 6 para cada archivo que desee agregar.
+    part9: "8. Puede utilizar el editor avanzado para incluir el contenido. Este editor te permite:"
+  help_createspace: 
+    part1: "Para crear un espacio en VCC:"
+    part2: "1. Haga clic en <a href={{url}}>Inicio Mi</a> elemento de la barra de men\xC3\xBA superior."
+    part3: "2. Haga clic en el bot\xC3\xB3n Crear nueva tecnolog\xC3\xADa espacial."
+    part4: "3. Agregue un nombre y una descripci\xC3\xB3n para su espacio."
+    part5: "4. Decidir si el espacio debe ser p\xC3\xBAblico."
+    part6: "5. Si desea habilitar un dep\xC3\xB3sito, elija esta opci\xC3\xB3n."
+    part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
+  help_createuser: 
+    part1: "Para crear un usuario en VCC:"
+    part2: "1. Haga clic en <a href={{url}}>Registro</a> elemento de la barra de men\xC3\xBA superior."
+    part3: "2. Escriba un correo electr\xC3\xB3nico, contrase\xC3\xB1a y nombre completo."
+    part4: "3. Escriba el c\xC3\xB3digo de la imagen mostr\xC3\xB3."
+    part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n Hecho."
+    part6: "5. Despu\xC3\xA9s de registrarse para una cuenta, usted recibir\xC3\xA1 una confirmaci\xC3\xB3n por correo electr\xC3\xB3nico con el enlace para activar tu cuenta."
+  help_index: 
+    part1: "El Virtual del Centro de Conferencias (VCC) es una aplicaci\xC3\xB3n Web desarrollada por la Universidad Polit\xC3\xA9cnica de Madrid (UPM) en el contexto del proyecto global, un proyecto de investigaci\xC3\xB3n financiado por el S\xC3\xA9ptimo Programa Marco Comission Europea."
+    part2: "El VCC ofrece un servicio para crear distribuidos eventos, desde peque\xC3\xB1as reuniones hasta grandes conferencias. Los usuarios pueden participar en persona o seguir en l\xC3\xADnea. Eventos y contenidos relacionados con ellos se organizan en espacios que tambi\xC3\xA9n ofrecen al usuario la posibilidad de crear los mensajes en la pared para comunicarse con otros participantes en el espacio o subir documentos o fotograf\xC3\xADas para ser compartidas."
+    part3: Para crear o editar los espacios, debe ser registrada para su cuenta de VCC. Si no tienes una cuenta, <a href={{url}}>crear una ahora</a> .
+  help_logging: 
+    part1: "Si ya tienes una cuenta de VCC, puede <a href={{url}}>registrarse aqu\xC3\xAD</a> o haga clic sobre el punto de entrada de la barra de men\xC3\xBA superior. Introduce tu email y contrase\xC3\xB1a en la pantalla principal."
+    part2: "Puede acceder autom\xC3\xA1ticamente si usted tiene una cuenta con un proveedor de OpenID."
+    part3: "Si has olvidado tu contrase\xC3\xB1a, puede utilizar este formulario para recuperar y hacer que de forma autom\xC3\xA1tica por correo electr\xC3\xB3nico."
+  help_newdoc: 
+    part1: "Para agregar un nuevo documento en VCC:"
+    part2: "1. Haga clic en la pesta\xC3\xB1a <b>Repositorio.</b>"
+    part3: "2. Haga clic en <b>el</b> bot\xC3\xB3n <b>Agregar nuevo documento.</b>"
+    part4: "3. Haga clic en <b>Elegir archivo</b> en la parte derecha de la p\xC3\xA1gina."
+    part5: "4. Una vez que su archivo se ha seleccionado, haga clic en el bot\xC3\xB3n Abrir."
+    part6: 5. Usted puede <b>agregar etiquetas</b> que usted y otros pueden utilizar para encontrar y filtro de contenido. Pulse Aceptar para confirmar cada etiqueta.
+    part7: "6. Si desea <b>notificar</b> el documento con un mensaje en la pared, elija esta opci\xC3\xB3n."
+    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Cargar</b> para agregar el archivo al repositorio."
+  help_support: "Ayuda y soporte t\xC3\xA9cnico"
+  help_title: 
+    about_vcc: Acerca de VCC
+    create_post: "Creaci\xC3\xB3n de un mensaje en la pared"
+    create_space: "La creaci\xC3\xB3n de un Espacio"
+    create_user: "Creaci\xC3\xB3n de un usuario"
+    info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"
+    logging: "Inicio de sesi\xC3\xB3n en su Cuenta"
+    new_doc: "Adici\xC3\xB3n de un nuevo documento"
+    topics: Temas
+  help_vcc: 
+    info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"
+    topics: Temas
+  hide: Ocultar
   his_message_reads_thus: "Su mensaje dec\xC3\xADa as\xC3\xAD"
   home: 
     activity: Actividad reciente
     my: Inicio
     one: Inicio
+  icalendar: 
+    add: Actualizar y agregar nuevas entradas
+    conflictive1: "Una entrada de su calendarioi fue sobre la aplicaci\xC3\xB3n Vcc y se ha modificado. Usted debe actualizar manualmente para evitar problemas."
+    conflictiven: "entradas de su calendarioi estaban en la aplicaci\xC3\xB3n Vcc y se han modificado. Usted debe actualizar manualmente para evitar problemas."
+    error_import: Se produjo un error al importar el iCalendar.
+    export: "Exportaci\xC3\xB3n de iCalendar"
+    import: "Importaci\xC3\xB3n de iCalendar"
+    importMessage1: Un total de
+    importMessage2: Se leyeron desde su iCalendar.
+    importMessage3: de ellos se salvaron o actualizado correctamente.
+    instruction: "Util\xC3\xADcelo para agregar nuevas entradas a la agenda actual con la iCalendar."
+    outbounds1: Una entrada de su calendarioi no coincide en las fechas del evento y no fue importado.
+    outboundsn: "entradas de su calendarioi no coinciden en las fechas del evento y no se hab\xC3\xADan efectuado."
+    report: "Informe:"
+    succes_import: calendarioi se ha importado correctamente.
+    updated1: Una entrada de su calendarioi ya estaban en su agenda de eventos y se actualizaron.
+    updatedn: entradas de su calendarioi ya estaban en su agenda de eventos y se actualizaron.
   im: "Mensajer\xC3\xADa Instant\xC3\xA1nea"
   im_new: Soy nuevo
   import: "Importaci\xC3\xB3n"
@@ -408,6 +855,10 @@ es:
     information1: Estos son los espacios a los que pertences
     information2: "Aqu\xC3\xAD puedes encontrar los post y eventos m\xC3\xA1s recientes as\xC3\xAD como las noticias de los espacios a los que perteneces"
     information3: "Estos son los \xC3\xBAltimos posts o eventos que has creado"
+    information4: Estos son los espacios que pertenecen a
+  internet: 
+    on_the: En el Internet
+    ppal: Internet
   invalid_credentials: "Credenciales inv\xC3\xA1lidas"
   invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
   invitation: 
@@ -418,12 +869,25 @@ es:
     comment: Comentario
     confirm_delete: "\xC2\xBFBorrar invitaci\xC3\xB3n?"
     created: "Invitaci\xC3\xB3n enviada"
+    deselect_all_users: "Anular la selecci\xC3\xB3n de todos los usuarios"
     discard: "Descartar invitaci\xC3\xB3n"
     discarded: "Invitaci\xC3\xB3n descartada"
     discarded_by: "{{candidate}} descart\xC3\xB3 la invitaci\xC3\xB3n"
     email: "Correo electr\xC3\xB3nico"
+    hide_all_users: Ocultar todos los usuarios
+    info_event: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en &#39;event_url&#39;"
+    introducer: Introductor
+    label: "Personaliza tu invitaci\xC3\xB3n mensaje"
+    legend: 
+      URL: "&#39;URL&#39; ser\xC3\xA1 sustituido en el mensaje la URL de la invitaci\xC3\xB3n."
+      name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
+    logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre de sesi\xC3\xB3n y vuelva a intentarlo"
+    message_title: Invitar gente a unirse a su espacio
     new: 
       other: Nuevas invitaciones
+    not_accepted: No se aceptan
+    not_created: "no podr\xC3\xADan ser invitados a este espacio porque ya pertenece a ella"
+    not_created_2: "no podr\xC3\xADan ser invitados a este espacio porque \xC3\xA9l / ella ya ha sido invitado"
     not_found: "Invitaci\xC3\xB3n no encontrada"
     not_pending: 
       other: No hay invitaciones pendientes.
@@ -432,15 +896,28 @@ es:
     other: Invitaciones
     pending: 
       other: Invitaciones pendientes
+    personal: "Escribe el texto de su personal aqu\xC3\xAD."
     role: Rol
+    role_label: Papel de los invitados
+    select_all_users: Seleccionar todos los usuarios
     send: 
       one: "Enviar invitaci\xC3\xB3n"
     show: Unirse a {{group}}
+    show_all_users: Mostrar todos los usuarios
+    sign: Atentamente, ((nombre de usuario))
+    space: "Me gustar\xC3\xADa invitar a usted a {{space}} espacio en el Centro Virtual de la Conferencia."
+    title: Invitar a la gente
+    title2: "Espacio Invitaci\xC3\xB3n"
+    to_accept: "Para aceptar mi invitaci\xC3\xB3n por favor, visite <a href={{url}}>{{url}}</a>"
+    to_accept_space: "Para aceptar mi invitaci\xC3\xB3n por favor, visite {{url}}"
     to_event: ""
-    to_space: ""
+    to_space: ((Nombre de usuario)) te invita al espacio {{space}}
     was_processed: 
       accepted: "La invitaci\xC3\xB3n ya fue aceptada"
+      discarded: "La invitaci\xC3\xB3n ya ha sido descartado"
       discarted: "La invitaci\xC3\xB3n ya fue descartada"
+    will_invite: "La gente te invitar\xC3\xA1"
+    yes_accepted: aceptado
   invited: Invitado
   is_member_of: Es miembro de
   join: Unirse
@@ -451,6 +928,8 @@ es:
     created: "Petici\xC3\xB3n enviada"
     discarded: "Petici\xC3\xB3n descartada"
     joined: "Usted ya est\xC3\xA1 en el espacio"
+    label: Personaliza tu mensaje de solicitud de unirse a
+    message_title: Enviar una solicitud de unirse a los administradores del espacio
     not_logged_in: Necesitas estar conectado para enviar una solicitud de Ingreso.
     not_pending: 
       other: No hay espera de unirse a las peticiones.
@@ -459,11 +938,14 @@ es:
     other: "Peticiones de incorporaci\xC3\xB3n"
     pending: 
       other: En espera de unirse a las peticiones
+    personal: "Escribe el texto de su personal aqu\xC3\xAD."
     send: Enviar solicitud de Ingreso
+    to_accept: Para responder a la solicitud por favor visite <a href="{{url}}">{{url}}</a>
     updated: "Petici\xC3\xB3n actualizada"
   join_to_site: Unirse a {{site}}
   keywords: Palabras clave (*)
   language: Lenguaje
+  last_week: La semana pasada
   latest_events: "\xC3\x9Altimos eventos"
   latest_news: "\xC3\x9Altimas noticias"
   layout_footnote: "{{site}} est\xC3\xA1 basado en {{plugin}}. Dise\xC3\xB1ado por {{designer}}."
@@ -475,15 +957,22 @@ es:
   logged_out: "Has salido de la aplicaci\xC3\xB3n"
   login: Entrar
   login_or_register: Entrar / Registro
+  login_request: Necesitas estar conectado para
   login_to: Entrar en {{site}}
+  login_traditional: Usuario / clave
   logo: 
+    click_to_change: Haga clic para cambiar el logotipo
     created: "Logo creado con \xC3\xA9xito"
+    crop: Cultivos logotipo de espacio
     current: Logo actual
+    empty: "El logotipo est\xC3\xA1 vac\xC3\xADa"
     error: 
       not_valid: "El logotipo de espacio no es v\xC3\xA1lido"
     one: Logo
   logout: Salir
-  mailing_list: Lista de correo
+  mailing_list: 
+    associate: lista de correo asociado a su grupo
+    invalid: "La lista de correo contiene caracteres no v\xC3\xA1lidos. Solo letras, n\xC3\xBAmeros, guiones y guiones se permiten"
   manage: Administrar
   management: "Gesti\xC3\xB3n"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
@@ -496,10 +985,12 @@ es:
     one: Mensaje
     other: Mensajes
     private: 
+      cant: No puede enviar mensajes privados porque no tienes socios en cualquier espacio
       editing: "Edici\xC3\xB3n mensaje privado"
       new: Nuevo mensaje privado
       none: No hay mensajes privados
     reply: Responder a un mensaje
+    send: Enviar mensaje
     sent: 
       other: Mensajes enviados
   mobile: Mobile
@@ -509,6 +1000,7 @@ es:
     full: Nombre completo
     one: Nombre
     other: Nombres
+    prefix: "T\xC3\xADtulo"
   new_source: Nueva fuente
   new_spam_detected: Nuevo spam detectado
   news: 
@@ -522,11 +1014,16 @@ es:
     home: 
       one: ""
       zero: No hay noticias para mostrar
+    item_in_home: Noticia en el espacio
+    none: Ninguno
+    none_to_show: No hay noticias para mostrar
     other: Noticias
     publish_another: Publicar otra noticia
     publish_home: "Noticias de publicar en el pa\xC3\xADs"
     updated: "Art\xC3\xADculo actualizado correctamente"
+  next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
+  no_messages_in_wall: No hay mensajes en la pared
   no_tags_found: No se encontraron etiquetas
   none: Ninguno
   not_going: No voy
@@ -566,6 +1063,7 @@ es:
       format: 
         delimiter: ""
   ok: OK
+  older: "M\xC3\xA1s viejo"
   online: "en l\xC3\xADnea"
   openid: 
     client: 
@@ -579,6 +1077,7 @@ es:
       verification_succeeded_with_id: "La verificaci\xC3\xB3n de {{id}} se realiz\xC3\xB3 con \xC3\xA9xito"
     enter: Introduzca su OpenID
     have: "\xC2\xBFTiene usted un OpenID?"
+    login: Entrar con OpenID
     server: 
       about_login_to: Vas a entrar en {{server}}
       anti_phishing: "Esta p\xC3\xA1gina no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir t\xC3\xBA la direcci\xC3\xB3n en el navegador."
@@ -597,6 +1096,7 @@ es:
   or_use_email: "o utilizar el correo electr\xC3\xB3nico ..."
   organization: "Organizaci\xC3\xB3n"
   organizer: Organizador
+  other: Otro
   pagination: 
     next_label: Siguiente &raquo;
     previous_label: "&laquo; Anterior"
@@ -605,16 +1105,19 @@ es:
     error: 
       create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
   password: 
-    been_reset_email: "{{usuario}}, su contrase\xC3\xB1a se ha restablecido"
+    been_reset_email: "{{user}}, su contrase\xC3\xB1a se ha restablecido"
     confirm: "Confirmar contrase\xC3\xB1a"
     one: "Contrase\xC3\xB1a"
-    reset_email: "{{usuario}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
+    request: "De restablecimiento de contrase\xC3\xB1a en {{sitename}}"
+    reset_email: "{{user}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
+    to_reset: "Para restablecer su contrase\xC3\xB1a, por favor visite <a href={{url}}>{{url}}</a>"
   password_has_been_reset: "La contrase\xC3\xB1a se ha cambiado"
   password_has_been_reset_with_agent: "{{agent}}, su contrase\xC3\xB1a se ha cambiado"
   password_reset: "Cambio de Contrase\xC3\xB1a"
   password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
   past: Anteriores
   people: Gente
+  per_page: "por p\xC3\xA1gina"
   performance: 
     change: Cambiar
     confirm_delete: "\xC2\xBFBorrar el Integrante?"
@@ -639,12 +1142,20 @@ es:
   permission: 
     other: Permisos
   personal_information: "La informaci\xC3\xB3n personal"
-  phone: "Tel\xC3\xA9fono"
+  phone: 
+    landline: "Tel\xC3\xA9fono"
+    mobile: !binary |
+      TcOzdmls
+
+    one: "Tel\xC3\xA9fono"
+    plural: "Tel\xC3\xA9fonos"
   phone_optional: "Tel\xC3\xA9fono (opcional)"
   photos: Fotos
   photos_view>>: ver fotos&gt;&gt;
   place: Lugar
+  please: Por favor,
   please_activate_account: Por favor, active su cuenta
+  popularity: Popularidad
   post: 
     created: Anuncio creado.
     deleted: Anuncio ha sido eliminado
@@ -657,20 +1168,31 @@ es:
       other: "{{size}} se encontraron comentarios"
       show_all: Mostrar todos los comentarios encontrados
     home: 
-      one: ""
+      one: Mensaje en el espacio {{space}}
+    latest: "\xC3\x9Altimos mensajes"
     none_created: "N \xC2\xBA puesto creado"
+    none_recent: No hay mensajes recientes
+    one: Mensaje
     other: Mensajes
+    other_in_space: Mensajes en el espacio {{space}}
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
     updated: Entrada actualizada
+    wall: Pared
   preferences: Preferencias
+  previous: Anterior
+  privacy: Intimidad
   private: Privados
   private_message: 
     send: Enviar mensaje privado
   profile: 
     created: Perfil se ha creado correctamente.
     deleted: Perfil ha sido borrado.
+    description: 
+      add: Escribe algo sobre ti
     error: 
       exist: Usted ya tiene un perfil.
+    hcard: 
+      fill_with: Llena tu perfil con la hCard
     must_create: Debes crear tu primer perfil
     one: Perfil
     private: Perfil privado
@@ -681,6 +1203,8 @@ es:
     updated: Perfil se ha actualizado correctamente.
     visibility: Visibilidad
     visibility_description: "Elija qui\xC3\xA9n podr\xC3\xA1 ver su perfil privado."
+    visibility_edit: Edita tu perfil de visibilidad
+    visibility_everybody: Todo el mundo puede ver su perfil privado.
     visibility_everyone: Todos pueden ver su perfil privado.
     visibility_members: "S\xC3\xB3lo los usuarios registrados pueden ver su perfil privado."
     visibility_nobody: Nadie puede ver su perfil privado.
@@ -689,8 +1213,9 @@ es:
   province: Provincia
   public: "P\xC3\xBAblicos"
   read: Ver
+  read_more: "Leer m\xC3\xA1s"
   read_more>>: "Leer m\xC3\xA1s&gt;&gt;"
-  received_message_more_machines: ""
+  received_message_more_machines: "Ha recibido un mensaje de {{user}} pidiendo m\xC3\xA1s m\xC3\xA1quinas"
   recent: 
     activity: Actividad reciente
   register: 
@@ -704,12 +1229,24 @@ es:
   remember_me: Recordarme
   remove: Eliminar
   reply: Responder
+  reply_to: "Responder a:"
   reply_to_words: ""
   report_spam: Denunciar spam
   repository: 
+    add_document: Agregar nuevo documento
+    add_tags: Agregar etiquetas
+    download: Descargar
+    enable: Habilitar repositorio?
+    loading: Refrescante repositorio de documentos ...
+    need_javascript: Por favor, activa Javascript para disfrutar de repositorio de documentos
     one: Repositorio
+    rem_tags: Quitar Etiquetas
+    remove: Eliminar
+    search: "B\xC3\xBAsqueda documentos:"
   request: 
     default: solicitar
+    info: "Su solicitud para unirse a este espacio ha sido enviado con \xC3\xA9xito a los administradores del espacio. Un administrador se encargar\xC3\xA1 de \xC3\xA9l tan pronto como sea posible"
+    sent: Solicitud enviado!
   request_change_password: "Petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
   reset_password: "Cambiar Contrase\xC3\xB1a"
   resource: 
@@ -728,16 +1265,26 @@ es:
     name: Nombre
     name_permissions: Permisos de {{name}}
     new: Nuevo Rol
+    none: No hay papel asignado
     one: Rol
     other: Roles
     select: 
       one: Seleccionar Rol
     stage_type: Tipo de escenario
+    sucess_update: "Funci\xC3\xB3n actualizada exitosamente ..."
     updated: Rol actualizado satisfactoriamente.
     without_permissions: El rol {{role}} no tiene permisos
   save: Guardar
+  save_ch: Guardar los cambios
   search: 
-    between_dates: "Usted puede buscar aqu\xC3\xAD entre dos fechas"
+    advanced: "B\xC3\xBAsqueda avanzada"
+    attachments: 
+      dots: Buscar archivos adjuntos ...
+      no_dots: Buscar archivos adjuntos
+    between_dates: 
+      attachments: "Buscar s\xC3\xB3lo los archivos adjuntos actualizada entre dos fechas"
+      events: "Buscar s\xC3\xB3lo eventos celebrados entre dos fechas"
+      posts: "Buscar mensajes s\xC3\xB3lo se actualiza entre dos fechas"
     dots: Buscar ...
     events: 
       advanced: "Eventos B\xC3\xBAsqueda avanzada"
@@ -746,12 +1293,18 @@ es:
       no_dots: Buscar eventos
       title: "Buscar por t\xC3\xADtulo evento"
     explanation: "(en el t\xC3\xADtulo y la descripci\xC3\xB3n con palabras exactamente)"
+    in: Buscar en
     one: "B\xC3\xBAsqueda"
+    parameters: cadena de consulta demasiado especie
     posts: 
       dots: Buscar entradas ...
       no_dots: "Comentarios de b\xC3\xBAsqueda"
     results: "Resultados de la b\xC3\xBAsqueda"
+    space: 
+      dots: Buscar el espacio ...
+    switch: "Cambie a la b\xC3\xBAsqueda global"
     users: Buscar usuarios
+  searching_in: "Usted est\xC3\xA1 buscando en"
   select_image: Seleccione una imagen, por favor,
   send: Enviar
   send_debug_emails: "Enviar E-Mails de depuraci\xC3\xB3n"
@@ -777,6 +1330,8 @@ es:
     cron_agent: 
       name: Cron
   site: 
+    chat_group_service_jid: Evento Chat Grupo de Servicio
+    cm_domain: Conferencia Administrador de dominio
     config: "Configuraci\xC3\xB3n del Sitio"
     default: Sitio
     description: "Descripci\xC3\xB3n"
@@ -789,9 +1344,15 @@ es:
     name: Nombre
     one: Sitio
     other: Sitios
+    presence_domain: Presencia de dominio
+    signature: Firma
     ssl: SSL
     updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
+    xmpp_server_password: "Contrase\xC3\xB1a del servidor XMPP"
+    xmpp_server_password_confirmation: "XMPP servidor de confirmaci\xC3\xB3n de contrase\xC3\xB1a"
+  size: "Tama\xC3\xB1o"
   skype: Skype
+  society_media: "Sociedad de la Informaci\xC3\xB3n y Medios de Comunicaci\xC3\xB3n"
   source: 
     created: Fuente se ha creado correctamente.
     errors: 
@@ -811,28 +1372,51 @@ es:
       other: "A\xC3\xB1adir a los usuarios del espacio"
     all: Todos los espacios
     allow_public_access: "Permitir el acceso p\xC3\xBAblico?"
-    be_fan: Ser FAN    
+    be_fan: Ser FAN
     clic: Haga clic para editar ...
     clic_logo: Haga clic para cambiar el logotipo de
     configuration: "La configuraci\xC3\xB3n espacial"
+    confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea salir de este espacio?"
     create_own: Crea un nuevo espacio
     created: El espacio se ha creado correctamente.
     delete: Eliminar el espacio
     deleted: El espacio se ha eliminado correctamente.
+    description_none: "Una descripci\xC3\xB3n del espacio se debe dar para crear un nuevo espacio"
     disabeld: "El espacio con \xC3\xA9xito con discapacidad."
     disable: Deshabilitar el espacio
+    disabled: "Espacio con discapacidad con \xC3\xA9xito"
+    does_not_belong: "no pertenece a ning\xC3\xBAn espacio"
     edit_description: "editar la descripci\xC3\xB3n de"
     edit_name: editar el nombre de
     enable: Habilitar el espacio
     enabled: Espacio habilitado correctamente.
     error: 
-      enabled: "Espacio {{nombre}} ya est\xC3\xA1 habilitado"
+      enabled: "Espacio {{name}} ya est\xC3\xA1 habilitado"
+    group_not_belong: no pertenecen al mismo espacio que el grupo
     is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
     join: Unete a este espacio!
+    join_invitation: 
+      clarify_registered: "Por favor, introduzca la contrase\xC3\xB1a para poder participar en este espacio."
+      clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para poder registrarse en el Centro Virtual de conferencias y participar en este espacio."
+      title: "\xC3\x9Anete a&gt; espacio"
+    join_pending: "\xC3\x9Anete a solicitud en tr\xC3\xA1mite"
+    leave: Deja este espacio
     logo: Espacio Logo
+    logo_selected: 
+      close: Cerrar
+      close_gallery: "Cerrar la galer\xC3\xADa"
+      default_message: "El logotipo del espacio ser\xC3\xA1 la siguiente:"
+      enter_text: "Introduce el texto para generar logotipos:"
+      generate_logo: Generar
+      open_gallery: "Abrir la galer\xC3\xADa"
+      text_logo: Crear una insignia del texto
+      upload_logo: Cargue su propio logotipo
+      upload_logo_text: "Seleccione un logotipo para subir:"
+      upload_text: Subir
     main: El espacio principal
     member_of: Miembros de los espacios de
     my_spaces: Mis espacios
+    name_none: Un espacio de nombre se debe dar para crear un nuevo espacio
     one: Espacio
     other: Espacios
     popular: 
@@ -849,6 +1433,7 @@ es:
     show_all: Ver todos los espacios
     subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
     updated: El espacio se ha actualizado correctamente.
+    upload_none: Usted tiene que seleccionar un logotipo para la carga.
   spam: 
     created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
     default: Spam
@@ -858,12 +1443,14 @@ es:
     no_spam: Felicidades! no hay spam
     report: Report spam
     reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
+    valid: "Este contenido es v\xC3\xA1lido"
   stage: 
     all: Todos
     one: Escenario
   stage_type: 
     one: Tipo de escenario
   start_now!: Inicie ahora!
+  street: Calle
   subject: Tema
   support: 
     array: 
@@ -874,20 +1461,38 @@ es:
     one: Soporte
     select: 
       prompt: Por favor seleccione
+    words_connector: ","
   tag: 
+    add: Agregar etiquetas
+    attachment: "Etiquetas para la inserci\xC3\xB3n"
+    edit: Editar etiquetas
+    filter: "Filtrar por tag:"
+    new: Nueva etiqueta
     one: Etiqueta
     other: Etiquetas
+    other_capital: Etiquetas
     other_in: Etiquetas de {{container}}
+    selected: 
+      one: "Seleccione una etiqueta:"
+      other: "Topicos elegidos:"
     show_title: Etiqueta '{{tag}}'
+    start: Comienza a escribir ..
+  tags: Etiquetas
+  tags_by: "Etiquetas por:"
   text: Texto
   thank_you: Gracias
+  the_string: la cadena de
   thread: 
     add: "A\xC3\xB1adir un nuevo hilo"
+    compact_view: Cambie a la vista compacta
     deleted: Hilo ha sido eliminado
     edit: Editar hilo
+    extended_view: Cambie a la vista ampliada
     one: Hilo
     or_add_new: "o a\xC3\xB1adir un nuevo hilo"
     other: Threads
+    see_less: Quiere comprimir todos los mensajes?
+    see_more: "\xC2\xBFQuieres ver m\xC3\xA1s acerca de los mensajes?"
     show_comment_size: ""
     show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
     show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
@@ -904,6 +1509,10 @@ es:
     one: Zona Horaria
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>
   title: "T\xC3\xADtulo"
+  title_formal: 
+    mr: Sr.
+    mrs: Sra.
+    ms: Sra.
   to: Para
   to_configure_your: para configurar su
   today: Hoy
@@ -917,17 +1526,26 @@ es:
     one: Traducir
     request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
     translated: "VCC esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
+  type: Tipo
+  undated: Sin fecha
+  unknown_content: Desconocida contenido {{content}}
   upcoming: "Pr\xC3\xB3ximos"
   update: Actualizar
+  updated: Actualizado
   updated_at: Actualizado
   updated_at_date: "Actualizado: {{date}}"
   updated_time_ago: ""
   upload: Subir
   url: Sitio web
+  url_add: Agregar su sitio
+  url_plain: URL
   user: 
     activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
     active: 
       other: Usuarios activos
+    add: 
+      instruction: "Para agregar nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
+      note: "Por ejemplo: &quot;John Silver&quot; &lt;&quot;jsilver@example.com&quot;&gt; &quot;, jct@dit.es; aaron@example.net Aar\xC3\xB3n y haga clic en&quot; Registrarse como usuario registrar\xC3\xA1 las direcciones de correo electr\xC3\xB3nico como 3 miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
     add_more: add more>>
     admin: Admin
     assist: "Gente que asistir\xC3\xA1 al evento"
@@ -943,7 +1561,7 @@ es:
     enable: Habilitar usuario
     enabled: "Usuario habilitado correctamente. El usuario no es miembro de ning\xC3\xBAn espacio que ahora y tiene que unirse a los espacios de nuevo."
     error: 
-      enabled: ""
+      enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
       author: SIR
       title: Usuarios
@@ -965,7 +1583,9 @@ es:
     invite_from_space_by_email: "Invitar a gente de su espacio mediante el filtro y otros por correo electr\xC3\xB3nico"
     invited: Ya a los usuarios
     list_by: Lista de
+    login: Login
     lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
+    noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
     not_confirmed: Gente que no ha confirmado
@@ -973,10 +1593,13 @@ es:
     one: Usuario
     openid: 
       edit: Edita tus OpenId's
+      one: OpenID
+      other: OpenID
     other: Usuarios
     password: "Contrase\xC3\xB1a"
     password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta de"
     private_message: Mensaje Privado
+    recent_join: "Usuarios recientes se uni\xC3\xB3"
     registered: "Gracias por registrarse! Acabamos de enviar instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario de forma permanente."
     request_password: "Solicitar contrase\xC3\xB1a"
     reset_password: "Restablecer la contrase\xC3\xB1a"
@@ -993,14 +1616,29 @@ es:
     vcc_email: VCC de usuario E-mail {{dir}}
     view_expanded_posts: Ampliar comentarios
     without_group: Las personas sin grupo
+  username: Nombre de usuario
   vCard: 
+    corrupt: "La vCard enviado est\xC3\xA1 da\xC3\xB1ado o es una versi\xC3\xB3n no compatible"
     no_selection: No hay ninguna vCard cargada
+    success: vCard cargado correctamente
     use: Usa tu vCard
   vcard: vcard
   vcc: Virtual Conference Centre
+  vcc_mail_label: "[] VCC"
+  version: 
+    new: "Nueva versi\xC3\xB3n"
+    one: "Versi\xC3\xB3n"
   visit_link_to_activate_account: Visite este enlace para activar su cuenta
   week: 
     next: La semana que viene
+    this: Esta semana
+  when: !binary |
+    wr9DdcOhbmRv
+
+  where: Donde
+  xmpp_server: 
+    password_invalid: "contrase\xC3\xB1a no es v\xC3\xA1lida"
+  yesterday: Ayer
   your_interests_tags: Sus intereses (tags)
   your_vcard: vCard
   zipcode: "C\xC3\xB3digo postal"

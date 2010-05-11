@@ -17,6 +17,8 @@
 	case params[:type]
 	  when "events"
 	    render :partial =>'events'
+    when "videos"
+      render :partial =>'videos'
 	  when "posts"
 	    render :partial =>'posts', :locals => {:first_five => false}
 	  when "attachments"
@@ -25,6 +27,7 @@
 	    render :partial =>'users'
 	  else
 			render( :partial =>'posts', :locals => {:first_five => true}) +
+      render( :partial =>'videos') +
 			render( :partial =>'events') +
 			render( :partial =>'users') +
 	    render( :partial =>'attachments')

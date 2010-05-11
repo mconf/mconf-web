@@ -13,6 +13,13 @@
          ")%>");
          $(".datepicker").datepicker();
          break;
+       case "videos":
+         $("#advanced_params").html("<%=escape_javascript("
+           <h3>#{t('search.between_dates.videos')}</h3>
+           <label class='bold blue'>#{t('from')}</label> <input type='date' name='start_date' class= 'datepicker'> <label class='bold blue'>#{t('to')}</label> <input type='date' name='end_date' class= 'datepicker'>
+         ")%>");
+         $(".datepicker").datepicker();
+         break;
 		  case "users":
 			   $("#advanced_params").html("");
 				 break;
@@ -58,7 +65,7 @@
 
  
 	<label class="bold blue"><%=t('find_in')%></label>
-  <%=select_tag "type", options_for_select(["all", "posts", "events", "users", "attachments"], params[:type]), :id => 'search_type'%>
+  <%=select_tag "type", options_for_select(["all", "posts", "events", "videos", "users", "attachments"], params[:type]), :id => 'search_type'%>
 	<label class="bold blue"><%=t('the_string')%></label>
 	<%= text_field_tag 'query',(params[:query] ? params[:query] :  '' ), :id => 'search_text_field'%>
   <%=hidden_field_tag 'advanced', true%>

@@ -1,0 +1,14 @@
+<div class="single_event">
+  <p><%=link_to truncate(entry.title, 32),space_event_path(entry.event.space, entry.event, :show_video => entry.id), :class => "video_title" %></p>
+  <ul>
+  	<li class="main_text">
+        <%= t('event.one')%>:<span class="unified_event"><%=link_to sanitize(highlight(entry.event.title,@query)), space_event_path(entry.event.space, entry.event),:class=>"unified_event"%></span>
+    </li>
+		<li class="main_text">
+        <%= t('agenda.entry.speakers')%>: <span class="unified_user"><%=highlight(entry_speakers(entry), @query)%></span>
+    </li>
+    <li class="main_text">
+        <%= t('description')%>: <span> <%=highlight(entry.description,@query)%></span>
+    </li>
+	</ul>
+</div>
