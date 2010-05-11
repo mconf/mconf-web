@@ -141,9 +141,15 @@ class EventsController < ApplicationController
               name = "agenda_" + @event.name + ".ics"
               send_data @event.to_ics, :filename => "#{name}"
            }
-           format.pdf { 
-              nombre = "agenda_" + @event.name + ".pdf"
-              send_data @event.to_pdf, :filename => "#{nombre}"
+           format.pdf {
+           
+              @event.to_pdf
+              nombre = "agenda_" + @event.permalink + ".pdf"
+              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+              send_file pdf_path
+              
+#              nombre = "agenda_" + @event.name + ".pdf"
+#              send_data @event.to_pdf, :filename => "#{nombre}"
            }  
     end
 	end

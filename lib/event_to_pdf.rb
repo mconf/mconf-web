@@ -6,6 +6,10 @@ module EventToPdf
   
   #Method to generate the agenda of the event in PDF.
   def to_pdf
+      
+    unless needsGenerate
+      return
+    end
        
     pdf = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
    
@@ -128,9 +132,15 @@ module EventToPdf
       
     end     #All Day Ends. PDF finished.
     
+    
+    nombre = "agenda_" + permalink + ".pdf"
+    FileUtils.mkdir_p("#{RAILS_ROOT}/public/pdf/#{permalink}")
+    File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}", "wb") { |f| f.write pdf.render }
+    
     pdf.render
    
   end
+  
   
   private
   
@@ -624,6 +634,19 @@ module EventToPdf
     pdf.fill_color!  Color::RGB::Black
     pdf.text " ", :font_size => 3 
 
+  end
+
+  #Check if the agenda needs to be generate.
+  def needsGenerate   
+    nombre = "agenda_" + permalink + ".pdf"
+    isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+  
+    if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
+      update_attribute(:generate_pdf_at, Time.now)
+      return true;
+    end
+
+    return false;
   end
 
 end

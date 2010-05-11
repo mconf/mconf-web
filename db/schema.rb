@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100506103259) do
+ActiveRecord::Schema.define(:version => 20100511141600) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20100506103259) do
     t.boolean  "web_interface",           :default => false
     t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
+    t.datetime "generate_pdf_at"
   end
 
   create_table "groups", :force => true do |t|
