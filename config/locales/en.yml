@@ -1266,6 +1266,7 @@ en:
       attachments: Search only attachments updated between two dates
       events: Search only events held between two dates
       posts: Search only messages updated between two dates
+      videos: Search only videos held between two dates
     dots: Search...
     events: 
       advanced: Advanced events search
@@ -1599,6 +1600,13 @@ en:
   version: 
     new: New version
     one: Version
+  video:
+    found: 
+      none: No videos found
+      one: 1 video was found
+      other: "{{size}} videos were found"
+    one: Video
+    other: Videos
   visit_link_to_activate_account: Visit this link to activate your account
   week: 
     next: Next week

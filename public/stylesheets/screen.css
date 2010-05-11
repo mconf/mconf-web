@@ -1661,6 +1661,16 @@ div.banner_footer a{
 	float: right;
 }
 
+
 #event_filter #event_select {
   float: none;
 }
+
+.video_title{
+	color:#244974;
+	font-size:1.15em;
+	font-weight:bold;
+	line-height:1.3846;
+}
+
+
