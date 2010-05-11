@@ -172,6 +172,7 @@ button#change_logo{float:left;}
 /*-------------disabled grey buttons-----------*/
 .grey_bar a.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
 .grey_bar #feeds_link{margin-right:6px;}
+
 /*BUTTON COLOURS*/
 .orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
 
@@ -197,10 +198,10 @@ button#change_logo{float:left;}
 	
 .blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
 
-.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover{border:1px solid #86B5D5;}
+.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
-#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"]{
+#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -649,9 +650,10 @@ div.pagination span.current, div.pagination a:hover{background:#244974; color:wh
 div.pagination a.next_page, div.pagination a.prev_page {text-decoration:none;}
 div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
-#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*/border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}
+/*#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*//*border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}*/
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
+#sidebar #join{margin-bottom:0.75em;}
 #sidebar input[type="text"],#sidebar input[type="file"]{width:92%;}
 #sidebar input[type="file"]{overflow:hidden;}
 #sidebar #expanded_date .javascript a.timepicker_launcher{margin-left:5px;}
@@ -873,15 +875,16 @@ ul#inbox li a:hover{background:#f0f6f9;color:#244974;border-right-color:#d3e8f6;
 ul#inbox li .selected:hover{background:#f0f6f9; color:#244974;}
 div#show-posts,#manage{padding:0.75em 0.5em 0.75em 0.5em;background:#f0f6f9;border-left:1px #bdd8eb solid;border-right:1px #bdd8eb solid;border-bottom:1px #bdd8eb solid;}
 div.message_div{padding:0.5em 0;border-top:1px #ccc solid;}
+div.message_div tr{width:100%;}
 td.picture{width:40px;padding-left:0.5em;}
 td.name_date .name{width:120px;display:block;overflow:hidden;margin-right:20px;}
 td.name_date .date{display:block;font-size:0.9166em;line-height:1.6363;color:#777;}
 td.name_date .name a,td.subject a{text-decoration:none;}
 td.name_date .name a:hover,td.subject a:hover{text-decoration:underline;}
-td.subject{width:265px;}
+td.subject{width:410px;}
 td.subject div{display:block;overflow:hidden;}
 td.subject div span{color:#777;}
-td.subject span.topic{width:245px;display:block;overflow:hidden;margin-right:20px;}
+td.subject span.topic{width:390px;display:block;overflow:hidden;margin-right:20px;}
 td.delete,td.reply{width:24px;opacity:0.6;}
 td.delete:hover,td.reply:hover{opacity:1;}
 div.message_content{padding:0.5em;}
@@ -966,7 +969,8 @@ a.extract_form{margin-right:0.5em;}
 
 
 #assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
-#assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.update_logo,.import_icalendar,.space_logo{float:left;width:240px;border:1px #bdd8eb solid;background:#f0f6f9;}
+#assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;}
+.update_logo{border:1px #bdd8eb solid;background:#f0f6f9;}
 #sidebar #assistance_info{margin-top:30px;}
 .icalendar_content p{margin-bottom:9px;}
 .update_logo h3,.import_icalendar h3,.space_logo h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;}
@@ -1657,3 +1661,6 @@ div.banner_footer a{
 	float: right;
 }
 
+#event_filter #event_select {
+  float: none;
+}
