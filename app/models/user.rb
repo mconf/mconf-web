@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   attr_accessible :chat_activation
   
   is_indexed :fields => ['login','email'],
-             :include => [ #{:class_name => 'Profile',:field => 'name',:as => 'profile_name'},
+             :include => [ {:class_name => 'Profile',:field => 'full_name',:as => 'full_name'},
              { :class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
             #{ :class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
             ],

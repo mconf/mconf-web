@@ -65,6 +65,7 @@ class AgendaDivider < ActiveRecord::Base
 
   after_save do |divider|
     divider.agenda.event.syncronize_date
+    divider.event.agenda.touch
   end
 
   after_destroy do |divider|  
