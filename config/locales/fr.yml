@@ -1513,47 +1513,109 @@ fr:
   user: 
     activation_email_sent: "e-mail d'activation a \xC3\xA9t\xC3\xA9 envoy\xC3\xA9 \xC3\xA0 l'utilisateur"
     active: 
-      other: ""
+      other: Membres actifs
     add: 
-      instruction: ""
-      note: ""
-    add_more: ""
+      instruction: "Pour ajouter de nouveaux utilisateurs de saisir un ou plusieurs emails adresses s\xC3\xA9par\xC3\xA9es par des \"\", \"\", ou \";\" et de les enregistrer"
+      note: "Par exemple: \xC2\xABJohn Silver\" <\"jsilver@example.com\"> \", jct@dit.es; aaron@example.net Aaron et cliquez sur\xC2\xAB Inscrire utilisateur \xC2\xBBva enregistrer les 3 adresses e-mail en tant que membres de l'espace et enverra un email de validation pour eux."
+    add_more: Ajouter des utilisateurs>>
     admin: Admin
     assist: Participer
-    by_email: ""
-    by_private_message: ""
+    by_email: Par e-mail
+    by_private_message: "Par un message priv\xC3\xA9"
     confirm_password: Confirmer Mot de passe
-    delete_from_space: ""
-    disable: ""
-    disabled: ""
+    delete_from_space: Supprimer un utilisateur de l'espace
+    disable: "D\xC3\xA9sactiver l'utilisateur"
+    disabled: "Utilisateur {{username}} handicap\xC3\xA9s"
     e-mail: e-mail
-    edit_account: ""
+    edit_account: Modifier votre compte
     email: e-mail
-    enable: ""
-    enabled: ""
+    enable: Activer l'utilisateur
+    enabled: "L'utilisateur a \xC3\xA9t\xC3\xA9 activ\xC3\xA9. L'utilisateur appartient actuellement \xC3\xA0 aucun espace, et aura \xC3\xA0 se joindre \xC3\xA0 nouveau les espaces."
     error: 
-      enabled: ""
+      enabled: "{{name}} Utilisateur est d\xC3\xA9j\xC3\xA0 activ\xC3\xA9"
     feed: 
-      author: ""
-      title: ""
-    filter: ""
+      author: SIR
+      title: Utilisateurs
+    filter: filtre de l'utilisateur
     found: 
-      none: ""
-      one: ""
-      other: ""
+      none: "Aucun utilisateur trouv\xC3\xA9"
+      one: 1 utilisateur trouve
+      other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
-    include_registered: ""
+    include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
-      other: ""
+      other: y compris les utilisateurs
     invite: Inviter des personnes
-    invite_email: ""
-    invite_from_space_by_email: ""
-    invited: ""
+    invite_email: Inviter par e-mail
+    invite_from_space_by_email: "Inviter des personnes \xC3\xA0 partir de votre espace"
+    invited: "Les utilisateurs d\xC3\xA9j\xC3\xA0 invit\xC3\xA9"
     list_by: Liste par
     login: Login
+    lost_password: Avez-vous perdu votre mot de passe?
+    noactivity: "{{user}} n'a pas d'activit\xC3\xA9 r\xC3\xA9cente"
+    not_activated: "Votre compte n'est pas activ\xC3\xA9. S'il vous pla\xC3\xAEt, v\xC3\xA9rifiez votre email pour l'activer"
     not_assist: "Ne fr\xC3\xA9quentant pas l&#39;"
+    not_confirmed: "Non confirm\xC3\xA9"
+    notifications: Comment voulez-vous de recevoir vos notifications?
     one: Utilisateur
     openid: 
+      edit: Modifier votre OpenID
       one: OpenID
+      other: OpenID
+    other: Utilisateurs
     password: Mot de passe
+    password_info: "Entrez l'adresse e-mail utilis\xC3\xA9e pour cr\xC3\xA9er votre compte"
     private_message: Envoyer un message
+    recent_join: "utilisateurs r\xC3\xA9cents rejoint"
+    registered: "Merci pour votre inscription! Nous venons d'envoyer des instructions sur la fa\xC3\xA7on d'activer votre compte d'utilisateur"
+    request_password: Demande de mot de passe
+    reset_password: "R\xC3\xA9initialiser votre mot de passe"
+    results_count: 
+      one: "Les gens, le r\xC3\xA9sultat {{users_size}}"
+      other: "Les gens, {{users_size}} r\xC3\xA9sultats"
+    save: 
+      account: Enregistrer le compte
+      preferences: "Enregistrer les pr\xC3\xA9f\xC3\xA9rences"
+    search: Les utilisateurs de la recherche ...
+    timezone: Fuseau horaire
+    updated: "Utilisateur mis \xC3\xA0 jour avec succ\xC3\xA8s"
+    vcc_email: "{{dir}} utilisateur VCC e-mail"
+    view_expanded_posts: "Afficher les messages dans le mur au point de vue d\xC3\xA9velopp\xC3\xA9 par d\xC3\xA9faut"
+    without_group: Personnes sans groupe
+  username: Nom d'utilisateur
+  vCard: 
+    corrupt: "Le vCard que vous avez envoy\xC3\xA9 est corrompu ou d'une version non prise en charge"
+    no_selection: pas de vCard
+    success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
+    use: Utilisez votre vCard
+  vcard: vCard
+  vcc: "Centre de conf\xC3\xA9rence virtuelle"
+  vcc_mail_label: "[VCC]"
+  version: 
+    new: Nouvelle version
+    one: Version
+  video: 
+    found: 
+      none: "Pas de vid\xC3\xA9os trouv\xC3\xA9es"
+      one: !binary |
+        MSB2aWTDqW8gYSDDqXTDqSB0cm91dsOp
+
+      other: "{{size}} vid\xC3\xA9os ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
+    one: !binary |
+      Vmlkw6lv
+
+    other: "Vid\xC3\xA9os"
+  visit_link_to_activate_account: Visitez ce lien pour activer votre compte
+  week: 
+    next: La semaine prochaine
+    this: Cette semaine
+  when: Quand
+  where: !binary |
+    T8O5
+
+  xmpp_server: 
+    password_invalid: mot de passe invalide
+  yesterday: Hier
+  your_interests_tags: "Vos centres d'int\xC3\xA9r\xC3\xAAts (tags)"
+  your_vcard: votre vCard
+  zipcode: Code postal
