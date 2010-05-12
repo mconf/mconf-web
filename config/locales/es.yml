@@ -447,13 +447,7 @@ es:
   edit_hours: Editar horas
   edit_profile: Editar perfil
   edit_your_profile: Editar tu perfil
-  email: 
-    commas: (separados por comas)
-    confirm: "Para confirmar su direcci\xC3\xB3n de e-mail, por favor visite la siguiente direcci\xC3\xB3n URL:"
-    notifications: "notificaciones de correo electr\xC3\xB3nico"
-    one: e-mail
-    other: e-mails
-    used_from: "de correo electr\xC3\xB3nico utilizado en forma de contacto: {{dir}}"
+  email: Email
   email_or_full_name: e-Mail o el nombre completo
   enable: Posibilitar
   enabled: Espacios activos
