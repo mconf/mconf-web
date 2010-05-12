@@ -136,7 +136,6 @@ class EventsController < ApplicationController
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }
-           format.js 
            format.ics {
               name = "agenda_" + @event.name + ".ics"
               send_data @event.to_ics, :filename => "#{name}"
