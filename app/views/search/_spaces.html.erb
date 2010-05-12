@@ -1,0 +1,24 @@
+<% spaces = @spaces.paginate(:page => params[:page],:per_page => 5) %>
+
+<div class="event_search">    
+  <%if @spaces == []%>
+    <h3 class="empty"><%= t('space.other') %>: <%= t('space.found.none') %></h3>
+  <% elsif @spaces.size == 1%>
+    <h3><%= t('space.other') %>: <%= t('space.found.one') %></h3>
+    <% spaces.each do |space| %>  
+      <%= render :partial => 'space', :locals => { :space =>  space} %>
+    <% end %>
+  <%else%>
+    <h3><%= t('space.other') %>: <%= t('space.found.other', :size => @spaces.size) %></h3>
+      <% spaces.each do |space| %>
+        <%= render :partial => 'space', :locals => { :space =>  space} %>
+      <% end %>
+			<%if first_five%>
+	      <div class="show-more">
+	        <%=link_to t('post.found.show_all'), search_all_path(:type => 'spaces', :query => params[:query])%> 
+	      </div>
+	    <%else%>
+	      <%= will_paginate spaces %>
+    <%end%>
+  <%end%>
+</div>

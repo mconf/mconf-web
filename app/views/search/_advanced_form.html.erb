@@ -6,6 +6,9 @@
 
 	change_advanced_params = function(selected){
 	  switch (selected) {
+      case "spaces":
+         $("#advanced_params").html("");
+         break;
       case "events":
          $("#advanced_params").html("<%=escape_javascript("
            <h3>#{t('search.between_dates.events')}</h3>
@@ -50,8 +53,6 @@
 	
 <%end%>
 
-
-
 <% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
   <%if @space.nil?%>
@@ -65,7 +66,7 @@
 
  
 	<label class="bold blue"><%=t('find_in')%></label>
-  <%=select_tag "type", options_for_select(["all", "posts", "events", "videos", "users", "attachments"], params[:type]), :id => 'search_type'%>
+  <%=select_tag "type", options_for_select(["all", "spaces", "posts", "events", "videos", "users", "attachments"], params[:type]), :id => 'search_type'%>
 	<label class="bold blue"><%=t('the_string')%></label>
 	<%= text_field_tag 'query',(params[:query] ? params[:query] :  '' ), :id => 'search_text_field'%>
   <%=hidden_field_tag 'advanced', true%>

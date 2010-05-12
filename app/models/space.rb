@@ -44,6 +44,8 @@ class Space < ActiveRecord::Base
 
   has_logo
 
+  is_indexed :fields => ['name','description']
+
   validates_presence_of :name, :description
   validates_uniqueness_of :name
 

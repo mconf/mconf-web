@@ -15,10 +15,12 @@
 	
 	<%=
 	case params[:type]
-	  when "events"
+	  when "spaces"
+      render :partial =>'spaces', :locals => {:first_five => false}
+    when "events"
 	    render :partial =>'events'
     when "videos"
-      render :partial =>'videos'
+      render :partial =>'videos', :locals => {:first_five => false}
 	  when "posts"
 	    render :partial =>'posts', :locals => {:first_five => false}
 	  when "attachments"
@@ -26,8 +28,9 @@
 	  when "users"
 	    render :partial =>'users'
 	  else
+      (@space.nil? ? render( :partial =>'spaces', :locals => {:first_five => true}) : "") +
 			render( :partial =>'posts', :locals => {:first_five => true}) +
-      render( :partial =>'videos') +
+      render( :partial =>'videos', :locals => {:first_five => true}) +
 			render( :partial =>'events') +
 			render( :partial =>'users') +
 	    render( :partial =>'attachments')

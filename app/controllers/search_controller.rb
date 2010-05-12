@@ -26,6 +26,8 @@ class SearchController < ApplicationController
       flash[:notice] = t('search.parameters')
     else
       case params[:type]
+        when "spaces"
+          search_spaces(params)
         when "events"
           search_events(params)
         when "videos"
@@ -37,6 +39,7 @@ class SearchController < ApplicationController
         when "users"
           search_users(params)
         else
+          search_spaces(params) if @space.nil?
           search_events(params)
           search_videos(params)
           search_users(params)
@@ -78,6 +81,14 @@ class SearchController < ApplicationController
     elements.select{|e| e.authorize?(:read, :to => current_user)}
   end
   
+  def search_spaces (params)
+    @query = params[:query] 
+    
+    @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Space')
+    @search.run
+    @spaces = authorize_read?(@search.results)
+  end
+  
   def search_events(params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
     @query = params[:query]
@@ -114,12 +125,10 @@ class SearchController < ApplicationController
     
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Post', :filters => filters)
     @search.run
-    posts = @space.nil? ? authorize_read?(@search.results) : @search.results
-    posts = posts.sort{
+    @posts = @space.nil? ? authorize_read?(@search.results) : @search.results
+    @posts = @posts.sort{
             |x,y| ((y.parent_id != nil) ? y.parent.updated_at : y.updated_at) <=> ((x.parent_id != nil) ? x.parent.updated_at : x.updated_at)
-          }
-    @posts = posts.paginate(:page => params[:page],:per_page => 5)
-    @number_of_posts = posts.size                  
+          }                
   end
   
   def search_users (params)
