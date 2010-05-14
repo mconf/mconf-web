@@ -276,6 +276,7 @@ a.login{
 	list-style:none;
 	font-size:14px;
 	margin-top:3px;
+	width:306px;
 }
 #share ul li img, #meet ul li img, #collaborate ul li img, #right_actions ul img{
 	padding-right:5px;
