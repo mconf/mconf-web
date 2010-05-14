@@ -1371,6 +1371,10 @@ en:
     enabled: Space enabled successfully
     error: 
       enabled: Space {{name}} is already enabled
+    found: 
+      none: No spaces found
+      one: 1 space was found
+      other: "{{size}} spaces were found"
     group_not_belong: " do not belong to the same space as the group"
     invitation: 
     is_private: is a private space. Send a join request to the administrator of this space to let you in

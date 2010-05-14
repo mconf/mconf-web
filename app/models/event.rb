@@ -177,7 +177,9 @@ class Event < ActiveRecord::Base
   
   
   after_destroy do |event|
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}") 
+    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/pdf/#{event.permalink}")
+    
     if event.marte_event? && event.marte_room?
       begin
         MarteRoom.find(event.id).destroy

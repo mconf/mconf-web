@@ -570,8 +570,8 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 #sidebar #assistance_info button#choice:hover{border-color:#64a3cf;}
 
 div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
-div.single_event{position:relative;clear:both;overflow:hidden;}
-div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
+div.single_event, div.single_space{position:relative;clear:both;overflow:hidden;}
+div.single_event, div.single_space{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
 
 /* actions menu for the grey bar in events*/
@@ -623,6 +623,8 @@ ul#language_menu li a:hover{text-decoration:none;color:#fff;}
 #actions ul li{display:inline;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}
+.single_space p{margin-bottom:0;}
+.single_space img{padding-right:5px;}
 .home_event ul{list-style-type:none;margin:0;}
 .home_event{position:relative;overflow:hidden;padding:0px 0.5em 0px 0;}
 .home_event p{margin-bottom:0;}
@@ -1673,4 +1675,9 @@ div.banner_footer a{
 	line-height:1.3846;
 }
 
-
+.space_title{
+  color:#244974;
+  font-size:1.15em;
+  font-weight:bold;
+  line-height:1.3846;
+}

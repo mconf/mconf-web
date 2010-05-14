@@ -122,7 +122,7 @@ module ConferenceManager
           @cm_player_session ||=
             ConferenceManager::PlayerSession.find(:player,
               :params => { :event_id => event.cm_event_id,
-                           :session_id => cm_session })
+                           :session_id => cm_session.id })
           @cm_player_session.html
         rescue
           nil
