@@ -15,10 +15,7 @@ $("input.agenda_edit_close").livequery("click", function(){
   $('#add_buttons'+ id).show();
 });
 
-  var destination_edit = $('#edit_entry_anchor').offset().top;
-  $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_edit}, 1100, function() {
-    window.location.hash = '#edit_entry_anchor';
-  });
+	$.vcc.scrollTo('#edit_entry_anchor');
 
   hide_show_embedded_video();
 
