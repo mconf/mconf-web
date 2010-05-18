@@ -789,9 +789,14 @@ es:
     part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n Hecho."
     part6: "5. Despu\xC3\xA9s de registrarse para una cuenta, usted recibir\xC3\xA1 una confirmaci\xC3\xB3n por correo electr\xC3\xB3nico con el enlace para activar tu cuenta."
   help_index: 
-    part1: "El Virtual del Centro de Conferencias (VCC) es una aplicaci\xC3\xB3n Web desarrollada por la Universidad Polit\xC3\xA9cnica de Madrid (UPM) en el contexto del proyecto global, un proyecto de investigaci\xC3\xB3n financiado por el S\xC3\xA9ptimo Programa Marco Comission Europea."
-    part2: "El VCC ofrece un servicio para crear distribuidos eventos, desde peque\xC3\xB1as reuniones hasta grandes conferencias. Los usuarios pueden participar en persona o seguir en l\xC3\xADnea. Eventos y contenidos relacionados con ellos se organizan en espacios que tambi\xC3\xA9n ofrecen al usuario la posibilidad de crear los mensajes en la pared para comunicarse con otros participantes en el espacio o subir documentos o fotograf\xC3\xADas para ser compartidas."
-    part3: Para crear o editar los espacios, debe ser registrada para su cuenta de VCC. Si no tienes una cuenta, <a href={{url}}>crear una ahora</a> .
+    part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del VCC puede ser usado por ejemplo para:"
+    part2: "<li>Grabar y publicar sus eventos en Internet. \r\n\
+      <li>Facilitar la participaci\xC3\xB3n remota a sus eventos desde un navegador Web browser. \r\n\
+      <li>Transmitir reuniones, congresos o conferencias a trav\xC3\xA9s de Internet. \r\n\
+      <li>Permitir la participaci\xC3\xB3n remota de ponentes dentro de reuniones o congresos. \r\n\
+      <li>Conectar un auditorio o sitios remotos a un congreso o evento<br><br> \r\n\
+      Global Plaza est\xC3\xA1 estructurado como un sitio socio-colaborativo, el cual ofrece soporte a redes sociales junto con el soporte colaborativo a proyectos y actividades de grupos, donde cualquier usuario puede <a href={{url}}>registrarse</a>."
+    part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el VCC con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el VCC con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de VCC. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
   help_logging: 
     part1: "Si ya tienes una cuenta de VCC, puede <a href={{url}}>registrarse aqu\xC3\xAD</a> o haga clic sobre el punto de entrada de la barra de men\xC3\xBA superior. Introduce tu email y contrase\xC3\xB1a en la pantalla principal."
     part2: "Puede acceder autom\xC3\xA1ticamente si usted tiene una cuenta con un proveedor de OpenID."
@@ -808,7 +813,7 @@ es:
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de VCC
-    create_post: "Creaci\xC3\xB3n de un mensaje en la pared"
+    create_post: Publicar un mensaje en el muro
     create_space: "La creaci\xC3\xB3n de un Espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
     info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"

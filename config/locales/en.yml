@@ -763,7 +763,7 @@ en:
       <li>To provide remote participation to your events from a Web browser. \r\n\
       <li>To stream existing meetings, congresses or lectures over the Internet. \r\n\
       <li>To bring remote speakers into an existing meeting or congress.\r\n\
-      <li>To connect a remote auditorium or room to to a congress or event<br><br>\r\n\
+      <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
       The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
     part3: Social networking is supported by a global social network which connects any registered person in the VCC with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the VCC for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
@@ -782,7 +782,7 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About VCC
-    create_post: Creating a Message in the wall
+    create_post: Posting a message in the wall
     create_space: Creating a Space
     create_user: Creating a User
     info: Here you can find information about the VCC
