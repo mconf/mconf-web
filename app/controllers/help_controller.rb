@@ -40,4 +40,16 @@ class HelpController < ApplicationController
   def createpost
     
   end
+
+  def newevent
+
+  end	
+
+  def newmeeting
+
+  end 
+
+  def newvirtualmeeting
+
+  end
 end
