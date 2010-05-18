@@ -5,14 +5,14 @@ es:
   RSS: RSS
   abc: ABC
   about: Acerca de
-  about_global: ACERCA DE GLOBAL
-  about_me: Acerca de mi
+  about_global: Acerca de GLOBAL
+  about_me: "Acerca de m\xC3\xAD"
   about_sxsw: Acerca de SXSW
   about_vcc: Acerca de VCC
   account: Cuenta
   account_activated: Su cuenta ha sido activada
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
-  account_created: Su cuenta se ha creado
+  account_created: Su cuenta ha sido creada
   action: 
     one: "Acci\xC3\xB3n"
     other: Acciones
@@ -42,26 +42,26 @@ es:
         missing: falta
         not_a_number: "no es un n\xC3\xBAmero"
         odd: debe ser impar
-        record_invalid: "Validaci\xC3\xB3n no: {{errors}}"
+        record_invalid: "Validaci\xC3\xB3n err\xC3\xB3nea: {{errors}}"
         taken: "ya est\xC3\xA1 en uso"
         too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
         too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
         wrong_length: no tiene la longitud correcta ({{count}} caracteres exactos)
       models: 
       template: 
-        body: "Se encontraron problemas con los siguientes campos:"
+        body: "Se encontraron problemas en los siguientes campos:"
         header: 
           one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
           other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
   add: Agregar
-  add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles."
+  add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
-    space: The administrator of {{spacename}}
+    space: El administrador de {{spacename}}
   admission: 
     errors: 
-      candidate_equals_introducer: "Candidato e introductor no pueden ser la misma persona. (Seguramente tengas que salir de la sessi\xC3\xB3n)"
+      candidate_equals_introducer: "El candidato y el invitador no pueden ser la misma persona (seguramente tenga que salir de la sesi\xC3\xB3n)"
       candidate_has_role: ya tiene un rol
     one: "Admisi\xC3\xB3n"
     other: Admisiones
@@ -71,53 +71,56 @@ es:
   agenda: 
     add_divider: "A\xC3\xB1adir divisor"
     add_entry: "A\xC3\xB1adir per\xC3\xADodo de sesiones"
-    define: Definir la Agenda
+    define: Definir la agenda
     del_entry: Borrar
     divider: 
-      delete: Divisor ha sido borrado
-      edit: Editar Divisor
+      delete: El divisor ha sido borrado
+      edit: Editar divisor
       error: 
-        coinciding_times: Hay un conflicto con la hora del divisor de nuevo y las entradas de agenda o divisores
-        past_times: Este tipo de evento no puede tener otros tiempos
-      failed: "Ha habido un problema con el divisor del orden del d\xC3\xADa"
-      new: Nuevo programa divisor
+        coinciding_times: Hay un conflicto entre la hora del nuevo divisor y las entradas de agenda o divisores ya existentes
+        date_out_of_event: "La fecha del divisor excede la m\xC3\xA1xima duraci\xC3\xB3n del evento: {{max_days}} d\xC3\xADas"
+        past_times: Este tipo de evento no puede tener fechas en el pasado
+      failed: Ha habido un problema con el divisor de la agenda
+      new: Nuevo divisor de agenda
       start_time: Hora de inicio
       title: "T\xC3\xADtulo"
-      updated: Divisor se ha actualizado correctamente
+      updated: El divisor se ha actualizado correctamente
     edit_entry: Editar
     entry: 
-      cannot_exclude: "No se puede excluir de la grabaci\xC3\xB3n de una entrada m\xC3\xA1s corta que"
-      created: entrada de Agenda se ha creado correctamente
-      delete: "Orden del d\xC3\xADa de entrada ha sido borrado"
+      cannot_exclude: "No se puede excluir de la grabaci\xC3\xB3n de una entrada m\xC3\xA1s corta de "
+      created: La entrada en la agenda ha sido creada correctamente
+      delete: "La entrada en la agenda ha sido borrada con \xC3\xA9xito"
       description: "Descripci\xC3\xB3n"
       duration: "Duraci\xC3\xB3n"
-      edit: Editar entrada Agenda
-      embed_help: "\xC2\xBFPuede ser llenado con el c\xC3\xB3digo HTML para incrustar un v\xC3\xADdeo"
-      embedded_video: "Incrustar v\xC3\xADdeo para la entrada"
+      edit: Editar entrada en la agenda
+      embed_help: "Puede introducirse c\xC3\xB3digo HTML para embeber un v\xC3\xADdeo"
+      embedded_video: "Embeber v\xC3\xADdeo en la entrada"
       end_time: "Hora de finalizaci\xC3\xB3n"
       error: 
-        attribute_unchangeable: "Has intentado cambiar un atributo inalterable para esta sesi\xC3\xB3n"
-        coinciding_times: Hay un conflicto con el momento de la entrada nueva agenda y las entradas de agenda o divisores
-        create: Error al crear el sistema de sesiones de videoconferencia a distancia
-        delete: "Error al eliminar el per\xC3\xADodo de sesiones en el sistema de videoconferencia a distancia"
+        attribute_unchangeable: "Ha intentado cambiar un atributo inalterable de esta sesi\xC3\xB3n"
+        coinciding_times: Hay un conflicto entre la hora de la nueva entrada en la agenda, y entradas o divisores ya existentes
+        create: "Error al crear la sesi\xC3\xB3n en el sistema de videoconferencia"
+        date_out_of_event: "La fecha de la entrada en la agenda excede la m\xC3\xA1xima duraci\xC3\xB3n del evento: {{max_days}} d\xC3\xADas"
+        delete: "Error al eliminar la sesi\xC3\xB3n en el sistema de videoconferencia"
         disordered_times: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
-        update: Error al actualizar sesiones de sistema de videoconferencia a distancia
-      failed: "entrada de Agenda no se podr\xC3\xADan salvar"
+        past_times: "La hora de inicio de la sesi\xC3\xB3n debe ser {{min_date}} o m\xC3\xA1s tarde"
+        update: "Error al actualizar la sesi\xC3\xB3n en el sistema de videoconferencia"
+      failed: La entrada en la agenda no se pudo guardar
       has_attachment: Esta entrada tiene archivos adjuntos
       has_video: Video disponible para esta entrada
       help: 
-        recording: "Grabaci\xC3\xB3n habilitado para este per\xC3\xADodo de sesiones"
-        streaming: "Streaming habilitado para este per\xC3\xADodo de sesiones"
+        recording: "Grabaci\xC3\xB3n habilitada para esta sesi\xC3\xB3n"
+        streaming: "Streaming habilitado para esta sesi\xC3\xB3n"
       hidevideo: "Ocultar v\xC3\xADdeo"
       minutes: acta
-      new: Nueva entrada del programa
+      new: Nueva entrada en la agenda
       no_record: "No"
       one: Entrada
       options: 
-        add_video: "Descarte autom\xC3\xA1tico de v\xC3\xADdeo y a\xC3\xB1adir una incrustar"
-        help: "Compruebe la transmisi\xC3\xB3n y / o servicios de grabaci\xC3\xB3n, seg\xC3\xBAn sea necesario"
-        help2: "En esta sesi\xC3\xB3n ya ha sucedido y no puede editar flujos de v\xC3\xADdeo o las opciones de grabaci\xC3\xB3n"
-        help3: "Esta sesi\xC3\xB3n est\xC3\xA1 sucediendo ahora s\xC3\xB3lo se puede cambiar si desea o no streaming"
+        add_video: "Descartar v\xC3\xADdeo autom\xC3\xA1tico y a\xC3\xB1adir uno embebido"
+        help: "Compruebe la transmisi\xC3\xB3n y/o servicios de grabaci\xC3\xB3n, seg\xC3\xBAn sea necesario"
+        help2: "En esta sesi\xC3\xB3n ya ha tenido lugar y no puede editar su streaming o las opciones de grabaci\xC3\xB3n"
+        help3: "Esta sesi\xC3\xB3n est\xC3\xA1 en curso; s\xC3\xB3lo puede cambiar si desea o no streaming"
         recording: "Grabaci\xC3\xB3n"
         streaming: Streaming
         title: Opciones
@@ -132,28 +135,28 @@ es:
 
     error: 
       dates: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
-      end_time_overlaps: Las coincidencias finaliza con una entrada agenda actual
-      omit_date: "La entrada para el programa de necesidades de la fecha de inicio y de finalizaci\xC3\xB3n"
-      omit_title: "Un t\xC3\xADtulo debe ser dado para la entrada del programa"
-      omit_title_divider: "Divisor t\xC3\xADtulo no puede estar vac\xC3\xADo"
-      overlaps: Las coincidencias de entrada del programa con una entrada existente
-      start_time_overlaps: La hora de inicio se solapa con una entrada agenda actual
-    expand_help: "Haga clic en el t\xC3\xADtulo de una entrada de agenda para ampliarlo o contrato que"
+      end_time_overlaps: "La hora de finalizaci\xC3\xB3n se solapa con una entrada ya existente en la agenda"
+      omit_date: "La entrada en la agenda necesita fechas de inicio y de finalizaci\xC3\xB3n"
+      omit_title: "Debe darse t\xC3\xADtulo a la entrada de la agenda"
+      omit_title_divider: "El t\xC3\xADtulo del divisor no puede estar vac\xC3\xADo"
+      overlaps: La entrada de la agenda se solapa con una entrada ya existente
+      start_time_overlaps: La hora de inicio se solapa con una entrada ya existente en la agenda
+    expand_help: "Haga clic en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
     title: Agenda para el evento
-    update: Programa se ha actualizado correctamente.
-    upload: Subir Agenda
+    update: Agenda actualizada correctamente.
+    upload: Subir agenda
   agent: 
     authentication: 
       change_password: "Cambiar la contrase\xC3\xB1a"
-      confirm_password: "Confirme la Contrase\xC3\xB1a"
+      confirm_password: "Confirme la contrase\xC3\xB1a"
       login: Login
-      lost_password: "\xC2\xA1Olvid\xC3\xA9 la contrase\xC3\xB1a!"
+      lost_password: "\xC2\xA1Olvid\xC3\xA9 mi contrase\xC3\xB1a!"
       password: "Contrase\xC3\xB1a"
     email: "Correo electr\xC3\xB3nico"
-    one: Agente
-    other: Agentes
+    one: Usuario
+    other: Usuarios
     select: 
-      one: Seleccionar Agente
+      one: Seleccionar usuario
   agree: !binary |
     U8Ot
 
@@ -161,59 +164,60 @@ es:
   all_rights_reserved: Todos los derechos reservados
   any: Cualquier
   any_field: Cualquier campo
-  are_you_sure: Are you sure?
+  are_you_sure: "\xC2\xBFEst\xC3\xA1 seguro?"
   at: en
   attachment: 
     add: Agregar archivo adjunto
     attach: Adjunto
     created: Adjunto creado correctamente
     delete: Eliminar archivo adjunto
-    deleted: Adjunto se han eliminado correctamente
+    deleted: Adjunto eliminado correctamente
     error: 
-      not_deleted: "{{file}} no se eliminan correctamente."
+      not_deleted: "{{file}} no se ha eliminado correctamente."
+      not_permission: "{{user}} no puede borrar {{file}}."
     file: "Archivo:"
     found: 
-      none: "No encontr\xC3\xB3 los archivos adjuntos"
-      one: "1 adjunto se encontr\xC3\xB3"
-      other: "{{Size}} se encontraron archivos adjuntos"
+      none: No se encontraron archivos adjuntos
+      one: "Se encontr\xC3\xB3 1 archivo adjunto"
+      other: Se encontraron {{size}} archivos adjuntos
     home: 
       one: Archivo en el espacio {{space}}
     info: "Informaci\xC3\xB3n sobre el documento"
     loading: "Cargando informaci\xC3\xB3n del documento ..."
-    new: "Nueva conexi\xC3\xB3n"
-    not_selected: N documento seleccionado
+    new: Nuevo archivo adjunto
+    not_selected: "Ning\xC3\xBAn documento seleccionado"
     not_valid: "El archivo adjunto no es v\xC3\xA1lido"
-    one: Accesorio
-    other: Adjuntos
+    one: Archivo adjunto
+    other: Archivos adjuntos
     selected: 
       none: No hay archivos seleccionados
       one: archivo seleccionado
       other: archivos seleccionados
-    updated: Anexo actualizado correctamente
-    upload_with_post: Notificar a la carga con un mensaje en la pared
+    updated: Archivos adjuntos actualizados correctamente
+    upload_with_post: Notificar la subida de ficheros con un mensaje en el muro
   author: Autor
   avatar: 
-    created: "Avatar creado con \xC3\xA9xito"
-    crop: Recortar Avatar
-    current: Avatar actual
-    empty: Seleccione una imagen, por favor,
-    select: Seleccionar Avatar
-    select_new: Seleccionar Avatar nuevo
-    upload: Cargar foto
+    created: "Imagen creada con \xC3\xA9xito"
+    crop: Recortar imagen
+    current: Imagen actual
+    empty: Seleccione una imagen, por favor
+    select: Seleccionar imagen
+    select_new: Seleccionar nueva imagen
+    upload: Cargar imagen
   back: !binary |
     QXRyw6Fz
 
   back_to_inbox: Volver a la bandeja de entrada
-  bad_request: "Petici\xC3\xB3n Inv\xC3\xA1lida"
+  bad_request: "Petici\xC3\xB3n inv\xC3\xA1lida"
   beta: (BETA)
   body: Cuerpo
   button: 
     create: Crear
     edit: Editar
-    finish: Acabado
-    go: Buscar!
-    invite: Invite!
-    next: Siguiente Paso
+    finish: Terminar
+    go: "\xC2\xA1Buscar!"
+    invite: "\xC2\xA1Invitar!"
+    next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
     send: Enviar
     update: Actualizar
@@ -242,14 +246,14 @@ es:
     updated: "Categor\xC3\xADa actualizada"
   change: Cambiar
   change_pic: Cambiar la imagen
-  changed_mind: Cambiado de idea?
+  changed_mind: "\xC2\xBFHa cambiado de idea?"
   chat: 
-    connecting_error_message: "Error durante la conexi\xC3\xB3n"
-    connecting_message: "Conexi\xC3\xB3n al evento chat ..."
-    edit_enabled: "Habilitar chat experimental en la siguiente sesi\xC3\xB3n"
-    edit_question: "\xC2\xBFDesea habilitar experimentales funci\xC3\xB3n de chat?"
-    please_login_message: "Por favor, inicie una sesi\xC3\xB3n / registrarse para participar"
-    reconnect_message: Vuelva a conectar
+    connecting_error_message: Error al conectar
+    connecting_message: Conectando con el chat del evento...
+    edit_enabled: "Habilitar chat en la pr\xC3\xB3xima sesi\xC3\xB3n (experimental)"
+    edit_question: "\xC2\xBFDesea habilitar la funci\xC3\xB3n de chat (experimental)?"
+    please_login_message: "Por favor, inicie sesi\xC3\xB3n / reg\xC3\xADstrese para participar"
+    reconnect_message: Volver a conectar
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   city: Ciudad
   click_here: "Haga clic aqu\xC3\xAD"
