@@ -466,13 +466,13 @@ en:
       info: 
         basic: Here you can organize three kind of events
         conference: 
-          message: Advanced, big meetings. TV-like production managed by an operator.
+          message: Advanced, big meetings. TV-like production, which needs to be managed by an operator.
           name: Virtual Congress
         meeting: 
           message: Easy videoconference participation with document sharing and automatic streaming and recording.
           name: Virtual Meeting
         presential: 
-          message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording.
+          message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming or recording.
           name: Meeting
       title: Create new event
     created: Event created successfully
@@ -726,6 +726,17 @@ en:
     not_found: hCard not found
   hello: Hello
   help: Help
+  help_createVM: 
+    part1: "To create a virtual meeting in VCC:<br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D on the right side of the page."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp; &nbsp;a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
+  help_createevent: 
+    part1: "To create an event in VCC: <br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab. "
+    part2: "2. You can create an event directly from the \"Create event\" box on the right-hand column of the page. VCC supports three types of events: <br><li>Meeting: great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li>Virtual meeting: easy videoconference participation with document sharing and automatic streaming and recording.<li>Virtual congress: advanced, big meetings. TV-like production, which needs to be managed by an operator."
+  help_createmeeting: 
+    part1: "To create a meeting in VCC:<br><br> 1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CMeeting\xE2\x80\x9D on the right side of the page."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createpost: 
     part1: "To create a message in the wall in VCC:"
     part10: a. View source html
@@ -782,6 +793,9 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About VCC
+    create_VM: Creating a virtual meeting
+    create_event: Creating an event
+    create_meeting: Creating a meeting
     create_post: Posting a message in the wall
     create_space: Creating a Space
     create_user: Creating a User
