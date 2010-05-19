@@ -83,9 +83,10 @@ class SearchController < ApplicationController
   
   def search_spaces (params)
     @query = params[:query] 
-    
+
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Space')
     @search.run
+    
     @spaces = authorize_read?(@search.results)
   end
   
@@ -98,7 +99,7 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'Event',:filters => filters)
     @search.run
 
-    @events = @space.nil? ? authorize_read?(@search.results) : @search.results 
+    @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
   end
   
   def search_agenda_entries(params)
@@ -110,7 +111,7 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'AgendaEntry',:filters => filters)
     @search.run
 
-    @agenda_entries = @space.nil? ? authorize_read?(@search.results) : @search.results 
+    @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
   end
   
   def search_videos(params)
@@ -125,7 +126,7 @@ class SearchController < ApplicationController
     
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Post', :filters => filters)
     @search.run
-    @posts = @space.nil? ? authorize_read?(@search.results) : @search.results
+    @posts = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
     @posts = @posts.sort{
             |x,y| ((y.parent_id != nil) ? y.parent.updated_at : y.updated_at) <=> ((x.parent_id != nil) ? x.parent.updated_at : x.updated_at)
           }                
@@ -148,7 +149,7 @@ class SearchController < ApplicationController
     
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters)
     @search.run
-    @attachments = @space.nil? ? authorize_read?(@search.results) : @search.results
+    @attachments = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
   end
   
   def filter_date(params, filters, values)
@@ -165,6 +166,10 @@ class SearchController < ApplicationController
         end
       end        
     end
+  end
+  
+  def filter_from_disabled_spaces elements
+    elements.select{|e| !e.space.disabled?}
   end
 end
 
