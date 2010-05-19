@@ -23,7 +23,7 @@ class TranslateController
   include LocaleControllerModule
   before_filter :set_vcc_locale
   
-  authorization_filter :tranlate, :current_site
+  authorization_filter :translate, :current_site
   
   layout 'translate'
  

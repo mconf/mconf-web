@@ -130,6 +130,7 @@ class AgendaEntry < ActiveRecord::Base
   
   after_save do |entry|
     entry.event.syncronize_date
+    entry.event.agenda.touch
   end
   
   

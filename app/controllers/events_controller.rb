@@ -101,7 +101,7 @@ class EventsController < ApplicationController
       #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
       # and recordings for past events
       if event.past? && event.agenda.has_entries_with_video?
-        params[:show_video]=@event.agenda.first_video_entry_id
+        params[:show_video]=@event.agenda.first_video_entry_id.to_s
       elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
         params[:show_agenda]=true
       elsif event.is_happening_now?
@@ -136,14 +136,19 @@ class EventsController < ApplicationController
     respond_to do |format|
        format.html # show.html.erb
            format.xml  {render :xml => @event }
-           format.js 
            format.ics {
               name = "agenda_" + @event.name + ".ics"
               send_data @event.to_ics, :filename => "#{name}"
            }
-           format.pdf { 
-              nombre = "agenda_" + @event.name + ".pdf"
-              send_data @event.to_pdf, :filename => "#{nombre}"
+           format.pdf {
+           
+              @event.to_pdf
+              nombre = "agenda_" + @event.permalink + ".pdf"
+              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+              send_file pdf_path
+              
+#              nombre = "agenda_" + @event.name + ".pdf"
+#              send_data @event.to_pdf, :filename => "#{nombre}"
            }  
     end
 	end

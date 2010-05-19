@@ -49,6 +49,8 @@ class Space < ActiveRecord::Base
   
   before_validation :update_logo
 
+  is_indexed :fields => ['name','description']
+
   validates_presence_of :name, :description
   validates_uniqueness_of :name
 

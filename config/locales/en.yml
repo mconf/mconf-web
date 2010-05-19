@@ -77,15 +77,12 @@ en:
       error: 
         coinciding_times: There is a conflict with the time of the new divider and existing agenda entries or dividers
         date_out_of_event: "The date of the divider exceeds the maximum duration of the event: {{max_days}} days"
-        past_times: "This type of event cannot have past times"
+        past_times: This type of event cannot have past times
       failed: There was a problem with the agenda divider
       new: New agenda divider
       start_time: Start time
       title: Title
       updated: Divider was successfully updated
-    add_entry: Add session
-    define: Define Agenda
-    del_entry: Delete
     edit_entry: Edit
     entry: 
       cannot_exclude: You cannot exclude from recording an entry shorter than
@@ -98,14 +95,14 @@ en:
       embedded_video: Embed video for the entry
       end_time: End time
       error: 
+        attribute_unchangeable: You have tried to change an unchangeable attribute for this session
         coinciding_times: There is a conflict with the time of the new agenda entry and existing agenda entries or dividers
         create: Error creating session in remote videoconference system
         date_out_of_event: "The date of the agenda entry exceeds the maximum duration of the event: {{max_days}} days"
         delete: Error deleting session in remote videoconference system
         disordered_times: The start time must be previous to the end time
-        past_times: "The start time of the session must be {{min_date}} or later"
+        past_times: The start time of the session must be {{min_date}} or later
         update: Error updating session in remote videoconference system
-        attribute_unchangeable: You have tried to change an unchangeable attribute for this session
       failed: Agenda entry could not be saved
       has_attachment: This entry has attachments
       has_video: Video available for this entry
@@ -227,8 +224,8 @@ en:
   change_pic: Change picture
   changed_mind: Changed your mind?
   chat: 
-    connecting_message: Connecting to event chat...
     connecting_error_message: Error while connecting
+    connecting_message: Connecting to event chat...
     edit_enabled: Enable experimental chat at next login
     edit_question: Would you like to enable experimental chat feature?
     please_login_message: Please, login/register to participate
@@ -465,24 +462,21 @@ en:
       sip: Proxy SIP
       str: Streaming
       web: Participation
-    create:
+    create: 
       info: 
-        basic: "Here you can organize three kind of events"
+        basic: Here you can organize three kind of events
         conference: 
-          message: "Advanced, big meetings. TV-like production managed by an operator."
-          name: "Virtual Congress"
+          message: Advanced, big meetings. TV-like production, which needs to be managed by an operator.
+          name: Virtual Congress
         meeting: 
-          message: "Easy videoconference participation with document sharing and automatic streaming and recording."
-          name: "Virtual Meeting"
+          message: Easy videoconference participation with document sharing and automatic streaming and recording.
+          name: Virtual Meeting
         presential: 
-          message: "Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming nor recording."
+          message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming or recording.
           name: Meeting
       title: Create new event
     created: Event created successfully
     deleted: Event deleted successfully
-    choose_location: Choose location
-    colon: "Event:"
-    created: Event created successfully
     description: 
       add: Add description.
       edit: Edit description
@@ -516,6 +510,7 @@ en:
       create: "Create your simple event in three steps:"
       creating_entries: creating entries
       define: Define the schedule of your meeting
+      define3: ""
       description: Write a complete description
       edit: Edit your event
       in_agenda: in the agenda
@@ -568,9 +563,6 @@ en:
       show_all_attendants: Show all attendants
       subject: "{{username}} has sent a notification to you about event {{eventname}} in space {{space}}"
       title: Notify the attendants of the event
-    no_events: You have no events
-    none_coming: No coming events
-    not_attend: Not attending
     now: "Events at this moment: "
     one: Event
     online: WebConference
@@ -587,8 +579,8 @@ en:
       last_month: No events for last month.
       last_week: No events for last week.
       none: No past events
-      other: Past events
       one: Past Event
+      other: Past events
       show: Show all old events
       today: No events for yesterday nor today.
     player: Player
@@ -610,8 +602,8 @@ en:
     streaming: 
       add: Add one.
       edit: Edit streaming code
-      none: No one has posted any streaming url
       no_at_events: No Streaming at meetings
+      none: No one has posted any streaming url
       now: Event Streaming
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
@@ -734,6 +726,17 @@ en:
     not_found: hCard not found
   hello: Hello
   help: Help
+  help_createVM: 
+    part1: "To create a virtual meeting in VCC:<br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D on the right side of the page."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp; &nbsp;a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
+  help_createevent: 
+    part1: "To create an event in VCC: <br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab. "
+    part2: "2. You can create an event directly from the \"Create event\" box on the right-hand column of the page. VCC supports three types of events: <br><li>Meeting: great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li>Virtual meeting: easy videoconference participation with document sharing and automatic streaming and recording.<li>Virtual congress: advanced, big meetings. TV-like production, which needs to be managed by an operator."
+  help_createmeeting: 
+    part1: "To create a meeting in VCC:<br><br> 1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CMeeting\xE2\x80\x9D on the right side of the page."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createpost: 
     part1: "To create a message in the wall in VCC:"
     part10: a. View source html
@@ -766,9 +769,14 @@ en:
     part5: 4. Once you have completed your registration, click on Done button.
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
   help_index: 
-    part1: "The Virtual Conference Centre (VCC) is a Web application developed by the Universidad Polit\xC3\xA9cnica of Madrid (UPM) in the context of the GLOBAL project, a research project supported by the European Comission's seventh framework programme."
-    part2: The VCC offers a service for creating distributed events, from small meetings to big conferences. Users can participate in person or follow them online. Events and content related to them are organized into spaces that also offer the user the possibility of creating messages in the wall to communicate with other participants in the space or upload documents or photographs to be shared.
-    part3: To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part1: "The Global Plaza, also called the Virtual Conference Center (VCC), delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
+    part2: "<li>To record and publish your events on the Internet. \r\n\
+      <li>To provide remote participation to your events from a Web browser. \r\n\
+      <li>To stream existing meetings, congresses or lectures over the Internet. \r\n\
+      <li>To bring remote speakers into an existing meeting or congress.\r\n\
+      <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
+      The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
+    part3: Social networking is supported by a global social network which connects any registered person in the VCC with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the VCC for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
     part1: If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your email and password at the main screen.
     part2: You can login automatically if you have an account with an OpenID provider.
@@ -785,14 +793,16 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About VCC
-    create_post: Creating a Message in the wall
+    create_VM: Creating a virtual meeting
+    create_event: Creating an event
+    create_meeting: Creating a meeting
+    create_post: Posting a message in the wall
     create_space: Creating a Space
     create_user: Creating a User
     info: Here you can find information about the VCC
     logging: Logging In to your Account
     new_doc: Adding a new document
     topics: Topics
-  hello: Hello
   help_vcc: 
     info: Here you can find information about the VCC
     topics: Topics
@@ -1371,15 +1381,19 @@ en:
     enabled: Space enabled successfully
     error: 
       enabled: Space {{name}} is already enabled
+    found: 
+      none: No spaces found
+      one: 1 space was found
+      other: "{{size}} spaces were found"
     group_not_belong: " do not belong to the same space as the group"
     invitation: 
     is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
-    join_pending: Join request being processed
     join_invitation: 
       clarify_registered: Please introduce password in order to join this space.
       clarify_unregistered: Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space.
       title: Join space >
+    join_pending: Join request being processed
     leave: Leave this space
     logo: Space Logo
     logo_selected: 
@@ -1601,7 +1615,7 @@ en:
   version: 
     new: New version
     one: Version
-  video:
+  video: 
     found: 
       none: No videos found
       one: 1 video was found

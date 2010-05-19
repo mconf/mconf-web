@@ -15,20 +15,23 @@
 	
 	<%=
 	case params[:type]
-	  when "events"
-	    render :partial =>'events'
+	  when "spaces"
+      render :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space',:paginate => true}
+    when "events"
+	    render :partial =>'found_group', :locals => {:elements => @events, :type => 'event',:paginate => true}
     when "videos"
-      render :partial =>'videos'
+      render :partial =>'found_group', :locals => {:elements => @videos, :type => 'video',:paginate => true}
 	  when "posts"
-	    render :partial =>'posts', :locals => {:first_five => false}
-	  when "attachments"
-	    render :partial => 'attachments'
+	    render :partial =>'found_group', :locals => {:elements => @posts, :type => 'post',:paginate => true}
 	  when "users"
-	    render :partial =>'users'
+      render :partial =>'users'
+    when "attachments"
+	    render :partial => 'attachments'
 	  else
-			render( :partial =>'posts', :locals => {:first_five => true}) +
-      render( :partial =>'videos') +
-			render( :partial =>'events') +
+      (@space.nil? ? render( :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space'}) : "") +
+			render( :partial =>'found_group', :locals => {:elements => @posts, :type => 'post'}) +
+      render( :partial =>'found_group', :locals => {:elements => @videos, :type => 'video'}) +
+			render( :partial =>'found_group', :locals => {:elements => @events, :type => 'event'}) +
 			render( :partial =>'users') +
 	    render( :partial =>'attachments')
 	end

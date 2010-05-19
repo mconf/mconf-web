@@ -1,7 +1,7 @@
 <html>
   <head>
     <script type="text/javascript" language="javascript" src="ijabbar/ijabbar.nocache.js"></script>
-		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed' %>
+		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed', 'jquery.ba-resize.min', 'jquery.vcc' %>
 
     <script>
       var ijab_port = <%= @current_site_jab_port %>;
@@ -20,16 +20,19 @@
     </script>
 
     <script type="text/javascript">
+    	// Load jquery.ba-urlinternal.min.definition into jQuery
       baUrlInternal(jQuery);
+			
+			// Config some variables
       var iframeSelector = "#main_iframe";
       var contentIframeSelector = "#site";
 
       var absoluteBaseUrlApp = "<%=root_url%>";
       var absoluteInitPage = "<%=@init_url%>";
+			// Set urlInternalHost to detect internal/external links with ba-urlinternal library
       $.urlInternalHost( absoluteBaseUrlApp );
 			
-			var iframeChanged = false;
-
+      // Change height iframe to fix to content into iframe 
       function resizeIframe() {
         var siteHeight = $(iframeSelector).contents().find(contentIframeSelector).height();
         if ( siteHeight < $(window).height() ) {
@@ -40,7 +43,7 @@
       }
 
       // Override the current url anchor and return it
-      function setAnchorUrl(url) {
+      function getUrlWithNewAnchor(url) {
         var newAnchor = $.url.setUrl(url).attr("relative");
 
         var currentUrl = window.location.href;
@@ -61,19 +64,25 @@
         $(aLink).attr("target", "_top");
       }
 
+      // Search all links in iframe and prepare them
       function prepareLinks() {
+				// When click in a external link, go out from iframe/chat
         $(iframeSelector).contents().find("a:urlExternal").click(function(){
           skipIframe(this);
         });
 
+        // When click in logout link, go out from iframe/chat
         $(iframeSelector).contents().find("#logout_link").click(function(){
           skipIframe(this);
         });
 
+        // When click in a internal URL
         var linksWithoutEvents;
-        // Test if children page has loaded jQuery
+        // If children page has loaded jQuery, be careful because links can already have associated click events
         if ($(iframeSelector)[0].contentWindow.jQuery != null) {
+					// Load jquery.ba-urlinternal.min.definition into jQuery children page
           baUrlInternal($(iframeSelector)[0].contentWindow.jQuery);
+					// Set urlInternalHost to detect internal/external links with ba-urlinternal library
           $(iframeSelector)[0].contentWindow.jQuery.urlInternalHost( absoluteBaseUrlApp );
           var internalLinks = $(iframeSelector)[0].contentWindow.jQuery("a:urlInternal");
 
@@ -89,42 +98,50 @@
           linksWithoutEvents = $(iframeSelector).contents().find("a:urlInternal");
         }
 
+        // When click all internal links that has no events attached
+				// change url anchor
         $(linksWithoutEvents).click(function(){
-          // Copy URL in clicked link to anchor in window.location
+          // Copy URL from clicked link to anchor in window.location
           var hrefTo = $(this).attr("href");
 
-          var newAnchor = setAnchorUrl(hrefTo);
+          var newUrl = getUrlWithNewAnchor(hrefTo);
 
-          iframeChanged = true;
-          $.bbq.pushState({ url: newAnchor });
+					$.param.fragment.noEscape( ",/?=" );
+          $.bbq.pushState({ url: newUrl });
         });
       }
 			
       function getUrlInAnchor(url) {
-		    var anchor = $.url.setUrl(url).attr("anchor");
+        var anchor = $.url.setUrl(url).attr("anchor");
+				//var anchor = $.url.parse( window.location.href );
         var anchorUrl;
         if ( anchor ) {
-          var splittedString = anchor.split("=",2);
-          if ( splittedString.length == 2 && splittedString[0] == "url" ) {
-            anchorUrl = $.url.setUrl(splittedString[1]).attr("relative");
-          }					
+					// "url=/spaces?space_id=my" -> "/spaces?space_id=my"
+          anchorUrl = anchor.slice(anchor.search(/url=/)+4, anchor.length);	
         }
         return anchorUrl;
       }
 
       $(document).ready(function(){
 
-        $(window).bind("resize", resizeIframe);
+        // When window trigger resize event -> run resizeIframe function 
+        //$(window).bind("resize", resizeIframe);
 
+        // When iframe is loaded
         $(iframeSelector).load(function(){
           resizeIframe();
           prepareLinks();
-          // If iframe load comes from redirect (eg. space selector)... 
+					// When iframe load comes from redirect (not from click link) (eg. space selector) anchor will not change
+					// Then we must change it 
           if (!isEqualsToCurrentUrl(getUrlInAnchor(window.location.href))) {
             var iframeLocation = $(iframeSelector).contents().attr("location").href;
             var relativeIframeLocation = $.url.setUrl( iframeLocation ).attr("relative");
+						$.param.fragment.noEscape( ",/?=" );
             $.bbq.pushState({ url: relativeIframeLocation });
           }
+					// Bind a resize event to iframe content, then if iframe content height is dynamically changed
+					// Iframe height will be adjusted
+					$(iframeSelector).contents().find(contentIframeSelector).bind('resize', resizeIframe);
         });
 
         $(window).bind( "hashchange", function(e) {
@@ -137,12 +154,12 @@
           if ( anchorUrl ) {
             // If anchor match with iframe.src do nothing
             // If it is different, set iframe.src with url in anchor
-            if (!isEqualsToCurrentUrl(anchorUrl) && !iframeChanged) {
+            if (!isEqualsToCurrentUrl(anchorUrl)) {
               //$(iframeSelector).attr("src", anchorUrl);
               $(iframeSelector).contents().attr("location").href = anchorUrl;
             }
           } else {
-            if (!isEqualsToCurrentUrl(absoluteInitPage) && !iframeChanged) {
+            if (!isEqualsToCurrentUrl(absoluteInitPage)) {
               //$(iframeSelector).attr("src", absoluteInitPage);
               $(iframeSelector).contents().attr("location").href = absoluteInitPage;
             }
@@ -150,14 +167,14 @@
             var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative");
             $.bbq.pushState({ url: relativeInitPage });
           }
-          iframeChanged = false;
         });
 
-        iframeChanged = true;
         $(window).trigger( "hashchange" );
 
+        // Wait a few seconds to load all needed libraries and login into chat
         setTimeout(function(){iJab.login(ijab_auto_user,"")}, 2000);
 
+        // When unload the page logout from chat
         $(document).unload(function() {
           iJab.logout();
         });
@@ -168,11 +185,11 @@
 
   <style>
     body{margin:0px;width:100%;}
-    #main_iframe{width:100%;border:none;padding-bottom:40px;}
+    #main_iframe{width:100%;border:none;padding-bottom:40px;height:auto;}
   </style>
 
   <body>
-    <iframe id="main_iframe" src="<%=@init_url%>" scrolling="no">
+    <iframe id="main_iframe" src="" scrolling="no">
       <p>No IFrame Support</p>
     </iframe>
   </body>

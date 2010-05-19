@@ -45,8 +45,10 @@ namespace(:deploy) do
     # AttachmentFu dir is deleted in deployment
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
+    run "/bin/chmod -R g+w #{ release_path }/public/pdf"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
+    sudo "/bin/chgrp -R www-data #{ release_path }/public/pdf"
     # Allow Translators modify locale files
     sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
   end

@@ -569,8 +569,8 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 #sidebar #assistance_info button#choice:hover{border-color:#64a3cf;}
 
 div.group_links a.upcoming_link, div.group_links a.past_link{color:#244974;}
-div.single_event{position:relative;clear:both;overflow:hidden;}
-div.single_event{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
+div.single_event, div.single_space{position:relative;clear:both;overflow:hidden;}
+div.single_event, div.single_space{border-bottom:1px #CCC solid;padding:10px 0.5em 7px 0em;}
 #event_card_show div.single_event{border-bottom:none;}
 
 /* actions menu for the grey bar in events*/
@@ -622,6 +622,8 @@ ul#language_menu li a:hover{text-decoration:none;color:#fff;}
 #actions ul li{display:inline;}
 .single_event ul{list-style-type:none;margin:0;}
 .single_event p{margin-bottom:0;}
+.single_space p{margin-bottom:0;}
+.single_space img{padding-right:5px;}
 .home_event ul{list-style-type:none;margin:0;}
 .home_event{position:relative;overflow:hidden;padding:0px 0.5em 0px 0;}
 .home_event p{margin-bottom:0;}
@@ -893,11 +895,11 @@ div.join_request_element form {float:right;margin-left:4em;}
 div.join_request_element form div{display:inline;}*/
 
 /*Search View*/
-.attachment_search h3,.post_search h3,.event_search h3,.user_search h3{background:#BDD8EB none repeat scroll 0 0;color:#244974;margin:0;padding:5px 6px 3px;border-bottom:1px solid #A8C0D1;border-right:1px solid #B0CADB;}
+.group_search h3,.user_search h3, .attachment_search h3{background:#BDD8EB none repeat scroll 0 0;color:#244974;margin:0;padding:5px 6px 3px;border-bottom:1px solid #A8C0D1;border-right:1px solid #B0CADB;}
 h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;border-bottom:1px #bdd8eb solid;}
-.attachment_search h3.empty, .post_search h3.empty,.event_search h3.empty,.user_search h3.empty{margin-bottom:1.5em;}
-.post_search .post-content{width:463px;}
-.post_search .post{border-bottom:1px #bdd8eb solid;}
+.group_search h3.empty,.user_search h3.empty,.attachment_search h3.empty{margin-bottom:1.5em;}
+.group_search .post-content{width:463px;}
+.group_search .post{border-bottom:1px #bdd8eb solid;}
 /*#advanced_search{background:#bdd8eb;margin:9px 50px;padding:20px 75px 20px 50px;}*/
 #advanced_search h3{margin:-3px 0 10px 0;}
 #advanced_search .javascript{float:left;}
@@ -1664,3 +1666,9 @@ div.banner_footer a{
 	line-height:1.3846;
 }
 
+.space_title{
+  color:#244974;
+  font-size:1.15em;
+  font-weight:bold;
+  line-height:1.3846;
+}

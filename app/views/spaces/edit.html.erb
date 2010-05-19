@@ -1,4 +1,9 @@
 <% menu :admin %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
 <% content_for :sidebar do %>
   <%= render :partial => 'edit_space' %>
 <% end %>
