@@ -726,16 +726,20 @@ en:
     not_found: hCard not found
   hello: Hello
   help: Help
+  help_createVC: 
+    part1: To create a virtual congress in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp;  a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on <b>Create</b> button."
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createVM: 
-    part1: "To create a virtual meeting in VCC:<br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp; &nbsp;a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part1: To create a virtual meeting in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp;  a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on <b>Create</b> button."
     part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createevent: 
-    part1: "To create an event in VCC: <br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab. "
-    part2: "2. You can create an event directly from the \"Create event\" box on the right-hand column of the page. VCC supports three types of events: <br><li>Meeting: great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li>Virtual meeting: easy videoconference participation with document sharing and automatic streaming and recording.<li>Virtual congress: advanced, big meetings. TV-like production, which needs to be managed by an operator."
+    part1: "To create an event in VCC: <br><br>1. Click on <b>Events</b> tab. "
+    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. VCC supports three types of events: <br><li> <a href={{url_meeting}}> Meeting:</a> great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li><a href={{url_vm}}>Virtual meeting:</a> easy videoconference participation with document sharing and automatic streaming and recording.<li><a href={{url_vc}}>Virtual congress:</a> advanced, big meetings. TV-like production, which needs to be managed by an operator."
   help_createmeeting: 
-    part1: "To create a meeting in VCC:<br><br> 1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on \xE2\x80\x9CMeeting\xE2\x80\x9D on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on \xE2\x80\x9Ccreate\xE2\x80\x9D button."
+    part1: To create a meeting in VCC:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on <b>Create</b> button."
     part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createpost: 
     part1: "To create a message in the wall in VCC:"
@@ -746,7 +750,7 @@ en:
     part14: e. Tags files
     part15: 9. Finally, click on <b>Send</b> button to put your message in the wall.
     part2: 1. Click on <b>WALL</b> tab.
-    part3: 2. You can <b>Create a new message</b> on the right side of the page.
+    part3: 2. You can <b>create a new post</b> on the right side of the page.
     part4: 3. Type a title and comment for your message.
     part5: 4. Click on <b>Add attachment</b> link to enclose a file.
     part6: 5. Click on <b>Choose file</b> to browse and find the file you want to attach.
@@ -756,11 +760,11 @@ en:
   help_createspace: 
     part1: "To create a space in VCC:"
     part2: 1. Click on <a href={{url}}> My Home </a> item from the top menu bar.
-    part3: 2. Click on Create New Space button.
+    part3: 2. Click on <a href={{url}}>Create New Space </a> button.
     part4: 3. Add a name and description for your space.
-    part5: 4. Decide whether the space should be public.
-    part6: 5. If you want to enable a repository, choose this option.
-    part7: 6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.
+    part5: 4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space.
+    part6: 5. If you want to enable a repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.
+    part7: ""
   help_createuser: 
     part1: "To create a user in VCC:"
     part2: 1. Click on <a href={{url}}>register</a> item from the top menu bar.
@@ -793,6 +797,7 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About VCC
+    create_VC: Creating a virtual congress
     create_VM: Creating a virtual meeting
     create_event: Creating an event
     create_meeting: Creating a meeting
