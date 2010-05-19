@@ -1383,8 +1383,8 @@ en:
     leave: Leave this space
     logo: Space Logo
     logo_selected: 
-      close: Close
-      close_gallery: Close the gallery
+      close: "Close"
+      close_gallery: "Close the gallery"
       default_message: "The logo of the space will be this:"
       enter_text: "Enter a text to generate logos:"
       generate_logo: Generate
@@ -1392,7 +1392,8 @@ en:
       text_logo: Create a text logo
       upload_logo: Upload your own logo
       upload_logo_text: "Select a logo to upload:"
-      upload_text: Upload
+      upload_text: "Upload"
+    update_logo: "Update logo"
     main: Main space
     member_of: Member of the spaces
     my_spaces: My Spaces

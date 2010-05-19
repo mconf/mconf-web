@@ -87,7 +87,6 @@ class LogosController
       redirect_to request.referer
       return
     end
-
     @logo = space.logo || Logo.new 
 
     temp_logo = TempLogo.new(Logo, space, params[:logo])
@@ -102,28 +101,7 @@ class LogosController
                       }
   end
   
-  def precrop_without_space
-    
-#    if params['logo']['media'].blank?
-#      redirect_to request.referer
-#      return
-#    end
-#
-#    @logo = Logo.new 
-#
-#    temp_logo = TempLogo.new(Logo, space, params[:logo])
-#    TempLogo.to_session(session, temp_logo)
-#
-#    render :template => "logos/precrop",
-#           :layout => false,
-#           :locals => {:logo_crop_text => t('logo.crop'),
-#                       :form_for => [space,@logo],
-#                       :form_url => space_logo_path(space),
-#                       :image => temp_logo.image 
-#                      }
-
-  end 
-  
+ 
   def create
     if params[:crop_size].present?
       temp_logo = TempLogo.from_session(session)

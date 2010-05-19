@@ -1,4 +1,67 @@
 	<%content_for :javascript do%>
+	
+selectDefaultImage = function(image){
+	//$("#selected_logo_image").fadeIn();
+	$("#space_image").attr('value', "default_space_logos/" + image);
+	$("#selected_logo_image").attr('src', "/images/default_space_logos/" + image);
+}
+
+selectGeneratedImage = function(image){
+	//$("#selected_logo_image").fadeIn();
+	$("#space_image").attr('value', image);
+	$("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
+}
+
+//$("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
+
+closeUploadLogo = function(){
+	$("#default_upload_logo").hide("slow");	
+	$("#open_upload_logo_link").show();
+	$("#close_upload_logo_link").hide();
+}
+
+closeTextLogo = function(){
+	$("#default_text_logo").hide("slow");	
+	$("#open_text_logo_link").show();
+	$("#close_text_logo_link").hide();
+}
+
+closeGallery  = function (){
+	$("#default_space_images").hide("slow");
+	$("#open_gallery_link").show();
+	$("#close_gallery_link").hide();
+}
+
+openGallery  = function (){
+	 $("#default_space_images").show("slow");
+	 $("#close_gallery_link").show();
+	 $("#open_gallery_link").hide();
+}
+
+openUploadLogo  = function (){
+	$("#default_upload_logo").show("slow");
+	$("#open_upload_logo_link").hide();
+	$("#close_upload_logo_link").show();	
+}
+
+openTextLogo = function(){
+	$("#default_text_logo").show("slow");	
+	$("#open_text_logo_link").hide();
+	$("#close_text_logo_link").show();
+}
+
+var dateTime = new Date();
+var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
+
+//$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
+$("#logo_rand").attr('value', rand);
+$("#space_rand_value").attr('value', rand);
+
+$("#generate_text_logo_button").livequery('click',function(){
+	$.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
+  		$('#generated_text_logos').html(data);
+	});
+});
 
 	$('#select_logo_form').ajaxForm({ 
         // target identifies the element(s) to update with the server response 
@@ -23,6 +86,7 @@
 				},
         		target: '#resultado',
         		success: function() {
+					//$("#selected_logo_image").fadeIn();
             		$('#resultado').fadeIn('slow');
 					$("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
 					$("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
@@ -40,8 +104,55 @@ function cropImage (c){
    	$("#crop_size_height").val(c.h);
    	$("#crop_size_width").val(c.w);
 };
-<%end%>
 
+<%end%>
+<% content_for :sidebar do %>
+<%if logged_in?%>
+<div id="space_logo" class="space_logo" style="display:none">
+    <h3><%=t('space.logo_selected.default_message') %></h3>
+    <div id = "selected_logo" style="padding-bottom:10px;">
+        <center>
+            <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
+        </center>
+    </div>
+</div>
+<% end %>
+<% end %>
+
+		<div id="edit_logo_menu" class="button_wrapper grey_bar" style="display:none">
+			<%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
+			<%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>"), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.text_logo')} %>
+			<%=link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>"), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
+						
+		</div>
+
+        <div id='default_text_logo' style="display:none">
+            <label for="logo_text" id= "space_logo_text_label">
+                <%= t('space.logo_selected.enter_text') %>
+            </label>
+            <br/>
+            <%= text_field :space_text,:logo %>
+            <input type="button" id="generate_text_logo_button" value="<%=t("space.logo_selected.generate_logo") %>" class="basic_button blue_button"/>
+            <div id = "generated_text_logos">
+            </div>
+        </div>
+        <% @files = Dir.entries("public/images/default_space_logos/")
+        images_for_row = 5 # number of images per row
+        images_now = 1
+        @files.delete(".")
+        @files.delete("..")
+        selected = rand(@files.length) %>
+        <div id='default_space_images' style="display:none">
+            <%
+            for file in @files
+            images_now+= 1 %>
+            <%=link_to (image_tag "default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>
+            <%	if images_now > images_for_row %>
+            <br>
+            <% images_now=1;
+            end %>
+            <% end %>
+        </div>
 
 	<div id="default_upload_logo" style="display:none">
         <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
