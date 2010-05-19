@@ -52,4 +52,9 @@ class HelpController < ApplicationController
   def newvirtualmeeting
 
   end
+ 
+  def newvirtualmeeting
+
+  end
+
 end
