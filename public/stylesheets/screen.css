@@ -201,6 +201,43 @@ button#change_logo{float:left;}
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
 
 /* special cases in buttons*/
+
+.on_live{
+  float:right;
+	background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+	border:1px solid #999999;
+  margin-right:4px;
+  color:#444;
+  font-weight:bold;
+  border-left:none;}
+
+.on_live span{
+  line-height:18px;
+  color:#222;
+  background:url("../images/icons/record.png") no-repeat 8% center;
+  padding:3px 7px 3px 23px;
+	display:block;
+}
+ 
+#streaming_content a.basic_button{
+	-moz-border-radius:0;
+	margin:0;
+	float:right;
+	background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+	border:1px solid #999999;
+}
+
+#streaming_content a.basic_button span{
+	-moz-border-radius:0;
+	line-height:18px;
+  color:#222;
+  background:url("../images/icons/webcam_add.png") no-repeat 10% center;
+  padding:3px 6px 3px 25px;
+	border:none;
+}
+
+#streaming_content a.basic_button:hover{background:url("../images/buttons/fondo-join-space2.png");}
+
 #event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
