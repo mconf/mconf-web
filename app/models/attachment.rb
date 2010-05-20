@@ -25,17 +25,23 @@ class Attachment < ActiveRecord::Base
   belongs_to :event
   belongs_to :author, :polymorphic => true
   
-  def post
-    posts.first
-  end
-  
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
                  :thumbnails => { '16' => '16x16',
                                   '32' => '32x32',
                                   '64' => '64x64',
                                   '128' => '128x128'}
-
+  
+  def post
+    posts.first
+  end
+  
+  def space
+    space_id.present? ?
+      Space.find_with_disabled(space_id) :
+      nil
+  end
+  
   # Define this authorization method before acts_as_content to priorize it
   #
   # Deny all requests except reading an already saved attachment in a space that hasn't repository
