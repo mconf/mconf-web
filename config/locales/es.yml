@@ -783,11 +783,11 @@ es:
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
     part1: "Para crear un usuario en VCC:"
-    part2: "1. Haga clic en <a href={{url}}>Registro</a> elemento de la barra de men\xC3\xBA superior."
-    part3: "2. Escriba un correo electr\xC3\xB3nico, contrase\xC3\xB1a y nombre completo."
-    part4: "3. Escriba el c\xC3\xB3digo de la imagen mostr\xC3\xB3."
-    part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n Hecho."
-    part6: "5. Despu\xC3\xA9s de registrarse para una cuenta, usted recibir\xC3\xA1 una confirmaci\xC3\xB3n por correo electr\xC3\xB3nico con el enlace para activar tu cuenta."
+    part2: "1. Haga clic en la opci\xC3\xB3n de <a href={{url}}>Registro</a> ubicado en la barra superior."
+    part3: "2. Escriba su correo electr\xC3\xB3nico, contrase\xC3\xB1a y su nombre completo."
+    part4: "3. Escriba el c\xC3\xB3digo que se muestra en la imagen."
+    part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n \"Hecho!\"."
+    part6: "5. Despu\xC3\xA9s de completar el registro, usted recibir\xC3\xA1 un correo electr\xC3\xB3nico de confirmaci\xC3\xB3n con el enlace para activar su cuenta."
   help_index: 
     part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del VCC puede ser usado por ejemplo para:"
     part2: "<li>Grabar y publicar sus eventos en Internet. \r\n\
@@ -798,7 +798,7 @@ es:
       Global Plaza est\xC3\xA1 estructurado como un sitio socio-colaborativo, el cual ofrece soporte a redes sociales junto con el soporte colaborativo a proyectos y actividades de grupos, donde cualquier usuario puede <a href={{url}}>registrarse</a>."
     part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el VCC con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el VCC con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de VCC. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
   help_logging: 
-    part1: "Si ya tienes una cuenta de VCC, puede <a href={{url}}>registrarse aqu\xC3\xAD</a> o haga clic sobre el punto de entrada de la barra de men\xC3\xBA superior. Introduce tu email y contrase\xC3\xB1a en la pantalla principal."
+    part1: "Si ya tiene una cuenta de VCC, puede <a href={{url}}>entrar aqu\xC3\xAD</a> o introduzca su email  y contrase\xC3\xB1a en la pantalla principal."
     part2: "Puede acceder autom\xC3\xA1ticamente si usted tiene una cuenta con un proveedor de OpenID."
     part3: "Si has olvidado tu contrase\xC3\xB1a, puede utilizar este formulario para recuperar y hacer que de forma autom\xC3\xA1tica por correo electr\xC3\xB3nico."
   help_newdoc: 
@@ -813,12 +813,16 @@ es:
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de VCC
+    create_VC: "Creaci\xC3\xB3n de un congreso virtual"
+    create_VM: "Creaci\xC3\xB3n de una reuni\xC3\xB3n virtual"
+    create_event: "Creaci\xC3\xB3n de un evento"
+    create_meeting: "Creaci\xC3\xB3n de una reuni\xC3\xB3n"
     create_post: Publicar un mensaje en el muro
-    create_space: "La creaci\xC3\xB3n de un Espacio"
+    create_space: "Creaci\xC3\xB3n de un espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
-    info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"
-    logging: "Inicio de sesi\xC3\xB3n en su Cuenta"
-    new_doc: "Adici\xC3\xB3n de un nuevo documento"
+    info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre el VCC"
+    logging: "Iniciar  sesi\xC3\xB3n con su cuenta "
+    new_doc: "A\xC3\xB1adir un nuevo documento"
     topics: Temas
   help_vcc: 
     info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"
@@ -1554,7 +1558,7 @@ es:
     assist: "Gente que asistir\xC3\xA1 al evento"
     by_email: "a trav\xC3\xA9s de e-mail"
     by_private_message: "a trav\xC3\xA9s de mensaje privado"
-    confirm_password: Confirm Password
+    confirm_password: "Confirmar contrase\xC3\xB1a"
     delete_from_space: Eliminar el usuario desde el espacio
     disable: Deshabilitar usuario
     disabled: Usuario deshabilitado
@@ -1587,7 +1591,7 @@ es:
     invited: Ya a los usuarios
     list_by: Lista de
     login: Login
-    lost_password: "\xC2\xBFHas perdido tu contrase\xC3\xB1a?"
+    lost_password: "\xC2\xBFHas olvidado tu contrase\xC3\xB1a?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
