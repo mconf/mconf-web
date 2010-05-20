@@ -1253,6 +1253,13 @@ en:
     without_permissions: Role {{role}} hasn't any permissions
   save: Save
   save_ch: Save changes
+  screencast:  
+    sidebar:
+      title: "Screencasts"
+    title: "Screencast"
+    title1: "How to create an event"
+    video:
+      one: "Screencast"
   search: 
     advanced: Advanced search
     attachments: 

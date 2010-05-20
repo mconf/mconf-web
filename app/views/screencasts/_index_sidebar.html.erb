@@ -1,0 +1,25 @@
+<div class="event_video_title">
+    <h3><%= t('screencast.sidebar.title') %></h3>
+</div>
+<div id="carrusel">
+  <div id="carrusel_content">      
+      <div class="video_preview_sidebar">
+          <div class="video_thumbnail">             
+              <%=link_to_function image_tag("default_background.jpg", :alt => t('screencast.title1')),"load_screencast(1)", :class=>"entry_video_link" %>
+              <span class="play_icon"></span>
+          </div>
+          <div class="video_description">
+              <%=link_to_function  t('screencast.title1') , "load_screencast(1)", :class=>"entry_video_link" %>
+          </div>
+      </div>
+	  <div class="video_preview_sidebar">
+          <div class="video_thumbnail">             
+              <%=link_to_function image_tag("captura_test_gateway.png", :alt => t('screencast.video.one')),"load_screencast(2)", :class=>"entry_video_link" %>
+              <span class="play_icon"></span>
+          </div>
+          <div class="video_description">
+              <%=link_to_function  "Titulo" , "load_screencast(2)", :class=>"entry_video_link" %>
+          </div>
+      </div>
+  </div>
+</div>

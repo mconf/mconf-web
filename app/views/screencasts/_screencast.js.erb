@@ -1,0 +1,23 @@
+video1 = '<embed width="640" height="500" wmode="transparent" src="http://stream3.dit.upm.es/reproductor/mediaplayer.swf?id=screencast_19_5_2010&amp;searchbar=false&amp;displayheight480&amp;displaywidth=640&amp;autostart=true&amp;image=http://stream3.dit.upm.es/back.jpg&amp;bufferlength=3&amp;file=rtmp://stream3.dit.upm.es/venusStore" allowfullscreen="true" name="player">';
+video2 = '<embed width="475" height="376" wmode="transparent" allowfullscreen="true" src="http://stream3.dit.upm.es/reproductor/mediaplayer.swf?id=video_7_12_2009_10_31_0&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;image=http://stream3.dit.upm.es/captures/video_7_12_2009_10_31_0.jpg&amp;bufferlength=3&amp;file=rtmp://stream3.dit.upm.es/venusStore/_definst_/" name="player">';
+
+
+load_screencast = function(index){
+	$(".video_full").html(eval("video"+index));	
+	
+};
+
+
+ $(".play_icon").livequery('click',function(){
+   $(this).siblings("a").click();
+ });
+
+<%if params[:show_screencast]%>    
+	$(window).bind('load', function() {
+  	  load_screencast(<%=params[:show_screencast]%>);
+	});
+<%else%>
+    $(window).bind('load', function() {
+  	  load_screencast(1);
+	});
+<%end%>
