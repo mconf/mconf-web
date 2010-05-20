@@ -8,12 +8,13 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     
 		<%= stylesheet_link_tag "help", :media => "screen, projection" %>
-		<%= stylesheet_link_tag "print", :media => "print" %>		
+		<%= stylesheet_link_tag "print", :media => "print" %>
+		<%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>		
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
-    
-		<%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing' %>
 		<script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
         <%= render :partial => 'layouts/ready.js.erb' %>

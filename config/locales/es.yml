@@ -54,6 +54,7 @@ es:
           one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
           other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
   add: Agregar
+  add_document: "A\xC3\xB1adir nuevo documento"
   add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
   address: "Direcci\xC3\xB3n"
   admin: 
@@ -425,7 +426,7 @@ es:
   disabled: Espacios deshabilitados
   docs: Docs
   document: 
-    add: Agregar nuevo documento
+    add: "A\xC3\xB1adir nuevo documento"
   done: "\xC2\xA1Hecho!"
   download: Descargar
   download_file: Descargar fichero
@@ -772,68 +773,68 @@ es:
     part2: ""
     part3: ""
   help_createevent: 
-    part1: ""
-    part2: ""
+    part1: "Para crear un evento en Global Plaza: <br><br>1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>."
+    part2: "2. Puede crear un evento directamente en la secci\xC3\xB3n de <b>Crear evento</b> en la derecha de la p\xC3\xA1gina. Global Plaza ofrece soporte a tres tipos de eventos: <br><li> <a href={{url_meeting}}> Reuni\xC3\xB3n:</a> ideal para reuniones r\xC3\xA1pidas y sencillas. Puede notificar a los participantes y subir documentos de trabajo. No tiene streaming de v\xC3\xADdeo o grabaci\xC3\xB3n autom\xC3\xA1tica. Sin embargo, el streaming y la participaci\xC3\xB3n pueden ser creados  manualmente, as\xC3\xAD como la grabaci\xC3\xB3n de eventos.  <li><a href={{url_vm}}>Reuni\xC3\xB3n virtual:</a>: la participaci\xC3\xB3n de videoconferencia f\xC3\xA1cil con el uso compartido de documentos y autom\xC3\xA1tica de streaming y grabaci\xC3\xB3n.  Congreso Virtual: , grandes reuniones de avanzada. la producci\xC3\xB3n de televisi\xC3\xB3n, como, que debe ser manejado por un operador."
   help_createmeeting: 
     part1: ""
     part2: ""
     part3: ""
   help_createpost: 
-    part1: "Para crear un mensaje en la pared en VCC:"
-    part10: "a. Ver c\xC3\xB3digo fuente HTML"
+    part1: "Para crear un mensaje en el muro de Global Plaza:"
+    part10: "a. Ver el c\xC3\xB3digo fuente en HTML"
     part11: "b. Cambiar el estilo de fuente (negrita, cursiva y subrayado), tama\xC3\xB1o de fuente y color del texto y la alineaci\xC3\xB3n del texto."
     part12: "c. Insertar / Editar v\xC3\xADnculos."
-    part13: d. Agregar archivos adjuntos
-    part14: e. Etiquetas archivos
-    part15: "9. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Enviar</b> para poner su mensaje en la pared."
-    part2: "1. Haga clic en la pesta\xC3\xB1a <b>PARED.</b>"
-    part3: "2. Puede <b>crear un mensaje nuevo</b> en el lado derecho de la p\xC3\xA1gina."
+    part13: "d. A\xC3\xB1adir archivos adjuntos"
+    part14: "e. A\xC3\xB1adir etiquetas a los archivos"
+    part15: "9. Por \xC3\xBAltimo, haga click en el bot\xC3\xB3n <b>Enviar</b> para publicar su mensaje en el muro."
+    part2: "1. Haga clic en la pesta\xC3\xB1a <b>Muro.</b>"
+    part3: "2. Puede <b>Crear un mensaje nuevo</b> en el lado derecho de la p\xC3\xA1gina."
     part4: "3. Escriba un t\xC3\xADtulo y comentario de su mensaje."
-    part5: 4. Haga clic en <b>Agregar archivo adjunto</b> enlace a un archivo adjunto.
-    part6: 5. Haga clic en <b>Elegir archivo</b> para buscar y encontrar el archivo que desea adjuntar.
-    part7: "6. Usted puede a\xC3\xB1adir a su archivo. Etiquetas permitir\xC3\xA1 encontrar f\xC3\xA1cilmente los archivos. Pulse Aceptar para confirmar cada etiqueta."
-    part8: 7. Repita el paso 4, 5 y 6 para cada archivo que desee agregar.
-    part9: "8. Puede utilizar el editor avanzado para incluir el contenido. Este editor te permite:"
+    part5: "4. Haga click en el enlace <b>A\xC3\xB1adir adjunto</b> para adjuntar un archivo."
+    part6: 5. Haga click en <b>Subir</b> archivo para buscar y encontrar el archivo que desea adjuntar.
+    part7: "6. Usted puede a\xC3\xB1adir etiquetas a su archivo. Las etiquetas le permitir\xC3\xA1n encontrar f\xC3\xA1cilmente los archivos. Pulse <b> enter</b> para confirmar cada etiqueta."
+    part8: "7. Repita los pasos 4, 5 y 6 por cada archivo que desee a\xC3\xB1adir.."
+    part9: "8. Puede utilizar el editor avanzado para incluir contenido. Este editor le permite:"
   help_createspace: 
-    part1: "Para crear un espacio en VCC:"
-    part2: "1. Haga clic en <a href={{url}}>Inicio Mi</a> elemento de la barra de men\xC3\xBA superior."
-    part3: "2. Haga clic en el bot\xC3\xB3n Crear nueva tecnolog\xC3\xADa espacial."
-    part4: "3. Agregue un nombre y una descripci\xC3\xB3n para su espacio."
-    part5: "4. Decidir si el espacio debe ser p\xC3\xBAblico."
-    part6: "5. Si desea habilitar un dep\xC3\xB3sito, elija esta opci\xC3\xB3n."
+    part1: "Para crear un espacio en Global Plaza:"
+    part2: "1. Haga click en la opci\xC3\xB3n <a href={{url}}>Inicio</a> de la barra de superior."
+    part3: "2. Haga click en el bot\xC3\xB3n <b>Crear un nuevo espacio</b>"
+    part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su espacio."
+    part5: "4. Decida si el espacio debe ser p\xC3\xBAblico. Espacios colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde los miembros s\xC3\xB3lo tienen accceso a las actividades del espacio."
+    part6: "5. Si desea habilitar un repositorio, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros."
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
-    part1: "Para crear un usuario en VCC:"
-    part2: "1. Haga clic en la opci\xC3\xB3n de <a href={{url}}>Registro</a> ubicado en la barra superior."
+    part1: "Para crear un usuario en Global Plaza:"
+    part2: "1. Haga click en la opci\xC3\xB3n de <a href={{url}}>Registro</a> ubicado en la barra superior."
     part3: "2. Escriba su correo electr\xC3\xB3nico, contrase\xC3\xB1a y su nombre completo."
     part4: "3. Escriba el c\xC3\xB3digo que se muestra en la imagen."
-    part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n \"Hecho!\"."
+    part5: "4. Una vez que haya completado su registro, haga click en el bot\xC3\xB3n <b>Hecho!</b>."
     part6: "5. Despu\xC3\xA9s de completar el registro, usted recibir\xC3\xA1 un correo electr\xC3\xB3nico de confirmaci\xC3\xB3n con el enlace para activar su cuenta."
   help_index: 
-    part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del VCC puede ser usado por ejemplo para:"
+    part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del Global Plaza puede ser usado por ejemplo para:"
     part2: "<li>Grabar y publicar sus eventos en Internet. \r\n\
       <li>Facilitar la participaci\xC3\xB3n remota a sus eventos desde un navegador Web browser. \r\n\
       <li>Transmitir reuniones, congresos o conferencias a trav\xC3\xA9s de Internet. \r\n\
       <li>Permitir la participaci\xC3\xB3n remota de ponentes dentro de reuniones o congresos. \r\n\
       <li>Conectar un auditorio o sitios remotos a un congreso o evento<br><br> \r\n\
       Global Plaza est\xC3\xA1 estructurado como un sitio socio-colaborativo, el cual ofrece soporte a redes sociales junto con el soporte colaborativo a proyectos y actividades de grupos, donde cualquier usuario puede <a href={{url}}>registrarse</a>."
-    part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el VCC con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el VCC con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de VCC. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
+    part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el Global Plaza con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el Global Plaza con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de Global Plaza. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
   help_logging: 
-    part1: "Si ya tiene una cuenta de VCC, puede <a href={{url}}>entrar aqu\xC3\xAD</a> o introduzca su email  y contrase\xC3\xB1a en la pantalla principal."
-    part2: "Puede acceder autom\xC3\xA1ticamente si usted tiene una cuenta con un proveedor de OpenID."
-    part3: "Si has olvidado tu contrase\xC3\xB1a, puede utilizar este formulario para recuperar y hacer que de forma autom\xC3\xA1tica por correo electr\xC3\xB3nico."
+    part1: "Si ya tiene una cuenta en el Global Plaza, puede <a href={{url}}>entrar aqu\xC3\xAD</a> o introduzca su email  y contrase\xC3\xB1a en la barra superior. "
+    part2: "Si usted tiene una cuenta con un proveedor de OpenID, puede acceder autom\xC3\xA1ticamente. Click en la opci\xC3\xB3n <b>Entrar con OpenID</b> de la barra superior."
+    part3: "Si ha olvidado su contrase\xC3\xB1a puede <a href={{url}}>recuperarlo aqui</a> o haga click en la opci\xC3\xB3n <b>\xC2\xBFHas olvidado tu contrase\xC3\xB1a?</b> de la barra superior. Un email para recuperar su contrase\xC3\xB1a le ser\xC3\xA1 enviado. "
   help_newdoc: 
-    part1: "Para agregar un nuevo documento en VCC:"
-    part2: "1. Haga clic en la pesta\xC3\xB1a <b>Repositorio.</b>"
-    part3: "2. Haga clic en <b>el</b> bot\xC3\xB3n <b>Agregar nuevo documento.</b>"
-    part4: "3. Haga clic en <b>Elegir archivo</b> en la parte derecha de la p\xC3\xA1gina."
-    part5: "4. Una vez que su archivo se ha seleccionado, haga clic en el bot\xC3\xB3n Abrir."
-    part6: 5. Usted puede <b>agregar etiquetas</b> que usted y otros pueden utilizar para encontrar y filtro de contenido. Pulse Aceptar para confirmar cada etiqueta.
-    part7: "6. Si desea <b>notificar</b> el documento con un mensaje en la pared, elija esta opci\xC3\xB3n."
-    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Cargar</b> para agregar el archivo al repositorio."
+    part1: "Para a\xC3\xB1adir un nuevo documento en Global Plaza:"
+    part2: "1. Haga click en la pesta\xC3\xB1a de <b>Repositorio.</b>"
+    part3: "2. Haga click en el bot\xC3\xB3n <b>A\xC3\xB1adir nuevo documento</b>."
+    part4: "3. Haga click en <b>Examinar</b> en la parte derecha de la p\xC3\xA1gina."
+    part5: "4. Una vez que haya seleccionado su archivo, haga click en el bot\xC3\xB3n Abrir."
+    part6: "5. Puede <b>a\xC3\xB1adir etiquetas</b> que usted y otros usuarios pueden utilizar para encontrar y filtrar contenido. Pulse <b>enter</b> para confirmar cada etiqueta."
+    part7: "6. Si desea <b>notificar</b> el documento con un mensaje en el muro, elija esta opci\xC3\xB3n."
+    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Subir</b> para a\xC3\xB1adir el archivo al repositorio."
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
-    about_vcc: Acerca de VCC
+    about_vcc: Acerca de Global Plaza
     create_VC: "Creaci\xC3\xB3n de un congreso virtual"
     create_VM: "Creaci\xC3\xB3n de una reuni\xC3\xB3n virtual"
     create_event: "Creaci\xC3\xB3n de un evento"
@@ -841,7 +842,7 @@ es:
     create_post: Publicar un mensaje en el muro
     create_space: "Creaci\xC3\xB3n de un espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
-    info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre el VCC"
+    info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre Global Plaza"
     logging: "Iniciar  sesi\xC3\xB3n con su cuenta "
     new_doc: "A\xC3\xB1adir un nuevo documento"
     topics: Temas
@@ -1277,7 +1278,7 @@ es:
   reply_to_words: Responder a {{words}}
   report_spam: Denunciar spam
   repository: 
-    add_document: Agregar nuevo documento
+    add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
     enable: Habilitar repositorio?
@@ -1596,7 +1597,7 @@ es:
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para agregar nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
+      instruction: "Para a\xC3\xB1adir nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
       note: "Por ejemplo: &quot;John Silver&quot; &lt;&quot;jsilver@example.com&quot;&gt; &quot;, jct@dit.es; aaron@example.net Aar\xC3\xB3n y haga clic en&quot; Registrarse como usuario registrar\xC3\xA1 las direcciones de correo electr\xC3\xB3nico como 3 miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
     add_more: add more>>
     admin: Admin
