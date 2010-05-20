@@ -738,7 +738,7 @@ es:
     main_title: "VCC es un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
     meet: 
       sentence1: "Descubre las mejores videoconferencias en l\xC3\xADnea"
-      sentence2: Amplíe su círculo de contactos
+      sentence2: "Ampl\xC3\xADe su c\xC3\xADrculo de contactos"
       sentence3: Realice conferencias con sus socios
     share: 
       sentence1: "Grabaci\xC3\xB3n y descarga de videoconferencias"
@@ -771,19 +771,19 @@ es:
   hello: Hola
   help: Ayuda
   help_createVC: 
-    part1: ""
-    part2: ""
-    part3: ""
+    part1: "Para crear una reuni\xC3\xB3n virtual en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga click en <b>Congreso virtual</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n <br>&nbsp; &nbsp; a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Haga click en el bot\xC3\xB3n <b>Crear</b>."
+    part3: "7. Una vez que haya creado el evento, usted puede:<br><li> Definir el horario de su reuni\xC3\xB3n en la agenda del evento.<li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento <li>  Definir la agenda para el evento <li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createVM: 
-    part1: ""
-    part2: ""
-    part3: ""
+    part1: "Para crear una reuni\xC3\xB3n virtual en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga click en <b>Reuni\xC3\xB3n virtual</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n <br>&nbsp; &nbsp; a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Haga click en el bot\xC3\xB3n <b>Crear</b>."
+    part3: "7. Una vez que haya creado el evento, usted puede:<br><li> Definir el horario de su reuni\xC3\xB3n en la agenda del evento.<li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento <li>  Definir la agenda para el evento <li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createevent: 
     part1: "Para crear un evento en Global Plaza: <br><br>1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>."
-    part2: "2. Puede crear un evento directamente en la secci\xC3\xB3n de <b>Crear evento</b> en la derecha de la p\xC3\xA1gina. Global Plaza ofrece soporte a tres tipos de eventos: <br><li> <a href={{url_meeting}}> Reuni\xC3\xB3n:</a> ideal para reuniones r\xC3\xA1pidas y sencillas. Puede notificar a los participantes y subir documentos de trabajo. No tiene streaming de v\xC3\xADdeo o grabaci\xC3\xB3n autom\xC3\xA1tica. Sin embargo, el streaming y la participaci\xC3\xB3n pueden ser creados  manualmente, as\xC3\xAD como la grabaci\xC3\xB3n de eventos.  <li><a href={{url_vm}}>Reuni\xC3\xB3n virtual:</a>: la participaci\xC3\xB3n de videoconferencia f\xC3\xA1cil con el uso compartido de documentos y autom\xC3\xA1tica de streaming y grabaci\xC3\xB3n.  Congreso Virtual: , grandes reuniones de avanzada. la producci\xC3\xB3n de televisi\xC3\xB3n, como, que debe ser manejado por un operador."
+    part2: "2. Puede crear un evento directamente en la secci\xC3\xB3n de <b>Crear evento</b> en la derecha de la p\xC3\xA1gina. Global Plaza ofrece soporte a tres tipos de eventos: <br><li> <a href={{url_meeting}}> Reuni\xC3\xB3n:</a> ideal para reuniones r\xC3\xA1pidas y sencillas. Puede notificar a los participantes y subir documentos de trabajo. No tiene streaming de v\xC3\xADdeo o grabaci\xC3\xB3n autom\xC3\xA1tica. Sin embargo, el streaming y la participaci\xC3\xB3n pueden ser creados  manualmente, as\xC3\xAD como la grabaci\xC3\xB3n de eventos.  <li><a href={{url_vm}}>Reuni\xC3\xB3n virtual:</a>: permite la participaci\xC3\xB3n a videoconferencias f\xC3\xA1ciles con el uso compartido de documentos, streaming y grabaci\xC3\xB3n autom\xC3\xA1tica. .<li><a href={{url_vc}}>Congreso virtual:</a> permite dar soporte a reuniones de gran magnitud y avanzadas. Similar a la producci\xC3\xB3n en televisi\xC3\xB3n, la cual debe ser controlada por un operador."
   help_createmeeting: 
-    part1: ""
-    part2: ""
+    part1: "Para crear una reuni\xC3\xB3n en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br>  2. Haga click en <b>Reuni\xC3\xB3n</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4. Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento. <br> 5. Escriba la localizaci\xC3\xB3n del evento.<br>  6. Haga click en el bot\xC3\xB3n <b>Crear</b>."
     part3: ""
   help_createpost: 
     part1: "Para crear un mensaje en el muro de Global Plaza:"
