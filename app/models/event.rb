@@ -199,8 +199,10 @@ class Event < ActiveRecord::Base
   
   
   def space
-    Space.find_with_disabled(space_id)
-  end      
+    space_id.present? ?
+      Space.find_with_disabled(space_id) :
+      nil
+  end    
   
   
   def organizers
