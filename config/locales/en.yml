@@ -1273,6 +1273,7 @@ en:
   save: Save
   save_ch: Save changes
   screencast:  
+    button: "Watch screencast"
     sidebar:
       title: "Screencasts"
     title: "Screencast"
