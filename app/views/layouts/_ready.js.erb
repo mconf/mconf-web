@@ -157,7 +157,18 @@ $("a.spam_link").fancybox({
   'hideOnContentClick' : false
 });
 
+/*
+* Login for frontpage and help
+*/
 
+  show_open_id_form = function(){
+    $(".div_login").hide();
+    $(".div_login_openid").show();
+  };
 
+  show_user_password_form = function(){
+    $(".div_login_openid").hide();
+    $(".div_login").show();
+  };
  
 
