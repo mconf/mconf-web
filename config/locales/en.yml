@@ -782,7 +782,7 @@ en:
       The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
     part3: Social networking is supported by a global social network which connects any registered person in the VCC with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the VCC for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
-    part1: If you already have a VCC Account, you can <a href={{url}}>sign in here</a> or click on login item from the top menu bar. Enter your email and password at the main screen.
+    part1: If you already have a VCC Account, you can <a href={{url}}>login here</a> or enter your email and password at the main screen.
     part2: You can login automatically if you have an account with an OpenID provider.
     part3: If you have forgotten your password you can use this form to recover it and have it automatically emailed to you.
   help_newdoc: 
@@ -1402,8 +1402,8 @@ en:
     leave: Leave this space
     logo: Space Logo
     logo_selected: 
-      close: "Close"
-      close_gallery: "Close the gallery"
+      close: Close
+      close_gallery: Close the gallery
       default_message: "The logo of the space will be this:"
       enter_text: "Enter a text to generate logos:"
       generate_logo: Generate
@@ -1411,8 +1411,7 @@ en:
       text_logo: Create a text logo
       upload_logo: Upload your own logo
       upload_logo_text: "Select a logo to upload:"
-      upload_text: "Upload"
-    update_logo: "Update logo"
+      upload_text: Upload
     main: Main space
     member_of: Member of the spaces
     my_spaces: My Spaces
@@ -1432,6 +1431,7 @@ en:
     select: Spaces
     show_all: Show all spaces
     subscribed_to_none: You are not subscribed to any space
+    update_logo: Update logo
     updated: Space updated successfully
     upload_none: You have to select a logo to upload.
   spam: 
