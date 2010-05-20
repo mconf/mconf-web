@@ -1,0 +1,30 @@
+<% elements
+   type
+   paginate ||= false
+   per_page ||= 5
+   paginate_elements = elements.paginate(:page => params[:page],:per_page => per_page) 
+
+%>
+
+<div class="group_search">
+  <%if elements == []%>
+      <h3 class="empty"><%= t("#{type}.other") %>: <%= t("#{type}.found.none") %></h3>
+  <%elsif elements.size == 1%>     
+    <h3><%= t("#{type}.other") %>: <%= t("#{type}.found.one") %></h3>
+    <% paginate_elements.each do |element| %>
+        <%=element_partial element%>
+    <%end%>
+  <%else%>
+    <h3 class="red"><%= t("#{type}.other") %>: <%= t("#{type}.found.other", :size => elements.size) %></h3>
+    <% paginate_elements.each do |element| %>
+        <%=element_partial element%>
+    <%end%>
+    <%if paginate%>
+      <%= will_paginate paginate_elements %>
+    <%else%>
+      <div class="show-more">
+        <%=  link_to t('post.found.show_all'), @space.nil? ? search_all_path(:type => type.pluralize, :query => params[:query]) : space_search_all_path(@space, :type => type.pluralize, :query => params[:query])%> 
+      </div>
+    <%end%>
+  <%end%>
+</div>

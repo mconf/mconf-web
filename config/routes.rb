@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   
   
   map.resources :logos
+  map.resources :screencasts
   
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
 

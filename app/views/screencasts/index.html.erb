@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "screencasts", :media => "screen, projection" %>
+
+<script type="text/javascript">
+  	<%= render :partial => "screencast.js"%>
+</script>
+
+
+<% content_for :sidebar do  %>
+  <%= render :partial => "index_sidebar" %>
+<%end%>
+
+
+<div id="event_recordings" class="margin-up">
+  <div id="recordings_title"><h3 class="blue"><%=t('screencast.title')%></h3></div>
+  <div id="recordings_content">	    	
+	<div id="videos">
+	  <div class="video_full">
+	    
+	  </div>
+	</div>
+  </div>
+</div>
+
