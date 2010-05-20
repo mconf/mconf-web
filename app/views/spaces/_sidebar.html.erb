@@ -1,27 +1,18 @@
-<%if space.users.include?(current_user) %>
-	<div id="join">
-	  <%if !(space.is_last_admin?(current_user))%>
-	    <div class="button_wrapper">
-	      <%= link_to "<span>"+t('space.leave')+"</span>", space_performance_path(@space, @space.stage_performances.find_by_agent_id(current_user)), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm'),:class => "big_button red_button" %>
-	    </div>
-	  <%end%>
-	</div>
-<%else%>
+<%if !space.users.include?(current_user) %>
   <div id="join">
     <%if space.pending_join_requests_for?(current_user)%>
       <input type="button" disabled="disabled" value="<%=t("space.join_pending")%>" class="orange_button big_button"/>
     <%else%>
-	    <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "orange_button big_button" %>
+      <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "orange_button big_button" %>
     <%end%>
-	</div>
-	
-	<div class="space-desc">
-	  <h3><%=t("space.about")%> <em><%=@space.name%></em></h3>
-	  <p>
-	    <%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
-	    <%= sanitize(space.description) if space.description.present? %>
-	  </p>
-	</div>
+  </div>
+  
+  <div class="space-desc">
+    <h3><%=t("space.about")%> <em><%=@space.name%></em></h3>
+    <p>
+      <%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
+      <%= sanitize(space.description) if space.description.present? %>
+    </p>
+  </div>
 <% end %>
 
-  
