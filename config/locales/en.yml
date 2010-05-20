@@ -52,6 +52,7 @@ en:
           one: 1 error prohibited this {{model}} from being saved
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: Add
+  add_document: Add new document
   add_more_details: Add more details
   address: Address
   admin: 
@@ -729,20 +730,20 @@ en:
   help_createVC: 
     part1: To create a virtual congress in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp;  a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createVM: 
-    part1: To create a virtual meeting in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
+    part1: To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes: <br>&nbsp; &nbsp;  a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<b>Booking resources is needed in order to make a videoconference</b><li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
+    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createevent: 
-    part1: "To create an event in VCC: <br><br>1. Click on <b>Events</b> tab. "
-    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. VCC supports three types of events: <br><li> <a href={{url_meeting}}> Meeting:</a> great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li><a href={{url_vm}}>Virtual meeting:</a> easy videoconference participation with document sharing and automatic streaming and recording.<li><a href={{url_vc}}>Virtual congress:</a> advanced, big meetings. TV-like production, which needs to be managed by an operator."
+    part1: "To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
+    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events: <br><li> <a href={{url_meeting}}> Meeting:</a> great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li><a href={{url_vm}}>Virtual meeting:</a> easy videoconference participation with document sharing and automatic streaming and recording.<li><a href={{url_vc}}>Virtual congress:</a> advanced, big meetings. TV-like production, which needs to be managed by an operator."
   help_createmeeting: 
-    part1: To create a meeting in VCC:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
+    part1: To create a meeting in Global Plaza:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on <b>Create</b> button."
     part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createpost: 
-    part1: "To create a message in the wall in VCC:"
+    part1: "To create a message in the wall in Global Plaza:"
     part10: a. View source html
     part11: b. Change the font style (bold, italic and underline), font size and text color and alignment of the text.
     part12: c. Insert/Edit links.
@@ -758,19 +759,19 @@ en:
     part8: 7. Repeat step 4, 5 and 6 for each file you want to add.
     part9: "8. You can use the advanced editor to include content. This editor allows you:"
   help_createspace: 
-    part1: "To create a space in VCC:"
-    part2: 1. Click on <a href={{url}}> My Home </a> item from the top menu bar.
+    part1: "To create a space in Global Plaza:"
+    part2: 1. Click on <a href={{url}}> My Home </a> item from the top bar.
     part3: 2. Click on <a href={{url}}>Create New Space </a> button.
-    part4: 3. Add a name and description for your space.
+    part4: 3. Type a name and description for your space.
     part5: 4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space.
     part6: 5. If you want to enable a repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.
     part7: ""
   help_createuser: 
-    part1: "To create a user in VCC:"
+    part1: "To create a user in Global Plaza:"
     part2: 1. Click on <a href={{url}}>register</a> item from the top menu bar.
     part3: 2. Type an email, password and full name.
     part4: 3. Type the code from the image showed.
-    part5: 4. Once you have completed your registration, click on Done button.
+    part5: 4. Once you have completed your registration, click on <b>Done</b> button.
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
   help_index: 
     part1: "The Global Plaza, also called the Virtual Conference Center (VCC), delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
@@ -780,23 +781,23 @@ en:
       <li>To bring remote speakers into an existing meeting or congress.\r\n\
       <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
       The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
-    part3: Social networking is supported by a global social network which connects any registered person in the VCC with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the VCC for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your VCC Account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part3: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
-    part1: If you already have a VCC Account, you can <a href={{url}}>login here</a> or enter your email and password at the main screen.
-    part2: You can login automatically if you have an account with an OpenID provider.
-    part3: If you have forgotten your password you can use this form to recover it and have it automatically emailed to you.
+    part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
+    part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
+    part3: If you have forgotten your password, you can <a href={{url}}> recover it here</a> or click on <b>Have you lost your password</b> in the top menu bar. An email to recover your password will be sent to you.
   help_newdoc: 
-    part1: "To add a new document in VCC:"
+    part1: "To add a new document in Global Plaza:"
     part2: 1. Click on <b>Repository </b> tab.
     part3: 2. Click on <b>Add new document</b> button.
     part4: 3. Click on <b>Choose file</b> on the right side of the page.
-    part5: 4. Once your file is selected, click on Open button.
+    part5: 4. Once your file is selected, click on <b>Open</b> button.
     part6: 5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag.
     part7: 6. If you want to <b>notify</b> the document with a message in the wall, choose this option.
     part8: 7. Finally, click on <b>Upload</b> button to add the file to the repository.
   help_support: Help & Support
   help_title: 
-    about_vcc: About VCC
+    about_vcc: About Global Plaza
     create_VC: Creating a virtual congress
     create_VM: Creating a virtual meeting
     create_event: Creating an event
@@ -804,7 +805,7 @@ en:
     create_post: Posting a message in the wall
     create_space: Creating a Space
     create_user: Creating a User
-    info: Here you can find information about the VCC
+    info: Here you can find information about the Global Plaza
     logging: Logging In to your Account
     new_doc: Adding a new document
     topics: Topics
@@ -1272,14 +1273,14 @@ en:
     without_permissions: Role {{role}} hasn't any permissions
   save: Save
   save_ch: Save changes
-  screencast:  
-    button: "Watch screencast"
-    sidebar:
-      title: "Screencasts"
-    title: "Screencast"
-    title1: "How to create an event"
-    video:
-      one: "Screencast"
+  screencast: 
+    button: Watch screencast
+    sidebar: 
+      title: Screencasts
+    title: Screencast
+    title1: How to create an event
+    video: 
+      one: Screencast
   search: 
     advanced: Advanced search
     attachments: 

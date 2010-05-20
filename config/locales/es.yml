@@ -8,7 +8,7 @@ es:
   about_global: Acerca de GLOBAL
   about_me: "Acerca de m\xC3\xAD"
   about_sxsw: Acerca de SXSW
-  about_vcc: Acerca de VCC
+  about_vcc: Acerca de GlobalPlaza
   account: Cuenta
   account_activated: Su cuenta ha sido activada
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
@@ -54,6 +54,7 @@ es:
           one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
           other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
   add: Agregar
+  add_document: "A\xC3\xB1adir nuevo documento"
   add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
   address: "Direcci\xC3\xB3n"
   admin: 
@@ -425,7 +426,7 @@ es:
   disabled: Espacios deshabilitados
   docs: Docs
   document: 
-    add: Agregar nuevo documento
+    add: "A\xC3\xB1adir nuevo documento"
   done: "\xC2\xA1Hecho!"
   download: Descargar
   download_file: Descargar fichero
@@ -446,39 +447,33 @@ es:
     spam_activation: "Si no se ha registrado en este sitio, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
     spam_invitation: "Si cree que este mensaje es spam, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
     thanks: Gracias por visitar {{sitename}}
-    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{name}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
-    used_from: "correo electr\xC3\xB3nico utilizado en la forma de contacto: {{dir}}"
-    vcc_team: El equipo de VCC
+    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico (\"{{name}}\") y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
+    used_from: "correo electr\xC3\xB3nico utilizado en el formulario de contacto: {{dir}}"
+    vcc_team: El equipo de GlobalPlaza
     welcome: Bienvenido a {{sitename}}
   edit: Editar
   edit_hours: Editar horas
   edit_profile: Editar perfil
-  edit_your_profile: Editar tu perfil
-  email: 
-    commas: (separados por comas)
-    confirm: "Para confirmar su direcci\xC3\xB3n de e-mail, por favor visite la siguiente direcci\xC3\xB3n URL:"
-    notifications: "notificaciones de correo electr\xC3\xB3nico"
-    one: Correo
-    other: e-mails
-    used_from: "de correo electr\xC3\xB3nico utilizado en forma de contacto: {{dir}}"
-  email_or_full_name: e-Mail o el nombre completo
-  enable: Posibilitar
-  enabled: Espacios activos
+  edit_your_profile: Editar su perfil
+  email: "Correo electr\xC3\xB3nico"
+  email_or_full_name: "Correo electr\xC3\xB3nico o nombre completo"
+  enable: Habilitar
+  enabled: Habilitado
   enlarge: Ampliar
   error: 
     change: "El cambio no es v\xC3\xA1lido"
     credentials: "Credenciales no v\xC3\xA1lidas"
     e403: "No est\xC3\xA1 autorizado para ver esa p\xC3\xA1gina."
-    e404: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
-    e500: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
-    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
+    e404: "La p\xC3\xA1gina que est\xC3\xA1 buscando no existe."
+    e500: "La p\xC3\xA1gina que est\xC3\xA1 buscando no existe."
+    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o que la p\xC3\xA1gina se haya movido."
     not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
-    one: Error.
-    other: Errores.
-    vcc_warning: "VCC advertencia:"
+    one: Error
+    other: Errores
+    vcc_warning: "Advertencia de GlobalPlaza:"
   eu_commision: "Comisi\xC3\xB3n Europea"
   event: 
-    Isabel: Caso de Isabel
+    Isabel: Evento Isabel
     action: 
       select: Acciones
     agenda: 
@@ -491,17 +486,17 @@ es:
     basic_info: "Introducir la informaci\xC3\xB3n b\xC3\xA1sica"
     button: 
       attevents: Asistir a eventos
-      atteventstitle0: Eventos que han confirmado su asistencia
-      atteventstitle1: Usted no ha confirmado su asistencia a cualquier evento
+      atteventstitle0: Eventos a los que ha confirmado su asistencia
+      atteventstitle1: "Usted no ha confirmado su asistencia a ning\xC3\xBAn evento"
       myevents: Mis eventos
       myeventstitle0: Eventos que ha creado
-      myeventstitle1: "No ha creado ning\xC3\xBAn caso"
+      myeventstitle1: "No ha creado ning\xC3\xBAn evento"
     choose_location: "Elija la ubicaci\xC3\xB3n"
     colon: "Evento:"
     coming: "Pr\xC3\xB3ximas actividades"
     connection: 
       info: "Informaci\xC3\xB3n de conexi\xC3\xB3n para este evento"
-      isabel: Isabel servidor
+      isabel: Servidor Isabel
       sip: Proxy SIP
       str: Streaming
       web: "Participaci\xC3\xB3n"
@@ -509,21 +504,21 @@ es:
       info: 
         basic: "Aqu\xC3\xAD puede organizar tres tipos de eventos"
         conference: 
-          message: "Avanzada, reuniones grandes. la producci\xC3\xB3n de televisi\xC3\xB3n como gestionado por un operador."
+          message: "Reuniones grandes, avanzadas. Producci\xC3\xB3n estilo TV que necesita la gesti\xC3\xB3n de un operador."
           name: Congreso Virtual
         meeting: 
-          message: "F\xC3\xA1cil de videoconferencia con la participaci\xC3\xB3n de compartir documentos y autom\xC3\xA1tica de streaming y grabaci\xC3\xB3n."
-          name: Encuentro Virtual
+          message: "Videoconferencia de f\xC3\xA1cil participaci\xC3\xB3n, con compartici\xC3\xB3n de documentos y streaming y grabaci\xC3\xB3n autom\xC3\xA1ticos."
+          name: "Reuni\xC3\xB3n virtual"
         presential: 
-          message: "Ideal para reuniones r\xC3\xA1pida y simple. Notifique a sus parejas, cargar documentos de trabajo. No tiene video streaming autom\xC3\xA1tica ni grabaci\xC3\xB3n."
+          message: "Ideal para reuniones r\xC3\xA1pidas y sencillas. Notifique a los participantes, suba documentos de trabajo. No tiene streaming o grabaci\xC3\xB3n de video."
           name: "Reuni\xC3\xB3n"
       title: Crear nuevo evento
-    created: "Evento fue creado con \xC3\xA9xito."
-    deleted: Evento eliminado correctamente
+    created: "El evento fue creado con \xC3\xA9xito"
+    deleted: El evento fue eliminado correctamente
     description: 
-      add: "Agregar descripci\xC3\xB3n."
+      add: "Agregar una descripci\xC3\xB3n."
       edit: "Editar descripci\xC3\xB3n"
-      none: "Nadie ha escrito una descripci\xC3\xB3n todav\xC3\xADa."
+      none: "Nadie ha escrito a\xC3\xBAn una descripci\xC3\xB3n."
     edit: Editar evento
     enable: 
       isabel: Isabel
@@ -531,25 +526,25 @@ es:
       sip: SIP
       web: Web
     error: 
-      cm_connection: "La conexi\xC3\xB3n al sistema de videoconferencia a distancia no"
-      date_past: Fecha de inicio no puede ser pasado
-      dates: La primera fecha no puede ser menor que el segundo
-      dates1: "La fecha de inicio de eventos debe ser anterior a la fecha de finalizaci\xC3\xB3n del evento"
-      delete: "El evento no se podr\xC3\xADa eliminar"
-      marte: No se puede crear una conferencia virtual
-      omit_date: "El evento necesidades fecha de inicio y fecha de finalizaci\xC3\xB3n"
-      videoconference: No se pudo crear videoconferencia caso
-    follow: Siga este evento
+      cm_connection: "La conexi\xC3\xB3n con el sistema de videoconferencia ha fallado"
+      date_past: La fecha de inicio no puede estar en el pasado
+      dates: "La fecha de finalizaci\xC3\xB3n debe ser posterior a la de inicio"
+      dates1: "La fecha de inicio del evento debe ser anterior a la fecha de finalizaci\xC3\xB3n"
+      delete: El evento no se ha podido eliminar
+      marte: No se ha podido crear la conferencia virtual
+      omit_date: El evento necesita horas de inicio y fin
+      videoconference: No se ha podido crear el evento de videoconferencia
+    follow: "Siga esta reuni\xC3\xB3n virtual"
     found: 
-      none: No se encontraron eventos
-      one: "1 caso se encontr\xC3\xB3"
-      other: "{{size}} eventos encontrados"
-    future: Futuros eventos
+      none: No se han encontrado eventos
+      one: Se ha encontrado 1 evento
+      other: Se han encontrado {{size}} eventos
+    future: Evento futuro
     generate_pdf: Generar PDF
     has: Este evento se ha
     held_with: "Este evento se llevar\xC3\xA1 a cabo con"
     help: 
-      book: Reserva los recursos que se necesita para hacer una videoconferencia. Por favor, defina su horario en el programa.
+      book: Para hacer la videoconferencia, es necesario reservar recursos. Por favor, defina la agenda.
       create: "Crear un evento simple en tres pasos:"
       creating_entries: "la creaci\xC3\xB3n de entradas"
       define: Definir el calendario de sus reuniones
@@ -685,9 +680,9 @@ es:
     accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
     clarify_registered: "Por favor, introduzca su contrase\xC3\xB1a para confirmar su asistencia al evento"
     clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el Centro Virtual de Conferencias y confirmar su asistencia al evento"
-    confirm_password: "Confirma la contrase\xC3\xB1a"
+    confirm_password: "Confirme la contrase\xC3\xB1a"
     deselect_all_users: "Anular la selecci\xC3\xB3n de todos los usuarios"
-    discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
+    discarded: "Ha desechado la invitaci\xC3\xB3n a este evento"
     email: "Correo electr\xC3\xB3nico"
     full_name: Nombre completo
     hide_all_users: Ocultar todos los usuarios
@@ -695,54 +690,54 @@ es:
     message_title: Invitar gente a unirse a su evento
     new: 
       other: Invitar a gente
-    not_processed: "La invitaci\xC3\xB3n no se podr\xC3\xADa procesar"
+    not_processed: "La invitaci\xC3\xB3n no se ha podido procesar"
     password: "Contrase\xC3\xB1a"
     select_all_users: Seleccionar todos los usuarios
     show_all_users: Mostrar todos los usuarios
-    title: "Invitaci\xC3\xB3n Evento"
-    will_invite: "La gente te invitar\xC3\xA1 a:"
-  export_widget: "Exportaci\xC3\xB3n Widget"
+    title: "Invitaci\xC3\xB3n al evento"
+    will_invite: "Gente invitada:"
+  export_widget: Exportar widget
   fax: Fax
   feedback: 
-    email: "Esta es una retroalimentaci\xC3\xB3n e-Mail:"
-    note: "Ay\xC3\xBAdanos a mejorar VCC. Por favor env\xC3\xADe sus comentarios, problemas y sugerencias. Vamos a tratar de responder lo m\xC3\xA1s pronto posible."
-    one: "Realimentaci\xC3\xB3n"
+    email: "{{email}} envi\xC3\xB3 la siguiente comentario:"
+    note: "Ay\xC3\xBAdenos a mejorar GlobalPlaza. Por favor, env\xC3\xADe sus comentarios, problemas y sugerencias. Trataremos de responder lo antes posible"
+    one: Comentarios
     send: Enviar comentarios
-    send_us: "Env\xC3\xADanos tus comentarios!"
-    sent: "Su informaci\xC3\xB3n de retroalimentaci\xC3\xB3n e-mail ha sido enviado con \xC3\xA9xito. Thanks you"
+    send_us: "\xC2\xA1Env\xC3\xADenos sus comentarios!"
+    sent: "Su correo electr\xC3\xB3nico con comentarios ha sido enviado con \xC3\xA9xito. Gracias"
   file: Fichero
-  fill_fields: Usted debe llenar todos los campos
+  fill_fields: Debe llenar todos los campos
   find: 
     browse: Navegar
   find_in: "Buscar en:"
-  find_in_day: "Encuentre en d\xC3\xADa:"
-  find_in_name_speakers: "Buscar en el nombre de altavoces:"
+  find_in_day: "Buscar en d\xC3\xADa:"
+  find_in_name_speakers: "Buscar en nombre/ponentes:"
   follow_reset_password: "{{agent}}, siga el enlace para cambiar su contrase\xC3\xB1a"
   form: 
-    loading: "El formulario est\xC3\xA1 cargando ..."
+    loading: "El formulario se est\xC3\xA1 cargando..."
   from: Desde
   frontpage: 
     collaborate: 
-      sentence1: Organiza tus proyectos y actividades
-      sentence2: Participar en conferencias y eventos
-      sentence3: Crea tu propio espacio y conferencias
+      sentence1: Organice sus proyectos y actividades
+      sentence2: Participe en conferencias y eventos
+      sentence3: Cree su propio espacio y conferencias
     elements: 
       comments: Comentarios
       conferences: Conferencias
       networks: Redes Sociales
       organizers: Organizadores
-      participants: Los participantes
+      participants: Participantes
       spaces: Espacios
       tags: Etiquetas
-    main_title: "VCC es un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
+    main_title: "GlobalPlaza: un servicio para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
     meet: 
-      sentence1: "Descubre las mejores videoconferencias en l\xC3\xADnea"
-      sentence2: Amplíe su círculo de contactos
-      sentence3: Realice conferencias con sus socios
+      sentence1: Descubra las mejores videoconferencias online
+      sentence2: Conozca gente y grupos interesantes
+      sentence3: Videoconferencia con sus colegas
     share: 
-      sentence1: "Grabaci\xC3\xB3n y descarga de videoconferencias"
-      sentence2: "Repositorios de documentos y v\xC3\xADdeo"
-      sentence3: Su persona de contacto y las relaciones
+      sentence1: "Grabaci\xC3\xB3n y streaming de videoconferencias"
+      sentence2: "Repositorios de v\xC3\xADdeos y documentos"
+      sentence3: Sus contactos y relaciones
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "Por d\xC3\xB3nde empezar!"
   group: 
@@ -770,76 +765,76 @@ es:
   hello: Hola
   help: Ayuda
   help_createVC: 
-    part1: ""
-    part2: ""
-    part3: ""
+    part1: "Para crear una reuni\xC3\xB3n virtual en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga click en <b>Congreso virtual</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n <br>&nbsp; &nbsp; a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Haga click en el bot\xC3\xB3n <b>Crear</b>."
+    part3: "7. Una vez que haya creado el evento, usted puede:<br><li> Definir el horario de su reuni\xC3\xB3n en la agenda del evento.<li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento <li>  Definir la agenda para el evento <li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createVM: 
-    part1: ""
-    part2: ""
-    part3: ""
+    part1: "Para crear una reuni\xC3\xB3n virtual en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga click en <b>Reuni\xC3\xB3n virtual</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n <br>&nbsp; &nbsp; a. Isabel:<br> &nbsp;&nbsp; &nbsp;b. Web:<br>7. Haga click en el bot\xC3\xB3n <b>Crear</b>."
+    part3: "7. Una vez que haya creado el evento, usted puede:<br><li> Definir el horario de su reuni\xC3\xB3n en la agenda del evento.<li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento <li>  Definir la agenda para el evento <li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createevent: 
-    part1: ""
-    part2: ""
+    part1: "Para crear un evento en Global Plaza: <br><br>1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>."
+    part2: "2. Puede crear un evento directamente en la secci\xC3\xB3n de <b>Crear evento</b> en la derecha de la p\xC3\xA1gina. Global Plaza ofrece soporte a tres tipos de eventos: <br><li> <a href={{url_meeting}}> Reuni\xC3\xB3n:</a> ideal para reuniones r\xC3\xA1pidas y sencillas. Puede notificar a los participantes y subir documentos de trabajo. No tiene streaming de v\xC3\xADdeo o grabaci\xC3\xB3n autom\xC3\xA1tica. Sin embargo, el streaming y la participaci\xC3\xB3n pueden ser creados  manualmente, as\xC3\xAD como la grabaci\xC3\xB3n de eventos.  <li><a href={{url_vm}}>Reuni\xC3\xB3n virtual:</a>: permite la participaci\xC3\xB3n a videoconferencias f\xC3\xA1ciles con el uso compartido de documentos, streaming y grabaci\xC3\xB3n autom\xC3\xA1tica. .<li><a href={{url_vc}}>Congreso virtual:</a> permite dar soporte a reuniones de gran magnitud y avanzadas. Similar a la producci\xC3\xB3n en televisi\xC3\xB3n, la cual debe ser controlada por un operador."
   help_createmeeting: 
-    part1: ""
-    part2: ""
+    part1: "Para crear una reuni\xC3\xB3n en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br>  2. Haga click en <b>Reuni\xC3\xB3n</b> en la parte derecha de la p\xC3\xA1gina."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4. Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento. <br> 5. Escriba la localizaci\xC3\xB3n del evento.<br>  6. Haga click en el bot\xC3\xB3n <b>Crear</b>."
     part3: ""
   help_createpost: 
-    part1: "Para crear un mensaje en la pared en VCC:"
-    part10: "a. Ver c\xC3\xB3digo fuente HTML"
+    part1: "Para crear un mensaje en el muro de Global Plaza:"
+    part10: "a. Ver el c\xC3\xB3digo fuente en HTML"
     part11: "b. Cambiar el estilo de fuente (negrita, cursiva y subrayado), tama\xC3\xB1o de fuente y color del texto y la alineaci\xC3\xB3n del texto."
     part12: "c. Insertar / Editar v\xC3\xADnculos."
-    part13: d. Agregar archivos adjuntos
-    part14: e. Etiquetas archivos
-    part15: "9. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Enviar</b> para poner su mensaje en la pared."
-    part2: "1. Haga clic en la pesta\xC3\xB1a <b>PARED.</b>"
-    part3: "2. Puede <b>crear un mensaje nuevo</b> en el lado derecho de la p\xC3\xA1gina."
+    part13: "d. A\xC3\xB1adir archivos adjuntos"
+    part14: "e. A\xC3\xB1adir etiquetas a los archivos"
+    part15: "9. Por \xC3\xBAltimo, haga click en el bot\xC3\xB3n <b>Enviar</b> para publicar su mensaje en el muro."
+    part2: "1. Haga clic en la pesta\xC3\xB1a <b>Muro.</b>"
+    part3: "2. Puede <b>Crear un mensaje nuevo</b> en el lado derecho de la p\xC3\xA1gina."
     part4: "3. Escriba un t\xC3\xADtulo y comentario de su mensaje."
-    part5: 4. Haga clic en <b>Agregar archivo adjunto</b> enlace a un archivo adjunto.
-    part6: 5. Haga clic en <b>Elegir archivo</b> para buscar y encontrar el archivo que desea adjuntar.
-    part7: "6. Usted puede a\xC3\xB1adir a su archivo. Etiquetas permitir\xC3\xA1 encontrar f\xC3\xA1cilmente los archivos. Pulse Aceptar para confirmar cada etiqueta."
-    part8: 7. Repita el paso 4, 5 y 6 para cada archivo que desee agregar.
-    part9: "8. Puede utilizar el editor avanzado para incluir el contenido. Este editor te permite:"
+    part5: "4. Haga click en el enlace <b>A\xC3\xB1adir adjunto</b> para adjuntar un archivo."
+    part6: 5. Haga click en <b>Subir</b> archivo para buscar y encontrar el archivo que desea adjuntar.
+    part7: "6. Usted puede a\xC3\xB1adir etiquetas a su archivo. Las etiquetas le permitir\xC3\xA1n encontrar f\xC3\xA1cilmente los archivos. Pulse <b> enter</b> para confirmar cada etiqueta."
+    part8: "7. Repita los pasos 4, 5 y 6 por cada archivo que desee a\xC3\xB1adir.."
+    part9: "8. Puede utilizar el editor avanzado para incluir contenido. Este editor le permite:"
   help_createspace: 
-    part1: "Para crear un espacio en VCC:"
-    part2: "1. Haga clic en <a href={{url}}>Inicio Mi</a> elemento de la barra de men\xC3\xBA superior."
-    part3: "2. Haga clic en el bot\xC3\xB3n Crear nueva tecnolog\xC3\xADa espacial."
-    part4: "3. Agregue un nombre y una descripci\xC3\xB3n para su espacio."
-    part5: "4. Decidir si el espacio debe ser p\xC3\xBAblico."
-    part6: "5. Si desea habilitar un dep\xC3\xB3sito, elija esta opci\xC3\xB3n."
+    part1: "Para crear un espacio en Global Plaza:"
+    part2: "1. Haga click en la opci\xC3\xB3n <a href={{url}}>Inicio</a> de la barra de superior."
+    part3: "2. Haga click en el bot\xC3\xB3n <b>Crear un nuevo espacio</b>"
+    part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su espacio."
+    part5: "4. Decida si el espacio debe ser p\xC3\xBAblico. Espacios colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde los miembros s\xC3\xB3lo tienen accceso a las actividades del espacio."
+    part6: "5. Si desea habilitar un repositorio, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros."
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
-    part1: "Para crear un usuario en VCC:"
-    part2: "1. Haga clic en la opci\xC3\xB3n de <a href={{url}}>Registro</a> ubicado en la barra superior."
+    part1: "Para crear un usuario en Global Plaza:"
+    part2: "1. Haga click en la opci\xC3\xB3n de <a href={{url}}>Registro</a> ubicado en la barra superior."
     part3: "2. Escriba su correo electr\xC3\xB3nico, contrase\xC3\xB1a y su nombre completo."
     part4: "3. Escriba el c\xC3\xB3digo que se muestra en la imagen."
-    part5: "4. Una vez que haya completado su registro, haga clic en el bot\xC3\xB3n \"Hecho!\"."
+    part5: "4. Una vez que haya completado su registro, haga click en el bot\xC3\xB3n <b>Hecho!</b>."
     part6: "5. Despu\xC3\xA9s de completar el registro, usted recibir\xC3\xA1 un correo electr\xC3\xB3nico de confirmaci\xC3\xB3n con el enlace para activar su cuenta."
   help_index: 
-    part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del VCC puede ser usado por ejemplo para:"
+    part1: "Global Plaza, tambi\xC3\xA9n llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia v\xC3\xADa web con salas de conferencia, sesiones de streaming, grabaci\xC3\xB3n y publicaci\xC3\xB3n. El servicio de reuniones virtuales del Global Plaza puede ser usado por ejemplo para:"
     part2: "<li>Grabar y publicar sus eventos en Internet. \r\n\
       <li>Facilitar la participaci\xC3\xB3n remota a sus eventos desde un navegador Web browser. \r\n\
       <li>Transmitir reuniones, congresos o conferencias a trav\xC3\xA9s de Internet. \r\n\
       <li>Permitir la participaci\xC3\xB3n remota de ponentes dentro de reuniones o congresos. \r\n\
       <li>Conectar un auditorio o sitios remotos a un congreso o evento<br><br> \r\n\
       Global Plaza est\xC3\xA1 estructurado como un sitio socio-colaborativo, el cual ofrece soporte a redes sociales junto con el soporte colaborativo a proyectos y actividades de grupos, donde cualquier usuario puede <a href={{url}}>registrarse</a>."
-    part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el VCC con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el VCC con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de VCC. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
+    part3: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el Global Plaza con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (p\xC3\xBAblicos o privados), los cuales <a href={{create}}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones m\xC3\xA1s estrechas  y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser autom\xC3\xA1ticamente grabados y publicados  (<a href={{space}}>ver ejemplo</a>) por el Global Plaza con acceso privado o p\xC3\xBAblico, asi como embeber eventos en blogs, p\xC3\xA1ginas web, etc.<br><br>Global Plaza ha sido desarrollado por el proyecto europeo Global mediante la reutilizaci\xC3\xB3n de los resultados y desarrollos de otros proyectos los cuales han transformado la apliaci\xC3\xB3n ISABEL dentro de un servicio de cloud-computing, tales como  ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de Global Plaza. Si no tienes una cuenta, puede <a href={{url}}>crear una ahora</a> ."
   help_logging: 
-    part1: "Si ya tiene una cuenta de VCC, puede <a href={{url}}>entrar aqu\xC3\xAD</a> o introduzca su email  y contrase\xC3\xB1a en la pantalla principal."
-    part2: "Puede acceder autom\xC3\xA1ticamente si usted tiene una cuenta con un proveedor de OpenID."
-    part3: "Si has olvidado tu contrase\xC3\xB1a, puede utilizar este formulario para recuperar y hacer que de forma autom\xC3\xA1tica por correo electr\xC3\xB3nico."
+    part1: "Si ya tiene una cuenta en el Global Plaza, puede <a href={{url}}>entrar aqu\xC3\xAD</a> o introduzca su email  y contrase\xC3\xB1a en la barra superior. "
+    part2: "Si usted tiene una cuenta con un proveedor de OpenID, puede acceder autom\xC3\xA1ticamente. Click en la opci\xC3\xB3n <b>Entrar con OpenID</b> de la barra superior."
+    part3: "Si ha olvidado su contrase\xC3\xB1a puede <a href={{url}}>recuperarlo aqui</a> o haga click en la opci\xC3\xB3n <b>\xC2\xBFHas olvidado tu contrase\xC3\xB1a?</b> de la barra superior. Un email para recuperar su contrase\xC3\xB1a le ser\xC3\xA1 enviado. "
   help_newdoc: 
-    part1: "Para agregar un nuevo documento en VCC:"
-    part2: "1. Haga clic en la pesta\xC3\xB1a <b>Repositorio.</b>"
-    part3: "2. Haga clic en <b>el</b> bot\xC3\xB3n <b>Agregar nuevo documento.</b>"
-    part4: "3. Haga clic en <b>Elegir archivo</b> en la parte derecha de la p\xC3\xA1gina."
-    part5: "4. Una vez que su archivo se ha seleccionado, haga clic en el bot\xC3\xB3n Abrir."
-    part6: 5. Usted puede <b>agregar etiquetas</b> que usted y otros pueden utilizar para encontrar y filtro de contenido. Pulse Aceptar para confirmar cada etiqueta.
-    part7: "6. Si desea <b>notificar</b> el documento con un mensaje en la pared, elija esta opci\xC3\xB3n."
-    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Cargar</b> para agregar el archivo al repositorio."
+    part1: "Para a\xC3\xB1adir un nuevo documento en Global Plaza:"
+    part2: "1. Haga click en la pesta\xC3\xB1a de <b>Repositorio.</b>"
+    part3: "2. Haga click en el bot\xC3\xB3n <b>A\xC3\xB1adir nuevo documento</b>."
+    part4: "3. Haga click en <b>Examinar</b> en la parte derecha de la p\xC3\xA1gina."
+    part5: "4. Una vez que haya seleccionado su archivo, haga click en el bot\xC3\xB3n Abrir."
+    part6: "5. Puede <b>a\xC3\xB1adir etiquetas</b> que usted y otros usuarios pueden utilizar para encontrar y filtrar contenido. Pulse <b>enter</b> para confirmar cada etiqueta."
+    part7: "6. Si desea <b>notificar</b> el documento con un mensaje en el muro, elija esta opci\xC3\xB3n."
+    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Subir</b> para a\xC3\xB1adir el archivo al repositorio."
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
-    about_vcc: Acerca de VCC
+    about_vcc: Acerca de Global Plaza
     create_VC: "Creaci\xC3\xB3n de un congreso virtual"
     create_VM: "Creaci\xC3\xB3n de una reuni\xC3\xB3n virtual"
     create_event: "Creaci\xC3\xB3n de un evento"
@@ -847,7 +842,7 @@ es:
     create_post: Publicar un mensaje en el muro
     create_space: "Creaci\xC3\xB3n de un espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
-    info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre el VCC"
+    info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre Global Plaza"
     logging: "Iniciar  sesi\xC3\xB3n con su cuenta "
     new_doc: "A\xC3\xB1adir un nuevo documento"
     topics: Temas
@@ -862,8 +857,8 @@ es:
     one: Inicio
   icalendar: 
     add: Actualizar y agregar nuevas entradas
-    conflictive1: "Una entrada de su calendarioi fue sobre la aplicaci\xC3\xB3n Vcc y se ha modificado. Usted debe actualizar manualmente para evitar problemas."
-    conflictiven: "entradas de su calendarioi estaban en la aplicaci\xC3\xB3n Vcc y se han modificado. Usted debe actualizar manualmente para evitar problemas."
+    conflictive1: "Una entrada de su iCalendar ya exist\xC3\xADa en GlobalPlaza y se ha modificado. Debe actualizarla manualmente para evitar problemas."
+    conflictiven: "entradas de su iCalendar ya exist\xC3\xADan en GlobalPlaza y se han modificado. Debe actualizarlas manualmente para evitar problemas."
     error_import: Se produjo un error al importar el iCalendar.
     export: "Exportaci\xC3\xB3n de iCalendar"
     import: "Importaci\xC3\xB3n de iCalendar"
@@ -1073,7 +1068,7 @@ es:
     updated: "Art\xC3\xADculo actualizado correctamente"
   next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
-  no_messages_in_wall: No hay mensajes en la pared
+  no_messages_in_wall: "No hay ning\xC3\xBAn mensaje en el muro"
   no_tags_found: No se encontraron etiquetas
   none: Ninguno
   not_going: No voy
@@ -1227,7 +1222,7 @@ es:
     other_in_space: Mensajes en el espacio {{space}}
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
     updated: Entrada actualizada
-    wall: Pared
+    wall: Muro
   preferences: Preferencias
   previous: Anterior
   privacy: Intimidad
@@ -1283,7 +1278,7 @@ es:
   reply_to_words: Responder a {{words}}
   report_spam: Denunciar spam
   repository: 
-    add_document: Agregar nuevo documento
+    add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
     enable: Habilitar repositorio?
@@ -1583,7 +1578,7 @@ es:
     change: Cambiar idioma
     one: Traducir
     request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
-    translated: "VCC esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
+    translated: "GlobalPlaza esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
   type: Tipo
   undated: Sin fecha
   unknown_content: Desconocida contenido {{content}}
@@ -1602,7 +1597,7 @@ es:
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para agregar nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
+      instruction: "Para a\xC3\xB1adir nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
       note: "Por ejemplo: &quot;John Silver&quot; &lt;&quot;jsilver@example.com&quot;&gt; &quot;, jct@dit.es; aaron@example.net Aar\xC3\xB3n y haga clic en&quot; Registrarse como usuario registrar\xC3\xA1 las direcciones de correo electr\xC3\xB3nico como 3 miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
     add_more: add more>>
     admin: Admin
@@ -1671,8 +1666,8 @@ es:
     search: Buscar usuarios ...
     timezone: Zona Horaria
     updated: El Usuario se ha actualizado correctamente.
-    vcc_email: VCC de usuario E-mail {{dir}}
-    view_expanded_posts: Ampliar comentarios
+    vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
+    view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
     without_group: Las personas sin grupo
   username: Nombre de usuario
   vCard: 
@@ -1682,7 +1677,7 @@ es:
     use: Usa tu vCard
   vcard: vcard
   vcc: Virtual Conference Centre
-  vcc_mail_label: "[] VCC"
+  vcc_mail_label: "[GlobalPlaza]"
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"
