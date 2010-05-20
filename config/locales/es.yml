@@ -455,7 +455,13 @@ es:
   edit_hours: Editar horas
   edit_profile: Editar perfil
   edit_your_profile: Editar tu perfil
-  email: Email
+  email: 
+    commas: (separados por comas)
+    confirm: "Para confirmar su direcci\xC3\xB3n de e-mail, por favor visite la siguiente direcci\xC3\xB3n URL:"
+    notifications: "notificaciones de correo electr\xC3\xB3nico"
+    one: Correo
+    other: e-mails
+    used_from: "de correo electr\xC3\xB3nico utilizado en forma de contacto: {{dir}}"
   email_or_full_name: e-Mail o el nombre completo
   enable: Posibilitar
   enabled: Espacios activos
@@ -729,14 +735,14 @@ es:
       participants: Los participantes
       spaces: Espacios
       tags: Etiquetas
-    main_title: "VCC un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
+    main_title: "VCC es un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
     meet: 
-      sentence1: "Descubre lo mejor en l\xC3\xADnea videoconferencias"
-      sentence2: Conozca gente interesante y grupos
-      sentence3: Videoconferencias con sus colegas
+      sentence1: "Descubre las mejores videoconferencias en l\xC3\xADnea"
+      sentence2: Amplíe su círculo de contactos
+      sentence3: Realice conferencias con sus socios
     share: 
-      sentence1: "Videoconferencia de grabaci\xC3\xB3n y descarga"
-      sentence2: "Documento y v\xC3\xADdeo repositorios"
+      sentence1: "Grabaci\xC3\xB3n y descarga de videoconferencias"
+      sentence2: "Repositorios de documentos y v\xC3\xADdeo"
       sentence3: Su persona de contacto y las relaciones
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "Por d\xC3\xB3nde empezar!"
