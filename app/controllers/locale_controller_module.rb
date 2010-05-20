@@ -21,8 +21,8 @@ module LocaleControllerModule
         I18n.locale = current_user.locale.to_sym
       elsif session[:locale] and I18n.available_locales.include?(session[:locale])
         I18n.locale = session[:locale]
-      elsif accept_language_header_locale and I18n.available_locales.include?(accept_language_header_locale)
-        I18n.locale = accept_language_header_locale
+      #elsif accept_language_header_locale and I18n.available_locales.include?(accept_language_header_locale)
+      #  I18n.locale = accept_language_header_locale
       else
         I18n.locale = I18n.default_locale  
       end

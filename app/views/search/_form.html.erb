@@ -15,7 +15,7 @@
 
 <%end%>
 
-<% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
+<% form_tag(search_all_path, :method => 'get') do %>
 
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
