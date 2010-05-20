@@ -8,7 +8,7 @@ es:
   about_global: Acerca de GLOBAL
   about_me: "Acerca de m\xC3\xAD"
   about_sxsw: Acerca de SXSW
-  about_vcc: Acerca de VCC
+  about_vcc: Acerca de GlobalPlaza
   account: Cuenta
   account_activated: Su cuenta ha sido activada
   account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
@@ -446,33 +446,33 @@ es:
     spam_activation: "Si no se ha registrado en este sitio, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
     spam_invitation: "Si cree que este mensaje es spam, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
     thanks: Gracias por visitar {{sitename}}
-    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{name}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
-    used_from: "correo electr\xC3\xB3nico utilizado en la forma de contacto: {{dir}}"
-    vcc_team: El equipo de VCC
+    url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico (\"{{name}}\") y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
+    used_from: "correo electr\xC3\xB3nico utilizado en el formulario de contacto: {{dir}}"
+    vcc_team: El equipo de GlobalPlaza
     welcome: Bienvenido a {{sitename}}
   edit: Editar
   edit_hours: Editar horas
   edit_profile: Editar perfil
-  edit_your_profile: Editar tu perfil
-  email: Email
-  email_or_full_name: e-Mail o el nombre completo
-  enable: Posibilitar
-  enabled: Espacios activos
+  edit_your_profile: Editar su perfil
+  email: "Correo electr\xC3\xB3nico"
+  email_or_full_name: "Correo electr\xC3\xB3nico o nombre completo"
+  enable: Habilitar
+  enabled: Habilitado
   enlarge: Ampliar
   error: 
     change: "El cambio no es v\xC3\xA1lido"
     credentials: "Credenciales no v\xC3\xA1lidas"
     e403: "No est\xC3\xA1 autorizado para ver esa p\xC3\xA1gina."
-    e404: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
-    e500: "La p\xC3\xA1gina que est\xC3\xA1s buscando no existe."
-    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o la p\xC3\xA1gina se han movido."
+    e404: "La p\xC3\xA1gina que est\xC3\xA1 buscando no existe."
+    e500: "La p\xC3\xA1gina que est\xC3\xA1 buscando no existe."
+    mistyped_or_moved: "Es posible que haya escrito mal la direcci\xC3\xB3n o que la p\xC3\xA1gina se haya movido."
     not_allowed: "No est\xC3\xA1 autorizado para realizar esa acci\xC3\xB3n."
-    one: Error.
-    other: Errores.
-    vcc_warning: "VCC advertencia:"
+    one: Error
+    other: Errores
+    vcc_warning: "Advertencia de GlobalPlaza:"
   eu_commision: "Comisi\xC3\xB3n Europea"
   event: 
-    Isabel: Caso de Isabel
+    Isabel: Evento Isabel
     action: 
       select: Acciones
     agenda: 
@@ -485,17 +485,17 @@ es:
     basic_info: "Introducir la informaci\xC3\xB3n b\xC3\xA1sica"
     button: 
       attevents: Asistir a eventos
-      atteventstitle0: Eventos que han confirmado su asistencia
-      atteventstitle1: Usted no ha confirmado su asistencia a cualquier evento
+      atteventstitle0: Eventos a los que ha confirmado su asistencia
+      atteventstitle1: "Usted no ha confirmado su asistencia a ning\xC3\xBAn evento"
       myevents: Mis eventos
       myeventstitle0: Eventos que ha creado
-      myeventstitle1: "No ha creado ning\xC3\xBAn caso"
+      myeventstitle1: "No ha creado ning\xC3\xBAn evento"
     choose_location: "Elija la ubicaci\xC3\xB3n"
     colon: "Evento:"
     coming: "Pr\xC3\xB3ximas actividades"
     connection: 
       info: "Informaci\xC3\xB3n de conexi\xC3\xB3n para este evento"
-      isabel: Isabel servidor
+      isabel: Servidor Isabel
       sip: Proxy SIP
       str: Streaming
       web: "Participaci\xC3\xB3n"
@@ -503,21 +503,21 @@ es:
       info: 
         basic: "Aqu\xC3\xAD puede organizar tres tipos de eventos"
         conference: 
-          message: "Avanzada, reuniones grandes. la producci\xC3\xB3n de televisi\xC3\xB3n como gestionado por un operador."
+          message: "Reuniones grandes, avanzadas. Producci\xC3\xB3n estilo TV que necesita la gesti\xC3\xB3n de un operador."
           name: Congreso Virtual
         meeting: 
-          message: "F\xC3\xA1cil de videoconferencia con la participaci\xC3\xB3n de compartir documentos y autom\xC3\xA1tica de streaming y grabaci\xC3\xB3n."
-          name: Encuentro Virtual
+          message: "Videoconferencia de f\xC3\xA1cil participaci\xC3\xB3n, con compartici\xC3\xB3n de documentos y streaming y grabaci\xC3\xB3n autom\xC3\xA1ticos."
+          name: "Reuni\xC3\xB3n virtual"
         presential: 
-          message: "Ideal para reuniones r\xC3\xA1pida y simple. Notifique a sus parejas, cargar documentos de trabajo. No tiene video streaming autom\xC3\xA1tica ni grabaci\xC3\xB3n."
+          message: "Ideal para reuniones r\xC3\xA1pidas y sencillas. Notifique a los participantes, suba documentos de trabajo. No tiene streaming o grabaci\xC3\xB3n de video."
           name: "Reuni\xC3\xB3n"
       title: Crear nuevo evento
-    created: "Evento fue creado con \xC3\xA9xito."
-    deleted: Evento eliminado correctamente
+    created: "El evento fue creado con \xC3\xA9xito"
+    deleted: El evento fue eliminado correctamente
     description: 
-      add: "Agregar descripci\xC3\xB3n."
+      add: "Agregar una descripci\xC3\xB3n."
       edit: "Editar descripci\xC3\xB3n"
-      none: "Nadie ha escrito una descripci\xC3\xB3n todav\xC3\xADa."
+      none: "Nadie ha escrito a\xC3\xBAn una descripci\xC3\xB3n."
     edit: Editar evento
     enable: 
       isabel: Isabel
@@ -525,25 +525,25 @@ es:
       sip: SIP
       web: Web
     error: 
-      cm_connection: "La conexi\xC3\xB3n al sistema de videoconferencia a distancia no"
-      date_past: Fecha de inicio no puede ser pasado
-      dates: La primera fecha no puede ser menor que el segundo
-      dates1: "La fecha de inicio de eventos debe ser anterior a la fecha de finalizaci\xC3\xB3n del evento"
-      delete: "El evento no se podr\xC3\xADa eliminar"
-      marte: No se puede crear una conferencia virtual
-      omit_date: "El evento necesidades fecha de inicio y fecha de finalizaci\xC3\xB3n"
-      videoconference: No se pudo crear videoconferencia caso
-    follow: Siga este evento
+      cm_connection: "La conexi\xC3\xB3n con el sistema de videoconferencia ha fallado"
+      date_past: La fecha de inicio no puede estar en el pasado
+      dates: "La fecha de finalizaci\xC3\xB3n debe ser posterior a la de inicio"
+      dates1: "La fecha de inicio del evento debe ser anterior a la fecha de finalizaci\xC3\xB3n"
+      delete: El evento no se ha podido eliminar
+      marte: No se ha podido crear la conferencia virtual
+      omit_date: El evento necesita horas de inicio y fin
+      videoconference: No se ha podido crear el evento de videoconferencia
+    follow: "Siga esta reuni\xC3\xB3n virtual"
     found: 
-      none: No se encontraron eventos
-      one: "1 caso se encontr\xC3\xB3"
-      other: "{{size}} eventos encontrados"
-    future: Futuros eventos
+      none: No se han encontrado eventos
+      one: Se ha encontrado 1 evento
+      other: Se han encontrado {{size}} eventos
+    future: Evento futuro
     generate_pdf: Generar PDF
     has: Este evento se ha
     held_with: "Este evento se llevar\xC3\xA1 a cabo con"
     help: 
-      book: Reserva los recursos que se necesita para hacer una videoconferencia. Por favor, defina su horario en el programa.
+      book: Para hacer la videoconferencia, es necesario reservar recursos. Por favor, defina la agenda.
       create: "Crear un evento simple en tres pasos:"
       creating_entries: "la creaci\xC3\xB3n de entradas"
       define: Definir el calendario de sus reuniones
@@ -679,9 +679,9 @@ es:
     accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
     clarify_registered: "Por favor, introduzca su contrase\xC3\xB1a para confirmar su asistencia al evento"
     clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el Centro Virtual de Conferencias y confirmar su asistencia al evento"
-    confirm_password: "Confirma la contrase\xC3\xB1a"
+    confirm_password: "Confirme la contrase\xC3\xB1a"
     deselect_all_users: "Anular la selecci\xC3\xB3n de todos los usuarios"
-    discarded: "La invitaci\xC3\xB3n a este evento ha sido desechado"
+    discarded: "Ha desechado la invitaci\xC3\xB3n a este evento"
     email: "Correo electr\xC3\xB3nico"
     full_name: Nombre completo
     hide_all_users: Ocultar todos los usuarios
@@ -689,54 +689,54 @@ es:
     message_title: Invitar gente a unirse a su evento
     new: 
       other: Invitar a gente
-    not_processed: "La invitaci\xC3\xB3n no se podr\xC3\xADa procesar"
+    not_processed: "La invitaci\xC3\xB3n no se ha podido procesar"
     password: "Contrase\xC3\xB1a"
     select_all_users: Seleccionar todos los usuarios
     show_all_users: Mostrar todos los usuarios
-    title: "Invitaci\xC3\xB3n Evento"
-    will_invite: "La gente te invitar\xC3\xA1 a:"
-  export_widget: "Exportaci\xC3\xB3n Widget"
+    title: "Invitaci\xC3\xB3n al evento"
+    will_invite: "Gente invitada:"
+  export_widget: Exportar widget
   fax: Fax
   feedback: 
-    email: "Esta es una retroalimentaci\xC3\xB3n e-Mail:"
-    note: "Ay\xC3\xBAdanos a mejorar VCC. Por favor env\xC3\xADe sus comentarios, problemas y sugerencias. Vamos a tratar de responder lo m\xC3\xA1s pronto posible."
-    one: "Realimentaci\xC3\xB3n"
+    email: "{{email}} envi\xC3\xB3 la siguiente comentario:"
+    note: "Ay\xC3\xBAdenos a mejorar GlobalPlaza. Por favor, env\xC3\xADe sus comentarios, problemas y sugerencias. Trataremos de responder lo antes posible"
+    one: Comentarios
     send: Enviar comentarios
-    send_us: "Env\xC3\xADanos tus comentarios!"
-    sent: "Su informaci\xC3\xB3n de retroalimentaci\xC3\xB3n e-mail ha sido enviado con \xC3\xA9xito. Thanks you"
+    send_us: "\xC2\xA1Env\xC3\xADenos sus comentarios!"
+    sent: "Su correo electr\xC3\xB3nico con comentarios ha sido enviado con \xC3\xA9xito. Gracias"
   file: Fichero
-  fill_fields: Usted debe llenar todos los campos
+  fill_fields: Debe llenar todos los campos
   find: 
     browse: Navegar
   find_in: "Buscar en:"
-  find_in_day: "Encuentre en d\xC3\xADa:"
-  find_in_name_speakers: "Buscar en el nombre de altavoces:"
+  find_in_day: "Buscar en d\xC3\xADa:"
+  find_in_name_speakers: "Buscar en nombre/ponentes:"
   follow_reset_password: "{{agent}}, siga el enlace para cambiar su contrase\xC3\xB1a"
   form: 
-    loading: "El formulario est\xC3\xA1 cargando ..."
+    loading: "El formulario se est\xC3\xA1 cargando..."
   from: Desde
   frontpage: 
     collaborate: 
-      sentence1: Organiza tus proyectos y actividades
-      sentence2: Participar en conferencias y eventos
-      sentence3: Crea tu propio espacio y conferencias
+      sentence1: Organice sus proyectos y actividades
+      sentence2: Participe en conferencias y eventos
+      sentence3: Cree su propio espacio y conferencias
     elements: 
       comments: Comentarios
       conferences: Conferencias
       networks: Redes Sociales
       organizers: Organizadores
-      participants: Los participantes
+      participants: Participantes
       spaces: Espacios
       tags: Etiquetas
-    main_title: "VCC un servicio de alojamiento para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
+    main_title: "GlobalPlaza: un servicio para la publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
     meet: 
-      sentence1: "Descubre lo mejor en l\xC3\xADnea videoconferencias"
-      sentence2: Conozca gente interesante y grupos
-      sentence3: Videoconferencias con sus colegas
+      sentence1: Descubra las mejores videoconferencias online
+      sentence2: Conozca gente y grupos interesantes
+      sentence3: Videoconferencia con sus colegas
     share: 
-      sentence1: "Videoconferencia de grabaci\xC3\xB3n y descarga"
-      sentence2: "Documento y v\xC3\xADdeo repositorios"
-      sentence3: Su persona de contacto y las relaciones
+      sentence1: "Grabaci\xC3\xB3n y streaming de videoconferencias"
+      sentence2: "Repositorios de v\xC3\xADdeos y documentos"
+      sentence3: Sus contactos y relaciones
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "Por d\xC3\xB3nde empezar!"
   group: 
@@ -856,8 +856,8 @@ es:
     one: Inicio
   icalendar: 
     add: Actualizar y agregar nuevas entradas
-    conflictive1: "Una entrada de su calendarioi fue sobre la aplicaci\xC3\xB3n Vcc y se ha modificado. Usted debe actualizar manualmente para evitar problemas."
-    conflictiven: "entradas de su calendarioi estaban en la aplicaci\xC3\xB3n Vcc y se han modificado. Usted debe actualizar manualmente para evitar problemas."
+    conflictive1: "Una entrada de su iCalendar ya exist\xC3\xADa en GlobalPlaza y se ha modificado. Debe actualizarla manualmente para evitar problemas."
+    conflictiven: "entradas de su iCalendar ya exist\xC3\xADan en GlobalPlaza y se han modificado. Debe actualizarlas manualmente para evitar problemas."
     error_import: Se produjo un error al importar el iCalendar.
     export: "Exportaci\xC3\xB3n de iCalendar"
     import: "Importaci\xC3\xB3n de iCalendar"
@@ -1067,7 +1067,7 @@ es:
     updated: "Art\xC3\xADculo actualizado correctamente"
   next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
-  no_messages_in_wall: No hay mensajes en la pared
+  no_messages_in_wall: "No hay ning\xC3\xBAn mensaje en el muro"
   no_tags_found: No se encontraron etiquetas
   none: Ninguno
   not_going: No voy
@@ -1221,7 +1221,7 @@ es:
     other_in_space: Mensajes en el espacio {{space}}
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
     updated: Entrada actualizada
-    wall: Pared
+    wall: Muro
   preferences: Preferencias
   previous: Anterior
   privacy: Intimidad
@@ -1577,7 +1577,7 @@ es:
     change: Cambiar idioma
     one: Traducir
     request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
-    translated: "VCC esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
+    translated: "GlobalPlaza esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
   type: Tipo
   undated: Sin fecha
   unknown_content: Desconocida contenido {{content}}
@@ -1665,8 +1665,8 @@ es:
     search: Buscar usuarios ...
     timezone: Zona Horaria
     updated: El Usuario se ha actualizado correctamente.
-    vcc_email: VCC de usuario E-mail {{dir}}
-    view_expanded_posts: Ampliar comentarios
+    vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
+    view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
     without_group: Las personas sin grupo
   username: Nombre de usuario
   vCard: 
@@ -1676,7 +1676,7 @@ es:
     use: Usa tu vCard
   vcard: vcard
   vcc: Virtual Conference Centre
-  vcc_mail_label: "[] VCC"
+  vcc_mail_label: "[GlobalPlaza]"
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"
