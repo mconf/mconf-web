@@ -259,15 +259,15 @@ es:
   click_here: "Haga clic aqu\xC3\xAD"
   click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
   close: Cerrar
-  collapse: colapso
-  collapse>>: colapso&gt;&gt;
+  collapse: contraer
+  collapse>>: contraer>>
   comment: 
     add: "A\xC3\xB1adir un comentario"
-    add_new: "A\xC3\xB1ade un comentario nuevo"
+    add_new: "A\xC3\xB1adir un nuevo comentario"
     by: comentario de {{author}}
     delete: Eliminar comentario
     edit: Editar comentario
-    new: Nuevo Comentario
+    new: Nuevo comentario
     one: Comentario
     other: Comentarios
     recent: 
@@ -280,23 +280,23 @@ es:
     other: Contenedores
   content: 
     create: 
-      one: Crear Contenido
-      other: Crear Contenidos
+      one: Crear contenido
+      other: Crear contenidos
     delete: 
-      one: Borrar Contenido
-      other: Borrar Contenidos
-    new: Nuevo Contenido
+      one: Borrar contenido
+      other: Borrar contenidos
+    new: Nuevo contenido
     one: Contenido
     other: Contenidos
     read: 
-      one: Ver Contenido
-      other: Ver Contenidos
+      one: Ver contenido
+      other: Ver contenidos
     update: 
-      one: Actualizar Contenido
-      other: Actualizar Contenidos
+      one: Actualizar contenido
+      other: Actualizar contenidos
   conversation: 
-    compress: "Conversaci\xC3\xB3n Comprimir"
-  could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa direcci\xC3\xB3n de correo"
+    compress: "Contraer conversaci\xC3\xB3n"
+  could_not_find_anybody_with_that_email_address: "No se ha encontrado a nadie con esa direcci\xC3\xB3n de correo"
   country: !binary |
     UGHDrXM=
 
@@ -401,7 +401,7 @@ es:
       day: !binary |
         RMOtYQ==
 
-      hour: Horas
+      hour: Hora
       minute: Minuto
       month: Mes
       second: Segundos
@@ -411,38 +411,41 @@ es:
   days: !binary |
     RMOtYXM=
 
-  dblclick: Haga doble clic para editar ...
+  dblclick: Haga doble clic para editar...
   delete: 
-    confirm: "\xC2\xBFEst\xC3\xA1s seguro?"
+    confirm: "\xC2\xBFEst\xC3\xA1 seguro de eliminar {{element}}?"
     one: Borrar
     select: Seleccionar para eliminar
   deny: "No"
   description: "Descripci\xC3\xB3n"
-  destroy: Destroy
+  destroy: Destruir
   detail: 
     other: Detalles
-  disable: Desactivar
+  disable: Deshabilitar
   disabled: Espacios deshabilitados
   docs: Docs
   document: 
     add: Agregar nuevo documento
-  done: Hecho!
+  done: "\xC2\xA1Hecho!"
   download: Descargar
-  download_file: Download file
+  download_file: Descargar fichero
   e-mail: 
-    account_activated: "Tu cuenta en {{sitename}} ha sido activado con \xC3\xA9xito."
-    commas: (Separados por comas)
-    confirm: Es necesario ahora para confirmar su registro haciendo clic en <a href="{{url}}">{{url}}</a>
-    copy_link: "Si usted no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
+    account_activated: "Su cuenta en {{sitename}} ha sido activada con \xC3\xA9xito."
+    commas: (separados por comas)
+    confirm: Es necesario confirmar su registro haciendo clic en <a href="{{url}}">{{url}}</a>
+    copy_link: "Si no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
     dear: Estimado {{name}},
-    join_request: "\xC3\x9Anete a solicitud"
+    invitation_result: 
+      admin_side: "{{name}} ha {{action}} la invitaci\xC3\xB3n al espacio {{spacename}}"
+      user_side: El administrador del espacio {{spacename}} ha {{action}} su solicitud para participar
+    join_request: Solicitud para participar
     kind_regards: Un cordial saludo,
     notifications: "notificaciones por correo electr\xC3\xB3nico"
     one: "correo electr\xC3\xB3nico"
     other: "mensajes de correo electr\xC3\xB3nico"
-    spam_activation: Si no se ha registrado en este sitio, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
-    spam_invitation: Si crees que este mensaje es un spam, por favor <a href="mailto:{{contact}}">contacte con nosotros</a> o enviarnos <a href="{{feedback}}">comentarios.</a>
-    thanks: Gracias por visitar la {{sitename}}
+    spam_activation: "Si no se ha registrado en este sitio, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
+    spam_invitation: "Si cree que este mensaje es spam, por favor <a href=\"mailto:{{contact}}\">contacte con nosotros</a> o env\xC3\xADenos <a href=\"{{feedback}}\">comentarios.</a>"
+    thanks: Gracias por visitar {{sitename}}
     url_activated: "Ahora puede acceder a su cuenta con su correo electr\xC3\xB3nico &quot;{{name}}&quot; y su contrase\xC3\xB1a en <a href=\"{{url}}\">{{url}}</a>"
     used_from: "correo electr\xC3\xB3nico utilizado en la forma de contacto: {{dir}}"
     vcc_team: El equipo de VCC
@@ -588,11 +591,13 @@ es:
         name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
       message_beginning_with_start_date: "<p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}</b> en &quot;event_date&#39;: </p>"
       message_beginning_without_start_date: <p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}:</b> </p>
+      message_ending: "<p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre el evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Enviar una notificaci\xC3\xB3n a los asistentes"
       personal: "Escribe el texto de su personal aqu\xC3\xAD."
       select_all_attendants: Seleccionar todos los asistentes
       selected_attendants: "Asistentes desea notificar a:"
       show_all_attendants: Mostrar todos los asistentes
+      subject: "{{username}} le ha enviado una notificaci\xC3\xB3n acerca del evento {{eventname}} en el espacio {{space}}"
       title: Notificar a los asistentes del evento
     now: "Eventos en este momento:"
     one: Evento
@@ -732,6 +737,7 @@ es:
       sentence1: "Videoconferencia de grabaci\xC3\xB3n y descarga"
       sentence2: "Documento y v\xC3\xADdeo repositorios"
       sentence3: Su persona de contacto y las relaciones
+    stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "Por d\xC3\xB3nde empezar!"
   group: 
     add_to_group: "A\xC3\xB1adir a grupo"
@@ -757,6 +763,21 @@ es:
     not_found: hCard que no se encuentra
   hello: Hola
   help: Ayuda
+  help_createVC: 
+    part1: ""
+    part2: ""
+    part3: ""
+  help_createVM: 
+    part1: ""
+    part2: ""
+    part3: ""
+  help_createevent: 
+    part1: ""
+    part2: ""
+  help_createmeeting: 
+    part1: ""
+    part2: ""
+    part3: ""
   help_createpost: 
     part1: "Para crear un mensaje en la pared en VCC:"
     part10: "a. Ver c\xC3\xB3digo fuente HTML"
@@ -813,6 +834,10 @@ es:
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de VCC
+    create_VC: ""
+    create_VM: ""
+    create_event: ""
+    create_meeting: ""
     create_post: Publicar un mensaje en el muro
     create_space: "La creaci\xC3\xB3n de un Espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
@@ -868,6 +893,7 @@ es:
     accept: "Aceptar invitaci\xC3\xB3n"
     accepted: "Invitaci\xC3\xB3n aceptada"
     accepted_by: "{{candidate}} acept\xC3\xB3 la invitaci\xC3\xB3n"
+    access_space: "Ahora es miembro de {{spacename}}; puede acceder a \xC3\xA9l en <a href=\"{{space_url}}\">{{space_url}}</a>"
     add_more: "Invita a m\xC3\xA1s gente"
     comment: Comentario
     confirm_delete: "\xC2\xBFBorrar invitaci\xC3\xB3n?"
@@ -879,6 +905,8 @@ es:
     email: "Correo electr\xC3\xB3nico"
     hide_all_users: Ocultar todos los usuarios
     info_event: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en &#39;event_url&#39;"
+    info_space: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca de este espacio en  <a href=\"{{space_url}}\">{{space_url}}</a>"
+    info_users: Puede ver la lista de usuarios del espacio en  <a href="{{users_url}}">{{users_url}}</a>
     introducer: Introductor
     label: "Personaliza tu invitaci\xC3\xB3n mensaje"
     legend: 
@@ -886,6 +914,14 @@ es:
       name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
     logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre de sesi\xC3\xB3n y vuelva a intentarlo"
     message_title: Invitar gente a unirse a su espacio
+    message_with_start_date: 
+      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>, el 'event_date'.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_without_start_date: 
+      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     new: 
       other: Nuevas invitaciones
     not_accepted: No se aceptan
@@ -900,6 +936,7 @@ es:
     pending: 
       other: Invitaciones pendientes
     personal: "Escribe el texto de su personal aqu\xC3\xAD."
+    rejoin_space: Si desea solicitar de nuevo el ser miembro, por favor vaya a <a href="{{space_url}}"> {{space_url}} </a>
     role: Rol
     role_label: Papel de los invitados
     select_all_users: Seleccionar todos los usuarios
@@ -909,11 +946,12 @@ es:
     show_all_users: Mostrar todos los usuarios
     sign: Atentamente, ((nombre de usuario))
     space: "Me gustar\xC3\xADa invitar a usted a {{space}} espacio en el Centro Virtual de la Conferencia."
+    subject: "{{username}} le ha invitado a un evento en el espacio {{space}}"
     title: Invitar a la gente
     title2: "Espacio Invitaci\xC3\xB3n"
     to_accept: "Para aceptar mi invitaci\xC3\xB3n por favor, visite <a href={{url}}>{{url}}</a>"
     to_accept_space: "Para aceptar mi invitaci\xC3\xB3n por favor, visite {{url}}"
-    to_event: ""
+    to_event: "{{username}} le ha invitado al evento {{eventname}} en el espacio {{space}}"
     to_space: ((Nombre de usuario)) te invita al espacio {{space}}
     was_processed: 
       accepted: "La invitaci\xC3\xB3n ya fue aceptada"
@@ -927,7 +965,9 @@ es:
   join_request: 
     accepted: "Petici\xC3\xB3n aceptada"
     already_sent: "Usted ya ha enviado una petici\xC3\xB3n conjunta a este espacio"
-    asked: ""
+    ask_subject: "{{candidate}} quiere participar en {{space}}"
+    asked: "<b>{{candidate}}</b> quiere participar en el espacio {{space}}, que est\xC3\xA1 administrado por usted:"
+    asked_anonymous: "Alguien quiere participar en el espacio {{space}}, que est\xC3\xA1 administrado por usted:"
     created: "Petici\xC3\xB3n enviada"
     discarded: "Petici\xC3\xB3n descartada"
     joined: "Usted ya est\xC3\xA1 en el espacio"
@@ -976,6 +1016,7 @@ es:
   mailing_list: 
     associate: lista de correo asociado a su grupo
     invalid: "La lista de correo contiene caracteres no v\xC3\xA1lidos. Solo letras, n\xC3\xBAmeros, guiones y guiones se permiten"
+    reserved: "La lista de correo {{systemMailingList}} est\xC3\xA1 reservada"
   manage: Administrar
   management: "Gesti\xC3\xB3n"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
@@ -1233,7 +1274,7 @@ es:
   remove: Eliminar
   reply: Responder
   reply_to: "Responder a:"
-  reply_to_words: ""
+  reply_to_words: Responder a {{words}}
   report_spam: Denunciar spam
   repository: 
     add_document: Agregar nuevo documento
@@ -1257,6 +1298,7 @@ es:
     other: Recursos
   role: 
     add: "A\xC3\xB1adir papel ..."
+    added: "Rol {{role}} a\xC3\xB1adido con \xC3\xA9xito a {{agent}}"
     change: Cambiar el papel ...
     confirm_delete: "\xC2\xBFBorrar Rol?"
     created: Rol creado satisfactoriamente.
@@ -1288,6 +1330,7 @@ es:
       attachments: "Buscar s\xC3\xB3lo los archivos adjuntos actualizada entre dos fechas"
       events: "Buscar s\xC3\xB3lo eventos celebrados entre dos fechas"
       posts: "Buscar mensajes s\xC3\xB3lo se actualiza entre dos fechas"
+      videos: "Buscar s\xC3\xB3lo v\xC3\xADdeos entre dos fechas"
     dots: Buscar ...
     events: 
       advanced: "Eventos B\xC3\xBAsqueda avanzada"
@@ -1395,6 +1438,10 @@ es:
     enabled: Espacio habilitado correctamente.
     error: 
       enabled: "Espacio {{name}} ya est\xC3\xA1 habilitado"
+    found: 
+      none: No se han encontrado espacios
+      one: Se ha encontrado 1 espacio
+      other: Se han encontrado {{size}} espacios
     group_not_belong: no pertenecen al mismo espacio que el grupo
     is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
     join: Unete a este espacio!
@@ -1435,6 +1482,7 @@ es:
     select: Elige uno
     show_all: Ver todos los espacios
     subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
+    update_logo: Actualizar logo
     updated: El espacio se ha actualizado correctamente.
     upload_none: Usted tiene que seleccionar un logotipo para la carga.
   spam: 
@@ -1487,6 +1535,7 @@ es:
   the_string: la cadena de
   thread: 
     add: "A\xC3\xB1adir un nuevo hilo"
+    comments: "{{children}} comentarios"
     compact_view: Cambie a la vista compacta
     deleted: Hilo ha sido eliminado
     edit: Editar hilo
@@ -1496,7 +1545,7 @@ es:
     other: Threads
     see_less: Quiere comprimir todos los mensajes?
     see_more: "\xC2\xBFQuieres ver m\xC3\xA1s acerca de los mensajes?"
-    show_comment_size: ""
+    show_comment_size: Mostrando los {{size}} comentarios al mensaje
     show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
     show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
   time: 
@@ -1537,7 +1586,7 @@ es:
   updated: Actualizado
   updated_at: Actualizado
   updated_at_date: "Actualizado: {{date}}"
-  updated_time_ago: ""
+  updated_time_ago: Hace {{time}}
   upload: Subir
   url: Sitio web
   url_add: Agregar su sitio
@@ -1631,6 +1680,15 @@ es:
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"
+  video: 
+    found: 
+      none: "No se han encontrado v\xC3\xADdeos"
+      one: "Se ha encontrado 1 v\xC3\xADdeo"
+      other: "Se han encontrado {{size}} v\xC3\xADdeos"
+    one: !binary |
+      VsOtZGVv
+
+    other: "V\xC3\xADdeos"
   visit_link_to_activate_account: Visite este enlace para activar su cuenta
   week: 
     next: La semana que viene
