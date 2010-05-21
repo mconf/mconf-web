@@ -1374,6 +1374,7 @@ en:
     about: About
     add_user: 
       other: Add users to the space
+    add_user_other: ""
     all: All Spaces
     allow_public_access: Allow public access?
     be_fan: Be Fan
@@ -1405,7 +1406,7 @@ en:
     join: Join this space
     join_invitation: 
       clarify_registered: Please introduce password in order to join this space.
-      clarify_unregistered: Please introduce your full name and a password in order to register onto the Virtual Conference Centre and join this space.
+      clarify_unregistered: Please introduce your full name and a password in order to register onto the Global Plaza and join this space.
       title: Join space >
     join_pending: Join request being processed
     leave: Leave this space
