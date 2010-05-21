@@ -1243,9 +1243,9 @@ es:
     private: Perfil privado
     private_description: "S\xC3\xB3lo sus compa\xC3\xB1eros podr\xC3\xA1n acceder a esta informaci\xC3\xB3n"
     public: "Perfil p\xC3\xBAblico"
-    public_description: "Cualquiera podr\xC3\xA1 acceder a esta informaci\xC3\xB3n"
+    public_description: "Cualquier persona puede acceder a esta informaci\xC3\xB3n"
     should_create: "Usted debe <a href={{path}}>crear</a> su perfil. Es muy \xC3\xBAtil."
-    updated: Perfil se ha actualizado correctamente.
+    updated: Perfil actualizado correctamente.
     visibility: Visibilidad
     visibility_description: "Elija qui\xC3\xA9n podr\xC3\xA1 ver su perfil privado."
     visibility_edit: Edita tu perfil de visibilidad
@@ -1257,16 +1257,16 @@ es:
     visibility_public_fellows: "S\xC3\xB3lo sus compa\xC3\xB1eros en un espacio p\xC3\xBAblico o privado pueden ver su perfil privado."
   province: Provincia
   public: "P\xC3\xBAblicos"
-  read: Ver
+  read: Leer
   read_more: "Leer m\xC3\xA1s"
-  read_more>>: "Leer m\xC3\xA1s&gt;&gt;"
-  received_message_more_machines: "Ha recibido un mensaje de {{user}} pidiendo m\xC3\xA1s m\xC3\xA1quinas"
+  read_more>>: "Leer m\xC3\xA1s >>"
+  received_message_more_machines: "Ha recibido un mensaje de {{user}} solicitando m\xC3\xA1s m\xC3\xA1quinas"
   recent: 
     activity: Actividad reciente
   register: 
     one: Registro
-    thank_you: Gracias por registrarte en VCC.
-  register_as_admin: Registrarse como admin
+    thank_you: Gracias por registrarse en {{sitename}}
+  register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado
   register_as_user: Registrarse como usuario
   register_now: "Reg\xC3\xADstrese AHORA!"
@@ -1282,73 +1282,81 @@ es:
     add_tags: Agregar etiquetas
     download: Descargar
     enable: Habilitar repositorio?
-    loading: Refrescante repositorio de documentos ...
-    need_javascript: Por favor, activa Javascript para disfrutar de repositorio de documentos
+    loading: Actualizando el repositorio de documentos ...
+    need_javascript: Por favor, active Javascript para poder trabajar con el repositorio de documentos
     one: Repositorio
-    rem_tags: Quitar Etiquetas
+    rem_tags: Eliminar Etiquetas
     remove: Eliminar
-    search: "B\xC3\xBAsqueda documentos:"
+    search: "Buscar documentos:"
   request: 
     default: solicitar
-    info: "Su solicitud para unirse a este espacio ha sido enviado con \xC3\xA9xito a los administradores del espacio. Un administrador se encargar\xC3\xA1 de \xC3\xA9l tan pronto como sea posible"
-    sent: Solicitud enviado!
-  request_change_password: "Petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
+    info: "Su solicitud para participar en este espacio ha sido enviada con \xC3\xA9xito a los administradores del espacio. Un administrador se encargar\xC3\xA1 de su solicitud  tan pronto como sea posible"
+    sent: Solicitud enviada!
+  request_change_password: "Solicitar cambiar su contrase\xC3\xB1a"
   reset_password: "Cambiar Contrase\xC3\xB1a"
   resource: 
     one: Recurso
     other: Recursos
   role: 
-    add: "A\xC3\xB1adir papel ..."
-    added: "Rol {{role}} a\xC3\xB1adido con \xC3\xA9xito a {{agent}}"
-    change: Cambiar el papel ...
+    add: "A\xC3\xB1adir rol..."
+    added: "Rol {{role}} a\xC3\xB1adido exitosamente a {{agent}}"
+    change: Cambiar rol...
     confirm_delete: "\xC2\xBFBorrar Rol?"
     created: Rol creado satisfactoriamente.
     editing: Editando Rol
-    go_to_manage: Gestionar roles
+    go_to_manage: "Ir a la gesti\xC3\xB3n de roles"
     index: Lista de Roles
-    invalid: "El papel no es v\xC3\xA1lido"
-    listing: Listado de funciones de
+    invalid: "El rol no es v\xC3\xA1lido"
+    listing: Lista de roles
     name: Nombre
-    name_permissions: Permisos de {{name}}
-    new: Nuevo Rol
-    none: No hay papel asignado
+    name_permissions: Permisos {{name}}
+    new: Nuevo rol
+    none: No tiene rol asignado
     one: Rol
     other: Roles
     select: 
       one: Seleccionar Rol
     stage_type: Tipo de escenario
-    sucess_update: "Funci\xC3\xB3n actualizada exitosamente ..."
-    updated: Rol actualizado satisfactoriamente.
+    sucess_update: Rol actualizado exitosamente ...
+    updated: Rol actualizado satisfactoriamente
     without_permissions: El rol {{role}} no tiene permisos
   save: Guardar
   save_ch: Guardar los cambios
+  screencast: 
+    button: Ver screencast
+    sidebar: 
+      title: Screencasts
+    title: Screencast
+    title1: Como crear un evento
+    video: 
+      one: Screencast
   search: 
     advanced: "B\xC3\xBAsqueda avanzada"
     attachments: 
       dots: Buscar archivos adjuntos ...
       no_dots: Buscar archivos adjuntos
     between_dates: 
-      attachments: "Buscar s\xC3\xB3lo los archivos adjuntos actualizada entre dos fechas"
-      events: "Buscar s\xC3\xB3lo eventos celebrados entre dos fechas"
-      posts: "Buscar mensajes s\xC3\xB3lo se actualiza entre dos fechas"
-      videos: "Buscar s\xC3\xB3lo v\xC3\xADdeos entre dos fechas"
+      attachments: "Buscar s\xC3\xB3lo los archivos adjuntos actualizados entre dos fechas"
+      events: "Buscar s\xC3\xB3lo eventos llevados a cabo entre dos fechas"
+      posts: "Buscar s\xC3\xB3lo mensajes actualizados entre dos fechas"
+      videos: "Buscar s\xC3\xB3lo v\xC3\xADdeos grabados entre dos fechas"
     dots: Buscar ...
     events: 
-      advanced: "Eventos B\xC3\xBAsqueda avanzada"
-      description: "B\xC3\xBAsqueda en la descripci\xC3\xB3n del evento en"
+      advanced: "B\xC3\xBAsqueda avanzada de eventos"
+      description: "Buscar eventos por descripci\xC3\xB3n"
       dots: Buscar eventos ...
       no_dots: Buscar eventos
-      title: "Buscar por t\xC3\xADtulo evento"
-    explanation: "(en el t\xC3\xADtulo y la descripci\xC3\xB3n con palabras exactamente)"
+      title: "Buscar eventos por t\xC3\xADtulo"
+    explanation: "(buscar por t\xC3\xADtulo y descripci\xC3\xB3n que coincida exactamente con las palabras)"
     in: Buscar en
-    one: "B\xC3\xBAsqueda"
-    parameters: cadena de consulta demasiado especie
+    one: Buscar
+    parameters: Consulta demasiado corta
     posts: 
-      dots: Buscar entradas ...
-      no_dots: "Comentarios de b\xC3\xBAsqueda"
+      dots: Buscar mensajes...
+      no_dots: Buscar mensajes
     results: "Resultados de la b\xC3\xBAsqueda"
     space: 
-      dots: Buscar el espacio ...
+      dots: Buscar espacio...
     switch: "Cambiar a b\xC3\xBAsqueda global"
     users: Buscar usuarios
   searching_in: "Usted est\xC3\xA1 buscando en"
