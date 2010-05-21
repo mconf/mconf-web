@@ -1535,27 +1535,27 @@ es:
   thank_you: Gracias
   the_string: la cadena de
   thread: 
-    add: "A\xC3\xB1adir un nuevo hilo"
+    add: Crear nuevo mensaje
     comments: "{{children}} comentarios"
-    compact_view: Cambie a la vista compacta
-    deleted: Hilo ha sido eliminado
-    edit: Editar hilo
-    extended_view: Cambie a la vista ampliada
-    one: Hilo
-    or_add_new: "o a\xC3\xB1adir un nuevo hilo"
-    other: Threads
-    see_less: Quiere comprimir todos los mensajes?
-    see_more: "\xC2\xBFQuieres ver m\xC3\xA1s acerca de los mensajes?"
+    compact_view: Cambiar a la vista compacta
+    deleted: El mensaje (con sus comentarios) ha sido borrado
+    edit: Editar mensaje
+    extended_view: Cambiar a la vista ampliada
+    one: "Conversaci\xC3\xB3n"
+    or_add_new: o crear un nuevo mensaje
+    other: Conversaciones
+    see_less: Desea comprimir todos los mensajes?
+    see_more: "\xC2\xBFQuiere ver m\xC3\xA1s acerca de los mensajes?"
     show_comment_size: Mostrando los {{size}} comentarios al mensaje
-    show_last_comment: "Listado \xC3\xBAltima {{size}} ((comentarios de los ni\xC3\xB1os))."
-    show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del hilo."
+    show_last_comment: "Mostrando los \xC3\xBAltimos {{size}} comentarios de {{children}}"
+    show_one_only_comment: "Mostrando el \xC3\xBAnico comentario del mensaje."
   time: 
     am: am
     end: "Hora de finalizaci\xC3\xB3n"
     formats: 
-      default: "%A, %d de %B de %Y %H:%M:%S %z"
-      long: "%d de %B de %Y %H:%M"
-      short: "%d de %b %H:%M"
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
     pm: pm
     start: Hora de inicio
   timezone: 
@@ -1566,7 +1566,7 @@ es:
     mr: Sr.
     mrs: Sra.
     ms: Sra.
-  to: Para
+  to: para
   to_configure_your: para configurar su
   today: Hoy
   toke: 
@@ -1577,42 +1577,42 @@ es:
     availables: Traducciones disponibles
     change: Cambiar idioma
     one: Traducir
-    request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de VCC a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
+    request: "\xC2\xBFEst\xC3\xA1 pensando en la traducci\xC3\xB3n de Global Plaza a otro idioma? Por favor, solicite al administrador que a\xC3\xB1ada el nuevo lenguaje y su bandera"
     translated: "GlobalPlaza esta siendo ahora traducido, o en proceso de traducci\xC3\xB3n, a "
   type: Tipo
   undated: Sin fecha
-  unknown_content: Desconocida contenido {{content}}
+  unknown_content: Contenido {{content}} desconocido
   upcoming: "Pr\xC3\xB3ximos"
   update: Actualizar
   updated: Actualizado
-  updated_at: Actualizado
+  updated_at: Actualizado a
   updated_at_date: "Actualizado: {{date}}"
   updated_time_ago: Hace {{time}}
   upload: Subir
   url: Sitio web
-  url_add: Agregar su sitio
+  url_add: "A\xC3\xB1adir su sitio"
   url_plain: URL
   user: 
     activation_email_sent: "Se ha enviado un correo de activaci\xC3\xB3n al usuario"
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para a\xC3\xB1adir nuevos usuarios introducir una o varias direcciones de correo electr\xC3\xB3nico separadas por &quot;&quot; &quot;&quot;, o &quot;;&quot; y registrarlos"
-      note: "Por ejemplo: &quot;John Silver&quot; &lt;&quot;jsilver@example.com&quot;&gt; &quot;, jct@dit.es; aaron@example.net Aar\xC3\xB3n y haga clic en&quot; Registrarse como usuario registrar\xC3\xA1 las direcciones de correo electr\xC3\xB3nico como 3 miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
-    add_more: add more>>
+      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por \",\" o \";\" y registrelos"
+      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
+    add_more: "A\xC3\xB1adir usuarios>>"
     admin: Admin
-    assist: "Gente que asistir\xC3\xA1 al evento"
-    by_email: "a trav\xC3\xA9s de e-mail"
-    by_private_message: "a trav\xC3\xA9s de mensaje privado"
+    assist: "Personas que asistir\xC3\xA1n al evento"
+    by_email: "A trav\xC3\xA9s de e-mail"
+    by_private_message: "A trav\xC3\xA9s de mensaje privado"
     confirm_password: "Confirmar contrase\xC3\xB1a"
-    delete_from_space: Eliminar el usuario desde el espacio
+    delete_from_space: Eliminar el usuario del espacio
     disable: Deshabilitar usuario
     disabled: Usuario deshabilitado
-    e-mail: e-mail
+    e-mail: "correo electr\xC3\xB3nico"
     edit_account: Modificar su cuenta
-    email: Correo
+    email: "correo electr\xC3\xB3nico"
     enable: Habilitar usuario
-    enabled: "Usuario habilitado correctamente. El usuario no es miembro de ning\xC3\xBAn espacio que ahora y tiene que unirse a los espacios de nuevo."
+    enabled: "Usuario habilitado correctamente. El usuario actualmente no es miembro de ning\xC3\xBAn espacio. Tendr\xC3\xA1 que unirse a los espacios nuevamente."
     error: 
       enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
@@ -1621,44 +1621,44 @@ es:
     filter: Filtro de usuarios
     found: 
       none: No se encontraron usuarios
-      one: "1 usuario se encontr\xC3\xB3"
-      other: "{{size}} usuarios se han encontrado"
+      one: 1 usuario encontrado
+      other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
-    include_registered: Incluir a los usuarios registrados
+    include_registered: Incluir  usuarios registrados
     included: 
-      other: Incluyendo a los usuarios
+      other: Usuarios incluidos
     invitation: 
       label: Personalice su mensaje
       message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendr\xC3\xA1 lugar el dia 'f3echa' en 'lugar'."
       sign: Atentamente, 'firma'
-    invite: Invitar a gente a su evento
-    invite_email: Invitar a gente por e-mail
-    invite_from_space_by_email: "Invitar a gente de su espacio mediante el filtro y otros por correo electr\xC3\xB3nico"
-    invited: Ya a los usuarios
+    invite: Invitar personas
+    invite_email: Invitar personas por e-mail
+    invite_from_space_by_email: Invitar usuarios de su espacio
+    invited: Usuarios ya invitados
     list_by: Lista de
     login: Login
     lost_password: "\xC2\xBFHas olvidado tu contrase\xC3\xB1a?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
-    not_assist: "Las personas que no asistir\xC3\xA1 a este evento"
-    not_confirmed: Gente que no ha confirmado
-    notifications: Notificaciones
+    not_assist: "Las personas que no asistir\xC3\xA1n a este evento"
+    not_confirmed: Personas que no han confirmado
+    notifications: "De qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
     openid: 
       edit: Edita tus OpenId's
       one: OpenID
-      other: OpenID
+      other: OpenIDs
     other: Usuarios
     password: "Contrase\xC3\xB1a"
-    password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta de"
+    password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta"
     private_message: Mensaje Privado
-    recent_join: "Usuarios recientes se uni\xC3\xB3"
-    registered: "Gracias por registrarse! Acabamos de enviar instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario de forma permanente."
+    recent_join: Usuarios que se han unido recientemente
+    registered: "Gracias por registrarse! Le hemos enviado un correo electr\xC3\xB3nico con las instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario."
     request_password: "Solicitar contrase\xC3\xB1a"
-    reset_password: "Restablecer la contrase\xC3\xB1a"
+    reset_password: "Restablecer su contrase\xC3\xB1a"
     results_count: 
-      one: Gente, {{users_size}} resultado
-      other: Gente, {{users_size}} resultados
+      one: Personas, {{users_size}} resultado
+      other: Personas, {{users_size}} resultados
     save: 
       account: Guardar
       one: Guardar usuario
@@ -1668,15 +1668,15 @@ es:
     updated: El Usuario se ha actualizado correctamente.
     vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
     view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
-    without_group: Las personas sin grupo
+    without_group: Personas sin grupo
   username: Nombre de usuario
   vCard: 
-    corrupt: "La vCard enviado est\xC3\xA1 da\xC3\xB1ado o es una versi\xC3\xB3n no compatible"
-    no_selection: No hay ninguna vCard cargada
+    corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
+    no_selection: No hay ninguna vCard definida
     success: vCard cargado correctamente
-    use: Usa tu vCard
+    use: Use su vCard
   vcard: vcard
-  vcc: Virtual Conference Centre
+  vcc: Global Plaza
   vcc_mail_label: "[GlobalPlaza]"
   version: 
     new: "Nueva versi\xC3\xB3n"
@@ -1692,15 +1692,13 @@ es:
     other: "V\xC3\xADdeos"
   visit_link_to_activate_account: Visite este enlace para activar su cuenta
   week: 
-    next: La semana que viene
+    next: "La pr\xC3\xB3xima semana"
     this: Esta semana
-  when: !binary |
-    wr9DdcOhbmRv
-
+  when: "Cu\xC3\xA1ndo"
   where: Donde
   xmpp_server: 
     password_invalid: "contrase\xC3\xB1a no es v\xC3\xA1lida"
   yesterday: Ayer
   your_interests_tags: Sus intereses (tags)
-  your_vcard: vCard
+  your_vcard: su vCard
   zipcode: "C\xC3\xB3digo postal"
