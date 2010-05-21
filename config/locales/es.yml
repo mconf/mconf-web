@@ -1349,24 +1349,24 @@ es:
     results: "Resultados de la b\xC3\xBAsqueda"
     space: 
       dots: Buscar el espacio ...
-    switch: "Cambie a la b\xC3\xBAsqueda global"
+    switch: "Cambiar a b\xC3\xBAsqueda global"
     users: Buscar usuarios
   searching_in: "Usted est\xC3\xA1 buscando en"
-  select_image: Seleccione una imagen, por favor,
+  select_image: Seleccione una imagen, por favor
   send: Enviar
-  send_debug_emails: "Enviar E-Mails de depuraci\xC3\xB3n"
+  send_debug_emails: "Enviar correos electr\xC3\xB3nicos de depuraci\xC3\xB3n"
   send_message: Enviar un mensaje
-  send_reset_password_request: "Enviar petici\xC3\xB3n de cambio de contrase\xC3\xB1a"
+  send_reset_password_request: "Enviar solicitud para cambiar contrase\xC3\xB1a"
   session: 
     error: 
       exist: "Usted ya est\xC3\xA1 conectado"
-      fill: Por favor, rellene estos datos
+      fill: Por favor, complete estos datos
     should_create: "Usted debe crear su perfil, es muy \xC3\xBAtil"
-  share_participate_discuss: Compartir, participar, discutir.
-  should_check_email_to_activate_account: Debe comprobar el correo para activar su cuenta.
-  show: Ver
+  share_participate_discuss: Compartir, participar, discutir
+  should_check_email_to_activate_account: "Debe comprobar su correo electr\xC3\xB3nico para activar su cuenta."
+  show: Mostrar
   show_advanced_editor: Mostrar editor avanzado
-  show_list_version>>: mostrar como lista &gt;&gt;
+  show_list_version>>: "Mostrar versi\xC3\xB3n en forma de lista >>"
   singular_agent: 
     anonymous: 
       name: "An\xC3\xB3nimo"
@@ -1377,61 +1377,61 @@ es:
     cron_agent: 
       name: Cron
   site: 
-    chat_group_service_jid: Evento Chat Grupo de Servicio
-    cm_domain: Conferencia Administrador de dominio
-    config: "Configuraci\xC3\xB3n del Sitio"
+    chat_group_service_jid: Servicio Chat de grupo del evento
+    cm_domain: Dominio del gestor de conferencia
+    config: "Configuraci\xC3\xB3n del sitio"
     default: Sitio
     description: "Descripci\xC3\xB3n"
-    domain: Dominio
-    editing: "Editando la configuraci\xC3\xB3n del Sitio"
+    domain: "Dominio de aplicaci\xC3\xB3n"
+    editing: "Editando configuraci\xC3\xB3n del sitio"
     email: "Correo electr\xC3\xB3nico"
-    exception_notifications: "Enviar correos de depuraci\xC3\xB3n"
+    exception_notifications: "Enviar correos electr\xC3\xB3nicos de depuraci\xC3\xB3n"
     exception_notifications_email: "Direcci\xC3\xB3n destinataria de los correos de depuraci\xC3\xB3n"
     logo: Logo
     name: Nombre
     one: Sitio
     other: Sitios
-    presence_domain: Presencia de dominio
+    presence_domain: Dominio de presencia
     signature: Firma
     ssl: SSL
     updated: "La configuraci\xC3\xB3n del sitio se ha actualizado satisfactoriamente"
     xmpp_server_password: "Contrase\xC3\xB1a del servidor XMPP"
-    xmpp_server_password_confirmation: "XMPP servidor de confirmaci\xC3\xB3n de contrase\xC3\xB1a"
+    xmpp_server_password_confirmation: "Confirmaci\xC3\xB3n de contrase\xC3\xB1a del servidor XMPP"
   size: "Tama\xC3\xB1o"
   skype: Skype
-  society_media: "Sociedad de la Informaci\xC3\xB3n y Medios de Comunicaci\xC3\xB3n"
+  society_media: "Sociedad de la Informaci\xC3\xB3n y medios de Comunicaci\xC3\xB3n"
   source: 
-    created: Fuente se ha creado correctamente.
+    created: Recurso creado correctamente
     errors: 
       content_type: 
         invalid: "es inv\xC3\xA1lido: {{content_type}}"
-      dereference: No se pudo conectar a la fuente {{uri}}
-      multiple_feeds: "La direcci\xC3\xB3n tiene varias fuentes"
-      parse: No se pudo analizar la fuente {{uri}}
-    imported_at: Importada
-    one: Fuente
-    other: Fuentes
+      dereference: No se pudo conectar al recurso {{uri}}
+      multiple_feeds: Recurso tiene varios feeds
+      parse: No se pudo analizar el feed  {{uri}}
+    imported_at: Importado en
+    one: Recurso
+    other: Recursos
     target: Objetivo
     uri: URL
   space: 
-    about: Sobre
+    about: Acerca de
     add_user: 
-      other: "A\xC3\xB1adir a los usuarios del espacio"
+      other: "A\xC3\xB1adir usuarios al espacio"
     all: Todos los espacios
-    allow_public_access: "Permitir el acceso p\xC3\xBAblico?"
-    be_fan: Ser FAN
+    allow_public_access: "Permitir acceso p\xC3\xBAblico?"
+    be_fan: Ser aficionado
     clic: Haga clic para editar ...
-    clic_logo: Haga clic para cambiar el logotipo de
-    configuration: "La configuraci\xC3\xB3n espacial"
-    confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea salir de este espacio?"
-    create_own: Crea un nuevo espacio
-    created: El espacio se ha creado correctamente.
-    delete: Eliminar el espacio
-    deleted: El espacio se ha eliminado correctamente.
-    description_none: "Una descripci\xC3\xB3n del espacio se debe dar para crear un nuevo espacio"
+    clic_logo: Haga clic para cambiar su logo
+    configuration: "Configuraci\xC3\xB3n del espacio"
+    confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea dejar este espacio?"
+    create_own: Crear un nuevo espacio
+    created: Espacio creado correctamente.
+    delete: Eliminar espacio
+    deleted: Espacio eliminado correctamente
+    description_none: "Una descripci\xC3\xB3n del espacio deber\xC3\xA1 ser dada para crear un nuevo espacio"
     disabeld: "El espacio con \xC3\xA9xito con discapacidad."
-    disable: Deshabilitar el espacio
-    disabled: "Espacio con discapacidad con \xC3\xA9xito"
+    disable: Deshabilitar espacio
+    disabled: Espacio deshabilitado correctamente
     does_not_belong: "no pertenece a ning\xC3\xBAn espacio"
     edit_description: "editar la descripci\xC3\xB3n de"
     edit_name: editar el nombre de
@@ -1444,71 +1444,70 @@ es:
       one: Se ha encontrado 1 espacio
       other: Se han encontrado {{size}} espacios
     group_not_belong: no pertenecen al mismo espacio que el grupo
-    is_private: es un espacio privado. Enviar una solicitud para unirse a el administrador de este espacio para que pueda in
-    join: Unete a este espacio!
+    is_private: "es un espacio privado. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador del espacio"
+    join: "\xC3\x9Anete a este espacio"
     join_invitation: 
       clarify_registered: "Por favor, introduzca la contrase\xC3\xB1a para poder participar en este espacio."
-      clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para poder registrarse en el Centro Virtual de conferencias y participar en este espacio."
-      title: "\xC3\x9Anete a&gt; espacio"
-    join_pending: "\xC3\x9Anete a solicitud en tr\xC3\xA1mite"
-    leave: Deja este espacio
-    logo: Espacio Logo
+      clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el Global Plaza y participar en este espacio."
+      title: "\xC3\x9Anete al espacio  >"
+    join_pending: "Su solicitud de participaci\xC3\xB3n est\xC3\xA1 siendo procesada"
+    leave: Dejar este espacio
+    logo: Logo del espacio
     logo_selected: 
       close: Cerrar
       close_gallery: "Cerrar la galer\xC3\xADa"
-      default_message: "El logotipo del espacio ser\xC3\xA1 la siguiente:"
-      enter_text: "Introduce el texto para generar logotipos:"
+      default_message: "El logo del espacio ser\xC3\xA1 el siguiente:"
+      enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
-      text_logo: Crear una insignia del texto
-      upload_logo: Cargue su propio logotipo
-      upload_logo_text: "Seleccione un logotipo para subir:"
+      text_logo: Crear un logo de texto
+      upload_logo: Cargue su propio logo
+      upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
-    main: El espacio principal
-    member_of: Miembros de los espacios de
+    main: Espacio principal
+    member_of: Miembros del espacios
     my_spaces: Mis espacios
-    name_none: Un espacio de nombre se debe dar para crear un nuevo espacio
+    name_none: Un nombre al espacio debe se dado para crear un nuevo espacio
     one: Espacio
     other: Espacios
     popular: 
       other: Espacios populares
-    possesion: My Spaces
-    private: Private spaces
+    possesion: Mis espacios
+    private: Espacios privados
     public: 
       one: "Espacio p\xC3\xBAblico"
       other: "Espacios p\xC3\xBAblicos"
     recent: 
       other: Espacios Recientes
-    search: "Espacio de b\xC3\xBAsqueda ..."
-    select: Elige uno
+    search: Buscar espacio...
+    select: Espacios
     show_all: Ver todos los espacios
-    subscribed_to_none: "No est\xC3\xA1 suscrito a cualquier espacio"
+    subscribed_to_none: "No est\xC3\xA1 suscrito a ning\xC3\xBAn espacio"
     update_logo: Actualizar logo
-    updated: El espacio se ha actualizado correctamente.
-    upload_none: Usted tiene que seleccionar un logotipo para la carga.
+    updated: Espacio actualizado correctamente
+    upload_none: Usted tiene que seleccionar un logo para subirlo
   spam: 
-    created: "A la presentaci\xC3\xB3n de informes de spam e-mail ha sido enviado con \xC3\xA9xito a la administraci\xC3\xB3n frente a la VCC. Thanks you"
-    default: Spam
-    detected: Nueva spam detectado
+    created: Un mensaje reportando spam ha sido enviado correctamente al administrador de Global Plaza. Gracias
+    default: spam
+    detected: Nuevo spam detectado
     error: 
-      check: Ha habido un problema control de los recursos como spam
-    no_spam: Felicidades! no hay spam
-    report: Report spam
-    reported: "Un usuario ha informado de spam en la aplicaci\xC3\xB3n."
+      check: Se ha registrado un problema al marcar el recurso como spam
+    no_spam: Felicidades! No hay spam
+    report: Reportar spam
+    reported: Un usuario ha reportado spam en {{sitename}}
     valid: "Este contenido es v\xC3\xA1lido"
   stage: 
     all: Todos
     one: Escenario
-  stage_type: 
-    one: Tipo de escenario
+  stage_type: Tipo de escenario
   start_now!: Inicie ahora!
   street: Calle
   subject: Tema
   support: 
     array: 
-      last_word_connector: " y "
+      last_word_connector: ", y"
       sentence_connector: y
-      two_words_connector: " y "
+      two_words_connector: "y "
       words_connector: ", "
     one: Soporte
     select: 
@@ -1516,18 +1515,18 @@ es:
     words_connector: ","
   tag: 
     add: Agregar etiquetas
-    attachment: "Etiquetas para la inserci\xC3\xB3n"
+    attachment: Etiquetas para el fichero adjunto
     edit: Editar etiquetas
-    filter: "Filtrar por tag:"
+    filter: "Filtrar por etiquetas:"
     new: Nueva etiqueta
-    one: Etiqueta
-    other: Etiquetas
+    one: etiqueta
+    other: etiquetas
     other_capital: Etiquetas
-    other_in: Etiquetas de {{container}}
+    other_in: Etiquetas en {{container}}
     selected: 
       one: "Seleccione una etiqueta:"
-      other: "Topicos elegidos:"
-    show_title: Etiqueta '{{tag}}'
+      other: "Etiquetas seleccionadas:"
+    show_title: Etiquetado con '{{tag}}'
     start: Comienza a escribir ..
   tags: Etiquetas
   tags_by: "Etiquetas por:"
@@ -1612,7 +1611,7 @@ es:
     edit_account: Modificar su cuenta
     email: "correo electr\xC3\xB3nico"
     enable: Habilitar usuario
-    enabled: "Usuario habilitado correctamente. El usuario actualmente no es miembro de ning\xC3\xBAn espacio. Tendr\xC3\xA1 que unirse a los espacios nuevamente."
+    enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ning\xC3\xBAn espacio. Tendr\xC3\xA1 que solicitar la participaci\xC3\xB3n en los espacios nuevamente."
     error: 
       enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
