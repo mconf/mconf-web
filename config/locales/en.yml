@@ -1071,7 +1071,7 @@ en:
       discovery_failed: "Discovery failed for {{id}}: {{error}}"
       id_attached_to_account: "OpenID: {{id}} attached to your account"
       immediate_request_failed: Immediate request failed - Setup Needed
-      transaction_cancelled: OpenID transaction cancelled
+      transaction_cancelled: " OpenID transaction cancelled"
       verification_failed: "Verification failed: {{message}}"
       verification_failed_with_id: "Verification of {{id}} failed: {{message}}"
       verification_succeeded_with_id: Verification of {{id}} succeeded
@@ -1098,8 +1098,8 @@ en:
   organizer: Organisers
   other: Other
   pagination: 
-    next_label: Next &raquo;
-    previous_label: "&laquo; Previous"
+    next_label: "Next \xC2\xBB"
+    previous_label: "\xC2\xAB Previous"
   participant: 
     created: Your attendance information has been updated successfully
     error: 
@@ -1124,9 +1124,9 @@ en:
       one: Create Performance
       other: Create Performances
     delete: 
-      one: Delete Performance
-      other: Delete Performances
-    new: New Member
+      one: Delete Perfomance
+      other: Delete Perfomances
+    new: New member
     one: Member
     other: Members
     other_in: Members of {{stage}}
@@ -1136,8 +1136,8 @@ en:
     update: 
       one: Update Performance
       other: Update Performances
-    updated: User performance updated successfully
-    without_roles_available: The aren't any Roles avaible. Performances can't be set.
+    updated: User perfomance has been updated successfully
+    without_roles_available: The aren't any Roles available. Performances can't be set.
   permission: 
     other: Access rights
   personal_information: Personal information
