@@ -737,7 +737,7 @@ en:
     part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import icalendar<li>Notify attendants "
   help_createevent: 
     part1: "To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
-    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events: <br><li> <a href={{url_meeting}}> Meeting:</a> great for quick and simple meetings. Notify your partners, upload working documents. No automatic video streaming or recording. However, streaming and participation can be created manually as well as the recording of events. <li><a href={{url_vm}}>Virtual meeting:</a> easy videoconference participation with document sharing and automatic streaming and recording.<li><a href={{url_vc}}>Virtual congress:</a> advanced, big meetings. TV-like production, which needs to be managed by an operator."
+    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events, according to your needs: <br><li>The <b><a href={{url_meeting}}> Meeting </a></b>type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or setreaming but would nevertheless prefer to have features that make handling a meeting simpler -  like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting.<li>The <b><a href={{url_vm}}>Virtual meeting </a></b>type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively.<li>The <b> <a href={{url_vc}}>Virtual congress</a> </b>type is very similar to <i>the virtual meeting</i> but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
   help_createmeeting: 
     part1: To create a meeting in Global Plaza:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the spaces users that will organize the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on <b>Create</b> button."
@@ -781,7 +781,7 @@ en:
       <li>To bring remote speakers into an existing meeting or congress.\r\n\
       <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
       The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
-    part3: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the European Global Project by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part3: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
     part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
     part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
@@ -803,10 +803,10 @@ en:
     create_event: Creating an event
     create_meeting: Creating a meeting
     create_post: Posting a message in the wall
-    create_space: Creating a Space
-    create_user: Creating a User
+    create_space: Creating a space
+    create_user: Creating a user
     info: Here you can find information about the Global Plaza
-    logging: Logging In to your Account
+    logging: Logging In to your account
     new_doc: Adding a new document
     topics: Topics
   help_vcc: 
