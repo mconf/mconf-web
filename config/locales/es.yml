@@ -552,11 +552,11 @@ es:
       edit: Editar su evento
       in_agenda: en el programa
       now: Ahora puede
-      organisers: "Seleccione los usuarios espacio que organizar\xC3\xA1 este evento"
-      without_str: "Para recibir un flujo y / o grabaci\xC3\xB3n, por favor indicarlo en su horario"
+      organisers: "Seleccione los usuarios del espacio que organizar\xC3\xA1n este evento"
+      without_str: "Para recibir streaming y/o grabaci\xC3\xB3n, por favor ind\xC3\xADquelo en su planificaci\xC3\xB3n"
     home: 
       one: Evento en el espacio {{space}}
-    invite: Invitar a la gente
+    invite: Invitar gente
     join: Formar parte de este evento
     last_7_days: "\xC3\x9Altimos 7 d\xC3\xADas ({{size}})"
     last_month: El mes pasado ({{size}})
@@ -564,122 +564,122 @@ es:
     logo: 
       button: Cambiar el logotipo
       created: "logotipo de evento creado con \xC3\xA9xito"
-      crop: "Seleccione qu\xC3\xA9 parte de la imagen para la cosecha"
-      new: Agregar una imagen para su evento
+      crop: "Seleccione qu\xC3\xA9 parte de la imagen desea cortar"
+      new: Agregar una imagen para el evento
       select: Cambiar el logotipo
     new: 
-      conference: Congreso Virtual
-      meeting: Encuentro Virtual
+      conference: Congreso virtual
+      meeting: "Reuni\xC3\xB3n virtual"
       presential: "Reuni\xC3\xB3n"
-    no_events: "No tienes ning\xC3\xBAn evento"
+    no_events: "No tiene ning\xC3\xBAn evento"
     no_param: "No hay par\xC3\xA1metros seleccionados"
     none_coming: "No hay eventos pr\xC3\xB3ximos"
-    not_attend: No asisten a la
+    not_attend: No asisten
     note: 
-      both: "Web de la participaci\xC3\xB3n y la transmisi\xC3\xB3n estar\xC3\xA1 disponible en el momento del evento"
-      none: "No hay transmisi\xC3\xB3n se definen en el orden del d\xC3\xADa."
-      nothing: "Sin participaci\xC3\xB3n de streaming web o reservado en este momento"
-      participation: "la participaci\xC3\xB3n de la web estar\xC3\xA1 disponible en el momento del evento"
-      streaming: "Transmisi\xC3\xB3n de video estar\xC3\xA1 disponible en el momento del evento"
+      both: "La participaci\xC3\xB3n web y el streaming estar\xC3\xA1n disponibles en el momento del evento"
+      none: "No hay streaming definido en el orden del d\xC3\xADa."
+      nothing: "No hay participaci\xC3\xB3n web o streaming reservados en este momento"
+      participation: "La participaci\xC3\xB3n web estar\xC3\xA1 disponible en el momento del evento"
+      streaming: "El streaming estar\xC3\xA1 disponible en el momento del evento"
     notification: 
       attendant: 
-        filter: Operador de filtro
+        filter: Filtro de asistentes
       button: Notificar a los asistentes
       deselect_all_attendants: "Anular la selecci\xC3\xB3n de todos los asistentes"
       hide_all_attendants: Ocultar todos los asistentes
-      label: "Personaliza tus mensajes de notificaci\xC3\xB3n"
+      label: "Personalice su mensaje de notificaci\xC3\xB3n"
       legend: 
-        name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
-      message_beginning_with_start_date: "<p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}</b> en &quot;event_date&#39;: </p>"
-      message_beginning_without_start_date: <p> &#39;Nombre&#39;, </p><p> En cuanto al <b>evento event_name &#39;en el espacio {{space}}:</b> </p>
+        name: "'Nombre' ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
+      message_beginning_with_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en el espacio {{space}}</b> el 'event_date': </p>"
+      message_beginning_without_start_date: <p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en el espacio {{space}}:</b> </p>
       message_ending: "<p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre el evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Enviar una notificaci\xC3\xB3n a los asistentes"
-      personal: "Escribe el texto de su personal aqu\xC3\xAD."
+      personal: "Escriba su mensaje personal aqu\xC3\xAD."
       select_all_attendants: Seleccionar todos los asistentes
-      selected_attendants: "Asistentes desea notificar a:"
+      selected_attendants: "Asistentes a los que notificar:"
       show_all_attendants: Mostrar todos los asistentes
       subject: "{{username}} le ha enviado una notificaci\xC3\xB3n acerca del evento {{eventname}} en el espacio {{space}}"
       title: Notificar a los asistentes del evento
-    now: "Eventos en este momento:"
+    now: "Eventos en curso:"
     one: Evento
     online: "Evento en l\xC3\xADnea"
     other: Eventos
     participation: 
       add: "A\xC3\xB1adir una."
       edit: "Editar c\xC3\xB3digo de cliente web"
-      none: "Nadie ha publicado ning\xC3\xBAn url participaci\xC3\xB3n."
+      none: "Nadie ha publicado a\xC3\xBAn una url para la participaci\xC3\xB3n."
       ready: "La participaci\xC3\xB3n est\xC3\xA1 reservada. Estar\xC3\xA1 disponible durante el evento"
       title: "Participaci\xC3\xB3n"
       will_be_available: "La participaci\xC3\xB3n estar\xC3\xA1 disponible durante el evento"
     past: 
-      all: Todos los anteriores ({{size}})
-      last_month: Sin eventos para el mes pasado.
-      last_week: No hay eventos para la semana pasada.
+      all: Todos los antiguos ({{size}})
+      last_month: "No ha habido eventos el \xC3\xBAltimo mes."
+      last_week: No ha habido eventos la semana pasada.
       none: No hay eventos pasados
       one: Evento pasado
       other: Eventos pasados
       show: Mostrar todos los eventos antiguos
-      today: Sin eventos para ayer ni hoy.
-    player: Jugador
+      today: No hay eventos de ayer ni de hoy.
+    player: Reproductor
     recording: 
-      button_disabled: "Este bot\xC3\xB3n se activar\xC3\xA1 cuando el evento tiene ninguna grabaci\xC3\xB3n"
+      button_disabled: "Este bot\xC3\xB3n se activar\xC3\xA1 cuando el evento tenga alguna grabaci\xC3\xB3n"
       notice: La gente debe tener derechos de acceso a este espacio para ver estos videos
-      one: Evento Video
-      other: "V\xC3\xADdeos de eventos"
+      one: Video del evento
+      other: Videos del evento
       share: Compartir
     repository: 
-      help: Este &quot;banco de mostrar los documentos cargados en las sesiones de la agenda del evento
-      title: documentos de eventos
-    search: Buscar eventos ...
+      help: Este repositorio muestra los documentos subidos en las sesiones del evento
+      title: Documentos del evento
+    search: Buscar eventos...
     select_date: Seleccione una fecha para su evento
-    session_now: "Sesi\xC3\xB3n ahora"
+    session_now: "Sesi\xC3\xB3n en curso"
     spam: Spam en los eventos
-    start: evento de inicio
-    started: solicitud de inicio enviar correctamente
+    start: Comenzar evento
+    started: "Solicitud de comienzo enviada con \xC3\xA9xito"
     steps: "Completa tu evento siguiente pasos:"
     streaming: 
       add: "A\xC3\xB1adir una."
       edit: "Editar el c\xC3\xB3digo de streaming"
-      no_at_events: No Streaming en las reuniones
-      none: "Nadie ha publicado ning\xC3\xBAn url de streaming"
+      no_at_events: Sin streaming en las reuniones
+      none: Nadie ha publicado ninguna url de streaming
       now: Streaming de eventos
-      ready: "El streaming es reservado. Estar\xC3\xA1 disponible durante el evento"
-      title: "Streaming per\xC3\xADodo de sesiones"
-      will_be_available: "La transmisi\xC3\xB3n estar\xC3\xA1 disponible durante el evento"
+      ready: "El streaming ha sido reservado. Estar\xC3\xA1 disponible durante el evento"
+      title: "Sesi\xC3\xB3n de streaming"
+      will_be_available: "El streaming estar\xC3\xA1 disponible durante el evento"
     to: Para
-    today: Los acontecimientos de hoy
+    today: Los eventos de hoy
     today_and_yesterday: Ayer y hoy ({{size}})
     today_size: Hoy ({{size}})
-    tomorrow: "Ma\xC3\xB1ana eventos"
+    tomorrow: "Eventos de ma\xC3\xB1ana"
     undated: 
       none: No hay eventos sin agenda
       show: Mostrar todos los eventos sin fecha
       title: Eventos sin agenda definida
     upcoming: 
-      all: "Todos los pr\xC3\xB3ximos eventos ({{size}})"
+      all: Todos los eventos por celebrarse ({{size}})
       next_month: "No hay eventos para el pr\xC3\xB3ximo mes"
       next_week: "No hay eventos para la pr\xC3\xB3xima semana"
-      none: "No hay pr\xC3\xB3ximos eventos"
-      other: "Pr\xC3\xB3ximos eventos"
-      show: "Mostrar todos los eventos pr\xC3\xB3ximos"
+      none: No hay eventos por celebrarse
+      other: Eventos por celebrarse
+      show: Mostrar todos los eventos por celebrarse
       today: No hay eventos para hoy
-    updated: Evento se ha actualizado correctamente.
-    video_part: "Web de la participaci\xC3\xB3n"
-    view_agenda: "Orden del d\xC3\xADa"
+    updated: El evento se ha actualizado correctamente
+    video_part: "Participaci\xC3\xB3n web"
+    view_agenda: Agenda
     view_participation: "Participaci\xC3\xB3n"
-    view_participation_disabled: "Participaci\xC3\xB3n disponibles durante el evento"
+    view_participation_disabled: "Participaci\xC3\xB3n disponible durante el evento"
     view_recordings: Grabaciones
     view_recordings_disabled: "No hay grabaciones todav\xC3\xADa"
     view_repo: Repositorio
     view_streaming: Streaming
-    view_streaming_disabled: Streaming disponibles durante el evento
-    will_attend: "\xC2\xBFQuieres asistir a este evento?"
+    view_streaming_disabled: Streaming disponible durante el evento
+    will_attend: "\xC2\xBFQuiere asistir a este evento?"
     within_7_days: "Dentro de 7 d\xC3\xADas ({{size}})"
     within_a_month: Dentro de un mes ({{size}})
   event_invitation: 
     accepted: "Ha aceptado la invitaci\xC3\xB3n a este evento"
     clarify_registered: "Por favor, introduzca su contrase\xC3\xB1a para confirmar su asistencia al evento"
-    clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el Centro Virtual de Conferencias y confirmar su asistencia al evento"
+    clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en GlobalPlaza y confirmar su asistencia al evento"
     confirm_password: "Confirme la contrase\xC3\xB1a"
     deselect_all_users: "Anular la selecci\xC3\xB3n de todos los usuarios"
     discarded: "Ha desechado la invitaci\xC3\xB3n a este evento"
@@ -739,29 +739,29 @@ es:
       sentence2: "Repositorios de v\xC3\xADdeos y documentos"
       sentence3: Sus contactos y relaciones
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
-  getting_started: "Por d\xC3\xB3nde empezar!"
+  getting_started: "\xC2\xA1Por d\xC3\xB3nde empezar!"
   group: 
     add_to_group: "A\xC3\xB1adir a grupo"
     add_to_others: "A\xC3\xB1adir otros grupos"
     create: Crear nuevo grupo
-    created: "El grupo de {{name}} ha sido creado con \xC3\xA9xito."
+    created: "El grupo {{name}} ha sido creado con \xC3\xA9xito"
     delete: Borrar grupo
-    deleted: El grupo ha sido borrado correctamente.
+    deleted: "El grupo {{name}} ha sido borrado con \xC3\xA9xito"
     different: Otros grupos
     edit: Editar grupo
-    existing: nombre ya ha sido tomada
-    join: "\xC3\x9Anete a este grupo"
+    existing: el nombre ya ha sido elegido
+    join: "\xC3\x9Anase a este grupo"
     mailing_list: Lista de correo de grupo
     name: Nombre del grupo
-    not_deleted: Error al eliminar el grupo
+    not_deleted: Error al eliminar el grupo {{name}}
     not_valid: "El grupo no es v\xC3\xA1lido"
     one: Grupo
     other: Grupos
     send_message: Enviar un mensaje a este grupo
-    updated: El grupo de {{name}} ha sido actualizado correctamente.
+    updated: El grupo {{name}} ha sido actualizado correctamente
   groups_and_results: Grupos, {{size}} resultados
   hcard: 
-    not_found: hCard que no se encuentra
+    not_found: hCard no encontrada
   hello: Hola
   help: Ayuda
   help_createVC: 
@@ -850,9 +850,9 @@ es:
     info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre el VCC"
     topics: Temas
   hide: Ocultar
-  his_message_reads_thus: "Su mensaje dec\xC3\xADa as\xC3\xAD"
+  his_message_reads_thus: "Su mensaje dice as\xC3\xAD"
   home: 
-    activity: Actividad reciente
+    activity: Actividad reciente...
     my: Inicio
     one: Inicio
   icalendar: 
@@ -860,18 +860,18 @@ es:
     conflictive1: "Una entrada de su iCalendar ya exist\xC3\xADa en GlobalPlaza y se ha modificado. Debe actualizarla manualmente para evitar problemas."
     conflictiven: "entradas de su iCalendar ya exist\xC3\xADan en GlobalPlaza y se han modificado. Debe actualizarlas manualmente para evitar problemas."
     error_import: Se produjo un error al importar el iCalendar.
-    export: "Exportaci\xC3\xB3n de iCalendar"
-    import: "Importaci\xC3\xB3n de iCalendar"
+    export: Exportar a iCalendar
+    import: Importar de iCalendar
     importMessage1: Un total de
-    importMessage2: Se leyeron desde su iCalendar.
-    importMessage3: de ellos se salvaron o actualizado correctamente.
-    instruction: "Util\xC3\xADcelo para agregar nuevas entradas a la agenda actual con la iCalendar."
-    outbounds1: Una entrada de su calendarioi no coincide en las fechas del evento y no fue importado.
-    outboundsn: "entradas de su calendarioi no coinciden en las fechas del evento y no se hab\xC3\xADan efectuado."
+    importMessage2: se leyeron desde su iCalendar.
+    importMessage3: de ellos se salvaron o actualizaron correctamente.
+    instruction: "Util\xC3\xADcelo para agregar nuevas entradas a la agenda actual con el iCalendar."
+    outbounds1: Una entrada de su iCalendar no encaja con las fechas del evento y no fue importado.
+    outboundsn: entradas de su iCalendar no encajan con las fechas del evento y no fueron importadas.
     report: "Informe:"
-    succes_import: calendarioi se ha importado correctamente.
-    updated1: Una entrada de su calendarioi ya estaban en su agenda de eventos y se actualizaron.
-    updatedn: entradas de su calendarioi ya estaban en su agenda de eventos y se actualizaron.
+    succes_import: El iCalendar se ha importado correctamente.
+    updated1: Una entrada de su iCalendar ya figuraba en la agenda del evento y se ha actualizado.
+    updatedn: entradas de su iCalendar ya figuraban en la agenda del evento y se han actualizado.
   im: "Mensajer\xC3\xADa Instant\xC3\xA1nea"
   im_new: Soy nuevo
   import: "Importaci\xC3\xB3n"
@@ -880,13 +880,13 @@ es:
     one: Bandeja de entrada ({{checked}})
   index: "\xC3\x8Dndice"
   information: 
-    info_timezone: "Seleccionando tu zona horaria no habr\xC3\xA1 malentendidos con gente de otros pa\xC3\xADses al crear tus eventos."
+    info_timezone: "Seleccionando su zona horaria no habr\xC3\xA1 malentendidos con gente de otros pa\xC3\xADses al crear sus eventos."
     information1: Estos son los espacios a los que pertences
-    information2: "Aqu\xC3\xAD puedes encontrar los post y eventos m\xC3\xA1s recientes as\xC3\xAD como las noticias de los espacios a los que perteneces"
-    information3: "Estos son los \xC3\xBAltimos posts o eventos que has creado"
-    information4: Estos son los espacios que pertenecen a
+    information2: "Aqu\xC3\xAD puede encontrar los mensajes y eventos m\xC3\xA1s recientes ,as\xC3\xAD como las noticias de los espacios a los que perteneces"
+    information3: "Estos son los \xC3\xBAltimos posts o eventos que ha creado"
+    information4: Estos son los espacios a los que pertenece
   internet: 
-    on_the: En el Internet
+    on_the: En Internet
     ppal: Internet
   invalid_credentials: "Credenciales inv\xC3\xA1lidas"
   invalid_password_reset_code: "C\xC3\xB3digo de cambio inv\xC3\xA1lido. Por favor, compruebe en enlace e int\xC3\xA9ntelo otra vez. (Consejo: \xC2\xBFQuiz\xC3\xA1 su cliente de correo rompi\xC3\xB3 el enlace?)"
@@ -895,7 +895,7 @@ es:
     accepted: "Invitaci\xC3\xB3n aceptada"
     accepted_by: "{{candidate}} acept\xC3\xB3 la invitaci\xC3\xB3n"
     access_space: "Ahora es miembro de {{spacename}}; puede acceder a \xC3\xA9l en <a href=\"{{space_url}}\">{{space_url}}</a>"
-    add_more: "Invita a m\xC3\xA1s gente"
+    add_more: "Invite a m\xC3\xA1s gente"
     comment: Comentario
     confirm_delete: "\xC2\xBFBorrar invitaci\xC3\xB3n?"
     created: "Invitaci\xC3\xB3n enviada"
@@ -905,16 +905,16 @@ es:
     discarded_by: "{{candidate}} descart\xC3\xB3 la invitaci\xC3\xB3n"
     email: "Correo electr\xC3\xB3nico"
     hide_all_users: Ocultar todos los usuarios
-    info_event: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en &#39;event_url&#39;"
+    info_event: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en 'event_url'"
     info_space: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca de este espacio en  <a href=\"{{space_url}}\">{{space_url}}</a>"
     info_users: Puede ver la lista de usuarios del espacio en  <a href="{{users_url}}">{{users_url}}</a>
     introducer: Introductor
-    label: "Personaliza tu invitaci\xC3\xB3n mensaje"
+    label: "Personalice su mensaje de invitaci\xC3\xB3n"
     legend: 
-      URL: "&#39;URL&#39; ser\xC3\xA1 sustituido en el mensaje la URL de la invitaci\xC3\xB3n."
-      name: "&#39;Nombre&#39; ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
-    logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre de sesi\xC3\xB3n y vuelva a intentarlo"
-    message_title: Invitar gente a unirse a su espacio
+      URL: "'URL' ser\xC3\xA1 sustituido en el mensaje por la URL de la invitaci\xC3\xB3n."
+      name: "'Nombre' ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
+    logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre la sesi\xC3\xB3n y vuelva a intentarlo"
+    message_title: Invite a gente a unirse a su espacio
     message_with_start_date: 
       in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>, el 'event_date'.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
@@ -925,18 +925,18 @@ es:
       teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en el espacio {{space}}</b>. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     new: 
       other: Nuevas invitaciones
-    not_accepted: No se aceptan
-    not_created: "no podr\xC3\xADan ser invitados a este espacio porque ya pertenece a ella"
-    not_created_2: "no podr\xC3\xADan ser invitados a este espacio porque \xC3\xA9l / ella ya ha sido invitado"
+    not_accepted: no aceptado
+    not_created: "no ha podido ser invitado a este espacio porque ya pertenece a \xC3\xA9l"
+    not_created_2: "no ha podido ser invitado a este espacio porque ya hab\xC3\xADa sido invitado"
     not_found: "Invitaci\xC3\xB3n no encontrada"
     not_pending: 
-      other: No hay invitaciones pendientes.
+      other: No hay invitaciones pendientes
     not_processed: "Invitaci\xC3\xB3n sin responder"
     one: "Invitaci\xC3\xB3n"
     other: Invitaciones
     pending: 
       other: Invitaciones pendientes
-    personal: "Escribe el texto de su personal aqu\xC3\xAD."
+    personal: "Escriba su texto personal aqu\xC3\xAD."
     rejoin_space: Si desea solicitar de nuevo el ser miembro, por favor vaya a <a href="{{space_url}}"> {{space_url}} </a>
     role: Rol
     role_label: Papel de los invitados
@@ -946,92 +946,92 @@ es:
     show: Unirse a {{group}}
     show_all_users: Mostrar todos los usuarios
     sign: Atentamente, ((nombre de usuario))
-    space: "Me gustar\xC3\xADa invitar a usted a {{space}} espacio en el Centro Virtual de la Conferencia."
+    space: "Me gustar\xC3\xADa invitarle al espacio {{space}} en GlobalPlaza."
     subject: "{{username}} le ha invitado a un evento en el espacio {{space}}"
     title: Invitar a la gente
-    title2: "Espacio Invitaci\xC3\xB3n"
-    to_accept: "Para aceptar mi invitaci\xC3\xB3n por favor, visite <a href={{url}}>{{url}}</a>"
-    to_accept_space: "Para aceptar mi invitaci\xC3\xB3n por favor, visite {{url}}"
+    title2: "Invitaci\xC3\xB3n a espacio"
+    to_accept: "Para aceptar mi invitaci\xC3\xB3n, por favor visite <a href={{url}}>{{url}}</a>"
+    to_accept_space: "Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}}"
     to_event: "{{username}} le ha invitado al evento {{eventname}} en el espacio {{space}}"
-    to_space: ((Nombre de usuario)) te invita al espacio {{space}}
+    to_space: ((Nombre de usuario)) le invita al espacio {{space}}
     was_processed: 
       accepted: "La invitaci\xC3\xB3n ya fue aceptada"
-      discarded: "La invitaci\xC3\xB3n ya ha sido descartado"
+      discarded: "La invitaci\xC3\xB3n ya ha sido descartada"
       discarted: "La invitaci\xC3\xB3n ya fue descartada"
-    will_invite: "La gente te invitar\xC3\xA1"
+    will_invite: "Gente a la que invitar\xC3\xA1"
     yes_accepted: aceptado
   invited: Invitado
-  is_member_of: Es miembro de
+  is_member_of: es miembro de
   join: Unirse
   join_request: 
     accepted: "Petici\xC3\xB3n aceptada"
-    already_sent: "Usted ya ha enviado una petici\xC3\xB3n conjunta a este espacio"
+    already_sent: "Usted ya ha enviado una petici\xC3\xB3n para unirse a este espacio"
     ask_subject: "{{candidate}} quiere participar en {{space}}"
-    asked: "<b>{{candidate}}</b> quiere participar en el espacio {{space}}, que est\xC3\xA1 administrado por usted:"
-    asked_anonymous: "Alguien quiere participar en el espacio {{space}}, que est\xC3\xA1 administrado por usted:"
-    created: "Petici\xC3\xB3n enviada"
+    asked: "<b>{{candidate}}</b> quiere participar en el espacio {{space}}, administrado por usted:"
+    asked_anonymous: "Alguien quiere participar en el espacio {{space}}, administrado por usted:"
+    created: "Su petici\xC3\xB3n ha sido enviada a los administradores del espacio"
     discarded: "Petici\xC3\xB3n descartada"
-    joined: "Usted ya est\xC3\xA1 en el espacio"
-    label: Personaliza tu mensaje de solicitud de unirse a
-    message_title: Enviar una solicitud de unirse a los administradores del espacio
-    not_logged_in: Necesitas estar conectado para enviar una solicitud de Ingreso.
+    joined: Usted ya es miembro del espacio
+    label: "Personalice su solicitud de participaci\xC3\xB3n"
+    message_title: Solicitar a los administradores del espacio unirse
+    not_logged_in: Necesita estar registrado para solicitar unirse
     not_pending: 
-      other: No hay espera de unirse a las peticiones.
-    not_processed: "Petici\xC3\xB3n sin responder"
-    one: "Petici\xC3\xB3n de incorporaci\xC3\xB3n"
-    other: "Peticiones de incorporaci\xC3\xB3n"
+      other: "No hay peticiones de uni\xC3\xB3n pendientes"
+    not_processed: "Petici\xC3\xB3n de uni\xC3\xB3n sin responder"
+    one: "Petici\xC3\xB3n de uni\xC3\xB3n"
+    other: "Peticiones de uni\xC3\xB3n"
     pending: 
-      other: En espera de unirse a las peticiones
+      other: "Peticiones de uni\xC3\xB3n pendientes"
     personal: "Escribe el texto de su personal aqu\xC3\xAD."
     send: Enviar solicitud de Ingreso
     to_accept: Para responder a la solicitud por favor visite <a href="{{url}}">{{url}}</a>
     updated: "Petici\xC3\xB3n actualizada"
   join_to_site: Unirse a {{site}}
   keywords: Palabras clave (*)
-  language: Lenguaje
+  language: Idioma
   last_week: La semana pasada
   latest_events: "\xC3\x9Altimos eventos"
   latest_news: "\xC3\x9Altimas noticias"
   layout_footnote: "{{site}} est\xC3\xA1 basado en {{plugin}}. Dise\xC3\xB1ado por {{designer}}."
-  list_by: Lista de
+  list_by: Listar por
   locale: 
-    changed: "Aplicaci\xC3\xB3n para cambiar el idioma"
-    error: "No se puede cambiar el idioma de la aplicaci\xC3\xB3n de"
+    changed: "Idioma de la aplicaci\xC3\xB3n cambiado a"
+    error: "No se puede cambiar el idioma de la aplicaci\xC3\xB3n a"
   logged_in_successfully: "Credenciales v\xC3\xA1lidas"
-  logged_out: "Has salido de la aplicaci\xC3\xB3n"
+  logged_out: "Ha salido de la aplicaci\xC3\xB3n"
   login: Entrar
   login_or_register: Entrar / Registro
-  login_request: Necesitas estar conectado para
+  login_request: Necesita estar conectado para
   login_to: Entrar en {{site}}
   login_traditional: Usuario / clave
   logo: 
     click_to_change: Haga clic para cambiar el logotipo
     created: "Logo creado con \xC3\xA9xito"
-    crop: Cultivos logotipo de espacio
+    crop: Cortar logotipo de espacio
     current: Logo actual
-    empty: "El logotipo est\xC3\xA1 vac\xC3\xADa"
+    empty: "El logotipo est\xC3\xA1 vac\xC3\xADo"
     error: 
       not_valid: "El logotipo de espacio no es v\xC3\xA1lido"
     one: Logo
   logout: Salir
   mailing_list: 
-    associate: lista de correo asociado a su grupo
-    invalid: "La lista de correo contiene caracteres no v\xC3\xA1lidos. Solo letras, n\xC3\xBAmeros, guiones y guiones se permiten"
+    associate: Asociar lista de correo al grupo
+    invalid: "La lista de correo contiene caracteres no v\xC3\xA1lidos. S\xC3\xB3lo se permiten letras, n\xC3\xBAmeros, subrayados y guiones"
     reserved: "La lista de correo {{systemMailingList}} est\xC3\xA1 reservada"
   manage: Administrar
-  management: "Gesti\xC3\xB3n"
-  mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n apropiada si est\xC3\xA1 organizando una Isabel o un evento en l\xC3\xADnea"
+  management: "gesti\xC3\xB3n"
+  mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n adecuada"
   message: 
-    created: Mensaje enviado correctamente.
+    created: Mensaje enviado correctamente
     error: 
-      create: "Mensajes de error privado de env\xC3\xADo."
+      create: Error enviando mensaje privado
     incoming: 
-      other: Los mensajes entrantes
+      other: "Buz\xC3\xB3n de entrada"
     one: Mensaje
     other: Mensajes
     private: 
-      cant: No puede enviar mensajes privados porque no tienes socios en cualquier espacio
-      editing: "Edici\xC3\xB3n mensaje privado"
+      cant: "No puede enviar mensajes privados porque no tiene contactos en ning\xC3\xBAn espacio"
+      editing: Editar mensaje privado
       new: Nuevo mensaje privado
       none: No hay mensajes
     reply: Responder mensaje
@@ -1602,12 +1602,12 @@ es:
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por \",\" o \";\" y registrelos"
-      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
-    add_more: "A\xC3\xB1adir usuarios>>"
+      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por un espacio, coma o punto y coma, y reg\xC3\xADstrelos"
+      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
+    add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
     assist: "Personas que asistir\xC3\xA1n al evento"
-    by_email: "A trav\xC3\xA9s de e-mail"
+    by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
     confirm_password: "Confirmar contrase\xC3\xB1a"
     delete_from_space: Eliminar el usuario del espacio
@@ -1619,7 +1619,7 @@ es:
     enable: Habilitar usuario
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ning\xC3\xBAn espacio. Tendr\xC3\xA1 que solicitar la participaci\xC3\xB3n en los espacios nuevamente."
     error: 
-      enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
+      enabled: "El usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
       author: SIR
       title: Usuarios
@@ -1629,7 +1629,7 @@ es:
       one: 1 usuario encontrado
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
-    include_registered: Incluir  usuarios registrados
+    include_registered: Incluir usuarios registrados
     included: 
       other: Usuarios incluidos
     invitation: 
@@ -1642,23 +1642,23 @@ es:
     invited: Usuarios ya invitados
     list_by: Lista de
     login: Login
-    lost_password: "\xC2\xBFHas olvidado tu contrase\xC3\xB1a?"
+    lost_password: "\xC2\xBFHa olvidado su contrase\xC3\xB1a?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
-    not_assist: "Las personas que no asistir\xC3\xA1n a este evento"
+    not_assist: "Personas que no asistir\xC3\xA1n a este evento"
     not_confirmed: Personas que no han confirmado
-    notifications: "De qu\xC3\xA9 manera desea recibir las notificaciones?"
+    notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
     openid: 
-      edit: Edita tus OpenId's
+      edit: Edite sus OpenID
       one: OpenID
       other: OpenIDs
     other: Usuarios
     password: "Contrase\xC3\xB1a"
     password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta"
-    private_message: Mensaje Privado
+    private_message: Mensaje privado
     recent_join: Usuarios que se han unido recientemente
-    registered: "Gracias por registrarse! Le hemos enviado un correo electr\xC3\xB3nico con las instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario."
+    registered: "\xC2\xA1Gracias por registrarse! Le hemos enviado un correo electr\xC3\xB3nico con las instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario."
     request_password: "Solicitar contrase\xC3\xB1a"
     reset_password: "Restablecer su contrase\xC3\xB1a"
     results_count: 
@@ -1668,9 +1668,9 @@ es:
       account: Guardar
       one: Guardar usuario
       preferences: Guardar preferencias
-    search: Buscar usuarios ...
-    timezone: Zona Horaria
-    updated: El Usuario se ha actualizado correctamente.
+    search: Buscar usuarios...
+    timezone: Zona horaria
+    updated: El usuario se ha actualizado correctamente
     vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
     view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
     without_group: Personas sin grupo
@@ -1678,10 +1678,10 @@ es:
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
     no_selection: No hay ninguna vCard definida
-    success: vCard cargado correctamente
+    success: vCard cargada correctamente
     use: Use su vCard
-  vcard: vcard
-  vcc: Global Plaza
+  vcard: vCard
+  vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
   version: 
     new: "Nueva versi\xC3\xB3n"
@@ -1700,9 +1700,11 @@ es:
     next: "La pr\xC3\xB3xima semana"
     this: Esta semana
   when: "Cu\xC3\xA1ndo"
-  where: Donde
+  where: !binary |
+    RMOzbmRl
+
   xmpp_server: 
-    password_invalid: "contrase\xC3\xB1a no es v\xC3\xA1lida"
+    password_invalid: "la contrase\xC3\xB1a no es v\xC3\xA1lida"
   yesterday: Ayer
   your_interests_tags: Sus intereses (tags)
   your_vcard: su vCard
