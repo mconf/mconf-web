@@ -1602,12 +1602,12 @@ es:
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por \",\" o \";\" y registrelos"
-      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n para ellos."
-    add_more: "A\xC3\xB1adir usuarios>>"
+      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por un espacio, coma o punto y coma, y reg\xC3\xADstrelos"
+      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
+    add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
     assist: "Personas que asistir\xC3\xA1n al evento"
-    by_email: "A trav\xC3\xA9s de e-mail"
+    by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
     confirm_password: "Confirmar contrase\xC3\xB1a"
     delete_from_space: Eliminar el usuario del espacio
@@ -1615,11 +1615,11 @@ es:
     disabled: Usuario deshabilitado
     e-mail: "correo electr\xC3\xB3nico"
     edit_account: Modificar su cuenta
-    email: "Correo electr\xC3\xB3nico"
+    email: "correo electr\xC3\xB3nico"
     enable: Habilitar usuario
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ning\xC3\xBAn espacio. Tendr\xC3\xA1 que solicitar la participaci\xC3\xB3n en los espacios nuevamente."
     error: 
-      enabled: "Usuario {{name}} ya est\xC3\xA1 habilitado"
+      enabled: "El usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
       author: SIR
       title: Usuarios
@@ -1629,7 +1629,7 @@ es:
       one: 1 usuario encontrado
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
-    include_registered: Incluir  usuarios registrados
+    include_registered: Incluir usuarios registrados
     included: 
       other: Usuarios incluidos
     invitation: 
@@ -1642,23 +1642,23 @@ es:
     invited: Usuarios ya invitados
     list_by: Lista de
     login: Login
-    lost_password: "\xC2\xBFHas olvidado tu contrase\xC3\xB1a?"
+    lost_password: "\xC2\xBFHa olvidado su contrase\xC3\xB1a?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
-    not_assist: "Las personas que no asistir\xC3\xA1n a este evento"
+    not_assist: "Personas que no asistir\xC3\xA1n a este evento"
     not_confirmed: Personas que no han confirmado
-    notifications: "De qu\xC3\xA9 manera desea recibir las notificaciones?"
+    notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
     openid: 
-      edit: Edita tus OpenId's
+      edit: Edite sus OpenID
       one: OpenID
       other: OpenIDs
     other: Usuarios
     password: "Contrase\xC3\xB1a"
     password_info: "Introduzca la direcci\xC3\xB3n de correo electr\xC3\xB3nico que utiliz\xC3\xB3 para crear su cuenta"
-    private_message: Mensaje Privado
+    private_message: Mensaje privado
     recent_join: Usuarios que se han unido recientemente
-    registered: "Gracias por registrarse! Le hemos enviado un correo electr\xC3\xB3nico con las instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario."
+    registered: "\xC2\xA1Gracias por registrarse! Le hemos enviado un correo electr\xC3\xB3nico con las instrucciones sobre c\xC3\xB3mo activar su cuenta de usuario."
     request_password: "Solicitar contrase\xC3\xB1a"
     reset_password: "Restablecer su contrase\xC3\xB1a"
     results_count: 
@@ -1668,9 +1668,9 @@ es:
       account: Guardar
       one: Guardar usuario
       preferences: Guardar preferencias
-    search: Buscar usuarios ...
-    timezone: Zona Horaria
-    updated: El Usuario se ha actualizado correctamente.
+    search: Buscar usuarios...
+    timezone: Zona horaria
+    updated: El usuario se ha actualizado correctamente
     vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
     view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
     without_group: Personas sin grupo
@@ -1678,10 +1678,10 @@ es:
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
     no_selection: No hay ninguna vCard definida
-    success: vCard cargado correctamente
+    success: vCard cargada correctamente
     use: Use su vCard
-  vcard: vcard
-  vcc: Global Plaza
+  vcard: vCard
+  vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
   version: 
     new: "Nueva versi\xC3\xB3n"
@@ -1700,9 +1700,11 @@ es:
     next: "La pr\xC3\xB3xima semana"
     this: Esta semana
   when: "Cu\xC3\xA1ndo"
-  where: Donde
+  where: !binary |
+    RMOzbmRl
+
   xmpp_server: 
-    password_invalid: "contrase\xC3\xB1a no es v\xC3\xA1lida"
+    password_invalid: "la contrase\xC3\xB1a no es v\xC3\xA1lida"
   yesterday: Ayer
   your_interests_tags: Sus intereses (tags)
   your_vcard: su vCard
