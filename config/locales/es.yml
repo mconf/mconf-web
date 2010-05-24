@@ -1033,29 +1033,29 @@ es:
       cant: No puede enviar mensajes privados porque no tienes socios en cualquier espacio
       editing: "Edici\xC3\xB3n mensaje privado"
       new: Nuevo mensaje privado
-      none: No hay mensajes privados
-    reply: Responder a un mensaje
+      none: No hay mensajes
+    reply: Responder mensaje
     send: Enviar mensaje
     sent: 
       other: Mensajes enviados
   mobile: Mobile
-  more>>: "m\xC3\xA1s&gt;&gt;"
+  more>>: "m\xC3\xA1s >>"
   my_friends: Mis amigos
   name: 
     full: Nombre completo
     one: Nombre
     other: Nombres
     prefix: "T\xC3\xADtulo"
-  new_source: Nueva fuente
+  new_source: Nuevo recurso
   new_spam_detected: Nuevo spam detectado
   news: 
-    created: "Nuevo \xC3\xA9xito de publicaci\xC3\xB3n."
-    deleted: "Art\xC3\xADculo suprimido correctamente"
-    edit: "Noticias Edici\xC3\xB3n"
+    created: Noticia publicada exitosamente
+    deleted: Noticia eliminada exitosamente
+    edit: Editar noticias
     error: 
-      create: "Hubo un problema de publicaci\xC3\xB3n de noticias."
-      delete: Error al eliminar el tema
-      update: "Art\xC3\xADculo no se pudo actualizar"
+      create: "Se present\xC3\xB3 un problema en la publicaci\xC3\xB3n de la noticia"
+      delete: Error borrando la noticia
+      update: La noticia no se ha podido actualizar
     home: 
       one: ""
       zero: No hay noticias para mostrar
@@ -1063,36 +1063,34 @@ es:
     none: Ninguno
     none_to_show: No hay noticias para mostrar
     other: Noticias
-    publish_another: Publicar otra noticia
-    publish_home: "Noticias de publicar en el pa\xC3\xADs"
+    publish_another: Publicar nueva noticia
+    publish_home: Publicar noticias en el inicio
     updated: "Art\xC3\xADculo actualizado correctamente"
   next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
   no_messages_in_wall: "No hay ning\xC3\xBAn mensaje en el muro"
   no_tags_found: No se encontraron etiquetas
   none: Ninguno
-  not_going: No voy
+  not_going: No puedo asistir
   now!: Ahora!
   number: 
     currency: 
       format: 
-        delimiter: .
-        format: "%n %u"
+        delimiter: ","
+        format: "%u%n"
         precision: 2
-        separator: ","
-        unit: !binary |
-          4oKs
-
+        separator: .
+        unit: $
     format: 
-      delimiter: .
+      delimiter: ","
       precision: 3
-      separator: ","
+      separator: .
     human: 
       format: 
         delimiter: ""
         precision: 1
       storage_units: 
-        format: n% u%
+        format: "%n %u"
         units: 
           byte: 
             one: Byte
@@ -1109,84 +1107,84 @@ es:
         delimiter: ""
   ok: OK
   older: "M\xC3\xA1s viejo"
-  online: "en l\xC3\xADnea"
+  online: online
   openid: 
     client: 
       associating_to_id: "Asociando a OpenID: {{id}}"
-      discovery_failed: "El descubrimiento fall\xC3\xB3 para {{id}}: {{error}}"
+      discovery_failed: "Error indentificado para {{id}}: {{error}}"
       id_attached_to_account: "OpenID: {{id}} asociado a su cuenta"
-      immediate_request_failed: "La petici\xC3\xB3n inmediata ha fallado. Se necesita configuraci\xC3\xB3n previa"
-      transaction_cancelled: "Transacci\xC3\xB3n de OpenID cancelada"
-      verification_failed: "La verificaci\xC3\xB3n fall\xC3\xB3: {{message}}"
-      verification_failed_with_id: "La verificaci\xC3\xB3n de {{id}} fall\xC3\xB3: {{message}}"
-      verification_succeeded_with_id: "La verificaci\xC3\xB3n de {{id}} se realiz\xC3\xB3 con \xC3\xA9xito"
-    enter: Introduzca su OpenID
-    have: "\xC2\xBFTiene usted un OpenID?"
-    login: Entrar con OpenID
+      immediate_request_failed: "La solicitud ha fallado. Se necesita configuraci\xC3\xB3n previa"
+      transaction_cancelled: "OpenID transacci\xC3\xB3n cancelada"
+      verification_failed: "OpenID transacci\xC3\xB3n cancelada"
+      verification_failed_with_id: "Verificaci\xC3\xB3n de {{id}} ha fallado: {{message}}"
+      verification_succeeded_with_id: "Verificaci\xC3\xB3n de {{id}} se ha realizado con \xC3\xA9xito"
+    enter: Ingrese su OpenID
+    have: Tiene un usuario en OpenID? Click en el logo!
+    login: Registro con OpenID
     server: 
-      about_login_to: Vas a entrar en {{server}}
-      anti_phishing: "Esta p\xC3\xA1gina no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir t\xC3\xBA la direcci\xC3\xB3n en el navegador."
+      about_login_to: "Est\xC3\xA1 a punto de iniciar sesi\xC3\xB3n en {{server}}"
+      anti_phishing: "Est\xC3\xA1 p\xC3\xA1gina no contiene enlaces para evitar <i>phishing</i>. Debe escribir directamente la direcci\xC3\xB3n en su navegador."
       cancel: No, cancelar
-      decision: "Debes elegir:"
-      endpoint: Esto es un servidor de OpenID
+      decision: "Debe tomar una decisi\xC3\xB3n:"
+      endpoint: Este es un servidor de OpenID
       invalid_uri: "Esta identidad no te pertenece: {{uri}}"
-      login_to: Entrar en {{server}}
-      must_login: Tienes que identificarte en {{server}}
-      once: "S\xC3\xAD, s\xC3\xB3lo esta vez"
-      optional_information_by: "Informaci\xC3\xB3n opcional pedida por {{server}}"
-      required_information_by: Informacion necesaria pedida por {{server}}
-      trust: "S\xC3\xAD, y recordar a partir de ahora"
+      login_to: "Iniciar sesi\xC3\xB3n en {{server}}"
+      must_login: Usted debe registrarse {{server}}
+      once: "Si, s\xC3\xB3lo esta vez"
+      optional_information_by: "Informaci\xC3\xB3n opcional solicitada por {{server}}"
+      required_information_by: "Informaci\xC3\xB3n requerida solicitada por {{server}} "
+      trust: Si, recordarlo desde ahora
     title: OpenID
   or: o
-  or_use_email: "o utilizar el correo electr\xC3\xB3nico ..."
+  or_use_email: "o utilizar su correo electr\xC3\xB3nico ..."
   organization: "Organizaci\xC3\xB3n"
-  organizer: Organizador
-  other: Otro
+  organizer: Organizadores
+  other: Otros
   pagination: 
-    next_label: Siguiente &raquo;
-    previous_label: "&laquo; Anterior"
+    next_label: "Siguiente \xC2\xBB"
+    previous_label: "\xC2\xAB Anterior"
   participant: 
-    created: "La informaci\xC3\xB3n de su asistencia se ha actualizado correctamente"
+    created: "La informaci\xC3\xB3n de su participaci\xC3\xB3n ha sido actualizada exitosamente"
     error: 
-      create: "Hubo un problema al actualizar su informaci\xC3\xB3n de asistencia de"
+      create: "Se present\xC3\xB3 un problema al actualizar su informaci\xC3\xB3n de participaci\xC3\xB3n"
   password: 
     been_reset_email: "{{user}}, su contrase\xC3\xB1a se ha restablecido"
     confirm: "Confirmar contrase\xC3\xB1a"
     one: "Contrase\xC3\xB1a"
-    request: "De restablecimiento de contrase\xC3\xB1a en {{sitename}}"
-    reset_email: "{{user}}, por favor siga el enlace, a fin de restablecer su contrase\xC3\xB1a:"
+    request: "Contrase\xC3\xB1a restablecida en {{sitename}}"
+    reset_email: "Su contrase\xC3\xB1a se ha restablecido en {{sitename}}"
     to_reset: "Para restablecer su contrase\xC3\xB1a, por favor visite <a href={{url}}>{{url}}</a>"
-  password_has_been_reset: "La contrase\xC3\xB1a se ha cambiado"
-  password_has_been_reset_with_agent: "{{agent}}, su contrase\xC3\xB1a se ha cambiado"
-  password_reset: "Cambio de Contrase\xC3\xB1a"
-  password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo un enlace para cambiar la contrase\xC3\xB1a"
-  past: Anteriores
-  people: Gente
+  password_has_been_reset: "Su contrase\xC3\xB1a ha sido cambiada"
+  password_has_been_reset_with_agent: "{{agent}}, su contrase\xC3\xB1a ha sido cambiada"
+  password_reset: "Cambiar Contrase\xC3\xB1a"
+  password_reset_link_sent_to_email_address: "Se ha enviado a la direcci\xC3\xB3n de correo electr\xC3\xB3nico un enlace para cambiar la contrase\xC3\xB1a"
+  past: Pasado
+  people: Personas
   per_page: "por p\xC3\xA1gina"
   performance: 
     change: Cambiar
-    confirm_delete: "\xC2\xBFBorrar el Integrante?"
+    confirm_delete: "\xC2\xBFEliminar Rol?"
     create: 
-      one: Crear Integrante
-      other: Crear Integrantes
+      one: Crear Rol
+      other: Crear Roles
     delete: 
-      one: Borrar Integrante
-      other: Borrar Integrantes
-    new: Nuevo Integrante
-    one: Miembros
-    other: Integrantes
-    other_in: Integrantes de {{stage}}
+      one: Eliminar Rol
+      other: Eliminar Roles
+    new: Nuevo miembro
+    one: Miembro
+    other: Miembros
+    other_in: Miembros de {{stage}}
     read: 
-      one: Ver Integrante
-      other: Ver Integrantes
+      one: Ver Rol
+      other: Ver Roles
     update: 
-      one: Actualizar Integrante
-      other: Actualizar Integrantes
-    updated: El rendimiento del usuario se ha actualizado correctamente.
-    without_roles_available: "No hay ning\xC3\xBAn Rol disponible. Los Integrantes no se pueden establecer."
+      one: Actualizar Rol
+      other: Actualizar Roles
+    updated: El rol del usuario ha sido actualizado correctamente.
+    without_roles_available: "No hay ning\xC3\xBAn Rol disponible. Los roles no puede ser establecidos."
   permission: 
-    other: Permisos
-  personal_information: "La informaci\xC3\xB3n personal"
+    other: Derechos de acceso
+  personal_information: "Informaci\xC3\xB3n personal"
   phone: 
     landline: "Tel\xC3\xA9fono"
     mobile: !binary |
@@ -1196,49 +1194,49 @@ es:
     plural: "Tel\xC3\xA9fonos"
   phone_optional: "Tel\xC3\xA9fono (opcional)"
   photos: Fotos
-  photos_view>>: ver fotos&gt;&gt;
+  photos_view>>: ver fotos >>
   place: Lugar
   please: Por favor,
   please_activate_account: Por favor, active su cuenta
   popularity: Popularidad
   post: 
-    created: Anuncio creado.
-    deleted: Anuncio ha sido eliminado
+    created: Mensaje creado
+    deleted: Comentario {{postname}} ha sido eliminado
     error: 
       empty: "El contenido del mensaje no puede estar vac\xC3\xADo"
       not_valid: "El comentario no es v\xC3\xA1lido"
     found: 
-      none: No hay mensajes encontrados
-      one: 1 entrada se ha encontrado
-      other: "{{size}} se encontraron comentarios"
-      show_all: Mostrar todos los comentarios encontrados
+      none: Mensajes no encontrados
+      one: 1 mensaje encontrado
+      other: "{{size}} mensajes fueron encontrados"
+      show_all: Mostrar todos los resultados
     home: 
       one: Mensaje en el espacio {{space}}
     latest: "\xC3\x9Altimos mensajes"
-    none_created: "N \xC2\xBA puesto creado"
+    none_created: "N \xC2\xBA mensajes creados"
     none_recent: No hay mensajes recientes
     one: Mensaje
     other: Mensajes
     other_in_space: Mensajes en el espacio {{space}}
-    show_expanded_pref: "\xC2\xBFC\xC3\xB3mo quieres que se muestren tus comentarios?"
-    updated: Entrada actualizada
+    show_expanded_pref: "\xC2\xBFC\xC3\xB3mo le gustar\xC3\xADa ver sus mensajes?"
+    updated: Mensaje actualizado
     wall: Muro
   preferences: Preferencias
   previous: Anterior
-  privacy: Intimidad
-  private: Privados
+  privacy: Privacidad
+  private: Privado
   private_message: 
     send: Enviar mensaje privado
   profile: 
     created: Perfil se ha creado correctamente.
-    deleted: Perfil ha sido borrado.
+    deleted: Perfil ha sido borrado exitosamente.
     description: 
-      add: Escribe algo sobre ti
+      add: Escriba algo sobre usted
     error: 
-      exist: Usted ya tiene un perfil.
+      exist: Su perfil ya existe
     hcard: 
-      fill_with: Llena tu perfil con la hCard
-    must_create: Debes crear tu primer perfil
+      fill_with: Completa su perfil con su hCard
+    must_create: Por favor, cree su perfil primero
     one: Perfil
     private: Perfil privado
     private_description: "S\xC3\xB3lo sus compa\xC3\xB1eros podr\xC3\xA1n acceder a esta informaci\xC3\xB3n"
