@@ -20,7 +20,7 @@
          <div class="div_login">
              <% form_tag session_url(:protocol => current_site.protocol) do -%>
                 <span>
-                 <label for="login"><%= t('email.one') %></label>
+                 <label for="login"><%= t('email') %></label>
 								</span>
                  <%= text_field_tag 'login', params[:login], :class=>"input_username" %>
                 
