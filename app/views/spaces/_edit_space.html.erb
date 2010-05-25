@@ -125,7 +125,7 @@
 		  <%= check_box("space", "public")%>
 		</p>		
 		<p>
-		  <label for="repository">Enable space repository?:</label> 
+		  <label for="repository"><%=t('event.repository.enabled')%>:</label> 
 		  <%= check_box("space", "repository")%>
 		</p>	
 	  <div class="margin-up">
@@ -163,7 +163,7 @@
     </li>
 	<li>
       <div>
-        <label for="repository"class="bold">Enable space repository?:</label> 
+        <label for="repository"class="bold"><%=t('event.repository.enabled')%></label> 
         <%= check_box_tag "space[repository]", false, @space.repository?, :id => "repository_checkbox"%>
       </div>
     </li>
