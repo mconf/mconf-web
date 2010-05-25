@@ -105,6 +105,7 @@ namespace(:vcc) do
    task :commit_remote_translations do
     run("cat #{ File.join(current_path, 'REVISION') }") do |channel, stream, data| 
       exit unless system("git checkout #{ data }")
+      system("git submodule update")
     end
 
     # Get remote translations in production server
@@ -120,6 +121,7 @@ namespace(:vcc) do
 
     # Go to deployment branch
     system "git checkout #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }"
+    system "git submodule update"
 
     # Add translations commit
     commit = `git cherry-pick #{ translations_commit } 2>&1`
