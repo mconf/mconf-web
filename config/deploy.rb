@@ -1,7 +1,6 @@
 set :servers,  {
-  :production => 'isabel@vcc.dit.upm.es',
-  :test => 'isabel@vcc-test.dit.upm.es',
-  :gplaza => 'isabel@globalplaza.co.cc'
+  :production => 'isabel@www.globalplaza.org',
+  :test => 'isabel@vcc-test.dit.upm.es'
 }
 
 set :branches, {
