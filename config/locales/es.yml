@@ -571,7 +571,7 @@ es:
       conference: Congreso virtual
       meeting: "Reuni\xC3\xB3n virtual"
       presential: "Reuni\xC3\xB3n"
-    no_events: "No tiene ning\xC3\xBAn evento"
+    no_events: "No hay ning\xC3\xBAn evento"
     no_param: "No hay par\xC3\xA1metros seleccionados"
     none_coming: "No hay eventos pr\xC3\xB3ximos"
     not_attend: No asisten
@@ -801,7 +801,7 @@ es:
     part3: "2. Haga click en el bot\xC3\xB3n <b>Crear un nuevo espacio</b>"
     part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su espacio."
     part5: "4. Decida si el espacio debe ser p\xC3\xBAblico. Espacios colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde los miembros s\xC3\xB3lo tienen accceso a las actividades del espacio."
-    part6: "5. Si desea habilitar un repositorio, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros."
+    part6: "5. Si desea habilitar un repositorio, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su espacio, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galer\xC3\xADa. "
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
     part1: "Para crear un usuario en Global Plaza:"
@@ -1467,7 +1467,7 @@ es:
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
       text_logo: Crear un logo de texto
-      upload_logo: Cargue su propio logo
+      upload_logo: Cargar su propio logo
       upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
     main: Espacio principal
