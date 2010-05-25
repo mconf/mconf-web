@@ -142,7 +142,7 @@ es:
       omit_title_divider: "El t\xC3\xADtulo del divisor no puede estar vac\xC3\xADo"
       overlaps: La entrada de la agenda se solapa con una entrada ya existente
       start_time_overlaps: La hora de inicio se solapa con una entrada ya existente en la agenda
-    expand_help: "Haga clic en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
+    expand_help: "Haga click en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
     title: Agenda para el evento
     update: Agenda actualizada correctamente.
     upload: Subir agenda
@@ -257,7 +257,7 @@ es:
     reconnect_message: Volver a conectar
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   city: Ciudad
-  click_here: "Haga clic aqu\xC3\xAD"
+  click_here: "Haga click aqu\xC3\xAD"
   click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
   close: Cerrar
   collapse: contraer
@@ -413,7 +413,7 @@ es:
   days: !binary |
     RMOtYXM=
 
-  dblclick: Haga doble clic para editar...
+  dblclick: Haga doble click para editar...
   delete: 
     confirm: "\xC2\xBFEst\xC3\xA1 seguro de eliminar {{element}}?"
     one: Borrar
@@ -434,8 +434,8 @@ es:
   e-mail: 
     account_activated: "Su cuenta en {{sitename}} ha sido activada con \xC3\xA9xito."
     commas: (separados por comas)
-    confirm: Es necesario confirmar su registro haciendo clic en <a href="{{url}}">{{url}}</a>
-    copy_link: "Si no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
+    confirm: Es necesario confirmar su registro haciendo click en <a href="{{url}}">{{url}}</a>
+    copy_link: "Si no puede hacer click en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
     dear: Estimado {{name}},
     invitation_result: 
       admin_side: "{{name}} ha {{action}} la invitaci\xC3\xB3n al espacio {{spacename}}"
@@ -629,6 +629,7 @@ es:
       other: Videos del evento
       share: Compartir
     repository: 
+      enabled: Habilitar el repositorio del espacio
       help: Este repositorio muestra los documentos subidos en las sesiones del evento
       title: Documentos del evento
     search: Buscar eventos...
@@ -832,7 +833,7 @@ es:
     part5: "4. Una vez que haya seleccionado su archivo, haga click en el bot\xC3\xB3n Abrir."
     part6: "5. Puede <b>a\xC3\xB1adir etiquetas</b> que usted y otros usuarios pueden utilizar para encontrar y filtrar contenido. Pulse <b>enter</b> para confirmar cada etiqueta."
     part7: "6. Si desea <b>notificar</b> el documento con un mensaje en el muro, elija esta opci\xC3\xB3n."
-    part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Subir</b> para a\xC3\xB1adir el archivo al repositorio."
+    part8: "7. Por \xC3\xBAltimo, haga click en el bot\xC3\xB3n <b>Subir</b> para a\xC3\xB1adir el archivo al repositorio."
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de Global Plaza
@@ -1006,13 +1007,13 @@ es:
   login_to: Entrar en {{site}}
   login_traditional: Usuario / clave
   logo: 
-    click_to_change: Haga clic para cambiar el logotipo
+    click_to_change: Haga click para cambiar el logotipo
     created: "Logo creado con \xC3\xA9xito"
-    crop: Cortar logotipo de espacio
+    crop: Cortar logo de espacio
     current: Logo actual
-    empty: "El logotipo est\xC3\xA1 vac\xC3\xADo"
+    empty: "El logo est\xC3\xA1 vac\xC3\xADo"
     error: 
-      not_valid: "El logotipo de espacio no es v\xC3\xA1lido"
+      not_valid: "El logo de espacio no es v\xC3\xA1lido"
     one: Logo
   logout: Salir
   mailing_list: 
@@ -1427,8 +1428,8 @@ es:
     all: Todos los espacios
     allow_public_access: "Permitir acceso p\xC3\xBAblico?"
     be_fan: Ser aficionado
-    clic: Haga clic para editar ...
-    clic_logo: Haga clic para cambiar su logo
+    clic: Haga click para editar ...
+    clic_logo: Haga click para cambiar su logo
     configuration: "Configuraci\xC3\xB3n del espacio"
     confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea dejar este espacio?"
     create_own: Crear un nuevo espacio

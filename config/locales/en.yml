@@ -593,6 +593,7 @@ en:
       other: Event Videos
       share: Share
     repository: 
+      enabled: Enable space repository
       help: This repository show the documents uploaded in the sessions of the event agenda
       title: Event documents
     search: Search events...
