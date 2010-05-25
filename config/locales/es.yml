@@ -303,6 +303,7 @@ es:
 
   create: Crear
   create_: Crear...
+  create_event: Crear Evento
   created_at: Creado
   created_at_date: "Creado: {{date}}"
   created_time_ago: Creado hace {{time}}
@@ -491,7 +492,7 @@ es:
       myevents: Mis eventos
       myeventstitle0: Eventos que ha creado
       myeventstitle1: "No ha creado ning\xC3\xBAn evento"
-    choose_location: "Elija la ubicaci\xC3\xB3n"
+    choose_location: Elija el lugar
     colon: "Evento:"
     coming: "Pr\xC3\xB3ximas actividades"
     connection: 
@@ -560,7 +561,7 @@ es:
     join: Formar parte de este evento
     last_7_days: "\xC3\x9Altimos 7 d\xC3\xADas ({{size}})"
     last_month: El mes pasado ({{size}})
-    location: "Ubicaci\xC3\xB3n"
+    location: Lugar
     logo: 
       button: Cambiar el logotipo
       created: "logotipo de evento creado con \xC3\xA9xito"
@@ -778,7 +779,7 @@ es:
   help_createmeeting: 
     part1: "Para crear una reuni\xC3\xB3n en Global Plaza:<br><br>  1. Haga click en la pesta\xC3\xB1a <b>Eventos</b>.<br>  2. Haga click en <b>Reuni\xC3\xB3n</b> en la parte derecha de la p\xC3\xA1gina."
     part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4. Escriba o seleccione los miembros del espacio que organizar\xC3\xA1n el evento. <br> 5. Escriba la localizaci\xC3\xB3n del evento.<br>  6. Haga click en el bot\xC3\xB3n <b>Crear</b>."
-    part3: ""
+    part3: "7. Una vez se haya creado el evento, usted puede: <br><li>Definir el horario de su reuni\xC3\xB3n en la agenda<li>Invitar personas<li>Escribir una descripci\xC3\xB3n completa<li>Editar su evento<li>Definir la agenda para el evento<li>Importar un icalendar<li>Notificar a los asistentes"
   help_createpost: 
     part1: "Para crear un mensaje en el muro de Global Plaza:"
     part10: "a. Ver el c\xC3\xB3digo fuente en HTML"

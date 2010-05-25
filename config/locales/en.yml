@@ -275,6 +275,7 @@ en:
   could_not_find_anybody_with_that_email_address: Could not find anybody with that email address
   country: Country
   create: Create
+  create_event: Create Event
   created_at: Created at
   created_at_date: "Created: {{date}}"
   created_time_ago: Created {{time}} ago
