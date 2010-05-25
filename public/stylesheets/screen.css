@@ -236,7 +236,7 @@ button#change_logo{float:left;}
 	border:none;
 }
 
-#streaming_content a.basic_button:hover{background:url("../images/buttons/fondo-join-space2.png");}
+#streaming_content a.basic_button:hover,#event_card_show .selected span{background:url("../images/buttons/fondo-join-space2.png");}
 
 #event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
 	color:#FFF;

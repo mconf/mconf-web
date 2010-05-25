@@ -76,23 +76,19 @@
 
 <div id="jar">
 	<div class="button_wrapper grey_bar">
-	  <%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event, :show_agenda => true), {:id=>"view_agenda", :class=>"grey_button basic_button",:title => t('event.view_agenda')} %>
-	  <%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} %>
+	  <%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event, :show_agenda => true), {:id=>"view_agenda", :class=>"grey_button basic_button #{'selected' if params[:show_agenda]} ",:title => t('event.view_agenda')} %>
+	  <%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button #{'selected' if params[:show_repository]}",:title => t('event.view_repo')} %>
 	 
-	  <%if (@event.is_happening_now? && @event.has_streaming?) || @event.is_in_person?%>
-	    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_streaming')} %>
-	  <%elsif @event.has_streaming?%>
-	    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button disabled_button",:title => t('event.view_streaming_disabled')} %>
+	  <%if @event.has_streaming?%>
+	    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_streaming? } #{'selected' if params[:show_streaming]}",:title => t("event.view_streaming#{ '_disabled' unless @event.show_streaming? }")} %>
 	  <%end%>
 	  
-	  <%if (@event.is_virtual? && @event.is_happening_now? && @event.web_interface?) || @event.is_in_person?%>
-	    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
-	  <%elsif @event.is_virtual? && @event.web_interface?%>
-	    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button disabled_button",:title => t('event.view_participation_disabled')} %>
+	  <%if @event.is_virtual? && @event.web_interface?%>
+	    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_participation?} #{'selected' if params[:show_participation]}",:title => t("event.view_participation_#{ '_disabled' unless @event.show_streaming? }")} %>
 	  <%end%>
 	  
 	  <%if @event.agenda.has_past_session_with_video? %>
-	    <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"grey_button basic_button",:title => t('event.view_recordings')} %>
+	    <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"grey_button basic_button #{'selected' if params[:show_video]}",:title => t('event.view_recordings')} %>
 	  <%elsif @event.agenda.has_entries_with_video?%>
 		<%=link_to ("<span>" + t('event.view_recordings') + "</span>"),'#', {:id=>"view_recordings", :class=>"grey_button basic_button disabled_button",:title => t('event.view_recordings_disabled')} %>
 	  <%end %>

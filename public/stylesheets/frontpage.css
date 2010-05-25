@@ -346,15 +346,18 @@ a.login{
 #logo {
 	margin-left:0px;
 	margin-top:0px;
-	width:186px;
-	height:61px;
+	width:200px;
+	height:59px;
 	margin-bottom:0px;
 	display:inline;
+	text-indent:99999px;
 }
+
+#logo.frontpage_logo{background:#244974 url('/images/logo-global-plaza.png') no-repeat scroll 37% 84%;}
 
 #espacio_header {
 	margin:0px;	
-	margin-left:180px;
+	margin-left:166px;
 	margin-top:50px;
 	height:61px;
 	display:inline;

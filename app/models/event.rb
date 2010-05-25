@@ -219,7 +219,6 @@ class Event < ActiveRecord::Base
     end
   end
   
-    
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
   def syncronize_date
@@ -240,7 +239,17 @@ class Event < ActiveRecord::Base
       nil
     end
   end
+
   
+  #method to know everything about streaming
+  def show_streaming?
+    is_happening_now? || is_in_person?
+  end
+  
+  #method to know if we need to paint the participation button
+  def show_participation?
+    is_happening_now? || is_in_person?
+  end
 #better the method agenda.has_entries_with_video?
 #
 #  #method to know if any of the agenda_entry of the event has recording
