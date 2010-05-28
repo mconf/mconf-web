@@ -594,7 +594,7 @@ en:
       share: Share
     repository: 
       enabled: Enable space repository
-      help: This repository show the documents uploaded in the sessions of the event agenda
+      help: This repository shows the documents uploaded in the sessions of the event agenda
       title: Event documents
     search: Search events...
     select_date: Select a date for your event
@@ -731,12 +731,12 @@ en:
   help: Help
   help_createVC: 
     part1: To create a virtual congress in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
+    part3: "8. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createVM: 
     part1: To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part3: "8. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createevent: 
     part1: "To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
     part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events, according to your needs: <br><li>The <b><a href={{url_meeting}}> Meeting </a></b>type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler -  like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting.<li>The <b><a href={{url_vm}}>Virtual meeting </a></b>type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively.<li>The <b> <a href={{url_vc}}>Virtual congress</a> </b>type is very similar to <i>the virtual meeting</i> but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
