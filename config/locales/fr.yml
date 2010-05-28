@@ -776,12 +776,16 @@ fr:
   help_support: Aide et conseils
   help_title: 
     about_vcc: A propos de VCC
-    create_post: "Cr\xC3\xA9ation d&#39;un message dans le mur"
+    create_VC: "Cr\xC3\xA9ation d&#39;un congr\xC3\xA8s virtuel"
+    create_VM: "Cr\xC3\xA9ation d&#39;une r\xC3\xA9union virtuelle"
+    create_event: "Cr\xC3\xA9ation d&#39;un \xC3\xA9v\xC3\xA9nement"
+    create_meeting: "Cr\xC3\xA9ation d&#39;une r\xC3\xA9union"
+    create_post: "Cr\xC3\xA9ation d'un message dans le mur"
     create_space: "Cr\xC3\xA9er un espace"
-    create_user: "Cr\xC3\xA9ation d&#39;un utilisateur"
+    create_user: "Cr\xC3\xA9ation d'un utilisateur"
     info: Ici vous pouvez trouver des informations sur le VCC
     logging: "Connexion \xC3\xA0 votre compte"
-    new_doc: Ajout d&#39;un nouveau document
+    new_doc: Ajout d'un nouveau document
     topics: Sujets
   help_vcc: 
     info: Ici vous pouvez trouver des informations sur le VCC
