@@ -7,6 +7,14 @@
     <title><%= yield :title %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
+		<% if current_user.chat_activation %>
+    <script type="text/javascript" charset="utf-8">
+      if (window == window.top) {
+          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
+      }
+		</script>
+		<% end %>
+		    
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
@@ -28,17 +36,6 @@
     <%= yield :headers %>
 		
 	  <script type="text/javascript" charset="utf-8">
-      <% if current_user.chat_activation %>
-      if (window == window.top) {
-        $(document).ready(function(event){
-          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
-          event.preventDefault();
-          event.stopPropagation();
-          return false;
-        });
-      }
-      <% end %>
-
       $(document).ready(function() {
 	        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
