@@ -80,7 +80,7 @@
 	  <%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button #{'selected' if params[:show_repository]}",:title => t('event.view_repo')} %>
 	 
 	  <%unless @event.past?%>
-			<%if @event.has_streaming?%>
+			<%if @event.has_streaming? || @event.is_in_person?%>
 		    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_streaming? } #{'selected' if params[:show_streaming]}",:title => t("event.view_streaming#{ '_disabled' unless @event.show_streaming? }")} %>
 		  <%end%>
 			
@@ -104,7 +104,7 @@
 	        <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
 	        <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
 	        <li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>
-                <% if @event.authorize?(:start, :to => current_user) %>
+                <% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? %>
                 <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
                 <% end %>
 				</ul>
