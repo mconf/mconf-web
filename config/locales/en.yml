@@ -604,6 +604,7 @@ en:
     started: Start request send successfully
     streaming: 
       add: Add one.
+      back: Back to streaming
       edit: Edit streaming code
       no_at_events: No Streaming at meetings
       none: No one has posted any streaming url
@@ -928,6 +929,7 @@ en:
   invited: Invited
   is_member_of: is member of
   join: Join
+  join_cam: Join your webcam
   join_request: 
     accepted: Join Request accepted
     already_sent: You have already requested to join this space

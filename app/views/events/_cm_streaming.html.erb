@@ -10,7 +10,7 @@
 		<%if @event.has_session_now?%>
 			<div class="button_wrapper"><!-- hay que repasar muy bien las condiciones-->
 	      <div class="on_live"><span>Live!</span></div> 
-	        <%=link_to ("<span>" + t('join') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+	        <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
 	    </div>
 		  <%= @event.streaming(640, 480)%>
 		<%else%>
@@ -20,5 +20,9 @@
 		  </div>				
 		<%end%>
   </div>
+	
+  <%if @event.description != ""%>  
+    <%= render :partial => "events/event_description" %>
+  <%end%>
   
 </div>

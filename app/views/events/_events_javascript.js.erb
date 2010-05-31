@@ -340,10 +340,6 @@ $("a.repository_sidebar_action").livequery("click",function(){
     $('#date1').addClass("selected");
     $('#agenda_page1').show();
   <%end%>
-	
-  $('.title_name_and_hour').livequery('click', function(){
-    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
-  });
  
  $(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 

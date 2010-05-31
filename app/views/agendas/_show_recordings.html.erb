@@ -41,6 +41,9 @@
 			  </div>
 		 </div>
 	  </div>
+		<%if @event.description != ""%>  
+			<%= render :partial => "events/event_description" %>
+		<%end%>
 	</div>
   </div>
 </div>

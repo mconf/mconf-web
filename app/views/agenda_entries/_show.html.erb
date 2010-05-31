@@ -45,7 +45,7 @@
 	
 	  </div>
 	
-	  <div class="agenda_entry_description" <%if !expanded %> style="display:none" <%end%>> 
+	  <div class="agenda_entry_description"> 
 	    <%if agenda_entry.past? && agenda_entry.recording?%>
 		  
 	      <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">

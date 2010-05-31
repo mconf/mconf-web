@@ -218,7 +218,7 @@ button#change_logo{float:left;}
   padding:3px 7px 3px 23px;
 	display:block;
 }
- 
+
 #streaming_content a.basic_button{
 	-moz-border-radius:0;
 	margin:0;
@@ -231,9 +231,13 @@ button#change_logo{float:left;}
 	-moz-border-radius:0;
 	line-height:18px;
   color:#222;
-  background:url("../images/icons/webcam_add.png") no-repeat 10% center;
+  background:url("../images/icons/webcam_add.png") no-repeat 4% center;
   padding:3px 6px 3px 25px;
 	border:none;
+}
+
+#streaming_content a.basic_button span#leave_cam{
+  background:url("../images/icons/webcam_exit.png") no-repeat 4% center;
 }
 
 #streaming_content a.basic_button:hover,#event_card_show .selected span{background:url("../images/buttons/fondo-join-space2.png");}
@@ -1409,7 +1413,7 @@ tr.version_expanded td{
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
 #agenda_title span{padding:2px 8px;}
-#event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title,.entry_title .title_name_and_hour{cursor:pointer;}
+#event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title{cursor:pointer;}
 h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
 	background:#bdd8eb;
@@ -1424,6 +1428,7 @@ h3#event_description_title div img,#agenda_title div img,#participation_title di
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
 #event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#participation_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
+#streaming_content{margin-bottom:0.75em;}
 
 .video_wrapper{
 	position:relative;
@@ -1560,7 +1565,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .video_description {float: right;width:127px;padding-left:5px;}
 .video_thumbnail {float: left;}
 .video_full {text-align: center; margin-top: 3px;}
-.video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;}
+.video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;margin-bottom:0.75em;}
 .video_properties{padding:3px 6px;}
 .video_share{background:url("../images/share.png") no-repeat 100% center;margin-right:10px;padding:6px 17px 6px 6px;display:inline-block;}
 .video_share span{background:#8f8f8f;color:#f1f1f1;font-weight:bold;}
