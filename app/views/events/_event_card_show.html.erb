@@ -85,7 +85,7 @@
 		  <%end%>
 			
 		  
-		  <%if @event.is_virtual? && @event.web_interface?%>
+		  <%if (@event.is_virtual? && @event.web_interface?) || @event.is_in_person?%>
 		    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_participation?} #{'selected' if params[:show_participation]}",:title => t("event.view_participation_#{ '_disabled' unless @event.show_streaming? }")} %>
 		  <%end%>
 	  <%end%>
