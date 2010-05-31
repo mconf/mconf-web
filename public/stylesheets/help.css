@@ -457,17 +457,20 @@ a.login{
 }
 
 #logo {
-	margin-left:0px;
-	margin-top:0px;
-	width:186px;
-	height:61px;
-	margin-bottom:0px;
-	display:inline;
+  margin-left:0px;
+  margin-top:0px;
+  width:200px;
+  height:59px;
+  margin-bottom:0px;
+  display:inline;
+  text-indent:99999px;
 }
+
+#logo.frontpage_logo{background:#244974 url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
 
 #espacio_header {
 	margin:0px;	
-	margin-left:180px;
+	margin-left:166px;
 	margin-top:50px;
 	height:61px;
 	display:inline;
