@@ -54,11 +54,7 @@ class SessionsController
       flash[:notice] = t('session.error.fill')
       edit_site_path
     else
-      if current_user.chat_activation
-        url_for :controller => "p", :action => "index", :only_path => true
-      else
-        home_path
-      end
+      home_path
     end
   end
 

@@ -14,7 +14,49 @@ describe SessionsController do
   end
 
   describe "create" do
-    describe 'with valid login and password of user with chat' do
+    describe 'with valid login and password of javascript user with actived chat in preferences' do
+      before do
+        user_attributes = Factory.attributes_for(:user)
+        @user = User.create(user_attributes)
+        @user.activate
+        @credentials = user_attributes.reject{ |k, v| 
+          ! [ :login, :password ].include?(k)
+        }
+        request.env['HTTP_ACCEPT'] = "text/javascript"
+      end
+
+      it 'should validate user and redirect to home with chat' do
+        post :create, @credentials
+        
+        assert controller.current_user == @user
+        response.should render_template('sessions/create.js.erb')
+        # Response must have p_path to redirect to that url
+        response.should include_text(p_path)
+      end
+    end
+    
+    describe 'with valid login and password of javascript user without actived chat in preferences' do
+      before do
+        user_attributes = Factory.attributes_for(:user_without_chat)
+        @user = User.create(user_attributes)
+        @user.activate
+        @credentials = user_attributes.reject{ |k, v| 
+          ! [ :login, :password ].include?(k)
+        }
+        request.env['HTTP_ACCEPT'] = "text/javascript"
+      end
+
+      it 'should validate user and redirect to home without chat' do
+        post :create, @credentials
+        
+        assert controller.current_user == @user
+        response.should render_template('sessions/create.js.erb')
+        # Response must have home_path to redirect to that url
+        response.should include_text(home_path)
+      end
+    end
+    
+    describe 'with valid login and password of no-javascript user with actived chat in preferences' do
       before do
         user_attributes = Factory.attributes_for(:user)
         @user = User.create(user_attributes)
@@ -24,15 +66,15 @@ describe SessionsController do
         }
       end
 
-      it 'should validate user and redirect to home with chat' do
+      it 'should validate user and redirect to home without chat' do
         post :create, @credentials
         
         assert controller.current_user == @user
-        response.should redirect_to( p_path )
+        response.should redirect_to(home_path)
       end
     end
     
-    describe 'with valid login and password of user without chat' do
+    describe 'with valid login and password of no-javascript user without actived chat in preferences' do
       before do
         user_attributes = Factory.attributes_for(:user_without_chat)
         @user = User.create(user_attributes)

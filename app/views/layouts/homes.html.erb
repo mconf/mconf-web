@@ -26,7 +26,19 @@
 
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
     <%= yield :headers %>
+		
 	  <script type="text/javascript" charset="utf-8">
+      <% if current_user.chat_activation %>
+      if (window == window.top) {
+        $(document).ready(function(event){
+          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        });
+      }
+      <% end %>
+
       $(document).ready(function() {
 	        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
