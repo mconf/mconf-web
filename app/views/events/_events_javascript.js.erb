@@ -410,11 +410,9 @@ $("a.repository_sidebar_action").livequery("click",function(){
 /*Highlight color for events*/
 
   glow = function(){
-	  $(".on_live").effect("highlight", {color:"#F5DF51"}, 3000);
-		$(".on_live").effect("highlight", {color:"#F5DF51"}, 3000);
-		$(".on_live").effect("highlight", {color:"#F5DF51"}, 3000);
-		$(".on_live").effect("highlight", {color:"#F5DF51"}, 3000);
-		$(".on_live").effect("highlight", {color:"#F5DF51"}, 3000);
+		window.setTimeout(function(){
+		  $(".on_live").effect("highlight", {color:"#F5DF51"}, 5000);
+		  glow();},15000);
 	}
   
   glow();

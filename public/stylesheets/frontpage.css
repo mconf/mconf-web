@@ -353,7 +353,7 @@ a.login{
 	text-indent:99999px;
 }
 
-#logo.frontpage_logo{background:#244974 url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
+#logo.frontpage_logo{background: url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
 
 #espacio_header {
 	margin:0px;	
