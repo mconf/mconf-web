@@ -3,7 +3,6 @@
     
         <% if logged_in? %>
           <ul id="prefs">
-          <% if current_site.authorize?(:translate, :to => current_user)%><li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li><%end%>
           <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>      
           <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
           <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
@@ -60,12 +59,6 @@
      <br class="clearfloat" /> 
   
         <% end %>
-        
-    <% unless !current_site.authorize?(:translate, :to => current_user) -%>
-      <% for locale in (I18n.available_locales - [I18n.locale]) -%>
-      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :alt => locale.to_s,:title=>t("translate.change")), session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
-      <% end -%>
-    <%end -%>
    </ul>
    <%if logged_in?%>
     <span id="spaces_select">

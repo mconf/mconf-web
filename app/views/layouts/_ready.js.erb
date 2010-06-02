@@ -170,21 +170,3 @@ $("a.spam_link").fancybox({
     $(".div_login_openid").hide();
     $(".div_login").show();
   };
-
-/**
- * Login html form becomes into ajax form to modofy http headers 
- */
- 
-$(".login_form").submit(function() {
-  var serializedForm = $(this).serialize();
-  $.ajax({
-          beforeSend: function(XMLHttpRequest) {
-                  XMLHttpRequest.setRequestHeader( "Accept", "text/javascript,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-          },
-    data: $(this).serialize(),
-          dataType: "script",
-          type: "POST",
-          url: "<%= session_url(:protocol => current_site.protocol) %>"
-  });
-  return false;
-});
