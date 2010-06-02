@@ -18,8 +18,18 @@
     	
 			$(document).ready(function() {
 	      <%= render :partial => 'layouts/ready.js.erb' %>
+		  
+$('#gallery').galleryView({
+	gallery_width: '320',
+	gallery_height: '273',
+	frame_width: 73,
+	frame_height: 46,
+	pause_on_hover: true
+});				  
 				<%= yield :javascript%>
 	    });
+		
+	
 
     </script>
 		
