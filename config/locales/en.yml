@@ -414,7 +414,7 @@ en:
     thanks: Thanks for visiting {{sitename}}
     url_activated: You can now login to your account with your email "{{name}}" and your password in <a href="{{url}}"> {{url}}</a>
     used_from: "email used in contact form: {{dir}}"
-    vcc_team: The VCC Team
+    vcc_team: The Global Conference Team
     welcome: Welcome to {{sitename}}
   edit: Edit
   edit_hours: Edit hours
@@ -435,7 +435,7 @@ en:
     not_allowed: You are not allowed to perform that action
     one: Error
     other: Errors
-    vcc_warning: "VCC warning:"
+    vcc_warning: "Global warning:"
   eu_commision: European Commission
   event: 
     Isabel: Isabel event
@@ -666,7 +666,7 @@ en:
   fax: Fax
   feedback: 
     email: "{{email}} sent the following feedback:"
-    note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible
+    note: Help us improve Global. Please send your comments, problems and suggestions. We will try to answer as soon as possible
     one: Feedback
     send: Send feedback
     send_us: Send us feedback!
@@ -695,7 +695,7 @@ en:
       participants: Participants
       spaces: Spaces
       tags: Tags
-    main_title: VCC a hosting service for publishing and discovering videoconferences
+    main_title: Global a hosting service for publishing and discovering videoconferences
     meet: 
       sentence1: Discover best online videoconferences
       sentence2: Meet interesting people and groups
@@ -731,7 +731,7 @@ en:
   hello: Hello
   help: Help
   help_createVC: 
-    part1: To create a virtual congress in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
+    part1: To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
     part3: "8. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createVM: 
@@ -777,7 +777,7 @@ en:
     part5: 4. Once you have completed your registration, click on <b>Done</b> button.
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
   help_index: 
-    part1: "The Global Plaza, also called the Virtual Conference Center (VCC), delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
+    part1: "The Global Plaza Conferences, delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
     part2: "<li>To record and publish your events on the Internet. \r\n\
       <li>To provide remote participation to your events from a Web browser. \r\n\
       <li>To stream existing meetings, congresses or lectures over the Internet. \r\n\
@@ -813,7 +813,7 @@ en:
     new_doc: Adding a new document
     topics: Topics
   help_vcc: 
-    info: Here you can find information about the VCC
+    info: Here you can find information about the Global
     topics: Topics
   hide: Hide
   his_message_reads_thus: His message reads thus
@@ -823,8 +823,8 @@ en:
     one: home
   icalendar: 
     add: Update and Add new entries
-    conflictive1: "One entry of your iCalendar was on the Vcc application and has been modified. You must update it manually to avoid problems. "
-    conflictiven: " entries of your iCalendar were on the Vcc application and have been modified. You must update them manually to avoid problems. "
+    conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
+    conflictiven: " entries of your iCalendar were on the Global application and have been modified. You must update them manually to avoid problems. "
     error_import: An error ocurred while importing the iCalendar.
     export: Export iCalendar
     import: Import iCalendar
@@ -1537,7 +1537,7 @@ en:
     change: Switch language
     one: Translate
     request: To translate to a different language, please request the administrator to add the new language and flag
-    translated: "VCC is now translated, or in translation process, to "
+    translated: "Global is now translated, or in translation process, to "
   type: Type
   undated: Undated
   unknown_content: Unknown content {{content}}
@@ -1619,7 +1619,7 @@ en:
     search: Search Users...
     timezone: Timezone
     updated: User updated successfully
-    vcc_email: VCC user e-mail {{dir}}
+    vcc_email: Global user e-mail {{dir}}
     view_expanded_posts: Show messages in wall with the expanded view by default
     without_group: People without group
   username: Username
@@ -1629,8 +1629,8 @@ en:
     success: vCard successfully loaded
     use: Use your vCard
   vcard: vCard
-  vcc: Virtual Conference Centre
-  vcc_mail_label: "[VCC]"
+  vcc: Global Plaza Conferences
+  vcc_mail_label: "[Global]"
   version: 
     new: New version
     one: Version
