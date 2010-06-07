@@ -23,17 +23,24 @@
 		  <div class="video_properties">
 				<div class="video_title">
 			  	<%if @display_entry%>
-			      <%=@display_entry.title%>
-			    <%end%>     
+			      <span><%=@display_entry.title%></span>
+			    <%end%>
+					- <%=link_to(t('event.agenda.see'),space_event_path(@space, @event,:show_agenda => true), {:id=>"view_agenda"})%>    
 		    </div>
-			  <div class="video_users unified_user">  
+			  <div class="video_users">  
 			    <%if @display_entry%>
-					  <%=entry_speakers(@display_entry)%>
+					  <%=t('agenda.entry.speakers')%>: <span class="unified_user"><%=entry_speakers(@display_entry)%></span>
 		      <%end%>
 			  </div>
+        <div>
+          <%if @display_entry%>
+            <%=t('agenda.entry.description')%>: <span class="main_text"><%=@display_entry.description %></span>
+          <%end%>
+        </div>
 			  <div class="video_attachments">
 			  	<%if @display_entry%>
-				  <% @display_entry.attachments.each  do |a| %>
+				  <%=t('agenda.entry.documents')%>:
+					<% @display_entry.attachments.each  do |a| %>
 				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
 		            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
 		          <%end %>

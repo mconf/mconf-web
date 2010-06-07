@@ -90,6 +90,7 @@ en:
       created: Agenda entry was successfully created
       delete: Agenda entry was successfully deleted
       description: Description
+      documents: Related documents
       duration: Duration
       edit: Edit Agenda Entry
       embed_help: Can be filled with HTML code to embed a video
@@ -446,6 +447,7 @@ en:
       add_entry: Add one.
       download: Download PDF
       no_entries: There are no entries yet.
+      see: See on agenda
     assistance_title: Participation
     assistants_none: Nobody has confirmed yet
     attend: Attending
