@@ -21,6 +21,7 @@ class SearchController < ApplicationController
   
   def index
 
+    params[:query] ||= ""
     @query = params[:query].include?('*') ? params[:query] : params[:query].split.map{|s| "*#{s}*"}.join(' ')
       
     if params[:start_date].blank? && params[:end_date].blank? && params[:query].blank?
