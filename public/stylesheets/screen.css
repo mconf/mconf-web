@@ -701,6 +701,17 @@ div.pagination a{color:#244974;}
 
 #sidebar #join{margin-bottom:0.75em;}
 #sidebar input[type="text"],#sidebar input[type="file"]{width:92%;}
+#sidebar #event_text_input{
+	width:80%;
+	background:#FFFFFF url(/images/icons/find.png) no-repeat scroll right center;
+	border:1px solid #BDDBD8;}
+	
+#event_day_select{margin-left:20px;}
+#event_text_filter{
+	padding:6px 20px;
+	text-align:center;
+	border-left:1px solid #BDD8EB;
+	border-right:1px solid #BDD8EB;}
 #sidebar input[type="file"]{overflow:hidden;}
 #sidebar #expanded_date .javascript a.timepicker_launcher{margin-left:5px;}
 #sidebar #expanded_date .javascript label{margin-right:38px;}
@@ -1292,6 +1303,8 @@ td.attachment-tags .event_in_tags{
 	margin-top:3px;
 	margin-bottom:3px;
 	width: 226px;
+  overflow-x:hidden;
+
 }
 
 .video_preview a.entry_video_link, .video_preview_sidebar a.entry_video_link{
@@ -1554,7 +1567,12 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	padding-top:10px;
 }
 
-#carrusel {height:463px;background:#f0f6f9;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;border-bottom:1px solid #bdd8eb;}
+#carrusel {
+	height:500px;
+	overflow:auto;
+	background:#f0f6f9;
+	border:1px solid #bdd8eb;}
+
 .event_video_title{margin-top: 132px;}
 #sidebar .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
 .event_video_tabs{border-bottom:1px solid #A8C0D1;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;}
@@ -1562,8 +1580,8 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .event_video_tabs ul li{display:inline-block;padding:0.25em 0.75em;border-right:1px solid #A8C0D1;cursor:pointer;}
 .event_video_tabs ul li:hover,#carrusel .event_video_tabs ul .selected{text-decoration:underline;}
 #carrusel #carrusel_content{position:relative;display:block;}
-.video_description {float: right;width:127px;padding-left:5px;}
-.video_thumbnail {float: left;}
+.video_description {float: left;padding-left:5px;max-width:130px;}
+.video_thumbnail {float: left;width:90px;}
 .video_full {text-align: center; margin-top: 3px;}
 .video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;margin-bottom:0.75em;}
 .video_properties{padding:3px 6px;}
