@@ -20,7 +20,9 @@ class SearchController < ApplicationController
   authorization_filter [ :read, :content ], :space, :if => :space
   
   def index
-    
+
+    @query = params[:query].include?('*') ? params[:query] : params[:query].split.map{|s| "*#{s}*"}.join(' ')
+      
     if params[:start_date].blank? && params[:end_date].blank? && params[:query].blank?
     elsif params[:start_date].blank? && params[:end_date].blank? && params[:query].length < 3
       flash[:notice] = t('search.parameters')
@@ -82,8 +84,6 @@ class SearchController < ApplicationController
   end
   
   def search_spaces (params)
-    @query = params[:query] 
-
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Space')
     @search.run
     
@@ -92,11 +92,10 @@ class SearchController < ApplicationController
   
   def search_events(params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
-    @query = params[:query]
     
     filter_date(params, filters, [:start_date, :end_date])
     
-    @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'Event',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters)
     @search.run
 
     @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -104,11 +103,10 @@ class SearchController < ApplicationController
   
   def search_agenda_entries(params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
-    @query = params[:query]
     
     filter_date(params, filters, [:start_time, :end_time])
     
-    @search = Ultrasphinx::Search.new(:query => params[:query],:class_names => 'AgendaEntry',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters)
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -120,7 +118,6 @@ class SearchController < ApplicationController
   
   def search_posts (params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}    
-    @query = params[:query] 
     
     filter_date(params, filters, [:updated_at])
     
@@ -133,7 +130,6 @@ class SearchController < ApplicationController
   end
   
   def search_users (params)
-    @query = params[:query]
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'User')
     @search.run
     @users = @space.nil? ?
@@ -143,7 +139,6 @@ class SearchController < ApplicationController
   
   def search_attachments (params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
-    @query = params[:query] 
     
     filter_date(params, filters, [:updated_at])
     
