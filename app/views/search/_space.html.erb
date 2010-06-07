@@ -1,5 +1,5 @@
 <div class="single_space">
 	<%=image_tag(logo_image_path(space, :size =>'h48'), :align => "left")%>
-  <p><%=link_to highlight(sanitize(space.name),@query),space_path(space), :class => "space_title" %></p>
-  <p><%=highlight(sanitize(space.description), @query)%></p>
+  <p><%=link_to highlight(sanitize(space.name),params[:query]),space_path(space), :class => "space_title" %></p>
+  <p><%=highlight(sanitize(space.description), params[:query])%></p>
 </div>
