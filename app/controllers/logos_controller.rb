@@ -60,7 +60,7 @@ class LogosController
      render :template => "logos/precrop_without_space", :layout => false
    end
    if params[:upload_crop]
-     images_path = File.join("images")
+     images_path = File.join(RAILS_ROOT, "public", "images")
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
      uploaded_image = File.join(final_path, "uploaded_logo.png")
