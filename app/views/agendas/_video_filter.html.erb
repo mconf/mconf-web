@@ -31,23 +31,11 @@ $("#event_text_input").livequery('keyup', function() {
 });
 <%end%>
 
-<div id="carrusel_filter">
-  <%#Day filter%>
-	<% if @event.days > 1 %>
-  	<div id="event_day_filter">
-		  <label class="bold blue"><%=t('find_in_day')%></label>
-		  <select id="event_day_select">
-		    <option value="" id="blank_option"><%=t('any')%></option>
-		    <%(1..@event.days).each do |day|%>
-		      <option value="<%=day%>"><%=day%></option>  
-		    <%end%>
-		  </select>
-		</div>
-	<% end %>
-	
+
+<div id="carrusel_filter">	
 	<%#Text filter%>
 	<div id="event_text_filter">
-		<label class="bold blue"><%=t('find_in_name_speakers')%></label>
+		<!--<label class="bold blue"><%=t('find_in_name_speakers')%></label>-->
 		<%=text_field_tag :text_filter,'', :id => "event_text_input"%>
 	</div>
 </div>

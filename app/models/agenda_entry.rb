@@ -205,14 +205,14 @@ class AgendaEntry < ActiveRecord::Base
     parse_embedded_video.xpath("//@#{ a }").first.try(:value)
   end
 
-  def get_background_from_embed
-    embedded_video_attribute("image")
-  end
-
   def get_src_from_embed
     embedded_video_attribute("src")
   end
-    
+
+   def get_background_from_embed
+    get_src_from_embed && CGI.parse(URI.parse(get_src_from_embed).query)["image"].try(:first)
+  end
+
   def is_happening_now?
     return start_time.past? && end_time.future?    
   end
