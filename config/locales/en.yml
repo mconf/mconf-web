@@ -90,6 +90,7 @@ en:
       created: Agenda entry was successfully created
       delete: Agenda entry was successfully deleted
       description: Description
+      documents: Related documents
       duration: Duration
       edit: Edit Agenda Entry
       embed_help: Can be filled with HTML code to embed a video
@@ -156,6 +157,7 @@ en:
       one: Select Agent
   agree: "Yes"
   all: All
+  all_days: All days
   all_rights_reserved: All rights reserved
   any: Any
   any_field: Any field
@@ -445,6 +447,7 @@ en:
       add_entry: Add one.
       download: Download PDF
       no_entries: There are no entries yet.
+      see: See on agenda
     assistance_title: Participation
     assistants_none: Nobody has confirmed yet
     attend: Attending
@@ -590,7 +593,7 @@ en:
       button_disabled: This button will be enabled when the event has any recording
       notice: People will need access rights to this space to see this videos
       one: Event Video
-      other: Event Videos
+      other: Videos of the event
       share: Share
     repository: 
       enabled: Enable space repository
@@ -778,13 +781,11 @@ en:
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
   help_index: 
     part1: "The Global Plaza Conferences, delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
-    part2: "<li>To record and publish your events on the Internet. \r\n\
-      <li>To provide remote participation to your events from a Web browser. \r\n\
-      <li>To stream existing meetings, congresses or lectures over the Internet. \r\n\
-      <li>To bring remote speakers into an existing meeting or congress.\r\n\
-      <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
-      The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
-    part3: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part2: "<li>To record and publish your events on the Internet. <br> &nbsp; &nbsp; For example: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>To provide remote participation to your events from a Web browser.  "
+    part3: "<li>To stream existing meetings, congresses or lectures over the Internet. <br> &nbsp; &nbsp; For example: <a href={{belief}}>5th Belief Symposium South Africa</a>,<a href={{morfeo}}> Asamblea Morfeo</a>.  <li>To bring remote speakers into an existing meeting or congress.<br> &nbsp; &nbsp; For example: <a href={{belief_kostas}}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href={{egee}}>  5th EGEE Users Forum</a>."
+    part4: "<li>To connect a remote auditorium or room to a congress or event.<br> &nbsp; &nbsp;  For example: <a href={{tnc}}>TNC'09</a>,<a href={{belief}}> 4th Belief Symposium Brazil</a>."
+    part5: The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>.
+    part6: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
     part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
     part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
@@ -1630,7 +1631,7 @@ en:
     success: vCard successfully loaded
     use: Use your vCard
   vcard: vCard
-  vcc: Global Plaza Conferences 
+  vcc: Global Plaza Conferences
   vcc_mail_label: "[Global]"
   version: 
     new: New version
