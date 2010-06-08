@@ -94,9 +94,10 @@ class SearchController < ApplicationController
   def search_events(params)
     filters = @space.nil? ? {} : {'space_id' => @space.id}
     
-    filter_date(params, filters, [:start_date, :end_date])
+    #FIXME Improve searches to find any event in the range, now it searches any event that starts in the range
+    filter_date(params, filters, [:start_date])
     
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
     @search.run
 
     @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -107,7 +108,7 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:start_time, :end_time])
     
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_time')
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -143,22 +144,20 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:updated_at])
     
-    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters, :sort_mode => 'descending', :sort_by => 'updated_at')
     @search.run
     @attachments = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
   end
   
   def filter_date(params, filters, values)
     if params[:start_date] && params[:end_date] && !params[:start_date].blank? && !params[:end_date].blank?
-      date1 = params[:start_date].to_date
-      date2 = params[:end_date].to_date
-      date1ok =  date1.strftime("%Y%m%d")
-      date2ok =  date2.strftime("%Y%m%d")
-      if date1ok > date2ok
+      start_date = params[:start_date].to_time
+      end_date = (params[:end_date] + " 23:59:59").to_time
+      if start_date > end_date
         flash[:notice] = t('event.error.dates')
       else
         values.each do |value|        
-          filters[value] = date1.to_s..date2.to_s
+          filters[value] = start_date..end_date
         end
       end        
     end
