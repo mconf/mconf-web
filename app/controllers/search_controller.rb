@@ -97,7 +97,7 @@ class SearchController < ApplicationController
     #FIXME Improve searches to find any event in the range, now it searches any event that starts in the range
     filter_date(params, filters, [:start_date])
     
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
     @search.run
 
     @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -108,7 +108,7 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:start_time, :end_time])
     
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_time')
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -144,7 +144,7 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:updated_at])
     
-    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters, :sort_mode => 'descending', :sort_by => 'updated_at')
     @search.run
     @attachments = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
   end
