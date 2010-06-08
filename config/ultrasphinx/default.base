@@ -203,7 +203,7 @@ index
 	#
 	# min_infix_len		= 0
   
-  min_infix_len   = 4
+  min_infix_len   = 3
 
 	# list of fields to limit prefix/infix indexing to
 	# optional, default value is empty (index all fields in prefix/infix mode)

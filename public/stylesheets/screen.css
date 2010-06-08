@@ -247,12 +247,12 @@ button#change_logo{float:left;}
   line-height:18px;
   color:#222;
 	border:none;
-  padding:6px 10px;
+  padding:4px 5px;
 	}
 
 .agenda_entry_description a.basic_button span.video_list{
 	background:url("../images/icons/list1.png") no-repeat center center;
-  padding:6px 20px;
+  padding:4px 16px;
   text-indent:-99999px;
 }
 
@@ -1306,7 +1306,7 @@ td.attachment-tags .event_in_tags{
 .video_preview_right{
 	float:right;
   position:relative;
-	margin-right:0;
+	margin-right:63px;
 }
 
 .video_preview_sidebar{
@@ -1316,8 +1316,6 @@ td.attachment-tags .event_in_tags{
 	margin-top:3px;
 	margin-bottom:3px;
 	width: 226px;
-  overflow-x:hidden;
-
 }
 
 .video_preview a.entry_video_link, .video_preview_sidebar a.entry_video_link{
