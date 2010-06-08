@@ -492,6 +492,7 @@ en:
       participation: Select participation modes
       sip: SIP
       web: Web
+    embed: Embed
     error: 
       cm_connection: Connection to remote videoconference system fails
       date_past: Start date could not be past
