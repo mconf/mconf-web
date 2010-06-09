@@ -22,7 +22,12 @@ class SearchController < ApplicationController
   def index
 
     params[:query] ||= ""
-    @query = params[:query].include?('*') ? params[:query] : params[:query].split.map{|s| "*#{s}*"}.join(' ')
+    
+    # Delete '-' from the query
+    @query = params[:query].gsub("-"," ")
+    # Surround words with '*' unless it also has '*' or '"'
+    @query = (@query.include?('*') || @query.include?('\"')) ? @query : @query.split.map{|s| "*#{s}*"}.join(' ')
+
       
     if params[:start_date].blank? && params[:end_date].blank? && params[:query].blank?
     elsif params[:start_date].blank? && params[:end_date].blank? && params[:query].length < 3
@@ -100,7 +105,10 @@ class SearchController < ApplicationController
     @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
     @search.run
 
-    @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
+    @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
+    
+    #Include events from the agenda entries.
+    @events = (@events + (@agenda_entries || search_agenda_entries(params)).map{|ae| ae.event}).uniq
   end
   
   def search_agenda_entries(params)
@@ -115,7 +123,7 @@ class SearchController < ApplicationController
   end
   
   def search_videos(params)
-    @videos = @agenda_entries = search_agenda_entries(params).select(&:recording?)
+    @videos = (@agenda_entries || search_agenda_entries(params)).select(&:recording?)
   end
   
   def search_posts (params)
