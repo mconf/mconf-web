@@ -39,7 +39,7 @@ var window_loaded = false;
 		var wrapper_width;
 		var f_frame_width;
 		var f_frame_height;
-		var frame_caption_size = 20;
+		var frame_caption_size = 30;
 		var gallery_padding;
 		var filmstrip_margin;
 		var filmstrip_orientation;
@@ -1007,18 +1007,18 @@ var window_loaded = false;
 		
 		panel_width: 320,					//INT - width of gallery panel (in pixels)
 		panel_height: 245,					//INT - height of gallery panel (in pixels)
-		frame_width: 30,					//INT - width of filmstrip frames (in pixels)
-		frame_height: 30,					//INT - width of filmstrip frames (in pixels)
+		frame_width: 40,					//INT - width of filmstrip frames (in pixels)
+		frame_height: 40,					//INT - width of filmstrip frames (in pixels)
 		
 		start_frame: 1,						//INT - index of panel/frame to show first when gallery loads
-		filmstrip_size: 3,					
+		filmstrip_size: 5,					
 		transition_speed: 800,				//INT - duration of panel/frame transition (in milliseconds)
 		transition_interval: 4000,			//INT - delay between panel/frame transitions (in milliseconds)
 		
 		overlay_opacity: 0.7,				//FLOAT - transparency for panel overlay (1.0 = opaque, 0.0 = transparent)
 		frame_opacity: 0.3,					//FLOAT - transparency of non-active frames (1.0 = opaque, 0.0 = transparent)
 		
-		pointer_size: 7,					//INT - Height of frame pointer (in pixels)
+		pointer_size: 8,					//INT - Height of frame pointer (in pixels)
 		
 		nav_theme: 'dark',					//STRING - name of navigation theme to use (folder must exist within 'themes' directory)
 		easing: 'swing',					//STRING - easing method to use for animations (jQuery provides 'swing' or 'linear', more available with jQuery UI or Easing plugin)
@@ -1029,7 +1029,7 @@ var window_loaded = false;
 		panel_scale: 'nocrop',				//STRING - cropping option for panel images (crop = scale image and fit to aspect ratio determined by panel_width and panel_height, nocrop = scale image and preserve original aspect ratio)
 		frame_scale: 'crop',				//STRING - cropping option for filmstrip images (same as above)
 		
-		frame_gap: 10,						//INT - spacing between frames within filmstrip (in pixels)
+		frame_gap: 6,						//INT - spacing between frames within filmstrip (in pixels)
 		
 		show_captions: false,				//BOOLEAN - flag to show or hide frame captions
 		fade_panels: true,					//BOOLEAN - flag to fade panels during transitions or swap instantly

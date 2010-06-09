@@ -10,8 +10,8 @@
     <div><%= link_logo(detailed_user, :size => 32, :url => user_path(detailed_user), :title=>detailed_user.name)%></div>
 	<div class="user_data">
 	  	<ul>
-	    <li class="person_title"><%=link_to(highlight(detailed_user.full_name, @query), user_path(detailed_user)) %></li>	
-	    <li class="small-font"><%=sanitize(highlight(detailed_user.organization,@query)) %></li>
+	    <li class="person_title"><%=link_to(highlight(detailed_user.full_name, params[:query]), user_path(detailed_user)) %></li>	
+	    <li class="small-font"><%=sanitize(highlight(detailed_user.organization,params[:query])) %></li>
 	    <li class="small-font"><%=sanitize(detailed_user.city) %><%= "," unless detailed_user.city.blank? or detailed_user.country.blank? %> <%=sanitize(detailed_user.country) %></li>
 	  </ul>
 	</div>

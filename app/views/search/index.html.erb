@@ -28,11 +28,11 @@
     when "attachments"
 	    render :partial => 'attachments'
 	  else
-      (@space.nil? ? render( :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space'}) : "") +
-			render( :partial =>'found_group', :locals => {:elements => @posts, :type => 'post'}) +
+      (@space.nil? ? render( :partial =>'users') +
       render( :partial =>'found_group', :locals => {:elements => @videos, :type => 'video'}) +
 			render( :partial =>'found_group', :locals => {:elements => @events, :type => 'event'}) +
-			render( :partial =>'users') +
+			render( :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space'}) : "") +
+      render( :partial =>'found_group', :locals => {:elements => @posts, :type => 'post'}) +
 	    render( :partial =>'attachments')
 	end
 %>

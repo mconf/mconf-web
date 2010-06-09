@@ -36,7 +36,7 @@
 #photos { visibility: hidden; }
 
 /* GALLERY CONTAINER */
-#gallery { width:320px; height:250px; border:0px solid; border-color: #000; padding: 0px;}
+#gallery { border:0px solid; border-color: #000; padding: 5px;}
 
 /* LOADING BOX */
 .loader { background: url(loader.gif) center center no-repeat #ddd; }
@@ -47,7 +47,7 @@
 /* DEFINE HEIGHT OF PANEL OVERLAY */
 /* NOTE - It is best to define padding here as well so overlay and background retain identical dimensions */
 .panel .panel-overlay,
-.panel .overlay-background { height: 10px; padding: 0 1em; }
+.panel .overlay-background { height: 30px; padding: 0 1em; }
 
 /* PANEL OVERLAY BACKGROUND */
 .panel .overlay-background { background: #222; }
@@ -58,7 +58,7 @@
 
 /* FILMSTRIP */
 /* 'margin' will define top/bottom margin in completed gallery */
-.filmstrip { margin: 2px; }
+.filmstrip { margin: 5px; padding-top:5px; }
 
 /* FILMSTRIP FRAMES (contains both images and captions) */
 .frame {}
@@ -70,7 +70,7 @@
 .frame.current .img_wrap { border-color: #000; }
 
 /* FRAME IMAGES */
-.frame img { border: none; }
+.frame img { border-color: #000;  }
 
 /* FRAME CAPTION */
 .frame .caption { font-size: 11px; text-align: center; color: #888; }
