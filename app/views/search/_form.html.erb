@@ -20,6 +20,6 @@
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
 	<div id="advanced">
-    <%= link_to t('advanced'), @space.nil? ? search_all_path(:advanced => true) : space_search_all_path(@space, :advanced => true) %>
+    <%= link_to t('advanced'),search_all_path(:advanced => true)%>
   </div>
 <% end %>
