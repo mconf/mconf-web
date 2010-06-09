@@ -487,12 +487,12 @@ en:
       edit: Edit description
       none: No one has written a description yet.
     edit: Edit event
+    embed: Embed
     enable: 
       isabel: Isabel
       participation: Select participation modes
       sip: SIP
       web: Web
-    embed: Embed
     error: 
       cm_connection: Connection to remote videoconference system fails
       date_past: Start date could not be past
@@ -738,18 +738,18 @@ en:
   help_createVC: 
     part1: To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "8. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part3: "8. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createVM: 
     part1: To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "8. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part3: "8. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createevent: 
     part1: "<b><a href={{url}}>Watch screencast</a></b><br><br>To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
     part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events, according to your needs: <br><li>The <b><a href={{url_meeting}}> Meeting </a></b>type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler -  like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting.<li>The <b><a href={{url_vm}}>Virtual meeting </a></b>type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively.<li>The <b> <a href={{url_vc}}>Virtual congress</a> </b>type is very similar to <i>the virtual meeting</i> but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
   help_createmeeting: 
-    part1: To create a meeting in Global Plaza:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part1: To create a meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6. Click on <b>Create</b> button."
+    part3: "7. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createpost: 
     part1: "To create a message on the wall in Global Plaza:"
     part10: a. View source html
@@ -781,6 +781,12 @@ en:
     part4: 3. Type the code from the image showed.
     part5: 4. Once you have completed your registration, click on <b>Done</b> button.
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
+  help_define_agenda: 
+    part1: "<b><a href={{url}}>Watch screencast</a></b><br><br>To create an agenda for your event in VCC:<br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on the event that you have already created.<br>3. Click on \xE2\x80\x9CDefine the schedule\xE2\x80\x9D link, \xE2\x80\x9CAgenda\xE2\x80\x9D button or \xE2\x80\x9CAgenda for the event\xE2\x80\x9D link (see blue arrows in the figure)"
+    part2: "4. In the agenda section, click on \xE2\x80\x9CAdd session\xE2\x80\x9D button to create an agenda item. <br>5. Fill the agenda entry title, the start time and the duration and click on \xE2\x80\x9CNext step\xE2\x80\x9D button<br>6. You can now edit details such as the speakers, which can be site users or external users, or the description<br>\r\n\
+      7. If you want to enclose a file, click on \xE2\x80\x9CNew attachment\xE2\x80\x9D link.<br>8. If the type of your event is \xE2\x80\x9CMeeting\xE2\x80\x9D, you can embed video for this agenda item  "
+    part3: "9. If the type of your event is \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D or \xE2\x80\x9CVirtual Congress\xE2\x80\x9D, you can reserve hardware and software resources for this agenda item, select both streaming and recording"
+    part4: "10. Click on the \xE2\x80\x9CFinish\xE2\x80\x9D button to commit your changes. <br>11. If you want to add a divider to indicate breaks, like coffee or lunch breaks, click on \xE2\x80\x9CAdd divider\xE2\x80\x9D button. You can set the start time and the reason for the break. Click on \xE2\x80\x9CCreate\xE2\x80\x9D button to add the divider.<br> 12. If your event takes longer than one day, you can add a new session for the second day. Each day has its own tab with the specified agenda items. "
   help_index: 
     part1: "The Global Plaza Conferences, delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
     part2: "<li>To record and publish your events on the Internet. <br> &nbsp; &nbsp; For example: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>To provide remote participation to your events from a Web browser.  "
@@ -811,6 +817,7 @@ en:
     create_post: Posting a message on the wall
     create_space: Creating a space
     create_user: Creating a user
+    define_agenda: Defining the agenda for the event
     info: Here you can find information about the Global Plaza
     logging: Logging In to your account
     new_doc: Adding a new document

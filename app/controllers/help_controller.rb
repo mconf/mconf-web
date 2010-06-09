@@ -56,5 +56,7 @@ class HelpController < ApplicationController
   def newvirtualmeeting
 
   end
+  def define_agenda
 
+  end
 end

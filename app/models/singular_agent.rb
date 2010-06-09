@@ -47,4 +47,8 @@ class SingularAgent
   def expanded_post
     false
   end
+  
+  def chat_activation
+    false
+  end
 end
