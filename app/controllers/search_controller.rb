@@ -172,7 +172,7 @@ class SearchController < ApplicationController
   end
   
   def filter_from_disabled_spaces elements
-    elements.select{|e| !e.space.disabled?}
+    elements.select{|e| e.space.present? && !e.space.disabled?}
   end
 end
 

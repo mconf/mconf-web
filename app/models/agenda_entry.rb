@@ -148,11 +148,11 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def space
-    event.space
+    event.present? ? event.space : nil 
   end
   
   def event
-    self.agenda.event
+    agenda.present? ? agenda.event : nil
   end
     
   def recording?
