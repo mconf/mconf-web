@@ -69,16 +69,17 @@ button{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
 .button_wrapper{
 	overflow:hidden;
 	width:100%;}
-
-a.big_button, a.medium_button, a.basic_button,button{
-	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-    font-weight:bold;}
-
+a.big_button,a.medium_button,a.basic_button,button,input[type=button]{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+        font-weight:bold;
+        text-align:center;
+}
 a.big_button, a.medium_button, a.basic_button{
-	display: block;
-    float: left;
-    text-decoration: none;
-	}
+  display: block;
+        float: left;
+        text-decoration: none;
+        outline:none;
+        }
 
 a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
 
@@ -89,18 +90,19 @@ a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
     outline: none; /* hide dotted outline in Firefox */}
 
 /*********BIG BUTTONS***************/
-a.big_button{
-	-webkit-border-radius:5px;-moz-border-radius:5px;
+a.big_button,button.big_button{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
     font-size:120%;
     line-height:150%;
     margin-right: 6px;
+        cursor:pointer;
     /*padding-right: 18px; /* sliding doors padding */
 }
 a.big_button span{
-	-webkit-border-radius:5px;-moz-border-radius:5px;
-    line-height: 16px;
-	width:195px;
-    padding: 7px 18px 7px 18px;
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    line-height: 18px;
+        width:202px;
+    padding: 5px 18px 5px 18px;
 }
 
 .join a.big_button span{width:120px;}
@@ -149,15 +151,14 @@ a.basic_button span{
 	border-right:1px #FFC14A solid;
 }
 .orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
+.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
 
-.red_button,.red_button span{background:url("../images/buttons/leave-space-notext3.png");}
-	
 .red_button span{
-	border-bottom:1px #a2042b solid;
-	border-top:1px #d60337 solid;
-	border-left:1px #d60337 solid;
-	border-right:1px #d60337 solid;
-	}
+        border-bottom:1px #a2042b solid;
+        border-top:1px #d60337 solid;
+        border-left:1px #d60337 solid;
+        border-right:1px #d60337 solid;
+        }
 .red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
 
 .blue_button,.blue_button span{background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;color:#FFF;}
