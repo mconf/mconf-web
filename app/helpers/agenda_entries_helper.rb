@@ -18,7 +18,7 @@ module AgendaEntriesHelper
     result = '<div id="globalplaza_embed" style="width:481px;"><strong style="display:block;padding:12px 0 4px;">'
     result += link_to(entry.title,space_event_url(entry.space, entry.event, :show_video=> entry.id))   
     result +='</strong><div style="padding:3px 3px 0px 3px;background:#244974">'
-    result += entry.embedded_video
+    result += entry.video_player
     result += '<div style="padding:0 6px 0px 6px;text-align:right;"><a style="text-decoration:none;outline:none;font-weight:bold;color:#fff" href="http://www.globalplaza.org"><img src="/images/bola_global_peque.png" style="margin-bottom:-3px"/> Global Plaza</a></div>'
     result += '</div></div>'
     
