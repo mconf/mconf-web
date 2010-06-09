@@ -592,6 +592,7 @@ en:
     player: Player
     recording: 
       button_disabled: This button will be enabled when the event has any recording
+      insert: Insert
       notice: People will need access rights to this space to see this videos
       one: Event Video
       other: Videos of the event
@@ -1288,6 +1289,7 @@ en:
   save_ch: Save changes
   screencast: 
     button: Watch screencast
+    help: "Need some help? Try watching the "
     sidebar: 
       title: Screencasts
     title: Screencast

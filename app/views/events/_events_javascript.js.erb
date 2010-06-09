@@ -419,3 +419,15 @@ $("a.repository_sidebar_action").livequery("click",function(){
   glow();
 	
 */
+
+/*jquery for toggling the share and insert bar in show videos*/
+
+  $("#share_insert .share").livequery('click',function () { 
+     $("#embed_share").hide(),
+		 $("#url_share").toggle('slow')   
+  });
+	
+	$("#share_insert .insert").livequery('click',function () { 
+     $("#url_share").hide(),
+		 $("#embed_share").toggle('slow')      
+  });
