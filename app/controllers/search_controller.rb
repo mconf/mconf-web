@@ -102,7 +102,7 @@ class SearchController < ApplicationController
     #FIXME Improve searches to find any event in the range, now it searches any event that starts in the range
     filter_date(params, filters, [:start_date])
     
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
+    @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
     @search.run
 
     @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
@@ -115,8 +115,8 @@ class SearchController < ApplicationController
     filters = @space.nil? ? {} : {'space_id' => @space.id}
     
     filter_date(params, filters, [:start_time, :end_time])
-    
-    @search = Ultrasphinx::Search.new(:query => @query,:class_names => 'AgendaEntry',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_time')
+
+    @search = Ultrasphinx::Search.new(:query => @query,:per_page => 1000000, :class_names => 'AgendaEntry',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_time')
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -131,7 +131,7 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:updated_at])
     
-    @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Post', :filters => filters)
+    @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => 'Post', :filters => filters)
     @search.run
     @posts = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
     @posts = @posts.sort{
