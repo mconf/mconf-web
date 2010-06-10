@@ -676,10 +676,10 @@ button.other_blue{
 /*Internationalization*
  */
 
-a.language_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
-#footer a.language_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
-div#language_select{display:inline-block;}
-#language_select ul#language_menu{
+a.language_select,a.support_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
+#footer a.language_select.menu-open,#footer a.support_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+div#language_select,div#support_select{display:inline-block;}
+#language_select ul#language_menu,#support_select ul#support_menu{
   background:#fff;
   border-color:#999999;
   border-style:solid;
@@ -693,7 +693,9 @@ div#language_select{display:inline-block;}
   z-index:1;
   list-style-type:none;
 }
-#footer ul#language_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
-ul#language_menu li:hover{background:#244974;}
-ul#language_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
-ul#language_menu li a:hover{text-decoration:none;color:#fff;}
+#support_select ul#support_menu{min-width:130px;}
+#footer ul#language_menu li,#footer ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
+ul#language_menu li:hover,ul#support_menu li:hover{background:#244974;}
+ul#language_menu li a,ul#support_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
+ul#language_menu li a:hover,ul#support_menu li a:hover{text-decoration:none;color:#fff;}
+/**/

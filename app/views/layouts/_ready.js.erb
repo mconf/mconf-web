@@ -149,6 +149,26 @@ $("a#feedback_link").fancybox({
         return false
     });
 
+/*
+ * Select support
+ */
+
+      $(".support_select").click(function(e) {
+        e.preventDefault();
+        $("#support_select ul#support_menu").toggle();
+        $("#support_select .support_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#support_select a.support_select").length==0) {
+            $("#support_select .support_select").removeClass("menu-open");
+            $("#support_select ul#support_menu").hide();
+          }
+        });
+    });
+
+    $("#support_select ul#support_menu").mouseup(function() {
+        return false
+    });
 
  /*
  * Report Spam
