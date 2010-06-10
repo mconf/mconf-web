@@ -1307,7 +1307,7 @@ td.attachment-tags .event_in_tags{
 	/*width:120px;*/
 }
 .video_preview_right{
-	float:right;
+	float:left;
   position:relative;
 }
 
@@ -1364,7 +1364,7 @@ td.attachment-tags .event_in_tags{
 	position:relative;
 	display:block;
 	overflow:hidden;
-	width:475px;}
+}
 
 
 

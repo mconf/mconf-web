@@ -74,7 +74,7 @@
 			     </ul>
       <div class="agenda_entry_video">
 	      <div class="button_wrapper video_hide video_preview_right" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">
-	        <%=link_to ("<span class='video_list'>Video List</span>"), space_event_path(@space, @event, :show_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('event.view_recordings')} %>
+	        <%=link_to ("<span class='video_list'>Video List</span>"), space_event_path(@space, @event, :show_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('event.view_related_rec')} %>
 	        <%=link_to_function '<span>Hide video</span>','hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link grey_button basic_button" %>
 	      </div>
 		    <div id="agenda_entry_video<%=agenda_entry.id%>" class="agenda_entry_video">

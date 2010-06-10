@@ -641,6 +641,7 @@ en:
     view_participation_disabled: Participation available during event
     view_recordings: Recordings
     view_recordings_disabled: There are no recordings yet
+    view_related_rec: See related videos
     view_repo: Repository
     view_streaming: Streaming
     view_streaming_disabled: Streaming available during the event
