@@ -191,7 +191,7 @@ en:
       other: " files selected"
     updated: Attachment updated successfully
     upload_with_post: Notify the upload with a message in the wall
-  author: Author
+  author: Uploaded by
   avatar: 
     created: Picture uploaded successfully
     crop: Crop your picture
@@ -598,7 +598,7 @@ en:
       other: Videos of the event
       share: Share
     repository: 
-      enabled: Enable space repository
+      enabled: Enable document repository
       help: This repository shows the documents uploaded in the sessions of the event agenda
       title: Event documents
     search: Search events...
@@ -642,7 +642,7 @@ en:
     view_recordings: Recordings
     view_recordings_disabled: There are no recordings yet
     view_related_rec: See related videos
-    view_repo: Repository
+    view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: Streaming available during the event
     will_attend: Do you plan to attend this event?
@@ -773,7 +773,7 @@ en:
     part3: 2. Click on <a href={{url}}>Create New Space </a> button.
     part4: 3. Type a name and description for your space.
     part5: 4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space.
-    part6: 5. If you want to enable a repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.<br>7. You can upload your own logo, create a text logo or select an image from the gallery.
+    part6: 5. If you want to enable a document repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.<br>7. You can upload your own logo, create a text logo or select an image from the gallery.
     part7: ""
   help_createuser: 
     part1: "To create a user in Global Plaza:"
@@ -801,13 +801,13 @@ en:
     part3: If you have forgotten your password, you can <a href={{url}}> recover it here</a> or click on <b>Have you lost your password</b> in the top menu bar. An email to recover your password will be sent to you.
   help_newdoc: 
     part1: "To add a new document in Global Plaza:"
-    part2: 1. Click on <b>Repository </b> tab.
+    part2: 1. Click on <b>Docs </b> tab.
     part3: 2. Click on <b>Add new document</b> button.
     part4: 3. Click on <b>Choose file</b> on the right side of the page.
     part5: 4. Once your file is selected, click on <b>Open</b> button.
     part6: 5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag.
     part7: 6. If you want to <b>notify</b> the document with a message on the wall, choose this option.
-    part8: 7. Finally, click on <b>Upload</b> button to add the file to the repository.
+    part8: 7. Finally, click on <b>Upload</b> button to add the file to the document repository.
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
@@ -1247,10 +1247,10 @@ en:
     add_document: Add new document
     add_tags: Add Tags
     download: Download
-    enable: Enable repository?
+    enable: Enable document repository?
     loading: Refreshing document repository...
     need_javascript: Please, active javascript to enjoy document repository
-    one: repository
+    one: Docs
     rem_tags: Remove Tags
     remove: Remove
     search: "Document Search:"
