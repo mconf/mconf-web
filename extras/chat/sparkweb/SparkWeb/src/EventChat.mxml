@@ -221,8 +221,9 @@
 
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, roomConnected);
  				roomJid = SparkManager.getConfigValueForKey("roomJid");
- 				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
+ 				
  				info_box.visible = false;
+ 				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
  			}
  			
 			public function roomConnected(event:Event):void {
@@ -233,10 +234,13 @@
  					activeRoom.editor.text = message;
  					activeRoom.editor.enabled = false;
  				}
+ 				
  				var room:Room = MUCManager.manager.getRoom(new UnescapedJID(roomJid));
 				room.addEventListener(RoomEvent.USER_KICKED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_BANNED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_DEPARTURE, disableTextEditor);
+				
+				chatContainer.activeRoom.editor.enabled = true;
 			} 
  			
  			public var suppressErrors:Boolean = false;
@@ -317,7 +321,6 @@
 			{
 				if (event.nickname == SparkManager.getConfigValueForKey("nickname")) {
  					chatContainer.activeRoom.editor.enabled = false;
- 					chatContainer.activeRoom.editor.text = "You must reconnect";
  					var reconnectButton:Button = new Button();
  					reconnectButton.label = "You are disconnected. Click to reconnect";
  					reconnectButton.percentWidth = 100;
