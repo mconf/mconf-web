@@ -95,6 +95,10 @@ package com.jivesoftware.spark.managers
 			return _connectionManager;
 		}
 		
+		public static function set connectionManager(newConnectionManager:ConnectionManager):void {
+			_connectionManager = newConnectionManager;
+		}
+		
 		public static function get privateDataManager():PrivateDataManager {
 			if(!_privateDataManager)
 				_privateDataManager = new PrivateDataManager(connectionManager.connection);
@@ -169,6 +173,20 @@ package com.jivesoftware.spark.managers
 			// We may want to implement a way to logout without restarting the entire application (especially for SparkAir). SW-73
 			// All of the managers would deinitialize and unregister their event listeners. Then SparkWeb would show its login dialog.
 			connectionManager.logout();
+		}
+		
+		public static function restart():void {
+			_connectionManager   = null;
+			_presenceManager     = null;
+			_connectionManager   = null;
+			_privateDataManager  = null;
+			_bookmarkManager     = null;
+			_sharedGroupsManager = null;
+			_inviteListener      = null;
+			_errorHandler        = null;
+			_configProvider      = null;
+  			_roster              = null;
+			me                   = null;
 		}
 	}
 }
