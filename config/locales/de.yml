@@ -591,7 +591,8 @@ de:
       one: Event Video
       other: Event Videos
       share: Anteil
-    repository: 
+    repository:
+      enabled: "Enable Document Repository?"
       help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
     search: Suche Termine ...

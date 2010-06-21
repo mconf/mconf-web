@@ -591,7 +591,8 @@ fr:
       one: "Vid\xC3\xA9o de l&#39;\xC3\xA9v\xC3\xA9nement"
       other: "Vid\xC3\xA9os de l&#39;\xC3\xA9v\xC3\xA9nement"
       share: Part
-    repository: 
+    repository:
+      enabled: "Activer référentiel de documents?"
       help: "Ce r\xC3\xA9f\xC3\xA9rentiel montrent les documents t\xC3\xA9l\xC3\xA9charg\xC3\xA9s dans les sessions de l&#39;ordre du jour \xC3\xA9v\xC3\xA9nement"
       title: "documents de l&#39;\xC3\xA9v\xC3\xA9nement"
     search: "Recherche des \xC3\xA9v\xC3\xA9nements ..."
