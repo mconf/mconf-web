@@ -75,7 +75,7 @@
 			message_list.setStyle("backgroundColor", messageColor);
 		}
 	]]></mx:Script>
-	<mx:Canvas id="username_container" height="20" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" backgroundColor="#F5F6FB">
+	<mx:Canvas id="username_container" height="{username_label.text == '' ? 0 : 20}" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" backgroundColor="#F5F6FB">
 		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="3" bottom="3" left="5" right="5" textAlign="left"/>
 	</mx:Canvas>
 	<mx:VBox id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="1" verticalScrollPolicy="off" paddingTop="3" paddingBottom="3" paddingLeft="2">

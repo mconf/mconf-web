@@ -32,6 +32,10 @@
 </mx:Style>
  	<mx:Script>
  		<![CDATA[
+ 			import mx.events.FlexEvent;
+ 			import mx.core.UIComponent;
+ 			import mx.controls.Button;
+ 			import org.jivesoftware.xiff.events.RoomEvent;
  			import com.jivesoftware.spark.managers.MUCManager;
  			import org.jivesoftware.xiff.conference.Room;
  			import com.jivesoftware.spark.chats.SparkGroupChat;
@@ -78,6 +82,7 @@
 			private var shouldUseExternal:Boolean = false;
  			private static var externalConfig:Object;
  			private var connectingMessage:String = "";
+ 			private var roomJid:String = "";
 			
 			public function presetup():void 
 			{
@@ -154,6 +159,21 @@
 				
 				var backgroundColor:String = SparkManager.getConfigValueForKey("background_color");
 				this.setStyle("backgroundColor", backgroundColor);
+				
+
+				SparkManager.connectionManager.connection.useAnonymousLogin = false;
+ 				var userName:String  = SparkManager.getConfigValueForKey("username");
+ 				var userPass:String  = SparkManager.getConfigValueForKey("password");
+ 				var serverURL:String = SparkManager.getConfigValueForKey("server");
+ 				
+ 				if (userName == "") {
+ 					// If userName and userPass are null, login will be anonymous
+ 					userName = null;
+ 					userPass = null;
+ 					SparkManager.connectionManager.connection.useAnonymousLogin = true;
+ 				}
+ 				
+ 				SparkManager.connectionManager.login(userName, userPass, serverURL);
  			}
  			
  			protected function setFocused(focused:Boolean):void
@@ -178,19 +198,6 @@
 				Security.loadPolicyFile("xmlsocket://"+serverURL+":5229");
 				Security.allowDomain( "*" );
 				Security.allowInsecureDomain("*");
-
- 				SparkManager.connectionManager.connection.useAnonymousLogin = false;
- 				var userName:String = SparkManager.getConfigValueForKey("username");
- 				var userPass:String = SparkManager.getConfigValueForKey("password");
- 				
- 				if (userName == "") {
- 					// If userName and userPass are null, login will be anonymous
- 					userName = null;
- 					userPass = null;
- 					SparkManager.connectionManager.connection.useAnonymousLogin = true;
- 				}
- 				
- 				SparkManager.connectionManager.login(userName, userPass, serverURL);
  				
  				//commented out until such time as firefox fixes their stupid focus issues that stop it from actually working
  				//stage.focus = loginDialog.userNameField;
@@ -213,7 +220,7 @@
  				//callLater(contactListContainer.statusBox.loadVCard);
 
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, roomConnected);
- 				var roomJid:String = SparkManager.getConfigValueForKey("roomJid");
+ 				roomJid = SparkManager.getConfigValueForKey("roomJid");
  				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
  				info_box.visible = false;
  			}
@@ -226,6 +233,10 @@
  					activeRoom.editor.text = message;
  					activeRoom.editor.enabled = false;
  				}
+ 				var room:Room = MUCManager.manager.getRoom(new UnescapedJID(roomJid));
+				room.addEventListener(RoomEvent.USER_KICKED, disableTextEditor);
+				room.addEventListener(RoomEvent.USER_BANNED, disableTextEditor);
+				room.addEventListener(RoomEvent.USER_DEPARTURE, disableTextEditor);
 			} 
  			
  			public var suppressErrors:Boolean = false;
@@ -301,6 +312,45 @@
 			{
 				return Application.application.systemManager;
 			}
+			
+			private function disableTextEditor(event:RoomEvent):void
+			{
+				if (event.nickname == SparkManager.getConfigValueForKey("nickname")) {
+ 					chatContainer.activeRoom.editor.enabled = false;
+ 					chatContainer.activeRoom.editor.text = "You must reconnect";
+ 					var reconnectButton:Button = new Button();
+ 					reconnectButton.label = "You are disconnected. Click to reconnect";
+ 					reconnectButton.percentWidth = 100;
+ 					reconnectButton.addEventListener(
+ 						MouseEvent.CLICK,
+						function(e : MouseEvent) : void{
+							( chatContainer.activeRoom.getChildByName("editor") as UIComponent ).includeInLayout = true;
+							chatContainer.activeRoom.getChildByName("editor").visible = true;
+							chatContainer.activeRoom.removeChildAt(chatContainer.activeRoom.numChildren - 1);
+							chatContainer.visible = false;
+							  
+							info_box.visible = true;
+							connection_message.text = connectingMessage;
+							reconnect_link.enabled = false;
+							
+							ChatManager.sharedInstance.closeChat( ChatManager.sharedInstance.getChat(new UnescapedJID(roomJid)) );
+							SparkManager.connectionManager.logout();
+							
+							SparkManager.restart();
+
+							dispatchEvent(new FlexEvent("preinitialize"));
+							dispatchEvent(new FlexEvent("creationComplete"));
+							dispatchEvent(new FlexEvent("applicationComplete"));
+
+							chatContainer.dispatchEvent(new FlexEvent("preinitialize"));
+							chatContainer.dispatchEvent(new FlexEvent("creationComplete"));
+						});
+ 					( chatContainer.activeRoom.getChildByName("editor") as UIComponent ).includeInLayout = false;
+ 					chatContainer.activeRoom.getChildByName("editor").visible = false;
+ 					chatContainer.activeRoom.addChild(reconnectButton);
+				}
+			}
+				
  		]]>
  		
  	</mx:Script>
