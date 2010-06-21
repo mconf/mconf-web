@@ -2,9 +2,12 @@
   <h3 class="title"><%=t('help_title.about_vcc')%></h3>
   <div id="description">
 		<p><%=t('help_index.part1')%></p>		      
-		<p><%=t('help_index.part2',:url=>signup_path)%></p>
- 		<span><center><img src="images/video.gif" alt="videos online" ALIGN="middle"/></center></span><br>
-		<p><%=t('help_index.part3', :create=>new_space_path, :space=>space_path("belief-ii")+"/events/4th-belief-international-symposium-plenary", :web_global=>"http://www.global-project.eu",:url=>signup_path)%></p>
+		<p><%=t('help_index.part2',:egee08=>"http://globalplaza.org/spaces/egee/events/egee08",:belief=>"http://globalplaza.org/spaces/global/events/belief-ii-6choice-india-symposium")%>
+		<%=t('help_index.part3',:belief=>"http://globalplaza.org/spaces/global/events/5th-belief-symposium",:morfeo=>"http://globalplaza.org/spaces/morfeo-project/events/3-asamblea-del-proyecto-morfeo",:belief_kostas=>"http://globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=13",:egee=>"http://globalplaza.org/spaces/egee/events/5th-egee-user-forum")%>
+		<%=t('help_index.part4',:tnc=>"http://globalplaza.org/spaces/terena/events/tnc-2009?show_video=382",:belief=>"http://globalplaza.org/spaces/belief-ii/events/4th-belief-international-symposium-plenary?show_video=282")%></p>
+		<p><%=t('help_index.part5',:url=>signup_path)%></p>
+                <span><center><img src="images/frontpage/video_1_happy.jpg" alt="videos online" ALIGN="middle"/></center></span><br>
+		<p><%=t('help_index.part6', :create=>new_space_path, :space=>"http://globalplaza.org/spaces/global/events/5th-belief-symposium", :web_global=>"hyttp://www.global-project.eu",:url=>signup_path)%></p>
   </div>
 </div>	              
 

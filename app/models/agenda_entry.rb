@@ -28,7 +28,9 @@ class AgendaEntry < ActiveRecord::Base
              :include =>[{:class_name => 'Event',
                           :field => 'name',
                           :as => 'event_name',
-                          :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}]
+                          :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}],
+             :concatenate => [ { :class_name => 'Profile',:field => 'full_name',:as => 'registered_speakers',
+                                 :association_sql => "LEFT OUTER JOIN performances ON (performances.`stage_id` = agenda_entries.`id` AND performances.`stage_type` = 'AgendaEntry' AND performances.`agent_type` = 'User') LEFT OUTER JOIN profiles ON (profiles.`user_id` = performances.`agent_id`)"}]
   
   validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
@@ -146,11 +148,11 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def space
-    event.space
+    event.present? ? event.space : nil 
   end
   
   def event
-    self.agenda.event
+    agenda.present? ? agenda.event : nil
   end
     
   def recording?
@@ -205,14 +207,14 @@ class AgendaEntry < ActiveRecord::Base
     parse_embedded_video.xpath("//@#{ a }").first.try(:value)
   end
 
-  def get_background_from_embed
-    embedded_video_attribute("image")
-  end
-
   def get_src_from_embed
     embedded_video_attribute("src")
   end
-    
+
+   def get_background_from_embed
+    get_src_from_embed && CGI.parse(URI.parse(get_src_from_embed).query)["image"].try(:first)
+  end
+
   def is_happening_now?
     return start_time.past? && end_time.future?    
   end

@@ -52,6 +52,7 @@ de:
           one: 1 Fehler verboten diesem {{model}} nicht gespeichert
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: "Hinzuf\xC3\xBCgen"
+  add_document: "Neues Dokument hinzuf\xC3\xBCgen"
   add_more_details: "Hinzuf\xC3\xBCgen weiterer Details"
   address: Adresse
   admin: 
@@ -274,6 +275,7 @@ de:
   could_not_find_anybody_with_that_email_address: Nicht finden konnte jemand mit dieser E-Mail-Adresse
   country: Land
   create: Schaffen
+  create_event: Neues Event
   created_at: Erstellt am
   created_at_date: "Erstellt: {{date}}"
   created_time_ago: Erstellt {{time}} ago
@@ -725,6 +727,21 @@ de:
     not_found: hCard nicht gefunden
   hello: Hallo
   help: Hilfe
+  help_createVC: 
+    part1: So erstellen Sie einen virtuellen Kongress in VCC:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse. <br> 2. Klicken Sie auf Virtual-Kongress auf der rechten Seite der Seite.
+    part2: "3. Geben Sie einen Titel und eine Beschreibung f\xC3\xBCr Ihre Veranstaltung.  <br>4. Geben Sie ein oder w\xC3\xA4hlen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort.  <br> 6. W\xC3\xA4hlen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen k\xC3\xB6nnen die virtuellen Treffen zu verbinden.<li>  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software. <li> b. die M\xC3\xB6glichkeit, Web-Browser \xC3\xBCber das Web zu beteiligen.  <br>7. Klicken Sie auf die Schaltfl\xC3\xA4che Erstellen."
+    part3: "8. Nachdem Sie das Ereignis erstellt haben, k\xC3\xB6nnen Sie: <br><li><a href={{agenda}}>Definieren Sie die Agenda f\xC3\xBCr die Veranstaltung </a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollst\xC3\xA4ndige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li>Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
+  help_createVM: 
+    part1: "So erstellen Sie ein virtuelles Treffen in Global Plaza: <br><br> 1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Virtual Meeting auf der rechten Seite der Seite."
+    part2: "3. Geben Sie einen Titel und eine Beschreibung f\xC3\xBCr Ihre Veranstaltung. <br> 4. Geben Sie ein oder w\xC3\xA4hlen Sie den Raum Nutzer Organisation der Veranstaltung. <br> 5. Art der Veranstaltung Ort.<br>  6. W\xC3\xA4hlen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen k\xC3\xB6nnen die virtuellen Treffen zu verbinden.  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software.  b. die M\xC3\xB6glichkeit, Web-Browser \xC3\xBCber das Web zu beteiligen.<br>  7. Klicken Sie auf die Schaltfl\xC3\xA4che Erstellen."
+    part3: "8. Nachdem Sie das Ereignis erstellt haben, k\xC3\xB6nnen Sie: <br><li><a href={{agenda}}>Definieren Sie die Agenda f\xC3\xBCr die Veranstaltung</a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollst\xC3\xA4ndige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li> Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
+  help_createevent: 
+    part1: <a href={{url}} class="big_button red_button" target="_blank"><span>Screencast</span></a><br><br><br>So erstellen Sie eine Veranstaltung in Global Plaza:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse.
+    part2: "2. Sie k\xC3\xB6nnen direkt ein Ereignis aus dem <b> Create Event </b> box auf der rechten Spalte der Seite. Global Plaza unterst\xC3\xBCtzt drei Arten von Veranstaltungen, nach Ihren Bed\xC3\xBCrfnissen: <br><li> Die  <b><a href={{url_meeting}}>Konferenz</a></b> ist grunds\xC3\xA4tzlich zur Einfuhr Anzug physischen Sitzungen oder offline Sitzungen, f\xC3\xBCr die Sie nicht ben\xC3\xB6tigen oder Streaming-Video-Aufnahme, k\xC3\xB6nnten aber dennoch lieber Sitzung haben Umgang mit Funktionen, die eine einfachere - wie das Erstellen und \xC3\x84ndern einer Tagesordnung, dass Menschen zu konsultieren oder in ihrem Kalender. Au\xC3\x9Ferdem m\xC3\xB6chten Sie vielleicht Unterlagen f\xC3\xBCr die Sitzung oder sp\xC3\xA4ter tausche Bilder auf der Sitzung getroffen ben\xC3\xB6tigt wird. <li> Das <b><a href={{url_vm}}>virtuelle Meeting</a></b>-Typ ist geeignet f\xC3\xBCr Teilnehmer Online-Meetings oder physische Treffen mit einem starken virtuelle Komponente, was bedeutet, dass sowohl die lokale und Remote wird interaktiv die M\xC3\xB6glichkeit haben zu kommunizieren.  <li>Die  <b> <a href={{url_vc}}> Virtual-Kongress</a> </b> Art ist sehr \xC3\xA4hnlich zu dem virtuellen Treffen ausgerichtet, aber f\xC3\xBCr gr\xC3\xB6\xC3\x9Fere Veranstaltungen, sowohl in Gr\xC3\xB6\xC3\x9Fe und Komplexit\xC3\xA4t. Gew\xC3\xB6hnlich erfordert diese Art der Unterst\xC3\xBCtzung eines Betreibers vor Ort."
+  help_createmeeting: 
+    part1: "So erstellen Sie eine Sitzung in Global Plaza:  <br><br>1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Meeting auf der rechten Seite der Seite."
+    part2: "3. Geben Sie einen Titel und eine Beschreibung f\xC3\xBCr Ihre Veranstaltung.  <br>4. Geben Sie ein oder w\xC3\xA4hlen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort. <br>6. Klicken Sie auf die Schaltfl\xC3\xA4che Erstellen."
+    part3: "7. Nachdem Sie das Ereignis erstellt haben, k\xC3\xB6nnen Sie:<br><li><a href={{agenda}}>Definieren Sie die Agenda f\xC3\xBCr die Veranstaltung</a><li> Personen einladen  <li>Schreiben Sie eine vollst\xC3\xA4ndige Beschreibung <li> Bearbeiten Sie Ihre Veranstaltung <li>Importieren Sie die Tagesordnung zu Ihrem iCalendar<li>  Benachrichtigen Begleiter"
   help_createpost: 
     part1: "So erstellen Sie eine Nachricht in der Wand in VCC:"
     part10: a. HTML-Quelltext
@@ -756,10 +773,18 @@ de:
     part4: 3. Geben Sie den Code aus dem Bild gezeigt.
     part5: "4. Sobald Sie sich registriert haben, klicken Sie auf die Schaltfl\xC3\xA4che Fertig abgeschlossen."
     part6: "5. Nach der Registrierung f\xC3\xBCr ein Konto, werden Sie eine Best\xC3\xA4tigung per Email mit dem Link, um zu erhalten, um Ihr Konto zu aktivieren."
+  help_define_agenda: 
+    part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Screencast </a></span><br><br><br>So erstellen Sie eine Agenda f\xC3\xBCr Ihre Veranstaltung in VCC: <br><br> 1. Klicken Sie auf &quot;Events&quot;. <br> 2. Klicken Sie auf den Fall, dass Sie bereits erstellt haben.<br>  3. Klicken Sie auf &quot;Definieren Sie den Zeitplan&quot; Link, &quot;Agenda&quot;-Button oder &quot;Agenda f\xC3\xBCr die Veranstaltung&quot;-Link (siehe blaue Pfeile in der Abbildung)"
+    part2: "4. In der Tagesordnung Abschnitt, klicken Sie auf &quot;Add&quot; Button zu erstellen ein Tagesordnungspunkt.  <br>5. F\xC3\xBCllen Sie den Agenda-Eintrag Titel, die Startzeit und die Dauer und klicken Sie auf &quot;Next Step&quot;-Button <br> 6. Sie k\xC3\xB6nnen nun Details wie die Redner, die Site-Benutzer oder externen Benutzern, oder die Beschreibung werden k\xC3\xB6nnen <br> 7. Wenn Sie eine Datei schlie\xC3\x9Fen, klicken Sie auf &quot;New attachment&quot;-Link. <br> 8. Wenn die Art der Veranstaltung &quot;Meeting ist&quot;, k\xC3\xB6nnen Sie einbetten Video zu diesem Tagesordnungspunkt"
+    part3: "9. Wenn die Art Ihrer Veranstaltung lautet &quot;Virtual Meeting&quot; oder &quot;Virtual Congress&quot;, k\xC3\xB6nnen Sie Hard-und Software-Ressourcen f\xC3\xBCr diesen Tagesordnungspunkt behalten, w\xC3\xA4hlen Sie sowohl Streaming und Aufnahme"
+    part4: "10. Klicken Sie auf die Schaltfl\xC3\xA4che &quot;Finish&quot; um die \xC3\x84nderungen zu.  <br>11. Wenn Sie einen Teiler, Br\xC3\xBCche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf &quot;Add Teiler&quot;-Button hinzuf\xC3\xBCgen. Sie k\xC3\xB6nnen die Startzeit und der Grund f\xC3\xBCr die Pause. Klicken Sie auf &quot;Create&quot;-Taste, um die Trennlinie hinzuzuf\xC3\xBCgen.  <br>12. Wenn Ihre Veranstaltung dauert l\xC3\xA4nger als einen Tag, k\xC3\xB6nnen Sie eine neue Sitzung f\xC3\xBCr den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
   help_index: 
     part1: "Die Virtual Conference Center (VCC) ist eine Web-Anwendung von der Universidad Polit\xC3\xA9cnica de Madrid (UPM) im Rahmen des weltweiten Projektes, ein Forschungsprojekt siebte Rahmenprogramm der Europ\xC3\xA4ischen Comission Programm unterst\xC3\xBCtzt entwickelt."
-    part2: "Das VCC bietet einen Service f\xC3\xBCr die Erstellung von verteilten Veranstaltungen, von kleinen Meetings zu gro\xC3\x9Fen Konferenzen. Benutzer k\xC3\xB6nnen pers\xC3\xB6nlich teilnehmen oder folgen sie online. Termine und Inhalte im Zusammenhang mit ihnen stehen in R\xC3\xA4umen, bieten dem Anwender die M\xC3\xB6glichkeit der Schaffung von Nachrichten in der Wand, um mit anderen Teilnehmern in den Raum oder Hochladen von Dokumenten oder Fotos zu kommunizieren organisiert, um gemeinsam genutzt werden."
-    part3: "So erstellen oder bearbeiten Leerzeichen, m\xC3\xBCssen Sie angemeldet sein, um Ihren Account VCC werden. Wenn Sie noch kein Konto haben, <a href={{url}}>erstellen Sie jetzt</a> ."
+    part2: "<li> Zur Aufzeichnung und ver\xC3\xB6ffentlichen Sie Ihre Veranstaltungen im Internet. <br> &nbsp; &nbsp;Zum Beispiel: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>  Um Fernteilnahme Ihre Termine aus einem Web-Browser. "
+    part3: "<li> So streamen bestehenden Meetings, Kongresse oder Vortr\xC3\xA4ge \xC3\xBCber das Internet. <br> &nbsp; &nbsp;Zum Beispiel:<a href={{belief}}>5th Belief Symposium South Africa</a>,<a href={{morfeo}}> Asamblea Morfeo</a>. <li>Um bringen entfernten Lautsprecher in ein bestehendes Tagung oder Kongress.  <br> &nbsp; &nbsp;Zum Beispiel:<a href={{belief_kostas}}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href={{egee}}> 5th EGEE Users Forum</a>."
+    part4: "<li> So schlie\xC3\x9Fen Sie einen Remote-H\xC3\xB6rsaal oder ein Zimmer zu einem Kongress oder Event.  <br> &nbsp; &nbsp;Zum Beispiel: <a href={{tnc}}>TNC'09</a>,<a href={{belief}}> 4th Belief Symposium Brazil</a>."
+    part5: "Die Global Plaza ist strukturiert wie eine sozio-kollaborativen Website, die soziale Vernetzung unterst\xC3\xBCtzt gemeinsam mit kooperativen Unterst\xC3\xBCtzung von Projekten und Aktivit\xC3\xA4ten f\xC3\xBCr Gruppen, wo jeder <a href={{url}}>rregistrieren</a>."
+    part6: "Social Networking wird durch ein globales soziales Netzwerk, das jede registrierte Person verbindet in der Global Plaza mit den anderen Mitgliedern der Website unterst\xC3\xBCtzt. Die kooperative Unterst\xC3\xBCtzung f\xC3\xBCr Gruppenaktivit\xC3\xA4ten oder Projekte ist zur Verf\xC3\xBCgung gestellt von R\xC3\xA4umen (\xC3\xB6ffentliche oder private), die werden erstellt und <a href={{create}}> kann von jedem registrierten </a> Mitglied, durchzuf\xC3\xBChren engere Zusammenarbeit und virtuelle Veranstaltungen innerhalb einer bestimmten Gruppe.  <br><br>Virtual Ereignisse k\xC3\xB6nnen aufgezeichnet werden automatisch und ver\xC3\xB6ffentlicht ( <a href={{space}}> siehe Beispiel </a>) durch den Global Plaza f\xC3\xBCr den privaten oder den Zugang der \xC3\x96ffentlichkeit sowie in Blogs einbetten in Webseiten, etc <br><br> Die Global wurde von der Plaza entwickelt worden <a href={{web_global}}>Europ\xC3\xA4ischen Global Project </a>durch die Wiederverwendung von Ergebnissen und Entwicklungen aus anderen Projekten, welche Anwendung ISABEL verwandelt haben und in einer Cloud-Computing-Dienst wie ITECBAN, Ecospace, Collaboration @ Rural, Cepos, etc.  <br><br> So erstellen oder bearbeiten Leerzeichen, m\xC3\xBCssen Sie angemeldet zu Ihrem Global Plaza Rechenschaft gezogen werden. Wenn Sie noch kein Konto haben, <a href={{url}}>erstellen Sie jetzt </a>."
   help_logging: 
     part1: "Wenn Sie bereits ein Konto VCC, k\xC3\xB6nnen Sie <a href={{url}}>sich hier anmelden,</a> oder klicken Sie auf Login-Position aus der oberen Men\xC3\xBCleiste. Geben Sie Ihre Email und Passwort auf dem Hauptbildschirm."
     part2: "Sie k\xC3\xB6nnen Login automatisch, falls Sie einen Account bei einem OpenID-Provider."
@@ -775,11 +800,16 @@ de:
     part8: "7. Schlie\xC3\x9Flich, am <b>Upload-Button</b> zu klicken Repository f\xC3\xBCgen Sie die Datei auf die."
   help_support: Hilfe &amp; Support
   help_title: 
-    about_vcc: "\xC3\x9Cber VCC"
+    about_vcc: "\xC3\x9Cber Global Plaza"
+    create_VC: Erstellen eines virtuellen Kongresses
+    create_VM: Erstellen eines virtuellen Treffen
+    create_event: Erstellen eines Ereignisses
+    create_meeting: Erstellen einer Sitzung
     create_post: Erstellen einer Nachricht in der Wand
     create_space: Erstellen eines Space
     create_user: Benutzer anlegen
-    info: "Hier finden Sie Informationen \xC3\xBCber die VCC"
+    define_agenda: "Festlegen der Tagesordnung f\xC3\xBCr die Veranstaltung"
+    info: "Hier finden Sie Informationen \xC3\xBCber die Global Plaza"
     logging: Das Anmelden in Ihrem Konto
     new_doc: "Hinzuf\xC3\xBCgen eines neuen Dokuments"
     topics: Themen

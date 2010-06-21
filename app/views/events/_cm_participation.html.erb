@@ -7,14 +7,22 @@
   </div>
   
   <div id="streaming_content">   
-    <%if @event.has_session_now?%>
+  <%if @event.has_session_now?%>
+    <div class="button_wrapper"><!-- hay que repasar muy bien las condiciones-->
+      <div class="on_live"><span>Live!</span></div> 
+      <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+    </div>
 	  <%= @event.web current_user.login %>
 	<%else%>
 	  <div class="video_wrapper">
-        <%=image_tag("visor_video.png")%>
-		<span><%=t('event.note.participation')%></span>
+      <%=image_tag("visor_video.png")%>
+		  <span><%=t('event.note.participation')%></span>
 	  </div>				
 	<%end%>
   </div>
+	
+   <%if @event.description != ""%>  
+    <%= render :partial => "events/event_description" %>
+  <%end%>
   
 </div>

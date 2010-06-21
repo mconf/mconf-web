@@ -112,12 +112,13 @@ module ConferenceManager
       # Returns a String that contains a html with the video of the Isabel Web Gateway
       %w( player editor streaming ).each do |obj|
         eval <<-EOM
-      def #{ obj }(width = '640', height = '480')
+      def #{ obj }(width = '640', height = '480', type = 'flash')
         begin      
           cm_#{ obj } ||=
             ConferenceManager::#{ obj.classify }.find(:#{ obj },
                                                       :params => { :width => width,
                                                                    :height => height,
+                                                                   :type => type,
                                                                    :event_id => cm_event_id })
           cm_#{ obj }.html 
         rescue

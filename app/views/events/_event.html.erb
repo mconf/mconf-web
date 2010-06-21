@@ -27,7 +27,7 @@
     
     <p class="event_title">
       <!--<%=image_tag("icons/date.png",:class=>"icon")%>-->
-      <%=link_to sanitize(highlight(event.title,@query)), space_event_path(event.space, event),:class=>"unified_event"%>
+      <%=link_to sanitize(highlight(event.title,params[:query])), space_event_path(event.space, event),:class=>"unified_event"%>
     </p>
     
     <ul>
@@ -51,7 +51,7 @@
           <%else%>
             ,
           <%end%>
-          <%=link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")%>
+          <%=link_to(highlight(org.name,params[:query]),user_path(org),:class=>"unified_user")%>
         <%end%>
       </li>
       

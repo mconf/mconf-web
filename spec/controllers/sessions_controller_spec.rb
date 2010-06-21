@@ -28,7 +28,7 @@ describe SessionsController do
         post :create, @credentials
         
         assert controller.current_user == @user
-        response.should redirect_to( p_path )
+        response.should redirect_to(home_path)
       end
     end
     

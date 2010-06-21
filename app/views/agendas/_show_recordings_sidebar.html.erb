@@ -1,5 +1,19 @@
 <div class="event_video_title">
-    <h3><%= t('event.recording.other') %></h3>
+    <h3>
+    	<%= t('event.recording.other') %>
+		    <%#Day filter%>
+			  <% if @event.days > 1 %>
+			    <!--<div id="event_day_filter">-->
+			      <!--<label class="bold blue"><%=t('find_in_day')%></label>-->
+			      <select id="event_day_select">
+			        <option value="" id="blank_option"><%=t('all_days')%></option>
+			        <%(1..@event.days).each do |day|%>
+			          <option value="<%=day%>"><%=t('datetime.prompts.day')%> <%=day%></option>  
+			        <%end%>
+			      </select>
+			    <!--</div>-->
+			  <% end %>
+		</h3>
 </div>
 <%= render :partial => 'agendas/video_filter' %>
 <div id="carrusel">

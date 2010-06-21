@@ -340,10 +340,6 @@ $("a.repository_sidebar_action").livequery("click",function(){
     $('#date1').addClass("selected");
     $('#agenda_page1').show();
   <%end%>
-	
-  $('.title_name_and_hour').livequery('click', function(){
-    $(this).parent().parent().children(".agenda_entry_description").toggle("slow");
-  });
  
  $(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 
@@ -411,6 +407,27 @@ $("a.repository_sidebar_action").livequery("click",function(){
 	}  
   };
   
+/*Highlight color for events*/
 
+/*
+  glow = function(){
+		window.setTimeout(function(){
+		  $(".on_live").effect("highlight", {color:"#F5DF51"}, 5000);
+		  glow();},15000);
+	}
   
-  
+  glow();
+	
+*/
+
+/*jquery for toggling the share and insert bar in show videos*/
+
+  $("#share_insert .share").livequery('click',function () { 
+     $("#embed_share").hide(),
+		 $("#url_share").toggle('slow')   
+  });
+	
+	$("#share_insert .insert").livequery('click',function () { 
+     $("#url_share").hide(),
+		 $("#embed_share").toggle('slow')      
+  });

@@ -90,6 +90,7 @@ en:
       created: Agenda entry was successfully created
       delete: Agenda entry was successfully deleted
       description: Description
+      documents: Related documents
       duration: Duration
       edit: Edit Agenda Entry
       embed_help: Can be filled with HTML code to embed a video
@@ -156,6 +157,7 @@ en:
       one: Select Agent
   agree: "Yes"
   all: All
+  all_days: All days
   all_rights_reserved: All rights reserved
   any: Any
   any_field: Any field
@@ -414,7 +416,7 @@ en:
     thanks: Thanks for visiting {{sitename}}
     url_activated: You can now login to your account with your email "{{name}}" and your password in <a href="{{url}}"> {{url}}</a>
     used_from: "email used in contact form: {{dir}}"
-    vcc_team: The VCC Team
+    vcc_team: The Global Conference Team
     welcome: Welcome to {{sitename}}
   edit: Edit
   edit_hours: Edit hours
@@ -435,7 +437,7 @@ en:
     not_allowed: You are not allowed to perform that action
     one: Error
     other: Errors
-    vcc_warning: "VCC warning:"
+    vcc_warning: "Global warning:"
   eu_commision: European Commission
   event: 
     Isabel: Isabel event
@@ -445,6 +447,7 @@ en:
       add_entry: Add one.
       download: Download PDF
       no_entries: There are no entries yet.
+      see: See on agenda
     assistance_title: Participation
     assistants_none: Nobody has confirmed yet
     attend: Attending
@@ -484,6 +487,7 @@ en:
       edit: Edit description
       none: No one has written a description yet.
     edit: Edit event
+    embed: Embed
     enable: 
       isabel: Isabel
       participation: Select participation modes
@@ -588,13 +592,14 @@ en:
     player: Player
     recording: 
       button_disabled: This button will be enabled when the event has any recording
+      insert: Insert
       notice: People will need access rights to this space to see this videos
       one: Event Video
-      other: Event Videos
+      other: Videos of the event
       share: Share
     repository: 
       enabled: Enable space repository
-      help: This repository show the documents uploaded in the sessions of the event agenda
+      help: This repository shows the documents uploaded in the sessions of the event agenda
       title: Event documents
     search: Search events...
     select_date: Select a date for your event
@@ -604,6 +609,7 @@ en:
     started: Start request send successfully
     streaming: 
       add: Add one.
+      back: Back to streaming
       edit: Edit streaming code
       no_at_events: No Streaming at meetings
       none: No one has posted any streaming url
@@ -635,6 +641,7 @@ en:
     view_participation_disabled: Participation available during event
     view_recordings: Recordings
     view_recordings_disabled: There are no recordings yet
+    view_related_rec: See related videos
     view_repo: Repository
     view_streaming: Streaming
     view_streaming_disabled: Streaming available during the event
@@ -665,7 +672,7 @@ en:
   fax: Fax
   feedback: 
     email: "{{email}} sent the following feedback:"
-    note: Help us improve VCC. Please send your comments, problems and suggestions. We will try to answer as soon as possible
+    note: Help us improve Global. Please send your comments, problems and suggestions. We will try to answer as soon as possible
     one: Feedback
     send: Send feedback
     send_us: Send us feedback!
@@ -694,7 +701,7 @@ en:
       participants: Participants
       spaces: Spaces
       tags: Tags
-    main_title: VCC a hosting service for publishing and discovering videoconferences
+    main_title: Global a hosting service for publishing and discovering videoconferences
     meet: 
       sentence1: Discover best online videoconferences
       sentence2: Meet interesting people and groups
@@ -730,20 +737,20 @@ en:
   hello: Hello
   help: Help
   help_createVC: 
-    part1: To create a virtual congress in VCC:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part1: To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
+    part3: "8. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createVM: 
     part1: To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda.<li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part3: "8. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createevent: 
-    part1: "To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
+    part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Watch screencast</span></a><br><br><br>To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
     part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events, according to your needs: <br><li>The <b><a href={{url_meeting}}> Meeting </a></b>type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler -  like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting.<li>The <b><a href={{url_vm}}>Virtual meeting </a></b>type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively.<li>The <b> <a href={{url_vc}}>Virtual congress</a> </b>type is very similar to <i>the virtual meeting</i> but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
   help_createmeeting: 
-    part1: To create a meeting in Global Plaza:<br><br> 1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li>Define the schedule of your meeting in the agenda<li>Invite people<li>Write a complete description<li>Edit your event<li>Define the agenda for the event<li>Import the agenda to your iCalendar<li>Notify attendants "
+    part1: To create a meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page.
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6. Click on <b>Create</b> button."
+    part3: "7. Once you have created the event, you can: <br><li><a href={{agenda}}>Define the agenda for the event</a><li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createpost: 
     part1: "To create a message on the wall in Global Plaza:"
     part10: a. View source html
@@ -775,15 +782,19 @@ en:
     part4: 3. Type the code from the image showed.
     part5: 4. Once you have completed your registration, click on <b>Done</b> button.
     part6: 5. After registering for an account, you will receive an email confirmation with the link in order to activate your account.
+  help_define_agenda: 
+    part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Watch screencast</a></span><br><br><br>To create an agenda for your event in VCC:<br><br>1. Click on \xE2\x80\x9CEvents\xE2\x80\x9D tab.<br>2. Click on the event that you have already created.<br>3. Click on \xE2\x80\x9CDefine the schedule\xE2\x80\x9D link, \xE2\x80\x9CAgenda\xE2\x80\x9D button or \xE2\x80\x9CAgenda for the event\xE2\x80\x9D link (see blue arrows in the figure)"
+    part2: "4. In the agenda section, click on \xE2\x80\x9CAdd session\xE2\x80\x9D button to create an agenda item. <br>5. Fill the agenda entry title, the start time and the duration and click on \xE2\x80\x9CNext step\xE2\x80\x9D button<br>6. You can now edit details such as the speakers, which can be site users or external users, or the description<br>\r\n\
+      7. If you want to enclose a file, click on \xE2\x80\x9CNew attachment\xE2\x80\x9D link.<br>8. If the type of your event is \xE2\x80\x9CMeeting\xE2\x80\x9D, you can embed video for this agenda item  "
+    part3: "9. If the type of your event is \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D or \xE2\x80\x9CVirtual Congress\xE2\x80\x9D, you can reserve hardware and software resources for this agenda item, select both streaming and recording"
+    part4: "10. Click on the \xE2\x80\x9CFinish\xE2\x80\x9D button to commit your changes. <br>11. If you want to add a divider to indicate breaks, like coffee or lunch breaks, click on \xE2\x80\x9CAdd divider\xE2\x80\x9D button. You can set the start time and the reason for the break. Click on \xE2\x80\x9CCreate\xE2\x80\x9D button to add the divider.<br> 12. If your event takes longer than one day, you can add a new session for the second day. Each day has its own tab with the specified agenda items. "
   help_index: 
-    part1: "The Global Plaza, also called the Virtual Conference Center (VCC), delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
-    part2: "<li>To record and publish your events on the Internet. \r\n\
-      <li>To provide remote participation to your events from a Web browser. \r\n\
-      <li>To stream existing meetings, congresses or lectures over the Internet. \r\n\
-      <li>To bring remote speakers into an existing meeting or congress.\r\n\
-      <li>To connect a remote auditorium or room to a congress or event<br><br>\r\n\
-      The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>. "
-    part3: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part1: "The Global Plaza Conferences, delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
+    part2: "<li>To record and publish your events on the Internet. <br> &nbsp; &nbsp; For example: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>To provide remote participation to your events from a Web browser.  "
+    part3: "<li>To stream existing meetings, congresses or lectures over the Internet. <br> &nbsp; &nbsp; For example: <a href={{belief}}>5th Belief Symposium South Africa</a>,<a href={{morfeo}}> Asamblea Morfeo</a>.  <li>To bring remote speakers into an existing meeting or congress.<br> &nbsp; &nbsp; For example: <a href={{belief_kostas}}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href={{egee}}>  5th EGEE Users Forum</a>."
+    part4: "<li>To connect a remote auditorium or room to a congress or event.<br> &nbsp; &nbsp;  For example: <a href={{tnc}}>TNC'09</a>,<a href={{belief}}> 4th Belief Symposium Brazil</a>."
+    part5: The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>.
+    part6: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
   help_logging: 
     part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
     part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
@@ -807,12 +818,13 @@ en:
     create_post: Posting a message on the wall
     create_space: Creating a space
     create_user: Creating a user
+    define_agenda: Defining the agenda for the event
     info: Here you can find information about the Global Plaza
     logging: Logging In to your account
     new_doc: Adding a new document
     topics: Topics
   help_vcc: 
-    info: Here you can find information about the VCC
+    info: Here you can find information about the Global
     topics: Topics
   hide: Hide
   his_message_reads_thus: His message reads thus
@@ -822,8 +834,8 @@ en:
     one: home
   icalendar: 
     add: Update and Add new entries
-    conflictive1: "One entry of your iCalendar was on the Vcc application and has been modified. You must update it manually to avoid problems. "
-    conflictiven: " entries of your iCalendar were on the Vcc application and have been modified. You must update them manually to avoid problems. "
+    conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
+    conflictiven: " entries of your iCalendar were on the Global application and have been modified. You must update them manually to avoid problems. "
     error_import: An error ocurred while importing the iCalendar.
     export: Export iCalendar
     import: Import iCalendar
@@ -928,6 +940,7 @@ en:
   invited: Invited
   is_member_of: is member of
   join: Join
+  join_cam: Join your webcam
   join_request: 
     accepted: Join Request accepted
     already_sent: You have already requested to join this space
@@ -1277,10 +1290,12 @@ en:
   save_ch: Save changes
   screencast: 
     button: Watch screencast
+    help: "Need some help? Try watching the "
     sidebar: 
       title: Screencasts
     title: Screencast
     title1: How to create an event
+    title2: Create an agenda for the event
     video: 
       one: Screencast
   search: 
@@ -1535,7 +1550,7 @@ en:
     change: Switch language
     one: Translate
     request: To translate to a different language, please request the administrator to add the new language and flag
-    translated: "VCC is now translated, or in translation process, to "
+    translated: "Global is now translated, or in translation process, to "
   type: Type
   undated: Undated
   unknown_content: Unknown content {{content}}
@@ -1617,7 +1632,7 @@ en:
     search: Search Users...
     timezone: Timezone
     updated: User updated successfully
-    vcc_email: VCC user e-mail {{dir}}
+    vcc_email: Global user e-mail {{dir}}
     view_expanded_posts: Show messages in wall with the expanded view by default
     without_group: People without group
   username: Username
@@ -1627,8 +1642,8 @@ en:
     success: vCard successfully loaded
     use: Use your vCard
   vcard: vCard
-  vcc: Virtual Conference Centre
-  vcc_mail_label: "[VCC]"
+  vcc: Global Plaza Conferences
+  vcc_mail_label: "[Global]"
   version: 
     new: New version
     one: Version

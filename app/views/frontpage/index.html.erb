@@ -1,73 +1,133 @@
-<% content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
-<div class="left column span-11 borde">         
-		<div id="left_espacio"></div>
-		<div id="left_contenido">
-			<div id="vcc_title"><%= t('frontpage.main_title') %>
-				<span id="text_bottom_title"><br /><%= t('frontpage.stats', :vc => 50, :vs => 320) %></span>
-			</div>
-			<br />
-	
-			<div id="share">
-				<span><%=image_tag("../images/frontpage/share.gif")%></span>
-				<span>
-					<ul class="purple">
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence1') %></img></li>
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence2') %></img></li>
-						<li><%=image_tag("../images/frontpage/purple_sq.png")%><%= t('frontpage.share.sentence3') %></img></li>
-					</ul>
-				</span>
-			</div>
-	
-			<div id="meet" class="no_float_left">
-				<span><%=image_tag("../images/frontpage/meet.gif")%></span>
-				<span class="no_float">
-					<ul class="green">
-						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence1') %></img></li>
-						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence2') %></img></li>
-						<li><%=image_tag("../images/frontpage/green_sq.png")%><%= t('frontpage.meet.sentence3') %></img></li>
-					</ul>
-				</span>
-			</div>
-	
-			<div id="collaborate" class="no_float_left">
-				<span><%=image_tag("../images/frontpage/collaborate.gif")%></span>
-				<span>
-					<ul class="yellow">
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence1') %></img></li>
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence2') %></img></li>
-						<li><%=image_tag("../images/frontpage/yellow_sq.png")%><%= t('frontpage.collaborate.sentence3') %></img></li>
-					</ul>
-				</span>		
-			</div>
-	
-
-			<br />
-			<div id="join_form" class="no_float_left">								
-				
-					<%= link_to image_tag("join.gif", :alt=>"register"), signup_path, :class => "register_link" %>
-			</div>
-		</div>	
-
+<% content_for :search do %>
+<%= render :partial => 'search/form' %>
+<%end %>
+<div class="left column span-11 borde">
+    <div id="left_espacio">
+    </div>
+    <div id="left_contenido">
+        <div id="vcc_title">
+            <%= t('frontpage.main_title') %>
+            <span id="text_bottom_title">
+                <br/>
+                <%= t('frontpage.stats', :vc => 50, :vs => 320) %>
+            </span>
+        </div>
+        <br/>
+        <div id="share">
+            <span><%=image_tag("../images/frontpage/share.gif") %></span>
+            <span>
+                <ul class="purple">
+                    <li>
+                    <%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence1') %>
+                    </img>
+                </li>
+                <li><%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence2') %>
+                </img>
+            </li>
+            <li>
+            <%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence3') %>
+            </img>
+        </li>
+        </ul>
+    </span>
 </div>
-
+<div id="meet" class="no_float_left">
+    <span><%=image_tag("../images/frontpage/meet.gif") %></span>
+    <span class="no_float">
+        <ul class="green">
+            <li>
+            <%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence1') %>
+            </img>
+        </li>
+        <li><%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence2') %>
+        </img>
+    </li>
+    <li>
+    <%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence3') %>
+    </img>
+</li>
+</ul>
+</span>
+</div>
+<div id="collaborate" class="no_float_left">
+    <span><%=image_tag("../images/frontpage/collaborate.gif") %></span>
+    <span>
+        <ul class="yellow">
+            <li>
+            <%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence1') %>
+            </img>
+        </li>
+        <li><%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence2') %>
+        </img>
+    </li>
+    <li>
+    <%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence3') %>
+    </img>
+</li>
+</ul>
+</span>
+</div>
+<br/>
+<div id="join_form" class="no_float_left">
+    <%= link_to image_tag("join.gif", :alt=>"register"), signup_path, :class => "register_link" %>
+</div>
+</div>
+</div>
 <div class="right column span-12 borde">
-	<div id="caracteristics" >
-				<span><img src="images/video.gif" alt="videos online" /></span>
-				<br /><br />
-				<ul>
-				<li class="conferences"><%= t('frontpage.elements.conferences')%></li>
-				<li class="participants"><%= t('frontpage.elements.participants')%></li>
-				<li class="organizers"><%= t('frontpage.elements.organizers')%></li>
-				<li class="spaces"><%= t('frontpage.elements.spaces')%></li>
-				<li class="comments"><%= t('frontpage.elements.comments')%></li>
-				<li class="tags"><%= t('frontpage.elements.tags')%></li>
-				<li class="networks"><%= t('frontpage.elements.networks')%></li>
-				</ul>
-			</div>
-
+    <div id="caracteristics">
+        <span id ="video">
+            <ul id="gallery">
+                <li>
+                    <img src="../images/frontpage/video_1_happy.jpg" alt="Happy Sithole - Belief" />
+                    <div class="panel-content">
+                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=4">
+                        	<img src="../images/frontpage/video_1_happy.jpg" alt="Happy Sithole - Belief" title="Happy Sithole - Belief" width="320" height="245" /></a>
+                    </div>
+                </li>
+                <li>
+                    <img src="../images/frontpage/video_2_kostas.jpg" alt="Kostas Glinos- Belief" title="Kostas Glinos- Belief"/>
+                    <div class="panel-content">
+                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=13"><img src="../images/frontpage/video_2_kostas.jpg" alt="Kostas Glinos- Belief" title="Kostas Glinos- Belief" width="320" height="245"/></a>
+                    </div>
+                </li>
+                <li>
+                    <img src="../images/frontpage/video_3_colin.jpg" alt="Colin Wright - Belief" title="Colin Wright - Belief" />
+                    <div class="panel-content">
+                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=66"><img src="../images/frontpage/video_3_colin.jpg" alt="Colin Wright - Belief" title="Colin Wright - Belief" width="320" height="245" /></a>
+                    </div>
+                </li>
+                <li>
+                    <img src="../images/frontpage/video_4_romilla.jpg" alt="Romilla Maharaj - Belief" title="Romilla Maharaj - Belief"/>
+                    <div class="panel-content">
+                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=20"><img src="../images/frontpage/video_4_romilla.jpg" alt="Romilla Maharaj - Belief" title="Romilla Maharaj - Belief" width="320" height="245"/></a>
+                    </div>
+                </li>
+            </ul>
+        </span>
+        <ul>
+            <li class="conferences">
+                <%= t('frontpage.elements.conferences') %>
+            </li>
+            <li class="participants">
+                <%= t('frontpage.elements.participants') %>
+            </li>
+            <li class="organizers">
+                <%= t('frontpage.elements.organizers') %>
+            </li>
+            <li class="spaces">
+                <%= t('frontpage.elements.spaces') %>
+            </li>
+            <li class="comments">
+                <%= t('frontpage.elements.comments') %>
+            </li>
+            <li class="tags">
+                <%= t('frontpage.elements.tags') %>
+            </li>
+            <li class="networks">
+                <%= t('frontpage.elements.networks') %>
+            </li>
+        </ul>
+    </div>
 </div>
-
-<div id="espacio_body_bottom"></div>
+<div id="espacio_body_bottom">
+</div>

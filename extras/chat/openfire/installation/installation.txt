@@ -102,10 +102,10 @@ plugin.vccRooms.vccEventsUrl
 http://vcc.dit.upm.es/events/{event-id}
 
 plugin.vccRooms.xmppServerUser
-vcc
+xmpp_server
 
 plugin.vccRooms.xmppServerPassword
-admin
+xmpp_server_password
 
 plugin.vccRooms.vccAvatarUrl
 http://vcc.dit.upm.es/users/{user-id}/avatar
@@ -170,6 +170,7 @@ Login with admin user and visit url vcc.dit.upm.es/site
 Configure ->
 Presence Domain: chat.vcc.dit.upm.es
 Event Chat Group Service: events.chat.vcc.dit.upm.es
+XMPP Server Password: (XMPP Server Password)
 
 9. Congigure Apache
 
@@ -178,7 +179,6 @@ Event Chat Group Service: events.chat.vcc.dit.upm.es
    # a2enmod proxy_http
 
  - Add this lines to /etc/apache/sites-enabled/000-default
-       ProxyRequests On
        ProxyPass /http-bind/ http://127.0.0.1:7070/http-bind/
        ProxyPassReverse /http-bind/ http://127.0.0.1:7070/http-bind/
 

@@ -3,6 +3,26 @@
     <script type="text/javascript" language="javascript" src="ijabbar/ijabbar.nocache.js"></script>
 		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed', 'jquery.ba-resize.min', 'jquery.vcc' %>
 
+    <script type="text/javascript" charset="utf-8">
+      function getUrlInAnchor(url) {
+        var anchor = $.url.setUrl(url).attr("anchor");
+        //var anchor = $.url.parse( window.location.href );
+        var anchorUrl;
+        if ( anchor ) {
+          // "url=/spaces?space_id=my" -> "/spaces?space_id=my"
+          anchorUrl = anchor.slice(anchor.search(/url=/)+4, anchor.length); 
+        }
+        return anchorUrl;
+      }
+    </script>
+
+    <% if not current_user.chat_activation %>
+    <script type="text/javascript" charset="utf-8">
+      var destinationUrl = getUrlInAnchor(window.location.href);
+      window.location.replace(destinationUrl);
+    </script>
+    <% end %>
+
     <script>
       var ijab_port = <%= @current_site_jab_port %>;
       var ijab_domain = "<%= @current_site_jab_domain %>";
@@ -109,17 +129,6 @@
 					$.param.fragment.noEscape( ",/?=" );
           $.bbq.pushState({ url: newUrl });
         });
-      }
-			
-      function getUrlInAnchor(url) {
-        var anchor = $.url.setUrl(url).attr("anchor");
-				//var anchor = $.url.parse( window.location.href );
-        var anchorUrl;
-        if ( anchor ) {
-					// "url=/spaces?space_id=my" -> "/spaces?space_id=my"
-          anchorUrl = anchor.slice(anchor.search(/url=/)+4, anchor.length);	
-        }
-        return anchorUrl;
       }
 
       $(document).ready(function(){

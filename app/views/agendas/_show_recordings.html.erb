@@ -7,33 +7,54 @@
 	      <%=@display_entry.video_player%>
 	    <%end%>
 	  </div>  
-	
-	    <div class="url_share">
-	      <%unless @space.public?%>
-	        <%=t('event.recording.notice')%><br/>
-	      <%end%>
-	      <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
-	      <form>
-	        <span class="only_url"><%=t('url_plain')%>:</span>
-	        <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
-	      </form>
-	    </div>
-	
+		
+	    <div id="share_insert">
+	    	<span class="share">Share</span> <span class="insert">Insert</span>
+				
+				<div id="url_share" class="url_share" style="display:none">
+	        <%unless @space.public?%>
+	          <%=t('event.recording.notice')%><br/>
+	        <%end%>
+	        <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
+	        <form>
+	          <span class="only_url"><%=t('url_plain')%>:</span>
+	          <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
+	        </form>
+	      </div>
+	      <div id="embed_share" class="url_share" style="display:none">
+	        <%unless @space.public?%>
+	          <%=t('event.recording.notice')%><br/>
+	        <%end%>
+	        <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
+	        <form>
+	          <span class="only_url"><%=t('event.embed')%>:</span>
+	          <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value='<%=shared_embed(@display_entry)%>' name="video_embed"></input>
+	        </form>
+	      </div>
+			</div>
+			
 	  <div class="video-bar"> 	
 		  <div class="video_properties">
 				<div class="video_title">
 			  	<%if @display_entry%>
-			      <%=@display_entry.title%>
-			    <%end%>     
+			      <span><%=@display_entry.title%></span>
+			    <%end%>
+					- <%=link_to(t('event.agenda.see'),space_event_path(@space, @event,:show_agenda => true), {:id=>"view_agenda"})%>    
 		    </div>
-			  <div class="video_users unified_user">  
+			  <div class="video_users">  
 			    <%if @display_entry%>
-					  <%=entry_speakers(@display_entry)%>
+					  <%=t('agenda.entry.speakers')%>: <span class="unified_user"><%=entry_speakers(@display_entry)%></span>
 		      <%end%>
 			  </div>
+        <div>
+          <%if @display_entry%>
+            <%=t('agenda.entry.description')%>: <span class="main_text"><%=@display_entry.description %></span>
+          <%end%>
+        </div>
 			  <div class="video_attachments">
 			  	<%if @display_entry%>
-				  <% @display_entry.attachments.each  do |a| %>
+				  <%=t('agenda.entry.documents')%>:
+					<% @display_entry.attachments.each  do |a| %>
 				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
 		            <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
 		          <%end %>
@@ -41,6 +62,9 @@
 			  </div>
 		 </div>
 	  </div>
+		<!--<%if @event.description != ""%>  
+			<%= render :partial => "events/event_description" %>
+		<%end%>-->
 	</div>
   </div>
 </div>

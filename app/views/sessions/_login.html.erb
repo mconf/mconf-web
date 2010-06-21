@@ -1,14 +1,14 @@
 <div id="login_div" class="blue_title">
 	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
   	<div class="form">
-          <% form_tag session_url(:protocol => current_site.protocol) do -%>
+          <% form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
 			<!--<div id="login_label"><h3>Enter your Email and Password</h3></div>-->
 			<div id="openid-logo" <%='style="display:none;"' unless request.xhr? %>>
 			  <h3><%= t('openid.have') %></h3>
 			  <%=link_to image_tag("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> <%= t('or_use_email') %></span>
 			</div>
 			<div class="openid_form" <%='style="display:none;"' if request.xhr? %> >
-              <% form_tag session_url(:protocol => current_site.protocol) do -%>
+              <% form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
  	  			<div id="openid_label"><h3><%= t('openid.enter') %> <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
 					<button type="submit" class="basic_button blue_button"><%=t("login")%></button>
 					</h3></div>

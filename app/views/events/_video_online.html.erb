@@ -6,29 +6,41 @@ $(document).ready(function(){
         $(".menu li.active").removeClass("active");
         $(".menu #"+a).addClass("active");
         //ocultamos divisiones, mostramos la seleccionada
-        $(".content_chat").css("display", "none");
-        $("."+a).fadeIn();
+        // We can not hide flash div with "display:none" because
+        // when we make "display:block" to make flash appears,
+        // the flash object is restarted and it try to make the initial connection again
+        $(".content_chat").css("visibility", "hidden");
+        $("."+a).css("visibility", "visible");
+        if ( a == "flash" ) {
+          $(".content_chat").not(".flash").css("display", "none");
+        } else {
+          $("."+a).css("display", "block");
+        }
+        $("#chat_event_online").height( $(".menu > li").height() + $("."+a).height() );
     });
 });    	
 </script>
 <%= stylesheet_link_tag "chat" %>	
 <div id="chat_event_online">
     <ul class="menu">
-    	<li id="flash" class="active">Chat online</li>
-        <li id="facebook"  >Facebook</li>
+      <li id="flash" class="active">Chat online</li>
+      <li id="facebook"  >Facebook</li>
     </ul>
     <span class="clear"></span>
+
+    <div class="content_chat facebook">
+      <div style="position: relative; overflow: hidden">    
+      <iframe id="live_feed_widget99034582463" name="live_feed_widget99034582463" 
+      class="live_feed_widget inputsubmit" 
+      src="http://www.facebook.com/widgets/livefeed.php?app_id=99034582463&amp;height=350&amp;width=240&amp;xid=YOUR_EVENT_XID" 
+      width="240" height="350" frameborder="0" scrolling="no" 
+      marginwidth="0" marginheight="0">
+      </iframe>
+      </div>
+    </div>
+
     <div class="content_chat flash">
     	<%=render :partial => "event_chat"%>
     </div>				
-    <div class="content_chat facebook">
-		<div style="position: relative; overflow: hidden">		
-		<iframe id="live_feed_widget99034582463" name="live_feed_widget99034582463" 
-		class="live_feed_widget inputsubmit" 
-		src="http://www.facebook.com/widgets/livefeed.php?app_id=99034582463&amp;height=350&amp;width=240&amp;xid=YOUR_EVENT_XID" 
-		width="240" height="350" frameborder="0" scrolling="no" 
-		marginwidth="0" marginheight="0">
-		</iframe>
-		</div>
-	</div>
+
 </div>
