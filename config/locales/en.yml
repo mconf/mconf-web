@@ -233,6 +233,7 @@ en:
     edit_question: Would you like to enable experimental chat feature?
     please_login_message: Please, login/register to participate
     reconnect_message: Reconnect
+    reconnect_button_message: You are disconnected. Click to reconnect
   check_mail: Please, check your email
   city: City
   click_here: Click here
