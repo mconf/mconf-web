@@ -68,6 +68,9 @@
   };
 
 <% end %>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
 
 <% content_for :sidebar do %>
   <% if params[:edit_news]%>

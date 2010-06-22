@@ -1,4 +1,8 @@
 <% menu :admin %>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
 
 <%= render :partial => 'spaces/admin_tabs' %>
 
