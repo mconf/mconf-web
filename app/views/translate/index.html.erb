@@ -4,10 +4,8 @@
   show_filters << "changed" if @from_locale != @to_locale
 %>
 
-<%content_for :search do%>
-  <div id="management-title">
-  <h2 class="yellow"><%=t('translate.one').upcase%></h2>
-  </div>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <fieldset>
