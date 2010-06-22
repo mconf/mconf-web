@@ -12,6 +12,8 @@
 
 <%if params[:new_invitations]%>
    <%=render :partial => 'new_invitation', :locals => {:checked_users => Array.new} %>
+<%elsif params[:group_invitation]%>
+   <%=render :partial => 'group_invitation' %>
 <%else%>
   <div>
     <% for performance in @performances -%>

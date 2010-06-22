@@ -100,15 +100,23 @@ class SearchController < ApplicationController
     filters = @space.nil? ? {} : {'space_id' => @space.id}
     
     #FIXME Improve searches to find any event in the range, now it searches any event that starts in the range
-    filter_date(params, filters, [:start_date])
+    filter_date(params, filters, [:start_time])
     
-    @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => 'Event',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_date')
+    sort_mode = params[:sort_mode] || 'descending'
+    @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => ['Event', 'AgendaEntry'],:filters => filters, :sort_mode => sort_mode, :sort_by => 'start_time')
     @search.run
 
-    @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
-    
-    #Include events from the agenda entries.
-    @events = (@events + (@agenda_entries || search_agenda_entries(params)).map{|ae| ae.event}).uniq
+    results = @search.results.map{|result|
+      if result.is_a? Event
+        result
+      elsif result.is_a? AgendaEntry
+        result.event
+      else
+        nil
+      end
+    }.uniq.compact
+
+    @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(results)) : results
   end
   
   def search_agenda_entries(params)
@@ -116,7 +124,8 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:start_time, :end_time])
 
-    @search = Ultrasphinx::Search.new(:query => @query,:per_page => 1000000, :class_names => 'AgendaEntry',:filters => filters, :sort_mode => 'descending', :sort_by => 'start_time')
+    sort_mode = params[:sort_mode] || 'descending'
+    @search = Ultrasphinx::Search.new(:query => @query,:per_page => 1000000, :class_names => 'AgendaEntry',:filters => filters, :sort_mode => sort_mode, :sort_by => 'start_time')
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
@@ -172,7 +181,7 @@ class SearchController < ApplicationController
   end
   
   def filter_from_disabled_spaces elements
-    elements.select{|e| e.space.present? && !e.space.disabled?}
+    elements.select{|e| e.present? && e.space.present? && !e.space.disabled?}
   end
 end
 
