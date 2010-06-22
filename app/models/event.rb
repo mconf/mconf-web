@@ -55,7 +55,7 @@ class Event < ActiveRecord::Base
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
   
-  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
+  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
                           :as => 'tags',
