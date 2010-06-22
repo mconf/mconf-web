@@ -30,6 +30,7 @@ GEMS = {
                    "httparty",
 		   "pdf-writer",
                    "ci_reporter",
+                   "nokogiri -v 1.4.1",
                    "prism",
                    "rubyzip" ],
   :production  => [ ],
