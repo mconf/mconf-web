@@ -189,7 +189,7 @@ fr:
       other: "les fichiers s\xC3\xA9lectionn\xC3\xA9s"
     updated: "Pi\xC3\xA8ce jointe \xC3\xA0 jour avec succ\xC3\xA8s"
     upload_with_post: "Avertissez le t\xC3\xA9l\xC3\xA9chargement avec un message dans le mur"
-  author: Auteur
+  author: Posté par
   avatar: 
     created: "Image mise en ligne avec succ\xC3\xA8s"
     crop: Recadrer votre image
@@ -591,7 +591,8 @@ fr:
       one: "Vid\xC3\xA9o de l&#39;\xC3\xA9v\xC3\xA9nement"
       other: "Vid\xC3\xA9os de l&#39;\xC3\xA9v\xC3\xA9nement"
       share: Part
-    repository: 
+    repository:
+      enabled: "Activer référentiel de documents?"
       help: "Ce r\xC3\xA9f\xC3\xA9rentiel montrent les documents t\xC3\xA9l\xC3\xA9charg\xC3\xA9s dans les sessions de l&#39;ordre du jour \xC3\xA9v\xC3\xA9nement"
       title: "documents de l&#39;\xC3\xA9v\xC3\xA9nement"
     search: "Recherche des \xC3\xA9v\xC3\xA9nements ..."
@@ -633,7 +634,7 @@ fr:
     view_participation_disabled: "Participation disponible pendant l&#39;\xC3\xA9v\xC3\xA9nement"
     view_recordings: Enregistrements
     view_recordings_disabled: Il n&#39;y a pas encore d&#39;enregistrements
-    view_repo: Repository
+    view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: "Streaming disponibles durant l&#39;\xC3\xA9v\xC3\xA9nement"
     will_attend: "Pr\xC3\xA9voyez-vous assister \xC3\xA0 cet \xC3\xA9v\xC3\xA9nement?"
@@ -1241,7 +1242,7 @@ fr:
     enable: Activer garde?
     loading: "Archives de documents de Rafra\xC3\xAEchissant ..."
     need_javascript: "S&#39;il vous pla\xC3\xAEt, javascript active pour profiter de d\xC3\xA9p\xC3\xB4t de documents"
-    one: repository
+    one: Docs
     rem_tags: Retirer Tags
     remove: Supprimer
     search: "Recherche de documents:"
@@ -1280,6 +1281,16 @@ fr:
     without_permissions: "R\xC3\xB4le ((r\xC3\xB4le)) n&#39;a pas toutes les autorisations"
   save: Sauver
   save_ch: Enregistrer les modifications
+  screencast: 
+    button: Regarder screencast
+    help: "Besoin d'aide? Essayez de regarder le "
+    sidebar: 
+      title: Screencasts
+    title: screencast
+    title1: "Comment faire pour créer un événement"
+    title2: "Créer un ordre du jour de l'événement"
+    video: 
+      one: Screencast
   search: 
     advanced: "Recherche avanc\xC3\xA9e"
     attachments: 
@@ -1503,8 +1514,10 @@ fr:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "à partir de"
     pm: pm
     start: Start time
+    to: "à"
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
