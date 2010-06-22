@@ -35,8 +35,11 @@ class Space < ActiveRecord::Base
   attr_accessor :mailing_list_for_group
   attr_accessor :invitation_ids
   attr_accessor :invitation_mails
+  attr_accessor :group_invitation_mails
   attr_accessor :invite_msg
   attr_accessor :inviter_id
+  attr_accessor :group_inv_sender_id
+  attr_accessor :group_invitation_msg
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
   attr_accessor :text_logo
@@ -80,6 +83,11 @@ class Space < ActiveRecord::Base
         i.introducer = User.find(space.inviter_id)
         i
       }.each(&:save)
+    end
+    if space.group_invitation_mails
+      space.group_invitation_mails.each { |mail|
+        Informer.deliver_space_group_invitation(space,mail)
+      }
     end
   end
   
