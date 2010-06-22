@@ -490,9 +490,12 @@ en:
     embed: Embed
     enable: 
       isabel: Isabel
-      participation: Select participation modes
-      sip: SIP
+      isabelbw: Isabel Bandwidth 
+      participation: Participation modes
+      recbw: Recording Quality
+      sip: Enable SIP
       web: Web
+      webbw: Flash Bandwidth
     error: 
       cm_connection: Connection to remote videoconference system fails
       date_past: Start date could not be past
@@ -1467,6 +1470,7 @@ en:
     detected: New spam detected
     error: 
       check: There was a problem marking the resource as spam
+    item: This item has been reported as spam
     no_spam: Congratulations! No spam here
     report: Report spam
     reported: "{{name}} has reported spam in {{sitename}}"

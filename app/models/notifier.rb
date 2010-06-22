@@ -145,12 +145,13 @@ class Notifier < ActionMailer::Base
   end
   
   #this method is used when a user has sent feedback to the admin.
-  def spam_email(user,subject, body)
+  def spam_email(user,subject, body, url)
     setup_email(Site.current.email)
     
     @from = user.email
     @subject += subject
-    @body ["text"] = body
+    @body ["text"] = I18n.t("spam.item") + ": " + url + "<br/>"
+    @body ["text"] += body
     @body ["user"] = user.full_name
     @body[:sitename]  = Site.current.name
     @body[:signature]  = Site.current.signature_in_html		

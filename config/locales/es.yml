@@ -523,9 +523,12 @@ es:
     edit: Editar evento
     enable: 
       isabel: Isabel
-      participation: "Seleccione los modos de participaci\xC3\xB3n"
+      isabelbw: Ancho de banda Isabel
+      participation: "Modos de participaci\xC3\xB3n"
+      recbw: Calidad Grabaci\xC3\xB3n
       sip: SIP
       web: Web
+      webbw: Ancho de banda Flash
     error: 
       cm_connection: "La conexi\xC3\xB3n con el sistema de videoconferencia ha fallado"
       date_past: La fecha de inicio no puede estar en el pasado
@@ -1504,6 +1507,7 @@ es:
     detected: Nuevo spam detectado
     error: 
       check: Se ha registrado un problema al marcar el recurso como spam
+    item: Este elemento se ha detectado como spam
     no_spam: Felicidades! No hay spam
     report: Reportar spam
     reported: Un usuario ha reportado spam en {{sitename}}
