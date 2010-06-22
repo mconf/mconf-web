@@ -322,7 +322,7 @@
 				if (event.nickname == SparkManager.getConfigValueForKey("nickname")) {
  					chatContainer.activeRoom.editor.enabled = false;
  					var reconnectButton:Button = new Button();
- 					reconnectButton.label = "You are disconnected. Click to reconnect";
+ 					reconnectButton.label = SparkManager.getConfigValueForKey("reconnect_button_message");
  					reconnectButton.percentWidth = 100;
  					reconnectButton.addEventListener(
  						MouseEvent.CLICK,
