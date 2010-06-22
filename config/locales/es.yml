@@ -196,7 +196,7 @@ es:
       other: archivos seleccionados
     updated: Archivos adjuntos actualizados correctamente
     upload_with_post: Notificar la subida de ficheros con un mensaje en el muro
-  author: Autor
+  author: Subido por
   avatar: 
     created: "Imagen creada con \xC3\xA9xito"
     crop: Recortar imagen
@@ -632,7 +632,7 @@ es:
       other: Videos del evento
       share: Compartir
     repository: 
-      enabled: Habilitar el repositorio del espacio
+      enabled: Habilitar el repositorio de decumentos
       help: Este repositorio muestra los documentos subidos en las sesiones del evento
       title: Documentos del evento
     search: Buscar eventos...
@@ -675,7 +675,7 @@ es:
     view_participation_disabled: "Participaci\xC3\xB3n disponible durante el evento"
     view_recordings: Grabaciones
     view_recordings_disabled: "No hay grabaciones todav\xC3\xADa"
-    view_repo: Repositorio
+    view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: Streaming disponible durante el evento
     will_attend: "\xC2\xBFQuiere asistir a este evento?"
@@ -806,7 +806,7 @@ es:
     part3: "2. Haga click en el bot\xC3\xB3n <b>Crear un nuevo espacio</b>"
     part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su espacio."
     part5: "4. Decida si el espacio debe ser p\xC3\xBAblico. Espacios colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde s\xC3\xB3lo sus miembros tienen accceso a las actividades del espacio."
-    part6: "5. Si desea habilitar un repositorio, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su espacio, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galer\xC3\xADa. "
+    part6: "5. Si desea habilitar un repositorio de documentos, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su espacio, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galer\xC3\xADa. "
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
     part1: "Para crear un usuario en Global Plaza:"
@@ -833,7 +833,7 @@ es:
     part3: "Si ha olvidado su contrase\xC3\xB1a puede <a href={{url}}>recuperarla aqui</a> o haga click en la opci\xC3\xB3n <b>\xC2\xBFHas olvidado tu contrase\xC3\xB1a?</b> de la barra superior. Un email para recuperar su contrase\xC3\xB1a le ser\xC3\xA1 enviado. "
   help_newdoc: 
     part1: "Para a\xC3\xB1adir un nuevo documento en Global Plaza:"
-    part2: "1. Haga click en la pesta\xC3\xB1a de <b>Repositorio.</b>"
+    part2: "1. Haga click en la pesta\xC3\xB1a de <b>Docs.</b>"
     part3: "2. Haga click en el bot\xC3\xB3n <b>A\xC3\xB1adir nuevo documento</b>."
     part4: "3. Haga click en <b>Examinar</b> en la parte derecha de la p\xC3\xA1gina."
     part5: "4. Una vez que haya seleccionado su archivo, haga click en el bot\xC3\xB3n Abrir."
@@ -1276,7 +1276,7 @@ es:
   register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado
   register_as_user: Registrarse como usuario
-  register_now: "Reg\xC3\xADstrese AHORA!"
+  register_now: "¡Reg\xC3\xADstrese AHORA!"
   remarks: Comentarios
   remember_me: Recordarme
   remove: Eliminar
@@ -1288,17 +1288,17 @@ es:
     add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
-    enable: Habilitar repositorio?
+    enable: "¿Habilitar repositorio de documentos?"
     loading: Actualizando el repositorio de documentos ...
     need_javascript: Por favor, active Javascript para poder trabajar con el repositorio de documentos
-    one: Repositorio
+    one: Docs
     rem_tags: Eliminar Etiquetas
     remove: Eliminar
     search: "Buscar documentos:"
   request: 
     default: solicitar
     info: "Su solicitud para participar en este espacio ha sido enviada con \xC3\xA9xito a los administradores del espacio. Un administrador se encargar\xC3\xA1 de su solicitud  tan pronto como sea posible"
-    sent: Solicitud enviada!
+    sent: "¡Solicitud enviada!"
   request_change_password: "Solicitar cambiar su contrase\xC3\xB1a"
   reset_password: "Cambiar Contrase\xC3\xB1a"
   resource: 
@@ -1308,7 +1308,7 @@ es:
     add: "A\xC3\xB1adir rol..."
     added: "Rol {{role}} a\xC3\xB1adido exitosamente a {{agent}}"
     change: Cambiar rol...
-    confirm_delete: "\xC2\xBFBorrar Rol?"
+    confirm_delete: "¿\xC2\xBFBorrar Rol?"
     created: Rol creado satisfactoriamente.
     editing: Editando Rol
     go_to_manage: "Ir a la gesti\xC3\xB3n de roles"
@@ -1331,10 +1331,12 @@ es:
   save_ch: Guardar los cambios
   screencast: 
     button: Ver screencast
+    help: "¿Necesita ayuda? Vea el "
     sidebar: 
       title: Screencasts
-    title: Screencast
+    title: screencast
     title1: Como crear un evento
+    title2: Crear agenda para el evento
     video: 
       one: Screencast
   search: 
@@ -1433,7 +1435,7 @@ es:
     add_user: 
       other: "A\xC3\xB1adir usuarios al espacio"
     all: Todos los espacios
-    allow_public_access: "Permitir acceso p\xC3\xBAblico?"
+    allow_public_access: "¿Permitir acceso p\xC3\xBAblico?"
     be_fan: Ser aficionado
     clic: Haga click para editar ...
     clic_logo: Haga click para cambiar su logo
@@ -1571,8 +1573,10 @@ es:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "desde"
     pm: pm
     start: Hora de inicio
+    to: "hasta"
   timezone: 
     one: Zona Horaria
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>

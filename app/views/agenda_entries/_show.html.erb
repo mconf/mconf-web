@@ -5,13 +5,13 @@
       Time:
     </div>-->
     <div class="event_hour">
-      From
+      <%=t('time.from').capitalize%>
 		</div>
 	  <div class="event_month">
       <%=h agenda_entry.start_time.strftime("%H:%M") %>
     </div>
 		<div class="event_hour">
-			<%=t('to')%>
+			<%=t('time.to')%>
 		</div>
 		<div class="event_month">
 			<%=h agenda_entry.end_time.strftime("%H:%M") %>

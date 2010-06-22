@@ -189,7 +189,7 @@ de:
       other: "Dateien ausgew\xC3\xA4hlt"
     updated: Attachment erfolgreich aktualisiert
     upload_with_post: Benachrichtigen Sie den Upload mit einer Meldung in der Wand
-  author: Autor
+  author: Hochgeladen von
   avatar: 
     created: Bild erfolgreich hochgeladen
     crop: Bild zuschneiden
@@ -591,8 +591,9 @@ de:
       one: Event Video
       other: Event Videos
       share: Anteil
-    repository: 
-      help: Dieses Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
+    repository:
+      enabled: "Enable Document Repository?"
+      help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
     search: Suche Termine ...
     select_date: "W\xC3\xA4hlen Sie ein Datum f\xC3\xBCr Ihre Veranstaltung"
@@ -633,7 +634,7 @@ de:
     view_participation_disabled: "Die Teilnahme w\xC3\xA4hrend der Veranstaltung zur Verf\xC3\xBCgung"
     view_recordings: Recordings
     view_recordings_disabled: Es gibt keine Aufzeichnungen noch
-    view_repo: Archiv
+    view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: "Streaming zur Verf\xC3\xBCgung w\xC3\xA4hrend der Veranstaltung"
     will_attend: Planen Sie, zu diesem Event teilnehmen?
@@ -764,7 +765,7 @@ de:
     part3: 2. Klicken Sie auf Create New Space-Taste.
     part4: "3. F\xC3\xBCgen Sie einen Namen und eine Beschreibung f\xC3\xBCr Ihren Raum."
     part5: "4. Entscheiden Sie, ob der Raum sollten \xC3\xB6ffentlich sein."
-    part6: "5. Wenn Sie ein Repository aktivieren, w\xC3\xA4hlen Sie diese Option."
+    part6: "5. Wenn Sie ein Document Repository aktivieren, w\xC3\xA4hlen Sie diese Option."
     part7: "6. Sie k\xC3\xB6nnen eine Mailing-Liste zu Ihrer Gruppe. Es erlaubt Ihnen, E-Mail-Nachrichten an Ihre Gruppe zu senden, anstelle von herauspicken die einzelnen Adressen jeder Zeit."
   help_createuser: 
     part1: "So erstellen Sie einen Benutzer im VCC:"
@@ -797,7 +798,7 @@ de:
     part5: "4. Sobald Ihre Datei ausgew\xC3\xA4hlt ist, klicken Sie auf die Schaltfl\xC3\xA4che \xC3\x96ffnen."
     part6: "5. Sie k\xC3\xB6nnen <b>Tags hinzuf\xC3\xBCgen,</b> dass Sie und andere Inhalte verwenden k\xC3\xB6nnen, um zu finden und zu filtern. Dr\xC3\xBCcken Sie die Eingabetaste, um jeden Tag zu best\xC3\xA4tigen."
     part7: "6. Wenn Sie m\xC3\xB6chten, Wand <b>teilt</b> das Dokument mit einer Meldung in der, die diese Option w\xC3\xA4hlen."
-    part8: "7. Schlie\xC3\x9Flich, am <b>Upload-Button</b> zu klicken Repository f\xC3\xBCgen Sie die Datei auf die."
+    part8: "7. Schlie\xC3\x9Flich, am <b>Upload-Button</b> zu klicken Docs f\xC3\xBCgen Sie die Datei auf die."
   help_support: Hilfe &amp; Support
   help_title: 
     about_vcc: "\xC3\x9Cber Global Plaza"
@@ -1236,10 +1237,10 @@ de:
     add_document: "Neues Dokument hinzuf\xC3\xBCgen"
     add_tags: "Tags hinzuf\xC3\xBCgen"
     download: Download
-    enable: Enable-Repository?
+    enable: Enable Document Repository?
     loading: Erfrischend Dokumentenserver ...
     need_javascript: "Bitte JavaScript aktiv zu genie\xC3\x9Fen Dokumentenserver"
-    one: Archiv
+    one: Docs
     rem_tags: Tags entfernen
     remove: Entfernen
     search: "Dokument-Suche:"
@@ -1277,6 +1278,16 @@ de:
     without_permissions: Rolle {{role}} hat keine Berechtigungen
   save: Sparen
   save_ch: "Speichern Sie die \xC3\x84nderungen"
+  screencast: 
+    button: Beobachten auf dem screencast
+    help: "Brauchen Sie Hilfe? Beobachten Sie auf dem "
+    sidebar: 
+      title: Screencasts
+    title: screencast
+    title1: Ereignis erstellen
+    title2: "Agenda für das Ereignis erstellen"
+    video: 
+      one: Screencast
   search: 
     advanced: Erweiterte Suche
     attachments: 
@@ -1500,8 +1511,10 @@ de:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "von"
     pm: pm
     start: Start time
+    to: "bis"
   timezone: 
     one: Zeitzone
     set_up: Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an
