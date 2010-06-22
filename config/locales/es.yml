@@ -1328,10 +1328,12 @@ es:
   save_ch: Guardar los cambios
   screencast: 
     button: Ver screencast
+    help: "¿Necesita ayuda? Vea el "
     sidebar: 
       title: Screencasts
-    title: Screencast
+    title: screencast
     title1: Como crear un evento
+    title2: Crear agenda para el evento
     video: 
       one: Screencast
   search: 
@@ -1567,8 +1569,10 @@ es:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "desde"
     pm: pm
     start: Hora de inicio
+    to: "hasta"
   timezone: 
     one: Zona Horaria
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>

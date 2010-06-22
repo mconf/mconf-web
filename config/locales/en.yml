@@ -1293,7 +1293,7 @@ en:
     help: "Need some help? Try watching the "
     sidebar: 
       title: Screencasts
-    title: Screencast
+    title: screencast
     title1: How to create an event
     title2: Create an agenda for the event
     video: 
@@ -1528,8 +1528,10 @@ en:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "from"
     pm: pm
     start: Start time
+    to: "to"
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>

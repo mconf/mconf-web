@@ -1281,6 +1281,16 @@ fr:
     without_permissions: "R\xC3\xB4le ((r\xC3\xB4le)) n&#39;a pas toutes les autorisations"
   save: Sauver
   save_ch: Enregistrer les modifications
+  screencast: 
+    button: Regarder screencast
+    help: "Besoin d'aide? Essayez de regarder le "
+    sidebar: 
+      title: Screencasts
+    title: screencast
+    title1: "Comment faire pour créer un événement"
+    title2: "Créer un ordre du jour de l'événement"
+    video: 
+      one: Screencast
   search: 
     advanced: "Recherche avanc\xC3\xA9e"
     attachments: 
@@ -1504,8 +1514,10 @@ fr:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+    from: "à partir de"
     pm: pm
     start: Start time
+    to: "à"
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
