@@ -1601,6 +1601,7 @@ en:
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
     add_more: Add users >>
     admin: Admin
+    administrators: Administrators
     assist: Attending
     by_email: By email
     by_private_message: By private message
