@@ -130,9 +130,13 @@
  			
  			public function displayError(name:String, message:String, fatal:Boolean):void
  			{
- 				AlertWindow.show(message, name);
- 				if(fatal)
+ 				//AlertWindow.show(message, name);
+ 				showReconnectScreen(message);
+ 				reconnect_link.visible = true;
+ 				reconnect_link.enabled = true;
+ 				if(fatal) {
  					logout();
+ 				}
  			}
  			
  			public function init():void 
@@ -159,21 +163,6 @@
 				
 				var backgroundColor:String = SparkManager.getConfigValueForKey("background_color");
 				this.setStyle("backgroundColor", backgroundColor);
-				
-
-				SparkManager.connectionManager.connection.useAnonymousLogin = false;
- 				var userName:String  = SparkManager.getConfigValueForKey("username");
- 				var userPass:String  = SparkManager.getConfigValueForKey("password");
- 				var serverURL:String = SparkManager.getConfigValueForKey("server");
- 				
- 				if (userName == "") {
- 					// If userName and userPass are null, login will be anonymous
- 					userName = null;
- 					userPass = null;
- 					SparkManager.connectionManager.connection.useAnonymousLogin = true;
- 				}
- 				
- 				SparkManager.connectionManager.login(userName, userPass, serverURL);
  			}
  			
  			protected function setFocused(focused:Boolean):void
@@ -201,6 +190,20 @@
  				
  				//commented out until such time as firefox fixes their stupid focus issues that stop it from actually working
  				//stage.focus = loginDialog.userNameField;
+ 				
+				SparkManager.connectionManager.connection.useAnonymousLogin = false;
+ 				var userName:String  = SparkManager.getConfigValueForKey("username");
+ 				var userPass:String  = SparkManager.getConfigValueForKey("password");
+ 				var serverURL:String = SparkManager.getConfigValueForKey("server");
+ 				
+ 				if (userName == "") {
+ 					// If userName and userPass are null, login will be anonymous
+ 					userName = null;
+ 					userPass = null;
+ 					SparkManager.connectionManager.connection.useAnonymousLogin = true;
+ 				}
+ 				
+ 				SparkManager.connectionManager.login(userName, userPass, serverURL);
  			}
  				
  			public function connected(event:Event):void 
@@ -229,19 +232,17 @@
 			public function roomConnected(event:Event):void {
 				ChatManager.sharedInstance.removeEventListener(ChatEvent.CHAT_STARTED, roomConnected);
  				if (SparkManager.connectionManager.connection.useAnonymousLogin) {
- 					var activeRoom:ChatRoom = chatContainer.activeRoom;
- 					var message:String = SparkManager.getConfigValueForKey("please_login_message");
- 					activeRoom.editor.text = message;
- 					activeRoom.editor.enabled = false;
+ 					chatContainer.activeRoom.editor.text = SparkManager.getConfigValueForKey("please_login_message");
+ 					chatContainer.activeRoom.editor.enabled = false;
+ 				} else {
+ 					chatContainer.activeRoom.editor.enabled = true;
  				}
  				
  				var room:Room = MUCManager.manager.getRoom(new UnescapedJID(roomJid));
 				room.addEventListener(RoomEvent.USER_KICKED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_BANNED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_DEPARTURE, disableTextEditor);
-				
-				chatContainer.activeRoom.editor.enabled = true;
-			} 
+			}
  			
  			public var suppressErrors:Boolean = false;
  			
@@ -270,25 +271,41 @@
  						loginDialog.showErrorText(Localizator.getText('message.service.unavailable'));*/
  						break;
  					case -1:
- 						connection_message.text = SparkManager.getConfigValueForKey("connecting_error_message");
- 						reconnect_link.enabled  = true;
- 						reconnect_link.visible  = true;
+ 						if (chatContainer.visible) {
+ 							if ( isReconnectButtonVisible() ) showReconnectButton();
+ 						} else {
+	 						connection_message.text = connectingMessage;
+	 						reconnect_link.enabled  = true;
+	 						reconnect_link.visible  = true;
+ 						}
  				}
  			}
  			
  			public function reconnect():void {
- 				connection_message.text = connectingMessage;
+ 				showReconnectScreen(connectingMessage);
+ 				
  				reconnect_link.enabled = false;
- 				initKey();
+ 				SparkManager.restart();
+
+				dispatchEvent(new FlexEvent("preinitialize"));
+				dispatchEvent(new FlexEvent("creationComplete"));
+				dispatchEvent(new FlexEvent("applicationComplete"));
+
+				chatContainer.dispatchEvent(new FlexEvent("preinitialize"));
+				chatContainer.dispatchEvent(new FlexEvent("creationComplete"));
  			}
+ 			
+ 			
  			
  			public function handleDisconnect(event:Event):void {
  				/* if (loginDialog.visible == false)
  					ExternalInterface.call("refreshPage"); */
  			}
 		    
-		    public static function logout():void {
-		    	ExternalInterface.call("refreshPage");
+		    public function logout():void {
+		    	//ExternalInterface.call("refreshPage");
+		    	ChatManager.sharedInstance.closeChat( ChatManager.sharedInstance.getChat(new UnescapedJID(roomJid)) );
+				SparkManager.connectionManager.logout();
 		    }
 		    
 		    /*public function showCreateAccount():void 
@@ -320,38 +337,39 @@
 			private function disableTextEditor(event:RoomEvent):void
 			{
 				if (event.nickname == SparkManager.getConfigValueForKey("nickname")) {
- 					chatContainer.activeRoom.editor.enabled = false;
- 					var reconnectButton:Button = new Button();
- 					reconnectButton.label = SparkManager.getConfigValueForKey("reconnect_button_message");
- 					reconnectButton.percentWidth = 100;
- 					reconnectButton.addEventListener(
- 						MouseEvent.CLICK,
-						function(e : MouseEvent) : void{
-							( chatContainer.activeRoom.getChildByName("editor") as UIComponent ).includeInLayout = true;
-							chatContainer.activeRoom.getChildByName("editor").visible = true;
-							chatContainer.activeRoom.removeChildAt(chatContainer.activeRoom.numChildren - 1);
-							chatContainer.visible = false;
-							  
-							info_box.visible = true;
-							connection_message.text = connectingMessage;
-							reconnect_link.enabled = false;
-							
-							ChatManager.sharedInstance.closeChat( ChatManager.sharedInstance.getChat(new UnescapedJID(roomJid)) );
-							SparkManager.connectionManager.logout();
-							
-							SparkManager.restart();
-
-							dispatchEvent(new FlexEvent("preinitialize"));
-							dispatchEvent(new FlexEvent("creationComplete"));
-							dispatchEvent(new FlexEvent("applicationComplete"));
-
-							chatContainer.dispatchEvent(new FlexEvent("preinitialize"));
-							chatContainer.dispatchEvent(new FlexEvent("creationComplete"));
-						});
- 					( chatContainer.activeRoom.getChildByName("editor") as UIComponent ).includeInLayout = false;
- 					chatContainer.activeRoom.getChildByName("editor").visible = false;
- 					chatContainer.activeRoom.addChild(reconnectButton);
+					showReconnectButton();
 				}
+			}
+			
+			private function showReconnectButton():void {
+				chatContainer.activeRoom.enabled = false;
+ 				var reconnectButton:Button = new Button();
+ 				reconnectButton.name = "reconnect_button";
+ 				reconnectButton.label = SparkManager.getConfigValueForKey("reconnect_button_message");
+ 				reconnectButton.percentWidth = 100;
+ 				reconnectButton.addEventListener(
+ 					MouseEvent.CLICK,
+					function(e : MouseEvent) : void{
+						chatContainer.removeChild( chatContainer.getChildByName("reconnect_button") );
+						
+						logout();
+						
+						showReconnectScreen(connectingMessage);
+						
+						reconnect();
+					});
+ 				chatContainer.addChild(reconnectButton);
+			}
+			
+			private function isReconnectButtonVisible():Boolean {
+				return ( chatContainer.getChildByName("reconnect_button") == null );
+			}
+			
+			private function showReconnectScreen(message:String):void {
+				connection_message.text = message;
+				
+ 				chatContainer.visible = false;
+				info_box.visible = true;
 			}
 				
  		]]>
@@ -369,10 +387,10 @@
  	<mx:Fade id="fade" />-->
  	
  	<local:ChatContainer id="chatContainer" height="100%" width="100%" visible="false" />
- 	<mx:Canvas id="info_box" width="100%" height="100%" y="0" x="0">
-		<mx:Label id="connection_message" y="10" x="10" textAlign="left" horizontalCenter="0"/>
+ 	<mx:VBox id="info_box" width="100%" height="100%" y="0" x="0" paddingTop="5" paddingLeft="5" paddingRight="5" horizontalAlign="center">
+		<mx:TextArea id="connection_message" y="10" x="10" textAlign="left" horizontalCenter="0" borderStyle="none" width="100%" backgroundAlpha="0.0" focusAlpha="0.0" enabled="false" disabledColor="black" focusBlendMode="{BlendMode.ALPHA}"/>
 		<mx:LinkButton click="reconnect()" id="reconnect_link" horizontalCenter="0" y="38" visible="false"/> 		
- 	</mx:Canvas>
+ 	</mx:VBox>
 
 
 	<!--<local:LoginDialog filters="{[shadow]}" showEffect="fade" id="loginDialog" verticalCenter="0" horizontalCenter="0" visible="{shouldShowLoginWindow}" />
