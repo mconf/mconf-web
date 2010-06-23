@@ -89,7 +89,7 @@ module AttachmentsHelper
   end
   
   def attachment_link(attachment)
-    link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => attachment.format!), :title => "#{attachment.filename} (#{attachment.size/1024} kb)"
+    link_to truncate(attachment.filename, :length => 28),space_attachment_path(attachment.space,attachment, :format => :all), :title => "#{attachment.filename} (#{attachment.size/1024} kb)"
   end
   
   private
