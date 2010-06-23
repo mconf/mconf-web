@@ -205,7 +205,8 @@ en:
   bad_request: Bad Request
   beta: (BETA)
   body: Body
-  button: 
+  button:
+    cancel: Cancel
     create: Create
     edit: Edit
     finish: Finish

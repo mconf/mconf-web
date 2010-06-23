@@ -212,7 +212,8 @@ es:
   bad_request: "Petici\xC3\xB3n inv\xC3\xA1lida"
   beta: (BETA)
   body: Cuerpo
-  button: 
+  button:
+    cancel: Cancelar
     create: Crear
     edit: Editar
     finish: Terminar
