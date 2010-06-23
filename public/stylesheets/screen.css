@@ -385,6 +385,17 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user div.non_float{float:none;}
 .user .user_data{margin-left:0.5em;}
 
+div.admin,div.read_more{position:relative;clear:both;overflow:hidden;}
+div.admin{background-color:none;border-bottom:1px #CCC solid;padding:9px 0.5em 9px 0.5em;}
+#latest_users div.user{padding:9px 0;margin-left:0.5em;margin-right:0.5em;}
+.admin ul,ul.group_links{list-style-type:none;}
+.admin ul{margin:0;}
+.admin ul.user-actions{float:right;margin-right:0.5em;}
+.admin ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
+.admin div{float:left; }
+.admin div.non_float{float:none;}
+.admin .user_data{margin-left:0.5em;}
+
 /*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
 .odd_thread,.even_thread{border-bottom:1px solid #ddd;position:relative;overflow:hidden;}
 .odd_thread.last,.even_thread.last{border-bottom:none;}

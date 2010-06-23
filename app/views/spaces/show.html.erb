@@ -59,7 +59,26 @@
 		   <%= link_to t('read_more'), space_events_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user) %>
 		   
 		 </div>
-  </div>
+    </div>
+	
+	<div class="space-desc">
+    <h3><%=t('user.administrators')%> <em><%=@space.name%></em></h3>
+    <p>
+    <% admins = space.actors(:role => 'Admin') %>
+
+    <% admins.each do |admin| %>
+ 	  <div class="admin">
+	    <div class="post-logo"><%=link_to logo(admin, :size=>32, :title=>admin.name),user_path(admin)%></div>
+		<div>
+		  <ul>
+		    <li><%=link_to sanitize(admin.full_name),user_path(admin),:class=>"unified_user"%></li>
+			<li><%=sanitize(admin.organization)%></li>
+		  </ul>
+		</div>       
+      </div>
+    <% end %>
+    </p>
+    </div>
 	<%= render :partial => 'sidebar_leave_space' %>
 <% end %>
 
@@ -82,8 +101,9 @@
   <div id="latest_news">
 	  <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %></h3>
     <%= render :partial => 'last_news' %>
-</div>
+  </div>
 <% end %>
+
 
 <div id="latest_posts">
     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
@@ -150,5 +170,6 @@
     <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorize?([:read, :performance], :to => current_user)%>
   </div>
 </div>
+
 
 <div id="lightbox_content" style="display:none"></div>

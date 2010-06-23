@@ -203,7 +203,8 @@ fr:
   bad_request: Bad Request
   beta: (BETA)
   body: Corps
-  button: 
+  button:
+    cancel: Annuler
     create: Create
     edit: "\xC3\x89diter"
     finish: Finition
@@ -212,7 +213,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     send: Envoyer
-    update: "Mettre \xC3\xA0 jour"
+    update: "Mettre à jour"
     upload: Envoyer
   calendar: 
     my: Mon calendrier
