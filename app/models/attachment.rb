@@ -149,9 +149,8 @@ class Attachment < ActiveRecord::Base
       p = Post.new(:title => attachment.post_title, :text => attachment.post_text)
       p.author = attachment.author
       p.space = attachment.space
+      p.attachments << attachment
       p.save!
-
-      attachment.posts << p
 
       attachment.post_title = attachment.post_text = nil
     end
