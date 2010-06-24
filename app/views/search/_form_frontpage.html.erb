@@ -20,17 +20,17 @@
       <div id="browse_select">
         <%=link_to ("<span>" + t("find.browse") + "</span>"),'dropdown',{:id=>"browse_select",:class => "browse_select"}%>
         <ul id="browse_menu" style="display:none">
-          <li><%= link_to "Spaces", spaces_path %></li>
-          <li><%= link_to "Upcoming events",search_all_path(:advanced => true,
+          <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t("space.other"), spaces_path %></li>
+          <li><%= link_to image_tag("icons/date.png",:class=>"icon",:size=>"16x16") + " " + t("event.upcoming.other"),search_all_path(:advanced => true,
                                                   :type => 'events',
                                                   :sort_mode => 'ascending',
                                                   :start_date => Time.now.strftime("%m/%d/%Y"),
                                                   :end_date =>(Time.now + 2.month).strftime("%m/%d/%Y"))%></li>
-					<li><%= link_to "Recent events",search_all_path(:advanced => true,
+					<li><%= link_to image_tag("icons/webcam.png",:class=>"icon",:size=>"16x16") + " " + t("event.recording.recorded"),search_all_path(:advanced => true,
                                                   :type => 'events',
                                                   :start_date => (Time.now - 2.month).strftime("%m/%d/%Y"),
                                                   :end_date => Time.now.strftime("%m/%d/%Y"))%></li>
-					<li><%= link_to "Videos",search_all_path(:advanced => true,
+					<li><%= link_to image_tag("icons/film.png",:class=>"icon",:size=>"16x16") + " " + t("video.other"),search_all_path(:advanced => true,
                                                   :type => 'videos',
                                                   :start_date => (Time.now - 2.month).strftime("%m/%d/%Y"),
                                                   :end_date => Time.now.strftime("%m/%d/%Y"))%></li>
