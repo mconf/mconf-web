@@ -621,6 +621,7 @@ en:
       notice: People will need access rights to this space to see this videos
       one: Event Video
       other: Videos of the event
+      recorded: Recorded events
       share: Share
     repository: 
       enabled: Enable document repository
