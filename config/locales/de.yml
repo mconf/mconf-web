@@ -203,7 +203,8 @@ de:
   bad_request: Bad Request
   beta: (BETA)
   body: "K\xC3\xB6rper"
-  button: 
+  button:
+    cancel: Abbrechen
     create: Schaffen
     edit: Bearbeiten
     finish: Finish

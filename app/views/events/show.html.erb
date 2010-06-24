@@ -51,7 +51,8 @@
 			<strong><%=t('event.help.now')%></strong><br/>
 			<ul id="event_help">
         <li><%= link_to t('event.help.define')+" "+t('event.help.in_agenda'), space_event_path(@space, @event, :show_agenda => true) %></li>
-				<li><%= link_to t('event.invite'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link",:title => t('invitation.add_more')} %></li>
+				<li><%= link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link"} %></li>
+        <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
 				<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
 				<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
 			</ul>
@@ -68,7 +69,8 @@
 	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
   <%elsif params[:notification]%>
    <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
-   
+  <%elsif params[:group_invitation]%>
+   <%=render :partial => 'group_invitation' %>
   <%elsif params[:show_streaming] && @event.is_in_person? %>
     <%=render :partial => "external_streaming"%>
   <%elsif params[:show_participation] && @event.is_in_person? %>

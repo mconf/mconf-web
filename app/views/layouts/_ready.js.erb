@@ -170,6 +170,27 @@ $("a#feedback_link").fancybox({
         return false
     });
 
+/*
+ * Select browse
+ */
+
+      $(".browse_select").click(function(e) {
+        e.preventDefault();
+        $("#browse_select ul#browse_menu").toggle();
+        $("#browse_select .browse_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#browse_select a.browse_select").length==0) {
+            $("#browse_select .browse_select").removeClass("menu-open");
+            $("#browse_select ul#browse_menu").hide();
+          }
+        });
+    });
+
+    $("#support_select ul#browse_menu").mouseup(function() {
+        return false
+    });
+
  /*
  * Report Spam
  */

@@ -15,6 +15,36 @@
 
 <%end%>
 
+<div id="subtexto_busqueda">
+  <ul class="menu1">
+    <li>
+      <div id="browse_select">
+        <%=link_to ("<span>" + t("find.browse") + "</span>"),'dropdown',{:id=>"browse_select",:class => "browse_select"}%>
+        <ul id="browse_menu" style="display:none">
+          <li><%= link_to "Spaces", spaces_path %></li>
+          <li><%= link_to "Upcoming events",search_all_path(:advanced => true,
+                                                  :type => 'events',
+                                                  :sort_mode => 'ascending',
+                                                  :start_date => Time.now.strftime("%m/%d/%Y"),
+                                                  :end_date =>(Time.now + 2.month).strftime("%m/%d/%Y"))%></li>
+          <li><%= link_to "Recent events",search_all_path(:advanced => true,
+                                                  :type => 'events',
+                                                  :start_date => (Time.now - 2.month).strftime("%m/%d/%Y"),
+                                                  :end_date => Time.now.strftime("%m/%d/%Y"))%></li>
+          <li><%= link_to "Videos",search_all_path(:advanced => true,
+                                                  :type => 'videos',
+                                                  :start_date => (Time.now - 2.month).strftime("%m/%d/%Y"),
+                                                  :end_date => Time.now.strftime("%m/%d/%Y"))%></li>
+        </ul>
+      </div>
+    </li>
+    <li> | </li>
+    <li>
+      <%=link_to t('help'),help_path %>
+    </li>
+  </ul>   
+</div>
+
 <% form_tag(search_all_path, :method => 'get') do %>
 
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>

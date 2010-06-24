@@ -18,6 +18,10 @@
   <%end%>
 <%end%>
 
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
 <% content_for :sidebar do  %>
   <%if params[:reply_to] %>
 	  <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>

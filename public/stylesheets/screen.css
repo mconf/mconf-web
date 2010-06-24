@@ -291,8 +291,8 @@ button#change_logo{float:left;}
 /*all css for the header and the navigation part(tabs, search,etc*/
 body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
-#header,#profile_header{background-color:#fff;height:40px;}
-#profile_header #search{float:right;margin:0;}
+#header,#profile_header{background-color:#fff;height:67px;}
+#search{float:right;margin:0 40px 0 0;}
 #global,#space,#content,#footer{width:960px;margin:0 auto;display:block;}
 #space{background-color:#e1eef5;}
 #content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;position:relative;}
@@ -311,7 +311,8 @@ body .icon{margin-bottom:-2px;}
 #header,#profile_header{padding-top:1em;padding-bottom:1em;}
 #profile_header{overflow:visible !important;position:relative;}
 #header{height:68px;}
-#logo,#vcc-logo,#search{float:left;}
+#logo,#vcc-logo{float:left;}
+#search{float:right;}
 #vcc-logo{height:68px;}
 #logo{height:64px;padding:1px;border:1px #dedede solid;}
 #logo:hover{border-color:#c0c0c0;}
@@ -319,9 +320,10 @@ body .icon{margin-bottom:-2px;}
 #name-space{width:500px;margin-left:20px;float:left;}
 #name-space span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
 #name-space #small-title a{font-size:2em;line-height:3;}
-#search{margin-top:26px;margin-left:18px;}
+#search{margin-top:3px;margin-left:18px;text-align:right;}
+
 #search input[type="text"]{font-size:1em;width:150px;}
-#search a img,#search input[type="image"]{margin-bottom:-7px;}
+/*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
 #eu{float:right;margin-top:10px;}
 
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;}
@@ -382,6 +384,17 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user div{float:left; }
 .user div.non_float{float:none;}
 .user .user_data{margin-left:0.5em;}
+
+div.admin,div.read_more{position:relative;clear:both;overflow:hidden;}
+div.admin{background-color:none;border-bottom:1px #CCC solid;padding:9px 0.5em 9px 0.5em;}
+#latest_users div.user{padding:9px 0;margin-left:0.5em;margin-right:0.5em;}
+.admin ul,ul.group_links{list-style-type:none;}
+.admin ul{margin:0;}
+.admin ul.user-actions{float:right;margin-right:0.5em;}
+.admin ul.user-actions li{font-size:0.9166em;line-height:1.6363;}
+.admin div{float:left; }
+.admin div.non_float{float:none;}
+.admin .user_data{margin-left:0.5em;}
 
 /*threads and posts (colors and boxes) + pruebas con los posts a la espera de la opinion de juan*/
 .odd_thread,.even_thread{border-bottom:1px solid #ddd;position:relative;overflow:hidden;}
@@ -653,11 +666,13 @@ ul#actions_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:n
 ul#actions_menu li a:hover{text-decoration:none;}
 
 
-/*Now the changes for the language and support selection*/
-a.language_select,a.support_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
-#footer a.language_select.menu-open,#footer a.support_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
-div#language_select,div#support_select{display:inline-block;}
-#language_select ul#language_menu,#support_select ul#support_menu{
+/*Internationalization*
+ */
+#subtexto_busqueda{position:relative;}
+a.language_select,a.support_select,a.browse_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
+#footer a.language_select.menu-open,#footer a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+div#language_select,div#support_select,div#browse_select{display:inline-block;}
+#language_select ul#language_menu,#support_select ul#support_menu,#browse_select ul#browse_menu{
   background:#fff;
   border-color:#999999;
   border-style:solid;
@@ -671,11 +686,15 @@ div#language_select,div#support_select{display:inline-block;}
   z-index:1;
   list-style-type:none;
 }
-#support_select ul#support_menu{min-width:130px;}
+#support_select ul#support_menu,#browse_select ul#browse_menu{min-width:130px;text-align:left;}
+#browse_select ul#browse_menu{bottom:-104px;right:-38px;}
 #footer ul#language_menu li,#footer ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
-ul#language_menu li:hover,ul#support_menu li:hover{background:#244974;}
-ul#language_menu li a,ul#support_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
-ul#language_menu li a:hover,ul#support_menu li a:hover{text-decoration:none;color:#fff;}
+.div_busqueda #subtexto_busqueda ul#browse_menu li,#subtexto_busqueda ul#browse_menu li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
+ul#language_menu li:hover,ul#support_menu li:hover,ul#browse_menu li:hover{background:#244974;}
+ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
+ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover{text-decoration:none;color:#fff;}
+ul.menu1{list-style-type:none;margin:0 5px 3px 0;}
+ul.menu1 li{display:inline;}
 /**/
 #actions ul{list-style-type:none;margin:0;}
 #actions ul li{display:inline;}
@@ -741,7 +760,7 @@ div.pagination a{color:#244974;}
 #update_space_logo{float:left;width:180px;}
 
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_invitation_mails{width:92%;overflow:auto;}
+#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#event_group_invitation_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 
 .update_logo .logo_content{padding-top:10px;}

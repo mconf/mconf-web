@@ -45,14 +45,17 @@ class Event < ActiveRecord::Base
   attr_accessor :mails
   attr_accessor :ids
   attr_accessor :notification_ids
+  attr_accessor :group_invitation_mails
   attr_accessor :invite_msg
   attr_accessor :invit_introducer_id
   attr_accessor :notif_sender_id
+  attr_accessor :group_inv_sender_id
   attr_accessor :notify_msg
+  attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
   
-  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id'],
+  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
                           :as => 'tags',
@@ -133,6 +136,11 @@ class Event < ActiveRecord::Base
         if event.participants.include? participant
           Informer.deliver_event_notification(event,participant.user)
         end
+      }
+    end
+    if event.group_invitation_mails
+      event.group_invitation_mails.each { |mail|
+        Informer.deliver_event_group_invitation(event,mail)
       }
     end
     

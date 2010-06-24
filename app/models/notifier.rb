@@ -55,6 +55,23 @@ class Notifier < ActionMailer::Base
     @headers.store("Reply-To",user_sender.email)
   end
 
+  def space_group_invitation_email(space,mail)
+    setup_email(mail)
+
+    user_sender = User.find(space.group_inv_sender_id)
+    @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name)
+    @body[:space] = space
+    @headers.store("Reply-To",user_sender.email)
+  end
+
+  def event_group_invitation_email(event,mail)
+    setup_email(mail)
+
+    user_sender = User.find(event.group_inv_sender_id)
+    @subject += I18n.t("event.group_invitation.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name)
+    @body[:event] = event
+    @headers.store("Reply-To",user_sender.email)
+  end
 
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)

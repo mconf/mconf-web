@@ -77,10 +77,10 @@
     <%periods.each do |period|%>
       <div class="next-events-section">
         <%if period[1].empty?%>
-          <span class="bold"><%=t(period[0])%></span><br/>
+          <span class="bold"><%= t(period[0])%></span><br/>
           <%=t('event.no_events')%>
         <%else%>
-          <span class="bold"><%=t(period[0])%></span>
+          <span class="bold"><%= t(period[0])%></span>
           <ul>
             <% for event in period[1] -%>
               <li class="event">
@@ -147,7 +147,7 @@
 	<%for interval in intervals(@all_contents) do -%>
 		<%unless interval[:contents].empty? -%>
 			<div id="line">
-      	<span class="bold"><%=interval[:name]%></span>
+      	<span class="bold"><%= t('updated') + " " + interval[:name]%></span>
     	</div>
   	<%end -%>
 	

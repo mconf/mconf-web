@@ -1,7 +1,5 @@
-<%content_for :search do%>
-  <div id="management-title">
-	<h2 class="yellow">-<%= t('management').upcase %>-</h2>
-  </div>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 	<%= render :partial => 'manage/menu' %>

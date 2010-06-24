@@ -44,7 +44,14 @@ class Informer
        PrivateSender.event_notification_message(event,receiver)
      end
    end
-      
+   
+   def self.deliver_space_group_invitation(space,mail)
+     Notifier.deliver_space_group_invitation_email(space,mail)
+   end
+   
+   def self.deliver_event_group_invitation(event,mail)
+     Notifier.deliver_event_group_invitation_email(event,mail)
+   end      
    
    def self.deliver_join_request(admission) 
      #in this case the deliver is to the admins of the space so we have to decide
