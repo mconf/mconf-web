@@ -282,36 +282,36 @@ de:
   created_time_ago: Erstellt {{time}} ago
   date: 
     abbr_day_names: 
-    - Sun
+    - Son
     - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - Die
+    - Mit
+    - Don
+    - Fre
+    - Sam
     abbr_month_names: 
     - 
     - Jan
     - Feb
-    - Mar
+    - Mär
     - Apr
-    - May
+    - Mai
     - Jun
     - Jul
     - Aug
     - Sep
-    - Oct
+    - Okt
     - Nov
-    - Dec
+    - Dez
     at: at
     day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
     end: End date
     formats: 
       default: "%y/%m/%d"
@@ -319,18 +319,18 @@ de:
       short: "%b %d"
     month_names: 
     - 
-    - January
-    - February
-    - March
+    - Januar
+    - Februar
+    - März
     - April
-    - May
-    - June
-    - July
+    - Mai
+    - Juni
+    - Juli
     - August
     - September
-    - October
+    - Oktober
     - November
-    - December
+    - Dezember
     order: 
     - :year
     - :month
