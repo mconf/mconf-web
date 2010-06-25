@@ -1,5 +1,8 @@
 <% content_for :javascript do%>
 
+  $("#wait_join_request_button").hide();
+  <!-- $("#send_join_request_button").attr('disabled', 'disabled'); -->
+
   $("#send_join_request_button").livequery('click',function(){ 
 
     // Build join request message by putting its parts together
@@ -20,8 +23,12 @@
     var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
     
     $('#join_request_comment').text(complete_msg);
-
-    document.forms["join_request_edit_form"].submit();
+	
+	$("#send_join_request_button").hide();
+	$("#wait_join_request_button").show();
+	
+	document.forms["join_request_edit_form"].submit();
+    
     
   });
 
@@ -63,6 +70,7 @@
         
         <div class="margin-up">
           <input type="button" class="basic_button blue_button" id="send_join_request_button" value="<%=t("button.send")%>" />
+		  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="Sending..." />
         </div>
       <% end %>
     </div>
