@@ -694,7 +694,7 @@ div#language_select,div#support_select,div#browse_select{display:inline-block;}
   list-style-type:none;
 }
 #support_select ul#support_menu,#browse_select ul#browse_menu{min-width:130px;text-align:left;}
-#browse_select ul#browse_menu{bottom:-104px;right:-19px;}
+#browse_select ul#browse_menu{bottom:-104px;right:-29px;}
 #footer ul#language_menu li,#footer ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
 .div_busqueda #subtexto_busqueda ul#browse_menu li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
 ul#language_menu li:hover,ul#support_menu li:hover,ul#browse_menu li:hover{background:#244974;}

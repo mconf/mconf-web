@@ -581,8 +581,11 @@ public class VccRoomsPlugin implements Plugin {
 			} catch (IOException e) { }
 
 		    Base64 base64 = new Base64();
-		    byte[] encoding = base64.encode(imageByteArray);
-		    return new String(encoding);
+		    String avatarBinaryString = "";
+		    if (imageByteArray != null) {
+		    	avatarBinaryString = new String( base64.encode(imageByteArray) );
+		    }
+		    return avatarBinaryString;
 	    }
 	}
 }

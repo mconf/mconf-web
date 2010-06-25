@@ -1,4 +1,4 @@
-<%if !space.users.include?(current_user) %>
+<%if space.users.include?(current_user) %>
   <div id="join">
     <%if space.pending_join_requests_for?(current_user)%>
       <input type="button" disabled="disabled" value="<%=t("space.join_pending")%>" class="orange_button big_button"/>
@@ -15,4 +15,5 @@
     </p>
   </div>
 <% end %>
+
 

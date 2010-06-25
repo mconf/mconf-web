@@ -208,6 +208,7 @@ en:
   button:
     cancel: Cancel
     create: Create
+    creating: Creating...
     edit: Edit
     finish: Finish
     go: Go!
@@ -215,6 +216,7 @@ en:
     next: Next Step
     other_spaces: Find other spaces
     send: Send
+    sending: Sending...
     update: Update
     upload: Upload
   calendar: 
@@ -618,6 +620,7 @@ en:
       notice: People will need access rights to this space to see this videos
       one: Event Video
       other: Videos of the event
+      recorded: Recorded events
       share: Share
     repository: 
       enabled: Enable document repository
@@ -1601,6 +1604,7 @@ en:
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
     add_more: Add users >>
     admin: Admin
+    administrators: Administrators
     assist: Attending
     by_email: By email
     by_private_message: By private message
