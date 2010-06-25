@@ -149,12 +149,12 @@
 				SparkManager.inviteListener.addEventListener(InviteEvent.INVITED, MUCInviteReceiveWindow.show);
 				
 				//set up UI event listeners
-				ExternalInterface.addCallback("setFocused", setFocused);
-				var foo:NotifyEvent
-				chatContainer.addEventListener(NotifyEvent.NEW_MESSAGE, function(evt:NotifyEvent):void {
-					var message:Message = evt.message;
+				//ExternalInterface.addCallback("setFocused", setFocused);
+				//var foo:NotifyEvent
+				//chatContainer.addEventListener(NotifyEvent.NEW_MESSAGE, function(evt:NotifyEvent):void {
+					//var message:Message = evt.message;
 					//ExternalInterface.call("alertTitle", "SparkWeb", RosterItemVO.get(message.from.unescaped, false).displayName+"!");
-				});
+				//});
 				
 				connectingMessage = SparkManager.getConfigValueForKey("connecting_message");
 				connection_message.text = connectingMessage;
@@ -165,7 +165,7 @@
 				this.setStyle("backgroundColor", backgroundColor);
  			}
  			
- 			protected function setFocused(focused:Boolean):void
+ 			/*protected function setFocused(focused:Boolean):void
  			{
  				var chatRoom:ChatRoom = chatContainer.chatFrame.selectedChild as ChatRoom;
 				if(!chatRoom)
@@ -176,7 +176,7 @@
 				chatContainer.inFocus = focused;
 				//if(focused)
 				//	ExternalInterface.call("changeTitle", "SparkWeb");
- 			}
+ 			}*/
  			
  			public function initKey():void 
  			{
@@ -225,12 +225,12 @@
 				ChatManager.sharedInstance.addEventListener(ChatEvent.CHAT_STARTED, roomConnected);
  				roomJid = SparkManager.getConfigValueForKey("roomJid");
  				
- 				info_box.visible = false;
  				ChatManager.sharedInstance.joinGroupChat(new UnescapedJID(roomJid));
  			}
  			
 			public function roomConnected(event:Event):void {
 				ChatManager.sharedInstance.removeEventListener(ChatEvent.CHAT_STARTED, roomConnected);
+				
  				if (SparkManager.connectionManager.connection.useAnonymousLogin) {
  					chatContainer.activeRoom.editor.text = SparkManager.getConfigValueForKey("please_login_message");
  					chatContainer.activeRoom.editor.enabled = false;
@@ -242,6 +242,8 @@
 				room.addEventListener(RoomEvent.USER_KICKED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_BANNED, disableTextEditor);
 				room.addEventListener(RoomEvent.USER_DEPARTURE, disableTextEditor);
+				
+				info_box.visible = false;
 			}
  			
  			public var suppressErrors:Boolean = false;
