@@ -1,7 +1,7 @@
 <% content_for :javascript do%>
 
   $("#wait_join_request_button").hide();
-  <!-- $("#send_join_request_button").attr('disabled', 'disabled'); -->
+  $("#wait_join_request_button").attr('disabled', true);
 
   $("#send_join_request_button").livequery('click',function(){ 
 
@@ -70,7 +70,7 @@
         
         <div class="margin-up">
           <input type="button" class="basic_button blue_button" id="send_join_request_button" value="<%=t("button.send")%>" />
-		  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="Sending..." />
+		  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="<%=t("button.sending")%>" />
         </div>
       <% end %>
     </div>
