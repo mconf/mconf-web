@@ -522,18 +522,15 @@ width:auto;
 #latest_posts span.updated a{text-decoration:none;color:#666;}
 #latest_posts h3 span,#inc-events h3 span{float:right;}
 div.post a:hover{height:100%; width:100%;}
-/*div.post{color:#444;}/*605E5E*/
 span.updated{color:#666;}
 a.read_more_link{color:#244974;}
 #latest_users p,#inc-events p,#Create_new_group #new_group p{margin-bottom:0;}
 #sidebar h3{margin-bottom:0.75em;}
 #sidebar input[type="submit"]{margin-top:0.75em;}
 #sidebar p img{margin-right:5px;}
-#inc-events,.space-desc,#leave_space{width:230px;float:left;/*padding-left:10px;*/}
-#inc-events h3,.space-desc h3{/*padding-bottom:0.75em;*/border-bottom:1px #ccc solid;}
+#inc-events,.space-desc,#leave_space{width:230px;float:left;margin-bottom:0.75em;}
+#inc-events h3,.space-desc h3{border-bottom:1px #ccc solid;}
 .space-desc p{margin-bottom:0;}
-#inc-events{margin-top:0.75em;}
-
 #inc-events ul{list-style-type:none;margin:0;}
 li.event {position:relative;}
 li.event:hover {text-decoration:underline;}
@@ -730,11 +727,14 @@ div.pagination a.next_page, div.pagination a.prev_page {text-decoration:none;}
 div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 /*#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*//*border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}*/
+.join,#event_register{display:block;position:relative;margin-bottom:0.75em;overflow:hidden;}
+#event_register{text-align:center;padding-left:60px;}
+#event_register a span{width:100px;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
 
 #leave_space{margin-top:32px;padding:3px 0;border-top:1px solid #A8C0D1;border-bottom:1px solid #A8C0D1;}
-
+#sidebar #full_sidebar{margin-top:30px;}
 #sidebar #join{margin-bottom:0.75em;}
 #sidebar input[type="text"],#sidebar input[type="file"]{width:92%;}
 #sidebar #event_text_input{
@@ -754,8 +754,8 @@ div.pagination a{color:#244974;}
 #sidebar input[type="date"],#sidebar input[type="time"]{width:35%;margin-right:10px;font-size:0.9166em;}
 #sidebar input[type="time"]{text-align:center;}
 
-#new_post,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#more_invitations, #more_notifications, #more_join_requests, #event_creation /*, #add_new_doc, #doc_info, #doc_action.new_version*/{-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
-#new_post,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #more_notifications, #more_join_requests, #event_creation {background:#bdd8eb;padding:0 0 10px 10px;/*float:left;*/margin-top:1.5em;}
+#new_post,#edit_reply,#edit_thread,#Create_new_group,#priv-msg,#change-event,#space-conf,#news_sidebar,#sources_sidebar,#new_invitation_div,#more_invitations, #more_notifications, #more_join_requests, #event_creation {-webkit-border-radius:7px;-moz-border-radius:7px;border-right:2px #b0cadb solid;border-bottom:2px #a8c0d1 solid;}
+#new_post,#edit_reply,#edit_thread,#sources_sideba,#sources_sidebar, #more_invitations, #more_notifications, #more_join_requests, #event_creation {background:#bdd8eb;padding:0 0 10px 10px;margin-top:1.5em;position:relative;clear:both;}
 #priv-msg,#Create_new_group, #change-event,#space-conf,#news_sidebar,#new_invitation_div/*, #add_new_doc, #doc_info, #doc_action.new_version*/{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #update_space_logo{float:left;width:180px;}
 
@@ -1064,7 +1064,6 @@ a.extract_form{margin-right:0.5em;}
 #assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
 #assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;}
 .update_logo{border:1px #bdd8eb solid;background:#f0f6f9;}
-#sidebar #assistance_info{margin-top:30px;}
 .icalendar_content p{margin-bottom:9px;}
 .update_logo h3,.import_icalendar h3,.space_logo h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;}
 #assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title,.connection_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
@@ -1539,13 +1538,6 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
   padding:5px 7px 3px 6px;}
 
 #orange_bar{background: transparent url("../images/linea_naranja.png") repeat-x;overflow:visible;}
-#orange_bar #pico_naranja{
-	padding:25px;
-	background:transparent url("../images/pico_naranja.png") no-repeat;position:absolute;right:0;top:0;
-	right:226px;
-	top:80px;
-	z-index:1;}
-#orange_bar #pico_naranja.get_down{top:127px;}
 #orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}
 #orange_bar ul li{
 	float:left;
