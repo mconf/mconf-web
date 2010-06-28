@@ -208,6 +208,7 @@ en:
   button:
     cancel: Cancel
     create: Create
+    creating: Creating...
     edit: Edit
     finish: Finish
     go: Go!
@@ -215,6 +216,7 @@ en:
     next: Next Step
     other_spaces: Find other spaces
     send: Send
+    sending: Sending...
     update: Update
     upload: Upload
   calendar: 

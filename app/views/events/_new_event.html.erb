@@ -5,6 +5,15 @@
 
 <% content_for :javascript do%>
 
+	$("#wait_create_event_button").hide();
+	$("#wait_create_event_button").attr('disabled', true);
+	
+	$("#create_event_button").click(function(){
+		$("#create_event_button").hide();
+		$("#wait_create_event_button").show();
+	});
+
+
 	$("#organizers_name").livequery(function () {
     $(this).fcbkcomplete({
       cache: true,
@@ -142,7 +151,8 @@
       </div>
     </div>
 	 <div class="margin-up">
-     <button type="submit" class="basic_button blue_button"><%=t("button.create")%></button>
+     <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.create")%></button>
+	 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
       <%= link_to "<span>" + t('cancel') + "</span>", "#",:class => "basic_button blue_button", :id=>"cancel_event"%>
 	 </div>
   <% end %>

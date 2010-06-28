@@ -396,6 +396,6 @@
 	
 	</mx:VDividedBox>
 
-	<jive:Editor resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" name="editor" bottom="0" height="18%" width="100%" enabled="false"/>	
+	<jive:Editor resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" name="editor" bottom="0" height="18%" width="100%" />	
 	
 </mx:VDividedBox>

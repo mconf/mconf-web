@@ -57,10 +57,10 @@ jdbcGroupProvider.groupCountSQL
 SELECT count(*) FROM spaces
 
 jdbcGroupProvider.loadAdminsSQL
-SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name`=?) AND `agent_type` LIKE 'User' AND `stage_type`LIKE 'Space' AND `role_id`=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name` LIKE BINARY ?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space' AND `role_id`=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
 
 jdbcGroupProvider.loadMembersSQL
-SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name`=?) AND `agent_type` LIKE 'User' AND `stage_type`LIKE 'Space' AND `role_id`!=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name` LIKE BINARY ?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space' AND `role_id`!=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
 
 jdbcGroupProvider.userGroupsSQL
 SELECT `name` FROM `spaces` WHERE `id`=ANY (SELECT `stage_id` FROM `performances` WHERE `agent_id`=(SELECT `id` FROM `users` WHERE `login`=?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space')
