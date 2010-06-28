@@ -282,36 +282,36 @@ fr:
   created_time_ago: "Cr\xC3\xA9\xC3\xA9 {{time}} il ya"
   date: 
     abbr_day_names: 
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
     abbr_month_names: 
     - 
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
+    - jan
+    - fév
+    - mar
+    - avr
+    - mai
+    - jun
+    - jui
+    - aoû
+    - sep
+    - oct
+    - nov
+    - dec
     at: at
     day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     end: End date
     formats: 
       default: "%y/%m/%d"
@@ -319,18 +319,18 @@ fr:
       short: "%b %d"
     month_names: 
     - 
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
     order: 
     - :year
     - :month
