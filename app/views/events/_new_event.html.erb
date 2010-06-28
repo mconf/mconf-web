@@ -46,14 +46,12 @@
   $('#cancel_event').click(function(){
     $('#extra-info').hide();
     $('#change-event').hide();
-		$('#pico_naranja').slideDown();
     $('#create_event').slideDown("slow");
 		$('#orange_bar').slideDown();
   });
   
   $('#presential_event').click(function(){
     $('#create_event').hide();
-		$('#pico_naranja').hide();
 		$('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#event_vc_mode').val('<%=Event::VC_MODE.index(:in_person)%>');
@@ -61,7 +59,6 @@
   
   $('#meeting_event').click(function(){
     $('#create_event').hide();
-		$('#pico_naranja').hide();
 		$('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#extra-info').slideDown();
@@ -70,7 +67,6 @@
   
   $('#conference_event').click(function(){
     $('#create_event').hide();
-		$('#pico_naranja').hide();
 		$('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#extra-info').slideDown();
