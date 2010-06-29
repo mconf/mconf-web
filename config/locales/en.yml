@@ -657,6 +657,7 @@ en:
       next_week: There are no events for next week
       none: No upcoming events
       other: Upcoming events
+      other_all: Other upcoming events
       show: Show all upcoming events
       today: There are no events for today
     updated: Event updated successfully

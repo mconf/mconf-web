@@ -206,6 +206,7 @@ fr:
   button:
     cancel: Annuler
     create: Create
+    creating: Creating...
     edit: "\xC3\x89diter"
     finish: Finition
     go: Go!
@@ -213,6 +214,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     send: Envoyer
+    sending: Sending...
     update: "Mettre à jour"
     upload: Envoyer
   calendar: 
@@ -626,6 +628,7 @@ fr:
       next_week: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements pour la semaine prochaine"
       none: "Aucun \xC3\xA9v\xC3\xA9nement \xC3\xA0 venir"
       other: "\xC3\x89v\xC3\xA9nements \xC3\xA0 venir"
+      other_all: Other upcoming events
       show: "Voir tous les \xC3\xA9v\xC3\xA9nements \xC3\xA0 venir"
       today: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements d&#39;aujourd&#39;hui"
     updated: "\xC3\x89v\xC3\xA9nement mis \xC3\xA0 jour avec succ\xC3\xA8s"
