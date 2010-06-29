@@ -57,29 +57,27 @@
     </div>
   <%end%>
 
-	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
-
   <%if !(current_user.spaces.empty?)%>
     <%periods = select_periods(@events_of_user)%>
   <%else%>
     <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
   <%end%>
 
-	<div class="next-events margin-up">
+  <div class="next-events margin-up">
 
-		<div class="next-events-title">
-			<h3>
-				<%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
-				<span class="small-font">(GMT<%= Time.zone.formatted_offset %>)</span>
-			</h3>
+    <div class="next-events-title">
+      <h3>
+        <%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
+        <span class="small-font">(GMT<%= Time.zone.formatted_offset %>)</span>
+      </h3>
     </div>
 
     <%periods.each do |period|%>
       <div class="next-events-section">
-        <%if period[1].empty?%>
-          <span class="bold"><%= t(period[0])%></span><br/>
+        <%if (period[0]== "today") && (period[1].empty?)%>
+          <span class="bold"><%= t(period[0])%></span>
           <%=t('event.no_events')%>
-        <%else%>
+        <%elsif !period[1].empty?%>
           <span class="bold"><%= t(period[0])%></span>
           <ul>
             <% for event in period[1] -%>
@@ -93,8 +91,9 @@
         <%end%>
       </div>
     <%end%> 
+  </div>
 
-	</div>
+	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
  
   <div id="home-inbox-full" class="margin-up">
     

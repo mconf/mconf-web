@@ -8,7 +8,8 @@
 		// Changing the new line characters to <br/>
 		var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
     <%if @event.start_date%>
-      var ending = "<%= escape_javascript(t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event)))%>"
+      <% start_date = I18n.l(@event.start_date, :format => '%A %B %d %H:%M:%S%')%>
+      var ending = "<%= escape_javascript(t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event)))%>"
     <%else%>
       var ending = "<%= escape_javascript(t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event)))%>"
     <%end%>
@@ -64,7 +65,8 @@
           <p><%= '\'' + t('name.one') + '\','%></p>
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
           <%if @event.start_date%>
-            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
+            <% start_date = I18n.l(@event.start_date, :format => '%A %d %b %Y %H:%M') %>
+            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event))%>
           <%else%>
             <%= t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
           <%end%>
