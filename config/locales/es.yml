@@ -915,6 +915,7 @@ es:
     information2: "Aqu\xC3\xAD puede encontrar los mensajes y eventos m\xC3\xA1s recientes ,as\xC3\xAD como las noticias de los espacios a los que perteneces"
     information3: "Estos son los \xC3\xBAltimos posts o eventos que ha creado"
     information4: Estos son los espacios a los que pertenece
+    information5: Estos son los proximos eventos de otros espacios
   internet: 
     on_the: En Internet
     ppal: Internet

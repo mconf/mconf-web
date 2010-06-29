@@ -857,6 +857,7 @@ fr:
     information2: "Ici vous pouvez trouver les derniers messages, \xC3\xA9v\xC3\xA9nements et nouvelles de l&#39;espace vous appartenez \xC3\xA0"
     information3: "Ce sont les derniers messages ou les \xC3\xA9v\xC3\xA9nements que vous avez cr\xC3\xA9\xC3\xA9"
     information4: "Ce sont les espaces vous appartenez \xC3\xA0"
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: Sur Internet
     ppal: Internet
