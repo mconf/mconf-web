@@ -1,20 +1,22 @@
 <div id="login_div"  class="blue_title">
   <% if error_messages_for(:user).blank? %>
-	<div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc')%></span></div>
+    <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc')%></span></div>
   <% end %>
-	<%= error_messages_for :user %>
+  <%= error_messages_for :user %>
 	<div class="form">
-	<% form_for user, :url => users_path do |f| -%>
-		
-		<%= render :partial => 'form', :locals => { :f => f } %>
-		
-		<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
-		
-		<div class="button">
-			<button type="submit" class="basic_button blue_button"><%=t("done")%></button>
-			<span><%= link_to t('login'), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
-		</div>
-	<% end -%>
+		<% form_for user, :url => users_path do |f| -%>
+			
+			<%= render :partial => 'form', :locals => { :f => f } %>
+			
+			<%= f.text_field :special_event_id, :style => 'display:none', :value => @special_event_id %>
+			
+			<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
+			
+			<div class="button">
+				<button type="submit" class="basic_button blue_button"><%=t("done")%></button>
+				<span><%= link_to t('login'), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
+			</div>
+		<% end -%>
 	</div>
 
 </div>

@@ -81,6 +81,8 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     user.openid_identifier = session[:openid_identifier]
+    @special_event_id = params[:special_event_id]
+
     render :partial => "register" if request.xhr?
   end
   
@@ -98,6 +100,7 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session    
     user.openid_identifier = session[:openid_identifier]
+    user.special_event_id = params[:user][:special_event_id]
     
     respond_to do |format|
       if user.save_with_captcha 

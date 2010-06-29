@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   attr_accessible :timezone
   attr_accessible :expanded_post, :notification
   attr_accessible :chat_activation
+  attr_accessor :special_event_id
   
   is_indexed :fields => ['login','email'],
              :conditions => "disabled = 0",
@@ -84,6 +85,24 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.create_profile :full_name => user._full_name
+
+    # Checking if we have to join the space and the event
+    if (! user.special_event_id.blank?)
+      if (user.special_event_id.to_i > 0)
+        event_aux = Event.find(user.special_event_id)
+        if (event_aux.space.public)
+
+          Performance.create! :agent => user,
+                              :stage => event_aux.space,
+                              :role  => Role.find_by_name("Invited")
+
+          Performance.create! :agent => user,
+                              :stage => event_aux,
+                              :role  => Role.find_by_name("Invitedevent")
+        end
+      end
+    end
+
   end
 
   def self.find_with_disabled *args
