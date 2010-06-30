@@ -743,6 +743,7 @@ div.pagination a{color:#244974;}
 	border:1px solid #BDDBD8;}
 	
 #event_day_select{margin-left:20px;}
+#space_event_select{margin-left:20px; width:200px;}
 #event_text_filter{
 	padding:6px 20px;
 	text-align:center;

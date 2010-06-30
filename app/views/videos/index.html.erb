@@ -1,7 +1,17 @@
 <% menu(:videos) %>
 
 <% content_for :javascript do  %>
+	/*jquery for toggling the share and insert bar in show videos*/
 	
+	  $("#share_insert .share").livequery('click',function () { 
+	     $("#embed_share").hide(),
+			 $("#url_share").toggle('slow')   
+	  });
+		
+		$("#share_insert .insert").livequery('click',function () { 
+	     $("#url_share").hide(),
+			 $("#embed_share").toggle('slow')      
+	  });
 <% end %>
 
 <% content_for :search do  %>
@@ -40,7 +50,6 @@
 	  <div id="videos">
 	    <div class="video_full">
 	      <%if @display_entry%>
-		  	 <p> Display entry </p>
 	        <%=@display_entry.video_player%>
 	      <%end%>
 	  </div>  
@@ -56,6 +65,7 @@
 		  <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
 	        <form>
 	          <span class="only_url"><%=t('url_plain')%>:</span>
+			  <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @display_entry.event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
 			</form>
 	      </div>
 	      
@@ -66,6 +76,7 @@
 	      <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
 	        <form>
 	          <span class="only_url"><%=t('event.embed')%>:</span>
+			  <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
 			</form>
 	      </div>
 	  </div>
@@ -76,6 +87,7 @@
 		    <%if @display_entry%>
 			  <span><%=@display_entry.title%></span>
 			<%end%>
+			- <%=link_to(t('event.agenda.see'),space_event_path(@space, @display_entry.event,:show_agenda => true), {:id=>"view_agenda"})%>
           </div>
 		  
 		  <div class="video_users">  

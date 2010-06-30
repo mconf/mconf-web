@@ -156,6 +156,8 @@ fr:
       one: "S\xC3\xA9lectionnez l&#39;agent"
   agree: Oui
   all: Tous
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: "Tous droits r\xC3\xA9serv\xC3\xA9s"
   any: Tout
   any_field: Tout champ
@@ -1446,6 +1448,8 @@ fr:
       other: Espaces publics
     recent: 
       other: "Derni\xC3\xA8res places"
+    recording:
+      other: Videos of the space
     search: L&#39;espace de recherche ...
     select: Espaces
     show_all: Voir tous les espaces

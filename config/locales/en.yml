@@ -158,6 +158,7 @@ en:
   agree: "Yes"
   all: All
   all_days: All days
+  all_events: All Events
   all_rights_reserved: All rights reserved
   any: Any
   any_field: Any field
@@ -1486,6 +1487,8 @@ en:
       other: Public spaces
     recent: 
       other: Recent spaces
+    recording:
+      other: Videos of the space
     search: Search space...
     select: Spaces
     show_all: Show all spaces

@@ -24,6 +24,12 @@ $("#event_day_select").livequery('change', function() {
   filter_previews();
 });
 
+//Event filter
+$("#space_event_select").livequery('change', function() {
+  filtered_text=this.value;
+  filter_previews();
+});
+
 //Text_filter
 $("#event_text_input").livequery('keyup', function() {
   filtered_text=this.value;

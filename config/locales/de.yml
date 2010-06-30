@@ -156,6 +156,8 @@ de:
       one: "W\xC3\xA4hlen Sie Agent"
   agree: Ja
   all: Alle
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: Alle Rechte vorbehalten
   any: Jeder
   any_field: Jedes Feld
@@ -1443,6 +1445,8 @@ de:
       other: "\xC3\x96ffentliche R\xC3\xA4ume"
     recent: 
       other: "Aktuelle R\xC3\xA4ume"
+    recording:
+      other: Videos of the space
     search: Suchen space ...
     select: Spaces
     show_all: "Alle R\xC3\xA4ume"

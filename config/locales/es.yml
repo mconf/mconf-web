@@ -162,6 +162,8 @@ es:
     U8Ot
 
   all: Todo
+  all_days: Todos los dias
+  all_events: Todos los eventos
   all_rights_reserved: Todos los derechos reservados
   any: Cualquier
   any_field: Cualquier campo
@@ -1518,6 +1520,8 @@ es:
       other: "Espacios p\xC3\xBAblicos"
     recent: 
       other: Espacios Recientes
+    recording:
+      other: Videos del espacio
     search: Buscar espacio...
     select: Espacios
     show_all: Ver todos los espacios
