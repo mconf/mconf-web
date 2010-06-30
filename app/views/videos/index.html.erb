@@ -1,17 +1,18 @@
 <% menu(:videos) %>
 
 <% content_for :javascript do  %>
-	/*jquery for toggling the share and insert bar in show videos*/
+  /*jquery for toggling the share and insert bar in show videos*/
 	
-	  $("#share_insert .share").livequery('click',function () { 
-	     $("#embed_share").hide(),
-			 $("#url_share").toggle('slow')   
-	  });
-		
-		$("#share_insert .insert").livequery('click',function () { 
-	     $("#url_share").hide(),
-			 $("#embed_share").toggle('slow')      
-	  });
+  $("#share_insert .share").livequery('click',function () { 
+     $("#embed_share").hide(),
+		 $("#url_share").toggle('slow')   
+  });
+	
+	$("#share_insert .insert").livequery('click',function () { 
+     $("#url_share").hide(),
+		 $("#embed_share").toggle('slow')      
+  });
+  
 <% end %>
 
 <% content_for :search do  %>
@@ -24,22 +25,19 @@
 
 
 <div class="single_event">
- 
-	  	
   <div class="event_image">
-	  <% if space && space.id!=nil%>
-    <div id="logo">
-	  <%= link_logo(space, :size => "h64", :title=>space.name) %>
-	</div>
-  <%else%>
-    <div id="vcc-logo">
-	  <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
-	</div>
-  <% end %>
+    <% if space && space.id!=nil%>
+      <div id="logo">
+	    <%= link_logo(space, :size => "h64", :title=>space.name) %>
+	  </div>
+    <%else%>
+      <div id="vcc-logo">
+	    <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
+	  </div>
+    <% end %>
   </div>
   <p> <%=h space.description %> </p>
 </div>
-
 
 
 <div id="event_recordings" class="margin-up">
@@ -110,6 +108,7 @@
 		      <%end %>
 			<%end%>
 		  </div>
+		  
 		</div>
 	  </div>
 	</div>
