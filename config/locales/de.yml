@@ -1227,6 +1227,8 @@ de:
   recent: 
     activity: "Aktuelle T\xC3\xA4tigkeit"
   register: 
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: Register
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin

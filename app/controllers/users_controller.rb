@@ -106,8 +106,21 @@ class UsersController < ApplicationController
       if user.save_with_captcha 
         user.tag_with(params[:tags]) if params[:tags]
         self.current_agent = user
-        flash[:notice] = t('user.registered') 
-        format.html { redirect_back_or_default root_path }
+        flash[:notice] = t('user.registered')
+        format.html { 
+
+          if (! user.special_event_id.blank?)
+            if (user.special_event_id.to_i > 0)
+              event_aux = Event.find(user.special_event_id.to_i)
+              if (event_aux.space.public)
+                redirect_to space_event_url(event_aux.space,event_aux)
+              end
+            end
+          else
+            redirect_back_or_default root_path
+          end
+          
+        }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
         format.atom { 
           headers["Location"] = formatted_user_url(@user, :atom )

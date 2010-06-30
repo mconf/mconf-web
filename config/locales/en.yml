@@ -1257,7 +1257,9 @@ en:
   received_message_more_machines: You have received a message from {{user}} asking for more machines
   recent: 
     activity: Recent activity
-  register: 
+  register:
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
   register_as_admin: Register as admin

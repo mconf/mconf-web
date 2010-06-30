@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
     # Checking if we have to join the space and the event
     if (! user.special_event_id.blank?)
       if (user.special_event_id.to_i > 0)
-        event_aux = Event.find(user.special_event_id)
+        event_aux = Event.find(user.special_event_id.to_i)
         if (event_aux.space.public)
 
           Performance.create! :agent => user,
@@ -99,6 +99,13 @@ class User < ActiveRecord::Base
           Performance.create! :agent => user,
                               :stage => event_aux,
                               :role  => Role.find_by_name("Invitedevent")
+                              
+          part_aux = Participant.new
+          part_aux.email = user.email
+          part_aux.user_id = user.id
+          part_aux.event_id = user.special_event_id.to_i
+          part_aux.attend = true
+          part_aux.save!
         end
       end
     end
