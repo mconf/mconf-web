@@ -10,7 +10,7 @@
 		
 	    <div id="share_insert">
 	    	<span class="share">Share</span> <span class="insert">Insert</span>
-				
+	
 				<div id="url_share" class="url_share" style="display:none">
 	        <%unless @space.public?%>
 	          <%=t('event.recording.notice')%><br/>
@@ -28,7 +28,7 @@
 	        <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
 	        <form>
 	          <span class="only_url"><%=t('event.embed')%>:</span>
-	          <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value='<%=shared_embed(@display_entry)%>' name="video_embed"></input>
+	          <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
 	        </form>
 	      </div>
 			</div>

@@ -215,6 +215,7 @@ es:
   button:
     cancel: Cancelar
     create: Crear
+    creating: Creando...
     edit: Editar
     finish: Terminar
     go: "\xC2\xA1Buscar!"
@@ -222,6 +223,7 @@ es:
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
     send: Enviar
+    sending: Enviando...
     update: Actualizar
     upload: Subir
   calendar: 
@@ -687,6 +689,7 @@ es:
       next_week: "No hay eventos para la pr\xC3\xB3xima semana"
       none: No hay eventos por celebrarse
       other: Eventos por celebrarse
+      other_all: Otros eventos por celebrarse
       show: Mostrar todos los eventos por celebrarse
       today: No hay eventos para hoy
     updated: El evento se ha actualizado correctamente
@@ -915,6 +918,7 @@ es:
     information2: "Aqu\xC3\xAD puede encontrar los mensajes y eventos m\xC3\xA1s recientes ,as\xC3\xAD como las noticias de los espacios a los que perteneces"
     information3: "Estos son los \xC3\xBAltimos posts o eventos que ha creado"
     information4: Estos son los espacios a los que pertenece
+    information5: Estos son los proximos eventos de otros espacios
   internet: 
     on_the: En Internet
     ppal: Internet

@@ -206,6 +206,7 @@ de:
   button:
     cancel: Abbrechen
     create: Schaffen
+    creating: Creating...
     edit: Bearbeiten
     finish: Finish
     go: Go!
@@ -213,6 +214,7 @@ de:
     next: Next Step
     other_spaces: "Finden Sie andere R\xC3\xA4ume"
     send: Senden
+    sending: Sending...
     update: Aktualisierung
     upload: Laden
   calendar: 
@@ -626,6 +628,7 @@ de:
       next_week: "Es sind keine Termine f\xC3\xBCr die n\xC3\xA4chste Woche"
       none: Keine anstehenden Termine
       other: Bevorstehende Veranstaltungen
+      other_all: Other upcoming events
       show: Alle kommenden Veranstaltungen
       today: "Es sind keine Termine f\xC3\xBCr heute"
     updated: Event erfolgreich aktualisiert
@@ -854,6 +857,7 @@ de:
     information2: "Hier finden Sie die neuesten Nachrichten, Veranstaltungen und Neuigkeiten der R\xC3\xA4ume geh\xC3\xB6ren Sie zu"
     information3: Dies sind die neuesten Nachrichten oder Ereignisse, die Sie erstellt haben
     information4: "Dies sind die Bereiche geh\xC3\xB6ren Sie zu"
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: Auf dem Internet
     ppal: Internet

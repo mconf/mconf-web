@@ -52,19 +52,18 @@
 <% content_for :sidebar do  %>
 
 	<% if logged_in?%>
-		<div class="button_wrapper">
-			<%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
-    </div>
+	  <div class="button_wrapper">
+	    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
+      </div>
   <%end%>
 
   <%if !(current_user.spaces.empty?)%>
     <%periods = select_periods(@events_of_user)%>
   <%else%>
-    <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
+    <%periods = [["today",[]], ["event.upcoming.other",[]],["event.upcoming.other_all",[]]]%>
   <%end%>
 
   <div class="next-events margin-up">
-
     <div class="next-events-title">
       <h3>
         <%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
@@ -90,11 +89,10 @@
           </ul>
         <%end%>
       </div>
-    <%end%> 
+    <%end%>
+	 
   </div>
 
-	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
- 
   <div id="home-inbox-full" class="margin-up">
     
 		<div id="home-inbox-title">
@@ -134,6 +132,9 @@
 		  <%end%>
     <%end%>
 	</div>
+	
+	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+	
 <%end%>  
 
 

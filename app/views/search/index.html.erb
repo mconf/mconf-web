@@ -16,13 +16,13 @@
 	<%=
 	case params[:type]
 	  when "spaces"
-      render :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space',:paginate => true}
+      render :partial =>'found_group', :locals => {:elements => @spaces, :type => 'space',:paginate => true, :per_page => 10}
     when "events"
-	    render :partial =>'found_group', :locals => {:elements => @events, :type => 'event',:paginate => true}
+	    render :partial =>'found_group', :locals => {:elements => @events, :type => 'event',:paginate => true, :per_page => 15}
     when "videos"
-      render :partial =>'found_group', :locals => {:elements => @videos, :type => 'video',:paginate => true}
+      render :partial =>'found_group', :locals => {:elements => @videos, :type => 'video',:paginate => true, :per_page => 10}
 	  when "posts"
-	    render :partial =>'found_group', :locals => {:elements => @posts, :type => 'post',:paginate => true}
+	    render :partial =>'found_group', :locals => {:elements => @posts, :type => 'post',:paginate => true, :per_page => 20}
 	  when "users"
       render :partial =>'users'
     when "attachments"

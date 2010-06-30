@@ -1,0 +1,31 @@
+<% menu(:videos) %>
+
+<% content_for :javascript do  %>
+	
+<% end %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<% content_for :menu do  %>
+	<%= render :partial => 'layouts/menu' %>
+<% end %>
+
+<% content_for :sidebar do  %>
+  <%= render :partial => 'sidebar' %>
+<% end %>
+
+
+
+
+<div id="latest_posts">
+  
+</div>
+
+<div id="latest_users">
+
+</div>
+
+
+<div id="lightbox_content" style="display:none"></div>
