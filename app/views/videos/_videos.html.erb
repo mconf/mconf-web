@@ -95,6 +95,11 @@
       			
       <div class="video-bar"> 	
 	    <div class="video_properties">
+	      <div>
+	      	<% if @display_entry %>
+	      	<span><%=t('event.one')%>: <%= @display_entry.event.name%></span>
+			<% end %>
+	      </div>
 		  <div class="video_title">
 		    <%if @display_entry%>
 			  <span><%=@display_entry.title%></span>

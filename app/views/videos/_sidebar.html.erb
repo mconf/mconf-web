@@ -6,7 +6,7 @@
 	  <select id="space_event_select">
 	    <option value="" id="blank_option"><%=t('all_events')%></option>
 	    <%@space.events.each do |event|%>
-	      <option value="<%=event.name%>"><%=event.name%></option>  
+	      <option value="<%=event.id%>"><%=event.name%></option>  
 	    <%end%>
 	  </select>
 	<% end %>
@@ -19,7 +19,7 @@
 <div id="carrusel">
   <div id="carrusel_content">
     <%space.videos.each do |entry| %>
-      <div class="video_preview_sidebar event_<%=entry.event.name%> <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
+      <div class="video_preview_sidebar event_<%=entry.event.id%> <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
         <div class="video_thumbnail">
             <%if entry.thumbnail.present? %>
               <%=link_to_function image_tag(entry.thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
