@@ -1404,6 +1404,11 @@ de:
     error: 
       enabled: Space {{name}} ist bereits aktiviert
     group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
+    group_invitation:
+      button: Liste einladen
+      message_title: Invite mailing lists to join your space
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} invites you to space {{space}}"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschlie\xC3\x9Fen an den Administrator dieser Raum in Ihrem lassen"
     join: Join this space
     join_invitation: 
@@ -1581,6 +1586,7 @@ de:
       one: 1 Benutzer gefunden
       other: "{{size}} Benutzer gefunden"
     full_name: "Vollst\xC3\xA4ndiger Name"
+    group_invite_email: Mailing lists to invite
     include_registered: Enthalten registrierte Benutzer
     included: 
       other: Inbegriffen Nutzer

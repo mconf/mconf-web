@@ -1407,6 +1407,11 @@ fr:
     error: 
       enabled: "Space {{name}} est d\xC3\xA9j\xC3\xA0 activ\xC3\xA9"
     group_not_belong: "n&#39;appartiennent pas au m\xC3\xAAme espace que le groupe"
+    group_invitation:
+      button: Inviter lists
+      message_title: Invite mailing lists to join your space
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} invites you to space {{space}}"
     is_private: "est un espace priv\xC3\xA9. Envoyer une jointure demande \xC3\xA0 l&#39;administrateur de cet espace pour vous laisser"
     join: "Joignez-vous \xC3\xA0 cet espace"
     join_invitation: 
@@ -1586,6 +1591,7 @@ fr:
       one: 1 utilisateur trouve
       other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
+    group_invite_email: Mailing lists to invite
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
       other: y compris les utilisateurs

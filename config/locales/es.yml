@@ -1479,6 +1479,11 @@ es:
       one: Se ha encontrado 1 espacio
       other: Se han encontrado {{size}} espacios
     group_not_belong: no pertenecen al mismo espacio que el grupo
+    group_invitation:
+      button: Invitar lista de correo
+      message_title: Invite a listas de correo para que se unan a su espacio
+      private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} le invita al espacio {{space}}"
     is_private: "es un espacio privado. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador del espacio"
     join: "\xC3\x9Anete a este espacio"
     join_invitation: 
@@ -1660,6 +1665,7 @@ es:
       one: 1 usuario encontrado
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
+    group_invite_email: Listas de correo a invitar
     include_registered: Incluir usuarios registrados
     included: 
       other: Usuarios incluidos
