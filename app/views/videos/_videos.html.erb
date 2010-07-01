@@ -1,6 +1,16 @@
 <% menu(:videos) %>
 
 <% content_for :javascript do  %>
+
+   $(".play_icon").livequery('click',function(){
+     $(this).siblings("a").click();
+   });
+
+   request_video_in_recordings = function(entry_id){
+ 	 var route = "<%=space_videos_path(@space)%>/" + entry_id;
+     document.location = route;
+   };	 
+
   /*jquery for toggling the share and insert bar in show videos*/
 	
   $("#share_insert .share").livequery('click',function () { 
@@ -63,7 +73,9 @@
 		  <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
 	        <form>
 	          <span class="only_url"><%=t('url_plain')%>:</span>
+			  <%if @display_entry%>
 			  <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_event_url(@space, @display_entry.event, :show_video=> @display_entry ? @display_entry.id : 0) %>" name="video_link"></input>
+			  <%end%>
 			</form>
 	      </div>
 	      
@@ -74,7 +86,9 @@
 	      <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
 	        <form>
 	          <span class="only_url"><%=t('event.embed')%>:</span>
+			   <%if @display_entry%>
 			  <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
+			  <%end%>
 			</form>
 	      </div>
 	  </div>
@@ -84,8 +98,8 @@
 		  <div class="video_title">
 		    <%if @display_entry%>
 			  <span><%=@display_entry.title%></span>
-			<%end%>
 			- <%=link_to(t('event.agenda.see'),space_event_path(@space, @display_entry.event,:show_agenda => true), {:id=>"view_agenda"})%>
+			<%end%>
           </div>
 		  
 		  <div class="video_users">  
