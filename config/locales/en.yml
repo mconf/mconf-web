@@ -1490,7 +1490,8 @@ en:
     recent: 
       other: Recent spaces
     recording:
-      other: Videos of the space
+      one: Space video
+      other: Space videos
     search: Search space...
     select: Spaces
     show_all: Show all spaces

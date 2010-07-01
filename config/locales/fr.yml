@@ -1451,7 +1451,8 @@ fr:
     recent: 
       other: "Derni\xC3\xA8res places"
     recording:
-      other: Videos of the space
+      one: Space video
+      other: Space videos
     search: L&#39;espace de recherche ...
     select: Espaces
     show_all: Voir tous les espaces

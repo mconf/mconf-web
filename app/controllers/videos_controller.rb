@@ -18,54 +18,24 @@
 class VideosController < ApplicationController
   before_filter :space!
   
-#  if params[:show_video]
-#    if @space.event.agenda.present?
-#      @video_entries = @event.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
-#    else
-#      @video_entries = []
-#    end
-#    
-#    #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
-#    if params[:show_video].class == String
-#      @display_entry = AgendaEntry.find(params[:show_video].to_i)
-#    else
-#      @display_entry = nil
-#    end
-#  end
-
   def index
-    
-    @events = space.events
-    @space_videos = []
-    
-    @events.each do |event|
-      
-        @event_videos = []
-      
-        if event.agenda.present?
-          @event_videos = event.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
-          
-          @event_videos.each do |video|
-            @space_videos << video
-          end
-          
-        end
-    end
- 
-    
-    if params[:show_video].class == String
-      @display_entry = AgendaEntry.find(params[:show_video].to_i)
-    else
-      if @space_videos[0]
-        @display_entry = @space_videos[0];
+
+      if space.videos[0]
+        @display_entry = space.videos[0];
       else
         @display_entry = nil
       end 
-    end
-
-    
+   
     respond_to do |format|
       format.html
+    end
+  end  
+  
+  
+  def show
+    
+    if params[:id].class == String
+      @display_entry = AgendaEntry.find(params[:id].to_i)
     end
   end
    

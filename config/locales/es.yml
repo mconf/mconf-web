@@ -1523,6 +1523,7 @@ es:
     recent: 
       other: Espacios Recientes
     recording:
+      one: Video del espacio
       other: Videos del espacio
     search: Buscar espacio...
     select: Espacios

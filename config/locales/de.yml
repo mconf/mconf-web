@@ -1448,7 +1448,8 @@ de:
     recent: 
       other: "Aktuelle R\xC3\xA4ume"
     recording:
-      other: Videos of the space
+      one: Space video
+      other: Space videos
     search: Suchen space ...
     select: Spaces
     show_all: "Alle R\xC3\xA4ume"

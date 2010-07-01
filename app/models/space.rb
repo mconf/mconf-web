@@ -25,6 +25,7 @@ class Space < ActiveRecord::Base
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
+  has_many :agendas, :through => :events
            
   has_permalink :name, :update=>true
   
@@ -327,6 +328,20 @@ class Space < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def videos
+  
+    @space_videos = []
+   
+    agendas.each do |agenda|
+      agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
+        @space_videos << video
+      end
+    end
+    
+    @space_videos 
+    
   end
 
   # There are previous authorization rules because of the stage

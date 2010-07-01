@@ -15,12 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-class video < ActiveRecord::Base
+class Video
   
-  def space
-    space_id.present? ?
-      Space.find_with_disabled(space_id) :
-      nil
-  end  
+
   
 end
