@@ -81,7 +81,6 @@ class UsersController < ApplicationController
   # GET /users/new.xml  
   def new
     user.openid_identifier = session[:openid_identifier]
-    @special_event_id = params[:special_event_id]
 
     render :partial => "register" if request.xhr?
   end
@@ -100,7 +99,6 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session    
     user.openid_identifier = session[:openid_identifier]
-    user.special_event_id = params[:user][:special_event_id]
     
     respond_to do |format|
       if user.save_with_captcha 
@@ -109,15 +107,10 @@ class UsersController < ApplicationController
         flash[:notice] = t('user.registered')
         format.html { 
 
-          if (! user.special_event_id.blank?)
-            if (user.special_event_id.to_i > 0)
-              event_aux = Event.find(user.special_event_id.to_i)
-              if (event_aux.space.public)
-                redirect_to space_event_url(event_aux.space,event_aux)
-              end
-            end
-          else
+          if (user.special_event.nil?)
             redirect_back_or_default root_path
+          else
+            redirect_to space_event_url(user.special_event.space,user.special_event)            
           end
           
         }

@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   attr_accessible :timezone
   attr_accessible :expanded_post, :notification
   attr_accessible :chat_activation
+  attr_accessible :special_event_id
   attr_accessor :special_event_id
   
   is_indexed :fields => ['login','email'],
@@ -87,27 +88,21 @@ class User < ActiveRecord::Base
     user.create_profile :full_name => user._full_name
 
     # Checking if we have to join the space and the event
-    if (! user.special_event_id.blank?)
-      if (user.special_event_id.to_i > 0)
-        event_aux = Event.find(user.special_event_id.to_i)
-        if (event_aux.space.public)
+    if (! user.special_event.nil?)
+      Performance.create! :agent => user,
+                          :stage => user.special_event.space,
+                          :role  => Role.find_by_name("Invited")
 
-          Performance.create! :agent => user,
-                              :stage => event_aux.space,
-                              :role  => Role.find_by_name("Invited")
-
-          Performance.create! :agent => user,
-                              :stage => event_aux,
-                              :role  => Role.find_by_name("Invitedevent")
-                              
-          part_aux = Participant.new
-          part_aux.email = user.email
-          part_aux.user_id = user.id
-          part_aux.event_id = user.special_event_id.to_i
-          part_aux.attend = true
-          part_aux.save!
-        end
-      end
+      Performance.create! :agent => user,
+                          :stage => user.special_event,
+                          :role  => Role.find_by_name("Invitedevent")
+                          
+      part_aux = Participant.new
+      part_aux.email = user.email
+      part_aux.user_id = user.id
+      part_aux.event_id = user.special_event.id
+      part_aux.attend = true
+      part_aux.save!
     end
 
   end
@@ -218,5 +213,18 @@ class User < ActiveRecord::Base
     !events.select{|ev| ev.space==space}.empty?
   end
     
+  def special_event
+    if (self.special_event_id.nil?)
+      nil
+    else
+      event_aux = Event.find(self.special_event_id)
+      # Only allow special_event_id for the quick registering way when the space of the event is public
+      if (event_aux.space.public)
+        event_aux
+      else
+        nil
+      end
+    end
+  end
   
 end
