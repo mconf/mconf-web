@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
@@ -54,7 +52,14 @@ class Event < ActiveRecord::Base
   attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
-  
+
+  named_scope :upcoming, lambda { |number|
+    { :conditions => [ "events.end_date > ?", Time.now ],
+      :order => "start_date",
+      :limit => number
+    }
+  }
+ 
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',

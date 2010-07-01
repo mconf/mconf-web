@@ -67,15 +67,9 @@
   
 
 	
-	
-	
-	
-
-	
-	
-	<%if params[:space_id]=="my"%>
-	   $("input#spaces_my").click();
-	<%end%>
+<%if params[:space_id]=="my"%>
+   $("input#spaces_my").click();
+<%end%>
 	
 <%if params[:filter]%>
     $("#space_name_filter").keyup();

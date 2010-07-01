@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100511141600) do
+ActiveRecord::Schema.define(:version => 20100701125920) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -291,7 +291,7 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   :default => 2
+    t.integer "visibility",   :default => 3
     t.string  "full_name"
   end
 

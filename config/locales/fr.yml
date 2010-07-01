@@ -156,6 +156,8 @@ fr:
       one: "S\xC3\xA9lectionnez l&#39;agent"
   agree: Oui
   all: Tous
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: "Tous droits r\xC3\xA9serv\xC3\xA9s"
   any: Tout
   any_field: Tout champ
@@ -206,6 +208,7 @@ fr:
   button:
     cancel: Annuler
     create: Create
+    creating: Creating...
     edit: "\xC3\x89diter"
     finish: Finition
     go: Go!
@@ -213,6 +216,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     send: Envoyer
+    sending: Sending...
     update: "Mettre à jour"
     upload: Envoyer
   calendar: 
@@ -626,6 +630,7 @@ fr:
       next_week: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements pour la semaine prochaine"
       none: "Aucun \xC3\xA9v\xC3\xA9nement \xC3\xA0 venir"
       other: "\xC3\x89v\xC3\xA9nements \xC3\xA0 venir"
+      other_all: Other upcoming events
       show: "Voir tous les \xC3\xA9v\xC3\xA9nements \xC3\xA0 venir"
       today: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements d&#39;aujourd&#39;hui"
     updated: "\xC3\x89v\xC3\xA9nement mis \xC3\xA0 jour avec succ\xC3\xA8s"
@@ -854,6 +859,7 @@ fr:
     information2: "Ici vous pouvez trouver les derniers messages, \xC3\xA9v\xC3\xA9nements et nouvelles de l&#39;espace vous appartenez \xC3\xA0"
     information3: "Ce sont les derniers messages ou les \xC3\xA9v\xC3\xA9nements que vous avez cr\xC3\xA9\xC3\xA9"
     information4: "Ce sont les espaces vous appartenez \xC3\xA0"
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: Sur Internet
     ppal: Internet
@@ -1223,6 +1229,8 @@ fr:
   recent: 
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1447,6 +1455,9 @@ fr:
       other: Espaces publics
     recent: 
       other: "Derni\xC3\xA8res places"
+    recording:
+      one: Space video
+      other: Space videos
     search: L&#39;espace de recherche ...
     select: Espaces
     show_all: Voir tous les espaces

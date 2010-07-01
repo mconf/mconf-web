@@ -158,6 +158,7 @@ en:
   agree: "Yes"
   all: All
   all_days: All days
+  all_events: All Events
   all_rights_reserved: All rights reserved
   any: Any
   any_field: Any field
@@ -657,6 +658,7 @@ en:
       next_week: There are no events for next week
       none: No upcoming events
       other: Upcoming events
+      other_all: Other upcoming events
       show: Show all upcoming events
       today: There are no events for today
     updated: Event updated successfully
@@ -887,6 +889,7 @@ en:
     information2: Here you can find the newest messages, events and news of the spaces you belong to
     information3: These are the latest messages or events that you have created
     information4: These are the spaces you belong to
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: On the Internet
     ppal: Internet
@@ -1254,7 +1257,9 @@ en:
   received_message_more_machines: You have received a message from {{user}} asking for more machines
   recent: 
     activity: Recent activity
-  register: 
+  register:
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
   register_as_admin: Register as admin
@@ -1484,6 +1489,9 @@ en:
       other: Public spaces
     recent: 
       other: Recent spaces
+    recording:
+      one: Space video
+      other: Space videos
     search: Search space...
     select: Spaces
     show_all: Show all spaces
