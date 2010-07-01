@@ -214,7 +214,8 @@ class User < ActiveRecord::Base
   end
     
   def special_event
-    if (self.special_event_id.nil?)
+
+    if (self.special_event_id.blank?)
       nil
     else
       event_aux = Event.find(self.special_event_id)
