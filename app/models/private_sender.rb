@@ -44,7 +44,6 @@ class PrivateSender
   
   
   def self.performance_update_notification_message(sender,receiver,stage, rol)
-    debugger
     if stage.type.name == 'Space'
       m = PrivateMessage.new :title => I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name),
       :body =>  I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
