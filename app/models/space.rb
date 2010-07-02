@@ -296,14 +296,14 @@ class Space < ActiveRecord::Base
   def disable
     self.update_attributes(:disabled => true, :name => "#{name} DISABLED #{Time.now.to_i}")
     for group in self.groups
-      Group.disable_list(group,group.mailing_list)
+      Group.disable_list(group)
     end
   end
 
   def enable
-    self.update_attribute(:disabled,false)
+    self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED ").first} RESTORED")
     for group in self.groups
-      Group.enable_list(group,group.mailing_list)
+      Group.enable_list(group)
     end
   end
 
