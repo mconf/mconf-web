@@ -156,6 +156,8 @@ fr:
       one: "S\xC3\xA9lectionnez l&#39;agent"
   agree: Oui
   all: Tous
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: "Tous droits r\xC3\xA9serv\xC3\xA9s"
   any: Tout
   any_field: Tout champ
@@ -1227,6 +1229,8 @@ fr:
   recent: 
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1411,6 +1415,11 @@ fr:
     error: 
       enabled: "Space {{name}} est d\xC3\xA9j\xC3\xA0 activ\xC3\xA9"
     group_not_belong: "n&#39;appartiennent pas au m\xC3\xAAme espace que le groupe"
+    group_invitation:
+      button: Inviter lists
+      message_title: Invite mailing lists to join your space
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} invites you to space {{space}}"
     is_private: "est un espace priv\xC3\xA9. Envoyer une jointure demande \xC3\xA0 l&#39;administrateur de cet espace pour vous laisser"
     join: "Joignez-vous \xC3\xA0 cet espace"
     join_invitation: 
@@ -1446,6 +1455,9 @@ fr:
       other: Espaces publics
     recent: 
       other: "Derni\xC3\xA8res places"
+    recording:
+      one: Space video
+      other: Space videos
     search: L&#39;espace de recherche ...
     select: Espaces
     show_all: Voir tous les espaces
@@ -1590,6 +1602,7 @@ fr:
       one: 1 utilisateur trouve
       other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
+    group_invite_email: Mailing lists to invite
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
       other: y compris les utilisateurs

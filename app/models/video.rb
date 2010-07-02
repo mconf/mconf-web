@@ -15,29 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-class VideosController < ApplicationController
-  before_filter :space!
+class Video
   
-  def index
 
-      if space.videos[0]
-        @display_entry = space.videos[0];
-      else
-        @display_entry = nil
-      end 
-   
-    respond_to do |format|
-      format.html
-    end
-  end  
   
-  
-  def show
-    
-    if params[:id].class == String
-      @display_entry = AgendaEntry.find(params[:id].to_i)
-    end
-  end
-   
-   
 end

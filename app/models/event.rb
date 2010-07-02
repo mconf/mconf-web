@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true

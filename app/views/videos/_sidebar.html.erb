@@ -1,5 +1,39 @@
-<div>
-	
-	Sidebar
-	
+<div class="event_video_title">
+  <h3>
+    <%= t('space.recording.other') %>
+		
+	<% if @space.events.length > 1 %>
+	  <select id="space_event_select">
+	    <option value="" id="blank_option"><%=t('all_events')%></option>
+	    <%@space.events.each do |event|%>
+	      <option value="<%=event.id%>"><%=event.name%></option>  
+	    <%end%>
+	  </select>
+	<% end %>
+
+  </h3>
+</div>
+
+<%= render :partial => 'agendas/video_filter' %>
+
+<div id="carrusel">
+  <div id="carrusel_content">
+    <%space.videos.each do |entry| %>
+      <div class="video_preview_sidebar event_<%=entry.event.id%> <%="preview_selected" if @display_entry && entry.id==@display_entry.id%>" id="video_preview<%=entry.id.to_s%>">
+        <div class="video_thumbnail">
+            <%if entry.thumbnail.present? %>
+              <%=link_to_function image_tag(entry.thumbnail, :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
+            <%else %>
+              <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video_in_recordings('+entry.id.to_s+')', :class=>"entry_video_link" %>
+            <%end %>
+            <span class="play_icon"></span>
+        </div>
+        <div class="video_description">
+          <%= entry.event.name%>
+		  <%=link_to  truncate(entry.title, 32) ,space_video_path(@space, entry ), :class=>"entry_video_link" %>
+          <span class="unified_user"><%=entry_speakers(entry) %></span>
+        </div>
+      </div>
+    <%end %>
+  </div>
 </div>
