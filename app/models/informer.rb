@@ -45,6 +45,14 @@ class Informer
      end
    end
    
+   def self.deliver_performance_update_notification(sender,receiver,stage,rol)
+     if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+       Notifier.deliver_performance_update_notification_email(sender,receiver,stage,rol)
+     elsif receiver.notification == User::NOTIFICATION_VIA_PM
+       PrivateSender.performance_update_notification_message(sender,receiver,stage,rol)
+     end
+   end
+   
    def self.deliver_space_group_invitation(space,mail)
      Notifier.deliver_space_group_invitation_email(space,mail)
    end

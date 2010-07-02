@@ -62,7 +62,8 @@ class PerformancesController
     end
   end
   
-  def update 
+  def update  
+    
     @update_errors=""
     if params[:update_groups]
       user=User.find(@performance.agent_id)
@@ -94,10 +95,17 @@ class PerformancesController
     params[:performance].delete(:stage_id)
     params[:performance].delete(:stage_type)
 
-    unless @performance.update_attributes(params[:performance])
-        @update_errors += @performance.errors.to_xml + "</br>"
+    if @performance.update_attributes(params[:performance])
+      
+      if stage.type.name == 'Space'
+        #Informer.deliver_performance_update_notification(sender,receiver, stage, rol)
+        Informer.deliver_performance_update_notification(current_user, @performance.agent, @performance.stage, @performance.role.name)
+      end
+      
+    else
+      @update_errors += @performance.errors.to_xml + "</br>"
     end
-    
+
     if @update_errors==""
       respond_to do |format|
         format.html {

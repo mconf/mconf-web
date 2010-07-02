@@ -42,6 +42,10 @@ class PrivateSender
     m.save!
   end
   
+  def self.performance_update_notification_message(sender,receiver,space)
+    
+  end
+  
   
   def self.join_request_message(jr,receiver)
     m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),

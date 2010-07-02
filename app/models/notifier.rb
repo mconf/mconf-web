@@ -54,10 +54,30 @@ class Notifier < ActionMailer::Base
     @body[:receiver] = receiver
     @headers.store("Reply-To",user_sender.email)
   end
+  
+  
+  def performance_update_notification_email(sender,receiver,stage,rol)
+    setup_email(receiver.email)
+    
+    if stage.type.name == 'Space'
+      @subject += I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name)
+      @body[:text] = I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
+    elsif stage.type.name == 'Event'
+      @subject += I18n.t("performance.notification.subject.event", :username=>sender.full_name , :event=>stage.name)
+      @body[:text] = I18n.t("performance.notification.event", :username=>sender.full_name , :event=>stage.name , :role => rol );
+    else
+      @subject += I18n.t("performance.notification.subject.estandar", :username=>sender.full_name , :stage=>stage.name)
+      @body[:text] = I18n.t("performance.notification.estandar");
+    end
+    
+    @body[:sender] = sender
+    @body[:receiver] = receiver
+    @headers.store("Reply-To",sender.email)
+  end
 
   def space_group_invitation_email(space,mail)
     setup_email(mail)
-
+    
     user_sender = User.find(space.group_inv_sender_id)
     @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name)
     @body[:space] = space

@@ -1204,6 +1204,14 @@ es:
       one: Eliminar Rol
       other: Eliminar Roles
     new: Nuevo miembro
+    notification:
+      estandar: "{{username}} ha cambiado tu rol en {{stage}} a {{role}}. "
+      event: "{{username}} ha cambiado tu rol en el evento {{event}} a {{role}}. "
+      space: "{{username}} ha cambiado tu rol en el {{space}} a {{role}}. "
+      subject: 
+        estandar: "{{username}} ha cambiado tu rol en {{stage}} "
+        event: "{{username}} ha cambiado tu rol en el evento {{event}} "
+        space: "{{username}} ha cambiado tu rol en el espacio {{space}} " 
     one: Miembro
     other: Miembros
     other_in: Miembros de {{stage}}

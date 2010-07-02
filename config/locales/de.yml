@@ -1139,6 +1139,14 @@ de:
       one: "L\xC3\xB6schen Performance"
       other: "L\xC3\xB6schen Vorstellungen"
     new: Neues Mitglied
+    notification:
+      estandar: "{{username}} has change your role in {{stage}} to {{role}}. "
+      event: "{{username}} has change your role in event {{event}} to {{role}}. "
+      space: "{{username}} has change your role in space {{space}} to {{role}}. "
+      subject: 
+        estandar: "{{username}} has change your role in {{stage}} "
+        event: "{{username}} has change your role in event {{event}} "
+        space: "{{username}} has change your role in space {{space}} " 
     one: Mitglied
     other: Mitglieder
     other_in: Mitglieder des {{stage}}
