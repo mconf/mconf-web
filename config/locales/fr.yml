@@ -1579,6 +1579,7 @@ fr:
       note: "Par exemple: \xC2\xABJohn Silver\" <\"jsilver@example.com\"> \", jct@dit.es; aaron@example.net Aaron et cliquez sur\xC2\xAB Inscrire utilisateur \xC2\xBBva enregistrer les 3 adresses e-mail en tant que membres de l'espace et enverra un email de validation pour eux."
     add_more: Ajouter des utilisateurs>>
     admin: Admin
+    administrators: Administrateurs
     assist: Participer
     by_email: Par e-mail
     by_private_message: "Par un message priv\xC3\xA9"

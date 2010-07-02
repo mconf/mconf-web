@@ -1653,6 +1653,7 @@ es:
       note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
     add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
+    administrators: Administradores
     assist: "Personas que asistir\xC3\xA1n al evento"
     by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
