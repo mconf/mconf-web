@@ -156,6 +156,8 @@ fr:
       one: "S\xC3\xA9lectionnez l&#39;agent"
   agree: Oui
   all: Tous
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: "Tous droits r\xC3\xA9serv\xC3\xA9s"
   any: Tout
   any_field: Tout champ
@@ -206,6 +208,7 @@ fr:
   button:
     cancel: Annuler
     create: Create
+    creating: Creating...
     edit: "\xC3\x89diter"
     finish: Finition
     go: Go!
@@ -213,6 +216,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     send: Envoyer
+    sending: Sending...
     update: "Mettre à jour"
     upload: Envoyer
   calendar: 
@@ -282,36 +286,36 @@ fr:
   created_time_ago: "Cr\xC3\xA9\xC3\xA9 {{time}} il ya"
   date: 
     abbr_day_names: 
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
     abbr_month_names: 
     - 
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
+    - jan
+    - fév
+    - mar
+    - avr
+    - mai
+    - jun
+    - jui
+    - aoû
+    - sep
+    - oct
+    - nov
+    - dec
     at: at
     day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     end: End date
     formats: 
       default: "%y/%m/%d"
@@ -319,18 +323,18 @@ fr:
       short: "%b %d"
     month_names: 
     - 
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
     order: 
     - :year
     - :month
@@ -626,6 +630,7 @@ fr:
       next_week: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements pour la semaine prochaine"
       none: "Aucun \xC3\xA9v\xC3\xA9nement \xC3\xA0 venir"
       other: "\xC3\x89v\xC3\xA9nements \xC3\xA0 venir"
+      other_all: Other upcoming events
       show: "Voir tous les \xC3\xA9v\xC3\xA9nements \xC3\xA0 venir"
       today: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements d&#39;aujourd&#39;hui"
     updated: "\xC3\x89v\xC3\xA9nement mis \xC3\xA0 jour avec succ\xC3\xA8s"
@@ -854,6 +859,7 @@ fr:
     information2: "Ici vous pouvez trouver les derniers messages, \xC3\xA9v\xC3\xA9nements et nouvelles de l&#39;espace vous appartenez \xC3\xA0"
     information3: "Ce sont les derniers messages ou les \xC3\xA9v\xC3\xA9nements que vous avez cr\xC3\xA9\xC3\xA9"
     information4: "Ce sont les espaces vous appartenez \xC3\xA0"
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: Sur Internet
     ppal: Internet
@@ -1223,6 +1229,8 @@ fr:
   recent: 
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1407,6 +1415,11 @@ fr:
     error: 
       enabled: "Space {{name}} est d\xC3\xA9j\xC3\xA0 activ\xC3\xA9"
     group_not_belong: "n&#39;appartiennent pas au m\xC3\xAAme espace que le groupe"
+    group_invitation:
+      button: Inviter lists
+      message_title: Invite mailing lists to join your space
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} invites you to space {{space}}"
     is_private: "est un espace priv\xC3\xA9. Envoyer une jointure demande \xC3\xA0 l&#39;administrateur de cet espace pour vous laisser"
     join: "Joignez-vous \xC3\xA0 cet espace"
     join_invitation: 
@@ -1442,6 +1455,9 @@ fr:
       other: Espaces publics
     recent: 
       other: "Derni\xC3\xA8res places"
+    recording:
+      one: Space video
+      other: Space videos
     search: L&#39;espace de recherche ...
     select: Espaces
     show_all: Voir tous les espaces
@@ -1563,6 +1579,7 @@ fr:
       note: "Par exemple: \xC2\xABJohn Silver\" <\"jsilver@example.com\"> \", jct@dit.es; aaron@example.net Aaron et cliquez sur\xC2\xAB Inscrire utilisateur \xC2\xBBva enregistrer les 3 adresses e-mail en tant que membres de l'espace et enverra un email de validation pour eux."
     add_more: Ajouter des utilisateurs>>
     admin: Admin
+    administrators: Administrateurs
     assist: Participer
     by_email: Par e-mail
     by_private_message: "Par un message priv\xC3\xA9"
@@ -1586,6 +1603,7 @@ fr:
       one: 1 utilisateur trouve
       other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
+    group_invite_email: Mailing lists to invite
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
       other: y compris les utilisateurs

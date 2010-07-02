@@ -156,6 +156,8 @@ de:
       one: "W\xC3\xA4hlen Sie Agent"
   agree: Ja
   all: Alle
+  all_days: All days
+  all_events: All Events
   all_rights_reserved: Alle Rechte vorbehalten
   any: Jeder
   any_field: Jedes Feld
@@ -206,6 +208,7 @@ de:
   button:
     cancel: Abbrechen
     create: Schaffen
+    creating: Creating...
     edit: Bearbeiten
     finish: Finish
     go: Go!
@@ -213,6 +216,7 @@ de:
     next: Next Step
     other_spaces: "Finden Sie andere R\xC3\xA4ume"
     send: Senden
+    sending: Sending...
     update: Aktualisierung
     upload: Laden
   calendar: 
@@ -282,36 +286,36 @@ de:
   created_time_ago: Erstellt {{time}} ago
   date: 
     abbr_day_names: 
-    - Sun
+    - Son
     - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - Die
+    - Mit
+    - Don
+    - Fre
+    - Sam
     abbr_month_names: 
     - 
     - Jan
     - Feb
-    - Mar
+    - Mär
     - Apr
-    - May
+    - Mai
     - Jun
     - Jul
     - Aug
     - Sep
-    - Oct
+    - Okt
     - Nov
-    - Dec
+    - Dez
     at: at
     day_names: 
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
     end: End date
     formats: 
       default: "%y/%m/%d"
@@ -319,18 +323,18 @@ de:
       short: "%b %d"
     month_names: 
     - 
-    - January
-    - February
-    - March
+    - Januar
+    - Februar
+    - März
     - April
-    - May
-    - June
-    - July
+    - Mai
+    - Juni
+    - Juli
     - August
     - September
-    - October
+    - Oktober
     - November
-    - December
+    - Dezember
     order: 
     - :year
     - :month
@@ -626,6 +630,7 @@ de:
       next_week: "Es sind keine Termine f\xC3\xBCr die n\xC3\xA4chste Woche"
       none: Keine anstehenden Termine
       other: Bevorstehende Veranstaltungen
+      other_all: Other upcoming events
       show: Alle kommenden Veranstaltungen
       today: "Es sind keine Termine f\xC3\xBCr heute"
     updated: Event erfolgreich aktualisiert
@@ -854,6 +859,7 @@ de:
     information2: "Hier finden Sie die neuesten Nachrichten, Veranstaltungen und Neuigkeiten der R\xC3\xA4ume geh\xC3\xB6ren Sie zu"
     information3: Dies sind die neuesten Nachrichten oder Ereignisse, die Sie erstellt haben
     information4: "Dies sind die Bereiche geh\xC3\xB6ren Sie zu"
+    information5: These are the upcoming events of other spaces.
   internet: 
     on_the: Auf dem Internet
     ppal: Internet
@@ -1221,6 +1227,8 @@ de:
   recent: 
     activity: "Aktuelle T\xC3\xA4tigkeit"
   register: 
+    and_participate: Register & Participate
+    and_participate_description: Register in the VCC and participate in this event.
     one: Register
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin
@@ -1404,6 +1412,11 @@ de:
     error: 
       enabled: Space {{name}} ist bereits aktiviert
     group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
+    group_invitation:
+      button: Liste einladen
+      message_title: Invite mailing lists to join your space
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} invites you to space {{space}}"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschlie\xC3\x9Fen an den Administrator dieser Raum in Ihrem lassen"
     join: Join this space
     join_invitation: 
@@ -1439,6 +1452,9 @@ de:
       other: "\xC3\x96ffentliche R\xC3\xA4ume"
     recent: 
       other: "Aktuelle R\xC3\xA4ume"
+    recording:
+      one: Space video
+      other: Space videos
     search: Suchen space ...
     select: Spaces
     show_all: "Alle R\xC3\xA4ume"
@@ -1558,6 +1574,7 @@ de:
       note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
     add_more: Add users >>
     admin: Admin
+    administrators: Administratoren
     assist: Teilnehmende
     by_email: Per E-Mail
     by_private_message: Durch private Nachricht
@@ -1581,6 +1598,7 @@ de:
       one: 1 Benutzer gefunden
       other: "{{size}} Benutzer gefunden"
     full_name: "Vollst\xC3\xA4ndiger Name"
+    group_invite_email: Mailing lists to invite
     include_registered: Enthalten registrierte Benutzer
     included: 
       other: Inbegriffen Nutzer

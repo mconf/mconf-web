@@ -1,7 +1,7 @@
 <div id="agenda_tabs">
   <ul>
     <%for i in (1..@event.days)%>
-      <li id="date<%=i%>" class="date"><%=(@event.start_date+(i-1).day).strftime("%A %d %b")%></li>
+      <li id="date<%=i%>" class="date"><%=localize(@event.start_date+(i-1).day, :format=>'%A %d %b')%></li>
     <%end%>
   </ul>
 </div>

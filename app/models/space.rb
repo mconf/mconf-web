@@ -25,6 +25,7 @@ class Space < ActiveRecord::Base
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
+  has_many :agendas, :through => :events
            
   has_permalink :name, :update=>true
   
@@ -293,7 +294,7 @@ class Space < ActiveRecord::Base
   end
 
   def disable
-    self.update_attribute(:disabled,true)
+    self.update_attributes(:disabled => true, :name => "#{name} DISABLED #{Time.now.to_i}")
     for group in self.groups
       Group.disable_list(group,group.mailing_list)
     end
@@ -327,6 +328,20 @@ class Space < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def videos
+  
+    @space_videos = []
+   
+    agendas.each do |agenda|
+      agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
+        @space_videos << video
+      end
+    end
+    
+    @space_videos 
+    
   end
 
   # There are previous authorization rules because of the stage

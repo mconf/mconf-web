@@ -162,6 +162,8 @@ es:
     U8Ot
 
   all: Todo
+  all_days: Todos los dias
+  all_events: Todos los eventos
   all_rights_reserved: Todos los derechos reservados
   any: Cualquier
   any_field: Cualquier campo
@@ -215,6 +217,7 @@ es:
   button:
     cancel: Cancelar
     create: Crear
+    creating: Creando...
     edit: Editar
     finish: Terminar
     go: "\xC2\xA1Buscar!"
@@ -222,6 +225,7 @@ es:
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
     send: Enviar
+    sending: Enviando...
     update: Actualizar
     upload: Subir
   calendar: 
@@ -543,6 +547,26 @@ es:
       other: Se han encontrado {{size}} eventos
     future: Evento futuro
     generate_pdf: Generar PDF
+    group_invitation:
+      button: Invite mailing lists
+      message_private_with_start_date: 
+        in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      message_private_without_start_date: 
+        in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      message_public_with_start_date: 
+        in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        meeting: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p>><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+      message_public_without_start_date: 
+        in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        meeting: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+      message_title: Invite mailing lists to join your event
+      subject: "{{username}} invites you to event {{eventname}} in space {{space}}"
     has: Este evento se ha
     held_with: "Este evento se llevar\xC3\xA1 a cabo con"
     help: 
@@ -664,6 +688,7 @@ es:
       next_week: "No hay eventos para la pr\xC3\xB3xima semana"
       none: No hay eventos por celebrarse
       other: Eventos por celebrarse
+      other_all: Otros eventos por celebrarse
       show: Mostrar todos los eventos por celebrarse
       today: No hay eventos para hoy
     updated: El evento se ha actualizado correctamente
@@ -892,6 +917,7 @@ es:
     information2: "Aqu\xC3\xAD puede encontrar los mensajes y eventos m\xC3\xA1s recientes ,as\xC3\xAD como las noticias de los espacios a los que perteneces"
     information3: "Estos son los \xC3\xBAltimos posts o eventos que ha creado"
     information4: Estos son los espacios a los que pertenece
+    information5: Estos son los proximos eventos de otros espacios
   internet: 
     on_the: En Internet
     ppal: Internet
@@ -1269,6 +1295,8 @@ es:
   recent: 
     activity: Actividad reciente
   register: 
+    and_participate: Registrarse & Participar
+    and_participate_description: Registrarse en el VCC y participar en este evento.
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
@@ -1459,6 +1487,11 @@ es:
       one: Se ha encontrado 1 espacio
       other: Se han encontrado {{size}} espacios
     group_not_belong: no pertenecen al mismo espacio que el grupo
+    group_invitation:
+      button: Invitar lista de correo
+      message_title: Invite a listas de correo para que se unan a su espacio
+      private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} le invita al espacio {{space}}"
     is_private: "es un espacio privado. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador del espacio"
     join: "\xC3\x9Anete a este espacio"
     join_invitation: 
@@ -1494,6 +1527,9 @@ es:
       other: "Espacios p\xC3\xBAblicos"
     recent: 
       other: Espacios Recientes
+    recording:
+      one: Video del espacio
+      other: Videos del espacio
     search: Buscar espacio...
     select: Espacios
     show_all: Ver todos los espacios
@@ -1617,6 +1653,7 @@ es:
       note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
     add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
+    administrators: Administradores
     assist: "Personas que asistir\xC3\xA1n al evento"
     by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
@@ -1640,6 +1677,7 @@ es:
       one: 1 usuario encontrado
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
+    group_invite_email: Listas de correo a invitar
     include_registered: Incluir usuarios registrados
     included: 
       other: Usuarios incluidos

@@ -3,17 +3,8 @@ namespace :setup do
     desc "Reload basic data"
     task :reload => [ :clear, :all ]
 
-    desc "Clear basic data"
-    task :clear => :environment do
-      puts "* Clear Users"
-      User.destroy_all
-      puts "* Clear Spaces"
-      Space.destroy_all
-      puts "* Clear Roles"
-      Role.destroy_all
-      puts "* Clear Permissions"
-      Permission.destroy_all
-    end
+    desc "Reset the database"
+    task :clear => "db:reset"
 
     desc "Load all basic data"
     task :all => [ :users, :spaces, :roles ]
