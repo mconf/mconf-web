@@ -23,7 +23,7 @@ class Logo
   include Magick
   
   ASPECT_RATIO_S = "188/143"
-  ASPECT_RATIO_F = 188.0/143
+  ASPECT_RATIO_F = 188.0/143.0
   
   has_attachment :max_size => 2.megabyte,
                  :storage => :file_system,

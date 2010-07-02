@@ -1303,7 +1303,7 @@ es:
   recent: 
     activity: Actividad reciente
   register: 
-    and_participate: Registrarse & Participar
+    and_participate: Registrarse Para Participar
     and_participate_description: Registrarse en el VCC y participar en este evento.
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}

@@ -1237,7 +1237,7 @@ fr:
   recent: 
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
-    and_participate: Register & Participate
+    and_participate: Register To Participate
     and_participate_description: Register in the VCC and participate in this event.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}

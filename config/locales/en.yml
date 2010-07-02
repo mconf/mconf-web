@@ -1266,7 +1266,7 @@ en:
   recent: 
     activity: Recent activity
   register:
-    and_participate: Register & Participate
+    and_participate: Register To Participate
     and_participate_description: Register in the VCC and participate in this event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
