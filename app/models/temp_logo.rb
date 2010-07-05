@@ -75,26 +75,7 @@ class TempLogo
     logo
   end
   
-  private
-
-  def resize_if_bigger path, size
-    
-    f = File.open(path)
-    img = Magick::Image.read(f).first
-    if img.columns >= img.rows && img.columns > size
-      resized = img.resize(size.to_f/img.columns.to_f)
-      f.close
-      resized.write("#{FORMAT.to_sym.to_s}:" + path)
-    elsif img.rows >= img.columns && img.rows > size
-      resized = img.resize(size.to_f/img.rows.to_f)
-      f.close
-      resized.write("#{FORMAT.to_sym.to_s}:" + path)
-    end
-    
-  end
-  
-  def reshape_image path, aspect_ratio
-    
+  def self.reshape_image path, aspect_ratio
     f = File.open(path)
     img = Magick::Image.read(f).first
     aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
@@ -114,7 +95,30 @@ class TempLogo
     reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
     f.close
     reshaped.write("#{FORMAT.to_sym.to_s}:" + path)
+  end
+  
+  def reshape_image path, aspect_ratio
+    TempLogo.reshape_image path, aspect_ratio
+  end
+  
+  private
+
+  def resize_if_bigger path, size
+    
+    f = File.open(path)
+    img = Magick::Image.read(f).first
+    if img.columns >= img.rows && img.columns > size
+      resized = img.resize(size.to_f/img.columns.to_f)
+      f.close
+      resized.write("#{FORMAT.to_sym.to_s}:" + path)
+    elsif img.rows >= img.columns && img.rows > size
+      resized = img.resize(size.to_f/img.rows.to_f)
+      f.close
+      resized.write("#{FORMAT.to_sym.to_s}:" + path)
+    end
     
   end
+  
+  
   
 end

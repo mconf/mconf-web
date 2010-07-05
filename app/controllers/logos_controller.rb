@@ -50,11 +50,12 @@ class LogosController
      temp_file = File.open(uploaded_image, "w+")
      temp_file.write(params[:logo][:media].read)
      temp_file.close
-     
+     TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
      img_orig = Magick::Image.read(uploaded_image).first
      img_orig = img_orig.resize_to_fit(600, 600)
      img_orig.write(uploaded_image)
-      
+#      debugger
+     
      render :template => "logos/precrop_without_space", :layout => false
    end
    if params[:upload_crop]
@@ -161,6 +162,32 @@ class LogosController
   def singleline_point_size text, width
     return 1.7 * width / text.length
   end
+  
+=begin  
+      def reshape_image path, aspect_ratio
+      
+      f = File.open(path)
+      img = Magick::Image.read(f).first
+      aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
+      if aspect_ratio_orig < aspect_ratio
+        # target image is more 'horizontal' than original image
+        target_size_y = img.rows
+        target_size_x = target_size_y * aspect_ratio
+      else
+        # target image is more 'vertical' than original image
+        target_size_x = img.columns
+        target_size_y = target_size_x / aspect_ratio
+      end
+      # We center the image inside the white canvas
+      decenter_x = -(target_size_x - img.columns) / 2;
+      decenter_y = -(target_size_y - img.rows) / 2;
+      
+      reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
+      f.close
+      reshaped.write("#{FORMAT.to_sym.to_s}:" + path)
+      
+    end
+=end 
   
   def create_auto_logo text, logo_style
     

@@ -1270,7 +1270,7 @@ en:
     activity: Recent activity
   register:
     and_participate: Register To Participate
-    and_participate_description: To participate Register in the Event Social Network.
+    and_participate_description: Registration is needed if you wish to participate in the event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
   register_as_admin: Register as admin
