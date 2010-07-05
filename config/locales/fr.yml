@@ -1238,7 +1238,7 @@ fr:
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
     and_participate: Register To Participate
-    and_participate_description: Register in the VCC and participate in this event.
+    and_participate_description: To participate Register in the Event Social Network.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
