@@ -728,8 +728,8 @@ div.pagination a{color:#244974;}
 /*sidebar style: size and position od the divs. Different cases:new-htread,new-reply, edit...*/
 /*#sidebar .join{background:#bdd8eb;-webkit-border-radius:7px;-moz-border-radius:7px;padding:0 10px 10px 10px;text-align:center;color:#244974;/*border: solid 2px #244974;margin-top:10px;*//*border-right:2px #A8C0D1 solid;border-bottom:2px #A8C0D1 solid;}*/
 .join,#event_register{display:block;position:relative;margin-bottom:0.75em;overflow:hidden;}
-#event_register{text-align:center;padding-left:60px;}
-#event_register a span{width:100px;}
+#event_register{text-align:center;}
+
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
 
@@ -1063,7 +1063,7 @@ a.extract_form{margin-right:0.5em;}
 
 
 #assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
-#assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;}
+#assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;clear:both;}
 .update_logo{border:1px #bdd8eb solid;background:#f0f6f9;}
 .icalendar_content p{margin-bottom:9px;}
 .update_logo h3,.import_icalendar h3,.space_logo h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;}
@@ -1608,7 +1608,6 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	background:#f0f6f9;
 	border:1px solid #bdd8eb;}
 
-.event_video_title{margin-top: 132px;}
 #sidebar .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
 .event_video_tabs{border-bottom:1px solid #A8C0D1;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;}
 .event_video_tabs ul{list-style-type:none;margin:0;}
@@ -1814,3 +1813,5 @@ div.banner_footer a{
 }
 
 #screencast{margin-bottom:0.75em;}
+
+#full_sidebar .note{margin:0 0 0.75em 0;clear:both;display:block;text-align:center;}

@@ -18,8 +18,8 @@
   	<%if !logged_in?%>
       <div id="event_register" class="button_wrapper margin-up">
         <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
-				<p><%= t('register.and_participate_description') %></p>
       </div>
+			<p class="note"><%= t('register.and_participate_description') %></p>
 		<%end%>
 		<%if params[:edit_event]%>
       <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
