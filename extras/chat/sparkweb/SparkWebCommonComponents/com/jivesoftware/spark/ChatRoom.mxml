@@ -130,10 +130,11 @@
 				}
 				var id:String = message.nick;
 				isTyping = false;
-				if(!message.time)
+				if(!message.time) {
 					message.time = new Date();
-				else
-				{
+					message.time = localizedTime(message.time);
+				} else {
+					message.time = localizedTime(message.time);
 					if(!lastMessage || message.time.date != lastMessage.time.date)
 						addSystemMessage(message.time.toLocaleDateString());
 				}
@@ -315,6 +316,15 @@
 			public function addNotification(text:String, color:String):void
 			{
 				history.addNotification(text, color);
+			}
+			
+			private function localizedTime(dateToLocalize:Date):Date {
+				// Apply utc_offset to utc_time in date object
+				var t:Date = dateToLocalize;
+				var utc_second_offset:Number = parseInt( SparkManager.getConfigValueForKey("utc_offset") );
+				t["hours"] = t["hoursUTC"] + Math.floor ( utc_second_offset / 3600 );
+				t["minutes"] = t["minutesUTC"] + utc_second_offset % 3600;
+				return t;
 			}
 		]]>
 	</mx:Script>
