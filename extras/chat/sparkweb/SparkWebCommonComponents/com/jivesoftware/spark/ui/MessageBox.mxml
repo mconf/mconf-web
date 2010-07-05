@@ -24,6 +24,7 @@
    		.username { font-weight:bold;}
 	</mx:Style>
 	<mx:Script><![CDATA[
+		import mx.formatters.DateFormatter;
 		import mx.events.FlexEvent;
 		import mx.events.ChildExistenceChangedEvent;
 		import mx.controls.TextArea;
@@ -63,6 +64,9 @@
 			message_list.addChild(messageArea);	
 			messageArea.text = message;
 			//messageArea.date = date;
+			var dateFormatter:DateFormatter = new DateFormatter();
+			dateFormatter.formatString = "HH:NN";
+			time_label.text = dateFormatter.format(date);
 		}
 		
 		public function get messageElements():Array
@@ -75,9 +79,10 @@
 			message_list.setStyle("backgroundColor", messageColor);
 		}
 	]]></mx:Script>
-	<mx:Canvas id="username_container" height="{username_label.text == '' ? 0 : 20}" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" backgroundColor="#F5F6FB">
-		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="3" bottom="3" left="5" right="5" textAlign="left"/>
-	</mx:Canvas>
+	<mx:HBox id="username_container" height="{username_label.text == '' ? 0 : 20}" verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" backgroundColor="#F5F6FB" horizontalAlign="right" horizontalGap="5" paddingLeft="5" paddingRight="5" paddingBottom="3" paddingTop="3">
+		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" textAlign="left" width="100%"/>
+		<mx:Label id="time_label" y="3" width="41.6" right="5.0000076" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" textAlign="right"/>
+	</mx:HBox>
 	<mx:VBox id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="1" verticalScrollPolicy="off" paddingTop="3" paddingBottom="3" paddingLeft="2">
 	</mx:VBox>
 </mx:VBox>

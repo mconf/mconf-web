@@ -198,8 +198,10 @@ package com.jivesoftware.spark.chats
   	    		}
   	    	}
   	    	
-  	    	if (event.nickname != myNickName)
-  	    		insertSystemMessage(Localizator.getTextWithParams('muc.notification.join', [event.nickname]));
+  	    	if (event.nickname != myNickName) {
+  	    		//this line is commented to remove message like "lolo has joined"
+  	    		//insertSystemMessage(Localizator.getTextWithParams('muc.notification.join', [event.nickname]));
+  	    	}
   	    }
   	    
   	    public function handleUserDeparture(event:RoomEvent):void
@@ -214,7 +216,8 @@ package com.jivesoftware.spark.chats
 				return;
 			}
 
-  	    	insertSystemMessage(Localizator.getTextWithParams('muc.notification.departure', [event.nickname]));
+			//this line is commented to remove message like "lolo has left"
+  	    	//insertSystemMessage(Localizator.getTextWithParams('muc.notification.departure', [event.nickname]));
   	    }
   	    
   	    public function handleUserKicked(event:RoomEvent):void

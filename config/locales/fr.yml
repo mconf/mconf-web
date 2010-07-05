@@ -1141,6 +1141,14 @@ fr:
       one: Supprimer le rendement
       other: Performances Supprimer
     new: Nouveau membre
+    notification:
+      estandar: "{{username}} has change your role in {{stage}} to {{role}}. "
+      event: "{{username}} has change your role in event {{event}} to {{role}}. "
+      space: "{{username}} has change your role in space {{space}} to {{role}}. "
+      subject: 
+        estandar: "{{username}} has change your role in {{stage}} "
+        event: "{{username}} has change your role in event {{event}} "
+        space: "{{username}} has change your role in space {{space}} " 
     one: Membre
     other: Membres
     other_in: Les membres de {{stage}}
@@ -1229,8 +1237,8 @@ fr:
   recent: 
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
-    and_participate: Register & Participate
-    and_participate_description: Register in the VCC and participate in this event.
+    and_participate: Register To Participate
+    and_participate_description: To participate Register in the Event Social Network.
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1579,6 +1587,7 @@ fr:
       note: "Par exemple: \xC2\xABJohn Silver\" <\"jsilver@example.com\"> \", jct@dit.es; aaron@example.net Aaron et cliquez sur\xC2\xAB Inscrire utilisateur \xC2\xBBva enregistrer les 3 adresses e-mail en tant que membres de l'espace et enverra un email de validation pour eux."
     add_more: Ajouter des utilisateurs>>
     admin: Admin
+    administrators: Administrateurs
     assist: Participer
     by_email: Par e-mail
     by_private_message: "Par un message priv\xC3\xA9"

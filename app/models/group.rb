@@ -100,19 +100,27 @@ class Group < ActiveRecord::Base
     end
     
     def self.copy_list(group,list)
-      `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
+      if list.include?("-DISABLED-")
+        `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/.vcc-#{list}`
+      else
+        `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`  
+      end
     end
     
     def self.delete_list(group,list)
-      `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
+      if list.include?("-DISABLED-")
+        `rm -f /var/lib/mailman/data/listas_automaticas/.vcc-#{list}`
+      else
+        `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`  
+      end
     end
     
-    def self.disable_list(group,list)
-      `mv -f /var/lib/mailman/data/listas_automaticas/vcc-#{list} /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name}`
+    def self.disable_list(group)
+      group.update_attribute :mailing_list, "#{group.mailing_list}-DISABLED-#{Time.now.to_i}"
     end
 
-    def self.enable_list(group,list)
-      `mv -f /var/lib/mailman/data/listas_automaticas/.vcc-#{list}-#{group.name} /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
+    def self.enable_list(group)
+      group.update_attribute :mailing_list, "#{group.mailing_list.split("-DISABLED-").first}-RESTORED"
     end
     
     # Transforms the list of users in the group into a string for the mail list server

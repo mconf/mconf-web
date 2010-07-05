@@ -43,6 +43,16 @@ class PrivateSender
   end
   
   
+  def self.performance_update_notification_message(sender,receiver,stage, rol)
+    if stage.type.name == 'Space'
+      m = PrivateMessage.new :title => I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name),
+      :body =>  I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
+      m.receiver = receiver
+      m.save! 
+    end
+  end
+  
+  
   def self.join_request_message(jr,receiver)
     m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
       :body => jr.comment

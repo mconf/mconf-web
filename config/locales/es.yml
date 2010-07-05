@@ -1207,6 +1207,14 @@ es:
       one: Eliminar Rol
       other: Eliminar Roles
     new: Nuevo miembro
+    notification:
+      estandar: "{{username}} ha cambiado tu rol en {{stage}} a {{role}}. "
+      event: "{{username}} ha cambiado tu rol en el evento {{event}} a {{role}}. "
+      space: "{{username}} ha cambiado tu rol en el {{space}} a {{role}}. "
+      subject: 
+        estandar: "{{username}} ha cambiado tu rol en {{stage}} "
+        event: "{{username}} ha cambiado tu rol en el evento {{event}} "
+        space: "{{username}} ha cambiado tu rol en el espacio {{space}} " 
     one: Miembro
     other: Miembros
     other_in: Miembros de {{stage}}
@@ -1298,8 +1306,8 @@ es:
   recent: 
     activity: Actividad reciente
   register: 
-    and_participate: Registrarse & Participar
-    and_participate_description: Registrarse en el VCC y participar en este evento.
+    and_participate: Registrarse Para Participar
+    and_participate_description: Para participar Regístrate en la Red Social de Eventos.
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
@@ -1657,6 +1665,7 @@ es:
       note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de email como miembros del espacio y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
     add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
+    administrators: Administradores
     assist: "Personas que asistir\xC3\xA1n al evento"
     by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
