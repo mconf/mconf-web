@@ -1301,11 +1301,19 @@ fr:
   screencast: 
     button: Regarder screencast
     help: "Besoin d'aide? Essayez de regarder le "
+    link1: Help creating events
+    link2: Help creating the agenda
+    link3: Help about different kinds of events
+    link4: Help inviting people
+    link5: Help about event information    
     sidebar: 
       title: Screencasts
     title: screencast
     title1: "Comment faire pour créer un événement"
     title2: "Créer un ordre du jour de l'événement"
+    title3: Different kinds of events
+    title4: Inviting people
+    title5: Event Information
     video: 
       one: Screencast
   search: 

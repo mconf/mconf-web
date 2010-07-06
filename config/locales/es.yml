@@ -1369,11 +1369,19 @@ es:
   screencast: 
     button: Ver screencast
     help: "¿Necesita ayuda? Vea el "
+    link1: Ayuda creando eventos
+    link2: Ayuda creando la agenda
+    link3: Ayuda diferentes tipos de eventos
+    link4: Ayuda invitando a gente
+    link5: Ayuda sobre información de evento
     sidebar: 
       title: Screencasts
     title: screencast
     title1: Como crear un evento
     title2: Crear agenda para el evento
+    title3: Diferentes tipos de eventos
+    title4: Invitando a gente
+    title5: Información del evento
     video: 
       one: Screencast
   search: 
