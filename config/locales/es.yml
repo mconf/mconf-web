@@ -146,6 +146,7 @@ es:
     title: Agenda para el evento
     update: Agenda actualizada correctamente.
     upload: Subir agenda
+    upload_file: Subir Archivo
   agent: 
     authentication: 
       change_password: "Cambiar la contrase\xC3\xB1a"

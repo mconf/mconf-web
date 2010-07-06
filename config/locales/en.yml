@@ -143,6 +143,7 @@ en:
     title: Agenda for the event
     update: Agenda was successfully updated.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: Change Password

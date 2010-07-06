@@ -142,6 +142,7 @@ de:
     title: "Agenda f\xC3\xBCr die Veranstaltung"
     update: Agenda wurde erfolgreich aktualisiert.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: "Passwort \xC3\xA4ndern"

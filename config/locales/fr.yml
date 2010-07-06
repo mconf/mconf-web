@@ -142,6 +142,7 @@ fr:
     title: "Ordre du jour de l&#39;\xC3\xA9v\xC3\xA9nement"
     update: "L&#39;ordre du jour a \xC3\xA9t\xC3\xA9 correctement mis \xC3\xA0 jour."
     upload: "T\xC3\xA9l\xC3\xA9chargez l&#39;ordre du jour"
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: Changer mot de passe
