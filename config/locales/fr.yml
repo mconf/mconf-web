@@ -236,6 +236,7 @@ fr:
     edit_question: "Souhaitez-vous permettre exp\xC3\xA9rimentale fonctionnalit\xC3\xA9 de chat?"
     please_login_message: "S&#39;il vous pla\xC3\xAEt, login / s&#39;inscrire pour participer"
     reconnect_message: Rebranchez
+    reconnect_button_message: Click to reconnect
   check_mail: "S&#39;il vous pla\xC3\xAEt, v\xC3\xA9rifiez votre e-mail"
   city: Ville
   click_here: Cliquez ici
