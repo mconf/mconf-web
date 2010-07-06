@@ -24,6 +24,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :space
   belongs_to :event
   belongs_to :author, :polymorphic => true
+  belongs_to :agenda_entry
+
   
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
@@ -107,6 +109,14 @@ class Attachment < ActiveRecord::Base
   end
   
   public
+  
+  before_validation do |attachment|
+    
+    if attachment.agenda_entry_id
+      attachment.event = AgendaEntry.find(attachment.agenda_entry_id).event
+    end
+    
+  end
   
   after_validation do |attachment|
     # Replace 4 missing file errors with a unique, more descriptive error
