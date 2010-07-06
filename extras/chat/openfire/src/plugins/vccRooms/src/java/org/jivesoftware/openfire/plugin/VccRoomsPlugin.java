@@ -56,6 +56,7 @@ import org.xmpp.packet.Presence;
  */
 public class VccRoomsPlugin implements Plugin {
 
+	private static final String CONFIG_GROUP_CHAT_SERVICE_NAME = "plugin.vccRooms.groupChatServiceName";
 	private static final String CONFIG_EVENT_PROFILES_URL   = "plugin.vccRooms.vccEventProfilesUrl";
 	private static final String CONFIG_EVENTS_URL           = "plugin.vccRooms.vccEventsUrl";
 	private static final String CONFIG_XMPP_SERVER_USER     = "plugin.vccRooms.xmppServerUser";
@@ -104,6 +105,8 @@ public class VccRoomsPlugin implements Plugin {
 		 *            JID of the room that was created.
 		 */
 		public void roomCreated(JID roomJID) {
+			if ( !belongsToVccGroupChatService(roomJID) ) return;
+			
 			MUCRoom mucRoom = XMPPServer.getInstance()
 					.getMultiUserChatManager().getMultiUserChatService(roomJID)
 					.getChatRoom(roomJID.getNode());
@@ -126,6 +129,7 @@ public class VccRoomsPlugin implements Plugin {
 				mucRoom.setModerated(true);
 				mucRoom.setCanOccupantsChangeSubject(false);
 				mucRoom.setChangeNickname(false);
+				//mucRoom.setLogEnabled(true);
 				
 				// During configuration room was locked
 				// It is necessary to unlock
@@ -145,6 +149,8 @@ public class VccRoomsPlugin implements Plugin {
 		 *            nickname of the user in the room.
 		 */
 		public void occupantJoined(JID roomJID, JID user, String nickname) {
+			if ( !belongsToVccGroupChatService(roomJID) ) return;
+			
 			MUCRoom mucRoom = XMPPServer.getInstance()
 					.getMultiUserChatManager().getMultiUserChatService(roomJID)
 					.getChatRoom(roomJID.getNode());
@@ -371,6 +377,23 @@ public class VccRoomsPlugin implements Plugin {
 			}
 	    	
 			return isPublic;
+		}
+		
+		private boolean belongsToVccGroupChatService(JID roomJID) {
+			boolean belongsToVccGroupChatService = false;
+			
+			int lastIndexOfDomainName = roomJID.getDomain().lastIndexOf( "." + serverAddress.getDomain());
+			
+			if ( lastIndexOfDomainName != -1 ) {
+				String serviceNameToTest = roomJID.getDomain().substring(0, lastIndexOfDomainName);
+				String groupChatServiceName = getProperty(CONFIG_GROUP_CHAT_SERVICE_NAME);
+				
+				if (serviceNameToTest.equals(groupChatServiceName)) {
+					belongsToVccGroupChatService = true;
+				}
+			}
+			
+			return belongsToVccGroupChatService;
 		}
 		
 		private HashMap<String,String> updateUserList(String eventId) {
