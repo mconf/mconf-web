@@ -142,6 +142,7 @@ fr:
     title: "Ordre du jour de l&#39;\xC3\xA9v\xC3\xA9nement"
     update: "L&#39;ordre du jour a \xC3\xA9t\xC3\xA9 correctement mis \xC3\xA0 jour."
     upload: "T\xC3\xA9l\xC3\xA9chargez l&#39;ordre du jour"
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: Changer mot de passe
@@ -236,6 +237,7 @@ fr:
     edit_question: "Souhaitez-vous permettre exp\xC3\xA9rimentale fonctionnalit\xC3\xA9 de chat?"
     please_login_message: "S&#39;il vous pla\xC3\xAEt, login / s&#39;inscrire pour participer"
     reconnect_message: Rebranchez
+    reconnect_button_message: Click to reconnect
   check_mail: "S&#39;il vous pla\xC3\xAEt, v\xC3\xA9rifiez votre e-mail"
   city: Ville
   click_here: Cliquez ici

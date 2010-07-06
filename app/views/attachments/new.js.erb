@@ -1,10 +1,27 @@
-$("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'upload_form'))%>");
-$("#attachment__tags").fcbkcomplete({
-	cache: true,
-  filter_case: false,
-  filter_hide: false,
-  firstselected: true,
-  filter_selected: true,
-  maxshownitems: 4,
-	newel: true     
-});
+<% if params[:agenda_entry_id].present? %>
+  $("div#attachment<%=params[:agenda_entry_id]%>").replaceWith("<div id=\"attachment<%=params[:agenda_entry_id]%>\"><%=escape_javascript(render(:partial => 'upload_attachment'))%></div>");
+  
+  $(".attachment_tag_class").fcbkcomplete({
+	  cache: true,
+	  filter_case: false,
+	  filter_hide: false,
+	  firstselected: true,
+	  filter_selected: true,
+	  maxshownitems: 4,
+	  newel: true     
+  });
+  
+<% else %>
+  $("div#doc_action").replaceWith("<%=escape_javascript(render(:partial => 'upload_form'))%>");
+  
+  $("#attachment__tags").fcbkcomplete({
+	  cache: true,
+	  filter_case: false,
+	  filter_hide: false,
+	  firstselected: true,
+	  filter_selected: true,
+	  maxshownitems: 4,
+	  newel: true     
+  });
+<% end %>
+

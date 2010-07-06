@@ -146,6 +146,7 @@ es:
     title: Agenda para el evento
     update: Agenda actualizada correctamente.
     upload: Subir agenda
+    upload_file: Subir Archivo
   agent: 
     authentication: 
       change_password: "Cambiar la contrase\xC3\xB1a"
@@ -260,6 +261,7 @@ es:
     edit_question: "\xC2\xBFDesea habilitar la funci\xC3\xB3n de chat (experimental)?"
     please_login_message: "Por favor, inicie sesi\xC3\xB3n / reg\xC3\xADstrese para participar"
     reconnect_message: Volver a conectar
+    reconnect_button_message: Click para reconectar
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   city: Ciudad
   click_here: "Haga click aqu\xC3\xAD"
