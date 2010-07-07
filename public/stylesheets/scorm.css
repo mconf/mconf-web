@@ -1,0 +1,74 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+td{text-align:left;}
+body{line-height:1.5;}
+table{border-collapse:separate;border-spacing:0;}
+caption,th,td{text-align:left;font-weight:normal;}
+table,td,th{vertical-align:middle;}
+blockquote:before,blockquote:after,q:before,q:after{content:"";}
+blockquote,q{quotes:"" "";}
+a img{border:none;}
+
+/* typography.css */
+body{font-size:75%;color:#222;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
+h1,h2,h3,h5{font-weight:normal;color:#111;}
+h1{font-size:2.6666em;line-height:1.125;}
+h2{font-size:2em;margin-bottom:0.75em;}
+h2 img{margin-right:5px;}
+h3{font-size:1.0833em;line-height:1.3846;margin:0.666em 0 0.666em 0;font-weight:bold;}
+h4{font-size:1.0833em;line-height:1.3846;font-weight:bold;}
+h3 img{margin-bottom:-3px;}
+h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
+p{margin:0 0 1.5em;}
+a{color:#244974;}
+a{text-decoration:none;}
+a:hover{text-decoration:underline;}
+blockquote{margin:1.5em;color:#666;font-style:italic;}
+strong{font-weight:bold;}
+em,dfn{font-style:italic;}
+dfn{font-weight:bold;}
+sup,sub{line-height:0;}
+abbr,acronym{border-bottom:1px dotted #666;}
+address{margin:0 0 1.5em;font-style:italic;}
+del{color:#666;}
+pre{margin:1.5em 0;white-space:pre;}
+pre,code,tt{font:1em 'andale mono','lucida console',monospace;line-height:1.5;}
+li ul,li ol{margin:0 1.5em;}
+ul,ol{margin:0 1.5em 1.5em 1.5em;}
+ul{list-style-type:disc;}
+ol{list-style-type:decimal;}
+
+/*Definición de la tipografia*/
+.unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
+.unified_event{color:#8B0425;font-weight:bold;font-size:13px;line-height:18px;}
+.unified_posts{color:#666;font-weight:bold;}
+.unified_news{color:#111;font-weight:bold;}
+.main_text{color:#555;font-weight:normal;}
+.sidebar_text{color:#244974;font-weight:normal;}
+.main_date{color:#555;}
+.sidebar_date{color:#244974;}
+.updated{font-size:0.9166em;line-height:1.6363;font-style:italic;color:#111;}
+.small-font{font-size:0.9166em;line-height:1.6363;}
+
+/*ayudas de color*/
+.blue{color:#244974;}
+.top{padding-top:10px;}
+.bottom{padding-bottom:10px;}
+.grey{color:#555;}
+.red{color:#8B0425;}
+.bold{font-weight:bolder;}
+.fade{opacity:0.6;}
+/*Fin tipografia*/
+
+.left-align {float:left;}
+.right-align {float:right;}
+.margin-up{margin-top:0.75em;}
+
+
+.video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;margin-bottom:0.75em;}
+.video_properties{padding:3px 6px;}
+
+.video_title span{
+	font-size:1.15em;
+	font-weight:bold;
+	line-height:1.3846;
+}
