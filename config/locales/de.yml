@@ -452,6 +452,7 @@ de:
     agenda: 
       add_entry: "F\xC3\xBCgen Sie ein."
       download: Download PDF
+      download_small: Download small PDF
       no_entries: "Es gibt noch keine Eintr\xC3\xA4ge."
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht best\xC3\xA4tigt"

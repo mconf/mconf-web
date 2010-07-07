@@ -488,6 +488,7 @@ es:
     agenda: 
       add_entry: "A\xC3\xB1adir una."
       download: Descargar PDF
+      download_small: Descargar PDF pequeño
       no_entries: No hay entradas.
     assistance_title: Asistencia
     assistants_none: "Nadie ha confirmado todav\xC3\xADa"

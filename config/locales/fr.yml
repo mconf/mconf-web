@@ -452,6 +452,7 @@ fr:
     agenda: 
       add_entry: Ajouter une.
       download: "T\xC3\xA9l\xC3\xA9charger le PDF"
+      download_small: Download small PDF
       no_entries: "Il n&#39;y a pas encore d&#39;entr\xC3\xA9es."
     assistance_title: Participation
     assistants_none: "Personne n&#39;a encore confirm\xC3\xA9"

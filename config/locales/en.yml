@@ -453,6 +453,7 @@ en:
     agenda: 
       add_entry: Add one.
       download: Download PDF
+      download_small: Download small PDF
       no_entries: There are no entries yet.
       see: See on agenda
     assistance_title: Participation
