@@ -7,9 +7,9 @@ module EventToPdf
   #Method to generate the agenda of the event in PDF.
   def to_pdf
       
-    unless needsGenerate
-      return
-    end
+#    unless needsGenerate
+#      return
+#    end
        
     pdf = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
    
@@ -184,7 +184,7 @@ module EventToPdf
     
     headings = true
     bottom_space = pdf.y
-    margin_space = 25
+    margin_space = 0
     
     if isSpecialTitle(actual_entry)
       
@@ -236,39 +236,31 @@ module EventToPdf
     
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
-    title_width = pdf_test.text_line_width(text_to_iso("#{divider.title}"), 18)  
     
-    if hasHour    
-      f_rectangle = (title_width / 590)
-    else
-      f_rectangle = (title_width / 735)
-    end
-
-    if f_rectangle < 5
-      f_rectangle = f_rectangle.ceil
-    else
-      f_rectangle = f_rectangle + 1
-    end
+#    nLines = divider.title.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
+    lines_content = divider.title.split("<br/>");
+    
+    height_rectangle = 0
+    
+    lines_content.each do |l|
+      title_width = pdf_test.text_line_width(text_to_iso(l), 15)
       
-    case f_rectangle
-      when 0
-        f_rectangle = 1
-        h = 29
-      when 1
-        h = 29
-      when 2
-        h = 26
-      when 3
-        h = 24
-      when 4
-        h = 22
-    else
-        h = 22
-    end
+      if hasHour    
+        f_rectangle = (title_width / 590)
+      else
+        f_rectangle = (title_width / 735)
+      end
 
-    height_rectangle = h*f_rectangle
-    
-    return height_rectangle
+      f_rectangle = f_rectangle.ceil
+      h = 18
+
+      height_rectangle = height_rectangle + h*f_rectangle
+      
+    end
+   
+    h_margen = 5
+   
+    return height_rectangle + h_margen
   end
   
   
@@ -551,7 +543,7 @@ module EventToPdf
   #Write the event title. Decrement font-size in function of the title's lenght.
   def write_event_title(pdf,event_name)
    
-    pdf.text " ", :font_size => 12
+    pdf.text " ", :font_size => 6
     
     #If the lenght is in the range (function_lenght_min,function_lenght_max), applying a function 
     #to decrement one font-size point every "function_scale" letters added.
@@ -577,7 +569,7 @@ module EventToPdf
     pdf.text text_to_iso(event_name), :font_size => font_size_event_title, :justification => :center
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
    
-    pdf.text " ", :font_size => 30
+    pdf.text " ", :font_size => 25
 
   end
 
@@ -628,7 +620,7 @@ module EventToPdf
       pdf.margins_pt(25, 55, 25, 55)
     end
 
-    pdf.text text_to_iso("#{divider.title}"), :font_size => 18, :justification => :center
+    pdf.text text_to_iso("#{divider.title}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
     pdf.margins_pt(25, 30, 25, 30)
     pdf.y = last_y - height_rectangle - 1
     pdf.fill_color!  Color::RGB::Black
