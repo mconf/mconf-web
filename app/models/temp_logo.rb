@@ -78,7 +78,7 @@ class TempLogo
   def self.reshape_image path, aspect_ratio
     f = File.open(path)
     img = Magick::Image.read(f).first
-    aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
+    aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0)
     if aspect_ratio_orig < aspect_ratio
       # target image is more 'horizontal' than original image
       target_size_y = img.rows
@@ -89,8 +89,8 @@ class TempLogo
       target_size_y = target_size_x / aspect_ratio
     end
     # We center the image inside the white canvas
-    decenter_x = -(target_size_x - img.columns) / 2;
-    decenter_y = -(target_size_y - img.rows) / 2;
+    decenter_x = (target_size_x - img.columns) / 2;
+    decenter_y = (target_size_y - img.rows) / 2;
     
     reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
     f.close
