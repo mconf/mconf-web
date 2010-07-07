@@ -162,7 +162,7 @@ class EventsController < ApplicationController
               pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{name}"
               send_file pdf_path
 
-           }  
+           }             
            format.zip{  
              create_and_send_zip_file_for_scorm             
            }
