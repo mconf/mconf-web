@@ -216,6 +216,7 @@ es:
   beta: (BETA)
   body: Cuerpo
   button:
+    accept: Aceptar
     cancel: Cancelar
     create: Crear
     creating: Creando...

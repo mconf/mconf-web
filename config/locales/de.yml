@@ -207,6 +207,7 @@ de:
   beta: (BETA)
   body: "K\xC3\xB6rper"
   button:
+    accept: Akzeptieren
     cancel: Abbrechen
     create: Schaffen
     creating: Creating...
