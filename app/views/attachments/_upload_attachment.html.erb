@@ -1,0 +1,35 @@
+
+<div>	
+	
+	<div class='agenda_edit_entry'>
+	
+	  <div id='agenda_blue_title' class='margin-up'> 
+	    <h3 class='blue'><%=t('agenda.upload_file')%></h3>
+	  </div> 
+	
+	  <div id="new_entry_content"> 
+	    <br> 
+	    <%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
+	      <div class="new_doc_content">
+		    <div id="cabinet">
+		      <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
+		    </div>
+		  </div>
+		  <br>
+		  <div>
+		    <span class="bold"><%=t('tag.new')%></span>		 
+		    <div id=tags>
+		  	  <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:class => "attachment_tag_class", :multiple=>"multiple"})%>
+		    </div>
+		  </div>
+		  <%= hidden_field_tag("attachment[agenda_entry_id]", params[:agenda_entry_id]) %>
+		  <div class="new_doc_content">
+			  <div class="margin-up">
+		        <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
+			  </div>
+		  </div>
+	  <%end%>	
+    </div>
+	<br>	
+  </div>	
+</div>

@@ -15,5 +15,10 @@ module ConferenceManager
     def enable_web?
       enable_web =="true"
     end
+    
+    def enable_httplivestreaming?
+      enable-httplivestreaming == "true"  
+    end
+    
   end
 end

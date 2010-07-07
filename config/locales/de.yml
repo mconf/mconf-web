@@ -142,6 +142,7 @@ de:
     title: "Agenda f\xC3\xBCr die Veranstaltung"
     update: Agenda wurde erfolgreich aktualisiert.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: "Passwort \xC3\xA4ndern"
@@ -236,6 +237,7 @@ de:
     edit_question: "M\xC3\xB6chten Sie die Chat-Funktion aktivieren experimentelle?"
     please_login_message: Bitte einloggen / registrieren um teilzunehmen
     reconnect_message: Reconnect
+    reconnect_button_message: Click to reconnect
   check_mail: "Bitte \xC3\xBCberpr\xC3\xBCfen Sie Ihre E-Mail"
   city: City
   click_here: Klicken Sie hier
@@ -1298,11 +1300,19 @@ de:
   screencast: 
     button: Beobachten auf dem screencast
     help: "Brauchen Sie Hilfe? Beobachten Sie auf dem "
+    link1: Help creating events
+    link2: Help creating the agenda
+    link3: Help about different kinds of events
+    link4: Help inviting people
+    link5: Help about event information    
     sidebar: 
       title: Screencasts
     title: screencast
     title1: Ereignis erstellen
     title2: "Agenda für das Ereignis erstellen"
+    title3: Different kinds of events
+    title4: Inviting people
+    title5: Event Information
     video: 
       one: Screencast
   search: 

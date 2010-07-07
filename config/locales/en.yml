@@ -143,6 +143,7 @@ en:
     title: Agenda for the event
     update: Agenda was successfully updated.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: Change Password
@@ -495,9 +496,12 @@ en:
     embed: Embed
     enable: 
       isabel: Isabel
-      participation: Select participation modes
-      sip: SIP
+      isabelbw: Isabel Bandwidth 
+      participation: Participation modes
+      recbw: Recording Quality
+      sip: Enable SIP
       web: Web
+      webbw: Flash Bandwidth
     error: 
       cm_connection: Connection to remote videoconference system fails
       date_past: Start date could not be past
@@ -627,6 +631,8 @@ en:
       enabled: Enable document repository
       help: This repository shows the documents uploaded in the sessions of the event agenda
       title: Event documents
+    scorm:
+      button: "export scorm format"
     search: Search events...
     select_date: Select a date for your event
     session_now: Session now
@@ -1329,11 +1335,19 @@ en:
   screencast: 
     button: Watch screencast
     help: "Need some help? Try watching the "
+    link1: Help creating events
+    link2: Help creating the agenda
+    link3: Help about different kinds of events
+    link4: Help inviting people
+    link5: Help about event information    
     sidebar: 
       title: Screencasts
     title: screencast
     title1: How to create an event
     title2: Create an agenda for the event
+    title3: Different kinds of events
+    title4: Inviting people
+    title5: Event Information
     video: 
       one: Screencast
   search: 
@@ -1513,6 +1527,7 @@ en:
     detected: New spam detected
     error: 
       check: There was a problem marking the resource as spam
+    item: This item has been reported as spam
     no_spam: Congratulations! No spam here
     report: Report spam
     reported: "{{name}} has reported spam in {{sitename}}"
