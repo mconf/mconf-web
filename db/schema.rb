@@ -9,8 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+ActiveRecord::Schema.define(:version => 20100706080216) do
 
-ActiveRecord::Schema.define(:version => 20100707140054) do
   create_table "admissions", :force => true do |t|
     t.string   "type"
     t.integer  "candidate_id"
