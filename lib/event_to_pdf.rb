@@ -5,11 +5,11 @@ require 'iconv'
 module EventToPdf
   
   #Method to generate the agenda of the event in PDF.
-  def to_pdf
+  def to_pdf(small_version)
       
-#    unless needsGenerate
-#      return
-#    end
+    unless needsGenerate(small_version)
+      return
+    end
        
     pdf = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
    
@@ -26,12 +26,20 @@ module EventToPdf
 
     pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
 
-    #Parameters of the the table.  
-    @c1_width = 75
-    @c2_width = 135
-    @c3_width = 170
-    @c4_width = 360
-    
+    #Parameters of the the table.
+
+     if small_version == "true"
+       @c1_width = 147
+       @c2_width = 261
+       @c3_width = 332
+       @c4_width = 0
+     else
+       @c1_width = 75
+       @c2_width = 135
+       @c3_width = 170
+       @c4_width = 360 
+     end
+
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
     
@@ -132,8 +140,12 @@ module EventToPdf
       
     end     #All Day Ends. PDF finished.
     
+    if small_version == "true"
+      nombre = "agenda_" + permalink + "_small.pdf"
+    else
+      nombre = "agenda_" + permalink + ".pdf"
+    end  
     
-    nombre = "agenda_" + permalink + ".pdf"
     FileUtils.mkdir_p("#{RAILS_ROOT}/public/pdf/#{permalink}")
     File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}", "wb") { |f| f.write pdf.render }
     
@@ -479,7 +491,12 @@ module EventToPdf
     tab.shade_color = Color::RGB::Grey90
     tab.text_color = Color::RGB::Black
 
-    tab.column_order = ["col1","col2","col3","col4"]
+    if(@c4_width == 0)
+      #if small_version
+      tab.column_order = ["col1","col2","col3"]
+    else
+      tab.column_order = ["col1","col2","col3","col4"]
+    end   
     
     tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
       |col| 
@@ -513,9 +530,15 @@ module EventToPdf
     
       @entries.each do |entrie|
       
-        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s() 
-        add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)       
- 
+        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
+        
+        if(@c4_width == 0)
+          #if small_version
+          add_row_without_description(tab,data,hour,entrie.title,entrie.speakers)
+        else
+          add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description) 
+        end
+
       end
     
       tab.render_on(pdf)
@@ -531,6 +554,12 @@ module EventToPdf
   def add_row(tab,data,hour,title,speakers,description)       
     data << { "col1" => text_to_iso("#{hour}"), "col2" => text_to_iso("#{title}"), 
     "col3" => text_to_iso("#{speakers}"), "col4" => text_to_iso("#{description}") }
+    tab.data.replace data      
+  end
+  
+  def add_row_without_description(tab,data,hour,title,speakers)       
+    data << { "col1" => text_to_iso("#{hour}"), "col2" => text_to_iso("#{title}"), 
+    "col3" => text_to_iso("#{speakers}") }
     tab.data.replace data      
   end
   
@@ -629,16 +658,32 @@ module EventToPdf
   end
 
   #Check if the agenda needs to be generate.
-  def needsGenerate   
-    nombre = "agenda_" + permalink + ".pdf"
-    isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+  def needsGenerate(small_version)
+    
+    if small_version == "true"
+      
+      nombre = "agenda_" + permalink + "_small.pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
   
-    if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
-      update_attribute(:generate_pdf_at, Time.now)
-      return true;
+      if !(isFile) or !(generate_pdf_small_at) or generate_pdf_small_at < agenda.updated_at
+        update_attribute(:generate_pdf_small_at, Time.now)
+        return true;
+      end
+      
+    else
+       
+      nombre = "agenda_" + permalink + ".pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+  
+      if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
+        update_attribute(:generate_pdf_at, Time.now)
+        return true;
+      end
+  
     end
 
     return false;
+    
   end
 
 end
