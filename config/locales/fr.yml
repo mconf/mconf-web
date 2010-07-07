@@ -1668,6 +1668,7 @@ fr:
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
     use: Utilisez votre vCard
+    export: Export your vCard
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
   vcc_mail_label: "[VCC]"

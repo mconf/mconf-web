@@ -1751,6 +1751,7 @@ es:
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
     use: Use su vCard
+    export: Exporte su vCard
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"

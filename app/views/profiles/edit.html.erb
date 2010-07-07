@@ -4,8 +4,8 @@
   $("#change_pic").click(function(){
 	 $("#update_logo").show()
 	});
-	
-	$("#vcard_use").click(function(){
+
+  $("#vcard_use").click(function(){
    $("#upload_vcard").show()
   });
 
@@ -16,6 +16,11 @@
   $("#upload_vcard .close_vcard").click(function(){
    $("#upload_vcard").hide()
   });
+  
+  $("#vcard_export").click(function(){
+  	window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
+  });
+  
 	
 <% end %>
 
@@ -45,12 +50,14 @@
 			
 	    <ul class="first_options">
 	      <li id="change_pic"><%=t('change_pic')%></li>
-	      <li id="vcard_use"><%=t('vCard.use') %></li>
+	      <li id="vcard_use"><%=t('vCard.use') %></li>		  
+	      <li id="vcard_export"><%=t('vCard.export') %></li>
 	    </ul>
 		<%else%>
 		  <ul class="first_options">
 	      <li id="change_pic"><%=t('avatar.upload')%></li>
 	      <li id="vcard_use"><%=t('vCard.use') %></li>
+	      <li id="vcard_export"><%=t('vCard.export') %></li>
 		  </ul>
 	  <%end%>
 

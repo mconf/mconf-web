@@ -1663,6 +1663,7 @@ de:
     no_selection: Nr. vCard
     success: vCard erfolgreich geladen
     use: Verwenden Sie Ihre vCard
+    export: Export your vCard
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"
