@@ -1,8 +1,8 @@
 <div id="agenda_full" class="margin-up">      
   <div id="agenda_title">
-      <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
-				<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-      <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
+      <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false), :class=>"group_links" %>
+	  <%= link_to t('event.agenda.download')+ "_small", space_event_path(@space, @event, :small_version => :true, :format => :pdf), :class=>"group_links" %>
+	  <%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
 
       	<h3 id="agenda_title_partial" class="blue">
         <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>

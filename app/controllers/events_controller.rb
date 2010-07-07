@@ -78,8 +78,18 @@ class EventsController < ApplicationController
        format.ics {name = "agenda_" + @event.name + ".ics"
          send_data @event.to_ics, :filename => "#{name}"}
        format.pdf { 
-         name = "agenda_" + @event.name + ".pdf"
-         send_data @event.to_pdf, :filename => "#{name}"
+       
+         @event.to_pdf(params[:small_version])
+            
+         if params[:small_version] == "true"
+           name = "agenda_" + @event.permalink + "_small.pdf"
+         else
+           name = "agenda_" + @event.permalink + ".pdf"
+         end
+           
+         pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+         send_file pdf_path
+
        }
      end
 	else
@@ -141,14 +151,17 @@ class EventsController < ApplicationController
               send_data @event.to_ics, :filename => "#{name}"
            }
            format.pdf {
-           
-              @event.to_pdf
-              nombre = "agenda_" + @event.permalink + ".pdf"
-              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
-              send_file pdf_path
+              @event.to_pdf(params[:small_version])
               
-#              nombre = "agenda_" + @event.name + ".pdf"
-#              send_data @event.to_pdf, :filename => "#{nombre}"
+              if params[:small_version] == "true"
+                name = "agenda_" + @event.permalink + "_small.pdf"
+              else
+                name = "agenda_" + @event.permalink + ".pdf"
+              end
+              
+              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{name}"
+              send_file pdf_path
+
            }  
     end
 	end
