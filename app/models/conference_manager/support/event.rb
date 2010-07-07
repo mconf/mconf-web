@@ -7,9 +7,9 @@ module ConferenceManager
       #in these arrays the number in kb is lower than in the comments because we pass the conference manager interface
       #only the video bandwidth, and the total is about 50kb lower
       WEB_BANDWIDTH = [100000, 200000, 400000] #equivalents: low (150K), medium (250K), high (450K)
-      WEB_CODEC = [1,1,0] #equivalents: low (h.264), medium (h.264), high (sorenson)
+      WEB_CODEC = ["H264","H264","H263"] #equivalents: low (h.264), medium (h.264), high (sorenson)
       RECORDING_BANDWIDTH = [0, 200000, 500000] #equivalents low (0) we don't use it, medium (250K), high (550K)
-      RECORDING_CODEC = [1,1,1] #equivalents: low (H.264), medium (h.264), high (h.264)  
+      RECORDING_CODEC = ["H264","H264","H264"] #equivalents: low (H.264), medium (h.264), high (h.264)  
       
       class << self
         def included(base)

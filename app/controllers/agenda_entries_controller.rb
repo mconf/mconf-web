@@ -73,6 +73,15 @@ class AgendaEntriesController < ApplicationController
   end
   
   
+  #this method is called from event_to_scorm lib to generate an html web page with this video entry and documents
+  def scorm_show
+    #@entry has been defined in event_to_scorm lib  
+    respond_to do |format|
+      format.html
+    end    
+  end
+  
+  
   # GET /agenda_entries/new
   # GET /agenda_entries/new.xml
   def new

@@ -1,0 +1,36 @@
+
+<%
+if @video_entries.empty?
+  return
+end
+#if there is no video_entries we don't generate the scorm and return 
+#if needs_generate
+
+#delete the folder content
+FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+#we create the folder to introduce all the files
+FileUtils.mkdir_p("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+
+
+t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+Zip::ZipOutputStream.open(t.path) do |zos|
+	generate_scorm_manifest_in_zip(@event, zos)
+	
+	@video_entries.each do |entry|
+	  @render = render :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
+ 	  zos.put_next_entry("#{entry.title}.html")
+	  zos.print	@render
+      entry.attachments.each do |file|
+	    zos.put_next_entry(file.filename)
+	    zos.print IO.read(file.full_filename)
+	  end
+	end
+ 
+	
+end
+
+send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
+
+t.close
+
+%>
