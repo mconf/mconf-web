@@ -1691,6 +1691,7 @@ en:
     no_selection: no vCard
     success: vCard successfully loaded
     use: Use your vCard
+    export: Export your vCard
   vcard: vCard
   vcc: Global Plaza Conferences
   vcc_mail_label: "[Global]"

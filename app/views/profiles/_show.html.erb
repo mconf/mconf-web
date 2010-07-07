@@ -27,6 +27,7 @@
 
   <ul class="first_options">
     <%="<li> #{link_to t('edit_profile'), edit_user_profile_path(@user)} </li>" if @profile.authorize? :update, :to => current_user%>
+	<%="<li> #{link_to t('vCard.export'), user_profile_path(@user,:format => "vcf")} </li>" if @profile.authorize? :update, :to => current_user%>
     <%="<li> #{link_to t('message.private.new'), new_user_message_path(:user_id => current_user.to_param, :receiver => @user.id), :id => "new_private_message_link"} </li>" if ((@user != current_user) && (current_user != Anonymous.current))%>
   </ul>
 	
