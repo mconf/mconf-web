@@ -208,6 +208,7 @@ en:
   beta: (BETA)
   body: Body
   button:
+    accept: Accept
     cancel: Cancel
     create: Create
     creating: Creating...

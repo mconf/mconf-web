@@ -207,6 +207,7 @@ fr:
   beta: (BETA)
   body: Corps
   button:
+    accept: Accepter
     cancel: Annuler
     create: Create
     creating: Creating...
