@@ -141,13 +141,13 @@ module EventToPdf
     end     #All Day Ends. PDF finished.
     
     if small_version == "true"
-      nombre = "agenda_" + permalink + "_small.pdf"
+      name = "agenda_" + permalink + "_small.pdf"
     else
-      nombre = "agenda_" + permalink + ".pdf"
+      name = "agenda_" + permalink + ".pdf"
     end  
     
     FileUtils.mkdir_p("#{RAILS_ROOT}/public/pdf/#{permalink}")
-    File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}", "wb") { |f| f.write pdf.render }
+    File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}", "wb") { |f| f.write pdf.render }
     
     pdf.render
    
@@ -662,8 +662,8 @@ module EventToPdf
     
     if small_version == "true"
       
-      nombre = "agenda_" + permalink + "_small.pdf"
-      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+      name = "agenda_" + permalink + "_small.pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}")
   
       if !(isFile) or !(generate_pdf_small_at) or generate_pdf_small_at < agenda.updated_at
         update_attribute(:generate_pdf_small_at, Time.now)
@@ -672,8 +672,8 @@ module EventToPdf
       
     else
        
-      nombre = "agenda_" + permalink + ".pdf"
-      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+      name = "agenda_" + permalink + ".pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}")
   
       if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
         update_attribute(:generate_pdf_at, Time.now)
