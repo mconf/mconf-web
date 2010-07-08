@@ -43,8 +43,8 @@ module EventToPdf
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
     
-    i1 = "#{RAILS_ROOT}/public/images/cabeceraVCC_pdf.jpg"
-    i2 = "#{RAILS_ROOT}/public/images/vcc-logo_pdf.jpg"
+    i1 = "#{RAILS_ROOT}/public/images/pdf/vcc_cabecera_pdf_beta.jpg"
+    i2 = "#{RAILS_ROOT}/public/images/pdf/vcc_logo_pdf_beta.jpg"
     pdf.image i1, :justification => :right, :resize => 1
     pdf.image i2, :justification => :left, :resize => 0.7
     
@@ -65,6 +65,7 @@ module EventToPdf
       @entries_array = fragment_entries(@entries,i)
       
       heads = true
+      last_is_special = false;
       nPage =  -1
        
       @entries_array.each do |entries|
@@ -91,6 +92,8 @@ module EventToPdf
             
             unless isSpecialTitle(next_entry[0])
               
+              #Case: SpecialTitle(actual_entry) -> Table(next_entry)
+              
               #Return the quantity of rows that fits in the actual page of the document.
               nRows = getTableRows(pdf,actual_entry,next_entry,false)
               
@@ -107,8 +110,7 @@ module EventToPdf
                 end
   
                 @entries_array.insert(index_next_entry, entrie_fragment_a) 
-                @entries_array.insert(index_next_entry+1, entrie_fragment_b) 
-              
+                @entries_array.insert(index_next_entry+1, entrie_fragment_b)
                 
               end
               
@@ -117,6 +119,11 @@ module EventToPdf
             
           end      
           
+          if (last_is_special)
+            pdf.y = pdf.y + 2
+          end
+          
+          last_is_special = true
           write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
           
         else
@@ -132,6 +139,11 @@ module EventToPdf
             nPage = pdf.current_page_number()
           end
           
+          if ((heads) && (last_is_special))
+            pdf.y = pdf.y - 3
+          end
+          
+          last_is_special = false
           generate_entrie_table(pdf,entries,nil,heads)
         
         end
@@ -465,7 +477,7 @@ module EventToPdf
   #tab_title Title of the table. Nil if we want the table without title.
   #heading True to show the table heading.
   def generate_entrie_table(pdf,entries,tab_title,heading)
-  
+   
     @entries = entries
     
     PDF::SimpleTable.new do |tab|
@@ -607,7 +619,7 @@ module EventToPdf
   def write_special_title(pdf,width_hour,width_title,divider,hasHour)
       
     vccColor = Color::RGB.new(36, 73, 116)
-    pdf.text " ", :font_size => 3
+#    pdf.text " ", :font_size => 3
     pdf.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )
 
     x = pdf.absolute_left_margin+20    
@@ -621,7 +633,12 @@ module EventToPdf
     if height_rectangle > (bottom_space - margin_space)
       pdf.start_new_page
     end
-
+  
+    #First page.
+    if pdf.current_page_number() == 1
+      pdf.y = pdf.y + 1
+    end
+    
     pdf.y = pdf.y - 3
     last_y = pdf.y
 
@@ -651,9 +668,18 @@ module EventToPdf
 
     pdf.text text_to_iso("#{divider.title}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
     pdf.margins_pt(25, 30, 25, 30)
-    pdf.y = last_y - height_rectangle - 1
+    
+    
+    if pdf.current_page_number() == 1
+      margin_bottom = 2
+    else
+      margin_bottom = 1
+    end  
+    
+    
+    pdf.y = last_y - height_rectangle + margin_bottom
     pdf.fill_color!  Color::RGB::Black
-    pdf.text " ", :font_size => 3 
+#    pdf.text " ", :font_size => 3 
 
   end
 
