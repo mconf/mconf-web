@@ -435,10 +435,11 @@ class EventsController < ApplicationController
       
       @video_entries.each do |entry|
         @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
-        zos.put_next_entry("#{entry.title}.html")
-        zos.print @render
-          entry.attachments.each do |file|
-          zos.put_next_entry(file.filename)
+        #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
+        zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
+        zos.print @render        
+        entry.attachments.each do |file|
+          zos.put_next_entry(Event.remove_accents(file.filename))
           zos.print IO.read(file.full_filename)
         end
       end   
