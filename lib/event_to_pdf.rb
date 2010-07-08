@@ -120,7 +120,11 @@ module EventToPdf
           end      
           
           if (last_is_special)
-            pdf.y = pdf.y + 2
+            if pdf.current_page_number() == 1
+              pdf.y = pdf.y + 0
+            else
+             pdf.y = pdf.y + 2
+            end
           end
           
           last_is_special = true
