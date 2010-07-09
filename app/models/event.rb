@@ -427,11 +427,11 @@ class Event < ActiveRecord::Base
                myxml.file('href'=>Event.remove_accents(at.filename))
              end
            end
-         end         
-       end
-       myxml.resource('identifier'=>Event.identifier_for("RES" + "-scorm.css"), 'type'=>"text/css", 'href'=>"scorm.css", 'adlcp:scormtype'=>"sco") do
+         end     
+         myxml.resource('identifier'=>Event.identifier_for("RES" + "-scorm.css"), 'type'=>"text/css", 'href'=>"scorm.css", 'adlcp:scormtype'=>"sco") do
              myxml.file('href'=> "scorm.css")
-       end
+         end
+       end       
      end     
      zos.put_next_entry("imsmanifest.xml")
      zos.print myxml.target!()

@@ -475,6 +475,7 @@ en:
       sip: Proxy SIP
       str: Streaming
       web: Participation
+      wait: This info will be available during the event
     create: 
       info: 
         basic: Here you can organize three kind of events

@@ -473,6 +473,7 @@ fr:
       sip: Proxy SIP
       str: Streaming
       web: Participation
+      wait: This info will be available during the event
     create: 
       info: 
         basic: "Ici, vous pouvez organiser trois types d&#39;\xC3\xA9v\xC3\xA9nements"

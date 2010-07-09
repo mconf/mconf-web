@@ -510,6 +510,7 @@ es:
       sip: Proxy SIP
       str: Streaming
       web: "Participaci\xC3\xB3n"
+      wait: Esta info estará disponible durante el evento
     create: 
       info: 
         basic: "Aqu\xC3\xAD puede organizar tres tipos de eventos"

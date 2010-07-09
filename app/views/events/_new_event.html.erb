@@ -144,6 +144,8 @@
        <%=f.check_box :sip_interface,:class=>"icon", :checked => false  %>
         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
       </div>
+	  <%= f.hidden_field :web_interface, :value => true %>
+	  <%= f.hidden_field :isabel_interface, :value => true %>
     </div>
 	 <div class="margin-up">
      <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.create")%></button>
