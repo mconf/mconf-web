@@ -212,9 +212,7 @@ class AgendaEntry < ActiveRecord::Base
   end
 
    def get_background_from_embed
-    get_src_from_embed &&
-    query = URI.parse(get_src_from_embed).query &&
-    CGI.parse(query)["image"].try(:first)
+    (get_src_from_embed) && (query = URI.parse(get_src_from_embed).query) && (CGI.parse(query)["image"].try(:first))
   end
 
   def is_happening_now?
