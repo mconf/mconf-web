@@ -20,23 +20,28 @@
 
 <div id="agenda_full" class="margin-up">      
   <div id="agenda_title">
-  	
-  	  <div id="browse_select2">
-        <%=link_to ("<span>" + t('event.agenda.download') + "</span>"),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
-        <ul id="browse_menu2" style="display:none">
-          <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false) %></li>
-		  <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>
-        </ul>
-      </div>
-	  
-	  <%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-
-      	<h3 id="agenda_title_partial" class="blue">
-        <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-        <%=t('agenda.title')%> 
-        <span class="main_text"><%=@event.get_formatted_timezone%></span>
-      </h3>
+  	<ul class="group_links">
+  	  <li class="main_text"><%=@event.get_formatted_timezone%></li>
+			<li>
+				<div id="browse_select2">
+	        <%=link_to ("<span>" + t('event.agenda.download') + "</span>"),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
+	        <ul id="browse_menu2" style="display:none">
+	          <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false) %></li>
+			      <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>
+	        </ul>
+	      </div>
+	    </li>
+			<li>
+	     <%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics) %>
+			</li>
+    </ul>
+		
+  	<h3 id="agenda_title_partial" class="blue">
+	    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	    <%=t('agenda.title')%> 
+    </h3>
   </div>
+	
   <div id="agenda_content">
     <%= render :partial => "agendas/edit" %>
   </div>

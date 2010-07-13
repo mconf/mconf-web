@@ -1466,7 +1466,6 @@ tr.version_expanded td{
 	}
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
-#agenda_title span{padding:2px 8px;}
 #event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title{cursor:pointer;}
 h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
@@ -1477,7 +1476,7 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 .agenda_new_entry #agenda_blue_title h3{clear:both;}
 #carrusel_title h3 {padding-right:0;}
 
-h3#event_description_title div,#agenda_title div,#participation_title div,#streaming_title div,#repository_title div{display:inline;width:16px;}
+h3#event_description_title div.image,#agenda_title div.image,#participation_title div,.image#streaming_title div.image,#repository_title div.image{display:inline;width:16px;}
 h3#event_description_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
 #event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
@@ -1815,3 +1814,30 @@ div.banner_footer a{
 #screencast{margin-bottom:0.75em;}
 
 #full_sidebar .note{margin:0 0 0.75em 0;clear:both;display:block;text-align:center;}
+#agenda_title ul.group_links{margin-bottom:0;padding:4px 0;position:relative;}
+#agenda_title ul.group_links li{margin-left:9px;}
+/*Select download pdf*
+ */
+a.browse_select2{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
+#agenda_title a.browse_select2.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+div#browse_select2{display:inline-block;}
+#browse_select2 ul#browse_menu2{
+  background:#fff;
+  border-color:#999999;
+  border-style:solid;
+  border-width:1px 1px 1px;
+  margin-right:-1px;
+  margin-bottom:-1px;
+  min-width:90px;
+  position:absolute;
+  right:42px;
+  bottom:-59px;
+  z-index:1;
+  list-style-type:none;
+}
+#browse_select2 ul#browse_menu2{min-width:130px;text-align:left;}
+#agenda_title ul#browse_menu2 li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
+ul#browse_menu2 li:hover{background:#244974;}
+ul#browse_menu2 li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
+ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
+/**/
