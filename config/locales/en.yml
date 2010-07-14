@@ -1340,7 +1340,7 @@ en:
     help: "Need some help? Try watching the "
     link1: Help creating events
     link2: Help creating the agenda
-    link3: Help about different kinds of events
+    link3: "Help: Three kinds of events"
     link4: Help inviting people
     link5: Help about event information    
     sidebar: 
@@ -1599,6 +1599,7 @@ en:
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
+  tips: Tips
   title: Title
   title_formal: 
     mr: Mr.

@@ -42,10 +42,15 @@
   <%end%>
 
 	</div> 
-    <div id="leave_space">
-      <%= link_to t('screencast.link2'), screencasts_path(:show=>2), :target=>'_blank' %><br/>
-      <%= link_to t('screencast.link4'), screencasts_path(:show=>4), :target=>'_blank' %><br/>
-	  <%= link_to t('screencast.link5'), screencasts_path(:show=>5), :target=>'_blank' %>
+    <div id="assistance_info">
+    	<div id="assistance_title">
+    		<h3><%=t("tips")%></h3>
+			</div>
+			<div class="tips">
+			  <%=image_tag("icons/calendar_edit.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link2'), screencasts_path(:show=>2), :target=>'_blank' %><br/>
+	      <%=image_tag("icons/user_add.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link4'), screencasts_path(:show=>4), :target=>'_blank' %><br/>
+	      <%=image_tag("icons/information.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link5'), screencasts_path(:show=>5), :target=>'_blank' %>
+			</div>
     </div>
 <%end%>
 
