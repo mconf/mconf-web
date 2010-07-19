@@ -847,6 +847,8 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
+    configure_isabel: How to configure your own Isabel server
+    connect_isabel: How to connect to Isabel
     create_VC: Creating a virtual congress
     create_VM: Creating a virtual meeting
     create_event: Creating an event
@@ -856,7 +858,11 @@ en:
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
     info: Here you can find information about the Global Plaza
+    info_isabel: Here you can find information about the Isabel tool
+    isabel: Isabel (Videoconference tool)
+    install_isabel: How to install Isabel
     logging: Logging In to your account
+    globalplaza: Globalplaza 
     new_doc: Adding a new document
     topics: Topics
   help_vcc: 
