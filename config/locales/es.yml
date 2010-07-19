@@ -215,7 +215,7 @@ es:
   bad_request: "Petici\xC3\xB3n inv\xC3\xA1lida"
   beta: (BETA)
   body: Cuerpo
-  button:
+  button: 
     accept: Aceptar
     cancel: Cancelar
     create: Crear
@@ -261,8 +261,8 @@ es:
     edit_enabled: "Habilitar chat en la pr\xC3\xB3xima sesi\xC3\xB3n (experimental)"
     edit_question: "\xC2\xBFDesea habilitar la funci\xC3\xB3n de chat (experimental)?"
     please_login_message: "Por favor, inicie sesi\xC3\xB3n / reg\xC3\xADstrese para participar"
-    reconnect_message: Volver a conectar
     reconnect_button_message: Click para reconectar
+    reconnect_message: Volver a conectar
   check_mail: "Por favor, revise su correo electr\xC3\xB3nico"
   city: Ciudad
   click_here: "Haga click aqu\xC3\xAD"
@@ -488,7 +488,7 @@ es:
     agenda: 
       add_entry: "A\xC3\xB1adir una."
       download: Descargar PDF
-      download_small: Descargar PDF pequeño
+      download_small: "Descargar PDF peque\xC3\xB1o"
       no_entries: No hay entradas.
     assistance_title: Asistencia
     assistants_none: "Nadie ha confirmado todav\xC3\xADa"
@@ -509,8 +509,8 @@ es:
       isabel: Servidor Isabel
       sip: Proxy SIP
       str: Streaming
+      wait: "Esta info estar\xC3\xA1 disponible durante el evento"
       web: "Participaci\xC3\xB3n"
-      wait: Esta info estará disponible durante el evento
     create: 
       info: 
         basic: "Aqu\xC3\xAD puede organizar tres tipos de eventos"
@@ -555,7 +555,7 @@ es:
       other: Se han encontrado {{size}} eventos
     future: Evento futuro
     generate_pdf: Generar PDF
-    group_invitation:
+    group_invitation: 
       button: Invite mailing lists
       message_private_with_start_date: 
         in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
@@ -874,6 +874,8 @@ es:
   help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de Global Plaza
+    configure_isabel: "C\xC3\xB3mo configurar su propio servidor de Isabel"
+    connect_isabel: "C\xC3\xB3mo conectarse a Isabel"
     create_VC: "Creaci\xC3\xB3n de un congreso virtual"
     create_VM: "Creaci\xC3\xB3n de una reuni\xC3\xB3n virtual"
     create_event: "Creaci\xC3\xB3n de un evento"
@@ -882,7 +884,11 @@ es:
     create_space: "Creaci\xC3\xB3n de un espacio"
     create_user: "Creaci\xC3\xB3n de un usuario"
     define_agenda: Definir la agenda del evento
+    globalplaza: Globalplaza
     info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre Global Plaza"
+    info_isabel: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre la herramienta Isabel"
+    install_isabel: "C\xC3\xB3mo instalar Isabel"
+    isabel: Isabel (herramienta de Videoconferencia)
     logging: "Iniciar  sesi\xC3\xB3n con su cuenta "
     new_doc: "A\xC3\xB1adir un nuevo documento"
     topics: Temas
@@ -1212,14 +1218,14 @@ es:
       one: Eliminar Rol
       other: Eliminar Roles
     new: Nuevo miembro
-    notification:
+    notification: 
       estandar: "{{username}} ha cambiado tu rol en {{stage}} a {{role}}. "
       event: "{{username}} ha cambiado tu rol en el evento {{event}} a {{role}}. "
       space: "{{username}} ha cambiado tu rol en el {{space}} a {{role}}. "
       subject: 
         estandar: "{{username}} ha cambiado tu rol en {{stage}} "
         event: "{{username}} ha cambiado tu rol en el evento {{event}} "
-        space: "{{username}} ha cambiado tu rol en el espacio {{space}} " 
+        space: "{{username}} ha cambiado tu rol en el espacio {{space}} "
     one: Miembro
     other: Miembros
     other_in: Miembros de {{stage}}
@@ -1312,13 +1318,13 @@ es:
     activity: Actividad reciente
   register: 
     and_participate: Registrarse Para Participar
-    and_participate_description: Para participar Regístrate en la Red Social de Eventos.
+    and_participate_description: "Para participar Reg\xC3\xADstrate en la Red Social de Eventos."
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado
   register_as_user: Registrarse como usuario
-  register_now: "¡Reg\xC3\xADstrese AHORA!"
+  register_now: "\xC2\xA1Reg\xC3\xADstrese AHORA!"
   remarks: Comentarios
   remember_me: Recordarme
   remove: Eliminar
@@ -1330,7 +1336,7 @@ es:
     add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
-    enable: "¿Habilitar repositorio de documentos?"
+    enable: "\xC2\xBFHabilitar repositorio de documentos?"
     loading: Actualizando el repositorio de documentos ...
     need_javascript: Por favor, active Javascript para poder trabajar con el repositorio de documentos
     one: Docs
@@ -1340,7 +1346,7 @@ es:
   request: 
     default: solicitar
     info: "Su solicitud para participar en este espacio ha sido enviada con \xC3\xA9xito a los administradores del espacio. Un administrador se encargar\xC3\xA1 de su solicitud  tan pronto como sea posible"
-    sent: "¡Solicitud enviada!"
+    sent: "\xC2\xA1Solicitud enviada!"
   request_change_password: "Solicitar cambiar su contrase\xC3\xB1a"
   reset_password: "Cambiar Contrase\xC3\xB1a"
   resource: 
@@ -1350,7 +1356,7 @@ es:
     add: "A\xC3\xB1adir rol..."
     added: "Rol {{role}} a\xC3\xB1adido exitosamente a {{agent}}"
     change: Cambiar rol...
-    confirm_delete: "¿\xC2\xBFBorrar Rol?"
+    confirm_delete: "\xC2\xBF\xC2\xBFBorrar Rol?"
     created: Rol creado satisfactoriamente.
     editing: Editando Rol
     go_to_manage: "Ir a la gesti\xC3\xB3n de roles"
@@ -1373,12 +1379,12 @@ es:
   save_ch: Guardar los cambios
   screencast: 
     button: Ver screencast
-    help: "¿Necesita ayuda? Vea el "
+    help: "\xC2\xBFNecesita ayuda? Vea el "
     link1: Ayuda creando eventos
     link2: Ayuda creando la agenda
     link3: Ayuda diferentes tipos de eventos
     link4: Ayuda invitando a gente
-    link5: Ayuda sobre información de evento
+    link5: "Ayuda sobre informaci\xC3\xB3n de evento"
     sidebar: 
       title: Screencasts
     title: screencast
@@ -1386,7 +1392,7 @@ es:
     title2: Crear agenda para el evento
     title3: Diferentes tipos de eventos
     title4: Invitando a gente
-    title5: Información del evento
+    title5: "Informaci\xC3\xB3n del evento"
     video: 
       one: Screencast
   search: 
@@ -1485,7 +1491,7 @@ es:
     add_user: 
       other: "A\xC3\xB1adir usuarios al espacio"
     all: Todos los espacios
-    allow_public_access: "¿Permitir acceso p\xC3\xBAblico?"
+    allow_public_access: "\xC2\xBFPermitir acceso p\xC3\xBAblico?"
     be_fan: Ser aficionado
     clic: Haga click para editar ...
     clic_logo: Haga click para cambiar su logo
@@ -1510,12 +1516,12 @@ es:
       none: No se han encontrado espacios
       one: Se ha encontrado 1 espacio
       other: Se han encontrado {{size}} espacios
-    group_not_belong: no pertenecen al mismo espacio que el grupo
-    group_invitation:
+    group_invitation: 
       button: Invitar lista de correo
       message_title: Invite a listas de correo para que se unan a su espacio
-      private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aqu\xC3\xAD: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} le invita al espacio {{space}}"
+    group_not_belong: no pertenecen al mismo espacio que el grupo
     is_private: "es un espacio privado. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador del espacio"
     join: "\xC3\x9Anete a este espacio"
     join_invitation: 
@@ -1551,7 +1557,7 @@ es:
       other: "Espacios p\xC3\xBAblicos"
     recent: 
       other: Espacios Recientes
-    recording:
+    recording: 
       one: Video del espacio
       other: Videos del espacio
     search: Buscar espacio...
@@ -1631,10 +1637,10 @@ es:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "desde"
+    from: desde
     pm: pm
     start: Hora de inicio
-    to: "hasta"
+    to: hasta
   timezone: 
     one: Zona Horaria
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>
@@ -1751,10 +1757,10 @@ es:
   username: Nombre de usuario
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
+    export: Exporte su vCard
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
     use: Use su vCard
-    export: Exporte su vCard
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"

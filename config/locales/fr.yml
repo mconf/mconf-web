@@ -192,7 +192,7 @@ fr:
       other: "les fichiers s\xC3\xA9lectionn\xC3\xA9s"
     updated: "Pi\xC3\xA8ce jointe \xC3\xA0 jour avec succ\xC3\xA8s"
     upload_with_post: "Avertissez le t\xC3\xA9l\xC3\xA9chargement avec un message dans le mur"
-  author: Posté par
+  author: "Post\xC3\xA9 par"
   avatar: 
     created: "Image mise en ligne avec succ\xC3\xA8s"
     crop: Recadrer votre image
@@ -206,7 +206,7 @@ fr:
   bad_request: Bad Request
   beta: (BETA)
   body: Corps
-  button:
+  button: 
     accept: Accepter
     cancel: Annuler
     create: Create
@@ -219,7 +219,7 @@ fr:
     other_spaces: Trouvez d&#39;autres espaces
     send: Envoyer
     sending: Sending...
-    update: "Mettre à jour"
+    update: "Mettre \xC3\xA0 jour"
     upload: Envoyer
   calendar: 
     my: Mon calendrier
@@ -237,8 +237,8 @@ fr:
     edit_enabled: "Activer la messagerie instantan\xC3\xA9e exp\xC3\xA9rimentale \xC3\xA0 la prochaine connexion"
     edit_question: "Souhaitez-vous permettre exp\xC3\xA9rimentale fonctionnalit\xC3\xA9 de chat?"
     please_login_message: "S&#39;il vous pla\xC3\xAEt, login / s&#39;inscrire pour participer"
-    reconnect_message: Rebranchez
     reconnect_button_message: Click to reconnect
+    reconnect_message: Rebranchez
   check_mail: "S&#39;il vous pla\xC3\xAEt, v\xC3\xA9rifiez votre e-mail"
   city: Ville
   click_here: Cliquez ici
@@ -299,13 +299,17 @@ fr:
     abbr_month_names: 
     - 
     - jan
-    - fév
+    - !binary |
+      ZsOpdg==
+
     - mar
     - avr
     - mai
     - jun
     - jui
-    - aoû
+    - !binary |
+      YW/Duw==
+
     - sep
     - oct
     - nov
@@ -327,17 +331,19 @@ fr:
     month_names: 
     - 
     - janvier
-    - février
+    - "f\xC3\xA9vrier"
     - mars
     - avril
     - mai
     - juin
     - juillet
-    - août
+    - !binary |
+      YW/Du3Q=
+
     - septembre
     - octobre
     - novembre
-    - décembre
+    - "d\xC3\xA9cembre"
     order: 
     - :year
     - :month
@@ -472,8 +478,8 @@ fr:
       isabel: serveur Isabel
       sip: Proxy SIP
       str: Streaming
-      web: Participation
       wait: This info will be available during the event
+      web: Participation
     create: 
       info: 
         basic: "Ici, vous pouvez organiser trois types d&#39;\xC3\xA9v\xC3\xA9nements"
@@ -601,8 +607,8 @@ fr:
       one: "Vid\xC3\xA9o de l&#39;\xC3\xA9v\xC3\xA9nement"
       other: "Vid\xC3\xA9os de l&#39;\xC3\xA9v\xC3\xA9nement"
       share: Part
-    repository:
-      enabled: "Activer référentiel de documents?"
+    repository: 
+      enabled: "Activer r\xC3\xA9f\xC3\xA9rentiel de documents?"
       help: "Ce r\xC3\xA9f\xC3\xA9rentiel montrent les documents t\xC3\xA9l\xC3\xA9charg\xC3\xA9s dans les sessions de l&#39;ordre du jour \xC3\xA9v\xC3\xA9nement"
       title: "documents de l&#39;\xC3\xA9v\xC3\xA9nement"
     search: "Recherche des \xC3\xA9v\xC3\xA9nements ..."
@@ -813,6 +819,8 @@ fr:
   help_support: Aide et conseils
   help_title: 
     about_vcc: A propos de Global Plaza
+    configure_isabel: Comment faire pour configurer votre propre serveur Isabel
+    connect_isabel: "Comment se connecter \xC3\xA0 Isabel"
     create_VC: "Cr\xC3\xA9ation d'un congr\xC3\xA8s virtuel"
     create_VM: "Cr\xC3\xA9ation d'une r\xC3\xA9union virtuelle"
     create_event: "Cr\xC3\xA9ation d'un \xC3\xA9v\xC3\xA9nement"
@@ -820,8 +828,12 @@ fr:
     create_post: "Cr\xC3\xA9ation d'un message dans le mur"
     create_space: "Cr\xC3\xA9er un espace"
     create_user: "Cr\xC3\xA9ation d'un utilisateur"
-    define_agenda: "D\xC3\xA9finir l&#39;ordre du jour de l&#39;\xC3\xA9v\xC3\xA9nement"
+    define_agenda: "D\xC3\xA9finir l'ordre du jour de l'\xC3\xA9v\xC3\xA9nement"
+    globalplaza: Globalplaza
     info: Ici vous pouvez trouver des informations sur le Global Plaza
+    info_isabel: Ici vous pouvez trouver des informations sur l&#39;outil Isabel
+    install_isabel: Comment faire pour installer Isabel
+    isabel: "Isabel (outil de vid\xC3\xA9oconf\xC3\xA9rence)"
     logging: "Connexion \xC3\xA0 votre compte"
     new_doc: Ajout d'un nouveau document
     topics: Sujets
@@ -1146,14 +1158,14 @@ fr:
       one: Supprimer le rendement
       other: Performances Supprimer
     new: Nouveau membre
-    notification:
+    notification: 
       estandar: "{{username}} has change your role in {{stage}} to {{role}}. "
       event: "{{username}} has change your role in event {{event}} to {{role}}. "
       space: "{{username}} has change your role in space {{space}} to {{role}}. "
       subject: 
         estandar: "{{username}} has change your role in {{stage}} "
         event: "{{username}} has change your role in event {{event}} "
-        space: "{{username}} has change your role in space {{space}} " 
+        space: "{{username}} has change your role in space {{space}} "
     one: Membre
     other: Membres
     other_in: Les membres de {{stage}}
@@ -1310,12 +1322,12 @@ fr:
     link2: Help creating the agenda
     link3: Help about different kinds of events
     link4: Help inviting people
-    link5: Help about event information    
+    link5: Help about event information
     sidebar: 
       title: Screencasts
     title: screencast
-    title1: "Comment faire pour créer un événement"
-    title2: "Créer un ordre du jour de l'événement"
+    title1: "Comment faire pour cr\xC3\xA9er un \xC3\xA9v\xC3\xA9nement"
+    title2: "Cr\xC3\xA9er un ordre du jour de l'\xC3\xA9v\xC3\xA9nement"
     title3: Different kinds of events
     title4: Inviting people
     title5: Event Information
@@ -1435,12 +1447,12 @@ fr:
     enabled: "L&#39;espace a permis avec succ\xC3\xA8s"
     error: 
       enabled: "Space {{name}} est d\xC3\xA9j\xC3\xA0 activ\xC3\xA9"
-    group_not_belong: "n&#39;appartiennent pas au m\xC3\xAAme espace que le groupe"
-    group_invitation:
+    group_invitation: 
       button: Inviter lists
       message_title: Invite mailing lists to join your space
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} invites you to space {{space}}"
+    group_not_belong: "n&#39;appartiennent pas au m\xC3\xAAme espace que le groupe"
     is_private: "est un espace priv\xC3\xA9. Envoyer une jointure demande \xC3\xA0 l&#39;administrateur de cet espace pour vous laisser"
     join: "Joignez-vous \xC3\xA0 cet espace"
     join_invitation: 
@@ -1476,7 +1488,7 @@ fr:
       other: Espaces publics
     recent: 
       other: "Derni\xC3\xA8res places"
-    recording:
+    recording: 
       one: Space video
       other: Space videos
     search: L&#39;espace de recherche ...
@@ -1552,10 +1564,12 @@ fr:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "à partir de"
+    from: "\xC3\xA0 partir de"
     pm: pm
     start: Start time
-    to: "à"
+    to: !binary |
+      w6A=
+
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
@@ -1668,10 +1682,10 @@ fr:
   username: Nom d'utilisateur
   vCard: 
     corrupt: "Le vCard que vous avez envoy\xC3\xA9 est corrompu ou d'une version non prise en charge"
+    export: Export your vCard
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
     use: Utilisez votre vCard
-    export: Export your vCard
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
   vcc_mail_label: "[VCC]"
