@@ -1477,7 +1477,7 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 .agenda_new_entry #agenda_blue_title h3{clear:both;}
 #carrusel_title h3 {padding-right:0;}
 
-h3#event_description_title div.image,#agenda_title div.image,#participation_title div,.image#streaming_title div.image,#repository_title div.image{display:inline;width:16px;}
+h3#event_description_title div.image,#agenda_title div.image,#participation_title div.image,#streaming_title div.image,#repository_title div.image{display:inline;width:16px;}
 h3#event_description_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
 #event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
