@@ -206,7 +206,7 @@ de:
   bad_request: Bad Request
   beta: (BETA)
   body: "K\xC3\xB6rper"
-  button:
+  button: 
     accept: Akzeptieren
     cancel: Abbrechen
     create: Schaffen
@@ -237,8 +237,8 @@ de:
     edit_enabled: "Enable experimentellen Chat bei der n\xC3\xA4chsten Anmeldung"
     edit_question: "M\xC3\xB6chten Sie die Chat-Funktion aktivieren experimentelle?"
     please_login_message: Bitte einloggen / registrieren um teilzunehmen
-    reconnect_message: Reconnect
     reconnect_button_message: Click to reconnect
+    reconnect_message: Reconnect
   check_mail: "Bitte \xC3\xBCberpr\xC3\xBCfen Sie Ihre E-Mail"
   city: City
   click_here: Klicken Sie hier
@@ -300,7 +300,9 @@ de:
     - 
     - Jan
     - Feb
-    - Mär
+    - !binary |
+      TcOkcg==
+
     - Apr
     - Mai
     - Jun
@@ -328,7 +330,9 @@ de:
     - 
     - Januar
     - Februar
-    - März
+    - !binary |
+      TcOkcno=
+
     - April
     - Mai
     - Juni
@@ -472,8 +476,8 @@ de:
       isabel: Isabel Server
       sip: SIP Proxy
       str: Streaming
-      web: Teilnahme
       wait: This info will be available during the event
+      web: Teilnahme
     create: 
       info: 
         basic: "Hier k\xC3\xB6nnen Sie organisieren drei Arten von Veranstaltungen"
@@ -601,8 +605,8 @@ de:
       one: Event Video
       other: Event Videos
       share: Anteil
-    repository:
-      enabled: "Enable Document Repository?"
+    repository: 
+      enabled: Enable Document Repository?
       help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
     search: Suche Termine ...
@@ -813,6 +817,8 @@ de:
   help_support: Hilfe &amp; Support
   help_title: 
     about_vcc: "\xC3\x9Cber Global Plaza"
+    configure_isabel: So konfigurieren Sie Ihren eigenen Server Isabel
+    connect_isabel: Wie die Verbindung zu Isabel
     create_VC: Erstellen eines virtuellen Kongresses
     create_VM: Erstellen eines virtuellen Treffen
     create_event: Erstellen eines Ereignisses
@@ -821,7 +827,11 @@ de:
     create_space: Erstellen eines Space
     create_user: Benutzer anlegen
     define_agenda: "Festlegen der Tagesordnung f\xC3\xBCr die Veranstaltung"
+    globalplaza: Globalplaza
     info: "Hier finden Sie Informationen \xC3\xBCber die Global Plaza"
+    info_isabel: "Hier finden Sie Informationen \xC3\xBCber das Tool Isabel"
+    install_isabel: Wie installiert man Isabel
+    isabel: Isabel (Videokonferenz-Tool)
     logging: Das Anmelden in Ihrem Konto
     new_doc: "Hinzuf\xC3\xBCgen eines neuen Dokuments"
     topics: Themen
@@ -1144,14 +1154,14 @@ de:
       one: "L\xC3\xB6schen Performance"
       other: "L\xC3\xB6schen Vorstellungen"
     new: Neues Mitglied
-    notification:
+    notification: 
       estandar: "{{username}} has change your role in {{stage}} to {{role}}. "
       event: "{{username}} has change your role in event {{event}} to {{role}}. "
       space: "{{username}} has change your role in space {{space}} to {{role}}. "
       subject: 
         estandar: "{{username}} has change your role in {{stage}} "
         event: "{{username}} has change your role in event {{event}} "
-        space: "{{username}} has change your role in space {{space}} " 
+        space: "{{username}} has change your role in space {{space}} "
     one: Mitglied
     other: Mitglieder
     other_in: Mitglieder des {{stage}}
@@ -1307,12 +1317,12 @@ de:
     link2: Help creating the agenda
     link3: Help about different kinds of events
     link4: Help inviting people
-    link5: Help about event information    
+    link5: Help about event information
     sidebar: 
       title: Screencasts
     title: screencast
     title1: Ereignis erstellen
-    title2: "Agenda für das Ereignis erstellen"
+    title2: "Agenda f\xC3\xBCr das Ereignis erstellen"
     title3: Different kinds of events
     title4: Inviting people
     title5: Event Information
@@ -1432,12 +1442,12 @@ de:
     enabled: Space aktiviert erfolgreich
     error: 
       enabled: Space {{name}} ist bereits aktiviert
-    group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
-    group_invitation:
+    group_invitation: 
       button: Liste einladen
       message_title: Invite mailing lists to join your space
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} invites you to space {{space}}"
+    group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschlie\xC3\x9Fen an den Administrator dieser Raum in Ihrem lassen"
     join: Join this space
     join_invitation: 
@@ -1473,7 +1483,7 @@ de:
       other: "\xC3\x96ffentliche R\xC3\xA4ume"
     recent: 
       other: "Aktuelle R\xC3\xA4ume"
-    recording:
+    recording: 
       one: Space video
       other: Space videos
     search: Suchen space ...
@@ -1549,10 +1559,10 @@ de:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "von"
+    from: von
     pm: pm
     start: Start time
-    to: "bis"
+    to: bis
   timezone: 
     one: Zeitzone
     set_up: Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an
@@ -1663,10 +1673,10 @@ de:
   username: Benutzername
   vCard: 
     corrupt: "Die vCard Sie geschickt wird besch\xC3\xA4digt oder ist ein nicht-unterst\xC3\xBCtzte Version"
+    export: Export your vCard
     no_selection: Nr. vCard
     success: vCard erfolgreich geladen
     use: Verwenden Sie Ihre vCard
-    export: Export your vCard
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"
