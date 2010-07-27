@@ -135,8 +135,41 @@ function cropImage (c){
    	$("#crop_size_width").val(c.w);
 };
 
+$.fn.qtip.styles.mystyle = { // Last part is the name of the style
+      width: 200,
+      padding: 5,
+      background: '#2a2525',
+      color: '#f6f6f6',
+      textAlign: 'center',
+      border: {
+         width: 7,
+         radius: 5,
+         color: '#222222'
+   },
+   tip: 'topLeft',
+   name: 'dark' // Inherit the rest of the attributes from the preset dark style
+}
 
+	$('#space_new_form img.tooltip1').qtip({
+   content: 'Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space',
+	 show:  { when: { event: 'click' } },
+   hide:  'unfocus',
+   style: 'mystyle' // The name of the newly created custom style above
+  });
 	
+	 $('#space_new_form img.tooltip2').qtip({
+   content: 'A document repository allows you to organize all the files that have been uploaded to the space',
+   show:  { when: { event: 'click' } },
+   hide:  'unfocus',
+   style: 'mystyle' // The name of the newly created custom style above
+  });
+	
+	 $('#space_new_form img.tooltip3').qtip({
+   content: 'A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time',
+   show:  { when: { event: 'click' } },
+   hide:  'unfocus',
+   style: 'mystyle' // The name of the newly created custom style above
+  });
 	
 	<% end %>
 	
@@ -183,18 +216,20 @@ function cropImage (c){
 		
 			<div>
 		   	<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
+		    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip1 icon",:style=>"cursor:pointer")%>
 			</div>
 			<div>
 		   	<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip2 icon",:style=>"cursor:pointer")%>
 			</div>
 			
 			<div id='check_mail' class="check_mail_blinking">
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip3 icon",:style=>"cursor:pointer")%>
 			</div>
 			
 			<div id='mail_group' class="mail_group_blinking" style="display:none">
 		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@<%= current_site.domain %></label>
-
 			</div>
 			
 				

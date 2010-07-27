@@ -431,11 +431,11 @@ ul.thread-title{margin:0;list-style-type:none;}
 	}
 .thread_content .thread-title-wrapper{width:600px;/*580px*/}
 .thread_content .thread-title-wrapper div{float:none;}
-.thread_content .post-logo,.user .post-logo{width:36px;height:36px;}
+.thread_content .post-logo,.user .post-logo,.admin .post-logo{width:36px;height:36px;}
 .post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}
-.thread_content .post-logo img,.user .post-logo img{width:32px;padding:1px;border:1px #ccc solid;}
+.thread_content .post-logo img,.user .post-logo img,.admin .post-logo img{width:32px;padding:1px;border:1px #ccc solid;}
 .post .post-logo img:hover{border-color:#aaa;}
-.thread_content .post-logo img:hover,.user .post-logo img:hover {border-color:#aaa;}
+.thread_content .post-logo img:hover,.user .post-logo img:hover,.admin .post-logo img:hover {border-color:#aaa;}
 .thread_content a.extend_thread,.thread_content a.collapse_thread {margin-left:5px;margin-right:5px;}
 .post .post-content{float:left;width:580px;}
 .div-logo {float:left;width:50px;padding:1px;}
@@ -472,7 +472,7 @@ ul.thread_options{list-style-type:none;margin:0 6px -5px 0;}
 ul.thread_options li,.thread_options ul li{display:inline;}
 .thread_options{float:right;opacity:0.6;}
 .thread_options:hover{opacity:1;}
-.thread_content a img,.user a img{vertical-align:top;}
+.thread_content a img,.user a img,.admin a img{vertical-align:top;}
 .post-content #edit{opacity:0.6;}
 .post-content #edit:hover{opacity:1;}
 .group_links{float:right;}
@@ -582,7 +582,7 @@ li.author a, #change-event h3, #sidebar{color:#244974;}
 .tips{padding-top:0.75em;}
 #asisstants ul,#no-assistants ul,#no_responding ul{margin-bottom:0.75em;}
 #sidebar #assistance_info #assistance_status,#sidebar #connection_info .connection_content,.next-events-section,#sidebar .my_spaces ul,.my_spaces a.list_my_spaces,.my_spaces a.less_spaces,.my_spaces a.more_spaces,.update_logo .logo_content,.import_icalendar .icalendar_content{padding:0 10px;}
-#sidebar #assistance_info,#sidebar .my_spaces,#sidebar #connection_info/*,#sidebar .update_logo*/{padding-bottom:10px;clear:both;margin-bottom:0.75em;}
+#sidebar #assistance_info,#sidebar .my_spaces,#sidebar #connection_info{padding-bottom:10px;clear:both;margin-bottom:0.75em;}
 #sidebar .my_spaces ul{margin:0.75em 0 0 0;list-style-type:none;}
 #sidebar .my_spaces ul.inline li{display:inline-block;position:relative;margin:0 4px;padding-bottom:4px;height:70px;}
 #sidebar .my_spaces ul.inline a{position:relative;float:left;height:70px;}
@@ -1065,7 +1065,7 @@ a.extract_form{margin-right:0.5em;}
 
 #assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
 #assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;clear:both;margin-bottom:0.75em;}
-.update_logo{border:1px #bdd8eb solid;background:#f0f6f9;}
+.update_logo{border:1px #bdd8eb solid;background:#f0f6f9;clear:both;margin-bottom:0.75em;}
 .icalendar_content p{margin-bottom:9px;}
 .update_logo h3,.import_icalendar h3,.space_logo h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;}
 #assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title,.connection_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
@@ -1606,7 +1606,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	overflow-y:auto;
 	overflow-x:hidden;
 	background:#f0f6f9;
-	border:1px solid #bdd8eb;}
+	border:1px solid #bdd8eb;
+	margin-bottom:0.75em;
+	clear:both;}
 
 #sidebar .event_video_title h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:3px 8px;}
 .event_video_tabs{border-bottom:1px solid #A8C0D1;border-left:1px solid #bdd8eb;border-right:1px solid #bdd8eb;}
