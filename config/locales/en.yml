@@ -1617,6 +1617,8 @@ en:
   toke: 
     not_available: Token not available
   tomorrow: Tomorrow
+  tooltip:
+    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
   topic: Topic
   translate: 
     availables: Available translations

@@ -135,27 +135,14 @@ function cropImage (c){
    	$("#crop_size_width").val(c.w);
 };
 
-$.fn.qtip.styles.mystyle = { // Last part is the name of the style
-      width: 200,
-      padding: 5,
-      background: '#f0f6f9',
-      color: '#222',
-      textAlign: 'center',
-      border: {
-         width: 7,
-         radius: 5,
-         color: '#244974'
-   },
-   tip: 'topLeft',
-   name: 'dark' // Inherit the rest of the attributes from the preset dark style
-}
 
-	$('#space_new_form img.tooltip1').qtip({
-   content: 'Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space',
+	$('#space_new_form img.tooltip_public_space').qtip({
+   content: '<%=t("tooltip.public_space")%>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle' // The name of the newly created custom style above
   });
+	
 	
 	 $('#space_new_form img.tooltip2').qtip({
    content: 'A document repository allows you to organize all the files that have been uploaded to the space',
@@ -216,7 +203,7 @@ $.fn.qtip.styles.mystyle = { // Last part is the name of the style
 		
 			<div>
 		   	<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
-		    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip1 icon",:style=>"cursor:pointer")%>
+		    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_public_space icon",:style=>"cursor:pointer")%>
 			</div>
 			<div>
 		   	<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
@@ -312,7 +299,7 @@ $.fn.qtip.styles.mystyle = { // Last part is the name of the style
 </div>
 
 <ul class="first_options">
-	<li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv",:title => t('space.logo_selected.open_gallery')} %></li>
+	<li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv tooltip1",:title => t('space.logo_selected.open_gallery')} %></li>
 	<li><%=link_to t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"show_inv",:title => t('space.logo_selected.text_logo')} %></li>
 	<li><%=link_to t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"show_inv",:title => t('space.logo_selected.upload_logo')} %></li>
 </ul>
