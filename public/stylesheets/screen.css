@@ -878,9 +878,9 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
   border-right:1px solid #BDD8EB;
   border-bottom:1px solid #BDD8EB;}
 
-#profile_left .last_options,#profile_left .first_options,#edit_profile_sidebar .first_options{list-style-type:none;margin:6px 6px 9px 6px;}
-#profile_left .first_options,#edit_profile_sidebar .first_options{border-bottom:1px solid #A8C0D1;}
-#profile_left .first_options li,#edit_profile_sidebar .first_options li{border-top:1px solid #A8C0D1;}
+.last_options,.first_options,.first_options{list-style-type:none;margin:6px 6px 9px 6px;}
+.first_options{border-bottom:1px solid #A8C0D1;}
+.first_options li{border-top:1px solid #A8C0D1;}
 #edit_profile_sidebar .first_options li{text-align:center;cursor:pointer;}
 #edit_profile_sidebar .first_options li:hover{text-decoration:underline;}
 

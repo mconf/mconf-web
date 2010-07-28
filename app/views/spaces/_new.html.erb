@@ -138,13 +138,13 @@ function cropImage (c){
 $.fn.qtip.styles.mystyle = { // Last part is the name of the style
       width: 200,
       padding: 5,
-      background: '#2a2525',
-      color: '#f6f6f6',
+      background: '#f0f6f9',
+      color: '#222',
       textAlign: 'center',
       border: {
          width: 7,
          radius: 5,
-         color: '#222222'
+         color: '#244974'
    },
    tip: 'topLeft',
    name: 'dark' // Inherit the rest of the attributes from the preset dark style
@@ -152,22 +152,22 @@ $.fn.qtip.styles.mystyle = { // Last part is the name of the style
 
 	$('#space_new_form img.tooltip1').qtip({
    content: 'Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space',
-	 show:  { when: { event: 'click' } },
-   hide:  'unfocus',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
    style: 'mystyle' // The name of the newly created custom style above
   });
 	
 	 $('#space_new_form img.tooltip2').qtip({
    content: 'A document repository allows you to organize all the files that have been uploaded to the space',
-   show:  { when: { event: 'click' } },
-   hide:  'unfocus',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
    style: 'mystyle' // The name of the newly created custom style above
   });
 	
 	 $('#space_new_form img.tooltip3').qtip({
    content: 'A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time',
-   show:  { when: { event: 'click' } },
-   hide:  'unfocus',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
    style: 'mystyle' // The name of the newly created custom style above
   });
 	
@@ -243,13 +243,6 @@ $.fn.qtip.styles.mystyle = { // Last part is the name of the style
  			%>
 			
 			<%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
-		<div class="button_wrapper grey_bar">
-			<%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
-			<%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>"), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.text_logo')} %>
-			<%=link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>"), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
-						
-		</div>
-		
 			
 			<br>
 			
@@ -317,5 +310,12 @@ $.fn.qtip.styles.mystyle = { // Last part is the name of the style
         </center>
     </div>
 </div>
+
+<ul class="first_options">
+	<li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv",:title => t('space.logo_selected.open_gallery')} %></li>
+	<li><%=link_to t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"show_inv",:title => t('space.logo_selected.text_logo')} %></li>
+	<li><%=link_to t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"show_inv",:title => t('space.logo_selected.upload_logo')} %></li>
+</ul>
+
 <% end %>
 <% end %>
