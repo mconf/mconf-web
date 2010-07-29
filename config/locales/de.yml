@@ -52,7 +52,6 @@ de:
           one: 1 Fehler verboten diesem {{model}} nicht gespeichert
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: "Hinzuf\xC3\xBCgen"
-  add_document: "Neues Dokument hinzuf\xC3\xBCgen"
   add_more_details: "Hinzuf\xC3\xBCgen weiterer Details"
   address: Adresse
   admin: 
@@ -165,7 +164,7 @@ de:
   are_you_sure: Sind Sie sicher?
   at: bei
   attachment: 
-    add: "Anhang hinzuf\xC3\xBCgen"
+    add: "Upload hinzuf\xC3\xBCgen"
     created: Attachment erfolgreich erstellt
     delete: Delete Attachment
     deleted: "Attachment erfolgreich gel\xC3\xB6scht"
@@ -217,6 +216,8 @@ de:
     invite: Einladen!
     next: Next Step
     other_spaces: "Finden Sie andere R\xC3\xA4ume"
+    post: Post
+    search: Search
     send: Senden
     sending: Sending...
     update: Aktualisierung
@@ -404,6 +405,7 @@ de:
   docs: Docs
   document: 
     add: "Neues Dokument hinzuf\xC3\xBCgen"
+    upload: "Upload neues Dokument"
   done: Fertig!
   download: Download
   download_file: Datei herunterladen
@@ -1010,6 +1012,7 @@ de:
     reserved: Die Mailingliste {{systemMailingList}} ist reserviert
   manage: Verwalten
   management: Verwaltung
+  mandatory_field: "Mandatory field"
   mark_checkbox: Markieren Sie die Checkbox geeignet
   message: 
     created: Nachricht erfolgreich gesendet
@@ -1266,7 +1269,6 @@ de:
   reply_to_words: Antwort an {{words}}
   report_spam: Report spam
   repository: 
-    add_document: "Neues Dokument hinzuf\xC3\xBCgen"
     add_tags: "Tags hinzuf\xC3\xBCgen"
     download: Download
     enable: Enable Document Repository?
@@ -1460,7 +1462,7 @@ de:
     logo_selected: 
       close: "Schlie\xC3\x9Fen"
       close_gallery: "Schlie\xC3\x9Fen Sie die Galerie"
-      default_message: "Das Logo des Raumes wird dies:"
+      default_message: "Logo des Raumes"
       enter_text: "Geben Sie einen Text, Logos generieren:"
       generate_logo: Generieren
       open_gallery: "\xC3\x96ffnen Sie die Galerie"
@@ -1538,7 +1540,7 @@ de:
   thank_you: Danke
   the_string: die Zeichenkette
   thread: 
-    add: Neue Nachricht erstellen
+    add: "Post message to wall"
     comments: "{{children}} Kommentare"
     compact_view: Switch to kompakte Ansicht
     deleted: Message (mit Kommentaren) wurde gestrichen
@@ -1624,6 +1626,7 @@ de:
       author: SIR
       title: Benutzer
     filter: User-Filter
+    first_name: Vorname
     found: 
       none: Keine Benutzer gefunden
       one: 1 Benutzer gefunden
@@ -1637,6 +1640,7 @@ de:
     invite_email: Personen einladen per E-Mail
     invite_from_space_by_email: Lade Leute aus Ihrem Raum
     invited: Benutzer bereits aufgefordert
+    last_name: Nachname
     list_by: Auflistung nach
     login: Login
     lost_password: Haben Sie Ihr Passwort vergessen?
@@ -1680,6 +1684,7 @@ de:
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"
+  vcc_registration: "Global Plaza Registration"
   version: 
     new: Neufassung
     one: Version

@@ -52,7 +52,6 @@ en:
           one: 1 error prohibited this {{model}} from being saved
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: Add
-  add_document: Add new document
   add_more_details: Add more details
   address: Address
   admin: 
@@ -166,7 +165,7 @@ en:
   are_you_sure: Are you sure?
   at: at
   attachment: 
-    add: Add attachment
+    add: Upload attachment
     created: Attachment created successfully
     delete: Delete attachment
     deleted: Attachment successfully deleted
@@ -218,6 +217,8 @@ en:
     invite: Invite!
     next: Next Step
     other_spaces: Find other spaces
+    post: Post
+    search: Search
     send: Send
     sending: Sending...
     update: Update
@@ -401,6 +402,7 @@ en:
   docs: Docs
   document: 
     add: Add new document
+    upload: Upload new document
   done: Done!
   download: Download
   download_file: Download file
@@ -1041,6 +1043,7 @@ en:
     reserved: The mailing list {{systemMailingList}} is reserved
   manage: Manage
   management: management
+  mandatory_field: "Mandatory field"
   mark_checkbox: Mark the suitable checkbox
   message: 
     created: Message sent successfully
@@ -1296,8 +1299,7 @@ en:
   reply_to: "Reply to:"
   reply_to_words: Reply to {{words}}
   report_spam: Report spam
-  repository: 
-    add_document: Add new document
+  repository:
     add_tags: Add Tags
     download: Download
     enable: Enable document repository?
@@ -1497,7 +1499,7 @@ en:
     logo_selected: 
       close: Close
       close_gallery: Close the gallery
-      default_message: "The logo of the space will be this:"
+      default_message: "Space logo"
       enter_text: "Enter a text to generate logos:"
       generate_logo: Generate
       open_gallery: Open the gallery
@@ -1577,7 +1579,7 @@ en:
   thank_you: Thank you
   the_string: the string
   thread: 
-    add: Create new message
+    add: Post message to wall
     comments: "{{children}} comments"
     compact_view: Switch to compact view
     deleted: Message (with its comments) has been deleted
@@ -1666,6 +1668,7 @@ en:
       author: SIR
       title: Users
     filter: User filter
+    first_name: "First name"
     found: 
       none: No users found
       one: 1 user found
@@ -1679,9 +1682,10 @@ en:
     invite_email: Invite people by email
     invite_from_space_by_email: Invite people from your space
     invited: Users already invited
+    last_name: "Last name"
     list_by: List by
     login: Login
-    lost_password: Have you lost your password?
+    lost_password: Lost your password?
     noactivity: "{{user}} has no recent activity"
     not_activated: Your account is not activated. Please, check your email to activate it
     not_assist: Not attending
@@ -1722,6 +1726,7 @@ en:
   vcard: vCard
   vcc: Global Plaza Conferences
   vcc_mail_label: "[Global]"
+  vcc_registration: Global Plaza Registration
   version: 
     new: New version
     one: Version
