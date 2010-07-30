@@ -780,25 +780,25 @@ es:
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "\xC2\xA1Por d\xC3\xB3nde empezar!"
   group: 
-    add_to_group: "A\xC3\xB1adir a grupo"
-    add_to_others: "A\xC3\xB1adir otros grupos"
-    create: Crear nuevo grupo
-    created: "El grupo {{name}} ha sido creado con \xC3\xA9xito"
-    delete: Borrar grupo
-    deleted: "El grupo {{name}} ha sido borrado con \xC3\xA9xito"
-    different: Otros grupos
-    edit: Editar grupo
+    add_to_group: "A\xC3\xB1adir a lista de correo"
+    add_to_others: "A\xC3\xB1adir a otras listas de correo"
+    create: Crear nueva lista de correo
+    created: "La lista de correo {{name}} ha sido creada con \xC3\xA9xito"
+    delete: Borrar lista de correo
+    deleted: "La lista de correo {{name}} ha sido borrada con \xC3\xA9xito"
+    different: Otras listas de correo
+    edit: Editar lista de correo
     existing: el nombre ya ha sido elegido
-    join: "\xC3\x9Anase a este grupo"
-    mailing_list: Lista de correo de grupo
-    name: Nombre del grupo
-    not_deleted: Error al eliminar el grupo {{name}}
-    not_valid: "El grupo no es v\xC3\xA1lido"
-    one: Grupo
-    other: Grupos
-    send_message: Enviar un mensaje a este grupo
-    updated: El grupo {{name}} ha sido actualizado correctamente
-  groups_and_results: Grupos, {{size}} resultados
+    join: "\xC3\x9Anase a esta lista de correo"
+    mailing_list: Lista de correo
+    name: Nombre de la lista de correo
+    not_deleted: Error al eliminar la lista de correo {{name}}
+    not_valid: "La lista de correo no es v\xC3\xA1lido"
+    one: Lista de correo
+    other: Listas de correo
+    send_message: Enviar un mensaje a esta lista de correo
+    updated: La lista de correo {{name}} ha sido actualizada correctamente
+  groups_and_results: Listas de correo, {{size}} resultados
   hcard: 
     not_found: hCard no encontrada
   hello: Hola
@@ -1098,7 +1098,7 @@ es:
     one: Nombre
     other: Nombres
     prefix: "T\xC3\xADtulo"
-  new_source: Nuevo recurso
+  new_source: "Importar RSS/Atom"
   new_spam_detected: Nuevo spam detectado
   news: 
     created: Noticia publicada exitosamente
@@ -1487,7 +1487,7 @@ es:
       parse: No se pudo analizar el feed  {{uri}}
     imported_at: Importado en
     one: Recurso
-    other: Recursos
+    other: "RSS/Atom"
     target: Objetivo
     uri: URL
   space: 
@@ -1717,7 +1717,7 @@ es:
     id: ID de usuario
     include_registered: Incluir usuarios registrados
     included: 
-      other: Usuarios incluidos
+      other: Miembros de la lista
     invitation: 
       label: Personalice su mensaje
       message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendr\xC3\xA1 lugar el dia 'f3echa' en 'lugar'."
@@ -1761,7 +1761,7 @@ es:
     updated: El usuario se ha actualizado correctamente
     vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
     view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
-    without_group: Personas sin grupo
+    without_group: Personas sin lista de correo
   username: Nombre de usuario
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"

@@ -217,6 +217,7 @@ de:
     next: Next Step
     other_spaces: "Finden Sie andere R\xC3\xA4ume"
     post: Post
+    publish: "Ver\xC3\xB6ffentlichen"
     search: Search
     send: Senden
     sending: Sending...
@@ -1039,7 +1040,7 @@ de:
     one: Name
     other: Names
     prefix: Titel
-  new_source: Neue Quelle
+  new_source: "Import RSS/Atom"
   new_spam_detected: Neue Spam erkannt
   news: 
     created: "News Artikel ver\xC3\xB6ffentlicht erfolgreich"
@@ -1417,7 +1418,7 @@ de:
       parse: Konnte nicht analysiert werden Futtermittel {{uri}}
     imported_at: Importiert an
     one: Quelle
-    other: Quellen
+    other: "RSS/Atom"
     target: Ziel
     uri: URL
   space: 
@@ -1637,7 +1638,7 @@ de:
     id: User ID
     include_registered: Enthalten registrierte Benutzer
     included: 
-      other: Inbegriffen Nutzer
+      other: Mitglied der Liste
     invite: Personen einladen
     invite_email: Personen einladen per E-Mail
     invite_from_space_by_email: Lade Leute aus Ihrem Raum

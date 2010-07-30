@@ -1044,7 +1044,7 @@ fr:
     one: Nom
     other: Noms
     prefix: Titre
-  new_source: Nouvelle source
+  new_source: "Importer RSS/Atom"
   new_spam_detected: "nouveau spam d\xC3\xA9tect\xC3\xA9"
   news: 
     created: "Point Nouvelles publi\xC3\xA9 avec succ\xC3\xA8s"
@@ -1423,7 +1423,7 @@ fr:
       parse: Impossible d&#39;analyser l&#39;alimentation {{uri}}
     imported_at: "Import\xC3\xA9s au"
     one: Source
-    other: Sources
+    other: "RSS/Atom"
     target: Cible
     uri: URL
   space: 
@@ -1647,7 +1647,7 @@ fr:
     id: User ID
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
-      other: y compris les utilisateurs
+      other: Liste des membres
     invite: Inviter des personnes
     invite_email: Inviter par e-mail
     invite_from_space_by_email: "Inviter des personnes \xC3\xA0 partir de votre espace"

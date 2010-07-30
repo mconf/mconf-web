@@ -752,25 +752,25 @@ en:
     stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
   getting_started: Getting started!
   group: 
-    add_to_group: Add To Group
-    add_to_others: Add other Groups
-    create: Create new group
-    created: Group {{name}} created successfully
-    delete: Delete group
-    deleted: Group {{name}} deleted successfully
-    different: Other groups
-    edit: Edit group
+    add_to_group: Add to mailing list
+    add_to_others: Add other mailing lists
+    create: Create new mailing list
+    created: Mailing list {{name}} created successfully
+    delete: Delete mailing list
+    deleted: Mailing list {{name}} deleted successfully
+    different: Other mailing lists
+    edit: Edit mailing list
     existing: name has already been taken
-    join: Join this group
-    mailing_list: Group mailing list
-    name: Group name
-    not_deleted: Error deleting group {{name}}
-    not_valid: The group is not valid
-    one: Group
-    other: Groups
-    send_message: Send a message to this group
-    updated: Group {{name}} updated successfully
-  groups_and_results: Groups, {{size}} results
+    join: Join this mailing list
+    mailing_list: Mailing list
+    name: Mailing list name
+    not_deleted: Error deleting mailing list {{name}}
+    not_valid: The mailing list is not valid
+    one: Mailing list
+    other: Mailing lists
+    send_message: Send a message to this mailing list
+    updated: Mailing list {{name}} updated successfully
+  groups_and_results: Mailing lists, {{size}} results
   hcard: 
     not_found: hCard not found
   hello: Hello
@@ -1071,7 +1071,7 @@ en:
     one: Name
     other: Names
     prefix: Title
-  new_source: New source
+  new_source: "Import RSS/Atom"
   new_spam_detected: New spam detected
   news: 
     created: News item published successfully
@@ -1449,7 +1449,7 @@ en:
       parse: Could not parse feed {{uri}}
     imported_at: Imported at
     one: Source
-    other: Sources
+    other: "RSS/Atom"
     target: Target
     uri: URL
   space: 
@@ -1680,7 +1680,7 @@ en:
     id: User ID
     include_registered: Include registered users
     included: 
-      other: Included users
+      other: List members
     invite: Invite people
     invite_email: Invite people by email
     invite_from_space_by_email: Invite people from your space
@@ -1719,7 +1719,7 @@ en:
     updated: User updated successfully
     vcc_email: Global user e-mail {{dir}}
     view_expanded_posts: Show messages in wall with the expanded view by default
-    without_group: People without group
+    without_group: People without mailing list
   username: Username
   vCard: 
     corrupt: The vCard you sent is corrupted or is a non-supported version
