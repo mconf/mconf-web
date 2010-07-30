@@ -54,7 +54,6 @@ es:
           one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
           other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
   add: Agregar
-  add_document: "A\xC3\xB1adir nuevo documento"
   add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
   address: "Direcci\xC3\xB3n"
   admin: 
@@ -171,7 +170,7 @@ es:
   are_you_sure: "\xC2\xBFEst\xC3\xA1 seguro?"
   at: en
   attachment: 
-    add: Agregar archivo adjunto
+    add: Subir archivo adjunto
     attach: Adjunto
     created: Adjunto creado correctamente
     delete: Eliminar archivo adjunto
@@ -226,6 +225,8 @@ es:
     invite: "\xC2\xA1Invitar!"
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
+    post: Publicar
+    search: Buscar
     send: Enviar
     sending: Enviando...
     update: Actualizar
@@ -436,6 +437,7 @@ es:
   docs: Docs
   document: 
     add: "A\xC3\xB1adir nuevo documento"
+    upload: "Subir nuevo documento"
   done: "\xC2\xA1Hecho!"
   download: Descargar
   download_file: Descargar fichero
@@ -1067,6 +1069,7 @@ es:
     reserved: "La lista de correo {{systemMailingList}} est\xC3\xA1 reservada"
   manage: Administrar
   management: "gesti\xC3\xB3n"
+  mandatory_field: "Campo obligatorio"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n adecuada"
   message: 
     created: Mensaje enviado correctamente
@@ -1333,7 +1336,6 @@ es:
   reply_to_words: Responder a {{words}}
   report_spam: Denunciar spam
   repository: 
-    add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
     enable: "\xC2\xBFHabilitar repositorio de documentos?"
@@ -1534,7 +1536,7 @@ es:
     logo_selected: 
       close: Cerrar
       close_gallery: "Cerrar la galer\xC3\xADa"
-      default_message: "El logo del espacio ser\xC3\xA1 el siguiente:"
+      default_message: "Logo del espacio"
       enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
@@ -1616,7 +1618,7 @@ es:
   thank_you: Gracias
   the_string: la cadena de
   thread: 
-    add: Crear nuevo mensaje
+    add: Publicar mensaje en el muro
     comments: "{{children}} comentarios"
     compact_view: Cambiar a la vista compacta
     deleted: El mensaje (con sus comentarios) ha sido borrado
@@ -1703,6 +1705,7 @@ es:
       author: SIR
       title: Usuarios
     filter: Filtro de usuarios
+    first_name: Nombre
     found: 
       none: No se encontraron usuarios
       one: 1 usuario encontrado
@@ -1720,9 +1723,10 @@ es:
     invite_email: Invitar personas por e-mail
     invite_from_space_by_email: Invitar usuarios de su espacio
     invited: Usuarios ya invitados
+    last_name: Apellido
     list_by: Lista de
     login: Login
-    lost_password: "\xC2\xBFHa olvidado su contrase\xC3\xB1a?"
+    lost_password: "¿Contraseña olvidada?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Personas que no asistir\xC3\xA1n a este evento"
@@ -1764,6 +1768,7 @@ es:
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
+  vcc_registration: "Registro en Global Plaza"
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"

@@ -52,7 +52,6 @@ fr:
           one: "1 erreur interdit cette {{model}} d'\xC3\xAAtre sauv\xC3\xA9"
           other: "{{Count}} erreurs interdit cette ((mod\xC3\xA8le)) d&#39;\xC3\xAAtre sauv\xC3\xA9"
   add: Ajouter
-  add_document: Ajouter nouveau document
   add_more_details: "Ajouter plus de d\xC3\xA9tails"
   address: Adresse
   admin: 
@@ -165,7 +164,7 @@ fr:
   are_you_sure: "Etes-vous s\xC3\xBBr?"
   at: at
   attachment: 
-    add: "Ajouter une pi\xC3\xA8ce jointe"
+    add: "Envoyer une pi\xC3\xA8ce jointe"
     created: "Pi\xC3\xA8ce jointe cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
     delete: Supprimer l&#39;attachement
     deleted: "Pi\xC3\xA8ce jointe supprim\xC3\xA9 avec succ\xC3\xA8s"
@@ -217,6 +216,8 @@ fr:
     invite: Inviter!
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
+    post: Post
+    search: Search
     send: Envoyer
     sending: Sending...
     update: "Mettre \xC3\xA0 jour"
@@ -406,6 +407,7 @@ fr:
   docs: Docs
   document: 
     add: Ajouter nouveau document
+    upload: "Envoyer nouveau document"
   done: Fait!
   download: Download
   download_file: "T\xC3\xA9l\xC3\xA9charger le fichier"
@@ -1014,6 +1016,7 @@ fr:
     reserved: The mailing list {{systemMailingList}} is reserved
   manage: Manage
   management: gestion
+  mandatory_field: "Mandatory field"
   mark_checkbox: "Cochez la case appropri\xC3\xA9e"
   message: 
     created: "Message envoy\xC3\xA9 avec succ\xC3\xA8s"
@@ -1270,7 +1273,6 @@ fr:
   reply_to_words: "R\xC3\xA9pondre \xC3\xA0 {{words}}"
   report_spam: Signaler comme spam
   repository: 
-    add_document: Ajouter nouveau document
     add_tags: Ajouter des tags
     download: Download
     enable: Activer garde?
@@ -1465,7 +1467,7 @@ fr:
     logo_selected: 
       close: Fermer
       close_gallery: Fermer la galerie
-      default_message: "Le logo de l&#39;espace sera la suivante:"
+      default_message: "Le logo de l&#39;espace"
       enter_text: "Entrez un texte pour g\xC3\xA9n\xC3\xA9rer des logos:"
       generate_logo: Generate
       open_gallery: Ouvrez la galerie
@@ -1543,7 +1545,7 @@ fr:
   thank_you: Je vous remercie
   the_string: "la cha\xC3\xAEne"
   thread: 
-    add: "Cr\xC3\xA9er un nouveau message"
+    add: "Post message to wall"
     comments: "{{children}} commentaires"
     compact_view: Basculez en mode compact
     deleted: "Message (avec ses commentaires) a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9"
@@ -1633,6 +1635,7 @@ fr:
       author: SIR
       title: Utilisateurs
     filter: filtre de l'utilisateur
+    first_name: Prénom
     found: 
       none: "Aucun utilisateur trouv\xC3\xA9"
       one: 1 utilisateur trouve
@@ -1646,6 +1649,7 @@ fr:
     invite_email: Inviter par e-mail
     invite_from_space_by_email: "Inviter des personnes \xC3\xA0 partir de votre espace"
     invited: "Les utilisateurs d\xC3\xA9j\xC3\xA0 invit\xC3\xA9"
+    last_name: Nom
     list_by: Liste par
     login: Login
     lost_password: Avez-vous perdu votre mot de passe?
@@ -1688,6 +1692,7 @@ fr:
     use: Utilisez votre vCard
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
+  vcc_registration: "Global Plaza Registration"
   vcc_mail_label: "[VCC]"
   version: 
     new: Nouvelle version

@@ -1,19 +1,19 @@
-<div><label for="email"><%=t('user.email')%></label><br/>
+<div><label for="email"><%=t('user.email')%>*</label><br/>
 <%= f.text_field :email %></div>
 
 <% if f.object.needs_password? -%>
 
-<div><label for="password"><%=t('user.password')%></label><br/>
+<div><label for="password"><%=t('user.password')%>*</label><br/>
 <%= f.password_field :password %></div>
 
-<div><label for="password_confirmation"><%=t('user.confirm_password')%></label><br/>
+<div><label for="password_confirmation"><%=t('user.confirm_password')%>*</label><br/>
 	<%= f.password_field :password_confirmation%></div>
  
 <% end -%>
 
 <% if f.object.new_record? # User is not registered yet, generate login from full_name
 %>
-<div><label for="full_name"><%=t('user.full_name')%></label><br/>
+<div><label for="full_name"><%=t('user.full_name')%>*</label><br/>
 <%= f.text_field :_full_name %></div>
 <% else -%>
 <div><label for="login"><%=t('user.login')%></label><br/>
