@@ -217,6 +217,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     post: Post
+    publish: Publier
     search: Search
     send: Envoyer
     sending: Sending...
@@ -1031,6 +1032,7 @@ fr:
       editing: "Modification message priv\xC3\xA9"
       new: "Nouveau message priv\xC3\xA9"
       none: Il n&#39;ya pas de messages
+      send: "Envoyer un message priv\xC3\xA9"
     reply: "R\xC3\xA9pondre au message"
     send: Envoyer un message
     sent: 
@@ -1057,7 +1059,7 @@ fr:
     none_to_show: Pas de nouvelles pour montrer
     other: Nouvelles
     publish_another: Publier un autre point de nouvelles
-    publish_home: "Point nouvelles Publier \xC3\xA0 la maison"
+    publish_home: "Publier un point de nouvelles"
     updated: "Nouvelles mises \xC3\xA0 jour avec succ\xC3\xA8s article"
   next: Prochain
   no_messages_in_wall: Il n&#39;ya pas de messages dans le mur
@@ -1642,6 +1644,7 @@ fr:
       other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
       other: y compris les utilisateurs
@@ -1659,7 +1662,8 @@ fr:
     not_confirmed: "Non confirm\xC3\xA9"
     notifications: Comment voulez-vous de recevoir vos notifications?
     one: Utilisateur
-    openid: 
+    openid:
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Modifier votre OpenID
       one: OpenID
       other: OpenID
@@ -1690,6 +1694,7 @@ fr:
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
     use: Utilisez votre vCard
+    upload: "Charger votre vCard"
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
   vcc_registration: "Global Plaza Registration"

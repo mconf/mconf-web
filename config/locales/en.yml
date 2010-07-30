@@ -218,6 +218,7 @@ en:
     next: Next Step
     other_spaces: Find other spaces
     post: Post
+    publish: Publish
     search: Search
     send: Send
     sending: Sending...
@@ -1057,6 +1058,7 @@ en:
       cant: You cannot send private messages because you have no partners in any space
       editing: Editing private message
       new: New Private message
+      send: Send private message
       none: There are no messages
     reply: Reply to message
     send: Send Message
@@ -1084,7 +1086,7 @@ en:
     none_to_show: No news items to show
     other: News
     publish_another: Publish another news item
-    publish_home: Publish news item at home
+    publish_home: Publish news item
     updated: News item updated successfully
   next: Next
   no_messages_in_wall: There are no messages in the wall
@@ -1254,7 +1256,7 @@ en:
     created: Profile created successfully
     deleted: Profile deleted successfully
     description: 
-      add: Write something about you
+      add: "Short bio"
     error: 
       exist: Your profile already exists
     hcard: 
@@ -1675,6 +1677,7 @@ en:
       other: "{{size}} users were found"
     full_name: Full name
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: Include registered users
     included: 
       other: Included users
@@ -1692,7 +1695,8 @@ en:
     not_confirmed: Not confirmed
     notifications: How do you want to receive your notifications?
     one: User
-    openid: 
+    openid:
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Edit your OpenIDs
       one: OpenID
       other: OpenIDs
@@ -1723,6 +1727,7 @@ en:
     success: vCard successfully loaded
     use: Use your vCard
     export: Export your vCard
+    upload: Upload your vCard
   vcard: vCard
   vcc: Global Plaza Conferences
   vcc_mail_label: "[Global]"

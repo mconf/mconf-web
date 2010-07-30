@@ -1027,6 +1027,7 @@ de:
       editing: Bearbeiten von Private Nachricht
       new: Neue Private Nachricht
       none: Es gibt keine Nachrichten
+      send: Private Nachricht senden      
     reply: Auf Nachricht antworten
     send: Nachricht senden
     sent: 
@@ -1053,7 +1054,7 @@ de:
     none_to_show: Keine Nachrichten zu zeigen,
     other: Nachrichten
     publish_another: "Ver\xC3\xB6ffentlichen anderen Newsbeitrag"
-    publish_home: "Ver\xC3\xB6ffentlichen Newsbeitrag zu Hause"
+    publish_home: "Ver\xC3\xB6ffentlichen Newsbeitrag"
     updated: News Artikel erfolgreich aktualisiert
   next: "N\xC3\xA4chste"
   no_messages_in_wall: "Es sind keine Eintr\xC3\xA4ge in der Wand"
@@ -1633,6 +1634,7 @@ de:
       other: "{{size}} Benutzer gefunden"
     full_name: "Vollst\xC3\xA4ndiger Name"
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: Enthalten registrierte Benutzer
     included: 
       other: Inbegriffen Nutzer
@@ -1650,7 +1652,8 @@ de:
     not_confirmed: "Nicht best\xC3\xA4tigt"
     notifications: Wie wollen Sie Ihre Mitteilungen erhalten?
     one: Benutzer
-    openid: 
+    openid:
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Bearbeiten Sie Ihre OpenIDs
       one: OpenID
       other: OpenIDs
@@ -1681,6 +1684,7 @@ de:
     no_selection: Nr. vCard
     success: vCard erfolgreich geladen
     use: Verwenden Sie Ihre vCard
+    upload: Upload Ihre vCard
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"

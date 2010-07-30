@@ -8,11 +8,11 @@
     <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>
   </p>
   
-    <label for="text"><%= t('description') %>:</label><br/>
+    <label for="text"><%= t('body') %>:</label><br/>
     <%= f.text_area :text, :class => "small_news_text"%>
 
   <div class="margin-up">
-	<button type="submit" class="blue_button basic_button"><%=t('button.create')%></button>
+	<button type="submit" class="blue_button basic_button"><%=t('button.publish')%></button>
   </div>
 
 <% end %>

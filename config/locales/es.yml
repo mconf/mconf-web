@@ -226,6 +226,7 @@ es:
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
     post: Publicar
+    publish: Publicar
     search: Buscar
     send: Enviar
     sending: Enviando...
@@ -1084,6 +1085,7 @@ es:
       editing: Editar mensaje privado
       new: Nuevo mensaje privado
       none: No hay mensajes
+      send: Enviar mensaje privado
     reply: Responder mensaje
     send: Enviar mensaje
     sent: 
@@ -1114,7 +1116,7 @@ es:
     none_to_show: No hay noticias para mostrar
     other: Noticias
     publish_another: Publicar nueva noticia
-    publish_home: Publicar noticias en el inicio
+    publish_home: Publicar noticia
     updated: "Art\xC3\xADculo actualizado correctamente"
   next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
@@ -1289,7 +1291,7 @@ es:
     created: Perfil se ha creado correctamente.
     deleted: Perfil ha sido borrado exitosamente.
     description: 
-      add: Escriba algo sobre usted
+      add: "Descripción breve"
     error: 
       exist: Su perfil ya existe
     hcard: 
@@ -1712,6 +1714,7 @@ es:
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
     group_invite_email: Listas de correo a invitar
+    id: ID de usuario
     include_registered: Incluir usuarios registrados
     included: 
       other: Usuarios incluidos
@@ -1733,7 +1736,8 @@ es:
     not_confirmed: Personas que no han confirmado
     notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
-    openid: 
+    openid:
+      add_to_access: "Añada sus OpenIDs para acceder a GlobalPlaza"
       edit: Edite sus OpenID
       one: OpenID
       other: OpenIDs
@@ -1765,6 +1769,7 @@ es:
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
     use: Use su vCard
+    upload: Suba su vCard
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"

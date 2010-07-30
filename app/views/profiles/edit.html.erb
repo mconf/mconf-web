@@ -66,7 +66,7 @@
 			<% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
         <p><%= f.file_field :media, :id => 'logo_media' %></p>    
         <div class="margin-up">
-         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+         <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 			   <input type="button" value="<%=t('cancel')%>" class="close_pic basic_button blue_button"/>
 			 </div>
       <%end%> 
@@ -86,13 +86,13 @@
 	-->
 	  
 	  <div id="upload_vcard" style="display:none">
-			<h3><%=t("vCard.use")%></h3>
+			<h3><%=t("vCard.upload")%></h3>
 			<p class="sidebar_info2">Use your Vcard to automatically fill in your profile</p>
 		    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
 				<p><%= f.file_field 'vcard' %></p>
 		
 				<div class="margin-up">
-					<button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+					<button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 					<input type="button" value="<%=t('cancel')%>" class="close_vcard basic_button blue_button"/>
 				</div>
 			<% end %>
@@ -110,7 +110,7 @@
 
   <%= render :partial => 'form', :locals => { :f => f } %>
 <div class="profile_save_ch">
-  <button type="submit" class="basic_button blue_button"><%=t("save_ch")%></button>
+  <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 </div>
 <% end %>
 
