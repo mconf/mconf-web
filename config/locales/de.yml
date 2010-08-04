@@ -1582,6 +1582,11 @@ de:
   toke: 
     not_available: "Token nicht verf\xC3\xBCgbar"
   tomorrow: Morgen
+  tooltip: 
+    document_repository: "Ein Dokumenten-Repository erm\xC3\xB6glicht es Ihnen, alle Dateien, die auf den Raum hochgeladen wurden organisieren"
+    mailing_list: "Eine Mailing-Liste k\xC3\xB6nnen Sie per E-Mail-Nachrichten an Ihre Gruppe zu senden, anstelle von herauspicken die einzelnen Adressen jedes Mal"
+    public_space: "Collaborative R\xC3\xA4ume k\xC3\xB6nnen \xC3\xB6ffentlich sein, f\xC3\xBCr niemanden zu sehen, was in ihnen, oder privat, in denen Mitglieder haben nur Zugriff auf die Aktivit\xC3\xA4ten des Raumes"
+    update_logo: "Sie k\xC3\xB6nnen Ihre eigenen Logos, erstellen Sie ein Text-Logo oder w\xC3\xA4hlen Sie ein Bild aus der Galerie"
   topic: Thema
   translate: 
     availables: "Verf\xC3\xBCgbare \xC3\x9Cbersetzungen"

@@ -136,26 +136,33 @@ function cropImage (c){
 };
 
 
-	$('#space_new_form img.tooltip_public_space').qtip({
+ $('#space_new_form img.tooltip_public_space').qtip({
    content: '<%=t("tooltip.public_space")%>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle' // The name of the newly created custom style above
+   style: 'mystyle'
   });
 	
 	
-	 $('#space_new_form img.tooltip2').qtip({
-   content: 'A document repository allows you to organize all the files that have been uploaded to the space',
+ $('#space_new_form img.tooltip_document_repository').qtip({
+   content: '<%=t("tooltip.document_repository")%>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle' // The name of the newly created custom style above
+   style: 'mystyle'
   });
 	
-	 $('#space_new_form img.tooltip3').qtip({
-   content: 'A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time',
+ $('#space_new_form img.tooltip_mailing_list').qtip({
+   content: '<%=t("tooltip.mailing_list")%>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle' // The name of the newly created custom style above
+   style: 'mystyle'
+  });
+
+ $('#space_logo img.tooltip_update_logo').qtip({
+   content: '<%=t("tooltip.update_logo")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
   });
 	
 	<% end %>
@@ -207,12 +214,12 @@ function cropImage (c){
 			</div>
 			<div>
 		   	<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
-				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip2 icon",:style=>"cursor:pointer")%>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_document_repository icon",:style=>"cursor:pointer")%>
 			</div>
 			
 			<div id='check_mail' class="check_mail_blinking">
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
-				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip3 icon",:style=>"cursor:pointer")%>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_mailing_list icon",:style=>"cursor:pointer")%>
 			</div>
 			
 			<div id='mail_group' class="mail_group_blinking" style="display:none">
@@ -234,7 +241,6 @@ function cropImage (c){
 			<br>
 			
 
-			
 			<div id='default_text_logo' style="display:none">
 				
  	           <label for="logo_text" id= "space_logo_text_label">
@@ -287,10 +293,11 @@ function cropImage (c){
 	</div>
 </div>
 
+
 <% content_for :sidebar do %>
 <%if logged_in?%>
 <div id="space_logo" class="space_logo">
-    <h3><%=t('space.logo_selected.default_message') %></h3>
+    <h3><%=t('space.logo_selected.default_message') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer")%></h3>
     <div id = "selected_logo" style="padding-bottom:10px;">
         <center>
             <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>

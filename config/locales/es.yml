@@ -1660,6 +1660,11 @@ es:
   toke: 
     not_available: Token no disponible
   tomorrow: "Ma\xC3\xB1ana"
+  tooltip: 
+    document_repository: Un repositorio de documentos le permite organizar todos los archivos que se han subido al espacio
+    mailing_list: "Una lista de correo le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que enviar los mensajes individualmente"
+    public_space: "Espacios de colaboraci\xC3\xB3n pueden ser p\xC3\xBAblicos, en donde cualquier usuario puede ver que sucede en ellos, o privados en donde  s\xC3\xB3lo los miembros del espacio tienen acceso a las actividades del espacio"
+    update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galer\xC3\xADa"
   topic: Tema
   translate: 
     availables: Traducciones disponibles
