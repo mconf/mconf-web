@@ -408,7 +408,7 @@ fr:
   docs: Docs
   document: 
     add: Ajouter nouveau document
-    upload: "Envoyer nouveau document"
+    upload: Envoyer nouveau document
   done: Fait!
   download: Download
   download_file: "T\xC3\xA9l\xC3\xA9charger le fichier"
@@ -1017,7 +1017,7 @@ fr:
     reserved: The mailing list {{systemMailingList}} is reserved
   manage: Manage
   management: gestion
-  mandatory_field: "Mandatory field"
+  mandatory_field: Mandatory field
   mark_checkbox: "Cochez la case appropri\xC3\xA9e"
   message: 
     created: "Message envoy\xC3\xA9 avec succ\xC3\xA8s"
@@ -1044,7 +1044,7 @@ fr:
     one: Nom
     other: Noms
     prefix: Titre
-  new_source: "Importer RSS/Atom"
+  new_source: Importer RSS/Atom
   new_spam_detected: "nouveau spam d\xC3\xA9tect\xC3\xA9"
   news: 
     created: "Point Nouvelles publi\xC3\xA9 avec succ\xC3\xA8s"
@@ -1059,7 +1059,7 @@ fr:
     none_to_show: Pas de nouvelles pour montrer
     other: Nouvelles
     publish_another: Publier un autre point de nouvelles
-    publish_home: "Publier un point de nouvelles"
+    publish_home: Publier un point de nouvelles
     updated: "Nouvelles mises \xC3\xA0 jour avec succ\xC3\xA8s article"
   next: Prochain
   no_messages_in_wall: Il n&#39;ya pas de messages dans le mur
@@ -1261,6 +1261,7 @@ fr:
   register: 
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
+    confirmation: "Apr\xC3\xA8s enregistrement, vous recevrez une confirmation par email avec le lien pour activer votre compte"
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1423,7 +1424,7 @@ fr:
       parse: Impossible d&#39;analyser l&#39;alimentation {{uri}}
     imported_at: "Import\xC3\xA9s au"
     one: Source
-    other: "RSS/Atom"
+    other: RSS/Atom
     target: Cible
     uri: URL
   space: 
@@ -1469,7 +1470,7 @@ fr:
     logo_selected: 
       close: Fermer
       close_gallery: Fermer la galerie
-      default_message: "Le logo de l&#39;espace"
+      default_message: Le logo de l&#39;espace
       enter_text: "Entrez un texte pour g\xC3\xA9n\xC3\xA9rer des logos:"
       generate_logo: Generate
       open_gallery: Ouvrez la galerie
@@ -1547,7 +1548,7 @@ fr:
   thank_you: Je vous remercie
   the_string: "la cha\xC3\xAEne"
   thread: 
-    add: "Post message to wall"
+    add: Post message to wall
     comments: "{{children}} commentaires"
     compact_view: Basculez en mode compact
     deleted: "Message (avec ses commentaires) a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9"
@@ -1637,7 +1638,7 @@ fr:
       author: SIR
       title: Utilisateurs
     filter: filtre de l'utilisateur
-    first_name: Prénom
+    first_name: "Pr\xC3\xA9nom"
     found: 
       none: "Aucun utilisateur trouv\xC3\xA9"
       one: 1 utilisateur trouve
@@ -1662,7 +1663,7 @@ fr:
     not_confirmed: "Non confirm\xC3\xA9"
     notifications: Comment voulez-vous de recevoir vos notifications?
     one: Utilisateur
-    openid:
+    openid: 
       add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Modifier votre OpenID
       one: OpenID
@@ -1693,12 +1694,12 @@ fr:
     export: Export your vCard
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
+    upload: Charger votre vCard
     use: Utilisez votre vCard
-    upload: "Charger votre vCard"
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
-  vcc_registration: "Global Plaza Registration"
   vcc_mail_label: "[VCC]"
+  vcc_registration: Global Plaza Registration
   version: 
     new: Nouvelle version
     one: Version

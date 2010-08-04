@@ -438,7 +438,7 @@ es:
   docs: Docs
   document: 
     add: "A\xC3\xB1adir nuevo documento"
-    upload: "Subir nuevo documento"
+    upload: Subir nuevo documento
   done: "\xC2\xA1Hecho!"
   download: Descargar
   download_file: Descargar fichero
@@ -1070,7 +1070,7 @@ es:
     reserved: "La lista de correo {{systemMailingList}} est\xC3\xA1 reservada"
   manage: Administrar
   management: "gesti\xC3\xB3n"
-  mandatory_field: "Campo obligatorio"
+  mandatory_field: Campo obligatorio
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n adecuada"
   message: 
     created: Mensaje enviado correctamente
@@ -1098,7 +1098,7 @@ es:
     one: Nombre
     other: Nombres
     prefix: "T\xC3\xADtulo"
-  new_source: "Importar RSS/Atom"
+  new_source: Importar RSS/Atom
   new_spam_detected: Nuevo spam detectado
   news: 
     created: Noticia publicada exitosamente
@@ -1291,7 +1291,7 @@ es:
     created: Perfil se ha creado correctamente.
     deleted: Perfil ha sido borrado exitosamente.
     description: 
-      add: "Descripción breve"
+      add: "Descripci\xC3\xB3n breve"
     error: 
       exist: Su perfil ya existe
     hcard: 
@@ -1324,6 +1324,7 @@ es:
   register: 
     and_participate: Registrarse Para Participar
     and_participate_description: "Para participar Reg\xC3\xADstrate en la Red Social de Eventos."
+    confirmation: "Despu\xC3\xA9s de registrarse, recibir\xC3\xA1 un email de confirmaci\xC3\xB3n con el enlace para activar tu cuenta"
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
@@ -1487,7 +1488,7 @@ es:
       parse: No se pudo analizar el feed  {{uri}}
     imported_at: Importado en
     one: Recurso
-    other: "RSS/Atom"
+    other: RSS/Atom
     target: Objetivo
     uri: URL
   space: 
@@ -1538,7 +1539,7 @@ es:
     logo_selected: 
       close: Cerrar
       close_gallery: "Cerrar la galer\xC3\xADa"
-      default_message: "Logo del espacio"
+      default_message: Logo del espacio
       enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
@@ -1729,15 +1730,15 @@ es:
     last_name: Apellido
     list_by: Lista de
     login: Login
-    lost_password: "¿Contraseña olvidada?"
+    lost_password: "\xC2\xBFContrase\xC3\xB1a olvidada?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Personas que no asistir\xC3\xA1n a este evento"
     not_confirmed: Personas que no han confirmado
     notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
-    openid:
-      add_to_access: "Añada sus OpenIDs para acceder a GlobalPlaza"
+    openid: 
+      add_to_access: "A\xC3\xB1ada sus OpenIDs para acceder a GlobalPlaza"
       edit: Edite sus OpenID
       one: OpenID
       other: OpenIDs
@@ -1768,12 +1769,12 @@ es:
     export: Exporte su vCard
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
-    use: Use su vCard
     upload: Suba su vCard
+    use: Use su vCard
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
-  vcc_registration: "Registro en Global Plaza"
+  vcc_registration: Registro en Global Plaza
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"

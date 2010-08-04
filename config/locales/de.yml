@@ -406,7 +406,7 @@ de:
   docs: Docs
   document: 
     add: "Neues Dokument hinzuf\xC3\xBCgen"
-    upload: "Upload neues Dokument"
+    upload: Upload neues Dokument
   done: Fertig!
   download: Download
   download_file: Datei herunterladen
@@ -1013,7 +1013,7 @@ de:
     reserved: Die Mailingliste {{systemMailingList}} ist reserviert
   manage: Verwalten
   management: Verwaltung
-  mandatory_field: "Mandatory field"
+  mandatory_field: Mandatory field
   mark_checkbox: Markieren Sie die Checkbox geeignet
   message: 
     created: Nachricht erfolgreich gesendet
@@ -1028,7 +1028,7 @@ de:
       editing: Bearbeiten von Private Nachricht
       new: Neue Private Nachricht
       none: Es gibt keine Nachrichten
-      send: Private Nachricht senden      
+      send: Private Nachricht senden
     reply: Auf Nachricht antworten
     send: Nachricht senden
     sent: 
@@ -1040,7 +1040,7 @@ de:
     one: Name
     other: Names
     prefix: Titel
-  new_source: "Import RSS/Atom"
+  new_source: Import RSS/Atom
   new_spam_detected: Neue Spam erkannt
   news: 
     created: "News Artikel ver\xC3\xB6ffentlicht erfolgreich"
@@ -1257,6 +1257,7 @@ de:
   register: 
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
+    confirmation: "Nach der Registrierung erhalten Sie eine Best\xC3\xA4tigung per Email mit dem Link zur Aktivierung Ihres Kontos"
     one: Register
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin
@@ -1418,7 +1419,7 @@ de:
       parse: Konnte nicht analysiert werden Futtermittel {{uri}}
     imported_at: Importiert an
     one: Quelle
-    other: "RSS/Atom"
+    other: RSS/Atom
     target: Ziel
     uri: URL
   space: 
@@ -1464,7 +1465,7 @@ de:
     logo_selected: 
       close: "Schlie\xC3\x9Fen"
       close_gallery: "Schlie\xC3\x9Fen Sie die Galerie"
-      default_message: "Logo des Raumes"
+      default_message: Logo des Raumes
       enter_text: "Geben Sie einen Text, Logos generieren:"
       generate_logo: Generieren
       open_gallery: "\xC3\x96ffnen Sie die Galerie"
@@ -1542,7 +1543,7 @@ de:
   thank_you: Danke
   the_string: die Zeichenkette
   thread: 
-    add: "Post message to wall"
+    add: Post message to wall
     comments: "{{children}} Kommentare"
     compact_view: Switch to kompakte Ansicht
     deleted: Message (mit Kommentaren) wurde gestrichen
@@ -1653,7 +1654,7 @@ de:
     not_confirmed: "Nicht best\xC3\xA4tigt"
     notifications: Wie wollen Sie Ihre Mitteilungen erhalten?
     one: Benutzer
-    openid:
+    openid: 
       add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Bearbeiten Sie Ihre OpenIDs
       one: OpenID
@@ -1684,12 +1685,12 @@ de:
     export: Export your vCard
     no_selection: Nr. vCard
     success: vCard erfolgreich geladen
-    use: Verwenden Sie Ihre vCard
     upload: Upload Ihre vCard
+    use: Verwenden Sie Ihre vCard
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"
-  vcc_registration: "Global Plaza Registration"
+  vcc_registration: Global Plaza Registration
   version: 
     new: Neufassung
     one: Version

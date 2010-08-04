@@ -632,7 +632,7 @@ en:
       one: Event Video
       other: Videos of the event
       recorded: Recorded events
-      share: Share
+      share: Share  
     repository: 
       enabled: Enable document repository
       help: This repository shows the documents uploaded in the sessions of the event agenda
@@ -1290,6 +1290,7 @@ en:
     and_participate_description: Registration is needed if you wish to participate in the event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
+    confirmation: After registering you will receive an email confirmation with the link to activate your account    
   register_as_admin: Register as admin
   register_as_invited: Register as invited
   register_as_user: Register as user
