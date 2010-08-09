@@ -1586,6 +1586,8 @@ de:
     advanced_editor: "Dieser Editor erlaubt Ihnen: Quelltext html; \xC3\xA4ndern Sie die Schriftart, Schriftgr\xC3\xB6\xC3\x9Fe, Textfarbe und Ausrichtung des Textes; einf\xC3\xBCgen / bearbeiten \"-Links, Anh\xC3\xA4nge hinzuf\xC3\xBCgen und Tags"
     document_repository: "Ein Dokumenten-Repository erm\xC3\xB6glicht es Ihnen, alle Dateien, die auf den Raum hochgeladen wurden organisieren"
     mailing_list: "Eine Mailing-Liste k\xC3\xB6nnen Sie per E-Mail-Nachrichten an Ihre Gruppe zu senden, anstelle von herauspicken die einzelnen Adressen jedes Mal"
+    private_profile: "Diese Informationen sind nur f\xC3\xBCr die Menschen, die Sie w\xC3\xA4hlen, wenn Sie Ihr Profil bearbeiten"
+    public_profile: Jeder kann auf diese Informationen zugreifen
     public_space: "Collaborative R\xC3\xA4ume k\xC3\xB6nnen \xC3\xB6ffentlich sein, f\xC3\xBCr niemanden zu sehen, was in ihnen, oder privat, in denen Mitglieder haben nur Zugriff auf die Aktivit\xC3\xA4ten des Raumes"
     tag: "Tags sind Schl\xC3\xBCsselw\xC3\xB6rter oder Begriffe assoziieren mit Inhalten verwendet werden, um Informationen zu finden und filtern. Dr\xC3\xBCcken Sie die Eingabetaste, um jeden Tag zu best\xC3\xA4tigen."
     update_logo: "Sie k\xC3\xB6nnen Ihre eigenen Logos, erstellen Sie ein Text-Logo oder w\xC3\xA4hlen Sie ein Bild aus der Galerie"

@@ -1664,6 +1664,8 @@ es:
     advanced_editor: "Este editor te permite: ver el c\xC3\xB3digo fuente en html; cambiar el estilo de la fuente, tama\xC3\xB1o de fuente, color del texto y la alineaci\xC3\xB3n del texto; insertar / editar enlaces; a\xC3\xB1adir archivos adjuntos y etiquetas"
     document_repository: Un repositorio de documentos le permite organizar todos los archivos que se han subido al espacio
     mailing_list: "Una lista de correo le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que enviar los mensajes individualmente"
+    private_profile: "Esta informaci\xC3\xB3n es visible s\xC3\xB3lo para las personas que elija al editar su perfil"
+    public_profile: "Cualquier persona puede acceder a esta informaci\xC3\xB3n"
     public_space: "Espacios de colaboraci\xC3\xB3n pueden ser p\xC3\xBAblicos, en donde cualquier usuario puede ver que sucede en ellos, o privados en donde  s\xC3\xB3lo los miembros del espacio tienen acceso a las actividades del espacio"
     tag: "Las etiquetas son palabras claves o t\xC3\xA9rminos asociados a un contenido que son utilizados para buscar y filtrar informaci\xC3\xB3n. Presione enter para confirmar cada etiqueta."
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galer\xC3\xADa"

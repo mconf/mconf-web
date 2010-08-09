@@ -1625,6 +1625,8 @@ en:
   tooltip:
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
+    private_profile: This information is visible only to the people you choose when you edit your profile
+    public_profile: Anyone can access this information
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag. "    
