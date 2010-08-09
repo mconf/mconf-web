@@ -1600,6 +1600,7 @@ fr:
     public_space: "des espaces de collaboration peut \xC3\xAAtre public, pour tout le monde de regarder ce qui se passe en eux, ou priv\xC3\xA9s, o\xC3\xB9 seuls les membres ont acc\xC3\xA8s aux activit\xC3\xA9s de l'espace"
     tag: "Les tags sont des mots cl\xC3\xA9s ou termes associ\xC3\xA9s avec le contenu utilis\xC3\xA9 pour trouver et filtrer les informations. Appuyez sur Entr\xC3\xA9e pour confirmer chaque balise."
     update_logo: "Vous pouvez mettre \xC3\xA0 jour votre propre logo, cr\xC3\xA9er un logo texte ou s\xC3\xA9lectionner une image dans la galerie"
+    vcard: "vCard est un format de fichier standard pour les cartes de visite \xC3\xA9lectroniques."
   topic: Sujet
   translate: 
     availables: Traductions disponibles
@@ -1701,6 +1702,7 @@ fr:
   vCard: 
     corrupt: "Le vCard que vous avez envoy\xC3\xA9 est corrompu ou d'une version non prise en charge"
     export: Export your vCard
+    message: "Utilisez votre carte de visite \xC3\xA0 remplir automatiquement dans votre profil"
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
     upload: Charger votre vCard

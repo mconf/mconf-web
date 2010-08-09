@@ -1669,6 +1669,7 @@ es:
     public_space: "Espacios de colaboraci\xC3\xB3n pueden ser p\xC3\xBAblicos, en donde cualquier usuario puede ver que sucede en ellos, o privados en donde  s\xC3\xB3lo los miembros del espacio tienen acceso a las actividades del espacio"
     tag: "Las etiquetas son palabras claves o t\xC3\xA9rminos asociados a un contenido que son utilizados para buscar y filtrar informaci\xC3\xB3n. Presione enter para confirmar cada etiqueta."
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galer\xC3\xADa"
+    vcard: "vCard es un formato est\xC3\xA1ndar para el intercambio de tarjetas personales electr\xC3\xB3nicas. "
   topic: Tema
   translate: 
     availables: Traducciones disponibles
@@ -1776,6 +1777,7 @@ es:
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
     export: Exporte su vCard
+    message: "Use su tarjeta vCard para completar autom\xC3\xA1ticamente su perfil"
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
     upload: Suba su vCard

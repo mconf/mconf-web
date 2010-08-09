@@ -1631,6 +1631,7 @@ en:
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag. "    
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
+    vcard: "vCard is a file format standard for electronic business cards."
   topic: Topic
   translate: 
     availables: Available translations
@@ -1734,6 +1735,7 @@ en:
     no_selection: no vCard
     success: vCard successfully loaded
     use: Use your vCard
+    message: "Use your vCard to automatically fill in your profile"
     export: Export your vCard
     upload: Upload your vCard
   vcard: vCard
