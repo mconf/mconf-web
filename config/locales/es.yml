@@ -1668,7 +1668,9 @@ es:
     public_profile: "Cualquier persona puede acceder a esta informaci\xC3\xB3n"
     public_space: "Espacios de colaboraci\xC3\xB3n pueden ser p\xC3\xBAblicos, en donde cualquier usuario puede ver que sucede en ellos, o privados en donde  s\xC3\xB3lo los miembros del espacio tienen acceso a las actividades del espacio"
     tag: "Las etiquetas son palabras claves o t\xC3\xA9rminos asociados a un contenido que son utilizados para buscar y filtrar informaci\xC3\xB3n. Presione enter para confirmar cada etiqueta."
+    timezone: "Seleccionando su zona horaria no habr\xC3\xA1 malentendidos con gente de otros pa\xC3\xADses al crear sus eventos."
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galer\xC3\xADa"
+    user_id: Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte
     vcard: "vCard es un formato est\xC3\xA1ndar para el intercambio de tarjetas personales electr\xC3\xB3nicas. "
   topic: Tema
   translate: 

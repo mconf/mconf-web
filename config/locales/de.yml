@@ -1590,7 +1590,9 @@ de:
     public_profile: Jeder kann auf diese Informationen zugreifen
     public_space: "Collaborative R\xC3\xA4ume k\xC3\xB6nnen \xC3\xB6ffentlich sein, f\xC3\xBCr niemanden zu sehen, was in ihnen, oder privat, in denen Mitglieder haben nur Zugriff auf die Aktivit\xC3\xA4ten des Raumes"
     tag: "Tags sind Schl\xC3\xBCsselw\xC3\xB6rter oder Begriffe assoziieren mit Inhalten verwendet werden, um Informationen zu finden und filtern. Dr\xC3\xBCcken Sie die Eingabetaste, um jeden Tag zu best\xC3\xA4tigen."
+    timezone: "Mit der Auswahl Ihrer Zeitzone wird es keine Missverst\xC3\xA4ndnisse beim Erstellen Veranstaltungen mit Menschen aus anderen L\xC3\xA4ndern"
     update_logo: "Sie k\xC3\xB6nnen Ihre eigenen Logos, erstellen Sie ein Text-Logo oder w\xC3\xA4hlen Sie ein Bild aus der Galerie"
+    user_id: "Sie k\xC3\xB6nnen Ihre Benutzer als openID-ID, User-Chat und / oder Benutzungsgeb\xC3\xBChren Marte"
     vcard: "vCard ist ein Standard-Dateiformat f\xC3\xBCr elektronische Visitenkarten."
   topic: Thema
   translate: 

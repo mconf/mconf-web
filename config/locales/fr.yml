@@ -1599,7 +1599,9 @@ fr:
     public_profile: "N'importe qui peut acc\xC3\xA9der \xC3\xA0 cette information"
     public_space: "des espaces de collaboration peut \xC3\xAAtre public, pour tout le monde de regarder ce qui se passe en eux, ou priv\xC3\xA9s, o\xC3\xB9 seuls les membres ont acc\xC3\xA8s aux activit\xC3\xA9s de l'espace"
     tag: "Les tags sont des mots cl\xC3\xA9s ou termes associ\xC3\xA9s avec le contenu utilis\xC3\xA9 pour trouver et filtrer les informations. Appuyez sur Entr\xC3\xA9e pour confirmer chaque balise."
+    timezone: "En choisissant votre fuseau horaire, il y aura pas de malentendu lors de la cr\xC3\xA9ation d'\xC3\xA9v\xC3\xA9nements avec des gens d'autres pays"
     update_logo: "Vous pouvez mettre \xC3\xA0 jour votre propre logo, cr\xC3\xA9er un logo texte ou s\xC3\xA9lectionner une image dans la galerie"
+    user_id: Vous pouvez utiliser votre nom d'utilisateur comme OpenID, l'utilisateur chat et / ou l'utilisateur Marte
     vcard: "vCard est un format de fichier standard pour les cartes de visite \xC3\xA9lectroniques."
   topic: Sujet
   translate: 
