@@ -2,6 +2,15 @@
   <%= render :partial => 'search/form' %>
 <%end%>
 
+<% content_for :javascript do%>	  
+   $('#timezone img.tooltip_timezone').qtip({
+   content: '<%=t("tooltip.timezone")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+<% end %>
+
 <%= error_messages_for 'user' %>
 
 <div id="edit_account" class="blue_title"><h3><%= t('user.edit_account')%></h3></div>
@@ -42,7 +51,7 @@
 
 <% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
 
-<div id="timezone"><label for="timezone"><div id="help" title= "<%= h(t('information.info_timezone'))%>"></div><%=t('user.timezone')%></label><br/>
+<div id="timezone"><label for="timezone"><%=t('user.timezone')%><%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_timezone icon",:style=>"cursor:pointer")%></label><br/>
 <%= f.time_zone_select :timezone, nil, :include_blank => true%></div><br/>
 
 <div>
