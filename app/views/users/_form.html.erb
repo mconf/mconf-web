@@ -1,3 +1,12 @@
+<% content_for :javascript do%>	
+ $('#userid img.tooltip_user_id').qtip({
+   content: '<%=t("tooltip.user_id")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+<% end %>  
+
 <div><label for="email"><%=t('user.email')%>*</label><br/>
 <%= f.text_field :email %></div>
 
@@ -16,7 +25,7 @@
 <div><label for="full_name"><%=t('user.full_name')%>*</label><br/>
 <%= f.text_field :_full_name %></div>
 <% else -%>
-<div><label for="login"><%=t('user.id')%></label><br/>
+<div id="userid"><label for="login"><%=t('user.id')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%></label><br/>
 <%= f.text_field :login %></div>
 <% end -%>
 
