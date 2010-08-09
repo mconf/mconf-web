@@ -1595,6 +1595,7 @@ fr:
     document_repository: "Un r\xC3\xA9f\xC3\xA9rentiel de documents vous permet d'organiser tous les fichiers qui ont \xC3\xA9t\xC3\xA9 transf\xC3\xA9r\xC3\xA9s \xC3\xA0 l'espace"
     mailing_list: "Une liste de diffusion vous permettra d'envoyer des messages e-mail \xC3\xA0 votre groupe au lieu d'avoir \xC3\xA0 s\xC3\xA9lectionner individuellement les adresses \xC3\xA0 chaque fois"
     public_space: "des espaces de collaboration peut \xC3\xAAtre public, pour tout le monde de regarder ce qui se passe en eux, ou priv\xC3\xA9s, o\xC3\xB9 seuls les membres ont acc\xC3\xA8s aux activit\xC3\xA9s de l'espace"
+    tag: "Les tags sont des mots cl\xC3\xA9s ou termes associ\xC3\xA9s avec le contenu utilis\xC3\xA9 pour trouver et filtrer les informations. Appuyez sur Entr\xC3\xA9e pour confirmer chaque balise."
     update_logo: "Vous pouvez mettre \xC3\xA0 jour votre propre logo, cr\xC3\xA9er un logo texte ou s\xC3\xA9lectionner une image dans la galerie"
   topic: Sujet
   translate: 
