@@ -1602,6 +1602,7 @@ fr:
     tag: "Les tags sont des mots cl\xC3\xA9s ou termes associ\xC3\xA9s avec le contenu utilis\xC3\xA9 pour trouver et filtrer les informations. Appuyez sur Entr\xC3\xA9e pour confirmer chaque balise."
     timezone: "En choisissant votre fuseau horaire, il y aura pas de malentendu lors de la cr\xC3\xA9ation d'\xC3\xA9v\xC3\xA9nements avec des gens d'autres pays"
     update_logo: "Vous pouvez mettre \xC3\xA0 jour votre propre logo, cr\xC3\xA9er un logo texte ou s\xC3\xA9lectionner une image dans la galerie"
+    user_filter: "Vous pouvez filtrer les utilisateurs par leurs noms et surnoms. Commencez \xC3\xA0 taper!"
     user_id: Vous pouvez utiliser votre nom d'utilisateur comme OpenID, l'utilisateur chat et / ou l'utilisateur Marte
     vcard: "vCard est un format de fichier standard pour les cartes de visite \xC3\xA9lectroniques."
   topic: Sujet
