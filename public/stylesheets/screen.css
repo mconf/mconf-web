@@ -1844,3 +1844,4 @@ ul#browse_menu2 li:hover{background:#244974;}
 ul#browse_menu2 li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
 ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 /**/
+.tooltip_advanced_editor {float: right; margin-top: 0.75em;}

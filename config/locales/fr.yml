@@ -1592,6 +1592,7 @@ fr:
     not_available: Token pas disponible
   tomorrow: Demain
   tooltip: 
+    advanced_editor: "Cet \xC3\xA9diteur vous permet de: voir la source HTML, modifier le style de police, la taille, la couleur du texte et l'alignement du texte; ins\xC3\xA9rer / modifier des liens, ajouter des pi\xC3\xA8ces jointes et les \xC3\xA9tiquettes"
     document_repository: "Un r\xC3\xA9f\xC3\xA9rentiel de documents vous permet d'organiser tous les fichiers qui ont \xC3\xA9t\xC3\xA9 transf\xC3\xA9r\xC3\xA9s \xC3\xA0 l'espace"
     mailing_list: "Une liste de diffusion vous permettra d'envoyer des messages e-mail \xC3\xA0 votre groupe au lieu d'avoir \xC3\xA0 s\xC3\xA9lectionner individuellement les adresses \xC3\xA0 chaque fois"
     public_space: "des espaces de collaboration peut \xC3\xAAtre public, pour tout le monde de regarder ce qui se passe en eux, ou priv\xC3\xA9s, o\xC3\xB9 seuls les membres ont acc\xC3\xA8s aux activit\xC3\xA9s de l'espace"

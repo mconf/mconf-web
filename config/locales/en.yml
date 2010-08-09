@@ -1623,8 +1623,9 @@ en:
     not_available: Token not available
   tomorrow: Tomorrow
   tooltip:
-    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
+    advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
+    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag. "    
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"

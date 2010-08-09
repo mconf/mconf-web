@@ -22,6 +22,13 @@
         complete_opts: true
     }); 
   }); 
+  
+ $('#new_post img.tooltip_advanced_editor').qtip({
+   content: '<%=t("tooltip.advanced_editor")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
 <%end%>
 
 <div id="new_post">
@@ -70,9 +77,13 @@
 	
 	  <%# Footer %>
 	  <% if event.nil? && p_id.present?%>
+	  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_advanced_editor icon",:style=>"cursor:pointer")%>
 	    <%=link_to t('advanced_editor'), new_space_post_path(@space, :reply => post.id), :class => "big_new_reply extract_form"%>
+	     
 	  <%elsif event.nil?%>
+	   <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_advanced_editor icon",:style=>"cursor:pointer")%>	    
 	    <%=link_to  t('advanced_editor'), new_space_post_path(@space), :class => "big_new_thread_link extract_form margin-up" %>
+
 	  <%end%>
 		<button type="submit" class="basic_button blue_button"><%=t("button.post")%></button>
 		<% if event.nil? && p_id.present?%>
