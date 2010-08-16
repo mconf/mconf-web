@@ -1590,6 +1590,7 @@ es:
   start_now!: Inicie ahora!
   street: Calle
   subject: Tema
+  summary: Resumen
   support: 
     array: 
       last_word_connector: ", y"

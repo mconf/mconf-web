@@ -1518,6 +1518,7 @@ fr:
   stage_type: Stage de type
   street: Rue
   subject: Sujet
+  summary: Summary
   support: 
     array: 
       last_word_connector: ", Et"

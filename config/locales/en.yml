@@ -1552,6 +1552,7 @@ en:
   stage_type: Stage type
   street: Street
   subject: Subject
+  summary: Summary
   support: 
     array: 
       last_word_connector: ", and "

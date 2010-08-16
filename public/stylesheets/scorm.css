@@ -191,3 +191,6 @@ padding: 3px 8px;
 .blue {
 color: #244974;
 }
+
+.unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
+.main_text{color:#555;font-weight:normal;}

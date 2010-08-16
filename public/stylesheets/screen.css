@@ -845,7 +845,8 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 }
 
 #edit_private_profile .profile_visibility_gradient{margin-left:45px;padding-left:20px;padding-bottom:1px;background:url("../images/gradient.png") no-repeat left center;}
-.profile_save_ch{background:#E1EEF5;padding-top:1.5em;}
+.profile_save_ch{background:#E1EEF5;padding-top:1.5em;float:left;}
+
 
 #edit_profile_sidebar #update_logo,#edit_profile_sidebar #upload_vcard{
 	overflow:hidden;
@@ -1846,3 +1847,5 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 /**/
 .tooltip_advanced_editor {float: right; margin-top: 0.75em;}
 .tooltip_advanced_editor_news {float: right;}
+
+

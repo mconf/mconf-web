@@ -1513,6 +1513,7 @@ de:
   stage_type: Stage-Typ
   street: "Stra\xC3\x9Fe"
   subject: Gegenstand
+  summary: Summary
   support: 
     array: 
       last_word_connector: Und

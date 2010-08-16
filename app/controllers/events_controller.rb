@@ -443,9 +443,16 @@ class EventsController < ApplicationController
           zos.print IO.read(file.full_filename)
         end
       end   
-      #in the end we include the css for the html files
+      #in the end we include the css for the html files and the images
       zos.put_next_entry("scorm.css")
       zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
+      
+      zos.put_next_entry("bola_global_peque.png")
+      zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
+      
+      zos.put_next_entry("vcc-logo-transparente1.png")
+      zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
+      
     end    
     t.close
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
