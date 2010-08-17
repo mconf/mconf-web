@@ -52,8 +52,8 @@ class EventsController < ApplicationController
       format.xml  { render :xml => @events }
       format.atom
     end
-
   end
+
 
   # GET /events/1
   # GET /events/1.xml
@@ -78,8 +78,18 @@ class EventsController < ApplicationController
        format.ics {name = "agenda_" + @event.name + ".ics"
          send_data @event.to_ics, :filename => "#{name}"}
        format.pdf { 
-         name = "agenda_" + @event.name + ".pdf"
-         send_data @event.to_pdf, :filename => "#{name}"
+       
+         @event.to_pdf(params[:small_version])
+            
+         if params[:small_version] == "true"
+           name = "agenda_" + @event.permalink + "_small.pdf"
+         else
+           name = "agenda_" + @event.permalink + ".pdf"
+         end
+           
+         pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+         send_file pdf_path
+
        }
      end
 	else
@@ -111,9 +121,9 @@ class EventsController < ApplicationController
       end
     end
     
-     if params[:show_video]
+     if params[:show_video] || params[:format]=="zip"
       if @event.agenda.present?
-        @video_entries = @event.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
+        @video_entries = @event.videos
       else
         @video_entries = []
       end
@@ -141,15 +151,21 @@ class EventsController < ApplicationController
               send_data @event.to_ics, :filename => "#{name}"
            }
            format.pdf {
-           
-              @event.to_pdf
-              nombre = "agenda_" + @event.permalink + ".pdf"
-              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
-              send_file pdf_path
+              @event.to_pdf(params[:small_version])
               
-#              nombre = "agenda_" + @event.name + ".pdf"
-#              send_data @event.to_pdf, :filename => "#{nombre}"
-           }  
+              if params[:small_version] == "true"
+                name = "agenda_" + @event.permalink + "_small.pdf"
+              else
+                name = "agenda_" + @event.permalink + ".pdf"
+              end
+              
+              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{name}"
+              send_file pdf_path
+
+           }             
+           format.zip{  
+             create_and_send_zip_file_for_scorm             
+           }
     end
 	end
   end
@@ -396,7 +412,51 @@ class EventsController < ApplicationController
         #array of users of the space minus the users that has already been invited
         @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
       end
+  end
+  
+  
+  def create_and_send_zip_file_for_scorm
+    require 'zip/zip'
+    require 'zip/zipfilesystem'
+    if @video_entries.empty?
+      return
     end
+    #if there is no video_entries we don't generate the scorm and return 
+    #if needs_generate
+    
+    #delete the folder content
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+    #we create the folder to introduce all the files
+    FileUtils.mkdir_p("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+    
+    t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+    Zip::ZipOutputStream.open(t.path) do |zos|
+      @event.generate_scorm_manifest_in_zip(zos)
+      
+      @video_entries.each do |entry|
+        @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
+        #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
+        zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
+        zos.print @render        
+        entry.attachments.each do |file|
+          zos.put_next_entry(Event.remove_accents(file.filename))
+          zos.print IO.read(file.full_filename)
+        end
+      end   
+      #in the end we include the css for the html files and the images
+      zos.put_next_entry("scorm.css")
+      zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
+      
+      zos.put_next_entry("bola_global_peque.png")
+      zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
+      
+      zos.put_next_entry("vcc-logo-transparente1.png")
+      zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
+      
+    end    
+    t.close
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
+  end
 end
 
 

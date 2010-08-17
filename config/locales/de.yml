@@ -52,7 +52,6 @@ de:
           one: 1 Fehler verboten diesem {{model}} nicht gespeichert
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: "Hinzuf\xC3\xBCgen"
-  add_document: "Neues Dokument hinzuf\xC3\xBCgen"
   add_more_details: "Hinzuf\xC3\xBCgen weiterer Details"
   address: Adresse
   admin: 
@@ -142,6 +141,7 @@ de:
     title: "Agenda f\xC3\xBCr die Veranstaltung"
     update: Agenda wurde erfolgreich aktualisiert.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: "Passwort \xC3\xA4ndern"
@@ -164,7 +164,7 @@ de:
   are_you_sure: Sind Sie sicher?
   at: bei
   attachment: 
-    add: "Anhang hinzuf\xC3\xBCgen"
+    add: "Upload hinzuf\xC3\xBCgen"
     created: Attachment erfolgreich erstellt
     delete: Delete Attachment
     deleted: "Attachment erfolgreich gel\xC3\xB6scht"
@@ -205,7 +205,8 @@ de:
   bad_request: Bad Request
   beta: (BETA)
   body: "K\xC3\xB6rper"
-  button:
+  button: 
+    accept: Akzeptieren
     cancel: Abbrechen
     create: Schaffen
     creating: Creating...
@@ -215,6 +216,9 @@ de:
     invite: Einladen!
     next: Next Step
     other_spaces: "Finden Sie andere R\xC3\xA4ume"
+    post: Post
+    publish: "Ver\xC3\xB6ffentlichen"
+    search: Search
     send: Senden
     sending: Sending...
     update: Aktualisierung
@@ -235,8 +239,8 @@ de:
     edit_enabled: "Enable experimentellen Chat bei der n\xC3\xA4chsten Anmeldung"
     edit_question: "M\xC3\xB6chten Sie die Chat-Funktion aktivieren experimentelle?"
     please_login_message: Bitte einloggen / registrieren um teilzunehmen
-    reconnect_message: Reconnect
     reconnect_button_message: Click to reconnect
+    reconnect_message: Reconnect
   check_mail: "Bitte \xC3\xBCberpr\xC3\xBCfen Sie Ihre E-Mail"
   city: City
   click_here: Klicken Sie hier
@@ -298,7 +302,9 @@ de:
     - 
     - Jan
     - Feb
-    - Mär
+    - !binary |
+      TcOkcg==
+
     - Apr
     - Mai
     - Jun
@@ -326,7 +332,9 @@ de:
     - 
     - Januar
     - Februar
-    - März
+    - !binary |
+      TcOkcno=
+
     - April
     - Mai
     - Juni
@@ -398,6 +406,7 @@ de:
   docs: Docs
   document: 
     add: "Neues Dokument hinzuf\xC3\xBCgen"
+    upload: Upload neues Dokument
   done: Fertig!
   download: Download
   download_file: Datei herunterladen
@@ -450,6 +459,7 @@ de:
     agenda: 
       add_entry: "F\xC3\xBCgen Sie ein."
       download: Download PDF
+      download_small: Download small PDF
       no_entries: "Es gibt noch keine Eintr\xC3\xA4ge."
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht best\xC3\xA4tigt"
@@ -469,6 +479,7 @@ de:
       isabel: Isabel Server
       sip: SIP Proxy
       str: Streaming
+      wait: This info will be available during the event
       web: Teilnahme
     create: 
       info: 
@@ -597,8 +608,8 @@ de:
       one: Event Video
       other: Event Videos
       share: Anteil
-    repository:
-      enabled: "Enable Document Repository?"
+    repository: 
+      enabled: Enable Document Repository?
       help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
     search: Suche Termine ...
@@ -809,6 +820,8 @@ de:
   help_support: Hilfe &amp; Support
   help_title: 
     about_vcc: "\xC3\x9Cber Global Plaza"
+    configure_isabel: So konfigurieren Sie Ihren eigenen Server Isabel
+    connect_isabel: Wie die Verbindung zu Isabel
     create_VC: Erstellen eines virtuellen Kongresses
     create_VM: Erstellen eines virtuellen Treffen
     create_event: Erstellen eines Ereignisses
@@ -817,7 +830,11 @@ de:
     create_space: Erstellen eines Space
     create_user: Benutzer anlegen
     define_agenda: "Festlegen der Tagesordnung f\xC3\xBCr die Veranstaltung"
+    globalplaza: Globalplaza
     info: "Hier finden Sie Informationen \xC3\xBCber die Global Plaza"
+    info_isabel: "Hier finden Sie Informationen \xC3\xBCber das Tool Isabel"
+    install_isabel: Wie installiert man Isabel
+    isabel: Isabel (Videokonferenz-Tool)
     logging: Das Anmelden in Ihrem Konto
     new_doc: "Hinzuf\xC3\xBCgen eines neuen Dokuments"
     topics: Themen
@@ -996,6 +1013,7 @@ de:
     reserved: Die Mailingliste {{systemMailingList}} ist reserviert
   manage: Verwalten
   management: Verwaltung
+  mandatory_field: Mandatory field
   mark_checkbox: Markieren Sie die Checkbox geeignet
   message: 
     created: Nachricht erfolgreich gesendet
@@ -1010,6 +1028,7 @@ de:
       editing: Bearbeiten von Private Nachricht
       new: Neue Private Nachricht
       none: Es gibt keine Nachrichten
+      send: Private Nachricht senden
     reply: Auf Nachricht antworten
     send: Nachricht senden
     sent: 
@@ -1021,7 +1040,7 @@ de:
     one: Name
     other: Names
     prefix: Titel
-  new_source: Neue Quelle
+  new_source: Import RSS/Atom
   new_spam_detected: Neue Spam erkannt
   news: 
     created: "News Artikel ver\xC3\xB6ffentlicht erfolgreich"
@@ -1036,7 +1055,7 @@ de:
     none_to_show: Keine Nachrichten zu zeigen,
     other: Nachrichten
     publish_another: "Ver\xC3\xB6ffentlichen anderen Newsbeitrag"
-    publish_home: "Ver\xC3\xB6ffentlichen Newsbeitrag zu Hause"
+    publish_home: "Ver\xC3\xB6ffentlichen Newsbeitrag"
     updated: News Artikel erfolgreich aktualisiert
   next: "N\xC3\xA4chste"
   no_messages_in_wall: "Es sind keine Eintr\xC3\xA4ge in der Wand"
@@ -1140,14 +1159,14 @@ de:
       one: "L\xC3\xB6schen Performance"
       other: "L\xC3\xB6schen Vorstellungen"
     new: Neues Mitglied
-    notification:
+    notification: 
       estandar: "{{username}} has change your role in {{stage}} to {{role}}. "
       event: "{{username}} has change your role in event {{event}} to {{role}}. "
       space: "{{username}} has change your role in space {{space}} to {{role}}. "
       subject: 
         estandar: "{{username}} has change your role in {{stage}} "
         event: "{{username}} has change your role in event {{event}} "
-        space: "{{username}} has change your role in space {{space}} " 
+        space: "{{username}} has change your role in space {{space}} "
     one: Mitglied
     other: Mitglieder
     other_in: Mitglieder des {{stage}}
@@ -1238,6 +1257,7 @@ de:
   register: 
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
+    confirmation: "Nach der Registrierung erhalten Sie eine Best\xC3\xA4tigung per Email mit dem Link zur Aktivierung Ihres Kontos"
     one: Register
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin
@@ -1252,7 +1272,6 @@ de:
   reply_to_words: Antwort an {{words}}
   report_spam: Report spam
   repository: 
-    add_document: "Neues Dokument hinzuf\xC3\xBCgen"
     add_tags: "Tags hinzuf\xC3\xBCgen"
     download: Download
     enable: Enable Document Repository?
@@ -1299,11 +1318,19 @@ de:
   screencast: 
     button: Beobachten auf dem screencast
     help: "Brauchen Sie Hilfe? Beobachten Sie auf dem "
+    link1: Help creating events
+    link2: Help creating the agenda
+    link3: Help about different kinds of events
+    link4: Help inviting people
+    link5: Help about event information
     sidebar: 
       title: Screencasts
     title: screencast
     title1: Ereignis erstellen
-    title2: "Agenda für das Ereignis erstellen"
+    title2: "Agenda f\xC3\xBCr das Ereignis erstellen"
+    title3: Different kinds of events
+    title4: Inviting people
+    title5: Event Information
     video: 
       one: Screencast
   search: 
@@ -1392,7 +1419,7 @@ de:
       parse: Konnte nicht analysiert werden Futtermittel {{uri}}
     imported_at: Importiert an
     one: Quelle
-    other: Quellen
+    other: RSS/Atom
     target: Ziel
     uri: URL
   space: 
@@ -1420,12 +1447,12 @@ de:
     enabled: Space aktiviert erfolgreich
     error: 
       enabled: Space {{name}} ist bereits aktiviert
-    group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
-    group_invitation:
+    group_invitation: 
       button: Liste einladen
       message_title: Invite mailing lists to join your space
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} invites you to space {{space}}"
+    group_not_belong: "nicht den gleichen Raum wie die Gruppe angeh\xC3\xB6ren"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschlie\xC3\x9Fen an den Administrator dieser Raum in Ihrem lassen"
     join: Join this space
     join_invitation: 
@@ -1438,7 +1465,7 @@ de:
     logo_selected: 
       close: "Schlie\xC3\x9Fen"
       close_gallery: "Schlie\xC3\x9Fen Sie die Galerie"
-      default_message: "Das Logo des Raumes wird dies:"
+      default_message: Logo des Raumes
       enter_text: "Geben Sie einen Text, Logos generieren:"
       generate_logo: Generieren
       open_gallery: "\xC3\x96ffnen Sie die Galerie"
@@ -1461,7 +1488,7 @@ de:
       other: "\xC3\x96ffentliche R\xC3\xA4ume"
     recent: 
       other: "Aktuelle R\xC3\xA4ume"
-    recording:
+    recording: 
       one: Space video
       other: Space videos
     search: Suchen space ...
@@ -1486,6 +1513,7 @@ de:
   stage_type: Stage-Typ
   street: "Stra\xC3\x9Fe"
   subject: Gegenstand
+  summary: Summary
   support: 
     array: 
       last_word_connector: Und
@@ -1516,7 +1544,7 @@ de:
   thank_you: Danke
   the_string: die Zeichenkette
   thread: 
-    add: Neue Nachricht erstellen
+    add: Post message to wall
     comments: "{{children}} Kommentare"
     compact_view: Switch to kompakte Ansicht
     deleted: Message (mit Kommentaren) wurde gestrichen
@@ -1537,10 +1565,10 @@ de:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "von"
+    from: von
     pm: pm
     start: Start time
-    to: "bis"
+    to: bis
   timezone: 
     one: Zeitzone
     set_up: Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an
@@ -1555,6 +1583,20 @@ de:
   toke: 
     not_available: "Token nicht verf\xC3\xBCgbar"
   tomorrow: Morgen
+  tooltip: 
+    advanced_editor: "Dieser Editor erlaubt Ihnen: Quelltext html; \xC3\xA4ndern Sie die Schriftart, Schriftgr\xC3\xB6\xC3\x9Fe, Textfarbe und Ausrichtung des Textes; einf\xC3\xBCgen / bearbeiten \"-Links, Anh\xC3\xA4nge hinzuf\xC3\xBCgen und Tags"
+    document_repository: "Ein Dokumenten-Repository erm\xC3\xB6glicht es Ihnen, alle Dateien, die auf den Raum hochgeladen wurden organisieren"
+    mailing_list: "Eine Mailing-Liste k\xC3\xB6nnen Sie per E-Mail-Nachrichten an Ihre Gruppe zu senden, anstelle von herauspicken die einzelnen Adressen jedes Mal"
+    news_item: "Sie k\xC3\xB6nnen eine kurze Nachrichten ver\xC3\xB6ffentlichen zu Hause"
+    private_profile: "Diese Informationen sind nur f\xC3\xBCr die Menschen, die Sie w\xC3\xA4hlen, wenn Sie Ihr Profil bearbeiten"
+    public_profile: Jeder kann auf diese Informationen zugreifen
+    public_space: "Collaborative R\xC3\xA4ume k\xC3\xB6nnen \xC3\xB6ffentlich sein, f\xC3\xBCr niemanden zu sehen, was in ihnen, oder privat, in denen Mitglieder haben nur Zugriff auf die Aktivit\xC3\xA4ten des Raumes"
+    tag: "Tags sind Schl\xC3\xBCsselw\xC3\xB6rter oder Begriffe assoziieren mit Inhalten verwendet werden, um Informationen zu finden und filtern. Dr\xC3\xBCcken Sie die Eingabetaste, um jeden Tag zu best\xC3\xA4tigen."
+    timezone: "Mit der Auswahl Ihrer Zeitzone wird es keine Missverst\xC3\xA4ndnisse beim Erstellen Veranstaltungen mit Menschen aus anderen L\xC3\xA4ndern"
+    update_logo: "Sie k\xC3\xB6nnen Ihre eigenen Logos, erstellen Sie ein Text-Logo oder w\xC3\xA4hlen Sie ein Bild aus der Galerie"
+    user_filter: "Sie k\xC3\xB6nnen Nutzer durch ihre Namen oder Familiennamen zu filtern. Beginnen Sie!"
+    user_id: "Sie k\xC3\xB6nnen Ihre Benutzer als openID-ID, User-Chat und / oder Benutzungsgeb\xC3\xBChren Marte"
+    vcard: "vCard ist ein Standard-Dateiformat f\xC3\xBCr elektronische Visitenkarten."
   topic: Thema
   translate: 
     availables: "Verf\xC3\xBCgbare \xC3\x9Cbersetzungen"
@@ -1602,19 +1644,22 @@ de:
       author: SIR
       title: Benutzer
     filter: User-Filter
+    first_name: Vorname
     found: 
       none: Keine Benutzer gefunden
       one: 1 Benutzer gefunden
       other: "{{size}} Benutzer gefunden"
     full_name: "Vollst\xC3\xA4ndiger Name"
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: Enthalten registrierte Benutzer
     included: 
-      other: Inbegriffen Nutzer
+      other: Mitglied der Liste
     invite: Personen einladen
     invite_email: Personen einladen per E-Mail
     invite_from_space_by_email: Lade Leute aus Ihrem Raum
     invited: Benutzer bereits aufgefordert
+    last_name: Nachname
     list_by: Auflistung nach
     login: Login
     lost_password: Haben Sie Ihr Passwort vergessen?
@@ -1625,6 +1670,7 @@ de:
     notifications: Wie wollen Sie Ihre Mitteilungen erhalten?
     one: Benutzer
     openid: 
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Bearbeiten Sie Ihre OpenIDs
       one: OpenID
       other: OpenIDs
@@ -1651,12 +1697,16 @@ de:
   username: Benutzername
   vCard: 
     corrupt: "Die vCard Sie geschickt wird besch\xC3\xA4digt oder ist ein nicht-unterst\xC3\xBCtzte Version"
+    export: Export your vCard
+    message: "Verwenden Sie Ihre vCard automatisch in Ihrem Profil ausf\xC3\xBCllen"
     no_selection: Nr. vCard
     success: vCard erfolgreich geladen
+    upload: Upload Ihre vCard
     use: Verwenden Sie Ihre vCard
   vcard: vCard
   vcc: Virtual Conference Centre
   vcc_mail_label: "[VCC]"
+  vcc_registration: Global Plaza Registration
   version: 
     new: Neufassung
     one: Version

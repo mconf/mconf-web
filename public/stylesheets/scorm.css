@@ -1,0 +1,196 @@
+#content {
+clear: left;
+min-height: 400px;
+overflow: hidden;
+padding-top: 1em;
+position: relative;
+}
+
+#space, #content, #footer {
+display: block;
+margin: 0px auto;
+width: 960px;
+}
+
+#selector, #main {
+float: left;
+}
+#main {
+margin-bottom: 1.5em;
+margin-left: 15px;
+margin-right: 15px;
+width: 680px;
+}
+#space {
+background-color: #E1EEF5;
+}
+#header {
+height: 68px;
+padding-bottom: 1em;
+background-color: white;
+}
+
+#logo {
+float: right;
+margin-top: 10px;
+}
+
+#topic_title {
+	float: left;
+	margin-left: 150px;
+	width: 500px;
+	margin-top: 10px;
+}
+
+#topic_title span{
+	color: #244974;
+	font-size: 2em;
+	text-align: center;
+}
+
+#summary {
+float: left;
+margin-bottom: 1.5em;
+padding-right: 10px;
+width: 240px;
+color: #244974;
+}
+
+#sidebar {
+float: left;
+margin-bottom: 1.5em;
+padding-right: 10px;
+width: 240px;
+color: #244974;
+}
+
+.doc-attach {
+background: #F0F6F9;
+border: 1px solid #BDD8EB;
+clear: both;
+width: 240px;
+}
+
+.margin-up {
+margin-top: 0.75em;
+}
+
+.doc-attach-title {
+margin-bottom: 0.75em;
+background: #BDD8EB;
+border-bottom: 1px solid #A8C0D1;
+}
+
+.doc-attach-section {
+margin: 0px 0px 0.75em;
+}
+
+.doc-attach-section li.doc {
+margin-left: 6px;
+}
+
+li.doc {
+position: relative;
+}
+
+h3 {
+color: #244974;
+margin: 0px;
+padding: 3px 10px;
+font-size: 1.0833em;
+font-weight: bold;
+line-height: 1.3846;
+border: 0px;
+font-family: inherit;
+vertical-align: baseline;
+display: block;
+}
+
+ul {
+border: 0px;
+font-family: inherit;
+font-size: 100%;
+font-style: inherit;
+font-weight: inherit;
+margin: 0px;
+padding: 0px;
+vertical-align: baseline;
+-webkit-padding-start: 40px;
+display: block;
+}
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+border: 0px;
+font-family: inherit;
+font-size: 100%;
+font-style: inherit;
+font-weight: inherit;
+margin: 0px;
+padding: 0px;
+vertical-align: baseline;
+}
+
+div {
+display: block;
+}
+
+a {
+	text-decoration: none;
+	color: #244974;
+	text-align: center;
+}
+
+li {
+display: list-item;
+}
+
+.doc-attach ul {
+list-style-type: none;
+}
+
+a.box-link {
+background: none;
+display: block;
+height: 100%;
+left: -2px;
+position: absolute;
+text-indent: -9999em;
+top: -1px;
+width: 100%;
+}
+
+#wrapper {
+background-color: white;
+overflow: hidden;
+padding: 10px;
+}
+
+#recordings_title{
+cursor: pointer;
+}
+
+.video_full {
+margin-top: 3px;
+text-align: center;
+}
+
+embed[height=480] {
+height: 480px;
+}
+embed[width=640] {
+width: 640px;
+}
+
+#recordings_title h3 {
+background: #BDD8EB;
+border-top: 1px solid #A8C0D1;
+margin: 0px;
+padding: 3px 8px;
+}
+
+.blue {
+color: #244974;
+}
+
+.unified_user{color:#244974;font-weight:bold;font-size:13px;line-height:18px;}
+.main_text{color:#555;font-weight:normal;}

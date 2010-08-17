@@ -1,6 +1,6 @@
 <div id="login_div"  class="blue_title">
   <% if error_messages_for(:user).blank? %>
-    <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc')%></span></div>
+    <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc_registration')%></span></div>
   <% end %>
   <%= error_messages_for :user %>
 	<div class="form">
@@ -13,9 +13,11 @@
 			<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
 			
 			<div class="button">
-				<button type="submit" class="basic_button blue_button"><%=t("done")%></button>
+				<button type="submit" class="basic_button blue_button"><%=t("button.accept")%></button>
 				<span><%= link_to t('login'), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
 			</div>
+			* <%= t('mandatory_field')%><br>
+			<div><%= t('register.confirmation')%></div>
 		<% end -%>
 	</div>
 

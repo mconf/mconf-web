@@ -1,15 +1,47 @@
+<% content_for :javascript do  %>
+      $(".browse_select2").click(function(e) {
+        e.preventDefault();
+        $("#browse_select2 ul#browse_menu2").toggle();
+        $("#browse_select2 .browse_select2").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#browse_select2 a.browse_select2").length==0) {
+            $("#browse_select2 .browse_select2").removeClass("menu-open");
+            $("#browse_select2 ul#browse_menu2").hide();
+          }
+        });
+    });
+
+    $("#support_select2 ul#browse_menu2").mouseup(function() {
+        return false
+    });
+<% end %>
+
+
 <div id="agenda_full" class="margin-up">      
   <div id="agenda_title">
-      <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
-				<%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics), :class=>"group_links" %>
-      <!-- <%=image_tag("pdf.png",:size => "30x30", :class=>"jqueryToggle")%>	-->
-
-      	<h3 id="agenda_title_partial" class="blue">
-        <div><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-        <%=t('agenda.title')%> 
-        <span class="main_text"><%=@event.get_formatted_timezone%></span>
-      </h3>
+  	<ul class="group_links">
+  	  <li class="main_text"><%=@event.get_formatted_timezone%></li>
+			<li>
+				<div id="browse_select2">
+	        <%=link_to ("<span>" + t('event.agenda.download') + "</span>"),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
+	        <ul id="browse_menu2" style="display:none">
+	          <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false) %></li>
+			      <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>
+	        </ul>
+	      </div>
+	    </li>
+			<li>
+	     <%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics) %>
+			</li>
+    </ul>
+		
+  	<h3 id="agenda_title_partial" class="blue">
+	    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+	    <%=t('agenda.title')%> 
+    </h3>
   </div>
+	
   <div id="agenda_content">
     <%= render :partial => "agendas/edit" %>
   </div>

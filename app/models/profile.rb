@@ -204,7 +204,7 @@ class Profile < ActiveRecord::Base
       end
     end
   end
- 
+
   #this method is used to compose the vcard file (.vcf) with the profile of an user
   def to_vcard
     Vpim::Vcard::Maker.make2 do |maker|
@@ -216,11 +216,11 @@ class Profile < ActiveRecord::Base
       maker.add_addr do |vaddr|
         vaddr.preferred = true
         vaddr.location = 'home'
-        vaddr.street = address
-        vaddr.locality = city
-        vaddr.country = country
-        vaddr.postalcode = zipcode
-        vaddr.region = province
+        vaddr.street = (address || "")
+        vaddr.locality = (city || "")
+        vaddr.country = (country || "")
+        vaddr.postalcode = (zipcode || "")
+        vaddr.region = (province || "")
       end
 
       if phone.present?
@@ -254,9 +254,10 @@ class Profile < ActiveRecord::Base
 
       maker.add_email(user.email) { |e| e.location = 'work' }
 
-      maker.add_url(url)
+      maker.add_url((url  || ""))
     end
   end
+
 
   authorizing do |agent, permission|
     if self.user == agent

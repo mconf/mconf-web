@@ -150,8 +150,5 @@ module EventsHelper
       return result_array
     end
     
-    
-   
-   
-    
+ 
 end

@@ -70,7 +70,7 @@
 	<label class="bold blue"><%=t('the_string')%></label>
 	<%= text_field_tag 'query',(params[:query] ? params[:query] :  '' ), :id => 'search_text_field'%>
   <%=hidden_field_tag 'advanced', true%>
-  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
+  <button type="submit" class="blue_button basic_button"><%=t("button.search")%></button>
 	
 	<div id="advanced_params"></div>
 

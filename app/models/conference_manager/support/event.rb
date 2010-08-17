@@ -3,7 +3,13 @@ module ConferenceManager
     # This module provides support for Events organized by the ConferenceManger
     module Event
       
-      CM_ATTRIBUTES = ["name", "cm_mode", "web_interface", "isabel_interface", "sip_interface", "permalink"]
+      CM_ATTRIBUTES = ["name", "cm_mode", "web_interface", "isabel_interface", "sip_interface", "httplivestreaming_interface", "permalink"]
+      #in these arrays the number in kb is lower than in the comments because we pass the conference manager interface
+      #only the video bandwidth, and the total is about 50kb lower
+      WEB_BANDWIDTH = [100000, 200000, 400000] #equivalents: low (150K), medium (250K), high (450K)
+      WEB_CODEC = ["H264","H264","H263"] #equivalents: low (h.264), medium (h.264), high (sorenson)
+      RECORDING_BANDWIDTH = [0, 200000, 500000] #equivalents low (0) we don't use it, medium (250K), high (550K)
+      RECORDING_CODEC = ["H264","H264","H264"] #equivalents: low (H.264), medium (h.264), high (h.264)  
       
       class << self
         def included(base)
@@ -14,9 +20,16 @@ module ConferenceManager
                 cm_e =
                   ConferenceManager::Event.new(:name => event.name,
                                                :mode => event.cm_mode,
-                                               :enable_web => event.web_interface?,
-                                               :enable_isabel => event.isabel_interface?,
+                                               :enable_web => "1",
+                                               :enable_isabel => "1",
                                                :enable_sip => event.sip_interface?,
+                                               :enable_httplivestreaming => "1",
+                                               :isabel_bw => event.isabel_bw,
+                                               :web_bw => WEB_BANDWIDTH[event.web_bw],
+                                               :recording_bw => RECORDING_BANDWIDTH[event.recording_bw],
+                                               :httplivestreaming_bw => WEB_BANDWIDTH[event.web_bw],
+                                               :web_codec => WEB_CODEC[event.web_bw],
+                                               :recording_codec => RECORDING_CODEC[event.recording_bw],
                                                :path => "attachments/conferences/#{event.permalink}")
                 begin 
                   cm_e.save
@@ -34,6 +47,7 @@ module ConferenceManager
                                :enable_web => event.web_interface?,
                                :enable_isabel => event.isabel_interface?,
                                :enable_sip => event.sip_interface?,
+                               :enable_httplivestreaming => event.httplivestreaming_interface?,
                                :path => "attachments/conferences/#{event.permalink}" }
 
                 cm_event = event.cm_event
@@ -107,6 +121,10 @@ module ConferenceManager
       
       def isabel_url
         cm_event.try(:isabel_url) 
+      end
+      
+      def httplivestreaming_url
+        cm_event.try(:httplivestreaming_url) 
       end
 
       # Returns a String that contains a html with the video of the Isabel Web Gateway

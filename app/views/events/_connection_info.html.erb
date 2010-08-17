@@ -25,11 +25,15 @@
 		    	<h5><%= t('event.connection.web') %>:</h5>
 			    <span><%=link_to space_event_url(@space, @event, :show_participation=>true), space_event_url(@space, @event, :show_participation=>true)%></span>		
 			<%end%>
-			<%if @event.isabel_interface?%>		
-		    	<h5><%= t('event.connection.isabel') %>:</h5>
-			    <span><%=@event.isabel_url%></span>		
+			<%if @event.isabel_interface?%>	
+			  <h5><%= t('event.connection.isabel') %>:</h5>
+			  <%if @event.isabel_url=="isabel://"%>
+			    <span><%= t('event.connection.wait') %></span>
+			  <%else%>
+			    <span><%=@event.isabel_url%></span>
+			  <%end%>		
 			<%end%>
-			<%if @event.sip_interface?%>		
+			<%if @event.sip_interface?%>
 		    	<h5><%= t('event.connection.sip') %>:</h5>
 			    <span><%=@event.sip_url%></span>		
 			<%end%>

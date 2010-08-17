@@ -5,9 +5,9 @@ require 'iconv'
 module EventToPdf
   
   #Method to generate the agenda of the event in PDF.
-  def to_pdf
+  def to_pdf(small_version)
       
-    unless needsGenerate
+    unless needsGenerate(small_version)
       return
     end
        
@@ -26,17 +26,25 @@ module EventToPdf
 
     pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
 
-    #Parameters of the the table.  
-    @c1_width = 75
-    @c2_width = 135
-    @c3_width = 170
-    @c4_width = 360
-    
+    #Parameters of the the table.
+
+     if small_version == "true"
+       @c1_width = 147
+       @c2_width = 261
+       @c3_width = 332
+       @c4_width = 0
+     else
+       @c1_width = 75
+       @c2_width = 135
+       @c3_width = 170
+       @c4_width = 360 
+     end
+
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
     
-    i1 = "#{RAILS_ROOT}/public/images/cabeceraVCC_pdf.jpg"
-    i2 = "#{RAILS_ROOT}/public/images/vcc-logo_pdf.jpg"
+    i1 = "#{RAILS_ROOT}/public/images/pdf/vcc_cabecera_pdf_beta.jpg"
+    i2 = "#{RAILS_ROOT}/public/images/pdf/vcc_logo_pdf_beta.jpg"
     pdf.image i1, :justification => :right, :resize => 1
     pdf.image i2, :justification => :left, :resize => 0.7
     
@@ -57,6 +65,7 @@ module EventToPdf
       @entries_array = fragment_entries(@entries,i)
       
       heads = true
+      last_is_special = false;
       nPage =  -1
        
       @entries_array.each do |entries|
@@ -83,6 +92,8 @@ module EventToPdf
             
             unless isSpecialTitle(next_entry[0])
               
+              #Case: SpecialTitle(actual_entry) -> Table(next_entry)
+              
               #Return the quantity of rows that fits in the actual page of the document.
               nRows = getTableRows(pdf,actual_entry,next_entry,false)
               
@@ -99,8 +110,7 @@ module EventToPdf
                 end
   
                 @entries_array.insert(index_next_entry, entrie_fragment_a) 
-                @entries_array.insert(index_next_entry+1, entrie_fragment_b) 
-              
+                @entries_array.insert(index_next_entry+1, entrie_fragment_b)
                 
               end
               
@@ -109,6 +119,15 @@ module EventToPdf
             
           end      
           
+          if (last_is_special)
+            if pdf.current_page_number() == 1
+              pdf.y = pdf.y + 0
+            else
+             pdf.y = pdf.y + 2
+            end
+          end
+          
+          last_is_special = true
           write_special_title(pdf,@c1_width + @c2_width,@c3_width + @c4_width,entries[0],false)
           
         else
@@ -124,6 +143,11 @@ module EventToPdf
             nPage = pdf.current_page_number()
           end
           
+          if ((heads) && (last_is_special))
+            pdf.y = pdf.y - 3
+          end
+          
+          last_is_special = false
           generate_entrie_table(pdf,entries,nil,heads)
         
         end
@@ -132,10 +156,14 @@ module EventToPdf
       
     end     #All Day Ends. PDF finished.
     
+    if small_version == "true"
+      name = "agenda_" + permalink + "_small.pdf"
+    else
+      name = "agenda_" + permalink + ".pdf"
+    end  
     
-    nombre = "agenda_" + permalink + ".pdf"
     FileUtils.mkdir_p("#{RAILS_ROOT}/public/pdf/#{permalink}")
-    File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}", "wb") { |f| f.write pdf.render }
+    File.open("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}", "wb") { |f| f.write pdf.render }
     
     pdf.render
    
@@ -184,7 +212,7 @@ module EventToPdf
     
     headings = true
     bottom_space = pdf.y
-    margin_space = 25
+    margin_space = 0
     
     if isSpecialTitle(actual_entry)
       
@@ -236,39 +264,31 @@ module EventToPdf
     
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
-    title_width = pdf_test.text_line_width(text_to_iso("#{divider.title}"), 18)  
     
-    if hasHour    
-      f_rectangle = (title_width / 590)
-    else
-      f_rectangle = (title_width / 735)
-    end
-
-    if f_rectangle < 5
-      f_rectangle = f_rectangle.ceil
-    else
-      f_rectangle = f_rectangle + 1
-    end
+#    nLines = divider.title.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
+    lines_content = divider.title.split("<br/>");
+    
+    height_rectangle = 0
+    
+    lines_content.each do |l|
+      title_width = pdf_test.text_line_width(text_to_iso(l), 15)
       
-    case f_rectangle
-      when 0
-        f_rectangle = 1
-        h = 29
-      when 1
-        h = 29
-      when 2
-        h = 26
-      when 3
-        h = 24
-      when 4
-        h = 22
-    else
-        h = 22
-    end
+      if hasHour    
+        f_rectangle = (title_width / 590)
+      else
+        f_rectangle = (title_width / 735)
+      end
 
-    height_rectangle = h*f_rectangle
-    
-    return height_rectangle
+      f_rectangle = f_rectangle.ceil
+      h = 18
+
+      height_rectangle = height_rectangle + h*f_rectangle
+      
+    end
+   
+    h_margen = 5
+   
+    return height_rectangle + h_margen
   end
   
   
@@ -461,7 +481,7 @@ module EventToPdf
   #tab_title Title of the table. Nil if we want the table without title.
   #heading True to show the table heading.
   def generate_entrie_table(pdf,entries,tab_title,heading)
-  
+   
     @entries = entries
     
     PDF::SimpleTable.new do |tab|
@@ -487,7 +507,12 @@ module EventToPdf
     tab.shade_color = Color::RGB::Grey90
     tab.text_color = Color::RGB::Black
 
-    tab.column_order = ["col1","col2","col3","col4"]
+    if(@c4_width == 0)
+      #if small_version
+      tab.column_order = ["col1","col2","col3"]
+    else
+      tab.column_order = ["col1","col2","col3","col4"]
+    end   
     
     tab.columns["col1"] = PDF::SimpleTable::Column.new("col1") { 
       |col| 
@@ -521,9 +546,15 @@ module EventToPdf
     
       @entries.each do |entrie|
       
-        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s() 
-        add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description)       
- 
+        hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
+        
+        if(@c4_width == 0)
+          #if small_version
+          add_row_without_description(tab,data,hour,entrie.title,entrie.speakers)
+        else
+          add_row(tab,data,hour,entrie.title,entrie.speakers,entrie.description) 
+        end
+
       end
     
       tab.render_on(pdf)
@@ -542,6 +573,12 @@ module EventToPdf
     tab.data.replace data      
   end
   
+  def add_row_without_description(tab,data,hour,title,speakers)       
+    data << { "col1" => text_to_iso("#{hour}"), "col2" => text_to_iso("#{title}"), 
+    "col3" => text_to_iso("#{speakers}") }
+    tab.data.replace data      
+  end
+  
   def text_to_iso(text)
     c = Iconv.new('ISO-8859-15//IGNORE//TRNSLIT', 'UTF-8')
     c.iconv(text)
@@ -551,7 +588,7 @@ module EventToPdf
   #Write the event title. Decrement font-size in function of the title's lenght.
   def write_event_title(pdf,event_name)
    
-    pdf.text " ", :font_size => 12
+    pdf.text " ", :font_size => 6
     
     #If the lenght is in the range (function_lenght_min,function_lenght_max), applying a function 
     #to decrement one font-size point every "function_scale" letters added.
@@ -577,7 +614,7 @@ module EventToPdf
     pdf.text text_to_iso(event_name), :font_size => font_size_event_title, :justification => :center
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
    
-    pdf.text " ", :font_size => 30
+    pdf.text " ", :font_size => 25
 
   end
 
@@ -586,7 +623,7 @@ module EventToPdf
   def write_special_title(pdf,width_hour,width_title,divider,hasHour)
       
     vccColor = Color::RGB.new(36, 73, 116)
-    pdf.text " ", :font_size => 3
+#    pdf.text " ", :font_size => 3
     pdf.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )
 
     x = pdf.absolute_left_margin+20    
@@ -600,7 +637,12 @@ module EventToPdf
     if height_rectangle > (bottom_space - margin_space)
       pdf.start_new_page
     end
-
+  
+    #First page.
+    if pdf.current_page_number() == 1
+      pdf.y = pdf.y + 1
+    end
+    
     pdf.y = pdf.y - 3
     last_y = pdf.y
 
@@ -628,25 +670,50 @@ module EventToPdf
       pdf.margins_pt(25, 55, 25, 55)
     end
 
-    pdf.text text_to_iso("#{divider.title}"), :font_size => 18, :justification => :center
+    pdf.text text_to_iso("#{divider.title}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
     pdf.margins_pt(25, 30, 25, 30)
-    pdf.y = last_y - height_rectangle - 1
+    
+    
+    if pdf.current_page_number() == 1
+      margin_bottom = 2
+    else
+      margin_bottom = 1
+    end  
+    
+    
+    pdf.y = last_y - height_rectangle + margin_bottom
     pdf.fill_color!  Color::RGB::Black
-    pdf.text " ", :font_size => 3 
+#    pdf.text " ", :font_size => 3 
 
   end
 
   #Check if the agenda needs to be generate.
-  def needsGenerate   
-    nombre = "agenda_" + permalink + ".pdf"
-    isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{nombre}")
+  def needsGenerate(small_version)
+    
+    if small_version == "true"
+      
+      name = "agenda_" + permalink + "_small.pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}")
   
-    if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
-      update_attribute(:generate_pdf_at, Time.now)
-      return true;
+      if !(isFile) or !(generate_pdf_small_at) or generate_pdf_small_at < agenda.updated_at
+        update_attribute(:generate_pdf_small_at, Time.now)
+        return true;
+      end
+      
+    else
+       
+      name = "agenda_" + permalink + ".pdf"
+      isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}")
+  
+      if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
+        update_attribute(:generate_pdf_at, Time.now)
+        return true;
+      end
+  
     end
 
     return false;
+    
   end
 
 end

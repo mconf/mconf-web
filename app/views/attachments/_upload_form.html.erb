@@ -1,10 +1,20 @@
-<%if attachment.authorize?(:create,:to => current_user)%>
+<script type="text/javascript">
+ $('#doc_action img.tooltip_upload_doc').livequery(function(){
+   $(this).qtip({
+    content: '<%=t("tooltip.tag")%>',
+    show:  'mouseover',
+    hide: { when: 'mouseout', fixed: true },
+    style: 'mystyle'
+    });
+  });
+</script>
 
+<%if attachment.authorize?(:create,:to => current_user)%>
 <div id="doc_action">	
 	
 	<div id="add_new_doc">	
 	
-	<h3 class="blue"><%=t("add_document")%></h3>
+	<h3 class="blue"><%=t("document.upload")%></h3>
 		<%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
 		<div class="new_doc_content">
 		  <div id="cabinet">
@@ -12,7 +22,7 @@
 		  </div>
 		</div>
 		<div class="new_doc_content">
-		  <span class="bold"><%=t('tag.new')%></span>		 
+		  <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>		 
 		  <div id=tags>
 		  	<%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
 		  </div>

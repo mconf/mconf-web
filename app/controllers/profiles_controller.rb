@@ -28,7 +28,6 @@ class ProfilesController < ApplicationController
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
   def show
-    
     respond_to do |format|
       format.html { redirect_to user_path(@user)}
       format.xml { render :xml => @profile }

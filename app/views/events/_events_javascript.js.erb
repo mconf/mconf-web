@@ -246,7 +246,16 @@ $("a.repository_sidebar_action").livequery("click",function(){
     
   });
 
+
+  //Upload attachments
+  $(".upload_attachment").livequery('click', function(){
+    $(".agenda_edit_entry").empty();
+	$(".agenda_edit_hours_entry").empty();
+    $(".agenda_new_entry").empty();
+	$(".newAttachment").empty();
 	
+    $.getScript("<%=new_space_attachment_path(@space)%>" + "?agenda_entry_id=" +  $(this).attr('id'));
+  }); 
 	
   // Edit agenda entry view
 	
@@ -357,6 +366,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
       newel: true,
       complete_opts: true
   }); 
+  
 }); 
   
   <%if @event.days > 1%>

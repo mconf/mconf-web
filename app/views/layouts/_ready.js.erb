@@ -89,14 +89,16 @@ $("a.join_and_register_link").livequery("click", function(){
  * Log in
  */
 
-$("a.login_link").fancybox({
-  'hideOnContentClick' : false
-});
+/*$("a.login_link").fancybox({
+*  'hideOnContentClick' : false
+*});
+*/
 
-$("a.register_link").fancybox({
-  'hideOnContentClick' : false,
-  'frameHeight' :450
-});
+/*$("a.register_link").fancybox({
+*  'hideOnContentClick' : false,
+*  'frameHeight' :450
+*});
+*/
 
 openid = function(){
   $(".openid_form").show();
@@ -121,12 +123,13 @@ $("a.login_lightbox_link").livequery("click", function(){
 /*
  * Send Feedback
  */
- 
-$("a#feedback_link").fancybox({
-  'hideOnContentClick' : false,
-	'frameWidth' : 450,
-  'frameHeight' : <%=logged_in? ? '430' : '470'%>
-});
+ /*
+  * $("a#feedback_link").fancybox({
+  *  'hideOnContentClick' : false,
+  *	 'frameWidth' : 450,
+  *    'frameHeight' : <%=logged_in? ? '430' : '470'%>
+  *  });
+  */
 
 /*
  * Select language
@@ -191,13 +194,16 @@ $("a#feedback_link").fancybox({
         return false
     });
 
+
  /*
  * Report Spam
  */
- 
-$("a.spam_link").fancybox({
-  'hideOnContentClick' : false
-});
+/* 
+*$("a.spam_link").fancybox({
+*  'hideOnContentClick' : false
+*});
+*/
+
 
 /*
 * Login for frontpage and help
@@ -212,3 +218,22 @@ $("a.spam_link").fancybox({
     $(".div_login_openid").hide();
     $(".div_login").show();
   };
+
+	 /*
+  Qtip style for the tooltips
+  */
+  
+  $.fn.qtip.styles.mystyle = { // Last part is the name of the style
+      width: 350,
+      padding: 5,
+      background: '#f0f6f9',
+      color: '#222',
+      textAlign: 'center',
+      border: {
+         width: 7,
+         radius: 5,
+         color: '#244974'
+   },
+   tip: 'topLeft',
+   name: 'dark' // Inherit the rest of the attributes from the preset dark style
+    }

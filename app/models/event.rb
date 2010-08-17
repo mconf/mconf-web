@@ -211,6 +211,11 @@ class Event < ActiveRecord::Base
   end
   
   
+  def videos
+    self.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
+  end
+  
+  
   def space
     space_id.present? ?
       Space.find_with_disabled(space_id) :
@@ -389,6 +394,80 @@ class Event < ActiveRecord::Base
     if permission == :read && agent.is_a?(XmppServer)
       true
     end
+  end
+
+#method to generate the xml representing the scorm manifest
+   def generate_scorm_manifest_in_zip(zos)
+     video_entries = self.videos
+     myxml = Builder::XmlMarkup.new(:indent => 2)
+     myxml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
+     myxml.manifest('xsi:schemaLocation'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd", 'identifier'=>"MANIFEST-A2F3004F6186AC9480285D4AEDCD6BAF", 'xmlns:adlcp'=>"http://www.adlnet.org/xsd/adlcp_rootv1p2", 'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", 'xmlns:imsmd'=>"http://www.imsglobal.org/xsd/imsmd_rootv1p2p1", 'xmlns'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2") do
+       myxml.organizations('default'=>Event.identifier_for("ITEM" + video_entries[0].title)) do         
+         video_entries.each do |entry|
+           myxml.organization('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'structure'=>"hierarchical") do
+             myxml.title(Event.remove_accents(entry.title))             
+             myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
+               myxml.title("Video")
+             end
+             entry.attachments.each  do |at|
+                myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(at.filename)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'isvisible'=>"true") do
+                  myxml.title("Documentos")
+                end
+             end
+           end
+         end
+       end
+       myxml.resources do
+         video_entries.each do |entry|
+           myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'type'=>"text/html", 'href'=>Event.remove_accents(entry.title) + ".html", 'adlcp:scormtype'=>"sco") do
+             myxml.file('href'=> Event.remove_accents(entry.title) + ".html")
+           end
+           entry.attachments.each  do |at|
+             myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'type'=>"webcontent", 'href'=>Event.remove_accents(at.filename)) do
+               myxml.file('href'=>Event.remove_accents(at.filename))
+             end
+           end
+         end     
+         myxml.resource('identifier'=>Event.identifier_for("RES" + "-scorm.css"), 'type'=>"text/css", 'href'=>"scorm.css", 'adlcp:scormtype'=>"sco") do
+             myxml.file('href'=> "scorm.css")
+         end
+       end       
+     end     
+     zos.put_next_entry("imsmanifest.xml")
+     zos.print myxml.target!()
+     #File.open("#{RAILS_ROOT}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
+ end
+ 
+ 
+   def self.identifier_for(title)
+     Base64.b64encode(title).chomp.gsub(/\n/,'')     
+   end
+
+
+  def self.remove_accents(str)    
+    accents = { 
+      ['á','à','â','ä','ã'] => 'a',
+      ['Ã','Ä','Â','À'] => 'A',
+      ['é','è','ê','ë'] => 'e',
+      ['Ë','É','È','Ê'] => 'E',
+      ['í','ì','î','ï'] => 'i',
+      ['Î','Ì'] => 'I',
+      ['ó','ò','ô','ö','õ'] => 'o',
+      ['Õ','Ö','Ô','Ò','Ó'] => 'O',
+      ['ú','ù','û','ü'] => 'u',
+      ['Ú','Û','Ù','Ü'] => 'U',
+      ['ç'] => 'c', ['Ç'] => 'C',
+      ['ñ'] => 'n', ['Ñ'] => 'N'
+      }
+    accents.each do |ac,rep|
+      ac.each do |s|
+      str = str.gsub(s, rep)
+      end
+    end
+    str = str.gsub(/[^a-zA-Z0-9\. ]/,"")    
+    str = str.gsub(/[ ]+/," ")
+    str = str.gsub(/ /,"-")    
+    #str = str.downcase
   end
 
   include ConferenceManager::Support::Event

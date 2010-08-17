@@ -1,6 +1,23 @@
+<% content_for :javascript do %>
+
+ $('#news_sidebar img.tooltip_news_item').qtip({
+   content: '<%=t("tooltip.news_item")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  }); 
+  
+ $('#news_sidebar img.tooltip_advanced_editor_news').qtip({
+   content: '<%=t("tooltip.advanced_editor")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  }); 
+<%end%>  
+
 <div id="news_sidebar">
 
-<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title => t('show_advanced_editor')),  new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %><%= t('news.publish_home') %></h3>
+<h3><%= t('news.publish_home') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_news_item icon",:style=>"cursor:pointer")%></h3>
 
 <% form_for(News.new, :url => space_news_index_path(@space)) do |f| %>
   
@@ -8,12 +25,15 @@
     <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>
   </p>
   
-    <label for="text"><%= t('description') %>:</label><br/>
+    <label for="text"><%= t('body') %>:</label><br/>
     <%= f.text_area :text, :class => "small_news_text"%>
 
   <div class="margin-up">
-	<button type="submit" class="blue_button basic_button"><%=t('button.create')%></button>
+	<button type="submit" class="blue_button basic_button"><%=t('button.publish')%></button>
   </div>
+
+  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_advanced_editor_news icon",:style=>"cursor:pointer")%>	    
+  <%=link_to  t('advanced_editor'), new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %>
 
 <% end %>
 

@@ -34,10 +34,16 @@
 	  
     </div>
 
-	
-	<div id="leave_space">
-    <%= link_to t('screencast.button'), screencasts_path(:show=>1), :target=>'_blank' %>
+    <div id="assistance_info">
+      <div id="assistance_title">
+        <h3><%=t("tips")%></h3>
+      </div>
+      <div class="tips">
+        <%=image_tag("icons/date-add.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link1'), screencasts_path(:show=>1), :target=>'_blank' %><br/>
+        <%=image_tag("icons/help.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link3'), screencasts_path(:show=>3), :target=>'_blank' %>
+      </div>
     </div>
+
 <%end%>
 
 <% content_for :javascript do %>

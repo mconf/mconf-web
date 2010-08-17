@@ -52,7 +52,6 @@ en:
           one: 1 error prohibited this {{model}} from being saved
           other: "{{count}} errors prohibited this {{model}} from being saved"
   add: Add
-  add_document: Add new document
   add_more_details: Add more details
   address: Address
   admin: 
@@ -143,6 +142,7 @@ en:
     title: Agenda for the event
     update: Agenda was successfully updated.
     upload: Upload Agenda
+    upload_file: Upload File
   agent: 
     authentication: 
       change_password: Change Password
@@ -165,7 +165,7 @@ en:
   are_you_sure: Are you sure?
   at: at
   attachment: 
-    add: Add attachment
+    add: Upload attachment
     created: Attachment created successfully
     delete: Delete attachment
     deleted: Attachment successfully deleted
@@ -207,6 +207,7 @@ en:
   beta: (BETA)
   body: Body
   button:
+    accept: Accept
     cancel: Cancel
     create: Create
     creating: Creating...
@@ -216,6 +217,9 @@ en:
     invite: Invite!
     next: Next Step
     other_spaces: Find other spaces
+    post: Post
+    publish: Publish
+    search: Search
     send: Send
     sending: Sending...
     update: Update
@@ -399,6 +403,7 @@ en:
   docs: Docs
   document: 
     add: Add new document
+    upload: Upload new document
   done: Done!
   download: Download
   download_file: Download file
@@ -451,6 +456,7 @@ en:
     agenda: 
       add_entry: Add one.
       download: Download PDF
+      download_small: Download small PDF
       no_entries: There are no entries yet.
       see: See on agenda
     assistance_title: Participation
@@ -472,6 +478,7 @@ en:
       sip: Proxy SIP
       str: Streaming
       web: Participation
+      wait: This info will be available during the event
     create: 
       info: 
         basic: Here you can organize three kind of events
@@ -495,9 +502,12 @@ en:
     embed: Embed
     enable: 
       isabel: Isabel
-      participation: Select participation modes
-      sip: SIP
+      isabelbw: Isabel Bandwidth 
+      participation: Participation modes
+      recbw: Recording Quality
+      sip: Enable SIP
       web: Web
+      webbw: Flash Bandwidth
     error: 
       cm_connection: Connection to remote videoconference system fails
       date_past: Start date could not be past
@@ -622,11 +632,13 @@ en:
       one: Event Video
       other: Videos of the event
       recorded: Recorded events
-      share: Share
+      share: Share  
     repository: 
       enabled: Enable document repository
       help: This repository shows the documents uploaded in the sessions of the event agenda
       title: Event documents
+    scorm:
+      button: "export scorm format"
     search: Search events...
     select_date: Select a date for your event
     session_now: Session now
@@ -740,25 +752,25 @@ en:
     stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
   getting_started: Getting started!
   group: 
-    add_to_group: Add To Group
-    add_to_others: Add other Groups
-    create: Create new group
-    created: Group {{name}} created successfully
-    delete: Delete group
-    deleted: Group {{name}} deleted successfully
-    different: Other groups
-    edit: Edit group
+    add_to_group: Add to mailing list
+    add_to_others: Add other mailing lists
+    create: Create new mailing list
+    created: Mailing list {{name}} created successfully
+    delete: Delete mailing list
+    deleted: Mailing list {{name}} deleted successfully
+    different: Other mailing lists
+    edit: Edit mailing list
     existing: name has already been taken
-    join: Join this group
-    mailing_list: Group mailing list
-    name: Group name
-    not_deleted: Error deleting group {{name}}
-    not_valid: The group is not valid
-    one: Group
-    other: Groups
-    send_message: Send a message to this group
-    updated: Group {{name}} updated successfully
-  groups_and_results: Groups, {{size}} results
+    join: Join this mailing list
+    mailing_list: Mailing list
+    name: Mailing list name
+    not_deleted: Error deleting mailing list {{name}}
+    not_valid: The mailing list is not valid
+    one: Mailing list
+    other: Mailing lists
+    send_message: Send a message to this mailing list
+    updated: Mailing list {{name}} updated successfully
+  groups_and_results: Mailing lists, {{size}} results
   hcard: 
     not_found: hCard not found
   hello: Hello
@@ -838,6 +850,8 @@ en:
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
+    configure_isabel: How to configure your own Isabel server
+    connect_isabel: How to connect to Isabel
     create_VC: Creating a virtual congress
     create_VM: Creating a virtual meeting
     create_event: Creating an event
@@ -847,7 +861,11 @@ en:
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
     info: Here you can find information about the Global Plaza
+    info_isabel: Here you can find information about the Isabel tool
+    isabel: Isabel (Videoconference tool)
+    install_isabel: How to install Isabel
     logging: Logging In to your account
+    globalplaza: Globalplaza 
     new_doc: Adding a new document
     topics: Topics
   help_vcc: 
@@ -1026,6 +1044,7 @@ en:
     reserved: The mailing list {{systemMailingList}} is reserved
   manage: Manage
   management: management
+  mandatory_field: "Mandatory field"
   mark_checkbox: Mark the suitable checkbox
   message: 
     created: Message sent successfully
@@ -1039,6 +1058,7 @@ en:
       cant: You cannot send private messages because you have no partners in any space
       editing: Editing private message
       new: New Private message
+      send: Send private message
       none: There are no messages
     reply: Reply to message
     send: Send Message
@@ -1051,7 +1071,7 @@ en:
     one: Name
     other: Names
     prefix: Title
-  new_source: New source
+  new_source: "Import RSS/Atom"
   new_spam_detected: New spam detected
   news: 
     created: News item published successfully
@@ -1066,7 +1086,7 @@ en:
     none_to_show: No news items to show
     other: News
     publish_another: Publish another news item
-    publish_home: Publish news item at home
+    publish_home: Publish news item
     updated: News item updated successfully
   next: Next
   no_messages_in_wall: There are no messages in the wall
@@ -1236,7 +1256,7 @@ en:
     created: Profile created successfully
     deleted: Profile deleted successfully
     description: 
-      add: Write something about you
+      add: "Short bio"
     error: 
       exist: Your profile already exists
     hcard: 
@@ -1270,6 +1290,7 @@ en:
     and_participate_description: Registration is needed if you wish to participate in the event.
     one: Register
     thank_you: Welcome and thank you for registering in {{sitename}}
+    confirmation: After registering you will receive an email confirmation with the link to activate your account    
   register_as_admin: Register as admin
   register_as_invited: Register as invited
   register_as_user: Register as user
@@ -1281,8 +1302,7 @@ en:
   reply_to: "Reply to:"
   reply_to_words: Reply to {{words}}
   report_spam: Report spam
-  repository: 
-    add_document: Add new document
+  repository:
     add_tags: Add Tags
     download: Download
     enable: Enable document repository?
@@ -1329,11 +1349,19 @@ en:
   screencast: 
     button: Watch screencast
     help: "Need some help? Try watching the "
+    link1: Help creating events
+    link2: Help creating the agenda
+    link3: "Help: Three kinds of events"
+    link4: Help inviting people
+    link5: Help about event information    
     sidebar: 
       title: Screencasts
     title: screencast
     title1: How to create an event
     title2: Create an agenda for the event
+    title3: Different kinds of events
+    title4: Inviting people
+    title5: Event Information
     video: 
       one: Screencast
   search: 
@@ -1422,7 +1450,7 @@ en:
       parse: Could not parse feed {{uri}}
     imported_at: Imported at
     one: Source
-    other: Sources
+    other: "RSS/Atom"
     target: Target
     uri: URL
   space: 
@@ -1474,7 +1502,7 @@ en:
     logo_selected: 
       close: Close
       close_gallery: Close the gallery
-      default_message: "The logo of the space will be this:"
+      default_message: "Space logo"
       enter_text: "Enter a text to generate logos:"
       generate_logo: Generate
       open_gallery: Open the gallery
@@ -1513,6 +1541,7 @@ en:
     detected: New spam detected
     error: 
       check: There was a problem marking the resource as spam
+    item: This item has been reported as spam
     no_spam: Congratulations! No spam here
     report: Report spam
     reported: "{{name}} has reported spam in {{sitename}}"
@@ -1523,6 +1552,7 @@ en:
   stage_type: Stage type
   street: Street
   subject: Subject
+  summary: Summary
   support: 
     array: 
       last_word_connector: ", and "
@@ -1553,7 +1583,7 @@ en:
   thank_you: Thank you
   the_string: the string
   thread: 
-    add: Create new message
+    add: Post message to wall
     comments: "{{children}} comments"
     compact_view: Switch to compact view
     deleted: Message (with its comments) has been deleted
@@ -1581,6 +1611,7 @@ en:
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
+  tips: Tips
   title: Title
   title_formal: 
     mr: Mr.
@@ -1592,6 +1623,20 @@ en:
   toke: 
     not_available: Token not available
   tomorrow: Tomorrow
+  tooltip:
+    advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
+    document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
+    private_profile: This information is visible only to the people you choose when you edit your profile
+    public_profile: Anyone can access this information
+    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
+    mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
+    news_item: "You can publish a short news at home"
+    tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
+    update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
+    user_id: "You can use your user ID as openID, user chat and/or user Marte"
+    user_filter: "You can filter users by their names or surnames. Start typing !"    
+    timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
+    vcard: "vCard is a file format standard for electronic business cards"
   topic: Topic
   translate: 
     availables: Available translations
@@ -1639,29 +1684,33 @@ en:
       author: SIR
       title: Users
     filter: User filter
+    first_name: "First name"
     found: 
       none: No users found
       one: 1 user found
       other: "{{size}} users were found"
     full_name: Full name
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: Include registered users
     included: 
-      other: Included users
+      other: List members
     invite: Invite people
     invite_email: Invite people by email
     invite_from_space_by_email: Invite people from your space
     invited: Users already invited
+    last_name: "Last name"
     list_by: List by
     login: Login
-    lost_password: Have you lost your password?
+    lost_password: Lost your password?
     noactivity: "{{user}} has no recent activity"
     not_activated: Your account is not activated. Please, check your email to activate it
     not_assist: Not attending
     not_confirmed: Not confirmed
     notifications: How do you want to receive your notifications?
     one: User
-    openid: 
+    openid:
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Edit your OpenIDs
       one: OpenID
       other: OpenIDs
@@ -1684,16 +1733,20 @@ en:
     updated: User updated successfully
     vcc_email: Global user e-mail {{dir}}
     view_expanded_posts: Show messages in wall with the expanded view by default
-    without_group: People without group
+    without_group: People without mailing list
   username: Username
   vCard: 
     corrupt: The vCard you sent is corrupted or is a non-supported version
     no_selection: no vCard
     success: vCard successfully loaded
     use: Use your vCard
+    message: "Use your vCard to automatically fill in your profile"
+    export: Export your vCard
+    upload: Upload your vCard
   vcard: vCard
   vcc: Global Plaza Conferences
   vcc_mail_label: "[Global]"
+  vcc_registration: Global Plaza Registration
   version: 
     new: New version
     one: Version
