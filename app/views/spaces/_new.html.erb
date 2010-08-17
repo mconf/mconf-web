@@ -153,8 +153,8 @@ function cropImage (c){
 	
 	 $('#space_new_form img.tooltip3').qtip({
    content: 'A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time',
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
+   show:  { when: { event: 'click' } },
+   hide: 'unfocus',
    style: 'mystyle' // The name of the newly created custom style above
   });
 	
