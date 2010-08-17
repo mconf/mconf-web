@@ -226,6 +226,7 @@ es:
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s espacios"
     post: Publicar
+    publish: Publicar
     search: Buscar
     send: Enviar
     sending: Enviando...
@@ -437,7 +438,7 @@ es:
   docs: Docs
   document: 
     add: "A\xC3\xB1adir nuevo documento"
-    upload: "Subir nuevo documento"
+    upload: Subir nuevo documento
   done: "\xC2\xA1Hecho!"
   download: Descargar
   download_file: Descargar fichero
@@ -779,25 +780,25 @@ es:
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
   getting_started: "\xC2\xA1Por d\xC3\xB3nde empezar!"
   group: 
-    add_to_group: "A\xC3\xB1adir a grupo"
-    add_to_others: "A\xC3\xB1adir otros grupos"
-    create: Crear nuevo grupo
-    created: "El grupo {{name}} ha sido creado con \xC3\xA9xito"
-    delete: Borrar grupo
-    deleted: "El grupo {{name}} ha sido borrado con \xC3\xA9xito"
-    different: Otros grupos
-    edit: Editar grupo
+    add_to_group: "A\xC3\xB1adir a lista de correo"
+    add_to_others: "A\xC3\xB1adir a otras listas de correo"
+    create: Crear nueva lista de correo
+    created: "La lista de correo {{name}} ha sido creada con \xC3\xA9xito"
+    delete: Borrar lista de correo
+    deleted: "La lista de correo {{name}} ha sido borrada con \xC3\xA9xito"
+    different: Otras listas de correo
+    edit: Editar lista de correo
     existing: el nombre ya ha sido elegido
-    join: "\xC3\x9Anase a este grupo"
-    mailing_list: Lista de correo de grupo
-    name: Nombre del grupo
-    not_deleted: Error al eliminar el grupo {{name}}
-    not_valid: "El grupo no es v\xC3\xA1lido"
-    one: Grupo
-    other: Grupos
-    send_message: Enviar un mensaje a este grupo
-    updated: El grupo {{name}} ha sido actualizado correctamente
-  groups_and_results: Grupos, {{size}} resultados
+    join: "\xC3\x9Anase a esta lista de correo"
+    mailing_list: Lista de correo
+    name: Nombre de la lista de correo
+    not_deleted: Error al eliminar la lista de correo {{name}}
+    not_valid: "La lista de correo no es v\xC3\xA1lido"
+    one: Lista de correo
+    other: Listas de correo
+    send_message: Enviar un mensaje a esta lista de correo
+    updated: La lista de correo {{name}} ha sido actualizada correctamente
+  groups_and_results: Listas de correo, {{size}} resultados
   hcard: 
     not_found: hCard no encontrada
   hello: Hola
@@ -1069,7 +1070,7 @@ es:
     reserved: "La lista de correo {{systemMailingList}} est\xC3\xA1 reservada"
   manage: Administrar
   management: "gesti\xC3\xB3n"
-  mandatory_field: "Campo obligatorio"
+  mandatory_field: Campo obligatorio
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n adecuada"
   message: 
     created: Mensaje enviado correctamente
@@ -1084,6 +1085,7 @@ es:
       editing: Editar mensaje privado
       new: Nuevo mensaje privado
       none: No hay mensajes
+      send: Enviar mensaje privado
     reply: Responder mensaje
     send: Enviar mensaje
     sent: 
@@ -1096,7 +1098,7 @@ es:
     one: Nombre
     other: Nombres
     prefix: "T\xC3\xADtulo"
-  new_source: Nuevo recurso
+  new_source: Importar RSS/Atom
   new_spam_detected: Nuevo spam detectado
   news: 
     created: Noticia publicada exitosamente
@@ -1114,7 +1116,7 @@ es:
     none_to_show: No hay noticias para mostrar
     other: Noticias
     publish_another: Publicar nueva noticia
-    publish_home: Publicar noticias en el inicio
+    publish_home: Publicar noticia
     updated: "Art\xC3\xADculo actualizado correctamente"
   next: "Pr\xC3\xB3ximo"
   no_messages_in_forum: No hay mensajes en este foro
@@ -1289,7 +1291,7 @@ es:
     created: Perfil se ha creado correctamente.
     deleted: Perfil ha sido borrado exitosamente.
     description: 
-      add: Escriba algo sobre usted
+      add: "Descripci\xC3\xB3n breve"
     error: 
       exist: Su perfil ya existe
     hcard: 
@@ -1322,6 +1324,7 @@ es:
   register: 
     and_participate: Registrarse Para Participar
     and_participate_description: "Para participar Reg\xC3\xADstrate en la Red Social de Eventos."
+    confirmation: "Despu\xC3\xA9s de registrarse, recibir\xC3\xA1 un email de confirmaci\xC3\xB3n con el enlace para activar tu cuenta"
     one: Registro
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
@@ -1485,7 +1488,7 @@ es:
       parse: No se pudo analizar el feed  {{uri}}
     imported_at: Importado en
     one: Recurso
-    other: Recursos
+    other: RSS/Atom
     target: Objetivo
     uri: URL
   space: 
@@ -1536,7 +1539,7 @@ es:
     logo_selected: 
       close: Cerrar
       close_gallery: "Cerrar la galer\xC3\xADa"
-      default_message: "Logo del espacio"
+      default_message: Logo del espacio
       enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
@@ -1587,6 +1590,7 @@ es:
   start_now!: Inicie ahora!
   street: Calle
   subject: Tema
+  summary: Resumen
   support: 
     array: 
       last_word_connector: ", y"
@@ -1657,6 +1661,20 @@ es:
   toke: 
     not_available: Token no disponible
   tomorrow: "Ma\xC3\xB1ana"
+  tooltip: 
+    advanced_editor: "Este editor te permite: ver el c\xC3\xB3digo fuente en html; cambiar el estilo de la fuente, tama\xC3\xB1o de fuente, color del texto y la alineaci\xC3\xB3n del texto; insertar / editar enlaces; a\xC3\xB1adir archivos adjuntos y etiquetas"
+    document_repository: Un repositorio de documentos le permite organizar todos los archivos que se han subido al espacio
+    mailing_list: "Una lista de correo le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que enviar los mensajes individualmente"
+    news_item: Puede publicar una breve noticia en su home
+    private_profile: "Esta informaci\xC3\xB3n es visible s\xC3\xB3lo para las personas que elija al editar su perfil"
+    public_profile: "Cualquier persona puede acceder a esta informaci\xC3\xB3n"
+    public_space: "Espacios de colaboraci\xC3\xB3n pueden ser p\xC3\xBAblicos, en donde cualquier usuario puede ver que sucede en ellos, o privados en donde  s\xC3\xB3lo los miembros del espacio tienen acceso a las actividades del espacio"
+    tag: "Las etiquetas son palabras claves o t\xC3\xA9rminos asociados a un contenido que son utilizados para buscar y filtrar informaci\xC3\xB3n. Presione enter para confirmar cada etiqueta."
+    timezone: "Seleccionando su zona horaria no habr\xC3\xA1 malentendidos con gente de otros pa\xC3\xADses al crear sus eventos."
+    update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galer\xC3\xADa"
+    user_filter: Puede filtrar los usuarios por sus nombres o apellidos. Comienze a escribir!
+    user_id: Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte
+    vcard: "vCard es un formato est\xC3\xA1ndar para el intercambio de tarjetas personales electr\xC3\xB3nicas. "
   topic: Tema
   translate: 
     availables: Traducciones disponibles
@@ -1712,9 +1730,10 @@ es:
       other: "{{size}} usuarios fueron encontrados"
     full_name: Nombre completo
     group_invite_email: Listas de correo a invitar
+    id: ID de usuario
     include_registered: Incluir usuarios registrados
     included: 
-      other: Usuarios incluidos
+      other: Miembros de la lista
     invitation: 
       label: Personalice su mensaje
       message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendr\xC3\xA1 lugar el dia 'f3echa' en 'lugar'."
@@ -1726,7 +1745,7 @@ es:
     last_name: Apellido
     list_by: Lista de
     login: Login
-    lost_password: "¿Contraseña olvidada?"
+    lost_password: "\xC2\xBFContrase\xC3\xB1a olvidada?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
     not_assist: "Personas que no asistir\xC3\xA1n a este evento"
@@ -1734,6 +1753,7 @@ es:
     notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
     openid: 
+      add_to_access: "A\xC3\xB1ada sus OpenIDs para acceder a GlobalPlaza"
       edit: Edite sus OpenID
       one: OpenID
       other: OpenIDs
@@ -1757,18 +1777,20 @@ es:
     updated: El usuario se ha actualizado correctamente
     vcc_email: "Correo electr\xC3\xB3nico del usuario de GlobalPlaza {{dir}}"
     view_expanded_posts: Mostrar mensajes en el muro expandidos por defecto
-    without_group: Personas sin grupo
+    without_group: Personas sin lista de correo
   username: Nombre de usuario
   vCard: 
     corrupt: "La vCard enviada est\xC3\xA1 da\xC3\xB1ada o es una versi\xC3\xB3n no compatible"
     export: Exporte su vCard
+    message: "Use su tarjeta vCard para completar autom\xC3\xA1ticamente su perfil"
     no_selection: No hay ninguna vCard definida
     success: vCard cargada correctamente
+    upload: Suba su vCard
     use: Use su vCard
   vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
-  vcc_registration: "Registro en Global Plaza"
+  vcc_registration: Registro en Global Plaza
   version: 
     new: "Nueva versi\xC3\xB3n"
     one: "Versi\xC3\xB3n"

@@ -1,3 +1,11 @@
+<% content_for :javascript do %>
+ $('#user_filter img.tooltip_user_filter').qtip({
+   content: '<%=t("tooltip.user_filter")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
+<% end -%>
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
@@ -23,10 +31,10 @@
 		</p>
 		
 		<div id="selected_users">
-      <label for="selected_users" style="display: none;"><%= t('user.included.other') %>:</label><br/>
+      <label for="selected_users" style="display: none; font-weight: bold;"><%= t('user.included.other') %>:</label><br/>
     </div>
 		<div id="user_filter" style="display: none;">
-			<label for="User filter"><%= t('user.filter') %></label><br/>
+			<label for="User filter"><%= t('user.filter') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_filter icon",:style=>"cursor:pointer")%></label><br/>
 			<%= text_field_tag :user_selector,'', :size => 25 %>
 	  </div>
 	  <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 

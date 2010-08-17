@@ -8,7 +8,7 @@
   <%=t("message.private.cant")%>
 <%else%>
 <div id="priv-msg">
-<h3><%= t('message.private.new') %></h3>
+<h3><%= t('message.private.send') %></h3>
 
 <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>

@@ -217,6 +217,7 @@ fr:
     next: "\xC3\x89tape suivante"
     other_spaces: Trouvez d&#39;autres espaces
     post: Post
+    publish: Publier
     search: Search
     send: Envoyer
     sending: Sending...
@@ -407,7 +408,7 @@ fr:
   docs: Docs
   document: 
     add: Ajouter nouveau document
-    upload: "Envoyer nouveau document"
+    upload: Envoyer nouveau document
   done: Fait!
   download: Download
   download_file: "T\xC3\xA9l\xC3\xA9charger le fichier"
@@ -1016,7 +1017,7 @@ fr:
     reserved: The mailing list {{systemMailingList}} is reserved
   manage: Manage
   management: gestion
-  mandatory_field: "Mandatory field"
+  mandatory_field: Mandatory field
   mark_checkbox: "Cochez la case appropri\xC3\xA9e"
   message: 
     created: "Message envoy\xC3\xA9 avec succ\xC3\xA8s"
@@ -1031,6 +1032,7 @@ fr:
       editing: "Modification message priv\xC3\xA9"
       new: "Nouveau message priv\xC3\xA9"
       none: Il n&#39;ya pas de messages
+      send: "Envoyer un message priv\xC3\xA9"
     reply: "R\xC3\xA9pondre au message"
     send: Envoyer un message
     sent: 
@@ -1042,7 +1044,7 @@ fr:
     one: Nom
     other: Noms
     prefix: Titre
-  new_source: Nouvelle source
+  new_source: Importer RSS/Atom
   new_spam_detected: "nouveau spam d\xC3\xA9tect\xC3\xA9"
   news: 
     created: "Point Nouvelles publi\xC3\xA9 avec succ\xC3\xA8s"
@@ -1057,7 +1059,7 @@ fr:
     none_to_show: Pas de nouvelles pour montrer
     other: Nouvelles
     publish_another: Publier un autre point de nouvelles
-    publish_home: "Point nouvelles Publier \xC3\xA0 la maison"
+    publish_home: Publier un point de nouvelles
     updated: "Nouvelles mises \xC3\xA0 jour avec succ\xC3\xA8s article"
   next: Prochain
   no_messages_in_wall: Il n&#39;ya pas de messages dans le mur
@@ -1259,6 +1261,7 @@ fr:
   register: 
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
+    confirmation: "Apr\xC3\xA8s enregistrement, vous recevrez une confirmation par email avec le lien pour activer votre compte"
     one: S&#39;inscrire
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
@@ -1421,7 +1424,7 @@ fr:
       parse: Impossible d&#39;analyser l&#39;alimentation {{uri}}
     imported_at: "Import\xC3\xA9s au"
     one: Source
-    other: Sources
+    other: RSS/Atom
     target: Cible
     uri: URL
   space: 
@@ -1467,7 +1470,7 @@ fr:
     logo_selected: 
       close: Fermer
       close_gallery: Fermer la galerie
-      default_message: "Le logo de l&#39;espace"
+      default_message: Le logo de l&#39;espace
       enter_text: "Entrez un texte pour g\xC3\xA9n\xC3\xA9rer des logos:"
       generate_logo: Generate
       open_gallery: Ouvrez la galerie
@@ -1515,6 +1518,7 @@ fr:
   stage_type: Stage de type
   street: Rue
   subject: Sujet
+  summary: Summary
   support: 
     array: 
       last_word_connector: ", Et"
@@ -1545,7 +1549,7 @@ fr:
   thank_you: Je vous remercie
   the_string: "la cha\xC3\xAEne"
   thread: 
-    add: "Post message to wall"
+    add: Post message to wall
     comments: "{{children}} commentaires"
     compact_view: Basculez en mode compact
     deleted: "Message (avec ses commentaires) a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9"
@@ -1588,6 +1592,20 @@ fr:
   toke: 
     not_available: Token pas disponible
   tomorrow: Demain
+  tooltip: 
+    advanced_editor: "Cet \xC3\xA9diteur vous permet de: voir la source HTML, modifier le style de police, la taille, la couleur du texte et l'alignement du texte; ins\xC3\xA9rer / modifier des liens, ajouter des pi\xC3\xA8ces jointes et les \xC3\xA9tiquettes"
+    document_repository: "Un r\xC3\xA9f\xC3\xA9rentiel de documents vous permet d'organiser tous les fichiers qui ont \xC3\xA9t\xC3\xA9 transf\xC3\xA9r\xC3\xA9s \xC3\xA0 l'espace"
+    mailing_list: "Une liste de diffusion vous permettra d'envoyer des messages e-mail \xC3\xA0 votre groupe au lieu d'avoir \xC3\xA0 s\xC3\xA9lectionner individuellement les adresses \xC3\xA0 chaque fois"
+    news_item: "Vous pouvez publier un court nouvelles \xC3\xA0 la maison"
+    private_profile: Cette information n'est visible que pour les personnes de votre choix lorsque vous modifiez votre profil
+    public_profile: "N'importe qui peut acc\xC3\xA9der \xC3\xA0 cette information"
+    public_space: "des espaces de collaboration peut \xC3\xAAtre public, pour tout le monde de regarder ce qui se passe en eux, ou priv\xC3\xA9s, o\xC3\xB9 seuls les membres ont acc\xC3\xA8s aux activit\xC3\xA9s de l'espace"
+    tag: "Les tags sont des mots cl\xC3\xA9s ou termes associ\xC3\xA9s avec le contenu utilis\xC3\xA9 pour trouver et filtrer les informations. Appuyez sur Entr\xC3\xA9e pour confirmer chaque balise."
+    timezone: "En choisissant votre fuseau horaire, il y aura pas de malentendu lors de la cr\xC3\xA9ation d'\xC3\xA9v\xC3\xA9nements avec des gens d'autres pays"
+    update_logo: "Vous pouvez mettre \xC3\xA0 jour votre propre logo, cr\xC3\xA9er un logo texte ou s\xC3\xA9lectionner une image dans la galerie"
+    user_filter: "Vous pouvez filtrer les utilisateurs par leurs noms et surnoms. Commencez \xC3\xA0 taper!"
+    user_id: Vous pouvez utiliser votre nom d'utilisateur comme OpenID, l'utilisateur chat et / ou l'utilisateur Marte
+    vcard: "vCard est un format de fichier standard pour les cartes de visite \xC3\xA9lectroniques."
   topic: Sujet
   translate: 
     availables: Traductions disponibles
@@ -1635,16 +1653,17 @@ fr:
       author: SIR
       title: Utilisateurs
     filter: filtre de l'utilisateur
-    first_name: Prénom
+    first_name: "Pr\xC3\xA9nom"
     found: 
       none: "Aucun utilisateur trouv\xC3\xA9"
       one: 1 utilisateur trouve
       other: "{{size}} utilisateurs ont \xC3\xA9t\xC3\xA9 trouv\xC3\xA9s"
     full_name: Nom complet
     group_invite_email: Mailing lists to invite
+    id: User ID
     include_registered: "Inclure les utilisateurs enregistr\xC3\xA9s"
     included: 
-      other: y compris les utilisateurs
+      other: Liste des membres
     invite: Inviter des personnes
     invite_email: Inviter par e-mail
     invite_from_space_by_email: "Inviter des personnes \xC3\xA0 partir de votre espace"
@@ -1660,6 +1679,7 @@ fr:
     notifications: Comment voulez-vous de recevoir vos notifications?
     one: Utilisateur
     openid: 
+      add_to_access: Add your OpenIDs to access GlobalPlaza
       edit: Modifier votre OpenID
       one: OpenID
       other: OpenID
@@ -1687,13 +1707,15 @@ fr:
   vCard: 
     corrupt: "Le vCard que vous avez envoy\xC3\xA9 est corrompu ou d'une version non prise en charge"
     export: Export your vCard
+    message: "Utilisez votre carte de visite \xC3\xA0 remplir automatiquement dans votre profil"
     no_selection: pas de vCard
     success: "vCard charg\xC3\xA9 avec succ\xC3\xA8s"
+    upload: Charger votre vCard
     use: Utilisez votre vCard
   vcard: vCard
   vcc: "Centre de conf\xC3\xA9rence virtuelle"
-  vcc_registration: "Global Plaza Registration"
   vcc_mail_label: "[VCC]"
+  vcc_registration: Global Plaza Registration
   version: 
     new: Nouvelle version
     one: Version

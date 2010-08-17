@@ -20,7 +20,13 @@
   $("#vcard_export").click(function(){
   	window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
   });
-  
+
+ $('#upload_vcard img.tooltip_vcard').qtip({
+   content: '<%=t("tooltip.vcard")%>',
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
 	
 <% end %>
 
@@ -66,7 +72,7 @@
 			<% form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put} do |f| %>
         <p><%= f.file_field :media, :id => 'logo_media' %></p>    
         <div class="margin-up">
-         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+         <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 			   <input type="button" value="<%=t('cancel')%>" class="close_pic basic_button blue_button"/>
 			 </div>
       <%end%> 
@@ -86,13 +92,13 @@
 	-->
 	  
 	  <div id="upload_vcard" style="display:none">
-			<h3><%=t("vCard.use")%></h3>
-			<p class="sidebar_info2">Use your Vcard to automatically fill in your profile</p>
+			<h3><%=t("vCard.upload")%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_vcard",:style=>"cursor:pointer")%></h3>
+			<p class="sidebar_info2"><%=t("vCard.message")%></p>
 		    <% form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
 				<p><%= f.file_field 'vcard' %></p>
 		
 				<div class="margin-up">
-					<button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+					<button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 					<input type="button" value="<%=t('cancel')%>" class="close_vcard basic_button blue_button"/>
 				</div>
 			<% end %>
@@ -109,8 +115,11 @@
 <% form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-<div class="profile_save_ch">
-  <button type="submit" class="basic_button blue_button"><%=t("save_ch")%></button>
+<div class="profile_save_ch">  
+  <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
+</div>
+<div class="profile_save_ch">  
+  <%= link_to "<span>" + t('cancel') + "</span>", user_profile_path(@user),:class => "basic_button blue_button", :id=>"cancel_profile"%>
 </div>
 <% end %>
 
