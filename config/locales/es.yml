@@ -1436,6 +1436,7 @@ es:
   send_message: Enviar un mensaje
   send_reset_password_request: "Enviar solicitud para cambiar contrase\xC3\xB1a"
   session: 
+    one: Sesión
     error: 
       exist: "Usted ya est\xC3\xA1 conectado"
       fill: Por favor, complete estos datos

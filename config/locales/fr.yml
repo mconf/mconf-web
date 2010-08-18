@@ -1373,6 +1373,7 @@ fr:
   send_debug_emails: "Envoyer des courriels de d\xC3\xA9bogage"
   send_reset_password_request: Demande Envoyer Password Reset
   session: 
+    one: Session
     error: 
       exist: "Vous \xC3\xAAtes d\xC3\xA9j\xC3\xA0 connect\xC3\xA9"
       fill: "S&#39;il vous pla\xC3\xAEt remplir ces donn\xC3\xA9es"

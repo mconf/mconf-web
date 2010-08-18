@@ -402,17 +402,26 @@ class Event < ActiveRecord::Base
      myxml = Builder::XmlMarkup.new(:indent => 2)
      myxml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
      myxml.manifest('xsi:schemaLocation'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd", 'identifier'=>"MANIFEST-A2F3004F6186AC9480285D4AEDCD6BAF", 'xmlns:adlcp'=>"http://www.adlnet.org/xsd/adlcp_rootv1p2", 'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", 'xmlns:imsmd'=>"http://www.imsglobal.org/xsd/imsmd_rootv1p2p1", 'xmlns'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2") do
-       myxml.organizations('default'=>Event.identifier_for("ITEM" + video_entries[0].title)) do         
-         video_entries.each do |entry|
-           myxml.organization('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'structure'=>"hierarchical") do
-             myxml.title(Event.remove_accents(entry.title))             
-             myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
-               myxml.title("Video")
-             end
-             entry.attachments.each  do |at|
-                myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(at.filename)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'isvisible'=>"true") do
-                  myxml.title("Documentos")
-                end
+       myxml.organizations('default'=>Event.identifier_for("ITEM" + video_entries[0].title)) do       
+         myxml.organization('identifier'=>Event.identifier_for("ITEM" + video_entries[0].title), 'structure'=>"hierarchical") do
+           ind = 1 if video_entries.size > 1
+           video_entries.each do |entry|
+             myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
+               if video_entries.size > 1
+                 suffix = " - " + I18n::t('session.one')  + " " + ind.to_s
+                 ind = ind + 1
+               else
+                 suffix = ""
+               end
+               myxml.title(self.name + suffix)    
+               myxml.item('identifier'=>Event.identifier_for("ITEM-sub" + Event.remove_accents(entry.title)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
+                 myxml.title(entry.title)
+               end
+               entry.attachments.each  do |at|
+                  myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(at.filename)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'isvisible'=>"true") do
+                    myxml.title(at.filename)
+                  end
+               end
              end
            end
          end

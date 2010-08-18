@@ -1368,6 +1368,7 @@ de:
   send_debug_emails: Senden Sie E-Mails debug
   send_reset_password_request: Senden Reset Password anfordern
   session: 
+    one: Session
     error: 
       exist: Sie sind bereits angemeldet
       fill: "Bitte f\xC3\xBCllen Sie das folgende Daten"
