@@ -34,7 +34,7 @@
 	  }
 	return "";
 	}
-		<%debugger%>
+
 	function jive_sparkweb_getConfig()
 	{
 	  return {
@@ -57,7 +57,7 @@
 			reconnect_message: "<%=t('chat.reconnect_message')%>",
 			reconnect_button_message: "<%=t('chat.reconnect_button_message')%>",
 			background_color: "#E1EEF5",
-			utc_offset: "<%= Time.now.in_time_zone( (authenticated? && current_user.timezone) || 'Madrid' ).utc_offset %>"
+			utc_offset: "<%=Time.now.in_time_zone( (authenticated? && current_user.timezone != "" && current_user.timezone) || 'Madrid' ).utc_offset%>"
 	    //policyFileURL: "http://www.example.com/sub/dir/crossdomain.xml"
 	    //policyFileURL: "xmlsocket://foo.com:414"
 	  };
