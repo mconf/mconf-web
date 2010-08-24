@@ -1553,7 +1553,7 @@ en:
   stage_type: Stage type
   street: Street
   subject: Subject
-  summary: Summary
+  summary: Video Info
   support: 
     array: 
       last_word_connector: ", and "
