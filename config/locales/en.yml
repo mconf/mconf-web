@@ -849,6 +849,11 @@ en:
     part6: 5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag.
     part7: 6. If you want to <b>notify</b> the document with a message on the wall, choose this option.
     part8: 7. Finally, click on <b>Upload</b> button to add the file to the document repository.
+  help_participation: 
+    part1: "During an event the Global Plaza sets-up the necessary resources for your event to take place, which include a videoconferencing server with the corresponding MCU, a streaming server, a digital recorder and the necessary gateways for Flash based web access and SIP access."
+    part2: "<ul>1) Web Participation. The simplest way to participate in virtual events is from your Web browser. The event will be accessible from your browser while it takes place at the event Web page of the site. To participate your browser must have the latest version of Flash installed. The TCP Port 1935 used by the Flash client needs to be open for connecting to the virtual event with a browser. In case you access the event page and do not see the video, you must tell the network administrators of your institution to open this port."
+    part3: "<br>2) Isabel Participation. You can also participate with an Isabel native client which runs on Linux. Installation instructions can be found here. The native client provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums."
+    part4: "3) A SIP gateway is also provided to allow participation from a videoconferencing equipment.</ul>"    
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
