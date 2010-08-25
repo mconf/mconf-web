@@ -862,13 +862,18 @@ en:
     create_space: Creating a space
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
+    export_ical: Exporting iCalendar
+    export_scorm: Exporting Scorm        
     info: Here you can find information about the Global Plaza
-    info_isabel: Here you can find information about the Isabel tool
-    isabel: Isabel (Videoconference tool)
+    invitation: Inviting users to events
+    info_isabel: Here you can find information about the Isabel tool    
     install_isabel: How to install Isabel
+    isabel: Isabel (Videoconference tool)    
     logging: Logging In to your account
     globalplaza: Globalplaza 
     new_doc: Adding a new document
+    participation: Participating in a event
+    search_event: Searching an event        
     topics: Topics
   help_vcc: 
     info: Here you can find information about the Global
