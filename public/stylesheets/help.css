@@ -327,7 +327,7 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .help-title {background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 .help-title h3{margin-top:0;padding:0.5em 0 0.5em 0.5em;color:#244974;font-weight:bold;}
 .topics-section{padding:10px 20px 0 20px;}
-.topics-section ul{margin-bottom:0;list-style-type:none;color:#244974;}
+.topics-section ul{margin-bottom:0;list-style-type:decimal;color:#244974;}
 
 #footer{/*background:#fff;*/background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
