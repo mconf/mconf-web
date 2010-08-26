@@ -8,10 +8,10 @@
 	
   <div id="streaming_content">
 		<%if @event.has_session_now?%>
-      <%if request.env['HTTP_USER_AGENT'] =~ /iPad/ %>
+      <%if request.env['HTTP_USER_AGENT'] =~ /iPad/ || request.env['HTTP_USER_AGENT'] =~ /iPhone/ %>
         <%= @event.streaming(640, 480, 'ipad')%>
       <%else%>
-  			<div class="button_wrapper"><!-- hay que repasar muy bien las condiciones-->
+  			<div class="button_wrapper">
   	      <div class="on_live"><span>Live!</span></div> 
   	        <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
   	    </div>

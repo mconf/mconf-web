@@ -139,7 +139,7 @@ en:
       overlaps: The agenda entry overlaps with an existing entry
       start_time_overlaps: The start time overlaps with an existing agenda entry
     expand_help: Click on the title of an agenda entry to expand it or contract it
-    title: Agenda for the event
+    title: Program
     update: Agenda was successfully updated.
     upload: Upload Agenda
     upload_file: Upload File
@@ -455,8 +455,9 @@ en:
       select: Actions
     agenda: 
       add_entry: Add one.
-      download: Download PDF
-      download_small: Download small PDF
+      download: PDF
+      download_small: Small PDF
+      export: Export
       no_entries: There are no entries yet.
       see: See on agenda
     assistance_title: Participation
@@ -517,6 +518,7 @@ en:
       marte: Could not create virtual conference
       omit_date: "The event needs start date and end date "
       videoconference: Could not create videoconference event
+    features: Event features
     follow: Enter this Virtual Meeting
     found: 
       none: No events found
@@ -627,10 +629,12 @@ en:
     player: Player
     recording: 
       button_disabled: This button will be enabled when the event has any recording
+      cloud: Videos!
+      cloud_back: Back to program
       insert: Insert
       notice: People will need access rights to this space to see this videos
-      one: Event Video
-      other: Videos of the event
+      one: Video
+      other: Video list
       recorded: Recorded events
       share: Share  
     repository: 
@@ -639,6 +643,7 @@ en:
       title: Event documents
     scorm:
       button: "export scorm format"
+      title: Scorm (Zip for LMS)
     search: Search events...
     select_date: Select a date for your event
     session_now: Session now
@@ -676,11 +681,11 @@ en:
     updated: Event updated successfully
     video_part: Web participation
     view_agenda: Agenda
-    view_participation: Participation
+    view_participation: Web Participation
     view_participation_disabled: Participation available during event
-    view_recordings: Recordings
+    view_recordings: Video Recording
     view_recordings_disabled: There are no recordings yet
-    view_related_rec: See related videos
+    view_related_rec: View on video list
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: Streaming available during the event
@@ -884,7 +889,7 @@ en:
     conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
     conflictiven: " entries of your iCalendar were on the Global application and have been modified. You must update them manually to avoid problems. "
     error_import: An error ocurred while importing the iCalendar.
-    export: Export iCalendar
+    export: iCalendar
     import: Import iCalendar
     importMessage1: "A total of "
     importMessage2: " were read from your iCalendar."
@@ -988,7 +993,7 @@ en:
   invited: Invited
   is_member_of: is member of
   join: Join
-  join_cam: Join your webcam
+  join_cam: Participate
   join_request: 
     accepted: Join Request accepted
     already_sent: You have already requested to join this space
@@ -1290,7 +1295,9 @@ en:
   register:
     and_participate: Register To Participate
     and_participate_description: Registration is needed if you wish to participate in the event.
+    back_to_streaming: back to streaming
     one: Register
+    or_choose: or you can go
     thank_you: Welcome and thank you for registering in {{sitename}}
     confirmation: After registering you will receive an email confirmation with the link to activate your account    
   register_as_admin: Register as admin

@@ -21,7 +21,7 @@ textarea#feedback_body{height:8.3333em;margin-bottom:0.5em;width:75%;overflow:au
 /*
  * Feedback
  */
-.note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:1.5em;padding:5px;}
+.note{color:#244974;font-size:1.0833em;line-height:1.3846;background:#f0f0f0;border:1px #ccc solid;margin-right:1.5em;padding:5px;margin-bottom: 12px;}
 textarea#spam_textarea {height:8.3333em;margin-bottom:0.5em;width:60%;overflow:auto;}
 textarea#feedback_textarea{height:12em;margin-bottom:0.5em;width:65%;overflow:auto;}
 input#subject,input#from,input#feedback_form,input#feedback_subject,input#spam_form{width:65%;}

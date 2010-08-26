@@ -581,9 +581,9 @@ li.author a, #change-event h3, #sidebar{color:#244974;}
 #asisstants,#no-assistants,#no_responding,.tips{padding:0 10px;clear:both;position:relative;}
 .tips{padding-top:0.75em;}
 #asisstants ul,#no-assistants ul,#no_responding ul{margin-bottom:0.75em;}
-#sidebar #assistance_info #assistance_status,#sidebar #connection_info .connection_content,.next-events-section,#sidebar .my_spaces ul,.my_spaces a.list_my_spaces,.my_spaces a.less_spaces,.my_spaces a.more_spaces,.update_logo .logo_content,.import_icalendar .icalendar_content{padding:0 10px;}
+#sidebar #assistance_info #assistance_status,#sidebar #connection_info .connection_content,.next-events-section,#sidebar .my_spaces ul, .actions_sidebar ul,.my_spaces a.list_my_spaces,.my_spaces a.less_spaces,.my_spaces a.more_spaces,.update_logo .logo_content,.import_icalendar .icalendar_content{padding:0 10px;}
 #sidebar #assistance_info,#sidebar .my_spaces,#sidebar #connection_info{padding-bottom:10px;clear:both;margin-bottom:0.75em;}
-#sidebar .my_spaces ul{margin:0.75em 0 0 0;list-style-type:none;}
+#sidebar .my_spaces ul, .actions_sidebar ul{margin:0.75em 0 0 0;list-style-type:none;}
 #sidebar .my_spaces ul.inline li{display:inline-block;position:relative;margin:0 4px;padding-bottom:4px;height:70px;}
 #sidebar .my_spaces ul.inline a{position:relative;float:left;height:70px;}
 #sidebar .my_spaces ul.inline img{background:#fff;padding:2px;border:1px solid #dcdcdc;}
@@ -705,7 +705,7 @@ ul.menu1 li{display:inline;}
 .home_event p{margin-bottom:0;}
 .next-events-title {margin-bottom:0.75em;}
 .next-events ul {list-style-type:none;margin:0;}
-.next-events-section,#home-inbox-title {margin:0 0 0.75em;}
+.next-events-section,#home-inbox-title, #actions_title {margin:0 0 0.75em;}
 .home-inbox-message {padding-bottom: 5px;}
 .home-inbox-topic {font-weight: bold;color:#244974;}
 .user-logo {float:left;width:34px;padding:1px;}
@@ -1064,12 +1064,12 @@ a.extract_form{float:right}
 a.extract_form{margin-right:0.5em;}
 
 
-#assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
-#assistance_info,#connection_info,.next-events,#home-inbox-full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;clear:both;margin-bottom:0.75em;}
+#assistance_title h3,#sidebar .connection_title h3,#sidebar .next-events h3,#home-inbox-title h3,#actions_title h3, #my_spaces_title h3,#sidebar .update_logo h3,.import_icalendar h3,.space_logo h3{margin:0;padding:3px 10px;color:#244974;}
+#assistance_info,#connection_info,.next-events,#home-inbox-full,#actions_full,.my_spaces,.import_icalendar,.space_logo{/*float:left;*/width:240px;border:1px #bdd8eb solid;background:#f0f6f9;clear:both;margin-bottom:0.75em;}
 .update_logo{border:1px #bdd8eb solid;background:#f0f6f9;clear:both;margin-bottom:0.75em;}
 .icalendar_content p{margin-bottom:9px;}
 .update_logo h3,.import_icalendar h3,.space_logo h3{background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;}
-#assistance_title,.next-events-title,#home-inbox-title,#my_spaces_title,.connection_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
+#assistance_title,.next-events-title,#home-inbox-title,#actions_title,#my_spaces_title,.connection_title{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 #add_new_doc,#doc_info,#doc_action.new_version,.tag_filter_wrapper{background:#ebebeb;border-bottom:1px #A8C0D1 solid;}
 /*
 #assistance_title h3,#sidebar .next-events h3,#home-inbox-title h3,#my_spaces_title h3{margin:0;padding:3px 10px;color:#244974;}
@@ -1468,8 +1468,7 @@ tr.version_expanded td{
 	}
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
-#event_description_line,#agenda_title,#repository_title,#recordings_title,#participation_title,#streaming_title{cursor:pointer;}
-h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
+h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
@@ -1478,12 +1477,12 @@ h3#event_description_title,#agenda_title h3,#recordings_title h3, #carrusel_titl
 .agenda_new_entry #agenda_blue_title h3{clear:both;}
 #carrusel_title h3 {padding-right:0;}
 
-h3#event_description_title div.image,#agenda_title div.image,#participation_title div.image,#streaming_title div.image,#repository_title div.image{display:inline;width:16px;}
-h3#event_description_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
+h3#event_description_title div.image,#recordings_title div.image,#agenda_title div.image,#participation_title div.image,#streaming_title div.image,#repository_title div.image{display:inline;width:16px;}
+h3#event_description_title div img,#recordings_title div img,#agenda_title div img,#participation_title div img,#participation_title div img,#streaming_title div img,#repository_title div img{margin:0 0 1px 0;}
 #agenda_title a.group_links{margin-top:4px;margin-right:8px;}
-#event_description_line a,#participation_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
+#event_description_line a,#streaming_url a#edit_participation_icon,#participation_url a#edit_participation_icon,#streaming_url a#edit_streaming_icon{float: right;margin-right:8px;margin-top:3px;}
 #event_description_content,#repository_content,#participation_content,#streaming_content{border-top:1px solid #ebebeb;border-bottom:1px solid #ccc;padding:3px 8px;}
-#streaming_content{margin-bottom:0.75em;}
+#streaming_content{margin-bottom:0.75em;min-height:80px;}
 
 .video_wrapper{
 	position:relative;
@@ -1848,4 +1847,9 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 .tooltip_advanced_editor {float: right; margin-top: 0.75em;}
 .tooltip_advanced_editor_news {float: right;}
 
+.logo_padding {padding-left: 66px;}
+.actions_sidebar{padding-bottom: 5px;}
 
+.video_cloud{width: 150px;float:right;margin-top:45px;}
+.toggle_inactive{font-weight:normal;}
+#view_agenda{float:right;}

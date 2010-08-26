@@ -1,5 +1,14 @@
 <div id="event_recordings" class="margin-up">
-  <div id="recordings_title"><h3 class="blue"><%=t('event.recording.one')%></h3></div>
+  
+  <div id="recordings_title">
+    <h3 class="blue">
+    	<div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%></div>
+	    <span class="toggle_active"><%=t('event.recording.one')%></span>
+		/
+		<span class="toggle_inactive"><%=link_to t('agenda.title'), space_event_path(@space, @event, :show_agenda => true) %></span>
+	</h3>
+  </div>
+  
   <div id="recordings_content">	    	
 	<div id="videos">
 	  <div class="video_full">
@@ -39,7 +48,7 @@
 			  	<%if @display_entry%>
 			      <span><%=@display_entry.title%></span>
 			    <%end%>
-					- <%=link_to(t('event.agenda.see'),space_event_path(@space, @event,:show_agenda => true), {:id=>"view_agenda"})%>    
+					<%=link_to(t('event.agenda.see'),space_event_path(@space, @event,:show_agenda => true), {:id=>"view_agenda"})%>    
 		    </div>
 			  <div class="video_users">  
 			    <%if @display_entry%>
