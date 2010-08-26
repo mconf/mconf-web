@@ -246,15 +246,39 @@ class Event < ActiveRecord::Base
   
   
   #method to know if any of the agenda_entry of the event has streaming 
-  #(only event associated to one cm_event could have streaming)
   def has_streaming?
-    begin
-      agenda.agenda_entries.each do |entry|
-        return true if entry.cm_session.streaming?
+    if is_in_person?
+      if other_streaming_url== nil || other_streaming_url==""
+        return false
+      else
+        return true
+      end      
+    else    
+      begin
+        agenda.agenda_entries.each do |entry|
+          return true if entry.cm_session.streaming?
+        end
+        false 
+      rescue
+        nil
       end
-      false 
-    rescue
-      nil
+    end
+  end
+
+  #method to know if any of the agenda_entry of the event has streaming 
+  def has_participation?
+    if is_in_person?
+      if other_participation_url== nil || other_participation_url==""
+        return false
+      else
+        return true
+      end      
+    else    
+      begin
+        cm_event.enable_web?
+      rescue
+        nil
+      end
     end
   end
 
