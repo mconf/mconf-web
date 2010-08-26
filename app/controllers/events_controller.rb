@@ -116,9 +116,14 @@ class EventsController < ApplicationController
         params[:show_agenda]=true
       elsif event.is_happening_now?
         params[:show_streaming]=true
+        params[:show_agenda]=true
       elsif !event.has_date?
         params[:show_agenda]=true
       end
+    end
+    
+    if params[:show_agenda] && event.is_happening_now?
+      params[:show_streaming]=true
     end
     
      if params[:show_video] || params[:format]=="zip"

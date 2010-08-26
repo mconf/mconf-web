@@ -11,7 +11,7 @@
 
 /******* MENU *******/
 #chat_event_online{
-    margin:auto;
+    margin-bottom: 9px;
 }
 #chat_event_online ul{
     list-style:none;
@@ -112,6 +112,6 @@
 
 
 #EventChat {
-	height: 780px;
+	height: 500px;
 }
 

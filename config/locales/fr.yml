@@ -462,6 +462,7 @@ fr:
       add_entry: Ajouter une.
       download: "T\xC3\xA9l\xC3\xA9charger le PDF"
       download_small: Download small PDF
+      export: Export
       no_entries: "Il n&#39;y a pas encore d&#39;entr\xC3\xA9es."
     assistance_title: Participation
     assistants_none: "Personne n&#39;a encore confirm\xC3\xA9"
@@ -517,6 +518,7 @@ fr:
       marte: "Impossible de cr\xC3\xA9er de conf\xC3\xA9rence virtuelle"
       omit_date: "L&#39;\xC3\xA9v\xC3\xA9nement doit commencer \xC3\xA0 la date et la date de fin"
       videoconference: "Impossible de cr\xC3\xA9er vid\xC3\xA9oconf\xC3\xA9rence \xC3\xA9v\xC3\xA9nement"
+    features: Event features
     follow: "Entrez dans cette r\xC3\xA9union virtuelle"
     found: 
       none: "Aucune manifestation trouv\xC3\xA9e"
@@ -606,6 +608,8 @@ fr:
     player: Joueur
     recording: 
       button_disabled: "Ce bouton est activ\xC3\xA9 lorsque l&#39;\xC3\xA9v\xC3\xA9nement a tout enregistrement"
+      cloud: Videos!
+      cloud_back: Back to program
       notice: "Les gens ont besoin de droits d&#39;acc\xC3\xA8s \xC3\xA0 cet espace pour voir cette vid\xC3\xA9o"
       one: "Vid\xC3\xA9o de l&#39;\xC3\xA9v\xC3\xA9nement"
       other: "Vid\xC3\xA9os de l&#39;\xC3\xA9v\xC3\xA9nement"
@@ -614,6 +618,9 @@ fr:
       enabled: "Activer r\xC3\xA9f\xC3\xA9rentiel de documents?"
       help: "Ce r\xC3\xA9f\xC3\xA9rentiel montrent les documents t\xC3\xA9l\xC3\xA9charg\xC3\xA9s dans les sessions de l&#39;ordre du jour \xC3\xA9v\xC3\xA9nement"
       title: "documents de l&#39;\xC3\xA9v\xC3\xA9nement"
+    scorm:
+      button: "export scorm format"
+      title: Scorm (Zip for LMS)
     search: "Recherche des \xC3\xA9v\xC3\xA9nements ..."
     select_date: "Choisir une date pour votre \xC3\xA9v\xC3\xA9nement"
     session_now: Session maintenant
@@ -654,6 +661,7 @@ fr:
     view_participation_disabled: "Participation disponible pendant l&#39;\xC3\xA9v\xC3\xA9nement"
     view_recordings: Enregistrements
     view_recordings_disabled: Il n&#39;y a pas encore d&#39;enregistrements
+    view_related_rec: View on video list
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: "Streaming disponibles durant l&#39;\xC3\xA9v\xC3\xA9nement"
@@ -962,6 +970,7 @@ fr:
   invited: "Invit\xC3\xA9"
   is_member_of: est membre de
   join: Joindre
+  join_cam: Participate
   join_request: 
     accepted: "Joignez-vous Demande accept\xC3\xA9e"
     already_sent: "Vous avez d\xC3\xA9j\xC3\xA0 demand\xC3\xA9 \xC3\xA0 rejoindre cet espace"
@@ -1264,7 +1273,9 @@ fr:
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
     confirmation: "Apr\xC3\xA8s enregistrement, vous recevrez une confirmation par email avec le lien pour activer votre compte"
+    back_to_streaming: back to streaming
     one: S&#39;inscrire
+    or_choose: or you can go
     thank_you: Bienvenue et merci pour l&#39;enregistrement dans {{sitename}}
   register_as_admin: Inscrivez-vous comme admin
   register_as_invited: "Inscrivez-vous comme invit\xC3\xA9"

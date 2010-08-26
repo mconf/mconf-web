@@ -460,6 +460,7 @@ de:
       add_entry: "F\xC3\xBCgen Sie ein."
       download: Download PDF
       download_small: Download small PDF
+      export: Export
       no_entries: "Es gibt noch keine Eintr\xC3\xA4ge."
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht best\xC3\xA4tigt"
@@ -515,6 +516,7 @@ de:
       marte: Konnte nicht erstellt virtuelle Konferenz
       omit_date: Die Veranstaltung muss Startdatum und Enddatum
       videoconference: Konnte keine Videokonferenz-Ereignis
+    features: Event features
     follow: Geben Sie diese Virtual Meeting
     found: 
       none: Keine Veranstaltungen gefunden
@@ -604,6 +606,8 @@ de:
     player: Spieler
     recording: 
       button_disabled: "Diese Schaltfl\xC3\xA4che wird aktiviert, wenn das Ereignis keine Aufzeichnung werden"
+      cloud: Videos!
+      cloud_back: Back to program
       notice: "Die Menschen m\xC3\xBCssen Zugriffsrechte f\xC3\xBCr diesen Raum, diese Videos zu sehen"
       one: Event Video
       other: Event Videos
@@ -612,6 +616,9 @@ de:
       enabled: Enable Document Repository?
       help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
+    scorm:
+      button: "export scorm format"
+      title: Scorm (Zip for LMS)
     search: Suche Termine ...
     select_date: "W\xC3\xA4hlen Sie ein Datum f\xC3\xBCr Ihre Veranstaltung"
     session_now: Session jetzt
@@ -652,6 +659,7 @@ de:
     view_participation_disabled: "Die Teilnahme w\xC3\xA4hrend der Veranstaltung zur Verf\xC3\xBCgung"
     view_recordings: Recordings
     view_recordings_disabled: Es gibt keine Aufzeichnungen noch
+    view_related_rec: View on video list
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: "Streaming zur Verf\xC3\xBCgung w\xC3\xA4hrend der Veranstaltung"
@@ -958,6 +966,7 @@ de:
   invited: Eingeladene
   is_member_of: ist Mitglied der
   join: Beitreten
+  join_cam: Participate
   join_request: 
     accepted: Join Anfrage akzeptiert
     already_sent: Sie haben bereits gebeten, diesen Raum beitreten
@@ -1260,7 +1269,9 @@ de:
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
     confirmation: "Nach der Registrierung erhalten Sie eine Best\xC3\xA4tigung per Email mit dem Link zur Aktivierung Ihres Kontos"
+    back_to_streaming: back to streaming
     one: Register
+    or_choose: or you can go
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin
   register_as_invited: Registrieren Sie sich als eingeladen
