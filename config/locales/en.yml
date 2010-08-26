@@ -854,6 +854,8 @@ en:
     part2: "<ul>1) Web Participation. The simplest way to participate in virtual events is from your Web browser. The event will be accessible from your browser while it takes place at the event Web page of the site. To participate your browser must have the latest version of Flash installed. The TCP Port 1935 used by the Flash client needs to be open for connecting to the virtual event with a browser. In case you access the event page and do not see the video, you must tell the network administrators of your institution to open this port."
     part3: "<br>2) Isabel Participation. You can also participate with an Isabel native client which runs on Linux. Installation instructions can be found here. The native client provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums."
     part4: "3) A SIP gateway is also provided to allow participation from a videoconferencing equipment.</ul>"    
+  help_search_event:
+    part1: "Hola"    
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
