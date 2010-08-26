@@ -874,8 +874,7 @@ en:
     create_space: Creating a space
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
-    export_ical: Exporting iCalendar
-    export_scorm: Exporting Scorm        
+    export_program: Exporting program        
     info: Here you can find information about the Global Plaza
     invitation: Inviting users to events
     info_isabel: Here you can find information about the Isabel tool    
