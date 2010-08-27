@@ -14,8 +14,10 @@
   <%elsif @event.has_session_now?%>
     <div class="button_wrapper">
       <div class="on_live"><span>Live!</span></div> 
-      <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
-    </div>
+      <%if @event.has_streaming?%>  
+	    <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+      <%end%>
+	</div>
 	  <%= @event.web current_user.login %>
 	<%else%>
 	  <div class="video_wrapper">

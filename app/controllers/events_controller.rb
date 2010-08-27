@@ -114,14 +114,17 @@ class EventsController < ApplicationController
         params[:show_video]=@event.agenda.first_video_entry_id.to_s
       elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
         params[:show_agenda]=true
-      elsif event.is_happening_now?
+      elsif event.is_happening_now? && event.has_streaming?
         params[:show_streaming]=true
-        params[:show_agenda]=true
+      elsif event.is_happening_now? && event.has_participation?
+        params[:show_participation]=true
       elsif !event.has_date?
+        params[:show_agenda]=true
+      else
         params[:show_agenda]=true
       end
     end
-    
+
     if params[:show_agenda] && event.is_happening_now?
       params[:show_streaming]=true
     end
