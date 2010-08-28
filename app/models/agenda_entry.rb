@@ -154,10 +154,15 @@ class AgendaEntry < ActiveRecord::Base
   def event
     agenda.present? ? agenda.event : nil
   end
-    
+
   def recording?
     embedded_video.present? || cm_recording?
   end
+
+  named_scope :with_recording, lambda {
+    { :conditions => [ "embedded_video is not ? or cm_recording = ?",
+                     nil, true ] }
+  }
 
   def streaming?
     cm_streaming?

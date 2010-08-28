@@ -9,7 +9,7 @@
             <%= t('frontpage.main_title') %>
             <span id="text_bottom_title">
                 <br/>
-                <%= t('frontpage.stats', :vc => 50, :vs => 320) %>
+                <%= t('frontpage.stats', :vc => Event.count, :vs => AgendaEntry.with_recording.count) %>
             </span>
         </div>
         <br/>
