@@ -19,9 +19,25 @@
       <div id="event_register" class="button_wrapper margin-up">
         <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
-			<p class="note"><%= t('register.and_participate_description') %></p>
-		<%end%>
-		<%if params[:edit_event]%>
+	  <p class="note"><%= t('register.and_participate_description') %></p>
+	<%end%>
+	
+	<%if event.authorize?(:update, :to => current_user) %>
+	    <%=render :partial => "actions"%>
+	<%end%>
+	
+	<div id="assistance_info">
+    	<div id="assistance_title">
+    		<h3><%=t("tips")%></h3>
+			</div>
+			<div class="tips">
+			  <%=image_tag("icons/calendar_edit.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link2'), screencasts_path(:show=>2), :target=>'_blank' %><br/>
+	      <%=image_tag("icons/user_add.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link4'), screencasts_path(:show=>4), :target=>'_blank' %><br/>
+	      <%=image_tag("icons/information.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link5'), screencasts_path(:show=>5), :target=>'_blank' %>
+			</div>
+    </div>
+	
+	<%if params[:edit_event]%>
       <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
     <%elsif params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
@@ -29,7 +45,8 @@
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
-    <%else%>
+	  <%= render :partial => 'participants' %>
+    <%else%>	  
       <%= render :partial => 'participants' %>
 	  <%unless @event.is_in_person? || @event.past?%>
 		  <%= render :partial => 'connection_info'%>
@@ -42,16 +59,7 @@
   <%end%>
 
 	</div> 
-    <div id="assistance_info">
-    	<div id="assistance_title">
-    		<h3><%=t("tips")%></h3>
-			</div>
-			<div class="tips">
-			  <%=image_tag("icons/calendar_edit.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link2'), screencasts_path(:show=>2), :target=>'_blank' %><br/>
-	      <%=image_tag("icons/user_add.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link4'), screencasts_path(:show=>4), :target=>'_blank' %><br/>
-	      <%=image_tag("icons/information.png",:class=>"icon",:size=>"16x16")%> <%= link_to t('screencast.link5'), screencasts_path(:show=>5), :target=>'_blank' %>
-			</div>
-    </div>
+    
 <%end%>
 
 
@@ -60,19 +68,6 @@
 <%end%>
 
   <%= error_messages_for :agenda_entry %>
-
-  <%if current_user==@event.author && !params[:show_repository] && !params[:show_video] && !params[:show_streaming]%>
-    <div class="success">
-			<strong><%=t('event.help.now')%></strong><br/>
-			<ul id="event_help">
-        <li><%= link_to t('event.help.define')+" "+t('event.help.in_agenda'), space_event_path(@space, @event, :show_agenda => true) %></li>
-				<li><%= link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event), {:id=>"show_inv_link"} %></li>
-        <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
-				<li><%= link_to_function t('event.help.description'), "edit_description()" %></li>		
-				<li><%= link_to t('event.help.edit'), space_event_path(@space, event, :edit_event => event) %></li>
-			</ul>
-    </div>
-  <%end%>
 
   <div id="event_card_show">
     <%= render :partial => "event_card_show" %>
@@ -85,19 +80,20 @@
   <%elsif params[:notification]%>
    <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
   <%elsif params[:group_invitation]%>
-   <%=render :partial => 'group_invitation' %>
-  <%elsif params[:show_streaming] && @event.is_in_person? %>
-    <%=render :partial => "external_streaming"%>
-  <%elsif params[:show_participation] && @event.is_in_person? %>
-    <%=render :partial => "external_participation"%>
-  <%elsif params[:show_streaming]%>
-    <%=render :partial => "cm_streaming"%>
-  <%elsif params[:show_participation]%>
-    <%=render :partial => "cm_participation"%>
+   <%=render :partial => 'group_invitation' %>  
   <%elsif params[:show_repository]%>
      <%=render :partial => "show_repository"%>
-  <%elsif params[:show_agenda]%>
-    <%=render :partial => "agendas/show"%>
+  <%elsif params[:show_agenda] || params[:show_streaming] || params[:show_participation]%>
+	    <%if params[:show_streaming] && @event.is_in_person? %>
+	      <%=render :partial => "external_streaming"%>
+	    <%elsif params[:show_participation] && @event.is_in_person? %>
+	      <%=render :partial => "external_participation"%>
+	    <%elsif params[:show_streaming]%>
+	      <%=render :partial => "cm_streaming"%>
+	    <%elsif params[:show_participation]%>
+	      <%=render :partial => "cm_participation"%>
+		<%end%>
+	    <%=render :partial => "agendas/show"%>
   <%elsif params[:show_video]%>     
     <%= render :partial => "agendas/show_recordings" %>	   
   <%else%><!-- if there is no param-->

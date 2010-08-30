@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   before_filter :adapt_new_date, :only => [:create, :update]
   
   authorization_filter :create, :event, :only => [ :new, :create ]
-  authorization_filter :read,   :event, :only => [ :show, :index ]
+  authorization_filter :read,   :event, :only => [ :show, :index, :chat ]
   authorization_filter :update, :event, :only => [ :edit, :update, :start ]
   authorization_filter :delete, :event, :only => [ :destroy ]
 
@@ -114,11 +114,19 @@ class EventsController < ApplicationController
         params[:show_video]=@event.agenda.first_video_entry_id.to_s
       elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
         params[:show_agenda]=true
-      elsif event.is_happening_now?
+      elsif event.is_happening_now? && event.has_streaming?
         params[:show_streaming]=true
+      elsif event.is_happening_now? && event.has_participation?
+        params[:show_participation]=true
       elsif !event.has_date?
         params[:show_agenda]=true
+      else
+        params[:show_agenda]=true
       end
+    end
+
+    if params[:show_agenda] && event.is_happening_now?
+      params[:show_streaming]=true
     end
     
      if params[:show_video] || params[:format]=="zip"
@@ -302,6 +310,10 @@ class EventsController < ApplicationController
       flash[:success] = t('event.started')
 
     redirect_to event
+  end
+  
+  def chat
+    render :layout => false
   end
   
   private

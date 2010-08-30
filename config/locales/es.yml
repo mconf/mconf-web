@@ -142,7 +142,7 @@ es:
       overlaps: La entrada de la agenda se solapa con una entrada ya existente
       start_time_overlaps: La hora de inicio se solapa con una entrada ya existente en la agenda
     expand_help: "Haga click en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
-    title: Agenda para el evento
+    title: Programa
     update: Agenda actualizada correctamente.
     upload: Subir agenda
     upload_file: Subir Archivo
@@ -490,8 +490,9 @@ es:
       select: Acciones
     agenda: 
       add_entry: "A\xC3\xB1adir una."
-      download: Descargar PDF
-      download_small: "Descargar PDF peque\xC3\xB1o"
+      download: PDF
+      download_small: "PDF peque\xC3\xB1o"
+      export: Exportar
       no_entries: No hay entradas.
     assistance_title: Asistencia
     assistants_none: "Nadie ha confirmado todav\xC3\xADa"
@@ -551,6 +552,7 @@ es:
       marte: No se ha podido crear la conferencia virtual
       omit_date: El evento necesita horas de inicio y fin
       videoconference: No se ha podido crear el evento de videoconferencia
+    features: Características
     follow: "Siga esta reuni\xC3\xB3n virtual"
     found: 
       none: No se han encontrado eventos
@@ -660,14 +662,19 @@ es:
     player: Reproductor
     recording: 
       button_disabled: "Este bot\xC3\xB3n se activar\xC3\xA1 cuando el evento tenga alguna grabaci\xC3\xB3n"
+      cloud: Videos!
+      cloud_back: Back to program
       notice: La gente debe tener derechos de acceso a este espacio para ver estos videos
-      one: Video del evento
-      other: Videos del evento
+      one: Video
+      other: Lista de videos
       share: Compartir
     repository: 
       enabled: Habilitar el repositorio de decumentos
       help: Este repositorio muestra los documentos subidos en las sesiones del evento
       title: Documentos del evento
+    scorm:
+      button: "exportar formato scorm"
+      title: Scorm (Zip para LMS)
     search: Buscar eventos...
     select_date: Seleccione una fecha para su evento
     session_now: "Sesi\xC3\xB3n en curso"
@@ -705,10 +712,11 @@ es:
     updated: El evento se ha actualizado correctamente
     video_part: "Participaci\xC3\xB3n web"
     view_agenda: Agenda
-    view_participation: "Participaci\xC3\xB3n"
+    view_participation: "Participaci\xC3\xB3n Web"
     view_participation_disabled: "Participaci\xC3\xB3n disponible durante el evento"
     view_recordings: Grabaciones
     view_recordings_disabled: "No hay grabaciones todav\xC3\xADa"
+    view_related_rec: Ver en la lista de videos
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: Streaming disponible durante el evento
@@ -909,7 +917,7 @@ es:
     conflictive1: "Una entrada de su iCalendar ya exist\xC3\xADa en GlobalPlaza y se ha modificado. Debe actualizarla manualmente para evitar problemas."
     conflictiven: "entradas de su iCalendar ya exist\xC3\xADan en GlobalPlaza y se han modificado. Debe actualizarlas manualmente para evitar problemas."
     error_import: Se produjo un error al importar el iCalendar.
-    export: Exportar a iCalendar
+    export: iCalendar
     import: Importar de iCalendar
     importMessage1: Un total de
     importMessage2: se leyeron desde su iCalendar.
@@ -1013,6 +1021,7 @@ es:
   invited: Invitado
   is_member_of: es miembro de
   join: Unirse
+  join_cam: Participar
   join_request: 
     accepted: "Petici\xC3\xB3n aceptada"
     already_sent: "Usted ya ha enviado una petici\xC3\xB3n para unirse a este espacio"
@@ -1325,7 +1334,9 @@ es:
     and_participate: Registrarse Para Participar
     and_participate_description: "Para participar Reg\xC3\xADstrate en la Red Social de Eventos."
     confirmation: "Despu\xC3\xA9s de registrarse, recibir\xC3\xA1 un email de confirmaci\xC3\xB3n con el enlace para activar tu cuenta"
+    back_to_streaming: back to streaming
     one: Registro
+    or_choose: or you can go    
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado
@@ -1436,6 +1447,7 @@ es:
   send_message: Enviar un mensaje
   send_reset_password_request: "Enviar solicitud para cambiar contrase\xC3\xB1a"
   session: 
+    one: Sesión
     error: 
       exist: "Usted ya est\xC3\xA1 conectado"
       fill: Por favor, complete estos datos
@@ -1590,7 +1602,7 @@ es:
   start_now!: Inicie ahora!
   street: Calle
   subject: Tema
-  summary: Resumen
+  summary: Video Info
   support: 
     array: 
       last_word_connector: ", y"

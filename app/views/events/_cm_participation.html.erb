@@ -1,8 +1,8 @@
 <div id="streaming_url" class="margin-up main_text">
   <div id="streaming_title">
   	<h3 class="blue">  	 		  
-	    <div class="image"><%=image_tag("right.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-		  <%=t('event.video_part')%>		
+	    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("down.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+		  <%=t('event.video_part')%>: <%=@event.get_session_now.title if @event.has_session_now?%>
     </h3>
   </div>
   
@@ -10,11 +10,14 @@
   <%if !logged_in?%>
     <p class="note"><%= t('register.and_participate_description') %></p>
 	  <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
+	  <%= t('register.or_choose') + " " %>  <%= link_to t('register.back_to_streaming'),space_event_path(@space, @event, :show_streaming => true) %>
   <%elsif @event.has_session_now?%>
-    <div class="button_wrapper"><!-- hay que repasar muy bien las condiciones-->
+    <div class="button_wrapper">
       <div class="on_live"><span>Live!</span></div> 
-      <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
-    </div>
+      <%if @event.has_streaming?%>  
+	    <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+      <%end%>
+	</div>
 	  <%= @event.web current_user.login %>
 	<%else%>
 	  <div class="video_wrapper">

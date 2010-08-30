@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     space.resources :readers
     space.resources :events,
                      :collection => [:add_time, :copy_next_week, :remove_time],
-                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get, :start => :post } do |event|
+                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get, :start => :post, :chat => :get } do |event|
       event.resources :invitations
       event.resources :participants
       event.resource :agenda, :member => {:generate_pdf => :get}

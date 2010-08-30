@@ -59,4 +59,20 @@ class HelpController < ApplicationController
   def define_agenda
 
   end
+  def participation
+
+  end
+  def search_event
+
+  end
+  def export_scorm
+
+  end
+  def export_ical
+
+  end 
+  def invitation
+
+  end  
+   
 end

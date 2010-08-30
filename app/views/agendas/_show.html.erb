@@ -13,7 +13,7 @@
     });
 
     $("#support_select2 ul#browse_menu2").mouseup(function() {
-        return false
+        return false;
     });
 <% end %>
 
@@ -24,21 +24,25 @@
   	  <li class="main_text"><%=@event.get_formatted_timezone%></li>
 			<li>
 				<div id="browse_select2">
-	        <%=link_to ("<span>" + t('event.agenda.download') + "</span>"),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
+	        <%=link_to ("<span>" + t('event.agenda.export') + "</span>"),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
 	        <ul id="browse_menu2" style="display:none">
 	          <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false) %></li>
-			      <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>
-	        </ul>
+			  <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>
+	          <li><%= link_to image_tag("icons/date.png",:class=>"icon",:size=>"16x16") + "  " + t('icalendar.export'), space_event_path(@space, @event, :format => :ics) %></li>
+			  <% if @event.past? %>
+			    <li><%= link_to image_tag("icons/moodle.png",:class=>"icon",:size=>"16x16") + "  " + t('event.scorm.title'), space_event_path(@space, @event,:format => "zip") %></li>
+			  <%end%>
+			</ul>
 	      </div>
-	    </li>
-			<li>
-	     <%= link_to t('icalendar.export'), space_event_path(@space, @event, :format => :ics) %>
-			</li>
+	    </li>			
     </ul>
 		
   	<h3 id="agenda_title_partial" class="blue">
 	    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-	    <%=t('agenda.title')%> 
+	    <span class="toggle_active"><%=t('agenda.title')%></span>
+		<%if @event.agenda.has_past_session_with_video?%>
+		  /<span class="toggle_inactive"><%=link_to t('event.recording.one'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%></span>
+		<%end%> 
     </h3>
   </div>
 	

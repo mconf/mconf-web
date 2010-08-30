@@ -460,6 +460,7 @@ de:
       add_entry: "F\xC3\xBCgen Sie ein."
       download: Download PDF
       download_small: Download small PDF
+      export: Export
       no_entries: "Es gibt noch keine Eintr\xC3\xA4ge."
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht best\xC3\xA4tigt"
@@ -515,6 +516,7 @@ de:
       marte: Konnte nicht erstellt virtuelle Konferenz
       omit_date: Die Veranstaltung muss Startdatum und Enddatum
       videoconference: Konnte keine Videokonferenz-Ereignis
+    features: Event features
     follow: Geben Sie diese Virtual Meeting
     found: 
       none: Keine Veranstaltungen gefunden
@@ -604,6 +606,8 @@ de:
     player: Spieler
     recording: 
       button_disabled: "Diese Schaltfl\xC3\xA4che wird aktiviert, wenn das Ereignis keine Aufzeichnung werden"
+      cloud: Videos!
+      cloud_back: Back to program
       notice: "Die Menschen m\xC3\xBCssen Zugriffsrechte f\xC3\xBCr diesen Raum, diese Videos zu sehen"
       one: Event Video
       other: Event Videos
@@ -612,6 +616,9 @@ de:
       enabled: Enable Document Repository?
       help: Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen
       title: Dokumente zur Veranstaltung
+    scorm:
+      button: "export scorm format"
+      title: Scorm (Zip for LMS)
     search: Suche Termine ...
     select_date: "W\xC3\xA4hlen Sie ein Datum f\xC3\xBCr Ihre Veranstaltung"
     session_now: Session jetzt
@@ -652,6 +659,7 @@ de:
     view_participation_disabled: "Die Teilnahme w\xC3\xA4hrend der Veranstaltung zur Verf\xC3\xBCgung"
     view_recordings: Recordings
     view_recordings_disabled: Es gibt keine Aufzeichnungen noch
+    view_related_rec: View on video list
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: "Streaming zur Verf\xC3\xBCgung w\xC3\xA4hrend der Veranstaltung"
@@ -798,12 +806,14 @@ de:
     part3: "9. Wenn die Art Ihrer Veranstaltung lautet &quot;Virtual Meeting&quot; oder &quot;Virtual Congress&quot;, k\xC3\xB6nnen Sie Hard-und Software-Ressourcen f\xC3\xBCr diesen Tagesordnungspunkt behalten, w\xC3\xA4hlen Sie sowohl Streaming und Aufnahme"
     part4: "10. Klicken Sie auf die Schaltfl\xC3\xA4che &quot;Finish&quot; um die \xC3\x84nderungen zu.  <br>11. Wenn Sie einen Teiler, Br\xC3\xBCche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf &quot;Add Teiler&quot;-Button hinzuf\xC3\xBCgen. Sie k\xC3\xB6nnen die Startzeit und der Grund f\xC3\xBCr die Pause. Klicken Sie auf &quot;Create&quot;-Taste, um die Trennlinie hinzuzuf\xC3\xBCgen.  <br>12. Wenn Ihre Veranstaltung dauert l\xC3\xA4nger als einen Tag, k\xC3\xB6nnen Sie eine neue Sitzung f\xC3\xBCr den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
   help_index: 
-    part1: "Die Virtual Conference Center (VCC) ist eine Web-Anwendung von der Universidad Polit\xC3\xA9cnica de Madrid (UPM) im Rahmen des weltweiten Projektes, ein Forschungsprojekt siebte Rahmenprogramm der Europ\xC3\xA4ischen Comission Programm unterst\xC3\xBCtzt entwickelt."
-    part2: "<li> Zur Aufzeichnung und ver\xC3\xB6ffentlichen Sie Ihre Veranstaltungen im Internet. <br> &nbsp; &nbsp;Zum Beispiel: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>  Um Fernteilnahme Ihre Termine aus einem Web-Browser. "
-    part3: "<li> So streamen bestehenden Meetings, Kongresse oder Vortr\xC3\xA4ge \xC3\xBCber das Internet. <br> &nbsp; &nbsp;Zum Beispiel:<a href={{belief}}>5th Belief Symposium South Africa</a>,<a href={{morfeo}}> Asamblea Morfeo</a>. <li>Um bringen entfernten Lautsprecher in ein bestehendes Tagung oder Kongress.  <br> &nbsp; &nbsp;Zum Beispiel:<a href={{belief_kostas}}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href={{egee}}> 5th EGEE Users Forum</a>."
-    part4: "<li> So schlie\xC3\x9Fen Sie einen Remote-H\xC3\xB6rsaal oder ein Zimmer zu einem Kongress oder Event.  <br> &nbsp; &nbsp;Zum Beispiel: <a href={{tnc}}>TNC'09</a>,<a href={{belief}}> 4th Belief Symposium Brazil</a>."
-    part5: "Die Global Plaza ist strukturiert wie eine sozio-kollaborativen Website, die soziale Vernetzung unterst\xC3\xBCtzt gemeinsam mit kooperativen Unterst\xC3\xBCtzung von Projekten und Aktivit\xC3\xA4ten f\xC3\xBCr Gruppen, wo jeder <a href={{url}}>rregistrieren</a>."
-    part6: "Social Networking wird durch ein globales soziales Netzwerk, das jede registrierte Person verbindet in der Global Plaza mit den anderen Mitgliedern der Website unterst\xC3\xBCtzt. Die kooperative Unterst\xC3\xBCtzung f\xC3\xBCr Gruppenaktivit\xC3\xA4ten oder Projekte ist zur Verf\xC3\xBCgung gestellt von R\xC3\xA4umen (\xC3\xB6ffentliche oder private), die werden erstellt und <a href={{create}}> kann von jedem registrierten </a> Mitglied, durchzuf\xC3\xBChren engere Zusammenarbeit und virtuelle Veranstaltungen innerhalb einer bestimmten Gruppe.  <br><br>Virtual Ereignisse k\xC3\xB6nnen aufgezeichnet werden automatisch und ver\xC3\xB6ffentlicht ( <a href={{space}}> siehe Beispiel </a>) durch den Global Plaza f\xC3\xBCr den privaten oder den Zugang der \xC3\x96ffentlichkeit sowie in Blogs einbetten in Webseiten, etc <br><br> Die Global wurde von der Plaza entwickelt worden <a href={{web_global}}>Europ\xC3\xA4ischen Global Project </a>durch die Wiederverwendung von Ergebnissen und Entwicklungen aus anderen Projekten, welche Anwendung ISABEL verwandelt haben und in einer Cloud-Computing-Dienst wie ITECBAN, Ecospace, Collaboration @ Rural, Cepos, etc.  <br><br> So erstellen oder bearbeiten Leerzeichen, m\xC3\xBCssen Sie angemeldet zu Ihrem Global Plaza Rechenschaft gezogen werden. Wenn Sie noch kein Konto haben, <a href={{url}}>erstellen Sie jetzt </a>."
+    part1: "Global Plaza bietet einen virtuellen Event-Service, die es Ihnen erm\xC3\xB6glichen Videokonferenzen durchf\xC3\xBChren, Streaming, Aufnahme und das elektronische Publizieren Ihrer Meetings, Vortr\xC3\xA4ge, Schulungen, Konferenzen, Kongressen oder Workshops."
+    part2: "GlobalPlaza des sozialen Netzwerks wird die Ank\xC3\xBCndigungen von Veranstaltungen, um andere zu verbreiten, ebenso wie wir entdecken Sie Veranstaltungen, die von anderen durchgef\xC3\xBChrt, um teilzunehmen oder folgen them.Typical Use-Cases von GlobalPlaza sind: <li>Broadcasting \xC3\xBCber das Internet per Streaming Veranstaltungen oder Vortr\xC3\xA4ge statt in einem Klassenzimmer, Konferenzr\xC3\xA4ume und Auditorien. <li>Aufnahme und Ver\xC3\xB6ffentlichung von Veranstaltungen oder Vortr\xC3\xA4ge statt in einem Klassenzimmer, Konferenzr\xC3\xA4ume und Auditorien.<li>Bringing in entfernten Lautsprecher \xC3\xBCber das Internet in Ihre Veranstaltungen, von Desktops oder Zimmer.  <li>Aktivieren Fernteilnahme von Auditorien oder Zimmer in einem bestimmten Kongress oder Event. <li>Performing voll Veranstaltungen mit Remote-Desktops verteilt und Auditorien miteinander verbunden.  <li>Usw.<br><br> "
+    part3: "Die folgenden Aufnahmen von Veranstaltungen geben Ihnen eine Vorstellung davon, was Sie von der GlobalPlaza erhalten:  <li><a href={{tnc08}}>TNC'08</a>,<a href={{tnc09}}>TNC'09</a>,<a href={{tnc10}}>TNC'10 </a>."
+    part4: "<li>Belief Symposien in <a href={{india}}>Indien</a>,<a href={{brazil}}>Brasilien</a> und <a href={{southafrica}}>S\xC3\xBCdafrika</a>."
+    part5: <li><a href={{egee08}}>EGEE'08</a> ,<a href={{egee05}}>5. EGEE User's Forum</a>.<li><a href={{morfeo}}>Asamblea Morfeo</a>
+    part6: "<br>Global Plaza wird als ein sozio-Website, die gemeinsame soziale Netzwerke unterst\xC3\xBCtzt gemeinsam mit kooperativen Unterst\xC3\xBCtzung von Projekten und Aktivit\xC3\xA4ten strukturiert Gruppe. Jeder kann <a href={{url}}>registrieren</a> kostenlos in der Global-Plaza, um es Bestandteil des sozialen Netzwerks und die Nutzung des Dienstes."
+    part7: "Nach der Registrierung k\xC3\xB6nnen Sie zu <a href={{create}}>erstellen</a>, \xC3\xB6ffentliche oder private R\xC3\xA4ume f\xC3\xBCr die Zusammenarbeit mit eingeschr\xC3\xA4nkten Gruppen von Personen, die durch und verwaltet werden Sie von den Personen, die Sie Administratoren ernennen. Sobald Sie ein regul\xC3\xA4res Mitglied oder Administrator eines Raumes sind, k\xC3\xB6nnen Sie zu erstellen, zu verk\xC3\xBCnden, durchf\xC3\xBChren, aufnehmen und ver\xC3\xB6ffentlichen Sie Ihre Veranstaltungen in Global Plaza. Virtual Ereignisse k\xC3\xB6nnen automatisch aufgezeichnet und ver\xC3\xB6ffentlicht durch Global Plaza f\xC3\xBCr den privaten oder den Zugang der \xC3\x96ffentlichkeit sowie in Blogs einbetten, Webseiten, etc. <br><br> Aktivit\xC3\xA4ten f\xC3\xBCr Gruppen veranstaltet in Global-Plaza k\xC3\xB6nnen \xC3\xB6ffentlich oder privat sein. \xC3\x96ffentliche R\xC3\xA4ume Host-Aktivit\xC3\xA4ten, die gesehen werden und anschlie\xC3\x9Fend kann jeder, w\xC3\xA4hrend die privaten R\xC3\xA4ume unterst\xC3\xBCtzt Projekte und Aktivit\xC3\xA4ten, bei denen eine Gruppe Informationen austauschen und treffen sich in privaten zusammenarbeiten k\xC3\xB6nnen. <br><br>Sie k\xC3\xB6nnen in einer virtuellen Global Plaza Ereignis aus Ihrem Web-Browser direkt an nur durch Zugriff auf die Event-Seite, wo das Ereignis angek\xC3\xBCndigt. Ihr Browser muss Flash installiert. Sie k\xC3\xB6nnen auch eine Teilnahme mit <a href={{isabel}}>Isabel</a> Native Client, die eine bessere Qualit\xC3\xA4t bietet audiovisuelle und ist empfohlen f\xC3\xBCr Lautsprecher oder Auditorien verbinden R\xC3\xA4ume und. Ein SIP-Gateway ist ebenfalls vorgesehen, um die Beteiligung von einer Videokonferenz Ausr\xC3\xBCstung erm\xC3\xB6glichen."
+    part8: "Die Global wurde von der Plaza entwickelt worden <a href={{web_global}}>Europ\xC3\xA4ischen Global projekt</a> durch die Wiederverwendung von Ergebnissen und Entwicklungen aus anderen Projekten, die verwandelt haben <a href={{isabel}}>Isabel </a>Applikation in ein Cloud-Computing-Dienst wie ITECBAN, Ecospace, Collaboration @ Rural, Cepos, etc. <br><br>So <a href={{create}}>erstellen</a> oder bearbeiten Leerzeichen, m\xC3\xBCssen Sie angemeldet sein Konto um Ihre Global Plaza. Wenn Sie noch kein Konto haben, <a href={{url}}>erstellen Sie jetzt</a>."
   help_logging: 
     part1: "Wenn Sie bereits ein Konto VCC, k\xC3\xB6nnen Sie <a href={{url}}>sich hier anmelden,</a> oder klicken Sie auf Login-Position aus der oberen Men\xC3\xBCleiste. Geben Sie Ihre Email und Passwort auf dem Hauptbildschirm."
     part2: "Sie k\xC3\xB6nnen Login automatisch, falls Sie einen Account bei einem OpenID-Provider."
@@ -956,6 +966,7 @@ de:
   invited: Eingeladene
   is_member_of: ist Mitglied der
   join: Beitreten
+  join_cam: Participate
   join_request: 
     accepted: Join Anfrage akzeptiert
     already_sent: Sie haben bereits gebeten, diesen Raum beitreten
@@ -1258,7 +1269,9 @@ de:
     and_participate: Register To Participate
     and_participate_description: To participate Register in the Event Social Network.
     confirmation: "Nach der Registrierung erhalten Sie eine Best\xC3\xA4tigung per Email mit dem Link zur Aktivierung Ihres Kontos"
+    back_to_streaming: back to streaming
     one: Register
+    or_choose: or you can go
     thank_you: "Willkommen und vielen Dank f\xC3\xBCr die Registrierung in {{sitename}}"
   register_as_admin: Registrieren Sie sich als admin
   register_as_invited: Registrieren Sie sich als eingeladen
@@ -1371,6 +1384,7 @@ de:
     error: 
       exist: Sie sind bereits angemeldet
       fill: "Bitte f\xC3\xBCllen Sie das folgende Daten"
+    one: Session
   share_participate_discuss: Share, teilzunehmen, zu diskutieren
   should_check_email_to_activate_account: "Sie sollten Ihre E-Mail zu \xC3\xBCberpr\xC3\xBCfen, Ihr Konto zu aktivieren."
   show: Show

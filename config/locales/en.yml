@@ -139,7 +139,7 @@ en:
       overlaps: The agenda entry overlaps with an existing entry
       start_time_overlaps: The start time overlaps with an existing agenda entry
     expand_help: Click on the title of an agenda entry to expand it or contract it
-    title: Agenda for the event
+    title: Program
     update: Agenda was successfully updated.
     upload: Upload Agenda
     upload_file: Upload File
@@ -455,8 +455,9 @@ en:
       select: Actions
     agenda: 
       add_entry: Add one.
-      download: Download PDF
-      download_small: Download small PDF
+      download: PDF
+      download_small: Small PDF
+      export: Export
       no_entries: There are no entries yet.
       see: See on agenda
     assistance_title: Participation
@@ -517,6 +518,7 @@ en:
       marte: Could not create virtual conference
       omit_date: "The event needs start date and end date "
       videoconference: Could not create videoconference event
+    features: Event features
     follow: Enter this Virtual Meeting
     found: 
       none: No events found
@@ -627,10 +629,12 @@ en:
     player: Player
     recording: 
       button_disabled: This button will be enabled when the event has any recording
+      cloud: Videos!
+      cloud_back: Back to program
       insert: Insert
       notice: People will need access rights to this space to see this videos
-      one: Event Video
-      other: Videos of the event
+      one: Video
+      other: Video list
       recorded: Recorded events
       share: Share  
     repository: 
@@ -639,6 +643,7 @@ en:
       title: Event documents
     scorm:
       button: "export scorm format"
+      title: Scorm (Zip for LMS)
     search: Search events...
     select_date: Select a date for your event
     session_now: Session now
@@ -676,11 +681,11 @@ en:
     updated: Event updated successfully
     video_part: Web participation
     view_agenda: Agenda
-    view_participation: Participation
+    view_participation: Web Participation
     view_participation_disabled: Participation available during event
-    view_recordings: Recordings
+    view_recordings: Video Recording
     view_recordings_disabled: There are no recordings yet
-    view_related_rec: See related videos
+    view_related_rec: View on video list
     view_repo: Docs
     view_streaming: Streaming
     view_streaming_disabled: Streaming available during the event
@@ -827,13 +832,23 @@ en:
       7. If you want to enclose a file, click on \xE2\x80\x9CNew attachment\xE2\x80\x9D link.<br>8. If the type of your event is \xE2\x80\x9CMeeting\xE2\x80\x9D, you can embed video for this agenda item  "
     part3: "9. If the type of your event is \xE2\x80\x9CVirtual Meeting\xE2\x80\x9D or \xE2\x80\x9CVirtual Congress\xE2\x80\x9D, you can reserve hardware and software resources for this agenda item, select both streaming and recording"
     part4: "10. Click on the \xE2\x80\x9CFinish\xE2\x80\x9D button to commit your changes. <br>11. If you want to add a divider to indicate breaks, like coffee or lunch breaks, click on \xE2\x80\x9CAdd divider\xE2\x80\x9D button. You can set the start time and the reason for the break. Click on \xE2\x80\x9CCreate\xE2\x80\x9D button to add the divider.<br> 12. If your event takes longer than one day, you can add a new session for the second day. Each day has its own tab with the specified agenda items. "
+  help_export:
+    part1: "To export a program in Global Plaza:"
+    part2: "1. Click on <b>Events </b> tab"
+    part3: "2. Click on the event which you want to export"
+    part4: "3. Click on <b>Export</b> link from the program bar"               
+    part5: "4. You can export the program of an event in three formats:<ul><li><b>PDF</b></li><li><b>Small PDF</b>: it doesn't include descriptions which generate a light file</li><li><b>iCalendar</b>: it is a standard for calendar data exchange.</li><li><b>SCORM</b>: it is a global standard for packaging eLearning content. This option is only available for past events</li></ul>"
   help_index: 
-    part1: "The Global Plaza Conferences, delivers a service which combines web-conferencing, with room-conferencing, with session streaming, recording and publishing. The virtual meeting service of the VCC can be used, for example:"
-    part2: "<li>To record and publish your events on the Internet. <br> &nbsp; &nbsp; For example: <a href={{egee08}}>EGEE'08</a>,<a href={{belief}}> 3rd Belief Symposium India</a>. <li>To provide remote participation to your events from a Web browser.  "
-    part3: "<li>To stream existing meetings, congresses or lectures over the Internet. <br> &nbsp; &nbsp; For example: <a href={{belief}}>5th Belief Symposium South Africa</a>,<a href={{morfeo}}> Asamblea Morfeo</a>.  <li>To bring remote speakers into an existing meeting or congress.<br> &nbsp; &nbsp; For example: <a href={{belief_kostas}}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href={{egee}}>  5th EGEE Users Forum</a>."
-    part4: "<li>To connect a remote auditorium or room to a congress or event.<br> &nbsp; &nbsp;  For example: <a href={{tnc}}>TNC'09</a>,<a href={{belief}}> 4th Belief Symposium Brazil</a>."
-    part5: The Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities, where anybody can <a href={{url}}>register</a>.
-    part6: Social networking is supported by a global social network which connects any registered person in the Global Plaza with the other members of the site. The collaborative support to group activities or projects is provided by spaces (public or private), which <a href={{create}}>can be created </a> by any registered member, to carry out tighter collaborations and virtual events within a given group. <br><br>Virtual events can be automatically recorded and published (<a href={{space}}>see example</a>) by the Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc<br><br>The Global Plaza has been developed by the <a href={{web_global}}>European Global Project</a> by reusing results and developments from other projects which have transformed the ISABEL application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br> To create or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>.
+    part1: "Global Plaza delivers a virtual event service for the Internet, which will enable you to perform video-conferencing, streaming, recording and electronic publishing of your meetings, lectures, training sessions, conferences, congresses or workshops."
+    part2: "GlobalPlaza's social network will disseminate the announcements of your events to others, as well as let you discover events performed by others to participate or follow them.Typical use-cases of GlobalPlaza are:<ul><li>Broadcasting over the Internet via streaming events or lectures taking place in a classroom, meeting room, auditorium or from your desktop.<li>Recording and publishing events or lectures taking place in a classroom, meeting room, auditorium or from your desktop.<li>Bringing in remote speakers over the Internet into your events, from desktops or rooms.<li>Enabling remote participation from auditoriums or rooms into a given congress or event.<li>Performing fully distributed events with remote auditoriums and desktops interconnected.<li>Etc.</ul>"
+    part3: "The following recordings of events give you an idea of what you can obtain from the GlobalPlaza:<ul><li><a href={{egee08}}>EGEE'08</a>, <a href={{egee05}}>5th EGEE User's Forum</a>.<li><a href={{morfeo}}>Asamblea Morfeo</a>"        
+    part4: "<li><a href={{tnc08}}>TNC'08</a>, <a href={{tnc09}}>TNC'09</a>, <a href={{tnc10}}>TNC'10</a>."        
+    part5: "<li>Belief symposiums in <a href={{india}}>India</a>, <a href={{brazil}}>Brazil</a> and <a href={{southafrica}}>SouthAfrica</a></ul>"
+    part6: "Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities. Anybody can <a href={{url}}>register</a> for free in the Global-Plaza to form part of it's social network and use the service and resources, such as recordings, event descriptions, etc. All resources have a permanent link, which can be used and embedded on other web pages."
+    part7: "After registering you will be able to <a href={{create}}>create</a> public or private spaces for collaborating with restricted groups of persons, which will be administered by you and by the persons you appoint as administrators. Once you are a regular member or administrator of a space, you will be able to create, announce, perform, record and publish your events in Global Plaza. Virtual events can be automatically recorded and published by Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc.<br><br>You can participate in a Global Plaza virtual event from your Web browser directly, just by accessing the event page. Your browser must have Flash installed. You can also participate with an <a href={{isabel}}> Isabel </a>native client which provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums. A SIP gateway is also provided to allow participation from a videoconferencing equipment.<br><br>Group activities hosted in Global-Plaza can be public or private. Public spaces host activities which can be seen and followed by anybody, whereas private spaces support projects and activities where a group can share information and meet in private to collaborate."
+    part8: "The Global Plaza has been developed by the <a href={{web_global}}>European Global project</a> by reusing results and developments from other projects which have transformed the <a href={{isabel}}> Isabel </a>application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br>To <a href={{create}}>create</a> or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>"
+  help_invitation: 
+    part1: "Under construction" 
   help_logging: 
     part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
     part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
@@ -847,7 +862,19 @@ en:
     part6: 5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag.
     part7: 6. If you want to <b>notify</b> the document with a message on the wall, choose this option.
     part8: 7. Finally, click on <b>Upload</b> button to add the file to the document repository.
+  help_participation: 
+    part1: "During an event, the Global Plaza sets-up the necessary resources for your event to take place, which include a videoconferencing server with the corresponding MCU, a streaming server, a digital recorder and the necessary gateways for Flash based web access and SIP access."
+    part2: "<ul>1) <b>Web Participation</b>. The simplest way to participate in virtual events is from your Web browser. The event will be accessible from your browser while it takes place at the event Web page of the site. To participate your browser must have the latest version of Flash installed. The TCP Port 1935 used by the Flash client needs to be open for connecting to the virtual event with a browser. In case you access the event page and do not see the video, you must tell the network administrators of your institution to open this port."
+    part3: "<br>2) <b>Isabel Participation</b>. You can also participate with an Isabel native client which runs on Linux. Installation instructions can be found <a href='http://isabel.dit.upm.es/component/option,com_docman/task,doc_download/gid,942/Itemid,74/'>here</a>. The native client provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums."
+    part4: "3) A <b>SIP gateway</b> is also provided to allow participation from a videoconferencing equipment that supports this technology, as for example a Polycom.</ul>"    
   help_support: Help & Support
+  help_search_event:
+    part1: "To search an event in Global Plaza:"
+    part2: "1. Click on <b>Advanced</b> from the top"
+    part3: "2. Choose <b><events</b>from the drop down list <b> Find in </b>"
+    part4: "3. Type a name of the event in <b>the string</b> box"
+    part5: "4. You can specify the date of an event held between two dates"    
+    part6: "5. Click on <b>Go</b> button."                
   help_title: 
     about_vcc: About Global Plaza
     configure_isabel: How to configure your own Isabel server
@@ -860,13 +887,17 @@ en:
     create_space: Creating a space
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
+    export_program: Exporting program        
     info: Here you can find information about the Global Plaza
-    info_isabel: Here you can find information about the Isabel tool
-    isabel: Isabel (Videoconference tool)
+    invitation: Inviting users to events
+    info_isabel: Here you can find information about the Isabel tool    
     install_isabel: How to install Isabel
+    isabel: Isabel (Videoconference tool)    
     logging: Logging In to your account
     globalplaza: Globalplaza 
     new_doc: Adding a new document
+    participation: Participating in a event
+    search_event: Searching an event        
     topics: Topics
   help_vcc: 
     info: Here you can find information about the Global
@@ -882,7 +913,7 @@ en:
     conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
     conflictiven: " entries of your iCalendar were on the Global application and have been modified. You must update them manually to avoid problems. "
     error_import: An error ocurred while importing the iCalendar.
-    export: Export iCalendar
+    export: iCalendar
     import: Import iCalendar
     importMessage1: "A total of "
     importMessage2: " were read from your iCalendar."
@@ -986,7 +1017,7 @@ en:
   invited: Invited
   is_member_of: is member of
   join: Join
-  join_cam: Join your webcam
+  join_cam: Participate
   join_request: 
     accepted: Join Request accepted
     already_sent: You have already requested to join this space
@@ -1288,7 +1319,9 @@ en:
   register:
     and_participate: Register To Participate
     and_participate_description: Registration is needed if you wish to participate in the event.
+    back_to_streaming: back to streaming
     one: Register
+    or_choose: or you can go
     thank_you: Welcome and thank you for registering in {{sitename}}
     confirmation: After registering you will receive an email confirmation with the link to activate your account    
   register_as_admin: Register as admin
@@ -1399,6 +1432,7 @@ en:
   send_debug_emails: Send debug emails
   send_reset_password_request: Send Reset Password Request
   session: 
+    one: Session
     error: 
       exist: You are already logged in
       fill: Please fill in this data
@@ -1552,7 +1586,7 @@ en:
   stage_type: Stage type
   street: Street
   subject: Subject
-  summary: Summary
+  summary: Video Info
   support: 
     array: 
       last_word_connector: ", and "
