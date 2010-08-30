@@ -2,6 +2,7 @@
 
  $('#news_sidebar img.tooltip_news_item').qtip({
    content: '<%=t("tooltip.news_item")%>',
+	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -9,6 +10,7 @@
   
  $('#news_sidebar img.tooltip_advanced_editor_news').qtip({
    content: '<%=t("tooltip.advanced_editor")%>',
+	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'

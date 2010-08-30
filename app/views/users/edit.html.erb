@@ -5,6 +5,7 @@
 <% content_for :javascript do%>	  
    $('#timezone img.tooltip_timezone').qtip({
    content: '<%=t("tooltip.timezone")%>',
+	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'

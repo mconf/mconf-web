@@ -1,6 +1,7 @@
 <% content_for :javascript do %>
  $('#user_filter img.tooltip_user_filter').qtip({
    content: '<%=t("tooltip.user_filter")%>',
+	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'

@@ -2,6 +2,7 @@
  $('#newTag img.tooltip_new_tag').livequery(function(){
    $(this).qtip({
     content: '<%=t("tooltip.tag")%>',
+		position: {adjust: { screen: true }},
     show:  'mouseover',
     hide: { when: 'mouseout', fixed: true },
     style: 'mystyle'

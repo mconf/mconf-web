@@ -135,36 +135,25 @@ function cropImage (c){
    	$("#crop_size_width").val(c.w);
 };
 
-
- $('#space_new_form img.tooltip_public_space').qtip({
-   content: '<%=t("tooltip.public_space")%>',
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-	
-	
- $('#space_new_form img.tooltip_document_repository').qtip({
-   content: '<%=t("tooltip.document_repository")%>',
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-	
- $('#space_new_form img.tooltip_mailing_list').qtip({
-   content: '<%=t("tooltip.mailing_list")%>',
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
  $('#space_logo img.tooltip_update_logo').qtip({
    content: '<%=t("tooltip.update_logo")%>',
+	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
 	
+	$('#space_new_form img[tooltip]').each(function()
+   {
+      $(this).qtip({
+         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
+			   position: {adjust: { screen: true }},
+			   show:  'mouseover',
+			   hide: { when: 'mouseout', fixed: true },
+         style: 'mystyle' // Give it a crea mstyle to make it stand out
+      });
+   });
+
 	<% end %>
 	
 
@@ -210,16 +199,16 @@ function cropImage (c){
 		
 			<div>
 		   	<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
-		    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_public_space icon",:style=>"cursor:pointer")%>
+		    <%=image_tag("icons/help.png",:title=>"", :size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.public_space"))%>
 			</div>
 			<div>
 		   	<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
-				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_document_repository icon",:style=>"cursor:pointer")%>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.document_repository"))%>
 			</div>
 			
 			<div id='check_mail' class="check_mail_blinking">
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
-				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_mailing_list icon",:style=>"cursor:pointer")%>
+				<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.mailing_list"))%>
 			</div>
 			
 			<div id='mail_group' class="mail_group_blinking" style="display:none">

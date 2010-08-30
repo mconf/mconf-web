@@ -2,6 +2,7 @@
  $('#doc_action img.tooltip_upload_doc').livequery(function(){
    $(this).qtip({
     content: '<%=t("tooltip.tag")%>',
+		position: {adjust: { screen: true }},
     show:  'mouseover',
     hide: { when: 'mouseout', fixed: true },
     style: 'mystyle'
