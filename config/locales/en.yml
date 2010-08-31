@@ -877,13 +877,19 @@ en:
     part4: "3) A <b>SIP gateway</b> is also provided to allow participation from a videoconferencing equipment that supports this technology, as for example a Polycom."
     part5: "4) <b>Streaming and Chat</b>. You can also participate in virtual events through streaming which includes audio and video. However you are not able to participate directly in the event. A synchronous online chat is available.</ul>"        
   help_support: Help & Support
-  help_search_event:
-    part1: "To search an event in Global Plaza:"
-    part2: "1. Click on <b>Advanced</b> from the top"
-    part3: "2. Choose <b><events</b>from the drop down list <b> Find in </b>"
-    part4: "3. Type a name of the event in <b>the string</b> box"
-    part5: "4. You can specify the date of an event held between two dates"    
-    part6: "5. Click on <b>Go</b> button."                
+  help_search_global:
+    part1: "You can search spaces, posts, events, videos, users and attachments in Global Plaza. There are two options for searching: simple and advanced search."
+    part2: "<b>Simple search</b>"
+    part3: "1. Click on <b>Search</b> box from the top bar"
+    part4: "2. Type the name of the item which you want to search"
+    part5: "3. Press enter or click on <b>Go</b> button"
+    part6: "<b>Advanced search</b>"
+    part7: "1. Click on <b>Advanced search</b> box from the top"
+    part8: "2. Specify if you want to search in any space or in a particular space from the drop down list <b> Search in </b>"             
+    part9: "3. Choose the type of element from the drop down list <b> Find in </b>"
+    part10: "4. Type a name of the event in <b>the string</b> box"
+    part11: "5. If you choose events, you can specify the date of an event held between two dates"    
+    part12: "6. Click on <b>Go</b> button."                
   help_title: 
     about_vcc: About Global Plaza
     configure_isabel: How to configure your own Isabel server
@@ -896,7 +902,7 @@ en:
     create_space: Creating a space
     create_user: Creating a user
     define_agenda: Defining the agenda for the event
-    export_program: Exporting program        
+    export_program: Exporting events        
     info: Here you can find information about the Global Plaza
     invitation: Inviting users to events
     info_isabel: Here you can find information about the Isabel tool    
@@ -907,7 +913,7 @@ en:
     globalplaza: Global Plaza 
     new_doc: Adding a new document
     participation: Participating in a event
-    search_event: Searching an event        
+    search_global: Searching in Global Plaza        
     topics: Topics
   help_vcc: 
     info: Here you can find information about the Global
