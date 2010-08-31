@@ -74,5 +74,7 @@ class HelpController < ApplicationController
   def invitation
 
   end  
-   
+  def join_space
+
+  end     
 end
