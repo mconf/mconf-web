@@ -407,6 +407,23 @@ $("a.repository_sidebar_action").livequery("click",function(){
 
 /*jquery for toggling the share and insert bar in show videos*/
 
+  $("#share_insert_video .share").livequery('click',function () { 
+     $("#embed_share").hide();
+	 $("#url_isabel").hide();
+	 $("#url_sip").hide();
+	 $("#url_share").toggle('slow'); 
+  });
+	
+	$("#share_insert_video .insert").livequery('click',function () { 
+     $("#url_share").hide();
+	 $("#url_isabel").hide();
+	 $("#url_sip").hide();
+	 $("#embed_share").toggle('slow');   
+  });
+
+
+/*jquery for toggling the share and insert bar in show streaming*/
+
   $("#share_insert .share").livequery('click',function () { 
      $("#embed_share").hide();
 	 $("#url_isabel").hide();

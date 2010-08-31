@@ -47,7 +47,7 @@
     <label for="Location"><%= t('event.location') %>:</label>
     <%= f.text_field :location, :size =>25  %>
   </div>  
-  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person) || @event.is_happening_now?%>
+  <%unless @event.vc_mode == Event::VC_MODE.index(:in_person) || @event.is_happening_now? || @event.past?%>
 	  <div id="extra-info">
       <div class="margin-up">
         <strong><span>2. <%= t('event.enable.participation')%></span></strong>	

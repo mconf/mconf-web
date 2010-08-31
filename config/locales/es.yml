@@ -618,7 +618,9 @@ es:
       both: "La participaci\xC3\xB3n web y el streaming estar\xC3\xA1n disponibles en el momento del evento"
       none: "No hay streaming definido en el orden del d\xC3\xADa."
       nothing: "No hay participaci\xC3\xB3n web o streaming reservados en este momento"
-      not_organizer: Este evento está ocurriendo ahora, lo puedes seguir por el streaming o participar con el cliente flash y el chat
+      not_organizer_after: Este evento ocurrió en {{date}}, ahora puedes ver la agenda y las grabaciones, disfrútalas
+      not_organizer_during: Este evento está ocurriendo ahora, lo puedes seguir por el streaming o participar con el cliente flash y el chat
+      not_organizer_before: Este evento ocurrirá el {{date}}, ahora puedes confirmar tu asistencia y leer el programa
       participation: "La participaci\xC3\xB3n web estar\xC3\xA1 disponible en el momento del evento"
       streaming: "El streaming estar\xC3\xA1 disponible en el momento del evento"
     notification: 

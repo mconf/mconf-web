@@ -1634,7 +1634,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 }
 	
 #share_insert{
-	padding:0.75em;
+	padding:0 0.75em 0.75em;
 	background:#f0f6f9;
 	border:1px solid #bdd8eb;
 	-moz-border-radius:3px;
@@ -1643,7 +1643,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	margin-bottom:0.75em;
 }
 
-#share_insert .share,#share_insert .insert, #share_insert .isabel, #share_insert .sip{
+#share_insert .share,#share_insert .insert, #share_insert .isabel, #share_insert .sip, #share_insert_video .share,#share_insert_video .insert, #share_insert_video .isabel, #share_insert_video .sip{
 	padding:3px 5px;
 	font-weight:bold;
 	font-size:1em;
@@ -1657,9 +1657,19 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	margin-right:8px;
 }
 
-#share_insert .share:hover ,#share_insert .insert:hover{
+#share_insert .share:hover ,#share_insert .insert:hover, #share_insert_video .share:hover ,#share_insert_video .insert:hover{
 	background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
 	color:#222;}
+
+#share_insert_video{
+	padding:0.75em;
+	background:#f0f6f9;
+	border:1px solid #bdd8eb;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	display:block;
+	margin-bottom:0.75em;
+}
 
 .only_url{color: #666666; font-weight: bold;}
 .preview_selected {background-color: #FFF6BF;}
@@ -1856,4 +1866,5 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 .toggle_inactive{font-weight:normal;}
 #view_agenda{float:right;}
 #actions_full{min-height:110px;margin-bottom:7px;}
-.big_margin_down{margin-bottom:40px;}
+#full_sidebar .big_margin_down_40{margin-bottom:40px;}
+#full_sidebar .big_margin_down_60{margin-bottom:60px;}

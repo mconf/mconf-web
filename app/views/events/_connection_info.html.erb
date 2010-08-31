@@ -1,7 +1,12 @@
 <% if @event.cm_event?%>
     <div id="share_insert">
-	    <h3><%= t('event.connection.info') %></h3><span class="share"><%=t('event.recording.share')%></span><span class="insert"><%=t('event.recording.insert')%></span><span class="isabel">Isabel</span><span class="sip">Sip</span>
-		
+	    <h3><%= t('event.connection.info') %></h3>
+		<span class="share"><%=t('event.recording.share')%></span>
+		<span class="insert"><%=t('event.recording.insert')%></span>
+		<span class="isabel">Isabel</span>
+		<%if @event.cm_event? && @event.cm_event.enable_sip?%>
+		  <span class="sip">Sip</span>
+		<%end%>
 		<div id="url_share" class="url_share" style="display:none">
 	        <%unless @space.public?%>
 	          <%=t('event.streaming.notice')%><br/>
@@ -34,7 +39,7 @@
 	          <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=@event.isabel_url=="isabel://" ? t('event.connection.wait'):@event.isabel_url %>" name="video_link"></input>
 	        </form>
 	   </div>
-	   
+	 <%if @event.cm_event? && @event.cm_event.enable_sip?%>   
 	   <div id="url_sip" class="url_share" style="display:none">
 	        <%unless @space.public?%>
 	          <%=t('event.streaming.notice')%><br/>
@@ -45,7 +50,7 @@
 	          <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=@event.sip_url %>" name="video_link"></input>
 	        </form>
 	   </div>
-	   
+	 <%end%>   
 	</div>
 
 

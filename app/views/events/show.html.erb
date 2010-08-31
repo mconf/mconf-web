@@ -20,11 +20,15 @@
       <div id="event_register" class="button_wrapper margin-up">
         <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
-	  <p class="big_margin_down note"><%= t('register.and_participate_description_with_login', :url => login_path ) %></p>
+	  <p class="big_margin_down_40 note"><%= t('register.and_participate_description_with_login', :url => login_path ) %></p>
 	<%elsif event.authorize?(:update, :to => current_user) %>
 	    <%=render :partial => "actions"%>
-	<%else %>
-	    <p class="big_margin_down note"><%= t('event.note.not_organizer') %></p>
+	<%elsif event.is_happening_now? %>
+	    <p class="big_margin_down_40 note"><%= t('event.note.not_organizer_during') %></p>
+	<%elsif event.past?%>
+	    <p class="big_margin_down_60 note"><%= t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")) %></p>
+	<%else%>
+	    <p class="note"><%= t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")) %></p>
 	<%end%>
 	
 	
