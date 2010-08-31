@@ -4,13 +4,29 @@
 # wget http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_3.6.4_all.deb
 # sudo dpkg -i openfire_3.6.4_all.deb
 
+2. Create a MySQL user and database for Openfire (example: user openfire, database openfire)
+# mysql -u root -p
+mysql> CREATE USER 'openfire'@'localhost' IDENTIFIED BY '***';
+mysql> GRANT USAGE ON *.* TO 'openfire'@'localhost' IDENTIFIED BY '***' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+mysql> CREATE DATABASE IF NOT EXISTS `openfire`;
+mysql> GRANT ALL PRIVILEGES ON `openfire`.* TO 'openfire'@'localhost';
+
 2. Access to http://chat.vcc.dit.upm.es:9090/
 - Choose Language -> English
 - Server Settings
   * Domain: chat.vcc.dit.upm.es
   * Admin Console Port: 9090
   * Secure Admin Console Port: 9091
-- Database Settings -> Embedded Database
+- Database Settings -> Standard Database Connection
+- Database Settings - Standard Connection
+  * Database Driver Presets: MySQL
+  * JDBC Driver Class: com.mysql.jdbc.Driver
+  * Database URL: jdbc:mysql://localhost:3306/openfire
+  * Username: openfire
+  * Password: ***
+  * Minimum Connections: 5
+  * Maximum Connections: 25
+  * Connection Timeout: 1.0
 - Profile Settings -> Default
 - Administrator Account -> Set your administration account
 
@@ -66,7 +82,7 @@ jdbcGroupProvider.userGroupsSQL
 SELECT `name` FROM `spaces` WHERE `id`=ANY (SELECT `stage_id` FROM `performances` WHERE `agent_id`=(SELECT `id` FROM `users` WHERE `login`=?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space')
 
 jdbcProvider.connectionString
-jdbc:mysql://127.0.0.1/database_name?user=database_user_name&password=database_password
+jdbc:mysql://127.0.0.1/globalplaza_database_name?user=database_user_name&password=database_password
 
 jdbcProvider.driver
 com.mysql.jdbc.Driver
@@ -110,6 +126,9 @@ xmpp_server_password
 plugin.vccRooms.vccAvatarUrl
 http://vcc.dit.upm.es/users/{user-id}/avatar
 
+plugin.vccRooms.groupChatServiceName
+events
+
 provider.admin.className
 org.jivesoftware.openfire.admin.DefaultAdminProvider
 
@@ -138,7 +157,7 @@ vccCustomAuthProvider.vccSessionUrl
 http://vcc.dit.upm.es/session.xml
 
 vccCustomAuthProvider.vccCookieSession
-_prueba_session
+_vcc_session
 
 xmpp.auth.anonymous
 true
