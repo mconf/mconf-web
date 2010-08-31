@@ -62,7 +62,7 @@ class HelpController < ApplicationController
   def participation
 
   end
-  def search_event
+  def search_global
 
   end
   def export_scorm
