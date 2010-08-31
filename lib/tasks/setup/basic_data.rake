@@ -58,6 +58,8 @@ namespace :setup do
 
       # Permission applied to Group
       Permission.find_or_create_by_action_and_objective "manage", "group"
+      # Permission to start an event
+      Permission.find_or_create_by_action_and_objective "start", "event"
     end
 
     desc "Load Roles Data"
@@ -73,6 +75,7 @@ namespace :setup do
       organizer_role.permissions << Permission.find_by_action_and_objective('read',   'content')
       organizer_role.permissions << Permission.find_by_action_and_objective('update', 'content')
       organizer_role.permissions << Permission.find_by_action_and_objective('delete', 'content')
+      organizer_role.permissions << Permission.find_by_action_and_objective('start', 'event')
       
       invitedevent_role = Role.find_or_create_by_name_and_stage_type "Invitedevent", "Event"
       invitedevent_role.permissions << Permission.find_by_action_and_objective('read', nil)
