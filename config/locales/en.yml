@@ -850,10 +850,13 @@ en:
     part7: "After registering you will be able to <a href={{create}}>create</a> public or private spaces for collaborating with restricted groups of persons, which will be administered by you and by the persons you appoint as administrators. Once you are a regular member or administrator of a space, you will be able to create, announce, perform, record and publish your events in Global Plaza. Virtual events can be automatically recorded and published by Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc.<br><br>You can participate in a Global Plaza virtual event from your Web browser directly, just by accessing the event page. Your browser must have Flash installed. You can also participate with an <a href={{isabel}}> Isabel </a>native client which provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums. A SIP gateway is also provided to allow participation from a videoconferencing equipment.<br><br>Group activities hosted in Global-Plaza can be public or private. Public spaces host activities which can be seen and followed by anybody, whereas private spaces support projects and activities where a group can share information and meet in private to collaborate."
     part8: "The Global Plaza has been developed by the <a href={{web_global}}>European Global project</a> by reusing results and developments from other projects which have transformed the <a href={{isabel}}> Isabel </a>application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br>To <a href={{create}}>create</a> or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href={{url}}>create one now</a>"
   help_invitation: 
-    part1: "To join a space in Global Plaza:"
-    part2: "1. Click on <b>Join this space</b> button."    
+    part1: "Under construction"   
   help_join_space: 
-    part1: "Global Plaza delivers a virtual event service for the Internet, which will enable you to perform video-conferencing, streaming"      
+    part1: "To join a space in Global Plaza:"
+    part2: "1. <a href={{url}}>Search</a> the space which you want to join."    
+    part3: "2. Click on <b>Join this space</b> button on the right side of the page."
+    part4: "3. Type a personal message to the administrators of the space (optional)."
+    part5: "4. Finally, click on <b>send</b> button to send the join request to the administrators."            
   help_logging: 
     part1: If you already have a Global Plaza account, you can <a href={{url}}>login here</a> or enter your email and password in the top bar.
     part2: If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar.
