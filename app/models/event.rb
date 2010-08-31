@@ -80,7 +80,7 @@ class Event < ActiveRecord::Base
 
   # Maximum number of consecutive days for the event
   MAX_DAYS = 5
-
+  
 
    def validate
 #    if start_date.to_date.past?

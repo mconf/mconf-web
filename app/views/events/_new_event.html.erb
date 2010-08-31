@@ -138,8 +138,8 @@
         <strong><span>2. <%= t('event.enable.participation')%></span></strong>	
       </div>
        <%= t('event.enable.isabelbw') %> : <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , ["1M", "1M"])%> <br/>
-	   <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["Low (150K H.264)", "0"], ["Medium (250K H.264)", "1"], ["High (450K Sorenson)", "2"]] , ["Medium (250K H.264)", "1"])%> <br/>
-	   <%= t('event.enable.recbw') %> : <%= f.select "recording_bw", options_for_select_with_class_selected([["Medium (250K H.264)", "1"], ["High (550K H.264)", "2"]] , ["Medium (250K H.264)", "1"])%> <br/>
+	   <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , ["Medium (250K H.264)", "1"])%> <br/>
+	   <%= t('event.enable.recbw') %> : <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , ["Medium (250K H.264)", "1"])%> <br/>
 	   <div class="checkbox_event">
        <%=f.check_box :sip_interface,:class=>"icon", :checked => false  %>
         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>

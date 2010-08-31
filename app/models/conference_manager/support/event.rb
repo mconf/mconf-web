@@ -3,13 +3,16 @@ module ConferenceManager
     # This module provides support for Events organized by the ConferenceManger
     module Event
       
-      CM_ATTRIBUTES = ["name", "cm_mode", "web_interface", "isabel_interface", "sip_interface", "httplivestreaming_interface", "permalink"]
+      CM_ATTRIBUTES = ["name", "cm_mode", "web_bw", "isabel_bw", "sip_interface", "httplivestreaming_bw", "permalink"]
       #in these arrays the number in kb is lower than in the comments because we pass the conference manager interface
       #only the video bandwidth, and the total is about 50kb lower
       WEB_BANDWIDTH = [100000, 200000, 400000] #equivalents: low (150K), medium (250K), high (450K)
       WEB_CODEC = ["H264","H264","H263"] #equivalents: low (h.264), medium (h.264), high (sorenson)
       RECORDING_BANDWIDTH = [0, 200000, 500000] #equivalents low (0) we don't use it, medium (250K), high (550K)
       RECORDING_CODEC = ["H264","H264","H264"] #equivalents: low (H.264), medium (h.264), high (h.264)  
+      
+      WEB_BW_HASH_FOR_DROP_DOWN = {"100000"=> ["Low (150K H.264)", "0"], "200000" => ["Medium (250K H.264)", "1"], "400000"=>["High (450K Sorenson)", "2"]}
+      RECORDING_HASH_FOR_DROP_DOWN = {"0"=>["Medium (250K H.264)", "1"],"200000"=>["Medium (250K H.264)", "1"],"500000"=>["High (550K H.264)", "2"]}
       
       class << self
         def included(base)
@@ -40,14 +43,20 @@ module ConferenceManager
               end
             end
            
-            validate_on_update do |event|
+            validate_on_update do |event|              
               if event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
                 new_params = { :name => event.name,
                                :mode => event.cm_mode,
-                               :enable_web => event.web_interface?,
-                               :enable_isabel => event.isabel_interface?,
+                               :enable_web => "1",
+                               :enable_isabel => "1",
                                :enable_sip => event.sip_interface?,
-                               :enable_httplivestreaming => event.httplivestreaming_interface?,
+                               :enable_httplivestreaming => "1",
+                               :isabel_bw => event.isabel_bw,
+                               :web_bw => WEB_BANDWIDTH[event.web_bw],
+                               :recording_bw => RECORDING_BANDWIDTH[event.recording_bw],
+                               :httplivestreaming_bw => WEB_BANDWIDTH[event.web_bw],
+                               :web_codec => WEB_CODEC[event.web_bw],
+                               :recording_codec => RECORDING_CODEC[event.recording_bw],
                                :path => "attachments/conferences/#{event.permalink}" }
 
                 cm_event = event.cm_event

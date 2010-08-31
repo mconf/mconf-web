@@ -3,7 +3,7 @@
   <div id="recordings_title">
     <h3 class="blue">
     	<div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%></div>
-	    <span class="toggle_active"><%=t('event.recording.one')%></span>
+	    <span class="toggle_active"><%=t('event.recording.other')%></span>
 		/
 		<span class="toggle_inactive"><%=link_to t('agenda.title'), space_event_path(@space, @event, :show_agenda => true) %></span>
 	</h3>
@@ -13,7 +13,7 @@
 	<div id="videos">
 	  <div class="video_full">
 	    <%if @display_entry%>
-	      <%=@display_entry.video_player%>
+	      <%=@display_entry.video_player("640","480")%>
 	    <%end%>
 	  </div>  
 		

@@ -45,7 +45,7 @@ $(".event_image").click(function(){
     indicator : '<img src="ui/icons/accept.png" />',
 	  onblur : 'ignore',
     placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
-    type      : 'textarea',
+    type      : 'wysiwyg',
     name : 'event[description]',
     width : 635,
       height: 150,
@@ -408,11 +408,31 @@ $("a.repository_sidebar_action").livequery("click",function(){
 /*jquery for toggling the share and insert bar in show videos*/
 
   $("#share_insert .share").livequery('click',function () { 
-     $("#embed_share").hide(),
-		 $("#url_share").toggle('slow')   
+     $("#embed_share").hide();
+	 $("#url_isabel").hide();
+	 $("#url_sip").hide();
+	 $("#url_share").toggle('slow'); 
   });
 	
 	$("#share_insert .insert").livequery('click',function () { 
-     $("#url_share").hide(),
-		 $("#embed_share").toggle('slow')      
+     $("#url_share").hide();
+	 $("#url_isabel").hide();
+	 $("#url_sip").hide();
+	 $("#embed_share").toggle('slow');   
+  });
+  
+/*jquery for toggling the share and insert bar in show streaming*/
+
+  $("#share_insert .isabel").livequery('click',function () { 
+     $("#embed_share").hide();
+	 $("#url_share").hide();
+	 $("#url_sip").hide();
+	 $("#url_isabel").toggle('slow');  
+  });
+	
+	$("#share_insert .sip").livequery('click',function () { 
+     $("#embed_share").hide();
+	 $("#url_share").hide();
+	 $("#url_isabel").hide();
+	 $("#url_sip").toggle('slow');      
   });

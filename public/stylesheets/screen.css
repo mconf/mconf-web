@@ -1528,7 +1528,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	/*overflow:hidden;*/
 	}
 .profile_center .grey_bar{margin-bottom:0;background:#E1EEF5;border:none;}
-#jar{position:relative;}
+#jar{position:relative;margin-top:0.75em;}
 
 .grey_bar span#selected_info{
   float:left;
@@ -1643,7 +1643,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	margin-bottom:0.75em;
 }
 
-#share_insert .share,#share_insert .insert{
+#share_insert .share,#share_insert .insert, #share_insert .isabel, #share_insert .sip{
 	padding:3px 5px;
 	font-weight:bold;
 	font-size:1em;
@@ -1654,6 +1654,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 	 -moz-border-radius:3px;
   -webkit-border-radius:3px;
 	cursor:pointer;
+	margin-right:8px;
 }
 
 #share_insert .share:hover ,#share_insert .insert:hover{
@@ -1796,6 +1797,7 @@ div.banner_footer a{
 	float: right;
 }
 
+#note_to_register{margin-bottom:40px;}
 
 #event_filter #event_select {
   float: none;
@@ -1853,3 +1855,5 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 .video_cloud{width: 150px;float:right;margin-top:45px;}
 .toggle_inactive{font-weight:normal;}
 #view_agenda{float:right;}
+#actions_full{min-height:110px;margin-bottom:7px;}
+.big_margin_down{margin-bottom:40px;}

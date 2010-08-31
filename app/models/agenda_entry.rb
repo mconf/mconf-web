@@ -174,8 +174,10 @@ class AgendaEntry < ActiveRecord::Base
       "default_background.jpg"
   end
   
-  def video_player
-    embedded_video || player
+  #returns the player with the specified width and height
+  #or the embedded_video if the entry has one
+  def video_player(width, height)
+    embedded_video || player(width, height)
   end
   
   def initDate

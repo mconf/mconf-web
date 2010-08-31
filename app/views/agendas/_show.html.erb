@@ -41,7 +41,7 @@
 	    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
 	    <span class="toggle_active"><%=t('agenda.title')%></span>
 		<%if @event.agenda.has_past_session_with_video?%>
-		  /<span class="toggle_inactive"><%=link_to t('event.recording.one'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%></span>
+		  /<span class="toggle_inactive"><%=link_to t('event.recording.other'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%></span>
 		<%end%> 
     </h3>
   </div>

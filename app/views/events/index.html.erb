@@ -72,25 +72,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 
 <div id="events_wrapper">
 
-  <%if current_user && @space.authorize?([:create, :content],:to => current_user) %>
-	<div id="orange_bar">
-	  <ul>
-	    <li class="orange_one">
-	      <h3><%=t('event.new.presential')%></h3>
-	      <p><%=t('event.create.info.presential.message')%></p>
-	    </li>
-	    <li class="orange_two">
-	      <h3><%=t('event.new.meeting')%></h3>
-	      <p><%=t('event.create.info.meeting.message')%></p>
-	    </li>
-	    <li class="orange_three">
-	      <h3><%=t('event.new.conference')%></h3>
-	      <p><%=t('event.create.info.conference.message')%></p>
-	    </li>
-	  </ul>
-	</div>
-  <%end%>
-	<div id="events_content">
+ 	<div id="events_content">
 		
 	  <%if !@current_events.empty?%>
 	    <div id="current_events">

@@ -585,6 +585,7 @@ en:
       both: Web participation and streaming will be available at the time of the event
       none: There is no streaming defined in the agenda.
       nothing: No web participation or streaming booked at this time
+      not_organizer: This event is happening now, you can follow it with the streaming or participate with the chat and the flash client
       participation: Web participation will be available at the time of the event
       streaming: Video streaming will be available at the time of the event
     notification: 
@@ -648,7 +649,7 @@ en:
     select_date: Select a date for your event
     session_now: Session now
     spam: Spam in events
-    start: Start event
+    start: Restart event
     started: Start request send successfully
     streaming: 
       add: Add one.
@@ -656,6 +657,7 @@ en:
       edit: Edit streaming code
       no_at_events: No Streaming at meetings
       none: No one has posted any streaming url
+      notice: People will need access rights to this space to see this content
       now: Event Streaming
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
@@ -1318,7 +1320,8 @@ en:
     activity: Recent activity
   register:
     and_participate: Register To Participate
-    and_participate_description: Registration is needed if you wish to participate in the event.
+    and_participate_description: To participate in the event you should register
+    and_participate_description_with_login: To participate in the event you should register or <a href={{url}}>login</a>
     back_to_streaming: back to streaming
     one: Register
     or_choose: or you can go

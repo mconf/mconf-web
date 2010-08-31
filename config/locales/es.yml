@@ -618,6 +618,7 @@ es:
       both: "La participaci\xC3\xB3n web y el streaming estar\xC3\xA1n disponibles en el momento del evento"
       none: "No hay streaming definido en el orden del d\xC3\xADa."
       nothing: "No hay participaci\xC3\xB3n web o streaming reservados en este momento"
+      not_organizer: Este evento está ocurriendo ahora, lo puedes seguir por el streaming o participar con el cliente flash y el chat
       participation: "La participaci\xC3\xB3n web estar\xC3\xA1 disponible en el momento del evento"
       streaming: "El streaming estar\xC3\xA1 disponible en el momento del evento"
     notification: 
@@ -679,7 +680,7 @@ es:
     select_date: Seleccione una fecha para su evento
     session_now: "Sesi\xC3\xB3n en curso"
     spam: Spam en los eventos
-    start: Comenzar evento
+    start: Reiniciar evento
     started: "Solicitud de comienzo enviada con \xC3\xA9xito"
     steps: "Completa tu evento siguiente pasos:"
     streaming: 
@@ -687,6 +688,7 @@ es:
       edit: "Editar el c\xC3\xB3digo de streaming"
       no_at_events: Sin streaming en las reuniones
       none: Nadie ha publicado ninguna url de streaming
+      notice: Los usuarios necesitarán derechos de acceso para ver este contenido
       now: Streaming de eventos
       ready: "El streaming ha sido reservado. Estar\xC3\xA1 disponible durante el evento"
       title: "Sesi\xC3\xB3n de streaming"
@@ -1332,11 +1334,12 @@ es:
     activity: Actividad reciente
   register: 
     and_participate: Registrarse Para Participar
-    and_participate_description: "Para participar Reg\xC3\xADstrate en la Red Social de Eventos."
+    and_participate_description: Para participar en el evento debes registrarte
+    and_participate_description_with_login: Para participar en el evento debes registrarte o <a href={{url}}>hacer login</a>
     confirmation: "Despu\xC3\xA9s de registrarse, recibir\xC3\xA1 un email de confirmaci\xC3\xB3n con el enlace para activar tu cuenta"
-    back_to_streaming: back to streaming
+    back_to_streaming: atras al streaming
     one: Registro
-    or_choose: or you can go    
+    or_choose: o puedes ir 
     thank_you: Gracias por registrarse en {{sitename}}
   register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado

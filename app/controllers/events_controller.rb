@@ -107,27 +107,18 @@ class EventsController < ApplicationController
     # Clear bad params 
     params[:show_video]=nil if event.future?
    
-    if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
-      #we decide the view depending on the date of the event, agenda for future events, streaming for happening now events
-      # and recordings for past events
-      if event.past? && event.agenda.has_entries_with_video?
-        params[:show_video]=@event.agenda.first_video_entry_id.to_s
-      elsif event.future? || (event.past? && !event.agenda.has_entries_with_video?)
+    #if there is no param we show the agenda
+    if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]      
         params[:show_agenda]=true
-      elsif event.is_happening_now? && event.has_streaming?
-        params[:show_streaming]=true
-      elsif event.is_happening_now? && event.has_participation?
-        params[:show_participation]=true
-      elsif !event.has_date?
-        params[:show_agenda]=true
-      else
-        params[:show_agenda]=true
-      end
     end
 
-    if params[:show_agenda] && event.is_happening_now?
-      params[:show_streaming]=true
+    #if the event is now we also show the streaming or participation
+    if params[:show_agenda] && event.is_happening_now? && event.has_streaming?
+        params[:show_streaming]=true
+    elsif params[:show_agenda] && event.is_happening_now? && event.has_participation?
+        params[:show_participation]=true
     end
+    
     
      if params[:show_video] || params[:format]=="zip"
       if @event.agenda.present?
@@ -413,9 +404,9 @@ class EventsController < ApplicationController
 =end
       #First 5 past and upcoming events
       
-      @last_past_events = @all_past_events.first(2)     
-      @first_upcoming_events = @all_upcoming_events.first(2)
-      @first_undated_events = @undated_events.first(2)
+      @last_past_events = @all_past_events.first(3)     
+      @first_upcoming_events = @all_upcoming_events.first(3)
+      @first_undated_events = @undated_events.first(3)
       
       if params[:edit]
         @event_to_edit = Event.find_by_permalink(params[:edit])

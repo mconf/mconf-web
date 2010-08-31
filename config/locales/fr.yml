@@ -564,6 +564,7 @@ fr:
       both: "participation et de diffusion Web sera disponible au moment de l&#39;\xC3\xA9v\xC3\xA9nement"
       none: "Il n&#39;y a pas de diffusion d\xC3\xA9finie dans l&#39;ordre du jour."
       nothing: "Pas de participation ou de streaming web r\xC3\xA9serv\xC3\xA9 \xC3\xA0 cette \xC3\xA9poque"
+      not_organizer: This event is happening now, you can follow it with the streaming or participate with the chat and the flash client
       participation: "participation Web sera disponible au moment de l&#39;\xC3\xA9v\xC3\xA9nement"
       streaming: "Vid\xC3\xA9o streaming seront disponibles au moment de l&#39;\xC3\xA9v\xC3\xA9nement"
     notification: 
@@ -632,6 +633,7 @@ fr:
       edit: Modifier le code streaming
       no_at_events: "Non Streaming lors des r\xC3\xA9unions"
       none: "Personne n&#39;a affich\xC3\xA9 aucune url streaming"
+      notice: People will need access rights to this space to see this content
       now: "\xC3\x89v\xC3\xA9nement Streaming"
       ready: "Le streaming est r\xC3\xA9serv\xC3\xA9. Il sera disponible lors de l&#39;\xC3\xA9v\xC3\xA9nement"
       title: Streaming session
@@ -1271,7 +1273,8 @@ fr:
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
   register: 
     and_participate: Register To Participate
-    and_participate_description: To participate Register in the Event Social Network.
+    and_participate_description: To participate in the event you should register
+    and_participate_description_with_login: To participate in the event you should register or <a href={{url}}>login</a>
     confirmation: "Apr\xC3\xA8s enregistrement, vous recevrez une confirmation par email avec le lien pour activer votre compte"
     back_to_streaming: back to streaming
     one: S&#39;inscrire

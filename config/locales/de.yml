@@ -562,6 +562,7 @@ de:
       both: "Web-und Streaming-Beteiligung wird zum Zeitpunkt der Veranstaltung zur Verf\xC3\xBCgung"
       none: Es gibt keine Streaming in die Tagesordnung festgelegt.
       nothing: Kein Web-oder Streaming-Beteiligung zu diesem Zeitpunkt gebucht
+      not_organizer: This event is happening now, you can follow it with the streaming or participate with the chat and the flash client
       participation: "Web Beteiligung wird zum Zeitpunkt der Veranstaltung zur Verf\xC3\xBCgung"
       streaming: "Video-Streaming wird zum Zeitpunkt der Veranstaltung zur Verf\xC3\xBCgung"
     notification: 
@@ -630,6 +631,7 @@ de:
       edit: Edit Streaming-Code
       no_at_events: Kein Streaming an den Sitzungen
       none: Niemand hat eine Streaming-URL gepostet
+      notice: People will need access rights to this space to see this videos
       now: Event Streaming
       ready: "Das Streaming ist ausgebucht. Es wird w\xC3\xA4hrend der Veranstaltung zur Verf\xC3\xBCgung"
       title: Streaming-Sitzung
@@ -1267,7 +1269,8 @@ de:
     activity: "Aktuelle T\xC3\xA4tigkeit"
   register: 
     and_participate: Register To Participate
-    and_participate_description: To participate Register in the Event Social Network.
+    and_participate_description: To participate in the event you should register
+    and_participate_description_with_login: To participate in the event you should register or <a href={{url}}>login</a>
     confirmation: "Nach der Registrierung erhalten Sie eine Best\xC3\xA4tigung per Email mit dem Link zur Aktivierung Ihres Kontos"
     back_to_streaming: back to streaming
     one: Register

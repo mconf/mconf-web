@@ -117,14 +117,20 @@ module ConferenceManager
       end
       
       #Return  a String that contains a html with the video player for this session
+      #with the default width and height, 640x480
       def player
+        player("640","480")
+      end
+      
+      #Return  a String that contains a html with the video player for this session
+      def player(width, height)
         begin
           @cm_player_session ||=
             ConferenceManager::PlayerSession.find(:player,
               :params => { :event_id => event.cm_event_id,
                            :session_id => cm_session.id, 
-                           :width => "450",
-                           :height => "380"})
+                           :width => width,
+                           :height => height})
           @cm_player_session.html
         rescue
           nil

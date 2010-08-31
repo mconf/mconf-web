@@ -23,6 +23,9 @@
 			<span><%=t('event.note.streaming')%></span>
 		  </div>				
 		<%end%>
+		
+		<%= render :partial => "events/connection_info" %>
+		
   </div>
 	
   <%if @event.description != ""%>  
