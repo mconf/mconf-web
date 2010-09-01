@@ -18,10 +18,10 @@
 class VideosController < ApplicationController
   before_filter :space!
   
-  authorization_filter :create, :space, :only => [ :new, :create ]
-  authorization_filter :read,   :space, :only => [ :show, :index ]
-  authorization_filter :update, :space, :only => [ :edit, :update ]
-  authorization_filter :delete, :space, :only => [ :destroy ]
+  authorization_filter [:create, :content ], :space, :only => [ :new, :create ]
+  authorization_filter [:read, :content ],   :space, :only => [ :show, :index ]
+  authorization_filter [:update, :content ], :space, :only => [ :edit, :update ]
+  authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
   
   def index
 
