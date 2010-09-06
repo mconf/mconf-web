@@ -195,6 +195,10 @@ class Attachment < ActiveRecord::Base
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
   end
+
+  def title
+    filename
+  end
  
   # Sanitize user send params
   def self.sanitize_order_and_direction(order, direction)
