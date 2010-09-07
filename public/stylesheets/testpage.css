@@ -16,13 +16,11 @@ table {
 border-collapse:collapse;
 border-spacing:15;
 border-width:1px;
-border-style:outset;
 margin-right:auto;
 margin-left:auto;
 }
 caption, th, td {
 border-width:1px;
-border-style:solid;
 font-weight:normal;
 text-align:center;
 padding:5px;
