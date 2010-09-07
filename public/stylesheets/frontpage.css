@@ -121,7 +121,7 @@ body .icon{margin-bottom:-3px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
 #feedback:hover,#about:hover{background:#275b96;}
 
-#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;}
+#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;display:block;position:relative;}
 #logo{float:left;}
 #logo{width:192px;}
 #search{float:right;}
@@ -436,30 +436,19 @@ div#openid_label input#openid_identifier{
 
 /**************BÚSQUEDA*****************/
 
-
-.banner_busqueda {
-	width:960px;
-	height:61px;
-	margin-left:auto;
-	margin-right:auto;
-	padding:0;
-	position:relative;
-}
-
-.banner_busqueda #espacio_busqueda {
+#espacio_busqueda {
 	width:692px;	
 margin-left:20px;
 margin-top:21px;
 	height:45px;
 	margin-bottom:0px;
-	float:left;
-	display:inline;
+	float:right;
 }
 
 .div_busqueda {	
 	color:#0656a4;
 	width:248px;
-	display:inline-block;
+  float:right;
 	text-align: right;
 	vertical-align: top;
 	font-size: 12px;
