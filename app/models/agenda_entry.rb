@@ -180,6 +180,7 @@ class AgendaEntry < ActiveRecord::Base
     embedded_video || player(width, height)
   end
   
+  
   def initDate
     DateTime.strptime(cm_session.initDate)
   end
