@@ -109,9 +109,6 @@ module ConferenceManager
       end
      
       def cm_event
-        unless self.cm_event_id
-          return nil
-        end
         begin
           @cm_event ||= ConferenceManager::Event.find(self.cm_event_id)
         rescue
