@@ -6,7 +6,7 @@ module AgendaEntriesHelper
                            a.is_a?(User) ? 
                            link_to(highlight(a.name,params[:query]),user_url(a),:class=>"unified_user") :
                            (a=="" ? nil : a)
-                        }.compact.join(",")
+                        }.compact.join(", ")
   end
   
   def duration_options_for_select(total, interval, selected = nil)
