@@ -83,6 +83,22 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 	padding:0 25px;
 }
 
+.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
+.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
+a.cloud_button{
+	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+	display: block;
+  float: left;
+  text-decoration: none;
+  outline:none;
+  padding:20px 40px 25px;
+	color:#fff;
+}
+
+a.cloud_button:hover{text-decoration:none;outline: none;}
+
 a.big_button,a.medium_button,a.basic_button,button,input[type=button]{
 	font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
 	font-weight:bold;
@@ -1863,7 +1879,7 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 .logo_padding {padding-left: 69px;}
 .actions_sidebar{padding-bottom: 5px;}
 
-.video_cloud{width: 150px;float:right;margin-top:45px;}
+.video_cloud{float:right;margin-top:15px;}
 .toggle_inactive{font-weight:normal;}
 #view_agenda{float:right;}
 #actions_full{min-height:110px;margin-bottom:7px;}

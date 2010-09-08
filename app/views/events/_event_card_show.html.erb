@@ -53,12 +53,12 @@
   </p>
   
   <%if @event.agenda.has_past_session_with_video? && params[:show_video]%>
-    <div class="video_cloud big_button orange_button">
-	  <%=link_to t('event.recording.cloud_back'), space_event_path(@space, @event, :show_agenda => true) %> 
+    <div class="video_cloud">
+	  <%=link_to t('event.recording.cloud_back'), space_event_path(@space, @event, :show_agenda => true),:class=>"cloud_button" %> 
     </div>
   <%elsif @event.agenda.has_past_session_with_video?%>
-    <div class="video_cloud big_button orange_button">
-	  <%=link_to t('event.recording.cloud'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%>
+    <div class="video_cloud">
+	  <%=link_to t('event.recording.cloud'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id),:class=>"cloud_button"%>
     </div>
   <%end%>
   
