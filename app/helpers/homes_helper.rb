@@ -3,22 +3,23 @@ module HomesHelper
   def select_periods(events)
     # these are the times to use
     now = Time.now.gmtime
+    beginning_of_today = Time.now.in_time_zone.beginning_of_day.gmtime
     end_of_today = Time.now.in_time_zone.end_of_day.gmtime
     end_of_week = Time.now.in_time_zone.end_of_week.gmtime
     end_of_30_days = end_of_today + 29.days
     end_of_60_days = end_of_today + 59.days
       
-    today_events = select_period(events, now, end_of_today)
+    today_events = select_period(events, beginning_of_today, end_of_today)
 
-    upcoming_events = select_period(events, end_of_week, end_of_30_days)
+    upcoming_events = select_period(events, end_of_today, end_of_30_days)
 
     if upcoming_events.size<2
-      upcoming_events = select_period(events, end_of_week, end_of_60_days) 
+      upcoming_events = select_period(events, end_of_today, end_of_60_days) 
     end
     
-    popular_events = Event.upcoming(3)
+    popular_events = Event.upcoming.select{|e| e.space.public? && !current_user.spaces.include?(e.space)}.first(3)
     
-    return [["today",today_events], ["event.upcoming.other",upcoming_events], ["event.upcoming.other_all", popular_events]]
+    return [["today",today_events], ["event.upcoming.my_other",upcoming_events], ["event.upcoming.other_all", popular_events]]
   end
 
   def select_period(set_of_events, start_datetime, end_datetime)

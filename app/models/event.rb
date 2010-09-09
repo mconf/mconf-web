@@ -54,11 +54,10 @@ class Event < ActiveRecord::Base
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
 
-  named_scope :upcoming, lambda { |number|
+  named_scope :upcoming, lambda { 
     { :conditions => [ "events.end_date > ? AND spaces.disabled = ?", Time.now, false ],
       :include => :space,
-      :order => "start_date",
-      :limit => number
+      :order => "start_date"
     }
   }
  

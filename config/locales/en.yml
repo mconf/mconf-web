@@ -675,6 +675,7 @@ en:
       title: Events without agenda defined
     upcoming: 
       all: All upcoming ({{size}})
+      my_other: My upcoming events
       next_month: There are no events for next month
       next_week: There are no events for next week
       none: No upcoming events

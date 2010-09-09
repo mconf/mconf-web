@@ -649,6 +649,7 @@ fr:
       title: "Ev\xC3\xA9nements sans ordre du jour d\xC3\xA9fini"
     upcoming: 
       all: "Tous \xC3\xA0 venir ({{size}})"
+      my_other: My upcoming events
       next_month: "Il n&#39;y a aucun \xC3\xA9v\xC3\xA9nement pour le mois prochain"
       next_week: "Il n&#39;y a pas d&#39;\xC3\xA9v\xC3\xA9nements pour la semaine prochaine"
       none: "Aucun \xC3\xA9v\xC3\xA9nement \xC3\xA0 venir"

@@ -706,6 +706,7 @@ es:
       title: Eventos sin agenda definida
     upcoming: 
       all: Todos los eventos por celebrarse ({{size}})
+      my_other: Mis otros eventos
       next_month: "No hay eventos para el pr\xC3\xB3ximo mes"
       next_week: "No hay eventos para la pr\xC3\xB3xima semana"
       none: No hay eventos por celebrarse

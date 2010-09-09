@@ -60,7 +60,7 @@
   <%if !(current_user.spaces.empty?)%>
     <%periods = select_periods(@events_of_user)%>
   <%else%>
-    <%periods = [["today",[]], ["event.upcoming.other",[]],["event.upcoming.other_all",[]]]%>
+    <%periods = [["today",[]], ["event.upcoming.my_other",[]],["event.upcoming.other_all",[]]]%>
   <%end%>
 
   <div class="next-events margin-up">

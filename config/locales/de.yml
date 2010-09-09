@@ -647,6 +647,7 @@ de:
       title: Events ohne Agenda definiert
     upcoming: 
       all: Alle anstehenden ({{size}})
+      my_other: My upcoming events
       next_month: "Es sind keine Termine f\xC3\xBCr den n\xC3\xA4chsten Monat"
       next_week: "Es sind keine Termine f\xC3\xBCr die n\xC3\xA4chste Woche"
       none: Keine anstehenden Termine

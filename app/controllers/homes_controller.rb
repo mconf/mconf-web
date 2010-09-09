@@ -24,7 +24,7 @@ class HomesController < ApplicationController
   
   def show
     unless current_user.spaces.empty?
-      @events_of_user = Event.in(current_user.spaces).all(:order => "start_date DESC")
+      @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
     @contents_per_page = params[:per_page] || 15
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents 
