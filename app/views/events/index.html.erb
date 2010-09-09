@@ -22,7 +22,7 @@
       </div> 
 	  <div class="next-events-section">
 	  <ul>
-	    <% Event.upcoming(3).each do |event| %>
+	    <% Event.upcoming.select{|e| e.space.public? && e.space != @space}.first(3).each do |event| %>
           <li class="event">
             <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
             <%=link_to event_link, space_event_path(event.space,event)%>
