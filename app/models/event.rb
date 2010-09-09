@@ -54,7 +54,8 @@ class Event < ActiveRecord::Base
   attr_accessor :new_organizers
 
   named_scope :upcoming, lambda { |number|
-    { :conditions => [ "events.end_date > ?", Time.now ],
+    { :conditions => [ "events.end_date > ? AND spaces.disabled = ?", Time.now, false ],
+      :include => :space,
       :order => "start_date",
       :limit => number
     }
