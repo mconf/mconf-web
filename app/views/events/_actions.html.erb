@@ -5,15 +5,15 @@
 	<div class="actions_sidebar">
 	  <ul>
 			<li><%=link_to t('event.logo.button'),"javascript:change_logo();" %></li>
-	        <%if @event.future? || @event.is_happening_now?%>
-			  <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
-			  <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
-              <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
-	        <%end%>
+	      <%if @event.future? || @event.is_happening_now?%>
+          <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
+          <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
+          <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
+	      <%end%>
 			<li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>		
 			<% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? && @event.is_happening_now?%>
-              <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
-            <% end %>
+        <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
+      <% end %>
 	  </ul>
 	</div>
 </div>

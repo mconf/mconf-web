@@ -49,21 +49,23 @@
 		  </div>
 			
 			
-			<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
+			<!--<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
 			  <div class="margin-up">
 			    <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('e-mail.commas') %>:</label>
 					<%= f.text_field :mails %>
 			  </div>	
-			<%end%>
+			<%end%>-->
 
       <%= f.text_field :invit_introducer_id, :style => 'display:none', :value => current_user.id %>
 
       <div class="margin-up">
         <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
         <textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
+		<br/><label for="message" class="label_izquierda bold"><%= t('invitation.personal') %></label>
+		*<%= t('optional') %>
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>
-          <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
+          <textarea id="invite_personal"></textarea>
           <%if @event.start_date%>
             <% start_date = I18n.l(@event.start_date, :format => '%A %d %b %Y %H:%M') %>
             <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event))%>

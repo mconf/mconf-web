@@ -42,7 +42,7 @@ class Performance
       Performance.create! :agent => perfor.agent,
                           :stage => perfor.stage.space,
                           :role  => Role.find_by_name("Invited")
-    end
+    end  
   }
 
   # Destroy Space group memberships before leaving the Space
