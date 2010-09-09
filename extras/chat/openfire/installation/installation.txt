@@ -123,6 +123,12 @@ xmpp_server
 plugin.vccRooms.xmppServerPassword
 xmpp_server_password
 
+plugin.vccRooms.vccUser 
+vcc_user_for_chat_server_authentication
+
+plugin.vccRooms.vccPass 
+vcc_pass_for_chat_server_authentication
+
 plugin.vccRooms.vccAvatarUrl
 http://vcc.dit.upm.es/users/{user-id}/avatar
 
