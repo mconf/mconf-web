@@ -356,17 +356,7 @@ class EventsController < ApplicationController
       @all_upcoming_events = @events.select{|e| e.has_date? && e.start_date.future?}
       @all_upcoming_paginate_events = @all_upcoming_events.paginate(:page => params[:page], :per_page => 5)
       @undated_paginated_events = @undated_events.paginate(:page => params[:page], :per_page => 5)
-=begin      
-      if params[:day] == "today"
-        @upcoming_title = "Today Events"
-      elsif params[:day] == "next_week"
-        @upcoming_title = "Next Week Events"
-      elsif params[:day] == "next_month"
-        @upcoming_title = "Next Month Events"
-      else
-        @upcoming_title = "All upcoming Events"
-      end
-=end
+
       #Past events
       @today_and_yesterday_events = @events.select{|e| e.has_date? && ( e.end_date.to_date==Date.today || e.end_date.to_date==Date.yesterday) && !e.end_date.future?}      
       @last_week_events = @events.select{|e| e.has_date? && e.start_date.to_date <= (Date.today) && e.end_date.to_date >= (Date.today - 7) && !e.end_date.future?}
