@@ -1,7 +1,7 @@
 <% menu(:home) %>
 
 <% content_for :search do  %>
-  <%= render :partial => 'form' if params[:advanced].blank? %>
+  <%= render :partial => 'form' %>
 <%end%>
 
 <% if params[:advanced]%>
