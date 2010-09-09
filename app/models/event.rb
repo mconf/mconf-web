@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   has_many :participants, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
+  has_one :chat_log
   
   has_logo :class_name => "EventLogo"
   has_permalink :name, :update=>true

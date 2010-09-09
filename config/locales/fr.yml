@@ -1426,6 +1426,9 @@ fr:
     signature: Signature
     ssl: SSL
     updated: "Configuration du site a \xC3\xA9t\xC3\xA9 mis \xC3\xA0 jour."
+    vcc_user_for_chat_server: Vcc user for XMPP server authentication
+    vcc_pass_for_chat_server: Vcc password for XMPP server authentication
+    vcc_pass_for_chat_server_confirmation: Vcc password for XMPP server authentication confirmation
     xmpp_server_password: XMPP Server mot de passe
     xmpp_server_password_confirmation: confirmation de passe du serveur XMPP
   size: Taille

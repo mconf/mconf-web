@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   Translate::Routes.translation_ui(map)
 
   map.p '/p', :controller => 'p', :action => 'index'
@@ -43,6 +44,7 @@ ActionController::Routing::Routes.draw do |map|
         agenda.resources :agenda_record_entries
       end
       event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
+      event.resource :chat_log
     end
 
     space.resources :posts, :member => {:spam => :post, :spam_lightbox => :get}

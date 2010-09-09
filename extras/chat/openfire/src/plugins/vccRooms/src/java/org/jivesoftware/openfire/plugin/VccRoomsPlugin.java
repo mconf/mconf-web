@@ -92,6 +92,10 @@ public class VccRoomsPlugin implements Plugin {
 		adminRoles = null;
 	}
 
+	public String getGroupChatServiceName() {
+		return getProperty(CONFIG_GROUP_CHAT_SERVICE_NAME);
+	}
+	
 	private String getProperty(String propertyName) {
 		return JiveGlobals.getProperty(propertyName, null);
 	}
@@ -129,7 +133,9 @@ public class VccRoomsPlugin implements Plugin {
 				mucRoom.setModerated(true);
 				mucRoom.setCanOccupantsChangeSubject(false);
 				mucRoom.setChangeNickname(false);
-				//mucRoom.setLogEnabled(true);
+				mucRoom.setLogEnabled(true);
+				mucRoom.setPersistent(true);
+				mucRoom.saveToDB();
 				
 				// During configuration room was locked
 				// It is necessary to unlock

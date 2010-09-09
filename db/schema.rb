@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100707140054) do
+ActiveRecord::Schema.define(:version => 20100909080633) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -96,6 +96,22 @@ ActiveRecord::Schema.define(:version => 20100707140054) do
   add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
   add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
+  create_table "chat_logs", :force => true do |t|
+    t.integer  "event_id"
+    t.text     "content",    :limit => 2147483647
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "colors", :id => false, :force => true do |t|
+    t.integer "id",    :null => false
+    t.string  "name",  :null => false
+    t.integer "red",   :null => false
+    t.integer "green", :null => false
+    t.integer "blue",  :null => false
+    t.string  "link",  :null => false
+  end
+
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
@@ -138,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20100707140054) do
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
+    t.integer  "chat_log_id"
   end
 
   create_table "groups", :force => true do |t|
@@ -333,6 +350,8 @@ ActiveRecord::Schema.define(:version => 20100707140054) do
     t.string   "presence_domain",               :default => "sir.dit.upm.es "
     t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
     t.string   "cm_domain"
+    t.string   "vcc_user_for_chat_server"
+    t.string   "vcc_pass_for_chat_server"
   end
 
   create_table "source_importations", :force => true do |t|

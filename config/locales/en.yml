@@ -1488,6 +1488,9 @@ en:
     signature: Signature
     ssl: SSL
     updated: Site configuration was successfully updated.
+    vcc_user_for_chat_server: Vcc user for XMPP server authentication
+    vcc_pass_for_chat_server: Vcc password for XMPP server authentication
+    vcc_pass_for_chat_server_confirmation: Vcc password for XMPP server authentication confirmation
     xmpp_server_password: XMPP Server password
     xmpp_server_password_confirmation: XMPP Server password confirmation
   size: Size

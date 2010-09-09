@@ -8,12 +8,4 @@
    <version>1.0.0</version>
    <date>7/4/2010</date>
    <minServerVersion>3.6.4</minServerVersion>
-
-   <!--<adminconsole>
-      <tab id="tab-users">
-         <sidebar id="sidebar-users">
-            <item id="motd-form" name="MotD Properties" url="motd-form.jsp" description="Settings for MotD" />
-         </sidebar>
-      </tab>
-   </adminconsole>-->
 </plugin>
