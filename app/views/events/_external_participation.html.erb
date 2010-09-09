@@ -46,7 +46,15 @@
 	  <%= t('register.or_choose') + " " %>  <%= link_to t('register.back_to_streaming'),space_event_path(@space, @event, :show_streaming => true) %>
 	<%elsif (@event.other_participation_url== nil || @event.other_participation_url=="") && !@event.authorize?(:update, :to => current_user)%>
 	    <%=t("event.participation.none")%>
+    <%elsif (@event.other_participation_url== nil || @event.other_participation_url=="") && @event.authorize?(:update, :to => current_user)%>
+      <div id="participation_url_value"><%=@event.other_participation_url%></div>	  
 	<%else%>
+	  <div class="button_wrapper">
+        <div class="on_live"><span>Live!</span></div> 
+        <%if @event.has_streaming?%>  
+	      <%=link_to ("<span id='leave_cam'>" + t('event.streaming.back') + "</span>"),space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+        <%end%>
+	  </div>
       <div id="participation_url_value"><%=@event.other_participation_url%></div>
 	<%end%>
   </div>

@@ -44,7 +44,13 @@
   <div id="streaming_content">
   	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
 	    <%=t("event.streaming.none")%>
+	<%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && @event.authorize?(:update, :to => current_user)%>
+	  <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
 	<%else%>
+	  <div class="button_wrapper">
+  	      <div class="on_live"><span>Live!</span></div> 
+  	      <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+  	  </div>
       <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
 	<%end%>
   </div>
