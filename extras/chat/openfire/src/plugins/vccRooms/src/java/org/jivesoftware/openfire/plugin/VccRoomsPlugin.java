@@ -135,6 +135,7 @@ public class VccRoomsPlugin implements Plugin {
 				mucRoom.setChangeNickname(false);
 				mucRoom.setLogEnabled(true);
 				mucRoom.setPersistent(true);
+				mucRoom.setMaxUsers(0);
 				mucRoom.saveToDB();
 				
 				// During configuration room was locked
