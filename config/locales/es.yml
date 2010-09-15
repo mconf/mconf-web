@@ -695,6 +695,9 @@ es:
       ready: "El streaming ha sido reservado. Estar\xC3\xA1 disponible durante el evento"
       title: "Sesi\xC3\xB3n de streaming"
       will_be_available: "El streaming estar\xC3\xA1 disponible durante el evento"
+    time:
+      start: Inicio
+      end: Fin
     to: Para
     today: Los eventos de hoy
     today_and_yesterday: Ayer y hoy ({{size}})

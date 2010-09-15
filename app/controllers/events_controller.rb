@@ -175,7 +175,7 @@ class EventsController < ApplicationController
     @event = Event.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render "new", :layout => "new_event"}
       format.xml  { render :xml => @event }
     end
   end

@@ -481,8 +481,11 @@ en:
       web: Participation
       wait: This info will be available during the event
     create: 
+      advanced_conf: Advanced configuration
       info: 
         basic: Here you can organize three kind of events
+        class:
+          name: Virtual Class
         conference: 
           message: Advanced, big meetings. TV-like production, which needs to be managed by an operator.
           name: Virtual Congress
@@ -491,8 +494,10 @@ en:
           name: Virtual Meeting
         presential: 
           message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming or recording.
-          name: Meeting
+          name: In person
       title: Create new event
+      video_recording: Video recording
+      video_streaming: Video streaming
     created: Event created successfully
     deleted: Event deleted successfully
     description: 
@@ -574,9 +579,14 @@ en:
       new: Add a picture for your event
       select: Change your logo
     new: 
+      basic: Basic information
       conference: Virtual Congress
+      date: Date
+      docs: Documents
       meeting: Virtual Meeting
       presential: Meeting
+      type: Event type
+      vcoptions: Videoconference options
     no_events: You have no events
     no_param: No param selected
     none_coming: No coming events
@@ -664,6 +674,9 @@ en:
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
       will_be_available: The streaming will be available during the event
+    time:
+      start: Start
+      end: End
     to: To
     today: Today events
     today_and_yesterday: Today and yesterday ({{size}})

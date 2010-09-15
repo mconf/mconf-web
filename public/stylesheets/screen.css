@@ -1885,3 +1885,11 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #actions_full{min-height:110px;margin-bottom:7px;}
 #full_sidebar .big_margin_down_40{margin-bottom:40px;}
 #full_sidebar .big_margin_down_60{margin-bottom:60px;}
+
+.grey_border_down {border-bottom:1px solid #CCCCCC;}
+
+.blue_selected {
+	font-weight:bolder;
+	background-color:red;
+	
+}

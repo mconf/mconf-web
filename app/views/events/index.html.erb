@@ -10,7 +10,11 @@
     <%= render :partial => 'spaces/sidebar' %>
 
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
-   	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
+   	  <div id="event_creation">
+  	    <div class="button_wrapper">
+  	      <%= link_to "<span>" + t('event.create.title') + "</span>", new_space_event_path,:class => "new_space_link big_button orange_button"%>  	      
+		</div>
+	  </div>
 	<%end%>
 	
 	<div class="next-events margin-up">

@@ -71,7 +71,7 @@ class Event < ActiveRecord::Base
                                :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
   ]
   
-  VC_MODE = [:in_person, :meeting, :teleconference]
+  VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
 
   # The vc_mode symbol of this event
   def vc_mode_sym
@@ -239,10 +239,10 @@ class Event < ActiveRecord::Base
   
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
-  def syncronize_date
-     self.update_attributes({:start_date => self.agenda.recalculate_start_time,
-                             :end_date => self.agenda.recalculate_end_time})
-  end
+  #def syncronize_date
+  #   self.update_attributes({:start_date => self.agenda.recalculate_start_time,
+  #                           :end_date => self.agenda.recalculate_end_time})
+  #end
   
   
   #method to know if any of the agenda_entry of the event has streaming 

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title><%= yield :title %></title>
+    <link href="/favicon.ico" rel="shortcut icon" />
+    
+		<% if current_user.chat_activation %>
+    <script type="text/javascript" charset="utf-8">
+      if (window == window.top) {
+          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
+      }
+		</script>
+		<% end %>
+		    
+    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+	<%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+	<%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+	<%= stylesheet_link_tag "print", :media => "print" %>
+		
+    <!--[if IE]> 
+    <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+    <![endif]-->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf('Mac') != -1) { 
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      }
+    </script>
+
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3' %>
+    <%= yield :headers %>
+		
+	  <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+	        <%= render :partial => 'layouts/ready.js.erb' %>
+        <%= yield :javascript %>
+      })
+    </script>
+	
+  </head>
+
+	<body>
+	  <div id="site">
+		  <%= render :partial => "layouts/global" %>
+		  <div id="space">
+		    <div id="header">
+		      <div id="all_steps">
+		        <span id="first_step_logo">create event</span>
+			    <span id="second_step_logo">define program</span>
+			    <span id="third_step_logo">invite people</span>
+			  </div>			  
+			  <div id="eu">
+  				<%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
+			  </div>
+		    </div>
+		    <div id="content">		      
+		      <div id="main">
+
+            <% flash.each do |name, msg| %>
+              <div class="<%= name %>"><%= msg %></div>
+            <% end %>
+		      	<%= yield %>
+		        </div>
+			  </div>
+		      <div id="sidebar">
+		        <%= yield :sidebar %>
+              </div>
+            </div>
+	        <%= render :partial => "layouts/footer" %>  
+	      </div>
+	  </div>
+		<%if current_site.domain == "globalplaza.org"%>
+			<script type="text/javascript">
+				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+				try {
+					var pageTracker = _gat._getTracker("UA-12096965-1");
+					pageTracker._trackPageview();
+				} catch(err) {}
+			</script>
+		<%end%>
+	</body>
+</html>

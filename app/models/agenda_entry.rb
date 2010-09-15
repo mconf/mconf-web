@@ -131,7 +131,6 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_save do |entry|
-    entry.event.syncronize_date
     entry.event.agenda.touch
   end
   
@@ -140,7 +139,6 @@ class AgendaEntry < ActiveRecord::Base
     if entry.title.present?
       FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     end
-    entry.event.syncronize_date
   end
   
   def duration

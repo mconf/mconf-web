@@ -90,10 +90,12 @@ module ConferenceManager
       # The conference manager mode
       def cm_mode
         case vc_mode_sym
-        when :meeting
+        when :telemeeting
           'meeting'
         when :teleconference
           'conference'
+        when :teleclass
+          'class'
         else
           raise "Unknown Conference Manager mode: #{ vc_mode_sym }"
         end
@@ -101,7 +103,7 @@ module ConferenceManager
 
       def uses_conference_manager?
         case vc_mode_sym
-        when :meeting, :teleconference
+        when :telemeeting, :teleconference, :teleclass
           true
         else
           false
