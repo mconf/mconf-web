@@ -90,7 +90,7 @@ de:
       delete: "Agenda-Eintrag wurde erfolgreich gel\xC3\xB6scht"
       description: Beschreibung
       duration: Dauer
-      edit: Edit Entry Agenda
+      edit: Edit session item
       embed_help: "Kann mit HTML-Code gef\xC3\xBCllt werden, um ein Video einbinden"
       embedded_video: "Embed-Video f\xC3\xBCr den Eintrag"
       end_time: Endzeit
@@ -119,9 +119,9 @@ de:
         help: "Pr\xC3\xBCfen Sie Streaming-und / oder Aufzeichnen Dienstleistungen nach Bedarf"
         help2: "Diese Sitzung ist bereits geschehen k\xC3\xB6nnen nicht bearbeitet oder Streaming-Aufnahme-Optionen"
         help3: "Diese Sitzung ist jetzt passiert, k\xC3\xB6nnen Sie nur \xC3\xA4ndern, ob Sie wollen oder nicht-Streaming"
-        recording: Aufnahme
-        streaming: Streaming
-        title: Optionen
+        recording: Video recording
+        streaming: Video streaming
+        title: Videoconference options
       record: Rekord
       speakers: Referenten
       start_time: Startzeit

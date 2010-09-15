@@ -90,7 +90,7 @@ fr:
       delete: "l&#39;ordre du jour d&#39;entr\xC3\xA9e a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9 avec succ\xC3\xA8s"
       description: Description
       duration: Duration
-      edit: "Entr\xC3\xA9e Agenda Modifier"
+      edit: "Edit session item"
       embed_help: "Peut \xC3\xAAtre rempli avec le code HTML pour int\xC3\xA9grer une vid\xC3\xA9o"
       embedded_video: "Int\xC3\xA9grer la vid\xC3\xA9o \xC3\xA0 l&#39;entr\xC3\xA9e"
       end_time: Heure de fin
@@ -119,9 +119,9 @@ fr:
         help: "Arriv\xC3\xA9e en streaming et / ou des services d&#39;enregistrement en fonction des besoins"
         help2: "Cette session a d\xC3\xA9j\xC3\xA0 eu lieu, vous ne pouvez pas modifier les options d&#39;enregistrement en continu ou"
         help3: Cette session qui se passe maintenant vous ne pouvez changer si vous voulez en continu ou non
-        recording: Enregistrement
-        streaming: Streaming
-        title: Options
+        recording: Video recording
+        streaming: Video streaming
+        title: Videoconference options
       record: Record
       speakers: Haut-parleurs
       start_time: "Heure de d\xC3\xA9but"

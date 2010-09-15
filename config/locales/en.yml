@@ -91,7 +91,7 @@ en:
       description: Description
       documents: Related documents
       duration: Duration
-      edit: Edit Agenda Entry
+      edit: Edit session item
       embed_help: Can be filled with HTML code to embed a video
       embedded_video: Embed video for the entry
       end_time: End time
@@ -120,9 +120,9 @@ en:
         help: Check streaming and/or recording services as needed
         help2: This session has already happened you can not edit streaming or recording options
         help3: This session is happening now you can only change whether you want streaming or not
-        recording: Recording
-        streaming: Streaming
-        title: Options
+        recording: Video recording
+        streaming: Video streaming
+        title: Videoconference options
       record: Record
       speakers: Speakers
       start_time: Start time
@@ -165,7 +165,7 @@ en:
   are_you_sure: Are you sure?
   at: at
   attachment: 
-    add: Upload attachment
+    add: Add attachment
     created: Attachment created successfully
     delete: Delete attachment
     deleted: Attachment successfully deleted

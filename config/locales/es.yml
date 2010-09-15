@@ -92,7 +92,7 @@ es:
       delete: "La entrada en la agenda ha sido borrada con \xC3\xA9xito"
       description: "Descripci\xC3\xB3n"
       duration: "Duraci\xC3\xB3n"
-      edit: Editar entrada en la agenda
+      edit: Editar elemento de la sesi\xC3\xB3n
       embed_help: "Puede introducirse c\xC3\xB3digo HTML para embeber un v\xC3\xADdeo"
       embedded_video: "Embeber v\xC3\xADdeo en la entrada"
       end_time: "Hora de finalizaci\xC3\xB3n"
@@ -121,9 +121,9 @@ es:
         help: "Compruebe la transmisi\xC3\xB3n y/o servicios de grabaci\xC3\xB3n, seg\xC3\xBAn sea necesario"
         help2: "En esta sesi\xC3\xB3n ya ha tenido lugar y no puede editar su streaming o las opciones de grabaci\xC3\xB3n"
         help3: "Esta sesi\xC3\xB3n est\xC3\xA1 en curso; s\xC3\xB3lo puede cambiar si desea o no streaming"
-        recording: "Grabaci\xC3\xB3n"
-        streaming: Streaming
-        title: Opciones
+        recording: "Grabaci\xC3\xB3n de v\xC3\xADdeo"
+        streaming: "Grabaci\xC3\xB3n de streaming"
+        title: Opciones de videoconferencia
       record: Registro
       speakers: Intervienen
       start_time: Hora de inicio
