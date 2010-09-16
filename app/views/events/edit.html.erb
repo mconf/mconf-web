@@ -12,14 +12,14 @@
   <%= render :partial => "edit_new_sidebar"%> 
 <%end%>
 
-<% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
+<% form_for(:event, :url => space_event_path(@space, @event), :html => {:method => :put, :multiple => "multiple" }) do |f| -%>
 
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 
     <div class="margin-up">
-	     <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.create")%></button>
-		 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
+	     <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.edit")%></button>
+		 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.editing")%></button>
 	      <%= link_to "<span>" + t('cancel') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"cancel_event"%>
 	 </div>
      
-  <% end %>
+<% end %>

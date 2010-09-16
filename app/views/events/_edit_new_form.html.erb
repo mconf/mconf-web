@@ -1,0 +1,83 @@
+<div class="grey_border_down bold">
+  <%=t('event.new.type')%>
+</div>
+<div id="event_type_selector">
+     <span id="event_type_meeting"><%= image_tag("virtual_meeting.png",:class=>"icon")%><%=t('event.create.info.meeting.name')%><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
+	 <span id="event_type_class"><%= image_tag("virtual_class.png",:class=>"icon")%><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
+	 <span id="event_type_conference"><%= image_tag("virtual_congress.png",:class=>"icon")%><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
+	 <span id="event_type_presential"><%= image_tag("virtual_meeting.png",:class=>"icon")%><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
+     <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event ? @event.vc_mode : :telemeeting) %>
+</div>
+
+<div class="grey_border_down bold">
+  <%=t('event.new.basic')%>
+</div>
+    <div>
+      <label for="Name"><%= t('name.one')%>:</label>
+      <%= f.text_field :name, :size =>25  %>
+    </div>
+    <div>
+      <label for="Description"><%= t('description') %>:</label>
+      <%=f.text_area :description%>
+    </div>
+  
+    <div>
+      <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
+        <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
+          <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login})%>
+        </select>
+    </div>
+    <div>
+      <label for="Location"><%= t('event.location') %>:</label>
+      <%= f.text_field :location, :size =>25  %>
+    </div>  
+
+<div class="grey_border_down bold">
+  <%=t('event.new.date')%>
+</div>
+<div class="without_javascript">
+      <div class="margin-up"><label for="start_time" class="main_text"><%= t('event.time.start') %></label><br/>
+        <%= f.datetime_select :start_date, :default => Time.zone.now + 10.minutes%>
+      </div>
+	  <div class="margin-up"><label for="end_time" class="main_text"><%= t('event.time.end') %></label><br/>
+        <%= f.datetime_select :end_date, :default => Time.zone.now + 10.minutes + 2.hours%>
+      </div>
+</div>
+
+<div class="grey_border_down bold">
+  <%=t('event.new.vcoptions')%>
+</div>
+  <div id="initial-info">
+	<%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true%> <%=t('event.create.video_streaming')%>
+	<%=f.check_box :recording_by_default,:class=>"icon", :checked =>@event ? @event.recording_by_default : true%> <%=t('event.create.video_recording')%>
+	<div id="advanced_config"><%=t('event.create.advanced_conf')%></div>
+  </div>
+    <div id="extra-info"  style="display:none">
+	    <div id="extra-info-part1">  
+		   <%= t('event.enable.isabelbw') %> : <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , @event.cm_event? ? [@event.cm_event.isabel_bw, @event.cm_event.isabel_bw] : ["1M", "1M"])%> <br/>
+		   <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , @event.cm_event? ?Event::WEB_BW_HASH_FOR_DROP_DOWN[@event.cm_event.web_bw] : ["High (450K Sorenson)", "2"])%> <br/>
+		   <%= t('event.enable.recbw') %> : <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , @event.cm_event? ? Event::RECORDING_HASH_FOR_DROP_DOWN[@event.cm_event.recording_bw] : ["High (550K H.264)", "2"])%> <br/>
+		   <div class="checkbox_event">
+	         <%=f.check_box :sip_interface,:class=>"icon", :checked => @event.cm_event? ? @event.cm_event.enable_sip? : false  %>
+	         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
+	       </div>
+		</div>
+		<div class="checkbox_event">
+	      <%=f.check_box :manual_configuration,:class=>"icon", :checked => @event ? @event.manual_configuration : false  %>
+	      <label for="enable_isabel" class="label_izquierda" ><%= t('event.create.manual_conf') %></label>
+	    </div>
+		<div id="manual_str_and_rec" style="display:none">
+			<label for="enable_isabel" class="label_izquierda" ><%= t('event.streaming.title') %></label>
+			<%= f.text_area :other_streaming_url, :cols => 95, :rows => 8, :value=>@event ? @event.other_streaming_url : "" %>
+			<label for="enable_isabel" class="label_izquierda" ><%= t('event.video_part') %></label>
+			<%= f.text_area :other_participation_url, :cols => 95, :rows => 8, :value=>@event ? @event.other_participation_url : "" %>
+		</div>   
+		   
+		   <%= f.hidden_field :web_interface, :value => true %>
+		   <%= f.hidden_field :isabel_interface, :value => true %>
+    </div>
+	
+
+<div class="grey_border_down bold">
+  <%=t('event.new.docs')%>
+</div>

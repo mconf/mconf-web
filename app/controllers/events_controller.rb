@@ -184,6 +184,9 @@ class EventsController < ApplicationController
   def edit    
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+    end
   end
 
   # POST /events

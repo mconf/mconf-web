@@ -220,6 +220,7 @@ es:
     create: Crear
     creating: Creando...
     edit: Editar
+    editing: Editando ...
     finish: Terminar
     go: "\xC2\xA1Buscar!"
     invite: "\xC2\xA1Invitar!"
@@ -527,6 +528,7 @@ es:
         presential: 
           message: "Ideal para reuniones r\xC3\xA1pidas y sencillas. Notifique a los participantes, suba documentos de trabajo. No tiene streaming o grabaci\xC3\xB3n de video."
           name: "Reuni\xC3\xB3n"
+      manual_conf: Configuración manual
       title: Crear nuevo evento
     created: "El evento fue creado con \xC3\xA9xito"
     deleted: El evento fue eliminado correctamente

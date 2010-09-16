@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100707140054) do
+ActiveRecord::Schema.define(:version => 20100915144144) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -138,6 +138,9 @@ ActiveRecord::Schema.define(:version => 20100707140054) do
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
+    t.boolean  "streaming_by_default",    :default => true
+    t.boolean  "recording_by_default",    :default => true
+    t.boolean  "manual_configuration",    :default => false
   end
 
   create_table "groups", :force => true do |t|

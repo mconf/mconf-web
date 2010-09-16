@@ -212,6 +212,7 @@ en:
     create: Create
     creating: Creating...
     edit: Edit
+    editing: Editing...
     finish: Finish
     go: Go!
     invite: Invite!
@@ -495,6 +496,7 @@ en:
         presential: 
           message: Great for quick and simple meetings. Notify your partners,upload working documents. No automatic video streaming or recording.
           name: In person
+      manual_conf: Manual configuration
       title: Create new event
       video_recording: Video recording
       video_streaming: Video streaming
