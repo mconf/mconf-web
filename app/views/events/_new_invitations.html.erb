@@ -1,4 +1,8 @@
+<%= javascript_include_tag 'user_filter' %>
+
 <% content_for :javascript do%>
+
+  
 
   $("#send_invitation_button").livequery('click',function(){ 
 
@@ -22,7 +26,7 @@
 	
 <%end%>
 
-<div id="questions">
+<div id="user_invitations" style="display:none;">
 	<div id="more_invitations">
 	  <div id="invitations_title">
 	  	<h3 class="blue"><%=t('event_invitation.message_title')%></h3>

@@ -1,0 +1,22 @@
+<% content_for :javascript do%>
+  $("#tab2").click(function(){
+    $("#email_invitations").hide();
+	$("#user_invitations").show();
+  });
+  $("#tab1").click(function(){
+    $("#user_invitations").hide();
+	$("#email_invitations").show();
+  });
+  
+<%end%>
+
+<%= link_to "<span>" + t('invitation.tab.title1') + "</span>", "#",:class => "basic_button", :id=>"tab1"%>
+<%= link_to "<span>" + t('invitation.tab.title2') + "</span>", "#",:class => "basic_button", :id=>"tab2"%>
+
+<%= render :partial=>"group_invitation" , :locals => {:checked_users => Array.new}%>
+<%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
+
+
+<%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event),:class => "basic_button blue_button", :id=>"back_event"%>
+<%= link_to "<span>" + t('button.finish') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
+<%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>

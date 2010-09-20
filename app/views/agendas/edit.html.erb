@@ -1,0 +1,23 @@
+<% content_for :javascript do%>
+  $("#wait_create_agenda_button").hide();
+  $("#wait_create_agenda_button").attr('disabled', true);
+  
+  $("#create_agenda_button").click(function(){
+		$("#create_agenda_button").hide();
+		$("#wait_create_agenda_button").show();
+  });
+<%end%>
+
+
+<% form_for(:agenda, :url => space_event_agenda_path(@space, @event, :in_steps=>true), :html => {:method => :put, :multiple => "multiple" }) do |f| -%>
+
+    contenido del form agenda edit
+	
+    <div class="margin-up">
+	     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(space, @event, :in_steps=>true),:class => "basic_button blue_button", :id=>"back_event"%>
+		 <button type="submit" id="create_agenda_button" class="basic_button blue_button"><%=t("button.next_invite")%></button>
+		 <button id="wait_create_agenda_button" class="basic_button blue_button"><%=t("button.creating_agenda")%></button>
+	      <%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
+	 </div>
+     
+  <% end %>
