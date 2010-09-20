@@ -15,6 +15,24 @@
     newel: true
   });
   
+	$(".newAttachEvent").click(function () { 
+	  var new_id = new Date().getTime(); 
+	  $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
+	  $(".newAttach2").show();
+	
+	  // Applies tags to the attachment
+	  $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
+	      cache: true,
+	      filter_case: false,
+	      filter_hide: true,
+	      firstselected: true,
+	      filter_selected: true,
+	      maxshownitems: 4,
+	      newel: true,
+	      complete_opts: true
+	  }); 
+	  
+	});
   
 <%end%>
 

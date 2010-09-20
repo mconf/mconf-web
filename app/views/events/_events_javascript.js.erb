@@ -325,7 +325,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
     $('#agenda_page1').show();
   <%end%>
  
- $(".newAttachEvent").livequery('click',function () { 
+$(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 
   $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
 	$(".newAttach2").show();
