@@ -109,7 +109,7 @@ class AgendaEntry < ActiveRecord::Base
 #      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
 #      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
 #    end
-    
+    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     if entry.uid.blank?
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
