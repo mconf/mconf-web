@@ -588,6 +588,7 @@ en:
       not_organizer_after: This event happened on {{date}}, now you can enjoy the event program and recordings
       not_organizer_during: This event is happening now, you can follow it with the streaming or participate with the chat and the flash client
       not_organizer_before: This event will take place on {{date}}, you can now confirm your assistance and read the program
+      not_organizer_no_date: This event still have no date. You can confirm your assintance now and come back later to read the program
       participation: Web participation will be available at the time of the event
       streaming: Video streaming will be available at the time of the event
     notification: 
