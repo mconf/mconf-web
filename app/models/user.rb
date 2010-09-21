@@ -142,9 +142,12 @@ class User < ActiveRecord::Base
       if user.email_changed? 
         user.groups.each do |group|
           if group.mailing_list.present?
+=begin            
             delete_list(group,group.mailing_list)
             group.mail_list_archive
             copy_list(group,group.mailing_list)
+=end
+            group.regenerate_lists
           end
         end
         Group.request_list_update

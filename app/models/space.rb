@@ -92,77 +92,6 @@ class Space < ActiveRecord::Base
     end
   end
   
-=begin
-  after_create do |space|
- 
-     img_orig = Magick::Image.read(File.join("public/images/", space.default_logo)).first
-     img_orig = img_orig.scale(337, 256)
-     images_path = File.join(RAILS_ROOT, "public", "images")
-     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{space.rand_value}"))
-     img_orig.write(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-     #debugger
-     
-     #img_orig.write(File.join("public/images/", space.default_logo + "tmp")) 
-
-     #FileUtils.copy(File.join("public/images/", space.default_logo),File.join("public/images/", space.default_logo + "tmp"))
-     #final_path = FileUtils.touch(File.join("public/images/tmp/", space.default_logo))
-     #debugger
- 
-    original = File.open(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-    #original = File.open(File.join("public/images/", space.default_logo + "tmp"))
-    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
-    original_tmp.write(original.read)
-    original_tmp.instance_variable_set "@original_filename",space.default_logo
-    original_tmp.instance_variable_set "@content_type", "image/jpeg"
-    logo = {}
-    logo[:media] = original_tmp
-    logo = space.build_logo(logo)
-    #File.delete(File.join("public/images/", space.default_logo + "tmp"))
-    unless logo.save
-      puts logo.errors.to_xml
-    end
-    
-     images_path = File.join(RAILS_ROOT, "public", "images")
-     tmp_path = File.join(images_path, "tmp")
-    
-    if space.rand_value != nil
-     final_path = FileUtils.rm_rf(tmp_path + "/#{space.rand_value}")
-    end
-    
-  end
-=end
-
-  after_create do |space|
-=begin 
-    img_orig = Magick::Image.read(File.join("public/images/", space.default_logo)).first
-    img_orig = img_orig.scale(337, 256)
-    images_path = File.join(RAILS_ROOT, "public", "images")
-    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{space.rand_value}"))
-    img_orig.write(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-    original = File.open(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
-    original_tmp.write(original.read)
-    original_tmp.instance_variable_set "@original_filename",space.default_logo
-    original_tmp.instance_variable_set "@content_type", "image/jpeg"
-    logo = {}
-    logo[:media] = original_tmp
-    logo = space.build_logo(logo)
- 
-    unless logo.save
-      puts logo.errors.to_xml
-    end
-    
-     images_path = File.join(RAILS_ROOT, "public", "images")
-     tmp_path = File.join(images_path, "tmp")
-    
-    if space.rand_value != nil
-     final_path = FileUtils.rm_rf(tmp_path + "/#{space.rand_value}")
-    end
-=end    
-  end
-  
-
-
 
   def resize path, size
     
@@ -183,9 +112,6 @@ class Space < ActiveRecord::Base
 
   def update_logo    
     return unless @default_logo.present?
-    
-    #puts "****************************************************A" + @default_logo.to_s + @rand_value.to_s 
-    
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
     img_orig = img_orig.scale(337, 256)
     images_path = File.join(RAILS_ROOT, "public", "images")
@@ -211,41 +137,7 @@ class Space < ActiveRecord::Base
 
 
   end
- 
-# before_validation do |space|
-#  #def update_logo    
-#    if space.default_logo.present?
-#    
-#    puts "****************************************************A" + space.default_logo.to_s + @rand_value.to_s 
-#    
-#    img_orig = Magick::Image.read(File.join("public/images/", space.default_logo)).first
-#    img_orig = img_orig.scale(337, 256)
-#    images_path = File.join(RAILS_ROOT, "public", "images")
-#    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{space.rand_value}"))
-#    img_orig.write(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-#    original = File.open(File.join(images_path, "tmp/#{space.rand_value}/temp.jpg"))
-#    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
-#    original_tmp.write(original.read)
-#    original_tmp.instance_variable_set "@original_filename",space.default_logo
-#    original_tmp.instance_variable_set "@content_type", "image/jpeg"
-#    logo = {}
-#    logo[:media] = original_tmp
-#    #logo = space.build_logo(logo)
-# 
-#    images_path = File.join(RAILS_ROOT, "public", "images")
-#    tmp_path = File.join(images_path, "tmp")
-#    debugger
-#    puts "aaa"
-#    end
-#=begin   
-#    if space.rand_value != nil
-#      final_path = FileUtils.rm_rf(tmp_path + "/#{space.rand_value}")
-#    end
-#=end
-#
-#  end
- 
- 
+  
   def logo_mi
     return unless @default_logo.present?
   end
@@ -294,14 +186,14 @@ class Space < ActiveRecord::Base
   end
 
   def disable
-    self.update_attributes(:disabled => true, :name => "#{name} DISABLED #{Time.now.to_i}")
+    self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
     for group in self.groups
       Group.disable_list(group)
     end
   end
 
   def enable
-    self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED ").first} RESTORED")
+    self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
     for group in self.groups
       Group.enable_list(group)
     end

@@ -16,143 +16,122 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class Group < ActiveRecord::Base
- 
-    has_many :memberships, :dependent => :destroy
-    has_many :users, :through => :memberships
-    belongs_to :space
-    
-    validates_presence_of :name
-    validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
-    
-    def validate
-      
-      reserved_mailing_list = 'sir'
-      
-      for user in users
-        unless user.stages.include?(space)
-          errors.add(:users, I18n.t('space.group_not_belong'))
-        end
-      end
-      
-      if self.mailing_list && self.mailing_list.present?
-        
-        self.mailing_list = self.mailing_list.downcase
-        
-        if self.mailing_list == reserved_mailing_list
-          errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-#{reserved_mailing_list}"))
-        end
-        
-        if self.mailing_list.match(/^[a-z0-9][\w\-\.]*$/).to_s == ""
-          errors.add(I18n.t('mailing_list.invalid'))
-        end
-        
-      end
-      
-    end
-    
-    before_save { |group|
-      if group.mailing_list.present?
-        group.mailing_list = group.mailing_list.gsub(/ /, "-")
-      end
-    }
-    
-    after_create { |group|
-        #create the new mailing_list if it has the option activated
-        if group.mailing_list.present?
-          group.mail_list_archive
-          copy_list(group, group.mailing_list)
-          request_list_update
-        end
-    }
-    
-    after_destroy { |group|
-        if group.mailing_list
-          #destroy the existing mailing_list
-          delete_list(group, group.mailing_list)
-          request_list_update
-        end
-    }   
-    
-    after_update { |group|
-    
-        #delete the old mailing_list      
-        if group.mailing_list_changed?
-          delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
-        else
-          delete_list(group,group.mailing_list) if group.mailing_list.present?
-        end
   
-        #create the new mailing_list
-        if group.mailing_list.present?  
-          group.mail_list_archive        
-          copy_list(group,group.mailing_list)
-        end
-        request_list_update
-    }
-       
-    # Do not reload mail list server if not in production mode, it could cause server overload
-    #def self.reload_mail_list_server_because_of_environment
-      #RAILS_ENV == "production"
-    #end
+  has_many :memberships, :dependent => :destroy
+  has_many :users, :through => :memberships
+  belongs_to :space
+  
+  validates_presence_of :name
+  validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
+  
+  def validate
     
-    def self.request_list_update
-      #`/usr/local/bin/newautomatic.sh`
-    end
+    reserved_mailing_list = 'sir'
     
-    def self.copy_list(group,list)
-      if list.include?("-DISABLED-")
-        `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/.vcc-#{list}`
-      else
-        `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`  
+    for user in users
+      unless user.stages.include?(space)
+        errors.add(:users, I18n.t('space.group_not_belong'))
       end
     end
     
-    def self.delete_list(group,list)
-      if list.include?("-DISABLED-")
-        `rm -f /var/lib/mailman/data/listas_automaticas/.vcc-#{list}`
-      else
-        `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`  
+    if self.mailing_list && self.mailing_list.present?
+      
+      self.mailing_list = self.mailing_list.downcase
+      
+      if self.mailing_list == reserved_mailing_list
+        errors.add(I18n.t('mailing_list.reserved', :systemMailingList => "vcc-#{reserved_mailing_list}"))
       end
+      
+      if self.mailing_list.match(/^[a-z0-9][\w\-\.]*$/).to_s == ""
+        errors.add(I18n.t('mailing_list.invalid'))
+      end
+      
     end
     
-    def self.disable_list(group)
-      group.update_attribute :mailing_list, "#{group.mailing_list}-DISABLED-#{Time.now.to_i}"
+  end
+  
+  before_save { |group|
+    if group.mailing_list.present?
+      group.mailing_list = group.mailing_list.gsub(/ /, "-")
+      group.regenerate_lists
     end
-
-    def self.enable_list(group)
-      group.update_attribute :mailing_list, "#{group.mailing_list.split("-DISABLED-").first}-RESTORED"
+  }
+  
+  after_create { |group|
+    #create the new mailing_list if it has the option activated
+    if group.mailing_list.present?
+      group.regenerate_lists
+    end
+  }
+  
+  after_destroy { |group|
+    if group.mailing_list
+      #destroy the existing mailing_list
+      delete_list(group, group.mailing_list)
+      request_list_update
+    end
+  }   
+  
+  after_update { |group|
+    
+    #delete the old mailing_list      
+    if group.mailing_list_changed?
+      delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
+    else
+      delete_list(group,group.mailing_list) if group.mailing_list.present?
     end
     
-    # Transforms the list of users in the group into a string for the mail list server
-    def mail_list
-       str =""
-       self.users.each do |person|
-         str << "#{Group.remove_accents(person.login)}  <#{person.email}> \n"
-       end
-       str
-   end
-   
-   def mail_list_archive
-     doc = "#{self.mail_list}"
-     File.open(temp_file, 'w') {|f| f.write(doc) }
-   end
-   
-   def email_group_name
-     self.name.gsub(/ /, "_")
-   end
+    #create the new mailing_list
+    if group.mailing_list.present?
+      group.regenerate_lists
+    end
+    request_list_update
+  }
+  
+  # Do not reload mail list server if not in production mode, it could cause server overload
+  #def self.reload_mail_list_server_because_of_environment
+  #RAILS_ENV == "production"
+  #end
+  
+  def self.request_list_update
+    `/usr/local/bin/newautomatic.sh`
+  end
+  
+  def self.delete_list(group,list)
+    if !list.include?("-DISABLED-")
+      `rm -f /var/lib/global2/automatic_lists/vcc-#{list}`
+      `rm -f /var/lib/global2/automatic_ro_lists/vcc-ro-#{list}` 
+    end      
+  end
+  
+  def self.disable_list(group)    
+    Group.delete_list(group,group.mailing_list)
+    group.update_attribute :mailing_list, "#{group.mailing_list.split("-RESTORED").first}-DISABLED-#{Time.now.to_i}"
+  end
+  
+  def self.enable_list(group)
+    group.update_attribute :mailing_list, "#{group.mailing_list.split("-DISABLED-").first}-RESTORED"
+  end
+  
 
-   def self.atom_parser(data)
+  
+  
+  def email_group_name
+    self.name.gsub(/ /, "_")
+  end
+  
+  def self.atom_parser(data)
     
     e = Atom::Entry.parse(data)
-
-
+    
+    
     group = {}
     group[:name] = e.title.to_s
     
     group[:user_ids] = []
-
+    
     e.get_elems(e.to_xml, "http://sir.dit.upm.es/schema", "entryLink").each do |times|
-
+      
       user = User.find_by_login(times.attribute('login').to_s)
       group[:user_ids] << user.id      
     end
@@ -163,13 +142,9 @@ class Group < ActiveRecord::Base
     
     return resultado     
   end   
-
-
-  def temp_file
-     @temp_file ||= "/tmp/sir-grupostemp-#{ rand }"
-  end
-
-   def self.remove_accents(str)    
+  
+  
+  def self.remove_accents(str)    
     accents = { 
       ['á','à','â','ä','ã'] => 'a',
       ['Ã','Ä','Â','À'] => 'A',
@@ -183,10 +158,10 @@ class Group < ActiveRecord::Base
       ['Ú','Û','Ù','Ü'] => 'U',
       ['ç'] => 'c', ['Ç'] => 'C',
       ['ñ'] => 'n', ['Ñ'] => 'N'
-      }
+    }
     accents.each do |ac,rep|
       ac.each do |s|
-      str = str.gsub(s, rep)
+        str = str.gsub(s, rep)
       end
     end
     str = str.gsub(/[^a-zA-Z0-9 ]/,"")    
@@ -194,6 +169,43 @@ class Group < ActiveRecord::Base
     str = str.gsub(/ /,"-")    
     #str = str.downcase
   end
-
-
+  
+  # Transforms the list of users in the group into a string for the mail list server
+  def generate_mail_list(type)
+    str =""
+    self.users.each do |person|       
+      if (self.space.role_for?(person, :name => "Admin") or self.space.role_for?(person, :name => "User")) and type.eql? "main"
+        str << "#{Group.remove_accents(person.login)}  <#{person.email}> \n" #Main List
+      elsif self.space.role_for?(person, :name => "Invited") and type.eql? "invited"
+        str << "#{Group.remove_accents(person.login)}  <#{person.email}> \n" #Invited List      
+      end
+    end
+    if (type.eql? "main")
+      str << "vcc-ro-#{self.mailing_list}@#{Site.find(:first).mailman_domain} \n"
+    end
+    str
+  end
+  
+  def regenerate_lists
+    if !self.space.nil?      
+      puts self.mailing_list
+      main = "#{self.generate_mail_list("main")}"
+      puts "Main: " + self.generate_mail_list("main")
+      invited = "#{self.generate_mail_list("invited")}"
+      puts "Invited: " + self.generate_mail_list("invited")
+      
+      FileUtils.mkdir_p("/var/lib/global2/automatic_lists/")
+      FileUtils.mkdir_p("/var/lib/global2/automatic_ro_lists/")
+      
+      if !self.mailing_list.include?("-DISABLED-")
+        File.new("/var/lib/global2/automatic_lists/vcc-#{self.mailing_list}", 'w')
+        File.new("/var/lib/global2/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w')
+        
+        File.open("/var/lib/global2/automatic_lists/vcc-#{self.mailing_list}", 'w') {|f| f.write(main) }
+        File.open("/var/lib/global2/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w') {|f| f.write(invited) }
+      end
+      #`/usr/local/bin/newautomatic.sh`
+    end    
+  end
+  
 end

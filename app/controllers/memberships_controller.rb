@@ -32,9 +32,11 @@ class MembershipsController < ApplicationController
         format.js
       end  
     end
+   group.regenerate_lists
   end
   
   def destroy
+    group = Group.find(params[:group_id])
     if @success = @membership.destroy
       respond_to do |format|
         format.js
@@ -43,8 +45,8 @@ class MembershipsController < ApplicationController
       respond_to do |format|
         format.js
       end  
-    end
-    
+    end    
+    group.regenerate_lists
   end
   
   private

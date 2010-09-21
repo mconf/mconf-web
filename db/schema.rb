@@ -103,15 +103,6 @@ ActiveRecord::Schema.define(:version => 20100909080633) do
     t.datetime "updated_at"
   end
 
-  create_table "colors", :id => false, :force => true do |t|
-    t.integer "id",    :null => false
-    t.string  "name",  :null => false
-    t.integer "red",   :null => false
-    t.integer "green", :null => false
-    t.integer "blue",  :null => false
-    t.string  "link",  :null => false
-  end
-
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
@@ -350,6 +341,7 @@ ActiveRecord::Schema.define(:version => 20100909080633) do
     t.string   "presence_domain",               :default => "sir.dit.upm.es "
     t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
     t.string   "cm_domain"
+    t.string   "mailman_domain"
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
   end
