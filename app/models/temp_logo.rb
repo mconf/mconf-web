@@ -89,8 +89,16 @@ class TempLogo
       target_size_y = target_size_x / aspect_ratio
     end
     # We center the image inside the white canvas
-    decenter_x = (target_size_x - img.columns) / 2;
-    decenter_y = (target_size_y - img.rows) / 2;
+    
+    if Magick::Version.include?("2.13")
+      # Correct code for Rmagick 2.13 (Ubuntu 10.04)
+      decenter_x = (target_size_x - img.columns) / 2;
+      decenter_y = (target_size_y - img.rows) / 2;
+    else    
+      # Correct code for Rmagick <= 2.10 (prior to Ubuntu 10.04)
+      decenter_x = -(target_size_x - img.columns) / 2;
+      decenter_y = -(target_size_y - img.rows) / 2;
+    end
     
     reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
     f.close
