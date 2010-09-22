@@ -81,12 +81,16 @@
   <%elsif params[:show_agenda] || params[:show_streaming] || params[:show_participation]%>
 	    <%if params[:show_streaming] && @event.is_in_person? %>
 	      <%=render :partial => "external_streaming"%>
+		  <%= render :partial => "connection_info"%>
 	    <%elsif params[:show_participation] && @event.is_in_person? %>
 	      <%=render :partial => "external_participation"%>
+		  <%= render :partial => "connection_info"%>
 	    <%elsif params[:show_streaming]%>
 	      <%=render :partial => "cm_streaming"%>
+		  <%= render :partial => "connection_info"%>
 	    <%elsif params[:show_participation]%>
 	      <%=render :partial => "cm_participation"%>
+		  <%= render :partial => "connection_info"%>
 		<%end%>
 	    <%=render :partial => "agendas/show"%>
   <%elsif params[:show_video]%>     
@@ -95,28 +99,7 @@
     <%= t('event.no_param') %>		
   <%end%>
  
-<%unless @comments.empty?%> 
-	<div>
-		<h3 class="selector_title"><%= t('comment.other') %></h3>
-		
-			<% for post in @comments %>
-				<%= render :partial => 'event_comment' , :locals => {:post => post}%>
-		  <%end%>
-				
-				
-			<%if @space.authorize?([:create, :content],:to => current_user)%>
-					<div class="add-new-comment">
-						<%=link_to t('comment.add_new'), space_event_path(@space, @event), { :title => t('comment.add_new') } %>
-					</div>
-			<%end%>
-	
-			<div id="paginate">
-			      <%= will_paginate @comments%>
-			</div>
-	</div>
-	
-<%end%>
-
+  
 <% content_for :javascript do%>
   
   //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it 
