@@ -103,12 +103,14 @@ class AgendaEntriesController < ApplicationController
       if @agenda_entry.save
         @event.reload  #reload the event in case the start date or end date has changed
         format.html {redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day=>@agenda_entry.event_day, :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
+        format.js{flash[:success] = t('agenda.entry.created')}
       else    
         flash[:notice] = t('agenda.entry.failed')
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
+        format.js
       end
     end
   end
@@ -123,6 +125,7 @@ class AgendaEntriesController < ApplicationController
   # PUT /agenda_entries/1
   # PUT /agenda_entries/1.xml
   def update
+    
     @agenda_entry = AgendaEntry.find(params[:id])
     @agenda_entry.author = current_user
     
@@ -134,14 +137,19 @@ class AgendaEntriesController < ApplicationController
           unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
         end
-        flash[:notice] = t('agenda.entry.updated')
-        day = @agenda_entry.event_day
-        format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day) ) }
+        flash[:success] = t('agenda.entry.updated')
+        format.html {
+          redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => @agenda_entry.event_day) )
+        }
+        format.js
       else
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        format.html {
+          redirect_to(space_event_path(@space, @event))
+        }
+        format.js
       end
     end
   end

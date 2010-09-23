@@ -129,6 +129,7 @@ es:
       start_time: Hora de inicio
       title: "T\xC3\xADtulo"
       updated: entrada de Agenda se ha actualizado correctamente
+      updating: La agenda se está actualizando...
       video: "Grabaci\xC3\xB3n"
       yes_record: !binary |
         U8Ot

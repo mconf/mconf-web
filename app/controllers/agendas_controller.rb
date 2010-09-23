@@ -30,7 +30,9 @@ class AgendasController < ApplicationController
   
   # GET /agenda/edit
   def edit
-    @agenda_entry = AgendaEntry.new
+    @agenda_day = (params[:day].present? && params[:day].to_i <= @event.days) ?
+                  @event.start_date + (params[:day].to_i - 1).day :
+                  @event.start_date
   end
   
   # GET /agendas/1

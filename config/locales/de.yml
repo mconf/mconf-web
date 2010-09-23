@@ -140,6 +140,7 @@ de:
     expand_help: Klicken Sie auf den Titel eines Agenda-Eintrag um es zu erweitern oder Vertrag, den sie
     title: "Agenda f\xC3\xBCr die Veranstaltung"
     update: Agenda wurde erfolgreich aktualisiert.
+    updating: Agenda is updating...
     upload: Upload Agenda
     upload_file: Upload File
   agent: 

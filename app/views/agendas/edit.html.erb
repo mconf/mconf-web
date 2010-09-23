@@ -1,0 +1,174 @@
+<% content_for :headers do %>
+  <%= javascript_include_tag 'fullcalendar' %>
+  <%= stylesheet_link_tag "fullcalendar", :media => "screen, projection" %>
+<% end %>
+
+<% content_for :javascript do %>
+
+  /* JavaScript vars*/
+	// Slot axis time (in minutes)
+  var slot = 15;
+
+  /*
+	   AJAX request to update an agenda entry
+	*/
+  updateEntry = function(entry,revertFunc){
+	  //Remove notifications
+      $(".notice").remove(); $(".success").remove(); $(".error").remove();
+      
+      //Notify agenda is updating
+      $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.updating')) %></div>');
+      $(".notice").hide().slideDown('slow');
+      
+      //AJAX request
+      $.post("<%= space_event_agenda_agenda_entries_path(@space,@event)%>/" + entry.id,
+        {
+          authenticity_token: "<%=form_authenticity_token()%>",
+          _method: "put",
+          'agenda_entry[start_time]': entry.start.toGMTString(),
+          'agenda_entry[end_time]':entry.end.toGMTString()
+        },
+        function(data){
+          //Revert if error
+          if (!entry_updated){
+            revertFunc();
+          }
+        },
+        "script"
+      );
+	};
+
+  calendar = $('#calendar').fullCalendar({
+		header: {
+		  left: '',
+		  center: '',
+	    right: ''
+	  },
+	  allDaySlot: false,
+	  axisFormat: 'HH:mm',
+	  slotMinutes: slot,
+		year:<%= @agenda_day.strftime("%Y")%>,
+		month:<%= @agenda_day.month-1 %>,
+		date:<%= @agenda_day.strftime("%d")%>,
+		minTime: '<%= @agenda.fullcalendar_start_time(@agenda_day) %>',
+	  maxTime: '<%= @agenda.fullcalendar_end_time(@agenda_day)%>',
+	  defaultView: 'agendaDay',
+    editable: true,
+		events: <%= @agenda.to_fullcalendar_json %>,
+    eventDrop: function(entry,dayDelta,minuteDelta,allDay,revertFunc) {
+			updateEntry(entry,revertFunc);
+	  },
+		eventResize: function(entry,dayDelta,minuteDelta,revertFunc) {
+      updateEntry(entry,revertFunc);
+    },
+		eventClick: function( entry, jsEvent, view ) {
+		  current_qtip = $(this);
+		  current_qtip.qtip({
+         content: {
+           text:
+             '<a href=\"<%= space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '/edit\"><%=escape_javascript(t('agenda_entry.edit'))%></a>',
+           title: {
+             text: entry.title
+           }
+         },
+         show: { 
+           ready:true,
+           when: {
+             event: 'click'
+           }
+         },
+         hide: {
+				   fixed:true,
+           when: {
+             event: 'unfocus'
+           }
+         },
+				 position: {
+				   target: $(this),
+				   corner: 'center',
+					 adjust:{
+					   scroll: false
+					 }
+				 }
+      });
+		},
+		select: function( startDate, endDate, allDay, jsEvent, view ){
+		  current_qtip = $("#calendar");
+			current_qtip.qtip({
+         content: {
+           text:
+             '<form method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>\">' +
+               '<input type=\"hidden\" name=\"authenticity_token\" value=\"<%=form_authenticity_token()%>\" />' +
+               '<input type=\"hidden\" name=\"agenda_entry[start_time]\" value=\"' + startDate.toGMTString() + '\" />' +
+               '<input type=\"hidden\" name=\"agenda_entry[end_time]\" value=\"' + endDate.toGMTString() + '\" />' +
+               '<label id=\"agenda_title_label\" for=\"title\"><%=escape_javascript(t('title'))%></label>' +
+               '<input type=\"text\" name=\"agenda_entry[title]\" id="qtip_title"/>' +
+               '<input type=\"button\" id="calendar_submit" class=\"basic_button blue_button\" value=\"<%=escape_javascript(t('create'))%>\">' +
+             '</form>',
+           title: {
+             text: '<%=escape_javascript(t('entry.new'))%>'
+           }
+         },
+         show: { 
+           ready:true,
+           when: {
+             event: 'click'
+           }
+         },
+         hide: {
+				   fixed:true,
+           when: {
+             event: 'unfocus'
+           }
+         },
+         position: {
+           corner: 'center',
+           adjust:{
+             scroll: false
+           }
+         },
+				 api: {
+					 onHide: function(){
+             calendar.fullCalendar('unselect');
+						 current_qtip.qtip('destroy');
+				   },
+					 onShow: function(){
+					   $("#qtip_title").focus();
+					 }
+				 }
+      });
+		},
+		selectHelper:true,
+		selectable:true,
+		unselectAuto:false
+  });
+	
+	$("#calendar_submit").livequery('click',function(){
+	  //Remove notifications
+    $(".notice").remove(); $(".success").remove(); $(".error").remove();
+      
+    //Notify agenda is updating
+    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda_entry.creating')) %></div>');
+    $(".notice").hide().slideDown('slow');
+		
+		//Close qtip
+		current_qtip.qtip('hide');
+      
+		var form = $(this).parents("form");	
+    //AJAX request
+    $.post(form.attr('action'),
+		       form.serialize(),
+           null,
+		        "script"
+      );
+	});
+<% end %>
+
+<div id="agenda_header">
+	<p id="agenda_date"><%=agenda_date(@event)%></p>
+	<p id="agenda_days"><%=edit_agenda_day_links(@event)%></p>
+</div>
+
+<div id="agenda_calendar">
+	<div id="calendar"></div>
+</div>

@@ -65,7 +65,33 @@ class Agenda < ActiveRecord::Base
       return Array.new
     end
   end
+
+  def to_fullcalendar_json
+    body = agenda_entries.map{|entry| entry.to_fullcalendar_json}.join(",")
+    "[#{body}]"
+  end
   
+  def fullcalendar_start_time(agenda_day)
+    if agenda_day.day == event.start_date.day
+      "#{event.start_date.hour}:00"
+    else
+      "0:00"
+    end
+  end
+  
+  def fullcalendar_end_time(agenda_day)
+    if agenda_day.day == event.end_date.day
+      if event.end_date.min == 0
+        event.end_date.strftime("%H:00")
+      else
+        (event.end_date + 1.hour).strftime("%H:00")
+      end
+    else
+      "24:00"
+    end
+  end
+  
+
   #returns the hour of the last agenda_entry
   def last_hour_for_day(i)
     if start_date.nil?
