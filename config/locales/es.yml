@@ -217,15 +217,19 @@ es:
   body: Cuerpo
   button: 
     accept: Aceptar
+    back: Atrás
     cancel: Cancelar
     create: Crear
-    creating: Creando...
+    creating: Creando evento...
+    creating_agenda: Creando agenda...
     edit: Editar
     editing: Editando ...
     finish: Terminar
     go: "\xC2\xA1Buscar!"
     invite: "\xC2\xA1Invitar!"
     next: Siguiente paso
+    next_program: "Siguiente: Definir el programa"
+    next_invite: "Siguiente: Invitar gente"
     other_spaces: "M\xC3\xA1s espacios"
     post: Publicar
     publish: Publicar
@@ -1016,6 +1020,9 @@ es:
     sign: Atentamente, ((nombre de usuario))
     space: "Me gustar\xC3\xADa invitarle al espacio {{space}} en GlobalPlaza."
     subject: "{{username}} le ha invitado a un evento en el espacio {{space}}"
+    tab:
+      title1: Email
+      title2: Users
     title: Invitar a usuarios registrados
     title2: "Invitaci\xC3\xB3n a espacio"
     to_accept: "Para aceptar mi invitaci\xC3\xB3n, por favor visite <a href={{url}}>{{url}}</a>"

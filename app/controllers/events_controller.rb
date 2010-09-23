@@ -143,6 +143,10 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
+       if params[:invitations]
+         format.html {render :partial => 'invitations', :layout => "new_event"}       
+       end
+       
        format.html # show.html.erb
            format.xml  {render :xml => @event }
            format.ics {
@@ -202,7 +206,7 @@ class EventsController < ApplicationController
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
-          redirect_to space_event_path(space, @event)
+          redirect_to edit_space_event_agenda_path(space, @event)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -229,7 +233,13 @@ class EventsController < ApplicationController
 		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
-        format.html {redirect_to space_event_path(@space, @event) }
+        format.html {
+          if params[:in_steps]
+            redirect_to edit_space_event_agenda_path(space, @event)
+          else
+            redirect_to space_event_path(@space, @event) 
+          end      
+        }
         format.xml  { head :ok }
         format.js{
           if params[:event][:other_streaming_url]

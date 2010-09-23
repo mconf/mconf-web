@@ -62,18 +62,6 @@ class AgendasController < ApplicationController
   # POST /agendas.xml
   def create
     
-
-#    if params[:icalendar_file].present?
-#     import_icalendar
-#     redirect_to(space_event_path(@space, @event))
-#     return
-#    end
-
-  # respond_to do |format|
-   #    format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
-  # end
-
-
     respond_to do |format|
       #if @event.update_attributes(params[:agenda])
       #if true
@@ -98,7 +86,12 @@ class AgendasController < ApplicationController
       #if @event.update_attributes(params[:agenda])
       #if true
       if @agenda.update_attributes(params[:agenda])
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        if params[:in_steps]
+          format.html { redirect_to(space_event_path(@space, @event, :invitations => @event)) } 
+        else
+          format.html { redirect_to(space_event_path(@space, @event)) } 
+        end
+        
       else
         format.html { redirect_to(space_event_path(@space, @event)) }
         #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }

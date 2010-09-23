@@ -209,15 +209,19 @@ en:
   body: Body
   button:
     accept: Accept
+    back: Back
     cancel: Cancel
     create: Create
-    creating: Creating...
+    creating: Creating event...
+    creating_agenda: Creating agenda...
     edit: Edit
     editing: Editing...
     finish: Finish
     go: Go!
     invite: Invite!
     next: Next Step
+    next_program: "Next: Define program"
+    next_invite: "Next: Invite people"
     other_spaces: Find other spaces
     post: Post
     publish: Publish
@@ -1036,6 +1040,9 @@ en:
     sign: Yours sincerely, {{username}}
     space: I would like to invite you to {{space}} space in the Virtual Conference Centre.
     subject: "{{username}} has invited you to an event in {{space}} space"
+    tab:
+      title1: Email
+      title2: Users
     title: Invite registered users
     title2: Space Invitation
     to_accept: To accept my invitation please visit <a href={{url}}> {{url}} </a>
