@@ -22,8 +22,21 @@
     <%end %>
   </div>
   
+  <div id="space_logo" class="space_logo">
+      <h3><%=t('space.logo_selected.default_message') %><%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
+      <div id = "selected_logo" style="padding-bottom:10px;">
+          <center>
+              <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
+          </center>
+      </div>
+  </div>
+  
   <div id="change_logo_link">
-    <%=link_to t('event.logo.button'),"javascript:change_logo();" %>
+    <ul class="first_options">
+	<li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv tooltip1",:title => t('space.logo_selected.open_gallery')} %></li>
+	<li><%=link_to t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"show_inv",:title => t('space.logo_selected.text_logo')} %></li>
+	<li><%=link_to t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"show_inv",:title => t('space.logo_selected.upload_logo')} %></li>
+  </ul>
   </div>
   
   <%= render :partial => "change_logo" %>

@@ -14,14 +14,16 @@
 
 <div id="for_lightbox" style="display:none"></div>
 
-  <% form_for(:event, :url => space_event_path(@space, @event, :in_steps=>params[:in_steps]), :html => {:method => :put, :multiple => "multiple" }) do |f| -%>
+<% form_for(:event, :url => space_event_path(@space, @event, :in_steps=>params[:in_steps]), :html => {:method => :put, :multiple => "multiple" }) do |f| -%>
+  
+  <%= render :partial => "edit_new_form", :locals => {:f => f} %> 
 
-    <%= render :partial => "edit_new_form", :locals => {:f => f} %>
-
-    <div class="margin-up">
-	   <button type="submit" id="create_event_button" class="basic_button blue_button"><%=params[:in_steps] ? t("button.next_program") : t("button.edit")%></button>
-       <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.editing")%></button>
-	   <%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
-	 </div>
+  <div class="margin-up">
+	 <button type="submit" id="create_event_button" class="basic_button blue_button"><%=params[:in_steps] ? t("button.next_program") : t("button.edit")%></button>
+     <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.editing")%></button>
+	 <%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
+  </div>
      
-<% end %>
+ <% end %>
+ 
+ 

@@ -4,7 +4,7 @@
 	</div>
 	<div class="actions_sidebar">
 	  <ul>
-			<li><%=link_to t('event.logo.button'),"javascript:change_logo();" %></li>
+			<!-- <li><%=link_to t('event.logo.button'),"javascript:change_logo();" %></li> -->
 	      <%if @event.future? || @event.is_happening_now?%>
           <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
           <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>

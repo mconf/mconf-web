@@ -9,6 +9,8 @@
      <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event ? @event.vc_mode : :telemeeting) %>
 </div>
 
+  <%= render :partial => "edit_new_logo", :locals => {:f => f} %> 
+  
 <div class="grey_border_down bold">
   <%=t('event.new.basic')%>
 </div>

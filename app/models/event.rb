@@ -52,6 +52,12 @@ class Event < ActiveRecord::Base
   attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
+  
+  #For logos  
+  attr_accessor :default_logo
+  attr_accessor :text_logo
+  attr_accessor :rand_value
+  attr_accessor :logo_rand
 
   named_scope :upcoming, lambda { |number|
     { :conditions => [ "events.end_date > ?", Time.now ],
