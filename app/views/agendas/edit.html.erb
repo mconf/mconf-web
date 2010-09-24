@@ -19,8 +19,8 @@
 	'titleShow'		     : false,
 	'hideOnContentClick' : false,
 	'autoDimensions'	 : false,
-	'frameWidth'              : 250,
-	'frameHeight'             : 80
+	'width'              : 250,
+	'height'             : 80
   });
   
 
@@ -186,15 +186,15 @@
 
 
 <div style="display:none">
-  <script type="text/javascript">
-  	function our_close(){
-		$.fn.fancybox.close();		
-	}
-  </script>
-	
   <div id="sure_form">
+  	<script type="text/javascript">
+  	  function our_close(){
+		$.fancybox.close();		
+	  }
+	  
+    </script>
   	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
-	<%= link_to "<span>" + t('button.accept') + "</span>", "javascript:delete_event()",:class => "basic_button blue_button", :id=>"button_yes"%>
+	<%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
 	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
   </div>
 </div>
@@ -213,7 +213,7 @@
 	     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(space, @event, :in_steps=>true),:class => "basic_button blue_button", :id=>"back_event"%>
 		 <button type="submit" id="create_agenda_button" class="basic_button blue_button"><%=t("button.next_invite")%></button>
 		 <button id="wait_create_agenda_button" class="basic_button blue_button"><%=t("button.creating_agenda")%></button>
-	      <%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
+	      <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
 	 </div>
 <% end %>
 

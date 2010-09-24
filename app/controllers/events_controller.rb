@@ -215,7 +215,7 @@ class EventsController < ApplicationController
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         events
-        render :action => "new"
+        render :action => "new", :layout => "new_event"
         }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end

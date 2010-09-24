@@ -8,7 +8,30 @@
 	$("#email_invitations").show();
   });
   
+  $("#cancel_event").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 250,
+	'height'             : 80
+  });
 <%end%>
+
+<div style="display:none">
+  <div id="sure_form">
+  	<script type="text/javascript">
+  	  function our_close(){
+		$.fancybox.close();		
+	  }
+	  
+    </script>
+  	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
+	<%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+  </div>
+</div>
+
 
 <%= link_to "<span>" + t('invitation.tab.title1') + "</span>", "#",:class => "basic_button", :id=>"tab1"%>
 <%= link_to "<span>" + t('invitation.tab.title2') + "</span>", "#",:class => "basic_button", :id=>"tab2"%>
@@ -19,4 +42,4 @@
 
 <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event),:class => "basic_button blue_button", :id=>"back_event"%>
 <%= link_to "<span>" + t('button.finish') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
-<%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
+<%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>

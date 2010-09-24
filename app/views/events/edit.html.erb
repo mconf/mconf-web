@@ -6,11 +6,35 @@
 
 <% content_for :javascript do%>
   <%= render :partial => "edit_new_javascript.js"%>	
+  
+  $("#cancel_event").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 250,
+	'height'             : 80
+  });
+  
 <%end%>
 
 <% content_for :sidebar do  %>
   <%= render :partial => "edit_new_sidebar"%> 
 <%end%>
+
+<div style="display:none">
+  <script type="text/javascript">
+  	function our_close(){
+		$.fancybox.close();		
+	}
+  </script>
+	
+  <div id="sure_form">
+  	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
+	<%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+  </div>
+</div>
 
 <div id="for_lightbox" style="display:none"></div>
 
@@ -21,7 +45,7 @@
     <div class="margin-up">
 	   <button type="submit" id="create_event_button" class="basic_button blue_button"><%=params[:in_steps] ? t("button.next_program") : t("button.edit")%></button>
        <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.editing")%></button>
-	   <%= link_to "<span>" + t('cancel') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"cancel_event"%>
+	   <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
 	 </div>
      
 <% end %>

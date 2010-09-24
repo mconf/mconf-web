@@ -1,6 +1,5 @@
 <%content_for :headers do%>
   <%= javascript_include_tag 'jquery.fcbkcomplete', 'jquery.filestyle','jquery.jcrop', 'jquery.wysiwyg' %>
-  <%= javascript_include_tag 'jquery.fancybox' %>
   <%= stylesheet_link_tag "fcbkcomplete", "jquery.wysiwyg", :media => "screen, projection" %>
   <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
 <%end%>
@@ -14,8 +13,8 @@
 	'titleShow'		     : false,
 	'hideOnContentClick' : false,
 	'autoDimensions'	 : false,
-	'frameWidth'              : 250,
-	'frameHeight'             : 80
+	'width'              : 250,
+	'height'             : 80
   });
   
 <%end%>
@@ -27,7 +26,7 @@
 <div style="display:none">
   <script type="text/javascript">
   	function our_close(){
-		$.fn.fancybox.close();		
+		$.fancybox.close();		
 	}
   </script>
 	

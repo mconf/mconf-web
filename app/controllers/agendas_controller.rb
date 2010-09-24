@@ -33,6 +33,9 @@ class AgendasController < ApplicationController
     @agenda_day = (params[:day].present? && params[:day].to_i <= @event.days) ?
                   @event.start_date + (params[:day].to_i - 1).day :
                   @event.start_date
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+    end
   end
   
   # GET /agendas/1
