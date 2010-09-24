@@ -1890,6 +1890,7 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 
 .blue_selected {
 	font-weight:bolder;
-	background-color:red;
-	
+	background-color:red;	
 }
+
+#lightbox_advise{color: black;}

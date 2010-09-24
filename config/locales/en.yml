@@ -477,6 +477,8 @@ en:
       myevents: My events
       myeventstitle0: Events you have created
       myeventstitle1: You haven't created any event
+    cancel: 
+      step1: "All data will be lost. Are you sure?"
     choose_location: Choose location
     colon: "Event:"
     connection: 

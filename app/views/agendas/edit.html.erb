@@ -13,6 +13,16 @@
     $("#create_agenda_button").hide();
     $("#wait_create_agenda_button").show();
   });
+    
+  $("#cancel_event").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'frameWidth'              : 250,
+	'frameHeight'             : 80
+  });
+  
 
   /* JavaScript vars*/
 	// Slot axis time (in minutes)
@@ -171,7 +181,23 @@
 		        "script"
       );
 	});
-<% end %>
+	
+<%end%>
+
+
+<div style="display:none">
+  <script type="text/javascript">
+  	function our_close(){
+		$.fn.fancybox.close();		
+	}
+  </script>
+	
+  <div id="sure_form">
+  	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
+	<%= link_to "<span>" + t('button.accept') + "</span>", "javascript:delete_event()",:class => "basic_button blue_button", :id=>"button_yes"%>
+	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+  </div>
+</div>
 
 <div id="agenda_header">
 	<p id="agenda_date"><%=agenda_date(@event)%></p>
