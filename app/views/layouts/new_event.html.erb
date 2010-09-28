@@ -49,31 +49,31 @@
 		  <%= render :partial => "layouts/global" %>
 		  <div id="space">
 		    <div id="header">
-		      <div id="all_steps">
-		        <span id="first_step_logo">create event</span>
-			    <span id="second_step_logo">define program</span>
-			    <span id="third_step_logo">invite people</span>
-			  </div>			  
-			  <div id="eu">
-  				<%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
-			  </div>
+	        <div id="eu">
+	          <%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
+	        </div>
+					<div id="all_steps">
+			      <div id="first_step_logo"><h2 class="blue">Create event</h2></div>
+				    <div id="second_step_logo"><h2 class="blue">Define program</h2></div>
+				    <div id="third_step_logo"><h2 class="blue">Invite people</h2></div>
+			    </div>	
+					<span class="triangle_css"/>		  
 		    </div>
 		    <div id="content">		      
 		      <div id="main">
-
             <% flash.each do |name, msg| %>
               <div class="<%= name %>"><%= msg %></div>
             <% end %>
 		      	<%= yield %>
-
-			  </div>
+			    </div>
 		      <div id="sidebar">
 		        <%= yield :sidebar %>
-              </div>
-            </div>
-	        <%= render :partial => "layouts/footer" %>  
-	      </div>
+          </div>
+        </div>
+	      <%= render :partial => "layouts/footer" %>  
+	    </div>
 	  </div>
+		
 		<%if current_site.domain == "globalplaza.org"%>
 			<script type="text/javascript">
 				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
