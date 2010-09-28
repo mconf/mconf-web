@@ -1,0 +1,219 @@
+<% content_for :headers do %>
+  <%= javascript_include_tag 'fullcalendar' %>
+  <%= stylesheet_link_tag "fullcalendar", :media => "screen, projection" %>
+<% end %>
+
+<% content_for :javascript do %>
+
+  /* Event creation navigation */
+  $("#wait_create_agenda_button").hide();
+  $("#wait_create_agenda_button").attr('disabled', true);
+  
+  $("#create_agenda_button").click(function(){
+    $("#create_agenda_button").hide();
+    $("#wait_create_agenda_button").show();
+  });
+    
+  $("#cancel_event").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 250,
+	'height'             : 80
+  });
+  
+
+  /* JavaScript vars*/
+	// Slot axis time (in minutes)
+  var slot = 15;
+
+  /*
+	   AJAX request to update an agenda entry
+	*/
+  updateEntry = function(entry,revertFunc){
+	  //Remove notifications
+      $(".notice").remove(); $(".success").remove(); $(".error").remove();
+      
+      //Notify agenda is updating
+      $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.updating')) %></div>');
+      $(".notice").hide().slideDown('slow');
+      
+      //AJAX request
+      $.post("<%= space_event_agenda_agenda_entries_path(@space,@event)%>/" + entry.id,
+        {
+          authenticity_token: "<%=form_authenticity_token()%>",
+          _method: "put",
+          'agenda_entry[start_time]': entry.start.toGMTString(),
+          'agenda_entry[end_time]':entry.end.toGMTString()
+        },
+        function(data){
+          //Revert if error
+          if (!entry_updated){
+            revertFunc();
+          }
+        },
+        "script"
+      );
+	};
+
+  calendar = $('#calendar').fullCalendar({
+		header: {
+		  left: '',
+		  center: '',
+	    right: ''
+	  },
+	  allDaySlot: false,
+	  axisFormat: 'HH:mm',
+	  slotMinutes: slot,
+		year:<%= @agenda_day.strftime("%Y")%>,
+		month:<%= @agenda_day.month-1 %>,
+		date:<%= @agenda_day.strftime("%d")%>,
+		minTime: '<%= @agenda.fullcalendar_start_time(@agenda_day) %>',
+	  maxTime: '<%= @agenda.fullcalendar_end_time(@agenda_day)%>',
+	  defaultView: 'agendaDay',
+    editable: true,
+		events: <%= @agenda.to_fullcalendar_json %>,
+    eventDrop: function(entry,dayDelta,minuteDelta,allDay,revertFunc) {
+			updateEntry(entry,revertFunc);
+	  },
+		eventResize: function(entry,dayDelta,minuteDelta,revertFunc) {
+      updateEntry(entry,revertFunc);
+    },
+		eventClick: function( entry, jsEvent, view ) {
+		  current_qtip = $(this);
+		  current_qtip.qtip({
+         content: {
+           text:
+             '<a href=\"<%= space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '/edit\"><%=escape_javascript(t('agenda_entry.edit'))%></a>',
+           title: {
+             text: entry.title
+           }
+         },
+         show: { 
+           ready:true,
+           when: {
+             event: 'click'
+           }
+         },
+         hide: {
+				   fixed:true,
+           when: {
+             event: 'unfocus'
+           }
+         },
+				 position: {
+				   target: $(this),
+				   corner: 'center',
+					 adjust:{
+					   scroll: false
+					 }
+				 }
+      });
+		},
+		select: function( startDate, endDate, allDay, jsEvent, view ){
+		  current_qtip = $("#calendar");
+			current_qtip.qtip({
+         content: {
+           text:
+             '<form method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>\">' +
+               '<input type=\"hidden\" name=\"authenticity_token\" value=\"<%=form_authenticity_token()%>\" />' +
+               '<input type=\"hidden\" name=\"agenda_entry[start_time]\" value=\"' + startDate.toGMTString() + '\" />' +
+               '<input type=\"hidden\" name=\"agenda_entry[end_time]\" value=\"' + endDate.toGMTString() + '\" />' +
+               '<label id=\"agenda_title_label\" for=\"title\"><%=escape_javascript(t('title'))%></label>' +
+               '<input type=\"text\" name=\"agenda_entry[title]\" id="qtip_title"/>' +
+               '<input type=\"button\" id="calendar_submit" class=\"basic_button blue_button\" value=\"<%=escape_javascript(t('create'))%>\">' +
+             '</form>',
+           title: {
+             text: '<%=escape_javascript(t('entry.new'))%>'
+           }
+         },
+         show: { 
+           ready:true,
+           when: {
+             event: 'click'
+           }
+         },
+         hide: {
+				   fixed:true,
+           when: {
+             event: 'unfocus'
+           }
+         },
+         position: {
+           corner: 'center',
+           adjust:{
+             scroll: false
+           }
+         },
+				 api: {
+					 onHide: function(){
+             calendar.fullCalendar('unselect');
+						 current_qtip.qtip('destroy');
+				   },
+					 onShow: function(){
+					   $("#qtip_title").focus();
+					 }
+				 }
+      });
+		},
+		selectHelper:true,
+		selectable:true,
+		unselectAuto:false
+  });
+	
+	$("#calendar_submit").livequery('click',function(){
+	  //Remove notifications
+    $(".notice").remove(); $(".success").remove(); $(".error").remove();
+      
+    //Notify agenda is updating
+    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda_entry.creating')) %></div>');
+    $(".notice").hide().slideDown('slow');
+		
+		//Close qtip
+		current_qtip.qtip('hide');
+      
+		var form = $(this).parents("form");	
+    //AJAX request
+    $.post(form.attr('action'),
+		       form.serialize(),
+           null,
+		        "script"
+      );
+	});
+	
+<%end%>
+
+
+<div style="display:none">
+  <div id="sure_form">
+  	<script type="text/javascript">
+  	  function our_close(){
+		$.fancybox.close();		
+	  }
+	  
+    </script>
+  	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
+	<%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+  </div>
+</div>
+
+<div id="agenda_header">
+	<p id="agenda_date"><%=agenda_date(@event)%></p>
+	<p id="agenda_days"><%=edit_agenda_day_links(@event)%></p>
+</div>
+
+<div id="agenda_calendar">
+	<div id="calendar"></div>
+</div>
+
+<% form_for(:agenda, :url => space_event_agenda_path(@space, @event, :in_steps=>true), :html => {:method => :put, :multiple => "multiple" }) do |f| -%>
+    <div class="margin-up">
+	     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(space, @event, :in_steps=>true),:class => "basic_button blue_button", :id=>"back_event"%>
+		 <button type="submit" id="create_agenda_button" class="basic_button blue_button"><%=t("button.next_invite")%></button>
+		 <button id="wait_create_agenda_button" class="basic_button blue_button"><%=t("button.creating_agenda")%></button>
+	      <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
+	 </div>
+<% end %>
+

@@ -1,0 +1,16 @@
+//Remove notifications
+$(".notice").remove(); $(".success").remove(); $(".error").remove();
+
+<% if @agenda_entry.errors.any? %>
+  entry_updated = false
+	
+	//Notify error
+  $("#main").prepend('<div class="error"><%= escape_javascript(flash.delete(:error)) %></div>');
+	$(".error").delay(5000).slideUp('slow');
+<% else %>
+  entry_updated = true
+	
+	//Notify success
+	$("#main").prepend('<div class="success"><%= escape_javascript(flash.delete(:success)) %></div>');
+	$(".success").delay(5000).slideUp('slow');
+<% end %>

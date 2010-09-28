@@ -69,10 +69,10 @@ class EventLogosController < ApplicationController
 
     if event.logo.update_attributes(params[:event_logo])
       flash[:notice] = t('event.logo.created')
-      redirect_to(space_event_path(event.space, event))
+      redirect_to request.referer
     else
       flash[:error] = t('error', :count => event.errors.size) + event.errors.to_xml
-      redirect_to(space_event_path(event.space, event))
+      redirect_to request.referer
     end
   end
 

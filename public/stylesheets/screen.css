@@ -1889,10 +1889,8 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 
 .blue_selected {
 	font-weight:bolder;
-	background-color:red;
-	
+	background-color:red;	
 }
-
 
 /** Event creation**/
 
@@ -1906,3 +1904,6 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #first_step_logo{background:url('/images/one.png') no-repeat left center;}
 #second_step_logo{background:url('/images/two.png') no-repeat left center;}
 #third_step_logo{background:url('/images/three.png') no-repeat left center;}
+
+#lightbox_advise{color: black;}
+

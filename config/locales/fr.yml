@@ -140,6 +140,7 @@ fr:
     expand_help: "Cliquez sur le titre d&#39;une entr\xC3\xA9e l&#39;ordre du jour de l&#39;\xC3\xA9largir ou de contrat, il"
     title: "Ordre du jour de l&#39;\xC3\xA9v\xC3\xA9nement"
     update: "L&#39;ordre du jour a \xC3\xA9t\xC3\xA9 correctement mis \xC3\xA0 jour."
+    updating: Agenda is updating...
     upload: "T\xC3\xA9l\xC3\xA9chargez l&#39;ordre du jour"
     upload_file: Upload File
   agent: 
