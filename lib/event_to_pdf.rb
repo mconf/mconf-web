@@ -556,6 +556,7 @@ module EventToPdf
     
       @entries.each do |entrie|
       
+        ##BUG entrie = NIL
         hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
         
         if(@c4_width == 0)
