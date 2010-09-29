@@ -89,12 +89,7 @@ class AgendasController < ApplicationController
       #if @event.update_attributes(params[:agenda])
       #if true
       if @agenda.update_attributes(params[:agenda])
-        if params[:in_steps]
-          format.html { redirect_to(space_event_path(@space, @event, :invitations => @event)) } 
-        else
           format.html { redirect_to(space_event_path(@space, @event)) } 
-        end
-        
       else
         format.html { redirect_to(space_event_path(@space, @event)) }
         #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
@@ -103,7 +98,6 @@ class AgendasController < ApplicationController
   end
   
 private
-
  
   def event
     @event = Event.find_by_permalink(params[:event_id]) || raise(ActiveRecord::RecordNotFound)

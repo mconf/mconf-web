@@ -27,7 +27,11 @@
 	  
     </script>
   	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
-	<%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%if params[:in_steps]%>
+	  <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%else%>
+	  <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"}%>
+	<%end%>
 	<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
   </div>
 </div>
@@ -40,6 +44,6 @@
 <%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
 
 
-<%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event),:class => "basic_button blue_button", :id=>"back_event"%>
+<%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
 <%= link_to "<span>" + t('button.finish') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
 <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
