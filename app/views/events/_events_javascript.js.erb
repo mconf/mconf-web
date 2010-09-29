@@ -285,11 +285,11 @@ $("a.repository_sidebar_action").livequery("click",function(){
           window.location.hash = '#edit_entry_anchor';
          });
 	  } else {
-      if ($("#add_video_checkbox").length == 0) {
-        // if the add_video_checkbox does not exist, submit the form
+      if ($("#agenda_entry_discard_automatic_video").length == 0) {
+        // if the agenda_entry_discard_automatic_video does not exist, submit the form
         document.forms["agenda_entry_edit_form"].submit();
       } else {
-  	  	if ($("#add_video_checkbox").is(":checked")) {
+  	  	if ($("#agenda_entry_discard_automatic_video").is(":checked")) {
           // if it exists and it is checked, submit the form
   		    document.forms["agenda_entry_edit_form"].submit();
   		  } else {
@@ -377,12 +377,12 @@ $("a.repository_sidebar_action").livequery("click",function(){
 		
   <%end%>
   
-  $("#add_video_checkbox").livequery('click',function () { 
+  $("#agenda_entry_discard_automatic_video").livequery('click',function () { 
 	   hide_show_embedded_video();	    
   });
   
   hide_show_embedded_video = function(){
-    if ($("#add_video_checkbox").is(":checked"))
+    if ($("#agenda_entry_discard_automatic_video").is(":checked"))
 	{
 		$("#video_embed_div").show();
 	}

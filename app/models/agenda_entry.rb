@@ -156,7 +156,23 @@ class AgendaEntry < ActiveRecord::Base
   end
 
   def recording?
-    embedded_video.present? || cm_recording?
+    if !event.uses_conference_manager?  #manual mode
+      if embedded_video.present? && embedded_video != ""
+        return true
+      else 
+        return false
+      end
+    else #automatic mode
+      if discard_automatic_video
+        if embedded_video.present? && embedded_video != ""
+          return true
+        else 
+          return false
+        end
+      else
+        cm_recording?
+      end
+    end
   end
 
   named_scope :with_recording, lambda {
