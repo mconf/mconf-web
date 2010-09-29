@@ -1,39 +1,40 @@
-<div class="blue_border_down bold">
+<div class="blue_border_down">
   <h3><%=t('event.new.type')%></h3>
 </div>
 
 <div id="event_type_selector">
-     <span id="event_type_meeting"><%= image_tag("virtual_meeting.png",:class=>"icon")%><%=t('event.create.info.meeting.name')%><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
-	 <span id="event_type_class"><%= image_tag("virtual_class.png",:class=>"icon")%><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
-	 <span id="event_type_conference"><%= image_tag("virtual_congress.png",:class=>"icon")%><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
-	 <span id="event_type_presential"><%= image_tag("virtual_meeting.png",:class=>"icon")%><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span>
+   <div class="event_type"><span id="event_type_meeting"><%=t('event.create.info.meeting.name')%><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type"><span id="event_type_class"><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type"><span id="event_type_conference"><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type"><span id="event_type_presential"><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
      <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event ? @event.vc_mode : :telemeeting) %>
 </div>
 
-<div class="blue_border_down bold">
+<div class="blue_border_down">
   <h3><%=t('event.new.basic')%></h3>
 </div>
-    <div>
+<div id="event_info">
+    <div class="margin-up">
       <label for="Name"><%= t('name.one')%>:</label>
       <%= f.text_field :name, :size =>25  %>
     </div>
-    <div>
+    <div class="margin-up">
       <label for="Description"><%= t('description') %>:</label>
       <%=f.text_area :description%>
     </div>
   
-    <div>
-      <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
+    <div class="margin-up">
+      <label for="Organizer"><%= t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('event.help.organisers'))%></label>
         <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
           <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login})%>
         </select>
     </div>
-    <div>
+    <div class="margin-up">
       <label for="Location"><%= t('event.location') %>:</label>
       <%= f.text_field :location, :size =>25  %>
     </div>  
-
-<div class="blue_border_down bold">
+</div>
+<div class="blue_border_down">
   <h3><%=t('event.new.date')%></h3>
 </div>
 <div class="without_javascript">
@@ -46,7 +47,7 @@
 </div>
 
 
-<div class="blue_border_down bold">
+<div class="blue_border_down">
   <h3><%=t('event.new.vcoptions')%></h3>
 </div>
   <div id="initial-info">

@@ -1123,7 +1123,7 @@ a.extract_form{margin-right:0.5em;}
 #home_menu li{display:inline-block;padding:0.5em 2em;border-right:1px solid #d3e8f6;background:#244974; color:white}
 #line{background:url("../images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
 #line span{background:#fff;padding:0 6px 0 6px;margin-left:25px;}
-#home_wrapper{padding:10px 10px 10px 10px;background:#fff;}
+.whyte_wrapper{padding:10px 10px 10px 10px;background:#fff;}
 #recent-activity .odd_thread{background:none;}
 #recent-activity .div-logo,#profile_content .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
 #recent-activity .div-logo img,#profile_content .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
@@ -1885,11 +1885,42 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #full_sidebar .big_margin_down_40{margin-bottom:40px;}
 #full_sidebar .big_margin_down_60{margin-bottom:60px;}
 
-.blue_border_down {border-bottom:1px solid #A8C0D1;}
+.blue_border_down{border-bottom:1px solid #A8C0D1;}
+.blue_border_down h3{color:#244974;margin:0 0 0.25em 0;}
+
+#event_type_selector{
+	position:relative;
+	display:block;
+	padding:0.75em 0;
+	margin-bottom:0.75em;}
+.event_type{
+	position:relative;
+	display:inline-block;
+	width:24%;
+	margin-left:4px;
+	cursor:pointer;}
+.event_type .check_check{margin-left:5px;}
+.event_type .icon{margin-bottom:-3px;}
+#event_type_meeting,#event_type_class,#event_type_conference,#event_type_presential{
+	padding:15px 5px 15px 32px;
+	color:#244974;
+	font-weight:bold;
+	display:block;}
+#event_type_meeting{background:url('../images/virtual_meeting.png') no-repeat center left;}
+#event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
+#event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
+#event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
+#event_info{position:relative;display:block;overflow:hidden;clear:both;}
+#event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
+#event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
+#event_info div.margin-up input{float:left;width:297px;}
+#event_info div.margin-up .wysiwyg{float:left;height:20em;}
 
 .blue_selected {
 	font-weight:bolder;
-	background-color:red;	
+	background-color:#E1EEF5;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 3px;	
 }
 
 /** Event creation**/
