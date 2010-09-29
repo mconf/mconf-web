@@ -83,6 +83,7 @@ en:
       start_time: Start time
       title: Title
       updated: Divider was successfully updated
+    edit: Edit agenda
     edit_entry: Edit
     entry: 
       cannot_exclude: You cannot exclude from recording an entry shorter than
