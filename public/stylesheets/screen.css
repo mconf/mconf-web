@@ -273,7 +273,7 @@ button#change_logo{float:left;}
   text-indent:-99999px;
 }
 
-#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
+#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#event_invitations_external form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -281,8 +281,13 @@ button#change_logo{float:left;}
   font-size:95%;
   line-height:135%;
 }
-#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
-
+#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#event_invitations_external form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
+#event_invitations_external{
+	clear:both;
+  position:relative;}
+#event_invitations_note{
+	margin-left:95px;
+}
 
 /* forms.css */
 .error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
@@ -778,8 +783,13 @@ div.pagination a{color:#244974;}
 #update_space_logo{float:left;width:180px;}
 
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#event_group_invitation_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
+#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
+input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,textarea#invite_personal_registered{width:60%;overflow:auto;}
+#event_invitations_message{margin-left:30px;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
+
+#event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
+#back_event,#finish_event,#cancel_event{overflow:hidden;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}

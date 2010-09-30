@@ -36,14 +36,17 @@
   </div>
 </div>
 
-
 <%= link_to "<span>" + t('invitation.tab.title1') + "</span>", "#",:class => "basic_button", :id=>"tab1"%>
 <%= link_to "<span>" + t('invitation.tab.title2') + "</span>", "#",:class => "basic_button", :id=>"tab2"%>
 
-<%= render :partial=>"group_invitation" , :locals => {:checked_users => Array.new}%>
-<%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
-
-
-<%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
-<%= link_to "<span>" + t('button.finish') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
-<%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
+<div id="event_invitations_external" class="grey_bar">
+	
+	<%= render :partial=>"group_invitation" , :locals => {:checked_users => Array.new}%>
+	<%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
+	
+	<div id="event_step_buttons">
+		<%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
+		<%= link_to "<span>" + t('button.finish') + "</span>", space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
+		<%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
+	</div>
+</div>

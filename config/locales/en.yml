@@ -1045,8 +1045,8 @@ en:
     space: I would like to invite you to {{space}} space in the Virtual Conference Centre.
     subject: "{{username}} has invited you to an event in {{space}} space"
     tab:
-      title1: Email
-      title2: Users
+      title1: Unregistered users
+      title2: Registered users
     title: Invite people
     title2: Space Invitation
     to_accept: To accept my invitation please visit <a href={{url}}> {{url}} </a>
