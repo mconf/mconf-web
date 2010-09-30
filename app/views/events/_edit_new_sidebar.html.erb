@@ -1,5 +1,9 @@
-<div class="event_image grey_border_down">
-    <%if @event.logo %>
+
+  <div id="space_logo" class="space_logo">
+      <h3>Event Logo<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
+      <div id = "selected_logo" style="padding-bottom:10px;">
+          <center>
+              <%if @event.logo %>
       <div class="event_logo">
         <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')}) %>
       </div>
@@ -17,16 +21,9 @@
       </div>
 	<%else%>
 		  <div class="event_date_image">
-            <div class="event_day"> <%=image_tag ("gp-logo.jpg", :title=>t('logo.click_to_change')) %></div>
+            <div class="event_day"> <%=image_tag "default_event_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "64x64"} %></div>
           </div>
     <%end %>
-  </div>
-  
-  <div id="space_logo" class="space_logo">
-      <h3><%=t('space.logo_selected.default_message') %><%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
-      <div id = "selected_logo" style="padding-bottom:10px;">
-          <center>
-              <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
           </center>
       </div>
   </div>

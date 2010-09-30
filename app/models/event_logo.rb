@@ -42,6 +42,6 @@ class EventLogo < Logo
 
   def aspect_ratio
     img = Magick::Image.read(temp_path).first
-    errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily.") unless img.rows.to_f/img.columns.to_f ==  ASPECT_RATIO_F
+    #errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily.") unless img.rows.to_f/img.columns.to_f ==  ASPECT_RATIO_F
   end
 end

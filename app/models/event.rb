@@ -58,6 +58,38 @@ class Event < ActiveRecord::Base
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
+  
+  before_validation :update_logo
+
+  def update_logo
+    return unless @default_logo.present?  
+    img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
+    img_orig = img_orig.scale(337, 256)
+    images_path = File.join(RAILS_ROOT, "public", "images")
+    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
+    img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
+    original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
+    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
+    original_tmp.write(original.read)
+    original_tmp.instance_variable_set "@original_filename",@default_logo
+    original_tmp.instance_variable_set "@content_type", "image/jpeg"
+    logo = {}
+    logo[:media] = original_tmp
+    debugger
+    logo = self.build_logo(logo)
+ 
+    images_path = File.join(RAILS_ROOT, "public", "images")
+    tmp_path = File.join(images_path, "tmp")
+    debugger
+    #puts "a"
+   
+    if @rand_value != nil
+      final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
+    end
+
+
+  end
+
 
   named_scope :upcoming, lambda { |number|
     { :conditions => [ "events.end_date > ?", Time.now ],

@@ -176,11 +176,11 @@ var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getS
 
 //$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
 $("#logo_rand").attr('value', rand);
-$("#space_rand_value").attr('value', rand);
+$("#event_rand_value").attr('value', rand);
 
 $("#generate_text_logo_button").livequery('click',function(){
-	//$.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
-	$.get('/logos/new?text='+ ($("#event_text_logo").val()) + '&rand_name=' + rand , function(data) {
+	//$.get('/logos/new?event_logo=true&text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
+	$.get('/logos/new?event_logo=true&text='+ ($("#event_text_logo").val()) + '&rand_name=' + rand , function(data) {
   		$('#generated_text_logos').html(data);
 	});
 });
@@ -188,8 +188,8 @@ $("#generate_text_logo_button").livequery('click',function(){
 ///////////////////////////////
 $("#default_upload_logo").append($("#new_logo_hidden_form"));
 selectDefaultImage = function(image){
-	$("#event_image").attr('value', "default_space_logos/" + image);
-	$("#selected_logo_image").attr('src', "/images/default_space_logos/" + image);
+	$("#event_image").attr('value', "default_event_logos/" + image);
+	$("#selected_logo_image").attr('src', "/images/default_event_logos/" + image);
 }
 
 selectGeneratedImage = function(image){
@@ -205,15 +205,7 @@ $("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
 
 
  	$('#select_logo_form').ajaxForm({ 
-		beforeSubmit:function() {  
-			if(($("#logo_media").val()) == ""){
-				alert("pit");
-				return false;
-			}else{
-				alert("pum");
-			}
-			
-		},
+
         // target identifies the element(s) to update with the server response 
         target: '#resultado', 
  
