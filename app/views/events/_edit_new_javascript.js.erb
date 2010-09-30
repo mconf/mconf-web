@@ -215,13 +215,14 @@ $("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
 			
 			$("#logo_media").attr('value', "");
             $('#resultado').fadeIn('slow');
-			size = 188;
+			size = 256;
 			$("#croplogo").Jcrop({
 			      onSelect: cropImage,
 			      onChange: cropImage,
 						bgColor : 'white',
-			     	 aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
-						setSelect: [188/4,188/4,3*188/4,3*188/4]
+			     	 aspectRatio: <%=EventLogo::ASPECT_RATIO_S%>,
+						setSelect: [188,188,188*2,188*2]
+						//setSelect: [188/4,188/4,3*188/4,3*188/4]
          	});
 			
 			$('#crop_logo_form').ajaxForm({ 

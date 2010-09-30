@@ -3,7 +3,7 @@
       <h3>Event Logo<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
       <div id = "selected_logo" style="padding-bottom:10px;">
           <center>
-              <%if @event.logo %>
+    <%if @event.logo %>
       <div class="event_logo">
         <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')}) %>
       </div>

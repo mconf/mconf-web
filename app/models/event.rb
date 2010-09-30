@@ -64,7 +64,7 @@ class Event < ActiveRecord::Base
   def update_logo
     return unless @default_logo.present?  
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
-    img_orig = img_orig.scale(337, 256)
+    img_orig = img_orig.scale(256, 256)
     images_path = File.join(RAILS_ROOT, "public", "images")
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
@@ -75,13 +75,12 @@ class Event < ActiveRecord::Base
     original_tmp.instance_variable_set "@content_type", "image/jpeg"
     logo = {}
     logo[:media] = original_tmp
-    debugger
+    #debugger
     logo = self.build_logo(logo)
  
     images_path = File.join(RAILS_ROOT, "public", "images")
     tmp_path = File.join(images_path, "tmp")
-    debugger
-    #puts "a"
+    #debugger
    
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")

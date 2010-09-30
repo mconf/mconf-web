@@ -19,16 +19,14 @@
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 
     <div class="margin-up">
-	     <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.next_program")%></button>
-		 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
-	      <%= link_to "<span>" + t('cancel') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"cancel_event"%>
-	 </div>
+		<button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.next_program")%></button>
+		<button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
+	    <%= link_to "<span>" + t('cancel') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"cancel_event"%>
+	</div>
      
-  <% end %>
+<% end %>
   
-  
-  <div id="new_logo_hidden_form" style="display:solid">
-  <!--<div id="default_upload_logo" style="display:solid">-->
+<div id="new_logo_hidden_form" style="display:solid">
 	<label>upload your own logo</label><br>
     <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
     <%= t("space.logo_selected.upload_logo_text") %>
