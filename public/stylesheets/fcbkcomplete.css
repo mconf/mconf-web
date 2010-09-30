@@ -47,6 +47,7 @@ div.facebook-auto button{color: #244974}
 .default span { cursor: pointer; border: 1px solid #CAD8F3;; font: 11px "Lucida Grande", "Verdana"; background-color: #DEE7F8; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; padding: 1px 5px 2px; }
 .default span:hover { background: #4173CC; color: #fff; }
 
-#organizers_name_annoninput { width: 100% }
-#organizers_name_annoninput input { width: 100% }
-#event_info form ul.holder{float:left;}
+#organizers_name_annoninput { width: 100%; }
+#organizers_name_annoninput input { width: 100%; }
+/*.event_info form ul.holder{float:left;}*/
+.event_info #organizers_name_annoninput input{float:left;width:297px;}

@@ -1123,7 +1123,13 @@ a.extract_form{margin-right:0.5em;}
 #home_menu li{display:inline-block;padding:0.5em 2em;border-right:1px solid #d3e8f6;background:#244974; color:white}
 #line{background:url("../images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
 #line span{background:#fff;padding:0 6px 0 6px;margin-left:25px;}
-.whyte_wrapper{padding:10px 10px 10px 10px;background:#fff;}
+.whyte_wrapper{
+		background:#FFFFFF none repeat scroll 0 0;
+		clear:both;
+		display:block;
+		overflow:hidden;
+		padding:10px;
+		position:relative;}
 #recent-activity .odd_thread{background:none;}
 #recent-activity .div-logo,#profile_content .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
 #recent-activity .div-logo img,#profile_content .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
@@ -1910,11 +1916,16 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
 #event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
 #event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
-#event_info{position:relative;display:block;overflow:hidden;clear:both;}
-#event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
-#event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
-#event_info div.margin-up input{float:left;width:297px;}
-#event_info div.margin-up .wysiwyg{float:left;height:20em;}
+.event_info{position:relative;display:block;overflow:hidden;clear:both;}
+.event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
+.event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
+.event_info div.margin-up .wysiwyg{float:left;height:20em;}
+.event_info div.margin-up select,#extra-info select{font-size:0.91667em;line-height:1.6363;}
+.event_info div.margin-up input{float:left;width:297px;}
+div#initial-info{padding-left:45px;}
+#extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
+div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
+div#initial-info #advanced_config:hover{text-decoration:underline;}
 
 .blue_selected {
 	font-weight:bolder;
@@ -1938,3 +1949,10 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 
 #lightbox_advise{color: black;}
 
+ul.event_form_buttons{
+	position:relative;
+	float:right;
+	overflow:hidden;
+	margin-left:0;
+	list-style-type:none;}
+ul.event_form_buttons li{display:inline-block;}

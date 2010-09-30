@@ -44,11 +44,13 @@
 	
 	    <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 	
-	    <div class="margin-up">
-		     <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.next_program")%></button>
-			 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
-		      <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
-		 </div>
-	     
+
+		   <ul class="margin-up event_form_buttons">
+				 <li><button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.next_program")%></button></li>
+			   <li><button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button></li>
+		     <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%></li>
+		   </ul>
+
+		 	     
 	  <% end %>
 </div>

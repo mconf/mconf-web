@@ -13,7 +13,7 @@
 <div class="blue_border_down">
   <h3><%=t('event.new.basic')%></h3>
 </div>
-<div id="event_info">
+<div class="event_info">
     <div class="margin-up">
       <label for="Name"><%= t('name.one')%>:</label>
       <%= f.text_field :name, :size =>25  %>
@@ -37,25 +37,26 @@
 <div class="blue_border_down">
   <h3><%=t('event.new.date')%></h3>
 </div>
-<div class="without_javascript">
-      <div class="margin-up"><label for="start_time" class="main_text"><%= t('event.time.start') %></label><br/>
+<div class="without_javascript event_info">
+    <div class="margin-up">
+    	  <label for="start_time"><%= t('event.time.start') %></label>
         <%= f.datetime_select :start_date, :default => Time.zone.now + 10.minutes%>
-      </div>
-	  <div class="margin-up"><label for="end_time" class="main_text"><%= t('event.time.end') %></label><br/>
+    </div>
+	  <div class="margin-up"><label for="end_time"><%= t('event.time.end') %></label>
         <%= f.datetime_select :end_date, :default => Time.zone.now + 10.minutes + 2.hours%>
-      </div>
+    </div>
 </div>
 
 
 <div class="blue_border_down">
   <h3><%=t('event.new.vcoptions')%></h3>
 </div>
-  <div id="initial-info">
-	<%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true%> <%=t('event.create.video_streaming')%>
-	<%=f.check_box :recording_by_default,:class=>"icon", :checked =>@event ? @event.recording_by_default : true%> <%=t('event.create.video_recording')%>
-	<div id="advanced_config"><%=t('event.create.advanced_conf')%></div>
+  <div id="initial-info" class="margin-up">
+		<%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true%> <span><%=t('event.create.video_streaming')%></span>
+		<%=f.check_box :recording_by_default,:class=>"icon", :checked =>@event ? @event.recording_by_default : true%> <span><%=t('event.create.video_recording')%></span>
+		<span id="advanced_config"><%=t('event.create.advanced_conf')%></span>
   </div>
-    <div id="extra-info"  style="display:none">
+    <div id="extra-info"  style="display:none" class="margin-up">
 	    <div id="extra-info-part1">  
 		   <%= t('event.enable.isabelbw') %> : <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , @event.cm_event? ? [@event.cm_event.isabel_bw, @event.cm_event.isabel_bw] : ["1M", "1M"])%> <br/>
 		   <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , @event.cm_event? ?Event::WEB_BW_HASH_FOR_DROP_DOWN[@event.cm_event.web_bw] : ["High (450K Sorenson)", "2"])%> <br/>
