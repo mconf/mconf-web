@@ -87,6 +87,7 @@ fr:
     entry: 
       cannot_exclude: "Vous ne pouvez pas exclure de l&#39;enregistrement d&#39;une entr\xC3\xA9e plus courte que"
       created: "l&#39;ordre du jour d&#39;entr\xC3\xA9e a \xC3\xA9t\xC3\xA9 cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
+      creating: Creating agenda entry
       delete: "l&#39;ordre du jour d&#39;entr\xC3\xA9e a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9 avec succ\xC3\xA8s"
       description: Description
       duration: Duration
@@ -978,7 +979,7 @@ fr:
     sign: Cordialement, {{username}}
     space: I would like to invite you to {{space}} space in the Virtual Conference Centre.
     subject: "{{username}} has invited you to an event in {{space}} space"
-    title: Invite registered users
+    title: Invite people
     title2: Space Invitation
     to_accept: "Pour accepter mon invitation s&#39;il vous pla\xC3\xAEt visitez <a href={{url}}>{{url}}</a>"
     to_accept_space: "Pour accepter mon invitation s&#39;il vous pla\xC3\xAEt visitez {{url}}"

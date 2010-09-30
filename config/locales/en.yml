@@ -88,6 +88,7 @@ en:
     entry: 
       cannot_exclude: You cannot exclude from recording an entry shorter than
       created: Agenda entry was successfully created
+      creating: Creating agenda entry
       delete: Agenda entry was successfully deleted
       description: Description
       documents: Related documents
@@ -1046,7 +1047,7 @@ en:
     tab:
       title1: Email
       title2: Users
-    title: Invite registered users
+    title: Invite people
     title2: Space Invitation
     to_accept: To accept my invitation please visit <a href={{url}}> {{url}} </a>
     to_accept_space: To accept my invitation please visit {{url}}

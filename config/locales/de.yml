@@ -87,6 +87,7 @@ de:
     entry: 
       cannot_exclude: "Sie k\xC3\xB6nnen nicht von der Aufnahme eines Eintrags k\xC3\xBCrzer als ausgeschlossen"
       created: Agenda-Eintrag wurde erfolgreich erstellt
+      creating: Creating agenda entry
       delete: "Agenda-Eintrag wurde erfolgreich gel\xC3\xB6scht"
       description: Beschreibung
       duration: Dauer
@@ -974,7 +975,7 @@ de:
     sign: "Mit freundlichen Gr\xC3\xBC\xC3\x9Fen, {{username}}"
     space: "Ich m\xC3\xB6chte Sie einladen, um Platz in der Virtual Conference Centre {{space}}."
     subject: "{{username}} has invited you to an event in {{space}} space"
-    title: Invite registered users
+    title: Invite people
     title2: Space Einladung
     to_accept: So nehmen Sie meine Einladung besuchen Sie bitte die <a href={{url}}>{{url}}</a>
     to_accept_space: So nehmen Sie meine Einladung besuchen Sie bitte die {{url}}

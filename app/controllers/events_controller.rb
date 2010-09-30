@@ -233,7 +233,11 @@ class EventsController < ApplicationController
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
-            redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])  
+          if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
+            redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
+          else
+            redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
+          end
         }
         format.xml  { head :ok }
         format.js{

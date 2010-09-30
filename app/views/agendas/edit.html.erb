@@ -125,7 +125,7 @@
                '<input type=\"button\" id="calendar_submit" class=\"basic_button blue_button\" value=\"<%=escape_javascript(t('create'))%>\">' +
              '</form>',
            title: {
-             text: '<%=escape_javascript(t('entry.new'))%>'
+             text: '<%=escape_javascript(t('agenda.entry.new'))%>'
            }
          },
          show: { 
@@ -167,7 +167,7 @@
     $(".notice").remove(); $(".success").remove(); $(".error").remove();
       
     //Notify agenda is updating
-    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda_entry.creating')) %></div>');
+    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.entry.creating')) %></div>');
     $(".notice").hide().slideDown('slow');
 		
 		//Close qtip
