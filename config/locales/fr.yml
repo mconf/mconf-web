@@ -702,6 +702,7 @@ fr:
     email: Email
     full_name: Nom complet
     hide_all_users: Masquer tous les utilisateurs
+    instructions: Click Send for each invitation you want to send, and click Finish when you are done.
     logout_and_reload: "Vous n&#39;\xC3\xAAtes pas l&#39;utilisateur qui a re\xC3\xA7u cette invitation, s&#39;il vous pla\xC3\xAEt logout et essayez \xC3\xA0 nouveau"
     message_title: "Invite registered users"
     new: 

@@ -790,6 +790,7 @@ input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,
 
 #event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
 #back_event,#finish_event,#cancel_event{overflow:hidden;}
+a.selected_invitation_tab{background:#F2F2F2;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}

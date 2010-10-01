@@ -1,20 +1,24 @@
 <% content_for :javascript do%>
   $("#tab2").click(function(){
     $("#email_invitations").hide();
-	$("#user_invitations").show();
+    $("#user_invitations").show();
+    $("#tab1").removeClass("selected_invitation_tab");
+		$("#tab2").addClass("selected_invitation_tab");
   });
   $("#tab1").click(function(){
     $("#user_invitations").hide();
-	$("#email_invitations").show();
+    $("#email_invitations").show();
+		$("#tab2").removeClass("selected_invitation_tab");
+    $("#tab1").addClass("selected_invitation_tab");
   });
   
   $("#cancel_event").fancybox({
-	'scrolling'		     : 'no',
-	'titleShow'		     : false,
-	'hideOnContentClick' : false,
-	'autoDimensions'	 : false,
-	'width'              : 250,
-	'height'             : 80
+		'scrolling'		     : 'no',
+		'titleShow'		     : false,
+		'hideOnContentClick' : false,
+		'autoDimensions'	 : false,
+		'width'              : 250,
+		'height'             : 80
   });
 <%end%>
 
@@ -36,8 +40,10 @@
   </div>
 </div>
 
-<%= link_to "<span>" + t('invitation.tab.title1') + "</span>", "#",:class => "basic_button", :id=>"tab1"%>
-<%= link_to "<span>" + t('invitation.tab.title2') + "</span>", "#",:class => "basic_button", :id=>"tab2"%>
+<div class="notice"><%= t('event_invitation.instructions') %></div>
+
+<%= link_to "<span>" + t('invitation.tab.title1') + "</span>", "#", :class => "selected_invitation_tab bold", :id=>"tab1"%>
+<%= link_to "<span>" + t('invitation.tab.title2') + "</span>", "#",:class => "bold", :id=>"tab2"%>
 
 <div id="event_invitations_external" class="grey_bar">
 	

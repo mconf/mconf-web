@@ -730,6 +730,7 @@ en:
     email: Email
     full_name: Full name
     hide_all_users: Hide all users
+    instructions: Click Send for each invitation you want to send, and click Finish when you are done.
     logout_and_reload: You are not the user that received this invitation, please logout and try again
     message_title: Invite registered users
     new: 
