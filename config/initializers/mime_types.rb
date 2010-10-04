@@ -18,3 +18,4 @@ Mime::Type.register "application/vnd.ms-excel", :xls, [ "application/msexcel" ]
 Mime::Type.register "text/calendar", :ical
 Mime::Type.register "application/zip", :zip, [ "application/x-zip" ]
 Mime::Type.register "application/rar", :rar, [ "application/x-rar" ]
+Mime::Type.register_alias "text/html", :m
