@@ -20,7 +20,7 @@ require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/sessi
 
 class SessionsController
   # Don't render Station layout, use application layout instead
-  layout 'application'
+  layout :application_layout
 
   #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home 
 
@@ -65,5 +65,9 @@ class SessionsController
   
   def update_user
     current_user.touch
+  end
+  
+  def application_layout
+    (request.format.to_sym == :m)? 'mobile.html' : 'application'
   end
 end
