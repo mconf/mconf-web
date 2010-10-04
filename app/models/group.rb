@@ -17,6 +17,8 @@
 
 class Group < ActiveRecord::Base
   
+  MAIL_DIR = "/var/local/global2"
+  
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
   belongs_to :space
@@ -99,8 +101,8 @@ class Group < ActiveRecord::Base
   
   def self.delete_list(group,list)
     if !list.include?("-DISABLED-")
-      `rm -f /var/lib/global2/automatic_lists/vcc-#{list}`
-      `rm -f /var/lib/global2/automatic_ro_lists/vcc-ro-#{list}` 
+      `rm -f #{MAIL_DIR}/automatic_lists/vcc-#{list}`
+      `rm -f #{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{list}` 
     end      
   end
   
@@ -194,15 +196,15 @@ class Group < ActiveRecord::Base
       invited = "#{self.generate_mail_list("invited")}"
       puts "Invited: " + self.generate_mail_list("invited")
       
-      FileUtils.mkdir_p("/var/lib/global2/automatic_lists/")
-      FileUtils.mkdir_p("/var/lib/global2/automatic_ro_lists/")
+      FileUtils.mkdir_p("#{MAIL_DIR}/automatic_lists/")
+      FileUtils.mkdir_p("#{MAIL_DIR}/automatic_ro_lists/")
       
       if !self.mailing_list.include?("-DISABLED-")
-        File.new("/var/lib/global2/automatic_lists/vcc-#{self.mailing_list}", 'w')
-        File.new("/var/lib/global2/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w')
+        File.new("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w')
+        File.new("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w')
         
-        File.open("/var/lib/global2/automatic_lists/vcc-#{self.mailing_list}", 'w') {|f| f.write(main) }
-        File.open("/var/lib/global2/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w') {|f| f.write(invited) }
+        File.open("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w') {|f| f.write(main) }
+        File.open("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w') {|f| f.write(invited) }
       end
       #`/usr/local/bin/newautomatic.sh`
     end    
