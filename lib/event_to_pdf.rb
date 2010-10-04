@@ -221,7 +221,8 @@ module EventToPdf
     
     headings = true
     bottom_space = pdf.y
-    margin_space = 20
+    margin_space_special = 30
+    margin_space = 10
     
     if isSpecialTitle(actual_entry)
       
@@ -235,7 +236,7 @@ module EventToPdf
       height_table = getTableHeight(first_row_entrie,headings)
       height_total = height_table + height_rectangle
       
-      if height_total > (bottom_space - margin_space)
+      if height_total > (bottom_space - margin_space_special)
         return 0
       end
       
@@ -555,8 +556,7 @@ module EventToPdf
     data = []
     
       @entries.each do |entrie|
-      
-        ##BUG entrie = NIL
+
         hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
         
         if(@c4_width == 0)

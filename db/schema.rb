@@ -141,11 +141,11 @@ ActiveRecord::Schema.define(:version => 20100928121448) do
     t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
+    t.datetime "generate_pdf_small_at"
     t.datetime "generate_scorm_at"
     t.text     "isabel_bw"
     t.integer  "web_bw"
     t.integer  "recording_bw"
-    t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
   end
 
