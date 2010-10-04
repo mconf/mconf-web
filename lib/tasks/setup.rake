@@ -83,7 +83,7 @@ namespace :setup do
 
 
   desc "Creates the directory for mailing lists files"
-  task :config_mailing_list_dir
+  task :config_mailing_list_dir do
     `sudo mkdir /var/local/global2`
     `sudo chown www-data /var/local/global2`
   end
