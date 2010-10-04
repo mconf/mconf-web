@@ -80,6 +80,7 @@ de:
         past_times: "Diese Art der Veranstaltung k\xC3\xB6nnen nicht vergangenen Zeiten"
       failed: Es gab ein Problem mit der Tagesordnung divider
       new: New Agenda divider
+      one: Divider
       start_time: Startzeit
       title: Titel
       updated: Divider wurde erfolgreich aktualisiert

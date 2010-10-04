@@ -80,6 +80,7 @@ fr:
         past_times: "Ce type d&#39;\xC3\xA9v\xC3\xA9nement ne peut pas avoir pass\xC3\xA9"
       failed: "Il y avait un probl\xC3\xA8me avec le diviseur de l&#39;ordre du jour"
       new: diviseur de l&#39;ordre du jour Nouveau
+      one: Divider
       start_time: "Heure de d\xC3\xA9but"
       title: Titre
       updated: "Divider a \xC3\xA9t\xC3\xA9 mis \xC3\xA0 jour"
