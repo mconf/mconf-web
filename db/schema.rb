@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100915144144) do
+ActiveRecord::Schema.define(:version => 20101004113049) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20100915144144) do
     t.text     "uid"
     t.boolean  "cm_streaming",    :default => false
     t.boolean  "cm_recording",    :default => false
+    t.text     "divider"
   end
 
   create_table "agenda_record_entries", :force => true do |t|
