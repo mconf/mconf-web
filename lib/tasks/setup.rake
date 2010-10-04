@@ -17,7 +17,7 @@ namespace :setup do
   end
 
   desc "All production tasks"
-  task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all" ] do
+  task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all", :config_mailing_list_dir ] do
   end
 
 
@@ -79,5 +79,12 @@ namespace :setup do
 
     system "git submodule init"
     system "git submodule update"
+  end
+
+
+  desc "Creates the directory for mailing lists files"
+  task :config_mailing_list_dir do
+    `sudo mkdir /var/local/global2`
+    `sudo chown www-data /var/local/global2`
   end
 end
