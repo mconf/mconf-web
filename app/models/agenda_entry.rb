@@ -82,12 +82,12 @@ class AgendaEntry < ActiveRecord::Base
             return
           end
         elsif (content.start_time..content.end_time) === self.start_time
-          unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+          unless ( self.start_time == content.end_time ) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end
         elsif (content.start_time..content.end_time) === self.end_time
-          unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+          unless ( self.end_time == content.start_time ) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end

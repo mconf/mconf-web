@@ -1966,4 +1966,4 @@ ul.event_form_buttons{
 	overflow:hidden;
 	margin-left:0;
 	list-style-type:none;}
-ul.event_form_buttons li{display:inline-block;}
+ul.event_form_buttons li{float:left;}
