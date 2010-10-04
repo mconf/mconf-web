@@ -203,19 +203,21 @@
   </div>
 </div>
 
-<div id="agenda_header">
-	<p id="agenda_date"><%=agenda_date(@event)%></p>
-	<p id="agenda_days"><%=edit_agenda_day_links(@event)%></p>
+<div class="whyte_wrapper">
+	<div id="agenda_header">
+		<p id="agenda_date"><%=agenda_date(@event)%></p>
+		<p id="agenda_days"><%=edit_agenda_day_links(@event)%></p>
+	</div>
+	
+	<div id="agenda_calendar">
+		<div id="calendar"></div>
+	</div>
+	
+  <div class="margin-up">
+     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
+	 <%= link_to "<span>" + t('button.next_invite') + "</span>", space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%>
+     <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
+  </div>	
 </div>
-
-<div id="agenda_calendar">
-	<div id="calendar"></div>
-</div>
-
-    <div class="margin-up">
-	     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
-		 <%= link_to "<span>" + t('button.next_invite') + "</span>", space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%>
-	     <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
-	 </div>
 
 
