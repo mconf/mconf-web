@@ -44,6 +44,7 @@ class SessionsController
         }
       end
       format.html
+      format.m
     end
   end
 

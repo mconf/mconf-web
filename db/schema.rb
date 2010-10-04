@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100909080633) do
+ActiveRecord::Schema.define(:version => 20100928121448) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -52,8 +52,9 @@ ActiveRecord::Schema.define(:version => 20100909080633) do
     t.text     "video_thumbnail"
     t.integer  "cm_session_id"
     t.text     "uid"
-    t.boolean  "cm_streaming",    :default => false
-    t.boolean  "cm_recording",    :default => false
+    t.boolean  "cm_streaming",            :default => false
+    t.boolean  "cm_recording",            :default => false
+    t.boolean  "discard_automatic_video", :default => false
   end
 
   create_table "agenda_record_entries", :force => true do |t|
@@ -140,11 +141,11 @@ ActiveRecord::Schema.define(:version => 20100909080633) do
     t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
+    t.datetime "generate_pdf_small_at"
     t.datetime "generate_scorm_at"
     t.text     "isabel_bw"
     t.integer  "web_bw"
     t.integer  "recording_bw"
-    t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
   end
 

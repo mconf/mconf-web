@@ -128,6 +128,9 @@ class AgendaEntriesController < ApplicationController
     
     respond_to do |format|
       if @agenda_entry.update_attributes(params[:agenda_entry])
+        if params[:agenda_entry][:discard_automatic_video]=="0"
+          @agenda_entry.update_attribute(:embedded_video, nil)
+        end        
         #first we delete the old performances if there were some (this is for the update operation that creates new performances in the event)
         @agenda_entry.update_attribute(:speakers,"")
         Performance.find(:all, :conditions => {:role_id => Role.find_by_name("Speaker"), :stage_id => @agenda_entry}).each do |perf| perf.delete end
