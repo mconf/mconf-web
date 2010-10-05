@@ -7,9 +7,9 @@ module EventToPdf
   #Method to generate the agenda of the event in PDF.
   def to_pdf(small_version)
       
-    unless needsGenerate(small_version)
-      return
-    end
+#    unless needsGenerate(small_version)
+#      return
+#    end
        
     pdf = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
    
@@ -60,6 +60,8 @@ module EventToPdf
       
       #Array of entries and dividers.
       @entries = agenda.contents_for_day(i+1)
+      
+      debugger
     
       unless i == days or i == 0 or @entries.empty?
         pdf.start_new_page  
@@ -276,7 +278,7 @@ module EventToPdf
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
     
 #    nLines = divider.title.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
-    lines_content = divider.title.split("<br/>");
+    lines_content = divider.divider.split("<br/>");
     
     height_rectangle = 0
     
@@ -303,12 +305,14 @@ module EventToPdf
   end
   
   
-  def isSpecialTitle(entry)  
-    if entry == nil
-      return false
+  def isSpecialTitle(entry)
+    
+    if entry != nil && entry.divider != nil
+      return true
     else
-      return  !(entry.class == AgendaEntry)
-    end  
+      return false;
+    end
+
   end
 
 
@@ -666,23 +670,10 @@ module EventToPdf
     
     #pdf.margins_pt(5, 25, 5, 15)   #pdf.margins_pt(Top, Left, Bottom, Right) previous margins
     
-    if hasHour
-      
-      #ACTUALLY NOT USED
-      
-      hour =  divider.start_time.strftime("%H:%M").to_s() + " to " + divider.end_time.strftime("%H:%M").to_s()
-        
-      #add_text(x, y, text, size = nil, angle = 0, word_space_adjust = 0)
-      #Add text to the document at (x, y) location at size and angle. 
-      #The word_space_adjust parameter is an internal parameter that should not be used.
-      pdf.add_text(pdf.absolute_left_margin+15 , pdf.y-17, text_to_iso("#{hour}"), 14, 0, 0)      
-      
-      pdf.margins_pt(5, 160, 5, 1)
-    else
-      pdf.margins_pt(5, 1, 5, 1)
-    end
+    pdf.margins_pt(5, 1, 5, 1)
+    
 
-    pdf.text text_to_iso("#{divider.title}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
+    pdf.text text_to_iso("#{divider.divider}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
     pdf.margins_pt(5, 25, 5, 15)
     
     
@@ -690,8 +681,7 @@ module EventToPdf
       margin_bottom = 2
     else
       margin_bottom = 1
-    end  
-    
+    end    
     
     pdf.y = last_y - height_rectangle + margin_bottom
     pdf.fill_color!  Color::RGB::Black
