@@ -7,9 +7,9 @@ module EventToPdf
   #Method to generate the agenda of the event in PDF.
   def to_pdf(small_version)
       
-#    unless needsGenerate(small_version)
-#      return
-#    end
+    unless needsGenerate(small_version)
+      return
+    end
        
     pdf = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
    
