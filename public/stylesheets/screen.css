@@ -1501,7 +1501,7 @@ tr.version_expanded td{
 	}
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
-h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3, h3#divider_new {
+h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3 {
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
