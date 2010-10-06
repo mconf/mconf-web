@@ -1967,3 +1967,18 @@ ul.event_form_buttons{
 	margin-left:0;
 	list-style-type:none;}
 ul.event_form_buttons li{display:inline-block;}
+
+/** Fullcalendar **/
+.fc-event-vert span.fc_session_title{
+	padding: 0pt 5px;
+	position: absolute;
+	right: 10px;
+	z-index: 10;
+	background-color: orange;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	line-height: 13px;
+	top: 0px;
+	min-width: 50%;
+	font-size: 11px;}

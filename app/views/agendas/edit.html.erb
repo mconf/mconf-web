@@ -26,34 +26,37 @@
 
   /* JavaScript vars*/
 	// Slot axis time (in minutes)
-  var slot = 15;
+  slot = 15;
 
   /*
 	   AJAX request to update an agenda entry
 	*/
   updateEntry = function(entry,revertFunc){
 	  //Remove notifications
-      $(".notice").remove(); $(".success").remove(); $(".error").remove();
-      
-      //Notify agenda is updating
-      $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.updating')) %></div>');
-      $(".notice").hide().slideDown('slow');
-      
-      //AJAX request
-      $.post("<%= space_event_agenda_agenda_entries_path(@space,@event)%>/" + entry.id,
-        {
-          authenticity_token: "<%=form_authenticity_token()%>",
-          _method: "put",
-          'agenda_entry[start_time]': entry.start.toGMTString(),
-          'agenda_entry[end_time]':entry.end.toGMTString()
-        },
-        function(data){
-          //Revert if error
-          if (!entry_updated){
-            revertFunc();
-          }
-        },
-        "script"
+    $(".notice").remove(); $(".success").remove(); $(".error").remove();
+
+    //Hide qtips
+		$('.qtip').remove();
+			
+    //Notify agenda is updating
+    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.updating')) %></div>');
+    //$(".notice").hide().slideDown('slow');
+    
+    //AJAX request
+    $.post("<%= space_event_agenda_agenda_entries_path(@space,@event)%>/" + entry.id,
+      {
+        authenticity_token: "<%=form_authenticity_token()%>",
+        _method: "put",
+        'agenda_entry[start_time]': entry.start.toGMTString(),
+        'agenda_entry[end_time]':entry.end.toGMTString()
+      },
+      function(data){
+        //Revert if error
+        if (!entry_updated){
+          revertFunc();
+        }
+      },
+      "script"
       );
 	};
 
@@ -80,8 +83,49 @@
 		eventResize: function(entry,dayDelta,minuteDelta,revertFunc) {
       updateEntry(entry,revertFunc);
     },
+    eventRender: function(event, element) {
+
+      /* Session supertitle*/
+      if (event.supertitle != ''){
+			  element.children("a").prepend("<span class=\"fc_session_title\">" + event.supertitle + "</span>");
+			}
+
+      /* Session description and speakers*/
+		
+		  // Calculate number of fields
+		  var fields = 0;
+			if (event.description != '') fields++;
+			if (event.speakers != '') fields++;
+			
+			// Calculate number of lines
+			var lines = (event.end - event.start)/(1000 * 60 * slot);
+			
+			// 1 or 2 lines
+			if (lines < 3 && fields > 0){
+			  var event_qtip_text = "";
+				if (event.description != '') event_qtip_text += "<p class=\"event_qtip_title\"><span class=\"event_qtip_title\"><%=escape_javascript(t('agenda.entry.description'))%>:</span> " + event.description + "</p>";
+				if (event.speakers != '') event_qtip_text += "<p class=\"event_qtip_title\"><span class=\"event_qtip_title\"><%=escape_javascript(t('agenda.entry.speakers'))%>:</span> " + event.speakers + "</p>"; 
+				
+				element.qtip({
+				  content: event_qtip_text,
+					position:{
+					  corner:{
+					    target: 'bottomRight',
+						  tooltip: 'topRight'
+							}
+						} 
+				});
+			}else{ 
+	      if (event.description != ''){
+	        element.children("a").append("<span><%=escape_javascript(t('description'))%>: " + event.description + "</span>");
+	      }
+				if (event.speakers != ''){
+	        element.children("a").append("<span><%=escape_javascript(t('agenda.entry.speakers'))%>: " + event.speakers + "</span>");
+	      }
+			}
+    },
 		eventClick: function( entry, jsEvent, view ) {
-		  current_qtip = $(this);
+		  current_qtip =  $(this);
 		  current_qtip.qtip({
          content: {
            text:
@@ -116,13 +160,13 @@
 			current_qtip.qtip({
          content: {
            text:
-             '<form method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>\">' +
+             '<form class=\"create_entry\" method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>\">' +
                '<input type=\"hidden\" name=\"authenticity_token\" value=\"<%=form_authenticity_token()%>\" />' +
                '<input type=\"hidden\" name=\"agenda_entry[start_time]\" value=\"' + startDate.toGMTString() + '\" />' +
                '<input type=\"hidden\" name=\"agenda_entry[end_time]\" value=\"' + endDate.toGMTString() + '\" />' +
                '<label id=\"agenda_title_label\" for=\"title\"><%=escape_javascript(t('title'))%></label>' +
                '<input type=\"text\" name=\"agenda_entry[title]\" id="qtip_title"/>' +
-               '<input type=\"button\" id="calendar_submit" class=\"basic_button blue_button\" value=\"<%=escape_javascript(t('create'))%>\">' +
+               '<button type=\"submit\" id="calendar_submit" class=\"basic_button blue_button\"><%=escape_javascript(t('create'))%></button>' +
              '</form>',
            title: {
              text: '<%=escape_javascript(t('agenda.entry.new'))%>'
@@ -162,26 +206,25 @@
 		unselectAuto:false
   });
 	
-	$("#calendar_submit").livequery('click',function(){
-	  //Remove notifications
+	$("form.create_entry").livequery('submit',function(){
+
+	   //Remove notifications
     $(".notice").remove(); $(".success").remove(); $(".error").remove();
       
     //Notify agenda is updating
     $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.entry.creating')) %></div>');
-    $(".notice").hide().slideDown('slow');
-		
-		//Close qtip
-		current_qtip.qtip('hide');
-      
-		var form = $(this).parents("form");	
-    //AJAX request
-    $.post(form.attr('action'),
-		       form.serialize(),
-           null,
-		        "script"
-      );
-	});
+    //$(".notice").hide().slideDown('slow');
+    
+    //Close qtips
+    current_qtip.qtip('hide');
 	
+		$.post($(this).attr('action'),
+           $(this).serialize(),
+           null,
+            "script"
+    );
+		return false;
+  });
 <%end%>
 
 

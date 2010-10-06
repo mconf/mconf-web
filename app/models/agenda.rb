@@ -37,6 +37,9 @@ class Agenda < ActiveRecord::Base
                     :scope => {:order => 'start_time ASC, type ASC'}
   acts_as_content :reflection => :event
 
+  # Fullcalendar slot
+  SLOT=15
+
   def space
     event.space
   end
@@ -73,7 +76,7 @@ class Agenda < ActiveRecord::Base
   
   def fullcalendar_start_time(agenda_day)
     if agenda_day.day == event.start_date.day
-      "#{event.start_date.hour}:00"
+      "#{event.start_date.hour}:#{(event.start_date.min.to_f/SLOT).ceil*SLOT}"
     else
       "0:00"
     end
@@ -81,11 +84,7 @@ class Agenda < ActiveRecord::Base
   
   def fullcalendar_end_time(agenda_day)
     if agenda_day.day == event.end_date.day
-      if event.end_date.min == 0
-        event.end_date.strftime("%H:00")
-      else
-        (event.end_date + 1.hour).strftime("%H:00")
-      end
+      "#{event.end_date.hour}:#{(event.end_date.min.to_f/SLOT).floor*SLOT}"
     else
       "24:00"
     end

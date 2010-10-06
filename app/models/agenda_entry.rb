@@ -250,7 +250,10 @@ class AgendaEntry < ActiveRecord::Base
          start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
          end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
          allDay: false,
-         id: #{id}
+         id: #{id},
+         description: \"#{description}\",
+         speakers: \"#{speakers}\",
+         supertitle: \"#{id%2 == 1 ? "Sesion XXX" : ""}\"
        }"  
   end
 end
