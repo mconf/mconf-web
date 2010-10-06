@@ -80,6 +80,7 @@ en:
         past_times: This type of event cannot have past times
       failed: There was a problem with the agenda divider
       new: New agenda divider
+      one: Divider
       start_time: Start time
       title: Title
       updated: Divider was successfully updated

@@ -790,7 +790,7 @@ input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,
 
 #event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
 #back_event,#finish_event,#cancel_event{overflow:hidden;}
-a.selected_invitation_tab{background:#F2F2F2;}
+a.selected_invitation_tab{background:#F2F2F2;padding:10px;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
@@ -1501,7 +1501,7 @@ tr.version_expanded td{
 	}
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
-h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
+h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3 {
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
@@ -1966,7 +1966,7 @@ ul.event_form_buttons{
 	overflow:hidden;
 	margin-left:0;
 	list-style-type:none;}
-ul.event_form_buttons li{display:inline-block;}
+ul.event_form_buttons li{float:left;}
 
 /** Fullcalendar **/
 .fc-event-vert span.fc_session_title{

@@ -1,29 +1,37 @@
-<div class="event_image grey_border_down">
-    <%if @event.logo %>
-      <div class="event_logo">
-        <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')}) %>
+<div id="edit_profile_sidebar">
+  <%if @event.logo %>
+      <div class="profile_logo">
+        <%=logo(@event.logo, {:size => '128', :title=>t('logo.click_to_change')}) %>
       </div>
-    <%elsif @event.has_date? %>
-      <div class="event_date_image">
-        <div class="event_day">
-          <%= sanitize(event.start_date.strftime("%d")) %>
-        </div>
-        <div class="event_month">
-          <%= localize(event.start_date, :format => "%b") %>
-        </div>
-        <div class="event_hour">
-          <%= event.get_formatted_hour %>
-        </div>
-      </div>
+  <%elsif @event.has_date? %>
+      <div class="profile_logo">
+				<div class="event_date_image">
+	        <div class="event_day">
+	          <%= sanitize(event.start_date.strftime("%d")) %>
+	        </div>
+	        <div class="event_month">
+	          <%= localize(event.start_date, :format => "%b") %>
+	        </div>
+	        <div class="event_hour">
+	          <%= event.get_formatted_hour %>
+	        </div>
+	      </div>
+			</div>
 	<%else%>
-		  <div class="event_date_image">
-            <div class="event_day"> <%=image_tag ("gp-logo.jpg", :title=>t('logo.click_to_change')) %></div>
-          </div>
-    <%end %>
-  </div>
-  
-  <div id="change_logo_link">
-    <%=link_to t('event.logo.button'),"javascript:change_logo();" %>
-  </div>
-  
-  <%= render :partial => "change_logo" %>
+	  <div class="profile_logo">
+      <div class="event_day"> <%=image_tag ("calendar.png") %></div>
+		</div>
+  <%end %>
+	
+  <ul class="first_options">
+    <li id="change_pic">
+      <%=link_to t('event.logo.button'),"javascript:change_logo();" %>
+    </li>
+  </ul>
+
+</div>
+
+<%= render :partial => "change_logo" %>
+
+
+	
