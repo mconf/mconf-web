@@ -2,6 +2,7 @@ require 'pdf/writer'
 require 'pdf/simpletable' #To manage tables. 
 require 'iconv'
 
+#GLOBAL2RAMA
 module EventToPdf
   
   #Method to generate the agenda of the event in PDF.
@@ -60,16 +61,14 @@ module EventToPdf
       
       #Array of entries and dividers.
       @entries = agenda.contents_for_day(i+1)
-      
-      debugger
     
       unless i == days or i == 0 or @entries.empty?
         pdf.start_new_page  
       end
  
       #Array of entrie arrays and array who contains a single divider.
-      @entries_array = fragment_entries(@entries,i)
-      
+      @entries_array = fragment_entries(adaptor_to_newVersion(@entries),i)
+  
       heads = true
       last_is_special = false;
       nPage =  -1
@@ -91,6 +90,7 @@ module EventToPdf
           
           index_next_entry = @entries_array.index(entries) + 1
           actual_entry = entries[0]
+          
           next_entry = []
           
           if(@entries_array[index_next_entry] != nil)
@@ -277,7 +277,7 @@ module EventToPdf
     pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
     
-#    nLines = divider.title.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
+#    nLines = divider.divider.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
     lines_content = divider.divider.split("<br/>");
     
     height_rectangle = 0
@@ -315,6 +315,44 @@ module EventToPdf
 
   end
 
+
+  # Adapt the new format of the entries to the old format.
+  # More information of old format in the documentation of fragment_entries method.
+  # (Example) 
+  # Format received: [Special A][B][C][Special D][E]
+  # Format returned; [Divider A][A][B][C][Divider D][D][E]
+  # In other words, traduce [Special X] to [Divider X]+[X]
+  # [Special X] = entrie with divider field != nil, and the corresponding fields of description,speakers,start_time,...
+  # [Divider X] = entrie with divider field != nil, the other fields of this entrie NOT BE USED.
+  # [X] = entrie with divider field == nil. The other fields be used normally.
+  def adaptor_to_newVersion(entries)
+    
+    entries_new = []
+    
+    entries.each do |entrie|
+      
+      if(isSpecialTitle(entrie))
+        entrie_a = AgendaEntry.new
+        entrie_a.title = ""
+        entrie_a.speakers = ""
+        entrie_a.description = ""
+        entrie_a.start_time = entrie.start_time
+        entrie_a.end_time = entrie.end_time
+        entrie_a.divider = entrie.divider
+        
+        entrie.divider = nil
+        
+        entries_new << entrie_a
+        entries_new << entrie
+      else
+        entries_new << entrie;
+      end
+    
+    end
+ 
+  entries_new
+
+  end
 
   #Fragment the entries of one day.
   #It used to fragment the inicial table of one day into two or more tables around the entries with special titles.
@@ -497,7 +535,7 @@ module EventToPdf
   #heading True to show the table heading.
   def generate_entrie_table(pdf,entries,tab_title,heading)
    
-    @entries = entries
+#    @entries = entries
     
     PDF::SimpleTable.new do |tab|
     
@@ -559,7 +597,7 @@ module EventToPdf
 
     data = []
     
-      @entries.each do |entrie|
+      entries.each do |entrie|
 
         hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
         
