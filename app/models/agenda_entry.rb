@@ -53,7 +53,6 @@ class AgendaEntry < ActiveRecord::Base
   end
 
   def validate
-
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
     if(self.start_time > self.end_time)
@@ -230,8 +229,28 @@ class AgendaEntry < ActiveRecord::Base
     
   end
 
+=begin
+  def to_json
+    result = {}
+    result[:title] = title
+    result[:start] = "new Date(#{start_time.strftime "%y"},#{start_time.strftime "%m"},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"})"
+    result[:end] = "new Date(#{end_time.strftime "%y"},#{end_time.strftime "%m"},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"})"
+    result.to_json
+  end
+=end
+
   authorization_delegate(:event,:as => :content)
   authorization_delegate(:space,:as => :content)
   
   include ConferenceManager::Support::AgendaEntry
+
+  def to_fullcalendar_json
+      "{
+         title: \"#{title}\",
+         start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
+         end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
+         allDay: false,
+         id: #{id}
+       }"  
+  end
 end

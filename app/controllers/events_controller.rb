@@ -143,7 +143,7 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
-       if params[:invitations]
+       if params[:step]=="3"
          format.html {render :partial => 'invitations', :layout => "new_event"}       
        end
        
@@ -186,6 +186,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit    
+    #debugger
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
     respond_to do |format|
@@ -200,13 +201,12 @@ class EventsController < ApplicationController
     @event.author = current_agent
     @event.container = space
 
-
     respond_to do |format|
       if @event.save
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
-          redirect_to edit_space_event_agenda_path(space, @event)
+          redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>true)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -215,7 +215,7 @@ class EventsController < ApplicationController
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         events
-        render :action => "index"
+        render :action => "new", :layout => "new_event"
         }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
@@ -234,11 +234,11 @@ class EventsController < ApplicationController
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
-          if params[:in_steps]
-            redirect_to edit_space_event_agenda_path(space, @event)
+          if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
+            redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
           else
-            redirect_to space_event_path(@space, @event) 
-          end      
+            redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
+          end
         }
         format.xml  { head :ok }
         format.js{

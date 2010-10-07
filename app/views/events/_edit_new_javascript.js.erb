@@ -186,7 +186,7 @@ $("#generate_text_logo_button").livequery('click',function(){
 });
 
 ///////////////////////////////
-$("#default_upload_logo").append($("#new_logo_hidden_form"));
+//$("#default_upload_logo").append($("#new_logo_hidden_form"));
 selectDefaultImage = function(image){
 	$("#event_image").attr('value', "default_event_logos/" + image);
 	$("#selected_logo_image").attr('src', "/images/default_event_logos/" + image);
@@ -196,8 +196,8 @@ selectGeneratedImage = function(image){
 	$("#event_image").attr('value', image);
 	$("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
 }
-
-$("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
+//AQUIIIII
+//$("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
 
 
 
@@ -233,7 +233,7 @@ $("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
         		success: function() {
 					closeLogoFormDiv();
             		$('#resultado').fadeIn('slow');
-					$("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+					$("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
 					$("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
 					closeUploadLogo();
         		} 
@@ -250,7 +250,8 @@ function cropImage (c){
    	$("#crop_size_width").val(c.w);
 };
 
-
+$("#selected_logo_image").attr('width',"64");
+$("#selected_logo_image").attr('height',"64");
 
 
 

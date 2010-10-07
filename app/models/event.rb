@@ -62,7 +62,7 @@ class Event < ActiveRecord::Base
   before_validation :update_logo
 
   def update_logo
-    return unless @default_logo.present?  
+    return unless (@default_logo.present? and  !@default_logo.eql?(""))
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
     img_orig = img_orig.scale(256, 256)
     images_path = File.join(RAILS_ROOT, "public", "images")

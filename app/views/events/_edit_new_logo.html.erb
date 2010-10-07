@@ -1,31 +1,30 @@
 <div id="change_logo_form_div" style="display:none">
-<% @files = Dir.entries("public/images/default_event_logos/")
-images_for_row = 5 # number of images per row
-images_now = 1
-@files.delete(".")
-@files.delete("..")
-selected = rand(@files.length) %>
 
-<div class="grey_border_down bold">
-  Change logo: <%=link_to "Close", 'javascript:closeLogoFormDiv();' %>
+
+<div class="blue_border_down">
+	<h3>
+  		Change logo: <%=link_to "Close", 'javascript:closeLogoFormDiv();' %>
+	</h3>
 </div>
 
 
-<%= hidden_field "event","image",:value => "default_event_logos/" + @files[selected].to_s, :name => "event[default_logo]" %>
-<br>
+
+
 <div id='default_text_logo' style="display:none">
     <label for="logo_text" id= "space_logo_text_label">
         <%= t('space.logo_selected.enter_text') %>
     </label>
     <br/>
-    <%= f.text_field :text_logo %>
+    <%= text_field :event,:text_logo %>
     <input type="button" id="generate_text_logo_button" value="<%=t("space.logo_selected.generate_logo") %>" class="basic_button blue_button"/>
     <div id = "generated_text_logos">
     </div>
 </div>
 <div id='default_space_images' style="display:none">
 	<label>Chose one logo from the gallery</label><br>
-    <%
+    <%	
+	images_for_row = 5 # number of images per row
+	images_now = 1
     for file in @files
     images_now+= 1 %>
     <%=link_to (image_tag "default_event_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "64x64"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>
@@ -36,28 +35,21 @@ selected = rand(@files.length) %>
     <% end %>
 </div>
 <div id="default_upload_logo" style="display:none">
-	<!--<label>upload your own logo</label><br>
     <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
-    <%= t("space.logo_selected.upload_logo_text") %>
-    <br>
+    <label><%= t("space.logo_selected.upload_logo_text") %></label>
+    
     <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
     <%= f.hidden_field  "rand" %>
 	<br>
     <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
     <div id = "resultado">
-    </div>-->
+    </div>
+	<br>
 </div>
 </div>
 
 
-<% content_for :javascript do%>	
-/*if(($("#logo_media").val()) == ""){
-alert("pit");
-}else{
-alert("pum");
-}*/
 
-<%end%>
 
 
 

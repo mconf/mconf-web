@@ -89,6 +89,7 @@ es:
     entry: 
       cannot_exclude: "No se puede excluir de la grabaci\xC3\xB3n de una entrada m\xC3\xA1s corta de "
       created: La entrada en la agenda ha sido creada correctamente
+      creating: Creando entrada de la agenda
       delete: "La entrada en la agenda ha sido borrada con \xC3\xA9xito"
       description: "Descripci\xC3\xB3n"
       duration: "Duraci\xC3\xB3n"
@@ -129,6 +130,7 @@ es:
       start_time: Hora de inicio
       title: "T\xC3\xADtulo"
       updated: entrada de Agenda se ha actualizado correctamente
+      updating: La agenda se está actualizando...
       video: "Grabaci\xC3\xB3n"
       yes_record: !binary |
         U8Ot
@@ -1022,7 +1024,7 @@ es:
     tab:
       title1: Email
       title2: Users
-    title: Invitar a usuarios registrados
+    title: Invitar a la gente
     title2: "Invitaci\xC3\xB3n a espacio"
     to_accept: "Para aceptar mi invitaci\xC3\xB3n, por favor visite <a href={{url}}>{{url}}</a>"
     to_accept_space: "Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}}"

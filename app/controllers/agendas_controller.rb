@@ -30,7 +30,12 @@ class AgendasController < ApplicationController
   
   # GET /agenda/edit
   def edit
-    @agenda_entry = AgendaEntry.new
+    @agenda_day = (params[:day].present? && params[:day].to_i <= @event.days) ?
+                  @event.start_date + (params[:day].to_i - 1).day :
+                  @event.start_date
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+    end
   end
   
   # GET /agendas/1
@@ -84,12 +89,7 @@ class AgendasController < ApplicationController
       #if @event.update_attributes(params[:agenda])
       #if true
       if @agenda.update_attributes(params[:agenda])
-        if params[:in_steps]
-          format.html { redirect_to(space_event_path(@space, @event, :invitations => @event)) } 
-        else
           format.html { redirect_to(space_event_path(@space, @event)) } 
-        end
-        
       else
         format.html { redirect_to(space_event_path(@space, @event)) }
         #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
@@ -98,7 +98,6 @@ class AgendasController < ApplicationController
   end
   
 private
-
  
   def event
     @event = Event.find_by_permalink(params[:event_id]) || raise(ActiveRecord::RecordNotFound)
