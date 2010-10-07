@@ -82,6 +82,7 @@ es:
         past_times: Este tipo de evento no puede tener fechas en el pasado
       failed: Ha habido un problema con el divisor de la agenda
       new: Nuevo divisor de agenda
+      one: Divisor
       start_time: Hora de inicio
       title: "T\xC3\xADtulo"
       updated: El divisor se ha actualizado correctamente
@@ -748,6 +749,7 @@ es:
     email: "Correo electr\xC3\xB3nico"
     full_name: Nombre completo
     hide_all_users: Ocultar todos los usuarios
+    instructions: Haz clic en Enviar por cada invitación que quieras enviar y haz clic en Terminar cuando hayas acabado.
     logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre de sesi\xC3\xB3n y vuelva a intentarlo"
     message_title: Invitar a usuarios registrados
     new: 

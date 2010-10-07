@@ -273,7 +273,7 @@ button#change_logo{float:left;}
   text-indent:-99999px;
 }
 
-#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
+#event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#event_invitations_external form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
 	color:#FFF;
 	background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
 	border:1px solid #244974;
@@ -281,8 +281,13 @@ button#change_logo{float:left;}
   font-size:95%;
   line-height:135%;
 }
-#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
-
+#event_description_content form button:hover,#participation_content form button:hover,#more_invitations form input[type="button"]:hover,#event_invitations_external form input[type="button"]:hover,#more_notifications form input[type="button"]:hover{border:1px solid #86B5D5;}
+#event_invitations_external{
+	clear:both;
+  position:relative;}
+#event_invitations_note{
+	margin-left:95px;
+}
 
 /* forms.css */
 .error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
@@ -778,8 +783,14 @@ div.pagination a{color:#244974;}
 #update_space_logo{float:left;width:180px;}
 
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
-#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#user_selector,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#event_group_invitation_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
+#new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
+input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,textarea#invite_personal_registered{width:60%;overflow:auto;}
+#event_invitations_message{margin-left:30px;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
+
+#event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
+#back_event,#finish_event,#cancel_event{overflow:hidden;}
+a.selected_invitation_tab{background:#F2F2F2;padding:10px;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
@@ -1123,7 +1134,13 @@ a.extract_form{margin-right:0.5em;}
 #home_menu li{display:inline-block;padding:0.5em 2em;border-right:1px solid #d3e8f6;background:#244974; color:white}
 #line{background:url("../images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
 #line span{background:#fff;padding:0 6px 0 6px;margin-left:25px;}
-.whyte_wrapper{padding:10px 10px 10px 10px;background:#fff;}
+.whyte_wrapper{
+		background:#FFFFFF none repeat scroll 0 0;
+		clear:both;
+		display:block;
+		overflow:hidden;
+		padding:10px;
+		position:relative;}
 #recent-activity .odd_thread{background:none;}
 #recent-activity .div-logo,#profile_content .div-logo{padding:0;margin-right:9px;border:none;width:52px;margin-left:3px;}
 #recent-activity .div-logo img,#profile_content .div-logo img{width:48px;padding:1px;border:1px solid #ccc;}
@@ -1484,7 +1501,7 @@ tr.version_expanded td{
 	}
 	
 #participation_url_value p,#streaming_url_value p{max-width:490px;}
-h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3{
+h3#event_description_title,#recordings_title h3,#agenda_title h3,#recordings_title h3, #carrusel_title h3,#repository_title h3,#participation_title h3,#streaming_title h3,#agenda_blue_title h3 {
 	padding:3px 8px;
 	background:#bdd8eb;
 	margin:0;
@@ -1910,11 +1927,16 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
 #event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
 #event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
-#event_info{position:relative;display:block;overflow:hidden;clear:both;}
-#event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
-#event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
-#event_info div.margin-up input{float:left;width:297px;}
-#event_info div.margin-up .wysiwyg{float:left;height:20em;}
+.event_info{position:relative;display:block;overflow:hidden;clear:both;}
+.event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
+.event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
+.event_info div.margin-up .wysiwyg{float:left;height:20em;}
+.event_info div.margin-up select,#extra-info select{font-size:0.91667em;line-height:1.6363;}
+.event_info div.margin-up input{float:left;width:297px;}
+div#initial-info{padding-left:45px;}
+#extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
+div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
+div#initial-info #advanced_config:hover{text-decoration:underline;}
 
 .blue_selected {
 	font-weight:bolder;
@@ -1938,3 +1960,25 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 
 #lightbox_advise{color: black;}
 
+ul.event_form_buttons{
+	position:relative;
+	float:right;
+	overflow:hidden;
+	margin-left:0;
+	list-style-type:none;}
+ul.event_form_buttons li{float:left;}
+
+/** Fullcalendar **/
+.fc-event-vert span.fc_session_title{
+	padding: 0pt 5px;
+	position: absolute;
+	right: 10px;
+	z-index: 10;
+	background-color: orange;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	line-height: 13px;
+	top: 0px;
+	min-width: 50%;
+	font-size: 11px;}

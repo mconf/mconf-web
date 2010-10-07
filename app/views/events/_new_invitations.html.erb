@@ -12,7 +12,7 @@
 		// Changing the new line characters to <br/>
 		var personal_msg = ($('#invite_personal_registered').val()).replace(/\n/g,'<br/>');
     <%if @event.start_date%>
-      <% start_date = I18n.l(@event.start_date, :format => '%A %B %d %H:%M:%S%')%>
+      <% start_date = I18n.l(@event.start_date, :format => '%A %B %d %H:%M:%S')%>
       var ending = "<%= escape_javascript(t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event)))%>"
     <%else%>
       var ending = "<%= escape_javascript(t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event)))%>"
@@ -27,10 +27,7 @@
 <%end%>
 
 <div id="user_invitations" style="display:none;">
-	<div id="more_invitations">
-	  <div id="invitations_title">
-	  	<h3 class="blue"><%=t('event_invitation.message_title')%></h3>
-	  </div>
+	<div>
 	  <% form_for([@space,event], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
 		  <div id="selected_users">
 		    <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('event_invitation.will_invite')%>:</label>
@@ -63,27 +60,34 @@
       <%= f.text_field :invit_introducer_id, :style => 'display:none', :value => current_user.id %>
 
       <div class="margin-up">
-        <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
-        <textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
-		<br/><label for="message" class="label_izquierda bold"><%= t('invitation.personal') %></label>
-		*<%= t('optional') %>
-        <div class="grey_bar">
-          <p><%= '\'' + t('name.one') + '\','%></p>
-          <textarea id="invite_personal_registered"></textarea>
-          <%if @event.start_date%>
-            <% start_date = I18n.l(@event.start_date, :format => '%A %d %b %Y %H:%M') %>
-            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event))%>
-          <%else%>
-            <%= t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
-          <%end%>
-        </div>
-        <p>* <%= t('invitation.legend.name') %><br/>
-        * <%= t('invitation.legend.URL') %></p>
-      </div>
-			
-			<div class="margin-up">
-				<input type="button" id="send_invitation_button" value="<%=t("button.send")%>" />
+      	<div id="invitations_title" class="blue_border_down">
+          <h3 class="blue"><%= t('invitation.label') %>:</h3>
+			  </div>
+				<div id="event_invitations_message">
+					<textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
+          <br/><label for="message" class="label_izquierda bold"><%= t('invitation.personal') %></label>
+	        <div>
+	          <p><%= '\'' + t('name.one') + '\','%></p>
+	          *<%= t('optional') %>
+						<textarea id="invite_personal_registered"></textarea>
+						<br/>
+						<br/>
+	          <%if @event.start_date%>
+	            <% start_date = I18n.l(@event.start_date, :format => '%A %d %b %Y %H:%M') %>
+	            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event))%>
+	          <%else%>
+	            <%= t('invitation.message_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
+	          <%end%>
+	        </div>
+	        <p>* <%= t('invitation.legend.name') %><br/>
+	        * <%= t('invitation.legend.URL') %></p>
+	        <div class="margin-up">
+	          <input type="button" id="send_invitation_button" value="<%=t("button.send")%>" />
+	        </div>
+				</div>
+
 			</div>
+			
 	  <% end %>
 	</div>
 </div>

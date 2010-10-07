@@ -49,6 +49,10 @@
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
       <% end %>
 
+      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label><br/>
+        <%= f.text_field :divider %>
+      </div>
+
       <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %>*</label><br/>
         <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
         <%= f.text_field :title %>

@@ -80,6 +80,7 @@ de:
         past_times: "Diese Art der Veranstaltung k\xC3\xB6nnen nicht vergangenen Zeiten"
       failed: Es gab ein Problem mit der Tagesordnung divider
       new: New Agenda divider
+      one: Divider
       start_time: Startzeit
       title: Titel
       updated: Divider wurde erfolgreich aktualisiert
@@ -700,6 +701,7 @@ de:
     email: E-Mail
     full_name: "Vollst\xC3\xA4ndiger Name"
     hide_all_users: Verstecken allen Benutzern
+    instructions: Click Send for each invitation you want to send, and click Finish when you are done.
     logout_and_reload: Du bist nicht der Benutzer, der diese Einladung erhalten haben, bitte abmelden und versuchen Sie es erneut
     message_title: Invite registered users
     new: 

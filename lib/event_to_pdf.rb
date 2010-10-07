@@ -2,6 +2,7 @@ require 'pdf/writer'
 require 'pdf/simpletable' #To manage tables. 
 require 'iconv'
 
+#GLOBAL2RAMA
 module EventToPdf
   
   #Method to generate the agenda of the event in PDF.
@@ -11,7 +12,7 @@ module EventToPdf
       return
     end
        
-    pdf = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    pdf = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
    
     #Create a gradient, at the top right corner.
     r1 = 25
@@ -20,33 +21,37 @@ module EventToPdf
       color = 0x400ee3  #Parameter to change the color of the gradient.
       pdf.stroke_style(PDF::Writer::StrokeStyle.new(xw))
       pdf.stroke_color(Color::RGB.from_fraction(tone,3250,color))
-      pdf.circle_at(850, 650, r1).stroke
+      pdf.circle_at(pdf.page_width+20, pdf.page_height+50, r1).stroke
       r1 += xw
     end
 
-    pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
-
     #Parameters of the the table.
-
      if small_version == "true"
-       @c1_width = 147
-       @c2_width = 261
-       @c3_width = 332
+       @c1_width = 80
+       @c2_width = 250
+       @c3_width = 250
        @c4_width = 0
      else
-       @c1_width = 75
-       @c2_width = 135
-       @c3_width = 170
-       @c4_width = 360 
+       @c1_width = 80
+       @c2_width = 120
+       @c3_width = 120
+       @c4_width = 260
      end
 
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
     
+    #Paint head images
+    pdf.margins_pt(5, 1, 5, 1)  #pdf.margins_pt(Top, Left, Bottom, Right)
+    
+    pdf.y = pdf.page_height
     i1 = "#{RAILS_ROOT}/public/images/pdf/vcc_cabecera_pdf_beta.jpg"
     i2 = "#{RAILS_ROOT}/public/images/pdf/vcc_logo_pdf_beta.jpg"
     pdf.image i1, :justification => :right, :resize => 1
     pdf.image i2, :justification => :left, :resize => 0.7
+    
+    
+    pdf.margins_pt(5, 25, 5, 15)  #pdf.margins_pt(Top, Left, Bottom, Right)
     
     write_event_title(pdf,name)
     
@@ -62,8 +67,8 @@ module EventToPdf
       end
  
       #Array of entrie arrays and array who contains a single divider.
-      @entries_array = fragment_entries(@entries,i)
-      
+      @entries_array = fragment_entries(adaptor_to_newVersion(@entries),i)
+  
       heads = true
       last_is_special = false;
       nPage =  -1
@@ -85,6 +90,7 @@ module EventToPdf
           
           index_next_entry = @entries_array.index(entries) + 1
           actual_entry = entries[0]
+          
           next_entry = []
           
           if(@entries_array[index_next_entry] != nil)
@@ -149,6 +155,11 @@ module EventToPdf
           
           last_is_special = false
           generate_entrie_table(pdf,entries,nil,heads)
+          
+          if heads == true && pdf.current_page_number() != nPage
+            #Generate table with heads that start a new page (heads include automatically).
+            nPage = pdf.current_page_number() #heads = false
+          end
         
         end
     
@@ -177,8 +188,8 @@ module EventToPdf
      
     entries = [] 
     entries << entry      
-    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
-    pdf_test.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right)
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :portrait  )
+    pdf_test.margins_pt(5, 25, 5, 15)  #pdf.margins_pt(Top, Left, Bottom, Right)
   
     generate_entrie_table(pdf_test,entries,nil,heading)
     
@@ -189,7 +200,7 @@ module EventToPdf
   #Calculate if one entrie fits in a page.
   def getTableHeight(entries,heading)
      
-    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
     init_y = pdf_test.y
     
     generate_entrie_table(pdf_test,entries,nil,heading)
@@ -212,13 +223,14 @@ module EventToPdf
     
     headings = true
     bottom_space = pdf.y
-    margin_space = 0
+    margin_space_special = 30
+    margin_space = 10
     
     if isSpecialTitle(actual_entry)
       
       headings = false
       
-      height_rectangle = getRectangleHeight(false,actual_entry)
+      height_rectangle = getRectangleHeight(hasHour,actual_entry)
        
       #Test if need a new page before print special title.
       first_row_entrie = []
@@ -226,7 +238,7 @@ module EventToPdf
       height_table = getTableHeight(first_row_entrie,headings)
       height_total = height_table + height_rectangle
       
-      if height_total > (bottom_space - margin_space)
+      if height_total > (bottom_space - margin_space_special)
         return 0
       end
       
@@ -262,21 +274,22 @@ module EventToPdf
   #Calculate the height of the rectangle.
   def getRectangleHeight(hasHour,divider)
     
-    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :landscape )
+    pdf_test = PDF::Writer.new(:paper => "A4", :orientation => :portrait )
     pdf_test.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )  
     
-#    nLines = divider.title.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
-    lines_content = divider.title.split("<br/>");
+#    nLines = divider.divider.gsub(/[^<]*(<br>)/, "a").length; //Return the ocurrences of <br>
+    lines_content = divider.divider.split("<br/>");
     
     height_rectangle = 0
     
     lines_content.each do |l|
       title_width = pdf_test.text_line_width(text_to_iso(l), 15)
       
-      if hasHour    
-        f_rectangle = (title_width / 590)
+      if hasHour
+        #Actually not used.
+        f_rectangle = (title_width / 490)
       else
-        f_rectangle = (title_width / 735)
+        f_rectangle = (title_width / 590)
       end
 
       f_rectangle = f_rectangle.ceil
@@ -292,14 +305,54 @@ module EventToPdf
   end
   
   
-  def isSpecialTitle(entry)  
-    if entry == nil
-      return false
+  def isSpecialTitle(entry)
+    
+    if entry != nil && entry.divider != nil
+      return true
     else
-      return  !(entry.class == AgendaEntry)
-    end  
+      return false;
+    end
+
   end
 
+
+  # Adapt the new format of the entries to the old format.
+  # More information of old format in the documentation of fragment_entries method.
+  # (Example) 
+  # Format received: [Special A][B][C][Special D][E]
+  # Format returned; [Divider A][A][B][C][Divider D][D][E]
+  # In other words, traduce [Special X] to [Divider X]+[X]
+  # [Special X] = entrie with divider field != nil, and the corresponding fields of description,speakers,start_time,...
+  # [Divider X] = entrie with divider field != nil, the other fields of this entrie NOT BE USED.
+  # [X] = entrie with divider field == nil. The other fields be used normally.
+  def adaptor_to_newVersion(entries)
+    
+    entries_new = []
+    
+    entries.each do |entrie|
+      
+      if(isSpecialTitle(entrie))
+        entrie_a = AgendaEntry.new
+        entrie_a.title = ""
+        entrie_a.speakers = ""
+        entrie_a.description = ""
+        entrie_a.start_time = entrie.start_time
+        entrie_a.end_time = entrie.end_time
+        entrie_a.divider = entrie.divider
+        
+        entrie.divider = nil
+        
+        entries_new << entrie_a
+        entries_new << entrie
+      else
+        entries_new << entrie;
+      end
+    
+    end
+ 
+  entries_new
+
+  end
 
   #Fragment the entries of one day.
   #It used to fragment the inicial table of one day into two or more tables around the entries with special titles.
@@ -328,10 +381,10 @@ module EventToPdf
         
       else
         
-        #Select maxLenght...
+        ##Select maxLenght##
  
         if entrie == entries[0] and day == 0
-          maxLength = 2000
+          maxLength = 2700
         else
           
           #index_previous_entry will be 0 at least.
@@ -340,19 +393,19 @@ module EventToPdf
           if isSpecialTitle(entries[index_previous_entry])
             
             if index_previous_entry == 0 and day == 0
-              maxLength = 1800
+              maxLength = 2600
             elsif index_previous_entry == 0
-              maxLength = 2800
+              maxLength = 3200
             else
-              maxLength = 3000
+              maxLength = 3300
             end
             
           else    
-            maxLength = 3200        
+            maxLength = 3300      
           end
           
         end
-        #maxLenght selected.
+        ##maxLenght selected##
         
         fragment_entries_by_description = fragment_entrie_by_description(entrie,maxLength,true)
         
@@ -461,7 +514,7 @@ module EventToPdf
           first = false;
         end
         
-        subfragment_entries_by_description = fragment_entrie_by_description(entrie,3200,false)
+        subfragment_entries_by_description = fragment_entrie_by_description(entrie,3400,false)
          
         subfragment_entries_by_description.each do |subfragment|
           fragment_entries_by_description << subfragment
@@ -482,7 +535,7 @@ module EventToPdf
   #heading True to show the table heading.
   def generate_entrie_table(pdf,entries,tab_title,heading)
    
-    @entries = entries
+#    @entries = entries
     
     PDF::SimpleTable.new do |tab|
     
@@ -544,8 +597,8 @@ module EventToPdf
 
     data = []
     
-      @entries.each do |entrie|
-      
+      entries.each do |entrie|
+
         hour =  entrie.start_time.strftime("%H:%M").to_s() + " to " + entrie.end_time.strftime("%H:%M").to_s()
         
         if(@c4_width == 0)
@@ -624,11 +677,9 @@ module EventToPdf
       
     vccColor = Color::RGB.new(36, 73, 116)
 #    pdf.text " ", :font_size => 3
-    pdf.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )
+    pdf.select_font("Helvetica", { :encondig => "WinAnsiEnconding" } )   
 
-    x = pdf.absolute_left_margin+20    
-
-    height_rectangle = getRectangleHeight(false,divider)
+    height_rectangle = getRectangleHeight(hasHour,divider)
  
     bottom_space = pdf.y
     margin_space = 20
@@ -649,41 +700,29 @@ module EventToPdf
     pdf.fill_color!  vccColor
     #rounded_rectangle(x, y, w, h, r)
     #Draw a rounded rectangle with corners (x, y) and (x + w, y - h) and corner radius r. The radius should be significantly smaller than h and w.
-    rectangle = pdf.rounded_rectangle(pdf.absolute_left_margin+20, pdf.y, 735, height_rectangle, 15)
+    rectangle = pdf.rounded_rectangle(pdf.absolute_left_margin-20, pdf.y, pdf.page_width-10, height_rectangle, 15)
     rectangle.stroke_color!(Color::RGB::White)  
     rectangle.close_fill_stroke
     
     pdf.fill_color!  Color::RGB::White
     
-    #pdf.margins_pt(25, 30, 25, 30)   #pdf.margins_pt(Top, Left, Bottom, Right) previous margins
+    #pdf.margins_pt(5, 25, 5, 15)   #pdf.margins_pt(Top, Left, Bottom, Right) previous margins
     
-    if hasHour
-      hour =  divider.start_time.strftime("%H:%M").to_s() + " to " + divider.end_time.strftime("%H:%M").to_s()
-        
-      #add_text(x, y, text, size = nil, angle = 0, word_space_adjust = 0)
-      #Add text to the document at (x, y) location at size and angle. 
-      #The word_space_adjust parameter is an internal parameter that should not be used.
-      pdf.add_text(x+20, pdf.y-19, text_to_iso("#{hour}"), 14, 0, 0)      
-       
-      pdf.margins_pt(25, 200, 25, 55)
-    else
-      pdf.margins_pt(25, 55, 25, 55)
-    end
+    pdf.margins_pt(5, 1, 5, 1)
+    
 
-    pdf.text text_to_iso("#{divider.title}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
-    pdf.margins_pt(25, 30, 25, 30)
+    pdf.text text_to_iso("#{divider.divider}").gsub(/<br\/>/, "\n"), :font_size => 15, :justification => :center
+    pdf.margins_pt(5, 25, 5, 15)
     
     
     if pdf.current_page_number() == 1
       margin_bottom = 2
     else
       margin_bottom = 1
-    end  
-    
+    end    
     
     pdf.y = last_y - height_rectangle + margin_bottom
     pdf.fill_color!  Color::RGB::Black
-#    pdf.text " ", :font_size => 3 
 
   end
 

@@ -1,5 +1,11 @@
 <div class="agenda_entry margin-up"> <!--class="profile-box"-->
   
+	<%if agenda_entry.divider.present?%>
+		<div class="divider_full_line">
+			<span class="divider_title"><%=sanitize(agenda_entry.divider) %></span>
+		</div>
+	<%end%>
+	
 	<div class="session_wrapper1">
 	  <!--<div class="title_name_and_hour">
       Time:

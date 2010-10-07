@@ -139,7 +139,7 @@ class AgendaEntriesController < ApplicationController
         end
         flash[:success] = t('agenda.entry.updated')
         format.html {
-          redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => @agenda_entry.event_day) )
+          redirect_to(edit_space_event_agenda_path(@space, @event, :day => @agenda_entry.event_day))
         }
         format.js
       else

@@ -82,12 +82,12 @@ class AgendaEntry < ActiveRecord::Base
             return
           end
         elsif (content.start_time..content.end_time) === self.start_time
-          unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+          unless ( self.start_time == content.end_time ) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end
         elsif (content.start_time..content.end_time) === self.end_time
-          unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+          unless ( self.end_time == content.start_time ) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end
@@ -250,7 +250,10 @@ class AgendaEntry < ActiveRecord::Base
          start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
          end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
          allDay: false,
-         id: #{id}
+         id: #{id},
+         description: \"#{description}\",
+         speakers: \"#{speakers}\",
+         supertitle: \"#{id%2 == 1 ? "Sesion XXX" : ""}\"
        }"  
   end
 end
