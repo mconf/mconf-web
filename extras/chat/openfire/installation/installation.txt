@@ -73,13 +73,13 @@ jdbcGroupProvider.groupCountSQL
 SELECT count(*) FROM spaces
 
 jdbcGroupProvider.loadAdminsSQL
-SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name` LIKE BINARY ?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space' AND `role_id`=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+SELECT `login` FROM `users` INNER JOIN `performances` ON (`users`.id = `performances`.agent_id AND `performances`.agent_type = 'User') INNER JOIN `spaces` ON (`performances`.stage_id = `spaces`.id AND `performances`.stage_type = 'Space') INNER JOIN `roles` ON (`performances`.role_id = `roles`.id) WHERE `roles`.name = 'Admin' AND `spaces`.name LIKE BINARY ?
 
 jdbcGroupProvider.loadMembersSQL
-SELECT `login` FROM `users` WHERE `id`=ANY(SELECT `agent_id` FROM `performances` WHERE `stage_id`=(SELECT `id` FROM `spaces` WHERE `name` LIKE BINARY ?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space' AND `role_id`!=(SELECT `id` FROM `roles` WHERE `name` LIKE 'Admin' AND stage_type LIKE 'Space'))
+SELECT `login` FROM `users` INNER JOIN `performances` ON (`users`.id = `performances`.agent_id AND `performances`.agent_type = 'User') INNER JOIN `spaces` ON (`performances`.stage_id = `spaces`.id AND `performances`.stage_type = 'Space') INNER JOIN `roles` ON (`performances`.role_id = `roles`.id) WHERE `roles`.name != 'Admin' AND `spaces`.name LIKE BINARY ?
 
 jdbcGroupProvider.userGroupsSQL
-SELECT `name` FROM `spaces` WHERE `id`=ANY (SELECT `stage_id` FROM `performances` WHERE `agent_id`=(SELECT `id` FROM `users` WHERE `login`=?) AND `agent_type` LIKE 'User' AND `stage_type` LIKE 'Space')
+SELECT `name` FROM `spaces` INNER JOIN `performances` ON (`spaces`.id = `performances`.stage_id AND `performances`.stage_type = 'Space') INNER JOIN `users` ON (`performances`.agent_id = `users`.id AND `performances`.agent_type = 'User') WHERE `users`.login = ?
 
 jdbcProvider.connectionString
 jdbc:mysql://127.0.0.1/globalplaza_database_name?user=database_user_name&password=database_password
