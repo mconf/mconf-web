@@ -237,6 +237,7 @@ class EventsController < ApplicationController
           if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
             redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
           else
+            flash[:success] = t('event_invitation.sent')
             redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
           end
         }

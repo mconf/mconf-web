@@ -709,6 +709,7 @@ de:
     not_processed: Die Einladung konnte nicht verarbeitet werden
     password: Kennwort
     select_all_users: "W\xC3\xA4hlen Sie alle Benutzer"
+    sent: Invitations sent successfully
     show_all_users: Alle Benutzer anzeigen
     title: Event Einladung
     will_invite: "Personen, die Sie einladen:"
