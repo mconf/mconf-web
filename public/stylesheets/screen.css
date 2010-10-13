@@ -286,7 +286,8 @@ button#change_logo{float:left;}
 	clear:both;
   position:relative;}
 #event_invitations_note{
-	margin-left:95px;
+	margin-left:110px;
+	clear:both;
 }
 
 /* forms.css */
@@ -785,12 +786,18 @@ div.pagination a{color:#244974;}
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
 input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,textarea#invite_personal_registered{width:60%;overflow:auto;}
-#event_invitations_message{margin-left:30px;}
+.event_invitations_message{margin-left:30px;position:relative;overflow:hidden;display:block;}
+.event_invitations_message input[type="text"]{margin-left:26px;}
+.event_invitations_message textarea{margin-left:10px;}
+.event_invitations_message .margin-up{position:relative;clear:both;}
+.event_invitations_message label,.event_invitations_message input[type="text"],.event_invitations_message textarea{float:left;position:relative;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 
 #event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
 #back_event,#finish_event,#cancel_event{overflow:hidden;}
-a.selected_invitation_tab{background:#F2F2F2;padding:10px;}
+a.invitation_tab{padding:7px 10px;display:inline-block;outline:none;}
+a.selected_invitation_tab{background:#fff;}
+.invite_tab{position:relative;overflow:hidden;display:block;clear:both;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
