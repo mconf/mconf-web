@@ -1584,6 +1584,7 @@ es:
       upload_logo: Cargar su propio logo
       upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
+      use_date: Usar fecha del evento
     main: Espacio principal
     member_of: Miembros del espacios
     my_spaces: Mis espacios

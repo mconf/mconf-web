@@ -1523,6 +1523,7 @@ fr:
       upload_logo: Envoyez votre propre logo
       upload_logo_text: "Cliquez sur un logo \xC3\xA0 t\xC3\xA9l\xC3\xA9charger:"
       upload_text: Envoyer
+      use_date: Use event date
     main: l&#39;espace principal
     member_of: Membres de l&#39;espace
     my_spaces: Mes espaces

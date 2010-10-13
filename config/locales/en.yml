@@ -1596,6 +1596,7 @@ en:
       upload_logo: Upload your own logo
       upload_logo_text: "Select a logo to upload:"
       upload_text: Upload
+      use_date: Use event date
     main: Main space
     member_of: Member of the spaces
     my_spaces: My Spaces

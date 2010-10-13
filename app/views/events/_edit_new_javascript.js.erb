@@ -189,22 +189,35 @@ $("#generate_text_logo_button").livequery('click',function(){
 });
 
 ///////////////////////////////
-//$("#default_upload_logo").append($("#new_logo_hidden_form"));
 selectDefaultImage = function(image){
 	$("#event_image").attr('value', "default_event_logos/" + image);
 	$("#selected_logo_image").attr('src', "/images/default_event_logos/" + image);
+	logoSelected();
 }
 
 selectGeneratedImage = function(image){
 	$("#event_image").attr('value', image);
 	$("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
+	logoSelected();
 }
-//AQUIIIII
-//$("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
+
+logoSelected = function(){
+	$(".event_logo").show("slow");
+	$(".event_date_image").hide("slow");	
+}
+
+dateSelected = function(){
+	$(".event_date_image").show("slow");
+	$(".event_logo").hide("slow");	
+	<% if params[:action].present? and params[:action].eql? "edit" %>
+    	$("#event_image").attr('value', "use_date_logo"); 
+	<% else %>
+		$("#event_image").attr('value', "");
+	<% end %>
+	
+}
 
 
-
-///////($("#logo_media").val()) == ""
 
 
  	$('#select_logo_form').ajaxForm({ 
@@ -238,6 +251,7 @@ selectGeneratedImage = function(image){
             		$('#resultado').fadeIn('slow');
 					$("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
 					$("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+					logoSelected();
 					closeUploadLogo();
         		} 
     		});
