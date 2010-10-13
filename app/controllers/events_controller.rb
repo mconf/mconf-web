@@ -186,6 +186,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit    
+    #debugger
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
     respond_to do |format|

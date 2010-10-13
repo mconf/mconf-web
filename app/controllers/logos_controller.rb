@@ -35,9 +35,13 @@ class LogosController
       
       
      for i in 1..5
-        create_auto_logo params[:text], i
+        create_auto_logo params[:text], i, params[:event_logo].present?
      end    
-     render :template => "spaces/_generate_text_logos", :layout => false
+     if params[:event_logo].present?
+     render :template => "events/_generate_text_logos", :layout => false
+     else
+     render :template => "spaces/_generate_text_logos", :layout => false       
+     end
    end
   
    if params[:upload]
@@ -189,13 +193,17 @@ class LogosController
     end
 =end 
   
-  def create_auto_logo text, logo_style
+  def create_auto_logo text, logo_style, event_logo
     
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
     images_path = File.join(RAILS_ROOT, "public", "images")
     tmp_path = File.join(images_path, "tmp")
     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:rand_name]}")
-    background_generic = File.join(images_path, "vcc-logo-bg.png")
+    if event_logo
+      background_generic = File.join(images_path, "vcc-event-logo-bg.png")
+    else
+      background_generic = File.join(images_path, "vcc-logo-bg.png")
+    end    
     #background_generated = File.join(tmp_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
     background_generated = File.join(final_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
     

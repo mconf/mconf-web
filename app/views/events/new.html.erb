@@ -1,56 +1,70 @@
-<%content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete', 'jquery.filestyle','jquery.jcrop', 'jquery.wysiwyg' %>
-  <%= stylesheet_link_tag "fcbkcomplete", "jquery.wysiwyg", :media => "screen, projection" %>
-  <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
-<%end%>
-
-
-<% content_for :javascript do%>
-  <%= render :partial => "edit_new_javascript.js"%>	
-  
-  $("#cancel_event").fancybox({
-	'scrolling'		     : 'no',
-	'titleShow'		     : false,
-	'hideOnContentClick' : false,
-	'autoDimensions'	 : false,
-	'width'              : 250,
-	'height'             : 80
-  });
-  
-<%end%>
-
-<% content_for :sidebar do  %>
-  <%= render :partial => "edit_new_sidebar"%> 
-<%end%>
-
+<%content_for :headers do %>
+<%= javascript_include_tag 'jquery.fcbkcomplete', 'jquery.filestyle','jquery.jcrop', 'jquery.wysiwyg' %>
+<%= stylesheet_link_tag "fcbkcomplete", "jquery.wysiwyg", :media => "screen, projection" %>
+<%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+<%end %>
+<% content_for :javascript do %>
+<%= render :partial => "edit_new_javascript.js" %>
+$("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
+$("#cancel_event").fancybox({
+'scrolling'		     : 'no',
+'titleShow'		     : false,
+'hideOnContentClick' : false,
+'autoDimensions'	 : false,
+'width'              : 250,
+'height'             : 80
+});
+<%end %>
+<% content_for :sidebar do %>
+<%= render :partial => "edit_new_sidebar" %>
+<%end %>
 <div class="whyte_wrapper">
-	<div style="display:none">
-	  <script type="text/javascript">
-	  	function our_close(){
-			$.fancybox.close();		
-		}
-	  </script>
-		
-	  <div id="sure_form">
-	  	<div id="lightbox_advise"><%= t('event.cancel.step1') %></div>
-		<%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes"%>
-		<%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
-	  </div>
-	</div>
-	
-	<div id="for_lightbox" style="display:none"></div>
-	
-	<% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
-	
-	    <%= render :partial => "edit_new_form", :locals => {:f => f} %>
-	
-
-		   <ul class="margin-up event_form_buttons">
-				 <li><button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.next_program")%></button></li>
-			   <li><button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button></li>
-		     <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%></li>
-		   </ul>
-
-		 	     
-	  <% end %>
+    <div style="display:none">
+        <script type="text/javascript">
+            function our_close(){
+                $.fancybox.close();
+            }
+        </script>
+        <div id="sure_form">
+            <div id="lightbox_advise">
+                <%= t('event.cancel.step1') %>
+            </div>
+            <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
+            <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+        </div>
+    </div>
+    <div id="for_lightbox" style="display:none">
+    </div>
+    <% @files = Dir.entries("public/images/default_event_logos/")
+    @files.delete(".")
+    @files.delete("..") %>
+    <%= render :partial => "edit_new_logo" %>
+    <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
+    <%= f.hidden_field "rand_value" %>
+    <%= render :partial => "edit_new_form", :locals => {:f => f} %>
+    <div class="margin-up">
+        <button type="submit" id="create_event_button" class="basic_button blue_button">
+            <%=t("button.next_program") %>
+        </button>
+        <button id="wait_create_event_button" class="basic_button blue_button">
+            <%=t("button.creating") %>
+        </button>
+        <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
+    </div>
+    <% end %>
+    <!--<div id="new_logo_hidden_form" style="display:solid">
+    <label>
+    upload your own logo
+    </label>
+    <br>
+    <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+    <%= t("space.logo_selected.upload_logo_text") %>
+    <br>
+    <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
+    <%= f.hidden_field  "rand" %>
+    <br>
+    <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+    <div id = "resultado">
+    </div>
+    </div>-->
 </div>

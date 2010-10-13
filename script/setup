@@ -25,7 +25,7 @@ GEMS = {
                    "chronic",
                    "hpricot",
                    "feed-normalizer",
-                   "rspec-rails",
+                   "rspec-rails -v 1.3.2",
                    "hoe",
                    "httparty",
 		   "pdf-writer",
