@@ -253,7 +253,7 @@ class AgendaEntry < ActiveRecord::Base
          id: #{id},
          description: \"#{description}\",
          speakers: \"#{speakers}\",
-         supertitle: \"#{id%2 == 1 ? "Sesion XXX" : ""}\"
+         supertitle: \"#{divider}\"
        }"  
   end
 end

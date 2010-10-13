@@ -90,6 +90,7 @@ de:
       created: Agenda-Eintrag wurde erfolgreich erstellt
       creating: Creating agenda entry
       delete: "Agenda-Eintrag wurde erfolgreich gel\xC3\xB6scht"
+      deleting: Deleting agenda entry
       description: Beschreibung
       duration: Dauer
       edit: Edit session item
@@ -125,6 +126,7 @@ de:
         streaming: Video streaming
         title: Videoconference options
       record: Rekord
+      remove: Delete session item
       speakers: Referenten
       start_time: Startzeit
       title: Titel

@@ -162,18 +162,22 @@ class AgendaEntriesController < ApplicationController
     agenda = @agenda_entry.agenda
     respond_to do |format|
       if @agenda_entry.destroy
-        flash[:notice] = t('agenda.entry.delete')
-        if agenda.contents_for_day(day).blank?
-          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => 1)) }
-        else
-          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day)) }
-        end
+        flash[:success] = t('agenda.entry.delete')
+        format.html {
+          if agenda.contents_for_day(day).blank?
+             redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => 1))
+          else
+            redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day))
+          end
+        }
         format.xml  { head :ok }
+        format.js
       else
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
+        format.js
       end
     end  
     

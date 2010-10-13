@@ -90,6 +90,7 @@ fr:
       created: "l&#39;ordre du jour d&#39;entr\xC3\xA9e a \xC3\xA9t\xC3\xA9 cr\xC3\xA9\xC3\xA9 avec succ\xC3\xA8s"
       creating: Creating agenda entry
       delete: "l&#39;ordre du jour d&#39;entr\xC3\xA9e a \xC3\xA9t\xC3\xA9 supprim\xC3\xA9 avec succ\xC3\xA8s"
+      deleting: Deleting agenda entry
       description: Description
       duration: Duration
       edit: "Edit session item"
@@ -125,6 +126,7 @@ fr:
         streaming: Video streaming
         title: Videoconference options
       record: Record
+      remove: Delete session item
       speakers: Haut-parleurs
       start_time: "Heure de d\xC3\xA9but"
       title: Titre

@@ -91,6 +91,7 @@ en:
       created: Agenda entry was successfully created
       creating: Creating agenda entry
       delete: Agenda entry was successfully deleted
+      deleting: Deleting agenda entry
       description: Description
       documents: Related documents
       duration: Duration
@@ -127,6 +128,7 @@ en:
         streaming: Video streaming
         title: Videoconference options
       record: Record
+      remove: Delete session item
       speakers: Speakers
       start_time: Start time
       title: Title
