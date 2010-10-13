@@ -42,15 +42,17 @@ $("#cancel_event").fancybox({
     <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
     <%= f.hidden_field "rand_value" %>
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
-    <div class="margin-up">
-        <button type="submit" id="create_event_button" class="basic_button blue_button">
+    <ul class="margin-up event_form_buttons">
+        <li><button type="submit" id="create_event_button" class="basic_button blue_button">
             <%=t("button.next_program") %>
         </button>
-        <button id="wait_create_event_button" class="basic_button blue_button">
+				</li>
+        <li><button id="wait_create_event_button" class="basic_button blue_button">
             <%=t("button.creating") %>
         </button>
-        <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
-    </div>
+				</li>
+        <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %></li>
+    </ul>
     <% end %>
     <!--<div id="new_logo_hidden_form" style="display:solid">
     <label>
