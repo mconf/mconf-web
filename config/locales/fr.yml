@@ -713,6 +713,7 @@ fr:
     not_processed: "L&#39;invitation n&#39;a pas pu \xC3\xAAtre trait\xC3\xA9es"
     password: Mot de passe
     select_all_users: "S\xC3\xA9lectionnez tous les utilisateurs"
+    sent: Invitations sent successfully
     show_all_users: Voir tous les utilisateurs
     title: "Invitation de l&#39;\xC3\xA9v\xC3\xA9nement"
     will_invite: "Les gens vous invitons:"

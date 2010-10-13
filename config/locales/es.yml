@@ -759,6 +759,7 @@ es:
     not_processed: "La invitaci\xC3\xB3n no se ha podido procesar"
     password: "Contrase\xC3\xB1a"
     select_all_users: Seleccionar todos los usuarios
+    sent: Invitación enviada con \xC3\xA9xito
     show_all_users: Mostrar todos los usuarios
     title: "Invitaci\xC3\xB3n al evento"
     will_invite: "Gente invitada:"

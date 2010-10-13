@@ -22,10 +22,13 @@ module ConferenceManager
 
               #Session creation on Conference Manager 
               if entry.errors.empty? && entry.event.uses_conference_manager?
+
                cm_s =
                  ConferenceManager::Session.new(:name => "none",
-                                                :initDate=> entry.start_time,
-                                                :endDate=>entry.end_time,
+                                                :recording => entry.cm_recording?,
+                                                :streaming => entry.cm_streaming?,
+                                                :initDate=> ((entry.start_time - entry.event.start_date)*1000).to_i,
+                                                :endDate=> ((entry.end_time - entry.event.start_date)*1000).to_i,
                                                 :event_id => entry.event.cm_event_id) 
                 begin
                   cm_s.save
@@ -57,8 +60,8 @@ module ConferenceManager
                 new_params = { :name => entry.title,
                                :recording => entry.cm_recording?,
                                :streaming => entry.cm_streaming?,
-                               :initDate => entry.start_time,
-                               :endDate => entry.end_time,
+                               :initDate=> ((entry.start_time - entry.event.start_date)*1000).to_i,
+                               :endDate=> ((entry.end_time - entry.event.start_date)*1000).to_i,
                                :event_id => entry.event.cm_event_id }
 
                 if entry.cm_session?
