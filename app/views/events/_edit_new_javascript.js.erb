@@ -1,4 +1,4 @@
-    <%if @event
+    <%if @event.id
         case @event.vc_mode
           when Event::VC_MODE.index(:telemeeting)%>
 			$('#event_type_meeting').addClass('blue_selected');
@@ -12,8 +12,11 @@
           <%when Event::VC_MODE.index(:in_person)%>
 			$('#event_type_presential').addClass('blue_selected');
 			$('#check_presential').show();
-	    <%end
-     end%>
+	    <%end%>
+     <%else%>
+       $('#event_type_meeting').addClass('blue_selected');
+	   $('#check_meeting').show();
+     <%end%>
 	
 	
   <%= render :partial => 'logos/crop_logo.js.erb',

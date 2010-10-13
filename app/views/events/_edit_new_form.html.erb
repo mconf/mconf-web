@@ -7,7 +7,8 @@
 	 <div class="event_type"><span id="event_type_class"><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
 	 <div class="event_type"><span id="event_type_conference"><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
 	 <div class="event_type"><span id="event_type_presential"><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
-     <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event ? @event.vc_mode : :telemeeting) %>
+	 
+	 <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
 </div>
 
 <div class="blue_border_down">
@@ -40,10 +41,10 @@
 <div class="without_javascript event_info">
     <div class="margin-up">
     	  <label for="start_time"><%= t('event.time.start') %></label>
-        <%= f.datetime_select :start_date, :default => Time.zone.now + 10.minutes%>
+        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Time.zone.now + 10.minutes}%>
     </div>
 	  <div class="margin-up"><label for="end_time"><%= t('event.time.end') %></label>
-        <%= f.datetime_select :end_date, :default => Time.zone.now + 10.minutes + 2.hours%>
+        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Time.zone.now + 10.minutes + 2.hours}%>
     </div>
 </div>
 
