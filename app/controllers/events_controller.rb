@@ -235,10 +235,18 @@ class EventsController < ApplicationController
         flash[:success] = t('event.updated')
         format.html {
           if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
-            redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
+            if params[:in_steps]
+              redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
+            else
+              redirect_to edit_space_event_agenda_path(space, @event)
+            end
           else
             flash[:success] = t('event_invitation.sent')
-            redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
+            if params[:in_steps]
+              redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
+            else
+              redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")            
+            end
           end
         }
         format.xml  { head :ok }
