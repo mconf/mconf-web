@@ -739,6 +739,7 @@ en:
     not_processed: The invitation could not be processed
     password: Password
     select_all_users: Select all users
+    sent: Invitations sent successfully
     show_all_users: Show all users
     title: Event Invitation
     will_invite: "People you will invite:"
