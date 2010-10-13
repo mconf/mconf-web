@@ -860,7 +860,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #edit_public_profile .profile_content_item,#edit_private_profile .profile_content_item{background:#fff;padding-bottom:9px;}
 #profile_edit_title{float:left;margin-left:15px;}
 #profile_edit_title h2{margin:0;}
-#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;left:30px;}
+#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;}
 #profile_prefix{width:50px;margin-right:20px;}
 .profile_content_item div.margin-up{position:relative;overflow:hidden;clear:both;}
 #edit_public_profile div.margin-up label,.profile_contact div.margin-up label,.profile_contact p{float:left;width:25%;padding-left:70px;}
@@ -1982,3 +1982,9 @@ ul.event_form_buttons li{float:left;}
 	top: 0px;
 	min-width: 50%;
 	font-size: 11px;}
+	
+.triangle_first_step {left: 30px;}
+.triangle_second_step {left: 230px;}
+.triangle_third_step {left: 500px;}
+
+.with_opacity{opacity:0.3;}
