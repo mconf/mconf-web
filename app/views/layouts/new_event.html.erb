@@ -39,6 +39,24 @@
       $(document).ready(function() {
 	        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
+		<%if params[:controller]=="events" && (params[:action]=="new" || params[:action]=="edit")%>		
+			 $("#little_triangle").addClass("triangle_first_step");
+			 $("#second_step_logo").addClass("with_opacity");
+			 $("#third_step_logo").addClass("with_opacity");
+		<%end%>
+				
+		<%if params[:controller]=="agendas" && params[:action]=="edit"%>		
+			$("#little_triangle").addClass("triangle_second_step");	
+			$("#first_step_logo").addClass("with_opacity");
+			$("#third_step_logo").addClass("with_opacity");
+		<%end%>				    
+					
+		<%if params[:step]=="3"%>
+			$("#little_triangle").addClass("triangle_third_step");
+			$("#first_step_logo").addClass("with_opacity");
+			$("#second_step_logo").addClass("with_opacity");			
+		<%end%>		
+		
       })
     </script>
 	
@@ -53,11 +71,17 @@
 	          <%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
 	        </div>
 					<div id="all_steps">
+				
+				<%if params[:controller]=="events" && params[:action]=="new"%>		
 			      <div id="first_step_logo"><h2 class="blue">Create event</h2></div>
-				    <div id="second_step_logo"><h2 class="blue">Define program</h2></div>
+				<%else%>
+				  <div id="first_step_logo"><h2 class="blue">Edit event</h2></div>
+				<%end%>
+				    
+				    <div id="second_step_logo"><h2 class="blue">Define program</h2></div>	
 				    <div id="third_step_logo"><h2 class="blue">Invite people</h2></div>
 			    </div>	
-					<span class="triangle_css"/>		  
+					<span id="little_triangle" class="triangle_css"/>		  
 		    </div>
 		    <div id="content">		      
 		      <div id="main">

@@ -1,0 +1,17 @@
+//Remove notifications
+$(".notice").remove(); $(".success").remove(); $(".error").remove();
+
+<% if @agenda_entry.errors.any? %>
+  entry_deleted = false
+  
+  //Notify error
+  $("#main").prepend('<div class="error"><%= escape_javascript(flash.delete(:error)) %></div>');
+<% else %>
+  entry_deleted = true
+  
+  //Notify success
+  $("#main").prepend('<div class="success"><%= escape_javascript(flash.delete(:success)) %></div>');
+	
+	 //Add agenda entry to fullcalendar
+  calendar.fullCalendar('removeEvents',<%=@agenda_entry.id%>);
+<% end %>

@@ -27,28 +27,30 @@
 <%end%>
 
 <div id="user_invitations" style="display:none;">
-	<div>
 	  <% form_for([@space,event], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
-		  <div id="selected_users">
+		 <div class="event_invitations_message"> 
+			<div id="selected_users" class="margin-up">
 		    <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('event_invitation.will_invite')%>:</label>
 		  </div>
 		  <div id="user_filter" class="margin-up" style="display: none;">
-		    <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
+		    <label for="User filter" class="bold"><%= t('user.filter') %></label>
 		    <%= text_field_tag :user_selector,'', :size => 25 %>
-		  </div>
-		  <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 
-		  <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a> 
-		  <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>  
-		  <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
-		  
+			  <div class="event_invitation_actions">
+	        <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 
+	        <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a> 
+	        <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>  
+	        <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
+	      </div>
+			</div>
+
 		  <div id="unselected_users"> 
 		    <% for user in @space.users -%>
 		      <div class="user_checkbox">
-		        <%= check_box_tag "event[ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
+		        <%= check_box_tag "event[ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%>
 		      </div>
 		    <%end%>
 		  </div>
-			
+		</div>
 			
 			<!--<%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin')%>
 			  <div class="margin-up">
@@ -63,15 +65,16 @@
       	<div id="invitations_title" class="blue_border_down">
           <h3 class="blue"><%= t('invitation.label') %>:</h3>
 			  </div>
-				<div id="event_invitations_message">
-					<textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
-          <br/><label for="message" class="label_izquierda bold"><%= t('invitation.personal') %></label>
-	        <div>
+				<div class="event_invitations_message">
+					<div class="margin-up">
+						<textarea style="display:none" id="invite_msg" name="event[invite_msg]"></textarea>
+          </div>
+	        <div class="margin-up">
 	          <p><%= '\'' + t('name.one') + '\','%></p>
-	          *<%= t('optional') %>
+						<label for="message" class="label_izquierda bold"><%= t('invitation.personal') %></label>
 						<textarea id="invite_personal_registered"></textarea>
-						<br/>
-						<br/>
+						<p id="event_invitations_note">*<%= t('optional') %></p>
+
 	          <%if @event.start_date%>
 	            <% start_date = I18n.l(@event.start_date, :format => '%A %d %b %Y %H:%M') %>
 	            <%= t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + t('url_plain') + '\'',:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', start_date).gsub('event_url',space_event_url(@event.space,@event))%>
@@ -89,5 +92,4 @@
 			</div>
 			
 	  <% end %>
-	</div>
 </div>

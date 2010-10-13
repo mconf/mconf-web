@@ -92,6 +92,7 @@ es:
       created: La entrada en la agenda ha sido creada correctamente
       creating: Creando entrada de la agenda
       delete: "La entrada en la agenda ha sido borrada con \xC3\xA9xito"
+      deleting: Borrando entrada de la agenda
       description: "Descripci\xC3\xB3n"
       duration: "Duraci\xC3\xB3n"
       edit: Editar elemento de la sesi\xC3\xB3n
@@ -127,6 +128,7 @@ es:
         streaming: "Grabaci\xC3\xB3n de streaming"
         title: Opciones de videoconferencia
       record: Registro
+      remove: La entrada de la agenda ha sido borrada
       speakers: Intervienen
       start_time: Hora de inicio
       title: "T\xC3\xADtulo"
@@ -1585,6 +1587,7 @@ es:
       upload_logo: Cargar su propio logo
       upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
+      use_date: Usar fecha del evento
     main: Espacio principal
     member_of: Miembros del espacios
     my_spaces: Mis espacios

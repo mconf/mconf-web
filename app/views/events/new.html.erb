@@ -47,30 +47,35 @@
   <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
     <%= f.hidden_field "rand_value" %>
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
-	  <div class="margin-up">
-      <button type="submit" id="create_event_button" class="basic_button blue_button">
-        <%=t("button.next_program") %>
-      </button>
-      <button id="wait_create_event_button" class="basic_button blue_button">
-        <%=t("button.creating") %>
-      </button>
-      <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
-	  </div>
+
+    <ul class="margin-up event_form_buttons">
+      <li>
+      	<button type="submit" id="create_event_button" class="basic_button blue_button">
+          <%=t("button.next_program") %>
+        </button>
+			</li>
+      <li>
+      	<button id="wait_create_event_button" class="basic_button blue_button">
+          <%=t("button.creating") %>
+        </button>
+			</li>
+      <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %></li>
+    </ul>
   <% end %>
-	
-  <!--<div id="new_logo_hidden_form" style="display:solid">
-  <label>
-  upload your own logo
-  </label>
-  <br>
-  <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
-  <%= t("space.logo_selected.upload_logo_text") %>
-  <br>
-  <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
-  <%= f.hidden_field  "rand" %>
-  <br>
-  <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
-  <div id = "resultado">
-  </div>
-  </div>-->
+    <!--<div id="new_logo_hidden_form" style="display:solid">
+    <label>
+    upload your own logo
+    </label>
+    <br>
+    <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+    <%= t("space.logo_selected.upload_logo_text") %>
+    <br>
+    <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
+    <%= f.hidden_field  "rand" %>
+    <br>
+    <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+    <div id = "resultado">
+    </div>
+    </div>-->
+
 </div>

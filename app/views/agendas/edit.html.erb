@@ -129,7 +129,14 @@
 		  current_qtip.qtip({
          content: {
            text:
-             '<a href=\"<%= space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '/edit\"><%=escape_javascript(t('agenda.entry.edit'))%></a>',
+             '<p><a href=\"<%= space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '/edit\"><%=escape_javascript(t('agenda.entry.edit'))%></a></p>' +	 
+						 '<p>' +
+						 '<%=link_to escape_javascript(t('agenda.entry.remove')), '', :class => "delete_entry" %>' + 
+						 '<form class=\"delete_entry\" style=\"display:none;\" method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '\">' +
+             '<input type=\"hidden\" name=\"authenticity_token\" value=\"<%=form_authenticity_token()%>\" />' +
+             '<input type=\"hidden\" name=\"_method\" value=\"delete\" />' +
+             '</form>' +
+						 '</p>',
            title: {
              text: entry.title
            }
@@ -213,7 +220,6 @@
       
     //Notify agenda is updating
     $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.entry.creating')) %></div>');
-    //$(".notice").hide().slideDown('slow');
     
     //Close qtips
     current_qtip.qtip('hide');
@@ -225,6 +231,28 @@
     );
 		return false;
   });
+	
+	$("a.delete_entry").livequery('click', function(){
+
+	  //Remove notifications
+    $(".notice").remove(); $(".success").remove(); $(".error").remove();
+      
+    //Notify agenda is deleting
+    $("#main").prepend('<div class="notice"><%= escape_javascript(t('agenda.entry.deleting')) %></div>');
+    
+    //Close qtips
+    current_qtip.qtip('hide');
+	
+	  var form = $(this).parents(".qtip").find("form.delete_entry");
+		
+		$.post(form.attr('action'),
+           form.serialize(),
+           null,
+            "script"
+    );
+    return false;
+	});
+	
 <%end%>
 
 
@@ -248,8 +276,8 @@
 
 <div class="whyte_wrapper">
 	<div id="agenda_header">
-		<p id="agenda_date"><%=agenda_date(@event)%></p>
-		<p id="agenda_days"><%=edit_agenda_day_links(@event)%></p>
+		<h2 id="agenda_date" class="blue"><%=agenda_date(@event)%></h2>
+		<h3 id="agenda_days"><%=edit_agenda_day_links(@event)%></h3>
 	</div>
 	
 	<div id="agenda_calendar">

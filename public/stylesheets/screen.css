@@ -285,9 +285,11 @@ button#change_logo{float:left;}
 #event_invitations_external{
 	clear:both;
   position:relative;}
-#event_invitations_note{
-	margin-left:95px;
+#event_invitations_note,.event_invitation_actions{
+	clear:both;
 }
+#event_invitations_note{margin-left:110px;}
+.event_invitation_actions{margin-left:140px;}
 
 /* forms.css */
 .error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
@@ -736,7 +738,7 @@ ul.menu1 li{display:inline;}
 .event_image{display:block;color:black;float:left;padding:0;text-align:center;font-weight: bold;vertical-align: middle;cursor:pointer;}
 div.event_image{margin-right: 7px;margin-left:5px;width:64px;}
 a.event_image:hover{text-decoration:none;}
-.event_date_image{margin: 0px 10px 0px 0px;width:100%;}
+.event_date_image{margin: 0px 10px 0px 0px;width:100%;color:black;text-align:center;font-weight: bold;vertical-align: middle;}
 .event_day{font-size: 3em;line-height:90%;}
 .event_month{font-size: 2em;line-height:70%;}
 .event_hour{font-size: 1.2em;min-width: 30px; min-height: 20px;}
@@ -785,12 +787,19 @@ div.pagination a{color:#244974;}
 #new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
 input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,textarea#invite_personal_registered{width:60%;overflow:auto;}
-#event_invitations_message{margin-left:30px;}
+.event_invitations_message{margin-left:30px;position:relative;overflow:hidden;display:block;}
+.event_invitations_message input[type="text"]{margin-left:26px;}
+.event_invitations_message textarea{margin-left:10px;}
+.event_invitations_message .margin-up{position:relative;clear:both;overflow:hidden;}
+.event_invitations_message label,.event_invitations_message input[type="text"],.event_invitations_message textarea,.user_checkbox input[type="checkbox"]{float:left;position:relative;}
+.user_checkbox{position:relative;clear:both;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea {height:8.3333em;margin-bottom:0.5em;}
 
 #event_step_buttons{overflow:hidden;margin-top:10px;margin-left:500px;}
 #back_event,#finish_event,#cancel_event{overflow:hidden;}
-a.selected_invitation_tab{background:#F2F2F2;padding:10px;}
+a.invitation_tab{padding:7px 10px;display:inline-block;outline:none;}
+a.selected_invitation_tab{background:#fff;}
+.invite_tab{position:relative;overflow:hidden;display:block;clear:both;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
@@ -860,7 +869,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #edit_public_profile .profile_content_item,#edit_private_profile .profile_content_item{background:#fff;padding-bottom:9px;}
 #profile_edit_title{float:left;margin-left:15px;}
 #profile_edit_title h2{margin:0;}
-#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;left:30px;}
+#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;}
 #profile_prefix{width:50px;margin-right:20px;}
 .profile_content_item div.margin-up{position:relative;overflow:hidden;clear:both;}
 #edit_public_profile div.margin-up label,.profile_contact div.margin-up label,.profile_contact p{float:left;width:25%;padding-left:70px;}
@@ -1968,11 +1977,14 @@ ul.event_form_buttons{
 	list-style-type:none;}
 ul.event_form_buttons li{float:left;}
 
+#agenda_header h2{margin:0;}
+#agenda_header h3{margin-top:0;}
+
 /** Fullcalendar **/
 .fc-event-vert span.fc_session_title{
 	padding: 0pt 5px;
 	position: absolute;
-	right: 10px;
+	right: 25%;
 	z-index: 10;
 	background-color: orange;
 	color: white;
@@ -1981,4 +1993,14 @@ ul.event_form_buttons li{float:left;}
 	line-height: 13px;
 	top: 0px;
 	min-width: 50%;
-	font-size: 11px;}
+	font-size: 11px;
+	-moz-border-radius-bottomLeft:4px;
+	-moz-border-radius-bottomRight:4px;
+	-webkit-border-radius-bottomLeft:4px;
+	-webkit-border-radius-bottomRight:4px;}
+	
+.triangle_first_step {left: 30px;}
+.triangle_second_step {left: 230px;}
+.triangle_third_step {left: 500px;}
+
+.with_opacity{opacity:0.3;}

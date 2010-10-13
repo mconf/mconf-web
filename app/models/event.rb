@@ -63,6 +63,13 @@ class Event < ActiveRecord::Base
 
   def update_logo
     return unless (@default_logo.present? and  !@default_logo.eql?(""))
+    if @default_logo.present? and  @default_logo.eql?("use_date_logo")
+      if logo = self.logo
+        logo.destroy
+      end
+      self.logo = nil
+      return true
+    end
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
     img_orig = img_orig.scale(256, 256)
     images_path = File.join(RAILS_ROOT, "public", "images")
