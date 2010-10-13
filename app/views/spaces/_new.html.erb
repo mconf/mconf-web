@@ -1,5 +1,5 @@
-	<%= javascript_include_tag 'jquery.jcrop' %>
-	<% content_for :javascript do%>	
+<%= javascript_include_tag 'jquery.jcrop' %>
+	<% content_for :javascript do %>	
 
 selectDefaultImage = function(image){
 	$("#space_image").attr('value', "default_space_logos/" + image);
@@ -95,6 +95,7 @@ $("#create_space_button").livequery('click',function(){
 	
  });
  	$('#select_logo_form').ajaxForm({ 
+	
         // target identifies the element(s) to update with the server response 
         target: '#resultado', 
  

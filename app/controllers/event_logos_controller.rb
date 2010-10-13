@@ -47,7 +47,9 @@ class EventLogosController < ApplicationController
       temp_logo = TempLogo.from_session(session)
       params[:event_logo] = temp_logo.crop_and_resize params[:crop_size]
     end
+    
     @event_logo = event.build_logo(params[:event_logo])
+    
 
     if @event_logo.save
       flash[:notice] = t('event.logo.created')
@@ -75,5 +77,7 @@ class EventLogosController < ApplicationController
       redirect_to request.referer
     end
   end
+  
+
 
 end

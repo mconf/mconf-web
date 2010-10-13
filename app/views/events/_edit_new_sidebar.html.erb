@@ -1,37 +1,39 @@
-<div id="edit_profile_sidebar">
-  <%if @event.logo %>
-      <div class="profile_logo">
-        <%=logo(@event.logo, {:size => '128', :title=>t('logo.click_to_change')}) %>
+  <div id="space_logo" class="space_logo">
+      <h3>Event Logo<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
+      <div id = "selected_logo" style="padding-bottom:10px;">
+          <center>
+    <%if @event.logo %>
+      <div class="event_logo">
+        <%=logo(@event.logo, {:id=> "selected_logo_image",:size => 64, :title=>t('logo.click_to_change')}) %>
       </div>
-  <%elsif @event.has_date? %>
-      <div class="profile_logo">
-				<div class="event_date_image">
-	        <div class="event_day">
-	          <%= sanitize(event.start_date.strftime("%d")) %>
-	        </div>
-	        <div class="event_month">
-	          <%= localize(event.start_date, :format => "%b") %>
-	        </div>
-	        <div class="event_hour">
-	          <%= event.get_formatted_hour %>
-	        </div>
-	      </div>
-			</div>
+    <%elsif @event.has_date? %>
+      <div class="event_date_image">
+        <div class="event_day">
+          <%= sanitize(event.start_date.strftime("%d")) %>
+        </div>
+        <div class="event_month">
+          <%= localize(event.start_date, :format => "%b") %>
+        </div>
+        <div class="event_hour">
+          <%= event.get_formatted_hour %>
+        </div>
 	<%else%>
-	  <div class="profile_logo">
-      <div class="event_day"> <%=image_tag ("calendar.png") %></div>
-		</div>
-  <%end %>
-	
-  <ul class="first_options">
-    <li id="change_pic">
-      <%=link_to t('event.logo.button'),"javascript:change_logo();" %>
-    </li>
+		  <div class="event_date_image">
+            <div class="event_day"> <%=image_tag "default_event_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "64x64"} %></div>
+          </div>
+    <%end %>
+          </center>
+      </div>
+  </div>
+  
+  <div id="change_logo_link">
+    <ul class="first_options">
+	<li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv tooltip1",:title => t('space.logo_selected.open_gallery')} %></li>
+	<li><%=link_to t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"show_inv",:title => t('space.logo_selected.text_logo')} %></li>
+	<li><%=link_to t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"show_inv",:title => t('space.logo_selected.upload_logo')} %></li>
   </ul>
+  </div>
+  
+  <%= render :partial => "change_logo" %>
+  
 
-</div>
-
-<%= render :partial => "change_logo" %>
-
-
-	

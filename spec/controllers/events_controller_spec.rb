@@ -50,7 +50,7 @@ describe EventsController do
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
-          response.should redirect_to(space_event_path(@current_space, event))      
+          response.should redirect_to(edit_space_event_agenda_path(@current_space, event, :in_steps=>true))
         end
         
         describe "trying to update" do
@@ -58,14 +58,14 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_other.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
         end
@@ -122,7 +122,7 @@ describe EventsController do
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
-          response.should redirect_to(space_event_path(@current_space, event))
+          response.should redirect_to(edit_space_event_agenda_path(@current_space, event, :in_steps=>true))
         end       
         
         describe "trying to update" do
@@ -130,14 +130,14 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_other.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
         end
@@ -197,7 +197,7 @@ describe EventsController do
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
-          response.should redirect_to(space_event_path(@current_space, event))      
+          response.should redirect_to(edit_space_event_agenda_path(@current_space, event, :in_steps=>true))      
         end
         
         describe "trying to update" do
@@ -205,7 +205,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -264,7 +264,7 @@ describe EventsController do
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
-          response.should redirect_to(space_event_path(@current_space, event))
+          response.should redirect_to(edit_space_event_agenda_path(@current_space, event, :in_steps=>true))
         end       
         
         describe "trying to update" do
@@ -272,7 +272,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -340,7 +340,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -405,7 +405,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do

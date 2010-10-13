@@ -11,8 +11,12 @@
 	 <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
 </div>
 
+<% selected = rand(@files.length) %>
+<%= hidden_field "event","image",:value => "default_event_logos/" + @files[selected].to_s, :name => "event[default_logo]" %> 
+
 <div class="blue_border_down">
   <h3><%=t('event.new.basic')%></h3>
+
 </div>
 <div class="event_info">
     <div class="margin-up">
