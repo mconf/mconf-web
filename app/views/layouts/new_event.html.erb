@@ -53,8 +53,26 @@
 	          <%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
 	        </div>
 					<div id="all_steps">
+				<%if params[:controller]=="events" && (params[:action]=="new" || params[:action]=="edit")%>		
+			      pinchito en evento
+				<%end%>
+				
+				<%if params[:controller]=="agendas" && params[:action]=="edit"%>		
+				  pinchito en la agenda
+				<%end%>				    
+					
+				<%if params[:step]=="3"%>
+				  pinchito en la invitacion
+				<%end%>			
+				
+				
+				<%if params[:controller]=="events" && params[:action]=="new"%>		
 			      <div id="first_step_logo"><h2 class="blue">Create event</h2></div>
-				    <div id="second_step_logo"><h2 class="blue">Define program</h2></div>
+				<%elsif params[:controller]=="events" && params[:action]=="edit"%>
+				  <div id="first_step_logo"><h2 class="blue">Edit event</h2></div>
+				<%end%>
+				    
+				    <div id="second_step_logo"><h2 class="blue">Define program</h2></div>	
 				    <div id="third_step_logo"><h2 class="blue">Invite people</h2></div>
 			    </div>	
 					<span class="triangle_css"/>		  
