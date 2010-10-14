@@ -90,6 +90,12 @@ class Agenda < ActiveRecord::Base
     end
   end
   
+  # Returns the height of the fullcalendar
+  def fullcalendar_height(agenda_day)
+    end_time = fullcalendar_end_time(agenda_day).split(':')
+    start_time = fullcalendar_start_time(agenda_day).split(':')
+    (((end_time[0].to_i*60 + end_time[1].to_i - start_time[0].to_i*60 - start_time[1].to_i)*21/SLOT)+18).to_i   
+  end
 
   #returns the hour of the last agenda_entry
   def last_hour_for_day(i)

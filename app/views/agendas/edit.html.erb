@@ -74,6 +74,7 @@
 		date:<%= @agenda_day.strftime("%d")%>,
 		minTime: '<%= @agenda.fullcalendar_start_time(@agenda_day) %>',
 	  maxTime: '<%= @agenda.fullcalendar_end_time(@agenda_day)%>',
+		contentHeight: '<%=@agenda.fullcalendar_height(@agenda_day)%>',
 	  defaultView: 'agendaDay',
     editable: true,
 		events: <%= @agenda.to_fullcalendar_json %>,
