@@ -52,10 +52,9 @@ $(".event_image").click(function(){
       event: "dblclick",
       data: function(value, settings) {
         /* Convert <br> to newline. */
-        var retval = value.replace(/<br[\s\/]?>/gi, '');
-        retval = retval.replace(/<p[\s\/]?>/gi, '');
-        retval = retval.replace(/<\/p[\s\/]?>/gi, '');
-        return retval;
+      var retval = value.replace(/<br[\s\/]?>/gi, '\n');
+      return retval;
+
     },
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
  });	 
