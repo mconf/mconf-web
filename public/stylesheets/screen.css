@@ -800,6 +800,7 @@ input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,
 a.invitation_tab{padding:7px 10px;display:inline-block;outline:none;}
 a.selected_invitation_tab{background:#fff;}
 .invite_tab{position:relative;overflow:hidden;display:block;clear:both;}
+#event_step_cancel_buttons{width:110px;margin-left:auto;margin-right:auto;margin-top:8px;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
@@ -1967,7 +1968,7 @@ div#initial-info #advanced_config:hover{text-decoration:underline;}
 #second_step_logo{background:url('/images/two.png') no-repeat left center;}
 #third_step_logo{background:url('/images/three.png') no-repeat left center;}
 
-#lightbox_advise{color: black;}
+#lightbox_advise{background:none repeat scroll 0 0 #E1E1E1;font-weight:bold;padding:7px 12px;}
 
 ul.event_form_buttons{
 	position:relative;

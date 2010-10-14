@@ -30,8 +30,10 @@
     </script>
     <div id="sure_form">
         <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
-        <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
-        <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+				<div id="event_step_cancel_buttons">
+          <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
+          <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+			  </div>
     </div>
   </div>
 	
