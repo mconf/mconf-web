@@ -15,14 +15,5 @@
 	      <%end%>      
 		<%end%>
 		
-		<%if @event.authorize?(:update, :to => current_user) && (!@event.past? || @event.is_in_person?)%>
-	      <div id="add_buttons<%=day%>">
-					<div class="margin-up">
-						<button class='basic_button blue_button' id="add_entry<%=day%>"><%=t("agenda.add_entry")%></button>
-						<button class='basic_button blue_button' id="add_divider<%=day%>"><%=t("agenda.add_divider")%></button>
-						<span class="screencast"><%=t('screencast.help')%><%=link_to(t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></span>
-					</div>
-	      </div>
-	    <%end%>
 	  </div>  
   <%end%>	

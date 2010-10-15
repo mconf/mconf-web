@@ -90,6 +90,14 @@ class Agenda < ActiveRecord::Base
     end
   end
   
+  def self.next_time_slot_for_drop_down
+    if Time.zone.now.min > 40
+      Time.zone.parse("#{Time.zone.now.hour + 1}:00")      
+    else    
+      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/SLOT).ceil*SLOT}")
+    end
+  end
+  
   # Returns the height of the fullcalendar
   def fullcalendar_height(agenda_day)
     end_time = fullcalendar_end_time(agenda_day).split(':')

@@ -93,11 +93,16 @@ class AgendaEntriesController < ApplicationController
   
   # POST /agenda_entries
   # POST /agenda_entries.xml
-  def create
+  def create    
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
     @agenda_entry.author = current_user
+    
+    if @event.vc_mode != Event::VC_MODE.index(:in_person)
+      @agenda_entry.cm_streaming = @event.streaming_by_default
+      @agenda_entry.cm_recording = @event.recording_by_default      
+    end
     
     respond_to do |format|
       if @agenda_entry.save
@@ -119,6 +124,11 @@ class AgendaEntriesController < ApplicationController
   def edit
     @agenda_entry = AgendaEntry.find(params[:id])
     @day=@agenda_entry.event_day
+    
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+      
+    end
   end
   
   

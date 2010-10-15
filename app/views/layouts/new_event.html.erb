@@ -45,7 +45,7 @@
 			 $("#third_step_logo").addClass("with_opacity");
 		<%end%>
 				
-		<%if params[:controller]=="agendas" && params[:action]=="edit"%>		
+		<%if (params[:controller]=="agendas" || params[:controller]=="agenda_entries") && params[:action]=="edit"%>		
 			$("#little_triangle").addClass("triangle_second_step");	
 			$("#first_step_logo").addClass("with_opacity");
 			$("#third_step_logo").addClass("with_opacity");

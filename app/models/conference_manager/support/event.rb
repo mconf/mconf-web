@@ -62,7 +62,6 @@ module ConferenceManager
                                :web_codec => WEB_CODEC[event.web_bw],
                                :recording_codec => RECORDING_CODEC[event.recording_bw],
                                :path => "attachments/conferences/#{event.permalink}" }
-
                 cm_event = event.cm_event
                 cm_event.load(new_params)  
 

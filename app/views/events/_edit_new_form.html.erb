@@ -46,10 +46,10 @@
 <div class="without_javascript event_info">
     <div class="margin-up">
     	  <label for="start_time"><%= t('event.time.start') %></label>
-        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Time.zone.now + 10.minutes}%>
+        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Agenda.next_time_slot_for_drop_down}%>
     </div>
 	  <div class="margin-up"><label for="end_time"><%= t('event.time.end') %></label>
-        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Time.zone.now + 10.minutes + 2.hours}%>
+        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Agenda.next_time_slot_for_drop_down + 2.hours}%>
     </div>
 </div>
 
