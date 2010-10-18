@@ -66,7 +66,11 @@ class Space < ActiveRecord::Base
       #group.save
   #}
   
+#  before_create {
+#  }
+  
   after_save do |space|
+    
     if space.invitation_mails
       mails_to_invite = space.invitation_mails.split(/[\r,]/).map(&:strip)
       mails_to_invite.map { |email|      

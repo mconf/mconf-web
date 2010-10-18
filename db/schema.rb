@@ -105,15 +105,6 @@ ActiveRecord::Schema.define(:version => 20101006103957) do
     t.datetime "updated_at"
   end
 
-  create_table "colors", :id => false, :force => true do |t|
-    t.integer "id",    :null => false
-    t.string  "name",  :null => false
-    t.integer "red",   :null => false
-    t.integer "green", :null => false
-    t.integer "blue",  :null => false
-    t.string  "link",  :null => false
-  end
-
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
@@ -151,11 +142,11 @@ ActiveRecord::Schema.define(:version => 20101006103957) do
     t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
+    t.datetime "generate_pdf_small_at"
     t.datetime "generate_scorm_at"
     t.text     "isabel_bw"
     t.integer  "web_bw"
     t.integer  "recording_bw"
-    t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
     t.boolean  "streaming_by_default",    :default => true
     t.boolean  "recording_by_default",    :default => true
