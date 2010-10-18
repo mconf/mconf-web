@@ -96,7 +96,6 @@ en:
       documents: Related documents
       duration: Duration
       edit: Edit session item
-      embed_help: Can be filled with HTML code to embed a video
       embedded_video: Embed video for the entry
       end_time: End time
       error: 
@@ -121,9 +120,6 @@ en:
       one: Entry
       options: 
         add_video: Discard automatic video and add an embed
-        help: Check streaming and/or recording services as needed
-        help2: This session has already happened you can not edit streaming or recording options
-        help3: This session is happening now you can only change whether you want streaming or not
         recording: Video recording
         streaming: Video streaming
         title: Videoconference options
@@ -555,14 +551,14 @@ en:
         telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_private_without_start_date: 
         in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleclass: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleconference: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_public_with_start_date: 
         in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        teleclass: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
         telemeeting: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p>><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        teleclass: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p>><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
       message_public_without_start_date: 
         in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
         teleclass: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
@@ -582,7 +578,6 @@ en:
       edit: Edit your event
       in_agenda: in the agenda
       now: Now you can
-      organisers: Select the space users that will organise this event
       without_str: To get streaming and/or recording, please indicate it in your schedule
     home: 
       one: Event in the space {{space}}
@@ -1026,10 +1021,12 @@ en:
     message_with_start_date: 
       in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
       telemeeting: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+      teleclass: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
       teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
     message_without_start_date: 
       in_person: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
       telemeeting: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+      teleclass: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
       teleconference: <p>I would like to invite you to <b>event 'event_name' in space {{space}}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit {{url}} </p><p>You can find more information about this event in <a href="event_url">event_url</a> </p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
     new: 
       other: New invitations
@@ -1722,18 +1719,31 @@ en:
   tomorrow: Tomorrow
   tooltip:
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
+    divider: "Use a divider to indicate breaks, like coffee or lunch breaks. You can also use it to separate different topic sessions."
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
+    embed_help: Can be filled with HTML code to embed a video
+    ev_type: "Place your mouse over the titles to know more about the types of events"
+    event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
+    help: Check streaming and/or recording services as needed
+    help2: This session has already happened you can not edit streaming or recording options
+    help3: This session is happening now you can only change whether you want streaming or not
+    inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
     private_profile: This information is visible only to the people you choose when you edit your profile
     public_profile: Anyone can access this information
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
     news_item: "You can publish a short news at home"
+    organisers: Select the space users that will organise this event
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     user_id: "You can use your user ID as openID, user chat and/or user Marte"
     user_filter: "You can filter users by their names or surnames. Start typing !"    
     timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     vcard: "vCard is a file format standard for electronic business cards"
+    vconfoptions: "Select video streaming if you want to broadcast your event. Select the video recording option if you want to record your event for future consumption. You can also configure the bandwidth and quality parameters of the videoconference by clicking on the advanced configuration link."
+    vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
+    vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
+    vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
   topic: Topic
   translate: 
     availables: Available translations

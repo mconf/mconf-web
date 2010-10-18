@@ -15,6 +15,36 @@
 	'width'              : 250,
 	'height'             : 80
 	});
+	
+	$('.whyte_wrapper img[tooltip]').each(function()
+   {
+      $(this).qtip({
+         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
+			   position: {adjust: { screen: true }},
+			   show:  'mouseover',
+			   hide: { when: 'mouseout', fixed: true },
+         style: 'mystyle' // Give it a crea mstyle to make it stand out
+      });
+   });
+   
+   	$('.whyte_wrapper div[tooltip]').each(function()
+   {
+      $(this).qtip({
+         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
+			   position: {adjust: { screen: true }},
+			   show:  'mouseover',
+			   hide: { when: 'mouseout', fixed: true },
+         style: 'mystyle' // Give it a crea mstyle to make it stand out
+      });
+   });
+   
+  $('#space_logo img.tooltip_update_logo').qtip({
+   content: '<%=t("tooltip.event_logo")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
 <%end %>
 
 <% content_for :sidebar do %>

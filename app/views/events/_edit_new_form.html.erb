@@ -1,12 +1,12 @@
 <div class="blue_border_down">
-  <h3><%=t('event.new.type')%></h3>
+  <h3><%=t('event.new.type')%> <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.ev_type'))%></h3>
 </div>
 
 <div id="event_type_selector">
-   <div class="event_type"><span id="event_type_meeting"><%=t('event.create.info.meeting.name')%><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
-	 <div class="event_type"><span id="event_type_class"><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
-	 <div class="event_type"><span id="event_type_conference"><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
-	 <div class="event_type"><span id="event_type_presential"><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+   <div class="event_type" tooltip="<%=t('tooltip.vmeeting')%>"><span id="event_type_meeting"><%=t('event.create.info.meeting.name')%><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type" tooltip="<%=t('tooltip.vclass')%>"><span id="event_type_class"><%=t('event.create.info.class.name')%><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type" tooltip="<%=t('tooltip.vcongress')%>"><span id="event_type_conference"><%=t('event.create.info.conference.name')%><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
+	 <div class="event_type" tooltip="<%=t('tooltip.inperson')%>"><span id="event_type_presential"><%=t('event.create.info.presential.name')%><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon")%></span></span></div>
 	 
 	 <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
 </div>
@@ -30,7 +30,7 @@
     </div>
   
     <div class="margin-up">
-      <label for="Organizer"><%= t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('event.help.organisers'))%></label>
+      <label for="Organizer"><%= t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers'))%></label>
         <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
           <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login})%>
         </select>
@@ -55,7 +55,7 @@
 
 
 <div class="blue_border_down">
-  <h3><%=t('event.new.vcoptions')%></h3>
+  <h3><%=t('event.new.vcoptions')%> <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.vconfoptions'))%></h3>
 </div>
   <div id="initial-info" class="margin-up">
 		<%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true%> <span><%=t('event.create.video_streaming')%></span>

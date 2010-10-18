@@ -33,6 +33,17 @@
 	  }); 
 	  
 	});
+	
+  $('.agenda_edit_entry img[tooltip]').each(function()
+   {
+      $(this).qtip({
+         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
+			   position: {adjust: { screen: true }},
+			   show:  'mouseover',
+			   hide: { when: 'mouseout', fixed: true },
+         style: 'mystyle' // Give it a crea mstyle to make it stand out
+      });
+   });
   
 <%end%>
 
@@ -49,7 +60,7 @@
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
       <% end %>
 
-      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label><br/>
+      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label> <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.divider'))%><br/>
         <%= f.text_field :divider %>
       </div>
 
@@ -91,24 +102,24 @@
       <%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>   
 
         <div class="margin-up">
-          <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
-          <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
+          <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label>
+          <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.embed_help'))%><br/>
           <%= f.text_area :embedded_video, :size => "25x5" %>
         </div>
       <%else%>     
         
         <div class="margin-up">
-          <%unless @event.past?%>  
-            <%if @agenda_entry.past?%>
-              <div id="help" title="<%= t('agenda.entry.options.help2') %>"></div>
-            <%elsif @agenda_entry.is_happening_now?%>
-              <div id="help" title="<%= t('agenda.entry.options.help3') %>"></div>
-            <%else%>
-              <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
-            <%end%>
+          <%unless @event.past?%>
             <label for="embedded_video" class="main_text">
               <%= t('agenda.entry.options.title') %>
-            </label>
+            </label> 
+            <%if @agenda_entry.past?%>
+              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help2'))%>
+            <%elsif @agenda_entry.is_happening_now?%>
+              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help3'))%>
+            <%else%>
+              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help'))%>
+            <%end%>
             <br/>
             <div class="checkbox_event">
               <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
