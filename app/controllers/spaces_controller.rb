@@ -120,7 +120,9 @@ class SpacesController < ApplicationController
           return
       end
     end
-      
+    
+    params[:space][:repository] = 1;
+    
     @space = Space.new(params[:space])
     create_group
     unless @group.valid?
