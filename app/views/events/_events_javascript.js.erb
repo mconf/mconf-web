@@ -52,10 +52,9 @@ $(".event_image").click(function(){
       event: "dblclick",
       data: function(value, settings) {
         /* Convert <br> to newline. */
-        var retval = value.replace(/<br[\s\/]?>/gi, '');
-        retval = retval.replace(/<p[\s\/]?>/gi, '');
-        retval = retval.replace(/<\/p[\s\/]?>/gi, '');
-        return retval;
+      var retval = value.replace(/<br[\s\/]?>/gi, '\n');
+      return retval;
+
     },
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
  });	 
@@ -325,7 +324,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
     $('#agenda_page1').show();
   <%end%>
  
- $(".newAttachEvent").livequery('click',function () { 
+$(".newAttachEvent").livequery('click',function () { 
   var new_id = new Date().getTime(); 
   $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
 	$(".newAttach2").show();

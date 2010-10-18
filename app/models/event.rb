@@ -53,6 +53,50 @@ class Event < ActiveRecord::Base
   attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
+  
+  #For logos  
+  attr_accessor :default_logo
+  attr_accessor :text_logo
+  attr_accessor :rand_value
+  attr_accessor :logo_rand
+  
+  before_validation :update_logo
+
+  def update_logo
+    return unless (@default_logo.present? and  !@default_logo.eql?(""))
+    if @default_logo.present? and  @default_logo.eql?("use_date_logo")
+      if logo = self.logo
+        logo.destroy
+      end
+      self.logo = nil
+      return true
+    end
+    img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
+    img_orig = img_orig.scale(256, 256)
+    images_path = File.join(RAILS_ROOT, "public", "images")
+    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
+    img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
+    original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
+    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
+    original_tmp.write(original.read)
+    original_tmp.instance_variable_set "@original_filename",@default_logo
+    original_tmp.instance_variable_set "@content_type", "image/jpeg"
+    logo = {}
+    logo[:media] = original_tmp
+    #debugger
+    logo = self.build_logo(logo)
+ 
+    images_path = File.join(RAILS_ROOT, "public", "images")
+    tmp_path = File.join(images_path, "tmp")
+    #debugger
+   
+    if @rand_value != nil
+      final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
+    end
+
+
+  end
+
 
   named_scope :upcoming, lambda { 
     { :conditions => [ "events.end_date > ? AND spaces.disabled = ?", Time.now, false ],
@@ -72,7 +116,7 @@ class Event < ActiveRecord::Base
                                :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
   ]
   
-  VC_MODE = [:in_person, :meeting, :teleconference]
+  VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
 
   # The vc_mode symbol of this event
   def vc_mode_sym
@@ -240,10 +284,10 @@ class Event < ActiveRecord::Base
   
   #method to syncronize event start and end time with their agenda real length
   #we have to take into account the timezone, because we are saving the time in the database directly
-  def syncronize_date
-     self.update_attributes({:start_date => self.agenda.recalculate_start_time,
-                             :end_date => self.agenda.recalculate_end_time})
-  end
+  #def syncronize_date
+  #   self.update_attributes({:start_date => self.agenda.recalculate_start_time,
+  #                           :end_date => self.agenda.recalculate_end_time})
+  #end
   
   
   #method to know if any of the agenda_entry of the event has streaming 

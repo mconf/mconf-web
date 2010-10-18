@@ -1,0 +1,22 @@
+//Remove notifications
+$(".notice").remove(); $(".success").remove(); $(".error").remove();
+
+calendar.fullCalendar('unselect');
+
+<% if @agenda_entry.errors.any? %>
+  entry_created = false
+  
+  //Notify error
+  $("#main").prepend('<div class="error"><%= escape_javascript(flash.delete(:error)) %></div>');
+  //$(".error").delay(5000).slideUp('slow');
+<% else %>
+  entry_created = true
+  
+  //Notify success
+  $("#main").prepend('<div class="success"><%= escape_javascript(flash.delete(:success)) %></div>');
+  //$(".success").delay(5000).slideUp('slow');
+	
+	//Add agenda entry to fullcalendar
+	calendar.fullCalendar('renderEvent',<%=@agenda_entry.to_fullcalendar_json%>);
+
+<% end %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928121448) do
+ActiveRecord::Schema.define(:version => 20101006103957) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100928121448) do
     t.boolean  "cm_streaming",            :default => false
     t.boolean  "cm_recording",            :default => false
     t.boolean  "discard_automatic_video", :default => false
+    t.text     "divider"
   end
 
   create_table "agenda_record_entries", :force => true do |t|
@@ -104,6 +105,15 @@ ActiveRecord::Schema.define(:version => 20100928121448) do
     t.datetime "updated_at"
   end
 
+  create_table "colors", :id => false, :force => true do |t|
+    t.integer "id",    :null => false
+    t.string  "name",  :null => false
+    t.integer "red",   :null => false
+    t.integer "green", :null => false
+    t.integer "blue",  :null => false
+    t.string  "link",  :null => false
+  end
+
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
@@ -141,12 +151,15 @@ ActiveRecord::Schema.define(:version => 20100928121448) do
     t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
-    t.datetime "generate_pdf_small_at"
     t.datetime "generate_scorm_at"
     t.text     "isabel_bw"
     t.integer  "web_bw"
     t.integer  "recording_bw"
+    t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
+    t.boolean  "streaming_by_default",    :default => true
+    t.boolean  "recording_by_default",    :default => true
+    t.boolean  "manual_configuration",    :default => false
   end
 
   create_table "groups", :force => true do |t|
@@ -342,7 +355,6 @@ ActiveRecord::Schema.define(:version => 20100928121448) do
     t.string   "presence_domain",               :default => "sir.dit.upm.es "
     t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
     t.string   "cm_domain"
-    t.string   "mailman_domain"
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
   end

@@ -3,7 +3,7 @@ module ConferenceManager
     # This module provides support for Events organized by the ConferenceManger
     module Event
       
-      CM_ATTRIBUTES = ["name", "cm_mode", "web_bw", "isabel_bw", "sip_interface", "httplivestreaming_bw", "permalink"]
+      CM_ATTRIBUTES = ["name", "cm_mode", "start_date", "end_date", "web_bw", "isabel_bw", "sip_interface", "httplivestreaming_bw", "permalink"]
       #in these arrays the number in kb is lower than in the comments because we pass the conference manager interface
       #only the video bandwidth, and the total is about 50kb lower
       WEB_BANDWIDTH = [100000, 200000, 400000] #equivalents: low (150K), medium (250K), high (450K)
@@ -23,6 +23,8 @@ module ConferenceManager
                 cm_e =
                   ConferenceManager::Event.new(:name => event.name,
                                                :mode => event.cm_mode,
+                                               :initDate => event.start_date,
+                                               :endDate => event.end_date,
                                                :enable_web => "1",
                                                :enable_isabel => "1",
                                                :enable_sip => event.sip_interface?,
@@ -47,6 +49,8 @@ module ConferenceManager
               if event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
                 new_params = { :name => event.name,
                                :mode => event.cm_mode,
+                               :initDate => event.start_date,
+                               :endDate => event.end_date,
                                :enable_web => "1",
                                :enable_isabel => "1",
                                :enable_sip => event.sip_interface?,
@@ -58,7 +62,6 @@ module ConferenceManager
                                :web_codec => WEB_CODEC[event.web_bw],
                                :recording_codec => RECORDING_CODEC[event.recording_bw],
                                :path => "attachments/conferences/#{event.permalink}" }
-
                 cm_event = event.cm_event
                 cm_event.load(new_params)  
 
@@ -90,10 +93,12 @@ module ConferenceManager
       # The conference manager mode
       def cm_mode
         case vc_mode_sym
-        when :meeting
+        when :telemeeting
           'meeting'
         when :teleconference
           'conference'
+        when :teleclass
+          'class'
         else
           raise "Unknown Conference Manager mode: #{ vc_mode_sym }"
         end
@@ -101,7 +106,7 @@ module ConferenceManager
 
       def uses_conference_manager?
         case vc_mode_sym
-        when :meeting, :teleconference
+        when :telemeeting, :teleconference, :teleclass
           true
         else
           false
@@ -109,6 +114,9 @@ module ConferenceManager
       end
      
       def cm_event
+        unless self.cm_event_id
+          return nil
+        end
         begin
           @cm_event ||= ConferenceManager::Event.find(self.cm_event_id)
         rescue

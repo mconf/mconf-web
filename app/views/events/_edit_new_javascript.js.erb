@@ -1,0 +1,275 @@
+    <%if @event.id
+        case @event.vc_mode
+          when Event::VC_MODE.index(:telemeeting)%>
+			$('#event_type_meeting').addClass('blue_selected');
+			$('#check_meeting').show();
+		  <%when Event::VC_MODE.index(:teleclass)%>
+			$('#event_type_class').addClass('blue_selected');
+			$('#check_class').show();
+          <%when Event::VC_MODE.index(:teleconference)%>
+			$('#event_type_conference').addClass('blue_selected');
+			$('#check_conference').show();
+          <%when Event::VC_MODE.index(:in_person)%>
+			$('#event_type_presential').addClass('blue_selected');
+			$('#check_presential').show();
+	    <%end%>
+     <%else%>
+       $('#event_type_meeting').addClass('blue_selected');
+	   $('#check_meeting').show();
+     <%end%>
+	
+	
+  <%= render :partial => 'logos/crop_logo.js.erb',
+    :locals => { :url_form   => precrop_space_event_logo_path(@event.space, @event),
+    :aspect_ratio => EventLogo::ASPECT_RATIO_S
+    } %>
+        	
+	
+	$("#wait_create_event_button").hide();
+	$("#wait_create_event_button").attr('disabled', true);
+	
+	$("#create_event_button").click(function(){
+		$("#create_event_button").hide();
+		$("#wait_create_event_button").show();
+	});
+
+
+	$("#organizers_name").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4
+    });
+  });
+  
+  $("#advanced_config").click(function(){
+    $("#extra-info").show();
+  });
+  
+  $("#event_type_meeting").click(function(){
+    $("#event_vc_mode").val("<%=Event::VC_MODE.index(:telemeeting)%>");
+	$(".blue_selected").removeClass("blue_selected");
+	$("#event_type_meeting").addClass("blue_selected");
+	$(".check_check").hide();
+	$("#check_meeting").show();
+  });
+    
+  $("#event_type_class").click(function(){
+    $("#event_vc_mode").val("<%=Event::VC_MODE.index(:teleclass)%>");
+	$(".blue_selected").removeClass("blue_selected");
+	$("#event_type_class").addClass("blue_selected");
+	$(".check_check").hide();
+	$("#check_class").show();
+  });
+  
+  $("#event_type_conference").click(function(){
+    $("#event_vc_mode").val("<%=Event::VC_MODE.index(:teleconference)%>");
+	$(".blue_selected").removeClass("blue_selected");
+	$("#event_type_conference").addClass("blue_selected");
+	$(".check_check").hide();
+	$("#check_conference").show();
+  });
+  
+  $("#event_type_presential").click(function(){
+    $("#event_vc_mode").val("<%=Event::VC_MODE.index(:in_person)%>");
+	$(".blue_selected").removeClass("blue_selected");
+	$("#event_type_presential").addClass("blue_selected");
+	$(".check_check").hide();
+	$("#check_presential").show();
+  });
+  
+  change_logo = function(){
+    $("#update_logo").show();
+    $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
+  };
+  
+  
+  $("#event_manual_configuration").click(function(){
+    if ($("#event_manual_configuration").is(":checked")) {
+	  $("#initial-info").hide("slow");
+	  $("#extra-info-part1").hide("slow");
+	  $("#manual_str_and_rec").show();
+	}else
+    { 
+	  $("#initial-info").show();
+	  $("#extra-info-part1").show();
+      $("#manual_str_and_rec").hide("slow");
+    }			
+  });
+  
+  
+  if ($("#event_manual_configuration").is(":checked")) {
+	  $("#extra-info").show();
+	  $("#initial-info").hide("slow");
+	  $("#extra-info-part1").hide("slow");	  
+	  $("#manual_str_and_rec").show();
+  };
+  
+  $('#event_description').wysiwyg();
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+closeLogoFormDiv = function(){
+	 $("#change_logo_form_div").hide("slow");
+	$("#default_upload_logo").hide("slow");	
+	$("#default_text_logo").hide("slow");	
+	$("#default_space_images").hide("slow");
+}
+
+closeUploadLogo = function(){
+	$("#default_upload_logo").hide("slow");	
+}
+
+closeTextLogo = function(){
+	$("#default_text_logo").hide("slow");	
+}
+
+closeGallery  = function (){
+	$("#default_space_images").hide("slow");
+}
+
+openGallery  = function (){
+	 $("#change_logo_form_div").show("slow");
+	 $("#default_space_images").show("slow");	 
+	 $("#close_gallery_link").show();
+	 $("#open_gallery_link").hide();
+}
+
+openUploadLogo  = function (){
+	 $("#change_logo_form_div").show("slow");
+	$("#default_upload_logo").show("slow");
+	$("#open_upload_logo_link").hide();
+	$("#close_upload_logo_link").show();	
+}
+
+openTextLogo = function(){
+	 $("#change_logo_form_div").show("slow");
+	$("#default_text_logo").show("slow");	
+	$("#open_text_logo_link").hide();
+	$("#close_text_logo_link").show();
+}
+
+var dateTime = new Date();
+var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
+
+//$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
+$("#logo_rand").attr('value', rand);
+$("#event_rand_value").attr('value', rand);
+
+$("#generate_text_logo_button").livequery('click',function(){
+	//$.get('/logos/new?event_logo=true&text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
+	$.get('/logos/new?event_logo=true&text='+ ($("#event_text_logo").val()) + '&rand_name=' + rand , function(data) {
+  		$('#generated_text_logos').html(data);
+	});
+});
+
+///////////////////////////////
+selectDefaultImage = function(image){
+	$("#event_image").attr('value', "default_event_logos/" + image);
+	$("#selected_logo_image").attr('src', "/images/default_event_logos/" + image);
+	logoSelected();
+}
+
+selectGeneratedImage = function(image){
+	$("#event_image").attr('value', image);
+	$("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
+	logoSelected();
+}
+
+logoSelected = function(){
+	$(".event_logo").show("slow");
+	$(".event_date_image").hide("slow");	
+}
+
+dateSelected = function(){
+	$(".event_date_image").show("slow");
+	$(".event_logo").hide("slow");	
+	<% if params[:action].present? and params[:action].eql? "edit" %>
+    	$("#event_image").attr('value', "use_date_logo"); 
+	<% else %>
+		$("#event_image").attr('value', "");
+	<% end %>
+	
+}
+
+
+
+
+ 	$('#select_logo_form').ajaxForm({ 
+
+        // target identifies the element(s) to update with the server response 
+        target: '#resultado', 
+ 
+        // success identifies the function to invoke when the server response 
+        // has been received; here we apply a fade-in effect to the new content 
+        success: function() { 
+			
+			$("#logo_media").attr('value', "");
+            $('#resultado').fadeIn('slow');
+			size = 256;
+			$("#croplogo").Jcrop({
+			      onSelect: cropImage,
+			      onChange: cropImage,
+						bgColor : 'white',
+			     	 aspectRatio: <%=EventLogo::ASPECT_RATIO_S%>,
+						setSelect: [188,188,188*2,188*2]
+						//setSelect: [188/4,188/4,3*188/4,3*188/4]
+         	});
+			
+			$('#crop_logo_form').ajaxForm({ 
+				beforeSubmit:function() {  
+					$("#selected_logo_image").attr('src', "");
+				},
+        		target: '#resultado',
+        		success: function() {
+					closeLogoFormDiv();
+            		$('#resultado').fadeIn('slow');
+					$("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+					$("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+					logoSelected();
+					closeUploadLogo();
+        		} 
+    		});
+       }
+		 
+    });
+
+
+function cropImage (c){
+   	$("#crop_size_x").val(c.x);
+   	$("#crop_size_y").val(c.y);
+   	$("#crop_size_height").val(c.h);
+   	$("#crop_size_width").val(c.w);
+};
+
+$("#selected_logo_image").attr('width',"64");
+$("#selected_logo_image").attr('height',"64");
+
+
+
+

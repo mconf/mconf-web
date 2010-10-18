@@ -37,6 +37,9 @@ class Agenda < ActiveRecord::Base
                     :scope => {:order => 'start_time ASC, type ASC'}
   acts_as_content :reflection => :event
 
+  # Fullcalendar slot
+  SLOT=15
+
   def space
     event.space
   end
@@ -65,7 +68,43 @@ class Agenda < ActiveRecord::Base
       return Array.new
     end
   end
+
+  def to_fullcalendar_json
+    body = agenda_entries.map{|entry| entry.to_fullcalendar_json}.join(",")
+    "[#{body}]"
+  end
   
+  def fullcalendar_start_time(agenda_day)
+    if agenda_day.day == event.start_date.day
+      "#{event.start_date.hour}:#{(event.start_date.min.to_f/SLOT).ceil*SLOT}"
+    else
+      "0:00"
+    end
+  end
+  
+  def fullcalendar_end_time(agenda_day)
+    if agenda_day.day == event.end_date.day
+      "#{event.end_date.hour}:#{(event.end_date.min.to_f/SLOT).floor*SLOT}"
+    else
+      "24:00"
+    end
+  end
+  
+  def self.next_time_slot_for_drop_down
+    if Time.zone.now.min > 40
+      Time.zone.parse("#{Time.zone.now.hour + 1}:00")      
+    else    
+      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/SLOT).ceil*SLOT}")
+    end
+  end
+  
+  # Returns the height of the fullcalendar
+  def fullcalendar_height(agenda_day)
+    end_time = fullcalendar_end_time(agenda_day).split(':')
+    start_time = fullcalendar_start_time(agenda_day).split(':')
+    (((end_time[0].to_i*60 + end_time[1].to_i - start_time[0].to_i*60 - start_time[1].to_i)*21/SLOT)+18).to_i   
+  end
+
   #returns the hour of the last agenda_entry
   def last_hour_for_day(i)
     if start_date.nil?

@@ -1,22 +1,5 @@
-edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").hide();
-<%if params[:hours]%>
-  edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit_hours')%>");
-<%else%>
-  edit_entry_button.parents(".agenda_entry").append("<%=escape_javascript(render :partial => 'edit')%>");
-<%end%>
+$.vcc.scrollTo('#edit_entry_anchor');
 
-$('#add_buttons'+ <%=@day%>).hide();
+hide_show_embedded_video();
 
-$("input.agenda_edit_close").livequery("click", function(){
-  edit_entry_button.parents(".agenda_entry").children(".agenda_entry_description").show();
-  $(".agenda_edit_entry").empty();  
-  $(".agenda_edit_hours_entry").empty();
-  var id = $(this).attr('id');
-  $('#add_buttons'+ id).show();
-});
-
-	$.vcc.scrollTo('#edit_entry_anchor');
-
-  hide_show_embedded_video();
-
- <%= yield :agenda_attachments%>
+<%= yield :agenda_attachments%>

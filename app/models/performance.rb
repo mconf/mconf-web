@@ -50,7 +50,7 @@ class Performance
       Performance.create! :agent => perfor.agent,
                           :stage => perfor.stage.space,
                           :role  => Role.find_by_name("Invited")
-    end
+    end  
   }
   
   # Regenerate groups mailing lists after update

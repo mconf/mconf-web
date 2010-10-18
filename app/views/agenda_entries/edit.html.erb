@@ -1,1 +1,156 @@
-<%= render :partial => "edit"%>
+<%content_for :headers do%>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<%end%>
+
+<% content_for :javascript do%>
+	
+	$("#speakers_name").fcbkcomplete({
+    cache: true,
+    filter_case: false,
+    filter_hide: true,
+    firstselected: true,
+    filter_selected: true,
+    maxshownitems: 4,
+    newel: true
+  });
+  
+	$(".newAttachEvent").click(function () { 
+	  var new_id = new Date().getTime(); 
+	  $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
+	  $(".newAttach2").show();
+	
+	  // Applies tags to the attachment
+	  $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
+	      cache: true,
+	      filter_case: false,
+	      filter_hide: true,
+	      firstselected: true,
+	      filter_selected: true,
+	      maxshownitems: 4,
+	      newel: true,
+	      complete_opts: true
+	  }); 
+	  
+	});
+  
+<%end%>
+
+<div class="agenda_edit_entry" >
+  <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
+  <div id="agenda_blue_title" class="margin-up">
+    <h3 class="blue"><%=t('agenda.entry.edit')%></h3>
+  </div>
+  
+  <div id="new_entry_content">
+    <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
+
+      <% content_for :agenda_attachments do%>
+        <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
+      <% end %>
+
+      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label><br/>
+        <%= f.text_field :divider %>
+      </div>
+
+      <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.entry.title') %>*</label><br/>
+        <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
+        <%= f.text_field :title %>
+				*<%= t('mandatory_field') %>
+      </div>
+
+      <div class="margin-up">
+        <label for="speakers"><%= t('agenda.entry.speakers') %></label><br/>
+        <select id="speakers_name" multiple="multiple" name="speakers[name][]">
+          <%if @agenda_entry.speakers!=nil%>
+            <%=options_for_select_with_class_selected(@agenda_entry.speakers.split(", "), @agenda_entry.speakers.split(", "))%>
+          <%end%>
+          <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, @agenda_entry.actors.map{|u| u.login})%>
+        </select>
+      </div>
+  
+      <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
+        <%= f.text_area :description, :size => "85x7" %>
+      </div>
+
+      <div id="entry_attachment">
+        <div class="new_attachment_form">
+          <% f.fields_for(:attachments) do |at_form| %>
+            <% unless at_form.object.new_record? %>
+              <%=image_tag(logo_image_path(at_form.object, :size => at_form.object.thumbnail_size)) %>
+              <%=at_form.object.filename %>
+              <%= at_form.check_box '_delete' %>
+              <%= at_form.label '_delete', t('delete.one') %>
+            <% end %>
+          <%end %>
+          </br>
+        </div>
+      </div>    
+      <span class="newAttachEvent"><%=t('attachment.add') %></span>
+
+      <%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>   
+
+        <div class="margin-up">
+          <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
+          <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
+          <%= f.text_area :embedded_video, :size => "25x5" %>
+        </div>
+      <%else%>     
+        
+        <div class="margin-up">
+          <%unless @event.past?%>  
+            <%if @agenda_entry.past?%>
+              <div id="help" title="<%= t('agenda.entry.options.help2') %>"></div>
+            <%elsif @agenda_entry.is_happening_now?%>
+              <div id="help" title="<%= t('agenda.entry.options.help3') %>"></div>
+            <%else%>
+              <div id="help" title="<%= t('agenda.entry.options.help') %>"></div>
+            <%end%>
+            <label for="embedded_video" class="main_text">
+              <%= t('agenda.entry.options.title') %>
+            </label>
+            <br/>
+            <div class="checkbox_event">
+              <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
+              <label for="entry_streaming" class="label_izquierda">
+                <%= t('agenda.entry.options.streaming') %>
+              </label>
+            </div>
+            <div class="checkbox_event">
+              <%=f.check_box :cm_recording,:class=>"icon", :checked => @agenda_entry.recording?, :disabled => (@agenda_entry.past? || @agenda_entry.is_happening_now?) ? true:false %>
+              <label for="entry_recording" class="label_izquierda">
+                <%= t('agenda.entry.options.recording') %>
+              </label>
+            </div>
+          <%end%>
+        </div>
+      
+        <%if @agenda_entry.past?%>
+          <div class="checkbox_event">
+            <%=check_box_tag "add_video_checkbox", "yes", @agenda_entry.embedded_video.present? ? true:false, :class=>"icon" %>
+            <label for="entry_video" class="label_izquierda">
+              <%= t('agenda.entry.options.add_video') %>
+            </label>
+          </div>
+          <div class="margin-up" id="video_embed_div">
+            <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
+            <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
+            <%= f.text_area :embedded_video, :size => "25x5" %>
+          </div>  
+        <%end%>
+      <%end%>
+      <div class="margin-up">
+        <input type="submit" id="edit_entry_button" value="<%=t("button.accept")%>" class="basic_button blue_button"/>
+				<p> <%=link_to t('button.cancel') , edit_space_event_agenda_path(@space, @event)%> </p>
+        
+      </div>
+    
+    <% end %>
+  </div>
+  <br/>
+</div>
+
+
+<%content_for :javascript do%>
+    <%= yield :agenda_attachments%>
+<%end%>

@@ -158,6 +158,8 @@ namespace :setup do
           end
         end
         
+        event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
+        
         space.events.each do |event|
           available_event_participants = space.users.dup
           Participant.populate 0..space.users.count do |participant|
@@ -172,7 +174,7 @@ namespace :setup do
             Performance.populate 1 do |performance|
               performance.stage_id = event.id
               performance.stage_type = 'Event'
-              performance.role_id = role_ids
+              performance.role_id = event_role_ids
               performance.agent_id = participant.user_id
               performance.agent_type = 'User'
               performance.created_at = participant.created_at

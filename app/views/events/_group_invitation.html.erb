@@ -28,44 +28,50 @@
   
 <%end%>
 
-<div id="questions">
-  <div id="more_invitations">
-    <div id="invitations_title">
-      <h3 class="blue"><%=t('event.group_invitation.message_title')%></h3>
-    </div>
+<div id="email_invitations">
     <% form_for([@space,event], :html => { :multipart => true, :name => "group_invitation_edit_form"}) do |f| -%>
 
-      <div class="margin-up">
-        <label for="e-mails" class="label_izquierda bold"><%= t('user.group_invite_email') %> <%= t('e-mail.commas') %>:</label>
+      <div class="event_invitations_message margin-up">
+        <label for="e-mails" class="bold"><%= t('user.group_invite_email') %></label>
         <%= f.text_field :group_invitation_mails %>
+		    <div id="event_invitations_note">*<%= t('e-mail.commas') %></div>
       </div>  
 
       <%= f.text_field :group_inv_sender_id, :style => 'display:none', :value => current_user.id %>
 
       <div class="margin-up">
-        <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
-        <textarea style="display:none" id="group_invitation_msg" name="event[group_invitation_msg]"></textarea>
-        <div class="grey_bar">
-          <textarea id="invite_personal"><%= t('invitation.personal') %></textarea>
-          <%if @event.start_date%>
-            <%if @space.public%>
-              <%= t('event.group_invitation.message_public_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
-            <%else%>
-              <%= t('event.group_invitation.message_private_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
-            <%end%>
-          <%else%>
-            <%if @space.public%>
-              <%= t('event.group_invitation.message_public_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
-            <%else%>
-              <%= t('event.group_invitation.message_private_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
-            <%end%>
-          <%end%>
-        </div>
+      	<div id="invitations_title" class="blue_border_down">
+          <h3 class="blue"><%= t('invitation.label') %></h3>
+				</div>
+        <div class="event_invitations_message">
+					<div class="margin-up">
+						<label for="message" class="bold"><%= t('invitation.personal') %></label>
+						<textarea style="display:none" id="group_invitation_msg" name="event[group_invitation_msg]"></textarea>
+				    <textarea id="invite_personal"></textarea>
+						<div id="event_invitations_note">*<%= t('optional') %></div>
+					</div>
+
+					<div class="margin-up">
+	          <%if @event.start_date%>
+	            <%if @space.public%>
+	              <%= t('event.group_invitation.message_public_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
+	            <%else%>
+	              <%= t('event.group_invitation.message_private_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url',space_event_url(@event.space,@event))%>
+	            <%end%>
+	          <%else%>
+	            <%if @space.public%>
+	              <%= t('event.group_invitation.message_public_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
+	            <%else%>
+	              <%= t('event.group_invitation.message_private_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event))%>
+	            <%end%>
+	          <%end%>
+	        </div>
+					<div class="margin-up">
+            <input type="button" id="send_group_invitation_button" value="<%=t("button.send")%>" />
+          </div>
+				</div>
       </div>
       
-      <div class="margin-up">
-        <input type="button" id="send_group_invitation_button" value="<%=t("button.send")%>" />
-      </div>
+
     <% end %>
-  </div>
 </div>

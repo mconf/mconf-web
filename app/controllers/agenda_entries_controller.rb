@@ -93,22 +93,29 @@ class AgendaEntriesController < ApplicationController
   
   # POST /agenda_entries
   # POST /agenda_entries.xml
-  def create
+  def create    
     @agenda_entry = AgendaEntry.new(params[:agenda_entry])
 
     @agenda_entry.agenda = @event.agenda
     @agenda_entry.author = current_user
     
+    if @event.vc_mode != Event::VC_MODE.index(:in_person)
+      @agenda_entry.cm_streaming = @event.streaming_by_default
+      @agenda_entry.cm_recording = @event.recording_by_default      
+    end
+    
     respond_to do |format|
       if @agenda_entry.save
         @event.reload  #reload the event in case the start date or end date has changed
         format.html {redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day=>@agenda_entry.event_day, :edit_entry => @agenda_entry.id, :anchor=>"edit_entry_anchor" )) }
+        format.js{flash[:success] = t('agenda.entry.created')}
       else    
         flash[:notice] = t('agenda.entry.failed')
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
+        format.js
       end
     end
   end
@@ -117,12 +124,18 @@ class AgendaEntriesController < ApplicationController
   def edit
     @agenda_entry = AgendaEntry.find(params[:id])
     @day=@agenda_entry.event_day
+    
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+      
+    end
   end
   
   
   # PUT /agenda_entries/1
   # PUT /agenda_entries/1.xml
   def update
+    
     @agenda_entry = AgendaEntry.find(params[:id])
     @agenda_entry.author = current_user
     
@@ -138,14 +151,19 @@ class AgendaEntriesController < ApplicationController
           unknown_users = create_performances_for_agenda_entry(Role.find_by_name("Speaker"), params[:speakers][:name])
           @agenda_entry.update_attribute(:speakers, unknown_users.join(", "))
         end
-        flash[:notice] = t('agenda.entry.updated')
-        day = @agenda_entry.event_day
-        format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day) ) }
+        flash[:success] = t('agenda.entry.updated')
+        format.html {
+          redirect_to(edit_space_event_agenda_path(@space, @event, :day => @agenda_entry.event_day))
+        }
+        format.js
       else
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        format.html {
+          redirect_to(space_event_path(@space, @event))
+        }
+        format.js
       end
     end
   end
@@ -158,18 +176,22 @@ class AgendaEntriesController < ApplicationController
     agenda = @agenda_entry.agenda
     respond_to do |format|
       if @agenda_entry.destroy
-        flash[:notice] = t('agenda.entry.delete')
-        if agenda.contents_for_day(day).blank?
-          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => 1)) }
-        else
-          format.html { redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day)) }
-        end
+        flash[:success] = t('agenda.entry.delete')
+        format.html {
+          if agenda.contents_for_day(day).blank?
+             redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => 1))
+          else
+            redirect_to(space_event_path(@space, @event, :show_agenda=>true, :show_day => day))
+          end
+        }
         format.xml  { head :ok }
+        format.js
       else
         message = ""
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         format.html { redirect_to(space_event_path(@space, @event)) }
+        format.js
       end
     end  
     

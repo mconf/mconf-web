@@ -143,6 +143,10 @@ class EventsController < ApplicationController
     end
 
     respond_to do |format|
+       if params[:step]=="3"
+         format.html {render :partial => 'invitations', :layout => "new_event"}       
+       end
+       
        format.html # show.html.erb
            format.xml  {render :xml => @event }
            format.ics {
@@ -175,15 +179,19 @@ class EventsController < ApplicationController
     @event = Event.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render "new", :layout => "new_event"}
       format.xml  { render :xml => @event }
     end
   end
 
   # GET /events/1/edit
   def edit    
+    #debugger
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
+    respond_to do |format|
+      format.html {render "edit", :layout => "new_event"}
+    end
   end
 
   # POST /events
@@ -193,13 +201,12 @@ class EventsController < ApplicationController
     @event.author = current_agent
     @event.container = space
 
-
     respond_to do |format|
       if @event.save
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
-          redirect_to space_event_path(space, @event)
+          redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>true)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -208,7 +215,7 @@ class EventsController < ApplicationController
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         events
-        render :action => "index"
+        render :action => "new", :layout => "new_event"
         }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
@@ -226,7 +233,22 @@ class EventsController < ApplicationController
 		    end
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
-        format.html {redirect_to space_event_path(@space, @event) }
+        format.html {
+          if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
+            if params[:in_steps]
+              redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
+            else
+              redirect_to edit_space_event_agenda_path(space, @event)
+            end
+          else
+            flash[:success] = t('event_invitation.sent')
+            if params[:in_steps]
+              redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
+            else
+              redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")            
+            end
+          end
+        }
         format.xml  { head :ok }
         format.js{
           if params[:event][:other_streaming_url]

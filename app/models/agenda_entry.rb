@@ -53,7 +53,6 @@ class AgendaEntry < ActiveRecord::Base
   end
 
   def validate
-
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
       
     if(self.start_time > self.end_time)
@@ -83,12 +82,12 @@ class AgendaEntry < ActiveRecord::Base
             return
           end
         elsif (content.start_time..content.end_time) === self.start_time
-          unless ( self.start_time == content.start_time || self.start_time == content.end_time ) then
+          unless (self.start_time == content.end_time) || ((self.start_time == content.start_time) && (self.start_time == self.end_time)) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end
         elsif (content.start_time..content.end_time) === self.end_time
-          unless ( self.end_time == content.start_time || self.end_time == content.end_time ) then
+          unless (self.end_time == content.start_time) || ((self.end_time == content.end_time) && (self.end_time == self.start_time)) then
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
             return
           end
@@ -131,7 +130,6 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_save do |entry|
-    entry.event.syncronize_date
     entry.event.agenda.touch
   end
   
@@ -140,7 +138,6 @@ class AgendaEntry < ActiveRecord::Base
     if entry.title.present?
       FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     end
-    entry.event.syncronize_date
   end
   
   def duration
@@ -249,8 +246,31 @@ class AgendaEntry < ActiveRecord::Base
     
   end
 
+=begin
+  def to_json
+    result = {}
+    result[:title] = title
+    result[:start] = "new Date(#{start_time.strftime "%y"},#{start_time.strftime "%m"},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"})"
+    result[:end] = "new Date(#{end_time.strftime "%y"},#{end_time.strftime "%m"},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"})"
+    result.to_json
+  end
+=end
+
   authorization_delegate(:event,:as => :content)
   authorization_delegate(:space,:as => :content)
   
   include ConferenceManager::Support::AgendaEntry
+
+  def to_fullcalendar_json
+      "{
+         title: \"#{title}\",
+         start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
+         end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
+         allDay: false,
+         id: #{id},
+         description: \"#{description}\",
+         speakers: \"#{speakers}\",
+         supertitle: \"#{divider}\"
+       }"  
+  end
 end
