@@ -44,10 +44,8 @@ namespace(:deploy) do
     # AttachmentFu dir is deleted in deployment
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
-    run "/bin/chmod -R g+w #{ release_path }/public/pdf"
     sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
-    sudo "/bin/chgrp -R www-data #{ release_path }/public/pdf"
     # Allow Translators modify locale files
     sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
   end
@@ -57,6 +55,8 @@ namespace(:deploy) do
     run "ln -sf #{ shared_path }/public/logos #{ release_path }/public"
     run "ln -sf #{ shared_path }/public/crossdomain.xml #{ release_path }/public"
     run "ln -sf #{ shared_path }/attachments #{ release_path }/attachments"
+    run "ln -sf #{ shared_path }/public/scorm #{ release_path }/public"
+    run "ln -sf #{ shared_path }/public/pdf #{ release_path }/public"
   end
 
   desc "Restarting mod_rails with restart.txt"

@@ -134,9 +134,9 @@ class Event < ActiveRecord::Base
 #    if self.start_date.nil? || self.end_date.nil? 
 #      errors.add_to_base(I18n.t('event.error.omit_date'))
 #    else
-#      unless self.start_date < self.end_date
-#        errors.add_to_base(I18n.t('event.error.dates1'))
-#      end  
+     unless self.start_date < self.end_date
+        errors.add_to_base(I18n.t('event.error.dates1'))
+     end  
 #    end
     if self.marte_event? && ! self.marte_room?
       #check connectivity with Marte
