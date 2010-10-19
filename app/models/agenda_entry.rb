@@ -263,14 +263,14 @@ class AgendaEntry < ActiveRecord::Base
 
   def to_fullcalendar_json
       "{
-         title: \"#{title}\",
+         title: \"#{title ? title.gsub(/["]/, '\'') : ''}\",
          start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
          end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
          allDay: false,
          id: #{id},
-         description: \"#{description}\",
-         speakers: \"#{speakers}\",
-         supertitle: \"#{divider}\"
+         description: \"#{description ? description.gsub(/["]/, '\'') : ''}\",
+         speakers: \"#{speakers ? speakers.gsub(/["]/, '\'') : ''}\",
+         supertitle: \"#{divider ? divider.gsub(/["]/, '\'') : ''}\"
        }"  
   end
 end
