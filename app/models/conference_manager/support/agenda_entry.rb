@@ -17,7 +17,7 @@ module ConferenceManager
               # Validation: Session must be future
               if entry.errors.empty? && entry.event.uses_conference_manager? && entry.start_time < (Time.zone.now + WAKE_UP_TIME) 
                 entry.errors.add_to_base(I18n.t('agenda.entry.error.past_times',
-                                               :min_date => I18n.l (Time.zone.now + WAKE_UP_TIME), :format => '%d %b %Y %H:%M'))
+                                               :min_date => I18n.l(Time.zone.now + WAKE_UP_TIME), :format => '%d %b %Y %H:%M'))
               end
 
               #Session creation on Conference Manager 
