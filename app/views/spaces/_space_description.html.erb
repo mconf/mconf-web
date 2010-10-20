@@ -1,4 +1,4 @@
-<h3><%= t('space.one') %>: <%=space.name%></h3>
-<%=logo (space, :size=> 'h96', :title => space.name)%>
+<h3><%= t('space.one') %>: <%=sanitize(space.name)%></h3>
+<%=logo (space, :size=> 'h96', :title => sanitize(space.name))%>
 <p><%=sanitize(space.description)%></p>
 
