@@ -438,11 +438,7 @@ class EventsController < ApplicationController
     end
     #if there is no video_entries we don't generate the scorm and return 
     
-    if @event.scorm_needs_generate    
-      #delete the folder content
-      FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
-      #we create the folder to introduce all the files
-      FileUtils.mkdir_p("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+    if @event.scorm_needs_generate      
       t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
       Zip::ZipOutputStream.open(t.path) do |zos|
         @event.generate_scorm_manifest_in_zip(zos)
@@ -469,13 +465,9 @@ class EventsController < ApplicationController
         
       end    
       t.close
-      #delete the folder content
-      FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
-    else
-      t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
     end
     
-    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
+    send_file "#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
   end
 end
 
