@@ -54,7 +54,7 @@ module ConferenceManager
               end
 
               #Session update on Conference Manager
-              if entry.errors.empty? && entry.event.uses_conference_manager? && (entry.changed & CM_ATTRIBUTES).any? 
+              if !entry.past? && entry.errors.empty? && entry.event.uses_conference_manager? && (entry.changed & CM_ATTRIBUTES).any? 
                 cm_s = entry.cm_session
 
                 new_params = { :name => entry.title,
