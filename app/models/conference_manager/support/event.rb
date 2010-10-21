@@ -46,7 +46,7 @@ module ConferenceManager
             end
            
             validate_on_update do |event|              
-              if event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
+              if !event.past? && event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
                 new_params = { :name => event.name,
                                :mode => event.cm_mode,
                                :initDate => event.start_date,
