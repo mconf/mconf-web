@@ -437,39 +437,44 @@ class EventsController < ApplicationController
       return
     end
     #if there is no video_entries we don't generate the scorm and return 
-    #if needs_generate
     
-    #delete the folder content
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
-    #we create the folder to introduce all the files
-    FileUtils.mkdir_p("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+    if @event.scorm_needs_generate    
+      #delete the folder content
+      FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+      #we create the folder to introduce all the files
+      FileUtils.mkdir_p("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+      t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+      Zip::ZipOutputStream.open(t.path) do |zos|
+        @event.generate_scorm_manifest_in_zip(zos)
+        
+        @video_entries.each do |entry|
+          @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
+          #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
+          zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
+          zos.print @render        
+          entry.attachments.each do |file|
+            zos.put_next_entry(Event.remove_accents(file.filename))
+            zos.print IO.read(file.full_filename)
+          end
+        end   
+        #in the end we include the css for the html files and the images
+        zos.put_next_entry("scorm.css")
+        zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
+        
+        zos.put_next_entry("bola_global_peque.png")
+        zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
+        
+        zos.put_next_entry("vcc-logo-transparente1.png")
+        zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
+        
+      end    
+      t.close
+      #delete the folder content
+      FileUtils.rm_rf("#{RAILS_ROOT}/public/scorm/#{@event.permalink}")
+    else
+      t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+    end
     
-    t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
-    Zip::ZipOutputStream.open(t.path) do |zos|
-      @event.generate_scorm_manifest_in_zip(zos)
-      
-      @video_entries.each do |entry|
-        @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
-        #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
-        zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
-        zos.print @render        
-        entry.attachments.each do |file|
-          zos.put_next_entry(Event.remove_accents(file.filename))
-          zos.print IO.read(file.full_filename)
-        end
-      end   
-      #in the end we include the css for the html files and the images
-      zos.put_next_entry("scorm.css")
-      zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
-      
-      zos.put_next_entry("bola_global_peque.png")
-      zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
-      
-      zos.put_next_entry("vcc-logo-transparente1.png")
-      zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
-      
-    end    
-    t.close
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
   end
 end

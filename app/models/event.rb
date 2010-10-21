@@ -465,7 +465,21 @@ class Event < ActiveRecord::Base
     end
   end
 
-#method to generate the xml representing the scorm manifest
+  #method to know if a scorm file needs to be generated
+  def scorm_needs_generate
+    isFile = File.exist?("#{RAILS_ROOT}/public/scorm/#{permalink}.zip")
+  
+    if !(isFile) or !(generate_scorm_at) or generate_scorm_at < agenda.updated_at
+      Event.record_timestamps=false
+      update_attribute(:generate_scorm_at, Time.now)
+      Event.record_timestamps=true
+      return true
+    else 
+      return false
+    end
+  end
+
+  #method to generate the xml representing the scorm manifest
    def generate_scorm_manifest_in_zip(zos)
      video_entries = self.videos
      myxml = Builder::XmlMarkup.new(:indent => 2)

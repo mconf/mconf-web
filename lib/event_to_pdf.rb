@@ -746,7 +746,9 @@ module EventToPdf
       isFile = File.exist?("#{RAILS_ROOT}/public/pdf/#{permalink}/#{name}")
   
       if !(isFile) or !(generate_pdf_at) or generate_pdf_at < agenda.updated_at
+        Event.record_timestamps=false
         update_attribute(:generate_pdf_at, Time.now)
+        Event.record_timestamps=true
         return true;
       end
   

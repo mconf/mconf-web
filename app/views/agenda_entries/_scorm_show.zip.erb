@@ -7,14 +7,14 @@
 <body>
 	<div id="space">
 		<div id="header">
-			<div id="topic_title" align="center"><span><%=entry.title%></span></div><div id="logo"></div>
-			<a href="http://www.globalplaza.org"> <img alt="GlobalPlaza" src="vcc-logo-transparente1.png" ></a>
+			<div id="topic_title" align="center"><span><%=entry.event.title%></span></div><div id="logo"></div>
+			<a href="http://www.globalplaza.org" target="_blank"> <img alt="GlobalPlaza" src="vcc-logo-transparente1.png" ></a>
 		</div>
 		<div id="content">
 			<div id="main">
 				<div id="wrapper">		
 					<div id="event_recordings" class="margin-up">
-						<div id="recordings_title"><h3 class="blue"><%=link_to(entry.title,space_event_url(entry.space, entry.event, :show_video=> entry.id))%>   </h3></div>
+						<div id="recordings_title"><h3 class="blue"><%=link_to(entry.title,space_event_url(entry.space, entry.event, :show_video=> entry.id), :target=>'_blank')%>   </h3></div>
 						<div id="recordings_content">	  
 							<div id="videos">
 								<div class="video_full">
@@ -32,7 +32,7 @@
 					</div> 
 					<div class="doc-attach-section">
 						<ul>
-							<li class="doc"><%=t('agenda.entry.speakers')%>:<span class="unified_user"><%=entry_speakers(entry)%></span></li>
+							<li class="doc"><%=t('agenda.entry.speakers')%>:<span class="unified_user"><%=entry_speakers_for_scorm(entry)%></span></li>
 							<li class="doc"><%=t('agenda.entry.description')%>:<span class="main_text"><%=entry.description %></span></li>
 						</ul>
 					</div>
