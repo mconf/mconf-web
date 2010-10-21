@@ -8,6 +8,8 @@ tmp/*
 .tmp_*
 config/ultrasphinx/*conf
 public/logos
+public/pdf
+public/scorm
 attachments/*
 public/images/tmp/*
 spec/reports
