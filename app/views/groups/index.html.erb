@@ -4,22 +4,6 @@
   <% menu :people %>
 <%end%>
 
-<% content_for :javascript do %>
-
-	<%unless @editing_group and @editing_group.mailing_list.present?%>
-		$(".mail_group").hide(); 
-	<%end%>
-	$(".check_mail input:mail").livequery("click", function(){
-  if($(this).attr("checked")){
-		$(".mail_group").show();
-	}
-	else{
-	 $(".mail_group").hide();	 
-	}
-});
-	 
-<% end %>
-
 <% content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
