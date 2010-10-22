@@ -183,7 +183,7 @@ class Group < ActiveRecord::Base
       end
     end
     if (type.eql? "main")
-      str << "vcc-ro-#{self.mailing_list}@#{Site.find(:first).mailman_domain} \n"
+      str << "vcc-ro-#{self.mailing_list}@#{Site.find(:first).domain} \n"
     end
     str
   end
