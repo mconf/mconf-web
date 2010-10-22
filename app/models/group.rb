@@ -56,6 +56,9 @@ class Group < ActiveRecord::Base
     if group.mailing_list.present?
       group.mailing_list = group.mailing_list.gsub(/ /, "-")
       group.regenerate_lists
+    else
+      group.mailing_list = remove_accents(group.name)
+      group.regenerate_lists
     end
   }
   
@@ -115,7 +118,7 @@ class Group < ActiveRecord::Base
     group.update_attribute :mailing_list, "#{group.mailing_list.split("-DISABLED-").first}-RESTORED"
   end
   
-
+  
   
   
   def email_group_name
@@ -169,7 +172,7 @@ class Group < ActiveRecord::Base
     str = str.gsub(/[^a-zA-Z0-9 ]/,"")    
     str = str.gsub(/[ ]+/," ")
     str = str.gsub(/ /,"-")    
-    #str = str.downcase
+    str = str.downcase
   end
   
   # Transforms the list of users in the group into a string for the mail list server
@@ -183,30 +186,32 @@ class Group < ActiveRecord::Base
       end
     end
     if (type.eql? "main")
-      str << "vcc-ro-#{self.mailing_list}@#{Site.find(:first).mailman_domain} \n"
+      str << "vcc-ro-#{self.mailing_list}@#{Site.find(:first).domain} \n"
     end
     str
   end
   
   def regenerate_lists
     if !self.space.nil?      
-      puts self.mailing_list
+      #puts self.mailing_list
       main = "#{self.generate_mail_list("main")}"
-      puts "Main: " + self.generate_mail_list("main")
+      #puts "Main: " + self.generate_mail_list("main")
       invited = "#{self.generate_mail_list("invited")}"
-      puts "Invited: " + self.generate_mail_list("invited")
+      #puts "Invited: " + self.generate_mail_list("invited")
       
-      FileUtils.mkdir_p("#{MAIL_DIR}/automatic_lists/")
-      FileUtils.mkdir_p("#{MAIL_DIR}/automatic_ro_lists/")
-      
-      if !self.mailing_list.include?("-DISABLED-")
-        File.new("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w')
-        File.new("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w')
+      if self.mailing_list
+        FileUtils.mkdir_p("#{MAIL_DIR}/automatic_lists/")
+        FileUtils.mkdir_p("#{MAIL_DIR}/automatic_ro_lists/")
         
-        File.open("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w') {|f| f.write(main) }
-        File.open("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w') {|f| f.write(invited) }
+        if !self.mailing_list.include?("-DISABLED-")
+          File.new("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w')
+          File.new("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w')
+          
+          File.open("#{MAIL_DIR}/automatic_lists/vcc-#{self.mailing_list}", 'w') {|f| f.write(main) }
+          File.open("#{MAIL_DIR}/automatic_ro_lists/vcc-ro-#{self.mailing_list}", 'w') {|f| f.write(invited) }
+        end
+        #`/usr/local/bin/newautomatic.sh`
       end
-      #`/usr/local/bin/newautomatic.sh`
     end    
   end
   

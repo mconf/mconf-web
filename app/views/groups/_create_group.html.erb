@@ -23,12 +23,14 @@
 		<%= f.text_field :name, :size => 25 %>
 		</p>
 		
-		<p class="check_mail">
-			<%= check_box_tag(:mail,"1",group.mailing_list.present?) %> <label for="mailing_list"><%= t('mailing_list.associate') %></label>
+		<p class="check_mail" style="display:none;">
+			<%= check_box_tag(:mail,"1",true) %> 
 		</p>
 		
 		<p class="mail_group">
-		vcc-<%= f.text_field :mailing_list, :size => 10 %>@lists.<%= current_site.domain %>
+		vcc-<br>
+		<%= f.text_field :mailing_list, :size => 10 %>
+		<br>@lists.<%= current_site.domain %>
 		</p>
 		
 		<div id="selected_users">
