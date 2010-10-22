@@ -161,7 +161,7 @@ class AgendaEntriesController < ApplicationController
         @agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
         flash[:error] = message
         format.html {
-          redirect_to(space_event_path(@space, @event))
+          redirect_to(edit_space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry))
         }
         format.js
       end

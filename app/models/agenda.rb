@@ -38,6 +38,7 @@ class Agenda < ActiveRecord::Base
   acts_as_content :reflection => :event
 
   # Fullcalendar slot
+  #if you change this you also have to change slot in views/agendas/edit
   SLOT=15
 
   def space
