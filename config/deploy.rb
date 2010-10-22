@@ -48,8 +48,8 @@ namespace(:deploy) do
     sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
     # Allow Translators modify locale files
     sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
-    run "/bin/mkdir -p /var/local/global2"
-    run "/bin/chown www-data /var/local/global2"
+    sudo "/bin/mkdir -p /var/local/global2"
+    sudo "/bin/chown www-data /var/local/global2"
   end
 
   task :link_files do
