@@ -222,6 +222,7 @@ en:
     invite: Invite!
     next: Next Step
     next_program: "Next: Define program"
+    next_edit_program: "Next: Edit program"
     next_invite: "Next: Invite people"
     other_spaces: Find other spaces
     post: Post
@@ -515,7 +516,7 @@ en:
       add: Add description.
       edit: Edit description
       none: No one has written a description yet.
-    edit: Edit event
+    edit: Edit event basic info
     embed: Embed
     enable: 
       isabel: Isabel

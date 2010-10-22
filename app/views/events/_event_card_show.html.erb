@@ -19,7 +19,7 @@
       <%=link_to image_tag("icons/comments-add.png",:alt => t('reply'),:class=>"icon" ), space_event_path(@space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => t('comment.add_new')}if @space.authorize?([:create, :content],:to => current_user) %>
     </li>-->
     <li>
-      <%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , edit_space_event_path(@space, event), :title => t('edit')) if event.authorize?(:update, :to => current_user) %>
+      <%=link_to(image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon") , edit_space_event_path(@space, event), :title => t('event.edit')) if event.authorize?(:update, :to => current_user) %>
     </li>
     <li>
       <%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) && !event.is_happening_now?%>
