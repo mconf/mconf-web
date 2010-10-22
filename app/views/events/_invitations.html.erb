@@ -1,4 +1,19 @@
 <% content_for :javascript do%>
+
+  <% if params[:invited_registered] %>
+    $("#email_invitations").hide();
+    $("#user_invitations").show();
+    $("#tab1").removeClass("selected_invitation_tab");
+    $("#tab2").addClass("selected_invitation_tab");
+  <% end %>
+	
+	<% if params[:invited_unregistered] %>
+    $("#user_invitations").hide();
+    $("#email_invitations").show();
+    $("#tab2").removeClass("selected_invitation_tab");
+    $("#tab1").addClass("selected_invitation_tab");
+  <% end %>
+	
   $("#tab2").click(function(){
     $("#email_invitations").hide();
     $("#user_invitations").show();
