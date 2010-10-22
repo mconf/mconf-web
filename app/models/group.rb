@@ -57,7 +57,8 @@ class Group < ActiveRecord::Base
       group.mailing_list = group.mailing_list.gsub(/ /, "-")
       group.regenerate_lists
     else
-      group.mailing_list = group.name.downcase.gsub(/ /, "-")
+      group.mailing_list = remove_accents(group.name)
+      group.regenerate_lists
     end
   }
   
@@ -171,7 +172,7 @@ class Group < ActiveRecord::Base
     str = str.gsub(/[^a-zA-Z0-9 ]/,"")    
     str = str.gsub(/[ ]+/," ")
     str = str.gsub(/ /,"-")    
-    #str = str.downcase
+    str = str.downcase
   end
   
   # Transforms the list of users in the group into a string for the mail list server
