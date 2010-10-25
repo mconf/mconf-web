@@ -182,7 +182,7 @@
                '<input type=\"hidden\" name=\"agenda_entry[end_time]\" value=\"' + endDate.toGMTString() + '\" />' +
                '<label id=\"agenda_title_label\" for=\"title\"><%=escape_javascript(t('title'))%></label>' +
                '<input type=\"text\" name=\"agenda_entry[title]\" id="qtip_title"/>' +
-               '<button type=\"submit\" id="calendar_submit" class=\"basic_button blue_button\"><%=escape_javascript(t('create'))%></button>' +
+               '<div class="margin-up"><button type=\"submit\" id="calendar_submit" class=\"basic_button blue_button\"><%=escape_javascript(t('create'))%></button></div>' +
              '</form>',
            title: {
              text: '<%=escape_javascript(t('agenda.entry.new'))%>'
@@ -302,11 +302,11 @@
 		<div id="calendar"></div>
 	</div>
 	
-  <div class="margin-up">
-     <%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
-	 <%= link_to "<span>" + t('button.next_invite') + "</span>", space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%>
-     <%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
-  </div>	
+  <ul class="margin-up event_form_buttons">
+     <li><%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%></li>
+	 <li><%= link_to "<span>" + t('button.next_invite') + "</span>", space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%></li>
+     <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%></li>
+  </ul>	
 </div>
 
 

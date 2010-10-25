@@ -150,11 +150,10 @@
           </div>  
         <%end%>
       <%end%>
-      <div class="margin-up">
-        <input type="submit" id="edit_entry_button" value="<%=t("button.accept")%>" class="basic_button blue_button"/>
-				<p> <%=link_to t('button.cancel') , edit_space_event_agenda_path(@space, @event)%> </p>
-        
-      </div>
+      <ul class="margin-up event_form_buttons">
+        <li><button type="submit" id="edit_entry_button" class="basic_button blue_button" style="float:left"><%=t("button.accept")%></button></li>
+				<li><%=link_to "<span>" + t('button.cancel') + "</span>" , edit_space_event_agenda_path(@space, @event), :class=>"blue_button basic_button"%></li>
+      </ul>
     
     <% end %>
   </div>
