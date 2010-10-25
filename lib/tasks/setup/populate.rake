@@ -120,6 +120,11 @@ namespace :setup do
             event.end_date = last_agenda_entry_end_time
             
           end
+          
+          Statistic.populate 1 do |statistic|
+            statistic.url = "/spaces/" + space.permalink + "/events/" + event.permalink
+            statistic.unique_pageviews = 0..100
+          end
         end
 
         Group.populate 2..4 do |group|
@@ -133,6 +138,11 @@ namespace :setup do
           news.text = Populator.sentences(2..10)
           news.created_at = 2.years.ago..Time.now
           news.updated_at = news.created_at..Time.now
+        end
+        
+        Statistic.populate 1 do |statistic|
+          statistic.url = "/spaces/" + space.permalink
+          statistic.unique_pageviews = 0..100
         end
       end
 
