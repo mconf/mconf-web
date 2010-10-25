@@ -234,7 +234,7 @@ class EventsController < ApplicationController
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
-          if (params[:event][:group_invitation_mails]).blank? && (params[:event][:ids]).blank? 
+          if (params[:event][:invited_unregistered]).blank? && (params[:event][:invited_registered]).blank? 
             if params[:in_steps]
               redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
             else
@@ -243,9 +243,21 @@ class EventsController < ApplicationController
           else
             flash[:success] = t('event_invitation.sent')
             if params[:in_steps]
-              redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
+              if params[:event][:invited_registered]
+                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_registered=>true)
+              elsif params[:event][:invited_unregistered]
+                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_unregistered=>true)
+              else
+                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
+              end
             else
-              redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")            
+              if params[:event][:invited_registered]
+                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_registered=>true)
+              elsif params[:event][:invited_unregistered]
+                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_unregistered=>true)
+              else
+                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
+              end
             end
           end
         }

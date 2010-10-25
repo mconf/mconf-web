@@ -53,6 +53,8 @@ class Event < ActiveRecord::Base
   attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
+  attr_accessor :invited_registered
+  attr_accessor :invited_unregistered
   
   #For logos  
   attr_accessor :default_logo

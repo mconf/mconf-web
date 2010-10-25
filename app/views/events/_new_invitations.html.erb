@@ -60,6 +60,8 @@
 			<%end%>-->
 
       <%= f.text_field :invit_introducer_id, :style => 'display:none', :value => current_user.id %>
+			
+			<%= f.text_field :invited_registered, :style => 'display:none', :value => true %>
 
       <div class="margin-up">
       	<div id="invitations_title" class="blue_border_down">
