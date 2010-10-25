@@ -40,6 +40,7 @@
 		import com.jivesoftware.spark.managers.SparkManager;
 		import mx.effects.Glow;
 		import com.jivesoftware.spark.BuddyRenderer;
+		import mx.utils.ObjectUtil;
 		
 		[Embed(source="/assets/images/blueArrowDown.png")]
 		private static const blueArrowDown:Class;
@@ -137,6 +138,11 @@
 			return (filter.length == 0 || contact.displayName.toLowerCase().indexOf(filter) == 0) && (contact is RosterItemVO ? (contact as RosterItemVO).online : true);
 		}
 		
+		protected function defaultSorter(contactA:Contact, contactB:Contact, fields:Array=null):int
+		{
+			return ObjectUtil.stringCompare(contactA.displayName, contactB.displayName, fields);
+		}
+		
 		public function filterBy(newFilter:String):void
 		{
 			filter = newFilter;
@@ -151,6 +157,11 @@
 			
 			_dataProvider = new ListCollectionView(provider);
 			dataProvider.filterFunction = defaultFilter;
+			//start diego's code
+			var sorter:Sort = new Sort();
+			sorter.compareFunction = defaultSorter;
+			dataProvider.sort = sorter;
+			//end diego's code 
 			dataProvider.refresh();
 			if(!collapsed && _dataProvider != null)
 		    	navBox.dataProvider = _dataProvider;
