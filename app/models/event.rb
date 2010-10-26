@@ -564,5 +564,14 @@ class Event < ActiveRecord::Base
     #str = str.downcase
   end
 
+  def unique_pageviews
+    total_unique_pageviews = 0
+    # Filter those urls that belong to the event itself and not to resources from the event or actions like edit
+    Statistic.find(:all, :conditions => ['url LIKE ? AND url NOT LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.permalink + '%', '/spaces/' + self.space.permalink + '/events/'+ self.permalink + '/%' ]).map{|s| s.unique_pageviews}.each do |views|
+      total_unique_pageviews += views
+    end
+    return total_unique_pageviews
+  end
+
   include ConferenceManager::Support::Event
 end

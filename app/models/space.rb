@@ -239,6 +239,15 @@ class Space < ActiveRecord::Base
     @space_videos 
     
   end
+  
+  def unique_pageviews
+    total_unique_pageviews = 0
+    # Filter those urls that belong to the space itself and not to resources from the space or actions like edit
+    Statistic.find(:all, :conditions => ['url LIKE ? AND url NOT LIKE ?', '/spaces/' + self.permalink + '%', '/spaces/' + self.permalink + '/%' ]).map{|s| s.unique_pageviews}.each do |views|
+      total_unique_pageviews += views
+    end
+    return total_unique_pageviews
+  end
 
   # There are previous authorization rules because of the stage
   # See acts_as_stage documentation
