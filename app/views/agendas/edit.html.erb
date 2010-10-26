@@ -26,8 +26,15 @@
 
   /* JavaScript vars*/
 	// Slot axis time (in minutes)
-	//if you change this you also have to change slot in model/agenda
-  slot = 15;
+  slot = <%=@agenda.slot%>;
+
+  /*
+	  Slot maanage 
+	*/
+	
+	$("#agenda_slot").change(function(){
+	  $(this).parents("form").submit();
+	});
 
   /*
 	   AJAX request to update an agenda entry
@@ -294,6 +301,12 @@
 
 <div class="whyte_wrapper">
 	<div id="agenda_header">
+		<div class="right-align">
+      <%form_for @agenda, :url=>space_event_agenda_path(@space,@event), :class=>"right-align" do |f|%>
+        <%=f.label :slot, t('agenda.slot') %>:
+        <%=f.select "slot", Agenda::SLOT_VALUES, :selected=> @agenda.slot%>
+      <%end%>
+    </div>
 		<h2 id="agenda_date" class="blue"><%=agenda_date(@event)%></h2>
 		<h3 id="agenda_days"><%=edit_agenda_day_links(@event)%></h3>
 	</div>

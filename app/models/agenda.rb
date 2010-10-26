@@ -37,9 +37,8 @@ class Agenda < ActiveRecord::Base
                     :scope => {:order => 'start_time ASC, type ASC'}
   acts_as_content :reflection => :event
 
-  # Fullcalendar slot
-  #if you change this you also have to change slot in views/agendas/edit
-  SLOT=15
+  # Fullcalendar slot values
+  SLOT_VALUES=[5,15,30]
 
   def space
     event.space
@@ -77,7 +76,7 @@ class Agenda < ActiveRecord::Base
   
   def fullcalendar_start_time(agenda_day)
     if agenda_day.day == event.start_date.day
-      "#{event.start_date.hour}:#{(event.start_date.min.to_f/SLOT).ceil*SLOT}"
+      "#{event.start_date.hour}:#{(event.start_date.min.to_f/slot).ceil*slot}"
     else
       "0:00"
     end
@@ -85,7 +84,7 @@ class Agenda < ActiveRecord::Base
   
   def fullcalendar_end_time(agenda_day)
     if agenda_day.day == event.end_date.day
-      "#{event.end_date.hour}:#{(event.end_date.min.to_f/SLOT).floor*SLOT}"
+      "#{event.end_date.hour}:#{(event.end_date.min.to_f/slot).floor*slot}"
     else
       "24:00"
     end
@@ -95,7 +94,7 @@ class Agenda < ActiveRecord::Base
     if Time.zone.now.min > 40
       Time.zone.parse("#{Time.zone.now.hour + 1}:00")      
     else    
-      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/SLOT).ceil*SLOT}")
+      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/slot).ceil*slot}")
     end
   end
   
@@ -103,7 +102,7 @@ class Agenda < ActiveRecord::Base
   def fullcalendar_height(agenda_day)
     end_time = fullcalendar_end_time(agenda_day).split(':')
     start_time = fullcalendar_start_time(agenda_day).split(':')
-    (((end_time[0].to_i*60 + end_time[1].to_i - start_time[0].to_i*60 - start_time[1].to_i)*21/SLOT)+18).to_i   
+    (((end_time[0].to_i*60 + end_time[1].to_i - start_time[0].to_i*60 - start_time[1].to_i)*21/slot)+18).to_i   
   end
 
   #returns the hour of the last agenda_entry

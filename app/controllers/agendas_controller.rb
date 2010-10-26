@@ -89,9 +89,11 @@ class AgendasController < ApplicationController
       #if @event.update_attributes(params[:agenda])
       #if true
       if @agenda.update_attributes(params[:agenda])
-          format.html { redirect_to(space_event_path(@space, @event)) } 
+        flash[:success] = t('agenda.update')
+        format.html { redirect_to request.referer } 
       else
-        format.html { redirect_to(space_event_path(@space, @event)) }
+        flash[:error] = @agenda.errors.to_xml
+        format.html { redirect_to request.referer }
         #format.html { redirect_to(space_event_path(@space, @event, :show_day => 1)) }
       end
     end

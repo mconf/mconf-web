@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101025140018) do
+ActiveRecord::Schema.define(:version => 20101026103130) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20101025140018) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "slot",       :default => 15
   end
 
   create_table "attachments", :force => true do |t|
@@ -103,6 +104,15 @@ ActiveRecord::Schema.define(:version => 20101025140018) do
     t.text     "content",    :limit => 2147483647
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "colors", :id => false, :force => true do |t|
+    t.integer "id",    :null => false
+    t.string  "name",  :null => false
+    t.integer "red",   :null => false
+    t.integer "green", :null => false
+    t.integer "blue",  :null => false
+    t.string  "link",  :null => false
   end
 
   create_table "db_files", :force => true do |t|

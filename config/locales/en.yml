@@ -140,6 +140,7 @@ en:
       overlaps: The agenda entry overlaps with an existing entry
       start_time_overlaps: The start time overlaps with an existing agenda entry
     expand_help: Click on the title of an agenda entry to expand it or contract it
+    slot: Select slot time for the view
     title: Program
     update: Agenda was successfully updated.
     updating: Agenda is updating...

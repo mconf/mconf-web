@@ -147,6 +147,7 @@ es:
       overlaps: La entrada de la agenda se solapa con una entrada ya existente
       start_time_overlaps: La hora de inicio se solapa con una entrada ya existente en la agenda
     expand_help: "Haga click en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
+    slot: Selecciona el tiempo de cada apartado
     title: Programa
     update: Agenda actualizada correctamente.
     upload: Subir agenda
