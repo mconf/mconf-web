@@ -257,20 +257,15 @@ class AgendaEntry < ActiveRecord::Base
 =end
 
   def video_unique_pageviews
-    total_unique_pageviews = 0
-    # Filter those urls that belong to the video itself and not to resources from the video or actions like edit
-
-    # First pattern possible:
-    Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.event.permalink + '?show_video=' + self.id + '%']).map{|s| s.unique_pageviews}.each do |views|
-      total_unique_pageviews += views
+    # Use only the canonical aggregated url of the video (all views have been previously added here in the rake task)
+    corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/videos/'+ self.id.to_s])
+    if corresponding_statistics.size == 0
+      return 0
+    elsif corresponding_statistics.size == 1
+      return corresponding_statistics.first.unique_pageviews
+    elsif corresponding_statistics.size > 1
+      raise "Incorrectly parsed statistics"
     end
-    
-    # Second pattern possible:
-    Statistic.find(:all, :conditions => ['url LIKE ? AND url NOT LIKE ?', '/spaces/' + self.space.permalink + '/videos/'+ self.id + '%', '/spaces/' + self.space.permalink + '/videos/'+ self.id + '/%' ]).map{|s| s.unique_pageviews}.each do |views|
-      total_unique_pageviews += views
-    end
-        
-    return total_unique_pageviews
   end
 
   authorization_delegate(:event,:as => :content)

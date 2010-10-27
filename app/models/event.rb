@@ -565,12 +565,15 @@ class Event < ActiveRecord::Base
   end
 
   def unique_pageviews
-    total_unique_pageviews = 0
-    # Filter those urls that belong to the event itself and not to resources from the event or actions like edit
-    Statistic.find(:all, :conditions => ['url LIKE ? AND url NOT LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.permalink + '%', '/spaces/' + self.space.permalink + '/events/'+ self.permalink + '/%' ]).map{|s| s.unique_pageviews}.each do |views|
-      total_unique_pageviews += views
+    # Use only the canonical aggregated url of the event (all views have been previously added here in the rake task)
+    corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.permalink])
+    if corresponding_statistics.size == 0
+      return 0
+    elsif corresponding_statistics.size == 1
+      return corresponding_statistics.first.unique_pageviews
+    elsif corresponding_statistics.size > 1
+      raise "Incorrectly parsed statistics"
     end
-    return total_unique_pageviews
   end
 
   include ConferenceManager::Support::Event
