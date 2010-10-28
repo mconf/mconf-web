@@ -13,7 +13,11 @@ module AgendasHelper
     html = ""
     for i in (1..@event.days)
       agenda_day = event.start_date + (i-1).day
-      html << link_to(agenda_day.strftime("%a %d"), edit_space_event_agenda_path(@space, @event, :day => i), :class => "agenda_day_link") 
+      if i!=1
+        html << link_to(agenda_day.strftime("%a %d"), edit_space_event_agenda_path(@space, @event, :day => i), :class => "agenda_day_link")
+      else
+        html << link_to(agenda_day.strftime("%a %d"), edit_space_event_agenda_path(@space, @event, :day => i), :class => "agenda_day_link first_day_link")
+      end
     end
     html
   end

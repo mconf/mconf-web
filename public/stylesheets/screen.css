@@ -1912,7 +1912,7 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #full_sidebar .big_margin_down_40{margin-bottom:40px;}
 #full_sidebar .big_margin_down_60{margin-bottom:60px;}
 
-.blue_border_down{border-bottom:1px solid #A8C0D1;}
+.blue_border_down{border-bottom:1px solid #A8C0D1;clear:both;position:relative;}
 .blue_border_down h3{color:#244974;margin:0 0 0.25em 0;}
 
 #event_type_selector{
@@ -1937,12 +1937,12 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 #event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
 #event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
 #event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
-.event_info{position:relative;display:block;overflow:hidden;clear:both;}
-.event_info div.margin-up{position:relative;overflow:hidden;clear:both;}
+.event_info{position:relative;display:block;clear:both;}
+.event_info div.margin-up{position:relative;clear:both;}
 .event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
 .event_info div.margin-up .wysiwyg{float:left;height:20em;}
 .event_info div.margin-up select,#extra-info select{font-size:0.91667em;line-height:1.6363;}
-.event_info div.margin-up input{float:left;width:297px;}
+.event_info div.margin-up input{float:left;width:297px;margin-bottom:0.75em;}
 div#initial-info{padding-left:45px;}
 #extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
 div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
@@ -2005,3 +2005,6 @@ ul.event_form_buttons li{float:left;}
 .triangle_third_step {left: 500px;}
 
 .with_opacity{opacity:0.3;}
+#holder{float:left;}
+a.agenda_day_link{padding-right:5px;padding-left:5px;border-left:1px solid #244974;}
+a.first_day_link{border:none;}
