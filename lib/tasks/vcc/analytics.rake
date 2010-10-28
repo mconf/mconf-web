@@ -5,7 +5,7 @@ require 'garb'
 namespace :vcc do
   desc "Connection with Google Analytics to get usage statistics"
   task :init_statistics => :environment do
-    Statistic.find(:all).each{|sta| sta.destroy}
+    Statistic.destroy_all
     get_statistics_and_update_table(Date.parse("10/01/2009"),Date.today)
   end
   
@@ -33,22 +33,22 @@ namespace :vcc do
    final_hash = Hash.new
    for res in results
      path = res.page_path
-     if path.match('/spaces/[a-z-]+')
-       resource_url = path.match('/spaces/[a-z-]*')[0]
+     if path.match('/spaces/[\w-]+')
+       resource_url = path.match('/spaces/[\w-]+')[0]
        final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
-     if path.match('/spaces/[0-9a-z-]+/events/[0-9a-z-]+')
-       resource_url = path.match('/spaces/[0-9a-z-]+/events/[0-9a-z-]+')[0]
+     if path.match('/spaces/[\w-]+/events/[\w-]+')
+       resource_url = path.match('/spaces/[\w-]+/events/[\w-]+')[0]
        final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
-     if path.match('/spaces/[0-9a-z-]+/events/[0-9a-z-]+\?show_video=')
+     if path.match('/spaces/[\w-]+/events/[\w-]+\?show_video=')
        the_id = path[path.index("=")+1,path.length]
        if numeric?(the_id)
-         resource_url = path.match('/spaces/[a-z-]*')[0] + "/videos/" + the_id.to_s
+         resource_url = path.match('/spaces/[\w-]*')[0] + "/videos/" + the_id.to_s
          final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
        end
      end
-     if path.match('/spaces/[0-9a-z-]+/videos/[0-9]+')
+     if path.match('/spaces/[\w-]+/videos/[0-9]+')
        resource_url = path
        final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
