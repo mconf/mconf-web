@@ -28,7 +28,6 @@
       <label for="Description"><%= t('description') %>:</label>
       <%=f.text_area :description%>
     </div>
-  
     <div class="margin-up">
       <label for="Organizer"><%= t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers'))%></label>
         <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
@@ -46,10 +45,10 @@
 <div class="without_javascript event_info">
     <div class="margin-up">
     	  <label for="start_time"><%= t('event.time.start') %></label>
-        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Agenda.next_time_slot_for_drop_down}%>
+        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down}%>
     </div>
 	  <div class="margin-up"><label for="end_time"><%= t('event.time.end') %></label>
-        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => 15, :default => Agenda.next_time_slot_for_drop_down + 2.hours}%>
+        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down + 2.hours}%>
     </div>
 </div>
 

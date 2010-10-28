@@ -34,15 +34,14 @@
 	});
 
 
-	$("#organizers_name").livequery(function () {
-    $(this).fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4
-    });
+	$("#organizers_name").fcbkcomplete({
+    cache: true,
+    filter_case: false,
+    filter_hide: true,
+    firstselected: true,
+    filter_selected: true,
+    maxshownitems: 4,
+		newel: true
   });
   
   $("#advanced_config").click(function(){

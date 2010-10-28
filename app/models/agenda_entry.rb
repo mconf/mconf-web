@@ -281,7 +281,7 @@ class AgendaEntry < ActiveRecord::Base
          allDay: false,
          id: #{id},
          description: \"#{description ? sanitize_for_fullcalendar(description) : ''}\",
-         speakers: \"#{speakers ? sanitize_for_fullcalendar(speakers) : ''}\",
+         speakers: \"#{sanitize_for_fullcalendar(complete_speakers)}\",
          supertitle: \"#{divider ? sanitize_for_fullcalendar(divider) : ''}\"
        }"  
   end
@@ -290,6 +290,14 @@ private
   
   def sanitize_for_fullcalendar(string) 
     string.gsub("\r","").gsub("\n","<br />").gsub(/["]/, '\'')
+  end
+  
+  def complete_speakers
+    (actors + [speakers]).compact.map{ |a|
+                           a.is_a?(User) ? 
+                           a.name :
+                           (a=="" ? nil : a)
+                        }.compact.join(", ")
   end
   
 end
