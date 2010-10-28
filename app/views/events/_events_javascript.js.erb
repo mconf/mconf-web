@@ -259,20 +259,7 @@ $("a.repository_sidebar_action").livequery("click",function(){
     $.getScript(route);
   });
 	
-	
-	// Edit hours in an agenda entry
-	$('.edit_hours_entry').livequery('click', function(){
-      edit_entry_button = $(this);
-      //first we remove the rest of the edit divs in case the user has an open one
-      $(".agenda_edit_entry").empty();
-	  $(".agenda_edit_hours_entry").empty();
-      $(".agenda_new_entry").empty();
-	  $("#add_button"+$(this).parent().siblings(".entry_day").val()).hide();
-      var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + edit_entry_button.attr("name") + "/edit?hours=true";
-      $.getScript(route);
-  });
-	
-  
+		  
 
   $("#edit_entry_button").livequery('click',function(){	
       // Validate title

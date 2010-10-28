@@ -106,15 +106,6 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.datetime "updated_at"
   end
 
-  create_table "colors", :id => false, :force => true do |t|
-    t.integer "id",    :null => false
-    t.string  "name",  :null => false
-    t.integer "red",   :null => false
-    t.integer "green", :null => false
-    t.integer "blue",  :null => false
-    t.string  "link",  :null => false
-  end
-
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end

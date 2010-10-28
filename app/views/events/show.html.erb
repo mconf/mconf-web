@@ -35,9 +35,7 @@
 	
 	
 	
-	<%if params[:edit_event]%>
-      <%=render(:partial => 'edit_event', :locals => {:event => @event_to_edit}) if @space.authorize?([:create, :content],:to => current_user)%>
-    <%elsif params[:edit_comment]%>
+	<%if params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
     <%elsif params[:show_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>

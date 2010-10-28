@@ -96,14 +96,6 @@ class EventsController < ApplicationController
   
     @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
-    if params[:edit_event]
-      @event_to_edit = Event.find_by_permalink(params[:edit_event])
-      @invited_candidates = @event_to_edit.invitations.select{|e| !e.candidate.nil?}
-      @invited_emails = @event_to_edit.invitations.select{|e| e.candidate.nil?}
-      #array of users of the space minus the users that has already been invited
-      @users_in_space_not_invited = @space.users - @invited_candidates.map(&:candidate)
-    end
-
     # Clear bad params 
     params[:show_video]=nil if event.future?
    
