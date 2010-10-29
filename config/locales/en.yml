@@ -1685,6 +1685,10 @@ en:
     all: All
     one: Stage
   stage_type: Stage type
+  statistics:
+    event_views: views
+    space_views: views
+    views: Views
   street: Street
   subject: Subject
   summary: Video Info

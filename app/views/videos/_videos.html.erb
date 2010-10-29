@@ -131,15 +131,23 @@
 	          <%=t('agenda.entry.description')%>: <span class="main_text"><%=@display_entry.description %></span>
 	        <%end%>
 	      </div>
-          		  
-		  <div class="video_attachments">
-		    <%if @display_entry%>
-			  <%=t('agenda.entry.documents')%>:
-			  <% @display_entry.attachments.each  do |a| %>
-			    <%=image_tag("icons/attach.png", :class=>"icon")%>            
-		        <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
-		      <%end %>
-			<%end%>
+          
+		  <div id="atach_and_stats">		  
+			  <div class="video_attachments">
+			    <%if @display_entry%>
+				  <%=t('agenda.entry.documents')%>:
+				  <% @display_entry.attachments.each  do |a| %>
+				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
+			        <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
+			      <%end %>
+				<%end%>
+			  </div>
+			  
+			  <div class="video_stat">
+			  	<%if @display_entry%>
+				  <span class="main_text separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
+				<%end%>
+			  </div>
 		  </div>
 		  
 		</div>

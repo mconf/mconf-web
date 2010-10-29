@@ -37,7 +37,7 @@
 
 <% content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
-
+    <%= render :partial => 'sidebar_leave_space' %>
 	<div id="inc-events">
      <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
 		 <ul>
@@ -79,7 +79,11 @@
     <% end %>
     </p>
     </div>
-	<%= render :partial => 'sidebar_leave_space' %>
+	
+	  <div id="space_views">
+	    <span class="separated_5"><%=@space.unique_pageviews%></span><%=t('statistics.space_views')%>
+	  </div>
+	
 <% end %>
 
 <% if !@current_events.empty? %>
