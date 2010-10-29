@@ -9,7 +9,8 @@
 	<li>
 	  <div id="support_select">
 	    <%=link_to ("<span>" + t('help') + "</span>"),'dropup', {:id=>"support_select", :class=>"support_select"} %>
-	    <ul id="support_menu" style="display:none">            
+	    <ul id="support_menu" style="display:none">
+        <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>            
 	      <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
 				<li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
 	    </ul>
