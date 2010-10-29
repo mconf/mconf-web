@@ -2008,3 +2008,11 @@ ul.event_form_buttons li{float:left;}
 #holder{float:left;}
 a.agenda_day_link{padding-right:5px;padding-left:5px;border-left:1px solid #244974;}
 a.first_day_link{border:none;}
+
+.video_attachments {float:left;}
+.video_stat {float:right;}
+.separated_5{padding-right: 5px;}
+#space_views{float:right;padding-top:10px;}
+#event_views{float:right;padding-top:10px;}
+
+
