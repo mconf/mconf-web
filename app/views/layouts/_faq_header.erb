@@ -1,0 +1,17 @@
+<div id="name-space">
+	<%if space && space.id!=nil%>
+	<%if space.name.size > 20%>
+		<span id="small-title"><%=link_to(sanitize(first_words(space.name,30)),space_path(space), menu_options(:home))%></span>
+	<%else%>
+		<span><%=link_to(sanitize(space.name),space_path(space), menu_options(:home))%></span>
+	<%end%>
+	<%end%>
+</div>
+
+<div id="eu">
+	<%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
+</div>
+
+<div id="search">
+  <%= render :partial => 'search/form' %>
+</div>
