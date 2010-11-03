@@ -569,6 +569,7 @@ div {
 }
 
 li.conferences{background: transparent url("../images/right_videoconference.gif") no-repeat left center;}
+li.conferences a, li.spaces a, li.tags a, li.comments a, li.organizers a,li.participants a {float: none;}
 li.participants{background: transparent url("../images/right_webcam.gif") no-repeat left center;}
 li.organizers{background: transparent url("../images/right_organizers.gif") no-repeat left center;}
 li.spaces{background: transparent url("../images/right_people.gif") no-repeat left center;}

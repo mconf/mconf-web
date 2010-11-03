@@ -2010,9 +2010,18 @@ a.agenda_day_link{padding-right:5px;padding-left:5px;border-left:1px solid #2449
 a.first_day_link{border:none;}
 
 .video_attachments {float:left;}
-.video_stat {float:right;}
+.video_stat {float:right; font-weight:bold;}
 .separated_5{padding-right: 5px;}
 #space_views{float:right;padding-top:10px;}
 #event_views{float:right;padding-top:10px;}
 
-
+#event_views, #space_views{
+	padding:0.50em 0.75em 0.50em 0.75em;
+	background:#f0f6f9;
+	border:1px solid #bdd8eb;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	display:block;
+	margin-bottom:0.75em;
+	font-weight: bold;
+}
