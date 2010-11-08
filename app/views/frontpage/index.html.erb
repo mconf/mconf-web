@@ -104,7 +104,7 @@
                 </li>
             </ul>
         </span>
-		<%= global_space = Space.find_by_id("global")%>
+		<%= global_space = Space.find_by_permalink("global")%>
         <ul>
             <li class="conferences">
                 <%= link_to t('frontpage.elements.conferences'),search_all_path(:advanced => true,
