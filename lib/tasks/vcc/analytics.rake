@@ -17,7 +17,7 @@ namespace :vcc do
   def get_statistics_and_update_table(start_date, end_date)
     profile = garb_login
     #we ask for 100.000 last visits, if we have more we should use a higher number in limit
-    report = Garb::Report.new(profile, :start_date => Date.parse("10/01/2009"), :end_date => Date.today, :limit =>100000)
+    report = Garb::Report.new(profile, :start_date => start_date, :end_date => end_date, :limit =>100000)
     report.metrics :unique_pageviews
     report.dimensions :page_path
     #we do not use filters because then it is Google the one filtering, we ask for all the data and we will filter it

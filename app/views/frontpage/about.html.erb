@@ -73,11 +73,20 @@
       	    <h3 class="title">GLOBAL Description</h3>
             <div id="description">
 		      <p>
-		        GLOBAL enables researchers in Europe and around the globe to set up and expand their own virtual community for exchanging the latests findings, present project results, sharing documents and media files, or simply to socialise and connect with each other by means of virtual conferencing.
+The GLOBAL project has ended on October 31, 2010.
+</p>
+<p>
+The project has been more successful than initially anticipated. Some of the performance indicators shown on the right side have even impressed the project consortium, e.g. the high demand for support and the subsequent high number of supported events, or the high interest in and involvement of Third Countries.
+</p>
+<p>
+GLOBAL strived to enable researchers in Europe and around the globe to set up and expand their own virtual community for exchanging the latests findings, present project results, sharing documents and media files, or simply to socialise and connect with each other by means of virtual conferencing.
+</p>
+<p>
+The <a href="http://globalplaza.org">Virtual Conference Centre</a>, now known as <a href="http://globalplaza.org">Global Plaza</a>, continues to operate and to offer its services to scientific researchers and academia for free.
+</p>
+<p>
+Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza platform</a> and get in touch with virtual conferencing!
 		      </p>		      
-		      <p>
-		        Enter the <a href="http://vcc.dit.upm.es">Virtual Conference Centre</a> and find out more.
-		      </p>
 		      <p>
 		        The short video below presents the highlights of the Virtual Conference Centre as well as its sponsor, the GLOBAL project.
 		      </p>
@@ -341,6 +350,18 @@
 			  <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("bola_global_peque.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
 			</div>
 			<br/>			
+			
+			<div id="global-stats">
+			  	<h5>Performance Indicators</h5>
+				<div>
+				<ul>
+				  <li><a href="http://global-project.eu/">7284 absolute unique visitors</a></li>
+				  <li><a href="http://global-project.eu/">31 active communities</a></li>
+				  <li><a href="http://global-project.eu/"><%=Event.count%> events supported</a></li>
+				  <li><a href="http://global-project.eu/"><%=AgendaEntry.with_recording.count%> videos stored</a></li>				  
+				</ul>
+			  </div>  
+			</div>
 			
 			<div class="screencast">
 			  <h5>Latest videos</h5> 			  
