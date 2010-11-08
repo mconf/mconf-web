@@ -35,22 +35,22 @@ namespace :vcc do
      path = res.page_path
      if path.match('/spaces/[\w-]+')
        resource_url = path.match('/spaces/[\w-]+')[0]
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
      if path.match('/spaces/[\w-]+/events/[\w-]+')
        resource_url = path.match('/spaces/[\w-]+/events/[\w-]+')[0]
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
      if path.match('/spaces/[\w-]+/events/[\w-]+\?show_video=')
        the_id = path[path.index("=")+1,path.length]
        if numeric?(the_id)
          resource_url = path.match('/spaces/[\w-]*')[0] + "/videos/" + the_id.to_s
-         final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+         final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
        end
      end
      if path.match('/spaces/[\w-]+/videos/[0-9]+')
        resource_url = path
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
    end 
    final_hash
