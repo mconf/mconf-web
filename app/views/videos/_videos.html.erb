@@ -37,6 +37,14 @@
 	 $("#embed_share").toggle('slow');   
   });
   
+ $('#atach_and_stats img.tooltip_num_views').qtip({
+   content: '<%=t("tooltip.num_views")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
+  
 <% end %>
 
 <% content_for :search do  %>
@@ -146,6 +154,7 @@
 			  <div class="video_stat">
 			  	<%if @display_entry%>
 				  <span class="separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
+				  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
 				<%end%>
 			  </div>
 		  </div>

@@ -28,7 +28,15 @@
 	$(".fancybox_link").fancybox({
     'hideOnContentClick' : false
   });
-	
+
+ $('#space_views img.tooltip_num_views').qtip({
+   content: '<%=t("tooltip.num_views")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+  	
 <% end %>
 
 <% content_for :search do  %>
@@ -82,6 +90,7 @@
 	
 	  <div id="space_views">
 	    <span class="separated_5"><%=@space.unique_pageviews%></span><%=t('statistics.space_views')%>
+	    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
 	  </div>
 	
 <% end %>

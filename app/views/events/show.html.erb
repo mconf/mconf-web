@@ -11,6 +11,13 @@
 
 <% content_for :javascript do%>
   <%= render :partial => 'events_javascript.js' %>
+ $('#event_views img.tooltip_num_views').qtip({
+   content: '<%=t("tooltip.num_views")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
 <% end %>
 
 <% content_for :sidebar do  %>
@@ -54,6 +61,7 @@
 
   <div id="event_views" class="share_insert">
     <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
+    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
   </div>
 	
   </div> 
