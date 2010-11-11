@@ -45,6 +45,6 @@ $("#event_text_input").livequery('keyup', function() {
 	<%#Text filter%>
 	<div id="event_text_filter">
 		<!--<label class="bold blue"><%=t('find_in_name_speakers')%></label>-->
-		<%=text_field_tag :text_filter,'', :id => "event_text_input"%>
+		<%=text_field_tag :text_filter,'', :id => "event_text_input"%>	<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_search_video icon",:style=>"cursor:pointer")%>
 	</div>
 </div>

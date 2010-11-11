@@ -1,7 +1,7 @@
 <div class="event_video_title">
   <h3>
     <%= t('space.recording.other') %>
-		
+	<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_space_video icon",:style=>"cursor:pointer")%>		
 	<% if @space.events.length > 1 %>
 	  <select id="space_event_select">
 	    <option value="" id="blank_option"><%=t('all_events')%></option>
