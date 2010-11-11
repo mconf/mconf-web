@@ -36,6 +36,38 @@
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
+
+ $('#sidebar img.tooltip_admin').qtip({
+   content: '<%=t("tooltip.admin")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('#sidebar img.tooltip_upcoming').qtip({
+   content: '<%=t("tooltip.upcoming")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('#sidebar img.tooltip_leave_space').qtip({
+   content: '<%=t("tooltip.leave_space")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('#latest_news img.tooltip_latest_news').qtip({
+   content: '<%=t("tooltip.latest_news")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
   	
 <% end %>
 
@@ -47,7 +79,7 @@
   <%= render :partial => 'sidebar' %>
     <%= render :partial => 'sidebar_leave_space' %>
 	<div id="inc-events">
-     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%></h3>
+     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upcoming icon",:style=>"cursor:pointer")%></h3>
 		 <ul>
 		 	<%if @upcoming_events.empty?%>
 			  <p><%= t('event.upcoming.none') %></p>
@@ -70,7 +102,7 @@
     </div>
 	
 	<div class="space-desc">
-    <h3><%=t('user.administrators')%> <!--<em><%=@space.name%></em>--></h3>
+    <h3><%=t('user.administrators')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_admin icon",:style=>"cursor:pointer")%> <!--<em><%=@space.name%></em>--></h3>
     <p>
     <% admins = space.actors(:role => 'Admin') %>
 
@@ -112,7 +144,7 @@
 
 <% if @news_to_show %>
   <div id="latest_news">
-	  <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %></h3>
+	  <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_latest_news icon",:style=>"cursor:pointer")%></h3>
     <%= render :partial => 'last_news' %>
   </div>
 <% end %>

@@ -1763,6 +1763,7 @@ en:
     not_available: Token not available
   tomorrow: Tomorrow
   tooltip:
+    admin: "This section shows the people that have administrator rights in this space"  
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
     divider: "Use a divider to indicate breaks, like coffee or lunch breaks. You can also use it to separate different topic sessions."
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
@@ -1773,6 +1774,8 @@ en:
     help2: This session has already happened you can not edit streaming or recording options
     help3: This session is happening now you can only change whether you want streaming or not
     inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
+    latest_news: This section shows the piece of news that the administrators send to all the people in this space
+    leave_space: This link will allow you to abandon this space definitely  
     private_profile: This information is visible only to the people you choose when you edit your profile
     public_profile: Anyone can access this information
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
@@ -1781,6 +1784,7 @@ en:
     num_views: "This number represents the unique views for this page"
     organisers: Select the space users that will organise this event
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
+    upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     user_id: "You can use your user ID as openID, user chat and/or user Marte"
     user_filter: "You can filter users by their names or surnames. Start typing !"    
