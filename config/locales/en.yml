@@ -1766,9 +1766,11 @@ en:
     admin: "This section shows the people that have administrator rights in this space"  
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
     divider: "Use a divider to indicate breaks, like coffee or lunch breaks. You can also use it to separate different topic sessions."
+    doc_search: Use the fields in this side to filter and update the docs table with your search results
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
     embed_help: Can be filled with HTML code to embed a video
     ev_type: "Place your mouse over the titles to know more about the types of events"
+    event: Select documents of the event that you what to see
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     help: Check streaming and/or recording services as needed
     help2: This session has already happened you can not edit streaming or recording options
@@ -1788,6 +1790,7 @@ en:
     share: This is the url to share this video with your colleagues
     space_video: This filter will allow you to select only the videos of one specific event
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
+    tag_by: Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents.
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     user_id: "You can use your user ID as openID, user chat and/or user Marte"

@@ -84,6 +84,15 @@
      used_tag_list();
      return false;
    });
+   
+ $('#tag_filter img.tooltip_tag_by').qtip({
+   content: '<%=t("tooltip.tag_by")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });    
+   
 <%end%>
 
 
@@ -96,7 +105,7 @@
 	</div>
 	
 	<div id="tag_used_list" class="tag_filter_content">
-		<span><label class="bold"><%=t 'tags_by'%> </label> <label class="bold"><%=t 'popularity'%></label> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
+		<span><label class="bold"><%=t 'tags_by'%> </label> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_tag_by",:style=>"cursor:pointer")%> <label class="bold"><%=t 'popularity'%></label> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
 		<ul>
 	      <% tag_count(@attachments, @tags, :order => "popularity").each do |t|%>
 	        <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
