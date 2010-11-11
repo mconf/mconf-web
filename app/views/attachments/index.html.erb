@@ -7,6 +7,14 @@
 
 <% content_for :javascript do%>
   <%= render :partial => 'repository_javascript.js' %>
+  
+ $('#sidebar img.tooltip_doc_search').qtip({
+   content: '<%=t("tooltip.doc_search")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
 <% end %>
 
 <% content_for :search do  %>
@@ -15,7 +23,7 @@
 
 <%content_for :sidebar do%>
 	<div class="tag_filter_wrapper">
-		<h3 class="blue"><%=t('repository.search')%></h3>
+		<h3 class="blue"><%=t('repository.search')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_doc_search icon",:style=>"cursor:pointer")%></h3>
 		<div class="tag_filter_content">
 			<%= render :partial => 'mixed_filter' %>
 		</div>
