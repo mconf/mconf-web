@@ -394,3 +394,5 @@ width:127px;
 .video_preview_sidebar a.entry_video_link img{
 	width:90px;
 }
+
+.hidden_quote {display: none; margin-bottom: 5px;}

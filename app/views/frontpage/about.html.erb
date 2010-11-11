@@ -98,10 +98,26 @@ Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza
 			<embed name="player" allowfullscreen="true" src="http://stream3.dit.upm.es/reproductor/mediaplayer.swf?id=GLOBAL-0309&searchbar=false&displayheight=340&displaywidth=560&autostart=true&bufferlength=3&file=rtmp://stream3.dit.upm.es/venusStore&image=/capture.jpg" height="340" wmode="transparent" width="560" />
 		  </div>
 		  
-    	  <div class="about-wrapper">
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    var randomNum = Math.floor(Math.random()*10);
+    $('div#user_exp p:eq(' + randomNum + ')').css("display", "block");
+    $('div#user_exp p:eq(' + (randomNum + 1)%10 + ')').css("display", "block");
+	$('div#user_exp p:eq(' + (randomNum + 2)%10 + ')').css("display", "block");
+  });
+</script>		  
+    	  <div id="user_exp" class="about-wrapper">
       	    <h3 class="title">User experience</h3>
-			<p>Peter: It is great what this project does.</p>
-			<p>John: I like it. They helped our project to disseminate our results.</p>
+			<p class="hidden_quote">It is great what this project does.</p>
+			<p class="hidden_quote">I like it. They helped our project to disseminate our results.</p>
+			<p class="hidden_quote">I use it as a central place where one can find events from your own and other spaces.</p>
+			<p class="hidden_quote">It is easy to use and manage</p>
+			<p class="hidden_quote">Useful for coordination and managing videoconferences</p>
+			<p class="hidden_quote">Sending private messages are very nice & clear</p>
+			<p class="hidden_quote">Interesting integration with ISABEL platform</p>
+			<p class="hidden_quote">It is clean design, and generally works well</p>
+			<p class="hidden_quote">Interface is friendly </p>
+			<p class="hidden_quote">Ability to have a private space with a group of users.</p>
 		  </div>
 		  
 		  <div class="about-wrapper">
