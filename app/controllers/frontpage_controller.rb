@@ -53,4 +53,8 @@ class FrontpageController < ApplicationController
   def about2   
     render :layout=>false
   end
+
+  def performance
+    render :layout=>false
+  end
 end
