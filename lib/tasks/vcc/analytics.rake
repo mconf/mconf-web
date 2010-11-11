@@ -71,7 +71,6 @@ namespace :vcc do
       end
       sta.save
     end
-    puts "Statistics table updated"
   end
 
 

@@ -784,7 +784,7 @@ en:
       question: "I have an iPad, which has no Flash plugin... can I still watch the videos?"
       answer: "We are currently doing our best to convert all our videos to HTML5. That includes real-time streaming of events, using <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Soon you will be able to enjoy it in your mobile terminals."
     faq11:
-      question: "I am Spanish/French/German/{insert nationality here}... Is Global Plaza translated to my language?"
+      question: "I am Spanish/French/German/... Is Global Plaza translated to my language?"
       answer: "As of now, <i>only</i> English, Spanish, French and German are supported. To select among them just use the link <b>Language</b> at the bottom of any Global Plaza page.<br>We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"feedback/new\">contact</a> us."
     faq12:
       question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
