@@ -526,6 +526,7 @@ fr:
       marte: "Impossible de cr\xC3\xA9er de conf\xC3\xA9rence virtuelle"
       omit_date: "L&#39;\xC3\xA9v\xC3\xA9nement doit commencer \xC3\xA0 la date et la date de fin"
       videoconference: "Impossible de cr\xC3\xA9er vid\xC3\xA9oconf\xC3\xA9rence \xC3\xA9v\xC3\xA9nement"
+      max_size_excedeed: "The maximum duration of the event is {{max_days}} days and can't be excedeed"
     features: Event features
     follow: "Entrez dans cette r\xC3\xA9union virtuelle"
     found: 
@@ -584,6 +585,16 @@ fr:
       crop: "S\xC3\xA9lectionnez la partie de l&#39;image pour la culture"
       new: "Ajouter une photo de votre \xC3\xA9v\xC3\xA9nement"
       select: Changer le logo de votre
+    move:
+      out_date: The agenda entry which title is "{{agenda_entry}}" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done.
+      no_change: No change
+      move_event: Move event
+      change_start_date: Change event start date
+      change_end_date: Change event end date
+      move_event_div: <b>Move Event:</b> This option lets you move you entire event. You can choose a new start time and this will affect everything on your event. <b>All the sessions in the event will change</b> their start time to mantain their relative time with the event beginning.
+      change_event_start_date_div: <b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time.
+      change_event_end_date_div: <b>Change event end date:</b> This option lets you expand you event time by moving the end time. This change will only affect to the event end time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time after you current event end time.
+
     new: 
       conference: "Congr\xC3\xA8s virtuel"
       meeting: Virtual Meeting

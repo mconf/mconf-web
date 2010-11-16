@@ -1981,6 +1981,20 @@ ul.event_form_buttons li{float:left;}
 #agenda_header h2{margin:0;}
 #agenda_header h3{margin-top:0;}
 
+.change_event_date_link{
+	padding:5px;
+	border:#000000 2px none;
+}
+
+.change_event_date_info{
+	margin-left:30px;
+	margin-right:30px;
+	padding:5px;
+	background:#FFF6BF;
+	color:#514721;
+	border:2px solid #FFD324;
+}
+
 /** Fullcalendar **/
 .fc-event-vert span.fc_session_title{
 	padding: 0pt 5px;

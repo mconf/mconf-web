@@ -111,6 +111,99 @@
   
   
   
+  $('#move_event').click(function(){
+	  $('#move_event_div').show();
+	  $('#change_event_start_date_div').hide();
+	  $('#change_start_date_div').show();
+	  $('#change_event_start_date_div').hide();
+	  $('#change_event_end_date_div').hide();
+	  
+	  $('#event_edit_date_action').attr('value','move_event');
+	  $('#event_start_date_1i').attr('disabled',false);
+	  $('#event_start_date_2i').attr('disabled',false);
+	  $('#event_start_date_3i').attr('disabled',false);
+	  $('#event_start_date_4i').attr('disabled',false);
+	  $('#event_start_date_5i').attr('disabled',false);
+	  $('#event_end_date_1i').attr('disabled',true);
+	  $('#event_end_date_2i').attr('disabled',true);
+	  $('#event_end_date_3i').attr('disabled',true);
+	  $('#event_end_date_4i').attr('disabled',true);
+	  $('#event_end_date_5i').attr('disabled',true);
+	  
+	  $('#no_event_date_change').css('border','none');
+	  $('#move_event').css('border','2px #BDD8EB solid');
+	  $('#change_event_start_date').css('border','none');
+	  $('#change_event_end_date').css('border','none');
+  });
+  
+  $('#change_event_start_date').click(function(){
+	  $('#move_event_div').hide();
+	  $('#change_event_start_date_div').show();
+	  $('#change_start_date_div').show();
+	  $('#change_event_end_date_div').hide();
+	  
+	  $('#event_edit_date_action').attr('value','start_date');
+	  $('#event_start_date_1i').attr('disabled',false);
+	  $('#event_start_date_2i').attr('disabled',false);
+	  $('#event_start_date_3i').attr('disabled',false);
+	  $('#event_start_date_4i').attr('disabled',false);
+	  $('#event_start_date_5i').attr('disabled',false);
+	  $('#event_end_date_1i').attr('disabled',true);
+	  $('#event_end_date_2i').attr('disabled',true);
+	  $('#event_end_date_3i').attr('disabled',true);
+	  $('#event_end_date_4i').attr('disabled',true);
+	  $('#event_end_date_5i').attr('disabled',true);
+	  
+	  $('#no_event_date_change').css('border','none');
+	  $('#move_event').css('border','none');
+	  $('#change_event_start_date').css('border','2px #BDD8EB solid');
+	  $('#change_event_end_date').css('border','none');
+  });
+  
+  $('#change_event_end_date').click(function(){
+	  $('#change_start_date_div').hide();
+	  $('#change_event_end_date_div').show();
+	  
+	  $('#event_edit_date_action').attr('value','end_date');	  
+	  $('#event_start_date_1i').attr('disabled',true);
+	  $('#event_start_date_2i').attr('disabled',true);
+	  $('#event_start_date_3i').attr('disabled',true);
+	  $('#event_start_date_4i').attr('disabled',true);
+	  $('#event_start_date_5i').attr('disabled',true);
+	  $('#event_end_date_1i').attr('disabled',false);
+	  $('#event_end_date_2i').attr('disabled',false);
+	  $('#event_end_date_3i').attr('disabled',false);
+	  $('#event_end_date_4i').attr('disabled',false);
+	  $('#event_end_date_5i').attr('disabled',false);
+	  
+	  $('#no_event_date_change').css('border','none');
+	  $('#move_event').css('border','none');
+	  $('#change_event_start_date').css('border','none');
+	  $('#change_event_end_date').css('border','2px #BDD8EB solid');
+  });
+  
+  $('#no_event_date_change').click(function(){
+	  $('#change_start_date_div').hide('slow');
+	  $('#change_event_end_date_div').hide('slow');
+	  $('#event_start_date_1i').attr('disabled',true);
+	  $('#event_start_date_2i').attr('disabled',true);
+	  $('#event_start_date_3i').attr('disabled',true);
+	  $('#event_start_date_4i').attr('disabled',true);
+	  $('#event_start_date_5i').attr('disabled',true);
+	  $('#event_end_date_1i').attr('disabled',true);
+	  $('#event_end_date_2i').attr('disabled',true);
+	  $('#event_end_date_3i').attr('disabled',true);
+	  $('#event_end_date_4i').attr('disabled',true);
+	  $('#event_end_date_5i').attr('disabled',true);
+	  
+	  $('#event_edit_date_action').attr('value','none');
+	  
+	  $('#no_event_date_change').css('border','2px #BDD8EB solid');
+	  $('#move_event').css('border','none');
+	  $('#change_event_start_date').css('border','none');
+	  $('#change_event_end_date').css('border','none');
+  });
+  
   
   
   

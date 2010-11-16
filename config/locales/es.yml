@@ -567,6 +567,7 @@ es:
       marte: No se ha podido crear la conferencia virtual
       omit_date: El evento necesita horas de inicio y fin
       videoconference: No se ha podido crear el evento de videoconferencia
+      max_size_excedeed: La duraci\xC3\xB3n total del evento son {{max_days}} dias y no puede ser excedida.
     features: Características
     follow: "Siga esta reuni\xC3\xB3n virtual"
     found: 
@@ -624,7 +625,17 @@ es:
       created: "logotipo de evento creado con \xC3\xA9xito"
       crop: "Seleccione qu\xC3\xA9 parte de la imagen desea cortar"
       new: Agregar una imagen para el evento
-      select: Cambiar el logotipo
+      select: Cambiar el logotipo    
+    move:
+      out_date: La sesión con título "{{agenda_entry}}" estará fuera del evento y eso no está permitido. Mueva o edite sus sesiones para permitir que este cambio se realice.
+      no_change: Sin cambios
+      move_event: Mover evento
+      change_start_date: Cambiar fecha de inicio del evento
+      change_end_date: Cambiar fecha de fin del evento
+      move_event_div: <b>Mover Evento:</b> Esta opción le permite mover el evento entero. Puedes elegir una nueva fecha de inicio que afectará tanto al evento como a sus sesiones. <b>Todas las sesiones del evento cambiaran</b> su hora de inicio para mantener el tiempo relativo con el inicio del evento.
+      change_event_start_date_div: <b>Cambiar fecha de inicio del evento:</b> Esta opción le permite cambiar la duración de su evento moviendo la fecha de inicio. Este cambio solo afectará a la fecha de inicio del evento, no afectará a la hora de inicio de las sesiones y no cambiará nada más (las sesiones mantendrán el mismo horario). Usa esta opción solo si necesita más tiempo antes de la fecha actual de inicio de su evento.
+      change_event_end_date_div: <b>Cambiar fecha de fin del evento:</b> Esta opción le permite cambiar la duración de su evento moviendo la fecha de fin. Este cambio solo afectará a la fecha de fin del evento, no afectará a la hora de fin de las sesiones y no cambiará nada más (las sesiones mantendrán el mismo horario). Usa esta opción solo si necesita más tiempo después de la fecha actual de fin de su evento.
+
     new: 
       conference: Congreso virtual
       meeting: "Reuni\xC3\xB3n virtual"

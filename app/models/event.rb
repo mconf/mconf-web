@@ -62,8 +62,47 @@ class Event < ActiveRecord::Base
   attr_accessor :rand_value
   attr_accessor :logo_rand
   
-  before_validation :update_logo
-
+  attr_accessor :edit_date_action
+  
+  before_validation :event_validation, :update_logo, :edit_date_actions 
+  
+  def event_validation
+    if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
+      self.errors.add_to_base I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS)
+            return false
+    end
+  end
+  def edit_date_actions
+    if !self.edit_date_action.nil?      
+      agenda_entries = self.agenda.agenda_entries
+      if !self.edit_date_action.eql?("move_event")
+        agenda_entries.each do |agenda_entry|
+          if (agenda_entry.start_time < self.start_date) or (agenda_entry.end_time > self.end_date) 
+            self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title)
+            return false
+          end
+        end
+      end
+      if self.edit_date_action.eql?("move_event") and self.start_date_changed?
+        relative_time = self.start_date - self.start_date_was            
+        self.end_date = self.end_date + relative_time
+        agenda_entries.each do |agenda_entry|
+          agenda_entry.date_update_action = "move_event"
+          agenda_entry.start_time = agenda_entry.start_time + relative_time
+          agenda_entry.end_time = agenda_entry.end_time + relative_time
+          agenda_entry.save
+        end
+      elsif self.edit_date_action.eql?("start_date") and self.start_date_changed?
+        agenda_entries.each do |agenda_entry|
+          agenda_entry.date_update_action = "start_date"
+          agenda_entry.save
+        end           
+      elsif self.edit_date_action.eql?("end_date")
+        #Nothing to do                   
+      end
+    end
+  end
+  
   def update_logo
     return unless (@default_logo.present? and  !@default_logo.eql?(""))
     if @default_logo.present? and  @default_logo.eql?("use_date_logo")
@@ -87,26 +126,26 @@ class Event < ActiveRecord::Base
     logo[:media] = original_tmp
     #debugger
     logo = self.build_logo(logo)
- 
+    
     images_path = File.join(RAILS_ROOT, "public", "images")
     tmp_path = File.join(images_path, "tmp")
     #debugger
-   
+    
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
     end
-
-
+    
+    
   end
-
-
+  
+  
   named_scope :upcoming, lambda { 
     { :conditions => [ "events.end_date > ? AND spaces.disabled = ?", Time.now, false ],
       :include => :space,
       :order => "start_date"
     }
   }
- 
+  
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
              :include =>[{:class_name => 'Tag',
                           :field => 'name',
@@ -119,27 +158,27 @@ class Event < ActiveRecord::Base
   ]
   
   VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
-
+  
   # The vc_mode symbol of this event
   def vc_mode_sym
     VC_MODE[vc_mode]
   end
-
+  
   # Maximum number of consecutive days for the event
   MAX_DAYS = 5
   
-
-   def validate
-#    if start_date.to_date.past?
-#      errors.add_to_base(I18n.t('event.error.date_past'))
-#    end
-#    if self.start_date.nil? || self.end_date.nil? 
-#      errors.add_to_base(I18n.t('event.error.omit_date'))
-#    else
-     unless self.start_date < self.end_date
-        errors.add_to_base(I18n.t('event.error.dates1'))
-     end  
-#    end
+  
+  def validate
+    #    if start_date.to_date.past?
+    #      errors.add_to_base(I18n.t('event.error.date_past'))
+    #    end
+    #    if self.start_date.nil? || self.end_date.nil? 
+    #      errors.add_to_base(I18n.t('event.error.omit_date'))
+    #    else
+    unless self.start_date < self.end_date
+      errors.add_to_base(I18n.t('event.error.dates1'))
+    end  
+    #    end
     if self.marte_event? && ! self.marte_room?
       #check connectivity with Marte
       begin
@@ -208,7 +247,7 @@ class Event < ActiveRecord::Base
     end
     
     if event.new_organizers.present?
-
+      
       #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
       past_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Organizer")})
       past_organizers = past_performances.map(&:agent).map(&:login)
@@ -216,8 +255,8 @@ class Event < ActiveRecord::Base
       invited_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Invitedevent")})
       
       # we add those organizers that were not past organizers
-      (event.new_organizers - past_organizers).each do |login|
-
+       (event.new_organizers - past_organizers).each do |login|
+        
         # we remove the previous Invited role in the event if it exists
         invited_performances.each do |p|
           if (p.role == Event.role("Invitedevent")) && (p.agent.login == login)
@@ -230,7 +269,7 @@ class Event < ActiveRecord::Base
       
       # we remove those organizers that are not organizers any more
       past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.login)}.map(&:destroy)
-
+      
     end
     
   end
@@ -265,8 +304,8 @@ class Event < ActiveRecord::Base
   
   def space
     space_id.present? ?
-      Space.find_with_disabled(space_id) :
-      nil
+    Space.find_with_disabled(space_id) :
+    nil
   end    
   
   
@@ -275,10 +314,10 @@ class Event < ActiveRecord::Base
   end
   
   
-   #return the number of days of this event duration
+  #return the number of days of this event duration
   def days
     if has_date?
-      (end_date.to_date - start_date.to_date).to_i + 1
+     (end_date.to_date - start_date.to_date).to_i + 1
     else
       return 0
     end
@@ -311,7 +350,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-
+  
   #method to know if any of the agenda_entry of the event has streaming 
   def has_participation?
     if is_in_person?
@@ -328,7 +367,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-
+  
   
   #method to know everything about streaming
   def show_streaming?
@@ -339,46 +378,46 @@ class Event < ActiveRecord::Base
   def show_participation?
     is_happening_now? || is_in_person?
   end
-#better the method agenda.has_entries_with_video?
-#
-#  #method to know if any of the agenda_entry of the event has recording
-#  def has_recording?
-#    begin
-#      agenda.agenda_entries.each do |entry|
-#        return true if entry.cm_session.recording?
-#      end    
-#      false
-#    rescue
-#      nil
-#    end
-#  end
-    
-    
+  #better the method agenda.has_entries_with_video?
+  #
+  #  #method to know if any of the agenda_entry of the event has recording
+  #  def has_recording?
+  #    begin
+  #      agenda.agenda_entries.each do |entry|
+  #        return true if entry.cm_session.recording?
+  #      end    
+  #      false
+  #    rescue
+  #      nil
+  #    end
+  #  end
+  
+  
   #method to know if this event is happening now
   def is_happening_now?
-     #first we check if start date is past and end date is future
-     if has_date? && start_date.past? && end_date.future?
-       true      
-     else
-       return false
-     end
+    #first we check if start date is past and end date is future
+    if has_date? && start_date.past? && end_date.future?
+      true      
+    else
+      return false
+    end
   end
-    
-    
+  
+  
   #method to know if this event has any session now
   def has_session_now?
-     get_session_now
+    get_session_now
   end
   
   def get_session_now
     #first we check if start date is past and end date is future
-     if is_happening_now?
-       #now we check the sessions
-       agenda.agenda_entries.each do |entry|
-         return entry if entry.start_time.past? && entry.end_time.future?
-       end   
-     end
-     return nil
+    if is_happening_now?
+      #now we check the sessions
+      agenda.agenda_entries.each do |entry|
+        return entry if entry.start_time.past? && entry.end_time.future?
+      end   
+    end
+    return nil
   end
   
   #method to know if an event happens in the future
@@ -404,14 +443,14 @@ class Event < ActiveRecord::Base
   #method to get the starting date of an event in the correct format
   def get_formatted_date
     has_date? ?
-      I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M. #{get_formatted_timezone}") :
-      I18n::t('date.undefined')       
+    I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M. #{get_formatted_timezone}") :
+    I18n::t('date.undefined')       
   end
   
   def get_formatted_timezone
     has_date? ?
       "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})" :
-      I18n::t('date.undefined')
+    I18n::t('date.undefined')
   end
   
   #method to get the starting hour of an event in the correct format
@@ -428,7 +467,7 @@ class Event < ActiveRecord::Base
     ! is_in_person?
   end
   
-   
+  
   def get_room_data
     return nil unless marte_event?
     
@@ -460,17 +499,17 @@ class Event < ActiveRecord::Base
       true
     end
   end
-
+  
   authorizing do |agent, permission|
     if permission == :read && agent.is_a?(XmppServer)
       true
     end
   end
-
+  
   #method to know if a scorm file needs to be generated
   def scorm_needs_generate
     isFile = File.exist?("#{RAILS_ROOT}/public/scorm/#{permalink}.zip")
-  
+    
     if !(isFile) or !(generate_scorm_at) or generate_scorm_at < agenda.updated_at
       Event.record_timestamps=false
       update_attribute(:generate_scorm_at, Time.now)
@@ -480,64 +519,64 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-
+  
   #method to generate the xml representing the scorm manifest
-   def generate_scorm_manifest_in_zip(zos)
-     video_entries = self.videos
-     myxml = Builder::XmlMarkup.new(:indent => 2)
-     myxml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
-     myxml.manifest('xsi:schemaLocation'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd", 'identifier'=>"MANIFEST-A2F3004F6186AC9480285D4AEDCD6BAF", 'xmlns:adlcp'=>"http://www.adlnet.org/xsd/adlcp_rootv1p2", 'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", 'xmlns:imsmd'=>"http://www.imsglobal.org/xsd/imsmd_rootv1p2p1", 'xmlns'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2") do
-       myxml.organizations('default'=>Event.identifier_for("ITEM" + video_entries[0].title)) do       
-         myxml.organization('identifier'=>Event.identifier_for("ITEM" + video_entries[0].title), 'structure'=>"hierarchical") do
-           ind = 1 if video_entries.size > 1
-           video_entries.each do |entry|
-             myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
-               if video_entries.size > 1
-                 suffix = " - " + I18n::t('session.one')  + " " + ind.to_s
-                 ind = ind + 1
-               else
-                 suffix = ""
-               end
-               myxml.title(self.name + suffix)    
-               myxml.item('identifier'=>Event.identifier_for("ITEM-sub" + Event.remove_accents(entry.title)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
-                 myxml.title(entry.title)
-               end
-               entry.attachments.each  do |at|
-                  myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(at.filename)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'isvisible'=>"true") do
-                    myxml.title(at.filename)
-                  end
-               end
-             end
-           end
-         end
-       end
-       myxml.resources do
-         video_entries.each do |entry|
-           myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'type'=>"text/html", 'href'=>Event.remove_accents(entry.title) + ".html", 'adlcp:scormtype'=>"sco") do
-             myxml.file('href'=> Event.remove_accents(entry.title) + ".html")
-           end
-           entry.attachments.each  do |at|
-             myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'type'=>"webcontent", 'href'=>Event.remove_accents(at.filename)) do
-               myxml.file('href'=>Event.remove_accents(at.filename))
-             end
-           end
-         end     
-         myxml.resource('identifier'=>Event.identifier_for("RES" + "-scorm.css"), 'type'=>"text/css", 'href'=>"scorm.css", 'adlcp:scormtype'=>"sco") do
-             myxml.file('href'=> "scorm.css")
-         end
-       end       
-     end     
-     zos.put_next_entry("imsmanifest.xml")
-     zos.print myxml.target!()
-     #File.open("#{RAILS_ROOT}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
- end
- 
- 
-   def self.identifier_for(title)
-     Base64.b64encode(title).chomp.gsub(/\n/,'')     
-   end
-
-
+  def generate_scorm_manifest_in_zip(zos)
+    video_entries = self.videos
+    myxml = Builder::XmlMarkup.new(:indent => 2)
+    myxml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
+    myxml.manifest('xsi:schemaLocation'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd", 'identifier'=>"MANIFEST-A2F3004F6186AC9480285D4AEDCD6BAF", 'xmlns:adlcp'=>"http://www.adlnet.org/xsd/adlcp_rootv1p2", 'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance", 'xmlns:imsmd'=>"http://www.imsglobal.org/xsd/imsmd_rootv1p2p1", 'xmlns'=>"http://www.imsproject.org/xsd/imscp_rootv1p1p2") do
+      myxml.organizations('default'=>Event.identifier_for("ITEM" + video_entries[0].title)) do       
+        myxml.organization('identifier'=>Event.identifier_for("ITEM" + video_entries[0].title), 'structure'=>"hierarchical") do
+          ind = 1 if video_entries.size > 1
+          video_entries.each do |entry|
+            myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
+              if video_entries.size > 1
+                suffix = " - " + I18n::t('session.one')  + " " + ind.to_s
+                ind = ind + 1
+              else
+                suffix = ""
+              end
+              myxml.title(self.name + suffix)    
+              myxml.item('identifier'=>Event.identifier_for("ITEM-sub" + Event.remove_accents(entry.title)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'isvisible'=>"true") do
+                myxml.title(entry.title)
+              end
+              entry.attachments.each  do |at|
+                myxml.item('identifier'=>Event.identifier_for("ITEM" + Event.remove_accents(at.filename)), 'identifierref'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'isvisible'=>"true") do
+                  myxml.title(at.filename)
+                end
+              end
+            end
+          end
+        end
+      end
+      myxml.resources do
+        video_entries.each do |entry|
+          myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(entry.title)), 'type'=>"text/html", 'href'=>Event.remove_accents(entry.title) + ".html", 'adlcp:scormtype'=>"sco") do
+            myxml.file('href'=> Event.remove_accents(entry.title) + ".html")
+          end
+          entry.attachments.each  do |at|
+            myxml.resource('identifier'=>Event.identifier_for("RES" + Event.remove_accents(at.filename)), 'type'=>"webcontent", 'href'=>Event.remove_accents(at.filename)) do
+              myxml.file('href'=>Event.remove_accents(at.filename))
+            end
+          end
+        end     
+        myxml.resource('identifier'=>Event.identifier_for("RES" + "-scorm.css"), 'type'=>"text/css", 'href'=>"scorm.css", 'adlcp:scormtype'=>"sco") do
+          myxml.file('href'=> "scorm.css")
+        end
+      end       
+    end     
+    zos.put_next_entry("imsmanifest.xml")
+    zos.print myxml.target!()
+    #File.open("#{RAILS_ROOT}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
+  end
+  
+  
+  def self.identifier_for(title)
+    Base64.b64encode(title).chomp.gsub(/\n/,'')     
+  end
+  
+  
   def self.remove_accents(str)    
     accents = { 
       ['á','à','â','ä','ã'] => 'a',
@@ -552,10 +591,10 @@ class Event < ActiveRecord::Base
       ['Ú','Û','Ù','Ü'] => 'U',
       ['ç'] => 'c', ['Ç'] => 'C',
       ['ñ'] => 'n', ['Ñ'] => 'N'
-      }
+    }
     accents.each do |ac,rep|
       ac.each do |s|
-      str = str.gsub(s, rep)
+        str = str.gsub(s, rep)
       end
     end
     str = str.gsub(/[^a-zA-Z0-9\. ]/,"")    
@@ -563,7 +602,7 @@ class Event < ActiveRecord::Base
     str = str.gsub(/ /,"-")    
     #str = str.downcase
   end
-
+  
   def unique_pageviews
     # Use only the canonical aggregated url of the event (all views have been previously added here in the rake task)
     corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.permalink])
@@ -575,6 +614,6 @@ class Event < ActiveRecord::Base
       raise "Incorrectly parsed statistics"
     end
   end
-
+  
   include ConferenceManager::Support::Event
 end

@@ -19,7 +19,7 @@ class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  attr_accessor :author, :duration 
+  attr_accessor :author, :duration, :date_update_action
   acts_as_stage
   acts_as_content :reflection => :agenda
   acts_as_resource
@@ -45,37 +45,34 @@ class AgendaEntry < ActiveRecord::Base
     end
     
     # Fill attachment fields
-     agenda_entry.attachments.each do |a|
+    agenda_entry.attachments.each do |a|
       a.space  ||= agenda_entry.agenda.event.space
       a.event  ||= agenda_entry.agenda.event
       a.author ||= agenda_entry.author    
     end     
   end
-
+  
   def validate
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
-      
-    if(self.start_time > self.end_time)
     
+    if(self.start_time > self.end_time)
+      
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
-
+      
     elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
       self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
       
-    # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
+      # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
     elsif !(self.agenda.event.start_date.blank?)
-  
-      if (self.end_time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
-        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
-        return
-      elsif (self.agenda.event.end_date.to_date - self.start_time.to_date) >= Event::MAX_DAYS
-        self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
-        return        
+      
+      if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date) 
+        self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title)
+        return false
       end
-
+      
       self.agenda.contents_for_day(self.event_day).each do |content|
         next if ( (content.class == AgendaEntry) && (content.id == self.id) )
-
+        
         if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
           unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
             self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
@@ -95,7 +92,7 @@ class AgendaEntry < ActiveRecord::Base
       end
     end
   end
- 
+  
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
@@ -103,18 +100,18 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   after_create do |entry|
-     # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
-#    entry.attachments.each do |a|
-#      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
-#      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
-#    end
+    # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
+    #    entry.attachments.each do |a|
+    #      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+    #    end
     FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     if entry.uid.blank?
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
     end
   end
- 
+  
   after_update do |entry|
     #Delete old attachments
     # FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
@@ -151,7 +148,7 @@ class AgendaEntry < ActiveRecord::Base
   def event
     agenda.present? ? agenda.event : nil
   end
-
+  
   def recording?
     if !event.uses_conference_manager?  #manual mode
       if embedded_video.present? && embedded_video != ""
@@ -171,19 +168,19 @@ class AgendaEntry < ActiveRecord::Base
       end
     end
   end
-
+  
   named_scope :with_recording, lambda {
     { :conditions => [ "embedded_video is not ? or cm_recording = ?",
-                     nil, true ] }
+      nil, true ] }
   }
-
+  
   def streaming?
     cm_streaming?
   end
- 
+  
   def thumbnail
     video_thumbnail.present? ?
-      video_thumbnail :
+    video_thumbnail :
       "default_background.jpg"
   end
   
@@ -223,29 +220,29 @@ class AgendaEntry < ActiveRecord::Base
   def parse_embedded_video
     Nokogiri.parse embedded_video
   end
-
+  
   def embedded_video_attribute(a)
     parse_embedded_video.xpath("//@#{ a }").first.try(:value)
   end
-
+  
   def get_src_from_embed
     embedded_video_attribute("src")
   end
-
-   def get_background_from_embed
-    (get_src_from_embed) && (query = URI.parse(get_src_from_embed).query) && (CGI.parse(query)["image"].try(:first))
+  
+  def get_background_from_embed
+   (get_src_from_embed) && (query = URI.parse(get_src_from_embed).query) && (CGI.parse(query)["image"].try(:first))
   end
-
+  
   def is_happening_now?
     return start_time.past? && end_time.future?    
   end
-    
+  
   def generate_uid
-     
-     Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
+    
+    Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
     
   end
-
+  
 =begin
   def to_json
     result = {}
@@ -255,7 +252,7 @@ class AgendaEntry < ActiveRecord::Base
     result.to_json
   end
 =end
-
+  
   def video_unique_pageviews
     # Use only the canonical aggregated url of the video (all views have been previously added here in the rake task)
     corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/videos/'+ self.id.to_s])
@@ -267,37 +264,37 @@ class AgendaEntry < ActiveRecord::Base
       raise "Incorrectly parsed statistics"
     end
   end
-
+  
   authorization_delegate(:event,:as => :content)
   authorization_delegate(:space,:as => :content)
   
   include ConferenceManager::Support::AgendaEntry
-
+  
   def to_fullcalendar_json
       "{
          title: \"#{title ? sanitize_for_fullcalendar(title) : ''}\",
          start: new Date(#{start_time.strftime "%Y"},#{start_time.month-1},#{start_time.strftime "%d"},#{start_time.strftime "%H"},#{start_time.strftime "%M"}),
          end: new Date(#{end_time.strftime "%Y"},#{end_time.month-1},#{end_time.strftime "%d"},#{end_time.strftime "%H"},#{end_time.strftime "%M"}),
-         allDay: false,
-         id: #{id},
-         description: \"#{description ? sanitize_for_fullcalendar(description) : ''}\",
+  allDay: false,
+  id: #{id},
+  description: \"#{description ? sanitize_for_fullcalendar(description) : ''}\",
          speakers: \"#{sanitize_for_fullcalendar(complete_speakers)}\",
          supertitle: \"#{divider ? sanitize_for_fullcalendar(divider) : ''}\"
        }"  
-  end
-  
+end
+
 private
-  
-  def sanitize_for_fullcalendar(string) 
-    string.gsub("\r","").gsub("\n","<br />").gsub(/["]/, '\'')
-  end
-  
-  def complete_speakers
-    (actors + [speakers]).compact.map{ |a|
-                           a.is_a?(User) ? 
-                           a.name :
-                           (a=="" ? nil : a)
-                        }.compact.join(", ")
-  end
-  
+
+def sanitize_for_fullcalendar(string) 
+  string.gsub("\r","").gsub("\n","<br />").gsub(/["]/, '\'')
+end
+
+def complete_speakers
+ (actors + [speakers]).compact.map{ |a|
+    a.is_a?(User) ? 
+    a.name :
+     (a=="" ? nil : a)
+  }.compact.join(", ")
+end
+
 end

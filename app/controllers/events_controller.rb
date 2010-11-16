@@ -222,7 +222,8 @@ class EventsController < ApplicationController
 		    #if the event is not marte, we have to remove the room in case it had it already assigned
 		    if params[:event][:marte_event]==0 &&  @event.marte_room?
 			    @event.update_attribute(:marte_room, false)
-		    end
+			  end    
+        
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
