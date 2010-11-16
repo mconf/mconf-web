@@ -64,21 +64,39 @@ class Event < ActiveRecord::Base
   
   attr_accessor :edit_date_action
   
-  before_validation :event_validation, :update_logo, :edit_date_actions 
+  before_validation  :update_logo, :edit_date_actions, :event_validation
+  
+  after_save :update_agenda_entries
+  
+  def agenda_entries
+    self.agenda.agenda_entries
+  end
+  
+  def update_agenda_entries
+    if self.edit_date_action.eql?("move_event")||self.edit_date_action.eql?("start_date")
+      agenda_entries.each do |agenda_entry|
+        agenda_entry.date_update_action = self.edit_date_action
+        if self.edit_date_action.eql?("move_event")
+          agenda_entry.start_time = agenda_entry.start_time + @relative_time
+          agenda_entry.end_time = agenda_entry.end_time + @relative_time
+        end
+        agenda_entry.save
+      end
+    end 
+  end
   
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
       self.errors.add_to_base I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS)
-            return false
+      return false
     end
     if(self.end_date - self.start_date < 15.minutes)
       self.errors.add_to_base I18n.t('event.error.too_short')
-            return false
+      return false
     end
   end
   def edit_date_actions
     if !self.edit_date_action.nil?      
-      agenda_entries = self.agenda.agenda_entries
       if !self.edit_date_action.eql?("move_event")
         agenda_entries.each do |agenda_entry|
           if (agenda_entry.start_time < self.start_date) or (agenda_entry.end_time > self.end_date) 
@@ -88,19 +106,10 @@ class Event < ActiveRecord::Base
         end
       end
       if self.edit_date_action.eql?("move_event") and self.start_date_changed?
-        relative_time = self.start_date - self.start_date_was            
-        self.end_date = self.end_date + relative_time
-        agenda_entries.each do |agenda_entry|
-          agenda_entry.date_update_action = "move_event"
-          agenda_entry.start_time = agenda_entry.start_time + relative_time
-          agenda_entry.end_time = agenda_entry.end_time + relative_time
-          agenda_entry.save
-        end
+        @relative_time = self.start_date - self.start_date_was            
+        self.end_date = self.end_date + @relative_time
       elsif self.edit_date_action.eql?("start_date") and self.start_date_changed?
-        agenda_entries.each do |agenda_entry|
-          agenda_entry.date_update_action = "start_date"
-          agenda_entry.save
-        end           
+        
       elsif self.edit_date_action.eql?("end_date")
         #Nothing to do                   
       end

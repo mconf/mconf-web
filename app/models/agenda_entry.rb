@@ -66,7 +66,7 @@ class AgendaEntry < ActiveRecord::Base
     elsif !(self.agenda.event.start_date.blank?)
       
       if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date) 
-        self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title)
+        self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => self.title)
         return false
       end
       
