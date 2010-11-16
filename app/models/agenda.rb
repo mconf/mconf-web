@@ -94,7 +94,7 @@ class Agenda < ActiveRecord::Base
     if Time.zone.now.min > 40
       Time.zone.parse("#{Time.zone.now.hour + 1}:00")      
     else    
-      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/SLOT_VALUES[0]).ceil*SLOT_VALUES[0]}")
+      Time.zone.parse("#{Time.zone.now.hour}:#{(Time.zone.now.min.to_f/SLOT_VALUES[1]).ceil*SLOT_VALUES[1]}")
     end
   end
   

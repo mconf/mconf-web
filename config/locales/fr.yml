@@ -527,6 +527,7 @@ fr:
       omit_date: "L&#39;\xC3\xA9v\xC3\xA9nement doit commencer \xC3\xA0 la date et la date de fin"
       videoconference: "Impossible de cr\xC3\xA9er vid\xC3\xA9oconf\xC3\xA9rence \xC3\xA9v\xC3\xA9nement"
       max_size_excedeed: "The maximum duration of the event is {{max_days}} days and can't be excedeed"
+      too_short: Event is too short, it must be at least 15 minutes long
     features: Event features
     follow: "Entrez dans cette r\xC3\xA9union virtuelle"
     found: 

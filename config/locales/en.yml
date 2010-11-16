@@ -537,6 +537,7 @@ en:
       omit_date: "The event needs start date and end date "
       videoconference: Could not create videoconference event
       max_size_excedeed: "The maximum duration of the event is {{max_days}} days and can't be excedeed"
+      too_short: Event is too short, it must be at least 15 minutes long
     features: Event features
     follow: Enter this Virtual Meeting
     found: 

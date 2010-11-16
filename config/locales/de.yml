@@ -525,6 +525,7 @@ de:
       omit_date: Die Veranstaltung muss Startdatum und Enddatum
       videoconference: Konnte keine Videokonferenz-Ereignis
       max_size_excedeed: "The maximum duration of the event is {{max_days}} days and can't be excedeed"
+      too_short: Event is too short, it must be at least 15 minutes long
     features: Event features
     follow: Geben Sie diese Virtual Meeting
     found: 

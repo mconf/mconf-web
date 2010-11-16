@@ -71,6 +71,10 @@ class Event < ActiveRecord::Base
       self.errors.add_to_base I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS)
             return false
     end
+    if(self.end_date - self.start_date < 15.minutes)
+      self.errors.add_to_base I18n.t('event.error.too_short')
+            return false
+    end
   end
   def edit_date_actions
     if !self.edit_date_action.nil?      

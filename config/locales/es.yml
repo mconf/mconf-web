@@ -567,7 +567,8 @@ es:
       marte: No se ha podido crear la conferencia virtual
       omit_date: El evento necesita horas de inicio y fin
       videoconference: No se ha podido crear el evento de videoconferencia
-      max_size_excedeed: La duraci\xC3\xB3n total del evento son {{max_days}} dias y no puede ser excedida.
+      max_size_excedeed: La duraci\xC3\xB3n total del evento son {{max_days}} dias y no puede ser excedida
+      too_short: El evento es demasiado corto, debe durar al menos 15 minutos
     features: Características
     follow: "Siga esta reuni\xC3\xB3n virtual"
     found: 

@@ -74,13 +74,13 @@
             <label for="start_time">
                 <%= t('event.time.start') %>
             </label>
-            <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down} %>
+            <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
         </div>
         <div class="margin-up">
             <label for="end_time">
                 <%= t('event.time.end') %>
             </label>
-            <%= @event.end_date %>
+            <%= I18n.localize(@event.end_date) %>
         </div>
     </div>
 </div>
@@ -93,13 +93,13 @@
             <label for="start_time">
                 <%= t('event.time.start') %>
             </label>
-            <%= @event.start_date %>
+            <%= I18n.localize(@event.start_date) %>
         </div>
         <div class="margin-up">
             <label for="end_time">
                 <%= t('event.time.end') %>
             </label>
-            <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
+            <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
         </div>
     </div>
 </div>
@@ -109,13 +109,13 @@
         <label for="start_time">
             <%= t('event.time.start') %>
         </label>
-        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down} %>
+        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
     </div>
     <div class="margin-up">
         <label for="end_time">
             <%= t('event.time.end') %>
         </label>
-        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[0], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
+        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
     </div>
 </div>
 <% end %>
