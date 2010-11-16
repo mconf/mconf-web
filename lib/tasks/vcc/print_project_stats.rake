@@ -59,7 +59,7 @@ namespace :vcc do
     user = myhash["user"]
     pass = myhash["passwd"]
     agent = myhash["agent"]
-    Garb::Session.login(user, passwd)
+    Garb::Session.login(user, pass)
     profile = Garb::Profile.first(agent)
   end
 
