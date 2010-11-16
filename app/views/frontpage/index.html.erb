@@ -104,24 +104,29 @@
                 </li>
             </ul>
         </span>
+		<% global_space = Space.find_by_permalink("global")%>
         <ul>
             <li class="conferences">
-                <%= t('frontpage.elements.conferences') %>
+                <%= link_to t('frontpage.elements.conferences'),search_all_path(:advanced => true,
+                                                  :type => 'events',
+                                                  :sort_mode => 'ascending',
+                                                  :start_date => Time.now.strftime("%m/%d/%Y"),
+                                                  :end_date =>(Time.now + 2.month).strftime("%m/%d/%Y"))%>
             </li>
             <li class="participants">
-                <%= t('frontpage.elements.participants') %>
+                <%= link_to t('frontpage.elements.participants'), space_users_path( global_space ? global_space : Space.first) %>
             </li>
             <li class="organizers">
-                <%= t('frontpage.elements.organizers') %>
+                <%= link_to t('frontpage.elements.organizers'), space_users_path(global_space ? global_space : Space.first) %>
             </li>
-            <li class="spaces">
-                <%= t('frontpage.elements.spaces') %>
+            <li class="spaces">            	
+                <%= link_to t('frontpage.elements.spaces'), spaces_path %>
             </li>
             <li class="comments">
-                <%= t('frontpage.elements.comments') %>
+                <%= link_to t('frontpage.elements.comments'), space_posts_path(global_space ? global_space : Space.first) %>
             </li>
             <li class="tags">
-                <%= t('frontpage.elements.tags') %>
+                <%= link_to t('frontpage.elements.tags'), space_attachments_path(global_space ? global_space : Space.first) %>
             </li>
             <li class="networks">
                 <%= t('frontpage.elements.networks') %>

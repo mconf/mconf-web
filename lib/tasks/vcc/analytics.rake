@@ -1,4 +1,5 @@
 require 'garb' 
+require 'yaml'
 
 #dos metodos uno que llena la base de datos con la informacion inicial y otro que actualiza la info desde hace x horas, desde el último update que tendre apuntado en algún lado quizá
 
@@ -17,7 +18,7 @@ namespace :vcc do
   def get_statistics_and_update_table(start_date, end_date)
     profile = garb_login
     #we ask for 100.000 last visits, if we have more we should use a higher number in limit
-    report = Garb::Report.new(profile, :start_date => Date.parse("10/01/2009"), :end_date => Date.today, :limit =>100000)
+    report = Garb::Report.new(profile, :start_date => start_date, :end_date => end_date, :limit =>100000)
     report.metrics :unique_pageviews
     report.dimensions :page_path
     #we do not use filters because then it is Google the one filtering, we ask for all the data and we will filter it
@@ -35,22 +36,22 @@ namespace :vcc do
      path = res.page_path
      if path.match('/spaces/[\w-]+')
        resource_url = path.match('/spaces/[\w-]+')[0]
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
      if path.match('/spaces/[\w-]+/events/[\w-]+')
        resource_url = path.match('/spaces/[\w-]+/events/[\w-]+')[0]
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
      if path.match('/spaces/[\w-]+/events/[\w-]+\?show_video=')
        the_id = path[path.index("=")+1,path.length]
        if numeric?(the_id)
          resource_url = path.match('/spaces/[\w-]*')[0] + "/videos/" + the_id.to_s
-         final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+         final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
        end
      end
      if path.match('/spaces/[\w-]+/videos/[0-9]+')
        resource_url = path
-       final_hash["#{resource_url}"] = res.pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
+       final_hash["#{resource_url}"] = res.unique_pageviews.to_i + (final_hash["#{resource_url}"] ? final_hash["#{resource_url}"]:0)
      end
    end 
    final_hash
@@ -71,13 +72,16 @@ namespace :vcc do
       end
       sta.save
     end
-    puts "Statistics table updated"
   end
 
 
   def garb_login
-    Garb::Session.login('plazaglobal@gmail.com', 'isabel2005')
-    profile = Garb::Profile.first('UA-12096965-1')
+    myhash = YAML.load_file("#{RAILS_ROOT}/config/google_user_passwd.yml")
+    user = myhash["user"]
+    pass = myhash["passwd"]
+    agent = myhash["agent"]
+    Garb::Session.login(user, pass)
+    profile = Garb::Profile.first(agent)
   end
 
 

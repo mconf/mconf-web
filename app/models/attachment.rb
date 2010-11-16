@@ -152,6 +152,12 @@ class Attachment < ActiveRecord::Base
       end
     end
     
+    if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we create the hard link
+      unless File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
+        FileUtils.ln(attachment.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+      end
+    end
   end
   
   after_save do |attachment|
@@ -171,6 +177,12 @@ class Attachment < ActiveRecord::Base
     parents.each do |parent|
       parent.without_timestamps do |p|
         p.update_attribute(:version_child_id, attachment.version_child_id)
+      end
+    end
+    
+    if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we delete the hard link
+      if File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
       end
     end
   end

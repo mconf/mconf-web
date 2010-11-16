@@ -394,3 +394,9 @@ width:127px;
 .video_preview_sidebar a.entry_video_link img{
 	width:90px;
 }
+
+.hidden_quote {display: none; margin-bottom: 5px;}
+.performance_imagen{width:900px;}
+.with_margin_down {margin-bottom: 9px;}
+
+#perf_message{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;}

@@ -37,6 +37,46 @@
 	 $("#embed_share").toggle('slow');   
   });
   
+ $('#atach_and_stats img.tooltip_num_views').qtip({
+   content: '<%=t("tooltip.num_views")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
+ 
+ $('#event_recordings img.tooltip_share').qtip({
+   content: '<%=t("tooltip.share")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });    
+
+ $('#event_recordings img.tooltip_insert').qtip({
+   content: '<%=t("tooltip.insert")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });    
+  
+ $('#sidebar img.tooltip_space_video').qtip({
+   content: '<%=t("tooltip.space_video")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+  
+ $('#sidebar img.tooltip_search_video').qtip({
+   content: '<%=t("tooltip.search_video")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
+    
 <% end %>
 
 <% content_for :search do  %>
@@ -89,6 +129,7 @@
 	          <span class="only_url"><%=t('url_plain')%>:</span>
 			  <%if @display_entry%>
 			  <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_videos_url(@space)+ "/" + (@display_entry ? @display_entry.id : 0).to_s %>" name="video_link"></input>
+			   <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_share icon",:style=>"cursor:pointer")%>			  
 			  <%end%>
 			</form>
 	      </div>
@@ -99,9 +140,10 @@
 	        <%end%>
 	      <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
 	        <form>
-	          <span class="only_url"><%=t('event.embed')%>:</span>
+	          <span class="only_url"><%=t('event.embed')%>:</span>			
 			   <%if @display_entry%>
 			  <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
+		      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_insert icon",:style=>"cursor:pointer")%>			  
 			  <%end%>
 			</form>
 	      </div>
@@ -145,7 +187,8 @@
 			  
 			  <div class="video_stat">
 			  	<%if @display_entry%>
-				  <span class="main_text separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
+				  <span class="separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
+				  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
 				<%end%>
 			  </div>
 		  </div>

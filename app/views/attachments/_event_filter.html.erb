@@ -1,9 +1,17 @@
 <%content_for :javascript do%>
   $("#event_filter").show();
+  
+ $('#sidebar img.tooltip_event').qtip({
+   content: '<%=t("tooltip.event")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });    
 <%end%>
 
 <div id="event_filter" style="display:none">
-	<label class="bold blue"><%=t('event.colon')%></label>
+	<label class="bold blue"><%=t('event.colon')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_event icon",:style=>"cursor:pointer")%></label>
 	<select id="event_select">
 		<option value="" id="blank_option"><%=t('any')%></option> 
 	 	<%@attachments.map(&:event).compact.uniq.each do |event|%>

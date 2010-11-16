@@ -108,6 +108,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'frontpage'
   map.about 'about', :controller => 'frontpage', :action => 'about'
   map.about2 'about2', :controller => 'frontpage', :action => 'about2'
+  map.perf_indicator 'perf_indicator', :controller => 'frontpage', :action => 'performance'
   map.help 'help', :controller => 'help', :action => 'index'
   map.faq 'faq', :controller => 'faq', :action => 'index'
 

@@ -794,7 +794,7 @@ en:
       question: "I have an iPad, which has no Flash plugin... can I still watch the videos?"
       answer: "We are currently doing our best to convert all our videos to HTML5. That includes real-time streaming of events, using <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Soon you will be able to enjoy it in your mobile terminals."
     faq11:
-      question: "I am Spanish/French/German/{insert nationality here}... Is Global Plaza translated to my language?"
+      question: "I am Spanish/French/German/... Is Global Plaza translated to my language?"
       answer: "As of now, <i>only</i> English, Spanish, French and German are supported. To select among them just use the link <b>Language</b> at the bottom of any Global Plaza page.<br>We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"feedback/new\">contact</a> us."
     faq12:
       question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
@@ -1773,23 +1773,35 @@ en:
     not_available: Token not available
   tomorrow: Tomorrow
   tooltip:
+    admin: "This section shows the people that have administrator rights in this space"  
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
     divider: "Use a divider to indicate breaks, like coffee or lunch breaks. You can also use it to separate different topic sessions."
+    doc_search: Use the fields in this side to filter and update the docs table with your search results
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"
     embed_help: Can be filled with HTML code to embed a video
     ev_type: "Place your mouse over the titles to know more about the types of events"
+    event: Select documents of the event that you what to see
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     help: Check streaming and/or recording services as needed
     help2: This session has already happened you can not edit streaming or recording options
     help3: This session is happening now you can only change whether you want streaming or not
     inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
+    insert: Use this code to insert this video in your blog or web page.
+    latest_news: This section shows the piece of news that the administrators send to all the people in this space
+    leave_space: This link will allow you to abandon this space definitely  
     private_profile: This information is visible only to the people you choose when you edit your profile
     public_profile: Anyone can access this information
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
-    news_item: "You can publish a short news at home"
+    news_item: "You can publish a short news at home"    
+    num_views: "This number represents the unique views for this page"
     organisers: Select the space users that will organise this event
+    search_video: Start to write what you want to search and the video list will be automatically updated with the results
+    share: This is the url to share this video with your colleagues
+    space_video: This filter will allow you to select only the videos of one specific event
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
+    tag_by: Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents.
+    upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     user_id: "You can use your user ID as openID, user chat and/or user Marte"
     user_filter: "You can filter users by their names or surnames. Start typing !"    
