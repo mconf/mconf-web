@@ -54,6 +54,7 @@ namespace(:deploy) do
 
   task :link_files do
     run "ln -sf #{ shared_path }/config/database.yml #{ release_path }/config/"
+    run "ln -sf #{ shared_path }/config/google_user_passwd.yml #{ release_path }/config/"
     run "ln -sf #{ shared_path }/lib/tasks/vcc #{ release_path }/lib/tasks"
     run "ln -sf #{ shared_path }/public/logos #{ release_path }/public"
     run "ln -sf #{ shared_path }/public/crossdomain.xml #{ release_path }/public"
