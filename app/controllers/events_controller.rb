@@ -217,7 +217,7 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.xml
   def update
-    if params[:event][:description]
+    if params[:event][:description] != nil
       params[:event][:description].gsub!("</p><p>", "<br>")
       params[:event][:description].gsub!("<p>", "").gsub!("</p>", "").gsub!("\n", "")
     end
