@@ -47,14 +47,14 @@ $(".event_image").click(function(){
     placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
     type      : 'wysiwyg',
     name : 'event[description]',
+	cssclass: 'formEdit',
     width : 635,
       height: 150,
       event: "dblclick",
       data: function(value, settings) {
-        /* Convert <br> to newline. */
-      var retval = value.replace(/<br[\s\/]?>/gi, '\n');
-      return retval;
-
+        /* Convert <br> to newline. This is not done any more */
+        var retval = '<%= stylesheet_link_tag "jquery.wysiwyg"%>' + value;
+        return retval;
     },
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
  });	 

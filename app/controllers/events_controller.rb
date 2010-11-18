@@ -217,6 +217,11 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.xml
   def update
+    if params[:event][:description]
+      params[:event][:description].gsub!("</p><p>", "<br>")
+      params[:event][:description].gsub!("<p>", "").gsub!("</p>", "").gsub!("\n", "")
+    end
+    
     respond_to do |format|
       if @event.update_attributes(params[:event])        
 		    #if the event is not marte, we have to remove the room in case it had it already assigned
