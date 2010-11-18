@@ -107,7 +107,8 @@ es:
         delete: "Error al eliminar la sesi\xC3\xB3n en el sistema de videoconferencia"
         disordered_times: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
         past_times: "La hora de inicio de la sesi\xC3\xB3n debe ser {{min_date}} o m\xC3\xA1s tarde"
-        update: "Error al actualizar la sesi\xC3\xB3n en el sistema de videoconferencia"
+        update: "Error al actualizar la sesi\xC3\xB3n en el sistema de videoconferencia" 
+        out_of_event: Parte de la sesi\xC3\xB3n cae fuera de los límites del evento
       failed: La entrada en la agenda no se pudo guardar
       has_attachment: Esta entrada tiene archivos adjuntos
       has_video: Video disponible para esta entrada

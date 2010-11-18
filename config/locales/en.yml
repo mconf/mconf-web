@@ -106,7 +106,8 @@ en:
         delete: Error deleting session in remote videoconference system
         disordered_times: The start time must be previous to the end time
         past_times: The start time of the session must be {{min_date}} or later
-        update: Error updating session in remote videoconference system
+        update: Error updating session in remote videoconference system        
+        out_of_event: Part of the session time falls out of the event limits
       failed: Agenda entry could not be saved
       has_attachment: This entry has attachments
       has_video: Video available for this entry

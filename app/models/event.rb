@@ -64,7 +64,7 @@ class Event < ActiveRecord::Base
   
   attr_accessor :edit_date_action
   
-  before_validation  :update_logo, :edit_date_actions, :event_validation
+  before_validation  :event_validation, :update_logo, :edit_date_actions 
   
   after_save :update_agenda_entries
   
@@ -109,9 +109,9 @@ class Event < ActiveRecord::Base
         @relative_time = self.start_date - self.start_date_was            
         self.end_date = self.end_date + @relative_time
       elsif self.edit_date_action.eql?("start_date") and self.start_date_changed?
-        
+        @relative_time = 0
       elsif self.edit_date_action.eql?("end_date")
-        #Nothing to do                   
+        @relative_time = 0
       end
     end
   end

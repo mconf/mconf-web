@@ -105,7 +105,8 @@ de:
         delete: "Fehler beim L\xC3\xB6schen der Tagung in abgelegenen Videokonferenz-System"
         disordered_times: Die Startzeit muss vor der Endzeit
         past_times: "Die Startzeit der Sitzung muss {{min_date}} oder sp\xC3\xA4ter werden"
-        update: Fehler beim Aktualisieren der Tagung in abgelegenen Videokonferenz-System
+        update: Fehler beim Aktualisieren der Tagung in abgelegenen Videokonferenz-System         
+        out_of_event: Part of the session time falls out of the event limits
       failed: Agenda-Eintrag konnte nicht gespeichert werden
       has_attachment: "Dieser Eintrag wurde Arbeitsger\xC3\xA4te"
       has_video: "Video f\xC3\xBCr diesen Eintrag"

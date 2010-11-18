@@ -105,7 +105,8 @@ fr:
         delete: "Erreur de suppression de session de syst\xC3\xA8me de visioconf\xC3\xA9rence \xC3\xA0 distance"
         disordered_times: "L&#39;heure de d\xC3\xA9but doit \xC3\xAAtre ant\xC3\xA9rieure \xC3\xA0 l&#39;heure de fin"
         past_times: "L'heure de d\xC3\xA9but de la session doit \xC3\xAAtre {{min_date}} ou plus tard"
-        update: "Erreur mise \xC3\xA0 jour de session de syst\xC3\xA8me de visioconf\xC3\xA9rence \xC3\xA0 distance"
+        update: "Erreur mise \xC3\xA0 jour de session de syst\xC3\xA8me de visioconf\xC3\xA9rence \xC3\xA0 distance" 
+        out_of_event: Part of the session time falls out of the event limits
       failed: "l&#39;ordre du jour d&#39;entr\xC3\xA9e n&#39;a pas pu \xC3\xAAtre sauv\xC3\xA9"
       has_attachment: "Cette entr\xC3\xA9e a des pi\xC3\xA8ces jointes"
       has_video: "Vid\xC3\xA9o disponible pour cette entr\xC3\xA9e"

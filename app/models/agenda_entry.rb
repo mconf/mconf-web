@@ -55,42 +55,38 @@ class AgendaEntry < ActiveRecord::Base
   def validate
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
     
-    if(self.start_time > self.end_time)
-      
+    if(self.start_time > self.end_time)      
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+    end  
+    
+   
+    if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date)
+      #debugger
+      self.errors.add_to_base I18n.t('agenda.entry.error.out_of_event')
+      return
+    end
+    
+    self.agenda.contents_for_day(self.event_day).each do |content|
+      next if ( (content.class == AgendaEntry) && (content.id == self.id) )
       
-    elsif (self.end_time.to_date - self.start_time.to_date) >= Event::MAX_DAYS
-      self.errors.add_to_base(I18n.t('agenda.entry.error.date_out_of_event', :max_days => Event::MAX_DAYS))
-      
-      # if the event has no start_date, then there won't be any agenda entries or dividers, so the next validations should be skipped
-    elsif !(self.agenda.event.start_date.blank?)
-      
-      if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date) 
-        self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => self.title)
-        return false
-      end
-      
-      self.agenda.contents_for_day(self.event_day).each do |content|
-        next if ( (content.class == AgendaEntry) && (content.id == self.id) )
-        
-        if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
-          unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
-            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
-            return
-          end
-        elsif (content.start_time..content.end_time) === self.start_time
-          unless (self.start_time == content.end_time) || ((self.start_time == content.start_time) && (self.start_time == self.end_time)) then
-            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
-            return
-          end
-        elsif (content.start_time..content.end_time) === self.end_time
-          unless (self.end_time == content.start_time) || ((self.end_time == content.end_time) && (self.end_time == self.start_time)) then
-            self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
-            return
-          end
+      if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
+        unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
+          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          return
+        end
+      elsif (content.start_time..content.end_time) === self.start_time
+        unless (self.start_time == content.end_time) || ((self.start_time == content.start_time) && (self.start_time == self.end_time)) then
+          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          return
+        end
+      elsif (content.start_time..content.end_time) === self.end_time
+        unless (self.end_time == content.start_time) || ((self.end_time == content.end_time) && (self.end_time == self.start_time)) then
+          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          return
         end
       end
     end
+    
   end
   
   before_save do |entry|

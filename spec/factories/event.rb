@@ -3,8 +3,8 @@ Factory.define :event do |e|
   e.description "Event description"
   e.sequence(:place) { |n| "Place #{ n }" }
   #  e.isabel_event
-  e.start_date { Time.now }
-  e.end_date { Time.now + 1800}
+  e.start_date { Time.now + 2.hours}
+  e.end_date { Time.now + 4.hours} 
   #  e.machine_id 
   #  e.colour",       :default => ""
   #  e.repeat"
