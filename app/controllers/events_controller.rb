@@ -219,7 +219,7 @@ class EventsController < ApplicationController
   def update
     if params[:event][:description] != nil
       params[:event][:description] = params[:event][:description].gsub("</p><p>", "<br>")
-      params[:event][:description] = params[:event][:description].gsub("<p>", "").gsub!("</p>", "").gsub!("\n", "")
+      params[:event][:description] = params[:event][:description].gsub("<p>", "").gsub("</p>", "").gsub("\n", "")
     end
     
     respond_to do |format|
