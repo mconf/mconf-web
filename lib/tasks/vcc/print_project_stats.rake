@@ -16,7 +16,7 @@ namespace :vcc do
     report.metrics :unique_pageviews
     report.dimensions :page_path
     results = report.results  #with this line we get the report, an array of openStruct objects that we will parse
-    final_results = compose_final_hash(results)
+    final_results = compose_final_hash_for_global_stats(results)
     print_results(final_results) 
   end
 
@@ -37,7 +37,7 @@ namespace :vcc do
   
 
   #method to add the different urls to sum up the visits
-  def compose_final_hash(results)
+  def compose_final_hash_for_global_stats(results)
    final_hash = Hash.new
    @space_with_more_than_50_visits = Hash.new
    for res in results
