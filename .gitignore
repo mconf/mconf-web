@@ -8,8 +8,6 @@ tmp/*
 .tmp_*
 config/ultrasphinx/*conf
 public/logos
-public/pdf
-public/scorm
 attachments/*
 public/images/tmp/*
 spec/reports
@@ -20,4 +18,4 @@ spec/reports
 config/locales/log
 .svn
 config/initializers/mail_conf.rb
-config/google_user_passwd.yml
+public/pdf/
