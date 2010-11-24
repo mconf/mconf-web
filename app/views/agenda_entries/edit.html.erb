@@ -138,7 +138,7 @@
       
         <%if @agenda_entry.past?%>
           <div class="checkbox_event">
-            <%=check_box_tag "add_video_checkbox", "yes", @agenda_entry.embedded_video.present? ? true:false, :class=>"icon" %>
+            <%=check_box_tag "add_video_checkbox", "yes", @agenda_entry.discard_automatic_video ? true:false, :class=>"icon" %>
             <label for="entry_video" class="label_izquierda">
               <%= t('agenda.entry.options.add_video') %>
             </label>
