@@ -106,12 +106,22 @@
 
 <div id="event_recordings" class="margin-up">
   
-  <div id="recordings_title"><h3 class="blue"><%=t('space.recording.one')%></h3></div>
+  <div id="recordings_title">
+  	<h3 class="blue"><%=t('space.recording.one')%>
+	  <%if params[:action]=="edit"%>
+		<span id="edit_video"><%= link_to t('video.close_edit'), space_video_path(@space, @display_entry) %></span>
+      <%elsif @display_entry && @display_entry.authorize?(:update, :to => current_user) %>
+    	<span id="edit_video"><%= link_to image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon"), edit_space_video_path(@space, @display_entry),:title => t('video.edit') %> </span>		
+	  <%end%>
+	</h3>    
+  </div>
     <div id="recordings_content">	  
     	
 	  <div id="videos">
 	    <div class="video_full">
-	      <%if @display_entry%>
+	      <%if @display_entry && params[:action]=="edit"%>
+		    <%=@display_entry.video_editor("640","480")%>
+		  <%elsif @display_entry%>
 	        <%=@display_entry.video_player("640","480")%>
 	      <%end%>
 	  </div>  

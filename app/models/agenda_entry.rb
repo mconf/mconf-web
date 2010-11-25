@@ -185,6 +185,12 @@ class AgendaEntry < ActiveRecord::Base
   def video_player(width, height)
     embedded_video || player(width, height)
   end
+ 
+  
+  #returns the editor with the specified width and height
+  def video_editor(width, height)
+    editor(width, height)
+  end
   
   
   def initDate

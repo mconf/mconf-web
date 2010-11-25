@@ -100,7 +100,7 @@ class EventsController < ApplicationController
     params[:show_video]=nil if event.future?
    
     #if there is no param we show the agenda
-    if !params[:show_agenda] && !params[:show_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]      
+    if !params[:show_agenda] && !params[:show_video] && !params[:edit_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]      
         params[:show_agenda]=true
     end
 
@@ -112,7 +112,7 @@ class EventsController < ApplicationController
     end
     
     
-     if params[:show_video] || params[:format]=="zip"
+     if params[:show_video] || params[:format]=="zip" || params[:edit_video]
       if @event.agenda.present?
         @video_entries = @event.videos
       else
@@ -121,6 +121,8 @@ class EventsController < ApplicationController
       #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
       if params[:show_video].class == String
         @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      elsif params[:edit_video].class == String
+        @display_entry = AgendaEntry.find(params[:edit_video].to_i)
       else
         @display_entry = nil
       end

@@ -1927,6 +1927,8 @@ en:
     new: New version
     one: Version
   video: 
+    close_edit: Close video edition
+    edit: Edit video
     found: 
       none: No videos found
       one: 1 video was found

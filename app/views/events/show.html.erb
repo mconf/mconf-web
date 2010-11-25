@@ -44,7 +44,7 @@
 	
 	<%if params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
-    <%elsif params[:show_video]%>
+    <%elsif params[:show_video] || params[:edit_video]%>
 	   <%= render :partial => "agendas/show_recordings_sidebar" %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
@@ -104,7 +104,7 @@
 		  <%= render :partial => "connection_info"%>
 		<%end%>
 	    <%=render :partial => "agendas/show"%>
-  <%elsif params[:show_video]%>     
+  <%elsif params[:show_video] || params[:edit_video]%>     
     <%= render :partial => "agendas/show_recordings" %>	   
   <%else%><!-- if there is no param-->
     <%= t('event.no_param') %>		

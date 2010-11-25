@@ -141,6 +141,22 @@ module ConferenceManager
         end
       end
       
+      #Return  a String that contains a html with the video editor for this session
+      def editor(width, height)
+        begin
+          @cm_player_session ||=
+          ConferenceManager::EditorSession.find(:player,
+              :params => { :event_id => event.cm_event_id,
+                           :session_id => cm_session.id, 
+                           :width => width,
+                           :height => height})
+          @cm_player_session.html
+        rescue
+          nil
+        end
+      end
+      
+      
     end
   end
 end

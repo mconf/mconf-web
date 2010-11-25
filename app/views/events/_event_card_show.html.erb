@@ -85,8 +85,8 @@
 	  <li class="main_text logo_padding">
         <%= t('event.features') %>: 
 		<%isfirst=true %>
-		<%if @event.has_streaming? || @event.is_in_person? %>		  
-		  <%unless @event.is_happening_now? || @event.is_in_person? %>
+		<%if @event.has_streaming? || @event.is_in_person? %>		
+		  <%unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) %>
 		    <%=t('event.view_streaming')%>
 		  <%else%>
 		    <%=link_to t('event.view_streaming'),space_event_path(@space, @event, :show_streaming => true)%>
@@ -98,7 +98,7 @@
             <%isfirst=false %>
           <%else %>
           ,<%end %>
-		  <%unless @event.is_happening_now? || @event.is_in_person? %>
+		  <%unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) %>
 		    <%=t('event.view_participation')%>
 		  <%else%>
 		    <%=link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)%>
@@ -123,7 +123,7 @@
 
 <div id="jar">	
 	<%if @event.agenda.present? %>
-		<%unless params[:show_video] || params[:show_streaming] || params[:show_participation] %>
+		<%unless params[:show_video] || params[:edit_video] || params[:show_streaming] || params[:show_participation] %>
       <%= render :partial => "event_description" %>
 		<%end %>
 	<%end %>

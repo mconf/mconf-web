@@ -24,7 +24,6 @@ class VideosController < ApplicationController
   authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
   
   def index
-
       if space.videos[0]
         @display_entry = space.videos[0];
       else
@@ -37,12 +36,20 @@ class VideosController < ApplicationController
   end  
   
   
-  def show
-    
+  def show    
     if params[:id].class == String
       @display_entry = AgendaEntry.find(params[:id].to_i)
     end
   end
    
+   
+  def edit
+    if params[:id].class == String
+      @display_entry = AgendaEntry.find(params[:id].to_i)
+    end
+    
+    
+    
+  end
    
 end
