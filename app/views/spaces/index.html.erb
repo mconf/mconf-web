@@ -77,14 +77,8 @@
 	
 <% end %>
 
-<% content_for :search do  %>	
-	<div id="space_filter" style="display:none">
-	  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-	  <%if logged_in?%>
-	    <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
-	    <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
-	  <%end%>
-	</div>  
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>	
 <% end %>
 
 <% content_for :sidebar do  %>
@@ -117,6 +111,15 @@
 <%else%>
   <%@user_spaces = []%>
 <%end%>
+
+<div id="space_filter" style="display:none">
+	  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
+	  <%if logged_in?%>
+	    <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
+	    <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
+	  <%end%>
+</div>  
+
 <div id = "public_spaces" class="space-box margin-up">
 
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>

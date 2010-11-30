@@ -1532,7 +1532,7 @@ en:
       no_dots: Search messages
     results: Search results
     space: 
-      dots: Search space...
+      dots: Filter space...
     switch: Switch to global search
     users: Search users
   searching_in: "You are searching in "
