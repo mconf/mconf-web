@@ -115,8 +115,8 @@
 		<%end%>		  
       </li>
   </ul>
-  
-  <%if event.uses_conference_manager?%>
+
+  <%if event.uses_conference_manager? && !event.future? && (event.start_date > Date.parse("11/30/2010")) %>
 	  <div id="view_stats_buttons">
 	  	<div class="button_wrapper" id="div_stats_button">
 	  		<%= link_to "<span>" + t('event.stats.view') + "</span>", webstats_space_event_path(@space, @event),:class => "new_space_link basic_button pale_button"%>

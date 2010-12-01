@@ -342,14 +342,13 @@ class EventsController < ApplicationController
   end
   
   
-  def webstats
-      
-    
+  def webstats      
+    render :layout => "application_without_sidebar"
   end
   
   
   def webmap
-    
+    render :layout => "application_without_sidebar"
   end
   
   

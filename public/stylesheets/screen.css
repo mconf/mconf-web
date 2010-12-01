@@ -791,7 +791,7 @@ div.pagination a{color:#244974;}
 #priv-msg,#Create_new_group, #change-event,#space-conf,#news_sidebar,#new_invitation_div/*, #add_new_doc, #doc_info, #doc_action.new_version*/{background:#bdd8eb;padding:0 0 10px 10px;float:left;}
 #update_space_logo{float:left;width:180px;}
 
-#new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
+#stats_title h3,#new_post h3,#new_reply h3,#edit_reply h3,#edit_thread h3,#Create_new_group h3,#priv-msg h3,#change-event h3,#space-conf h3,#news_sidebar h3, #new_invitation_div h3,#sources_sidebar h3,#update_logo h3,#upload_vcard h3,#assistance_title h3,#my_spaces_title h3{margin-top:0;padding-top:0.75em;color:#244974;}
 #new_post textarea,#new_reply textarea,#edit_reply textarea,#edit_thread textarea,#priv-msg textarea,#change-event textarea,#news_sidebar textarea,#space-conf textarea, #questions textarea,input.small_post_title,input#private_message_title,input#invitation_email,input.small_news_title,input#source_uri_attributes_uri,input#group_name,input#attachment_post_title,textarea#attachment_post_text,input#event_mails,input#space_group_invitation_mails,input#space_invitation_mails{width:92%;overflow:auto;}
 input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,textarea#invite_personal_registered{width:60%;overflow:auto;}
 .event_invitations_message{margin-left:30px;position:relative;overflow:hidden;display:block;}
@@ -2052,3 +2052,7 @@ a.first_day_link{border:none;}
 #footer_help {font-weight: bold;}
 
 #div_stats_button { float:left; margin-left: 75px;}
+#stats_header {border-bottom: 1px solid #DDDDDD; height: 65px;}
+#header_left {float:left;}
+#back_to_event_button {float:left; margin-left: 40px;margin-top:25px;}
+#back_to_event_button_down {margin-top:25px;}
