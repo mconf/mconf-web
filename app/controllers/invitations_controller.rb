@@ -18,5 +18,5 @@
 require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/invitations_controller"
 
 class InvitationsController
-  authorization_filter :forbidden, :invitations, :only => [ :index ]
+  authorization_filter :forbidden, :invitation, :only => [ :index ]
 end
