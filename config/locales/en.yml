@@ -690,6 +690,9 @@ en:
     select_date: Select a date for your event
     session_now: Session now
     spam: Spam in events
+    stats:
+      view: View stats
+      map: View map
     start: Restart event
     started: Start request send successfully
     streaming: 

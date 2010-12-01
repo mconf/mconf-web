@@ -216,6 +216,13 @@ button#change_logo{float:left;}
 
 .blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
 
+.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
+
+.pale_button span,button.pale_button{
+	border: 1px solid #BDD8EB;
+}
+.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
+
 /* special cases in buttons*/
 
 .on_live{
@@ -1902,7 +1909,7 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
 .tooltip_advanced_editor {float: right; margin-top: 0.75em;}
 .tooltip_advanced_editor_news {float: right;}
 
-.logo_padding {padding-left: 69px;}
+.logo_padding {padding-left: 75px;}
 .actions_sidebar{padding-bottom: 5px;}
 
 .video_cloud{float:right;margin-top:15px;}
@@ -2043,3 +2050,5 @@ a.first_day_link{border:none;}
 #edit_video {float:right;}
 #header_help {font-weight: bold;}
 #footer_help {font-weight: bold;}
+
+#div_stats_button { float:left; margin-left: 75px;}

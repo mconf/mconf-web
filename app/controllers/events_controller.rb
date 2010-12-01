@@ -341,6 +341,18 @@ class EventsController < ApplicationController
     render :layout => false
   end
   
+  
+  def webstats
+      
+    
+  end
+  
+  
+  def webmap
+    
+  end
+  
+  
   private
   
   #method to adapt the start_date + number of days to the start_date and end_date that the event expects

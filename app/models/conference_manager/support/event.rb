@@ -177,6 +177,30 @@ module ConferenceManager
         end
       end
    
+      
+      def webstats
+        begin  
+          cm_webstats ||=
+            ConferenceManager::Webstats.find(:webstat,
+                                        :params => { :event_id => cm_event_id })
+          cm_webstats.html 
+        rescue
+          nil
+        end
+      end
+      
+      def webmap
+        begin      
+          cm_webmap ||=
+            ConferenceManager::Webmap.find(:webmap,
+                                        :params => { :event_id => cm_event_id })
+          cm_webmap.html 
+        rescue
+          nil
+        end
+      end
+      
+      
       def start!
         ConferenceManager::Start.create(:event_id => cm_event_id)
       rescue  StandardError => e
