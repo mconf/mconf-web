@@ -152,11 +152,11 @@
         <label for="enable_isabel" class="label_izquierda">
             <%= t('event.streaming.title') %>
         </label>
-        <%= f.text_area :other_streaming_url, :cols => 95, :rows => 8, :value=>@event ? @event.other_streaming_url : "" %>
+        <%= f.text_area :other_streaming_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_streaming_url : "" %>
         <label for="enable_isabel" class="label_izquierda">
             <%= t('event.video_part') %>
         </label>
-        <%= f.text_area :other_participation_url, :cols => 95, :rows => 8, :value=>@event ? @event.other_participation_url : "" %>
+        <%= f.text_area :other_participation_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_participation_url : "" %>
     </div>
     <%= f.hidden_field :web_interface, :value => true %>
     <%= f.hidden_field :isabel_interface, :value => true %>
