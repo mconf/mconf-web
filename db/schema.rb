@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026103130) do
+ActiveRecord::Schema.define(:version => 20101209161231) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -150,8 +150,8 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
     t.boolean  "streaming_by_default",    :default => true
-    t.boolean  "recording_by_default",    :default => true
     t.boolean  "manual_configuration",    :default => false
+    t.integer  "recording_type",          :default => 0
   end
 
   create_table "groups", :force => true do |t|

@@ -68,6 +68,8 @@ class Event < ActiveRecord::Base
   
   after_save :update_agenda_entries
   
+  RECORDING_TYPE = [:automatic, :manual, :none]
+  
   def agenda_entries
     self.agenda.agenda_entries
   end

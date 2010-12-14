@@ -88,13 +88,16 @@
   
   $("#event_manual_configuration").click(function(){
     if ($("#event_manual_configuration").is(":checked")) {
-	  $("#initial-info").hide("slow");
+	  //we select "no recording"
+	  $("#event_recording_type_0, #event_recording_type_1").attr('checked', 'false');
+	  $("#event_recording_type_0, #event_recording_type_1, #event_recording_type_2").attr('disabled', 'disabled');
+	  $("#event_recording_type_2").attr('checked', 'true');
 	  $("#extra-info-part1").hide("slow");
 	  $("#manual_str_and_rec").show();
 	  $("#extra-info").width("90%");
 	}else
     { 
-	  $("#initial-info").show();
+      $("#event_recording_type_0, #event_recording_type_1, #event_recording_type_2").removeAttr('disabled', 'disabled');
 	  $("#extra-info-part1").show();
       $("#manual_str_and_rec").hide("slow");
 	  $("#extra-info").width("56%");

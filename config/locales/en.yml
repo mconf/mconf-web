@@ -680,6 +680,9 @@ en:
       other: Video list
       recorded: Recorded events
       share: Share  
+    recording_automatic: Automatic recording
+    recording_manual: Manual recording
+    recording_none: No recording
     repository: 
       enabled: Enable document repository
       help: This repository shows the documents uploaded in the sessions of the event agenda
@@ -1803,12 +1806,17 @@ en:
     public_profile: Anyone can access this information
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     mailing_list: "A mailing list will allow you to send email messages to your group instead of having to pick out the individual addresses every time"
+    manual_configuration: Select this item if you have all your videoconference infraestructure. The application will not start any Isabel, streaming nor recording, it will offer you two textareas to write your streaming embed code and participation embed code.
     news_item: "You can publish a short news at home"    
     num_views: "This number represents the unique views for this page"
     organisers: Select the space users that will organise this event
+    recording_automatic: With this mode the application will record the sessions automatically starting at the exact time that you indicate
+    recording_manual: With this mode the event web page will offer you a button to start and stop the application and you will be the one in charge of starting and ending the recording of the sessions
+    recording_none: Select this mode if you do not want recording
     search_video: Start to write what you want to search and the video list will be automatically updated with the results
     share: This is the url to share this video with your colleagues
     space_video: This filter will allow you to select only the videos of one specific event
+    streaming: Select this feature if you want automatic streaming for your event. If you have any session without streaming (like a test session) you can deselect the streaming feature per session when creating them.
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     tag_by: Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents.
     upcoming: "This section shows the next events in this space"
