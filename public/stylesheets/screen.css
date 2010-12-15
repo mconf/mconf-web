@@ -1954,7 +1954,7 @@ div#initial-info{padding-left:45px;}
 #extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
 div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
 div#initial-info #advanced_config:hover{text-decoration:underline;}
-
+div #advanced_config{padding-top: 10px;}
 .blue_selected {
 	font-weight:bolder;
 	background-color:#E1EEF5;
@@ -2048,8 +2048,8 @@ a.first_day_link{border:none;}
 }
 
 #edit_video {float:right;}
-#header_help {font-weight: bold;}
-#footer_help {font-weight: bold;}
+#header_help {font-weight: bold; }
+#footer_help {font-weight: bold; }
 
 #div_stats_button { float:left; margin-left: 75px;}
 #stats_header {border-bottom: 1px solid #DDDDDD; height: 65px;}

@@ -828,3 +828,4 @@ ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover
 ul.menu1{list-style-type:none;margin:0 5px 3px 0;}
 ul.menu1 li{display:inline;}
 /**/
+#header_help {font-weight: bold;}
