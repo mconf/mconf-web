@@ -402,3 +402,10 @@ width:127px;
 .perf_message{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;}
 .imagen_explanation{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;width: 890px;}
 .explanation_tilte{font-weight:bolder;}
+.greyRule {
+background: #7E7E7E;
+width: 900px;
+height: 1px;
+padding: 0;
+margin-bottom: 15px;
+}
