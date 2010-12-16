@@ -693,3 +693,6 @@ ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover
 ul.menu1{list-style-type:none;margin:0;}
 ul.menu1 li{display:inline;}
 /**/
+
+#special_message {background: none repeat scroll 0 0 #FF6600; border: 1px solid #BDD8EB; float: left; width: 300px;margin-left:250px;}
+#special_message_footer {font-size: smaller;text-align: center;}
