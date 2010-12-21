@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026103130) do
+ActiveRecord::Schema.define(:version => 20101216141312) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -73,6 +73,22 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "slot",       :default => 15
+  end
+
+  create_table "attachment_videos", :force => true do |t|
+    t.string   "type"
+    t.integer  "size"
+    t.string   "content_type"
+    t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "space_id"
+    t.integer  "event_id"
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.integer  "agenda_entry_id"
+    t.integer  "version_child_id"
+    t.integer  "version_family_id"
   end
 
   create_table "attachments", :force => true do |t|

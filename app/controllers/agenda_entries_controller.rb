@@ -122,6 +122,7 @@ class AgendaEntriesController < ApplicationController
   
   # GET /agenda_entries/1/edit
   def edit
+    
     @agenda_entry = AgendaEntry.find(params[:id])
     @day=@agenda_entry.event_day
     

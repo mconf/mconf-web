@@ -97,6 +97,7 @@ en:
       duration: Duration
       edit: Edit session item
       embedded_video: Embed video for the entry
+      upload_video: The video must have the extension FLV.
       end_time: End time
       error: 
         attribute_unchangeable: You have tried to change an unchangeable attribute for this session

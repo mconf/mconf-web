@@ -34,6 +34,9 @@
 	  
 	});
 	
+	
+	
+	
   $('.agenda_edit_entry img[tooltip]').each(function()
    {
       $(this).qtip({
@@ -150,6 +153,21 @@
           </div>  
         <%end%>
       <%end%>
+	  
+	  <div>
+	  	<p> <%=t("agenda.entry.upload_video")%>  </p>
+			 <% f.fields_for(:attachment_video) do |at_form| %>
+			 			 
+			 <%= at_form.file_field :uploaded_data %>
+			 
+			<% unless at_form.object.new_record? %>
+              <%=at_form.object.filename %>
+            <% end %>
+	 
+			 <% end %>
+	  </div>
+	  
+	    
       <ul class="margin-up event_form_buttons">
         <li><button type="submit" id="edit_entry_button" class="basic_button blue_button" style="float:left"><%=t("button.accept")%></button></li>
 			<%if params[:one_step]%>

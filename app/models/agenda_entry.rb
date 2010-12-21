@@ -18,7 +18,9 @@
 class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
+  has_one :attachment_video, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
+  accepts_nested_attributes_for :attachment_video, :allow_destroy => true
   attr_accessor :author, :duration, :date_update_action
   acts_as_stage
   acts_as_content :reflection => :agenda
