@@ -161,8 +161,12 @@
 			 <%= at_form.file_field :uploaded_data %>
 			 
 			<% unless at_form.object.new_record? %>
-              <%=at_form.object.filename %>
-            <% end %>
+                          <%= at_form.object.filename %>
+
+                          <%= at_form.check_box '_delete' %>
+                          <%= at_form.label '_delete', t('video_attachment.delete') %>
+
+                        <% end %>
 	 
 			 <% end %>
 	  </div>

@@ -16,6 +16,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class AttachmentVideo < ActiveRecord::Base
+  SWF_URL       = 'http://stream.globalplaza.org/reproductor/mediaplayer.swf'
+  STREAMING_URL = 'rtmp://stream.globalplaza.org/venusStore/_definst_/'
   
   belongs_to :space
   belongs_to :event
@@ -36,6 +38,11 @@ class AttachmentVideo < ActiveRecord::Base
   
   validates_as_attachment
    
+  def embed_html
+    <<-HTML
+<embed name="player" src="#{ SWF_URL }?id=#{ filename }&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;bufferlength=3&amp;file=#{ STREAMING_URL }" allowfullscreen="true" wmode="transparent" height="376" width="475">"
+    HTML
+  end
    
   def version_family
     Attachment.version_family(version_family_id)

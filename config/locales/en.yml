@@ -1954,6 +1954,8 @@ en:
       other: "{{size}} videos were found"
     one: Video
     other: Videos
+  video_attachment:
+    delete: Delete video attachment
   visit_link_to_activate_account: Visit this link to activate your account
   week: 
     next: Next week
