@@ -9,7 +9,7 @@ namespace :setup do
     desc "Erase non basic data and fill database"
     task :create => :environment do
       require 'populator'
-      require 'faker'
+      require 'ffaker'
 
       # DESTROY #
       [ Space ].each(&:destroy_all)
