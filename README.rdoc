@@ -5,7 +5,7 @@ It's developed in Ruby on Rails and strongly based on VCC (https://github.com/gi
 
 == Instalation
 
-MConf-web is currently implmented in Rails 2.3.4.
+MConf-web currently uses Rails 2.3.4.
 
 To install simply:
 
@@ -20,7 +20,7 @@ To test the server run:
 
     script/server
 
-And got to http://localhost:3000/.
+And go to http://localhost:3000/.
 
 == About
 
