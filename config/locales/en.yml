@@ -116,6 +116,11 @@ en:
         recording: Recording enabled for this session
         streaming: Streaming enabled for this session
       hidevideo: Hide video
+      label_automatic: Use automatic recorded video
+      label_embedded: Use embedded video for this session
+      label_uploaded: Upload video
+      label_none: No video
+      label_title_video_type: Video recording
       minutes: minutes
       new: New agenda entry
       no_record: "No"
@@ -1438,6 +1443,23 @@ en:
   received_message_more_machines: You have received a message from {{user}} asking for more machines
   recent: 
     activity: Recent activity
+  recording:
+    automatic: Automatic
+    box_title: Recording
+    button_continue: Continue recording
+    button_pause: Pause recording
+    button_publish: Publish recording
+    button_start: Start recording
+    help_automatic: "Recording is set to <b>automatic</b> for this event. The recording will start and stop at the exact times that you have indicated when you created the sessions. <br/> Note: This box is only visible to the event administrators"
+    help_manual: "Recording is set to <b>manual</b> for this event. Here you have a <b>start</b> button to initiate the recording and after you press it you will have a <b>stop</b> button to end it.<br/> Note: This box is only visible to the event administrators"
+    help_none: "Recording is set to <b>none</b> for this event. If you want recording edit the event and select the option that you desire.<br/> Note: This box is only visible to the event administrators"
+    manual: Manual
+    message_now_recording: Now recording ...
+    none: None
+    warning_continue_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
+    warning_pause_recording: "Warning: this action will pause the recording. You will be able to continue with it in the future or publish it. <br/> Do you want to continue?"
+    warning_publish_recording: "Warning: this action will publish the recording. In the future you will be able to edit it to cut the beggining and end of the resulting video but you won't be able to record this session again. <br/> Do you want to continue?"
+    warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
   register:
     and_participate: Register To Participate
     and_participate_description: To participate in the event you should register
@@ -1801,8 +1823,14 @@ en:
     help: Check streaming and/or recording services as needed
     help2: This session has already happened you can not edit streaming or recording options
     help3: This session is happening now you can only change whether you want streaming or not
+    help4: You can't change this option because the session has passed
+    help5: You can't change this option because the session is happening now
     inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
     insert: Use this code to insert this video in your blog or web page.
+    label_automatic: The video for this session will be the one that the system has recorded.
+    label_embedded: With this option you will discard the automatic video and you will be able to write an embed code for this video.
+    label_uploaded: With this option you will discard the automatic video and you will be able to upload a new video in flv.
+    label_none: This session will not have related video.
     latest_news: This section shows the piece of news that the administrators send to all the people in this space
     leave_space: This link will allow you to abandon this space definitely  
     private_profile: This information is visible only to the people you choose when you edit your profile
@@ -1829,6 +1857,7 @@ en:
     timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     vcard: "vCard is a file format standard for electronic business cards"
     vconfoptions: "Select video streaming if you want to broadcast your event. Select the video recording option if you want to record your event for future consumption. You can also configure the bandwidth and quality parameters of the videoconference by clicking on the advanced configuration link."
+    video_upload_explanation: Use this checkbox to delete the file you already uploaded. Or if you want to upload a new one just select it in the browse field and edit the session, the new video will replace the old one.
     vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
@@ -1956,6 +1985,7 @@ en:
     other: Videos
   video_attachment:
     delete: Delete video attachment
+    video_name: Uploaded Video
   visit_link_to_activate_account: Visit this link to activate your account
   week: 
     next: Next week

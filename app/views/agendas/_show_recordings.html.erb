@@ -9,7 +9,7 @@
 		
 		<%if params[:edit_video]%>
 		  <span id="edit_video"><%= link_to t('video.close_edit'), space_event_path(@space, @event) +"?show_video=" + @display_entry.id.to_s %></span>
-        <%elsif @display_entry && @display_entry.authorize?(:update, :to => current_user) %>
+        <%elsif @display_entry && @display_entry.video_type==AgendaEntry::VIDEO_TYPE.index(:automatic) && @display_entry.authorize?(:update, :to => current_user) %>
     	  <span id="edit_video"><%= link_to image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon"), space_event_path(@space, @event) +"?edit_video=" + @display_entry.id.to_s ,:title => t('video.edit') %> </span>		
 	    <%end%>	
 			

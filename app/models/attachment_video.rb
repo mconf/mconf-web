@@ -38,9 +38,9 @@ class AttachmentVideo < ActiveRecord::Base
   
   validates_as_attachment
    
-  def embed_html
+  def embed_html(width, height)
     <<-HTML
-<embed name="player" src="#{ SWF_URL }?id=#{ filename }&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;bufferlength=3&amp;file=#{ STREAMING_URL }" allowfullscreen="true" wmode="transparent" height="376" width="475">"
+<embed name="player" src="#{ SWF_URL }?id=#{ filename }&amp;searchbar=false&amp;displayheight=356&amp;displaywidth=475&amp;autostart=true&amp;bufferlength=3&amp;file=#{ STREAMING_URL }" allowfullscreen="true" wmode="transparent" height="#{height}" width="#{width}">"
     HTML
   end
    

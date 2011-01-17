@@ -1,0 +1,58 @@
+
+<div id="recording_box<%=@agenda_entry.id%>" class="recording_box_green">
+  <span class="recording_box_title"><%=t('recording.box_title')%>:</span>
+  <%if @event.recording_type == Event::RECORDING_TYPE.index(:automatic) %>
+	<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_recording_automatic icon",:style=>"cursor:pointer")%>		
+	<div class=""><%=t('recording.automatic')%></div>
+  <%elsif @event.recording_type == Event::RECORDING_TYPE.index(:manual)%>
+	<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_recording_manual icon",:style=>"cursor:pointer")%>
+	<div class=""><%=t('recording.manual')%></div>
+	  <span class="button_start_rec" id="button_start_rec<%=@agenda_entry.id%>" style="display:none"><%=link_to (image_tag("start.png", :title => t('recording.button_start'),:class=>"icon button_round", :onmouseover=>"this.src='/images/start_mouseover.png';", :onmouseout=>"this.src='/images/start.png';")), "#sure_form#{@agenda_entry.id}", :class=>"start_rec_link"%></span>
+	  <span class="button_pause_rec" id="button_pause_rec<%=@agenda_entry.id%>" style="display:none"><%=link_to (image_tag("pause.png", :title => t('recording.button_pause'),:class=>"icon button_round", :onmouseover=>"this.src='/images/pause_mouseover.png';", :onmouseout=>"this.src='/images/pause.png';")), "#sure_form_pause#{@agenda_entry.id}", :class=>"pause_rec_link"%></span>
+	  <span class="button_continue_rec" id="button_continue_rec<%=@agenda_entry.id%>" style="display:none"><%=link_to (image_tag("continue.png", :title => t('recording.button_continue'),:class=>"icon button_long", :onmouseover=>"this.src='/images/continue_mouseover.png';", :onmouseout=>"this.src='/images/continue.png';")), "#sure_form_continue#{@agenda_entry.id}", :class=>"continue_rec_link"%></span>
+	  <span class="button_publish_rec" id="button_publish_rec<%=@agenda_entry.id%>" style="display:none"><%=link_to (image_tag("publish.png", :title => t('recording.button_publish'),:class=>"icon button_long", :onmouseover=>"this.src='/images/publish_mouseover.png';", :onmouseout=>"this.src='/images/publish.png';")), "#sure_form_publish#{@agenda_entry.id}", :class=>"publish_rec_link"%></span>
+  <%else%>
+    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_recording_none icon",:style=>"cursor:pointer")%>
+	<div class=""><%=t('recording.none')%></div>
+  <%end%>			
+</div>
+
+<div style="display:none">
+    <div id="sure_form<%=@agenda_entry.id%>">
+        <div class="lightbox_advise"><%= t('recording.warning_start_recording') %></div>
+		  <div class="event_step_cancel_buttons">
+            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recording]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
+            <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+		  </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="sure_form_pause<%=@agenda_entry.id%>">
+        <div class="lightbox_advise"><%= t('recording.warning_pause_recording') %></div>
+		  <div class="event_step_cancel_buttons">
+            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recorded]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
+            <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+		  </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="sure_form_continue<%=@agenda_entry.id%>">
+        <div class="lightbox_advise"><%= t('recording.warning_continue_recording') %></div>
+		  <div class="event_step_cancel_buttons">
+            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recording]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
+            <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+		  </div>
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="sure_form_publish<%=@agenda_entry.id%>">
+        <div class="lightbox_advise"><%= t('recording.warning_publish_recording') %></div>
+		  <div class="event_step_cancel_buttons">
+            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:published]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
+            <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+		  </div>
+    </div>
+</div>

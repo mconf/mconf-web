@@ -40,6 +40,13 @@ class AgendaEntry < ActiveRecord::Base
   # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
   MINUTES_NOT_EXCLUDED =  30
   
+  #param that will be saved in the field video_type
+  #automatic: if the user wants the automatic recorded video (only available if the event recording type is set to automatic or manual, i.e. the entry has video)
+  #embedded: if the user discards the automatic and adds an embed
+  #uploaded: if the user discards the automatic and uploads a new video
+  #none: the user does not want video for this entry
+  VIDEO_TYPE = [:automatic, :embedded, :uploaded, :none]
+  
   before_validation do |agenda_entry|
     # Convert duration in end_time
     if agenda_entry.end_time.nil? || (agenda_entry.duration != agenda_entry.end_time - agenda_entry.start_time)
@@ -108,6 +115,14 @@ class AgendaEntry < ActiveRecord::Base
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
     end
+    
+    #check the correct option for video_type param in agenda_entry
+    if entry.event.is_in_person?
+      entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:none))
+    else
+      entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:automatic))
+    end
+    
   end
   
   after_update do |entry|
@@ -148,25 +163,46 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   def recording?
+    if event.recording_type == Event::RECORDING_TYPE.index(:manual)
+      return session_status==SESSION_STATUS[:published]
+    elsif video_type == VIDEO_TYPE.index(:automatic)
+      return past?
+    elsif video_type == VIDEO_TYPE.index(:embedded)
+      return embedded_video.present? && embedded_video != ""
+    elsif video_type == VIDEO_TYPE.index(:uploaded)
+      return true
+    else 
+      return false
+    end
+    
+=begin
     if !event.uses_conference_manager?  #manual mode
       if embedded_video.present? && embedded_video != ""
         return true
       else 
         return false
       end
-    else #automatic mode
+    else #automatic mode, the event uses the CM
       if discard_automatic_video
         if embedded_video.present? && embedded_video != ""
           return true
         else 
           return false
         end
-      else
-        cm_recording?
+      else        
+        if event.recording_type == Event::RECORDING_TYPE.index(:manual)
+          return session_status==SESSION_STATUS[:published]             
+        elsif event.recording_type == Event::RECORDING_TYPE.index(:automatic)
+          return past?
+        else #recording_type :none
+          return false
+        end      
       end
     end
+=end
   end
   
+    
   named_scope :with_recording, lambda {
     { :conditions => [ "embedded_video is not ? or cm_recording = ?",
       nil, true ] }
@@ -183,9 +219,18 @@ class AgendaEntry < ActiveRecord::Base
   end
   
   #returns the player with the specified width and height
-  #or the embedded_video if the entry has one
+  #or the embedded_video or the uploaded video if the entry has one
   def video_player(width, height)
-    embedded_video || player(width, height)
+    case video_type
+      when AgendaEntry::VIDEO_TYPE.index(:automatic)
+        player(width, height)
+      when AgendaEntry::VIDEO_TYPE.index(:embedded)
+        embedded_video
+      when AgendaEntry::VIDEO_TYPE.index(:uploaded)
+        attachment_video.embed_html(width, height)
+      when AgendaEntry::VIDEO_TYPE.index(:none)
+        nil
+      end
   end
  
   
@@ -300,5 +345,7 @@ def complete_speakers
      (a=="" ? nil : a)
   }.compact.join(", ")
 end
+
+
 
 end

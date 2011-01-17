@@ -68,6 +68,10 @@ class Event < ActiveRecord::Base
   
   after_save :update_agenda_entries
   
+  RECORDING_TYPE = [:automatic, :manual, :none]
+  EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC = 1.hour
+  
+  
   def agenda_entries
     self.agenda.agenda_entries
   end
@@ -282,7 +286,21 @@ class Event < ActiveRecord::Base
       
       # we remove those organizers that are not organizers any more
       past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.login)}.map(&:destroy)
-      
+    end
+        
+    if event.recording_type_changed?
+      if event.recording_type_was == Event::RECORDING_TYPE.index(:automatic)
+        #changed FROM automatic, update all the agenda_entries with recording=false to the CM
+        event.agenda.agenda_entries.each do |entry|
+          entry.update_attributes(:cm_recording=> false)
+        end
+      end
+      if event.recording_type == Event::RECORDING_TYPE.index(:automatic)
+        #changed TO automatic, update all the agenda_entries with recording=true to the CM
+        event.agenda.agenda_entries.each do |entry|
+          entry.update_attributes(:cm_recording=> true)
+        end
+      end      
     end
     
   end
@@ -410,12 +428,23 @@ class Event < ActiveRecord::Base
   def is_happening_now?
     #first we check if start date is past and end date is future
     if has_date? && start_date.past? && end_date.future?
-      true      
+      true   
+    elsif uses_conference_manager? && recording_type == RECORDING_TYPE.index(:manual)
+      if has_date? && start_date.past? && (end_date + EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC).future?
+        true
+      end
     else
       return false
     end
   end
   
+  
+  #method to know if we show the recording box in the event to record the event
+  def show_recording_box?
+    if is_happening_now? 
+      return true
+    end    
+  end
   
   #method to know if this event has any session now
   def has_session_now?

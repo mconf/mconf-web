@@ -20,11 +20,16 @@ module ConferenceManager
 
             validate_on_create do |event|
               if event.uses_conference_manager?
+                if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
+                  end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
+                else
+                  end_date_after_adjust = event.end_date
+                end
                 cm_e =
                   ConferenceManager::Event.new(:name => event.name,
                                                :mode => event.cm_mode,
                                                :initDate => event.start_date,
-                                               :endDate => event.end_date,
+                                               :endDate => end_date_after_adjust,
                                                :enable_web => "1",
                                                :enable_isabel => "1",
                                                :enable_sip => event.sip_interface?,
@@ -45,12 +50,17 @@ module ConferenceManager
               end
             end
            
-            validate_on_update do |event|              
+            validate_on_update do |event|           
               if !event.past? && event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
+                if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
+                  end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
+                else
+                  end_date_after_adjust = event.end_date
+                end
                 new_params = { :name => event.name,
                                :mode => event.cm_mode,
                                :initDate => event.start_date,
-                               :endDate => event.end_date,
+                               :endDate => end_date_after_adjust,
                                :enable_web => "1",
                                :enable_isabel => "1",
                                :enable_sip => event.sip_interface?,
@@ -123,6 +133,7 @@ module ConferenceManager
           nil
         end  
       end
+           
       
       def cm_event?
         cm_event.present?
@@ -202,10 +213,33 @@ module ConferenceManager
       
       
       def start!
-        ConferenceManager::Start.create(:event_id => cm_event_id)
-      rescue  StandardError => e
-        errors.add_to_base(e.to_s)  
+        begin
+          ConferenceManager::Start.create(:event_id => cm_event_id)
+        rescue  StandardError => e
+          errors.add_to_base(e.to_s)  
+        end
       end
+    
+    
+      #method to ask the conference manager the id of the entry being recorded
+      #returns nil if nothing is being recorded
+      def get_entry_being_recorded
+        begin
+          @event_status ||= ConferenceManager::EventStatus.find("event-status", :params => { :event_id => cm_event_id})
+          unless @event_status.nil?
+            if @event_status.attributes["recording_session"]              
+              ae = ::AgendaEntry.find_by_cm_session_id(@event_status.attributes["recording_session"])              
+              if ae.event == self
+                return ae.id
+              end
+            end            
+          end
+          return nil
+        rescue
+          nil
+        end        
+      end
+
     end
   end
 end
