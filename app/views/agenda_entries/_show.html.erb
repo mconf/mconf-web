@@ -58,7 +58,7 @@
 	        <span class="play_icon"></span>
 	      </div>
 		  
-	   <%elsif @event.authorize?(:update, :to => current_user) && @event.show_recording_box? && agenda_entry.session_status!=AgendaEntry::SESSION_STATUS[:published] && agenda_entry.video_type!=AgendaEntry::VIDEO_TYPE.index(:none)%>
+	   <%elsif @event.authorize?(:update, :to => current_user) && @event.show_recording_box? && (@event.uses_conference_manager? && agenda_entry.session_status!=AgendaEntry::SESSION_STATUS[:published]) && agenda_entry.video_type!=AgendaEntry::VIDEO_TYPE.index(:none)%>
 	     <%=render :partial=>"agenda_entries/recording_box"%>
        <%end%>
 
