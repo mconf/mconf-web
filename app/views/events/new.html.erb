@@ -55,7 +55,7 @@
 	
   <%= render :partial => "edit_new_logo" %>
 	
-  <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
+  <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f| -%>
     <%= f.hidden_field "rand_value" %>
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 

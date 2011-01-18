@@ -140,7 +140,7 @@
       </div>
    <%end%>
    
-   
+   <%unless @event.recording_type == Event::RECORDING_TYPE.index(:none)%>
       <div id="video_type_radio_buttons" class="margin-up">	
         <label for="video_type"><%= t('agenda.entry.label_title_video_type') %></label><br/>
 		<% for vid_type in AgendaEntry::VIDEO_TYPE do %>
@@ -153,7 +153,7 @@
 	      </div>
         <% end%>
      </div>
-
+   <%end%>
         
     
       <div class="margin-up" id="video_embed_div" style="display:none">

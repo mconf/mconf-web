@@ -125,7 +125,7 @@
 	</div>
 	<div id="initial-info" class="margin-up">	
 	  <% for rec_symbol in Event::RECORDING_TYPE do %>
-		 <div><%= f.radio_button :recording_type, Event::RECORDING_TYPE.index(rec_symbol)%>
+		 <div><%= f.radio_button :recording_type, Event::RECORDING_TYPE.index(rec_symbol), :disabled => (!@event.new_record? && !@event.future?) %>
 		 <label for="<%=('recording_' + rec_symbol.to_s)%>"><%= t( 'event.recording_' + rec_symbol.to_s ) %></label>
 		 <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.recording_' + rec_symbol.to_s)) %>
 		 </div>
