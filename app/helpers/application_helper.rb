@@ -36,6 +36,7 @@ module ApplicationHelper
       obj.space = @space if obj.space.blank?
     when AgendaEntry
        obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
+       obj.attachment_video ||= AttachmentVideo.new  
     else
       raise "Unknown object #{ obj.class }"
     end

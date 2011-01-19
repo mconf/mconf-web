@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  
+
 
   Translate::Routes.translation_ui(map)
 
@@ -78,6 +80,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #map.resources :posts
   #map.resources :attachments
+   map.resources :attachment_videos
 
   #map.resource :notifier
 

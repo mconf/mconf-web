@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026103130) do
+ActiveRecord::Schema.define(:version => 20110112120412) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.text     "video_thumbnail"
     t.integer  "cm_session_id"
     t.text     "uid"
-    t.boolean  "cm_streaming",            :default => false
-    t.boolean  "cm_recording",            :default => false
-    t.boolean  "discard_automatic_video", :default => false
+    t.boolean  "cm_streaming",    :default => false
+    t.boolean  "cm_recording",    :default => false
     t.text     "divider"
+    t.integer  "video_type"
   end
 
   create_table "agenda_record_entries", :force => true do |t|
@@ -73,6 +73,22 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "slot",       :default => 15
+  end
+
+  create_table "attachment_videos", :force => true do |t|
+    t.string   "type"
+    t.integer  "size"
+    t.string   "content_type"
+    t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "space_id"
+    t.integer  "event_id"
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.integer  "agenda_entry_id"
+    t.integer  "version_child_id"
+    t.integer  "version_family_id"
   end
 
   create_table "attachments", :force => true do |t|
@@ -150,8 +166,8 @@ ActiveRecord::Schema.define(:version => 20101026103130) do
     t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
     t.boolean  "streaming_by_default",    :default => true
-    t.boolean  "recording_by_default",    :default => true
     t.boolean  "manual_configuration",    :default => false
+    t.integer  "recording_type",          :default => 0
   end
 
   create_table "groups", :force => true do |t|

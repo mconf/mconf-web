@@ -11,7 +11,7 @@ a img{border:none;}
 /* typography.css */
 body{font-size:75%;color:#222;background:#fff;font-family:"Lucida Grande",Helvetica,Arial,Helvetica,sans-serif;}
 h1,h2,h3,h5{font-weight:normal;color:#111;}
-h1{font-size:2.6666em;line-height:1.125;color:#244974;}
+h1{font-size:2.3333em;line-height:1.125;color:#244974;}
 h2{font-size:2em;margin-bottom:0.75em;}
 h3{font-size:1.0833em;line-height:1.3846;margin:0.75em 0 0 0;font-weight:bold;}
 h3 img{margin-bottom:-4px;}
@@ -399,4 +399,13 @@ width:127px;
 .performance_imagen{width:900px;}
 .with_margin_down {margin-bottom: 9px;}
 
-#perf_message{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;}
+.perf_message{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;}
+.imagen_explanation{color:#244974; font-size:1.2em;line-height:1.25;padding:25px 8px 9px;margin:0 0 2px 0;width: 890px;}
+.explanation_tilte{font-weight:bolder;}
+.greyRule {
+background: #7E7E7E;
+width: 900px;
+height: 1px;
+padding: 0;
+margin-bottom: 15px;
+}

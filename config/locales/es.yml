@@ -98,6 +98,7 @@ es:
       edit: Editar elemento de la sesi\xC3\xB3n
       embed_help: "Puede introducirse c\xC3\xB3digo HTML para embeber un v\xC3\xADdeo"
       embedded_video: "Embeber v\xC3\xADdeo en la entrada"
+      upload_video: El video debe tener la extensión FLV.
       end_time: "Hora de finalizaci\xC3\xB3n"
       error: 
         attribute_unchangeable: "Ha intentado cambiar un atributo inalterable de esta sesi\xC3\xB3n"

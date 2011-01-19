@@ -58,6 +58,14 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
+    
+    if params[:participation_by_ajax] || params[:streaming_by_ajax]
+       respond_to do |format| 
+          format.js 
+          return
+       end
+    end
+    
     @assistants =  @event.participants.select{|p| p.attend == true}
     @no_assistants = @event.participants.select{|p| p.attend != true} 
     @not_responding_candidates = @event.invitations.select{|e| !e.candidate.nil? && !e.processed?}

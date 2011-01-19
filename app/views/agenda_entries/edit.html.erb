@@ -34,6 +34,7 @@
 	  
 	});
 	
+	
   $('.agenda_edit_entry img[tooltip]').each(function()
    {
       $(this).qtip({
@@ -45,6 +46,32 @@
       });
    });
   
+  
+  $('.vid_type_radio').change(function(){
+	update_video_type_status();
+  });
+  
+  update_video_type_status = function(){
+  if($("#agenda_entry_video_type_0").is(':checked'))  {
+	  $('#video_upload_div').hide();
+      $('#video_embed_div').hide();
+	}
+	else if($("#agenda_entry_video_type_1").is(':checked'))  {
+      $('#video_upload_div').hide();
+      $('#video_embed_div').show();
+	}
+	else if($("#agenda_entry_video_type_2").is(':checked'))  {      
+      $('#video_embed_div').hide();
+	  $('#video_upload_div').show();
+	}
+	else if($("#agenda_entry_video_type_3").is(':checked'))  {
+      $('#video_upload_div').hide();
+      $('#video_embed_div').hide();
+	}
+  };
+  
+  //call update_video_type_status when loading
+  update_video_type_status();
 <%end%>
 
 <div class="agenda_edit_entry" >
@@ -54,7 +81,7 @@
   </div>
   
   <div id="new_entry_content">
-    <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
+    <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form", :autocomplete=>"off"}) do |f| %>
 
       <% content_for :agenda_attachments do%>
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
@@ -99,57 +126,64 @@
       </div>    
       <span class="newAttachEvent"><%=t('attachment.add') %></span>
 
-      <%if @event.vc_mode==Event::VC_MODE.index(:in_person)%>   
-
-        <div class="margin-up">
-          <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label>
-          <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.embed_help'))%><br/>
-          <%= f.text_area :embedded_video, :size => "25x5" %>
-        </div>
-      <%else%>     
+    <%if !@event.is_in_person?%>
+      <div class="checkbox_event">
+        <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.cm_streaming?, :disabled => @agenda_entry.past? ? true:false %>
+        <label for="entry_streaming" class="label_izquierda">
+          <%= t('agenda.entry.options.streaming') %>
+        </label>
+		<%if @agenda_entry.past?%>
+		  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help4'))%>
+		<%elsif @agenda_entry.is_happening_now?%>
+		  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help5'))%>
+		<%end%>
+      </div>
+   <%end%>
+   
+   <%unless @event.recording_type == Event::RECORDING_TYPE.index(:none)%>
+      <div id="video_type_radio_buttons" class="margin-up">	
+        <label for="video_type"><%= t('agenda.entry.label_title_video_type') %></label><br/>
+		<% for vid_type in AgendaEntry::VIDEO_TYPE do %>
+	      <%if @event.is_in_person? && vid_type == :automatic %>
+		    <%next%>
+		  <%end%>
+		  <div><%= f.radio_button :video_type, AgendaEntry::VIDEO_TYPE.index(vid_type), :class=>"vid_type_radio"%>
+	      <label for="<%=('video_type_' + vid_type.to_s)%>"><%= t( 'agenda.entry.label_' + vid_type.to_s ) %></label>
+	      <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.label_' + vid_type.to_s)) %>
+	      </div>
+        <% end%>
+     </div>
+   <%end%>
         
-        <div class="margin-up">
-          <%unless @event.past?%>
-            <label for="embedded_video" class="main_text">
-              <%= t('agenda.entry.options.title') %>
-            </label> 
-            <%if @agenda_entry.past?%>
-              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help2'))%>
-            <%elsif @agenda_entry.is_happening_now?%>
-              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help3'))%>
-            <%else%>
-              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help'))%>
-            <%end%>
-            <br/>
-            <div class="checkbox_event">
-              <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.streaming?, :disabled => @agenda_entry.past? ? true:false %>
-              <label for="entry_streaming" class="label_izquierda">
-                <%= t('agenda.entry.options.streaming') %>
-              </label>
-            </div>
-            <div class="checkbox_event">
-              <%=f.check_box :cm_recording,:class=>"icon", :checked => @agenda_entry.recording?, :disabled => (@agenda_entry.past? || @agenda_entry.is_happening_now?) ? true:false %>
-              <label for="entry_recording" class="label_izquierda">
-                <%= t('agenda.entry.options.recording') %>
-              </label>
-            </div>
-          <%end%>
-        </div>
-      
-        <%if @agenda_entry.past?%>
-          <div class="checkbox_event">
-            <%=f.check_box :discard_automatic_video, :class=>"icon", :checked => @agenda_entry.discard_automatic_video ? true:false %>
-            <label for="entry_video" class="label_izquierda">
-              <%= t('agenda.entry.options.add_video') %>
-            </label>
-          </div>
-          <div class="margin-up" id="video_embed_div">
-            <div id="help" title="<%= h(t('agenda.entry.embed_help')) %>"></div>
-            <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
-            <%= f.text_area :embedded_video, :size => "25x5" %>
-          </div>  
-        <%end%>
-      <%end%>
+    
+      <div class="margin-up" id="video_embed_div" style="display:none">
+        <div id="help" title="<%= h(t('tooltip.embed_help')) %>"></div>
+        <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
+        <%= f.text_area :embedded_video, :size => "25x5" %>
+      </div>  
+
+
+	  
+	  <div class="margin-up" id="video_upload_div" style="display:none">
+	  	<p> <%=t("agenda.entry.upload_video")%>  </p>
+			 <% f.fields_for(:attachment_video) do |at_form| %>
+			 			 
+			 <%= at_form.file_field :uploaded_data %>
+			<div id="break"></div>
+			<% unless at_form.object.new_record? %>
+			              <%= at_form.label '_video_name', t('video_attachment.video_name') %>:
+                          <%= at_form.object.filename %>
+
+                          <%= at_form.check_box '_delete' %>
+                          <%= at_form.label '_delete', t('video_attachment.delete') %>
+						  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.video_upload_explanation')) %>
+
+                        <% end %>
+	 
+			 <% end %>
+	  </div>
+	  
+	  
       <ul class="margin-up event_form_buttons">
         <li><button type="submit" id="edit_entry_button" class="basic_button blue_button" style="float:left"><%=t("button.accept")%></button></li>
 			<%if params[:one_step]%>
@@ -161,6 +195,9 @@
       </ul>
     
     <% end %>
+	
+	
+	
   </div>
   <br/>
 </div>

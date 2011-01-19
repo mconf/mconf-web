@@ -87,7 +87,7 @@
 		<div class="profile_visibility_gradient">
 			<% for vis_symbol in Profile::VISIBILITY do %>
 			  <div class="margin-up"><%= f.radio_button :visibility, Profile::VISIBILITY.index(vis_symbol)%>
-			  <label for=<<%=('visibility_' + vis_symbol.to_s)%>><%= t( 'profile.visibility_' + vis_symbol.to_s ) %></label><br/></div>
+			  <label for="<%=('visibility_' + vis_symbol.to_s)%>"><%= t( 'profile.visibility_' + vis_symbol.to_s ) %></label><br/></div>
 			<% end%>
 		</div>
 		

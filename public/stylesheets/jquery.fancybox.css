@@ -5,8 +5,9 @@
  * Examples and documentation at: http://fancybox.net
  * 
  * Copyright (c) 2008 - 2010 Janis Skarnelis
- *
- * Version: 1.3.1 (05/03/2010)
+ * That said, it is hardly a one-person project. Many people have submitted bugs, code, and offered their advice freely. Their support is greatly appreciated.
+ * 
+ * Version: 1.3.4 (11/11/2010)
  * Requires: jQuery v1.3+
  *
  * Dual licensed under the MIT and GPL licenses:
@@ -18,19 +19,14 @@
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	height: 40px;
 	width: 40px;
+	height: 40px;
 	margin-top: -20px;
 	margin-left: -20px;
 	cursor: pointer;
 	overflow: hidden;
 	z-index: 1104;
 	display: none;
-}
-
-* html #fancybox-loading {	/* IE6 */
-	position: absolute;
-	margin-top: 0;
 }
 
 #fancybox-loading div {
@@ -43,19 +39,12 @@
 }
 
 #fancybox-overlay {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
-	bottom: 0;
-	right: 0;
-	background: #000;
+	width: 100%;
 	z-index: 1100;
 	display: none;
-}
-
-* html #fancybox-overlay {	/* IE6 */
-	position: absolute;
-	width: 100%;
 }
 
 #fancybox-tmp {
@@ -70,9 +59,9 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: 0;
 	padding: 20px;
 	z-index: 1101;
+	outline: none;
 	display: none;
 }
 
@@ -80,19 +69,18 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background: #FFF;
+	background: #fff;
 }
 
-#fancybox-inner {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 1px;
-	height: 1px;
+#fancybox-content {
+	width: 0;
+	height: 0;
 	padding: 0;
-	margin: 0;
 	outline: none;
+	position: relative;
 	overflow: hidden;
+	z-index: 1102;
+	border: 0px solid #fff;
 }
 
 #fancybox-hide-sel-frame {
@@ -102,6 +90,7 @@
 	width: 100%;
 	height: 100%;
 	background: transparent;
+	z-index: 1101;
 }
 
 #fancybox-close {
@@ -110,24 +99,16 @@
 	right: -15px;
 	width: 30px;
 	height: 30px;
-	background-image: url('fancybox.png');
-	background-position: -40px 0px;
+	background: transparent url('fancybox.png') -40px 0px;
 	cursor: pointer;
 	z-index: 1103;
 	display: none;
 }
 
-#fancybox_error {
+#fancybox-error {
 	color: #444;
 	font: normal 12px/20px Arial;
-	padding: 7px;
-	margin: 0;
-}
-
-#fancybox-content {
-	height: auto;
-	width: auto;
-	padding: 0;
+	padding: 14px;
 	margin: 0;
 }
 
@@ -140,79 +121,13 @@
 	outline: none;
 	line-height: 0;
 	vertical-align: top;
-	-ms-interpolation-mode: bicubic;
 }
 
 #fancybox-frame {
-	position: relative;
 	width: 100%;
 	height: 100%;
 	border: none;
 	display: block;
-}
-
-#fancybox-title {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	font-family: Arial;
-	font-size: 12px;
-	z-index: 1102;
-}
-
-.fancybox-title-inside {
-	padding: 10px 0;
-	text-align: center;
-	color: #333;
-}
-
-.fancybox-title-outside {
-	padding-top: 5px;
-	color: #FFF;
-	text-align: center;
-	font-weight: bold;
-}
-
-.fancybox-title-over {
-	color: #FFF;
-	text-align: left;
-}
-
-#fancybox-title-over {
-	padding: 10px;
-	background-image: url('fancy_title_over.png');
-	display: block;
-}
-
-#fancybox-title-wrap {
-	display: inline-block;
-}
-
-#fancybox-title-wrap span {
-	height: 32px;
-	float: left;
-}
-
-#fancybox-title-left {
-	padding-left: 15px;
-	background-image: url('fancybox.png');
-	background-position: -40px -90px;
-	background-repeat: no-repeat;
-}
-
-#fancybox-title-main {
-	font-weight: bold;
-	line-height: 29px;
-	background-image: url('fancybox-x.png');
-	background-position: 0px -40px;
-	color: #FFF;
-}
-
-#fancybox-title-right {
-	padding-left: 15px;
-	background-image: url('fancybox.png');
-	background-position: -55px -90px;
-	background-repeat: no-repeat;
 }
 
 #fancybox-left, #fancybox-right {
@@ -222,7 +137,7 @@
 	width: 35%;
 	cursor: pointer;
 	outline: none;
-	background-image: url('blank.gif');
+	background: transparent url('blank.gif');
 	z-index: 1102;
 	display: none;
 }
@@ -258,7 +173,7 @@
 }
 
 #fancybox-left:hover, #fancybox-right:hover {
-	visibility: visible;    /* IE6 */
+	visibility: visible; /* IE6 */
 }
 
 #fancybox-left:hover span {
@@ -270,7 +185,7 @@
 	right: 20px;
 }
 
-.fancy-bg {
+.fancybox-bg {
 	position: absolute;
 	padding: 0;
 	margin: 0;
@@ -280,21 +195,21 @@
 	z-index: 1001;
 }
 
-#fancy-bg-n {
+#fancybox-bg-n {
 	top: -20px;
 	left: 0;
 	width: 100%;
 	background-image: url('fancybox-x.png');
 }
 
-#fancy-bg-ne {
+#fancybox-bg-ne {
 	top: -20px;
 	right: -20px;
 	background-image: url('fancybox.png');
 	background-position: -40px -162px;
 }
 
-#fancy-bg-e {
+#fancybox-bg-e {
 	top: 0;
 	right: -20px;
 	height: 100%;
@@ -302,14 +217,14 @@
 	background-position: -20px 0px;
 }
 
-#fancy-bg-se {
+#fancybox-bg-se {
 	bottom: -20px;
 	right: -20px;
 	background-image: url('fancybox.png');
 	background-position: -40px -182px; 
 }
 
-#fancy-bg-s {
+#fancybox-bg-s {
 	bottom: -20px;
 	left: 0;
 	width: 100%;
@@ -317,47 +232,128 @@
 	background-position: 0px -20px;
 }
 
-#fancy-bg-sw {
+#fancybox-bg-sw {
 	bottom: -20px;
 	left: -20px;
 	background-image: url('fancybox.png');
 	background-position: -40px -142px;
 }
 
-#fancy-bg-w {
+#fancybox-bg-w {
 	top: 0;
 	left: -20px;
 	height: 100%;
 	background-image: url('fancybox-y.png');
 }
 
-#fancy-bg-nw {
+#fancybox-bg-nw {
 	top: -20px;
 	left: -20px;
 	background-image: url('fancybox.png');
 	background-position: -40px -122px;
 }
 
-/* IE */
+#fancybox-title {
+	font-family: Helvetica;
+	font-size: 12px;
+	z-index: 1102;
+}
 
-#fancybox-loading.fancybox-ie div	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_loading.png', sizingMethod='scale'); }
-.fancybox-ie #fancybox-close		{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_close.png', sizingMethod='scale'); }
+.fancybox-title-inside {
+	padding-bottom: 10px;
+	text-align: center;
+	color: #333;
+	background: #fff;
+	position: relative;
+}
 
-.fancybox-ie #fancybox-title-over	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_over.png', sizingMethod='scale'); zoom: 1; }
-.fancybox-ie #fancybox-title-left	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_left.png', sizingMethod='scale'); }
-.fancybox-ie #fancybox-title-main	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_main.png', sizingMethod='scale'); }
-.fancybox-ie #fancybox-title-right	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_right.png', sizingMethod='scale'); }
+.fancybox-title-outside {
+	padding-top: 10px;
+	color: #fff;
+}
 
-.fancybox-ie #fancybox-left-ico		{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_left.png', sizingMethod='scale'); }
-.fancybox-ie #fancybox-right-ico	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_right.png', sizingMethod='scale'); }
+.fancybox-title-over {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	color: #FFF;
+	text-align: left;
+}
 
-.fancybox-ie .fancy-bg { background: transparent !important; }
+#fancybox-title-over {
+	padding: 10px;
+	background-image: url('fancy_title_over.png');
+	display: block;
+}
 
-.fancybox-ie #fancy-bg-n	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_n.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-ne	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_ne.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-e	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_e.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-se	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_se.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-s	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_s.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-sw	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_sw.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-w	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_w.png', sizingMethod='scale'); }
-.fancybox-ie #fancy-bg-nw	{ filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_nw.png', sizingMethod='scale'); }
+.fancybox-title-float {
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+	height: 32px;
+}
+
+#fancybox-title-float-wrap {
+	border: none;
+	border-collapse: collapse;
+	width: auto;
+}
+
+#fancybox-title-float-wrap td {
+	border: none;
+	white-space: nowrap;
+}
+
+#fancybox-title-float-left {
+	padding: 0 0 0 15px;
+	background: url('fancybox.png') -40px -90px no-repeat;
+}
+
+#fancybox-title-float-main {
+	color: #FFF;
+	line-height: 29px;
+	font-weight: bold;
+	padding: 0 0 3px 0;
+	background: url('fancybox-x.png') 0px -40px;
+}
+
+#fancybox-title-float-right {
+	padding: 0 0 0 15px;
+	background: url('fancybox.png') -55px -90px no-repeat;
+}
+
+/* IE6 */
+
+.fancybox-ie6 #fancybox-close { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_close.png', sizingMethod='scale'); }
+
+.fancybox-ie6 #fancybox-left-ico { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_left.png', sizingMethod='scale'); }
+.fancybox-ie6 #fancybox-right-ico { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_right.png', sizingMethod='scale'); }
+
+.fancybox-ie6 #fancybox-title-over { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_over.png', sizingMethod='scale'); zoom: 1; }
+.fancybox-ie6 #fancybox-title-float-left { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_left.png', sizingMethod='scale'); }
+.fancybox-ie6 #fancybox-title-float-main { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_main.png', sizingMethod='scale'); }
+.fancybox-ie6 #fancybox-title-float-right { background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_title_right.png', sizingMethod='scale'); }
+
+.fancybox-ie6 #fancybox-bg-w, .fancybox-ie6 #fancybox-bg-e, .fancybox-ie6 #fancybox-left, .fancybox-ie6 #fancybox-right, #fancybox-hide-sel-frame {
+	height: expression(this.parentNode.clientHeight + "px");
+}
+
+#fancybox-loading.fancybox-ie6 {
+	position: absolute; margin-top: 0;
+	top: expression( (-20 + (document.documentElement.clientHeight ? document.documentElement.clientHeight/2 : document.body.clientHeight/2 ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop )) + 'px');
+}
+
+#fancybox-loading.fancybox-ie6 div	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_loading.png', sizingMethod='scale'); }
+
+/* IE6, IE7, IE8 */
+
+.fancybox-ie .fancybox-bg { background: transparent !important; }
+
+.fancybox-ie #fancybox-bg-n { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_n.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-ne { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_ne.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-e { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_e.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-se { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_se.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-s { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_s.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-sw { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_sw.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-w { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_w.png', sizingMethod='scale'); }
+.fancybox-ie #fancybox-bg-nw { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_shadow_nw.png', sizingMethod='scale'); }

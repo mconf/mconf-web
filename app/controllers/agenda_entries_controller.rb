@@ -101,7 +101,9 @@ class AgendaEntriesController < ApplicationController
     
     if @event.vc_mode != Event::VC_MODE.index(:in_person)
       @agenda_entry.cm_streaming = @event.streaming_by_default
-      @agenda_entry.cm_recording = @event.recording_by_default      
+      if @event.recording_type == Event::RECORDING_TYPE.index(:automatic)
+        @agenda_entry.cm_recording = true   #this param is only true if recording is automatic
+      end
     end
     
     respond_to do |format|
@@ -122,6 +124,7 @@ class AgendaEntriesController < ApplicationController
   
   # GET /agenda_entries/1/edit
   def edit
+    
     @agenda_entry = AgendaEntry.find(params[:id])
     @day=@agenda_entry.event_day
     
@@ -138,8 +141,20 @@ class AgendaEntriesController < ApplicationController
     
     @agenda_entry = AgendaEntry.find(params[:id])
     @agenda_entry.author = current_user
-    
     respond_to do |format|
+      if params[:status]!=nil
+        #in this case we only perform the call to the conference manager to start, pause or publish the recording
+        if params[:status]==AgendaEntry::SESSION_STATUS[:recording]
+          @agenda_entry.change_status(AgendaEntry::SESSION_STATUS[:recording])
+        elsif params[:status]==AgendaEntry::SESSION_STATUS[:recorded]
+          @agenda_entry.change_status(AgendaEntry::SESSION_STATUS[:recorded])
+        elsif params[:status]==AgendaEntry::SESSION_STATUS[:published]
+          @agenda_entry.change_status(AgendaEntry::SESSION_STATUS[:published])
+        end
+        format.js {render :partial=>"recording_ack"}
+        return
+      end
+      
       if @agenda_entry.update_attributes(params[:agenda_entry])
         if params[:agenda_entry][:discard_automatic_video]=="0"
           @agenda_entry.update_attribute(:embedded_video, nil)

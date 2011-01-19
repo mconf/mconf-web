@@ -16,6 +16,10 @@
 
 <div id="subtexto_busqueda">
   <ul class="menu1">
+  	<li>
+      <%=link_to ("<span id='header_help'>" + t('help') + "</span>"),help_path, :class=> "medium_button, orange_button" %>
+    </li>
+	<li> | </li>
     <li>
       <div id="browse_select">
         <%=link_to ("<span>" + t("find.browse") + "</span>"),'dropdown',{:id=>"browse_select",:class => "browse_select"}%>
@@ -36,10 +40,6 @@
                                                   :end_date => Time.now.strftime("%m/%d/%Y"))%></li>
         </ul>
       </div>
-    </li>
-    <li> | </li>
-    <li>
-      <%=link_to t('help'),help_path %>
     </li>
   </ul>   
 </div>

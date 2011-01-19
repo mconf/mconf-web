@@ -6,6 +6,8 @@ module ConferenceManager
       PAST_UNCHANGEABLE_ATTRIBUTES = ["cm_streaming", "cm_recording", "start_time", "end_time"]
       CURRENT_UNCHANGEABLE_ATTRIBUTES = ["cm_streaming", "cm_recording", "start_time"]
       WAKE_UP_TIME = 2.minutes
+      SESSION_STATUS = {:init=>"Init",:recording=>"Recording",:recorded=>"Recorded",:published=>"Published"}
+      
       
       class << self
         
@@ -116,6 +118,19 @@ module ConferenceManager
         cm_session.present?
       end
       
+      
+      def status
+        begin
+          @session_status ||=
+          ConferenceManager::SessionStatus.find(:status,
+                                            :params => { :event_id => event.cm_event_id,
+                                                         :session_id => cm_session_id})
+        rescue
+          nil
+        end 
+      end
+      
+      
       def can_edit_hours?
         !(event.uses_conference_manager? && past?) 
       end
@@ -155,6 +170,75 @@ module ConferenceManager
           nil
         end
       end
+      
+      #method that changes the recording status of this session
+      #remember that the rest of the sessions of this event will stop the recording if you init one
+      def change_status(new_status)       
+        cm_status = status
+        new_params = {:event_id => event.cm_event_id,
+                      :session_id => cm_session_id,  
+                      :status => new_status}
+        cm_status.load(new_params)
+        begin       
+          cm_status.save
+        rescue => e
+          if cm_status.present?  
+            errors.add_to_base(e.to_s) 
+          end  
+        end  
+      end
+      
+      #method to check if the video has been published
+      #either by the user or because the event has finished
+      def check_published_recording
+        cm_status = status
+        debugger
+        puts "hola"
+      end
+
+
+      #method to get the session status
+      #it can be any in SESSION_STATUS
+      def session_status
+        cm_status = status
+        cm_status.attributes["status"]
+      end
+      
+      #method to start the recording
+      #remember that the rest of the sessions of this event will stop the recording
+      def start_recording
+        cm_status = status
+        new_params = {:event_id => event.cm_event_id,
+                      :session_id => cm_session_id,  
+                      :status => SESSION_STATUS[:recording]}
+        cm_status.load(new_params)
+        begin       
+          cm_status.save
+        rescue => e
+          if cm_status.present?  
+            errors.add_to_base(e.to_s) 
+          end  
+        end  
+      end
+      
+      
+      #method to stop the recording
+      def stop_recording
+        cm_status = status
+        new_params = {:event_id => event.cm_event_id,
+                      :session_id => cm_session_id,  
+                      :status => SESSION_STATUS[:recorded]}
+        cm_status.load(new_params)
+        begin       
+          cm_status.save
+        rescue => e
+          if cm_status.present?  
+            errors.add_to_base(e.to_s) 
+          end  
+        end  
+      end
+      
+      
       
       
     end

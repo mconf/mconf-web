@@ -348,8 +348,10 @@ body .icon{margin-bottom:-2px;}
 #logo:hover{border-color:#c0c0c0;}
 #logo img.logo{width:100%;}
 #name-space{width:500px;margin-left:20px;float:left;}
-#name-space span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
-#name-space #small-title a{font-size:2em;line-height:3;}
+#name-space span a, #name-home span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
+#name-space #small-title a,#name-home #small-title a{font-size:2em;line-height:3;}
+#name-home{width:200px;margin-left:20px;float:left;}
+
 #search{margin-top:3px;margin-left:18px;text-align:right;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
@@ -808,6 +810,7 @@ a.invitation_tab{padding:7px 10px;display:inline-block;outline:none;}
 a.selected_invitation_tab{background:#fff;}
 .invite_tab{position:relative;overflow:hidden;display:block;clear:both;}
 #event_step_cancel_buttons{width:110px;margin-left:auto;margin-right:auto;margin-top:8px;}
+.event_step_cancel_buttons{width:110px;margin-left:auto;margin-right:auto;margin-top:8px;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}
@@ -1954,7 +1957,7 @@ div#initial-info{padding-left:45px;}
 #extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
 div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
 div#initial-info #advanced_config:hover{text-decoration:underline;}
-
+div #advanced_config{padding-top: 10px;}
 .blue_selected {
 	font-weight:bolder;
 	background-color:#E1EEF5;
@@ -1976,6 +1979,7 @@ div#initial-info #advanced_config:hover{text-decoration:underline;}
 #third_step_logo{background:url('/images/three.png') no-repeat left center;}
 
 #lightbox_advise{background:none repeat scroll 0 0 #E1E1E1;font-weight:bold;padding:7px 12px;}
+.lightbox_advise{background:none repeat scroll 0 0 #E1E1E1;font-weight:bold;padding:7px 12px;}
 
 ul.event_form_buttons{
 	position:relative;
@@ -2048,11 +2052,21 @@ a.first_day_link{border:none;}
 }
 
 #edit_video {float:right;}
-#header_help {font-weight: bold;}
-#footer_help {font-weight: bold;}
+#header_help {font-weight: bold; }
+#footer_help {font-weight: bold; }
 
 #div_stats_button { float:left; margin-left: 75px;}
 #stats_header {border-bottom: 1px solid #DDDDDD; height: 65px;}
 #header_left {float:left;}
 #back_to_event_button {float:left; margin-left: 40px;margin-top:25px;}
 #back_to_event_button_down {margin-top:25px;}
+
+#special_message {background: none repeat scroll 0 0 #FF6600; border: 1px solid #BDD8EB; float: left; width: 300px;}
+#special_message_footer {font-size: smaller;text-align: center;}
+
+.recording_box_title {font-weight: bolder;}
+.recording_box_green {border: 1px solid #BDD8EB; float: left; width: 120px;height:100px;text-align:center;}
+
+.button_round {width:50px;height: 50px;}
+.button_long {width:99px;height: 30px;}
+#extra_space {margin-bottom: 20px;}

@@ -9,6 +9,7 @@ tmp/*
 config/ultrasphinx/*conf
 public/logos
 attachments/*
+attachment_videos/*
 public/images/tmp/*
 spec/reports
 **/*~

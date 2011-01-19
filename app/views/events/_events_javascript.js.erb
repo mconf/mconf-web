@@ -439,3 +439,132 @@ $(".newAttachEvent").livequery('click',function () {
 	 $("#url_isabel").hide();
 	 $("#url_sip").toggle('slow');      
   });
+  
+  
+/* jquery for start and stop recording */
+
+$('.tooltip_recording_automatic').qtip({
+   content: '<%=t("recording.help_automatic")%>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });  
+
+$('.tooltip_recording_manual').qtip({
+   content: '<%=t("recording.help_manual")%>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+  
+  
+$('.tooltip_recording_none').qtip({
+   content: '<%=t("recording.help_none")%>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+  
+$(".start_rec_link").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 350,
+	'height'             : 105
+	});
+	
+$(".pause_rec_link").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 350,
+	'height'             : 105
+	});
+  
+$(".continue_rec_link").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 350,
+	'height'             : 105
+	});
+	
+$(".publish_rec_link").fancybox({
+	'scrolling'		     : 'no',
+	'titleShow'		     : false,
+	'hideOnContentClick' : false,
+	'autoDimensions'	 : false,
+	'width'              : 400,
+	'height'             : 125
+	});
+  
+change_status = function(ae_id, new_status){
+   $.ajax({
+    url: '<%=space_event_url(@event.space, @event) + "/agenda/agenda_entries/"%>' + ae_id,
+	type: 'PUT',
+	data: 'status=' + new_status,
+    success: function(data) {	
+	  update_status_and_refresh_view(ae_id, new_status);  
+	  our_close();
+    }
+  });
+
+}
+  
+
+update_status_and_refresh_view = function(ae_id, new_status) {
+  //first we check if any of the other entries are being recorded to stop them (only in case we are stating a recording)
+  if(new_status == "<%=AgendaEntry::SESSION_STATUS[:recording]%>"){
+	  jQuery.each(entries, function(ind, value) {
+	    if(value == "<%=AgendaEntry::SESSION_STATUS[:recording]%>" && ind!= ae_id){
+		  entries[ind] = "<%=AgendaEntry::SESSION_STATUS[:recorded]%>"; //pause it
+		  $("#button_pause_rec" + ind).hide();
+		  $("#button_continue_rec" + ind).show();
+		  $("#button_publish_rec" + ind).show();
+		}
+	  });  
+  }
+  
+  entries[ae_id] = new_status;
+  if(new_status == "<%=AgendaEntry::SESSION_STATUS[:recording]%>"){
+    $("#button_start_rec" + ae_id).hide();
+	$("#button_continue_rec" + ae_id).hide();
+	$("#button_publish_rec" + ae_id).hide();
+	$("#button_pause_rec" + ae_id).show();
+  } else if (new_status == "<%=AgendaEntry::SESSION_STATUS[:recorded]%>"){
+    $("#button_pause_rec" + ae_id).hide();
+	$("#button_continue_rec" + ae_id).show();
+	$("#button_publish_rec" + ae_id).show();
+  }else if (new_status == "<%=AgendaEntry::SESSION_STATUS[:published]%>"){
+    $("#button_publish_rec" + ae_id).hide();
+	$("#recording_box"+ ae_id).replaceWith('<div class="video_preview" id="video_preview'+ ae_id+'"> <a onclick="request_video(' + ae_id + '); return false;" href="#" class="entry_video_link"><img src="/images/default_background.jpg?1267028915" alt="Recording"></a><span class="play_icon"></span></div>');
+  }
+    
+};
+
+our_close = function(){
+   $.fancybox.close();
+};
+
+
+<%if @event.show_recording_box? && @event.uses_conference_manager? && @event.authorize?(:update, :to => current_user) %>
+  <%@event.agenda.agenda_entries.each do |entry|%>
+    <%if entry.session_status==AgendaEntry::SESSION_STATUS[:init]%>
+	  $("#button_start_rec<%=entry.id%>").show();
+    <%elsif entry.session_status==AgendaEntry::SESSION_STATUS[:recording]%>
+	  $("#button_pause_rec<%=entry.id%>").show();
+	<%elsif entry.session_status==AgendaEntry::SESSION_STATUS[:recorded]%>	  
+	  $("#button_continue_rec<%=entry.id%>").show();
+	  $("#button_publish_rec<%=entry.id%>").show();
+	<%end%>
+  <%end%>
+  //EXAMPLE: var entries = {123:"Recording", 124: "Recorded", 125: "Published", 126: "Init"}
+  <%=generate_entries_javascript_array(@event)%>  
+<%end%>
+
