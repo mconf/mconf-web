@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -203,9 +204,8 @@ class AgendaEntry < ActiveRecord::Base
   end
   
     
-  named_scope :with_recording, lambda {
-    { :conditions => [ "embedded_video is not ? or cm_recording = ?",
-      nil, true ] }
+  scope :with_recording, lambda {
+    where("embedded_video is not ? or cm_recording = ?", nil, true)
   }
   
   def streaming?

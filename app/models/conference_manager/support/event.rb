@@ -18,7 +18,9 @@ module ConferenceManager
         def included(base)
           base.class_eval do
 
-            validate_on_create do |event|
+            validate :on_create, :on => :create
+
+            def validate_create(event)
               if event.uses_conference_manager?
                 if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
                   end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
@@ -50,7 +52,9 @@ module ConferenceManager
               end
             end
            
-            validate_on_update do |event|           
+            validate :on_update, :on => :update
+
+            def validate_update(event)      
               if !event.past? && event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
                 if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
                   end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC

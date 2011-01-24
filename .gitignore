@@ -4,7 +4,6 @@ index
 .loadpath
 log/*.log
 *kpf
-tmp/*
 .tmp_*
 config/ultrasphinx/*conf
 public/logos
@@ -20,3 +19,9 @@ config/locales/log
 .svn
 config/initializers/mail_conf.rb
 public/pdf/
+.bundle
+db/*.sqlite3
+tmp/**/*
+*~
+Gemfile.lock
+db/schema.rb

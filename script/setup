@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 LINUX_PACKAGES = {
-  :common => %w( ruby-dev rdoc irb libopenssl-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev libmagickcore-dev libmagickwand-dev ),
+  :common => %w( rubygems ruby-dev rdoc irb libopenssl-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev libmagickcore-dev libmagickwand-dev ),
   :production => %w( awstats logrotate nfs-common ),
   :development => %w( ),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
@@ -38,7 +38,7 @@ GEMS = {
   :development => [ "capistrano",
                     "mongrel",
                     "populator",
-                    "faker",
+                    "ffaker",
                     "thoughtbot-factory_girl -s http://gems.github.com/"
                      ],
   :mysql => [ "mysql" ],

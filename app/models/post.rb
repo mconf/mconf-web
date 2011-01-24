@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -30,12 +31,11 @@ class Post < ActiveRecord::Base
   acts_as_taggable
   acts_as_tree :order => 'updated_at ASC'
 
-  named_scope :public, lambda { |arg|
-    { :joins => :space,
-      :conditions => [ 'public = ?', true ] }
+  scope :public, lambda { |arg|
+    join(:space).where('public = ?', true)
   }
-  named_scope :not_events, lambda {
-    {:conditions => {:event_id =>  nil} }
+  scope :not_events, lambda {
+    where(:event_id =>  nil)
   }
 
 

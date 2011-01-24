@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -156,11 +157,8 @@ class Event < ActiveRecord::Base
   end
   
   
-  named_scope :upcoming, lambda { 
-    { :conditions => [ "events.end_date > ? AND spaces.disabled = ?", Time.now, false ],
-      :include => :space,
-      :order => "start_date"
-    }
+  scope :upcoming, lambda { 
+    where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).include(:space).order("start_date")
   }
   
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],

@@ -21,6 +21,8 @@ namespace :setup do
   end
 
 
+=begin
+  #TODO rails 3: ultrasphinx
   desc "Link /etc/sphinxsearch/sphinx.conf to current/config/ultrasphinx/production.conf"
   task :config_sphinx do
     print "* Checking /etc/sphinxsearch/sphinx.conf: "
@@ -33,6 +35,7 @@ namespace :setup do
       puts "linked."
     end
   end
+=end
 
   desc "Copy cron.d/vcc if it doesn't exist"
   task :config_cron do

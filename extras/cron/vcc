@@ -7,4 +7,5 @@
 15 4 * * * www-data cd /home/isabel/global2/current && rake --silent cron:daily RAILS_ENV=production
 
 # Ultrasphinx
-*/10 * * * * root cd /home/isabel/global2/current && /usr/bin/rake --silent ultrasphinx:index RAILS_ENV=production > /dev/null
+# TODO rails 3: ultrasphinx
+# */10 * * * * root cd /home/isabel/global2/current && /usr/bin/rake --silent ultrasphinx:index RAILS_ENV=production > /dev/null

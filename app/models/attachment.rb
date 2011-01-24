@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -70,14 +71,12 @@ class Attachment < ActiveRecord::Base
     version_child_id.nil?
   end
   
-  named_scope :version_family, lambda{ |id|
-    {:order => 'id DESC',
-    :conditions => {:version_family_id => id}}
+  scope :version_family, lambda{ |id|
+    where(:version_family_id => id).order('id DESC')
   }
 
-  named_scope :sorted, lambda { |order, direction|
-    { :order => sanitize_order_and_direction(order, direction),
-      :conditions => {:version_child_id => nil}}
+  scope :sorted, lambda { |order, direction|
+    where(:version_child_id => nil).order(sanitize_order_and_direction(order, direction))
   }
   
   is_indexed :fields => ['filename', 'type', 'space_id', 'updated_at'],

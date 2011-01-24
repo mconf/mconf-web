@@ -14,8 +14,10 @@ module ConferenceManager
         def included(base)
           base.class_eval do
             
-            validate_on_create do |entry|
-              
+            validate :validate_create(entry), :on => :create
+
+            def validate_create(entry)
+
               # Validation: Session must be future
               if entry.errors.empty? && entry.event.uses_conference_manager? && entry.start_time < (Time.zone.now + WAKE_UP_TIME) 
                 entry.errors.add_to_base(I18n.t('agenda.entry.error.past_times',
@@ -41,8 +43,9 @@ module ConferenceManager
               end
             end
             
-            validate_on_update do |entry|
+            validate :validate_update(entry), :on => :update
               
+            def validate_update(entry)
               if entry.errors.empty? && entry.event.uses_conference_manager?
                 
                 # Validation: In past sessions cannot be edited PAST_UNCHANGEABLE_ATTRIBUTES

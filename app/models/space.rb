@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -147,8 +148,8 @@ class Space < ActiveRecord::Base
   end
 
   
-  named_scope :public, lambda {
-    { :conditions => { :public => true } }
+  scope :public, lambda {
+    where(:public => true)
   }
 
   default_scope :conditions => {:disabled => false}

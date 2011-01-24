@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -24,26 +25,24 @@ class PrivateMessage < ActiveRecord::Base
   validates_presence_of :receiver_id , :title, :body,
                           :message => "must be specified"
 
-  named_scope :inbox, lambda{ |user|
+  scope :inbox, lambda{ |user|
     user_id = case user
               when User
                 user.id
               else
                 user
               end
-    {:conditions => {:deleted_by_receiver => false, :receiver_id => user_id},
-     :order => "created_at DESC"}
+    where(:deleted_by_receiver => false, :receiver_id => user_id).order("created_at DESC")
   }
   
-  named_scope :sent, lambda{ |user|
+  scope :sent, lambda{ |user|
     user_id = case user
               when User
                 user.id
               else
                 user
               end
-    {:conditions => {:deleted_by_sender => false, :sender_id => user_id},
-    :order => "created_at DESC"}
+    where(:deleted_by_sender => false, :sender_id => user_id).order("created_at DESC")
   }
 
 # Commented because it causes an error when a user is joining to a space and sends private messages to space admins
