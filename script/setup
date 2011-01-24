@@ -78,7 +78,7 @@ end
 #end
 
 def install_database
-  print "* Checking config/database.yml: "
+  puts "* Checking config/database.yml: "
 
   db_file = File.dirname(__FILE__) + "/../config/database.yml"
 
@@ -117,13 +117,28 @@ def ask_for_db_type
   DATABASES[ number.to_i - 1].downcase.to_sym
 end
 
+def install_mail_conf
+  puts "* Checking config/initializers/mail_conf.rb: "
+
+  mail_file = File.dirname(__FILE__) + "/../config/initializers/mail_conf.rb"
+
+  if File.exist?(mail_file)
+    puts "file exists. Assuming configurated mail delivery."
+    return
+  end
+
+  `cp #{ mail_file }.gmail.example #{ mail_file }` 
+  puts "Created basic #{ mail_file }, please configure it."
+end
+
 def setup_environment(env)
   install_linux_packages(:common)
   install_linux_packages(env)
-#  install_gem_subsystem
+  #install_gem_subsystem
   install_gems(:common)
   install_gems(env)
   install_database
+  install_mail_conf
   system "rake setup:#{ env }"
 end
 
