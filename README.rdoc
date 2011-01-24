@@ -1,0 +1,31 @@
+== Welcome to MConf-web
+
+MConf-web is the web application that controls the access to the MConf webconferencing system.
+It's developed in Ruby on Rails and strongly based on VCC (https://github.com/ging/vcc)
+
+== Instalation
+
+MConf-web currently uses Rails 2.3.4 with Ruby 1.8.7.
+This branch is an attempt to migrate the application to Ruby 1.9.2 / Rails 3.0.3.
+
+To install simply:
+
+* Clone the repository
+* Run:
+
+    script/setup
+
+If everything goes well you will have a functional development environment. 
+
+To test the server run:
+
+    script/server
+
+And go to http://localhost:3000/.
+
+== About
+
+MConf project: http://www.inf.ufrgs.br/prav/projetos_gtmconf_english.htm
+
+MConf-web is based on VCC (Virtual Conference Centre): https://github.com/ging/vcc
+
