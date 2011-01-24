@@ -1,3 +1,12 @@
 [submodule "vendor/plugins/station"]
 	path = vendor/plugins/station
 	url = http://git-isabel.dit.upm.es/station.git
+[submodule "vendor/plugins/rspec"]
+	path = vendor/plugins/rspec
+	url = git://github.com/dchelimsky/rspec.git
+[submodule "vendor/plugins/rspec-rails"]
+	path = vendor/plugins/rspec-rails
+	url = git://github.com/dchelimsky/rspec-rails.git
+
+
+

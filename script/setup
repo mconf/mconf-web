@@ -60,22 +60,22 @@ def install_gems(set)
   puts "Installing #{ set } gems.."
   GEMS[set].each do |gem|
     puts "Installing gem: #{ gem }"
-    system "sudo gem install #{ gem } --no-ri --no-rdoc"
+    system "gem install #{ gem } --no-ri --no-rdoc"
   end
 end
 
-def install_gem_subsystem
-  if `which gem`.chomp == ""
-    gem_bin = `which gem1.8`.chomp
-    if gem_bin == ""
-      puts "Installing Ruby Gems"
-      system "cd /tmp && wget #{ RUBY_GEMS_DOWNLOAD }"
-      system "cd /tmp && tar zxf #{ RUBY_GEMS_PACKAGE }"
-      system "cd /tmp/rubygems-#{ RUBY_GEMS_VERSION } && sudo /usr/bin/ruby setup.rb"
-    end
-    system "sudo ln -s /usr/bin/gem1.8 /usr/bin/gem"
-  end
-end
+#def install_gem_subsystem
+#  if `which gem`.chomp == ""
+#    gem_bin = `which gem1.8`.chomp
+#    if gem_bin == ""
+#      puts "Installing Ruby Gems"
+#      system "cd /tmp && wget #{ RUBY_GEMS_DOWNLOAD }"
+#      system "cd /tmp && tar zxf #{ RUBY_GEMS_PACKAGE }"
+#      system "cd /tmp/rubygems-#{ RUBY_GEMS_VERSION } && sudo /usr/bin/ruby setup.rb"
+#    end
+#    system "sudo ln -s /usr/bin/gem1.8 /usr/bin/gem"
+#  end
+#end
 
 def install_database
   print "* Checking config/database.yml: "
@@ -120,7 +120,7 @@ end
 def setup_environment(env)
   install_linux_packages(:common)
   install_linux_packages(env)
-  install_gem_subsystem
+#  install_gem_subsystem
   install_gems(:common)
   install_gems(env)
   install_database
