@@ -153,6 +153,12 @@ end
 if ARGV[0] =~ /production/
   print_banner("PRODUCTION")
   setup_environment(:production)
+elsif ARGV[0] =~ /gem/
+  print_banner("GEMS")
+  install_gems(:common)
+  install_gems(:development)
+  install_gems(:mysql)
+  install_gems(:sqlite)
 else
   print_banner("DEVELOPMENT")
   setup_environment(:development)
