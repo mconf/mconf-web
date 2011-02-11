@@ -214,6 +214,7 @@ en:
   back: Back
   back_to_inbox: Back to inbox
   bad_request: Bad Request
+  bbb_space: BBB Room
   beta: (BETA)
   body: Body
   button:
@@ -1813,6 +1814,7 @@ en:
   tooltip:
     admin: "This section shows the people that have administrator rights in this space"  
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"  
+    bbb_space: "This is a public BBB webconference room for this space. Only members of this space can access the room."
     divider: "Use a divider to indicate breaks, like coffee or lunch breaks. You can also use it to separate different topic sessions."
     doc_search: Use the fields in this side to filter and update the docs table with your search results
     document_repository: "A document repository allows you to organize all the files that have been uploaded to the space"

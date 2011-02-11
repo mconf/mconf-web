@@ -518,8 +518,9 @@ ul.edit-post li{list-style-type:none;}
 #admin_tabs{padding:9px 0.75em 8px;margin-bottom:2px;background:#bdd8eb;}
 #admin_tabs .selected{color:#244974;}
 #admin_tabs a{font-weight:bold;}
-#news_navigation_div,#latest_news h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3,#edit_profile h3,#edit_account h3{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
-#news_navigation_div,#latest_news h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more{border-right:none;}
+#news_navigation_div,#latest_news h3,#bbb_space h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more,#events h3,#upcoming_events h3,#past_events h3,#edit_profile h3,#edit_account h3
+{border-right:1px #b0cadb solid;border-bottom:1px #a8c0d1 solid;}
+#news_navigation_div,#latest_news h3,#bbb_space h3,#latest_posts h3,#latest_users h3,#latest_posts .read_more,#latest_users .read_more{border-right:none;}
 /*space home, latest users,posts and events*/
 #upload_logo_button,#logo_media{
 -webkit-border-radius:4px;-moz-border-radius:4px;
@@ -541,8 +542,9 @@ width:auto;
 #home_current_events h3{margin:0;}
 #home_current_events p{margin:0;}
 #latest_posts,#latest_news,#latest_users{border-right:1px solid #b0cadb;border-left:1px solid #b0cadb;border-top:1px solid #b0cadb;}
-#latest_posts, #latest_news{margin-bottom:1.5em;}
-#latest_posts h3,#latest_users h3,#latest_news h3{margin:0;padding:5px 6px 3px;background:#bdd8eb; color:#244974;}
+#bbb_space{border:1px solid #b0cadb;}
+#latest_posts,#latest_news,#bbb_space{margin-bottom:1.5em;}
+#latest_posts h3,#latest_users h3,#latest_news h3,#bbb_space h3{margin:0;padding:5px 6px 3px;background:#bdd8eb; color:#244974;}
 #latest_posts .read_more,#latest_users .read_more, #news_navigation_div{padding:5px 0.75em;background:#bdd8eb;}
 #last_news .news-wrapper{border:none;}
 #last_news .news-title{padding-top:0.5em}
@@ -2070,3 +2072,20 @@ a.first_day_link{border:none;}
 .button_round {width:50px;height: 50px;}
 .button_long {width:99px;height: 30px;}
 #extra_space {margin-bottom: 20px;}
+
+#bbb_space_content {
+  padding: 5px;
+}
+
+.bbb_button {
+  padding: 5px 10px 5px 10px;
+}
+
+.bbb_button_area {
+  float: right;
+  margin: 5px;
+}
+
+.clearer {
+  clear: both;
+}

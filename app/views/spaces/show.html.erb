@@ -68,6 +68,14 @@
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
+
+ $('#bbb_space img.tooltip_bbb_space').qtip({
+   content: '<%=t("tooltip.bbb_space")%>',
+	 position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
   	
 <% end %>
 
@@ -142,13 +150,17 @@
   </div>
 <% end %>
 
+<div id="bbb_space">
+  <h3><%=image_tag("icons/bbb_logo.png")%> <%= t('bbb_space') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bbb_space icon",:style=>"cursor:pointer")%></h3>
+  <%= render :partial => 'bbb_space' %>
+</div>
+
 <% if @news_to_show %>
   <div id="latest_news">
 	  <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_latest_news icon",:style=>"cursor:pointer")%></h3>
     <%= render :partial => 'last_news' %>
   </div>
 <% end %>
-
 
 <div id="latest_posts">
     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>

@@ -1,0 +1,26 @@
+<div id="bbb_space_content">
+  <div class="bbb_action_button">
+    Running: <%= @bbb_running %>
+    <br />
+    Info: <%= @bbb_info.to_s if @bbb_running %>
+    <br />
+    <% unless @bbb_participants.nil? %>
+      <div class="bbb_button_area">
+	<% if false %>
+        <%= link_to 'Create room', new_space_bbb_path(@space), :class => 'big_button orange_button bbb_button' %>
+	<% end %>
+	Create
+      </div>
+      <span>There is nobody currently in the room.</span>
+    <% else %>
+      <div class="bbb_button_area">
+	<% if false %>
+        <%= link_to 'Enter room', space_bbb_path(@space), :class => 'big_button orange_button bbb_button' %>
+	<% end %>
+	Enter
+      </div>
+      <span>There are <%= @bbb_participants.count %> users in the room:<br /> <%= @bbb_participants.join(', ') %></span>
+    <% end %>
+    <div class="clearer"></div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -14,6 +15,8 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
+
+require 'bigbluebutton'
 
 class SpacesController < ApplicationController
   include ActionController::StationResources
@@ -55,7 +58,15 @@ class SpacesController < ApplicationController
   # GET /spaces/1
   # GET /spaces/1.xml
   # GET /spaces/1.atom
-  def show  
+  def show
+
+    #TODO temporary
+    api = BigBlueButton::BigBlueButtonApi.new('', '', true)
+    @bbb_room = @space.name
+    @bbb_participants = ['Moderator 1', 'Member 1', 'Member 2']
+    @bbb_running = api.is_meeting_running("Demo Meeting")
+    @bbb_info = api.get_meeting_info("Demo Meeting", "mp") if @bbb_running
+
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0) 
     @news = @space.news.find(:all, :order => "updated_at DESC")
     @news_to_show = @news[@news_position]
