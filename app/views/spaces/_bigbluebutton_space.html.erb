@@ -1,0 +1,29 @@
+<div id="bigbluebutton_space_content">
+  <div class="bigbluebutton_action_button">
+    <div class="bigbluebutton_button_area">
+      <%= link_to 'Enter room', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+    </div>
+    <% if @bbb_info[:running] %>
+      <span>
+        The meeting is running! <br />
+        <% node = @bbb_info[:info][:attendees][:attendee] %>
+        <% if node.kind_of?(Array) %>
+          There are <%= node.count %> attendees in the room: <br />
+          <ul style="margin-bottom:0">
+          <% node.each do |att| %>
+            <li>[<%= att[:role] %>] <%= att[:fullName] %></li>
+          <% end %>
+          </ul>
+        <% else %>
+          There is 1 attendee in the room: <br />
+          <ul style="margin-bottom:0">
+            <li>[<%= node[:role] %>] <%= node[:fullName] %></li>
+          </ul>
+        <% end %>
+      </span>
+    <% else %>
+      <span>There is nobody currently in the room.</span>
+    <% end %>
+    <div class="clearer"></div>
+  </div>
+</div>

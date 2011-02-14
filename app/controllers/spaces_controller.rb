@@ -16,13 +16,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'bigbluebutton'
+require 'bigbluebutton-api'
 
 class SpacesController < ApplicationController
   include ActionController::StationResources
-  
+
   before_filter :space
-  
+
   authentication_filter :only => [:new, :create]
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
@@ -42,10 +42,10 @@ class SpacesController < ApplicationController
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
     if @space
-       session[:current_tab] = "Spaces" 
+       session[:current_tab] = "Spaces"
     end
     if params[:manage]
-      session[:current_tab] = "Manage" 
+      session[:current_tab] = "Manage"
       session[:current_sub_tab] = "Spaces"
     end
     respond_to do |format|
@@ -54,20 +54,23 @@ class SpacesController < ApplicationController
       format.atom
     end
   end
-  
+
   # GET /spaces/1
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show
 
-    #TODO temporary
-    api = BigBlueButton::BigBlueButtonApi.new('', '', true)
-    @bbb_room = @space.name
-    @bbb_participants = ['Moderator 1', 'Member 1', 'Member 2']
-    @bbb_running = api.is_meeting_running("Demo Meeting")
-    @bbb_info = api.get_meeting_info("Demo Meeting", "mp") if @bbb_running
+    #TODO temporary implementation of a bbb room for this space
+    unless BBB_API.is_meeting_running?(@space.name)
+      BBB_API.create_meeting(@space.name, @space.name, "mp", "ap", "Welcome to Mconf!")
+    end
+    @bbb_info = {}
+    @bbb_info[:room] = @space.name
+    @bbb_info[:running] = BBB_API.is_meeting_running?(@space.name)
+    @bbb_info[:info] = BBB_API.get_meeting_info(@space.name, "mp")
+    @bbb_info[:link] = BBB_API.moderator_url(@space.name, current_user.name, "mp")
 
-    @news_position = (params[:news_position] ? params[:news_position].to_i : 0) 
+    @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
     @news = @space.news.find(:all, :order => "updated_at DESC")
     @news_to_show = @news[@news_position]
     @posts = @space.posts
@@ -86,28 +89,28 @@ class SpacesController < ApplicationController
       format.atom
     end
   end
-  
+
   # GET /spaces/new
   def new
     respond_to do |format|
       format.html{
           if request.xhr?
             render :partial=>"new"
-          end  
+          end
       }
     end
   end
-  
+
   # GET /spaces/1/edit
   def edit
     #@users = @space.actors.sort {|x,y| x.name <=> y.name }
     @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
     @roles = Space.roles
   end
-  
-  
+
+
   # POST /spaces
-  # POST /spaces.xml 
+  # POST /spaces.xml
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create
@@ -123,7 +126,7 @@ class SpacesController < ApplicationController
           return
         end
       end
-        
+
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
           flash[:error] = t('error.credentials')
@@ -131,9 +134,9 @@ class SpacesController < ApplicationController
           return
       end
     end
-    
+
     params[:space][:repository] = 1;
-    
+
     @space = Space.new(params[:space])
     create_group
     unless @group.valid?
@@ -151,7 +154,7 @@ class SpacesController < ApplicationController
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
-        format.atom { 
+        format.atom {
           headers["Location"] = formatted_space_url(@space, :atom )
           render :action => 'show',
                  :status => :created
@@ -161,25 +164,25 @@ class SpacesController < ApplicationController
           message = ""
           @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
-          render :action => :new, :layout => "application" 
+          render :action => :new, :layout => "application"
           }
         #format.html { redirect_to :action => "new"}
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
       end
-      
-    end    
+
+    end
   end
-  
-  
-  
+
+
+
   # PUT /spaces/1
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-    if @space.update_attributes(params[:space]) 
+    if @space.update_attributes(params[:space])
       respond_to do |format|
-        format.html { 
+        format.html {
           flash[:success] = t('space.updated')
           redirect_to request.referer
         }
@@ -202,15 +205,15 @@ class SpacesController < ApplicationController
         format.js {
         @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
         }
-        format.html { 
+        format.html {
         redirect_to edit_space_path() }
         format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
-      end      
+      end
     end
   end
-  
-  
+
+
   # DELETE /spaces/1
   # DELETE /spaces/1.xml
   # DELETE /spaces/1.atom
@@ -231,7 +234,7 @@ class SpacesController < ApplicationController
       format.atom { head :ok }
     end
   end
-  
+
   def create_group
     if params[:mail].blank?
       @space.mailing_list_for_group = ""
@@ -242,15 +245,15 @@ class SpacesController < ApplicationController
   end
 
   def enable
-    
+
     unless @space.disabled?
       flash[:notice] = t('space.error.enabled', :name => @space.name)
       redirect_to request.referer
       return
     end
-    
+
     @space.enable
-    
+
     flash[:success] = t('space.enabled')
     respond_to do |format|
       format.html {
@@ -262,12 +265,12 @@ class SpacesController < ApplicationController
   end
 
   private
-  
+
   def space
     if params[:action] == "enable"
       @space ||= Space.find_with_disabled_and_param(params[:id])
     else
-      @space ||= Space.find_with_param(params[:id])  
+      @space ||= Space.find_with_param(params[:id])
     end
   end
 end

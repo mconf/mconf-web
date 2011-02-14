@@ -13,6 +13,7 @@ GEM
       activesupport (= 2.3.4)
     activesupport (2.3.4)
     atom-tools (2.0.5)
+    bigbluebutton-api-ruby (0.0.4)
     builder (3.0.0)
     capistrano (2.5.19)
       highline
@@ -101,6 +102,7 @@ PLATFORMS
 
 DEPENDENCIES
   atom-tools
+  bigbluebutton-api-ruby
   capistrano
   chronic
   ci_reporter

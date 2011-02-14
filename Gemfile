@@ -20,6 +20,7 @@ gem "nokogiri", "1.4.1"
 gem "prism"
 gem "rubyzip"
 gem "garb"
+gem "bigbluebutton-api-ruby"
 
 group :development, :test do
   gem "ruby-debug"
