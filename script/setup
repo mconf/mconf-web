@@ -9,40 +9,6 @@ LINUX_PACKAGES = {
 }
 #RUBY_GEMS_VERSION = "1.5.0"
 
-GEMS = {
-  #TODO: get rails version from config/environment.rb
-  :common     => [ "rails -v 2.3.4",
-                   "rmagick",
-                   "rake",
-                   "vpim",
-                   "ruby-debug",
-                   "ruby-openid",
-                   "atom-tools",
-                   "mislav-will_paginate -s http://gems.github.com/",
-                   "rcov",
-                   "chronic",
-                   "hpricot",
-                   "feed-normalizer",
-                   "rspec-rails -v 1.3.2",
-                   "hoe",
-                   "httparty",
-                   "pdf-writer",
-                   "ci_reporter",
-                   "nokogiri -v 1.4.1",
-                   "prism",
-                   "rubyzip",
-                   "garb" ],
-  :production  => [ ],
-  :development => [ "capistrano",
-                    "mongrel",
-                    "populator",
-                    "ffaker",
-                    "thoughtbot-factory_girl -s http://gems.github.com/"
-                     ],
-  :mysql => [ "mysql" ],
-  :sqlite => [ "sqlite3-ruby" ]
-}
-
 DATABASES = %w( MySQL SQLite )
 
 def install_linux_packages(set)
@@ -51,14 +17,6 @@ def install_linux_packages(set)
   puts "* Install #{ set } Linux packages"
   if LINUX_PACKAGES[set].any?
     system "sudo aptitude install #{ LINUX_PACKAGES[set].join(" ") }"
-  end
-end
-
-def install_gems(set)
-  puts "Installing #{ set } gems.."
-  GEMS[set].each do |gem|
-    puts "Installing gem: #{ gem }"
-    system "gem install #{ gem } --no-ri --no-rdoc"
   end
 end
 
@@ -76,7 +34,7 @@ def install_database
   install_linux_packages(db_type)
   install_gems(db_type)
 
-  `cp #{ db_file }.#{ db_type }.example #{ db_file }` 
+  `cp #{ db_file }.#{ db_type }.example #{ db_file }`
 
   if db_type == :mysql
     puts
@@ -97,7 +55,7 @@ def ask_for_db_type
 
   until ( number = STDIN.gets.chomp ) =~ /[12]/
     puts "Please, choose 1 or 2"
-  end 
+  end
 
   DATABASES[ number.to_i - 1].downcase.to_sym
 end
@@ -112,18 +70,16 @@ def install_mail_conf
     return
   end
 
-  `cp #{ mail_file }.gmail.example #{ mail_file }` 
+  `cp #{ mail_file }.gmail.example #{ mail_file }`
   puts "Created basic #{ mail_file }, please configure it."
 end
 
 def setup_environment(env)
   install_linux_packages(:common)
   install_linux_packages(env)
-  install_gems(:common)
-  install_gems(env)
   install_database
   install_mail_conf
-  system "rake setup:#{ env }"
+#  system "rake setup:#{ env }"
 end
 
 def print_banner(env)
@@ -135,15 +91,11 @@ def print_banner(env)
 end
 
 def print_usage
-  puts "Usage: setup ENV [OPTIONS]"
-  puts "OPTIONS is optional and depends on the ENV selected"
+  puts "Usage: setup ENV"
   puts
   puts "ENVIRONMENTS:"
-  puts "  production   - Setup production env"
-  puts "  development  - Setup development env"
-  puts "    OPTIONS:"
-  puts "      packages - Install all system packages for development env"
-  puts "      gems     - Install all gems for development env"
+  puts "  production   - Setup production environment"
+  puts "  development  - Setup development environment"
   puts
 end
 
@@ -152,25 +104,7 @@ if ARGV[0] =~ /production/
   setup_environment(:production)
 elsif ARGV[0] =~ /development/
   print_banner("DEVELOPMENT")
-  
-  if ARGV[1] =~ /gems/
-    puts "Installing all gems"
-    puts
-    install_gems(:common)
-    install_gems(:development)
-    install_gems(:mysql)
-    install_gems(:sqlite)
-  elsif ARGV[1] =~ /packages/
-    puts "Installing all packages"
-    puts
-    install_linux_packages(:common)
-    install_linux_packages(:development)
-    install_linux_packages(:mysql)
-    install_linux_packages(:sqlite)
-  else
-    setup_environment(:development)
-  end
-
+  setup_environment(:development)
 else
   puts "Wrong arguments."
   print_usage()
