@@ -80,7 +80,7 @@
 <% end %>
 
 <% content_for :search do  %>
-  <%= render :partial => 'search/form' %>
+<%= render :partial => 'search/form' %>
 <%end%>
 
 <% content_for :sidebar do  %>
@@ -213,15 +213,15 @@
   <%last_user = @lastest_users.last%>
   <% for user in @lastest_users -%>
 
-    <div class="user <%= 'last' if (user == last_user)%>">
-                        <div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_path(user)%></div>
-                        <div>
-                          <ul>
-                            <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
-                        <li><%=sanitize(user.organization)%></li>
-                          </ul>
-                        </div>
+  <div class="user <%= 'last' if (user == last_user)%>">
+    <div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_path(user)%></div>
+    <div>
+      <ul>
+        <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
+        <li><%=sanitize(user.organization)%></li>
+      </ul>
     </div>
+  </div>
   <% end -%>
   <div class="read_more">
     <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorize?([:read, :performance], :to => current_user)%>

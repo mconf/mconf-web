@@ -1,29 +1,39 @@
 <div id="bigbluebutton_space_content">
   <div class="bigbluebutton_action_button">
-    <div class="bigbluebutton_button_area">
-      <%= link_to 'Enter room', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-    </div>
-    <% if @bbb_info[:running] %>
-      <span>
-        The meeting is running! <br />
-        <% node = @bbb_info[:info][:attendees][:attendee] %>
-        <% if node.kind_of?(Array) %>
-          There are <%= node.count %> attendees in the room: <br />
-          <ul style="margin-bottom:0">
-          <% node.each do |att| %>
-            <li>[<%= att[:role] %>] <%= att[:fullName] %></li>
-          <% end %>
-          </ul>
-        <% else %>
-          There is 1 attendee in the room: <br />
-          <ul style="margin-bottom:0">
-            <li>[<%= node[:role] %>] <%= node[:fullName] %></li>
-          </ul>
-        <% end %>
-      </span>
+    <% if @bbb_enabled %>
+      <div class="bigbluebutton_button_area">
+        <%= link_to 'Enter room', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+      </div>
     <% else %>
-      <span>There is nobody currently in the room.</span>
+      <div class="bigbluebutton_button_area">
+        You must be a member<br />of this space to join the room.
+      </div>
     <% end %>
+
+    <% if @bbb_info[:running] %>
+      <p class="main_text">
+        The meeting is running!
+
+        <h3 style="clear: both"><%=image_tag("icons/user.png")%> Attendees (<%= @bbb_attendees.count.to_s %>)</h3>
+        <% @bbb_attendees.each do |user| %>
+        <div class="user last">
+          <div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name),user_path(user)%></div>
+          <div>
+            <ul>
+              <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
+              <li><%=sanitize(user.organization)%></li>
+            </ul>
+          </div>
+        </div>
+        <% end %>
+
+      </p>
+
+    <% else %>
+      <p class="main_text">There is nobody currently in the room.</p>
+    <% end %>
+
     <div class="clearer"></div>
   </div>
 </div>
+

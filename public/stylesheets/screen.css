@@ -2082,6 +2082,7 @@ a.first_day_link{border:none;}
 }
 
 .bigbluebutton_button_area {
+  text-align: center;
   float: right;
   margin: 5px;
 }

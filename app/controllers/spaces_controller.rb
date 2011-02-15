@@ -69,6 +69,22 @@ class SpacesController < ApplicationController
     @bbb_info[:running] = BBB_API.is_meeting_running?(@space.name)
     @bbb_info[:info] = BBB_API.get_meeting_info(@space.name, "mp")
     @bbb_info[:link] = BBB_API.moderator_url(@space.name, current_user.name, "mp")
+    @bbb_enabled = @space.actors.include?(current_user)
+
+    @bbb_attendees = []
+    node = @bbb_info[:info][:attendees][:attendee]
+    if node.kind_of?(Array)
+      node.each do |att|
+        Profile.find(:all, :conditions => { "full_name" => att[:fullName] }).each do |profile|
+          @bbb_attendees << profile.user
+        end
+      end
+    elsif !node.nil?
+      Profile.find(:all, :conditions => { "full_name" => node[:fullName] }).each do |profile|
+        @bbb_attendees << profile.user
+      end
+    end
+
 
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
     @news = @space.news.find(:all, :order => "updated_at DESC")
