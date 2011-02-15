@@ -15,7 +15,7 @@ namespace :setup do
       [ Space ].each(&:destroy_all)
       # Delete all users except Admin
       users_without_admin = User.find_with_disabled(:all)
-      users_without_admin.delete(User.find_by_login("vcc"))
+      users_without_admin.delete(User.find_by_login("mconf"))
       users_without_admin.each(&:destroy)
 
 

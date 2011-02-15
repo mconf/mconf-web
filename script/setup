@@ -1,49 +1,13 @@
 #!/usr/bin/env ruby
 
 LINUX_PACKAGES = {
-  :common => %w( ruby-dev rubygems rdoc irb libopenssl-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev libmagickcore-dev libmagickwand-dev ),
+  :common => %w( ruby-dev rdoc irb libopenssl-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev libmagickcore-dev libmagickwand-dev ),
   :production => %w( awstats logrotate nfs-common ),
   :development => %w( ),
   :mysql  => %w( libmysqlclient15-dev mysql-server ),
   :sqlite => %w( libsqlite3-dev )
 }
-RUBY_GEMS_VERSION = "1.3.6"
-RUBY_GEMS_PACKAGE = "rubygems-#{ RUBY_GEMS_VERSION }.tgz"
-RUBY_GEMS_DOWNLOAD = "http://rubyforge.org/frs/download.php/60718/#{ RUBY_GEMS_PACKAGE }"
-
-GEMS = {
-  #TODO: get rails version from config/environment.rb
-  :common     => [ "rails -v 2.3.4",
-                   "rmagick",
-                   "rake",
-                   "vpim",
-                   "ruby-debug",
-                   "ruby-openid",
-                   "atom-tools",
-                   "mislav-will_paginate -s http://gems.github.com/",
-                   "rcov",
-                   "chronic",
-                   "hpricot",
-                   "feed-normalizer",
-                   "rspec-rails -v 1.3.2",
-                   "hoe",
-                   "httparty",
-                   "pdf-writer",
-                   "ci_reporter",
-                   "nokogiri -v 1.4.1",
-                   "prism",
-                   "rubyzip",
-                   "garb" ],
-  :production  => [ ],
-  :development => [ "capistrano",
-                    "mongrel",
-                    "populator",
-                    "ffaker",
-                    "thoughtbot-factory_girl -s http://gems.github.com/"
-                     ],
-  :mysql => [ "mysql" ],
-  :sqlite => [ "sqlite3-ruby" ]
-}
+#RUBY_GEMS_VERSION = "1.5.0"
 
 DATABASES = %w( MySQL SQLite )
 
@@ -55,27 +19,6 @@ def install_linux_packages(set)
     system "sudo aptitude install #{ LINUX_PACKAGES[set].join(" ") }"
   end
 end
-
-def install_gems(set)
-  puts "Installing #{ set } gems.."
-  GEMS[set].each do |gem|
-    puts "Installing gem: #{ gem }"
-    system "gem install #{ gem } --no-ri --no-rdoc"
-  end
-end
-
-#def install_gem_subsystem
-#  if `which gem`.chomp == ""
-#    gem_bin = `which gem1.8`.chomp
-#    if gem_bin == ""
-#      puts "Installing Ruby Gems"
-#      system "cd /tmp && wget #{ RUBY_GEMS_DOWNLOAD }"
-#      system "cd /tmp && tar zxf #{ RUBY_GEMS_PACKAGE }"
-#      system "cd /tmp/rubygems-#{ RUBY_GEMS_VERSION } && sudo /usr/bin/ruby setup.rb"
-#    end
-#    system "sudo ln -s /usr/bin/gem1.8 /usr/bin/gem"
-#  end
-#end
 
 def install_database
   puts "* Checking config/database.yml: "
@@ -91,7 +34,7 @@ def install_database
   install_linux_packages(db_type)
   install_gems(db_type)
 
-  `cp #{ db_file }.#{ db_type }.example #{ db_file }` 
+  `cp #{ db_file }.#{ db_type }.example #{ db_file }`
 
   if db_type == :mysql
     puts
@@ -112,7 +55,7 @@ def ask_for_db_type
 
   until ( number = STDIN.gets.chomp ) =~ /[12]/
     puts "Please, choose 1 or 2"
-  end 
+  end
 
   DATABASES[ number.to_i - 1].downcase.to_sym
 end
@@ -127,19 +70,16 @@ def install_mail_conf
     return
   end
 
-  `cp #{ mail_file }.gmail.example #{ mail_file }` 
+  `cp #{ mail_file }.gmail.example #{ mail_file }`
   puts "Created basic #{ mail_file }, please configure it."
 end
 
 def setup_environment(env)
   install_linux_packages(:common)
   install_linux_packages(env)
-  #install_gem_subsystem
-  install_gems(:common)
-  install_gems(env)
   install_database
   install_mail_conf
-  system "rake setup:#{ env }"
+#  system "rake setup:#{ env }"
 end
 
 def print_banner(env)
@@ -150,10 +90,22 @@ def print_banner(env)
   puts
 end
 
+def print_usage
+  puts "Usage: setup ENV"
+  puts
+  puts "ENVIRONMENTS:"
+  puts "  production   - Setup production environment"
+  puts "  development  - Setup development environment"
+  puts
+end
+
 if ARGV[0] =~ /production/
   print_banner("PRODUCTION")
   setup_environment(:production)
-else
+elsif ARGV[0] =~ /development/
   print_banner("DEVELOPMENT")
   setup_environment(:development)
+else
+  puts "Wrong arguments."
+  print_usage()
 end

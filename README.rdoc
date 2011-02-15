@@ -1,30 +1,44 @@
-== Welcome to MConf-web
+= Welcome to MConf-web
 
 MConf-web is the web application that controls the access to the MConf webconferencing system.
 It's developed in Ruby on Rails and strongly based on VCC (https://github.com/ging/vcc)
+
+<b>For more details check our wiki at: https://github.com/mconf/mconf-web/wiki</b>
 
 == Instalation
 
 MConf-web currently uses Rails 2.3.4.
 
-To install simply:
+Setting up the development environment:
 
-* Clone the repository
-* Run:
+1. Install ruby using rvm (http://rvm.beginrescueend.com/)
+   * Quick steps to install rvm (this project currently uses rvm 1.2.6)
+     * Run: <tt>bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )</tt>
+     * Add the following line to your ~/.bashrc or ~/.bash_profile:
+       * <tt>[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # This loads RVM into a shell session.</tt>
+     * Start a new prompt or load source in the current shell with: <tt>source ~/.rvm/scripts/rvm</tt>
+     * To check if it worked, run <tt>type rvm | head -1</tt> and it should output <tt>rvm is a function</tt>
+     * Run rvm notes and install the packages under "For Ruby (MRI & ree)"
+     * Mconf-Web uses rubygems 1.5.0. If needed, you can specify the version with: <tt>rvm rubygems 1.5.0</tt>
+2. Install bundler: <tt>gem install bundler</tt>
+3. Run <tt>script/setup</tt> to install the system packages needed
+4. Run <tt>bundle install</tt> to install all gems
+5. Configure the database and the mailer
+   * The script <tt>setup</tt> will create these files for you, but you need to open and configure them
+   * Database: <tt>config/database.yml</tt>
+   * Mailer: <tt>config/initializers/mail_conf.rb</tt>
+7. Run <tt>rake setup:development</tt>
 
-    script/setup
+Then you can:
 
-If everything goes well you will have a functional development environment. 
+* Run the server with <tt>script/server</tt> and navigate to <tt>localhost:3000</tt>
+* Run tests with <tt>rake spec</tt>
 
-To test the server run:
-
-    script/server
-
-And go to http://localhost:3000/.
+More details and troubleshoting at: https://github.com/mconf/mconf-web/wiki
 
 == About
 
-MConf project: http://www.inf.ufrgs.br/prav/projetos_gtmconf_english.htm
+MConf project: http://www.inf.ufrgs.br/prav/gtmconf
 
 MConf-web is based on VCC (Virtual Conference Centre): https://github.com/ging/vcc
 
