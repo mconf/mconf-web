@@ -339,8 +339,10 @@ pt-br:
     - Qua
     - Qui
     - Sex
-    - Sáb
-    abbr_month_names:
+    - !binary |
+      U8OhYg==
+
+    abbr_month_names: 
     - 
     - Jan
     - Fev
@@ -358,11 +360,13 @@ pt-br:
     day_names: 
     - Domingo
     - Segunda
-    - Terça
+    - !binary |
+      VGVyw6dh
+
     - Quarta
     - Quinta
     - Sexta
-    - Sábado
+    - "S\xC3\xA1bado"
     end: Data final
     formats: 
       default: "%d/%m/%y"
@@ -372,7 +376,9 @@ pt-br:
     - 
     - Janeiro
     - Fevereiro
-    - Março
+    - !binary |
+      TWFyw6dv
+
     - Abril
     - Maio
     - Junho
@@ -977,51 +983,51 @@ pt-br:
     part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Assistir ao screencast</a></span><br><br><br> Para criar uma agenda para o seu evento no VCC: <br><br> 1. Clique no na guia <b>Eventos</b>.<br> 2. Clique no evento que voc\xC3\xAA j\xC3\xA1 criou. <br> 3. Clique no link \"Definir a agenda\" no bot\xC3\xA3o \"Agenda\" ou no link \"Agenda para o evento\" (ver setas azuis na figura)"
     part2: "4. Na se\xC3\xA7\xC3\xA3o da agenda, clique no bot\xC3\xA3o \"Adicionar sess\xC3\xA3o\" para criar um item da agenda. <br> 5. Preencha o t\xC3\xADtulo da entrada da agenda, o hor\xC3\xA1rio de in\xC3\xADcio e a dura\xC3\xA7\xC3\xA3o e clique em no bot\xC3\xA3o \"Pr\xC3\xB3ximo passo\"<br> 6. Agora voc\xC3\xAA pode editar os detalhes, tais como palestrantes, que podem ser usu\xC3\xA1rios do site ou usu\xC3\xA1rios externos, ou a descri\xC3\xA7\xC3\xA3o<br> 7. Se quiser anexar um arquivo, clique no link \"Novo anexo\". <br> 8. Se o tipo do seu evento \xC3\xA9 \"Reuni\xC3\xA3o\", voc\xC3\xAA pode inserir v\xC3\xADdeos neste item da agenda"
     part3: "9. Se o tipo do evento \xC3\xA9 \"Reuni\xC3\xA3o Virtual\" ou \"Congresso Virtual\", voc\xC3\xAA pode reservar os recursos de hardware e software para este item da agenda, selecione tanto streaming quanto grava\xC3\xA7\xC3\xA3o"
-    part4: ""
+    part4: "10. Clique no bot\xC3\xA3o \"Finalizar\" para enviar suas altera\xC3\xA7\xC3\xB5es.  <br> 11. Se quiser acrescentar um divisor para indicar intervalos, como pausas para caf\xC3\xA9 ou almo\xC3\xA7o, clique no bot\xC3\xA3o \"Adicionar divisor\". Voc\xC3\xAA pode definir o hor\xC3\xA1rio de in\xC3\xADcio e os motivos para a pausa. Clique no bot\xC3\xA3o \"Criar\" para adicionar o divisor. <br> 12. Se o evento leva mais tempo do que um dia, voc\xC3\xAA pode adicionar uma nova sess\xC3\xA3o para o segundo dia. Cada dia tem sua pr\xC3\xB3pria aba com os items da agenda especificada."
   help_export: 
-    part1: ""
-    part2: ""
-    part3: ""
-    part4: ""
-    part5: ""
+    part1: "Os eventos podem ser exportados como segue:"
+    part2: "1. Ir para a p\xC3\xA1gina do <b>Evento</b> que pretende exportar"
+    part3: 2. Clique em <b>Exportar</b> na barra de programas
+    part4: "3. Voc\xC3\xAA pode exportar um evento em quatro formatos: <ul><li><b> PDF </b>: exporta o programa completo como um arquivo PDF. </li><li><b> PDF pequeno</b>: exporta uma vers\xC3\xA3o reduzida do programa em um arquivo PDF.</li><li><b> iCalendar</b>: exporta os dados do evento no formato iCalendar para inclu\xC3\xAD-lo em aplica\xC3\xA7\xC3\xB5es de calend\xC3\xA1rio e e-mails.</li><li><b> SCORM</b>: exporta o conte\xC3\xBAdo dos eventos em um arquivo compat\xC3\xADvel com SCORM, que pode ser importado por um LMS (Learning Management System). Somente os eventos gravados podem ser exportados em SCORM. </li></ul>"
+    part5: "Um exemplo de exporta\xC3\xA7\xC3\xA3o em SCORM no Moodle \xC3\xA9 exibido na figura abaixo:"
   help_index: 
-    part1: ""
-    part2: ""
-    part3: ""
-    part4: ""
-    part5: ""
-    part6: ""
-    part7: ""
-    part8: ""
+    part1: "Global Plaza oferece um servi\xC3\xA7o de eventos virtuais para a Internet, que lhe permite realizar videoconfer\xC3\xAAncias, transmiss\xC3\xA3o, grava\xC3\xA7\xC3\xA3o e publica\xC3\xA7\xC3\xA3o eletr\xC3\xB4nica de suas reuni\xC3\xB5es, palestras, sess\xC3\xB5es de treinamento, confer\xC3\xAAncias, congressos ou workshops."
+    part2: "A rede social do Global Plaza vai divulgar os an\xC3\xBAncios dos seus eventos para outras pessoas, bem como permitir que voc\xC3\xAA descubra eventos realizados por outras pessoas para participar deles ou acompanh\xC3\xA1-los. Os usos t\xC3\xADpicos do Global Plaza s\xC3\xA3o: <ul><li> Broadcast atrav\xC3\xA9s da Internet via streaming de eventos ou palestras que acontecem em uma sala de aula, sala de reuni\xC3\xB5es, audit\xC3\xB3rio ou de seu desktop.</li><li> Grava\xC3\xA7\xC3\xA3o e publica\xC3\xA7\xC3\xA3o de eventos ou palestras que ocorrem em uma sala de aula, sala de reuni\xC3\xB5es, audit\xC3\xB3rio ou de seu desktop.</li><li> Trazer  palestrantes remotos para seus eventos atrav\xC3\xA9s da Internet, a partir de computadores ou salas. </li><li> Possibilitar a participa\xC3\xA7\xC3\xA3o remota a partir de audit\xC3\xB3rios ou salas em um congresso ou evento. </li><li> Realizar eventos totalmente distribu\xC3\xADdos com audit\xC3\xB3rios e desktops remotos interligados.</li><li> Etc. </li></ul>"
+    part3: "As grava\xC3\xA7\xC3\xB5es de eventos a seguir lhe d\xC3\xA3o uma id\xC3\xA9ia do que voc\xC3\xAA pode obter a partir do Global Plaza: <ul><li><a href={{egee08}}>EGEE'08</a>, <a href={{egee05}}>5th EGEE User's Forum</a>.<li><a href={{morfeo}}>Asamblea Morfeo</a>"
+    part4: <li><a href={{tnc08}}>TNC'08</a>, <a href={{tnc09}}>TNC'09</a>, <a href={{tnc10}}>TNC'10</a>.
+    part5: "<li>Belief symposiums na <a href={{india}}>\xC3\x8Dndia</a>, <a href={{brazil}}>Brazil</a> e <a href={{southafrica}}>\xC3\x81frica do Sul</a></ul>"
+    part6: "O Global Plaza est\xC3\xA1 estruturado como um site s\xC3\xB3cio-colaborativo que suporta comunica\xC3\xA7\xC3\xA3o social juntamente com suporte colaborativo para projetos e atividades em grupo. Qualquer pessoa pode se <a href={{url}}>registrar</a> gratuitamente no Global Plaza para formar parte da sua rede social e utilizar os seus servi\xC3\xA7os e recursos, tais como grava\xC3\xA7\xC3\xB5es, descri\xC3\xA7\xC3\xB5es de eventos, etc. Todos os recursos t\xC3\xAAm um link permanente, que pode ser utilizado e incorporado em outras p\xC3\xA1ginas da web."
+    part7: "Depois de registrar voc\xC3\xAA ser\xC3\xA1 capaz de <a href={{create}}>criar</a> espa\xC3\xA7os p\xC3\xBAblicos pu privados para colabora\xC3\xA7\xC3\xA3o com grupos restritos de pessoas, que ser\xC3\xA3o administrados por voc\xC3\xAA e pelas pessoas que voc\xC3\xAA indicar como administradores. Uma vez que voc\xC3\xAA \xC3\xA9 um membro regular ou administrador de um espa\xC3\xA7o, voc\xC3\xAA ser\xC3\xA1 capaz de criar, anunciar, executar, registrar e publicar os seus eventos no Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados pelo Global Plaza para acesso p\xC3\xBAblico ou privado, bem como para incorporar em blogs, p\xC3\xA1ginas da Web, etc <br><br> Voc\xC3\xAA pode participar de um evento virtual do Global Plaza diretamente a partir de seu navegador Web, apenas acessando a p\xC3\xA1gina do evento. Seu navegador precisa ter o Flash instalado. Voc\xC3\xAA tamb\xC3\xA9m pode participar com um cilente <a href={{isabel}}> Isabel </a> nativo, que proporciona uma melhor qualidade audiovisual e \xC3\xA9 recomendado para palestrantes ou para conectar salas e audit\xC3\xB3rios. Um gateway SIP tamb\xC3\xA9m \xC3\xA9 fornecido para permitir a participa\xC3\xA7\xC3\xA3o a partir de um equipamento de videoconfer\xC3\xAAncia. <br><br> As atividades em grupo hospedadas no Plaza Global podem ser p\xC3\xBAblicas ou privadas. Espa\xC3\xA7os p\xC3\xBAblicos possuem atuvidades que podem ser vistas e seguidas por qualquer pessoa, enquanto espa\xC3\xA7os privados possuem projetos e atividades onde um grupo podem colaborar compartilhando informa\xC3\xA7\xC3\xB5es e reunindo-se de maneira privada."
+    part8: "O Global Plaza foi desenvolvido pelo <a href={{web_global}}>projeto European Global</a>, reutilizando os resultados e a evolu\xC3\xA7\xC3\xA3o de outros projetos que transformaram a aplica\xC3\xA7\xC3\xA3o <a href={{isabel}}> Isabel </a> em um servi\xC3\xA7o de computa\xC3\xA7\xC3\xA3o em nuvem, como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS, etc <br><br> Para <a href={{create}}>criar</a> ou editar espa\xC3\xA7os, voc\xC3\xAA deve estar logado com sua sua conta do Plaza Global. Se voc\xC3\xAA n\xC3\xA3o tiver uma conta, <a href={{url}}>crie uma agora</a>"
   help_invitation: 
-    part1: ""
+    part1: "Em constru\xC3\xA7\xC3\xA3o"
   help_join_space: 
-    part1: ""
-    part2: ""
-    part3: ""
-    part4: ""
-    part5: ""
+    part1: "Para aderir a um espa\xC3\xA7o no Global Plaza:"
+    part2: "1. <a href={{url}}>Procurar</a> o espa\xC3\xA7o que voc\xC3\xAA deseja ingressar."
+    part3: "2. Clique no bot\xC3\xA3o <b>Entrar neste espa\xC3\xA7o</b> no lado direito da p\xC3\xA1gina."
+    part4: "3. Digite uma mensagem pessoal para os administradores do espa\xC3\xA7o (opcional)."
+    part5: "4. Por fim, clique no bot\xC3\xA3o <b>enviar</b> para enviar a solicita\xC3\xA7\xC3\xA3o para participar dos administradores."
   help_logging: 
-    part1: ""
-    part2: ""
-    part3: ""
+    part1: "Se voc\xC3\xAA j\xC3\xA1 tiver uma conta global Plaza, voc\xC3\xAA pode <a href={{url}}>logar aqui</a> ou inserir seu e-mail e senha na barra superior."
+    part2: "Se voc\xC3\xAA tiver uma conta com um provedor OpenID, voc\xC3\xAA pode fazer login automaticamente. Clique em <b>Entrar com OpenID</b> na barra de menu superior."
+    part3: "Se voc\xC3\xAA esqueceu sua senha, voc\xC3\xAA pode <a href={{url}}>recuper\xC3\xA1-la aqui</a> ou clique em <b>Voc\xC3\xAA perdeu a sua senha</b> na barra de menu superior. Um e-mail ser\xC3\xA1 enviado para voc\xC3\xAA recuperar sua senha."
   help_newdoc: 
-    part1: ""
-    part2: ""
-    part3: ""
-    part4: ""
-    part5: ""
-    part6: ""
-    part7: ""
-    part8: ""
+    part1: "Para adicionar um novo documento no Global Plaza:"
+    part2: 1. Clique na guia <b>Docs</b>.
+    part3: "2. Clique no bot\xC3\xA3o <b>Adicionar novo documento</b>."
+    part4: "3. Clique em <b>Escolher arquivo</b> no lado direito da p\xC3\xA1gina."
+    part5: "4. Depois que o arquivo estiver selecionado, clique no bot\xC3\xA3o <b>Abrir</b>."
+    part6: "5. Voc\xC3\xAA pode <b>adicionar tags</b> que voc\xC3\xAA e outros podem usar para localizar e filtrar o conte\xC3\xBAdo. Pressione enter para confirmar cada tag."
+    part7: "6. Se voc\xC3\xAA deseja <b>notificar</b> o documento com uma mensagem no mural, escolha esta op\xC3\xA7\xC3\xA3o."
+    part8: "7. Por fim, clique no bot\xC3\xA3o <b>Upload</b> para adicionar o arquivo no reposit\xC3\xB3rio de documentos."
   help_participation: 
-    part1: ""
-    part2: ""
-    part3: ""
-    part4: ""
-    part5: ""
+    part1: "Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming de V\xC3\xADdeo</b>. A maneira mais simples de seguir eventos virtuais atrav\xC3\xA9s da Internet \xC3\xA9 com o seu navegador Web, apenas entrando na p\xC3\xA1gina do evento no Global Plaza. A p\xC3\xA1gina do evento ir\xC3\xA1 mostrar o streaming de v\xC3\xADdeo enquanto o evento est\xC3\xA1 ocorrendo, permitindo que voc\xC3\xAA siga-o. Se voc\xC3\xAA estiver logado no Global Plaza, voc\xC3\xAA ser\xC3\xA1 capaz de enviar mensagens de chat para o resto dos participantes do evento. <br> Requisitos: Seu navegador deve possuir a \xC3\xBAltima vers\xC3\xA3o do Flash instalado."
+    part2: "<br> 2) <b>Participa\xC3\xA7\xC3\xA3o interativa pela Web</b>. Voc\xC3\xAA tamb\xC3\xA9m pode participar de forma interativa com o seu navegador web. Uma vez que voc\xC3\xAA est\xC3\xA1 na p\xC3\xA1gina do evento, basta clicar no bot\xC3\xA3o \"Participar\", digitar o seu apelido quando solicitado e clicar em participar da reuni\xC3\xA3o. Voc\xC3\xAA entrar\xC3\xA1 na reuni\xC3\xA3o como um participante interativo, que pode interagir com \xC3\xA1udio, v\xC3\xADdeo ou chat, bem como compartilhar aplica\xC3\xA7\xC3\xB5es. Voc\xC3\xAA precisa estar logado no Global Plaza para participar de forma interativa. <br> Requisitos: Seu navegador deve ter a \xC3\xBAltima vers\xC3\xA3o do Flash instalado. A porta TCP 1935 usada pelo cliente Flash precisa estar aberta para conectar ao evento virtual com um navegador. No caso de voc\xC3\xAA acessar a p\xC3\xA1gina do evento e n\xC3\xA3o ver o v\xC3\xADdeo, voc\xC3\xAA deve solicitar que os administradores de rede da sua institui\xC3\xA7\xC3\xA3o abram esta porta."
+    part3: "3) <b>Participa\xC3\xA7\xC3\xA3o pelo Isabel</b>. Voc\xC3\xAA tamb\xC3\xA9m pode participar com um cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instru\xC3\xA7\xC3\xB5es de instala\xC3\xA7\xC3\xA3o podem ser encontradas aqui</a>. O cliente nativo proporciona uma melhor qualidade audiovisual e \xC3\xA9 recomendado para palestrantes ou para conectar salas e audit\xC3\xB3rios. Contate os organizadores para testes preliminares."
+    part4: "4) <b>Um gateway SIP</b> tamb\xC3\xA9m \xC3\xA9 fornecido para permitir a participa\xC3\xA7\xC3\xA3o atrav\xC3\xA9s de um equipamento de videoconfer\xC3\xAAncia compat\xC3\xADvel com SIP, como, por exemplo, um Polycom. Os organizadores do evento devem ter habilitado participa\xC3\xA7\xC3\xA3o SIP para este modo estar dispon\xC3\xADvel."
+    part5: "Durante um evento o Global Plaza define os elementos necess\xC3\xA1rios como recursos virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses recursos incluem um servidor de videoconfer\xC3\xAAncia com MCU, um servidor de streaming, um gravador digital, um servidor de streaming de v\xC3\xADdeo, bem como os gateways necess\xC3\xA1rios para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento seleciona os modos de acesso dispon\xC3\xADveis ao criar o evento."
   help_search_global: 
-    part1: ""
+    part1: "Voc\xC3\xAA pode procurar espa\xC3\xA7os, mensagens, eventos, v\xC3\xADdeos, usu\xC3\xA1rios e anexos no Global Plaza. Existem duas op\xC3\xA7\xC3\xB5es para pesquisa: pesquisa simples e avan\xC3\xA7ada."
     part10: 4. Digite o nome do evento na caixa <b> a palavra </b>
     part11: "5. Se voc\xC3\xAA escolher os eventos, voc\xC3\xAA pode especificar a data de um evento realizado entre duas datas"
     part12: "6. Clique no bot\xC3\xA3o <b>Ir</b>."
@@ -1036,7 +1042,61 @@ pt-br:
   help_support: Ajuda e suporte
   help_title: 
     about_vcc: Sobre o Global Plaza
+    configure_isabel: "Como configurar o seu pr\xC3\xB3prio servidor Isabel"
+    connect_isabel: Como se conectar ao Isabel
+    create_VC: Criando um congresso virtual
+    create_VM: "Criando uma reuni\xC3\xA3o virtual"
+    create_event: Criando um evento
+    create_meeting: "Criando uma reuni\xC3\xA3o"
+    create_post: Postando uma mensagem no mural
+    create_space: "Criando um espa\xC3\xA7o"
+    create_user: "Criando um usu\xC3\xA1rio"
+    define_agenda: Definindo a agenda para o evento
+    export_program: Exportando um evento
+    globalplaza: Global Plaza
+    info: "Aqui voc\xC3\xAA pode encontrar informa\xC3\xA7\xC3\xB5es sobre o Global Plaza"
+    info_isabel: "Aqui voc\xC3\xAA pode encontrar informa\xC3\xA7\xC3\xB5es sobre a ferramenta Isabel"
+    install_isabel: Como instalar o Isabel
+    invitation: "Convidando usu\xC3\xA1rios para eventos"
+    isabel: "Isabel (ferramenta de videoconfer\xC3\xAAncia)"
+    join_space: "Participando de um espa\xC3\xA7o"
+    logging: Logando na sua conta
+    new_doc: Adicionando um novo documento
+    participation: Participando em um evento
+    search_global: Pesquisando no Global Plaza
+    topics: "T\xC3\xB3picos"
+  help_vcc: 
+    info: "Aqui voc\xC3\xAA pode encontrar informa\xC3\xA7\xC3\xB5es sobre o Global"
+    topics: "T\xC3\xB3picos"
+  hide: Esconder
+  his_message_reads_thus: Sua mensagem diz assim
+  home: 
+    activity: Atividade Recente...
+    my: Minha Home
+    one: home
+  icalendar: 
+    add: Atualizar e adicionar novas entradas
+    conflictive1: "Uma entrada de seu iCalendar estava na aplica\xC3\xA7\xC3\xA3o Global e foi modificada. \xC3\x89 necess\xC3\xA1rio atualiz\xC3\xA1-la manualmente para evitar problemas."
+    conflictiven: "entradas de seu iCalendar estavam na aplica\xC3\xA7\xC3\xA3o Global e foram modificadas. \xC3\x89 necess\xC3\xA1rio atualiz\xC3\xA1-las manualmente para evitar problemas."
+    error_import: Ocorreu um erro ao importar o iCalendar.
+    export: iCalendar
+    import: Importar iCalendar
+    importMessage1: Um total de
+    importMessage2: foram lidos a partir do seu iCalendar.
+    importMessage3: deles foram salvos ou atualizados corretamente.
+    instruction: "Use para adicionar novas entradas \xC3\xA0 agenda atual com o iCalendar."
+    outbounds1: "Uma entrada de seu iCalendar n\xC3\xA3o coincide com as datas do evento e n\xC3\xA3o foi importada."
+    outboundsn: "entradas de seu iCalendar n\xC3\xA3o coincidem com as datas do evento e n\xC3\xA3o foram importadas."
+    report: "Relat\xC3\xB3rio:"
+    succes_import: iCalendar foi importado com sucesso.
+    updated1: "Uma entrada de seu iCalendar j\xC3\xA1 estava em sua agenda de eventos e foi atualizada."
+    updatedn: "entradas de seu iCalendar j\xC3\xA1 estavam em sua agenda de eventos e foram atualizadas."
+  im: IM
   im_new: Eu sou novo
+  import: Importar
+  inbox: 
+    my: Minha caixa de entrada ({{checked}})
+    one: Caixa de Entrada ({{checked}})
   index: "\xC3\x8Dndice"
   invalid_credentials: "Credenciais inv\xC3\xA1lidas"
   invalid_password_reset_code: "Inv\xC3\xA1lido c\xC3\xB3digo de reset. Por favor, verifique o link e tente novamente. (Dica: o seu cliente de e-mail quebrar o v\xC3\xADnculo?)"
