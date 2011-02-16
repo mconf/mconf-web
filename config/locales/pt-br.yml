@@ -876,7 +876,7 @@ pt-br:
   file: Arquivo
   fill_fields: "Voc\xC3\xAA deve preencher todos os campos"
   find: 
-    browse: Procurar
+    browse: Navegar
   find_in: "Pesquisar em:"
   find_in_day: "Pesquisar no dia:"
   find_in_name_speakers: "Pesquisar em nome/palestrantes:"
@@ -1098,59 +1098,210 @@ pt-br:
     my: Minha caixa de entrada ({{checked}})
     one: Caixa de Entrada ({{checked}})
   index: "\xC3\x8Dndice"
+  information: 
+    info_timezone: "Ao selecionar o seu fuso hor\xC3\xA1rio n\xC3\xA3o haver\xC3\xA1 equ\xC3\xADvoco ao criar eventos com pessoas de outros pa\xC3\xADses."
+    information1: "Estes s\xC3\xA3o os espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
+    information2: "Aqui voc\xC3\xAA pode encontrar as mensagens recentes, eventos e not\xC3\xADcias dos espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
+    information3: "Estas s\xC3\xA3o as \xC3\xBAltimas mensagens ou eventos que voc\xC3\xAA criou"
+    information4: "Estes s\xC3\xA3o os espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
+    information5: "Estes s\xC3\xA3o os eventos futuros de outros espa\xC3\xA7os."
+  internet: 
+    on_the: Na Internet
+    ppal: Internet
   invalid_credentials: "Credenciais inv\xC3\xA1lidas"
-  invalid_password_reset_code: "Inv\xC3\xA1lido c\xC3\xB3digo de reset. Por favor, verifique o link e tente novamente. (Dica: o seu cliente de e-mail quebrar o v\xC3\xADnculo?)"
+  invalid_password_reset_code: "C\xC3\xB3digo inv\xC3\xA1lido. Por favor, verifique o link e tente novamente. (Dica: o seu cliente de e-mail n\xC3\xA3o quebrou o link?)"
   invitation: 
     accept: Aceitar o convite
-    accepted: Convite aceito
-    accepted_by: "{{}} Candidatos aceitaram o convite"
+    accepted: "Voc\xC3\xAA aceitou o convite"
+    accepted_by: "{{candidate}} aceitou o convite"
+    access_space: "Voc\xC3\xAA agora \xC3\xA9 um membro de espa\xC3\xA7o {{spacename}} e agora pode acess\xC3\xA1-lo em <a href=\"{{space_url}}\"> {{space_url}} </a>"
+    add_more: Convidar mais pessoas
     comment: "Coment\xC3\xA1rio"
     confirm_delete: Excluir convite?
     created: Convite enviado
+    deselect_all_users: "Desmarcar todos os usu\xC3\xA1rios"
     discard: Descartar convite
-    discarded: Convite descartados
-    discarded_by: "{{}} Candidato descartou o convite"
+    discarded: O convite foi descartado
+    discarded_by: "{{candidate}} descartou o convite"
     email: E-mail
-    new: Convite Novo
-    not_found: "Convite n\xC3\xA3o foi encontrado"
-    not_processed: "Convite n\xC3\xA3o processados"
+    hide_all_users: "Ocultar todos os usu\xC3\xA1rios"
+    info_event: "Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em 'event_url'"
+    info_space: "Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este espa\xC3\xA7o em <a href=\"{{space_url}}\"> {{space_url}} </a>"
+    info_users: "Voc\xC3\xAA pode ver a lista atual de usu\xC3\xA1rios do espa\xC3\xA7o em <a href=\"{{users_url}}\"> {{users_url}} </a>"
+    introducer: Introdutor
+    label: Personalize a sua mensagem de convite
+    legend: 
+      URL: "'URL' ser\xC3\xA1 substitu\xC3\xADdo na mensagem pela URL do convite."
+      name: "'Name' ser\xC3\xA1 substitu\xC3\xADdo na mensagem pelo nome do receptor."
+    logout_and_reload: "Voc\xC3\xAA n\xC3\xA3o \xC3\xA9 o usu\xC3\xA1rio que recebeu esse convite, por favor saia e tente novamente"
+    message_title: "Convide as pessoas individualmente para participar do seu espa\xC3\xA7o"
+    message_with_start_date: 
+      in_person: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'.</p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      telemeeting: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    message_without_start_date: 
+      in_person: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>.</p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      telemeeting: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+    new: 
+      other: Novos convites
+    not_accepted: "n\xC3\xA3o aceito"
+    not_created: "n\xC3\xA3o pode ser convidado(a) para este espa\xC3\xA7o pois j\xC3\xA1 \xC3\xA9 um membro"
+    not_created_2: "n\xC3\xA3o pode ser convidado(a) para este espa\xC3\xA7o pois j\xC3\xA1 foi convidado(a)"
+    not_found: "Convite n\xC3\xA3o encontrado"
+    not_pending: 
+      other: "N\xC3\xA3o h\xC3\xA1 convites pendentes"
+    not_processed: "Convite n\xC3\xA3o processado"
     one: Convite
-    other: Convites
+    other: convite
     pending: 
-      other: convites pendentes
+      other: Convites pendentes
+    personal: Mensagem pessoal
+    rejoin_space: "Se voc\xC3\xAA gostaria de solicitar a ades\xC3\xA3o novamente por favor acesse <a href=\"{{space_url}}\"> {{space_url}} </a>"
     role: Papel
+    role_label: Papel para as pessoas convidadas
+    select_all_users: "Selecionar todos usu\xC3\xA1rios"
     send: 
       one: Enviar convite
-    show: Junte-se {{grupo}}
+    show: Entrar em {{group}}
+    show_all_users: "Mostrar todos usu\xC3\xA1rios"
+    sign: Atenciosamente, {{username}}
+    space: "Gostaria de convid\xC3\xA1-lo para o espa\xC3\xA7o {{space}} no Virtual Conference Centre."
+    subject: "{{username}} convidou-o para um evento no espa\xC3\xA7o {{space}}"
+    tab: 
+      title1: "Usu\xC3\xA1rios n\xC3\xA3o registrados"
+      title2: "Usu\xC3\xA1rios registrados"
+    title: Convidar pessoas
+    title2: "Convite do espa\xC3\xA7o"
+    to_accept: Para aceitar o convite por favor visite <a href={{url}}> {{url}} </a>
+    to_accept_space: Para aceitar o convite por favor visite {{url}}t;
+    to_event: "{{username}} convida voc\xC3\xAA para o evento {{eventname}} no espa\xC3\xA7o {{space}}"
+    to_space: "{{username}} convida voc\xC3\xAA para o espa\xC3\xA7o {{space}}"
     was_processed: 
-      accepted: "Convite j\xC3\xA1 foi aceite"
-      discarted: "Convite j\xC3\xA1 foi descartada"
-  join: Junte-se
+      accepted: "Convite j\xC3\xA1 foi aceito"
+      discarded: "O convite j\xC3\xA1 foi descartado"
+      discarted: "Convite j\xC3\xA1 foi descartado"
+    will_invite: "Pessoas que voc\xC3\xAA vai convidar"
+    yes_accepted: aceito
+  invited: Convidados
+  is_member_of: "\xC3\xA9 membro de"
+  join: Entrar
+  join_cam: Participar
   join_request: 
-    accepted: Junte-se a Pedido aceito
-    created: "Junte-se a solicita\xC3\xA7\xC3\xA3o enviada"
-    discarded: "Junte-se a solicita\xC3\xA7\xC3\xA3o rejeitada"
-    not_processed: "Junte-se a solicita\xC3\xA7\xC3\xA3o n\xC3\xA3o processada"
-    one: "Junte-se a solicita\xC3\xA7\xC3\xA3o"
-    other: Junte-se a pedidos
-    updated: Junte-se a pedido actualizado
-  join_to_site: Junte-se {{site}}
-  layout_footnote: "{{Site}} \xC3\xA9 baseada em plug-in {{}}. Design by {{}} designer."
-  logged_in_successfully: Entrou com sucesso
+    accepted: "Pedido de ades\xC3\xA3o aceito"
+    already_sent: "Voc\xC3\xAA j\xC3\xA1 pediu para participar deste espa\xC3\xA7o"
+    ask_subject: "{{candidate}} quer participar de {{space}}"
+    asked: "<b>{{candidate}}</b> quer participar do espa\xC3\xA7o {{space}} que \xC3\xA9 administrado por voc\xC3\xAA:"
+    asked_anonymous: "Algu\xC3\xA9m quer participar do espa\xC3\xA7o {{space}} administrado por voc\xC3\xAA:"
+    created: "Seu pedido de ades\xC3\xA3o foi enviado para os administradores do espa\xC3\xA7o"
+    discarded: "Pedido de ades\xC3\xA3o descartado"
+    joined: "Voc\xC3\xAA j\xC3\xA1 \xC3\xA9 um membro do espa\xC3\xA7o"
+    label: "Personalize a sua mensagem de solicita\xC3\xA7\xC3\xA3o de ades\xC3\xA3o"
+    message_title: "Enviar um pedido de ades\xC3\xA3o aos administradores do espa\xC3\xA7o"
+    not_logged_in: "Voc\xC3\xAA precisa estar logado para enviar um pedido de ades\xC3\xA3o"
+    not_pending: 
+      other: "N\xC3\xA3o existem solicita\xC3\xA7\xC3\xB5es de ades\xC3\xA3o pendentes"
+    not_processed: "Pedido de ades\xC3\xA3o n\xC3\xA3o processado"
+    one: "Pedido de Ades\xC3\xA3o"
+    other: "Pedidos de Ades\xC3\xA3o"
+    pending: 
+      other: "Pedidos de ades\xC3\xA3o pendentes"
+    personal: Escreva o seu texto pessoal aqui.
+    send: "Enviar pedido de ades\xC3\xA3o"
+    to_accept: Para atender o pedido visite <a href="{{url}}">{{url}}</a>
+    updated: "Pedido de ades\xC3\xA3o atualizado"
+  join_to_site: Participe do {{site}}
+  keywords: Palavras-chave (*)
+  language: Idioma
+  last_week: Semana passada
+  latest_events: "\xC3\x9Altimos eventos"
+  latest_news: "\xC3\x9Altimas not\xC3\xADcias"
+  layout_footnote: "{{site}} \xC3\xA9 baseado em {{plugin}}. Design de {{designer}}."
+  list_by: Listar por
+  locale: 
+    changed: "Idioma da aplica\xC3\xA7\xC3\xA3o alterado para"
+    error: "N\xC3\xA3o foi poss\xC3\xADvel alterar o idioma do aplicativo para"
+  logged_in_successfully: Logado com sucesso
   logged_out: "Voc\xC3\xAA foi desconectado"
-  login: Entrar
-  login_to: Entrar no site {{}}
+  login: Login
+  login_or_register: Login / Registre-se
+  login_request: "Voc\xC3\xAA precisa estar logado para"
+  login_to: Logar em {{site}}
+  login_traditional: "Login utilizando usu\xC3\xA1rio/senha"
   logo: 
-    current: Logo atual
-    one: Logo
-  logout: "Sair da sess\xC3\xA3o"
+    click_to_change: Clique para mudar o logotipo
+    created: Logotipo enviado com sucesso
+    crop: "Cortar logotipo do espa\xC3\xA7o"
+    current: Logotipo atual
+    empty: "O logotipo est\xC3\xA1 vazio"
+    error: 
+      not_valid: "Logo n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido"
+    one: Logotipo
+  logout: Logout {{user}}
+  mailing_list: 
+    associate: Associar lista de e-mails ao seu grupo
+    invalid: "A lista de e-mails tem caracteres inv\xC3\xA1lidos. Somente letras, n\xC3\xBAmeros, sublinhados e h\xC3\xADfens s\xC3\xA3o permitidos"
+    reserved: "A lista de e-mails {{systemMailingList}} \xC3\xA9 reservada"
+  manage: Gerenciar
+  management: gerenciamento
+  mandatory_field: "Campo obrigat\xC3\xB3rio"
+  mark_checkbox: "Marque a caixa de sele\xC3\xA7\xC3\xA3o apropriada"
+  message: 
+    created: Mensagem enviada com sucesso
+    error: 
+      create: Erro ao enviar mensagem privada
+    incoming: 
+      other: Mensagens recebidas
+    one: Mensagem
+    other: Mensagens
+    private: 
+      cant: "Voc\xC3\xAA n\xC3\xA3o pode enviar mensagens privadas porque voc\xC3\xAA n\xC3\xA3o tem parceiros em nenhum espa\xC3\xA7o"
+      editing: Editando mensagem privada
+      new: Nova mensagem privada
+      none: "N\xC3\xA3o h\xC3\xA1 mensagens"
+      send: Enviar uma mensagem privada
+    reply: "Responder \xC3\xA0 mensagem"
+    send: Enviar mensagem
+    sent: 
+      other: Mensagens enviadas
+    special1: "A plataforma Global Plaza estar\xC3\xA1 indispon\xC4\xA9vel a partir de sexta-feira, 17 dezembro \xC3\xA0s 16:00 UTC, at\xC3\xA9 s\xC3\xA1bado, 18-Dez 16:00 UTC. Desculpem o inc\xC3\xB3modo."
+    special2: A Equipe do Global Plaza
+  more>>: mais >>
+  my_friends: Meus amigos
   name: 
+    full: Nome completo
     one: Nome
+    other: Nomes
+    prefix: "T\xC3\xADtulo"
+  new_source: Importar RSS/Atom
+  new_spam_detected: Novo spam detectado
+  news: 
+    created: "Not\xC3\xADcia publicada com sucesso"
+    deleted: "Not\xC3\xADcia exclu\xC3\xADda com sucesso"
+    edit: "Editar not\xC3\xADcia"
+    error: 
+      create: "Houve um problema ao publicar a not\xC3\xADcia"
+      delete: "Erro ao excluir not\xC3\xADcia"
+      update: "Not\xC3\xADcia n\xC3\xA3o p\xC3\xB4de ser atualizada"
+    item_in_home: "Not\xC3\xADcia no espa\xC3\xA7o"
+    none: Nenhum
+    none_to_show: "Nenhuma not\xC3\xADcia para mostrar"
+    other: "Not\xC3\xADcias"
+    publish_another: "Publicar outra not\xC3\xADcia"
+    publish_home: "Publicar not\xC3\xADcia"
+    updated: "Not\xC3\xADcia atualizada com sucesso"
+  next: "Pr\xC3\xB3ximo"
+  no_messages_in_wall: "N\xC3\xA3o h\xC3\xA1 mensagens no mural"
+  no_tags_found: Nenhuma tag encontrada
+  not_going: "Eu n\xC3\xA3o pretendo participar"
+  now!: Agora!
   number: 
     currency: 
       format: 
         delimiter: ","
-        format: "% N% u"
+        format: "%u%n"
         precision: "2"
         separator: .
         unit: $
@@ -1162,7 +1313,7 @@ pt-br:
       format: 
         precision: "1"
       storage_units: 
-        format: "% U% n"
+        format: "%n %u"
         units: 
           byte: 
             one: Byte
@@ -1171,16 +1322,22 @@ pt-br:
           kb: KB
           mb: MB
           tb: TB
+  ok: OK
+  older: Mais velho
+  online: online
   openid: 
     client: 
-      associating_to_id: "Associar OpenID: {{id}}"
-      discovery_failed: Descoberta falha para {{id}} {{erro}}
+      associating_to_id: "Associado ao OpenID: {{id}}"
+      discovery_failed: "Descoberta falhou para {{id}}: {{error}}"
       id_attached_to_account: "OpenID: {{id}} associado \xC3\xA0 sua conta"
-      immediate_request_failed: "pedido imediato falhou - Instala\xC3\xA7\xC3\xA3o Necess\xC3\xA1rio"
-      transaction_cancelled: "OpenID transa\xC3\xA7\xC3\xA3o cancelada"
-      verification_failed: "Verifica\xC3\xA7\xC3\xA3o falhou: {{mensagem}}"
+      immediate_request_failed: "Pedido imediato falhou - Configura\xC3\xA7\xC3\xA3o Necess\xC3\xA1ria"
+      transaction_cancelled: "Transa\xC3\xA7\xC3\xA3o OpenID cancelada"
+      verification_failed: "Verifica\xC3\xA7\xC3\xA3o falhou: {{message}}"
       verification_failed_with_id: "Verifica\xC3\xA7\xC3\xA3o de {{id}} falhou: {{mensagem}}"
-      verification_succeeded_with_id: "Verifica\xC3\xA7\xC3\xA3o de {{id}} sucedeu"
+      verification_succeeded_with_id: "Verifica\xC3\xA7\xC3\xA3o de {{id}} teve sucesso"
+    enter: Insira o seu OpenID
+    have: "Voc\xC3\xAA tem um OpenID? Clique no logo!"
+    login: Login com OpenID
     server: 
       about_login_to: "Voc\xC3\xAA est\xC3\xA1 prestes login no servidor {{}}"
       anti_phishing: "Esta p\xC3\xA1gina n\xC3\xA3o tem links para evitar <i>phishing.</i> Voc\xC3\xAA deve inserir-se no endere\xC3\xA7o indicado no seu navegador."
