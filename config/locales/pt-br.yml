@@ -1,5 +1,5 @@
---- 
-pt-br: 
+---
+pt-br:
   GMT: GMT
   Isabel: Isabel
   RSS: RSS
@@ -13,7 +13,7 @@ pt-br:
   account_activated: Sua conta foi ativada!
   account_activated_with_agent: "{{agent}}, a sua conta foi ativada"
   account_created: Sua conta foi criada
-  action: 
+  action:
     one: !binary |
       QcOnw6Nv
 
@@ -23,14 +23,14 @@ pt-br:
   actions: !binary |
     QcOnw7Vlcw==
 
-  activerecord: 
-    attributes: 
-      user: 
+  activerecord:
+    attributes:
+      user:
         login: Login
-    errors: 
-      full_messages: 
+    errors:
+      full_messages:
         format: "{{attribute}} {{message}}}"
-      messages: 
+      messages:
         accepted: deve ser aceito
         blank: "n\xC3\xA3o pode estar em branco"
         confirmation: "n\xC3\xA3o coincide com a confirma\xC3\xA7\xC3\xA3o"
@@ -56,21 +56,21 @@ pt-br:
         too_long: "\xC3\xA9 muito longo (m\xC3\xA1ximo de {{count}} caracteres)"
         too_short: "\xC3\xA9 muito curto (m\xC3\xADnimo de {{count}} caracteres)"
         wrong_length: "\xC3\xA9 o tamanho errado (deveria ser {{count}} caracteres)"
-      template: 
+      template:
         body: "Houve problemas com os seguintes campos:"
-        header: 
+        header:
           one: Um erro impediu este {{model}} de ser salvo
           other: "{{count}} erros impediram este {{model}} de ser salvo"
   add: Adicionar
   add_more_details: Adicionar mais detalhes
   address: "Endere\xC3\xA7o"
-  admin: 
+  admin:
     one: Admin
     space: "Administra\xC3\xA7\xC3\xA3o do {{spacename}}"
-  admission: 
-    errors: 
+  admission:
+    errors:
       candidate_equals_introducer: "Candidato e introdutor n\xC3\xA3o podem ser a mesma pessoa. (Voc\xC3\xAA provavelmente deve sair do sistema)"
-      candidate_has_role: "j\xC3\xA1 tem um papel"
+      candidate_has_role: "j\xC3\xA1 tem uma fundaileon"
     one: "Admiss\xC3\xA3o"
     other: "Admiss\xC3\xB5es"
   advanced: "Avan\xC3\xA7ado"
@@ -78,15 +78,15 @@ pt-br:
   advanced_options: !binary |
     T3DDp8O1ZXMgYXZhbsOnYWRhcw==
 
-  agenda: 
+  agenda:
     add_divider: Adicionar divisor
     add_entry: "Adicionar sess\xC3\xA3o"
     define: Definir Agenda
     del_entry: Remover
-    divider: 
+    divider:
       delete: Divisor foi removido com sucesso
       edit: Editar Divisor
-      error: 
+      error:
         coinciding_times: "H\xC3\xA1 um conflito entre o hor\xC3\xA1rio do novo divisor e entradas ou divisores existentes"
         date_out_of_event: "A data do divisor excede a dura\xC3\xA7\xC3\xA3o m\xC3\xA1xima do evento: {{max_days}} dias"
         past_times: "Este tipo de evento n\xC3\xA3o pode ter per\xC3\xADodos no passado"
@@ -98,7 +98,7 @@ pt-br:
       updated: Divisor foi atualizado com sucesso
     edit: Editar agenda
     edit_entry: Editar
-    entry: 
+    entry:
       cannot_exclude: "Voc\xC3\xAA n\xC3\xA3o pode excluir da grava\xC3\xA7\xC3\xA3o uma entrada menor que"
       created: Entrada da agenda criada com sucesso
       creating: Criando entrada na agenda
@@ -114,7 +114,7 @@ pt-br:
       edit: "Editar item da sess\xC3\xA3o"
       embedded_video: "Embutir v\xC3\xADdeo na entrada"
       end_time: "Hor\xC3\xA1rio final"
-      error: 
+      error:
         attribute_unchangeable: "Voc\xC3\xAA tentou modificar um atributo n\xC3\xA3o modific\xC3\xA1vel para esta sess\xC3\xA3o"
         coinciding_times: "H\xC3\xA1 um conflito entre o hor\xC3\xA1rio da nova entrada da agenda e entradas ou divisores existentes"
         create: "Erro criando sess\xC3\xA3o no sistema remoto de videoconfer\xC3\xAAncia"
@@ -127,7 +127,7 @@ pt-br:
       failed: "Entrada da agenda n\xC3\xA3o pode ser salva"
       has_attachment: Esta entrada possui anexos
       has_video: "V\xC3\xADdeo dispon\xC3\xADvel para esta entrada"
-      help: 
+      help:
         recording: "Grava\xC3\xA7\xC3\xA3o habilitada para esta sess\xC3\xA3o"
         streaming: "Streaming habilitado para esta sess\xC3\xA3o"
       hidevideo: "Esconder v\xC3\xADdeo"
@@ -144,7 +144,7 @@ pt-br:
         TsOjbw==
 
       one: Entrada
-      options: 
+      options:
         add_video: "Descarte v\xC3\xADdeo automaticamente e adicione um embarcado"
         recording: "Grava\xC3\xA7\xC3\xA3o de v\xC3\xADdeo"
         streaming: "Streaming de v\xC3\xADdeo"
@@ -160,7 +160,7 @@ pt-br:
         R3JhdmHDp8Ojbw==
 
       yes_record: Sim
-    error: 
+    error:
       dates: "O hor\xC3\xA1rio inicial deve ser anterior ao hor\xC3\xA1rio final"
       end_time_overlaps: "O hor\xC3\xA1rio final se sobrep\xC3\xB5e a uma entrada existente na agenda"
       omit_date: A entrada da agenda necessita uma data inicial e uma data final
@@ -175,8 +175,8 @@ pt-br:
     updating: "A agenda est\xC3\xA1 sendo atualizada..."
     upload: Enviar Agenda
     upload_file: Enviar Arquivo
-  agent: 
-    authentication: 
+  agent:
+    authentication:
       change_password: Alterar senha
       confirm_password: Confirme a senha
       login: Login
@@ -185,7 +185,7 @@ pt-br:
     email: E-mail
     one: "Usu\xC3\xA1rio"
     other: Agentes
-    select: 
+    select:
       one: Selecione agente
   agree: Sim
   all: Todos
@@ -196,20 +196,20 @@ pt-br:
   any_field: Qualquer campo
   are_you_sure: "Voc\xC3\xAA tem certeza?"
   at: em
-  attachment: 
+  attachment:
     add: Adicionar anexo
     created: Anexo criado com sucesso
     delete: Remover anexo
     deleted: Anexo removido com sucesso
-    error: 
+    error:
       not_deleted: "{{file}} n\xC3\xA3o removido corretamente."
       not_permission: "{{user}} n\xC3\xA3o pode remover o arquivo {{file}}"
     file: "Arquivo:"
-    found: 
+    found:
       none: Nenhum anexo encontrado
       one: 1 anexo encontrado
       other: "{{size}} anexos encontrados"
-    home: 
+    home:
       one: "Arquivo no espa\xC3\xA7o {{space}}"
     info: "Informa\xC3\xA7\xC3\xB5es do documento"
     loading: "Carregando informa\xC3\xA7\xC3\xB5es do documento..."
@@ -218,14 +218,14 @@ pt-br:
     not_valid: "O anexo n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido"
     one: Anexo
     other: Anexos
-    selected: 
+    selected:
       none: Nenhum arquivo selecionado
       one: arquivo selecionado
       other: arquivos selecionados
     updated: Anexo atualizado com sucesso
     upload_with_post: Notificar o envio com uma mensagem no mural
   author: Enviado por
-  avatar: 
+  avatar:
     created: Imagem enviada com sucesso
     crop: Ajustar sua imagem
     current: Imagem atual
@@ -238,7 +238,7 @@ pt-br:
   bad_request: Bad Request
   beta: (BETA)
   body: Corpo
-  button: 
+  button:
     accept: Aceitar
     back: Voltar
     back_to_event: Voltar ao evento
@@ -263,17 +263,17 @@ pt-br:
     sending: Enviando...
     update: Atualizar
     upload: Enviar
-  calendar: 
+  calendar:
     my: "Meu Calend\xC3\xA1rio"
     one: "Calend\xC3\xA1rio"
   can_also: "Ou voc\xC3\xAA tamb\xC3\xA9m pode:"
   cancel: Cancelar
-  caption: 
+  caption:
     add: Adicionar legenda
   change: Modificar
   change_pic: Modificar imagem
   changed_mind: Mudou de ideia?
-  chat: 
+  chat:
     connecting_error_message: Erro conectando
     connecting_message: Conectando ao chat do evento...
     edit_enabled: "Habilitar chat experimental no pr\xC3\xB3ximo login"
@@ -288,7 +288,7 @@ pt-br:
   close: Fechar
   collapse: Contrair
   collapse>>: Contrair >>
-  comment: 
+  comment:
     add: "Adicionar um coment\xC3\xA1rio"
     add_new: "Adicionar um novo coment\xC3\xA1rio"
     by: "coment\xC3\xA1rio por {{author}}"
@@ -297,30 +297,30 @@ pt-br:
     new: "Novo coment\xC3\xA1rio"
     one: "Coment\xC3\xA1rio"
     other: "Coment\xC3\xA1rios"
-    recent: 
+    recent:
       other: "Coment\xC3\xA1rios recentes"
     show_all: "Mostrar todos coment\xC3\xA1rios"
   contact_information: "Informa\xC3\xA7\xC3\xB5es de contato"
-  container: 
+  container:
     one: "Cont\xC3\xAAiner"
     other: "Cont\xC3\xAAiners"
-  content: 
-    create: 
+  content:
+    create:
       one: "Criar Conte\xC3\xBAdo"
       other: "Criar Conte\xC3\xBAdos"
-    delete: 
+    delete:
       one: "Excluir Conte\xC3\xBAdo"
       other: "Excluir Conte\xC3\xBAdos"
     new: "Novos Conte\xC3\xBAdos"
     one: "Conte\xC3\xBAdo"
     other: "Conte\xC3\xBAdo"
-    read: 
+    read:
       one: "Ler Conte\xC3\xBAdo"
       other: "Ler Conte\xC3\xBAdo"
-    update: 
+    update:
       one: "Atualizar Conte\xC3\xBAdo"
       other: "Atualizar Conte\xC3\xBAdo"
-  conversation: 
+  conversation:
     compress: "Comprimir conversa\xC3\xA7\xC3\xA3o"
   could_not_find_anybody_with_that_email_address: "N\xC3\xA3o foi poss\xC3\xADvel algu\xC3\xA9m com esse endere\xC3\xA7o de email"
   country: !binary |
@@ -331,8 +331,8 @@ pt-br:
   created_at: Criado em
   created_at_date: "Criado em: {{date}}"
   created_time_ago: "Criado {{time}} atr\xC3\xA1s"
-  date: 
-    abbr_day_names: 
+  date:
+    abbr_day_names:
     - Dom
     - Seg
     - Ter
@@ -342,8 +342,8 @@ pt-br:
     - !binary |
       U8OhYg==
 
-    abbr_month_names: 
-    - 
+    abbr_month_names:
+    -
     - Jan
     - Fev
     - Mar
@@ -356,8 +356,10 @@ pt-br:
     - Out
     - Nov
     - Dez
-    at: em
-    day_names: 
+    at: !binary |
+      w6Bz
+
+    day_names:
     - Domingo
     - Segunda
     - !binary |
@@ -368,12 +370,12 @@ pt-br:
     - Sexta
     - "S\xC3\xA1bado"
     end: Data final
-    formats: 
+    formats:
       default: "%d/%m/%y"
       long: "%B %d, %Y"
       short: "%b %d"
-    month_names: 
-    - 
+    month_names:
+    -
     - Janeiro
     - Fevereiro
     - !binary |
@@ -388,50 +390,50 @@ pt-br:
     - Outubro
     - Novembro
     - Dezembro
-    order: 
+    order:
     - :day
     - :month
     - :year
     start: Data inicial
     undefined: "N\xC3\xA3o definido"
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
+  datetime:
+    distance_in_words:
+      about_x_hours:
         one: 1 hora
         other: "{{count}} horas"
-      about_x_months: 
+      about_x_months:
         one: !binary |
           MSBtw6pz
 
         other: "{{count}} meses"
-      about_x_years: 
+      about_x_years:
         one: 1 ano
         other: "{{count}} anos"
       half_a_minute: meio minuto
-      less_than_x_minutes: 
+      less_than_x_minutes:
         one: 1 minuto
         other: "{{count}} minutos"
-      less_than_x_seconds: 
+      less_than_x_seconds:
         one: 1 segundo
         other: "{{count}} segundos"
-      over_x_years: 
+      over_x_years:
         one: 1 ano
         other: "{{count}} anos"
-      x_days: 
+      x_days:
         one: 1 dia
         other: "{{count}} dias"
-      x_minutes: 
+      x_minutes:
         one: 1 minuto
         other: "{{count}} minutos"
-      x_months: 
+      x_months:
         one: !binary |
           MSBtw6pz
 
         other: "{{count}} meses"
-      x_seconds: 
+      x_seconds:
         one: 1 segundo
         other: "{{count}} segundos"
-    prompts: 
+    prompts:
       day: Dia
       hour: Hora
       minute: Minuto
@@ -442,7 +444,7 @@ pt-br:
       year: Ano
   days: Dias
   dblclick: Duplo clique para editar...
-  delete: 
+  delete:
     confirm: Excluir {{element}}?
     one: Excluir
     select: Selecione para excluir
@@ -453,24 +455,24 @@ pt-br:
     RGVzY3Jpw6fDo28=
 
   destroy: Destruir
-  detail: 
+  detail:
     other: Detalhes
   disable: Desabilitar
   disabled: Desabilitado
   docs: Documentos
-  document: 
+  document:
     add: Adicionar novo documento
     upload: Enviar novo documento
   done: Pronto!
   download: Baixar
   download_file: Baixar arquivo
-  e-mail: 
+  e-mail:
     account_activated: Sua conta em {{sitename}} foi ativada com sucesso.
     commas: "Separado por v\xC3\xADrgulas"
     confirm: "Voc\xC3\xAA agora precisa confirmar seu registro clicando em <a href=\"{{url}}\"> {{url}} </a>"
     copy_link: "Se voc\xC3\xAA n\xC3\xA3o pode clicar no link acima, por favor copie e cole a seguinte linha em seu navegador:<br/> {{ur}}"
     dear: Prezado(a), {{name}}
-    invitation_result: 
+    invitation_result:
       admin_side: "{{name}} {{action}} o convite para o espa\xC3\xA7o {{spacename}}"
       user_side: "O administrador do espa\xC3\xA7o {{spacename}} {{action}} seu pedido de participa\xC3\xA7\xC3\xA3o"
     join_request: "Pedido de Participa\xC3\xA7\xC3\xA3o"
@@ -494,7 +496,7 @@ pt-br:
   enable: Habilitar
   enabled: Habilitar
   enlarge: Ampliar
-  error: 
+  error:
     change: "Mudan\xC3\xA7a inv\xC3\xA1lida"
     credentials: "Credenciais inv\xC3\xA1lidas"
     e403: "Voc\xC3\xAA n\xC3\xA3o tem permiss\xC3\xA3o para ver esta p\xC3\xA1gina."
@@ -506,13 +508,13 @@ pt-br:
     other: Erros
     vcc_warning: "Aviso geral:"
   eu_commision: "Comiss\xC3\xA3o Europ\xC3\xA9ia"
-  event: 
+  event:
     Isabel: Evento Isabel
-    action: 
+    action:
       select: !binary |
         QcOnw7Vlcw==
 
-    agenda: 
+    agenda:
       add_entry: Adicionar um.
       download: PDF
       download_small: PDF pequeno
@@ -523,38 +525,38 @@ pt-br:
     assistants_none: "Ningu\xC3\xA9m confirmou ainda"
     attend: Participando
     basic_info: "Introduzir informa\xC3\xA7\xC3\xA3o b\xC3\xA1sica"
-    button: 
+    button:
       attevents: Eventos participar
       atteventstitle0: "Eventos em que voc\xC3\xAA confirmou participa\xC3\xA7\xC3\xA3o"
       atteventstitle1: "Voc\xC3\xAA n\xC3\xA3o confirmou a participa\xC3\xA7\xC3\xA3o em nenhum evento"
       myevents: Meus eventos
       myeventstitle0: "Eventos que voc\xC3\xAA criou"
       myeventstitle1: "Voc\xC3\xAA n\xC3\xA3o criou nenhum evento"
-    cancel: 
+    cancel:
       lose: "Todos os dados ser\xC3\xA3o perdidos. Voc\xC3\xAA tem certeza?"
       stop: "Voc\xC3\xAA tem certeza que deseja parar a edi\xC3\xA7\xC3\xA3o?"
     choose_location: "Escolher localiza\xC3\xA7\xC3\xA3o"
     colon: "Evento:"
-    connection: 
+    connection:
       info: "Informa\xC3\xA7\xC3\xA3o de conex\xC3\xA3o para este evento"
       isabel: Servidor Isabel
       sip: Proxy SIP
-      str: ""
+      str: Streaming
       wait: "Esta informa\xC3\xA7\xC3\xA3o estar\xC3\xA1 dispon\xC3\xADvel durante o evento"
       web: "Participa\xC3\xA7\xC3\xA3o"
-    create: 
+    create:
       advanced_conf: "Configura\xC3\xA7\xC3\xB5es avan\xC3\xA7adas"
-      info: 
+      info:
         basic: "Aqui voc\xC3\xAA pode organizar tr\xC3\xAAs tipos de eventos"
-        class: 
+        class:
           name: Classe Virtual
-        conference: 
+        conference:
           message: "Avan\xC3\xA7ado. Grandes reuni\xC3\xB5es. Produ\xC3\xA7\xC3\xA3o estilo televis\xC3\xA3o, que precisa ser gerenciada por um operador."
           name: Congresso Virtual
-        meeting: 
+        meeting:
           message: "F\xC3\xA1cil. Participa\xC3\xA7\xC3\xA3o em videoconfer\xC3\xAAncia com compartilhamento de documentos e streaming e grava\xC3\xA7\xC3\xA3o autom\xC3\xA1ticos."
           name: "Reuni\xC3\xA3o Virtual"
-        presential: 
+        presential:
           message: "\xC3\x93timo para reuni\xC3\xB5es simples e r\xC3\xA1pidas. Notifique seus parceiros, envie documentos de trabalho. N\xC3\xA3o h\xC3\xA1 streaming nem grava\xC3\xA7\xC3\xA3o autom\xC3\xA1ticos."
           name: Em pessoa
       manual_conf: "Configura\xC3\xA7\xC3\xA3o manual"
@@ -563,21 +565,21 @@ pt-br:
       video_streaming: "Streaming de v\xC3\xADdeo"
     created: Evento criado com sucesso
     deleted: "Evento exclu\xC3\xADdo com sucesso"
-    description: 
+    description:
       add: "Adicionar descri\xC3\xA7\xC3\xA3o."
       edit: "Editar descri\xC3\xA7\xC3\xA3o"
       none: "Ningu\xC3\xA9m escrever uma descri\xC3\xA7\xC3\xA3o ainda."
     edit: "Editar informa\xC3\xA7\xC3\xB5es b\xC3\xA1sicas do evento"
     embed: Embarcar
-    enable: 
+    enable:
       isabel: Isabel
-      isabelbw: ""
+      isabelbw: Bandwidth Isabel
       participation: "Modos de participa\xC3\xA7\xC3\xA3o"
       recbw: "Qualidade de grava\xC3\xA7\xC3\xA3o"
       sip: Habilitar SIP
       web: Web
       webbw: Flash Bandwidth
-    error: 
+    error:
       cm_connection: "Conex\xC3\xA3o com o sistema remoto de videoconfer\xC3\xAAncia falhou"
       date_past: "Data inicial n\xC3\xA3o pode ser no passado"
       dates: "Data final deve ser ap\xC3\xB3s a data inicial"
@@ -590,39 +592,39 @@ pt-br:
       videoconference: "N\xC3\xA3o foi poss\xC3\xADvel criar o evento de videoconfer\xC3\xAAncia"
     features: "Caracter\xC3\xADsticas do evento"
     follow: "Entrar nesta Reuni\xC3\xA3o Virtual"
-    found: 
+    found:
       none: "N\xC3\xA3o foram encontrados eventos"
       one: 1 evento foi encontrado
       other: "{{size}} eventos foram encontrados"
     future: Evento Futuro
     generate_pdf: Gerar PDF
-    group_invitation: 
+    group_invitation:
       button: "Convidar usu\xC3\xA1rios n\xC3\xA3o registrados"
-      message_private_with_start_date: 
+      message_private_with_start_date:
         in_person: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. </p><p>Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p>Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleconference: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         telemeeting: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      message_private_without_start_date: 
+      message_private_without_start_date:
         in_person: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>.</p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleconference: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         telemeeting: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espa\xC3\xA7o privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de ades\xC3\xA3o ao espa\xC3\xA7o e ter acesso ao evento. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      message_public_with_start_date: 
+      message_public_with_start_date:
         in_person: "<p> Gostaria de convid\xC3\xA1-lo para <b>&#39;evento&#39; event_name no espa\xC3\xA7o {{espa\xC3\xA7o}}</b> em &#39;EVENT_DATE. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> {{Username}} <br/> {{}} Useremail <br/> {{}} Userorg </p>"
-        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleconference: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         telemeeting: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date'. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      message_public_without_start_date: 
+      message_public_without_start_date:
         in_person: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>.</p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleclass: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         teleconference: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
         telemeeting: "<p> Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}}</b>. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Convidar usu\xC3\xA1rios n\xC3\xA3o registrados"
       subject: "{{username}} convida voc\xC3\xAA para o evento {{eventname}} no espa\xC3\xA7o {{space}}"
     has: Este evento tem
     held_with: "Este evento ser\xC3\xA1 realizado com"
-    help: 
+    help:
       book: "\xC3\x89 necess\xC3\xA1rio reservar recursos para fazer uma videoconfer\xC3\xAAncia. Por favor, defina o seu cronograma na agenda."
       create: "Crie o seu evento simples em tr\xC3\xAAs etapas:"
       creating_entries: criando entradas
@@ -632,7 +634,7 @@ pt-br:
       in_agenda: na agenda
       now: "Agora voc\xC3\xAA pode"
       without_str: "Para obter streaming e/ou grava\xC3\xA7\xC3\xA3o, por favor indique-o na sua agenda"
-    home: 
+    home:
       one: "Evento no espa\xC3\xA7o {{space}}"
     invite: Convidar pessoas
     join: Junte-se a este evento
@@ -641,13 +643,13 @@ pt-br:
     location: !binary |
       TG9jYWxpemHDp8Ojbw==
 
-    logo: 
+    logo:
       button: Alterar o logotipo
       created: Logotipo do evento criado com sucesso
       crop: Selecione a parte da imagem para recortar
       new: Adicionar uma imagem para o seu evento
       select: Mudar seu logotipo
-    move: 
+    move:
       change_end_date: Alterar a data final do evento
       change_event_end_date_div: "<b>Alterar a data final do evento:</b> Esta op\xC3\xA7\xC3\xA3o permite expandir o hor\xC3\xA1rio do evento movendo o hor\xC3\xA1rio final. Esta mudan\xC3\xA7a afetar\xC3\xA1 somente para o hor\xC3\xA1rio final do evento e nada mais (as sess\xC3\xB5es permanecer\xC3\xA3o com mesmo hor\xC3\xA1rio). Use esta op\xC3\xA7\xC3\xA3o se voc\xC3\xAA precisar de mais tempo ap\xC3\xB3s o hor\xC3\xA1rio final do seu evento."
       change_event_start_date_div: "<b>Alterar a data final do evento:</b> Esta op\xC3\xA7\xC3\xA3o permite expandir o hor\xC3\xA1rio do evento movendo o hor\xC3\xA1rio inicial. Esta mudan\xC3\xA7a afetar\xC3\xA1 somente para o hor\xC3\xA1rio inicial do evento e nada mais (as sess\xC3\xB5es permanecer\xC3\xA3o com mesmo hor\xC3\xA1rio). Use esta op\xC3\xA7\xC3\xA3o se voc\xC3\xAA precisar de mais tempo antes do hor\xC3\xA1rio inicial do seu evento."
@@ -656,7 +658,7 @@ pt-br:
       move_event_div: "<b>Mover evento:</b> Esta op\xC3\xA7\xC3\xA3o permite mover seu evento. Voc\xC3\xAA pode escolher um novo hor\xC3\xA1rio inicial e isso vai afetar tudo em seu evento. <b>Todas as sess\xC3\xB5es do evento v\xC3\xA3o mudar</b> seu hor\xC3\xA1rio de in\xC3\xADcio para manter a rela\xC3\xA7\xC3\xA3o de tempo com o in\xC3\xADcio do evento."
       no_change: "Nenhuma mudan\xC3\xA7a"
       out_date: "A entrada de agenda com t\xC3\xADtulo \"{{agenda_entry}}\" estar\xC3\xA1 fora do evento e isso n\xC3\xA3o \xC3\xA9 permitido. Mova ou edite as suas sess\xC3\xB5es para permitir que essa altera\xC3\xA7\xC3\xA3o seja feita."
-    new: 
+    new:
       basic: "Informa\xC3\xA7\xC3\xB5es b\xC3\xA1sicas"
       conference: Congresso Virtual
       date: Data
@@ -669,7 +671,7 @@ pt-br:
     no_param: "Nenhum par\xC3\xA2metro selecionado"
     none_coming: "N\xC3\xA3o h\xC3\xA1 eventos pr\xC3\xB3ximos"
     not_attend: "N\xC3\xA3o participar\xC3\xA3o"
-    note: 
+    note:
       both: "Participa\xC3\xA7\xC3\xA3o na Web e streaming estar\xC3\xA3o dispon\xC3\xADveis no momento do evento"
       none: "N\xC3\xA3o h\xC3\xA1 transmiss\xC3\xA3o definida na agenda."
       not_organizer_after: "Este evento aconteceu em {{date}}, agora voc\xC3\xAA pode desfrutar do programa do evento e das grava\xC3\xA7\xC3\xB5es"
@@ -679,14 +681,14 @@ pt-br:
       nothing: "Nenhuma participa\xC3\xA7\xC3\xA3o Web ou streaming reservados neste momento"
       participation: "A participa\xC3\xA7\xC3\xA3o Web estar\xC3\xA1 dispon\xC3\xADvel no momento do evento"
       streaming: "O streaming de v\xC3\xADdeo estar\xC3\xA1 dispon\xC3\xADvel no momento do evento"
-    notification: 
-      attendant: 
+    notification:
+      attendant:
         filter: Filtro de participantes
       button: Notificar participantes confirmados
       deselect_all_attendants: Desmarcar todos os participantes
       hide_all_attendants: Ocultar todos os participantes
       label: "Personalize a sua mensagem de notifica\xC3\xA7\xC3\xA3o"
-      legend: 
+      legend:
         name: "'Name' ser\xC3\xA1 substitu\xC3\xADdo na mensagem pelo nome do receptor."
       message_beginning_with_start_date: "<p> 'Name', </p><p> Quanto o <b>'event_name' no espa\xC3\xA7o {{space}}</b> em 'event_date': </p>"
       message_beginning_without_start_date: "<p> 'Name', </p><p> Relacionado ao <b>evento 'event_name' no espa\xC3\xA7o {{space}}</b>:</p>"
@@ -702,14 +704,14 @@ pt-br:
     one: Evento
     online: "Webconfer\xC3\xAAncia"
     other: Eventos
-    participation: 
+    participation:
       add: Adicionar um.
       edit: "Edite o c\xC3\xB3digo do cliente Web"
       none: "Ningu\xC3\xA9m postou qualquer URL de participa\xC3\xA7\xC3\xA3o."
       ready: "A participa\xC3\xA7\xC3\xA3o est\xC3\xA1 agendada. Ela estar\xC3\xA1 dispon\xC3\xADvel durante o evento"
       title: "Participa\xC3\xA7\xC3\xA3o"
       will_be_available: "A participa\xC3\xA7\xC3\xA3o estar\xC3\xA1 dispon\xC3\xADvel durante o evento"
-    past: 
+    past:
       all: Todos passados ({{size}})
       last_month: "N\xC3\xA3o h\xC3\xA1 eventos para o m\xC3\xAAs passado."
       last_week: "N\xC3\xA3o h\xC3\xA1 eventos para a semana passada."
@@ -718,8 +720,8 @@ pt-br:
       other: Eventos passados
       show: Mostrar todos os eventos antigos
       today: "N\xC3\xA3o existem eventos para ontem nem hoje."
-    player: ""
-    recording: 
+    player: Player
+    recording:
       button_disabled: "Este bot\xC3\xA3o ser\xC3\xA1 ativado quando o evento tiver alguma grava\xC3\xA7\xC3\xA3o"
       cloud: "V\xC3\xADdeos!"
       cloud_back: Voltar ao programa
@@ -734,11 +736,11 @@ pt-br:
     recording_automatic: "Grava\xC3\xA7\xC3\xA3o autom\xC3\xA1tica"
     recording_manual: "Grava\xC3\xA7\xC3\xA3o manual"
     recording_none: "Nenhuma grava\xC3\xA7\xC3\xA3o"
-    repository: 
+    repository:
       enabled: "Ativar reposit\xC3\xB3rio de documentos"
       help: "Este reposit\xC3\xB3rio apresenta os documentos carregados nas sess\xC3\xB5es da agenda do evento"
       title: Documentos de evento
-    scorm: 
+    scorm:
       button: Exportar formato scorm
       title: Scorm (Zip para LMS)
     search: Procurar eventos...
@@ -747,14 +749,14 @@ pt-br:
     spam: Spam em eventos
     start: Reinicie o evento
     started: "pedido Iniciar enviar com \xC3\xAAxito"
-    stats: 
+    stats:
       map: Ver mapa
       message1: "Esta p\xC3\xA1gina mostra as estat\xC3\xADsticas das conex\xC3\xB5es Web para o evento."
       message2: "Esta p\xC3\xA1gina mostra o mapa das conex\xC3\xB5es Web para o evento."
       title1: "Estat\xC3\xADsticas do evento \"{{event}}\""
       title2: "Mapa de conex\xC3\xB5es do evento \"{{event}}\""
       view: "Ver estat\xC3\xADsticas"
-    streaming: 
+    streaming:
       add: Acrescentar um.
       back: Voltar para o streaming
       edit: "Editar c\xC3\xB3digo do streaming"
@@ -765,7 +767,7 @@ pt-br:
       ready: "O streaming foi agendado. Ele estar\xC3\xA1 dispon\xC3\xADvel durante o evento"
       title: "Sess\xC3\xA3o de streaming"
       will_be_available: "O streaming estar\xC3\xA1 dispon\xC3\xADvel durante o evento"
-    time: 
+    time:
       end: Fim
       start: "In\xC3\xADcio"
     to: Para
@@ -773,11 +775,11 @@ pt-br:
     today_and_yesterday: Hoje e ontem ({{size}})
     today_size: Hoje ({{size}})
     tomorrow: "Eventos de amanh\xC3\xA3"
-    undated: 
+    undated:
       none: "N\xC3\xA3o h\xC3\xA1 eventos sem agenda"
       show: Mostrar todos os eventos sem data
       title: Eventos sem agenda definida
-    upcoming: 
+    upcoming:
       all: Todos os programados ({{size}})
       my_other: Meu eventos programados
       next_month: "N\xC3\xA3o h\xC3\xA1 eventos para o pr\xC3\xB3ximo m\xC3\xAAs"
@@ -798,12 +800,12 @@ pt-br:
 
     view_related_rec: "Ver na lista de v\xC3\xADdeos"
     view_repo: Documentos
-    view_streaming: ""
+    view_streaming: Streaming
     view_streaming_disabled: "Streaming dispon\xC3\xADvel durante o evento"
     will_attend: "Voc\xC3\xAA pretende participar deste evento?"
     within_7_days: Dentro de 7 dias ({{size}})
     within_a_month: "Dentro de um m\xC3\xAAs ({{size}})"
-  event_invitation: 
+  event_invitation:
     accepted: "Voc\xC3\xAA aceitou o convite para este evento"
     clarify_registered: "Favor introduzir sua senha para confirmar sua participa\xC3\xA7\xC3\xA3o no evento"
     clarify_unregistered: "Favor introduzir seu nome completo e uma senha para se registrar no Virtual Conference Centre e confirmar sua participa\xC3\xA7\xC3\xA3o no evento"
@@ -816,7 +818,7 @@ pt-br:
     instructions: "Clique Enviar para cada convite que voc\xC3\xAA deseja enviar, e clique Finalizar quando voc\xC3\xAA concluir."
     logout_and_reload: "Voc\xC3\xAA n\xC3\xA3o \xC3\xA9 o usu\xC3\xA1rio que recebeu este convite, por favor saia do sistema e tente novamente"
     message_title: "Convidar usu\xC3\xA1rios registrados"
-    new: 
+    new:
       other: Convidar pessoas
     not_processed: "O convite n\xC3\xA3o pode ser processado"
     password: Senha
@@ -826,47 +828,47 @@ pt-br:
     title: Convite para o evento
     will_invite: "Pessoas que voc\xC3\xAA ir\xC3\xA1 convidar?"
   export_widget: Exportar widget
-  faq: 
-    faq1: 
+  faq:
+    faq1:
       answer: "Global Plaza \xC3\xA9 um espa\xC3\xA7o aberto para colabora\xC3\xA7\xC3\xA3o, um ponto de encontro para profissionais, onde eles podem compartilhar documentos e v\xC3\xADdeos, al\xC3\xA9m de organizar e participar de videoconfer\xC3\xAAncias, em um ambiente web moderno."
       question: "O que \xC3\xA9 o Global Plaza?"
-    faq10: 
+    faq10:
       answer: "Estamos atualmente fazendo o poss\xC3\xADvel para converter todos nossos v\xC3\xADdeos para HTML5. Isso inclu\xC3\xAD a transmiss\xC3\xA3o de eventos em tempo real, usando <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Em breve voc\xC3\xAA poder\xC3\xA1 usufruir dos v\xC3\xADdeos em seus dispositivos m\xC3\xB3veis."
       question: "Eu tenho um iPad, que n\xC3\xA3o possui o plugin Flash... posso assistir os v\xC3\xADdeos nele?"
-    faq11: 
+    faq11:
       answer: "At\xC3\xA9 o momento, <i>apenas</i> Ingl\xC3\xAAs, Espanhol, Franc\xC3\xAAs, Alem\xC3\xA3o e Portugu\xC3\xAAs (Brasil) s\xC3\xA3o suportados. Para selecionar um deles use o link <b>Linguagem</b> localizado na parte inferior de qualquer p\xC3\xA1gina do Global Plaza. <br>Estamos constantemente aprimorando a internacionaliza\xC3\xA7\xC3\xA3o, e se voc\xC3\xAA acha que pode nos ajudar, por favor <a href=\"feedback/new\">entre em contato conoso</a>."
       question: "Eu sou espanhol/franc\xC3\xAAs/alem\xC3\xA3o/... o Global Plaza \xC3\xA9 traduzido para a minha linguagem?"
-    faq12: 
+    faq12:
       answer: "Apesar de j\xC3\xA1 acharmos o Global Plaza bastante legal, acreditamos que tudo pode ser melhorado. A melhor maneira de nos ajudar \xC3\xA9 enviando feedback usando o <a href=\"feedback/new\">link</a> na parte inferior de cada p\xC3\xA1gina. N\xC3\xB3s apreciaremos qualquer coment\xC3\xA1rios e trataremos dele assim que poss\xC3\xADvel."
       question: "Tenho diversas sugest\xC3\xB5es para o seu site. Voc\xC3\xAAs aceitam sugest\xC3\xB5es? Como posso contribuir para o desenvolvimento?"
-    faq2: 
+    faq2:
       answer: "<b>Global</b> \xC3\xA9 o nome do <a href=\"http://www.global-project.eu/\">projeto Europeu</a> no qual este site foi desenvolvido, reusando resultados e desenvolvimentos de outros projetos, e provendo uma orienta\xC3\xA7\xC3\xA3o <i>em nuvem</i>. <b>Plaza</b>, do latin <i>platt\xC4\x95a</i>, refere-se a um espa\xC3\xA7o urbano p\xC3\xBAblico, o tradicional centro de toda intera\xC3\xA7\xC3\xA3o econ\xC3\xB4mica e social em uma cidade. <b>Social</b> e <b>intera\xC3\xA7\xC3\xB5es</b> definem muito bem a filosofia deste local."
       question: Por que Global? Por que Plaza?
-    faq3: 
+    faq3:
       answer: "Para participar na comunidade Global Plaza voc\xC3\xAA precisa um navegador web (a maioria deles funciona muito bem). Algumas funcionalidades avan\xC3\xA7adas, como videoconfer\xC3\xAAncia, necessitam que voc\xC3\xAA possua instalado o <a href=\"http://get.adobe.com/es/flashplayer/\">plugin Flash</a> (al\xC3\xA9m de uma webcam e um microfone). \xC3\x89 muito prov\xC3\xA1vel que voc\xC3\xAA j\xC3\xA1 possua estes requisitos."
       question: O que preciso para entrar no Global Plaza?
-    faq4: 
+    faq4:
       answer: "Para come\xC3\xA7ar a colaborar no Global Plaza voc\xC3\xAA precisa <a href=\"/signup\">registrar-se</a>. Desta forma voc\xC3\xAA poder\xC3\xA1 criar espa\xC3\xA7os, adicionar documentos, e participar de reuni\xC3\xB5es. Uma boa forma de iniciar \xC3\xA9 verificando as <a href=\"/help\">p\xC3\xA1ginas de ajuda</a> do Global Plaza. <b>Livre?</b> SIM, tudo no Global Plaza \xC3\xA9 livre, e continuar\xC3\xA1 sendo. N\xC3\xB3s acreditamos que VOC\xC3\x8A \xC3\xA9 que prov\xC3\xAA valor para nossa rede social, portanto n\xC3\xA3o seria justo cobrar de voc\xC3\xAA, seria?"
       question: "Como posso entrar e participar da comunidade? \xC3\x89 livre?"
-    faq5: 
+    faq5:
       answer: "N\xC3\xA3o, claro que n\xC3\xA3o. Como dito antes, acreditamos que h\xC3\xA1 mais valor quando mais pessoas criam/acessam conte\xC3\xBAdos, mas isso n\xC3\xA3o significa que voc\xC3\xAA n\xC3\xA3o pode ter seus <b>espa\xC3\xA7os privados</b>. Estes estar\xC3\xA3o acessiveis somente para os membros que voc\xC3\xAA selecionar, e seu conte\xC3\xBAdo contiunar\xC3\xA1 privado e escondido dos outros membros."
       question: "Mas... tudo \xC3\xA9 acess\xC3\xADvel por qualquer um? QUALQUER UM pode interagir com QUALQUER COISA?"
-    faq6: 
+    faq6:
       answer: "Um <b>espa\xC3\xA7o</b> \xC3\xA9 a unidade b\xC3\xA1sica de colabora\xC3\xA7\xC3\xA3o no Global Plaza. Como voc\xC3\xAA pode imaginar, n\xC3\xA3o \xC3\xA9 nada mais (nem menos) que um local onde pessoas com um interesse comum podem interagir. A intera\xC3\xA7\xC3\xA3o pode ocorrer de diversas formas: usando o reposit\xC3\xB3rio de documentos, organizando eventos, participando em videoconfer\xC3\xAAncias ou chats...<br>Uma vez que voc\xC3\xAA cria um espa\xC3\xA7o, o Global Plaza lhe permite fazer isso tudo, e muito mais. Voc\xC3\xAA s\xC3\xB3 precisa decidir que convidar para seu espa\xC3\xA7o, e se ele ser\xC3\xA1 p\xC3\xBAblico ou privado."
       question: "Espa\xC3\xA7os? Que espa\xC3\xA7os? O que diabos s\xC3\xA3o espa\xC3\xA7os?"
-    faq7: 
+    faq7:
       answer: "Global Plaza \xC3\xA9 um site que gira em torno de videoconfer\xC3\xAAncias e, como tal, a nossa mente est\xC3\xA1 em simplificar o esfor\xC3\xA7o de organiz\xC3\xA1-las. Sugerimos que voc\xC3\xAA d\xC3\xAA uma olhada nas p\xC3\xA1ginas de ajuda para criar uma <a href=\"help/newvirtualmeeting\">reuni\xC3\xA3o virtual</a>, e come\xC3\xA7ar a experimentar voc\xC3\xAA mesmo."
       question: "Voc\xC3\xAA mencionou videoconfer\xC3\xAAncias ... posso organizar uma para amanh\xC3\xA3?"
-    faq8: 
+    faq8:
       answer: "Como em qualquer sistema, os recursos n\xC3\xA3o s\xC3\xA3o ilimitados. N\xC3\xB3s tentamos garantir recursos suficientes para todos os eventos, mas se um evento n\xC3\xA3o pode ser realizado em uma data / hora espec\xC3\xADfica, voc\xC3\xAA ser\xC3\xA1 notificado no momento da cria\xC3\xA7\xC3\xA3o."
       question: "Espere um momento! Eu posso organizar CINCO videoconfer\xC3\xAAncias simult\xC3\xA2neas para amanh\xC3\xA3?"
-    faq9: 
+    faq9:
       answer: "Sim. No momento da cria\xC3\xA7\xC3\xA3o do evento, voc\xC3\xAA pode selecionar se quer ativar a <b>grava\xC3\xA7\xC3\xA3o</b>. Se for esse o caso, as sess\xC3\xB5es ser\xC3\xA3o automaticamente gravadas e estar\xC3\xA3o posteriormente acess\xC3\xADveis na p\xC3\xA1gina principal do evento.  Estamos trabalhando para permitir que voc\xC3\xAAs fa\xC3\xA7am o download dos v\xC3\xADdeos para assisti-los localmente em seus computadores ou para distribu\xC3\xAD-los."
       question: "As reuni\xC3\xB5es s\xC3\xA3o gravadas?"
     tag: FAQ
     title: Perguntas Frequentes
   fax: Fax
-  feedback: 
+  feedback:
     email: "{{email}} enviou o seguinte feedback:"
     note: "Ajude-nos a melhorar o Global. Envie seus coment\xC3\xA1rios, problemas e sugest\xC3\xB5es. Tentaremos responder o mais rapidamente poss\xC3\xADvel."
     one: Feedback
@@ -875,21 +877,21 @@ pt-br:
     sent: Seu e-mail de feedback foi enviado com sucesso. Obrigado
   file: Arquivo
   fill_fields: "Voc\xC3\xAA deve preencher todos os campos"
-  find: 
+  find:
     browse: Navegar
   find_in: "Pesquisar em:"
   find_in_day: "Pesquisar no dia:"
   find_in_name_speakers: "Pesquisar em nome/palestrantes:"
   follow_reset_password: "{{agent}}, por favor siga o link para redefinir a sua senha"
-  form: 
+  form:
     loading: "O formul\xC3\xA1rio est\xC3\xA1 carregando..."
   from: De
-  frontpage: 
-    collaborate: 
+  frontpage:
+    collaborate:
       sentence1: Organize seus projetos e atividades
       sentence2: "Participe em confer\xC3\xAAncias e eventos"
       sentence3: "Crie o seu pr\xC3\xB3prio espa\xC3\xA7o e confer\xC3\xAAncias"
-    elements: 
+    elements:
       comments: "Coment\xC3\xA1rios"
       conferences: "Confer\xC3\xAAncias"
       networks: Redes Sociais
@@ -898,17 +900,17 @@ pt-br:
       spaces: "Espa\xC3\xA7os"
       tags: Tags
     main_title: "Global um servi\xC3\xA7o de hospedagem para a publica\xC3\xA7\xC3\xA3o e descoberta de videoconfer\xC3\xAAncias"
-    meet: 
+    meet:
       sentence1: "Descubra as melhores videoconfer\xC3\xAAncia online"
       sentence2: "Conhe\xC3\xA7a pessoas interessantes e grupos"
       sentence3: "Troque mensagens com v\xC3\xADdeo com os seus colegas"
-    share: 
+    share:
       sentence1: "Grava\xC3\xA7\xC3\xA3o e streaming de videoconfer\xC3\xAAncia"
       sentence2: "Reposit\xC3\xB3rios de documentos e v\xC3\xADdeos"
       sentence3: "Seus contatos e rela\xC3\xA7\xC3\xB5es"
     stats: "{{vc}} videoconfer\xC3\xAAncias organizadas - {{vs}} v\xC3\xADdeos armazenados"
   getting_started: "Come\xC3\xA7ando!"
-  group: 
+  group:
     add_to_group: "Adicionar \xC3\xA0 lista de e-mails"
     add_to_others: Adicionar outra listas de e-mails
     create: Criar nova lista de e-mails
@@ -928,28 +930,28 @@ pt-br:
     send_message: Enviar uma mensagem para esta lista de e-mails
     updated: Lista de e-mails {{name}} atualizada com sucesso
   groups_and_results: Listas de e-mails, {{size}} resultados
-  hcard: 
+  hcard:
     not_found: "hCard n\xC3\xA3o encontrado"
   hello: !binary |
     T2zDoQ==
 
   help: Ajuda
-  help_createVC: 
+  help_createVC:
     part1: "Para criar um congresso virtual no Global: <br><br>1. Clique na guia <b>Eventos</b>.<br>2. Clique em <b>Congresso Virtual</b> no lado direito da p\xC3\xA1gina."
     part2: "3. Digite um t\xC3\xADtulo e uma descri\xC3\xA7\xC3\xA3o para seu evento.<br> 4. Digite ou selecione o usu\xC3\xA1rios que fazem parte da organiza\xC3\xA7\xC3\xA3o do evento.<br> 5. Digite o local do evento.<br> 6. Escolha os modos de participa\xC3\xA7\xC3\xA3o, que lhe permitem decidir como as pessoas podem conectar na reuni\xC3\xA3o virtual. <br>&nbsp; &nbsp; a. <b> Isabel </b> \xC3\xA9 o sistema de c\xC3\xB3digo aberto utilizado como base para v\xC3\xADdeoconfer\xC3\xAAncia.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> \xC3\xA9 a possibilidade de participar via navegador web. <br> 7. Clique no bot\xC3\xA3o <b>Criar</b>."
     part3: "8. Depois de ter criado o evento voc\xC3\xAA pode: <br><li><a href={{agenda}}> Definir a agenda para o evento</a><il>Reservar recursos \xC3\xA9 necess\xC3\xA1rio para fazer uma videoconfer\xC3\xAAncia<li>Convidar pessoas<li>Escrever uma descri\xC3\xA7\xC3\xA3o completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createVM: 
+  help_createVM:
     part1: "Para criar uma reuni\xC3\xA3o virtual no Global Plaza:<br><br> 1. Clique na guia <b>Eventos</b>.<br>2. Clique em <b>Reuni\xC3\xA3o Virtual</b> no lado direito da p\xC3\xA1gina."
     part2: "3. Digite um t\xC3\xADtulo e uma descri\xC3\xA7\xC3\xA3o para seu evento. <br> 4. Digite ou selecione os organizadores do evento. <br> 5. Digite o local do evento. <br>6. Escolha os modos de participa\xC3\xA7\xC3\xA3o, que lhe permitem decidir como as pessoas podem ligar para a reuni\xC3\xA3o virtual.<br>&nbsp; &nbsp; a. <b> Isabel </b> \xC3\xA9 o sistema de c\xC3\xB3digo aberto utilizado como base para v\xC3\xADdeoconfer\xC3\xAAncia.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> \xC3\xA9 a possibilidade de participar via navegador web. <br> 7. Clique no bot\xC3\xA3o <b>Criar</b>."
     part3: "8. Depois de ter criado o evento voc\xC3\xAA pode: <br><li><a href={{agenda}}> Definir a agenda para o evento</a><il>Reservar recursos \xC3\xA9 necess\xC3\xA1rio para fazer uma videoconfer\xC3\xAAncia<li>Convidar pessoas<li>Escrever uma descri\xC3\xA7\xC3\xA3o completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createevent: 
+  help_createevent:
     part1: <a href={{url}} class="big_button red_button" target="_blank"><span>Assistir ao screencast</span></a><br><br><br>Para criar um evento no Global Plaza:<br><br>1. Clique na guia <b>Eventos</br>.
     part2: "2. Voc\xC3\xAA pode criar um evento diretamente do campo <b>Criar evento</b> na coluna do lado direito da p\xC3\xA1gina. O Global Plaza oferece suporte a tr\xC3\xAAs tipos de eventos, de acordo com suas necessidades:  <br><li>O tipo <b><a href={{url_meeting}}> Reuni\xC3\xA3o </a></b> \xC3\xA9 basicamente projetado de acordo com reuni\xC3\xB5es f\xC3\xADsicas ou reuni\xC3\xB5es offline para as quais voc\xC3\xAA n\xC3\xA3o precisa de grava\xC3\xA7\xC3\xA3o de v\xC3\xADdeo ou streaming, mas precisa preferencialmente de caracter\xC3\xADsticas que tornam simples lidar com reuni\xC3\xB5es - como criar e modificar uma agenda que as pessoas possam consultar ou importar em seu calend\xC3\xA1rio. Al\xC3\xA9m disso, voc\xC3\xAA pode querer fornecer os documentos necess\xC3\xA1rios para a reuni\xC3\xA3o ou compartilhar fotos tiradas na reuni\xC3\xA3o. <li>O tipo <b><a href={{url_vm}}>Reuni\xC3\xA3o Virtual </a> \xC3\xA9 adequado para reuni\xC3\xB5es on-line ou encontros presenciais com um forte aspecto virtual, o que significa que ambos os participantes locais e remotos ter\xC3\xA3o a oportunidade de se comunicar de forma interativa. .<li>O tipo <b> <a href={{url_vc}}>Congresso Virtual</a> </b> \xC3\xA9 muito semelhante ao tipo <i>Reuni\xC3\xA3o Virtual</i>, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
-  help_createmeeting: 
+  help_createmeeting:
     part1: "Para criar uma reuni\xC3\xA3o no Global Plaza: <br><br>1. Clique na guia <b>Eventos</b>.<br> 2. Clique em <b>Reuni\xC3\xA3o</b> do lado direito da p\xC3\xA1gina."
     part2: "3. Digite um t\xC3\xADtulo e uma descri\xC3\xA7\xC3\xA3o para seu evento.<br>4. Digite ou selecione o espa\xC3\xA7o usu\xC3\xA1rios organiza\xC3\xA7\xC3\xA3o do evento.<br>5. Digite o local do evento.<br> 6. Clique no bot\xC3\xA3o <b>Criar</b>."
     part3: "7. Depois de ter criado o evento voc\xC3\xAA pode: <br><li><a href={{agenda}}> Definir a agenda para o evento</a><li>Convidar pessoas<li>Escrever uma descri\xC3\xA7\xC3\xA3o completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createpost: 
+  help_createpost:
     part1: "Para criar uma mensagem no mural no Global Plaza:"
     part10: "a. Ver c\xC3\xB3digo html"
     part11: "b. Mudar o estilo da fonte (negrito, it\xC3\xA1lico e sublinhado), tamanho da fonte e cor e alinhamento do texto."
@@ -965,32 +967,32 @@ pt-br:
     part7: "6. Voc\xC3\xAA pode adicionar tags no seu arquivo. Tags permitem que voc\xC3\xAA encontre arquivos facilmente. Pressione enter para confirmar cada tag."
     part8: "7. Repita os passos 4, 5 e 6 para cada arquivo que voc\xC3\xAA deseja adicionar."
     part9: "8. Voc\xC3\xAA pode usar o editor avan\xC3\xA7ado para incluir conte\xC3\xBAdo. Este editor permite que voc\xC3\xAA:"
-  help_createspace: 
+  help_createspace:
     part1: "Para criar um espa\xC3\xA7o no Global Plaza:"
     part2: 1. Clique no item <a href={{url}}> Minha Home </a> da barra superior.
     part3: "2. Clique no bot\xC3\xA3o <a href={{url}}>Criar Novo Espa\xC3\xA7o</a>."
     part4: "3. Digite um nome e uma descri\xC3\xA7\xC3\xA3o para o seu espa\xC3\xA7o."
     part5: "4. Decida se o espa\xC3\xA7o deve ser p\xC3\xBAblico. Espa\xC3\xA7os colaborativos podem ser p\xC3\xBAblicos, para que qualquer pessoa veja o que acontece neles, ou privados, onde apenas os membros ter\xC3\xA3o acesso \xC3\xA0s atividades do espa\xC3\xA7o."
     part6: "5. Se voc\xC3\xAA deseja habilitar um reposit\xC3\xB3rio de documentos, escolha esta op\xC3\xA7\xC3\xA3o.<br> 6. Voc\xC3\xAA pode associar uma lista de e-mails no seu grupo. Ela permitir\xC3\xA1 que voc\xC3\xAA envie mensagens de e-mail para todo o grupo em vez de ter de escolher os endere\xC3\xA7os individualmente. <br> 7. Voc\xC3\xAA pode carregar o seu pr\xC3\xB3prio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria."
-  help_createuser: 
+  help_createuser:
     part1: "Para criar um usu\xC3\xA1rio no Global Plaza:"
     part2: 1. Clique no item <a href={{url}}>registrar</a> na barra de menu superior.
     part3: 2. Digite e-mail, senha e nome completo.
     part4: "3. Digite o c\xC3\xB3digo da imagem exibida."
     part5: "4. Depois de ter conclu\xC3\xADdo sua inscri\xC3\xA7\xC3\xA3o, clique no bot\xC3\xA3o <b>Pronto</b>."
     part6: "5. Depois de registrar uma conta, voc\xC3\xAA receber\xC3\xA1 uma confirma\xC3\xA7\xC3\xA3o por e-mail com o link para ativar sua conta."
-  help_define_agenda: 
+  help_define_agenda:
     part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Assistir ao screencast</a></span><br><br><br> Para criar uma agenda para o seu evento no VCC: <br><br> 1. Clique no na guia <b>Eventos</b>.<br> 2. Clique no evento que voc\xC3\xAA j\xC3\xA1 criou. <br> 3. Clique no link \"Definir a agenda\" no bot\xC3\xA3o \"Agenda\" ou no link \"Agenda para o evento\" (ver setas azuis na figura)"
     part2: "4. Na se\xC3\xA7\xC3\xA3o da agenda, clique no bot\xC3\xA3o \"Adicionar sess\xC3\xA3o\" para criar um item da agenda. <br> 5. Preencha o t\xC3\xADtulo da entrada da agenda, o hor\xC3\xA1rio de in\xC3\xADcio e a dura\xC3\xA7\xC3\xA3o e clique em no bot\xC3\xA3o \"Pr\xC3\xB3ximo passo\"<br> 6. Agora voc\xC3\xAA pode editar os detalhes, tais como palestrantes, que podem ser usu\xC3\xA1rios do site ou usu\xC3\xA1rios externos, ou a descri\xC3\xA7\xC3\xA3o<br> 7. Se quiser anexar um arquivo, clique no link \"Novo anexo\". <br> 8. Se o tipo do seu evento \xC3\xA9 \"Reuni\xC3\xA3o\", voc\xC3\xAA pode inserir v\xC3\xADdeos neste item da agenda"
     part3: "9. Se o tipo do evento \xC3\xA9 \"Reuni\xC3\xA3o Virtual\" ou \"Congresso Virtual\", voc\xC3\xAA pode reservar os recursos de hardware e software para este item da agenda, selecione tanto streaming quanto grava\xC3\xA7\xC3\xA3o"
     part4: "10. Clique no bot\xC3\xA3o \"Finalizar\" para enviar suas altera\xC3\xA7\xC3\xB5es.  <br> 11. Se quiser acrescentar um divisor para indicar intervalos, como pausas para caf\xC3\xA9 ou almo\xC3\xA7o, clique no bot\xC3\xA3o \"Adicionar divisor\". Voc\xC3\xAA pode definir o hor\xC3\xA1rio de in\xC3\xADcio e os motivos para a pausa. Clique no bot\xC3\xA3o \"Criar\" para adicionar o divisor. <br> 12. Se o evento leva mais tempo do que um dia, voc\xC3\xAA pode adicionar uma nova sess\xC3\xA3o para o segundo dia. Cada dia tem sua pr\xC3\xB3pria aba com os items da agenda especificada."
-  help_export: 
+  help_export:
     part1: "Os eventos podem ser exportados como segue:"
     part2: "1. Ir para a p\xC3\xA1gina do <b>Evento</b> que pretende exportar"
     part3: 2. Clique em <b>Exportar</b> na barra de programas
     part4: "3. Voc\xC3\xAA pode exportar um evento em quatro formatos: <ul><li><b> PDF </b>: exporta o programa completo como um arquivo PDF. </li><li><b> PDF pequeno</b>: exporta uma vers\xC3\xA3o reduzida do programa em um arquivo PDF.</li><li><b> iCalendar</b>: exporta os dados do evento no formato iCalendar para inclu\xC3\xAD-lo em aplica\xC3\xA7\xC3\xB5es de calend\xC3\xA1rio e e-mails.</li><li><b> SCORM</b>: exporta o conte\xC3\xBAdo dos eventos em um arquivo compat\xC3\xADvel com SCORM, que pode ser importado por um LMS (Learning Management System). Somente os eventos gravados podem ser exportados em SCORM. </li></ul>"
     part5: "Um exemplo de exporta\xC3\xA7\xC3\xA3o em SCORM no Moodle \xC3\xA9 exibido na figura abaixo:"
-  help_index: 
+  help_index:
     part1: "Global Plaza oferece um servi\xC3\xA7o de eventos virtuais para a Internet, que lhe permite realizar videoconfer\xC3\xAAncias, transmiss\xC3\xA3o, grava\xC3\xA7\xC3\xA3o e publica\xC3\xA7\xC3\xA3o eletr\xC3\xB4nica de suas reuni\xC3\xB5es, palestras, sess\xC3\xB5es de treinamento, confer\xC3\xAAncias, congressos ou workshops."
     part2: "A rede social do Global Plaza vai divulgar os an\xC3\xBAncios dos seus eventos para outras pessoas, bem como permitir que voc\xC3\xAA descubra eventos realizados por outras pessoas para participar deles ou acompanh\xC3\xA1-los. Os usos t\xC3\xADpicos do Global Plaza s\xC3\xA3o: <ul><li> Broadcast atrav\xC3\xA9s da Internet via streaming de eventos ou palestras que acontecem em uma sala de aula, sala de reuni\xC3\xB5es, audit\xC3\xB3rio ou de seu desktop.</li><li> Grava\xC3\xA7\xC3\xA3o e publica\xC3\xA7\xC3\xA3o de eventos ou palestras que ocorrem em uma sala de aula, sala de reuni\xC3\xB5es, audit\xC3\xB3rio ou de seu desktop.</li><li> Trazer  palestrantes remotos para seus eventos atrav\xC3\xA9s da Internet, a partir de computadores ou salas. </li><li> Possibilitar a participa\xC3\xA7\xC3\xA3o remota a partir de audit\xC3\xB3rios ou salas em um congresso ou evento. </li><li> Realizar eventos totalmente distribu\xC3\xADdos com audit\xC3\xB3rios e desktops remotos interligados.</li><li> Etc. </li></ul>"
     part3: "As grava\xC3\xA7\xC3\xB5es de eventos a seguir lhe d\xC3\xA3o uma id\xC3\xA9ia do que voc\xC3\xAA pode obter a partir do Global Plaza: <ul><li><a href={{egee08}}>EGEE'08</a>, <a href={{egee05}}>5th EGEE User's Forum</a>.<li><a href={{morfeo}}>Asamblea Morfeo</a>"
@@ -999,19 +1001,19 @@ pt-br:
     part6: "O Global Plaza est\xC3\xA1 estruturado como um site s\xC3\xB3cio-colaborativo que suporta comunica\xC3\xA7\xC3\xA3o social juntamente com suporte colaborativo para projetos e atividades em grupo. Qualquer pessoa pode se <a href={{url}}>registrar</a> gratuitamente no Global Plaza para formar parte da sua rede social e utilizar os seus servi\xC3\xA7os e recursos, tais como grava\xC3\xA7\xC3\xB5es, descri\xC3\xA7\xC3\xB5es de eventos, etc. Todos os recursos t\xC3\xAAm um link permanente, que pode ser utilizado e incorporado em outras p\xC3\xA1ginas da web."
     part7: "Depois de registrar voc\xC3\xAA ser\xC3\xA1 capaz de <a href={{create}}>criar</a> espa\xC3\xA7os p\xC3\xBAblicos pu privados para colabora\xC3\xA7\xC3\xA3o com grupos restritos de pessoas, que ser\xC3\xA3o administrados por voc\xC3\xAA e pelas pessoas que voc\xC3\xAA indicar como administradores. Uma vez que voc\xC3\xAA \xC3\xA9 um membro regular ou administrador de um espa\xC3\xA7o, voc\xC3\xAA ser\xC3\xA1 capaz de criar, anunciar, executar, registrar e publicar os seus eventos no Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados pelo Global Plaza para acesso p\xC3\xBAblico ou privado, bem como para incorporar em blogs, p\xC3\xA1ginas da Web, etc <br><br> Voc\xC3\xAA pode participar de um evento virtual do Global Plaza diretamente a partir de seu navegador Web, apenas acessando a p\xC3\xA1gina do evento. Seu navegador precisa ter o Flash instalado. Voc\xC3\xAA tamb\xC3\xA9m pode participar com um cilente <a href={{isabel}}> Isabel </a> nativo, que proporciona uma melhor qualidade audiovisual e \xC3\xA9 recomendado para palestrantes ou para conectar salas e audit\xC3\xB3rios. Um gateway SIP tamb\xC3\xA9m \xC3\xA9 fornecido para permitir a participa\xC3\xA7\xC3\xA3o a partir de um equipamento de videoconfer\xC3\xAAncia. <br><br> As atividades em grupo hospedadas no Plaza Global podem ser p\xC3\xBAblicas ou privadas. Espa\xC3\xA7os p\xC3\xBAblicos possuem atuvidades que podem ser vistas e seguidas por qualquer pessoa, enquanto espa\xC3\xA7os privados possuem projetos e atividades onde um grupo podem colaborar compartilhando informa\xC3\xA7\xC3\xB5es e reunindo-se de maneira privada."
     part8: "O Global Plaza foi desenvolvido pelo <a href={{web_global}}>projeto European Global</a>, reutilizando os resultados e a evolu\xC3\xA7\xC3\xA3o de outros projetos que transformaram a aplica\xC3\xA7\xC3\xA3o <a href={{isabel}}> Isabel </a> em um servi\xC3\xA7o de computa\xC3\xA7\xC3\xA3o em nuvem, como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS, etc <br><br> Para <a href={{create}}>criar</a> ou editar espa\xC3\xA7os, voc\xC3\xAA deve estar logado com sua sua conta do Plaza Global. Se voc\xC3\xAA n\xC3\xA3o tiver uma conta, <a href={{url}}>crie uma agora</a>"
-  help_invitation: 
+  help_invitation:
     part1: "Em constru\xC3\xA7\xC3\xA3o"
-  help_join_space: 
+  help_join_space:
     part1: "Para aderir a um espa\xC3\xA7o no Global Plaza:"
     part2: "1. <a href={{url}}>Procurar</a> o espa\xC3\xA7o que voc\xC3\xAA deseja ingressar."
     part3: "2. Clique no bot\xC3\xA3o <b>Entrar neste espa\xC3\xA7o</b> no lado direito da p\xC3\xA1gina."
     part4: "3. Digite uma mensagem pessoal para os administradores do espa\xC3\xA7o (opcional)."
     part5: "4. Por fim, clique no bot\xC3\xA3o <b>enviar</b> para enviar a solicita\xC3\xA7\xC3\xA3o para participar dos administradores."
-  help_logging: 
+  help_logging:
     part1: "Se voc\xC3\xAA j\xC3\xA1 tiver uma conta global Plaza, voc\xC3\xAA pode <a href={{url}}>logar aqui</a> ou inserir seu e-mail e senha na barra superior."
     part2: "Se voc\xC3\xAA tiver uma conta com um provedor OpenID, voc\xC3\xAA pode fazer login automaticamente. Clique em <b>Entrar com OpenID</b> na barra de menu superior."
     part3: "Se voc\xC3\xAA esqueceu sua senha, voc\xC3\xAA pode <a href={{url}}>recuper\xC3\xA1-la aqui</a> ou clique em <b>Voc\xC3\xAA perdeu a sua senha</b> na barra de menu superior. Um e-mail ser\xC3\xA1 enviado para voc\xC3\xAA recuperar sua senha."
-  help_newdoc: 
+  help_newdoc:
     part1: "Para adicionar um novo documento no Global Plaza:"
     part2: 1. Clique na guia <b>Docs</b>.
     part3: "2. Clique no bot\xC3\xA3o <b>Adicionar novo documento</b>."
@@ -1020,13 +1022,13 @@ pt-br:
     part6: "5. Voc\xC3\xAA pode <b>adicionar tags</b> que voc\xC3\xAA e outros podem usar para localizar e filtrar o conte\xC3\xBAdo. Pressione enter para confirmar cada tag."
     part7: "6. Se voc\xC3\xAA deseja <b>notificar</b> o documento com uma mensagem no mural, escolha esta op\xC3\xA7\xC3\xA3o."
     part8: "7. Por fim, clique no bot\xC3\xA3o <b>Upload</b> para adicionar o arquivo no reposit\xC3\xB3rio de documentos."
-  help_participation: 
+  help_participation:
     part1: "Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming de V\xC3\xADdeo</b>. A maneira mais simples de seguir eventos virtuais atrav\xC3\xA9s da Internet \xC3\xA9 com o seu navegador Web, apenas entrando na p\xC3\xA1gina do evento no Global Plaza. A p\xC3\xA1gina do evento ir\xC3\xA1 mostrar o streaming de v\xC3\xADdeo enquanto o evento est\xC3\xA1 ocorrendo, permitindo que voc\xC3\xAA siga-o. Se voc\xC3\xAA estiver logado no Global Plaza, voc\xC3\xAA ser\xC3\xA1 capaz de enviar mensagens de chat para o resto dos participantes do evento. <br> Requisitos: Seu navegador deve possuir a \xC3\xBAltima vers\xC3\xA3o do Flash instalado."
     part2: "<br> 2) <b>Participa\xC3\xA7\xC3\xA3o interativa pela Web</b>. Voc\xC3\xAA tamb\xC3\xA9m pode participar de forma interativa com o seu navegador web. Uma vez que voc\xC3\xAA est\xC3\xA1 na p\xC3\xA1gina do evento, basta clicar no bot\xC3\xA3o \"Participar\", digitar o seu apelido quando solicitado e clicar em participar da reuni\xC3\xA3o. Voc\xC3\xAA entrar\xC3\xA1 na reuni\xC3\xA3o como um participante interativo, que pode interagir com \xC3\xA1udio, v\xC3\xADdeo ou chat, bem como compartilhar aplica\xC3\xA7\xC3\xB5es. Voc\xC3\xAA precisa estar logado no Global Plaza para participar de forma interativa. <br> Requisitos: Seu navegador deve ter a \xC3\xBAltima vers\xC3\xA3o do Flash instalado. A porta TCP 1935 usada pelo cliente Flash precisa estar aberta para conectar ao evento virtual com um navegador. No caso de voc\xC3\xAA acessar a p\xC3\xA1gina do evento e n\xC3\xA3o ver o v\xC3\xADdeo, voc\xC3\xAA deve solicitar que os administradores de rede da sua institui\xC3\xA7\xC3\xA3o abram esta porta."
     part3: "3) <b>Participa\xC3\xA7\xC3\xA3o pelo Isabel</b>. Voc\xC3\xAA tamb\xC3\xA9m pode participar com um cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instru\xC3\xA7\xC3\xB5es de instala\xC3\xA7\xC3\xA3o podem ser encontradas aqui</a>. O cliente nativo proporciona uma melhor qualidade audiovisual e \xC3\xA9 recomendado para palestrantes ou para conectar salas e audit\xC3\xB3rios. Contate os organizadores para testes preliminares."
     part4: "4) <b>Um gateway SIP</b> tamb\xC3\xA9m \xC3\xA9 fornecido para permitir a participa\xC3\xA7\xC3\xA3o atrav\xC3\xA9s de um equipamento de videoconfer\xC3\xAAncia compat\xC3\xADvel com SIP, como, por exemplo, um Polycom. Os organizadores do evento devem ter habilitado participa\xC3\xA7\xC3\xA3o SIP para este modo estar dispon\xC3\xADvel."
     part5: "Durante um evento o Global Plaza define os elementos necess\xC3\xA1rios como recursos virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses recursos incluem um servidor de videoconfer\xC3\xAAncia com MCU, um servidor de streaming, um gravador digital, um servidor de streaming de v\xC3\xADdeo, bem como os gateways necess\xC3\xA1rios para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento seleciona os modos de acesso dispon\xC3\xADveis ao criar o evento."
-  help_search_global: 
+  help_search_global:
     part1: "Voc\xC3\xAA pode procurar espa\xC3\xA7os, mensagens, eventos, v\xC3\xADdeos, usu\xC3\xA1rios e anexos no Global Plaza. Existem duas op\xC3\xA7\xC3\xB5es para pesquisa: pesquisa simples e avan\xC3\xA7ada."
     part10: 4. Digite o nome do evento na caixa <b> a palavra </b>
     part11: "5. Se voc\xC3\xAA escolher os eventos, voc\xC3\xAA pode especificar a data de um evento realizado entre duas datas"
@@ -1040,7 +1042,7 @@ pt-br:
     part8: "2. Especifique se voc\xC3\xAA deseja pesquisar em qualquer espa\xC3\xA7o ou em um espa\xC3\xA7o em particular na lista em <b> Pesquisar em </b>"
     part9: 3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>
   help_support: Ajuda e suporte
-  help_title: 
+  help_title:
     about_vcc: Sobre o Global Plaza
     configure_isabel: "Como configurar o seu pr\xC3\xB3prio servidor Isabel"
     connect_isabel: Como se conectar ao Isabel
@@ -1065,16 +1067,16 @@ pt-br:
     participation: Participando em um evento
     search_global: Pesquisando no Global Plaza
     topics: "T\xC3\xB3picos"
-  help_vcc: 
+  help_vcc:
     info: "Aqui voc\xC3\xAA pode encontrar informa\xC3\xA7\xC3\xB5es sobre o Global"
     topics: "T\xC3\xB3picos"
   hide: Esconder
   his_message_reads_thus: Sua mensagem diz assim
-  home: 
+  home:
     activity: Atividade Recente...
     my: Minha Home
     one: home
-  icalendar: 
+  icalendar:
     add: Atualizar e adicionar novas entradas
     conflictive1: "Uma entrada de seu iCalendar estava na aplica\xC3\xA7\xC3\xA3o Global e foi modificada. \xC3\x89 necess\xC3\xA1rio atualiz\xC3\xA1-la manualmente para evitar problemas."
     conflictiven: "entradas de seu iCalendar estavam na aplica\xC3\xA7\xC3\xA3o Global e foram modificadas. \xC3\x89 necess\xC3\xA1rio atualiz\xC3\xA1-las manualmente para evitar problemas."
@@ -1094,23 +1096,23 @@ pt-br:
   im: IM
   im_new: Eu sou novo
   import: Importar
-  inbox: 
+  inbox:
     my: Minha caixa de entrada ({{checked}})
     one: Caixa de Entrada ({{checked}})
   index: "\xC3\x8Dndice"
-  information: 
+  information:
     info_timezone: "Ao selecionar o seu fuso hor\xC3\xA1rio n\xC3\xA3o haver\xC3\xA1 equ\xC3\xADvoco ao criar eventos com pessoas de outros pa\xC3\xADses."
     information1: "Estes s\xC3\xA3o os espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
     information2: "Aqui voc\xC3\xAA pode encontrar as mensagens recentes, eventos e not\xC3\xADcias dos espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
     information3: "Estas s\xC3\xA3o as \xC3\xBAltimas mensagens ou eventos que voc\xC3\xAA criou"
     information4: "Estes s\xC3\xA3o os espa\xC3\xA7os dos quais voc\xC3\xAA faz parte"
     information5: "Estes s\xC3\xA3o os eventos futuros de outros espa\xC3\xA7os."
-  internet: 
+  internet:
     on_the: Na Internet
     ppal: Internet
   invalid_credentials: "Credenciais inv\xC3\xA1lidas"
   invalid_password_reset_code: "C\xC3\xB3digo inv\xC3\xA1lido. Por favor, verifique o link e tente novamente. (Dica: o seu cliente de e-mail n\xC3\xA3o quebrou o link?)"
-  invitation: 
+  invitation:
     accept: Aceitar o convite
     accepted: "Voc\xC3\xAA aceitou o convite"
     accepted_by: "{{candidate}} aceitou o convite"
@@ -1130,47 +1132,49 @@ pt-br:
     info_users: "Voc\xC3\xAA pode ver a lista atual de usu\xC3\xA1rios do espa\xC3\xA7o em <a href=\"{{users_url}}\"> {{users_url}} </a>"
     introducer: Introdutor
     label: Personalize a sua mensagem de convite
-    legend: 
+    legend:
       URL: "'URL' ser\xC3\xA1 substitu\xC3\xADdo na mensagem pela URL do convite."
       name: "'Name' ser\xC3\xA1 substitu\xC3\xADdo na mensagem pelo nome do receptor."
     logout_and_reload: "Voc\xC3\xAA n\xC3\xA3o \xC3\xA9 o usu\xC3\xA1rio que recebeu esse convite, por favor saia e tente novamente"
     message_title: "Convide as pessoas individualmente para participar do seu espa\xC3\xA7o"
-    message_with_start_date: 
+    message_with_start_date:
       in_person: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'.</p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       teleconference: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       telemeeting: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b> na data 'event_date'. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-    message_without_start_date: 
+    message_without_start_date:
       in_person: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>.</p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma aula virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleclass: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma classe virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       teleconference: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma confer\xC3\xAAncia virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       telemeeting: "<p>Gostaria de convid\xC3\xA1-lo para <b>o evento 'event_name' no espa\xC3\xA7o {{space}} </b>. O evento ser\xC3\xA1 uma reuni\xC3\xA3o virtual com participa\xC3\xA7\xC3\xA3o simples atrav\xC3\xA9s do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite {{url}} </p><p> Voc\xC3\xAA pode encontrar mais informa\xC3\xA7\xC3\xB5es sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> {{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-    new: 
+    new:
       other: Novos convites
     not_accepted: "n\xC3\xA3o aceito"
     not_created: "n\xC3\xA3o pode ser convidado(a) para este espa\xC3\xA7o pois j\xC3\xA1 \xC3\xA9 um membro"
     not_created_2: "n\xC3\xA3o pode ser convidado(a) para este espa\xC3\xA7o pois j\xC3\xA1 foi convidado(a)"
     not_found: "Convite n\xC3\xA3o encontrado"
-    not_pending: 
+    not_pending:
       other: "N\xC3\xA3o h\xC3\xA1 convites pendentes"
     not_processed: "Convite n\xC3\xA3o processado"
     one: Convite
     other: convite
-    pending: 
+    pending:
       other: Convites pendentes
     personal: Mensagem pessoal
     rejoin_space: "Se voc\xC3\xAA gostaria de solicitar a ades\xC3\xA3o novamente por favor acesse <a href=\"{{space_url}}\"> {{space_url}} </a>"
-    role: Papel
-    role_label: Papel para as pessoas convidadas
+    role: !binary |
+      RnVuw6fDo28=
+
+    role_label: "Fun\xC3\xA7\xC3\xA3o para as pessoas convidadas"
     select_all_users: "Selecionar todos usu\xC3\xA1rios"
-    send: 
+    send:
       one: Enviar convite
     show: Entrar em {{group}}
     show_all_users: "Mostrar todos usu\xC3\xA1rios"
     sign: Atenciosamente, {{username}}
     space: "Gostaria de convid\xC3\xA1-lo para o espa\xC3\xA7o {{space}} no Virtual Conference Centre."
     subject: "{{username}} convidou-o para um evento no espa\xC3\xA7o {{space}}"
-    tab: 
+    tab:
       title1: "Usu\xC3\xA1rios n\xC3\xA3o registrados"
       title2: "Usu\xC3\xA1rios registrados"
     title: Convidar pessoas
@@ -1179,7 +1183,7 @@ pt-br:
     to_accept_space: Para aceitar o convite por favor visite {{url}}t;
     to_event: "{{username}} convida voc\xC3\xAA para o evento {{eventname}} no espa\xC3\xA7o {{space}}"
     to_space: "{{username}} convida voc\xC3\xAA para o espa\xC3\xA7o {{space}}"
-    was_processed: 
+    was_processed:
       accepted: "Convite j\xC3\xA1 foi aceito"
       discarded: "O convite j\xC3\xA1 foi descartado"
       discarted: "Convite j\xC3\xA1 foi descartado"
@@ -1189,7 +1193,7 @@ pt-br:
   is_member_of: "\xC3\xA9 membro de"
   join: Entrar
   join_cam: Participar
-  join_request: 
+  join_request:
     accepted: "Pedido de ades\xC3\xA3o aceito"
     already_sent: "Voc\xC3\xAA j\xC3\xA1 pediu para participar deste espa\xC3\xA7o"
     ask_subject: "{{candidate}} quer participar de {{space}}"
@@ -1201,12 +1205,12 @@ pt-br:
     label: "Personalize a sua mensagem de solicita\xC3\xA7\xC3\xA3o de ades\xC3\xA3o"
     message_title: "Enviar um pedido de ades\xC3\xA3o aos administradores do espa\xC3\xA7o"
     not_logged_in: "Voc\xC3\xAA precisa estar logado para enviar um pedido de ades\xC3\xA3o"
-    not_pending: 
+    not_pending:
       other: "N\xC3\xA3o existem solicita\xC3\xA7\xC3\xB5es de ades\xC3\xA3o pendentes"
     not_processed: "Pedido de ades\xC3\xA3o n\xC3\xA3o processado"
     one: "Pedido de Ades\xC3\xA3o"
     other: "Pedidos de Ades\xC3\xA3o"
-    pending: 
+    pending:
       other: "Pedidos de ades\xC3\xA3o pendentes"
     personal: Escreva o seu texto pessoal aqui.
     send: "Enviar pedido de ades\xC3\xA3o"
@@ -1220,7 +1224,7 @@ pt-br:
   latest_news: "\xC3\x9Altimas not\xC3\xADcias"
   layout_footnote: "{{site}} \xC3\xA9 baseado em {{plugin}}. Design de {{designer}}."
   list_by: Listar por
-  locale: 
+  locale:
     changed: "Idioma da aplica\xC3\xA7\xC3\xA3o alterado para"
     error: "N\xC3\xA3o foi poss\xC3\xADvel alterar o idioma do aplicativo para"
   logged_in_successfully: Logado com sucesso
@@ -1230,17 +1234,17 @@ pt-br:
   login_request: "Voc\xC3\xAA precisa estar logado para"
   login_to: Logar em {{site}}
   login_traditional: "Login utilizando usu\xC3\xA1rio/senha"
-  logo: 
+  logo:
     click_to_change: Clique para mudar o logotipo
     created: Logotipo enviado com sucesso
     crop: "Cortar logotipo do espa\xC3\xA7o"
     current: Logotipo atual
     empty: "O logotipo est\xC3\xA1 vazio"
-    error: 
+    error:
       not_valid: "Logo n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido"
     one: Logotipo
   logout: Logout {{user}}
-  mailing_list: 
+  mailing_list:
     associate: Associar lista de e-mails ao seu grupo
     invalid: "A lista de e-mails tem caracteres inv\xC3\xA1lidos. Somente letras, n\xC3\xBAmeros, sublinhados e h\xC3\xADfens s\xC3\xA3o permitidos"
     reserved: "A lista de e-mails {{systemMailingList}} \xC3\xA9 reservada"
@@ -1248,15 +1252,15 @@ pt-br:
   management: gerenciamento
   mandatory_field: "Campo obrigat\xC3\xB3rio"
   mark_checkbox: "Marque a caixa de sele\xC3\xA7\xC3\xA3o apropriada"
-  message: 
+  message:
     created: Mensagem enviada com sucesso
-    error: 
+    error:
       create: Erro ao enviar mensagem privada
-    incoming: 
+    incoming:
       other: Mensagens recebidas
     one: Mensagem
     other: Mensagens
-    private: 
+    private:
       cant: "Voc\xC3\xAA n\xC3\xA3o pode enviar mensagens privadas porque voc\xC3\xAA n\xC3\xA3o tem parceiros em nenhum espa\xC3\xA7o"
       editing: Editando mensagem privada
       new: Nova mensagem privada
@@ -1264,24 +1268,24 @@ pt-br:
       send: Enviar uma mensagem privada
     reply: "Responder \xC3\xA0 mensagem"
     send: Enviar mensagem
-    sent: 
+    sent:
       other: Mensagens enviadas
     special1: "A plataforma Global Plaza estar\xC3\xA1 indispon\xC4\xA9vel a partir de sexta-feira, 17 dezembro \xC3\xA0s 16:00 UTC, at\xC3\xA9 s\xC3\xA1bado, 18-Dez 16:00 UTC. Desculpem o inc\xC3\xB3modo."
     special2: A Equipe do Global Plaza
   more>>: mais >>
   my_friends: Meus amigos
-  name: 
+  name:
     full: Nome completo
     one: Nome
     other: Nomes
     prefix: "T\xC3\xADtulo"
   new_source: Importar RSS/Atom
   new_spam_detected: Novo spam detectado
-  news: 
+  news:
     created: "Not\xC3\xADcia publicada com sucesso"
     deleted: "Not\xC3\xADcia exclu\xC3\xADda com sucesso"
     edit: "Editar not\xC3\xADcia"
-    error: 
+    error:
       create: "Houve um problema ao publicar a not\xC3\xADcia"
       delete: "Erro ao excluir not\xC3\xADcia"
       update: "Not\xC3\xADcia n\xC3\xA3o p\xC3\xB4de ser atualizada"
@@ -1297,25 +1301,25 @@ pt-br:
   no_tags_found: Nenhuma tag encontrada
   not_going: "Eu n\xC3\xA3o pretendo participar"
   now!: Agora!
-  number: 
-    currency: 
-      format: 
+  number:
+    currency:
+      format:
         delimiter: ","
         format: "%u%n"
         precision: "2"
         separator: .
         unit: $
-    format: 
+    format:
       delimiter: ","
       precision: "3"
       separator: .
-    human: 
-      format: 
+    human:
+      format:
         precision: "1"
-      storage_units: 
+      storage_units:
         format: "%n %u"
-        units: 
-          byte: 
+        units:
+          byte:
             one: Byte
             other: Bytes
           gb: GB
@@ -1325,8 +1329,8 @@ pt-br:
   ok: OK
   older: Mais velho
   online: online
-  openid: 
-    client: 
+  openid:
+    client:
       associating_to_id: "Associado ao OpenID: {{id}}"
       discovery_failed: "Descoberta falhou para {{id}}: {{error}}"
       id_attached_to_account: "OpenID: {{id}} associado \xC3\xA0 sua conta"
@@ -1338,148 +1342,724 @@ pt-br:
     enter: Insira o seu OpenID
     have: "Voc\xC3\xAA tem um OpenID? Clique no logo!"
     login: Login com OpenID
-    server: 
-      about_login_to: "Voc\xC3\xAA est\xC3\xA1 prestes login no servidor {{}}"
-      anti_phishing: "Esta p\xC3\xA1gina n\xC3\xA3o tem links para evitar <i>phishing.</i> Voc\xC3\xAA deve inserir-se no endere\xC3\xA7o indicado no seu navegador."
+    server:
+      about_login_to: "Voc\xC3\xAA est\xC3\xA1 prestes a logar no servidor {{server}}"
+      anti_phishing: "Esta p\xC3\xA1gina n\xC3\xA3o tem links para evitar <i>phishing</i>. Voc\xC3\xAA deve inserir voc\xC3\xAA mesmo o endere\xC3\xA7o no seu navegador."
       cancel: "N\xC3\xA3o, cancelar"
       decision: "Voc\xC3\xAA deve tomar uma decis\xC3\xA3o:"
-      endpoint: "Este \xC3\xA9 um ponto de extremidade do servidor OpenID"
+      endpoint: "Este \xC3\xA9 um terminal do servidor OpenID"
       invalid_uri: "Essa identidade n\xC3\xA3o pertence a voc\xC3\xAA: {{uri}}"
-      login_to: Entrar para servidor {{}}
-      must_login: "Voc\xC3\xAA precisa fazer login servidor {{}}"
-      once: "Sim, s\xC3\xB3 que desta vez"
-      optional_information_by: "Informa\xC3\xA7\xC3\xB5es opcionais solicitados pelo servidor {{}}"
-      required_information_by: "A informa\xC3\xA7\xC3\xA3o necess\xC3\xA1ria solicitada pelo servidor {{}}"
+      login_to: Logar em {{server}}
+      must_login: "Voc\xC3\xAA deve logar em {{server}}"
+      once: "Sim, s\xC3\xB3 desta vez"
+      optional_information_by: "Informa\xC3\xA7\xC3\xB5es opcionais solicitados pelo {{server}}"
+      required_information_by: "Informa\xC3\xA7\xC3\xB5es necess\xC3\xA1rias solicitadas pelo {{server}}"
       trust: Sim, lembre-se de agora em diante
     title: OpenID
-  pagination: 
-    next_label: "Seguinte \xC2\xBB"
-    previous_label: "\xC2\xABAnterior"
+  optional: Opcional
+  or: ou
+  or_use_email: ou use seu e-mail...
+  organization: !binary |
+    T3JnYW5pemHDp8Ojbw==
+
+  organizer: Organizadores
+  other: Outro
+  pagination:
+    next_label: !binary |
+      UHLDs3hpbW8gwrs=
+
+    previous_label: "\xC2\xAB Anterior"
+  participant:
+    created: "Suas informa\xC3\xA7\xC3\xB5es de participa\xC3\xA7\xC3\xA3o foram atualizadas com sucesso"
+    error:
+      create: "Houve um problema na atualiza\xC3\xA7\xC3\xA3o de suas informa\xC3\xA7\xC3\xB5es de participa\xC3\xA7\xC3\xA3o"
+  password:
+    confirm: Confirmar senha
+    one: Senha
+    request: "Redefini\xC3\xA7\xC3\xA3o de senha em {{sitename}}"
+    reset_email: Sua senha foi redefinida em {{sitename}}
+    to_reset: Para redefinir sua senha, visite <a href={{url}}> {{url}} </a>
   password_has_been_reset: Sua senha foi redefinida
-  password_has_been_reset_with_agent: "{{Agentes}}, sua senha foi redefinida"
-  password_reset: Password Reset
-  password_reset_link_sent_to_email_address: "Um link de redefini\xC3\xA7\xC3\xA3o de senha foi enviada para endere\xC3\xA7o de email"
-  performance: 
+  password_has_been_reset_with_agent: "{{agent}}, sua senha foi redefinida"
+  password_reset: "Redefini\xC3\xA7\xC3\xA3o de Senha"
+  password_reset_link_sent_to_email_address: "Um link de redefini\xC3\xA7\xC3\xA3o de senha foi enviado para o endere\xC3\xA7o de email"
+  past: Passado
+  people: pessoas
+  per_page: "por p\xC3\xA1gina"
+  performance:
     change: Alterar
-    confirm_delete: Desempenho Delete?
-    create: 
-      one: Criar Performance
-      other: "Criar Apresenta\xC3\xA7\xC3\xB5es"
-    delete: 
-      one: Excluir Performance
-      other: Excluir Performances
-    errors: 
-      stage_should_not_run_out_of_performances_with_first_role: "O est\xC3\xA1gio n\xC3\xA3o deve ficar sem performances com o primeiro papel."
-      the_role_should_not_belong_to_a_different_stage_type: "O papel n\xC3\xA3o deve pertencer a um tipo de est\xC3\xA1gio diferente."
-    new: Nova desempenho
-    other: Performances
-    other_in: "Apresenta\xC3\xA7\xC3\xB5es em {{}} est\xC3\xA1gio"
-    read: 
-      one: Leia Performance
-      other: Leia Performances
-    update: 
-      one: "Atualiza\xC3\xA7\xC3\xA3o de desempenho"
-      other: Atualize Performances
-    without_roles_available: "A n\xC3\xA3o existirem avaible fun\xC3\xA7\xC3\xB5es. Performances n\xC3\xA3o pode ser definido."
-  permission: 
-    other: "Permiss\xC3\xA3o"
-  please_activate_account: Por favor ativar sua nova conta
-  read: Leia
+    confirm_delete: Excluir Desempenho?
+    create:
+      one: Criar Desempenho
+      other: Criar Desempenhos
+    delete:
+      one: Excluir Desempenho
+      other: Excluir Desempenhos
+    errors:
+      stage_should_not_run_out_of_performances_with_first_role: "O est\xC3\xA1gio n\xC3\xA3o deve ficar sem desempenhos com a primeira fun\xC3\xA7\xC3\xA3o."
+      the_role_should_not_belong_to_a_different_stage_type: "A fun\xC3\xA7\xC3\xA3o n\xC3\xA3o deve pertencer a um tipo de est\xC3\xA1gio diferente."
+    new: Novo membro
+    notification:
+      estandar: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o em {{stage}} para {{role}}."
+      event: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o no evento {{event}} para {{role}}."
+      space: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o no espa\xC3\xA7o {{space}} para {{role}}."
+      subject:
+        estandar: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o em {{stage}}"
+        event: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o no evento {{event}}"
+        space: "{{username}} mudou sua fun\xC3\xA7\xC3\xA3o no espa\xC3\xA7o {{space}}"
+    one: Membro
+    other: Membros
+    other_in: Membros de {{stage}}
+    read:
+      one: Ler Desempenho
+      other: Ler Desempenhos
+    update:
+      one: Atualizar Desempenho
+      other: Atualizar Desempenhos
+    updated: "Desempenho do usu\xC3\xA1rio foi atualizado com sucesso"
+    without_roles_available: "N\xC3\xA3o existem Fun\xC3\xA7\xC3\xB5es dispon\xC3\xADveis. Desempenhos n\xC3\xA3o podem ser definidos."
+  permission:
+    other: Direitos de acesso
+  personal_information: "Informa\xC3\xA7\xC3\xB5es pessoais"
+  phone:
+    landline: Telefone
+    mobile: Celular
+    one: Telefone
+    plural: Telefones
+  phone_optional: Telefone (opcional)
+  photos: Fotos
+  photos_view>>: ver fotos >>
+  place: Local
+  please: Por favor
+  please_activate_account: Por favor ative sua nova conta
+  popularity: Popularidade
+  post:
+    created: Mensagem criada
+    deleted: "Coment\xC3\xA1rio {{postname}} foi exclu\xC3\xADdo"
+    error:
+      empty: "A mensagem n\xC3\xA3o pode ser vazia"
+      not_valid: "O coment\xC3\xA1rio n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido"
+    found:
+      none: Nenhuma mensagem encontrada
+      one: 1 mensagem encontrada
+      other: "{{size}} mensagens encontradas"
+      show_all: Mostrar todos os resultados
+    home:
+      one: "Mensagem no espa\xC3\xA7o {{space}}"
+    latest: "\xC3\x9Altimas mensagens"
+    none_created: Nenhuma mensagem criada
+    none_recent: "N\xC3\xA3o h\xC3\xA1 mensagens recentes"
+    one: Mensagem
+    other: Mensagens
+    other_in_space: "Mensagens no espa\xC3\xA7o {{space}}"
+    show_expanded_pref: "Como voc\xC3\xAA gostaria de ver suas mensagens?"
+    updated: Mensagem atualizada
+    wall: Mural
+  preferences: "Prefer\xC3\xAAncias"
+  previous: Anterior
+  privacy: Privacidade
+  private: Privado
+  private_message:
+    send: Enviar mensagem privada
+  profile:
+    created: Perfil criado com sucesso
+    deleted: "Perfil exclu\xC3\xADdo com sucesso"
+    description:
+      add: Biografia resumida
+    error:
+      exist: "Seu perfil j\xC3\xA1 existe"
+    hcard:
+      fill_with: Preencha seu perfil com o seu hCard
+    must_create: Por favor, crie o seu perfil primeiro
+    one: Perfil
+    private: Perfil privado
+    private_description: "Esta informa\xC3\xA7\xC3\xA3o s\xC3\xB3 \xC3\xA9 vis\xC3\xADvel para as pessoas que voc\xC3\xAA escolher quando voc\xC3\xAA editar seu perfil"
+    public: "Perfil p\xC3\xBAblico"
+    public_description: "Qualquer pessoa pode acessar esta informa\xC3\xA7\xC3\xA3o"
+    should_create: "Voc\xC3\xAA deve <a href={{path}}> criar</a> seu perfil. \xC3\x89 muito \xC3\xBAtil."
+    updated: Perfil atualizado com sucesso
+    visibility: Visibilidade
+    visibility_description: "Escolha quem ser\xC3\xA1 capaz de ver o seu perfil privado"
+    visibility_edit: Edite a visibilidade do seu perfil
+    visibility_everybody: Todos podem ver o seu perfil privado.
+    visibility_members: "Somente usu\xC3\xA1rios registrados podem ver o seu perfil privado."
+    visibility_nobody: "Ningu\xC3\xA9m pode ver o seu perfil privado."
+    visibility_private_fellows: "Apenas os seus parceiros em um espa\xC3\xA7o privado podem ver o seu perfil privado."
+    visibility_public_fellows: "Apenas os seus parceiros em espa\xC3\xA7os p\xC3\xBAblicos ou privados podem ver o seu perfil privado."
+  province: "Prov\xC3\xADncia"
+  public: "P\xC3\xBAblico"
+  read: Ler
+  read_more: Ler mais
+  read_more>>: ler mais >>
+  received_message_more_machines: "Voc\xC3\xAA recebeu uma mensagem de {{user}} pedindo mais m\xC3\xA1quinas"
+  recent:
+    activity: Atividades recentes
+  recording:
+    automatic: "Autom\xC3\xA1tico"
+    box_title: !binary |
+      R3JhdmHDp8Ojbw==
+
+    button_continue: "Continuar grava\xC3\xA7\xC3\xA3o"
+    button_pause: "Pausar grava\xC3\xA7\xC3\xA3o"
+    button_publish: "Publicar grava\xC3\xA7\xC3\xA3o"
+    button_start: "Iniciar grava\xC3\xA7\xC3\xA3o"
+    help_automatic: "A grava\xC3\xA7\xC3\xA3o est\xC3\xA1 definida como <b>autom\xC3\xA1tica</b> para este evento. A grava\xC3\xA7\xC3\xA3o vai come\xC3\xA7ar e parar no momento exato em que voc\xC3\xAA indicou quando criou as sess\xC3\xB5es. <br/> Nota: Esta op\xC3\xA7\xC3\xA3o s\xC3\xB3 est\xC3\xA1 vis\xC3\xADvel para os administradores do evento"
+    help_manual: "A grava\xC3\xA7\xC3\xA3o est\xC3\xA1 definida como <b>manual</b> para este evento. Aqui voc\xC3\xAA tem um bot\xC3\xA3o <b>iniciar</b> para iniciar a grava\xC3\xA7\xC3\xA3o, e, depois de pression\xC3\xA1-lo, voc\xC3\xAA ter\xC3\xA1 um bot\xC3\xA3o <b>parar</b> para finalizar a grava\xC3\xA7\xC3\xA3o. <br/> Nota: Esta op\xC3\xA7\xC3\xA3o s\xC3\xB3 est\xC3\xA1 vis\xC3\xADvel para os administradores do event"
+    help_none: "A grava\xC3\xA7\xC3\xA3o est\xC3\xA1 <b>desabilitada</b> para este evento. Se voc\xC3\xAA quiser grava\xC3\xA7\xC3\xA3o, edite o evento e selecione a op\xC3\xA7\xC3\xA3o que voc\xC3\xAA deseja. <br/> Nota: Esta op\xC3\xA7\xC3\xA3o s\xC3\xB3 est\xC3\xA1 vis\xC3\xADvel para os administradores do even"
+    manual: Manual
+    message_now_recording: Gravando ...
+    none: Nenhum
+    warning_continue_recording: "Aten\xC3\xA7\xC3\xA3o: esta a\xC3\xA7\xC3\xA3o ir\xC3\xA1 interromper outras grava\xC3\xA7\xC3\xB5es deste evento em andamento. <br/> Voc\xC3\xAA quer continuar?"
+    warning_pause_recording: "Aten\xC3\xA7\xC3\xA3o: esta a\xC3\xA7\xC3\xA3o ir\xC3\xA1 pausar a grava\xC3\xA7\xC3\xA3o. Voc\xC3\xAA ser\xC3\xA1 capaz de continuar ela no futuro ou public\xC3\xA1-la. <br/> Voc\xC3\xAA quer continuar?"
+    warning_publish_recording: "Aten\xC3\xA7\xC3\xA3o: esta a\xC3\xA7\xC3\xA3o ir\xC3\xA1 publicar a grava\xC3\xA7\xC3\xA3o. No futuro, voc\xC3\xAA ser\xC3\xA1 capaz de edit\xC3\xA1-la para cortar o in\xC3\xADcio e o fim do v\xC3\xADdeo, mas voc\xC3\xAA n\xC3\xA3o ser\xC3\xA1 capaz de gravar a sess\xC3\xA3o novamente. <br/> Voc\xC3\xAA quer continuar?"
+    warning_start_recording: "Aten\xC3\xA7\xC3\xA3o: esta a\xC3\xA7\xC3\xA3o ir\xC3\xA1 interromper outras grava\xC3\xA7\xC3\xB5es deste evento em andamento. <br/> Voc\xC3\xAA quer continuar?"
+  register:
+    and_participate: Registre-se Para Participar
+    and_participate_description: "Para participar do evento voc\xC3\xAA deve registar-se"
+    and_participate_description_with_login: "Para participar do evento voc\xC3\xAA deve efetuar o registro ou o <a href={{url}}>login</a"
+    back_to_streaming: voltar para streaming
+    confirmation: "Ap\xC3\xB3s o registro voc\xC3\xAA receber\xC3\xA1 uma confirma\xC3\xA7\xC3\xA3o por email com o link para ativar a sua conta"
+    one: Registre-se
+    or_choose: "ou voc\xC3\xAA pode ir"
+    thank_you: Bem-vindo e obrigado por registrar-se no {{sitename}}
+  register_as_admin: Registe-se como administrador
+  register_as_invited: Registe-se como convidado
+  register_as_user: "Registe-se como usu\xC3\xA1rio"
+  register_now: Registe-se AGORA!
+  remarks: !binary |
+    T2JzZXJ2YcOnw7Vlcw==
+
+  remember_me: Lembrar de mim
+  remove: Remover
+  reply: Responder
+  reply_to: "Responder para:"
+  reply_to_words: Responder para {{words}}
+  report_spam: Denunciar spam
+  repository:
+    add_tags: Adicionar Tags
+    download: Download
+    enable: "Habilitar reposit\xC3\xB3rio de documentos?"
+    loading: "Atualizando reposit\xC3\xB3rio de documentos ..."
+    need_javascript: "Por favor, ative o javascript para utilizar o reposit\xC3\xB3rio de documentos"
+    one: Documentos
+    rem_tags: Remover Tags
+    remove: Remover
+    search: "Pesquisa do Documentos:"
+  request:
+    default: solicitar
+    info: "Seu pedido para entrar no espa\xC3\xA7o foi enviado com sucesso para os administradores do espa\xC3\xA7o. Um administrador cuidar\xC3\xA1 dele o mais rapidamente poss\xC3\xADvel"
+    sent: "Solicita\xC3\xA7\xC3\xA3o enviada!"
   request_change_password: "Solicita\xC3\xA7\xC3\xA3o para alterar a sua senha"
-  reset_password: Redefinir senha
-  resource: 
-    one: Recursos
+  reset_password: Redefinir Senha
+  resource:
+    one: Recurso
     other: Recursos
-  role: 
-    confirm_delete: Papel Delete?
-    created: O papel foi criado com sucesso.
-    editing: "Edi\xC3\xA7\xC3\xA3o Papel"
-    go_to_manage: "Ir para gerenciar fun\xC3\xA7\xC3\xB5es"
-    index: "Listagem de fun\xC3\xA7\xC3\xB5es"
+  role:
+    add: "Adicionar fun\xC3\xA7\xC3\xA3o ..."
+    added: "Fun\xC3\xA7\xC3\xA3o {{role}} adicionado com sucesso a {{agent}}"
+    change: "Alterar fun\xC3\xA7\xC3\xA3o ..."
+    confirm_delete: "Excluir Fun\xC3\xA7\xC3\xA3o?"
+    created: "A fun\xC3\xA7\xC3\xA3o foi criado com sucesso."
+    editing: "Editando fun\xC3\xA7\xC3\xA3o"
+    go_to_manage: "Ir para gerenciador de fun\xC3\xA7\xC3\xB5es"
+    index: "Lista de fun\xC3\xA7\xC3\xB5es"
+    invalid: !binary |
+      UnVuw6fDo28gw6kgaW52w6FsaWRh
+
+    listing: "Listando fun\xC3\xA7\xC3\xB5es"
     name: Nome
-    name_permissions: "{{Nome}} permiss\xC3\xB5es"
-    new: Novo Papel
-    one: Papel
+    name_permissions: "{{name}} permiss\xC3\xB5es"
+    new: !binary |
+      Tm92YSBmdW7Dp8Ojbw==
+
+    none: "Nenhuma fun\xC3\xA7\xC3\xA3o atribu\xC3\xADda"
+    one: !binary |
+      RnVuw6fDo28=
+
     other: !binary |
       RnVuw6fDtWVz
 
-    select: 
-      one: Selecione Papel
+    select:
+      one: "Selecione Fun\xC3\xA7\xC3\xA3o"
     stage_type: "Tipo de Est\xC3\xA1gio"
-    updated: O papel foi atualizado com sucesso.
-    without_permissions: "Papel {{papel}} n\xC3\xA3o tem quaisquer permiss\xC3\xB5es"
-  save: Guardar
+    sucess_update: "Fun\xC3\xA7\xC3\xA3o atualizada com sucesso..."
+    updated: "A fun\xC3\xA7\xC3\xA3o foi atualizada com sucesso."
+    without_permissions: "Fun\xC3\xA7\xC3\xA3o {{role}} n\xC3\xA3o tem quaisquer permiss\xC3\xB5es"
+  save: Salvar
+  save_ch: "Salvar altera\xC3\xA7\xC3\xB5es"
+  screencast:
+    button: Assistir screencast
+    help: Precisa de ajuda? Tente ver o
+    link1: Ajudar a criar eventos
+    link2: Ajuda criando a agenda
+    link3: "Ajuda: Tr\xC3\xAAs tipos de eventos"
+    link4: Ajuda convidando pessoas
+    link5: "Ajuda sobre informa\xC3\xA7\xC3\xB5es do evento"
+    sidebar:
+      title: Screencasts
+    title: screencast
+    title1: Como criar um evento
+    title2: Criar uma agenda para o evento
+    title3: Diferentes tipos de eventos
+    title4: Convidando pessoas
+    title5: "Informa\xC3\xA7\xC3\xB5es de evento"
+    video:
+      one: Screencast
+  search:
+    advanced: "Pesquisa avan\xC3\xA7ada"
+    attachments:
+      dots: Pesquisar anexos...
+      no_dots: Pesquisar anexos
+    between_dates:
+      attachments: Pesquisar apenas anexos atualizados entre duas datas
+      events: Pesquisar somente os eventos realizados entre duas datas
+      posts: Pesquisar apenas mensagens atualizadas entre duas datas
+      videos: "Procurar apenas v\xC3\xADdeos realizados entre duas datas"
+    dots: Pesquisa...
+    events:
+      advanced: "Pesquisa avan\xC3\xA7ada de eventos"
+      description: "Procurar eventos por descri\xC3\xA7\xC3\xA3o"
+      dots: Procurar eventos...
+      no_dots: Procurar eventos
+      title: "Procurar eventos por t\xC3\xADtulo"
+    explanation: "(pesquisa pelo t\xC3\xADtulo e pela descri\xC3\xA7\xC3\xA3o usando palavras exatas)"
+    in: Procurar em
+    one: Procurar
+    parameters: Consulta muito curta
+    posts:
+      dots: Procurar mensagens...
+      no_dots: Procurar mensagens
+    results: Resultados da pesquisa
+    space:
+      dots: "Filtrar espa\xC3\xA7o..."
+    switch: Mudar para pesquisa global
+    users: "Procurar usu\xC3\xA1rios"
+  searching_in: "Voc\xC3\xAA est\xC3\xA1 procurando em"
+  select_image: Selecione uma imagem, por favor
   send: Enviar
-  send_reset_password_request: Enviar pedido Password Reset
+  send_debug_emails: "Enviar e-mails de depura\xC3\xA7\xC3\xA3o"
+  send_reset_password_request: "Enviar Pedido de Redefini\xC3\xA7\xC3\xA3o de Senha"
+  session:
+    error:
+      exist: "Voc\xC3\xAA j\xC3\xA1 est\xC3\xA1 logado"
+      fill: Por favor preencha estes dados
+    one: "Sess\xC3\xA3o"
+  share_participate_discuss: Cmopartilhe, participe, discuta
   should_check_email_to_activate_account: "Voc\xC3\xAA deve verificar o seu e-mail para ativar sua conta."
-  show: Show
-  singular_agent: 
-    anonymous: 
-      name: "An\xC3\xB3nimo"
-    anyone: 
+  show: Exibir
+  show_advanced_editor: "Exibir editor avan\xC3\xA7ado"
+  show_list_version>>: "exibir vers\xC3\xA3o em lista >>"
+  singular_agent:
+    anonymous:
+      name: "An\xC3\xB4nimo"
+    anyone:
       name: Qualquer um
-    authenticated: 
+    authenticated:
       name: Autenticado
-    cron_agent: 
+    cron_agent:
       name: Cron
-  site: 
+  site:
+    chat_group_service_jid: "Servi\xC3\xA7o de Chat em Grupo do Evento"
+    cm_domain: "Dom\xC3\xADnio do Gerenciador da Confer\xC3\xAAncia"
     config: "Configura\xC3\xA7\xC3\xA3o do site"
+    default: site
     description: !binary |
       RGVzY3Jpw6fDo28=
 
-    domain: "Dom\xC3\xADnio"
+    domain: "Dom\xC3\xADnio da Aplica\xC3\xA7\xC3\xA3o"
     editing: "Editando a configura\xC3\xA7\xC3\xA3o do site"
     email: E-mail
     exception_notifications: "Enviar e-mails de depura\xC3\xA7\xC3\xA3o"
-    exception_notifications_email: "Debug destinat\xC3\xA1rio e-mails"
+    exception_notifications_email: "Destinat\xC3\xA1rio dos e-mails de depura\xC3\xA7\xC3\xA3o"
     logo: Logo
     name: Nome
     one: Site
     other: Sites
+    presence_domain: "Dom\xC3\xADnio de Presen\xC3\xA7a"
+    signature: Assinatura
     ssl: SSL
-    updated: "Configura\xC3\xA7\xC3\xA3o do site foi atualizado com sucesso."
-  source: 
-    errors: 
-      content_type: 
-        invalid: "\xC3\xA9 inv\xC3\xA1lida: {{}} content_type"
-      dereference: "N\xC3\xA3o foi poss\xC3\xADvel conectar-se a origem {{uri}}"
+    updated: "A configura\xC3\xA7\xC3\xA3o do site foi atualizada com sucesso."
+    vcc_pass_for_chat_server: "Senha do VCC para autentica\xC3\xA7\xC3\xA3o no servidor XMPP"
+    vcc_pass_for_chat_server_confirmation: "Senha do VCC para confirma\xC3\xA7\xC3\xA3o de autentica\xC3\xA7\xC3\xA3o no servidor XMPP"
+    vcc_user_for_chat_server: "Usu\xC3\xA1rio do VCC para autentica\xC3\xA7\xC3\xA3o no servidor XMPP"
+    xmpp_server_password: Senha do servidor XMPP
+    xmpp_server_password_confirmation: "Confirma\xC3\xA7\xC3\xA3o de senha do servidor XMPP"
+  size: Tamanho
+  skype: Skype
+  society_media: "Sociedade da Informa\xC3\xA7\xC3\xA3o e M\xC3\xADdia"
+  source:
+    created: Fonte criada com sucesso
+    errors:
+      content_type:
+        invalid: "\xC3\xA9 inv\xC3\xA1lido: {{content_type}}"
+      dereference: "N\xC3\xA3o foi poss\xC3\xADvel conectar-se a fonte {{uri}}"
       multiple_feeds: "Fonte tem v\xC3\xA1rios feeds"
       parse: "N\xC3\xA3o foi poss\xC3\xADvel analisar feed {{uri}}"
-    imported_at: Importado na
+    imported_at: Importado em
     one: Fonte
-    other: Fontes
+    other: RSS/Atom
     target: Alvo
     uri: URL
-  stage: 
+  space:
+    about: Sobre
+    add_user:
+      other: "Adicionar usu\xC3\xA1rios ao espa\xC3\xA7o"
+    all: "Todos Espa\xC3\xA7os"
+    allow_public_access: "Permitir espa\xC3\xA7os p\xC3\xBAblicos?"
+    be_fan: Seja Fan
+    clic: Clique para editar...
+    clic_logo: Clique para mudar o seu logotipo
+    configuration: "Configura\xC3\xA7\xC3\xB5es do espa\xC3\xA7o"
+    confirm: "Tem certeza que quer deixar este espa\xC3\xA7o?"
+    create_own: "Criar um novo espa\xC3\xA7o"
+    created: "Espa\xC3\xA7o criado com sucesso"
+    delete: "Excluir Espa\xC3\xA7o"
+    deleted: "Espa\xC3\xA7o removido com sucesso"
+    description_none: "Uma descri\xC3\xA7\xC3\xA3o do espa\xC3\xA7o deve ser fornecida para criar um novo espa\xC3\xA7o"
+    disable: "Desativar o espa\xC3\xA7o"
+    disabled: "Espa\xC3\xA7o desativado com sucesso"
+    does_not_belong: "n\xC3\xA3o pertence a qualquer espa\xC3\xA7o"
+    edit_description: "editar descri\xC3\xA7\xC3\xA3o"
+    edit_name: editar nome
+    enable: "Habilitar espa\xC3\xA7o"
+    enabled: "Espa\xC3\xA7o habilitado com sucesso"
+    error:
+      enabled: "Espa\xC3\xA7o {{name}} j\xC3\xA1 est\xC3\xA1 habilitado"
+    found:
+      none: "Nenhum espa\xC3\xA7o encontrado"
+      one: "1 espa\xC3\xA7o foi encontrado"
+      other: "{{size}} espa\xC3\xA7os foram encontrados"
+    group_invitation:
+      button: Convide listas de e-mail
+      message_title: "Convide listas de e-mail para participar do seu espa\xC3\xA7o"
+      private: "<p>Por favor, note que o espa\xC3\xA7o \xC3\xA9 privado, ent\xC3\xA3o voc\xC3\xAA precisa ser um usu\xC3\xA1rio cadastrado no Virtual Conference Centre para ser capaz de enviar um pedido de ades\xC3\xA3o e acesso ao espa\xC3\xA7o. Voc\xC3\xAA pode se registrar aqui: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      subject: "{{username}} convida voc\xC3\xAA para o espa\xC3\xA7o {{space}}"
+    group_not_belong: "n\xC3\xA3o pertence ao mesmo espa\xC3\xA7o que o grupo"
+    is_private: "\xC3\xA9 um espa\xC3\xA7o privado. Envie um pedido de ades\xC3\xA3o ao administrador deste espa\xC3\xA7o para deix\xC3\xA1-lo entrar"
+    join: "Entrar no espa\xC3\xA7o"
+    join_invitation:
+      clarify_registered: "Por favor, digite a senha para participar deste espa\xC3\xA7o."
+      clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Global Plaza e participar deste espa\xC3\xA7o."
+      title: "Junte-se ao espa\xC3\xA7o >"
+    join_pending: "Pedido de ades\xC3\xA3o sendo processado"
+    leave: "Deixar esse espa\xC3\xA7o"
+    logo: "Logo do Espa\xC3\xA7o"
+    logo_selected:
+      close: Fechar
+      close_gallery: Feche a galeria
+      default_message: "Logo do espa\xC3\xA7o"
+      enter_text: "Digite um texto para gerar logos:"
+      generate_logo: Gerar
+      open_gallery: Abrir a galeria
+      text_logo: Criar um logotipo como texto
+      upload_logo: "Carregue o seu pr\xC3\xB3prio logotipo"
+      upload_logo_text: "Selecione um logotipo para enviar:"
+      upload_text: Enviar
+      use_date: Use data do evento
+    main: "Espa\xC3\xA7o principal"
+    member_of: "Membro dos espa\xC3\xA7os"
+    my_spaces: "Meus espa\xC3\xA7os"
+    name_none: "Um nome deve ser dado para criar um novo espa\xC3\xA7o"
+    one: "Espa\xC3\xA7o"
+    other: "Espa\xC3\xA7os"
+    popular:
+      other: "Espa\xC3\xA7os populares"
+    possesion: "Meus Espa\xC3\xA7os"
+    private: "Espa\xC3\xA7os privados"
+    public:
+      one: "Espa\xC3\xA7o p\xC3\xBAblico"
+      other: "Espa\xC3\xA7os p\xC3\xBAblicos"
+    recent:
+      other: "Espa\xC3\xA7os recentes"
+    recording:
+      one: "V\xC3\xADdeo do espa\xC3\xA7o"
+      other: "V\xC4\xA9deos do espa\xC3\xA7o"
+    search: "Procurar no espa\xC3\xA7o..."
+    select: "Espa\xC3\xA7os"
+    show_all: "Mostrar todos os espa\xC3\xA7os"
+    subscribed_to_none: "Voc\xC3\xAA n\xC3\xA3o est\xC3\xA1 inscrito em nenhum espa\xC3\xA7o"
+    update_logo: Atualizar logo
+    updated: "Espa\xC3\xA7o atualizado com sucesso"
+    upload_none: "Voc\xC3\xAA tem que selecionar um logotipo para enviar."
+  spam:
+    created: "Um e-mail de notifica\xC3\xA7\xC3\xA3o de spam foi enviado com sucesso para o administrador. Obrigado"
+    default: spam
+    detected: Novo spam detectado
+    error:
+      check: Houve um problema marcando o recurso como spam
+    item: Este artigo foi denunciado como spam
+    no_spam: "Parab\xC3\xA9ns! Nenhum spam aqui"
+    report: Denunciar spam
+    reported: "{{name}} denunciou spam em {{sitename}}"
+    valid: "Este conte\xC3\xBAdo \xC3\xA9 v\xC3\xA1lido"
+  stage:
     all: Todos
-    one: Fase
-  stage_type: 
-    one: "Tipo de Est\xC3\xA1gio"
-  support: 
-    array: 
-      last_word_connector: E
+    one: "Est\xC3\xA1gio"
+  stage_type: "Tipo de Est\xC3\xA1gio"
+  statistics:
+    event_views: "visualiza\xC3\xA7\xC3\xB5es"
+    space_views: "visualiza\xC3\xA7\xC3\xB5es"
+    views: "visualiza\xC3\xA7\xC3\xB5es"
+  street: Rua
+  subject: Assunto
+  summary: "Informa\xC3\xA7\xC3\xB5es do v\xC3\xADdeo"
+  support:
+    array:
+      last_word_connector: " e"
       two_words_connector: e
       words_connector: ","
-    select: 
-      prompt: Por favor, seleccione
-  tag: 
-    one: Tag
-    other: Tags
-    other_in: Tags em container {{}}
+    one: Suporte
+    select:
+      prompt: Por favor, selecione
+    words_connector: ","
+  tag:
+    add: Adicionar tags
+    attachment: Tags para o anexo
+    edit: Editar tags
+    filter: "Filtrar por tag:"
+    new: Nova tag
+    one: tag
+    other: tags
+    other_capital: Tags
+    other_in: Tags em {{container}}
+    selected:
+      one: "Selecione uma tag:"
+      other: "Tags selecionadas:"
     show_title: Marcados com {{tag}}
-  time: 
+    start: Comece a escrever...
+  tags: Tags
+  tags_by: "Tags por:"
+  text: Texto
+  thank_you: Obrigado
+  the_string: a string
+  thread:
+    add: Postar mensagem no mural
+    comments: "{{children}} coment\xC3\xA1rios"
+    compact_view: Alternar para o modo compacto
+    deleted: "A mensagem (com os seus coment\xC3\xA1rios) foi exclu\xC3\xADda"
+    edit: Editar mensagem
+    extended_view: "Alternar para a exibi\xC3\xA7\xC3\xA3o estendida"
+    one: "T\xC3\xB3pico"
+    or_add_new: ou criar uma nova mensagem
+    other: "T\xC3\xB3picos"
+    see_less: Quer exibir menos detalhes?
+    see_more: Quer ver mais detalhes das mensagens?
+    show_comment_size: "Mostrando os {{size}} coment\xC3\xA1rios para a mensagem"
+    show_last_comment: "Mostrando os \xC3\xBAltimos {{size}} coment\xC3\xA1rios de {{children}}"
+    show_one_only_comment: "Mostrando o \xC3\xBAnico coment\xC3\xA1rio \xC3\xA0 mensagem"
+  time:
     am: am
-    formats: 
-      default: "% A,% d% b% Y% H:% M:% S% z"
-      long: "% B% d,% Y% H:% M"
-      short: "% D% H% b: M%"
+    end: "Hora de t\xC3\xA9rmino"
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    from: a partir de
     pm: pm
+    start: "Hor\xC3\xA1rio de in\xC3\xADcio"
+    to: para
+  timezone:
+    one: "Fuso hor\xC3\xA1rio"
+    set_up: "Voc\xC3\xAA n\xC3\xA3o configurou seu fuso hor\xC3\xA1rio. <a href=\"{{path}}\">Configure agora</a>"
+  tips: Dicas
   title: "T\xC3\xADtulo"
-  update: Update
+  title_formal:
+    mr: Sr.
+    mrs: Sra.
+    ms: Ms.
+  to: para
+  to_configure_your: para configurar o seu
+  today: Hoje
+  toke:
+    not_available: "Token n\xC3\xA3o dispon\xC3\xADvel"
+  tomorrow: "Amanh\xC3\xA3"
+  tooltip:
+    admin: "Esta se\xC3\xA7\xC3\xA3o mostra as pessoas que t\xC3\xAAm direitos de administrador neste espa\xC3\xA7o"
+    advanced_editor: "Este editor permite que voc\xC3\xAA: veja o c\xC3\xB3digo html; modifique o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite links; adicione anexos e tags"
+    divider: "Use um divisor para indicar pausas, como pausas para caf\xC3\xA9 ou almo\xC3\xA7o. Voc\xC3\xAA tamb\xC3\xA9m pode us\xC3\xA1-lo para separar sess\xC3\xB5es com t\xC3\xB3picos diferentes."
+    doc_search: Use os campos deste lado para filtrar e atualizar a tabela de documentos com seus resultados da pesquisa
+    document_repository: "Um reposit\xC3\xB3rio de documentos permite que voc\xC3\xAA organize todos os arquivos que foram enviados para o espa\xC3\xA7o"
+    embed_help: "Pode ser preenchido com c\xC3\xB3digo HTML para inserir um v\xC3\xADdeo"
+    ev_type: "Coloque o mouse sobre os t\xC3\xADtulos para saber mais sobre os tipos de eventos"
+    event: "Selecione os documentos do evento que voc\xC3\xAA quer ver"
+    event_logo: "Voc\xC3\xAA pode enviar o seu pr\xC3\xB3prio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
+    help: "Verificar streaming e/ou servi\xC3\xA7os de grava\xC3\xA7\xC3\xA3o conforme necess\xC3\xA1rio"
+    help2: "Esta sess\xC3\xA3o j\xC3\xA1 aconteceu, voc\xC3\xAA n\xC3\xA3o pode editar as op\xC3\xA7\xC3\xB5es de streaming ou grava\xC3\xA7\xC3\xA3o"
+    help3: "Esta sess\xC3\xA3o est\xC3\xA1 acontecendo agora, voc\xC3\xAA s\xC3\xB3 pode mudar se voc\xC3\xAA quer ou n\xC3\xA3o streaming"
+    help4: "Voc\xC3\xAA n\xC3\xA3o pode alterar essa op\xC3\xA7\xC3\xA3o porque a sess\xC3\xA3o j\xC3\xA1 passou"
+    help5: "Voc\xC3\xAA n\xC3\xA3o pode alterar essa op\xC3\xA7\xC3\xA3o porque a sess\xC3\xA3o est\xC3\xA1 acontecendo agora"
+    inperson: "O tipo Em-pessoa \xC3\xA9 basicamente projetado para atender \xC3\xA0s reuni\xC3\xB5es f\xC3\xADsicas ou offline para as quais voc\xC3\xAA n\xC3\xA3o precisa grava\xC3\xA7\xC3\xA3o ou streaming de v\xC3\xADdeo, mas, apesar disso, gostaria de ter funcionalidades que tornam o tratamento de uma reuni\xC3\xA3o mais simples - como criar e modificar uma agenda que as pessoas possam consultar ou importar em seu calend\xC3\xA1rio. Al\xC3\xA9m disso, voc\xC3\xAA pode querer fornecer os documentos necess\xC3\xA1rios para a reuni\xC3\xA3o ou posteriormente compartilhar fotos tiradas durante a reuni\xC3\xA3o."
+    insert: "Use este c\xC3\xB3digo para inserir este v\xC3\xADdeo em seu blog ou p\xC3\xA1gina web."
+    label_automatic: "O v\xC3\xADdeo para esta sess\xC3\xA3o ser\xC3\xA1 o v\xC3\xADdeo que o sistema gravou."
+    label_embedded: "Com esta op\xC3\xA7\xC3\xA3o voc\xC3\xAA vai descartar o v\xC3\xADdeo autom\xC3\xA1tico e ser\xC3\xA1 capaz de escrever um c\xC3\xB3digo para inserir este v\xC3\xADdeo."
+    label_none: "Esta sess\xC3\xA3o n\xC3\xA3o ter\xC3\xA1 um v\xC3\xADdeo relacionado."
+    label_uploaded: "Com esta op\xC3\xA7\xC3\xA3o voc\xC3\xAA vai descartar o v\xC3\xADdeo autom\xC3\xA1tico e voc\xC3\xAA ser\xC3\xA1 capaz de carregar um novo v\xC3\xADdeo em FLV."
+    latest_news: "Esta se\xC3\xA7\xC3\xA3o mostra a not\xC3\xADcia de que os administradores enviam para todas as pessoas neste espa\xC3\xA7o"
+    leave_space: "Este link permitir\xC3\xA1 que voc\xC3\xAA a abandone este espa\xC3\xA7o definitivamente"
+    mailing_list: "Uma lista de e-mails permitir\xC3\xA1 que voc\xC3\xAA envie mensagens de e-mail para o seu grupo em vez de ter de escolher os endere\xC3\xA7os individualmente"
+    manual_configuration: "Selecione este item se voc\xC3\xAA possui toda sua infraestrutura de videoconfer\xC3\xAAncia. O aplicativo n\xC3\xA3o ir\xC3\xA1 iniciar qualquer Isabel, streaming, nem a grava\xC3\xA7\xC3\xA3o, mas sim vai oferecer-lhe duas \xC3\xA1reas de texto para escrever seu c\xC3\xB3digo para embutir streaming e para participa\xC3\xA7\xC3\xA3o."
+    news_item: "Voc\xC3\xAA pode publicar uma not\xC3\xADcia curta em casa"
+    num_views: "Este n\xC3\xBAmero representa as vistas \xC3\xBAnicas para essa p\xC3\xA1gina"
+    organisers: "Selecione os usu\xC3\xA1rios do espa\xC3\xA7o que v\xC3\xA3o organizar este evento"
+    private_profile: "Esta informa\xC3\xA7\xC3\xA3o s\xC3\xB3 \xC3\xA9 vis\xC3\xADvel para as pessoas que voc\xC3\xAA escolher quando voc\xC3\xAA editar seu perfil"
+    public_profile: "Qualquer pessoa pode acessar esta informa\xC3\xA7\xC3\xA3o"
+    public_space: "Espa\xC3\xA7os colaborativos podem ser p\xC3\xBAblicos, para que qualquer pessoa possa ver o que acontece neles, ou privados, onde apenas os membros t\xC3\xAAm acesso \xC3\xA0s atividades do espa\xC3\xA7o"
+    recording_automatic: "Com este modo a aplica\xC3\xA7\xC3\xA3o ir\xC3\xA1 gravar as sess\xC3\xB5es automaticamente, iniciando no momento exato que voc\xC3\xAA indicar"
+    recording_manual: "Com este modo a p\xC3\xA1gina web do evento ir\xC3\xA1 oferecer-lhe um bot\xC3\xA3o para iniciar e interromper o aplicativo, e voc\xC3\xAA ser\xC3\xA1 o encarregado de iniciar e encerrar a grava\xC3\xA7\xC3\xA3o das sess\xC3\xB5es"
+    recording_none: "Selecione este modo se voc\xC3\xAA n\xC3\xA3o quer grava\xC3\xA7\xC3\xA3o"
+    search_video: "Comece a escrever o que voc\xC3\xAA deseja procurar e a lista de v\xC3\xADdeos ser\xC3\xA1 atualizada automaticamente com os resultados"
+    share: "Esta \xC3\xA9 a url para compartilhar este v\xC3\xADdeo com os seus colegas"
+    space_video: "Este filtro permitir\xC3\xA1 que voc\xC3\xAA selecione apenas os v\xC3\xADdeos de um evento espec\xC3\xADfico"
+    streaming: "Selecione esta op\xC3\xA7\xC3\xA3o se voc\xC3\xAA quer streaming autom\xC3\xA1tico para seu evento. Se voc\xC3\xAA tiver qualquer sess\xC3\xA3o sem streaming (como uma sess\xC3\xA3o de testes), voc\xC3\xAA pode desmarcar o recurso de streaming por sess\xC3\xA3o individualmente ao cri\xC3\xA1-las."
+    tag: "Tags s\xC3\xA3o palavras-chave ou termos associados com o conte\xC3\xBAdo que s\xC3\xA3o utilizadas para localizar e filtrar as informa\xC3\xA7\xC3\xB5es. Pressione enter para confirmar cada tag."
+    tag_by: "Tags s\xC3\xA3o palavras que descrevem os documentos. Use este link para orden\xC3\xA1-las por popularidade ou por ordem alfab\xC3\xA9tica. Em seguida, clique nelas para ver os documentos relacionados."
+    timezone: "Ao selecionar o seu fuso hor\xC3\xA1rio n\xC3\xA3o haver\xC3\xA1 equ\xC3\xADvoco ao criar eventos com pessoas de outros pa\xC3\xADses"
+    upcoming: "Esta se\xC3\xA7\xC3\xA3o mostra os pr\xC3\xB3ximos eventos neste espa\xC3\xA7o"
+    update_logo: "Voc\xC3\xAA pode enviar o seu pr\xC3\xB3prio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
+    user_filter: "Voc\xC3\xAA pode filtrar os usu\xC3\xA1rios por seus nomes ou sobrenomes. Comece a digitar!"
+    user_id: "Voc\xC3\xAA pode usar o seu ID de usu\xC3\xA1rio como o OpenID, usu\xC3\xA1rio de bate-papo e/ou usu\xC3\xA1rio Marte"
+    vcard: "vCard \xC3\xA9 um formato de arquivo padr\xC3\xA3o para cart\xC3\xB5es eletr\xC3\xB4nicos"
+    vclass: "O tipo Classe Virtual \xC3\xA9 a maneira perfeita para organizar aulas, confer\xC3\xAAncias e semin\xC3\xA1rios, onde o professor assume um papel de destaque."
+    vconfoptions: "Selecione streaming de v\xC3\xADdeo se voc\xC3\xAA quiser transmitir o seu evento. Selecione a op\xC3\xA7\xC3\xA3o de grava\xC3\xA7\xC3\xA3o de v\xC3\xADdeo se voc\xC3\xAA quer gravar o seu evento para visualiza\xC3\xA7\xC3\xB5es futuras. Voc\xC3\xAA tamb\xC3\xA9m pode configurar os par\xC3\xA2metros de largura de banda e qualidade da videoconfer\xC3\xAAncia clicando no link de configura\xC3\xA7\xC3\xB5es avan\xC3\xA7adas."
+    vcongress: "O tipo Congresso Virtual \xC3\xA9 muito parecido com o tipo Reuni\xC3\xA3o Virtual, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
+    video_upload_explanation: "Utilize esta op\xC3\xA7\xC3\xA3o para excluir o arquivo j\xC3\xA1 carregado. Ou, se voc\xC3\xAA quiser enviar um novo, basta selecion\xC3\xA1-lo no campo de busca e editar a sess\xC3\xA3o que o novo v\xC3\xADdeo ir\xC3\xA1 substituir o antigo."
+    vmeeting: "O tipo Reuni\xC3\xA3o Virtual \xC3\xA9 adequado para reuni\xC3\xB5es online ou encontros presenciais com fortes caracter\xC3\xADsticas virtuais, ou seja, onde os participantes locais e remoto ter\xC3\xA3o a oportunidade de se comunicar de forma interativa."
+  topic: "T\xC3\xB3pico"
+  translate:
+    availables: "Tradu\xC3\xA7\xC3\xB5es dispon\xC3\xADveis"
+    change: Mudar idioma
+    one: Traduzir
+    request: "Para traduzir para uma linguagem diferente, por favor pe\xC3\xA7a ao administrador para acrescentar a nova l\xC3\xADngua e sua respectiva bandeira"
+    translated: "Global \xC3\xA9 agora traduzido, ou est\xC3\xA1 em processo de tradu\xC3\xA7\xC3\xA3o, para "
+  type: Tipo
+  undated: Sem data
+  unknown_content: "Conte\xC3\xBAdo desconhecido {{content}}"
+  upcoming: "Pr\xC3\xB3ximos"
+  update: Atualizar
+  updated: Atualizados
   updated_at: "Atualizado \xC3\xA0s"
-  updated_at_date: "Atualizado: {{data}}"
-  user: 
-    activation_email_sent: "e-mail de ativa\xC3\xA7\xC3\xA3o foi enviado para o usu\xC3\xA1rio"
-    disabled: utilizadores com mobilidade condicionada
+  updated_at_date: "Atualizado: {{date}}"
+  updated_time_ago: "{{time}} atr\xC3\xA1s"
+  url: Website
+  url_add: Adicione seu site
+  url_plain: URL
+  user:
+    activation_email_sent: "O e-mail de ativa\xC3\xA7\xC3\xA3o foi enviado para o usu\xC3\xA1rio"
+    active:
+      other: "Usu\xC3\xA1rios ativos"
+    add:
+      instruction: "Para adicionar novos usu\xC3\xA1rios insera um ou v\xC3\xA1rios endere\xC3\xA7os de e-mail separados por \" \", \",\" ou \";\" e registre-os"
+      note: "Por exemplo: \"Jo\xC3\xA3o Silva\" <\"jsilva@example.com.br\">\", jct@dit.es; Aaron aaron@example.net e clicando em \"Registrar como Usu\xC3\xA1rio\" ir\xC3\xA1 registrar esses tr\xC3\xAAs endere\xC3\xA7os de e-mail como membros do espa\xC3\xA7o e enviar\xC3\xA1 um e-mail de valida\xC3\xA7\xC3\xA3o para eles."
+    add_more: "Adicionar usu\xC3\xA1rios >>"
+    admin: Admin
+    administrators: Administradores
+    assist: Participantes
+    by_email: Por e-mail
+    by_private_message: Por mensagem privada
+    confirm_password: Confirmar Senha
+    delete_from_space: "Excluir usu\xC3\xA1rio do espa\xC3\xA7o"
+    disable: "Desabilitar usu\xC3\xA1rio"
+    disabled: "Usu\xC3\xA1rio {{username}} desabilitado"
+    e-mail: e-mail
+    edit_account: Editar sua conta
+    email: e-mail
+    enable: "Habilitar usu\xC3\xA1rio"
+    enabled: "Usu\xC3\xA1rio habilitado com sucesso. O usu\xC3\xA1rio atualmente n\xC3\xA3o pertence a nenhum espa\xC3\xA7o, e ter\xC3\xA1 que aderir aos espa\xC3\xA7os novamente."
+    error:
+      enabled: "Usu\xC3\xA1rio {{name}} j\xC3\xA1 est\xC3\xA1 habilitado"
+    feed:
+      author: SIR
+      title: "Usu\xC3\xA1rios"
+    filter: "Convidar por nome de usu\xC3\xA1rio"
+    first_name: Primeiro nome
+    found:
+      none: "Nenhum usu\xC3\xA1rio encontrado"
+      one: "1 usu\xC3\xA1rio encontrado"
+      other: "{{size}} usu\xC3\xA1rios encontrados"
+    full_name: Nome completo
+    group_invite_email: Convidar por e-mail
+    id: "ID do Usu\xC3\xA1rio"
+    include_registered: "Incluir usu\xC3\xA1rios registrados"
+    included:
+      other: Membros da lista
+    invite: Convidar pessoas
+    invite_email: Convide pessoas por e-mail
+    invite_from_space_by_email: "Convidar pessoas de seu espa\xC3\xA7o"
+    invited: "Usu\xC3\xA1rios j\xC3\xA1 convidados"
+    last_name: Sobrenome
+    list_by: Listar por
+    login: Login
+    lost_password: Esqueceu sua senha?
+    noactivity: "{{user}} n\xC3\xA3o tem atividade recente"
+    not_activated: "Sua conta n\xC3\xA3o est\xC3\xA1 ativada. Por favor, verifique seu e-mail para ativ\xC3\xA1-la"
+    not_assist: "N\xC3\xA3o participar\xC3\xA3o"
+    not_confirmed: "N\xC3\xA3o confirmados"
+    notifications: "Como voc\xC3\xAA deseja receber as notifica\xC3\xA7\xC3\xB5es?"
+    one: "Usu\xC3\xA1rio"
+    openid:
+      add_to_access: Adicione sua OpenID para acessar o Global Plaza
+      edit: Edite suas OpenIDs
+      one: OpenID
+      other: OpenIDs
     other: "Usu\xC3\xA1rios"
+    password: Senha
+    password_info: "Digite o endere\xC3\xA7o de e-mail que voc\xC3\xAA usou para criar a sua conta"
+    private_message: Enviar Mensagem
+    recent_join: "Usu\xC3\xA1rios recentemente inscritos"
+    registered: "Obrigado por se registar! Acabamos de enviar instru\xC3\xA7\xC3\xB5es sobre como ativar a sua conta de usu\xC3\xA1rio"
+    request_password: "Solicita\xC3\xA7\xC3\xA3o de Senha"
+    reset_password: Redefinir sua senha
+    results_count:
+      one: Pessoas, {{users_size}} resultado
+      other: Pessoas, {{users_size}} resultados
+    save:
+      account: Salvar conta
+      preferences: "Salvar prefer\xC3\xAAncias"
+    search: "Procurar Usu\xC3\xA1rios..."
+    timezone: "Fuso hor\xC3\xA1rio"
+    updated: "Usu\xC3\xA1rio atualizado com sucesso"
+    vcc_email: "E-mail do usu\xC3\xA1rio Global {{dir}}"
+    view_expanded_posts: "Mostrar mensagens no mural com a vis\xC3\xA3o expandida por padr\xC3\xA3o"
+    without_group: Pessoas sem lista de e-mail
+  username: "Nome de usu\xC3\xA1rio"
+  vCard:
+    corrupt: "O vCard que voc\xC3\xAA enviou est\xC3\xA1 corrompido ou \xC3\xA9 uma vers\xC3\xA3o n\xC3\xA3o suportada"
+    export: Exportar seu vCard
+    message: Use seu vCard para preencher automaticamente seu perfil
+    no_selection: sem vCard
+    success: "vCard carregado com \xC3\xAAxito"
+    upload: Envie o seu vCard
+    use: Use seu vCard
+  vcard: vCard
+  vcc: "Confer\xC3\xAAncias Global Plaza"
+  vcc_mail_label: "[Global]"
+  vcc_registration: Registro Global Plaza
+  version:
+    new: "Nova vers\xC3\xA3o"
+    one: "Vers\xC3\xA3o"
+  video:
+    close_edit: "Fechar edi\xC3\xA7\xC3\xA3o de v\xC3\xADdeo"
+    edit: "Editar v\xC3\xADdeo"
+    found:
+      none: "Nenhum v\xC3\xADdeo encontrado"
+      one: "1 v\xC3\xADdeo encontrado"
+      other: "{{size}} v\xC3\xADdeos encontrados"
+    one: !binary |
+      VsOtZGVv
+
+    other: "V\xC3\xADdeos"
+  video_attachment:
+    delete: "Excluir anexo de v\xC3\xADdeo"
+    video_name: "V\xC3\xADdeo Enviado"
   visit_link_to_activate_account: Visite este link para ativar a sua conta
+  week:
+    next: Na semana que vem
+    this: Essa semana
+  when: Quando
+  where: Onde
+  xmpp_server:
+    password_invalid: "senha inv\xC3\xA1lida"
+  yesterday: Ontem
+  your_interests_tags: Seus interesses (tags)
+  your_vcard: seu vCard
+  zipcode: CEP
