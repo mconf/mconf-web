@@ -3,12 +3,6 @@ source "http://gems.github.com"
 
 gem 'rails', '3.0.3'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'mysql'
-
 # for station
 #gem 'will_paginate' # gem 'mislav-will_paginate', :source => 'http://gems.github.com/'
 gem 'mislav-will_paginate' # :git => 'git://github.com/mislav/will_paginate.git'
@@ -36,15 +30,15 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 
 group :development, :test do
-# TODO: gem 'ruby-debug19', :require => 'ruby-debug'
-#  gem 'rspec', '1.3.1' # TODO
-#  gem 'rspec-rails', '1.3.3' # TODO
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'rspec', '1.3.1' # TODO
+  #gem 'rspec-rails', '1.3.3' # TODO
   gem "capistrano"
   gem 'mongrel', '1.2.0.pre2'
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'
-  gem 'sqlite3-ruby'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
 group :production do

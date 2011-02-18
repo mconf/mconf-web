@@ -16,6 +16,5 @@ config/locales/log
 .svn
 config/initializers/mail_conf.rb
 public/pdf/
-.bundle
 db/*.sqlite3*
 tmp/*
