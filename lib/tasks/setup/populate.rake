@@ -15,7 +15,7 @@ namespace :setup do
       [ Space ].each(&:destroy_all)
       # Delete all users except Admin
       users_without_admin = User.find_with_disabled(:all)
-      users_without_admin.delete(User.find_by_login("vcc"))
+      users_without_admin.delete(User.find_by_login("mconf"))
       users_without_admin.each(&:destroy)
 
 
@@ -27,7 +27,7 @@ namespace :setup do
         user.activated_at = 2.years.ago..Time.now
         user.disabled = false
         user.notification = User::NOTIFICATION_VIA_EMAIL
-        
+
         Profile.populate 1 do |profile|
           profile.user_id = user.id
           profile.full_name = Faker::Name.name
@@ -50,14 +50,14 @@ namespace :setup do
       end
 
       puts "* Create Spaces"
-      Space.populate 20 do |space|
+      Space.populate 10 do |space|
         space.name = Populator.words(1..3).titleize
         space.permalink = PermalinkFu.escape(space.name)
         space.description = Populator.sentences(1..3)
         space.public = [ true, false ]
         space.disabled = false
 
-        Post.populate 10..100 do |post|
+        Post.populate 10..50 do |post|
           post.space_id = space.id
           post.title = Populator.words(1..4).titleize
           post.text = Populator.sentences(3..15)
@@ -79,16 +79,16 @@ namespace :setup do
           event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
           event.vc_mode = Event::VC_MODE.index(:in_person)
           event.permalink = PermalinkFu.escape(event.name)
-          
+
           Agenda.populate 1 do |agenda|
             agenda.event_id = event.id
             agenda.created_at = event.created_at..Time.now
             agenda.updated_at = agenda.created_at..Time.now
-            
+
             # inferior limit for the start time of the first agenda entry
             last_agenda_entry_end_time = event.start_date
             first_agenda_entry = true
-            
+
             AgendaEntry.populate 2..10 do |agenda_entry|
               agenda_entry.agenda_id = agenda.id
               agenda_entry.title = Populator.words(1..3).titleize
@@ -102,7 +102,7 @@ namespace :setup do
                 agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
               end
               agenda_entry.end_time = agenda_entry.start_time..event.end_date
-             
+
               # updating the inferior limit for the next agenda entry
               last_agenda_entry_end_time = agenda_entry.end_time
 
@@ -115,12 +115,12 @@ namespace :setup do
                 " allowscriptaccess='always' allowfullscreen='true' width='425' height='344'></embed></object>"
               agenda_entry.video_thumbnail = "http://i2.ytimg.com/vi/9ri3y2RDzUM/default.jpg"
             end
-            
+
             # fixing the end_date of the event to the end_time of the last_agenda_entry
             event.end_date = last_agenda_entry_end_time
-            
+
           end
-          
+
           Statistic.populate 1 do |statistic|
             statistic.url = "/spaces/" + space.permalink + "/events/" + event.permalink
             statistic.unique_pageviews = 0..100
@@ -132,14 +132,14 @@ namespace :setup do
           group.name = Populator.words(1..3).titleize
         end
 
-        News.populate 2..15 do |news|
+        News.populate 2..10 do |news|
           news.space_id = space.id
           news.title = Populator.words(3..8).titleize
           news.text = Populator.sentences(2..10)
           news.created_at = 2.years.ago..Time.now
           news.updated_at = news.created_at..Time.now
         end
-        
+
         Statistic.populate 1 do |statistic|
           statistic.url = "/spaces/" + space.permalink
           statistic.unique_pageviews = 0..100
@@ -167,9 +167,9 @@ namespace :setup do
             group.users << user if rand > 0.7
           end
         end
-        
+
         event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
-        
+
         space.events.each do |event|
           available_event_participants = space.users.dup
           Participant.populate 0..space.users.count do |participant|
@@ -220,9 +220,9 @@ namespace :setup do
         end
 
       end
-      
+
       Site.find(1).update_attribute(:signature, "VCC")
-      
+
     end
   end
 end

@@ -18,22 +18,22 @@ namespace :setup do
 
     desc "Load Users Data"
     task :users => :environment do
-      puts "* Create Administrator \"vcc\""
-      u = User.create :login => "vcc",
-                      :email => 'vcc@dit.upm.es',
+      puts "* Create Administrator \"mconf\""
+      u = User.create :login => "mconf",
+                      :email => 'mconf.prav@gmail.com',
                       :password => "admin",
                       :password_confirmation => "admin"
       u.update_attribute(:superuser,true)
       u.activate
-      u.profile!.update_attribute(:full_name, "Vcc")
+      u.profile!.update_attribute(:full_name, "mconf")
 
     end
 
     desc "Load Spaces Data"
     task :spaces => :environment do
-      puts "* Create Space \"VCC Start Page\""
-      Space.create :name => "VCC Start Page",
-                   :description => "Virtual Conference Centre (VCC)",
+      puts "* Create Space \"MConf Start Page\""
+      Space.create :name => "MConf Start Page",
+                   :description => "MConf Centre",
                    :public => true,
                    :default_logo => "models/front/space.png"
     end
