@@ -137,13 +137,19 @@ class Event < ActiveRecord::Base
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     # TODO check, was using UploadedTempfile
-    original_tmp = Tempfile.new("default_logo", "#{ Rails.root.to_s}/tmp/")
     #original_tmp = ActionDispatch::Http::UploadedFile.open("default_logo")
+    original_tmp = Tempfile.new("default_logo", "#{ Rails.root.to_s}/tmp/")
     original_tmp.write(original.read)
-    original_tmp.instance_variable_set "@original_filename",@default_logo
-    original_tmp.instance_variable_set "@content_type", "image/jpeg"
+    original_tmp_io = open(original_tmp)
+    filename = File.join(images_path, @default_logo)
+    (class << original_tmp_io; self; end;).class_eval do
+      define_method(:original_filename) { filename.split('/').last }
+      define_method(:content_type) { 'image/jpeg' }
+      define_method(:size) { File.size(filename) }
+    end
+
     logo = {}
-    logo[:media] = original_tmp
+    logo[:media] = original_tmp_io
     #debugger
     logo = self.build_logo(logo)
 

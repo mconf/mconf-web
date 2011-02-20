@@ -66,14 +66,21 @@ class TempLogo
 
     crop_args = %w( x y width height ).map{ |k| crop_params[k] }.map(&:to_i)
     crop_img = img.crop(*crop_args)
-    # TODO check, was using UploadedTempfile
-    f = Tempfile.new("croplogo", "#{ Rails.root.to_s}/tmp/")
+
+    # TODO check, was using UploadedTempfile. filename might be wrong
     #f = ActionDispatch::Http::UploadedFile.open("croplogo")
+    f = Tempfile.new("croplogo", "#{ Rails.root.to_s}/tmp/")
     crop_img.write("#{FORMAT.to_sym.to_s}:" + f.path)
-    f.instance_variable_set "@original_filename", server_filename
-    f.instance_variable_set "@content_type", FORMAT
+    f_io = open(f)
+    filename = File.join(ABS_TMP_PATH, server_filename)
+    (class << f_io; self; end;).class_eval do
+      define_method(:original_filename) { filename.split('/').last }
+      define_method(:content_type) { FORMAT }
+      define_method(:size) { File.size(filename) }
+    end
+
     logo = {}
-    logo[:media] = f
+    logo[:media] = f_io
     logo
   end
 

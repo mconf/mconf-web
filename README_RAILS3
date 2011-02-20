@@ -6,20 +6,26 @@ Actual status:
 Notes:
 - Plugin rails_upgrade was used to get some directions
 - Plugin rails_rcov not used anymore. Now using a simpler solution: http://www.betaful.com/?p=498
-- attachment_fu installed as plugins from a branch in their repository
-  - ./script/rails plugin install http://github.com/woahdae/attachment_fu.git -r rails3
-  - See: https://github.com/technoweenie/attachment_fu/issues#issue/10
+- attachment_fu installed as plugins from a branch in a fork compatible with rails 3
+  - Fork: git://github.com/mihael/attachment_fu.git
+  - Working better than alternative: http://github.com/woahdae/attachment_fu.git -r rails3
+  - See: https://github.com/technoweenie/attachment_fu/pull/30 and https://github.com/technoweenie/attachment_fu/issues#issue/10
+  - Still had to adapt the monkey patch, see TODO below
 - Other plugins now used as gems:
   - fckeditor
   - exception_notification => exception_notification_rails3
   - simple_captcha
+  - will_paginate (not mislav-will_paginate anymore)
+  - action_mailer_optional_tls not used anymore in favor of action_mailer_tls
+  - permalink_fu
 - Using ffaker instead of faker (as gem)
 - rspec issue 'no such file to load -- spec/rake/spectask' solved with: http://www.ruby-forum.com/topic/156080 (see the first response). There may be a better solution.
 
 TODO:
+- Tempfile in monkey-patch in attachment_fu/init.rb was changed. See https://github.com/technoweenie/attachment_fu/issuesearch?state=open&q=make_tmpname#issue/25 and http://marsorange.com/archives/of-mogrify-ruby-tempfile-dynamic-class-definitions
 - Ultrasphix does not support Rails 3. All related coded is commented. Maybe can be replaced by http://freelancing-god.github.com/ts/en/rails3.html
 - config/routes.rb should be revised. All routes were migrated, but need to be tested.
 - Plugin station should be migrated to Rails 3 / Ruby 1.9
-- ruby-debug should be replaced by ruby-debug19. Not used yet because its installation stalls
 - Search for 'TODO rails 3:' for a list of things still to be migrated
+- List changes made in station
 

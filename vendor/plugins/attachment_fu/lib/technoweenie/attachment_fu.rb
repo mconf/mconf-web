@@ -1,7 +1,7 @@
 module Technoweenie # :nodoc:
   module AttachmentFu # :nodoc:
     @@default_processors = %w(ImageScience Rmagick MiniMagick Gd2 CoreImage)
-    @@tempfile_path      = File.join(RAILS_ROOT, 'tmp', 'attachment_fu')
+    @@tempfile_path      = Rails.root.join( 'tmp', 'attachment_fu')
     @@content_types      = [
       'image/jpeg',
       'image/pjpeg',
@@ -183,9 +183,9 @@ module Technoweenie # :nodoc:
         base.after_save :after_process_attachment
         base.after_destroy :destroy_file
         base.after_validation :process_attachment
-        if defined?(::ActiveSupport::Callbacks)
-          base.define_callbacks :after_resize, :before_thumbnail_saved
-        end
+        #if defined?(::ActiveSupport::Callbacks)
+        #  base.define_callbacks :after_resize, :after_attachment_saved, :before_thumbnail_saved
+        #end
       end
 
       unless defined?(::ActiveSupport::Callbacks)
@@ -199,6 +199,19 @@ module Technoweenie # :nodoc:
         #   end
         def after_resize(&block)
           write_inheritable_array(:after_resize, [block])
+        end
+
+        # Callback after an attachment has been saved either to the file system or the DB.
+        # Only called if the file has been changed, not necessarily if the record is updated.
+        #
+        #   class Foo < ActiveRecord::Base
+        #     acts_as_attachment
+        #     after_attachment_saved do |record|
+        #       ...
+        #     end
+        #   end
+        def after_attachment_saved(&block)
+          write_inheritable_array(:after_attachment_saved, [block])
         end
 
         # Callback before a thumbnail is saved.  Use this to pass any necessary extra attributes that may be required.
@@ -224,7 +237,7 @@ module Technoweenie # :nodoc:
 
       # Copies the given file path to a new tempfile, returning the closed tempfile.
       def copy_to_temp_file(file, temp_base_name)
-        returning Tempfile.new(temp_base_name, Technoweenie::AttachmentFu.tempfile_path) do |tmp|
+        Tempfile.new(temp_base_name, Technoweenie::AttachmentFu.tempfile_path).tap do |tmp|
           tmp.close
           FileUtils.cp file, tmp.path
         end
@@ -232,7 +245,7 @@ module Technoweenie # :nodoc:
 
       # Writes the given data to a new tempfile, returning the closed tempfile.
       def write_to_temp_file(data, temp_base_name)
-        returning Tempfile.new(temp_base_name, Technoweenie::AttachmentFu.tempfile_path) do |tmp|
+        Tempfile.new(temp_base_name, Technoweenie::AttachmentFu.tempfile_path).tap do |tmp|
           tmp.binmode
           tmp.write data
           tmp.close
@@ -275,7 +288,7 @@ module Technoweenie # :nodoc:
       # Creates or updates the thumbnail for the current attachment.
       def create_or_update_thumbnail(temp_file, file_name_suffix, *size)
         thumbnailable? || raise(ThumbnailError.new("Can't create a thumbnail if the content type is not an image or there is no parent_id column"))
-        returning find_or_initialize_thumbnail(file_name_suffix) do |thumb|
+        find_or_initialize_thumbnail(file_name_suffix).tap do |thumb|
           thumb.temp_paths.unshift temp_file
           thumb.send(:'attributes=', {
             :content_type             => content_type,
@@ -304,7 +317,7 @@ module Technoweenie # :nodoc:
 
       # Returns true if the attachment data will be written to the storage system on the next save
       def save_attachment?
-        File.file?(temp_path.to_s)
+        File.file?(temp_path.class == String ? temp_path : temp_path.to_filename)
       end
 
       # nil placeholder in case this field is used in a form.
@@ -336,7 +349,7 @@ module Technoweenie # :nodoc:
           file_data.rewind
           set_temp_data file_data.read
         else
-          self.temp_paths.unshift file_data
+          file_data.respond_to?(:tempfile) ? self.temp_paths.unshift( file_data.tempfile.path ) : self.temp_paths.unshift( file_data.path )
         end
       end
 
@@ -396,7 +409,7 @@ module Technoweenie # :nodoc:
 
         def sanitize_filename(filename)
           return unless filename
-          returning filename.strip do |name|
+          filename.strip.tap do |name|
             # NOTE: File.basename doesn't work right with Windows paths on Unix
             # get only the filename, not the whole path
             name.gsub! /^.*(\\|\/)/, ''
@@ -445,6 +458,8 @@ module Technoweenie # :nodoc:
             save_to_storage
             @temp_paths.clear
             @saved_attachment = nil
+            #callback :after_attachment_saved
+            callback_with_args :after_attachment_saved, nil
           end
         end
 
@@ -459,7 +474,9 @@ module Technoweenie # :nodoc:
 
         if defined?(Rails) && Rails::VERSION::MAJOR >= 3
           def callback_with_args(method, arg = self)
-            send(method, arg) if respond_to?(method)
+            if respond_to?(method)
+              send(method, arg) 
+            end
           end
         # Yanked from ActiveRecord::Callbacks, modified so I can pass args to the callbacks besides self.
         # Only accept blocks, however
