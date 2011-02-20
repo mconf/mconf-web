@@ -37,6 +37,10 @@ module Vcc
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    # TODO test if it really falls back to en
+    config.i18n.fallbacks = true
+    config.i18n.default_locale = :en
+
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     # Allowed html tags for sanitize

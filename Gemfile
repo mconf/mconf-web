@@ -1,13 +1,15 @@
 source 'http://rubygems.org'
-source "http://gems.github.com"
+#source "http://gems.github.com"
 
 gem 'rails', '3.0.3'
 
 # for station
 #gem 'will_paginate' # gem 'mislav-will_paginate', :source => 'http://gems.github.com/'
-gem 'mislav-will_paginate' # :git => 'git://github.com/mislav/will_paginate.git'
+#gem 'mislav-will_paginate' # :git => 'git://github.com/mislav/will_paginate.git'
+gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
 #gem 'attachment_fu', :git => 'git://github.com/woahdae/attachment_fu.git', :branch => 'rails3' # inst as plugin for now
+gem 'permalink_fu'
 
 gem 'rmagick'
 gem 'vpim'
@@ -39,6 +41,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'factory_girl'
   gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'action_mailer_tls'
 end
 
 group :production do

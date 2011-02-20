@@ -6,9 +6,9 @@ GIT
 
 GEM
   remote: http://rubygems.org/
-  remote: http://gems.github.com/
   specs:
     abstract (1.0.0)
+    action_mailer_tls (1.1.3)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
       mail (~> 2.2.9)
@@ -81,7 +81,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mislav-will_paginate (2.3.11)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
@@ -97,6 +96,7 @@ GEM
     pdf-writer (1.1.8)
       color (>= 1.4.0)
       transaction-simple (~> 1.3)
+    permalink_fu (1.0.0)
     polyglot (0.3.1)
     populator (1.0.0)
     prism (0.1.0)
@@ -158,11 +158,13 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
     vpim (0.695)
+    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  action_mailer_tls
   atom-tools
   capistrano
   chronic
@@ -176,11 +178,11 @@ DEPENDENCIES
   hoe
   hpricot
   httparty
-  mislav-will_paginate
   mongrel (= 1.2.0.pre2)
   mysql
   nokogiri (= 1.4.1)
   pdf-writer
+  permalink_fu
   populator
   prism
   rails (= 3.0.3)
@@ -193,3 +195,4 @@ DEPENDENCIES
   simple_captcha!
   sqlite3-ruby
   vpim
+  will_paginate (~> 3.0.pre2)

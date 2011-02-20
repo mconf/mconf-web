@@ -26,7 +26,9 @@ class AgendaEntry < ActiveRecord::Base
   acts_as_stage
   acts_as_content :reflection => :agenda
   acts_as_resource
-  
+
+  # TODO is_indexed comes from Ultrasphinx
+=begin
   is_indexed :fields => ['title','description','speakers','start_time','end_time'],
              :include =>[{:class_name => 'Event',
                           :field => 'name',
@@ -34,51 +36,52 @@ class AgendaEntry < ActiveRecord::Base
                           :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}],
              :concatenate => [ { :class_name => 'Profile',:field => 'full_name',:as => 'registered_speakers',
                                  :association_sql => "LEFT OUTER JOIN performances ON (performances.`stage_id` = agenda_entries.`id` AND performances.`stage_type` = 'AgendaEntry' AND performances.`agent_type` = 'User') LEFT OUTER JOIN profiles ON (profiles.`user_id` = performances.`agent_id`)"}]
-  
+=end
+
   validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
-  
-  # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording 
+
+  # Minimum duration IN MINUTES of an agenda entry that is NOT excluded from recording
   MINUTES_NOT_EXCLUDED =  30
-  
+
   #param that will be saved in the field video_type
   #automatic: if the user wants the automatic recorded video (only available if the event recording type is set to automatic or manual, i.e. the entry has video)
   #embedded: if the user discards the automatic and adds an embed
   #uploaded: if the user discards the automatic and uploads a new video
   #none: the user does not want video for this entry
   VIDEO_TYPE = [:automatic, :embedded, :uploaded, :none]
-  
+
   before_validation do |agenda_entry|
     # Convert duration in end_time
     if agenda_entry.end_time.nil? || (agenda_entry.duration != agenda_entry.end_time - agenda_entry.start_time)
       agenda_entry.end_time = agenda_entry.start_time + agenda_entry.duration.to_i.minutes
     end
-    
+
     # Fill attachment fields
     agenda_entry.attachments.each do |a|
       a.space  ||= agenda_entry.agenda.event.space
       a.event  ||= agenda_entry.agenda.event
-      a.author ||= agenda_entry.author    
-    end     
+      a.author ||= agenda_entry.author
+    end
   end
-  
+
   def validate
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
-    
-    if(self.start_time > self.end_time)      
+
+    if(self.start_time > self.end_time)
       self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
-    end  
-    
-   
+    end
+
+
     if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date)
       #debugger
       self.errors.add_to_base I18n.t('agenda.entry.error.out_of_event')
       return
     end
-    
+
     self.agenda.contents_for_day(self.event_day).each do |content|
       next if ( (content.class == AgendaEntry) && (content.id == self.id) )
-      
+
       if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
         unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
           self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
@@ -96,15 +99,15 @@ class AgendaEntry < ActiveRecord::Base
         end
       end
     end
-    
+
   end
-  
+
   before_save do |entry|
     if entry.embedded_video.present?
       entry.video_thumbnail  = entry.get_background_from_embed
-    end      
+    end
   end
-  
+
   after_create do |entry|
     # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
     #    entry.attachments.each do |a|
@@ -116,16 +119,16 @@ class AgendaEntry < ActiveRecord::Base
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
     end
-    
+
     #check the correct option for video_type param in agenda_entry
     if entry.event.is_in_person?
       entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:none))
     else
       entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:automatic))
     end
-    
+
   end
-  
+
   after_update do |entry|
     #Delete old attachments
     # FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
@@ -139,30 +142,30 @@ class AgendaEntry < ActiveRecord::Base
       end
     end
   end
-  
+
   after_save do |entry|
     entry.event.agenda.touch
   end
-  
-  
-  after_destroy do |entry|  
+
+
+  after_destroy do |entry|
     if entry.title.present?
       FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     end
   end
-  
+
   def duration
     @duration ||= end_time - start_time
   end
-  
+
   def space
-    event.present? ? event.space : nil 
+    event.present? ? event.space : nil
   end
-  
+
   def event
     agenda.present? ? agenda.event : nil
   end
-  
+
   def recording?
     if event.recording_type == Event::RECORDING_TYPE.index(:manual)
       return session_status==SESSION_STATUS[:published]
@@ -172,52 +175,52 @@ class AgendaEntry < ActiveRecord::Base
       return embedded_video.present? && embedded_video != ""
     elsif video_type == VIDEO_TYPE.index(:uploaded)
       return true
-    else 
+    else
       return false
     end
-    
+
 =begin
     if !event.uses_conference_manager?  #manual mode
       if embedded_video.present? && embedded_video != ""
         return true
-      else 
+      else
         return false
       end
     else #automatic mode, the event uses the CM
       if discard_automatic_video
         if embedded_video.present? && embedded_video != ""
           return true
-        else 
+        else
           return false
         end
-      else        
+      else
         if event.recording_type == Event::RECORDING_TYPE.index(:manual)
-          return session_status==SESSION_STATUS[:published]             
+          return session_status==SESSION_STATUS[:published]
         elsif event.recording_type == Event::RECORDING_TYPE.index(:automatic)
           return past?
         else #recording_type :none
           return false
-        end      
+        end
       end
     end
 =end
   end
-  
-    
+
+
   scope :with_recording, lambda {
     where("embedded_video is not ? or cm_recording = ?", nil, true)
   }
-  
+
   def streaming?
     cm_streaming?
   end
-  
+
   def thumbnail
     video_thumbnail.present? ?
     video_thumbnail :
       "default_background.jpg"
   end
-  
+
   #returns the player with the specified width and height
   #or the embedded_video or the uploaded video if the entry has one
   def video_player(width, height)
@@ -232,66 +235,66 @@ class AgendaEntry < ActiveRecord::Base
         nil
       end
   end
- 
-  
+
+
   #returns the editor with the specified width and height
   def video_editor(width, height)
     editor(width, height)
   end
-  
-  
+
+
   def initDate
     DateTime.strptime(cm_session.initDate)
   end
-  
+
   def endDate
     DateTime.strptime(cm_session.endDate)
   end
-  
+
   def past?
     return end_time.past?
-  end  
-  
+  end
+
   def name
     cm_session.try(:name)
   end
-  
+
   def has_error?
     return self.cm_error.present?
   end
-  
+
   #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
   def event_day
     return ((self.start_time - event.start_date + event.start_date.hour.hours)/86400).floor + 1
   end
-  
-  
+
+
   def parse_embedded_video
     Nokogiri.parse embedded_video
   end
-  
+
   def embedded_video_attribute(a)
     parse_embedded_video.xpath("//@#{ a }").first.try(:value)
   end
-  
+
   def get_src_from_embed
     embedded_video_attribute("src")
   end
-  
+
   def get_background_from_embed
    (get_src_from_embed) && (query = URI.parse(get_src_from_embed).query) && (CGI.parse(query)["image"].try(:first))
   end
-  
+
   def is_happening_now?
-    return start_time.past? && end_time.future?    
+    return start_time.past? && end_time.future?
   end
-  
+
   def generate_uid
-    
-    Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase 
-    
+
+    Time.now.strftime("%Y%m%d%H%M%S").to_s + (1..18).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join.to_s.downcase
+
   end
-  
+
 =begin
   def to_json
     result = {}
@@ -301,7 +304,7 @@ class AgendaEntry < ActiveRecord::Base
     result.to_json
   end
 =end
-  
+
   def video_unique_pageviews
     # Use only the canonical aggregated url of the video (all views have been previously added here in the rake task)
     corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/videos/'+ self.id.to_s])
@@ -313,12 +316,12 @@ class AgendaEntry < ActiveRecord::Base
       raise "Incorrectly parsed statistics"
     end
   end
-  
+
   authorization_delegate(:event,:as => :content)
   authorization_delegate(:space,:as => :content)
-  
+
   include ConferenceManager::Support::AgendaEntry
-  
+
   def to_fullcalendar_json
       "{
          title: \"#{title ? sanitize_for_fullcalendar(title) : ''}\",
@@ -329,18 +332,18 @@ class AgendaEntry < ActiveRecord::Base
   description: \"#{description ? sanitize_for_fullcalendar(description) : ''}\",
          speakers: \"#{sanitize_for_fullcalendar(complete_speakers)}\",
          supertitle: \"#{divider ? sanitize_for_fullcalendar(divider) : ''}\"
-       }"  
+       }"
 end
 
 private
 
-def sanitize_for_fullcalendar(string) 
+def sanitize_for_fullcalendar(string)
   string.gsub("\r","").gsub("\n","<br />").gsub(/["]/, '\'')
 end
 
 def complete_speakers
  (actors + [speakers]).compact.map{ |a|
-    a.is_a?(User) ? 
+    a.is_a?(User) ?
     a.name :
      (a=="" ? nil : a)
   }.compact.join(", ")

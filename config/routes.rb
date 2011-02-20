@@ -1,5 +1,5 @@
 Vcc::Application.routes.draw do
-  
+
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
 
   # Route for text logos creation
@@ -8,40 +8,57 @@ Vcc::Application.routes.draw do
   match '/ui/:action', :to => 'ui'
 
   # Global search
-  match '/search.:format', :to => 'search#index', :as => 'search_all' #=> /search, SearchController  
-  match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
+  match '/search.:format', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
+  match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
 
   # Search in the space
-  match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController  
-  match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
-  
+  match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController
+  match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
+
   resources :logos
   resources :screencasts
-  
-##
-  # map.resources :machines, :collection => [:contact_mail, :my_mailer ]
+
   resources :machines do
     collection do
       get :contact_mail
       get :my_mailer
     end
   end
-##
 
-  map.resources :spaces, :member => {:enable => :post} do |space|
-    space.resources :users do |user|
-      user.resource :profile
+  resources :spaces do |space|
+
+    member do
+      post :enable
+    end
+
+    resources :users do |user|
+      resource :profile
     end
 
     resources :videos
     resources :readers
-##
-    space.resources :events,
-                     :collection => [:add_time, :copy_next_week, :remove_time],
-                     :member => { :token => :get, :spam => :post, :spam_lightbox => :get, :start => :post, :chat => :get, :webstats => :get, :webmap => :get } do |event|
-##
+
+    resources :events do |event|
+
+      member do
+        get :token
+        post :spam
+        get :spam_lightbox
+        post :start
+        get :chat
+        get :webstats
+        get :webmap
+      end
+
+      collection do
+        get :add_time
+        get :copy_next_week
+        get :remove_time
+      end
+
       resources :invitations
       resources :participants
+
       resource :agenda do
         member do
           get :generate_pdf
@@ -57,9 +74,9 @@ Vcc::Application.routes.draw do
         resources :agenda_record_entries
       end
 
-##
+## TODO check
       #event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
-      resource :logo, :as => 'event_logos' do
+      resource :event_logos, :as => 'logo' do
         member do
           post :precrop
         end
@@ -74,18 +91,18 @@ Vcc::Application.routes.draw do
         get :spam_lightbox
       end
     end
-  
-##  
+
+## TODO check
     #Route to delete attachment collections with a DELETE to /:space_id/attachments
-    space.attachments 'attachments', :controller => 'attachments' , :action => 'delete_collection', :conditions => { :method => :delete }
-    #match 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
+    #space.attachments 'attachments', :controller => 'attachments' , :action => 'delete_collection', :conditions => { :method => :delete }
+    delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
 ##
     resources :attachments do
       member do
         get :edit_tags
       end
     end
-    
+
     resources :entries
     resource :logo do
       member do
@@ -102,14 +119,11 @@ Vcc::Application.routes.draw do
     resources :news
   end
 
-##
-  # resources :invitations, :member => [ :accept ]
   resources :invitations do
     member do
       get :accept
     end
   end
-##
 
   resources :performances
   resources :admissions
@@ -131,9 +145,9 @@ Vcc::Application.routes.draw do
       post :enable
     end
 
-##
-    # user.resources :messages, :controller => 'private_messages' 
-    resources :messages, :as => 'private_messages' 
+## TODO check
+    # user.resources :messages, :controller => 'private_messages'
+    resources :private_messages, :as => 'messages'
 ##
     resource :profile do
       resource :logo
@@ -154,16 +168,16 @@ Vcc::Application.routes.draw do
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'
   match '/manage/spam', :to => 'manage#spam', :as => 'manage_spam'
-  
+
   # Locale controller (globalize)
-  match ':locale/:controller/:action/:id'  
+  match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
 
   # simple_captcha controller
   match '/simple_captcha/:action', :to => 'simple_captcha', :as => 'simple_captcha'
 
   # root
-  root :to => 'frontpage'
+  root :to => 'frontpage#index'
   match 'about', :to => 'frontpage#about', :as => 'about'
   match 'about2', :to => 'frontpage#about2', :as => 'about2'
   match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
@@ -174,8 +188,8 @@ Vcc::Application.routes.draw do
   # CMSplugin
   #
   # (se quedara obsoleto con la nueva version del plugin)
-  #  
-  
+  #
+
 ##
 #  map.open_id_complete 'session/open_id_complete',
 #                       { :open_id_complete => true,
@@ -199,11 +213,11 @@ Vcc::Application.routes.draw do
   #map.add_time '/spaces/:space_id/add_time', :controller => 'events', :action => 'add_time' #=> TimesController o (NO REST) Anadir a events :member => [ :add_time ]
   #map.copy_next_week '/spaces/:space_id/copy_next_week', :controller => 'events', :action => 'copy_next_week' #=> TimesController o (NO REST) Anadir a events :member => [ :copy_next_week ]
   #map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time' #=> TimesController o (NO REST) Anadir a events :member => [ :remove_time ]
-  
+
   match '/change_space', :to => 'spaces#change_space', :as => 'change_space'
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
-  
+
   match '/:controller(/:action(/:id))'
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

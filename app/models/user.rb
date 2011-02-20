@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -36,7 +37,7 @@ class User < ActiveRecord::Base
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
   has_many :groups, :through => :memberships
-  
+
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :timezone
@@ -44,7 +45,9 @@ class User < ActiveRecord::Base
   attr_accessible :chat_activation
   attr_accessible :special_event_id
   attr_accessor :special_event_id
-  
+
+  # TODO is_indexed comes from Ultrasphinx
+=begin
   is_indexed :fields => ['login','email'],
              :conditions => "disabled = 0",
              :include => [ {:class_name => 'Profile',:field => 'full_name',:as => 'full_name'},
@@ -55,7 +58,7 @@ class User < ActiveRecord::Base
              :concatenate => [ { :class_name => 'Tag',:field => 'name',:as => 'tags',
                                  :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
              }]
-
+=end
 
   default_scope :conditions => {:disabled => false}
 
@@ -96,7 +99,7 @@ class User < ActiveRecord::Base
       Performance.create! :agent => user,
                           :stage => user.special_event,
                           :role  => Role.find_by_name("Invitedevent")
-                          
+
       part_aux = Participant.new
       part_aux.email = user.email
       part_aux.user_id = user.id
@@ -137,12 +140,12 @@ class User < ActiveRecord::Base
 
     u && u.password_authenticated?(password) ? u : nil
   end
-  
+
   after_update { |user|
-      if user.email_changed? 
+      if user.email_changed?
         user.groups.each do |group|
           if group.mailing_list.present?
-=begin            
+=begin
             delete_list(group,group.mailing_list)
             group.mail_list_archive
             copy_list(group,group.mailing_list)
@@ -153,7 +156,7 @@ class User < ActiveRecord::Base
         Group.request_list_update
       end
   }
-  
+
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)
     user = {}
@@ -171,7 +174,7 @@ class User < ActiveRecord::Base
     end
     tags = t.join(sep=",")
 
-    { :user => user, :tags => tags}     
+    { :user => user, :tags => tags}
   end
 
 
@@ -179,7 +182,7 @@ class User < ActiveRecord::Base
     self.update_attribute(:disabled,true)
     self.agent_performances.each(&:destroy)
   end
-  
+
   def enable
     self.update_attribute(:disabled,false)
   end
@@ -195,7 +198,7 @@ class User < ActiveRecord::Base
   def public_fellows
     fellows
   end
-  
+
   def private_fellows
     stages(:type => "Space").select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
   end
@@ -211,11 +214,11 @@ class User < ActiveRecord::Base
   authorizing do |agent, permission|
     true if agent == self
   end
-  
+
   def has_events_in_this_space?(space)
     !events.select{|ev| ev.space==space}.empty?
   end
-    
+
   def special_event
 
     if (self.special_event_id.blank?)
@@ -230,5 +233,5 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
 end
