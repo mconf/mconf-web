@@ -65,7 +65,8 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
 
-  def validate
+  validate :validate_method
+  def validate_method
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
 
     if(self.start_time > self.end_time)

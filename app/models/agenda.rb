@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -44,7 +45,8 @@ class Agenda < ActiveRecord::Base
     event.space
   end
   
-  def validate
+  validate :validate_method
+  def validate_method
     errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
   end
   

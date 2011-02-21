@@ -18,71 +18,71 @@ module ConferenceManager
         def included(base)
           base.class_eval do
 
-            validate :on_create, :on => :create
+            validate :validate_create_method, :on => :create
 
-            def validate_create(event)
-              if event.uses_conference_manager?
-                if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
-                  end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
+            def validate_create_method
+              if self.uses_conference_manager?
+                if self.recording_type == ::Event::RECORDING_TYPE.index(:manual)
+                  end_date_after_adjust = self.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
                 else
-                  end_date_after_adjust = event.end_date
+                  end_date_after_adjust = self.end_date
                 end
                 cm_e =
-                  ConferenceManager::Event.new(:name => event.name,
-                                               :mode => event.cm_mode,
-                                               :initDate => event.start_date,
+                  ConferenceManager::Event.new(:name => self.name,
+                                               :mode => self.cm_mode,
+                                               :initDate => self.start_date,
                                                :endDate => end_date_after_adjust,
                                                :enable_web => "1",
                                                :enable_isabel => "1",
-                                               :enable_sip => event.sip_interface?,
+                                               :enable_sip => self.sip_interface?,
                                                :enable_httplivestreaming => "0",
-                                               :isabel_bw => event.isabel_bw,
-                                               :web_bw => WEB_BANDWIDTH[event.web_bw],
-                                               :recording_bw => RECORDING_BANDWIDTH[event.recording_bw],
-                                               :httplivestreaming_bw => WEB_BANDWIDTH[event.web_bw],
-                                               :web_codec => WEB_CODEC[event.web_bw],
-                                               :recording_codec => RECORDING_CODEC[event.recording_bw],
-                                               :path => "attachments/conferences/#{event.permalink}")
+                                               :isabel_bw => self.isabel_bw,
+                                               :web_bw => WEB_BANDWIDTH[self.web_bw],
+                                               :recording_bw => RECORDING_BANDWIDTH[self.recording_bw],
+                                               :httplivestreaming_bw => WEB_BANDWIDTH[self.web_bw],
+                                               :web_codec => WEB_CODEC[self.web_bw],
+                                               :recording_codec => RECORDING_CODEC[self.recording_bw],
+                                               :path => "attachments/conferences/#{self.permalink}")
                 begin 
                   cm_e.save
-                  event.cm_event_id = cm_e.id
+                  self.cm_event_id = cm_e.id
                 rescue StandardError => e
-                  event.errors.add_to_base(e.to_s)
+                  self.errors.add_to_base(e.to_s)
                 end        
               end
             end
            
-            validate :on_update, :on => :update
+            validate :validate_update_method, :on => :update
 
-            def validate_update(event)      
-              if !event.past? && event.uses_conference_manager? && (event.changed & CM_ATTRIBUTES).any? 
-                if event.recording_type == ::Event::RECORDING_TYPE.index(:manual)
-                  end_date_after_adjust = event.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
+            def validate_update_method
+              if !self.past? && self.uses_conference_manager? && (self.changed & CM_ATTRIBUTES).any? 
+                if self.recording_type == ::Event::RECORDING_TYPE.index(:manual)
+                  end_date_after_adjust = self.end_date + ::Event::EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC
                 else
-                  end_date_after_adjust = event.end_date
+                  end_date_after_adjust = self.end_date
                 end
-                new_params = { :name => event.name,
-                               :mode => event.cm_mode,
-                               :initDate => event.start_date,
+                new_params = { :name => self.name,
+                               :mode => self.cm_mode,
+                               :initDate => self.start_date,
                                :endDate => end_date_after_adjust,
                                :enable_web => "1",
                                :enable_isabel => "1",
-                               :enable_sip => event.sip_interface?,
+                               :enable_sip => self.sip_interface?,
                                :enable_httplivestreaming => "0",
-                               :isabel_bw => event.isabel_bw,
-                               :web_bw => WEB_BANDWIDTH[event.web_bw],
-                               :recording_bw => RECORDING_BANDWIDTH[event.recording_bw],
-                               :httplivestreaming_bw => WEB_BANDWIDTH[event.web_bw],
-                               :web_codec => WEB_CODEC[event.web_bw],
-                               :recording_codec => RECORDING_CODEC[event.recording_bw],
-                               :path => "attachments/conferences/#{event.permalink}" }
-                cm_event = event.cm_event
-                cm_event.load(new_params)  
+                               :isabel_bw => self.isabel_bw,
+                               :web_bw => WEB_BANDWIDTH[self.web_bw],
+                               :recording_bw => RECORDING_BANDWIDTH[self.recording_bw],
+                               :httplivestreaming_bw => WEB_BANDWIDTH[self.web_bw],
+                               :web_codec => WEB_CODEC[self.web_bw],
+                               :recording_codec => RECORDING_CODEC[self.recording_bw],
+                               :path => "attachments/conferences/#{self.permalink}" }
+                cm_event = self.cm_event
+                cm_event.load(new_params)
 
                 begin
                   cm_event.save
                 rescue  StandardError =>e
-                  event.errors.add_to_base(e.to_s)  
+                  self.errors.add_to_base(e.to_s)  
                 end
               end  
             end

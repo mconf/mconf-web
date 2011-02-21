@@ -97,7 +97,8 @@ class Attachment < ActiveRecord::Base
 
   protected
 
-  def validate
+  validate :validate_method
+  def validate_method
     errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
     if version_parent_id.present?
       @version_parent = Attachment.find(version_parent_id)

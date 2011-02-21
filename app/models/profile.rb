@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -40,7 +41,8 @@ class Profile < ActiveRecord::Base
 
   before_validation :from_vcard
 
-  def validate
+  validate :validate_method
+  def validate_method
     errors.add_to_base(@vcard_errors) if @vcard_errors.present?
   end
   

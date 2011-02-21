@@ -195,7 +195,8 @@ class Event < ActiveRecord::Base
   MAX_DAYS = 5
 
 
-  def validate
+  validate :validate_method
+  def validate_method
     #    if start_date.to_date.past?
     #      errors.add_to_base(I18n.t('event.error.date_past'))
     #    end

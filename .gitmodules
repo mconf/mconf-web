@@ -1,4 +1,4 @@
 [submodule "vendor/plugins/station"]
         path = vendor/plugins/station
-        url = http://git-isabel.dit.upm.es/station.git
+        url = git@github.com:mconf/station.git
 

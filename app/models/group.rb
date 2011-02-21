@@ -27,7 +27,8 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of(:mailing_list, :allow_nil => true, :allow_blank => true, :message => I18n.t('group.existing'))
 
-  def validate
+  validate :validate_method
+  def validate_method
 
     reserved_mailing_list = 'sir'
 
