@@ -155,9 +155,9 @@ class Attachment < ActiveRecord::Base
     end
 
     if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we create the hard link
-      unless File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
-        FileUtils.ln(attachment.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+      unless File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
+        FileUtils.ln(attachment.full_filename, "#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
       end
     end
   end
@@ -183,8 +183,8 @@ class Attachment < ActiveRecord::Base
     end
 
     if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we delete the hard link
-      if File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+      if File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
       end
     end
   end

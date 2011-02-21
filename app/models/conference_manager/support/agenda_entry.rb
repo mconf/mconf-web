@@ -15,7 +15,7 @@ module ConferenceManager
           base.class_eval do
 
             #TODO was :validate_create(entry)
-            validate validate_create(entry), :on => :create
+            validate :validate_create, :on => :create
 
             def validate_create(entry)
 
@@ -45,7 +45,7 @@ module ConferenceManager
             end
 
             #TODO was :validate_update(entry)
-            validate validate_update(entry), :on => :update
+            validate :validate_update, :on => :update
 
             def validate_update(entry)
               if entry.errors.empty? && entry.event.uses_conference_manager?

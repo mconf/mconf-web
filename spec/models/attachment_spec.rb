@@ -5,7 +5,7 @@ describe Attachment do
   fixtures :users, :spaces
 
   TEST_FILE_NAME = "grid.png"
-  TEST_FILE_PATH = "#{ RAILS_ROOT }/public/images/#{ TEST_FILE_NAME }"
+  TEST_FILE_PATH = "#{ Rails.root.to_s }/public/images/#{ TEST_FILE_NAME }"
   TEST_CONTENT_TYPE = "image/png"
 
   it "should create a new instance given valid attributes" do

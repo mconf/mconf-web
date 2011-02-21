@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -17,14 +18,14 @@
 
 class UserObserver < ActiveRecord::Observer
   def after_create(user)
-    Notifier.deliver_confirmation_email(user) unless user.activated_at
+    Notifier.confirmation_email(user).deliver unless user.activated_at
   end
 
   def after_save(user)
     if user.class.password_recovery?
-      Notifier.deliver_activation(user) if user.recently_activated?
-      Notifier.deliver_lost_password(user) if user.recently_lost_password?
-      Notifier.deliver_reset_password(user) if user.recently_reset_password?
+      Notifier.activation(user).deliver if user.recently_activated?
+      Notifier.lost_password(user).deliver if user.recently_lost_password?
+      Notifier.reset_password(user).deliver if user.recently_reset_password?
     end
   end
 end

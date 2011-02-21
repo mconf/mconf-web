@@ -111,10 +111,10 @@ class AgendaEntry < ActiveRecord::Base
   after_create do |entry|
     # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
     #    entry.attachments.each do |a|
-    #      FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
-    #      FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+    #      FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+    #      FileUtils.ln(a.full_filename, "#{Rails.root.to_s}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
     #    end
-    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
+    FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     if entry.uid.blank?
       entry.uid = entry.generate_uid + "@" + entry.id.to_s + ".vcc"
       entry.save
@@ -131,14 +131,14 @@ class AgendaEntry < ActiveRecord::Base
 
   after_update do |entry|
     #Delete old attachments
-    # FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
+    # FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     #create new attachments
     entry.attachments.reload
     entry.attachments.each do |a|
       # check if the attachment had already been created
-      unless File.exist?("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
-        FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
-        FileUtils.ln(a.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+      unless File.exist?("#{Rails.root.to_s}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
+        FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}")
+        FileUtils.ln(a.full_filename, "#{Rails.root.to_s}/attachments/conferences/#{a.event.permalink}/#{entry.title.gsub(" ","_")}/#{a.filename}")
       end
     end
   end
@@ -150,7 +150,7 @@ class AgendaEntry < ActiveRecord::Base
 
   after_destroy do |entry|
     if entry.title.present?
-      FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
+      FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{entry.event.permalink}/#{entry.title.gsub(" ","_")}")
     end
   end
 

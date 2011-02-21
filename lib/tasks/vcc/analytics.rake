@@ -76,7 +76,7 @@ namespace :vcc do
 
 
   def garb_login
-    myhash = YAML.load_file("#{RAILS_ROOT}/config/google_user_passwd.yml")
+    myhash = YAML.load_file("#{Rails.root.to_s}/config/google_user_passwd.yml")
     user = myhash["user"]
     pass = myhash["passwd"]
     agent = myhash["agent"]

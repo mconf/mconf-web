@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Require Station Model
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/models/site"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/models/site"
 
 class Site
   acts_as_stage

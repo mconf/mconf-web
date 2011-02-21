@@ -54,5 +54,7 @@ module Vcc
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
+    # Load files inside the lib folder. Not the best approach, see http://www.strictlyuntyped.com/2008/06/rails-where-to-put-other-files.html
+    config.autoload_paths += %W( #{ Rails.root }/lib )
   end
 end

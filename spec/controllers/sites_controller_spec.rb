@@ -4,7 +4,7 @@ describe SitesController do
   
   include ActionController::AuthenticationTestHelper
   
-  integrate_views
+  render_views
   
   before(:all) do
     @superuser = Factory(:superuser)

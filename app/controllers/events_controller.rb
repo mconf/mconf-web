@@ -95,7 +95,7 @@ class EventsController < ApplicationController
            name = "agenda_" + @event.permalink + ".pdf"
          end
            
-         pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+         pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{nombre}"
          send_file pdf_path
 
        }
@@ -164,7 +164,7 @@ class EventsController < ApplicationController
                 name = "agenda_" + @event.permalink + ".pdf"
               end
               
-              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{name}"
+              pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{name}"
               send_file pdf_path
 
            }             
@@ -470,13 +470,13 @@ class EventsController < ApplicationController
     #if there is no video_entries we don't generate the scorm and return 
     
     if @event.scorm_needs_generate      
-      t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+      t = File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", 'w')
       Zip::ZipOutputStream.open(t.path) do |zos|
         @event.generate_scorm_manifest_in_zip(zos)
         
         @video_entries.each do |entry|
           @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
-          #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
+          #File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
           zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
           zos.print @render        
           entry.attachments.each do |file|
@@ -486,19 +486,19 @@ class EventsController < ApplicationController
         end   
         #in the end we include the css for the html files and the images
         zos.put_next_entry("scorm.css")
-        zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
+        zos.print IO.read("#{Rails.root.to_s}/public/stylesheets/scorm.css")
         
         zos.put_next_entry("bola_global_peque.png")
-        zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
+        zos.print IO.read("#{Rails.root.to_s}/public/images/bola_global_peque.png")
         
         zos.put_next_entry("vcc-logo-transparente1.png")
-        zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
+        zos.print IO.read("#{Rails.root.to_s}/public/images/vcc-logo-transparente1.png")
         
       end    
       t.close
     end
     
-    send_file "#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
+    send_file "#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
   end
 end
 

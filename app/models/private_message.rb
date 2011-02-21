@@ -34,7 +34,7 @@ class PrivateMessage < ActiveRecord::Base
               end
     where(:deleted_by_receiver => false, :receiver_id => user_id).order("created_at DESC")
   }
-  
+
   scope :sent, lambda{ |user|
     user_id = case user
               when User
@@ -46,15 +46,15 @@ class PrivateMessage < ActiveRecord::Base
   }
 
 # Commented because it causes an error when a user is joining to a space and sends private messages to space admins
-                          
+
 #  def validate
 #    unless User.find(self.sender_id).fellows.include?(User.find(self.receiver_id))
 #      errors.add(:receiver_id, "Receiver and sender have to share one or more spaces.")
 #    end
 #  end
 
-
-	def after_update
+  after_update :after_update_method
+  def after_update_method
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
 

@@ -28,7 +28,8 @@ class Event < ActiveRecord::Base
   has_logo :class_name => "EventLogo"
   has_permalink :name, :update=>true
 
-  include EventToPdf
+  # TODO PDF creation must be reimplemented. See README.
+  # include EventToPdf
   include EventToIcs
 
   acts_as_resource :per_page => 10, :param => :permalink
@@ -132,7 +133,7 @@ class Event < ActiveRecord::Base
     end
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
     img_orig = img_orig.scale(256, 256)
-    images_path = File.join(RAILS_ROOT, "public", "images")
+    images_path = File.join(Rails.root.to_s, "public", "images")
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
@@ -153,7 +154,7 @@ class Event < ActiveRecord::Base
     #debugger
     logo = self.build_logo(logo)
 
-    images_path = File.join(RAILS_ROOT, "public", "images")
+    images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
     #debugger
 
@@ -222,7 +223,7 @@ class Event < ActiveRecord::Base
     #create an empty agenda
     event.agenda = Agenda.create
     #create a directory to save attachments
-    FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
+    FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     if event.author.present?
       event.stage_performances.create! :agent => event.author, :role  => Event.role("Organizer")
     end
@@ -316,8 +317,8 @@ class Event < ActiveRecord::Base
 
 
   after_destroy do |event|
-    FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{event.permalink}")
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/pdf/#{event.permalink}")
+    FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
+    FileUtils.rm_rf("#{Rails.root.to_s}/public/pdf/#{event.permalink}")
 
     if event.marte_event? && event.marte_room?
       begin
@@ -559,7 +560,7 @@ class Event < ActiveRecord::Base
 
   #method to know if a scorm file needs to be generated
   def scorm_needs_generate
-    isFile = File.exist?("#{RAILS_ROOT}/public/scorm/#{permalink}.zip")
+    isFile = File.exist?("#{Rails.root.to_s}/public/scorm/#{permalink}.zip")
 
     if !(isFile) or !(generate_scorm_at) or generate_scorm_at < agenda.updated_at
       Event.record_timestamps=false
@@ -619,7 +620,7 @@ class Event < ActiveRecord::Base
     end
     zos.put_next_entry("imsmanifest.xml")
     zos.print myxml.target!()
-    #File.open("#{RAILS_ROOT}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
+    #File.open("#{Rails.root.to_s}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
   end
 
 

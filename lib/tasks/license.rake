@@ -23,7 +23,7 @@ namespace :license do
   desc "Add license file in all controllers and models"
   task :add do
     LICENSE_DIRS.each do |dir|
-      Dir[File.join(RAILS_ROOT, dir, '*')].each do |file|
+      Dir[File.join(Rails.root.to_s, dir, '*')].each do |file|
         content = File.new(file, 'r').read
         next if content.include?(LICENSE_HEADER)
         File.new(file, 'w').write(LICENSE_HEADER + content)
@@ -33,7 +33,7 @@ namespace :license do
 
   task :remove do
     LICENSE_DIRS.each do |dir|
-      Dir[File.join(RAILS_ROOT, dir, '*')].each do |file|
+      Dir[File.join(Rails.root.to_s, dir, '*')].each do |file|
         content = File.new(file, 'r').read
         File.new(file, 'w').write(content.gsub(LICENSE_HEADER, ""))
       end

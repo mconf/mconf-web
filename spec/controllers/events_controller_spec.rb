@@ -10,7 +10,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EventsController do
   include ActionController::AuthenticationTestHelper
-  integrate_views
+  render_views
   
   describe "when you are logged as" do
     

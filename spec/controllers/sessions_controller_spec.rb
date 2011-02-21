@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe SessionsController do
   include ActionController::AuthenticationTestHelper
 
-  integrate_views
+  render_views
 
   describe "new" do
     it 'should render' do

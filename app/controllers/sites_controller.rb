@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Require Station Controller
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/sites_controller"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/sites_controller"
 
 class SitesController
   authorization_filter :manage, :current_site

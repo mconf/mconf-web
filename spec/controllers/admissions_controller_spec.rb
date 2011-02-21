@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AdmissionsController do
   include ActionController::AuthenticationTestHelper
   
-  integrate_views
+  render_views
   
   before(:all) do
     @space = Factory(:space)

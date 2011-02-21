@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Require Station Controller
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/performances_controller"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/performances_controller"
 
 class PerformancesController
   authorization_filter :create, :performance, :only => [ :new, :create ]
