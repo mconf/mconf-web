@@ -54,7 +54,7 @@ class Logo
 
   def aspect_ratio
     img = Magick::Image.read(temp_path).first
-    errors.add_to_base("Aspect ratio invalid. Enable javascript to crop the image easily." ) unless (img.columns.to_f/img.rows.to_f*10).round ==  (ASPECT_RATIO_F*10).round
+    errors.add(:base, "Aspect ratio invalid. Enable javascript to crop the image easily." ) unless (img.columns.to_f/img.rows.to_f*10).round ==  (ASPECT_RATIO_F*10).round
   end
   
 end

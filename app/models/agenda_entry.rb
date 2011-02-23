@@ -70,13 +70,13 @@ class AgendaEntry < ActiveRecord::Base
     return if self.agenda.blank? || self.start_time.blank? || self.end_time.blank?
 
     if(self.start_time > self.end_time)
-      self.errors.add_to_base(I18n.t('agenda.entry.error.disordered_times'))
+      self.errors.add(:base, I18n.t('agenda.entry.error.disordered_times'))
     end
 
 
     if (self.start_time < self.agenda.event.start_date) or (self.end_time > self.agenda.event.end_date)
       #debugger
-      self.errors.add_to_base I18n.t('agenda.entry.error.out_of_event')
+      self.errors.add(:base, I18n.t('agenda.entry.error.out_of_event'))
       return
     end
 
@@ -85,17 +85,17 @@ class AgendaEntry < ActiveRecord::Base
 
       if (self.start_time <= content.start_time) && (self.end_time >= content.end_time)
         unless (content.start_time == content.end_time) && ((content.start_time == self.start_time) || (content.start_time == self.end_time))
-          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          self.errors.add(:base, I18n.t('agenda.entry.error.coinciding_times'))
           return
         end
       elsif (content.start_time..content.end_time) === self.start_time
         unless (self.start_time == content.end_time) || ((self.start_time == content.start_time) && (self.start_time == self.end_time)) then
-          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          self.errors.add(:base, I18n.t('agenda.entry.error.coinciding_times'))
           return
         end
       elsif (content.start_time..content.end_time) === self.end_time
         unless (self.end_time == content.start_time) || ((self.end_time == content.end_time) && (self.end_time == self.start_time)) then
-          self.errors.add_to_base(I18n.t('agenda.entry.error.coinciding_times'))
+          self.errors.add(:base, I18n.t('agenda.entry.error.coinciding_times'))
           return
         end
       end

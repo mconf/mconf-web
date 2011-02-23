@@ -43,7 +43,7 @@ class Profile < ActiveRecord::Base
 
   validate :validate_method
   def validate_method
-    errors.add_to_base(@vcard_errors) if @vcard_errors.present?
+    errors.add(:base, @vcard_errors) if @vcard_errors.present?
   end
   
   def prefix
@@ -150,7 +150,7 @@ class Profile < ActiveRecord::Base
     hcard = Prism.find(uri, :hcard)
 
     if hcard.blank?
-      errors.add_to_base(I18n.t("hcard.not_found"))
+      errors.add(:base, I18n.t("hcard.not_found"))
       return
     end
 

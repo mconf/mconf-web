@@ -47,7 +47,7 @@ module ConferenceManager
                   cm_e.save
                   self.cm_event_id = cm_e.id
                 rescue StandardError => e
-                  self.errors.add_to_base(e.to_s)
+                  self.errors.add(:base, e.to_s)
                 end        
               end
             end
@@ -82,7 +82,7 @@ module ConferenceManager
                 begin
                   cm_event.save
                 rescue  StandardError =>e
-                  self.errors.add_to_base(e.to_s)  
+                  self.errors.add(:base, e.to_s)  
                 end
               end  
             end
@@ -220,7 +220,7 @@ module ConferenceManager
         begin
           ConferenceManager::Start.create(:event_id => cm_event_id)
         rescue  StandardError => e
-          errors.add_to_base(e.to_s)  
+          errors.add(:base, e.to_s)  
         end
       end
     

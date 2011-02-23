@@ -6,7 +6,7 @@ describe Event do
     assert_equal @event.container_and_ancestors, [ @event, @event.space ]
   end
   
-  describe ", regarding invitations," do
+  describe "invitations," do
     
     before(:each) do
       
@@ -27,9 +27,9 @@ describe Event do
     it "should create Invitations to itself if it has mail addresses for that after saving" +
           " and those Invitations should have the proper content in their fields" do
       
-      assert_difference 'Admission.count', +2 do
+      expect {
         @event.update_attributes(:mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2, :invite_msg => @msg, :invit_introducer_id => @admin.id)
-      end
+      }.to change{ Admission.count }.by(2)
       
       invitation_1 = Admission.find_by_email(@unregistered_user_email_1)
       assert_equal("Invitation",invitation_1.type)
@@ -47,16 +47,14 @@ describe Event do
       assert_equal(@admin,invitation_2.introducer)
       assert_equal(@msg,invitation_2.comment)
       
-      invitation_2.destroy
-      invitation_1.destroy
     end
     
     it "should create Invitations to itself if it has user ids for that after saving" +
           " and those Invitations should have the proper content in their fields" do
       
-      assert_difference 'Admission.count', +2 do
+      expect {
         @event.update_attributes(:ids => [@registered_user_1.id , @registered_user_2.id], :invite_msg => @msg, :invit_introducer_id => @admin.id)
-      end
+      }.to change{ Admission.count }.by(2)
       
       invitation_1 = Admission.find_by_email(@registered_user_1.email)
       assert_equal("Invitation",invitation_1.type)
@@ -85,7 +83,7 @@ describe Event do
       event.should be_valid     
       event = Event.new(:name => "Fail Event", :start_date => Time.now,:end_date => Time.now + 899)
       event.should_not be_valid     
-      event.errors.on(:base).should == I18n.t('event.error.too_short')
+      event.errors[:base].should include(I18n.t('event.error.too_short'))
     end
     
     it "should not allow to create events with a duration more than 5 days" do
@@ -93,7 +91,7 @@ describe Event do
       event.should be_valid     
       event = Event.new(:name => "Fail Event", :start_date => Time.now,:end_date => Time.now + 6.days)
       event.should_not be_valid     
-      event.errors.on(:base).should == I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS)
+      event.errors[:base].should include(I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
     end
     
     it "should move an event" do

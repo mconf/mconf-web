@@ -41,7 +41,7 @@ en:
         missing: is missing
         not_a_number: is not a number
         odd: must be odd
-        record_invalid: "Validation failed: {{errors}}"
+        record_invalid: "Validation failed: %{errors}"
         taken: has already been taken
         too_long: is too long (maximum is {{count}} characters)
         too_short: is too short (minimum is {{count}} characters)

@@ -93,11 +93,11 @@ class Event < ActiveRecord::Base
 
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
-      self.errors.add_to_base I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS)
+      self.errors.add(:base, I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
       return false
     end
     if(self.end_date - self.start_date < 15.minutes)
-      self.errors.add_to_base I18n.t('event.error.too_short')
+      self.errors.add(:base, I18n.t('event.error.too_short'))
       return false
     end
   end
@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
       if !self.edit_date_action.eql?("move_event")
         agenda_entries.each do |agenda_entry|
           if (agenda_entry.start_time < self.start_date) or (agenda_entry.end_time > self.end_date)
-            self.errors.add_to_base I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title)
+            self.errors.add(:base, I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title))
             return false
           end
         end
@@ -198,13 +198,13 @@ class Event < ActiveRecord::Base
   validate :validate_method
   def validate_method
     #    if start_date.to_date.past?
-    #      errors.add_to_base(I18n.t('event.error.date_past'))
+    #      errors.add(:base, I18n.t('event.error.date_past'))
     #    end
     #    if self.start_date.nil? || self.end_date.nil?
-    #      errors.add_to_base(I18n.t('event.error.omit_date'))
+    #      errors.add(:base, I18n.t('event.error.omit_date'))
     #    else
     unless self.start_date < self.end_date
-      errors.add_to_base(I18n.t('event.error.dates1'))
+      errors.add(:base, I18n.t('event.error.dates1'))
     end
     #    end
     if self.marte_event? && ! self.marte_room?
@@ -212,11 +212,11 @@ class Event < ActiveRecord::Base
       begin
         MarteRoom.find(:all)
       rescue => e
-        errors.add_to_base(I18n.t('event.error.marte'))
+        errors.add(:base, I18n.t('event.error.marte'))
       end
     end
     #    unless self.start_date.future?
-    #      errors.add_to_base("The event start date should be a future date  ")
+    #      errors.add(:base, "The event start date should be a future date  ")
     #    end
   end
 

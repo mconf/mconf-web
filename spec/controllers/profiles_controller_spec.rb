@@ -25,20 +25,20 @@ describe ProfilesController do
       "creating the user automatically creates the profile") do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>@superuser.email}
-      assert_no_difference 'Profile.count' do
+      expect { 
         post :create, :user_id => @superuser.to_param, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_path(@superuser))
-      end
+      }.not_to change{ Profile.count }
     end 
 
     it "should be able to delete his profile" do
       @superuser.profile.update_attributes Factory.attributes_for(:profile)
-      assert_difference 'Profile.count', -1 do
+      expect {
         delete :destroy, :user_id => @superuser.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_path(@superuser))
-      end
+      }.to change{ Profile.count }.by(-1)
     end
     it "should be able to get the edit view for his profile" do
       #first we fill the user profile
@@ -72,11 +72,11 @@ describe ProfilesController do
     it "should be able to delete any user's profile" do 
       #first we fill the user profile
       @user.profile.update_attributes Factory.attributes_for(:profile)
-      assert_difference 'Profile.count', -1 do
+      expect {
         delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_path(@user))
-      end
+      }.to change{ Profile.count }.by(-1)
     end
 
     it "should be able to see his public and private profiles with visibility :everybody" do
@@ -186,11 +186,11 @@ describe ProfilesController do
     it "should be able to delete his profile" do
       login_as(@user)
       @user.profile.update_attributes Factory.attributes_for(:profile)
-      assert_difference 'Profile.count', -1 do
+      expect {
         delete :destroy, :user_id => @user.to_param
         flash[:notice].should == I18n.t('profile.deleted')
         response.should redirect_to(user_path(@user))
-      end
+      }.to change{ Profile.count }.by(-1)
     end
     it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
       "creating the user automatically creates the profile") do
@@ -204,11 +204,11 @@ describe ProfilesController do
       login_as(@user)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>@user.email}
-      assert_no_difference 'Profile.count' do
+      expect {
         post :create, :user_id => @user.to_param, :profile=> valid_attributes
         flash[:error].should == I18n.t('profile.error.exist')
         response.should redirect_to(user_path(@user))
-      end
+      }.not_to change{ Profile.count }
     end
     it "should NOT be able to get the new view for anyone's profile" do
       login_as(@user)
@@ -220,10 +220,10 @@ describe ProfilesController do
       login_as(@user)
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      assert_no_difference 'Profile.count' do
+      expect {
         post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 403
-      end
+      }.not_to change{ Profile.count }
     end
     it "should NOT be able to get the edit view for anyone's profile" do
       login_as(@user)
@@ -244,10 +244,10 @@ describe ProfilesController do
     it "should NOT be able to delete anyone's profile" do
       login_as(@user)
       @invited.profile.update_attributes Factory.attributes_for(:profile)
-      assert_no_difference 'Profile.count' do
+      expect {
         delete :destroy, :user_id => @invited.to_param
         assert_response 403
-      end
+      }.not_to change{ Profile.count }
     end
     
     it "should be able to see his public and private profiles with visibility :everybody" do
@@ -446,10 +446,10 @@ describe ProfilesController do
     it "should NOT be able to create anyone's profile" do 
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      assert_no_difference 'Profile.count' do
+      expect {
         post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 403
-      end
+      }.not_to change{ Profile.count }
     end
     it "should NOT be able to get the edit view for anyone's profile" do
       get :edit, :user_id => @invited.to_param
@@ -468,10 +468,10 @@ describe ProfilesController do
     end
     it "should NOT be able to delete anyone's profile" do
       @invited.profile.update_attributes Factory.attributes_for(:profile)
-      assert_no_difference 'Profile.count' do
+      expect {
         delete :destroy, :user_id => @invited.to_param
         assert_response 403
-      end
+      }.not_to change{ Profile.count }
     end
     
     #basic visibility tests because admin status will not affect visibility behaviour,
@@ -571,10 +571,10 @@ describe ProfilesController do
     it "should NOT be able to create anyone's profile" do 
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      assert_no_difference 'Profile.count' do
+      expect {
         post :create, :user_id => @invited.to_param, :profile=> valid_attributes
         assert_response 401
-      end
+      }.not_to change{ Profile.count }
     end
     it "should NOT be able to get the edit view for anyone's profile" do
       get :edit, :user_id => @invited.to_param
@@ -592,10 +592,10 @@ describe ProfilesController do
     end
     it "should NOT be able to delete anyone's profile" do
       @invited.profile.update_attributes Factory.attributes_for(:profile)
-      assert_no_difference 'Profile.count' do
+      expect {
         delete :destroy, :user_id => @invited.to_param
         assert_response 401
-      end
+      }.not_to change{ Profile.count }
     end
   
     it "should be able to see a user's public and private profiles with visibility :everybody" do

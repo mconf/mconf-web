@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -98,8 +99,8 @@ class PerformancesController
     if @performance.update_attributes(params[:performance])
       
       if stage.type.name == 'Space'
-        #Informer.deliver_performance_update_notification(sender,receiver, stage, rol)
-        Informer.deliver_performance_update_notification(current_user, @performance.agent, @performance.stage, @performance.role.name)
+        #Informer.performance_update_notification(sender,receiver, stage, rol).deliver
+        Informer.performance_update_notification(current_user, @performance.agent, @performance.stage, @performance.role.name).deliver
       end
       
     else

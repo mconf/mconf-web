@@ -20,10 +20,10 @@ describe Space do
   end
   
   it "should not create two instances with the same name" do
-    assert_difference 'Space.count', +1 do
+    expect {
       Space.create(@valid_attributes)
       Space.create(@valid_attributes)
-    end
+    }.to change{ Space.count }.by(1)
     assert_raise ActiveRecord::RecordInvalid do
       Space.create!(@valid_attributes).should be_false
     end
@@ -47,10 +47,10 @@ describe Space do
     it "should create Invitations to itself if it has mail addresses for that after saving" +
       " and those Invitations should have the proper content in their fields" do
 
-      assert_difference 'Admission.count', +2 do
+      expect {
         @space.update_attributes(:invitation_mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2, :invitations_role_id => @inv_role_id,
           :invite_msg => @msg, :inviter_id => @admin.id)
-      end
+      }.to change{ Admission.count }.by(2)
 
       invitation_1 = Admission.find_by_email(@unregistered_user_email_1)
       assert_equal("Invitation",invitation_1.type)
@@ -75,10 +75,10 @@ describe Space do
     it "should create Invitations to itself if it has user ids for that after saving" +
       " and those Invitations should have the proper content in their fields" do
 
-      assert_difference 'Admission.count', +2 do
+      expect {
         @space.update_attributes(:invitation_ids => [@registered_user_1.id , @registered_user_2.id], :invitations_role_id => @inv_role_id,
           :invite_msg => @msg, :inviter_id => @admin.id)
-      end
+      }.to change{ Admission.count }.by(2)
 
       invitation_1 = Admission.find_by_email(@registered_user_1.email)
       assert_equal("Invitation",invitation_1.type)

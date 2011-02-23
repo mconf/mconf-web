@@ -47,7 +47,7 @@ class Agenda < ActiveRecord::Base
   
   validate :validate_method
   def validate_method
-    errors.add_to_base(@icalendar_file_errors) if @icalendar_file_errors.present?
+    errors.add(:base, @icalendar_file_errors) if @icalendar_file_errors.present?
   end
   
   def start_date
@@ -61,11 +61,11 @@ class Agenda < ActiveRecord::Base
   def contents_for_day(i)
     if start_date
       contents.all(:conditions => [
-                   "start_time >= :day_start AND start_time < :day_end",
+                     "start_time >= :day_start AND start_time < :day_end",
                      {:day_start => start_date.to_date + (i-1).day,
-                     :day_end => start_date.to_date + i.day} ],
-                  :order=>'start_time ASC, type ASC'
-                 ).each{|content| content.reload}
+                      :day_end => start_date.to_date + i.day} ],
+                   :order => 'start_time ASC, type ASC'
+                  ).each{|content| content.reload}
     else
       return Array.new
     end

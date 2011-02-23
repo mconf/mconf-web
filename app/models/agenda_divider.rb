@@ -40,15 +40,15 @@ class AgendaDivider < ActiveRecord::Base
     
     if (self.agenda.event.vc_mode != Event::VC_MODE.index(:in_person)) && (self.time < Time.now)
     
-      self.errors.add_to_base(I18n.t('agenda.divider.error.past_times'))
+      self.errors.add(:base, I18n.t('agenda.divider.error.past_times'))
     
     # if the event has no start_date, then there won't be any agenda entries or dividers, so these validations should be skipped
     elsif !(self.agenda.event.start_date.blank?)
       if (self.time.to_date - self.agenda.event.start_date.to_date) >= Event::MAX_DAYS
-        self.errors.add_to_base(I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        self.errors.add(:base, I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
         return
       elsif (self.agenda.event.end_date.to_date - self.time.to_date) >= Event::MAX_DAYS
-        self.errors.add_to_base(I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
+        self.errors.add(:base, I18n.t('agenda.divider.error.date_out_of_event', :max_days => Event::MAX_DAYS))
         return        
       end
 
@@ -57,7 +57,7 @@ class AgendaDivider < ActiveRecord::Base
         next if (content.start_time == self.time) || (content.end_time == self.time)
  
         if (content.start_time..content.end_time) === self.time
-          self.errors.add_to_base(I18n.t('agenda.divider.error.coinciding_times'))
+          self.errors.add(:base, I18n.t('agenda.divider.error.coinciding_times'))
           return
         end
       end

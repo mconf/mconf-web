@@ -19,9 +19,9 @@ describe Performance do
 
     @space.users.size.should == 1
 
-    assert_no_difference @space.users.count.to_s do
+    expect {
       @admin_performance.destroy.should be_false
-    end
+    }.not_to change{ @space.users.count }
   end
   
   describe ", regarding Event performances," do
