@@ -88,8 +88,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("users/show.html.erb")
-      response.should include_text(@superuser.full_name)
-      response.should include_text(@superuser.email)
+      response.should include(@superuser.full_name)
+      response.should include(@superuser.email)
       
       #we restore the visibility to the default value
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -105,8 +105,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@superuser.full_name)
-      response.should include_text(@superuser.email)
+      response.should include(@superuser.full_name)
+      response.should include(@superuser.email)
       
       #we restore the visibility to the default value
       @superuser.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -122,8 +122,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -139,8 +139,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -261,8 +261,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -279,8 +279,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -297,8 +297,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user_public_1.full_name)
-      response.should include_text(@user_public_1.email)
+      response.should include(@user_public_1.full_name)
+      response.should include(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -315,8 +315,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user_public_1.full_name)
-      response.should include_text(@user_public_1.email)
+      response.should include(@user_public_1.full_name)
+      response.should include(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -334,8 +334,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user_public_2.full_name)
-      response.should include_text(@user_public_2.email)
+      response.should include(@user_public_2.full_name)
+      response.should include(@user_public_2.email)
       
       #we restore the visibility to the default value
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -353,8 +353,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user_public_1.full_name)
-      response.should_not include_text(@user_public_1.email)
+      response.should include(@user_public_1.full_name)
+      response.should_not include(@user_public_1.email)
       
       #we restore the visibility to the default value
       @user_public_1.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -372,8 +372,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@admin.full_name)
-      response.should include_text(@admin.email)
+      response.should include(@admin.full_name)
+      response.should include(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -392,8 +392,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user_public_2.full_name)
-      response.should_not include_text(@user_public_2.email)
+      response.should include(@user_public_2.full_name)
+      response.should_not include(@user_public_2.email)
       
       #we restore the visibility to the default value
       @user_public_2.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -410,8 +410,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@admin.full_name)
-      response.should_not include_text(@admin.email)
+      response.should include(@admin.full_name)
+      response.should_not include(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -487,8 +487,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@admin.full_name)
-      response.should include_text(@admin.email)
+      response.should include(@admin.full_name)
+      response.should include(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -504,8 +504,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@admin.full_name)
-      response.should include_text(@admin.email)
+      response.should include(@admin.full_name)
+      response.should include(@admin.email)
       
       #we restore the visibility to the default value
       @admin.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -521,8 +521,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -538,8 +538,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@user.full_name)
-      response.should_not include_text(@user.email)
+      response.should include(@user.full_name)
+      response.should_not include(@user.email)
       
       #we restore the visibility to the default value
       @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -608,8 +608,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@invited.full_name)
-      response.should include_text(@invited.email)
+      response.should include(@invited.full_name)
+      response.should include(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -625,8 +625,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@invited.full_name)
-      response.should_not include_text(@invited.email)
+      response.should include(@invited.full_name)
+      response.should_not include(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -642,8 +642,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@invited.full_name)
-      response.should_not include_text(@invited.email)
+      response.should include(@invited.full_name)
+      response.should_not include(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -659,8 +659,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@invited.full_name)
-      response.should_not include_text(@invited.email)
+      response.should include(@invited.full_name)
+      response.should_not include(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -676,8 +676,8 @@ describe ProfilesController do
       pending "Redo after redirect to user show"
       assert_response 200
       response.should render_template("profiles/show.html.erb")
-      response.should include_text(@invited.full_name)
-      response.should_not include_text(@invited.email)
+      response.should include(@invited.full_name)
+      response.should_not include(@invited.email)
       
       #we restore the visibility to the default value
       @invited.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))

@@ -17,29 +17,29 @@ module ConferenceManager
             #TODO was :validate_create(entry)
             validate :validate_create, :on => :create
 
-            def validate_create(entry)
+            def validate_create
 
               # Validation: Session must be future
-              if entry.errors.empty? && entry.event.uses_conference_manager? && entry.start_time < (Time.zone.now + WAKE_UP_TIME)
-                entry.errors.add(:base, I18n.t('agenda.entry.error.past_times',
+              if self.errors.empty? && self.event.uses_conference_manager? && self.start_time < (Time.zone.now + WAKE_UP_TIME)
+                self.errors.add(:base, I18n.t('agenda.entry.error.past_times',
                                                :min_date => I18n.l(Time.zone.now + WAKE_UP_TIME), :format => '%d %b %Y %H:%M'))
               end
 
               #Session creation on Conference Manager
-              if entry.errors.empty? && entry.event.uses_conference_manager?
+              if self.errors.empty? && self.event.uses_conference_manager?
 
                 cm_s =
                 ConferenceManager::Session.new(:name => "none",
-                                                :recording => entry.cm_recording?,
-                                                :streaming => entry.cm_streaming?,
-                                                :initDate=> ((entry.start_time - entry.event.start_date)*1000).to_i,
-                                                :endDate=> ((entry.end_time - entry.event.start_date)*1000).to_i,
-                                                :event_id => entry.event.cm_event_id)
+                                                :recording => self.cm_recording?,
+                                                :streaming => self.cm_streaming?,
+                                                :initDate=> ((self.start_time - self.event.start_date)*1000).to_i,
+                                                :endDate=> ((self.end_time - self.event.start_date)*1000).to_i,
+                                                :event_id => self.event.cm_event_id)
                 begin
                   cm_s.save
-                  entry.cm_session = cm_s
+                  self.cm_session = cm_s
                 rescue => e
-                  entry.errors.add(:base, e.to_s)
+                  self.errors.add(:base, e.to_s)
                 end
               end
             end
@@ -47,41 +47,41 @@ module ConferenceManager
             #TODO was :validate_update(entry)
             validate :validate_update, :on => :update
 
-            def validate_update(entry)
-              if entry.errors.empty? && entry.event.uses_conference_manager?
+            def validate_update
+              if self.errors.empty? && self.event.uses_conference_manager?
 
                 # Validation: In past sessions cannot be edited PAST_UNCHANGEABLE_ATTRIBUTES
-                if entry.end_time_was.present? && entry.end_time_was.past?
-                  entry.errors.add(:base, I18n.t('agenda.entry.error.attribute_unchangeable')) if (entry.changed & PAST_UNCHANGEABLE_ATTRIBUTES).any?
+                if self.end_time_was.present? && self.end_time_was.past?
+                  self.errors.add(:base, I18n.t('agenda.entry.error.attribute_unchangeable')) if (self.changed & PAST_UNCHANGEABLE_ATTRIBUTES).any?
 
                   # Validation: In current sessions cannot be edited CURRENT_UNCHANGEABLE_ATTRIBUTES
-                elsif entry.end_time_was.present? && !(entry.end_time_was.past?) && entry.start_time_was.present? && Time.now.in_time_zone > (entry.start_time_was - WAKE_UP_TIME)
-                  entry.errors.add(:base, I18n.t('agenda.entry.error.attribute_unchangeable')) if (entry.changed & CURRENT_UNCHANGEABLE_ATTRIBUTES).any?
+                elsif self.end_time_was.present? && !(self.end_time_was.past?) && self.start_time_was.present? && Time.now.in_time_zone > (self.start_time_was - WAKE_UP_TIME)
+                  self.errors.add(:base, I18n.t('agenda.entry.error.attribute_unchangeable')) if (self.changed & CURRENT_UNCHANGEABLE_ATTRIBUTES).any?
                 end
               end
 
               #Session update on Conference Manager
-              if !entry.past? && entry.errors.empty? && entry.event.uses_conference_manager? && (((entry.changed & CM_ATTRIBUTES).any?)||(entry.date_update_action.eql?"move_event")||(entry.date_update_action.eql?"start_date"))
-                if (!entry.date_update_action.eql?"move_event")
-                  cm_s = entry.cm_session
-                  new_params = { :name => entry.title,
-                               :recording => entry.cm_recording?,
-                               :streaming => entry.cm_streaming?,
-                               :initDate=> ((entry.start_time - entry.event.start_date)*1000).to_i,
-                               :endDate=> ((entry.end_time - entry.event.start_date)*1000).to_i,
-                               :event_id => entry.event.cm_event_id }
+              if !self.past? && self.errors.empty? && self.event.uses_conference_manager? && (((self.changed & CM_ATTRIBUTES).any?)||(self.date_update_action.eql?"move_event")||(self.date_update_action.eql?"start_date"))
+                if (!self.date_update_action.eql?"move_event")
+                  cm_s = self.cm_session
+                  new_params = { :name => self.title,
+                               :recording => self.cm_recording?,
+                               :streaming => self.cm_streaming?,
+                               :initDate=> ((self.start_time - self.event.start_date)*1000).to_i,
+                               :endDate=> ((self.end_time - self.event.start_date)*1000).to_i,
+                               :event_id => self.event.cm_event_id }
 
-                  if entry.cm_session?
+                  if self.cm_session?
                     cm_s.load(new_params)
                   else
-                    entry.errors.add(:base, I18n.t('event.error.cm_connection'))
+                    self.errors.add(:base, I18n.t('event.error.cm_connection'))
                   end
 
                   begin
                     cm_s.save
                   rescue => e
                     if cm_s.present?
-                      entry.errors.add(:base, e.to_s)
+                      self.errors.add(:base, e.to_s)
                     end
                   end
                 end
@@ -90,12 +90,12 @@ module ConferenceManager
 
             before_destroy do |entry|
               #Delete session in Conference Manager if event is not in-person
-              if entry.event.uses_conference_manager?
+              if self.event.uses_conference_manager?
                 begin
-                  cm_s = entry.cm_session
+                  cm_s = self.cm_session
                   cm_s.destroy
                 rescue => e
-                  entry.errors.add(:base, I18n.t('agenda.entry.error.delete'))
+                  self.errors.add(:base, I18n.t('agenda.entry.error.delete'))
                   false
                 end
               end
