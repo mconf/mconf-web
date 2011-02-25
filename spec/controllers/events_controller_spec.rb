@@ -29,19 +29,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -101,19 +101,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -176,19 +176,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -243,19 +243,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -313,19 +313,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -378,19 +378,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -442,13 +442,13 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         it "should render show of an event." do
           get :show, :space_id => @current_event.space.to_param, :id => @current_event.to_param
           assert_response 200
-          response.should render_template("events/show.html.erb")
+          response.should render_template("events/show")
         end  
         
         it "trying to create a new event" do

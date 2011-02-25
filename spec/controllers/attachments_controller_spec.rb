@@ -30,7 +30,7 @@ describe AttachmentsController do
    it "should be able to see space repository" do
        get :index, :space_id => @private_space.to_param
        assert_response 200
-       response.should render_template("attachments/index.html.erb")
+       response.should render_template("attachments/index")
    end
       
    
@@ -53,7 +53,7 @@ describe AttachmentsController do
       login_as(@admin2)
       get :index, :space_id => @private_space2.to_param
       assert_response 200     
-      response.should render_template("attachments/index.html.erb")
+      response.should render_template("attachments/index")
     end
     it"should be able to show attachments in his space repository"do
       login_as(@admin2)
@@ -96,7 +96,7 @@ describe AttachmentsController do
       @public_space_with_repository=Factory(:public_space_with_repository)
       get :index, :space_id =>  @public_space_with_repository.to_param
       assert_response 200
-      response.should render_template("attachments/index.html.erb")
+      response.should render_template("attachments/index")
     end
     it "should not be able to see space repository in a private space "do
       @private_space_with_repository=Factory(:private_space_with_repository)

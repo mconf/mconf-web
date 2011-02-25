@@ -6,7 +6,7 @@ describe SpacesController do
   
   render_views
   
-  before(:all) do
+  before(:each) do
     #the superuser
     @superuser = Factory(:superuser)
     #a private space and three users in that space
@@ -24,33 +24,33 @@ describe SpacesController do
       login_as(@superuser)
     end
     it "should be able to create a new space" do
-     valid_attributes = Factory.attributes_for(:public_space)
-     post :create, :space=> valid_attributes
-     assert_response 302
-     space = Space.find_by_name(valid_attributes[:name]) 
-     response.should redirect_to(space_path(space))
-   end
-   it "should be able to see public spaces " do
-       get :show, :id => @public_space.to_param
-       assert_response 200
-       response.should render_template("spaces/show.html.erb")
-   end
-   it "should be able to delete a public  space" do
-        delete :destroy , :id => @public_space.to_param
-        assert_response 302
-        response.should redirect_to(spaces_url)
+      valid_attributes = Factory.attributes_for(:public_space)
+      post :create, :space=> valid_attributes
+      assert_response 302
+      space = Space.find_by_name(valid_attributes[:name]) 
+      response.should redirect_to(space_path(space))
+    end
+    it "should be able to see public spaces " do
+      get :show, :id => @public_space.to_param
+      assert_response 200
+      response.should render_template("spaces/show")
+    end
+    it "should be able to delete a public space" do
+      delete :destroy , :id => @public_space.to_param
+      assert_response 302
+      response.should redirect_to(spaces_url)
     end
     it "should be able to see  private spaces" do
       get :show, :id => @private_space.to_param, :user_id => @superuser.id
       assert_response 200
-      response.should render_template("spaces/show.html.erb")
+      response.should render_template("spaces/show")
     end
-   it "should be able to delete a private  space" do
-        delete :destroy , :id => @private_space.to_param, :user_id => @superuser.id
-        assert_response 302
-        response.should redirect_to(spaces_url)
+    it "should be able to delete a private  space" do
+      delete :destroy , :id => @private_space.to_param, :user_id => @superuser.id
+      assert_response 302
+      response.should redirect_to(spaces_url)
     end
- end
+  end
  
  describe "The admin of a space" do
    before(:each) do
@@ -87,12 +87,12 @@ describe SpacesController do
    it "should be able to see public spaces" do
      get :show, :id => @public_space.to_param
        assert_response 200
-       response.should render_template("spaces/show.html.erb")
+       response.should render_template("spaces/show")
    end
    it "should be able to see private spaces if he is joined to them" do 
      get :show, :id => @private_space.to_param, :user_id => @user.id
       assert_response 200
-      response.should render_template("spaces/show.html.erb")
+      response.should render_template("spaces/show")
   end
   it "should NOT be able to see private spaces if he isn't joined to them" do
     get :show, :id => @private_space2.to_param, :user_id => @user.id
@@ -113,7 +113,7 @@ describe SpacesController do
     it "should be able to see public spaces" do
      get :show, :id => @public_space.to_param
        assert_response 200
-       response.should render_template("spaces/show.html.erb")
+       response.should render_template("spaces/show")
    end
     
     it "should NOT be able to delete anyone's space " do
@@ -133,7 +133,7 @@ end
    it "should be able to see public spaces" do
      get :show, :id => @public_space.to_param
        assert_response 200
-       response.should render_template("spaces/show.html.erb")
+       response.should render_template("spaces/show")
    end
    
    it "should NOT be able to see private spaces" do

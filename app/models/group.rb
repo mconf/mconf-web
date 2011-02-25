@@ -59,7 +59,7 @@ class Group < ActiveRecord::Base
       group.mailing_list = group.mailing_list.gsub(/ /, "-")
       group.regenerate_lists
     else
-      group.mailing_list = remove_accents(group.name)
+      group.mailing_list = Group.remove_accents(group.name)
       group.regenerate_lists
     end
   }
@@ -74,8 +74,8 @@ class Group < ActiveRecord::Base
   after_destroy { |group|
     if group.mailing_list
       #destroy the existing mailing_list
-      delete_list(group, group.mailing_list)
-      request_list_update
+      Group.delete_list(group, group.mailing_list)
+      Group.request_list_update
     end
   }
 
@@ -83,16 +83,16 @@ class Group < ActiveRecord::Base
 
     #delete the old mailing_list
     if group.mailing_list_changed?
-      delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
+      Group.delete_list(group,group.mailing_list_was) if group.mailing_list_was.present?
     else
-      delete_list(group,group.mailing_list) if group.mailing_list.present?
+      Group.delete_list(group,group.mailing_list) if group.mailing_list.present?
     end
 
     #create the new mailing_list
     if group.mailing_list.present?
       group.regenerate_lists
     end
-    request_list_update
+    Group.request_list_update
   }
 
   # Do not reload mail list server if not in production mode, it could cause server overload

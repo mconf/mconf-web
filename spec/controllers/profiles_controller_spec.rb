@@ -45,7 +45,7 @@ describe ProfilesController do
       @superuser.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @superuser.to_param
       assert_response 200
-      response.should render_template("profiles/edit.html.erb")
+      response.should render_template("profiles/edit")
     end
     it "should be able to edit his profile" do
       #first we fill the user profile
@@ -59,7 +59,7 @@ describe ProfilesController do
       @user.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @user.to_param
       assert_response 200
-      response.should render_template("profiles/edit.html.erb")
+      response.should render_template("profiles/edit")
     end
     it "should be able to edit any user's profile" do
       #first we fill the user profile
@@ -87,7 +87,7 @@ describe ProfilesController do
       get :show , :user_id => @superuser.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("users/show.html.erb")
+      response.should render_template("users/show")
       response.should include(@superuser.full_name)
       response.should include(@superuser.email)
       
@@ -104,7 +104,7 @@ describe ProfilesController do
       get :show , :user_id => @superuser.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@superuser.full_name)
       response.should include(@superuser.email)
       
@@ -121,7 +121,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should include(@user.email)
       
@@ -138,7 +138,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should include(@user.email)
       
@@ -172,7 +172,7 @@ describe ProfilesController do
       @user.profile.update_attributes Factory.attributes_for(:profile)
       get :edit, :user_id => @user.to_param
       assert_response 200
-      response.should render_template("profiles/edit.html.erb")
+      response.should render_template("profiles/edit")
     end
     it "should be able to edit his profile" do 
       login_as(@user)
@@ -260,7 +260,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should include(@user.email)
       
@@ -278,7 +278,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should include(@user.email)
       
@@ -296,7 +296,7 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user_public_1.full_name)
       response.should include(@user_public_1.email)
       
@@ -314,7 +314,7 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user_public_1.full_name)
       response.should include(@user_public_1.email)
       
@@ -333,7 +333,7 @@ describe ProfilesController do
       get :show , :user_id => @user_public_2.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user_public_2.full_name)
       response.should include(@user_public_2.email)
       
@@ -352,7 +352,7 @@ describe ProfilesController do
       get :show , :user_id => @user_public_1.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user_public_1.full_name)
       response.should_not include(@user_public_1.email)
       
@@ -371,7 +371,7 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@admin.full_name)
       response.should include(@admin.email)
       
@@ -391,7 +391,7 @@ describe ProfilesController do
       get :show , :user_id => @user_public_2.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user_public_2.full_name)
       response.should_not include(@user_public_2.email)
       
@@ -409,7 +409,7 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@admin.full_name)
       response.should_not include(@admin.email)
       
@@ -486,7 +486,7 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@admin.full_name)
       response.should include(@admin.email)
       
@@ -503,7 +503,7 @@ describe ProfilesController do
       get :show , :user_id => @admin.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@admin.full_name)
       response.should include(@admin.email)
       
@@ -520,7 +520,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should include(@user.email)
       
@@ -537,7 +537,7 @@ describe ProfilesController do
       get :show , :user_id => @user.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@user.full_name)
       response.should_not include(@user.email)
       
@@ -607,7 +607,7 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@invited.full_name)
       response.should include(@invited.email)
       
@@ -624,7 +624,7 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@invited.full_name)
       response.should_not include(@invited.email)
       
@@ -641,7 +641,7 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@invited.full_name)
       response.should_not include(@invited.email)
       
@@ -658,7 +658,7 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@invited.full_name)
       response.should_not include(@invited.email)
       
@@ -675,7 +675,7 @@ describe ProfilesController do
       get :show , :user_id => @invited.to_param
       pending "Redo after redirect to user show"
       assert_response 200
-      response.should render_template("profiles/show.html.erb")
+      response.should render_template("profiles/show")
       response.should include(@invited.full_name)
       response.should_not include(@invited.email)
       

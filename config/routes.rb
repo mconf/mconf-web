@@ -8,7 +8,7 @@ Vcc::Application.routes.draw do
   match '/ui/:action', :to => 'ui'
 
   # Global search
-  match '/search.:format', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
+  match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
   match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
 
   # Search in the space

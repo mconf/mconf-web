@@ -32,18 +32,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -51,7 +51,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -66,12 +66,12 @@ describe PostsController do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -103,18 +103,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -122,7 +122,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -137,12 +137,12 @@ describe PostsController do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -173,18 +173,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -192,7 +192,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -206,25 +206,25 @@ describe PostsController do
             post :create, :space_id => @current_space.to_param, :post => {"title"=> "", "text"=>  "Test"}
             assert_response 200
             flash[:error].should have_text(/#{ I18n.t('activerecord.errors.messages.blank') }/)
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :post => {"title" => "Test", "text" => ""}
             assert_response 200
             assert flash[:error].include?(I18n.t('activerecord.errors.messages.blank'))
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end       
         end
         describe "trying to edit" do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -258,18 +258,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -277,7 +277,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -292,12 +292,12 @@ describe PostsController do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -332,18 +332,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -351,7 +351,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -366,12 +366,12 @@ describe PostsController do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -415,18 +415,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -545,18 +545,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -564,7 +564,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -578,25 +578,25 @@ describe PostsController do
             post :create, :space_id => @current_space.to_param, :post => {"title"=> "", "text"=>  "Test"}
             assert_response 200
             flash[:error].should have_text(/#{ I18n.t('activerecord.errors.messages.blank') }/)
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end       
           it "text empty post." do
             post :create, :space_id => @current_space.to_param, :post => {"title" => "Test", "text" => ""}
             assert_response 200
             assert flash[:error].include?(I18n.t('activerecord.errors.messages.blank'))
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end       
         end
         describe "trying to edit" do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
         end
         describe "trying to delete" do
@@ -642,18 +642,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -772,18 +772,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -791,7 +791,7 @@ describe PostsController do
           it "page." do
             get :new, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/new_thread_big.html.erb")
+            response.should render_template("posts/new_thread_big")
           end       
         end
         describe "trying to create a new" do
@@ -806,7 +806,7 @@ describe PostsController do
           it "my post." do
             get :edit, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/edit_thread_big.html.erb")
+            response.should render_template("posts/edit_thread_big")
           end       
           it "a post that isn't mine." do
             get :edit, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
@@ -842,18 +842,18 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         
@@ -920,12 +920,12 @@ describe PostsController do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
             assert_response 200
-            response.should render_template("posts/index.html.erb")
+            response.should render_template("posts/index")
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
             assert_response 200
-            response.should render_template("posts/show.html.erb")
+            response.should render_template("posts/show")
           end
         end
         

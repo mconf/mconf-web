@@ -11,6 +11,8 @@ Notes:
   - Working better than alternative: http://github.com/woahdae/attachment_fu.git -r rails3
   - See: https://github.com/technoweenie/attachment_fu/pull/30 and https://github.com/technoweenie/attachment_fu/issues#issue/10
   - Still had to adapt the monkey patch, see TODO below.
+  - Code changes in:
+    - attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb
 - Other plugins now used as gems:
   - fckeditor
   - exception_notification => exception_notification_rails3
@@ -20,12 +22,12 @@ Notes:
   - permalink_fu
 - Now using Rspec 2. Installed as gem, not as plugin anymore.
 - Using ffaker instead of faker (as gem).
-- rspec issue 'no such file to load -- spec/rake/spectask' solved with: http://www.ruby-forum.com/topic/156080 (see the first response). There may be a better solution.
-- Deprecated methods:
+- Corrected lots of deprecated behaviors:
   - RAILS_ROOT => Rails.root (except for plugins)
   - named_scope => scope
   - update_on_* arg => update arg :on => *
   - after_* and before_*
+  - and many others
 - PDF creation was disable, see TODO list.
 
 TODO:
