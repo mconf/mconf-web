@@ -2,7 +2,7 @@
     <h3><%=t("icalendar.import") %></h3>
     <div class="icalendar_content">
 		<p><%=t("icalendar.instruction") %></p>
-		<% form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
+		<%= form_for @event.agenda, :url => space_event_agenda_path(@space, event),:html => { :multipart => true, :method => :post } do |f| %>
           <%= f.file_field :icalendar_file %>
           <div class="margin-up">
 			<button type="submit" class="basic_button blue_button"><%=t("icalendar.add")%></button>

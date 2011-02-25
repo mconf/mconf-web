@@ -4,7 +4,7 @@
   <h3 id="feedback_no_lightbox"><%= t('feedback.send_us') %></h3>
 <%end%>
 
-<% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
+<%= form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
 	<%= f.error_messages %>
 	<div id="feedback_form">
 		<p>

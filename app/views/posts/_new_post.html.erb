@@ -4,7 +4,7 @@
     event ||= nil
 %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
   $(".newAttach").livequery('click',function () {
 	  $(".newAttach1").show();
 		$(".newAttach.add").hide();
@@ -46,7 +46,7 @@
 	
 	<%# Form %>
 	
-	<%  form_for(prepare_for_form(Post.new, :parent_id => p_id, :event => event), :html => { :multipart => true ,:id => id}) do |f| -%>
+	<%= form_for(prepare_for_form(Post.new, :parent_id => p_id, :event => event), :html => { :multipart => true ,:id => id}) do |f| -%>
 		<%= f.hidden_field :parent_id %>
 	  <%= f.hidden_field :event_id %>
 		
@@ -64,7 +64,7 @@
 	  </div>
 	
 	  <%# Attachments %>
-	  <% content_for :javascript do%>
+	  <%= content_for :javascript do%>
 	    <%= "var attachment='#{ generate_template(f, :attachments, :partial => 'posts/attachment') }'" %>
 	  <% end %>
 	

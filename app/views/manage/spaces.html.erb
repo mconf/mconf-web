@@ -1,8 +1,8 @@
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<%content_for :javascript do%>
+<%= content_for :javascript do%>
   $("#manage_space_filter").show();
 	
 	$("input#disabled").click(function(){
@@ -15,7 +15,7 @@
 	
 <%end%>
 
-<%content_for :sidebar do%>
+<%= content_for :sidebar do%>
 	<div id="manage_space_filter" style="display:none">
 		<h3 class="blue">Show spaces:</h3>
 	  <%= check_box_tag "enabled","enabled",true%><%= label_tag t("enabled")%><br />

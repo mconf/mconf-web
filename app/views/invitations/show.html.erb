@@ -1,4 +1,4 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   $("#discard_invitation_button").livequery('click',function(){ 
     $('#invitation_accepted').attr('value', 'false');
@@ -28,14 +28,14 @@
         <p><span class="bold blue"><%=t("description")%>:</span> <%=@invitation.group.description%></p>
       </div>
   
-      <% form_for (:invitation, :url => "/invitations/" + @invitation.code, :html => {:method => :put, :name => "invitation_process_form"}) do |f| %>
+      <%= form_for (:invitation, :url => "/invitations/" + @invitation.code, :html => {:method => :put, :name => "invitation_process_form"}) do |f| %>
         <%= f.hidden_field :processed, :value => true %>
         <%= f.hidden_field :accepted, :value => true %>
       
       
         <!--This is shown only in case the user is not authenticated or not registered -->
         <% unless authenticated? && current_user == @invitation.candidate %>
-          <% fields_for(@candidate || @invitation.candidate || User.new) do |cf| %>
+          <%= fields_for(@candidate || @invitation.candidate || User.new) do |cf| %>
          
             <%= cf.error_messages %>
           

@@ -6,7 +6,7 @@
   	
 	<!--<h3><%= t('news.publish_home') %></h3>-->
 	
-	<% form_for(:news, :url => space_news_index_path(@space)) do |f| %>
+	<%= form_for(:news, :url => space_news_index_path(@space)) do |f| %>
 	  
 	  <div>
 	    <label for="title"><%= t('title') %>:</label><br/>

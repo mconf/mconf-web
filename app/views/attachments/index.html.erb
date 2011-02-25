@@ -1,11 +1,11 @@
 <% menu(:repository) %>
 
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-bbq.min' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
   <%= render :partial => 'repository_javascript.js' %>
   
  $('#sidebar img.tooltip_doc_search').qtip({
@@ -17,11 +17,11 @@
   });  
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<%content_for :sidebar do%>
+<%= content_for :sidebar do%>
 	<div class="tag_filter_wrapper">
 		<h3 class="blue"><%=t('repository.search')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_doc_search icon",:style=>"cursor:pointer")%></h3>
 		<div class="tag_filter_content">

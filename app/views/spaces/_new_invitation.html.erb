@@ -1,8 +1,8 @@
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'user_filter' %>
 <%end%>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   $("#send_invitation_button").livequery('click',function(){ 
 
@@ -33,7 +33,7 @@
     <div id="invitations_title">
       <h3 class="blue"><%=t('invitation.message_title')%></h3>
     </div>
-    <% form_for([@space], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
+    <%= form_for([@space], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
       <div id="selected_users">
         <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('invitation.will_invite')%>:</label>
       </div>

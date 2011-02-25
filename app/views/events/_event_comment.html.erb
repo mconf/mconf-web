@@ -1,9 +1,9 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 	<%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => false, :post => post } %>
 <%end%>
 
 <div class="event-comment-wrapper">		  
-	<%div_for (post, :class=>"post_moved") do%>
+	<%= div_for (post, :class=>"post_moved") do%>
 	  	
 			<div class="post-logo">				
 					<%= link_logo(post.author, :size => 22, :url => user_path(post.author), :title=>post.author.name) %>				

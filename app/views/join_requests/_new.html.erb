@@ -1,4 +1,4 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   $("#wait_join_request_button").hide();
   $("#wait_join_request_button").attr('disabled', true);
@@ -48,7 +48,7 @@
         <h3 class="blue"><%=t('join_request.message_title')%></h3>
       </div>
   
-      <% form_for(:join_request, :url => { :action => "create" }, :html => { :multipart => true, :name => "join_request_edit_form"}) do |f| -%>
+      <%= form_for(:join_request, :url => { :action => "create" }, :html => { :multipart => true, :name => "join_request_edit_form"}) do |f| -%>
   
         <div class="margin-up">
           <label for="message" class="label_izquierda bold"><%= t('join_request.label') %>:</label>

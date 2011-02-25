@@ -2,7 +2,7 @@
 	
  <h4 class="title_sidebar"><%= t('search.events.no_dots') %></h4> 
 	
-  <% form_tag(search_events_path(@space)) do %>
+  <%= form_tag(search_events_path(@space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>
 	   <%= image_submit_tag "magnify2.png"%>
 	   <div id="advanced">

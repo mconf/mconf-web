@@ -2,7 +2,7 @@
   <% setup_sources(@source || Source.new).each do |source| %>
     <h3><%= source.title.present? && sanitize(source.title).to_s || t('new_source') %></h3>
 
-    <% form_for [ space, source ] do |f| %>
+    <%= form_for [ space, source ] do |f| %>
 
       <%= render :partial => 'form', :object => f %>
 

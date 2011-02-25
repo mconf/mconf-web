@@ -1,4 +1,4 @@
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
  $('#news_sidebar img.tooltip_news_item').qtip({
    content: '<%=t("tooltip.news_item")%>',
@@ -21,7 +21,7 @@
 
 <h3><%= t('news.publish_home') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_news_item icon",:style=>"cursor:pointer")%></h3>
 
-<% form_for(News.new, :url => space_news_index_path(@space)) do |f| %>
+<%= form_for(News.new, :url => space_news_index_path(@space)) do |f| %>
   
   <p>
     <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>

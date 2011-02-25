@@ -1,4 +1,4 @@
-<%content_for :javascript do%>
+<%= content_for :javascript do%>
 
 	/*
 	 * Send Private Message
@@ -12,7 +12,7 @@
 
 <%end%>
 
-<%content_for :sidebar do %>
+<%= content_for :sidebar do %>
 <div id="profile_right">
   <div id="profile_spaces">
 	  <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{t('space.other')}"} %>

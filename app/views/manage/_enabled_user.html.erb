@@ -7,7 +7,7 @@
   </div>
 	<div class="user_data">
 	  <% if performance.nil? -%>
-		  <% form_for :performance, :url => site_performances_path do |f| -%>
+		  <%= form_for :performance, :url => site_performances_path do |f| -%>
 	      <ul>
 	        <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
 	        <li class="main_text">
@@ -20,7 +20,7 @@
  
 	    <% end -%>
     <% else -%>
-      <% form_for :performance, :url => site_performance_path(performance.id), :html => { :method => :put} do |f| -%>
+      <%= form_for :performance, :url => site_performance_path(performance.id), :html => { :method => :put} do |f| -%>
         <ul>
           <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
           <li class="main_text">

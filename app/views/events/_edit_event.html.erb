@@ -1,9 +1,9 @@
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
-<% content_for :javascript do %>  
+<%= content_for :javascript do %>  
   
 	$("#organizers_name").fcbkcomplete({
     cache: true,
@@ -24,7 +24,7 @@
   <div id="help" title="<%=h(t('event.help.edit'))%>"></div>
   <h3><%= t('event.edit') %></h3>
 
-<% form_for([@space,event], :html => { :multipart => true}) do |f| -%>
+<%= form_for([@space,event], :html => { :multipart => true}) do |f| -%>
   <%= f.error_messages %>				
   <div>
     <strong><span>1. <%= t('event.basic_info')%></span></strong><br/>

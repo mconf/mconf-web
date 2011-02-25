@@ -22,7 +22,7 @@
 </script>
 <br/>
 
-	<% form_tag (space_performances_path(@space),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
+	<%= form_tag (space_performances_path(@space),  {:name=>'register_user_form',:style => "display: inline;", :method => :post}) do %>
 		<div>
 			<div>
 				<%= select 'users',
@@ -55,7 +55,7 @@
 <div>
 
 	<div>
-		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
+		<%= form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_admin_form',:style => "display: inline;", :method => :delete})  do %>
 		
 		<div>
 			<span><%= t('admin.one') %></span>
@@ -78,7 +78,7 @@
 	</div>
 
 	<div>
-		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>		
+		<%= form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_user_form',:style => "display: inline;", :method => :delete})  do %>		
 		<div>
 			<span><%= t('user.one') %></span>
 			<%= select 'users',
@@ -99,7 +99,7 @@
 	</div>
 
 	<div>
-		<% form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
+		<%= form_tag(space_performance_path(@space, current_agent),  {:name=>'remove_invited_form',:style => "display: inline;", :method => :delete})  do %>
 		<div>
 		<span><%= t('invited') %></span>
 			<%= select 'users',

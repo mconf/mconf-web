@@ -1,4 +1,4 @@
-<% content_for :javascript do  %>
+<%= content_for :javascript do  %>
   	
 	$("#space_filter").show();
 
@@ -77,11 +77,11 @@
 	
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
 	<%= render :partial => 'search/form' %>	
 <% end %>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
 	<% if logged_in?%>
       <div class="button_wrapper">
         <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>

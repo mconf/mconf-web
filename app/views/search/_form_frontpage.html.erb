@@ -1,4 +1,4 @@
-<% content_for :javascript do  %>
+<%= content_for :javascript do  %>
   title = "<%=escape_javascript(t('search.dots'))%>"
     $("#search_text_field").click(function(){
     if(this.value == title){
@@ -44,7 +44,7 @@
   </ul>   
 </div>
 
-<% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
+<%= form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
   <span class="find">Find</span><input type="image" src="/images/find.png"/>
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>

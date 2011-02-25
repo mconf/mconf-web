@@ -1,8 +1,8 @@
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery-ui' %>
 <%end%>
 
-<%content_for :javascript do%>
+<%= content_for :javascript do%>
 
 	change_advanced_params = function(selected){
 	  switch (selected) {
@@ -53,7 +53,7 @@
 	
 <%end%>
 
-<% form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
+<%= form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
   <%if @space.nil?%>
     <h3>

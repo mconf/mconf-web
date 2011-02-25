@@ -6,7 +6,7 @@
   </div>
 
   <div id="new_entry_content">
-    <% form_for (@agenda_divider, :url=>space_event_agenda_agenda_dividers_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_divider_new_form"}) do |f| %>
+    <%= form_for (@agenda_divider, :url=>space_event_agenda_agenda_dividers_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_divider_new_form"}) do |f| %>
 
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
   

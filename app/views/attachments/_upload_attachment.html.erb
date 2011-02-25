@@ -9,7 +9,7 @@
 	
 	  <div id="new_entry_content"> 
 	    <br> 
-	    <%form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
+	    <%= form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
 	      <div class="new_doc_content">
 		    <div id="cabinet">
 		      <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>

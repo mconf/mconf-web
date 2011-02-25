@@ -1,5 +1,5 @@
 <% menu :admin %>
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
@@ -19,7 +19,7 @@
           <div class="invitation-content">
 	  	      <span class="unified_user"><%=link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")%></span>
             <div class="float">
-		          <% form_for [ @space, jr ] do |f| %>
+		          <%= form_for [ @space, jr ] do |f| %>
 		            <label class="main_text"><%= t('role.one') %>:</label>
 	              <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id },:class=>"main_text" %>
 	              <%= f.hidden_field :accepted, :value => true %>
@@ -28,7 +28,7 @@
               <% end -%>
 		        </div>
             <div class="float">
-              <% form_for [ @space, jr ] do |f| %>
+              <%= form_for [ @space, jr ] do |f| %>
                 <%= f.hidden_field :processed, :value => true %>
                 <%= f.submit "Deny",:class=>"main_text" %>
               <% end -%>

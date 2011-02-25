@@ -2,7 +2,7 @@
 	
 <h4 class="title_sidebar"><%= t('search.one') %></h4> 
 	
-  <% form_tag(search_all_path(@space)) do %>
+  <%= form_tag(search_all_path(@space)) do %>
       <%= text_field_tag :query, params[:query], :size=>'18' %>
 	  <%= image_submit_tag "magnify.png", :class=>'go'%>
 	 

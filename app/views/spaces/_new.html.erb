@@ -1,5 +1,5 @@
 <%= javascript_include_tag 'jquery.jcrop' %>
-	<% content_for :javascript do %>	
+	<%= content_for :javascript do %>	
 
 selectDefaultImage = function(image){
 	$("#space_image").attr('value', "default_space_logos/" + image);
@@ -162,7 +162,7 @@ function cropImage (c){
 <div id="create_space" class="create_space_blinking">
 <a id="new_space_anchor" name="new_space_anchor" ></a>
 	<div class="form">
-    <% form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
+    <%= form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
 		<%= f.hidden_field "rand_value" %>
 		  <%unless logged_in?%>
 		    <div id="left">
@@ -264,7 +264,7 @@ function cropImage (c){
     <%end%>
 <%if logged_in?%>
     <div id="default_upload_logo" style="display:none">
-        <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+        <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
 		<%= t("space.logo_selected.upload_logo_text")%><br>
         <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
 		
@@ -280,7 +280,7 @@ function cropImage (c){
 </div>
 
 
-<% content_for :sidebar do %>
+<%= content_for :sidebar do %>
 <%if logged_in?%>
 <div id="space_logo" class="space_logo">
     <h3><%=t('space.logo_selected.default_message') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer")%></h3>

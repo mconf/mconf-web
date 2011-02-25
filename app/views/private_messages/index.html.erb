@@ -1,5 +1,5 @@
 <% menu :inbox %>
-<% content_for :javascript do  %>
+<%= content_for :javascript do  %>
   $(".message_link").attr('href', '#');
   $(".message_link").livequery('click', function() {
     $(this).parents(".message_div").find("div.message_content").toggle();
@@ -18,11 +18,11 @@
   <%end%>
 <%end%>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
   <%if params[:reply_to] %>
 	  <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
 	<%else%>

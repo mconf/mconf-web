@@ -1,13 +1,13 @@
 <% menu :posts %>
 <% atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name))) %>
 
-<% content_for :headers do  -%>
+<%= content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.fancybox', 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>  
 <% end -%>
 
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
 /*
 *  Expand and collapse thread
@@ -174,11 +174,11 @@ $("#new_attachment_big_link").livequery('click',function () {
 
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
 
   <%= render :partial => 'spaces/sidebar' %>
 	

@@ -2,7 +2,7 @@
 
 <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16", :title => t('show_advanced_editor')),  edit_space_news_path(@space, :big => true), :id => "big_edit_news", :class => "extract_form" %><%= t('news.edit') %></h3>
 
-<% form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
+<%= form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
   
   <div>
     <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>

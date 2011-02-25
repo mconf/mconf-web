@@ -1,9 +1,9 @@
 
-<% content_for :headers do  -%>
+<%= content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
 /*
  *  Expand and collapse thread
@@ -45,11 +45,11 @@
   
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
 	<%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
 
 	<% if logged_in?%>
 	  <div class="button_wrapper">
@@ -138,7 +138,7 @@
 <%end%>  
 
 
-<% content_for :menu do  %>
+<%= content_for :menu do  %>
 	<%= render :partial => "menu" %>
 <% end %>
 

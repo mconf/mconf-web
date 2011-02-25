@@ -1,4 +1,4 @@
-<%content_for :sidebar do%>
+<%= content_for :sidebar do%>
   <%if params[:reply_to] %>
     <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:id])}%>
   <%end%>

@@ -1,8 +1,8 @@
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'user_filter' %>
 <%end%>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   $("#send_group_invitation_button").livequery('click',function(){ 
 
@@ -41,7 +41,7 @@
     <div id="invitations_title">
       <h3 class="blue"><%=t('space.group_invitation.message_title')%></h3>
     </div>
-    <% form_for([@space], :html => { :multipart => true, :name => "space_group_invitation_edit_form"}) do |f| -%>
+    <%= form_for([@space], :html => { :multipart => true, :name => "space_group_invitation_edit_form"}) do |f| -%>
       
       <div class="margin-up">
         <label for="e-mails" class="label_izquierda bold"><%= t('user.group_invite_email') %> <%= t('e-mail.commas') %>:</label>

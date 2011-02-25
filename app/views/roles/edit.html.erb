@@ -3,7 +3,7 @@
 
 <h1><%= t('role.editing') %></h1>
 
-<% form_for(@role) do |f| %>
+<%= form_for(@role) do |f| %>
   <%= f.error_messages %>
 
   <%= render :partial => 'form', :object => f %>

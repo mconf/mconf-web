@@ -4,7 +4,7 @@
   <h3 id="feedback_no_lightbox"><%= t('feedback.send_us') %></h3>
 <%end%>
 
-<%form_tag(feedback_index_path()) do -%>
+<%= form_tag(feedback_index_path()) do -%>
   <div id="feedback_form">
 	<p class="note">
 		<%= t('feedback.note') %>

@@ -1,6 +1,6 @@
 <% menu(:home) %>
 
-<% content_for :javascript do  %>
+<%= content_for :javascript do  %>
   $(".news_navigation_link").livequery("click", function(){
 	  var route = $(this).attr("href");
 		$(this).attr("href","#")
@@ -71,11 +71,11 @@
   	
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
     <%= render :partial => 'sidebar_leave_space' %>
 	<div id="inc-events">

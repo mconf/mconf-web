@@ -1,8 +1,8 @@
-<% content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle','jquery.jcrop' %>
 <%end%>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
   $("#nonjavascript_form").remove();
 	$("#jedit_form").show();
 	$('#space_name').editable(function(value, settings){
@@ -111,7 +111,7 @@
 <h3 class="center"><%=t('space.configuration')%></h3>
 
 <div id="nonjavascript_form">
-	<% form_for @space, :html => { :multipart => true} do |f| %>		
+	<%= form_for @space, :html => { :multipart => true} do |f| %>		
 		<p>
 		  <label for="name"><%=t('name.one')%>:</label>
 		  <%= f.text_field :name %>
@@ -133,7 +133,7 @@
 	  </div>	
 	<% end %>
 	<h3><%=t('space.logo')%></h3>
-	<% form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>	  
+	<%= form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>	  
       <div><%= f.file_field :media %></div>
       <div class="margin-up">
       	<button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
@@ -176,7 +176,7 @@
  
  
             <div id="update_logo" style="display:none">
-            	<% form_for @space,  :html => {:method => :put,:id =>"edit_logo_form", :multipart => true, :name => "space_edit_form"} do |f| %>
+            	<%= form_for @space,  :html => {:method => :put,:id =>"edit_logo_form", :multipart => true, :name => "space_edit_form"} do |f| %>
 				<label for="public" class="bold">
                     <%=t('space.logo_selected.default_message') %>
                 </label>

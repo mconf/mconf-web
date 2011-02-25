@@ -1,5 +1,5 @@
 	<div id="login_on_create_form">
-    <%fields_for :user do |user|%>
+    <%= fields_for :user do |user|%>
       <div>
       	<label for="login"><%= t('username') %></label><br/>
 		<%= user.text_field :login %></div>  

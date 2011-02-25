@@ -1,4 +1,4 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
   request_participation = function(){
 	   var route = "<%= space_event_path(@space, @event) %>" + "?participation_by_ajax=true";
 	   $.get(route,{

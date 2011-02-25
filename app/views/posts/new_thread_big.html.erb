@@ -6,7 +6,7 @@
 
 	  <!--<h3>New Thread</h3>-->
       <div id="text_form">
-          <% form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
+          <%= form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
           
           <div>
               <label for="Title">

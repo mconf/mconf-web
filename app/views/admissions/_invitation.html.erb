@@ -1,4 +1,4 @@
-<% div_for invitation do %>
+<%= div_for invitation do %>
 
   <div class="invitation-logo">
     <%= invitation.candidate ? link_logo(invitation.candidate, :url => user_path(invitation.candidate),:size => 32, :title=>invitation.candidate.name) : image_tag("avatars/undefined.png", :title => invitation.email)  %>

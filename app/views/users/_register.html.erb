@@ -4,7 +4,7 @@
   <% end %>
   <%= error_messages_for :user %>
 	<div class="form">
-		<% form_for user, :url => users_path do |f| -%>
+		<%= form_for user, :url => users_path do |f| -%>
 			
 			<%= render :partial => 'form', :locals => { :f => f } %>
 			

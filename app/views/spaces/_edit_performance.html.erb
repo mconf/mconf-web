@@ -1,4 +1,4 @@
-<%content_for :javascript do%>
+<%= content_for :javascript do%>
   $("#update_button_<%=performance.id%>").remove();
 	$("#nonjavascript_other_groups_<%=performance.id%>").remove();
 	$("#other_groups_link_<%=performance.id%>").show();
@@ -71,7 +71,7 @@
   </div>
   
   <div class="user_data">
-  	<% form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
+  	<%= form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
   	  <%=hidden_field_tag 'update_groups'%>
   	  <ul class="main_text">
   		  <li><label for="name"><%=t('name.one')%>: </label><span class="unified_user"><%=sanitize(user.full_name) %></span></li>

@@ -1,4 +1,4 @@
-	<%content_for :javascript do%>
+	<%= content_for :javascript do%>
 	
 selectDefaultImage = function(image){
 	//$("#selected_logo_image").fadeIn();
@@ -106,7 +106,7 @@ function cropImage (c){
 };
 
 <%end%>
-<% content_for :sidebar do %>
+<%= content_for :sidebar do %>
 <%if logged_in?%>
 <div id="space_logo" class="space_logo" style="display:none">
     <h3><%=t('space.logo_selected.default_message') %></h3>
@@ -155,7 +155,7 @@ function cropImage (c){
         </div>
 
 	<div id="default_upload_logo" style="display:none">
-        <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+        <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
 		<%= t("space.logo_selected.upload_logo_text")%><br>
         <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
 		

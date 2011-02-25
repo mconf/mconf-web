@@ -35,7 +35,7 @@
     <% end %>
 </div>
 <div id="default_upload_logo" style="display:none">
-    <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+    <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
     <label><%= t("space.logo_selected.upload_logo_text") %></label>
     
     <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>

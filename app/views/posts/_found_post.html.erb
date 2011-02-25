@@ -1,4 +1,4 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
   
   <%if !selected_post%>
     $("#collapsed_post_<%=post.id%>").show();
@@ -20,7 +20,7 @@
   
 <%end%>
 
-<%div_for post do%>
+<%= div_for post do%>
 <div class="post-logo">
   <%if current_user.fellows.include?(post.author) or (space.present? && space.authorize?([:read, :performance],:to=> current_user))%>
     <%=link_logo(post.author,:size=>32, :url => user_path(post.author), :title=>post.author.name)%>

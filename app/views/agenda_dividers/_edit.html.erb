@@ -1,7 +1,7 @@
 <div class="agenda_edit_divider" >
   <a id="edit_divider_anchor" name="edit_divider_anchor" ></a>
   <div class="agenda_blue_title"><%=t('agenda.divider.edit')%></div>
-  <% form_for (@agenda_divider, :url=>space_event_agenda_agenda_divider_path(@space, @event, @agenda_divider), :html => {:method => :put, :multipart => true, :name => "agenda_divider_edit_form"}) do |f| %>
+  <%= form_for (@agenda_divider, :url=>space_event_agenda_agenda_divider_path(@space, @event, @agenda_divider), :html => {:method => :put, :multipart => true, :name => "agenda_divider_edit_form"}) do |f| %>
       <input type="hidden" id="divider_day" name="divider_day" value="<%=@day%>">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.divider.start_time') %></label><br/>
       <%= f.time_select :start_time, :default => @agenda_divider.start_time %></div>

@@ -1,4 +1,4 @@
-<%div_for(event) do%>
+<%= div_for(event) do%>
   <div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
     <ul class="group_links">
       <li><%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(event.space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true%> </li>

@@ -1,11 +1,11 @@
 <% menu :posts %>
 
-<% content_for :headers do  -%>
+<%= content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.fcbkcomplete'%>
 	<%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
 <% end -%>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
 <%= render :partial => 'fckeditor_functions' %>  
 
@@ -117,12 +117,12 @@ $("a.edit_post_link").click(function(){
 
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
 <%if @space.authorize?([:create, :content],:to => current_user)%>
-	<% content_for :sidebar do  %>
+	<%= content_for :sidebar do  %>
 	  <%if params[:edit]%>
 		  <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
 		<%else%>
