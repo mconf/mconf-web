@@ -7,7 +7,7 @@ describe TranslateController do
 
   render_views
 
-  before(:all) do
+  before(:each) do
     @superuser = Factory(:superuser)
   end
 

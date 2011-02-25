@@ -1,12 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SitesController do
-  
+
   include ActionController::AuthenticationTestHelper
-  
+
   render_views
-  
-  before(:all) do
+
+  before(:each) do
     @superuser = Factory(:superuser)
   end
 

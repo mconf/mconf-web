@@ -5,7 +5,7 @@ describe JoinRequestsController do
 
   render_views
 
-  before(:all) do
+  before(:each) do
     @space = Factory(:space)
     @admin = Factory(:admin_performance, :stage => @space).agent
     @user = Factory(:user_performance, :stage => @space).agent

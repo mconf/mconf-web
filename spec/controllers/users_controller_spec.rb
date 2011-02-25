@@ -44,7 +44,7 @@ describe UsersController do
       
       describe "as a normal user" do
         
-        before(:all) do
+        before(:each) do
           login_as Factory(:user)
         end
 

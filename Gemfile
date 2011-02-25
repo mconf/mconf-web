@@ -30,6 +30,7 @@ gem 'rubyzip' # TODO: see rubyzip2
 gem 'garb'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
+gem 'dynamic_form'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'

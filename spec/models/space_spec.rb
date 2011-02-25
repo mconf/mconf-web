@@ -114,7 +114,7 @@ describe Space do
 
   # Authorization
   describe "being public" do
-    before(:all) do
+    before(:each) do
       @space = populated_public_space
       @admin = @space.stage_performances.detect{ |p| p.role.name == "Admin" }.agent
     end
