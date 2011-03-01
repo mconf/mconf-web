@@ -2,8 +2,7 @@
 
 # In Global authorization, users that are superusers are gods
 # This module allows implementing this feature in all classes that implement authorizes?
-=begin
-#TODO rails 3: station
+
 module ActiveRecord::Authorization::InstanceMethods
   alias authorize_without_superuser authorize?
 
@@ -15,4 +14,3 @@ module ActiveRecord::Authorization::InstanceMethods
 
   alias authorize? authorize_with_superuser
 end
-=end

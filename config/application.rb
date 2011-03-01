@@ -41,6 +41,11 @@ module Vcc
     config.i18n.fallbacks = true
     config.i18n.default_locale = :en
 
+    config.generators do |g|
+      g.fixture_replacement :factory_girl
+      #g.template_engine :haml
+    end
+
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
     # Allowed html tags for sanitize

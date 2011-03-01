@@ -15,23 +15,6 @@ describe ProfilesController do
       login_as(@superuser)
     end
 
-    it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
-      "creating the user automatically creates the profile") do
-      get :new, :user_id => @superuser.to_param
-      flash[:error].should == I18n.t('profile.error.exist')
-      response.should redirect_to(user_path(@superuser))
-    end
-    it ("should NOT be able to create his profile even if it hasn't been explicitly created, because" + 
-      "creating the user automatically creates the profile") do
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@superuser.id, "login"=>@superuser.login, "email"=>@superuser.email}
-      expect { 
-        post :create, :user_id => @superuser.to_param, :profile=> valid_attributes
-        flash[:error].should == I18n.t('profile.error.exist')
-        response.should redirect_to(user_path(@superuser))
-      }.not_to change{ Profile.count }
-    end 
-
     it "should be able to delete his profile" do
       @superuser.profile.update_attributes Factory.attributes_for(:profile)
       expect {
@@ -192,39 +175,7 @@ describe ProfilesController do
         response.should redirect_to(user_path(@user))
       }.to change{ Profile.count }.by(-1)
     end
-    it ("should NOT be able to get the new view for his profile even if it hasn't been explicitly created, because " +
-      "creating the user automatically creates the profile") do
-      login_as(@user)
-      get :new, :user_id => @user.to_param
-      flash[:error].should == I18n.t('profile.error.exist')
-      response.should redirect_to(user_path(@user))
-    end
-    it ("should NOT be able to create his profile even if it hasn't been explicitly created, because" + 
-      "creating the user automatically creates the profile") do
-      login_as(@user)
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@user.id, "login"=>@user.login, "email"=>@user.email}
-      expect {
-        post :create, :user_id => @user.to_param, :profile=> valid_attributes
-        flash[:error].should == I18n.t('profile.error.exist')
-        response.should redirect_to(user_path(@user))
-      }.not_to change{ Profile.count }
-    end
-    it "should NOT be able to get the new view for anyone's profile" do
-      login_as(@user)
-      get :new, :user_id => @user_public_1.to_param
-      assert_response 403
-    end
 
-    it "should NOT be able to create anyone's profile" do 
-      login_as(@user)
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      expect {
-        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
-        assert_response 403
-      }.not_to change{ Profile.count }
-    end
     it "should NOT be able to get the edit view for anyone's profile" do
       login_as(@user)
       get :edit, :user_id => @user_public_1.to_param
@@ -439,18 +390,6 @@ describe ProfilesController do
       @invited = Factory(:invited_performance, :stage => @private_space).agent
       login_as(@admin)
     end        
-    it "should NOT be able to get the new view for anyone's profile" do
-      get :new, :user_id => @invited.to_param
-      assert_response 403
-    end
-    it "should NOT be able to create anyone's profile" do 
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      expect {
-        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
-        assert_response 403
-      }.not_to change{ Profile.count }
-    end
     it "should NOT be able to get the edit view for anyone's profile" do
       get :edit, :user_id => @invited.to_param
       assert_response 403
@@ -564,23 +503,13 @@ describe ProfilesController do
       @invited = Factory(:invited_performance, :stage => @private_space).agent
     end    
     
-    it "should NOT be able to get the new view for anyone's profile" do
-      get :new, :user_id => @invited.to_param
-      assert_response 401
-    end
-    it "should NOT be able to create anyone's profile" do 
-      valid_attributes = Factory.attributes_for(:profile)
-      valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>@invited.email}
-      expect {
-        post :create, :user_id => @invited.to_param, :profile=> valid_attributes
-        assert_response 401
-      }.not_to change{ Profile.count }
-    end
     it "should NOT be able to get the edit view for anyone's profile" do
       get :edit, :user_id => @invited.to_param
-      assert_response 401
+      assert_response 302
+      response.should redirect_to(new_session_path)
       get :edit, :user_id => @user.to_param
-      assert_response 401
+      assert_response 302
+      response.should redirect_to(new_session_path)
     end
     it "shoud NOT be able to edit anyone's profile" do 
       #first we fill the user profile
@@ -588,13 +517,15 @@ describe ProfilesController do
       valid_attributes = Factory.attributes_for(:profile)
       valid_attributes["user_attributes"] = {"id"=>@invited.id, "login"=>@invited.login, "email"=>"newemail@gmail.com"}
       put :update, :user_id => @invited.to_param, :profile => valid_attributes              
-      assert_response 401
+      assert_response 302
+      response.should redirect_to(new_session_path)
     end
     it "should NOT be able to delete anyone's profile" do
       @invited.profile.update_attributes Factory.attributes_for(:profile)
       expect {
         delete :destroy, :user_id => @invited.to_param
-        assert_response 401
+        assert_response 302
+        response.should redirect_to(new_session_path)
       }.not_to change{ Profile.count }
     end
   

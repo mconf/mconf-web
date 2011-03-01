@@ -19,7 +19,6 @@ gem 'rcov'
 gem 'chronic'
 gem 'hpricot'
 gem 'feed-normalizer'
-gem 'rspec-rails' #, '1.3.2'
 gem 'hoe'
 gem 'httparty'
 gem 'pdf-writer'
@@ -32,10 +31,12 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 gem 'dynamic_form'
 
+# not the official repo, but has adjustments to use it in rails 3
+gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
+
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
-  #gem 'rspec', '1.3.1' # TODO
-  #gem 'rspec-rails', '1.3.3' # TODO
+  gem 'rspec-rails', '~> 2.5'
   gem "capistrano"
   gem 'mongrel', '1.2.0.pre2'
   gem 'populator'
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'action_mailer_tls'
+  gem 'webrat'
 end
 
 group :production do

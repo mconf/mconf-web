@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/echen/table_helper.git
+  revision: a756e56774e0a3a6182cdfc6773a86fd98d0b704
+  specs:
+    table_helper (0.2.2)
+
+GIT
   remote: git://github.com/galetahub/simple-captcha.git
   revision: b8493942e9a9bb58c58712fa21d41963330da6aa
   specs:
@@ -159,6 +165,10 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
     vpim (0.695)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
 
 PLATFORMS
@@ -190,11 +200,13 @@ DEPENDENCIES
   rails (= 3.0.3)
   rcov
   rmagick
-  rspec-rails
+  rspec-rails (~> 2.5)
   ruby-debug19
   ruby-openid
   rubyzip
   simple_captcha!
   sqlite3-ruby
+  table_helper!
   vpim
+  webrat
   will_paginate (~> 3.0.pre2)

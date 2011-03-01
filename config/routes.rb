@@ -32,7 +32,7 @@ Vcc::Application.routes.draw do
     end
 
     resources :users do |user|
-      resource :profile
+      resource :profile, :except => [:new, :create]
     end
 
     resources :videos
@@ -149,7 +149,7 @@ Vcc::Application.routes.draw do
     # user.resources :messages, :controller => 'private_messages'
     resources :private_messages, :as => 'messages'
 ##
-    resource :profile do
+    resource :profile, :except => [:new, :create] do
       resource :logo
     end
     resource :avatar do

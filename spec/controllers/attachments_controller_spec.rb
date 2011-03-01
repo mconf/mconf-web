@@ -101,7 +101,8 @@ describe AttachmentsController do
     it "should not be able to see space repository in a private space "do
       @private_space_with_repository=Factory(:private_space_with_repository)
       get :index, :space_id =>  @private_space_with_repository.to_param
-      assert_response 401
+      assert_response 302
+      response.should redirect_to(new_session_path)
     end
 
   end

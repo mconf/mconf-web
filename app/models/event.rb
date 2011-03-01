@@ -167,7 +167,7 @@ class Event < ActiveRecord::Base
 
 
   scope :upcoming, lambda {
-    where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).include(:space).order("start_date")
+    where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).includes(:space).order("start_date")
   }
 
   # TODO is_indexed comes from Ultrasphinx

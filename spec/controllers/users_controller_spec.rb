@@ -119,7 +119,8 @@ describe UsersController do
         end
         it "should NOT let the user to see the users" do
           get :index , :space_id => @space.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
       end
 
