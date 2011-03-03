@@ -1,22 +1,20 @@
 Notes on the migration to Rails 3.0.3
 
 Actual status:
-- Partly migrated the app, with several restrictinos. Should now migrate the plugin 'station'.
+- Almost all tests ok.
 
 Notes:
 - Plugin rails_upgrade was used to get some directions.
 - Plugin rails_rcov not used anymore. Now using a simpler solution: http://www.betaful.com/?p=498
-- attachment_fu installed as plugins from a branch in a fork compatible with rails 3.
-  - Fork: git://github.com/mihael/attachment_fu.git
+- attachment_fu installed as plugins from a fork compatible with rails 3.
+  - Fork: git://github.com/mconf/attachment_fu.git
   - Working better than alternative: http://github.com/woahdae/attachment_fu.git -r rails3
   - See: https://github.com/technoweenie/attachment_fu/pull/30 and https://github.com/technoweenie/attachment_fu/issues#issue/10
   - Still had to adapt the monkey patch, see TODO below.
-  - Code changes in:
-    - attachment_fu/lib/technoweenie/attachment_fu/backends/file_system_backend.rb
 - Other plugins now used as gems:
   - fckeditor
   - exception_notification => exception_notification_rails3
-  - simple_captcha
+  - simple_captcha (from git://github.com/galetahub/simple-captcha.git)
   - will_paginate (not mislav-will_paginate anymore)
   - action_mailer_optional_tls not used anymore in favor of action_mailer_tls
   - permalink_fu
@@ -29,13 +27,14 @@ Notes:
   - after_* and before_*
   - and many others
 - PDF creation was disable, see TODO list.
+- Plugin station was also migrated to Rails 3 / Ruby 1.9. Needed several changes, it should be better tested.
 
 TODO:
 - acts_as_tree plugin was modified (named_scope), decide what to do with the code.
-- Tempfile in monkey-patch in attachment_fu/init.rb was changed. See https://github.com/technoweenie/attachment_fu/issuesearch?state=open&q=make_tmpname#issue/25 and http://marsorange.com/archives/of-mogrify-ruby-tempfile-dynamic-class-definitions
+- Tempfile monkey-patch in attachment_fu/init.rb was adapted and disabled for Ruby >= 1.9 only. Should check Tempfile.new calls using Ruby 1.9.
+  - See https://github.com/technoweenie/attachment_fu/issuesearch?state=open&q=make_tmpname#issue/25 and http://marsorange.com/archives/of-mogrify-ruby-tempfile-dynamic-class-definitions
 - Ultrasphix does not support Rails 3. All related coded is commented. Maybe can be replaced by http://freelancing-god.github.com/ts/en/rails3.html
 - config/routes.rb should be revised. All routes were migrated, but need to be tested.
-- Plugin station should be migrated to Rails 3 / Ruby 1.9.
 - Search for 'TODO rails 3:' for a list of things still to be migrated. Although some are with "TODO" only.
 - List the changes made in station.
 - pdf-writer is not compatible with Rails 3. Alternative: PDFKit at https://github.com/jdpace/PDFKit

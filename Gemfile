@@ -4,7 +4,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 
 # for station
-#gem 'will_paginate' # gem 'mislav-will_paginate', :source => 'http://gems.github.com/'
 #gem 'mislav-will_paginate' # :git => 'git://github.com/mislav/will_paginate.git'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'

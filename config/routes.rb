@@ -25,20 +25,20 @@ Vcc::Application.routes.draw do
     end
   end
 
-  resources :spaces do |space|
+  resources :spaces do
 
     member do
       post :enable
     end
 
-    resources :users do |user|
+    resources :users do
       resource :profile, :except => [:new, :create]
     end
 
     resources :videos
     resources :readers
 
-    resources :events do |event|
+    resources :events do
 
       member do
         get :token
@@ -174,7 +174,7 @@ Vcc::Application.routes.draw do
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
 
   # simple_captcha controller
-  match '/simple_captcha/:action', :to => 'simple_captcha', :as => 'simple_captcha'
+  match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
 
   # root
   root :to => 'frontpage#index'
