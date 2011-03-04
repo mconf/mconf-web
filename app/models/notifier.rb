@@ -24,7 +24,7 @@ class Notifier < ActionMailer::Base
     setup_email(invitation.email)
 
 
-    @subject += raw(I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name))
+    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name)
 
     @invitation = invitation
     @space = invitation.group    
@@ -46,7 +46,7 @@ class Notifier < ActionMailer::Base
   def event_invitation_email(invitation)
     setup_email(invitation.email)
 
-    @subject += raw(I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name))
+    @subject += I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name)
 
     @invitation = invitation
     @space = invitation.group.space    
@@ -64,7 +64,7 @@ class Notifier < ActionMailer::Base
     user_sender = User.find(event.notif_sender_id)
 
 
-    @subject += raw(I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name))
+    @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name)
 
     @event = event
     @receiver = receiver
@@ -81,14 +81,14 @@ class Notifier < ActionMailer::Base
     setup_email(receiver.email)
     
     if stage.type.name == 'Space'
-      @subject += raw(I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name))
-      @text = raw(I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol ));
+      @subject += I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name)
+      @text = I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
     elsif stage.type.name == 'Event'
-      @subject += raw(I18n.t("performance.notification.subject.event", :username=>sender.full_name , :event=>stage.name))
-      @text = raw(I18n.t("performance.notification.event", :username=>sender.full_name , :event=>stage.name , :role => rol ));
+      @subject += I18n.t("performance.notification.subject.event", :username=>sender.full_name , :event=>stage.name)
+      @text = I18n.t("performance.notification.event", :username=>sender.full_name , :event=>stage.name , :role => rol );
     else
-      @subject += raw(I18n.t("performance.notification.subject.estandar", :username=>sender.full_name , :stage=>stage.name))
-      @text = raw(I18n.t("performance.notification.estandar"));
+      @subject += I18n.t("performance.notification.subject.estandar", :username=>sender.full_name , :stage=>stage.name)
+      @text = I18n.t("performance.notification.estandar");
     end
  
     @sender = sender
@@ -103,7 +103,7 @@ class Notifier < ActionMailer::Base
     setup_email(mail)
     
     user_sender = User.find(space.group_inv_sender_id)
-    @subject += raw(I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name))
+    @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name)
     @space = space
     #@headers.store("Reply-To",user_sender.email)
     upgmail(user_sender.mail)
@@ -113,7 +113,7 @@ class Notifier < ActionMailer::Base
     setup_email(mail)
 
     user_sender = User.find(event.group_inv_sender_id)
-    @subject += raw(I18n.t("event.group_invitation.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name))
+    @subject += I18n.t("event.group_invitation.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name)
     @event = event
     #@headers.store("Reply-To",user_sender.email)
     upgmail(user_sender.email)
@@ -122,11 +122,11 @@ class Notifier < ActionMailer::Base
   def processed_invitation_email(invitation, receiver)
     setup_email(receiver.email)
 	
-    action = invitation.accepted? ? raw(I18n.t("invitation.yes_accepted")) : raw(I18n.t("invitation.not_accepted"))
+    action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
     if invitation.candidate != nil
-      @subject += raw(I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name))
+      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name)
     else
-      @subject += raw(I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name))
+      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name)
     end
     @invitation = invitation
     @space = invitation.group
@@ -139,7 +139,7 @@ class Notifier < ActionMailer::Base
   def join_request_email(jr,receiver)
     setup_email(receiver.email)
 
-    @subject += raw(I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name))	
+    @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name)	
     @join_request = jr
     @contact_email = Site.current.email
     @signature  = Site.current.signature_in_html
@@ -150,8 +150,8 @@ class Notifier < ActionMailer::Base
   def processed_join_request_email(jr)
     setup_email(jr.candidate.email)
 	
-    action = jr.accepted? ? raw(I18n.t("invitation.yes_accepted")) : raw(I18n.t("invitation.not_accepted"))
-    @subject += raw(I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name))	
+    action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
+    @subject += I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name)	
     @jr = jr
     @space = jr.group
     @action = action
@@ -162,7 +162,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     setup_email(user.email)
 
-    @subject += raw(I18n.t("e-mail.welcome",:sitename=>Site.current.name))
+    @subject += I18n.t("e-mail.welcome",:sitename=>Site.current.name)
     @name = user.full_name
     @hash = user.activation_code
     @contact_email = Site.current.email
@@ -172,7 +172,7 @@ class Notifier < ActionMailer::Base
   def activation(user)
     setup_email(user.email)
 
-    @subject += raw(I18n.t("account_activated", :sitename=>Site.current.name))
+    @subject += I18n.t("account_activated", :sitename=>Site.current.name)
     @user = user
     @contact_email = Site.current.email
     @url  = "http://" + Site.current.domain + "/"
@@ -184,7 +184,7 @@ class Notifier < ActionMailer::Base
   def lost_password(user)
     setup_email(user.email)
 
-    @subject += raw(I18n.t("password.request", :sitename=>Site.current.name))   
+    @subject += I18n.t("password.request", :sitename=>Site.current.name)   
     @name = user.full_name
     @contact_email = Site.current.email
     @url  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}" 
@@ -195,7 +195,7 @@ class Notifier < ActionMailer::Base
   def reset_password(user)
     setup_email(user.email)
 
-    @subject += raw(I18n.t("password.reset_email", :sitename=>Site.current.name))
+    @subject += I18n.t("password.reset_email", :sitename=>Site.current.name)
     @sitename  = Site.current.name	
    	@signature = Site.current.signature_in_html		
   end
@@ -205,7 +205,7 @@ class Notifier < ActionMailer::Base
     setup_email(Site.current.email)
     
     @from = email
-    @subject += raw(I18n.t("feedback.one")) + " " + subject
+    @subject += I18n.t("feedback.one") + " " + subject
     @text = body
     @user = email
   end
@@ -216,7 +216,7 @@ class Notifier < ActionMailer::Base
     
     @from = user.email
     @subject += subject
-    @text = raw(I18n.t("spam.item")) + ": " + url + "<br/>"
+    @text = I18n.t("spam.item") + ": " + url + "<br/>"
     @text += body
     @user = user.full_name
     @sitename  = Site.current.name
@@ -228,7 +228,7 @@ class Notifier < ActionMailer::Base
   def setup_email(recipients)
     @recipients = recipients
     @from = "#{ Site.current.name } <#{ Site.current.email }>"
-    @subject = raw(I18n.t("vcc_mail_label")) + " "
+    @subject = I18n.t("vcc_mail_label") + " "
     @sent_on = Time.now
     @content_type ="text/html"
   end
