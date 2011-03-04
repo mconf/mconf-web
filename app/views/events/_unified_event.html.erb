@@ -4,7 +4,7 @@
 
   <%= div_for(event, :class=>"event_padding") do %>
     <div class="div-logo">  
-      <%= link_logo(event.space, :size =>'w48', :url => space_path(event.space), :title=>event.space.name) %>
+      <%= raw(link_logo(event.space, :size =>'w48', :url => space_path(event.space), :title=>event.space.name)) %>
     </div>  
     <div class="home_event">
       <ul class="group_links">

@@ -24,75 +24,75 @@
   });
 
 <%end%>
-	
+        
 
 
-	<div class="my_spaces margin-up">    
-	    <div id="my_spaces_title">
-	    	<h3>
-	    		<%=image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4'))%> <%=title%>
-			</h3>
-	    </div>
-	    
-		<%if show_user.spaces.empty?%>
-			<ul>
-	        	<li><span class="unified_user"><%=show_user.name%></span> doesn't belong to any space.</li>
-	      	</ul>
-	    <%else%>
-		
-	    	<div id="my_spaces_lite" <%= 'style="display: none;"' if params[:all_my_spaces] or params[:list_my_spaces]%> >
-	        	<ul class="inline">
-	          		<%for space in show_user.spaces.first(6)%>
-						<%if space.authorize? :read, :to => current_user%>
-	              			<li><%=link_to logo(space,{:size=>"h64", :title=> space.name }),space_path(space) %></li>
-						<%else%>
-							<li><%=logo(space,{:size=>"h64", :title=> space.name })%></li>
-						<%end%>
-	        		<%end%>
-				</ul>
-	      
-	  			<div class="links">
-        			<%=link_to t('show_list_version>>'), user_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
-					<% if show_user.spaces.size > 6 %>
-        				<span class="sidebar_text">|</span>
-        				<%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces"%>
-					<% end %>
-      			</div>
-	      	</div>
-	      
-	      	<div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
-	        	<ul class="inline">
-	          		<% show_user.spaces.each do |s| %>
-						<%if s.authorize? :read, :to => current_user%>     
-	              			<li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(s) %></li>
-	            		<%else%>
-							<li><%= logo(s,{:size=>"h64", :title=> s.name })%></li>
-						<%end%>
-					<% end %>
-				</ul>
-	
-	      		<div class="links">
-	       			<%=link_to t('show_list_version>>'), user_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
-	        		<span class="sidebar_text">|</span>
-	       			<%=link_to t('collapse>>'), user_path(show_user), :class => "less_spaces"%>
-	      		</div>
-	      	</div>
-	      
-	      	<div id="my_spaces_list" <%= 'style="display: none;"' unless params[:list_my_spaces]%> >
-	      		<ul>
-	        		<% show_user.spaces.each do |s| %>     
-	          			<%if space.authorize? :read, :to => current_user%>    
-							<li><%= link_to(s.name, s) %></li>
-					  	<%else%>
-							<li><%= s.name %></li>
-						<%end%>
-	        		<% end %>
-	      		</ul>
-	
-				<div class="links">
-	        		<%=link_to t('photos_view>>'), user_path(show_user), :class => "less_spaces"%>
-	      		</div>
-			
-	      	</div>
-	    <%end%>
-	</div>
+        <div class="my_spaces margin-up">    
+            <div id="my_spaces_title">
+                <h3>
+                        <%=image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4'))%> <%=title%>
+                        </h3>
+            </div>
+            
+                <%if show_user.spaces.empty?%>
+                        <ul>
+                        <li><span class="unified_user"><%=show_user.name%></span> doesn't belong to any space.</li>
+                </ul>
+            <%else%>
+                
+                <div id="my_spaces_lite" <%= 'style="display: none;"' if params[:all_my_spaces] or params[:list_my_spaces]%> >
+                        <ul class="inline">
+                                <%for space in show_user.spaces.first(6)%>
+                                                <%if space.authorize? :read, :to => current_user%>
+                                        <li><%=link_to raw(logo(space,{:size=>"h64", :title=> space.name })), space_path(space) %></li>
+                                                <%else%>
+                                                        <li><%= raw(logo(space,{:size=>"h64", :title=> space.name })) %></li>
+                                                <%end%>
+                                <%end%>
+                                </ul>
+              
+                                <div class="links">
+                                <%=link_to t('show_list_version>>'), user_path(show_user,:list_my_spaces => true),:class => "list_my_spaces"%>
+                                        <% if show_user.spaces.size > 6 %>
+                                        <span class="sidebar_text">|</span>
+                                        <%=link_to t('more>>'), user_path(show_user, :all_my_spaces => true),:class => "more_spaces"%>
+                                        <% end %>
+                        </div>
+                </div>
+              
+                <div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
+                        <ul class="inline">
+                                <% show_user.spaces.each do |s| %>
+                                                <%if s.authorize? :read, :to => current_user%>     
+                                        <li><%= link_to raw(logo(s,{:size=>"h64", :title=> s.name })), space_path(s) %></li>
+                                <%else%>
+                                                        <li><%= raw(logo(s,{:size=>"h64", :title=> s.name })) %></li>
+                                                <%end%>
+                                        <% end %>
+                                </ul>
+        
+                        <div class="links">
+                                <%=link_to t('show_list_version>>'), user_path(show_user, :list_my_spaces => true),:class => "list_my_spaces"%>
+                                <span class="sidebar_text">|</span>
+                                <%=link_to t('collapse>>'), user_path(show_user), :class => "less_spaces"%>
+                        </div>
+                </div>
+              
+                <div id="my_spaces_list" <%= 'style="display: none;"' unless params[:list_my_spaces]%> >
+                        <ul>
+                                <% show_user.spaces.each do |s| %>     
+                                        <%if space.authorize? :read, :to => current_user%>    
+                                                        <li><%= link_to(s.name, s) %></li>
+                                                <%else%>
+                                                        <li><%= s.name %></li>
+                                                <%end%>
+                                <% end %>
+                        </ul>
+        
+                                <div class="links">
+                                <%=link_to t('photos_view>>'), user_path(show_user), :class => "less_spaces"%>
+                        </div>
+                        
+                </div>
+            <%end%>
+        </div>

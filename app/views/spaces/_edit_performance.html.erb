@@ -1,90 +1,90 @@
 <%= content_for :javascript do%>
   $("#update_button_<%=performance.id%>").remove();
-	$("#nonjavascript_other_groups_<%=performance.id%>").remove();
-	$("#other_groups_link_<%=performance.id%>").show();
-	
-	show_other_groups_<%=performance.id%> = function(){
-	  $("#other_groups_link_<%=performance.id%>").hide();
-	  $("#other_groups_<%=performance.id%>").slideDown("normal");
-	  $("#other_groups_<%=performance.id%>").css("clear","left");
-	};
-	
-	close_other_groups_<%=performance.id%> = function(){
-	  $("#other_groups_link_<%=performance.id%>").show();
+        $("#nonjavascript_other_groups_<%=performance.id%>").remove();
+        $("#other_groups_link_<%=performance.id%>").show();
+        
+        show_other_groups_<%=performance.id%> = function(){
+          $("#other_groups_link_<%=performance.id%>").hide();
+          $("#other_groups_<%=performance.id%>").slideDown("normal");
+          $("#other_groups_<%=performance.id%>").css("clear","left");
+        };
+        
+        close_other_groups_<%=performance.id%> = function(){
+          $("#other_groups_link_<%=performance.id%>").show();
     $("#other_groups_<%=performance.id%>").slideUp("normal", function(){
-		  
-		});
+                  
+                });
   };
-	
-	$("#role_select_<%=performance.id%>").livequery('change', function(){
-	  val = $(this).val();
+        
+        $("#role_select_<%=performance.id%>").livequery('change', function(){
+          val = $(this).val();
     $.post("<%=performance_path(performance)%>",{
-		      _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
-					'performance[role_id]': val 
-					},
-					function(data){eval(data);},
-					"script"
-				);
+                      _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
+                                        'performance[role_id]': val 
+                                        },
+                                        function(data){eval(data);},
+                                        "script"
+                                );
   });
-	
-	$(".group_checkbox_<%=performance.id%>").livequery('click', function(){
-	  if($(this).is(":checked")){
-		  $(this).addClass("clicked_checkbox");
-	    var route = "/groups/" + $(this).val() + "/memberships/"
-	    $.post(route,
-			      {authenticity_token: "<%=form_authenticity_token()%>",'membership[user_id]':<%=user.id%>},
-	          function(data){
-						  eval(data);
-						  var old_checkbox = $(".clicked_checkbox").removeClass("clicked_checkbox").attr("id", membership_id).parent().removeClass("crossed");
-							var new_checkbox = old_checkbox.clone();
-							$("div#selected_groups_<%=performance.id%>").append(new_checkbox);
-							old_checkbox.remove();
-							if($("#other_groups_<%=performance.id%> div").size() == 0){
-							  $("#other_groups_<%=performance.id%>").hide();
-							}
-						}
-	        );
-		}else{
-		  $(this).addClass("clicked_checkbox");
-		  var route = "/groups/" + $(this).val() + "/memberships/" + $(this).attr("id")
+        
+        $(".group_checkbox_<%=performance.id%>").livequery('click', function(){
+          if($(this).is(":checked")){
+                  $(this).addClass("clicked_checkbox");
+            var route = "/groups/" + $(this).val() + "/memberships/"
+            $.post(route,
+                              {authenticity_token: "<%=form_authenticity_token()%>",'membership[user_id]':<%=user.id%>},
+                  function(data){
+                                                  eval(data);
+                                                  var old_checkbox = $(".clicked_checkbox").removeClass("clicked_checkbox").attr("id", membership_id).parent().removeClass("crossed");
+                                                        var new_checkbox = old_checkbox.clone();
+                                                        $("div#selected_groups_<%=performance.id%>").append(new_checkbox);
+                                                        old_checkbox.remove();
+                                                        if($("#other_groups_<%=performance.id%> div").size() == 0){
+                                                          $("#other_groups_<%=performance.id%>").hide();
+                                                        }
+                                                }
+                );
+                }else{
+                  $(this).addClass("clicked_checkbox");
+                  var route = "/groups/" + $(this).val() + "/memberships/" + $(this).attr("id")
       $.post(route,{
           _method: "delete", authenticity_token: "<%=form_authenticity_token()%>"          
           },
           function(data){
-					  eval(data);
-						$(".clicked_checkbox").removeClass("clicked_checkbox").parent().addClass("crossed")
-				  }
+                                          eval(data);
+                                                $(".clicked_checkbox").removeClass("clicked_checkbox").parent().addClass("crossed")
+                                  }
         );
-		}
+                }
   });
-	
-	
+        
+        
 <%end%>
 <div class="user">
-	<ul class="group_links">
-		<li><%= link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), space_users_path(@space, :send_message => user.id)%></li>
-		<li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), space_performance_path(@space, performance), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
-	</ul>
+        <ul class="group_links">
+                <li><%= link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), space_users_path(@space, :send_message => user.id)%></li>
+                <li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), space_performance_path(@space, performance), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
+        </ul>
   
   <div>
-    <%=link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)%>
+    <%= raw(link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)) %>
   </div>
   
   <div class="user_data">
-  	<%= form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
-  	  <%=hidden_field_tag 'update_groups'%>
-  	  <ul class="main_text">
-  		  <li><label for="name"><%=t('name.one')%>: </label><span class="unified_user"><%=sanitize(user.full_name) %></span></li>
-  		  <li>
-  		    <label for="admin"><%=t('role.one')%>: </label>
-  		    <%if @space.is_last_admin?(user)%>
-  		      Admin
-  		    <%else%>
-  		      <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
-  	      <%end%>	          
-  		  </li>
+        <%= form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
+          <%=hidden_field_tag 'update_groups'%>
+          <ul class="main_text">
+                  <li><label for="name"><%=t('name.one')%>: </label><span class="unified_user"><%=sanitize(user.full_name) %></span></li>
+                  <li>
+                    <label for="admin"><%=t('role.one')%>: </label>
+                    <%if @space.is_last_admin?(user)%>
+                      Admin
+                    <%else%>
+                      <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+              <%end%>             
+                  </li>
       </ul>
-  	 
+         
       <div id="selected_groups_<%=performance.id%>" class="selected_groups">
         <label for="groups"><%=t('group.other')%>: </label>
         <%for group in @space.groups.select{|g| g.users.include?(user)} do %>
@@ -93,7 +93,7 @@
           </div>
         <%end%>
       </div>
-  	 
+         
       <%unless @space.groups.select{|g| !g.users.include?(user)}.empty?%>
         <div id="nonjavascript_other_groups_<%=performance.id%>">
           <label for="addToGroup"><%=t('group.add_to_group')%>: </label>
@@ -103,18 +103,18 @@
           <%=link_to t('group.add_to_others'), "javascript:show_other_groups_#{performance.id}()", :id => "other_groups_link_#{performance.id}", :style =>"display:none" %>
         </div>
       <%end%>
-  	 
+         
       <div style="display:none" id="other_groups_<%=performance.id%>" class="selected_groups">
         <label><%= t('group.different') %>: </label>
-  		  <%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
+                  <%for group in @space.groups.select{|g| !g.users.include?(user)} do %>
           <div class="non_float">
-  		      <%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
+                      <%= check_box_tag "other_groups[]", group.id, false, {:class => "group_checkbox_#{performance.id}"} %><%= label("checkbox",sanitize(group.name))%>
           </div>
-  		  <%end%>
-  		  <%=link_to "[" + t('close') + "]", "javascript:close_other_groups_#{performance.id}()" %>
-  	  </div>
-  	  
-  	  <%= submit_tag t('update'), :id=> "update_button_#{performance.id}"%> 
+                  <%end%>
+                  <%=link_to "[" + t('close') + "]", "javascript:close_other_groups_#{performance.id}()" %>
+          </div>
+          
+          <%= submit_tag t('update'), :id=> "update_button_#{performance.id}"%> 
     <% end %>
-  </div>	
+  </div>        
 </div>

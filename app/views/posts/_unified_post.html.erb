@@ -6,7 +6,7 @@
     
     <div class="thread_content">
       <div class="div-logo">
-        <%=link_logo(thread.space, :size =>'w48', :url => space_path(thread.space), :title=>thread.space.name)%>
+        <%= raw(link_logo(thread.space, :size =>'w48', :url => space_path(thread.space), :title=>thread.space.name)) %>
       </div>      
       
       <div class="thread-home">

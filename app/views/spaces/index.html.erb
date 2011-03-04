@@ -1,17 +1,17 @@
 <%= content_for :javascript do  %>
-  	
-	$("#space_filter").show();
+        
+        $("#space_filter").show();
 
-	$("input#spaces_all").click(function(){
-	  $(".other").show();
-	});
-	
-	$("input#spaces_my").click(function(){
-	  $(".other").hide();  
+        $("input#spaces_all").click(function(){
+          $(".other").show();
+        });
+        
+        $("input#spaces_my").click(function(){
+          $(".other").hide();  
   });
-	
-	$("#space_name_filter").keyup(function(){
-	  var filter_text = this.value.toLowerCase();
+        
+        $("#space_name_filter").keyup(function(){
+          var filter_text = this.value.toLowerCase();
     $("div.space_item").each(function() {
         if($(this).attr("name").toLowerCase().search(filter_text)>=0){
           $(this).css("display","inline");
@@ -19,89 +19,89 @@
           $(this).hide();
       }
       });
-	});
-	
-	var title = "<%=escape_javascript(t('search.space.dots'))%>";
-	$("#space_name_filter").click(function(){
-	  if(this.value == title){
-		  this.value="";
-		}
-	});
+        });
+        
+        var title = "<%=escape_javascript(t('search.space.dots'))%>";
+        $("#space_name_filter").click(function(){
+          if(this.value == title){
+                  this.value="";
+                }
+        });
 
 
-	$("#space_name_filter").blur(function(){
-	  if(this.value == ""){
-		  this.value= title;
-		}
-	});
-	
+        $("#space_name_filter").blur(function(){
+          if(this.value == ""){
+                  this.value= title;
+                }
+        });
+        
   $(".space_item").hover(
-	  function () {
-		    var route = "div#" + $(this).attr("name");
-				$("#space_description div").hide();
-				$(route).show();
-				
+          function () {
+                    var route = "div#" + $(this).attr("name");
+                                $("#space_description div").hide();
+                                $(route).show();
+                                
       }, 
       function () {
 
       }
     );
   
-	
-	/*
+        
+        /*
   $(".unautorized form").submit(function(){
-	  var route = $(this).attr("action");
+          var route = $(this).attr("action");
     $.post(route,
             {authenticity_token: "<%=form_authenticity_token()%>"},
             function(data){
-						  eval(data);
+                                                  eval(data);
             }
           );
-		return false;
+                return false;
   });
-	*/
-	
-	$(".unautorized a").fancybox({
+        */
+        
+        $(".unautorized a").fancybox({
     'hideOnContentClick' : false
   });
   
 
-	
+        
 <%if params[:space_id]=="my"%>
    $("input#spaces_my").click();
 <%end%>
-	
+        
 <%if params[:filter]%>
     $("#space_name_filter").keyup();
   <%end%>
-	
+        
 <% end %>
 
 <%= content_for :search do  %>
-	<%= render :partial => 'search/form' %>	
+        <%= render :partial => 'search/form' %> 
 <% end %>
 
 <%= content_for :sidebar do  %>
-	<% if logged_in?%>
+        <% if logged_in?%>
       <div class="button_wrapper">
         <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
       </div>
     <%else%>
-	  <div class="join">
-	    <h2><%= t('getting_started') %></h2>
-  		<!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
-			<div class="button_wrapper margin-up">
-		    <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
-		  </div>
-	  </div>
-	<% end %>
+          <div class="join">
+            <h2><%= t('getting_started') %></h2>
+                <!--<p><%= t('space.create_own') %><br/><%= t('share_participate_discuss') %></p>-->
+                        <div class="button_wrapper margin-up">
+                    <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
+                  </div>
+          </div>
+        <% end %>
 
   <div id="space_description">
-  	<% for space in @spaces %>
-		  <div style="display:none;" id="<%=space.permalink%>" >
-			  <%= render :partial=> "space_description", :locals => {:space => space}%>
-		  </div>
-		<%end%>
+        <% for space in @spaces %>
+                  <div style="display:none;" id="<%=space.permalink%>" >
+                          <%= render :partial=> "space_description", :locals => {:space => space}%>
+                  </div>
+                <%end%>
   </div>
 <% end %>
 
@@ -113,11 +113,11 @@
 <%end%>
 
 <div id="space_filter" style="display:none">
-	  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-	  <%if logged_in?%>
-	    <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
-	    <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
-	  <%end%>
+          <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
+          <%if logged_in?%>
+            <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
+            <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
+          <%end%>
 </div>  
 
 <div id = "public_spaces" class="space-box margin-up">
@@ -125,7 +125,7 @@
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
     <% for space in @public_spaces %>
-      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => sanitize(space.name))%></div>
+      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= raw(link_logo (space, :size=> 'h64', :title => sanitize(space.name))) %></div>
     <% end %>
   </div>
 </div>
@@ -134,15 +134,15 @@
 
   <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
   <div id="space_content">
-  	<% for space in @private_spaces %>
-  	  <% unless space.authorize?(:read, :to => current_agent) %>
-  	    <div class="space_item other" name="<%=space.permalink%>">
-          <%=link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>sanitize(space.name))%>
-  		  </div>
-  	  <% else %>
-  		  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => sanitize(space.name))%></div>
-  	  <% end %>
-  	<% end %>
+        <% for space in @private_spaces %>
+          <% unless space.authorize?(:read, :to => current_agent) %>
+            <div class="space_item other" name="<%=space.permalink%>">
+          <%= raw(link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>sanitize(space.name))) %>
+                  </div>
+          <% else %>
+                  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= raw(link_logo (space, :size=> 'h64', :title => sanitize(space.name))) %></div>
+          <% end %>
+        <% end %>
   </div>
 </div>
 

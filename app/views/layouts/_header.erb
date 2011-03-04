@@ -1,6 +1,6 @@
 <% if space && space.id!=nil%>
           <div id="logo">
-            <%= link_logo(space, :size => "h64", :title=>space.name) %>
+            <%= raw(link_logo(space, :size => "h64", :title=>space.name)) %>
           </div>
 <%else%>
         <div id="vcc-logo">

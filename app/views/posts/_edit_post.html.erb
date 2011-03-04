@@ -52,7 +52,7 @@
                 
                 <%# Attachments%>
                 <%= content_for :javascript do %>
-     <%= "var attachment='#{ generate_template(f, :attachments, :partial => 'posts/attachment') }'" %>
+     <%= raw("var attachment='#{ generate_template(f, :attachments, :partial => 'posts/attachment') }'") %>
     <% end %>
     
     <div id="new_attachment_form">

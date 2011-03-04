@@ -13,26 +13,26 @@
     <% @space.join_requests.pending.each do |jr| %>
       <div class="reqs <%='last' if (jr==last_request)%>"> 
         <div class="reqs-item">
-          <div class="invitation-logo">		        
-              <%= link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name) %>		        
-	        </div>
+          <div class="invitation-logo">                 
+              <%= raw(link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name)) %>
+                </div>
           <div class="invitation-content">
-	  	      <span class="unified_user"><%=link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")%></span>
+                      <span class="unified_user"><%=link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")%></span>
             <div class="float">
-		          <%= form_for [ @space, jr ] do |f| %>
-		            <label class="main_text"><%= t('role.one') %>:</label>
-	              <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id },:class=>"main_text" %>
-	              <%= f.hidden_field :accepted, :value => true %>
+                          <%= form_for [ @space, jr ] do |f| %>
+                            <label class="main_text"><%= t('role.one') %>:</label>
+                      <%= f.select :role_id, Space.roles.map{ |r| [ r.name, r.id ] }, { :selected => Space.role("User").id },:class=>"main_text" %>
+                      <%= f.hidden_field :accepted, :value => true %>
                 <%= f.hidden_field :processed, :value => true %>
                 <%= f.submit "Accept",:class=>"main_text" %>
               <% end -%>
-		        </div>
+                        </div>
             <div class="float">
               <%= form_for [ @space, jr ] do |f| %>
                 <%= f.hidden_field :processed, :value => true %>
                 <%= f.submit "Deny",:class=>"main_text" %>
               <% end -%>
-		        </div>
+                        </div>
           </div>
         </div>
       </div>

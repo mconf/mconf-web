@@ -1,29 +1,29 @@
 
 <%= content_for :javascript do  %>
-	var title1 = "<%=escape_javascript(t('search.dots'))%>"
-	$("#search_text_field").click(function(){
-	  if(this.value == title1){
-	    this.value="";
-	  }
-	});
-	
-	  $("#search_text_field").blur(function(){
-	  if(this.value == ""){
-	    this.value= title1;
-	  }
-	});  
+        var title1 = "<%=escape_javascript(t('search.dots'))%>"
+        $("#search_text_field").click(function(){
+          if(this.value == title1){
+            this.value="";
+          }
+        });
+        
+          $("#search_text_field").blur(function(){
+          if(this.value == ""){
+            this.value= title1;
+          }
+        });  
 
 <%end%>
 
 <div id="subtexto_busqueda">
-  <ul class="menu1">  	
+  <ul class="menu1">    
     <li>
-      <%=link_to ("<span id='header_help'>" + t('help') + "</span>"),help_path, :class=> "medium_button, orange_button" %>
+      <%=link_to t('help'), help_path, { :id => "header_help", :class=> "orange_button" } %>
     </li>
-	<li> | </li>
+        <li> | </li>
     <li>
       <div id="browse_select">
-        <%=link_to ("<span>" + t("find.browse") + "</span>"),'dropdown',{:id=>"browse_select",:class => "browse_select"}%>
+        <%=link_to t("find.browse"), 'dropdown', {:id=>"browse_select",:class => "browse_select"} %>
         <ul id="browse_menu" style="display:none">
           <li><%= link_to image_tag("icons/group.png",:class=>"icon",:size=>"16x16") + "  " + t("space.other"), spaces_path %></li>
           <li><%= link_to image_tag("icons/date.png",:class=>"icon",:size=>"16x16") + " " + t("event.upcoming.other"),search_all_path(:advanced => true,
@@ -50,7 +50,7 @@
 
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
  <button type="submit" class="blue_button basic_button"><%=t("button.go")%></button>
-	<div id="advanced">
+        <div id="advanced">
     <%= link_to t('advanced'),search_all_path(:advanced => true)%>
   </div>
 <% end %>

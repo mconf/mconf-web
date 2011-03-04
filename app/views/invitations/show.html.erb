@@ -20,7 +20,7 @@
     </div>
     <div id="invitation_content">
       <div id="logo">
-        <%= link_logo(@invitation.group, :size => "h64", :title=>@invitation.group.name) %>
+        <%= raw(link_logo(@invitation.group, :size => "h64", :title=>@invitation.group.name)) %>
       </div>
       <div id="invitation_content_inside" class="left-align">
         <h3 class="item_title"><%=image_tag("icons/world.png", :class=>"icon")%> <%= @invitation.group.name %></h3>

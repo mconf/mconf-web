@@ -1,12 +1,12 @@
 <%if !logged_in?%>
     <div class="join">
       <div class="button_wrapper margin-up">
-        <%= link_to "<span>" + t('register.one') + "</span>",signup_path(),:class => "register_link big_button orange_button"%>
+        <%= link_to ("<span>" + t('register.one') + "</span>").html_safe, signup_path(), :class => "register_link big_button orange_button"%>
       </div>
     </div>
 <%elsif !space.users.include?(current_user) %>
     <div class="join">
-      <%=link_to "<span>"+t('space.join')+"</span>", new_space_join_request_path(space), :class => "orange_button big_button" %>
+      <%=link_to ("<span>" + t('space.join') + "</span>").html_safe, new_space_join_request_path(space), :class => "orange_button big_button" %>
     </div>
 <%elsif space.pending_join_requests_for?(current_user)%>
     <div class="join">
@@ -15,11 +15,11 @@
 <%end%>
 
 <%unless logged_in? && !space.pending_join_requests_for?(current_user)%>
-	<div class="space-desc">
-	  <h3><%=t("space.about")%> <em><%=@space.name%></em></h3>
-	  <p>
-	    <%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
-	    <%= sanitize(space.description) if space.description.present? %>
-	  </p>
-	</div>
+        <div class="space-desc">
+          <h3><%=t("space.about")%> <em><%=@space.name%></em></h3>
+          <p>
+            <%=image_tag(logo_image_path(@space, :size =>'h48'), :align => "left")%>
+            <%= sanitize(space.description) if space.description.present? %>
+          </p>
+        </div>
 <%end%>
