@@ -7,7 +7,7 @@
     <%else%>
       <p><%= t('e-mail.invitation_result.admin_side',:name=>@invitation.email[0,@invitation.email.index('@')], :action => @action, :spacename =>@space.name)%>.</p>
     <%end%>
-    <p><%= t('invitation.info_users', :users_url => space_users_url(@space))%></p>
+    <p><%= raw(t('invitation.info_users', :users_url => space_users_url(@space)))%></p>
 
     <p><%= @signature %></p>
 
