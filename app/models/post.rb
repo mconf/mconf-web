@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
   acts_as_content :reflection => :space
   acts_as_taggable
   #TODO Rails 3. Conflicts with station inquirer ("ORDER BY clause should come after UNION not before: SELECT  * FROM")
-  #acts_as_tree :order => 'updated_at ASC'
+  acts_as_tree #:order => 'updated_at ASC'
 
   scope :public, lambda { |arg|
     join(:space).where('public = ?', true)

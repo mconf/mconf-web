@@ -4,10 +4,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 
 # for station
-#gem 'mislav-will_paginate' # :git => 'git://github.com/mislav/will_paginate.git'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
-#gem 'attachment_fu', :git => 'git://github.com/woahdae/attachment_fu.git', :branch => 'rails3' # inst as plugin for now
 gem 'permalink_fu'
 
 gem 'rmagick'
@@ -30,7 +28,7 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 gem 'dynamic_form'
 
-# not the official repo, but has adjustments to use it in rails 3
+# not the official repo, but has adjustments to use it with rails 3
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 
 group :development, :test do
@@ -44,6 +42,8 @@ group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'action_mailer_tls'
   gem 'webrat'
+  gem 'rspec-instafail'
+  gem 'fuubar'
 end
 
 group :production do
