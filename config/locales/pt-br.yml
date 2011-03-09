@@ -1365,10 +1365,8 @@ pt-br:
   organizer: Organizadores
   other: Outro
   pagination:
-    next_label: !binary |
-      UHLDs3hpbW8gwrs=
-
-    previous_label: "\xC2\xAB Anterior"
+    next_label: "Próximo >>"
+    previous_label: "<< Anterior"
   participant:
     created: "Suas informa\xC3\xA7\xC3\xB5es de participa\xC3\xA7\xC3\xA3o foram atualizadas com sucesso"
     error:
