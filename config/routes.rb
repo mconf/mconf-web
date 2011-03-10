@@ -1,6 +1,11 @@
 Vcc::Application.routes.draw do
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
+  scope '/translate' do
+    match '/translate_list', :to => 'translate#index'
+    match '/translate', :to => 'translate#translate'
+    match '/translate_reload', :to => 'translate#reload', :as => 'translate_reload'
+  end
 
   # Route for text logos creation
   match '/p', :to => 'p#index', :as => 'p'

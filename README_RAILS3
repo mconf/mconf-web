@@ -28,6 +28,8 @@ Notes:
   - and many others
 - PDF creation was disable, see TODO list.
 - Plugin station was also migrated to Rails 3 / Ruby 1.9. Needed several changes, it should be better tested.
+- Plugin translate installed from git://github.com/newsdesk/translate.git
+  - rails plugin install git://github.com/kosmas58/translate.git -r rails-3
 
 TODO:
 - acts_as_tree plugin was modified (named_scope), decide what to do with the code.
