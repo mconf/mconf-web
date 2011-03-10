@@ -17,3 +17,4 @@ config/locales/log
 .svn
 config/initializers/mail_conf.rb
 public/pdf/
+*.sqlite3-journal
