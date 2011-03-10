@@ -1,7 +1,7 @@
 Notes on the migration to Rails 3.0.3
 
-Actual status:
-- Almost all tests ok.
+Current status:
+- Migration completed. There are still some issues, but the app core is functional.
 
 Notes:
 - Plugin rails_upgrade was used to get some directions.
@@ -43,4 +43,3 @@ TODO:
   - Reimplement lib/event_to_pdf.rb
 - Rspec:
   - See spec/controllers/translate_controller_spec.rb. Code was commented.
-  - Change "require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')" to "require 'spec_helper'"
