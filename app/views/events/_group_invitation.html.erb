@@ -1,4 +1,4 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   $("#send_group_invitation_button").livequery('click',function(){ 
 
@@ -29,7 +29,7 @@
 <%end%>
 
 <div id="email_invitations">
-    <% form_for([@space,event], :html => { :multipart => true, :name => "group_invitation_edit_form"}) do |f| -%>
+    <%= form_for([@space,event], :html => { :multipart => true, :name => "group_invitation_edit_form"}) do |f| -%>
 
       <div class="event_invitations_message margin-up">
         <label for="e-mails" class="bold"><%= t('user.group_invite_email') %></label>

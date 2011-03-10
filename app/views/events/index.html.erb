@@ -1,41 +1,41 @@
 <% menu :events %>
 <% atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }") %>
 
-<%content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel' %>
 <%end%>
 
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
     <%= render :partial => 'spaces/sidebar' %>
 
-	<%if @space.authorize?([:create, :content],:to => current_user)%>	
+        <%if @space.authorize?([:create, :content],:to => current_user)%>       
 
-  	    <div class="button_wrapper">
-  	      <%= link_to "<span>" + t('event.create.title') + "</span>", new_space_event_path,:class => "new_space_link big_button orange_button"%>  	      
-		</div>
+            <div class="button_wrapper">
+              <%= link_to ("<span>" + t('event.create.title') + "</span>").html_safe, new_space_event_path,:class => "new_space_link big_button orange_button"%>          
+                </div>
 
-	<%end%>
-	
-	<div class="next-events margin-up">
+        <%end%>
+        
+        <div class="next-events margin-up">
       <div class="next-events-title">
         <h3>
           <%=image_tag("icons/information.png", :class=>"icon",:title=> t('information.information5'))%>
-		  <%=t('event.upcoming.other_all')%>
+                  <%=t('event.upcoming.other_all')%>
         </h3>
       </div> 
-	  <div class="next-events-section">
-	  <ul>
-	    <% Event.upcoming.select{|e| e.space.public? && e.space != @space}.first(3).each do |event| %>
+          <div class="next-events-section">
+          <ul>
+            <% Event.upcoming.select{|e| e.space.public? && e.space != @space}.first(3).each do |event| %>
           <li class="event">
-            <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
-            <%=link_to event_link, space_event_path(event.space,event)%>
+            <%event_link="<span class='red'>" + h(sanitize(event.title)) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+            <%=link_to raw(event_link), space_event_path(event.space,event)%>
             <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
           </li>
-	    <% end %>
+            <% end %>
       </ul>
-	  </div>
-	  
+          </div>
+          
     </div>
 
     <div id="assistance_info">
@@ -50,59 +50,59 @@
 
 <%end%>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
 <!-- select links -->
 $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
-	var route = $(this).attr("href");
+        var route = $(this).attr("href");
   $.get(route,
       {authenticity_token: "<%=form_authenticity_token()%>"},
       function(data){
         $("#events_wrapper").replaceWith(data);
       }
     );
-	return(false);
+        return(false);
 });
 
 
-		
+                
 <%= render :partial => 'date_and_timepicker.js.erb' %>
 
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
 <div id="events_wrapper">
 
- 	<div id="events_content">
-		
-	  <%if !@current_events.empty?%>
-	    <div id="current_events">
-	      <h3><%= t('now!') %></h3>
-	      <%for event in @current_events%>
-	        <%= render :partial => event %>
-	      <%end%>
-	    </div>
-	  <%end%>
-		
-		<div class="group_links" id="events_links">
-		  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
-		  <%=link_to t('undated'), space_events_path(@space, :show => "undated_events"), {:class => "#{params[:show] == 'undated_events' ? 'event_navigation undated_link event_selected' : 'event_navigation undated_link'}"}%> |
-		  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
-		  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
-		</div>  
-		 
-		<%if params[:show] == 'past_events'%>
-				<%= render :partial => 'past_events' %>
-		<%elsif params[:show] == 'upcoming_events' %>
-			  <%= render :partial => 'upcoming_events' %>
-	    <%elsif params[:show] == 'undated_events' %>
-			  <%= render :partial => 'undated_events' %>
-		<%else%>	
-			  <%= render :partial => 'all_events' %>
-		<%end%>
-	</div>
+        <div id="events_content">
+                
+          <%if !@current_events.empty?%>
+            <div id="current_events">
+              <h3><%= t('now!') %></h3>
+              <%for event in @current_events%>
+                <%= render :partial => event %>
+              <%end%>
+            </div>
+          <%end%>
+                
+                <div class="group_links" id="events_links">
+                  <%=link_to t('all'), space_events_path(@space), {:id => 'all_link', :class => "#{params[:show] ? 'event_navigation' : 'event_navigation event_selected'}"}%> |
+                  <%=link_to t('undated'), space_events_path(@space, :show => "undated_events"), {:class => "#{params[:show] == 'undated_events' ? 'event_navigation undated_link event_selected' : 'event_navigation undated_link'}"}%> |
+                  <%=link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), {:class => "#{params[:show] == 'upcoming_events' ? 'event_navigation upcoming_link event_selected' : 'event_navigation upcoming_link'}"}%> |
+                  <%=link_to t('past'), space_events_path(@space, :show => "past_events"), {:class => "#{params[:show] == 'past_events' ? 'event_navigation past_link event_selected' : 'event_navigation past_link'}"}%> 
+                </div>  
+                 
+                <%if params[:show] == 'past_events'%>
+                                <%= render :partial => 'past_events' %>
+                <%elsif params[:show] == 'upcoming_events' %>
+                          <%= render :partial => 'upcoming_events' %>
+            <%elsif params[:show] == 'undated_events' %>
+                          <%= render :partial => 'undated_events' %>
+                <%else%>        
+                          <%= render :partial => 'all_events' %>
+                <%end%>
+        </div>
 
 </div>

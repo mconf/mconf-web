@@ -17,7 +17,7 @@ if File.exist?(isabel_dir)
       isabelguard_libs = " /usr/local/isabel/libexec/isabel_tunnel.jar:/usr/local/isabel/extras/libexec/xmlrpc/commons-logging-1.1.jar:" +
           "/usr/local/isabel/extras/libexec/xmlrpc/ws-commons-util-1.0.2.jar:/usr/local/isabel/extras/libexec/xmlrpc/xmlrpc-common-3.1.jar:" +
           "/usr/local/isabel/extras/libexec/xmlrpc/servlet-api.jar:/usr/local/isabel/extras/libexec/xmlrpc/xmlrpc-client-3.1.jar:" +
-          "/usr/local/isabel/extras/libexec/xmlrpc/xmlrpc-server-3.1.jar:" + RAILS_ROOT + "/lib/mysql-connector-java-5.1.5-bin.jar:" +
+          "/usr/local/isabel/extras/libexec/xmlrpc/xmlrpc-server-3.1.jar:" + Rails.root.to_s + "/lib/mysql-connector-java-5.1.5-bin.jar:" +
           "/usr/local/isabel/libexec/isabel_xlimservices.jar:/usr/local/isabel/libexec/xedl.jar:" +
           "/usr/local/isabel/libexec/isabel_xlim.jar:/usr/local/isabel/lib/images/xlim/:"+
           "/usr/local/isabel/libexec/isabel_lib.jar -Dprior.config.file=/usr/local/isabel/lib/xlimconfig/priorxedl.cfg"+

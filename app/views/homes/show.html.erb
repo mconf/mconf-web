@@ -1,9 +1,9 @@
 
-<% content_for :headers do  -%>
+<%= content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
 /*
  *  Expand and collapse thread
@@ -14,7 +14,7 @@
     $("#parent_" + id + " .collapse_thread").show();
     $("#message-body-" + id).hide();
   }
-	
+        
   collapse_thread = function(id){
     $("#parent_" + id + " .extended_thread").hide();
     $("#parent_" + id + " .extend_thread").show();
@@ -24,36 +24,36 @@
   
   
   $("input.home_menu_checkbox").click(function(){
-	  var contents;
-		var value = this.value
-		if ($.deparam.querystring().contents == null){
+          var contents;
+                var value = this.value
+                if ($.deparam.querystring().contents == null){
       contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
     }else{
       contents = $.deparam.querystring().contents.split(",");
     }
-		
+                
     if ($(this).attr("checked")){
       contents.push(value);
-		}else{
-			contents = jQuery.grep(contents, function (a) {
-			  return a != value;
-			});
-		}
-		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+                }else{
+                        contents = jQuery.grep(contents, function (a) {
+                          return a != value;
+                        });
+                }
+                window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
   
   
 <% end %>
 
-<% content_for :search do  %>
-	<%= render :partial => 'search/form' %>
+<%= content_for :search do  %>
+        <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
 
-	<% if logged_in?%>
-	  <div class="button_wrapper">
-	    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
+        <% if logged_in?%>
+          <div class="button_wrapper">
+            <%= link_to raw("<span>" + t('space.create_own') + "</span>"), new_space_path,:class => "new_space_link big_button orange_button"%>
       </div>
   <%end%>
 
@@ -81,38 +81,38 @@
           <ul>
             <% for event in period[1] -%>
               <li class="event">
-                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
-                <%=link_to event_link, space_event_path(event.space,event)%>
-                <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
+                <% event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%= link_to raw(event_link), space_event_path(event.space,event) %>
+                <%= link_to "", space_event_path(event.space,event),:class=>"box-link"%>
               </li>
             <%end%>
           </ul>
         <%end%>
       </div>
     <%end%>
-	 
+         
   </div>
 
   <div id="home-inbox-full" class="margin-up">
     
-		<div id="home-inbox-title">
-    	<h3>
-    		<%=image_tag("icons/email.png",:class=>"icon")%>
-				<%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
-			</h3>
-		</div>
-	
-		<%if @private_messages.empty?%>
-	  	<div class="next-events-section">
-	    	<span><%=t("message.private.none")%></span>
-	  	</div> 	
-		<%else%>
-	    <%for private_message in @private_messages%>
+                <div id="home-inbox-title">
+        <h3>
+                <%=image_tag("icons/email.png",:class=>"icon")%>
+                                <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+                        </h3>
+                </div>
+        
+                <%if @private_messages.empty?%>
+                <div class="next-events-section">
+                <span><%=t("message.private.none")%></span>
+                </div>  
+                <%else%>
+            <%for private_message in @private_messages%>
         <%if @sender.present?%>
           <%@sender=User.find_with_disabled(private_message.sender_id)%>
-       		<div class="next-events-section">
+                <div class="next-events-section">
             <div class="user-logo">
-              <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
+              <%= raw(link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login)) %>
             </div>
             <div class="home-inbox-message">
               <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
@@ -129,47 +129,47 @@
             </div>
           </div>
         <%end%>
-		  <%end%>
+                  <%end%>
     <%end%>
-	</div>
-	
-	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
-	
+        </div>
+        
+        <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+        
 <%end%>  
 
 
-<% content_for :menu do  %>
-	<%= render :partial => "menu" %>
+<%= content_for :menu do  %>
+        <%= render :partial => "menu" %>
 <% end %>
 
 <div id="recent-activity">
-	
-	<%for interval in intervals(@all_contents) do -%>
-		<%unless interval[:contents].empty? -%>
-			<div id="line">
-      	<span class="bold"><%= t('updated') + " " + interval[:name]%></span>
-    	</div>
-  	<%end -%>
-	
-  	<% interval[:contents].each do |content| -%>
-    	<% case content
-      	when Post -%>
-	        <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
-				<% when Event -%>
-	    		<%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
-  			<% when News -%>
-	    		<%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
-				<% when Attachment -%>
-		  		<%content = content.reload -%>
-      		<%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
- 				<% else -%>
-	    		<div>
-	    			<%=t('unknown_content', :content => content.class)%>
-					</div>
-	  	<% end -%>
-		<% end -%>
-	<% end -%>
+        
+        <%for interval in intervals(@all_contents) do -%>
+                <%unless interval[:contents].empty? -%>
+                        <div id="line">
+        <span class="bold"><%= t('updated') + " " + interval[:name]%></span>
+        </div>
+        <%end -%>
+        
+        <% interval[:contents].each do |content| -%>
+        <% case content
+        when Post -%>
+                <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
+                                <% when Event -%>
+                        <%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
+                        <% when News -%>
+                        <%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
+                                <% when Attachment -%>
+                                <%content = content.reload -%>
+                <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
+                                <% else -%>
+                        <div>
+                                <%=t('unknown_content', :content => content.class)%>
+                                        </div>
+                <% end -%>
+                <% end -%>
+        <% end -%>
 
-	<%= will_paginate @all_contents %>
-	<br/>
+        <%= will_paginate @all_contents %>
+        <br/>
 </div>

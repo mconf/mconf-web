@@ -21,6 +21,8 @@ namespace :setup do
   end
 
 
+=begin
+  #TODO rails 3: ultrasphinx
   desc "Link /etc/sphinxsearch/sphinx.conf to current/config/ultrasphinx/production.conf"
   task :config_sphinx do
     print "* Checking /etc/sphinxsearch/sphinx.conf: "
@@ -29,10 +31,11 @@ namespace :setup do
     if File.exist?(sphinx_file)
       puts "file exists."
     else
-      `sudo ln -s #{ RAILS_ROOT.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }` 
+      `sudo ln -s #{ Rails.root.to_s.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }` 
       puts "linked."
     end
   end
+=end
 
   desc "Copy cron.d/vcc if it doesn't exist"
   task :config_cron do
@@ -42,7 +45,7 @@ namespace :setup do
     if File.exist?(cron_file)
       puts "file exists."
     else
-      `sudo cp #{ RAILS_ROOT }/extras/cron/vcc #{ cron_file }` 
+      `sudo cp #{ Rails.root.to_s }/extras/cron/vcc #{ cron_file }` 
       puts "copied."
     end
   end
@@ -55,7 +58,7 @@ namespace :setup do
     if File.exist?(logrotate_file)
       puts "file exists."
     else
-      `sudo cp #{ RAILS_ROOT }/extras/logrotate/vcc #{ logrotate_file }` 
+      `sudo cp #{ Rails.root.to_s }/extras/logrotate/vcc #{ logrotate_file }` 
       puts "copied."
     end
   end
@@ -68,7 +71,7 @@ namespace :setup do
     if File.exist?(aw_file)
       puts "files exist."
     else
-      `sudo cp #{ RAILS_ROOT }/extras/awstats/* /etc/awstats/` 
+      `sudo cp #{ Rails.root.to_s }/extras/awstats/* /etc/awstats/` 
       puts "copied."
     end
   end

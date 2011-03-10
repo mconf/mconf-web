@@ -1,13 +1,17 @@
-=begin
-require 'actionmailer'
+# Uncomment the following block, change email and password and it's ready to run
 
+=begin
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.smtp_settings = {
-    :tls => true,
-    :address => "smtp.gmail.com",
-    :port => "587",
-    :domain => "gmail.com",
-    :authentication => :plain,
-    :user_name => "my@mail.com",
-    :password => "unidentifiedflyingobject"
+    :enable_starttls_auto => true,
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :tls                  => true,
+    :domain               => 'gmail.com', #you can also use google.com
+    :authentication       => :plain,
+    :user_name            => "mail@gmail.com",
+    :password             => "password"
 }
 =end

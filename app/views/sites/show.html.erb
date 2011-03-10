@@ -1,8 +1,8 @@
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-	<%= render :partial => 'manage/menu' %>
+        <%= render :partial => 'manage/menu' %>
 <div id="manage">
   <p>
     <label><%= t('site.name') %>:</label>
@@ -23,17 +23,17 @@
     <label><%= t('site.presence_domain') %>:</label> 
     <%= sanitize current_site.presence_domain %>
   </p>
-	
-	<p>
+        
+        <p>
     <label><%= t('site.cm_domain') %>:</label> 
     <%= sanitize current_site.cm_domain %>
   </p>
-	
+        
   <p>
     <label><%= t('site.chat_group_service_jid') %>:</label> 
     <%= sanitize current_site.chat_group_service_jid %>
   </p>
-	
+        
   <p>
     <label><%= t('site.vcc_user_for_chat_server') %>:</label> 
     <%= sanitize current_site.vcc_user_for_chat_server %>
@@ -65,6 +65,6 @@
   </p>
 
   <div id="site_button" class="button_wrapper">
-    <%= link_to "<span>" + t('button.edit') + "</span>", edit_site_path,:class => "blue_button basic_button"%>
+    <%= link_to ("<span>" + t('button.edit') + "</span>").html_safe, edit_site_path,:class => "blue_button basic_button"%>
   </div>
 </div>

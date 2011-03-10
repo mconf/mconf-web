@@ -3,7 +3,7 @@
 
 	<h4 class="title_sidebar"><%= t('search.posts.no_dots') %></h4>
 
-  <% form_tag(search_posts_path(@space), :method => 'get') do %>
+  <%= form_tag(search_posts_path(@space), :method => 'get') do %>
 
       <%= text_field_tag :query, params[:query] %>
 	  <%= image_submit_tag "magnify2.png", :class=>'go'%>

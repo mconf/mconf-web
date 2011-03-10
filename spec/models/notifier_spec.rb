@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 
 describe Notifier do
@@ -37,17 +37,17 @@ describe Notifier do
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@admin.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+      ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
+      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
       
     end
 
@@ -64,17 +64,17 @@ describe Notifier do
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@admin.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
     end
 
@@ -91,19 +91,19 @@ describe Notifier do
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@admin.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+      ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
+      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include(@event.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
     end
 
@@ -117,19 +117,19 @@ describe Notifier do
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
       
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@admin.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include(@event.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
     end
 
@@ -145,18 +145,18 @@ describe Notifier do
       Informer.deliver_event_notification(@event,@registered_user)
       
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@admin.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include_text(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include(@event.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
 
     end
   end
@@ -177,17 +177,17 @@ describe Notifier do
       action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
 
       # Check the subject content
-      ActionMailer::Base.deliveries[1].subject.should include_text(@unregistered_user_email)
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
-      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].subject.should include(@unregistered_user_email)
+      ActionMailer::Base.deliveries[1].subject.should include(action)
+      ActionMailer::Base.deliveries[1].subject.should include(@space.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries[1].body.should include_text(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries[1].body.should include_text(action)
-      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
-      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
-      ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
+      ActionMailer::Base.deliveries[1].body.should include(@admin.name)
+      ActionMailer::Base.deliveries[1].body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
+      ActionMailer::Base.deliveries[1].body.should include(action)
+      ActionMailer::Base.deliveries[1].body.should include(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
+      ActionMailer::Base.deliveries[1].body.should include(Site.current.signature_in_html)
       
     end
     
@@ -206,17 +206,17 @@ describe Notifier do
       action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
 
       # Check the subject content
-      ActionMailer::Base.deliveries[1].subject.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
-      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].subject.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries[1].subject.should include(action)
+      ActionMailer::Base.deliveries[1].subject.should include(@space.name)
       
       # Check the body content
-      ActionMailer::Base.deliveries[1].body.should include_text(@admin.name)
-      ActionMailer::Base.deliveries[1].body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries[1].body.should include_text(action)
-      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
-      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
-      ActionMailer::Base.deliveries[1].body.should include_text(Site.current.signature_in_html)
+      ActionMailer::Base.deliveries[1].body.should include(@admin.name)
+      ActionMailer::Base.deliveries[1].body.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries[1].body.should include(action)
+      ActionMailer::Base.deliveries[1].body.should include(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
+      ActionMailer::Base.deliveries[1].body.should include(Site.current.signature_in_html)
 
     end
 
@@ -235,14 +235,14 @@ describe Notifier do
       jr.save!
       
       # Check the content of the subject
-      ActionMailer::Base.deliveries.first.subject.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.subject.should include_text(@space.name)
+      ActionMailer::Base.deliveries.first.subject.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       
       # Check the content of the body
-      ActionMailer::Base.deliveries.first.body.should include_text(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include_text(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
-      ActionMailer::Base.deliveries.first.body.should include_text(Site.current.signature_in_html)
+      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
+      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+      ActionMailer::Base.deliveries.first.body.should include(Site.current.signature_in_html)
 
     end
 
@@ -263,13 +263,13 @@ describe Notifier do
       action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
       
       # Check the content of the subject
-      ActionMailer::Base.deliveries[1].subject.should include_text(action)
-      ActionMailer::Base.deliveries[1].subject.should include_text(@space.name)
+      ActionMailer::Base.deliveries[1].subject.should include(action)
+      ActionMailer::Base.deliveries[1].subject.should include(@space.name)
       
       # Check the content of the body
-      ActionMailer::Base.deliveries[1].body.should include_text(action)
-      ActionMailer::Base.deliveries[1].body.should include_text(@space.name)
-      ActionMailer::Base.deliveries[1].body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+      ActionMailer::Base.deliveries[1].body.should include(action)
+      ActionMailer::Base.deliveries[1].body.should include(@space.name)
+      ActionMailer::Base.deliveries[1].body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
 
     end
 

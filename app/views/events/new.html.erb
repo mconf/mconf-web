@@ -1,10 +1,10 @@
-<%content_for :headers do %>
+<%= content_for :headers do %>
 	<%= javascript_include_tag 'jquery.fcbkcomplete', 'jquery.filestyle','jquery.jcrop', 'jquery.wysiwyg' %>
 	<%= stylesheet_link_tag "fcbkcomplete", "jquery.wysiwyg", :media => "screen, projection" %>
 	<%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
 <%end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 	<%= render :partial => "edit_new_javascript.js" %>
 	$("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
 	$("#cancel_event").fancybox({
@@ -26,7 +26,7 @@
   });
 <%end %>
 
-<% content_for :sidebar do %>
+<%= content_for :sidebar do %>
   <%= render :partial => "edit_new_sidebar" %>
 <%end %>
 
@@ -55,7 +55,7 @@
 	
   <%= render :partial => "edit_new_logo" %>
 	
-  <% form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f| -%>
+  <%= form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f| -%>
     <%= f.hidden_field "rand_value" %>
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 
@@ -78,7 +78,7 @@
     upload your own logo
     </label>
     <br>
-    <% form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+    <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
     <%= t("space.logo_selected.upload_logo_text") %>
     <br>
     <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>

@@ -1,6 +1,6 @@
-<% content_for :headers, "<link rel=\"openid2.provider\" href=\"#{ openid_server_url }\" />" %>
+<%= content_for :headers, "<link rel=\"openid2.provider\" href=\"#{ openid_server_url }\" />".html_safe %>
 
-<%content_for :header do %>
+<%= content_for :header do %>
   <%= render :partial => 'layouts/profile_header' %>
 <%end%>
 

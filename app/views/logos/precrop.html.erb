@@ -8,8 +8,8 @@
 
   <%=image_tag image, :id => "croplogo"%>
   
-  <% form_for form_for, :url => form_url do |f| %>
-    <% fields_for :crop_size do |fc|%>
+  <%= form_for, :url => form_url do |f| %>
+    <%= fields_for :crop_size do |fc|%>
       <%= fc.hidden_field :x %>
       <%= fc.hidden_field :y %>
       <%= fc.hidden_field :width %>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -18,7 +19,7 @@
 class Attachment < ActiveRecord::Base
   attr_accessor :post_title, :post_text, :version_parent_id
   attr_reader :version_parent
-  
+
   has_many :post_attachments, :dependent => :destroy
   has_many :posts, :through => :post_attachments
   belongs_to :space
@@ -26,24 +27,24 @@ class Attachment < ActiveRecord::Base
   belongs_to :author, :polymorphic => true
   belongs_to :agenda_entry
 
-  
+
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
                  :thumbnails => { '16' => '16x16',
                                   '32' => '32x32',
                                   '64' => '64x64',
                                   '128' => '128x128'}
-  
+
   def post
     posts.first
   end
-  
+
   def space
     space_id.present? ?
       Space.find_with_disabled(space_id) :
       nil
   end
-  
+
   # Define this authorization method before acts_as_content to priorize it
   #
   # Deny all requests except reading an already saved attachment in a space that hasn't repository
@@ -55,31 +56,31 @@ class Attachment < ActiveRecord::Base
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
   acts_as_content :reflection => :space
-  
+
   validates_as_attachment
-   
+
   def version_family
     Attachment.version_family(version_family_id)
   end
-  
+
   def version
     version_family.reverse.index(self) +1
   end
-  
+
   def current_version?
     version_child_id.nil?
   end
-  
-  named_scope :version_family, lambda{ |id|
-    {:order => 'id DESC',
-    :conditions => {:version_family_id => id}}
+
+  scope :version_family, lambda{ |id|
+    where(:version_family_id => id).order('id DESC')
   }
 
-  named_scope :sorted, lambda { |order, direction|
-    { :order => sanitize_order_and_direction(order, direction),
-      :conditions => {:version_child_id => nil}}
+  scope :sorted, lambda { |order, direction|
+    where(:version_child_id => nil).order(sanitize_order_and_direction(order, direction))
   }
-  
+
+  # TODO is_indexed comes from Ultrasphinx
+=begin
   is_indexed :fields => ['filename', 'type', 'space_id', 'updated_at'],
              :conditions => 'parent_id IS NULL',
              :include => [
@@ -92,10 +93,12 @@ class Attachment < ActiveRecord::Base
                  :as => 'author',
                  :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
              ]
-  
+=end
+
   protected
-  
-  def validate
+
+  validate :validate_method
+  def validate_method
     errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
     if version_parent_id.present?
       @version_parent = Attachment.find(version_parent_id)
@@ -107,17 +110,17 @@ class Attachment < ActiveRecord::Base
       end
     end
   end
-  
+
   public
-  
+
   before_validation do |attachment|
-    
+
     if attachment.agenda_entry_id
       attachment.event = AgendaEntry.find(attachment.agenda_entry_id).event
     end
-    
+
   end
-  
+
   after_validation do |attachment|
     # Replace 4 missing file errors with a unique, more descriptive error
     missing_file_errors = {
@@ -138,10 +141,10 @@ class Attachment < ActiveRecord::Base
       end
     end
   end
-  
+
   after_create do |attachment|
     unless attachment.thumbnail?
-      
+
       if attachment.version_parent.present?
         parent = attachment.version_parent
         parent.without_timestamps do |p|
@@ -151,15 +154,15 @@ class Attachment < ActiveRecord::Base
         attachment.update_attribute(:version_family_id,attachment.id)
       end
     end
-    
+
     if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we create the hard link
-      unless File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.mkdir_p("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
-        FileUtils.ln(attachment.full_filename, "#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+      unless File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
+        FileUtils.ln(attachment.full_filename, "#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
       end
     end
   end
-  
+
   after_save do |attachment|
     if attachment.post_title.present?
       p = Post.new(:title => attachment.post_title, :text => attachment.post_text)
@@ -171,7 +174,7 @@ class Attachment < ActiveRecord::Base
       attachment.post_title = attachment.post_text = nil
     end
   end
-  
+
   after_destroy do |attachment|
     parents = Attachment.find_all_by_version_child_id(attachment.id)
     parents.each do |parent|
@@ -179,29 +182,29 @@ class Attachment < ActiveRecord::Base
         p.update_attribute(:version_child_id, attachment.version_child_id)
       end
     end
-    
+
     if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we delete the hard link
-      if File.exist?("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.rm_rf("#{RAILS_ROOT}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+      if File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
+        FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
       end
     end
   end
-  
+
   def thumbnail_size
     thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end
-  
+
   def get_size()
-    return " " + (self.size/1024).to_s + " kb" 
+    return " " + (self.size/1024).to_s + " kb"
   end
-  
+
   # Return format if Mymetype is present or "all" if not
   def format!
     format ? format : :all
   end
-  
+
   authorizing do |agent, permission|
-    parent.authorize?(permission, :to => agent) if parent.present? 
+    parent.authorize?(permission, :to => agent) if parent.present?
   end
 
   def current_data
@@ -211,54 +214,54 @@ class Attachment < ActiveRecord::Base
   def title
     filename
   end
- 
+
   # Sanitize user send params
   def self.sanitize_order_and_direction(order, direction)
     default_order = 'updated_at'
     default_direction = "DESC"
-    
+
     # Remove all but letters and dots
     # filename if author
     order = (order && order!='author') ? order.gsub(/[^\w\.]/, '') : default_order
-    
+
     direction = direction && %w{ ASC DESC }.include?(direction.upcase) ?
     direction :
     default_direction
-    
+
     "#{ order } #{ direction }"
   end
-  
+
   def self.repository_attachments(container, params)
     attachments = container.attachments.roots.sorted(params[:order],params[:direction])
 
     space = (container.is_a?(Space) ? container : container.space)
-    
+
     tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in(space).find(t.to_i)} : Array.new
     tags.each do |t|
       attachments = attachments.select{|a| a.tags.include?(t)}
     end
-    
+
     # Filter by attachment_ids
     if params[:attachment_ids].present?
       att_ids = params[:attachment_ids].split(",")
       attachments = attachments.select{|a| att_ids.include?(a.id.to_s)}
     end
-    
+
     attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
     attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
     attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
-    
+
     [attachments, tags]
   end
-  
+
   def without_timestamps
     rt = self.class.record_timestamps
     self.class.record_timestamps=false
     yield self
     self.class.record_timestamps=rt
-  end  
-  
+  end
+
 # Author Permissions
   authorizing do |agent, permission|
     if author == agent &&

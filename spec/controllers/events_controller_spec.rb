@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 #Include tests combination of:
 #  methods: index, show, update, delete
@@ -10,7 +10,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EventsController do
   include ActionController::AuthenticationTestHelper
-  integrate_views
+  render_views
   
   describe "when you are logged as" do
     
@@ -29,19 +29,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -58,14 +58,14 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id)))
             flash[:success].should == I18n.t('event.updated')
           end       
         end
@@ -101,19 +101,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -130,14 +130,14 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_other.id)))
             flash[:success].should == I18n.t('event.updated')
           end       
         end
@@ -176,19 +176,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -205,7 +205,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -243,19 +243,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -272,7 +272,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -313,19 +313,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -340,7 +340,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -378,19 +378,19 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         describe "should render show of" do
           it "my own event" do
             get :show, :space_id => @current_event_mine.space.to_param, :id => @current_event_mine.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end  
           it "other's event" do
             get :show, :space_id => @current_event_other.space.to_param, :id => @current_event_other.to_param
             assert_response 200
-            response.should render_template("events/show.html.erb")
+            response.should render_template("events/show")
           end
         end
         
@@ -405,7 +405,7 @@ describe EventsController do
             valid_attributes = Factory.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html' 
             assert_response 302
-            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine.id), :in_steps=>params[:in_steps]))
+            response.should redirect_to(edit_space_event_agenda_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end       
           it "other's event." do
@@ -442,30 +442,33 @@ describe EventsController do
         it "should render index" do
           get :index, :space_id => @current_space.to_param
           assert_response 200
-          response.should render_template("events/index.html.erb")
+          response.should render_template("events/index")
         end
         
         it "should render show of an event." do
           get :show, :space_id => @current_event.space.to_param, :id => @current_event.to_param
           assert_response 200
-          response.should render_template("events/show.html.erb")
+          response.should render_template("events/show")
         end  
         
         it "trying to create a new event" do
           valid_attributes = Factory.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
-          assert_response 401     
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
         
         it "trying to update an event." do
           valid_attributes = Factory.attributes_for(:event)
           post :update, :space_id => @current_space.to_param, :id => @current_event.to_param, :event => valid_attributes 
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
         
         it "trying to delete an event" do
           delete :destroy, :space_id => @current_space.to_param, :id => @current_event.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end       
       end
       
@@ -477,29 +480,34 @@ describe EventsController do
         
         it "should render index" do
           get :index, :space_id => @current_space.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
         
         it "should render show of an event." do
           get :show, :space_id => @current_event.space.to_param, :id => @current_event.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end  
         
         it "trying to create a new event" do
           valid_attributes = Factory.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
-          assert_response 401     
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
         
         it "trying to update an event." do
           valid_attributes = Factory.attributes_for(:event)
           post :update, :space_id => @current_space.to_param, :id => @current_event.to_param, :event => valid_attributes 
-          assert_response 401   
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
         
         it "trying to delete an event" do
           delete :destroy, :space_id => @current_space.to_param, :id => @current_event.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end       
       end
       

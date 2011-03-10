@@ -6,7 +6,7 @@
 
 <div id="feedback_form">
 	
-<% form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
+<%= form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
   
   <div>
     <label for="title"><%= t('title') %>:</label><br/>

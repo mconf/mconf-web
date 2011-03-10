@@ -1,11 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 describe JoinRequestsController do
   include ActionController::AuthenticationTestHelper
 
-  integrate_views
+  render_views
 
-  before(:all) do
+  before(:each) do
     @space = Factory(:space)
     @admin = Factory(:admin_performance, :stage => @space).agent
     @user = Factory(:user_performance, :stage => @space).agent

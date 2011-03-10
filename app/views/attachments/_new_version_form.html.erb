@@ -2,7 +2,7 @@
 <div id="doc_action" class="new_version margin-up" rel="new_version">
 	<div id="new_version_label"><h3 class="bold blue top"><%=t('version.new') %></h3></div>
 	
-		<%form_for prepare_for_form(Attachment.new, :version_parent_id => @attachment.id), :html => { :multipart => true} do |f|%>
+		<%= form_for prepare_for_form(Attachment.new, :version_parent_id => @attachment.id), :html => { :multipart => true} do |f|%>
 		<div class="new_doc_content">  
 		  <%= f.hidden_field :version_parent_id %>
 			<%= f.file_field :uploaded_data, :size=>12 %>

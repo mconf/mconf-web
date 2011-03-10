@@ -1,9 +1,9 @@
-<% content_for :headers do %>
+<%= content_for :headers do %>
   <%= javascript_include_tag 'fullcalendar' %>
   <%= stylesheet_link_tag "fullcalendar", :media => "screen, projection" %>
 <% end %>
 
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
 
   /* Event creation navigation */
   $("#wait_create_agenda_button").hide();
@@ -302,7 +302,7 @@
 <div class="whyte_wrapper">
 	<div id="agenda_header">
 		<div class="right-align">
-      <%form_for @agenda, :url=>space_event_agenda_path(@space,@event), :class=>"right-align" do |f|%>
+      <%= form_for @agenda, :url=>space_event_agenda_path(@space,@event), :class=>"right-align" do |f|%>
         <%=f.label :slot, t('agenda.slot') %>:
         <%=f.select "slot", Agenda::SLOT_VALUES, :selected=> @agenda.slot%>
       <%end%>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,9 +17,9 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class Space < ActiveRecord::Base
-  
-  TMP_PATH = File.join(RAILS_ROOT, "public", "images", "tmp")
-  
+
+  TMP_PATH = File.join(Rails.root.to_s, "public", "images", "tmp")
+
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
@@ -26,9 +27,9 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
   has_many :agendas, :through => :events
-           
+
   has_permalink :name, :update=>true
-  
+
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],
                     :sources => true
@@ -48,13 +49,14 @@ class Space < ActiveRecord::Base
   attr_accessor :logo_rand
 
   has_logo
-  
+
   after_validation :logo_mi
-  
+
   before_validation :update_logo
 
-  is_indexed :fields => ['name','description'],
-             :conditions => "disabled = 0"
+  # TODO is_indexed comes from Ultrasphinx
+  #is_indexed :fields => ['name','description'],
+  #           :conditions => "disabled = 0"
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
@@ -65,15 +67,15 @@ class Space < ActiveRecord::Base
       #group.users << space.users(:role => "user")
       #group.save
   #}
-  
+
 #  before_create {
 #  }
-  
+
   after_save do |space|
-    
+
     if space.invitation_mails
       mails_to_invite = space.invitation_mails.split(/[\r,]/).map(&:strip)
-      mails_to_invite.map { |email|      
+      mails_to_invite.map { |email|
         params =  {:role_id => space.invitations_role_id.to_s, :email => email, :comment => space.invite_msg}
         i = space.invitations.build params
         i.introducer = User.find(space.inviter_id)
@@ -95,10 +97,10 @@ class Space < ActiveRecord::Base
       }
     end
   end
-  
+
 
   def resize path, size
-    
+
     f = File.open(path)
     img = Magick::Image.read(f).first
     if img.columns > img.rows && img.columns > size
@@ -110,49 +112,54 @@ class Space < ActiveRecord::Base
       f.close
       resized.write("png:" + path)
     end
-    
+
   end
 
 
-  def update_logo    
+  def update_logo
     return unless @default_logo.present?
     img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
     img_orig = img_orig.scale(337, 256)
-    images_path = File.join(RAILS_ROOT, "public", "images")
+    images_path = File.join(Rails.root.to_s, "public", "images")
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    original_tmp = ActionController::UploadedTempfile.open("default_logo","tmp")
+    # TODO check, was using UploadedTempfile
+    original_tmp = Tempfile.new("default_logo", "#{ Rails.root.to_s}/tmp/")
     original_tmp.write(original.read)
-    original_tmp.instance_variable_set "@original_filename",@default_logo
-    original_tmp.instance_variable_set "@content_type", "image/jpeg"
+    original_tmp_io = open(original_tmp)
+    filename = File.join(images_path, @default_logo)
+    (class << original_tmp_io; self; end;).class_eval do
+      define_method(:original_filename) { filename.split('/').last }
+      define_method(:content_type) { 'image/jpeg' }
+      define_method(:size) { File.size(filename) }
+    end
+
     logo = {}
-    logo[:media] = original_tmp
+    logo[:media] = original_tmp_io
     logo = self.build_logo(logo)
- 
-    images_path = File.join(RAILS_ROOT, "public", "images")
+
+    images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
-    #debugger
-    #puts "a"
-   
+
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
     end
 
 
   end
-  
+
   def logo_mi
     return unless @default_logo.present?
   end
 
-  
-  named_scope :public, lambda {
-    { :conditions => { :public => true } }
+
+  scope :public, lambda {
+    where(:public => true)
   }
 
   default_scope :conditions => {:disabled => false}
-  
+
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }
   end
@@ -165,8 +172,8 @@ class Space < ActiveRecord::Base
     self.name.gsub(" ", "")
   end
 
-  # Users that belong to this space  
-  # 
+  # Users that belong to this space
+  #
   # Options:
   # role:: Name of the role actors play in this space
   def users(options = {})
@@ -185,7 +192,7 @@ class Space < ActiveRecord::Base
 
     visibility = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
     space[:public] = visibility == "public"
-  
+
     { :space => space }
   end
 
@@ -227,19 +234,19 @@ class Space < ActiveRecord::Base
   end
 
   def videos
-  
+
     @space_videos = []
-   
+
     agendas.each do |agenda|
       agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
         @space_videos << video
       end
     end
-    
-    @space_videos 
-    
+
+    @space_videos
+
   end
-  
+
   def unique_pageviews
     # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
     corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.permalink])

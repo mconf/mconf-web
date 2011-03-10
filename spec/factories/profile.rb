@@ -15,7 +15,7 @@ Factory.define :vcard, :parent=>:profile do |v|
   v.phone     "656765654"
   v.mobile    "654654654"
   v.fax       "915443232"
-  v.address   "C/ Monaco nº1 5ºIzq"
+  v.address   "C/ Monaco n.1 5.Izq"
   v.province  "Madrid"
   v.zipcode   "28029"
 end

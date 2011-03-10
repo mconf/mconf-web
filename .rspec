@@ -1,0 +1,4 @@
+--require rspec/instafail
+--format Fuubar
+--profile
+--color

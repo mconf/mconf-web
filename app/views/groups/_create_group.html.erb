@@ -1,4 +1,4 @@
-<% content_for :javascript do %>
+<%= content_for :javascript do %>
  $('#user_filter img.tooltip_user_filter').qtip({
    content: '<%=t("tooltip.user_filter")%>',
 	 position: {adjust: { screen: true }},
@@ -7,7 +7,7 @@
    style: 'mystyle'
   });  
 <% end -%>
-<% content_for :headers do  -%>
+<%= content_for :headers do  -%>
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
 
@@ -17,7 +17,7 @@
 	<% else -%>
   <h3><%= t('group.create') %></h3>
 	<% end -%>
-	<% form_for [@space,group] do |f| -%>
+	<%= form_for [@space,group] do |f| -%>
 		<p>
 		<label for="Group Name"><%= t('group.name') %></label><br/>
 		<%= f.text_field :name, :size => 25 %>

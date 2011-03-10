@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 describe UsersController do
   include ActionController::AuthenticationTestHelper
   
-  integrate_views
+  render_views
   
   describe "responding to GET index" do
     
@@ -44,7 +44,7 @@ describe UsersController do
       
       describe "as a normal user" do
         
-        before(:all) do
+        before(:each) do
           login_as Factory(:user)
         end
 
@@ -119,7 +119,8 @@ describe UsersController do
         end
         it "should NOT let the user to see the users" do
           get :index , :space_id => @space.to_param
-          assert_response 401
+          assert_response 302
+          response.should redirect_to(new_session_path)
         end
       end
 

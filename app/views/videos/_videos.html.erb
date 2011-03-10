@@ -1,45 +1,45 @@
 <% menu(:videos) %>
 
-<% content_for :javascript do  %>
+<%= content_for :javascript do  %>
 
    $(".play_icon").livequery('click',function(){
      $(this).siblings("a").click();
    });
 
    request_video_in_recordings = function(entry_id){
- 	 var route = "<%=space_videos_path(@space)%>/" + entry_id;
+         var route = "<%=space_videos_path(@space)%>/" + entry_id;
      document.location = route;
-   };	 
+   };    
 
   /*jquery for toggling the share and insert bar in show videos*/
-	
+        
   $("#share_insert .share").livequery('click',function () { 
      $("#embed_share").hide(),
-		 $("#url_share").toggle('slow')   
+                 $("#url_share").toggle('slow')   
   });
-	
-	$("#share_insert .insert").livequery('click',function () { 
+        
+        $("#share_insert .insert").livequery('click',function () { 
      $("#url_share").hide(),
-		 $("#embed_share").toggle('slow')      
+                 $("#embed_share").toggle('slow')      
   });
   
   $("#share_insert_video .share").livequery('click',function () { 
      $("#embed_share").hide();
-	 $("#url_isabel").hide();
-	 $("#url_sip").hide();
-	 $("#url_share").toggle('slow'); 
+         $("#url_isabel").hide();
+         $("#url_sip").hide();
+         $("#url_share").toggle('slow'); 
   });
-	
-	$("#share_insert_video .insert").livequery('click',function () { 
+        
+        $("#share_insert_video .insert").livequery('click',function () { 
      $("#url_share").hide();
-	 $("#url_isabel").hide();
-	 $("#url_sip").hide();
-	 $("#embed_share").toggle('slow');   
+         $("#url_isabel").hide();
+         $("#url_sip").hide();
+         $("#embed_share").toggle('slow');   
   });
   
  $('#atach_and_stats img.tooltip_num_views').qtip({
    content: '<%=t("tooltip.num_views")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -47,7 +47,7 @@
  
  $('#event_recordings img.tooltip_share').qtip({
    content: '<%=t("tooltip.share")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -55,7 +55,7 @@
 
  $('#event_recordings img.tooltip_insert').qtip({
    content: '<%=t("tooltip.insert")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -63,7 +63,7 @@
   
  $('#sidebar img.tooltip_space_video').qtip({
    content: '<%=t("tooltip.space_video")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -71,7 +71,7 @@
   
  $('#sidebar img.tooltip_search_video').qtip({
    content: '<%=t("tooltip.search_video")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -79,11 +79,11 @@
     
 <% end %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
 <% end %>
 
@@ -92,12 +92,12 @@
   <div class="event_image">
     <% if space && space.id!=nil%>
       <div id="logo">
-	    <%= link_logo(space, :size => "h64", :title=>space.name) %>
-	  </div>
+            <%= raw(link_logo(space, :size => "h64", :title=>space.name)) %>
+          </div>
     <%else%>
       <div id="vcc-logo">
-	    <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
-	  </div>
+            <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
+          </div>
     <% end %>
   </div>
   <p> <%=h space.description %> </p>
@@ -107,104 +107,104 @@
 <div id="event_recordings" class="margin-up">
   
   <div id="recordings_title">
-  	<h3 class="blue"><%=t('space.recording.one')%>
-	  <%if params[:action]=="edit"%>
-		<span id="edit_video"><%= link_to t('video.close_edit'), space_video_path(@space, @display_entry) %></span>
+        <h3 class="blue"><%=t('space.recording.one')%>
+          <%if params[:action]=="edit"%>
+                <span id="edit_video"><%= link_to t('video.close_edit'), space_video_path(@space, @display_entry) %></span>
       <%elsif @display_entry && @display_entry.authorize?(:update, :to => current_user) && (Time.now > Time.parse("2010-12-21")) %>
-    	<span id="edit_video"><%= link_to image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon"), edit_space_video_path(@space, @display_entry),:title => t('video.edit') %> </span>		
-	  <%end%>
-	</h3>    
+        <span id="edit_video"><%= link_to image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon"), edit_space_video_path(@space, @display_entry),:title => t('video.edit') %> </span>             
+          <%end%>
+        </h3>    
   </div>
-    <div id="recordings_content">	  
-    	
-	  <div id="videos">
-	    <div class="video_full">
-	      <%if @display_entry && params[:action]=="edit"%>
-		    <%=@display_entry.video_editor("640","480")%>
-		  <%elsif @display_entry%>
-	        <%=@display_entry.video_player("640","480")%>
-	      <%end%>
-	  </div>  
-      		
-	  <div id="share_insert_video">
-	    <span class="share">Share</span> <span class="insert">Insert</span>
-	
-		<div id="url_share" class="url_share" style="display:none">
-	      <%unless @space.public?%>
-	        <%=t('event.recording.notice')%><br/>
-	      <%end%>
-	        
-		  <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
-	        <form>
-	          <span class="only_url"><%=t('url_plain')%>:</span>
-			  <%if @display_entry%>
-			  <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_videos_url(@space)+ "/" + (@display_entry ? @display_entry.id : 0).to_s %>" name="video_link"></input>
-			   <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_share icon",:style=>"cursor:pointer")%>			  
-			  <%end%>
-			</form>
-	      </div>
-	      
-		  <div id="embed_share" class="url_share" style="display:none">
-	        <%unless @space.public?%>
-	          <%=t('event.recording.notice')%><br/>
-	        <%end%>
-	      <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
-	        <form>
-	          <span class="only_url"><%=t('event.embed')%>:</span>			
-			   <%if @display_entry%>
-			  <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
-		      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_insert icon",:style=>"cursor:pointer")%>			  
-			  <%end%>
-			</form>
-	      </div>
-	  </div>
-      			
-      <div class="video-bar"> 	
-	    <div class="video_properties">
-	      <div>
-	      	<% if @display_entry %>
-	      	<span><%=t('event.one')%>: <%= @display_entry.event.name%></span>
-			<% end %>
-	      </div>
-		  <div class="video_title">
-		    <%if @display_entry%>
-			  <span><%=@display_entry.title%></span>
-			- <%=link_to(t('event.agenda.see'),space_event_path(@space, @display_entry.event,:show_agenda => true), {:id=>"view_agenda"})%>
-			<%end%>
+    <div id="recordings_content">         
+        
+          <div id="videos">
+            <div class="video_full">
+              <%if @display_entry && params[:action]=="edit"%>
+                    <%=@display_entry.video_editor("640","480")%>
+                  <%elsif @display_entry%>
+                <%=@display_entry.video_player("640","480")%>
+              <%end%>
+          </div>  
+                
+          <div id="share_insert_video">
+            <span class="share">Share</span> <span class="insert">Insert</span>
+        
+                <div id="url_share" class="url_share" style="display:none">
+              <%unless @space.public?%>
+                <%=t('event.recording.notice')%><br/>
+              <%end%>
+                
+                  <div class="video_share"><span><%=t('event.recording.share')%></span></div>       
+                <form>
+                  <span class="only_url"><%=t('url_plain')%>:</span>
+                          <%if @display_entry%>
+                          <input type="text" onclick="javascript:this.form.video_link.focus();this.form.video_link.select();" value="<%=space_videos_url(@space)+ "/" + (@display_entry ? @display_entry.id : 0).to_s %>" name="video_link"></input>
+                           <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_share icon",:style=>"cursor:pointer")%>                       
+                          <%end%>
+                        </form>
+              </div>
+              
+                  <div id="embed_share" class="url_share" style="display:none">
+                <%unless @space.public?%>
+                  <%=t('event.recording.notice')%><br/>
+                <%end%>
+              <div class="video_share"><span><%=t('event.recording.insert')%></span></div>       
+                <form>
+                  <span class="only_url"><%=t('event.embed')%>:</span>                  
+                           <%if @display_entry%>
+                          <input type="text" onclick="javascript:this.form.video_embed.focus();this.form.video_embed.select();" value="<%=h shared_embed(@display_entry)%>" name="video_embed"></input>
+                      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_insert icon",:style=>"cursor:pointer")%>                   
+                          <%end%>
+                        </form>
+              </div>
           </div>
-		  
-		  <div class="video_users">  
-		    <%if @display_entry%>
-			  <%=t('agenda.entry.speakers')%>: <span class="unified_user"><%=entry_speakers(@display_entry)%></span>
-		    <%end%>
-		  </div>
-	      <div>
-	        <%if @display_entry%>
-	          <%=t('agenda.entry.description')%>: <span class="main_text"><%=@display_entry.description %></span>
-	        <%end%>
-	      </div>
+                        
+      <div class="video-bar">   
+            <div class="video_properties">
+              <div>
+                <% if @display_entry %>
+                <span><%=t('event.one')%>: <%= @display_entry.event.name%></span>
+                        <% end %>
+              </div>
+                  <div class="video_title">
+                    <%if @display_entry%>
+                          <span><%=@display_entry.title%></span>
+                        - <%=link_to(t('event.agenda.see'),space_event_path(@space, @display_entry.event,:show_agenda => true), {:id=>"view_agenda"})%>
+                        <%end%>
+          </div>
+                  
+                  <div class="video_users">  
+                    <%if @display_entry%>
+                          <%=t('agenda.entry.speakers')%>: <span class="unified_user"><%=entry_speakers(@display_entry)%></span>
+                    <%end%>
+                  </div>
+              <div>
+                <%if @display_entry%>
+                  <%=t('agenda.entry.description')%>: <span class="main_text"><%=@display_entry.description %></span>
+                <%end%>
+              </div>
           
-		  <div id="atach_and_stats">		  
-			  <div class="video_attachments">
-			    <%if @display_entry%>
-				  <%=t('agenda.entry.documents')%>:
-				  <% @display_entry.attachments.each  do |a| %>
-				    <%=image_tag("icons/attach.png", :class=>"icon")%>            
-			        <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
-			      <%end %>
-				<%end%>
-			  </div>
-			  
-			  <div class="video_stat">
-			  	<%if @display_entry%>
-				  <span class="separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
-				  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
-				<%end%>
-			  </div>
-		  </div>
-		  
-		</div>
-	  </div>
-	</div>
+                  <div id="atach_and_stats">              
+                          <div class="video_attachments">
+                            <%if @display_entry%>
+                                  <%=t('agenda.entry.documents')%>:
+                                  <% @display_entry.attachments.each  do |a| %>
+                                    <%=image_tag("icons/attach.png", :class=>"icon")%>            
+                                <%= link_to(a.filename , space_attachment_path(@space,a, :format => a.format!))%>
+                              <%end %>
+                                <%end%>
+                          </div>
+                          
+                          <div class="video_stat">
+                                <%if @display_entry%>
+                                  <span class="separated_5"> <%=@display_entry.video_unique_pageviews%></span><%=t('statistics.views')%>
+                                  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
+                                <%end%>
+                          </div>
+                  </div>
+                  
+                </div>
+          </div>
+        </div>
   </div>
 </div>

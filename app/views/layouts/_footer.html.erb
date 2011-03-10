@@ -1,51 +1,51 @@
 
 <div id="footer">
-	
+        
   <ul>
-  	<li id="trade_mark"><%=image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></li>
-	<li>-</li>
-	<li><%= t('all_rights_reserved') %></li>
-	<li>-</li>
-	<li>
-	  <div id="support_select">
-	    <%=link_to ("<span id='footer_help'>" + t('help') + "</span>"),'dropup', {:id=>"support_select", :class=>"support_select orange_button"} %>
-	    <ul id="support_menu" style="display:none">
+        <li id="trade_mark"><%=image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></li>
+        <li>-</li>
+        <li><%= t('all_rights_reserved') %></li>
+        <li>-</li>
+        <li>
+          <div id="support_select">
+            <%=link_to t('help'), 'dropup', { :id=>"support_select", :class=>"support_select orange_button" } %>
+            <ul id="support_menu" style="display:none">
         <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>            
-	      <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
-				<li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
-	    </ul>
-	  </div>
-	</li>
-	<li>-</li>
-	<li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
-	<li>-</li>
-	<li><%=link_to(t('about_global'),"http://www.global-project.eu")%></li>
-	<li>-</li>
-	<li>
-		<div id="language_select">
-		  <%=link_to ("<span>" + t('language') + "</span>"),'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
-		  <ul id="language_menu" style="display:none">					  
-		      <% for locale in (I18n.available_locales) -%>
-		      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
-		      <% end -%>
-		  </ul>
-		</div>
-	</li>
-	<% if current_site.authorize?(:translate, :to => current_user)%>
-		<li>-</li>
-		<li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li>
-	<%end%>
+              <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
+                                <li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
+            </ul>
+          </div>
+        </li>
+        <li>-</li>
+        <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
+        <li>-</li>
+        <li><%=link_to(t('about_global'),"http://www.global-project.eu")%></li>
+        <li>-</li>
+        <li>
+                <div id="language_select">
+                  <%=link_to t('language'), 'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
+                  <ul id="language_menu" style="display:none">                                    
+                      <% for locale in (I18n.available_locales) -%>
+                      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+                      <% end -%>
+                  </ul>
+                </div>
+        </li>
+        <% if current_site.authorize?(:translate, :to => current_user)%>
+                <li>-</li>
+                <li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li>
+        <%end%>
   </ul>
 </div>
 <%if current_site.domain == "globalplaza.org"%>
-		<script type="text/javascript">
-			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-		<script type="text/javascript">
-			try {
-				var pageTracker = _gat._getTracker("UA-12096965-1");
-				pageTracker._trackPageview();
-			} catch(err) {}
-		</script>
+                <script type="text/javascript">
+                        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+                <script type="text/javascript">
+                        try {
+                                var pageTracker = _gat._getTracker("UA-12096965-1");
+                                pageTracker._trackPageview();
+                        } catch(err) {}
+                </script>
 <%end%>

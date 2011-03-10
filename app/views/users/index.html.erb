@@ -1,10 +1,10 @@
 <% menu :people %>
 
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :sidebar do  %>
+<%= content_for :sidebar do  %>
 <!-- Ojo, esto hay que pensar qué queremos que se vea aquí -->
   <%= render :partial => 'spaces/sidebar' %>
 

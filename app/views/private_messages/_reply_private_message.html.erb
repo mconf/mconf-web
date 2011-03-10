@@ -2,7 +2,7 @@
 <div id="priv-msg">
   <h3><%= t('message.reply') %></h3>
   
-  <% form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
+  <%= form_for(:private_message, :url => user_messages_path(current_user)) do |f| %>
     <%= f.error_messages %>
     <div>
       <label for="Title"><%= t('title') %>:</label>

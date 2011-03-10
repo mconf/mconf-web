@@ -1,1 +1,0 @@
-require 'table_helper'

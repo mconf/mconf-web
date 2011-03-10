@@ -4,7 +4,7 @@
   <h3 id="spam_no_lightbox"><%= t('spam.report') %></h3>
 <%end%>
 
-<%form_tag(spam_space_post_path(@space,@post)) do -%>
+<%= form_tag(spam_space_post_path(@space,@post)) do -%>
   <div id="spam_form">
 	<p>
     <label for="subject"><%= t('subject') %>: </label><strong class="blue"> <%= t('spam.detected') %></strong>

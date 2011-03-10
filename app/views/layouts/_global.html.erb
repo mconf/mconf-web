@@ -17,7 +17,7 @@
     
     
     <span id="spaces_select">
-      <% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+      <%= form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
         <%if logged_in? && current_user.spaces.any?%> 
           <%if @space%>
           <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>

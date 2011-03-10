@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -43,7 +44,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html {
         if logged_in? && current_user.timezone == nil
-          flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user))
+          flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user)).html_safe
         end
         if request.xhr?
           render :layout => false;
@@ -76,8 +77,8 @@ class EventsController < ApplicationController
     @attachments,@tags = Attachment.repository_attachments(@event, params)
             
     #first check if it is an online event
-	if @event.marte_event && params[:show_conference]
-		#let's calculate the wait time
+        if @event.marte_event && params[:show_conference]
+                #let's calculate the wait time
      @wait = (@event.start_date - Time.now).floor
      respond_to do |format|
        format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
@@ -95,12 +96,12 @@ class EventsController < ApplicationController
            name = "agenda_" + @event.permalink + ".pdf"
          end
            
-         pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{nombre}"
+         pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{nombre}"
          send_file pdf_path
 
        }
      end
-	else
+        else
   
     @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
@@ -164,7 +165,7 @@ class EventsController < ApplicationController
                 name = "agenda_" + @event.permalink + ".pdf"
               end
               
-              pdf_path = "#{RAILS_ROOT}/public/pdf/#{@event.permalink}/#{name}"
+              pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{name}"
               send_file pdf_path
 
            }             
@@ -172,7 +173,7 @@ class EventsController < ApplicationController
              create_and_send_zip_file_for_scorm             
            }
     end
-	end
+        end
   end
 
   # GET /events/new
@@ -234,10 +235,10 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.update_attributes(params[:event])        
-		    #if the event is not marte, we have to remove the room in case it had it already assigned
-		    if params[:event][:marte_event]==0 &&  @event.marte_room?
-			    @event.update_attribute(:marte_room, false)
-			  end    
+                    #if the event is not marte, we have to remove the room in case it had it already assigned
+                    if params[:event][:marte_event]==0 &&  @event.marte_room?
+                            @event.update_attribute(:marte_room, false)
+                          end    
         
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
@@ -314,26 +315,26 @@ class EventsController < ApplicationController
   
   #method to get the token to participate in a online videoconference
   def token
-	  #if the user is not logged in the name should be guest+number
-	  if !logged_in?
-		  @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
-	  else
-		   @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
-	  end
-	  
-	  if @token.nil?
-		  MarteRoom.create :name => params[:id]
-		  if !logged_in?
-			   @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
-	  	  else
-		      @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
-	      end
-	  end
-	  if @token.nil?
-		render :text => t('token.not_available'), :status => 500
-	  else
-	       render :text => @token.id
-  	  end
+          #if the user is not logged in the name should be guest+number
+          if !logged_in?
+                  @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
+          else
+                   @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+          end
+          
+          if @token.nil?
+                  MarteRoom.create :name => params[:id]
+                  if !logged_in?
+                           @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
+                  else
+                      @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
+              end
+          end
+          if @token.nil?
+                render :text => t('token.not_available'), :status => 500
+          else
+               render :text => @token.id
+          end
   end
 
   def start
@@ -470,13 +471,13 @@ class EventsController < ApplicationController
     #if there is no video_entries we don't generate the scorm and return 
     
     if @event.scorm_needs_generate      
-      t = File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", 'w')
+      t = File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", 'w')
       Zip::ZipOutputStream.open(t.path) do |zos|
         @event.generate_scorm_manifest_in_zip(zos)
         
         @video_entries.each do |entry|
           @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
-          #File.open("#{RAILS_ROOT}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
+          #File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
           zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
           zos.print @render        
           entry.attachments.each do |file|
@@ -486,19 +487,19 @@ class EventsController < ApplicationController
         end   
         #in the end we include the css for the html files and the images
         zos.put_next_entry("scorm.css")
-        zos.print IO.read("#{RAILS_ROOT}/public/stylesheets/scorm.css")
+        zos.print IO.read("#{Rails.root.to_s}/public/stylesheets/scorm.css")
         
         zos.put_next_entry("bola_global_peque.png")
-        zos.print IO.read("#{RAILS_ROOT}/public/images/bola_global_peque.png")
+        zos.print IO.read("#{Rails.root.to_s}/public/images/bola_global_peque.png")
         
         zos.put_next_entry("vcc-logo-transparente1.png")
-        zos.print IO.read("#{RAILS_ROOT}/public/images/vcc-logo-transparente1.png")
+        zos.print IO.read("#{Rails.root.to_s}/public/images/vcc-logo-transparente1.png")
         
       end    
       t.close
     end
     
-    send_file "#{RAILS_ROOT}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
+    send_file "#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
   end
 end
 

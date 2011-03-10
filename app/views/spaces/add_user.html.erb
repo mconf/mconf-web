@@ -24,7 +24,7 @@
 <div class="contenido_main">
 
 <p><%= t('user.add.instruction') %>
-<% form_tag({:controller=>"spaces", :action=>"add_user"}, {:name=>'invite_user_form',:style => "display: inline;"}) do  %>
+<%= form_tag({:controller=>"spaces", :action=>"add_user"}, {:name=>'invite_user_form',:style => "display: inline;"}) do  %>
 	<div id='text_area'>
 <%= text_area 'invitation', :email, :size => "30x5"%>
 <input type=hidden name="user_role" id="user_role" value="Invited"/><br>
@@ -60,7 +60,7 @@
 	<img src="/images/magnify2.png"></img><h4 class="title"> Search Users</h4>
 		
 				<br>	
-				 <span> <% form_tag(search_users_path(@space.id), :method => 'get') do %>
+				 <span> <%= form_tag(search_users_path(@space.id), :method => 'get') do %>
 				      <%= text_field_tag :query, params[:query] %>
 					  <%= link_to 'Search', search_users_path(:space_id => @space.id), :method => :get%>
 				      %= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>

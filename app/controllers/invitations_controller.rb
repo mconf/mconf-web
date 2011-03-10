@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/invitations_controller"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/invitations_controller"
 
 class InvitationsController
   authorization_filter :forbidden, :invitation, :only => [ :index ]

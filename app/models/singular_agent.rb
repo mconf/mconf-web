@@ -16,7 +16,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Require Station Model
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/models/singular_agent"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/models/singular_agent"
 
 class SingularAgent
   def superuser

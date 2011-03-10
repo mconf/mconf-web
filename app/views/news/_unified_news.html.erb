@@ -1,52 +1,52 @@
 <% last ||= false -%>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
     expand_news_<%=news.id%> = function(){
        $("#collapsed_news_<%=news.id%>").hide();
        $("#expanded_news_<%=news.id%>").show();      
     }
-	
+        
     collapse_news_<%=news.id%> = function(){
        $("#expanded_news_<%=news.id%>").hide();
        $("#collapsed_news_<%=news.id%>").show();  
- 	 }
+         }
 <%end%>
 
 <div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding  <%='last' if last %>">
   <%if news.nil? %>
-	<p><%= t('news.none_to_show') %></p>
+        <p><%= t('news.none_to_show') %></p>
   <%else%>
   <div>
     <div class="div-logo">  
-	  <%=link_logo(news.space, :size =>'w48', :url => space_path(news.space), :title=>news.space.name)%>
-	</div>	     
+          <%= raw(link_logo(news.space, :size =>'w48', :url => space_path(news.space), :title=>news.space.name)) %>
+        </div>       
     <div class="news-content">
-	  <div class="news-home-title">
-	    <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.item_in_home', :space=>news.space.name))%>
-	  	<span class="unified_news"><%=link_to(sanitize(news.title), space_path(news.space)) %></span>
-	  	<span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span>
+          <div class="news-home-title">
+            <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.item_in_home', :space=>news.space.name))%>
+                <span class="unified_news"><%=link_to(sanitize(news.title), space_path(news.space)) %></span>
+                <span class="updated"> Updated <%=time_ago_in_words(news.updated_at)%> ago</span>
       </div>
-	  <div id="news-text">
-	    <%if news.text.size < 500 %>
- 		<div class="news_text grey">
- 		  <%=sanitize(auto_link(news.text))%>
-		</div>
-	    <%else%>
+          <div id="news-text">
+            <%if news.text.size < 500 %>
+                <div class="news_text grey">
+                  <%=sanitize(auto_link(news.text))%>
+                </div>
+            <%else%>
         <div id="collapsed_news_<%=news.id%>" class="grey">
           <%=sanitize(first_words(auto_link(news.text),500))%>
           <span> <%=link_to t('more>>'), "javascript:expand_news_#{news.id}()"%></span>
-	    </div>
+            </div>
         <div id="expanded_news_<%=news.id%>" style="display:none">
-     	  <div class="news_text grey">
+          <div class="news_text grey">
             <%=sanitize(auto_link(news.text))%>
             <span> <%=link_to t("collapse>>"), "javascript:collapse_news_#{news.id}()"%></span>
-		  </div>
+                  </div>
         </div>
         <%end%>
-	  </div>
-	  <span class="main_text">(<%= t('news.item_in_home')%>: <span class="bold"><%= news.space.name %></span>)</span>
-	</div>
+          </div>
+          <span class="main_text">(<%= t('news.item_in_home')%>: <span class="bold"><%= news.space.name %></span>)</span>
+        </div>
   </div>
   <%end%>
 </div>

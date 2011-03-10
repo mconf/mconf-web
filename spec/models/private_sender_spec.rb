@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 
 describe PrivateSender do
@@ -35,17 +35,17 @@ describe PrivateSender do
       
       # Check the message of the receiver
         # Check the title content
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@admin.name)
         
         # Check the body content
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.email)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.organization)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.email)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.organization)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
     end
 
@@ -64,19 +64,19 @@ describe PrivateSender do
       
       # Check the message of the receiver
         # Check the title content
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@event.name)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@event.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@admin.name)
 
         # Check the body content
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.email)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.organization)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@event.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/invitations/" + invitation.code)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.email)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.organization)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@event.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
     end
 
@@ -93,18 +93,18 @@ describe PrivateSender do
       
       # Check the message of the receiver
         # Check the title content
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@event.name)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@event.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@admin.name)
 
         # Check the body content
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.email)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@admin.organization)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@event.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)      
+        PrivateMessage.inbox(@registered_user).first.body.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.email)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@admin.organization)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@event.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)      
 
     end
   end
@@ -127,17 +127,17 @@ describe PrivateSender do
 
       # Check the message of the receiver
         # Check the title content
-        PrivateMessage.inbox(@admin).first.title.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@admin).first.title.should include_text(action)
-        PrivateMessage.inbox(@admin).first.title.should include_text(@space.name)
+        PrivateMessage.inbox(@admin).first.title.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.title.should include(action)
+        PrivateMessage.inbox(@admin).first.title.should include(@space.name)
 
         # Check the body content
-        PrivateMessage.inbox(@admin).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@admin).first.body.should include_text(@admin.name)
-        PrivateMessage.inbox(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@admin).first.body.should include_text(action)
-        PrivateMessage.inbox(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
-        PrivateMessage.inbox(@admin).first.body.should include_text(Site.current.signature_in_html)
+        PrivateMessage.inbox(@admin).first.body.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.body.should include(@admin.name)
+        PrivateMessage.inbox(@admin).first.body.should include(@space.name)
+        PrivateMessage.inbox(@admin).first.body.should include(action)
+        PrivateMessage.inbox(@admin).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
+        PrivateMessage.inbox(@admin).first.body.should include(Site.current.signature_in_html)
 
     end
 
@@ -157,14 +157,14 @@ describe PrivateSender do
       
       # Check the message of the receiver
         # Check the content of the title
-        PrivateMessage.inbox(@admin).first.title.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@admin).first.title.should include_text(@space.name)
+        PrivateMessage.inbox(@admin).first.title.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.title.should include(@space.name)
         
         # Check the content of the body
-        PrivateMessage.inbox(@admin).first.body.should include_text(@registered_user.full_name)
-        PrivateMessage.inbox(@admin).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@admin).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
-        PrivateMessage.inbox(@admin).first.body.should include_text(Site.current.signature_in_html)
+        PrivateMessage.inbox(@admin).first.body.should include(@registered_user.full_name)
+        PrivateMessage.inbox(@admin).first.body.should include(@space.name)
+        PrivateMessage.inbox(@admin).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+        PrivateMessage.inbox(@admin).first.body.should include(Site.current.signature_in_html)
     end
 
   end
@@ -185,13 +185,13 @@ describe PrivateSender do
       
       # Check the message of the receiver
         # Check the content of the title
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(action)
-        PrivateMessage.inbox(@registered_user).first.title.should include_text(@space.name)
+        PrivateMessage.inbox(@registered_user).first.title.should include(action)
+        PrivateMessage.inbox(@registered_user).first.title.should include(@space.name)
         
         # Check the content of the body
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(action)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text(@space.name)
-        PrivateMessage.inbox(@registered_user).first.body.should include_text("http://" + Site.current.domain + "/spaces/" + @space.permalink)
+        PrivateMessage.inbox(@registered_user).first.body.should include(action)
+        PrivateMessage.inbox(@registered_user).first.body.should include(@space.name)
+        PrivateMessage.inbox(@registered_user).first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
 
     end
 

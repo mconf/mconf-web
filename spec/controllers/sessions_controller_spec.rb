@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe SessionsController do
   include ActionController::AuthenticationTestHelper
 
-  integrate_views
+  render_views
 
   describe "new" do
     it 'should render' do
@@ -65,7 +65,7 @@ describe SessionsController do
     end
 
     describe 'with valid openid' do
-      before do
+      before :each do
         @credentials = { :openid_identifier => 'dit.upm.es/atapiador' }
         @openid_provider = 'http://dit.upm.es'
       end
@@ -74,7 +74,7 @@ describe SessionsController do
         post :create, @credentials
 
         assert_response 302
-        response.should have_text(/http:\/\/irss.dit.upm.es\/openid_server/)
+        response.redirect_url.should contain(/#{ Regexp.escape('http://irss.dit.upm.es/openid_server') }/)
       end
     end
 

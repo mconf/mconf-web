@@ -35,7 +35,7 @@ before 'deploy:setup', 'vcc:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 after 'deploy:update_code', 'deploy:copy_openfire_code'
-after 'deploy:restart', 'deploy:reload_ultrasphinx'
+#after 'deploy:restart', 'deploy:reload_ultrasphinx'
 after 'deploy:restart', 'deploy:reload_openfire'
 after 'deploy:setup', 'setup:create_shared'
 
@@ -67,11 +67,14 @@ namespace(:deploy) do
     run "touch #{current_path}/tmp/restart.txt"
   end
 
+=begin
+  #TODO rails 3: ultrasphinx
   task :reload_ultrasphinx do
     run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
     run "cd #{ current_path } && sudo /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
     run "sudo /etc/init.d/sphinxsearch restart"
   end
+=end
   
   task :copy_openfire_code do
     run "sudo cp #{ release_path }/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"

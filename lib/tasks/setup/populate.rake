@@ -214,7 +214,7 @@ namespace :setup do
 
         # Author
         ( space.posts + space.events ).each do |item|
-          item.author = space.users.rand
+          item.author = space.users[rand(space.users.length)]
           # Save the items without performing validations, to allow further testing
           item.save(false)
         end

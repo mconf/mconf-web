@@ -5,8 +5,8 @@
 <% menu :posts %>
 <div id="new_thread_big">
     <div id="feedback_form">
-        <% form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
-        <% content_for :javascript do %>
+        <%= form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
+        <%= content_for :javascript do %>
         <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
         <% end %>
 				<div> <%= t('comment.one') %></div>

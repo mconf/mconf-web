@@ -1,0 +1,12 @@
+<html>
+<body>
+
+<%= raw(t('register.thank_you', :sitename=>Site.current.name)) %><br/><br/>
+
+<%= raw(t('e-mail.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash )) %><br/><br/>
+
+<%= raw(t('e-mail.spam_activation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>
+
+<%= @signature %><br/>
+</body>
+</html>

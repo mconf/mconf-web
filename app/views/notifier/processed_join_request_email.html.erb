@@ -1,0 +1,14 @@
+<html>
+<body>
+<%= t('e-mail.invitation_result.user_side', :action => @action, :spacename =>@space.name)%><br/><br/>	
+
+<%if @jr.accepted?%>
+  <%= raw(t('invitation.access_space', :spacename => @space.name, :space_url => space_url(@space, :host => Site.current.domain))) %><br/><br/>
+<%else%>
+  <%= raw(t('invitation.rejoin_space', :space_url => new_space_join_request_url(@space, :host => Site.current.domain))) %><br/><br/>
+<%end%>
+
+<%= t('admin.space', :spacename => @space.name)%>
+
+</body>
+</html>

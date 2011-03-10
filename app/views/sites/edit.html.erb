@@ -1,8 +1,8 @@
-<% content_for :headers do%>
+<%= content_for :headers do%>
   <%= javascript_include_tag 'jquery.filestyle' %>
 <%end%>
 
-<%content_for :javascript do%>
+<%= content_for :javascript do%>
     $("input[type=file]").filestyle({ 
       image: "/images/buttons/browse.png",
       imageheight : 23,
@@ -17,7 +17,7 @@
   
   <%= error_messages_for :current_site %>
 
-<% form_for(:current_site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
+<%= form_for(:current_site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
   <p>
     <%= f.label :name, t('site.name') %>
     <%= f.text_field :name %>

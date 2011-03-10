@@ -24,7 +24,7 @@
 </script>
 <br/>
 
-	<% form_tag({:controller=>"spaces", :action=>"add_user2"}, {:name=>'register_user_form',:style => "display: inline;"}) do %>
+	<%= form_tag({:controller=>"spaces", :action=>"add_user2"}, {:name=>'register_user_form',:style => "display: inline;"}) do %>
 		<div id="add_usuarios">
 			<div id="select_users_from_space" class="select_users">
 				<%= select 'users',
@@ -52,7 +52,7 @@
 <div id="space_users">
 
 	<div id="admin_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_admin_form',:style => "display: inline;"}) do %>
+		<%= form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_admin_form',:style => "display: inline;"}) do %>
 		<span><%= t('role.one') %>: <%= t('admin.one') %></span>
 		<div id="admin_users_select" class="select_users">
 			<%= select 'users',
@@ -70,7 +70,7 @@
 	</div>
 
 	<div id="users_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_user_form',:style => "display: inline;"}) do %>
+		<%= form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_user_form',:style => "display: inline;"}) do %>
 		<span><%= t('role.one') %>: <%= t('user.one') %></span>
 		<div id="users_users_select" class="select_users">
 			<%= select 'users',
@@ -88,7 +88,7 @@
 	</div>
 
 	<div id="invited_users">
-		<% form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_invited_form',:style => "display: inline;"}) do %>
+		<%= form_tag({:controller=>"spaces", :action=>"remove_user"}, {:name=>'remove_invited_form',:style => "display: inline;"}) do %>
 		<span><%= t('role.one') %>: <%= t('invited') %></span>
 		<div id="invited_users_select" class="select_users">
 			<%= select 'users',
@@ -124,7 +124,7 @@
 		
 				
 				<br>	
-				 <span> <% form_tag(search_users_path(@space.id), :method => 'get') do %>
+				 <span> <%= form_tag(search_users_path(@space.id), :method => 'get') do %>
 				      <%= text_field_tag :query, params[:query] %>
 					  <%= link_to 'Search', search_users_path(@space.id), :method => :get%>
 				      %= submit_to_remote 'Reset', 'Reset', :url=>{:controller=> 'users',:action => :reset_search, :container_type =>:space, :container_id=>@space.id}%>

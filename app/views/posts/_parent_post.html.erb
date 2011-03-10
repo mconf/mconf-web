@@ -1,47 +1,47 @@
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
   <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
 <%end%>
 
 <!-- Author photo and name -->
-	
+        
 <%if @show_view%>
-	<div class="parent-post-logo">
-		<%= link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name) %>	  
-	</div>
+        <div class="parent-post-logo">
+                <%= raw(link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name)) %>
+        </div>
 <%end%>
 
 <div class="post-content">
-	<ul>
-		<%if @show_view%>
-			<li>
-				<%= link_to(post.author.name, user_path(post.author),:class=>"unified_user")%>
-	  			<span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-			</li>
-		<%end%>	
-	
-		<%if post.text.size < 500 || @show_view%>
-			<li class="main_text">
-	    		<%=sanitize(auto_link(post_format(post.text)))%>
-  			</li>
-		<%else%>
-	  		<li id="collapsed_post_<%=post.id%>" class="main_text" style="display:none">
-    			<%=sanitize(truncate(auto_link(post.text),:length=> 500))%>
-    			<%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
-  			</li>
-			<li id="expanded_post_<%=post.id%>" class="main_text">
-   				<%=sanitize(auto_link(post_format(post.text)))%>
- 			</li>
-		<%end%>
+        <ul>
+                <%if @show_view%>
+                        <li>
+                                <%= link_to(post.author.name, user_path(post.author),:class=>"unified_user")%>
+                                <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
+                        </li>
+                <%end%> 
+        
+                <%if post.text.size < 500 || @show_view%>
+                        <li class="main_text">
+                        <%=sanitize(auto_link(post_format(post.text)))%>
+                        </li>
+                <%else%>
+                        <li id="collapsed_post_<%=post.id%>" class="main_text" style="display:none">
+                        <%=sanitize(truncate(auto_link(post.text),:length=> 500))%>
+                        <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
+                        </li>
+                        <li id="expanded_post_<%=post.id%>" class="main_text">
+                                <%=sanitize(auto_link(post_format(post.text)))%>
+                        </li>
+                <%end%>
 
-		<li class="attachment">
-			<%for attachment in post.attachments%>
-				<div><%=image_tag(logo_image_path(attachment, :size => '64'))%></div>
-				<ul class="small-font main_text">
-					<li><%=attachment.filename%></li>
-					<li><%=attachment.get_size()%> <%= attachment_link(attachment, false)%></li>
-				</ul>
-			<%end%>
-		</li>
-	</ul>
+                <li class="attachment">
+                        <%for attachment in post.attachments%>
+                                <div><%=image_tag(logo_image_path(attachment, :size => '64'))%></div>
+                                <ul class="small-font main_text">
+                                        <li><%=attachment.filename%></li>
+                                        <li><%=attachment.get_size()%> <%= attachment_link(attachment, false)%></li>
+                                </ul>
+                        <%end%>
+                </li>
+        </ul>
 </div>
 

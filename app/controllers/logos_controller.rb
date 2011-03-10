@@ -16,14 +16,14 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Require Station Controller
-require_dependency "#{ RAILS_ROOT }/vendor/plugins/station/app/controllers/logos_controller"
+require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/logos_controller"
 require 'RMagick'
 
 class LogosController
   include Magick
 
     REL_TMP_PATH = File.join("tmp")
-    ABS_TMP_PATH = File.join(RAILS_ROOT, "public", "images", REL_TMP_PATH)
+    ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
     FORMAT = Mime::Type.lookup "image/png"
   
   def new 
@@ -46,7 +46,7 @@ class LogosController
   
    if params[:upload]
      
-     images_path = File.join(RAILS_ROOT, "public", "images")
+     images_path = File.join(Rails.root.to_s, "public", "images")
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
      uploaded_image = File.join(final_path, "uploaded_logo.png")
@@ -63,7 +63,7 @@ class LogosController
      render :template => "logos/precrop_without_space", :layout => false
    end
    if params[:upload_crop]
-     images_path = File.join(RAILS_ROOT, "public", "images")
+     images_path = File.join(Rails.root.to_s, "public", "images")
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
      uploaded_image = File.join(final_path, "uploaded_logo.png")
@@ -196,7 +196,7 @@ class LogosController
   def create_auto_logo text, logo_style, event_logo
     
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
-    images_path = File.join(RAILS_ROOT, "public", "images")
+    images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:rand_name]}")
     if event_logo

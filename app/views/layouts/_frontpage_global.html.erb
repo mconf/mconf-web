@@ -17,7 +17,7 @@
          <div id="espacio_header">&nbsp</div>
          
          <div class="div_login">
-             <% form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+             <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
                 <span>
                  <label for="login"><%= t('email') %></label>
 								</span>
@@ -42,7 +42,7 @@
 		 
 		 <div class="div_login_openid" style="display:none">
        <div class="openid_form">
-         <% form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+         <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
 			     <div id="openid_label">
 				     <span><%= t('openid.enter') %></span>
 			       <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
@@ -63,7 +63,7 @@
    <%if logged_in?%>
     <span id="spaces_select">
         
-        <% form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+        <%= form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
          <%if logged_in? && current_user.spaces.any?%>  
             <%if @space%>
             <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>

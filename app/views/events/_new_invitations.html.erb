@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'user_filter' %>
 
-<% content_for :javascript do%>
+<%= content_for :javascript do%>
 
   
 
@@ -27,7 +27,7 @@
 <%end%>
 
 <div id="user_invitations" style="display:none;">
-	  <% form_for([@space,event], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
+	  <%= form_for([@space,event], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
 		 <div class="event_invitations_message"> 
 			<div id="selected_users" class="margin-up">
 		    <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('event_invitation.will_invite')%>:</label>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -40,8 +41,9 @@ class Profile < ActiveRecord::Base
 
   before_validation :from_vcard
 
-  def validate
-    errors.add_to_base(@vcard_errors) if @vcard_errors.present?
+  validate :validate_method
+  def validate_method
+    errors.add(:base, @vcard_errors) if @vcard_errors.present?
   end
   
   def prefix
@@ -148,7 +150,7 @@ class Profile < ActiveRecord::Base
     hcard = Prism.find(uri, :hcard)
 
     if hcard.blank?
-      errors.add_to_base(I18n.t("hcard.not_found"))
+      errors.add(:base, I18n.t("hcard.not_found"))
       return
     end
 

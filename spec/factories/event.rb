@@ -1,6 +1,6 @@
 Factory.define :event do |e|
   e.sequence(:name) { |n| "Event #{ n }" }
-  e.description "Event description"
+  e.sequence(:description)  { |n| "Event description #{ n }" }
   e.sequence(:place) { |n| "Place #{ n }" }
   #  e.isabel_event
   e.start_date { Time.now + 2.hours}

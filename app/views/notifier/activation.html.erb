@@ -1,0 +1,10 @@
+<html>
+<body>
+
+<%= t('e-mail.account_activated', :sitename => @sitename)%><br/><br/>
+
+<%= raw(t('e-mail.url_activated', :name => @user.email, :url => "http://" + Site.current.domain.to_s + "/")) %><br/><br/>
+
+<%= @signature %><br/>
+</body>
+</html>

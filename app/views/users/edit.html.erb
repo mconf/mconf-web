@@ -1,8 +1,8 @@
-<% content_for :search do  %>
+<%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<% content_for :javascript do%>	  
+<%= content_for :javascript do%>	  
    $('#timezone img.tooltip_timezone').qtip({
    content: '<%=t("tooltip.timezone")%>',
 	 position: {adjust: { screen: true }},
@@ -15,7 +15,7 @@
 <%= error_messages_for 'user' %>
 
 <div id="edit_account" class="blue_title"><h3><%= t('user.edit_account')%></h3></div>
-<% form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f| -%>
+<%= form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f| -%>
 
 
 <%= render :partial => 'form' , :locals => { :f => f } %>
@@ -41,7 +41,7 @@
     <% end %>
   </ul>
   <% end %>
-  <% form_tag OpenIdOwning.new do -%>
+  <%= form_tag OpenIdOwning.new do -%>
   <div id="openid_label">
     <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><button type="submit" class="blue_button basic_button"><%=t('add')%></button>
   </div>
@@ -50,7 +50,7 @@
 
 <div id="edit_account" class="blue_title"><h3><%= t('preferences')%></h3></div>
 
-<% form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
+<%= form_for :user, :url => user_path(@user), :html => {:method => :put} do |f| -%>
 
 <div id="timezone"><label for="timezone"><%=t('user.timezone')%><%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_timezone icon",:style=>"cursor:pointer")%></label><br/>
 <%= f.time_zone_select :timezone, nil, :include_blank => true%></div><br/>

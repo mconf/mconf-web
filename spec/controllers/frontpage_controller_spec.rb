@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require "spec_helper"
 
 describe FrontpageController do
   include ActionController::AuthenticationTestHelper
   
-  integrate_views
+  render_views
 
   describe "when Anonymous" do
     it "should render index" do

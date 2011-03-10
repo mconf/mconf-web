@@ -1,12 +1,9 @@
 [submodule "vendor/plugins/station"]
-	path = vendor/plugins/station
-	url = http://git-isabel.dit.upm.es/station.git
-[submodule "vendor/plugins/rspec"]
-	path = vendor/plugins/rspec
-	url = git://github.com/dchelimsky/rspec.git
-[submodule "vendor/plugins/rspec-rails"]
-	path = vendor/plugins/rspec-rails
-	url = git://github.com/dchelimsky/rspec-rails.git
-
-
-
+        path = vendor/plugins/station
+        url = git@github.com:mconf/station.git
+[submodule "vendor/plugins/attachment_fu"]
+        path = vendor/plugins/attachment_fu
+        url = git://github.com/mconf/attachment_fu.git
+[submodule "vendor/plugins/translate"]
+	path = vendor/plugins/translate
+	url = git://github.com/piercus/rails-translate.git

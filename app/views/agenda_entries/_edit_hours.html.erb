@@ -1,6 +1,6 @@
 <div class="agenda_edit_hours_entry" >
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
-  <% form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
+  <%= form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form"}) do |f| %>
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@agenda_entry.event_day%>">
     <div class='javascript'>
       <div class="margin-up"><label for="end_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
