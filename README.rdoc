@@ -41,6 +41,9 @@ More details and troubleshoting at: https://github.com/mconf/mconf-web/wiki
   * Run <tt>rvm notes</tt> and install the packages under "For Ruby (MRI & ree)"
   * Mconf-Web uses rubygems 1.5.0. If needed, you can specify the version with: <tt>rvm rubygems 1.5.0</tt>
     * To check your rubygems version run <tt>gem -v</tt>
+  * We recommend that you create a gemset for Mconf.
+    * Creating the: <tt>rvm gemset create mconf</tt>
+    * Use this gemset as default: <tt>rvm use --default 1.9.2@mconf</tt>
 
 == About
 
