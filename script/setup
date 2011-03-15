@@ -74,11 +74,26 @@ def install_mail_conf
   puts "Created basic #{ mail_file }, please configure it."
 end
 
+def install_bbb_conf
+  puts "* Checking config/bigbluebutton_conf.yml: "
+
+  bbb_file = File.dirname(__FILE__) + "/../config/bigbluebutton_conf.yml"
+
+  if File.exist?(bbb_file)
+    puts "file exists. Assuming configurated bigbluebutton server."
+    return
+  end
+
+  `cp #{ bbb_file }.example #{ bbb_file }`
+  puts "Created basic #{ bbb_file }, please configure it."
+end
+
 def setup_environment(env)
   install_linux_packages(:common)
   install_linux_packages(env)
   install_database
   install_mail_conf
+  install_bbb_conf
 #  system "rake setup:#{ env }"
 end
 

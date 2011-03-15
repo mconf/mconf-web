@@ -1,6 +1,6 @@
 defaults: &defaults
-  server: 'http://devbbb-mconf.no-ip.org/bigbluebutton/api'
-  salt: '9465875d2c443fa2988e2293fb535eaf'
+  server: 'http://demo.bigbluebutton.org/bigbluebutton/api'
+  salt: '1234567890abcdefghijklmnopqrstuvx'
   version: '0.7'
 
 development:
