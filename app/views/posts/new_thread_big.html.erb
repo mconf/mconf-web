@@ -2,9 +2,9 @@
 <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
 
 <div id="new_thread_big">
-	<% menu :posts %>
+        <% menu :posts %>
 
-	  <!--<h3>New Thread</h3>-->
+          <!--<h3>New Thread</h3>-->
       <div id="text_form">
           <%= form_for(prepare_for_form(Post.new), :html => { :multipart => true ,:id => "thread-form"}) do |f| -%>
           
@@ -20,13 +20,13 @@
               <%= f.text_area :text, :id => "big_textarea", :class => "big_post_text", :value => params[:post_text] %>
               <!--<textarea id="big_textarea" name="post[text]" class="big_post_text"><%=params[:post_text]%></textarea>-->
           </div>
-          <p class ='newAttach1' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>
-					<div id="post-buttoms" class="actions">
+          <p class ='newAttach1' style="display: none;"><%= t('attachment.add') %></p>
+                                        <div id="post-buttoms" class="actions">
               <ul>
                   <li class ='newAttach add'>
                       <%= t('attachment.add') %>
                   </li>
-                  <li class ='newAttach new_one'<%= 'style="display: none;"' %>>
+                  <li class ='newAttach new_one' style="display: none;">
                       <%= t('attachment.new') %>
                   </li>
               </ul>
@@ -38,7 +38,7 @@
           </div>
       </div>
 
-	 
-	<% end -%>
+         
+        <% end -%>
 
 </div>

@@ -9,20 +9,20 @@
         <%= content_for :javascript do %>
         <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
         <% end %>
-				<div> <%= t('comment.one') %></div>
-				
+                                <div> <%= t('comment.one') %></div>
+                                
         <div id="big_textarea_div">
             <textarea id="big_textarea" name="post[text]" class="big_post_text">
                  <%=params[:post_text] %>
             </textarea>
-        </div>			
-        <p class ='newAttach1' <%= 'style="display: none;"'%> ><%= t('attachment.add') %></p>		
-				<div id="post-buttoms" class="actions margin-up">
+        </div>                  
+        <p class ='newAttach1' style="display: none;"><%= t('attachment.add') %></p>            
+                                <div id="post-buttoms" class="actions margin-up">
               <ul>
                   <li class ='newAttach add'>
                       <%= t('attachment.add') %>
                   </li>
-                  <li class ='newAttach new_one'<%= 'style="display: none;"' %>>
+                  <li class ='newAttach new_one' style="display: none;">
                       <%= t('attachment.new') %>
                   </li>
               </ul>
