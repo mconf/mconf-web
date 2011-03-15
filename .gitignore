@@ -15,6 +15,7 @@ spec/reports
 config/locales/log
 .svn
 config/initializers/mail_conf.rb
+config/bigbluebutton_conf.yml
 public/pdf/
 db/*.sqlite3*
 tmp/*
