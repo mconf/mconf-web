@@ -81,7 +81,8 @@ Vcc::Application.routes.draw do
 
 ## TODO check
       #event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
-      resource :event_logos, :as => 'logo' do
+      # limit to only create, update and precrop
+      resource :logo, :controller => 'event_logos' do
         member do
           post :precrop
         end
