@@ -2090,3 +2090,5 @@ a.first_day_link{border:none;}
 .clearer {
   clear: both;
 }
+
+.offscreen { display:none; }

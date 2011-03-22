@@ -2,50 +2,52 @@
   <div id="global">
     <ul id="prefs">
       <% if logged_in? %>
-      		<% if current_user.superuser?%>
-					  <li><%=link_to t('manage'), site_path%></li>
-					<%end%>      
-      		<li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
-        	<li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
-        	<li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
-        	<li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
-        	<li><%= link_to t('logout', :user => current_user.name), logout_path, :id => "logout_link" %></li>
-     	<% else %>
-		    <li><%= link_to t('login_or_register'), login_path(:redirect_to => controller.request.path),:class => "login_link" %></li>
+                <% if current_user.superuser?%>
+                                          <li><%=link_to t('manage'), site_path%></li>
+                                        <%end%>      
+                <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
+                <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
+                <li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
+                <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
+                <li><%= link_to t('logout', :user => current_user.name), logout_path, :id => "logout_link" %></li>
+        <% else %>
+                    <li><%= link_to t('login_or_register'), login_path(:redirect_to => controller.request.path),:class => "login_link" %></li>
       <% end %>
     </ul>
     
-    
     <span id="spaces_select">
       <%= form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
+       
         <%if logged_in? && current_user.spaces.any?%> 
           <%if @space%>
-          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
-        <%elsif params[:space_id]=="all"%>      
-              <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]), :onchange => "this.form.submit()"%>
-        <%else%>
-          <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.select'),""], [t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.select'),""]), :onchange => "this.form.submit()"%>
-        <%end%>
+            <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]},[@space.name, @space.permalink]).html_safe, :onchange => "this.form.submit()"%>
+          <%elsif params[:space_id]=="all"%>      
+            <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]).html_safe, :onchange => "this.form.submit()"%>
           <%else%>
-          <%if @space%>
-             <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
-          <%elsif params[:space_id]=="all"%>
-            <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.select'),""],[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]), :onchange => "this.form.submit()"%>
+            <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.select'),""], [t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.select'),""]).html_safe, :onchange => "this.form.submit()"%>
+          <%end%>
         <%else%>
-            <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.select'),""],[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}), :onchange => "this.form.submit()"%>
+          <%if @space%>
+            <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]).html_safe, :onchange => "this.form.submit()"%>
+          <%elsif params[:space_id]=="all"%>
+            <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.select'),""],[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]).html_safe, :onchange => "this.form.submit()"%>
+          <%else%>
+            <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.select'),""],[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}).html_safe, :onchange => "this.form.submit()"%>
+          <%end%>
         <%end%>
-        <%end%>
+
       <%end%>
-  </span>
+    </span>
+
   <span id="global-logo">
-  	<%= image_tag("bola_global_peque.png",:class=>"icon")%>
-  	<% if logged_in? %>
-	  <%= link_to t('vcc'), home_path, menu_options(:home)%>
-	  <em class="small"><%= link_to t('beta'), home_path, menu_options(:home)%></em>
-	<% else %>
-	  <a href="<%=root_path%>">
-	  <%= t('vcc') %><em class="small"><%= t('beta') %></em>
-	<% end %>
+        <%= image_tag("bola_global_peque.png",:class=>"icon")%>
+        <% if logged_in? %>
+          <%= link_to t('vcc'), home_path, menu_options(:home)%>
+          <em class="small"><%= link_to t('beta'), home_path, menu_options(:home)%></em>
+        <% else %>
+          <a href="<%=root_path%>">
+          <%= t('vcc') %><em class="small"><%= t('beta') %></em>
+        <% end %>
     </a>
   </span>
   </div>

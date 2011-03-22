@@ -15,13 +15,13 @@
     <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
-		
+    
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
     <script type="text/javascript">
       if (navigator.userAgent.indexOf('Mac') != -1) { 
-         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
       }
     </script>
 
@@ -30,47 +30,47 @@
     
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-	<%= render :partial => 'layouts/ready.js.erb' %>
-        <%= yield :javascript %>
+      <%= render :partial => 'layouts/ready.js.erb' %>
+      <%= yield :javascript %>
       })
     </script>
     
   </head>
 
-	<body>
-	  <div id="site">
-		  <%= render :partial => "layouts/global" %>
+  <body>
+    <div id="site">
+      <%= render :partial => "layouts/global" %>
 
-		  <div id="space">
+      <div id="space">
 
-				<div id="header">
-		      <%= render :partial => "layouts/header" %>
-		    </div>
+        <div id="header">
+          <%= render :partial => "layouts/header" %>
+        </div>
 
-		    <div id="content">		      	      				
-					<div id="main">
-		        
-						<div id="flash_div" class="success" style="display:none"></div>
-					    <% flash.each do |name, msg| %>
-                <div class="<%= name %>"><%= msg %></div>
-              <% end %>
+        <div id="content">                                                      
+          <div id="main">
+            
+            <div id="flash_div" class="success" style="display:none"></div>
+            <% flash.each do |name, msg| %>
+            <div class="<%= name %>"><%= msg %></div>
+            <% end %>
 
-							
-						<%= render :partial => "layouts/menu" %>
-		        
-						<div id="wrapper">		
-	     		    <%= yield %>
-			      </div>
-			    </div>
-      
-		      <div id="sidebar">
-		        <%= yield :sidebar %>
+            
+            <%= render :partial => "layouts/menu" %>
+            
+            <div id="wrapper">          
+              <%= yield %>
+            </div>
+          </div>
+          
+          <div id="sidebar">
+            <%= yield :sidebar %>
           </div>
         </div>
-	  <%= render :partial => "layouts/footer" %>  
-	  </div>
-	  
-	  </div>
-		
-	</body>
+        <%= render :partial => "layouts/footer" %>  
+      </div>
+      
+    </div>
+    
+  </body>
 </html>

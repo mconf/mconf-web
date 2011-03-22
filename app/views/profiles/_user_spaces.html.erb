@@ -40,7 +40,7 @@
                 </ul>
             <%else%>
                 
-                <div id="my_spaces_lite" <%= 'style="display: none;"' if params[:all_my_spaces] or params[:list_my_spaces]%> >
+                <div id="my_spaces_lite" <%= 'style="display: none;"'.html_safe if params[:all_my_spaces] or params[:list_my_spaces]%> >
                         <ul class="inline">
                                 <%for space in show_user.spaces.first(6)%>
                                                 <%if space.authorize? :read, :to => current_user%>
@@ -60,7 +60,7 @@
                         </div>
                 </div>
               
-                <div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
+                <div id="all_my_spaces" <%= 'style="display: none;"'.html_safe unless params[:all_my_spaces]%>>
                         <ul class="inline">
                                 <% show_user.spaces.each do |s| %>
                                                 <%if s.authorize? :read, :to => current_user%>     
@@ -78,7 +78,7 @@
                         </div>
                 </div>
               
-                <div id="my_spaces_list" <%= 'style="display: none;"' unless params[:list_my_spaces]%> >
+                <div id="my_spaces_list" <%= 'style="display: none;"'.html_safe unless params[:list_my_spaces]%> >
                         <ul>
                                 <% show_user.spaces.each do |s| %>     
                                         <%if space.authorize? :read, :to => current_user%>    

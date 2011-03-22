@@ -81,7 +81,8 @@ Vcc::Application.routes.draw do
 
 ## TODO check
       #event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
-      resource :event_logos, :as => 'logo' do
+      # limit to only create, update and precrop
+      resource :logo, :controller => 'event_logos' do
         member do
           post :precrop
         end
@@ -186,22 +187,9 @@ Vcc::Application.routes.draw do
   match 'about', :to => 'frontpage#about', :as => 'about'
   match 'about2', :to => 'frontpage#about2', :as => 'about2'
   match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
-  match 'help', :to => 'help#index', :as => 'help'
+  match 'help(/:action)', :to => 'help#index', :as => 'help'
   match 'faq', :to => 'faq#index', :as => 'faq'
 
-  # #######################################################################
-  # CMSplugin
-  #
-  # (se quedara obsoleto con la nueva version del plugin)
-  #
-
-##
-#  map.open_id_complete 'session/open_id_complete',
-#                       { :open_id_complete => true,
-#                         :conditions => { :method => :get },
-#                         :controller => "sessions",
-#                         :action => "create" }
-##
   resource :session
 
   match '/login', :to => 'sessions#new', :as => 'login'
@@ -209,22 +197,9 @@ Vcc::Application.routes.draw do
   match '/signup', :to => 'users#new', :as => 'signup'
   match '/lost_password', :to => 'users#lost_password', :as => 'lost_password'
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
-##
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
-##
-
-  #############################################################################
-  ## Rutas que hemos cambiado y que puede ser que ya esten bien, TENEMOS QUE PASARLOS A MEMBER => [:LOQUESEA]
-  #map.add_time '/spaces/:space_id/add_time', :controller => 'events', :action => 'add_time' #=> TimesController o (NO REST) Anadir a events :member => [ :add_time ]
-  #map.copy_next_week '/spaces/:space_id/copy_next_week', :controller => 'events', :action => 'copy_next_week' #=> TimesController o (NO REST) Anadir a events :member => [ :copy_next_week ]
-  #map.remove_time '/:container_type/:container_id/remove_time', :controller => 'events', :action => 'remove_time' #=> TimesController o (NO REST) Anadir a events :member => [ :remove_time ]
 
   match '/change_space', :to => 'spaces#change_space', :as => 'change_space'
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
-
-  match '/:controller(/:action(/:id))'
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action/:id.:format'
-
 end

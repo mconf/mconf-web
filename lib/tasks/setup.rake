@@ -1,4 +1,5 @@
 namespace :setup do
+
   desc "Set production environment and run all production tasks"
   task :production do
     RAILS_ENV = ENV['RAILS_ENV'] = 'production'
@@ -6,19 +7,29 @@ namespace :setup do
   end
 
   desc "Setup development environment"
-  task :development => [ :development_tasks, :populate ] do
+  task :development  do
+    RAILS_ENV = ENV['RAILS_ENV'] = 'development'
+    Rake::Task["setup:development_tasks"].invoke
+  end
+
+  desc "Setup test environment"
+  task :test do
+    RAILS_ENV = ENV['RAILS_ENV'] = 'test'
+    Rake::Task["setup:test_tasks"].invoke
   end
 
   desc "All development tasks"
-  task :development_tasks => [ :common_tasks ]
+  task :development_tasks => [ :common_tasks, :populate ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_sphinx, :config_cron, :config_logrotate, :config_awstats, :common_tasks ] do
-  end
+  task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks ] # :config_sphinx
 
-  desc "All production tasks"
-  task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all", :config_mailing_list_dir ] do
-  end
+  desc "All common tasks"
+  #task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all", :config_mailing_list_dir ] do
+  task :common_tasks => [ :git_submodules, "db:drop", "db:create", "db:migrate", "setup:basic_data:all" ]
+
+  desc "All test tasks"
+  task :test_tasks => [ "db:test:prepare", "setup:basic_data:test" ]
 
 
 =begin

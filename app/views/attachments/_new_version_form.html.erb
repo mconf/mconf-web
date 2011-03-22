@@ -1,29 +1,29 @@
 
 <div id="doc_action" class="new_version margin-up" rel="new_version">
-	<div id="new_version_label"><h3 class="bold blue top"><%=t('version.new') %></h3></div>
-	
-		<%= form_for prepare_for_form(Attachment.new, :version_parent_id => @attachment.id), :html => { :multipart => true} do |f|%>
-		<div class="new_doc_content">  
-		  <%= f.hidden_field :version_parent_id %>
-			<%= f.file_field :uploaded_data, :size=>12 %>
-		</div>
-		<div class="new_doc_content">	
-			<div id=tags>
-				<span class="bold"><%=t('tag.selected.other')%></span>
-				<select id="attachment_new_version_tags" multiple="multiple" name="attachment[_tags][]">
-				  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
-				</select>
-	    	</div>
-		   
-	    <span><%=t('attachment.upload_with_post')%><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%></span>
-	    <div id="with_post" <%="style=\"display:none\"" if !(attachment.post_title.present? || attachment.post_text.present?)%>>
-	      <%= f.label :post_title, t('title') %><br/>
-	      <%= f.text_field :post_title,:rows => 1, :cols=>23 %>
-	      <%= f.label :post_text, t('text') %><br/>
-	      <%= f.text_area :post_text, :rows => 5, :cols=>25 %>
-	    </div>
-	
-		  <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
-		</div>
-		<%end%>
+        <div id="new_version_label"><h3 class="bold blue top"><%=t('version.new') %></h3></div>
+        
+                <%= form_for prepare_for_form(Attachment.new, :version_parent_id => @attachment.id), :html => { :multipart => true} do |f|%>
+                <div class="new_doc_content">  
+                  <%= f.hidden_field :version_parent_id %>
+                        <%= f.file_field :uploaded_data, :size=>12 %>
+                </div>
+                <div class="new_doc_content">   
+                        <div id=tags>
+                                <span class="bold"><%=t('tag.selected.other')%></span>
+                                <select id="attachment_new_version_tags" multiple="multiple" name="attachment[_tags][]">
+                                  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
+                                </select>
+                </div>
+                   
+            <span><%=t('attachment.upload_with_post')%><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%></span>
+            <div id="with_post" <%="style=\"display:none\"".html_safe if !(attachment.post_title.present? || attachment.post_text.present?)%>>
+              <%= f.label :post_title, t('title') %><br/>
+              <%= f.text_field :post_title,:rows => 1, :cols=>23 %>
+              <%= f.label :post_text, t('text') %><br/>
+              <%= f.text_area :post_text, :rows => 5, :cols=>25 %>
+            </div>
+        
+                  <div class="margin-up"><button type="submit" class="basic_button blue_button"><%=t("button.update")%></button></div>
+                </div>
+                <%end%>
 </div>

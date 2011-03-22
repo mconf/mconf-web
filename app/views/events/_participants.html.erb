@@ -120,7 +120,7 @@
                   </div>
                 <%end%>
                 <%unless @assistants.empty?%>
-                  <div id="assistants_lite" <%= 'style="display: none;"' if params[:all_assistants] or params[:list_assistants]%> >
+                  <div id="assistants_lite" <%= 'style="display: none;"'.html_safe if params[:all_assistants] or params[:list_assistants]%> >
                                 <h5><%= t('user.assist') %></h5>
                           <%for participant in @assistants.first(12)%>
                               <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
@@ -131,7 +131,7 @@
                                 </div>
                         </div>
 
-                        <div id="all_assistants" <%= 'style="display: none;"' unless params[:all_assistants]%>>
+                        <div id="all_assistants" <%= 'style="display: none;"'.html_safe unless params[:all_assistants]%>>
                                 <h5><%= t('user.assist') %></h5>
                             <%for participant in @assistants%>
                                 <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
@@ -142,7 +142,7 @@
                                         </div>
                         </div>
 
-                  <div id="assistants_list" <%= 'style="display: none;"' unless params[:list_assistants]%>>
+                  <div id="assistants_list" <%= 'style="display: none;"'.html_safe unless params[:list_assistants]%>>
                         <h5><%= t('user.assist') %></h5>
                     <ul>
                         <%for participant in @assistants%>
@@ -157,7 +157,7 @@
         </div>
         <div id="no-assistants">
                 <%unless @no_assistants.empty?%>
-                        <div id="no_assistants_lite" <%= 'style="display: none;"' if params[:all_no_assistants] or params[:list_no_assistants]%> >
+                        <div id="no_assistants_lite" <%= 'style="display: none;"'.html_safe if params[:all_no_assistants] or params[:list_no_assistants]%> >
                                 <h5><%= t('user.not_assist') %></h5>
                           <%for participant in @no_assistants.first(12)%>
                             <%if participant.user%>
@@ -172,7 +172,7 @@
                           </div>
                         </div>
 
-                        <div id="all_no_assistants" <%= 'style="display: none;"' unless params[:all_no_assistants]%>>
+                        <div id="all_no_assistants" <%= 'style="display: none;"'.html_safe unless params[:all_no_assistants]%>>
                     <h5><%= t('user.not_assist') %></h5>
                       <%for participant in @assistants%>
                           <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
@@ -183,7 +183,7 @@
                                         </div>
                   </div>
 
-                  <div id="no_assistants_list" <%= 'style="display: none;"' unless params[:list_no_assistants]%>>
+                  <div id="no_assistants_list" <%= 'style="display: none;"'.html_safe unless params[:list_no_assistants]%>>
                         <h5><%= t('user.not_assist') %></h5>
                     <ul>
                         <%for participant in @no_assistants%>
@@ -199,7 +199,7 @@
 
         <div id="no_responding">
                 <%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorize?([:update], :to=>current_user) %>
-                  <div id="no_responding_lite" <%= 'style="display: none;"' if params[:all_no_responding] or params[:list_no_responding]%>>
+                  <div id="no_responding_lite" <%= 'style="display: none;"'.html_safe if params[:all_no_responding] or params[:list_no_responding]%>>
                                 <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                                  <h5><%= t('user.not_confirmed') %></h5>
                                 <%end%>
@@ -221,7 +221,7 @@
               <%end%>
                         </div>
 
-                          <div id="all_no_responding" <%= 'style="display: none;"' unless params[:all_no_responding]%>>
+                          <div id="all_no_responding" <%= 'style="display: none;"'.html_safe unless params[:all_no_responding]%>>
                             <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                              <h5><%= t('user.not_confirmed') %></h5>
 
@@ -244,7 +244,7 @@
               <%end%>
                   </div>
 
-                  <div id="no_responding_list" <%= 'style="display: none;"' unless params[:list_no_responding]%>>
+                  <div id="no_responding_list" <%= 'style="display: none;"'.html_safe unless params[:list_no_responding]%>>
                         <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                       <h5><%= t('user.not_confirmed') %></h5>
                     <%end%>
