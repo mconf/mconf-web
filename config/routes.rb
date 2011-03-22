@@ -1,5 +1,7 @@
 Vcc::Application.routes.draw do
 
+  get "webconferences/show"
+
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   scope '/translate' do
     match '/translate_list', :to => 'translate#index'
@@ -40,6 +42,7 @@ Vcc::Application.routes.draw do
       resource :profile, :except => [:new, :create]
     end
 
+    resource :webconference
     resources :videos
     resources :readers
 

@@ -1,0 +1,13 @@
+<div class="invite_people">
+  <h3>
+    <%= t('space.invitation.one') %>
+	  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_invite_people icon",:style=>"cursor:pointer")%>
+  </h3>
+  <%= form_tag('invite') do %>
+    <%= t('space.invitation.to') %><br>
+    <%= text_field_tag 'user', '', :id=> 'user_invite_text_field' %>
+    <%= t('space.invitation.body') %><br>
+     <textarea name="body" cols = "23" rows="7"></textarea><br><br><br>
+    <button type="submit" class="blue_button basic_button"><%=t("button.post")%></button>
+  <% end %>
+</div>

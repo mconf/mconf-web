@@ -125,7 +125,7 @@
   <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
   <div id="space_content">
     <% for space in @public_spaces %>
-      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= raw(link_logo (space, :size=> 'h64', :title => sanitize(space.name))) %></div>
+      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= link_logo(space, :size=> 'h64', :title => sanitize(space.name)).html_safe %></div>
     <% end %>
   </div>
 </div>
@@ -140,7 +140,7 @@
           <%= raw(link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>sanitize(space.name))) %>
                   </div>
           <% else %>
-                  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= raw(link_logo (space, :size=> 'h64', :title => sanitize(space.name))) %></div>
+                  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= raw(link_logo space, :size=> 'h64', :title => sanitize(space.name)) %></div>
           <% end %>
         <% end %>
   </div>

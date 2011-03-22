@@ -227,6 +227,7 @@ en:
     creating_agenda: Creating agenda...
     edit: Edit
     editing: Editing...
+    enter: Join webconference
     finish: Finish
     go: Go!
     invite: Invite!
@@ -1673,6 +1674,10 @@ en:
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} invites you to space %{space}"
     invitation:
+      one: "Invite People"
+      other: "Invite Peoples"
+      to: "To:"
+      body: "Body"
     is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
     join_invitation:
@@ -1829,6 +1834,7 @@ en:
     help5: You can't change this option because the session is happening now
     inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
     insert: Use this code to insert this video in your blog or web page.
+    invite_people: Invite people to this Webconference.
     label_automatic: The video for this session will be the one that the system has recorded.
     label_embedded: With this option you will discard the automatic video and you will be able to write an embed code for this video.
     label_uploaded: With this option you will discard the automatic video and you will be able to upload a new video in flv.
@@ -1989,6 +1995,9 @@ en:
     delete: Delete video attachment
     video_name: Uploaded Video
   visit_link_to_activate_account: Visit this link to activate your account
+  webconference:
+    one: "Webconference"
+    other: "Webconferences"
   week:
     next: Next week
     this: This week

@@ -1687,6 +1687,12 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
         border:1px solid #A8C0D1;
         padding:2px 5px;
 }
+.invite_people{
+color:#244974;background:#BDD8EB;padding:5px 10px;
+-moz-border-radius: 10px; /* Para Firefox */
+-webkit-border-radius: 10px; /*Para Safari e Chrome */
+-border-radius: 10px; /* Para Opera 10.5+*/
+}
 
 #share_insert{
         padding:0 0.75em 0.75em;
@@ -2089,4 +2095,13 @@ a.first_day_link{border:none;}
 
 .clearer {
   clear: both;
+}
+
+.webconference-url{
+  color:#244974;
+  background:url('/images/url.png') no-repeat left center;
+  padding: 10px;
+  text-align: center;
+  width: 450px;
+  float: left;
 }

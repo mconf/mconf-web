@@ -1,0 +1,40 @@
+<% menu(:webconference) %>
+
+<%= content_for :javascript do  %>
+  
+ $('#sidebar img.tooltip_invite_people').qtip({
+   content: '<%=t("tooltip.invite_people")%>',
+         position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+<% end %>
+
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= content_for :sidebar do  %>
+  <%= render :partial => 'sidebar' %>
+<% end %>
+
+<div>
+  <div class="webconference-url">
+    <%= request.url %> 
+  </div>
+
+  <% if @bbb_enabled %>
+    <div class="bigbluebutton_button_area">
+      <%= link_to 'Join webconference', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+    </div>
+  <% else %>
+    <div class="bigbluebutton_button_area">
+      You must be a member<br />of this space to join the room.
+    </div>
+  <% end %>
+</div>
+
+<div>
+</div>
