@@ -86,6 +86,19 @@
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
     <%= render :partial => 'sidebar_leave_space' %>
+        <div class="webconference-space-sidebar">
+          <h3><%=t('webconference.one')%></h3>
+          <% if @bbb_info[:running] %>
+            <span class="fl"><span class="c_red"> <%= @bbb_attendees.count.to_s %> <%= t('people') %> </span> <span class="c_black"><%= t('conference.one') %></span></span>
+            <div class="bigbluebutton_button_area">
+              <%= link_to 'Enter', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+            </div>
+            <div class="clearer"></div>
+            <span class="lk"><%= link_to t('information.information6'), space_webconference_path(space) %></span>
+          <% else %>
+            <p class="main_text">There is no active webconferece.</p>
+          <% end %>
+        </div>
         <div id="inc-events">
      <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upcoming icon",:style=>"cursor:pointer")%></h3>
                  <ul>
@@ -149,11 +162,6 @@
         </ul>
   </div>
 <% end %>
-
-<div id="bigbluebutton_space">
-  <h3><%=image_tag("icons/bbb_logo.png")%> <%= t('bigbluebutton_space') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bigbluebutton_space icon",:style=>"cursor:pointer")%></h3>
-  <%= render :partial => 'bigbluebutton_space' %>
-</div>
 
 <% if @news_to_show %>
   <div id="latest_news">

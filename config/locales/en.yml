@@ -280,6 +280,8 @@ en:
     recent:
       other: Recent comments
     show_all: Show all comments
+  conference:
+    one: in conference
   contact_information: Contact information
   container:
     one: Container
@@ -1060,6 +1062,7 @@ en:
     information3: These are the latest messages or events that you have created
     information4: These are the spaces you belong to
     information5: These are the upcoming events of other spaces.
+    information6: More information...
   internet:
     on_the: On the Internet
     ppal: Internet
