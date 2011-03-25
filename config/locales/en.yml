@@ -2001,6 +2001,10 @@ en:
   webconference:
     one: "Webconference"
     other: "Webconferences"
+    people: People in the conference
+    nobody_room:
+      one: There is nobody currently in the room.
+      two: "There is nobody <br/>currently in the room."
   week:
     next: Next week
     this: This week

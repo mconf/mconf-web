@@ -43,7 +43,7 @@
     <p class="main_text">
 
         <div class="people-connect-title">
-          <h3 style="clear: both"><%=image_tag("icons/user.png")%> People in the conference (<%= @bbb_attendees.count.to_s %>)</h3>
+          <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.people') %> (<%= @bbb_attendees.count.to_s %>)</h3>
         </div>
         <% @bbb_attendees.each do |user| %>
         <div class="user last">
@@ -60,6 +60,6 @@
       </p>
 
     <% else %>
-      <p class="main_text">There is nobody currently in the room.</p>
+      <p class="main_text"><%= t('webconference.nobody_room.one') %></p>
     <% end %>
 </div>

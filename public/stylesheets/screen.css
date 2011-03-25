@@ -2110,9 +2110,10 @@ a.first_day_link{border:none;}
 
 .people-connect-title h3{color:#244974;background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:10px;}
 
-div.webconference-space-sidebar h3, div.webconference-space-sidebar p{color:#244974;}
-.webconference-space-sidebar h3{border-bottom:1px #ccc solid;}
-.webconference-space-sidebar span.c_red{color:#8B1A1A;}
-.webconference-space-sidebar span.c_black{color:#000000;}
-.webconference-space-sidebar span.lk{text-decoration: underline;}
-.webconference-space-sidebar span.fl{float:left;}
+div.space-webconference-sidebar h3, div.space-webconference-sidebar p{color:#244974;}
+.space-webconference-sidebar h3{border-bottom:1px #ccc solid;}
+.space-webconference-sidebar span.c_red{color:#8B1A1A;}
+.space-webconference-sidebar span.c_black{color:#000000;}
+.space-webconference-sidebar span.lk{text-decoration: underline;}
+.space-webconference-sidebar span.fl{float:left;}
+.space-webconference-sidebar span.fr{float:right;}

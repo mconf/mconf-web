@@ -86,17 +86,19 @@
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
     <%= render :partial => 'sidebar_leave_space' %>
-        <div class="webconference-space-sidebar">
+        <div class="space-webconference-sidebar">
           <h3><%=t('webconference.one')%></h3>
           <% if @bbb_info[:running] %>
             <span class="fl"><span class="c_red"> <%= @bbb_attendees.count.to_s %> <%= t('people') %> </span> <span class="c_black"><%= t('conference.one') %></span></span>
-            <div class="bigbluebutton_button_area">
-              <%= link_to 'Enter', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-            </div>
-            <div class="clearer"></div>
-            <span class="lk"><%= link_to t('information.information6'), space_webconference_path(space) %></span>
           <% else %>
-            <p class="main_text">There is no active webconferece.</p>
+            <span class="fl"><p class="main_text"><%= raw(t('webconference.nobody_room.two')) %></p></span>
+          <% end %>
+          <div class="bigbluebutton_button_area">
+            <%= link_to 'Enter', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+          </div>
+          <div class="clearer"></div>
+          <% if @bbb_info[:running] %>
+            <span class="lk"><%= link_to t('information.information6'), space_webconference_path(space) %></span>
           <% end %>
         </div>
         <div id="inc-events">
