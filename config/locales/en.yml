@@ -2001,6 +2001,12 @@ en:
   webconference:
     one: "Webconference"
     other: "Webconferences"
+    nobody:
+      one_line: "There is nobody currently in the room."
+      two_lines: "There is nobody <br>currently in the room."
+    join: "Join webconference"
+    not_member: "You must be a member<br />of this space to join the room."
+    title_people_conf: "People in the conference"
   week:
     next: Next week
     this: This week
