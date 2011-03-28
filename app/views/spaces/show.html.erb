@@ -91,7 +91,7 @@
           <% if @bbb_info[:running] %>
             <span class="fl"><span class="c_red"> <%= @bbb_attendees.count.to_s %> <%= t('people') %> </span> <span class="c_black"><%= t('conference.one') %></span></span>
             <div class="bigbluebutton_button_area">
-              <%= link_to 'Enter', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+              <%= link_to t('button.enter'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
             </div>
             <div class="clearer"></div>
             <span class="lk"><%= link_to t('information.information6'), space_webconference_path(space) %></span>

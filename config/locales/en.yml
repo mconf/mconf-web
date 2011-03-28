@@ -226,11 +226,12 @@ en:
     creating: Creating event...
     creating_agenda: Creating agenda...
     edit: Edit
-    editing: Editing...
-    enter: Join webconference
+    editing: Editing...]
+    enter: Enter
     finish: Finish
     go: Go!
     invite: Invite!
+    join: Join webconference
     next: Next Step
     next_program: "Next: Define program"
     next_edit_program: "Next: Edit program"
@@ -2004,7 +2005,6 @@ en:
     nobody:
       one_line: "There is nobody currently in the room."
       two_lines: "There is nobody <br>currently in the room."
-    join: "Join webconference"
     not_member: "You must be a member<br />of this space to join the room."
     title_people_conf: "People in the conference"
   week:
