@@ -416,6 +416,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user div{float:left; }
 .user div.non_float{float:none;}
 .user .user_data{margin-left:0.5em;}
+.user span.send{float:right; color:#244974;}
 
 div.admin,div.read_more{position:relative;clear:both;overflow:hidden;}
 div.admin{background-color:none;border-bottom:1px #CCC solid;padding:9px 0.5em 9px 0.5em;}

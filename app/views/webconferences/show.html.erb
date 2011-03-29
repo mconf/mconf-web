@@ -10,6 +10,17 @@
    style: 'mystyle'
   });
 
+
+  /*
+   * Send Private Message
+   */
+
+  $("a#new_private_message_link").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 430
+  });
+
 <% end %>
 
 <%= content_for :search do  %>
@@ -27,11 +38,11 @@
 
   <% if @bbb_enabled %>
     <div class="bigbluebutton_button_area">
-      <%= link_to 'Join webconference', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+      <%= link_to t('button.join'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
     </div>
   <% else %>
     <div class="bigbluebutton_button_area">
-      You must be a member<br />of this space to join the room.
+      <%= "t('webconference.not_member')".html_safe %>
     </div>
   <% end %>
 </div>
@@ -43,23 +54,38 @@
     <p class="main_text">
 
         <div class="people-connect-title">
-          <h3 style="clear: both"><%=image_tag("icons/user.png")%> People in the conference (<%= @bbb_attendees.count.to_s %>)</h3>
+          <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_attendees.count.to_s %>)</h3>
         </div>
         <% @bbb_attendees.each do |user| %>
-        <div class="user last">
+        <div class="user">
           <div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name).html_safe, user_path(user)%></div>
           <div>
             <ul>
-              <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
-              <li><%=sanitize(user.organization)%></li>
+              <li><%= link_to sanitize(user.full_name),user_path(user),:class=>"unified_user" %></li>
+              <li><%= sanitize(user.organization) %></li>
+              <li>
+                <%= sanitize(user.city) %>
+                <% if user.city != nil and user.country != nil %>
+                  <%=  "," %> 
+                <% else %>
+                  <%= sanitize(user.full_name) %>
+                <% end %>
+                <%=  sanitize(user.country) %>
+              </li>
             </ul>
           </div>
+          <% if ((user != current_user) && (current_user != Anonymous.current)) %>
+            <span class="send">
+              <%= "#{link_to t('user.private_message'), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :id => 'new_private_message_link'}".html_safe %>
+              <br>
+              <a class="value" href="mailto:<%= user.email %>"><%= t('user.email') %></a>
+            </span>
+          <% end %>
         </div>
         <% end %>
-
       </p>
 
     <% else %>
-      <p class="main_text">There is nobody currently in the room.</p>
+      <p class="main_text"><%= t('webconference.nobody.one_line') %></p>
     <% end %>
 </div>
