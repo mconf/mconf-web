@@ -1,6 +1,100 @@
 <%= content_for :search do %>
 <%= render :partial => 'search/form' %>
 <%end %>
+
+<!--Above this, original frontpage -->
+
+<!--
+<head>
+  <title>Global Plaza</tile>
+</head>
+-->
+
+<!-- acr -->
+ <div id="diretoNoBBB">
+      <h2>Entrar na sala padrão</h2>
+      <form NAME="form1" METHOD="GET" action="/bigbluebutton/demo/demo1.jsp">
+        Seu nome:<br />
+        <input type="text" id="username" name="username" size="25" />
+        <input type="submit" value="Entrar"/> <br />
+        <input type="hidden" name="action" value="create">
+      </form>
+      <br />    
+      <h2>Criar uma sala</h2>
+      <FORM NAME="form2" METHOD="GET" action="bigbluebutton/demo/create.jsp">
+        Seu nome (será o nome da sala): <br />
+	    <input type="text" name="username1" size="25" />
+	    <input id="submit-button" type="submit" value="Criar sala" /><br />
+      <input type="hidden" name="action" value="create"> <br />
+      </FORM>
+<br />
+<br />
+
+<h3 id="popRooms">Most popular rooms:</h3>
+<ul>
+<% @onimeeetings.each { |x| %>
+<li>
+<a class="elink" href="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=<%=x[:meetingID]%>"> ENTER </a><span class="meeting"><%= x[:meetingID]%></span>
+<%= x[:participantCount] %> participants
+<%}%> 
+</li>
+</ul>
+</div>
+
+
+<div id="popularSpaces">
+<% @popular_spaces.each do |space| %>
+<span class="ruler">Space</span>
+<ul>
+
+  <li>
+    <a href="none"> <%= space.name %> </a>
+      <ul>
+        <li>
+          <%=space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.count%> Upcoming Events
+        </li>
+        <li>
+          <%=space.users.count%> Members
+        </li>
+        <li>
+          <a href="none">More information...</a>
+        </li>
+        <!--
+        <li>
+          <%= space.description %>
+        </li>
+        -->
+      </ul>
+    </li>
+
+</ul>
+<%end%>
+</div>
+<br />
+
+<!--
+<%= @popular_spaces.each do |space| %>
+<br />
+<br />
+<%= space.users%>
+<br />
+<br />
+<%= space.events%>
+<%end%>
+-->
+
+<br />
+<br />
+
+
+
+
+<!-- /acr -->
+
+
+
+<!-- From here,original frontpage
+
 <div class="left column span-11 borde">
     <div id="left_espacio">
     </div>
@@ -136,3 +230,5 @@
 </div>
 <div id="espacio_body_bottom">
 </div>
+-->
+

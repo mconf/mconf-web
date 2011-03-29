@@ -20,7 +20,9 @@ class FrontpageController < ApplicationController
 
   def index
 #    #popular_spaces = The spaces with more users
-#    @popular_spaces = Space.find(:all, :conditions => {:public => true}).sort_by{|s| s.users.size}.reverse.first(3)
+    @popular_spaces = Space.find(:all, :conditions => {:public => true}).sort_by{|s| s.users.size}.reverse.first(3)
+        
+#    @users = space.users
 #    
 #    #recent_spaces = The last spaces created 
 #    @recent_spaces = Space.find(:all, :conditions => {:public => true},:order => "created_at Desc").first(3)
@@ -33,6 +35,25 @@ class FrontpageController < ApplicationController
 #    
 #    #recent_events = The upcoming events in public spaces
 #    @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| !p.space.disabled? && p.space.public? &&  p.start_date && p.start_date.future?}.first(2)
+    
+   
+#acr
+   
+    @meeetings = BBB_API.get_meetings
+    #meeetSize = @meeetings[:meetings][:meeting].size
+    
+    @onimeeetings = Array.new
+    @meeetings[:meetings][:meeting].each do |vetor| 
+      @onimeeetings.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
+    end
+    
+    @onimeeetings.sort_by! { |meeting| meeting[:participantCount] }
+    @onimeeetings.reverse!
+        
+#/acr   
+   
+   
+    
     respond_to do |format|
       if logged_in?
         format.html { redirect_to home_path}
@@ -44,6 +65,7 @@ class FrontpageController < ApplicationController
     end
   end
   
+
   def about
     @global = Space.find_by_name("GLOBAL")
     @latest_global_posts = Post.last_news(@global)

@@ -1,3 +1,18 @@
+/*acr*/
+.meeting{font-weight:bold;font-style:italic;font-size:1em}
+.elink{font-weight:bold;font-style:italic;font-size:1em; }
+/*.elink:visited{color:purple;}*/
+.elink:hover{font-style:normal;}
+
+#diretoNoBBB{float:left;margin-right:0em;margin-bottom:0em;/*background:#EEE8CD;*/}
+#popularSpaces{float:left;padding-left:5em;width:50em;/*background:#EEE8CD;}*/}
+#popRooms{color:#244974;text-align:left;}
+
+
+
+.ruler{float:left;padding:2em;margin:0.7em 2em 0 1em;background:#244974;}
+/*/acr*/
+
 /* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 body{line-height:1.5;}
