@@ -135,8 +135,12 @@
         
         <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
         
-<%end%>  
+<%end%> 
 
+
+<%= content_for :menu_rooms do  %>
+        <%= render :partial => "rooms" %>
+<% end %>
 
 <%= content_for :menu do  %>
         <%= render :partial => "menu" %>

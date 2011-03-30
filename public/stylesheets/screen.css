@@ -2117,3 +2117,17 @@ div.webconference-space-sidebar h3, div.webconference-space-sidebar p{color:#244
 .webconference-space-sidebar span.c_black{color:#000000;}
 .webconference-space-sidebar span.lk{text-decoration: underline;}
 .webconference-space-sidebar span.fl{float:left;}
+
+div.my-webconference-rooms {
+  margin-bottom: 10px;
+  background: #FFFFFF;
+}
+div.my-webconference-rooms h3 {
+  color:#244974;
+  background:#BDD8EB none repeat scroll 0 0;
+  border-bottom:1px solid #A8C0D1;
+  padding:6px;
+}
+div.my-webconference-rooms span.text {
+  padding: 6px;
+}

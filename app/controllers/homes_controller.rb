@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'bigbluebutton-api'
+
 class HomesController < ApplicationController
   
   before_filter :authentication_required
@@ -23,6 +25,7 @@ class HomesController < ApplicationController
   end
   
   def show
+
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
