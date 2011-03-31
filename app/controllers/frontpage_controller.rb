@@ -42,14 +42,26 @@ class FrontpageController < ApplicationController
     @meeetings = BBB_API.get_meetings
     #meeetSize = @meeetings[:meetings][:meeting].size
     
-    @onimeeetings = Array.new
-    @meeetings[:meetings][:meeting].each do |vetor| 
-      @onimeeetings.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
-    end
-    
-    @onimeeetings.sort_by! { |meeting| meeting[:participantCount] }
-    @onimeeetings.reverse!
-        
+    if (@meeetings != nil)
+#=begin
+      @onimeeetings = Array.new
+      
+      if @meeetings.kind_of?(Array)
+        @meeetings[:meetings][:meeting].each do |vetor| 
+          @onimeeetings.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
+        end
+      
+      
+      @onimeeetings.sort_by! { |meeting| meeting[:participantCount] }
+      @onimeeetings.reverse!
+#=end
+      
+      else 
+      #@onimeeeting.push(BBB_API.get_meeting_info(@meeetings[:meetings][:meeting][:meetingID], @meeetings[:meetings][:meeting][:moderatorPW])) 
+      
+      end
+     
+    end    
 #/acr   
    
    

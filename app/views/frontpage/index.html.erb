@@ -31,12 +31,17 @@
 <br />
 
 <h3 id="popRooms">Most popular rooms:</h3>
+
 <ul>
-<% @onimeeetings.each { |x| %>
+<%if(@meeetings != nil)%> 
+<%@onimeeetings.each { |x| %>
 <li>
 <a class="elink" href="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=<%=x[:meetingID]%>"> ENTER </a><span class="meeting"><%= x[:meetingID]%></span>
 <%= x[:participantCount] %> participants
-<%}%> 
+<%}%>
+<%else%>
+<p>No rooms online right now</p>
+<%end%> 
 </li>
 </ul>
 </div>
