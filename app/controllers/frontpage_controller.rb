@@ -41,21 +41,21 @@ class FrontpageController < ApplicationController
    
     @meetingsOnline = BBB_API.get_meetings
     @meetingsOnlineINFO = Array.new
-    
+    #@debug=0
+          
     if (@meetingsOnline != nil)
-     
-      if @meetingsOnline.kind_of?(Array)
+      
+      if @meetingsOnline[:meetings][:meeting].kind_of?(Array)
+        #@debug=1
         @meetingsOnline[:meetings][:meeting].each do |vetor| 
           @meetingsOnlineINFO.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
         end
       
-      
       @meetingsOnlineINFO.sort_by! { |meeting| meeting[:participantCount] }
       @meetingsOnlineINFO.reverse!
 
-      
       else 
-@meetingsOnlineINFO.push(BBB_API.get_meeting_info(@meetingsOnline[:meetings][:meeting][:meetingID], @meetingsOnline[:meetings][:meeting][:moderatorPW])) 
+#@meetingsOnlineINFO.push(BBB_API.get_meeting_info(@meetingsOnline[:meetings][:meeting][:meetingID], @meetingsOnline[:meetings][:meeting][:moderatorPW])) 
       
       end
      
