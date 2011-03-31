@@ -26,6 +26,11 @@ class HomesController < ApplicationController
   
   def show
 
+    #TODO temporary implementation of a bbb room for this home
+    @bbb_info = {}
+    @bbb_info[:infos] = BBB_API.get_meetings()
+
+
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
