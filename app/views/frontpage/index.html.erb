@@ -11,7 +11,7 @@
 -->
 
 <!-- acr -->
- <div id="diretoNoBBB">
+ <div id="diretoNoBBB_popRooms">
       <h2>Entrar na sala padrão</h2>
       <form NAME="form1" METHOD="GET" action="/bigbluebutton/demo/demo1.jsp">
         Seu nome:<br />
@@ -36,8 +36,10 @@
 <%if(@meetingsOnline != nil)%> 
 <%@meetingsOnlineINFO.each { |x| %>
 <li>
-<a class="elink" href="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=<%=x[:meetingID]%>"> ENTER </a><span class="meeting"><%= x[:meetingID]%></span>
+
+<a class="enterRoomLink" href="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=<%=x[:meetingID]%>">[ENTER]</a> <span class="meetingName"><%=x[:meetingID]%></span>
 <%= x[:participantCount] %> participants
+
 <%}%>
 <%else%>
 <p>No rooms online right now</p>
