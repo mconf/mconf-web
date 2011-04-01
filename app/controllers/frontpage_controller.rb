@@ -43,7 +43,7 @@ class FrontpageController < ApplicationController
     @meetingsOnlineINFO = Array.new
     
           
-    if (@meetingsOnline != nil)
+    if (@meetingsOnline[:messageKey] != "noMeetings")
 
       if @meetingsOnline[:meetings][:meeting].kind_of?(Array)
         

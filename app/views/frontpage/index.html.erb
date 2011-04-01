@@ -22,9 +22,8 @@
 <br />
 
 <h3 id="popRooms"><%=t('frontpage.popRooms')%></h3>
-
 <ul>
-<%if(@meetingsOnline != nil)%> 
+<%if (@meetingsOnline[:messageKey] != "noMeetings")%> 
 <%@meetingsOnlineINFO.each { |x| %>
 <li>
 
@@ -73,7 +72,7 @@
 <%=@debug%>
 </p>
 
-<%@meetingsOnline%>
+<%=@meetingsOnline%>
 -->
 
 <br />
