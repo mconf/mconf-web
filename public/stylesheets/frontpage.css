@@ -13,7 +13,7 @@ body{font-size:75%;color:#222;background-color:#f8f9f9;font-family:"Lucida Grand
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;color:#244974;}
 h2{font-size:2em;color: #244974;}
-h3{font-size:1.0833em;line-height:1.3846;text-align:center;}
+h3{font-size:1.5em;line-height:1.3846;text-align:center;color: #244974;}
 h3 img{margin-bottom:-4px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
@@ -121,7 +121,7 @@ body .icon{margin-bottom:-3px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
 #feedback:hover,#about:hover{background:#275b96;}
 
-#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;display:block;position:relative;}
+/*#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;display:block;position:relative;}*/
 #logo{float:left;}
 #logo{width:192px;}
 #search{float:right;}
@@ -324,6 +324,7 @@ a.login{
 }
 
 #home, #header{
+  padding-top: 1.2em;
   background-color:#f5f5f5;
 }
 
@@ -435,7 +436,7 @@ div#openid_label input#openid_identifier{
 }
 
 /**************BÚSQUEDA*****************/
-
+/*
 #espacio_busqueda {
         width:692px;    
 margin-left:20px;
@@ -491,6 +492,7 @@ span.find{
   padding-right:5px;
   
 }
+*/
 /*********************PARTE CENTRAL**********************/
 
 /**************** LEFT CONTENT *************/
@@ -710,10 +712,13 @@ ul.menu1 li{display:inline;}
 /*.enterRoomLink:hover{color:#FFD700;font-style:none;}
 .popRoomsListing:hover{font-style:italic;color:#FFD700;}*/
 
-#diretoNoBBB_popRooms{float:left;margin-right:0em;margin-bottom:0em;/*background:#EEE8CD;*/}
+#diretoNoBBB_popRooms{float:left;margin:0 10em 0 10em;/*background:#EEE8CD;*/}
 #popRooms{color:#244974;text-align:left;}
-#popularSpaces{float:left;padding-left:5em;width:50em;/*background:#EEE8CD;}*/}
+#popularSpaces{float:left;padding:;width:;text-align:center;/*background:#EEE8CD;}*/}
 
+#BBBorPlaza {
+  text-align:center;
+}
 
 ul {
 list-style-type:none;
@@ -725,7 +730,7 @@ list-style-type:none;
 
 ul,ol{margin:0 0 1.5em 0;}
 
-.ruler{float:left;padding:2em;margin:0.7em 3em 0 1em;background:#244974;}
+.ruler{float:left;padding:2em;margin:0.7em 3em 0 1em;background:;}
 /*/acr*/
 
 

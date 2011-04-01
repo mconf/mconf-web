@@ -49,7 +49,8 @@ class FrontpageController < ApplicationController
         
         @meetingsOnline[:meetings][:meeting].each do |vetor| 
           @meetingsOnlineINFO.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
-        end
+                                                  
+                                                  end
       
       @meetingsOnlineINFO.sort_by! { |meeting| meeting[:participantCount] }
       @meetingsOnlineINFO.reverse!
