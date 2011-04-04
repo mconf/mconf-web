@@ -1,5 +1,6 @@
 ---
 en:
+  BBB: "Big Blue Button"
   GMT: GMT
   Isabel: Isabel
   RSS: RSS
@@ -844,6 +845,20 @@ en:
     loading: The form is loading...
   from: From
   frontpage:
+    
+    0rooms: No rooms online right now.
+    enter: ENTER
+    members: Members
+    moreInfo: More Information...
+    participants: participants
+    popRooms: "Most popular rooms:"
+    popSpaces: Public spaces
+    upcomingEvents: Upcoming Events
+    webConf: Webconferences
+    
+    
+    
+    
     collaborate:
       sentence1: Organize your projects and activities
       sentence2: Participate in conferences and events

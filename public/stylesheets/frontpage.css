@@ -1,18 +1,3 @@
-/*acr*/
-.meeting{font-weight:bold;font-style:italic;font-size:1em}
-.elink{font-weight:bold;font-style:italic;font-size:1em; }
-/*.elink:visited{color:purple;}*/
-.elink:hover{font-style:normal;}
-
-#diretoNoBBB{float:left;margin-right:0em;margin-bottom:0em;/*background:#EEE8CD;*/}
-#popularSpaces{float:left;padding-left:5em;width:50em;/*background:#EEE8CD;}*/}
-#popRooms{color:#244974;text-align:left;}
-
-
-
-.ruler{float:left;padding:2em;margin:0.7em 2em 0 1em;background:#244974;}
-/*/acr*/
-
 /* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 body{line-height:1.5;}
@@ -28,7 +13,7 @@ body{font-size:75%;color:#222;background-color:#f8f9f9;font-family:"Lucida Grand
 h1,h2,h3,h5{font-weight:normal;color:#111;}
 h1{font-size:2.6666em;line-height:1.125;color:#244974;}
 h2{font-size:2em;color: #244974;}
-h3{font-size:1.0833em;line-height:1.3846;text-align:center;}
+h3{font-size:1.5em;line-height:1.3846;text-align:center;color: #244974;}
 h3 img{margin-bottom:-4px;}
 h5{font-size:0.9166em;line-height:1.6363;margin-bottom:0.75em;font-weight:bold;}
 p{margin:0 0 1.5em;}
@@ -46,8 +31,8 @@ pre{margin:1.5em 0;white-space:pre;}
 pre,code,tt{font:1em 'andale mono','lucida console',monospace;line-height:1.5;}
 li ul,li ol{margin:0 1.5em;}
 ul,ol{margin:0 1.5em 1.5em 1.5em;}
-ul{list-style-type:disc;}
-ol{list-style-type:decimal;}
+/*ul{list-style-type:disc;}
+ol{list-style-type:decimal;}*/
 
 
 /*Fin tipografia*/
@@ -136,7 +121,7 @@ body .icon{margin-bottom:-3px;}
 #feedback,#about{padding:7px 0.5em 7px 0.5em;}
 #feedback:hover,#about:hover{background:#275b96;}
 
-#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;display:block;position:relative;}
+/*#header{background-color:#f8f9f9;height:68px;margin-bottom:1em;display:block;position:relative;}*/
 #logo{float:left;}
 #logo{width:192px;}
 #search{float:right;}
@@ -339,6 +324,7 @@ a.login{
 }
 
 #home, #header{
+  padding-top: 1.2em;
   background-color:#f5f5f5;
 }
 
@@ -450,7 +436,7 @@ div#openid_label input#openid_identifier{
 }
 
 /**************BÚSQUEDA*****************/
-
+/*
 #espacio_busqueda {
         width:692px;    
 margin-left:20px;
@@ -506,6 +492,7 @@ span.find{
   padding-right:5px;
   
 }
+*/
 /*********************PARTE CENTRAL**********************/
 
 /**************** LEFT CONTENT *************/
@@ -713,3 +700,78 @@ ul.menu1 li{display:inline;}
 #special_message_footer {font-size: smaller;text-align: center;}
 
 .offscreen { display:none; visibility:hidden; }
+
+
+
+
+
+
+/*acr*/
+.meetingName{font-weight:bold;font-style:normal;font-size:1em}
+.enterRoomLink{font-weight:bold;font-style:normal;font-size:1em; }
+/*.enterRoomLink:hover{color:#FFD700;font-style:none;}
+.popRoomsListing:hover{font-style:italic;color:#FFD700;}*/
+
+#diretoNoBBB_popRooms{float:left;margin:0 10em 0 10em;/*background:#EEE8CD;*/}
+#popRooms{color:#244974;text-align:left;}
+#popularSpaces{float:left;padding:;width:;text-align:center;/*background:#EEE8CD;}*/}
+
+#BBBorPlaza {
+  text-align:center;
+}
+
+ul {
+list-style-type:none;
+}
+
+ul ul {
+list-style-type:none;
+}
+
+ul,ol{margin:0 0 1.5em 0;}
+
+.ruler{float:left;padding:2em;margin:0.7em 3em 0 1em;background:;}
+/*/acr*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

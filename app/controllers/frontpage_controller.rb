@@ -39,28 +39,28 @@ class FrontpageController < ApplicationController
    
 #acr
    
-    @meeetings = BBB_API.get_meetings
-    #meeetSize = @meeetings[:meetings][:meeting].size
+    @meetingsOnline = BBB_API.get_meetings
+    @meetingsOnlineINFO = Array.new
     
-    if (@meeetings != nil)
-#=begin
-      @onimeeetings = Array.new
+          
+    if (@meetingsOnline[:messageKey] != "noMeetings")
+
+      if @meetingsOnline[:meetings][:meeting].kind_of?(Array)
+        
+        @meetingsOnline[:meetings][:meeting].each do |vetor| 
+          @meetingsOnlineINFO.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
+                                                  
+                                                  end
       
-      if @meeetings.kind_of?(Array)
-        @meeetings[:meetings][:meeting].each do |vetor| 
-          @onimeeetings.push(BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW]))
-        end
-      
-      
-      @onimeeetings.sort_by! { |meeting| meeting[:participantCount] }
-      @onimeeetings.reverse!
-#=end
-      
-      else 
-      #@onimeeeting.push(BBB_API.get_meeting_info(@meeetings[:meetings][:meeting][:meetingID], @meeetings[:meetings][:meeting][:moderatorPW])) 
+      @meetingsOnlineINFO.sort_by! { |meeting| meeting[:participantCount] }
+      @meetingsOnlineINFO.reverse!
+
+      else
+ 
+@meetingsOnlineINFO.push(BBB_API.get_meeting_info(@meetingsOnline[:meetings][:meeting][:meetingID], @meetingsOnline[:meetings][:meeting][:moderatorPW])) 
       
       end
-     
+         
     end    
 #/acr   
    
