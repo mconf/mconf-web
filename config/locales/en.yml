@@ -846,7 +846,11 @@ en:
   frontpage:
     
     0rooms: No rooms online right now.
+    createRoom: Create Room
+    createRoomInputValue : Room's name is also your name
     enter: ENTER
+    join: Join Room
+    joinDefaultRoom: Join Demo Room
     members: Members
     moreInfo: More Information...
     participants: participants
@@ -854,6 +858,7 @@ en:
     popSpaces: Public spaces
     upcomingEvents: Upcoming Events
     webConf: Webconferences
+    yourname: Your name
     
     
     
