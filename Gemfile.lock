@@ -44,7 +44,11 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.9)
     atom-tools (2.0.5)
-    bigbluebutton-api-ruby (0.0.4)
+    bigbluebutton-api-ruby (0.0.6)
+      nokogiri (~> 1.4.0)
+    bigbluebutton_rails (0.0.1)
+      bigbluebutton-api-ruby (~> 0.0.6)
+      rails (~> 3.0.3)
     builder (2.1.2)
     capistrano (2.5.19)
       highline
@@ -184,7 +188,7 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
-  bigbluebutton-api-ruby
+  bigbluebutton_rails (~> 0.0.1)
   capistrano
   chronic
   ci_reporter

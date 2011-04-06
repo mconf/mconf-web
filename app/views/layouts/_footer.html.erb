@@ -33,7 +33,7 @@
         </li>
         <% if current_site.authorize?(:translate, :to => current_user)%>
                 <li>-</li>
-                <li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li>
+                <li><%=link_to t('translate.one'), translate_list_path %></li>
         <%end%>
   </ul>
 </div>
