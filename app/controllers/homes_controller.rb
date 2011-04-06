@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -31,18 +32,10 @@ class HomesController < ApplicationController
     @bbb_rooms = Array.new
     @roomOpen = false
 
-    if @bbb_infos[:messageKey] != "noMeetings"
-      node = @bbb_infos[:meetings][:meeting]
-      if node.kind_of?(Array)
-        node.each do |v|
-          if v[:hasBeenForciblyEnded] != "true"
-            @bbb_rooms.push(BBB_API.get_meeting_info(v[:meetingID], v[:moderatorPW]))
-            @roomOpen = true
-          end
-        end
-      else
-        if node[:hasBeenForciblyEnded] != "true"
-          @bbb_rooms.push(BBB_API.get_meeting_info(node[:meetingID], node[:moderatorPW]))
+    unless @bbb_infos[:meetings].blank?
+      @bbb_infos[:meetings].each do |v|
+        if v[:hasBeenForciblyEnded] != "true"
+          @bbb_rooms.push(BBB_API.get_meeting_info(v[:meetingID], v[:moderatorPW]))
           @roomOpen = true
         end
       end

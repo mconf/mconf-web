@@ -227,15 +227,14 @@ en:
     creating: Creating event...
     creating_agenda: Creating agenda...
     edit: Edit
-    editing: Editing...]
+    editing: Editing...
     enter: Enter
     finish: Finish
     go: Go!
     invite: Invite!
     invite_bbb: Invite
-    join:
-      one: Join
-      other: Join webconference
+    join: Join
+    join_webconference: Join webconference
     next: Next Step
     next_program: "Next: Define program"
     next_edit_program: "Next: Edit program"
