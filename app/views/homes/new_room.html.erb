@@ -1,0 +1,19 @@
+<div class="create-webconf-rooms">
+  <h3> <%= t('webconference.new_webconference') %> </h3>
+</div>
+
+<%= form_for(:home, :url => createroom_home_path) do |f| %>
+	<div class="create-webconf-rooms">
+		<p>
+	    <label for="Title"><%= t('create_room.name') %>:</label>
+      <span class="fr">
+
+	    <button type="submit" class="basic_button pale_button bugbluebutton_button rounded_button"><%=t('button.create')%></button>
+      </span>
+	    <%= f.text_field :title, :id=> "room_name", :size =>45 %>
+      <div class="webconference-url">
+      </div>
+	  </p>
+    <div class="clearer"></div>
+	</div>
+<% end %>

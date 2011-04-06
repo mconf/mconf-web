@@ -232,7 +232,10 @@ en:
     finish: Finish
     go: Go!
     invite: Invite!
-    join: Join webconference
+    invite_bbb: Invite
+    join:
+      one: Join
+      other: Join webconference
     next: Next Step
     next_program: "Next: Define program"
     next_edit_program: "Next: Edit program"
@@ -311,6 +314,8 @@ en:
   country: Country
   create: Create
   create_event: Create Event
+  create_room:
+    name: "Name"
   created_at: Created at
   created_at_date: "Created: %{date}"
   created_time_ago: Created %{time} ago
@@ -1048,6 +1053,8 @@ en:
     activity: Recent Activity...
     my: My Home
     one: home
+    no_rooms: "No rooms found."
+    rem_room: "Remove room"
   icalendar:
     add: Update and Add new entries
     conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
@@ -2023,7 +2030,8 @@ en:
       two_lines: "There is nobody <br>currently in the room."
     not_member: "You must be a member<br />of this space to join the room."
     title_people_conf: "People in the conference"
-    my_webconferece: "My webconference rooms"
+    my_webconference: "My webconference rooms"
+    new_webconference: "New webconference room"
   week:
     next: Next week
     this: This week
