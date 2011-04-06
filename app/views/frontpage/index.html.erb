@@ -3,19 +3,19 @@
       <h2 id="BBBorPlaza"><%=t('frontpage.webConf')%>:</h2>     
       <br />
       <br />
-      <h3>Entrar na sala padrão</h3>
+      <h3><%=t('frontpage.joinDefaultRoom')%></h3>
       <form NAME="form1" METHOD="GET" action="/bigbluebutton/demo/demo1.jsp">
-        Seu nome:<br />
-        <input type="text" id="username" name="username" size="25" />
-        <input type="submit" value="Entrar"/> <br />
+        <br />
+        <input type="text" id="username" name="username" size="25" value="<%=t('frontpage.yourname')%>" />
+        <input type="submit" value="<%=t('frontpage.join')%>"/> <br />
         <input type="hidden" name="action" value="create">
       </form>
       <br />    
-      <h3>Criar uma sala</h3>
+      <h3><%=t('frontpage.createRoom')%></h3>
       <FORM NAME="form2" METHOD="GET" action="bigbluebutton/demo/create.jsp">
-        Seu nome (será o nome da sala): <br />
-	    <input type="text" name="username1" size="25" />
-	    <input id="submit-button" type="submit" value="Criar sala" /><br />
+      <br />
+	    <input type="text" name="username1" size="25" value="<%=t('frontpage.createRoomInputValue')%>" />
+	    <input id="submit-button" type="submit" value="<%=t('frontpage.createRoom')%>" /><br />
       <input type="hidden" name="action" value="create"> <br />
       </FORM>
 <br />
@@ -43,27 +43,28 @@
 <h2 id="BBBorPlaza"><%=t('frontpage.popSpaces')%>:</h2>
 <br />
 <br />
+<ul >
 <% @popular_spaces.each do |space| %>
 <!--<span class="ruler">Space</span>-->
-<ul>
-
-  <li>
-    <a href="none"> <%= space.name %> </a>
+<div class="spaceImage"><%= logo(space, :size=> 'h96', :title => sanitize(space.name)).html_safe %></div>
+  <li class="spaceInfo">
+    <a href="<%=space_path(space)%>"> <%= space.name %> </a>
       <ul>
         <li>
+         
           <%=space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.count%> <%=t('frontpage.upcomingEvents')%>
         </li>
         <li>
           <%=space.users.count%> <%=t('frontpage.members')%>
         </li>
         <li>
-          <a href="none"><%=t('frontpage.moreInfo')%></a>
+          <a href="<%=space_path(space)%>"><%=t('frontpage.moreInfo')%></a>
         </li>
       </ul>
     </li>
 
-</ul>
 <%end%>
+</ul>
 </div>
 <br />
 

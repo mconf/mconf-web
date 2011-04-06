@@ -712,9 +712,49 @@ ul.menu1 li{display:inline;}
 /*.enterRoomLink:hover{color:#FFD700;font-style:none;}
 .popRoomsListing:hover{font-style:italic;color:#FFD700;}*/
 
-#diretoNoBBB_popRooms{float:left;margin:0 10em 0 10em;/*background:#EEE8CD;*/}
+/*
+#diretoNoBBB_popRooms{float:left;margin:0 10em 0 10em;}
 #popRooms{color:#244974;text-align:left;}
-#popularSpaces{float:left;padding:;width:;text-align:center;/*background:#EEE8CD;}*/}
+#popularSpaces{float:left;padding:;width:;text-align:center;}
+*/
+
+#diretoNoBBB_popRooms {
+  position:absolute;
+  top:120px;
+  left:0;
+  margin-left:200px;}
+
+#popRooms {
+  color:#244974;
+  text-align:left;}
+
+#popularSpaces {
+position:absolute;
+top:120px;
+right:0;
+width:350px;
+margin-right:150px;
+text-align:center;
+
+}
+
+.spaceInfo {
+margin-left:150px;
+margin-bottom:4em;
+text-align:left;
+}
+
+.spaceImage {
+float:left;
+clear:left;
+margin-top:-1em;
+margin-bottom:1em;
+border:0px solid black;
+
+/*position:relative;
+right:20px;*/
+}
+
 
 #BBBorPlaza {
   text-align:center;
