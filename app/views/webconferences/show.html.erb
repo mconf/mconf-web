@@ -1,7 +1,7 @@
 <% menu(:webconference) %>
 
 <%= content_for :javascript do  %>
-  
+
  $('#sidebar img.tooltip_invite_people').qtip({
    content: '<%=t("tooltip.invite_people")%>',
          position: {adjust: { screen: true }},
@@ -25,15 +25,9 @@
     <%= request.url %>
   </div>
 
-  <% if @bbb_enabled %>
-    <div class="bigbluebutton_button_area">
-      <%= link_to t('button.join'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-    </div>
-  <% else %>
-    <div class="bigbluebutton_button_area">
-      <%= "t('webconference.not_member')".html_safe %>
-    </div>
-  <% end %>
+  <div class="bigbluebutton_button_area">
+    <%= link_to t('button.join.other'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+  </div>
 </div>
 
 <div class="clearer"></div>
@@ -46,7 +40,7 @@
           <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_attendees.count.to_s %>)</h3>
         </div>
         <% @bbb_attendees.each do |user| %>
-        <div class="list_by_name">
+        <div>
 		      <%= render :partial => 'users/detailed_user', :object => user %>		
         </div>
         <% end %>

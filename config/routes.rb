@@ -170,7 +170,27 @@ Vcc::Application.routes.draw do
 
   resources :roles
   resource :site
-  resource :home
+
+  resource :home do
+
+    member do
+      get :new_room, :as => 'newroom'
+    end
+
+    member do
+      post :create_room, :as => 'createroom'
+    end
+
+    member do
+      get :end_room, :as => 'endroom'
+    end
+
+    member do
+      get :join_room, :as => 'joinroom'
+    end
+
+  end
+
   resources :feedback
   resource :session_locale
 
