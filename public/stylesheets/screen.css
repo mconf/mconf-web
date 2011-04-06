@@ -2121,7 +2121,7 @@ div.webconference-url {
 
 /* Metodo provisorio para resolver o home url*/
 div.webconference-url-home{
-  color:#244974;
+  color: #244974;
   background:url('/images/url.png') no-repeat left center;
   padding: 12.5px;
   text-align: center;

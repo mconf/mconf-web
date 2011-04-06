@@ -22,12 +22,11 @@
         <% @bbb_rooms.each do |rooms| %>
           <ul>
             <li>
-              <!-- arrumar view para receber as salas. -->
               <span class="red_c"> <%= rooms[:meetingID] %> </span>
               <span class="fr"> <%= link_to image_tag("icons/cancel.png"), endroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW])  %> </span>
               <span class="fr"> <%= link_to t('home.rem_room'), endroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]) %> </span>
               <div class="clearer"></div>
-              <div class="webconference-url-home"></div>
+              <div class="webconference-url-home"> <!-- arrumar endereço das salas. --> <%= joinroom_home_url %> </div>
               <div class="clearer"></div>
               <br>
               <%= link_to t('button.join.one'), joinroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]), :id => 'join_bbb_link', :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>

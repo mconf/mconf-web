@@ -25,15 +25,9 @@
     <%= request.url %>
   </div>
 
-  <% if @bbb_enabled %>
-    <div class="bigbluebutton_button_area">
-      <%= link_to t('button.join.other'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-    </div>
-  <% else %>
-    <div class="bigbluebutton_button_area">
-      <%= "t('webconference.not_member')".html_safe %>
-    </div>
-  <% end %>
+  <div class="bigbluebutton_button_area">
+    <%= link_to t('button.join.other'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+  </div>
 </div>
 
 <div class="clearer"></div>

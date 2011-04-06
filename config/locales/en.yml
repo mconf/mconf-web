@@ -2033,7 +2033,6 @@ en:
     nobody:
       one_line: "There is nobody currently in the room."
       two_lines: "There is nobody <br>currently in the room."
-    not_member: "You must be a member<br />of this space to join the room."
     title_people_conf: "People in the conference"
     my_webconference: "My webconference rooms"
     new_webconference: "New webconference room"

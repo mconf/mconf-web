@@ -27,7 +27,6 @@ class HomesController < ApplicationController
   def show
 
     #TODO temporary implementation of a bbb room for this home
-    @bbb_info = {}
     @bbb_infos = BBB_API.get_meetings
     @bbb_rooms = Array.new
     @roomOpen = false
