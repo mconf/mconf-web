@@ -84,4 +84,15 @@ class HomesController < ApplicationController
     end
   end
 
+  def invite_room
+    @bbb_room = params[:room]
+    respond_to do |format|
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
+    end
+  end
+
 end

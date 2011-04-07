@@ -28,8 +28,8 @@
               <div class="webconference-url-home"> <!-- arrumar endereço das salas. --> <%= joinroom_home_url %> </div>
               <div class="clearer"></div>
               <br>
-              <%= link_to t('button.join'), joinroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]), :id => 'join_bbb_link', :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
-              <%= link_to t('button.invite_bbb'), newroom_home_path, :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
+              <%= link_to t('button.join.one'), joinroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]), :id => 'join_bbb_link', :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
+              <%= link_to t('button.invite_bbb'), inviteroom_home_path(:room => rooms), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
             </li>
           </ul>
         <% end %>
@@ -39,3 +39,4 @@
     </span>
   </div>
 </div>
+
