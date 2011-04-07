@@ -7,7 +7,7 @@ namespace :setup do
     task :clear => "db:reset"
 
     desc "Load all basic data"
-    task :all => [ :users, :spaces, :roles ]
+    task :all => [ :users, :spaces, :roles, :bbb ]
 
     desc "Load Basic data in test"
     task :test => "db:test:prepare" do
@@ -112,5 +112,18 @@ namespace :setup do
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
     end
+
+    desc "Load BBB Data"
+    task :bbb => :environment do
+      BBB_CONFIG = YAML.load_file(File.join(Rails.root, "config", "bigbluebutton_conf.yml"))[RAILS_ENV]
+
+      puts "* Create BigbluebuttonServer defined in bigbluebutton_conf.yml"
+      s = BigbluebuttonServer.create :name => "Default server",
+                                     :url => BBB_CONFIG["server"],
+                                     :salt => BBB_CONFIG["salt"],
+                                     :version => BBB_CONFIG["version"]
+    end
+
   end
+
 end

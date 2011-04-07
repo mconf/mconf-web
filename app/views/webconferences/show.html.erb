@@ -26,7 +26,7 @@
   </div>
 
   <div class="bigbluebutton_button_area">
-    <%= link_to t('button.join.other'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+    <%= link_to t('button.join_webconference'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
   </div>
 </div>
 
@@ -41,7 +41,7 @@
         </div>
         <% @bbb_attendees.each do |user| %>
         <div>
-		      <%= render :partial => 'users/detailed_user', :object => user %>		
+                      <%= render :partial => 'users/detailed_user', :object => user %>          
         </div>
         <% end %>
       </p>

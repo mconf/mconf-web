@@ -68,7 +68,7 @@ class SpacesController < ApplicationController
     @bbb_info[:room] = @space.name
     @bbb_info[:running] = BBB_API.is_meeting_running?(@space.name)
     @bbb_info[:info] = BBB_API.get_meeting_info(@space.name, "mp")
-    @bbb_info[:link] = BBB_API.moderator_url(@space.name, current_user.name, "mp")
+    @bbb_info[:link] = BBB_API.join_meeting_url(@space.name, current_user.name, "mp")
     @bbb_enabled = @space.actors.include?(current_user)
 
     @bbb_attendees = []

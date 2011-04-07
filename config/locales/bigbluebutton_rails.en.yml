@@ -227,22 +227,17 @@ en:
     creating: Creating event...
     creating_agenda: Creating agenda...
     edit: Edit
-    editing: Editing...
+    editing: Editing...]
     enter: Enter
     finish: Finish
     go: Go!
-    insert: Insert
     invite: Invite!
-    invite_bbb: Invite
-    join: Join
-    join_webconference: Join webconference
+    join: Join webconference
     next: Next Step
     next_program: "Next: Define program"
     next_edit_program: "Next: Edit program"
     next_invite: "Next: Invite people"
-    new_room: "New room"
     other_spaces: Find other spaces
-    ok: "OK"
     post: Post
     publish: Publish
     search: Search
@@ -315,8 +310,6 @@ en:
   country: Country
   create: Create
   create_event: Create Event
-  create_room:
-    name: "Name"
   created_at: Created at
   created_at_date: "Created: %{date}"
   created_time_ago: Created %{time} ago
@@ -1059,8 +1052,6 @@ en:
     activity: Recent Activity...
     my: My Home
     one: home
-    no_rooms: "No rooms found."
-    rem_room: "Remove room"
   icalendar:
     add: Update and Add new entries
     conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "
@@ -1174,23 +1165,6 @@ en:
     will_invite: People you will invite
     yes_accepted: accepted
   invited: Invited
-  invite_people:
-    email:
-      one: "E-mail:"
-      other: "E-mails:"
-    member:
-      one: "Member:"
-      other: "Members:"
-      non:
-        one: "Non Member:"
-        other: "Non Members:"
-    message:
-      one: "Message:"
-      other: "Messages:"
-    name:
-      one: "Name: "
-      other: "Names: "
-    room: "Room: "
   is_member_of: is member of
   join: Join
   join_cam: Participate
@@ -2051,10 +2025,9 @@ en:
     nobody:
       one_line: "There is nobody currently in the room."
       two_lines: "There is nobody <br>currently in the room."
+    not_member: "You must be a member<br />of this space to join the room."
     title_people_conf: "People in the conference"
-    my_webconference: "My webconference rooms"
-    new_webconference: "New webconference room"
-    invite_webconference: "Invite participants to the webconference"
+    my_webconferece: "My webconference rooms"
   week:
     next: Next week
     this: This week

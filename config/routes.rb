@@ -1,6 +1,6 @@
 Vcc::Application.routes.draw do
 
-  get "webconferences/show"
+  bigbluebutton_routes :default
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   scope '/translate' do
