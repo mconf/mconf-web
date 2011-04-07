@@ -189,6 +189,10 @@ Vcc::Application.routes.draw do
       get :join_room, :as => 'joinroom'
     end
 
+    member do
+      get :invite_room, :as => "inviteroom"
+    end
+
   end
 
   resources :feedback

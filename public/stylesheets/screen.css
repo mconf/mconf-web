@@ -2138,18 +2138,25 @@ div.webconference-space-sidebar h3, div.webconference-space-sidebar p{color:#244
 .webconference-space-sidebar span.lk{text-decoration: underline;}
 .webconference-space-sidebar span.fl{float:left;}
 
-div.create-webconf-rooms {
+div.webconf-rooms {
   margin-bottom: 10px;
   background: #FFFFFF;
 }
-div.create-webconf-rooms h3 {
+div.webconf-rooms h3 {
   color: #244974;
   background: #BDD8EB none repeat scroll 0 0;
   padding: 6px;
   text-align: center;
 }
-div.create-webconf-rooms span.fr {
+div.webconf-rooms span.fr {
   float: right;
+}
+div.webconf-rooms span.red_c {
+  color: #8B0000;
+  font-weight: bold;
+}
+div.webconf-rooms span.text {
+  margin-left: 0.2cm;
 }
 
 div.my-webconference-rooms {
