@@ -216,15 +216,23 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 #footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:0.75em 0;}
 #footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
 #footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;position:relative;}
-#footer ul li#trade_mark,#sponsor ul li#trademark{font-weight:bold;color:#111;}
+#footer ul li#trade_mark{font-weight:bold;color:#111;}
 #footer ul li#trade_mark_logo{font-weight:normal;}
 #footer a, #sponsor a{color:#666;}
-#footer a:hover, #sponsor a:hover{color:#444;}
-#footer .icon,#global .icon{margin-bottom:-4px;}
+#footer a:hover, #sponsor a:hover{color:#444; text-decoration: none;}
+#footer .icon, #global .icon{margin-bottom:-4px;}
 #footer-wrapper{background-color:#e1eef5;}
-#footer_right{font-weight:normal;}
-#footer_right{ font-size: 10px; line-height: 1.1em;}
+#footer_right, #sponsor{font-weight:normal; font-size: 10px; line-height: 1.1em;}
 
+#sponsor .logo_and_description {
+  text-align: right;
+  width: 170px;
+}
+#sponsor .logo_and_description img {
+  float: right;
+  margin-left: 5px;
+  margin-top: -5px;
+}
 
 #thumbs ul li{display: inline;list-style-type: none;}
 .right-align {float:right}

@@ -1766,6 +1766,9 @@ en:
     report: Report spam
     reported: "%{name} has reported spam in %{sitename}"
     valid: This content is valid
+  sponsors:
+    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+    prav: "Projetos em<br/>Áudio e Vídeo"
   stage:
     all: All
     one: Stage
