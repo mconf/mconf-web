@@ -851,47 +851,28 @@ en:
     loading: The form is loading...
   from: From
   frontpage:
-    
-    0rooms: No rooms online right now.
-    createRoom: Create Room
-    createRoomInputValue : Room's name is also your name
-    enter: ENTER
-    join: Join Room
-    joinDefaultRoom: Join Demo Room
-    members: Members
-    moreInfo: More Information...
-    participants: participants
-    popRooms: "Most popular rooms:"
-    popSpaces: Public spaces
-    upcomingEvents: Upcoming Events
-    webConf: Webconferences
-    yourname: Your name
-    
-    
-    
-    
-    collaborate:
-      sentence1: Organize your projects and activities
-      sentence2: Participate in conferences and events
-      sentence3: Create your own space and conferences
-    elements:
-      comments: Comments
-      conferences: Conferences
-      networks: Social Networks
-      organizers: Organizers
-      participants: Participants
-      spaces: Spaces
-      tags: Tags
-    main_title: Global a hosting service for publishing and discovering videoconferences
-    meet:
-      sentence1: Discover best online videoconferences
-      sentence2: Meet interesting people and groups
-      sentence3: Video chat with your colleagues
-    share:
-      sentence1: Videoconference recording and streaming
-      sentence2: Document and video repositories
-      sentence3: Your contacts and relations
-    stats: "%{vc} videoconferences organized - %{vs} videos stored"
+    create_button: "Create"
+    create_room: "Create a new room"
+    join_button: "Join"
+    join_or_create: "Join an existent meeting or create your own room!"
+    meetings_in_progress: "Meetings in progress"
+    members: "Members"
+    more_info: "More information..."
+    no_rooms: "No rooms online right now."
+    participants: "participants"
+    participants_in:
+      one: "%{count} participant in this space's conference"
+      other: "%{count} participants in this space's conference"
+    popular_spaces: "Public spaces"
+    project_description:
+        "<p>This website is part of the project <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, currently being developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> from <a href=\"http://www.ufrgs.br\">UFRGS</a> in partnership with <a href=\"http://www.rnp.br\">RNP</a>.
+         It was developed based on <a href=\"http://www.globalplaza.org/\">Global Plaza</a> and is being integrated with the webconference system <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p>
+         <p>For more information, access the project website <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicking here</a>.</p>"
+    register_sentence: "Create an account to access private spaces and create your own webconferences"
+    room_name: "Room's name"
+    upcoming_events: "Upcoming events"
+    webconferences: "Webconferences"
+    your_name: "Your name"
   getting_started: Getting started!
   group:
     add_to_group: Add to mailing list

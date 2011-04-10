@@ -87,7 +87,7 @@ a.basic_button span{
 
 /*BUTTON COLOURS*/
 .blue_button,.blue_button span{background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;color:#FFF;}
-        
+
 .blue_button span,button.blue_button{border:1px solid #244974;}
 
 .blue_button span:hover,button.blue_button:hover{border:1px solid #86B5D5;}
@@ -134,7 +134,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
 #about2{float:right;margin-right:50px;margin-top:27px;}
-#content{clear:both;min-height:600px;overflow:hidden;}
+#content{clear:both;padding-bottom:20px;overflow:hidden;}
 #main{float:left;margin-bottom:1.5em;}
 #main{width:100%;margin-right:10px;padding-left:10px;}
 #wrapper{padding:0 10px 10px 10px;background:#fff;margin-top: 0.5em;}
@@ -144,7 +144,7 @@ ul#prefs {list-style-type:none;margin:0;}
 .help-wrapper{margin-bottom:0.75em;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
 .help-wrapper #description{padding:9px;}
 .help-wrapper h3.title{color:#244974; font-size:1.2em;line-height:1.25;padding:8px 9px;margin:0 0 2px 0;background:#bdd8eb;}
-.help-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;} 
+.help-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;}
 .help-wrapper div#end{margin-bottom:0.75em;}
 .help-wrapper div.pics img{float:left;}
 .help-wrapper div.pics img{width:275px;}
@@ -175,7 +175,7 @@ ul#prefs {list-style-type:none;margin:0;}
 .about-wrapper{margin-bottom:0.75em;border-right:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
 .about-wrapper #description{padding:9px;}
 .about-wrapper h3.title{color:#244974; font-size:1.2em;line-height:1.25;padding:8px 9px;margin:0 0 2px 0;background:#bdd8eb;}
-.about-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;} 
+.about-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;}
 .about-wrapper div#end{margin-bottom:0.75em;}
 .about-wrapper div.pics img{float:left;}
 .about-wrapper div.pics img{width:275px;}
@@ -248,7 +248,7 @@ column, div.span-1, div.span-2, div.span-3, div.span-4, div.span-5, div.span-6, 
 
 #collaborate, #meet{
         margin-top:20px;
-} 
+}
 .no_float_left{
         clear:left;
 }
@@ -280,11 +280,11 @@ a.login{
 }
 #share ul li img, #meet ul li img, #collaborate ul li img, #right_actions ul img{
         padding-right:5px;
-        
+
 }
 #right_actions ul{
         list-style:none;
-        
+
 }
 
 /************* site ******************/
@@ -297,7 +297,8 @@ a.login{
 *{
         margin:0;
         padding:0;
-        font-family:Helvetica;
+
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
 }
 
 #site{
@@ -320,7 +321,7 @@ a.login{
   margin-left:0px;
   display: block;
   height: 150px;
-  
+
 }
 
 #home, #header{
@@ -331,7 +332,7 @@ a.login{
 /*******************CABECERA***********************/
 
 #global-wrapper {
-        width:100%;     
+        width:100%;
         padding:0;
         background:#1F4A75;
 }
@@ -357,7 +358,7 @@ a.login{
 #logo.frontpage_logo{background: url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
 
 #espacio_header {
-        margin:0px;     
+        margin:0px;
         margin-left:166px;
         margin-top:50px;
         height:61px;
@@ -366,7 +367,7 @@ a.login{
 
 /*DENTRO DE LA CABECERA: LOGIN*/
 
-.div_login, .div_login_openid { 
+.div_login, .div_login_openid {
         color:#FFF;
         width:580px;
         display:inline-block;
@@ -386,13 +387,13 @@ a.login{
         position:relative;
         padding: 0px;
         border: 0px;
-        
+
 }
 
 .div_login #login_button, .div_login_openid #login_button,{
         width:61px;
         height:18px;
-        
+
 }
 .div_login a.login, .div_login_openid a.login{
         background-color:#497FC1;
@@ -403,14 +404,14 @@ a.login{
 
 .div_login #subtexto, .div_login_openid #subtexto{
         padding-top: 10px;
-        height:12px;    
+        height:12px;
         font-size: 11px;
   font-family:Helvetica;
 }
 
 #global .div_login a,#global .div_login_openid a{
         color:#FFFFFF;
-        padding:0px 7px;        
+        padding:0px 7px;
 }
 
 #global .div_login a:hover,#global .div_login_openid a:hover{text-decoration:underline;}
@@ -418,7 +419,7 @@ a.login{
 .div_login .a_border, .div_login_open_id .a_border{
         border-right:thin solid;
         padding:0px 7px;
-        text-decoration:underline;      
+        text-decoration:underline;
 }
 
 div#openid_label{
@@ -438,7 +439,7 @@ div#openid_label input#openid_identifier{
 /**************BÚSQUEDA*****************/
 /*
 #espacio_busqueda {
-        width:692px;    
+        width:692px;
 margin-left:20px;
 margin-top:21px;
         height:45px;
@@ -446,7 +447,7 @@ margin-top:21px;
         float:right;
 }
 
-.div_busqueda { 
+.div_busqueda {
         color:#0656a4;
         width:248px;
   float:right;
@@ -458,13 +459,13 @@ margin-top:21px;
 .div_busqueda #subtexto_busqueda {
         padding-top: 10px;
         padding-bottom: 8px;
-        height:12px;    
+        height:12px;
         font-size: 12px;
 }
 
 .div_busqueda #input_find{
         position:relative;
-        border-color:#0656a4; 
+        border-color:#0656a4;
         padding: 0px;
         border: 1px inset;
 }
@@ -480,17 +481,17 @@ margin-top:21px;
         border-right:thin solid;
         color:#0656a4;
         padding:0px 7px;
-        text-decoration:underline;      
+        text-decoration:underline;
 }
 
 .div_busqueda a{
         color:#0656a4;
         padding:0px 7px;
-        text-decoration:underline;      
+        text-decoration:underline;
 }
 span.find{
   padding-right:5px;
-  
+
 }
 */
 /*********************PARTE CENTRAL**********************/
@@ -533,14 +534,14 @@ span.find{
 div {
         margin:0px;
         padding:0px;
-        font-family:verdana; /*font-size:12px;*/
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif; /*font-size:12px;*/
 }
 
 
 /******************** RIGHT **********/
 
 .right{
-        
+
         display: inline-block;
         margin-left:10px;
 }
@@ -555,19 +556,19 @@ div {
         padding-right: 13px;
         vertical-align: middle;
         padding-top: 15px;
-        
+
 }
 #caracteristics ul{
         list-style: none;
         margin: 0px;
         float:left;
-        
+
 }
 #caracteristics ul li{
         font-size:13px;
         font-family: Helvetica;
         line-height:18px;
-        padding:7px 0 8px 30px; 
+        padding:7px 0 8px 30px;
 }
 
 li.conferences{background: transparent url("../images/right_videoconference.gif") no-repeat left center;}
@@ -579,7 +580,7 @@ li.comments{background: transparent url("../images/right_comments.gif") no-repea
 li.tags{background: transparent url("../images/right_tags.gif") no-repeat left center;}
 li.networks{background: transparent url("../images/right_social.gif") no-repeat left center;}
 
-/****************FOOTER**********************/ 
+/****************FOOTER**********************/
 
 .idioma {
   width:960px;
@@ -591,7 +592,7 @@ li.networks{background: transparent url("../images/right_social.gif") no-repeat 
 }
 
 #footerFront {
-        width:100%;     
+        width:100%;
         padding:0;
         background:#BDDAEE;
 }
@@ -610,7 +611,7 @@ li.networks{background: transparent url("../images/right_social.gif") no-repeat 
 .banner_footer #footer_content{
         text-align:left;
         color: #ccc;
-        
+
 }
 .banner_footer{
         width:960px;
@@ -618,7 +619,7 @@ li.networks{background: transparent url("../images/right_social.gif") no-repeat 
         margin-left:auto;
         margin-right:auto;
         padding-top:2px;
-        
+
         position:relative;
 }
 
@@ -626,12 +627,12 @@ li.networks{background: transparent url("../images/right_social.gif") no-repeat 
         border-right:thin solid;
         color:#0656a4;
         padding:0px 7px;
-        text-decoration:underline;      
+        text-decoration:underline;
 }
 .banner_footer a{
         color:#0656a4;
         padding:0px 7px;
-        text-decoration:underline;      
+        text-decoration:underline;
 }
 
 #logo_UE {
@@ -696,122 +697,374 @@ ul.menu1{list-style-type:none;margin:0;}
 ul.menu1 li{display:inline;}
 /**/
 
+
+/************************************************** BUTTONS ********************************************/
+/*
+ * TYPES OF BUTTONS
+ * 1- BASIC_BUTTON: blue, small-padding
+ * 2- MEDIUM_BUTTON: blue or yellow,
+ * 3- BIG_BUTTON: red or yellow
+*/
+
+/*COMMON PROPERTIES*/
+button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
+
+.button_wrapper{
+        overflow:hidden;
+        }
+
+.join .button_wrapper {
+        padding:0 25px;
+}
+
+.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
+.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
+a.cloud_button{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+        display: block;
+  float: left;
+  text-decoration: none;
+  outline:none;
+  padding:20px 40px 25px;
+        color:#fff;
+}
+
+a.cloud_button:hover{text-decoration:none;outline: none;}
+
+a.big_button,a.medium_button,a.basic_button,button,input[type=button],input[type=submit]{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+        font-weight:bold;
+        text-align:center;
+}
+a.big_button, a.medium_button, a.basic_button{
+  display: block;
+        float: left;
+        text-decoration: none;
+        outline:none;
+        }
+
+a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+
+a.big_button span, a.medium_button span, a.basic_button span{
+    display: block;}
+
+a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
+    outline: none; /* hide dotted outline in Firefox */}
+
+/*********BIG BUTTONS***************/
+a.big_button,button.big_button{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    font-size:120%;
+    line-height:150%;
+    margin-right: 6px;
+        cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+a.big_button span{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    line-height: 18px;
+        width:202px;
+    padding: 5px 18px 5px 18px;
+}
+
+.join a.big_button span{width:120px;}
+
+button.big_button{padding:3px 18px 3px 18px;width:230px;}
+
+/********MEDIUM BUTTONS*************/
+a.medium_button{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        font-size:1.0833em;
+        line-height:1.3846;
+    margin-right: 6px;
+        cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+a.medium_button span{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        color:#fff;
+    line-height: 16px;
+    padding: 5px 18px 5px 18px;
+}
+
+/*BASIC BUTTONS..........*/
+a.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        font-size:95%;
+        line-height:135%;
+        margin-right:4px;
+        margin-bottom:4px;
+        cursor:pointer;
+        /*padding-right: 4px; /* sliding doors padding */
+}
+a.basic_button span{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+    line-height: 16px;
+    padding:4px;
+}
+
+button#change_logo{float:left;}
+
+/*GREY BAR BUTTONS*/
+.grey_bar a.grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
+.grey_bar button{line-height:16px;}
+.grey_bar .grey_button span{
+        line-height:18px;
+        color:#222;
+        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+        padding:3px 7px 3px 6px;}
+.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
+.grey_button span{border:1px solid #999;}
+.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
+/*-------------disabled grey buttons-----------*/
+.grey_bar a.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
+.grey_bar #feeds_link{margin-right:6px;}
+
+/*BUTTON COLOURS*/
+.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
+
+.orange_button span,button.orange_button{
+        border-bottom:1px #C18500 solid;
+        border-top:1px #FFC14A solid;
+        border-left:1px #FFC14A solid;
+        border-right:1px #FFC14A solid;
+}
+.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
+
+.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
+
+.red_button span{
+        border-bottom:1px #a2042b solid;
+        border-top:1px #d60337 solid;
+        border-left:1px #d60337 solid;
+        border-right:1px #d60337 solid;
+        }
+.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
+
+.blue_button,.blue_button span{color:#FFF;background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;}
+
+.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
+
+.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
+
+.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
+
+.pale_button span,button.pale_button{
+        border: 1px solid #BDD8EB;
+}
+.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
+
+
+
 #special_message {background: none repeat scroll 0 0 #FF6600; border: 1px solid #BDD8EB; float: left; width: 300px;margin-left:250px;}
 #special_message_footer {font-size: smaller;text-align: center;}
 
 .offscreen { display:none; visibility:hidden; }
 
-
-
-
-
-
-/*acr*/
-.meetingName{font-weight:bold;font-style:normal;font-size:1em}
-.enterRoomLink{font-weight:bold;font-style:normal;font-size:1em; }
-/*.enterRoomLink:hover{color:#FFD700;font-style:none;}
-.popRoomsListing:hover{font-style:italic;color:#FFD700;}*/
-
-/*
-#diretoNoBBB_popRooms{float:left;margin:0 10em 0 10em;}
-#popRooms{color:#244974;text-align:left;}
-#popularSpaces{float:left;padding:;width:;text-align:center;}
-*/
-
-#diretoNoBBB_popRooms {
-  position:absolute;
-  top:120px;
-  left:0;
-  margin-left:200px;}
-
-#popRooms {
-  color:#244974;
-  text-align:left;}
-
-#popularSpaces {
-position:absolute;
-top:120px;
-right:0;
-width:350px;
-margin-right:150px;
-text-align:center;
-
-}
-
-.spaceInfo {
-margin-left:150px;
-margin-bottom:4em;
-text-align:left;
-}
-
-.spaceImage {
-float:left;
-clear:left;
-margin-top:-1em;
-margin-bottom:1em;
-border:0px solid black;
-
-/*position:relative;
-right:20px;*/
-}
-
-
-#BBBorPlaza {
-  text-align:center;
-}
-
-ul {
-list-style-type:none;
-}
-
-ul ul {
-list-style-type:none;
-}
-
-ul,ol{margin:0 0 1.5em 0;}
-
 .ruler{float:left;padding:2em;margin:0.7em 3em 0 1em;background:;}
-/*/acr*/
 
+form {
+  margin: 0;
+  padding: 0;
+}
 
+#content_top {
+  background: #e1eef5;
+  border-top: 1px solid #b1c8d4;
+  border-bottom: 1px solid #b1c8d4;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 15px;
+/*  -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);*/
+}
 
+#content_top_container {
+  margin: auto;
+  width: 900px;
+}
 
+#content_top_container .registration {
+  float: right;
+  text-align: center;
+  width: 280px;
+  font-size: 1.2em;
+  font-family: Verdana;
+  border: 1px solid #b1c8d4;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius: 4px;
+/*  -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);*/
+  padding: 10px;
+  background: #eee;
+}
 
+#content_top_container .registration a.medium_button {
+  float: none;
+  display: inline;
+}
 
+#content_top_container .registration .join_button {
+  margin: 10px 0 5px 0;
+}
 
+#content_top_container .registration a.medium_button span {
+  display: inline;
+}
 
+#content_top_container .description {
+  font-size: 1.25em;
+  font-family: Verdana;
+  text-align: justify;
+  padding-right: 10px;
+  width: 580px;
+}
 
+#content_top_container .description p {
+  margin-bottom: 3px;
+}
 
+#content_container {
+  margin: auto;
+  width: 900px;
+  padding: 15px;
+  /*border: 1px solid #ccc;
+  background: white;
 
+  -moz-box-shadow: 10px 10px 5px #888;
+  -webkit-box-shadow: 10px 10px 5px #888;
+  box-shadow: 5px 5px 3px #ccc;*/
+}
 
+#content_container h2 {
+  color: #244974;
+}
 
+#content_container h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
 
+#bigbluebutton_rooms {
+  float: left;
+  width: 380px;
+  text-align: left;
+/*  border-right: 1px dashed #888;*/
+}
 
+#bigbluebutton_rooms .create_room {
+  margin: 0;
+  padding: 0;
+}
 
+#bigbluebutton_rooms .join_room {
+  margin: 0;
+  padding: 0;
+}
 
+#bigbluebutton_rooms .basic_button {
+  float: right;
+}
 
+#bigbluebutton_rooms .input {
+  margin-bottom: 5px;
+}
 
+#bigbluebutton_rooms label {
+  float: left;
+  width: 100px;
+  text-align: right;
+  margin-right: 5px;
+}
 
+#bigbluebutton_rooms .meeting_list {
+  margin-left: 110px;
+}
 
+#bigbluebutton_rooms .meeting_list li {
+  margin-bottom: 8px;
+}
 
+#bigbluebutton_rooms .meeting_list .medium_button span {
+  float: none;
+  display: inline;
+  width: auto;
+  padding: 2px;
+  font-size: 11px;
+}
 
+#bigbluebutton_rooms .meeting_list .medium_button {
+  float: none;
+  display: inline;
+}
 
+#public_spaces {
+  width: 490px;
+  text-align: left;
+  float: right;
+}
 
+.clearer {
+  clear: both;
+  font-size: 1px;
+/*  content: " ";*/
+}
 
+#public_spaces .space_container {
+  margin-bottom: 10px;
+  text-align: left;
 
+}
 
+#public_spaces .space_info {
+  margin-left: 10px;
+  margin-right: 15px;
+  float: left;
+}
 
+#public_spaces .space_webconference {
+  float: left;
+  width: 200px;
+  text-align: right;
+}
 
+#public_spaces .space_webconference .join_button {
+  float: right;
+  margin-top: 3px;
+  margin-left: 10px;
+}
 
+#public_spaces img {
+  float:left;
+  border:1px solid #ccc;
+}
 
+#public_spaces .space_container h3 {
+  clear: both;
+  text-align: left;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
 
+#content_container ul {
+  list-style-type:none;
+  margin:0 0 1.5em 0;
+}
 
-
-
-
-
-
-
-
+/*ayudas de color*/
+.blue{color:#244974;}
+.top{padding-top:10px;}
+.bottom{padding-bottom:10px;}
+.grey{color:#555;}
+.red{color:#8B0425;}
+.bold{font-weight:bolder;}
+.fade{opacity:0.6;}
 
 
