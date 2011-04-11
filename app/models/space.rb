@@ -27,6 +27,7 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
   has_many :agendas, :through => :events
+  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_permalink :name, :update=>true
 
@@ -67,6 +68,19 @@ class Space < ActiveRecord::Base
       #group.users << space.users(:role => "user")
       #group.save
   #}
+
+  # TODO BBB Always using the first server
+  after_create { |space|
+    room = BigbluebuttonRoom.new(:name => space.name, :meeting_id => space.emailize_name,
+                                 :owner => space, :server => BigbluebuttonServer.first)
+    room.save
+  }
+
+  after_create { |space|
+    room = BigbluebuttonRoom.new(:name => space.name, :meeting_id => space.emailize_name,
+                                 :owner => space, :server => BigbluebuttonServer.first)
+    room.save
+  }
 
 #  before_create {
 #  }

@@ -193,6 +193,16 @@ namespace :setup do
           end
         end
 
+        BigbluebuttonRoom.populate 1 do |room|
+          room.owner_id = space.id
+          room.owner_type = 'Space'
+          room.server_id = BigbluebuttonServer.first
+          room.name = space.name
+          room.meeting_id = space.emailize_name
+          room.attendee_password = "ap"
+          room.moderator_password = "mp"
+        end
+
       end
 
       Post.record_timestamps = false

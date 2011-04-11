@@ -122,4 +122,30 @@ describe Space do
     it_should_authorize(:admin, :update, :space)
     it_should_not_authorize(Anonymous.current, :update, :space)
   end
+
+  context "has an associated bigbluebutton room" do
+
+    it { should have_one(:bigbluebutton_room) }
+
+    it "created when the space is created" do
+      expect {
+        space = Factory.create(:space)
+        room = BigbluebuttonRoom.last
+        room.name.should == space.name
+        room.owner_id.should == space.id
+        room.owner_type.should == space.class.name
+      }.to change{ BigbluebuttonRoom.count }.by(1)
+    end
+    
+    it "destroyed when the space is destroyed" do
+      space = Factory.create(:space)
+      expect {
+        space.destroy
+      }.to change{ BigbluebuttonRoom.count }.by(-1)
+      room = BigbluebuttonRoom.find_by_name(space.name)
+      room.should be_nil
+    end
+
+  end
+
 end

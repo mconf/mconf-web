@@ -27,7 +27,7 @@ gem 'garb'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 gem 'dynamic_form'
-gem 'bigbluebutton_rails', '~> 0.0.1'
+gem 'bigbluebutton_rails', '~> 0.0.2'
 
 # not the official repo, but has adjustments to use it with rails 3
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
@@ -45,6 +45,7 @@ group :development, :test do
   gem 'webrat'
   gem 'rspec-instafail'
   gem 'fuubar'
+  gem 'shoulda-matchers'
 end
 
 group :production do

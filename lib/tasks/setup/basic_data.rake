@@ -7,7 +7,7 @@ namespace :setup do
     task :clear => "db:reset"
 
     desc "Load all basic data"
-    task :all => [ :users, :spaces, :roles, :bbb ]
+    task :all => [ :users, :bbb, :spaces, :roles ]
 
     desc "Load Basic data in test"
     task :test => "db:test:prepare" do

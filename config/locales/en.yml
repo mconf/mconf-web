@@ -287,8 +287,6 @@ en:
     recent:
       other: Recent comments
     show_all: Show all comments
-  conference:
-    one: in conference
   contact_information: Contact information
   container:
     one: Container
@@ -1736,6 +1734,9 @@ en:
     name_none: A space name must be given to create a new space
     one: Space
     other: Spaces
+    people_in_conference:
+      one: "%{count} people in the conference."
+      other: "%{count} people in the conference."
     popular:
       other: Popular spaces
     possesion: My Spaces
@@ -2034,7 +2035,6 @@ en:
     other: "Webconferences"
     nobody:
       one_line: "There is nobody currently in the room."
-      two_lines: "There is nobody <br>currently in the room."
     title_people_conf: "People in the conference"
     my_webconference: "My webconference rooms"
     new_webconference: "New webconference room"

@@ -86,22 +86,20 @@
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
     <%= render :partial => 'sidebar_leave_space' %>
+
         <div class="webconference-space-sidebar">
           <h3><%=t('webconference.one')%></h3>
-          <% if @bbb_info[:running] %>
-            <span class="fl"><span class="c_red"> <%= @bbb_attendees.count.to_s %> <%= t('people') %> </span> <span class="c_black"><%= t('conference.one') %></span></span>
-            <div class="bigbluebutton_button_area">
-              <%= link_to t('button.enter'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-            </div>
-            <div class="clearer"></div>
-            <span class="lk"><%= link_to t('information.information6'), space_webconference_path(space) %></span>
+          <div class="bigbluebutton_button_area">
+            <%= link_to t('button.enter'), space_join_room_path(space, @bbb_room), :class => 'big_button orange_button bigbluebutton_button' %>
+          </div>
+          <% if @bbb_room.is_running? %>
+            <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
           <% else %>
-            <span class="fl"> <p class="main_text"><%= t('webconference.nobody.two_lines').html_safe %></p> </span>
-            <div class="bigbluebutton_button_area">
-              <%= link_to 'Enter', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
-            </div>
+            <span class="red"><%= t('webconference.nobody.one_line') %></span>
           <% end %>
+          <%= link_to t('information.information6'), space_webconference_path(space) %>
         </div>
+
         <div id="inc-events">
      <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upcoming icon",:style=>"cursor:pointer")%></h3>
                  <ul>

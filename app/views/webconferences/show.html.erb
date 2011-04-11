@@ -2,19 +2,19 @@
 
 <%= content_for :javascript do  %>
 
- $('#sidebar img.tooltip_invite_people').qtip({
-   content: '<%=t("tooltip.invite_people")%>',
-         position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
+  $('#sidebar img.tooltip_invite_people').qtip({
+    content: '<%=t("tooltip.invite_people")%>',
+    position: {adjust: { screen: true }},
+    show:  'mouseover',
+    hide: { when: 'mouseout', fixed: true },
+    style: 'mystyle'
   });
 
 <% end %>
 
 <%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
-<%end%>
+<% end %>
 
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
@@ -22,31 +22,30 @@
 
 <div>
   <div class="webconference-url">
-    <%= request.url %>
+    <%= space_join_room_url(space, @bbb_room) %>
   </div>
 
   <div class="bigbluebutton_button_area">
-    <%= link_to t('button.join_webconference'), @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+    <%= link_to t('button.join_webconference'), space_join_room_path(space, @bbb_room), :class => 'big_button orange_button bigbluebutton_button' %>
   </div>
 </div>
 
 <div class="clearer"></div>
 
 <div>
-  <% if @bbb_info[:running] %>
+  <% if @bbb_room.is_running? %>
     <p class="main_text">
 
-        <div class="people-connect-title">
-          <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_attendees.count.to_s %>)</h3>
-        </div>
-        <% @bbb_attendees.each do |user| %>
-        <div>
-                      <%= render :partial => 'users/detailed_user', :object => user %>          
-        </div>
-        <% end %>
-      </p>
+      <div class="people-connect-title">
+        <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_room.participant_count %>)</h3>
+      </div>
 
-    <% else %>
-      <p class="main_text"><%= t('webconference.nobody.one_line') %></p>
-    <% end %>
+      <% @bbb_attendees.each do |user| %>
+        <div><%= render :partial => 'users/detailed_user', :object => user %></div>
+      <% end %>
+    </p>
+
+  <% else %>
+    <p class="main_text"><%= t('webconference.nobody.one_line') %></p>
+  <% end %>
 </div>
