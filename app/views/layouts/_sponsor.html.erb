@@ -1,8 +1,17 @@
 <div id="sponsor">
   <ul>
-	<li id="trade_mark"><%=image_tag("UE.gif",:class=>"icon")%></li>
-	<li id="trade_mark"><a href="http://cordis.europa.eu/fp7/ict/e-infrastructure/"><%=image_tag("infrastructure.gif",:class=>"icon")%></a></li>	
-	<li id="footer_right"><%= t('eu_commision') %><br /> <%= t('society_media') %></li>
+    <li>
+      <div class="logo_and_description">
+        <a href="http://www.inf.ufrgs.br/prav"><%= image_tag("prav_logo_small.png") %>
+        <span><%= t('sponsors.prav').html_safe %></span></a>
+      </div>
+    </li>
+    <li>
+      <div class="logo_and_description">
+        <a href="http://www.rnp.br"><%= image_tag("rnp_logo_small.jpg") %>
+        <span><%= t('sponsors.rnp').html_safe %></span></a>
+      </div>
+    </li>
   </ul>
 </div>
 

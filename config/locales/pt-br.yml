@@ -887,28 +887,28 @@ pt-br:
     loading: "O formul\xC3\xA1rio est\xC3\xA1 carregando..."
   from: De
   frontpage:
-    collaborate:
-      sentence1: Organize seus projetos e atividades
-      sentence2: "Participe em confer\xC3\xAAncias e eventos"
-      sentence3: "Crie o seu pr\xC3\xB3prio espa\xC3\xA7o e confer\xC3\xAAncias"
-    elements:
-      comments: "Coment\xC3\xA1rios"
-      conferences: "Confer\xC3\xAAncias"
-      networks: Redes Sociais
-      organizers: Organizadores
-      participants: Participantes
-      spaces: "Espa\xC3\xA7os"
-      tags: Tags
-    main_title: "Global um servi\xC3\xA7o de hospedagem para a publica\xC3\xA7\xC3\xA3o e descoberta de videoconfer\xC3\xAAncias"
-    meet:
-      sentence1: "Descubra as melhores videoconfer\xC3\xAAncia online"
-      sentence2: "Conhe\xC3\xA7a pessoas interessantes e grupos"
-      sentence3: "Troque mensagens com v\xC3\xADdeo com os seus colegas"
-    share:
-      sentence1: "Grava\xC3\xA7\xC3\xA3o e streaming de videoconfer\xC3\xAAncia"
-      sentence2: "Reposit\xC3\xB3rios de documentos e v\xC3\xADdeos"
-      sentence3: "Seus contatos e rela\xC3\xA7\xC3\xB5es"
-    stats: "%{vc} videoconfer\xC3\xAAncias organizadas - %{vs} v\xC3\xADdeos armazenados"
+    create_button: "Criar"
+    create_room: "Criar uma nova sala"
+    join_button: "Entrar"
+    join_or_create: "Entre em uma sala existente ou crie a sua própria sala!"
+    meetings_in_progress: "Reuniões em progresso"
+    members: "Membros"
+    more_info: "Mais informações..."
+    no_rooms: "Nenhuma reunião em progresso."
+    participants: "participantes"
+    participants_in:
+      one: "%{count} participante na sala de conferência deste espaço"
+      other: "%{count} participantes na sala de conferência deste espaço"
+    popular_spaces: "Espaços públicos"
+    project_description:
+        "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>.
+         Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p>
+         <p>Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p>"
+    register_sentence: "Crie uma conta para acessar espaços privados e criar suas próprias webconferências"
+    room_name: "Nome da sala"
+    upcoming_events: "Próximos eventos"
+    webconferences: "Webconferências"
+    your_name: "Seu nome"
   getting_started: "Come\xC3\xA7ando!"
   group:
     add_to_group: "Adicionar \xC3\xA0 lista de e-mails"
