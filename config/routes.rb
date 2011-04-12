@@ -34,6 +34,8 @@ Vcc::Application.routes.draw do
 
   resources :spaces do
 
+    bigbluebutton_routes :room_matchers
+
     member do
       post :enable
     end

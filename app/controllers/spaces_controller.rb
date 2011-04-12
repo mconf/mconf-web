@@ -60,31 +60,11 @@ class SpacesController < ApplicationController
   # GET /spaces/1.atom
   def show
 
-    #TODO temporary implementation of a bbb room for this space
-    unless BBB_API.is_meeting_running?(@space.name)
-      BBB_API.create_meeting(@space.name, @space.name, "mp", "ap", "Welcome to Mconf!")
+    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
+    begin
+      @bbb_room.fetch_meeting_info
+    rescue Exception      
     end
-    @bbb_info = {}
-    @bbb_info[:room] = @space.name
-    @bbb_info[:running] = BBB_API.is_meeting_running?(@space.name)
-    @bbb_info[:info] = BBB_API.get_meeting_info(@space.name, "mp")
-    @bbb_info[:link] = BBB_API.join_meeting_url(@space.name, current_user.name, "mp")
-    @bbb_enabled = @space.actors.include?(current_user)
-
-    @bbb_attendees = []
-    node = @bbb_info[:info][:attendees][:attendee]
-    if node.kind_of?(Array)
-      node.each do |att|
-        Profile.find(:all, :conditions => { "full_name" => att[:fullName] }).each do |profile|
-          @bbb_attendees << profile.user
-        end
-      end
-    elsif !node.nil?
-      Profile.find(:all, :conditions => { "full_name" => node[:fullName] }).each do |profile|
-        @bbb_attendees << profile.user
-      end
-    end
-
 
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
     @news = @space.news.find(:all, :order => "updated_at DESC")
