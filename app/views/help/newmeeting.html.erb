@@ -1,11 +1,11 @@
 <div class="help-wrapper">
-  <h3 class="title"><%=t('help_title.create_meeting')%></h3>
+  <h3 class="title"><%=t('help_title.create_meeting').html_safe%></h3>
   <div id="description">
-		<p><%=t('help_createmeeting.part1')%></p>
+		<p><%=t('help_createmeeting.part1').html_safe%></p>
                 <p><span><center><img src="/images/help/<%= I18n.locale.to_s %>/create_meeting.png"></center></span></p>
-		<p><%=t('help_createmeeting.part2')%></p>
+		<p><%=t('help_createmeeting.part2').html_safe%></p>
 		<p><span><center><img src="/images/help/<%= I18n.locale.to_s %>/meeting.png"></center></span></p>
-                <p><%=t('help_createmeeting.part3',:agenda=>"define_agenda")%></p>
+                <p><%=t('help_createmeeting.part3',:agenda=>"define_agenda").html_safe%></p>
                 <p><img src="/images/help/<%= I18n.locale.to_s %>/meeting_created.png" height="488" width="610")%></p>
 	</div>
 </div>             

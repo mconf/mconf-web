@@ -119,7 +119,7 @@
   <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
 </div>
 <div class="profile_save_ch">  
-  <%= link_to "<span>" + t('cancel') + "</span>", user_profile_path(@user),:class => "basic_button blue_button", :id=>"cancel_profile"%>
+  <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, user_profile_path(@user),:class => "basic_button blue_button", :id=>"cancel_profile"%>
 </div>
 <% end %>
 
