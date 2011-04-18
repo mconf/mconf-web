@@ -1,8 +1,18 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#home_members_tokens").tokenInput("/home/invite_room.json", { 
+      crossDomain: false,
+      theme: 'facebook',
+      preventDuplicates: true
+    });
+  });
+</script>
+
 <div class="webconf-rooms">
   <h3> <%= t('webconference.invite_webconference') %> </h3>
 </div>
 
-<%= form_for(:home, :url => inviteroom_home_path) do |f| %>
+<%= form_for(:home, :url => sendinvite_home_path) do |f| %>
 
   <div class="webconf-rooms">
     <span class="text"><%= t('invite_people.room') %><span class="red_c"><%= @bbb_room[:meetingID] %></span></span>
@@ -14,24 +24,23 @@
     <span class="text"><span class="red_c"><%= t('invite_people.member.other') %></span></span>
     <div class="clearer"></div>
     <div>
-      <span class="text"><%= t('invite_people.name.one') %></span>
-	    <%= f.text_field :name, :id=> "member_name", :size =>45 %>
-      <%= link_to t('button.insert'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button'%>
+      <span class="text"><%= f.label :members_tokens, t('invite_people.name.one') %></span>
+	    <%= f.text_field :members_tokens, :size =>45 %>
     </div>
-    <%= f.text_area :names, :id=> "member_names", :size=> "56x5", :disabled=>'disabled' %>
     <div class="clearer"></div>
+    <br>
     <div>
-      <%= check_box("im", "selected", {}, "yes", "no") %>
+      <%= f.check_box :im_check %>
       <%= "Internal Message" %> 
-      <%= check_box("email", "selected", {}, "yes", "no") %>
+      <%= f.check_box :email_check %>
       <%= "E-mail" %>
     </div>
     <br>
     <span class="text"><span class="red_c"><%= t('invite_people.member.non.other') %></span></span>
     <div class="clearer"></div>
     <div>
-      <span class="text"><%= t('invite_people.email.other') %></span>
-	    <%= f.text_field :email, :id=> "non_member_email", :size =>45 %>
+    <span class="text"><%= f.label :email_tokens, t('invite_people.email.other') %></span>
+	    <%= f.text_field :email_tokens, :size =>45 %>
     </div>
     <div class="clearer"></div>
     <br>
@@ -39,7 +48,7 @@
     <div class="clearer"></div>
     <%= f.text_area :message, :id=> "text_message", :size=> "56x5" %>
     <div class="clearer"></div>
-    <span <%= link_to t('button.ok'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button'%>
+    <button type="submit" class="small_button pale_button bigbluebutton_button rounded_button"><%=t('button.ok')%></button>
   </div>
 
 <% end %>

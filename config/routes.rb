@@ -177,22 +177,11 @@ Vcc::Application.routes.draw do
 
     member do
       get :new_room, :as => 'newroom'
-    end
-
-    member do
       post :create_room, :as => 'createroom'
-    end
-
-    member do
       get :end_room, :as => 'endroom'
-    end
-
-    member do
       get :join_room, :as => 'joinroom'
-    end
-
-    member do
       get :invite_room, :as => "inviteroom"
+      post :send_invite, :as => 'sendinvite'
     end
 
   end

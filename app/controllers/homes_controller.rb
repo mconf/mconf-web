@@ -30,6 +30,7 @@ class HomesController < ApplicationController
     #TODO temporary implementation of a bbb room for this home
     @bbb_infos = BBB_API.get_meetings
     @bbb_rooms = Array.new
+    @bbb_room
     @roomOpen = false
 
     unless @bbb_infos[:meetings].blank?
@@ -86,13 +87,58 @@ class HomesController < ApplicationController
 
   def invite_room
     @bbb_room = params[:room]
+    tags = []
+    members = Profile.where("full_name like?", "%#{params[:q]}%").select(['full_name', 'id'])
+    members.each do |f| 
+      tags.push("id"=>f.id, "name"=>f.full_name)
+    end
+    
     respond_to do |format|
       format.html{
         if request.xhr?
           render :layout => false
         end
       }
+      format.json { render :json => tags }
     end
+  end
+  
+  def send_invite    
+    priv_msg = Hash.new
+    priv_msg[:sender_id] = current_user.id
+    
+    if(params[:home][:message].empty?)
+      priv_msg[:body] = "Invite for Webconference."
+    else
+      priv_msg[:body] = params[:home][:message]
+    end
+    
+    #editar texto para receber link
+    
+    title = ""
+    title << "Invite for webconference"
+    priv_msg[:title] = title
+    priv_msg[:email_sender] = current_user.email
+    
+    if(params[:home][:im_check])
+      for receiver in params[:home][:members_tokens].split(",")
+        priv_msg[:receiver_id] = receiver
+        private_message = PrivateMessage.new(priv_msg)
+        private_message.save
+      end
+    end
+    
+    if(params[:home][:email_check])
+      for receiver in params[:home][:email_tokens].split(",")
+        priv_msg[:email_receiver] = receiver
+        Notifier.webconference_invite_email(priv_msg).deliver
+      end
+    end
+      
+    respond_to do |format|
+      format.html { redirect_to :action => "show" }
+    end
+    
   end
 
 end

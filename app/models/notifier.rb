@@ -223,6 +223,15 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html		
   end
   
+  def webconference_invite_email(inv_email)
+    setup_email(inv_email[:email_receiver])
+    @from = inv_email[:email_sender]
+    
+    @subject = inv_email[:title]
+    @text = inv_email[:body]
+    
+  end
+  
   private
 
   def setup_email(recipients)
@@ -235,7 +244,7 @@ class Notifier < ActionMailer::Base
 #Tuesday, March 01 2011, intended to eliminate warnings and allow rails3 upgrade
 #=begin
   def upgmail (repto)
-    mail(:to => @recipients, :subject => @subject, :from => "eifion@asciicasts.com", :headers => @headers, "Reply-To" => repto)
+    mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, "Reply-To" => repto)
   end
 #=end
 end
