@@ -40,6 +40,14 @@ class ApplicationController < ActionController::Base
     @space ||= current_container(:type => :space, :path_ancestors => true)
   end
 
+  def bigbluebutton_user
+    if current_user && current_user.is_a?(User)
+      current_user
+    else
+      nil
+    end
+  end
+
   # This method is the same as space, but raises error if no Space is found
   def space!
     space || raise(ActiveRecord::RecordNotFound)

@@ -10,6 +10,19 @@ GIT
   specs:
     simple_captcha (0.1.1)
 
+PATH
+  remote: ../bigbluebutton-api-ruby
+  specs:
+    bigbluebutton-api-ruby (0.0.10)
+      nokogiri (~> 1.4.0)
+
+PATH
+  remote: ../bigbluebutton_rails
+  specs:
+    bigbluebutton_rails (0.0.2)
+      bigbluebutton-api-ruby (~> 0.0.9)
+      rails (~> 3.0.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -44,11 +57,6 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.9)
     atom-tools (2.0.5)
-    bigbluebutton-api-ruby (0.0.9)
-      nokogiri (~> 1.4.0)
-    bigbluebutton_rails (0.0.2)
-      bigbluebutton-api-ruby (~> 0.0.9)
-      rails (~> 3.0.3)
     builder (2.1.2)
     capistrano (2.5.21)
       highline
@@ -189,7 +197,8 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
-  bigbluebutton_rails (~> 0.0.2)
+  bigbluebutton-api-ruby!
+  bigbluebutton_rails!
   capistrano
   chronic
   ci_reporter

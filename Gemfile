@@ -27,7 +27,9 @@ gem 'garb'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 gem 'dynamic_form'
-gem 'bigbluebutton_rails', '~> 0.0.2'
+#gem 'bigbluebutton_rails', '~> 0.0.2'
+gem 'bigbluebutton-api-ruby', :path => '../bigbluebutton-api-ruby'
+gem 'bigbluebutton_rails', :path => '../bigbluebutton_rails'
 
 # not the official repo, but has adjustments to use it with rails 3
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'

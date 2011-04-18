@@ -25,7 +25,7 @@
 
     <h4><%=t('frontpage.meetings_in_progress')%></h4>
 
-    <%if (@meetingsOnline[:messageKey] != "noMeetings")%>
+    <%if @server.meetings.count > 0 %>
       <div class="join_room">
         <!--<div class="input">
           <label>Your name:</label>
@@ -33,11 +33,16 @@
         </div>-->
         <label>Meetings:</label>
         <ul class="meeting_list">
-          <%@meetingsOnlineINFO.each do |meeting| %>
+          <% @server.meetings.each do |room| %>
             <li>
-              <a href="<%= meeting[:join_link] %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <% if room.new_record? %>
+                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meeting_id}" %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <% else %>
+                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <% end %>
+
               <!--<button type="submit" class="basic_button blue_button"><%=t('frontpage.join_button')%></button>-->
-              <span class="red"><%=meeting[:meetingID]%>: </span><%= meeting[:participantCount] %> <%=t('frontpage.participants')%>
+              <span class="red"><%= room.meeting_id %>: </span><%= room.participant_count %> <%=t('frontpage.participants')%>
             </li>
           <% end %>
         </ul>
@@ -49,7 +54,7 @@
 
     <h4><%=t('frontpage.create_room')%></h4>
     <div class="create_room">
-      <form name="form2" medhot="get" action="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp">
+      <form name="form2" medhot="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
         <div class="input">
           <label><%= t('frontpage.your_name') %>:</label>
           <input type="text" name="username1" size="27"/>
@@ -87,11 +92,12 @@
             </ul>
           </div>
           <div class="space_webconference">
+            <% room = space.bigbluebutton_room %>
             <div class="join_button">
-              <% info = @meetingsOnlineSpaces.select { |i| i[:meetingID] == space.name }.first %>
-              <a href="<%= info[:join_link] %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <a href="<%= space_invite_room_path(space, room) %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
             </div>
-            <span><%= t('frontpage.participants_in', :count => info[:participantCount]) %></span>
+            <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
+            <span><%= t('frontpage.participants_in', :count => count) %></span>
           </div>
           <div class="clearer">&nbsp;</div>
         </div>

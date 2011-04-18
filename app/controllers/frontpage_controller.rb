@@ -20,9 +20,6 @@ class FrontpageController < ApplicationController
 
 
   def index
-#    #popular_spaces = The spaces with more users
-    @popular_spaces = Space.find(:all, :conditions => {:public => true}).sort_by{|s| s.users.size}.reverse.first(3)
-
 #    @users = space.users
 #
 #    #recent_spaces = The last spaces created
@@ -37,31 +34,25 @@ class FrontpageController < ApplicationController
 #    #recent_events = The upcoming events in public spaces
 #    @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| !p.space.disabled? && p.space.public? &&  p.start_date && p.start_date.future?}.first(2)
 
-
-    @meetingsOnline = BBB_API.get_meetings
-    @meetingsOnlineINFO = Array.new
-
-    unless @meetingsOnline[:meetings].blank?
-      @meetingsOnline[:meetings].each do |vetor|
-        info = BBB_API.get_meeting_info(vetor[:meetingID], vetor[:moderatorPW])
-        info[:join_link] = "http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{info[:meetingID]}"
-        @meetingsOnlineINFO.push(info)
+    # Fetch the meetings running in the server and order by participant_count
+    # TODO Temporarily using the first server
+    @server = BigbluebuttonServer.first
+    begin
+      @server.fetch_meetings
+      @server.meetings.each do |meeting|
+        meeting.fetch_meeting_info
       end
-      @meetingsOnlineINFO.sort_by! { |meeting| meeting[:participantCount] }
-      @meetingsOnlineINFO.reverse!
+      @server.meetings.sort! { |x,y| y.participant_count <=> x.participant_count }
+    rescue Exception
     end
 
-    @meetingsOnlineSpaces = Array.new
+    # Get the spaces with more users and fetch info about their webconference rooms
+    @popular_spaces = Space.public.sort_by{|s| s.users.size}.reverse.first(3)
     @popular_spaces.each do |space|
       begin
-        info = BBB_API.get_meeting_info(space.name, "mp")
+        space.bigbluebutton_room.fetch_meeting_info
       rescue Exception
-        info = Hash.new
-        info[:meetingID] = space.name
-        info[:participantCount] = 0
       end
-      info[:join_link] = "http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{info[:meetingID]}"
-      @meetingsOnlineSpaces.push(info)
     end
 
     respond_to do |format|

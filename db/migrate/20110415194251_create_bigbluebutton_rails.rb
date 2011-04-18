@@ -17,6 +17,11 @@ class CreateBigbluebuttonRails < ActiveRecord::Migration
       t.string :attendee_password
       t.string :moderator_password
       t.string :welcome_msg
+      t.string :logout_url
+      t.string :voice_bridge
+      t.string :dial_number
+      t.integer :max_participants
+      t.boolean :private, :default => false
       t.timestamps
     end
     add_index :bigbluebutton_rooms, :server_id
