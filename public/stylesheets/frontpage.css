@@ -37,60 +37,6 @@ ol{list-style-type:decimal;}*/
 
 /*Fin tipografia*/
 
-/************************************************** BUTTONS ********************************************/
-/*
- * TYPES OF BUTTONS ('a' button, button, input...)
- * 1- BASIC_BUTTON: blue, small-padding
- * 2- MEDIUM_BUTTON: blue or yellow,
- * 3- BIG_BUTTON: red or yellow
-*/
-
-/*COMMON PROPERTIES*/
-button{padding:3px 7px 3px 6px;overflow:visible;width:auto;}
-
-.button_wrapper{
-        overflow:hidden;
-        width:100%;}
-
-a.basic_button,button{
-        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-    font-weight:bold;}
-
-a.basic_button{
-        display: block;
-    float: left;
-    text-decoration: none;
-        }
-
-a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
-
-a.basic_button span{
-    display: block;}
-
-a.basic_button span:hover{
-    outline: none; /* hide dotted outline in Firefox */}
-
-/*BASIC BUTTONS*/
-a.basic_button,button.basic_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:95%;
-        line-height:135%;
-        margin-right:4px;
-        cursor:pointer;
-        /*padding-right: 4px; /* sliding doors padding */
-}
-a.basic_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-    line-height: 16px;
-    padding: 4px;
-}
-
-/*BUTTON COLOURS*/
-.blue_button,.blue_button span{background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;color:#FFF;}
-
-.blue_button span,button.blue_button{border:1px solid #244974;}
-
-.blue_button span:hover,button.blue_button:hover{border:1px solid #86B5D5;}
 
 
 /* forms.css */
@@ -391,11 +337,9 @@ a.login{
         height:10px;
 }
 
-.div_login, .div_login_openid, .input_username{
-        position:relative;
-        padding: 0px;
-        border: 0px;
-
+.input_username{
+  border: 1px solid #444;
+  margin-right: 7px;
 }
 
 .div_login #login_button, .div_login_openid #login_button,{
@@ -437,11 +381,10 @@ div#openid_label{
 }
 
 div#openid_label input#openid_identifier{
-        border:0 none;
-        padding:0 0 0 18px;
-        margin-right:0;
-        position:relative;
-        background:#fff url("../images/open-id-logos/openid1.png") no-repeat scroll left center;
+  border: 1px solid #444;
+  margin-right: 7px;
+  padding: 3px 3px 3px 18px;
+  background: #fff url("../images/open-id-logos/openid1.png") no-repeat scroll left center;
 }
 
 /**************BÚSQUEDA*****************/
@@ -703,167 +646,6 @@ ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:n
 ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover{text-decoration:none;color:#fff;}
 ul.menu1{list-style-type:none;margin:0;}
 ul.menu1 li{display:inline;}
-/**/
-
-
-/************************************************** BUTTONS ********************************************/
-/*
- * TYPES OF BUTTONS
- * 1- BASIC_BUTTON: blue, small-padding
- * 2- MEDIUM_BUTTON: blue or yellow,
- * 3- BIG_BUTTON: red or yellow
-*/
-
-/*COMMON PROPERTIES*/
-button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
-
-.button_wrapper{
-        overflow:hidden;
-        }
-
-.join .button_wrapper {
-        padding:0 25px;
-}
-
-.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
-.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
-a.cloud_button{
-        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-  font-weight:bold;
-  text-align:center;
-        display: block;
-  float: left;
-  text-decoration: none;
-  outline:none;
-  padding:20px 40px 25px;
-        color:#fff;
-}
-
-a.cloud_button:hover{text-decoration:none;outline: none;}
-
-a.big_button,a.medium_button,a.basic_button,button,input[type=button],input[type=submit]{
-        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-        font-weight:bold;
-        text-align:center;
-}
-a.big_button, a.medium_button, a.basic_button{
-  display: block;
-        float: left;
-        text-decoration: none;
-        outline:none;
-        }
-
-a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
-
-a.big_button span, a.medium_button span, a.basic_button span{
-    display: block;}
-
-a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
-    outline: none; /* hide dotted outline in Firefox */}
-
-/*********BIG BUTTONS***************/
-a.big_button,button.big_button{
-        -webkit-border-radius:5px;-moz-border-radius:5px;
-    font-size:120%;
-    line-height:150%;
-    margin-right: 6px;
-        cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.big_button span{
-        -webkit-border-radius:5px;-moz-border-radius:5px;
-    line-height: 18px;
-        width:202px;
-    padding: 5px 18px 5px 18px;
-}
-
-.join a.big_button span{width:120px;}
-
-button.big_button{padding:3px 18px 3px 18px;width:230px;}
-
-/********MEDIUM BUTTONS*************/
-a.medium_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:1.0833em;
-        line-height:1.3846;
-    margin-right: 6px;
-        cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.medium_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        color:#fff;
-    line-height: 16px;
-    padding: 5px 18px 5px 18px;
-}
-
-/*BASIC BUTTONS..........*/
-a.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:95%;
-        line-height:135%;
-        margin-right:4px;
-        margin-bottom:4px;
-        cursor:pointer;
-        /*padding-right: 4px; /* sliding doors padding */
-}
-a.basic_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-    line-height: 16px;
-    padding:4px;
-}
-
-button#change_logo{float:left;}
-
-/*GREY BAR BUTTONS*/
-.grey_bar a.grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
-.grey_bar button{line-height:16px;}
-.grey_bar .grey_button span{
-        line-height:18px;
-        color:#222;
-        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
-        padding:3px 7px 3px 6px;}
-.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
-.grey_button span{border:1px solid #999;}
-.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
-/*-------------disabled grey buttons-----------*/
-.grey_bar a.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
-.grey_bar #feeds_link{margin-right:6px;}
-
-/*BUTTON COLOURS*/
-.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
-
-.orange_button span,button.orange_button{
-        border-bottom:1px #C18500 solid;
-        border-top:1px #FFC14A solid;
-        border-left:1px #FFC14A solid;
-        border-right:1px #FFC14A solid;
-}
-.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
-
-.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
-
-.red_button span{
-        border-bottom:1px #a2042b solid;
-        border-top:1px #d60337 solid;
-        border-left:1px #d60337 solid;
-        border-right:1px #d60337 solid;
-        }
-.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
-
-.blue_button,.blue_button span{color:#FFF;background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;}
-
-.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
-
-.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
-
-.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
-
-.pale_button span,button.pale_button{
-        border: 1px solid #BDD8EB;
-}
-.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
-
 
 
 #special_message {background: none repeat scroll 0 0 #FF6600; border: 1px solid #BDD8EB; float: left; width: 300px;margin-left:250px;}
@@ -971,27 +753,31 @@ form {
   padding: 0;
 }
 
+#bigbluebutton_rooms .create_room .button_area {
+  margin-left: 105px;
+}
+
 #bigbluebutton_rooms .join_room {
   margin: 0;
   padding: 0;
 }
 
 #bigbluebutton_rooms .basic_button {
-  float: right;
-  margin-top:40px;
-  margin-bottom:30px;
-  position:relative;
-  left:-30px;  
+  display: inline;
 }
 
 #bigbluebutton_rooms .input {
   margin-bottom: 5px;
 }
 
+#bigbluebutton_rooms input {
+  width: 240px;
+}
+
 #bigbluebutton_rooms label {
   float: left;
   width: 100px;
-  text-align: left;
+  text-align: right;
   margin-right: 5px;
 }
 
@@ -1031,7 +817,6 @@ form {
 #public_spaces .space_container {
   margin-bottom: 10px;
   text-align: left;
-
 }
 
 #public_spaces .space_info {
@@ -1050,6 +835,10 @@ form {
   float: right;
   margin-top: 3px;
   margin-left: 10px;
+}
+
+#public_spaces .space_webconference a.medium_button span {
+  width: auto;
 }
 
 #public_spaces img {

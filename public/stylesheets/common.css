@@ -1,0 +1,207 @@
+input[type=password], input[type=text], textarea {
+  border: 1px solid #888;
+  font-size: 12px;
+  padding: 3px;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+
+/************************************************** BUTTONS ********************************************/
+/*
+ * TYPES OF BUTTONS
+ * 1- BASIC_BUTTON: blue, small-padding
+ * 2- MEDIUM_BUTTON: blue or yellow,
+ * 3- BIG_BUTTON: red or yellow
+*/
+
+/*COMMON PROPERTIES*/
+button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
+
+.button_wrapper{
+        overflow:hidden;
+        }
+
+.join .button_wrapper {
+        padding:0 25px;
+}
+
+.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
+.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
+.cloud_button{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+        display: block;
+  float: left;
+  text-decoration: none;
+  outline:none;
+  padding:20px 40px 25px;
+        color:#fff;
+}
+
+.cloud_button:hover{text-decoration:none;outline: none;}
+
+.big_button,.medium_button,.basic_button,button,input[type=button],input[type=submit]{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+        font-weight:bold;
+        text-align:center;
+}
+.big_button, .medium_button, .basic_button{
+  display: block;
+        float: left;
+        text-decoration: none;
+        outline:none;
+        }
+
+.big_button:hover, .medium_button:hover, .basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+
+.big_button span, .medium_button span, .basic_button span{
+    display: block;}
+
+.big_button span:hover, .medium_button span:hover, .basic_button span:hover{
+    outline: none; /* hide dotted outline in Firefox */}
+
+/*********BIG BUTTONS***************/
+.big_button,button.big_button{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    font-size:120%;
+    line-height:150%;
+    margin-right: 6px;
+        cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+.big_button span{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    line-height: 18px;
+        width:202px;
+    padding: 5px 18px 5px 18px;
+}
+
+.join .big_button span{width:120px;}
+
+button.big_button{padding:3px 18px 3px 18px;width:230px;}
+
+/********MEDIUM BUTTONS*************/
+.medium_button{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        font-size:1.0833em;
+        line-height:1.3846;
+    margin-right: 6px;
+        cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+.medium_button span{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        color:#fff;
+    line-height: 16px;
+        width:110px;
+    padding: 5px 18px 5px 18px;
+}
+
+/*BASIC BUTTONS..........*/
+.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        font-size:95%;
+        line-height:135%;
+        margin-right:4px;
+        margin-bottom:4px;
+        cursor:pointer;
+        /*padding-right: 4px; /* sliding doors padding */
+}
+.basic_button span{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+    line-height: 16px;
+    padding:4px;
+}
+
+button#change_logo{float:left;}
+
+/*GREY BAR BUTTONS*/
+.grey_bar .grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
+.grey_bar button{line-height:16px;}
+.grey_bar .grey_button span{
+        line-height:18px;
+        color:#222;
+        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+        padding:3px 7px 3px 6px;}
+.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
+.grey_button span{border:1px solid #999;}
+.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
+/*-------------disabled grey buttons-----------*/
+.grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
+.grey_bar #feeds_link{margin-right:6px;}
+
+/*BUTTON COLOURS*/
+.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
+
+.orange_button span,button.orange_button{
+        border-bottom:1px #C18500 solid;
+        border-top:1px #FFC14A solid;
+        border-left:1px #FFC14A solid;
+        border-right:1px #FFC14A solid;
+}
+.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
+
+.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
+
+.red_button span{
+        border-bottom:1px #a2042b solid;
+        border-top:1px #d60337 solid;
+        border-left:1px #d60337 solid;
+        border-right:1px #d60337 solid;
+        }
+.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
+
+.blue_button,.blue_button span{color:#FFF;background:#275b8a;}
+
+.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
+
+.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,#space-conf #jedit_form button:hover{background: #3b6f9f;}
+
+.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
+
+.pale_button span,button.pale_button{
+        border: 1px solid #BDD8EB;
+}
+.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
+
+
+
+/* For <button> tags, not links */
+
+button.medium_button {
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+}
+button.medium_button {
+  display: inline;
+  float: none;
+  text-decoration: none;
+  outline: none;
+}
+
+button.medium_button:hover {
+  text-decoration:none;
+  outline: none;
+}
+
+button.medium_button {
+  -webkit-border-radius:4px; -moz-border-radius:4px;
+  font-size: 1.0833em;
+  line-height: 1.3846;
+  margin-right: 6px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 16px;
+  width: auto;
+  padding: 4px 10px 4px 10px;
+}
+
+button.blue_button {
+  border: 1px solid #244974;
+}
+

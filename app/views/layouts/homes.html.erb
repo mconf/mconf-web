@@ -7,23 +7,24 @@
     <title><%= yield :title %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
-		<% if current_user.chat_activation %>
-    <script type="text/javascript" charset="utf-8">
-      if (window == window.top) {
+    <% if current_user.chat_activation %>
+      <script type="text/javascript" charset="utf-8">
+        if (window == window.top) {
           window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
-      }
-		</script>
-		<% end %>
-		    
+        }
+      </script>
+    <% end %>
+                    
+    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
-	  <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
-	  <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
-	  <%= stylesheet_link_tag "print", :media => "print" %>
-    <%= stylesheet_link_tag "token-input-facebook" %>
-		
+    <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+                
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
@@ -35,25 +36,25 @@
 
     <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
     <%= yield :headers %>
-		
-	  <script type="text/javascript" charset="utf-8">
+                
+          <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-	        <%= render :partial => 'layouts/ready.js.erb' %>
+                <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
-	
+        
   </head>
 
-	<body>
-	  <div id="site">
-		  <%= render :partial => "layouts/global" %>
-		  <div id="space">
-		    <div id="header">
-		      <%= render :partial => "layouts/home_header" %>
-		    </div>
-		    <div id="content">		      
-		      <div id="main">
+        <body>
+          <div id="site">
+                  <%= render :partial => "layouts/global" %>
+                  <div id="space">
+                    <div id="header">
+                      <%= render :partial => "layouts/home_header" %>
+                    </div>
+                    <div id="content">                
+                      <div id="main">
 
             <% flash.each do |name, msg| %>
               <div class="<%= name %>"><%= msg %></div>
@@ -61,18 +62,18 @@
           
             <%= yield :menu_rooms %>
 
-		      	<%= yield :menu %>
-		        <div class="whyte_wrapper">
-     		      <%= yield %>
-		        </div>
-			  </div>
-		      <div id="sidebar">
-		        <%= yield :sidebar %>
+                        <%= yield :menu %>
+                        <div class="whyte_wrapper">
+                      <%= yield %>
+                        </div>
+                          </div>
+                      <div id="sidebar">
+                        <%= yield :sidebar %>
               </div>
             </div>
-	        <%= render :partial => "layouts/footer" %>  
-	      </div>
-	  </div>
-		
-	</body>
+                <%= render :partial => "layouts/footer" %>  
+              </div>
+          </div>
+                
+        </body>
 </html>
