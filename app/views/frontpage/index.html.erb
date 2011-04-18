@@ -49,12 +49,13 @@
 
     <h4><%=t('frontpage.create_room')%></h4>
     <div class="create_room">
-      <form name="form2" medhot="get" action="http://bbb-mconf.no-ip.org/bigbluebutton/demo/create.jsp">
+              <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
+      <form name="form2" method="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
         <div class="input">
           <label><%= t('frontpage.your_name') %>:</label>
           <input type="text" name="username1" size="27"/>
         </div>
-        <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
+
         <div class="input">
           <label><%= t('frontpage.room_name') %>:</label>
           <input type="text" name="roomname" size="27"/>
