@@ -54,17 +54,19 @@
 
     <h4><%=t('frontpage.create_room')%></h4>
     <div class="create_room">
-      <form name="form2" medhot="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
+      <form name="form2" method="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
         <div class="input">
           <label><%= t('frontpage.your_name') %>:</label>
           <input type="text" name="username1" size="27"/>
         </div>
-        <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
         <div class="input">
           <label><%= t('frontpage.room_name') %>:</label>
           <input type="text" name="roomname" size="27"/>
         </div>
-        <input type="hidden" name="action" value="create"> <br />
+        <div class="button_area">
+          <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
+        </div>
+        <input type="hidden" name="action" value="create">
       </form>
     </div>
 
