@@ -978,6 +978,10 @@ form {
 
 #bigbluebutton_rooms .basic_button {
   float: right;
+  margin-top:40px;
+  margin-bottom:30px;
+  position:relative;
+  left:-30px;  
 }
 
 #bigbluebutton_rooms .input {
@@ -987,7 +991,7 @@ form {
 #bigbluebutton_rooms label {
   float: left;
   width: 100px;
-  text-align: right;
+  text-align: left;
   margin-right: 5px;
 }
 
