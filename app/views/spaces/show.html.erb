@@ -69,7 +69,7 @@
    style: 'mystyle'
   });
 
- $('#bigbluebutton_space img.tooltip_bigbluebutton_space').qtip({
+ $('.webconference-space-sidebar img.tooltip_bigbluebutton_space').qtip({
    content: '<%=t("tooltip.bigbluebutton_space")%>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
@@ -88,15 +88,14 @@
     <%= render :partial => 'sidebar_leave_space' %>
 
         <div class="webconference-space-sidebar">
-          <h3><%=t('webconference.one')%></h3>
-          <div class="bigbluebutton_button_area">
-            <%= link_to t('button.enter'), space_join_room_path(space, @bbb_room), :class => 'big_button orange_button bigbluebutton_button' %>
-          </div>
+          <h3><%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.one') %> <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bigbluebutton_space icon",:style=>"cursor:pointer").html_safe %></h3>
+            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'orange_button big_button' %>
           <% if @bbb_room.is_running? %>
             <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
           <% else %>
             <span class="red"><%= t('webconference.nobody.one_line') %></span>
           <% end %>
+          <br/>
           <%= link_to t('information.information6'), space_webconference_path(space) %>
         </div>
 
@@ -147,6 +146,14 @@
             <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
           </div>
         
+<% end %>
+
+<% if @bbb_room.is_running? %>
+  <div id="space_webconference_alert">
+    <%= t('webconference.currently_running', :count => @bbb_room.participant_count) %>.
+    <a href="<%= space_join_room_path(space, @bbb_room) %>"><%= t('webconference.space.join_now') %></a> or
+      <a href="<%= space_webconference_path(space) %>"><%= t('webconference.space.see_more') %></a>.
+  </div>
 <% end %>
 
 <% if !@current_events.empty? %>

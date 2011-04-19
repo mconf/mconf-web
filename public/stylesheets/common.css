@@ -1,11 +1,14 @@
 input[type=password], input[type=text], textarea {
-  border: 1px solid #888;
+  border: 1px solid #ccc;
   font-size: 12px;
   padding: 3px;
+/*  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;*/
+}
 
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+input[type=password]:focus, input[type=text]:focus, textarea:focus {
+  border: 1px solid #275b8a;
 }
 
 
@@ -44,24 +47,24 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 
 .cloud_button:hover{text-decoration:none;outline: none;}
 
-.big_button,.medium_button,.basic_button,button,input[type=button],input[type=submit]{
+.big_button,.medium_button,button,input[type=button],input[type=submit]{
         font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
         font-weight:bold;
         text-align:center;
 }
-.big_button, .medium_button, .basic_button{
+.big_button, .medium_button{
   display: block;
         float: left;
         text-decoration: none;
         outline:none;
         }
 
-.big_button:hover, .medium_button:hover, .basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+.big_button:hover, .medium_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
 
-.big_button span, .medium_button span, .basic_button span{
+.big_button span, .medium_button span{
     display: block;}
 
-.big_button span:hover, .medium_button span:hover, .basic_button span:hover{
+.big_button span:hover, .medium_button span:hover{
     outline: none; /* hide dotted outline in Firefox */}
 
 /*********BIG BUTTONS***************/
@@ -80,7 +83,7 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
     padding: 5px 18px 5px 18px;
 }
 
-.join .big_button span{width:120px;}
+/*.join .big_button span{width:120px;}*/
 
 button.big_button{padding:3px 18px 3px 18px;width:230px;}
 
@@ -101,21 +104,40 @@ button.big_button{padding:3px 18px 3px 18px;width:230px;}
     padding: 5px 18px 5px 18px;
 }
 
+.basic_button {
+  padding:3px 5px;
+  font-weight:bold;
+  font-size:1em;
+  line-height:1.5;
+  color:#555;
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+  border:1px solid #999;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  cursor:pointer;
+  margin-right:8px;
+}
+
+.basic_button:hover {
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+  color:#222;
+}
+
+
 /*BASIC BUTTONS..........*/
-.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
+/*.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
         -webkit-border-radius:4px;-moz-border-radius:4px;
         font-size:95%;
         line-height:135%;
         margin-right:4px;
         margin-bottom:4px;
         cursor:pointer;
-        /*padding-right: 4px; /* sliding doors padding */
 }
 .basic_button span{
         -webkit-border-radius:4px;-moz-border-radius:4px;
     line-height: 16px;
     padding:4px;
-}
+}*/
 
 button#change_logo{float:left;}
 
@@ -157,9 +179,9 @@ button#change_logo{float:left;}
 
 .blue_button,.blue_button span{color:#FFF;background:#275b8a;}
 
-.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
+.blue_button span,button.blue_button{border:1px solid #244974;}
 
-.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,#space-conf #jedit_form button:hover{background: #3b6f9f;}
+.blue_button span:hover,button.blue_button:hover,#space-conf #jedit_form button:hover{background: #3b6f9f;}
 
 .pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
 

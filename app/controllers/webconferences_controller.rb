@@ -29,10 +29,12 @@ class WebconferencesController < ApplicationController
 
     # FIXME Temporarily matching users by name, should use the userID
     @bbb_attendees = []
-    @bbb_room.attendees.each do |attendee|
-      profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
-      unless profile.nil?
-        @bbb_attendees << profile.user
+    unless @bbb_room.attendees.nil?
+      @bbb_room.attendees.each do |attendee|
+        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
+        unless profile.nil?
+          @bbb_attendees << profile.user
+        end
       end
     end
 

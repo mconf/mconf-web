@@ -1735,8 +1735,8 @@ en:
     one: Space
     other: Spaces
     people_in_conference:
-      one: "%{count} people in the conference."
-      other: "%{count} people in the conference."
+      one: "%{count} participant in the room."
+      other: "%{count} participant in the room."
     popular:
       other: Popular spaces
     possesion: My Spaces
@@ -2033,12 +2033,24 @@ en:
   webconference:
     one: "Webconference"
     other: "Webconferences"
-    nobody:
-      one_line: "There is nobody currently in the room."
-    title_people_conf: "People in the conference"
+    currently_running:
+      one: "The webconference is currently in progress with %{count} participant"
+      other: "The webconference is currently in progress with %{count} participants"
+    invite_webconference: "Invite participants to the webconference"
     my_webconference: "My webconference rooms"
     new_webconference: "New webconference room"
-    invite_webconference: "Invite participants to the webconference"
+    nobody:
+      one_line: "There is nobody currently in the room."
+    not_running: "not running"
+    running: "running"
+    space:
+      description: "The webconference room associated with this space is currently: <b>%{status}</b> <br/>
+                    Click in the button at the top of the sidebar to join the webconference. <br/>
+                    You can also share the link below (or click \"invite\") to invite other people to this conference."
+      join_now: "Join now"
+      see_more: "see more"
+      share: "Share"
+    title_people_conf: "People in the room"
   week:
     next: Next week
     this: This week

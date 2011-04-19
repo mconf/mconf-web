@@ -1,7 +1,11 @@
+<%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, space_join_room_path(space, @bbb_room),
+      :class => 'big_button orange_button bigbluebutton_button' %>
+
+<!--
 <div class="invite_people">
   <h3>
     <%= t('space.invitation.one') %>
-	  <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_invite_people icon",:style=>"cursor:pointer")%>
+          <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_invite_people icon",:style=>"cursor:pointer")%>
   </h3>
   <%= form_tag('invite') do %>
     <%= t('space.invitation.to') %><br>
@@ -11,3 +15,4 @@
     <button type="submit" class="blue_button basic_button"><%=t("button.post")%></button>
   <% end %>
 </div>
+-->

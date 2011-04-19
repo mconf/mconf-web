@@ -1926,14 +1926,6 @@ a.first_day_link{border:none;}
   padding: 5px;
 }
 
-.bigbluebutton_button {
-  padding: 5px 10px 5px 10px;
-}
-
-.bigbluebutton_button_area {
-  float: right;
-}
-
 .rounded_button {
   -moz-border-radius: 10px; /* Para Firefox */
   -webkit-border-radius: 10px; /*Para Safari e Chrome */
@@ -1973,6 +1965,9 @@ div.webconference-url-home{
 
 div.webconference-space-sidebar {margin-bottom: 10px;}
 div.webconference-space-sidebar h3{color:#244974;border-bottom:1px #ccc solid;}
+
+div.webconference-space-sidebar .big_button { float: right; }
+div.webconference-space-sidebar .big_button span { width: auto; }
 
 div.webconf-rooms {
   margin-bottom: 10px;
@@ -2039,4 +2034,27 @@ div.my-webconference-rooms li {
   padding:9px 0.5em 9px 0.5em;
   margin-left:0.5em;
   margin-right:0.5em;
+}
+
+.float_right { float: right; }
+.float_left { float: left; }
+
+#space_webconference_alert, #space_webconference_description {
+  border-bottom:1px #CCC solid;
+  padding:0.75em;
+  background:#f0f6f9;
+  border:1px solid #bdd8eb;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  display:block;
+  margin-bottom:0.75em;
+}
+
+#space_webconference_alert {
+  text-align: center;
+}
+
+#space_webconference_description .invite_button {
+  margin-top: 5px;
+  float: right;
 }
