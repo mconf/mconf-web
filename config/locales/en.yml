@@ -1553,6 +1553,10 @@ en:
     sucess_update: Role updated successfully...
     updated: Role was successfully updated.
     without_permissions: Role %{role} hasn't any permissions
+  room:
+    created: Room created successfully
+    error:
+      create: Error creating room
   save: Save
   save_ch: Save changes
   screencast:

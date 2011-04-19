@@ -26,22 +26,9 @@ class HomesController < ApplicationController
   end
   
   def show
-
-    #TODO temporary implementation of a bbb room for this home
-    @bbb_infos = BBB_API.get_meetings
-    @bbb_rooms = Array.new
-    @bbb_room
-    @roomOpen = false
-
-    unless @bbb_infos[:meetings].blank?
-      @bbb_infos[:meetings].each do |v|
-        if v[:hasBeenForciblyEnded] != "true"
-          @bbb_rooms.push(BBB_API.get_meeting_info(v[:meetingID], v[:moderatorPW]))
-          @roomOpen = true
-        end
-      end
-    end
-
+    @server = BigbluebuttonServer.first
+    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
+    
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
@@ -63,32 +50,25 @@ class HomesController < ApplicationController
     end
   end
 
-  def end_room
-    BBB_API.end_meeting(params[:id], params[:pw])
-    respond_to do |format|
-      format.html { redirect_to :action => "show" }
-    end
-  end
-
-
   def create_room
-    BBB_API.create_meeting(params[:home][:title], params[:home][:title], "mp", "ap", "Welcome to Mconf!")
+    room = BigbluebuttonRoom.new(:name => params[:home][:title], :meeting_id => params[:home][:title],
+                                 :owner => current_user, :server => BigbluebuttonServer.first)
+                                
     respond_to do |format|
-      format.html { redirect_to :action => "show" }
-    end
-  end
-
-  def join_room
-    url = BBB_API.moderator_url(params[:id], current_user.name, params[:pw])
-    respond_to do |format|
-      format.html { redirect_to url }
+      if room.save
+        flash[:success] = t('room.created')
+        format.html { redirect_to :action => "show" }
+      else
+        flash[:error] = t('room.error.create') << " ( " << room.errors.full_messages.join(', ') << " )"
+        format.html { redirect_to :action => "show" }
+      end
     end
   end
 
   def invite_room
-    @bbb_room = params[:room]
+    @room_name = params[:roomName]
     tags = []
-    members = Profile.where("full_name like?", "%#{params[:q]}%").select(['full_name', 'id'])
+    members = Profile.where("full_name like ?", "%#{params[:q]}%").select(['full_name', 'id'])
     members.each do |f| 
       tags.push("id"=>f.id, "name"=>f.full_name)
     end
@@ -103,7 +83,10 @@ class HomesController < ApplicationController
     end
   end
   
-  def send_invite    
+  def send_invite
+    @success_messages = Array.new
+    @fail_messages = Array.new
+    
     priv_msg = Hash.new
     priv_msg[:sender_id] = current_user.id
     
@@ -124,7 +107,11 @@ class HomesController < ApplicationController
       for receiver in params[:home][:members_tokens].split(",")
         priv_msg[:receiver_id] = receiver
         private_message = PrivateMessage.new(priv_msg)
-        private_message.save
+        if private_message.save
+          @success_messages << private_message
+        else
+          @fail_messages << private_message
+        end
       end
     end
     
@@ -134,9 +121,22 @@ class HomesController < ApplicationController
         Notifier.webconference_invite_email(priv_msg).deliver
       end
     end
-      
+    
+    
     respond_to do |format|
-      format.html { redirect_to :action => "show" }
+      if params[:home][:im_check]
+        if @fail_messages.empty?
+          flash[:success] = t('message.created')
+          format.html { redirect_to :action => "show" }
+          format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
+        else
+          flash[:error] = t('message.error.create')
+          format.html { redirect_to :action => "show" }
+          format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
+        end
+        else
+          format.html { redirect_to :action => "show" }
+      end
     end
     
   end

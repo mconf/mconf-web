@@ -76,12 +76,6 @@ class Space < ActiveRecord::Base
     room.save
   }
 
-  after_create { |space|
-    room = BigbluebuttonRoom.new(:name => space.name, :meeting_id => space.emailize_name,
-                                 :owner => space, :server => BigbluebuttonServer.first)
-    room.save
-  }
-
 #  before_create {
 #  }
 

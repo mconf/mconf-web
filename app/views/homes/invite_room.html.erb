@@ -15,7 +15,7 @@
 <%= form_for(:home, :url => sendinvite_home_path) do |f| %>
 
   <div class="webconf-rooms">
-    <span class="text"><%= t('invite_people.room') %><span class="red_c"><%= @bbb_room[:meetingID] %></span></span>
+    <span class="text"><%= t('invite_people.room') %><span class="red_c"><%= @room_name %></span></span>
     <div class="clearer"></div>
     <br>
     <div class="webconference-url"> <%= joinroom_home_url %> </div>
