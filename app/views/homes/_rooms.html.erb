@@ -37,7 +37,7 @@
               <div class="clearer"></div>
               <br>
               <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
-              <%= link_to t('button.invite_bbb'), inviteroom_home_path(:roomName => room.name), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
+              <%= link_to t('button.invite_bbb'), inviteroom_invite_path(:roomName => room.name), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
             </li>
           </ul>
         <% end %>
