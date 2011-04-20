@@ -144,7 +144,7 @@
               '<form class=\"delete_entry\" style=\"display:none;\" method=\"post\" action=\"<%=space_event_agenda_agenda_entries_path(@space,@event)%>/' + entry.id + '\">' +
               '<input type=\"hidden\" name=\"authenticity_token\" value=\"<%=form_authenticity_token()%>\" />' +
               '<input type=\"hidden\" name=\"_method\" value=\"delete\" />' +
-              '</form>' + </p>').html_safe,
+              '</form>' + '</p>').html_safe,
            title: {
              text: entry.title
            }
@@ -286,13 +286,13 @@
                 <%if params[:in_steps]%>
                   <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
                         <div id="event_step_cancel_buttons">
-                    <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+                    <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
                 <%else%>
                   <div id="lightbox_advise"><%= t('event.cancel.stop') %></div>
                         <div id="event_step_cancel_buttons">
-                    <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"}%>
+                    <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe , space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"}%>
                 <%end%>
-                    <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+                    <%= link_to ("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
                         </div>
   </div>
 </div>
@@ -305,8 +305,8 @@
         <%=f.select "slot", Agenda::SLOT_VALUES, :selected=> @agenda.slot%>
       <%end%>
     </div>
-                <h2 id="agenda_date" class="blue"><%=agenda_date(@event)%></h2>
-                <h3 id="agenda_days"><%=edit_agenda_day_links(@event)%></h3>
+                <h2 id="agenda_date" class="blue"><%=agenda_date(@event).html_safe%></h2>
+                <h3 id="agenda_days"><%=edit_agenda_day_links(@event).html_safe%></h3>
         </div>
         
         <div id="agenda_calendar">
@@ -314,9 +314,9 @@
         </div>
         
   <ul class="margin-up event_form_buttons">
-     <li><%= link_to "<span>" + t('button.back') + "</span>", edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%></li>
-         <li><%= link_to "<span>" + t('button.next_invite') + "</span>", space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%></li>
-     <li><%= link_to "<span>" + t('cancel') + "</span>", "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%></li>
+     <li><%= link_to ("<span>" + t('button.back') + "</span>").html_safe, edit_space_event_path(@space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%></li>
+         <li><%= link_to ("<span>" + t('button.next_invite') + "</span>").html_safe, space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3"),:class => "basic_button blue_button", :id=>"next_invite_event"%></li>
+     <li><%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%></li>
   </ul> 
 </div>
 

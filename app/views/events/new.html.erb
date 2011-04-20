@@ -6,7 +6,8 @@
 
 <%= content_for :javascript do %>
         <%= render :partial => "edit_new_javascript.js" %>
-        $("#selected_logo_image").attr('src', "/images/" + ($("#event_image").val()));
+        if ($("#event_image").val() != "")
+          $("#selected_logo_image").attr('src', "/public/images/" + $("#event_image").val() );
         $("#cancel_event").fancybox({
         'scrolling'                  : 'no',
         'titleShow'                  : false,
