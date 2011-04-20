@@ -156,10 +156,7 @@ Vcc::Application.routes.draw do
       post :enable
     end
 
-## TODO check
-    # user.resources :messages, :controller => 'private_messages'
     resources :private_messages, :as => 'messages'
-##
     resource :profile, :except => [:new, :create] do
       resource :logo
     end
@@ -174,16 +171,11 @@ Vcc::Application.routes.draw do
   resource :site
 
   resource :home do
-
     member do
       get :new_room, :as => 'newroom'
-      post :create_room, :as => 'createroom'
-      get :end_room, :as => 'endroom'
-      get :join_room, :as => 'joinroom'
       get :invite_room, :as => "inviteroom"
       post :send_invite, :as => 'sendinvite'
     end
-
   end
 
   resources :feedback

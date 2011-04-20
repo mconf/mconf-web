@@ -41,27 +41,14 @@ class HomesController < ApplicationController
   end
 
   def new_room
+    @server = BigbluebuttonServer.first
+    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first)
     respond_to do |format|
       format.html{
         if request.xhr?
           render :layout => false
         end
       }
-    end
-  end
-
-  def create_room
-    room = BigbluebuttonRoom.new(:name => params[:home][:title], :meeting_id => params[:home][:title],
-                                 :owner => current_user, :server => BigbluebuttonServer.first)
-                                
-    respond_to do |format|
-      if room.save
-        flash[:success] = t('room.created')
-        format.html { redirect_to :action => "show" }
-      else
-        flash[:error] = t('room.error.create') << " ( " << room.errors.full_messages.join(', ') << " )"
-        format.html { redirect_to :action => "show" }
-      end
     end
   end
 
