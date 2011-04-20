@@ -23,24 +23,24 @@
       </span>
     </h3>
     <span class="text">
-      <% if @roomOpen %>
-        <% @bbb_rooms.each do |rooms| %>
+      <% if @bbb_room.empty? %>
+        <%= t('home.no_rooms') %>
+      <% else %>
+        <% @bbb_room.each do |rooms| %>
           <ul>
             <li>
-              <span class="red_c"> <%= rooms[:meetingID] %> </span>
-              <span class="fr"> <%= link_to image_tag("icons/cancel.png"), endroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW])  %> </span>
-              <span class="fr"> <%= link_to t('home.rem_room'), endroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]) %> </span>
+              <span class="red_c"> <%= rooms.meeting_id %> </span>
+              <span class="fr"> <%= link_to image_tag("icons/cancel.png"), bigbluebutton_server_room_path(@server, rooms), :confirm => 'Are you sure?', :method => :delete %> </span>
+              <span class="fr"> <%= link_to t('home.rem_room'), bigbluebutton_server_room_path(@server, rooms), :confirm => 'Are you sure?', :method => :delete %> </span>
               <div class="clearer"></div>
               <div class="webconference-url-home"> <!-- arrumar endereço das salas. --> <%= joinroom_home_url %> </div>
               <div class="clearer"></div>
               <br>
-              <%= link_to t('button.join'), joinroom_home_path(:id => rooms[:meetingID], :pw => rooms[:moderatorPW]), :id => 'join_bbb_link', :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
-              <%= link_to t('button.invite_bbb'), inviteroom_home_path(:room => rooms), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
+              <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, rooms), :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
+              <%= link_to t('button.invite_bbb'), inviteroom_home_path(:roomName => rooms.name), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
             </li>
           </ul>
         <% end %>
-      <% else %>
-        <%= t('home.no_rooms') %>
       <% end %>
     </span>
   </div>
