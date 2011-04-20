@@ -831,7 +831,7 @@ div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
 div#manage #site_button{margin-left:162px;}
-div#manage #site_button span{padding-left:10px;padding-right:10px;}
+/*div#manage #site_button span{padding-left:10px;padding-right:10px;}*/
 div#manage textarea{width:300px;height:100px;}
 div#manage .users select{margin-left:0.75em;}
 div#manage .users input{width:75px;}

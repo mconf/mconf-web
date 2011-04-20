@@ -23,13 +23,13 @@ input[type=password]:focus, input[type=text]:focus, textarea:focus {
 /*COMMON PROPERTIES*/
 button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
 
-.button_wrapper{
+/*.button_wrapper{
         overflow:hidden;
         }
 
 .join .button_wrapper {
         padding:0 25px;
-}
+}*/
 
 .cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
 .cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
@@ -104,24 +104,6 @@ button.big_button{padding:3px 18px 3px 18px;width:230px;}
     padding: 5px 18px 5px 18px;
 }
 
-.basic_button {
-  padding:3px 5px;
-  font-weight:bold;
-  font-size:1em;
-  line-height:1.5;
-  color:#555;
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
-  border:1px solid #999;
-  -moz-border-radius:3px;
-  -webkit-border-radius:3px;
-  cursor:pointer;
-  margin-right:8px;
-}
-
-.basic_button:hover {
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
-  color:#222;
-}
 
 
 /*BASIC BUTTONS..........*/
@@ -142,7 +124,7 @@ button.big_button{padding:3px 18px 3px 18px;width:230px;}
 button#change_logo{float:left;}
 
 /*GREY BAR BUTTONS*/
-.grey_bar .grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
+/*.grey_bar .grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
 .grey_bar button{line-height:16px;}
 .grey_bar .grey_button span{
         line-height:18px;
@@ -150,22 +132,13 @@ button#change_logo{float:left;}
         background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
         padding:3px 7px 3px 6px;}
 .grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
-.grey_button span{border:1px solid #999;}
+.grey_button span{border:1px solid #999;}*/
 .separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
 /*-------------disabled grey buttons-----------*/
 .grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
 .grey_bar #feeds_link{margin-right:6px;}
 
 /*BUTTON COLOURS*/
-.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
-
-.orange_button span,button.orange_button{
-        border-bottom:1px #C18500 solid;
-        border-top:1px #FFC14A solid;
-        border-left:1px #FFC14A solid;
-        border-right:1px #FFC14A solid;
-}
-.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
 
 .red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
 
@@ -177,14 +150,9 @@ button#change_logo{float:left;}
         }
 .red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
 
-.blue_button,.blue_button span{color:#FFF;background:#275b8a;}
 
-.blue_button span,button.blue_button{border:1px solid #244974;}
-
-.blue_button span:hover,button.blue_button:hover,#space-conf #jedit_form button:hover{background: #3b6f9f;}
 
 .pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
-
 .pale_button span,button.pale_button{
         border: 1px solid #BDD8EB;
 }
@@ -192,14 +160,72 @@ button#change_logo{float:left;}
 
 
 
+
+/********** NEW STYLES ***********/
+
+
+input[type=submit].basic_button, button.basic_button, a.basic_button {
+  padding:3px 5px;
+  font-weight:bold;
+  font-size:1em;
+  line-height:1.5;
+  color:#555;
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+  border:1px solid #999;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  cursor:pointer;
+}
+
+input[type=submit].basic_button:hover, button.basic_button:hover, a.basic_button:hover {
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+  color:#222;
+  text-decoration: none;
+}
+
+/* BLUE */
+input[type=submit].blue_button, button.blue_button, a.blue_button {
+  background:#275b8a;
+  border:1px solid #244974;
+  color: white;
+}
+input[type=submit].blue_button:hover, button.blue_button:hover, a.blue_button:hover {
+  background: #3b6f9f;
+  color: white;
+}
+
+/* ORANGE */
+input[type=submit].orange_button, button.orange_button, a.orange_button {
+  background: transparent url("../images/buttons/fondo-join-space.png");
+  color: white;
+  border-bottom:1px #C18500 solid;
+  border-top:1px #FFC14A solid;
+  border-left:1px #FFC14A solid;
+  border-right:1px #FFC14A solid;
+}
+input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_button:hover {
+  background:url("../images/buttons/fondo-join-space2.png");
+  color: white;
+}
+
+/* SMALL */
+input[type=submit].small_button, button.small_button, a.small_button {
+  font-size:0.8em;
+  line-height:1;
+}
+
+
+
+
+
+
 /* For <button> tags, not links */
+/* TEMPORARY */
 
 button.medium_button {
   font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
   font-weight:bold;
   text-align:center;
-}
-button.medium_button {
   display: inline;
   float: none;
   text-decoration: none;
