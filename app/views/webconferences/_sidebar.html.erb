@@ -1,18 +1,13 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#home_members_tokens").tokenInput("/home/invite_room.json", { 
+      crossDomain: false,
+      theme: 'facebook',
+      preventDuplicates: true
+    });
+  });
+</script>
+
 <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, space_join_room_path(space, @bbb_room),
       :class => 'big_button orange_button bigbluebutton_button' %>
 
-<!--
-<div class="invite_people">
-  <h3>
-    <%= t('space.invitation.one') %>
-          <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_invite_people icon",:style=>"cursor:pointer")%>
-  </h3>
-  <%= form_tag('invite') do %>
-    <%= t('space.invitation.to') %><br>
-    <%= text_field_tag 'user', '', :id=> 'user_invite_text_field' %>
-    <%= t('space.invitation.body') %><br>
-     <textarea name="body" cols = "23" rows="7"></textarea><br><br><br>
-    <button type="submit" class="blue_button basic_button"><%=t("button.post")%></button>
-  <% end %>
-</div>
--->

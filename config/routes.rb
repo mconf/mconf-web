@@ -1,5 +1,7 @@
 Vcc::Application.routes.draw do
 
+  get "invites/index"
+
   bigbluebutton_routes :default
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
@@ -174,7 +176,6 @@ Vcc::Application.routes.draw do
   resource :site
 
   resource :home do
-
     member do
       get :new_room, :as => 'newroom'
       post :create_room, :as => 'createroom'
@@ -183,7 +184,13 @@ Vcc::Application.routes.draw do
       get :invite_room, :as => "inviteroom"
       post :send_invite, :as => 'sendinvite'
     end
-
+  end
+  
+  resource :invite do
+    member do
+      get :invite_room, :as => 'inviteroom'
+      post :send_invite, :as => 'sendinvite'
+    end
   end
 
   resources :feedback

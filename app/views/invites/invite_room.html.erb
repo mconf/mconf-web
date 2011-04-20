@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $(document).ready(function () {
-    $("#invitation_members_tokens").tokenInput("/home/invite_room.json", { 
+    $("#invite_members_tokens").tokenInput("/invite/invite_room.json", { 
       crossDomain: false,
       theme: 'facebook',
       preventDuplicates: true
@@ -12,7 +12,7 @@
   <h3> <%= t('webconference.invite_webconference') %> </h3>
 </div>
 
-<%= form_for(:home, :url => sendinvite_home_path) do |f| %>
+<%= form_for(:invite, :url => sendinvite_invite_path) do |f| %>
 
   <div class="webconf-rooms">
     <span class="text"><%= t('invite_people.room') %><span class="red_c"><%= @room_name %></span></span>
