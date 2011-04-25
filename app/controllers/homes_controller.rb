@@ -27,7 +27,13 @@ class HomesController < ApplicationController
   
   def show
     @server = BigbluebuttonServer.first
-    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
+    @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
+    @bbb_rooms.each do |room|
+      begin
+       room.fetch_meeting_info
+      rescue Exception      
+      end
+    end
     
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")

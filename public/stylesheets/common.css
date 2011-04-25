@@ -47,24 +47,24 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 
 .cloud_button:hover{text-decoration:none;outline: none;}
 
-.big_button,.medium_button,button,input[type=button],input[type=submit]{
+.big_button,button,input[type=button],input[type=submit]{
         font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
         font-weight:bold;
         text-align:center;
 }
-.big_button, .medium_button{
+.big_button{
   display: block;
         float: left;
         text-decoration: none;
         outline:none;
         }
 
-.big_button:hover, .medium_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+.big_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
 
-.big_button span, .medium_button span{
+.big_button span{
     display: block;}
 
-.big_button span:hover, .medium_button span:hover{
+.big_button span:hover{
     outline: none; /* hide dotted outline in Firefox */}
 
 /*********BIG BUTTONS***************/
@@ -88,21 +88,6 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 button.big_button{padding:3px 18px 3px 18px;width:230px;}
 
 /********MEDIUM BUTTONS*************/
-.medium_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:1.0833em;
-        line-height:1.3846;
-    margin-right: 6px;
-        cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-.medium_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        color:#fff;
-    line-height: 16px;
-        width:110px;
-    padding: 5px 18px 5px 18px;
-}
 
 
 
@@ -140,23 +125,17 @@ button#change_logo{float:left;}
 
 /*BUTTON COLOURS*/
 
-.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
-
-.red_button span{
-        border-bottom:1px #a2042b solid;
-        border-top:1px #d60337 solid;
-        border-left:1px #d60337 solid;
-        border-right:1px #d60337 solid;
-        }
-.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
 
 
 
-.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
-.pale_button span,button.pale_button{
-        border: 1px solid #BDD8EB;
-}
-.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
+
+
+
+
+
+
+
+
 
 
 
@@ -208,10 +187,58 @@ input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_but
   color: white;
 }
 
+/* PALE */
+input[type=submit].pale_button, button.pale_button, a.pale_button {
+  background: #F0F6F9;
+  border: 1px solid #BDD8EB;
+}
+input[type=submit].pale_button:hover, button.pale_button:hover, a.pale_button:hover {
+  background: #BDD8EB;
+}
+
+/* ORANGE PALE */
+input[type=submit].orange_pale_button, button.orange_pale_button, a.orange_pale_button {
+  background: #ffe8bd;
+  border: 1px solid #ffd27c;
+}
+input[type=submit].orange_pale_button:hover, button.orange_pale_button:hover, a.orange_pale_button:hover {
+  background: #ffd27c;
+}
+
+/* RED PALE */
+input[type=submit].red_pale_button, button.red_pale_button, a.red_pale_button {
+  background: #f6d6d6;
+  border: 1px solid #f3b2b2;
+}
+input[type=submit].red_pale_button:hover, button.red_pale_button:hover, a.red_pale_button:hover {
+  background: #f3b2b2;
+}
+
+/* RED */
+input[type=submit].red_button, button.red_button, a.red_button {
+  background: url("../images/buttons/leave-space-notext3.png");
+  color: white;
+  border-bottom:1px #a2042b solid;
+  border-top:1px #d60337 solid;
+  border-left:1px #d60337 solid;
+  border-right:1px #d60337 solid;
+}
+input[type=submit].red_button:hover, button.red_button:hover, a.red_button:hover {
+  background:url("../images/buttons/leave-space-notext4.png");
+  color: white;
+}
+
 /* SMALL */
 input[type=submit].small_button, button.small_button, a.small_button {
   font-size:0.8em;
   line-height:1;
+}
+
+/* MEDIUM */
+input[type=submit].medium_button, button.medium_button, a.medium_button {
+  font-size:1em;
+  line-height: 18px;
+  padding: 5px 8px 5px 8px;
 }
 
 
