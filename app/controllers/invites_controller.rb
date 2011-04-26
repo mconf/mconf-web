@@ -80,6 +80,8 @@ class InvitesController < ApplicationController
               flash[:success] = t('message.created')
               flash[:error] = t('sendemail.error.created')
             end
+          else
+            flash[:success] = t('message.created')
           end
           
           format.html { redirect_to request.referer }
@@ -92,6 +94,8 @@ class InvitesController < ApplicationController
             else
               flash[:error] = t('message.error.create') << ", " << t('sendemail.error.created')
             end
+          else
+            flash[:error] = t('message.error.create')
           end
           
           format.html { redirect_to request.referer }
