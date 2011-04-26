@@ -228,6 +228,10 @@ class Notifier < ActionMailer::Base
     setup_email(inv_email[:email_receiver])
     @from = inv_email[:email_sender]
     
+    @user_name = inv_email[:user_name]
+    @room_name = inv_email[:room_name]
+    @room_url = inv_email[:room_url]
+    
     @subject = inv_email[:title]
     @text = inv_email[:body]
     

@@ -1,1 +1,16 @@
-<%=@text%><br/>
+<html>
+  <body>
+    This email is send to you from MCONF WEB!<br/><br/>
+
+    You have been invite by <%= @user_name %> to participated in <br/>
+    this webconference: <%= @room_name %><br/><br/>
+
+    Click on this link or copy and paste on your browser this url for <br/>
+    access the conference: <%= @room_url %><br/><br/>
+
+    This is the message sended by <%= @user_name %> to you:<br/><br/>
+
+    <%= @text %>
+  </body>
+</html>
+
