@@ -37,14 +37,14 @@ class InvitesController < ApplicationController
     #corrigir formatação do texto das mensagens privadas
     #inicio do texto
     
-    priv_msg[:body] = "You have been invite by " << current_user.name << " to participated in this webconference: " 
-    priv_msg[:body] << params[:invite][:room_name] << "<br><br>Click on this link to access the conference: "
+    priv_msg[:body] = t('invite.priv_msg1') << current_user.name << t('invite.priv_msg2') 
+    priv_msg[:body] << params[:invite][:room_name] << t('invite.priv_msg3')
     priv_msg[:body] << params[:invite][:room_url]
-    priv_msg[:body] << "<br><br>This is the message sended by " << current_user.name << " to you:<br><br>"
+    priv_msg[:body] << t('invite.priv_msg4') << current_user.name << t('invite.priv_msg5')
     
     if(params[:invite][:message].empty?)
-      priv_msg[:body] << "Invite for Webconference."
-      priv_email[:body] = "Invite for Webconference."
+      priv_msg[:body] << t('invite.title')
+      priv_email[:body] = t('invite.title')
     else
       priv_msg[:body] << params[:invite][:message]
       priv_email[:body] = params[:invite][:message]
@@ -52,8 +52,8 @@ class InvitesController < ApplicationController
     
     #fim do texto
     
-    priv_msg[:title] = "Invite for webconference"
-    priv_email[:title] = "Invite for webconference"
+    priv_msg[:title] = t('invite.title')
+    priv_email[:title] = t('invite.title')
     priv_email[:email_sender] = current_user.email
     priv_email[:room_name] = params[:invite][:room_name]
     priv_email[:room_url] = params[:invite][:room_url]

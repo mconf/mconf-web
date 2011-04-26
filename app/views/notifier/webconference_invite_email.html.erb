@@ -1,14 +1,14 @@
 <html>
   <body>
-    This email is send to you from MCONF WEB!<br/><br/>
+    <%= t('invite.email_msg1') %><br/><br/>
 
-    You have been invite by <%= @user_name %> to participated in <br/>
-    this webconference: <%= @room_name %><br/><br/>
+    <%= t('invite.email_msg2') %><%= @user_name %><%= t('invite.email_msg3') %><br/>
+    <%= t('invite.email_msg4') %><%= @room_name %><br/><br/>
 
-    Click on this link or copy and paste on your browser this url for <br/>
-    access the conference: <%= @room_url %><br/><br/>
+    <%= t('invite.email_msg5') %><br/>
+    <%= t('invite.email_msg6') %><%= @room_url %><br/><br/>
 
-    This is the message sended by <%= @user_name %> to you:<br/><br/>
+    <%= t('invite.email_msg7') %><%= @user_name %><%= t('invite.email_msg8') %><br/><br/>
 
     <%= @text %>
   </body>
