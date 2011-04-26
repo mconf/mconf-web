@@ -18,7 +18,12 @@
     <span class="text"><%= t('invite_people.room') %><span class="red_c"><%= @room_name %></span></span>
     <div class="clearer"></div>
     <br>
-    <div class="webconference-url"> <%= @room_url%> </div>
+    <div class="url_share">
+      <div class="video_share">
+        <span><%= t('webconference.space.share') %></span>
+      </div>
+      <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= @room_url %></span>        
+    </div>
     <div class="clearer"></div>
     <br>
     <span class="text"><span class="red_c"><%= t('invite_people.member.other') %></span></span>
