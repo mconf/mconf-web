@@ -1609,6 +1609,10 @@ en:
   searching_in: "You are searching in "
   select_image: Select an image, please
   send: Send
+  sendemail:
+    created: Email sent successfully
+    error:
+      created: Error sending email
   send_debug_emails: Send debug emails
   send_reset_password_request: Send Reset Password Request
   session:

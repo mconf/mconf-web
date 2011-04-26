@@ -1,3 +1,5 @@
+
+
 class InvitesController < ApplicationController
   def index
   end
@@ -24,6 +26,7 @@ class InvitesController < ApplicationController
   def send_invite
     @success_messages = Array.new
     @fail_messages = Array.new
+    @fail_email = Array.new
     
     priv_msg = Hash.new
     priv_email = Hash.new
@@ -46,7 +49,7 @@ class InvitesController < ApplicationController
     priv_email[:title] = title
     priv_email[:email_sender] = current_user.email
     
-    if(params[:invite][:im_check])
+    if params[:invite][:im_check] != "0"
       for receiver in params[:invite][:members_tokens].split(",")
         priv_msg[:receiver_id] = receiver
         private_message = PrivateMessage.new(priv_msg)
@@ -57,31 +60,56 @@ class InvitesController < ApplicationController
         end
       end
     end
-    
-    if(params[:invite][:email_check])
+
+    if params[:invite][:email_check] != "0"
       for receiver in params[:invite][:email_tokens].split(",")
         priv_email[:email_receiver] = receiver
-        Notifier.webconference_invite_email(priv_email).deliver
+        email_message = Notifier.webconference_invite_email(priv_email).deliver
       end
+    else 
+      @fail_email << priv_email
     end
     
-    
     respond_to do |format|
-      if params[:invite][:im_check]
-        if @fail_messages.empty?
-          flash[:success] = t('message.created')
+      if params[:invite][:im_check] != "0"
+        if @fail_messages.empty?        
+          if params[:invite][:email_check] != "0"
+            if @fail_email.empty?
+              flash[:success] = t('message.created') << ", " << t('sendemail.created')
+            else
+              flash[:success] = t('message.created')
+              flash[:error] = t('sendemail.error.created')
+            end
+          end
+          
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
-        else
-          flash[:error] = t('message.error.create')
+        else        
+          if params[:invite][:email_check] != "0"
+            if @fail_email.empty?
+              flash[:error] = t('message.error.create')
+              flash[:success] = t('sendemail.created')
+            else
+              flash[:error] = t('message.error.create') << ", " << t('sendemail.error.created')
+            end
+          end
+          
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
-        else
-          format.html { redirect_to request.referer }
+      else
+        if params[:invite][:email_check] != "0"
+          if @fail_email.empty?
+            flash[:success] = t('sendemail.created')
+          else
+            flash[:error] = t('sendemail.error.created')
+          end
+        end
+        
+        format.html { redirect_to request.referer }
       end
     end
-    
+
   end
 
 end
