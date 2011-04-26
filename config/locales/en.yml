@@ -1079,7 +1079,6 @@ en:
     information3: These are the latest messages or events that you have created
     information4: These are the spaces you belong to
     information5: These are the upcoming events of other spaces.
-    information6: More information...
   internet:
     on_the: On the Internet
     ppal: Internet
@@ -1260,6 +1259,7 @@ en:
       other: Sent messages
     special1: The GlobalPlaza platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences.
     special2: The GlobalPlaza Team
+  more: more...
   more>>: more >>
   my_friends: My friends
   name:

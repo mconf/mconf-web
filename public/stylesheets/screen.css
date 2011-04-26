@@ -1959,6 +1959,8 @@ div.webconference-space-sidebar h3{color:#244974;border-bottom:1px #ccc solid;}
 div.webconference-space-sidebar .big_button { float: right; }
 div.webconference-space-sidebar .big_button span { width: auto; }
 
+div.webconference-space-sidebar .more_info { font-size: 11px; color: #A8C0D1; }
+
 div.webconf-rooms {
   margin-bottom: 10px;
   background: #FFFFFF;

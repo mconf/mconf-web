@@ -1,7 +1,5 @@
 Vcc::Application.routes.draw do
 
-  get "invites/index"
-
   bigbluebutton_routes :default
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
