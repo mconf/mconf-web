@@ -5,7 +5,7 @@
       <div class="registration">
         <span><%= t('frontpage.register_sentence') %></span><br/>
         <div class="join_button">
-          <a href="<%= signup_path %>" class="medium_button orange_button"><span><%= t('register.one') %></span></a>
+          <a href="<%= signup_path %>" class="basic_button medium_button orange_button"><span><%= t('register.one') %></span></a>
         </div>
       </div>
       <div class="description">
@@ -36,9 +36,9 @@
           <% @server.meetings.each do |room| %>
             <li>
               <% if room.new_record? %>
-                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meeting_id}" %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meeting_id}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
               <% else %>
-                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
               <% end %>
 
               <!--<button type="submit" class="basic_button blue_button"><%=t('frontpage.join_button')%></button>-->
@@ -96,7 +96,7 @@
           <div class="space_webconference">
             <% room = space.bigbluebutton_room %>
             <div class="join_button">
-              <a href="<%= space_invite_room_path(space, room) %>" class="medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <a href="<%= space_invite_room_path(space, room) %>" class="basic_button medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
             </div>
             <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
             <span><%= t('frontpage.participants_in', :count => count) %></span>

@@ -233,7 +233,7 @@ en:
     go: Go!
     insert: Insert
     invite: Invite!
-    invite_bbb: Invite
+    invite: "Invite"
     join: Join
     join_webconference: Join webconference
     next: Next Step
@@ -245,6 +245,7 @@ en:
     ok: "OK"
     post: Post
     publish: Publish
+    remove: Remove
     search: Search
     send: Send
     sending: Sending...
@@ -1035,11 +1036,18 @@ en:
   hide: Hide
   his_message_reads_thus: His message reads thus
   home:
-    activity: Recent Activity...
-    my: My Home
-    one: home
-    no_rooms: "No rooms found."
-    rem_room: "Remove room"
+    activity: "Recent Activity..."
+    invite_url: "Invite URL"
+    my: "My Home"
+    no_rooms: "You have no webconference rooms."
+    not_running: "not running"
+    one: "home"
+    running_with:
+      no_participants: "running with no participants"
+      participants:
+        one: "running with %{count} participant"
+        other: "running with %{count} participants"
+    view_invite_url: "View Invite URL"
   icalendar:
     add: Update and Add new entries
     conflictive1: "One entry of your iCalendar was on the Global application and has been modified. You must update it manually to avoid problems. "

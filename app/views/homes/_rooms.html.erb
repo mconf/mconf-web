@@ -12,37 +12,66 @@
     'frameHeight' : 430
   });
 
+  $("#webconference-rooms .invite_url_button").livequery('click', function(event) { 
+    id = $(this).attr('id').replace("invite_url_button-", "");
+    $("#invite_url-" + id).toggle('slow');
+  });
+
+
 <% end %>
 
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
-      <%= t('webconference.my_webconference') %>
-      <span class="fr">
+      <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.my_webconference') %>
+      <span class="float_right">
         <%= link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button' %>
       </span>
     </h3>
-    <span class="text">
-      <% if @bbb_room.empty? %>
-        <%= t('home.no_rooms') %>
+    <div class="room_list">
+      <% if @bbb_rooms.empty? %>
+        <span class="updated"><%= t('home.no_rooms') %></span>
       <% else %>
-        <% @bbb_room.each do |room| %>
-          <ul>
-            <li>
-              <span class="red_c"> <%= room.meeting_id %> </span>
-              <span class="fr"> <%= link_to image_tag("icons/cancel.png"), bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete %> </span>
-              <span class="fr"> <%= link_to t('home.rem_room'), bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete %> </span>
-              <div class="clearer"></div>
-              <div class="webconference-url-home"> <%= join_bigbluebutton_server_room_url(@server, room) %> </div>
-              <div class="clearer"></div>
-              <br>
-              <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'small_button orange_button bigbluebutton_button rounded_button border_button'%>
-              <%= link_to t('button.invite_bbb'), inviteroom_invite_path(:roomName => room.name), :id => 'invite_bbb_link', :class => 'small_button pale_button bigbluebutton_button rounded_button border_button'%>
-            </li>
-          </ul>
+        <ul>
+        <% button_id = 0 %>
+        <% @bbb_rooms.each do |room| %>
+          <li>
+
+            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button'%>
+            <span class="room_name">
+              <%= room.meeting_id %>
+            </span>
+            <span class="updated">
+              <% if room.is_running? %>
+                <% if room.participant_count == 0 %>
+                  <% text = t('home.running_with.no_participants') %>
+                <% else %>
+                  <% text = t('home.running_with.participants', :count => room.participant_count) %>
+                <% end %>
+              <% else %>
+                <% text = t('home.not_running') %>
+              <% end %>
+              <% text = "(" + text + ")" %>
+              <%= text %>
+            </span>
+            <span class="float_right">
+              <%= link_to t('button.invite'), inviteroom_invite_path(:roomName => room.name), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
+              <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
+              <%= link_to t('button.remove'), bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+            </span>
+            <div class="invite_url url_share" id="invite_url-<%= button_id %>">
+              <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
+              <span class="blue"><%= invite_bigbluebutton_server_room_url(@server, room) %></span>
+            </div>
+
+            <div class="clearer"></div>
+          </li>
+
+          <% button_id += 1 %>
         <% end %>
+        </ul>
       <% end %>
-    </span>
+    </div>
   </div>
 </div>
 
