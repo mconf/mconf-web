@@ -53,6 +53,8 @@
     <div class="clearer"></div>
     <%= f.text_area :message, :id=> "text_message", :size=> "64x5" %>
     <div class="clearer"></div>
+    <%= f.hidden_field :room_name, :value => @room_name %>
+    <%= f.hidden_field :room_url, :value => @room_url %>
     <button type="submit" class="small_button pale_button bigbluebutton_button rounded_button"><%=t('button.ok')%></button>
   </div>
 

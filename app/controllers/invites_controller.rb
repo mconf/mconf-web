@@ -33,21 +33,31 @@ class InvitesController < ApplicationController
     priv_msg[:sender_id] = current_user.id
     priv_email[:sender_id] = current_user.id
     
+    
+    #corrigir formatação do texto das mensagens privadas
+    #inicio do texto
+    
+    priv_msg[:body] = t('invite.priv_msg1') << current_user.name << t('invite.priv_msg2') 
+    priv_msg[:body] << params[:invite][:room_name] << t('invite.priv_msg3')
+    priv_msg[:body] << params[:invite][:room_url]
+    priv_msg[:body] << t('invite.priv_msg4') << current_user.name << t('invite.priv_msg5')
+    
     if(params[:invite][:message].empty?)
-      priv_msg[:body] = "Invite for Webconference."
-      priv_email[:body] = "Invite for Webconference."
+      priv_msg[:body] << t('invite.title')
+      priv_email[:body] = t('invite.title')
     else
-      priv_msg[:body] = params[:invite][:message]
+      priv_msg[:body] << params[:invite][:message]
       priv_email[:body] = params[:invite][:message]
     end
     
-    #editar texto para receber link
+    #fim do texto
     
-    title = ""
-    title << "Invite for webconference"
-    priv_msg[:title] = title
-    priv_email[:title] = title
+    priv_msg[:title] = t('invite.title')
+    priv_email[:title] = t('invite.title')
     priv_email[:email_sender] = current_user.email
+    priv_email[:room_name] = params[:invite][:room_name]
+    priv_email[:room_url] = params[:invite][:room_url]
+    priv_email[:user_name] = current_user.name
     
     if params[:invite][:im_check] != "0"
       for receiver in params[:invite][:members_tokens].split(",")
@@ -64,10 +74,12 @@ class InvitesController < ApplicationController
     if params[:invite][:email_check] != "0"
       for receiver in params[:invite][:email_tokens].split(",")
         priv_email[:email_receiver] = receiver
-        email_message = Notifier.webconference_invite_email(priv_email).deliver
+        email_message = Notifier.webconference_invite_email(priv_email)
+        if email_message.deliver
+        else
+          @fail_email << email_message
+        end
       end
-    else 
-      @fail_email << priv_email
     end
     
     respond_to do |format|
