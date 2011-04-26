@@ -88,15 +88,17 @@
     <%= render :partial => 'sidebar_leave_space' %>
 
         <div class="webconference-space-sidebar">
-          <h3><%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.one') %> <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bigbluebutton_space icon",:style=>"cursor:pointer").html_safe %></h3>
+          <h3>
+            <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.one') %> <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bigbluebutton_space icon",:style=>"cursor:pointer").html_safe %>
+            <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
+          </h3>
             <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'orange_button big_button' %>
           <% if @bbb_room.is_running? %>
             <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
           <% else %>
             <span class="red"><%= t('webconference.nobody.one_line') %></span>
           <% end %>
-          <br/>
-          <%= link_to t('information.information6'), space_webconference_path(space) %>
+          <div class="clearer"></div>
         </div>
 
         <div id="inc-events">
