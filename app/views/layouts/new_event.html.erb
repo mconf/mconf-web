@@ -23,6 +23,7 @@
     <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
                 
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
@@ -33,7 +34,7 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3' %>
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
     <%= yield :headers %>
                 
           <script type="text/javascript" charset="utf-8">
