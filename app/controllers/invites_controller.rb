@@ -38,8 +38,7 @@ class InvitesController < ApplicationController
     #inicio do texto
     
     priv_msg[:body] = "You have been invite by " << current_user.name << " to participated in this webconference: " 
-    priv_msg[:body] << params[:invite][:room_name] << "<br><br>Click on this link or copy and paste on your 
-    browser this url for access the conference: "
+    priv_msg[:body] << params[:invite][:room_name] << "<br><br>Click on this link to access the conference: "
     priv_msg[:body] << params[:invite][:room_url]
     priv_msg[:body] << "<br><br>This is the message sended by " << current_user.name << " to you:<br><br>"
     
