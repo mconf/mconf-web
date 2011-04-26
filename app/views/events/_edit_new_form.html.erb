@@ -4,12 +4,15 @@
 <div id="event_type_selector">
     <div class="event_type" tooltip="<%=t('tooltip.vmeeting')%>">
         <span id="event_type_meeting"><%=t('event.create.info.meeting.name') %><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+        <span class="event_type_disabled"><%= t('event.temporarily_disabled') %></span>
     </div>
     <div class="event_type" tooltip="<%=t('tooltip.vclass')%>">
         <span id="event_type_class"><%=t('event.create.info.class.name') %><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+        <span class="event_type_disabled"><%= t('event.temporarily_disabled') %></span>
     </div>
     <div class="event_type" tooltip="<%=t('tooltip.vcongress')%>">
         <span id="event_type_conference"><%=t('event.create.info.conference.name') %><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+        <span class="event_type_disabled"><%= t('event.temporarily_disabled') %></span>
     </div>
     <div class="event_type" tooltip="<%=t('tooltip.inperson')%>">
         <span id="event_type_presential"><%=t('event.create.info.presential.name') %><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>

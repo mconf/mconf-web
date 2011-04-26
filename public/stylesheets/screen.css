@@ -1786,24 +1786,42 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
         display:inline-block;
         width:24%;
         margin-left:4px;
-        cursor:pointer;}
+        }
 .event_type .check_check{margin-left:5px;}
 .event_type .icon{margin-bottom:-3px;}
+.event_type_disabled {
+  text-align: center;
+  font-size: 11px;
+  color: #444;
+  float: left;
+  border-bottom:1px #CCC solid;
+  padding: 2px 7px 2px 7px;
+  background:#f6f1bd;
+  border:1px solid #cdc893;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+
 #event_type_meeting,#event_type_class,#event_type_conference,#event_type_presential{
         padding:15px 5px 15px 32px;
         color:#244974;
         font-weight:bold;
-        display:block;}
+        display:block;
+    cursor:pointer;
+}
+#event_type_meeting,#event_type_class,#event_type_conference{ color:#aaa; cursor: default; } /* temporarily disabled */
 #event_type_meeting{background:url('../images/virtual_meeting.png') no-repeat center left;}
 #event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
 #event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
 #event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
+
 .event_info{position:relative;display:block;clear:both;}
 .event_info div.margin-up{position:relative;clear:both;}
 .event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
 .event_info div.margin-up .wysiwyg{float:left;height:20em;}
 .event_info div.margin-up select,#extra-info select{font-size:0.91667em;line-height:1.6363;}
 .event_info div.margin-up input{float:left;width:297px;margin-bottom:0.75em;}
+
 div#initial-info{padding-left:45px;}
 #extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
 div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}

@@ -88,7 +88,7 @@
                     <div id="content">                
                       <div id="main">
             <% flash.each do |name, msg| %>
-              <div class="<%= name %>"><%= msg %></div>
+              <div class="<%= name %>"><%= msg.html_safe %></div>
             <% end %>
                         <%= yield %>
                             </div>
