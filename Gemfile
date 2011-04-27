@@ -3,11 +3,11 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
-# for station
+
 gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
 gem 'permalink_fu'
-
+gem 'jquery-rails', '>= 0.2.6'
 gem 'rmagick'
 gem 'vpim'
 gem 'ruby-openid'
