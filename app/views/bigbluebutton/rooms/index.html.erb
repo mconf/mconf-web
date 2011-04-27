@@ -1,0 +1,44 @@
+<h1>Listing <%= BigbluebuttonRoom.model_name.human %>:</h1>
+
+<table>
+  <tr>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:server_id) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:meeting_id) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:meeting_name) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:private) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %></th>
+    <th><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rooms.each do |room| %>
+  <tr>
+    <td><%= room.server.id %></td>
+    <td><%= room.meeting_id %></td>
+    <td><%= room.name %></td>
+    <td><%= room.private %></td>
+    <td><%= room.attendee_password %></td>
+    <td><%= room.moderator_password %></td>
+    <td><%= room.welcome_msg %></td>
+    <td><%= room.logout_url %></td>
+    <td><%= room.dial_number %></td>
+    <td><%= room.voice_bridge %></td>
+    <td><%= room.max_participants %></td>
+    <td><%= link_to 'Show', bigbluebutton_server_room_path(@server, room) %></td>
+    <td><%= link_to 'Edit', edit_bigbluebutton_server_room_path(@server, room) %></td>
+    <td><%= link_to 'Destroy', bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+
+</table>
+
+<br />
+
+<%= link_to 'New Room', new_bigbluebutton_server_room_path %>

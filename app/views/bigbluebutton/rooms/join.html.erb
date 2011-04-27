@@ -1,0 +1,31 @@
+<script type="text/javascript">
+
+function ajax_request() {
+  $.ajax({
+    url: "<%= running_bigbluebutton_server_room_url(@server, @room, :format => 'json') %>",
+    dataType: 'json',
+    error: function(xhr_data) {
+      //
+    },
+    success: function(xhr_data) {
+      if (xhr_data.running == 'true') {
+        window.location.reload();
+      }
+      setTimeout(function() { ajax_request(); }, 3000);
+    },
+    contentType: 'application/json'
+  });
+}
+
+$(document).ready(function(){
+  ajax_request();
+});
+
+</script>
+
+<h1>Meeting <%= @room.name %></h1>
+
+<%= image_tag "loading.gif" %>
+<p>The meeting has not started yet, you must wait for the moderator to join.</p>
+<p>Your browser will automatically refresh and join the meeting when it starts.</p>
+

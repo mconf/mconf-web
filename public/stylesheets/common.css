@@ -247,7 +247,7 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 
 
 /* For <button> tags, not links */
-/* TEMPORARY */
+/* TEMPORARY
 
 button.medium_button {
   font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
@@ -276,7 +276,11 @@ button.medium_button {
   padding: 4px 10px 4px 10px;
 }
 
+button.black_letter_button {
+  color: #000;
+}
+
 button.blue_button {
   border: 1px solid #244974;
 }
-
+*/
