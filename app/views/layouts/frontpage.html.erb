@@ -46,7 +46,7 @@
                                         <%= render :partial => "layouts/frontpage_header" %>
                                 <div id="espacio_busqueda">
                         <% flash.each do |name, msg| %>
-                          <div class="<%= name %>"><%= msg %></div>
+                          <div class="<%= name %>"><%= msg.html_safe %></div>
                         <% end %>
                 </div>
                         </div>
