@@ -98,6 +98,9 @@ GEM
     httparty (0.7.4)
       crack (= 0.1.8)
     i18n (0.5.0)
+    jquery-rails (0.2.7)
+      rails (~> 3.0)
+      thor (~> 0.14.4)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.2.15)
@@ -213,6 +216,7 @@ DEPENDENCIES
   hoe
   hpricot
   httparty
+  jquery-rails (>= 0.2.6)
   mongrel (= 1.2.0.pre2)
   mysql
   nokogiri (= 1.4.1)
