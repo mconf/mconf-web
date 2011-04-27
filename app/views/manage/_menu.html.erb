@@ -5,6 +5,8 @@
 		<li><%=link_to t('space.other').upcase, manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"%></li>
 		<li><%=link_to t('user.other').upcase, manage_users_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}"%></li> 
 		<li><%=link_to t('spam.default').upcase, manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}"%></li> 
+    <!-- Falta arrumar o path do server -->
+    <li><%=link_to t('server.other').upcase, manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'servers'}"%></li> 
 	</ul>
 	</div>
 	

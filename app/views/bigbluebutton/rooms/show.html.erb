@@ -1,0 +1,55 @@
+<h1><%= BigbluebuttonRoom.model_name.human %>:</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:server_id) %>:</b>
+  <%= @room.server.id %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:meeting_id) %>:</b>
+  <%= @room.meeting_id %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:name) %>:</b>
+  <%= @room.name %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:private) %>:</b>
+  <%= @room.private %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %>:</b>
+  <%= @room.attendee_password %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %>:</b>
+  <%= @room.moderator_password %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %>:</b>
+  <%= @room.welcome_msg %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %>:</b>
+  <%= @room.logout_url %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %>:</b>
+  <%= @room.dial_number %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %>:</b>
+  <%= @room.voice_bridge %>
+</p>
+<p>
+  <b><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %>:</b>
+  <%= @room.max_participants %>
+</p>
+
+<%= link_to 'Edit', edit_bigbluebutton_server_room_path(@room.server, @room) %> |
+<%= link_to 'Back', bigbluebutton_server_rooms_path(@room.server) %>
+
+<br/>
+
+<%= link_to 'Join', join_bigbluebutton_server_room_path(@room.server, @room) %>

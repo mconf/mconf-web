@@ -224,6 +224,7 @@ en:
     back_to_event: Back to event
     cancel: Cancel
     create: Create
+    create_bbb_server: Create BigBlueButton Server
     creating: Creating event...
     creating_agenda: Creating agenda...
     edit: Edit
@@ -1285,6 +1286,7 @@ en:
     prefix: Title
   new_source: "Import RSS/Atom"
   new_spam_detected: New spam detected
+  new_server: "New Server"
   news:
     created: News item published successfully
     deleted: News item deleted successfully
@@ -1639,6 +1641,8 @@ en:
       created: Error sending email
   send_debug_emails: Send debug emails
   send_reset_password_request: Send Reset Password Request
+  server:
+    other: Servers
   session:
     one: Session
     error:

@@ -1,0 +1,27 @@
+<h1><%= BigbluebuttonServer.model_name.human %>:</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:name) %>:
+  <i><%= @server.name %></i></b>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:url) %>:</b>
+  <%= @server.url %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:salt) %>:</b>
+  <%= @server.salt %>
+</p>
+
+<p>
+  <b><%= BigbluebuttonServer.human_attribute_name(:version) %>:</b>
+  <%= @server.version %>
+</p>
+
+<%= link_to t('edit'), edit_bigbluebutton_server_path(@server), :class => 'basic_button small_button pale_button' %>
+<br/><br/>
+<%= link_to t('back'), bigbluebutton_servers_path, :class => 'basic_button small_button pale_button' %>

@@ -1,0 +1,48 @@
+<script type="text/javascript">
+
+function ajax_request() {
+  $.ajax({
+    url: "<%= running_bigbluebutton_server_room_url(@server, @room, :format => 'json') %>",
+    dataType: 'json',
+    error: function(xhr_data) {
+      $("#meeting_status").html("<request error>.");
+      setTimeout(function() { ajax_request(); }, 10000);
+    },
+    success: function(xhr_data) {
+      if (xhr_data.running == 'false') {
+        $("#meeting_status").html("not running.");
+      } else {
+        $("#meeting_status").html("running!");
+      }
+      setTimeout(function() { ajax_request(); }, 10000);
+    },
+    contentType: 'application/json'
+  });
+}
+
+$(document).ready(function(){
+  ajax_request();
+});
+
+</script>
+
+<h1>Invite to the meeting <%= @room.name %></h1>
+
+<p id="error"><%= flash[:error] %></p>
+
+<p>Meeting status: <span id="meeting_status">-</span> (<a href="javascript:ajax_request();">refresh</a>)</p>
+<p><%= @room.name %> is a private meeting. Enter the password to join:</p>
+
+<%= form_tag join_bigbluebutton_server_room_path(@server, @room) do %>
+
+  <div class="field">
+    Name:<br />
+    <%= text_field_tag "user[name]", "" %>
+  </div>
+  <div class="field">
+    Password:<br />
+    <%= text_field_tag "user[password]", "" %>
+  </div>
+
+  <%= submit_tag "Submit" %>
+<% end %>
