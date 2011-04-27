@@ -35,6 +35,7 @@
     </script>
 
     <%= javascript_include_tag 'rails.js',   'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= csrf_meta_tag %>
     <%= yield :headers %>
                 
           <script type="text/javascript" charset="utf-8">
