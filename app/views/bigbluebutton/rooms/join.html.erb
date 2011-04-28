@@ -26,6 +26,6 @@ $(document).ready(function(){
 <h1>Meeting <%= @room.name %></h1>
 
 <%= image_tag "loading.gif" %>
-<p>The meeting has not started yet, you must wait for the moderator to join.</p>
-<p>Your browser will automatically refresh and join the meeting when it starts.</p>
+<p><%= t('rooms.join.msg1') %></p>
+<p><%= t('rooms.join.msg2') %></p>
 

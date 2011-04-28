@@ -827,6 +827,7 @@ div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div#manage p {clear:both;padding:8px 9px 9px 9px;margin:0;/*border-bottom:1px #ccc solid;*/}
 div#manage label{color:#244974;font-weight:bold;display:inline-block;width:150px}
+div#manage color{color:#244974;}
 div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
@@ -2078,3 +2079,7 @@ div.my-webconference-rooms div.room_list .invite_url .title {
   margin-right: 5px;
   float: right;
 }
+
+/*rooms*/
+div#manage_rooms p {clear:both;padding:8px 9px 9px 9px;margin:0;}
+div#manage_rooms color{color:#244974;}

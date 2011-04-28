@@ -7,7 +7,7 @@
 <%= form_for [@server, @room], :url => url do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this bigbluebutton_room from being saved:</h2>
+      <h2><%= pluralize(@room.errors.count, "error") %><%= t('rooms.form.msg1') %></h2>
       <ul>
       <% @room.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -16,47 +16,48 @@
     </div>
   <% end %>
 
+  <br/>
   <div class="field">
-    <%= f.label :meeting_id %><br />
+    <color><b><%= f.label :meeting_id %></b></color><br />
     <%= f.text_field :meeting_id %>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <color><b><%= f.label :name %></b></color><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :private %><br />
+    <color><b><%= f.label :private %></b></color><br />
     <%= f.check_box :private %>
   </div>
   <div class="field">
-    <%= f.label :attendee_password %><br />
+    <color><b><%= f.label :attendee_password %></b></color><br />
     <%= f.text_field :attendee_password %>
   </div>
   <div class="field">
-    <%= f.label :moderator_password %><br />
+    <color><b><%= f.label :moderator_password %></b></color><br />
     <%= f.text_field :moderator_password %>
   </div>
   <div class="field">
-    <%= f.label :welcome_msg %><br />
+    <color><b><%= f.label :welcome_msg %></b></color><br />
     <%= f.text_field :welcome_msg %>
   </div>
   <div class="field">
-    <%= f.label :logout_url %><br />
+    <color><b><%= f.label :logout_url %></b></color><br />
     <%= f.text_field :logout_url %>
   </div>
   <div class="field">
-    <%= f.label :dial_number %><br />
+    <color><b><%= f.label :dial_number %></b></color><br />
     <%= f.text_field :dial_number %>
   </div>
   <div class="field">
-    <%= f.label :voice_bridge %><br />
+    <color><b><%= f.label :voice_bridge %></b></color><br />
     <%= f.text_field :voice_bridge %>
   </div>
   <div class="field">
-    <%= f.label :max_participants %><br />
+    <color><b><%= f.label :max_participants %></b></color><br />
     <%= f.text_field :max_participants %>
-  </div>
+  </div><br />
   <div class="actions">
-    <%= f.submit %>
+    <button type="submit" class="basic_button medium_button pale_button"><%=t('button.confirm')%></button>
   </div>
 <% end %>

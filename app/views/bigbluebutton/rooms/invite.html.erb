@@ -26,23 +26,23 @@ $(document).ready(function(){
 
 </script>
 
-<h1>Invite to the meeting <%= @room.name %></h1>
+<h1><%= t('rooms.invite.msg1') %><%= @room.name %></h1>
 
 <p id="error"><%= flash[:error] %></p>
 
-<p>Meeting status: <span id="meeting_status">-</span> (<a href="javascript:ajax_request();">refresh</a>)</p>
-<p><%= @room.name %> is a private meeting. Enter the password to join:</p>
+<p><%= t('rooms.invite.msg2') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();">refresh</a>)</p>
+<p><%= @room.name %><%= t('rooms.invite.msg3') %></p>
 
 <%= form_tag join_bigbluebutton_server_room_path(@server, @room) do %>
 
   <div class="field">
-    Name:<br />
+    <%= t('rooms.invite.msg4') %><br />
     <%= text_field_tag "user[name]", "" %>
   </div>
   <div class="field">
-    Password:<br />
+    <%= t('rooms.invite.msg5') %><br />
     <%= text_field_tag "user[password]", "" %>
   </div>
-
-  <%= submit_tag "Submit" %>
+  <br/>
+  <button type="submit" class="basic_button small_button orange_pale_button"><%=t('join')%></button>
 <% end %>

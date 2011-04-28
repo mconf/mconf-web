@@ -189,7 +189,7 @@ Vcc::Application.routes.draw do
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'
   match '/manage/spam', :to => 'manage#spam', :as => 'manage_spam'
-
+  
   # Locale controller (globalize)
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'

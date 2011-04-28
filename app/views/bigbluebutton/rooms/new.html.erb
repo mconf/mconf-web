@@ -1,5 +1,11 @@
-<h1>New <%= BigbluebuttonRoom.model_name.human %>:</h1>
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
 
-<%= render 'form' %>
+<%= render :partial => 'manage/menu' %>
 
-<%= link_to 'Back', bigbluebutton_server_rooms_path %>
+<div id="manage">
+  <%= render 'form' %>
+  <br/>
+  <%= link_to t('back'), bigbluebutton_server_rooms_path, :class => 'basic_button small_button pale_button' %>
+</div>
