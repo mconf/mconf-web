@@ -223,6 +223,7 @@ en:
     back: Back
     back_to_event: Back to event
     cancel: Cancel
+    confirm: Confirm
     create: Create
     create_bbb_server: Create BigBlueButton Server
     creating: Creating event...
@@ -1583,6 +1584,19 @@ en:
     created: Room created successfully
     error:
       create: Error creating room
+    other: Rooms
+  rooms:
+    form:
+      msg1: " prohibited this bigbluebutton_room from being saved:"
+    invite:
+      msg1: "Invite to the meeting "
+      msg2: "Meeting status: "
+      msg3: " is a private meeting. Enter the password to join:"
+      msg4: "Name:"
+      msg5: "Password:"
+    join:
+      msg1: "The meeting has not started yet, you must wait for the moderator to join."
+      msg2: "Your browser will automatically refresh and join the meeting when it starts."
   save: Save
   save_ch: Save changes
   screencast:
@@ -1643,6 +1657,9 @@ en:
   send_reset_password_request: Send Reset Password Request
   server:
     other: Servers
+  servers:
+    form:
+      msg1: " prohibited this bigbluebutton_server from being saved:"
   session:
     one: Session
     error:

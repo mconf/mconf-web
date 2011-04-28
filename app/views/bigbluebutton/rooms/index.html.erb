@@ -1,44 +1,68 @@
-<h1>Listing <%= BigbluebuttonRoom.model_name.human %>:</h1>
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
 
-<table>
-  <tr>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:server_id) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:meeting_id) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:meeting_name) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:private) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %></th>
-    <th><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= render :partial => 'manage/menu' %>
 
-<% @rooms.each do |room| %>
-  <tr>
-    <td><%= room.server.id %></td>
-    <td><%= room.meeting_id %></td>
-    <td><%= room.name %></td>
-    <td><%= room.private %></td>
-    <td><%= room.attendee_password %></td>
-    <td><%= room.moderator_password %></td>
-    <td><%= room.welcome_msg %></td>
-    <td><%= room.logout_url %></td>
-    <td><%= room.dial_number %></td>
-    <td><%= room.voice_bridge %></td>
-    <td><%= room.max_participants %></td>
-    <td><%= link_to 'Show', bigbluebutton_server_room_path(@server, room) %></td>
-    <td><%= link_to 'Edit', edit_bigbluebutton_server_room_path(@server, room) %></td>
-    <td><%= link_to 'Destroy', bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<div id="manage">
+  <br/>
+  <div>
+    <ol><% @rooms.each do |room| %>
+        <li>
+          <color><b><%= BigbluebuttonRoom.human_attribute_name(:meeting_name) %>:</b></color>
+          <i><b><%= room.name %></b></i>
+        </li>
+        <ul>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:server_id) %>:</b></color>
+            <%= room.server.id %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:meeting_id) %>:</b></color>
+            <%= room.meeting_id %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:private) %>:</b></color>
+            <%= room.private %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %>:</b></color>
+            <%= room.attendee_password %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %>:</b></color>
+            <%= room.moderator_password %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %>:</b></color>
+            <%= room.welcome_msg %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %>:</b></color>
+            <%= room.logout_url %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %>:</b></color>
+            <%= room.dial_number %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %>:</b></color>
+            <%= room.voice_bridge %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %>:</b></color>
+            <%= room.max_participants %>
+          </li>
+        </ul>
+        <%= link_to t('show'), bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('edit'), edit_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('destroy'), bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+        <br/><br/>
+    <% end %></ol>
 
-</table>
-
-<br />
-
-<%= link_to 'New Room', new_bigbluebutton_server_room_path %>
+    <br />
+    <%= link_to t('button.new_room'), new_bigbluebutton_server_room_path, :class => 'basic_button small_button pale_button' %>
+  </div>
+  <br/>
+  <%= link_to t('back'), bigbluebutton_servers_path, :class => 'basic_button small_button pale_button' %>
+</div>
