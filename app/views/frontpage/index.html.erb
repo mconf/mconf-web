@@ -36,13 +36,13 @@
           <% @server.meetings.each do |room| %>
             <li>
               <% if room.new_record? %>
-                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meeting_id}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meetingid}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
               <% else %>
                 <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
               <% end %>
 
               <!--<button type="submit" class="basic_button blue_button"><%=t('frontpage.join_button')%></button>-->
-              <span class="red"><%= room.meeting_id %>: </span><%= room.participant_count %> <%=t('frontpage.participants')%>
+              <span class="red"><%= room.meetingid %>: </span><%= room.participant_count %> <%=t('frontpage.participants')%>
             </li>
           <% end %>
         </ul>

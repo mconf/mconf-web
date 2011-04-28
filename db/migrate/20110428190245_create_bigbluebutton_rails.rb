@@ -12,7 +12,7 @@ class CreateBigbluebuttonRails < ActiveRecord::Migration
       t.integer :server_id
       t.integer :owner_id
       t.string :owner_type
-      t.string :meeting_id
+      t.string :meetingid
       t.string :name
       t.string :attendee_password
       t.string :moderator_password
@@ -22,10 +22,11 @@ class CreateBigbluebuttonRails < ActiveRecord::Migration
       t.string :dial_number
       t.integer :max_participants
       t.boolean :private, :default => false
+      t.boolean :randomize_meetingid, :default => true
       t.timestamps
     end
     add_index :bigbluebutton_rooms, :server_id
-    add_index :bigbluebutton_rooms, :meeting_id, :unique => true
+    add_index :bigbluebutton_rooms, :meetingid, :unique => true
   end
 
   def self.down

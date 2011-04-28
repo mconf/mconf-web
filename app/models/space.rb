@@ -71,7 +71,7 @@ class Space < ActiveRecord::Base
 
   # TODO BBB Always using the first server
   after_create { |space|
-    room = BigbluebuttonRoom.new(:name => space.name, :meeting_id => space.emailize_name,
+    room = BigbluebuttonRoom.new(:name => space.name, :meetingid => space.emailize_name,
                                  :owner => space, :server => BigbluebuttonServer.first)
     room.save
   }

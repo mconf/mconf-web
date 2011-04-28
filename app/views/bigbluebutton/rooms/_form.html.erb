@@ -18,12 +18,16 @@
 
   <br/>
   <div class="field">
-    <color><b><%= f.label :meeting_id %></b></color><br />
-    <%= f.text_field :meeting_id %>
-  </div>
-  <div class="field">
     <color><b><%= f.label :name %></b></color><br />
     <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <color><b><%= f.label :meetingid %></b></color><br />
+    <%= f.text_field :meetingid %>
+  </div>
+  <div class="field">
+    <color><b><%= f.label :randomize_meetingid %></b></color><br />
+    <%= f.check_box :randomize_meetingid %>
   </div>
   <div class="field">
     <color><b><%= f.label :private %></b></color><br />

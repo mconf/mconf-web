@@ -198,7 +198,7 @@ namespace :setup do
           room.owner_type = 'Space'
           room.server_id = BigbluebuttonServer.first
           room.name = space.name
-          room.meeting_id = space.emailize_name
+          room.meetingid = space.emailize_name
           room.attendee_password = "ap"
           room.moderator_password = "mp"
         end

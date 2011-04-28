@@ -11,8 +11,10 @@ en:
       notice:
         create:
           success: "Your room was successfully created."
+          failure: "Your room could not be created."
         update:
           success: "Your room was successfully updated."
+          failure: "Your room could not be updated."
         end:
           success: "The meeting was successfully ended."
           not_running: "The meeting could not be ended because it is not running."
@@ -33,7 +35,7 @@ en:
         version: "Version"
       bigbluebutton_room:
         server_id: "Server ID"
-        meeting_id: "Meeting ID"
+        meetingid: "Meeting ID"
         private: "Private"
         name: "Name"
         attendee_password: "Attendee Password"

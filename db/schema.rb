@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110415194251) do
+ActiveRecord::Schema.define(:version => 20110428190245) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.integer  "server_id"
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "meeting_id"
+    t.string   "meetingid"
     t.string   "name"
     t.string   "attendee_password"
     t.string   "moderator_password"
@@ -129,12 +129,13 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",            :default => false
+    t.boolean  "private",             :default => false
+    t.boolean  "randomize_meetingid", :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "bigbluebutton_rooms", ["meeting_id"], :name => "index_bigbluebutton_rooms_on_meeting_id", :unique => true
+  add_index "bigbluebutton_rooms", ["meetingid"], :name => "index_bigbluebutton_rooms_on_meetingid", :unique => true
   add_index "bigbluebutton_rooms", ["server_id"], :name => "index_bigbluebutton_rooms_on_server_id"
 
   create_table "bigbluebutton_servers", :force => true do |t|
@@ -148,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
 
   create_table "chat_logs", :force => true do |t|
     t.integer  "event_id"
-    t.text     "content"
+    t.text     "content",    :limit => 2147483647
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -159,13 +160,13 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.text     "description",             :limit => 255
+    t.text     "description"
     t.string   "place"
     t.boolean  "isabel_event"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",                                 :default => ""
+    t.string   "colour",                  :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -176,19 +177,19 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "marte_event",                            :default => false
+    t.boolean  "marte_event",             :default => false
     t.boolean  "marte_room"
-    t.boolean  "spam",                                   :default => false
+    t.boolean  "spam",                    :default => false
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
     t.string   "permalink"
     t.integer  "cm_event_id"
-    t.integer  "vc_mode",                                :default => 0
+    t.integer  "vc_mode",                 :default => 0
     t.text     "other_participation_url"
-    t.boolean  "web_interface",                          :default => false
-    t.boolean  "isabel_interface",                       :default => false
-    t.boolean  "sip_interface",                          :default => false
+    t.boolean  "web_interface",           :default => false
+    t.boolean  "isabel_interface",        :default => false
+    t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
     t.datetime "generate_scorm_at"
     t.text     "isabel_bw"
@@ -196,9 +197,9 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
     t.integer  "chat_log_id"
-    t.boolean  "streaming_by_default",                   :default => true
-    t.boolean  "manual_configuration",                   :default => false
-    t.integer  "recording_type",                         :default => 0
+    t.boolean  "streaming_by_default",    :default => true
+    t.boolean  "manual_configuration",    :default => false
+    t.integer  "recording_type",          :default => 0
   end
 
   create_table "groups", :force => true do |t|
@@ -332,13 +333,13 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",                            :default => false
+    t.boolean  "checked",             :default => false
     t.string   "title"
-    t.text     "body",                :limit => 255
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",                  :default => false
-    t.boolean  "deleted_by_receiver",                :default => false
+    t.boolean  "deleted_by_sender",   :default => false
+    t.boolean  "deleted_by_receiver", :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -351,13 +352,13 @@ ActiveRecord::Schema.define(:version => 20110415194251) do
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
-    t.integer "user_id",      :limit => 255
-    t.string  "prefix_key",                  :default => ""
+    t.integer "user_id"
+    t.string  "prefix_key",   :default => ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",                  :default => 3
+    t.integer "visibility",   :default => 3
     t.string  "full_name"
   end
 
