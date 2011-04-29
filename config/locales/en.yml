@@ -1194,7 +1194,7 @@ en:
     email_msg5: "Click on this link or copy and paste on your browser this url for "
     email_msg6: "access the conference: "
     email_msg7: "This is the message sended by "
-    email_msg8: " to you:"      
+    email_msg8: " to you:"
   is_member_of: is member of
   join: Join
   join_cam: Participate
@@ -1589,14 +1589,20 @@ en:
     form:
       msg1: " prohibited this bigbluebutton_room from being saved:"
     invite:
-      msg1: "Invite to the meeting "
-      msg2: "Meeting status: "
-      msg3: " is a private meeting. Enter the password to join:"
-      msg4: "Name:"
-      msg5: "Password:"
+      msg1: "Invitation to the meeting "
+      name: "Name:"
+      name_enter: "Enter your name."
+      password: "Password:"
+      password_filled: "This room is public. The password was auto-filled with the attendee password."
+      password_role: "Enter the attendee or moderator password."
+      status: "Meeting status: "
     join:
       msg1: "The meeting has not started yet, you must wait for the moderator to join."
       msg2: "Your browser will automatically refresh and join the meeting when it starts."
+      title: "Room: %{name}"
+    not_running: "not running."
+    refresh: "force refresh"
+    running: "running!"
   save: Save
   save_ch: Save changes
   screencast:

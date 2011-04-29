@@ -23,9 +23,20 @@ $(document).ready(function(){
 
 </script>
 
-<h1>Meeting <%= @room.name %></h1>
+<div id="rooms_join">
 
-<%= image_tag "loading.gif" %>
-<p><%= t('rooms.join.msg1') %></p>
-<p><%= t('rooms.join.msg2') %></p>
+  <div class="title">
+    <%= t('rooms.join.title', :name => @room.name) %>
+    <div class="loading">
+      <%= image_tag "loading.gif" %>
+    </div>
+  </div>
 
+  <div class="content">
+    <p>
+      <%= t('rooms.join.msg1') %><br />
+      <%= t('rooms.join.msg2') %>
+    </p>
+  </div>
+
+</div>

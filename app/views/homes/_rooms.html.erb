@@ -39,7 +39,7 @@
 
             <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button'%>
             <span class="room_name">
-              <%= room.meetingid %>
+              <%= room.name %>
             </span>
             <span class="updated">
               <% if room.is_running? %>

@@ -10,9 +10,9 @@ function ajax_request() {
     },
     success: function(xhr_data) {
       if (xhr_data.running == 'false') {
-        $("#meeting_status").html("not running.");
+        $("#meeting_status").html("<%= t('rooms.not_running') %>");
       } else {
-        $("#meeting_status").html("running!");
+        $("#meeting_status").html("<%= t('rooms.running') %>");
       }
       setTimeout(function() { ajax_request(); }, 10000);
     },
@@ -26,23 +26,35 @@ $(document).ready(function(){
 
 </script>
 
-<h1><%= t('rooms.invite.msg1') %><%= @room.name %></h1>
+<div id="rooms_invitation">
 
-<p id="error"><%= flash[:error] %></p>
-
-<p><%= t('rooms.invite.msg2') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();">refresh</a>)</p>
-<p><%= @room.name %><%= t('rooms.invite.msg3') %></p>
-
-<%= form_tag join_bigbluebutton_server_room_path(@server, @room) do %>
-
-  <div class="field">
-    <%= t('rooms.invite.msg4') %><br />
-    <%= text_field_tag "user[name]", "" %>
+  <div class="title">
+    <span><%= t('rooms.invite.msg1') %><%= @room.name %></span>
+    <p class="status"><%= t('rooms.invite.status') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();"><%= t('rooms.refresh') %></a>)</p>
   </div>
-  <div class="field">
-    <%= t('rooms.invite.msg5') %><br />
-    <%= text_field_tag "user[password]", "" %>
-  </div>
-  <br/>
-  <button type="submit" class="basic_button small_button orange_pale_button"><%=t('join')%></button>
-<% end %>
+
+  <%= form_tag join_bigbluebutton_server_room_path(@server, @room) do %>
+
+    <div class="field">
+      <%= t('rooms.invite.name') %><br />
+      <% if bigbluebutton_user.nil? %>
+        <%= text_field_tag "user[name]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.name_enter') %></span>
+      <% else %>
+        <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30 %> <span class="obs"><%= t('rooms.invite.name_enter') %></span>
+      <% end %>
+    </div>
+    <div class="field">
+      <%= t('rooms.invite.password') %><br />
+      <% if @room.private %>
+        <%= password_field_tag "user[password]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.password_role') %></span>
+      <% else %>
+        <%= password_field_tag "user[password]", @room.attendee_password, :size => 30 %> <span class="obs"><%= t('rooms.invite.password_role') %></span><br/>
+        <span class="obs2"><%= t('rooms.invite.password_filled') %></span>
+      <% end %>
+    </div>
+    <div class="submit_area">
+      <button type="submit" class="basic_button medium_button orange_pale_button"><%=t('join')%></button>
+    </div>
+  <% end %>
+
+</div>

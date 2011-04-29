@@ -2083,3 +2083,50 @@ div.my-webconference-rooms div.room_list .invite_url .title {
 /*rooms*/
 div#manage_rooms p {clear:both;padding:8px 9px 9px 9px;margin:0;}
 div#manage_rooms color{color:#244974;}
+
+#rooms_invitation .title, #rooms_join .title {
+  font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;
+  padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;
+  text-align: left;
+}
+
+#rooms_invitation .title .status {
+  font-family:Trebuchet;font-size:0.9em;line-height:1;font-weight:normal;
+  margin: 0;
+  padding: 0;
+}
+
+#rooms_invitation .field {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#rooms_invitation .submit_area {
+  float: right;
+  margin-top: -40px;
+}
+
+#rooms_invitation .obs, #rooms_invitation .obs2 {
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  color: #666;
+}
+
+#rooms_invitation .obs2 {
+  color:#244974;
+  font-style: italic;
+}
+
+#rooms_join {
+  text-align: center;
+}
+
+#rooms_join .loading {
+  float: right;
+}
+
+#rooms_join .content {
+  margin-top: 10px;;
+}
+
