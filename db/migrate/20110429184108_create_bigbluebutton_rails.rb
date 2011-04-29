@@ -27,6 +27,7 @@ class CreateBigbluebuttonRails < ActiveRecord::Migration
     end
     add_index :bigbluebutton_rooms, :server_id
     add_index :bigbluebutton_rooms, :meetingid, :unique => true
+    add_index :bigbluebutton_rooms, :voice_bridge, :unique => true
   end
 
   def self.down

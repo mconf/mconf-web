@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428190245) do
+ActiveRecord::Schema.define(:version => 20110429184108) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20110428190245) do
 
   add_index "bigbluebutton_rooms", ["meetingid"], :name => "index_bigbluebutton_rooms_on_meetingid", :unique => true
   add_index "bigbluebutton_rooms", ["server_id"], :name => "index_bigbluebutton_rooms_on_server_id"
+  add_index "bigbluebutton_rooms", ["voice_bridge"], :name => "index_bigbluebutton_rooms_on_voice_bridge", :unique => true
 
   create_table "bigbluebutton_servers", :force => true do |t|
     t.string   "name"
