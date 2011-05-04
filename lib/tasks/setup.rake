@@ -18,19 +18,29 @@ namespace :setup do
     Rake::Task["setup:test_tasks"].invoke
   end
 
+
   desc "All development tasks"
   task :development_tasks => [ :common_tasks, :populate ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks ] # :config_sphinx
+  #task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks, :config_sphinx ]
+  task :production_tasks => [ :common_tasks ]
+
+  desc "All test tasks"
+  task :test_tasks => [ "db:test:prepare", "setup:basic_data:test" ]
+
 
   desc "All common tasks"
   #task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all", :config_mailing_list_dir ] do
   task :common_tasks => [ :git_submodules, "db:drop", "db:create", "db:migrate", "setup:basic_data:all" ]
 
-  desc "All test tasks"
-  task :test_tasks => [ "db:test:prepare", "setup:basic_data:test" ]
+  desc "Update Git Submodules"
+  task :git_submodules do
+    puts "* Updating Git submodules"
 
+    system "git submodule init"
+    system "git submodule update"
+  end
 
 =begin
   #TODO rails 3: ultrasphinx
@@ -42,12 +52,13 @@ namespace :setup do
     if File.exist?(sphinx_file)
       puts "file exists."
     else
-      `sudo ln -s #{ Rails.root.to_s.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }` 
+      `sudo ln -s #{ Rails.root.to_s.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }`
       puts "linked."
     end
   end
 =end
 
+=begin
   desc "Copy cron.d/vcc if it doesn't exist"
   task :config_cron do
     print "* Checking /etc/cron.d/vcc: "
@@ -56,11 +67,13 @@ namespace :setup do
     if File.exist?(cron_file)
       puts "file exists."
     else
-      `sudo cp #{ Rails.root.to_s }/extras/cron/vcc #{ cron_file }` 
+      `sudo cp #{ Rails.root.to_s }/extras/cron/vcc #{ cron_file }`
       puts "copied."
     end
   end
+=end
 
+=begin
   desc "Copy logrotate.d/vcc if it doesn't exist"
   task :config_logrotate do
     print "* Checking /etc/logrotate.d/vcc: "
@@ -69,11 +82,13 @@ namespace :setup do
     if File.exist?(logrotate_file)
       puts "file exists."
     else
-      `sudo cp #{ Rails.root.to_s }/extras/logrotate/vcc #{ logrotate_file }` 
+      `sudo cp #{ Rails.root.to_s }/extras/logrotate/vcc #{ logrotate_file }`
       puts "copied."
     end
   end
+=end
 
+=begin
   desc "Copy awstats configuration files"
   task :config_awstats do
     print "* Checking /etc/awstats/awstats.global-project.eu.conf: "
@@ -82,23 +97,18 @@ namespace :setup do
     if File.exist?(aw_file)
       puts "files exist."
     else
-      `sudo cp #{ Rails.root.to_s }/extras/awstats/* /etc/awstats/` 
+      `sudo cp #{ Rails.root.to_s }/extras/awstats/* /etc/awstats/`
       puts "copied."
     end
   end
+=end
 
-  desc "Update Git Submodules"
-  task :git_submodules do
-    puts "* Updating Git submodules"
-
-    system "git submodule init"
-    system "git submodule update"
-  end
-
-
+=begin
   desc "Creates the directory for mailing lists files"
   task :config_mailing_list_dir do
     `sudo mkdir -p /var/local/global2`
     `sudo chown www-data /var/local/global2`
   end
+=end
+
 end

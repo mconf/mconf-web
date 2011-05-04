@@ -1,6 +1,5 @@
-# Uncomment the following block, change email and password and it's ready to run
+MAIL_CONFIG = YAML.load_file(File.join(Rails.root, "config", "mail_conf.yml"))
 
-=begin
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true
@@ -9,9 +8,8 @@ ActionMailer::Base.smtp_settings = {
     :address              => 'smtp.gmail.com',
     :port                 => 587,
     :tls                  => true,
-    :domain               => 'gmail.com', #you can also use google.com
+    :domain               => 'gmail.com',
     :authentication       => :plain,
-    :user_name            => "mail@gmail.com",
-    :password             => "password"
+    :user_name            => MAIL_CONFIG["username"],
+    :password             => MAIL_CONFIG["password"]
 }
-=end

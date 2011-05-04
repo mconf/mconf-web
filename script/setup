@@ -55,16 +55,16 @@ def ask_for_db_type
 end
 
 def install_mail_conf
-  puts "* Checking config/initializers/mail_conf.rb: "
+  puts "* Checking config/mail_conf.yml: "
 
-  mail_file = File.dirname(__FILE__) + "/../config/initializers/mail_conf.rb"
+  mail_file = File.dirname(__FILE__) + "/../config/mail_conf.yml"
 
   if File.exist?(mail_file)
     puts "file exists. Assuming configurated mail delivery."
     return
   end
 
-  `cp #{ mail_file }.gmail.example #{ mail_file }`
+  `cp #{ mail_file }.example #{ mail_file }`
   puts
   puts '************************************************'
   puts "Created basic #{ mail_file }, please configure it."
