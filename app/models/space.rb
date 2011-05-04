@@ -29,7 +29,7 @@ class Space < ActiveRecord::Base
   has_many :agendas, :through => :events
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_permalink :name, :update=>true
+  has_permalink :name, :update => true
 
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],

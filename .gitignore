@@ -19,3 +19,4 @@ config/bigbluebutton_conf.yml
 public/pdf/
 db/*.sqlite3*
 tmp/*
+.redcar
