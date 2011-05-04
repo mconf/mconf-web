@@ -10,19 +10,6 @@ GIT
   specs:
     simple_captcha (0.1.1)
 
-PATH
-  remote: ../bigbluebutton-api-ruby
-  specs:
-    bigbluebutton-api-ruby (0.0.10)
-      nokogiri (~> 1.4.0)
-
-PATH
-  remote: ../bigbluebutton_rails
-  specs:
-    bigbluebutton_rails (0.0.3)
-      bigbluebutton-api-ruby (~> 0.0.10)
-      rails (~> 3.0.3)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -57,6 +44,11 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.9)
     atom-tools (2.0.5)
+    bigbluebutton-api-ruby (0.0.10)
+      nokogiri (~> 1.4.0)
+    bigbluebutton_rails (0.0.3)
+      bigbluebutton-api-ruby (~> 0.0.10)
+      rails (~> 3.0.3)
     builder (2.1.2)
     capistrano (2.5.21)
       highline
@@ -71,7 +63,6 @@ GEM
     color (1.4.1)
     columnize (0.3.2)
     crack (0.1.8)
-    daemons (1.0.10)
     diff-lcs (1.1.2)
     dynamic_form (1.1.3)
     erubis (2.6.6)
@@ -90,7 +81,6 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    gem_plugin (0.2.3)
     highline (1.6.1)
     hoe (2.9.4)
       rake (>= 0.8.7)
@@ -109,10 +99,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mongrel (1.2.0.pre2)
-      daemons (~> 1.0.10)
-      gem_plugin (~> 0.2.3)
-    mysql (2.8.1)
+    mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -200,9 +187,8 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
-  bigbluebutton-api-ruby!
-  bigbluebutton_rails!
-  capistrano
+  bigbluebutton_rails (~> 0.0.3)
+  capistrano (~> 2.5)
   chronic
   ci_reporter
   dynamic_form
@@ -217,8 +203,7 @@ DEPENDENCIES
   hpricot
   httparty
   jquery-rails (>= 0.2.6)
-  mongrel (= 1.2.0.pre2)
-  mysql
+  mysql2 (~> 0.2.0)
   nokogiri (= 1.4.1)
   pdf-writer
   permalink_fu
