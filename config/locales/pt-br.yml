@@ -897,8 +897,8 @@ pt-br:
     no_rooms: "Nenhuma reunião em progresso."
     participants: "participantes"
     participants_in:
-      one: "%{count} participante na sala de conferência deste espaço"
-      other: "%{count} participantes na sala de conferência deste espaço"
+      one: "%{count} participante na conferência deste espaço"
+      other: "%{count} participantes na conferência deste espaço"
     popular_spaces: "Espaços públicos"
     project_description:
         "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>.

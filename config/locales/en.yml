@@ -860,7 +860,7 @@ en:
     meetings_in_progress: "Meetings in progress"
     members: "Members"
     more_info: "More information..."
-    no_rooms: "No rooms online right now."
+    no_rooms: "No meetings in progress right now."
     participants: "participants"
     participants_in:
       one: "%{count} participant in this space's conference"

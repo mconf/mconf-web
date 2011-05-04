@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $(document).ready(function () {
-    $("#invite_members_tokens").tokenInput("http://localhost:3000/invite/invite_room.json", { 
+    $("#invite_members_tokens").tokenInput("/invite/invite_room.json", {
       crossDomain: false,
       theme: 'facebook',
       preventDuplicates: true
@@ -22,7 +22,7 @@
       <div class="video_share">
         <span><%= t('webconference.space.share') %></span>
       </div>
-      <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= @room_url %></span>        
+      <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= @room_url %></span>
     </div>
     <div class="clearer"></div>
     <br>
@@ -30,7 +30,7 @@
     <div class="clearer"></div>
     <div>
       <span class="text"><%= f.label :members_tokens, t('invite_people.name.one') %></span>
-	    <%= f.text_field :members_tokens %>
+            <%= f.text_field :members_tokens %>
     </div>
     <div class="clearer"></div>
     <br>
@@ -45,7 +45,7 @@
     <div class="clearer"></div>
     <div>
     <span class="text"><%= f.label :email_tokens, t('invite_people.email.other') %></span>
-	    <%= f.text_field :email_tokens, :size => 76 %>
+            <%= f.text_field :email_tokens, :size => 76 %>
     </div>
     <div class="clearer"></div>
     <br>

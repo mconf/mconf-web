@@ -25,7 +25,7 @@
 
     <h4><%=t('frontpage.meetings_in_progress')%></h4>
 
-    <%if @server.meetings.count > 0 %>
+    <% if !@server.meetings.nil? && @server.meetings.count > 0 %>
       <div class="join_room">
         <!--<div class="input">
           <label>Your name:</label>
