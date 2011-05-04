@@ -1,3 +1,10 @@
+# Tips:
+#
+#  cap mconf:production  # deploy to production (uses deploy:migrations)
+#  cap mconf:test        # deploy to test (uses deploy:migrations)
+#  cap setup:db          # drops, creates and populates the db with the basic data
+#
+
 # RVM bootstrap
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"
@@ -10,18 +17,16 @@ require 'bundler/capistrano'
 default_run_options[:pty] = true # anti-tty error
 
 set :servers,  {
-  :production => '143.54.12.126', #TODO
-#  :production => 'mconfweb.inf.ufrgs.br',
-#  :test => 'mconfweb.inf.ufrgs.br'
+  :production => 'mconfweb.inf.ufrgs.br',
+  :test => 'mconfweb.inf.ufrgs.br' # TODO create a test server
 }
 
 set :branches, {
-  :production => :production, # TODO :stable
-  :test => :master,
-  :gplaza => :master
+  :production => :stable, # TODO :stable
+  :test => :master
 }
 
-set :environment, :production # TODO
+set :environment, :test
 
 set :application, "mconf-web"
 set :repository, "git://github.com/mconf/mconf-web.git"
@@ -37,7 +42,6 @@ set(:branch) { ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}
 
 set :deploy_to, "/home/mconf/#{ application }"
 set :deploy_via, :remote_cache
-#set :deploy_via, :export #REVIEW
 
 before 'deploy:setup', 'mconf:info'
 after 'deploy:setup', 'setup:create_shared'
@@ -84,7 +88,6 @@ namespace(:deploy) do
     #top.upload "config/crossdomain.yml", "#{ release_path }/config/", :via => :scp
   end
 
-
 =begin
   #TODO rails 3: ultrasphinx
   task :reload_ultrasphinx do
@@ -104,6 +107,7 @@ namespace(:deploy) do
     run "sudo /etc/init.d/openfire restart"
   end
 =end
+
 end
 
 namespace :setup do
@@ -186,12 +190,8 @@ namespace :mconf do
     deploy.migrations
   end
 
-  task :gplaza do
-    set :environment, :gplaza
-    deploy.migrations
-  end
-
-  task :default do
+  task :test do
+    set :environment, :test
     deploy.migrations
   end
 end
