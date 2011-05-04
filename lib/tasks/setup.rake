@@ -18,19 +18,29 @@ namespace :setup do
     Rake::Task["setup:test_tasks"].invoke
   end
 
+
   desc "All development tasks"
   task :development_tasks => [ :common_tasks, :populate ]
 
   desc "All production tasks"
-  task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks ] # :config_sphinx
+  #task :production_tasks => [ :config_cron, :config_logrotate, :config_awstats, :common_tasks, :config_sphinx ]
+  task :production_tasks => [ :common_tasks ]
+
+  desc "All test tasks"
+  task :test_tasks => [ "db:test:prepare", "setup:basic_data:test" ]
+
 
   desc "All common tasks"
   #task :common_tasks => [ :git_submodules, "db:schema:load", "basic_data:all", :config_mailing_list_dir ] do
   task :common_tasks => [ :git_submodules, "db:drop", "db:create", "db:migrate", "setup:basic_data:all" ]
 
-  desc "All test tasks"
-  task :test_tasks => [ "db:test:prepare", "setup:basic_data:test" ]
+  desc "Update Git Submodules"
+  task :git_submodules do
+    puts "* Updating Git submodules"
 
+    system "git submodule init"
+    system "git submodule update"
+  end
 
 =begin
   #TODO rails 3: ultrasphinx
@@ -92,14 +102,6 @@ namespace :setup do
     end
   end
 =end
-
-  desc "Update Git Submodules"
-  task :git_submodules do
-    puts "* Updating Git submodules"
-
-    system "git submodule init"
-    system "git submodule update"
-  end
 
 =begin
   desc "Creates the directory for mailing lists files"
