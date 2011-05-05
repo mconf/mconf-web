@@ -1,0 +1,73 @@
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= render :partial => 'manage/menu' %>
+
+<div id="manage">
+  <div>
+    <p id="notice"><%= notice %></p>
+        <p>
+          <color><b><%= BigbluebuttonRoom.human_attribute_name(:meeting_name) %>:</b></color>
+          <i><b><%= @room.name %></b></i>
+        </p>
+        <ul>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:server_id) %>:</b></color>
+            <%= @room.server.id %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:meetingid) %>:</b></color>
+            <%= @room.meetingid %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:randomize_meetingid) %>:</b></color>
+            <%= @room.randomize_meetingid %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:private) %>:</b></color>
+            <%= @room.private %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %>:</b></color>
+            <%= @room.attendee_password %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %>:</b></color>
+            <%= @room.moderator_password %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %>:</b></color>
+            <%= @room.welcome_msg %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %>:</b></color>
+            <%= @room.logout_url %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %>:</b></color>
+            <%= @room.dial_number %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %>:</b></color>
+            <%= @room.voice_bridge %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %>:</b></color>
+            <%= @room.max_participants %>
+          </li>
+        </ul>
+        <%= link_to t('back'), bigbluebutton_server_rooms_path, :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('edit'), edit_bigbluebutton_server_room_path(@server, @room), :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('destroy'), bigbluebutton_server_room_path(@server, @room), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+        <br/><br/>
+  </div>
+  <%= link_to t('join'), join_bigbluebutton_server_room_path(@room.server, @room), :class => 'basic_button small_button orange_pale_button' %>
+</div>
+
+<%= link_to 'Edit', edit_bigbluebutton_server_room_path(@room.server, @room) %> |
+<%= link_to 'Back', bigbluebutton_server_rooms_path(@room.server) %>
+
+<br/>
+
+<%= link_to 'Join', join_bigbluebutton_server_room_path(@room.server, @room) %>

@@ -37,12 +37,12 @@
     <%= f.label :presence_domain, t('site.presence_domain') %>
     <%= f.text_field :presence_domain %>
   </p>
-	
-	<p>
+        
+        <p>
     <%= f.label :cm_domain, t('site.cm_domain') %>
     <%= f.text_field :cm_domain %>
   </p>
-	
+        
   <p>
     <%= f.label :chat_group_service_jid, t('site.chat_group_service_jid') %>
     <%= f.text_field :chat_group_service_jid %>
@@ -57,12 +57,12 @@
     <%= f.label :xmpp_server_password_confirmation, t('site.xmpp_server_password_confirmation') %>
     <%= f.password_field :xmpp_server_password_confirmation %>
   </p>
-	
+        
   <p>
     <%= f.label :vcc_user_for_chat_server, t('site.vcc_user_for_chat_server') %>
     <%= f.text_field :vcc_user_for_chat_server %>
   </p>
-	
+        
   <p>
     <%= f.label :vcc_pass_for_chat_server, t('site.vcc_pass_for_chat_server') %>
     <%= f.password_field :vcc_pass_for_chat_server %>
@@ -70,7 +70,7 @@
 
   <p>
     <!--<%= f.label :ssl, t('site.ssl') %>-->
-	<strong class="blue">SSL </strong>
+        <strong class="blue">SSL </strong>
     <%= f.check_box :ssl %>
   </p>
 
@@ -81,7 +81,7 @@
 
   <p>
     <!--<%= f.label :exception_notifications, t('site.exception_notifications') %>-->
-	<strong class="blue"><%= t('send_debug_emails') %> </strong>
+        <strong class="blue"><%= t('send_debug_emails') %> </strong>
     <%= f.check_box :exception_notifications %>
   </p>
 
@@ -96,7 +96,7 @@
   </p>
 
   <div id="site_button" class="margin-up">  
-	<button type="submit" class="blue_button basic_button"><%=t("button.update")%></button>
+        <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
   </div>
 <% end %>
 </div>

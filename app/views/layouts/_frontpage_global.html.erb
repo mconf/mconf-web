@@ -1,80 +1,80 @@
 <div id="global-wrapper">
   <div id="global" class="banner">
-    
+
         <% if logged_in? %>
           <ul id="prefs">
-          <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>      
+          <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><%end%>
           <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
           <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
           <li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
           <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
           <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
-          
+
         <% else %>
-        
+
          <a id="logo" class="frontpage_logo" href="/"></a>
-         
+
          <div id="espacio_header">&nbsp</div>
-         
+
          <div class="div_login">
              <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
                 <span>
                  <label for="login"><%= t('email') %></label>
-								</span>
+                                                                </span>
                  <%= text_field_tag 'login', params[:login], :class=>"input_username" %>
-                
+
                 <span>
                   <label for="password"><%= t('password.one') %></label>
-								</span>
+                </span>
                   <%= password_field_tag 'password', nil, :class=>"input_username" %>
-                
-                <button type="submit" class="other_blue"><%=t("login")%></button>
+
+                <button type="submit" class="medium_button blue_button"><%=t("login")%></button>
              <% end -%>
-                 
+
              <div id="subtexto">
-               <%= link_to t('register.one'), signup_path, :class => "register_link" %> 
+               <%= link_to t('register.one'), signup_path, :class => "register_link" %>
                <span>|</span>
-               <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %> 
-							 <span>|</span>
+               <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
+                                                         <span>|</span>
                <%= link_to_function t('openid.login'), "show_open_id_form()" %>
-             </div>  
-         </div> 
-		 
-		 <div class="div_login_openid" style="display:none">
+             </div>
+         </div>
+
+                 <div class="div_login_openid" style="display:none">
        <div class="openid_form">
          <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
-			     <div id="openid_label">
-				     <span><%= t('openid.enter') %></span>
-			       <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
-						 <button type="submit" class="other_blue"><%=t("login")%></button>
-		       </div>   
-			   <% end -%> 		  
-  		 </div>	                 
+                             <div id="openid_label">
+                                     <span><%= t('openid.enter') %></span>
+                               <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
+                                                 <button type="submit" class="medium_button blue_button"><%=t("login")%></button>
+                       </div>
+                           <% end -%>
+                 </div>
        <div id="subtexto">
-         <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %> 
-				 <span>|</span>
+         <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
+                                 <span>|</span>
          <%= link_to_function t('login_traditional'), "show_user_password_form()" %>
-       </div>  
-     </div> 
-     <br class="clearfloat" /> 
-  
+       </div>
+     </div>
+     <div class="clearer"><span>&nbsp;</span></div>
+
         <% end %>
    </ul>
    <%if logged_in?%>
     <span id="spaces_select">
-        
+
         <%= form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
-         <%if logged_in? && current_user.spaces.any?%>  
+         <%if logged_in? && current_user.spaces.any?%>
             <%if @space%>
             <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
-         
-         <%elsif params[:space_id]=="all"%>     
+
+         <%elsif params[:space_id]=="all"%>
               <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]), :onchange => "this.form.submit()"%>
-         
+
          <%else%>
           <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.select'),""], [t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.select'),""]), :onchange => "this.form.submit()"%>
          <%end%>
-         
+
          <%else%>
           <%if @space%>
              <%= select_tag "space_id", options_for_select_with_class_selected( [[t('space.all'), "all"]] + Space.public.all.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [@space.name, @space.permalink]), :onchange => "this.form.submit()"%>
@@ -91,5 +91,5 @@
 <%end%>
 
   </div>
-  
+
 </div>

@@ -1,0 +1,37 @@
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= render :partial => 'manage/menu' %>
+
+<div id="manage">
+  <br/>
+  <div>
+    <ol>
+      <% @servers.each do |server| %>
+        <li>
+          <color><b><%= BigbluebuttonServer.human_attribute_name(:name) %>:</color> <i><%= server.name %></i></b>
+        </li>
+        <ul>
+          <li>
+            <color><b><%= BigbluebuttonServer.human_attribute_name(:url) %>:</color></b> <%= server.url %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonServer.human_attribute_name(:salt) %>:</color></b> <%= server.salt %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonServer.human_attribute_name(:version) %>:</color></b> <%= server.version %>
+          </li>
+        </ul>
+        <%= link_to t('show'), server, :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('edit'), edit_bigbluebutton_server_path(server), :class => 'basic_button small_button pale_button' %>
+        <%= link_to t('room.other'), bigbluebutton_server_rooms_path(server.id), :class => 'basic_button small_button pale_button' %>
+        <!-- provisory link on destroy button, need to change for destroy path -->
+        <%= link_to t('destroy'), server, :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button pale_button' %>
+      <% end %>
+    </ol>
+  </div>
+
+  <br/>
+  <%= link_to t('new_server'), new_bigbluebutton_server_path, :class => 'basic_button small_button pale_button' %>
+</div>

@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   has_one :chat_log
 
   has_logo :class_name => "EventLogo"
-  has_permalink :name, :update=>true
+  has_permalink :name, :update => true
 
   # TODO PDF creation must be reimplemented. See README.
   # include EventToPdf

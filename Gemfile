@@ -3,11 +3,10 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
-# for station
 gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
-gem 'permalink_fu'
-
+gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
+gem 'jquery-rails', '>= 0.2.6'
 gem 'rmagick'
 gem 'vpim'
 gem 'ruby-openid'
@@ -27,26 +26,29 @@ gem 'garb'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'fckeditor'
 gem 'dynamic_form'
-gem 'bigbluebutton-api-ruby'
+gem 'bigbluebutton_rails', '~> 0.0.3'
+gem 'rspec-rails', '~> 2.5'
+gem 'action_mailer_tls'
 
-# not the official repo, but has adjustments to use it with rails 3
+# WARNING: This version of mysql2 (0.3.2) doesn't ship with the ActiveRecord adapter bundled anymore as it's now part of Rails 3.1
+# WARNING: Please use the 0.2.x releases if you plan on using it in Rails <= 3.0.x
+gem 'mysql2', '~> 0.2.0'
+
+# not the official repo, but has fixes to use it with rails 3
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'rspec-rails', '~> 2.5'
-  gem "capistrano"
-  gem 'mongrel', '1.2.0.pre2'
+  gem 'capistrano', '~> 2.5'
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'
   gem 'sqlite3-ruby', :require => 'sqlite3'
-  gem 'action_mailer_tls'
   gem 'webrat'
   gem 'rspec-instafail'
   gem 'fuubar'
+  gem 'shoulda-matchers'
 end
 
 group :production do
-  gem "mysql"
 end

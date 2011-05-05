@@ -21,30 +21,23 @@ class WebconferencesController < ApplicationController
   
   def show
 
-    #TODO temporary implementation of a bbb room for this space
-    unless BBB_API.is_meeting_running?(@space.name)
-      BBB_API.create_meeting(@space.name, @space.name, "mp", "ap", "Welcome to Mconf!")
+    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
+    begin
+      @bbb_room.fetch_meeting_info
+    rescue Exception      
     end
-    @bbb_info = {}
-    @bbb_info[:room] = @space.name
-    @bbb_info[:running] = BBB_API.is_meeting_running?(@space.name)
-    @bbb_info[:info] = BBB_API.get_meeting_info(@space.name, "mp")
-    @bbb_info[:link] = BBB_API.moderator_url(@space.name, current_user.name, "mp")
-    @bbb_enabled = @space.actors.include?(current_user)
 
+    # FIXME Temporarily matching users by name, should use the userID
     @bbb_attendees = []
-    node = @bbb_info[:info][:attendees][:attendee]
-    if node.kind_of?(Array)
-      node.each do |att|
-        Profile.find(:all, :conditions => { "full_name" => att[:fullName] }).each do |profile|
+    unless @bbb_room.attendees.nil?
+      @bbb_room.attendees.each do |attendee|
+        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
+        unless profile.nil?
           @bbb_attendees << profile.user
         end
       end
-    elsif !node.nil?
-      Profile.find(:all, :conditions => { "full_name" => node[:fullName] }).each do |profile|
-        @bbb_attendees << profile.user
-      end
     end
+
   end
    
 end

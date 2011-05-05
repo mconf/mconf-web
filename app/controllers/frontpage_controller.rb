@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,23 +17,44 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class FrontpageController < ApplicationController
-  
+
 
   def index
-#    #popular_spaces = The spaces with more users
-#    @popular_spaces = Space.find(:all, :conditions => {:public => true}).sort_by{|s| s.users.size}.reverse.first(3)
-#    
-#    #recent_spaces = The last spaces created 
+#    @users = space.users
+#
+#    #recent_spaces = The last spaces created
 #    @recent_spaces = Space.find(:all, :conditions => {:public => true},:order => "created_at Desc").first(3)
-#    
+#
 #    #relevant_users = The relevant users are the users which have more posts
 #    @relevant_users = User.find(:all).sort_by{|user| user.posts.size}.reverse.first(4)
-#    
+#
 #    #recent_posts = The latest updated threads in public spaces
 #    @recent_posts = Post.find(:all, :conditions => {:parent_id => nil}, :order => "created_at Desc").select{|p| !p.space.disabled? && p.space.public == true}.first(2)
-#    
+#
 #    #recent_events = The upcoming events in public spaces
 #    @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| !p.space.disabled? && p.space.public? &&  p.start_date && p.start_date.future?}.first(2)
+
+    # Fetch the meetings running in the server and order by participant_count
+    # TODO Temporarily using the first server
+    @server = BigbluebuttonServer.first
+    begin
+      @server.fetch_meetings
+      @server.meetings.each do |meeting|
+        meeting.fetch_meeting_info
+      end
+      @server.meetings.sort! { |x,y| y.participant_count <=> x.participant_count }
+    rescue Exception
+    end
+
+    # Get the spaces with more users and fetch info about their webconference rooms
+    @popular_spaces = Space.public.sort_by{|s| s.users.size}.reverse.first(3)
+    @popular_spaces.each do |space|
+      begin
+        space.bigbluebutton_room.fetch_meeting_info
+      rescue Exception
+      end
+    end
+
     respond_to do |format|
       if logged_in?
         format.html { redirect_to home_path}
@@ -43,14 +65,15 @@ class FrontpageController < ApplicationController
       end
     end
   end
-  
+
+
   def about
     @global = Space.find_by_name("GLOBAL")
     @latest_global_posts = Post.last_news(@global)
     render :layout=>false
   end
-  
-  def about2   
+
+  def about2
     render :layout=>false
   end
 

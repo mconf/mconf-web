@@ -1,0 +1,286 @@
+input[type=password], input[type=text], textarea {
+  border: 1px solid #ccc;
+  font-size: 12px;
+  padding: 3px;
+/*  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;*/
+}
+
+input[type=password]:focus, input[type=text]:focus, textarea:focus {
+  border: 1px solid #275b8a;
+}
+
+
+/************************************************** BUTTONS ********************************************/
+/*
+ * TYPES OF BUTTONS
+ * 1- BASIC_BUTTON: blue, small-padding
+ * 2- MEDIUM_BUTTON: blue or yellow,
+ * 3- BIG_BUTTON: red or yellow
+*/
+
+/*COMMON PROPERTIES*/
+button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
+
+/*.button_wrapper{
+        overflow:hidden;
+        }
+
+.join .button_wrapper {
+        padding:0 25px;
+}*/
+
+.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
+.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
+.cloud_button{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+        display: block;
+  float: left;
+  text-decoration: none;
+  outline:none;
+  padding:20px 40px 25px;
+        color:#fff;
+}
+
+.cloud_button:hover{text-decoration:none;outline: none;}
+
+.big_button,button,input[type=button],input[type=submit]{
+        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+        font-weight:bold;
+        text-align:center;
+}
+.big_button{
+  display: block;
+        float: left;
+        text-decoration: none;
+        outline:none;
+        }
+
+.big_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
+
+.big_button span{
+    display: block;}
+
+.big_button span:hover{
+    outline: none; /* hide dotted outline in Firefox */}
+
+/*********BIG BUTTONS***************/
+.big_button,button.big_button{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    font-size:120%;
+    line-height:150%;
+    margin-right: 6px;
+        cursor:pointer;
+    /*padding-right: 18px; /* sliding doors padding */
+}
+.big_button span{
+        -webkit-border-radius:5px;-moz-border-radius:5px;
+    line-height: 18px;
+        width:202px;
+    padding: 5px 18px 5px 18px;
+}
+
+/*.join .big_button span{width:120px;}*/
+
+button.big_button{padding:3px 18px 3px 18px;width:230px;}
+
+/********MEDIUM BUTTONS*************/
+
+
+
+/*BASIC BUTTONS..........*/
+/*.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+        font-size:95%;
+        line-height:135%;
+        margin-right:4px;
+        margin-bottom:4px;
+        cursor:pointer;
+}
+.basic_button span{
+        -webkit-border-radius:4px;-moz-border-radius:4px;
+    line-height: 16px;
+    padding:4px;
+}*/
+
+button#change_logo{float:left;}
+
+/*GREY BAR BUTTONS*/
+/*.grey_bar .grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
+.grey_bar button{line-height:16px;}
+.grey_bar .grey_button span{
+        line-height:18px;
+        color:#222;
+        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+        padding:3px 7px 3px 6px;}
+.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
+.grey_button span{border:1px solid #999;}*/
+.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
+/*-------------disabled grey buttons-----------*/
+.grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
+.grey_bar #feeds_link{margin-right:6px;}
+
+/*BUTTON COLOURS*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********** NEW STYLES ***********/
+
+
+input[type=submit].basic_button, button.basic_button, a.basic_button {
+  padding:3px 5px;
+  font-weight:bold;
+  font-size:1em;
+  line-height:1.5;
+  color:#555;
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+  border:1px solid #999;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  cursor:pointer;
+}
+
+input[type=submit].basic_button:hover, button.basic_button:hover, a.basic_button:hover {
+  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+  color:#222;
+  text-decoration: none;
+}
+
+/* BLUE */
+input[type=submit].blue_button, button.blue_button, a.blue_button {
+  background:#275b8a;
+  border:1px solid #244974;
+  color: white;
+}
+input[type=submit].blue_button:hover, button.blue_button:hover, a.blue_button:hover {
+  background: #3b6f9f;
+  color: white;
+}
+
+/* ORANGE */
+input[type=submit].orange_button, button.orange_button, a.orange_button {
+  background: transparent url("../images/buttons/fondo-join-space.png");
+  color: white;
+  border-bottom:1px #C18500 solid;
+  border-top:1px #FFC14A solid;
+  border-left:1px #FFC14A solid;
+  border-right:1px #FFC14A solid;
+}
+input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_button:hover {
+  background:url("../images/buttons/fondo-join-space2.png");
+  color: white;
+}
+
+/* PALE */
+input[type=submit].pale_button, button.pale_button, a.pale_button {
+  background: #F0F6F9;
+  border: 1px solid #BDD8EB;
+}
+input[type=submit].pale_button:hover, button.pale_button:hover, a.pale_button:hover {
+  background: #BDD8EB;
+}
+
+/* ORANGE PALE */
+input[type=submit].orange_pale_button, button.orange_pale_button, a.orange_pale_button {
+  background: #ffe8bd;
+  border: 1px solid #ffd27c;
+}
+input[type=submit].orange_pale_button:hover, button.orange_pale_button:hover, a.orange_pale_button:hover {
+  background: #ffd27c;
+}
+
+/* RED PALE */
+input[type=submit].red_pale_button, button.red_pale_button, a.red_pale_button {
+  background: #f6d6d6;
+  border: 1px solid #f3b2b2;
+}
+input[type=submit].red_pale_button:hover, button.red_pale_button:hover, a.red_pale_button:hover {
+  background: #f3b2b2;
+}
+
+/* RED */
+input[type=submit].red_button, button.red_button, a.red_button {
+  background: url("../images/buttons/leave-space-notext3.png");
+  color: white;
+  border-bottom:1px #a2042b solid;
+  border-top:1px #d60337 solid;
+  border-left:1px #d60337 solid;
+  border-right:1px #d60337 solid;
+}
+input[type=submit].red_button:hover, button.red_button:hover, a.red_button:hover {
+  background:url("../images/buttons/leave-space-notext4.png");
+  color: white;
+}
+
+/* SMALL */
+input[type=submit].small_button, button.small_button, a.small_button {
+  font-size:0.8em;
+  line-height:1;
+}
+
+/* MEDIUM */
+input[type=submit].medium_button, button.medium_button, a.medium_button {
+  font-size:1em;
+  line-height: 18px;
+  padding: 5px 8px 5px 8px;
+}
+
+
+
+
+
+
+/* For <button> tags, not links */
+/* TEMPORARY
+
+button.medium_button {
+  font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  text-align:center;
+  display: inline;
+  float: none;
+  text-decoration: none;
+  outline: none;
+}
+
+button.medium_button:hover {
+  text-decoration:none;
+  outline: none;
+}
+
+button.medium_button {
+  -webkit-border-radius:4px; -moz-border-radius:4px;
+  font-size: 1.0833em;
+  line-height: 1.3846;
+  margin-right: 6px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 16px;
+  width: auto;
+  padding: 4px 10px 4px 10px;
+}
+
+button.black_letter_button {
+  color: #000;
+}
+
+button.blue_button {
+  border: 1px solid #244974;
+}
+*/

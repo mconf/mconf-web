@@ -10,6 +10,12 @@ GIT
   specs:
     simple_captcha (0.1.1)
 
+GIT
+  remote: git://github.com/mconf/permalink_fu.git
+  revision: a42f16a13ab1f7bf14256e57a8e0fe6c6f902bf9
+  specs:
+    teambox-permalink_fu (1.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -44,21 +50,25 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.9)
     atom-tools (2.0.5)
-    bigbluebutton-api-ruby (0.0.4)
+    bigbluebutton-api-ruby (0.0.10)
+      nokogiri (~> 1.4.0)
+    bigbluebutton_rails (0.0.3)
+      bigbluebutton-api-ruby (~> 0.0.10)
+      rails (~> 3.0.3)
     builder (2.1.2)
-    capistrano (2.5.19)
+    capistrano (2.5.21)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.0.0)
+    chalofa_ruby-progressbar (0.0.9.1)
     chronic (0.3.0)
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
     color (1.4.1)
     columnize (0.3.2)
     crack (0.1.8)
-    daemons (1.0.10)
     diff-lcs (1.1.2)
     dynamic_form (1.1.3)
     erubis (2.6.6)
@@ -69,23 +79,25 @@ GEM
     feed-normalizer (1.5.2)
       hpricot (>= 0.6)
       simple-rss (>= 1.1)
-    ffaker (1.4.0)
-    fuubar (0.0.3)
+    ffaker (1.5.0)
+    fuubar (0.0.4)
+      chalofa_ruby-progressbar (~> 0.0.9)
       rspec (~> 2.0)
       rspec-instafail (~> 0.1.4)
-      ruby-progressbar (~> 0.0.9)
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    gem_plugin (0.2.3)
     highline (1.6.1)
-    hoe (2.9.1)
+    hoe (2.9.4)
       rake (>= 0.8.7)
     hpricot (0.8.4)
     httparty (0.7.4)
       crack (= 0.1.8)
     i18n (0.5.0)
-    linecache19 (0.5.11)
+    jquery-rails (0.2.7)
+      rails (~> 3.0)
+      thor (~> 0.14.4)
+    linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -93,28 +105,24 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mongrel (1.2.0.pre2)
-      daemons (~> 1.0.10)
-      gem_plugin (~> 0.2.3)
-    mysql (2.8.1)
+    mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.3)
+    net-ssh (2.1.4)
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
     nokogiri (1.4.1)
     pdf-writer (1.1.8)
       color (>= 1.4.0)
       transaction-simple (~> 1.3)
-    permalink_fu (1.0.0)
     polyglot (0.3.1)
     populator (1.0.0)
     prism (0.1.0)
       nokogiri
-    rack (1.2.1)
-    rack-mount (0.6.13)
+    rack (1.2.2)
+    rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
@@ -148,7 +156,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.5.0)
-    ruby-debug-base19 (0.11.24)
+    ruby-debug-base19 (0.11.25)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby_core_source (>= 0.1.4)
@@ -157,10 +165,10 @@ GEM
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
     ruby-openid (2.1.8)
-    ruby-progressbar (0.0.9)
-    ruby_core_source (0.1.4)
+    ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.4)
+    shoulda-matchers (1.0.0.beta2)
     simple-rss (1.2.3)
     sqlite3 (1.3.3)
     sqlite3-ruby (1.3.3)
@@ -170,7 +178,7 @@ GEM
       hoe (>= 1.1.7)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.24)
+    tzinfo (0.3.26)
     vpim (0.695)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
@@ -184,8 +192,8 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
-  bigbluebutton-api-ruby
-  capistrano
+  bigbluebutton_rails (~> 0.0.3)
+  capistrano (~> 2.5)
   chronic
   ci_reporter
   dynamic_form
@@ -199,11 +207,10 @@ DEPENDENCIES
   hoe
   hpricot
   httparty
-  mongrel (= 1.2.0.pre2)
-  mysql
+  jquery-rails (>= 0.2.6)
+  mysql2 (~> 0.2.0)
   nokogiri (= 1.4.1)
   pdf-writer
-  permalink_fu
   populator
   prism
   rails (= 3.0.3)
@@ -214,9 +221,11 @@ DEPENDENCIES
   ruby-debug19
   ruby-openid
   rubyzip
+  shoulda-matchers
   simple_captcha!
   sqlite3-ruby
   table_helper!
+  teambox-permalink_fu!
   vpim
   webrat
   will_paginate (~> 3.0.pre2)

@@ -27,8 +27,9 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
   has_many :agendas, :through => :events
+  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_permalink :name, :update=>true
+  has_permalink :name, :update => true
 
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],
@@ -67,6 +68,13 @@ class Space < ActiveRecord::Base
       #group.users << space.users(:role => "user")
       #group.save
   #}
+
+  # TODO BBB Always using the first server
+  after_create { |space|
+    room = BigbluebuttonRoom.new(:name => space.name, :meetingid => space.emailize_name,
+                                 :owner => space, :server => BigbluebuttonServer.first)
+    room.save
+  }
 
 #  before_create {
 #  }

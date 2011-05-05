@@ -1,138 +1,114 @@
-<%= content_for :search do %>
-<%= render :partial => 'search/form' %>
-<%end %>
-<div class="left column span-11 borde">
-    <div id="left_espacio">
-    </div>
-    <div id="left_contenido">
-        <div id="vcc_title">
-            <%= t('frontpage.main_title') %>
-            <span id="text_bottom_title">
-                <br/>
-                <%= t('frontpage.stats', :vc => Event.count, :vs => AgendaEntry.with_recording.count) %>
-            </span>
+<% content_for :home_top do %>
+  <div id="content_top">
+
+    <div id="content_top_container">
+      <div class="registration">
+        <span><%= t('frontpage.register_sentence') %></span><br/>
+        <div class="join_button">
+          <a href="<%= signup_path %>" class="basic_button medium_button orange_button"><span><%= t('register.one') %></span></a>
         </div>
-        <br/>
-        <div id="share">
-            <span><%=image_tag("../images/frontpage/share.gif") %></span>
-            <span>
-                <ul class="purple">
-                    <li>
-                    <%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence1') %>
-                    </img>
-                </li>
-                <li><%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence2') %>
-                </img>
-            </li>
-            <li>
-            <%=image_tag("../images/frontpage/purple_sq.png") %><%= t('frontpage.share.sentence3') %>
-            </img>
-        </li>
-        </ul>
-    </span>
-</div>
-<div id="meet" class="no_float_left">
-    <span><%=image_tag("../images/frontpage/meet.gif") %></span>
-    <span class="no_float">
-        <ul class="green">
-            <li>
-            <%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence1') %>
-            </img>
-        </li>
-        <li><%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence2') %>
-        </img>
-    </li>
-    <li>
-    <%=image_tag("../images/frontpage/green_sq.png") %><%= t('frontpage.meet.sentence3') %>
-    </img>
-</li>
-</ul>
-</span>
-</div>
-<div id="collaborate" class="no_float_left">
-    <span><%=image_tag("../images/frontpage/collaborate.gif") %></span>
-    <span>
-        <ul class="yellow">
-            <li>
-            <%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence1') %>
-            </img>
-        </li>
-        <li><%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence2') %>
-        </img>
-    </li>
-    <li>
-    <%=image_tag("../images/frontpage/yellow_sq.png") %><%= t('frontpage.collaborate.sentence3') %>
-    </img>
-</li>
-</ul>
-</span>
-</div>
-<br/>
-<div id="join_form" class="no_float_left">
-    <%= link_to image_tag("join.gif", :alt=>"register"), signup_path, :class => "register_link" %>
-</div>
-</div>
-</div>
-<div class="right column span-12 borde">
-    <div id="caracteristics">
-        <span id ="video">
-            <ul id="gallery">
-                <li>
-                    <img src="../images/frontpage/video_1_happy.jpg" alt="Happy Sithole - Belief" />
-                    <div class="panel-content">
-                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=4">
-                        	<img src="../images/frontpage/video_1_happy.jpg" alt="Happy Sithole - Belief" title="Happy Sithole - Belief" width="320" height="245" /></a>
-                    </div>
-                </li>
-                <li>
-                    <img src="../images/frontpage/video_2_kostas.jpg" alt="Kostas Glinos- Belief" title="Kostas Glinos- Belief"/>
-                    <div class="panel-content">
-                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=13"><img src="../images/frontpage/video_2_kostas.jpg" alt="Kostas Glinos- Belief" title="Kostas Glinos- Belief" width="320" height="245"/></a>
-                    </div>
-                </li>
-                <li>
-                    <img src="../images/frontpage/video_3_colin.jpg" alt="Colin Wright - Belief" title="Colin Wright - Belief" />
-                    <div class="panel-content">
-                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=66"><img src="../images/frontpage/video_3_colin.jpg" alt="Colin Wright - Belief" title="Colin Wright - Belief" width="320" height="245" /></a>
-                    </div>
-                </li>
-                <li>
-                    <img src="../images/frontpage/video_4_romilla.jpg" alt="Romilla Maharaj - Belief" title="Romilla Maharaj - Belief"/>
-                    <div class="panel-content">
-                        <a href="http://www.globalplaza.org/spaces/global/events/5th-belief-symposium?show_video=20"><img src="../images/frontpage/video_4_romilla.jpg" alt="Romilla Maharaj - Belief" title="Romilla Maharaj - Belief" width="320" height="245"/></a>
-                    </div>
-                </li>
-            </ul>
-        </span>
-		<% global_space = Space.find_by_permalink("global")%>
-        <ul>
-            <li class="conferences">
-                <%= link_to t('frontpage.elements.conferences'),search_all_path(:advanced => true,
-                                                  :type => 'events',
-                                                  :sort_mode => 'ascending',
-                                                  :start_date => Time.now.strftime("%m/%d/%Y"),
-                                                  :end_date =>(Time.now + 2.month).strftime("%m/%d/%Y"))%>
-            </li>
-            <li class="participants">
-                <%= link_to t('frontpage.elements.participants'), space_users_path( global_space ? global_space : Space.first) %>
-            </li>
-            <li class="organizers">
-                <%= link_to t('frontpage.elements.organizers'), space_users_path(global_space ? global_space : Space.first) %>
-            </li>
-            <li class="spaces">            	
-                <%= link_to t('frontpage.elements.spaces'), spaces_path %>
-            </li>
-            <li class="comments">
-                <%= link_to t('frontpage.elements.comments'), space_posts_path(global_space ? global_space : Space.first) %>
-            </li>
-            <li class="tags">
-                <%= link_to t('frontpage.elements.tags'), space_attachments_path(global_space ? global_space : Space.first) %>
-            </li>
-            <li class="networks">
-                <%= t('frontpage.elements.networks') %>
-            </li>
-        </ul>
+      </div>
+      <div class="description">
+        <%= t('frontpage.project_description').html_safe %>
+      </div>
+      <div class="clearer"><span>&nbsp;</span></div>
     </div>
+
+  </div>
+<% end %>
+
+<div id="content_container">
+
+  <div id="bigbluebutton_rooms">
+    <h2><%=t('frontpage.webconferences')%></h2>
+    <p><%=t('frontpage.join_or_create')%></p>
+
+    <h4><%=t('frontpage.meetings_in_progress')%></h4>
+
+    <% if !@server.meetings.nil? && @server.meetings.count > 0 %>
+      <div class="join_room">
+        <!--<div class="input">
+          <label>Your name:</label>
+          <input type="text" name="username1" size="27"/>
+        </div>-->
+        <label>Meetings:</label>
+        <ul class="meeting_list">
+          <% @server.meetings.each do |room| %>
+            <li>
+              <% if room.new_record? %>
+                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meetingid}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <% else %>
+                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+              <% end %>
+
+              <!--<button type="submit" class="basic_button blue_button"><%=t('frontpage.join_button')%></button>-->
+              <span class="red"><%= room.meetingid %>: </span><%= room.participant_count %> <%=t('frontpage.participants')%>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
+    <% else %>
+      <p><%=t('frontpage.no_rooms')%></p>
+    <% end %>
+
+    <h4><%=t('frontpage.create_room')%></h4>
+    <div class="create_room">
+      <form name="form2" method="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
+        <div class="input">
+          <label><%= t('frontpage.your_name') %>:</label>
+          <input type="text" name="username1" size="27"/>
+        </div>
+        <div class="input">
+          <label><%= t('frontpage.room_name') %>:</label>
+          <input type="text" name="roomname" size="27"/>
+        </div>
+        <div class="button_area">
+          <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
+        </div>
+        <input type="hidden" name="action" value="create">
+      </form>
+    </div>
+
+  </div>
+
+  <div id="public_spaces">
+    <h2><%=t('frontpage.popular_spaces')%></h2>
+    <ul>
+      <% @popular_spaces.each do |space| %>
+      <li>
+        <div class="space_container">
+          <h3><a href="<%=space_path(space)%>"> <%= space.name %> </a></h3>
+          <a href="<%=space_path(space)%>"><%= logo(space, :size=> 'h64', :title => sanitize(space.name)).html_safe %></a>
+          <div class="space_info">
+            <ul>
+              <li>
+                <%=space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.count%> <%=t('frontpage.upcoming_events')%>
+              </li>
+              <li>
+                <%=space.users.count%> <%=t('frontpage.members')%>
+              </li>
+              <li>
+                <a href="<%=space_path(space)%>"><%=t('frontpage.more_info')%></a>
+              </li>
+            </ul>
+          </div>
+          <div class="space_webconference">
+            <% room = space.bigbluebutton_room %>
+            <div class="join_button">
+              <a href="<%= space_invite_room_path(space, room) %>" class="basic_button medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+            </div>
+            <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
+            <span><%= t('frontpage.participants_in', :count => count) %></span>
+          </div>
+          <div class="clearer">&nbsp;</div>
+        </div>
+      </li>
+      <%end%>
+    </ul>
+  </div>
+
+  <div class="clearer"><span>&nbsp;</span></div>
+
 </div>
-<div id="espacio_body_bottom">
-</div>
+

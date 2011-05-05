@@ -1,0 +1,42 @@
+<script type="text/javascript">
+
+function ajax_request() {
+  $.ajax({
+    url: "<%= running_bigbluebutton_server_room_url(@server, @room, :format => 'json') %>",
+    dataType: 'json',
+    error: function(xhr_data) {
+      //
+    },
+    success: function(xhr_data) {
+      if (xhr_data.running == 'true') {
+        window.location.reload();
+      }
+      setTimeout(function() { ajax_request(); }, 3000);
+    },
+    contentType: 'application/json'
+  });
+}
+
+$(document).ready(function(){
+  ajax_request();
+});
+
+</script>
+
+<div id="rooms_join">
+
+  <div class="title">
+    <%= t('rooms.join.title', :name => @room.name) %>
+    <div class="loading">
+      <%= image_tag "loading.gif" %>
+    </div>
+  </div>
+
+  <div class="content">
+    <p>
+      <%= t('rooms.join.msg1') %><br />
+      <%= t('rooms.join.msg2') %>
+    </p>
+  </div>
+
+</div>

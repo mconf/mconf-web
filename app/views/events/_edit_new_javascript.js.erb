@@ -14,8 +14,8 @@
                         $('#check_presential').show();
             <%end%>
      <%else%>
-       $('#event_type_meeting').addClass('blue_selected');
-           $('#check_meeting').show();
+       $('#event_type_presential').addClass('blue_selected');
+       $('#check_presential').show();
      <%end%>
      
   <% # TODO Rails 3: check the effects of this if block in the page %>
@@ -50,6 +50,8 @@
     $("#extra-info").show();
   });
   
+  /* Disabling virtual conferences temporarily
+
   $("#event_type_meeting").click(function(){
     $("#event_vc_mode").val("<%=Event::VC_MODE.index(:telemeeting)%>");
         $(".blue_selected").removeClass("blue_selected");
@@ -78,7 +80,7 @@
         $("#check_conference").show();
         $("#videoconference_options").show();
         $("#extra_space").hide();
-  });
+  });*/
   
   $("#event_type_presential").click(function(){
     $("#event_vc_mode").val("<%=Event::VC_MODE.index(:in_person)%>");
@@ -89,6 +91,7 @@
         $("#videoconference_options").hide();
         $("#extra_space").show();
   });
+  $("#event_type_presential").click();
   
   change_logo = function(){
     $("#update_logo").show();
@@ -113,7 +116,6 @@
           $("#extra-info").width("56%");
     }                   
   });
-  
   
   if ($("#event_manual_configuration").is(":checked")) {
           $("#extra-info").show();

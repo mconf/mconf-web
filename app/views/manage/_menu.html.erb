@@ -1,10 +1,10 @@
-	<div id="inbox-wrapper">
-		
+<div id="inbox-wrapper">
 	<ul id="inbox">
 		<li><%=link_to t('site.default').upcase, site_path, :class => "#{'selected' if params[:controller] == 'sites'}"%></li>
 		<li><%=link_to t('space.other').upcase, manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"%></li>
 		<li><%=link_to t('user.other').upcase, manage_users_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}"%></li> 
 		<li><%=link_to t('spam.default').upcase, manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}"%></li> 
-	</ul>
-	</div>
+    <li><%=link_to t('server.other').upcase, bigbluebutton_servers_path, :class => "#{'selected' if params[:controller] == 'bigbluebutton/servers' || params[:controller] == 'bigbluebutton/rooms'}"%></li> 
+  </ul>
+</div>
 	

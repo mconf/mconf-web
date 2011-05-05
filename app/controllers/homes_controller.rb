@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -15,6 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'bigbluebutton-api'
+
 class HomesController < ApplicationController
   
   before_filter :authentication_required
@@ -23,6 +26,15 @@ class HomesController < ApplicationController
   end
   
   def show
+    @server = BigbluebuttonServer.first
+    @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
+    @bbb_rooms.each do |room|
+      begin
+       room.fetch_meeting_info
+      rescue Exception      
+      end
+    end
+    
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
@@ -32,6 +44,18 @@ class HomesController < ApplicationController
 
     #let's get the inbox for the user
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
+  end
+
+  def new_room
+    @server = BigbluebuttonServer.first
+    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first)
+    respond_to do |format|
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
+    end
   end
 
 end

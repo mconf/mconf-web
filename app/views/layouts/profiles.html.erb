@@ -9,6 +9,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     
+    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
@@ -16,7 +17,8 @@
     <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
-		
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+                
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
@@ -26,46 +28,47 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3' %>
+    <%= javascript_include_tag 'jquery', 'rails.js', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= csrf_meta_tag %>
     <%= yield :headers %>
     
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-	<%= render :partial => 'layouts/ready.js.erb' %>
+        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
     
   </head>
 
-	<body>
-	  <div id="site">
-		  <%= render :partial => "layouts/global" %>
+        <body>
+          <div id="site">
+                  <%= render :partial => "layouts/global" %>
 
-		  <div id="space">
-		    	
-			  <div id="profile_header">
+                  <div id="space">
+                        
+                          <div id="profile_header">
           <%= yield :header %>
         </div>
 
-		    <div id="content">		      	      				
-					<div id="main">
-		        
-						<%= render :partial => "layouts/menu" %>
-		        
-						<div id="profile_wrapper">		
-	     		    <%= yield %>
-			      </div>
-			    </div>
+                    <div id="content">                                                  
+                                        <div id="main">
+                        
+                                                <%= render :partial => "layouts/menu" %>
+                        
+                                                <div id="profile_wrapper">              
+                            <%= yield %>
+                              </div>
+                            </div>
       
-		      <div id="sidebar">
-		        <%= yield :sidebar %>
+                      <div id="sidebar">
+                        <%= yield :sidebar %>
           </div>
         </div>
-	  <%= render :partial => "layouts/footer" %>  
-	  </div>
-	  
-	  </div>
-		
-	</body>
+          <%= render :partial => "layouts/footer" %>  
+          </div>
+          
+          </div>
+                
+        </body>
 </html>

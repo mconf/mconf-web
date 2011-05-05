@@ -1,65 +1,55 @@
 <% menu(:webconference) %>
 
 <%= content_for :javascript do  %>
+
+  $('#sidebar img.tooltip_invite_people').qtip({
+    content: '<%=t("tooltip.invite_people")%>',
+    position: {adjust: { screen: true }},
+    show:  'mouseover',
+    hide: { when: 'mouseout', fixed: true },
+    style: 'mystyle'
+  });
   
- $('#sidebar img.tooltip_invite_people').qtip({
-   content: '<%=t("tooltip.invite_people")%>',
-         position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
+  $("a#invite_bbb_link").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 430
   });
 
 <% end %>
 
 <%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
-<%end%>
+<% end %>
 
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
 <% end %>
 
-<div>
-  <div class="webconference-url">
-    <%= request.url %> 
-  </div>
+<div id="space_webconference_description">
+  <div class="event_image"><%= image_tag("logos/bbb.png") %></div>
+  <% status = @bbb_room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
+  <%= t('webconference.space.description', :status => status).html_safe %>
 
-  <% if @bbb_enabled %>
-    <div class="bigbluebutton_button_area">
-      <%= link_to 'Join webconference', @bbb_info[:link], :class => 'big_button orange_button bigbluebutton_button' %>
+  <div class="url_share">
+    <div class="video_share">
+      <span><%= t('webconference.space.share') %></span>
     </div>
-  <% else %>
-    <div class="bigbluebutton_button_area">
-      You must be a member<br />of this space to join the room.
+    <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= space_invite_room_url(space, @bbb_room) %></span>
+    <div class="invite_button">
+      <%= link_to t('button.invite'), inviteroom_invite_path(:roomName => space.name, 
+            :roomUrl => space_invite_room_url(space, @bbb_room)), :id => 'invite_bbb_link', :class => 'basic_button' %>
     </div>
-  <% end %>
+  </div>
 </div>
 
-<div class="clearer"></div>
-
 <div>
-  <% if @bbb_info[:running] %>
-    <p class="main_text">
-
-        <div class="people-connect-title">
-          <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.people') %> (<%= @bbb_attendees.count.to_s %>)</h3>
-        </div>
-        <% @bbb_attendees.each do |user| %>
-        <div class="user last">
-          <div class="post-logo"><%=link_to logo(user, :size=>32, :title=>user.name).html_safe, user_path(user)%></div>
-          <div>
-            <ul>
-              <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
-              <li><%=sanitize(user.organization)%></li>
-            </ul>
-          </div>
-        </div>
-        <% end %>
-
-      </p>
-
-    <% else %>
-      <p class="main_text"><%= t('webconference.nobody_room.one') %></p>
+  <p class="main_text">
+    <div class="people-connect-title">
+      <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_room.participant_count %>)</h3>
+    </div>
+    <% @bbb_attendees.each do |user| %>
+      <div><%= render :partial => 'users/detailed_user', :object => user %></div>
     <% end %>
+  </p>
 </div>

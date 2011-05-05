@@ -14,8 +14,10 @@ spec/reports
 *~
 config/locales/log
 .svn
-config/initializers/mail_conf.rb
+config/mail_conf.yml
 config/bigbluebutton_conf.yml
+config/database.yml
 public/pdf/
 db/*.sqlite3*
 tmp/*
+.redcar

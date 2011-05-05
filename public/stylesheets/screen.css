@@ -64,164 +64,6 @@ ol{list-style-type:decimal;}
 .right-align {float:right;}
 .margin-up{margin-top:0.75em;}
 
-/************************************************** BUTTONS ********************************************/
-/*
- * TYPES OF BUTTONS
- * 1- BASIC_BUTTON: blue, small-padding
- * 2- MEDIUM_BUTTON: blue or yellow,
- * 3- BIG_BUTTON: red or yellow
-*/
-
-/*COMMON PROPERTIES*/
-button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
-
-.button_wrapper{
-        overflow:hidden;
-        }
-
-.join .button_wrapper {
-        padding:0 25px;
-}
-
-.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
-.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
-a.cloud_button{
-        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-  font-weight:bold;
-  text-align:center;
-        display: block;
-  float: left;
-  text-decoration: none;
-  outline:none;
-  padding:20px 40px 25px;
-        color:#fff;
-}
-
-a.cloud_button:hover{text-decoration:none;outline: none;}
-
-a.big_button,a.medium_button,a.basic_button,button,input[type=button],input[type=submit]{
-        font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
-        font-weight:bold;
-        text-align:center;
-}
-a.big_button, a.medium_button, a.basic_button{
-  display: block;
-        float: left;
-        text-decoration: none;
-        outline:none;
-        }
-
-a.big_button:hover, a.medium_button:hover, a.basic_button:hover{text-decoration:none;outline: none; /* hide dotted outline in Firefox */}
-
-a.big_button span, a.medium_button span, a.basic_button span{
-    display: block;}
-
-a.big_button span:hover, a.medium_button span:hover, a.basic_button span:hover{
-    outline: none; /* hide dotted outline in Firefox */}
-
-/*********BIG BUTTONS***************/
-a.big_button,button.big_button{
-        -webkit-border-radius:5px;-moz-border-radius:5px;
-    font-size:120%;
-    line-height:150%;
-    margin-right: 6px;
-        cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.big_button span{
-        -webkit-border-radius:5px;-moz-border-radius:5px;
-    line-height: 18px;
-        width:202px;
-    padding: 5px 18px 5px 18px;
-}
-
-.join a.big_button span{width:120px;}
-
-button.big_button{padding:3px 18px 3px 18px;width:230px;}
-
-/********MEDIUM BUTTONS*************/
-a.medium_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:1.0833em;
-        line-height:1.3846;
-    margin-right: 6px;
-        cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
-}
-a.medium_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        color:#fff;
-    line-height: 16px;
-        width:110px;
-    padding: 5px 18px 5px 18px;
-}
-
-/*BASIC BUTTONS..........*/
-a.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:95%;
-        line-height:135%;
-        margin-right:4px;
-        margin-bottom:4px;
-        cursor:pointer;
-        /*padding-right: 4px; /* sliding doors padding */
-}
-a.basic_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-    line-height: 16px;
-    padding:4px;
-}
-
-button#change_logo{float:left;}
-
-/*GREY BAR BUTTONS*/
-.grey_bar a.grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
-.grey_bar button{line-height:16px;}
-.grey_bar .grey_button span{
-        line-height:18px;
-        color:#222;
-        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
-        padding:3px 7px 3px 6px;}
-.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
-.grey_button span{border:1px solid #999;}
-.separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
-/*-------------disabled grey buttons-----------*/
-.grey_bar a.disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
-.grey_bar #feeds_link{margin-right:6px;}
-
-/*BUTTON COLOURS*/
-.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
-
-.orange_button span,button.orange_button{
-        border-bottom:1px #C18500 solid;
-        border-top:1px #FFC14A solid;
-        border-left:1px #FFC14A solid;
-        border-right:1px #FFC14A solid;
-}
-.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
-
-.red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
-
-.red_button span{
-        border-bottom:1px #a2042b solid;
-        border-top:1px #d60337 solid;
-        border-left:1px #d60337 solid;
-        border-right:1px #d60337 solid;
-        }
-.red_button:hover,.red_button span:hover{background:url("../images/buttons/leave-space-notext4.png");}
-
-.blue_button,.blue_button span{color:#FFF;background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;}
-
-.blue_button span,button.blue_button,input[type=button].basic_button{border:1px solid #244974;}
-
-.blue_button span:hover,button.blue_button:hover,input[type=button].basic_button:hover,,#space-conf #jedit_form button:hover{border:1px solid #86B5D5;}
-
-.pale_button,.pale_button span{background: none repeat scroll 0 0 #F0F6F9;}
-
-.pale_button span,button.pale_button{
-        border: 1px solid #BDD8EB;
-}
-.pale_button:hover,.pale_button span:hover{background:none repeat scroll 0 0 #BDD8EB;}
 
 /* special cases in buttons*/
 
@@ -416,6 +258,7 @@ div.user{background-color:white;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .user div{float:left; }
 .user div.non_float{float:none;}
 .user .user_data{margin-left:0.5em;}
+.user span.send{float:right; color:#244974;}
 
 div.admin,div.read_more{position:relative;clear:both;overflow:hidden;}
 div.admin{background-color:none;border-bottom:1px #CCC solid;padding:9px 0.5em 9px 0.5em;}
@@ -984,11 +827,12 @@ div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div#manage p {clear:both;padding:8px 9px 9px 9px;margin:0;/*border-bottom:1px #ccc solid;*/}
 div#manage label{color:#244974;font-weight:bold;display:inline-block;width:150px}
+div#manage color{color:#244974;}
 div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
 div#manage input{width:300px;}
 div#manage #site_button{margin-left:162px;}
-div#manage #site_button span{padding-left:10px;padding-right:10px;}
+/*div#manage #site_button span{padding-left:10px;padding-right:10px;}*/
 div#manage textarea{width:300px;height:100px;}
 div#manage .users select{margin-left:0.75em;}
 div#manage .users input{width:75px;}
@@ -1943,24 +1787,42 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
         display:inline-block;
         width:24%;
         margin-left:4px;
-        cursor:pointer;}
+        }
 .event_type .check_check{margin-left:5px;}
 .event_type .icon{margin-bottom:-3px;}
+.event_type_disabled {
+  text-align: center;
+  font-size: 11px;
+  color: #444;
+  float: left;
+  border-bottom:1px #CCC solid;
+  padding: 2px 7px 2px 7px;
+  background:#f6f1bd;
+  border:1px solid #cdc893;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+
 #event_type_meeting,#event_type_class,#event_type_conference,#event_type_presential{
         padding:15px 5px 15px 32px;
         color:#244974;
         font-weight:bold;
-        display:block;}
+        display:block;
+    cursor:pointer;
+}
+#event_type_meeting,#event_type_class,#event_type_conference{ color:#aaa; cursor: default; } /* temporarily disabled */
 #event_type_meeting{background:url('../images/virtual_meeting.png') no-repeat center left;}
 #event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
 #event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
 #event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
+
 .event_info{position:relative;display:block;clear:both;}
 .event_info div.margin-up{position:relative;clear:both;}
 .event_info div.margin-up label{float:left;width:25%;padding-left:45px;}
 .event_info div.margin-up .wysiwyg{float:left;height:20em;}
 .event_info div.margin-up select,#extra-info select{font-size:0.91667em;line-height:1.6363;}
 .event_info div.margin-up input{float:left;width:297px;margin-bottom:0.75em;}
+
 div#initial-info{padding-left:45px;}
 #extra-info{margin-left:40px;padding:4px;border:1px solid #A8C0D1;background:#E1EEF5;width:56%;}
 div#initial-info #advanced_config{margin-left:15px;color:#244974;cursor:pointer;}
@@ -2083,14 +1945,14 @@ a.first_day_link{border:none;}
   padding: 5px;
 }
 
-.bigbluebutton_button {
-  padding: 5px 10px 5px 10px;
+.rounded_button {
+  -moz-border-radius: 10px; /* Para Firefox */
+  -webkit-border-radius: 10px; /*Para Safari e Chrome */
+  -border-radius: 10px; /* Para Opera 10.5+*/
 }
 
-.bigbluebutton_button_area {
-  text-align: center;
-  float: right;
-  margin: 5px;
+.border_button {
+  border: 1px solid #000000;
 }
 
 .clearer {
@@ -2099,7 +1961,7 @@ a.first_day_link{border:none;}
 
 .offscreen { display:none; }
 
-.webconference-url{
+div.webconference-url {
   color:#244974;
   background:url('/images/url.png') no-repeat left center;
   padding: 12.5px;
@@ -2110,10 +1972,161 @@ a.first_day_link{border:none;}
 
 .people-connect-title h3{color:#244974;background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:10px;}
 
-div.space-webconference-sidebar h3, div.space-webconference-sidebar p{color:#244974;}
-.space-webconference-sidebar h3{border-bottom:1px #ccc solid;}
-.space-webconference-sidebar span.c_red{color:#8B1A1A;}
-.space-webconference-sidebar span.c_black{color:#000000;}
-.space-webconference-sidebar span.lk{text-decoration: underline;}
-.space-webconference-sidebar span.fl{float:left;}
-.space-webconference-sidebar span.fr{float:right;}
+div.webconference-space-sidebar {margin-bottom: 10px;}
+div.webconference-space-sidebar h3{color:#244974;border-bottom:1px #ccc solid;}
+
+div.webconference-space-sidebar .big_button { float: right; }
+div.webconference-space-sidebar .big_button span { width: auto; }
+
+div.webconference-space-sidebar .more_info { font-size: 11px; color: #A8C0D1; }
+
+div.webconf-rooms {
+  margin-bottom: 10px;
+  background: #FFFFFF;
+}
+
+div.webconf-rooms h3 {
+  color: #244974;
+  background: #BDD8EB none repeat scroll 0 0;
+  padding: 6px;
+  text-align: center;
+}
+
+div.webconf-rooms span.red_c {
+  color: #8B0000;
+  font-weight: bold;
+}
+
+div.webconf-rooms span.text {
+  margin-left: 0.2cm;
+}
+
+div.my-webconference-rooms {
+  background: #FFFFFF;
+}
+
+div.my-webconference-rooms h3 {
+  color: #244974;
+  background: #BDD8EB none repeat scroll 0 0;
+  border-bottom: 1px solid #A8C0D1;
+  padding: 6px;
+}
+
+div.my-webconference-rooms .room_name {
+  color: #8B0000;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+div.my-webconference-rooms span.black_c {
+  color: #000000;
+}
+
+div.my-webconference-rooms div.room_list {
+  padding: 0 10px 10px 10px;
+}
+
+div.my-webconference-rooms div.room_list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.my-webconference-rooms div.room_list li {
+  border-bottom:1px #ddd solid;
+  padding: 7px 5px 7px 5px;
+  clear: both;
+}
+
+div.my-webconference-rooms div.room_list .invite_url {
+  float: right;
+  clear: right;
+  margin-top: 10px;
+
+  border-bottom:1px #CCC solid;
+  padding: 4px;
+  background:#f0f6f9;
+  border:1px solid #bdd8eb;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  display: none;
+}
+
+div.my-webconference-rooms div.room_list .invite_url .title {
+  font-size: 12px;
+}
+
+.float_right { float: right; }
+.float_left { float: left; }
+
+#space_webconference_alert, #space_webconference_description {
+  border-bottom:1px #CCC solid;
+  padding:0.75em;
+  background:#f0f6f9;
+  border:1px solid #bdd8eb;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  display:block;
+  margin-bottom:0.75em;
+}
+
+#space_webconference_alert {
+  text-align: center;
+}
+
+#space_webconference_description .invite_button {
+  margin-top: 5px;
+  margin-right: 5px;
+  float: right;
+}
+
+/*rooms*/
+div#manage_rooms p {clear:both;padding:8px 9px 9px 9px;margin:0;}
+div#manage_rooms color{color:#244974;}
+
+#rooms_invitation .title, #rooms_join .title {
+  font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;
+  padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;
+  text-align: left;
+}
+
+#rooms_invitation .title .status {
+  font-family:Trebuchet;font-size:0.9em;line-height:1;font-weight:normal;
+  margin: 0;
+  padding: 0;
+}
+
+#rooms_invitation .field {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#rooms_invitation .submit_area {
+  float: right;
+  margin-top: -40px;
+}
+
+#rooms_invitation .obs, #rooms_invitation .obs2 {
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  color: #666;
+}
+
+#rooms_invitation .obs2 {
+  color:#244974;
+  font-style: italic;
+}
+
+#rooms_join {
+  text-align: center;
+}
+
+#rooms_join .loading {
+  float: right;
+}
+
+#rooms_join .content {
+  margin-top: 10px;;
+}
+

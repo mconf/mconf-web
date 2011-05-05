@@ -4,7 +4,7 @@
         <center>
         <%if @event.logo %>
         <div class="event_logo">
-            <%=logo(@event.logo, {:id=> "selected_logo_image",:size => 64, :title=>t('logo.click_to_change')}) %>
+            <%=logo(@event.logo, {:id=> "selected_logo_image",:size => 64, :title=>t('logo.click_to_change')}).html_safe %>
         </div>
         <div class="event_date_image" style="display:none;">
         <div class="event_day">

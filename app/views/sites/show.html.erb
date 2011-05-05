@@ -2,7 +2,8 @@
   <%= render :partial => 'search/form' %>
 <%end%>
 
-        <%= render :partial => 'manage/menu' %>
+<%= render :partial => 'manage/menu' %>
+
 <div id="manage">
   <p>
     <label><%= t('site.name') %>:</label>
@@ -65,6 +66,7 @@
   </p>
 
   <div id="site_button" class="button_wrapper">
-    <%= link_to ("<span>" + t('button.edit') + "</span>").html_safe, edit_site_path,:class => "blue_button basic_button"%>
+    <%= link_to ("<span>" + t('button.edit') + "</span>").html_safe, edit_site_path,:class => "basic_button blue_button"%>
   </div>
+
 </div>

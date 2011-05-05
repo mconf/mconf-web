@@ -8,6 +8,7 @@
     <title><%= yield(:title) || current_site.name %></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     
+    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
@@ -15,7 +16,8 @@
     <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
-		
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+                
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
@@ -25,48 +27,49 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3' %>
+    <%= javascript_include_tag 'jquery', 'rails.js', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= csrf_meta_tag %>
     <%= yield :headers %>
     
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-	<%= render :partial => 'layouts/ready.js.erb' %>
+        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
     
   </head>
 
-	<body>
-	  <div id="site">
-		  <%= render :partial => "layouts/global" %>
+        <body>
+          <div id="site">
+                  <%= render :partial => "layouts/global" %>
 
-		  <div id="space">
+                  <div id="space">
 
-				<div id="header">
-		      <%= render :partial => "layouts/header" %>
-		    </div>
+                                <div id="header">
+                      <%= render :partial => "layouts/header" %>
+                    </div>
 
-		    <div id="content">		      	      				
-					<div id="main" style="width:940px;">
-		        
-						<div id="flash_div" class="success" style="display:none"></div>
-					    <% flash.each do |name, msg| %>
-                <div class="<%= name %>"><%= msg %></div>
+                    <div id="content">                                                  
+                                        <div id="main" style="width:940px;">
+                        
+                                                <div id="flash_div" class="success" style="display:none"></div>
+                                            <% flash.each do |name, msg| %>
+                <div class="<%= name %>"><%= msg.html_safe %></div>
               <% end %>
 
-							
-						<%= render :partial => "layouts/menu" %>
-		        
-						<div id="wrapper">		
-	     		    <%= yield %>
-			      </div>
-			    </div>
+                                                        
+                                                <%= render :partial => "layouts/menu" %>
+                        
+                                                <div id="wrapper">              
+                            <%= yield %>
+                              </div>
+                            </div>
         </div>
-	  <%= render :partial => "layouts/footer" %>  
-	  </div>
-	  
-	  </div>
-		
-	</body>
+          <%= render :partial => "layouts/footer" %>  
+          </div>
+          
+          </div>
+                
+        </body>
 </html>

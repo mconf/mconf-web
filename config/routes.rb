@@ -1,6 +1,6 @@
 Vcc::Application.routes.draw do
 
-  get "webconferences/show"
+  bigbluebutton_routes :default
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   scope '/translate' do
@@ -33,6 +33,8 @@ Vcc::Application.routes.draw do
   end
 
   resources :spaces do
+
+    bigbluebutton_routes :room_matchers
 
     member do
       post :enable
@@ -154,10 +156,7 @@ Vcc::Application.routes.draw do
       post :enable
     end
 
-## TODO check
-    # user.resources :messages, :controller => 'private_messages'
     resources :private_messages, :as => 'messages'
-##
     resource :profile, :except => [:new, :create] do
       resource :logo
     end
@@ -170,14 +169,27 @@ Vcc::Application.routes.draw do
 
   resources :roles
   resource :site
-  resource :home
+
+  resource :home do
+    member do
+      get :new_room, :as => 'newroom'
+    end
+  end
+  
+  resource :invite do
+    member do
+      get :invite_room, :as => 'inviteroom'
+      post :send_invite, :as => 'sendinvite'
+    end
+  end
+
   resources :feedback
   resource :session_locale
 
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'
   match '/manage/spam', :to => 'manage#spam', :as => 'manage_spam'
-
+  
   # Locale controller (globalize)
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
