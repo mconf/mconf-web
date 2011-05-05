@@ -9,7 +9,7 @@ module ApplicationHelper
       options.update({ :class => 'selected' }) :
       options
   end
- 
+
   def options_for_select_with_class_selected(container, selected = nil)
     container = container.to_a if Hash === container
     selected, disabled = extract_selected_and_disabled(selected)
@@ -20,7 +20,7 @@ module ApplicationHelper
       disabled_attribute = ' disabled="disabled"' if disabled && option_value_selected?(value, disabled)
       options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{html_escape(text.to_s)}</option>)
     end
- 
+
     options_for_select.join("\n")
   end
 
@@ -29,14 +29,14 @@ module ApplicationHelper
     case obj
     when Post
       #obj.attachments.build
-      obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank? 
+      obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
 
       obj.space = @space if obj.space.blank?
-    when Attachment    
+    when Attachment
       obj.space = @space if obj.space.blank?
     when AgendaEntry
        obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
-       obj.attachment_video ||= AttachmentVideo.new  
+       obj.attachment_video ||= AttachmentVideo.new
     else
       raise "Unknown object #{ obj.class }"
     end
@@ -46,8 +46,8 @@ module ApplicationHelper
     end
 
     obj
-  end  
-  
+  end
+
   def generate_html(form_builder, method, options = {})
     options[:object] ||= form_builder.object.class.reflect_on_association(method).klass.new
     options[:partial] ||= method.to_s.singularize
@@ -61,15 +61,64 @@ module ApplicationHelper
 
   def generate_template(form_builder, method, options = {})
     escape_javascript generate_html(form_builder, method, options)
-  end 
-  
-  
-#  def t(key, options = {})
-#    I18n.t(key, options) + link_to("T", :action => 'index', :controller => 'translate',
-#                                        :key_type => 'starts_with',
-#                                        :key_pattern => key.downcase,
-#                                        :from_locale => I18n.locale,
-#                                        :to_locale => I18n.locale)
-#  end
+  end
+
+  # Clippy from https://github.com/lackac/clippy
+  #
+  # Generates clippy embed code with the given options. From the options one of
+  # <tt>:text</tt>, <tt>:id</tt>, or <tt>:call</tt> has to be provided.
+  #
+  # === Supported options
+  # [:text]
+  #   Text to be copied to the clipboard.
+  # [:id]
+  #   Id of a DOM element from which the text should be taken. If it is a form
+  #   element the <tt>value</tt> attribute, otherwise the <tt>innerHTML</tt>
+  #   attribute will be used.
+  # [:call]
+  #   A name of a javascript function to be called for the text.
+  # [:copied]
+  #   Label text to show next to the icon after a successful copy action.
+  # [:copyto]
+  #   Label text to show next to the icon before it is clicked.
+  # [:callBack]
+  #   A name of a javascript function to be called after a successful copy
+  #   action. The function will be called with one argument which is the value
+  #   of the <tt>text</tt>, <tt>id</tt>, or <tt>call</tt> parameter, whichever
+  #   was used.
+  def clippy(options={})
+    options = options.symbolize_keys
+    if options[:text].nil? and options[:id].nil? and options[:call].nil?
+      raise(ArgumentError, "at least :text, :id, or :call has to be provided")
+    end
+    bg_color = options.delete(:bg_color)
+    query_string = options.to_query
+
+    html = <<-EOF
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+            width="110"
+            height="14"
+            id="clippy-#{ rand().object_id }" >
+    <param name="movie" value="/flash/clippy.swf" />
+    <param name="allowScriptAccess" value="always" />
+    <param name="quality" value="high" />
+    <param name="scale" value="noscale" />
+    <param NAME="FlashVars" value="#{ query_string }">
+    <param name="bgcolor" value="#{ bg_color }">
+    <embed src="/flash/clippy.swf"
+           width="14"
+           height="14"
+           name="clippy"
+           quality="high"
+           allowScriptAccess="always"
+           type="application/x-shockwave-flash"
+           pluginspage="http://www.macromedia.com/go/getflashplayer"
+           FlashVars="#{ query_string }"
+           bgcolor="#{ bg_color }"
+    />
+    </object>
+  EOF
+
+  end
 
 end

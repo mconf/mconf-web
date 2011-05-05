@@ -12,7 +12,7 @@
     'frameHeight' : 430
   });
 
-  $("#webconference-rooms .invite_url_button").livequery('click', function(event) { 
+  $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
     id = $(this).attr('id').replace("invite_url_button-", "");
     $("#invite_url-" + id).toggle('slow');
   });
@@ -61,7 +61,8 @@
             </span>
             <div class="invite_url url_share" id="invite_url-<%= button_id %>">
               <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
-              <span class="blue"><%= invite_bigbluebutton_server_room_url(@server, room) %></span>
+              <span class="blue" id="invite_url_text-<%= button_id %>"><%= invite_bigbluebutton_server_room_url(@server, room) %></span>
+              <%= clippy(:id => "invite_url_text-#{button_id}", :bg_color => "#FFFFFF").html_safe %>
             </div>
 
             <div class="clearer"></div>

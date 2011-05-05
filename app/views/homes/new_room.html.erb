@@ -1,6 +1,4 @@
-<div class="webconf-rooms">
-  <h3> <%= t('webconference.new_webconference') %> </h3>
-</div>
+<h3 class="dialog_title"> <%= t('webconference.new_webconference') %> </h3>
 
 <%= form_for [@server, @room], :url => bigbluebutton_server_rooms_path(@server) do |f| %>
   <div class="webconf-rooms">

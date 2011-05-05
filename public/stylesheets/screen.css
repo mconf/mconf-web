@@ -2043,7 +2043,6 @@ div.my-webconference-rooms div.room_list .invite_url {
   clear: right;
   margin-top: 10px;
 
-  border-bottom:1px #CCC solid;
   padding: 4px;
   background:#f0f6f9;
   border:1px solid #bdd8eb;
@@ -2130,3 +2129,87 @@ div#manage_rooms color{color:#244974;}
   margin-top: 10px;;
 }
 
+h3.dialog_title {
+  color: #244974;
+  background: #BDD8EB;
+  padding: 4px;
+  text-align: center;
+  border-bottom: 1px solid #A8C0D1;
+  border-top: 1px solid #A8C0D1;
+  margin: 0 0 8px 0;
+}
+
+
+/* Invite dialog */
+
+#webconference_invite_dialog {
+  overflow: hidden;
+}
+
+#webconference_invite_dialog .block {
+  margin-bottom: 5px;
+}
+
+#webconference_invite_dialog .submit {
+  clear: both;
+  display: block;
+}
+
+#webconference_invite_dialog .tip {
+  font-size:0.9166em;
+  line-height:1.6363;
+  font-style:italic;
+  color:#111;
+}
+
+#webconference_invite_dialog h3 {
+  color: #244974;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+#webconference_invite_dialog ul.token-input-list-facebook,
+#webconference_invite_dialog div.token-input-dropdown-facebook,
+#webconference_invite_dialog #invite_email_tokens,
+#webconference_invite_dialog #text_message
+{
+  width: 500px;
+}
+
+#webconference_invite_dialog ul.token-input-list-facebook {
+  float: none;
+  margin: 0;
+}
+
+#webconference_invite_dialog .url_share {
+  margin: 0;
+}
+
+#webconference_invite_dialog .header {
+  padding: 10px 10px 5px 10px;
+  background:#f0f6f9;
+  border:1px solid #bdd8eb;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  margin: 10px 0 10px 0;
+}
+
+#webconference_invite_dialog .header .label {
+  text-align: right;
+  width: 90px;
+  color:#244974;
+  font-weight: bold;
+  float: left;
+  clear: left;
+  margin-bottom: 5px;
+}
+
+#webconference_invite_dialog .header .value {
+  margin-left: 100px;
+  margin-bottom: 5px;
+}
+
+#webconference_invite_dialog .header #room_invite_url {
+  width: 350px;
+  margin-top: -5px;
+}

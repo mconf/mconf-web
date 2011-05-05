@@ -28,7 +28,9 @@ var DEFAULT_SETTINGS = {
     animateDropdown: true,
     onResult: null,
     onAdd: null,
-    onDelete: null
+    onDelete: null,
+    showInfo: false,
+    searchOnInfo: false
 };
 
 // Default classes to use when theming
@@ -41,6 +43,8 @@ var DEFAULT_CLASSES = {
     dropdown: "token-input-dropdown",
     dropdownItem: "token-input-dropdown-item",
     dropdownItem2: "token-input-dropdown-item2",
+    dropdownItemName: "token-input-dropdown-item-name",
+    dropdownItemInfo: "token-input-dropdown-item-info",
     selectedDropdownItem: "token-input-selected-dropdown-item",
     inputToken: "token-input-input-token"
 };
@@ -89,7 +93,7 @@ $.TokenList = function (input, url_or_data, settings) {
     //
 
     // Configure the data source
-    if($.type(url_or_data) === "string") {
+    if(typeof(url_or_data) === "string") {
         // Set the url to query against
         settings.url = url_or_data;
 
@@ -101,7 +105,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 settings.crossDomain = (location.href.split(/\/+/g)[1] !== settings.url.split(/\/+/g)[1]);
             }
         }
-    } else if($.type(url_or_data) === "array") {
+    } else if(typeof(url_or_data) === "object") {
         // Set the local data to search through
         settings.local_data = url_or_data;
     }
@@ -243,9 +247,11 @@ $.TokenList = function (input, url_or_data, settings) {
                            .blur(function () {
                                input_box.blur();
                            });
+    input_box.attr("id", hidden_input.attr("id") + "_tokeninput")
 
     // Keep a reference to the selected token and dropdown item
     var selected_token = null;
+    var selected_token_index = 0;
     var selected_dropdown_item = null;
 
     // The list to store the token items in
@@ -288,7 +294,8 @@ $.TokenList = function (input, url_or_data, settings) {
     // The list to store the dropdown items in
     var dropdown = $("<div>")
         .addClass(settings.classes.dropdown)
-        .appendTo("body")
+        .insertAfter(token_list)
+        //.appendTo("body") // TODO code from the original repo not working inside a dialog box
         .hide();
 
     // Magic element to help us resize the text input
@@ -314,7 +321,11 @@ $.TokenList = function (input, url_or_data, settings) {
             insert_token(value.id, value.name);
         });
     }
-
+    // Check the token limit
+    if(settings.tokenLimit !== null && token_count >= settings.tokenLimit) {
+        input_box.hide();
+        hide_dropdown();
+    }
 
 
     //
@@ -339,7 +350,7 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Inner function to a token to the list
     function insert_token(id, value) {
-        var this_token = $("<li><p>"+ value +"</p> </li>")
+        var this_token = $("<li><p>"+ value +"</p></li>")
           .addClass(settings.classes.token)
           .insertBefore(input_token);
 
@@ -357,7 +368,8 @@ $.TokenList = function (input, url_or_data, settings) {
         $.data(this_token.get(0), "tokeninput", token_data);
 
         // Save this token for duplicate checking
-        saved_tokens.push(token_data);
+        saved_tokens = saved_tokens.slice(0,selected_token_index).concat([token_data]).concat(saved_tokens.slice(selected_token_index));
+        selected_token_index++;
 
         // Update the hidden input
         var token_ids = $.map(saved_tokens, function (el) {
@@ -438,10 +450,13 @@ $.TokenList = function (input, url_or_data, settings) {
 
         if(position === POSITION.BEFORE) {
             input_token.insertBefore(token);
+            selected_token_index--;
         } else if(position === POSITION.AFTER) {
             input_token.insertAfter(token);
+            selected_token_index++;
         } else {
             input_token.appendTo(token_list);
+            selected_token_index = token_count;
         }
 
         // Show the input box and give it focus again
@@ -469,6 +484,9 @@ $.TokenList = function (input, url_or_data, settings) {
         var token_data = $.data(token.get(0), "tokeninput");
         var callback = settings.onDelete;
 
+        var index = token.prevAll().length;
+        if(index > selected_token_index) index--;
+
         // Delete the token
         token.remove();
         selected_token = null;
@@ -477,9 +495,8 @@ $.TokenList = function (input, url_or_data, settings) {
         input_box.focus();
 
         // Remove this token from the saved list
-        saved_tokens = $.grep(saved_tokens, function (val) {
-            return (val.id !== token_data.id);
-        });
+        saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
+        if(index < selected_token_index) selected_token_index--;
 
         // Update the hidden input
         var token_ids = $.map(saved_tokens, function (el) {
@@ -512,10 +529,16 @@ $.TokenList = function (input, url_or_data, settings) {
         dropdown
             .css({
                 position: "absolute",
-                top: $(token_list).offset().top + $(token_list).outerHeight(),
-                left: $(token_list).offset().left,
+                top: $(token_list).position().top + $(token_list).outerHeight(),
+                left: $(token_list).position().left,
                 zindex: 999
             })
+            // TODO code from the original repo not working when the input is inside a jquery dialog box
+            //.css({
+            //     position: "absolute",
+            //    top: $(token_list).offset().top + $(token_list).outerHeight(),
+            //    left: $(token_list).offset().left,
+            //})
             .show();
     }
 
@@ -554,9 +577,18 @@ $.TokenList = function (input, url_or_data, settings) {
                 .hide();
 
             $.each(results, function(index, value) {
-                var this_li = $("<li>" + highlight_term(value.name, query) + "</li>")
-                                  .appendTo(dropdown_ul);
-
+                var this_li = $("<li>").appendTo(dropdown_ul);
+                var span_name = $("<span class=\"" + settings.classes.dropdownItemName + "\">"+ highlight_term(value.name, query) +"</span>")
+                    .appendTo(this_li);
+                if (settings.showInfo && value.info != null) {
+                    if (settings.searchOnInfo) {
+                        var text = highlight_term(value.info, query);
+                    } else {
+                        var text = value.info;
+                    }
+                    var span_info = $("<span class=\"" + settings.classes.dropdownItemInfo + "\">" + text + "</span>")
+                        .appendTo(this_li);
+                }
                 if(index % 2) {
                     this_li.addClass(settings.classes.dropdownItem);
                 } else {
@@ -679,6 +711,7 @@ $.TokenList = function (input, url_or_data, settings) {
                     return row.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
                 });
 
+                cache.add(query, results);
                 populate_dropdown(query, results);
             }
         }

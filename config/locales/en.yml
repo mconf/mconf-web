@@ -1165,36 +1165,27 @@ en:
   invited: Invited
   invite_people:
     email:
-      one: "E-mail:"
-      other: "E-mails:"
-    member:
-      one: "Member:"
-      other: "Members:"
-      non:
-        one: "Non Member:"
-        other: "Non Members:"
-    message:
-      one: "Message:"
-      other: "Messages:"
-    name:
-      one: "Name: "
-      other: "Names: "
-    room: "Room: "
+      one: "E-mail"
+      other: "E-mails"
+    emails_tip: "type a list of emails separated by commas"
+    internal_message: "Internal message"
+    mconf_users: "Mconf users"
+    message: "Message"
+    names: "Names"
+    names_tip: "type to search users"
+    notify_by: "Notify by"
+    other_people: "Other people"
+    room_name: "Room name"
+    send_invitations: "Send invitations"
+    users:
+      hint: "Type to start searching"
+      no_results: "No results found"
+      searching: "Searching..."
   invite:
-    title: "Invite for Webconference."
-    priv_msg1: "You have been invite by "
-    priv_msg2: " to participated in this webconference: "
-    priv_msg3: "<br><br>Click on this link to access the conference: "
-    priv_msg4: "<br><br>This is the message sended by "
-    priv_msg5: " to you:<br><br>"
-    email_msg1: "This email is send to you from MCONF WEB!"
-    email_msg2: "You have been invite by "
-    email_msg3: " to participated in "
-    email_msg4: "this webconference: "
-    email_msg5: "Click on this link or copy and paste on your browser this url for "
-    email_msg6: "access the conference: "
-    email_msg7: "This is the message sended by "
-    email_msg8: " to you:"
+    title: "Invitation to participate in a webconference."
+    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.
+              You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>. Invitation
+              message written by %{sender}:<br/><br/>"
   is_member_of: is member of
   join: Join
   join_cam: Participate
@@ -2095,7 +2086,7 @@ en:
     currently_running:
       one: "The webconference is currently in progress with %{count} participant"
       other: "The webconference is currently in progress with %{count} participants"
-    invite_webconference: "Invite participants to the webconference"
+    invite_webconference: "Invite people to the webconference"
     my_webconference: "My webconference rooms"
     new_webconference: "New webconference room"
     nobody:

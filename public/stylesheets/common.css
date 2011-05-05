@@ -1,4 +1,4 @@
-input[type=password], input[type=text], textarea {
+input[type=password], input[type=text], textarea, ul.token-input-list-facebook {
   border: 1px solid #ccc;
   font-size: 12px;
   padding: 3px;
@@ -7,7 +7,7 @@ input[type=password], input[type=text], textarea {
   border-radius: 1px;*/
 }
 
-input[type=password]:focus, input[type=text]:focus, textarea:focus {
+input[type=password]:focus, input[type=text]:focus, textarea:focus, ul.token-input-list-facebook:focus {
   border: 1px solid #275b8a;
 }
 
@@ -144,10 +144,10 @@ button#change_logo{float:left;}
 
 
 input[type=submit].basic_button, button.basic_button, a.basic_button {
-  padding:3px 5px;
+  padding: 2px 5px;
   font-weight:bold;
   font-size:1em;
-  line-height:1.5;
+  line-height:1.4em;
   color:#555;
   background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
   border:1px solid #999;
@@ -236,9 +236,9 @@ input[type=submit].small_button, button.small_button, a.small_button {
 
 /* MEDIUM */
 input[type=submit].medium_button, button.medium_button, a.medium_button {
-  font-size:1em;
-  line-height: 18px;
-  padding: 5px 8px 5px 8px;
+  padding: 2px 5px;
+  font-size: 1em;
+  line-height: 1.4em;
 }
 
 
