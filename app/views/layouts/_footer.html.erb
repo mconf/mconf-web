@@ -1,7 +1,7 @@
 <div id="footer">
-        
+
   <ul>
-        <li id="trade_mark"><%=image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></li>
+        <li id="trade_mark"><%= t('mconf') %></li>
         <li>-</li>
         <li><%= t('all_rights_reserved') %></li>
         <li>-</li>
@@ -9,7 +9,7 @@
           <div id="support_select">
             <%=link_to t('help'), 'dropup', { :id=>"support_select", :class=>"support_select orange_button" } %>
             <ul id="support_menu" style="display:none">
-        <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>            
+        <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>
               <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
                                 <li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
             </ul>
@@ -23,9 +23,9 @@
         <li>
                 <div id="language_select">
                   <%=link_to t('language'), 'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
-                  <ul id="language_menu" style="display:none">                                    
+                  <ul id="language_menu" style="display:none">
                       <% for locale in (I18n.available_locales) -%>
-                      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>  
+                      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
                       <% end -%>
                   </ul>
                 </div>

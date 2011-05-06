@@ -215,7 +215,7 @@ en:
   back: Back
   back_to_inbox: Back to inbox
   bad_request: Bad Request
-  beta: (BETA)
+  beta: beta
   bigbluebutton_space: BigBlueButton Room
   body: Body
   button:
@@ -1248,6 +1248,7 @@ en:
   management: management
   mandatory_field: "Mandatory field"
   mark_checkbox: Mark the suitable checkbox
+  mconf: Mconf
   message:
     created: Message sent successfully
     error:

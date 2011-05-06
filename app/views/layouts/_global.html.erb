@@ -4,7 +4,7 @@
       <% if logged_in? %>
                 <% if current_user.superuser?%>
                                           <li><%=link_to t('manage'), site_path%></li>
-                                        <%end%>      
+                                        <%end%>
                 <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
                 <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
                 <li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
@@ -14,14 +14,14 @@
                     <li><%= link_to t('login_or_register'), login_path(:redirect_to => controller.request.path),:class => "login_link" %></li>
       <% end %>
     </ul>
-    
+
     <span id="spaces_select">
       <%= form_tag(spaces_path, :method => 'get', :id=>"form_space_select") do %>
-       
-        <%if logged_in? && current_user.spaces.any?%> 
+
+        <%if logged_in? && current_user.spaces.any?%>
           <%if @space%>
             <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]},[@space.name, @space.permalink]).html_safe, :onchange => "this.form.submit()"%>
-          <%elsif params[:space_id]=="all"%>      
+          <%elsif params[:space_id]=="all"%>
             <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.all'), "all"]).html_safe, :onchange => "this.form.submit()"%>
           <%else%>
             <%= select_tag "space_id", options_for_select_with_class_selected([[t('space.select'),""], [t('space.my_spaces'), "my"], [t('space.all'), "all"]] + current_user.spaces.map{|sp| [truncate(sp.name, { :length => 16 }), sp.permalink]}, [t('space.select'),""]).html_safe, :onchange => "this.form.submit()"%>
@@ -40,16 +40,19 @@
     </span>
 
   <span id="global-logo">
-        <%= image_tag("bola_global_peque.png",:class=>"icon")%>
         <% if logged_in? %>
-          <%= link_to t('vcc'), home_path, menu_options(:home)%>
-          <em class="small"><%= link_to t('beta'), home_path, menu_options(:home)%></em>
+          <%= link_to home_path, menu_options(:home) do %>
+            <span class="title"><%= t('mconf') %></span>
+            <span class="small"><%= t('beta') %></span>
+          <% end %>
         <% else %>
-          <a href="<%=root_path%>">
-          <%= t('vcc') %><em class="small"><%= t('beta') %></em>
+          <%= link_to "/" do %>
+            <span class="title"><%= t('mconf') %></span>
+            <span class="small"><%= t('beta') %></span>
+          <% end %>
         <% end %>
     </a>
   </span>
   </div>
-  
+
 </div>

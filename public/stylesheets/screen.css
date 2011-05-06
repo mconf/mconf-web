@@ -171,10 +171,37 @@ body .icon{margin-bottom:-2px;}
 #content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;position:relative;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
-#global{padding:0.5em 0;}
+#global{padding: 0.5em 0 0 0;}
 #global a{color:#eee;text-decoration:none;}
-#global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
+#global-logo {}
 #global-logo img{margin:0 4px -4px 0;}
+#global-logo .title {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: #6374AB 1px 1px 5px;
+  font-family: Helvetica,sans-serif;
+}
+#global-logo .title:hover {
+  text-shadow: #909ec9 1px 1px 5px;
+}
+#global-logo .small {
+  margin: 0 0 0 2px;
+  padding: 0;
+  color: #ccc;
+  font-weight: normal;
+  font-size: 14px;
+  font-style: italic;
+  text-shadow: #888 1px 1px 3px;
+  font-family: Trebuchet;
+}
+#global-logo .small:hover {
+  text-shadow: #909ec9 1px 1px 3px;
+}
+
+
 #feedback{margin-left:50px;}
 #feedback a{font-weight:normal;}
 #about{margin-left:50px;}
@@ -2213,3 +2240,7 @@ h3.dialog_title {
   width: 350px;
   margin-top: -5px;
 }
+
+
+
+
