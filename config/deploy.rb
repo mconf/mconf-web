@@ -22,8 +22,8 @@ set :servers,  {
 }
 
 set :branches, {
-  :production => :stable, # TODO :stable
-  :test => :master
+  :production => :stable,
+  :test => :stable # TODO :master
 }
 
 set :environment, :test
@@ -33,6 +33,7 @@ set :repository, "git://github.com/mconf/mconf-web.git"
 set :scm, "git"
 set :git_enable_submodules, 1
 set :user, "mconf"
+set :files_grp, "mconf"
 set :use_sudo, false
 
 role(:app) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
@@ -65,12 +66,12 @@ namespace(:deploy) do
     # AttachmentFu dir is deleted in deployment
     run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
     run "/bin/chmod -R g+w #{ release_path }/tmp"
-    sudo "/bin/chgrp -R www-data #{ release_path }/tmp"
-    sudo "/bin/chgrp -R www-data #{ release_path }/public/images/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/public/images/tmp"
     # Allow Translators modify locale files
-    sudo "/bin/chgrp -R www-data #{ release_path }/config/locales"
+    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/config/locales"
     sudo "/bin/mkdir -p /var/local/mconf-web"
-    sudo "/bin/chown www-data /var/local/mconf-web"
+    sudo "/bin/chown #{files_grp} /var/local/mconf-web"
   end
 
   # REVIEW really need to do this?
@@ -119,16 +120,16 @@ namespace :setup do
 
   task :create_shared do
     run "/bin/mkdir -p #{ shared_path }/attachments"
-    sudo "/bin/chgrp -R www-data #{ shared_path }/attachments"
+    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/attachments"
     run "/bin/chmod -R g+w #{ shared_path }/attachments"
     run "/bin/mkdir -p #{ shared_path }/config"
-    sudo "/bin/chgrp -R www-data #{ shared_path }/config"
+    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/config"
     run "/bin/chmod -R g+w #{ shared_path }/config"
     run "/bin/mkdir -p #{ shared_path }/public/logos"
-    sudo "/bin/chgrp -R www-data #{ shared_path }/public"
+    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/public"
     run "/bin/chmod -R g+w #{ shared_path }/public"
     run "/usr/bin/touch #{ shared_path }/log/production.log"
-    sudo "/bin/chgrp -R www-data #{ shared_path }/log"
+    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/log"
     run "/bin/chmod -R g+w #{ shared_path }/log"
   end
 
@@ -190,7 +191,7 @@ namespace :mconf do
     deploy.migrations
   end
 
-  task :test do
+  task :testing do
     set :environment, :test
     deploy.migrations
   end
