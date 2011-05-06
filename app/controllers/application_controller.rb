@@ -17,7 +17,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 # Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
+# Likewse, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
@@ -46,6 +46,42 @@ class ApplicationController < ActionController::Base
       current_user
     else
       nil
+    end
+  end
+  
+  def bigbluebutton_role(room)
+    user = nil
+    unless bigbluebutton_user.nil? # user belongs to mconf
+      if room.owner_type == "User" # room belongs to a user
+        if room.owner.id == current_user.id
+          :moderator # join as moderator if current_user is the room owner
+        else
+          if room.private
+            nil # ask for a password if room is private
+          else
+            :attendee # join as attendee if current_user isn't the room owner
+          end
+        end
+      elsif room.owner_type == "Space" # room belongs to a space
+        space = Space.find(room.owner.id)
+        space.users.each do |u|
+          if u.id == current_user.id
+            user = u
+            break
+          end
+        end
+        unless user.nil?
+          :moderator # join as moderator if current_user belongs to this space
+        else
+          if room.private
+            nil # ask for password if current_user don't belongs to this space and room is private          
+          else
+            :attendee # join as attendee if current_user don't belongs to this space and room isn't private
+          end
+        end
+      end
+    else
+      nil #ask for a password
     end
   end
 
