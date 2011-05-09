@@ -1,6 +1,7 @@
 <h3 class="dialog_title"> <%= t('webconference.new_webconference') %> </h3>
 
 <%= form_for [@server, @room], :url => bigbluebutton_server_rooms_path(@server) do |f| %>
+<div id="new-webconf-room">
   <div class="webconf-rooms">
     <p>
       <label for="Title"><%= f.label :name %>:</label>
@@ -9,7 +10,18 @@
       <%= f.hidden_field :owner_type %>
       <%= hidden_field_tag :redir_url, home_path %>
       <button type="submit" class="basic_button blue_button"><%=t('button.create')%></button>
+      <br/>
+      <%= "Private room?" %>
+      <%= f.check_box :private, :id => "private" %>
+      <div class="hide_fields" id="private_check">
+        <%= f.label :moderator_password %>:
+        <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true %>
+        <br/>
+        <%= f.label :attendee_password %>:
+        <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true %>
+      </div>
     </p>
     <div class="clearer"></div>
   </div>
+</div>
 <% end %>
