@@ -2028,6 +2028,10 @@ div.webconf-rooms span.text {
   margin-left: 0.2cm;
 }
 
+div.webconf-rooms .hide_fields {
+  display: none;
+}
+
 div.my-webconference-rooms {
   background: #FFFFFF;
 }

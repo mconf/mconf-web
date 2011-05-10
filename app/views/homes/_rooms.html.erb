@@ -16,7 +16,20 @@
     id = $(this).attr('id').replace("invite_url_button-", "");
     $("#invite_url-" + id).toggle('slow');
   });
-
+  
+  $("#new-webconf-room #private").livequery('click', function(event) {
+    $("#private_check").toggle('slow');$('.input_control').attr('checked', true);
+    
+      if($('#moderatorPW').attr('disabled') == false && $('#attendeePW').attr('disabled') == false){
+        $('#moderatorPW').attr('disabled', true);
+        $('#attendeePW').attr('disabled', true);
+      }
+      else{
+        $('#moderatorPW').attr('disabled', false);
+        $('#attendeePW').attr('disabled', false);
+      }
+      
+  });
 
 <% end %>
 
