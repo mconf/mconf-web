@@ -13,8 +13,9 @@
         <% else %>
 
          <!--<a id="logo" class="frontpage_logo" href="/"></a>-->
-
-         <a href="/"><span class="fronpage_logo_new"><%= t('mconf') %></span><span class="fronpage_logo_new_beta"><%= t('beta') %></span></a>
+         <div id="frontpage_logo">
+           <a href="/"><span class="title"><%= t('mconf') %></span><span class="beta"><%= t('beta') %></span></a>
+         </div>
 
          <div id="espacio_header">&nbsp</div>
 
@@ -58,7 +59,6 @@
          <%= link_to_function t('login_traditional'), "show_user_password_form()" %>
        </div>
      </div>
-     <div class="clearer"><span>&nbsp;</span></div>
 
         <% end %>
    </ul>
@@ -88,9 +88,13 @@
         <%end%>
       <%end%>
     </span>
-    <span id="global-logo"><%= image_tag("bola_global_peque.png",:class=>"icon")%><a href="/"><%= t('vcc') %><em class="small"><%= t('beta') %></em></a></span>
 
-<%end%>
+    <div id="frontpage_logo">
+      <a href="/"><span class="title"><%= t('mconf') %></span><span class="beta"><%= t('beta') %></span></a>
+    </div>
+    <div class="clearer"></div>
+
+  <%end%>
 
   </div>
 

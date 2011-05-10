@@ -1,0 +1,29 @@
+#frontpage_logo {
+  float: left;
+  width: 200px;
+}
+
+#frontpage_logo .title {
+  color: white;
+  font-weight: bold;
+  font-size: 36px;
+  text-shadow: #6374AB 1px 1px 5px;
+  font-family: Helvetica,sans-serif;
+}
+
+#frontpage_logo .title:hover {
+  text-shadow: #909ec9 1px 1px 5px;
+}
+
+#frontpage_logo .beta {
+  margin-left: -10px;
+  color: #ccc;
+  font-size: 16px;
+  font-style: italic;
+  text-shadow: #888 1px 1px 3px;
+  font-family: Trebuchet;
+}
+
+#frontpage_logo .beta:hover {
+  text-shadow: #909ec9 1px 1px 3px;
+}

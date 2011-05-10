@@ -309,8 +309,6 @@ a.login{
         text-indent:99999px;
 }
 
-#logo.frontpage_logo{background: url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
-
 #espacio_header {
         margin:0px;
         margin-left:166px;
@@ -868,30 +866,6 @@ form {
 .bold{font-weight:bolder;}
 .fade{opacity:0.6;}
 
-.fronpage_logo_new {
-  color: white;
-  font-weight: bold;
-  font-size: 38px;
-  text-shadow: #6374AB 1px 1px 5px;
-  font-family: Helvetica,sans-serif;
-}
-
-.fronpage_logo_new:hover {
-  text-shadow: #909ec9 1px 1px 5px;
-}
-
-.fronpage_logo_new_beta {
-  margin-left: 5px;
-  color: #ccc;
-  font-size: 18px;
-  font-style: italic;
-  text-shadow: #888 1px 1px 3px;
-  font-family: Trebuchet;
-}
-
-.fronpage_logo_new_beta:hover {
-  text-shadow: #909ec9 1px 1px 3px;
-}
 
 
 
