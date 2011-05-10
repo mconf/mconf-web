@@ -6,14 +6,15 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title><%= yield :title %></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    
+
     <%= stylesheet_link_tag "common", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "faq", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "header_big", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>   
-    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>             
-    <!--[if IE]> 
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+    <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
     <%= javascript_include_tag 'jquery', 'rails.js', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
@@ -27,25 +28,24 @@
   </head>
 
   <body>
-          <div id="site">
-            <%= render :partial => "layouts/frontpage_global" %>
-                        <div id="home">
-                                <div id="header">
-                  <%= render :partial => "layouts/faq_header" %>
-                                </div>
-                                <div id="content">      
-                            <div id="main">        
-                              <% flash.each do |name, msg| %>
-                                      <div class="<%= name %>"><%= msg.html_safe %></div>
-                              <% end %>
-                                    <%= yield %>
-                                        </div>
-                         </div>
-                 </div> 
-           <div id="footer-wrapper">
-             <%= render :partial => "layouts/footer" %>  
-           </div>
-                 
-                </div>
+    <div id="site">
+      <%= render :partial => "layouts/global" %>
+      <div id="faq">
+        <div id="header">
+          <%= render :partial => "layouts/faq_header" %>
+        </div>
+        <div id="content">
+          <div id="main">
+            <% flash.each do |name, msg| %>
+              <div class="<%= name %>"><%= msg.html_safe %></div>
+            <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+      <div id="footer-wrapper">
+        <%= render :partial => "layouts/footer" %>
+      </div>
+    </div>
   </body>
 </html>

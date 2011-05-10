@@ -25,7 +25,7 @@
 
     <h4><%=t('frontpage.meetings_in_progress')%></h4>
 
-    <% if !@server.meetings.nil? && @server.meetings.count > 0 %>
+    <% if !@server.meetings.nil? && @server.meetings.select{ |m| m.is_running? }.count > 0 %>
       <div class="join_room">
         <!--<div class="input">
           <label>Your name:</label>
@@ -33,7 +33,7 @@
         </div>-->
         <label>Meetings:</label>
         <ul class="meeting_list">
-          <% @server.meetings.each do |room| %>
+          <% @server.meetings.select{ |m| m.is_running? }.each do |room| %>
             <li>
               <% if room.new_record? %>
                 <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meetingid}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>

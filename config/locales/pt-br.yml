@@ -1252,6 +1252,7 @@ pt-br:
   management: gerenciamento
   mandatory_field: "Campo obrigat\xC3\xB3rio"
   mark_checkbox: "Marque a caixa de sele\xC3\xA7\xC3\xA3o apropriada"
+  mconf: Mconf
   message:
     created: Mensagem enviada com sucesso
     error:

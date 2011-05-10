@@ -39,7 +39,7 @@ module Vcc
 
     # TODO test if it really falls back to en
     config.i18n.fallbacks = true
-    config.i18n.default_locale = :en
+    config.i18n.default_locale = :"pt-br"
 
     config.generators do |g|
       g.fixture_replacement :factory_girl

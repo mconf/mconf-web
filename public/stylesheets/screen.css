@@ -165,16 +165,42 @@ ol{list-style-type:decimal;}
 body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
 #header,#profile_header{background-color:#fff;height:67px;}
-#search{float:right;margin:0 40px 0 0;}
-#global,#space,#content,#footer{width:960px;margin:0 auto;display:block;}
+#global,#space,#content,#footer,#faq,#help{width:960px;margin:0 auto;display:block;}
 #space{background-color:#e1eef5;}
 #content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;position:relative;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
-#global{padding:0.5em 0;}
+#global{padding: 0.5em 0 0 0;}
 #global a{color:#eee;text-decoration:none;}
-#global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
+#global-logo {}
 #global-logo img{margin:0 4px -4px 0;}
+#global-logo .title {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-shadow: #6374AB 1px 1px 5px;
+  font-family: Helvetica,sans-serif;
+}
+#global-logo .title:hover {
+  text-shadow: #909ec9 1px 1px 5px;
+}
+#global-logo .small {
+  margin: 0 0 0 2px;
+  padding: 0;
+  color: #ccc;
+  font-weight: normal;
+  font-size: 14px;
+  font-style: italic;
+  text-shadow: #888 1px 1px 3px;
+  font-family: Trebuchet;
+}
+#global-logo .small:hover {
+  text-shadow: #909ec9 1px 1px 3px;
+}
+
+
 #feedback{margin-left:50px;}
 #feedback a{font-weight:normal;}
 #about{margin-left:50px;}
@@ -184,7 +210,10 @@ body .icon{margin-bottom:-2px;}
 #header,#profile_header{padding-top:1em;padding-bottom:1em;overflow:visible !important;position:relative;}
 #header{height:68px;}
 #logo,#vcc-logo{float:left;}
-#search{float:right;}
+#search{
+  float:right;margin:0 5px 0 0;
+  margin-top:40px;margin-left:18px;text-align:right;
+}
 #vcc-logo{height:68px;}
 #logo{height:64px;padding:1px;border:1px #dedede solid;}
 #logo:hover{border-color:#c0c0c0;}
@@ -193,8 +222,6 @@ body .icon{margin-bottom:-2px;}
 #name-space span a, #name-home span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
 #name-space #small-title a,#name-home #small-title a{font-size:2em;line-height:3;}
 #name-home{width:200px;margin-left:20px;float:left;}
-
-#search{margin-top:3px;margin-left:18px;text-align:right;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
 /*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
@@ -207,7 +234,7 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
 
-#main{width:680px;margin-right:15px;margin-left:15px;margin-bottom:1.5em;}
+#main{margin-right:15px;margin-left:15px;margin-bottom:1.5em;}
 #sidebar{float:left;width:240px;padding-right:10px;margin-bottom:1.5em;}
 div.space-desc h3, div.space-desc p{color:#244974;}
 #inc-events h3{color:#8B0425;}
@@ -1022,19 +1049,14 @@ a.extract_form{margin-right:0.5em;}
 
 
 
-#help, #help2{
-        width:16px;
+#help2 {
+/*        width:16px;
         height:16px;
         background-image:url(../images/icons/information.png);
         float:left;
         padding-right:3px;
-        background-repeat:no-repeat;
+        background-repeat:no-repeat; */
 }
-
-#help{
-        margin-top:7px;
-        }
-h3 #help{margin-top:0;}
 
 #timezone #help,.title_name_and_hour #help{margin-top:0;}
 
@@ -2227,3 +2249,54 @@ h3.dialog_title {
   width: 350px;
   margin-top: -5px;
 }
+
+.faq-wrapper{background:#fff;font-size:1.0833em;line-height:1.3846em;color:#111; padding: 20px;}
+.faq-wrapper{margin-bottom:0.75em;border:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
+.faq-wrapper #description{padding:9px;}
+.faq-wrapper h3.title{
+        color:#244974;
+        font-size:1.2em;
+        line-height:1.25;
+        padding:8px 9px;
+        margin:0 0 2px 0;
+        background:#bdd8eb;
+        font-weight:bold;
+        border-bottom:1px solid #B0CADB;}
+.faq-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;}
+.faq-wrapper div#end{margin-bottom:0.75em;}
+.faq-wrapper div.pics img{float:left;}
+.faq-wrapper div.pics img{width:275px;}
+.faq-wrapper object {margin-left:5px;}
+
+
+.help-wrapper{background:#fff;font-size:1.0833em;line-height:1.3846em;color:#111;float:left;width:700px;}
+.help-wrapper{margin-bottom:0.75em;border:1px #B0CADB solid;}
+.help-wrapper #description{padding:9px;}
+.help-wrapper h3.title{
+        color:#244974;
+        font-size:1.2em;
+        line-height:1.25;
+        padding:8px 9px;
+        margin:0 0 2px 0;
+        background:#bdd8eb;
+        font-weight:bold;
+        border-bottom:1px solid #B0CADB;}
+.help-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;}
+.help-wrapper div#end{margin-bottom:0.75em;}
+.help-wrapper div.pics img{float:left;}
+.help-wrapper div.pics img{width:275px;}
+.help-wrapper object {margin-left:5px;}
+
+#help #sidebar{float:right;width:200px;padding-right:10px;margin-bottom:1.5em;}
+#help #main{float:left;width:720px;}
+
+.help-info{padding-bottom: 10px;border:1px #bdd8eb solid;background:#f0f6f9;}
+.help-title {background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
+.help-title h3{margin-top:0;padding:0.5em 0 0.5em 0.5em;color:#244974;font-weight:bold;}
+.help-info .topics-section {padding: 5px;}
+
+
+#space #main{float:left;width:670px;}
+
+
+
