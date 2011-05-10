@@ -15,10 +15,15 @@
       <%= f.check_box :private, :id => "private" %>
       <div class="hide_fields" id="private_check">
         <%= f.label :moderator_password %>:
-        <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true %>
+        <!-- provisory modification on tabulation style : field1 and field2 -->
+        <span class="field1">
+          <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true %>
+        </span>
         <br/>
         <%= f.label :attendee_password %>:
-        <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true %>
+        <span class="field2">
+          <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true %>
+        </span>
       </div>
     </p>
     <div class="clearer"></div>
