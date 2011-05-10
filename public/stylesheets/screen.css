@@ -2001,6 +2001,7 @@ div.webconf-rooms span.text {
   margin-left: 0.2cm;
 }
 
+/* Provisoty: field1 and field2 created to inser tabulation on new room create */
 div.webconf-rooms span.field1 {
   margin-left: 0.1cm;
 }
