@@ -578,8 +578,18 @@ ul#actions_menu li a:hover{text-decoration:none;}
 /*Internationalization*
  */
 #subtexto_busqueda{position:relative;}
-a.language_select,a.support_select,a.browse_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
-#footer a.language_select.menu-open,#footer a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+a.language_select,a.support_select,a.browse_select{
+  padding: 5px 18px 5px 4px;
+  outline:none;
+  background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
+  border: 1px solid white;
+}
+#footer a.language_select.menu-open,#footer a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{
+  background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
+  border:1px solid #999;
+  padding: 5px 18px 5px 4px;
+  color:#222;
+}
 div#language_select,div#support_select,div#browse_select{display:inline-block;}
 #language_select ul#language_menu,#support_select ul#support_menu,#browse_select ul#browse_menu{
   background:#fff;
@@ -596,7 +606,7 @@ div#language_select,div#support_select,div#browse_select{display:inline-block;}
   list-style-type:none;
 }
 #support_select ul#support_menu,#browse_select ul#browse_menu{min-width:130px;text-align:left;}
-#browse_select ul#browse_menu{bottom:-104px;right:-38px;}
+#browse_select ul#browse_menu{bottom:-56px;right:5px;}
 #footer ul#language_menu li,#footer ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
 .div_busqueda #subtexto_busqueda ul#browse_menu li,#subtexto_busqueda ul#browse_menu li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
 ul#language_menu li:hover,ul#support_menu li:hover,ul#browse_menu li:hover{background:#244974;}
@@ -645,7 +655,7 @@ div.pagination a{color:#244974;}
 .join h2{margin-bottom:0;padding-top:9px;color:#244974;}
 .join p{margin:0.75em 0;}
 
-#leave_space{margin-top:32px;padding:3px 0;border-top:1px solid #A8C0D1;border-bottom:1px solid #A8C0D1;}
+#leave_space{margin-bottom:20px;padding:3px 0;border-top:1px solid #A8C0D1;border-bottom:1px solid #A8C0D1;text-align: center;}
 #sidebar #full_sidebar{margin-top:30px;}
 #sidebar #join{margin-bottom:0.75em;}
 #sidebar input[type="text"],#sidebar input[type="file"]{width:92%;}
@@ -880,12 +890,11 @@ div#manage .user a:hover{text-decoration:underline;}
 .clearboth{clear:left;display:inline;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
+
 #footer{position:relative;clear:left;background:#fff;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;}
 #footer ul{list-style-type:none;margin:0 0.75em; }
-#footer ul li{display:inline-block;position:relative;margin-right:0.5em;}
-#footer ul li#trade_mark{font-weight:bold;color:#111;}
-#footer a{color:#666;}
-#footer a:hover{color:#444;}
+#footer ul li{display:inline-block;position:relative;margin-right:3px;}
+#footer ul #trade_mark{font-weight:bold;color:#111;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
 
 /*Inbox*/

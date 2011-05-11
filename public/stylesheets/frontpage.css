@@ -80,7 +80,9 @@ ul#prefs {list-style-type:none;margin:0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
 #about2{float:right;margin-right:50px;margin-top:27px;}
-#content{clear:both;padding-bottom:20px;overflow:hidden;}
+#content{
+  clear:both;padding-bottom:20px;overflow:hidden;
+}
 #main{float:left;margin-bottom:1.5em;}
 #main{width:100%;margin-right:10px;padding-left:10px;}
 #wrapper{padding:0 10px 10px 10px;background:#fff;margin-top: 0.5em;}
@@ -159,16 +161,21 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .help-title h3{margin-top:0;padding-top:0.5em;color:#244974;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
-#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:0.75em 0;}
+#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:5px 10px;width:940px;}
 #footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
 #footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;position:relative;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
 #footer ul li#trade_mark_logo{font-weight:normal;}
-#footer a, #sponsor a{color:#666;}
-#footer a:hover, #sponsor a:hover{color:#444; text-decoration: none;}
+#footer a, #sponsor a{color:#444;}
+#footer a:hover, #sponsor a:hover{color:#888; text-decoration: none;}
 #footer .icon, #global .icon{margin-bottom:-4px;}
 #footer-wrapper{background-color:#e1eef5;}
 #footer_right, #sponsor{font-weight:normal; font-size: 10px; line-height: 1.1em;}
+
+#sponsor{
+  width: 900px;
+  padding: 30px;
+}
 
 #sponsor .logo_and_description {
   text-align: right;
@@ -184,7 +191,9 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .right-align {float:right}
 
 
-#sponsor-wrapper{ text-align:right; vertical-align:middle; padding-bottom: 5px;}
+#sponsor-wrapper {
+  text-align:right;
+}
 #spaces_select {float: right;}
 #spaces_select select{font-size:93%;line-height:1.5;}
 column, div.span-1, div.span-2, div.span-3, div.span-4, div.span-5, div.span-6, div.span-7, div.span-8, div.span-9, div.span-10, div.span-11, div.span-12, div.span-13, div.span-14, div.span-15, div.span-16, div.span-17, div.span-18, div.span-19, div.span-20, div.span-21, div.span-22, div.span-23, div.span-24 {float:left;min-height:580px;/*margin-right:10px;*/}
@@ -279,8 +288,9 @@ a.login{
 }
 
 #home, #header{
-  padding-top: 1.2em;
-  background-color:#f5f5f5;
+  background-color:white;
+  border-left: 1px solid #b1c8d4;
+  border-right: 1px solid #b1c8d4;
 }
 
 /*******************CABECERA***********************/
@@ -618,8 +628,18 @@ button.other_blue{
 /*Internationalization*
  */
 #subtexto_busqueda{position:relative;}
-a.language_select,a.support_select,a.browse_select{padding:0px 3px 5px 3px;outline:none;margin-left:-3px;}
-#footer a.language_select.menu-open,#footer a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{background:#fff;border:1px solid #999;color:#222;padding:5px 5px;}
+a.language_select,a.support_select,a.browse_select{
+  padding: 5px 18px 5px 4px;
+  outline: none;
+  background:url(/images/icons/dropico.png) no-repeat scroll right center;
+  border: 1px solid white;
+}
+#footer a.language_select.menu-open,#footer a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{
+  background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
+  border:1px solid #999;
+  padding: 5px 18px 5px 4px;
+  color:#222;
+}
 div#language_select,div#support_select,div#browse_select{display:inline-block;}
 #language_select ul#language_menu,#support_select ul#support_menu,#browse_select ul#browse_menu{
   background:#fff;
@@ -660,11 +680,9 @@ form {
 
 #content_top {
   background: #e1eef5;
-  border-top: 1px solid #b1c8d4;
-  border-bottom: 1px solid #b1c8d4;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-top: 10px;
-  padding: 15px;
+  padding: 25px 15px 25px 15px;
 /*  -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
   -khtml-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
   -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.3);*/
@@ -865,6 +883,9 @@ form {
 .red{color:#8B0425;}
 .bold{font-weight:bolder;}
 .fade{opacity:0.6;}
+
+.float_right { float: right; }
+.float_left { float: left; }
 
 
 

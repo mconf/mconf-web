@@ -850,6 +850,12 @@ en:
   find_in_day: "Find in day:"
   find_in_name_speakers: "Find in name/speakers:"
   follow_reset_password: "%{agent}, please follow the link to reset your password"
+  footer:
+    built_on_top_of: "This website is built on top of <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
+    find_us: "You can find us at"
+    gcode: "Google Code"
+    github: "GitHub"
+    website: "Project website"
   form:
     loading: The form is loading...
   from: From

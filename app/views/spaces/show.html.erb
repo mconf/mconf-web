@@ -92,7 +92,9 @@
             <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.one') %> <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_bigbluebutton_space icon",:style=>"cursor:pointer").html_safe %>
             <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
           </h3>
-            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'orange_button big_button' %>
+          <div class="float_right">
+            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'basic_button blue_button' %>
+          </div>
           <% if @bbb_room.is_running? %>
             <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
           <% else %>
@@ -114,13 +116,13 @@
             <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
           </li>
         <% end -%>
-                        <%end%>  
-                 </ul> 
-                 
+                        <%end%>
+                 </ul>
+
                  <div class="read_more margin-up">
                         <!--<img src="../images/icons/16/arrow5.png"></img>-->
                    <%= link_to t('read_more'), space_events_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user) %>
-                   
+
                  </div>
     </div>
 
@@ -137,17 +139,17 @@
                     <li><%=link_to sanitize(admin.full_name),user_path(admin),:class=>"unified_user"%></li>
                         <li><%=sanitize(admin.organization)%></li>
                   </ul>
-                </div>       
+                </div>
       </div>
     <% end %>
     </p>
     </div>
-        
+
           <div id="space_views">
             <span class="separated_5"><%=@space.unique_pageviews%></span><%=t('statistics.space_views')%>
             <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
           </div>
-        
+
 <% end %>
 
 <% if @bbb_room.is_running? %>
@@ -159,13 +161,13 @@
 <% end %>
 
 <% if !@current_events.empty? %>
-  <div id="home_current_events">   
+  <div id="home_current_events">
         <ul>
                 <li><h3><%=link_to t('event.now'), space_events_path(@space)%></h3></li>
                 <%for event in @current_events do%>
                   <li class="margin-up">
-                        <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to(event.name,space_event_path(@space,event),:class=>"unified_event")%></h3>                        
-                  </li><li>     
+                        <h3><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to(event.name,space_event_path(@space,event),:class=>"unified_event")%></h3>
+                  </li><li>
                         <span class='small-font main_text'><%= event.start_date.to_formatted_s(:short)%> - <%=event.end_date.to_formatted_s(:short)%> (<%= t('GMT') %> <%=Time.zone.formatted_offset%> )</span>
                   </li>
                 <%end%>
@@ -184,9 +186,9 @@
     <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
           <%if @lastest_posts.empty?%>
             <div class="thread post last">
-                 <span class="main_text"><%= t('post.none_recent') %></span>            
+                 <span class="main_text"><%= t('post.none_recent') %></span>
             </div>
-            <div class="read_more"> 
+            <div class="read_more">
             </div>
           <%else%>
             <%last_post = @lastest_posts.last%>
@@ -197,33 +199,33 @@
                             <%= raw(link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name)) %>
                           </div>
                           <div class="thread-title-wrapper">
-                                <ul class="thread-title">      
-                                <li>                       
-                                 <span class="unified_user"><%=link_to(post.author.name,user_path(post.author),:class=>"unified_user")%>:</span> 
+                                <ul class="thread-title">
+                                <li>
+                                 <span class="unified_user"><%=link_to(post.author.name,user_path(post.author),:class=>"unified_user")%>:</span>
                                           <%=link_to(first_words(post.title, 40), space_post_path(@space,post),:class=>"unified_posts")%>
                                           <%if has_attachments(post)%>
                                             <%=image_tag("icons/attach.png",:title=>attachment_name(post),:class=>"icon")%>
                                           <%end%>
                                           <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-                                        </li>        
+                                        </li>
                                         <li>
                                                 <div class="main_text">
                                                         <%=first_words(strip_tags(post.text),90)%>
                                                 </div>
-                                        </li>       
+                                        </li>
                             </ul>
                           </div>
                         </div>
-                  </div>                  
+                  </div>
                   <!--<div class="post">
                 <%=link_to sanitize(post.title),space_post_path(@space,post),:class=>"unified_posts"%> <span class="updated"><%=link_to( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
                 <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
               </div>-->
             <% end -%>
-            <div class="read_more"> 
+            <div class="read_more">
               <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user)%>
             </div>
-          <%end%>     
+          <%end%>
 </div>
 
 <div id="latest_users">
@@ -238,7 +240,7 @@
                             <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
                             <li><%=sanitize(user.organization)%></li>
                           </ul>
-                        </div>       
+                        </div>
   </div>
 
   <% end -%>

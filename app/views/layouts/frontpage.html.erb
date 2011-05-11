@@ -41,31 +41,26 @@
   </head>
 
   <body>
-        <div id="site">
-                <%= render :partial => "layouts/frontpage_global" %>
-                <div id="home_top"><%= yield :home_top %></div>
-                <div id="home">
-                        <div id="header">
-                                        <%= render :partial => "layouts/frontpage_header" %>
-                                <div id="espacio_busqueda">
-                        <% flash.each do |name, msg| %>
-                          <div class="<%= name %>"><%= msg.html_safe %></div>
-                        <% end %>
-                </div>
-                        </div>
-
-                        <div id="content">
-                                <%= yield %>
-                        </div>
-            </div>
-
-                <div id="sponsor-wrapper">
-                        <%= render :partial => "layouts/sponsor" %>
-                </div>
-
-                <div id="footer-wrapper">
-                        <%= render :partial => "layouts/footer" %>
-                </div>
+    <div id="site">
+      <%= render :partial => "layouts/frontpage_global" %>
+      <div id="home">
+        <div id="header">
+          <%= render :partial => "layouts/frontpage_header" %>
         </div>
-        </body>
+
+        <div id="content">
+          <%= yield %>
+        </div>
+
+        <div id="sponsor-wrapper">
+          <%= render :partial => "layouts/sponsor" %>
+        </div>
+
+      </div>
+
+      <div id="footer-wrapper">
+        <%= render :partial => "layouts/footer" %>
+      </div>
+    </div>
+  </body>
 </html>

@@ -384,10 +384,10 @@ ActiveRecord::Schema.define(:version => 20110429184108) do
   end
 
   create_table "sites", :force => true do |t|
-    t.string   "name",                          :default => "Virtual Conference Centre"
+    t.string   "name",                          :default => "Mconf"
     t.text     "description"
-    t.string   "domain",                        :default => "sir.dit.upm.es"
-    t.string   "email",                         :default => "vcc@sir.dit.upm.es"
+    t.string   "domain",                        :default => "mconfweb.inf.ufrgs.br"
+    t.string   "email",                         :default => "mconf.prav@gmail.com"
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"

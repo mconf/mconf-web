@@ -13,15 +13,15 @@
     $("#parent_" + id + " .collapse_thread").show();
     $("#message-body-" + id).hide();
   }
-        
+
   collapse_thread = function(id){
     $("#parent_" + id + " .extended_thread").hide();
     $("#parent_" + id + " .extend_thread").show();
     $("#parent_" + id + " .collapse_thread").hide();
     $("#message-body-" + id).show();
-  }  
-  
-  
+  }
+
+
   $("input.home_menu_checkbox").click(function(){
           var contents;
                 var value = this.value
@@ -30,7 +30,7 @@
     }else{
       contents = $.deparam.querystring().contents.split(",");
     }
-                
+
     if ($(this).attr("checked")){
       contents.push(value);
                 }else{
@@ -40,8 +40,8 @@
                 }
                 window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
-  
-  
+
+
 <% end %>
 
 <%= content_for :search do  %>
@@ -50,10 +50,11 @@
 
 <%= content_for :sidebar do  %>
 
-        <% if logged_in?%>
-          <div class="button_wrapper">
-            <%= link_to raw("<span>" + t('space.create_own') + "</span>"), new_space_path,:class => "new_space_link big_button orange_button"%>
-      </div>
+  <% if logged_in?%>
+    <div class="button_wrapper">
+      <%= link_to raw("<span>" + t('space.create_own') + "</span>"), new_space_path,:class => "new_space_link big_button orange_button"%>
+    </div>
+    <div class="clearer"></div>
   <%end%>
 
   <%if !(current_user.spaces.empty?)%>
@@ -89,22 +90,22 @@
         <%end%>
       </div>
     <%end%>
-         
+
   </div>
 
   <div id="home-inbox-full" class="margin-up">
-    
+
                 <div id="home-inbox-title">
         <h3>
                 <%=image_tag("icons/email.png",:class=>"icon")%>
                                 <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
                         </h3>
                 </div>
-        
+
                 <%if @private_messages.empty?%>
                 <div class="next-events-section">
                 <span><%=t("message.private.none")%></span>
-                </div>  
+                </div>
                 <%else%>
             <%for private_message in @private_messages%>
         <%if @sender.present?%>
@@ -131,10 +132,10 @@
                   <%end%>
     <%end%>
         </div>
-        
+
         <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
-        
-<%end%> 
+
+<%end%>
 
 
 <%= content_for :menu_rooms do  %>
@@ -146,14 +147,14 @@
 <% end %>
 
 <div id="recent-activity">
-        
+
         <%for interval in intervals(@all_contents) do -%>
                 <%unless interval[:contents].empty? -%>
                         <div id="line">
         <span class="bold"><%= t('updated') + " " + interval[:name]%></span>
         </div>
         <%end -%>
-        
+
         <% interval[:contents].each do |content| -%>
         <% case content
         when Post -%>

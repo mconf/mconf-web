@@ -1,44 +1,62 @@
 <div id="footer">
 
-  <ul>
-        <li id="trade_mark"><%= t('mconf') %></li>
-        <li>-</li>
-        <li><%= t('all_rights_reserved') %></li>
-        <li>-</li>
-        <li>
-          <div id="support_select">
-            <%=link_to t('help'), 'dropup', { :id=>"support_select", :class=>"support_select orange_button" } %>
-            <ul id="support_menu" style="display:none">
-              <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>
-              <!--<li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
-              <li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>-->
-            </ul>
-          </div>
-        </li>
-        <li>-</li>
-        <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
-        <li>-</li>
-        <!-- <li><%=link_to(t('about_global'),"http://www.global-project.eu")%></li>
-        <li>-</li> -->
-        <li>
-                <div id="language_select">
-                  <%=link_to t('language'), 'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
-                  <ul id="language_menu" style="display:none">
-                      <% # for locale in (I18n.available_locales) -%>
-                      <% for locale in [:en, :"pt-br"] -%>
-                      <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
-                      <% end -%>
-                  </ul>
-                </div>
-        </li>
+  <div class="float_left">
+    <ul>
+      <li><span id="trade_mark"><%= t('mconf') %></span> <%= t('all_rights_reserved') %>.</li>
+      <li>-</li>
+      <li>
+        <div id="support_select">
+          <%=link_to t('help'), 'dropup', { :id=>"support_select", :class=>"support_select" } %>
+          <ul id="support_menu" style="display:none">
+            <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('faq.tag'), faq_path)%></li>
+            <!--<li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
+                <li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>-->
+          </ul>
+        </div>
+      </li>
+      <li>-</li>
+      <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
+      <li>-</li>
+      <li>
+        <div id="language_select">
+          <%=link_to t('language'), 'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
+          <ul id="language_menu" style="display:none">
+            <% # for locale in (I18n.available_locales) -%>
+            <% for locale in [:en, :"pt-br"] -%>
+            <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
+            <% end -%>
+          </ul>
+        </div>
+      </li>
 
-        <% # if current_site.authorize?(:translate, :to => current_user)%>
-        <!--
-                <li>-</li>
-                <li><%=link_to t('translate.one'), translate_list_path %></li>
-        -->
-        <% # end%>
-  </ul>
+      <% # if current_site.authorize?(:translate, :to => current_user)%>
+      <!--
+         <li>-</li>
+         <li><%=link_to t('translate.one'), translate_list_path %></li>
+      -->
+      <% # end%>
+    </ul>
+  </div>
+
+  <div class="float_right">
+    <ul>
+      <li><%= t('footer.find_us') %>:</li>
+      <li><a href="http://www.inf.ufrgs.br/prav/gtmconf"><%= t('footer.website') %></a></li>
+      <li>-</li>
+      <li><a href="http://code.google.com/p/mconf"><%= t('footer.gcode') %></a></li>
+      <li>-</li>
+      <li><a href="https://github.com/mconf"><%= t('footer.github') %></a></li>
+    </ul>
+  </div>
+
+  <div class="float_right" style="clear:both;">
+    <ul>
+      <li><%= t('footer.built_on_top_of').html_safe %></li>
+    </ul>
+  </div>
+
+  <div class="clearer"></div>
+
 </div>
 <!--
 <%if current_site.domain == "globalplaza.org"%>
