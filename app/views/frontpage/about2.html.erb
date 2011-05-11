@@ -6,18 +6,18 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title></title>
     <link href="/favicon.ico" rel="shortcut icon" />
-    
+
   <link href="stylesheets/about.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
 
   <link rel="stylesheet" href="stylesheets/galleriffic.css" type="text/css" />
-    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>   
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form' %>
     <%= javascript_include_tag 'jquery.galleriffic.js'%>
-    
-    <!--[if IE]> 
+
+    <!--[if IE]>
     <link href="stylesheets/ie.css?1242919478" media="screen, projection" rel="stylesheet" type="text/css" />
     <![endif]-->
-    
+
   </head>
 
   <body>
@@ -25,169 +25,167 @@
     <div id="home">
       <div id="header">
         <div id="logo">
-		  <img alt="Gp-logo" height="80" src="images/gp-logo.jpg" width="80" />
-		</div>
-		
-		<div id="search">
-		  <h1>ABOUT GLOBAL</h1>
-		</div>
-		
-		<div id="eu">
-		  <img alt="Union_europea" height="48" src="images/flags/union_europea.jpg" width="72" />
-		</div>
+                  <img alt="Gp-logo" height="80" src="images/gp-logo.jpg" width="80" />
+                </div>
+
+                <div id="search">
+                  <h1>ABOUT GLOBAL</h1>
+                </div>
+
+                <%= render :partial => 'layouts/header_logo' %>
 
       </div>
-  
-	  <div id="content">  
+
+          <div id="content">
         <div id="main">
           <div class="about-wrapper">
-      	    <h3 class="title">GLOBAL Description</h3>
+            <h3 class="title">GLOBAL Description</h3>
             <div id="description">
-		      <p>
-		        Global Linkage Over BroadbAnd Links will provide a virtual conference centre using advanced communication technologies and concepts to support the promotion of e-infrastructure topics in Europe and around the world.
-		      </p>
-		      <p>
-		        One main goal of GLOBAL will be to allow and help research projects to disseminate their results and training events to a wider audience located in multiple geographical locations through the organization of virtual conferences. GLOBAL will provide a user-centric interface for planning, creation, announcement, coordination, content management and realisation of virtual conferences with open and wide participation. Through these virtual conferences the participating users will be able to exchange information on e-infrastructure development in their region, identify partners for future collaboration and exchange and discuss synergies between their running initiatives.
-		      </p>
-		      <p>
-		        The virtual conference events will provide advanced videoconferencing and collaboration tools and support to the participants. Each event will be recorded and stored on a repository together with documents and outcomes for future consultation. The virtual conference centre will provide three main functions focused on usability: a virtual auditorium, for planning, coordination and management of the virtual events, an event repository, to store the recordings and outcomes of the events, and a virtual corridor, which will support networking and partnership building amongst the participants.
-		      </p>
-		      <p>
-		        The project is supported by the European Commissions/ 7 FRAMEWORK PROGRAMME/THEME Capacities/Research Infrastructures.
-		      </p>
-		    </div>              
-    	  </div>        
+                      <p>
+                        Global Linkage Over BroadbAnd Links will provide a virtual conference centre using advanced communication technologies and concepts to support the promotion of e-infrastructure topics in Europe and around the world.
+                      </p>
+                      <p>
+                        One main goal of GLOBAL will be to allow and help research projects to disseminate their results and training events to a wider audience located in multiple geographical locations through the organization of virtual conferences. GLOBAL will provide a user-centric interface for planning, creation, announcement, coordination, content management and realisation of virtual conferences with open and wide participation. Through these virtual conferences the participating users will be able to exchange information on e-infrastructure development in their region, identify partners for future collaboration and exchange and discuss synergies between their running initiatives.
+                      </p>
+                      <p>
+                        The virtual conference events will provide advanced videoconferencing and collaboration tools and support to the participants. Each event will be recorded and stored on a repository together with documents and outcomes for future consultation. The virtual conference centre will provide three main functions focused on usability: a virtual auditorium, for planning, coordination and management of the virtual events, an event repository, to store the recordings and outcomes of the events, and a virtual corridor, which will support networking and partnership building amongst the participants.
+                      </p>
+                      <p>
+                        The project is supported by the European Commissions/ 7 FRAMEWORK PROGRAMME/THEME Capacities/Research Infrastructures.
+                      </p>
+                    </div>
+          </div>
          </div>
-      
-		<div id="sidebar">
-		  <div id="about-sidebar">
-			<div id="go-vcc">
-			  <img alt="Vcc-logo" src="images/vcc-logo1.png" title="Virtual Conference Centre" />
-			  <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("bola_global_peque.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
-			</div>
-			<br/>			
-		
-			<div class="partners">
-			<h5>Partners</h5>         
-			  <div>
-				<ul>
-				  <li><a href="http://www.zsi.at/">Zentrum für Soziale Innovation (ZSI)</a></li>
-				  <li>Austria</li>
-				</ul>
-				<ul>
-				  <li><a href="http://www2.upm.es/institucional">U. Politécnica de Madrid (UPM)</a></li>
-				  <li>Spain</li>
-				</ul>
-				<ul>
-				  <li><a href="http://www.agora-2000.com/">Agora Systems S.A. (ASSA)</a></li>
-				  <li>Spain</li>
-				</ul>
-				<ul>
-				  <li><a href="http://www.redclara.net/">Cooperación Latino Americana de Redes Avanzadas (CLARA)</a></li>
-				  <li>Uruguay</li>
-				</ul>
-				<ul>  
-				  <li><a href="http://www.ucl.ac.uk/">University College London (UCL)</a></li>
-				  <li>United Kingdom</li>
-				</ul>
-				<ul>  
-				  <li><a href="http://www.ijs.si/ijsw/JSI">Jozef Stefan Institute (JSI)</a></li>
-				  <li>Slovenia</li>
-				</ul>
-				<ul>  
-				  <li><a href="http://www.ubuntunet.net/">Ubuntunet (Ubuntunet)</a></li>
-				  <li>Malawi</li>
-				</ul>
-			  </div>    
-			</div>
-			
-			<div class="contact">
-			  <h5><%= t('contact_information') %></h5>
-			  <ul>
-				<li>Margit Hofer</li>
-				<li>Zentrum für Soziale Innovation</li>
-				<li>Linke Wienzeile 246</li>
-				<li>1150 Wien</li>
-				<li><%= t('e-mail.one') %>: hofer@zsi.at</li>
-				<li><%= t('phone') %>: +43/ 1 495 04 42 -  63</li>
-			  </ul>     
-			</div>
-		  </div>
-		</div>
+
+                <div id="sidebar">
+                  <div id="about-sidebar">
+                        <div id="go-vcc">
+                          <img alt="Vcc-logo" src="images/vcc-logo1.png" title="Virtual Conference Centre" />
+                          <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("bola_global_peque.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
+                        </div>
+                        <br/>
+
+                        <div class="partners">
+                        <h5>Partners</h5>
+                          <div>
+                                <ul>
+                                  <li><a href="http://www.zsi.at/">Zentrum für Soziale Innovation (ZSI)</a></li>
+                                  <li>Austria</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www2.upm.es/institucional">U. Politécnica de Madrid (UPM)</a></li>
+                                  <li>Spain</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www.agora-2000.com/">Agora Systems S.A. (ASSA)</a></li>
+                                  <li>Spain</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www.redclara.net/">Cooperación Latino Americana de Redes Avanzadas (CLARA)</a></li>
+                                  <li>Uruguay</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www.ucl.ac.uk/">University College London (UCL)</a></li>
+                                  <li>United Kingdom</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www.ijs.si/ijsw/JSI">Jozef Stefan Institute (JSI)</a></li>
+                                  <li>Slovenia</li>
+                                </ul>
+                                <ul>
+                                  <li><a href="http://www.ubuntunet.net/">Ubuntunet (Ubuntunet)</a></li>
+                                  <li>Malawi</li>
+                                </ul>
+                          </div>
+                        </div>
+
+                        <div class="contact">
+                          <h5><%= t('contact_information') %></h5>
+                          <ul>
+                                <li>Margit Hofer</li>
+                                <li>Zentrum für Soziale Innovation</li>
+                                <li>Linke Wienzeile 246</li>
+                                <li>1150 Wien</li>
+                                <li><%= t('e-mail.one') %>: hofer@zsi.at</li>
+                                <li><%= t('phone') %>: +43/ 1 495 04 42 -  63</li>
+                          </ul>
+                        </div>
+                  </div>
+                </div>
       </div>
-	  <div id="footer">
-	    <ul>
-	      <li id="trade_mark"><img alt="Bola_global_peque" class="icon" src="/images/bola_global_peque.png?1242226208" /> global-project.eu</li>
-	      <li>-</li>
-	      <li><%= t('all_rights_reserved') %></li>
-	    </ul>
-	  </div>
+          <div id="footer">
+            <ul>
+              <li id="trade_mark"><img alt="Bola_global_peque" class="icon" src="/images/bola_global_peque.png?1242226208" /> global-project.eu</li>
+              <li>-</li>
+              <li><%= t('all_rights_reserved') %></li>
+            </ul>
+          </div>
     </div>
 
   </div>
   <script type="text/javascript">
-			// We only want these styles applied when javascript is enabled
-			$('div.navigation').css({'width' : '506px', 'float' : 'left','padding' : '0 10px 10px 10px', 'margin' : '0 22px'});
-			$('div.content').css('display', 'block');
+                        // We only want these styles applied when javascript is enabled
+                        $('div.navigation').css({'width' : '506px', 'float' : 'left','padding' : '0 10px 10px 10px', 'margin' : '0 22px'});
+                        $('div.content').css('display', 'block');
 
-			// Initially set opacity on thumbs and add
-			// additional styling for hover effect on thumbs
-			var onMouseOutOpacity = 0.67;
-			$('#thumbs ul.thumbs li').css('opacity', onMouseOutOpacity)
-				.hover(
-					function () {
-						$(this).not('.selected').fadeTo('fast', 1.0);
-					}, 
-					function () {
-						$(this).not('.selected').fadeTo('fast', onMouseOutOpacity);
-					}
-				);
+                        // Initially set opacity on thumbs and add
+                        // additional styling for hover effect on thumbs
+                        var onMouseOutOpacity = 0.67;
+                        $('#thumbs ul.thumbs li').css('opacity', onMouseOutOpacity)
+                                .hover(
+                                        function () {
+                                                $(this).not('.selected').fadeTo('fast', 1.0);
+                                        },
+                                        function () {
+                                                $(this).not('.selected').fadeTo('fast', onMouseOutOpacity);
+                                        }
+                                );
 
-			$(document).ready(function() {
-				// Initialize Advanced Galleriffic Gallery
-				var galleryAdv = $('#gallery').galleriffic('#thumbs', {
-					delay:                  2000,
-					numThumbs:              8,
-					preloadAhead:           8,
-					enableTopPager:         false,
-					enableBottomPager:      true,
-					imageContainerSel:      '#slideshow',
-					controlsContainerSel:   '#controls',
-					captionContainerSel:    '#caption',
-					loadingContainerSel:    '#loading',
-					renderSSControls:       true,
-					renderNavControls:      true,
-					playLinkText:           'Play Slideshow',
-					pauseLinkText:          'Pause Slideshow',
-					prevLinkText:           '&lsaquo; Previous Photo',
-					nextLinkText:           'Next Photo &rsaquo;',
-					nextPageLinkText:       'Next &rsaquo;',
-					prevPageLinkText:       '&lsaquo; Prev',
-					enableHistory:          false,
-					autoStart:              false,
-					onChange:               function(prevIndex, nextIndex) {
-						$('#thumbs ul.thumbs').children()
-							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
-							.eq(nextIndex).fadeTo('fast', 1.0);
-					},
-					onTransitionOut:        function(callback) {
-						$('#caption').fadeOut('fast');
-						$('#slideshow').fadeOut('fast', callback);
-					},
-					onTransitionIn:         function() {
-						$('#slideshow, #caption').fadeIn('fast');
-					},
-					onPageTransitionOut:    function(callback) {
-						$('#thumbs ul.thumbs').fadeOut('fast', callback);
-					},
-					onPageTransitionIn:     function() {
-						$('#thumbs ul.thumbs').fadeIn('fast');
-					}
-				});
-			});
-	</script>
+                        $(document).ready(function() {
+                                // Initialize Advanced Galleriffic Gallery
+                                var galleryAdv = $('#gallery').galleriffic('#thumbs', {
+                                        delay:                  2000,
+                                        numThumbs:              8,
+                                        preloadAhead:           8,
+                                        enableTopPager:         false,
+                                        enableBottomPager:      true,
+                                        imageContainerSel:      '#slideshow',
+                                        controlsContainerSel:   '#controls',
+                                        captionContainerSel:    '#caption',
+                                        loadingContainerSel:    '#loading',
+                                        renderSSControls:       true,
+                                        renderNavControls:      true,
+                                        playLinkText:           'Play Slideshow',
+                                        pauseLinkText:          'Pause Slideshow',
+                                        prevLinkText:           '&lsaquo; Previous Photo',
+                                        nextLinkText:           'Next Photo &rsaquo;',
+                                        nextPageLinkText:       'Next &rsaquo;',
+                                        prevPageLinkText:       '&lsaquo; Prev',
+                                        enableHistory:          false,
+                                        autoStart:              false,
+                                        onChange:               function(prevIndex, nextIndex) {
+                                                $('#thumbs ul.thumbs').children()
+                                                        .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+                                                        .eq(nextIndex).fadeTo('fast', 1.0);
+                                        },
+                                        onTransitionOut:        function(callback) {
+                                                $('#caption').fadeOut('fast');
+                                                $('#slideshow').fadeOut('fast', callback);
+                                        },
+                                        onTransitionIn:         function() {
+                                                $('#slideshow, #caption').fadeIn('fast');
+                                        },
+                                        onPageTransitionOut:    function(callback) {
+                                                $('#thumbs ul.thumbs').fadeOut('fast', callback);
+                                        },
+                                        onPageTransitionIn:     function() {
+                                                $('#thumbs ul.thumbs').fadeIn('fast');
+                                        }
+                                });
+                        });
+        </script>
   </body>
 </html>
 
- 
-		
+
+

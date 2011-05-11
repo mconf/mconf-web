@@ -833,6 +833,7 @@ en:
     faq12:
       question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
       answer: "Although we think Global Plaza is already quite nice, we agree that everything can be improved. The best way to help us is by sending feedback using the <a href=\"feedback/new\">link</a> at the bottom of every page. We will appreciate any comment, and take care of it as soon as its possible."
+    header_title: "FAQ"
   fax: Fax
   feedback:
     email: "%{email} sent the following feedback:"
@@ -900,6 +901,8 @@ en:
     not_found: hCard not found
   hello: Hello
   help: Help
+  help_page:
+    header_title: "Help"
   help_createVC:
     part1: To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the even's location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
@@ -1469,6 +1472,7 @@ en:
       exist: Your profile already exists
     hcard:
       fill_with: Fill your profile with your hCard
+    header_title: "User profile"
     must_create: Please create your profile first
     one: Profile
     private: Private profile

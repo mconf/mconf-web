@@ -6,9 +6,7 @@
   <span id="small-title"><%= link_to (image_tag("icons/MyHome3.png", :class=>"icon") + " " + t('home.my')) %></span>
 </div>
 
-<div id="eu">
-  <%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
-</div>
+<%= render :partial => 'layouts/header_logo' %>
 
 <!--<%= render :partial => 'special_message'%>-->
 

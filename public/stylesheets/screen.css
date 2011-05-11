@@ -211,8 +211,9 @@ body .icon{margin-bottom:-2px;}
 #header{height:68px;}
 #logo,#vcc-logo{float:left;}
 #search{
-  float:right;margin:0 5px 0 0;
-  margin-top:40px;margin-left:18px;text-align:right;
+  float: right;
+  margin: 45px 5px 0 20px;
+  text-align:right;
 }
 #vcc-logo{height:68px;}
 #logo{height:64px;padding:1px;border:1px #dedede solid;}
@@ -225,7 +226,13 @@ body .icon{margin-bottom:-2px;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
 /*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
-#eu{float:right;margin-top:10px;}
+#eu {
+  float:right;
+  margin-top:10px;
+  width: 100px;
+  height: 50px;
+  background:url("../images/logos/prav_header.png") no-repeat left top;
+}
 
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;}
 ul#prefs {list-style-type:none;margin:0;}
@@ -785,7 +792,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 .profile_logo img{padding:3px;background:#ebebeb;border:1px solid #ccc;}
 #profile_wrapper{position:relative;overflow:hidden;clear:both;}
 
-#profile_left{position:relative;float:left;width:200px;padding-right:10px;background:#E1EEF5;overflow:hiden;}
+#profile_left{position:relative;float:left;width:190px;padding-right:10px;background:#E1EEF5;overflow:hiden;}
 #profile_content .category,#profile_content .data{float:left;}
 #profile_content .category{width:80px;}
 #profile_content .data{width:105px;}
@@ -2251,17 +2258,19 @@ h3.dialog_title {
 }
 
 .faq-wrapper{background:#fff;font-size:1.0833em;line-height:1.3846em;color:#111; padding: 20px;}
-.faq-wrapper{margin-bottom:0.75em;border:1px #B0CADB solid;border-bottom:1px #B0CADB solid;}
+.faq-wrapper{margin-bottom:0.75em;border:1px #B0CADB solid;}
 .faq-wrapper #description{padding:9px;}
-.faq-wrapper h3.title{
+.faq-wrapper-title{
         color:#244974;
         font-size:1.2em;
         line-height:1.25;
         padding:8px 9px;
-        margin:0 0 2px 0;
+        margin:0;
         background:#bdd8eb;
         font-weight:bold;
-        border-bottom:1px solid #B0CADB;}
+  border:1px #B0CADB solid;
+  border-bottom: 0;
+}
 .faq-wrapper div.pics{float:left;width:275px;margin:5px 5px 0 5px;text-align: center; color:#244974;}
 .faq-wrapper div#end{margin-bottom:0.75em;}
 .faq-wrapper div.pics img{float:left;}
@@ -2287,10 +2296,10 @@ h3.dialog_title {
 .help-wrapper div.pics img{width:275px;}
 .help-wrapper object {margin-left:5px;}
 
-#help #sidebar{float:right;width:200px;padding-right:10px;margin-bottom:1.5em;}
+#help #sidebar{float:right;width:200px;padding-right:0;}
 #help #main{float:left;width:720px;}
 
-.help-info{padding-bottom: 10px;border:1px #bdd8eb solid;background:#f0f6f9;}
+.help-info{padding-bottom: 10px;border:1px #B0CADB solid;background:#f0f6f9;}
 .help-title {background:#bdd8eb;border-bottom:1px #A8C0D1 solid;}
 .help-title h3{margin-top:0;padding:0.5em 0 0.5em 0.5em;color:#244974;font-weight:bold;}
 .help-info .topics-section {padding: 5px;}
@@ -2298,5 +2307,13 @@ h3.dialog_title {
 
 #space #main{float:left;width:670px;}
 
+#page_header_title {
+  margin-top: 25px;
+  color: #244974;
+  font-size: 26px;
+  font-weight: bold;
+  float: left;
+  font-family: Helvetica,sans-serif;
+}
 
 

@@ -209,7 +209,7 @@ fr:
   back: Dos
   back_to_inbox: "Retour \xC3\xA0 la bo\xC3\xAEte de r\xC3\xA9ception"
   bad_request: Bad Request
-  beta: (BETA)
+  beta: beta
   body: Corps
   button:
     accept: Accepter

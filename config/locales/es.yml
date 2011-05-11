@@ -220,7 +220,7 @@ es:
 
   back_to_inbox: Volver a la bandeja de entrada
   bad_request: "Petici\xC3\xB3n inv\xC3\xA1lida"
-  beta: (BETA)
+  beta: beta
   body: Cuerpo
   button:
     accept: Aceptar

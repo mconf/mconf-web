@@ -175,7 +175,7 @@ Vcc::Application.routes.draw do
       get :new_room, :as => 'newroom'
     end
   end
-  
+
   resource :invite do
     member do
       get :invite_room, :as => 'inviteroom'
@@ -189,7 +189,7 @@ Vcc::Application.routes.draw do
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'
   match '/manage/spam', :to => 'manage#spam', :as => 'manage_spam'
-  
+
   # Locale controller (globalize)
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
@@ -199,11 +199,10 @@ Vcc::Application.routes.draw do
 
   # root
   root :to => 'frontpage#index'
-  match 'about', :to => 'frontpage#about', :as => 'about'
-  match 'about2', :to => 'frontpage#about2', :as => 'about2'
-  match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
   match 'help(/:action)', :to => 'help#index', :as => 'help'
   match 'faq', :to => 'faq#index', :as => 'faq'
+  #match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
+  #match 'about', :to => 'frontpage#about', :as => 'about' # TODO Create an about for Mconf
 
   resource :session
 

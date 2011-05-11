@@ -6,70 +6,68 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Performance throughout the project duration</title>
     <link href="/favicon.ico" rel="shortcut icon" />
-    
+
   <link href="stylesheets/about.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-    
-  <!--[if IE]> 
+
+  <!--[if IE]>
   <link href="stylesheets/ie.css?1242919478" media="screen, projection" rel="stylesheet" type="text/css" />
   <![endif]-->
-	
+
   </head>
 
   <body>
-  	<div id="site">
+        <div id="site">
     <div id="home">
       <div id="header">
         <div id="logo">
-		  <img alt="Gp-logo" height="80" src="images/gp-logo.jpg" width="80" />
-		</div>
-		
-		<div id="search">
-		  <h1>Performance throughout the project duration</h1>
-		</div>
-		
-		<div id="eu">
-		  <img alt="Union_europea" height="48" src="images/flags/union_europea.jpg" width="72" />
-		</div>
+                  <img alt="Gp-logo" height="80" src="images/gp-logo.jpg" width="80" />
+                </div>
+
+                <div id="search">
+                  <h1>Performance throughout the project duration</h1>
+                </div>
+
+                <%= render :partial => 'layouts/header_logo' %>
 
       </div>
-  
-	  <div id="content">  
+
+          <div id="content">
         <div id="main">
         <%= link_to "<span>Back to GLOBAL webpage</span>", "http://global-project.eu", :class => "with_margin_down new_space_link big_button orange_button"%>
-		<br/>
+                <br/>
         <div class="perf_message">
-        	*All these graphs present cumulative data up to the end of the project in November 2010			
+                *All these graphs present cumulative data up to the end of the project in November 2010
         </div>
 
-        <%= image_tag ("demo/Imagen1.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Communities: </span> This graph shows the number of <i>spaces</i> created by registered users since the release in April 2009. Not all GlobalPlaza users create their own community. Nevertheless, it is necessary to create a space in order to organise a virtual event. The number of communities losely corresponds with the number of performed events.</div>
-		<div class="greyRule"></div>
-		<%= image_tag ("demo/Imagen3.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Events: </span> This graph shows the number of Events organised through the GlobalPlaza site since the release in April 2009, both public (open to everybody) and private events (restricted to members of a specific community). Events are usually organised in a GlobalPlaza Space to target a specific community. So an increase in communities is reflected in the increase in created events.The numbers shown here include events in private spaces. A search via GlobalPlaza will most likely show a different number because it only yields results for spaces a user has access to. </div>
-		<div class="greyRule"></div>
-		<%= image_tag ("demo/Imagen5.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Users: </span> This graph shows the number of users registered on the GlobalPlaza site since the release in April 2009. Users register if they want to participate actively. The number of new registrations seems to correspond with the number of events (see below) which act as a driver for new users to join.</div>
-		<div class="greyRule"></div>
-		<%= image_tag ("demo/Imagen7.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Messages: </span>This graph shows the number of Messages on the Wall of the different Spaces since the release in April 2009. The number of messages depend on the activity of the different Spaces. </div>
-		<div class="greyRule"></div>
-		<%= image_tag ("demo/Imagen9.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Videos: </span> This graph shows the number of videos recorded by the GlobalPlaza service for the events organised since the release in April 2009. User can choose whether or not they want to record their event. Although the number of events and the number of recorded videos seem to correlate they do not. Also, the events are not all of the same size; some have just one recording, some are full-fledged events with many sessions and breaks with more than one day duration in which each session is recorded separately. These big events are usually created far in advance. The respective videos may be recorded by different means and published some time later.</div>
-		<div class="greyRule"></div>
-		<%= image_tag ("demo/Imagen11.png",:class=>"performance_imagen") %>
-		<div class="perf_message">
-        	*The next graph present monthly data (not cumulative)		
+        <%= image_tag("demo/Imagen1.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Communities: </span> This graph shows the number of <i>spaces</i> created by registered users since the release in April 2009. Not all GlobalPlaza users create their own community. Nevertheless, it is necessary to create a space in order to organise a virtual event. The number of communities losely corresponds with the number of performed events.</div>
+                <div class="greyRule"></div>
+                <%= image_tag("demo/Imagen3.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Events: </span> This graph shows the number of Events organised through the GlobalPlaza site since the release in April 2009, both public (open to everybody) and private events (restricted to members of a specific community). Events are usually organised in a GlobalPlaza Space to target a specific community. So an increase in communities is reflected in the increase in created events.The numbers shown here include events in private spaces. A search via GlobalPlaza will most likely show a different number because it only yields results for spaces a user has access to. </div>
+                <div class="greyRule"></div>
+                <%= image_tag("demo/Imagen5.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Users: </span> This graph shows the number of users registered on the GlobalPlaza site since the release in April 2009. Users register if they want to participate actively. The number of new registrations seems to correspond with the number of events (see below) which act as a driver for new users to join.</div>
+                <div class="greyRule"></div>
+                <%= image_tag("demo/Imagen7.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Messages: </span>This graph shows the number of Messages on the Wall of the different Spaces since the release in April 2009. The number of messages depend on the activity of the different Spaces. </div>
+                <div class="greyRule"></div>
+                <%= image_tag("demo/Imagen9.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Videos: </span> This graph shows the number of videos recorded by the GlobalPlaza service for the events organised since the release in April 2009. User can choose whether or not they want to record their event. Although the number of events and the number of recorded videos seem to correlate they do not. Also, the events are not all of the same size; some have just one recording, some are full-fledged events with many sessions and breaks with more than one day duration in which each session is recorded separately. These big events are usually created far in advance. The respective videos may be recorded by different means and published some time later.</div>
+                <div class="greyRule"></div>
+                <%= image_tag("demo/Imagen11.png",:class=>"performance_imagen") %>
+                <div class="perf_message">
+                *The next graph present monthly data (not cumulative)
         </div>
-		<%= image_tag ("demo/Imagen13.png",:class=>"performance_imagen") %>
-		<div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Unique Visitors: </span>This graph shows the number of unique visitors to the GlobalPlaza site since December 2009. We present this data in a cumulative and non-cumulative graphs. In general the highest monthly number of Unique Visitors coincide with an increase in User registrations and the creation of events. The number of unique visitors can be correlated to the number of events at the early months, but later these visitors will not only attend or view event dissemination information but also available recordings.</div>
-		
-		<%= link_to "<span>Back to GLOBAL webpage</span>", "http://global-project.eu", :class => "new_space_link big_button orange_button"%>
-		</div>
-	  </div>
+                <%= image_tag("demo/Imagen13.png",:class=>"performance_imagen") %>
+                <div class="imagen_explanation"><span class="explanation_tilte">GlobalPlaza Unique Visitors: </span>This graph shows the number of unique visitors to the GlobalPlaza site since December 2009. We present this data in a cumulative and non-cumulative graphs. In general the highest monthly number of Unique Visitors coincide with an increase in User registrations and the creation of events. The number of unique visitors can be correlated to the number of events at the early months, but later these visitors will not only attend or view event dissemination information but also available recordings.</div>
+
+                <%= link_to "<span>Back to GLOBAL webpage</span>", "http://global-project.eu", :class => "new_space_link big_button orange_button"%>
+                </div>
+          </div>
     </div>
   </div>
-		  
+
   </body>
 </html>
 

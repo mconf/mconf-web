@@ -3,15 +3,15 @@
     <ul id="prefs">
       <% if logged_in? %>
                 <% if current_user.superuser?%>
-                                          <li><%=link_to t('manage'), site_path%></li>
-                                        <%end%>
+                  <li><%=link_to t('manage'), site_path%></li>
+                <%end%>
                 <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
                 <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
                 <li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
                 <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
                 <li><%= link_to t('logout', :user => current_user.name), logout_path, :id => "logout_link" %></li>
         <% else %>
-                    <li><%= link_to t('login_or_register'), login_path(:redirect_to => controller.request.path),:class => "login_link" %></li>
+                <li><%= link_to t('login_or_register'), login_path(:redirect_to => controller.request.path),:class => "login_link" %></li>
       <% end %>
     </ul>
 
@@ -51,7 +51,6 @@
             <span class="small"><%= t('beta') %></span>
           <% end %>
         <% end %>
-    </a>
   </span>
   </div>
 

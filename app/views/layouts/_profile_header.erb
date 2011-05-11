@@ -1,10 +1,8 @@
-<div id="vcc-logo">
-  <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
+<div id="page_header_title">
+  <%= t('profile.header_title') %>
 </div>
 
-<div id="eu">
-  <%=image_tag("flags/union_europea.jpg",:size=>"72x48")%>
-</div>
+<%= render :partial => 'layouts/header_logo' %>
 
 <div id="search">
   <%= render :partial => 'search/form' %>
