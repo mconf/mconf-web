@@ -161,7 +161,7 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .help-title h3{margin-top:0;padding-top:0.5em;color:#244974;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
-#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:5px 10px;width:940px;}
+#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:10px 10px;width:940px;}
 #footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
 #footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;position:relative;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
