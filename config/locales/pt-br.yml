@@ -870,7 +870,7 @@ pt-br:
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
-    note: "Ajude-nos a melhorar o Global. Envie seus coment\xC3\xA1rios, problemas e sugest\xC3\xB5es. Tentaremos responder o mais rapidamente poss\xC3\xADvel."
+    note: "Ajude-nos a melhorar o Mconf. Envie seus coment\xC3\xA1rios, problemas e sugest\xC3\xB5es. Tentaremos responder o mais rapidamente poss\xC3\xADvel."
     one: Feedback
     send: Enviar feedback
     send_us: Envie-nos feedback!

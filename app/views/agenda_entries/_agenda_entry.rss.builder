@@ -2,7 +2,7 @@ return unless agenda_entry.recording? && agenda_entry.get_src_from_embed.present
 
 xml.tag! 'media:group' do
   xml.tag! 'media:category', "General",
-           :label => 'Global Plaza Space',
+           :label => 'Mconf Space',
            :scheme => 'http://gdata.youtube.com/schemas/2007/categories.cat'
 
   xml.tag! 'media:content',

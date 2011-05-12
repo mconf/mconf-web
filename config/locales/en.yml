@@ -478,7 +478,7 @@ en:
     not_allowed: You are not allowed to perform that action
     one: Error
     other: Errors
-    vcc_warning: "Global warning:"
+    vcc_warning: "Warning:"
   eu_commision: European Commission
   event:
     Isabel: Isabel event
@@ -837,7 +837,7 @@ en:
   fax: Fax
   feedback:
     email: "%{email} sent the following feedback:"
-    note: Help us improve Global. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
+    note: Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible.
     one: Feedback
     send: Send feedback
     send_us: Send us feedback!
@@ -851,7 +851,7 @@ en:
   find_in_name_speakers: "Find in name/speakers:"
   follow_reset_password: "%{agent}, please follow the link to reset your password"
   footer:
-    built_on_top_of: "This website is built on top of <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
+    built_on_top_of: "This website is based on <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
     find_us: "You can find us at"
     gcode: "Google Code"
     github: "GitHub"
@@ -1676,6 +1676,11 @@ en:
   show: Show
   show_advanced_editor: Show advanced editor
   show_list_version>>: show list version >>
+  simple_captcha:
+    label: "Type the text from the image"
+    message:
+      default: "Secret code did not match with the image"
+      user: "The secret image and code were different"
   singular_agent:
     anonymous:
       name: Anonymous

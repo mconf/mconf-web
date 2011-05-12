@@ -195,7 +195,7 @@ Vcc::Application.routes.draw do
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
 
   # simple_captcha controller
-  match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
+  #match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
 
   # root
   root :to => 'frontpage#index'

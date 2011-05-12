@@ -1,9 +1,6 @@
 [submodule "vendor/plugins/attachment_fu"]
-	path = vendor/plugins/attachment_fu
-	url = git://github.com/mconf/attachment_fu.git
-[submodule "vendor/plugins/translate"]
-        path = vendor/plugins/translate
-        url = git://github.com/piercus/rails-translate.git
+        path = vendor/plugins/attachment_fu
+        url = git://github.com/mconf/attachment_fu.git
 [submodule "vendor/plugins/station"]
-	path = vendor/plugins/station
-	url = git://github.com/mconf/station.git
+        path = vendor/plugins/station
+        url = git://github.com/mconf/station.git
