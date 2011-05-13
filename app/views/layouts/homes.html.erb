@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title><%= yield :title %></title>
+    <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
-    
+
     <% if current_user.chat_activation %>
       <script type="text/javascript" charset="utf-8">
         if (window == window.top) {
@@ -14,7 +14,7 @@
         }
       </script>
     <% end %>
-                    
+
     <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
@@ -24,28 +24,28 @@
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
-                
-    <!--[if IE]> 
+
+    <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
     <script type="text/javascript">
-      if (navigator.userAgent.indexOf('Mac') != -1) { 
-         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      if (navigator.userAgent.indexOf('Mac') != -1) {
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />");
       }
     </script>
 
     <%= javascript_include_tag  'jquery', 'rails', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
     <%= csrf_meta_tag %>
-    
+
     <%= yield :headers %>
-                
+
           <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
                 <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       })
     </script>
-        
+
   </head>
 
         <body>
@@ -55,13 +55,13 @@
                     <div id="header">
                       <%= render :partial => "layouts/home_header" %>
                     </div>
-                    <div id="content">                
+                    <div id="content">
                       <div id="main">
 
             <% flash.each do |name, msg| %>
               <div class="<%= name %>"><%= msg.html_safe %></div>
             <% end %>
-          
+
             <%= yield :menu_rooms %>
 
                         <%= yield :menu %>
@@ -73,9 +73,9 @@
                         <%= yield :sidebar %>
               </div>
             </div>
-                <%= render :partial => "layouts/footer" %>  
+                <%= render :partial => "layouts/footer" %>
               </div>
           </div>
-                
+
         </body>
 </html>

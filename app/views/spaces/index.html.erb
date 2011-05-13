@@ -1,15 +1,15 @@
 <%= content_for :javascript do  %>
-        
+
         $("#space_filter").show();
 
         $("input#spaces_all").click(function(){
           $(".other").show();
         });
-        
+
         $("input#spaces_my").click(function(){
-          $(".other").hide();  
+          $(".other").hide();
   });
-        
+
         $("#space_name_filter").keyup(function(){
           var filter_text = this.value.toLowerCase();
     $("div.space_item").each(function() {
@@ -20,7 +20,7 @@
       }
       });
         });
-        
+
         var title = "<%=escape_javascript(t('search.space.dots'))%>";
         $("#space_name_filter").click(function(){
           if(this.value == title){
@@ -34,20 +34,20 @@
                   this.value= title;
                 }
         });
-        
+
   $(".space_item").hover(
           function () {
                     var route = "div#" + $(this).attr("name");
                                 $("#space_description div").hide();
                                 $(route).show();
-                                
-      }, 
+
+      },
       function () {
 
       }
     );
-  
-        
+
+
         /*
   $(".unautorized form").submit(function(){
           var route = $(this).attr("action");
@@ -60,25 +60,25 @@
                 return false;
   });
         */
-        
+
         $(".unautorized a").fancybox({
     'hideOnContentClick' : false
   });
-  
 
-        
+
+
 <%if params[:space_id]=="my"%>
    $("input#spaces_my").click();
 <%end%>
-        
+
 <%if params[:filter]%>
     $("#space_name_filter").keyup();
   <%end%>
-        
+
 <% end %>
 
 <%= content_for :search do  %>
-        <%= render :partial => 'search/form' %> 
+        <%= render :partial => 'search/form' %>
 <% end %>
 
 <%= content_for :sidebar do  %>
@@ -86,6 +86,7 @@
       <div class="button_wrapper">
         <%= link_to ("<span>" + t('space.create_own') + "</span>").html_safe, new_space_path,:class => "new_space_link big_button orange_button"%>
       </div>
+      <div class="clearer"></div>
     <%else%>
           <div class="join">
             <h2><%= t('getting_started') %></h2>
@@ -118,7 +119,7 @@
             <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
             <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
           <%end%>
-</div>  
+</div>
 
 <div id = "public_spaces" class="space-box margin-up">
 

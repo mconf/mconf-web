@@ -734,7 +734,7 @@ en:
       ready: The streaming is booked. It will be available during the event
       title: Streaming session
       will_be_available: The streaming will be available during the event
-    temporarily_disabled: "Temporarily disabled"
+    not_available: "Available soon"
     time:
       start: Start
       end: End

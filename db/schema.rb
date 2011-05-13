@@ -385,7 +385,7 @@ ActiveRecord::Schema.define(:version => 20110429184108) do
 
   create_table "sites", :force => true do |t|
     t.string   "name",                          :default => "Mconf"
-    t.text     "description"
+    t.text     "description",                   :default => "Mconf Webconferences"
     t.string   "domain",                        :default => "mconfweb.inf.ufrgs.br"
     t.string   "email",                         :default => "mconf.prav@gmail.com"
     t.string   "locale"
@@ -394,9 +394,9 @@ ActiveRecord::Schema.define(:version => 20110429184108) do
     t.boolean  "ssl",                           :default => false
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
-    t.text     "signature"
-    t.string   "presence_domain",               :default => "sir.dit.upm.es "
-    t.string   "chat_group_service_jid",        :default => "events.sir.dit.upm.es"
+    t.text     "signature",                     :default => "Mconf"
+    t.string   "presence_domain",               :default => "mconfweb.inf.ufrgs.br"
+    t.string   "chat_group_service_jid",        :default => "events.mconfweb.inf.ufrgs.br"
     t.string   "cm_domain"
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"

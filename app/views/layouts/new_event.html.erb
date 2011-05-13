@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title><%= yield :title %></title>
+    <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
 
     <% if current_user.chat_activation %>

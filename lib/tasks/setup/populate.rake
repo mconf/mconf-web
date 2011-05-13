@@ -149,6 +149,14 @@ namespace :setup do
       users = User.all
       role_ids = Role.find_all_by_stage_type('Space').map(&:id)
 
+      logos = Dir.entries("public/images/default_space_logos/")
+      logos.delete(".")
+      logos.delete("..")
+      Space.all.each do |space|
+        space.default_logo = "default_space_logos/" + logos[rand(logos.length)].to_s
+        space.save
+      end
+
       Space.all.each do |space|
         available_users = users.dup
 
@@ -231,7 +239,7 @@ namespace :setup do
 
       end
 
-      Site.find(1).update_attribute(:signature, "VCC")
+      Site.find(1).update_attribute(:signature, "Mconf")
 
     end
   end
