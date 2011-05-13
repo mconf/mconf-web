@@ -35,9 +35,9 @@
       <%= f.text_field :members_tokens %>
 
       <%= t('invite_people.notify_by') + ':' %>
-      <%= f.check_box :im_check %>
+      <%= f.check_box :im_check, :checked => 'checked' %>
       <%= t('invite_people.internal_message') %>
-      <%= f.check_box :email_check %>
+      <%= f.check_box :email_check, :checked => 'checked'  %>
       <%= t('invite_people.email.one') %>
    </div>
 

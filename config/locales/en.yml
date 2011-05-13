@@ -1195,6 +1195,11 @@ en:
     message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.
               You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>. Invitation
               message written by %{sender}:<br/><br/>"
+    invitation_successfully: "Invitation succesfully by:<br>"
+    invitation_unsuccessfully: "Invitation unsuccessfully by:<br>"
+    user_private_msg: "<li>user private message</li>"
+    user_private_email: "<li>user email</li>"
+    email: "<li>email</li>"
   is_member_of: is member of
   join: Join
   join_cam: Participate
@@ -1259,9 +1264,6 @@ en:
   mark_checkbox: Mark the suitable checkbox
   mconf: Mconf
   message:
-    created: Message sent successfully
-    error:
-      create: Error sending private message
     incoming:
       other: Incoming messages
     one: Message
@@ -1657,10 +1659,6 @@ en:
   searching_in: "You are searching in "
   select_image: Select an image, please
   send: Send
-  sendemail:
-    created: Email sent successfully
-    error:
-      created: Error sending email
   send_debug_emails: Send debug emails
   send_reset_password_request: Send Reset Password Request
   server:

@@ -26,7 +26,11 @@ class InvitesController < ApplicationController
   def send_invite
     @success_messages = Array.new
     @fail_messages = Array.new
+    @fail_user_email = Array.new
     @fail_email = Array.new
+    
+    success = ""
+    error = ""
 
     priv_msg = Hash.new
     priv_email = Hash.new
@@ -54,64 +58,77 @@ class InvitesController < ApplicationController
         private_message = PrivateMessage.new(priv_msg)
         if private_message.save
           @success_messages << private_message
+          success = t('invite.invitation_successfully') << t('invite.user_private_msg')
         else
+          error = t('invite.invitation_unsuccessfully') << t('invite.user_private_msg')
           @fail_messages << private_message
         end
       end
     end
 
     if params[:invite][:email_check] != "0"
+      for receiver in params[:invite][:members_tokens].split(",")
+        user = User.find(receiver)
+        priv_email[:email_receiver] = user.email
+        email_message = Notifier.webconference_invite_email(priv_email)
+        if email_message.deliver
+          if success.size == 0
+            success = t('invite.invitation_successfully') << t('invite.user_private_email')
+          else
+            success << t('invite.user_private_email')
+          end
+        else
+          if error.size == 0
+            error = t('invite.invitation_unsuccessfully') << t('invite.user_private_email')
+          else
+            error << t('invite.user_private_email')
+          end
+          @fail_user_email << email_message
+        end
+      end
+    end
+    
+    if params[:invite][:email_tokens].size != 0
+      emailSended = true
       for receiver in params[:invite][:email_tokens].split(",")
         priv_email[:email_receiver] = receiver
         email_message = Notifier.webconference_invite_email(priv_email)
         if email_message.deliver
+          if success.size == 0
+            success = t('invite.invitation_successfully') << t('invite.email')
+          else
+            success << t('invite.user_private_email')
+          end
         else
+          if error.size == 0
+            error = t('invite.invitation_unsuccessfully') << t('invite.email')
+          else
+            error << t('invite.email')
+          end
           @fail_email << email_message
         end
       end
     end
-
+    
     respond_to do |format|
-      if params[:invite][:im_check] != "0"
-        if @fail_messages.empty?
-          if params[:invite][:email_check] != "0"
-            if @fail_email.empty?
-              flash[:success] = t('message.created') << ", " << t('sendemail.created')
-            else
-              flash[:success] = t('message.created')
-              flash[:error] = t('sendemail.error.created')
-            end
-          else
-            flash[:success] = t('message.created')
-          end
-
-          format.html { redirect_to request.referer }
-          format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
-        else
-          if params[:invite][:email_check] != "0"
-            if @fail_email.empty?
-              flash[:error] = t('message.error.create')
-              flash[:success] = t('sendemail.created')
-            else
-              flash[:error] = t('message.error.create') << ", " << t('sendemail.error.created')
-            end
-          else
-            flash[:error] = t('message.error.create')
-          end
-
-          format.html { redirect_to request.referer }
-          format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
+      if @fail_messages.empty?
+        if success.size != 0
+          flash[:success] = success.html_safe
         end
-      else
-        if params[:invite][:email_check] != "0"
-          if @fail_email.empty?
-            flash[:success] = t('sendemail.created')
-          else
-            flash[:error] = t('sendemail.error.created')
-          end
+        if error.size != 0
+          flash[:error] = error.html_safe
         end
-
         format.html { redirect_to request.referer }
+        format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
+      else
+        if success.size != 0
+          flash[:success] = success.html_safe
+        end
+        if error.size != 0
+          flash[:error] = error.html_safe
+        end
+        format.html { redirect_to request.referer }
+        format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
       end
     end
 
