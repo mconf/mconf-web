@@ -1,6 +1,6 @@
 Vcc::Application.routes.draw do
 
-  bigbluebutton_routes :default
+  bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   scope '/translate' do
