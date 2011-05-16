@@ -1198,8 +1198,8 @@ en:
     invitation_successfully: "Invitation succesfully by:<br>"
     invitation_unsuccessfully: "Invitation unsuccessfully by:<br>"
     user_private_msg: "<li>user private message</li>"
-    user_private_email: "<li>user email</li>"
-    email: "<li>email</li>"
+    user_private_email: "user email: "
+    email: "email: "
   is_member_of: is member of
   join: Join
   join_cam: Participate
