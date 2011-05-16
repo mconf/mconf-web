@@ -19,7 +19,6 @@
 
   <div id="bigbluebutton_rooms">
     <h2><%=t('frontpage.webconferences')%></h2>
-    <p><%=t('frontpage.join_or_create')%></p>
 
     <h4><%=t('frontpage.meetings_in_progress')%></h4>
 
@@ -29,19 +28,17 @@
           <label>Your name:</label>
           <input type="text" name="username1" size="27"/>
         </div>-->
-        <label>Meetings:</label>
         <ul class="meeting_list">
+          <% i = 0 %>
           <% @server.meetings.select{ |m| m.is_running? }.each do |room| %>
-            <li>
-              <% if room.new_record? %>
-                <a href="<%= "http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp?action=invite&meetingID=#{room.meetingid}" %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
-              <% else %>
+            <li <%= "class=even" if (i%2 != 0) %>>
+              <% unless room.new_record? %>
                 <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+                <% name = room.name %>
               <% end %>
-
-              <!--<button type="submit" class="basic_button blue_button"><%=t('frontpage.join_button')%></button>-->
-              <span class="red"><%= room.meetingid %>: </span><%= room.participant_count %> <%=t('frontpage.participants')%>
+              <span class="red"><%= name %>: </span><span class="updated"><%= room.participant_count %> <%=t('frontpage.participants')%></span>
             </li>
+            <% i += 1 %>
           <% end %>
         </ul>
 
@@ -49,24 +46,6 @@
     <% else %>
       <p><%=t('frontpage.no_rooms')%></p>
     <% end %>
-
-    <h4><%=t('frontpage.create_room')%></h4>
-    <div class="create_room">
-      <form name="form2" method="get" action="http://mconfdev.inf.ufrgs.br/bigbluebutton/demo/create.jsp">
-        <div class="input">
-          <label><%= t('frontpage.your_name') %>:</label>
-          <input type="text" name="username1" size="27"/>
-        </div>
-        <div class="input">
-          <label><%= t('frontpage.room_name') %>:</label>
-          <input type="text" name="roomname" size="27"/>
-        </div>
-        <div class="button_area">
-          <button type="submit" class="basic_button blue_button" /><%=t('frontpage.create_button')%></button>
-        </div>
-        <input type="hidden" name="action" value="create">
-      </form>
-    </div>
 
   </div>
 

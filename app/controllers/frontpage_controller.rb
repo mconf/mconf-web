@@ -39,7 +39,9 @@ class FrontpageController < ApplicationController
     @server = BigbluebuttonServer.first
     begin
       @server.fetch_meetings
-      @server.meetings.each do |meeting|
+      @server.meetings.select{ |m| m.is_running? }.each do |meeting|
+        # If the room is on BBB but not in the DB, try to save it
+        meeting.save if meeting.new_record?
         meeting.fetch_meeting_info
       end
       @server.meetings.sort! { |x,y| y.participant_count <=> x.participant_count }

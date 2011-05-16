@@ -798,11 +798,14 @@ form {
 }
 
 #bigbluebutton_rooms .meeting_list {
-  margin-left: 110px;
 }
 
 #bigbluebutton_rooms .meeting_list li {
-  margin-bottom: 8px;
+  padding: 5px;
+}
+
+#bigbluebutton_rooms .meeting_list li.even {
+  background: #eee;
 }
 
 #bigbluebutton_rooms .meeting_list .medium_button span {

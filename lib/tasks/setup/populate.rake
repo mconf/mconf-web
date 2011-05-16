@@ -51,8 +51,8 @@ namespace :setup do
 
       puts "* Create Spaces"
       Space.populate 10 do |space|
-        space.name = Populator.words(1..3).titleize
-        space.permalink = PermalinkFu.escape(space.name)
+        space.name = Populator.words(1..3).capitalize
+        space.permalink = PermalinkFu.escape(space.name.titleize)
         space.description = Populator.sentences(1..3)
         space.public = [ true, false ]
         space.disabled = false
@@ -206,7 +206,7 @@ namespace :setup do
           room.owner_type = 'Space'
           room.server_id = BigbluebuttonServer.first
           room.name = space.name
-          room.meetingid = space.emailize_name
+          room.meetingid = space.permalink
           room.attendee_password = "ap"
           room.moderator_password = "mp"
         end
