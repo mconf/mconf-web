@@ -1,20 +1,9 @@
 namespace :setup do
-  namespace :basic_data do
-    desc "Reload basic data"
-    task :reload => [ :clear, :all ]
 
-    desc "Reset the database"
-    task :clear => "db:reset"
+  namespace :basic_data do
 
     desc "Load all basic data"
     task :all => [ :users, :bbb, :spaces, :roles ]
-
-    desc "Load Basic data in test"
-    task :test => "db:test:prepare" do
-      ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
-      ActiveRecord::Schema.verbose = false
-      Rake::Task["setup:basic_data:all"].invoke
-    end
 
     desc "Load Users Data"
     task :users => :environment do
@@ -26,7 +15,6 @@ namespace :setup do
       u.update_attribute(:superuser,true)
       u.activate
       u.profile!.update_attribute(:full_name, "mconf")
-
     end
 
     desc "Load Spaces Data"
@@ -53,7 +41,7 @@ namespace :setup do
           Permission.find_or_create_by_action_and_objective action, objective
         end
       end
-      
+
       Permission.find_or_create_by_action_and_objective "update", "attachment"
 
       # Permission applied to Group
@@ -76,14 +64,13 @@ namespace :setup do
       organizer_role.permissions << Permission.find_by_action_and_objective('update', 'content')
       organizer_role.permissions << Permission.find_by_action_and_objective('delete', 'content')
       organizer_role.permissions << Permission.find_by_action_and_objective('start', 'event')
-      
+
       invitedevent_role = Role.find_or_create_by_name_and_stage_type "Invitedevent", "Event"
       invitedevent_role.permissions << Permission.find_by_action_and_objective('read', nil)
-      
+
       speaker_role = Role.find_or_create_by_name_and_stage_type "Speaker", "AgendaEntry"
       speaker_role.permissions << Permission.find_by_action_and_objective('read', nil)
       speaker_role.permissions << Permission.find_by_action_and_objective('update', nil)
-      
 
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
       admin_role.permissions << Permission.find_by_action_and_objective('read',   nil)
@@ -115,9 +102,9 @@ namespace :setup do
 
     desc "Load BBB Data"
     task :bbb => :environment do
-      BBB_CONFIG = YAML.load_file(File.join(Rails.root, "config", "bigbluebutton_conf.yml"))[RAILS_ENV]
+      BBB_CONFIG = YAML.load_file(File.join(::Rails.root, "config", "bigbluebutton_conf.yml"))[::Rails.env]
 
-      puts "* Create BigbluebuttonServer defined in bigbluebutton_conf.yml"
+      puts "* Create the default BigBlueButton server (defined in bigbluebutton_conf.yml)"
       s = BigbluebuttonServer.create :name => "Default server",
                                      :url => BBB_CONFIG["server"],
                                      :salt => BBB_CONFIG["salt"],

@@ -1,0 +1,21 @@
+# sqlite3 for development and testing
+# mysql2 for production
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql2
+  database: mconf_production
+  username: mconf
+  password: mysecretpass
+  socket: /var/run/mysqld/mysqld.sock

@@ -1,10 +1,7 @@
 namespace :setup do
-  task :populate => 'populate:create'
 
-  namespace :populate do
-
-    desc "Reload populate data"
-    task :reload => [ 'setup:basic_data:reload', 'setup:populate' ]
+  desc "Populate the DB with random test data"
+  task :populate do
 
     desc "Erase non basic data and fill database"
     task :create => :environment do
@@ -17,7 +14,6 @@ namespace :setup do
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_login("mconf"))
       users_without_admin.each(&:destroy)
-
 
       puts "* Create Users"
       User.populate 15 do |user|
