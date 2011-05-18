@@ -220,7 +220,7 @@ class Init < ActiveRecord::Migration
 
     create_table "sites", :force => true do |t|
       t.string   "name",        :default => SITE_CONFIG["name"]
-      t.text     "description", :default => SITE_CONFIG["description"]
+      t.text     "description"
       t.string   "domain",      :default => SITE_CONFIG["domain"]
       t.string   "email",       :default => SITE_CONFIG["email"]
       t.string   "locale"

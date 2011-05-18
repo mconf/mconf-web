@@ -1,5 +1,4 @@
 name: "Mconf"
-description: "Mconf Webconferences"
 domain: "mconfweb.inf.ufrgs.br"
 presence_domain: "mconfweb.inf.ufrgs.br"
 events_chat_service: "events.mconfweb.inf.ufrgs.br"

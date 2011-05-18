@@ -385,7 +385,7 @@ ActiveRecord::Schema.define(:version => 20110429184108) do
 
   create_table "sites", :force => true do |t|
     t.string   "name",                          :default => "Mconf"
-    t.text     "description",                   :default => "Mconf Webconferences"
+    t.text     "description"
     t.string   "domain",                        :default => "mconfweb.inf.ufrgs.br"
     t.string   "email",                         :default => "mconf.prav@gmail.com"
     t.string   "locale"
