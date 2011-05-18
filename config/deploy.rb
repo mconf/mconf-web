@@ -115,7 +115,7 @@ namespace :setup do
 
   desc 'recreates the DB and populates it with the basic data'
   task :db do
-    run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:production RAILS_ENV=production"
+    run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:db RAILS_ENV=production"
   end
 
   task :create_shared do

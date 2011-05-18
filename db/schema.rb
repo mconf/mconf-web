@@ -394,7 +394,7 @@ ActiveRecord::Schema.define(:version => 20110429184108) do
     t.boolean  "ssl",                           :default => false
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
-    t.text     "signature",                     :default => "Mconf"
+    t.text     "signature"
     t.string   "presence_domain",               :default => "mconfweb.inf.ufrgs.br"
     t.string   "chat_group_service_jid",        :default => "events.mconfweb.inf.ufrgs.br"
     t.string   "cm_domain"
