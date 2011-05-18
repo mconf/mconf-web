@@ -1,13 +1,13 @@
 # Overall application setup
-# Help you install system packages, create configuration files and setup DB data
+# Help you create the basic configuration and setup DB data
 # All DB actions will be for the current Rails.env
 #
 # Examples:
-#   rake setup:full                       => install system packages, configuration files and setup your DB
+#   rake setup:full                       => run the basic configuration + DB tasks (setup:basic + setup:db)
+#   rake setup:basic                      => basic setup: creates configuration files and updates git submodules
 #   rake setup:db                         => drops and recreates the DB with all basic data needed
-#   rake setup:packages                   => install system packages
-#   rake setup:config                     => create the configuration files (if inexistent)
-#   RAILS_ENV=production rake setup:full  => first setup command for production
+#   rake setup:config                     => create the configuration files (if inexistent -- will not override existent files)
+#   RAILS_ENV=production rake setup:full  => first command when setting up a production environment
 #   RAILS_ENV=test rake setup:db          => resets your test DB
 #
 namespace :setup do
@@ -16,7 +16,7 @@ namespace :setup do
   # Overall setup
   ###############################################################
 
-  SYSTEM_TASKS = %w( setup:packages setup:git_submodules setup:config )
+  BASIC_TASKS = %w( setup:git_submodules setup:config )
   COMMON_TASKS = %w( db:drop db:create db:migrate ) # :config_mailing_list_dir
   TASKS = {
     :development => COMMON_TASKS + %w( setup:basic_data:all setup:populate ),
@@ -24,12 +24,12 @@ namespace :setup do
     :test => COMMON_TASKS + %w( db:test:prepare setup:basic_data:all )
   }
 
-  desc "Full setup, from system packages install to DB default data creation"
-  task :full => [ :system, :db ]
+  desc "Full setup, from basic configurations to default DB data creation"
+  task :full => [ :basic, :db ]
 
-  desc "Basic setup, including system packages, submodules and config files"
-  task :system do
-    run_tasks(SYSTEM_TASKS)
+  desc "Basic setup, including git submodules and config files"
+  task :basic do
+    run_tasks(BASIC_TASKS)
   end
 
   desc "DB setup, will destroy your entire DB and recreate it"
@@ -58,35 +58,6 @@ namespace :setup do
     puts "* Updating Git submodules"
     system "git submodule init"
     system "git submodule update"
-  end
-
-  ###############################################################
-  # Linux Packages
-  ###############################################################
-
-  COMMON_PACKAGES = %w( libopenssl-ruby wget make curl aspell-es aspell-en libxml2-dev libxslt-dev libmagickcore-dev libmagickwand-dev imagemagick )
-  LINUX_PACKAGES = {
-    :production => COMMON_PACKAGES + %w( awstats logrotate nfs-common libmysqlclient15-dev mysql-server ),
-    :development => COMMON_PACKAGES + %w( libsqlite3-dev )
-  }
-
-  desc "Install linux packages"
-  task :packages do
-    install_linux_packages(::Rails.env.to_sym)
-  end
-
-  def install_linux_packages(set)
-    unless `uname`.chomp == "Linux" && `which apt-get` != ""
-      puts "Can't proceed: are you on linux? do you have apt-get?"
-      return
-    end
-
-    puts "* Installing Linux packages for \"#{set}\" environment"
-    if LINUX_PACKAGES[set].nil?
-      puts "Can't proceed: wrong enviroment \"#{set}\""
-    else
-      system "sudo apt-get install #{LINUX_PACKAGES[set].join(" ")}"
-    end
   end
 
   ###############################################################
