@@ -1,14 +1,22 @@
 # Tips:
 #
-#  cap mconf:production  # deploy to production (uses deploy:migrations)
-#  cap mconf:test        # deploy to test (uses deploy:migrations)
-#  cap setup:db          # drops, creates and populates the db with the basic data
+#  cap deploy:all          # first time setup of a server
+#  cap deploy:setup        # first setup, create directories
+#  cap deploy:udpate       # update a new release
+#  cap deploy:migrate      # run migrations
+#  cap deploy:restart      # restart Nginx
+#  cap deploy:web:disable  # start maintenance mode (the site will be offline)
+#  cap deploy:web:enable   # stop maintenance mode (the site will be online)
+#  cap setup:db            # drops, creates and populates the db with the basic data
+#
+#  SERVER=127.0.0.1 cap deploy   # deploy to a server at 127.0.0.1
+#  BRANCH=mybranch cap deploy    # deploy a branch named "mybranch"
 #
 
 # RVM bootstrap
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"
-set :rvm_ruby_string, '1.9.2@mconf-web'
+set :rvm_ruby_string, '1.9.2@mconf'
 set :rvm_type, :user
 
 # bundler bootstrap
@@ -26,7 +34,7 @@ set :branches, {
   :test => :stable # TODO :master
 }
 
-set :environment, :test
+set :environment, :production
 
 set :application, "mconf-web"
 set :repository, "git://github.com/mconf/mconf-web.git"
@@ -41,53 +49,110 @@ role(:web) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
 role(:db, :primary => true) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
 set(:branch) { ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}
 
-set :deploy_to, "/home/mconf/#{ application }"
+set :deploy_to, "/home/mconf/#{application}"
 set :deploy_via, :remote_cache
 
-before 'deploy:setup', 'mconf:info'
+on :start, 'deploy:info'
+
 after 'deploy:setup', 'setup:create_shared'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
-#after 'deploy:update_code', 'deploy:copy_openfire_code'
-before 'deploy:migrations', 'mconf:info'
-#after 'deploy:restart', 'deploy:reload_ultrasphinx'
-#after 'deploy:restart', 'deploy:reload_openfire'
 
 namespace(:deploy) do
 
+  # Nginx tasks
   task(:start) {}
   task(:stop) {}
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
+  task :info do
+    puts
+    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
+    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
+    puts
+  end
+
   task :fix_file_permissions do
-    # AttachmentFu dir is deleted in deployment
-    run  "/bin/mkdir -p #{ release_path }/tmp/attachment_fu"
-    run "/bin/chmod -R g+w #{ release_path }/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/public/images/tmp"
-    # Allow Translators modify locale files
-    sudo "/bin/chgrp -R #{files_grp} #{ release_path }/config/locales"
+    run  "/bin/mkdir -p #{release_path}/tmp/attachment_fu" # AttachmentFu dir is deleted in deployment
+    run "/bin/chmod -R g+w #{release_path}/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{release_path}/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{release_path}/public/images/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{release_path}/config/locales" # Allow Translators modify locale files
     sudo "/bin/mkdir -p /var/local/mconf-web"
     sudo "/bin/chown #{files_grp} /var/local/mconf-web"
   end
 
   # REVIEW really need to do this?
   task :link_files do
-    run "ln -sf #{ shared_path }/public/logos #{ release_path }/public"
-    run "ln -sf #{ shared_path }/attachments #{ release_path }/attachments"
-    run "ln -sf #{ shared_path }/public/scorm #{ release_path }/public"
-    run "ln -sf #{ shared_path }/public/pdf #{ release_path }/public"
+    run "ln -sf #{shared_path}/public/logos #{release_path}/public"
+    run "ln -sf #{shared_path}/attachments #{release_path}/attachments"
+    run "ln -sf #{shared_path}/public/scorm #{release_path}/public"
+    run "ln -sf #{shared_path}/public/pdf #{release_path}/public"
   end
 
   task :upload_config_files do
-    top.upload "config/database.yml", "#{ release_path }/config/", :via => :scp
-    top.upload "config/bigbluebutton_conf.yml", "#{ release_path }/config/", :via => :scp
-    top.upload "config/mail_conf.yml", "#{ release_path }/config/", :via => :scp
-    #top.upload "config/crossdomain.yml", "#{ release_path }/config/", :via => :scp
+    top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/bigbluebutton_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/mail_conf.yml", "#{release_path}/config/", :via => :scp
+    #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
   end
+
+  desc "Setup a server for the first time"
+  task :all do
+    deploy.setup    # basic setup of directories
+    deploy.update   # clone git repo and make it the current release
+    top.setup.db    # destroys and recreates the DB
+  end
+
+end
+
+namespace :setup do
+
+  desc "recreates the DB and populates it with the basic data"
+  task :db do
+    run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:db RAILS_ENV=production"
+  end
+
+  task :create_shared do
+    run "/bin/mkdir -p #{shared_path}/attachments"
+    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/attachments"
+    run "/bin/chmod -R g+w #{shared_path}/attachments"
+    run "/bin/mkdir -p #{shared_path}/config"
+    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/config"
+    run "/bin/chmod -R g+w #{shared_path}/config"
+    run "/bin/mkdir -p #{shared_path}/public/logos"
+    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/public"
+    run "/bin/chmod -R g+w #{shared_path}/public"
+    run "/usr/bin/touch #{shared_path}/log/production.log"
+    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/log"
+    run "/bin/chmod -R g+w #{shared_path}/log"
+  end
+
+end
+
+### from vcc
+
+#after 'deploy:update_code', 'deploy:copy_openfire_code'
+#after 'deploy:restart', 'deploy:reload_ultrasphinx'
+#after 'deploy:restart', 'deploy:reload_openfire'
+
+=begin
+  task :production do
+    set :environment, :production
+    #if ENV['MERGE_LOCALES'] != 'false'
+    #  commit_remote_translations
+    #end
+    deploy.migrations
+  end
+
+  task :testing do
+    set :environment, :test
+    deploy.migrations
+  end
+=end
 
 =begin
   #TODO rails 3: ultrasphinx
@@ -100,8 +165,8 @@ namespace(:deploy) do
 
 =begin
   task :copy_openfire_code do
-    run "sudo cp #{ release_path }/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"
-    run "sudo cp #{ release_path }/extras/chat/openfire/installation/vccRooms.jar /usr/share/openfire/plugins/"
+    run "sudo cp #{release_path}/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"
+    run "sudo cp #{release_path}/extras/chat/openfire/installation/vccRooms.jar /usr/share/openfire/plugins/"
   end
 
   task :reload_openfire do
@@ -109,38 +174,6 @@ namespace(:deploy) do
   end
 =end
 
-end
-
-namespace :setup do
-
-  desc 'recreates the DB and populates it with the basic data'
-  task :db do
-    run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:db RAILS_ENV=production"
-  end
-
-  task :create_shared do
-    run "/bin/mkdir -p #{ shared_path }/attachments"
-    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/attachments"
-    run "/bin/chmod -R g+w #{ shared_path }/attachments"
-    run "/bin/mkdir -p #{ shared_path }/config"
-    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/config"
-    run "/bin/chmod -R g+w #{ shared_path }/config"
-    run "/bin/mkdir -p #{ shared_path }/public/logos"
-    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/public"
-    run "/bin/chmod -R g+w #{ shared_path }/public"
-    run "/usr/bin/touch #{ shared_path }/log/production.log"
-    sudo "/bin/chgrp -R #{files_grp} #{ shared_path }/log"
-    run "/bin/chmod -R g+w #{ shared_path }/log"
-  end
-
-end
-
-namespace :mconf do
-
-  task :info do
-    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
-    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
-  end
 
 =begin
   task :commit_remote_translations do
@@ -182,17 +215,3 @@ namespace :mconf do
     end
   end
 =end
-
-  task :production do
-    set :environment, :production
-    #if ENV['MERGE_LOCALES'] != 'false'
-    #  commit_remote_translations
-    #end
-    deploy.migrations
-  end
-
-  task :testing do
-    set :environment, :test
-    deploy.migrations
-  end
-end
