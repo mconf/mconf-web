@@ -1,65 +1,15 @@
-= Welcome to MConf-web
+= Welcome to Mconf-web
 
-MConf-web is a web application that controls the access to the MConf webconferencing system.
-It's developed in Ruby on Rails over VCC https://github.com/ging/vcc
+Mconf-web is a web application that controls the access to the Mconf webconferencing system.
 
-<b>For more details check our wiki at: http://code.google.com/p/mconf/wiki/MconfWeb</b>
+It's developed in Ruby on Rails as a fork of {VCC}[https://github.com/ging/vcc].
+Mconf-web integrates {BigBlueButton}[http://www.bigbluebutton.org/] and {Global Plaza}[http://globalplaza.org/] (VCC).
 
-== Setting up the development environment
+<b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
 
-MConf-web currently uses Rails 3 (currently 3.0.5).
+== Links
 
-At first, install ruby. We recommend the use of rvm (http://rvm.beginrescueend.com/).
-
-Clone Mconf-Web repository:
-
-  git clone git://github.com/mconf/mconf-web.git
-
-Run the script <tt>setup</tt>. It will install some system packages that mconf-web uses (such as imagemagick, openssl, libxml2) and create configuration files.
-Note: This script is made for Ubuntu 10.10. If your use another system, check the libs your need to install (in the top of the script) and install the equivalents for your system.
-
-  script/setup development
-
-Install bundler and all gems:
-
-  gem install bundler
-  bundle install
-
-=== Configuration files
-
-The script "<tt>setup</tt>" creates some configuration files that you need to run the application. You just need to open and configure them.
-
-* Database: <tt>config/database.yml</tt>
-  * You may need to insert a password if you're using mysql.
-* Mailer: <tt>config/mail_conf.yml</tt>
-  * Mconf-web uses by default a gmail account to send emails (see config/initializers/mail_conf.rb). You just need to insert you name/password in this file.
-* BigBlueButton server: <tt>config/bbb_conf.yml</tt>
-  * This file holds the configuration of your BigBlueButton server. This server will be added in the database as the default server. Currently, all BigBlueButton rooms
-    created through Mconf-web will use this server.
-
-=== Setup database
-
-Now you need to create the development database.
-
-  rake setup:development
-  rake setup:test
-
-The first command above will drop and recreate your development database, create some basic data (<b>you need</b> this data to run the application) and populate the
-db test data. The second command will do almost the same but for the test environment.
-
-=== Run it
-
-Run the server and browse the website at <tt>localhost:3000</tt>:
-
-  rails server
-
-And run all tests with:
-
-  bundle exec rake spec
-
-== About
-
-MConf project: http://www.inf.ufrgs.br/prav/gtmconf
-
-MConf-web is based on VCC (Virtual Conference Centre): https://github.com/ging/vcc
+* {Project website}[http://www.inf.ufrgs.br/prav/gtmconf]
+* {Google Code page}[http://code.google.com/p/mconf]
+* {GitHub organization}[https://github.com/mconf]
 
