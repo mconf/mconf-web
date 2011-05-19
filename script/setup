@@ -16,7 +16,7 @@ def install_linux_packages(set)
   if LINUX_PACKAGES[set].nil?
     puts "Can't proceed: wrong enviroment \"#{set}\""
   else
-    system "sudo apt-get install #{LINUX_PACKAGES[set].join(" ")}"
+    system "sudo apt-get install #{LINUX_PACKAGES[set].join(" ")} -y"
   end
 end
 
