@@ -1200,6 +1200,7 @@ en:
     user_private_msg: "<li>user private message</li>"
     user_private_email: "user email: "
     email: "email: "
+    wrong_formatted: " (wrong formatted email)"
   is_member_of: is member of
   join: Join
   join_cam: Participate
