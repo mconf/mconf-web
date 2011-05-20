@@ -67,45 +67,53 @@ class InvitesController < ApplicationController
     end
 
     if params[:invite][:email_check] != "0"
+      emailSended = true
       for receiver in params[:invite][:members_tokens].split(",")
         user = User.find(receiver)
         priv_email[:email_receiver] = user.email
         email_message = Notifier.webconference_invite_email(priv_email)
         if email_message.deliver
           if success.size == 0
-            success = t('invite.invitation_successfully') << t('invite.user_private_email')
+            success = t('invite.invitation_successfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           else
-            success << t('invite.user_private_email')
+            success << "<li>" << t('invite.user_private_email') << user.email
           end
         else
           if error.size == 0
-            error = t('invite.invitation_unsuccessfully') << t('invite.user_private_email')
+            error = t('invite.invitation_unsuccessfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           else
-            error << t('invite.user_private_email')
+            error << "<li>" << t('invite.user_private_email') << user.email
           end
-          @fail_user_email << email_message
+          @fail_email << email_message
         end
       end
     end
     
     if params[:invite][:email_tokens].size != 0
-      emailSended = true
-      for receiver in params[:invite][:email_tokens].split(",")
+      for receiver in params[:invite][:email_tokens].split(/;|,/)
         priv_email[:email_receiver] = receiver
         email_message = Notifier.webconference_invite_email(priv_email)
-        if email_message.deliver
-          if success.size == 0
-            success = t('invite.invitation_successfully') << t('invite.email')
+        if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
+          if email_message.deliver
+            if success.size == 0
+              success = t('invite.invitation_successfully') << "<li>" << t('invite.email') << receiver << "</li>"
+            else
+              success << "<li>" <<  t('invite.email') << receiver << "</li>"
+            end
           else
-            success << t('invite.user_private_email')
+            if error.size == 0
+              error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << "</li>"
+            else
+              error << "<li>" <<  t('invite.email') << receiver << "</li>"
+            end
+            @fail_email << email_message
           end
         else
           if error.size == 0
-            error = t('invite.invitation_unsuccessfully') << t('invite.email')
+            error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
           else
-            error << t('invite.email')
+            error << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
           end
-          @fail_email << email_message
         end
       end
     end
