@@ -238,6 +238,7 @@ en:
     invite: "Invite"
     join: Join
     join_webconference: Join webconference
+    join_webconference_mobile: Join from a mobile device
     next: Next Step
     next_program: "Next: Define program"
     next_edit_program: "Next: Edit program"
@@ -2101,10 +2102,13 @@ en:
       one: "The webconference is currently in progress with %{count} participant"
       other: "The webconference is currently in progress with %{count} participants"
     invite_webconference: "Invite people to the webconference"
+    join_mobile:
+      direct_link: "<b>Click here</b><br/>to join from a mobile device"
+      scan_code: "Or scan the code below:"
     my_webconference: "My webconference rooms"
     new_webconference: "New webconference room"
     nobody:
-      one_line: "There is nobody currently in the room."
+      one_line: "Nobody in the room."
     not_running: "not running"
     running: "running"
     space:

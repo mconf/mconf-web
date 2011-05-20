@@ -16,6 +16,13 @@ GIT
   specs:
     teambox-permalink_fu (1.0.1)
 
+PATH
+  remote: ../bigbluebutton_rails
+  specs:
+    bigbluebutton_rails (0.0.4)
+      bigbluebutton-api-ruby (~> 0.0.10)
+      rails (~> 3.0.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -52,9 +59,6 @@ GEM
     atom-tools (2.0.5)
     bigbluebutton-api-ruby (0.0.10)
       nokogiri (~> 1.4.0)
-    bigbluebutton_rails (0.0.4)
-      bigbluebutton-api-ruby (~> 0.0.10)
-      rails (~> 3.0.3)
     builder (2.1.2)
     capistrano (2.6.0)
       highline
@@ -192,7 +196,7 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
-  bigbluebutton_rails (~> 0.0.4)
+  bigbluebutton_rails!
   capistrano (~> 2.5)
   chronic
   ci_reporter
